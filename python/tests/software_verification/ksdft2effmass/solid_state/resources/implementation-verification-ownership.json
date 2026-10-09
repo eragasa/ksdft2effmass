@@ -198,6 +198,13 @@
       "sut": "ScalarHoppingModel"
     },
     {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__SiliconDiamondSp3sStarNearestNeighborConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "SiliconDiamondSp3sStarNearestNeighborConstructor"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__TwistGaugeBridgeConstructor.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -238,6 +245,48 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "TwistFiber"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/test__WannierKineticDecompositionConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WannierKineticDecompositionConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/hamiltonians/effective/lowdin_quadratic/test__WannierKineticLowdinQuadraticReductionConstructor3D__execute.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WannierKineticLowdinQuadraticReductionConstructor3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/wignerseitz/test__WannierKineticWignerSeitzInterpolator3D__execute.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WannierKineticWignerSeitzInterpolator3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/wignerseitz/test__WannierRepresentedOperatorCartesianDerivativeConstructor3D__execute.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WannierRepresentedOperatorCartesianDerivativeConstructor3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/wignerseitz/test__WignerSeitzInterpolationInventory3D__binary64_representability.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WignerSeitzInterpolationInventory3D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/solid_state/wignerseitz/test__WignerSeitzOperatorInterpolator3D__execute.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "WignerSeitzOperatorInterpolator3D"
     }
   ]
 }

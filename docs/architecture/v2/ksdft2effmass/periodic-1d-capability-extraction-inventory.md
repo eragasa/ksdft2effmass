@@ -50,9 +50,10 @@ preserve the version-one wire formats and exact controls. The isolated-band diag
 calculation Workflow compiles its accepted definition directly into execution-local
 NumPy/SciPy calculations for the explicitly extracted nonlocalization channels; it does
 not read retained results or claim to reproduce unavailable gauge/localization source
-arrays. The stress verifier instead consumes an already correlated retained result and
-uses a separate direct NumPy/SciPy implementation for every retained stress channel.
-Its integrated Workflow keeps correlation and numerical-verification ResultObjects
+arrays. The reduction-challenge verifier instead consumes an already correlated
+retained result and uses a separate direct NumPy/SciPy implementation for every channel
+of the historical stress wire. Its integrated Workflow keeps correlation and
+numerical-verification ResultObjects
 separate and performs no calculation, filesystem discovery, external execution,
 material validation, or UQ. The integration preparation Workflow now owns
 native text representation and compatibility checks; selection of Appendix-G-specific

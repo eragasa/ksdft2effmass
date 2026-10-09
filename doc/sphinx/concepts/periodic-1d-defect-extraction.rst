@@ -11,11 +11,13 @@ The maintained software distinguishes five scientific operations:
 #. separated continuum refinement.
 
 The historical phase letters A through E identify retained provenance only.  They are
-not public software names.  The maintained package groups each capability beneath
-``ksdft2effmass.campaigns.periodic_1d.defects``.  Reusable
-controlled systems extracted from those capabilities live separately beneath
-``periodic_1d.model.toy_defects`` so campaign provenance and acceptance policy do not
-become properties of a toy Hamiltonian.
+not public software names.  All five families have canonical owners beneath
+``ksdft2effmass.periodic1d.campaign``: matched extraction under ``extraction.matched``,
+blind alignment under ``alignment.blind``, route reconciliation under
+``reconciliation.route``, the finite-rank oracle under ``oracle.finite_rank``, and
+continuum refinement under ``refinement.continuum``.  The former underscored defect
+routes are removed without aliases.  Reusable controlled systems remain separate from
+campaign provenance and acceptance policy.
 
 Comparison boundary
 -------------------
@@ -104,12 +106,14 @@ retained artifact establishes identity and consistency, not numerical verificati
 itself.
 
 The matched known-map capability is the first complete maintained package integration.
-The blind-alignment package currently provides strict version-one input and result
+The canonical blind-alignment package provides strict version-one input and result
 adaptation, authenticated matched-baseline loading, its typed observation-only
 inference core, canonical result encoding, identity-only retained correlation, and
 complete typed campaign composition.  Its supported package route is deliberately
-limited to an immutable campaign model and an encapsulating campaign façade; lower-level
-records and Actionizers remain in defining modules rather than being re-exported.  Its
+limited to an immutable encoded-document owner and an encapsulating campaign façade;
+lower-level records and Actionizers remain in defining modules rather than being
+re-exported.  The former underscored route is removed without an alias; see
+:doc:`../api/ksdft2effmass/periodic1d/campaign/alignment-blind` for the full API.  Its
 independent verifier authenticates all direct and transitive sources and reconstructs
 all retained exact, sensitivity, gauge, stop, and boundary-diagnostic records without
 importing the maintained calculation algorithms.  This completes the maintained
@@ -119,21 +123,44 @@ material-validation and uncertainty claims explicitly excluded.
 The route-reconciliation package now provides strict version-one input adaptation,
 authenticated matched and periodic-parent loading, separate site-space and Bloch-fiber
 Actionizers, explicit mismatch and reconciliation records, canonical retained-byte
-correlation, and an independent verifier for all 15 records. Its package route is
-likewise limited to an immutable model and campaign façade.
+correlation, and an independent verifier for all 15 records. Its supported facade
+exports the campaign, the exact byte-only encoded-document pair owner, and the exact
+single-result document owner. The latter derives SHA-256 directly from retained bytes
+without decoding or assigning route meaning. Calculation, retained correlation, and
+verification own repository location in three distinct typed
+requests; location is neither encoded state nor inferred provenance. Calculation and
+verification correlate exact encapsulated input bytes with the authenticated repository
+input identity before using route metadata. The former aggregate campaign-model route
+is retired. Row-044 software evidence establishes this
+ownership and the retained input/result content identities only; the retained campaign
+numerics remain separately bounded synthetic numerical-verification evidence.
 
-The finite-rank-oracle package authenticates the periodic parent plus the matched and
-route-reconciliation results, then compares a Bloch-fiber resolvent root with an
-independent site-space eigensolve. Twenty attractive controls and four boundary
+The finite-rank-oracle package separates exact encoded documents from repository
+location. Its leaf facade also exposes the exact single-result document owner, which
+derives SHA-256 directly from retained bytes without qualifying an oracle. Calculation
+and retained correlation receive explicit absolute roots, while independent verification
+owns its root in a typed request whose construction performs no filesystem access.
+Executing operations bind encapsulated and repository input bytes
+to declared provenance before using the input-owned energy unit, authenticate the
+periodic parent plus the matched and route-reconciliation results, then compare a
+Bloch-fiber resolvent root
+with an independent site-space eigensolve. Twenty attractive controls and four boundary
 controls preserve root, residual, energy, projector, degeneracy, and unequal-rank
-channels. Canonical correlation and independent reconstruction remain distinct.
+channels. Canonical correlation and independent reconstruction remain distinct. The
+name denotes this bounded analytical comparison route, not a generic oracle engine,
+production qualification mechanism, infinite-system theorem, or material result.
 
-The continuum-refinement package keeps five operations separate: continuum-mesh
+The continuum-refinement package keeps five operations separate; see
+:doc:`periodic1d-continuum-refinement` for the represented operators, scale convention,
+profile normalizations, numerical diagnostics, frozen decisions, and scientific
+reasoning. The operations are continuum-mesh
 refinement at fixed domain and profile, continuum-domain refinement at fixed spectral
 spacing and profile, lattice-supercell refinement at fixed lattice spacing and
 profile, lattice-scale refinement at fixed physical domain and profile, and comparison
-of fixed-integrated and fixed-peak profile-width families. Its 31 records retain
-binding energy, bound-state count, projector, compressed-operator, cross-coupling,
+of fixed-integrated and fixed-peak profile-width families. Its leaf facade exposes the
+exact single-result document owner, which derives content identity without decoding or
+assigning continuum meaning. Its 31 records retain binding energy, bound-state count,
+projector, compressed-operator, cross-coupling,
 Brillouin-edge, and boundary-probability channels without combining the distinct error
 axes. The independent verifier reconstructs those records without importing the
 maintained Workflow. The bounded lattice-scale criteria pass over the tested sequence,

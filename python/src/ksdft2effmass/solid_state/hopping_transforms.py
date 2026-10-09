@@ -21,6 +21,25 @@ from .reciprocal_meshes import CenteredUniformReciprocalMesh1D
 class ReciprocalOperatorSamples1D:
     """Retain square matrices at ordered reciprocal coordinates.
 
+    Parameters
+    ----------
+    coordinates
+        Ordered reciprocal coordinates. Values are canonicalized to the reciprocal
+        period unit without changing their order.
+    reciprocal_period
+        Positive reciprocal period compatible with ``coordinates``.
+    matrices
+        Nonempty tuple containing one homogeneous square complex matrix quantity per
+        coordinate.
+
+    Raises
+    ------
+    TypeError
+        If quantities or the matrix inventory have the wrong semantic type.
+    ValueError
+        If units are incompatible, the period is nonpositive, inventory lengths
+        differ, or matrix shapes or units are heterogeneous.
+
     Notes
     -----
     This reusable numerical record does not identify whether the matrices represent a
@@ -36,6 +55,11 @@ class ReciprocalOperatorSamples1D:
 
     def __post_init__(self) -> None:
         """Validate coordinate, period, matrix-shape, and unit consistency."""
+        self._check_args_coordinates_and_inventory()
+        self._check_args_matrices()
+
+    def _check_args_coordinates_and_inventory(self) -> None:
+        """Require compatible coordinates and one matrix per ordered sample."""
         if type(self.coordinates) is not VectorQuantity:
             raise TypeError("coordinates must be VectorQuantity")
         if type(self.reciprocal_period) is not ScalarQuantity:
@@ -54,6 +78,9 @@ class ReciprocalOperatorSamples1D:
             raise TypeError("matrices must be a nonempty tuple")
         if len(self.matrices) != self.coordinates.magnitude.size:
             raise ValueError("matrix count must equal coordinate count")
+
+    def _check_args_matrices(self) -> None:
+        """Require homogeneous nonempty square complex matrix quantities."""
         first = self.matrices[0]
         if type(first) is not ComplexMatrixQuantity:
             raise TypeError("every matrix must be ComplexMatrixQuantity")

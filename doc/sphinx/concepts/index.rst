@@ -13,7 +13,9 @@ applicable versioned files under ``specification/``.
    controlled-model-calculations
    qoi-reference-targets
    periodic-calculation-records
+   periodic-migration-crosswalk
    periodic-1d-defect-extraction
+   periodic1d-continuum-refinement
    periodic2d-controlled-reduction
    periodic2d-finite-extent-defects
    scientific-workflow-model

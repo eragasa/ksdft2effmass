@@ -2,18 +2,18 @@
   "schema_version": 1,
   "modules": [
     {
-      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__hopping_construction_routes.py",
-      "mode": "artifact_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "artifact": "periodic-1d hopping construction routes"
-    },
-    {
       "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DBandFrameRetainedSubspace.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "Periodic1DBandFrameRetainedSubspace"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DFiberHamiltonianRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DFiberHamiltonianRequest"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DFiniteHoppingToyModel.py",
@@ -56,6 +56,76 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "Periodic1DSelectedBandRetentionDefinition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DSupercellOperatorConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DSupercellOperatorConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DSupercellOperatorMetadata.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DSupercellOperatorMetadata"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DSupercellOperatorProvenance.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DSupercellOperatorProvenance"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__PeriodicFiniteDifferenceFiberHamiltonian1DConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PeriodicFiniteDifferenceFiberHamiltonian1DConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__PeriodicFiniteDifferenceFiberHamiltonian1DResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PeriodicFiniteDifferenceFiberHamiltonian1DResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__PeriodicUniformGrid1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PeriodicUniformGrid1D"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__PlaneWaveFiberHamiltonian1DConstructor.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveFiberHamiltonian1DConstructor"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__PlaneWaveFiberHamiltonian1DResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PlaneWaveFiberHamiltonian1DResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__canonical_fiber_family.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "canonical periodic-1D parent-qualified fiber ownership and former-route removal"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__hopping_construction_routes.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "artifact": "periodic-1d hopping construction routes"
     }
   ]
 }

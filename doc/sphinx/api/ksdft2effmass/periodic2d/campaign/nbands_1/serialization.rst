@@ -8,8 +8,10 @@ Purpose and ownership
 version-one isolated-band input control.  It is separate from:
 
 * ``Periodic2DIsolatedBandEncodedDocuments``, which preserves the exact retained input and
-  result bytes for provenance and byte correlation;
-* ``Periodic2DIsolatedBandCampaignJsonSerializer``, which owns JSON wire mechanics;
+  result bytes for byte correlation;
+* ``Periodic2DIsolatedBandResultDocument``, which owns one exact encoded result wire and
+  its derived SHA-256 content identity under the ``result_documents`` module;
+* ``Periodic2DIsolatedBandCampaignJsonSerializer``, which owns input JSON wire mechanics;
 * the calculation Workflow, which consumes the typed definition; and
 * the independent verifier, which deliberately does not import the maintained
   serializer or calculation route.
@@ -58,15 +60,35 @@ Canonical encoding
 and one terminal newline. ``deserialize(serialize(record))`` reproduces the complete
 typed definition. Canonical encoding establishes deterministic software behavior; it
 does not authenticate retained bytes or establish any numerical or scientific claim.
-Exact retained identities remain owned by the campaign model and correlation result.
+Exact retained paired-byte identity remains owned by
+``Periodic2DIsolatedBandEncodedDocuments``; correlation meaning remains owned by the
+explicit correlation result.
+
+Encoded result-document ownership
+---------------------------------
+
+``Periodic2DIsolatedBandResultDocument`` is a frozen, slotted DataObject containing one
+exact nonempty built-in ``bytes`` field. It rejects byte subclasses and implicit
+coercion, retains the supplied object without copying, and derives SHA-256 directly from
+those bytes. Canonical re-encoding is deliberately excluded from digest derivation.
+
+The defining module is
+``ksdft2effmass.periodic2d.campaign.nbands_1.result_documents``. The former
+``definition`` module no longer defines or aliases the result document. The
+``nbands_1``, ``campaign``, and ``periodic2d`` facades expose the exact defining class.
+Content identity does not authenticate a path, author, calculation, or provenance chain
+and does not establish decoded correctness, numerical reproduction, convergence,
+scientific validation, uncertainty, or acceptance.
 
 Implementation and evidence mapping
 -----------------------------------
 
 * Typed records:
   ``python/src/ksdft2effmass/periodic2d/campaign/nbands_1/definition.py``
-* Wire mechanics:
+* Input wire mechanics:
   ``python/src/ksdft2effmass/periodic2d/campaign/nbands_1/serialization/``
+* Encoded result-document owner:
+  ``python/src/ksdft2effmass/periodic2d/campaign/nbands_1/result_documents.py``
 * Calculation consumer:
   ``python/src/ksdft2effmass/periodic2d/campaign/nbands_1/calculate.py``
 * Software verification:
@@ -91,8 +113,8 @@ Reference and provenance
 Limitations
 -----------
 
-This slice types and serializes the isolated-band input, provenance, and canonical
-result-document identity. The detailed result payload remains to be decomposed into
+This slice types and serializes the isolated-band input and provenance and separately
+owns exact encoded result-document identity. The detailed result payload remains to be decomposed into
 granular typed observation and result records. No calculation is run by serialization,
 no retained artifact is rewritten, and no stress, composite, defect, validation, or
 uncertainty-quantification claim follows from a successful round trip.
@@ -103,6 +125,9 @@ Public API
 .. currentmodule:: ksdft2effmass.periodic2d.campaign.nbands_1
 
 .. autoclass:: Periodic2DIsolatedBandCampaignDefinition
+   :members:
+
+.. autoclass:: Periodic2DIsolatedBandEncodedDocuments
    :members:
 
 .. autoclass:: Periodic2DIsolatedBandCampaignJsonSerializer

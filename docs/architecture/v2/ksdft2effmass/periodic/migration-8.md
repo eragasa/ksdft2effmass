@@ -2,8 +2,9 @@
 
 ## Status
 
-**Proposed.** `Periodic2DCampaign` remains a provisional dimension-only base inherited
-by ten concrete campaign records.
+**Implemented.** The dimension-only `Periodic2DCampaign` definition, module, imports,
+facade exports, and inheritance are removed after all ten concrete campaigns became
+independent immutable composition roots.
 
 ## Purpose
 
@@ -30,29 +31,35 @@ accidental model/document coupling.
 
 ## Inheritance audit
 
-The correction must explicitly check:
+The correction preserves each frozen slotted dataclass's single exact document field,
+generated constructor, equality, hashing, public identity, and campaign-specific
+methods. Their direct base is now exactly `object`. No operation used inherited state;
+the removed base supplied only a constant spatial-dimension property. Facade imports
+load without cycles, and the former defining module fails to import.
 
-- dataclass field order and generated constructors;
-- equality and hashing behavior;
-- slots and instance layout;
-- method-resolution order;
-- import cycles and public exports;
-- exact concrete class identities; and
-- tests or documentation that use `isinstance(..., Periodic2DCampaign)`.
-
-No compatibility alias or empty replacement base remains after removal.
+`python/tests/software_verification/ksdft2effmass/periodic2d/campaign/test__Periodic2DCampaign.py`
+checks both facade absences, defining-module absence, and direct bases for all ten
+concrete campaign classes. No compatibility alias, empty replacement base, 1D/3D
+counterpart, protocol, registry, or generic Workflow remains.
 
 ## Excluded work
 
 Phase 8 does not merge campaign calculations, create common serializers or verifiers,
 change numerical policy, or declare campaigns compatible merely because they are 2D.
 
-## Completion gate
+## Completion evidence
 
 - A source scan finds no `Periodic2DCampaign` definition, import, export, inheritance,
-  or runtime check.
-- All ten former subclasses retain their concrete behavior and public supported routes.
-- Campaign-to-model dependency direction is verified without reverse imports.
-- No 1D or 3D campaign base is introduced.
-- Focused inheritance/API tests, the affected suite, typing, Ruff, formatting, Sphinx,
-  links, and diff checks pass.
+  or runtime check in production source.
+- All ten former subclasses retain concrete public routes and now instantiate
+  correlation/verifier Actions per request rather than as replaceable class attributes.
+- The former `campaign/base.py` and its Sphinx page are deleted; maintained API text
+  documents independent composition roots.
+- Focused campaign/API coverage passes (`226 passed`), strict mypy passes for all
+  147 scoped source/test files, and scoped Ruff format/check passes.
+- Strict Sphinx, architecture-link, broader regression, and final diff gates are rerun
+  after the synchronized crosswalk edits.
+
+Passing these software checks establishes only the architecture correction. It does not
+establish compatibility among campaigns, scientific validation, convergence,
+uncertainty quantification, or acceptance.

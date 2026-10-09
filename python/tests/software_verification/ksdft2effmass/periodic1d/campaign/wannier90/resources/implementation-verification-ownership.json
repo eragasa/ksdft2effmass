@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90VerifiedNativeWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90VerifiedNativeWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90WilsonVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90WilsonVerifier"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90NativeArtifactWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90NativeArtifactWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90ResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90ResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90CampaignWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90CampaignWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90Integration.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DWannier90Integration"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90EncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DWannier90EncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__Periodic1DWannier90NativeArtifactGroup.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DWannier90NativeArtifactGroup"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/wannier90/test__integration__wannier90_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "rows 040 and 061 Wannier90 documents, canonical routes, and retained artifacts"
+    }
+  ]
+}

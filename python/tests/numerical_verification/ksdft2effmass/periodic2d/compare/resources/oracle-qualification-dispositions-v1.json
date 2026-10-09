@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "disposition_schema": "urn:ksdft2effmass:schema:testing:oracle-qualification-disposition-ledger:v1",
+  "oracle_family": "periodic2d.common-space",
+  "decisions": [
+    {
+      "decision_id": "periodic2d.common-space.dft-orthogonality.decision-0001",
+      "oracle_id": "periodic2d.common-space.dft-orthogonality.v1",
+      "qualification_record_sha256": "7c6d0beb6a2f035d528ea067cec9f5f552e97446b7f6d0077bab68368f5bc66a",
+      "evidence_revision": "f37e5d722f8c9007d8ea55c06e808c9c73bf775d",
+      "technical_outcome": "QUALIFIED",
+      "qualification_authority": "ksdft2effmass.oracle-qualification-gate.v1",
+      "gate_evidence": {
+        "commands": [
+          "cd python && uv run --frozen pytest -q tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "cd python && uv run --frozen ruff check tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py && uv run --frozen ruff format --check tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "cd python && MYPYPATH=src uv run --frozen mypy --strict tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "Exact-revision detached worktree: sphinx-build -W --keep-going -b html doc/sphinx /tmp/ksdft2effmass-sphinx-row036-f37e5d72"
+        ],
+        "outcomes": [
+          "Candidate revision f37e5d722f8c9007d8ea55c06e808c9c73bf775d: 19 tests passed.",
+          "Candidate revision: Ruff checks and formatting passed; strict focused mypy reported no issues.",
+          "Exact candidate revision: Sphinx warnings-as-errors and modified Markdown local-link checks passed."
+        ]
+      },
+      "independent_review": {
+        "reviewer_identity": "pi-subagents reviewer run ebe078fc-44f1-4310-9f39-d2ce12eb2fc5",
+        "reviewed_revision": "f37e5d722f8c9007d8ea55c06e808c9c73bf775d",
+        "review_outcome": "NO_BLOCKING_FINDINGS",
+        "finding_summary": [
+          "The exact complete candidate revision was reviewed from authenticated full-index diffs and tree manifests.",
+          "No blocking findings remain; DFT independence, consumer bindings, lifecycle closure, record-digest binding, review-revision equality, and lifecycle-neutral consumer documentation are intact.",
+          "Candidate and suspended results remain provisional diagnostics; retired or out-of-domain uses cannot supply evidence.",
+          "The review does not establish scientific validation, uncertainty quantification, convergence, or material adequacy."
+        ]
+      },
+      "repository_authorization": {
+        "authorized_by": "interactive human repository operator",
+        "scope": "Authorize the row-036 disposition-and-status proposal and commit; do not push.",
+        "source_reference": "Current Pi session operator instruction, followed by explicit authorization of the corrective candidate recommendation."
+      },
+      "transition_reason": "The fixed DFT domains, scalar finite-sum qualification route, declared tolerances, exact consumer bindings, lifecycle validator, candidate gate, and independent review satisfy the bounded v1 technical qualification policy.",
+      "supersedes_decision_id": "not_applicable",
+      "decided_at": "2026-10-07T22:03:35Z"
+    },
+    {
+      "decision_id": "periodic2d.common-space.centered-difference-dispersion.decision-0001",
+      "oracle_id": "periodic2d.common-space.centered-difference-dispersion.v1",
+      "qualification_record_sha256": "0e17395bbaeb05663b1b5f819d44c948e5d673b4f285ce5c0aa076e87427a8f7",
+      "evidence_revision": "f37e5d722f8c9007d8ea55c06e808c9c73bf775d",
+      "technical_outcome": "QUALIFIED",
+      "qualification_authority": "ksdft2effmass.oracle-qualification-gate.v1",
+      "gate_evidence": {
+        "commands": [
+          "cd python && uv run --frozen pytest -q tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "cd python && uv run --frozen ruff check tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py && uv run --frozen ruff format --check tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "cd python && MYPYPATH=src uv run --frozen mypy --strict tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "Exact-revision detached worktree: sphinx-build -W --keep-going -b html doc/sphinx /tmp/ksdft2effmass-sphinx-row036-f37e5d72"
+        ],
+        "outcomes": [
+          "Candidate revision f37e5d722f8c9007d8ea55c06e808c9c73bf775d: 19 tests passed.",
+          "Candidate revision: Ruff checks and formatting passed; strict focused mypy reported no issues.",
+          "Exact candidate revision: Sphinx warnings-as-errors and modified Markdown local-link checks passed."
+        ]
+      },
+      "independent_review": {
+        "reviewer_identity": "pi-subagents reviewer run ebe078fc-44f1-4310-9f39-d2ce12eb2fc5",
+        "reviewed_revision": "f37e5d722f8c9007d8ea55c06e808c9c73bf775d",
+        "review_outcome": "NO_BLOCKING_FINDINGS",
+        "finding_summary": [
+          "The exact complete candidate revision was reviewed from authenticated full-index diffs and tree manifests.",
+          "No blocking findings remain; direct directed-seam stencil-action evidence, consumer bindings, lifecycle closure, record-digest binding, review-revision equality, and lifecycle-neutral consumer documentation are intact.",
+          "Candidate and suspended results remain provisional diagnostics; retired or out-of-domain uses cannot supply evidence.",
+          "The review does not establish convergence, scientific validation, uncertainty quantification, or material adequacy."
+        ]
+      },
+      "repository_authorization": {
+        "authorized_by": "interactive human repository operator",
+        "scope": "Authorize the row-036 disposition-and-status proposal and commit; do not push.",
+        "source_reference": "Current Pi session operator instruction, followed by explicit authorization of the corrective candidate recommendation."
+      },
+      "transition_reason": "The fixed finite-difference domains, independent directed-seam stencil-action route, declared tolerances, exact consumer bindings, lifecycle validator, candidate gate, and independent review satisfy the bounded v1 technical qualification policy.",
+      "supersedes_decision_id": "not_applicable",
+      "decided_at": "2026-10-07T22:03:35Z"
+    },
+    {
+      "decision_id": "periodic2d.common-space.resolved-cosine-fourier-transfer.decision-0001",
+      "oracle_id": "periodic2d.common-space.resolved-cosine-fourier-transfer.v1",
+      "qualification_record_sha256": "e679029473aa0a2c34ed93ead61f51223932c2992a79282d1c17786b55bee265",
+      "evidence_revision": "f37e5d722f8c9007d8ea55c06e808c9c73bf775d",
+      "technical_outcome": "QUALIFIED",
+      "qualification_authority": "ksdft2effmass.oracle-qualification-gate.v1",
+      "gate_evidence": {
+        "commands": [
+          "cd python && uv run --frozen pytest -q tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "cd python && uv run --frozen ruff check tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py && uv run --frozen ruff format --check tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "cd python && MYPYPATH=src uv run --frozen mypy --strict tests/software_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_records.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+          "Exact-revision detached worktree: sphinx-build -W --keep-going -b html doc/sphinx /tmp/ksdft2effmass-sphinx-row036-f37e5d72"
+        ],
+        "outcomes": [
+          "Candidate revision f37e5d722f8c9007d8ea55c06e808c9c73bf775d: 19 tests passed.",
+          "Candidate revision: Ruff checks and formatting passed; strict focused mypy reported no issues.",
+          "Exact candidate revision: Sphinx warnings-as-errors and modified Markdown local-link checks passed."
+        ]
+      },
+      "independent_review": {
+        "reviewer_identity": "pi-subagents reviewer run ebe078fc-44f1-4310-9f39-d2ce12eb2fc5",
+        "reviewed_revision": "f37e5d722f8c9007d8ea55c06e808c9c73bf775d",
+        "review_outcome": "NO_BLOCKING_FINDINGS",
+        "finding_summary": [
+          "The exact complete candidate revision was reviewed from authenticated full-index diffs and tree manifests.",
+          "No blocking findings remain; resolved Fourier blocks, the alias counterexample, consumer bindings, lifecycle closure, record-digest binding, review-revision equality, and lifecycle-neutral consumer documentation are intact.",
+          "Candidate and suspended results remain provisional diagnostics; retired or out-of-domain uses cannot supply evidence.",
+          "The review does not establish potential-transfer alias freedom outside the fixed domain, scientific validation, uncertainty quantification, or material adequacy."
+        ]
+      },
+      "repository_authorization": {
+        "authorized_by": "interactive human repository operator",
+        "scope": "Authorize the row-036 disposition-and-status proposal and commit; do not push.",
+        "source_reference": "Current Pi session operator instruction, followed by explicit authorization of the corrective candidate recommendation."
+      },
+      "transition_reason": "The fixed no-wrap cosine domain, independent Fourier-block evaluation, explicit alias counterexample, declared tolerance, exact consumer binding, lifecycle validator, candidate gate, and independent review satisfy the bounded v1 technical qualification policy.",
+      "supersedes_decision_id": "not_applicable",
+      "decided_at": "2026-10-07T22:03:35Z"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "qualification_schema": "urn:ksdft2effmass:schema:testing:oracle-qualification-record:v1",
+  "oracle_id": "periodic2d.common-space.resolved-cosine-fourier-transfer.v1",
+  "kind": "bounded_exact_fourier_transfer",
+  "evidence_class": "numerical_verification",
+  "claim": "For the exact M=1, N=7 cosine consumer, compressed sampled-potential entries equal the declared lambda_x/2, lambda_y/2, and lambda_xy/4 plane-wave transfer coefficients without unintended retained-transfer wrap; the existing consumer observes cancellation only through its signed difference.",
+  "authoritative_definition": {
+    "repository_paths": [
+      "specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md",
+      "docs/architecture/v2/ksdft2effmass/periodic2d/compare/common_space/Periodic2DCommonSpaceOperatorComparator/implementation/mathematics/index.md",
+      "docs/architecture/v2/ksdft2effmass/periodic2d/compare/common_space/oracles/resolved-cosine-fourier-transfer-v1.md"
+    ],
+    "equation_ids": [
+      "EQ-PERIODIC2D-COMMON-001",
+      "EQ-PERIODIC2D-COMMON-010"
+    ],
+    "sections": [
+      "Discrete dispersion and potential sampling",
+      "Potential sampling and aliasing",
+      "Derivation"
+    ],
+    "terminating_authority": "Explicit exponential expansion of the three cosine harmonics plus seventh-root finite geometric sums over every retained pairwise transfer.",
+    "provenance": "Repository-derived Fourier coefficients and bounded no-wrap argument for the controlled toy parent."
+  },
+  "implementation": {
+    "mode": "artifact_owned_test",
+    "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+    "nodes": [
+      "TestPeriodic2DCommonSpaceOracleQualification::test_resolved_cosine_transfer__m1_n7__matches_every_fourier_block",
+      "TestPeriodic2DCommonSpaceOracleQualification::test_resolved_cosine_transfer__m2_n5__demonstrates_alias_counterexample"
+    ]
+  },
+  "assumptions": [
+    "The parent potential is lambda_x*cos(x)+lambda_y*cos(y)+lambda_xy*cos(x)*cos(y).",
+    "The consumer uses M=1, N=7, reduced momentum=(-0.17,0.09), and couplings=(0.4,0.7,0.2).",
+    "Pointwise grid multiplication is compressed with the same normalized sampling map on both sides.",
+    "Retained directional differences lie in {-2,-1,0,1,2} and intended harmonics are at 0 or +/-1.",
+    "The common Bloch phase cancels from potential-transfer matrix elements."
+  ],
+  "representation_contract": {
+    "state_spaces": [
+      "Grid state space G_7 is C^49 in Euclidean coordinate-site coordinates.",
+      "Plane-wave common space V_1^kappa is C^9 in finite reciprocal-mode coordinates."
+    ],
+    "basis": [
+      "Point samples on the 7x7 half-open coordinate grid.",
+      "Plane-wave labels p,q in {-1,0,1}."
+    ],
+    "gauge_or_frame": "One fixed Bloch fiber at reduced momentum (-0.17,0.09); the common phase cancels algebraically. No retained-space frame is involved.",
+    "normalization": "Each map entry carries 1/7, producing a 1/49 discrete Fourier sum in each compressed potential element.",
+    "geometry": "Dimensionless square period-2*pi cell with seven uniform points per direction.",
+    "ordering": [
+      "Grid sites use x_outer_y_inner order.",
+      "Plane-wave modes use p_outer_q_inner order.",
+      "Transfer is defined as (p'-p,q'-q)."
+    ],
+    "energy_reference": "Parent-model energy zero; the oracle concerns only the potential contribution.",
+    "units": [
+      "Dimensionless model-energy coefficients and matrices."
+    ]
+  },
+  "validity_domain": {
+    "inputs": [
+      "M=1",
+      "N=7",
+      "reduced momentum=(-0.17,0.09)",
+      "couplings=(lambda_x,lambda_y,lambda_xy)=(0.4,0.7,0.2)",
+      "all 81 retained input/output mode pairs"
+    ],
+    "parameter_range": [
+      "Exactly the listed grid, cutoff, momentum, harmonics, and coupling values."
+    ],
+    "dtypes": [
+      "binary64 points, momentum, and couplings",
+      "complex128 finite sums and expected transfer matrix"
+    ],
+    "shapes": [
+      "sampled potential 7x7",
+      "qualified compressed potential matrix 9x9"
+    ],
+    "environment": [
+      "Maintained Python environment with NumPy complex exponential and assertion operations."
+    ],
+    "applicability_limits": [
+      "No arbitrary potential, harmonic, coupling, cutoff, grid, origin, dtype, or backend generalization.",
+      "The M=2, N=5 square map does not satisfy this no-wrap potential-transfer claim.",
+      "The existing consumer checks cancellation indirectly through the signed difference rather than direct coefficients."
+    ]
+  },
+  "comparator": {
+    "rules": [
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error",
+        "quantity": "complete signed difference against the diagonal kinetic discrepancy; off-diagonal zeros supply indirect potential-cancellation evidence",
+        "comparison": "numpy.testing.assert_allclose with zero relative contribution",
+        "norm": "maximum entrywise absolute discrepancy"
+      }
+    ]
+  },
+  "tolerance": {
+    "rules": [
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error",
+        "relative": 0.0,
+        "absolute": 6e-15,
+        "scale": "fixed 9-dimensional cosine case",
+        "zero_reference_behavior": "Off-diagonal expected zeros use only the absolute tolerance."
+      }
+    ]
+  },
+  "tolerance_rationale": "The exact Fourier-block discrepancy is zero. The proposed bound covers fixed-case complex exponential and dense-product roundoff; it is not a general potential or aliasing threshold.",
+  "independence_boundary": {
+    "forbidden_imports": [
+      "ksdft2effmass.periodic2d.compare.common_space",
+      "ksdft2effmass.periodic2d.model.toy_models",
+      "ksdft2effmass.analysis.model_systems.periodic2d"
+    ],
+    "forbidden_symbols": [
+      "Periodic2DCosinePotentialToyModel",
+      "Periodic2DPlaneWaveHamiltonianConstructor",
+      "Periodic2DFiniteDifferenceHamiltonianConstructor",
+      "Periodic2DCommonSpaceOperatorComparator"
+    ],
+    "allowed_dependencies": [
+      "Python built-ins",
+      "NumPy grid, exponential, summation, and assertion operations",
+      "pytest collection"
+    ],
+    "rationale": "Qualification derives every coefficient from explicit harmonics and finite sums and cannot use production potential or matrix constructors."
+  },
+  "qualification_evidence": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+      "node": "TestPeriodic2DCommonSpaceOracleQualification::test_resolved_cosine_transfer__m1_n7__matches_every_fourier_block"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+      "node": "TestPeriodic2DCommonSpaceOracleQualification::test_resolved_cosine_transfer__m2_n5__demonstrates_alias_counterexample"
+    }
+  ],
+  "consumers": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+      "node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error"
+    }
+  ],
+  "excluded_claims": [
+    "Sampling-map unitarity or kinetic dispersion.",
+    "Arbitrary-potential quadrature or no aliasing for every 2*M+1<=N pair.",
+    "Continuum or plane-wave cutoff convergence.",
+    "Material-model adequacy, scientific validation, uncertainty quantification, or human acceptance."
+  ],
+  "change_policy": {
+    "new_version_when": [
+      "The potential family, harmonic content, transfer convention, period, grid origin, normalization, or semantic claim changes."
+    ],
+    "new_disposition_when": [
+      "The record bytes, qualification test, consumer, tolerance, fixed parameters, dtype, backend, or reviewed evidence revision changes."
+    ]
+  }
+}

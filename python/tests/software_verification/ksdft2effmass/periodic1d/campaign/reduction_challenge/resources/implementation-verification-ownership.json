@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__Periodic1DReductionChallengeCampaign.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DReductionChallengeCampaign"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__Periodic1DReductionChallengeCampaignDefinition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DReductionChallengeCampaignDefinition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__Periodic1DReductionChallengeCampaignJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DReductionChallengeCampaignJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__Periodic1DReductionChallengeCampaignWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DReductionChallengeCampaignWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__Periodic1DReductionChallengeEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DReductionChallengeEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__Periodic1DReductionChallengeResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DReductionChallengeResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__Periodic1DReductionChallengeVerifiedWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DReductionChallengeVerifiedWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/reduction_challenge/test__integration__reduction_challenge_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "row-060 reduction-challenge wires, canonical routes, and removed former routes"
+    }
+  ]
+}

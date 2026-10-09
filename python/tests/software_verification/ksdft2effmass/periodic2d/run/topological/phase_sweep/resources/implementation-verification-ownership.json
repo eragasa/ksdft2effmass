@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "scope": "periodic-2D topological phase-sweep campaign contracts and retained evidence",
+  "modules": [
+    {
+      "path": "python/tests/ksdft2effmass/periodic2d/run/topological/phase_sweep/test__Periodic2DTopologicalPhaseSweepCampaign.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DTopologicalPhaseSweepCampaign and calculation/correlation/verification operations"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/topological/phase_sweep/test__Periodic2DTopologicalPhaseSweepEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DTopologicalPhaseSweepEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/topological/phase_sweep/test__integration__periodic_2d_topological_phase_sweep_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d/topological-phase-sweep-input.json; calculations/research-monograph/periodic-2d/topological-phase-sweep-result.json; calculations/research-monograph/periodic-2d/SHA256SUMS"
+    }
+  ]
+}

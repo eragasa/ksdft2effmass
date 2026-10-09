@@ -1,1 +1,1 @@
-"""Periodic-2D campaign DataObjects and run-specific Actionizers."""
+"""Periodic-2D campaign data and run-specific operation owners."""

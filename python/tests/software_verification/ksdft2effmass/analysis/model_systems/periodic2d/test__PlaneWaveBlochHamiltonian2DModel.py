@@ -1,4 +1,10 @@
-"""Software verification for ``PlaneWaveBlochHamiltonian2DModel``."""
+"""Software verification for ``PlaneWaveBlochHamiltonian2DModel``.
+
+The synthetic tests establish deterministic finite-basis ordering, represented-space
+identity, spin convention, exact-zero handling for absent Fourier transfers, and the
+coefficient-space reality condition. They do not establish continuum convergence,
+material realism, scientific validation, or uncertainty quantification.
+"""
 
 import numpy as np
 import pytest
@@ -30,7 +36,12 @@ class TestPlaneWaveBlochHamiltonian2DModel:
         return direct, ReciprocalLattice2D.from_direct_lattice(direct)
 
     def test_properties__square_cutoff__exposes_declared_basis_identity(self) -> None:
-        """The model exposes its deterministic p-outer, q-inner basis inventory."""
+        """The definition exposes its deterministic finite represented basis.
+
+        The authored cutoff-one square inventory is the exact ordering oracle. The test
+        also establishes that the historical ``Model`` suffix does not grant nominal
+        scientific-model membership.
+        """
         direct, reciprocal = self.lattice_pair()
         model = PlaneWaveBlochHamiltonian2DModel(
             direct,
@@ -56,7 +67,12 @@ class TestPlaneWaveBlochHamiltonian2DModel:
         assert not isinstance(model, PeriodicModel)
 
     def test_construction__missing_conjugate_partner__raises_value_error(self) -> None:
-        """A Fourier inventory representing a non-real potential is rejected."""
+        """A Fourier inventory violating the real-potential condition is rejected.
+
+        The single complex positive transfer lacks its required negative-transfer
+        conjugate. Rejection establishes exact inventory semantics, not a tolerance-
+        based Hermiticity repair.
+        """
         direct, reciprocal = self.lattice_pair()
 
         with pytest.raises(ValueError, match=r"V\[-m\]"):

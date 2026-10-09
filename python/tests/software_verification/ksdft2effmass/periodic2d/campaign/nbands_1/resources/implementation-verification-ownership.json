@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scope": "periodic-2D one-band campaign contracts and retained evidence",
+  "modules": [
+    {
+      "path": "python/tests/ksdft2effmass/periodic2d/campaign/nbands_1/test__Periodic2DIsolatedBandCampaign.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DIsolatedBandCampaign and calculation/correlation/verification operations"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/campaign/nbands_1/test__Periodic2DIsolatedBandEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DIsolatedBandEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/campaign/nbands_1/test__integration__periodic_2d_isolated_band_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d/input.json; calculations/research-monograph/periodic-2d/result.json; calculations/research-monograph/periodic-2d/SHA256SUMS"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/campaign/nbands_1/test__Periodic2DIsolatedBandResultDocument.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DIsolatedBandResultDocument"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/campaign/nbands_1/test__integration__periodic_2d_isolated_band_result_document_artifact.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d/result.json; calculations/research-monograph/periodic-2d/SHA256SUMS"
+    }
+  ]
+}

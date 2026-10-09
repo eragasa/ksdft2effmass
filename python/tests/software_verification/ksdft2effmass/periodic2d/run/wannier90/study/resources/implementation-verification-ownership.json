@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "scope": "periodic-2D Wannier90 study campaign contracts and retained evidence",
+  "modules": [
+    {
+      "path": "python/tests/ksdft2effmass/periodic2d/run/wannier90/study/test__Periodic2DWannier90StudyCampaign.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DWannier90StudyCampaign and portable verification operation"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/study/test__Periodic2DWannier90StudyEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DWannier90StudyEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/study/test__integration__periodic_2d_wannier90_study_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d/wannier90-study-input.json; calculations/research-monograph/periodic-2d/wannier90-study-result.json; calculations/research-monograph/periodic-2d/SHA256SUMS"
+    }
+  ]
+}

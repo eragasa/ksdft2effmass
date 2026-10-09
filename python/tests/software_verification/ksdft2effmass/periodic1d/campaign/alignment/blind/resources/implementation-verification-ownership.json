@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/alignment/blind/test__BlindAlignmentEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "BlindAlignmentEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/alignment/blind/test__integration__blind_alignment_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "rows 041 and 062 blind-alignment wires, explicit roots, and retained artifacts"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/alignment/blind/test__canonical_blind_alignment_family.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "row-062 canonical class identities, mirrored ownership, and removed former route"
+    }
+  ]
+}

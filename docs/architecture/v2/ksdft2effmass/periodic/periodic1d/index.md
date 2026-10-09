@@ -13,10 +13,13 @@ differences.
 
 ## Current evidence and source boundary
 
-The current canonical package remains `ksdft2effmass.campaigns.periodic_1d`. It
-contains extracted scientific behavior, encoded campaign records, executable
-Workflows, serializers, and defect studies. That mixture is migration input, not
-precedent for coupling models, retained scientific objects, or campaigns.
+The canonical owners are `ksdft2effmass.periodic1d` and its
+`ksdft2effmass.periodic1d.campaign` child. Rows 030--032 and 058--066 place finite
+representations, explicit represented-operator adaptation, encoded campaign records,
+executable Workflows, serializers, and defect studies beneath those owners. Any
+residual `ksdft2effmass.campaigns.periodic_1d` surface is transitional migration input
+and exposes none of those moved row families; it is not precedent for coupling models,
+retained scientific objects, or campaigns.
 
 The [Appendix G capability-extraction inventory](../../periodic-1d-capability-extraction-inventory.md)
 remains authoritative for demonstrated one-dimensional capabilities and retained
@@ -43,7 +46,7 @@ program.
 
 ## Migration constraint
 
-The target canonical spelling is `periodic1d`, consistent with `periodic2d` and the
-future `periodic3d`. Namespace migration is a source-contract change and must preserve
+The canonical spelling is `periodic1d`, consistent with `periodic2d` and the future
+`periodic3d`. Namespace migration is a source-contract change and must preserve
 retained provenance strings while removing unsupported alpha compatibility routes only
 through an explicit implementation slice.

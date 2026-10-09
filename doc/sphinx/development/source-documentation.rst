@@ -126,14 +126,44 @@ Exact pytest hooks and genuinely shared fixtures are permitted at framework-requ
 module or ``conftest.py`` scope only and remain narrow, explicit, and fully typed.
 Avoid broad or stateful ``autouse`` fixtures.
 
+Tests are maintained evidence and follow the same reader-facing standard as production
+source. A test module docstring states the evidence scope; its sole ``Test...`` class
+docstring names the contract under examination; and each test method docstring states
+one behavior established by its assertions. Non-obvious comments or helper docstrings
+identify whether fixtures are analytic references, manufactured data, retained
+calculation evidence, literature values, or synthetic examples. Numerical tests state
+the represented space, basis, units, oracle, comparator, norm, tolerance, and validity
+domain needed to interpret the evidence. Negative tests state the rejected invariant
+or failure mode. Test prose must not promote software verification into convergence,
+scientific validation, uncertainty quantification, or human acceptance.
+
 Choose the primary evidence owner before naming a test module. For one public class,
-prefer one class-owned ``test__ClassName.py`` module. If a cohesive split materially
-improves readability, retain that class as the sole primary subject and use
-``test__ClassName__facet.py``, such as ``test__ClassName__contract.py``. Public-import,
+prefer one class-owned ``test__ClassName.py`` module when its evidence remains cohesive
+and readable. Split a large evidence set when a public method, invariant family, or
+scientific scenario forms a clearer independent subject. Supported split forms are
+``test__ClassName__method_name.py`` for one public method and
+``test__ClassName__specific_behavior.py`` for one cohesive behavior or scenario; for
+example, ``test__ClassName__serialization.py``. Each split module still contains
+exactly one cohesive ``Test...`` class, identifies the same production class as its
+primary owner, and documents its narrower evidence scope. Public-import,
 dependency-direction, and contract checks remain class-owned when they verify that
 same class. Artifact-owned modules use concise lowercase snake-case names only when
 the artifact itself is primary. List each split module explicitly in its ownership
-record and avoid duplicate assertions across facets.
+record and architecture test mapping, and avoid duplicate assertions across facets.
+An optional architecture ``<ClassName>/tests.py`` is a repository-relative symlink to
+that single canonical pytest module, not a copied or separately collected test owner.
+
+Smoke and integration modules are route- or artifact-owned evidence rather than class
+facets. Place them in the test directory corresponding to the package or module whose
+route they exercise; do not collect them in a detached repository-wide bucket. Name
+smoke modules ``test__smoke__<smoke_test_slug>.py`` and integration modules
+``test__integration__<integration_test_slug>.py``. Apply ``pytest.mark.smoke`` or
+``pytest.mark.integration`` at module scope, respectively, together with the
+applicable VVUQ evidence marker. A smoke test that also crosses an artifact, file, or
+owner boundary carries both markers. The module and its sole cohesive ``Test...`` class
+document the exercised route, excluded work, cost boundary, and interpretation of a
+pass. Smoke coverage is representative confidence only; it is not exhaustive contract
+verification.
 
 Authored compact test inputs, ownership files, fixtures, and other test-support
 resources reside beneath the applicable ``python/tests/**/resources/`` directory.
@@ -168,6 +198,14 @@ analytically checkable reference cases, manufactured solutions, convergence and
 observed-order studies, floating-point scaling, conditioning, roundoff analysis,
 limiting cases, and cross-implementation conformance. Numerical verification
 does not establish physical model adequacy.
+
+Claim-bearing analytic, manufactured, numerical, retained-artifact, literature, and
+empirical oracles must be qualified for their exact evidence class and validity domain
+before consumer results are accepted as verification or validation evidence.  Oracle
+qualification has a versioned authority, assumptions, independence boundary,
+comparator, tolerance rationale, qualification evidence, consumers, and excluded
+claims.  Qualification tests do not invoke the production object they will later
+judge.  See :doc:`numerical-oracle-qualification`.
 
 Scientific validation requires independent physical or scientific reference
 evidence for a declared intended use, such as converged DFT references,

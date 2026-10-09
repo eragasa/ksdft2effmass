@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/test__Periodic1DEncodedResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DEncodedResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/test__Periodic1DCampaignJsonDecoder.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCampaignJsonDecoder"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/test__integration__periodic_1d_encoded_result_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "row-045 periodic-1D encoded result wires, checksum identities, and public routes"
+    }
+  ]
+}

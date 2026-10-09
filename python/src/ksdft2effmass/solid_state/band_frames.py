@@ -14,7 +14,39 @@ from .reciprocal_meshes import CenteredUniformReciprocalMesh1D
 
 @dataclass(frozen=True, slots=True, eq=False)
 class ReciprocalBandFramePath1D:
-    """Retain ordered orthonormal band frames and their endpoint sewing map."""
+    """Retain ordered orthonormal band frames and endpoint sewing data.
+
+    Parameters
+    ----------
+    mesh
+        Ordered centered uniform reciprocal mesh whose point order determines the
+        frame order.
+    frames
+        Nonempty unitless matrices. Each matrix has shape ``(ambient, rank)`` and
+        orthonormal columns within ``orthonormality_absolute_tolerance``.
+    sewing_map
+        Unitless square ambient-space matrix that identifies the endpoint boundary
+        convention. It is retained separately from the frame matrices.
+    orthonormality_absolute_tolerance
+        Finite nonnegative absolute Frobenius-norm tolerance applied to
+        ``frame.conj().T @ frame - I``.
+
+    Raises
+    ------
+    TypeError
+        If mesh, frame inventory, frame values, sewing map, or tolerance has the
+        wrong semantic type.
+    ValueError
+        If frame count, units, dimensions, sewing-map shape, or orthonormality is
+        inconsistent.
+
+    Notes
+    -----
+    Frames choose a gauge for a represented retained subspace; they do not identify
+    the mathematical retained space or parent operator. The sewing map records the
+    endpoint coordinate convention, but construction does not prove gauge smoothness,
+    parent alignment, convergence, topology, or scientific validation.
+    """
 
     mesh: CenteredUniformReciprocalMesh1D
     frames: tuple[ComplexMatrixQuantity, ...]
@@ -23,6 +55,12 @@ class ReciprocalBandFramePath1D:
 
     def __post_init__(self) -> None:
         """Validate path length, dimensions, units, and frame orthonormality."""
+        self._check_args_path_inventory()
+        ambient_dimension, rank = self._check_args_dimensions()
+        self._check_args_frames(ambient_dimension=ambient_dimension, rank=rank)
+
+    def _check_args_path_inventory(self) -> None:
+        """Require the mesh-correlated frame inventory and numerical tolerance."""
         if type(self.mesh) is not CenteredUniformReciprocalMesh1D:
             raise TypeError("mesh must be CenteredUniformReciprocalMesh1D")
         if not isinstance(self.frames, tuple) or not self.frames:
@@ -44,6 +82,9 @@ class ReciprocalBandFramePath1D:
             raise ValueError(
                 "orthonormality_absolute_tolerance must be finite and nonnegative"
             )
+
+    def _check_args_dimensions(self) -> tuple[int, int]:
+        """Return the first frame's feasible ambient and retained dimensions."""
         first = self.frames[0]
         if type(first) is not ComplexMatrixQuantity:
             raise TypeError("every frame must be ComplexMatrixQuantity")
@@ -55,6 +96,10 @@ class ReciprocalBandFramePath1D:
             ambient_dimension,
         ):
             raise ValueError("sewing_map shape must match frame ambient dimension")
+        return ambient_dimension, rank
+
+    def _check_args_frames(self, *, ambient_dimension: int, rank: int) -> None:
+        """Require equal unitless orthonormal frames in the declared dimensions."""
         identity = np.eye(rank, dtype=np.complex128)
         for frame in self.frames:
             if type(frame) is not ComplexMatrixQuantity:

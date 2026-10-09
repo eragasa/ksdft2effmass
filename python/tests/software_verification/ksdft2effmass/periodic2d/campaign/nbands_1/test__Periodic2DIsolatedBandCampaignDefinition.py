@@ -40,7 +40,7 @@ class TestPeriodic2DIsolatedBandCampaignDefinition:
         definition = self.definition()
 
         with pytest.raises(TypeError, match="lattice_period must be a built-in float"):
-            replace(definition, lattice_period=6)  # type: ignore[arg-type]
+            replace(definition, lattice_period=6)
 
     def test_construction__aliased_momentum_component__raises_type_error(self) -> None:
         """Momentum components require exact built-in floats before calculation."""
@@ -49,5 +49,5 @@ class TestPeriodic2DIsolatedBandCampaignDefinition:
         with pytest.raises(TypeError, match="components must be built-in floats"):
             replace(
                 definition,
-                parent_sample_momenta=((0.0, 0.0), (1, 0.0)),  # type: ignore[arg-type]
+                parent_sample_momenta=((0.0, 0.0), (1, 0.0)),
             )

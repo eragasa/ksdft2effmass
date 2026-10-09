@@ -28,8 +28,8 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
-import ksdft2effmass.campaigns.periodic_1d.model.toy_defects as legacy_toy_defects
-import ksdft2effmass.campaigns.periodic_1d.model.toy_defects.hopping as legacy_hopping
+import ksdft2effmass.periodic1d.campaign.model.toy_defects as legacy_toy_defects
+import ksdft2effmass.periodic1d.campaign.model.toy_defects.hopping as legacy_hopping
 from ksdft2effmass.periodic import (
     Periodic1DModel,
     PeriodicModel,

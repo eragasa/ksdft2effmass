@@ -1,4 +1,4 @@
-"""Isolated periodic-2D campaign DataObject and Actionizers."""
+"""Isolated periodic-2D campaign data and operation owners."""
 
 from .calculate import (
     Periodic2DIsolatedBandCalculationRequest,
@@ -14,9 +14,9 @@ from .data import Periodic2DIsolatedBandCampaign
 from .definition import (
     Periodic2DIsolatedBandCampaignDefinition,
     Periodic2DIsolatedBandProvenance,
-    Periodic2DIsolatedBandResultDocument,
 )
 from .encoded_documents import Periodic2DIsolatedBandEncodedDocuments
+from .result_documents import Periodic2DIsolatedBandResultDocument
 from .serialization import Periodic2DIsolatedBandCampaignJsonSerializer
 from .verify import (
     Periodic2DIsolatedBandCampaignVerificationRequest,

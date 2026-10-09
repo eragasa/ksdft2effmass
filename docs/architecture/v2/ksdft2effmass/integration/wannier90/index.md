@@ -31,3 +31,11 @@ scientific text formats, checks shared k-point/band/Wannier dimensions, and corr
 parsed final centers and Wannier count with the retained result. It does not execute
 Wannier90 or infer Wilson phases from native gauge matrices. Downstream interpolation
 or alignment still requires an explicit owning convention.
+
+The reusable downstream Wigner–Seitz convention now belongs to
+`ksdft2effmass.solid_state`: an integration adapter may translate an authenticated
+native representative and degeneracy record into
+`WignerSeitzInterpolationInventory3D`, but the adapter must supply the inventory and
+source-binding identities explicitly. `solid_state` then owns only modulo-mesh residue
+lifting, positive-phase degeneracy-divided interpolation, and analytic Cartesian
+derivatives. It does not reinterpret native bytes or upgrade adapter provenance.

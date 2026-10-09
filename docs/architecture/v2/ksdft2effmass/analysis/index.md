@@ -15,6 +15,7 @@ flowchart LR
 ## Pages
 
 - [Scientific analysis](analysis.md)
+- [Controlled model systems](model_systems/index.md)
 - [Particle-in-a-box dimensional plan](particle-in-box-dimensional-plan.md)
 
 `NormalizedObservationSet` is calculator-independent and workflow-owned. Its implemented first contract retains exact immutable extracted Kohn–Sham `AbstractResultObject` values through `AbstractNormalizedObservationSource`; it does not copy integration-owned identities or perform scientific normalization. Analysis implementations may import workflows, periodic, Kohn–Sham, and represented-operator contracts, but never calculator packages.

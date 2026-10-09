@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scope": "periodic-2D optimizer-basin encoded-document contracts",
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/test__Periodic2DOptimizerBasinEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerBasinEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/test__Periodic2DOptimizerBasinCampaign__ownership.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerBasinCampaign"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/test__Periodic2DOptimizerBasinCampaignVerificationResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerBasinCampaignVerificationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/test__Periodic2DOptimizerBasinCampaignVerifier__strict_decoding.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerBasinCampaignVerifier"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/test__integration__periodic_2d_optimizer_basin_verifier_fail_closed.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d-optimizer-basin/study-input.json; calculations/research-monograph/periodic-2d-optimizer-basin/result.json"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/test__integration__periodic_2d_optimizer_basin_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d-optimizer-basin/study-input.json; calculations/research-monograph/periodic-2d-optimizer-basin/result.json; calculations/research-monograph/periodic-2d-optimizer-basin/SHA256SUMS"
+    }
+  ]
+}

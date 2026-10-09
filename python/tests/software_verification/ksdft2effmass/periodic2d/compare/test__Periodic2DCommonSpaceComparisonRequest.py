@@ -1,8 +1,14 @@
-"""Software verification for ``Periodic2DCommonSpaceComparisonRequest``."""
+"""Software verification for ``Periodic2DCommonSpaceComparisonRequest``.
+
+Synthetic cosine-parent represented results establish exact type, parent, Bloch-fiber,
+identity, and alias-free grid prerequisites. These checks establish request software
+behavior only; they do not establish continuum convergence, scientific validation,
+uncertainty quantification, or acceptance.
+"""
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
+from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
 )
 from ksdft2effmass.periodic2d.model.toy_models import (

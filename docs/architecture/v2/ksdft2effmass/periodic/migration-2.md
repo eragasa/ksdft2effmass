@@ -35,7 +35,7 @@ preservation constraint or blocker.
 - Payload-only `...CampaignModel` records are encoded campaign documents.
 - `BlockHoppingModel1D` is used in both exact-representation and approximation contexts,
   so its construction route cannot be inferred from coefficient data alone.
-- `Periodic1DGaussianOnsiteDefectModel` is a perturbation definition without a parent.
+- The former `Periodic1DGaussianOnsiteDefectModel` was a perturbation definition without a parent; row 013 renames it to `Periodic1DGaussianOnsitePerturbationDefinition` without granting scientific-model membership.
 - The concrete `periodic2d.defects.Periodic2DDefectModel` collides with the nominal
   defect-base name.
 - The dimension-only `Periodic2DCampaign` base has no justified cross-dimensional

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeCampaign.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeCampaign"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeVerifiedWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeVerifiedWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeResultJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeResultJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeCampaignWorkflow.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeCampaignWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeCampaignJsonSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeCampaignJsonSerializer"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeScientificAdoption.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeScientificAdoption"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DCompositeEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__integration__composite_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "row-038 composite encoded-document routes and retained artifacts"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/campaign/composite/test__Periodic1DCompositeCampaignDefinition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DCompositeCampaignDefinition"
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ksdft2effmass:schema:testing:oracle-qualification-record:v1",
+  "title": "ksdft2effmass row-036 common-space oracle qualification record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "qualification_schema",
+    "oracle_id",
+    "kind",
+    "evidence_class",
+    "claim",
+    "authoritative_definition",
+    "implementation",
+    "assumptions",
+    "representation_contract",
+    "validity_domain",
+    "comparator",
+    "tolerance",
+    "tolerance_rationale",
+    "independence_boundary",
+    "qualification_evidence",
+    "consumers",
+    "excluded_claims",
+    "change_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "qualification_schema": {
+      "const": "urn:ksdft2effmass:schema:testing:oracle-qualification-record:v1"
+    },
+    "oracle_id": {
+      "type": "string",
+      "pattern": "^periodic2d\\.common-space\\.[a-z0-9-]+\\.v[1-9][0-9]*$"
+    },
+    "kind": {
+      "enum": [
+        "exact_analytic_identity",
+        "analytic_finite_difference_relation",
+        "bounded_exact_fourier_transfer"
+      ]
+    },
+    "evidence_class": {
+      "const": "numerical_verification"
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authoritative_definition": {
+      "$ref": "#/$defs/authority"
+    },
+    "implementation": {
+      "$ref": "#/$defs/testImplementation"
+    },
+    "assumptions": {
+      "$ref": "#/$defs/nonemptyStrings"
+    },
+    "representation_contract": {
+      "$ref": "#/$defs/representation"
+    },
+    "validity_domain": {
+      "$ref": "#/$defs/validityDomain"
+    },
+    "comparator": {
+      "$ref": "#/$defs/comparator"
+    },
+    "tolerance": {
+      "$ref": "#/$defs/tolerance"
+    },
+    "tolerance_rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "independence_boundary": {
+      "$ref": "#/$defs/independence"
+    },
+    "qualification_evidence": {
+      "$ref": "#/$defs/testReferences"
+    },
+    "consumers": {
+      "$ref": "#/$defs/testReferences"
+    },
+    "excluded_claims": {
+      "$ref": "#/$defs/nonemptyStrings"
+    },
+    "change_policy": {
+      "$ref": "#/$defs/changePolicy"
+    }
+  },
+  "$defs": {
+    "nonemptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_paths",
+        "equation_ids",
+        "sections",
+        "terminating_authority",
+        "provenance"
+      ],
+      "properties": {
+        "repository_paths": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "equation_ids": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "sections": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "terminating_authority": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provenance": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "testImplementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "path", "nodes"],
+      "properties": {
+        "mode": {
+          "const": "artifact_owned_test"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^python/tests/numerical_verification/.+\\.py$"
+        },
+        "nodes": {
+          "$ref": "#/$defs/nonemptyStrings"
+        }
+      }
+    },
+    "representation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_spaces",
+        "basis",
+        "gauge_or_frame",
+        "normalization",
+        "geometry",
+        "ordering",
+        "energy_reference",
+        "units"
+      ],
+      "properties": {
+        "state_spaces": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "basis": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "gauge_or_frame": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalization": {
+          "type": "string",
+          "minLength": 1
+        },
+        "geometry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ordering": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "energy_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "units": {
+          "$ref": "#/$defs/nonemptyStrings"
+        }
+      }
+    },
+    "validityDomain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inputs",
+        "parameter_range",
+        "dtypes",
+        "shapes",
+        "environment",
+        "applicability_limits"
+      ],
+      "properties": {
+        "inputs": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "parameter_range": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "dtypes": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "shapes": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "environment": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "applicability_limits": {
+          "$ref": "#/$defs/nonemptyStrings"
+        }
+      }
+    },
+    "comparatorRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["consumer_node", "quantity", "comparison", "norm"],
+      "properties": {
+        "consumer_node": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quantity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comparison": {
+          "type": "string",
+          "minLength": 1
+        },
+        "norm": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "comparator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/comparatorRule"
+          }
+        }
+      }
+    },
+    "toleranceRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_node",
+        "relative",
+        "absolute",
+        "scale",
+        "zero_reference_behavior"
+      ],
+      "properties": {
+        "consumer_node": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relative": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "absolute": {
+          "type": "number",
+          "exclusiveMinimum": 0.0
+        },
+        "scale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "zero_reference_behavior": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "tolerance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules"],
+      "properties": {
+        "rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/toleranceRule"
+          }
+        }
+      }
+    },
+    "independence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "forbidden_imports",
+        "forbidden_symbols",
+        "allowed_dependencies",
+        "rationale"
+      ],
+      "properties": {
+        "forbidden_imports": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "forbidden_symbols": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "allowed_dependencies": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "testReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "node"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^python/tests/.+\\.py$"
+        },
+        "node": {
+          "type": "string",
+          "pattern": "^Test[A-Za-z0-9_]+::test_[A-Za-z0-9_]+$"
+        }
+      }
+    },
+    "testReferences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/testReference"
+      }
+    },
+    "changePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["new_version_when", "new_disposition_when"],
+      "properties": {
+        "new_version_when": {
+          "$ref": "#/$defs/nonemptyStrings"
+        },
+        "new_disposition_when": {
+          "$ref": "#/$defs/nonemptyStrings"
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,8 @@ Evidence profile: routine
 
 Facet and represented meaning
 -----------------------------
-The decoder owns strict closed JSON wire mechanics shared by scientific campaigns.
+The campaign specialization exposes strict closed JSON wire mechanics inherited from
+the shared serialization owner.
 
 Intrinsic and cross-object scope
 --------------------------------
@@ -17,16 +18,18 @@ Passing establishes software behavior only. It does not authenticate artifacts,
 validate campaign schemas, or establish scientific correctness.
 """
 
+import numpy as np
 import pytest
 
 from ksdft2effmass.campaigns import CampaignJsonDecoder
-from ksdft2effmass.campaigns.periodic_1d import Periodic1DCampaignJsonDecoder
+from ksdft2effmass.periodic1d.campaign import Periodic1DCampaignJsonDecoder
+from ksdft2effmass.serialization.json import StrictJsonDecoder
 
 pytestmark = pytest.mark.software_verification
 
 
 class TestCampaignJsonDecoder:
-    """Own shared strict campaign JSON decoding evidence."""
+    """Own campaign-specialization evidence for shared strict JSON decoding."""
 
     def test_document__closed_json__rejects_duplicate_keys(self) -> None:
         """Evidence ID: SV-CAMPAIGN-JSON-DECODER-001.
@@ -68,16 +71,51 @@ class TestCampaignJsonDecoder:
     def test_specialization__periodic1d_decoder__inherits_shared_behavior(self) -> None:
         """Evidence ID: SV-CAMPAIGN-JSON-DECODER-003.
 
-        Requirement: A domain decoder reuses the campaign-wide primitive boundary
-        through nominal inheritance rather than duplicating structural checks.
+        Requirement: A canonical domain decoder reuses the neutral strict primitive
+        boundary without importing the transitional campaign package.
 
-        Acceptance: The periodic-1D decoder is a ``CampaignJsonDecoder`` and applies
-        the shared SHA-256 and nonempty-string rules.
+        Acceptance: The periodic-1D decoder is a ``StrictJsonDecoder`` but not a
+        ``CampaignJsonDecoder`` and applies the shared SHA-256 and nonempty-string
+        rules.
         """
         decoder = Periodic1DCampaignJsonDecoder()
         digest = "a" * 64
 
-        assert isinstance(decoder, CampaignJsonDecoder)
+        assert isinstance(decoder, StrictJsonDecoder)
+        assert not isinstance(decoder, CampaignJsonDecoder)
         assert decoder.sha256(digest, "source_sha256") == digest
         with pytest.raises(ValueError, match="must be nonempty"):
             decoder.nonempty_string("", "artifact_kind")
+
+    def test_complex_matrix__pair_wire__is_strict_and_immutable(self) -> None:
+        """Evidence ID: SV-CAMPAIGN-JSON-DECODER-004.
+
+        Requirement: The periodic-1D decoder owns the shared complex-pair matrix
+        wire adaptation without assigning scientific metadata.
+
+        Acceptance: A rectangular pair wire becomes an immutable ``complex128``
+        matrix, while ragged rows and malformed entries fail closed.
+        """
+        decoder = Periodic1DCampaignJsonDecoder()
+
+        matrix = decoder.complex_matrix(
+            [[[1, 2.5], [3.0, -4]], [[5, 0], [-6, 7]]], "hopping"
+        )
+
+        assert matrix.dtype == np.dtype(np.complex128)
+        assert np.array_equal(
+            matrix,
+            np.asarray(
+                [[1.0 + 2.5j, 3.0 - 4.0j], [5.0 + 0.0j, -6.0 + 7.0j]],
+                dtype=np.complex128,
+            ),
+        )
+        assert not matrix.flags.writeable
+        with pytest.raises(ValueError, match="must be rectangular"):
+            decoder.complex_matrix([[[1, 0]], [[2, 0], [3, 0]]], "hopping")
+        with pytest.raises(ValueError, match="must contain real and imaginary"):
+            decoder.complex_matrix([[[1, 0, 2]]], "hopping")
+        with pytest.raises(TypeError, match="must be a real number"):
+            decoder.complex_matrix([[[True, 0]]], "hopping")
+        with pytest.raises(OverflowError):
+            decoder.complex_matrix([[[10**400, 0]]], "hopping")

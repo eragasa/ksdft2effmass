@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "scope": "periodic-2D topological campaign contracts and retained evidence",
+  "modules": [
+    {
+      "path": "python/tests/ksdft2effmass/periodic2d/run/topological/test__Periodic2DTopologicalCampaign.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DTopologicalCampaign and calculation/correlation/verification operations"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/topological/test__Periodic2DTopologicalEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DTopologicalEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/topological/test__integration__periodic_2d_topological_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d/topological-input.json; calculations/research-monograph/periodic-2d/topological-result.json; calculations/research-monograph/periodic-2d/SHA256SUMS"
+    }
+  ]
+}

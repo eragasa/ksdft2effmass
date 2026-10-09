@@ -20,19 +20,19 @@ This structural test makes no scientific, numerical, or wire-compatibility claim
 
 import pytest
 
-from ksdft2effmass.campaigns.periodic_1d import (
-    Periodic1DCompositeCampaignJsonSerializer,
-    Periodic1DEncodedResultJsonSerializer,
-    Periodic1DIsolatedBandCampaignJsonSerializer,
-    Periodic1DIsolatedBandResultJsonSerializer,
-    Periodic1DStressCampaignJsonSerializer,
-    Periodic1DStressResultJsonSerializer,
-)
 from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
     FiniteDomainEffectsCaseInventoryJsonSerializer,
 )
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecordJsonSerializer
 from ksdft2effmass.operators import OperatorRecordJsonSerializer
+from ksdft2effmass.periodic1d.campaign import (
+    Periodic1DCompositeCampaignJsonSerializer,
+    Periodic1DEncodedResultJsonSerializer,
+    Periodic1DIsolatedBandCampaignJsonSerializer,
+    Periodic1DIsolatedBandResultJsonSerializer,
+    Periodic1DReductionChallengeCampaignJsonSerializer,
+    Periodic1DReductionChallengeResultJsonSerializer,
+)
 from ksdft2effmass.provenance import ProvenanceJsonSerializer
 from ksdft2effmass.serialization import JsonCodec
 
@@ -42,11 +42,11 @@ SUT = JsonCodec
 type CodecClass = (
     type[FiniteDomainEffectsCaseInventoryJsonSerializer]
     | type[Periodic1DIsolatedBandCampaignJsonSerializer]
-    | type[Periodic1DStressCampaignJsonSerializer]
+    | type[Periodic1DReductionChallengeCampaignJsonSerializer]
     | type[Periodic1DCompositeCampaignJsonSerializer]
     | type[Periodic1DEncodedResultJsonSerializer]
     | type[Periodic1DIsolatedBandResultJsonSerializer]
-    | type[Periodic1DStressResultJsonSerializer]
+    | type[Periodic1DReductionChallengeResultJsonSerializer]
     | type[KohnShamPlaneWaveCalculationRecordJsonSerializer]
     | type[OperatorRecordJsonSerializer]
     | type[ProvenanceJsonSerializer]
@@ -62,8 +62,8 @@ CODEC_CLASSES = (
         id="isolated_campaign_wire",
     ),
     pytest.param(
-        Periodic1DStressCampaignJsonSerializer,
-        id="stress_campaign_wire",
+        Periodic1DReductionChallengeCampaignJsonSerializer,
+        id="reduction_challenge_campaign_wire",
     ),
     pytest.param(
         Periodic1DCompositeCampaignJsonSerializer,
@@ -78,8 +78,8 @@ CODEC_CLASSES = (
         id="isolated_result_wire",
     ),
     pytest.param(
-        Periodic1DStressResultJsonSerializer,
-        id="stress_result_wire",
+        Periodic1DReductionChallengeResultJsonSerializer,
+        id="reduction_challenge_result_wire",
     ),
     pytest.param(
         KohnShamPlaneWaveCalculationRecordJsonSerializer,

@@ -51,8 +51,14 @@ identity-only retained-result correlation, and complete campaign composition. Th
 package boundary exports only the encapsulating ``BlindAlignmentCampaign`` façade and
 its immutable ``BlindAlignmentEncodedDocuments``. Filesystem resolution is supplied to
 calculation, correlation, and verification requests rather than stored with encoded
-bytes. Maintained low-level records and Actionizers are imported from their defining
-modules and are not aggregated into the supported public route. The inference core supports full-rank,
+bytes. The [row-041 document dossier](periodic1d/campaign/alignment/blind/encoded_documents/BlindAlignmentEncodedDocuments/index.md)
+binds this split to exact retained-byte identities and scientific exclusions. Row 062
+moves the complete family to `ksdft2effmass.periodic1d.campaign.alignment.blind`; its
+[canonical family dossier](periodic1d/campaign/alignment/blind/index.md) maps source,
+tests, Sphinx, provenance, numerical scaling, and limitations. The former underscored
+route is removed without an alias. Maintained low-level records and Actionizers are
+imported from their defining canonical modules and are not aggregated into the
+supported public route. The inference core supports full-rank,
 rank-deficient identified-sector, and explicitly reconciled rectangular
 partial-isometry routes, with structured stops for rank, spin, subspace-angle,
 conditioning, and energy-anchor boundaries. A separate verifier authenticates direct
@@ -62,25 +68,41 @@ and numerical-verification slice is therefore complete; this status makes no mat
 validation or uncertainty-quantification claim.
 
 Independent-route reconciliation now has a maintained typed package slice. Its encoded
-documents and façade own exact retained-wire state, while operation requests carry the
-filesystem root. Its strict input adapter and baseline loader authenticate the matched
-input, matched result, and periodic parent;
-and separate Actionizers implement direct site-space and direct folded-fiber
-extraction without invoking each other. The Workflow retains seven nominal controls,
-four explicit mismatch outcomes, and four declared reconciliations without silently
-changing parent, domain, weights, or map. Canonical correlation reproduces the retained
-result identity, while a verifier that imports no maintained Workflow reconstructs all
-15 records independently.
+document owner stores exact input and retained-result bytes only, while distinct
+calculation, retained-correlation, and verification requests own their absolute
+filesystem roots. The [row-044 canonical dossier](periodic1d/campaign/reconciliation/route/encoded_documents/RouteReconciliationEncodedDocuments/index.md)
+binds that split to exact retained-byte/checksum identities, routine and artifact-owned
+evidence, the curated facade, and retired aggregate-route removal; row 066 separately
+owns the source move to `periodic1d.campaign.reconciliation.route`. Its strict input
+adapter and baseline loader authenticate the directly declared matched input, matched
+result, and periodic parent. Separate Actionizers implement direct site-space and direct
+folded-fiber extraction without invoking each other. The Workflow retains seven nominal
+controls, four explicit mismatch outcomes, and four declared reconciliations without
+silently changing parent, domain, weights, or map. Canonical correlation reproduces the
+retained result identity, while a verifier that imports no maintained Workflow
+reconstructs all 15 records independently. The row-044 dossier establishes software
+ownership and content identity; it does not by itself rerun or verify those numerics.
 
-The finite-rank oracle now has encoded documents and a façade with request-owned
-filesystem resolution, strict version-one input adaptation, three-source
-authentication, separate Bloch-resolvent and site-space
-numerical routes, canonical retained correlation, and an independent verifier for 20
-rank-one sweep records plus four special controls. Degenerate states use equal-rank
-projectors, and unequal rank remains an explicit stop.
+The finite-rank oracle now has encoded documents and a façade with explicit
+operation-owned filesystem resolution: calculation and retained correlation receive an
+absolute root argument, while independent verification uses a typed root-owning
+request. The [row-043 canonical dossier](periodic1d/campaign/oracle/finite_rank/encoded_documents/FiniteRankOracleEncodedDocuments/index.md)
+binds that split to exact retained-byte identities, owned tests, supported routes, and
+scientific exclusions; row 064 separately owns the source move to
+`periodic1d.campaign.oracle.finite_rank`. Strict version-one input adaptation,
+three-source authentication, separate Bloch-resolvent and site-space numerical routes,
+canonical retained correlation, and an independent verifier cover 20 rank-one sweep
+records plus four special controls. Degenerate states use equal-rank projectors, and
+unequal rank remains an explicit stop. This named bounded analytical route is not a
+generic oracle engine or production qualification mechanism.
 
-Separated continuum refinement now has encoded documents and a façade with
-request-owned filesystem resolution, strict version-one input adaptation,
+Separated continuum refinement now has encoded documents and a façade with explicit
+operation-owned filesystem resolution: correlation receives an absolute root argument,
+while independent verification uses a typed root-owning request. The
+[row-042 canonical dossier](periodic1d/campaign/refinement/continuum/encoded_documents/ContinuumRefinementEncodedDocuments/index.md)
+binds that split to exact retained-byte identities, owned tests, supported routes, and
+scientific exclusions; row 063 separately owns the source move to
+`periodic1d.campaign.refinement.continuum`. Strict version-one input adaptation,
 three-source authentication, distinct continuum-mesh,
 continuum-domain, lattice-supercell, lattice-scale, and profile-family operations,
 canonical retained correlation, and an independent verifier for all 31 records. The
@@ -92,14 +114,16 @@ complete; this status is not an asymptotic theorem or scientific validation clai
 
 ## Package ownership
 
-The integrated campaign belongs under the existing application-specific
-surface:
+Campaign families move individually to the canonical application-specific surface:
 
 ```text
-ksdft2effmass.campaigns.periodic_1d.defects
+ksdft2effmass.periodic1d.campaign
 ```
 
-The existing `periodic_1d` package remains the owner of reusable periodic-parent
+Blind alignment is canonical at `periodic1d.campaign.alignment.blind`; the unmatched
+families remain under `ksdft2effmass.campaigns.periodic_1d.defects` until their assigned
+migration rows. The existing `periodic_1d` package remains the provisional owner of
+reusable periodic-parent
 records, calculations, and controlled toy models. Reusable models demonstrated by
 the defect campaigns belong under `periodic_1d/model/toy_defects/`; examples include
 finite hopping parents, primitive fibers, twisted supercells, controlled basis
@@ -107,25 +131,25 @@ scrambling, Gaussian onsite defects, and later finite-rank or continuum comparat
 The shared basis-scrambling constructor supplies explicitly oriented
 reference-to-candidate and candidate-to-reference maps to both matched extraction and
 blind-alignment baseline adaptation. These models expose typed
-state and Actionizer requests and results without retaining phase labels, campaign
+state, request, Action, and Result objects without retaining phase labels, campaign
 thresholds, provenance paths, or acceptance policy.
 
 Reusable finite-periodic geometry and represented operator mechanics remain with
 their existing solid-state and operator owners. The `defects` package owns only
 research-monograph campaign records, exact version-one adaptation, orchestration,
 campaign policy, retained-result correlation, and independent campaign
-verification. Campaign workflows consume toy-model Actionizers rather than owning
+verification. Campaign Workflows consume toy-model Actions rather than owning
 competing numerical constructions.
 
 The intended internal capability groups are:
 
 ```text
-defects/
-  matched_extraction/
-  blind_alignment/
-  route_reconciliation/
-  finite_rank_oracle/
-  continuum_refinement/
+periodic1d/campaign/
+  extraction/matched/
+  alignment/blind/
+  reconciliation/route/
+  oracle/finite_rank/
+  refinement/continuum/
 ```
 
 A group may be split into records, serializers, actions, workflows, and
@@ -147,10 +171,12 @@ silently normalized or reinterpreted.
 
 Historical calculation-local implementations remain frozen and import no new
 package code. They are provenance-bound evidence, not supported execution
-routes. New maintained tests and integrations import defining modules beneath
-`ksdft2effmass.campaigns.periodic_1d.defects`. No top-level
-`ksdft2effmass` re-export, CLI, dependency, or shared ProjectKoios extraction is
-introduced by this integration.
+routes. New maintained tests and integrations import each family's defining canonical or
+transitional modules; matched-extraction and blind-alignment tests mirror
+`ksdft2effmass.periodic1d.campaign.extraction.matched` and
+`ksdft2effmass.periodic1d.campaign.alignment.blind`, respectively. No top-level `ksdft2effmass`
+re-export, CLI, dependency, or shared ProjectKoios extraction is introduced by this
+integration.
 
 ## Evidence-preserving migration
 

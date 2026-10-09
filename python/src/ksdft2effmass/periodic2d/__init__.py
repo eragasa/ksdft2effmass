@@ -1,6 +1,5 @@
 """Public two-dimensional models, retention definitions, and campaigns."""
 
-from .campaign import Periodic2DCampaign
 from .campaign.nbands_1 import (
     Periodic2DIsolatedBandCampaign,
     Periodic2DIsolatedBandCampaignDefinition,
@@ -56,7 +55,6 @@ from .run.wannier90 import (
 )
 
 __all__ = [
-    "Periodic2DCampaign",
     "Periodic2DCommonSpaceComparisonRequest",
     "Periodic2DCommonSpaceComparisonResult",
     "Periodic2DCommonSpaceOperatorComparator",

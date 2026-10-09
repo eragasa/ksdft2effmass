@@ -14,6 +14,10 @@ flowchart LR
     app["ksdft2effmass.application"] --> campaigns
 ```
 
+## Canonical child pages
+
+- [Periodic-1D target campaign architecture](../periodic1d/campaign/index.md)
+
 The public `campaigns.research_monograph.citation_snapshot` surface owns the
 canonical unversioned structural snapshot of
 `docs/publications/research-monograph/manuscript/manuscript.tex` and the
@@ -99,26 +103,35 @@ Reusable observed-order analysis, spectral-subspace selection, operator compress
 represented-matrix norms, and finite-domain channel results remain below the campaign
 layer.
 
-The package-level `CampaignJsonDecoder` owns strict UTF-8 parsing and the closed JSON
-primitive checks shared by campaign wire boundaries. It rejects duplicate keys,
-nonfinite extensions, Boolean-as-number coercion, and invalid lowercase SHA-256
-spellings, but owns no campaign schema, scientific construction, or source
-authentication. Domain decoders inherit that demonstrated behavior rather than
-copying it. The public `research_monograph.periodic_1d` surface owns the version-one
-isolated, stress, and composite Appendix G campaign definitions and canonical
-serializers. Its public `Periodic1DCampaignJsonDecoder` extends the common decoder
-with unitless scalar and vector construction; serializers remain responsible for
-schema fields and versions.
+The shared `serialization.json.StrictJsonDecoder` owns strict UTF-8 parsing and closed
+JSON primitive checks. The package-level `CampaignJsonDecoder` remains a
+campaign-facing specialization for transitional consumers, but canonical domain
+owners may inherit the neutral strict decoder directly. Inherited behavior rejects
+duplicate keys, nonfinite extensions, Boolean-as-number coercion, and invalid
+lowercase SHA-256 spellings while owning no campaign schema, scientific construction,
+or source authentication.
+
+The canonical `periodic1d.campaign` surface owns the version-one isolated, composite,
+reduction-challenge, and Wannier90 Appendix G campaign families plus
+`Periodic1DCampaignJsonDecoder` and shared encoded-result wire owners. The periodic-1D
+decoder directly extends `StrictJsonDecoder` with unitless scalar/vector and dense
+complex-pair matrix adaptation. The transitional `campaigns.periodic_1d` and
+publication surfaces retain only defect families pending rows 062--066; they consume
+canonical shared-wire owners but expose no aliases for any moved family or shared-wire
+owner. Serializers remain responsible for schema fields and versions.
 Composite retained groups compose the reusable `ContiguousBandSelection` contract,
-and stress shapes compose `PeriodicFourierPotential1D`. Public immutable JSON object
-and array records preserve every value in the isolated, stress, composite, Wannier90,
-preconditioned Wannier90, and convergence-attempt result formats. The retained-result
-serializer keeps the source-byte SHA-256 identity separate from canonical output
+and reduction-challenge shapes compose `PeriodicFourierPotential1D`. Shared
+`serialization.json` immutable object and array records preserve every value in the
+isolated, historical stress, composite, Wannier90, preconditioned Wannier90, and
+convergence-attempt result formats.
+The encoded-result serializer keeps the source-byte SHA-256 identity separate from
+canonical output
 bytes. The isolated-band result adapter additionally exposes typed parent convergence,
 common-subspace, weak-gap, reciprocal-operator, complete-hopping, truncation,
 observable, and localization records while retaining the complete source document.
-The stress-result adapter separately retains amplitude, discretization,
-mesh/band/isolation, potential-shape, gauge-covariance, and fitting-route channels.
+The reduction-challenge adapter for the historical stress-result wire separately
+retains amplitude, discretization, mesh/band/isolation, potential-shape,
+gauge-covariance, and fitting-route channels.
 The composite-result adapter exposes each retained Wilson eigenphase multiset through
 the reusable ``solid_state`` contract while preserving the historical controlled-gauge
 defect as a recorded value because its second phase set was not retained. It also
@@ -143,18 +156,19 @@ correlation and verification ResultObjects. The calculation-producing
 ``Periodic1DIsolatedBandCalculationWorkflow`` separately owns the execution-local
 parent convergence/reference, reciprocal sampling, complete Fourier, finite-range,
 Parseval, route-comparison, bandwidth, gap, and curvature channels; it does not read a
-retained result or calculate gauge transport and localization. The read-only stress
-campaign Workflow composes the public input and result codecs, checks experiment
-identity, all Cartesian inventories, named shapes, route controls, and source SHA-256
-identities, and returns the correlated typed definition and result. The independent
-stress verifier reconstructs every amplitude, shape, mesh/band/isolation,
-gauge-covariance, and complete/incomplete/weighted fitting-route channel by direct
-NumPy/SciPy assembly without importing production numerical algorithms.
-``Periodic1DStressVerifiedWorkflow`` preserves the correlation and verification
-ResultObjects separately under one explicit unitless tolerance. The composite Workflow
-additionally correlates retained band groups, reciprocal-mesh size, centered hopping
-representatives, range inventory, direct-route range, external-gap disposition, and
-the exact composite-input SHA-256 identity. The Wannier90 Workflow correlates its
+retained result or calculate gauge transport and localization. The read-only
+reduction-challenge Workflow composes the public input and result codecs, authenticates
+the opaque input bytes before decoding input-owned controls, checks experiment identity,
+all Cartesian inventories, named shapes, route controls, and source SHA-256 identities,
+and returns the correlated typed definition and result. The independent
+reduction-challenge verifier reconstructs every amplitude, shape,
+mesh/band/isolation, gauge-covariance, and complete/incomplete/weighted fitting-route
+channel by direct NumPy/SciPy assembly without importing production numerical
+algorithms. ``Periodic1DReductionChallengeVerifiedWorkflow`` preserves the correlation
+and verification ResultObjects separately under one explicit unitless tolerance. The
+canonical composite Workflow correlates retained band groups, reciprocal-mesh
+size, centered hopping representatives, range inventory, direct-route range,
+external-gap disposition, and the exact composite-input SHA-256 identity. The Wannier90 Workflow correlates its
 retained band groups and composite-input identity. The independent composite verifier
 then reconstructs the available dense finite Fourier pair, exact-pair Hermiticity,
 omitted-block norms, training eigenvalue errors, direct least-squares route, and three

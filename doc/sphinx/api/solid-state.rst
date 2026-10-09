@@ -1,12 +1,13 @@
 Solid-state lattice models API
 ==============================
 
-The supported public import path is ``ksdft2effmass.solid_state``.  This initial
-surface owns finite integer lattice geometry, boundary twists, dimension-specific
-reciprocal meshes, one-dimensional reciprocal paths and band frames, scalar and block
-hopping models, localized scalar perturbations, and explicit integral lattice
-operations in one, two, and three spatial
-dimensions.
+The root ``ksdft2effmass.solid_state`` facade exposes its reviewed composite lattice
+surface. Finite Wigner--Seitz interpolation is owned by
+``ksdft2effmass.solid_state.wignerseitz.interpolation``; Löwdin quadratic effective
+Hamiltonians are owned by the explicit modules under
+``ksdft2effmass.solid_state.hamiltonians.effective.lowdin_quadratic``. Requests,
+Results, and Actions from those implementation families are deliberately not flattened
+into the root facade.
 
 These records do not represent atomic Cartesian structures, weighted k-point sampling,
 material validation, or a completed finite-domain calculation.  Atomic periodic
@@ -229,8 +230,243 @@ scalar convention.
 .. autoclass:: BlockHoppingTruncator1D
    :members:
 
+Nearest-neighbor silicon Slater--Koster model
+---------------------------------------------
+
+The initial effective-model class is a spinless, orthogonal, ten-orbital
+:math:`sp^3s^*` model for diamond silicon.  Its eight-dimensional linear operator
+span contains three onsite coefficients and the nearest-neighbor
+:math:`ss\sigma`, :math:`sp\sigma`, :math:`s^*p\sigma`, :math:`pp\sigma`, and
+:math:`pp\pi` channels.  Other channels are exact exclusions from this model class,
+not claims that the corresponding physical contributions vanish.
+
+The real-space representation retains explicit cell displacements and obeys
+:math:`H(-R)=H(R)^\dagger`.  Bloch construction accepts primitive reduced coordinates
+and applies the declared positive cell Fourier phase.  It does not fit parameters,
+infer a Wannier alignment, or establish physical adequacy.
+
+.. autoclass:: SiliconSp3sStarParameter
+   :members:
+
+.. autoclass:: SiliconSp3sStarNearestNeighborParameters
+   :members:
+
+.. autoclass:: SiliconDiamondSp3sStarNearestNeighborModel
+   :members:
+
+.. autoclass:: SiliconSp3sStarOperatorComponent
+   :members:
+
+.. autoclass:: SiliconDiamondSp3sStarNearestNeighborOperator
+   :members:
+
+.. autoclass:: SiliconDiamondSp3sStarNearestNeighborConstructor
+   :members:
+
+.. autoclass:: SiliconSp3sStarBlochHamiltonianSamples
+   :members:
+
+.. autoclass:: SiliconSp3sStarBlochHamiltonianConstructor
+   :members:
+
+Same-frame Wannier kinetic decomposition
+----------------------------------------
+
+The three-dimensional decomposition consumes already identified plane-wave
+coefficients, diagonal canonical kinetic energies, parent eigenvalues,
+disentanglement matrices, and Wannier gauge matrices.  It constructs the total and
+kinetic operators in the identical retained frame before subtraction and retains both
+reciprocal-space matrices and canonical finite-mesh lattice blocks.  Native QE and
+Wannier90 decoding, artifact authentication, FFT/G-vector conventions, and simulation
+provenance remain outside this solid-state action. Inputs and outputs must use physical
+energy units. The canonical lattice representation uses the specified normalized
+negative-phase forward transform and positive-phase reconstruction. Public result
+records recheck the request construction, Fourier correlation, and every retained
+diagnostic rather than trusting caller-supplied values.
+
+The difference is explicitly a represented non-kinetic remainder.  It is not thereby
+a continuous scalar potential and can contain local, nonlocal pseudopotential,
+Hartree, exchange-correlation, and other represented contributions.
+
+.. autoclass:: PlaneWaveBandSample
+   :members:
+
+.. autoclass:: WannierFrameSample
+   :members:
+
+.. autoclass:: WannierOperatorRole
+   :members:
+
+.. autoclass:: WannierKineticDecompositionRequest
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorMesh3D
+   :members:
+
+.. autoclass:: WannierKineticDecompositionDiagnostics
+   :members:
+
+.. autoclass:: WannierKineticDecompositionResult
+   :members:
+
+.. autoclass:: WannierKineticDecompositionConstructor
+   :members:
+
+Finite Wigner--Seitz interpolation and Cartesian derivatives
+-------------------------------------------------------------
+
+An explicit Wigner--Seitz inventory supplies an identified source mesh, direct-lattice
+basis, integer representatives, and native degeneracies.  The name refers to Wigner
+and Seitz's cell construction
+(`doi:10.1103/PhysRev.43.804 <https://doi.org/10.1103/PhysRev.43.804>`_); the
+authoritative specification records the complete citation provenance and claim
+boundary.  Every modulo-mesh residue
+must be represented, and each degeneracy must equal its residue-class multiplicity.
+A logarithmic determinant preserves nonsingularity classification across raw
+determinant underflow and overflow, while representative components that cannot be
+converted exactly to binary64 are rejected before distinct translations can collapse
+in phase evaluation.
+The same-frame interpolation action lifts the canonical blocks of one
+``WannierKineticDecompositionResult`` by residue and evaluates all three operators
+with the positive Wannier phase and degeneracy division.  It retains Hermiticity and
+``H = T + R`` defects without treating those checks as interpolation convergence or
+scientific validation.
+
+The Cartesian derivative action evaluates one represented operator's value, gradient,
+and Hessian analytically.  Their units are energy, energy times length, and energy
+times length squared.  Public interpolation and derivative Result constructors accept
+no precomputed evaluation witness.  Actions own request-to-value derivation and execute
+it once; Results validate intrinsic retained relations and diagnostics without replaying
+the Action.  Manual Result construction does not establish Action execution or
+provenance.  This action does not choose a degenerate subspace, perform a Löwdin
+reduction, convert curvature to mass, or infer native-file provenance.
+
+.. currentmodule:: ksdft2effmass.solid_state.wignerseitz.interpolation
+
+.. autoclass:: WignerSeitzInterpolationInventory3D
+   :members:
+
+.. autoclass:: WignerSeitzRepresentedOperator3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorWignerSeitzConstructor3D
+   :members:
+
+.. autoclass:: WignerSeitzOperatorInterpolationRequest3D
+   :members:
+
+.. autoclass:: WignerSeitzOperatorInterpolationResult3D
+   :members:
+
+.. autoclass:: WignerSeitzOperatorInterpolator3D
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolationRequest3D
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolationDiagnostics
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolationResult3D
+   :members:
+
+.. autoclass:: WannierKineticWignerSeitzInterpolator3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeRequest3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeDiagnostics3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeResult3D
+   :members:
+
+.. autoclass:: WannierRepresentedOperatorCartesianDerivativeConstructor3D
+   :members:
+
+Löwdin quadratic effective Hamiltonian
+--------------------------------------
+
+The Löwdin quadratic effective-Hamiltonian reduction consumes same-frame Hamiltonian,
+kinetic, and represented non-kinetic-remainder derivative results.  The name refers to
+Löwdin's class-partition perturbation construction
+(`doi:10.1063/1.1748067 <https://doi.org/10.1063/1.1748067>`_); the authoritative
+specification records the complete citation provenance and its claim boundary.  The
+request explicitly states
+an ordered Hamiltonian eigenspace selection, reference energy, degeneracy tolerance,
+Hamiltonian-Hermiticity tolerance, and selected-space covariance probe.  A Hamiltonian
+outside that tolerance is rejected because it does not define the declared Hermitian
+eigenspace and Löwdin complement resolvent.  Within tolerance, the explicitly
+Hermitian-projected value supplies the eigenspace and projected base value, and the
+result retains the projection correction.  Both gauges in the base-covariance
+comparison use that same projected value, so accepted anti-Hermitian content is not
+misreported as a covariance defect.  Public reduction and downstream Result
+constructors accept no evaluation witness.  Each Action performs request-to-value
+derivation once, while Results validate intrinsic retained relations and diagnostics
+without replaying the Action.  The result also retains selected and complementary
+frames, the
+complementary resolvent, direct projected tensors, the total
+remote Löwdin term, its kinetic--kinetic, remainder--remainder, and cross-term
+partition, and unit-carrying closure and basis-covariance diagnostics.  The retained
+covariance-probe base, gradient, and effective-quadratic tensors allow the Result to
+validate those diagnostics without a second eigensolve or request-to-reduction pass.
+Separate typed actions
+evaluate the finite quadratic polynomial at explicit Cartesian reciprocal offsets and
+contract its quadratic tensor along explicit normalized Cartesian directions.  They
+return unit-carrying matrix families and anti-Hermiticity diagnostics without
+performing eigenspectrum interpretation.
+
+This finite matrix construction does not identify a physical band manifold, track
+scalar bands through a degeneracy, convert curvature to effective mass, or establish
+mesh, interpolation, parent-model, or scientific convergence.
+
+.. currentmodule:: ksdft2effmass.solid_state.hamiltonians.effective.lowdin_quadratic.reduction
+
+.. autoclass:: WannierKineticLowdinQuadraticReductionRequest3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticReductionDiagnostics3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticReductionResult3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticReductionConstructor3D
+   :members:
+
+.. currentmodule:: ksdft2effmass.solid_state.hamiltonians.effective.lowdin_quadratic.evaluation
+
+.. autoclass:: WannierKineticLowdinQuadraticModelEvaluationRequest3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticModelEvaluationDiagnostics3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticModelEvaluationResult3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticModelEvaluator3D
+   :members:
+
+.. currentmodule:: ksdft2effmass.solid_state.hamiltonians.effective.lowdin_quadratic.contraction
+
+.. autoclass:: WannierKineticLowdinQuadraticDirectionalContractionRequest3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticDirectionalContractionDiagnostics3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticDirectionalContractionResult3D
+   :members:
+
+.. autoclass:: WannierKineticLowdinQuadraticDirectionalContractionConstructor3D
+   :members:
+
 Finite lattice geometry
 -----------------------
+
+.. currentmodule:: ksdft2effmass.solid_state
 
 .. autoclass:: LatticeDimension
    :members:

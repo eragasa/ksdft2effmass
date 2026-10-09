@@ -43,6 +43,35 @@ $$
 $$
 The construction of the required alignment map is part of the comparison problem, not part of the error norm.
 
+### Rectangular embeddings and finite-representation compression
+
+The map used for a common-space comparison need not identify two complete finite
+spaces unitarily. If $T:\mathcal V\rightarrow\mathcal G$ is an isometric embedding
+with $T^\dagger T=I_{\mathcal V}$, then
+
+$$
+\widetilde H_{\mathcal G\to\mathcal V}
+=T^\dagger H_{\mathcal G}T
+$$
+
+is the compression of the operator on $\mathcal G$ to the embedded copy of
+$\mathcal V$. When $T$ is proper rectangular,
+$TT^\dagger\ne I_{\mathcal G}$, this is not a similarity transform of the full
+$H_{\mathcal G}$ and does not imply equality of the full spectra. If the two finite
+spaces have equal dimension and $T$ is square unitary, the same expression is instead
+a full-space unitary similarity transform. Any signed difference formed with
+$\widetilde H_{\mathcal G\to\mathcal V}$ acts on $\mathcal V$.
+
+The periodic2d plane-wave/finite-difference comparison is one concrete finite example:
+its normalized Bloch sampling map embeds a retained plane-wave cutoff space into the
+coordinate-grid space. The exact map, ordering, sign, diagnostics, alias precondition,
+and limitations are authoritative in
+[`ksdft2Effmass.periodic2d-common-space-comparison.v1`](../../specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md).
+That comparison reports representation disagreement only. It does not by itself
+separate plane-wave cutoff, finite-difference dispersion, potential sampling/aliasing,
+compression, and roundoff effects, and it does not establish continuum convergence or
+physical-model adequacy.
+
 ## Absolute and Relative Operator Errors
 
 The absolute Frobenius error is
@@ -420,7 +449,7 @@ $$
 \right\|_{\mathrm{F}}
 }.
 $$
-The inverse tensor is used because it is directly proportional to the Hessian of the band energy.
+The inverse tensor is used because it is directly proportional to the Hessian of the band energy. The accepted silicon conduction-valley state identity, Cartesian tensor convention, convergence evidence, and route-specific error boundaries are defined by [`SiliconEffectiveMassValidationSpecification-v1`](../../specification/ksdft2Effmass.silicon-effective-mass-validation.v1.md).
 
 ## Spatially Resolved Error
 For an impurity model, define

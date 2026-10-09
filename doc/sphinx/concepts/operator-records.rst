@@ -132,14 +132,16 @@ The represented-operator migration therefore has the following bounded dispositi
      - Cosine-campaign adapter retaining its request and residual while delegating
        matrix assembly to the general two-dimensional constructor.
    * - ``Periodic2DFiniteDifferenceHamiltonianResult``
-     - Pending
-     - Grid order and the reduced momentum determining the seam phases are retained,
-       but reusable ownership still requires explicit general state-space, basis,
-       energy-reference, unit, and provenance metadata.
-   * - ``Periodic2DCommonSpaceComparisonResult``
      - Complete
+     - Cosine adapter retaining its exact request while delegating to the reusable
+       finite-difference owner with explicit Euclidean coordinate basis, grid order,
+       seam convention, energy unit/reference, represented identities, and provenance.
+   * - ``Periodic2DCommonSpaceComparisonResult``
+     - Implementation complete; Ready for gate after proposal acceptance
      - Threshold-free directional transport and disagreement result; it references
        represented operators but is neither another operator nor an acceptance result.
+       Reviewed-revision genesis dispositions qualify the three bounded numerical
+       oracles only when the exact proposal acceptance gate passes.
 
 Pending means that a required identity or convention is unavailable, not that the
 software may infer it. No registry, compatibility alias, shape-based conversion, or

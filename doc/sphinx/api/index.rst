@@ -14,6 +14,7 @@ public compatibility contract.
    research-monograph-campaigns
    ksdft2effmass/campaigns/piab1d/verification/index
    serialization
+   base
    application
    units
    plane-wave-calculators
@@ -22,6 +23,7 @@ public compatibility contract.
    periodic-records
    petrinet-colored
    workflows
+   workflows-v2
    persistence
    provenance
 

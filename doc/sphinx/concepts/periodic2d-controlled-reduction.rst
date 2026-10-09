@@ -55,9 +55,18 @@ This distinction separates periodic mesh topology from finite-basis truncation.
 ``Periodic2DCommonSpaceOperatorComparator`` now samples the retained plane waves on
 the coordinate grid and evaluates
 :math:`T^\dagger H_{\mathrm{FD}}T-H_{\mathrm{PW}}` only after checking model,
-momentum, geometry, energy, spin, ordering, and alias preconditions. It returns the
-isometry defect and operator norms without an acceptance threshold; see
-:doc:`../api/ksdft2effmass/periodic2d/common_space`.
+momentum, geometry, energy, spin, ordering, and alias preconditions. Its Result
+intrinsically checks the retained transport equation before checking the signed
+difference and all three diagnostics. It does not reconstruct the request-dependent
+sampling map or turn manual Result construction into execution provenance. The Action
+returns the isometry defect and operator norms without an acceptance threshold; see
+:doc:`../api/ksdft2effmass/periodic2d/common_space`. Three test-owned oracle records
+bind the fixed DFT-isometry, centered-stencil-dispersion, and resolved-cosine consumers
+to independent qualification tests and reviewed-revision genesis dispositions. The
+bounded numerical evidence becomes supported only when the exact proposal acceptance
+gate passes.
+Representation disagreement here remains separate from parent-model, retention,
+reduction, and scientific errors.
 
 The isolated campaign input is decoded into
 ``Periodic2DIsolatedBandCampaignDefinition`` before calculation. Its serializer owns
@@ -163,8 +172,13 @@ descriptive and preserves the negative convergence conclusion.
 256 initial localizations and 120 exact-checkpoint continuations. It preserves all
 60 final nonconverged outcomes, density-aware :math:`D_4` basin partitions, post-hoc
 exact-equivalence controls, density-threshold sensitivity, and the missing
-pre-execution tolerance control as a protocol deviation. The campaign verifies the
-retained transition and classification arithmetic without reading native run roots.
+pre-execution tolerance control as a protocol deviation. Its request-scoped verifier
+binds the proposal, deterministic-start design, result, and maintained extractor to
+fixed compact-source identities, then uses closed immutable records for transition and
+classification arithmetic without reading native run roots. The historical result's
+bare positive ``Infinity`` is confined to two rejected-comparison extended-real fields;
+duplicate keys and every other nonfinite use fail closed. The exact retained disposition
+remains negative and does not prove that no convergence limit exists.
 
 ``Periodic2DOptimizerRegressionCampaign`` retains all 60 nonconverged endpoints as
 right-censored observations in an exploratory log-normal model. Its independent

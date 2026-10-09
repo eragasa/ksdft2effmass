@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "qualification_schema": "urn:ksdft2effmass:schema:testing:oracle-qualification-record:v1",
+  "oracle_id": "periodic2d.common-space.dft-orthogonality.v1",
+  "kind": "exact_analytic_identity",
+  "evidence_class": "numerical_verification",
+  "claim": "In the three fixed row-036 consumer domains, normalized period-2*pi sampled plane-wave columns are orthonormal in exact arithmetic; the M=2,N=5 map is additionally square unitary, while the two M=1 maps make only the column-isometry claim.",
+  "authoritative_definition": {
+    "repository_paths": [
+      "specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md",
+      "docs/architecture/v2/ksdft2effmass/periodic2d/compare/common_space/Periodic2DCommonSpaceOperatorComparator/implementation/mathematics/index.md",
+      "docs/architecture/v2/ksdft2effmass/periodic2d/compare/common_space/oracles/dft-orthogonality-v1.md"
+    ],
+    "equation_ids": [
+      "EQ-PERIODIC2D-COMMON-005",
+      "EQ-PERIODIC2D-COMMON-006"
+    ],
+    "sections": [
+      "Directional common-space map",
+      "Sampling embedding",
+      "Derivation"
+    ],
+    "terminating_authority": "Finite scalar geometric-series sums for fifth and seventh roots of unity with explicit two-dimensional product ordering.",
+    "provenance": "Repository-derived finite Fourier algebra under the project specification; no external numerical value is used."
+  },
+  "implementation": {
+    "mode": "artifact_owned_test",
+    "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+    "nodes": [
+      "TestPeriodic2DCommonSpaceOracleQualification::test_dft_orthogonality__fixed_domains__matches_declared_gram_products"
+    ]
+  },
+  "assumptions": [
+    "The direct cell is the half-open square [0,2*pi)^2.",
+    "Every retained directional reciprocal-label set is distinct modulo its declared N.",
+    "Both directional factors use the same reduced Bloch momentum and gauge.",
+    "The sampling map carries one 1/sqrt(N) factor per direction.",
+    "Two-sided unitarity is claimed only for the square M=2,N=5 domain.",
+    "The numerical claims are restricted to the three fixed binary64/complex128 domains."
+  ],
+  "representation_contract": {
+    "state_spaces": [
+      "Source V_M^kappa is C^((2*M+1)^2) in finite plane-wave coefficient coordinates.",
+      "Target G_N is C^(N^2) in Euclidean coordinate-site coordinates."
+    ],
+    "basis": [
+      "Plane-wave modes exp(i[(kappa_x+p)x+(kappa_y+q)y]) for p,q=-M,...,M.",
+      "Euclidean samples at x_i=y_i=2*pi*i/N for i=0,...,N-1."
+    ],
+    "gauge_or_frame": "One fixed Bloch fiber per declared domain; the common phase cancels in exact Gram products. No retained-space frame is involved.",
+    "normalization": "Each directional sampling factor is 1/sqrt(N); the two-dimensional map factor is 1/N.",
+    "geometry": "Dimensionless square period-2*pi cell with reciprocal primitive matrix I.",
+    "ordering": [
+      "Rows use x_outer_y_inner coordinate-site order.",
+      "Columns use p_outer_q_inner reciprocal-mode order."
+    ],
+    "energy_reference": "not_applicable: the oracle concerns a unitless map, not an energy-valued operator.",
+    "units": [
+      "Sampling map, Gram matrices, and isometry diagnostics are unitless."
+    ]
+  },
+  "validity_domain": {
+    "inputs": [
+      "Square case: M=2, N=5, reduced momentum=(0.13,-0.21), free potential.",
+      "Free rectangular case: M=1, N=5, reduced momentum=(0.13,-0.21), free potential.",
+      "Cosine rectangular case: M=1, N=7, reduced momentum=(-0.17,0.09), couplings=(0.4,0.7,0.2)."
+    ],
+    "parameter_range": [
+      "Exactly the three listed reciprocal-label sets, grids, and momenta; no interval generalization."
+    ],
+    "dtypes": [
+      "binary64 inputs",
+      "complex128 scalar finite sums and Gram matrices"
+    ],
+    "shapes": [
+      "square sampling map 25x25 with both Gram products 25x25",
+      "rectangular sampling maps 25x9 and 49x9 with column Gram products 9x9"
+    ],
+    "environment": [
+      "Maintained Python environment with NumPy scalar complex arithmetic."
+    ],
+    "applicability_limits": [
+      "Arbitrary momentum is an exact-arithmetic algebraic generalization only.",
+      "Large finite binary64 momentum can lose integer reciprocal offsets.",
+      "The tolerances are not qualified for another M, N, momentum, dtype, or backend.",
+      "Column isometry does not imply potential-transfer alias freedom.",
+      "Two-sided unitarity does not apply to either proper rectangular map."
+    ]
+  },
+  "comparator": {
+    "rules": [
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__equal_basis_and_grid_sides__map_is_unitary",
+        "quantity": "T^dagger*T and T*T^dagger against the complex identity",
+        "comparison": "numpy.testing.assert_allclose with zero relative contribution",
+        "norm": "maximum entrywise absolute discrepancy"
+      },
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion",
+        "quantity": "stored Frobenius norm of T^dagger*T-I",
+        "comparison": "strict scalar less-than comparison",
+        "norm": "Frobenius norm"
+      },
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error",
+        "quantity": "stored Frobenius norm of T^dagger*T-I",
+        "comparison": "strict scalar less-than comparison",
+        "norm": "Frobenius norm"
+      }
+    ]
+  },
+  "tolerance": {
+    "rules": [
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__equal_basis_and_grid_sides__map_is_unitary",
+        "relative": 0.0,
+        "absolute": 6e-15,
+        "scale": "fixed 25-dimensional unit-scale identity",
+        "zero_reference_behavior": "Entries whose expected value is zero use only the absolute tolerance."
+      },
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion",
+        "relative": 0.0,
+        "absolute": 4e-15,
+        "scale": "fixed 9-column isometry diagnostic on a 25-site grid",
+        "zero_reference_behavior": "The exact Frobenius defect is zero; the strict threshold is absolute."
+      },
+      {
+        "consumer_node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error",
+        "relative": 0.0,
+        "absolute": 5e-15,
+        "scale": "fixed 9-column isometry diagnostic on a 49-site grid",
+        "zero_reference_behavior": "The exact Frobenius defect is zero; the strict threshold is absolute."
+      }
+    ]
+  },
+  "tolerance_rationale": "The exact identities have zero mathematical error. The proposed nonzero bounds cover only fixed-case binary64 phase formation and complex128 finite sums or dense consumer products; they are not a general scaling law.",
+  "independence_boundary": {
+    "forbidden_imports": [
+      "ksdft2effmass.periodic2d.compare.common_space",
+      "ksdft2effmass.periodic2d.model.toy_models",
+      "ksdft2effmass.analysis.model_systems.periodic2d"
+    ],
+    "forbidden_symbols": [
+      "Periodic2DCommonSpaceOperatorComparator",
+      "_plane_wave_to_grid_sampling_map",
+      "outer",
+      "kron"
+    ],
+    "allowed_dependencies": [
+      "Python built-ins",
+      "NumPy scalar phase, summation, norm, and assertion operations",
+      "pytest collection and fixed parameterization"
+    ],
+    "rationale": "Qualification terminates at explicit scalar fifth- and seventh-root finite sums and cannot construct or reuse the production sampling matrix or comparator."
+  },
+  "qualification_evidence": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__common_space_oracle_qualification.py",
+      "node": "TestPeriodic2DCommonSpaceOracleQualification::test_dft_orthogonality__fixed_domains__matches_declared_gram_products"
+    }
+  ],
+  "consumers": [
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+      "node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__equal_basis_and_grid_sides__map_is_unitary"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+      "node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__free_operator__matches_discrete_fourier_dispersion"
+    },
+    {
+      "path": "python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/test__Periodic2DCommonSpaceOperatorComparator.py",
+      "node": "TestPeriodic2DCommonSpaceOperatorComparator::test_execute__cosine_operator__isolates_discrete_kinetic_error"
+    }
+  ],
+  "excluded_claims": [
+    "Potential-transfer alias freedom.",
+    "Centered-difference accuracy or continuum convergence.",
+    "Physical retained-space identity or parent-model adequacy.",
+    "Scientific validation, uncertainty quantification, or human acceptance."
+  ],
+  "change_policy": {
+    "new_version_when": [
+      "The period, grid origin, normalization, map direction, basis convention, or semantic claim changes."
+    ],
+    "new_disposition_when": [
+      "The record bytes, qualification test, consumer, tolerance, fixed domain, dtype, backend, or reviewed evidence revision changes."
+    ]
+  }
+}

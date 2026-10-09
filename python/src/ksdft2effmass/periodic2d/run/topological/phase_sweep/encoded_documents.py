@@ -5,7 +5,30 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DTopologicalPhaseSweepEncodedDocuments:
-    """Store exact version-one phase-sweep input and result bytes."""
+    """Retain exact encoded periodic-2D topological phase-sweep documents.
+
+    Parameters
+    ----------
+    input_payload
+        Exact nonempty built-in bytes for the retained phase-sweep input document.
+    result_payload
+        Exact nonempty built-in bytes for the retained phase-sweep result document.
+
+    Raises
+    ------
+    TypeError
+        If either payload is not exact built-in :class:`bytes`.
+    ValueError
+        If either payload is empty.
+
+    Notes
+    -----
+    The DataObject preserves byte identity without decoding, normalization, copying, or
+    filesystem access. It does not infer parameter axes, sample availability, model or
+    phase identity, topology, provenance, convergence, validation, uncertainty, or
+    acceptance. Encoded expected observations are retained campaign content rather than
+    qualified numerical oracles.
+    """
 
     input_payload: bytes
     result_payload: bytes

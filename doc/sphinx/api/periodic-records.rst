@@ -33,6 +33,10 @@ for later model catalogs and compatible-observation comparisons.
    ksdft2effmass/periodic/catalog
    ksdft2effmass/periodic1d/hopping
    ksdft2effmass/periodic1d/model
+   ksdft2effmass/periodic1d/fibers
+   ksdft2effmass/periodic1d/plane_waves
+   ksdft2effmass/periodic1d/finite_differences
+   ksdft2effmass/periodic1d/supercell_operators
    ksdft2effmass/periodic1d/representations
    ksdft2effmass/periodic1d/retention
    ksdft2effmass/periodic2d/retention

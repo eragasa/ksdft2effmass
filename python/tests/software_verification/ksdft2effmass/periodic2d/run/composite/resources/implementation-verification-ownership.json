@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "scope": "periodic-2D composite campaign contracts and retained evidence",
+  "modules": [
+    {
+      "path": "python/tests/ksdft2effmass/periodic2d/run/composite/test__Periodic2DCompositeCampaign.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DCompositeCampaign and calculation/correlation/verification operations"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/composite/test__Periodic2DCompositeEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DCompositeEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/composite/test__integration__periodic_2d_composite_encoded_document_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d/composite-input.json; calculations/research-monograph/periodic-2d/composite-result.json; calculations/research-monograph/periodic-2d/SHA256SUMS"
+    }
+  ]
+}

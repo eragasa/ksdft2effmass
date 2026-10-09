@@ -7,7 +7,7 @@ import json
 from ksdft2effmass.serialization import JsonCodec
 
 from ..definition import Periodic2DIsolatedBandCampaignDefinition
-from .decoding import JsonValue, Periodic2DCampaignJsonDecoder
+from .decoding import JsonValue, Periodic2DIsolatedBandJsonDecoder
 
 
 class Periodic2DIsolatedBandCampaignJsonSerializer(
@@ -17,7 +17,7 @@ class Periodic2DIsolatedBandCampaignJsonSerializer(
 
     __slots__ = ()
 
-    decoder = Periodic2DCampaignJsonDecoder()
+    decoder = Periodic2DIsolatedBandJsonDecoder()
 
     def deserialize(self, payload: bytes) -> Periodic2DIsolatedBandCampaignDefinition:
         """Decode strict version-one JSON without executing the campaign."""

@@ -5,8 +5,6 @@ from __future__ import annotations
 
 import hashlib
 import itertools
-import json
-import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
@@ -14,11 +12,10 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
+from ksdft2effmass.serialization.json.decoding import JsonValue, StrictJsonDecoder
+
 from .encoded_documents import Periodic2DWannier90BalancedEncodedDocuments
 
-type JsonValue = (
-    None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
-)
 type ComplexMatrix = npt.NDArray[np.complex128]
 type ComplexFrames = npt.NDArray[np.complex128]
 type RealMatrix = npt.NDArray[np.float64]
@@ -36,62 +33,62 @@ class Periodic2DWannier90BalancedReconstructor:
         repository_root: Path,
         extractor_path: Path,
     ) -> None:
-        """Authenticate and reconstruct repository-portable evidence."""
-        self._execute(
-            result_payload,
-            portable=True,
-            repository_root=repository_root,
-            extractor_path=extractor_path,
-        )
+        """Authenticate and reconstruct repository-portable evidence.
 
-    def _execute(
-        self,
-        result_payload: bytes,
-        *,
-        portable: bool,
-        repository_root: Path,
-        extractor_path: Path,
-    ) -> None:
-        result = self._mapping(
-            cast(JsonValue, json.loads(result_payload.decode("utf-8")))
-        )
+        Parameters
+        ----------
+        result_payload
+            Exact retained balanced-result JSON bytes.
+        repository_root
+            Absolute confinement root for all repository-owned sources.
+        extractor_path
+            Declared extractor source path, which must resolve within
+            ``repository_root`` and match the retained SHA-256 identity.
+
+        Raises
+        ------
+        TypeError
+            If payload or path representations are invalid or a strict JSON field has
+            the wrong representation.
+        ValueError
+            If JSON is malformed, duplicate-keyed, nonfinite, unsupported, or a path
+            escapes ``repository_root``.
+        OverflowError
+            If a consumed integer cannot be represented as binary64.
+        AssertionError
+            If source authentication or a reconstructed retained observation fails.
+        MemoryError
+            If dense frame, Hamiltonian, localization, or JSON allocation fails.
+        """
+        if type(result_payload) is not bytes:
+            raise TypeError("result_payload must be bytes")
+        if not isinstance(repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
+        if not isinstance(extractor_path, Path):
+            raise TypeError("extractor_path must be pathlib.Path")
+        result = StrictJsonDecoder().document(result_payload)
         if self._integer(result["schema_version"]) != 1:
             raise ValueError("unexpected result schema")
         if result["evidence_status"] != "calculated illustrative converged comparison":
             raise ValueError("unexpected evidence status")
         provenance = self._mapping(result["provenance"])
         resolved_repository_root = repository_root.resolve()
-        input_reference = Path(self._string(provenance["input_path"]))
-        input_path = (
-            input_reference
-            if input_reference.is_absolute()
-            else resolved_repository_root / input_reference
+        resolved_extractor_path = self._confined_path(
+            resolved_repository_root, extractor_path, "extractor_path"
         )
-        resolved_extractor_path = extractor_path.resolve()
         self._identity(
             resolved_extractor_path,
             self._string(provenance["extractor_sha256"]),
             "extractor",
         )
-        if portable:
-            fixture = self._mapping(result["portable_evidence"])
-            input_payload = self._string(fixture["input_payload_utf8"]).encode()
-            self._content_identity(
-                input_payload, self._string(provenance["input_sha256"]), "input"
-            )
-            controls = self._mapping(
-                cast(JsonValue, json.loads(input_payload.decode("utf-8")))
-            )
-        else:
-            self._identity(
-                input_path, self._string(provenance["input_sha256"]), "input"
-            )
-            controls = self._mapping(
-                cast(JsonValue, json.loads(input_path.read_text(encoding="utf-8")))
-            )
-        run_root = Path(self._string(provenance["external_run_root"]))
-        seed_dir = run_root / "low_triple"
-        files = self._array(provenance["files"])
+        fixture = self._mapping(result["portable_evidence"])
+        input_payload = self._string(fixture["input_payload_utf8"]).encode()
+        self._content_identity(
+            input_payload, self._string(provenance["input_sha256"]), "input"
+        )
+        controls = StrictJsonDecoder().document(input_payload)
         execution = self._mapping(result["execution"])
         if not self._boolean(execution["convergence_criterion_satisfied"]):
             raise AssertionError("localization is not marked converged")
@@ -100,71 +97,16 @@ class Periodic2DWannier90BalancedReconstructor:
         if self._real(execution["transverse_lattice_length"]) <= 0.0:
             raise AssertionError("transverse lattice length must be positive")
 
-        if portable:
-            kpoints = self._real_matrix(fixture["kpoints_fractional"])
-            w90_unitaries = self._complex_matrix(
-                fixture["w90_unitaries_real_imaginary"]
-            )
-            energies = self._real_matrix(fixture["energies_energy_units"])
-            blocks = self._portable_hopping_blocks(fixture["hopping_blocks"])
-            native_total_observed = self._real(
-                fixture["native_total_spread_cell_squared"]
-            )
-            self._equal(
-                self._integer(fixture["native_convergence_iterations"]),
-                self._integer(execution["iterations"]),
-                "portable convergence iterations",
-            )
-        else:
-            for file_value in files:
-                record = self._mapping(file_value)
-                path = seed_dir / self._string(record["name"])
-                self._identity(path, self._string(record["sha256"]), path.name)
-                self._equal(
-                    path.stat().st_size, self._integer(record["bytes"]), path.name
-                )
-            self._equal(
-                int((seed_dir / "low_triple.pp.exitcode").read_text().strip()),
-                self._integer(execution["preprocessing_exit_code"]),
-                "preprocessing exit",
-            )
-            self._equal(
-                int((seed_dir / "low_triple.run.exitcode").read_text().strip()),
-                self._integer(execution["localization_exit_code"]),
-                "localization exit",
-            )
-            wout = (seed_dir / "low_triple.wout").read_text(encoding="utf-8")
-            if "Wannierisation convergence criteria satisfied" not in wout:
-                raise AssertionError("native convergence statement is absent")
-            iterations = re.findall(r"^\s+(\d+)\s+.*<-- CONV$", wout, re.MULTILINE)
-            if not iterations:
-                raise AssertionError("native convergence iterations are absent")
-            self._equal(
-                int(iterations[-1]),
-                self._integer(execution["iterations"]),
-                "iterations",
-            )
-            total_match = re.search(
-                r"Final Spread \(Ang\^2\)\s+Omega Total\s+=\s+([^\s]+)",
-                wout.rsplit("Final State", maxsplit=1)[1],
-            )
-            if total_match is None:
-                raise AssertionError("native final spread is absent")
-            native_total_observed = float(total_match.group(1))
-            kpoints, w90_unitaries = self._u_matrices(seed_dir / "low_triple_u.mat")
-            energies = self._energies(seed_dir / "low_triple.eig", kpoints.shape[0])
-            blocks = self._hopping_blocks(seed_dir / "low_triple_hr.dat")
-            self._equal(
-                self._neighbor_count(seed_dir / "low_triple.nnkp"),
-                self._integer(execution["interface_neighbor_count"]),
-                "interface neighbor count",
-            )
-            self._close(
-                self._transverse_lattice_length(seed_dir / "low_triple.win"),
-                self._real(execution["transverse_lattice_length"]),
-                1.0e-14,
-                "transverse lattice length",
-            )
+        kpoints = self._real_matrix(fixture["kpoints_fractional"])
+        w90_unitaries = self._complex_matrix(fixture["w90_unitaries_real_imaginary"])
+        energies = self._real_matrix(fixture["energies_energy_units"])
+        blocks = self._portable_hopping_blocks(fixture["hopping_blocks"])
+        native_total_observed = self._real(fixture["native_total_spread_cell_squared"])
+        self._equal(
+            self._integer(fixture["native_convergence_iterations"]),
+            self._integer(execution["iterations"]),
+            "portable convergence iterations",
+        )
         direct_unitaries, raw_frames = self._direct_polar_frames(controls, kpoints)
         direct_hamiltonians = np.einsum(
             "kji,kj,kjl->kil", direct_unitaries.conj(), energies, direct_unitaries
@@ -367,19 +309,15 @@ class Periodic2DWannier90BalancedReconstructor:
             "centered_mesh_direct_projected_total_spread_cell_squared"
         ]
         if recorded_centered_total is not None:
-            composite_result = self._mapping(
-                cast(
-                    JsonValue,
-                    json.loads(
-                        (
-                            resolved_repository_root
-                            / (
-                                "calculations/research-monograph/periodic-2d/"
-                                "composite-result.json"
-                            )
-                        ).read_text(encoding="utf-8")
-                    ),
-                )
+            composite_result_path = self._confined_path(
+                resolved_repository_root,
+                Path(
+                    "calculations/research-monograph/periodic-2d/composite-result.json"
+                ),
+                "composite result path",
+            )
+            composite_result = StrictJsonDecoder().document(
+                composite_result_path.read_bytes()
             )
             smooth = self._mapping(composite_result["smooth_projected_gauge"])
             centered_direct_total = sum(
@@ -612,57 +550,6 @@ class Periodic2DWannier90BalancedReconstructor:
             raw_frames[point] = raw
         return unitaries, raw_frames
 
-    def _u_matrices(self, path: Path) -> tuple[RealMatrix, ComplexFrames]:
-        lines = path.read_text(encoding="utf-8").splitlines()
-        count, rows, columns = (int(value) for value in lines[1].split())
-        kpoints = np.empty((count, 3), dtype=np.float64)
-        matrices = np.empty((count, rows, columns), dtype=np.complex128)
-        cursor = 2
-        for point in range(count):
-            while not lines[cursor].strip():
-                cursor += 1
-            kpoints[point] = [float(value) for value in lines[cursor].split()]
-            cursor += 1
-            values: list[complex] = []
-            for _ in range(rows * columns):
-                real, imaginary = (float(value) for value in lines[cursor].split())
-                values.append(complex(real, imaginary))
-                cursor += 1
-            matrices[point] = np.asarray(values).reshape((rows, columns), order="F")
-        return kpoints, matrices
-
-    def _energies(self, path: Path, count: int) -> RealMatrix:
-        result = np.empty((count, 3), dtype=np.float64)
-        for line in path.read_text(encoding="utf-8").splitlines():
-            band, point, energy = line.split()
-            result[int(point) - 1, int(band) - 1] = float(energy)
-        return result
-
-    def _hopping_blocks(self, path: Path) -> dict[tuple[int, int], ComplexMatrix]:
-        lines = path.read_text(encoding="utf-8").splitlines()
-        rank = int(lines[1])
-        count = int(lines[2])
-        degeneracies: list[int] = []
-        cursor = 3
-        while len(degeneracies) < count:
-            degeneracies.extend(int(value) for value in lines[cursor].split())
-            cursor += 1
-        if any(value != 1 for value in degeneracies):
-            raise AssertionError("nonunit hopping degeneracy")
-        blocks: dict[tuple[int, int], ComplexMatrix] = {}
-        for line in lines[cursor:]:
-            rx, ry, rz, row, column, real, imaginary = line.split()
-            if int(rz) != 0:
-                raise AssertionError("inactive hopping is nonzero")
-            matrix = blocks.setdefault(
-                (int(rx), int(ry)),
-                np.zeros((rank, rank), dtype=np.complex128),
-            )
-            matrix[int(row) - 1, int(column) - 1] = complex(
-                float(real), float(imaginary)
-            )
-        return blocks
-
     def _real_matrix(self, value: JsonValue) -> RealMatrix:
         return np.array(
             [self._reals(row) for row in self._array(value)], dtype=np.float64
@@ -700,16 +587,13 @@ class Periodic2DWannier90BalancedReconstructor:
             blocks[(translation[0], translation[1])] = matrix
         return blocks
 
-    def _neighbor_count(self, path: Path) -> int:
-        lines = [line.strip() for line in path.read_text(encoding="utf-8").splitlines()]
-        return int(lines[lines.index("begin nnkpts") + 1])
-
-    def _transverse_lattice_length(self, path: Path) -> float:
-        lines = [line.strip() for line in path.read_text(encoding="utf-8").splitlines()]
-        fields = lines[lines.index("begin unit_cell_cart") + 4].split()
-        if len(fields) != 3:
-            raise ValueError("unexpected transverse lattice vector")
-        return float(fields[2])
+    @staticmethod
+    def _confined_path(root: Path, declared_path: Path, name: str) -> Path:
+        """Resolve one source path and require repository-root containment."""
+        candidate = (root / declared_path).resolve()
+        if not candidate.is_relative_to(root):
+            raise ValueError(f"{name} must be confined to repository_root")
+        return candidate
 
     def _content_identity(self, payload: bytes, expected: str, label: str) -> None:
         actual = hashlib.sha256(payload).hexdigest()
@@ -726,34 +610,22 @@ class Periodic2DWannier90BalancedReconstructor:
             )
 
     def _mapping(self, value: JsonValue) -> dict[str, JsonValue]:
-        if not isinstance(value, dict):
-            raise TypeError("expected a mapping")
-        return value
+        return StrictJsonDecoder().mapping(value, "value")
 
     def _array(self, value: JsonValue) -> list[JsonValue]:
-        if not isinstance(value, list):
-            raise TypeError("expected an array")
-        return value
+        return StrictJsonDecoder().array(value, "value")
 
     def _string(self, value: JsonValue) -> str:
-        if not isinstance(value, str):
-            raise TypeError("expected a string")
-        return value
+        return StrictJsonDecoder.string(value, "value")
 
     def _boolean(self, value: JsonValue) -> bool:
-        if not isinstance(value, bool):
-            raise TypeError("expected a boolean")
-        return value
+        return StrictJsonDecoder.boolean(value, "value")
 
     def _integer(self, value: JsonValue) -> int:
-        if isinstance(value, bool) or not isinstance(value, int):
-            raise TypeError("expected an integer")
-        return value
+        return StrictJsonDecoder.integer(value, "value")
 
     def _real(self, value: JsonValue) -> float:
-        if isinstance(value, bool) or not isinstance(value, int | float):
-            raise TypeError("expected a real number")
-        return float(value)
+        return StrictJsonDecoder.real(value, "value")
 
     def _reals(self, value: JsonValue) -> tuple[float, ...]:
         return tuple(self._real(item) for item in self._array(value))

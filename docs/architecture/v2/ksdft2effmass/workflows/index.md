@@ -1,5 +1,9 @@
 # `ksdft2effmass.workflows` package
 
+> **Version boundary:** this page documents the established v1 package. The
+> [provisional v2 compatibility boundary](v2/index.md) stages requirements for
+> the future ProjectKoios Workflows owner without aliasing or modifying v1.
+
 ## Responsibility
 
 `ksdft2effmass.workflows` owns calculator-independent `AbstractResultObject`, the `AbstractTask`, `AbstractScientificTask`, `AbstractSimulationTask`, `AbstractWorkflow`, and `NestedWorkflowTask` ABCs, `WorkflowTaskBinding`, `WorkflowExecutionPlan`, `WorkflowEngine`, immutable `TaskStartGateSet`, discriminated `TaskActivation`, closed `TaskInvocationOutcome`, correlated `NestedWorkflowInvocation`, Workflow-owned start-gate and invocation policy, `ColoredPetriNetWorkflowAdapter`, `WorkflowRun`, `ScientificDecisionRequest`, `ScientificDecisionResolution`, `ScientificDecisionRecorder`, exact execution authority/dispatch/reconciliation contracts, artifact lineage, normalization aggregation, and analysis readiness. The [implementation page](../workflow/implementation.md) records implemented and pending portions.
@@ -57,6 +61,7 @@ retry, convergence interpretation, or acceptance.
 
 ## Detailed pages
 
+- [Provisional v2 compatibility boundary](v2/index.md)
 - [Workflow architecture gate](architecture-gate.md)
 - [Workflow architecture migration](migration/index.md)
 - [Human decisions](../../human-decisions.md)

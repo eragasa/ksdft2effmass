@@ -4,12 +4,12 @@
 from __future__ import annotations
 
 import hashlib
-import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
 
-from ..balanced.verify import JsonValue, Periodic2DWannier90BalancedReconstructor
+from ksdft2effmass.serialization.json.decoding import JsonValue, StrictJsonDecoder
+
+from ..balanced.verify import Periodic2DWannier90BalancedReconstructor
 from .encoded_documents import Periodic2DWannier90StudyEncodedDocuments
 
 
@@ -27,7 +27,53 @@ class Periodic2DWannier90StudyReconstructor:
         study_extractor_path: Path,
         base_extractor_path: Path,
     ) -> None:
-        """Authenticate and reconstruct every repository-portable study case."""
+        """Authenticate and reconstruct every repository-portable study case.
+
+        Parameters
+        ----------
+        input_payload
+            Exact retained study-input JSON bytes.
+        result_payload
+            Exact retained study-result JSON bytes.
+        repository_root
+            Absolute confinement root for every source consumed by verification.
+        study_extractor_path
+            Declared study-extractor source path inside ``repository_root``.
+        base_extractor_path
+            Declared balanced-extractor source path inside ``repository_root``.
+
+        Raises
+        ------
+        TypeError
+            If payload/path representations or strict JSON fields have the wrong type.
+        ValueError
+            If JSON is malformed, duplicate-keyed, nonfinite, unsupported, or any
+            retained/explicit path escapes ``repository_root``.
+        OverflowError
+            If a consumed integer cannot be represented as binary64.
+        AssertionError
+            If source authentication, declared-case correlation, or independent
+            reconstruction fails.
+        MemoryError
+            If decoded records or delegated dense reconstruction cannot be allocated.
+        """
+        if type(input_payload) is not bytes or type(result_payload) is not bytes:
+            raise TypeError("input_payload and result_payload must be bytes")
+        if not isinstance(repository_root, Path):
+            raise TypeError("repository_root must be pathlib.Path")
+        if not repository_root.is_absolute():
+            raise ValueError("repository_root must be absolute")
+        if not isinstance(study_extractor_path, Path) or not isinstance(
+            base_extractor_path, Path
+        ):
+            raise TypeError("extractor paths must be pathlib.Path")
+        resolved_repository_root = repository_root.resolve()
+        resolved_study_extractor = self._confined_path(
+            resolved_repository_root, study_extractor_path, "study_extractor_path"
+        )
+        resolved_base_extractor = self._confined_path(
+            resolved_repository_root, base_extractor_path, "base_extractor_path"
+        )
         result = self._loads(result_payload)
         if self._integer(result["schema_version"]) != 1:
             raise ValueError("unsupported study result schema")
@@ -36,11 +82,14 @@ class Periodic2DWannier90StudyReconstructor:
         if result["all_declared_cases_completed"] is not True:
             raise AssertionError("not every declared case completed")
         provenance = self._mapping(result["provenance"])
-        reference_path = repository_root / self._string(
-            provenance["reference_result_path"]
+        reference_path = self._confined_path(
+            resolved_repository_root,
+            resolved_repository_root
+            / self._string(provenance["reference_result_path"]),
+            "reference_result_path",
         )
         self._identity(
-            study_extractor_path,
+            resolved_study_extractor,
             self._string(provenance["extractor_sha256"]),
             "study extractor",
         )
@@ -55,7 +104,7 @@ class Periodic2DWannier90StudyReconstructor:
             "reference result",
         )
         self._identity(
-            base_extractor_path,
+            resolved_base_extractor,
             self._string(provenance["base_extractor_sha256"]),
             "base extractor",
         )
@@ -87,7 +136,11 @@ class Periodic2DWannier90StudyReconstructor:
                 0.0,
                 f"{case_id} transverse length",
             )
-            case_path = repository_root / self._string(record["portable_result_path"])
+            case_path = self._confined_path(
+                resolved_repository_root,
+                resolved_repository_root / self._string(record["portable_result_path"]),
+                f"{case_id} portable_result_path",
+            )
             self._identity(
                 case_path,
                 self._string(record["portable_result_sha256"]),
@@ -95,8 +148,8 @@ class Periodic2DWannier90StudyReconstructor:
             )
             verifier.execute_portable(
                 case_path.read_bytes(),
-                repository_root=repository_root,
-                extractor_path=base_extractor_path,
+                repository_root=resolved_repository_root,
+                extractor_path=resolved_base_extractor,
             )
             self._verify_summary(record, self._load(case_path), case_id)
 
@@ -145,7 +198,7 @@ class Periodic2DWannier90StudyReconstructor:
         )
 
     def _loads(self, payload: bytes) -> dict[str, JsonValue]:
-        return self._mapping(cast(JsonValue, json.loads(payload.decode("utf-8"))))
+        return StrictJsonDecoder().document(payload)
 
     def _content_identity(self, payload: bytes, expected: str, label: str) -> None:
         actual = hashlib.sha256(payload).hexdigest()
@@ -155,9 +208,15 @@ class Periodic2DWannier90StudyReconstructor:
             )
 
     def _load(self, path: Path) -> dict[str, JsonValue]:
-        return self._mapping(
-            cast(JsonValue, json.loads(path.read_text(encoding="utf-8")))
-        )
+        return StrictJsonDecoder().document(path.read_bytes())
+
+    def _confined_path(self, root: Path, path: Path, label: str) -> Path:
+        resolved = path.resolve()
+        try:
+            resolved.relative_to(root)
+        except ValueError as error:
+            raise ValueError(f"{label} must be confined to repository_root") from error
+        return resolved
 
     def _identity(self, path: Path, expected: str, label: str) -> None:
         actual = hashlib.sha256(path.read_bytes()).hexdigest()
@@ -167,29 +226,19 @@ class Periodic2DWannier90StudyReconstructor:
             )
 
     def _mapping(self, value: JsonValue) -> dict[str, JsonValue]:
-        if not isinstance(value, dict):
-            raise TypeError("expected a mapping")
-        return value
+        return StrictJsonDecoder().mapping(value, "value")
 
     def _array(self, value: JsonValue) -> list[JsonValue]:
-        if not isinstance(value, list):
-            raise TypeError("expected an array")
-        return value
+        return StrictJsonDecoder().array(value, "value")
 
     def _string(self, value: JsonValue) -> str:
-        if not isinstance(value, str):
-            raise TypeError("expected a string")
-        return value
+        return StrictJsonDecoder.string(value, "value")
 
     def _integer(self, value: JsonValue) -> int:
-        if isinstance(value, bool) or not isinstance(value, int):
-            raise TypeError("expected an integer")
-        return value
+        return StrictJsonDecoder.integer(value, "value")
 
     def _real(self, value: JsonValue) -> float:
-        if isinstance(value, bool) or not isinstance(value, int | float):
-            raise TypeError("expected a real number")
-        return float(value)
+        return StrictJsonDecoder.real(value, "value")
 
     def _equal(self, actual: int, expected: int, label: str) -> None:
         if actual != expected:

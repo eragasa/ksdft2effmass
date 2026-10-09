@@ -11,7 +11,7 @@ type JsonValue = (
 )
 
 
-class Periodic2DCampaignJsonDecoder:
+class Periodic2DIsolatedBandJsonDecoder:
     """Decode strict UTF-8 JSON into a closed recursive representation."""
 
     __slots__ = ()

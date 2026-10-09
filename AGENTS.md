@@ -18,6 +18,7 @@ Authoritative project surfaces are:
 | Python dependency declarations | `python/pyproject.toml` |
 | Resolved Python dependencies | `python/uv.lock` |
 | Architecture | `docs/architecture/` |
+| Documentation policy | `DOCUMENTATION.md` |
 
 Read the relevant authoritative files before changing behavior. Do not create a
 competing source-tree layout.
@@ -95,6 +96,14 @@ mechanics belong to serializers. Avoid generic `Helper`, `Utils`, `Manager`,
 `Handler`, or `Processor` containers. Supported public imports must be deliberate
 and documented.
 
+Code-smell reviews must flag caller-supplied “private” evaluation witnesses that can
+bypass request/result correlation, and bespoke `object.__new__` plus
+`object.__setattr__` field-population blocks that bypass maintained-object
+constructors or invariants. Actions own request-to-value derivation; Results validate
+intrinsic immutable invariants and must not replay an expensive Action merely to imply
+that manual construction has authenticated provenance. Require explicit Action oracle
+tests and state that manual Result construction is not evidence that the Action ran.
+
 PhysKit owns the reusable lattice primitives imported by this package. Reusable
 finite-periodic capabilities that remain local may stay until a separately reviewed
 migration; do not duplicate them across repositories. This repository owns its
@@ -114,10 +123,32 @@ for style. Tests should establish one named behavior with explicit tolerances wh
 applicable. Use framework temporary directories only for runtime scratch; maintained
 resources belong under the relevant test tree.
 
-Use reStructuredText for `.rst` files and MyST Markdown for existing `.md` files under
-`doc/sphinx/`; use Markdown under `docs/`. Keep public source, tests, schemas,
-examples, and documentation consistent. Build Sphinx with warnings treated as errors
-when documentation changes.
+Follow `DOCUMENTATION.md`. Use reStructuredText for `.rst` files and MyST Markdown for
+existing `.md` files under `doc/sphinx/`; use Markdown under `docs/`. Keep public source,
+tests, schemas, examples, and documentation consistent. Build Sphinx with warnings
+treated as errors when documentation changes.
+
+## Pre-PR and commit safeguards
+
+Before opening or updating a pull request, verify the repository under the same
+bounded command, environment contract, and history assumptions used by CI; local
+partial success is not a substitute for that gate.
+
+- Reproduce the exact bounded CI command before opening the pull request.
+- Never treat a SHA-256 digest of a reconstructed floating-point array as a
+  cross-platform numerical oracle; libm and BLAS/LAPACK may change binary64 bytes
+  while values remain within the reviewed tolerance.
+- Preserve retained byte digests as content identities and compare reconstructed
+  numerical values under an explicit reviewed tolerance.
+- Record the OS, architecture, Python, NumPy, BLAS/LAPACK, and relevant math runtime
+  whenever bitwise numerical replay is an actual requirement.
+- Give tests that authenticate named historical revisions with `git show` a declared
+  full-history checkout instead of assuming shallow CI contains those revisions.
+- Encode non-obvious scientific and portability boundaries in the owning code's
+  docstrings and concise inline comments at the enforcement point; Markdown policy
+  alone is not durable implementation guidance.
+- Use a message file with `git commit -F` for multiline commit messages; never encode
+  paragraph breaks as literal `\\n` sequences in a command argument.
 
 ## Working procedure
 

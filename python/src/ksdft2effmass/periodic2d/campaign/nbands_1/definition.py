@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 from dataclasses import dataclass
 
 import numpy as np
@@ -250,28 +249,3 @@ class Periodic2DIsolatedBandProvenance:
                 character not in "0123456789abcdef" for character in digest
             ):
                 raise ValueError(f"{name} must be a lowercase SHA-256 digest")
-
-
-@dataclass(frozen=True, slots=True)
-class Periodic2DIsolatedBandResultDocument:
-    """Retain one canonical version-one periodic2d result document.
-
-    Parameters
-    ----------
-    payload
-        Nonempty exact UTF-8 JSON bytes emitted by the calculation owner.
-    """
-
-    payload: bytes
-
-    def __post_init__(self) -> None:
-        """Require nonempty exact immutable bytes."""
-        if type(self.payload) is not bytes:
-            raise TypeError("payload must be exact bytes")
-        if not self.payload:
-            raise ValueError("payload must be nonempty")
-
-    @property
-    def sha256(self) -> str:
-        """Return the canonical document SHA-256 identity."""
-        return hashlib.sha256(self.payload).hexdigest()

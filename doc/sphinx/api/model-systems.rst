@@ -141,15 +141,18 @@ historical one-dimensional normalized Appendix D experiment.
 .. autoclass:: ParticleInBoxGridEvaluator
    :members:
 
-Two-dimensional plane-wave Bloch operators
--------------------------------------------
+Two-dimensional periodic Bloch operators
+-----------------------------------------
 
 The reusable periodic2d plane-wave owner uses PhysKit direct and reciprocal lattices,
 an explicit finite Fourier inventory, reduced primitive-basis momentum coordinates,
-and a caller-toleranced two-pi duality check. The reciprocal-mesh surface adds
-centered half-open sampling, explicit positive-neighbor translations, and truncating
-finite-basis sewing maps. See
-:doc:`ksdft2effmass/analysis/model_systems/periodic2d/plane_waves` and
+and a caller-toleranced two-pi duality check. The finite-difference owner uses an
+explicit half-open coordinate grid, Euclidean site basis, energy metadata, centered
+stencil, and directed Bloch seams. The reciprocal-mesh surface adds centered half-open
+sampling, explicit positive-neighbor translations, and truncating finite-basis sewing
+maps. See
+:doc:`ksdft2effmass/analysis/model_systems/periodic2d/plane_waves`,
+:doc:`ksdft2effmass/analysis/model_systems/periodic2d/finite_differences`, and
 :doc:`ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh` for the complete
 mathematics, units, ordering, implementation, evidence, and limitation contracts.
 
@@ -157,6 +160,7 @@ mathematics, units, ordering, implementation, evidence, and limitation contracts
    :hidden:
 
    ksdft2effmass/analysis/model_systems/periodic2d/plane_waves
+   ksdft2effmass/analysis/model_systems/periodic2d/finite_differences
    ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh
 
 One-dimensional periodic Fourier models
@@ -174,29 +178,16 @@ compatible energy units. They do not select bands, construct gauges, run Wannier
 or apply Appendix G acceptance criteria. Reciprocal frame and hopping operations
 belong to :doc:`solid-state`.
 
-These two results remain reusable numerical representation outputs under
-``analysis.model_systems``. They retain their potential and finite construction inputs
-but do not carry stable identities for the complete parent model, parent operator, or
-parent state space. Canonical ``periodic1d`` ownership is therefore pending a
-parent-qualified request. The plane-wave result must preserve reciprocal-index order;
-the finite-difference result must additionally preserve half-open grid order and its
-conjugate Bloch-seam orientation. None of those missing identities is inferred from
-matrix dimension or the potential object.
+The parent-qualified periodic-1D fiber request and its finite plane-wave and
+finite-difference representations now belong to
+:doc:`ksdft2effmass/periodic1d/fibers`,
+:doc:`ksdft2effmass/periodic1d/plane_waves`, and
+:doc:`ksdft2effmass/periodic1d/finite_differences`. Their explicit request binds stable
+parent-model, represented-operator, and finite-state-space identities without inferring
+those identities from matrix dimension or the potential object. The plane-wave result
+preserves reciprocal-index order; the finite-difference result preserves half-open grid
+order and its conjugate Bloch-seam orientation. These finite results remain
+representations of the identified parent rather than the continuum operator itself.
 
 .. autoclass:: PeriodicFourierPotential1D
-   :members:
-
-.. autoclass:: PeriodicUniformGrid1D
-   :members:
-
-.. autoclass:: PlaneWaveFiberHamiltonian1DResult
-   :members:
-
-.. autoclass:: PlaneWaveFiberHamiltonian1DConstructor
-   :members:
-
-.. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DResult
-   :members:
-
-.. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DConstructor
    :members:

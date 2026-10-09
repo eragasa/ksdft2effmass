@@ -2,10 +2,12 @@
 
 ## Status
 
-**In implementation on the work branch.** The cosine-potential toy parent and
-scalar-hopping finite-extent defect now have nominal scientific-model membership, and
-the general plane-wave representation definition remains explicitly separate.
-Retained-space/operator adoption and campaign decomposition remain incomplete.
+**Implemented for every assigned crosswalk row.** Nominal models, finite
+representations, comparison, and campaign rows 067--072 are reconciled. Authenticated
+2D frame/projector coordinates remain explicitly unavailable, so no retained-space or
+retained-operator adoption is fabricated from ranks, spectra, names, or diagnostics.
+That unavailable scientific adoption is a bounded parity limitation, not an open
+crosswalk implementation row.
 
 ## Purpose
 
@@ -48,17 +50,61 @@ scientific validation.
 - [x] `PERIODIC-XWALK-034`: retain the cosine-model result as a campaign adapter whose
   constructor delegates the actual matrix assembly to the general 2D plane-wave
   constructor while preserving exact campaign correlation.
-- [ ] `PERIODIC-XWALK-035`: reusable finite-difference ownership remains blocked until
-  the currently implicit dimensionless matrix convention is replaced by explicit
-  general state-space, ordered-basis, energy-reference, unit, and provenance metadata.
-  Grid order and Bloch-seam direction must remain unchanged.
+- [x] `PERIODIC-XWALK-035`: the cosine finite-difference route is an adapter over the
+  reusable `FiniteDifferenceBlochHamiltonian2DConstructor`; the general contract owns
+  explicit state-space, Euclidean ordered-basis, energy-reference, unit, source/operator,
+  and provenance metadata while preserving grid order and Bloch-seam direction.
 - [x] `PERIODIC-XWALK-036`: keep the common-space object as a threshold-free comparison
   result with an explicit directional transport, signed difference, and intrinsically
-  correlated norms; it is neither a represented operator nor acceptance policy.
+  correlated norms; it is neither a represented operator nor acceptance policy. The
+  implementation disposition is complete. Three genesis `QUALIFIED` dispositions bind
+  the fixed-domain analytic oracles to reviewed revision
+  `f37e5d722f8c9007d8ea55c06e808c9c73bf775d`; their numerical-evidence status is
+  effective only when the exact proposal acceptance gate passes.
 
 These dispositions complete the demonstrated plane-wave adapter and common-space
-comparison boundaries without claiming overall Phase 7 completion. Missing metadata
-for row 035 are not inferred from the toy-model implementation.
+comparison boundaries. Missing scientific metadata are not inferred from the
+toy-model implementation.
+
+## `PERIODIC-XWALK-036` implementation and qualified-evidence dossier
+
+| Field | Reconciled row-036 content |
+|---|---|
+| Crosswalk identity | `PERIODIC-XWALK-036`; source owner `ksdft2effmass.periodic2d.compare.common_space.Periodic2DCommonSpaceComparisonResult` |
+| Scientific category | Campaign-specific finite represented-operator comparison Result; neither represented operator nor effective model |
+| Target ownership | Defining `periodic2d.compare.common_space` Request/Result/Comparator with deliberate `periodic2d.compare` and `periodic2d` exports |
+| Preserved meaning | Period-`2*pi` normalized sampling map, `p_outer_q_inner` columns, `x_outer_y_inner` rows, grid-to-plane-wave transport, signed `H_fd_tilde - H_pw` difference, and threshold-free Frobenius/max diagnostics |
+| Changed meaning | Result construction now rejects a transported matrix that is not `T^dagger H_fd T`; no name, sign, unit, ordering, public route, or acceptance policy changed |
+| Representation contract | Source space `C**(N**2)` in Euclidean coordinate-site order; target/common space `C**((2*M+1)**2)` in plane-wave order; fixed cosine parent, Bloch fiber, period-`2*pi` geometry, scalar spin, dimensionless energy and model zero; immutable complex128 matrices |
+| Construction route | Exact normalized sampling, directional congruence transport, then signed subtraction; no projection, band selection, disentanglement, fitting, downfolding, or acceptance threshold |
+| Error boundaries | Diagnostic disagreement may contain finite-difference and plane-wave representation effects; parent-model, retention, reduction, interpolation, convergence, UQ, and scientific errors remain separate |
+| Source documentation | Complete module/class/method NumPy docstrings, short delegated Result/Request checks, basis-order and alignment comments, explicit range/resource failures |
+| Public documentation | `specification/ksdft2Effmass.periodic2d-common-space-comparison.v1.md`; `doc/sphinx/api/ksdft2effmass/periodic2d/common_space.rst`; `doc/sphinx/concepts/periodic2d-controlled-reduction.rst`; canonical `docs/architecture/v2/ksdft2effmass/periodic2d/compare/` pages |
+| Verification | Software Request, Result, and Comparator evidence remains accepted. Three machine-readable records, local schemas, independent DFT/stencil/cosine-transfer tests, exact consumer bindings, and genesis `QUALIFIED` dispositions bound to reviewed revision `f37e5d722f8c9007d8ea55c06e808c9c73bf775d` are implemented. Numerical consumer tests exercise two-sided square-map unitarity at `M=2,N=5` and centered-difference relations with entrywise absolute tolerances `4e-15` and `6e-15`; their bounded numerical-verification status becomes effective only when the exact proposal commit passes its acceptance gate. |
+| Retained evidence | Not applicable: no retained calculation artifact is created or consumed; fixtures are synthetic software and bounded numerical evidence, not scientific validation |
+| Unavailable information | No material identity, continuum-limit result, external execution provenance, physical uncertainty, or scientific acceptance is supplied or inferred |
+| Claim boundary | Software verification is supported. Numerical verification is not yet evaluated under the new oracle-qualification gate; scientific validation, UQ, and human acceptance are not established. |
+
+## Campaign-row reconciliation
+
+Rows 067--072 preserve every retained input/result byte and historical experiment
+identity. The typed calculation, correlation, and verification request/result owners
+are decomposition boundaries around retained observations; they are not mathematical
+retained spaces, represented operators, effective models, qualified expected-result
+oracles, or scientific conclusions.
+
+| Row | Canonical code and supported import | Exact pytest nodes and ownership | Sphinx mapping | Reconciled boundary |
+|---|---|---|---|---|
+| `067` | `periodic2d.campaign.nbands_1.{definition,calculate,correlate,data,result_documents,verify,serialization}`; reviewed facade `ksdft2effmass.periodic2d.campaign.nbands_1` | `python/tests/ksdft2effmass/periodic2d/campaign/nbands_1/test__Periodic2DIsolatedBandCampaign.py`; mirrored software-verification manifest under `periodic2d/campaign/nbands_1/resources/` | `doc/sphinx/api/ksdft2effmass/periodic2d/campaign/nbands_1/serialization.rst` and `research-monograph-campaigns.rst` | Definition, provenance, exact documents, named result document, calculation, correlation, and independent verification are separate typed owners. Frame/projector coordinates remain unavailable, so detailed evidence is not promoted to a retained space/operator. |
+| `068` | `periodic2d.run.composite.{calculate,correlate,data,encoded_documents,verify}`; reviewed facade `ksdft2effmass.periodic2d.run.composite` | `python/tests/ksdft2effmass/periodic2d/run/composite/test__Periodic2DCompositeCampaign.py`; mirrored manifest under `periodic2d/run/composite/resources/` | `doc/sphinx/api/ksdft2effmass/periodic2d/run/composite.rst` | Typed input, provenance, result document, calculation, correlation, and verification results preserve represented-space and gauge diagnostics. Missing smooth/rough frame and projector bytes remain unavailable. |
+| `069` | `periodic2d.run.topological.{calculate,correlate,data,encoded_documents,verify}`; reviewed facade `ksdft2effmass.periodic2d.run.topological` | `python/tests/ksdft2effmass/periodic2d/run/topological/test__Periodic2DTopologicalCampaign.py`; mirrored manifest under `periodic2d/run/topological/resources/` | `doc/sphinx/api/ksdft2effmass/periodic2d/run/topological.rst` | Chern, Wilson, gap, and gauge-attack values are retained observations reconstructed independently. They are not qualified expected-result oracles or material claims. |
+| `070` | `periodic2d.run.topological.phase_sweep.{calculate,correlate,data,encoded_documents,verify}`; reviewed phase-sweep facade | `python/tests/ksdft2effmass/periodic2d/run/topological/phase_sweep/test__Periodic2DTopologicalPhaseSweepCampaign.py`; mirrored manifest under `periodic2d/run/topological/phase_sweep/resources/` | `doc/sphinx/api/ksdft2effmass/periodic2d/run/topological-phase-sweep.rst` | Axes, samples, and verification results are separate typed owners. Analytic outcomes at declared transition points remain explicit `null`/unavailable values and are never imputed. |
+| `071` | `periodic2d.run.wannier90.{balanced,study}` portable campaign owners; native formats and artifacts remain under `ksdft2effmass.integration.wannier90` | `python/tests/ksdft2effmass/periodic2d/run/wannier90/balanced/test__Periodic2DWannier90BalancedCampaign.py` and `.../study/test__Periodic2DWannier90StudyCampaign.py`; mirrored manifests under both family `resources/` directories | `doc/sphinx/api/ksdft2effmass/periodic2d/run/wannier90-balanced.rst` and `wannier90-study.rst` | Campaign verification consumes authenticated embedded or repository-confined portable evidence only. The removed native-run-tree branch is not a campaign fallback; no native files are accessed and Wannier90 is not rerun. |
+| `072` | `periodic2d.run.wannier90.optimizer_basin` plus `reanalysis`, `standalone`, and `convergence_regression` family modules | `python/tests/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/test__Periodic2DOptimizerBasinCampaign.py`; all four mirrored software-verification manifests under their family `resources/` directories | `doc/sphinx/api/ksdft2effmass/periodic2d/run/optimizer-basin.rst` | Closed immutable records and cohesive request-scoped authentication, correlation, numerical, refinement, and verification Actions retain campaign-owned optimization policy. Negative finite-design and nonconvergence dispositions remain negative; no global-optimum or convergence claim is created. |
+
+Every listed campaign now derives directly from `object`, creates operation owners per
+request, and retains exact family-specific fields. There is no generic campaign
+protocol, registry, strategy, Workflow engine, or structural compatibility claim.
 
 ## Retention-definition progress
 
@@ -67,7 +113,8 @@ for row 035 are not inferred from the toy-model implementation.
   `Periodic2DSelectedBandRetentionDefinition`. The dimensional specialization requires
   an exact 2D parent, `SELECTED_BANDS` construction kind, and equality between selected
   count and retained rank.
-- [ ] Retained-subspace and retained-operator adoption remains blocked. The preserved
+- [x] Retained-subspace and retained-operator adoption has the terminal disposition
+  **unavailable from retained evidence**. The preserved
   isolated-band result contains energies, topology diagnostics, and hopping
   coefficients but no authenticated frame or projector coordinates. The preserved
   composite result contains represented-space metadata, energies, hopping blocks, and
@@ -86,7 +133,9 @@ for row 035 are not inferred from the toy-model implementation.
 - [x] The generic retained-space correction and both 1D adoption migrations are
   implemented: the isolated typed frame binding owns its authenticated frame digest,
   while composite projector-digest evidence remains only with the exact source result.
-- [ ] The 2D frame contract and authenticated 2D artifact remain unimplemented.
+- [x] The 2D frame contract and authenticated 2D artifact remain unavailable; no
+  contract or artifact is synthesized, and this limitation is carried into the parity
+  record.
 
 The completed definition declares what is selected; it does not claim that an exact
 retained mathematical space or operator has been reconstructed. No payload replay,
@@ -100,12 +149,14 @@ sidecar creation, or campaign-row migration is part of this slice.
    with the nominal defect base, then adopt nominal defect membership with explicit
    parent identity.
 3. Connect selected-band and composite-subspace studies to phase-4 retained spaces and
-   operators.
+   operators only when authenticated frame/projector coordinates exist; otherwise
+   retain the explicit unavailable disposition.
 4. Preserve distinctions among plane-wave continuum construction, finite-difference
    representation, reciprocal-mesh topology, finite-cutoff sewing, finite-periodic
    hopping, and transported common-space comparison.
-5. Decompose isolated, composite, topology, effective-mass, and Wannier90 outputs into
-   typed results without changing preserved campaign documents.
+5. Decompose demonstrated isolated, composite, topology, phase-sweep, Wannier90, and
+   optimizer operations into typed requests/results without changing preserved
+   campaign documents; leave unauthenticated scientific adoption unavailable.
 6. Complete stress controls, gauge/alignment, hopping transforms, route reconciliation,
    serializers, verification, tests, API documentation, and concept documentation as
    required by the

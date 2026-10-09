@@ -7,11 +7,11 @@ import argparse
 from pathlib import Path
 from typing import cast
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.operators import ScalarQuantity, Unitless
+from ksdft2effmass.periodic1d.campaign import (
     Periodic1DCompositeCampaign,
     Periodic1DCompositeEncodedDocuments,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 
 class CommandAdapter:
@@ -20,7 +20,34 @@ class CommandAdapter:
     __slots__ = ()
 
     def execute(self, argv: tuple[str, ...] | None = None) -> int:
-        """Correlate retained bytes and run independent numerical reconstruction."""
+        """Correlate retained bytes and run independent numerical reconstruction.
+
+        Parameters
+        ----------
+        argv
+            Optional argument tuple containing the retained result path. ``None`` uses
+            the process command line.
+
+        Returns
+        -------
+        int
+            Zero after every reconstructable composite channel passes.
+
+        Raises
+        ------
+        OSError
+            If the maintained input or requested result cannot be read.
+        TypeError
+            If decoded records violate an exact representation contract.
+        ValueError
+            If retained wires do not correlate or a reconstructable channel fails.
+
+        Notes
+        -----
+        Passing establishes bounded numerical consistency for retained represented
+        channels only. It does not establish untruncated-parent convergence, physical
+        adequacy, scientific validation, uncertainty quantification, or acceptance.
+        """
         parser = argparse.ArgumentParser()
         parser.add_argument("result", type=Path)
         arguments = parser.parse_args(argv)

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "owner": "ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.standalone",
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/standalone/test__Periodic2DOptimizerStandaloneEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerStandaloneEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/standalone/test__Periodic2DOptimizerStandaloneCampaignContracts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerStandaloneCampaign; Periodic2DOptimizerStandaloneCampaignVerificationRequest; Periodic2DOptimizerStandaloneCampaignVerificationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/standalone/test__Periodic2DOptimizerStandaloneActionOwnership.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerStandalone Action decomposition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/standalone/test__Periodic2DOptimizerStandaloneDocumentDecoder.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerStandaloneDocumentDecoder; OptimizerStandaloneLegacyResultDecoder"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/standalone/test__integration__periodic_2d_optimizer_standalone_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-study-proposal.json; calculations/research-monograph/periodic-2d-optimizer-basin/standalone-initial-gauges.json; calculations/research-monograph/periodic-2d-optimizer-basin/standalone-result.json; calculations/research-monograph/periodic-2d-optimizer-basin/extract_standalone_results.py"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/standalone/test__integration__periodic_2d_optimizer_standalone_fail_closed.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-study-proposal.json; calculations/research-monograph/periodic-2d-optimizer-basin/standalone-initial-gauges.json; calculations/research-monograph/periodic-2d-optimizer-basin/standalone-result.json; calculations/research-monograph/periodic-2d-optimizer-basin/extract_standalone_results.py"
+    }
+  ]
+}

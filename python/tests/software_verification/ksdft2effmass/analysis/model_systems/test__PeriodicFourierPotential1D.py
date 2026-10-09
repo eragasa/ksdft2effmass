@@ -6,11 +6,13 @@ Bounded artifact scope: extracted Appendix G periodic-1D public contract.
 
 Facet and represented meaning
 
-The public class retains or transforms the explicitly represented periodic-1D values.
+The public record is a finite real Fourier potential component. It is not a complete
+scientific parent until a kinetic law and parent identities are composed separately.
 
 Intrinsic and cross-object scope
 
-Construction invariants and the demonstrated public operation are included.
+The tests cover coefficient-unit canonicalization, analytic finite-series evaluation,
+reciprocal-period conversion, and paired harmonic inventories.
 
 VVUQ and scientific exclusions
 
@@ -40,10 +42,14 @@ class TestPeriodicFourierPotential1D:
     ) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-PERIODIC-ONE-D-003
 
-        Requirement: The public contract enforces normalizes coefficients and
-        evaluates harmonics.
+        Requirement: Compatible harmonic units are canonicalized to the constant-term
+        energy unit before evaluating the declared real Fourier series.
 
-        Acceptance: The asserted values and failures match the declared contract.
+        Oracle: Direct analytic values for one cosine and one sine harmonic at three
+        authored coordinates.
+
+        Acceptance: Canonical coefficients and evaluated energies agree within the
+        stated binary64 absolute tolerance.
         """
         potential = PeriodicFourierPotential1D(
             period=ScalarQuantity(2.0, PhysicalUnit("nanometer")),
@@ -75,10 +81,12 @@ class TestPeriodicFourierPotential1D:
     ) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-PERIODIC-ONE-D-004
 
-        Requirement: The public contract enforces computes reciprocal period in
-        requested unit.
+        Requirement: A dimensionless period ``2*pi`` maps to reciprocal period one in
+        the explicitly requested dimensionless reciprocal convention.
 
-        Acceptance: The asserted values and failures match the declared contract.
+        Oracle: The analytic identity ``2*pi / (2*pi) = 1``.
+
+        Acceptance: The returned built-in float equals one exactly for this input.
         """
         potential = PeriodicFourierPotential1D(
             period=ScalarQuantity(2.0 * np.pi, Unitless()),
@@ -92,10 +100,11 @@ class TestPeriodicFourierPotential1D:
     def test_constructor__fourier_series__rejects_unequal_inventories(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-PERIODIC-ONE-D-005
 
-        Requirement: The public contract enforces rejects unequal harmonic
-        inventories.
+        Requirement: Every retained harmonic has paired cosine and sine coefficients,
+        including an explicit zero where one channel is absent.
 
-        Acceptance: The asserted values and failures match the declared contract.
+        Acceptance: Unequal inventory lengths raise ``ValueError`` rather than
+        silently padding missing coefficients.
         """
         with pytest.raises(ValueError, match="equal length"):
             PeriodicFourierPotential1D(

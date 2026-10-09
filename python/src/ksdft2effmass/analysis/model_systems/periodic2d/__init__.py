@@ -1,5 +1,12 @@
 """Public two-dimensional periodic model-system contracts."""
 
+from .finite_differences import (
+    FiniteDifferenceBlochHamiltonian2DConstructor,
+    FiniteDifferenceBlochHamiltonian2DModel,
+    FiniteDifferenceBlochHamiltonian2DRequest,
+    FiniteDifferenceBlochHamiltonian2DResult,
+    UniformPeriodicCoordinateBasis2D,
+)
 from .plane_waves import (
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,
@@ -18,6 +25,10 @@ from .reciprocal_mesh import (
 )
 
 __all__ = [
+    "FiniteDifferenceBlochHamiltonian2DConstructor",
+    "FiniteDifferenceBlochHamiltonian2DModel",
+    "FiniteDifferenceBlochHamiltonian2DRequest",
+    "FiniteDifferenceBlochHamiltonian2DResult",
     "PlaneWaveBlochHamiltonian2DConstructor",
     "PlaneWaveBlochHamiltonian2DModel",
     "PlaneWaveBlochHamiltonian2DRequest",
@@ -30,4 +41,5 @@ __all__ = [
     "ReciprocalMeshNeighbor2DConstructor",
     "ReciprocalMeshNeighbor2DRequest",
     "ReciprocalMeshNeighbor2DResult",
+    "UniformPeriodicCoordinateBasis2D",
 ]
