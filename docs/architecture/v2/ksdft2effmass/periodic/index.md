@@ -60,6 +60,7 @@ model remain distinct as specified in
 | `PERIODIC-ARCH-016` | Reduction routes have explicit identities and may be compared only after their parents, spaces, maps, objectives, and validation domains are compatible. |
 | `PERIODIC-ARCH-017` | Incompatible, unavailable, nonconverged, no-accepted-class, noncommuting-route, and no-finite-crossover outcomes remain explicit typed results over their tested domains. |
 | `PERIODIC-ARCH-018` | A mathematical retained subspace does not own a projector/frame union; available represented frames own their content identities through typed bindings, digest-only projector evidence remains with its campaign result until projector coordinates exist, and band-frame records compose one lower-level reciprocal-mesh owner. |
+| `PERIODIC-ARCH-019` | SHA-256 identifies exact retained bytes but does not replace tolerance-based cross-runtime numerical comparison of reconstructed binary64 arrays. |
 
 ## Implemented module map
 
@@ -84,6 +85,9 @@ model remain distinct as specified in
   owns the software consequences of representation construction, model-class
   reduction, alignment, impurity extraction, route comparison, continuum embedding,
   and evidence discipline.
+- [`binary64-fingerprint-portability.md`](binary64-fingerprint-portability.md) owns
+  the separation between exact generation-time byte fingerprints and portable
+  tolerance-based numerical reconstruction.
 - [`campaign-execution.md`](campaign-execution.md) owns the separation between
   immutable campaign records and executable campaign Actions or Workflows.
 - [`catalogs-and-comparison.md`](catalogs-and-comparison.md) owns explicit toy-model
@@ -122,6 +126,7 @@ scientific-model-hierarchy
 retained-spaces-and-operators
 band-frame-ownership-decision
 reduction-and-evidence-boundaries
+binary64-fingerprint-portability
 campaign-execution
 catalogs-and-comparison
 migration

@@ -16,6 +16,9 @@ from typing import cast
 import pytest
 
 from ksdft2effmass.periodic1d.campaign.extraction import matched as matched_extraction
+from ksdft2effmass.periodic1d.campaign.extraction.matched.verification import (
+    ComplexMatrix,
+)
 from ksdft2effmass.serialization.json import JsonValue
 
 pytestmark = pytest.mark.software_verification
@@ -56,6 +59,47 @@ class TestMatchedDefectExtractionResultVerifier:
         )
 
         SUT().execute(result_path, root)
+
+    def test_method__execute__permits_portable_generation_fingerprint_difference(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Reconstructed matrix bytes are not a cross-platform numerical oracle."""
+
+        def alternate_fingerprint(_matrix: ComplexMatrix) -> str:
+            return "0" * 64
+
+        monkeypatch.setattr(SUT, "_digest", staticmethod(alternate_fingerprint))
+        root = self._repository_root()
+        SUT().execute(
+            root / "calculations/research-monograph/impurity-defect-1d/result.json",
+            root,
+        )
+
+    def test_method__execute__rejects_malformed_generation_fingerprint(
+        self, tmp_path: Path
+    ) -> None:
+        """Generation-time matrix identities retain strict SHA-256 encoding."""
+        root = self._repository_root()
+        retained_path = (
+            root / "calculations/research-monograph/impurity-defect-1d/result.json"
+        )
+        document = cast(
+            dict[str, JsonValue],
+            json.loads(retained_path.read_text(encoding="utf-8")),
+        )
+        folding = document["folding_control"]
+        assert isinstance(folding, list)
+        first = folding[0]
+        assert isinstance(first, dict)
+        first["folding_map_sha256"] = "0" * 63
+        corrupted_path = tmp_path / "result.json"
+        corrupted_path.write_text(
+            json.dumps(document, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        with pytest.raises(ValueError, match="lowercase SHA-256 digest"):
+            SUT().execute(corrupted_path, root)
 
     def test_method__execute__rejects_unsupported_schema(self, tmp_path: Path) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-002.

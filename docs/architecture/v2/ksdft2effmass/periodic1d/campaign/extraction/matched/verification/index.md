@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-Owns independent retained-result correlation and bounded claim checks without executing external calculators.
+Owns independent retained-result correlation and bounded claim checks without executing external calculators. Exact source and artifact hashes remain byte identities; reconstructed numerical values use reviewed tolerances. Generation-time matrix fingerprints are validated as lowercase SHA-256 values but are not compared across libm or BLAS/LAPACK runtimes.
 
 ## Classes
 

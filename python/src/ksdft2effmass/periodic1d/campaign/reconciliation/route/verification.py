@@ -22,6 +22,13 @@ type ComplexMatrix = npt.NDArray[np.complex128]
 LEGACY_RUNNER_SHA256 = (
     "9ec2c391e4b49d859abef52249d17699173b6e7844387b3eda47e016d487839c"
 )
+GENERATION_FINGERPRINT_FIELDS = frozenset(
+    {
+        "route_a_extracted_sha256",
+        "route_b_extracted_sha256",
+        "target_fiber_sha256",
+    }
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -139,7 +146,13 @@ class RouteReconciliationVerificationResult:
 
 
 class RouteReconciliationCampaignVerifier:
-    """Rebuild both extraction paths without importing the maintained Workflow."""
+    """Rebuild both extraction paths without importing the maintained Workflow.
+
+    Exact hashes authenticate available source and artifact bytes. Reconstructed
+    binary64 matrices are instead checked through structural and tolerance-based
+    numerical invariants because their low-order bytes can vary with libm and
+    BLAS/LAPACK. Their retained digests remain generation-time identities only.
+    """
 
     __slots__ = ("_decoder",)
 
@@ -1081,8 +1094,29 @@ class RouteReconciliationCampaignVerifier:
                     )
                 except AssertionError as error:
                     raise ValueError(f"record mismatch: {key}") from error
+            elif key in GENERATION_FINGERPRINT_FIELDS:
+                self._assert_generation_fingerprints(actual_value, expected_value, key)
             elif actual_value != expected_value:
                 raise ValueError(f"record mismatch: {key}")
+
+    def _assert_generation_fingerprints(
+        self, retained: JsonValue, reconstructed: JsonValue, name: str
+    ) -> None:
+        """Validate generation-time digests without claiming portable bit identity.
+
+        The numerical fields in the same record are independently reconstructed and
+        compared under their declared tolerance. Binary64 array bytes can nevertheless
+        vary across libm and BLAS/LAPACK implementations, so their generation-time
+        fingerprints remain content identities rather than numerical comparators.
+        """
+        # Do not compare these values: the surrounding record fields own portable
+        # numerical acceptance, and the retained runtime is not fully identified.
+        for value in (retained, reconstructed):
+            text = self._string(value, name)
+            if len(text) != 64 or any(
+                character not in "0123456789abcdef" for character in text
+            ):
+                raise ValueError(f"{name} must be a lowercase SHA-256 digest")
 
     @staticmethod
     def _confined_path(root: Path, declared_path: str, name: str) -> Path:

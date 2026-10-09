@@ -34,6 +34,7 @@ from ksdft2effmass.periodic1d.campaign.reconciliation.route import (
     RouteReconciliationEncodedDocuments,
 )
 from ksdft2effmass.periodic1d.campaign.reconciliation.route.verification import (
+    ComplexMatrix,
     RouteReconciliationCampaignVerifier,
 )
 from ksdft2effmass.periodic1d.campaign.reconciliation.route.workflow import (
@@ -200,6 +201,49 @@ class TestRouteReconciliationCampaign:
         linked_implementation.symlink_to(outside)
         with pytest.raises(ValueError, match="implementation path escapes"):
             self.campaign(result_document).verify_retained(temporary_root)
+
+    def test_method__verify_retained__separates_generation_fingerprints(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-031.
+
+        Requirement: Generation-time binary64 fingerprints remain well-formed content
+        identities but do not override the independently tolerance-checked numerical
+        record on a different libm or BLAS/LAPACK runtime.
+
+        Method: Substitute a valid reconstructed matrix digest while preserving the
+        exact retained document, then corrupt one retained digest's wire encoding.
+
+        Oracle: Independent reconstruction of every numerical field, exact retained
+        bytes, and strict SHA-256 wire encoding.
+
+        Acceptance: A platform-different reconstructed fingerprint does not become a
+        numerical oracle; malformed retained digest encoding fails closed.
+
+        Interpretation: A pass keeps retained byte identity distinct from portable
+        numerical equivalence.
+
+        Limitations: Whole-artifact checksums, not this simulated digest, authenticate
+        the retained document's historical byte identity.
+        """
+
+        def alternate_fingerprint(_matrix: ComplexMatrix) -> str:
+            return "0" * 64
+
+        monkeypatch.setattr(
+            RouteReconciliationCampaignVerifier,
+            "_matrix_sha256",
+            staticmethod(alternate_fingerprint),
+        )
+        assert self.campaign().verify_retained(self.repository_root()).passed
+
+        retained = self.campaign().encoded_documents.retained_result_document
+        historical = b"50af4bd683bd8dd8853303cc29318fdcde84cd46699704589766a2fb0361575a"
+        malformed = retained.replace(historical, b"0" * 63, 1)
+        if malformed == retained:
+            raise AssertionError("generation fingerprint mutation target was absent")
+        with pytest.raises(ValueError, match="lowercase SHA-256 digest"):
+            self.campaign(malformed).verify_retained(self.repository_root())
 
     def test_source__implementation_routes__remain_separate(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-DEFECT-022.

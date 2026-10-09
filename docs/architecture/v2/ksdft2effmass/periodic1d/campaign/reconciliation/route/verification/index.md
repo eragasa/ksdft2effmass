@@ -5,7 +5,10 @@
 Owns request-scoped independent reconstruction and bounded verification results. Every
 declared input, runner, implementation, and baseline-source path is resolved beneath the
 caller-supplied absolute repository root before bytes are read; absolute, parent
-traversal, and symlink escapes fail closed.
+traversal, and symlink escapes fail closed. Exact source hashes remain byte identities;
+numerical records use reviewed tolerances. Generation-time matrix fingerprints are
+validated as lowercase SHA-256 values but are not compared across libm or BLAS/LAPACK
+runtimes.
 
 ## Classes
 
