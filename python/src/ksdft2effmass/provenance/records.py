@@ -480,6 +480,15 @@ class RunManifest:
 
     def __post_init__(self) -> None:
         """Validate this attempt's identifiers, times, lifecycle, and dependencies."""
+        self._check_args_primary_identifiers()
+        self._check_args_input_artifact_ids()
+        started = self._check_args_started_at()
+        self._check_args_finished_at_and_state(started)
+        self._check_args_output_artifact_and_dependency_ids()
+        self._check_args_dependency_cycle()
+
+    def _check_args_primary_identifiers(self) -> None:
+        """Check manifest and specification identifiers."""
         for name, value in (
             ("manifest_id", self.manifest_id),
             ("specification_id", self.specification_id),
@@ -499,6 +508,8 @@ class RunManifest:
                     f"{name} must match [A-Za-z0-9][A-Za-z0-9._:-]{{0,127}}"
                 )
 
+    def _check_args_input_artifact_ids(self) -> None:
+        """Check the ordered, duplicate-free input artifact identities."""
         if type(self.input_artifact_ids) is not tuple:
             raise TypeError("input_artifact_ids must be a built-in tuple")
         for index, artifact_id in enumerate(self.input_artifact_ids):
@@ -522,6 +533,8 @@ class RunManifest:
         ) != len(self.input_artifact_ids):
             raise ValueError("input_artifact_ids must be unique and lexically sorted")
 
+    def _check_args_started_at(self) -> datetime:
+        """Check and parse the execution start timestamp."""
         if type(self.started_at) is not str:
             raise TypeError("started_at must be a built-in str")
         if not self.started_at:
@@ -540,7 +553,10 @@ class RunManifest:
             raise ValueError(
                 "started_at must be a real UTC calendar timestamp"
             ) from error
+        return started
 
+    def _check_args_finished_at_and_state(self, started: datetime) -> None:
+        """Check lifecycle state and terminal timestamp consistency."""
         if not isinstance(self.state, ManifestState):
             raise TypeError("state must be a ManifestState")
         if self.finished_at is None:
@@ -572,6 +588,8 @@ class RunManifest:
             if finished < started:
                 raise ValueError("finished_at must not precede started_at")
 
+    def _check_args_output_artifact_and_dependency_ids(self) -> None:
+        """Check output artifact and dependency manifest identity collections."""
         for field_name, identifiers in (
             ("output_artifact_ids", self.output_artifact_ids),
             ("dependency_manifest_ids", self.dependency_manifest_ids),
@@ -599,6 +617,8 @@ class RunManifest:
             ) != len(identifiers):
                 raise ValueError(f"{field_name} must be unique and lexically sorted")
 
+    def _check_args_dependency_cycle(self) -> None:
+        """Reject a manifest that names itself as a direct dependency."""
         if self.manifest_id in self.dependency_manifest_ids:
             raise ValueError("a run manifest must not depend on itself")
 
