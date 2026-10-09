@@ -217,6 +217,12 @@ class WorkflowArtifactReference:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic artifact-reference invariants in contract order."""
+        self._check_args_fields()
+        self._check_args_identity()
+
+    def _check_args_fields(self) -> None:
+        """Validate the typed artifact, provenance, and content fields."""
         _contract_version(self.contract_version)
         _exact_type(
             "artifact reference identity",
@@ -238,6 +244,9 @@ class WorkflowArtifactReference:
             self.provenance_identity,
             WorkflowExternalReferenceIdentity,
         )
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the artifact-reference fields."""
         if self.identity != _artifact_reference_identity(
             self.artifact_identity,
             self.artifact_kind,
@@ -311,6 +320,14 @@ class WorkflowAuthorityReference:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic authority-reference invariants in contract order."""
+        self._check_args_subject()
+        self._check_args_operations()
+        self._check_args_evidence()
+        self._check_args_identity()
+
+    def _check_args_subject(self) -> None:
+        """Validate the reference identity, kind, and authority subject."""
         _contract_version(self.contract_version)
         _exact_type(
             "authority reference identity",
@@ -323,6 +340,9 @@ class WorkflowAuthorityReference:
             self.subject_identity,
             WorkflowSubjectIdentity,
         )
+
+    def _check_args_operations(self) -> None:
+        """Validate the bounded canonical operation scope."""
         operations = _canonical_operation_identities(
             "authority operations",
             self.operation_identities,
@@ -330,12 +350,18 @@ class WorkflowAuthorityReference:
         )
         if operations != self.operation_identities:
             raise ValueError("authority operations must be canonically ordered")
+
+    def _check_args_evidence(self) -> None:
+        """Validate the external authority-evidence reference and version."""
         _exact_type(
             "authority evidence identity",
             self.evidence_identity,
             WorkflowExternalReferenceIdentity,
         )
         _bounded_string("authority version", self.authority_version)
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the authority-reference fields."""
         if self.identity != _authority_reference_identity(
             self.authority_kind,
             self.subject_identity,
@@ -394,6 +420,12 @@ class WorkflowDecisionReference:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic decision-reference invariants in contract order."""
+        self._check_args_fields()
+        self._check_args_identity()
+
+    def _check_args_fields(self) -> None:
+        """Validate decision labels and typed external references."""
         _contract_version(self.contract_version)
         _exact_type(
             "decision reference identity",
@@ -417,6 +449,9 @@ class WorkflowDecisionReference:
             self.evidence_identity,
             WorkflowExternalReferenceIdentity,
         )
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the decision-reference fields."""
         if self.identity != _decision_reference_identity(
             self.decision_kind,
             self.scope,
@@ -483,11 +518,21 @@ class WorkflowDefinitionReference:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic definition-reference invariants in contract order."""
+        self._check_args_fields()
+        self._check_args_operations()
+        self._check_args_identity()
+
+    def _check_args_fields(self) -> None:
+        """Validate the definition identity, contract label, and digest fields."""
         _contract_version(self.contract_version)
         _exact_type("definition identity", self.identity, WorkflowDefinitionIdentity)
         _bounded_string("definition contract ID", self.contract_id)
         _bounded_string("definition version", self.definition_version)
         _sha256("definition digest", self.definition_digest_sha256)
+
+    def _check_args_operations(self) -> None:
+        """Validate the bounded canonical definition operation scope."""
         operations = _canonical_operation_identities(
             "definition operations",
             self.operation_identities,
@@ -495,6 +540,9 @@ class WorkflowDefinitionReference:
         )
         if operations != self.operation_identities:
             raise ValueError("definition operations must be canonically ordered")
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the definition-reference fields."""
         if self.identity != _definition_reference_identity(
             self.contract_id,
             self.definition_version,
@@ -549,6 +597,14 @@ class WorkflowStateSnapshot:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic state-snapshot invariants in contract order."""
+        self._check_args_state()
+        self._check_args_references()
+        self._check_args_predecessor()
+        self._check_args_identity()
+
+    def _check_args_state(self) -> None:
+        """Validate the state, run, definition, revision, and status fields."""
         _contract_version(self.contract_version)
         _exact_type("state identity", self.identity, WorkflowStateIdentity)
         _exact_type("run identity", self.run_identity, WorkflowRunIdentity)
@@ -560,9 +616,15 @@ class WorkflowStateSnapshot:
         _nonnegative_integer("state revision", self.revision)
         if not isinstance(self.run_status, WorkflowRunStatus):
             raise TypeError("run_status must be WorkflowRunStatus")
+
+    def _check_args_references(self) -> None:
+        """Validate the bounded canonical state-reference collection."""
         references = _canonical_references(self.state_references)
         if references != self.state_references:
             raise ValueError("state references must be canonically ordered")
+
+    def _check_args_predecessor(self) -> None:
+        """Validate predecessor presence against the state revision."""
         if self.predecessor_state_identity is not None:
             _exact_type(
                 "predecessor state identity",
@@ -573,6 +635,9 @@ class WorkflowStateSnapshot:
             raise ValueError("initial state cannot have a predecessor")
         if self.revision > 0 and self.predecessor_state_identity is None:
             raise ValueError("noninitial state must have a predecessor")
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the complete state snapshot."""
         if self.identity != _state_snapshot_identity(
             self.run_identity,
             self.definition_identity,
@@ -606,6 +671,15 @@ class WorkflowRun:
     contract_version: str = WORKFLOW_CORE_CONTRACT_VERSION
 
     def __post_init__(self) -> None:
+        """Validate intrinsic workflow-run invariants in contract order."""
+        self._check_args_run()
+        self._check_args_status()
+        self._check_args_references()
+        self._check_args_lineage()
+        self._check_args_identity()
+
+    def _check_args_run(self) -> None:
+        """Validate the run's nominal identities, key, and revision."""
         _contract_version(self.contract_version)
         _exact_type("run identity", self.identity, WorkflowRunIdentity)
         _bounded_string("run key", self.run_key)
@@ -621,6 +695,9 @@ class WorkflowRun:
             WorkflowStateIdentity,
         )
         _nonnegative_integer("run revision", self.revision)
+
+    def _check_args_status(self) -> None:
+        """Validate lifecycle status and its bounded reasons."""
         if not isinstance(self.status, WorkflowRunStatus):
             raise TypeError("status must be WorkflowRunStatus")
         _validate_reasons(self.status_reasons)
@@ -628,6 +705,9 @@ class WorkflowRun:
             raise ValueError(
                 "active status requires no reasons; nonactive status requires reasons"
             )
+
+    def _check_args_references(self) -> None:
+        """Validate canonical artifacts and subject-bound decisions."""
         if _canonical_artifacts(self.artifact_references) != (self.artifact_references):
             raise ValueError("run artifact references must be canonical")
         if _canonical_decisions(self.decision_references) != (self.decision_references):
@@ -637,10 +717,16 @@ class WorkflowRun:
             for item in self.decision_references
         ):
             raise ValueError("run decisions must apply to the run subject")
+
+    def _check_args_lineage(self) -> None:
+        """Validate optional parent and predecessor run identities."""
         for name in ("parent_run_identity", "predecessor_run_identity"):
             value = getattr(self, name)
             if value is not None:
                 _exact_type(name.replace("_", " "), value, WorkflowRunIdentity)
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from stable workflow-run lineage."""
         expected = _run_identity(
             self.run_key,
             self.definition_identity,
@@ -848,6 +934,14 @@ class WorkflowTransitionRequest:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic transition-request invariants in contract order."""
+        self._check_args_transition()
+        self._check_args_authority()
+        self._check_args_references()
+        self._check_args_identity()
+
+    def _check_args_transition(self) -> None:
+        """Validate request, run, state, revision, and operation fields."""
         _contract_version(self.contract_version)
         _exact_type(
             "request identity",
@@ -866,6 +960,9 @@ class WorkflowTransitionRequest:
             self.operation_identity,
             WorkflowOperationIdentity,
         )
+
+    def _check_args_authority(self) -> None:
+        """Validate the actor, supplied authority, idempotency, and bounds."""
         _exact_type("actor identity", self.actor_identity, WorkflowActorIdentity)
         _exact_type(
             "authority reference",
@@ -878,12 +975,18 @@ class WorkflowTransitionRequest:
             WorkflowIdempotencyIdentity,
         )
         _exact_type("bounds", self.bounds, WorkflowRequestBounds)
+
+    def _check_args_references(self) -> None:
+        """Validate request-owned reference collections against their bounds."""
         _validate_request_collections(
             self.input_references,
             self.artifact_references,
             self.decision_references,
             self.bounds,
         )
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the transition request."""
         if self.identity != _transition_request_identity(
             self.run_identity,
             self.expected_prior_state_identity,
@@ -964,6 +1067,16 @@ class WorkflowAdapterEvidence:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic adapter-evidence invariants in contract order."""
+        self._check_args_evidence()
+        self._check_args_state_references()
+        self._check_args_artifact_references()
+        self._check_args_decision_references()
+        self._check_args_disposition()
+        self._check_args_identity()
+
+    def _check_args_evidence(self) -> None:
+        """Validate the evidence identities and adapter disposition."""
         _contract_version(self.contract_version)
         _exact_type(
             "adapter evidence identity",
@@ -988,24 +1101,36 @@ class WorkflowAdapterEvidence:
         )
         if not isinstance(self.disposition, WorkflowAdapterDisposition):
             raise TypeError("disposition must be WorkflowAdapterDisposition")
+
+    def _check_args_state_references(self) -> None:
+        """Validate bounded canonical successor-state references."""
         if len(self.successor_state_references) > _MAX_STATE_REFERENCES:
             raise ValueError("too many successor state references")
         if _canonical_references(self.successor_state_references) != (
             self.successor_state_references
         ):
             raise ValueError("successor state references must be canonical")
+
+    def _check_args_artifact_references(self) -> None:
+        """Validate bounded canonical produced-artifact references."""
         if len(self.produced_artifact_references) > _MAX_ARTIFACT_REFERENCES:
             raise ValueError("too many produced artifact references")
         if _canonical_artifacts(self.produced_artifact_references) != (
             self.produced_artifact_references
         ):
             raise ValueError("produced artifact references must be canonical")
+
+    def _check_args_decision_references(self) -> None:
+        """Validate bounded canonical recorded-decision references."""
         if len(self.recorded_decision_references) > _MAX_DECISION_REFERENCES:
             raise ValueError("too many recorded decision references")
         if _canonical_decisions(self.recorded_decision_references) != (
             self.recorded_decision_references
         ):
             raise ValueError("recorded decision references must be canonical")
+
+    def _check_args_disposition(self) -> None:
+        """Validate disposition-dependent outputs, status, and reasons."""
         _validate_reasons(self.reasons)
         enabled = self.disposition is WorkflowAdapterDisposition.ENABLED
         if enabled != (self.successor_run_status is not None):
@@ -1024,6 +1149,9 @@ class WorkflowAdapterEvidence:
             and not self.reasons
         ):
             raise ValueError("nonactive successor status requires reasons")
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the complete adapter evidence."""
         if self.identity != _adapter_evidence_identity(
             self.adapter_identity,
             self.definition_identity,
@@ -1079,6 +1207,12 @@ class WorkflowInfrastructureFailureEvidence:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic infrastructure-failure invariants in order."""
+        self._check_args_fields()
+        self._check_args_identity()
+
+    def _check_args_fields(self) -> None:
+        """Validate failure identities, classification, and bounded message."""
         _contract_version(self.contract_version)
         _exact_type(
             "infrastructure failure identity",
@@ -1102,6 +1236,9 @@ class WorkflowInfrastructureFailureEvidence:
             self.evidence_identity,
             WorkflowExternalReferenceIdentity,
         )
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from infrastructure-failure evidence."""
         if self.identity != _infrastructure_failure_identity(
             self.request_identity,
             self.operation_phase,
@@ -1141,6 +1278,12 @@ class WorkflowValidationFinding:
         return cls(identity, code, path, related_identities, message)
 
     def __post_init__(self) -> None:
+        """Validate intrinsic validation-finding invariants in order."""
+        self._check_args_finding()
+        self._check_args_identity()
+
+    def _check_args_finding(self) -> None:
+        """Validate the finding classification, path, relations, and message."""
         _exact_type(
             "validation finding identity",
             self.identity,
@@ -1155,6 +1298,9 @@ class WorkflowValidationFinding:
             self.message,
             maximum=_MAX_MESSAGE_CHARACTERS,
         )
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the complete finding."""
         if self.identity != _validation_finding_identity(
             self.code,
             self.path,
@@ -1283,6 +1429,15 @@ class WorkflowTransitionOutcome:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic transition-outcome invariants in contract order."""
+        self._check_args_outcome()
+        self._check_args_optional_evidence()
+        self._check_args_variant()
+        self._check_args_successor()
+        self._check_args_identity()
+
+    def _check_args_outcome(self) -> None:
+        """Validate the outcome kind and its nominal transition fields."""
         _contract_version(self.contract_version)
         _exact_type(
             "outcome identity",
@@ -1304,6 +1459,9 @@ class WorkflowTransitionOutcome:
         )
         _nonnegative_integer("prior revision", self.prior_revision)
         _exact_type("validation", self.validation, WorkflowValidationResult)
+
+    def _check_args_optional_evidence(self) -> None:
+        """Validate optional adapter, failure, and successor record types."""
         if self.adapter_evidence_identity is not None:
             _exact_type(
                 "adapter evidence identity",
@@ -1324,6 +1482,9 @@ class WorkflowTransitionOutcome:
             )
         if self.successor_run is not None:
             _exact_type("successor run", self.successor_run, WorkflowRun)
+
+    def _check_args_variant(self) -> None:
+        """Validate the closed outcome variant and its required evidence."""
         _validate_reasons(self.reasons)
         applied = self.kind is WorkflowTransitionOutcomeKind.APPLIED
         if applied != (
@@ -1371,6 +1532,9 @@ class WorkflowTransitionOutcome:
             )
         if infrastructure and not self.validation.is_valid:
             raise ValueError("infrastructure outcome requires valid input")
+
+    def _check_args_successor(self) -> None:
+        """Validate coherence of an applied successor run and state."""
         if self.successor_state is not None and self.successor_run is not None:
             if (
                 self.successor_run.current_state_identity
@@ -1386,6 +1550,9 @@ class WorkflowTransitionOutcome:
                 != self.prior_state_identity
             ):
                 raise ValueError("successor run and state must agree")
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the complete transition outcome."""
         if self.identity != _transition_outcome_identity(
             self.kind,
             self.run_identity,
@@ -1446,6 +1613,13 @@ class WorkflowAuditEvent:
         )
 
     def __post_init__(self) -> None:
+        """Validate intrinsic audit-event invariants in contract order."""
+        self._check_args_event()
+        self._check_args_references()
+        self._check_args_identity()
+
+    def _check_args_event(self) -> None:
+        """Validate event identity, run, sequence, attempt, and kind fields."""
         _contract_version(self.contract_version)
         _exact_type("audit event identity", self.identity, WorkflowAuditEventIdentity)
         _exact_type("run identity", self.run_identity, WorkflowRunIdentity)
@@ -1456,6 +1630,9 @@ class WorkflowAuditEvent:
             WorkflowTransitionRequestIdentity,
         )
         _bounded_string("audit event kind", self.event_kind)
+
+    def _check_args_references(self) -> None:
+        """Validate bounded subject and evidence audit references."""
         _audit_references(
             "audit subject references",
             self.subject_references,
@@ -1466,6 +1643,9 @@ class WorkflowAuditEvent:
             self.evidence_references,
             allow_empty=True,
         )
+
+    def _check_args_identity(self) -> None:
+        """Validate the identity derived from the complete audit event."""
         if self.identity != _audit_event_identity(
             self.run_identity,
             self.sequence_revision,
