@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
+import numpy.typing as npt
 
 from ksdft2effmass.operators import (
     MODEL_SYSTEM_UNIT_CONVERTER,
@@ -23,6 +24,7 @@ from ksdft2effmass.operators import (
 )
 
 type CellDisplacement3D = tuple[int, int, int]
+type _ComplexArray = npt.NDArray[np.complex128]
 
 
 class SiliconSp3sStarParameter(StrEnum):
@@ -583,12 +585,23 @@ def _directed_bond_component(
 def _bloch_matrices(
     operator: SiliconDiamondSp3sStarNearestNeighborOperator,
     reduced_wavevectors: MatrixQuantity,
-) -> np.ndarray:
+) -> _ComplexArray:
     """Return the declared positive-phase cell-periodic Fourier sum."""
     displacements = np.asarray(operator.cell_displacements, dtype=np.float64)
     phases = np.exp(2j * np.pi * reduced_wavevectors.magnitude @ displacements.T)
     blocks = np.asarray([block.magnitude for block in operator.blocks])
-    return np.einsum("kr,rij->kij", phases, blocks, optimize=True)
+    matrices = np.asarray(
+        np.einsum("kr,rij->kij", phases, blocks, optimize=True),
+        dtype=np.complex128,
+    )
+    expected_shape = (
+        len(reduced_wavevectors.magnitude),
+        operator.matrix_dimension,
+        operator.matrix_dimension,
+    )
+    if matrices.shape != expected_shape:
+        raise RuntimeError("Bloch Fourier sum produced an invalid matrix family")
+    return matrices
 
 
 def _canonical_displacements() -> tuple[CellDisplacement3D, ...]:

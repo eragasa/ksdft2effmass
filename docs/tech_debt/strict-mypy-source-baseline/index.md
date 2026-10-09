@@ -2,10 +2,11 @@
 
 ## Status
 
-**Safe to defer outside the currently touched numerical classes.** The focused strict
-mypy checks for the Wigner–Seitz and Löwdin-quadratic changes pass, but the
-repository-wide source command is not yet green. This record preserves that distinction;
-it does not authorize reporting the broad command as passing.
+**Numerical return boundaries corrected; workflow export ownership remains.** The
+represented-difference dimension, dense and sparse eigenpair dimensions, and silicon
+Bloch Fourier-sum return boundary now pass focused strict mypy checks without changing
+numerical values or solver selection. The repository-wide source command still reports
+two workflow export-ownership errors and must not yet be reported as passing.
 
 ## Observed baseline
 
@@ -31,23 +32,31 @@ These files were outside the bounded numerical correction that exposed the broad
 baseline. The failures are software typing and export-ownership debt; they are not
 scientific validation findings.
 
+## Completed bounded correction
+
+The three numerical findings are corrected at their owning boundaries:
+
+1. `OperatorRecordDifferenceResult.matrix_dimension` returns an explicit built-in
+   integer while retaining the positive square-matrix constructor contract.
+2. `RealSymmetricEigenpairSolver.validate()` converts both dense NumPy and sparse SciPy
+   shape metadata to a built-in integer after the existing square and exact-symmetry
+   checks.
+3. The silicon Bloch Fourier sum has an explicit complex128 array return type and
+   validates its sample count and fixed represented matrix dimensions.
+
+Focused software tests cover the built-in integer boundaries and the complex128 Bloch
+matrix family. Focused strict mypy checks pass. The repository-wide strict command now
+reports only the two workflow export-ownership errors below.
+
 ## Deferred work
 
-1. In `operators/difference.py`, return an explicitly typed Python integer for the
-   represented matrix dimension without weakening the public positive-dimension
-   contract.
-2. In `operators/eigenpairs.py`, preserve dense and sparse validation order while
-   converting shape metadata to an explicit integer rather than leaking an
-   untyped third-party shape value.
-3. In `solid_state/slater_koster.py`, give the Bloch Fourier sum an explicit complex
-   array return boundary and verify its sample and matrix dimensions without adding
-   `Any`, an unspecified `object` boundary, or a broad suppression.
-4. Reconcile ownership of `SimulationDispatchOutcome`. Internal consumers should
+1. Reconcile ownership of `SimulationDispatchOutcome`. Internal consumers should
    import it from its defining `workflows.runs.records` owner unless
    `workflows.control.dispatch` is deliberately documented and tested as a supported
-   re-export. Keep `workflows.control.__init__` consistent with that decision.
-5. Add or retain focused tests for each corrected public contract, then rerun the broad
-   strict source command.
+   re-export.
+2. Keep `workflows.control.__init__` consistent with that ownership decision and retain
+   focused public-import tests for the supported surface.
+3. Rerun the broad strict source command after the workflow correction.
 
 ## Boundaries
 

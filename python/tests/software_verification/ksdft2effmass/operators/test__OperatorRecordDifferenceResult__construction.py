@@ -135,6 +135,7 @@ class TestOperatorRecordDifferenceResult:
         assert result.candidate_identifier == "candidate"
         assert result.energy_unit == "eV"
         assert result.shape == (1, 1)
+        assert type(result.matrix_dimension) is int
         assert result.matrix_dimension == 1
         np.testing.assert_array_equal(result.matrix, matrix)
 

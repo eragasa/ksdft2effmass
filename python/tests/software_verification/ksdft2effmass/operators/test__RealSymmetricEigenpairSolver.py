@@ -62,6 +62,34 @@ class TestRealSymmetricEigenpairSolver:
                 MatrixQuantity(np.array([[1.0, 1.0], [0.0, 1.0]]), Unitless())
             )
 
+    def test_method__validate__returns_built_in_dimension(self) -> None:
+        """Evidence ID: SV-OPERATORS-EIGENPAIR-006
+
+        Requirement: Dense NumPy and sparse SciPy shape metadata cross the public
+        validation boundary as a built-in Python integer.
+
+        Method: Validate equal two-state dense and sparse identity operators.
+
+        Oracle: Python's exact runtime type and the literal represented dimension.
+
+        Acceptance: Both routes return exact ``int`` values equal to two.
+
+        Interpretation: A pass supports the typed dimension boundary without changing
+        operator admission or eigensolver selection.
+
+        Limitations: This synthetic check is not eigensolver numerical verification,
+        scientific validation, uncertainty quantification, or platform coverage.
+        """
+        dense = MatrixQuantity(np.eye(2), Unitless())
+        sparse_operator = SparseMatrixQuantity.from_csr(
+            sparse.eye(2, format="csr"), Unitless()
+        )
+
+        for operator in (dense, sparse_operator):
+            dimension = RealSymmetricEigenpairSolver.validate(operator)
+            assert type(dimension) is int
+            assert dimension == 2
+
     def test_method__execute__solves_sparse_tridiagonal_without_densifying(
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
