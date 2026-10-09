@@ -115,7 +115,7 @@ The canonical `periodic1d.campaign` surface owns the version-one isolated, compo
 reduction-challenge, and Wannier90 Appendix G campaign families plus
 `Periodic1DCampaignJsonDecoder` and shared encoded-result wire owners. The periodic-1D
 decoder directly extends `StrictJsonDecoder` with unitless scalar/vector and dense
-complex-pair matrix adaptation. The transitional `campaigns.periodic_1d` and
+complex-pair vector/matrix adaptation. The transitional `campaigns.periodic_1d` and
 publication surfaces retain only defect families pending rows 062--066; they consume
 canonical shared-wire owners but expose no aliases for any moved family or shared-wire
 owner. Serializers remain responsible for schema fields and versions.

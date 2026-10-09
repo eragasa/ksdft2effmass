@@ -163,8 +163,11 @@ class MatchedDefectExtractionResultVerifier:
         representatives = self._integers(
             reduction["hopping_representatives_cells"], "scalar representatives"
         )
-        scalar_values = self._complexes(
-            reduction["hopping_coefficients"], "scalar values"
+        scalar_values = tuple(
+            complex(value)
+            for value in self._decoder.complex_vector(
+                reduction["hopping_coefficients"], "scalar values"
+            )
         )
         scalar = tuple(sorted(zip(representatives, scalar_values, strict=True)))
         composite_payload = self._load(composite_path, "composite parent")
@@ -1189,16 +1192,6 @@ class MatchedDefectExtractionResultVerifier:
         if not isinstance(value, list):
             raise TypeError(f"{name} must be a JSON array")
         return tuple(self._integer(item, name) for item in value)
-
-    def _complexes(self, value: JsonValue, name: str) -> tuple[complex, ...]:
-        if not isinstance(value, list):
-            raise TypeError(f"{name} must be a JSON array")
-        result: list[complex] = []
-        for item in value:
-            if not isinstance(item, list) or len(item) != 2:
-                raise TypeError(f"{name} entries must be complex pairs")
-            result.append(complex(self._real(item[0], name), self._real(item[1], name)))
-        return tuple(result)
 
     def _real_matrix(self, value: JsonValue, name: str) -> ComplexMatrix:
         if not isinstance(value, list) or not value:

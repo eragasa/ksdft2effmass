@@ -68,6 +68,49 @@ class TestPeriodic1DCampaignJsonDecoder:
         assert isinstance(vector.unit, Unitless)
         np.testing.assert_array_equal(vector.magnitude, np.asarray([1.0, 2.0]))
 
+    def test_method__complex_vector__decodes_strict_immutable_pairs(self) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-007.
+
+        Requirement: Reusable periodic-1D complex-vector wire decoding must preserve
+        pair order and reject malformed or coercive components.
+
+        Method: Decode finite integer/float pairs plus an empty vector, then exercise
+        malformed-length, Boolean, nonfinite, and overflowing components.
+
+        Oracle: Authored ``complex128`` values and the strict JSON numeric contract.
+
+        Acceptance: Values and dtype agree, outputs are non-writeable, and every
+        unsupported representation fails through its documented exception category.
+
+        Interpretation: A pass verifies wire adaptation only; it assigns no basis,
+        units, provenance, scientific identity, or acceptance status.
+
+        Limitations: Campaign schemas separately own vector cardinality and meaning.
+        """
+        decoder = SUT()
+
+        vector = decoder.complex_vector([[1, 2.5], [-3.0, 0]], "hoppings")
+        empty = decoder.complex_vector([], "empty")
+
+        assert vector.dtype == np.dtype(np.complex128)
+        np.testing.assert_array_equal(
+            vector, np.asarray([1.0 + 2.5j, -3.0 + 0.0j], dtype=np.complex128)
+        )
+        assert vector.shape == (2,)
+        assert empty.shape == (0,)
+        assert not vector.flags.writeable
+        assert not empty.flags.writeable
+        with pytest.raises(TypeError, match="entries must be complex pairs"):
+            decoder.complex_vector([[1, 0, 2]], "hoppings")
+        with pytest.raises(TypeError, match="entries must be complex pairs"):
+            decoder.complex_vector([1], "hoppings")
+        with pytest.raises(TypeError, match="must be a real number"):
+            decoder.complex_vector([[True, 0]], "hoppings")
+        with pytest.raises(ValueError, match="must be finite"):
+            decoder.complex_vector([[float("inf"), 0]], "hoppings")
+        with pytest.raises(OverflowError):
+            decoder.complex_vector([[10**400, 0]], "hoppings")
+
     def test_method__real__rejects_boolean_and_nonfinite_values(self) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-006
 

@@ -15,10 +15,10 @@ class Periodic1DCampaignJsonDecoder(StrictJsonDecoder):
     """Adapt strict JSON primitives for periodic-1D campaign schemas.
 
     This stateless wire owner adds unitless scalar/vector and dense complex-pair
-    matrix adaptation to :class:`StrictJsonDecoder`. Schema-specific serializers
-    remain responsible for field inventories, physical units, scientific identity,
-    provenance, and cross-field meaning. No method infers those properties from names,
-    dimensions, ranks, or values.
+    vector and matrix adaptation to :class:`StrictJsonDecoder`. Schema-specific
+    serializers remain responsible for field inventories, physical units, scientific
+    identity, provenance, and cross-field meaning. No method infers those properties
+    from names, dimensions, ranks, or values.
     """
 
     __slots__ = ()
@@ -84,6 +84,49 @@ class Periodic1DCampaignJsonDecoder(StrictJsonDecoder):
             Unitless(),
         )
 
+    def complex_vector(self, value: JsonValue, name: str) -> npt.NDArray[np.complex128]:
+        """Decode one complex vector from ordered real-imaginary pairs.
+
+        Each vector entry must be a two-element JSON array ``[real, imaginary]``.
+        The returned one-dimensional ``complex128`` array is a non-writeable
+        defensive copy. Empty vectors remain valid wire values because cardinality
+        belongs to the consuming campaign schema rather than this representation
+        adapter.
+
+        Parameters
+        ----------
+        value
+            JSON array of two-element real-imaginary arrays.
+        name
+            Field path used in validation diagnostics.
+
+        Returns
+        -------
+        numpy.ndarray
+            Non-writeable one-dimensional ``complex128`` values in wire order.
+
+        Raises
+        ------
+        TypeError
+            If an array or numeric component has the wrong exact JSON type or a
+            vector entry does not have exactly two components.
+        ValueError
+            If a floating component is nonfinite.
+        OverflowError
+            If an integer component cannot be represented as binary64.
+        MemoryError
+            If storage for the dense ``complex128`` vector cannot be allocated.
+        """
+        entries = self.array(value, name)
+        values: list[complex] = []
+        for index, entry in enumerate(entries):
+            if type(entry) is not list or len(entry) != 2:
+                raise TypeError(f"{name} entries must be complex pairs")
+            pair = self.array(entry, f"{name}[{index}]")
+            values.append(self._complex_pair(pair, f"{name}[{index}]"))
+        vector = np.asarray(values, dtype=np.complex128)
+        return np.frombuffer(vector.tobytes(order="C"), dtype=np.complex128)
+
     def complex_matrix(self, value: JsonValue, name: str) -> ComplexMatrix:
         """Decode a nonempty rectangular complex-pair matrix wire.
 
@@ -117,20 +160,32 @@ class Periodic1DCampaignJsonDecoder(StrictJsonDecoder):
                 expected_width = len(encoded_row)
             elif len(encoded_row) != expected_width:
                 raise ValueError(f"{name} must be rectangular")
-            row: list[complex] = []
-            for column_index, entry_value in enumerate(encoded_row):
-                entry_name = f"{name}[{row_index}][{column_index}]"
-                pair = self.array(entry_value, entry_name)
-                if len(pair) != 2:
-                    raise ValueError(f"{entry_name} must contain real and imaginary")
-                row.append(
-                    complex(
-                        self.real(pair[0], f"{entry_name}[0]"),
-                        self.real(pair[1], f"{entry_name}[1]"),
+            rows.append(
+                [
+                    self._complex_pair(
+                        self._complex_pair_array(
+                            entry_value, f"{name}[{row_index}][{column_index}]"
+                        ),
+                        f"{name}[{row_index}][{column_index}]",
                     )
-                )
-            rows.append(row)
+                    for column_index, entry_value in enumerate(encoded_row)
+                ]
+            )
         matrix = np.asarray(rows, dtype=np.complex128)
         return np.frombuffer(matrix.tobytes(order="C"), dtype=np.complex128).reshape(
             matrix.shape
+        )
+
+    def _complex_pair_array(self, value: JsonValue, name: str) -> list[JsonValue]:
+        """Require one exactly two-component strict JSON array."""
+        pair = self.array(value, name)
+        if len(pair) != 2:
+            raise ValueError(f"{name} must contain real and imaginary")
+        return pair
+
+    def _complex_pair(self, pair: list[JsonValue], name: str) -> complex:
+        """Adapt one validated two-component array to binary64 complex form."""
+        return complex(
+            self.real(pair[0], f"{name}[0]"),
+            self.real(pair[1], f"{name}[1]"),
         )

@@ -4,9 +4,11 @@
 
 This stateless wire Action decodes one exact built-in `bytes` document as strict UTF-8
 JSON and adapts explicitly requested fields to closed immutable JSON values or exact
-primitive and quantity representations. Duplicate keys, ordinary nonfinite constants,
-wrong exact representations, booleans at numeric boundaries, and binary64 overflow
-fail closed.
+primitive, quantity, and dense complex-pair representations. Its non-writeable
+`complex128` vector and matrix outputs centralize numeric pair adaptation while leaving
+cardinality, basis, units, and scientific meaning to the consuming schema. Duplicate
+keys, ordinary nonfinite constants, wrong exact representations, booleans at numeric
+boundaries, malformed pairs, and binary64 overflow fail closed.
 
 Schema selection and schema-specific interpretation remain with the consuming
 campaign serializer. The decoder does not infer scientific identity, units, frame,
