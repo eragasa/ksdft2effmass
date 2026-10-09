@@ -5,8 +5,14 @@ The periodic migration crosswalk is a map from historical software objects to th
 intended scientific and software meanings. It prevents a class name, array shape, or
 location in the source tree from silently deciding what an object represents.
 
+All 73 inventory rows now have implemented terminal dispositions on the work branch;
+none is pending or blocked. Some dispositions explicitly retain data as supporting
+representation/campaign evidence or record scientific adoption as unavailable because
+authenticated parent, frame, projector, or reduction metadata do not exist. Completion
+therefore does not imply that every conceivable scientific object was constructed.
+
 The crosswalk is migration documentation. It does not change a physical definition,
-validate a material model, or authorize a calculation.
+validate a material model, authorize a calculation, or indicate merge/release status.
 
 Objects kept separate
 ---------------------
@@ -36,12 +42,24 @@ Effective model
    truncation, fitting, or reduction route.
 
 Encoded campaign document
-   Preserved bytes and their content identity. Preservation does not turn a document
-   into a scientific model or retained operator.
+   Preserved bytes and their content identity.  Row 045 additionally binds a complete
+   immutable JSON tree to exact source bytes and an explicit wire-kind discriminator;
+   canonical serialization may use different insignificant formatting.  Preservation
+   does not turn a document into a scientific model or retained operator, and a content
+   digest does not prove provenance, native-file presence, convergence, or acceptance.
+   Row 058 places shared periodic-1D wire owners and the isolated-band family under
+   ``ksdft2effmass.periodic1d.campaign``; row 059 places the composite encoded owner
+   with its complete canonical campaign family. Neither move retains underscored or
+   publication aliases.
 
 Campaign definition, request, or result
    Immutable controls and observations belonging to an executable study. Campaign
-   policy does not become part of the scientific model it evaluates.
+   policy does not become part of the scientific model it evaluates. The row-058
+   isolated and row-059 composite families each keep controls, encoded documents,
+   typed diagnostics, correlation, independent verification, and scientific adoption
+   distinct even though each family shares one cohesive canonical package. Composite
+   adoption additionally constructs separate finite-parent retained spaces/operators
+   and gauge-qualified represented forms rather than reclassifying campaign evidence.
 
 Supporting numerical owner
    A mesh, basis, coefficient container, transform, serializer, or diagnostic that does
@@ -58,8 +76,9 @@ Each ``PERIODIC-XWALK-*`` row answers four questions:
 #. Which values, conventions, bytes, identities, and provenance must remain unchanged?
 
 A completed row also links its source implementation, supported imports, tests,
-architecture pages, and Sphinx documentation. A pending row names the missing work. A
-blocked row identifies information or authority that cannot be inferred safely.
+architecture pages, and Sphinx documentation. An explicit-unavailable disposition
+names authenticated information or scientific authority that does not exist and cannot
+be inferred safely.
 
 Scientific conventions
 ----------------------

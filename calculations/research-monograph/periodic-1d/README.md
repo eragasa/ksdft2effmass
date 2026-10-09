@@ -11,6 +11,12 @@ direct-versus-mediated route agreement. Its adversarial suite sweeps potential
 amplitude, reciprocal mesh density, the first eight bands, modified potential
 shapes, random input gauges, and altered direct-fit objectives.
 
+The adversarial suite is canonically owned as the periodic-1D reduction-challenge
+campaign under `ksdft2effmass.periodic1d.campaign.reduction_challenge`. “Challenge”
+means tests of reduction assumptions, not mechanical stress. Historical filenames,
+JSON keys, experiment identity, evidence-status text, and exact wire bytes remain
+unchanged for provenance compatibility; no `Periodic1DStress*` API remains.
+
 The separate composite mini-paper treats bands 0--1 and 2--3 using polar
 transport, overlap singular values, Wilson-loop phases, controlled $U(2)$ gauge
 attacks, explicit alignment, matrix-valued hoppings, smooth-versus-rough gauge
@@ -169,8 +175,8 @@ uv run --extra notebooks python \
   --output ../calculations/research-monograph/periodic-1d/wannier90-preconditioned-summary.png
 ```
 
-The largest finite-difference matrix is $255\times255$; the nominal and stress
-experiments each execute locally in well under a minute on a laptop. `protocol.md` defines the state
+The largest finite-difference matrix is $255\times255$; the nominal and reduction-
+challenge experiments each execute locally in well under a minute on a laptop. `protocol.md` defines the state
 spaces, controls, and claim boundary. `report.md` is the self-contained
 provisional isolated-band mini-paper, including abstract, methods, verification,
 results, discussion, limitations, and reproduction. `composite-report.md` is
@@ -180,17 +186,27 @@ retained files.
 ## Evidence boundary
 
 The retained-result DataObjects encapsulate immutable version-one models and delegate
-to separate correlation and verification Actionizers. The verifier Actionizers
+to separate correlation and verification Actions. The verifier Actions
 independently reconstruct the channels identified in
 `protocol.md`. Transported-frame, localization-density, and several composite-gauge
 source arrays were not retained in the historical result. The authorized isolated-band
 replay sidecar now retains its rank-one frame and effective-model coefficient routes;
-the composite frame/gauge omissions remain. Accordingly, composite overlap, Wilson,
+the composite frame/gauge omissions remain. The supported read-only Wannier90 campaign
+API is `ksdft2effmass.periodic1d.campaign.wannier90`; former underscored and
+publication routes are intentionally absent. Its explicit result kind selects a schema
+and must agree with the retained preconditioning declaration. Its result-first Workflow
+authenticates exact composite-input bytes before decoding input-owned controls. The
+integration verification Result preserves that correlation against the same result
+wire, and the native Workflow authenticates every group's explicit names, byte counts,
+and SHA-256 digests before parsing any group.
+Accordingly, composite overlap, Wilson,
 localization, alignment, rough-gauge, and withheld diagnostics remain calculated producer values
 with software and structural checks rather than independently reconstructed numerical
 evidence. The Wannier90 integration DataObject can correlate retained controls without
 native artifacts; native Wilson verification additionally requires complete explicit
-artifact groups. Neither Actionizer reruns Wannier90.
+artifact groups. Neither Action reruns Wannier90, discovers a run root, or grants
+protected execution authority. SHA-256 agreement establishes exact content identity
+only, not authorship or execution provenance.
 
 Passing checks establish bounded numerical verification only for the reconstructable
 channels of the frozen cosine model. They do not establish semiconductor validation,

@@ -1,26 +1,28 @@
-"""Software verification for ``Periodic2DCampaign``.
+"""Software evidence for removal of the dimension-only campaign base.
 
 Facet and represented meaning
 -----------------------------
-The module verifies the lightweight common type and exact dimensional identity of
-canonical periodic2d campaign DataObjects.
+The module verifies that concrete periodic-2D campaign composition roots are
+independent and that the retired nominal base has no public or defining route.
 
 Intrinsic and cross-object scope
 --------------------------------
-The intrinsic oracle is the documented two-dimensional package contract. Inheritance
-checks cover only nominal campaign organization and do not compare campaign models.
+The oracle is source ownership: each concrete campaign owns its exact documents and
+operations without inheriting a shared campaign identity.
 
 VVUQ and scientific exclusions
 ------------------------------
-These are exact software-contract checks. They provide no numerical verification,
-scientific validation, uncertainty quantification, or campaign acceptance.
+These are exact software-contract checks. They establish neither compatibility among
+campaigns nor numerical or scientific validation, uncertainty quantification, or
+acceptance.
 """
+
+import importlib
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DCampaign as RootPeriodic2DCampaign,
-)
+import ksdft2effmass.periodic2d as periodic2d
+import ksdft2effmass.periodic2d.campaign as campaign
 from ksdft2effmass.periodic2d import (
     Periodic2DCompositeCampaign,
     Periodic2DIsolatedBandCampaign,
@@ -33,7 +35,6 @@ from ksdft2effmass.periodic2d import (
     Periodic2DWannier90BalancedCampaign,
     Periodic2DWannier90StudyCampaign,
 )
-from ksdft2effmass.periodic2d.campaign import Periodic2DCampaign
 
 CAMPAIGN_TYPES = (
     pytest.param(Periodic2DIsolatedBandCampaign, id="isolated_band"),
@@ -49,29 +50,27 @@ CAMPAIGN_TYPES = (
 )
 
 
-class TestPeriodic2DCampaign:
-    """Own software evidence for the lightweight periodic2d campaign base."""
+class TestPeriodic2DCampaignRemoval:
+    """Own removal evidence for the unjustified dimension-only base."""
 
-    def test_public_api__package__root_and_campaign_routes_share_identity(self) -> None:
-        """The two documented canonical routes expose the same base class."""
-        if RootPeriodic2DCampaign is not Periodic2DCampaign:
-            raise AssertionError("canonical base-class routes do not share identity")
+    def test_public_api__retired_base__is_absent(self) -> None:
+        """Neither reviewed periodic-2D facade exposes the retired base."""
+        if hasattr(periodic2d, "Periodic2DCampaign"):
+            raise AssertionError("periodic2d root still exposes retired campaign base")
+        if hasattr(campaign, "Periodic2DCampaign"):
+            raise AssertionError("campaign facade still exposes retired campaign base")
 
-    def test_property__spatial_dimension__returns_exact_two(self) -> None:
-        """The base campaign reports the exact built-in integer dimension two."""
-        dimension = Periodic2DCampaign().spatial_dimension
-
-        if type(dimension) is not int or dimension != 2:
-            raise AssertionError(
-                "periodic2d spatial dimension must be exact integer two"
-            )
+    def test_defining_module__retired_base__is_absent(self) -> None:
+        """The removed defining module cannot be imported."""
+        with pytest.raises(ModuleNotFoundError):
+            importlib.import_module("ksdft2effmass.periodic2d.campaign.base")
 
     @pytest.mark.parametrize("campaign_type", CAMPAIGN_TYPES)
-    def test_class__inheritance__includes_every_canonical_campaign(
-        self, campaign_type: type[Periodic2DCampaign]
+    def test_class__concrete_campaign__has_no_shared_campaign_base(
+        self, campaign_type: type[object]
     ) -> None:
-        """Every canonical periodic2d campaign inherits the common base contract."""
-        if not issubclass(campaign_type, Periodic2DCampaign):
+        """Each concrete campaign derives directly from ``object``."""
+        if campaign_type.__bases__ != (object,):
             raise AssertionError(
-                "canonical campaign does not inherit Periodic2DCampaign"
+                f"{campaign_type.__name__} retains an unexpected nominal base"
             )

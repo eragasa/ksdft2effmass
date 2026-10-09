@@ -92,3 +92,35 @@ class TestPeriodic2DWannier90StudyCampaign:
         mutated = retained[:begin] + b"99.0," + retained[end:]
         with pytest.raises(AssertionError):
             self.campaign(mutated).verify(repository_root=self.root())
+
+    def test_contract__portable_decoder_and_retained_paths__fail_closed(self) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-TWO-D-018.
+
+        Requirement: Study verification must reject duplicate/nonfinite JSON and any
+        retained case path outside its explicit repository root.
+
+        Method: Mutate the result schema key and first portable-result path.
+
+        Oracle: Shared strict JSON and exact repository-confinement contracts.
+
+        Acceptance: Each invalid result raises ``ValueError`` before source use.
+
+        Interpretation: A pass establishes strict adaptation and path confinement.
+
+        Limitations: It does not establish native-file presence or execution provenance.
+        """
+        payload = self.campaign().encoded_documents.result_payload
+        duplicate = payload[:-2] + b',\n  "schema_version": 1\n}\n'
+        nonfinite = payload.replace(b'"schema_version": 1', b'"schema_version": NaN', 1)
+        escaping = payload.replace(
+            b'"portable_result_path": "calculations/research-monograph/periodic-2d/'
+            b'wannier90-study-results/mesh_n11.json"',
+            b'"portable_result_path": "../../outside.json"',
+            1,
+        )
+        with pytest.raises(ValueError, match="duplicate JSON key"):
+            self.campaign(duplicate).verify(repository_root=self.root())
+        with pytest.raises(ValueError, match="non-finite JSON constant"):
+            self.campaign(nonfinite).verify(repository_root=self.root())
+        with pytest.raises(ValueError, match="confined"):
+            self.campaign(escaping).verify(repository_root=self.root())

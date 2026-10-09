@@ -1,4 +1,4 @@
-# Appendix G isolated-band, stress, and direct composite protocol
+# Appendix G isolated-band, reduction-challenge, and direct composite protocol
 
 ## Evidence boundary
 
@@ -106,9 +106,9 @@ the 23-dimensional ambient binary64 plane-wave basis. These are software/numeric
 comparison rules, not rigorous forward-error bounds, physical uncertainty, model
 adequacy, or scientific acceptance criteria.
 
-## Adversarial stress extension
+## Adversarial reduction challenge
 
-The stress input separately challenges the assumptions of the nominal
+The historical `stress-input.json` wire separately challenges the assumptions of the nominal
 construction. It sweeps $V_0/E_G=0,0.02,0.1,0.5,1,2,4$; compares the first eight
 parent bands; samples band indices $0,1,2,3,5,7$ on reciprocal meshes of
 8, 16, 32, 64, and 128 points; and uses a $P=21$ plane-wave reference. A zero or
@@ -161,7 +161,7 @@ control does not imply gauge-independent truncation.
 ## Acceptance boundary
 
 The isolated-band DataObject exposes separate correlation and verification
-Actionizers. The correlator establishes typed input/result identity without making a
+Actions. The correlator establishes typed input/result identity without making a
 numerical claim. The verifier consumes that correlation and independently
 reconstructs the parent spectra, common-coordinate finite-difference defects, Mathieu
 and weak-gap references, lowest-band reciprocal energies, complete scalar hoppings,
@@ -176,13 +176,15 @@ unretained; localization center, spread, and density identity therefore remain
 calculated producer diagnostics rather than independently reconstructed numerical-
 verification channels.
 
-The stress DataObject also separates correlation from verification. Its verifier
+The canonical reduction-challenge DataObject also separates correlation from
+verification. Its historical filenames and JSON keys retain `stress` solely as wire
+identity. Its verifier
 independently reconstructs every retained amplitude, potential-shape,
 mesh/band/isolation, gauge-covariance, complete-hopping, and fitting-route channel from
 the correlated version-one controls.
 
 The composite DataObject likewise exposes distinct correlation and verification
-Actionizers. Its verifier independently reconstructs the retained reciprocal
+Actions. Its verifier independently reconstructs the retained reciprocal
 Hamiltonians, complete smooth hopping transform and inverse, exact-pair Hermiticity,
 finite-range training diagnostics, direct-route fits, and retained array identities.
 The retained result lacks the source frames, projectors, attacked gauges, rough
@@ -192,14 +194,20 @@ gauge attack, pointwise alignment, rough-gauge reconstruction, and withheld-rang
 errors. Those values remain calculated producer diagnostics with software and
 structural checks.
 
-The Wannier90 integration DataObject encapsulates composite input bytes, one typed
-retained-result variant, and any explicitly supplied native artifact groups. Its
-correlation Actionizer requires no native artifacts and makes no numerical claim. Its
-verification Actionizer authenticates and parses complete native groups before
-independent Wilson reconstruction. The compact result verifier separately reconstructs
-frame, operator, and finite-range diagnostics from retained unitary matrices.
-Convergence disposition is retained from the identified execution record; none of
-these operations reruns Wannier90.
+The canonical `ksdft2effmass.periodic1d.campaign.wannier90` integration DataObject
+encapsulates composite input bytes, one explicitly typed retained-result variant, and
+any explicitly supplied native artifact groups. The explicit kind selects the schema
+and must then agree with the retained preconditioning declaration. Its correlation
+Action requires no native artifacts and makes no numerical claim. It decodes the result
+first so its provenance declaration can authenticate the still-opaque composite input
+before input-owned controls are consumed. Verification preserves that correlation and
+requires its exact result wire to match native verification. It authenticates every
+native group's explicit names, byte counts, and SHA-256 digests before any group is
+parsed, then independently reconstructs Wilson loops. The compact result verifier separately
+reconstructs frame, operator, and finite-range diagnostics from retained unitary
+matrices. Convergence disposition is retained from the identified execution record;
+none of these operations discovers paths, reruns Wannier90, proves provenance, or
+grants execution authority.
 
 Passing establishes only the stated reconstructable numerical channels for the
 frozen model. The separately identified calculated diagnostics do not contribute to

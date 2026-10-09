@@ -1,4 +1,4 @@
-"""Correlation Actionizer for retained composite periodic-2D payloads."""
+"""Correlation Action for retained composite periodic-2D payloads."""
 
 import hashlib
 import json

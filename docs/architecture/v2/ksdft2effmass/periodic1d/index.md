@@ -3,9 +3,10 @@
 ## Purpose and status
 
 This implemented package owns canonical one-dimensional scientific-model, retention,
-representation, and effective-model records extracted from historical campaign-local
-owners. Phase 5 migration remains active; campaign execution and encoded documents
-still live outside this package until their crosswalk rows are completed.
+representation, effective-model, and canonical campaign records extracted from
+historical campaign-local owners. Phase 5 migration remains active: rows 030--032 and
+058--066 now have canonical owners here; later periodic-2D campaign rows remain
+separate migration work.
 
 ## Public contract
 
@@ -14,11 +15,15 @@ The package root deliberately exports the names in
 
 | Child module | Responsibility | Canonical page |
 |---|---|---|
+| `periodic1d.fibers` | Shared parent-qualified finite-fiber request | [Fiber requests](fibers/index.md) |
+| `periodic1d.finite_differences` | Half-open grids and twisted sparse represented fibers | [Finite-difference fibers](finite_differences/index.md) |
 | `periodic1d.hopping` | Finite-hopping toy parent, immutable blocks, exact transform representations, and truncation/fit effective-model results | [Hopping models](hopping/index.md) |
 | `periodic1d.model` | Fourier parent and finite plane-wave parent representation | [Fourier parent models](model/index.md) |
+| `periodic1d.plane_waves` | Ordered finite plane-wave represented fibers | [Plane-wave fibers](plane_waves/index.md) |
 | `periodic1d.retention` | Parent-qualified selected-band and represented retained spaces | [One-dimensional scientific retention](retention/index.md) |
 | `periodic1d.representations` | Retained-operator reciprocal and hopping bindings | [One-dimensional represented retained operators](representations/index.md) |
-| `periodic1d.campaign` | Target owner for one-dimensional campaign definitions, Actions, results, and retained-evidence adapters | [Target campaign architecture](campaign/index.md); source migration remains pending rows `058–066` |
+| `periodic1d.supercell_operators` | Explicit metadata adaptation to general dense represented-operator records | [Supercell operators](supercell_operators/index.md) |
+| `periodic1d.campaign` | Canonical owner for migrated one-dimensional campaign definitions, Actions, results, and retained-evidence adapters | [Campaign architecture](campaign/index.md); rows `058–066` are implemented |
 
 ## Ownership boundary
 
@@ -29,9 +34,11 @@ parent/retained operator. Complete transforms, truncation, and fitting remain di
 
 ## Dependency rules
 
-The package may depend inward on general `ksdft2effmass.periodic` contracts and reusable
-solid-state numerical objects. It must not import campaign execution, encoded campaign
-documents, filesystem paths, or acceptance policy.
+Scientific-model, retention, and representation modules may depend inward on general
+`ksdft2effmass.periodic` contracts and reusable solid-state numerical objects. They
+must not import campaign execution, encoded campaign documents, filesystem paths, or
+acceptance policy. The separate `periodic1d.campaign` child may compose those scientific
+owners but not reverse that dependency.
 
 ## Code and test mapping
 
@@ -50,6 +57,8 @@ quantification, or human acceptance.
 
 ## Limitations and deviations
 
-Rows `058–066` remain pending campaign migration. Canonical module/class pages are being
-added by crosswalk dossier cohort rather than by declaring untouched legacy surfaces
-complete.
+Historical row-030 artifacts without explicit cell vectors, exact ordered state labels,
+and structured provenance remain unmigrated; the canonical constructor does not infer
+those values.
+Canonical module/class pages are added by crosswalk dossier cohort rather than by
+declaring untouched legacy surfaces complete.

@@ -7,7 +7,7 @@ import argparse
 from pathlib import Path
 from typing import cast
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.periodic1d.campaign import (
     Periodic1DIsolatedBandCampaign,
     Periodic1DIsolatedBandEncodedDocuments,
 )

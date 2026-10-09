@@ -5,7 +5,28 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DWannier90BalancedEncodedDocuments:
-    """Store exact version-one balanced Wannier90 result bytes."""
+    """Retain an exact encoded balanced Wannier90 result document.
+
+    Parameters
+    ----------
+    result_payload
+        Exact nonempty built-in bytes for the retained balanced-comparison result.
+
+    Raises
+    ------
+    TypeError
+        If ``result_payload`` is not exact built-in :class:`bytes`.
+    ValueError
+        If ``result_payload`` is empty.
+
+    Notes
+    -----
+    The DataObject preserves byte identity without decoding, normalization, copying, or
+    filesystem access. It owns no input document and does not imply that native
+    Wannier90 files exist. Encoded observations do not establish execution provenance,
+    localization convergence, decoded correctness, scientific validation, uncertainty,
+    or acceptance.
+    """
 
     result_payload: bytes
 

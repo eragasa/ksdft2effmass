@@ -25,6 +25,6 @@ class TestPeriodic2DPlaneWaveBasis:
     def test_init_rejects_boolean_and_negative_cutoffs(self) -> None:
         """Only nonnegative built-in integer cutoffs define a basis."""
         with pytest.raises(TypeError, match="cutoff"):
-            Periodic2DPlaneWaveBasis(True)  # type: ignore[arg-type]
+            Periodic2DPlaneWaveBasis(True)
         with pytest.raises(ValueError, match="nonnegative"):
             Periodic2DPlaneWaveBasis(-1)

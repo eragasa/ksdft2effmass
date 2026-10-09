@@ -21,8 +21,8 @@ from ...model.toy_models import (
 from .definition import (
     Periodic2DIsolatedBandCampaignDefinition,
     Periodic2DIsolatedBandProvenance,
-    Periodic2DIsolatedBandResultDocument,
 )
+from .result_documents import Periodic2DIsolatedBandResultDocument
 from .serialization import Periodic2DIsolatedBandCampaignJsonSerializer
 from .serialization.decoding import JsonValue
 

@@ -8,10 +8,14 @@ CAMPAIGN_ROOT = Path(__file__).resolve().parent
 NON_RECONSTRUCTION_TESTS = frozenset(
     {
         "test__periodic_1d_legacy_import.py",
-        "test__Periodic1DCompositeEncodedDocuments.py",
-        "test__Periodic1DIsolatedBandEncodedDocuments.py",
-        "test__Periodic1DReductionChallengeEncodedDocuments.py",
-        "test__Periodic1DWannier90EncodedDocuments.py",
+        "test__BlindAlignmentEncodedDocuments.py",
+        "test__ContinuumRefinementEncodedDocuments.py",
+        "test__FiniteRankOracleEncodedDocuments.py",
+        "test__RouteReconciliationEncodedDocuments.py",
+        "test__integration__blind_alignment_encoded_document_artifacts.py",
+        "test__integration__continuum_refinement_encoded_document_artifacts.py",
+        "test__integration__finite_rank_oracle_encoded_document_artifacts.py",
+        "test__integration__route_reconciliation_encoded_document_artifacts.py",
     }
 )
 

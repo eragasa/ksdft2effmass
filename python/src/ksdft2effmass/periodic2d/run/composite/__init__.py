@@ -1,4 +1,4 @@
-"""Composite periodic-2D campaign DataObject and Actionizers."""
+"""Composite periodic-2D campaign data and operation owners."""
 
 from .correlate import (
     Periodic2DCompositeCampaignCorrelationRequest,

@@ -40,14 +40,14 @@ class TestPeriodic2DFiniteDifferenceHamiltonianRequest:
                 self.model(),
                 np.float64(0.0),
                 0.0,
-                7,  # type: ignore[arg-type]
+                7,
             )
         with pytest.raises(TypeError, match="points_per_direction"):
             Periodic2DFiniteDifferenceHamiltonianRequest(
                 self.model(),
                 0.0,
                 0.0,
-                True,  # type: ignore[arg-type]
+                True,
             )
         with pytest.raises(ValueError, match="odd and at least five"):
             Periodic2DFiniteDifferenceHamiltonianRequest(self.model(), 0.0, 0.0, 6)

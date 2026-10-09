@@ -1,4 +1,4 @@
-"""Correlation Actionizer for retained isolated periodic-2D payloads."""
+"""Correlation Action for retained isolated periodic-2D payloads."""
 
 import hashlib
 from dataclasses import dataclass
@@ -9,7 +9,7 @@ from .calculate import (
 )
 from .definition import Periodic2DIsolatedBandProvenance
 from .encoded_documents import Periodic2DIsolatedBandEncodedDocuments
-from .serialization.decoding import JsonValue, Periodic2DCampaignJsonDecoder
+from .serialization.decoding import JsonValue, Periodic2DIsolatedBandJsonDecoder
 
 
 @dataclass(frozen=True, slots=True)
@@ -47,7 +47,7 @@ class Periodic2DIsolatedBandCampaignCorrelator:
     __slots__ = ()
 
     workflow = Periodic2DIsolatedBandCalculationWorkflow()
-    decoder = Periodic2DCampaignJsonDecoder()
+    decoder = Periodic2DIsolatedBandJsonDecoder()
 
     def execute(
         self, request: Periodic2DIsolatedBandCampaignCorrelationRequest

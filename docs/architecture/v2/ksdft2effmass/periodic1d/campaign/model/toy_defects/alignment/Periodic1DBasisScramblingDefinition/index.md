@@ -9,7 +9,7 @@ scientific model.
 ## Public contract
 
 The current transitional import is
-`ksdft2effmass.campaigns.periodic_1d.model.toy_defects`. Canonical ownership must use
+`ksdft2effmass.periodic1d.campaign.model.toy_defects`. Canonical ownership uses
 the non-underscored `periodic1d` namespace and must not retain a compatibility alias.
 
 The definition stores an integer cell translation, exact two-orbital permutation,
@@ -35,7 +35,7 @@ factor; the result supplies both map directions.
 
 | Kind | Path or node | Established behavior |
 |---|---|---|
-| Code | `python/src/ksdft2effmass/campaigns/periodic_1d/model/toy_defects/alignment.py:Periodic1DBasisScramblingDefinition` | Immutable operation controls |
+| Code | `python/src/ksdft2effmass/periodic1d/campaign/model/toy_defects/alignment.py:Periodic1DBasisScramblingDefinition` | Immutable operation controls |
 | Test | `TestPeriodic1DBasisScramblingConstructor::test_method__execute__constructs_identity_for_zero_scrambling` | Neutral definition |
 | Test | `TestPeriodic1DBasisScramblingConstructor::test_method__execute__returns_inverse_unitary_directions` | Nontrivial unitary composition and map direction |
 | Test | `TestPeriodic1DBasisScramblingConstructor::test_public_api__definition__has_no_retired_model_alias` | Definition terminology and alias removal |

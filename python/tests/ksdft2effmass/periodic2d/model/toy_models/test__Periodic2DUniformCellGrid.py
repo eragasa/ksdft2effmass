@@ -28,7 +28,7 @@ class TestPeriodic2DUniformCellGrid:
     def test_init_rejects_boolean_even_and_short_grids(self) -> None:
         """Only odd built-in integer side counts of at least five are admitted."""
         with pytest.raises(TypeError, match="points_per_direction"):
-            Periodic2DUniformCellGrid(True)  # type: ignore[arg-type]
+            Periodic2DUniformCellGrid(True)
         with pytest.raises(ValueError, match="odd and at least five"):
             Periodic2DUniformCellGrid(4)
         with pytest.raises(ValueError, match="odd and at least five"):

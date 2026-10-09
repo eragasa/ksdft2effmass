@@ -133,7 +133,7 @@ Periodic2d isolated-band campaign
 
 ``Periodic2DIsolatedBandCampaign`` preserves the retained periodic2d version-one
 input and result bytes. Its current immutable model owns those exact wire documents.
-Separate Actionizers calculate, correlate, and independently verify the controlled
+Separate Actions calculate, correlate, and independently verify the controlled
 scalar campaign. This surface does not yet claim complete periodic1d capability
 parity. Canonical correlation reproduces the retained document but makes no
 numerical claim. The verifier authenticates retained input and runner identities and
@@ -152,16 +152,18 @@ boundaries.
 
 .. currentmodule:: ksdft2effmass.periodic2d
 
-``Periodic2DCampaign`` supplies the lightweight nominal and dimensional identity
-shared by canonical periodic2d campaigns. It deliberately owns no model, numerical,
-serialization, or acceptance policy; see
-:doc:`ksdft2effmass/periodic2d/campaign/base`. The canonical one-band campaign
-package is ``ksdft2effmass.periodic2d.campaign.nbands_1``. Because the project is
-still alpha, the former ``ksdft2effmass.campaigns.periodic2d`` and publication-owned
-routes were removed rather than retained as compatibility façades.
+Periodic-2D campaigns are independent immutable composition roots. They share no
+nominal campaign base: model identity, finite representations, retained documents,
+numerical policy, and evidence boundaries remain with each concrete family. The
+canonical one-band campaign package is
+``ksdft2effmass.periodic2d.campaign.nbands_1``. Because the project is still alpha,
+the dimension-only ``Periodic2DCampaign`` base, former
+``ksdft2effmass.campaigns.periodic2d`` route, and publication-owned routes were
+removed rather than retained as compatibility façades.
 
 .. autoclass:: Periodic2DIsolatedBandEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: Periodic2DIsolatedBandCampaign
    :members:
@@ -174,8 +176,19 @@ field, unit, failure, canonicalization, and evidence contracts.
 .. toctree::
    :hidden:
 
-   ksdft2effmass/periodic2d/campaign/base
+   ksdft2effmass/periodic1d/campaign/alignment-blind
+   ksdft2effmass/periodic1d/campaign/continuum-refinement
+   ksdft2effmass/periodic1d/campaign/extraction-matched
+   ksdft2effmass/periodic1d/campaign/finite-rank-oracle
+   ksdft2effmass/periodic1d/campaign/route-reconciliation
+   ksdft2effmass/periodic1d/campaign/wannier90
    ksdft2effmass/periodic2d/campaign/nbands_1/serialization
+   ksdft2effmass/periodic2d/run/composite
+   ksdft2effmass/periodic2d/run/topological
+   ksdft2effmass/periodic2d/run/topological-phase-sweep
+   ksdft2effmass/periodic2d/run/wannier90-balanced
+   ksdft2effmass/periodic2d/run/wannier90-study
+   ksdft2effmass/periodic2d/run/optimizer-basin
 
 .. autoclass:: Periodic2DIsolatedBandCampaignDefinition
    :members:
@@ -189,6 +202,12 @@ field, unit, failure, canonicalization, and evidence contracts.
    :members:
    :no-index:
 
+``Periodic2DIsolatedBandResultDocument`` is defined by the campaign-owned
+``result_documents`` module rather than the scientific-definition module. It preserves
+one exact result wire and derives content identity only; construction does not prove
+calculation execution, provenance, decoded correctness, convergence, validation,
+uncertainty, or acceptance.
+
 .. autoclass:: Periodic2DIsolatedBandResultDocument
    :members:
    :no-index:
@@ -200,6 +219,7 @@ gauges without importing the maintained calculation route.
 
 .. autoclass:: Periodic2DCompositeEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: Periodic2DCompositeCampaign
    :members:
@@ -210,6 +230,7 @@ projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 
 .. autoclass:: Periodic2DTopologicalEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: Periodic2DTopologicalCampaign
    :members:
@@ -219,6 +240,7 @@ independently reconstructs every sampled gap and Chern diagnostic.
 
 .. autoclass:: Periodic2DTopologicalPhaseSweepEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: Periodic2DTopologicalPhaseSweepCampaign
    :members:
@@ -229,6 +251,7 @@ not execute Wannier90 or access the external native-run directory.
 
 .. autoclass:: Periodic2DWannier90BalancedEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: Periodic2DWannier90BalancedCampaign
    :members:
@@ -238,6 +261,7 @@ reuses the independent portable reconstruction for each declared sensitivity axi
 
 .. autoclass:: Periodic2DWannier90StudyEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: Periodic2DWannier90StudyCampaign
    :members:
@@ -248,6 +272,7 @@ accessing native execution files.
 
 .. autoclass:: Periodic2DOptimizerBasinEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: Periodic2DOptimizerBasinCampaign
    :members:
@@ -255,6 +280,12 @@ accessing native execution files.
 ``Periodic2DOptimizerReanalysisCampaign`` checks the retained native-spread
 decomposition, terminal-trace classifications, symmetry-aware basin partitions, and
 repository-retained estimator-grid refinements without opening external run paths.
+Strict schema decoding first adapts verifier-owned values to immutable records. The
+request-scoped verifier then composes separate instantiated source-authentication,
+correlation, periodic-center, basin, and refinement Actions; it is not a static utility
+namespace or a generic reanalysis framework.
+
+.. currentmodule:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis
 
 .. autoclass:: Periodic2DOptimizerReanalysisEncodedDocuments
    :members:
@@ -262,9 +293,23 @@ repository-retained estimator-grid refinements without opening external run path
 .. autoclass:: Periodic2DOptimizerReanalysisCampaign
    :members:
 
-``Periodic2DOptimizerStandaloneCampaign`` verifies all retained initial endpoints,
-exact-checkpoint continuations, density-aware basin partitions, threshold-sensitivity
-records, and the negative standalone-study disposition.
+.. currentmodule:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.verify
+
+.. autoclass:: Periodic2DOptimizerReanalysisCampaignVerificationRequest
+   :members:
+
+.. autoclass:: Periodic2DOptimizerReanalysisCampaignVerificationResult
+   :members:
+
+.. currentmodule:: ksdft2effmass.periodic2d
+
+``Periodic2DOptimizerStandaloneCampaign`` request-scoped verification authenticates the
+retained proposal, deterministic-start design, result, and maintained extractor. It
+reconstructs all initial endpoints, exact-checkpoint continuations, native spread
+algebra, terminal classes, density-aware basin partitions, threshold-sensitivity
+records, controls, and the exact negative standalone-study disposition without opening
+external native run roots. Historical positive infinity is confined to two
+rejected-comparison extended-real fields.
 
 .. autoclass:: Periodic2DOptimizerStandaloneEncodedDocuments
    :members:
@@ -372,7 +417,7 @@ constructs sparse matrices without implicit densification, and performs no prote
 calculation or scientific acceptance.  The separate perturbation extractor implements
 :math:`\Delta H=H_{\mathrm{def}}-H_0` only for already compatible represented
 operators; it performs no implicit alignment or energy-zero inference.  The locality
-Actionizer partitions sites by minimum-image Chebyshev distance from an explicit defect
+Action partitions sites by minimum-image Chebyshev distance from an explicit defect
 origin and reports core, exterior, core--exterior, and shell-resolved norms.  A
 finite-extent disposition uses explicit energy-unit tolerances for the exterior and
 core--exterior channels. See :doc:`../concepts/periodic2d-finite-extent-defects`
@@ -416,11 +461,16 @@ for the methodological boundary and partition definitions.
 Periodic-1D hopping reduction
 -----------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. The former
+The canonical owner for migrated Appendix G families is
+``ksdft2effmass.periodic1d.campaign``. Rows 058--066 moved the isolated, composite,
+reduction-challenge, Wannier90, blind-alignment, continuum-refinement,
+finite-rank-oracle, matched-extraction, and route-reconciliation families without
+aliases. The transitional ``ksdft2effmass.campaigns.periodic_1d`` package exposes none
+of those moved families. The former
 ``ksdft2effmass.campaigns.research_monograph.periodic_1d`` import façade is deprecated;
-it retains its frozen historical export subset and emits :class:`DeprecationWarning`.
-New replay-adoption contracts are available only from the canonical package and do not
-expand the deprecated namespace.
+it retains only its frozen historical export subset and emits
+:class:`DeprecationWarning`. New canonical contracts do not expand either former
+namespace.
 
 The versioned Appendix G Workflow composes complete uniform-mesh Fourier transform,
 symmetric truncation, Parseval analysis, explicit-weight least-squares fitting, and
@@ -430,10 +480,12 @@ gauge and alignment defects, range studies, direct-route comparisons, Wilson spe
 and intermediate-array identities to the exact campaign input.  These channels remain
 separate: in particular, an unaligned gauge-dependent hopping defect is not a
 basis-aligned operator error, and training errors are not withheld-mesh errors.
-Wannier90 Workflows separately bind retained Wilson spectra and circular center
-comparisons to exact inputs. Periodic-1D calculation scripts remain in-development
-adapters and keep domain behavior in these Workflows, which perform no filesystem
-discovery or external Wannier90 operation.
+Canonical Wannier90 Workflows separately bind retained Wilson spectra and circular
+center comparisons to exact inputs. Integrated verification authenticates the opaque
+composite input against the result declaration before native parsing, then crosses a
+whole-request native-byte identity barrier before any group is parsed. Periodic-1D
+calculation scripts remain in-development adapters and keep domain behavior in these
+Workflows, which perform no filesystem discovery or external Wannier90 operation.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
@@ -445,15 +497,16 @@ represents a finite Hermitian hopping family with stable configured-model identi
 nominal one-dimensional toy-model membership.  The campaign package retains separate
 Actions that construct primitive Bloch fibers and explicitly twisted finite
 supercells.  Other reusable controlled definitions demonstrated by the defect
-campaigns remain available from
-``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
+campaigns are owned by
+``ksdft2effmass.periodic1d.campaign.model.toy_defects``.
 ``Periodic1DBasisScramblingDefinition`` specifies controlled site translation,
 orbital permutation and rotation, site and orbital phases, and optional spin-half
 rotation without claiming scientific-model membership; its constructor returns both
 explicitly oriented unitary map directions.
-``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
-minimum-image Gaussian onsite perturbation and its constructor returns the profile,
-coordinates, and represented block-diagonal operator.
+``Periodic1DGaussianOnsitePerturbationDefinition`` specifies dimensionless
+minimum-image Gaussian onsite perturbation data, and its constructor returns the
+profile, coordinates, and represented block-diagonal perturbation. The definition is
+not a defect model because it has no pristine-parent or compatibility identity.
 
 These types own reusable controlled-system definitions, toy-model state, and
 numerical construction only. They own no retained paths, campaign thresholds, phase
@@ -461,7 +514,7 @@ labels, evidence acceptance, silicon
 interpretation, or protected execution. A general finite-extent operator perturbation
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
+.. currentmodule:: ksdft2effmass.periodic1d.campaign.model.toy_defects
 
 .. autoclass:: Periodic1DBasisScramblingDefinition
    :members:
@@ -493,25 +546,27 @@ with directed bond blocks is not represented as an onsite Gaussian potential.
 .. autoclass:: Periodic1DSupercellHamiltonianConstructor
    :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectModel
+.. autoclass:: Periodic1DGaussianOnsitePerturbationDefinition
    :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectRequest
+.. autoclass:: Periodic1DGaussianOnsitePerturbationRequest
    :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectResult
+.. autoclass:: Periodic1DGaussianOnsitePerturbationResult
    :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectConstructor
+.. autoclass:: Periodic1DGaussianOnsitePerturbationConstructor
    :members:
 
 Periodic-1D matched defect extraction
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The maintained matched known-map capability is available from
-``ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction``.
+``ksdft2effmass.periodic1d.campaign.extraction.matched``.
 Its immutable records preserve the retained version-one controls and represented-space
-metadata.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
+metadata.  Its comparison envelope composes the general ``OperatorRecord`` through
+explicit cell vectors, ordered labels, and structured provenance rather than owning a
+second represented matrix contract.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
 comparison convention before subtraction.  ``MatchedDefectExtractionWorkflow``
 constructs the bounded synthetic folding, extraction, finite-size, model-class, and
 observable controls.  ``MatchedDefectExtractionResultVerifier`` reconstructs the
@@ -525,7 +580,7 @@ own provenance; it does not inherit the historical result's acceptance status.  
 :doc:`../concepts/periodic-1d-defect-extraction` for the comparison and evidence
 boundary.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction
+.. currentmodule:: ksdft2effmass.periodic1d.campaign.extraction.matched
 
 .. autoclass:: ParentSourceReference
    :members:
@@ -589,15 +644,32 @@ Periodic-1D blind alignment
 
 The maintained public route exports only ``BlindAlignmentCampaign`` and
 ``BlindAlignmentEncodedDocuments`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``. The encoded-document
-owner stores exact input and retained-result bytes only. The façade delegates retained
-decoding, complete calculation, and identity-only correlation to cohesive Actionizers;
+``ksdft2effmass.periodic1d.campaign.alignment.blind``. The former underscored defect
+route is removed without a forwarding alias. The encoded-document owner stores exact
+input and retained-result bytes only. The façade delegates retained
+decoding, complete calculation, and identity-only correlation to cohesive Actions;
 operations that authenticate repository-relative sources receive an explicit absolute
-filesystem root in their request.
+filesystem root in their request. Specifically,
+``BlindAlignmentCampaignCalculationRequest``,
+``BlindAlignmentCampaignRetainedCorrelationRequest``, and
+``BlindAlignmentCampaignVerificationRequest`` own that location boundary; constructing
+those requests performs no filesystem access. The encoded owner accepts only nonempty
+exact built-in ``bytes``, preserves caller-supplied objects without decoding or
+normalization, and rejects ``bytes`` subclasses.
+
+The maintained ``input.json`` and ``result.json`` content identities are respectively
+``3476c0b1ed45913e5386be3688528d549f7eea15840b67559763d875406d7d48`` and
+``a3b7d20c870fe5d87fd6a591fbafe9a997e7a261a5bc08163c3273b4789416fe``.
+SHA-256 establishes content identity only, not source or execution provenance, decoded
+correctness, information-boundary correctness, scientific validity, uncertainty
+quantification, or acceptance. Routine synthetic invariant tests are class-owned;
+retained-file, checksum-catalog, facade, retired-route, and request-location checks are
+artifact-owned integration evidence. The former ``BlindAlignmentCampaignModel`` and its
+``model.py`` module remain retired without compatibility aliases.
 
 Internally, ``BlindAlignmentObservation`` contains only inference-visible represented operators,
 anchor cross-covariance, retained-subspace overlap, exterior energy anchor, and the
-explicit partial-alignment declaration. ``BlindAlignmentInferenceActionizer`` applies
+explicit partial-alignment declaration. ``BlindAlignmentInference`` applies
 only the supplied numerical policy and returns either a full or identified-sector
 result or a structured stopping code. The separate rectangular method requires an
 explicit lower-dimensional candidate and partial-alignment declaration.
@@ -626,7 +698,7 @@ and canonical matrix identities as distinct channels.
 The strict result decoder maps every retained version-one section into closed immutable
 records. The canonical serializer reproduces the sorted, two-space-indented UTF-8
 format, and the correlator reports semantic and byte identity without making a
-numerical-verification claim. ``BlindAlignmentCaseExecutionActionizer`` passes only the
+numerical-verification claim. ``BlindAlignmentCaseExecutor`` passes only the
 observation to inference and evaluates hidden truth only after success. The complete
 ``BlindAlignmentCampaignWorkflow`` composes exact, noise, gauge, stopping, conditioning,
 angle, rank, spin, and energy-anchor cases into the typed result. The façade's
@@ -640,27 +712,41 @@ perform post hoc campaign acceptance. Independent agreement is numerical verific
 of this bounded synthetic campaign, not material validation or uncertainty
 quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment
+The complete defining-module API and scientific boundaries are documented in
+:doc:`ksdft2effmass/periodic1d/campaign/alignment-blind`.
+
+.. currentmodule:: ksdft2effmass.periodic1d.campaign.alignment.blind
 
 .. autoclass:: BlindAlignmentEncodedDocuments
    :members:
+   :no-index:
 
 .. autoclass:: BlindAlignmentCampaign
    :members:
+   :no-index:
 
 Periodic-1D independent-route reconciliation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The maintained public route exports only ``RouteReconciliationCampaign`` and
+The maintained public route exports exactly ``RouteReconciliationCampaign``,
+``RouteReconciliationCampaignResultDocument``, and
 ``RouteReconciliationEncodedDocuments`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``. The document
-owner stores exact version-one input and retained-result bytes only. Campaign
-operations receive an explicit absolute filesystem root for authenticated source
-loading. The façade delegates calculation, retained identity correlation, and
-independent verification.
+``ksdft2effmass.periodic1d.campaign.reconciliation.route``. The frozen,
+slotted pair owner stores two ordered, exact, nonempty built-in ``bytes`` values. The
+separate frozen result-document owner stores one exact retained result wire and derives
+SHA-256 directly from those bytes. Neither owns repository location or decoded meaning.
+``RouteReconciliationCalculationRequest``,
+``RouteReconciliationRetainedCorrelationRequest``, and
+``RouteReconciliationVerificationRequest`` separately own the absolute filesystem
+root for their exact operation. Request construction checks lexical absoluteness
+without resolving or accessing the path. Calculation and verification bind both the
+encapsulated input bytes and repository input file to declared provenance before
+decoding route contracts; operation owners then authenticate declared sources. The
+former aggregate ``RouteReconciliationCampaignModel`` and its ``model.py``
+module are retired without aliases.
 
-``RealSpaceExtractionActionizer`` assembles and subtracts the finite twisted
-supercell directly in site coordinates. ``BlochFiberExtractionActionizer`` separately
+``RealSpaceExtractor`` assembles and subtracts the finite twisted
+supercell directly in site coordinates. ``BlochFiberExtractor`` separately
 evaluates primitive Bloch fibers and the discrete folding transform; neither route
 invokes the other. The campaign preserves route-representation, alignment,
 truncation, quadrature, spectral, eigenspace, and operator-commutativity channels
@@ -670,14 +756,24 @@ relative-unitary records represent only explicitly declared reconciliations.
 
 The retained correlator reproduces canonical bytes under retained provenance but makes
 no numerical claim. ``verify_retained`` uses a separate implementation that imports no
-maintained Workflow or route Actionizer, authenticates the three retained source
-identities, and reconstructs all 15 nominal, adversarial, and reconciliation records.
-This is bounded synthetic software and numerical verification, not evidence for
-silicon, continuum convergence, scientific validation, or uncertainty quantification.
+maintained Workflow or route Action, authenticates the three directly declared
+source identities, and reconstructs all 15 nominal, adversarial, and reconciliation
+records. The retained input and result identities are respectively
+``aa7bd0750556bca3199678877f9ca2cd340f6c6b02885d6019c56173e912953f`` and
+``861097a6156999b615edd27cf68dcf36fd110248b9d24dc1b862eff5eeec3bdc``.
+Their matching hashes establish content identity only. This is bounded synthetic
+software and numerical verification, not evidence for silicon, continuum convergence,
+scientific validation, uncertainty quantification, or acceptance. The complete
+row-066 architecture dossier and defining-module API are in
+``docs/architecture/v2/ksdft2effmass/periodic1d/campaign/reconciliation/route`` and
+:doc:`ksdft2effmass/periodic1d/campaign/route-reconciliation`.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation
+.. currentmodule:: ksdft2effmass.periodic1d.campaign.reconciliation.route
 
 .. autoclass:: RouteReconciliationEncodedDocuments
+   :members:
+
+.. autoclass:: RouteReconciliationCampaignResultDocument
    :members:
 
 .. autoclass:: RouteReconciliationCampaign
@@ -686,38 +782,93 @@ silicon, continuum convergence, scientific validation, or uncertainty quantifica
 Periodic-1D finite-rank oracle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``FiniteRankOracleCampaign`` and ``FiniteRankOracleEncodedDocuments`` form the narrow
-public route under ``periodic_1d.defects.finite_rank_oracle``. The document owner stores
-exact input and retained-result bytes only. Campaign operations receive an explicit
-absolute filesystem root and authenticate the periodic parent, matched-extraction
-result, and route-reconciliation result before
-comparing a rank-one Bloch-resolvent root with an independently assembled site-space
-eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
-spin-degenerate, and unequal-rank boundaries.
+``FiniteRankOracleCampaign``, ``FiniteRankOracleCampaignResultDocument``, and
+``FiniteRankOracleEncodedDocuments`` form the narrow public route under
+``ksdft2effmass.periodic1d.campaign.oracle.finite_rank``. The pair owner stores exact nonempty built-in
+input and retained-result ``bytes``. The separate result-document owner stores one exact
+retained wire and derives SHA-256 directly from those bytes. They perform no copying,
+decoding, filesystem access, source authentication, root solve, eigensolve, oracle
+qualification, or scientific interpretation. Calculation and retained correlation
+receive explicit
+absolute filesystem-root arguments at execution. Independent verification owns its
+absolute root in ``FiniteRankOracleVerificationRequest``; request construction checks
+only type and lexical absoluteness and performs no filesystem access. No generic request
+is introduced merely to make distinct operation signatures symmetric.
 
-Canonical correlation reproduces the retained document without making a numerical
-claim. The separate verifier imports no maintained Workflow, independently rebuilds
-all 24 records, and reports source, structural, and numerical channels. This evidence
-concerns finite represented synthetic operators only; it does not establish an
-infinite-system limit, continuum convergence, silicon behavior, scientific validation,
-or uncertainty quantification.
+The maintained ``input.json`` and ``result.json`` content identities are respectively
+``ab653338be4f1733c8dd39878526b3293e603f2f0b0e7b8241577db2406c5840`` and
+``64ab16a279d5f8ca18f725dadb15860811a45ea12758a91a7cd7166f6074dae0``.
+SHA-256 establishes content identity only, not provenance, decoded correctness,
+numerical reconstruction, oracle qualification, convergence, material adequacy,
+transferability, UQ, or acceptance. Routine synthetic invariant tests are class-owned;
+retained-file, checksum-catalog, facade, retired-route, and operation-location checks
+are artifact-owned integration evidence. The former
+``FiniteRankOracleCampaignModel`` and its ``model.py`` module remain retired without
+compatibility aliases.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle
+Executing campaign operations bind encapsulated and repository input bytes to declared
+input provenance, then authenticate the periodic parent, matched-extraction result, and
+route-reconciliation result before comparing a rank-one Bloch-resolvent root
+with an independently assembled site-space eigensolution. The retained legacy wire
+binds a frozen historical runner digest; newer results may separately bind current
+script and implementation identities. The verifier does not recursively authenticate
+source-result provenance graphs.
+
+The finite campaign retains 20 attractive controls plus zero-coupling, repulsive,
+spin-degenerate, and unequal-rank boundaries. Canonical correlation reproduces the
+retained document without making an independent numerical claim. The separate verifier
+imports no maintained Workflow, independently rebuilds all 24 records, and reports
+source, structural, and numerical channels. This named analytical route concerns one
+finite represented synthetic parent; it is not a generic oracle engine, production
+qualification mechanism, infinite-system theorem, continuum-convergence result,
+silicon model, scientific validation, or uncertainty quantification. The complete
+row-064 defining-module API and claim boundaries are documented in
+:doc:`ksdft2effmass/periodic1d/campaign/finite-rank-oracle`.
+
+.. currentmodule:: ksdft2effmass.periodic1d.campaign.oracle.finite_rank
 
 .. autoclass:: FiniteRankOracleEncodedDocuments
+   :members:
+
+.. autoclass:: FiniteRankOracleCampaignResultDocument
    :members:
 
 .. autoclass:: FiniteRankOracleCampaign
    :members:
 
+.. _continuum-refinement-api:
+
 Periodic-1D separated continuum refinement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``ContinuumRefinementCampaign`` and ``ContinuumRefinementEncodedDocuments`` form the
-narrow public route under ``periodic_1d.defects.continuum_refinement``. The document
-owner stores exact version-one input and result bytes only. Correlation and verification
-receive an explicit absolute filesystem root for three authenticated sources without
-re-exporting lower-level numerical owners.
+The numerical construction, separated refinement axes, projector and operator
+metrics, frozen persistent-tail decisions, retained finite observations, error
+accounting, and literature claim boundaries are explained in
+:doc:`../concepts/periodic1d-continuum-refinement`.
+
+``ContinuumRefinementCampaign``,
+``ContinuumRefinementCampaignResultDocument``, and
+``ContinuumRefinementEncodedDocuments`` form the narrow public route under
+``ksdft2effmass.periodic1d.campaign.refinement.continuum``. The pair owner stores exact version-one
+input and retained-result bytes. The separate result-document owner stores one exact
+retained wire and derives SHA-256 directly from those bytes. They accept only nonempty
+exact built-in ``bytes`` and preserve supplied objects without decoding or
+normalization. Retained correlation receives an explicit absolute filesystem-root
+method argument and validates it before decoding or source access. Independent
+verification owns its absolute root in ``ContinuumRefinementVerificationRequest``;
+constructing that request performs no filesystem access. These boundaries support three
+authenticated sources without re-exporting lower-level numerical owners.
+
+The maintained ``input.json`` and ``result.json`` content identities are respectively
+``55d647a8c259d3a1f1e5c756b496a9d1a16fee0a691c7b53d2f877da5f287fdd`` and
+``1f4029cc953e78eb8231e5a651676401b20d5b74f09ecb8cb38d72aa2e92c2dc``.
+SHA-256 establishes content identity only, not provenance, decoded correctness,
+asymptotic convergence, continuum-limit validity, material adequacy, transferability,
+UQ, or acceptance. Routine synthetic invariant tests are class-owned; retained-file,
+checksum-catalog, facade, retired-route, and operation-location checks are
+artifact-owned integration evidence. The former
+``ContinuumRefinementCampaignModel`` and its ``model.py`` module remain retired without
+compatibility aliases.
 
 The maintained Workflow evaluates continuum mesh, continuum domain, lattice
 supercell, lattice scale, and profile family as distinct axes. It does not relabel
@@ -728,10 +879,15 @@ and numerical channels. Under the frozen tested controls the lattice-scale seque
 has a persistent bounded pass, while neither profile-width family establishes a
 profile-defined continuum crossover over the tested domain. This is not an asymptotic
 theorem, material validation, transferability evidence, or uncertainty quantification.
+The complete row-063 defining-module API and claim boundaries are documented in
+:doc:`ksdft2effmass/periodic1d/campaign/continuum-refinement`.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement
+.. currentmodule:: ksdft2effmass.periodic1d.campaign.refinement.continuum
 
 .. autoclass:: ContinuumRefinementEncodedDocuments
+   :members:
+
+.. autoclass:: ContinuumRefinementCampaignResultDocument
    :members:
 
 .. autoclass:: ContinuumRefinementCampaign
@@ -750,20 +906,75 @@ retained spaces, or operators.  The reduction-challenge name describes the curre
 campaign's tests of potential, discretization, band-isolation, gauge, hopping-range,
 and fitting-route assumptions; it does not denote mechanical stress.
 
-``Periodic1DIsolatedBandCampaign``, ``Periodic1DCompositeCampaign``, and the currently
-named ``Periodic1DStressCampaign`` consume those documents.  Their correlators
-deserialize, bind, and validate related input and result payloads without performing a
-statistical correlation or making a numerical claim.  Their verifiers apply explicit
-tolerance policy and return independent reconstruction diagnostics. The campaign
-classes do not discover files, execute calculations, promote
-unavailable channels into evidence, or establish material validation or uncertainty
-quantification.
+For row 037, ``Periodic1DIsolatedBandEncodedDocuments`` retains only exact nonempty
+built-in ``bytes``.  Routine class-owned tests cover its intrinsic representation.
+Separate artifact-owned integration evidence preserves the maintained ``input.json``
+and ``result.json`` byte objects, checks their SHA-256 content identities against the
+calculation checksum catalog, and verifies the supported facades and retired-route
+removal.  The record performs no decoding, normalization, copying,
+source authentication, or scientific interpretation.  A matching digest establishes
+content identity only, not provenance, convergence, physical adequacy, uncertainty
+quantification, or acceptance.
 
-``Periodic1DWannier90Integration`` remains a separate integration boundary.
-``Periodic1DWannier90EncodedDocuments`` owns exact composite input and result bytes
-plus the result-document variant. Explicitly supplied native artifact groups remain
-separate typed integration inputs. Wannier90 correlation does not require native
-artifacts, while native verification requires complete artifact groups.
+For row 038, ``Periodic1DCompositeEncodedDocuments`` applies the same exact-byte
+boundary to ``composite-input.json`` and ``composite-result.json``.  Routine class-owned
+tests cover the frozen slotted field contract.  Separate artifact-owned integration
+evidence binds preserved byte objects to the maintained checksum catalog, verifies the
+reviewed facades, and rejects the retired model route.  The record
+does not define composite retained groups, frames, projectors, smooth or rough gauges,
+represented operators, hopping truncations, or effective models.  Missing scientific
+coordinates cannot be inferred from names, ranks, spectra, or content hashes.
+
+For row 039, ``Periodic1DReductionChallengeEncodedDocuments`` owns the exact
+``stress-input.json`` and ``stress-result.json`` bytes.  “Reduction challenge” names
+adversarial checks of the nominal reduction assumptions; it does not mean mechanical
+stress, strain, elasticity, or a stress tensor.  The rename preserves the historical
+filenames, experiment identity, and wire bytes.  Routine class-owned evidence covers
+the exact frozen field contract, while artifact-owned integration evidence binds both
+retained files to the maintained checksum catalog and verifies the supported facades
+and retired-route removal.  The owner does not decode challenge channels, separate
+numerical errors, authenticate calculation provenance, validate the reduction, quantify
+uncertainty, or record acceptance.
+
+``Periodic1DIsolatedBandCampaign``, ``Periodic1DCompositeCampaign``, and
+``Periodic1DReductionChallengeCampaign`` belong to the canonical
+``ksdft2effmass.periodic1d.campaign`` facade and their respective leaf families. Their
+complete definition/document/result/operation/verification families moved together
+under rows 058--060. The former underscored and publication facades retain no aliases.
+Historical ``stress`` filenames and wire keys remain compatibility data only; there is
+no ``Periodic1DStress*`` software surface.
+
+Their correlators deserialize, bind, and validate related input and result payloads
+without performing a statistical correlation or making a numerical claim. Their
+verifiers apply explicit tolerance policy and return independent reconstruction
+diagnostics. The campaign classes do not discover files, execute calculations,
+promote unavailable channels into evidence, or establish material validation or
+uncertainty quantification.
+
+For row 040, ``Periodic1DWannier90EncodedDocuments`` introduced exact
+composite-input bytes, one exact Wannier90 result payload, and an explicit result-kind
+discriminator. Row 061 moved it with the complete family to
+``ksdft2effmass.periodic1d.campaign.wannier90``.
+It supports the initial and preconditioned encoded wire variants without inferring the
+kind from payload content, filenames, ranks, or artifact presence.  Routine class-owned
+evidence covers exact fields, both supported kind members, failure behavior, and frozen
+slotted storage.  Artifact-owned integration evidence binds ``composite-input.json``,
+``wannier90-result.json``, and ``wannier90-preconditioned-result.json`` to the
+maintained checksum catalog and verifies reviewed facades and retired aggregate-route
+removal.
+
+``Periodic1DWannier90NativeArtifactGroup`` separately owns one explicit group key and
+a nonempty ordered tuple of uniquely named caller-supplied native artifacts.  Routine
+class-owned evidence covers its exact fields, ordering, member types, unique-name
+invariant, immutable storage, and absence of repository state.  It owns no repository
+root and performs no discovery, parsing, correlation, or execution.
+``Periodic1DWannier90Integration`` explicitly composes encoded documents and native
+groups.  Document correlation does not require native artifacts, whereas native
+verification requires complete caller-supplied groups.  Neither the preconditioned kind
+nor any encoded payload alone establishes native-file availability, localization
+convergence, provenance, material validity, uncertainty quantification, or acceptance.
+
+.. currentmodule:: ksdft2effmass.periodic1d.campaign
 
 .. autoclass:: Periodic1DIsolatedBandCampaign
    :members:
@@ -813,63 +1024,45 @@ artifacts, while native verification requires complete artifact groups.
 .. autoclass:: Periodic1DCompositeCampaignVerificationResult
    :members:
 
-.. autoclass:: Periodic1DStressCampaign
+.. autoclass:: Periodic1DReductionChallengeCampaign
    :members:
 
 .. autoclass:: Periodic1DReductionChallengeEncodedDocuments
    :members:
 
-.. autoclass:: Periodic1DStressCampaignCorrelator
+.. autoclass:: Periodic1DReductionChallengeCampaignCorrelator
    :members:
 
-.. autoclass:: Periodic1DStressCampaignCorrelationRequest
+.. autoclass:: Periodic1DReductionChallengeCampaignCorrelationRequest
    :members:
 
-.. autoclass:: Periodic1DStressCampaignCorrelationResult
+.. autoclass:: Periodic1DReductionChallengeCampaignCorrelationResult
    :members:
 
-.. autoclass:: Periodic1DStressCampaignVerifier
+.. autoclass:: Periodic1DReductionChallengeCampaignVerifier
    :members:
 
-.. autoclass:: Periodic1DStressCampaignVerificationRequest
+.. autoclass:: Periodic1DReductionChallengeCampaignVerificationRequest
    :members:
 
-.. autoclass:: Periodic1DStressCampaignVerificationResult
+.. autoclass:: Periodic1DReductionChallengeCampaignVerificationResult
    :members:
 
-.. autoclass:: Periodic1DWannier90Integration
-   :members:
-
-.. autoclass:: Periodic1DWannier90EncodedDocuments
-   :members:
-
-.. autoclass:: Periodic1DWannier90IntegrationCorrelator
-   :members:
-
-.. autoclass:: Periodic1DWannier90IntegrationCorrelationRequest
-   :members:
-
-.. autoclass:: Periodic1DWannier90IntegrationCorrelationResult
-   :members:
-
-.. autoclass:: Periodic1DWannier90IntegrationVerifier
-   :members:
-
-.. autoclass:: Periodic1DWannier90IntegrationVerificationRequest
-   :members:
-
-.. autoclass:: Periodic1DWannier90IntegrationVerificationResult
-   :members:
+Row 061 moved the complete family to the canonical campaign namespace without
+compatibility aliases. See
+:doc:`ksdft2effmass/periodic1d/campaign/wannier90` for its supported API.
 
 .. currentmodule:: ksdft2effmass.campaigns
 
 .. autoclass:: CampaignJsonDecoder
    :members:
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
+.. currentmodule:: ksdft2effmass.periodic1d.campaign
 
 .. autoclass:: Periodic1DCampaignJsonDecoder
    :members:
+
+.. currentmodule:: ksdft2effmass.periodic1d.campaign
 
 .. autoclass:: Periodic1DIsolatedBandCampaignDefinition
    :members:
@@ -877,14 +1070,15 @@ artifacts, while native verification requires complete artifact groups.
 .. autoclass:: Periodic1DIsolatedBandCampaignJsonSerializer
    :members:
 
-.. autoclass:: Periodic1DStressPotentialShape
+.. autoclass:: Periodic1DReductionChallengePotentialShape
    :members:
 
-.. autoclass:: Periodic1DStressCampaignDefinition
+.. autoclass:: Periodic1DReductionChallengeCampaignDefinition
    :members:
 
-.. autoclass:: Periodic1DStressCampaignJsonSerializer
+.. autoclass:: Periodic1DReductionChallengeCampaignJsonSerializer
    :members:
+
 
 .. autoclass:: Periodic1DCompositeCampaignDefinition
    :members:
@@ -945,18 +1139,22 @@ smooth reciprocal, smooth hopping, and rough hopping representations. The exact
 retained operator is gauge-independent; basis and gauge identities belong to each
 represented form.
 
-The historical result does not retain rough reciprocal matrices or either frame array.
-The adoption therefore preserves and authenticates only the available matrix and
-hopping arrays, keeps the smooth frame/projector SHA-256 identities, and does not
-reconstruct unavailable data. Construction performs no campaign execution and makes
-no parent-accuracy, gauge-quality, scientific-validation, or uncertainty claim.
+The historical result does not retain rough reciprocal matrices, either frame array,
+or smooth-projector coordinates. The adoption therefore preserves and authenticates
+only the available matrix and hopping arrays. It carries the reported retained smooth
+frame/projector SHA-256 strings without claiming that unavailable source bytes were
+authenticated, and it does not reconstruct unavailable data. Construction performs no
+campaign execution and makes no parent-accuracy, gauge-quality,
+scientific-validation, or uncertainty claim.
 
 Each :class:`Periodic1DCompositeBandGroupResult` remains the unchanged campaign owner
 of isolation, Wilson, gauge, range, route, representation-diagnostic, and artifact-
 identity evidence. :class:`Periodic1DCompositeOperatorGroupAdoption` references that
 exact result while separately binding the retained space, exact retained operator, and
-represented forms. It requires the authenticated smooth-projector identity and does
-not infer a retained space from matching rank or Wilson data alone.
+represented forms. It preserves the reported retained smooth-projector digest only as
+a field of that exact source result; without projector bytes, it neither authenticates
+the digest against projector content nor infers a retained space from matching rank or
+Wilson data alone.
 
 .. autoclass:: Periodic1DCompositeScientificAdoptionRequest
    :members:
@@ -1029,68 +1227,33 @@ narrower than the physical conclusions discussed there: passing verifies represe
 loop assembly, gauge-route agreement, unitarity, and overlap conditioning only.  It
 does not by itself establish polarization, topology, material validity, or UQ.
 
-.. autoclass:: Periodic1DWannier90WilsonGroupResult
-   :members:
+The canonical records, Actions, Workflows, explicit controls, failure behavior, and
+scientific limitations are documented at
+:doc:`ksdft2effmass/periodic1d/campaign/wannier90`.
 
-.. autoclass:: Periodic1DWannier90CampaignResult
-   :members:
+Encoded periodic-1D result documents
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: Periodic1DWannier90ResultJsonSerializer
-   :members:
+These supporting records retain complete immutable JSON trees together with exact
+source bytes and their SHA-256 content identities.  The caller supplies one explicit
+wire kind; no kind, provenance, native-file presence, scientific meaning, convergence,
+or acceptance is inferred from a filename, path, identifier, or payload shape.
+Serialization emits deterministic canonical JSON, which may differ in insignificant
+formatting from the retained source bytes. Row 058 moved these shared owners and the
+periodic-1D decoder to the canonical ``periodic1d.campaign`` namespace; former
+underscored and publication facades retain no aliases. Campaign-specific
+authentication, correlation, scientific decoding, verification, qualification, and
+acceptance remain separate responsibilities.
 
-.. autoclass:: Periodic1DWannier90CampaignWorkflowRequest
-   :members:
-
-.. autoclass:: Periodic1DWannier90CampaignWorkflowResult
-   :members:
-
-.. autoclass:: Periodic1DWannier90CampaignWorkflow
-   :members:
-
-.. autoclass:: Periodic1DWannier90NativeArtifactGroup
-   :members:
-
-.. autoclass:: Periodic1DWannier90NativeArtifactGroupResult
-   :members:
-
-.. autoclass:: Periodic1DWannier90NativeArtifactWorkflowRequest
-   :members:
-
-.. autoclass:: Periodic1DWannier90NativeArtifactWorkflowResult
-   :members:
-
-.. autoclass:: Periodic1DWannier90NativeArtifactWorkflow
-   :members:
-
-.. autoclass:: Periodic1DWannier90WilsonVerificationRequest
-   :members:
-
-.. autoclass:: Periodic1DWannier90WilsonGroupVerificationResult
-   :members:
-
-.. autoclass:: Periodic1DWannier90WilsonVerificationResult
-   :members:
-
-.. autoclass:: Periodic1DWannier90WilsonVerifier
-   :members:
-
-.. autoclass:: Periodic1DWannier90VerifiedNativeWorkflowRequest
-   :members:
-
-.. autoclass:: Periodic1DWannier90VerifiedNativeWorkflowResult
-   :members:
-
-.. autoclass:: Periodic1DWannier90VerifiedNativeWorkflow
-   :members:
+.. currentmodule:: ksdft2effmass.periodic1d.campaign
 
 .. autoclass:: Periodic1DEncodedResultKind
    :members:
 
-.. autoclass:: Periodic1DJsonArray
-   :members:
-
-.. autoclass:: Periodic1DJsonObject
-   :members:
+The complete tree uses the shared
+:class:`ksdft2effmass.serialization.json.ImmutableJsonObject` and
+:class:`ksdft2effmass.serialization.json.ImmutableJsonArray` contracts; periodic-
+specific JSON container aliases are not exposed.
 
 .. autoclass:: Periodic1DEncodedResultDocument
    :members:
@@ -1305,6 +1468,8 @@ verification surface.
 .. autoclass:: Periodic1DIsolatedVerifiedWorkflow
    :members:
 
+.. currentmodule:: ksdft2effmass.periodic1d.campaign
+
 Independent reduction-challenge verification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -1332,64 +1497,66 @@ with the Wannier framework reviewed by `Marzari et al. (2012)
 
 One inclusive ``Unitless`` tolerance is applied separately to the amplitude, shape,
 mesh/band/isolation, gauge-covariance, and fitting-route maximum defects.
-``Periodic1DStressVerifiedWorkflow`` is the supported integrated surface and preserves
+``Periodic1DReductionChallengeVerifiedWorkflow`` is the supported integrated surface and preserves
 retained correlation separately from numerical verification.  A pass is bounded
 numerical verification of the represented illustrative campaign, not material
 validation, topology or polarization evidence, UQ, or protected execution.
 
-.. autoclass:: Periodic1DStressDiscretizationObservation
+.. autoclass:: Periodic1DReductionChallengeDiscretizationObservation
    :members:
 
-.. autoclass:: Periodic1DPotentialAmplitudeStressResult
+.. autoclass:: Periodic1DReductionChallengePotentialAmplitudeResult
    :members:
 
-.. autoclass:: Periodic1DMeshBandIsolationStressResult
+.. autoclass:: Periodic1DReductionChallengeMeshBandIsolationResult
    :members:
 
-.. autoclass:: Periodic1DPotentialShapeStressCase
+.. autoclass:: Periodic1DReductionChallengePotentialShapeCase
    :members:
 
-.. autoclass:: Periodic1DPotentialShapeStressResult
+.. autoclass:: Periodic1DReductionChallengePotentialShapeResult
    :members:
 
-.. autoclass:: Periodic1DGaugeCovarianceStressResult
+.. autoclass:: Periodic1DReductionChallengeGaugeCovarianceResult
    :members:
 
-.. autoclass:: Periodic1DRouteAssumptionStressResult
+.. autoclass:: Periodic1DReductionChallengeRouteAssumptionResult
    :members:
 
-.. autoclass:: Periodic1DStressCampaignResult
+.. autoclass:: Periodic1DReductionChallengeCampaignResult
    :members:
 
-.. autoclass:: Periodic1DStressResultJsonSerializer
+.. autoclass:: Periodic1DReductionChallengeResultJsonSerializer
    :members:
 
-.. autoclass:: Periodic1DStressCampaignWorkflowRequest
+.. autoclass:: Periodic1DReductionChallengeCampaignWorkflowRequest
    :members:
 
-.. autoclass:: Periodic1DStressCampaignWorkflowResult
+.. autoclass:: Periodic1DReductionChallengeCampaignWorkflowResult
    :members:
 
-.. autoclass:: Periodic1DStressCampaignWorkflow
+.. autoclass:: Periodic1DReductionChallengeCampaignWorkflow
    :members:
 
-.. autoclass:: Periodic1DStressVerificationRequest
+.. autoclass:: Periodic1DReductionChallengeVerificationRequest
    :members:
 
-.. autoclass:: Periodic1DStressVerificationResult
+.. autoclass:: Periodic1DReductionChallengeVerificationResult
    :members:
 
-.. autoclass:: Periodic1DStressResultVerifier
+.. autoclass:: Periodic1DReductionChallengeResultVerifier
    :members:
 
-.. autoclass:: Periodic1DStressVerifiedWorkflowRequest
+.. autoclass:: Periodic1DReductionChallengeVerifiedWorkflowRequest
    :members:
 
-.. autoclass:: Periodic1DStressVerifiedWorkflowResult
+.. autoclass:: Periodic1DReductionChallengeVerifiedWorkflowResult
    :members:
 
-.. autoclass:: Periodic1DStressVerifiedWorkflow
+.. autoclass:: Periodic1DReductionChallengeVerifiedWorkflow
    :members:
+
+.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
 .. autoclass:: Periodic1DHoppingReductionRequest
    :members:

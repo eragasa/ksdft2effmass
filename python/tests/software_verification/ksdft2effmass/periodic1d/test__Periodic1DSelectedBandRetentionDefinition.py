@@ -141,6 +141,7 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
         """
         assert periodic1d_api.__all__ == [
             "Periodic1DBandFrameRetainedSubspace",
+            "Periodic1DFiberHamiltonianRequest",
             "Periodic1DCompleteHoppingRepresentationResult",
             "Periodic1DRetainedOperatorHoppingRepresentation",
             "Periodic1DFiniteHoppingToyModel",
@@ -153,7 +154,15 @@ class TestPeriodic1DSelectedBandRetentionDefinition:
             "Periodic1DRetainedOperatorReciprocalRepresentation",
             "Periodic1DRetainedBandGroupDefinition",
             "Periodic1DSelectedBandRetentionDefinition",
+            "Periodic1DSupercellOperatorConstructor",
+            "Periodic1DSupercellOperatorMetadata",
+            "Periodic1DSupercellOperatorProvenance",
             "Periodic1DTruncatedHoppingEffectiveModelResult",
+            "PeriodicFiniteDifferenceFiberHamiltonian1DConstructor",
+            "PeriodicFiniteDifferenceFiberHamiltonian1DResult",
+            "PeriodicUniformGrid1D",
+            "PlaneWaveFiberHamiltonian1DConstructor",
+            "PlaneWaveFiberHamiltonian1DResult",
         ]
         assert (
             periodic1d_api.Periodic1DSelectedBandRetentionDefinition

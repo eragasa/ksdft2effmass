@@ -78,7 +78,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.base` | [Base data-object hierarchy](base/index.md) | Thin package-wide structural and request/action/result ABCs |
 | `ksdft2effmass.application` | [Application](application/index.md) | Explicit composition root |
 | `ksdft2effmass.persistence` | [Persistence](persistence/index.md) | Domain-neutral immutable revision storage |
-| `ksdft2effmass.serialization` | [Serialization](serialization/index.md) | Type-preserving abstract JSON wire contracts |
+| `ksdft2effmass.serialization` | [Serialization](serialization/index.md) | Type-preserving JSON contracts, strict decoding, and recursively immutable JSON wires |
 | `ksdft2effmass.workflows` | [Workflows](workflows/index.md) | Scientific Task, Workflow, run, and control contracts |
 | `ksdft2effmass.petrinet.colored` | [Colored Petri net](petrinet/colored/index.md) | Generic deterministic CPN values and pure operations |
 | `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific QoI-study and Workflow composition definitions |
@@ -92,7 +92,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.units` | [Canonical units and conversion provenance](units.md) | Canonical metal-unit identities, pinned conversion definitions, typed scalar conversions, and their provenance |
 | `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Implemented nominal 1D--3D scientific-model hierarchy and toy-model catalog contract; transitional compatibility exports remain pending migration, and cross-dimensional comparison is prospective |
 | `ksdft2effmass.periodic1d` | [Periodic1d](periodic1d/index.md) | Canonical one-dimensional scientific models, retention definitions, represented retained operators, and effective-model results under active Phase 5 migration |
-| `ksdft2effmass.periodic2d` | [Periodic2d](periodic2d/index.md) | Canonical two-dimensional definitions, represented comparisons, controlled defects, and provisional campaign surfaces |
+| `ksdft2effmass.periodic2d` | [Periodic2d](periodic2d/index.md) | Canonical two-dimensional definitions, represented comparisons, controlled defects, and independent campaign compositions |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |

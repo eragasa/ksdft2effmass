@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Verify reconstructable channels of the periodic-1D reduction challenge."""
 
 from __future__ import annotations
@@ -7,11 +6,11 @@ import argparse
 from pathlib import Path
 from typing import cast
 
-from ksdft2effmass.campaigns.research_monograph import (
-    Periodic1DReductionChallengeEncodedDocuments,
-    Periodic1DStressCampaign,
-)
 from ksdft2effmass.operators import ScalarQuantity, Unitless
+from ksdft2effmass.periodic1d.campaign.reduction_challenge import (
+    Periodic1DReductionChallengeCampaign,
+    Periodic1DReductionChallengeEncodedDocuments,
+)
 
 
 class CommandAdapter:
@@ -26,7 +25,7 @@ class CommandAdapter:
         arguments = parser.parse_args(argv)
         result_path = cast(Path, arguments.result).resolve()
         input_path = Path(__file__).resolve().with_name("stress-input.json")
-        campaign = Periodic1DStressCampaign(
+        campaign = Periodic1DReductionChallengeCampaign(
             Periodic1DReductionChallengeEncodedDocuments(
                 input_path.read_bytes(),
                 result_path.read_bytes(),

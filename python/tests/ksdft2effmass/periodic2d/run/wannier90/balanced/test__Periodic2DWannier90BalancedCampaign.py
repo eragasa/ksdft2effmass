@@ -12,6 +12,7 @@ from ksdft2effmass.periodic2d import (
 )
 from ksdft2effmass.periodic2d.run import wannier90
 
+Reconstructor = wannier90.balanced.verify.Periodic2DWannier90BalancedReconstructor
 Verifier = wannier90.balanced.verify.Periodic2DWannier90BalancedCampaignVerifier
 pytestmark = [
     pytest.mark.integration,
@@ -96,3 +97,67 @@ class TestPeriodic2DWannier90BalancedCampaign:
         mutated = retained[:begin] + b"0.5," + retained[end:]
         with pytest.raises(AssertionError):
             self.campaign(mutated).verify(repository_root=self.root())
+
+    def test_contract__portable_decoder_and_paths__fail_closed(
+        self, tmp_path: Path
+    ) -> None:
+        """Evidence ID: SV-CAMPAIGN-PERIODIC-TWO-D-017.
+
+        Requirement: Portable verification must reject duplicate/nonfinite JSON and
+        explicit or symlinked source paths outside its repository root.
+
+        Method: Mutate the retained root key, use an escaping extractor path, and place
+        the fixed composite-result route behind an escaping symlink.
+
+        Oracle: Shared strict JSON and exact repository-confinement contracts.
+
+        Acceptance: All four invalid inputs raise ``ValueError`` before reading an
+        unauthenticated source outside the repository root.
+
+        Interpretation: A pass establishes strict adaptation and source confinement.
+
+        Limitations: It does not authenticate any unavailable native artifact.
+        """
+        payload = self.campaign().encoded_documents.result_payload
+        duplicate = payload[:-2] + b',\n  "schema_version": 1\n}\n'
+        nonfinite = payload.replace(b'"schema_version": 1', b'"schema_version": NaN', 1)
+        root = self.root()
+        extractor = (
+            root / "calculations/research-monograph/periodic-2d/extract_wannier90.py"
+        )
+        with pytest.raises(ValueError, match="duplicate JSON key"):
+            Reconstructor().execute_portable(
+                duplicate, repository_root=root, extractor_path=extractor
+            )
+        with pytest.raises(ValueError, match="non-finite JSON constant"):
+            Reconstructor().execute_portable(
+                nonfinite, repository_root=root, extractor_path=extractor
+            )
+        with pytest.raises(ValueError, match="confined"):
+            Reconstructor().execute_portable(
+                payload,
+                repository_root=root,
+                extractor_path=root.parent / "outside.py",
+            )
+
+        temporary_root = tmp_path / "repository"
+        temporary_calculation = temporary_root / (
+            "calculations/research-monograph/periodic-2d"
+        )
+        temporary_calculation.mkdir(parents=True)
+        temporary_extractor = temporary_calculation / "extract_wannier90.py"
+        temporary_extractor.write_bytes(extractor.read_bytes())
+        outside_composite = tmp_path / "outside-composite-result.json"
+        outside_composite.write_bytes(
+            (
+                root
+                / "calculations/research-monograph/periodic-2d/composite-result.json"
+            ).read_bytes()
+        )
+        (temporary_calculation / "composite-result.json").symlink_to(outside_composite)
+        with pytest.raises(ValueError, match="composite result path must be confined"):
+            Reconstructor().execute_portable(
+                payload,
+                repository_root=temporary_root,
+                extractor_path=temporary_extractor,
+            )

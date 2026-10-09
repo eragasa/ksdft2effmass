@@ -46,21 +46,21 @@ class TestPeriodic2DPlaneWaveHamiltonianRequest:
                 self.model(),
                 np.float64(0.0),
                 0.0,
-                1,  # type: ignore[arg-type]
+                1,
             )
         with pytest.raises(TypeError, match="reduced_momentum_x"):
             Periodic2DPlaneWaveHamiltonianRequest(
                 self.model(),
-                "0.0",
+                "0.0",  # type: ignore[arg-type]
                 0.0,
-                1,  # type: ignore[arg-type]
+                1,
             )
         with pytest.raises(TypeError, match="cutoff"):
             Periodic2DPlaneWaveHamiltonianRequest(
                 self.model(),
                 0.0,
                 0.0,
-                True,  # type: ignore[arg-type]
+                True,
             )
         with pytest.raises(TypeError, match="duality_absolute_tolerance"):
             Periodic2DPlaneWaveHamiltonianRequest(
@@ -68,5 +68,5 @@ class TestPeriodic2DPlaneWaveHamiltonianRequest:
                 0.0,
                 0.0,
                 1,
-                True,  # type: ignore[arg-type]
+                True,
             )

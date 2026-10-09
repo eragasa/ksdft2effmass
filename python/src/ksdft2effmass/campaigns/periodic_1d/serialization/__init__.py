@@ -1,5 +1,3 @@
-"""Shared version-one periodic campaign wire decoding mechanics."""
+"""Transitional family-specific periodic-1D campaign serializers."""
 
-from .decoding import Periodic1DCampaignJsonDecoder
-
-__all__ = ["Periodic1DCampaignJsonDecoder"]
+__all__: list[str] = []

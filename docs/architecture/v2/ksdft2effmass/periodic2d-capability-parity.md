@@ -74,33 +74,34 @@ composite-band Wilson loop are interchangeable.
 | Periodic potential model | Typed finite Fourier potential | Typed cosine potential with separable and coupled terms | Retain typed owner; document coefficient and unit conventions |
 | Plane-wave representation | Typed basis, sewing, fiber constructor, and represented result | Request exposes `p`-outer, `q`-inner indices and dimension; the model uses PhysKit direct/reciprocal lattices; centered half-open meshes retain wrapped-neighbor translations; explicit nonunitary maps sew both positive reciprocal directions; results retain exact requests | Use these owners in later typed campaign and serialization extraction without conflating mesh wrapping and finite-basis truncation |
 | Finite-difference representation | Typed periodic grid and twisted fiber constructor | Request exposes `x`-outer, `y`-inner ordering, spacing, dimension, and Bloch seam phases; result retains the exact request; a typed comparator transports the grid operator into the plane-wave common space and records threshold-free disagreement | Preserve the explicit transport in later campaign extraction and keep discretization error distinct from other error classes |
-| Isolated-band campaign | Definition, calculation Workflow, typed results, serialization, correlation, and independent verification | The strict typed definition, provenance, result-document identity, and version-one input serializer are separated from calculation; an encoded campaign-document record still owns exact bytes; detailed result observations remain concentrated in the calculation payload | Decompose the detailed result into granular typed records and move remaining result wire mechanics without changing preserved bytes |
+| Isolated-band campaign | Definition, calculation Workflow, typed results, serialization, correlation, and independent verification | Complete bounded decomposition: strict definition, provenance, exact encoded documents, named result document, calculation Request/Result/Workflow, correlation Request/Result/Action, and independent verification Request/Result/Action | Preserve detailed retained observations as campaign evidence; authenticated frame/projector coordinates remain unavailable and are not inferred |
 | Stress/adverse controls | Amplitude, shape, mesh/isolation, gauge-covariance, and route-assumption cases | No equivalent campaign | Add dimension-appropriate parent, anisotropy, mesh, gauge, and route controls without using expected trends as verification oracles |
-| Composite subspace | Typed isolation, gauge, Wilson, hopping, route, serialization, and verified Workflow results | Rank-three projected-gauge calculation, correlation, and verification | Add typed composite result hierarchy and explicit unavailable-channel reporting |
+| Composite subspace | Typed isolation, gauge, Wilson, hopping, route, serialization, and verified Workflow results | Typed input/provenance/result document, calculation, correlation, and independent verification retain the rank-three projected-gauge observations | Complete for demonstrated campaign operations; smooth/rough frame and projector coordinates remain explicitly unavailable |
 | Gauge transport and alignment | Scalar transport, composite polar transport, pointwise alignment, and gauge comparisons | Numerical behavior is embedded in campaign calculators and reconstructors | Introduce cohesive typed Actions and Results with explicit overlap and closure preconditions |
 | Reciprocal-to-hopping transform | Complete transform, inverse interpolation, truncation, fitting routes, Parseval, and locality diagnostics | Scalar and block transforms appear inside existing campaign workflows and results | Introduce reusable complete-transform and separate truncation/fitting result owners |
 | Route reconciliation | Transform, complete least-squares, weighted, and incomplete routes remain distinct | Route comparisons are campaign-local | Add typed route identities and comparisons; never pool incompatible errors |
-| Wilson and topology diagnostics | Wilson phases for composite groups | Chern, Wilson, and phase-sweep campaigns exist | Preserve as additional 2D coverage; expose gauge-invariant typed results without treating expected topology as an oracle |
+| Wilson and topology diagnostics | Wilson phases for composite groups | Chern, Wilson, and phase-sweep calculation/correlation/verification operations have typed requests/results | Complete for retained synthetic observations; expected topology is not used as a qualified numerical oracle and transition-point outcomes remain unavailable |
 | Effective mass | Scalar curvature diagnostics | Two-dimensional curvature tensor appears in preserved calculation results | Add typed tensor result with declared reciprocal coordinates, energy unit, and finite-difference step |
-| Wannier90 boundary | Typed native adapters, preparation, retained observations, and verified Workflows | Balanced, study, and optimizer-basin campaign records | Reuse integration-owned native adapters; keep optimizer behavior and campaign policy outside generic periodic owners |
+| Wannier90 boundary | Typed native adapters, preparation, retained observations, and verified Workflows | Balanced and study campaigns consume portable evidence only; optimizer families use closed records and request-scoped operations | Complete bounded campaign boundary: native formats/artifacts remain integration-owned, and optimizer policy remains campaign-owned |
 | Serialization | Closed input/result serializers and strict decoding | Repeated campaign-local JSON mechanics | Add shared periodic2d wire mechanics and campaign-owned versioned serializers without generic untyped containers |
 | Tests | Class-owned software and numerical evidence across model, campaign, serializer, and verification owners | Strong preserved-campaign coverage but limited granular owner coverage | Add class-owned evidence for every new public owner and independent numerical oracles where claims require them |
 | Documentation | API, concept, architecture, equations, conventions, evidence limits, and citations | Campaign overview and preserved reports exist | Add complete API and concept documentation with direct method references |
 
 The existing periodic2d topology and optimizer studies are additional capabilities.
-They do not substitute for the missing stress, typed-result, serialization, alignment,
-hopping-transform, or route-comparison coverage.
+They do not substitute for stress, alignment, hopping-transform, or route-comparison
+work that lacks a demonstrated 2D campaign. Those absent capabilities remain explicit
+future or unavailable parity items rather than being inferred from unrelated evidence.
 
 ## Relationship to the general periodic architecture
 
 The accepted [general periodic-model architecture](periodic/index.md) separates the
-nominal scientific-model hierarchy from executable campaigns. The committed
-`Periodic2DCampaign` class predates that decision and remains provisional. It must not
-be copied into periodic1d or periodic3d as the scientific hierarchy. The cosine toy
-parent and scalar-hopping finite-extent defect now belong nominally to the
-`Periodic2DModel` and `Periodic2DDefectModel` branches. Remaining two-dimensional
-scientific models must follow the same one-way boundary while campaigns consume models
-through immutable definitions and typed execution requests.
+nominal scientific-model hierarchy from executable campaigns. The unjustified
+dimension-only `Periodic2DCampaign` base is removed after all ten consumers became
+independent immutable composition roots; no 1D/3D base or structural replacement was
+introduced. The cosine toy parent and scalar-hopping finite-extent defect belong
+nominally to the `Periodic2DModel` and `Periodic2DDefectModel` branches. Remaining
+two-dimensional scientific models must follow the same one-way boundary while
+campaigns consume models through immutable definitions and typed execution requests.
 
 Cross-dimensional enforcement will not use structural `Protocol` conformance. The
 general architecture requires nominal model membership, exact dimensions, explicit
@@ -120,18 +121,16 @@ semantics agree:
   ordering, reciprocal coordinates, gauges, units, truncation, and error definitions
   genuinely match.
 
-Typed periodic2d result decomposition and the parity gate remain prerequisites for
-those migrations. No generic campaign Workflow, verifier base, serializer base, or
-scientific acceptance base is currently justified.
+The bounded periodic2d campaign decomposition is complete. No generic campaign
+Workflow, verifier base, serializer base, or scientific acceptance base is justified.
 
 ## Current implementation progress
 
 The first foundation slice now makes the represented-space identity inspectable rather
 than leaving it implicit in constructor loops:
 
-- the provisional `Periodic2DCampaign` supplies only the current two-dimensional
-  campaign identity while a later forward migration separates the remaining campaign
-  inheritance from scientific models;
+- all ten concrete campaign records derive directly from `object`; the former
+  `Periodic2DCampaign` definition, module, imports, and facade exports are removed;
 - `Periodic2DCosinePotentialToyModel` has nominal two-dimensional model membership, a
   stable family identity, and exact toy role without treating a finite representation
   as the parent;
@@ -144,8 +143,8 @@ than leaving it implicit in constructor loops:
   represented dimension, and finite-difference requests combine that grid with
   positive-direction seam phases;
 - the reusable `PlaneWaveBlochHamiltonian2DConstructor` owns the two-dimensional
-  Fourier-operator construction pending later PhysKit migration, and the cosine
-  campaign delegates its plane-wave matrix to that Action;
+  Fourier-operator construction until a separately reviewed PhysKit migration, and the
+  cosine campaign delegates its plane-wave matrix to that Action;
 - `CenteredUniformReciprocalMesh2D` owns uniform half-open sampling and deterministic
   first-outer, second-inner ordering, while typed neighbor results retain exact integer
   reciprocal translations at positive-direction boundary wraps. The implemented
@@ -182,10 +181,11 @@ than leaving it implicit in constructor loops:
 - each affected public owner has class-owned software-verification coverage and Sphinx
   API or concept documentation.
 
-The represented-identity, reciprocal-mesh, finite plane-wave sewing, and transported
-common-space portions of implementation step 2 are now explicit. The input-definition
-and input-serialization portion of step 3 is also explicit; granular typed result
-records remain open. No stress or defect capability is activated by these slices.
+The represented-identity, reciprocal-mesh, finite plane-wave sewing, transported
+common-space, and demonstrated campaign-decomposition portions are explicit. Missing
+authenticated 2D frame/projector coordinates remain unavailable, so retained-space and
+retained-operator adoption is not fabricated. No new stress or defect capability is
+activated by these dispositions.
 
 ## Implementation order
 

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "owner": "ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.convergence_regression",
+  "modules": [
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/convergence_regression/test__Periodic2DOptimizerRegressionEncodedDocuments.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerRegressionEncodedDocuments"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/convergence_regression/test__Periodic2DOptimizerRegressionCampaignContracts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerRegressionCampaign; Periodic2DOptimizerRegressionCampaignVerificationRequest; Periodic2DOptimizerRegressionCampaignVerificationResult"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/convergence_regression/test__Periodic2DOptimizerRegressionActionOwnership.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerRegression Action decomposition"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/convergence_regression/test__Periodic2DOptimizerRegressionDocumentDecoder.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic2DOptimizerRegressionDocumentDecoder; OptimizerRegressionLegacySourceDecoder"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/convergence_regression/test__integration__periodic_2d_optimizer_regression_artifacts.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-result.json; calculations/research-monograph/periodic-2d-optimizer-basin/analyze_standalone_convergence_regression.py; calculations/research-monograph/periodic-2d-optimizer-basin/standalone-convergence-regression.json"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic2d/run/wannier90/optimizer_basin/convergence_regression/test__integration__periodic_2d_optimizer_regression_fail_closed.py",
+      "mode": "artifact_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "artifact": "calculations/research-monograph/periodic-2d-optimizer-basin/standalone-result.json; calculations/research-monograph/periodic-2d-optimizer-basin/analyze_standalone_convergence_regression.py; calculations/research-monograph/periodic-2d-optimizer-basin/standalone-convergence-regression.json"
+    }
+  ]
+}

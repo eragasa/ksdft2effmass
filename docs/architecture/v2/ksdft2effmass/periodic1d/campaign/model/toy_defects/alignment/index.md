@@ -33,8 +33,8 @@ alignment decision.
 
 | Kind | Path or node | Responsibility |
 |---|---|---|
-| Code | `python/src/ksdft2effmass/campaigns/periodic_1d/model/toy_defects/alignment.py` | Definition and unitary construction |
-| Test | `python/tests/ksdft2effmass/campaigns/periodic_1d/model/toy_defects/test__Periodic1DBasisScramblingConstructor.py::TestPeriodic1DBasisScramblingConstructor` | Neutral element, nontrivial unitary directions, retired name |
+| Code | `python/src/ksdft2effmass/periodic1d/campaign/model/toy_defects/alignment.py` | Definition and unitary construction |
+| Test | `python/tests/ksdft2effmass/periodic1d/campaign/model/toy_defects/test__Periodic1DBasisScramblingConstructor.py::TestPeriodic1DBasisScramblingConstructor` | Neutral element, nontrivial unitary directions, retired name |
 | Sphinx | `doc/sphinx/api/research-monograph-campaigns.rst` | Public route |
 
 ## Provenance and evidence

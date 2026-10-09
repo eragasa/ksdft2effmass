@@ -172,8 +172,13 @@ descriptive and preserves the negative convergence conclusion.
 256 initial localizations and 120 exact-checkpoint continuations. It preserves all
 60 final nonconverged outcomes, density-aware :math:`D_4` basin partitions, post-hoc
 exact-equivalence controls, density-threshold sensitivity, and the missing
-pre-execution tolerance control as a protocol deviation. The campaign verifies the
-retained transition and classification arithmetic without reading native run roots.
+pre-execution tolerance control as a protocol deviation. Its request-scoped verifier
+binds the proposal, deterministic-start design, result, and maintained extractor to
+fixed compact-source identities, then uses closed immutable records for transition and
+classification arithmetic without reading native run roots. The historical result's
+bare positive ``Infinity`` is confined to two rejected-comparison extended-real fields;
+duplicate keys and every other nonfinite use fail closed. The exact retained disposition
+remains negative and does not prove that no convergence limit exists.
 
 ``Periodic2DOptimizerRegressionCampaign`` retains all 60 nonconverged endpoints as
 right-censored observations in an exploratory log-normal model. Its independent

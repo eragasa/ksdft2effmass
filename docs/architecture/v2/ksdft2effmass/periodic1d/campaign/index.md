@@ -2,25 +2,29 @@
 
 ## Purpose and status
 
-This is the canonical target architecture for one-dimensional campaigns. The currently
-implemented source remains temporarily at `ksdft2effmass.campaigns.periodic_1d`; rows
-`058–066` must move it without an alias or wire-identity change. The legacy package owns
-campaign definitions, execution, encoded documents, retained-evidence adapters, and
-operation specifications that have not yet moved to canonical scientific owners. It
-must not be used as a scientific-model base merely because historical modules contain
-`model` in their path.
+This is the canonical architecture for one-dimensional campaigns. Rows 058--066
+moved the isolated-band, composite, reduction-challenge, retained Wannier90,
+blind-alignment, continuum-refinement, finite-rank-oracle, matched-extraction, and
+route-reconciliation families beneath this package without aliases or retained-wire
+identity changes. Campaign packages must not be used as scientific-model bases merely
+because historical modules contain `model` in their paths.
 
 ## Child map for audited surfaces
 
 | Child | Responsibility | Canonical page |
 |---|---|---|
 | `model.toy_defects` | Controlled perturbation and basis-map definitions used by defect campaigns | [Toy defect operation definitions](model/toy_defects/index.md) |
-| `isolated_replay` | Authenticated isolated-band replay evidence and scientific adoption | [Isolated-band replay adoption](isolated_replay/index.md) |
-| `composite_adoption` | Finite-parent composite retained-operator adoption | [Composite scientific adoption](composite_adoption/index.md) |
-| `composite_results` | Separate historical composite diagnostic and artifact-identity channels | [Composite campaign results](composite_results/index.md) |
-
-Other campaign families remain governed by phase 5 and rows `058–066` until their
-canonical migration dossiers are complete.
+| `isolated` | Canonical isolated-band controls, bytes, results, operations, verification, and adoption | [Isolated-band campaign](isolated/index.md) |
+| `composite` | Canonical composite controls, explicit retention, bytes, represented diagnostics, operations, verification, and scientific adoption | [Composite campaign](composite/index.md) |
+| `reduction_challenge` | Canonical adversarial reduction controls, historical wires, typed observations, correlation, independent verification, and campaign orchestration | [Reduction-challenge campaign](reduction_challenge/index.md) |
+| `wannier90` | Canonical exact wires, result-first authentication, native-artifact correlation, independent Wilson verification, and cohesive integration | [Retained Wannier90 campaign](wannier90/index.md) |
+| `result_documents` | Complete immutable encoded-result JSON trees with exact source-byte identities and explicit wire kinds | [Encoded result documents](result_documents/index.md) |
+| `serialization` | Strict shared periodic-1D wire adaptation without schema or scientific ownership | [Campaign serialization](serialization/index.md) |
+| `alignment` | Canonical blind-alignment records, exact wires, visible-observation/hidden-truth boundary, inference, evaluation, orchestration, correlation, and independent verification | [Alignment campaigns](alignment/index.md) |
+| `extraction` | Canonical matched known-map extraction controls, authenticated parent loading, general represented-operator adaptation, workflow, and verification | [Extraction campaigns](extraction/index.md) |
+| `refinement` | Campaign-specific separated refinement axes and retained evidence | [Refinement campaigns](refinement/index.md) |
+| `oracle` | Named bounded comparison campaigns, not a generic oracle engine | [Oracle campaigns](oracle/index.md) |
+| `reconciliation` | Explicit finite common-parent/common-space route comparisons | [Route reconciliation campaigns](reconciliation/index.md) |
 
 ## Ownership and dependency boundary
 
@@ -33,9 +37,11 @@ encoded documents.
 
 | Kind | Path | Responsibility |
 |---|---|---|
-| Transitional package | `python/src/ksdft2effmass/campaigns/periodic_1d/__init__.py` | Current public campaign API pending canonical move |
-| Tests | `python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/` | Campaign and supporting-operation software evidence |
-| Sphinx | `doc/sphinx/api/research-monograph-campaigns.rst` | Current public campaign API |
+| Canonical family packages | `python/src/ksdft2effmass/periodic1d/campaign/` | Row-058 through row-066 campaign families and reviewed parent facades |
+| Canonical shared wire modules | `python/src/ksdft2effmass/periodic1d/campaign/{result_documents.py,serialization/}` | Exact result documents and strict field adaptation consumed by canonical families |
+| Canonical shared-wire tests | `python/tests/software_verification/ksdft2effmass/periodic1d/campaign/` | Routine and artifact-owned row-045/058 evidence |
+| Canonical family tests | `python/tests/{software_verification,numerical_verification}/ksdft2effmass/periodic1d/campaign/` | Row-058 through row-066 software, numerical, and artifact evidence |
+| Sphinx | `doc/sphinx/api/research-monograph-campaigns.rst` | Canonical campaign APIs |
 
 Original local work under the repository license. Campaign software tests do not imply
 scientific validation, uncertainty quantification, or acceptance.

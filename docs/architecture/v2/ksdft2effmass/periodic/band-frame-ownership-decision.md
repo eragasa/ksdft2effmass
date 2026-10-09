@@ -27,10 +27,10 @@ duplicates the role of specialized bindings such as
 
 The corrected 1D adoptions remain internally correlated. The isolated route places the
 authenticated frame-content SHA-256 identity in its typed frame binding, which
-reauthenticates the available frame coordinates. The composite route preserves the
-authenticated smooth-projector SHA-256 identity only in its exact source result because
-projector coordinates are unavailable. Neither digest is mathematical retained-space
-identity.
+reauthenticates the available frame coordinates. The composite route preserves only a
+reported smooth-projector SHA-256 string in its exact source result; unavailable
+projector coordinates prevent authentication against projector content. Neither digest
+is mathematical retained-space identity.
 
 Periodic2d introduced a second ownership question. `CenteredUniformReciprocalMesh2D`
 owns reduced coordinates and deterministic first-outer, second-inner ordering. It now
@@ -77,8 +77,9 @@ The implemented ownership is:
   authenticated `frame_content_sha256` value used by isolated adoption because the
   frame coordinates are retained;
 - `Periodic1DCompositeBandGroupResult.identities` remains the owner of
-  `smooth_projector_sha256` as authenticated campaign evidence because no composite
-  projector coordinates are retained;
+  `smooth_projector_sha256` as reported digest-only campaign evidence; because no
+  composite projector coordinates are retained, it is unauthenticated against
+  projector content;
 - `Periodic1DCompositeOperatorGroupAdoption` keeps the exact source result and selected
   group correlated without copying the projector digest into the mathematical retained
   space or claiming a represented projector family; and
@@ -224,9 +225,9 @@ mechanism would introduce unnecessary dynamic indirection.
 ### Add a digest-only represented projector-family binding
 
 Rejected because the composite evidence retains no projector coordinate array to bind
-or reauthenticate. Its digest remains meaningful authenticated campaign evidence, but
-it does not by itself provide the domain, basis, ordering, units, or construction state
-of a represented projector family.
+or reauthenticate. Its digest remains a meaningful reported campaign field but is
+unauthenticated against projector content; it also does not provide the domain, basis,
+ordering, units, or construction state of a represented projector family.
 
 ### Copy mesh coordinates into `ReciprocalBandFrameMesh2D`
 
@@ -254,9 +255,10 @@ coordinates. Neither mesh carries `KPointSampling` weights or scaling metadata.
    1. extend the existing 1D band-frame binding with the exact historical
       `frame_content_sha256` value and migrate isolated adoption to that field;
    2. update composite adoption to preserve
-      `source_result.identities.smooth_projector_sha256` as digest-only campaign
-      evidence without copying it into the mathematical retained space or creating a
-      represented projector binding; and
+      `source_result.identities.smooth_projector_sha256` as a reported digest-only
+      campaign field, unauthenticated against unavailable projector content, without
+      copying it into the mathematical retained space or creating a represented
+      projector binding; and
    3. remove `projector_or_frame_record_id` from the generic retained-space source and
       constructor only after both adoption routes have moved.
 3. **Complete:** in that same witness-correction stage, update source docstrings,

@@ -67,6 +67,6 @@ class TestPeriodic2DCosinePotentialToyModel:
         invariant; they do not test a physical range for the coupling coefficients.
         """
         with pytest.raises(TypeError, match="lambda_x must be a float"):
-            Periodic2DCosinePotentialToyModel(True, 0.7, 0.0)  # type: ignore[arg-type]
+            Periodic2DCosinePotentialToyModel(True, 0.7, 0.0)
         with pytest.raises(ValueError, match="lambda_x must be finite"):
             Periodic2DCosinePotentialToyModel(float("nan"), 0.7, 0.0)

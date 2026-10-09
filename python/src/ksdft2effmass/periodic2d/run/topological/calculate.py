@@ -67,6 +67,29 @@ class Periodic2DTopologicalInputDeserializer:
     __slots__ = ()
 
     def execute(self, payload: bytes) -> Periodic2DTopologicalInput:
+        """Decode the closed version-one topological input document.
+
+        Parameters
+        ----------
+        payload
+            Exact UTF-8 JSON bytes for the retained campaign input.
+
+        Returns
+        -------
+        Periodic2DTopologicalInput
+            Strict immutable controls for the three represented benchmarks.
+
+        Raises
+        ------
+        TypeError
+            If a schema field has the wrong JSON representation.
+        ValueError
+            If JSON is malformed, duplicated, nonfinite, unsupported, or violates an
+            intrinsic version-one control invariant.
+        OverflowError
+            If a JSON integer cannot be represented as binary64 where the schema
+            requires a real value.
+        """
         decoded = json.loads(
             payload.decode("utf-8"),
             object_pairs_hook=self._unique_object,
@@ -173,6 +196,29 @@ class Periodic2DTopologicalCalculator:
     def execute(
         self, provenance: Periodic2DTopologicalProvenance
     ) -> dict[str, JsonValue]:
+        """Evaluate all declared models, cases, meshes, and gauge attacks.
+
+        Parameters
+        ----------
+        provenance
+            Retained environment and exact input/runner content identities to place in
+            the result document. The calculator does not authenticate those identities.
+
+        Returns
+        -------
+        dict[str, JsonValue]
+            Closed JSON-compatible campaign observations and bounded pass dispositions.
+
+        Raises
+        ------
+        RuntimeError
+            If the retained-band eigenspace becomes degenerate or a neighboring-frame
+            overlap is too small for the declared finite-mesh construction.
+        MemoryError
+            If dense eigensystem, frame, link, or result allocation cannot be
+            satisfied. Work grows with every declared mesh and dense model dimension;
+            no arbitrary size cap is imposed.
+        """
         model_records: list[JsonValue] = []
         specifications = (
             (
@@ -504,6 +550,27 @@ class Periodic2DTopologicalResultSerializer:
     __slots__ = ()
 
     def execute(self, result: dict[str, JsonValue]) -> bytes:
+        """Serialize a JSON-compatible topological result deterministically.
+
+        Parameters
+        ----------
+        result
+            Closed result mapping produced by the topological calculator.
+
+        Returns
+        -------
+        bytes
+            UTF-8 JSON with sorted keys, two-space indentation, and a final newline.
+
+        Raises
+        ------
+        TypeError
+            If a value is not representable by the standard JSON encoder.
+        ValueError
+            If circular container structure prevents JSON serialization.
+        MemoryError
+            If construction of the encoded document cannot be satisfied.
+        """
         return (json.dumps(result, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
 

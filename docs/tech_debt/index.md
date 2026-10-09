@@ -9,6 +9,7 @@ for their respective subjects.
 ## Recorded topics
 
 - [Band-frame ownership](band-frames/index.md)
+- [Periodic campaign Action ownership and module decomposition](campaign-action-ownership/index.md)
 - [Conditioning-diagnostic expansion](conditioning-expansion/index.md)
 - [Post-init validation structure](post-init-validation-structure/index.md)
 - [Strict mypy source baseline](strict-mypy-source-baseline/index.md)

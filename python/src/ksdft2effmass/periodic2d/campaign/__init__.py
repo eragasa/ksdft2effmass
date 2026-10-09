@@ -1,6 +1,5 @@
 """Band-count-specific periodic2d controlled-model campaigns."""
 
-from .base import Periodic2DCampaign
 from .nbands_1 import (
     Periodic2DIsolatedBandCalculationRequest,
     Periodic2DIsolatedBandCalculationResult,
@@ -20,7 +19,6 @@ from .nbands_1 import (
 )
 
 __all__ = [
-    "Periodic2DCampaign",
     "Periodic2DIsolatedBandCalculationRequest",
     "Periodic2DIsolatedBandCalculationResult",
     "Periodic2DIsolatedBandCalculationWorkflow",

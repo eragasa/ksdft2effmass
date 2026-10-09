@@ -3,9 +3,9 @@
 ## Purpose and status
 
 `ksdft2effmass.periodic2d` owns canonical two-dimensional scientific definitions,
-represented-space comparisons, controlled defects, and provisional campaign surfaces.
-The package is implemented. Scientific-model adoption is partial, and campaign
-architecture remains under the Phase 7 migration.
+represented-space comparisons, controlled defects, and campaign surfaces. The package
+and assigned crosswalk rows are implemented. Scientific-model adoption remains bounded
+by authenticated evidence; unavailable frame/projector coordinates are not inferred.
 
 The package now owns a parent-qualified selected-band retention definition. That
 DataObject declares a selection contract only; it does not claim that preserved
@@ -21,14 +21,14 @@ and `Periodic2DSelectedBandRetentionDefinition`. Exact supported names are decla
 | Child owner | Public responsibility | Canonical page |
 |---|---|---|
 | `periodic2d.retention` | Parent-qualified two-dimensional selected-band retention definitions | [Retention definitions](retention/index.md) |
-| `periodic2d.campaign` | Provisional two-dimensional campaign identities and the typed one-band input definition | [Periodic2d migration boundary](../periodic/periodic2d/index.md) |
+| `periodic2d.campaign` | Independent two-dimensional campaign composition, encoded documents, and typed one-band operations | [Campaigns](campaign/index.md) |
 | `periodic2d.compare` | Explicit represented-operator transport and threshold-free comparison | [Common-space comparison](compare/index.md) |
 | `periodic2d.defects` | Controlled finite-extent scalar-hopping defect definitions and represented analyses | [Defect models and analyses](defects/index.md) |
 | `periodic2d.model` | Two-dimensional toy-model and representation-specific definitions | [Controlled models](model/index.md) |
-| `periodic2d.run` | Preserved executable campaign families and encoded-document owners | [Periodic2d capability-parity gate](../periodic2d-capability-parity.md) |
+| `periodic2d.run` | Preserved executable campaign families and encoded-document owners | [Run families](run/index.md) |
 
-Canonical module and class pages for untouched legacy owners remain documentation
-migration work; the topic pages above continue to state their current architecture.
+Family topic pages map the defining modules, reviewed facades, exact tests, provenance,
+evidence, and scientific limitations for the migrated campaign rows.
 
 ## Ownership boundary
 
@@ -61,7 +61,24 @@ must not depend on this package.
   - [Cosine toy model](model/toy_models/cosine/index.md)
 - [Defect models and analyses](defects/index.md)
   - [`Periodic2DScalarHoppingDefectModel`](defects/base/Periodic2DScalarHoppingDefectModel/index.md)
+- [Campaigns](campaign/index.md)
+  - [One-band isolated campaign](campaign/nbands_1/index.md)
+  - [`Periodic2DIsolatedBandEncodedDocuments`](campaign/nbands_1/encoded_documents/Periodic2DIsolatedBandEncodedDocuments/index.md)
 - [Periodic2d migration boundary](../periodic/periodic2d/index.md)
+- [Run families](run/index.md)
+  - [Composite campaign](run/composite/index.md)
+  - [`Periodic2DCompositeEncodedDocuments`](run/composite/encoded_documents/Periodic2DCompositeEncodedDocuments/index.md)
+  - [Topological campaign](run/topological/index.md)
+  - [`Periodic2DTopologicalEncodedDocuments`](run/topological/encoded_documents/Periodic2DTopologicalEncodedDocuments/index.md)
+  - [Topological phase sweep](run/topological/phase_sweep/index.md)
+  - [`Periodic2DTopologicalPhaseSweepEncodedDocuments`](run/topological/phase_sweep/encoded_documents/Periodic2DTopologicalPhaseSweepEncodedDocuments/index.md)
+  - [Wannier90 campaign families](run/wannier90/index.md)
+  - [Balanced Wannier90 campaign](run/wannier90/balanced/index.md)
+  - [`Periodic2DWannier90BalancedEncodedDocuments`](run/wannier90/balanced/encoded_documents/Periodic2DWannier90BalancedEncodedDocuments/index.md)
+  - [Wannier90 bounded sensitivity study](run/wannier90/study/index.md)
+  - [`Periodic2DWannier90StudyEncodedDocuments`](run/wannier90/study/encoded_documents/Periodic2DWannier90StudyEncodedDocuments/index.md)
+  - [Wannier90 optimizer-basin family](run/wannier90/optimizer_basin/index.md)
+  - [`Periodic2DOptimizerBasinEncodedDocuments`](run/wannier90/optimizer_basin/encoded_documents/Periodic2DOptimizerBasinEncodedDocuments/index.md)
 - [Periodic2d capability-parity gate](../periodic2d-capability-parity.md)
 
 ## Code mapping
