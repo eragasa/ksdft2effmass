@@ -325,8 +325,11 @@ class MatchedDefectParentDataLoader:
         representatives = self._integers(
             reduction["hopping_representatives_cells"], "scalar representatives"
         )
-        coefficients = self._complexes(
-            reduction["hopping_coefficients"], "scalar hoppings"
+        coefficients = tuple(
+            complex(value)
+            for value in self._decoder.complex_vector(
+                reduction["hopping_coefficients"], "scalar hoppings"
+            )
         )
         if len(representatives) != len(coefficients):
             raise ValueError("scalar hopping arrays must agree")
@@ -423,16 +426,6 @@ class MatchedDefectParentDataLoader:
         if not np.isfinite(result):
             raise ValueError(f"{name} must be finite")
         return result
-
-    def _complexes(self, value: JsonValue, name: str) -> tuple[complex, ...]:
-        if not isinstance(value, list):
-            raise TypeError(f"{name} must be a JSON array")
-        result: list[complex] = []
-        for pair in value:
-            if not isinstance(pair, list) or len(pair) != 2:
-                raise TypeError(f"{name} entries must be complex pairs")
-            result.append(complex(self._real(pair[0], name), self._real(pair[1], name)))
-        return tuple(result)
 
     @staticmethod
     def _sha256(path: Path) -> str:
