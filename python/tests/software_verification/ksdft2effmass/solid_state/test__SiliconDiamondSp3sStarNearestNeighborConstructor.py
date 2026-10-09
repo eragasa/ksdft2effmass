@@ -261,6 +261,14 @@ class TestSiliconDiamondSp3sStarNearestNeighborConstructor:
                 np.asarray(((0.0, 0.0, 0.0), (0.17, -0.31, 0.43))), Unitless()
             ),
         )
+        assert tuple(matrix.magnitude.shape for matrix in samples.matrices) == (
+            (10, 10),
+            (10, 10),
+        )
+        assert all(
+            matrix.magnitude.dtype == np.dtype(np.complex128)
+            for matrix in samples.matrices
+        )
         for matrix in samples.matrices:
             np.testing.assert_allclose(
                 matrix.magnitude, matrix.magnitude.conj().T, atol=2.0e-15

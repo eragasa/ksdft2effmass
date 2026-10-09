@@ -148,9 +148,9 @@ class OperatorRecordDifferenceResult:
 
     @property
     def matrix_dimension(self) -> int:
-        """Positive represented matrix dimension."""
+        """Positive represented matrix dimension as a built-in integer."""
 
-        return self.matrix.shape[0]
+        return int(self.matrix.shape[0])
 
     def __eq__(self, other: object) -> bool:
         """Return exact equality for public metadata and matrix entries."""
