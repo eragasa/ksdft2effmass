@@ -30,7 +30,14 @@ The long mixed-purpose constructors in
 ``workflows/v2/core/models.py`` now keep ``__post_init__`` as a documented
 entry point and delegate their existing checks to cohesive ``_check_args_*``
 stages. Validation order, exception behavior, immutable fields, and identity
-semantics remain unchanged. Other packages remain deferred until they are in
+semantics remain unchanged.
+
+``provenance.records.RunManifest`` now applies the same bounded structure to
+its primary identities, input identities, start timestamp, lifecycle state and
+terminal timestamp, output and dependency identities, and direct self-dependency
+check. The original validation statements remain unchanged and in the same
+order; the start-time checker returns the parsed timestamp needed by the next
+ordered lifecycle check. Other packages remain deferred until they are in
 scope.
 
 ## Deferred work
