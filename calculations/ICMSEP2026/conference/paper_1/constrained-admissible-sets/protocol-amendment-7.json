@@ -1,0 +1,24 @@
+{
+  "amended_at_utc": "2026-10-10T17:59:18Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Validate the public contains() parameter as an exact length-two tuple of finite built-in floats before testing domain membership.",
+    "Add a Boolean-rejection regression test."
+  ],
+  "corrected_files": [
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/definition.py",
+      "sha256": "ca4a077c95eb3907548a0312e229c8a38c4e16f87d03adbbba40db58515539c5"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DConstrainedAdmissibleSetCalculator.py",
+      "sha256": "86ed3f21b187f75cc5714e9e80becc701d545858e8445cf49e36ab81bd52d13e"
+    }
+  ],
+  "finding": "The public parameter-domain predicate relied on static typing and did not fail closed against Boolean, non-built-in-float, malformed, or nonfinite runtime arguments.",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "numerical_results_changed": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "public-numeric-boundary-hardening-before-final-regeneration"
+}

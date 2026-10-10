@@ -14,11 +14,19 @@ that metadata or claim support has been accepted.
 
 ## Scope and method
 
-This audit covers the Preface, Chapters 1–20, and Appendices A–I. Appendices
-C–I are the material formerly organized as Technical Notes. Every TeX source
+At audit time, this review covered the Preface, the twenty chapter sources then
+present in the composition, and Appendices A–I. It predates the later periodic-
+geometry and Bloch-finite-difference lecture sources. Appendices C–I are the
+material formerly organized as Technical Notes. Every TeX source
 was reviewed against `references.bib`; all 62 existing citation-key occurrences
 were reconciled, representing all 45 bibliography entries. No unresolved or
 misspelled existing key was found.
+
+This audit also predates the later isolated-band Fourier-reduction lecture.
+That lecture presently cites the already inventoried sources for finite Fourier
+methods, matrix computation, and Wannier theory; its project-specific finite
+transform derivations do not add an unresolved external factual claim. A future
+full citation audit should nevertheless include that source explicitly.
 
 The findings below are intended to avoid indiscriminate citation prompts:
 project-specific definitions, proposed workflows, exact derivations supplied in
@@ -27,7 +35,35 @@ lack external citations. This selectivity does not upgrade the recommendations
 from prospective notes to verified source judgments. Approximate line
 numbers refer to the audited source state and may move during later editing.
 
-**Location:** `docs/publications/research-monograph/chapters/00-preface.tex`, approximately lines 164–168, “Program scope.”
+**Later addition:** The Bloch-sector and fiber-operator definition subsequently
+added to `chapters/periodic-geometry.tex` cites `kittel2004` and `simon2013` for
+the standard solid-state Bloch construction and `kuchment2016` for the
+operator-level Floquet--Bloch direct-integral formulation. The Kuchment article
+metadata and DOI were checked when its record was added to `references.bib`.
+A future full source-reading audit should still check the exact direct-integral
+normalization and domain wording against that source.
+
+The subsequently separated `chapters/hermitian-eigensystems.tex` chapter cites
+`hornJohnson2013` for the finite-dimensional spectral theorem and variational
+characterizations and the already present `golubVanLoan2013` record for the
+distinction between characteristic-polynomial reasoning and production
+factorization or iterative subspace eigensolvers. The Horn and Johnson metadata
+and DOI were checked when its record was added to `references.bib`; the source
+has not yet received a full claim-by-claim reading audit. The chapter's
+reality, orthogonality, projector, and Rayleigh-quotient passages also provide
+explicit finite-dimensional derivations.
+
+The later `chapters/admissible-sets-and-certificates.tex` chapter supplies its
+quadratic-loss and ellipsoidal-sublevel derivations directly. Its warning that
+a local optimizer, dense plot, or finite grid is not a global separation
+certificate cites the already inventoried `neumaier2004` review of complete
+continuous global search and constraint satisfaction. This reuse resolves no
+broader claim about which certified global method is applicable to the
+project's future material-scale model families.
+
+---
+
+**Location:** `docs/publications/research-monograph/chapters/preface.tex`, approximately lines 164–168, “Program scope.”
 
 **Passage / claim:** A neutral periodic dopant supercell must not be silently reinterpreted as an isolated or ionized impurity.
 
@@ -42,7 +78,7 @@ numbers refer to the audited source state and may move during later editing.
 
 ---
 
-**Location:** `docs/publications/research-monograph/appendices/K-envelope-theory-luttinger-kohn-burt-ermoneit.tex`, with the motivating pointer in `chapters/01-model-adequacy.tex`, “Project motivation and significance.”
+**Location:** `docs/publications/research-monograph/appendices/K-envelope-theory-luttinger-kohn-burt-ermoneit.tex`, with the motivating pointer in `chapters/model-adequacy.tex`, “Project motivation and significance.”
 
 **Passage / claim:** Band curvature near an extremum leads to the effective-mass kinetic operator, while a controlled envelope theory additionally requires a state-space map and treatment of band truncation, gauge, valleys, and spatial coarse-graining.
 
@@ -81,7 +117,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/01-model-adequacy.tex`, approximately lines 324–352, “Project motivation and significance,” retained entangled bands, projection/disentanglement, and Bloch-gauge discussion.
+**Location:** `docs/publications/research-monograph/chapters/model-adequacy.tex`, “Project motivation and significance,” retained entangled bands, projection/disentanglement, and Bloch-gauge discussion.
 
 **Passage / claim:** A smooth retained family for entangled bands may require projection or disentanglement, and Bloch-gauge changes alter matrix coordinates without changing the represented abstract operator or spectrum.
 
@@ -100,7 +136,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/01-model-adequacy.tex`, approximately lines 619–642, “Central hypothesis,” norm-resolvent convergence equation.
+**Location:** `docs/publications/research-monograph/chapters/model-adequacy.tex`, “Central hypothesis,” norm-resolvent convergence equation.
 
 **Passage / claim:** Norm-resolvent convergence, using identification maps between changing retained spaces and the continuum space, is proposed as one possible continuum criterion.
 
@@ -115,7 +151,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/01-model-adequacy.tex`, approximately lines 650–660, “Relation to Hilbert’s sixth problem.”
+**Location:** `docs/publications/research-monograph/chapters/model-adequacy.tex`, “Relation to Hilbert’s sixth problem.”
 
 **Passage / claim:** Hilbert’s sixth problem is characterized as calling for rigorous formulations of physical theories and justification of limiting relations between microscopic and continuum descriptions.
 
@@ -145,7 +181,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/02-operator-comparison.tex`, approximately lines 100–104, “Basis transformations and gauge.”
+**Location:** `docs/publications/research-monograph/chapters/operator-comparison.tex`, “Gauge constraints in operator comparison.”
 
 **Passage / claim:** Momentum-dependent unitary freedom changes the Wannier basis; localization selects or optimizes a gauge; equal band energies do not determine Wannier functions or a distinguished alignment between calculations.
 
@@ -164,7 +200,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/02-operator-comparison.tex`, approximately lines 163–171, “Energy references.”
+**Location:** `docs/publications/research-monograph/chapters/operator-comparison.tex`, “Energy references.”
 
 **Passage / claim:** A band-edge plotting reference and an electrostatic estimator used to align pristine and doped supercells are not automatically the same convention; a common scalar energy zero is required before bulk–dopant subtraction.
 
@@ -183,9 +219,9 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/03-evidence-for-model-adequacy.tex`, approximately lines 37–68 and 210–232, “Evidence classes” and “Uncertainty quantification.”
+**Location:** `docs/publications/research-monograph/chapters/verification-and-evidence-vocabulary.tex`, “Evidence classes,” with program-specific uncertainty sources in `chapters/evidence-for-model-adequacy.tex`, “Uncertainty quantification.”
 
-**Passage / claim:** The chapter distinguishes mathematical proof, software verification, numerical verification, scientific validation, and uncertainty quantification, and states that these evidence classes do not imply one another.
+**Passage / claim:** The foundational chapter distinguishes mathematical proof, software verification, numerical verification, scientific validation, and uncertainty quantification, and states that these evidence classes do not imply one another.
 
 **Why a citation is needed:** This taxonomy is central to the monograph and overlaps established verification, validation, and UQ terminology. The project may refine the categories, but an authoritative source should identify the external methodological foundation and make project-specific extensions visible.
 
@@ -213,7 +249,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/03-evidence-for-model-adequacy.tex`, approximately lines 191–203, “Scientific validation.”
+**Location:** `docs/publications/research-monograph/chapters/evidence-for-model-adequacy.tex`, approximately lines 191–203, “Scientific validation.”
 
 **Passage / claim:** The PBE Kohn–Sham parent disagrees with the experimental silicon gap, and that discrepancy must be classified as parent-model error rather than reduction error.
 
@@ -256,7 +292,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/03-evidence-for-model-adequacy.tex`, approximately lines 205–208, “Scientific validation.”
+**Location:** `docs/publications/research-monograph/chapters/evidence-for-model-adequacy.tex`, approximately lines 205–208, “Scientific validation.”
 
 **Passage / claim:** Dopant validation references must match charge state, periodic versus isolated setting, spin/SOC branch, band-edge reference, and observable; a neutral periodic P:Si calculation cannot directly validate an isolated ionized-donor potential.
 
@@ -271,7 +307,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/03-evidence-for-model-adequacy.tex`, approximately lines 241–247, “Training, validation, and leakage.”
+**Location:** `docs/publications/research-monograph/chapters/evidence-for-model-adequacy.tex`, approximately lines 241–247, “Training, validation, and leakage.”
 
 **Passage / claim:** Withheld validation data must not affect parameter selection, model-class expansion, stopping rules, or tolerance adjustment; redesign after a validation failure requires a new untouched validation design.
 
@@ -300,7 +336,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/03-evidence-for-model-adequacy.tex`, approximately lines 257–277, “Provenance and reproducibility.”
+**Location:** `docs/publications/research-monograph/chapters/evidence-for-model-adequacy.tex`, approximately lines 257–277, “Provenance and reproducibility.”
 
 **Passage / claim:** Reproducibility is relative to retained identities and declared conditions, with a minimum record including input identities, code and executable versions, settings, commands, environment, checksums, metrics, outcomes, and artifact locations.
 
@@ -331,7 +367,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/04-bulk-silicon-program.tex`, approximately lines 30–35, “The parent description,” and lines 110–111, “Interpretive limits.”
+**Location:** `docs/publications/research-monograph/chapters/bulk-silicon-program.tex`, approximately lines 30–35, “The parent description,” and lines 110–111, “Interpretive limits.”
 
 **Passage / claim:** Kohn–Sham eigenvalues are not the complete many-body excitation spectrum, and a Kohn–Sham band gap is not an exact quasiparticle gap.
 
@@ -349,7 +385,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/04-bulk-silicon-program.tex`, approximately line 110, “Interpretive limits.”
+**Location:** `docs/publications/research-monograph/chapters/bulk-silicon-program.tex`, approximately line 110, “Interpretive limits.”
 
 **Passage / claim:** “A finite periodic supercell is not an isolated impurity.”
 
@@ -364,7 +400,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/05-first-principles-bulk-parent.tex`, approximately lines 38–45, “External-program boundary.”
+**Location:** `docs/publications/research-monograph/chapters/first-principles-bulk-parent.tex`, approximately lines 38–45, “External-program boundary.”
 
 **Passage / claim:** Quantum ESPRESSO is assigned responsibility for current SCF, NSCF, band-path, and lattice-optimization calculations, with `pw.x` identified as the relevant executable.
 
@@ -396,7 +432,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/05-first-principles-bulk-parent.tex`, approximately lines 69–72, “Pseudopotential identity.”
+**Location:** `docs/publications/research-monograph/chapters/first-principles-bulk-parent.tex`, approximately lines 69–72, “Pseudopotential identity.”
 
 **Passage / claim:** PseudoDojo cutoff hints are expressed in Hartree, while Quantum ESPRESSO interprets `ecutwfc` in Rydberg.
 
@@ -426,7 +462,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/06-bulk-representations.tex`, approximately lines 108–128, “Wannier transformation,” especially the equation defining the composite-band Wannier functions.
+**Location:** `docs/publications/research-monograph/chapters/composite-band-gauge-alignment.tex`, section “The Bloch--Wannier bridge,” and `chapters/bulk-representations.tex`, approximately lines 108–128, “Wannier transformation,” especially the equations defining composite-band Wannier functions.
 
 **Passage / claim:** A composite retained subspace is transformed using a momentum-dependent matrix \(U(\mathbf k)\in U(M)\), and changing that unitary frame changes individual Wannier functions while preserving the subspace projector.
 
@@ -462,7 +498,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/06-bulk-representations.tex`, approximately lines 130–137, “Wannier transformation.”
+**Location:** `docs/publications/research-monograph/chapters/bulk-representations.tex`, approximately lines 130–137, “Wannier transformation.”
 
 **Passage / claim:** In the PAW formalism, transformation from auxiliary states to all-electron states contributes augmentation terms to Wannier overlap matrix elements.
 
@@ -480,7 +516,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/06-bulk-representations.tex`, approximately lines 144–146, “Localization.”
+**Location:** `docs/publications/research-monograph/chapters/bulk-representations.tex`, approximately lines 144–146, “Localization.”
 
 **Passage / claim:** “Spatial localization depends on the regularity of the selected Bloch frame over the Brillouin zone.”
 
@@ -513,7 +549,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/06-bulk-representations.tex`, approximately lines 266–269, “Subspace diagnostics,” immediately after the principal-angle equation.
+**Location:** `docs/publications/research-monograph/chapters/composite-band-gauge-alignment.tex`, sections “Neighborwise polar transport” and “Pointwise and globally constrained alignment,” and `chapters/bulk-representations.tex`, approximately lines 266–269, “Subspace diagnostics.”
 
 **Passage / claim:** A “polar or orthogonal-Procrustes construction” can supply a unitary coordinate identification.
 
@@ -545,7 +581,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/09-doped-silicon-program.tex`, approximately lines 56–58, Section “Substitutional phosphorus”
+**Location:** `docs/publications/research-monograph/chapters/doped-silicon-program.tex`, approximately lines 56–58, Section “Substitutional phosphorus”
 
 **Passage / claim:** “Each finite supercell represents a periodic dopant array. An isolated-donor interpretation requires supercell-size evidence rather than the presence of a single substituted atom in the simulation cell.”
 
@@ -560,7 +596,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/09-doped-silicon-program.tex`, approximately lines 66–78, Section “Substitutional boron”
+**Location:** `docs/publications/research-monograph/chapters/doped-silicon-program.tex`, approximately lines 66–78, Section “Substitutional boron”
 
 **Passage / claim:** The boron branch is treated as an acceptor problem whose final continuum treatment must preserve the spin–orbit-coupled valence manifold.
 
@@ -588,7 +624,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/09-doped-silicon-program.tex`, approximately lines 94–99, Section “Interpretive limits”
+**Location:** `docs/publications/research-monograph/chapters/doped-silicon-program.tex`, approximately lines 94–99, Section “Interpretive limits”
 
 **Passage / claim:** “A Kohn--Sham band gap is not an exact quasiparticle gap.”
 
@@ -606,7 +642,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/12-continuum-effective-mass.tex`, approximately lines 16–20, Section “Continuum effective-mass reduction”
+**Location:** `docs/publications/research-monograph/chapters/continuum-effective-mass.tex`, approximately lines 16–20, Section “Continuum effective-mass reduction”
 
 **Passage / claim:** The continuum stage uses a multivalley donor solver for phosphorus, a multiband acceptor solver for boron, and screened-Coulomb and central-cell impurity model families.
 
@@ -654,7 +690,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/13-structured-learning.tex`, approximately lines 10–14, opening discussion
+**Location:** `docs/publications/research-monograph/chapters/structured-learning.tex`, approximately lines 10–14, opening discussion
 
 **Passage / claim:** “Kohn--Sham DFT supplies a parent one-particle operator.”
 
@@ -669,7 +705,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/13-structured-learning.tex`, approximately lines 206–215, Section “A learned reference for the continuum crossover,” unnumbered screened-Coulomb equation
+**Location:** `docs/publications/research-monograph/chapters/structured-learning.tex`, approximately lines 206–215, Section “A learned reference for the continuum crossover,” unnumbered screened-Coulomb equation
 
 **Passage / claim:** A screened Coulomb donor term is assigned the asymptotic form
 \(V_{\rm EMT}(r)\sim-e^2/(4\pi\epsilon_0\epsilon_r r)\).
@@ -698,7 +734,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/13-structured-learning.tex`, approximately lines 402–406, Section “A staged computational progression,” Level 1
+**Location:** `docs/publications/research-monograph/chapters/structured-learning.tex`, approximately lines 402–406, Section “A staged computational progression,” Level 1
 
 **Passage / claim:** “Use fixed stencils or a linear Slater--Koster or tight-binding parameterization…”
 
@@ -713,7 +749,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/15-current-evidence-boundary.tex`, approximately lines 100–106, Section “Direct PBE bootstrap observations”
+**Location:** `docs/publications/research-monograph/chapters/current-evidence-boundary.tex`, approximately lines 100–106, Section “Direct PBE bootstrap observations”
 
 **Passage / claim:** “A separately retained PBE/PseudoDojo bootstrap campaign executed nine SCF and nine linked NSCF Quantum ESPRESSO invocations.”
 
@@ -734,7 +770,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `docs/publications/research-monograph/chapters/15-current-evidence-boundary.tex`, approximately lines 151–156, Section “Present limitations,” Subsection “Parent calculation”
+**Location:** `docs/publications/research-monograph/chapters/current-evidence-boundary.tex`, approximately lines 151–156, Section “Present limitations,” Subsection “Parent calculation”
 
 **Passage / claim:** “The selected PBE parent will also retain parent-model limitations relative to experiment even after numerical convergence.”
 
@@ -752,7 +788,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `chapters/16-proof-architecture.tex`, §“Proof-package graph,” lines 44–46; `chapters/17-finite-dimensional-foundations.tex`, §“Finite-dimensional retained frames,” lines 43–47; and `chapters/19-mechanization-status.tex`, §“Mechanization status,” lines 10–12 and 24–40.
+**Location:** `chapters/proof-architecture.tex`, §“Proof-package graph,” lines 44–46; `chapters/finite-dimensional-foundations.tex`, §“Finite-dimensional retained frames,” lines 43–47; and `chapters/mechanization-status.tex`, §“Mechanization status,” lines 10–12 and 24–40.
 
 **Passage / claim:** The proof program is targeted independently in Lean, Isabelle, and Rocq; the checked trial specifically uses Lean 4 and mathlib.
 
@@ -837,7 +873,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `chapters/18-mathematics-of-reduction.tex`, §“Crossover and operator-to-observable bounds,” lines 66–70, following the definition of $r_{c,d}(\tau)$.
+**Location:** `chapters/mathematics-of-reduction.tex`, §“Crossover and operator-to-observable bounds,” lines 66–70, following the definition of $r_{c,d}(\tau)$.
 
 **Passage / claim:** “The assumption $\eta_d(R)\to0$ as $R\to\infty$ is an asymptotic-locality hypothesis, not a consequence established by general Kohn--Sham DFT.”
 
@@ -866,7 +902,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `chapters/18-mathematics-of-reduction.tex`, §“Crossover and operator-to-observable bounds,” lines 72–79, immediately before and alongside the `davis1970` citation.
+**Location:** `chapters/mathematics-of-reduction.tex`, §“Crossover and operator-to-observable bounds,” lines 72–79, immediately before and alongside the `davis1970` citation.
 
 **Passage / claim:** “Standard perturbation theory motivates spectral-distance bounds controlled by $\|E\|$. Invariant-subspace rotation can be controlled by a Davis--Kahan-type estimate…”
 
@@ -895,7 +931,7 @@ project's proposed continuum crossover.
 
 ---
 
-**Location:** `chapters/18-mathematics-of-reduction.tex`, §“Compatibility and certified incompatibility,” lines 121–125.
+**Location:** `chapters/mathematics-of-reduction.tex`, §“Compatibility and certified incompatibility,” lines 121–125.
 
 **Passage / claim:** Certification requires a valid global lower bound, potentially obtained from “analytic estimates, interval methods, branch-and-bound, exhaustive certified reduction, or an applicable validated convex relaxation.”
 
@@ -1305,9 +1341,12 @@ rather than bibliography defects.
 ### Sections with no additional citation finding
 
 After complete review, no genuine additional external citation requirement was
-identified in Chapters 7, 8, 10, 11, 14, or 20, or in Appendix D. Their uncited
-material is principally project-specific policy, proposed work, explicit
-mathematical derivation, or synthesis already supported at its primary location.
+identified in `bulk-reduced-models.tex`, `selecting-bulk-representation.tex`,
+`impurity-operator-extraction.tex`, `lattice-impurity-models.tex`,
+`dopant-transferability.tex`, or `conclusions.tex`, or in Appendix D. Their
+uncited material is principally project-specific policy, proposed work,
+explicit mathematical derivation, or synthesis already supported at its
+primary location.
 
 ## Verification note
 

@@ -108,6 +108,8 @@ boundary adaptation.
 - [Periodic native-evidence presence audit](periodic-native-evidence-presence-audit.md)
 - [Sparse and nonuniform Fourier-transform technology review](sparse-fourier-transform-technology-review.md)
 - [Research-monograph software-extraction audit](research-monograph-software-extraction-audit.md)
+- [Living-monograph current-library capability crosswalk](../../../publications/research-monograph/current-library-capability-crosswalk.md)
+  (publication-side consumer of the architecture and extraction records)
 
 ```{toctree}
 :hidden:

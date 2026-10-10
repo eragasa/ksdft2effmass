@@ -49,6 +49,10 @@ from .run.wannier90 import (
     Periodic2DWannier90BalancedCampaign,
     Periodic2DWannier90StudyCampaign,
 )
+from .studies import (
+    Periodic2DRepresentedParentCalculationScaffold,
+    Periodic2DShellGaugeLocalityCalculationScaffold,
+)
 
 __all__ = [
     "Periodic2DCampaign",
@@ -82,6 +86,8 @@ __all__ = [
     "Periodic2DOptimizerRegressionCampaignModel",
     "Periodic2DOptimizerStandaloneCampaign",
     "Periodic2DOptimizerStandaloneCampaignModel",
+    "Periodic2DRepresentedParentCalculationScaffold",
+    "Periodic2DShellGaugeLocalityCalculationScaffold",
     "Periodic2DTopologicalCampaign",
     "Periodic2DTopologicalCampaignModel",
     "Periodic2DTopologicalPhaseSweepCampaign",

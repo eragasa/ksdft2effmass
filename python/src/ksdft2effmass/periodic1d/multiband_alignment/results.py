@@ -31,7 +31,13 @@ from .definition import Periodic1DMultibandAlignmentCalculationDefinition
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DMultibandAlignmentDiagnostics:
-    """Retain invariant, pointwise, and globally constrained frame diagnostics."""
+    """Retain invariant, pointwise, and globally constrained diagnostics.
+
+    The record binds polar frame transport, pointwise Procrustes alignment, the single
+    global unitary, a finite-mesh external energy gap, dimensionless frame/recovery
+    defects, and energy-valued represented-operator defects.  Projector/spectral and
+    represented-matrix channels remain scientifically distinct.
+    """
 
     transport: PolarBandFrameTransportResult1D
     pointwise_alignment: BandFrameAlignmentResult1D
@@ -115,7 +121,12 @@ class Periodic1DMultibandAlignmentDiagnostics:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DMultibandAlignmentRangeResult:
-    """Retain gauge-resolved finite-range locality and spectral diagnostics."""
+    """Retain gauge-resolved diagnostics for one finite hopping range.
+
+    Reference, attacked, and pointwise-aligned truncations share one range.  Each is
+    compared with the same training target and the same staggered-evaluation target,
+    preventing a gauge channel from receiving a different spectral oracle.
+    """
 
     reference_truncation: BlockHoppingTruncationResult1D
     attacked_truncation: BlockHoppingTruncationResult1D
@@ -171,7 +182,19 @@ class Periodic1DMultibandAlignmentRangeResult:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DMultibandAlignmentCalculationResult:
-    """Retain M2 alignment and locality evidence without material claims."""
+    """Retain and correlate every M2 alignment and locality evidence channel.
+
+    The aggregate binds the exact definition, common training/evaluation targets,
+    transport/alignment diagnostics, three complete gauge-resolved transforms, matching
+    Hermiticity results, and the ordered range study.  It rejects records with merely
+    compatible shapes when meshes, units, tolerances, ranks, or source identities do
+    not match.
+
+    Notes
+    -----
+    This finite synthetic result provides no material validation, uncertainty estimate,
+    or scientific-acceptance disposition.
+    """
 
     definition: Periodic1DMultibandAlignmentCalculationDefinition
     training_target: BandSpectrumSamples1D

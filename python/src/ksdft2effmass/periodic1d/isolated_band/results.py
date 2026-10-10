@@ -30,7 +30,15 @@ from .definition import Periodic1DIsolatedBandCalculationDefinition
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DPlaneWaveConvergenceObservation:
-    """Retain one cutoff and its maximum error against the declared reference."""
+    """Retain one plane-wave cutoff error against the finite reference.
+
+    Parameters
+    ----------
+    cutoff
+        Positive exact plane-wave reciprocal-index cutoff.
+    maximum_absolute_error
+        Nonnegative maximum band-energy defect in the parent energy unit.
+    """
 
     cutoff: int
     maximum_absolute_error: ScalarQuantity
@@ -49,7 +57,15 @@ class Periodic1DPlaneWaveConvergenceObservation:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DFiniteDifferenceConvergenceObservation:
-    """Retain one grid extent and its maximum error against the same parent."""
+    """Retain one finite-difference grid error against the same parent.
+
+    Parameters
+    ----------
+    point_count
+        Exact grid extent of at least three points.
+    maximum_absolute_error
+        Nonnegative maximum band-energy defect in the parent energy unit.
+    """
 
     point_count: int
     maximum_absolute_error: ScalarQuantity
@@ -68,7 +84,14 @@ class Periodic1DFiniteDifferenceConvergenceObservation:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DIsolatedBandRangeResult:
-    """Retain diagnostics for one prospectively declared hopping range."""
+    """Retain correlated diagnostics for one declared hopping range.
+
+    ``truncation`` defines the mediated model.  ``training_error`` and
+    ``withheld_error`` compare it on distinct sample roles; ``parseval`` partitions
+    transform energy; ``direct_fit`` and ``direct_mediated_comparison`` retain the
+    independent fitting route; and ``band_shape`` bounds the scalar imaginary residual
+    on evaluation coordinates.
+    """
 
     truncation: BlockHoppingTruncationResult1D
     training_error: BandApproximationErrorResult1D
@@ -124,7 +147,19 @@ class Periodic1DIsolatedBandRangeResult:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DIsolatedBandCalculationResult:
-    """Retain M1 software/numerical channels without localization claims."""
+    """Retain and correlate every M1 software/numerical evidence channel.
+
+    The result binds the exact definition, finite parent reference, ordered convergence
+    observations, distinct training/evaluation scalar targets, complete Fourier
+    transform, Hermiticity analysis, and ordered range study.  Post-initialization
+    rejects shape-compatible records that do not share these identities, coordinates,
+    units, and sample roles.
+
+    Notes
+    -----
+    This record makes no localization, material-validity, continuum-convergence, or
+    scientific-acceptance claim.
+    """
 
     definition: Periodic1DIsolatedBandCalculationDefinition
     parent_reference: BandSpectrumSamples1D

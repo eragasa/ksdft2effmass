@@ -191,10 +191,7 @@ class TestPeriodic1DMultibandAlignmentCalculator:
             )
             and not (
                 isinstance(node, ast.Import)
-                and any(
-                    alias.name.startswith("ksdft2effmass")
-                    for alias in node.names
-                )
+                and any(alias.name.startswith("ksdft2effmass") for alias in node.names)
             )
             for node in imports
         )
@@ -233,8 +230,7 @@ class TestPeriodic1DMultibandAlignmentCalculator:
             json.dumps(input_document, sort_keys=True, separators=(",", ":")) + "\n"
         )
         (tmp_path / "result.json").write_text(
-            json.dumps(result_document, sort_keys=True, separators=(",", ":"))
-            + "\n"
+            json.dumps(result_document, sort_keys=True, separators=(",", ":")) + "\n"
         )
 
         completed = subprocess.run(

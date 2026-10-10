@@ -9,6 +9,27 @@ scientific acceptance.  Campaign implementation classes and methods are public a
 use no underscore-prefixed implementation names; Python-required special methods are
 the only exception.
 
+Results projection
+------------------
+
+The repository-local results projection indexes retained calculation packages into an
+ignored, rebuildable SQLite database for read-only presentation. It stores only safe
+repository-relative locators, bounded text previews, retained-result document rows,
+scalar JSON observations, and checksum observations. Building this projection does
+not execute calculations or verifiers and does not establish scientific acceptance.
+The retained artifacts and manifests remain authoritative.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.results_projection
+
+.. autoclass:: ResearchResultsProjectionRequest
+   :members:
+
+.. autoclass:: ResearchResultsProjectionResult
+   :members:
+
+.. autoclass:: ResearchResultsProjectionRebuilder
+   :members:
+
 Citation snapshot
 -----------------
 

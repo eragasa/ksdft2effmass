@@ -12,10 +12,10 @@ This directory contains the working conference-paper draft:
 - `manuscript.bbl` — generated numbered bibliography retained as a build fallback.
 - `manuscript.pdf` — compiled working draft.
 - `supplementary-material.tex`, `supplementary-material.bbl`, and
-  `supplementary-material.pdf` — appendix-only extract containing Appendices S1,
-  S2, S3, and S4.
+  `supplementary-material.pdf` — appendix-only extract containing Appendices S1
+  through S5.
 - `appendices/*.tex` — separately maintained LaTeX appendices; the complete
-  `manuscript.pdf` includes Appendices A, B, S1, S2, S3, and S4.
+  `manuscript.pdf` includes Appendices A, B, and S1 through S5.
 - `manuscript.md` and `appendices/*.md` — source-first Markdown counterparts.
 - `evidence-ledger.md` — numerical-statement and figure-provenance crosswalk.
 
@@ -43,6 +43,18 @@ adds a gapped rank-two parent, known nonidentity gauge attack, separate pointwis
 global-unitary alignment channels, gauge-resolved block hoppings, and disjoint withheld
 diagnostics. Its independent reconstruction passes the frozen tolerance; it does not
 establish a general alignment optimizer or material validity.
+
+A third prospectively frozen local synthetic package at
+[`calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/`](../../../../../calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/)
+composes M2 into a two-parameter candidate family with finite global rotations. It
+retains one common-witness case and one positive analytic separation certificate.
+These decisions are bounded by the frozen family, thresholds, metric, and certificate
+assumptions; they are not material validation or evidence for an unrestricted
+optimizer. An explicitly post-hoc analytic reanalysis at
+[`calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/`](../../../../../calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/)
+shows the exact operator-threshold transition without altering the sealed M3 package.
+It is a sensitivity characterization, not a prospectively frozen prediction or
+physical threshold calibration.
 
 Supplementary Appendix S4 is a separate bridge to already retained synthetic
 Wannier90 3.1.0 evidence. It is not part of M2, was not rerun for this paper, and does

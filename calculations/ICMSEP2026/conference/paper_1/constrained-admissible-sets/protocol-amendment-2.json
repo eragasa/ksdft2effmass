@@ -1,0 +1,22 @@
+{
+  "amended_at_utc": "2026-10-10T17:43:15Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Require the exact parent model-role wire enum toy in the standalone verifier."
+  ],
+  "corrected_source": {
+    "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/verify_result.py",
+    "sha256": "014d2457b64263fd958590a565498c0b74b11e456c518a5e28be9bc2891dd507"
+  },
+  "failed_attempt": {
+    "result_sha256": "9d95da829b84743386f627c32e9b4a740f2ff602d77a1ff225f295e17f98d2f9",
+    "retained_as_passing_evidence": false,
+    "standalone_verification_completed": false
+  },
+  "finding": "The first standalone-verifier attempt rejected the valid parent model-role wire value toy because it expected a prose phrase rather than the frozen enum value.",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "producer_output_changed": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "corrective-standalone-wire-enum-amendment-before-verifier-rerun"
+}

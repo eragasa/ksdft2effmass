@@ -104,6 +104,36 @@
     before upper={\RaggedRight\hbadness=10000},
     before skip=11pt,
     after skip=11pt
+  },
+  monograph code/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    colback=defnbg,
+    colframe=indigo!45,
+    boxrule=0.6pt,
+    before skip=11pt,
+    after skip=11pt
+  }
+}
+
+\newtcblisting{pythonexample}[1]{
+  monograph code,
+  title={Python interlude---#1},
+  fonttitle=\bfseries,
+  listing only,
+  listing engine=listings,
+  listing options={
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{indigo}\bfseries,
+    commentstyle=\color{muted}\itshape,
+    stringstyle=\color{readingred},
+    showstringspaces=false,
+    keepspaces=true,
+    columns=fullflexible,
+    breaklines=true,
+    upquote=true
   }
 }
 
@@ -332,10 +362,12 @@ identities, alignment and reduction obligations, analytical bounds,
 mechanization status, software verification, numerical verification, scientific
 validation, and uncertainty quantification. At the present evidence boundary,
 the project supports a represented-operator software foundation, bounded
-tutorial and bootstrap observations, and human-accepted synthetic numerical
+tutorial and bootstrap observations, and bounded synthetic numerical
 verification. The periodic benchmarks cover one- and two-dimensional scalar,
-composite-band, topology, hopping, and localization diagnostics. The expanded
-two-dimensional fixed-protocol study retains nonconverged trajectories and
+composite-band, topology, hopping, and localization diagnostics. A canonical
+one-dimensional rank-two calculation additionally retains a common
+spectral/operator witness and a finite-family separation certificate at two
+declared threshold pairs. The expanded two-dimensional fixed-protocol study retains nonconverged trajectories and
 unsupported mesh-convergence and repeated-basin criteria as negative evidence.
 Separate spin-space and one-dimensional defect benchmarks verify compatibility,
 alignment, independent extraction routes, a finite-rank spectral oracle, and
@@ -355,39 +387,53 @@ uncertainty quantification.
 \hypersetup{pageanchor=true}
 \pagenumbering{roman}
 \pagestyle{monograph}
-\include{chapters/00-preface}
+\include{chapters/preface}
 \tableofcontents
 \clearpage
 \pagenumbering{arabic}
 
+\part{Computational Foundations}
+\include{chapters/computational-quantities}
+\include{chapters/finite-representations}
+\include{chapters/hermitian-eigensystems}
+\include{chapters/quantum-states-and-operators}
+\include{chapters/particle-in-a-box-higher-dimensions}
+\include{chapters/periodic-geometry}
+\include{chapters/bloch-periodic-finite-differences}
+\include{chapters/projection-and-retained-spaces}
+\include{chapters/isolated-band-fourier-reduction}
+\include{chapters/composite-band-gauge-alignment}
+\include{chapters/verification-and-evidence-vocabulary}
+
 \part{Criteria for a Good Reduced Model}
-\include{chapters/01-model-adequacy}
-\include{chapters/02-operator-comparison}
-\include{chapters/03-evidence-for-model-adequacy}
+\include{chapters/model-adequacy}
+\include{chapters/operator-comparison}
+\include{chapters/admissible-sets-and-certificates}
+\include{chapters/evidence-for-model-adequacy}
 
 \part{The Bulk-Silicon Representation Program}
-\include{chapters/04-bulk-silicon-program}
-\include{chapters/05-first-principles-bulk-parent}
-\include{chapters/06-bulk-representations}
-\include{chapters/07-bulk-reduced-models}
-\include{chapters/08-selecting-bulk-representation}
+\include{chapters/bulk-silicon-program}
+\include{chapters/first-principles-bulk-parent}
+\include{chapters/bulk-representations}
+\include{chapters/bulk-reduced-models}
+\include{chapters/selecting-bulk-representation}
 
 \part{The Doped-Silicon Representation Program}
-\include{chapters/09-doped-silicon-program}
-\include{chapters/10-impurity-operator-extraction}
-\include{chapters/11-lattice-impurity-models}
-\include{chapters/12-continuum-effective-mass}
-\include{chapters/13-structured-learning}
-\include{chapters/14-dopant-transferability}
-\include{chapters/15-current-evidence-boundary}
+\include{chapters/doped-silicon-program}
+\include{chapters/impurity-operator-extraction}
+\include{chapters/lattice-impurity-models}
+\include{chapters/continuum-effective-mass}
+\include{chapters/structured-learning}
+\include{chapters/dopant-transferability}
+\include{chapters/current-evidence-boundary}
 
 \part{Mathematical and Proof Program}
-\include{chapters/16-proof-architecture}
-\include{chapters/17-finite-dimensional-foundations}
-\include{chapters/18-mathematics-of-reduction}
-\include{chapters/19-mechanization-status}
+\include{chapters/proof-architecture}
+\include{chapters/finite-dimensional-foundations}
+\include{chapters/mathematics-of-reduction}
+\include{chapters/mechanization-status}
 
-\include{chapters/20-conclusions}
+\include{chapters/conclusions}
 
 \appendix
 \part*{Appendices}

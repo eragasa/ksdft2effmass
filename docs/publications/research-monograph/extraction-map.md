@@ -15,12 +15,16 @@ limitations.
 |---|---|---|---|
 | Bloch-to-effective-mass motivation, physical problem, and parent-model boundaries | Project overview and dissertation introduction | Motivate the silicon impurity-reduction problem without overstating Kohn--Sham observables or proposed continuum criteria | Drafted framework |
 | State spaces, represented operators, gauge, and alignment | P01 and mathematical-methods papers | Establish prerequisites for meaningful operator comparison | Drafted framework |
+| Hermitian eigensystems, spectral projectors, degeneracy, and residual diagnostics | Teaching material and mathematical-methods appendices | Supply reusable finite-dimensional foundations without repeating them in every reduction argument | Foundational chapter drafted; destination-specific extraction pending |
 | Proof dependencies, aligned-subtraction contracts, reduction bounds, and mechanization status | P04 and mathematical-methods papers | Extract only theorem statements and proof status supported by the owning proof packages and prover records | Integrated proof division; only `PRF-05.01` Lean checked |
 | Bulk-silicon parent calculation and provenance | P01 computational methods | Describe the parent model only after retained calculation evidence exists | Protocol narrative drafted; production results unavailable |
 | Wannier and parameterized tight-binding representations | P01 | Compare reduction classes while keeping projection, localization, fitting, and truncation distinct | Proposed method drafted; accepted operators unavailable |
 | Impurity-operator extraction | Later phosphorus and boron papers | Define aligned pristine--doped subtraction and its limitations | Proposed method drafted; dopant evidence unavailable |
 | Lattice-to-continuum reduction | Later effective-mass papers | State the reduction map and separate parent, numerical, and reduction errors | Proposed method drafted; continuum evidence unavailable |
 | Structured learning and model-class expressiveness | Later impurity-reduction or methods papers | Compare constrained learned operators with simpler physical classes without treating learning as KSDFT or as evidence of alignment | Proposed chapter drafted; no trained model or learning result available |
+| Isolated-band Bloch fibers, finite Fourier hoppings, truncation, and matched-route equivalence | Controlled periodic-methods papers and teaching material | Supply the derivational bridge behind isolated-band calculations without transferring any retained numerical outcome automatically | Foundational lecture drafted; destination-specific extraction pending |
+| Composite Bloch frames, Bloch--Wannier transformation, polar transport, Procrustes alignment, and gauge-dependent block locality | Controlled multiband-methods papers and teaching material | Supply the mathematical bridge behind rank-two alignment and locality controls while keeping pointwise recovery distinct from restricted alignment families | Foundational lecture drafted; no M2 numerical outcome transferred automatically |
+| Spectral and operator admissible sets, constrained alignment families, common witnesses, quadratic geometry, and separation certificates | Controlled admissible-set methods papers and teaching material | Explain the M3 decision logic while keeping finite-family evidence, threshold sensitivity, and material claims distinct | Foundational chapter and bounded canonical Appendix G result integrated; any destination extraction remains independently checked |
 | Verification, validation, and uncertainty taxonomy | Methods sections across outputs | Reuse consistent evidence language without transferring unsupported status | Drafted framework |
 | Retained calculated results and limitations | Paper-specific results sections | Extract only evidence-backed findings with exact provenance | Current evidence boundary drafted; production results unavailable |
 | High-level motivation and selected diagrams | Conference material and presentations | Produce audience-specific summaries without creating new scientific claims | Narrative drafted; destination-specific extraction pending |
@@ -28,7 +32,7 @@ limitations.
 ## P01 boundary
 
 P01 remains an independently authored article-preparation surface. It may draw
-on the model-adequacy, operator-comparison, bulk-parent, bulk-representation,
-and bulk-reduction chapters, but neither its Markdown nor LaTeX form is
+on the model-adequacy, operator-comparison, admissible-set, bulk-parent,
+bulk-representation, and bulk-reduction chapters, but neither its Markdown nor LaTeX form is
 mechanically generated from the monograph. P01 remains `Waiting`; extraction
 does not satisfy its computational gates or authorize submission.

@@ -6,6 +6,11 @@ The maintained evidence is retained under:
  \item \path{calculations/ICMSEP2026/conference/paper_1/isolated-band/};
  \item \path{calculations/ICMSEP2026/}\\
        \path{conference/paper_1/multiband-alignment/};
+ \item \path{calculations/ICMSEP2026/}\\
+       \path{conference/paper_1/constrained-admissible-sets/};
+ \item \path{calculations/ICMSEP2026/}\\
+       \path{conference/paper_1/}\\
+       \path{constrained-admissible-sets-threshold-sensitivity/};
  \item \path{calculations/research-monograph/periodic-2d/}; and
  \item \path{calculations/ICMSEP2026/conference/paper_1/}.
 \end{itemize}
@@ -17,23 +22,29 @@ public data deposit, DOI, material validation, or uncertainty analysis.
 The isolated-band package contains the prospectively frozen M1 lowest-band
 calculation. Its historical identity does not substitute for a retained gap or
 band-isolation result. The multiband package contains the prospectively frozen
-M2 rank-two alignment and
-locality calculation, including its independent reconstruction and disjoint
-withheld diagnostics. The two-dimensional reports contain additional composite
-and topology controls.
-The conference-paper parent calculation contains the direct
-quadratic admissible-set map, exact common witness, rational separation
-certificate, independent verifier, and figure inputs. Only the bounded results
+M2 rank-two alignment and locality calculation, including its independent
+reconstruction and disjoint withheld diagnostics. The constrained-admissible-
+set package contains M3's prospectively frozen two-parameter, nine-component
+finite alignment family, common witness, and bounded separation certificate.
+The threshold-sensitivity package is a separate post-hoc analytic reanalysis of
+the sealed M3 quadratics and is not part of the confirmatory package. The
+two-dimensional reports contain additional composite and topology controls.
+The conference-paper parent calculation contains the direct quadratic
+admissible-set map, exact common witness, rational separation certificate,
+independent verifier, and figure inputs. Only the bounded results
 directly used in the paper are summarized in its main text. Historical external
 executions are not rerun by the manuscript.
 
 \subsection{Verifier and digest semantics}
 
-The standalone M1 and M2 retained verifiers decode the frozen JSON documents
-and reconstruct their finite protocols without importing the corresponding
-producer Actions. They remain dependent on shared numerical libraries,
-runtime behavior, and declared mathematical conventions; passing establishes
-bounded reconstruction consistency rather than an independent physical oracle.
+The standalone M1, M2, and M3 retained verifiers decode the frozen JSON
+documents and reconstruct their finite protocols without importing the
+corresponding producer Actions. The separate threshold-sensitivity verifier
+reconstructs its analytic grid after checking both the source-result digest and
+that result's exact entry in the source package manifest. These verifiers
+remain dependent on shared numerical libraries, runtime behavior, and declared
+mathematical conventions; passing establishes bounded reconstruction
+consistency rather than an independent physical oracle.
 The checksum manifests bind retained bytes to recorded SHA-256 digests and
 therefore detect inconsistency relative to those manifests. A digest manifest
 alone is not an external trusted timestamp and does not, without an independent

@@ -21,11 +21,27 @@ from .results import Periodic1DIsolatedBandCalculationResult
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DIsolatedBandVerificationResult:
-    """Retain independently reconstructed numerical-consistency evidence.
+    """Retain independently reconstructed M1 numerical-consistency evidence.
 
-    Passing this verifier establishes internal numerical consistency with the frozen
-    calculation definition. It does not establish material validity, uncertainty,
-    convergence outside the declared controls, or scientific acceptance.
+    Parameters
+    ----------
+    calculation
+        Exact typed M1 result that was reconstructed.
+    spectral_maximum_absolute_defect
+        Largest parent, convergence, training, or evaluation spectral defect.
+    hopping_maximum_absolute_defect
+        Largest complete Fourier-block defect.
+    diagnostics_match
+        Whether every range and auxiliary diagnostic matches reconstruction.
+    absolute_tolerance
+        Common energy-valued verification tolerance.
+    passes
+        Derived conjunction of both defect bounds and ``diagnostics_match``.
+
+    Notes
+    -----
+    Passing establishes internal consistency only, not material validity, uncertainty,
+    convergence outside declared controls, or scientific acceptance.
     """
 
     calculation: Periodic1DIsolatedBandCalculationResult
@@ -72,14 +88,37 @@ class Periodic1DIsolatedBandVerificationResult:
 
 
 class Periodic1DIsolatedBandResultVerifier:
-    """Reconstruct an isolated-band result without invoking its producer Action."""
+    """Reconstruct M1 without invoking its producer Action.
+
+    The verifier directly rebuilds both parent discretizations, scalar band samples,
+    Fourier coefficients, interpolation, finite-range fits, Parseval identities,
+    Hermiticity, and band-shape diagnostics.  It shares numerical libraries and
+    conventions with the producer and is therefore not an independent physical oracle.
+    """
 
     __slots__ = ()
 
     def execute(
         self, calculation: Periodic1DIsolatedBandCalculationResult
     ) -> Periodic1DIsolatedBandVerificationResult:
-        """Reconstruct spectra, Fourier blocks, and range diagnostics."""
+        """Reconstruct spectra, Fourier blocks, and every range diagnostic.
+
+        Parameters
+        ----------
+        calculation
+            Exact correlated M1 typed result.
+
+        Returns
+        -------
+        Periodic1DIsolatedBandVerificationResult
+            Maximum reconstructed defects, diagnostic match, tolerance, and derived
+            pass state.
+
+        Raises
+        ------
+        TypeError
+            If ``calculation`` is not the exact M1 result type.
+        """
         if type(calculation) is not Periodic1DIsolatedBandCalculationResult:
             raise TypeError(
                 "calculation must be Periodic1DIsolatedBandCalculationResult"
@@ -219,6 +258,7 @@ class Periodic1DIsolatedBandResultVerifier:
         training_values: np.ndarray,
         withheld_values: np.ndarray,
     ) -> bool:
+        """Recompute Hermiticity, fit, route, Parseval, and band-shape channels."""
         tolerance = calculation.definition.reconstruction_absolute_tolerance
         complete = calculation.complete_transform.hopping_model
         complete_lookup = {
@@ -444,6 +484,7 @@ class Periodic1DIsolatedBandResultVerifier:
         reduced_momenta: np.ndarray,
         band_count: int,
     ) -> np.ndarray:
+        """Return ascending finite plane-wave eigenvalues in the parent energy unit."""
         model = definition.parent_model
         basis = PlaneWaveBasis1D(model.reciprocal_vector, cutoff)
         constructor = PlaneWaveFiberHamiltonian1DConstructor()
@@ -470,6 +511,7 @@ class Periodic1DIsolatedBandResultVerifier:
         reduced_momenta: np.ndarray,
         band_count: int,
     ) -> np.ndarray:
+        """Return deterministic finite-difference eigenvalues for each momentum."""
         model = definition.parent_model
         grid = PeriodicUniformGrid1D(
             ScalarQuantity(0.0, model.potential.period.unit),
@@ -512,6 +554,7 @@ class Periodic1DIsolatedBandResultVerifier:
         values: np.ndarray,
         representatives: tuple[int, ...],
     ) -> np.ndarray:
+        """Evaluate the direct normalized discrete Fourier coefficient formula."""
         return np.asarray(
             [
                 np.mean(
@@ -529,6 +572,7 @@ class Periodic1DIsolatedBandResultVerifier:
         representatives: np.ndarray,
         blocks: np.ndarray,
     ) -> np.ndarray:
+        """Interpolate scalar hopping blocks at dimensionless reduced coordinates."""
         return np.asarray(
             np.exp(2j * np.pi * np.outer(reduced_coordinates, representatives))
             @ blocks,
@@ -537,6 +581,7 @@ class Periodic1DIsolatedBandResultVerifier:
 
     @staticmethod
     def _maximum_defect(candidate: np.ndarray, reference: np.ndarray) -> float:
+        """Return the elementwise maximum absolute array defect."""
         return float(np.max(np.abs(candidate - reference)))
 
 

@@ -56,7 +56,33 @@ class Periodic1DMultibandAlignmentCalculator:
     def execute(
         self, definition: Periodic1DMultibandAlignmentCalculationDefinition
     ) -> Periodic1DMultibandAlignmentCalculationResult:
-        """Calculate the frozen rank-two gauge and locality experiment."""
+        """Calculate the frozen rank-two frame, alignment, and locality channels.
+
+        Parameters
+        ----------
+        definition
+            Exact M2 controls.  The parent uses one identified internal state space and
+            energy unit; reduced momenta are dimensionless.
+
+        Returns
+        -------
+        Periodic1DMultibandAlignmentCalculationResult
+            Correlated invariant, pointwise, globally constrained, transform,
+            Hermiticity, and finite-range evidence.
+
+        Raises
+        ------
+        TypeError
+            If ``definition`` is not the exact M2 definition type.
+        ValueError
+            If the finite parent gap, frame transport, units, or correlations violate
+            the frozen controls.
+
+        Notes
+        -----
+        Pointwise Procrustes alignment and the one-global-unitary channel are distinct
+        feasible families.  Staggered evaluation data are diagnostic only.
+        """
         if type(definition) is not Periodic1DMultibandAlignmentCalculationDefinition:
             raise TypeError(
                 "definition must be Periodic1DMultibandAlignmentCalculationDefinition"
@@ -213,6 +239,11 @@ class Periodic1DMultibandAlignmentCalculator:
         training: ReciprocalOperatorSamples1D,
         withheld: ReciprocalOperatorSamples1D,
     ) -> ScalarQuantity:
+        """Return the minimum retained/excluded finite-mesh energy gap.
+
+        Both training and staggered evaluation paths are inspected against the frozen
+        lower bound; the result is a finite diagnostic, not a gap theorem.
+        """
         rank = definition.retained_rank
         gaps = [
             float(values[rank] - values[rank - 1])
@@ -240,6 +271,7 @@ class Periodic1DMultibandAlignmentCalculator:
         attacked_model: BlockHoppingModel1D,
         aligned_model: BlockHoppingModel1D,
     ) -> Periodic1DMultibandAlignmentRangeResult:
+        """Truncate three gauge channels and compare common spectral targets."""
         if any(
             type(model) is not BlockHoppingModel1D
             for model in (reference_model, attacked_model, aligned_model)
@@ -255,6 +287,7 @@ class Periodic1DMultibandAlignmentCalculator:
         def error(
             target: BandSpectrumSamples1D, model: BlockHoppingModel1D
         ) -> BandApproximationErrorResult1D:
+            """Evaluate one truncated channel on one identified target mesh."""
             return analyzer.execute(
                 target,
                 interpolator.execute(model, target.coordinates),
@@ -277,6 +310,7 @@ class Periodic1DMultibandAlignmentCalculator:
     def _spectrum(
         samples: ReciprocalOperatorSamples1D, retained_rank: int
     ) -> BandSpectrumSamples1D:
+        """Return the lowest retained eigenvalues of represented parent samples."""
         values = np.asarray(
             [
                 np.linalg.eigvalsh(matrix.magnitude)[:retained_rank]
@@ -297,6 +331,7 @@ class Periodic1DMultibandAlignmentCalculator:
         retained_rank: int,
         orthonormality_absolute_tolerance: float,
     ) -> ReciprocalBandFramePath1D:
+        """Construct raw low-eigenvector frames before polar transport."""
         frames = tuple(
             ComplexMatrixQuantity(
                 np.linalg.eigh(matrix.magnitude)[1][:, :retained_rank], Unitless()
@@ -316,6 +351,10 @@ class Periodic1DMultibandAlignmentCalculator:
         definition: Periodic1DMultibandAlignmentCalculationDefinition,
         coordinates: VectorQuantity,
     ) -> tuple[npt.NDArray[np.complex128], ...]:
+        r"""Evaluate the frozen real-rotation attack at every momentum.
+
+        The angle is ``theta_0 + sum_q c_q sin(2 pi q k)`` in radians.
+        """
         reduced = (
             coordinates.magnitude
             / definition.parent_model.hopping_model.reciprocal_period.magnitude
@@ -340,6 +379,7 @@ class Periodic1DMultibandAlignmentCalculator:
         source: ReciprocalBandFramePath1D,
         rotations: tuple[npt.NDArray[np.complex128], ...],
     ) -> ReciprocalBandFramePath1D:
+        """Right-multiply each frame by its same-space unitary rotation."""
         if len(rotations) != source.mesh.point_count:
             raise ValueError("one rotation is required per reciprocal point")
         return ReciprocalBandFramePath1D(
@@ -360,6 +400,7 @@ class Periodic1DMultibandAlignmentCalculator:
         reference: ReciprocalBandFramePath1D,
         candidate: ReciprocalBandFramePath1D,
     ) -> ComplexMatrixQuantity:
+        """Return the polar/SVD optimizer over the one-global-unitary family."""
         aggregate = sum(
             (
                 candidate_frame.magnitude.conj().T @ reference_frame.magnitude
@@ -377,6 +418,7 @@ class Periodic1DMultibandAlignmentCalculator:
         reference: ReciprocalBandFramePath1D,
         candidate: ReciprocalBandFramePath1D,
     ) -> float:
+        """Return the maximum pointwise Frobenius frame defect."""
         return float(
             max(
                 np.linalg.norm(left.magnitude - right.magnitude)
@@ -389,6 +431,7 @@ class Periodic1DMultibandAlignmentCalculator:
         recovered: tuple[ComplexMatrixQuantity, ...],
         attacks: tuple[npt.NDArray[np.complex128], ...],
     ) -> float:
+        """Compare recovered pointwise rotations with inverse attack rotations."""
         return float(
             max(
                 np.linalg.norm(rotation.magnitude - attack.conj().T)
@@ -401,6 +444,7 @@ class Periodic1DMultibandAlignmentCalculator:
         reference: ReciprocalOperatorSamples1D,
         candidate: ReciprocalOperatorSamples1D,
     ) -> ScalarQuantity:
+        """Return the maximum represented-operator Frobenius defect in energy units."""
         if reference.matrices[0].unit != candidate.matrices[0].unit:
             raise ValueError("operator comparison requires one energy unit")
         defect = float(

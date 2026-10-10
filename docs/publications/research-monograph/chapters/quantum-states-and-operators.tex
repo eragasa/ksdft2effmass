@@ -1,0 +1,769 @@
+\chapter{Quantum States, Operators, and Hamiltonians}
+\index{quantum state|textbf}
+\index{operator!definition|textbf}
+\index{Hamiltonian!definition|textbf}
+
+\label{ch:training-quantum-operators}
+
+\chapterstatus{pedagogical quantum-mechanical foundation. The finite example is
+illustrative and establishes no material Hamiltonian, calculated scientific
+result, validation, or uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish an abstract quantum state from its coordinates;
+  \item state the domain-qualified definition of a linear operator;
+  \item interpret expectation values and Hamiltonian eigenproblems;
+  \item distinguish an operator identity from a matrix identity;
+  \item solve the one-dimensional particle-in-a-box eigenproblem from its
+        boundary conditions;
+  \item apply Born's interpretation to position and energy measurements; and
+  \item translate that continuum problem into a finite representation without
+        identifying the finite matrix with the abstract operator itself.
+\end{enumerate}
+
+\section{State spaces and Dirac notation}
+\index{Dirac notation|textbf}
+\index{Hilbert space}
+\index{expectation value}
+
+A one-particle quantum model begins by declaring a Hilbert space \(\mathcal H\).
+A quantum state is represented by a ket
+\(\lvert\psi\rangle\in\mathcal H\). Its corresponding bra
+\(\langle\psi\rvert\) is the linear functional associated with the ket by the
+Hilbert-space inner product. For
+\(\lvert\phi\rangle,\lvert\psi\rangle\in\mathcal H\),
+\begin{equation}
+  \langle\phi\vert\psi\rangle,
+  \qquad
+  \lVert\psi\rVert
+  =\sqrt{\langle\psi\vert\psi\rangle}.
+\end{equation}
+A normalized state satisfies
+\(\langle\psi\vert\psi\rangle=1\).
+
+If \(\{\lvert\phi_a\rangle\}\) is an orthonormal basis, then
+\begin{equation}
+  \lvert\psi\rangle
+  =\sum_a c_a\lvert\phi_a\rangle,
+  \qquad
+  c_a=\langle\phi_a\vert\psi\rangle.
+\end{equation}
+The ket is the abstract state; the coefficients \(c_a\) are its coordinates in
+the selected basis. Changing the basis changes the coordinates without, by
+itself, changing the state. This is the quantum-mechanical use of the
+finite-representation distinction developed in
+Chapter~\ref{ch:training-finite-representations}.
+
+\section{Linear operators and domains}
+\index{domain!operator|textbf}
+
+\begin{definition}[Linear operator]
+Let \(\mathcal H\) be a Hilbert space of quantum states. A linear operator
+\(\hat A\) is a map
+\begin{equation}
+  \hat A:\mathcal D(\hat A)\subseteq\mathcal H\longrightarrow\mathcal H,
+\end{equation}
+with a domain \(\mathcal D(\hat A)\) on which its action is defined.
+\end{definition}
+
+The domain is part of the operator. Writing
+\(\hat A\lvert\psi\rangle\) is meaningful only when
+\(\lvert\psi\rangle\in\mathcal D(\hat A)\). Differential expressions that look
+identical can define different operators when supplied with different domains
+or boundary conditions.
+
+For a normalized state in the domain of a self-adjoint observable \(\hat A\),
+the expectation value is
+\begin{equation}
+  \langle\hat A\rangle_{\psi}
+  =\langle\psi\rvert\hat A\lvert\psi\rangle.
+\end{equation}
+Self-adjointness is an operator property, not merely a visual symmetry of one
+array. In a finite orthonormal representation it implies a Hermitian matrix, but
+that finite test does not reconstruct unrecorded domain or boundary
+information.
+
+\section{Hamiltonians and additive decompositions}
+\index{Hamiltonian!additive decomposition}
+
+\begin{definition}[Hamiltonian]
+A Hamiltonian \(\hat H\) is the operator that generates the dynamics of the
+selected physical model. For the elementary nonrelativistic decomposition used
+here,
+\begin{equation}
+  \hat H=\hat T+\hat V,
+\end{equation}
+where \(\hat T\) is the kinetic-energy operator and \(\hat V\) is the potential
+or interaction operator.
+\end{definition}
+
+For every state in the common domain,
+\begin{equation}
+  \hat H\lvert\psi\rangle
+  =\bigl(\hat T+\hat V\bigr)\lvert\psi\rangle.
+\end{equation}
+This is an equality of operator actions on states. It is not yet a finite matrix
+equality, because no finite space or basis has been selected.
+
+The stationary eigenproblem is
+\begin{equation}
+  \hat H\lvert\psi_n\rangle
+  =E_n\lvert\psi_n\rangle.
+\end{equation}
+Energy eigenvalues are important outputs, but they do not alone identify the
+state correspondence or the action of \(\hat H\) on arbitrary superpositions.
+A list of energies is therefore not a complete Hamiltonian representation.
+
+\section{Position-space representation}
+\index{position-space representation|textbf}
+\index{coordinate representation|textbf}
+
+Let \(\langle\mathbf r\rvert\) be the generalized position bra and define the
+wavefunction by
+\(\psi(\mathbf r)=\langle\mathbf r\vert\psi\rangle\). The position-space
+representation of the abstract operator equation is
+\begin{equation}
+  \langle\mathbf r\rvert\hat H\lvert\psi\rangle
+  =\langle\mathbf r\rvert\hat T\lvert\psi\rangle
+  +\langle\mathbf r\rvert\hat V\lvert\psi\rangle.
+\end{equation}
+For the nonrelativistic kinetic operator and a local scalar potential, this
+becomes
+\begin{equation}
+  \langle\mathbf r\rvert\hat H\lvert\psi\rangle
+  =-\frac{\hbar^{2}}{2m}\nabla^{2}\psi(\mathbf r)
+  +V(\mathbf r)\psi(\mathbf r).
+\end{equation}
+
+The generalized coordinate bra \(\langle\mathbf r\rvert\) is not a finite-rank
+projector. Coordinate representation, subspace projection, basis selection,
+and model reduction are distinct operations.
+
+A local multiplication operator in one representation need not remain diagonal
+or local after projection or basis transformation. ``Kinetic'' and
+``potential'' describe roles in the selected model; they do not authorize
+subtraction of matrices assembled in incompatible spaces.
+
+\section{The one-dimensional particle in a box}
+\index{particle in a box!one-dimensional|textbf}
+\index{infinite square well}
+\index{Dirichlet boundary condition}
+
+The one-dimensional particle in a box turns the preceding definitions into one
+complete eigenproblem. Consider a particle of mass \(m\) confined between two
+endpoints \(a<b\). The interior and its length are
+\begin{equation}
+  \Omega=(a,b),
+  \qquad
+  L=b-a>0.
+\end{equation}
+Its state space is \(L^2(a,b)\), the space of square-integrable complex
+wavefunctions on the interval. The inner product is
+\begin{equation}
+  \langle\phi\vert\psi\rangle
+  =\int_a^b\phi(x)^*\psi(x)\,\mathrm{d}x.
+\end{equation}
+A normalized state satisfies
+\begin{equation}
+  \int_a^b |\psi(x)|^2\,\mathrm{d}x=1.
+\end{equation}
+
+Inside the box, the potential is zero. Confinement is imposed at the closed
+interval's endpoints through the Dirichlet boundary conditions
+\begin{equation}
+  \psi(a)=0,
+  \qquad
+  \psi(b)=0.
+\end{equation}
+The Hamiltonian is therefore the kinetic operator
+\begin{equation}
+  \hat H_{\mathrm{box}}
+  =-\frac{\hbar^2}{2m}\frac{\mathrm{d}^2}{\mathrm{d}x^2}
+\end{equation}
+on a domain of sufficiently regular wavefunctions that satisfy those boundary
+conditions. The boundary conditions are part of the operator. Reusing the same
+second-derivative expression with periodic or Neumann boundary conditions would
+define a different Hamiltonian.
+
+The phrase ``infinite square well'' is common because one may imagine an
+exterior potential that becomes infinitely large. In the operator used here,
+there is no finite interior wall matrix to add. The confinement has already
+entered through the interval and the domain. Appendix~\ref{app:particle-box}
+develops this distinction formally and uses it for a separate retained-space
+residual diagnostic~\cite{bonneau2001,angelone2024}.
+
+\subsection{Solving the stationary equation by a characteristic equation}
+\index{characteristic equation!differential equation}
+
+The stationary Schrödinger equation is
+\begin{equation}
+  -\frac{\hbar^2}{2m}\frac{\mathrm{d}^2\psi}{\mathrm{d}x^2}=E\psi.
+\end{equation}
+For \(E>0\), define
+\begin{equation}
+  k^2=\frac{2mE}{\hbar^2}.
+\end{equation}
+The differential equation becomes
+\begin{equation}
+  \frac{\mathrm{d}^2\psi}{\mathrm{d}x^2}+k^2\psi=0.
+\end{equation}
+
+Use the exponential trial function
+\begin{equation}
+  \psi(x)=e^{rx},
+\end{equation}
+where \(r\) is initially an unknown number. Differentiation gives
+\begin{equation}
+  \frac{\mathrm{d}\psi}{\mathrm{d}x}=re^{rx},
+  \qquad
+  \frac{\mathrm{d}^2\psi}{\mathrm{d}x^2}=r^2e^{rx}.
+\end{equation}
+Substitution into the differential equation yields
+\begin{equation}
+  r^2e^{rx}+k^2e^{rx}=0.
+\end{equation}
+The exponential never vanishes, so divide by \(e^{rx}\):
+\begin{equation}
+  r^2+k^2=0.
+\end{equation}
+This polynomial is the characteristic equation of the constant-coefficient
+ordinary differential equation. Its roots are
+\begin{equation}
+  r_{+}=ik,
+  \qquad
+  r_{-}=-ik.
+\end{equation}
+Therefore the complex exponential form of the general solution is
+\begin{equation}
+  \psi(x)=C_{+}e^{ikx}+C_{-}e^{-ikx}.
+\end{equation}
+Euler's identities give the equivalent real-function form
+\begin{equation}
+  \psi(x)=A\sin(kx)+B\cos(kx).
+\end{equation}
+
+For the interval \([a,b]\), it is convenient to measure distance from the left
+endpoint. The same two-dimensional solution space can be written as
+\begin{equation}
+  \psi(x)
+  =A\sin\!\bigl(k(x-a)\bigr)
+   +B\cos\!\bigl(k(x-a)\bigr).
+\end{equation}
+Apply the left boundary condition:
+\begin{equation}
+  \psi(a)=B=0.
+\end{equation}
+The surviving solution is
+\begin{equation}
+  \psi(x)=A\sin\!\bigl(k(x-a)\bigr).
+\end{equation}
+At the right endpoint,
+\begin{equation}
+  \psi(b)=A\sin\!\bigl(k(b-a)\bigr)=A\sin(kL)=0.
+\end{equation}
+A nonzero eigenfunction has \(A\neq0\), so
+\begin{equation}
+  \sin(kL)=0,
+  \qquad
+  kL=n\pi,
+  \qquad
+  n=1,2,3,\ldots.
+\end{equation}
+Thus the permitted wave numbers are
+\begin{equation}
+  k_n=\frac{n\pi}{L}.
+\end{equation}
+Substitution into \(E=\hbar^2k^2/(2m)\) gives
+\begin{equation}
+  E_n
+  =\frac{\hbar^2\pi^2n^2}{2mL^2},
+  \qquad
+  n=1,2,3,\ldots.
+\end{equation}
+There is no \(n=0\) state: it would produce the zero function, which cannot be
+normalized.
+
+\subsection{Why the characteristic equation turns calculus into algebra}
+\index{differential operator!characteristic polynomial}
+
+Let \(\mathrm{D}=\mathrm{d}/\mathrm{d}x\). A constant-coefficient linear
+differential equation can be written as a polynomial in the differentiation
+operator:
+\begin{equation}
+  P(\mathrm{D})\psi=0,
+\end{equation}
+where, for example,
+\begin{equation}
+  P(\mathrm{D})=\mathrm{D}^2+k^2
+\end{equation}
+for the box interior. Exponentials are special because differentiation acts on
+them by scalar multiplication:
+\begin{equation}
+  \mathrm{D}^j e^{rx}=r^j e^{rx}.
+\end{equation}
+Consequently,
+\begin{equation}
+  P(\mathrm{D})e^{rx}=P(r)e^{rx}.
+\end{equation}
+The trial function converts the differential operator \(\mathrm{D}\) into the
+algebraic number \(r\), and converts the operator polynomial
+\(P(\mathrm{D})\) into the ordinary polynomial \(P(r)\). The differential
+equation is satisfied when
+\begin{equation}
+  P(r)=0.
+\end{equation}
+We have not discarded the calculus. We have chosen functions on which the
+derivative has the simple eigenvalue action
+\begin{equation}
+  \mathrm{D}e^{rx}=re^{rx}.
+\end{equation}
+That eigenfunction property is the bridge from the differential equation to
+the algebraic characteristic equation.
+
+This construction parallels the matrix characteristic equation from
+Chapter~\ref{ch:training-hermitian-eigensystems}. For a matrix, one seeks
+numbers \(\lambda\) for which \(H-\lambda I\) loses invertibility. For a
+constant-coefficient differential equation, one seeks numbers \(r\) for which
+\(P(r)=0\), making \(e^{rx}\) a solution of \(P(\mathrm{D})\psi=0\). Both methods turn
+an operator question into an algebraic root problem, although the operators and
+root variables have different meanings.
+
+The method has a boundary. If differential-equation coefficients depend on
+\(x\), then substituting \(e^{rx}\) generally does not reduce the complete
+problem to one polynomial in \(r\). Constant coefficients are what make the
+simple characteristic equation possible here.
+
+\subsection{Normalization and the eigenfunction basis}
+
+Before normalization, the \(n\)th eigenfunction is
+\begin{equation}
+  \psi_n(x)
+  =A_n\sin\!\left(\frac{n\pi(x-a)}{L}\right).
+\end{equation}
+Using
+\begin{equation}
+  \int_a^b
+  \sin^2\!\left(\frac{n\pi(x-a)}{L}\right)\,\mathrm{d}x
+  =\frac{L}{2},
+\end{equation}
+the normalization condition gives \(|A_n|=\sqrt{2/L}\). Choosing a real
+positive phase convention,
+\begin{equation}
+  \psi_n(x)
+  =\sqrt{\frac{2}{L}}
+   \sin\!\left(\frac{n\pi(x-a)}{L}\right).
+\end{equation}
+The eigenfunctions obey
+\begin{equation}
+  \int_a^b\psi_m(x)^*\psi_n(x)\,\mathrm{d}x=\delta_{mn}.
+\end{equation}
+They form an orthonormal basis of \(L^2(a,b)\). Consequently, a general state
+can be expanded as
+\begin{equation}
+  \psi(x)=\sum_{n=1}^{\infty}c_n\psi_n(x),
+  \qquad
+  c_n=\int_a^b\psi_n(x)^*\psi(x)\,\mathrm{d}x.
+\end{equation}
+This is the infinite-dimensional analogue of assembling matrix eigenvectors as
+basis columns in Chapter~\ref{ch:training-hermitian-eigensystems}. Applying the
+Hamiltonian scales each basis component by its energy:
+\begin{equation}
+  \hat H_{\mathrm{box}}\psi
+  =\sum_{n=1}^{\infty}c_nE_n\psi_n.
+\end{equation}
+Each one-dimensional energy level is nondegenerate: apart from normalization
+and phase, the two boundary conditions leave one eigenfunction for each
+positive integer \(n\).
+
+\subsection{Born's interpretation of the eigenfunction}
+\index{Born rule|textbf}
+\index{probability density}
+\index{measurement!position}
+\index{measurement!energy}
+
+The eigenfunction \(\psi_n(x)\) is a probability amplitude, not a probability
+by itself. Born's interpretation assigns the position probability density
+\begin{equation}
+  \rho_n(x)
+  =|\psi_n(x)|^2
+  =\frac{2}{L}
+   \sin^2\!\left(\frac{n\pi(x-a)}{L}\right).
+\end{equation}
+For any subinterval \([c,d]\subseteq[a,b]\), the probability that an ideal
+position measurement returns a value in that subinterval is
+\begin{equation}
+  \Pr\!\left(x\in[c,d]\mid\psi_n\right)
+  =\int_c^d|\psi_n(x)|^2\,\mathrm{d}x.
+\end{equation}
+Normalization ensures
+\begin{equation}
+  \Pr\!\left(x\in[a,b]\mid\psi_n\right)
+  =\int_a^b|\psi_n(x)|^2\,\mathrm{d}x
+  =1.
+\end{equation}
+The wavefunction has physical dimension \(\text{length}^{-1/2}\) in one
+spatial dimension, so \(|\psi_n|^2\) has dimension
+\(\text{length}^{-1}\), as a position density must.
+
+The density vanishes at the walls and at every interior node of the sine
+function. For the \(n\)th eigenfunction, the nodes occur at
+\begin{equation}
+  x_j=a+\frac{jL}{n},
+  \qquad
+  j=0,1,\ldots,n.
+\end{equation}
+There are \(n-1\) interior nodes. A maximum of \(|\psi_n(x)|^2\) identifies a
+position region with larger measurement probability; it is not a classical
+trajectory or a claim that the particle follows the plotted curve.
+
+Multiplying an eigenfunction by a constant phase does not alter any position
+probability:
+\begin{equation}
+  \left|e^{i\alpha}\psi_n(x)\right|^2
+  =|\psi_n(x)|^2.
+\end{equation}
+This makes the phase freedom of an individual eigenvector physically visible:
+the coordinate representation changes, while the position distribution does
+not.
+
+Born's rule also applies to the energy basis. For a normalized general state
+\begin{equation}
+  \psi(x)=\sum_{n=1}^{\infty}c_n\psi_n(x),
+  \qquad
+  \sum_{n=1}^{\infty}|c_n|^2=1,
+\end{equation}
+an ideal energy measurement returns \(E_n\) with probability
+\begin{equation}
+  \Pr(E_n\mid\psi)
+  =|c_n|^2
+  =\left|\langle\psi_n\vert\psi\rangle\right|^2.
+\end{equation}
+A state may therefore have a continuous position distribution and, at the same
+time, a discrete distribution over energy outcomes. The chosen observable
+determines which eigenbasis supplies the alternatives.
+
+For a single stationary energy eigenstate, time evolution contributes only a
+phase:
+\begin{equation}
+  \psi_n(x,t)
+  =e^{-iE_nt/\hbar}\psi_n(x).
+\end{equation}
+Its position density is time independent because
+\begin{equation}
+  |\psi_n(x,t)|^2=|\psi_n(x)|^2.
+\end{equation}
+A superposition generally contains relative phases
+\(e^{-i(E_n-E_m)t/\hbar}\), so its position density can change with time. A
+full development of measurement and time evolution requires the broader
+postulates of quantum mechanics; the statements here provide the interpretation
+needed for the box eigensystem~\cite{shankar1994}.
+
+\subsection{The Dirichlet Laplacian on the closed interval \([a,b]\)}
+\index{Laplacian!one-dimensional Dirichlet}
+\index{Dirichlet Laplacian}
+
+In one Cartesian dimension, the scalar Laplacian is the second derivative:
+\begin{equation}
+  \Delta=\frac{\mathrm{d}^2}{\mathrm{d}x^2}.
+\end{equation}
+To specify an operator on the interval, the differential expression must be
+combined with boundary conditions. The Dirichlet Laplacian uses
+\begin{equation}
+  \psi(a)=\psi(b)=0.
+\end{equation}
+The positive operator used in the kinetic energy is the negative Dirichlet
+Laplacian,
+\begin{equation}
+  \hat L_D=-\Delta_D=-\frac{\mathrm{d}^2}{\mathrm{d}x^2}.
+\end{equation}
+In formal domain notation,
+\begin{equation}
+  \mathcal D(\hat L_D)
+  =H^2(a,b)\cap H_0^1(a,b).
+\end{equation}
+Here the Sobolev-space notation records square-integrable derivatives and zero
+boundary traces. The essential point for the present construction is that the
+endpoints and Dirichlet conditions belong to the operator definition.
+
+The continuum box Hamiltonian factors into a physical coefficient and this
+geometric operator:
+\begin{equation}
+  \hat H_{\mathrm{box}}
+  =\frac{\hbar^2}{2m}\hat L_D.
+\end{equation}
+The eigenvalues of \(\hat L_D\) are
+\begin{equation}
+  \mu_n=\left(\frac{n\pi}{L}\right)^2,
+\end{equation}
+and the physical energies are
+\begin{equation}
+  E_n=\frac{\hbar^2}{2m}\mu_n.
+\end{equation}
+This separates the interval geometry and boundary condition from the mass and
+Planck-constant scaling.
+
+\subsection{Discretizing the Dirichlet Laplacian as an operator}
+\index{finite difference!particle in a box}
+\index{discrete Laplacian!Dirichlet interval}
+
+Choose \(N\) interior grid points on the closed interval \([a,b]\):
+\begin{equation}
+  x_j=a+jh,
+  \qquad
+  h=\frac{b-a}{N+1}=\frac{L}{N+1},
+  \qquad
+  j=1,\ldots,N.
+\end{equation}
+The endpoints are
+\begin{equation}
+  x_0=a,
+  \qquad
+  x_{N+1}=b.
+\end{equation}
+Dirichlet data fix
+\begin{equation}
+  \psi(x_0)=\psi(x_{N+1})=0,
+\end{equation}
+so those two values are not independent components of the numerical state
+vector. Define the interior sample vector
+\begin{equation}
+  \boldsymbol\psi_h
+  =
+  \begin{bmatrix}
+    \psi(x_1) & \psi(x_2) & \cdots & \psi(x_N)
+  \end{bmatrix}^{\mathsf T}
+  \in\mathbb C^N.
+\end{equation}
+
+At an interior point, the centered second-difference formula is
+\begin{equation}
+  \psi''(x_j)
+  \approx
+  \frac{\psi(x_{j+1})-2\psi(x_j)+\psi(x_{j-1})}{h^2}.
+\end{equation}
+Therefore the discrete second-derivative operator is
+\begin{equation}
+  D_{2,h}
+  =\frac{1}{h^2}
+  \begin{bmatrix}
+    -2 & 1 & 0 & \cdots & 0\\
+    1 & -2 & 1 & \ddots & \vdots\\
+    0 & 1 & -2 & \ddots & 0\\
+    \vdots & \ddots & \ddots & \ddots & 1\\
+    0 & \cdots & 0 & 1 & -2
+  \end{bmatrix}.
+\end{equation}
+The finite representation of the positive operator \(-\Delta_D\) is
+\begin{equation}
+  L_{D,h}=-D_{2,h}
+  =\frac{1}{h^2}
+  \begin{bmatrix}
+    2 & -1 & 0 & \cdots & 0\\
+    -1 & 2 & -1 & \ddots & \vdots\\
+    0 & -1 & 2 & \ddots & 0\\
+    \vdots & \ddots & \ddots & \ddots & -1\\
+    0 & \cdots & 0 & -1 & 2
+  \end{bmatrix}
+  \in\mathbb R^{N\times N}.
+\end{equation}
+Finally, the discretized box Hamiltonian is
+\begin{equation}
+  H_h=\frac{\hbar^2}{2m}L_{D,h}.
+\end{equation}
+The three symbols \(D_{2,h}\), \(L_{D,h}\), and \(H_h\) represent different
+objects: the second derivative, the positive operator representing the
+negative Laplacian, and the kinetic Hamiltonian. Their signs and units must not
+be collapsed.
+
+\subsection{Eigenpairs of the discretized operator}
+
+The discrete Dirichlet eigenvectors have components
+\begin{equation}
+  v_n(j)
+  =\sqrt{\frac{2}{N+1}}
+   \sin\!\left(\frac{jn\pi}{N+1}\right),
+  \qquad
+  j,n=1,\ldots,N.
+\end{equation}
+To see why, set
+\begin{equation}
+  \theta_n=\frac{n\pi}{N+1}
+\end{equation}
+and temporarily ignore normalization. The \(j\)th component of
+\(L_{D,h}\mathbf v_n\) is
+\begin{align}
+  (L_{D,h}\mathbf v_n)_j
+  &=\frac{1}{h^2}
+    \left(
+      2\sin(j\theta_n)
+      -\sin((j-1)\theta_n)
+      -\sin((j+1)\theta_n)
+    \right)\\
+  &=\frac{2-2\cos\theta_n}{h^2}\sin(j\theta_n)\\
+  &=\frac{4}{h^2}\sin^2\!\left(\frac{\theta_n}{2}\right)
+    \sin(j\theta_n).
+\end{align}
+The endpoint conditions are built into the sine sequence:
+\begin{equation}
+  v_n(0)=0,
+  \qquad
+  v_n(N+1)=\sin(n\pi)=0.
+\end{equation}
+Hence
+\begin{equation}
+  L_{D,h}\mathbf v_n
+  =\mu_{n,h}\mathbf v_n,
+\end{equation}
+with discrete Laplacian eigenvalues
+\begin{equation}
+  \mu_{n,h}
+  =\frac{4}{h^2}
+   \sin^2\!\left(\frac{n\pi}{2(N+1)}\right).
+\end{equation}
+The Hamiltonian eigenvalues are therefore
+\begin{equation}
+  \varepsilon_n
+  =\frac{\hbar^2}{2m}\mu_{n,h}
+  =\frac{2\hbar^2}{mh^2}
+   \sin^2\!\left(\frac{n\pi}{2(N+1)}\right).
+\end{equation}
+
+The \(N\) discrete eigenvectors form an orthonormal basis of \(\mathbb R^N\).
+The infinitely many continuum sine functions form an orthonormal basis of
+\(L^2(a,b)\). For a fixed mode \(n\), their normalization conventions are
+related by the quadrature factor
+\begin{equation}
+  v_n(j)
+  =\sqrt{h}\,\psi_n(x_j).
+\end{equation}
+For each fixed \(n\), \(\mu_{n,h}\to\mu_n\) and
+\(\varepsilon_n\to E_n\) as \(h\to0\). This statement must not be strengthened
+into uniform convergence of every resolvable mode as \(N\) grows;
+Appendix~\ref{app:particle-box} examines that distinction with retained
+calculated evidence.
+
+\section{Finite Hamiltonian representations}
+
+Let \(\mathcal S\) be a finite state space with ordered orthonormal basis
+\(\mathcal B=\{\lvert b_i\rangle\}_{i=0}^{N-1}\). Once a Hamiltonian acting on
+\(\mathcal S\) has been defined, its represented matrix is
+\begin{equation}
+  H^{(\mathcal B)}_{ij}
+  =\langle b_i\lvert\hat H_{\mathcal S}\rvert b_j\rangle.
+\end{equation}
+If the decomposition has been transported consistently to the same space and
+basis, then
+\begin{equation}
+  H^{(\mathcal B)}=T^{(\mathcal B)}+V^{(\mathcal B)}.
+\end{equation}
+Without the common-space and common-basis qualification, this array equation
+has no justified operator interpretation.
+
+\begin{pythonexample}{diagonalizing the one-dimensional box matrix}
+import numpy as np
+
+# Use dimensionless pedagogical units and declare both interval endpoints.
+point_count = 8
+left_endpoint = -0.5
+right_endpoint = 1.5
+length = right_endpoint - left_endpoint
+mass = 1.0
+hbar = 1.0
+spacing = length / (point_count + 1)
+
+# Assemble the centered Dirichlet Hamiltonian on interior grid points.
+diagonal = 2.0 * np.ones(point_count, dtype=np.float64)
+off_diagonal = -np.ones(point_count - 1, dtype=np.float64)
+kinetic_core = (
+    np.diag(diagonal)
+    + np.diag(off_diagonal, k=1)
+    + np.diag(off_diagonal, k=-1)
+)
+H_box = hbar**2 * kinetic_core / (2.0 * mass * spacing**2)
+
+# eigh returns ascending energies and normalized eigenvectors as columns.
+energies, states = np.linalg.eigh(H_box)
+mode_indices = np.arange(1, point_count + 1, dtype=np.float64)
+expected_discrete = (
+    2.0
+    * hbar**2
+    / (mass * spacing**2)
+    * np.sin(mode_indices * np.pi / (2.0 * (point_count + 1))) ** 2
+)
+np.testing.assert_allclose(energies, expected_discrete)
+
+# Sample the shifted continuum sine basis with its quadrature factor.
+grid = left_endpoint + spacing * mode_indices
+sampled_sines = np.sqrt(spacing) * np.sqrt(2.0 / length) * np.sin(
+    np.outer(grid - left_endpoint, mode_indices * np.pi / length)
+)
+
+# Eigenvector signs are arbitrary, so compare absolute basis overlaps.
+overlaps = np.abs(states.conjugate().T @ sampled_sines)
+np.testing.assert_allclose(overlaps, np.eye(point_count), atol=1.0e-12)
+\end{pythonexample}
+
+The arrays are synthetic teaching data in declared dimensionless units. The
+checks establish exact identities of this finite matrix and sampled sine basis;
+they do not establish a material energy or a general convergence result.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/quantum_operators.ipynb}
+with explicit imports, explanatory inline comments, normalized states,
+expectation values, the one-dimensional particle-in-a-box derivation and finite
+matrix, and a clear separation between the continuum operator and its finite
+representation. Keep it unexecuted in the repository.}
+
+\section{What changes in an approximation}
+
+Several distinct operations can produce a smaller or simpler Hamiltonian:
+selecting a different physical model, projecting onto a retained subspace,
+changing basis, discretizing a differential expression, truncating matrix
+entries, or fitting parameters in an admissible model class. A correct account
+names the operation rather than calling every output an ``effective
+Hamiltonian.''
+
+Chapter~\ref{ch:training-particle-box-higher-dimensions} next extends the box
+to two and three dimensions and explains how Kronecker products represent
+separate coordinate actions. Chapter~\ref{ch:training-periodic-geometry} then
+supplies the geometry needed by periodic quantum representations, before later
+chapters introduce Bloch-periodic finite differences, retained spaces,
+isolated-band Fourier reduction, and evidence vocabulary.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Explain why an operator domain is not recoverable from the entries of a
+        finite matrix alone.
+  \item Show that the expectation value is unchanged under a consistent unitary
+        basis transformation of both the state coordinates and operator matrix.
+  \item Starting from the stationary Schrödinger equation, derive the permitted
+        wave numbers and energies of the one-dimensional box.
+  \item Normalize the shifted sine eigenfunctions and explain why they form a
+        basis of \(L^2(a,b)\).
+  \item Use Born's rule to compute the probability of finding the particle in a
+        chosen subinterval \([c,d]\subseteq[a,b]\), and distinguish this
+        position probability from the probability of an energy outcome.
+  \item Derive \(D_{2,h}\), \(L_{D,h}\), and \(H_h\), explaining their signs,
+        units, and represented meanings.
+  \item Derive the discrete sine eigenvectors and distinguish their finite basis
+        of \(\mathbb R^N\) from the infinite continuum basis.
+  \item Give an example in which \(V(\mathbf r)\) is local in position space but
+        has off-diagonal entries in another basis.
+  \item State the compatibility requirements needed before adding separately
+        supplied finite kinetic and potential matrices.
+  \item Distinguish a list of eigenvalues, an eigensystem, a represented
+        Hamiltonian, and an abstract Hamiltonian.
+\end{enumerate}
+
+\section{Evidence boundary}
+
+A Hermiticity check, normalized eigenvectors, and a small residual can verify
+bounded properties of a finite calculation. They do not establish that the
+state space, domain, boundary conditions, Hamiltonian terms, or physical model
+are adequate. Those choices must be declared before stronger evidence can be
+interpreted.

@@ -5,8 +5,8 @@
 This appendix serves two purposes:
 
 1. it identifies the retained evidence supporting the present manuscript; and
-2. it defines the prospective controlled calculations needed to extend the framework
-   beyond the minimal scalar illustration.
+2. it distinguishes the completed M3 constrained-alignment bridge from the remaining
+   prospective calculations needed to extend the framework.
 
 The maintained evidence is retained under:
 
@@ -14,6 +14,8 @@ The maintained evidence is retained under:
 |---|---|---|
 | `calculations/ICMSEP2026/conference/paper_1/isolated-band/` | Prospectively frozen M1 parent refinement, lowest-band extraction, complete hopping reconstruction, finite-range truncation, matched-route comparison, and withheld evaluation | Retained controlled numerical-verification evidence; its historical identity does not substitute for a gap or isolation result, it excludes historical stress channels, and it is not a thresholded admissible-set map |
 | `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/` | Prospectively frozen M2 gapped rank-two parent, known periodic gauge attack, pointwise and global-unitary alignment channels, block-hopping locality, and withheld evaluation | Retained controlled numerical-verification evidence; not a general alignment solver or thresholded admissible-set map |
+| `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/` | Prospectively frozen M3 two-parameter rank-two admissible sets over nine one-global-rotation components, including a common witness and a finite-component separation certificate | Retained controlled numerical-verification evidence for the frozen finite family only; not an unrestricted alignment result, physical threshold calibration, or material validation |
+| `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/` | Post-hoc analytic reanalysis of the sealed M3 quadratics at fixed spectral threshold | Exploratory sensitivity evidence only; not part of the prospective M3 confirmatory package |
 | `calculations/research-monograph/periodic-2d/` | Coupling and shell hierarchy, projector/loop controls, gauge-locality comparison, and withheld-mesh diagnostics | Retained controlled numerical-verification evidence; not material or wavefunction validation |
 | `calculations/ICMSEP2026/conference/paper_1/` | Minimal scalar admissible-set illustration with an exact witness and certified separation | Retained analytic/numerical evidence for the frozen two-parameter identity-alignment contract only |
 
@@ -24,11 +26,14 @@ verification. It is not a public data deposit, DOI, material validation, statist
 uncertainty analysis, or evidence that a general alignment problem has been solved.
 Historical external executions are not rerun by the manuscript.
 
-The standalone M1 and M2 retained verifiers decode the frozen JSON documents and
+The standalone M1, M2, and M3 retained verifiers decode the frozen JSON documents and
 reconstruct their finite protocols without importing the corresponding producer
-Actions. They remain dependent on shared numerical libraries, runtime behavior, and
-declared mathematical conventions; passing establishes bounded reconstruction
-consistency rather than an independent physical oracle. The checksum manifests bind
+Actions. The separate threshold-sensitivity verifier reconstructs its analytic grid
+from the source quadratics after checking both the source-result digest and its exact
+entry in the source package manifest. These verifiers remain dependent on shared
+numerical libraries, runtime behavior, and declared mathematical conventions; passing
+establishes bounded reconstruction consistency rather than an independent physical
+oracle. The checksum manifests bind
 retained bytes to recorded SHA-256 digests and therefore detect inconsistency relative
 to those manifests. A digest manifest alone is not an external trusted timestamp and
 does not, without an independent commit or archival record, prove when the bytes were
@@ -75,17 +80,16 @@ enter the manuscript:
 | ID | Priority | Status | Purpose |
 |---|---:|---|---|
 | A0 | Immediate | Planned | Complete claim-to-artifact and figure provenance traceability |
-| A1 | Highest scientific priority | Planned | Add a two-band admissible-set case with a nonidentity constrained alignment |
+| A1 | Highest scientific priority | Completed as M3 | Add a rank-two admissible-set case with a nonidentity constrained alignment |
 | A2 | Next | Planned | Extend the 1D matched/changed-route study to prospectively frozen admissible sets |
 | A3 | Next | Planned | Extend the 2D coupling and shell hierarchy to thresholded operator/spectral sets |
 | A4 | After A1 | Planned | Connect the composite gauge-locality attack to a constrained admissibility study |
-| A5 | Final synthesis | Blocked by A0–A4 | Decide which new evidence belongs in the main text and archival package |
+| A5 | Final synthesis | Blocked by A0 and A2–A4 | Decide which remaining new evidence belongs in the main text and archival package |
 
-The ordering is intentional. M2 now supplies a current multiband alignment and locality
-control. A1 addresses the remaining gap between that calculation and a prospectively
-thresholded multiband admissible-set decision with certification. A2–A4 deepen
-the existing central benchmarks rather than allowing the minimal direct example to
-dominate the paper.
+The ordering is intentional. M2 supplies the multiband alignment and locality control,
+and completed M3 supplies a prospectively thresholded rank-two admissible-set decision
+with finite-component certification. A2–A4 remain planned extensions of the central
+benchmarks rather than evidence already established by M3.
 
 ## A.4 Work package A0 — claim and figure traceability
 
@@ -117,76 +121,47 @@ unambiguous retained source, every verifier passes, and every unresolved provena
 field is explicitly listed. Completion improves traceability but does not change the
 scientific evidence class.
 
-## A.5 Work package A1 — thresholded multiband nonidentity-alignment bridge
+## A.5 Work package A1 — completed M3 constrained-alignment bridge
 
-### Scientific question
+### Scientific question and disposition
 
-Can the admissible-set decision logic be exercised in a small multiband model when the
-operator comparison requires a known nonidentity alignment, without granting an
-unrestricted unitary that can erase physically meaningful differences?
+A1 asked whether the admissible-set decision logic could be exercised in a small
+multiband model when operator comparison requires a known nonidentity alignment, without
+granting an unrestricted unitary. M3 answers that bounded question for a rank-two
+synthetic baseline, a two-parameter candidate rectangle, and nine frozen one-global
+real rotations. It does not solve a continuous or $k$-dependent alignment problem.
 
-### Proposed design to freeze
+### Retained design and result
 
-The protocol should either compose the frozen M2 rank-two parent or define a new gapped
-periodic two-band parent with authenticated $2\times2$ hopping blocks containing at
-least two noncommuting Pauli components. It must not relabel M2's pointwise recovery or
-one-global-unitary diagnostic as a completed admissible-set result. The candidate class
-should retain a small number of physical hopping parameters on the same state space. A cell-local alignment family should be declared explicitly, for example
+M3 composes the frozen M2 baseline rather than relabeling M2's pointwise recovery. Its
+64 training points determine analytic spectral and operator-loss quadratics, while 257
+disjoint staggered points are evaluation-only. The parameter order, compact domain,
+energy scale, normalized losses, thresholds, locality ranges, separation resolution,
+and finite alignment angles were prospectively frozen.
 
-$$
-C(\alpha)=\exp\!\left(-\frac{i\alpha}{2}\sigma_y\right),
-\qquad \alpha\in[\alpha_{\min},\alpha_{\max}],
-$$
+At spectral/operator thresholds `0.03/0.33`, the point `(0, 1)` with a nonidentity
+selected rotation is a retained common witness. At thresholds `0.03/0.31`, the finite
+component construction retains equal lower and upper separation bounds
+`0.099467401027216296`, above the frozen resolution `0.05`. The certificate applies
+only to the feasible components of the declared finite family and its unclipped
+positive-definite quadratic ellipsoids.
 
-with a frozen bounded interval and a constructed nonidentity witness in its interior.
-This is a proposed design family, not a reported result. A $k$-dependent gauge is a
-separate extension and must not be conflated with this cell-local coordinate alignment.
-If a $k$-dependent family is later adopted, its reciprocal-boundary sewing and induced
-real-space range must be specified in a new protocol.
+### Artifacts and verification boundary
 
-The frozen design must include:
+The completed package is
+`calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/`. It contains
+the editable configuration, deterministic input builder, prospective freeze, amendment
+chain, producer, result, library and standalone verification records, figure data,
+report, software record, source manifest, and package checksum manifest. The standalone
+verifier reconstructs roles, controls, quadratics, evaluations, locality diagnostics,
+and certificate quantities without importing the producer Actions. A separate post-hoc
+package varies only the operator threshold and is not part of the confirmatory M3
+protocol.
 
-- a complete reciprocal mesh sufficient to distinguish every retained translation;
-- disjoint training and withheld points;
-- canonical physical parameters separated from the alignment parameter;
-- a bounded physical-parameter box and bounded alignment interval;
-- explicit spectral and globally normalized operator losses;
-- translation/block and omitted-tail diagnostics;
-- prospectively declared thresholds and parameter scales; and
-- one compatible construction plus one controlled perturbation for which the outcome is
-  allowed to be compatible, separated, or inconclusive.
-
-### Numerical and certification strategy
-
-1. Derive analytic invariants and exact controls where possible.
-2. Use deterministic gridding or multistart local optimization only to obtain feasible
-   witnesses and upper bounds.
-3. Construct a rigorous lower bound with analytic inequalities, interval arithmetic, or
-   branch-and-bound over the frozen parameter/alignment domain.
-4. Verify spectral gauge invariance, operator covariance under the known alignment, and
-   sensitivity to inadmissible rotations.
-5. Evaluate withheld points only after the sets and thresholds are frozen.
-
-### Required artifacts
-
-Create a new package under
-`calculations/ICMSEP2026/conference/paper_1/two-band-nonidentity-alignment/` containing:
-
-- `README.md`, `input.json`, and `protocol.md`;
-- a result-producing script and a separately implemented verifier;
-- `result.json`, `report.md`, and machine-readable boundary/certificate data;
-- at least one figure showing the physical-parameter sets and the role of the alignment
-  variable without projecting away an unresolved dimension;
-- `software.json` and `SHA256SUMS`.
-
-### Completion and manuscript gate
-
-A1 is complete only if the known nonidentity witness is recovered within the frozen
-contract, block-resolved diagnostics pass, withheld results remain independent, and any
-separation claim has a certified lower bound. Failure to certify a lower bound is a
-valid `INCONCLUSIVE` outcome. Only after independent verification may the manuscript
-claim an admissible-set instantiation with nonidentity alignment. Even then, the result
-remains a two-band controlled model, not a material-relevant validation.
+A1 is therefore complete as bounded synthetic numerical-verification evidence. It is
+not physical threshold calibration, material validation, uncertainty quantification,
+or evidence for unrestricted alignment families. Any future continuous or
+$k$-dependent alignment study requires a new prospectively frozen protocol.
 
 ## A.6 Work package A2 — prospective 1D route and truncation sets
 

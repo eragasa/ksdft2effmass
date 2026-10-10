@@ -16,6 +16,7 @@ from ksdft2effmass.periodic1d.model import Periodic1DFourierHamiltonianToyModel
 
 
 def _positive_increasing_integers(name: str, values: tuple[int, ...]) -> None:
+    """Reject a non-tuple, empty, Boolean-contaminated, or unordered inventory."""
     if not isinstance(values, tuple) or not values:
         raise TypeError(f"{name} must be a nonempty tuple")
     if any(type(value) is not int for value in values):
@@ -27,6 +28,7 @@ def _positive_increasing_integers(name: str, values: tuple[int, ...]) -> None:
 
 
 def _nonnegative_increasing_integers(name: str, values: tuple[int, ...]) -> None:
+    """Reject an invalid ordered inventory of nonnegative exact integers."""
     if not isinstance(values, tuple) or not values:
         raise TypeError(f"{name} must be a nonempty tuple")
     if any(type(value) is not int for value in values):
@@ -41,10 +43,40 @@ def _nonnegative_increasing_integers(name: str, values: tuple[int, ...]) -> None
 class Periodic1DIsolatedBandCalculationDefinition:
     """Freeze model, sampling, reduction, and numerical-diagnostic controls.
 
+    Parameters
+    ----------
+    calculation_id
+        Stable nonempty M1 calculation identity.
+    parent_model
+        Scalar Fourier toy parent with explicit direct/reciprocal and energy units.
+    plane_wave_cutoffs, finite_difference_points
+        Strictly increasing finite-discretization sweep inventories.
+    plane_wave_reference_cutoff
+        Finite reference cutoff, strictly larger than the plane-wave sweep.
+    production_plane_wave_cutoff
+        Declared sweep cutoff used for reduction samples.
+    parent_sample_reduced_momenta
+        Ordered dimensionless coordinates in ``[-0.5, 0.5]`` for parent comparison.
+    compared_band_count
+        Positive number of low parent bands compared across discretizations.
+    reciprocal_mesh_size
+        Even training-mesh extent used by the complete discrete Fourier transform.
+    hopping_ranges
+        Strictly increasing nonnegative finite ranges, each below half the mesh extent.
+    withheld_mesh_size
+        Extent of the disjoint staggered evaluation mesh.
+    coordinate_absolute_tolerance, reconstruction_absolute_tolerance
+        Finite nonnegative coordinate and transform tolerances.
+    hermiticity_absolute_tolerance, imaginary_absolute_tolerance
+        Nonnegative quantities with parent-energy dimensions.
+    parseval_absolute_tolerance
+        Nonnegative quantity with squared-parent-energy dimensions.
+
+    Notes
+    -----
     This definition owns no execution and no acceptance policy.  The training mesh
     supplies the complete finite Fourier transform.  The separately generated
-    withheld mesh is evaluation-only and cannot update the transform, direct fit,
-    ranges, or tolerances.
+    evaluation mesh cannot update the transform, direct fit, ranges, or tolerances.
     """
 
     calculation_id: str

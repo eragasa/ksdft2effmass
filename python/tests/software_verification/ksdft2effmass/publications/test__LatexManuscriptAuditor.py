@@ -390,7 +390,7 @@ class TestLatexManuscriptAuditor:
                 monograph_root,
                 monograph_root / "manuscript/manuscript.tex",
                 (
-                    monograph_root / "chapters/10-impurity-operator-extraction.tex",
+                    monograph_root / "chapters/impurity-operator-extraction.tex",
                     monograph_root
                     / "appendices/J-two-dimensional-defect-extraction.tex",
                 ),
@@ -400,7 +400,7 @@ class TestLatexManuscriptAuditor:
         assert result.passes, result.issues
         assert monograph_root / "manuscript/manuscript.tex" in result.source_paths
         assert (
-            monograph_root / "chapters/10-impurity-operator-extraction.tex"
+            monograph_root / "chapters/impurity-operator-extraction.tex"
             in result.source_paths
         )
         assert (

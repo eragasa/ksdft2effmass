@@ -26,6 +26,12 @@ relationships, closure, bounds, and complete Result identity. It performs no TeX
 execution, source ingestion, bibliographic-quality judgment, scientific validation,
 or References-owned observation binding.
 
+The implemented [research-monograph results projection](research_monograph/results_projection/index.md)
+provides a separate rebuildable, read-only SQLite view of repository-local retained
+calculation artifacts. It projects safe locators, bounded previews, result-document
+rows, scalar JSON observations, and checksum observations without executing or
+reclassifying the underlying evidence.
+
 Under the selected [plane-wave QoI and parameter-study
 architecture](../plane-wave-parameter-studies.md), a campaign may bind an exact
 one or more ordered parameter-study revisions, typed role-specific

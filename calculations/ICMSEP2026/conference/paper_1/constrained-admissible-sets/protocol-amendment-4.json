@@ -1,0 +1,24 @@
+{
+  "amended_at_utc": "2026-10-10T17:46:25Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Reconstruct and distribute the periodic closure holonomy exactly as declared by the frozen M2 transport protocol."
+  ],
+  "corrected_source": {
+    "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/verify_result.py",
+    "sha256": "c6d34ff8d6c4b8422c8218e204ac80d3ddc73d15888d45a4cc0f0d5655e75645"
+  },
+  "failed_attempt": {
+    "absolute_tolerance": 1e-11,
+    "maximum_absolute_defect": 0.00020042883079731655,
+    "result_sha256": "c10d8f022bb17bdc8418b48557896dd4dae881400e5b603b58ae45e3eab095ea",
+    "retained_as_passing_evidence": false,
+    "standalone_verification_completed": false
+  },
+  "finding": "The third standalone attempt reconstructed neighborwise polar transport but omitted the M2 closure-holonomy distribution, producing locality defects up to 2.0042883079731655e-4. It failed closed and produced no passing independent-verification record.",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "producer_output_changed": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "corrective-closure-holonomy-amendment-before-verifier-rerun"
+}

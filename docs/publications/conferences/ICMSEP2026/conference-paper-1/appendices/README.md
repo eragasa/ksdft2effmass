@@ -10,6 +10,7 @@ traceable.
 - [Supplementary Appendix S2 — M1 Isolated-Band Calculation](S2-M1-isolated-band-calculation.md)
 - [Supplementary Appendix S3 — M2 Multiband Alignment and Locality](S3-M2-multiband-alignment-calculation.md)
 - [Supplementary Appendix S4 — Wannier90 Bridge Calculation](S4-Wannier90-bridge-calculation.tex)
+- [Supplementary Appendix S5 — M3 Constrained Admissible Sets](S5-M3-constrained-admissible-sets.md)
 
 Appendix A records the evidence boundary for results summarized in the paper. Appendix
 B documents the completed synthetic direct demonstration and its bounded limitations.
@@ -22,6 +23,8 @@ the gapped rank-two parent, periodic gauge attack, separate pointwise and global
 alignment channels, gauge-resolved block-hopping locality, disjoint withheld checks, and
 independent verification. Supplementary Appendix S4 separately connects that mechanism
 to retained synthetic Wannier90 evidence without redefining M2 or claiming
-first-principles or general convergence evidence. All supplementary appendices are
-included in the complete `manuscript.pdf`; `supplementary-material.pdf` remains an
-appendix-only extract.
+first-principles or general convergence evidence. Supplementary Appendix S5 records the
+prospectively frozen M3 thresholded admissible sets, common witness, finite-family
+separation certificate, protocol corrections, and independent reconstruction. All
+supplementary appendices are included in the complete `manuscript.pdf`;
+`supplementary-material.pdf` remains an appendix-only extract.

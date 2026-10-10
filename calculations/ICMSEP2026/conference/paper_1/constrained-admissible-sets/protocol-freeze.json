@@ -1,0 +1,77 @@
+{
+  "artifacts": [
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/configuration.toml",
+      "sha256": "426fc0c048519f9a899379a0f26921025f4b412df2530d05d7ca053e97e0d493"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/build_input.py",
+      "sha256": "0189f814bc149dc4006a95217f603428c70cb009bc4167615f0bd4b22b79a5af"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/input.json",
+      "sha256": "9cf95d111856f5dd92e8018ed019c59eed5c55cb18e33d3ee464839bcc7f9606"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/protocol.md",
+      "sha256": "f2f92dc83b32c556dc6667075c54768831380ee4bdc378bf7177f61f89fa8b44"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/run.py",
+      "sha256": "6db0874c25632b9291ce5eb9be5f2220dbf667f23bc1b19f044ab9c17a0ba8a6"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/verify_result.py",
+      "sha256": "42c62378762a2fcc2c4fda642182cc1a2acd57cb103b9c29bc2f929b98bcf681"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/multiband-alignment/input.json",
+      "sha256": "0db445f3df37f08661f6078a9595ef1646adf9b036c5f94da316255c431c26c9"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/multiband-alignment/source.sha256",
+      "sha256": "c17bfd161b5b2e3b30ac5cc1c1358229f684b00ebdcf1e8aa346734c204129e9"
+    },
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/__init__.py",
+      "sha256": "3b9bc7ac82fa5d6bb55f15bfd96c9e9309fbfe870eaad957959aff43911ee406"
+    },
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/calculate.py",
+      "sha256": "3b5371434da52c9019fde1760a6767ad7b0ba707214a79be4b9cbdc7cb9f6a7e"
+    },
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/definition.py",
+      "sha256": "f7d358c3d8f7ce699743852577242aab542fbc2fc42b0bebdedda66a41d2865e"
+    },
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/results.py",
+      "sha256": "080b83fa8acc1ac5751bfceaea0c60419cfeb6ef0cb068c878d0f8492aedaf41"
+    },
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/serialization.py",
+      "sha256": "cd4ed90e4aef18abdd857142a025e30a6330988d86b252152f6b5c72a03537d4"
+    },
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/verify.py",
+      "sha256": "3986b2079a904b4187bb4ede401322802caeea9ad00be53d7d3edaa44d33ff47"
+    }
+  ],
+  "base_git_commit": "556216acbef7df072496b5685cb76bcdc28d054e",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "configuration_source": "configuration.toml",
+  "derived_input": "input.json",
+  "derived_input_check": "python build_input.py --check",
+  "execution_scope": "local-synthetic-no-external-calculator",
+  "frozen_at_utc": "2026-10-10T17:40:57Z",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "m2_composition": {
+    "input_path": "calculations/ICMSEP2026/conference/paper_1/multiband-alignment/input.json",
+    "input_sha256": "0db445f3df37f08661f6078a9595ef1646adf9b036c5f94da316255c431c26c9",
+    "source_manifest_path": "calculations/ICMSEP2026/conference/paper_1/multiband-alignment/source.sha256",
+    "source_manifest_sha256": "c17bfd161b5b2e3b30ac5cc1c1358229f684b00ebdcf1e8aa346734c204129e9"
+  },
+  "protected_calculator_execution_authorized_or_required": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-freeze.v1",
+  "status": "prospectively-frozen-before-confirmatory-execution"
+}

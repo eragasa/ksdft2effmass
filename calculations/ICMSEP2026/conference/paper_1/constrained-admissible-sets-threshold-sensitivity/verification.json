@@ -1,0 +1,22 @@
+{
+  "absolute_tolerance": 1e-12,
+  "checks": [
+    "source-digests",
+    "source-manifest-correlation",
+    "post-hoc-status",
+    "quadratic-premises",
+    "spectral-boundary",
+    "minimum-feasible-threshold",
+    "resolution-crossing",
+    "compatibility-transition",
+    "original-model-threshold",
+    "complete-threshold-grid",
+    "designed-markers",
+    "active-alignment-components",
+    "dispositions"
+  ],
+  "maximum_absolute_defect": 0.0,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-threshold-sensitivity-verification.v1",
+  "source_result_sha256": "9d95da829b84743386f627c32e9b4a740f2ff602d77a1ff225f295e17f98d2f9",
+  "status": "verified"
+}

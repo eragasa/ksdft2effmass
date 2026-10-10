@@ -1,0 +1,4 @@
+case_id,role,energy_shift_ratio,splitting_scale,training_spectral_rms_loss,training_operator_rms_loss,withheld_spectral_rms_loss,withheld_operator_rms_loss
+compatible,compatible-common-witness,0.0,1.0,7.58984639784215e-16,0.3286318914348874,7.928256904202344e-16,0.3286318914348874
+separated,separated-spectral-boundary,3.885780586188048e-16,0.9354687051718992,0.029999999999999936,0.3192641694835836,0.029999999999999978,0.31926416948358366
+separated,separated-operator-boundary,0.0,0.8360013041446829,0.07624147150255359,0.30999999999999994,0.0762414715025536,0.31

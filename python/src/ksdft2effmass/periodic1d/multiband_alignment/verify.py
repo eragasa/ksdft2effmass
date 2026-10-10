@@ -16,7 +16,13 @@ from .results import Periodic1DMultibandAlignmentCalculationResult
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DMultibandAlignmentVerificationResult:
-    """Retain independently reconstructed M2 numerical-consistency evidence."""
+    """Retain independently reconstructed M2 numerical-consistency evidence.
+
+    ``dimensionless_maximum_absolute_defect`` aggregates frame, projector, rotation,
+    identity, and Boolean-state channels.  ``energy_maximum_absolute_defect`` aggregates
+    spectra, represented operators, hoppings, and locality in the parent energy unit.
+    ``passes`` is derived from both defects and the common absolute tolerance.
+    """
 
     calculation: Periodic1DMultibandAlignmentCalculationResult
     dimensionless_maximum_absolute_defect: float
@@ -67,14 +73,36 @@ class Periodic1DMultibandAlignmentVerificationResult:
 
 
 class Periodic1DMultibandAlignmentResultVerifier:
-    """Reconstruct M2 without invoking its producer calculation Action."""
+    """Reconstruct M2 without invoking its producer calculation Action.
+
+    The verifier owns direct finite formulas for parent interpolation, eigensystems,
+    polar transport, gauge attack, pointwise/global alignment, projection, Fourier
+    blocks, Hermiticity, and range diagnostics.  Shared libraries and conventions mean
+    this remains numerical verification rather than an independent physical oracle.
+    """
 
     __slots__ = ()
 
     def execute(
         self, calculation: Periodic1DMultibandAlignmentCalculationResult
     ) -> Periodic1DMultibandAlignmentVerificationResult:
-        """Rebuild parent matrices, frames, gauges, transforms, and ranges."""
+        """Rebuild every M2 finite channel and return maximum defects.
+
+        Parameters
+        ----------
+        calculation
+            Exact typed M2 aggregate result.
+
+        Returns
+        -------
+        Periodic1DMultibandAlignmentVerificationResult
+            Separate dimensionless and energy defects with the derived pass state.
+
+        Raises
+        ------
+        TypeError
+            If ``calculation`` is not the exact M2 result type.
+        """
         if type(calculation) is not Periodic1DMultibandAlignmentCalculationResult:
             raise TypeError(
                 "calculation must be Periodic1DMultibandAlignmentCalculationResult"
@@ -252,12 +280,10 @@ class Periodic1DMultibandAlignmentResultVerifier:
                     - expected_reconstruction
                 )
             )
-            expected_paired, expected_missing, expected_hermiticity = (
-                self._hermiticity(
-                    representatives,
-                    expected_blocks,
-                    definition.reciprocal_mesh_size,
-                )
+            expected_paired, expected_missing, expected_hermiticity = self._hermiticity(
+                representatives,
+                expected_blocks,
+                definition.reciprocal_mesh_size,
             )
             dimensionless_defects.extend(
                 (
@@ -269,8 +295,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
                     if hermiticity.paired_representatives == expected_paired
                     else 1.0,
                     0.0
-                    if hermiticity.missing_opposite_representatives
-                    == expected_missing
+                    if hermiticity.missing_opposite_representatives == expected_missing
                     else 1.0,
                     0.0
                     if hermiticity.passes
@@ -331,6 +356,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
         aligned_blocks: np.ndarray,
         defects: list[float],
     ) -> None:
+        """Append reconstructed omitted-block and spectral range defects."""
         for result in calculation.range_study:
             keep = np.abs(representatives) <= result.maximum_range
             for truncation, training_error, withheld_error, blocks in (
@@ -386,6 +412,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
         blocks: np.ndarray,
         modulus: int,
     ) -> tuple[tuple[int, ...], tuple[int, ...], float]:
+        """Reconstruct periodic opposite pairs and the maximum Hermiticity defect."""
         lookup = {
             int(representative): index
             for index, representative in enumerate(representatives)
@@ -408,11 +435,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
                 opposite = candidates[0]
             paired.append(representative)
             defects.append(
-                float(
-                    np.linalg.norm(
-                        blocks[index] - blocks[lookup[opposite]].conj().T
-                    )
-                )
+                float(np.linalg.norm(blocks[index] - blocks[lookup[opposite]].conj().T))
             )
         return tuple(sorted(paired)), tuple(sorted(missing)), max(defects, default=0.0)
 
@@ -420,6 +443,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
     def _interpolate_parent(
         parent: BlockHoppingModel1D, reduced: np.ndarray
     ) -> np.ndarray:
+        """Interpolate the finite parent hopping model at reduced coordinates."""
         if type(parent) is not BlockHoppingModel1D:
             raise TypeError("parent must be BlockHoppingModel1D")
         representatives = np.asarray(parent.representatives, dtype=np.int64)
@@ -435,6 +459,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
     def _eigensystem(
         matrices: np.ndarray, retained_rank: int
     ) -> tuple[np.ndarray, np.ndarray]:
+        """Return ascending retained eigenvalues and raw orthonormal frames."""
         eigenvalues: list[np.ndarray] = []
         frames: list[np.ndarray] = []
         for matrix in matrices:
@@ -448,6 +473,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
 
     @staticmethod
     def _transport(raw: np.ndarray) -> tuple[np.ndarray, float, np.ndarray]:
+        """Reconstruct neighbor polar transport and distributed closure holonomy."""
         transported = [raw[0].copy()]
         singular_values: list[float] = []
         for index in range(raw.shape[0] - 1):
@@ -484,6 +510,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
         definition: Periodic1DMultibandAlignmentCalculationDefinition,
         reduced: np.ndarray,
     ) -> np.ndarray:
+        """Evaluate the frozen rank-two sine-series rotation attack."""
         if type(definition) is not Periodic1DMultibandAlignmentCalculationDefinition:
             raise TypeError("definition has the wrong type")
         rotations: list[np.ndarray] = []
@@ -509,6 +536,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
     def _pointwise_align(
         reference: np.ndarray, candidate: np.ndarray
     ) -> tuple[np.ndarray, np.ndarray]:
+        """Solve independent pointwise unitary Procrustes problems."""
         rotations: list[np.ndarray] = []
         aligned: list[np.ndarray] = []
         for left_frame, right_frame in zip(reference, candidate, strict=True):
@@ -523,6 +551,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
 
     @staticmethod
     def _global_rotation(reference: np.ndarray, candidate: np.ndarray) -> np.ndarray:
+        """Solve the aggregate one-global-unitary Procrustes problem."""
         aggregate = np.sum(
             np.einsum("kji,kjl->kil", candidate.conj(), reference), axis=0
         )
@@ -531,6 +560,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
 
     @staticmethod
     def _project(parent: np.ndarray, frames: np.ndarray) -> np.ndarray:
+        """Represent each parent matrix in its identified retained frame."""
         return np.asarray(
             [
                 frame.conj().T @ matrix @ frame
@@ -543,6 +573,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
     def _fourier(
         reduced: np.ndarray, matrices: np.ndarray, representatives: np.ndarray
     ) -> np.ndarray:
+        """Apply the normalized discrete Fourier transform to matrix samples."""
         return np.asarray(
             [
                 np.mean(
@@ -561,6 +592,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
     def _interpolate(
         reduced: np.ndarray, representatives: np.ndarray, blocks: np.ndarray
     ) -> np.ndarray:
+        """Interpolate matrix hopping blocks at reduced coordinates."""
         phases = np.exp(2j * np.pi * np.outer(reduced, representatives))
         return np.asarray(
             np.einsum("kr,rij->kij", phases, blocks, optimize=True),
@@ -569,6 +601,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
 
     @staticmethod
     def _projector_defect(reference: np.ndarray, candidate: np.ndarray) -> float:
+        """Return the maximum invariant retained-projector Frobenius defect."""
         return float(
             max(
                 np.linalg.norm(left @ left.conj().T - right @ right.conj().T)
@@ -578,6 +611,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
 
     @staticmethod
     def _frame_defect(reference: np.ndarray, candidate: np.ndarray) -> float:
+        """Return the maximum frame or represented-matrix Frobenius defect."""
         return float(
             max(
                 np.linalg.norm(left - right)
@@ -587,6 +621,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
 
     @staticmethod
     def _spectral_error(matrices: np.ndarray, target: np.ndarray) -> float:
+        """Return the maximum ordered-eigenvalue defect against a common target."""
         values = np.asarray(
             [np.linalg.eigvalsh(matrix) for matrix in matrices], dtype=np.float64
         )
@@ -594,6 +629,7 @@ class Periodic1DMultibandAlignmentResultVerifier:
 
     @staticmethod
     def _maximum(left: np.ndarray, right: np.ndarray) -> float:
+        """Return the elementwise maximum absolute array defect."""
         return float(np.max(np.abs(left - right)))
 
 

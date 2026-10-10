@@ -11,6 +11,7 @@ from ksdft2effmass.periodic1d.model import Periodic1DBlockHamiltonianToyModel
 
 
 def _nonnegative_increasing_integers(name: str, values: tuple[int, ...]) -> None:
+    """Validate an ordered nonempty inventory of exact nonnegative integers."""
     if not isinstance(values, tuple) or not values:
         raise TypeError(f"{name} must be a nonempty tuple")
     if any(type(value) is not int for value in values):
@@ -22,6 +23,7 @@ def _nonnegative_increasing_integers(name: str, values: tuple[int, ...]) -> None
 
 
 def _finite_nonnegative_float(name: str, value: float) -> None:
+    """Validate one finite nonnegative built-in float and reject Booleans."""
     if type(value) is not float:
         raise TypeError(f"{name} must be a built-in float")
     if not np.isfinite(value) or value < 0.0:
@@ -30,15 +32,38 @@ def _finite_nonnegative_float(name: str, value: float) -> None:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DMultibandAlignmentCalculationDefinition:
-    """Freeze the M2 parent, frame, attack, locality, and sample controls.
+    r"""Freeze the M2 parent, frame, attack, locality, and sample controls.
 
-    The retained group has rank two.  The attack family is the periodic
-    rotation ``exp(-i theta(k) sigma_y)`` with a frozen constant angle and sine
-    series.  A generic definition may select the identity; nonidentity is a
-    property verified for the retained M2 instance, not guaranteed by this data
-    type.  Pointwise unitary Procrustes alignment and one global unitary
-    alignment are evaluated separately.  The staggered withheld mesh is
-    evaluation-only and cannot alter frames, hoppings, ranges, or tolerances.
+    Parameters
+    ----------
+    calculation_id
+        Stable nonempty M2 calculation identity.
+    parent_model
+        Finite block-hopping parent with an identified internal state space.
+    retained_rank
+        Exact retained rank; schema v1 requires two and leaves excluded states.
+    reciprocal_mesh_size, withheld_mesh_size
+        Even training extent and staggered evaluation extent, respectively.
+    hopping_ranges
+        Ordered finite ranges smaller than half the training extent.
+    attack_constant_angle, attack_sine_coefficients
+        Radian coefficients of ``theta(k)=theta_0+sum_q c_q sin(2 pi q k)``.
+    external_gap_lower_bound
+        Nonnegative energy-valued finite-mesh retained/excluded gap control.
+    overlap_singular_value_threshold
+        Dimensionless transport threshold in ``[0, 1)``.
+    orthonormality_absolute_tolerance, coordinate_absolute_tolerance
+        Dimensionless frame and coordinate tolerances.
+    reconstruction_absolute_tolerance, verification_absolute_tolerance
+        Finite nonnegative transform and independent-verification controls.
+    hermiticity_absolute_tolerance
+        Nonnegative quantity in the parent energy dimension.
+
+    Notes
+    -----
+    A generic definition may select an identity attack; nonidentity is verified for the
+    retained M2 instance.  Pointwise Procrustes and one-global-unitary alignment are
+    separate families.  Evaluation data cannot alter frames, hoppings, or controls.
     """
 
     calculation_id: str
@@ -139,7 +164,11 @@ class Periodic1DMultibandAlignmentCalculationDefinition:
 
     @property
     def withheld_reduced_momenta(self) -> tuple[float, ...]:
-        """Return the frozen staggered uniform mesh disjoint from training."""
+        """Return the deterministic disjoint evaluation mesh.
+
+        For training extent ``N`` and evaluation extent ``M``, coordinate ``i`` is
+        ``-1/2 + (i + 1/(N+1))/M``.  The returned tuple is dimensionless.
+        """
         offset = 1.0 / float(self.reciprocal_mesh_size + 1)
         return tuple(
             float(-0.5 + (float(index) + offset) / self.withheld_mesh_size)

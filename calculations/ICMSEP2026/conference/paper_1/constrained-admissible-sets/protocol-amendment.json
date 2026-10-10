@@ -1,0 +1,37 @@
+{
+  "amended_at_utc": "2026-10-10T17:42:18Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Canonicalize the dimensionless Unitless expression to wire unit 1 in M3 result quantities and hopping blocks.",
+    "Write verification energy defects with wire unit 1.",
+    "Add a regression assertion rejecting dimensionless as the M3 result wire unit."
+  ],
+  "configuration_sha256": "426fc0c048519f9a899379a0f26921025f4b412df2530d05d7ca053e97e0d493",
+  "corrected_sources": [
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/serialization.py",
+      "sha256": "78752aceab5925671220f70769b4aec66b2fcbed8d8bd37ba7bf03318c1d7e21"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/run.py",
+      "sha256": "c1f004f7373d8e9a1c2527930f3bbb34b34ee8dec03ced8bf20ffbd6dfd9737d"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DConstrainedAdmissibleSetCalculator.py",
+      "sha256": "54f3856e3dadc15a773e486adb6b18a1cef0b3ac2d6f57a61d48319487123f9e"
+    }
+  ],
+  "derived_input_sha256": "9cf95d111856f5dd92e8018ed019c59eed5c55cb18e33d3ee464839bcc7f9606",
+  "finding": "The initial producer execution encoded Unitless.expression as dimensionless in result and verification output, but the frozen M3 wire contract requires the parent model-energy symbol 1.",
+  "initial_execution": {
+    "result_sha256": "7f1bf7f93589cc8c5b783327fbd86505ffcfd5af6823ce81aa6e39a4d7279e56",
+    "retained_as_final_evidence": false,
+    "standalone_verification_performed": false,
+    "verification_sha256": "2916acf0f4504901d7152ba27d020b59ebd2f761a4082d786d4dc0c357267284"
+  },
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "protocol_sha256": "f2f92dc83b32c556dc6667075c54768831380ee4bdc378bf7177f61f89fa8b44",
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "corrective-wire-unit-amendment-frozen-before-replacement-execution"
+}

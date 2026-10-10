@@ -119,9 +119,22 @@ discrete transform; it does not establish unsampled continuum interpolation.
 Symmetric truncations retain representatives $|R|\leq R_{\max}$. Table
 \ref{tab:supp-m2-ranges} reports selected values from the frozen range
 sequence. The transported and pointwise-aligned frames recover the same local
-behavior to floating-point error. The periodic attack redistributes the same
-spectral information into a longer block-hopping tail. At range eight, its
-omitted-block norm is $5.65\times10^{-5}$ and its withheld maximum spectral
+behavior to floating-point error. In the attacked frame,
+\[
+ \widetilde H(k)=A(k)^\dagger H(k)A(k).
+\]
+Writing $H(k)=\sum_R e^{2\pi i kR}T_R$ and
+$A(k)=\sum_m e^{2\pi i km}A_m$ gives the Fourier convolution
+\[
+ \widetilde T_Q=\sum_{m,n}A_m^\dagger T_{Q+m-n}A_n.
+\]
+A momentum-dependent unitary therefore mixes hopping coefficients across
+ranges even though it preserves each fiber spectrum and retained projector; a
+constant unitary has only its zero Fourier mode and merely conjugates each
+block. Thus spectral and projector agreement do not protect finite-range
+tight-binding locality or compressibility. The periodic attack redistributes
+the same spectral information into a longer block-hopping tail. At range eight,
+its omitted-block norm is $5.65\times10^{-5}$ and its withheld maximum spectral
 error is $7.04\times10^{-5}$, compared with approximately
 $1.6\times10^{-14}$ and $1.2\times10^{-14}$ for the transported channel.
 

@@ -47,7 +47,16 @@ compensating fit errors.
 
 The cosine lattice considered here isolates those issues in a problem whose
 Bloch fibers, Fourier couplings, reciprocal sewing, and hopping transform can be
-inspected directly. It supplies a controlled analogue of two reduction routes:
+inspected directly. Chapter~\ref{ch:training-isolated-band-fourier-reduction}
+provides the preceding pedagogical derivation of the one-dimensional
+plane-wave and finite-difference fibers, centered scalar transform, modular
+hopping Hermiticity, Parseval identity, direct least-squares route, and
+staggered withheld mesh. Chapter~\ref{ch:training-composite-band-gauge-alignment}
+then derives composite frames and projectors, the Bloch--Wannier bridge, polar
+transport, reciprocal closure, Procrustes alignment, and gauge-dependent block
+locality. The present appendix applies those definitions to retained controlled
+calculations rather than treating the formulas below as their first
+explanation. It supplies a controlled analogue of two reduction routes:
 \begin{align}
     \text{periodic parent}
     &\longrightarrow
@@ -87,7 +96,8 @@ Let the lattice period be $a$, define $G=2\pi/a$, and consider
 \begin{equation}
     \hat H
     =
-    -\frac{\hbar^2}{2m}\frac{d^2}{dx^2}
+    -\frac{\hbar^2}{2m}
+    \frac{\mathrm{d}^2}{\mathrm{d}x^2}
     +V_0\cos(Gx)
     \quad\text{on }L^2(\mathbb R).
     \label{eq:periodic-1d-parent}
@@ -110,7 +120,7 @@ and the cell-periodic fiber operator is
     \hat H(k)
     =
     \frac{1}{2m}
-    \left(-i\hbar\frac{d}{dx}+\hbar k\right)^2
+    \left(-i\hbar\frac{\mathrm{d}}{\mathrm{d}x}+\hbar k\right)^2
     +V_0\cos(Gx).
     \label{eq:periodic-1d-fiber}
 \end{equation}
@@ -140,7 +150,7 @@ representation.
 
 With $z=Gx/2$, Eq.~\eqref{eq:periodic-1d-parent} becomes the Mathieu equation
 \begin{equation}
-    \frac{d^2\psi}{dz^2}
+    \frac{\mathrm{d}^2\psi}{\mathrm{d}z^2}
     +\left[A-2q\cos(2z)\right]\psi=0,
     \qquad
     A=\frac{4E}{E_G},
@@ -419,6 +429,12 @@ orbital order, lattice translations, and composite-space unitary freedom have
 been aligned.
 
 \section{Finite-range lattice reduction}
+
+The transform signs and normalization in this section agree with
+Equations~\eqref{eq:training-isolated-forward-transform}
+--\eqref{eq:training-isolated-inverse-transform}. The scalar construction uses
+only the retained dispersion; the later composite construction additionally
+requires a declared frame.
 
 \subsection{Complete hopping representation}
 
@@ -879,6 +895,155 @@ Kohn--Sham parent, a three-dimensional crystal, pristine--doped alignment, an
 impurity operator, multivalley structure, spin--orbit coupling, or a continuum
 effective-mass reduction.
 
+\section{Canonical constrained admissible-set extension}
+\label{sec:appendix-g-m3}
+\index{M3 controlled calculation}
+\index{admissible set!controlled result}
+
+The historical calculations above and the canonical M3 package have different
+identities. M3 is retained under
+\path{calculations/ICMSEP2026/conference/paper_1/}\
+\path{constrained-admissible-sets/}; it does not rewrite the historical
+\path{calculations/research-monograph/periodic-1d/} records. Its evidence class
+is a calculated and independently reconstructed synthetic numerical result for
+a frozen finite family. Chapter~\ref{ch:admissible-sets-certificates} owns the
+general definitions and derivations.
+
+M3 composes the retained rank-two multiband baseline with the candidate
+\begin{equation}
+  H_{s,q}(k)
+  =
+  \overline E(k)I_2+sE_0I_2
+  +q\left(H_{\mathrm{ref}}(k)-\overline E(k)I_2\right),
+\end{equation}
+over
+\begin{equation}
+  -0.25\leq s\leq0.25,
+  \qquad
+  0.4\leq q\leq1.2.
+\end{equation}
+The alignment family contains the following nine global real-rotation angles,
+in radians:
+\begin{equation}
+  -1.2,-0.9,-0.6,-0.3,0,0.3,0.6,0.9,1.2.
+\end{equation}
+The losses use 64 training coordinates, retained rank two, an energy scale of
+$1$ in the model's dimensionless energy convention, and the normalization
+\begin{equation}
+  \frac{1}{E_0}
+  \sqrt{\frac{\text{sum of squared residuals}}{N_k r}}.
+\end{equation}
+A staggered 257-point mesh is disjoint from the training coordinates and is
+used only for withheld evaluation. The locality ranges
+$0,1,2,3,4,6,8$ produce hopping diagnostics; no locality threshold enters the
+admissibility decision.
+
+The thresholds are benchmark-design controls rather than inferred physical
+tolerances. They were selected from the known synthetic model and preparatory
+analytic training-loss geometry to produce one compatible case and one resolved
+separated case. This selection was not blind. It used neither the withheld
+values nor an experimental uncertainty, literature tolerance, or material
+acceptance criterion. The controls were frozen before the retained confirmatory
+execution, so the calculation confirms the prespecified synthetic decision
+logic without turning the thresholds into universal estimates.
+
+For the prospectively frozen dimensionless RMS thresholds
+\begin{equation}
+  (\tau_E,\tau_H)=(0.03,0.33),
+\end{equation}
+the retained parameter $(s,q)=(0,1)$ is a common witness. The selected global
+rotation is $0.3$, the training spectral loss is
+$7.58984639784215\times10^{-16}$, and the training operator loss is
+$0.3286318914348874$. The withheld values are respectively
+$7.928256904202344\times10^{-16}$ and $0.3286318914348874$. These withheld
+values diagnose the retained candidate; they do not define its witness status.
+
+For the separately frozen dimensionless RMS thresholds
+\begin{equation}
+  (\tau_E,\tau_H)=(0.03,0.31),
+\end{equation}
+the analytic certificate uses the spectral boundary point
+\begin{equation}
+  (s_E,q_E)
+  =
+  (3.885780586188048\times10^{-16},
+    0.9354687051718992)
+\end{equation}
+and the operator boundary point
+\begin{equation}
+  (s_H,q_H)
+  =
+  (0,0.8360013041446829).
+\end{equation}
+Only the $0.3$ rotation component is operator-feasible in this case. The lower
+and upper Euclidean parameter-separation bounds coincide at
+\begin{equation}
+  \delta^{\ast}=0.0994674010272163,
+\end{equation}
+which exceeds the frozen separation resolution $0.05$. The resulting
+\texttt{certified-separated} disposition is conditional on the two-parameter
+domain, Euclidean parameter metric, nine-component alignment family, training
+mesh, and thresholds. Figure~\ref{fig:periodic-1d-m3-admissible-sets} displays
+the two decision geometries. Each curve is a threshold boundary; its enclosed
+region is admissible.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.68\textheight,
+    keepaspectratio
+  ]{../../../calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/constrained-admissible-sets-summary.png}
+  \caption{Frozen M3 training admissible sets in the dimensionless
+  $(s,q)$ parameter plane. Blue curves bound the spectral-admissible region,
+  and red curves bound the operator-admissible component associated with the
+  feasible $0.3$-radian global rotation. At left, the thresholds
+  $(\tau_E,\tau_H)=(0.03,0.33)$ admit the common witness $(0,1)$, marked by the
+  green star. At right, tightening the operator threshold to $0.31$ separates
+  the regions; the blue circle and red square mark the closest certified
+  spectral and operator boundary points. The image is the checksummed retained
+  artifact from the canonical synthetic M3 package, not a material result.}
+  \label{fig:periodic-1d-m3-admissible-sets}
+\end{figure}
+
+The independent standalone reconstruction passes with maximum absolute defect
+$4.6629367034256575\times10^{-15}$ against tolerance $10^{-11}$. The source and
+artifact manifests pass at the audited repository state. The verifier rejects
+altered evaluation roles, nonpositive definition tolerances, inconsistent
+source-manifest correlation, and violations of the quadratic premises used by
+the analytic certificate. It does not import the M3 producer Actions, but it
+shares NumPy, SciPy, eigensolver behavior, floating-point arithmetic, and the
+declared scientific conventions with the producer.
+
+The protocol freeze binds the editable configuration, deterministic input
+builder, derived input, inherited M2 identity, implementation sources, runner,
+and standalone verifier. Nine retained amendments disclose post-freeze
+corrections and verification hardening without changing the M3 scientific
+controls or numerical outcomes. In particular, amendment~6 retracts an earlier
+incorrect diagnosis of overlap between the training and staggered withheld
+coordinates, while amendment~9 records the post-result role and positive-
+tolerance checks added after audit. The SHA-256 records bind retained bytes;
+they are not an external trusted timestamp and do not independently prove
+chronology.
+
+A separate retained package under
+\path{constrained-admissible-sets-threshold-sensitivity/} is explicitly post
+hoc. At fixed $\tau_E=0.03$, the operator set first becomes nonempty at
+$\tau_H\approx0.3074197403$. The separation exceeds the declared $0.05$
+resolution through $\tau_H\approx0.3137907655$, remains positive but below
+resolution until the compatibility transition at
+$\tau_H\approx0.3192641695$, and is zero thereafter. The original parameter
+$(0,1)$ itself becomes operator admissible at
+$\tau_H\approx0.3286318914$. These values characterize the frozen synthetic
+quadratic geometry. They are not prospectively predicted transitions, physical
+tolerance calibrations, or uncertainty quantification.
+
+M3 therefore demonstrates both forms of evidence needed by the methodology:
+an explicit common witness for one threshold pair and a positive separation
+certificate for another. It does not establish incompatibility for unrestricted
+unitary alignments, another candidate family, a material Hamiltonian, or the
+silicon reduction program.
+
 \section{Limitations and scope}
 
 The results establish numerical behavior only for the specified cosine parent.
@@ -917,10 +1082,13 @@ conditioned before the composite subspace is lost. Composite transport restores
 a coherent operator description, but finite-range accuracy remains dependent on
 the gauge in which truncation is performed. The converged Wannier90 comparison
 reproduces the aligned operators and low-pair centers while preserving a finite
-higher-pair center discrepancy. These results support the use of explicit
-subspace, alignment, localization, and truncation diagnostics in more complex
-periodic reductions; they do not by themselves establish accuracy for a
-semiconductor Hamiltonian.
+higher-pair center discrepancy. The separately identified M3 extension then
+shows, within its bounded rank-two family, how the same candidate can satisfy
+spectral and operator thresholds and how a different threshold pair can be
+separated by an analytic certificate. These results support the use of explicit
+subspace, alignment, localization, truncation, and admissibility diagnostics in
+more complex periodic reductions; they do not by themselves establish accuracy
+for a semiconductor Hamiltonian.
 
 \section{Computational reproducibility}
 
@@ -972,6 +1140,17 @@ alignment, rough-gauge, and withheld-range channels are consequently calculated
 producer diagnostics with software and structural checks. Neighbor-overlap singular
 values are reported as conditioning diagnostics; no universal singular-value pass
 threshold is imposed.
+
+The canonical M3 verifier independently reconstructs the inherited multiband
+baseline, quadratic spectral and operator losses, evaluation roles, common
+witness, finite alignment components, boundary points, separation bounds,
+withheld losses, and locality diagnostics without invoking the M3 producer
+Action. Its standalone counterpart also decodes the frozen documents directly
+and rejects invalid definition domains. The post-hoc sensitivity verifier
+correlates the exact M3 result with its package manifest and checks the
+positive-definite axis-aligned premises before reconstructing the threshold
+curve. These are independent orchestration and reconstruction routes, not an
+independent parent Hamiltonian, physical oracle, or material validation.
 
 The compact Wannier90 verifier reconstructs frame, aligned-operator, and finite-range
 diagnostics from retained unitary matrices. Independent native Wilson reconstruction

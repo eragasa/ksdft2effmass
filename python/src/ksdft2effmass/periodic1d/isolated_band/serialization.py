@@ -33,7 +33,25 @@ class Periodic1DIsolatedBandResultJsonSerializer(
     __slots__ = ()
 
     def serialize(self, record: Periodic1DIsolatedBandCalculationResult) -> bytes:
-        """Return canonical UTF-8 JSON bytes terminated by one newline."""
+        """Return the complete M1 result as canonical schema-v1 UTF-8 JSON.
+
+        Parameters
+        ----------
+        record
+            Exact correlated M1 result; serialization never recomputes diagnostics.
+
+        Returns
+        -------
+        bytes
+            Sorted compact JSON with finite values and exactly one terminal newline.
+
+        Raises
+        ------
+        TypeError
+            If ``record`` is not the exact M1 result type.
+        ValueError
+            If JSON encoding encounters a nonfinite value.
+        """
         if type(record) is not Periodic1DIsolatedBandCalculationResult:
             raise TypeError("record must be Periodic1DIsolatedBandCalculationResult")
         document = self._document(record)
@@ -51,6 +69,7 @@ class Periodic1DIsolatedBandResultJsonSerializer(
     def _document(
         self, record: Periodic1DIsolatedBandCalculationResult
     ) -> dict[str, JsonValue]:
+        """Build the complete schema-v1 JSON value tree for one M1 result."""
         definition = record.definition
         model = definition.parent_model
         potential = model.potential
@@ -184,6 +203,7 @@ class Periodic1DIsolatedBandResultJsonSerializer(
         }
 
     def _range(self, result: Periodic1DIsolatedBandRangeResult) -> dict[str, JsonValue]:
+        """Encode one correlated mediated/direct finite-range result."""
         truncated = result.truncation.truncated
         fitted = result.direct_fit.fitted_model
         route = result.direct_mediated_comparison
@@ -270,6 +290,7 @@ class Periodic1DIsolatedBandResultJsonSerializer(
     def _spectrum(
         spectrum: BandSpectrumSamples1D,
     ) -> dict[str, JsonValue]:
+        """Encode coordinates, reciprocal period, eigenvalues, and their units."""
         if type(spectrum) is not BandSpectrumSamples1D:
             raise TypeError("spectrum must be BandSpectrumSamples1D")
         return {
@@ -289,6 +310,7 @@ class Periodic1DIsolatedBandResultJsonSerializer(
 
     @staticmethod
     def _quantity(quantity: ScalarQuantity) -> dict[str, JsonValue]:
+        """Encode one validated scalar quantity with its unit expression."""
         if type(quantity) is not ScalarQuantity:
             raise TypeError("quantity must be ScalarQuantity")
         return {
@@ -298,10 +320,12 @@ class Periodic1DIsolatedBandResultJsonSerializer(
 
     @staticmethod
     def _scalar(magnitude: float, unit: str) -> dict[str, JsonValue]:
+        """Encode a scalar and explicit wire-unit expression."""
         return {"magnitude": magnitude, "unit": unit}
 
     @staticmethod
     def _vector(magnitude: list[float], unit: str) -> dict[str, JsonValue]:
+        """Encode a real vector and explicit wire-unit expression."""
         json_magnitude: list[JsonValue] = list(magnitude)
         return {"magnitude": json_magnitude, "unit": unit}
 
@@ -309,6 +333,7 @@ class Periodic1DIsolatedBandResultJsonSerializer(
     def _complex_matrix(
         magnitude: list[list[complex]], unit: str
     ) -> dict[str, JsonValue]:
+        """Encode a complex matrix as ordered ``[real, imaginary]`` pairs."""
         return {
             "magnitude": [
                 [[float(value.real), float(value.imag)] for value in row]

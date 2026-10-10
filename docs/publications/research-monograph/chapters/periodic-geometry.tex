@@ -1,0 +1,777 @@
+\chapter{Periodic Geometry: Intrinsic Cells and Embedded Planes}
+\index{periodic geometry|textbf}
+\index{lattice!embedded plane|textbf}
+\index{reduced coordinates|textbf}
+
+\label{ch:training-periodic-geometry}
+
+\chapterstatus{pedagogical synthesis and verified software-capability description.
+The derivations are illustrative mathematics. The maintained implementation has
+software-verification evidence, but this chapter reports no new calculated material
+result, numerical convergence claim, scientific validation, or uncertainty
+quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish fractional, intrinsic Cartesian, and ambient Cartesian
+        coordinates;
+  \item construct the Gram metric of a nonorthogonal primitive basis;
+  \item derive the dual reciprocal basis for both square and rectangular direct
+        bases;
+  \item interpret a one-dimensional Brillouin zone as a reciprocal quotient
+        and distinguish physical from reduced momentum;
+  \item define a Bloch fiber as a fixed-quasimomentum sector and distinguish
+        its quasiperiodic and cell-periodic representations;
+  \item explain why an intrinsic two-dimensional cell and a two-dimensional
+        plane embedded in three dimensions are different records even when they
+        have the same metric;
+  \item construct the orthogonal projector onto an embedded plane; and
+  \item identify which quantities define the geometry and which should instead
+        be reconstructed as derived quantities.
+\end{enumerate}
+
+The required background is elementary linear algebra: matrix multiplication,
+inner products, rank, inverses of positive-definite matrices, and orthogonal
+projection. The chapter prepares the finite-difference construction in
+Chapter~\ref{ch:training-bloch-finite-differences} and the controlled
+periodic example in Appendix~\ref{app:two-dimensional-reduction}.
+
+\section{Why geometry comes before a periodic discretization}
+
+Chapter~\ref{ch:training-quantum-operators} introduced Hamiltonians abstractly.
+Before a periodic derivative can be discretized, a reciprocal vector can be
+named, or two represented operators can be compared, we must additionally know
+which coordinates and geometry those objects use. A matrix of numbers is not
+yet a lattice. It becomes a lattice representation only when we say what its
+rows and columns mean and what units its entries carry.
+
+Keep a sheet of ordinary graph paper in mind. On the graph paper, a point can
+be located by counting horizontal and vertical grid lines. Those counts play
+the role of fractional coordinates. Now imagine stretching the sheet more in
+one direction than the other and shearing it so that the grid lines meet at an
+oblique angle. The counting coordinates did not change: one still moves by
+``one cell'' when one count increases by one. Physical distances did change.
+The matrix $A$ records that change from counting coordinates to Cartesian
+vectors.
+
+Now lift the same sheet, without bending it, and rotate it in a three-dimensional
+room. Distances measured on the sheet do not change, but the sheet has acquired
+an orientation relative to the room. This is the distinction between intrinsic
+geometry and embedding data. The Gram metric records the distances and angles
+available to an observer confined to the sheet. The ambient basis, frame, and
+projector additionally record how the sheet sits in the room.
+
+That picture is useful because the software boundary follows the same logic.
+An intrinsic scalar differential operator needs the metric. A later model that
+couples the plane to a laboratory-axis electric field also needs the ambient
+orientation. If we discard the orientation when constructing the intrinsic
+operator, we may not be able to reconstruct the coupling correctly. If we pass
+all ambient data into every scalar stencil routine, on the other hand, we make
+a simple intrinsic algorithm depend on information it does not mathematically
+need. The adapter introduced later in this lecture preserves both sides of the
+boundary.
+
+A recurring discipline of these notes is therefore
+\begin{equation}
+  \text{coordinates}
+  \longrightarrow
+  \text{geometry}
+  \longrightarrow
+  \text{represented operator}
+  \longrightarrow
+  \text{physical model}.
+  \label{eq:training-geometry-layer-sequence}
+\end{equation}
+The arrow is not permission to collapse the objects on either side of it. Each
+step adds meaning and assumptions.
+
+\section{Primitive vectors as a coordinate map}
+\index{primitive vector}
+\index{fractional coordinate}
+
+Let a $d$-dimensional periodic cell have ordered primitive vectors
+$\mathbf a_1,\ldots,\mathbf a_d$. Store those vectors as the columns of a
+matrix
+\begin{equation}
+  A=
+  \begin{bmatrix}
+    \mathbf a_1 & \cdots & \mathbf a_d
+  \end{bmatrix}.
+  \label{eq:training-direct-basis}
+\end{equation}
+A fractional coordinate $\mathbf s\in\mathbb R^d$ maps to Cartesian position
+through
+\begin{equation}
+  \mathbf r=A\mathbf s.
+  \label{eq:training-fractional-to-cartesian}
+\end{equation}
+The entries of $\mathbf s$ are dimensionless. The columns of $A$ carry the
+length unit. Consequently, $\mathbf r$ carries that same length unit.
+
+Two cases must be distinguished.
+
+\begin{description}
+  \item[Intrinsic two-dimensional basis.] $A\in\mathbb R^{2\times2}$ maps two
+    fractional coordinates into an intrinsic Cartesian plane.
+  \item[Two-dimensional plane embedded in three dimensions.]
+    $A\in\mathbb R^{3\times2}$ maps the same number of fractional coordinates
+    into ambient three-space.
+\end{description}
+
+Both cases describe two periodic directions because both matrices have two
+columns. The number of rows instead records the ambient Cartesian dimension.
+A $3\times2$ basis therefore does not define a third periodic direction.
+
+\subsection{Three coordinate languages}
+
+During a calculation we will move repeatedly among three related coordinate
+languages. It is worth naming them before doing any algebra.
+
+\begin{description}
+  \item[Fractional coordinates $\mathbf s$.]
+    These say how many primitive vectors are used. Their components are
+    dimensionless, and integer translations identify equivalent points in a
+    periodic cell.
+  \item[Intrinsic Cartesian coordinates $\mathbf x$.]
+    These are ordinary orthonormal coordinates inside the plane. They carry a
+    length unit. Choosing them requires an in-plane orthonormal frame.
+  \item[Ambient Cartesian coordinates $\mathbf r$.]
+    These are coordinates in the surrounding space. For an embedded plane,
+    $\mathbf r$ has three components even though only two independent
+    coordinates are periodic.
+\end{description}
+
+The same physical in-plane point can consequently be written in several ways:
+\begin{equation}
+  \mathbf r=A\mathbf s=Q\mathbf x,
+  \qquad
+  \mathbf x=Q^{\mathsf T}A\mathbf s.
+  \label{eq:training-three-coordinate-languages}
+\end{equation}
+Nothing physical changes when we translate the point faithfully between these
+languages. What changes is the representation and therefore the matrices that
+act on coordinate arrays.
+
+A good notebook habit is to annotate every vector at first use. For example,
+write ``$\mathbf s$: fractional, dimensionless, two components'' and
+``$\mathbf r$: ambient Cartesian, angstrom, three components.'' Such notes may
+look excessive in a two-line exercise. They become invaluable when a retained
+artifact is read months later or when a two-dimensional model is passed through
+a three-dimensional file interface.
+
+\begin{remark}[Columns, not rows]
+The convention in Equation~\eqref{eq:training-direct-basis} is part of the
+representation. Transposing $A$ without changing the formulas changes the
+coordinate map. A retained record or file should state the vector-axis
+convention rather than relying on visual inspection of a rectangular array.
+\end{remark}
+
+\section{The induced metric}
+\index{Gram metric|textbf}
+\index{metric tensor!direct lattice}
+
+The Cartesian squared length of a displacement is
+\begin{align}
+  \lVert \mathrm{d}\mathbf r\rVert_2^2
+  &= (A\,\mathrm{d}\mathbf s)^{\mathsf T}
+     (A\,\mathrm{d}\mathbf s) \\
+  &= \mathrm{d}\mathbf s^{\mathsf T}G\,\mathrm{d}\mathbf s,
+  \label{eq:training-induced-metric}
+\end{align}
+where
+\begin{equation}
+  G=A^{\mathsf T}A.
+  \label{eq:training-gram-metric}
+\end{equation}
+The matrix $G$ is the Gram metric of the ordered primitive vectors. It contains
+all intrinsic lengths and angles:
+\begin{equation}
+  G_{ij}=\mathbf a_i\cdot\mathbf a_j.
+  \label{eq:training-metric-components}
+\end{equation}
+If the columns of $A$ are linearly independent, then $G$ is symmetric positive
+definite and $G^{-1}$ exists.
+
+This observation explains why an intrinsic $2\times2$ basis and an embedded
+$3\times2$ basis can define the same scalar periodic geometry. If
+$A_{\mathrm{int}}^{\mathsf T}A_{\mathrm{int}}
+=A_{\mathrm{emb}}^{\mathsf T}A_{\mathrm{emb}}$, they assign the same length to
+every fractional displacement. The embedded basis nevertheless carries extra
+orientation information that the metric alone cannot recover.
+
+\subsection{Orthogonal square example}
+
+For
+\begin{equation}
+  A=
+  \begin{bmatrix}
+    a & 0\\
+    0 & a\\
+    0 & 0
+  \end{bmatrix},
+  \label{eq:training-square-embedded-basis}
+\end{equation}
+we obtain
+\begin{equation}
+  G=a^2I_2,
+  \qquad
+  G^{-1}=a^{-2}I_2.
+  \label{eq:training-square-metric}
+\end{equation}
+Fractional coordinate lines are orthogonal and have equal physical scale.
+This is the geometry used by the original square-lattice controlled model in
+Appendix~\ref{app:two-dimensional-reduction}.
+
+\subsection{Skew-cell example}
+
+Let
+\begin{equation}
+  \mathbf a_1=a
+  \begin{bmatrix}1\\0\\0\end{bmatrix},
+  \qquad
+  \mathbf a_2=a
+  \begin{bmatrix}\cos\theta\\\sin\theta\\0\end{bmatrix},
+  \qquad 0<\theta<\pi.
+  \label{eq:training-skew-basis}
+\end{equation}
+Then
+\begin{equation}
+  G=a^2
+  \begin{bmatrix}
+    1 & \cos\theta\\
+    \cos\theta & 1
+  \end{bmatrix}.
+  \label{eq:training-skew-metric}
+\end{equation}
+The off-diagonal entries are geometric: they record that the coordinate axes
+are not orthogonal. They do not, by themselves, describe an anisotropic
+material response.
+
+\subsection{A fully worked sixty-degree cell}
+
+Let us pause over one cell long enough to make the abstractions concrete. Take
+\begin{equation}
+  \mathbf a_1=a
+  \begin{bmatrix}1\\0\\0\end{bmatrix},
+  \qquad
+  \mathbf a_2=a
+  \begin{bmatrix}1/2\\\sqrt{3}/2\\0\end{bmatrix}.
+  \label{eq:training-sixty-degree-basis}
+\end{equation}
+The two primitive vectors have length $a$ and meet at sixty degrees. Their Gram
+metric is
+\begin{equation}
+  G=a^2
+  \begin{bmatrix}
+    1 & 1/2\\
+    1/2 & 1
+  \end{bmatrix},
+  \qquad
+  G^{-1}=\frac{1}{a^2}
+  \begin{bmatrix}
+    4/3 & -2/3\\
+    -2/3 & 4/3
+  \end{bmatrix}.
+  \label{eq:training-sixty-degree-metric}
+\end{equation}
+Notice the negative off-diagonal entries of the inverse metric. They do not
+mean that a squared length can be negative. Positive definiteness concerns the
+whole quadratic form
+$\mathrm{d}\mathbf s^{\mathsf T}G\,\mathrm{d}\mathbf s$, not the sign of
+each matrix entry.
+
+Consider three fractional displacements:
+\begin{equation}
+  \begin{aligned}
+  \mathrm{d}\mathbf s_1&=(1,0)^{\mathsf T},\\
+  \mathrm{d}\mathbf s_2&=(0,1)^{\mathsf T},\\
+  \mathrm{d}\mathbf s_3&=(1,-1)^{\mathsf T}.
+  \end{aligned}
+\end{equation}
+Equation~\eqref{eq:training-induced-metric} assigns all three the same physical
+length $a$. The third result is a useful check: in a sixty-degree rhombus, the
+difference between the two primitive vectors is also an edge of the associated
+equilateral triangle.
+
+Now rotate both vectors in ambient three-space. The individual Cartesian
+components change, but every entry of $G$ remains the same. An intrinsic scalar
+calculation should not change merely because the flat sample was rotated on a
+laboratory table. A coupling to a fixed laboratory direction may change, which
+is exactly why we retain the ambient representation separately.
+
+The following small program turns the board derivation into explicit arrays.
+The imports are shown because a reader should always be able to identify which
+package owns each numerical operation. Inline comments explain why a line is
+present rather than merely restating its syntax.
+
+\begin{pythonexample}{checking an embedded periodic plane}
+import numpy as np
+
+# Store primitive vectors as columns of one ambient 3-by-2 basis.
+a = 2.0
+A = a * np.array(
+    [[1.0, 0.5], [0.0, np.sqrt(3.0) / 2.0], [0.0, 0.0]],
+    dtype=np.float64,
+)
+
+# Derive intrinsic geometry from the defining basis.
+G = A.T @ A
+G_inverse = np.linalg.inv(G)
+B = 2.0 * np.pi * A @ G_inverse
+P = A @ G_inverse @ A.T
+
+# Measure duality and orthogonal-projector identities independently.
+duality_error = np.max(np.abs(A.T @ B - 2.0 * np.pi * np.eye(2)))
+symmetry_error = np.max(np.abs(P.T - P))
+idempotence_error = np.max(np.abs(P @ P - P))
+
+print("Gram metric:\n", G)
+print("projector rank:", np.linalg.matrix_rank(P))
+print("maximum duality error:", duality_error)
+print("maximum projector symmetry error:", symmetry_error)
+print("maximum projector idempotence error:", idempotence_error)
+\end{pythonexample}
+
+This code is pedagogical synthetic data, not a material calculation.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/periodic_geometry.ipynb}
+with explicit imports, explanatory inline comments, physical units, transparent
+NumPy checks, and exercises using the maintained PhysKit adapter and strict
+codec. Keep the notebook unexecuted in the repository and verify it through a
+separate bounded test route.}
+
+\section{Dual reciprocal vectors}
+\index{reciprocal lattice!dual basis}
+
+For a full-column-rank $A\in\mathbb R^{m\times d}$, with $m\geq d$, define
+\begin{equation}
+  B=2\pi A\left(A^{\mathsf T}A\right)^{-1}
+   =2\pi A G^{-1}.
+  \label{eq:training-rectangular-dual}
+\end{equation}
+Its columns $\mathbf b_j$ obey
+\begin{equation}
+  A^{\mathsf T}B=2\pi I_d,
+  \qquad
+  \mathbf a_i\cdot\mathbf b_j=2\pi\delta_{ij}.
+  \label{eq:training-dual-identity}
+\end{equation}
+When $A$ is square and invertible, Equation~\eqref{eq:training-rectangular-dual}
+reduces to the familiar expression
+\begin{equation}
+  B=2\pi A^{-\mathsf T}.
+  \label{eq:training-square-dual}
+\end{equation}
+The rectangular formula is therefore not a different reciprocal-lattice
+convention. It is the full-column-rank extension of the same duality condition.
+
+\subsection{Deriving the rectangular formula at the board}
+
+The defining requirement is not ``take an inverse.'' The defining requirement
+is the duality relation
+\begin{equation}
+  A^{\mathsf T}B=2\pi I_d.
+\end{equation}
+For a rectangular $A$, an ordinary inverse does not exist. We therefore ask for
+columns of $B$ that lie in the same plane as the columns of $A$. Any such
+candidate has the form $B=AC$ for some $d\times d$ coefficient matrix $C$.
+Substitution gives
+\begin{equation}
+  A^{\mathsf T}AC=GC=2\pi I_d.
+\end{equation}
+Full column rank makes $G$ invertible, so
+\begin{equation}
+  C=2\pi G^{-1}
+\end{equation}
+and hence $B=2\pi AG^{-1}$. This short derivation tells us more than a memorized
+formula. It tells us why the dual vectors remain in the tangent plane and why
+rank loss makes the construction fail.
+
+For the sixty-degree cell in
+Equation~\eqref{eq:training-sixty-degree-basis}, the result is
+\begin{equation}
+  B=\frac{2\pi}{a}
+  \begin{bmatrix}
+    1 & 0\\
+    -1/\sqrt{3} & 2/\sqrt{3}\\
+    0 & 0
+  \end{bmatrix}.
+  \label{eq:training-sixty-degree-dual}
+\end{equation}
+A quick multiplication by $A^{\mathsf T}$ recovers $2\pi I_2$. Performing that
+multiplication is preferable to trusting the visual appearance of the vectors.
+
+Because $A$ carries length, $G$ carries length squared, $G^{-1}$ carries inverse
+length squared, and $B$ carries inverse length. These unit checks often reveal a
+transposition or scaling mistake before a numerical calculation is run. In
+lecture, it is useful to say the units aloud while moving through the product:
+``length times inverse length squared gives inverse length.''
+
+\section{The one-dimensional reciprocal quotient}
+\index{Brillouin zone!one-dimensional}
+\index{reduced momentum}
+
+The general dual-basis construction becomes especially transparent in one
+dimension. Let the direct primitive vector have length $a>0$. Its reciprocal
+primitive vector has magnitude
+\begin{equation}
+  G=\frac{2\pi}{a},
+  \label{eq:training-geometry-one-dimensional-reciprocal}
+\end{equation}
+because $aG=2\pi$. A physical wave vector $k$ can be written in the
+dimensionless reduced coordinate
+\begin{equation}
+  \kappa=\frac{k}{G}.
+  \label{eq:training-geometry-reduced-momentum}
+\end{equation}
+Wave vectors whose reduced coordinates differ by an integer occupy the same
+point of the reciprocal quotient. Thus the first Brillouin zone is not
+fundamentally a closed interval with two distinct endpoints. It is a circle of
+reciprocal classes that can be represented, for example, by
+\begin{equation}
+  -\frac12\leq\kappa<\frac12.
+  \label{eq:training-geometry-first-brillouin-zone}
+\end{equation}
+The endpoint $1/2$ is excluded because it is equivalent to $-1/2$ after one
+reciprocal translation. Including both may be useful when displaying a closed
+plotting path, but it duplicates one point when constructing a complete
+periodic mesh.
+
+\subsection{Bloch sectors and fiber operators}
+\index{Bloch fiber|textbf}
+\index{direct integral}
+\index{quasimomentum sector}
+
+The reciprocal quotient labels more than plotting coordinates. Suppose that
+an operator $\widehat H$ on the infinite periodic system commutes with
+translation by $a$. Bloch theory resolves its state space into sectors labelled
+by a reciprocal class $[k]$ \parencite{kittel2004,simon2013}. In the sector
+labelled by $k$, a wavefunction
+obeys the quasiperiodic condition
+\begin{equation}
+  \psi_k(x+a)=e^{ika}\psi_k(x).
+  \label{eq:training-geometry-bloch-condition}
+\end{equation}
+Changing $k$ by an integer multiple of $G$ gives the same reciprocal class and
+therefore does not create a new physical sector.
+
+A \emph{Bloch fiber space} is the state space belonging to one fixed reciprocal
+class $[k]$. The corresponding \emph{Bloch-fiber operator} is the action of
+$\widehat H$ restricted to that sector. This is an operator and state-space
+statement, not yet a choice of numerical basis or finite matrix.
+
+There are two common, unitarily related ways to represent the same fiber. One
+may retain the original wavefunction on a primitive cell and impose
+Equation~\eqref{eq:training-geometry-bloch-condition}. Alternatively, write
+\begin{equation}
+  \psi_k(x)=e^{ikx}u_k(x),
+  \qquad
+  u_k(x+a)=u_k(x),
+  \label{eq:training-geometry-bloch-factorization}
+\end{equation}
+and work in the fixed cell-periodic space
+$\mathcal H_{\mathrm{per}}=L^2_{\mathrm{per}}([0,a])$. In this representation,
+the fiber operator is
+\begin{equation}
+  \widehat H(k)
+  =e^{-ikx}\widehat H e^{ikx}
+  \quad\text{on }\mathcal H_{\mathrm{per}},
+  \label{eq:training-geometry-fiber-definition}
+\end{equation}
+with an operator domain carrying periodic boundary conditions. For example,
+if
+\begin{equation}
+  \widehat H
+  =-\frac{\hbar^2}{2m}\frac{\mathrm d^2}{\mathrm d x^2}+V(x),
+  \qquad V(x+a)=V(x),
+\end{equation}
+then
+\begin{equation}
+  \widehat H(k)
+  =\frac{\hbar^2}{2m}
+   \left(-i\frac{\mathrm d}{\mathrm d x}+k\right)^2+V(x).
+  \label{eq:training-geometry-schrodinger-fiber}
+\end{equation}
+The $k$ dependence therefore belongs to the represented derivative and its
+domain convention; it is not an additional potential.
+
+At the operator level, the Floquet--Bloch transformation expresses this
+sector decomposition as a direct integral \parencite{kuchment2016},
+\begin{equation}
+  \widehat H
+  \simeq
+  \int_{[-G/2,G/2)}^{\oplus}
+    \widehat H(k)\,\frac{a\,\mathrm d k}{2\pi}.
+  \label{eq:training-geometry-direct-integral}
+\end{equation}
+The symbol $\simeq$ denotes unitary equivalence, and $\oplus$ indicates that
+there is one fiber space at each reciprocal class. Solving one fiber produces
+energies and states at one $k$; sampling many fibers produces a band
+representation. A plane-wave cutoff or finite-difference grid then produces a
+finite representation of each fiber. Such a matrix approximates or represents
+the declared fiber operator under a stated discretization; it is not the
+continuum fiber operator itself.
+
+For a particle of mass $m$, the reciprocal vector also defines the energy
+scale
+\begin{equation}
+  E_G=\frac{\hbar^2G^2}{2m}.
+  \label{eq:training-geometry-reciprocal-energy}
+\end{equation}
+An energy written as $E/E_G$ and a potential amplitude written as $V_0/E_G$
+are dimensionless only after $a$, $G$, $m$, and the scaling convention have
+been declared. Chapter~\ref{ch:training-isolated-band-fourier-reduction} uses
+these coordinates and scales to derive a complete one-dimensional
+Bloch-to-lattice reduction.
+
+\section{Projection and coordinate recovery}
+\index{pseudoinverse}
+\index{projection!ambient plane}
+
+The left pseudoinverse of a full-column-rank embedded basis is
+\begin{equation}
+  A^{+}=G^{-1}A^{\mathsf T}.
+  \label{eq:training-left-pseudoinverse}
+\end{equation}
+For an in-plane point $\mathbf r=A\mathbf s$,
+\begin{equation}
+  A^{+}\mathbf r=\mathbf s.
+  \label{eq:training-fractional-recovery}
+\end{equation}
+For a general ambient vector, $A^{+}\mathbf r$ returns the fractional
+coordinates of its orthogonal in-plane projection. The associated ambient
+projector is
+\begin{equation}
+  P=AA^{+}=AG^{-1}A^{\mathsf T}.
+  \label{eq:training-ambient-projector}
+\end{equation}
+It satisfies
+\begin{equation}
+  P^{\mathsf T}=P,
+  \qquad
+  P^2=P,
+  \qquad
+  \operatorname{Ran}P=\operatorname{Ran}A.
+  \label{eq:training-projector-identities}
+\end{equation}
+An out-of-plane component is removed by this operation. That removal must be
+explicit: it is not evidence that the ambient vector was originally confined
+to the plane.
+
+\subsection{A projection thought experiment}
+
+Suppose the plane is the ordinary $xy$ plane and an ambient vector is
+$\mathbf v=(v_x,v_y,v_z)^{\mathsf T}$. The projector returns
+$(v_x,v_y,0)^{\mathsf T}$. No information inside the projected vector tells us
+whether $v_z$ was originally zero or was discarded. This is why a projected
+result should retain provenance linking it to its ambient source and to the
+projection action.
+
+The same issue is easy to miss for a tilted plane because none of the ambient
+components need vanish. The equation $P\mathbf v=\mathbf v$ is the appropriate
+test for whether $\mathbf v$ already lies in the plane. Merely observing three
+nonzero components says nothing either way.
+
+The distinction has a physical counterpart. An ambient electric field may have
+both tangent and normal components. A strictly two-dimensional model can use
+the tangent component only after a modeling decision has said what happens to
+the normal component. Linear algebra can perform the projection, but it cannot
+make that physical decision for us.
+
+\section{An intrinsic frame that preserves the embedding}
+\index{orthonormal frame!embedded plane}
+
+Let $Q\in\mathbb R^{3\times2}$ contain an ordered orthonormal frame for the
+plane, so that
+\begin{equation}
+  Q^{\mathsf T}Q=I_2,
+  \qquad
+  QQ^{\mathsf T}=P.
+  \label{eq:training-plane-frame}
+\end{equation}
+The coordinates of the primitive vectors in that frame form the intrinsic
+basis
+\begin{equation}
+  C=Q^{\mathsf T}A\in\mathbb R^{2\times2}.
+  \label{eq:training-intrinsic-adapter}
+\end{equation}
+The intrinsic basis has exactly the same Gram metric:
+\begin{equation}
+  C^{\mathsf T}C
+  =A^{\mathsf T}QQ^{\mathsf T}A
+  =A^{\mathsf T}A
+  =G.
+  \label{eq:training-adapter-metric-identity}
+\end{equation}
+This is the key adapter identity. Algorithms that depend only on the intrinsic
+metric can operate on $C$, while the original $A$, $Q$, and $P$ retain the
+ambient orientation needed by later composition.
+
+If the ambient basis is rigidly rotated to $RA$ with
+$R^{\mathsf T}R=I_3$, then
+\begin{equation}
+  (RA)^{\mathsf T}(RA)=G.
+  \label{eq:training-rotation-invariance}
+\end{equation}
+A geometric scalar Laplacian is therefore invariant under ambient rigid
+rotation. Coupling to an ambient vector field need not be invariant unless the
+field is rotated consistently.
+
+\section{An embedded plane is not a slab}
+\index{slab!distinction from embedded plane}
+
+A flat embedded plane and a slab answer different questions.
+
+\begin{description}
+  \item[$3\times2$ embedded plane.] Two periodic coordinates; no third direct
+    primitive vector; intrinsic differential operators act only in the plane.
+  \item[$3\times3$ slab or bulk cell.] Three direct primitive vectors. Even if
+    one direction contains vacuum or is sampled sparsely, it remains part of
+    the declared three-dimensional cell and boundary-condition model.
+\end{description}
+
+This distinction is also separate from the auxiliary third direction used by
+some historical Wannier90 interfaces in
+Appendix~\ref{app:two-dimensional-reduction}. The phrase ``embedding'' there
+can refer to satisfying a three-dimensional interface convention. The present
+chapter instead concerns the geometric map from an intrinsically
+two-dimensional lattice into ambient Cartesian three-space.
+
+\subsection{A language test}
+
+Whenever the word ``two-dimensional'' appears, ask two questions.
+
+\begin{enumerate}
+  \item How many independent coordinates does the state depend on?
+  \item In how many Cartesian dimensions is the geometry represented?
+\end{enumerate}
+
+For an intrinsic plane the answers are two and two. For an embedded plane they
+are two and three. For a three-dimensional slab model they are three and three,
+even if the third direction is physically long or contains vacuum. This
+language test prevents a data-shape observation from silently becoming a
+physical claim.
+
+\section{Maintained computational representation}
+\index{PhysKit!embedded lattice}
+\index{serialization!embedded lattice}
+
+The maintained PhysKit dependency represents the defining basis with
+\path{EmbeddedDirectLattice2D}. An explicit adapter constructs the intrinsic
+basis, induced metric, inverse metric, ambient dual reciprocal basis,
+orthonormal frame, and tangent-plane projector. The adapter preserves the
+original $A$ rather than silently replacing it by $C$.
+
+The corresponding strict JSON codec serializes only the defining $3\times2$
+basis, its unit, a schema version, a representation discriminator, and the
+column-vector convention. It deliberately does not serialize $G$, $G^{-1}$,
+$B$, $Q$, or $P$. Those quantities are recomputed and checked after decoding.
+This design prevents a retained document from carrying mutually inconsistent
+defining and derived geometry.
+
+The accepted dependency revision for the software-capability description in
+this draft is
+\path{949d106bc98975a18ad86d6fa84092ef0c68298e}. A consuming-project smoke test
+constructs a physical $3\times2$ basis, performs the strict JSON round trip,
+adapts it to the intrinsic metric, and constructs a Hermitian two-dimensional
+Bloch-periodic scalar Laplacian. That test establishes bounded software
+composition only.
+
+\section{How to record a geometry laboratory}
+\index{laboratory!periodic geometry}
+
+A reproducible geometry exercise should retain more than the final metric.
+Before computing, write down the following items:
+
+\begin{enumerate}
+  \item the ordered primitive vectors and whether they are stored as rows or
+        columns;
+  \item the ambient and intrinsic dimensions;
+  \item the length unit of the direct basis;
+  \item the fractional-coordinate origin and cell convention;
+  \item the intended interpretation: intrinsic plane, embedded plane, slab, or
+        bulk cell; and
+  \item the invariants that will be checked independently.
+\end{enumerate}
+
+After computing, retain at least the defining basis and observations of the
+checks
+\begin{equation}
+  G=A^{\mathsf T}A,
+  \qquad
+  A^{\mathsf T}B=2\pi I,
+  \qquad
+  P^{\mathsf T}=P,
+  \qquad
+  P^2=P.
+  \label{eq:training-geometry-lab-checks}
+\end{equation}
+Derived arrays may be useful in a report, but they should not be allowed to
+compete with the defining basis as independent authorities. If a serialized
+metric and a serialized basis disagree, the document has not preserved one
+coherent geometry.
+
+For a classroom calculation, print a few small matrices and inspect them. For a
+maintained research artifact, use typed records, strict decoding, explicit
+units, and a manifest. The scale changes; the conceptual obligation does not.
+
+\section{End-of-lecture synthesis}
+
+The central object of this lecture is the map $\mathbf r=A\mathbf s$. From it we
+obtained four families of derived information:
+
+\begin{enumerate}
+  \item $G=A^{\mathsf T}A$ describes intrinsic lengths and angles;
+  \item $B=2\pi AG^{-1}$ supplies reciprocal vectors dual to the direct basis
+        and thereby defines reduced reciprocal coordinates;
+  \item $A^+=G^{-1}A^{\mathsf T}$ recovers fractional coordinates of the
+        in-plane projection; and
+  \item $P=AG^{-1}A^{\mathsf T}$ records the plane inside the ambient space.
+\end{enumerate}
+
+The formulas are short, but the distinctions are durable. Fractional
+coordinates are not Cartesian coordinates. Intrinsic geometry is not ambient
+orientation. A flat embedded plane is not a slab. A geometric off-diagonal
+metric entry is not a material effective-mass tensor. These distinctions are
+the vocabulary needed for the next lecture, where the metric becomes a
+differential operator.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item For the skew basis in Equation~\eqref{eq:training-skew-basis}, compute
+        $G^{-1}$ and show explicitly that it diverges as
+        $\theta\rightarrow0$ or $\theta\rightarrow\pi$. Interpret the result as
+        loss of column rank rather than as a material singularity.
+  \item Starting from Equation~\eqref{eq:training-rectangular-dual}, prove
+        Equation~\eqref{eq:training-dual-identity} without assuming that $A$ is
+        square.
+  \item Show that the projector in
+        Equation~\eqref{eq:training-ambient-projector} is unchanged when $A$ is
+        replaced by $AS$ for any invertible $2\times2$ matrix $S$. Explain what
+        does and does not remain the same about the periodic cell.
+  \item Choose two nonorthogonal vectors in three dimensions, construct $A$,
+        $G$, $B$, and $P$, and check the duality and projector identities
+        numerically.
+  \item Explain why retaining only $G$ is sufficient for a scalar intrinsic
+        Laplacian but insufficient for coupling an in-plane model to a declared
+        ambient electric-field direction.
+  \item Design one malformed JSON case for each of the following failures:
+        wrong vector-axis declaration, duplicate field, nonfinite number,
+        numeric string, incompatible unit, and rank-deficient basis. State
+        which boundary should reject each case.
+\end{enumerate}
+
+\section{Evidence boundary}
+
+The identities in this chapter are geometry and linear algebra. Passing the
+associated software tests establishes implementation behavior for the tested
+contracts. It does not establish convergence of a finite-difference model,
+adequacy of a kinetic Hamiltonian, a material lattice, a slab approximation,
+or a semiconductor effective-mass tensor. Those questions require the
+separate operators, calculations, and evidence developed later in the
+monograph.

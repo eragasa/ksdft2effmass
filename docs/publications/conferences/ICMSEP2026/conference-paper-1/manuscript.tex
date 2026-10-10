@@ -31,33 +31,32 @@ Hamiltonians: Controlled One- and Two-Dimensional Benchmarks}
 Manila, Philippines}
 
 \begin{abstract}
-Compact lattice Hamiltonians are commonly fitted to selected band energies,
-although spectral agreement does not uniquely determine a localized operator.
-This paper formulates spectral and operator reduction as two admissible-set
-constraints on a common reduced-model hierarchy. Spectral loss measures declared
-eigenvalue and observable residuals. Operator loss compares represented
-real-space matrices over a declared common state space and admissible alignment
-family. A common feasible witness
-supports compatibility; certified lower and feasible upper bounds on the
-minimum set separation distinguish class-relative incompatibility from an
-inconclusive search. The construction keeps parent,
-numerical-discretization, observable-extraction, and model-reduction errors
-separate. Controlled one- and two-dimensional periodic experiments provide
-coequal tests of reconstruction, route dependence, truncation, gauge, and
-locality. In one dimension, complete hopping reconstruction reaches
-$4.17\times10^{-17}E_G$, and matched direct and Fourier-mediated coefficients
-agree within $7.4\times10^{-17}E_G$. In two dimensions, a
-coupling-generated mixed hopping norm grows to $1.94\times10^{-3}E_G$, while
-smooth and rough gauges preserve spectra but change finite-supercell spread
-from $24.90a^2$ to $67.70a^2$. A complementary minimal two-parameter
-illustration maps two quadratic admissible sets: a complete-mesh objective has
-an exact common witness, whereas a restricted training objective has certified
-separation $0.452\leq\delta^\ast\leq0.500$. It exercises the asymmetric
-decision rule but not material-relevant model, gauge, or parameter complexity.
-These are illustrative numerical-verification results for synthetic operators,
-not material validation. They show that compatibility is relative to a frozen
-model class, losses, thresholds, alignment family, and finite comparison
-domains.
+Spectral agreement on selected bands does not uniquely determine a localized
+Hamiltonian. This paper treats spectral and operator reductions of periodic
+systems as two distinct constraints on the same reduced-model class. Spectral
+fitting controls band energies and derived observables; operator fitting
+controls the real-space matrix elements after a declared orbital alignment. A
+model that satisfies both constraints is compatible. When no such model exists,
+rigorous bounds on the distance between the two sets distinguish genuine
+incompatibility from an incomplete search. Errors arising from the parent
+Hamiltonian, numerical discretization, observable extraction, and the reduction
+itself are kept separate.
+
+One- and two-dimensional synthetic benchmarks examine reconstruction accuracy,
+sensitivity to the reduction route, hopping truncation, gauge choice, and
+localization. Complete hopping reconstruction in one dimension reaches machine
+precision, and different reduction routes agree to the same level. In two
+dimensions, inter-directional coupling produces mixed hoppings, while different
+gauges leave the spectrum unchanged yet strongly change localization and
+finite-range behavior. A minimal two-parameter example shows the decision rule
+in exact form: one training choice yields a common model, while a restricted
+choice produces a clear, certified separation between the spectral and operator
+sets.
+
+These results are controlled numerical verification on synthetic operators,
+not material validation. Whether two reductions are compatible always depends
+on the chosen model class, loss functions, thresholds, alignment rules, and the
+finite domains used for comparison.
 \end{abstract}
 
 \begin{keyword}
@@ -365,12 +364,16 @@ unit scales, normalized weights, identity alignment, operator domain, training
 points, withheld points, analytic threshold rule, and separation certificate
 before set evaluation. Training data define the spectral set; withheld points
 diagnose generalization only and cannot update either set, threshold, witness,
-or certificate. The paper therefore does not claim broad admissible-set instantiation at
-multiband or material-relevant complexity. M2 supplies a controlled multiband
-alignment and locality bridge with a known nonidentity attack and two explicit
-alignment channels, but it does not define thresholded spectral and operator
-admissible sets. A constrained nonidentity admissible-set calculation remains
-the next planned bridge; Appendix~\ref{app:evidence-provenance} records that plan.
+or certificate. The paper therefore does not claim broad admissible-set
+instantiation at material-relevant complexity. M2 supplies a controlled
+multiband alignment and locality bridge with a known nonidentity attack and two
+explicit alignment channels, but it does not define thresholded spectral and
+operator admissible sets. M3 now supplies the narrower prospectively
+thresholded bridge: a two-parameter rank-two candidate family and nine finite
+one-global-rotation components with a common witness in one case and certified
+separation in another. This is not a general alignment solution.
+Appendix~\ref{app:evidence-provenance} records M3 as completed bounded evidence
+and separates it from the remaining planned extensions.
 
 \section{Results and Discussion}
 \label{sec:results}
@@ -468,6 +471,26 @@ $7.43\times10^{-15}$, below the frozen $10^{-11}$ tolerance. Supplementary
 Appendix~S3 gives the parent, sampling, alignment, transform, truncation,
 withheld, and provenance contracts. This bounded example establishes neither a
 general alignment optimizer nor material transferability.
+
+\subsection{M3 constrained admissible sets}
+\label{sec:m3-constrained-admissible-sets}
+
+M3 composes the frozen M2 baseline with a two-parameter candidate family and
+nine one-global-real-rotation components. Its thresholds are pedagogical
+benchmark controls selected from the known synthetic training geometry, not
+physical or uncertainty-calibrated tolerances. With spectral threshold $0.03$
+and operator threshold $0.33$, the frozen point $(0,1)$ is a common witness, so the
+retained compatible case has zero separation. Tightening only the operator
+threshold to $0.31$ gives a \texttt{certified-separated} case with equal
+analytic lower and constructive upper bounds $0.0994674$, above the
+prospectively frozen resolution $0.05$. The training quadratics determine the
+sets and certificate; 257 disjoint staggered evaluation coordinates remain
+diagnostic only. Independent library and standalone reconstruction defects are
+$1.33\times10^{-15}$ and $4.66\times10^{-15}$, below the frozen $10^{-11}$
+tolerance. Supplementary Appendix~S5 records the protocol amendments, finite
+certificate, locality diagnostics, and bounded evidence claim. This result is
+specific to the declared synthetic family, metric, thresholds, and finite
+alignment components.
 
 \subsection{Bridge to a Wannier90-selected frame}
 \label{sec:wannier90-bridge}
@@ -633,6 +656,9 @@ Matched construction routes
 Rank-two gauge attack
 & Invariant spectra can coexist with frame-dependent locality
 & General alignment or material validation \\
+M3 constrained admissible sets
+& A finite alignment family can retain a common witness or certified separation
+& Unrestricted alignment or material-level compatibility \\
 Direct admissible sets
 & Exact intersection and certified separation can both occur
 & Contract-independent compatibility \\
@@ -647,8 +673,10 @@ two-parameter calculation is a minimal analytic illustration that maps two
 quadratic sets, retains an exact intersection witness, and certifies a positive
 lower separation bound in the changed-training case. It does not itself exercise a
 nonidentity alignment or a multiband candidate. M2 supplies those controlled
-alignment and locality channels, but not thresholded multiband admissible sets
-or material-relevant parameter complexity. None of these records provides a
+alignment and locality channels but not thresholded admissible sets. M3
+supplies thresholded rank-two admissible sets for a bounded two-parameter,
+nine-component family, not material-relevant parameter complexity or an
+unrestricted alignment search. None of these records provides a
 three-dimensional material result.
 
 \section{Conclusions and Recommendations}
@@ -673,12 +701,12 @@ certified positive separation after the training domain changes. These are
 numerical-verification results for synthetic operators, not claims about a
 material or a broad multiband instantiation.
 
-M2 now bridges these roles with a rank-two candidate, a known nonidentity
-attack, exact pointwise recovery, and a distinct one-global-unitary constrained
-family. The next controlled calculation should add prospectively thresholded
-spectral and operator admissible sets and certified separation logic to this
-multiband setting. Until that case is completed, the direct map remains an
-illustration of decision logic rather than evidence that the full alignment
+M2 bridges these roles with a rank-two candidate, a known nonidentity attack,
+exact pointwise recovery, and a distinct one-global-unitary constrained family.
+M3 adds prospectively thresholded spectral and operator admissible sets, a
+common-witness case, and a positive analytic separation certificate in a frozen
+two-parameter, nine-component family. The direct map and M3 remain separate
+bounded demonstrations; neither establishes that an unrestricted alignment
 problem has been solved. A later first-principles silicon application must supply its own parent
 convergence, Wannier validation, symmetry alignment, thresholds, and withheld
 observables rather than inheriting acceptance or incompatibility from these toy
@@ -695,6 +723,8 @@ models.
 \input{appendices/S3-M2-multiband-alignment-calculation.tex}
 \clearpage
 \input{appendices/S4-Wannier90-bridge-calculation.tex}
+\clearpage
+\input{appendices/S5-M3-constrained-admissible-sets.tex}
 
 \section*{Nomenclature}
 \begin{table}[ht]
@@ -734,6 +764,8 @@ To be completed before submission.
 The controlled-model protocols, retained result records, verification code,
 figures, and checksum manifests are maintained in the project repository under
 \path{calculations/ICMSEP2026/conference/paper_1/isolated-band/},
+\path{calculations/ICMSEP2026/conference/paper_1/multiband-alignment/},
+\path{calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/},
 \path{calculations/research-monograph/periodic-2d/}, and
 \path{calculations/ICMSEP2026/conference/paper_1/}. These working repository
 records are not yet a public archival deposit or DOI.

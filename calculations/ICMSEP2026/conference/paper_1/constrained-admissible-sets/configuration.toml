@@ -1,0 +1,33 @@
+schema = "ksdft2effmass.periodic1d.constrained-admissible-set-configuration.v1"
+calculation_id = "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1"
+candidate_family = "trace-plus-energy-shift-and-positive-traceless-splitting-v1"
+parameter_order = ["energy_shift_ratio", "splitting_scale"]
+energy_shift_ratio_bounds = [-0.25, 0.25]
+splitting_scale_bounds = [0.4, 1.2]
+alignment_family = "finite-one-global-real-rotation-v1"
+alignment_angles = [-1.2, -0.9, -0.6, -0.3, 0.0, 0.3, 0.6, 0.9, 1.2]
+loss_normalization = "sqrt(sum-frobenius-squared/(N*rank))/scale"
+compatible_witness = [0.0, 1.0]
+locality_ranges = [0, 1, 2, 3, 4, 6, 8]
+separation_metric = "euclidean-parameter-distance"
+separation_resolution = 0.05
+quadratic_absolute_tolerance = 1e-12
+verification_absolute_tolerance = 1e-11
+
+[multiband_baseline]
+input_path = "calculations/ICMSEP2026/conference/paper_1/multiband-alignment/input.json"
+sha256 = "0db445f3df37f08661f6078a9595ef1646adf9b036c5f94da316255c431c26c9"
+
+[loss_energy_scale]
+magnitude = 1.0
+unit = "1"
+
+[compatible_thresholds]
+case_id = "compatible"
+spectral_rms_threshold = 0.03
+operator_rms_threshold = 0.33
+
+[separated_thresholds]
+case_id = "separated"
+spectral_rms_threshold = 0.03
+operator_rms_threshold = 0.31

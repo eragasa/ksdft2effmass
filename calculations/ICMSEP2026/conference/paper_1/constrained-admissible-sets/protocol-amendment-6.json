@@ -1,0 +1,38 @@
+{
+  "amended_at_utc": "2026-10-10T17:51:13Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Reconstruct the exact M2 withheld offset 1/(training_mesh_size+1).",
+    "Require the minimum cross-mesh distance to exceed the frozen coordinate tolerance.",
+    "Restore the accurate staggered-uniform-disjoint-v1 result label.",
+    "Correct README.md and generated report.md text before final regeneration."
+  ],
+  "corrected_files": [
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/serialization.py",
+      "sha256": "78752aceab5925671220f70769b4aec66b2fcbed8d8bd37ba7bf03318c1d7e21"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/verify_result.py",
+      "sha256": "6ad835a8c7bbac50a431736d23358d7fb4c775358e4843ded830e72d0a25a483"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/run.py",
+      "sha256": "30bfc4d7cb3df55ff69c772ca3374e4a9f6233ae21412005bb493b63ec66c0f7"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/README.md",
+      "sha256": "8c70930991c9a4cb1abfec1afb1fc51f7a08e96dabc53a01debe5c6928513ef1"
+    }
+  ],
+  "corrected_scientific_conclusion": "Training and evaluation coordinate supports are disjoint under the frozen M2 formula.",
+  "finding": "Protocol-amendment-3.json incorrectly diagnosed a shared k=0 because the standalone verifier used a half-step offset 0.5. The frozen M2 definition actually uses offset 1/(N+1), giving 257 evaluation coordinates disjoint from the 64 training coordinates. Protocol-amendment-5.json propagated that incorrect diagnosis into reporting.",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "withheld-mesh-reconstruction-correction-before-final-regeneration",
+  "supersedes_findings_in": [
+    "protocol-amendment-3.json",
+    "protocol-amendment-5.json"
+  ]
+}

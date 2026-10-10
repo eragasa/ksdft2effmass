@@ -1,0 +1,1976 @@
+{
+  "analysis_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.threshold-sensitivity.v1",
+  "compatibility_transition_operator_threshold": 0.3192641694835837,
+  "designed_markers": [
+    {
+      "active_alignment_angle": 0.3,
+      "exact_set_separation": 0.0994674010272163,
+      "operator_maximum_splitting_scale": 0.8360013041446829,
+      "operator_threshold": 0.31
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9354687051718994,
+      "operator_threshold": 0.3192641694835837
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0,
+      "operator_threshold": 0.32863189143488747
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0082085763558821,
+      "operator_threshold": 0.33
+    }
+  ],
+  "fixed_spectral_threshold": 0.03,
+  "interpretation": "Exact only for the frozen axis-aligned two-parameter quadratics, compact domain, fixed spectral threshold, and nine constant rotations.",
+  "minimum_feasible_operator_threshold": 0.3074197403161971,
+  "original_model_operator_threshold": 0.32863189143488747,
+  "resolution_crossing_operator_threshold": 0.3137907655062394,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-threshold-sensitivity-result.v1",
+  "separation_resolution": 0.05,
+  "source_result_path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/result.json",
+  "source_result_sha256": "9d95da829b84743386f627c32e9b4a740f2ff602d77a1ff225f295e17f98d2f9",
+  "spectral_minimum_splitting_scale": 0.9354687051718992,
+  "status": "post-hoc-exploratory-reanalysis",
+  "threshold_grid": [
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.1702120052711451,
+      "operator_maximum_splitting_scale": 0.7652566999007541,
+      "operator_threshold": 0.3075
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.16267480440289617,
+      "operator_maximum_splitting_scale": 0.772793900769003,
+      "operator_threshold": 0.3076
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.15708058862966112,
+      "operator_maximum_splitting_scale": 0.778388116542238,
+      "operator_threshold": 0.3077
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.15242284363276382,
+      "operator_maximum_splitting_scale": 0.7830458615391354,
+      "operator_threshold": 0.3078
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.14834598167717816,
+      "operator_maximum_splitting_scale": 0.787122723494721,
+      "operator_threshold": 0.3079
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.14467484611312376,
+      "operator_maximum_splitting_scale": 0.7907938590587754,
+      "operator_threshold": 0.308
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.14130780056855252,
+      "operator_maximum_splitting_scale": 0.7941609046033467,
+      "operator_threshold": 0.3081
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.13817964500468116,
+      "operator_maximum_splitting_scale": 0.797289060167218,
+      "operator_threshold": 0.3082
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.1352455920357457,
+      "operator_maximum_splitting_scale": 0.8002231131361535,
+      "operator_threshold": 0.3083
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.13247330412506975,
+      "operator_maximum_splitting_scale": 0.8029954010468294,
+      "operator_threshold": 0.3084
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.12983852835674214,
+      "operator_maximum_splitting_scale": 0.805630176815157,
+      "operator_threshold": 0.3085
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.1273225216526539,
+      "operator_maximum_splitting_scale": 0.8081461835192453,
+      "operator_threshold": 0.3086
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.12491044315482436,
+      "operator_maximum_splitting_scale": 0.8105582620170748,
+      "operator_threshold": 0.3087
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.1225903036607362,
+      "operator_maximum_splitting_scale": 0.812878401511163,
+      "operator_threshold": 0.3088
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.12035225292729823,
+      "operator_maximum_splitting_scale": 0.8151164522446009,
+      "operator_threshold": 0.3089
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.11818808082868337,
+      "operator_maximum_splitting_scale": 0.8172806243432158,
+      "operator_threshold": 0.309
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.1160908588074745,
+      "operator_maximum_splitting_scale": 0.8193778463644247,
+      "operator_threshold": 0.3091
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.11405467621369247,
+      "operator_maximum_splitting_scale": 0.8214140289582067,
+      "operator_threshold": 0.3092
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.11207444253433607,
+      "operator_maximum_splitting_scale": 0.8233942626375631,
+      "operator_threshold": 0.3093
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.11014573644070935,
+      "operator_maximum_splitting_scale": 0.8253229687311898,
+      "operator_threshold": 0.3094
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.10826468878099604,
+      "operator_maximum_splitting_scale": 0.8272040163909031,
+      "operator_threshold": 0.3095
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.10642789063026448,
+      "operator_maximum_splitting_scale": 0.8290408145416347,
+      "operator_threshold": 0.3096
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.10463232013590595,
+      "operator_maximum_splitting_scale": 0.8308363850359932,
+      "operator_threshold": 0.3097
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.102875283665947,
+      "operator_maximum_splitting_scale": 0.8325934215059522,
+      "operator_threshold": 0.3098
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.10115436798413824,
+      "operator_maximum_splitting_scale": 0.8343143371877609,
+      "operator_threshold": 0.3099
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.0994674010272163,
+      "operator_maximum_splitting_scale": 0.8360013041446829,
+      "operator_threshold": 0.31
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.09781241946571306,
+      "operator_maximum_splitting_scale": 0.8376562857061861,
+      "operator_threshold": 0.3101
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.09618764166728255,
+      "operator_maximum_splitting_scale": 0.8392810635046166,
+      "operator_threshold": 0.3102
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.09459144500199679,
+      "operator_maximum_splitting_scale": 0.8408772601699024,
+      "operator_threshold": 0.3103
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.09302234666665121,
+      "operator_maximum_splitting_scale": 0.842446358505248,
+      "operator_threshold": 0.3104
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.09147898738332305,
+      "operator_maximum_splitting_scale": 0.8439897177885761,
+      "operator_threshold": 0.3105
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.08996011746258348,
+      "operator_maximum_splitting_scale": 0.8455085877093157,
+      "operator_threshold": 0.3106
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.0884645848251785,
+      "operator_maximum_splitting_scale": 0.8470041203467207,
+      "operator_threshold": 0.3107
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.08699132465598902,
+      "operator_maximum_splitting_scale": 0.8484773805159102,
+      "operator_threshold": 0.3108
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.08553935042639194,
+      "operator_maximum_splitting_scale": 0.8499293547455072,
+      "operator_threshold": 0.3109
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.08410774607011573,
+      "operator_maximum_splitting_scale": 0.8513609591017834,
+      "operator_threshold": 0.311
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.0826956591364858,
+      "operator_maximum_splitting_scale": 0.8527730460354134,
+      "operator_threshold": 0.3111
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.08130229477585438,
+      "operator_maximum_splitting_scale": 0.8541664103960448,
+      "operator_threshold": 0.3112
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.07992691043684264,
+      "operator_maximum_splitting_scale": 0.8555417947350565,
+      "operator_threshold": 0.3113
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.07856881117507586,
+      "operator_maximum_splitting_scale": 0.8568998939968233,
+      "operator_threshold": 0.3114
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.07722734548937227,
+      "operator_maximum_splitting_scale": 0.8582413596825269,
+      "operator_threshold": 0.3115
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.07590190161468446,
+      "operator_maximum_splitting_scale": 0.8595668035572147,
+      "operator_threshold": 0.3116
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.07459190421200412,
+      "operator_maximum_splitting_scale": 0.860876800959895,
+      "operator_threshold": 0.3117
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.07329681140448818,
+      "operator_maximum_splitting_scale": 0.862171893767411,
+      "operator_threshold": 0.3118
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.07201611211655834,
+      "operator_maximum_splitting_scale": 0.8634525930553408,
+      "operator_threshold": 0.3119
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.0707493236789497,
+      "operator_maximum_splitting_scale": 0.8647193814929495,
+      "operator_threshold": 0.312
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.06949598966794424,
+      "operator_maximum_splitting_scale": 0.8659727155039549,
+      "operator_threshold": 0.3121
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.06825567795138776,
+      "operator_maximum_splitting_scale": 0.8672130272205114,
+      "operator_threshold": 0.3122
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.06702797891781032,
+      "operator_maximum_splitting_scale": 0.8684407262540889,
+      "operator_threshold": 0.3123
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.06581250386811466,
+      "operator_maximum_splitting_scale": 0.8696562013037845,
+      "operator_threshold": 0.3124
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.06460888355194416,
+      "operator_maximum_splitting_scale": 0.870859821619955,
+      "operator_threshold": 0.3125
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.06341676683315356,
+      "operator_maximum_splitting_scale": 0.8720519383387456,
+      "operator_threshold": 0.3126
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.0622358194707191,
+      "operator_maximum_splitting_scale": 0.8732328857011801,
+      "operator_threshold": 0.3127
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.061065723003121075,
+      "operator_maximum_splitting_scale": 0.8744029821687781,
+      "operator_threshold": 0.3128
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.059906173725663314,
+      "operator_maximum_splitting_scale": 0.8755625314462359,
+      "operator_threshold": 0.3129
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.05875688175143645,
+      "operator_maximum_splitting_scale": 0.8767118234204627,
+      "operator_threshold": 0.313
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.057617570147718955,
+      "operator_maximum_splitting_scale": 0.8778511350241802,
+      "operator_threshold": 0.3131
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.05648797414053719,
+      "operator_maximum_splitting_scale": 0.878980731031362,
+      "operator_threshold": 0.3132
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.05536784038092135,
+      "operator_maximum_splitting_scale": 0.8801008647909778,
+      "operator_threshold": 0.3133
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.05425692626711354,
+      "operator_maximum_splitting_scale": 0.8812117789047856,
+      "operator_threshold": 0.3134
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.05315499931759404,
+      "operator_maximum_splitting_scale": 0.8823137058543051,
+      "operator_threshold": 0.3135
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.05206183659035146,
+      "operator_maximum_splitting_scale": 0.8834068685815477,
+      "operator_threshold": 0.3136
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "certified-separated",
+      "exact_set_separation": 0.050977224144294175,
+      "operator_maximum_splitting_scale": 0.884491481027605,
+      "operator_threshold": 0.3137
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.04990095653912241,
+      "operator_maximum_splitting_scale": 0.8855677486327768,
+      "operator_threshold": 0.3138
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.048832836370363064,
+      "operator_maximum_splitting_scale": 0.8866358688015361,
+      "operator_threshold": 0.3139
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.04777267383658279,
+      "operator_maximum_splitting_scale": 0.8876960313353164,
+      "operator_threshold": 0.314
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.04672028633611125,
+      "operator_maximum_splitting_scale": 0.8887484188357879,
+      "operator_threshold": 0.3141
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.045675498090842814,
+      "operator_maximum_splitting_scale": 0.8897932070810564,
+      "operator_threshold": 0.3142
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.044638139794930365,
+      "operator_maximum_splitting_scale": 0.8908305653769688,
+      "operator_threshold": 0.3143
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.043608048286391754,
+      "operator_maximum_splitting_scale": 0.8918606568855074,
+      "operator_threshold": 0.3144
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.04258506623981895,
+      "operator_maximum_splitting_scale": 0.8928836389320802,
+      "operator_threshold": 0.3145
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.041569041878567914,
+      "operator_maximum_splitting_scale": 0.8938996632933313,
+      "operator_threshold": 0.3146
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.04055982870493091,
+      "operator_maximum_splitting_scale": 0.8949088764669683,
+      "operator_threshold": 0.3147
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.039557285246944685,
+      "operator_maximum_splitting_scale": 0.8959114199249545,
+      "operator_threshold": 0.3148
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03856127482059335,
+      "operator_maximum_splitting_scale": 0.8969074303513058,
+      "operator_threshold": 0.3149
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03757166530627665,
+      "operator_maximum_splitting_scale": 0.8978970398656225,
+      "operator_threshold": 0.315
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03658832893851771,
+      "operator_maximum_splitting_scale": 0.8988803762333815,
+      "operator_threshold": 0.3151
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03561114210795702,
+      "operator_maximum_splitting_scale": 0.8998575630639422,
+      "operator_threshold": 0.3152
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03463998517477174,
+      "operator_maximum_splitting_scale": 0.9008287199971274,
+      "operator_threshold": 0.3153
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03367474229272449,
+      "operator_maximum_splitting_scale": 0.9017939628791747,
+      "operator_threshold": 0.3154
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03271530124310673,
+      "operator_maximum_splitting_scale": 0.9027534039287924,
+      "operator_threshold": 0.3155
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03176155327790964,
+      "operator_maximum_splitting_scale": 0.9037071518939895,
+      "operator_threshold": 0.3156
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.03081339297160335,
+      "operator_maximum_splitting_scale": 0.9046553122002958,
+      "operator_threshold": 0.3157
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.02987071808095043,
+      "operator_maximum_splitting_scale": 0.9055979870909487,
+      "operator_threshold": 0.3158
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0289334294123339,
+      "operator_maximum_splitting_scale": 0.9065352757595653,
+      "operator_threshold": 0.3159
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.028001430696103502,
+      "operator_maximum_splitting_scale": 0.9074672744757957,
+      "operator_threshold": 0.316
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.02707462846750408,
+      "operator_maximum_splitting_scale": 0.9083940767043951,
+      "operator_threshold": 0.3161
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.026152931953760117,
+      "operator_maximum_splitting_scale": 0.9093157732181391,
+      "operator_threshold": 0.3162
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.025236252966936434,
+      "operator_maximum_splitting_scale": 0.9102324522049627,
+      "operator_threshold": 0.3163
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.024324505802217566,
+      "operator_maximum_splitting_scale": 0.9111441993696816,
+      "operator_threshold": 0.3164
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.023417607141270613,
+      "operator_maximum_splitting_scale": 0.9120510980306286,
+      "operator_threshold": 0.3165
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.022515475960392384,
+      "operator_maximum_splitting_scale": 0.9129532292115068,
+      "operator_threshold": 0.3166
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0216180334431475,
+      "operator_maximum_splitting_scale": 0.9138506717287517,
+      "operator_threshold": 0.3167
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.020725202897233896,
+      "operator_maximum_splitting_scale": 0.9147435022746653,
+      "operator_threshold": 0.3168
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.01983690967533336,
+      "operator_maximum_splitting_scale": 0.9156317954965658,
+      "operator_threshold": 0.3169
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.018953081099705282,
+      "operator_maximum_splitting_scale": 0.9165156240721939,
+      "operator_threshold": 0.317
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.018073646390322273,
+      "operator_maximum_splitting_scale": 0.9173950587815769,
+      "operator_threshold": 0.3171
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.017198536596336633,
+      "operator_maximum_splitting_scale": 0.9182701685755625,
+      "operator_threshold": 0.3172
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.01632768453069644,
+      "operator_maximum_splitting_scale": 0.9191410206412027,
+      "operator_threshold": 0.3173
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.015461024707735471,
+      "operator_maximum_splitting_scale": 0.9200076804641637,
+      "operator_threshold": 0.3174
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.014598493283568104,
+      "operator_maximum_splitting_scale": 0.9208702118883311,
+      "operator_threshold": 0.3175
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.013740027999145088,
+      "operator_maximum_splitting_scale": 0.9217286771727541,
+      "operator_threshold": 0.3176
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0128855681258212,
+      "operator_maximum_splitting_scale": 0.922583137046078,
+      "operator_threshold": 0.3177
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.012035054413299884,
+      "operator_maximum_splitting_scale": 0.9234336507585993,
+      "operator_threshold": 0.3178
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.01118842903983519,
+      "operator_maximum_splitting_scale": 0.924280276132064,
+      "operator_threshold": 0.3179
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.010345635564562472,
+      "operator_maximum_splitting_scale": 0.9251230696073367,
+      "operator_threshold": 0.318
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.009506618881860218,
+      "operator_maximum_splitting_scale": 0.925962086290039,
+      "operator_threshold": 0.3181
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.00867132517762681,
+      "operator_maximum_splitting_scale": 0.9267973799942724,
+      "operator_threshold": 0.3182
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.007839701887382367,
+      "operator_maximum_splitting_scale": 0.9276290032845168,
+      "operator_threshold": 0.3183
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0070116976561019895,
+      "operator_maximum_splitting_scale": 0.9284570075157972,
+      "operator_threshold": 0.3184
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.006187262299688023,
+      "operator_maximum_splitting_scale": 0.9292814428722111,
+      "operator_threshold": 0.3185
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0053663467680112875,
+      "operator_maximum_splitting_scale": 0.9301023584038879,
+      "operator_threshold": 0.3186
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0045489031094329,
+      "operator_maximum_splitting_scale": 0.9309198020624663,
+      "operator_threshold": 0.3187
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.003734884436742192,
+      "operator_maximum_splitting_scale": 0.931733820735157,
+      "operator_threshold": 0.31880000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.002924244894440098,
+      "operator_maximum_splitting_scale": 0.9325444602774591,
+      "operator_threshold": 0.3189
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.002116939627299974,
+      "operator_maximum_splitting_scale": 0.9333517655445992,
+      "operator_threshold": 0.319
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0013129247501527663,
+      "operator_maximum_splitting_scale": 0.9341557804217464,
+      "operator_threshold": 0.3191
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "positive-separation-below-resolution",
+      "exact_set_separation": 0.0005121573188324735,
+      "operator_maximum_splitting_scale": 0.9349565478530667,
+      "operator_threshold": 0.3192
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9357541098696689,
+      "operator_threshold": 0.31930000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9365485076164907,
+      "operator_threshold": 0.3194
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9373397813781805,
+      "operator_threshold": 0.3195
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9381279706040133,
+      "operator_threshold": 0.3196
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9389131139318855,
+      "operator_threshold": 0.3197
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.939695249211436,
+      "operator_threshold": 0.31980000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9404744135263218,
+      "operator_threshold": 0.3199
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9412506432156982,
+      "operator_threshold": 0.32
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9420239738949249,
+      "operator_threshold": 0.3201
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9427944404755423,
+      "operator_threshold": 0.3202
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9435620771845431,
+      "operator_threshold": 0.32030000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9443269175829703,
+      "operator_threshold": 0.3204
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9450889945838752,
+      "operator_threshold": 0.3205
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9458483404696532,
+      "operator_threshold": 0.3206
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9466049869087912,
+      "operator_threshold": 0.3207
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9473589649720473,
+      "operator_threshold": 0.32080000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9481103051480849,
+      "operator_threshold": 0.3209
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9488590373585897,
+      "operator_threshold": 0.321
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9496051909728821,
+      "operator_threshold": 0.3211
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9503487948220504,
+      "operator_threshold": 0.3212
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9510898772126246,
+      "operator_threshold": 0.32130000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9518284659398031,
+      "operator_threshold": 0.3214
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9525645883002591,
+      "operator_threshold": 0.3215
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9532982711045349,
+      "operator_threshold": 0.3216
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9540295406890426,
+      "operator_threshold": 0.3217
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9547584229276893,
+      "operator_threshold": 0.32180000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9554849432431356,
+      "operator_threshold": 0.3219
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9562091266177087,
+      "operator_threshold": 0.322
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9569309976039743,
+      "operator_threshold": 0.3221
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9576505803349875,
+      "operator_threshold": 0.3222
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9583678985342318,
+      "operator_threshold": 0.32230000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.959082975525254,
+      "operator_threshold": 0.3224
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9597958342410166,
+      "operator_threshold": 0.3225
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9605064972329641,
+      "operator_threshold": 0.3226
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9612149866798259,
+      "operator_threshold": 0.3227
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9619213243961571,
+      "operator_threshold": 0.32280000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9626255318406296,
+      "operator_threshold": 0.3229
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9633276301240854,
+      "operator_threshold": 0.323
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9640276400173535,
+      "operator_threshold": 0.3231
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9647255819588443,
+      "operator_threshold": 0.3232
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9654214760619283,
+      "operator_threshold": 0.32330000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9661153421221028,
+      "operator_threshold": 0.3234
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9668071996239618,
+      "operator_threshold": 0.3235
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9674970677479657,
+      "operator_threshold": 0.3236
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9681849653770264,
+      "operator_threshold": 0.3237
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9688709111029083,
+      "operator_threshold": 0.32380000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9695549232324543,
+      "operator_threshold": 0.3239
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9702370197936425,
+      "operator_threshold": 0.324
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9709172185414784,
+      "operator_threshold": 0.3241
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9715955369637255,
+      "operator_threshold": 0.3242
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9722719922864871,
+      "operator_threshold": 0.32430000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9729466014796336,
+      "operator_threshold": 0.3244
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9736193812620924,
+      "operator_threshold": 0.3245
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9742903481069926,
+      "operator_threshold": 0.3246
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9749595182466784,
+      "operator_threshold": 0.3247
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9756269076775914,
+      "operator_threshold": 0.32480000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9762925321650241,
+      "operator_threshold": 0.3249
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9769564072477559,
+      "operator_threshold": 0.325
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9776185482425654,
+      "operator_threshold": 0.3251
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9782789702486312,
+      "operator_threshold": 0.3252
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9789376881518196,
+      "operator_threshold": 0.32530000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9795947166288644,
+      "operator_threshold": 0.3254
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9802500701514439,
+      "operator_threshold": 0.3255
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9809037629901545,
+      "operator_threshold": 0.3256
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9815558092183863,
+      "operator_threshold": 0.3257
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9822062227161044,
+      "operator_threshold": 0.32580000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9828550171735349,
+      "operator_threshold": 0.3259
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.983502206094766,
+      "operator_threshold": 0.326
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9841478028012564,
+      "operator_threshold": 0.3261
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9847918204352626,
+      "operator_threshold": 0.3262
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9854342719631837,
+      "operator_threshold": 0.32630000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.986075170178824,
+      "operator_threshold": 0.3264
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9867145277065824,
+      "operator_threshold": 0.3265
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9873523570045634,
+      "operator_threshold": 0.3266
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9879886703676155,
+      "operator_threshold": 0.3267
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9886234799303,
+      "operator_threshold": 0.32680000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9892567976697888,
+      "operator_threshold": 0.3269
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9898886354086983,
+      "operator_threshold": 0.327
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9905190048178546,
+      "operator_threshold": 0.3271
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9911479174189983,
+      "operator_threshold": 0.3272
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9917753845874262,
+      "operator_threshold": 0.32730000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9924014175545727,
+      "operator_threshold": 0.3274
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.993026027410536,
+      "operator_threshold": 0.3275
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9936492251065439,
+      "operator_threshold": 0.3276
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9942710214573669,
+      "operator_threshold": 0.3277
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9948914271436774,
+      "operator_threshold": 0.32780000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9955104527143556,
+      "operator_threshold": 0.3279
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9961281085887467,
+      "operator_threshold": 0.328
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9967444050588676,
+      "operator_threshold": 0.3281
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9973593522915647,
+      "operator_threshold": 0.3282
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9979729603306275,
+      "operator_threshold": 0.32830000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9985852390988526,
+      "operator_threshold": 0.3284
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9991961984000681,
+      "operator_threshold": 0.3285
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 0.9998058479211118,
+      "operator_threshold": 0.3286
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0004141972337677,
+      "operator_threshold": 0.3287
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0010212557966622,
+      "operator_threshold": 0.32880000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0016270329571193,
+      "operator_threshold": 0.3289
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.002231537952979,
+      "operator_threshold": 0.329
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0028347799143755,
+      "operator_threshold": 0.3291
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0034367678654796,
+      "operator_threshold": 0.3292
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0040375107262052,
+      "operator_threshold": 0.32930000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0046370173138788,
+      "operator_threshold": 0.3294
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0052352963448787,
+      "operator_threshold": 0.3295
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0058323564362375,
+      "operator_threshold": 0.3296
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0064282061072118,
+      "operator_threshold": 0.3297
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0070228537808235,
+      "operator_threshold": 0.32980000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0076163077853657,
+      "operator_threshold": 0.3299
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0082085763558821,
+      "operator_threshold": 0.33
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0087996676356161,
+      "operator_threshold": 0.3301
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.009389589677429,
+      "operator_threshold": 0.3302
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0099783504451922,
+      "operator_threshold": 0.33030000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0105659578151516,
+      "operator_threshold": 0.3304
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0111524195772654,
+      "operator_threshold": 0.3305
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0117377434365156,
+      "operator_threshold": 0.3306
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0123219370141927,
+      "operator_threshold": 0.3307
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0129050078491595,
+      "operator_threshold": 0.33080000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0134869633990844,
+      "operator_threshold": 0.3309
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.014067811041657,
+      "operator_threshold": 0.331
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0146475580757777,
+      "operator_threshold": 0.3311
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0152262117227242,
+      "operator_threshold": 0.3312
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0158037791272974,
+      "operator_threshold": 0.33130000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0163802673589435,
+      "operator_threshold": 0.33140000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.016955683412859,
+      "operator_threshold": 0.3315
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0175300342110711,
+      "operator_threshold": 0.3316
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0181033266034982,
+      "operator_threshold": 0.3317
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0186755673689951,
+      "operator_threshold": 0.33180000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.019246763216372,
+      "operator_threshold": 0.33190000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0198169207854013,
+      "operator_threshold": 0.332
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0203860466478023,
+      "operator_threshold": 0.3321
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0209541473082082,
+      "operator_threshold": 0.3322
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.021521229205117,
+      "operator_threshold": 0.33230000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0220872987118228,
+      "operator_threshold": 0.33240000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0226523621373338,
+      "operator_threshold": 0.3325
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.02321642572727,
+      "operator_threshold": 0.3326
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0237794956647477,
+      "operator_threshold": 0.3327
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0243415780712475,
+      "operator_threshold": 0.33280000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.024902679007464,
+      "operator_threshold": 0.33290000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0254628044741467,
+      "operator_threshold": 0.333
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.02602196041292,
+      "operator_threshold": 0.3331
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.026580152707092,
+      "operator_threshold": 0.3332
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0271373871824485,
+      "operator_threshold": 0.33330000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.027693669608032,
+      "operator_threshold": 0.33340000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0282490056969107,
+      "operator_threshold": 0.3335
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.028803401106929,
+      "operator_threshold": 0.3336
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0293568614414499,
+      "operator_threshold": 0.3337
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0299093922500822,
+      "operator_threshold": 0.33380000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.030460999029394,
+      "operator_threshold": 0.33390000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0310116872236197,
+      "operator_threshold": 0.334
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0315614622253464,
+      "operator_threshold": 0.3341
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.032110329376197,
+      "operator_threshold": 0.3342
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0326582939674978,
+      "operator_threshold": 0.33430000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0332053612409322,
+      "operator_threshold": 0.33440000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0337515363891907,
+      "operator_threshold": 0.3345
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0342968245566042,
+      "operator_threshold": 0.3346
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0348412308397683,
+      "operator_threshold": 0.3347
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0353847602881587,
+      "operator_threshold": 0.33480000000000004
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0359274179047333,
+      "operator_threshold": 0.33490000000000003
+    },
+    {
+      "active_alignment_angle": 0.3,
+      "disposition": "compatible-witness",
+      "exact_set_separation": 0.0,
+      "operator_maximum_splitting_scale": 1.0364692086465292,
+      "operator_threshold": 0.335
+    }
+  ],
+  "transition_alignment_angle": 0.3
+}

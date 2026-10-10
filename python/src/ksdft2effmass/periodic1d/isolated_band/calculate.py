@@ -62,7 +62,34 @@ class Periodic1DIsolatedBandCalculator:
     def execute(
         self, definition: Periodic1DIsolatedBandCalculationDefinition
     ) -> Periodic1DIsolatedBandCalculationResult:
-        """Calculate parent refinement and scalar hopping-reduction channels."""
+        """Calculate the frozen parent, transform, and finite-range channels.
+
+        Parameters
+        ----------
+        definition
+            Exact immutable M1 controls.  Reduced momenta are dimensionless;
+            reciprocal coordinates and all energy quantities retain the units declared
+            by ``definition.parent_model``.
+
+        Returns
+        -------
+        ksdft2effmass.periodic1d.isolated_band.results.Periodic1DIsolatedBandCalculationResult
+            Correlated parent-refinement, training/evaluation, complete-transform,
+            Hermiticity, and range-resolved evidence.
+
+        Raises
+        ------
+        TypeError
+            If ``definition`` is not the exact M1 definition type.
+        ValueError
+            If a composed numerical action detects inconsistent coordinates, units,
+            state spaces, ranges, or tolerances.
+
+        Notes
+        -----
+        The staggered evaluation mesh is diagnostic only.  It cannot alter the
+        complete transform, the direct fit, the declared ranges, or any tolerance.
+        """
         if type(definition) is not Periodic1DIsolatedBandCalculationDefinition:
             raise TypeError(
                 "definition must be Periodic1DIsolatedBandCalculationDefinition"
@@ -171,6 +198,12 @@ class Periodic1DIsolatedBandCalculator:
         transform: ReciprocalOperatorFourierTransformResult1D,
         maximum_range: int,
     ) -> Periodic1DIsolatedBandRangeResult:
+        """Construct both finite-range routes and their diagnostics at one range.
+
+        The mediated route truncates the complete Fourier representation.  The direct
+        route fits the same representatives to training samples.  Both routes are
+        evaluated against common training and staggered-evaluation targets.
+        """
         if type(transform) is not ReciprocalOperatorFourierTransformResult1D:
             raise TypeError(
                 "transform must be ReciprocalOperatorFourierTransformResult1D"
@@ -236,6 +269,12 @@ class Periodic1DIsolatedBandCalculator:
         coordinates: VectorQuantity,
         band_count: int,
     ) -> BandSpectrumSamples1D:
+        """Diagonalize the Fourier parent in one finite plane-wave basis.
+
+        ``coordinates`` carry the model reciprocal-vector unit.  Returned eigenvalues
+        are ascending and retain the recoil-energy unit.  The finite cutoff is a
+        discretization control, not a continuum claim.
+        """
         model = definition.parent_model
         reduced = coordinates.magnitude / model.reciprocal_vector.magnitude
         basis = PlaneWaveBasis1D(model.reciprocal_vector, cutoff)
@@ -268,6 +307,11 @@ class Periodic1DIsolatedBandCalculator:
         coordinates: VectorQuantity,
         band_count: int,
     ) -> BandSpectrumSamples1D:
+        """Diagonalize the Fourier parent on one periodic coordinate grid.
+
+        A deterministic normalized starting vector is supplied to ``eigsh``.  Returned
+        eigenvalues are sorted and carry the parent recoil-energy unit.
+        """
         model = definition.parent_model
         grid = PeriodicUniformGrid1D(
             ScalarQuantity(0.0, model.potential.period.unit),
@@ -308,6 +352,7 @@ class Periodic1DIsolatedBandCalculator:
         definition: Periodic1DIsolatedBandCalculationDefinition,
         reduced: np.ndarray,
     ) -> VectorQuantity:
+        """Convert dimensionless reduced momenta to physical reciprocal coordinates."""
         if type(reduced) is not np.ndarray or reduced.dtype != np.float64:
             raise TypeError("reduced momenta must be a float64 numpy.ndarray")
         model = definition.parent_model
@@ -321,6 +366,7 @@ class Periodic1DIsolatedBandCalculator:
         candidate: BandSpectrumSamples1D,
         reference: BandSpectrumSamples1D,
     ) -> ScalarQuantity:
+        """Return the maximum absolute eigenvalue defect in the common energy unit."""
         if candidate.eigenvalues.unit != reference.eigenvalues.unit:
             raise ValueError("candidate and reference spectra must use one energy unit")
         error = float(
@@ -335,6 +381,7 @@ class Periodic1DIsolatedBandCalculator:
     def _scalar_operator_samples(
         self, spectrum: BandSpectrumSamples1D
     ) -> ReciprocalOperatorSamples1D:
+        """Embed a scalar band path as identified ``1 x 1`` operator samples."""
         if spectrum.band_count != 1:
             raise ValueError("scalar operator samples require exactly one band")
         return ReciprocalOperatorSamples1D(

@@ -26,12 +26,28 @@ SCHEMA_ID = "ksdft2effmass.periodic1d.multiband-alignment-calculation-result.v1"
 class Periodic1DMultibandAlignmentResultJsonSerializer(
     JsonSerializer[Periodic1DMultibandAlignmentCalculationResult, bytes]
 ):
-    """Encode M2 without reusing historical periodic-campaign identities."""
+    """Encode the complete M2 result under its distinct schema-v1 identity.
+
+    The document preserves parent and attack controls, sample roles, invariant and
+    frame-dependent diagnostics, three complete transforms, Hermiticity, finite-range
+    locality, and explicit scope exclusions.  Serialization owns wire mechanics only.
+    """
 
     __slots__ = ()
 
     def serialize(self, record: Periodic1DMultibandAlignmentCalculationResult) -> bytes:
-        """Return canonical UTF-8 JSON bytes terminated by one newline."""
+        """Return one exact M2 result as canonical finite UTF-8 JSON.
+
+        Parameters
+        ----------
+        record
+            Exact correlated M2 result; no value is recomputed during encoding.
+
+        Returns
+        -------
+        bytes
+            Sorted compact schema-v1 JSON with one terminal newline.
+        """
         if type(record) is not Periodic1DMultibandAlignmentCalculationResult:
             raise TypeError(
                 "record must be Periodic1DMultibandAlignmentCalculationResult"
@@ -50,6 +66,7 @@ class Periodic1DMultibandAlignmentResultJsonSerializer(
     def _document(
         self, record: Periodic1DMultibandAlignmentCalculationResult
     ) -> dict[str, JsonValue]:
+        """Build the complete M2 schema-v1 JSON value tree."""
         definition = record.definition
         model = definition.parent_model
         parent = model.hopping_model
@@ -169,6 +186,7 @@ class Periodic1DMultibandAlignmentResultJsonSerializer(
         transform: ReciprocalOperatorFourierTransformResult1D,
         hermiticity: BlockHoppingHermiticityResult1D,
     ) -> dict[str, JsonValue]:
+        """Encode one complete gauge-resolved transform and its Hermiticity."""
         model = transform.hopping_model
         return {
             "representatives": list(model.representatives),
@@ -196,6 +214,7 @@ class Periodic1DMultibandAlignmentResultJsonSerializer(
     def _range(
         self, result: Periodic1DMultibandAlignmentRangeResult
     ) -> dict[str, JsonValue]:
+        """Encode all three gauge channels at one finite range."""
         return {
             "maximum_range": result.maximum_range,
             "reference": self._range_channel(
@@ -221,6 +240,7 @@ class Periodic1DMultibandAlignmentResultJsonSerializer(
         training_error: ScalarQuantity,
         withheld_error: ScalarQuantity,
     ) -> dict[str, JsonValue]:
+        """Encode locality and training/evaluation errors for one gauge channel."""
         return {
             "omitted_block_l2_norm": {
                 "magnitude": omitted_norm,
@@ -238,6 +258,7 @@ class Periodic1DMultibandAlignmentResultJsonSerializer(
 
     @staticmethod
     def _spectrum(spectrum: BandSpectrumSamples1D) -> dict[str, JsonValue]:
+        """Encode an identified spectrum with coordinate and energy units."""
         return {
             "coordinates": {
                 "magnitude": spectrum.coordinates.magnitude.tolist(),
@@ -255,6 +276,7 @@ class Periodic1DMultibandAlignmentResultJsonSerializer(
 
     @staticmethod
     def _quantity(quantity: ScalarQuantity) -> dict[str, JsonValue]:
+        """Encode one scalar quantity with its unit expression."""
         return {
             "magnitude": quantity.magnitude,
             "unit": quantity.unit.expression,
@@ -262,10 +284,12 @@ class Periodic1DMultibandAlignmentResultJsonSerializer(
 
     @staticmethod
     def _scalar(magnitude: float, unit: str) -> dict[str, JsonValue]:
+        """Encode a scalar and explicit wire-unit expression."""
         return {"magnitude": magnitude, "unit": unit}
 
     @staticmethod
     def _complex_matrix(matrix: ComplexMatrixQuantity) -> dict[str, JsonValue]:
+        """Encode a complex matrix as ordered real/imaginary pairs."""
         return {
             "magnitude": [
                 [[float(value.real), float(value.imag)] for value in row]

@@ -11,6 +11,7 @@ public compatibility contract.
    solid-state
    analysis
    model-systems
+   controlled-periodic-studies
    research-monograph-campaigns
    serialization
    application

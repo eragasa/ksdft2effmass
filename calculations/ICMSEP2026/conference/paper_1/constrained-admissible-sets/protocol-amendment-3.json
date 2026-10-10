@@ -1,0 +1,30 @@
+{
+  "amended_at_utc": "2026-10-10T17:44:18Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Replace the false M3 output label staggered-uniform-disjoint-v1 with staggered-uniform-v1.",
+    "Require exactly the observed singleton coordinate overlap {0.0} while preserving strict training/evaluation role separation.",
+    "Align standalone checks with the producer channel_id and evaluation-role wire identities."
+  ],
+  "corrected_sources": [
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/serialization.py",
+      "sha256": "5000bdbff07963543c4ef0ee72f026c3ae5e44b372dbccab90a7d3b0ab550373"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/verify_result.py",
+      "sha256": "0db04528209e4d74c3a4a3a74798e8598d3656e34151133f04cde07157d2cfc9"
+    }
+  ],
+  "failed_attempt": {
+    "result_sha256": "9d95da829b84743386f627c32e9b4a740f2ff602d77a1ff225f295e17f98d2f9",
+    "retained_as_passing_evidence": false,
+    "standalone_verification_completed": false
+  },
+  "finding": "The inherited 64-point training mesh and half-step 257-point evaluation mesh share k=0 exactly. Their roles are separated, but their coordinate supports are not fully disjoint. The second standalone attempt correctly exposed the false disjoint-support assertion before producing passing independent evidence. Static review also found stale expected channel and evaluation-role identities in the verifier.",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "scientific_limitation": "The 257-point evaluation includes one coordinate also present in training; evaluation values remain unable to alter models, frames, thresholds, witnesses, certificates, ranges, or dispositions.",
+  "status": "coordinate-support-and-verifier-identity-amendment-before-replacement-execution"
+}

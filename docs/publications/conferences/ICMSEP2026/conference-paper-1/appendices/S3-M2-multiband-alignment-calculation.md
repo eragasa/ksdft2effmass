@@ -78,9 +78,25 @@ block-Hermiticity defect is `4.50e-17`.
 | 4 | `1.75e-9` | `8.28e-3` | `2.49e-9` | `6.43e-3` | `2.49e-9` |
 | 8 | `1.63e-14` | `5.65e-5` | `1.15e-14` | `7.04e-5` | `1.15e-14` |
 
-The known periodic attack redistributes invariant spectral information into a
-longer hopping tail. Withheld values evaluate only fixed models; they cannot
-change controls or figure selection.
+In the attacked frame,
+
+\[
+\widetilde H(k)=A(k)^\dagger H(k)A(k).
+\]
+
+If `H(k)` and `A(k)` have Fourier coefficients `T_R` and `A_m`, respectively,
+then
+
+\[
+\widetilde T_Q=\sum_{m,n}A_m^\dagger T_{Q+m-n}A_n.
+\]
+
+A momentum-dependent unitary therefore mixes hopping coefficients across
+ranges, whereas a constant unitary only conjugates each block. Spectral and
+projector agreement do not protect finite-range tight-binding locality or
+compressibility. The known periodic attack redistributes invariant spectral
+information into a longer hopping tail. Withheld values evaluate only fixed
+models; they cannot change controls or figure selection.
 
 ![M2 summary](../../../../../../../calculations/ICMSEP2026/conference/paper_1/multiband-alignment/multiband-alignment-summary.png)
 

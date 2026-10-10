@@ -1,0 +1,567 @@
+\chapter{Hermitian Eigensystems and Spectral Subspaces}
+\index{eigensystem|textbf}
+\index{Hermitian matrix|textbf}
+\index{spectral theorem|textbf}
+\index{eigenspace|textbf}
+
+\label{ch:training-hermitian-eigensystems}
+
+\chapterstatus{pedagogical finite-dimensional foundation. All matrices and
+numerical examples are synthetic. This chapter establishes no material result,
+discretization-convergence claim, scientific validation, or uncertainty
+quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish an eigenpair, spectrum, eigenspace, assembled eigensystem,
+        and spectral decomposition;
+  \item explain why Hermitian matrices have real eigenvalues and orthogonal
+        eigenspaces;
+  \item derive a small characteristic equation without mistaking it for a
+        production numerical algorithm;
+  \item interpret degeneracy through invariant subspaces and spectral
+        projectors rather than arbitrary eigenvector columns;
+  \item use the Rayleigh quotient to characterize extreme eigenvalues; and
+  \item verify a computed Hermitian eigensystem with residual, orthogonality,
+        and reconstruction diagnostics.
+\end{enumerate}
+
+Chapter~\ref{ch:training-finite-representations} distinguished a linear map
+from its matrix in a selected basis. We now ask when a basis can be chosen so
+that a matrix acts by separately scaling its basis vectors. That question is
+central to the monograph: finite Hamiltonians are diagonalized, low-energy
+spaces are retained, Bloch bands are assembled from fiber eigenvalues, and
+composite frames are compared through their subspaces rather than through
+arbitrary raw columns.
+
+\section{Eigenpairs are invariant-line statements}
+\index{eigenvalue}
+\index{eigenvector}
+\index{spectrum}
+
+Let
+\begin{equation}
+  H\in\mathbb C^{N\times N}.
+\end{equation}
+An \emph{eigenpair} consists of a scalar \(\lambda\in\mathbb C\) and a nonzero
+vector \(\mathbf v\in\mathbb C^N\) satisfying
+\begin{equation}
+  H\mathbf v=\lambda\mathbf v,
+  \qquad
+  \mathbf v\neq\mathbf 0.
+  \label{eq:training-eigenpair}
+\end{equation}
+The line spanned by \(\mathbf v\) is invariant under \(H\): applying \(H\)
+keeps the result on that line. Saying that the ``direction does not change'' is
+less precise because a negative real eigenvalue reverses an oriented vector,
+and a complex eigenvalue changes its phase.
+
+Several related terms should not be conflated.
+
+\begin{description}
+  \item[Eigenvalue.] One scalar \(\lambda\) satisfying
+        Equation~\eqref{eq:training-eigenpair} for at least one nonzero vector.
+  \item[Eigenvector.] One nonzero vector associated with that eigenvalue.
+  \item[Eigenspace.] The complete null space
+        \(\ker(H-\lambda I_N)\), including the zero vector.
+  \item[Spectrum.] The collection of eigenvalues, counted with a declared
+        multiplicity convention when needed.
+  \item[Assembled eigensystem.] Eigenvalues and selected eigenvector columns,
+        together with their ordering and normalization conventions.
+  \item[Spectral decomposition.] A representation of the matrix in terms of
+        its eigenvalues and invariant spectral projectors.
+\end{description}
+
+A general square matrix need not have an orthonormal eigenbasis and may even be
+defective. The remainder of this chapter concerns Hermitian matrices, for
+which a much stronger theorem is available.
+
+\section{Why Hermiticity changes the problem}
+\index{Hermitian matrix}
+\index{self-adjoint matrix}
+
+A complex matrix is Hermitian when
+\begin{equation}
+  H=H^{\dagger},
+  \label{eq:training-hermitian-definition}
+\end{equation}
+where \(\dagger\) denotes conjugate transpose. A real symmetric matrix,
+\(H=H^{\mathsf T}\), is the real-valued special case.
+
+Suppose \((\lambda,\mathbf v)\) is an eigenpair of a Hermitian matrix. Using an
+inner product that is conjugate-linear in its first argument,
+\begin{equation}
+  \langle\mathbf v,H\mathbf v\rangle
+  =\lambda\langle\mathbf v,\mathbf v\rangle.
+\end{equation}
+Hermiticity also implies that
+\(\langle\mathbf v,H\mathbf v\rangle\) is real. Because
+\(\langle\mathbf v,\mathbf v\rangle>0\), the eigenvalue \(\lambda\) must be
+real.
+
+Now let \(\mathbf v_m\) and \(\mathbf v_n\) have distinct eigenvalues. Then
+\begin{align}
+  \lambda_n\langle\mathbf v_m,\mathbf v_n\rangle
+  &=\langle\mathbf v_m,H\mathbf v_n\rangle,\\
+  \lambda_m\langle\mathbf v_m,\mathbf v_n\rangle
+  &=\langle H\mathbf v_m,\mathbf v_n\rangle.
+\end{align}
+The two right-hand sides are equal by Hermiticity, so
+\begin{equation}
+  (\lambda_n-\lambda_m)
+  \langle\mathbf v_m,\mathbf v_n\rangle=0.
+\end{equation}
+Distinct eigenvalues therefore have orthogonal eigenspaces.
+
+The finite-dimensional spectral theorem adds the crucial completeness result:
+every Hermitian \(N\times N\) matrix has \(N\) orthonormal eigenvectors when
+multiplicity is counted \parencite{hornJohnson2013}. The reality and
+orthogonality arguments above explain
+important parts of the theorem, but they do not by themselves prove the
+existence of a complete eigenbasis.
+
+\section{From individual eigenpairs to a spectral decomposition}
+\index{eigendecomposition}
+
+Choose normalized eigenvectors and place them in columns,
+\begin{equation}
+  V=
+  \begin{bmatrix}
+    \mathbf v_1 & \mathbf v_2 & \cdots & \mathbf v_N
+  \end{bmatrix},
+  \qquad
+  V^{\dagger}V=VV^{\dagger}=I_N.
+  \label{eq:training-eigenvector-matrix}
+\end{equation}
+Place the correspondingly ordered eigenvalues on a diagonal matrix,
+\begin{equation}
+  \Lambda
+  =\operatorname{diag}(\lambda_1,\ldots,\lambda_N).
+  \label{eq:training-eigenvalue-matrix}
+\end{equation}
+The individual equations \(H\mathbf v_n=\lambda_n\mathbf v_n\) then become
+\begin{equation}
+  HV=V\Lambda.
+  \label{eq:training-assembled-eigensystem}
+\end{equation}
+Multiplying by \(V^{\dagger}\) gives the equivalent forms
+\begin{equation}
+  H=V\Lambda V^{\dagger},
+  \qquad
+  V^{\dagger}HV=\Lambda.
+  \label{eq:training-hermitian-diagonalization}
+\end{equation}
+The first reconstructs the matrix in the original basis. The second represents
+the same linear map in the eigenvector basis. Diagonalization is therefore a
+basis transformation with a basis whose existence follows from Hermiticity.
+
+Define the rank-one projector
+\begin{equation}
+  P_n=\mathbf v_n\mathbf v_n^{\dagger}.
+\end{equation}
+Then
+\begin{equation}
+  I_N=\sum_{n=1}^{N}P_n,
+  \qquad
+  H=\sum_{n=1}^{N}\lambda_nP_n.
+  \label{eq:training-rank-one-spectral-decomposition}
+\end{equation}
+For any vector
+\begin{equation}
+  \mathbf x=\sum_{n=1}^{N}c_n\mathbf v_n,
+  \qquad
+  c_n=\mathbf v_n^{\dagger}\mathbf x,
+\end{equation}
+the action of \(H\) is
+\begin{equation}
+  H\mathbf x=\sum_{n=1}^{N}\lambda_nc_n\mathbf v_n.
+\end{equation}
+Thus the eigenbasis resolves a coupled matrix action into independent scalar
+actions. In a degenerate eigenspace, however, the individual rank-one
+projectors depend on the selected basis; their sum over the complete degenerate
+space does not.
+
+\section{The characteristic equation}
+\index{characteristic equation}
+\index{determinant!geometric meaning}
+
+Move the right-hand side of Equation~\eqref{eq:training-eigenpair} to the left:
+\begin{equation}
+  (H-\lambda I_N)\mathbf v=\mathbf 0.
+\end{equation}
+A nonzero solution exists only when \(H-\lambda I_N\) is singular. Therefore
+\begin{equation}
+  \det(H-\lambda I_N)=0.
+  \label{eq:training-matrix-characteristic-equation}
+\end{equation}
+This is the characteristic equation. Its left-hand side is a degree-\(N\)
+polynomial in \(\lambda\), and its roots are the eigenvalues.
+
+For a real \(N\times N\) matrix, \(|\det A|\) is its
+\(N\)-dimensional volume-scaling factor. For a complex matrix viewed as a map
+of a \(2N\)-dimensional real space, the corresponding real-volume factor is
+\(|\det A|^2\). In either scalar field, \(\det A=0\) means that the map
+collapses at least one nonzero direction and is not invertible. Applied to
+\(A=H-\lambda I_N\), that collapsed direction is an eigenvector. The
+determinant therefore detects the eigenvalue; the null space identifies its
+eigenspace.
+
+The characteristic polynomial is basis invariant. If
+\(H'=U^{\dagger}HU\) for a unitary \(U\), then
+\begin{align}
+  \det(H'-\lambda I_N)
+  &=\det\!\left(U^{\dagger}(H-\lambda I_N)U\right)\\
+  &=\det(U^{\dagger})\det(H-\lambda I_N)\det(U)\\
+  &=\det(H-\lambda I_N).
+\end{align}
+The entries change under the basis transformation, while the roots remain the
+same.
+
+\subsection{A complete two-dimensional example}
+
+Consider
+\begin{equation}
+  H=
+  \begin{bmatrix}
+    2 & 1\\
+    1 & 2
+  \end{bmatrix}.
+\end{equation}
+The characteristic equation is
+\begin{align}
+  0
+  &=\det
+    \begin{bmatrix}
+      2-\lambda & 1\\
+      1 & 2-\lambda
+    \end{bmatrix}\\
+  &=(2-\lambda)^2-1\\
+  &=(\lambda-1)(\lambda-3).
+\end{align}
+The eigenvalues are \(\lambda_1=1\) and \(\lambda_2=3\). Solving the two null
+space problems and normalizing gives
+\begin{equation}
+  \mathbf v_1=\frac{1}{\sqrt2}
+  \begin{bmatrix}1\\-1\end{bmatrix},
+  \qquad
+  \mathbf v_2=\frac{1}{\sqrt2}
+  \begin{bmatrix}1\\1\end{bmatrix}.
+\end{equation}
+Consequently,
+\begin{equation}
+  V=\frac{1}{\sqrt2}
+  \begin{bmatrix}
+    1 & 1\\
+    -1 & 1
+  \end{bmatrix},
+  \qquad
+  \Lambda=
+  \begin{bmatrix}
+    1 & 0\\
+    0 & 3
+  \end{bmatrix},
+\end{equation}
+and direct multiplication verifies
+\begin{equation}
+  HV=V\Lambda,
+  \qquad
+  H=V\Lambda V^{\mathsf T}.
+\end{equation}
+The transpose appears because this example is real. The complex-Hermitian
+formula uses \(V^{\dagger}\).
+
+For any matrix, with eigenvalues counted according to algebraic multiplicity,
+\begin{equation}
+  \det H=\prod_{n=1}^{N}\lambda_n,
+  \qquad
+  \operatorname{tr}H=\sum_{n=1}^{N}\lambda_n.
+\end{equation}
+These identities are useful checks, but they do not replace eigenvectors or
+spectral projectors.
+
+Equation~\eqref{eq:training-matrix-characteristic-equation} is invaluable for
+small hand calculations and for understanding singularity and multiplicity. It
+is not the usual stable numerical route for a large matrix. Production
+Hermitian eigensolvers use matrix factorizations or iterative subspace methods
+rather than evaluating determinants and finding roots of an explicitly formed
+characteristic polynomial \parencite{golubVanLoan2013}.
+
+\section{The Rayleigh quotient and extreme eigenvalues}
+\index{Rayleigh quotient}
+
+For any nonzero vector \(\mathbf x\), define
+\begin{equation}
+  \rho_H(\mathbf x)
+  =\frac{\mathbf x^{\dagger}H\mathbf x}
+         {\mathbf x^{\dagger}\mathbf x}.
+  \label{eq:training-rayleigh-quotient}
+\end{equation}
+This quotient is real when \(H\) is Hermitian. Expand
+\(\mathbf x=\sum_n c_n\mathbf v_n\). The spectral decomposition gives
+\begin{equation}
+  \rho_H(\mathbf x)
+  =\frac{\sum_n|c_n|^2\lambda_n}{\sum_n|c_n|^2}.
+  \label{eq:training-rayleigh-weighted-average}
+\end{equation}
+The quotient is therefore a weighted average of eigenvalues. If they are
+ordered as
+\(\lambda_1\leq\cdots\leq\lambda_N\), then
+\begin{equation}
+  \lambda_1
+  \leq\rho_H(\mathbf x)
+  \leq\lambda_N.
+\end{equation}
+Moreover,
+\begin{equation}
+  \lambda_1=\min_{\mathbf x\neq\mathbf0}\rho_H(\mathbf x),
+  \qquad
+  \lambda_N=\max_{\mathbf x\neq\mathbf0}\rho_H(\mathbf x).
+  \label{eq:training-rayleigh-extrema}
+\end{equation}
+The minimizing and maximizing vectors lie in the corresponding eigenspaces.
+Intermediate eigenvalues admit related constrained variational
+characterizations \parencite{hornJohnson2013}. This is the finite-dimensional
+foundation of methods that seek low-energy states without computing a complete
+spectrum.
+
+\section{Degeneracy, eigenspaces, and projectors}
+\index{eigenvalue!degenerate}
+\index{spectral projector}
+
+For an eigenvalue \(\lambda\), the eigenspace is
+\begin{equation}
+  \mathcal E_{\lambda}
+  =\ker(H-\lambda I_N).
+  \label{eq:training-eigenspace}
+\end{equation}
+For a Hermitian matrix, the dimension of this space equals the algebraic
+multiplicity of \(\lambda\). A repeated eigenvalue is called degenerate when
+this multiplicity exceeds one.
+
+Let
+\begin{equation}
+  W_{\lambda}
+  =\begin{bmatrix}
+    \mathbf w_1 & \cdots & \mathbf w_g
+  \end{bmatrix}
+\end{equation}
+contain any orthonormal basis of a \(g\)-dimensional eigenspace. Its spectral
+projector is
+\begin{equation}
+  P_{\lambda}=W_{\lambda}W_{\lambda}^{\dagger}.
+  \label{eq:training-degenerate-projector}
+\end{equation}
+If \(Q\in U(g)\), then \(W'_{\lambda}=W_{\lambda}Q\) is another orthonormal
+basis of the same eigenspace, but
+\begin{equation}
+  W'_{\lambda}W_{\lambda}'^{\dagger}
+  =W_{\lambda}QQ^{\dagger}W_{\lambda}^{\dagger}
+  =P_{\lambda}.
+\end{equation}
+The basis columns are not unique; the projector is.
+
+As a concrete example, consider
+\begin{equation}
+  H=
+  \begin{bmatrix}
+    2 & 1 & 1\\
+    1 & 2 & 1\\
+    1 & 1 & 2
+  \end{bmatrix}.
+\end{equation}
+The normalized vector
+\begin{equation}
+  \mathbf v_+=\frac{1}{\sqrt3}
+  \begin{bmatrix}1\\1\\1\end{bmatrix}
+\end{equation}
+has eigenvalue \(4\). Every vector orthogonal to \(\mathbf v_+\), equivalently
+every \(\mathbf x\) satisfying \(x_1+x_2+x_3=0\), has eigenvalue \(1\). Thus
+\begin{equation}
+  \mathcal E_1
+  =\left\{\mathbf x\in\mathbb R^3\mid x_1+x_2+x_3=0\right\},
+  \qquad
+  \dim\mathcal E_1=2,
+\end{equation}
+and the projector onto that plane is
+\begin{equation}
+  P_1=I_3-\mathbf v_+\mathbf v_+^{\mathsf T}.
+\end{equation}
+No particular pair of axes inside the plane is preferred by \(H\). Different
+software runs or algorithms may return different valid orthonormal columns
+spanning it.
+
+Exact degeneracy must be distinguished from numerical \emph{near-degeneracy}.
+Two computed eigenvalues that differ by a small amount are not automatically
+mathematically equal. A calculation must declare the dimensional scale and
+tolerance used to group them, and its conclusions should remain stable under
+that declared rule.
+
+\section{Phase, ordering, and subspace freedom}
+\index{eigenvector!phase freedom}
+\index{eigensystem!ordering}
+
+Even a normalized nondegenerate eigenvector is not unique. For any real
+\(\theta\),
+\begin{equation}
+  \mathbf v_n' = e^{i\theta}\mathbf v_n
+\end{equation}
+is an equally valid eigenvector. In a real calculation this includes the sign
+change \(\mathbf v_n\mapsto-\mathbf v_n\). Eigenvalue sorting is also an output
+convention rather than a theorem. Inside a degenerate eigenspace, the freedom
+expands from one phase per column to an arbitrary unitary mixing of all columns
+in the block.
+
+Raw component equality is therefore not a universal comparison rule for
+independently computed eigenvectors. Suitable comparisons include eigenvalue
+residuals, spectral projectors, and invariant-subspace diagnostics. Later
+chapters refine these ideas for momentum-dependent Bloch frames, where choices
+made independently at neighboring reciprocal points affect smoothness and
+real-space locality.
+
+The spectrum is basis invariant but does not completely identify an operator.
+Isospectral matrices can attach the same eigenvalues to different physical
+sites, orbitals, spin channels, or spatial regions. Spectral agreement is
+valuable evidence, but it supplies no physical alignment map by itself.
+
+\section{Computing and checking a Hermitian eigensystem}
+\index{eigensolver}
+\index{eigenpair residual}
+
+For a dense Hermitian matrix, use a Hermitian eigensolver such as
+\texttt{numpy.linalg.eigh}, not a general nonsymmetric routine such as
+\texttt{numpy.linalg.eig}. A Hermitian solver exploits the matrix structure and
+returns real eigenvalues and orthonormal eigenvectors up to floating-point
+error. For a large sparse matrix, computing only a requested portion of the
+spectrum is often more appropriate than constructing a complete dense
+factorization \parencite{golubVanLoan2013}.
+
+A returned pair should be checked through the residual
+\begin{equation}
+  \mathbf r_n=H\mathbf v_n-\lambda_n\mathbf v_n.
+  \label{eq:training-eigenpair-residual}
+\end{equation}
+For a normalized eigenvector and an energy-valued \(H\),
+\(\|\mathbf r_n\|_2\) has units of energy. Its tolerance must therefore be
+stated with a scale rather than treated as a dimensionless universal constant.
+For several returned columns, define
+\begin{equation}
+  R=HV-V\Lambda.
+\end{equation}
+Then three distinct checks are
+\begin{align}
+  \|R\|_{\mathrm F}
+  &\quad\text{eigenpair residual},\\
+  \|V^{\dagger}V-I\|_{\mathrm F}
+  &\quad\text{orthonormality defect},\\
+  \|H-V\Lambda V^{\dagger}\|_{\mathrm F}
+  &\quad\text{full reconstruction defect}.
+\end{align}
+The reconstruction check applies only when \(V\) contains a complete basis.
+It should not be manufactured by densifying a large sparse operator. Partial
+sparse results can be checked with sparse matrix--block products, column
+orthogonality, and projectors on the returned subspace.
+
+\begin{pythonexample}{checking eigenpairs and a degenerate subspace}
+import numpy as np
+
+# This dense matrix is synthetic and has eigenvalues 1, 1, and 4.
+H = np.array(
+    [[2.0, 1.0, 1.0], [1.0, 2.0, 1.0], [1.0, 1.0, 2.0]],
+    dtype=np.float64,
+)
+np.testing.assert_allclose(H, H.T, rtol=0.0, atol=0.0)
+
+# eigh uses Hermitian structure and returns eigenvectors as columns.
+eigenvalues, eigenvectors = np.linalg.eigh(H)
+Lambda = np.diag(eigenvalues)
+
+residual = H @ eigenvectors - eigenvectors @ Lambda
+orthogonality_defect = eigenvectors.T @ eigenvectors - np.eye(3)
+reconstruction = eigenvectors @ Lambda @ eigenvectors.T
+
+np.testing.assert_allclose(residual, 0.0, atol=1e-14)
+np.testing.assert_allclose(orthogonality_defect, 0.0, atol=1e-14)
+np.testing.assert_allclose(reconstruction, H, atol=1e-14)
+np.testing.assert_allclose(eigenvalues, [1.0, 1.0, 4.0], atol=1e-14)
+
+# Rotate the two-dimensional degenerate eigenspace without changing it.
+W = eigenvectors[:, :2]
+angle = 0.37
+Q = np.array(
+    [[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]],
+    dtype=np.float64,
+)
+W_rotated = W @ Q
+
+np.testing.assert_allclose(H @ W_rotated, W_rotated, atol=1e-14)
+np.testing.assert_allclose(W_rotated @ W_rotated.T, W @ W.T, atol=1e-14)
+\end{pythonexample}
+
+The successful checks establish finite linear-algebra behavior for this
+synthetic matrix. They do not establish that a discretized Hamiltonian has
+converged or that any physical material is represented.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/hermitian_eigensystems.ipynb}
+with explicit imports, explanatory inline comments, characteristic-polynomial
+hand checks, Hermitian solver diagnostics, phase changes, degenerate rotations,
+projector comparisons, and sparse-preserving partial-eigensystem checks. Keep
+it unexecuted in the repository.}
+
+\section{From eigenspaces to retained spaces}
+
+This chapter treated eigenspaces selected by exact eigenvalues of one finite
+Hermitian matrix. Chapter~\ref{ch:training-quantum-operators} next supplies the
+quantum meaning of states, observables, and Hamiltonian eigenproblems.
+Chapter~\ref{ch:training-projection-retained-spaces} later asks a different
+question: which eigenvectors or spectral subspaces should be retained across a
+family of represented operators, and what information is lost by that
+selection? Diagonalization, projection, gauge choice, and truncation remain
+separate operations.
+
+\section{Common mistakes}
+
+\begin{itemize}
+  \item Treating \(\det(H-\lambda I)=0\) as the preferred large-scale
+        numerical eigensolver.
+  \item Saying an eigenvector is unique without accounting for normalization,
+        phase, ordering, or degenerate rotations.
+  \item Comparing raw eigenvector components from independent calculations
+        without first aligning their coordinate spaces and gauge freedoms.
+  \item Calling a small difference between floating-point eigenvalues an exact
+        degeneracy without a declared scale and grouping tolerance.
+  \item Using a full reconstruction check for a partial eigensystem.
+  \item Densifying a sparse matrix merely to perform a diagnostic.
+  \item Treating equality of spectra as equality of represented operators.
+\end{itemize}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Prove directly that an eigenvalue of a Hermitian matrix is real.
+  \item Derive the characteristic equation and normalized eigenvectors for
+        \(\begin{bmatrix}3&i\\-i&3\end{bmatrix}\).
+  \item Use Equation~\eqref{eq:training-rayleigh-weighted-average} to prove the
+        bounds on the Rayleigh quotient.
+  \item Construct two different orthonormal bases of the plane
+        \(x_1+x_2+x_3=0\) and verify that they produce the same projector.
+  \item Explain why two independently returned eigenvectors can represent the
+        same nondegenerate eigendirection while failing componentwise equality.
+  \item State which diagnostics remain available when only the lowest \(q<N\)
+        eigenpairs of a sparse Hermitian matrix have been computed.
+  \item Construct two isospectral \(3\times3\) Hermitian matrices with visibly
+        different entries. State what additional alignment information is
+        needed before their difference can be interpreted physically.
+\end{enumerate}
+
+\section{Evidence boundary}
+
+Residual, orthogonality, projector, and reconstruction checks can verify a
+finite eigensystem calculation within declared tolerances. They do not
+establish that the parent operator is physically appropriate, that a numerical
+discretization has converged, that a retained subspace is adequate for a later
+observable, or that an eigensystem models a real material. Those are separate
+numerical and scientific claims.

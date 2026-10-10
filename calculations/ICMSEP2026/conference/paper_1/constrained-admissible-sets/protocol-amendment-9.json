@@ -1,0 +1,30 @@
+{
+  "amended_at_utc": "2026-10-10T19:21:27Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Require the library verifier to reconstruct and compare every retained parameter-evaluation role.",
+    "Require strictly positive standalone quadratic and final verification tolerances.",
+    "Require every reconstructed retained quadratic to satisfy the frozen quadratic absolute tolerance.",
+    "Add adversarial regressions for a wrong evaluation role and a negative quadratic tolerance."
+  ],
+  "corrected_files": [
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/verify.py",
+      "sha256": "9a846632fefdbadb1889581818b4750eeeab16e04e3742a76f523c03880c12cc"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DConstrainedAdmissibleSetCalculator.py",
+      "sha256": "041eeb9df2b3a0b951633dc97b60be3dbbc138b45bca595c2869c794b20e4c8e"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/verify_result.py",
+      "sha256": "3dd10b187a8d61b416854891f083431392b5ee4f6274398aaebd277d89b03d5a"
+    }
+  ],
+  "finding": "Adversarial review found that the library verifier omitted parameter-evaluation roles and that the standalone verifier accepted a negative quadratic reconstruction tolerance when the same mutation was applied to input and result.",
+  "integrity_note": "This post-result amendment records verifier hardening transparently. SHA-256 identifies bytes and does not independently establish chronology.",
+  "numerical_results_changed": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "verifier-semantic-hardening-after-adversarial-review"
+}
