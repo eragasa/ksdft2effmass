@@ -1,0 +1,59 @@
+\section{Evidence and Provenance Boundary}
+\label{app:evidence-provenance}
+
+The maintained evidence is retained under:
+\begin{itemize}
+ \item \path{calculations/ICMSEP2026/conference/paper_1/isolated-band/};
+ \item \path{calculations/ICMSEP2026/}\\
+       \path{conference/paper_1/multiband-alignment/};
+ \item \path{calculations/research-monograph/periodic-2d/}; and
+ \item \path{calculations/ICMSEP2026/conference/paper_1/}.
+\end{itemize}
+Each directory contains its protocol, result records, independent verification
+code, figures, report, and checksum manifest. The evidence has been classified
+as controlled illustrative software and numerical verification. It is not a
+public data deposit, DOI, material validation, or uncertainty analysis.
+
+The isolated-band package contains the prospectively frozen M1 lowest-band
+calculation. Its historical identity does not substitute for a retained gap or
+band-isolation result. The multiband package contains the prospectively frozen
+M2 rank-two alignment and
+locality calculation, including its independent reconstruction and disjoint
+withheld diagnostics. The two-dimensional reports contain additional composite
+and topology controls.
+The conference-paper parent calculation contains the direct
+quadratic admissible-set map, exact common witness, rational separation
+certificate, independent verifier, and figure inputs. Only the bounded results
+directly used in the paper are summarized in its main text. Historical external
+executions are not rerun by the manuscript.
+
+\subsection{Verifier and digest semantics}
+
+The standalone M1 and M2 retained verifiers decode the frozen JSON documents
+and reconstruct their finite protocols without importing the corresponding
+producer Actions. They remain dependent on shared numerical libraries,
+runtime behavior, and declared mathematical conventions; passing establishes
+bounded reconstruction consistency rather than an independent physical oracle.
+The checksum manifests bind retained bytes to recorded SHA-256 digests and
+therefore detect inconsistency relative to those manifests. A digest manifest
+alone is not an external trusted timestamp and does not, without an independent
+commit or archival record, prove when the bytes were created.
+
+\subsection{Curation work}
+
+The remaining evidence-curation tasks are:
+\begin{itemize}
+ \item[$\square$] trace every numerical statement and plotted value in the
+ paper to a retained result field or report table;
+ \item[$\square$] verify the figure sources against the retained checksum
+ manifests;
+ \item[$\square$] record the exact software revision and runtime environment
+ associated with each retained calculation;
+ \item[$\square$] decide which machine-readable records and figure-generation
+ inputs belong in a public archival package; and
+ \item[$\square$] obtain authorization before publication or deposition.
+\end{itemize}
+These practices follow general reproducible-computation guidance~\cite{sandve2013}.
+Completing the tasks strengthens provenance and publication readiness; it does
+not change the evidence class from controlled numerical verification to
+material validation.
