@@ -1,0 +1,13 @@
+{
+  "schema": "ksdft2effmass.protocol-clarification.v1",
+  "amendment_sequence": 1,
+  "disposition": "clarification-no-control-change",
+  "prospectively_frozen_protocol_sha256": "850a117f414c10da631fed0aab71682c85a47fbe537007751bbf13ada25223ac",
+  "clarified_protocol_sha256": "b04fa9505aafc167312181e938217b9b4b37316059d126ad3b253c8b65a89dc4",
+  "clarifications": [
+    "The overlap singular value must be strictly greater than 0.8, matching the frozen implementation; the retained value is 0.9999828868735376.",
+    "Nonidentity describes the retained attack coefficients, not every instance admitted by the reusable rank-two definition.",
+    "The source-integrity and dirty-worktree boundaries are stated explicitly."
+  ],
+  "scientific_effect": "None. No input value, retained result, threshold, sample role, or disposition changed."
+}
