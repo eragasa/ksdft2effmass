@@ -1,0 +1,11 @@
+{
+  "schema": "ksdft2effmass.protocol-freeze.v1",
+  "calculation_id": "icmsep2026.paper1.periodic1d.isolated-band.v1",
+  "frozen_at_utc": "2026-10-10T13:30:05Z",
+  "frozen_before_confirmatory_execution": true,
+  "files": {
+    "input.json": "sha256:62899d4cd550db9d0bd69a8d97149ccfea312c6b20be9c395e8765734693bf65",
+    "protocol.md": "sha256:acf1df9d94a2449481f501719d2275f888f777ac5d8c2fc3efe2d4b4fb4c72fc"
+  },
+  "scope_note": "This record freezes controls and interpretation for a local synthetic numerical-verification calculation only."
+}

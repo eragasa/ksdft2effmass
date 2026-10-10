@@ -1,0 +1,30 @@
+{
+  "schema": "ksdft2effmass.software-provenance.v1",
+  "calculation_id": "icmsep2026.paper1.periodic1d.isolated-band.v1",
+  "recorded_at_utc": "2026-10-10T13:41:32Z",
+  "repository": {
+    "git_head": "1c9a2f7719b64758a1e7ede4b867acb420a2b6ab",
+    "branch": "work/monograph-current-library-capabilities",
+    "worktree_was_dirty": true,
+    "uncommitted_source_manifest": "source.sha256",
+    "uncommitted_source_manifest_sha256": "68d9bc9d769c02dac5989c5231dcb80d778a337842a08f23c234618f59ecb000"
+  },
+  "runtime": {
+    "python": "3.14.6",
+    "implementation": "CPython",
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "repository_relative_executable": "python/.venv/bin/python"
+  },
+  "packages": {
+    "ksdft2effmass": "0.1.0.dev0",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "matplotlib": "3.11.1",
+    "projectkoios-physkit": "0.1.1"
+  },
+  "dependency_files": {
+    "python/pyproject.toml": "sha256:4c77800ebf0a711cd90f4acf765ce8d1a0c7138d40d2d1fae46272aea361d7e4",
+    "python/uv.lock": "sha256:e8ae2b3761bd993d86860bf3517ef17e891aee78db20506edbbcbd4519804da1"
+  },
+  "execution_boundary": "Local deterministic synthetic numerical work only; no protected or external calculator was executed."
+}

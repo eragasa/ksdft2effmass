@@ -1,0 +1,66 @@
+{
+  "schema": "ksdft2effmass.periodic1d.isolated-band-calculation-input.v1",
+  "calculation_id": "icmsep2026.paper1.periodic1d.isolated-band.v1",
+  "evidence_class": "controlled illustrative numerical verification",
+  "model": {
+    "model_id": "periodic1d.cosine.lambda-0.5",
+    "lattice_period": 6.283185307179586,
+    "reciprocal_vector": 1.0,
+    "recoil_energy": 1.0,
+    "constant_coefficient": 0.0,
+    "cosine_coefficients": [0.5],
+    "sine_coefficients": [0.0],
+    "unit": "dimensionless",
+    "duality_absolute_tolerance": 1e-14
+  },
+  "parent_representation": {
+    "plane_wave_cutoffs": [3, 5, 7, 9, 11],
+    "plane_wave_reference_cutoff": 15,
+    "production_plane_wave_cutoff": 11,
+    "finite_difference_points": [31, 63, 127, 255],
+    "sample_reduced_momenta": [-0.5, -0.25, 0.0, 0.25, 0.5],
+    "compared_band_count": 3
+  },
+  "reduction": {
+    "reciprocal_training_mesh_size": 64,
+    "hopping_ranges": [0, 1, 2, 3, 4, 6, 8],
+    "withheld_mesh_size": 257,
+    "withheld_mesh_rule": "staggered-uniform-disjoint-v1"
+  },
+  "tolerances": {
+    "coordinate_absolute": 1e-14,
+    "reconstruction_absolute": 1e-12,
+    "hermiticity_absolute": 1e-12,
+    "parseval_absolute": 1e-12,
+    "imaginary_absolute": 1e-12
+  },
+  "scope": {
+    "included": [
+      "plane-wave parent refinement",
+      "finite-difference parent refinement",
+      "complete scalar hopping transform",
+      "symmetric hopping truncation",
+      "equal-weight direct hopping fit",
+      "direct-versus-mediated route comparison",
+      "training diagnostics",
+      "withheld diagnostics",
+      "Hermiticity diagnostics",
+      "Parseval diagnostics",
+      "band-shape diagnostics"
+    ],
+    "excluded": [
+      "Mathieu reference values",
+      "common-low-mode operator comparison",
+      "weak-potential strength sweep",
+      "stress attacks",
+      "gauge transport",
+      "Wannier localization",
+      "material validation",
+      "uncertainty quantification"
+    ]
+  },
+  "figure": {
+    "filename": "isolated-band-summary.png",
+    "dpi": 200
+  }
+}
