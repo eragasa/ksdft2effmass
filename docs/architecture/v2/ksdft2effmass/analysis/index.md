@@ -16,6 +16,8 @@ flowchart LR
 
 - [Scientific analysis](analysis.md)
 - [Particle-in-a-box dimensional plan](particle-in-box-dimensional-plan.md)
+- [Model-adequacy analysis](model_adequacy/index.md)
+- [Model-adequacy ownership decision](model-adequacy-ownership-decision.md)
 
 `NormalizedObservationSet` is calculator-independent and workflow-owned. Its implemented first contract retains exact immutable extracted Kohn–Sham ResultObjects through `NormalizedObservationSource`; it does not copy integration-owned identities or perform scientific normalization. Analysis implementations may import workflows, periodic, Kohn–Sham, and represented-operator contracts, but never calculator packages.
 
@@ -28,6 +30,29 @@ candidate-order, role-order, and canonical-source reuse drift. It neither create
 producer history nor evaluates a QoI.
 
 The selected [plane-wave QoI and parameter-study architecture](../plane-wave-parameter-studies.md) assigns calculator-independent QoI meaning, typed observation collection, study analysis, and nominal refinement-algorithm contracts to analysis. The [QoI-first LAMMPS direction](../qoi-first-lammps-integration.md) now exposes the initial public scalar definition, successful/failed evaluation ResultObjects, and calculated DFT reference-target records while leaving evaluator execution, comparisons, and LAMMPS contracts deferred; outward campaign composition may consume both analysis and calculator contracts without reversing this boundary. The retained `ksdft2effmass.operators` owner supplies records and narrowly fixed-representation operations; analysis owns alignment selection, model fitting, continuum reduction, structured learning, evidence-bearing findings, and other higher-level scientific policy without redefining that inward kernel. Human-reviewed conclusions remain in research records citing exact analysis identities and provenance; Architecture v2 defines no software disposition or acceptance subsystem.
+
+## Model-adequacy analysis
+
+`ksdft2effmass.analysis.model_adequacy` is the selected prospective outward owner for
+KSD-specific scientific normalization, channel meaning, admissibility, and
+certificate/hierarchy policy. It has no implemented Python package or supported import
+in this candidate. Generic unit-free positive-definite quadratic loss geometry is
+consumed from exact-pinned `projectkoios-optimization` commit `ec3d290…`; the
+[`exports/optimization`](../../../../../exports/optimization/README.md) page records the
+completed ownership transfer and remaining prospective capabilities. Reusable lattice
+symmetry, orbit, hopping, and
+projection behavior is assigned to the
+[`exports/physkit`](../../../../../exports/physkit/README.md) boundary when PhysKit does
+not already provide it.
+
+The prospective HSH-1 child owns a finite two-dimensional hopping-shell hierarchy,
+including source identity, normalization, model classes, bound and weight selection,
+thresholds, witnesses, support certificates, and bounded dispositions. The inward
+`operators` domain retains represented compatibility, subtraction, and primitive
+residual mechanics. PhysKit owns reusable units and dimensionful hopping/Frobenius
+aggregation through $R_H$. Periodic parent packages do not import adequacy Actions.
+These architecture pages establish neither an
+HSH result nor a supported model-adequacy API.
 
 ## Public model systems
 
@@ -122,7 +147,7 @@ ResultObjects correlated to one evaluator and normalized-observation-set identit
 evaluation and its exact method, source result, provenance, artifact,
 parent-model-assessment, and numerical-error-assessment identities. It is not a convergence, physical-truth,
 validation, UQ, or acceptance claim. See the public
-[QoI reference-target concept](../../../../concepts/qoi-reference-targets.rst).
+[QoI reference-target concept](../../../../../doc/sphinx/concepts/qoi-reference-targets.rst).
 
 ## Initial private comparison slice
 

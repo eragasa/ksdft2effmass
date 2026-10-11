@@ -45,6 +45,17 @@ The [periodic2d capability-parity gate](../../periodic2d-capability-parity.md) r
 in force. No new two-dimensional defect campaign should proceed until the applicable
 parent capabilities, typed results, verification, and documentation pass that gate.
 
+## Prospective outward adequacy consumer
+
+The draft
+[HSH-1 architecture](../../analysis/model_adequacy/hopping_shell_hierarchy/index.md)
+composes the retained scalar periodic2d parent to define one synthetic nested
+hopping-support analysis. HSH-1 belongs to `analysis.model_adequacy`, not this parent
+package: periodic2d owns the source model; PhysKit owns reusable lattice symmetry,
+orbit, hopping-shell, projection, and physical hopping geometry; HSH owns the selected
+hierarchy, weights, normalization, thresholds, witnesses, certificate meaning, and
+bounded dispositions. No HSH implementation, result, or evidence claim exists.
+
 ## Target hierarchy
 
 - Every supported two-dimensional scientific model inherits the nominal

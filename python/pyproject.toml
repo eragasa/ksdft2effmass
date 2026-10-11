@@ -37,10 +37,11 @@ classifiers = [
 
 dependencies = [
     "matplotlib>=3.8",
-    "numpy>=1.26",
+    "numpy>=2.3,<3",
+    "projectkoios-optimization[numpy,scipy]==0.1.0.dev0",
     "projectkoios-physkit==0.1.2",
     "pint>=0.26,<0.27",
-    "scipy>=1.12",
+    "scipy>=1.18,<2",
 ]
 
 
@@ -141,6 +142,7 @@ indent-style = "space"
 
 
 [tool.uv.sources]
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "ec3d2907097a659aef4be2b3384bd1922a9cb4dc" }
 projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "d6333208a1ff723682a557afd593a5c932058cb7" }
 
 
