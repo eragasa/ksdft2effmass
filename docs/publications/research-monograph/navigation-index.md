@@ -47,10 +47,11 @@ applications without redefining the primary discussion.
    between exact retention and model-class approximation;
 2. `chapters/operator-comparison.tex` — common-space identification, gauge,
    energy reference, represented differences, and residuals;
-3. `chapters/admissible-sets-and-certificates.tex` — normalized spectral and
-   operator losses, constrained alignment families, admissible-set
-   intersections, common witnesses, quadratic geometry, and separation
-   certificates; and
+3. `chapters/admissible-sets-and-certificates.tex` — weighted normalized
+   spectral and operator losses, references integrated with the corresponding
+   fitting and expressivity concepts, constrained alignment families,
+   admissible-set intersections, common witnesses, quadratic geometry, and
+   separation certificates; and
 4. `chapters/evidence-for-model-adequacy.tex` — program-specific verification,
    validation, provenance, uncertainty, and claim discipline.
 
@@ -77,6 +78,7 @@ applications without redefining the primary discussion.
 | Model adequacy | `chapters/model-adequacy.tex` (`ch:operator-reduction-motivation`) | `chapters/admissible-sets-and-certificates.tex`; `chapters/evidence-for-model-adequacy.tex` | Governing scientific question |
 | Candidate family and parameter domain | `chapters/admissible-sets-and-certificates.tex` (`ch:admissible-sets-certificates`) | `chapters/bulk-reduced-models.tex`; `appendices/G-one-dimensional-reduction.tex` | Separates model parameters, alignment variables, and numerical controls |
 | Spectral and operator admissible sets | `chapters/admissible-sets-and-certificates.tex` | `chapters/operator-comparison.tex`; `chapters/bulk-reduced-models.tex` | Simultaneous thresholded criteria for one candidate |
+| Spectral fitting and model-class expressivity literature | `chapters/admissible-sets-and-certificates.tex` | `chapters/model-adequacy.tex`; `chapters/operator-comparison.tex`; `citation-audit.md` | Integrates each precedent where its fitting target, candidate-family restriction, or evidence boundary is introduced, while separating these established methods from the proposed witness-or-certificate contribution |
 | Common witness and separation certificate | `chapters/admissible-sets-and-certificates.tex` | `chapters/evidence-for-model-adequacy.tex`; `appendices/G-one-dimensional-reduction.tex` | Distinguishes existence evidence, global separation evidence, and failed search |
 | Quadratic-loss geometry and threshold sensitivity | `chapters/admissible-sets-and-certificates.tex` | `chapters/evidence-for-model-adequacy.tex`; `appendices/G-one-dimensional-reduction.tex` | Ellipsoidal sublevel sets, finite alignment unions, metric dependence, and post-hoc sensitivity boundaries |
 | Linear operator and domain | `chapters/quantum-states-and-operators.tex` (`ch:training-quantum-operators`) | `chapters/operator-comparison.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Mathematical definition and domain qualification |

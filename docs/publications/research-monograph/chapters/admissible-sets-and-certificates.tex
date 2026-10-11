@@ -28,6 +28,8 @@ After this chapter, the reader should be able to
   \item distinguish model parameters from alignment variables and numerical
         controls;
   \item define normalized spectral and operator losses on declared data;
+  \item distinguish established spectral fitting and operator regression from
+        the proposed simultaneous witness-or-certificate question;
   \item construct thresholded admissible sets;
   \item distinguish a witness, a failed search, and a separation certificate;
   \item recognize ellipsoidal sublevel sets of positive-definite quadratic
@@ -90,6 +92,7 @@ than checking a finite list of points and failing to find an intersection.
 \section{The candidate family and its contracts}
 \index{candidate family}
 \index{parameter domain}
+\index{model-class expressivity}
 
 Let
 \begin{equation}
@@ -114,6 +117,18 @@ family states
 A bounded domain is not merely a programming convenience. It is part of the
 model class. Enlarging $\Theta$ asks a different question and may change both
 compatibility and separation.
+
+The matrix structure is likewise part of the scientific question, not merely
+an implementation choice. Stiles showed how the independent matrix elements
+allowed by a declared crystal structure can be enumerated before a tight-
+binding fit~\cite{stiles1997}. Such enumeration determines which coordinates
+are available to the fit; it does not prove that the resulting family can
+reproduce every desired property. In a specified spin--orbit
+$sp^3d^5s^{\ast}$ empirical tight-binding class, for example, Boykin, Klimeck,
+and Oyafuso derived exact relations among selected band gaps and effective
+masses~\cite{boykinKlimeckOyafuso2004}. Those relations are intrinsic
+restrictions of that model class. This is stronger than observing that one
+optimization run failed to locate a satisfactory parameter set.
 
 \subsection{A rank-two shift-and-splitting family}
 \index{rank-two model}
@@ -173,48 +188,140 @@ this single ordered formula.
 \index{loss!spectral}
 \index{loss!operator}
 
-Let $k_1,\ldots,k_{N_k}$ be a frozen training mesh and let the retained rank be
-$r$. Suppose the target energies are
-$E_n^{\mathrm{tar}}(k_j)$, ordered according to a declared convention. A
-normalized spectral root-mean-square loss is
+The two criteria use the same declared sampling contract but compare different
+objects. Let $k_1,\ldots,k_{N_k}$ be a frozen training mesh, let the retained
+rank be $r$, and assign each sample a finite positive dimensionless weight
+$w_j$. Write
 \begin{equation}
-  L_E(\boldsymbol\theta)
+  W=\sum_{j=1}^{N_k}w_j.
+\end{equation}
+
+\subsection{Spectral loss}
+\index{spectral RMS error}
+\index{normalized spectral loss}
+
+Suppose the target energies are $E_n^{\mathrm{tar}}(k_j)$, ordered according
+to a declared convention.
+
+\begin{definition}[Spectral RMS error]
+The energy-valued ordered spectral root-mean-square error of the candidate
+specified by $\boldsymbol\theta$ is
+\begin{equation}
+  R_E(\boldsymbol\theta)
   =
-  \frac{1}{E_0}
   \left[
-    \frac{1}{N_k r}
-    \sum_{j=1}^{N_k}\sum_{n=1}^{r}
+    \frac{1}{rW}
+    \sum_{j=1}^{N_k}w_j\sum_{n=1}^{r}
     \left|
       E_n^{\mathrm{cand}}(k_j;\boldsymbol\theta)
       -E_n^{\mathrm{tar}}(k_j)
     \right|^2
   \right]^{1/2}.
+  \label{eq:admissible-spectral-rms-error}
+\end{equation}
+It has the same energy unit as the candidate and target eigenvalues.
+\end{definition}
+
+\begin{definition}[Normalized spectral loss]
+Given a finite positive energy scale $E_0$, the normalized spectral loss is
+\begin{equation}
+  L_E(\boldsymbol\theta)
+  =
+  \frac{R_E(\boldsymbol\theta)}{E_0}.
   \label{eq:admissible-spectral-rms}
 \end{equation}
-The division by $E_0$ makes this particular loss dimensionless. Another
-normalization would define another loss and must be named rather than silently
-substituted.
+It is dimensionless.
+\end{definition}
+
+Uniform weights recover the factor $1/(N_k r)$. Another normalization defines
+another loss and must be named rather than silently substituted. Neither the
+weights nor $E_0$ are automatically uncertainty estimates.
+
+Objectives built from energy residuals have a long history. Starrost and
+collaborators used a genetic algorithm to fit an empirical tight-binding
+Hamiltonian to energies at selected high-symmetry wave
+vectors~\cite{starrost1996}. More recently, Wang and collaborators trained adjustable
+tight-binding matrix elements with an eigenvalue mean-squared-error objective
+against first-principles band energies~\cite{wangEtAl2021}. These are
+precedents for spectral supervision, although their sampling, weights, and
+normalizations need not equal those in
+Equation~\eqref{eq:admissible-spectral-rms}.
+
+The ordered-band formula also has a matching premise. Away from crossings, an
+energy ordering may be sufficient. At crossings or inside nearly degenerate
+clusters, the comparison must state how bands or clusters are identified. A
+sorting rule, overlap-based tracking rule, projector comparison, or another
+declared convention changes the loss contract and cannot be inferred from the
+energy arrays alone.
+
+\subsection{Operator loss}
+\index{represented-operator RMS residual}
+\index{normalized operator loss}
 
 The corresponding operator comparison requires both matrices to act in an
 identified retained space. Let $H^{\mathrm{tar}}(k_j)$ be the target matrices
-in that space. If $C$ is an allowed global unitary alignment, define
+in that space, and let $C$ be an allowed global unitary alignment.
+
+\begin{definition}[Represented-operator RMS residual]
+The energy-valued represented-operator root-mean-square residual of the
+candidate specified by $\boldsymbol\theta$ under alignment $C$ is
 \begin{equation}
-  L_H(\boldsymbol\theta,C)
+  R_H(\boldsymbol\theta,C)
   =
-  \frac{1}{E_0}
   \left[
-    \frac{1}{N_k r}
-    \sum_{j=1}^{N_k}
+    \frac{1}{rW}
+    \sum_{j=1}^{N_k}w_j
     \left\|
       C^{\dagger}H_{\boldsymbol\theta}(k_j)C
       -H^{\mathrm{tar}}(k_j)
     \right\|_{\mathrm F}^{2}
   \right]^{1/2}.
+  \label{eq:admissible-operator-rms-residual}
+\end{equation}
+It has the same energy unit as the candidate and target matrices.
+\end{definition}
+
+\begin{definition}[Normalized operator loss]
+Given the same finite positive energy scale $E_0$, the normalized operator
+loss under alignment $C$ is
+\begin{equation}
+  L_H(\boldsymbol\theta,C)
+  =
+  \frac{R_H(\boldsymbol\theta,C)}{E_0}.
   \label{eq:admissible-operator-rms}
 \end{equation}
-The Frobenius norm is appropriate only after the state spaces, bases, gauges,
-energy references, units, and reciprocal coordinates have been aligned.
+It is dimensionless.
+\end{definition}
+
+The Frobenius norm and its sample aggregation are meaningful only after the
+state spaces, bases, gauges, energy references, units, reciprocal coordinates,
+sample identities, and weights have been declared. The scientific loss
+definition chooses the samples and weights; represented-operator mechanics
+validate compatibility, form differences, and apply the declared aggregation.
 Chapter~\ref{ch:mathematical-foundations} develops those prerequisites.
+
+Direct matrix supervision addresses a different object from spectral
+supervision. Zhang and collaborators learned Hamiltonian and overlap blocks in
+a declared atomic-orbital representation using equivariant atomic-cluster-
+expansion models~\cite{zhangEtAl2022}. Schwade and collaborators instead
+combined an approximate tight-binding model with learned environment-dependent
+corrections and evaluated the resulting electronic-property predictions at
+larger scales~\cite{schwadeEtAl2026}. The targets and representations are
+method-specific, but both examples reinforce why a matrix-level objective must
+name its representation rather than inherit meaning from its eigenvalues.
+
+Some fitting studies augment energy residuals with band gaps, effective masses,
+or other observables. Such an objective must state each observable's definition,
+weight, and scale separately. A gap is derived from selected eigenvalues, an
+effective mass requires a derivative or local fit, and an optical transition
+strength additionally depends on states and another operator. These terms
+should not be called ``purely spectral'' merely because the final reported
+quantity is a scalar. Klimeck and collaborators provide a concrete mixed-target
+example: they fitted silicon nearest- and second-neighbor $sp^3s^{\ast}$ models
+to band-edge and effective-mass targets, reported a successful second-neighbor
+parameterization, and reported that their search found no satisfactory global
+nearest-neighbor fit~\cite{klimeck2000}. That last statement is evidence about
+the completed search, not by itself an infeasibility proof.
 
 Two matrices can have identical eigenvalues and a nonzero operator residual.
 Equation~\eqref{eq:admissible-spectral-rms} therefore cannot replace
@@ -310,6 +417,15 @@ Substitution into independently evaluated losses proves membership directly.
 A witness proves existence but does not establish uniqueness, parameter
 identifiability, robustness, or physical validity. It also says nothing about
 parameters outside the frozen family.
+
+This intersection is the contribution boundary. Spectral fitting, direct
+Hamiltonian regression, and analytic restrictions on particular tight-binding
+classes are established ideas. The question introduced here is narrower:
+whether one candidate in a frozen family satisfies independently declared
+spectral and aligned-operator criteria. The answer must be supported by a
+common witness or, when the sets do not intersect, by a valid positive
+separation certificate under the declared family, alignment, losses, metric,
+and thresholds.
 
 \section{Why quadratic losses produce ellipses}
 \index{quadratic loss}
@@ -522,9 +638,12 @@ not implementation details.
 
 A local optimizer, a dense plot, or a finite grid may suggest separation but
 does not establish the global lower bound in
-Equation~\eqref{eq:admissible-set-separation}. Validated global-search methods
-can sometimes provide such bounds, but their applicability and assumptions
-must be stated explicitly~\cite{neumaier2004}.
+Equation~\eqref{eq:admissible-set-separation}. The nearest-neighbor search
+reported by Klimeck and collaborators above is an instructive example of this
+evidence boundary: ``no satisfactory fit found'' does not become a theorem
+that the admissible set is empty. Validated global-search methods can sometimes
+provide such bounds, but their applicability and assumptions must be stated
+explicitly~\cite{neumaier2004}.
 
 \subsection{The parameter metric is part of the claim}
 
@@ -598,8 +717,9 @@ The maintained one-dimensional M3 calculation instantiates the framework above
 with a synthetic rank-two parent inherited from the controlled multiband
 calculation, the two parameters $(s,q)$ from
 Equation~\eqref{eq:admissible-rank-two-family}, a bounded rectangular domain,
-and a frozen finite family of global real rotations. It constructs spectral
-and operator quadratic losses on the training mesh, evaluates selected points
+and a frozen finite family of global real rotations. It uses uniform sample
+weights as the special case $w_j=1$, constructs spectral and operator quadratic
+losses on the training mesh, evaluates selected points
 on a disjoint withheld mesh, and records hopping-locality diagnostics at
 selected ranges.
 
@@ -617,6 +737,10 @@ Example~2 above remain a simpler pedagogical model.
 \section{Common mistakes}
 
 \begin{enumerate}
+  \item \textbf{Presenting the loss as the contribution.} Weighted spectral
+        fitting, effective-mass targets, and direct Hamiltonian regression all
+        have precedents. The present contribution is the bounded simultaneous
+        witness-or-certificate question.
   \item \textbf{Comparing two separate minimizers.} The spectral optimum and
         operator optimum need not define one common candidate.
   \item \textbf{Calling a failed grid search a proof.} A grid leaves untested
@@ -662,6 +786,9 @@ Example~2 above remain a simpler pedagogical model.
 
 \section{Chapter summary}
 
+Spectral fitting, direct Hamiltonian regression, and analytic restrictions on
+particular tight-binding classes predate this framework. The role of the
+framework is to make a narrower simultaneous-adequacy question explicit.
 A model family is compatible with two declared criteria only when the same
 parameter lies in both thresholded admissible sets. A common witness proves
 that such a parameter exists. A positive, globally valid lower bound proves
