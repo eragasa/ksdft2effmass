@@ -2,9 +2,12 @@
 
 ## Status
 
-No active source candidate remains in this bundle. The earlier quadratic draft was
-superseded by the owner implementation in `projectkoios-optimization` commit
-`ec3d2907097a659aef4be2b3384bd1922a9cb4dc`, published on `origin/main`.
+The earlier quadratic draft was superseded by the owner implementation in
+`projectkoios-optimization` commit
+`ec3d2907097a659aef4be2b3384bd1922a9cb4dc`, published on `origin/main`. New active,
+non-runtime affine-quadratic and diagonal-metric candidates are staged as flattened
+source files in this directory, with contracts under
+[`optimization/`](optimization/README.md).
 
 The superseded uncommitted donor bytes were preserved non-destructively outside the
 repository at:
@@ -41,19 +44,20 @@ The target also owns `ParameterBound` and `ParameterSpace`, including inclusive 
 bounds and exact fixed coordinates with equal endpoints. KSD consumes these APIs from an
 exact-pinned dependency; they are deliberately not copied into `exports/`.
 
-## Remaining Optimization-bound candidates
+## Active and remaining Optimization-bound candidates
 
-The following capabilities remain prospective and have no staged source bytes here:
+The active source candidate supplies:
 
-- weighted affine-residual quadratic construction;
-- positive diagonal unit-free parameter metrics;
-- generic feasibility and distance Actions;
-- dual-norm calculations; and
-- support optimization over declared unit-free sets.
+- weighted affine-residual quadratic construction over the existing quadratic facade;
+  and
+- positive diagonal unit-free distance and dual-norm geometry.
 
-Any future candidate must be staged under target-relative paths in this directory,
-reviewed by the Optimization owner, and removed from active transfer staging once an
-accepted upstream implementation supersedes it.
+Generic box-constrained feasibility, reconstructable minimum bounds, common-witness
+search, set distance, support optimization, and directed rounding remain prospective
+and have no staged source bytes here.
+
+Any candidate must be reviewed by the Optimization owner and removed from active
+transfer staging once an accepted upstream implementation supersedes it.
 
 ## Exclusions
 

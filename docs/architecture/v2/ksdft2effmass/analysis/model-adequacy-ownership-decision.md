@@ -114,8 +114,9 @@ generic unit-free optimization objects or dimensionful physical primitives.
   while importing outward analysis behavior;
 - migration requires exact dependency pins, compatibility imports, and explicit
   retained-wire preservation; and
-- HSH implementation remains blocked on missing PhysKit-owned foundations and unresolved
-  scientific controls, not on generic quadratic availability.
+- HSH implementation remains blocked on owner review/publication of the staged
+  PhysKit/Optimization foundations, missing feasibility/support certificates, and
+  unresolved scientific controls, not on generic quadratic availability.
 
 ### Option B — top-level `ksdft2effmass.model_adequacy` (rejected)
 

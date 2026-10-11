@@ -185,27 +185,37 @@ fixed exactly to zero.
 ```mermaid
 flowchart LR
     oldDraft["Superseded Optimization donor draft\nexternal recovery only"]
-    optCommit["Optimization owner commit\nec3d290…"]
-    optPin["Exact KSD dependency pin"]
-    optRuntime["Supported external facade"]
-    physExport["exports/physkit\nfuture non-runtime candidates"]
+    optCommit["Optimization quadratic owner commit\nec3d290…"]
+    optPin["Current exact KSD dependency pin"]
+    optRuntime["Supported quadratic facade"]
+    optExport["exports/optimization\naffine and metric candidates"]
+    optReview["Optimization owner review"]
+    optFuture["Future immutable Optimization commit"]
+    physExport["exports/physkit\nactive non-runtime candidates"]
     physReview["PhysKit owner review"]
     physCommit["Future immutable PhysKit commit"]
+    futurePins["Future separately authorized exact dependency pins"]
     hsh["Future HSH composition"]
 
     oldDraft -. not transferred .-> optCommit
     optCommit --> optPin
     optPin --> optRuntime
+    optExport -. candidate .-> optReview
+    optReview --> optFuture
     physExport -. candidate .-> physReview
     physReview --> physCommit
     optRuntime --> hsh
-    physCommit --> hsh
+    optFuture --> futurePins
+    physCommit --> futurePins
+    futurePins --> hsh
 ```
 
-The Optimization owner supplied its own implementation; KSD does not consume the
-superseded donor bytes. No arrow runs directly from active `exports/` source to runtime.
-PhysKit integration, HSH implementation, scientific execution, and scientific acceptance
-remain separate decisions.
+The Optimization owner supplied its own quadratic implementation; KSD does not consume
+the superseded quadratic donor bytes. The new affine/metric and PhysKit candidates still
+require their respective owner reviews and immutable owner commits. No arrow runs
+directly from active `exports/` source to runtime. Dependency integration, HSH
+implementation, scientific execution, and scientific acceptance remain separate
+decisions.
 
 ## Training and withheld roles
 

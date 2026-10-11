@@ -1,0 +1,41 @@
+schema_version = 1
+status = "non-runtime-candidate"
+target_repository = "https://github.com/eragasa/projectkoios-physkit"
+target_base_commit = "d6333208a1ff723682a557afd593a5c932058cb7"
+donor_base_commit = "08a3211f0748bdbb1d45bfc12f2ca8f8205007d3"
+
+[[files]]
+source = "symmetry_orbits.py"
+destination = "src/python/projectkoios/physkit/periodic/lattice/symmetry_orbits.py"
+kind = "python-source"
+sha256 = "eccdc5a35bfa9e57c2f049152a0aa5a639add53523eb2e2974acc3f580ea615f"
+
+[[files]]
+source = "hopping_symmetry.py"
+destination = "src/python/projectkoios/physkit/periodic/lattice/hopping_symmetry.py"
+kind = "python-source"
+sha256 = "aa22dad361a1178772455be995cb8a715f8a1b7e5f6a243e6f8d7babbf656b94"
+
+[[files]]
+source = "hopping_geometry.py"
+destination = "src/python/projectkoios/physkit/periodic/lattice/hopping_geometry.py"
+kind = "python-source"
+sha256 = "84875132aa3c88df8810adada9f1dfe5e12c67bbd7985b57d74b90b48ad47367"
+
+[[files]]
+source = "../../tests/projectkoios/physkit/periodic/lattice/symmetry_orbits/test__LatticeDisplacementOrbitPartition.py"
+destination = "tests/projectkoios/physkit/periodic/lattice/symmetry_orbits/test__LatticeDisplacementOrbitPartition.py"
+kind = "python-test"
+sha256 = "39c809ae1c79099ee3958f70f119a66a8880ed38854df45e8d052a82cac09ac8"
+
+[[files]]
+source = "../../tests/projectkoios/physkit/periodic/lattice/hopping_symmetry/test__ScalarHoppingRealOrbitProjector.py"
+destination = "tests/projectkoios/physkit/periodic/lattice/hopping_symmetry/test__ScalarHoppingRealOrbitProjector.py"
+kind = "python-test"
+sha256 = "5b8d339db7b12e18d6fbcee6d73e08d7bbc0bafbd6f4d7e371b66a56f1ff1fac"
+
+[[files]]
+source = "../../tests/projectkoios/physkit/periodic/lattice/hopping_geometry/test__ScalarHoppingFrobeniusDistanceAnalyzer.py"
+destination = "tests/projectkoios/physkit/periodic/lattice/hopping_geometry/test__ScalarHoppingFrobeniusDistanceAnalyzer.py"
+kind = "python-test"
+sha256 = "a588eca1f1a7901404c5f319ff0b6cdffad7e4fb3ac12d87a19f023267ac54ac"
