@@ -59,6 +59,26 @@ solid-state actions. Scientific models may inherit from `Periodic1DModel`; miles
 calculations, serializers, and verifiers must not form a milestone inheritance tree.
 PhysKit must not depend on `ksdft2effmass`.
 
+## Prospective adequacy migration
+
+The selected target owner for KSD-specific normalized loss channels and later outward
+adequacy analysis is
+[`ksdft2effmass.analysis.model_adequacy`](../../analysis/model_adequacy/index.md).
+Generic unit-free quadratic geometry is supplied by exact-pinned
+`projectkoios-optimization` commit `ec3d290…` through its adapter facade.
+Current M3 implementation, supported imports, schema-v1 records, and retained evidence
+remain here until a separately reviewed migration provides compatibility routes and
+source-correlation amendments.
+
+`Periodic1DQuadraticLoss` remains the M3 wrapper for channel identity, optional alignment
+angle, and shift/splitting coordinate meaning. A later behavior-preserving implementation
+may delegate completed-square validation and evaluation to
+`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss` without changing M3
+public fields or wire bytes. The dependency is now exact-pinned, but that delegation
+remains a separate behavior-preserving implementation change. The
+independent M3 verifier must continue to reconstruct $L_E$ and $L_H$ rather than invoking
+the producer evaluator.
+
 ## Code mapping
 
 | Code path | Symbol kind | Qualified name | Responsibility |
