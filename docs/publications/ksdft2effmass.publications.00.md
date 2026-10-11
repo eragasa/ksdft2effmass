@@ -16,11 +16,23 @@ applicable checkpoint for protected external or production execution.
 - [ICMSEP 2026](conferences/ICMSEP2026/ICMSEP2026.00.md): conference abstract
   working material and related project notes.
 
+## Human-in-the-loop review
+
+- [Publication-review protocol](review-protocol/README.md): reusable, versioned
+  process for exact-candidate binding, bounded packet review, human gates,
+  findings, revisions, and closure. Protocol and campaign records do not by
+  themselves establish scientific validation, acceptance, submission, or
+  publication.
+
 ## Long-form research synthesis
 
 - [Research monograph](research-monograph/README.md): dissertation-style,
   long-form working document and extraction map. It is not represented as an
   institutionally registered dissertation or completed research output.
+- [Research-monograph review campaigns](research-monograph/reviews/index.md):
+  publication-local applications of the reusable review protocol. The first
+  campaign remains in planning until an exact candidate and human roles are
+  frozen.
 
 ## Paper planning and manuscripts
 

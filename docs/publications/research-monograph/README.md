@@ -79,11 +79,23 @@ quantification, publication, or human acceptance.
 - `current-library-capability-crosswalk.md` — architecture-linked map from maintained
   public APIs and extraction gaps to new controlled calculations and the staged
   manuscript rewrite;
+- `reviews/` — retained publication-local human-in-the-loop review campaigns;
+  planning or campaign closure does not establish scientific validation,
+  acceptance, submission, or publication;
 - `build/` — ignored local LaTeX output.
 
 P01 and other paper directories remain independently edited publication
 surfaces. They may extract selected monograph material but are not generated
 projections of this directory.
+
+## Human-in-the-loop review
+
+The reusable [publication-review protocol](../review-protocol/README.md)
+separates exact candidate binding, mechanical checks, technical findings,
+human decisions, audience outcome confirmation, and publication authority. The
+first monograph campaign,
+[`RM-REVIEW-001`](reviews/RM-REVIEW-001/README.md), remains `PLANNING`: it has no
+frozen candidate, assigned human panel, packet outcome, or closure claim.
 
 ## Planned Part I notebooks
 

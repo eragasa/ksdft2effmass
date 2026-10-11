@@ -8,7 +8,9 @@ submission, acceptance, publication, scientific validation, or release status.
 
 - [Publication program](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/publications/ksdft2effmass.publications.00.md)
 - [Paper pipeline](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/publications/papers/ksdft2effmass.papers.00.md)
+- [Human-in-the-loop review protocol](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/publications/review-protocol/README.md)
 - [Research monograph](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/publications/research-monograph/README.md)
+- [Research-monograph review campaigns](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/publications/research-monograph/reviews/index.md)
 - [ICMSEP 2026 material](https://github.com/eragasa/ksdft2effmass/tree/dev/docs/publications/conferences/ICMSEP2026)
 
 Detailed publication records remain repository-first and retain the status stated
