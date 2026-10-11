@@ -49,20 +49,20 @@ class TestResearchMonographCitationSnapshotCompiler:
         rendered citation semantics while recording the exact current repository
         revision.
 
-        Acceptance: The result has 34 files, 122 groups, 221 calls, 277 occurrences,
-        45 todos, 122 bibliography entries, two source gaps, and no closure gaps.
+        Acceptance: The result has 46 files, 128 groups, 244 calls, 311 occurrences,
+        44 todos, 128 bibliography entries, two source gaps, and no closure gaps.
         """
         snapshot = self.compile_repository()
 
         assert len(snapshot.repository_revision) == 40
         assert set(snapshot.repository_revision) <= set("0123456789abcdef")
-        assert len(snapshot.source_files) == 34
-        assert len(snapshot.include_instances) == 34
-        assert len(snapshot.groups) == 122
-        assert len(snapshot.calls) == 221
-        assert len(snapshot.occurrences) == 277
-        assert len(snapshot.todos) == 45
-        assert len(snapshot.bibliography_entries) == 122
+        assert len(snapshot.source_files) == 46
+        assert len(snapshot.include_instances) == 46
+        assert len(snapshot.groups) == 128
+        assert len(snapshot.calls) == 244
+        assert len(snapshot.occurrences) == 311
+        assert len(snapshot.todos) == 44
+        assert len(snapshot.bibliography_entries) == 128
         assert len(snapshot.source_gaps) == 2
         assert snapshot.missing_keys == ()
         assert snapshot.duplicate_keys == ()
@@ -78,22 +78,22 @@ class TestResearchMonographCitationSnapshotCompiler:
         source gaps with
         missing bibliography keys.
 
-        Acceptance: Exact origin/priority partitions and 15 generated-only groups are
+        Acceptance: Exact origin/priority partitions and 14 generated-only groups are
         retained; both source gaps have no invented citation group.
         """
         snapshot = self.compile_repository()
 
         assert Counter(value.origin for value in snapshot.occurrences) == {
-            ManuscriptCitationOrigin.DIRECT: 195,
-            ManuscriptCitationOrigin.CITATION_TODO_EXPANSION: 82,
+            ManuscriptCitationOrigin.DIRECT: 231,
+            ManuscriptCitationOrigin.CITATION_TODO_EXPANSION: 80,
         }
         assert Counter(value.priority for value in snapshot.todos) == {
             ManuscriptCitationPriority.HIGH: 10,
             ManuscriptCitationPriority.MEDIUM: 28,
-            ManuscriptCitationPriority.LOW: 7,
+            ManuscriptCitationPriority.LOW: 6,
         }
         assert (
-            sum(group.direct_occurrence_count == 0 for group in snapshot.groups) == 15
+            sum(group.direct_occurrence_count == 0 for group in snapshot.groups) == 14
         )
         assert (
             sum(
@@ -112,7 +112,7 @@ class TestResearchMonographCitationSnapshotCompiler:
         Requirement: Equal exact repository inputs must produce equal immutable
         snapshots and leave References-owned observation identities unset.
 
-        Acceptance: Two independent compilations compare equal and all 122 target
+        Acceptance: Two independent compilations compare equal and all 128 target
         bibliography entries have a null source observation binding.
         """
         first = self.compile_repository()

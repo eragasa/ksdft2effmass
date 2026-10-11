@@ -19,6 +19,12 @@ After working through this chapter, a reader should be able to
   \item define a compressed operator on the retained space;
   \item interpret an isolated Bloch band as a fiberwise retained space without
         confusing its scalar dispersion with a gauge or localized orbital;
+  \item calculate the discarded-sector residual of an exact spectral
+        projection and explain its energy-reference dependence;
+  \item distinguish exact spectral projection from Feshbach--L\"owdin
+        elimination and Schrieffer--Wolff block decoupling;
+  \item explain why projection can preserve selected eigenpairs without
+        preserving exact finite hopping range;
   \item distinguish exact retention from an approximate effective-model class;
         and
   \item separate projection, disentanglement, basis transformation,
@@ -140,6 +146,44 @@ This construction is pedagogical. A periodic crystal uses Bloch-fiber spaces,
 and entangled bands may require construction of a smooth retained family rather
 than selection by one global energy cutoff.
 
+\subsection{The embedded residual and its energy reference}
+
+Let
+\begin{equation}
+  \hat Q=\hat I-\hat P.
+\end{equation}
+Because the projector above is built from eigenvectors of \(\hat H\), it is an
+invariant spectral projector:
+\begin{equation}
+  [\hat P,\hat H]=0,
+  \qquad
+  \hat P\hat H\hat Q=\hat Q\hat H\hat P=0.
+\end{equation}
+If the retained operator is embedded back into the parent space as
+\(\hat P\hat H\hat P\), then
+\begin{equation}
+  \hat H-\hat P\hat H\hat P
+  =\hat Q\hat H\hat Q
+  =\sum_{E_i>E_{\mathrm{cut}}}
+    E_i\lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+For a finite \(D\)-dimensional representation this gives
+\begin{equation}
+  \left\lVert H-PHP\right\rVert_{\mathrm F}^{2}
+  =\sum_{E_i>E_{\mathrm{cut}}}|E_i|^{2}.
+\end{equation}
+This is an exact discarded-sector identity, not an approximation estimate for a
+new model class.
+
+The displayed Frobenius residual depends on the energy zero. Replacing
+\(\hat H\) by \(\hat H+c\hat I\) shifts the retained operator on
+\(\operatorname{Ran}\hat P\) by \(c\hat I_P\), as expected, but it also changes
+the full-space embedded residual by \(c\hat Q\). The reason is simple:
+\(\hat P\hat H\hat P\), viewed on the parent space, acts as zero on the
+discarded sector. That zero action is an embedding convention. It is not a
+claim that the discarded parent energies are physically zero. Energy references
+must therefore be fixed before comparing embedded projection residuals.
+
 \section{Isolated bands as fiberwise retained spaces}
 \index{isolated band!retained space}
 \index{band gap!sampled isolation}
@@ -160,7 +204,27 @@ associated rank-one projector is
 \end{equation}
 Changing the phase by
 $\lvert u_{n k}\rangle\mapsto e^{i\theta(k)}\lvert u_{n k}\rangle$ changes the
-frame but leaves $\widehat P_n(k)$ unchanged.
+frame but leaves $\widehat P_n(k)$ unchanged. For an isolated group
+\(\mathcal B\) of \(M\) bands, the corresponding higher-rank projector is
+\begin{equation}
+  \widehat P_{\mathcal B}(k)
+  =\sum_{n\in\mathcal B}
+    \lvert u_{n k}\rangle\langle u_{n k}\rvert.
+\end{equation}
+A unitary change of the \(M\)-column frame changes its coordinates but not this
+projector.
+
+Regularity of the projector family is what connects spectral selection to
+spatial localization. Kohn established the relation between analytic Bloch
+waves and localized Wannier functions in one dimension~\cite{kohn1959}; des
+Cloizeaux studied analytic and asymptotic properties of crystalline band
+projection operators~\cite{desCloizeaux1964}; Marzari and Vanderbilt formulated
+maximally localized generalized Wannier functions for composite bands~\cite{marzari1997};
+and Brouder et al. related exponentially localized composite Wannier functions
+to the topology of insulating Bloch bundles~\cite{brouder2007}. These results
+reinforce a distinction already visible in the finite calculation: selecting a
+subspace is not the same operation as selecting a smooth, periodic, localized
+frame inside that subspace.
 
 The retained Hamiltonian in this one-dimensional fiber space is the scalar
 matrix
@@ -212,6 +276,157 @@ reduction criterion. Agreement of selected eigenvalues does not by itself show
 that the effective operator reproduces the retained operator in the coordinates
 needed by later perturbations.
 
+\section{Spectral projection versus eliminated-space downfolding}
+
+An exact spectral projector is a special projector: it commutes with the parent
+Hamiltonian. A projector chosen from atomic orbitals, spatial basis functions,
+or another proposed model space need not. To see the consequence, let
+\(\hat Q=\hat I-\hat P\) and write the parent Hamiltonian in block form,
+\begin{equation}
+  \hat H=
+  \begin{pmatrix}
+    \hat P\hat H\hat P & \hat P\hat H\hat Q\\
+    \hat Q\hat H\hat P & \hat Q\hat H\hat Q
+  \end{pmatrix}.
+\end{equation}
+For an eigenstate \(\lvert\psi\rangle\), define
+\(\lvert\psi_P\rangle=\hat P\lvert\psi\rangle\) and
+\(\lvert\psi_Q\rangle=\hat Q\lvert\psi\rangle\). The \(Q\)-sector equation is
+\begin{equation}
+  (E-\hat Q\hat H\hat Q)\lvert\psi_Q\rangle
+  =\hat Q\hat H\hat P\lvert\psi_P\rangle.
+\end{equation}
+Whenever the displayed inverse exists,
+\begin{equation}
+  \lvert\psi_Q\rangle
+  =(E-\hat Q\hat H\hat Q)^{-1}
+    \hat Q\hat H\hat P\lvert\psi_P\rangle.
+\end{equation}
+Substitution into the \(P\)-sector equation gives the energy-dependent
+Feshbach--L\"owdin effective operator
+\begin{equation}
+  \hat H_{\mathrm{down}}(E)
+  =\hat P\hat H\hat P
+   +\hat P\hat H\hat Q
+    (E-\hat Q\hat H\hat Q)^{-1}
+    \hat Q\hat H\hat P.
+\end{equation}
+Projection-operator elimination in this form is associated with Feshbach and
+L\"owdin~\cite{feshbach1958,lowdin1962}. The second term records excursions
+through the eliminated sector. For an exact spectral projector,
+\(\hat P\hat H\hat Q=0\), so the term vanishes and the downfolded operator
+reduces to the exact compression.
+
+A Schrieffer--Wolff construction asks a related but different question: it seeks
+a unitary change of basis that block diagonalizes or perturbatively decouples
+selected sectors~\cite{bravyi2011}. Thus three statements must not be exchanged:
+an eigenspace was retained exactly; an orbital sector was eliminated through a
+resolvent; or two sectors were approximately decoupled by a unitary
+transformation.
+
+\section{Why spectral projection need not preserve finite range}
+
+Suppose that a periodic parent matrix is exactly finite range in a declared
+orbital basis,
+\begin{equation}
+  H(\mathbf k)
+  =\sum_{\mathbf R\in\mathcal S_0}
+    e^{i\mathbf k\cdot\mathbf R}T_{\mathbf R},
+  \qquad |\mathcal S_0|<\infty.
+\end{equation}
+The embedded spectral projection is
+\begin{equation}
+  H_P(\mathbf k)=P(\mathbf k)H(\mathbf k)P(\mathbf k).
+\end{equation}
+Even when \(H(\mathbf k)\) is a finite Fourier polynomial,
+\(P(\mathbf k)\) generally is not. Consequently the projected coefficients
+\begin{equation}
+  T^{(P)}_{\mathbf R}
+  =\frac{1}{|\mathrm{BZ}|}
+    \int_{\mathrm{BZ}}
+      e^{-i\mathbf k\cdot\mathbf R}H_P(\mathbf k)\,
+      \mathrm{d}\mathbf k
+\end{equation}
+need not vanish outside any finite translation set. Classical work on
+crystalline projection operators and modern matrix-decay analysis explain why
+gapped projectors can nevertheless be spatially localized or rapidly
+decaying~\cite{desCloizeaux1964,benzi2013}. Exact finite support is a stronger
+property than decay.
+
+\subsection{A two-band calculation}
+
+Consider the nearest-neighbor two-orbital Bloch matrix
+\begin{equation}
+  H(k)=
+  \begin{pmatrix}
+    \Delta & t(1+e^{-ik})\\
+    t(1+e^{ik}) & -\Delta
+  \end{pmatrix},
+  \qquad t\in\mathbb R,
+  \qquad \Delta\neq0.
+\end{equation}
+Direct multiplication gives
+\begin{equation}
+  H(k)^2=d(k)^2I,
+  \qquad
+  d(k)=\sqrt{\Delta^2+4t^2\cos^2(k/2)},
+\end{equation}
+so the two energies are \(E_{\pm}(k)=\pm d(k)\). The lower-band projector is
+\begin{equation}
+  P_-(k)=\frac12\left(I-\frac{H(k)}{d(k)}\right).
+\end{equation}
+Because \(H(k)P_-(k)=-d(k)P_-(k)\), its embedded projected Hamiltonian is
+\begin{equation}
+  H_-(k)
+  =P_-(k)H(k)P_-(k)
+  =-d(k)P_-(k)
+  =\frac12\bigl(H(k)-d(k)I\bigr).
+\end{equation}
+For generic \(t\neq0\), the square root \(d(k)\) is not a finite Fourier
+polynomial. One quick way to see this is to suppose that it had a largest
+nonzero Fourier index \(m>0\). Its square would then have a nonzero coefficient
+at index \(2m\), whereas
+\begin{equation}
+  d(k)^2=\Delta^2+2t^2+2t^2\cos k
+\end{equation}
+contains only indices \(0\) and \(\pm1\). Taking \(m=0\) would make
+\(d(k)\) constant, which it is not when \(t\neq0\). Therefore both the
+embedded matrix \(H_-(k)\) and the scalar lower-band operator \(-d(k)\)
+generally have nonzero Fourier coefficients beyond nearest neighbors.
+
+Nothing failed: the lower eigenpair is retained exactly. What failed is a
+different proposition---that spectral projection preserves the parent's exact
+finite hopping support. For a composite retained space, a momentum-dependent
+unitary frame change can redistribute the matrix-valued Fourier blocks further,
+as Chapter~\ref{ch:training-composite-band-gauge-alignment} demonstrates.
+Finite-range representability must therefore be tested in the declared frame
+and model class; it does not follow from spectral exactness.
+
+\section{From exact retention to model-class expressivity}
+
+The preceding calculation separates three maps that answer different
+questions:
+\begin{align}
+  \text{spectral projection:}
+  &\quad H\longmapsto PHP,\\
+  \text{hopping truncation:}
+  &\quad T_{\mathbf R}\longmapsto
+    \mathbf 1_{\mathbf R\in\mathcal S}T_{\mathbf R},\\
+  \text{structural restriction:}
+  &\quad H\longmapsto H_j(\boldsymbol\theta)\in\mathcal M_j.
+\end{align}
+The first selects an invariant state space, the second enforces a translation
+support, and the third enforces a candidate Hamiltonian family. They preserve
+different information and need not commute.
+
+An exact spectral projection can therefore supply a controlled target for a
+model-class test, but it does not answer that test. The later adequacy question
+asks whether one candidate \(H_j(\boldsymbol\theta)\), after the declared
+alignment, satisfies both the spectral and represented-operator criteria. That
+requires the common witness or globally valid separation argument developed in
+Chapter~\ref{ch:admissible-sets-certificates}; exact retention alone supplies
+neither conclusion.
+
 \section{Operations that must not be collapsed}
 \index{disentanglement!distinction}
 \index{truncation!distinction}
@@ -222,6 +437,8 @@ needed by later perturbations.
         spectral rule in a setting where that rule is meaningful.
   \item[Disentanglement.] Constructs a retained subspace from a larger window
         when target bands are not globally isolated.
+  \item[Downfolding.] Eliminates a complementary sector and may produce an
+        energy-dependent, nonlocal effective operator on the model space.
   \item[Basis transformation.] Changes coordinates inside an already identified
         space without changing the represented abstract operator.
   \item[Localization.] Selects or optimizes a basis or gauge according to a
@@ -257,10 +474,17 @@ V = np.eye(4, dtype=np.complex128)[:, :2]
 P = V @ V.conjugate().T
 H_retained = V.conjugate().T @ H @ V
 
-# Check projector identities and the compressed representation explicitly.
-np.testing.assert_allclose(P @ P, P)
-np.testing.assert_allclose(P.conjugate().T, P)
-np.testing.assert_allclose(H_retained, V.conjugate().T @ P @ H @ P @ V)
+# Report projector and compression defects explicitly.
+idempotence_defect = np.linalg.norm(P @ P - P, ord="fro")
+self_adjoint_defect = np.linalg.norm(P.conjugate().T - P, ord="fro")
+compression_defect = np.linalg.norm(
+    H_retained - V.conjugate().T @ P @ H @ P @ V,
+    ord="fro",
+)
+
+print(f"idempotence defect: {idempotence_defect:.3e}")
+print(f"self-adjointness defect: {self_adjoint_defect:.3e}")
+print(f"compression defect: {compression_defect:.3e}")
 \end{pythonexample}
 
 The example verifies exact identities for synthetic arrays. It does not justify
@@ -277,6 +501,10 @@ A retained-space calculation should state
   \item the projector or frame, including basis and gauge conventions;
   \item the treatment of degeneracies or entangled bands;
   \item the operator terms compressed through the same map;
+  \item whether the construction is an invariant spectral restriction, an
+        eliminated-space downfolding, or another reduction;
+  \item the distinction between exact finite support, spatial decay, and a
+        chosen finite-range model class;
   \item the relation between the exact retained operator and any fitted model;
         and
   \item the evidence and tolerance used to assess each approximation.
@@ -295,6 +523,11 @@ A retained-space calculation should state
         as projecting onto a retained subspace.
   \item State why a spectral cutoff can become ambiguous near a degeneracy or
         for entangled bands.
+  \item Derive the Feshbach--L\"owdin operator by solving the \(Q\)-sector
+        equation, and show why its correction vanishes for an exact spectral
+        projector.
+  \item Verify \(H(k)^2=d(k)^2I\) for the two-band example and explain why the
+        lower-band dispersion cannot terminate at nearest-neighbor range.
 \end{enumerate}
 
 \section{Evidence boundary}

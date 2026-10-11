@@ -30,8 +30,9 @@ applications without redefining the primary discussion.
 6. `chapters/periodic-geometry.tex` — direct and reciprocal periodic geometry;
 7. `chapters/bloch-periodic-finite-differences.tex` — Bloch seams and sparse
    finite-difference representations;
-8. `chapters/projection-and-retained-spaces.tex` — projection, compression, and
-   exact retained operators;
+8. `chapters/projection-and-retained-spaces.tex` — projection, exact retained
+   operators, eliminated-space downfolding, and projection-induced loss of exact
+   finite range;
 9. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
    fibers, isolated scalar bands, complete hopping transforms, finite-range
    truncation, direct fitting, and withheld evaluation;
@@ -83,6 +84,9 @@ applications without redefining the primary discussion.
 | Dirac notation | `chapters/quantum-states-and-operators.tex` | `appendices/A-notation-and-status.tex` | Introductory state notation |
 | Hamiltonian decomposition | `chapters/quantum-states-and-operators.tex` | `chapters/model-adequacy.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Operator decomposition before finite representation |
 | Orthogonal projection | `chapters/projection-and-retained-spaces.tex` (`ch:training-projection-retained-spaces`) | `chapters/operator-comparison.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Retained-space construction |
+| Embedded spectral residual and energy reference | `chapters/projection-and-retained-spaces.tex` | `appendices/C-operator-spaces-compression-alignment.tex` | Exact discarded-sector identity separated from the energy-zero-dependent full-space embedding convention |
+| Spectral projection versus downfolding | `chapters/projection-and-retained-spaces.tex` | `appendices/C-operator-spaces-compression-alignment.tex`; `chapters/mathematics-of-reduction.tex` | Exact invariant-subspace restriction separated from Feshbach--Löwdin elimination and Schrieffer--Wolff block decoupling |
+| Projection-induced loss of exact finite range | `chapters/projection-and-retained-spaces.tex` | `chapters/isolated-band-fourier-reduction.tex`; `chapters/composite-band-gauge-alignment.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Explicit two-band counterexample separating retained spectral exactness, spatial decay, and finite-support model classes |
 | Position-space representation | `chapters/quantum-states-and-operators.tex` | `appendices/D-particle-in-a-box-residuals.tex` | Coordinate representation |
 | PAW transformation | `chapters/model-adequacy.tex` | `chapters/bulk-representations.tex` | Explanatory contrast; not the active silicon parent |
 | Spectral reconstruction | `chapters/projection-and-retained-spaces.tex` | `chapters/model-adequacy.tex`; `appendices/D-particle-in-a-box-residuals.tex` | Exact retained operator versus model-class approximation |

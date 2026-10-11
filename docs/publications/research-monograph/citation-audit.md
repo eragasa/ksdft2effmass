@@ -61,6 +61,20 @@ continuous global search and constraint satisfaction. This reuse resolves no
 broader claim about which certified global method is applicable to the
 project's future material-scale model families.
 
+**Later spectral-projection integration:** A supplied focused literature and
+methodology note has been integrated conceptually into
+`chapters/projection-and-retained-spaces.tex` and Appendix C rather than added as
+an isolated review appendix. The revised exposition now separates exact
+spectral restriction, Feshbach--Löwdin eliminated-space downfolding,
+Schrieffer--Wolff block decoupling, spatial decay, and exact finite hopping
+support. It also derives an explicit two-band counterexample showing that exact
+retention of one band need not preserve nearest-neighbor support. The
+bibliographic metadata for `desCloizeaux1964`, `lowdin1962`, `bravyi2011`, and
+`benzi2013` were checked against their DOI records when added. Existing
+`kohn1959`, `marzari1997`, and `brouder2007` records supply the complementary
+Bloch/Wannier context. This integration and metadata check are not an exhaustive
+claim-by-claim primary-source reading audit.
+
 ---
 
 **Location:** `docs/publications/research-monograph/chapters/preface.tex`, approximately lines 164–168, “Program scope.”
@@ -1014,6 +1028,12 @@ project's proposed continuum crossover.
 - Herman Feshbach, “Unified Theory of Nuclear Reactions,” 1958
 - Bibliographic key if already present: `feshbach1958`
 - Status: PRESENT IN BIBLIOGRAPHY
+
+**Resolution update:** Resolved for this occurrence. Appendix C now cites
+`feshbach1958`, `lowdin1962`, and `lowdin1982` together and explicitly states
+when the eliminated-space term vanishes for an exact spectral projector. The
+main projection chapter derives the same distinction pedagogically and cites
+`bravyi2011` separately for Schrieffer--Wolff block decoupling.
 
 **Priority:** Low
 

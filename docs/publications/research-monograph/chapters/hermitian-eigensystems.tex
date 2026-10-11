@@ -118,7 +118,7 @@ Distinct eigenvalues therefore have orthogonal eigenspaces.
 
 The finite-dimensional spectral theorem adds the crucial completeness result:
 every Hermitian \(N\times N\) matrix has \(N\) orthonormal eigenvectors when
-multiplicity is counted \parencite{hornJohnson2013}. The reality and
+multiplicity is counted~\cite{hornJohnson2013}. The reality and
 orthogonality arguments above explain
 important parts of the theorem, but they do not by themselves prove the
 existence of a complete eigenbasis.
@@ -287,7 +287,7 @@ small hand calculations and for understanding singularity and multiplicity. It
 is not the usual stable numerical route for a large matrix. Production
 Hermitian eigensolvers use matrix factorizations or iterative subspace methods
 rather than evaluating determinants and finding roots of an explicitly formed
-characteristic polynomial \parencite{golubVanLoan2013}.
+characteristic polynomial~\cite{golubVanLoan2013}.
 
 \section{The Rayleigh quotient and extreme eigenvalues}
 \index{Rayleigh quotient}
@@ -323,7 +323,7 @@ Moreover,
 \end{equation}
 The minimizing and maximizing vectors lie in the corresponding eigenspaces.
 Intermediate eigenvalues admit related constrained variational
-characterizations \parencite{hornJohnson2013}. This is the finite-dimensional
+characterizations~\cite{hornJohnson2013}. This is the finite-dimensional
 foundation of methods that seek low-energy states without computing a complete
 spectrum.
 
@@ -436,7 +436,7 @@ For a dense Hermitian matrix, use a Hermitian eigensolver such as
 returns real eigenvalues and orthonormal eigenvectors up to floating-point
 error. For a large sparse matrix, computing only a requested portion of the
 spectrum is often more appropriate than constructing a complete dense
-factorization \parencite{golubVanLoan2013}.
+factorization~\cite{golubVanLoan2013}.
 
 A returned pair should be checked through the residual
 \begin{equation}

@@ -22,8 +22,10 @@ quantities, units, coordinates, and metadata through finite representations,
 Hermitian eigensystems and spectral subspaces, quantum operators and the
 one-dimensional box, two- and three-dimensional box
 models with Kronecker products, periodic geometry, Bloch-periodic finite
-differences, retained spaces, isolated-band Fourier reduction to finite-range
-lattice Hamiltonians, composite Bloch frames, the Bloch--Wannier bridge, gauge
+differences, retained spaces, the distinction between spectral projection and
+eliminated-space downfolding, projection-induced loss of exact finite hopping
+range, isolated-band Fourier reduction to finite-range lattice Hamiltonians,
+composite Bloch frames, the Bloch--Wannier bridge, gauge
 transport and alignment, block locality, and evidence vocabulary. Part II then
 moves from the scientific adequacy question through common-space operator
 comparison to spectral and operator admissible sets, common witnesses,
