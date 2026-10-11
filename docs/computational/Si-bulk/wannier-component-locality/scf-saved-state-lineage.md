@@ -267,6 +267,10 @@ transitions have committed.
 | Payload identity prefix | `ksdft2effmass.si-vc.saved-state-staging-receipt:1:` |
 | CPN payload role | `si-vc-saved-state-staging-receipt-reference` |
 
+The receipt payload identity is the exact prefix above plus lowercase SHA-256 of
+the canonical receipt payload bytes. It is not embedded in the payload and
+remains distinct from the later six-field Workflow reference identity.
+
 ### Closed document
 
 The exact top-level fields are:
@@ -417,19 +421,22 @@ consumer fixture set must prove:
    evidence changes the accepted-parent payload identity;
 8. exact accepted-parent bytes pass pure codec, outer retention, reference
    assembly, structural reference, full admission, and replay verification;
-9. staging source is the accepted parent, not the raw candidate or a path;
-10. staging copies every and only manifest entries into a fresh artifact set and
+9. exact staging-receipt bytes derive the stated payload identity reproducibly,
+   changed bytes change it, the later six-field reference remains distinct, and
+   codec, assembly, full admission, and replay reconstruct and verify both;
+10. staging source is the accepted parent, not the raw candidate or a path;
+11. staging copies every and only manifest entries into a fresh artifact set and
     retains the receipt before NSCF authority;
-11. any source/destination/manifest/count/size/identity mismatch produces no
+12. any source/destination/manifest/count/size/identity mismatch produces no
     successful receipt and no dependent dispatch;
-12. the receipt identity graph is acyclic under the selected staging-evidence
+13. the receipt identity graph is acyclic under the selected staging-evidence
     representation;
-13. NSCF qualification binds the accepted SCF parent and exact staging receipt;
-14. no qualified NSCF lineage is emitted for a wrong grid, band count, spin mode,
+14. NSCF qualification binds the accepted SCF parent and exact staging receipt;
+15. no qualified NSCF lineage is emitted for a wrong grid, band count, spin mode,
     structure, source frame, unconverged output, or unaccepted semantic evidence;
-15. unchanged-child cancellation capability is represented exactly and cannot
+16. unchanged-child cancellation capability is represented exactly and cannot
     satisfy stronger parent policy; and
-16. complete replay resolves payloads outside the kernel and reconstructs the
+17. complete replay resolves payloads outside the kernel and reconstructs the
     companion, acceptance, staging, NSCF qualification, and quiescence barriers
     without an external effect.
 
