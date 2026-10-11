@@ -1029,7 +1029,7 @@ requires-dist = [
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "pint", specifier = ">=0.26,<0.27" },
-    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=949d106bc98975a18ad86d6fa84092ef0c68298e" },
+    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=d6333208a1ff723682a557afd593a5c932058cb7" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -1550,8 +1550,8 @@ wheels = [
 
 [[package]]
 name = "projectkoios-physkit"
-version = "0.1.1"
-source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=949d106bc98975a18ad86d6fa84092ef0c68298e#949d106bc98975a18ad86d6fa84092ef0c68298e" }
+version = "0.1.2"
+source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=d6333208a1ff723682a557afd593a5c932058cb7#d6333208a1ff723682a557afd593a5c932058cb7" }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },

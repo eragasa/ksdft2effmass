@@ -30,12 +30,12 @@ in-plane frame, projector, and dual basis while routing its induced metric to th
 intrinsic $2\times2$ contract. That flat embedded plane remains distinct from a fully
 periodic $3\times3$ slab or supercell.
 
-The pinned PhysKit revision
-`949d106bc98975a18ad86d6fa84092ef0c68298e` provides the reusable nonorthogonal
+The pinned PhysKit version `0.1.2` at exact revision
+`d6333208a1ff723682a557afd593a5c932058cb7` provides the reusable nonorthogonal
 Bloch-periodic scalar Laplacian under
 `projectkoios.physkit.periodic.finite_difference`. Its dimension-bounded 2D/3D
 implementation uses the full inverse metric, mixed centered derivatives, and
-reduced-twist seam phases. The same revision provides the explicit $3\times2$
+reduced-twist seam phases. The same version provides the explicit $3\times2$
 embedded-plane adapter and strict defining-geometry JSON codec under
 `projectkoios.physkit.periodic.lattice.embedding`. Dependency availability and the
 consumer smoke test do not by themselves close the periodic2d parity gate, supply

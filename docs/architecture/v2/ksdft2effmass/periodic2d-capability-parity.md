@@ -25,11 +25,12 @@ remains unchanged while the parent periodic2d capabilities are brought to parity
 The current human instruction authorizes periodic2d lattice work to use the reusable
 Project Koios PhysKit lattice owners. Before this slice, this branch had no PhysKit
 package dependency and the cosine model left its square-cell duality implicit. The
-dependency is `projectkoios-physkit`, now pinned to revision
-`949d106bc98975a18ad86d6fa84092ef0c68298e`. Periodic2d imports
+dependency is `projectkoios-physkit==0.1.2`, pinned to exact revision
+`d6333208a1ff723682a557afd593a5c932058cb7`, the commit referenced by the
+published `v0.1.2` tag. Periodic2d imports
 `DirectLattice2D` and `ReciprocalLattice2D` from
 `projectkoios.physkit.periodic.lattice`; it does not introduce another campaign-local
-direct or reciprocal lattice type. The pinned revision also provides the
+direct or reciprocal lattice type. The pinned release also provides the
 nonorthogonal 2D/3D Bloch-periodic scalar Laplacian and an explicit adapter from a
 full-column-rank $3\times2$ ambient basis to the intrinsic $2\times2$ metric contract.
 That adapter preserves the ambient basis, in-plane frame, projector, and dual
