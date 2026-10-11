@@ -42,6 +42,7 @@ retry, convergence interpretation, or acceptance.
 - [WorkflowRun object model](workflow-run.md)
 - [Workflow control plane](control-plane.md)
 - [Workflow persistence](persistence.md)
+- [Generic Workflow migration crosswalk and golden-parity plan](generic-workflow-migration-crosswalk.md)
 - [Shared revision persistence](../persistence/index.md)
 - [Artifact and provenance model](artifact-and-provenance-model.md)
 - [Scientific read models](read-models.md)
