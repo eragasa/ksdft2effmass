@@ -38,7 +38,7 @@ classifiers = [
 dependencies = [
     "matplotlib>=3.8",
     "numpy>=1.26",
-    "projectkoios-physkit",
+    "projectkoios-physkit==0.1.2",
     "pint>=0.26,<0.27",
     "scipy>=1.12",
 ]
@@ -141,7 +141,7 @@ indent-style = "space"
 
 
 [tool.uv.sources]
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "949d106bc98975a18ad86d6fa84092ef0c68298e" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "d6333208a1ff723682a557afd593a5c932058cb7" }
 
 
 [tool.mypy]
