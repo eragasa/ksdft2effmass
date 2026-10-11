@@ -1,0 +1,871 @@
+\chapter{Composite Bloch Frames, Gauge Alignment, and Block Locality}
+\index{composite band!frame and alignment|textbf}
+\index{gauge alignment!composite band|textbf}
+\index{block hopping!gauge dependence|textbf}
+
+\label{ch:training-composite-band-gauge-alignment}
+
+\chapterstatus{pedagogical derivation and synthetic computational example. This
+chapter explains the mathematical chain exercised by a controlled
+one-dimensional rank-two alignment calculation, but it reports no M2 numerical
+outcome, material calculation, localization result, topological classification,
+scientific validation, or uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish a matrix-valued periodic parent from a continuum parent and
+        from a reduced represented operator;
+  \item define a composite retained space by its frame and projector while
+        allowing internal band crossings;
+  \item separate an external spectral gap from neighboring-frame overlap
+        conditioning;
+  \item derive the covariance of a projected Hamiltonian under a
+        momentum-dependent unitary gauge;
+  \item connect a Bloch frame, a Wannier basis, and matrix-valued hopping
+        blocks without confusing that connection with localization;
+  \item construct neighborwise polar transport and interpret reciprocal sewing
+        and closure holonomy;
+  \item derive pointwise and globally constrained unitary Procrustes alignment;
+  \item explain why complete spectra can be gauge invariant while finite-range
+        locality is gauge dependent; and
+  \item interpret the Frobenius, singular-value, gap, Hermiticity, and spectral
+        diagnostics used in a bounded multiband calculation.
+\end{enumerate}
+
+Chapter~\ref{ch:training-projection-retained-spaces} introduced frames,
+projectors, and exact retained operators. Chapter~\ref{ch:training-isolated-band-fourier-reduction}
+then considered a rank-one retained Hamiltonian, for which the represented
+operator at each reciprocal coordinate is the scalar energy $E_n(k)$. A
+composite retained space has rank greater than one. Its Hamiltonian is a matrix,
+and that matrix cannot be discussed independently of the frame in which it is
+written.
+
+The new sequence is
+\begin{equation}
+  \begin{aligned}
+    \text{periodic parent}
+    &\longrightarrow \text{composite space}
+     \longrightarrow \text{frame path},\\
+    \text{frame path}
+    &\longrightarrow \text{transport and alignment}
+     \longrightarrow H_F(\kappa),\\
+    H_F(\kappa)
+    &\longrightarrow \text{block hoppings}
+     \longrightarrow \text{finite range}.
+  \end{aligned}
+  \label{eq:training-composite-sequence}
+\end{equation}
+Each arrow carries information that a table of eigenvalues alone does not
+contain.
+
+\section{A finite matrix-valued periodic parent}
+\index{block Hamiltonian!periodic parent}
+
+Let $G>0$ be one reciprocal period and let
+$\kappa=k/G\in[-1/2,1/2)$. Consider the finite Bloch matrix
+\begin{equation}
+  H_{\mathrm p}(\kappa)
+  =\sum_{R\in\mathcal R_{\mathrm p}}
+    e^{2\pi iR\kappa}T_R,
+  \label{eq:training-composite-parent}
+\end{equation}
+where each $T_R\in\mathbb C^{D\times D}$ acts on a declared $D$-dimensional
+orbital coordinate space. The parent is Hermitian at every $\kappa$ when
+\begin{equation}
+  T_{-R}=T_R^{\dagger}
+  \label{eq:training-composite-parent-hermiticity}
+\end{equation}
+for every represented displacement, including $T_0=T_0^{\dagger}$. Indeed,
+\begin{align}
+  H_{\mathrm p}(\kappa)^{\dagger}
+  &=\sum_R e^{-2\pi iR\kappa}T_R^{\dagger}
+    =\sum_R e^{-2\pi iR\kappa}T_{-R}
+    =H_{\mathrm p}(\kappa).
+  \label{eq:training-composite-fiber-hermiticity}
+\end{align}
+
+This parent differs from the continuum cosine Hamiltonian used in
+Chapter~\ref{ch:training-isolated-band-fourier-reduction}. Equation~\eqref{eq:training-composite-parent}
+is already an exact finite represented model. Evaluating its finite sum does
+not introduce a plane-wave cutoff or finite-difference stencil error. It may be
+a useful controlled parent, but it is not thereby a continuum Hamiltonian or a
+material model.
+
+The symbols $R$ and $T_R$ already resemble lattice hoppings. They describe the
+\emph{ambient parent} coordinate space. The reduced blocks constructed later
+act in a different, rank-$M$ retained space. Equal notation or equal range does
+not identify those two spaces.
+
+\section{Composite retention and the external gap}
+\index{composite band!external gap}
+\index{spectral gap!external}
+
+At each reciprocal coordinate, diagonalize the parent:
+\begin{equation}
+  H_{\mathrm p}(\kappa)u_n(\kappa)
+  =E_n(\kappa)u_n(\kappa),
+  \qquad
+  E_1(\kappa)\leq\cdots\leq E_D(\kappa).
+  \label{eq:training-composite-eigensystem}
+\end{equation}
+Suppose the lowest $M<D$ states are retained. Collect an orthonormal basis for
+their span in the frame matrix
+\begin{equation}
+  F(\kappa)
+  =\begin{bmatrix}u_1(\kappa)&\cdots&u_M(\kappa)\end{bmatrix},
+  \qquad
+  F(\kappa)^{\dagger}F(\kappa)=I_M.
+  \label{eq:training-composite-frame}
+\end{equation}
+The corresponding ambient-space projector is
+\begin{equation}
+  P(\kappa)=F(\kappa)F(\kappa)^{\dagger}.
+  \label{eq:training-composite-projector}
+\end{equation}
+
+For this lowest-$M$ selection, the direct external gap is
+\begin{equation}
+  \gamma_{\mathrm{ext}}(\kappa)
+  =E_{M+1}(\kappa)-E_M(\kappa).
+  \label{eq:training-composite-external-gap}
+\end{equation}
+A sampled calculation may retain
+\begin{equation}
+  \gamma_{\mathrm{ext}}^{\mathrm{sampled}}
+  =\min_{\kappa\in\mathcal K_{\mathrm{declared}}}
+   \gamma_{\mathrm{ext}}(\kappa).
+  \label{eq:training-composite-sampled-gap}
+\end{equation}
+A positive sampled value supports separation on the declared coordinates. It
+does not prove a positive gap between those coordinates.
+
+The retained bands may cross one another internally. Such an internal
+degeneracy can make individual eigenvectors or energy-ordered labels unstable
+without destroying the $M$-dimensional projector. This is a principal reason to
+retain a composite space: the projector can remain smooth and meaningful even
+when the individual columns returned by an eigensolver are not.
+
+An energy gap and a neighboring-frame overlap diagnose different things. The
+gap separates retained and excluded eigenvalues at one coordinate. An overlap
+singular value, introduced below, measures how well two sampled retained spaces
+see one another. Neither quantity can replace the other.
+
+\section{Frames, gauges, and projected Hamiltonians}
+\index{gauge!composite frame}
+\index{projected Hamiltonian!gauge covariance}
+
+For any $U(\kappa)\in U(M)$, define another frame
+\begin{equation}
+  F'(\kappa)=F(\kappa)U(\kappa).
+  \label{eq:training-composite-gauge-change}
+\end{equation}
+Its projector is unchanged:
+\begin{equation}
+  F'F'^{\dagger}=FUU^{\dagger}F^{\dagger}=FF^{\dagger}=P.
+  \label{eq:training-composite-projector-invariance}
+\end{equation}
+The multiplication order matters: the frame is $D\times M$, whereas $U$ is
+$M\times M$.
+
+The parent compressed into the frame is
+\begin{equation}
+  H_F(\kappa)
+  =F(\kappa)^{\dagger}H_{\mathrm p}(\kappa)F(\kappa)
+  \in\mathbb C^{M\times M}.
+  \label{eq:training-composite-projected-operator}
+\end{equation}
+Under Equation~\eqref{eq:training-composite-gauge-change},
+\begin{equation}
+  H_{F'}(\kappa)
+  =U(\kappa)^{\dagger}H_F(\kappa)U(\kappa).
+  \label{eq:training-composite-operator-covariance}
+\end{equation}
+Thus the two matrices generally differ entry by entry even though they represent
+the same retained abstract operator. Their eigenvalues agree. Subtracting them
+before alignment measures a coordinate change, not a physical perturbation.
+
+If the columns of $F$ are the individual eigenvectors, then $H_F$ is diagonal.
+A smooth composite gauge may mix those eigenvectors, in which case $H_F$ need
+not be diagonal. Diagonality and smoothness are different coordinate
+properties.
+
+\section{The Bloch--Wannier bridge}
+\index{Wannier transformation!composite frame}
+\index{Bloch--Wannier bridge}
+
+Let $\{\lvert\psi_{m k}\rangle\}_{m=1}^{M}$ be a retained Bloch frame on a
+uniform $N_k$-point mesh. For a chosen unitary gauge $U(k)$, define
+\begin{equation}
+  \lvert w_{nR}\rangle
+  =\frac{1}{\sqrt{N_k}}
+   \sum_k e^{-ikRa}
+   \sum_{m=1}^{M}
+   \lvert\psi_{mk}\rangle U_{mn}(k),
+  \label{eq:training-composite-wannier-transform}
+\end{equation}
+where $R$ is an integer cell displacement. This is the finite
+Bloch--Wannier transformation~\cite{wannier1937,marzari1997,marzari2012}.
+It constructs a basis only after a frame and its boundary convention have been
+chosen.
+
+Let $H_U(k)=U(k)^{\dagger}H_F(k)U(k)$. Orthogonality between different Bloch
+coordinates gives
+\begin{align}
+  \langle w_{m0}\rvert\widehat H\lvert w_{nR}\rangle
+  &=\frac{1}{N_k}\sum_k
+    e^{-ikRa}[H_U(k)]_{mn}.
+  \label{eq:training-composite-wannier-hopping}
+\end{align}
+The inverse finite transform is
+\begin{equation}
+  H_U(k)
+  =\sum_R e^{ikRa}H_U(R),
+  \qquad
+  [H_U(R)]_{mn}
+  =\langle w_{m0}\rvert\widehat H\lvert w_{nR}\rangle.
+  \label{eq:training-composite-wannier-inverse}
+\end{equation}
+Equations~\eqref{eq:training-composite-wannier-hopping} and
+\eqref{eq:training-composite-wannier-inverse} are the missing bridge between a
+Bloch-frame Hamiltonian and block hoppings.
+
+For one isolated eigenband, $M=1$ and $H_F(k)=E_n(k)$. The phase $U(k)$ cancels
+from $U(k)^*E_n(k)U(k)$, so the complete scalar hopping coefficients depend only
+on the dispersion. The Wannier function itself still depends on the phase. For
+$M>1$, a momentum-dependent $U(k)$ generally changes the matrix
+$H_U(k)$ and therefore its individual real-space blocks.
+
+The transform of Hamiltonian matrices is not a localization calculation. It
+does not by itself calculate Wannier functions, centers, spreads, probability
+densities, or a minimizer of a localization functional. Those quantities
+require eigenvectors, overlaps, and an explicit localization construction.
+
+\section{Comparing retained frames}
+\index{frame defect}
+\index{projector defect}
+\index{principal angle!retained spaces}
+
+Let $F_{\mathrm r}$ and $F_{\mathrm c}$ be reference and candidate frames in
+the same ambient coordinates. Three comparisons must remain distinct.
+
+The raw frame defect
+\begin{equation}
+  d_{\mathrm{frame}}
+  =\lVert F_{\mathrm c}-F_{\mathrm r}\rVert_{\mathrm F}
+  \label{eq:training-composite-frame-defect}
+\end{equation}
+is gauge dependent. The projector defect
+\begin{equation}
+  d_{\mathrm{proj}}
+  =\lVert
+     F_{\mathrm c}F_{\mathrm c}^{\dagger}
+     -F_{\mathrm r}F_{\mathrm r}^{\dagger}
+   \rVert_{\mathrm F}
+  \label{eq:training-composite-projector-defect}
+\end{equation}
+is invariant under independent unitary rotations of either frame. It vanishes
+exactly when the two orthogonal projectors agree.
+
+Finally, the singular values of
+\begin{equation}
+  S=F_{\mathrm c}^{\dagger}F_{\mathrm r}
+  \label{eq:training-composite-frame-overlap}
+\end{equation}
+are the cosines of the principal angles between the retained spaces. Values
+near one indicate compatible subspaces; values near zero expose directions
+that cannot be stably identified by a unitary rotation. Equal rank alone does
+not guarantee favorable singular values.
+
+The Frobenius norm used here is
+\begin{equation}
+  \lVert A\rVert_{\mathrm F}
+  =\left(\sum_{i,j}|A_{ij}|^2\right)^{1/2}
+  =\sqrt{\operatorname{tr}(A^{\dagger}A)}.
+  \label{eq:training-composite-frobenius}
+\end{equation}
+A frame or projector defect is dimensionless. A Hamiltonian-matrix defect has
+energy units. The same norm formula does not erase that dimensional
+difference.
+
+\section{Neighborwise polar transport}
+\index{parallel transport!polar}
+\index{singular value!neighboring frames}
+
+Raw eigensolver frames at neighboring points can contain arbitrary phases and
+unitary mixtures. Suppose a transported frame $F_j$ has already been chosen and
+$G_{j+1}$ is the next raw frame. Form
+\begin{equation}
+  S_j=F_j^{\dagger}G_{j+1}.
+  \label{eq:training-composite-neighbor-overlap}
+\end{equation}
+Let its singular-value decomposition be
+\begin{equation}
+  S_j=L_j\Sigma_jR_j^{\dagger}.
+  \label{eq:training-composite-neighbor-svd}
+\end{equation}
+Then choose
+\begin{equation}
+  Q_j=R_jL_j^{\dagger},
+  \qquad
+  F_{j+1}=G_{j+1}Q_j.
+  \label{eq:training-composite-polar-transport}
+\end{equation}
+The new overlap is
+\begin{equation}
+  F_j^{\dagger}F_{j+1}
+  =L_j\Sigma_jL_j^{\dagger},
+  \label{eq:training-composite-positive-overlap}
+\end{equation}
+which is Hermitian positive semidefinite. This is the unitary polar or
+orthogonal-Procrustes step that makes the next frame as close as possible to the
+previous one in the declared Frobenius metric~\cite{schonemann1966,higham1986}.
+
+The minimum singular value over neighbor and boundary overlaps is a conditioning
+diagnostic. A frozen threshold can make insufficient overlap a fail-closed stop
+condition. It is not a universal physical constant, and passing it does not
+prove continuous smoothness between mesh points.
+
+\subsection{Sewing and closure holonomy}
+\index{reciprocal sewing}
+\index{holonomy!closure}
+
+The first and last stored mesh points are not duplicate endpoints. To close the
+reciprocal loop, the first frame must be mapped across the zone boundary by a
+declared ambient sewing map $S_G$. After neighborwise transport, form
+\begin{equation}
+  C=F_{N_k-1}^{\dagger}S_GF_0.
+  \label{eq:training-composite-closure-overlap}
+\end{equation}
+The unitary polar factor of $C$ is the discrete closure holonomy. If its
+eigenvalues are $e^{i\phi_1},\ldots,e^{i\phi_M}$, the phases are defined only
+modulo $2\pi$ and their ordering can change at degeneracies or branch cuts.
+They must therefore be treated as a phase set with an explicit branch
+convention~\cite{marzari2012}.
+
+A periodic orbital-coordinate parent may use $S_G=I$ because its ambient basis
+is exactly periodic. Other representations can require a nontrivial sewing map.
+For example, reciprocal-index plane-wave coordinates relabel across
+$k\mapsto k+G$. Identity sewing must never be assumed merely because the
+Hamiltonian spectrum is periodic.
+
+One can distribute a matrix root of the closure holonomy along the path to
+produce a closed smooth representative. This is a gauge construction. Its
+closure eigenphases are Wilson-loop-like data, but a single finite loop does not
+by itself establish a polarization, a topological invariant, or an
+infinite-mesh localization theorem.
+
+\section{A controlled momentum-dependent gauge attack}
+\index{gauge attack!rank two}
+
+For a rank-two retained space, a transparent periodic rotation is
+\begin{equation}
+  A(\kappa)
+  =e^{-i\theta(\kappa)\sigma_y}
+  =\begin{pmatrix}
+      \cos\theta(\kappa)&-\sin\theta(\kappa)\\
+      \sin\theta(\kappa)& \cos\theta(\kappa)
+    \end{pmatrix},
+  \label{eq:training-composite-attack}
+\end{equation}
+with
+\begin{equation}
+  \theta(\kappa)
+  =\theta_0+\sum_{m=1}^{M_a}a_m\sin(2\pi m\kappa).
+  \label{eq:training-composite-attack-angle}
+\end{equation}
+Integer harmonics make the attack periodic. Define
+\begin{equation}
+  F_{\mathrm a}(\kappa)=F_{\mathrm r}(\kappa)A(\kappa).
+  \label{eq:training-composite-attacked-frame}
+\end{equation}
+Then
+\begin{equation}
+  P_{\mathrm a}=P_{\mathrm r},
+  \qquad
+  H_{\mathrm a}=A^{\dagger}H_{\mathrm r}A.
+  \label{eq:training-composite-attack-invariants}
+\end{equation}
+The frame and matrix entries can change substantially while the projector and
+pointwise spectrum remain unchanged.
+
+A finite Fourier series for $\theta$ does not imply that the entries of
+$A(\kappa)$ have the same finite Fourier range: the nonlinear sine and cosine
+of $\theta(\kappa)$ can generate longer Fourier tails. Consequently a smooth,
+known gauge transformation can change the apparent range of the projected
+Hamiltonian without changing its complete spectral content.
+
+This attack is a controlled positive test. Recovering it does not show that an
+unknown alignment between independent physical calculations has been found.
+
+\section{Pointwise and globally constrained alignment}
+\index{Procrustes alignment!pointwise}
+\index{alignment!global unitary}
+
+\subsection{Pointwise unitary Procrustes alignment}
+
+At each reciprocal coordinate, solve
+\begin{equation}
+  \min_{U(\kappa)\in U(M)}
+  \lVert F_{\mathrm c}(\kappa)U(\kappa)
+          -F_{\mathrm r}(\kappa)\rVert_{\mathrm F}.
+  \label{eq:training-composite-pointwise-procrustes}
+\end{equation}
+If
+\begin{equation}
+  F_{\mathrm c}^{\dagger}F_{\mathrm r}
+  =L\Sigma R^{\dagger},
+\end{equation}
+then one minimizing rotation is
+\begin{equation}
+  U_{\star}=LR^{\dagger}.
+  \label{eq:training-composite-pointwise-solution}
+\end{equation}
+For the constructed attack $F_{\mathrm c}=F_{\mathrm r}A$, the overlap is
+$A^{\dagger}$ and pointwise alignment recovers $A^{\dagger}$ up to numerical
+and nonuniqueness effects. Exact recovery in that setting is expected
+mathematics, not evidence for a general optimizer.
+
+Pointwise freedom is a large admissible family: every reciprocal coordinate
+receives its own unitary. It can be inappropriate when the intended physical
+comparison permits only a smaller parameterized transformation.
+
+\subsection{One global unitary}
+
+A deliberately restricted comparison uses one $U\in U(M)$ for the entire path:
+\begin{equation}
+  \min_{U\in U(M)}
+  \sum_j\lVert F_{\mathrm c}(\kappa_j)U
+                   -F_{\mathrm r}(\kappa_j)\rVert_{\mathrm F}^2.
+  \label{eq:training-composite-global-procrustes}
+\end{equation}
+Let
+\begin{equation}
+  B=\sum_jF_{\mathrm c}(\kappa_j)^{\dagger}
+          F_{\mathrm r}(\kappa_j)
+   =L_B\Sigma_BR_B^{\dagger}.
+  \label{eq:training-composite-global-aggregate}
+\end{equation}
+A minimizing global rotation is
+\begin{equation}
+  U_{\mathrm{global}}=L_BR_B^{\dagger}.
+  \label{eq:training-composite-global-solution}
+\end{equation}
+If $B$ is rank deficient or has repeated singular structure, the minimizer need
+not be unique or stable. Singular values and residuals should therefore be
+retained when uniqueness matters.
+
+One constant unitary generally cannot undo a genuinely momentum-dependent
+attack. A nonzero global residual establishes a limitation of this restricted
+family for the declared data. It does not establish failure of every
+nonidentity alignment family. Enlarging the admissible family is a new model
+class and requires a separately frozen calculation.
+
+This distinction later becomes part of an adequacy decision. A model parameter
+and an alignment variable play different roles: the first selects a candidate
+Hamiltonian, while the second identifies its coordinates with the target
+within a declared family. Chapter~\ref{ch:admissible-sets-certificates} defines
+operator-admissible parameter sets by minimizing only over that frozen
+alignment family. Failure for one global unitary, a finite list of rotations,
+or a pointwise family therefore produces three different claims.
+
+\section{Complete block hoppings and gauge-dependent locality}
+\index{block hopping!complete transform}
+\index{locality!gauge dependence}
+
+On the complete centered mesh, transform the projected matrices according to
+\begin{equation}
+  H_F(R)
+  =\frac{1}{N_k}\sum_{j=0}^{N_k-1}
+   e^{-2\pi iR\kappa_j}H_F(\kappa_j).
+  \label{eq:training-composite-block-transform}
+\end{equation}
+The inverse is
+\begin{equation}
+  H_F(\kappa_j)
+  =\sum_{R\in\mathcal R_{N_k}}
+   e^{2\pi iR\kappa_j}H_F(R).
+  \label{eq:training-composite-block-inverse}
+\end{equation}
+Hermiticity requires the modular relation
+\begin{equation}
+  H_F(\overline{-R})=H_F(R)^{\dagger},
+  \label{eq:training-composite-block-hermiticity}
+\end{equation}
+including the self-opposite even-mesh Nyquist representative.
+
+A symmetric range-$R_{\max}$ model retains $|R|\leq R_{\max}$. Its omitted-block
+norm is
+\begin{equation}
+  \eta_F(R_{\max})
+  =\left(
+    \sum_{|R|>R_{\max}}\lVert H_F(R)\rVert_{\mathrm F}^2
+   \right)^{1/2}.
+  \label{eq:training-composite-omitted-block-norm}
+\end{equation}
+This quantity has energy units. It measures represented block content outside
+the selected range; it is not a probability or uncertainty.
+
+For a complete transform, reference, attacked, and correctly realigned gauges
+have the same pointwise eigenvalues. After truncation they need not. The
+momentum-dependent gauge redistributes matrix content among the $R$ blocks, so
+it changes both $\eta_F$ and the spectral error of a finite-range model. This is
+why localization or gauge selection matters to short-range approximation even
+though it does not change the complete retained spectrum.
+
+The maximum spectral error on a declared set $\mathcal K$ is
+\begin{equation}
+  \epsilon_{\mathrm{spec},\max}
+  =\max_{\kappa\in\mathcal K}
+    \max_{1\leq n\leq M}
+    \left|
+      E_n^{\mathrm{truncated}}(\kappa)-E_n^{\mathrm{target}}(\kappa)
+    \right|.
+  \label{eq:training-composite-spectral-error}
+\end{equation}
+It is an eigenvalue metric. It does not measure entrywise or aligned-operator
+agreement.
+
+\section{Training and withheld roles}
+\index{withheld mesh!multiband alignment}
+
+The complete training mesh determines raw eigenspaces, transported frames,
+alignment maps, projected matrices, Fourier blocks, and every finite-range
+candidate. A staggered disjoint mesh can then evaluate spectra of those frozen
+candidates between training coordinates.
+
+In a bounded composite-space protocol, withheld coordinates may also enter a
+prospectively declared sampled external-gap gate. That use must be named: the
+withheld values then contribute to a frozen prerequisite and to final spectral
+evaluation, even though they do not alter frames, coefficients, ranges, or
+tolerances. They must not be used after inspection to redesign the attack or
+select which range is reported while retaining an untouched-withheld label.
+
+No withheld frame is needed merely to compare the eigenvalues of an
+interpolated block Hamiltonian with the parent spectrum. Consequently such a
+comparison does not establish withheld frame, projector, or operator-matrix
+agreement.
+
+\section{A diagnostic ledger}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Distinct diagnostics in a bounded composite-frame calculation.}
+  \label{tab:training-composite-diagnostics}
+  \small
+  \begin{tabular}{@{}p{0.25\textwidth}p{0.29\textwidth}p{0.13\textwidth}p{0.23\textwidth}@{}}
+    \toprule
+    Quantity & Compared objects & Unit & Interpretation \\
+    \midrule
+    External gap & retained and excluded eigenvalues & energy & sampled spectral separation \\
+    Minimum overlap singular value & neighboring or closure frames & unitless & transport conditioning \\
+    Closure eigenphases & unitary closure holonomy & radians & branch-dependent phase set \\
+    Frame Frobenius defect & two coordinate frames & unitless & gauge-dependent basis difference \\
+    Projector Frobenius defect & two retained subspaces & unitless & gauge-invariant subspace difference \\
+    Projected-operator defect & two matrices in declared coordinates & energy & coordinate-sensitive operator difference \\
+    Block Hermiticity defect & $H(-R)$ and $H(R)^{\dagger}$ & energy & represented structural consistency \\
+    Omitted-block norm & discarded hopping blocks & energy & range-truncation diagnostic \\
+    Maximum spectral error & ordered eigenvalues on a mesh & energy & worst sampled band discrepancy \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Each tolerance belongs to one row and one predicate. A dimensionless frame
+tolerance cannot silently become an energy tolerance. A numerical consistency
+tolerance is not a physical uncertainty or scientific acceptance threshold.
+
+\section{A transparent computational example}
+
+The following synthetic example constructs a rank-two retained frame, applies a
+known periodic gauge attack, recovers it pointwise, and compares complete and
+truncated block representations. It is deliberately small and contains no
+material parameters.
+
+\begin{pythonexample}{aligning a synthetic composite Bloch frame}
+import numpy as np
+from scipy.linalg import schur
+
+# Define a Hermitian four-orbital parent with cell ranges -1, 0, and +1.
+onsite = np.array(
+    [
+        [-1.20, 0.06, 0.00, 0.00],
+        [0.06, -0.35, 0.00, 0.00],
+        [0.00, 0.00, 1.00, 0.04],
+        [0.00, 0.00, 0.04, 1.75],
+    ],
+    dtype=np.complex128,
+)
+positive = np.array(
+    [
+        [0.15, 0.00, 0.12, 0.00],
+        [0.00, -0.10, 0.00, 0.10],
+        [0.00, 0.00, 0.05, 0.00],
+        [0.00, 0.00, 0.00, -0.04],
+    ],
+    dtype=np.complex128,
+)
+parent_R = np.array([-1, 0, 1], dtype=np.int64)
+parent_blocks = np.array(
+    [positive.conjugate().T, onsite, positive],
+    dtype=np.complex128,
+)
+
+# Evaluate the exact finite parent on a complete centered reciprocal mesh.
+N = 16
+kappa = -0.5 + np.arange(N, dtype=np.float64) / N
+parent_phases = np.exp(2j * np.pi * np.outer(kappa, parent_R))
+parent = np.einsum("kr,rij->kij", parent_phases, parent_blocks)
+
+# Retain the lowest two eigenvectors at every reciprocal coordinate.
+raw_frames = []
+retained_energies = []
+for matrix in parent:
+    values, vectors = np.linalg.eigh(matrix)
+    retained_energies.append(values[:2])
+    raw_frames.append(vectors[:, :2])
+raw_frames = np.asarray(raw_frames, dtype=np.complex128)
+retained_energies = np.asarray(retained_energies, dtype=np.float64)
+
+# Apply neighborwise polar transport to remove arbitrary eigensolver gauges.
+transported = [raw_frames[0].copy()]
+neighbor_singular_values = []
+for index in range(N - 1):
+    overlap = transported[index].conjugate().T @ raw_frames[index + 1]
+    left, singular_values, right_h = np.linalg.svd(overlap)
+    neighbor_singular_values.extend(singular_values)
+    rotation = right_h.conjugate().T @ left.conjugate().T
+    transported.append(raw_frames[index + 1] @ rotation)
+
+# Close the half-open reciprocal loop with identity ambient sewing.
+closure = transported[-1].conjugate().T @ transported[0]
+left, closure_singular_values, right_h = np.linalg.svd(closure)
+neighbor_singular_values.extend(closure_singular_values)
+unitary_closure = left @ right_h
+triangular, eigenvectors = schur(unitary_closure, output="complex")
+closure_phases = np.angle(np.diag(triangular))
+order = np.argsort(closure_phases)
+closure_phases = closure_phases[order]
+eigenvectors = eigenvectors[:, order]
+
+# Distribute the closure holonomy over the represented loop.
+for index in range(N):
+    fraction = index / N
+    root = (
+        eigenvectors
+        @ np.diag(np.exp(1j * closure_phases * fraction))
+        @ eigenvectors.conjugate().T
+    )
+    transported[index] = transported[index] @ root
+reference = np.asarray(transported, dtype=np.complex128)
+
+# Apply a known periodic, momentum-dependent rank-two gauge rotation.
+theta = 0.30 + 0.65 * np.sin(2.0 * np.pi * kappa)
+attacks = np.array(
+    [
+        [[np.cos(value), -np.sin(value)],
+         [np.sin(value), np.cos(value)]]
+        for value in theta
+    ],
+    dtype=np.complex128,
+)
+attacked = np.einsum("kdi,kij->kdj", reference, attacks)
+
+# Projectors are invariant even though the frame matrices differ.
+reference_projectors = np.einsum(
+    "kdi,kei->kde", reference, reference.conjugate()
+)
+attacked_projectors = np.einsum(
+    "kdi,kei->kde", attacked, attacked.conjugate()
+)
+np.testing.assert_allclose(attacked_projectors, reference_projectors, atol=1e-13)
+
+# Recover one unitary Procrustes rotation independently at each mesh point.
+aligned = []
+recovered_rotations = []
+for reference_frame, candidate_frame in zip(reference, attacked, strict=True):
+    overlap = candidate_frame.conjugate().T @ reference_frame
+    left, _, right_h = np.linalg.svd(overlap)
+    rotation = left @ right_h
+    recovered_rotations.append(rotation)
+    aligned.append(candidate_frame @ rotation)
+aligned = np.asarray(aligned, dtype=np.complex128)
+recovered_rotations = np.asarray(recovered_rotations, dtype=np.complex128)
+np.testing.assert_allclose(aligned, reference, atol=1e-13)
+np.testing.assert_allclose(
+    recovered_rotations,
+    attacks.conjugate().transpose(0, 2, 1),
+    atol=1e-13,
+)
+
+# Fit the distinct restricted family containing one unitary for the whole path.
+aggregate = sum(
+    candidate.conjugate().T @ target
+    for candidate, target in zip(attacked, reference, strict=True)
+)
+left, _, right_h = np.linalg.svd(aggregate)
+global_rotation = left @ right_h
+globally_aligned = np.asarray(
+    [frame @ global_rotation for frame in attacked],
+    dtype=np.complex128,
+)
+global_frame_defect = max(
+    np.linalg.norm(candidate - target)
+    for candidate, target in zip(globally_aligned, reference, strict=True)
+)
+
+# Compress the same parent into the frame choices.
+def project(frames):
+    return np.asarray(
+        [
+            frame.conjugate().T @ matrix @ frame
+            for matrix, frame in zip(parent, frames, strict=True)
+        ],
+        dtype=np.complex128,
+    )
+
+reference_operator = project(reference)
+attacked_operator = project(attacked)
+aligned_operator = project(aligned)
+global_operator = project(globally_aligned)
+
+# All complete projected operators have the retained parent eigenvalues.
+for operator in (
+    reference_operator,
+    attacked_operator,
+    aligned_operator,
+    global_operator,
+):
+    values = np.linalg.eigvalsh(operator)
+    np.testing.assert_allclose(values, retained_energies, atol=1e-13)
+
+# Transform each matrix path into complete block hoppings.
+cell_R = np.arange(-N // 2, N // 2, dtype=np.int64)
+def blocks_from_samples(samples):
+    return np.asarray(
+        [
+            np.mean(
+                samples
+                * np.exp(-2j * np.pi * R * kappa)[:, None, None],
+                axis=0,
+            )
+            for R in cell_R
+        ],
+        dtype=np.complex128,
+    )
+
+reference_blocks = blocks_from_samples(reference_operator)
+attacked_blocks = blocks_from_samples(attacked_operator)
+aligned_blocks = blocks_from_samples(aligned_operator)
+np.testing.assert_allclose(aligned_blocks, reference_blocks, atol=1e-13)
+
+# A fixed finite range can retain different amounts in different gauges.
+range_mask = np.abs(cell_R) <= 1
+reference_omitted = np.linalg.norm(reference_blocks[~range_mask])
+attacked_omitted = np.linalg.norm(attacked_blocks[~range_mask])
+
+print("minimum neighbor/closure singular value:", min(neighbor_singular_values))
+print("one-global-unitary frame defect:", global_frame_defect)
+print("reference omitted-block norm:", reference_omitted)
+print("attacked omitted-block norm:", attacked_omitted)
+\end{pythonexample}
+
+The example establishes finite-array identities for a synthetic parent. It does
+not establish continuous-gap protection, optimal localization, or a physical
+alignment. The default matrix norm used by \texttt{numpy.linalg.norm} is the
+Frobenius norm in these calls; production interfaces should name that choice
+rather than rely on an unstated default.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/composite_band_gauge_alignment.ipynb}
+only after this lecture contract is stable. Include frame/projector invariance,
+neighbor singular values, polar transport, reciprocal sewing, closure phases,
+pointwise and global Procrustes alignment, block Hermiticity, gauge-dependent
+truncation, and disjoint withheld spectral evaluation. Keep the example
+synthetic and do not create or execute the notebook as part of the present
+manuscript change.}
+
+\section{Common mistakes}
+
+\begin{enumerate}
+  \item Tracking individual energy-ordered eigenvectors through an internal
+        degeneracy instead of retaining the composite projector.
+  \item Treating an external energy gap as a substitute for overlap singular
+        values, or vice versa.
+  \item Comparing frame matrices before accounting for unitary gauge freedom.
+  \item Calling a large unaligned matrix defect a physical operator error.
+  \item Assuming periodic eigenvalues imply identity reciprocal sewing in every
+        basis.
+  \item Comparing closure eigenphases as ordinary real numbers without branch
+        and permutation handling.
+  \item Describing exact recovery of a constructed pointwise attack as a
+        general alignment solution.
+  \item Concluding from failure of one global unitary that every nonidentity
+        alignment family fails.
+  \item Assuming a finite harmonic series for the attack angle gives a
+        finite-range attacked Hamiltonian.
+  \item Calling a smooth transported gauge maximally localized without
+        evaluating a localization functional.
+  \item Inferring Wannier centers, spreads, or densities from Hamiltonian
+        blocks alone.
+  \item Assuming gauge invariance of the complete spectrum survives an
+        arbitrary finite-range truncation.
+  \item Treating an omitted-block Frobenius norm as a probability or physical
+        uncertainty.
+  \item Using withheld spectra to redesign the gauge or range while preserving
+        an untouched-evaluation claim.
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Starting from Equation~\eqref{eq:training-composite-parent}, prove
+        Equation~\eqref{eq:training-composite-fiber-hermiticity}.
+  \item Verify the dimensions of every factor in
+        Equations~\eqref{eq:training-composite-projector} and
+        \eqref{eq:training-composite-projected-operator}.
+  \item Prove projector invariance and projected-operator covariance under
+        $F\mapsto FU$.
+  \item Derive Equation~\eqref{eq:training-composite-wannier-hopping} from the
+        finite Wannier transformation and Bloch orthogonality.
+  \item Show explicitly why the gauge cancels from the complete scalar
+        isolated-band Hamiltonian but not from a general composite matrix.
+  \item Derive the positive overlap in
+        Equation~\eqref{eq:training-composite-positive-overlap}.
+  \item Prove the pointwise Procrustes solution by maximizing
+        $\operatorname{Re}\operatorname{tr}(U^{\dagger}F_{\mathrm c}^{\dagger}F_{\mathrm r})$.
+  \item Derive the aggregate matrix in
+        Equation~\eqref{eq:training-composite-global-aggregate}.
+  \item Construct an attack that is constant in $\kappa$ and explain why the
+        pointwise and global alignment families then contain the same inverse.
+  \item Compare a frame defect, projector defect, and spectral defect for two
+        frames related by a nontrivial unitary.
+  \item Show that symmetric block truncation preserves
+        Equation~\eqref{eq:training-composite-block-hermiticity} when the
+        complete representative set is paired modulo $N_k$.
+  \item Explain what additional evidence would be required to interpret closure
+        eigenphases as Wannier centers or topological data.
+\end{enumerate}
+
+\section{Evidence boundary and next use}
+
+The derivations in this chapter establish finite-dimensional identities under
+stated frame, mesh, sewing, Fourier, and norm conventions. The Python example
+checks those identities for synthetic arrays. Neither establishes that an
+unknown physical alignment has been recovered, that a chosen gauge is
+maximally localized, that a hopping range is adequate for an application, or
+that a material is represented correctly.
+
+A controlled M2-like calculation can use this chain to test a known gauge
+attack, distinguish pointwise from globally constrained alignment, and expose
+gauge-dependent finite-range locality. Such a calculation remains a bounded
+positive and negative control. Its retained result and independent verifier own
+any numerical outcomes; this chapter does not import them.
+
+Part~II uses these foundations to ask whether an alignment or reduced model is
+adequate for its declared purpose. Appendix~\ref{app:one-dimensional-reduction}
+applies composite transport, closure, block hopping, and localization concepts
+to retained controlled calculations. Later material chapters add projection
+windows, disentanglement, geometry, orbital identity, spin, and energy-reference
+requirements that the present synthetic construction deliberately omits.

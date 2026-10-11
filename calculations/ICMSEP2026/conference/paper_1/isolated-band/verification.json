@@ -1,0 +1,21 @@
+{
+  "absolute_tolerance": 1e-12,
+  "calculation_id": "icmsep2026.paper1.periodic1d.isolated-band.v1",
+  "checks": {
+    "definition_matches_input": true,
+    "diagnostic_dispositions_match": true,
+    "hermiticity_inventory_matches": true,
+    "reconstruction_disposition_matches": true,
+    "representatives_match": true,
+    "scope_matches_protocol": true,
+    "training_and_withheld_are_disjoint": true
+  },
+  "claim_boundary": "Passing establishes bounded numerical consistency only; it does not establish material validity, uncertainty quantification, or scientific acceptance.",
+  "input_schema": "ksdft2effmass.periodic1d.isolated-band-calculation-input.v1",
+  "maximum_diagnostic_absolute_defect": 2.731148640577885e-14,
+  "maximum_hopping_absolute_defect": 4.781392881215698e-17,
+  "maximum_spectral_absolute_defect": 0.0,
+  "passes": true,
+  "result_schema": "ksdft2effmass.periodic1d.isolated-band-calculation-result.v1",
+  "schema": "ksdft2effmass.periodic1d.isolated-band-calculation-verification.v1"
+}

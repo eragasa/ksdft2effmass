@@ -1,0 +1,28 @@
+{
+  "amended_at_utc": "2026-10-10T20:06:10Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.isolated-band.v1",
+  "change_scope": [
+    "Expand M1 source docstrings with scientific, numerical, unit, role-separation, exception, and limitation contracts.",
+    "Add cohesive M1 architecture and Sphinx API documentation.",
+    "Record and isolate a pre-existing source-manifest correlation defect without rewriting the retained manifest.",
+    "Seal the current source inventory in a separate documentation-amendment manifest."
+  ],
+  "current_source_manifest": {
+    "path": "source-documentation-amendment-1.sha256",
+    "sha256": "ab256f0507f5d9f1dff62aa94ced5a404de106655b7db3c3dd3516e4c50186b9"
+  },
+  "finding": "The retained source.sha256 does not correlate with the identified M1 commit ee89d347: periodic1d/__init__.py and periodic1d/model.py have different committed digests, and periodic1d/studies.py is absent from that commit. The cause is not established. Therefore the retained source manifest must not be represented as proof of the exact committed producer tree.",
+  "integrity_note": "The retained source.sha256 and SHA256SUMS remain byte-for-byte unchanged. The new sidecar manifest identifies the current tree after documentation hardening; it is not asserted to be the source that produced the retained numerical result. SHA-256 binds bytes but does not establish chronology or semantic validity.",
+  "m1_algorithm_changed_in_this_amendment": false,
+  "numerical_results_changed": false,
+  "prospective_controls_changed": false,
+  "retained_manifest_reconciliation": {
+    "identified_commit": "ee89d347",
+    "retained_package_manifest_sha256": "64f16168fa05fefa902f8c2216b1e445c6a0ecd8e28dcebd75c73589833edf5f",
+    "retained_source_manifest_sha256": "68d9bc9d769c02dac5989c5231dcb80d778a337842a08f23c234618f59ecb000",
+    "status": "historical-source-manifest-does-not-correlate-with-identified-commit"
+  },
+  "schema": "ksdft2effmass.periodic1d.isolated-band-protocol-amendment.v1",
+  "scientific_claims_changed": false,
+  "status": "documentation-hardening-and-source-manifest-reconciliation"
+}

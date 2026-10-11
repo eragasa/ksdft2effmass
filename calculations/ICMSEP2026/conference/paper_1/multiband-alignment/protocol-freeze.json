@@ -1,0 +1,8 @@
+{
+  "schema": "ksdft2effmass.protocol-freeze.v1",
+  "status": "prospectively-frozen-before-confirmatory-calculation",
+  "files": {
+    "input.json": "0db445f3df37f08661f6078a9595ef1646adf9b036c5f94da316255c431c26c9",
+    "protocol.md": "850a117f414c10da631fed0aab71682c85a47fbe537007751bbf13ada25223ac"
+  }
+}

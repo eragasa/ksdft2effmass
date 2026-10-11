@@ -1,0 +1,1 @@
+{"absolute_tolerance":1e-11,"maximum_absolute_defect":4.6629367034256575e-15,"passes":true,"reconstruction":"standalone-frozen-finite-protocol","schema":"ksdft2effmass.periodic1d.constrained-admissible-set-standalone-verification.v1","shared_numerical_dependencies":["numpy","scipy"]}

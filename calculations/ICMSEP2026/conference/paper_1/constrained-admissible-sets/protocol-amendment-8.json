@@ -1,0 +1,24 @@
+{
+  "amended_at_utc": "2026-10-10T18:01:11Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Require an exact 2x2 tuple-of-tuples containing finite built-in floats before NumPy conversion.",
+    "Add a Boolean-matrix-entry regression test."
+  ],
+  "corrected_files": [
+    {
+      "path": "python/src/ksdft2effmass/periodic1d/admissible_sets/results.py",
+      "sha256": "cbe18b7d6988d86c489d06f37c74f61a53b21e49fe7e2dacca783514267cfb7e"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DConstrainedAdmissibleSetCalculator.py",
+      "sha256": "cbd975f988ad78a40f406533902b88d23a9c563053413588170931dab75bfef2"
+    }
+  ],
+  "finding": "The retained quadratic-loss constructor converted its matrix through NumPy before exact scalar-type validation and could accept Boolean or numeric-string entries despite the public numeric contract.",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "numerical_results_changed": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "quadratic-matrix-type-hardening-before-final-regeneration"
+}

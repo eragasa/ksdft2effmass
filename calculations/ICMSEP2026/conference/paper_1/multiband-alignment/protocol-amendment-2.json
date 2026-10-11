@@ -1,0 +1,29 @@
+{
+  "amended_at_utc": "2026-10-10T20:06:10Z",
+  "amendment_sequence": 2,
+  "calculation_id": "icmsep2026.paper1.periodic1d.multiband-alignment.v1",
+  "change_scope": [
+    "Expand M2 source docstrings with state-space, frame, gauge, Fourier-locality, unit, exception, and limitation contracts.",
+    "Add cohesive M2 architecture and Sphinx API documentation.",
+    "Seal the current source inventory in a separate documentation-amendment manifest without rewriting the retained source or package manifests.",
+    "Apply formatter-only normalization to the already modified M2 verifier; the normalized abstract syntax is unchanged."
+  ],
+  "current_source_manifest": {
+    "path": "source-documentation-amendment-2.sha256",
+    "sha256": "b3082be739eb7793c91d17551373f713c8475e62ddd6c5bef98a4e67fd6ad00b"
+  },
+  "integrity_note": "The retained source.sha256 exactly correlates with all 24 listed paths at identified commit 2e010d9f. It and SHA256SUMS remain byte-for-byte unchanged. The new sidecar identifies current bytes after documentation-only source edits; it is not substituted for the historical execution-source record. SHA-256 does not establish chronology or semantic validity.",
+  "numerical_algorithm_changed": false,
+  "numerical_results_changed": false,
+  "prospective_controls_changed": false,
+  "retained_manifest_correlation": {
+    "identified_commit": "2e010d9f",
+    "listed_path_count": 24,
+    "retained_package_manifest_sha256": "019050d903e01b0f33af1c658af33af6e77653c733f96d661d38595adbfdf73f",
+    "retained_source_manifest_sha256": "c17bfd161b5b2e3b30ac5cc1c1358229f684b00ebdcf1e8aa346734c204129e9",
+    "status": "verified-against-identified-commit"
+  },
+  "schema": "ksdft2effmass.periodic1d.multiband-alignment-protocol-amendment.v1",
+  "scientific_claims_changed": false,
+  "status": "documentation-only-source-reseal"
+}

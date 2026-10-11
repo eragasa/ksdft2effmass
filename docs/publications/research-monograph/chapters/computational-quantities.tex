@@ -1,0 +1,256 @@
+\chapter{Computational Quantities: Units, Coordinates, and Metadata}
+\index{computational quantity|textbf}
+\index{unit!computational quantity|textbf}
+\index{metadata|textbf}
+
+\label{ch:training-computational-quantities}
+
+\chapterstatus{pedagogical foundation. The examples use illustrative synthetic
+values and establish no material result, numerical convergence claim, scientific
+validation, or uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish a mathematical number from a computational quantity;
+  \item attach units, coordinate meaning, indexing conventions, and provenance
+        to numerical values;
+  \item explain why shape and data type do not determine scientific meaning;
+  \item convert units and coordinates without silently changing the represented
+        quantity; and
+  \item identify defining metadata that must accompany a retained array.
+\end{enumerate}
+
+This monograph begins with data rather than with a Hamiltonian. Every later
+vector, matrix, grid, and operator is stored as numbers, and those numbers are
+usable only when their interpretation is explicit.
+
+\section{From numbers to quantities}
+\index{number!quantity distinction}
+
+A floating-point value such as \(5.43\) is a number. It becomes a computational
+quantity only after its role and unit are supplied. A lattice length might be
+recorded schematically as
+\begin{equation}
+  q=(5.43,\ \text{angstrom}).
+\end{equation}
+A conversion changes the numerical value and the unit together while preserving
+the physical quantity. Changing only one member of the pair changes the
+meaning.
+
+The same rule applies to arrays. An array does not announce whether it contains
+positions, reciprocal vectors, energies, expansion coefficients, or matrix
+elements. Its shape and data type are necessary software facts, but they are not
+a scientific interpretation.
+
+\begin{definition}[Computational quantity]
+A computational quantity is a numerical value or array together with the
+metadata required to interpret it for a declared operation. Depending on the
+operation, that metadata can include units, coordinate system, axis meanings,
+ordering, normalization, reference value, geometry, and provenance.
+\end{definition}
+
+The phrase ``required to interpret'' is operation dependent. Adding two
+energies requires compatible energy units and references. Taking a dot product
+of Cartesian displacement vectors requires compatible coordinates and length
+units. Comparing represented Hamiltonians requires substantially more, as later
+chapters show.
+
+\section{Dimensions, units, and reference values}
+\index{dimension!physical}
+\index{energy reference}
+
+A physical dimension describes the kind of quantity, such as length, inverse
+length, or energy. A unit selects a numerical scale within that dimension.
+Angstrom and bohr are different length units; electronvolt and hartree are
+different energy units. Unit compatibility does not imply equality of numerical
+values, so conversion must be explicit.
+
+Some quantities also depend on a reference. If an energy is reported relative
+to a chosen zero \(E_0\), then
+\begin{equation}
+  \overline E=E-E_0.
+\end{equation}
+Two arrays expressed in electronvolts can still be incompatible when their
+energy zeros differ. A unit conversion cannot repair a reference mismatch.
+
+A useful dimensional audit asks three questions before arithmetic:
+
+\begin{enumerate}
+  \item Do the operands represent the same physical dimension?
+  \item Are their units identical, or is an explicit conversion required?
+  \item Does either quantity depend on an origin, zero, normalization, or other
+        reference convention?
+\end{enumerate}
+
+Dimensionless does not mean convention free. Fractional coordinates, reduced
+Bloch twists, phases, and normalized coefficients can all be dimensionless
+while still requiring a basis, interval, or phase convention.
+
+\section{Coordinates are part of the data}
+\index{coordinate system!metadata}
+
+The tuple \((1,0)\) can denote a Cartesian vector, fractional lattice
+coordinates, grid indices, or coefficients in an abstract basis. These are not
+interchangeable meanings. A coordinate record should identify at least
+
+\begin{itemize}
+  \item the space in which the coordinates live;
+  \item the ordered axes or basis vectors;
+  \item whether components are Cartesian, fractional, reciprocal, or abstract;
+  \item the component unit, if any;
+  \item the origin or reference point when relevant; and
+  \item the vector-axis and array-order convention.
+\end{itemize}
+
+A coordinate transformation changes the numerical components while preserving
+the represented object only when the transformation rule is applied
+consistently. If \(A\) stores basis vectors as columns and \(\mathbf s\) stores
+fractional coordinates, then
+\begin{equation}
+  \mathbf r=A\mathbf s.
+\end{equation}
+Transposing \(A\) without changing the convention is not a harmless formatting
+operation. Chapter~\ref{ch:training-periodic-geometry} develops this map for
+periodic cells after the required linear algebra has been introduced.
+
+\section{Indexing, axis meaning, and ordering}
+\index{array ordering}
+\index{indexing convention}
+
+Computational arrays have both mathematical axes and storage conventions. For a
+table \(X\in\mathbb R^{N\times d}\), rows might enumerate points and columns
+might enumerate Cartesian components. Another program may store the transpose.
+Both layouts can be valid, but an unlabeled shape does not distinguish them.
+
+Index origins also matter. Mathematical derivations often number basis vectors
+from \(1\) to \(N\), whereas Python arrays use indices from \(0\) to \(N-1\).
+A translation between these conventions should occur at a named boundary, not
+implicitly inside a scientific argument.
+
+For tensor-product grids, a multi-index must also be mapped to a linear index.
+C ordering makes the final axis vary fastest; Fortran ordering makes the first
+axis vary fastest. Two matrices assembled with different flattening conventions
+can have identical shapes and spectra while assigning entries to different
+physical grid points.
+
+\section{Metadata needed by represented scientific data}
+\index{represented data}
+
+The interpretation of a finite represented operator can depend on
+
+\begin{itemize}
+  \item the identity and dimension of the represented state space;
+  \item basis identity, orbital convention, and ordering;
+  \item geometry, lattice vectors, site labels, and boundary convention;
+  \item units and normalization;
+  \item scalar energy reference;
+  \item spin representation;
+  \item gauge, phase, or other coordinate conventions; and
+  \item provenance linking the record to its inputs and construction.
+\end{itemize}
+
+Not every elementary array needs every field. The rule is instead that the
+record must carry enough information for its promised operations to fail closed.
+If subtraction requires a common energy reference, an absent reference is not
+permission to assume one. If a decoder promises a column-vector convention, a
+row-vector document is not an alternative spelling of the same record.
+
+It is useful to distinguish defining data from derived data. A primitive basis
+can define a metric, reciprocal basis, and projector. Serializing all of them as
+independent authorities creates the possibility of internal disagreement.
+Retaining the defining data and deterministically recomputing derived data often
+produces a stronger record.
+
+\section{A small transparent record}
+
+The following example keeps an energy array, its unit, and its reference in one
+visible record. It uses a plain dictionary only for pedagogy; maintained project
+interfaces use typed immutable records and explicit validation.
+
+\begin{pythonexample}{converting an energy quantity without losing its reference}
+import numpy as np
+
+# These synthetic levels are measured relative to one declared energy zero.
+levels_ev = np.array([0.0, 0.12, 0.31], dtype=np.float64)
+record_ev = {
+    "values": levels_ev,
+    "unit": "eV",
+    "energy_reference": "illustrative band edge",
+    "axis_meaning": "state index in ascending eigensystem order",
+}
+
+# Convert the values and unit together; preserve the non-numeric metadata.
+ev_per_hartree = 27.211386245988
+record_hartree = {
+    **record_ev,
+    "values": record_ev["values"] / ev_per_hartree,
+    "unit": "hartree",
+}
+
+# Recover the original numerical representation as an independent check.
+np.testing.assert_allclose(
+    record_hartree["values"] * ev_per_hartree,
+    record_ev["values"],
+)
+assert record_hartree["energy_reference"] == record_ev["energy_reference"]
+\end{pythonexample}
+
+The example verifies one conversion identity for synthetic values. It does not
+establish a project serialization contract or any physical energy level.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/computational_quantities.ipynb}
+with explicit imports, explanatory inline comments, unit conversion, coordinate
+annotation, malformed-metadata cases, and no hidden state. Keep it unexecuted in
+the repository and verify it through a separate bounded test route.}
+
+\section{Compatibility before arithmetic}
+\index{compatibility!before arithmetic}
+
+A robust computational sequence is
+\begin{equation}
+\begin{aligned}
+  \text{decode}
+  &\longrightarrow \text{validate each record}
+  \longrightarrow \text{check pairwise compatibility}\\
+  &\longrightarrow \text{perform arithmetic}
+  \longrightarrow \text{retain the result context}.
+\end{aligned}
+\end{equation}
+Validation of each operand and compatibility between operands answer different
+questions. Two individually valid energy arrays can still use different units,
+references, bases, or state orderings.
+
+Automatic inference should be limited to conventions owned by a documented
+contract. Inferring a unit from the magnitude of an array, an axis meaning from
+its length, or a physical correspondence from matching labels replaces an
+explicit scientific decision with a heuristic.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item List the metadata needed to add two Cartesian force vectors and explain
+        which fields are unnecessary for that operation.
+  \item Give two different scientific interpretations of a complex
+        \(4\times4\) array that have the same shape and data type.
+  \item Describe why two energy arrays with identical units but different
+        scalar zeros cannot be subtracted as a physical perturbation without
+        alignment.
+  \item Write a small record for three fractional coordinates stored by rows.
+        Include dimension, axis meaning, origin convention, and provenance.
+  \item Classify the direct basis, Gram metric, and reciprocal basis as defining
+        or derived data under the convention developed in
+        Chapter~\ref{ch:training-periodic-geometry}.
+\end{enumerate}
+
+\section{Evidence boundary}
+
+Metadata completeness is relative to a declared operation and contract. A
+successful decode or round trip establishes bounded software behavior; it does
+not prove that the recorded metadata are truthful, that the source calculation
+was adequate, or that two physical systems should be compared. The next two
+chapters add finite coordinate representations and then Hermitian eigensystems
+while preserving this distinction between numbers and represented meaning.

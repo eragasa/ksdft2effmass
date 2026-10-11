@@ -1,0 +1,802 @@
+\chapter{Admissible Sets and Compatibility Certificates}
+\index{admissible set|textbf}
+\index{compatibility certificate|textbf}
+
+\label{ch:admissible-sets-certificates}
+
+\chapterstatus{foundational model-adequacy framework with synthetic worked
+examples; no material acceptance decision, physical threshold calibration, or
+uncertainty-quantification result is claimed.}
+
+A reduced Hamiltonian is rarely judged by one number. A candidate may reproduce
+selected energy bands while failing to reproduce the represented operator, its
+real-space locality, or an observable needed by the intended application. The
+opposite can also occur: a candidate may be close in one operator norm while
+missing a small but important spectral feature. This chapter develops a precise
+way to ask whether one candidate satisfies two declared criteria at the same
+time.
+
+The central objects are \emph{admissible sets}. Each criterion selects the
+parameters that satisfy its threshold. A common acceptable candidate exists
+when the corresponding sets intersect. An explicit point in the intersection
+is a \emph{common witness}. If the sets do not intersect, a valid positive
+lower bound on their distance is a \emph{separation certificate}. A failed
+numerical search is neither one of these.
+
+After this chapter, the reader should be able to
+\begin{itemize}
+  \item distinguish model parameters from alignment variables and numerical
+        controls;
+  \item define normalized spectral and operator losses on declared data;
+  \item distinguish established spectral fitting and operator regression from
+        the proposed simultaneous witness-or-certificate question;
+  \item construct thresholded admissible sets;
+  \item distinguish a witness, a failed search, and a separation certificate;
+  \item recognize ellipsoidal sublevel sets of positive-definite quadratic
+        losses;
+  \item keep training, withheld evaluation, and locality diagnostics in their
+        proper roles; and
+  \item state exactly what a bounded synthetic compatibility result does and
+        does not establish.
+\end{itemize}
+
+\section{From one error to simultaneous requirements}
+\index{model adequacy!simultaneous requirements}
+
+Suppose that a reduced model is controlled by a parameter
+$\boldsymbol\theta$ in a declared domain $\Theta$. A spectral comparison
+produces a nonnegative loss $L_E(\boldsymbol\theta)$, while a represented-
+operator comparison produces a nonnegative loss $L_H(\boldsymbol\theta)$. Two
+thresholds, $\tau_E$ and $\tau_H$, state the largest losses accepted for the
+present purpose.
+
+It is not enough to minimize the losses separately. The minimizer of $L_E$ may
+be a different model from the minimizer of $L_H$. The scientific question is
+whether there is one parameter value for which
+\begin{equation}
+  L_E(\boldsymbol\theta)\leq\tau_E
+  \quad\text{and}\quad
+  L_H(\boldsymbol\theta)\leq\tau_H.
+\end{equation}
+The word ``and'' is the essential point. Reporting one spectrally successful
+model and a different operator-successful model does not exhibit a single
+adequate model.
+
+\subsection{Example 1: intervals on a line}
+
+Before considering Hamiltonians, take one real parameter $x$ and define
+\begin{equation}
+  L_E(x)=|x|,
+  \qquad
+  L_H(x)=|x-1|.
+\end{equation}
+With equal thresholds $\tau_E=\tau_H=0.6$, the two admissible sets are
+\begin{equation}
+  \mathcal A_E=[-0.6,0.6],
+  \qquad
+  \mathcal A_H=[0.4,1.6].
+\end{equation}
+Their intersection is $[0.4,0.6]$. The point $x=0.5$ is a common witness.
+Neither $x=0$, which minimizes $L_E$, nor $x=1$, which minimizes $L_H$, is
+needed to prove compatibility.
+
+If both thresholds are instead $0.4$, then
+\begin{equation}
+  \mathcal A_E=[-0.4,0.4],
+  \qquad
+  \mathcal A_H=[0.6,1.4].
+\end{equation}
+The sets are separated by $0.2$. This positive number is stronger evidence
+than checking a finite list of points and failing to find an intersection.
+
+\section{The candidate family and its contracts}
+\index{candidate family}
+\index{parameter domain}
+\index{model-class expressivity}
+
+Let
+\begin{equation}
+  \mathfrak M
+  =
+  \left\{
+    H_{\boldsymbol\theta}(k):
+    \boldsymbol\theta\in\Theta
+  \right\}
+\end{equation}
+be a family of finite Hermitian Bloch matrices. A complete definition of this
+family states
+\begin{itemize}
+  \item the meaning, units, and allowed range of every component of
+        $\boldsymbol\theta$;
+  \item the reciprocal coordinates $k$ on which the matrices are evaluated;
+  \item the retained rank, basis, gauge, energy reference, and energy unit;
+  \item the parent or target data to which the candidates are compared; and
+  \item the distinction between fitting data, withheld data, and purely
+        diagnostic data.
+\end{itemize}
+A bounded domain is not merely a programming convenience. It is part of the
+model class. Enlarging $\Theta$ asks a different question and may change both
+compatibility and separation.
+
+The matrix structure is likewise part of the scientific question, not merely
+an implementation choice. Stiles showed how the independent matrix elements
+allowed by a declared crystal structure can be enumerated before a tight-
+binding fit~\cite{stiles1997}. Such enumeration determines which coordinates
+are available to the fit; it does not prove that the resulting family can
+reproduce every desired property. In a specified spin--orbit
+$sp^3d^5s^{\ast}$ empirical tight-binding class, for example, Boykin, Klimeck,
+and Oyafuso derived exact relations among selected band gaps and effective
+masses~\cite{boykinKlimeckOyafuso2004}. Those relations are intrinsic
+restrictions of that model class. This is stronger than observing that one
+optimization run failed to locate a satisfactory parameter set.
+
+\subsection{A rank-two shift-and-splitting family}
+\index{rank-two model}
+
+A useful controlled family begins with a rank-two reference matrix
+$H_{\mathrm{ref}}(k)$. Define its mean energy by
+\begin{equation}
+  \overline E(k)
+  =
+  \frac{1}{2}\operatorname{tr}H_{\mathrm{ref}}(k)
+\end{equation}
+and its traceless part by
+\begin{equation}
+  H_{0}(k)
+  =
+  H_{\mathrm{ref}}(k)-\overline E(k)I_2.
+\end{equation}
+Given a positive energy scale $E_0$, consider
+\begin{equation}
+  H_{s,q}(k)
+  =
+  \overline E(k)I_2
+  +sE_0I_2
+  +qH_0(k).
+  \label{eq:admissible-rank-two-family}
+\end{equation}
+The dimensionless parameter $s$ shifts both levels equally. The dimensionless
+parameter $q$ rescales their splitting about the mean. The parameter column is
+\begin{equation}
+  \boldsymbol\theta
+  =
+  \begin{bmatrix}s\\q\end{bmatrix},
+  \qquad
+  \boldsymbol\theta\in\Theta.
+\end{equation}
+Equation~\eqref{eq:admissible-rank-two-family} is a deliberately restricted
+model family. It does not represent every rank-two Hamiltonian. A compatibility
+or separation result obtained from it is therefore conditional on this family
+and its bounds.
+
+When the domain requires $q>0$, the ordered eigenvalues obey
+\begin{equation}
+  E_n^{\mathrm{cand}}(k;s,q)
+  =
+  \overline E(k)+sE_0
+  +q\left(E_n^{\mathrm{ref}}(k)-\overline E(k)\right).
+  \label{eq:admissible-rank-two-eigenvalues}
+\end{equation}
+Each spectral residual is therefore affine in $(s,q)$. For any fixed global
+alignment, the entries of the aligned candidate matrix are also affine in
+$(s,q)$. Squaring and summing these residuals produces the quadratic losses
+derived below. The positivity restriction on $q$ is important: allowing its
+sign to change can reverse the ordering of the two eigenvalues and invalidate
+this single ordered formula.
+
+\section{Spectral and operator losses}
+\index{loss!spectral}
+\index{loss!operator}
+
+The two criteria use the same declared sampling contract but compare different
+objects. Let $k_1,\ldots,k_{N_k}$ be a frozen training mesh, let the retained
+rank be $r$, and assign each sample a finite positive dimensionless weight
+$w_j$. Write
+\begin{equation}
+  W=\sum_{j=1}^{N_k}w_j.
+\end{equation}
+
+\subsection{Spectral loss}
+\index{spectral RMS error}
+\index{normalized spectral loss}
+
+Suppose the target energies are $E_n^{\mathrm{tar}}(k_j)$, ordered according
+to a declared convention.
+
+\begin{definition}[Spectral RMS error]
+The energy-valued ordered spectral root-mean-square error of the candidate
+specified by $\boldsymbol\theta$ is
+\begin{equation}
+  R_E(\boldsymbol\theta)
+  =
+  \left[
+    \frac{1}{rW}
+    \sum_{j=1}^{N_k}w_j\sum_{n=1}^{r}
+    \left|
+      E_n^{\mathrm{cand}}(k_j;\boldsymbol\theta)
+      -E_n^{\mathrm{tar}}(k_j)
+    \right|^2
+  \right]^{1/2}.
+  \label{eq:admissible-spectral-rms-error}
+\end{equation}
+It has the same energy unit as the candidate and target eigenvalues.
+\end{definition}
+
+\begin{definition}[Normalized spectral loss]
+Given a finite positive energy scale $E_0$, the normalized spectral loss is
+\begin{equation}
+  L_E(\boldsymbol\theta)
+  =
+  \frac{R_E(\boldsymbol\theta)}{E_0}.
+  \label{eq:admissible-spectral-rms}
+\end{equation}
+It is dimensionless.
+\end{definition}
+
+Uniform weights recover the factor $1/(N_k r)$. Another normalization defines
+another loss and must be named rather than silently substituted. Neither the
+weights nor $E_0$ are automatically uncertainty estimates.
+
+Objectives built from energy residuals have a long history. Starrost and
+collaborators used a genetic algorithm to fit an empirical tight-binding
+Hamiltonian to energies at selected high-symmetry wave
+vectors~\cite{starrost1996}. More recently, Wang and collaborators trained adjustable
+tight-binding matrix elements with an eigenvalue mean-squared-error objective
+against first-principles band energies~\cite{wangEtAl2021}. These are
+precedents for spectral supervision, although their sampling, weights, and
+normalizations need not equal those in
+Equation~\eqref{eq:admissible-spectral-rms}.
+
+The ordered-band formula also has a matching premise. Away from crossings, an
+energy ordering may be sufficient. At crossings or inside nearly degenerate
+clusters, the comparison must state how bands or clusters are identified. A
+sorting rule, overlap-based tracking rule, projector comparison, or another
+declared convention changes the loss contract and cannot be inferred from the
+energy arrays alone.
+
+\subsection{Operator loss}
+\index{represented-operator RMS residual}
+\index{normalized operator loss}
+
+The corresponding operator comparison requires both matrices to act in an
+identified retained space. Let $H^{\mathrm{tar}}(k_j)$ be the target matrices
+in that space, and let $C$ be an allowed global unitary alignment.
+
+\begin{definition}[Represented-operator RMS residual]
+The energy-valued represented-operator root-mean-square residual of the
+candidate specified by $\boldsymbol\theta$ under alignment $C$ is
+\begin{equation}
+  R_H(\boldsymbol\theta,C)
+  =
+  \left[
+    \frac{1}{rW}
+    \sum_{j=1}^{N_k}w_j
+    \left\|
+      C^{\dagger}H_{\boldsymbol\theta}(k_j)C
+      -H^{\mathrm{tar}}(k_j)
+    \right\|_{\mathrm F}^{2}
+  \right]^{1/2}.
+  \label{eq:admissible-operator-rms-residual}
+\end{equation}
+It has the same energy unit as the candidate and target matrices.
+\end{definition}
+
+\begin{definition}[Normalized operator loss]
+Given the same finite positive energy scale $E_0$, the normalized operator
+loss under alignment $C$ is
+\begin{equation}
+  L_H(\boldsymbol\theta,C)
+  =
+  \frac{R_H(\boldsymbol\theta,C)}{E_0}.
+  \label{eq:admissible-operator-rms}
+\end{equation}
+It is dimensionless.
+\end{definition}
+
+The Frobenius norm and its sample aggregation are meaningful only after the
+state spaces, bases, gauges, energy references, units, reciprocal coordinates,
+sample identities, and weights have been declared. The scientific loss
+definition chooses the samples and weights; represented-operator mechanics
+validate compatibility, form differences, and apply the declared aggregation.
+Chapter~\ref{ch:mathematical-foundations} develops those prerequisites.
+
+Direct matrix supervision addresses a different object from spectral
+supervision. Zhang and collaborators learned Hamiltonian and overlap blocks in
+a declared atomic-orbital representation using equivariant atomic-cluster-
+expansion models~\cite{zhangEtAl2022}. Schwade and collaborators instead
+combined an approximate tight-binding model with learned environment-dependent
+corrections and evaluated the resulting electronic-property predictions at
+larger scales~\cite{schwadeEtAl2026}. The targets and representations are
+method-specific, but both examples reinforce why a matrix-level objective must
+name its representation rather than inherit meaning from its eigenvalues.
+
+Some fitting studies augment energy residuals with band gaps, effective masses,
+or other observables. Such an objective must state each observable's definition,
+weight, and scale separately. A gap is derived from selected eigenvalues, an
+effective mass requires a derivative or local fit, and an optical transition
+strength additionally depends on states and another operator. These terms
+should not be called ``purely spectral'' merely because the final reported
+quantity is a scalar. Klimeck and collaborators provide a concrete mixed-target
+example: they fitted silicon nearest- and second-neighbor $sp^3s^{\ast}$ models
+to band-edge and effective-mass targets, reported a successful second-neighbor
+parameterization, and reported that their search found no satisfactory global
+nearest-neighbor fit~\cite{klimeck2000}. That last statement is evidence about
+the completed search, not by itself an infeasibility proof.
+
+Two matrices can have identical eigenvalues and a nonzero operator residual.
+Equation~\eqref{eq:admissible-spectral-rms} therefore cannot replace
+Equation~\eqref{eq:admissible-operator-rms}. The two losses ask different
+questions.
+
+\section{Alignment variables are not model parameters}
+\index{alignment!constrained family}
+\index{nuisance parameter}
+
+A composite retained space permits unitary changes of frame. The alignment
+matrix $C$ is consequently an additional comparison variable, not necessarily
+a physical model parameter. Let $\mathcal U$ be the declared family of allowed
+alignments. Assume that $\mathcal U$ is finite, or that it is compact and the
+loss depends continuously on $C$, so that the best permitted value is attained.
+Define
+\begin{equation}
+  L_H^{\min}(\boldsymbol\theta)
+  =
+  \min_{C\in\mathcal U}L_H(\boldsymbol\theta,C).
+  \label{eq:admissible-minimized-operator-loss}
+\end{equation}
+Without an attainment condition, ``minimum'' must be replaced by ``infimum,''
+and a boundary value equal to that infimum need not supply an actual alignment
+witness. The family $\mathcal U$ is part of the contract. It may be one fixed identity,
+a finite list of global rotations, a continuous symmetry family, or some other
+physically justified set. These choices are not interchangeable.
+
+Chapter~\ref{ch:training-composite-band-gauge-alignment} distinguished
+pointwise Procrustes alignment from one globally constrained unitary. A
+pointwise map $C(k_j)$ may recover a known gauge attack exactly at every sample,
+while one constant $C$ may not. Failure within one finite family of constant
+rotations does not prove failure for every nonidentity alignment, every smooth
+gauge, or every physically admissible map. Enlarging $\mathcal U$ changes the
+model-comparison problem.
+
+If $\mathcal U=\{C_{\alpha}:\alpha\in\mathcal F\}$ is a finite family, then
+Equation~\eqref{eq:admissible-minimized-operator-loss} is evaluated by explicit
+enumeration. Such enumeration is deterministic and complete for
+$\mathcal F$; it is not a continuous alignment optimizer.
+
+\section{Admissible sets and their intersection}
+\index{admissible set!spectral}
+\index{admissible set!operator}
+
+Define the parameter-space spectral-admissible set by
+\begin{equation}
+  \mathcal A_E(\tau_E)
+  =
+  \left\{
+    \boldsymbol\theta\in\Theta:
+    L_E(\boldsymbol\theta)\leq\tau_E
+  \right\}
+  \label{eq:admissible-spectral-set}
+\end{equation}
+and the operator-admissible set by
+\begin{equation}
+  \mathcal A_H(\tau_H)
+  =
+  \left\{
+    \boldsymbol\theta\in\Theta:
+    L_H^{\min}(\boldsymbol\theta)\leq\tau_H
+  \right\}.
+  \label{eq:admissible-operator-set}
+\end{equation}
+For a finite alignment family,
+\begin{equation}
+  \mathcal A_H(\tau_H)
+  =
+  \bigcup_{\alpha\in\mathcal F}
+  \left\{
+    \boldsymbol\theta\in\Theta:
+    L_H(\boldsymbol\theta,C_{\alpha})\leq\tau_H
+  \right\}.
+  \label{eq:admissible-operator-union}
+\end{equation}
+Thus the operator-admissible set need not be one connected region even when
+each fixed-alignment loss has a simple shape.
+
+The family is compatible at the declared thresholds when
+\begin{equation}
+  \mathcal A_E(\tau_E)
+  \cap
+  \mathcal A_H(\tau_H)
+  \neq\varnothing.
+  \label{eq:admissible-common-intersection}
+\end{equation}
+Any retained $\boldsymbol\theta_{\mathrm w}$ satisfying both inequalities is a
+common witness. A complete operator witness also records an alignment
+$C_{\mathrm w}\in\mathcal U$ that attains the accepted operator loss.
+Substitution into independently evaluated losses proves membership directly.
+
+A witness proves existence but does not establish uniqueness, parameter
+identifiability, robustness, or physical validity. It also says nothing about
+parameters outside the frozen family.
+
+This intersection is the contribution boundary. Spectral fitting, direct
+Hamiltonian regression, and analytic restrictions on particular tight-binding
+classes are established ideas. The question introduced here is narrower:
+whether one candidate in a frozen family satisfies independently declared
+spectral and aligned-operator criteria. The answer must be supported by a
+common witness or, when the sets do not intersect, by a valid positive
+separation certificate under the declared family, alignment, losses, metric,
+and thresholds.
+
+\section{Why quadratic losses produce ellipses}
+\index{quadratic loss}
+\index{ellipse!admissible set}
+
+The geometry becomes especially transparent when a residual depends linearly
+on two parameters. Suppose
+\begin{equation}
+  r_{\ell}(\boldsymbol\theta)
+  =
+  \mathbf a_{\ell}^{\mathsf T}\boldsymbol\theta-b_{\ell},
+  \qquad \ell=1,\ldots,M,
+\end{equation}
+and define
+\begin{equation}
+  L^2(\boldsymbol\theta)
+  =
+  \frac{1}{M}
+  \sum_{\ell=1}^{M}
+  r_{\ell}(\boldsymbol\theta)^2.
+\end{equation}
+Expanding the squares gives
+\begin{equation}
+  L^2(\boldsymbol\theta)
+  =
+  \boldsymbol\theta^{\mathsf T}Q\boldsymbol\theta
+  +2\mathbf g^{\mathsf T}\boldsymbol\theta+d,
+  \label{eq:admissible-expanded-quadratic}
+\end{equation}
+where
+\begin{equation}
+  Q=\frac{1}{M}\sum_{\ell=1}^{M}
+      \mathbf a_{\ell}\mathbf a_{\ell}^{\mathsf T},
+  \qquad
+  \mathbf g=-\frac{1}{M}\sum_{\ell=1}^{M}b_{\ell}\mathbf a_{\ell},
+  \qquad
+  d=\frac{1}{M}\sum_{\ell=1}^{M}b_{\ell}^{2}.
+\end{equation}
+If $Q$ is positive definite, the center is
+\begin{equation}
+  \mathbf c=-Q^{-1}\mathbf g.
+\end{equation}
+Completing the square yields
+\begin{equation}
+  L^2(\boldsymbol\theta)
+  =
+  L_{\min}^{2}
+  +
+  (\boldsymbol\theta-\mathbf c)^{\mathsf T}
+  Q
+  (\boldsymbol\theta-\mathbf c),
+  \label{eq:admissible-centered-quadratic}
+\end{equation}
+with
+\begin{equation}
+  L_{\min}^{2}=d-\mathbf g^{\mathsf T}Q^{-1}\mathbf g.
+\end{equation}
+Consequently, the unconstrained threshold set $L\leq\tau$ is empty if
+$\tau^2<L_{\min}^2$, is the single point $\mathbf c$ if
+$\tau^2=L_{\min}^2$, and is a filled ellipse if
+$\tau^2>L_{\min}^2$. Intersecting that ellipse with a rectangular parameter
+domain may clip its boundary. If $Q$ is only positive semidefinite, flat
+directions require separate treatment; the positive-definite formulas must not
+be used without checking their premise.
+
+For a finite alignment family, each fixed-alignment operator loss may generate
+one ellipse. Equation~\eqref{eq:admissible-operator-union} then becomes a union
+of clipped ellipses.
+
+\subsection{Example 2: a witness and a separation distance in two dimensions}
+
+Let $\boldsymbol\theta=(s,q)^{\mathsf T}$ and consider the circular quadratic
+losses
+\begin{align}
+  L_E^2(s,q)&=s^2+(q-0.9)^2,\\
+  L_H^2(s,q)&=(s-0.2)^2+(q-0.5)^2.
+\end{align}
+Their centers are
+\begin{equation}
+  \mathbf c_E=
+  \begin{bmatrix}0\\0.9\end{bmatrix},
+  \qquad
+  \mathbf c_H=
+  \begin{bmatrix}0.2\\0.5\end{bmatrix},
+\end{equation}
+and the center distance is
+\begin{equation}
+  d_c
+  =
+  \lVert\mathbf c_E-\mathbf c_H\rVert_2
+  =
+  \sqrt{0.2}
+  \approx 0.447214.
+\end{equation}
+With equal thresholds $0.3$, the midpoint
+\begin{equation}
+  \boldsymbol\theta_{\mathrm w}
+  =
+  \frac{\mathbf c_E+\mathbf c_H}{2}
+  =
+  \begin{bmatrix}0.1\\0.7\end{bmatrix}
+\end{equation}
+has both losses equal to $d_c/2\approx0.223607$. It is therefore a common
+witness.
+
+With equal thresholds $0.2$, the two closed disks are disjoint. Their exact
+Euclidean separation is
+\begin{equation}
+  \delta^{\ast}=d_c-0.2-0.2\approx0.047214.
+\end{equation}
+This exact expression is available because the sets are ordinary disks. General
+ellipses and unions require more care.
+
+\begin{pythonexample}{checking the two-dimensional witness and separation}
+import numpy as np
+
+# These centers and radii come from the symbolic calculation above.
+center_e = np.array([0.0, 0.9])
+center_h = np.array([0.2, 0.5])
+center_distance = np.linalg.norm(center_e - center_h)
+
+# At radius 0.3, the midpoint is an explicit common witness.
+witness = 0.5 * (center_e + center_h)
+loss_e = np.linalg.norm(witness - center_e)
+loss_h = np.linalg.norm(witness - center_h)
+
+# At radius 0.2, the disk-to-disk distance is positive.
+separation = max(0.0, center_distance - 0.2 - 0.2)
+
+print("center distance:", center_distance)
+print("candidate witness:", witness)
+print("spectral loss at witness:", loss_e)
+print("operator loss at witness:", loss_h)
+print("witness passes radius 0.3:", loss_e <= 0.3 and loss_h <= 0.3)
+print("separation at radius 0.2:", separation)
+\end{pythonexample}
+
+\section{Witnesses and separation certificates}
+\index{witness!common admissible}
+\index{separation certificate}
+
+A common witness is easy to verify: evaluate both losses at the same retained
+parameter and compare them with the frozen thresholds. Proving that no witness
+exists is harder.
+
+Let $d_{\Theta}$ be a declared metric on the parameter domain. Define
+\begin{equation}
+  \delta^{\ast}
+  =
+  \inf_{\substack{
+    \boldsymbol\theta_E\in\mathcal A_E\\
+    \boldsymbol\theta_H\in\mathcal A_H}}
+  d_{\Theta}(\boldsymbol\theta_E,\boldsymbol\theta_H).
+  \label{eq:admissible-set-separation}
+\end{equation}
+If either admissible set is empty, that fact should be reported separately
+rather than hidden inside an arbitrary distance convention. If both are
+nonempty, a certified lower bound
+\begin{equation}
+  0<\delta_{\mathrm{lower}}\leq\delta^{\ast}
+\end{equation}
+proves separation. A displayed pair of feasible boundary points supplies an
+upper bound
+\begin{equation}
+  \delta^{\ast}
+  \leq
+  d_{\Theta}(\boldsymbol\theta_E^{\mathrm b},
+             \boldsymbol\theta_H^{\mathrm b})
+  =\delta_{\mathrm{upper}}.
+\end{equation}
+Equal lower and upper bounds identify the distance exactly, up to the declared
+numerical tolerance. If the protocol declares a separation resolution
+$\rho>0$, the disposition is certified separated only when the valid lower
+bound exceeds $\rho$. A positive bound no larger than $\rho$ remains unresolved
+at that declared resolution.
+
+For Euclidean coordinates, one useful certificate projects both sets onto a
+unit direction $\mathbf e$. If every spectral-admissible point satisfies
+\begin{equation}
+  \mathbf e^{\mathsf T}\boldsymbol\theta_E\geq a
+\end{equation}
+while every operator-admissible point satisfies
+\begin{equation}
+  \mathbf e^{\mathsf T}\boldsymbol\theta_H\leq b,
+\end{equation}
+then
+\begin{equation}
+  \delta^{\ast}\geq\max(0,a-b).
+  \label{eq:admissible-directional-lower-bound}
+\end{equation}
+Both inequalities must hold over the complete applicable sets, including every
+alignment branch and every effect of clipping by $\Theta$.
+
+For the ellipse in Equation~\eqref{eq:admissible-centered-quadratic}, its
+unclipped extreme in direction $\mathbf e$ is
+\begin{equation}
+  \mathbf e^{\mathsf T}\mathbf c
+  \mathbin{\pm}
+  \sqrt{
+    (\tau^2-L_{\min}^2)
+    \mathbf e^{\mathsf T}Q^{-1}\mathbf e
+  }.
+  \label{eq:admissible-ellipse-directional-extreme}
+\end{equation}
+This formula follows by transforming the ellipse to a unit ball and applying
+the Cauchy--Schwarz inequality. It is valid only when the ellipse is nonempty,
+$Q$ is positive definite, and the relevant extreme is not changed by the
+parameter-domain boundary. Those conditions are premises of the certificate,
+not implementation details.
+
+A local optimizer, a dense plot, or a finite grid may suggest separation but
+does not establish the global lower bound in
+Equation~\eqref{eq:admissible-set-separation}. The nearest-neighbor search
+reported by Klimeck and collaborators above is an instructive example of this
+evidence boundary: ``no satisfactory fit found'' does not become a theorem
+that the admissible set is empty. Validated global-search methods can sometimes
+provide such bounds, but their applicability and assumptions must be stated
+explicitly~\cite{neumaier2004}.
+
+\subsection{The parameter metric is part of the claim}
+
+Euclidean distance is not invariant under arbitrary reparameterization. If one
+coordinate is replaced by $100$ times itself, the numerical distance changes
+unless the metric changes too. A separation result must therefore state
+\begin{itemize}
+  \item the canonical parameter coordinates;
+  \item their units or dimensionless normalization;
+  \item the metric and any coordinate weights; and
+  \item the resolution below which separation is treated as unresolved.
+\end{itemize}
+A positive distance in a synthetic parameter metric is not automatically a
+physical energy, probability, or uncertainty interval.
+
+\section{Training, withheld evaluation, and locality}
+\index{training data!admissible set}
+\index{withheld validation!admissible set}
+\index{locality!diagnostic role}
+
+Training data define the losses whose sublevel sets enter the compatibility
+decision. Withheld data evaluate selected parameters after that decision. If a
+withheld mesh is consulted while choosing thresholds, changing the family, or
+selecting the witness, then it is no longer purely withheld for that decision.
+
+For selected $\boldsymbol\theta$, one may report
+\begin{align}
+  L_E^{\mathrm{train}}(\boldsymbol\theta),
+  &\qquad
+  L_H^{\mathrm{train}}(\boldsymbol\theta),\\
+  L_E^{\mathrm{withheld}}(\boldsymbol\theta),
+  &\qquad
+  L_H^{\mathrm{withheld}}(\boldsymbol\theta).
+\end{align}
+The withheld values test interpolation or generalization to the frozen
+withheld coordinates. They do not retroactively alter the training-set
+admissible sets unless the protocol explicitly defines a second acceptance
+stage.
+
+A reciprocal operator may also be transformed to hopping blocks and truncated
+at several real-space ranges. The omitted-block norm then measures locality in
+the chosen gauge and convention. Unless a locality threshold appears in the
+formal definition of admissibility, this quantity is a diagnostic rather than
+a third acceptance condition. Reporting it beside the two losses must not
+silently turn it into one.
+
+\section{Threshold sensitivity}
+\index{threshold sensitivity}
+
+Compatibility is relative to $(\tau_E,\tau_H)$. Increasing a threshold can
+enlarge its admissible set; decreasing it can shrink the set or make it empty.
+A threshold-sensitivity calculation asks how the disposition changes as one or
+both thresholds vary.
+
+Such an analysis is useful for identifying
+\begin{itemize}
+  \item whether a conclusion is far from or close to a transition;
+  \item which criterion controls the transition;
+  \item whether a reported positive separation is numerically resolved; and
+  \item whether small changes in a proposed threshold change the disposition.
+\end{itemize}
+It does not calibrate a physically meaningful threshold by itself. If the
+sensitivity sweep was designed after the confirmatory result was inspected, it
+must be labelled post hoc. It may characterize the retained geometry without
+becoming a prospectively frozen prediction.
+
+\section{The controlled M3 role}
+\index{M3 controlled calculation}
+
+The maintained one-dimensional M3 calculation instantiates the framework above
+with a synthetic rank-two parent inherited from the controlled multiband
+calculation, the two parameters $(s,q)$ from
+Equation~\eqref{eq:admissible-rank-two-family}, a bounded rectangular domain,
+and a frozen finite family of global real rotations. It uses uniform sample
+weights as the special case $w_j=1$, constructs spectral and operator quadratic
+losses on the training mesh, evaluates selected points
+on a disjoint withheld mesh, and records hopping-locality diagnostics at
+selected ranges.
+
+This role is deliberately narrow. M3 is a controlled example of how to retain
+one common witness or a positive analytic separation certificate within one
+frozen family. It is not a general continuous alignment solver, a statement
+about every rank-two Hamiltonian, a localization calculation, a material
+calculation, or a calibration of physical acceptance tolerances. The retained
+outcomes and their provenance belong in
+Section~\ref{sec:appendix-g-m3} and the owning calculation package, not in this
+foundational derivation. Figure~\ref{fig:periodic-1d-m3-admissible-sets} there
+shows the actual compatible and separated M3 regions; the circles in
+Example~2 above remain a simpler pedagogical model.
+
+\section{Common mistakes}
+
+\begin{enumerate}
+  \item \textbf{Presenting the loss as the contribution.} Weighted spectral
+        fitting, effective-mass targets, and direct Hamiltonian regression all
+        have precedents. The present contribution is the bounded simultaneous
+        witness-or-certificate question.
+  \item \textbf{Comparing two separate minimizers.} The spectral optimum and
+        operator optimum need not define one common candidate.
+  \item \textbf{Calling a failed grid search a proof.} A grid leaves untested
+        points between samples and supplies no global lower bound by itself.
+  \item \textbf{Optimizing over an undeclared gauge family.} Changing the
+        alignment family changes the admissible set.
+  \item \textbf{Using incompatible represented operators.} A Frobenius norm
+        cannot repair mismatched spaces, bases, units, or energy references.
+  \item \textbf{Choosing thresholds from the desired answer.} Thresholds are
+        acceptance inputs, not knobs adjusted until an intersection appears or
+        disappears.
+  \item \textbf{Treating withheld values as training evidence.} Withheld data
+        have a distinct evaluation role.
+  \item \textbf{Promoting a locality diagnostic to a criterion.} That requires
+        a declared locality loss and threshold.
+  \item \textbf{Generalizing beyond the frozen family.} Separation inside one
+        bounded family does not establish universal incompatibility.
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item For Example~1, determine the intersection for equal thresholds $0.5$.
+        Is there one witness or more than one?
+  \item Starting from Equation~\eqref{eq:admissible-expanded-quadratic}, carry
+        out the completion of the square and verify
+        Equation~\eqref{eq:admissible-centered-quadratic}.
+  \item Let $Q=\operatorname{diag}(4,1)$, $\mathbf c=\mathbf0$, and
+        $L_{\min}=0$. Sketch the sets for $\tau=1$ and $\tau=1/2$ and explain
+        which parameter is more tightly constrained.
+  \item Add a second operator-alignment branch centered at $(-0.3,0.4)$ to
+        Example~2. Draw the union of the two operator disks and determine which
+        branch is closer to the spectral center.
+  \item Explain why multiplying the first parameter coordinate by $100$
+        changes an unweighted Euclidean separation. Propose a dimensionless
+        metric that preserves the intended relative scales.
+  \item Construct an example in which no sampled grid point satisfies both
+        criteria but an unsampled common witness exists.
+  \item State which additional contract would be required to make an
+        omitted-hopping norm part of the admissibility decision rather than a
+        diagnostic.
+\end{enumerate}
+
+\section{Chapter summary}
+
+Spectral fitting, direct Hamiltonian regression, and analytic restrictions on
+particular tight-binding classes predate this framework. The role of the
+framework is to make a narrower simultaneous-adequacy question explicit.
+A model family is compatible with two declared criteria only when the same
+parameter lies in both thresholded admissible sets. A common witness proves
+that such a parameter exists. A positive, globally valid lower bound proves
+separation; failure of a finite search does not. Quadratic losses make this
+logic visible through ellipses and finite unions of ellipses, but their analytic
+certificates remain conditional on positive curvature, domain geometry, and
+the declared alignment family. Training data define the decision, withheld
+data evaluate selected candidates, and locality remains a diagnostic unless it
+is explicitly promoted to a thresholded criterion. These distinctions allow
+later bulk and impurity chapters to use the language of adequacy without
+turning a bounded synthetic calculation into a material claim.

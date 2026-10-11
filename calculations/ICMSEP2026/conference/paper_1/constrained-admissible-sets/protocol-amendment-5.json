@@ -1,0 +1,23 @@
+{
+  "amended_at_utc": "2026-10-10T17:48:34Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Add the coordinate-support limitation to generated report.md and package README.md."
+  ],
+  "corrected_files": [
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/run.py",
+      "sha256": "d541b136d23215d9ffe3b8e7f9aefb79aa378537d7ffdf0264836c5352157ef8"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/README.md",
+      "sha256": "b86c40305c15ec810dc5077b4e882c80fda739037c13ebffba21b8fb1da4c8d0"
+    }
+  ],
+  "finding": "The generated concise report did not itself disclose the singleton k=0 overlap already recorded by protocol-amendment-3.json.",
+  "integrity_note": "SHA-256 identifies bytes and does not independently establish chronology.",
+  "numerical_results_changed": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "reporting-clarification-before-final-producer-regeneration"
+}

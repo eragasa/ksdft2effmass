@@ -1,0 +1,766 @@
+\chapter{Bloch-Periodic Finite Differences on Nonorthogonal Cells}
+\index{finite difference!Bloch-periodic|textbf}
+\index{Laplacian!nonorthogonal periodic cell|textbf}
+\index{Bloch boundary condition|textbf}
+
+\label{ch:training-bloch-finite-differences}
+
+\chapterstatus{pedagogical derivation and verified software-capability
+description. The maintained operator is a centered second-order geometric scalar
+Laplacian. This chapter reports no new M4 calculation, material Hamiltonian,
+scientific validation, or uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item derive the Cartesian scalar Laplacian in fractional coordinates;
+  \item distinguish metric-induced mixed derivatives from physical
+        effective-mass anisotropy;
+  \item construct pure and mixed centered second-order stencils;
+  \item apply Bloch phases when a stencil crosses one or several periodic
+        seams;
+  \item construct plane-wave and finite-difference representations of a
+        one-dimensional periodic cosine fiber;
+  \item distinguish the geometric Laplacian from kinetic-energy and potential
+        operators; and
+  \item design software and numerical checks without turning an expected trend
+        into a scientific conclusion.
+\end{enumerate}
+
+Chapter~\ref{ch:training-periodic-geometry} supplies the direct basis $A$, Gram
+metric $G=A^{\mathsf T}A$, inverse metric $G^{-1}$, and explicit route from an
+ambient $3\times2$ basis to an intrinsic $2\times2$ basis. Standard
+finite-difference background may be found in Strikwerda~\cite{strikwerda2004};
+the evidence classifications used here follow
+Chapter~\ref{ch:verification-and-validation}.
+
+\section{Why a familiar stencil needs a full lecture}
+
+Most readers have seen the three-point approximation to a second derivative.
+It is therefore reasonable to ask why we should spend an entire lecture on a
+Laplacian. The answer is that the one-dimensional stencil is only the local
+algebraic ingredient. A periodic multidimensional operator also commits us to a
+coordinate system, a metric, a tensor ordering, a boundary phase convention,
+a matrix ordering, a physical unit, and a sign convention. Each choice is
+simple when isolated. Their composition is where silent errors appear.
+
+On a square grid with zero twist, several mistakes can hide. If one treats
+fractional coordinates as Cartesian coordinates, the square unit cell may make
+the error invisible. If one omits mixed derivatives, an orthogonal metric makes
+the omitted coefficients zero anyway. If one mishandles simultaneous seam
+crossings, an axial stencil never tests the corner case. A nonorthogonal cell
+with nonzero twist is therefore not needless generality: it exposes assumptions
+that an easy special case allows us to forget.
+
+The lecture will proceed in the same order one would use at a blackboard. We
+first derive the continuous operator in reduced coordinates. We then replace
+each derivative by a centered stencil. Only after the interior stencil is clear
+do we discuss periodic seams. Finally, we attach units and explain how another
+model layer turns a geometric Laplacian into a Hamiltonian. This order keeps the
+source of each coefficient visible.
+
+A useful question to ask at every stage is: ``What has been added since the
+previous line?'' Moving from $G^{-1}$ to $\Delta$ adds differential structure.
+Moving from $\Delta$ to $\Delta_h$ adds a discretization. Moving from an
+interior stencil to a Bloch matrix adds a boundary representation. Moving from
+$\Delta_h$ to $H_h$ adds physical scaling and a potential. None of these steps
+is merely a change of notation.
+
+\section{From Cartesian derivatives to fractional derivatives}
+\index{coordinate transformation!Laplacian}
+
+Let
+\begin{equation}
+  \mathbf r=A\mathbf s,
+  \qquad
+  G=A^{\mathsf T}A,
+  \label{eq:training-fd-coordinate-map}
+\end{equation}
+where the primitive basis is constant over the cell. For a scalar function
+$f(\mathbf r)=\widetilde f(\mathbf s)$, the gradient transformation gives a
+constant-coefficient Laplacian
+\begin{equation}
+  \nabla_{\mathbf r}^2 f
+  =
+  \sum_{i,j=1}^{d}
+  g^{ij}
+  \frac{\partial^2\widetilde f}
+       {\partial s_i\partial s_j},
+  \qquad
+  [g^{ij}]=G^{-1}.
+  \label{eq:training-metric-laplacian}
+\end{equation}
+Since $G^{-1}$ is symmetric, the same expression can be written
+\begin{equation}
+  \nabla_{\mathbf r}^2
+  =
+  \sum_{i=1}^{d}g^{ii}\partial_{s_i}^2
+  +2\sum_{i<j}g^{ij}\partial_{s_i}\partial_{s_j}.
+  \label{eq:training-metric-laplacian-symmetric}
+\end{equation}
+
+For an orthogonal cell, $g^{ij}=0$ when $i\neq j$, and the mixed derivatives
+vanish. For a skew cell, the mixed terms are required to represent the ordinary
+isotropic Cartesian Laplacian. Omitting them changes the mathematical
+operator.
+
+\subsection{The chain rule one index at a time}
+
+The compact expression in Equation~\eqref{eq:training-metric-laplacian} is easy
+to quote and just as easy to misremember. We therefore derive it. Let
+$\nabla_{\mathbf s}\widetilde f$ be the column of fractional derivatives. A
+small fractional displacement changes the function by
+\begin{equation}
+  d\widetilde f
+  =\left(\nabla_{\mathbf s}\widetilde f\right)^{\mathsf T}
+   \mathrm{d}\mathbf s.
+\end{equation}
+The same change, described in the tangent Cartesian plane, is
+\begin{equation}
+  df
+  =\left(\nabla_{\parallel}f\right)^{\mathsf T}\mathrm{d}\mathbf r
+  =\left(\nabla_{\parallel}f\right)^{\mathsf T}A\,\mathrm{d}\mathbf s.
+\end{equation}
+Equality for every $\mathrm{d}\mathbf s$ requires
+\begin{equation}
+  A^{\mathsf T}\nabla_{\parallel}f
+  =\nabla_{\mathbf s}\widetilde f.
+  \label{eq:training-gradient-pullback}
+\end{equation}
+The in-plane solution is
+\begin{equation}
+  \nabla_{\parallel}f
+  =AG^{-1}\nabla_{\mathbf s}\widetilde f.
+  \label{eq:training-gradient-pushforward}
+\end{equation}
+Substitution confirms the result because
+$A^{\mathsf T}AG^{-1}=I_d$.
+
+The basis is constant, so differentiating once more does not produce derivatives
+of $A$ or $G$. Taking the tangent divergence leaves one inverse-metric
+coefficient for each pair of fractional derivatives, giving
+Equation~\eqref{eq:training-metric-laplacian}. For a curvilinear or spatially
+varying basis, this shortcut would be invalid; metric determinants and
+coefficient derivatives would enter. The present implementation is explicitly
+a constant primitive-cell construction.
+
+This derivation is also valid for an embedded plane because
+$AG^{-1}\nabla_{\mathbf s}\widetilde f$ lies in the column space of $A$. We are
+not taking a three-dimensional Laplacian of a function whose normal dependence
+has been left unspecified. We are taking the intrinsic scalar Laplacian of a
+flat plane represented in ambient coordinates.
+
+\begin{remark}[Geometry is not constitutive anisotropy]
+Off-diagonal entries of $G^{-1}$ arise because the selected coordinate axes are
+skew. An anisotropic effective-mass tensor describes a physical constitutive
+model. Although both can produce cross derivatives after a coordinate choice,
+they belong to different layers and must not be identified merely because
+their matrices have similar shapes.
+\end{remark}
+
+\section{Endpoint-excluded periodic grids}
+\index{grid!endpoint-excluded periodic}
+
+For axis $i$, select $N_i$ points
+\begin{equation}
+  s_{i,n_i}=\frac{n_i}{N_i},
+  \qquad
+  n_i=0,1,\ldots,N_i-1,
+  \qquad
+  h_i=\frac{1}{N_i}.
+  \label{eq:training-periodic-grid}
+\end{equation}
+The endpoint $s_i=1$ is excluded because it is equivalent to $s_i=0$ up to the
+boundary condition. Including both endpoints would duplicate one physical
+location and complicate the seam rule.
+
+A tensor-product grid also needs a declared linear ordering. The maintained
+implementation uses C order: the last fractional axis varies fastest. Ordering
+is not a cosmetic implementation detail because it determines which matrix row
+and column correspond to each grid point.
+
+\section{Centered pure derivatives}
+
+The centered second derivative along fractional axis $i$ is
+\begin{equation}
+  (D_{ii}f)_{\mathbf n}
+  =
+  \frac{
+    f_{\mathbf n+\mathbf e_i}
+    -2f_{\mathbf n}
+    +f_{\mathbf n-\mathbf e_i}}
+  {h_i^2}.
+  \label{eq:training-pure-second-difference}
+\end{equation}
+For a smooth function away from representation boundaries, this is a
+second-order approximation to $\partial_{s_i}^2f$. The corresponding axial
+matrix entries are real before seam phases are applied.
+
+The pure-derivative contribution to the discrete metric Laplacian is
+\begin{equation}
+  \sum_i g^{ii}D_{ii}.
+  \label{eq:training-pure-metric-stencil}
+\end{equation}
+Because $G^{-1}$ is positive definite, each $g^{ii}$ is positive. With the
+sign convention in Equation~\eqref{eq:training-pure-second-difference}, the
+periodic discrete Laplacian has nonpositive eigenvalues.
+
+\section{Centered mixed derivatives}
+\index{finite difference!mixed derivative}
+
+For $i\neq j$, the centered mixed derivative uses four corner points:
+\begin{equation}
+  (D_{ij}f)_{\mathbf n}
+  =
+  \frac{
+    f_{\mathbf n+\mathbf e_i+\mathbf e_j}
+    -f_{\mathbf n+\mathbf e_i-\mathbf e_j}
+    -f_{\mathbf n-\mathbf e_i+\mathbf e_j}
+    +f_{\mathbf n-\mathbf e_i-\mathbf e_j}}
+  {4h_i h_j}.
+  \label{eq:training-mixed-second-difference}
+\end{equation}
+The complete centered operator is
+\begin{equation}
+  \Delta_h
+  =
+  \sum_i g^{ii}D_{ii}
+  +2\sum_{i<j}g^{ij}D_{ij}.
+  \label{eq:training-discrete-metric-laplacian}
+\end{equation}
+For each pair $i<j$, the factor of two comes from combining the $(i,j)$ and
+$(j,i)$ terms in Equation~\eqref{eq:training-metric-laplacian}.
+
+In two dimensions, the pure stencil touches the center and four axial
+neighbors; a nonzero mixed coefficient adds four diagonal neighbors. In three
+dimensions, three axis pairs contribute corresponding corner displacements.
+The represented operator remains sparse.
+
+\subsection{Reading the stencil for a sixty-degree cell}
+
+Return to the sixty-degree cell from
+Equation~\eqref{eq:training-sixty-degree-basis}. Its inverse metric is
+\begin{equation}
+  G^{-1}=\frac{1}{a^2}
+  \begin{bmatrix}
+    4/3 & -2/3\\
+    -2/3 & 4/3
+  \end{bmatrix}.
+\end{equation}
+The continuous Laplacian is therefore
+\begin{equation}
+  \nabla^2
+  =\frac{4}{3a^2}
+  \left(
+    \partial_{s_1}^2
+    +\partial_{s_2}^2
+    -\partial_{s_1}\partial_{s_2}
+  \right).
+  \label{eq:training-sixty-degree-laplacian}
+\end{equation}
+The minus sign on the mixed derivative is not a negative kinetic energy and not
+an instability. It is the coordinate correction required by the oblique axes.
+The full quadratic symbol remains nonnegative for $-\nabla^2$ because the
+inverse metric is positive definite.
+
+Suppose, for simplicity, that $h_1=h_2=h$. The center receives
+$-16/(3a^2h^2)$. Each of the four axial neighbors receives
+$4/(3a^2h^2)$. The four corner coefficients alternate in sign: same-sign
+corner displacements receive $-1/(3a^2h^2)$, while opposite-sign corner
+displacements receive $+1/(3a^2h^2)$. Adding every coefficient in a row gives
+zero before a nonzero boundary twist is applied. That row-sum check is the
+discrete statement that a constant periodic function has zero Laplacian.
+
+It is worth tracing the signs directly from
+Equation~\eqref{eq:training-mixed-second-difference}. The mixed derivative has
+positive same-sign corners and negative opposite-sign corners. Multiplication
+by the negative $g^{12}$ reverses those signs. This two-step explanation is
+safer than memorizing a nine-point stencil whose signs depend on the selected
+cell.
+
+\section{Bloch-periodic seams}
+\index{Bloch phase!quotient seam}
+\index{boundary twist}
+
+Let the reduced twist $\boldsymbol\kappa$ be measured in turns along the direct
+primitive axes. The maintained quotient-seam convention is
+\begin{equation}
+  \psi(\mathbf s+\mathbf q)
+  =
+  \exp\!\left(2\pi i\,\boldsymbol\kappa\cdot\mathbf q\right)
+  \psi(\mathbf s),
+  \qquad
+  \mathbf q\in\mathbb Z^d.
+  \label{eq:training-bloch-seam}
+\end{equation}
+Suppose a stencil displacement carries a raw target outside the stored grid.
+Reduce it as
+\begin{equation}
+  \mathbf n+\boldsymbol\delta
+  =\overline{\mathbf n}+N\mathbf q,
+  \label{eq:training-grid-quotient}
+\end{equation}
+where $\overline{\mathbf n}$ lies in the stored index range and $\mathbf q$
+counts signed primitive-cell crossings. The matrix contribution receives the
+phase
+\begin{equation}
+  \exp\!\left(2\pi i\,\boldsymbol\kappa\cdot\mathbf q\right)
+  =
+  \prod_a\exp\!\left(2\pi i\kappa_a q_a\right).
+  \label{eq:training-seam-product}
+\end{equation}
+
+The product form matters for a mixed-derivative corner that crosses two seams
+at once. Applying only one axis phase produces the wrong operator. Integer
+shifts of the twist define the same quotient-seam phases, but the complete
+unreduced lift and its quotient reduction can still be retained as provenance.
+
+\subsection{Walking one corner across the seam}
+
+Take a $5\times4$ grid. The stored indices are
+$n_1\in\{0,1,2,3,4\}$ and $n_2\in\{0,1,2,3\}$. Begin at the upper-right stored
+point $(4,3)$ and apply the corner displacement $(+1,+1)$. The raw target is
+$(5,4)$. Componentwise Euclidean division gives the wrapped point $(0,0)$ and
+the quotient
+\begin{equation}
+  \mathbf q=(1,1).
+\end{equation}
+The associated matrix entry receives
+\begin{equation}
+  \exp\!\left[2\pi i(\kappa_1+\kappa_2)\right].
+  \label{eq:training-double-wrap-phase}
+\end{equation}
+Both seam crossings matter.
+
+Now begin at $(4,0)$ and apply $(+1,-1)$. The wrapped point is $(0,3)$, but the
+quotient is $(1,-1)$. Its phase is
+\begin{equation}
+  \exp\!\left[2\pi i(\kappa_1-\kappa_2)\right].
+\end{equation}
+The negative quotient records that the second coordinate crossed the lower
+seam. Using an unsigned ``did wrap'' flag would lose this distinction.
+
+Finally consider the reverse matrix connection. It carries the opposite
+quotient and therefore the complex-conjugate phase. Paired with the real
+symmetric interior coefficient, this is the local reason the assembled matrix
+can be Hermitian. The global Hermiticity test should still be performed; the
+hand argument tells us what the test is checking.
+
+\subsection{Hermiticity check}
+
+For a real symmetric metric and a consistent seam convention, the represented
+matrix should satisfy
+\begin{equation}
+  L_h^{\dagger}=L_h.
+  \label{eq:training-fd-hermiticity}
+\end{equation}
+This is an important software invariant. It is not, by itself, a convergence
+or scientific-validation result. Many incorrect Hermitian matrices can still
+be assembled.
+
+\section{From the Laplacian to a Hamiltonian}
+\index{kinetic energy!scalar Laplacian distinction}
+
+The geometric result constructed above represents $\nabla^2$. For an isotropic
+scalar mass $m$, a familiar kinetic operator is
+\begin{equation}
+  \hat T
+  =-\frac{\hbar^2}{2m}\nabla^2.
+  \label{eq:training-isotropic-kinetic}
+\end{equation}
+A finite Hamiltonian may then have the form
+\begin{equation}
+  H_h=-\alpha L_h+V_h,
+  \qquad
+  \alpha=\frac{\hbar^2}{2m},
+  \label{eq:training-fd-hamiltonian-composition}
+\end{equation}
+where $V_h$ is a separately defined potential representation. The basis,
+units, sampling convention, and energy reference of both terms must agree
+before addition.
+
+An anisotropic effective-mass model instead involves a tensor such as
+\begin{equation}
+  \hat T_M
+  =-\frac{\hbar^2}{2}
+  \nabla\!\cdot M^{-1}\nabla,
+  \label{eq:training-anisotropic-kinetic}
+\end{equation}
+subject to the model's ordering and regularity assumptions. That tensor is not
+supplied by the scalar geometric Laplacian. It requires a separate physical
+contract and, for spatially varying coefficients, a separate discretization
+analysis.
+
+\section{A one-dimensional cosine-fiber bridge}
+\index{cosine potential!plane-wave and finite-difference representations}
+
+Before returning to the maintained multidimensional constructor, it is useful
+to specialize the preceding rules to the one-dimensional parent used later in
+the isolated-band reduction. A Bloch fiber was defined in
+Equation~\eqref{eq:training-geometry-fiber-definition} as the restriction of the
+periodic parent to one fixed quasimomentum sector, represented here on
+cell-periodic functions. Let
+\begin{equation}
+  \widehat H
+  =-\frac{\hbar^2}{2m}\frac{\mathrm d^2}{\mathrm d x^2}
+   +V_0\cos(Gx),
+  \qquad
+  G=\frac{2\pi}{a}.
+  \label{eq:training-fd-one-dimensional-parent}
+\end{equation}
+There are two common one-cell representations.
+
+\subsection{Cell-periodic plane waves}
+
+Write $\psi_k(x)=e^{ikx}u_k(x)$ with $u_k(x+a)=u_k(x)$. In the periodic basis
+\begin{equation}
+  \phi_n(x)=a^{-1/2}e^{inGx},
+  \qquad n\in\mathbb Z,
+\end{equation}
+the cell-periodic fiber has entries
+\begin{equation}
+  H^{\mathrm{PW}}_{nm}(k)
+  =\frac{\hbar^2(k+nG)^2}{2m}\delta_{nm}
+   +\frac{V_0}{2}
+    \left(\delta_{n,m+1}+\delta_{n,m-1}\right).
+  \label{eq:training-fd-one-dimensional-plane-wave}
+\end{equation}
+The kinetic term is diagonal because each basis function is a derivative
+eigenfunction. The cosine contains only the harmonics $+G$ and $-G$, so it
+connects reciprocal indices separated by one. This reciprocal-index sparsity
+is a statement about the potential's Fourier content, not yet a short-range
+real-space hopping model.
+
+A cutoff $P$ retains $n=-P,\ldots,P$. The resulting matrix dimension is
+$2P+1$, and changing $P$ changes the represented space. Low eigenvalues may
+stabilize rapidly while states near the reciprocal cutoff remain poorly
+represented.
+
+\subsection{A grid with a Bloch seam}
+
+Alternatively, store the original wavefunction on
+\begin{equation}
+  x_j=\frac{ja}{N_x},
+  \qquad j=0,\ldots,N_x-1,
+\end{equation}
+and impose $\psi(x+a)=e^{ika}\psi(x)$. If
+\begin{equation}
+  c_h=\frac{\hbar^2}{2m(a/N_x)^2},
+\end{equation}
+the centered kinetic matrix has diagonal entries $2c_h$, adjacent entries
+$-c_h$, and seam entries
+\begin{equation}
+  T_{0,N_x-1}(k)=-c_h e^{-ika},
+  \qquad
+  T_{N_x-1,0}(k)=-c_h e^{ika}.
+  \label{eq:training-fd-one-dimensional-seam}
+\end{equation}
+The potential is diagonal with values $V_0\cos(Gx_j)$. The two seam entries are
+complex conjugates, which is the one-dimensional instance of the quotient rule
+in Equation~\eqref{eq:training-seam-product}.
+
+\subsection{What can be compared directly}
+
+The two finite matrices approximate the same declared continuum fibers but use
+different bases and generally different dimensions. Their ordered low
+eigenvalues can be compared at common $k$ values. The matrices themselves
+cannot be subtracted merely because both are called Hamiltonians. An operator
+residual requires an explicit map into common coordinates.
+
+A high plane-wave cutoff can serve as a declared finite represented reference
+for a bounded refinement study. Such a reference is not the exact continuum
+spectrum. Plane-wave cutoff error and finite-difference grid error also remain
+separate channels even when both are measured against that reference.
+Chapter~\ref{ch:training-isolated-band-fourier-reduction} continues from these
+fiber eigensystems to an isolated scalar band and its finite hopping
+representation.
+
+\section{What the maintained implementation owns}
+\index{PhysKit!Bloch-periodic Laplacian}
+
+The pinned PhysKit implementation owns
+
+\begin{itemize}
+  \item endpoint-excluded tensor grids in two or three dimensions;
+  \item intrinsic nonorthogonal direct metrics;
+  \item centered second-order pure and mixed derivatives;
+  \item quotient-seam Bloch phases, including simultaneous multi-axis wraps;
+  \item C-order sparse assembly;
+  \item explicit physical or unitless basis units; and
+  \item an immutable canonical complex CSR representation correlated with its
+        request and twist context.
+\end{itemize}
+
+For an ambient $3\times2$ plane, the explicit adapter from
+Chapter~\ref{ch:training-periodic-geometry} supplies the intrinsic metric while
+retaining the ambient basis and maps. The Laplacian constructor does not need
+to pretend that the rectangular basis is square.
+
+The implementation intentionally does not own kinetic-energy scaling,
+effective-mass tensors, potential sampling, material parameters, model
+selection, campaign thresholds, or scientific acceptance. Those belong to the
+consumer that constructs a Hamiltonian and states the question being tested.
+
+The next program deliberately uses the maintained public objects rather than
+reproducing their implementation. The example remains small enough that every
+construction step is visible.
+
+\begin{pythonexample}{constructing a twisted scalar Laplacian}
+import numpy as np
+from projectkoios.physkit.periodic.finite_difference.grid import (
+    PeriodicFiniteDifferenceGrid,
+)
+from projectkoios.physkit.periodic.finite_difference.laplacian import (
+    BlochPeriodicLaplacianConstructionRequest,
+    BlochPeriodicLaplacianConstructor,
+)
+from projectkoios.physkit.periodic.lattice.boundary_phases import (
+    BoundaryTwistLift,
+)
+from projectkoios.physkit.periodic.lattice.embedding import (
+    EmbeddedDirectLattice2D,
+    EmbeddedDirectLattice2DAdaptationRequest,
+    EmbeddedDirectLattice2DAdapter,
+)
+from projectkoios.physkit.periodic.lattice.finite_domain import (
+    FinitePeriodicDomain,
+    LatticeDimension,
+)
+from projectkoios.physkit.units import MatrixQuantity, PhysicalUnit
+
+# Define a flat two-dimensional lattice in ambient three-space.
+unit = PhysicalUnit("angstrom")
+ambient_basis = np.array(
+    [[1.0, 0.25], [0.0, 1.2], [0.5, -0.1]],
+    dtype=np.float64,
+)
+embedded = EmbeddedDirectLattice2D(
+    ambient_basis=MatrixQuantity(ambient_basis, unit)
+)
+
+# Adapt ambient geometry to the intrinsic metric used by the stencil.
+adaptation = EmbeddedDirectLattice2DAdapter().action(
+    request=EmbeddedDirectLattice2DAdaptationRequest(
+        embedded_lattice=embedded
+    )
+)
+grid = PeriodicFiniteDifferenceGrid(
+    metric=adaptation.intrinsic_metric,
+    domain=FinitePeriodicDomain(LatticeDimension.TWO, (4, 5)),
+    direct_basis_unit=unit,
+)
+
+# The twist is measured in turns along the two primitive axes.
+request = BlochPeriodicLaplacianConstructionRequest(
+    grid=grid,
+    twist=BoundaryTwistLift(
+        LatticeDimension.TWO,
+        (0.125, -0.25),
+    ),
+)
+result = BlochPeriodicLaplacianConstructor().action(request=request)
+L = result.represented_laplacian.to_csr()
+
+# Preserve sparsity while checking the exact construction invariant.
+hermitian_residual = L - L.conjugate().transpose()
+assert hermitian_residual.nnz == 0
+print("shape:", L.shape)
+print("unit:", result.represented_laplacian.unit)
+\end{pythonexample}
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/bloch_periodic_finite_differences.ipynb}
+with explicit imports, explanatory inline comments, a zero-twist null-mode
+check, and a sparse-preserving nonzero-twist Hermiticity check. The notebook
+must not densify the represented Laplacian and must not imply kinetic scaling
+or material physics.}
+
+\section{A Fourier-mode diagnostic}
+\index{Fourier mode!finite-difference symbol}
+
+A periodic constant-coefficient stencil should be understood in Fourier space
+as well as in matrix form. Consider a reduced-coordinate mode
+\begin{equation}
+  f_{\boldsymbol\nu}(\mathbf s)
+  =\exp\!\left(2\pi i\,\boldsymbol\nu\cdot\mathbf s\right),
+  \qquad
+  \boldsymbol\nu=\mathbf m+\boldsymbol\kappa,
+  \label{eq:training-discrete-bloch-mode}
+\end{equation}
+where $\mathbf m$ is an integer mode index and $\boldsymbol\kappa$ supplies the
+Bloch twist. Translating by one primitive cell multiplies this mode by the
+phase in Equation~\eqref{eq:training-bloch-seam}.
+
+Applying the pure stencil gives the eigenvalue
+\begin{equation}
+  \widehat D_{ii}(\boldsymbol\nu)
+  =-\frac{4}{h_i^2}
+  \sin^2\!\left(\pi\nu_i h_i\right).
+  \label{eq:training-pure-difference-symbol}
+\end{equation}
+Applying the mixed stencil gives
+\begin{equation}
+  \widehat D_{ij}(\boldsymbol\nu)
+  =-\frac{
+    \sin\!\left(2\pi\nu_i h_i\right)
+    \sin\!\left(2\pi\nu_j h_j\right)}
+  {h_i h_j}.
+  \label{eq:training-mixed-difference-symbol}
+\end{equation}
+The full discrete symbol follows by inserting these expressions into
+Equation~\eqref{eq:training-discrete-metric-laplacian}.
+
+This is an especially useful numerical oracle because it is derived without
+assembling the sparse matrix row by row. On a small grid, one can construct the
+mode vector, apply the matrix, and compare the result with the analytical
+stencil symbol. A discrepancy can reveal a wrong flattening order, a missing
+mixed term, or an incorrect seam phase. Agreement remains bounded numerical
+verification of this operator; it does not validate any material model.
+
+In the small-spacing limit,
+$\sin(\pi\nu_i h_i)\sim\pi\nu_i h_i$, so the pure symbol approaches
+$-(2\pi\nu_i)^2$. The mixed symbol similarly approaches
+$-(2\pi\nu_i)(2\pi\nu_j)$. This recovers the continuous metric symbol and makes
+the expected second-order truncation behavior visible.
+
+\section{A staged computational laboratory}
+\index{laboratory!nonorthogonal finite difference}
+
+A useful student exercise should separate contracts rather than beginning with
+a large material calculation. The point of the laboratory is not to obtain one
+impressive matrix. It is to make each layer fail in an interpretable way before
+the layers are composed.
+
+For every stage, record the request, the expected invariant, the observed
+quantity, the acceptance rule, and the interpretation. If a stage fails, stop
+and diagnose it rather than carrying a suspect operator into the next stage.
+This is slower than writing the final Hamiltonian immediately and much faster
+than debugging an unexplained band-structure discrepancy at the end.
+
+\subsection{Stage 1: orthogonal null mode}
+
+Use zero twist and an orthogonal unit cell. Construct the discrete scalar
+Laplacian and verify that the constant vector is a null vector up to the
+declared numerical tolerance. Check matrix shape, ordering, units, and
+Hermiticity separately.
+
+\subsection{Stage 2: one-dimensional symbol inside a tensor grid}
+
+Choose a function that varies along only one fractional axis. Compare the
+observed eigenvalue with the centered-difference symbol
+\begin{equation}
+  \lambda_h(\xi)
+  =-\frac{4}{h^2}\sin^2\!\left(\frac{\xi h}{2}\right).
+  \label{eq:training-centered-symbol}
+\end{equation}
+This isolates the pure derivative before introducing mixed terms.
+
+\subsection{Stage 3: skew intrinsic cell}
+
+Choose a full-rank skew $2\times2$ basis. Compare the represented action on a
+fractional Fourier mode with the metric-weighted discrete symbol. Repeat with
+the off-diagonal metric entry artificially omitted and explain why the latter
+operator is not the same Cartesian Laplacian.
+
+\subsection{Stage 4: ambient rotation}
+
+Embed the same plane with a $3\times2$ basis, rotate it rigidly in ambient
+three-space, and adapt both bases to the intrinsic route. The geometric scalar
+Laplacians should agree because the induced metrics agree. The stored ambient
+frames and projectors should rotate rather than disappear.
+
+\subsection{Stage 5: seam and corner phases}
+
+Use a nonzero two-component twist and inspect a mixed-stencil point that wraps
+both axes. Verify that its phase equals the product in
+Equation~\eqref{eq:training-seam-product}. Then check Hermiticity of the full
+matrix.
+
+\subsection{Stage 6: refinement without overclaiming}
+
+Apply the operator to a smooth manufactured Bloch mode over a sequence of
+grids. Estimate the observed order over the tested sequence. Report this as
+numerical verification of the discretization for the manufactured case, not as
+material validation or uncertainty quantification.
+
+\subsection{What a laboratory report should say}
+
+A strong report does not merely state that the code ``worked.'' It says, for
+example, that the matrix shape and unit matched the declared grid contract;
+that the maximum absolute Hermiticity residual was evaluated; that an
+independently derived Fourier symbol agreed over the tested modes; and that a
+manufactured smooth mode displayed a stated observed refinement rate over a
+listed grid sequence. It also says what those observations do not establish.
+
+If physical units are used, the report should show the dimensional path. The
+basis has length, the inverse metric has inverse length squared, fractional
+spacings are dimensionless, and the represented Laplacian has inverse length
+squared. Kinetic scaling then converts that unit to energy. A bare floating
+array cannot communicate this path on its own.
+
+The report should also retain negative observations. If a coarse grid breaks an
+expected asymptotic trend, that point is not improved by deletion after the
+fact. It may reveal that the sequence has not entered the asymptotic regime.
+The appropriate conclusion is bounded to the tested sequence.
+
+\section{Common mistakes}
+
+\begin{enumerate}
+  \item Treating fractional coordinates as Cartesian coordinates when the cell
+        is skew.
+  \item Using only diagonal entries of $G^{-1}$ for a nonorthogonal basis.
+  \item Confusing a $3\times2$ embedded plane with a $3\times3$ slab.
+  \item Applying a seam phase for only one axis when a corner wraps several
+        axes.
+  \item Adding a potential matrix whose ordering or units differ from the
+        Laplacian representation.
+  \item Calling $L_h$ a kinetic-energy matrix before supplying the sign,
+        coefficient, and mass model.
+  \item Interpreting Hermiticity or a passing software test as convergence.
+  \item Interpreting convergence to the stated synthetic operator as evidence
+        that the operator models a real material adequately.
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Derive Equation~\eqref{eq:training-metric-laplacian} from the chain rule
+        for a constant full-rank basis.
+  \item Derive the four-corner stencil in
+        Equation~\eqref{eq:training-mixed-second-difference} by composing two
+        centered first differences.
+  \item For the skew basis in
+        Equation~\eqref{eq:training-skew-basis}, write the complete
+        two-dimensional discrete stencil coefficients in terms of $a$,
+        $\theta$, $h_1$, and $h_2$.
+  \item Show that the zero-twist constant mode is annihilated by every pure and
+        mixed stencil contribution.
+  \item Determine the seam quotient $\mathbf q$ and phase for a corner
+        displacement from $(N_1-1,N_2-1)$ to
+        $(N_1,N_2)$.
+  \item Explain why a scalar potential sampled at grid points is diagonal in
+        this real-space representation but need not be diagonal after transport
+        to a plane-wave representation.
+  \item Propose independent oracles for shape/order, Hermiticity, the orthogonal
+        reduction, the skew-cell symbol, second-order refinement, and unit
+        propagation. Classify each as software or numerical verification.
+  \item State the additional physical information required to replace
+        Equation~\eqref{eq:training-isotropic-kinetic} by an anisotropic
+        multivalley silicon effective-mass operator.
+\end{enumerate}
+
+\section{Evidence boundary and next use}
+
+The software dependency and consuming-project smoke test establish that the
+accepted public records compose through the embedded-plane, intrinsic-metric,
+strict-serialization, and scalar-Laplacian route. PhysKit's own synthetic tests
+cover a broader numerical surface. Neither set of tests is a new calculation
+for Appendix~\ref{app:two-dimensional-reduction}.
+
+The planned M4 calculation will be the first monograph-owned opportunity to use
+the maintained nonorthogonal parent route in a prospectively frozen controlled
+comparison. Until its protocol, retained result, independent reconstruction,
+and manifest pass, this chapter remains training material and software
+capability documentation rather than calculated numerical evidence.

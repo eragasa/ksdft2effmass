@@ -1,0 +1,823 @@
+\chapter{Vectors, Bases, Matrices, and Finite Representations}
+\index{vector!finite representation|textbf}
+\index{basis|textbf}
+\index{matrix representation|textbf}
+
+\label{ch:training-finite-representations}
+
+\chapterstatus{pedagogical finite-dimensional foundation. The worked examples
+are illustrative and synthetic. They establish no material result, convergence
+claim, scientific validation, or uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish an abstract vector from a column of its coordinates;
+  \item explain span, linear independence, basis, dimension, and
+        orthonormality;
+  \item distinguish a linear map from the matrix representing it;
+  \item read the columns of a matrix as the images of basis vectors;
+  \item derive coordinate and matrix transformation rules under a change of
+        orthonormal basis;
+  \item distinguish coordinate-dependent entries from basis-invariant
+        properties; and
+  \item state the mathematical and physical metadata required by a finite
+        representation.
+\end{enumerate}
+
+Chapter~\ref{ch:training-computational-quantities} established that a bare
+number is not yet a complete computational quantity. The same lesson now
+applies to arrays. A column of numbers becomes the representation of a vector
+only after its basis and component meanings are known. A square array becomes
+the representation of an operator only after its state space, basis, units,
+and conventions are declared.
+
+This chapter assumes only familiar arithmetic with real and complex numbers.
+The notation is introduced as it is used. The aim is not abstract algebra for
+its own sake. It is to prevent later calculations from silently subtracting,
+rotating, diagonalizing, or comparing arrays that represent different physical
+objects.
+
+\paragraph{Notation convention.}
+An abstract vector is written in italic type, such as \(v\in\mathcal V\). Its
+finite coordinate column is bold, such as
+\(\mathbf c=[v]_{\mathcal B}\in\mathbb C^N\). Bold symbols such as
+\(\mathbf r\), \(\mathbf k\), and \(\mathbf a_i\) are also used for physical
+spatial and reciprocal vectors in declared Cartesian coordinates. Matrices use
+capital letters such as \(A\), \(H\), and \(U\). Quantum states will later use
+ket notation, such as \(\lvert\psi\rangle\). We do not use arrow accents,
+because they do not distinguish an abstract state from a finite coordinate
+column and become awkward for complex and indexed quantities.
+
+\section{Scalars, vectors, and vector spaces}
+\index{scalar}
+\index{vector}
+\index{vector space}
+
+A \emph{scalar} is an ordinary number used to multiply another mathematical
+object. In this monograph scalars are usually complex numbers,
+\(\alpha\in\mathbb C\), with real numbers as the special case
+\(\alpha\in\mathbb R\).
+
+In elementary mechanics, a vector is often pictured as an arrow with a length
+and direction. That picture works well for displacement, velocity, and force,
+but it does not cover every vector used in physics. A wavefunction, for
+example, is a vector even though it is a function rather than an arrow. The
+common mathematical structure is a vector space: its elements can be added to
+one another and multiplied by scalars while remaining in the same space.
+
+\begin{definition}[Vector space]
+A vector space \(\mathcal V\) is a collection of objects called vectors for
+which vector addition and scalar multiplication are defined. If
+\(u,v\in\mathcal V\) and \(\alpha,\beta\in\mathbb C\), then
+\begin{equation}
+  \alpha u+\beta v\in\mathcal V.
+\end{equation}
+These operations obey the familiar distributive and associative rules of
+ordinary coordinate vectors.
+\end{definition}
+
+\subsection{Examples of vectors}
+
+The definition is deliberately broad. Its meaning is easier to see through
+examples.
+
+\begin{enumerate}
+  \item \textbf{A spatial displacement.}
+        After Cartesian coordinates are declared, a displacement can be
+        represented by
+        \begin{equation}
+          \mathbf r=\begin{bmatrix}r_x\\r_y\\r_z\end{bmatrix}
+          \in\mathbb R^3.
+        \end{equation}
+        Vector addition combines displacements, and scalar multiplication
+        changes their magnitude and possibly their orientation.
+
+  \item \textbf{Orbital amplitudes.}
+        In a finite model with \(N\) ordered orbitals, the amplitude column
+        \begin{equation}
+          \mathbf c
+          =\begin{bmatrix}c_1&\cdots&c_N\end{bmatrix}^{\mathsf T}
+          \in\mathbb C^N
+        \end{equation}
+        is a vector. Its entries acquire physical meaning only after the
+        orbital ordering and normalization convention are declared.
+
+  \item \textbf{Samples of a function.}
+        Values stored at ordered grid points can form
+        \begin{equation}
+          \mathbf f
+          =\begin{bmatrix}f(x_1)&\cdots&f(x_N)\end{bmatrix}^{\mathsf T}.
+        \end{equation}
+        This finite vector represents sampled information about \(f\); it is
+        not the continuous function itself.
+
+  \item \textbf{A polynomial.}
+        Polynomials of degree at most \(q\) form a vector space because sums
+        and scalar multiples remain polynomials of degree at most \(q\). For
+        example,
+        \begin{equation}
+          p(x)=a_0+a_1x+\cdots+a_qx^q
+        \end{equation}
+        is an abstract vector in that polynomial space, while
+        \(\begin{bmatrix}a_0&\cdots&a_q\end{bmatrix}^{\mathsf T}\) is its
+        coordinate column in the ordered basis \((1,x,\ldots,x^q)\).
+
+  \item \textbf{A wavefunction.}
+        A wavefunction \(\psi(x)\) is a vector in a function space. It can be
+        represented approximately by grid samples or by coefficients in a
+        finite basis, but neither finite column is literally identical to the
+        continuous function.
+\end{enumerate}
+
+The examples illustrate two related uses of the word \emph{vector}. A spatial
+displacement, polynomial, or wavefunction is an element of its declared vector
+space. A bold finite column is an element of \(\mathbb R^N\) or
+\(\mathbb C^N\) and may also serve as the coordinate representation of a
+vector in another space. The basis or sampling map supplies that connection.
+
+The symbol \(0_{\mathcal V}\) denotes the zero vector in \(\mathcal V\). It
+is the vector satisfying
+\begin{equation}
+  v+0_{\mathcal V}=v
+\end{equation}
+for every \(v\in\mathcal V\). Which object plays the role of \(0_{\mathcal V}\)
+depends on the space: it may be the zero displacement, the identically zero
+function, or a column whose entries all vanish.
+
+\section{Linear combinations, span, and independence}
+\index{linear combination}
+\index{span}
+\index{linear independence}
+
+Given vectors \(v_1,\ldots,v_M\), an expression
+\begin{equation}
+  c_1v_1+c_2v_2+\cdots+c_Mv_M
+\end{equation}
+is a \emph{linear combination}. The scalars \(c_j\) are its coefficients.
+
+\begin{definition}[Span]
+The span of \(v_1,\ldots,v_M\) is the set of all their linear combinations:
+\begin{equation}
+  \operatorname{span}\{v_1,\ldots,v_M\}
+  =\left\{\sum_{j=1}^{M}c_jv_j\;\middle|\;c_j\in\mathbb C\right\}.
+\end{equation}
+\end{definition}
+
+For two nonparallel arrows in an ordinary plane, the span is the whole plane.
+For two parallel arrows, the span is only one line. Span answers the question,
+``Which vectors can these vectors build?''
+
+\begin{definition}[Linear independence]
+The vectors \(v_1,\ldots,v_M\) are linearly independent when
+\begin{equation}
+  \sum_{j=1}^{M}c_jv_j=0_{\mathcal V}
+\end{equation}
+implies \(c_1=\cdots=c_M=0\). If a nontrivial choice of coefficients gives the
+zero vector, the vectors are linearly dependent.
+\end{definition}
+
+Linear dependence means that at least one listed vector is redundant. For
+example, if \(v_2=2v_1\), then
+\begin{equation}
+  2v_1-v_2=0_{\mathcal V},
+\end{equation}
+so \(v_1\) and \(v_2\) are dependent. They describe only one independent
+direction even though two vectors were written down.
+
+\section{Bases, dimension, and coordinate columns}
+\index{basis!ordered}
+\index{dimension}
+\index{coordinate vector}
+
+\begin{definition}[Basis]
+A basis of a vector space \(\mathcal V\) is a linearly independent set of
+vectors that spans \(\mathcal V\).
+\end{definition}
+
+Both conditions matter. Spanning ensures that every vector in the space can be
+constructed. Independence ensures that the construction is unique.
+
+Suppose
+\begin{equation}
+  \mathcal B=(b_1,b_2,\ldots,b_N)
+\end{equation}
+is an ordered basis of a finite-dimensional space \(\mathcal V\). Every
+\(v\in\mathcal V\) can be written uniquely as
+\begin{equation}
+  v=\sum_{i=1}^{N}c_i b_i.
+  \label{eq:training-coordinate-expansion}
+\end{equation}
+The number \(N\) is the \emph{dimension} of the space. The ordered column
+\begin{equation}
+  [v]_{\mathcal B}
+  =\mathbf c
+  =\begin{bmatrix}
+    c_1\\c_2\\\vdots\\c_N
+  \end{bmatrix}
+  \in\mathbb C^N
+  \label{eq:training-coordinate-column}
+\end{equation}
+is the coordinate representation of \(v\) in \(\mathcal B\). Here
+\(\mathbb C^N\) denotes the set of columns containing \(N\) complex entries.
+
+The brackets \([v]_{\mathcal B}\) mean ``the coordinates of \(v\) in basis
+\(\mathcal B\).'' They are useful whenever confusing the vector with its
+coordinates would be dangerous.
+
+\subsection{A coordinate example}
+
+Let \(b_1\) point east and \(b_2\) point north, with both having unit length.
+The displacement
+\begin{equation}
+  v=3b_1+b_2
+\end{equation}
+has coordinate column
+\begin{equation}
+  [v]_{\mathcal B}
+  =\begin{bmatrix}3\\1\end{bmatrix}.
+\end{equation}
+The column does not intrinsically mean ``three units east and one unit north.''
+That meaning comes from the declared basis. In a rotated basis the same
+physical displacement has different coordinates.
+
+Ordering is also part of the declaration. If the same basis vectors are listed
+as \((b_2,b_1)\), then the coordinate column becomes
+\(\begin{bmatrix}1&3\end{bmatrix}^{\mathsf T}\). The physical displacement did
+not change; the coordinate convention did.
+
+In software, indices commonly begin at zero even when mathematical labels begin
+at one. That implementation convention must not silently change which basis
+state a stored component represents.
+
+\section{Inner products, lengths, and orthogonality}
+\index{inner product}
+\index{norm}
+\index{orthogonality}
+\index{orthonormal basis}
+
+Vector addition and scalar multiplication tell us how to combine vectors, but
+they do not yet tell us how long a vector is or whether two vectors are
+perpendicular. In ordinary three-dimensional geometry, that information comes
+from the dot product. An inner product generalizes the dot product to complex
+coordinate vectors, functions, and the other vector spaces used in physics.
+
+\begin{definition}[Complex inner product]
+An inner product \(\langle u,v\rangle\) assigns a complex scalar to two
+vectors. We use the convention that it is conjugate-linear in its first
+argument and linear in its second. If
+\(\mathbf u=[u]_{\mathcal B}\) and
+\(\mathbf v=[v]_{\mathcal B}\) are coordinate columns in an orthonormal basis,
+then
+\begin{equation}
+  \langle u,v\rangle
+  =\mathbf u^{\dagger}\mathbf v
+  =\sum_{i=1}^{N}u_i^*v_i,
+  \label{eq:training-coordinate-inner-product}
+\end{equation}
+where \(^*\) denotes complex conjugation and \(\dagger\) denotes conjugate
+transpose.
+\end{definition}
+
+The conjugation is essential. It ensures
+\begin{equation}
+  \langle v,v\rangle
+  =\sum_{i=1}^{N}|v_i|^2\geq0,
+\end{equation}
+with equality only for the zero vector.
+
+The norm induced by the inner product is
+\begin{equation}
+  \|v\|=\sqrt{\langle v,v\rangle}.
+\end{equation}
+A vector is \emph{normalized} when \(\|v\|=1\). Two vectors are orthogonal when
+\begin{equation}
+  \langle u,v\rangle=0.
+\end{equation}
+A basis is \emph{orthonormal} when
+\begin{equation}
+  \langle b_i,b_j\rangle=\delta_{ij},
+\end{equation}
+where \(\delta_{ij}=1\) if \(i=j\) and \(0\) otherwise.
+
+For an orthonormal basis, Equation~\eqref{eq:training-coordinate-expansion} can
+be inverted without solving a linear system:
+\begin{equation}
+  c_i=\langle b_i,v\rangle.
+  \label{eq:training-orthonormal-coordinate}
+\end{equation}
+Taking the inner product with \(b_i\) extracts the component along that basis
+vector.
+
+For the remainder of this chapter, all coordinate bases are orthonormal. That
+assumption is what permits ordinary coordinate dot products and the simple
+coefficient formula above. Nonorthogonal bases require additional information
+about basis lengths and angles. Chapter~\ref{ch:training-periodic-geometry}
+derives that information through the Gram matrix when it becomes necessary for
+nonorthogonal periodic cells.
+
+\section{Linear maps}
+\index{linear map}
+\index{domain}
+\index{codomain}
+
+\begin{definition}[Linear map]
+A map \(A:\mathcal V\rightarrow\mathcal W\) is linear when
+\begin{equation}
+  A(\alpha u+\beta v)
+  =\alpha A(u)+\beta A(v)
+\end{equation}
+for every \(u,v\in\mathcal V\) and all scalars \(\alpha,\beta\).
+\end{definition}
+
+The space \(\mathcal V\) is the domain and \(\mathcal W\) is the codomain.
+These spaces are part of the definition of the map. Two formulas that produce
+the same numbers but act between different declared spaces are not the same
+represented map.
+
+Linearity means that knowing the action of \(A\) on a basis determines its
+action on every vector. From
+\begin{equation}
+  v=\sum_{j=1}^{N}c_jb_j
+\end{equation}
+we obtain
+\begin{equation}
+  A(v)=\sum_{j=1}^{N}c_jA(b_j).
+  \label{eq:training-linearity-on-basis}
+\end{equation}
+This observation explains why matrix columns have the meaning they do.
+
+\section{Matrices represent linear maps in chosen bases}
+\index{matrix!column meaning}
+\index{matrix representation}
+
+Let
+\begin{equation}
+  \mathcal B=(b_1,\ldots,b_N)
+\end{equation}
+be an ordered orthonormal basis of \(\mathcal V\), and let
+\begin{equation}
+  \mathcal D=(d_1,\ldots,d_M)
+\end{equation}
+be an ordered orthonormal basis of \(\mathcal W\). The matrix representing
+\(A:\mathcal V\rightarrow\mathcal W\) has entries
+\begin{equation}
+  [A]_{\mathcal D\leftarrow\mathcal B,ij}
+  =\langle d_i,A(b_j)\rangle.
+  \label{eq:training-map-matrix-elements}
+\end{equation}
+It has \(M\) rows and \(N\) columns.
+
+The arrow in the subscript records the coordinate direction: input coordinates
+are taken in \(\mathcal B\), and output coordinates are returned in
+\(\mathcal D\). Column \(j\) contains all coordinates of \(A(b_j)\):
+\begin{equation}
+  A(b_j)
+  =\sum_{i=1}^{M}
+   [A]_{\mathcal D\leftarrow\mathcal B,ij}d_i.
+\end{equation}
+Therefore, if \(\mathbf x=[v]_{\mathcal B}\), then
+\begin{equation}
+  [A(v)]_{\mathcal D}
+  =[A]_{\mathcal D\leftarrow\mathcal B}\mathbf x.
+  \label{eq:training-matrix-action}
+\end{equation}
+
+\subsection{Reading a matrix by columns}
+
+Suppose a map on a two-dimensional space satisfies
+\begin{equation}
+  A(b_1)=2b_1+b_2,
+  \qquad
+  A(b_2)=-b_1+3b_2.
+\end{equation}
+Its matrix in \(\mathcal B=(b_1,b_2)\) is
+\begin{equation}
+  [A]_{\mathcal B}
+  =\begin{bmatrix}
+    2 & -1\\
+    1 & 3
+  \end{bmatrix}.
+\end{equation}
+The first column is the coordinate column of \(A(b_1)\); the second is the
+coordinate column of \(A(b_2)\).
+
+For
+\begin{equation}
+  v=4b_1+2b_2,
+  \qquad
+  [v]_{\mathcal B}=\begin{bmatrix}4\\2\end{bmatrix},
+\end{equation}
+matrix multiplication gives
+\begin{equation}
+  [A(v)]_{\mathcal B}
+  =\begin{bmatrix}
+    2 & -1\\
+    1 & 3
+  \end{bmatrix}
+  \begin{bmatrix}4\\2\end{bmatrix}
+  =\begin{bmatrix}6\\10\end{bmatrix}.
+\end{equation}
+The multiplication combines the two matrix columns with the same coefficients
+used to build \(v\), exactly as Equation~\eqref{eq:training-linearity-on-basis}
+requires.
+
+A square matrix represents a map from a finite space to itself. A rectangular
+matrix represents a map between spaces of different dimensions or between
+different selected subspaces. Shape alone does not identify what either axis
+means.
+
+\section{Identity, adjoint, and unitary maps}
+\index{identity map}
+\index{adjoint}
+\index{unitary matrix}
+
+The identity map leaves every vector unchanged:
+\begin{equation}
+  I(v)=v.
+\end{equation}
+In any basis its matrix is the identity matrix \(I_N\), with ones on the
+diagonal and zeros elsewhere.
+
+For a matrix \(A\), the conjugate transpose \(A^{\dagger}\) is obtained by
+transposing the array and complex-conjugating every entry. It represents the
+adjoint map when the domain and codomain bases are orthonormal. The adjoint is
+characterized abstractly by
+\begin{equation}
+  \langle w,A v\rangle
+  =\langle A^{\dagger}w,v\rangle.
+\end{equation}
+For real matrices, conjugate transpose reduces to ordinary transpose.
+
+\begin{definition}[Unitary matrix]
+A square complex matrix \(U\) is unitary when
+\begin{equation}
+  U^{\dagger}U=UU^{\dagger}=I_N.
+  \label{eq:training-unitary-definition}
+\end{equation}
+Equivalently, \(U^{-1}=U^{\dagger}\).
+\end{definition}
+
+The columns of a unitary matrix are an orthonormal basis of \(\mathbb C^N\).
+Unitary matrices preserve coordinate inner products and Euclidean norms:
+\begin{equation}
+  (U\mathbf u)^{\dagger}(U\mathbf v)
+  =\mathbf u^{\dagger}\mathbf v,
+  \qquad
+  \|U\mathbf v\|_2=\|\mathbf v\|_2.
+\end{equation}
+Real unitary matrices are called orthogonal matrices.
+
+Chapter~\ref{ch:training-hermitian-eigensystems} will define Hermitian matrices
+and show why unitary basis matrices are central to their diagonalization.
+
+\section{Changing coordinates without changing the object}
+\index{basis transformation}
+\index{coordinate transformation}
+
+Let
+\begin{equation}
+  \mathcal B=(b_1,\ldots,b_N)
+\end{equation}
+and
+\begin{equation}
+  \mathcal B'=(b'_1,\ldots,b'_N)
+\end{equation}
+be two ordered orthonormal bases of the same space. Store the new basis vectors
+as columns in the old basis:
+\begin{equation}
+  b'_j=\sum_{i=1}^{N}b_iU_{ij}.
+  \label{eq:training-new-basis-columns}
+\end{equation}
+The matrix \(U\) is unitary because both bases are orthonormal.
+
+Let \(\mathbf c=[v]_{\mathcal B}\) and
+\(\mathbf c'=[v]_{\mathcal B'}\). Expanding the same abstract vector in both
+bases gives
+\begin{equation}
+  v=\sum_i c_i b_i=\sum_j c'_j b'_j.
+\end{equation}
+Substitute Equation~\eqref{eq:training-new-basis-columns} into the second sum.
+The old coordinate column then satisfies
+\begin{equation}
+  \mathbf c=U\mathbf c'.
+\end{equation}
+Multiplication by \(U^{\dagger}=U^{-1}\) gives
+\begin{equation}
+  \mathbf c'=U^{\dagger}\mathbf c.
+  \label{eq:training-vector-coordinate-change}
+\end{equation}
+The vector did not move. Only its coordinate description changed. This is a
+\emph{passive} change of basis. It should not be confused with actively applying
+a physical rotation or symmetry operation to the vector.
+
+If \(A:\mathcal V\rightarrow\mathcal V\), then its matrix in the new basis is
+\begin{equation}
+  [A]_{\mathcal B'}
+  =U^{\dagger}[A]_{\mathcal B}U.
+  \label{eq:training-operator-basis-change}
+\end{equation}
+The factor on the right converts new input coordinates to old coordinates. The
+factor on the left converts the old output coordinates back to new coordinates.
+
+For a map between two different spaces, the domain and codomain can have
+different basis changes. If \(U_{\mathcal V}\) changes the domain basis and
+\(U_{\mathcal W}\) changes the codomain basis, then
+\begin{equation}
+  [A]'
+  =U_{\mathcal W}^{\dagger}[A]U_{\mathcal V}.
+  \label{eq:training-rectangular-basis-change}
+\end{equation}
+This more general rule matters whenever a rectangular projection, embedding,
+or comparison map is represented.
+
+\subsection{A rotated-coordinate example}
+
+Define
+\begin{equation}
+  b'_1=\frac{b_1+b_2}{\sqrt2},
+  \qquad
+  b'_2=\frac{-b_1+b_2}{\sqrt2}.
+\end{equation}
+Then
+\begin{equation}
+  U=\frac{1}{\sqrt2}
+  \begin{bmatrix}
+    1 & -1\\
+    1 & 1
+  \end{bmatrix}.
+\end{equation}
+For the earlier vector \(v=3b_1+b_2\),
+\begin{equation}
+  [v]_{\mathcal B'}
+  =U^{\mathsf T}[v]_{\mathcal B}
+  =\frac{1}{\sqrt2}
+   \begin{bmatrix}
+     1 & 1\\
+     -1 & 1
+   \end{bmatrix}
+   \begin{bmatrix}3\\1\end{bmatrix}
+  =\begin{bmatrix}2\sqrt2\\-\sqrt2\end{bmatrix}.
+\end{equation}
+The columns \(\begin{bmatrix}3&1\end{bmatrix}^{\mathsf T}\) and
+\(\begin{bmatrix}2\sqrt2&-\sqrt2\end{bmatrix}^{\mathsf T}\) look different,
+but they represent the same vector in different bases.
+
+\section{What changes and what does not}
+\index{basis invariant}
+\index{coordinate dependent}
+
+Under the unitary similarity transformation in
+Equation~\eqref{eq:training-operator-basis-change}, individual matrix entries
+generally change. The following quantities do not:
+
+\begin{itemize}
+  \item dimension and rank;
+  \item trace and determinant;
+  \item eigenvalues, including multiplicities; and
+  \item unitarily invariant norms, including the Frobenius norm.
+\end{itemize}
+
+These are basis invariants. In contrast, a particular diagonal entry, a named
+row, or a componentwise residual depends on the basis unless additional
+structure identifies those coordinates.
+
+A diagonal matrix is not intrinsically diagonal in every basis. It states that
+the selected coordinate axes are adapted to the map. After a general basis
+change, the same map may have off-diagonal entries. Conversely, making a matrix
+look different by changing coordinates does not by itself create a different
+physical operator.
+
+Basis invariance also has limits. Two arrays with equal eigenvalues are not
+automatically representations of the same physical operator. Their state
+spaces, basis meanings, energy references, and other physical metadata must
+still be identified. Chapter~\ref{ch:training-hermitian-eigensystems} develops
+this distinction for spectra and eigenspaces.
+
+\section{Finite representations and their contracts}
+\index{finite representation!contract}
+
+\begin{definition}[Finite representation]
+A finite representation is a finite array together with the mathematical and
+physical declarations needed to interpret its indices and permitted
+operations.
+\end{definition}
+
+A useful representation contract answers at least four questions.
+
+\begin{enumerate}
+  \item \textbf{What is represented?} Name the vector, linear map, bilinear
+        form, or operator and its source model.
+  \item \textbf{On which finite spaces?} State the domain, codomain,
+        dimensions, and any selected subspaces.
+  \item \textbf{In which coordinates?} State ordered bases, axis meanings,
+        index ordering, normalization, and gauge conventions.
+  \item \textbf{With which quantities?} State units, physical references,
+        geometry, and provenance required by the promised operations.
+\end{enumerate}
+
+A finite matrix can arise in several inequivalent ways:
+
+\begin{itemize}
+  \item by declaring a model with finitely many degrees of freedom;
+  \item by restricting an existing map to a finite invariant subspace;
+  \item by projecting onto a selected subspace;
+  \item by sampling a continuous kernel or function; or
+  \item by discretizing a differential operator.
+\end{itemize}
+
+These constructions are not synonyms. A \(100\times100\) matrix does not reveal
+whether it is an exact finite model, a projection, or a grid approximation.
+That distinction belongs to the representation contract.
+
+Sparse and dense arrays may represent the same finite map, but their
+computational contracts differ. Sparse structure should be preserved whenever
+the mathematics and downstream operations allow it. Converting a sparse
+operator to a dense array merely to test symmetry or Hermiticity can turn a
+local diagnostic into an unnecessary memory-intensive operation.
+
+\section{A two-basis calculation}
+
+We first perform the complete calculation symbolically. Let a vector and a
+linear map have the following representations in the original basis
+\(\mathcal B\):
+\begin{equation}
+  \mathbf c=[v]_{\mathcal B}
+  =\begin{bmatrix}3\\1\end{bmatrix},
+  \qquad
+  A_{\mathcal B}
+  =\begin{bmatrix}
+    2 & -1\\
+    1 & 3
+  \end{bmatrix}.
+  \label{eq:training-two-basis-original-data}
+\end{equation}
+Use the rotated basis whose columns in the original coordinates form
+\begin{equation}
+  U=\frac{1}{\sqrt2}
+  \begin{bmatrix}
+    1 & -1\\
+    1 & 1
+  \end{bmatrix},
+  \qquad
+  U^{\mathsf T}U=I_2.
+  \label{eq:training-two-basis-rotation}
+\end{equation}
+Because this example is real, \(U^{\dagger}=U^{\mathsf T}\). The coordinates of
+the same vector in the new basis are
+\begin{equation}
+  \mathbf c'
+  =U^{\mathsf T}\mathbf c
+  =\begin{bmatrix}
+    2\sqrt2\\
+    -\sqrt2
+  \end{bmatrix}.
+  \label{eq:training-two-basis-vector-result}
+\end{equation}
+The matrix representing the same linear map in the new basis is
+\begin{align}
+  A_{\mathcal B'}
+  &=U^{\mathsf T}A_{\mathcal B}U\\
+  &=\begin{bmatrix}
+      5/2 & -1/2\\
+      3/2 & 5/2
+    \end{bmatrix}.
+  \label{eq:training-two-basis-matrix-result}
+\end{align}
+Neither \(\mathbf c'=\mathbf c\) nor
+\(A_{\mathcal B'}=A_{\mathcal B}\). That is expected:
+the coordinate descriptions changed.
+
+We can confirm that the represented action did not change. In the original
+basis,
+\begin{equation}
+  [A(v)]_{\mathcal B}
+  =A_{\mathcal B}\mathbf c
+  =\begin{bmatrix}5\\6\end{bmatrix}.
+\end{equation}
+In the new basis,
+\begin{align}
+  [A(v)]_{\mathcal B'}
+  &=A_{\mathcal B'}\mathbf c'\\
+  &=\begin{bmatrix}
+      11/\sqrt2\\
+      1/\sqrt2
+    \end{bmatrix}\\
+  &=U^{\mathsf T}[A(v)]_{\mathcal B}.
+  \label{eq:training-two-basis-action-result}
+\end{align}
+The two output columns differ because they use different bases, but the final
+equality shows that they are coordinates of the same output vector.
+
+The code below repeats these steps numerically. It prints the transformed
+objects and small round-trip errors so that a reader can inspect what happened.
+It does not use a testing framework.
+
+\begin{pythonexample}{representing one linear map in two bases}
+import numpy as np
+
+# Coordinates of one abstract vector in the original ordered basis.
+c = np.array([3.0, 1.0])
+
+# Columns of U are the new orthonormal basis vectors in old coordinates.
+U = np.array([[1.0, -1.0], [1.0, 1.0]]) / np.sqrt(2.0)
+
+# Represent one synthetic linear map in the original basis.
+A = np.array([[2.0, -1.0], [1.0, 3.0]])
+
+# Describe the same vector and map in the new basis.
+c_prime = U.T @ c
+A_prime = U.T @ A @ U
+
+# Compute the map's action in both coordinate systems.
+Av_old = A @ c
+Av_new = A_prime @ c_prime
+
+print("coordinates in the old basis:", c)
+print("coordinates in the new basis:", c_prime)
+print("matrix in the old basis:\n", A)
+print("matrix in the new basis:\n", A_prime)
+print("output coordinates in the old basis:", Av_old)
+print("output coordinates in the new basis:", Av_new)
+
+# Values near zero show agreement up to floating-point roundoff.
+print("basis orthonormality error:", np.linalg.norm(U.T @ U - np.eye(2)))
+print("vector round-trip error:", np.linalg.norm(U @ c_prime - c))
+print("matrix round-trip error:", np.linalg.norm(U @ A_prime @ U.T - A))
+print("action consistency error:", np.linalg.norm(Av_new - U.T @ Av_old))
+\end{pythonexample}
+
+This example demonstrates coordinate transformation rules on one synthetic
+vector and one synthetic \(2\times2\) matrix. The displayed errors are
+floating-point consistency diagnostics, not physical uncertainties. The
+example does not identify a physical state space, operator, Hamiltonian, or
+material system.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/finite_representations.ipynb}
+with explicit imports, explanatory inline comments, span and independence
+examples, ordered-basis metadata, rectangular maps, orthonormal basis changes,
+and sparse-preserving invariant checks. Keep it unexecuted in the repository.}
+
+\section{Common mistakes}
+
+\begin{itemize}
+  \item Treating an abstract vector as though it were identical to one of its
+        coordinate columns.
+  \item Calling a set a basis after checking only that it spans, or only that
+        it is independent.
+  \item Forgetting that basis ordering determines coordinate ordering.
+  \item Reading matrix rows as the images of input basis vectors; those images
+        are stored in columns under the convention used here.
+  \item Applying \(U\) where a passive coordinate change requires
+        \(U^{\dagger}\).
+  \item Comparing entries of two matrices before identifying their domain,
+        codomain, and bases.
+  \item Assuming equal shape or equal eigenvalues establishes equal represented
+        meaning.
+  \item Densifying a sparse representation merely to run a diagnostic.
+\end{itemize}
+
+\section{From representations to eigensystems}
+
+A matrix may admit a basis in which its action becomes diagonal. Finding and
+interpreting that basis is not merely another array conversion: existence,
+orthogonality, multiplicity, and numerical stability depend on the class of
+matrix being studied. Chapter~\ref{ch:training-hermitian-eigensystems} develops
+those questions for the real-symmetric and complex-Hermitian matrices used
+throughout the monograph.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Decide whether each of the following is a vector, a coordinate
+        representation, or either depending on context: a velocity arrow, a
+        list of grid values, a polynomial, and a NumPy array.
+  \item Determine whether
+        \(\{(1,0),(2,0)\}\) spans \(\mathbb R^2\), and determine whether it is
+        linearly independent.
+  \item Show that the coordinate coefficients in an orthonormal basis satisfy
+        \(c_i=\langle b_i,v\rangle\).
+  \item Derive Equation~\eqref{eq:training-vector-coordinate-change} from
+        Equation~\eqref{eq:training-new-basis-columns}.
+  \item Derive Equation~\eqref{eq:training-operator-basis-change} by following
+        an input column from new coordinates to old coordinates, applying the
+        old matrix, and converting the result back.
+  \item Give an example of a rectangular matrix and identify its domain basis,
+        codomain basis, row meaning, and column meaning.
+  \item Construct two matrices representing the same map in different
+        orthonormal bases. Identify entries that change and quantities that
+        remain invariant.
+  \item Give one example each of a finite matrix produced by restriction,
+        projection, sampling, and discretization.
+\end{enumerate}
+
+\section{Evidence boundary}
+
+Exact coordinate round trips and invariant checks can verify implementation of
+a finite representation. They do not establish that the represented space is
+physically appropriate, that a discretization has converged, that metadata are
+truthful, or that the matrix models a real material. Those are separate claims
+requiring model, provenance, numerical, and validation evidence.

@@ -1,0 +1,27 @@
+{
+  "amended_at_utc": "2026-10-10T20:06:10Z",
+  "calculation_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.v1",
+  "change_scope": [
+    "Expand M3 and composed M2 source docstrings with continuous-rectangle, finite-angle, quadratic-loss, role-separation, splitting-axis-certificate, unit, exception, and limitation contracts.",
+    "Add cohesive M3 architecture and Sphinx API documentation.",
+    "Correct documentation wording that could conflate the continuous two-parameter rectangle with the finite nine-angle inventory or imply arbitrary-direction support-function optimization.",
+    "Seal the current source inventory in a separate documentation-amendment manifest without rewriting the retained confirmatory source or package manifests.",
+    "Carry the formatter-only normalization of the composed M2 verifier; the normalized abstract syntax is unchanged."
+  ],
+  "current_source_manifest": {
+    "path": "source-documentation-amendment-10.sha256",
+    "sha256": "bad66f47340cf2f2041554ac85f47d0302c0c9886956292f1dd7a497e2e015da"
+  },
+  "integrity_note": "The retained source.sha256 and SHA256SUMS remain byte-for-byte unchanged, preserving the manifest digest consumed by the post-hoc sensitivity package. The new sidecar identifies current source bytes after documentation-only edits and does not replace the pre-amendment execution-source record. SHA-256 does not establish chronology or semantic validity.",
+  "numerical_algorithm_changed": false,
+  "numerical_results_changed": false,
+  "prospective_controls_changed": false,
+  "retained_manifest_boundary": {
+    "retained_package_manifest_sha256": "552e93aced1d1771a54878600e9aa667c06bbfd1a4512f56d30f3f7ebcae7ca9",
+    "retained_source_manifest_sha256": "ba22cd7145495b0c06ceee3a5208e4590a187392fa1a525a947fbe7a35a1ba8a",
+    "sensitivity_binding_preserved": true
+  },
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-protocol-amendment.v1",
+  "scientific_claims_changed": false,
+  "status": "documentation-only-source-reseal"
+}

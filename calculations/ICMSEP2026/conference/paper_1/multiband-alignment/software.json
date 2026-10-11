@@ -1,0 +1,21 @@
+{
+  "execution": {
+    "external_calculators": [],
+    "kind": "local-in-process-synthetic",
+    "protected_execution": false
+  },
+  "packages": {
+    "ksdft2effmass": "0.1.0.dev0",
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0"
+  },
+  "python": "3.14.6",
+  "repository": {
+    "head": "1c9a2f7719b64758a1e7ede4b867acb420a2b6ab",
+    "source_manifest": "source.sha256",
+    "source_manifest_sha256": "c17bfd161b5b2e3b30ac5cc1c1358229f684b00ebdcf1e8aa346734c204129e9",
+    "worktree_clean": false
+  },
+  "schema": "ksdft2effmass.software-environment.v1"
+}

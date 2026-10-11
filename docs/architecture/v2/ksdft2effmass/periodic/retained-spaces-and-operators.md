@@ -8,7 +8,7 @@ disentanglement, or related reduction. It does not mean merely that a file was s
 
 The governing distinctions are developed in:
 
-- [Chapter 1, model adequacy](../../../../publications/research-monograph/chapters/01-model-adequacy.tex),
+- [What Makes a Reduced Model Adequate?](../../../../publications/research-monograph/chapters/model-adequacy.tex),
   which distinguishes an exact retained operator from an approximate effective model;
 - [Appendix A, notation and status](../../../../publications/research-monograph/appendices/A-notation-and-status.tex),
   which defines the retained subspace, projector, frames, and interspace maps;

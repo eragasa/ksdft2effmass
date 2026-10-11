@@ -25,11 +25,15 @@ remains unchanged while the parent periodic2d capabilities are brought to parity
 The current human instruction authorizes periodic2d lattice work to use the reusable
 Project Koios PhysKit lattice owners. Before this slice, this branch had no PhysKit
 package dependency and the cosine model left its square-cell duality implicit. The
-new dependency is `projectkoios-physkit` pinned to revision
-`0f17e84d421ebdae5d55d06f807db64d6b408262`. Periodic2d imports
+dependency is `projectkoios-physkit`, now pinned to revision
+`949d106bc98975a18ad86d6fa84092ef0c68298e`. Periodic2d imports
 `DirectLattice2D` and `ReciprocalLattice2D` from
 `projectkoios.physkit.periodic.lattice`; it does not introduce another campaign-local
-direct or reciprocal lattice type.
+direct or reciprocal lattice type. The pinned revision also provides the
+nonorthogonal 2D/3D Bloch-periodic scalar Laplacian and an explicit adapter from a
+full-column-rank $3\times2$ ambient basis to the intrinsic $2\times2$ metric contract.
+That adapter preserves the ambient basis, in-plane frame, projector, and dual
+reciprocal basis; it does not reinterpret the plane as a $3\times3$ slab.
 
 PhysKit owns the primitive-basis convention. With direct primitive vectors stored as
 columns of $A$, it constructs
@@ -52,9 +56,11 @@ parity slices. It is not interchangeable with a continuum plane-wave constructor
 `TwistedSupercellOperatorConstructor` consumes a finite hopping inventory rather than
 Fourier coefficients of a continuum operator.
 
-The pinned PhysKit revision contains `PlaneWaveBlochHamiltonian1D` but no corresponding
-two-dimensional owner. By current human instruction, this repository temporarily owns
-`PlaneWaveBlochHamiltonian2DConstructor` under
+The earlier PhysKit dependency available when the plane-wave architecture was chosen
+contained `PlaneWaveBlochHamiltonian1D` but no corresponding two-dimensional owner.
+The current pin adds a multidimensional geometric scalar Laplacian, not a complete
+plane-wave Hamiltonian or material model. By current human instruction, this repository
+temporarily owns `PlaneWaveBlochHamiltonian2DConstructor` under
 `ksdft2effmass.analysis.model_systems.periodic2d`. It uses PhysKit lattice objects,
 the same two-pi dual convention, a finite conjugate-symmetric Fourier inventory, and
 explicit represented-space metadata. The periodic2d cosine campaign now adapts its

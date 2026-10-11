@@ -1,0 +1,11 @@
+{
+  "analysis_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.threshold-sensitivity.v1",
+  "fixed_spectral_threshold": 0.03,
+  "operator_threshold_count": 276,
+  "operator_threshold_maximum": 0.335,
+  "operator_threshold_minimum": 0.3075,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-threshold-sensitivity-input.v1",
+  "source_package_sha256sums_sha256": "552e93aced1d1771a54878600e9aa667c06bbfd1a4512f56d30f3f7ebcae7ca9",
+  "source_result_path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/result.json",
+  "source_result_sha256": "9d95da829b84743386f627c32e9b4a740f2ff602d77a1ff225f295e17f98d2f9"
+}

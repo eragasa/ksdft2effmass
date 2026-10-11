@@ -1,0 +1,118 @@
+{
+  "schema": "icmsep2026.paper1.admissible-set-result.v1",
+  "evidence_class": "controlled illustrative numerical verification",
+  "input_sha256": "65aaefe6a4cb9f33c74e1e666b5605c380175d5706db98c50aa0b32f35349889",
+  "status": "CALCULATED_CONTROLLED_NUMERICAL_VERIFICATION",
+  "canonical_metric": {
+    "parameter_order": [
+      "theta_0",
+      "theta_1"
+    ],
+    "scales": [
+      "1",
+      "1"
+    ],
+    "weights": [
+      "1",
+      "1"
+    ],
+    "distance": "euclidean"
+  },
+  "operator_loss": {
+    "normalization_denominator": "229/200",
+    "analytic_minimum": "4/229",
+    "threshold": "40229/2290000",
+    "excess_budget": "1/10000",
+    "quadratic_about_center": [
+      [
+        "200/229",
+        "0"
+      ],
+      [
+        "0",
+        "400/229"
+      ]
+    ],
+    "center": [
+      "1",
+      "-1/4"
+    ],
+    "translation_residuals_at_center": {
+      "R=-2": "1/10",
+      "R=-1": "0",
+      "R=0": "0",
+      "R=1": "0",
+      "R=2": "1/10"
+    }
+  },
+  "compatible_complete_mesh": {
+    "spectral_center": [
+      "1",
+      "-1/4"
+    ],
+    "spectral_quadratic_about_center": [
+      [
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "2"
+      ]
+    ],
+    "spectral_analytic_minimum": "1/50",
+    "spectral_threshold": "201/10000",
+    "common_witness": [
+      "1",
+      "-1/4"
+    ],
+    "witness_spectral_loss": "1/50",
+    "witness_operator_loss": "4/229",
+    "set_separation": "0",
+    "disposition": "COMPATIBLE_COMMON_WITNESS",
+    "training_rms": 0.14142135623730948,
+    "withheld_rms": 0.10000000000000009
+  },
+  "separated_restricted_training": {
+    "spectral_center": [
+      "3/5",
+      "1/20"
+    ],
+    "spectral_quadratic_about_center": [
+      [
+        "1",
+        "4/3"
+      ],
+      [
+        "4/3",
+        "2"
+      ]
+    ],
+    "spectral_analytic_minimum": "0",
+    "spectral_threshold": "1/10000",
+    "spectral_center_training_rms": 0.0,
+    "spectral_center_withheld_rms": 0.721110255092798,
+    "operator_center_withheld_rms": 0.10000000000000009,
+    "center_distance_squared": "1/4",
+    "center_distance": "1/2",
+    "certified_lower_bound": "113/250",
+    "feasible_upper_bound": "1/2",
+    "disposition": "INCOMPATIBLE_CERTIFIED_SEPARATION",
+    "certificate": {
+      "sqrt_73_upper_bound": "1709/200",
+      "spectral_minimum_eigenvalue_lower_bound": "91/1200",
+      "spectral_radius_upper_bound": "37/1000",
+      "operator_minimum_eigenvalue": "200/229",
+      "operator_radius_upper_bound": "11/1000",
+      "method": "exact rational quadratic bounds and reverse triangle inequality"
+    }
+  },
+  "limitations": [
+    "synthetic scalar one-dimensional parent",
+    "singleton identity alignment family",
+    "finite declared parameter box and translation domain",
+    "thresholds are benchmark design resolutions, not uncertainties",
+    "compatibility and separation are relative to the frozen contract",
+    "no material, silicon, or three-dimensional conclusion"
+  ]
+}

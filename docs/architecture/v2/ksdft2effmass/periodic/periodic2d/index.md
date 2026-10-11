@@ -17,6 +17,30 @@ represented plane-wave and finite-difference models, reciprocal meshes, finite-b
 sewing, common-space transport, encoded campaign records, and additional topological
 and Wannier90 studies.
 
+The package also exposes non-executable calculation scaffolds for represented-parent
+comparison and shell/gauge locality. Both consume the nominal `Periodic2DModel`
+branch, and the locality scaffold composes its represented-parent baseline rather than
+inheriting from it. The scaffolds define dependency boundaries only; they do not close
+the periodic2d parity gate, provide missing producer Actions, or establish calculated
+results. Their eventual calculation definitions must retain the full nonorthogonal
+primitive lattice, inverse metric, and reduced-coordinate convention. Two-dimensional
+periodicity uses an intrinsic nonorthogonal two-vector basis. PhysKit's explicit
+embedded-plane adapter preserves a full-column-rank $3\times2$ ambient basis, its
+in-plane frame, projector, and dual basis while routing its induced metric to the
+intrinsic $2\times2$ contract. That flat embedded plane remains distinct from a fully
+periodic $3\times3$ slab or supercell.
+
+The pinned PhysKit revision
+`949d106bc98975a18ad86d6fa84092ef0c68298e` provides the reusable nonorthogonal
+Bloch-periodic scalar Laplacian under
+`projectkoios.physkit.periodic.finite_difference`. Its dimension-bounded 2D/3D
+implementation uses the full inverse metric, mixed centered derivatives, and
+reduced-twist seam phases. The same revision provides the explicit $3\times2$
+embedded-plane adapter and strict defining-geometry JSON codec under
+`projectkoios.physkit.periodic.lattice.embedding`. Dependency availability and the
+consumer smoke test do not by themselves close the periodic2d parity gate, supply
+kinetic-energy or effective-mass scaling, or establish material validation.
+
 The [periodic2d capability-parity gate](../../periodic2d-capability-parity.md) remains
 in force. No new two-dimensional defect campaign should proceed until the applicable
 parent capabilities, typed results, verification, and documentation pass that gate.

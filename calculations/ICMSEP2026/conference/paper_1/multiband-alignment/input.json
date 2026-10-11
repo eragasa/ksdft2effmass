@@ -1,0 +1,29 @@
+{
+  "calculation_id": "icmsep2026.paper1.periodic1d.multiband-alignment.v1",
+  "parent_model": {
+    "model_id": "icmsep2026.paper1.periodic1d.gapped-rank-two.v1",
+    "reciprocal_period": {"magnitude": 1.0, "unit": "1"},
+    "representatives": [-1, 0, 1],
+    "hopping_blocks": [
+      {"magnitude": [[[0.15, 0.0], [0.0, 0.0], [0.12, 0.0], [0.0, 0.0]], [[0.0, 0.0], [-0.10, 0.0], [0.0, 0.0], [0.10, 0.0]], [[0.0, 0.0], [0.0, 0.0], [0.05, 0.0], [0.0, 0.0]], [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [-0.04, 0.0]]], "unit": "1"},
+      {"magnitude": [[[-1.20, 0.0], [0.06, 0.0], [0.0, 0.0], [0.0, 0.0]], [[0.06, 0.0], [-0.35, 0.0], [0.0, 0.0], [0.0, 0.0]], [[0.0, 0.0], [0.0, 0.0], [1.00, 0.0], [0.04, 0.0]], [[0.0, 0.0], [0.0, 0.0], [0.04, 0.0], [1.75, 0.0]]], "unit": "1"},
+      {"magnitude": [[[0.15, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0]], [[0.0, 0.0], [-0.10, 0.0], [0.0, 0.0], [0.0, 0.0]], [[0.12, 0.0], [0.0, 0.0], [0.05, 0.0], [0.0, 0.0]], [[0.0, 0.0], [0.10, 0.0], [0.0, 0.0], [-0.04, 0.0]]], "unit": "1"}
+    ],
+    "hermiticity_absolute_tolerance": {"magnitude": 1e-12, "unit": "1"}
+  },
+  "retained_rank": 2,
+  "reciprocal_mesh_size": 64,
+  "withheld_mesh_size": 257,
+  "hopping_ranges": [0, 1, 2, 3, 4, 6, 8],
+  "attack": {
+    "constant_angle": 0.30,
+    "sine_coefficients": [0.65, 0.30]
+  },
+  "external_gap_lower_bound": {"magnitude": 0.5, "unit": "1"},
+  "overlap_singular_value_threshold": 0.8,
+  "orthonormality_absolute_tolerance": 1e-12,
+  "coordinate_absolute_tolerance": 1e-14,
+  "reconstruction_absolute_tolerance": 1e-12,
+  "hermiticity_absolute_tolerance": {"magnitude": 1e-12, "unit": "1"},
+  "verification_absolute_tolerance": 1e-11
+}

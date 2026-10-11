@@ -1,0 +1,194 @@
+\section*{Appendix S1. Gauge-Orbit Diagnostic Decomposition}
+\label{supp:orbit-diagnostic}
+\renewcommand{\theequation}{S1.\arabic{equation}}
+\setcounter{equation}{0}
+
+\subsection*{S1.1 Purpose and scope}
+
+This appendix defines the invariant and frame-dependent parts of the operator
+comparison used in the main paper. The decomposition applies to the diagnostic,
+not to the Hamiltonian as a physical operator. It is defined relative to a
+frozen comparison contract; changing the retained space, admissible alignment
+family, weights, normalization, or finite translation domain changes the
+diagnostic.
+
+The construction is analogous in purpose to the separation of the Wannier
+spread into gauge-invariant and gauge-dependent contributions
+\cite{marzari1997,marzari2012,panati2013}. It is not the Wannier spread
+functional and does not inherit that functional's physical or variational
+interpretation.
+
+\subsection*{S1.2 Comparison contract}
+
+Let $V_{\mathrm{ref}}$ and $V_{\mathrm{red}}$ be retained finite-dimensional
+state spaces of equal rank $r$. The operator channel requires a nonempty,
+declared family
+\[
+ \mathcal U\subseteq
+ \left\{\bm C:V_{\mathrm{red}}\rightarrow V_{\mathrm{ref}}
+ \mid \bm C^\dagger\bm C=\bm C\bm C^\dagger=\bm I_r\right\}
+\]
+of admissible unitary identification maps. Restrictions imposed by continuity,
+reciprocal-boundary sewing, symmetry, orbital semantics, or locality belong to
+the definition of $\mathcal U$ rather than to a later interpretation of the
+residual.
+
+For a finite translation domain $\mathcal S_H$, nonnegative weights
+$\omega_{\bm R}$, and a positive frozen normalization
+\[
+ Z_{\mathrm{ref}}=
+ \sum_{\bm R\in\mathcal S_H}\omega_{\bm R}
+ \left\|\bm H_{\mathrm{ref}}(\bm R)\right\|_{\mathrm F}^2,
+\]
+the aligned operator loss is
+\begin{equation}
+ \mathcal L_H(\bm C,\bm\theta)=
+ \frac{1}{Z_{\mathrm{ref}}}
+ \sum_{\bm R\in\mathcal S_H}\omega_{\bm R}
+ \left\|
+ \bm H_{\mathrm{ref}}(\bm R)
+ -\bm C\bm H_{\mathrm{red}}(\bm R;\bm\theta)\bm C^\dagger
+ \right\|_{\mathrm F}^2.
+ \label{eq:supp-aligned-loss}
+\end{equation}
+A zero or unspecified normalization does not define this diagnostic. A
+different-rank comparison likewise requires a separately declared projection
+or embedding; its information loss cannot be absorbed into
+Eq.~\eqref{eq:supp-aligned-loss}.
+
+\subsection*{S1.3 Orbit loss and frame excess}
+
+\paragraph{Attainment under a compact contract.}
+For fixed $\bm\theta$, the finite-sum loss in
+Eq.~\eqref{eq:supp-aligned-loss} is a continuous real-valued function of
+$\bm C$. If $\mathcal U$ is nonempty and compact, the extreme-value theorem
+therefore supplies $\bm C_\star\in\mathcal U$ such that
+\begin{equation*}
+ \inf_{\bm C\in\mathcal U}\mathcal L_H(\bm C,\bm\theta)
+ =\min_{\bm C\in\mathcal U}\mathcal L_H(\bm C,\bm\theta)
+ =\mathcal L_H(\bm C_\star,\bm\theta).
+\end{equation*}
+In the finite-rank contract used here, $U(r)$ is compact, so it is sufficient
+for the admissible family to be a nonempty closed subset of $U(r)$. Sewing,
+symmetry, site, and orbital restrictions imply this conclusion only when their
+frozen constraint maps define a closed set; the names of those restrictions do
+not by themselves prove compactness. For a merely nonempty noncompact family,
+the nonnegative loss still has a well-defined infimum, but a minimizing
+alignment need not exist.
+
+For nonempty $\mathcal U$, define the contract-invariant orbit loss
+\begin{equation}
+ \mathcal L_{H,\mathrm{orb}}(\bm\theta)
+ =\inf_{\bm C\in\mathcal U}\mathcal L_H(\bm C,\bm\theta).
+ \label{eq:supp-orbit-loss}
+\end{equation}
+For a particular declared alignment $\bm C_0\in\mathcal U$, define the
+frame-dependent excess
+\begin{equation}
+ \mathcal L_{H,\mathrm{frame}}(\bm C_0,\bm\theta)
+ =\mathcal L_H(\bm C_0,\bm\theta)
+ -\mathcal L_{H,\mathrm{orb}}(\bm\theta).
+ \label{eq:supp-frame-excess}
+\end{equation}
+For every $\bm C_0\in\mathcal U$, the defining greatest-lower-bound
+property gives
+$\mathcal L_{H,\mathrm{orb}}(\bm\theta)\leq
+\mathcal L_H(\bm C_0,\bm\theta)$. Subtraction therefore proves
+\begin{equation}
+ \mathcal L_H(\bm C_0,\bm\theta)
+ =\mathcal L_{H,\mathrm{orb}}(\bm\theta)
+ +\mathcal L_{H,\mathrm{frame}}(\bm C_0,\bm\theta),
+ \qquad
+ \mathcal L_{H,\mathrm{frame}}\geq 0.
+ \label{eq:supp-loss-decomposition}
+\end{equation}
+This is an exact scalar decomposition of the diagnostic. It is not an
+orthogonal decomposition of the residual matrix.
+
+The orbit term is the greatest lower bound of the operator discrepancy over the
+frozen admissible family. The frame term measures the excess associated with
+the selected admissible representative. Both statements are relative to
+$\mathcal U$: enlarging the family can decrease the orbit loss, while adding
+physical restrictions can increase it.
+
+\subsection*{S1.4 Frame invariance}
+
+Consider independent frame changes $\bm A$ on $V_{\mathrm{ref}}$ and $\bm B$
+on $V_{\mathrm{red}}$. They transform the represented operators and alignment
+map as
+\[
+ \bm H_{\mathrm{ref}}' =\bm A\bm H_{\mathrm{ref}}\bm A^\dagger,
+ \qquad
+ \bm H_{\mathrm{red}}' =\bm B\bm H_{\mathrm{red}}\bm B^\dagger,
+ \qquad
+ \bm C'=\bm A\bm C\bm B^\dagger.
+\]
+If the admissible family is transported bijectively to
+$\mathcal U'=\{\bm A\bm C\bm B^\dagger:\bm C\in\mathcal U\}$, then the
+residual corresponding to $\bm C'=\bm A\bm C\bm B^\dagger$ is $\bm A$ times
+the original residual times $\bm A^\dagger$. Unitary invariance of the
+Frobenius norm gives
+\[
+ \mathcal L_H'(\bm C',\bm\theta)=\mathcal L_H(\bm C,\bm\theta).
+\]
+Because $\bm C\mapsto\bm A\bm C\bm B^\dagger$ is a bijection,
+\begin{align*}
+ \inf_{\bm C'\in\mathcal U'}\mathcal L_H'(\bm C',\bm\theta)
+ &=\inf_{\bm C\in\mathcal U}
+   \mathcal L_H'(\bm A\bm C\bm B^\dagger,\bm\theta)\\
+ &=\inf_{\bm C\in\mathcal U}\mathcal L_H(\bm C,\bm\theta).
+\end{align*}
+Thus $\mathcal L_{H,\mathrm{orb}}$ is unchanged. Applying the same identity to
+the corresponding representative
+$\bm C_0'=\bm A\bm C_0\bm B^\dagger$ and subtracting the equal orbit losses
+also proves equality of the two frame excesses. The numerical matrices
+representing $\bm C_0$ and the residual may nevertheless change.
+
+This invariance is contractual rather than absolute. A transformation that
+violates a frozen symmetry, site, orbital, or sewing condition does not belong
+to the same admissible comparison problem.
+
+\subsection*{S1.5 Outcomes when subtraction is unavailable}
+
+The diagnostic has three distinct outcomes:
+\begin{enumerate}
+ \item If $\mathcal U$ is nonempty, the orbit loss is defined. A feasible
+ alignment supplies an upper bound; a certified lower bound requires a separate
+ global argument.
+ \item If the retained ranks differ but a scientifically authorized projection
+ or embedding is supplied, comparison may proceed in the declared target space.
+ Projection or embedding error remains a separate diagnostic.
+ \item If no admissible identification exists, the matrix-difference channel is
+ undefined. The recorded outcome is a state-space mismatch, not a large
+ operator residual.
+\end{enumerate}
+
+Gauge-invariant channels can remain available in the third case. Spectra and
+trace invariants may be compared after their own indexing and normalization
+contracts are fixed. Projector distances require both retained subspaces to be
+embedded in the same parent Hilbert space. Wilson-loop eigenphase multisets can
+be compared without choosing an internal frame, provided the loop, rank, gap,
+and reciprocal sewing contracts agree. These invariant channels do not create
+an operator identification map by themselves.
+
+\subsection*{S1.6 Relation to the Wannier decomposition}
+
+For a retained Bloch subspace, the Wannier spread admits the established
+separation
+\[
+ \Omega=\Omega_{\mathrm I}+\widetilde\Omega,
+\]
+where $\Omega_{\mathrm I}$ depends only on the subspace projectors and
+$\widetilde\Omega$ depends on the selected Bloch frame
+\cite{marzari1997,marzari2012}. Equations~\eqref{eq:supp-orbit-loss}--
+\eqref{eq:supp-loss-decomposition} use the same conceptual distinction between
+an equivalence class and its representative, but they answer a different
+question. They quantify cross-model operator discrepancy over a declared
+admissible orbit; they do not quantify Wannier localization.
+
+Accordingly, a small orbit loss establishes agreement only for the finite
+operator diagnostic that was defined. A small frame excess places the achieved
+loss near the orbit infimum; it does not imply that the alignment matrix is
+close to a unique optimizer. Neither quantity, by itself, establishes material
+validity, continuum convergence, or locality outside the frozen comparison
+domain.

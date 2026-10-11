@@ -1,0 +1,307 @@
+\chapter{Projection and Retained Spaces}
+\index{projection!orthogonal|textbf}
+\index{retained subspace|textbf}
+\index{compressed operator|textbf}
+
+\label{ch:training-projection-retained-spaces}
+
+\chapterstatus{pedagogical foundation for finite retained-space constructions.
+The examples are illustrative mathematics and synthetic numerical checks, not
+validated reductions of silicon.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item construct an orthogonal projector from an orthonormal frame;
+  \item distinguish a retained subspace from a basis used to represent it;
+  \item define a compressed operator on the retained space;
+  \item interpret an isolated Bloch band as a fiberwise retained space without
+        confusing its scalar dispersion with a gauge or localized orbital;
+  \item distinguish exact retention from an approximate effective-model class;
+        and
+  \item separate projection, disentanglement, basis transformation,
+        localization, and truncation.
+\end{enumerate}
+
+The preceding chapters supplied finite representations, Hermitian eigensystems
+and spectral projectors, quantum operators, periodic geometry, and a concrete
+discretization. We can now state precisely what it means to retain only part of
+a state space. Chapter~\ref{ch:training-hermitian-eigensystems} treated an
+exact eigenspace of one matrix; this chapter adds selection rules, compression,
+and fiberwise retained families.
+
+\section{Orthogonal projection}
+
+\begin{definition}[Orthogonal projection]
+Let \(\mathcal S\subseteq\mathcal H\) be a closed subspace. Its orthogonal
+projector \(\hat P_{\mathcal S}\) is the operator satisfying
+\begin{equation}
+\begin{aligned}
+  \hat P_{\mathcal S}^{2}&=\hat P_{\mathcal S},
+  &&\text{(idempotence)},\\
+  \hat P_{\mathcal S}^{\dagger}&=\hat P_{\mathcal S},
+  &&\text{(self-adjointness)},\\
+  \operatorname{Ran}\hat P_{\mathcal S}&=\mathcal S,
+  &&\text{(range condition)}.
+\end{aligned}
+\end{equation}
+\end{definition}
+
+For a finite orthonormal basis
+\(\{\lvert\phi_a\rangle\}_{a=1}^{N}\) of \(\mathcal S\),
+\begin{equation}
+  \hat P_{\mathcal S}
+  =\sum_{a=1}^{N}\lvert\phi_a\rangle\langle\phi_a\rvert.
+\end{equation}
+Each term retains the component along \(\lvert\phi_a\rangle\), while the sum
+removes every component orthogonal to \(\mathcal S\).
+
+If the orthonormal frame is stored as columns of
+\(V\in\mathbb C^{D\times N}\), then
+\begin{equation}
+  V^{\dagger}V=I_N,
+  \qquad
+  P=VV^{\dagger}.
+\end{equation}
+Replacing \(V\) by \(VG\) for a unitary \(G\in U(N)\) changes the frame inside
+\(\mathcal S\) but not the projector:
+\begin{equation}
+  (VG)(VG)^{\dagger}=VV^{\dagger}.
+\end{equation}
+The subspace and a selected basis of that subspace are therefore different
+records.
+
+\section{Compression to a retained space}
+\index{compression!operator}
+
+Let \(\widehat H\) act on its stated domain in a parent state space
+\(\mathcal H\). When the required domain conditions hold, the compressed
+operator on \(\mathcal S\) is
+\begin{equation}
+  \widehat H_{\mathcal S}
+  =\left.\hat P_{\mathcal S}\widehat H\hat P_{\mathcal S}\right|_{\mathcal S}
+  :\mathcal S\longrightarrow\mathcal S.
+\end{equation}
+In the frame \(V\), its finite matrix is
+\begin{equation}
+  H_{\mathcal S}=V^{\dagger}HV
+\end{equation}
+when \(H\) is a compatible ambient finite representation.
+
+Selecting \(\mathcal S\) is a model or representation decision. Writing the
+coordinates of \(\widehat H_{\mathcal S}\) in a basis is a separate operation.
+Neither operation is synonymous with Wannier localization or with truncation of
+matrix entries.
+
+Consistently compressing an additive decomposition gives
+\begin{equation}
+  \hat P_{\mathcal S}\hat H\hat P_{\mathcal S}
+  =\hat P_{\mathcal S}\hat T\hat P_{\mathcal S}
+  +\hat P_{\mathcal S}\hat V\hat P_{\mathcal S}.
+\end{equation}
+In general, one may not compress \(\hat H\) while leaving \(\hat T\) in an
+uncompressed parent representation. Projection may also change mathematical
+form: a potential local in the original coordinate representation need not be
+representable by multiplication by a scalar function on the retained space.
+
+\section{Spectral retention}
+\index{spectral reconstruction}
+
+Assume for this pedagogical case that the relevant spectrum is discrete and
+that the eigenstates form a complete orthonormal basis:
+\begin{equation}
+  \hat H\lvert\psi_i\rangle=E_i\lvert\psi_i\rangle,
+  \qquad
+  \hat H=\sum_i E_i\lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+For an energy cutoff \(E_{\mathrm{cut}}\), define
+\begin{equation}
+  \mathcal H^{(P)}
+  =\operatorname{span}
+   \left\{\lvert\psi_i\rangle\;\middle|\;E_i\leq E_{\mathrm{cut}}\right\},
+  \qquad
+  \hat P=\sum_{E_i\leq E_{\mathrm{cut}}}
+  \lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+The retained Hamiltonian is
+\begin{equation}
+  \hat H^{(P)}
+  =\left.\hat P\hat H\hat P\right|_{\mathcal H^{(P)}}
+  =\sum_{E_i\leq E_{\mathrm{cut}}}
+  E_i\lvert\psi_i\rangle\langle\psi_i\rvert.
+\end{equation}
+It exactly reproduces every retained eigenpair but does not specify the action
+of \(\hat H\) outside \(\mathcal H^{(P)}\). It is an exact restriction of the
+parent Hamiltonian, not yet an approximate effective model.
+
+This construction is pedagogical. A periodic crystal uses Bloch-fiber spaces,
+and entangled bands may require construction of a smooth retained family rather
+than selection by one global energy cutoff.
+
+\section{Isolated bands as fiberwise retained spaces}
+\index{isolated band!retained space}
+\index{band gap!sampled isolation}
+
+For a periodic parent, retention is performed over a family of Bloch fibers.
+Let
+\begin{equation}
+  \widehat H(k)\lvert u_{n k}\rangle
+  =E_n(k)\lvert u_{n k}\rangle.
+\end{equation}
+A nondegenerate band is isolated over a reciprocal domain when its eigenvalue
+remains separated from the excluded spectrum throughout that domain. The
+associated rank-one projector is
+\begin{equation}
+  \widehat P_n(k)
+  =\lvert u_{n k}\rangle\langle u_{n k}\rvert.
+  \label{eq:training-isolated-band-projector}
+\end{equation}
+Changing the phase by
+$\lvert u_{n k}\rangle\mapsto e^{i\theta(k)}\lvert u_{n k}\rangle$ changes the
+frame but leaves $\widehat P_n(k)$ unchanged.
+
+The retained Hamiltonian in this one-dimensional fiber space is the scalar
+matrix
+\begin{equation}
+  H_n^{(P)}(k)
+  =\langle u_{n k}\rvert\widehat H(k)\lvert u_{n k}\rangle
+  =E_n(k).
+  \label{eq:training-isolated-band-scalar-operator}
+\end{equation}
+This explains both the usefulness and the limitation of scalar isolated-band
+reduction. The dispersion $E_n(k)$ completely specifies the Hamiltonian's
+action inside each rank-one eigenspace. It does not specify a phase-connected
+family of eigenvectors, a Wannier function, a localization center, or a
+real-space probability density.
+
+On a finite reciprocal mesh, a positive minimum sampled adjacent gap is a
+conditioning diagnostic. It does not prove that the gap remains positive
+between sample points. Near a degeneracy, energy ordering can exchange state
+identity even when the ordered eigenvalue table remains easy to compute. A
+composite retained projector may then remain meaningful after the individual
+scalar labels cease to be stable.
+
+Chapter~\ref{ch:training-isolated-band-fourier-reduction} starts from the
+scalar retained operator in
+Equation~\eqref{eq:training-isolated-band-scalar-operator} and derives its
+finite hopping representation. Chapter~\ref{ch:training-composite-band-gauge-alignment}
+then retains a higher-rank frame and makes gauge transport, alignment, the
+Bloch--Wannier bridge, and block locality explicit. Neither Fourier
+transformation is an additional projection or, by itself, a localization
+calculation.
+
+\section{Exact retained operator versus effective model}
+\index{effective Hamiltonian!retained-operator distinction}
+
+Reserve \(\hat H_{\mathrm{eff}}(\boldsymbol\theta)\) for an operator belonging
+to a prescribed effective-model class with parameters \(\boldsymbol\theta\).
+Then
+\begin{equation}
+  \underbrace{\hat H^{(P)}}_{\text{exact retained operator}}
+  \qquad\text{and}\qquad
+  \underbrace{\hat H_{\mathrm{eff}}(\boldsymbol\theta)}_{
+    \text{approximate model on an identified retained space}}
+\end{equation}
+are different constructions.
+
+The first is fixed after the parent, retained space, and compression rule are
+fixed. The second additionally selects a model class and usually a fitting or
+reduction criterion. Agreement of selected eigenvalues does not by itself show
+that the effective operator reproduces the retained operator in the coordinates
+needed by later perturbations.
+
+\section{Operations that must not be collapsed}
+\index{disentanglement!distinction}
+\index{truncation!distinction}
+
+\begin{description}
+  \item[Projection.] Applies an idempotent map onto a declared subspace.
+  \item[Spectral selection.] Chooses eigenvectors according to a declared
+        spectral rule in a setting where that rule is meaningful.
+  \item[Disentanglement.] Constructs a retained subspace from a larger window
+        when target bands are not globally isolated.
+  \item[Basis transformation.] Changes coordinates inside an already identified
+        space without changing the represented abstract operator.
+  \item[Localization.] Selects or optimizes a basis or gauge according to a
+        locality criterion; it is not automatically a reduction in rank.
+  \item[Truncation.] Removes matrix elements, basis functions, hopping blocks,
+        or other represented content according to a separate rule.
+  \item[Model fitting.] Selects parameters in a declared admissible class using
+        an objective and data split.
+\end{description}
+
+Several operations may appear in one workflow, but each introduces different
+assumptions and error sources. Calling all of them ``projection'' prevents those
+errors from being evaluated separately.
+
+\section{A finite projector calculation}
+
+\begin{pythonexample}{compressing a synthetic Hermitian operator}
+import numpy as np
+
+# Define a synthetic ambient Hermitian operator on a four-coordinate space.
+H = np.array(
+    [
+        [0.0, 0.2, 0.0, 0.0],
+        [0.2, 1.0, 0.1, 0.0],
+        [0.0, 0.1, 2.0, 0.3],
+        [0.0, 0.0, 0.3, 3.0],
+    ],
+    dtype=np.complex128,
+)
+
+# Use two orthonormal columns as the retained frame.
+V = np.eye(4, dtype=np.complex128)[:, :2]
+P = V @ V.conjugate().T
+H_retained = V.conjugate().T @ H @ V
+
+# Check projector identities and the compressed representation explicitly.
+np.testing.assert_allclose(P @ P, P)
+np.testing.assert_allclose(P.conjugate().T, P)
+np.testing.assert_allclose(H_retained, V.conjugate().T @ P @ H @ P @ V)
+\end{pythonexample}
+
+The example verifies exact identities for synthetic arrays. It does not justify
+this retained frame for a physical problem.
+
+\section{Questions to record before retention}
+
+A retained-space calculation should state
+
+\begin{enumerate}
+  \item the parent state space and operator;
+  \item the rule that defines the retained space;
+  \item the retained rank and any conditioning requirement;
+  \item the projector or frame, including basis and gauge conventions;
+  \item the treatment of degeneracies or entangled bands;
+  \item the operator terms compressed through the same map;
+  \item the relation between the exact retained operator and any fitted model;
+        and
+  \item the evidence and tolerance used to assess each approximation.
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Prove that \(P=VV^{\dagger}\) is an orthogonal projector when
+        \(V^{\dagger}V=I\).
+  \item Show that \(V\) and \(VG\) define the same projector for unitary \(G\),
+        and derive the corresponding covariance of \(V^{\dagger}HV\).
+  \item Construct a local diagonal matrix \(V\) in an ambient basis and show
+        that its compression can be dense in another retained frame.
+  \item Explain why deleting small entries from \(H\) is not the same operation
+        as projecting onto a retained subspace.
+  \item State why a spectral cutoff can become ambiguous near a degeneracy or
+        for entangled bands.
+\end{enumerate}
+
+\section{Evidence boundary}
+
+Projector identities and exact recovery of retained eigenpairs can establish
+mathematical or software properties of a declared construction. They do not
+show that the retained space preserves the structures needed by a later
+continuum model or that a fitted effective Hamiltonian is scientifically
+adequate. Chapter~\ref{ch:training-evidence-vocabulary} supplies the vocabulary
+needed to state those stronger claims without conflation.

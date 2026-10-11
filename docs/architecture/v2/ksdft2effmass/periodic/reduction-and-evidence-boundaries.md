@@ -5,15 +5,15 @@
 The periodic software architecture must preserve the scientific boundaries established
 throughout the monograph, especially:
 
-- [Chapter 2, operator comparison](../../../../publications/research-monograph/chapters/02-operator-comparison.tex);
-- [Chapter 3, evidence for model adequacy](../../../../publications/research-monograph/chapters/03-evidence-for-model-adequacy.tex);
-- [Chapter 6, retained and localized representations](../../../../publications/research-monograph/chapters/06-bulk-representations.tex);
-- [Chapter 7, bulk reduced-model classes](../../../../publications/research-monograph/chapters/07-bulk-reduced-models.tex);
-- [Chapter 10, impurity-operator extraction](../../../../publications/research-monograph/chapters/10-impurity-operator-extraction.tex);
-- [Chapter 11, lattice impurity model classes](../../../../publications/research-monograph/chapters/11-lattice-impurity-models.tex);
-- [Chapter 12, continuum effective-mass reduction](../../../../publications/research-monograph/chapters/12-continuum-effective-mass.tex);
-- [Chapter 15, current evidence boundary](../../../../publications/research-monograph/chapters/15-current-evidence-boundary.tex); and
-- [Chapter 18, mathematical structure of reduction](../../../../publications/research-monograph/chapters/18-mathematics-of-reduction.tex).
+- [Comparing Operators Responsibly](../../../../publications/research-monograph/chapters/operator-comparison.tex);
+- [Evidence for Model Adequacy](../../../../publications/research-monograph/chapters/evidence-for-model-adequacy.tex);
+- [Retained and Localized Bulk Representations](../../../../publications/research-monograph/chapters/bulk-representations.tex);
+- [Bulk Reduced-Model Classes](../../../../publications/research-monograph/chapters/bulk-reduced-models.tex);
+- [Extraction of the Impurity Operator](../../../../publications/research-monograph/chapters/impurity-operator-extraction.tex);
+- [Lattice Impurity Model Classes](../../../../publications/research-monograph/chapters/lattice-impurity-models.tex);
+- [Continuum Effective-Mass Reduction](../../../../publications/research-monograph/chapters/continuum-effective-mass.tex);
+- [Current Evidence Boundary](../../../../publications/research-monograph/chapters/current-evidence-boundary.tex); and
+- [Mathematical Structure of Reduction and Continuum Claims](../../../../publications/research-monograph/chapters/mathematics-of-reduction.tex).
 
 This page extracts software-ownership consequences. It does not replace the scientific
 or mathematical definitions in those chapters or an applicable specification.

@@ -87,7 +87,7 @@ written as
   \Psi(\mathbf r)
   =
   \sum_n\int_{\mathrm{BZ}}
-  A_n(\mathbf k)\chi_{n\mathbf k}(\mathbf r)\,d\mathbf k.
+  A_n(\mathbf k)\chi_{n\mathbf k}(\mathbf r)\,\mathrm{d}\mathbf k.
   \label{eq:lk-state-expansion}
 \end{equation}
 
@@ -179,7 +179,7 @@ coefficient for a simple band satisfies the momentum-space equation given as
   F_n(\mathbf r)
   =
   \int_{\mathrm{BZ}}
-  e^{i\mathbf k\cdot\mathbf r}B_n(\mathbf k)\,d\mathbf k
+  e^{i\mathbf k\cdot\mathbf r}B_n(\mathbf k)\,\mathrm{d}\mathbf k
 \end{equation}
 leads first to a short-range convolution form and then, when its kernel can be
 replaced by a delta distribution on the envelope scale, to the paper's equation
@@ -396,7 +396,7 @@ Burt's exact 1992 equation (3.8), which can be written
     \mathbf p_{nn'}\mathbin{\cdot}\boldsymbol\nabla F_{n'}
   +\sum_{n'}\int
     H_{nn'}(\mathbf r,\mathbf r')F_{n'}(\mathbf r')
-    \,d\mathbf r'
+    \,\mathrm{d}\mathbf r'
   =
   E F_n(\mathbf r).
   \label{eq:burt-exact-envelope}
@@ -660,8 +660,10 @@ outside the reference Brillouin zone can appear.
 The approximate one-dimensional system used for the explicit discussion is
 Burt's 1999 equation (5.11),
 \begin{equation}
-  -\frac{\hbar^2}{2m}\frac{d^2F_n}{dx^2}
-  -\frac{i\hbar}{m}\sum_{n'}p_{nn'}\frac{dF_{n'}}{dx}
+  -\frac{\hbar^2}{2m}
+   \frac{\mathrm{d}^2F_n}{\mathrm{d}x^2}
+  -\frac{i\hbar}{m}\sum_{n'}p_{nn'}
+   \frac{\mathrm{d}F_{n'}}{\mathrm{d}x}
   +\sum_{n'}H_{nn'}(x)F_{n'}
   =E'F_n.
   \label{eq:burt-out-of-zone-system}
@@ -757,14 +759,14 @@ convention
   e^{i\mathbf q\cdot\mathbf r},
   \qquad
   \frac{1}{\Omega_p}\int_{\Omega_p}
-  u_{n\mathbf k}(\mathbf r)^{*}u_{n'\mathbf k}(\mathbf r)\,d^3r
+  u_{n\mathbf k}(\mathbf r)^{*}u_{n'\mathbf k}(\mathbf r)\,\mathrm{d}^3r
   =\delta_{nn'}.
   \label{eq:ermoneit-source-normalization}
 \end{equation}
 Equation (9a) correspondingly gives
 \begin{equation}
   \sum_{n,v}\int_{V_c}
-  F_{nv\alpha}(\mathbf r)^{*}F_{nv\alpha'}(\mathbf r)\,d^3r
+  F_{nv\alpha}(\mathbf r)^{*}F_{nv\alpha'}(\mathbf r)\,\mathrm{d}^3r
   =\delta_{\alpha\alpha'}.
   \label{eq:ermoneit-envelope-normalization}
 \end{equation}
@@ -782,7 +784,7 @@ condition $\mathbf K\in S_v$ makes this decomposition unique. Equations
   e^{i\mathbf K\cdot(\mathbf r-\mathbf r')},
   \qquad
   \int_{V_c}\!\Delta_v(\mathbf r-\mathbf r')
-  F_{n v'\alpha}(\mathbf r')\,d^3r'
+  F_{n v'\alpha}(\mathbf r')\,\mathrm{d}^3r'
   =
   \delta_{vv'}F_{nv\alpha}(\mathbf r).
   \label{eq:ermoneit-sector-projector}
@@ -797,7 +799,7 @@ The source's equation (14) is the concrete nonlocal potential operator
 \begin{equation}
   U^{nn'}_{vv'}(\mathbf r,\mathbf r')
   =
-  \int_{V_c}\!d^3x\,
+  \int_{V_c}\!\mathrm{d}^3x\,
   \Delta_v(\mathbf r-\mathbf x)
   u_{n\mathbf k_v}(\mathbf x)^{*}U(\mathbf x)
   u_{n'\mathbf k_{v'}}(\mathbf x)
@@ -825,7 +827,7 @@ without discarding intervalley coupling, their single-conduction-band equation
     \boldsymbol\nabla\mathbin{\cdot}\mathbf m_{cv}^{-1}
     \boldsymbol\nabla+E_{cv}\right]f_{v\alpha}(\mathbf r)
   +
-  \sum_{v'}\int_{V_c}\!d^3r'\,
+  \sum_{v'}\int_{V_c}\!\mathrm{d}^3r'\,
   \mathsf u_{vv'}(\mathbf r,\mathbf r')
   f_{v'\alpha}(\mathbf r').
   \label{eq:ermoneit-single-band-nonlocal}
@@ -899,9 +901,9 @@ chosen so that
 \begin{equation}
   f_-^{(0)}=f_+^{(0)*},
   \qquad
-  \int_{V_c}|f_+^{(0)}(\mathbf r)|^2\,d^3r
+  \int_{V_c}|f_+^{(0)}(\mathbf r)|^2\,\mathrm{d}^3r
   =
-  \int_{V_c}|f_-^{(0)}(\mathbf r)|^2\,d^3r
+  \int_{V_c}|f_-^{(0)}(\mathbf r)|^2\,\mathrm{d}^3r
   =1.
   \label{eq:ermoneit-valley-mode-normalization}
 \end{equation}
@@ -921,7 +923,8 @@ nonlocal kernel in their equation (30) is
 \begin{equation}
   \Delta
   =
-  \int_{V_c}\!d^3r\int_{V_c}\!d^3r'\,
+  \int_{V_c}\!\mathrm{d}^3r
+  \int_{V_c}\!\mathrm{d}^3r'\,
   f_{+}^{(0)}(\mathbf r)^{*}
   \mathsf u_{+-}(\mathbf r,\mathbf r')
   f_{-}^{(0)}(\mathbf r').
@@ -932,7 +935,7 @@ convolution property of the sector projectors, gives their equation (31),
 \begin{equation}
   \Delta
   =
-  \int_{V_c}\!d^3r\,
+  \int_{V_c}\!\mathrm{d}^3r\,
   e^{-2ik_0z}
   f_{+}^{(0)}(\mathbf r)^{*}
   u_{+}(\mathbf r)^{*}U(\mathbf r)
@@ -961,7 +964,7 @@ one-dimensional valley-sector interval. The paper's equation (39) is then
 \begin{equation}
   \widetilde f_{v\alpha}^{(0)}(z)
   =
-  \int dz'\,
+  \int \mathrm{d}z'\,
   \Delta_v^{(1\mathrm D)}(z-z')e^{-ik_v(z-z')}
   f_{\mathrm{loc},\alpha}^{(0)}(z'),
   \label{eq:ermoneit-filtered-envelope}
@@ -972,7 +975,7 @@ coupling integral gives equation (40),
   \Delta_{\mathrm{loc}}^{\mathrm{filtered}}
   =
   \sum_{n\in\mathbb Z}C_n^{(2)}
-  \int dz\,
+  \int \mathrm{d}z\,
   e^{-i(2k_0+nG_{0z})z}
   \widetilde f_{+}^{(0)}(z)^{*}U_{\perp}(z)
   \widetilde f_{-}^{(0)}(z).

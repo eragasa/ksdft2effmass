@@ -1,0 +1,30 @@
+{
+  "amended_at_utc": "2026-10-10T19:21:27Z",
+  "analysis_id": "icmsep2026.paper1.periodic1d.constrained-admissible-sets.threshold-sensitivity.v1",
+  "change_scope": [
+    "Correlate the consumed source-result bytes to the exact result.json entry in the source package SHA256SUMS manifest.",
+    "Validate the spectral and operator zero-shift centers, both cross terms, matrix symmetry, positive-definite curvature, and nonnegative minimum squared losses.",
+    "Validate strict input, source, result, threshold-grid, and designed-marker structures in the standalone verifier.",
+    "Add adversarial regressions for manifest miscorrelation, a shifted spectral center, each cross term, symmetric nonzero cross terms, and nonpositive curvature."
+  ],
+  "corrected_files": [
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/analyze.py",
+      "sha256": "055bcecd36f97ce9999aaaf9d7df9c902b958e972073ca6df0f455cb383b3b82"
+    },
+    {
+      "path": "calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/verify_result.py",
+      "sha256": "848142d170fe0c9992c56a704f2781a1cf699b86a74fd60da80e9b422338b69e"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DConstrainedAdmissibleSetThresholdSensitivity.py",
+      "sha256": "a1cd8cdf27bd0e2e51ff0603a192481d83383180543c7ec707cb9b0f9b50dd12"
+    }
+  ],
+  "finding": "Adversarial review found that updating only the declared source-result digest could bypass the source package manifest correlation and that the verifier used the decisive spectral quadratic without checking its zero-shift and complete axis-alignment premises.",
+  "integrity_note": "This amendment records post-hoc verifier hardening; it does not convert the exploratory analysis into prospective evidence. SHA-256 identifies bytes and does not independently establish chronology.",
+  "numerical_results_changed": false,
+  "schema": "ksdft2effmass.periodic1d.constrained-admissible-set-threshold-sensitivity-verification-amendment.v1",
+  "scientific_controls_changed": false,
+  "status": "verifier-premise-and-manifest-hardening-after-adversarial-review"
+}

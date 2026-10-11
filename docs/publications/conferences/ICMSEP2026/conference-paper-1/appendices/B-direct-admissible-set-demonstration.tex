@@ -1,0 +1,137 @@
+\section{Direct Admissible-Set Demonstration}
+\label{app:direct-admissible-set-demonstration}
+
+The completed controlled calculation is retained under
+\path{calculations/ICMSEP2026/conference/paper_1/}. It freezes a scalar
+one-dimensional parent,
+\begin{equation*}
+ E_{\mathrm{ref}}(k)=1-\frac12\cos k+\frac15\cos 2k,
+\end{equation*}
+and the two-parameter nearest-neighbor candidate family
+\begin{equation*}
+ E_{\bm{\theta}}(k)=\theta_0+2\theta_1\cos k.
+\end{equation*}
+The parameter box is
+$0\leq\theta_0\leq3/2$ and $-3/4\leq\theta_1\leq1/2$. Both canonical scales
+and weights are one. The operator domain is $R=-2,\ldots,2$ with unit shell
+weights, and the scalar alignment family is the singleton identity.
+
+\subsection{Frozen threshold rule}
+
+For each quadratic loss, the exact analytic minimum is derived from the frozen
+parent and sampling design. The admissibility threshold is that minimum plus
+the common excess-loss budget $\epsilon=10^{-4}$. This is a controlled map
+resolution, not a statistical uncertainty. The operator normalization is
+global over the five translations; translation-resolved residuals and the
+omitted second-neighbor tail remain separate records.
+
+\subsection{Witness and feasible-pair certificates}
+
+Let $\mathfrak A_E$ and $\mathfrak A_H$ denote the two frozen admissible
+parameter sets and let $d$ be the declared parameter metric. If a point
+$\bm\theta^\star$ satisfies both threshold inequalities, then
+$\bm\theta^\star\in\mathfrak A_E\cap\mathfrak A_H$. The pair
+$(\bm\theta^\star,\bm\theta^\star)$ is feasible in the definition of set
+separation and has distance zero; nonnegativity of $d$ therefore proves
+$\delta^\star=0$. Membership in a sampled Pareto set is neither necessary nor
+sufficient for this certificate; the two threshold inequalities are the
+operative hypotheses.
+
+More generally, every feasible pair
+$\bm\theta_E\in\mathfrak A_E$ and
+$\bm\theta_H\in\mathfrak A_H$ gives
+\begin{equation}
+ \delta^\star\leq d(\bm\theta_E,\bm\theta_H).
+ \label{eq:app-b-feasible-upper}
+\end{equation}
+Thus a sampled nondominated calculation supplies a certified upper bound only
+when it supplies such a feasible pair. A distance from one sampled point to
+$\mathfrak A_E\cap\mathfrak A_H$ is not a separation certificate and, when the
+intersection is empty, is not the relevant quantity.
+
+\subsection{Quadratic enclosure and separation lemma}
+
+Suppose a frozen quadratic loss has the exact form
+\begin{equation}
+ \mathcal L(\bm\theta)=\mathcal L_{\min}
+ +Q(\bm\theta),\qquad
+ Q(\bm\theta)=(\bm\theta-\bm\theta^\star)^{\mathsf T}
+ \bm G(\bm\theta-\bm\theta^\star),
+ \label{eq:app-b-quadratic}
+\end{equation}
+where $\bm G$ is positive definite and a certified lower eigenvalue bound
+$\lambda_{\min}>0$ satisfies
+$Q(\bm\theta)\geq\lambda_{\min}
+\|\bm\theta-\bm\theta^\star\|_2^2$. Then the threshold
+$\mathcal L(\bm\theta)\leq\mathcal L_{\min}+\epsilon$ implies
+\begin{equation}
+ \|\bm\theta-\bm\theta^\star\|_2
+ \leq r=\sqrt{\epsilon/\lambda_{\min}}.
+ \label{eq:app-b-radius}
+\end{equation}
+Intersecting the quadratic sublevel set with the frozen parameter box can only
+shrink it, so the same enclosing ball remains valid.
+
+Apply this result to centers $\bm\theta_E^\star$ and
+$\bm\theta_H^\star$ with radii $r_E$ and $r_H$. For every feasible pair, the
+triangle inequality gives
+\begin{align*}
+ D&=\|\bm\theta_E^\star-\bm\theta_H^\star\|_2\\
+ &\leq
+ \|\bm\theta_E^\star-\bm\theta_E\|_2
+ +\|\bm\theta_E-\bm\theta_H\|_2
+ +\|\bm\theta_H-\bm\theta_H^\star\|_2\\
+ &\leq r_E+\|\bm\theta_E-\bm\theta_H\|_2+r_H.
+\end{align*}
+Rearrangement followed by the infimum over feasible pairs proves
+\begin{equation}
+ \delta^\star\geq D-r_E-r_H.
+ \label{eq:app-b-reverse-triangle}
+\end{equation}
+Consequently $D>r_E+r_H$ is a sufficient certificate of positive separation;
+it does not rely on a failed search.
+
+\subsection{Constructive compatibility case}
+
+Equal spectral weights on the complete six-point mesh
+\begin{equation*}
+ k\in\{0,\pi/3,2\pi/3,\pi,4\pi/3,5\pi/3\}
+\end{equation*}
+keep the represented $R=0,\pm1,\pm2$ translations distinct and make the
+retained first-neighbor and omitted second-neighbor Fourier columns
+orthogonal. The spectral and operator sets both
+contain $(\theta_0,\theta_1)=(1,-1/4)$. This exact common witness establishes
+$\delta^\ast=0$ for the frozen contract. It does not establish uniqueness,
+equivalence of the losses, or compatibility under another threshold or model
+class.
+
+\subsection{Certified separation case}
+
+Changing only the spectral training domain to
+$k\in\{-\pi/3,0,\pi/3\}$ moves the exact spectral center to
+$(3/5,1/20)$ while leaving the operator center at $(1,-1/4)$. Their distance is
+$1/2$. The restricted spectral quadratic has minimum eigenvalue
+$(9-\sqrt{73})/6>91/1200$. The corresponding admissible set lies within radius
+$37/1000$ of its center, while the operator set lies within radius $11/1000$ of
+its center. Therefore the reverse triangle inequality certifies
+\begin{equation*}
+ \frac{113}{250}=0.452
+ \leq\delta^\ast\leq\frac12=0.500.
+\end{equation*}
+The upper bound is supplied by the feasible pair of centers. The lower bound is
+an exact rational enclosure, not a conclusion drawn from optimization failure
+or plot resolution.
+
+\subsection{Evidence and limitations}
+
+The retained package contains the frozen input, protocol, result record,
+independent verifier, boundary samples, figure, report, and checksum manifest.
+The verifier does not import the result constructor and reconstructs the
+quadratic forms, thresholds, common witness, radius inequalities, and separation
+bounds. Four disjoint reciprocal points are withheld from both training sets;
+they diagnose generalization and do not update either admissible set.
+
+This demonstration is synthetic, scalar, one-dimensional, and restricted to a
+singleton alignment family. It establishes both a compatible case and a
+certified separated case only relative to their frozen contracts. It supplies
+no three-dimensional or material-specific evidence.

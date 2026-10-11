@@ -1,0 +1,612 @@
+\chapter{Particle in a Box in Two and Three Dimensions}
+\index{particle in a box!two-dimensional|textbf}
+\index{particle in a box!three-dimensional|textbf}
+\index{Kronecker product|textbf}
+\index{tensor-product basis|textbf}
+
+\label{ch:training-particle-box-higher-dimensions}
+
+\chapterstatus{pedagogical extension of the one-dimensional box. The chapter
+derives separable continuum solutions and sparse finite representations. Its
+examples are synthetic mathematics, not material calculations, scientific
+validation, or uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item construct two- and three-dimensional box eigenfunctions from
+        one-dimensional eigenfunctions;
+  \item explain what a Kronecker product does to matrices, vectors, dimensions,
+        and tensor-product coordinates;
+  \item distinguish a Kronecker product from a Kronecker sum;
+  \item assemble two- and three-dimensional finite-difference Hamiltonians with
+        a declared flattening order;
+  \item derive product eigenvectors and additive energies; and
+  \item explain symmetry-induced degeneracy in square and cubic boxes.
+\end{enumerate}
+
+Chapter~\ref{ch:training-quantum-operators} solved the one-dimensional box.
+The higher-dimensional rectangular box is the cleanest setting in which to see
+how separate coordinate directions combine. The continuum construction uses
+tensor products of state spaces. Its finite matrix representation uses
+Kronecker products.
+
+\section{From an interval to a rectangular box}
+\index{rectangular box}
+\index{Dirichlet boundary condition}
+
+A two-dimensional rectangular box occupies
+\begin{equation}
+  \Omega_2=(0,L_x)\times(0,L_y).
+\end{equation}
+A three-dimensional rectangular box occupies
+\begin{equation}
+  \Omega_3=(0,L_x)\times(0,L_y)\times(0,L_z).
+\end{equation}
+The wavefunction vanishes whenever any coordinate reaches a boundary. In two
+dimensions,
+\begin{equation}
+  \psi(0,y)=\psi(L_x,y)=0,
+  \qquad
+  \psi(x,0)=\psi(x,L_y)=0.
+\end{equation}
+The corresponding three-dimensional statement also imposes zero values on the
+two faces normal to the \(z\) direction.
+
+Inside either box the potential is zero. The Hamiltonian is the Dirichlet
+realization of the kinetic operator
+\begin{equation}
+  \hat H_d=-\frac{\hbar^2}{2m}\nabla_d^2,
+\end{equation}
+where \(d=2\) or \(3\). Cartesian derivatives separate:
+\begin{align}
+  \nabla_2^2
+  &=\frac{\partial^2}{\partial x^2}
+    +\frac{\partial^2}{\partial y^2},\\
+  \nabla_3^2
+  &=\frac{\partial^2}{\partial x^2}
+    +\frac{\partial^2}{\partial y^2}
+    +\frac{\partial^2}{\partial z^2}.
+\end{align}
+Each term changes one coordinate while leaving the others untouched. That
+simple sentence is exactly what the later identity factors in the Kronecker
+representation will encode.
+
+\section{What a Kronecker product actually does}
+\index{Kronecker product!definition}
+
+Let
+\begin{equation}
+  A\in\mathbb R^{m\times n},
+  \qquad
+  B\in\mathbb R^{p\times q}.
+\end{equation}
+The Kronecker product \(A\otimes B\) is the block matrix
+\begin{equation}
+  A\otimes B
+  =
+  \begin{bmatrix}
+    a_{11}B & a_{12}B & \cdots & a_{1n}B\\
+    a_{21}B & a_{22}B & \cdots & a_{2n}B\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_{m1}B & a_{m2}B & \cdots & a_{mn}B
+  \end{bmatrix}
+  \in\mathbb R^{mp\times nq}.
+\end{equation}
+Every scalar entry \(a_{ij}\) of \(A\) is replaced by a complete scaled copy
+\(a_{ij}B\). Thus the Kronecker product is not elementwise multiplication, and
+it is not ordinary matrix multiplication. It constructs one larger linear map
+from two maps acting on separate coordinate factors.
+
+\subsection{A literal block example}
+
+Take
+\begin{equation}
+  A=
+  \begin{bmatrix}
+    1 & 2\\
+    3 & 4
+  \end{bmatrix},
+  \qquad
+  B=
+  \begin{bmatrix}
+    0 & 5\\
+    6 & 7
+  \end{bmatrix}.
+\end{equation}
+Then
+\begin{align}
+  A\otimes B
+  &=
+  \begin{bmatrix}
+    1B & 2B\\
+    3B & 4B
+  \end{bmatrix}\\
+  &=
+  \begin{bmatrix}
+    0 & 5 & 0 & 10\\
+    6 & 7 & 12 & 14\\
+    0 & 15 & 0 & 20\\
+    18 & 21 & 24 & 28
+  \end{bmatrix}.
+\end{align}
+Both inputs are \(2\times2\), but their Kronecker product is \(4\times4\).
+The block structure retains which factor supplied each action.
+
+\subsection{Kronecker products of vectors}
+
+For column vectors
+\begin{equation}
+  \mathbf a=
+  \begin{bmatrix}a_1\\a_2\end{bmatrix},
+  \qquad
+  \mathbf b=
+  \begin{bmatrix}b_1\\b_2\\b_3\end{bmatrix},
+\end{equation}
+the Kronecker product is
+\begin{equation}
+  \mathbf a\otimes\mathbf b
+  =
+  \begin{bmatrix}
+    a_1\mathbf b\\
+    a_2\mathbf b
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    a_1b_1\\a_1b_2\\a_1b_3\\
+    a_2b_1\\a_2b_2\\a_2b_3
+  \end{bmatrix}
+  \in\mathbb R^6.
+\end{equation}
+The product lists every pair of components in a specific order. Reversing the
+factors generally changes that order:
+\begin{equation}
+  \mathbf a\otimes\mathbf b
+  \neq
+  \mathbf b\otimes\mathbf a
+\end{equation}
+as coordinate columns, even though a permutation matrix relates them.
+
+The central action identity is
+\begin{equation}
+  (A\otimes B)(\mathbf x\otimes\mathbf y)
+  =(A\mathbf x)\otimes(B\mathbf y),
+\end{equation}
+whenever the dimensions are compatible. The larger matrix applies \(A\) to the
+first factor and \(B\) to the second factor. This identity is why Kronecker
+products are natural for separable multidimensional operators.
+
+More generally, compatible products obey the mixed-product rule
+\begin{equation}
+  (A\otimes B)(C\otimes D)
+  =(AC)\otimes(BD).
+\end{equation}
+They also obey
+\begin{equation}
+  (A\otimes B)^{\mathsf T}=A^{\mathsf T}\otimes B^{\mathsf T},
+\end{equation}
+and, for complex matrices,
+\begin{equation}
+  (A\otimes B)^{\dagger}=A^{\dagger}\otimes B^{\dagger}.
+\end{equation}
+Consequently, the Kronecker product of Hermitian matrices is Hermitian.
+
+\subsection{Identity factors mean ``leave this coordinate alone''}
+
+Let \(A_x\) act on an \(N_x\)-component \(x\)-coordinate vector, and let
+\(I_y\) be the \(N_y\times N_y\) identity. Then
+\begin{equation}
+  I_y\otimes A_x
+\end{equation}
+contains \(N_y\) copies of \(A_x\) on its block diagonal. It applies the same
+\(x\)-direction action independently at every \(y\) index. The identity factor
+means that the \(y\) coordinate is carried through unchanged.
+
+Conversely,
+\begin{equation}
+  A_y\otimes I_x
+\end{equation}
+uses \(A_y\) to couple different \(y\) slices while \(I_x\) preserves the
+\(x\) index inside each slice. These statements depend on the declared
+flattening order, which we now make explicit.
+
+Suppose samples are stored in an array \(\Psi_{j_y,j_x}\) and flattened in C
+order, so that \(x\) varies fastest:
+\begin{equation}
+  \operatorname{vec}_C(\Psi)
+  =
+  \begin{bmatrix}
+    \Psi_{1,1} & \cdots & \Psi_{1,N_x} &
+    \Psi_{2,1} & \cdots & \Psi_{N_y,N_x}
+  \end{bmatrix}^{\mathsf T}.
+\end{equation}
+With this ordering, \(I_y\otimes A_x\) acts along \(x\), and
+\(A_y\otimes I_x\) acts along \(y\). A different flattening convention changes
+the displayed matrices and requires a corresponding permutation. The physical
+operator does not choose an array ordering for us.
+
+\subsection{Kronecker product versus Kronecker sum}
+\index{Kronecker sum}
+
+For square matrices \(A\in\mathbb R^{n\times n}\) and
+\(B\in\mathbb R^{p\times p}\), one common convention defines the Kronecker sum
+by
+\begin{equation}
+  A\oplus B
+  =I_p\otimes A+B\otimes I_n.
+\end{equation}
+The symbol \(\oplus\) here does not mean a direct sum of block-diagonal spaces.
+It names the particular operator that applies \(A\) in one factor plus \(B\)
+in the other. Because conventions can reverse factor order, a computational
+record should state the expanded formula rather than rely on the symbol alone.
+
+A separable Hamiltonian is represented by a Kronecker \emph{sum}, not by the
+single product \(H_y\otimes H_x\). The sum encodes
+\begin{equation}
+  \text{energy from the }x\text{ direction}
+  +
+  \text{energy from the }y\text{ direction}.
+\end{equation}
+
+\section{The two-dimensional box}
+\index{separation of variables}
+
+The two-dimensional Hamiltonian is
+\begin{equation}
+  \hat H_2
+  =-\frac{\hbar^2}{2m}
+   \left(
+     \frac{\partial^2}{\partial x^2}
+     +\frac{\partial^2}{\partial y^2}
+   \right).
+\end{equation}
+Seek a separated eigenfunction
+\begin{equation}
+  \psi(x,y)=X(x)Y(y).
+\end{equation}
+Substitution into \(\hat H_2\psi=E\psi\) gives
+\begin{equation}
+  -\frac{\hbar^2}{2m}
+  \left(X''(x)Y(y)+X(x)Y''(y)\right)
+  =EX(x)Y(y).
+\end{equation}
+Away from zeros of the factors, divide by \(X(x)Y(y)\):
+\begin{equation}
+  -\frac{\hbar^2}{2m}\frac{X''(x)}{X(x)}
+  -\frac{\hbar^2}{2m}\frac{Y''(y)}{Y(y)}
+  =E.
+\end{equation}
+The first term depends only on \(x\), the second only on \(y\), and their sum
+is constant. Assign one-dimensional energies \(E_{n_x}^{(x)}\) and
+\(E_{n_y}^{(y)}\). Each factor obeys the one-dimensional box equation and its
+own boundary conditions.
+
+The normalized product eigenfunctions are
+\begin{equation}
+  \psi_{n_x,n_y}(x,y)
+  =\frac{2}{\sqrt{L_xL_y}}
+   \sin\!\left(\frac{n_x\pi x}{L_x}\right)
+   \sin\!\left(\frac{n_y\pi y}{L_y}\right),
+\end{equation}
+where
+\begin{equation}
+  n_x,n_y=1,2,3,\ldots.
+\end{equation}
+Their energies add:
+\begin{equation}
+  E_{n_x,n_y}
+  =\frac{\hbar^2\pi^2}{2m}
+   \left(
+     \frac{n_x^2}{L_x^2}
+     +\frac{n_y^2}{L_y^2}
+   \right).
+\end{equation}
+The product states form an orthonormal basis of
+\(L^2(0,L_x)\otimes L^2(0,L_y)\), naturally identified with
+\(L^2(\Omega_2)\).
+
+\subsection{Degeneracy in a square box}
+
+If \(L_x=L_y=L\), interchanging \(n_x\) and \(n_y\) leaves the energy
+unchanged:
+\begin{equation}
+  E_{n_x,n_y}
+  =\frac{\hbar^2\pi^2}{2mL^2}
+   \left(n_x^2+n_y^2\right)
+  =E_{n_y,n_x}.
+\end{equation}
+For \(n_x\neq n_y\), the two product states are linearly independent, so this
+exchange produces at least a two-dimensional degenerate eigenspace. For
+example,
+\begin{equation}
+  E_{1,2}=E_{2,1}.
+\end{equation}
+The Hamiltonian fixes the eigenspace spanned by
+\(\psi_{1,2}\) and \(\psi_{2,1}\), but any orthonormal rotation inside that
+space is also a valid eigenbasis. A rectangular box with \(L_x\neq L_y\)
+generally breaks this exchange degeneracy, though accidental coincidences may
+still occur for particular length ratios and quantum numbers.
+
+\section{Finite representation of the two-dimensional box}
+\index{finite difference!two-dimensional box}
+\index{Kronecker sum!two-dimensional Hamiltonian}
+
+Let
+\begin{equation}
+  H_x\in\mathbb R^{N_x\times N_x},
+  \qquad
+  H_y\in\mathbb R^{N_y\times N_y}
+\end{equation}
+be the one-dimensional Dirichlet finite-difference Hamiltonians from
+Chapter~\ref{ch:training-quantum-operators}. Flatten the grid with \(x\)
+varying fastest. The two-dimensional represented Hamiltonian is
+\begin{equation}
+  H_{2,h}
+  =I_{N_y}\otimes H_x
+   +H_y\otimes I_{N_x}
+  \in\mathbb R^{N_xN_y\times N_xN_y}.
+\end{equation}
+The first term applies \(H_x\) independently within every \(y\) slice. The
+second term couples the slices according to \(H_y\) while preserving each
+\(x\) index.
+
+Suppose
+\begin{equation}
+  H_x\mathbf v_{n_x}^{(x)}
+  =\varepsilon_{n_x}^{(x)}\mathbf v_{n_x}^{(x)},
+  \qquad
+  H_y\mathbf v_{n_y}^{(y)}
+  =\varepsilon_{n_y}^{(y)}\mathbf v_{n_y}^{(y)}.
+\end{equation}
+Then the product vector
+\begin{equation}
+  \mathbf v_{n_y}^{(y)}\otimes\mathbf v_{n_x}^{(x)}
+  \in\mathbb R^{N_xN_y}
+\end{equation}
+is an eigenvector of \(H_{2,h}\). Apply each term separately:
+\begin{align}
+  (I_{N_y}\otimes H_x)
+  (\mathbf v_{n_y}^{(y)}\otimes\mathbf v_{n_x}^{(x)})
+  &=\mathbf v_{n_y}^{(y)}\otimes
+    (\varepsilon_{n_x}^{(x)}\mathbf v_{n_x}^{(x)}),\\
+  (H_y\otimes I_{N_x})
+  (\mathbf v_{n_y}^{(y)}\otimes\mathbf v_{n_x}^{(x)})
+  &=(\varepsilon_{n_y}^{(y)}\mathbf v_{n_y}^{(y)})
+    \otimes\mathbf v_{n_x}^{(x)}.
+\end{align}
+Adding the results gives
+\begin{equation}
+  H_{2,h}
+  (\mathbf v_{n_y}^{(y)}\otimes\mathbf v_{n_x}^{(x)})
+  =
+  (\varepsilon_{n_x}^{(x)}+\varepsilon_{n_y}^{(y)})
+  (\mathbf v_{n_y}^{(y)}\otimes\mathbf v_{n_x}^{(x)}).
+\end{equation}
+Thus product eigenvectors accompany additive energies in the discrete problem
+just as they do in the continuum problem.
+
+\subsection{A \(2\times2\) interior grid}
+
+For equal grid spacings, suppress the common kinetic prefactor and use the
+one-dimensional core
+\begin{equation}
+  K=
+  \begin{bmatrix}
+    2 & -1\\
+    -1 & 2
+  \end{bmatrix}.
+\end{equation}
+With two interior points along each axis,
+\begin{align}
+  K_2
+  &=I_2\otimes K+K\otimes I_2\\
+  &=
+  \begin{bmatrix}
+    4 & -1 & -1 & 0\\
+    -1 & 4 & 0 & -1\\
+    -1 & 0 & 4 & -1\\
+    0 & -1 & -1 & 4
+  \end{bmatrix}.
+\end{align}
+The four rows correspond, in one declared C-order convention, to
+\begin{equation}
+  (y_1,x_1),\ (y_1,x_2),\ (y_2,x_1),\ (y_2,x_2).
+\end{equation}
+Entries from \(I_2\otimes K\) connect points with the same \(y\) index and
+neighboring \(x\) indices. Entries from \(K\otimes I_2\) connect points with
+the same \(x\) index and neighboring \(y\) indices. The zero corner entries
+show that this axial Laplacian does not directly connect diagonal neighbors.
+
+\section{The three-dimensional box}
+
+The normalized continuum eigenfunctions are
+\begin{equation}
+  \psi_{n_x,n_y,n_z}(x,y,z)
+  =\sqrt{\frac{8}{L_xL_yL_z}}
+   \sin\!\left(\frac{n_x\pi x}{L_x}\right)
+   \sin\!\left(\frac{n_y\pi y}{L_y}\right)
+   \sin\!\left(\frac{n_z\pi z}{L_z}\right),
+\end{equation}
+with energies
+\begin{equation}
+  E_{n_x,n_y,n_z}
+  =\frac{\hbar^2\pi^2}{2m}
+   \left(
+     \frac{n_x^2}{L_x^2}
+     +\frac{n_y^2}{L_y^2}
+     +\frac{n_z^2}{L_z^2}
+   \right).
+\end{equation}
+For a cube, \(L_x=L_y=L_z\), permutations of
+\((n_x,n_y,n_z)\) have the same energy. The states associated with
+\((1,1,2)\), \((1,2,1)\), and \((2,1,1)\), for example, span a
+three-dimensional degenerate eigenspace.
+
+Let \(H_z\in\mathbb R^{N_z\times N_z}\) be the third one-dimensional
+finite-difference Hamiltonian. Flatten with \(x\) fastest, then \(y\), then
+\(z\). The three-dimensional Kronecker sum is
+\begin{align}
+  H_{3,h}
+  ={}&I_{N_z}\otimes I_{N_y}\otimes H_x\\
+     &+I_{N_z}\otimes H_y\otimes I_{N_x}\\
+     &+H_z\otimes I_{N_y}\otimes I_{N_x}.
+\end{align}
+It has shape
+\begin{equation}
+  H_{3,h}
+  \in\mathbb R^{N_xN_yN_z\times N_xN_yN_z}.
+\end{equation}
+The associated product eigenvectors and eigenvalues are
+\begin{equation}
+  \mathbf v_{n_z}^{(z)}\otimes
+  \mathbf v_{n_y}^{(y)}\otimes
+  \mathbf v_{n_x}^{(x)},
+  \qquad
+  \varepsilon_{n_x}^{(x)}
+  +\varepsilon_{n_y}^{(y)}
+  +\varepsilon_{n_z}^{(z)}.
+\end{equation}
+Each identity factor means that the corresponding coordinate index is preserved
+while another one-dimensional Hamiltonian acts.
+
+\section{Sparse computational construction}
+\index{sparse matrix!Kronecker construction}
+
+A multidimensional finite-difference Hamiltonian is sparse. Each grid point
+couples only to itself and to a bounded set of neighbors. The Kronecker
+construction should preserve that sparsity rather than form a dense
+\((N_xN_yN_z)\times(N_xN_yN_z)\) array.
+
+\begin{pythonexample}{assembling sparse two- and three-dimensional boxes}
+import numpy as np
+from scipy.sparse import diags, eye, kron
+
+
+def dirichlet_kinetic(point_count: int, length: float):
+    # Use interior points; boundary values are fixed to zero and not stored.
+    spacing = length / (point_count + 1)
+    off_diagonal = -np.ones(point_count - 1, dtype=np.float64)
+    diagonal = 2.0 * np.ones(point_count, dtype=np.float64)
+
+    # Set hbar = mass = 1 for this dimensionless pedagogical example.
+    core = diags(
+        (off_diagonal, diagonal, off_diagonal),
+        offsets=(-1, 0, 1),
+        format="csr",
+    )
+    return core / (2.0 * spacing**2)
+
+
+# Declare each one-dimensional factor and its identity explicitly.
+Nx, Ny, Nz = 4, 3, 2
+Hx = dirichlet_kinetic(Nx, length=1.0)
+Hy = dirichlet_kinetic(Ny, length=1.5)
+Hz = dirichlet_kinetic(Nz, length=2.0)
+Ix = eye(Nx, format="csr")
+Iy = eye(Ny, format="csr")
+Iz = eye(Nz, format="csr")
+
+# C-order flattening makes x the fastest coordinate.
+H2 = kron(Iy, Hx, format="csr") + kron(Hy, Ix, format="csr")
+H3 = (
+    kron(kron(Iz, Iy, format="csr"), Hx, format="csr")
+    + kron(kron(Iz, Hy, format="csr"), Ix, format="csr")
+    + kron(kron(Hz, Iy, format="csr"), Ix, format="csr")
+)
+
+# Check shapes without converting either sparse operator to a dense array.
+assert H2.shape == (Nx * Ny, Nx * Ny)
+assert H3.shape == (Nx * Ny * Nz, Nx * Ny * Nz)
+
+# Preserve sparsity in the Hermiticity diagnostic.
+residual = H3 - H3.conjugate().transpose()
+residual.eliminate_zeros()
+assert residual.nnz == 0
+print("2D shape and nonzeros:", H2.shape, H2.nnz)
+print("3D shape and nonzeros:", H3.shape, H3.nnz)
+\end{pythonexample}
+
+The example constructs synthetic dimensionless operators. It checks assembly
+shape and exact sparse Hermiticity only. It does not establish refinement,
+continuum convergence, or a physical material result.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/particle_in_box_dimensions.ipynb}
+with explicit imports, explanatory inline comments, hand-checked Kronecker
+products, declared flattening order, product-state eigenpairs, square/cubic
+degeneracies, and sparse-preserving two- and three-dimensional diagnostics.
+Keep it unexecuted in the repository.}
+
+\section{What changes outside a rectangular Cartesian box}
+
+The simple Kronecker sum depends on separability. It works here because
+
+\begin{itemize}
+  \item the domain is a Cartesian product of intervals;
+  \item the mass is a constant scalar;
+  \item the boundary conditions separate by coordinate;
+  \item the potential is zero, or more generally is a sum of one-coordinate
+        terms; and
+  \item the coordinate metric is diagonal and constant.
+\end{itemize}
+
+A coupled potential \(V(x,y)\), a nonrectangular boundary, a spatially varying
+mass, or nonorthogonal coordinates can destroy the simple sum of independent
+one-dimensional operators. Chapter~\ref{ch:training-periodic-geometry}
+introduces the metric needed for nonorthogonal cells, and
+Chapter~\ref{ch:training-bloch-finite-differences} shows why mixed derivatives
+then add diagonal-neighbor stencil terms that are absent from the rectangular
+box matrix above.
+
+\section{Common mistakes}
+
+\begin{enumerate}
+  \item Writing \(H_y\otimes H_x\) when the separable Hamiltonian requires the
+        Kronecker sum \(I_y\otimes H_x+H_y\otimes I_x\).
+  \item Omitting identity factors and therefore changing the represented space.
+  \item Reversing Kronecker factors without changing the flattening convention.
+  \item Treating \(\mathbf v_y\otimes\mathbf v_x\) and
+        \(\mathbf v_x\otimes\mathbf v_y\) as identical coordinate columns.
+  \item Assuming every repeated numerical eigenvalue is an exact physical
+        degeneracy without a tolerance and symmetry argument.
+  \item Densifying a sparse multidimensional Hamiltonian merely to inspect or
+        test it.
+  \item Calling a finite-difference matrix the continuum Hamiltonian rather
+        than a finite representation of a declared discretization.
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Compute \(A\otimes B\) by blocks for two chosen \(2\times2\) matrices,
+        and verify its action on one vector product.
+  \item Prove
+        \((A\otimes B)(\mathbf x\otimes\mathbf y)
+        =(A\mathbf x)\otimes(B\mathbf y)\)
+        directly from components.
+  \item Starting from one-dimensional box eigenfunctions, verify the
+        normalization of \(\psi_{n_x,n_y}(x,y)\).
+  \item Derive the additive two-dimensional energy from separation of
+        variables.
+  \item Reconstruct the displayed \(4\times4\) matrix
+        \(I_2\otimes K+K\otimes I_2\) one term at a time.
+  \item For a cubic box, list the degeneracy due to permutations of
+        \((1,2,3)\), and distinguish those states from possible accidental
+        degeneracies involving different triples.
+  \item Show that the three-dimensional product vector is an eigenvector of
+        \(H_{3,h}\) and that its eigenvalue is the sum of the three
+        one-dimensional eigenvalues.
+  \item Describe the permutation needed if a code changes from \(x\)-fastest
+        to \(z\)-fastest flattening.
+\end{enumerate}
+
+\section{Evidence boundary}
+
+The continuum product formulas are exact for the stated rectangular Dirichlet
+model. The finite Kronecker sums are exact identities for the chosen
+one-dimensional matrices and ordering. Neither statement establishes numerical
+convergence at an untested grid, adequacy for a nonseparable model, or relevance
+to a semiconductor material. Those stronger claims require separate numerical
+and scientific evidence.

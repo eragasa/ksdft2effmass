@@ -14,13 +14,26 @@ bounded narrative from it. Extraction is an editorial operation, not automatic
 synchronization, and does not transfer evidentiary status merely by copying
 prose.
 
-The current draft has four main divisions: criteria for a good reduced model;
+The current draft has five main divisions, arranged from lower to higher
+conceptual load: computational foundations; criteria for a good reduced model;
 the bulk-silicon representation program; the doped-silicon representation
-program; and the mathematical and proof program. A substantial appendix
-collection owns detailed notation, derivations, controlled examples, route
-comparisons, and analytical warmups. It is a framework-rich pre-results draft:
-chapter development does not imply completion of the proofs or calculations
-described there.
+program; and the mathematical and proof program. Part I proceeds from
+quantities, units, coordinates, and metadata through finite representations,
+Hermitian eigensystems and spectral subspaces, quantum operators and the
+one-dimensional box, two- and three-dimensional box
+models with Kronecker products, periodic geometry, Bloch-periodic finite
+differences, retained spaces, isolated-band Fourier reduction to finite-range
+lattice Hamiltonians, composite Bloch frames, the Bloch--Wannier bridge, gauge
+transport and alignment, block locality, and evidence vocabulary. Part II then
+moves from the scientific adequacy question through common-space operator
+comparison to weighted spectral and operator losses, with fitting and
+model-class-expressivity precedents integrated where the corresponding concepts
+enter, followed by admissible sets, common witnesses,
+quadratic-loss geometry, separation certificates, and evidence discipline. A
+substantial appendix collection owns detailed notation, derivations,
+controlled examples, route comparisons, and analytical warmups. It is a framework-rich pre-results draft: chapter
+development does not imply completion of the proofs or calculations described
+there.
 
 Red boxes headed **Prospective citation note** are unresolved editorial prompts.
 They record candidate sources and claim checks from the citation audit; they do
@@ -49,8 +62,9 @@ quantification, publication, or human acceptance.
 ## Structure
 
 - `manuscript/manuscript.tex` — standard-LaTeX composition root;
-- `chapters/` — independently maintainable chapters organized into the four
-  main divisions and final synthesis;
+- `chapters/` — independently maintainable, semantically named lecture sources;
+  filenames carry no sequence numbers, and `manuscript/manuscript.tex` alone
+  determines their current pedagogical order;
 - `figures/` — editable diagram sources and their manuscript-ready renderings;
 - `appendices/` — notation, derivations, controlled examples, route
   comparisons, and analytical warmups supporting the main narrative;
@@ -62,11 +76,37 @@ quantification, publication, or human acceptance.
   proposed scholarly citations;
 - `extraction-map.md` — planned relationships between monograph material and
   shorter outputs;
+- `current-library-capability-crosswalk.md` — architecture-linked map from maintained
+  public APIs and extraction gaps to new controlled calculations and the staged
+  manuscript rewrite;
 - `build/` — ignored local LaTeX output.
 
 P01 and other paper directories remain independently edited publication
 surfaces. They may extract selected monograph material but are not generated
 projections of this directory.
+
+## Planned Part I notebooks
+
+**To do:** create the following pedagogical notebooks under
+`examples/tutorials/research-monograph/foundations/` only after their lecture
+contracts are stable:
+
+- `computational_quantities.ipynb`;
+- `finite_representations.ipynb`;
+- `hermitian_eigensystems.ipynb`;
+- `quantum_operators.ipynb`;
+- `particle_in_box_dimensions.ipynb`;
+- `periodic_geometry.ipynb`;
+- `bloch_periodic_finite_differences.ipynb`;
+- `isolated_band_fourier_reduction.ipynb`; and
+- `composite_band_gauge_alignment.ipynb`.
+
+Each notebook must show its imports, use explanatory inline comments, avoid
+hidden state, and keep synthetic examples distinct from calculated material
+results. Sparse operators must remain sparse in diagnostics; a check must not
+call `toarray()` merely to compare an operator with its adjoint. Notebook files
+and outputs are not present yet, and this to-do list makes no execution or
+verification claim.
 
 ## Local build
 
@@ -94,7 +134,8 @@ stricter `equationterms` contract: every display-math environment has one unique
 stable label and must be followed immediately by a rendered term list bound to
 that exact label. Every `equationterm` entry must contain one nonempty symbol and
 one nonempty definition, and duplicate symbols within a term list are rejected.
-Chapter 10 and Appendix J currently use this contract.
+The semantically named `impurity-operator-extraction.tex` chapter and Appendix J
+currently use this contract.
 
 Run the focused maintained audit from `python/`:
 

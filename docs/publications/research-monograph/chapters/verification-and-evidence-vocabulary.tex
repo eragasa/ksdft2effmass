@@ -1,0 +1,315 @@
+\chapter{Verification and Evidence Vocabulary}
+\index{evidence!classes|textbf}
+\index{verification|textbf}
+\index{validation!scientific|textbf}
+
+\label{ch:training-evidence-vocabulary}
+\label{ch:verification-and-validation}
+
+\chapterstatus{foundational evidence vocabulary. This chapter classifies claims
+and records; it introduces no new numerical result, scientific validation, or
+uncertainty-quantification result.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item write a bounded claim before selecting evidence;
+  \item distinguish mathematical proof, software verification, numerical
+        verification, scientific validation, and uncertainty quantification;
+  \item distinguish an oracle, metric, tolerance, observation, and disposition;
+  \item distinguish a finite represented reference from an exact limit;
+  \item separate transform training samples from withheld evaluation and
+        independent reconstruction;
+  \item keep parent-model, numerical, and model-reduction errors separate; and
+  \item state what a passing check does not establish.
+\end{enumerate}
+
+Scientific software can run successfully, reproduce its own output, and still
+answer the wrong mathematical or physical question. Evidence vocabulary is
+therefore a computational prerequisite rather than an afterword.
+
+\section{Claims precede evidence}
+\index{claim!evidence requirement}
+
+An evidence record begins with a bounded claim. The claim identifies the system,
+quantity, representation, parameter domain, metric, tolerance, and intended use.
+Only then can an oracle and acceptance rule be selected. A recurring record
+shape is
+\begin{equation}
+  (\text{reference},\text{candidate},\text{metric},
+   \text{tolerance},\text{observation},\text{disposition}).
+\end{equation}
+The record is incomplete unless the reference and candidate carry the metadata
+required to make the metric meaningful.
+
+These terms have distinct roles.
+
+\begin{description}
+  \item[Claim.] The bounded statement the evidence is intended to support.
+  \item[Reference or oracle.] The independently justified source of expected
+        behavior for the stated check.
+  \item[Candidate.] The object or behavior under examination.
+  \item[Metric.] The declared comparison quantity.
+  \item[Tolerance or acceptance rule.] The prospectively stated decision rule.
+  \item[Observation.] The value or categorical outcome actually obtained.
+  \item[Disposition.] The conclusion permitted by the rule and evidence class.
+\end{description}
+
+A threshold-free diagnostic can report an observation without accepting or
+rejecting it. Conversely, a tolerance without a named metric and scale is not a
+complete acceptance rule.
+
+\section{Evidence classes}
+
+\begin{description}
+  \item[Mathematical proof.] Establishes a theorem from explicitly stated
+    assumptions by a recorded derivation or checked formal encoding. Proof does
+    not establish that the assumptions describe the physical system, that a
+    numerical implementation is correct, or that a bound is useful at project
+    scale.
+  \item[Software verification.] Establishes that software follows a documented
+    contract. Examples include shape and type invariants, exact serialization
+    round trips, basis-order checks, failure behavior, and declared symmetry or
+    Hermiticity tests.
+  \item[Numerical verification.] Establishes agreement between a numerical
+    implementation and independently derived mathematics, or controlled
+    convergence toward the stated mathematical problem. Examples include
+    analytic limiting cases, manufactured solutions, independent norm
+    calculations, and stencil-refinement studies.
+  \item[Scientific validation.] Evaluates adequacy against independent trusted
+    physical, experimental, or scientific reference evidence for a declared
+    use. It addresses whether the selected model represents relevant physical
+    behavior, not merely whether its code is internally consistent.
+  \item[Uncertainty quantification.] Identifies relevant uncertainty sources and
+    characterizes or propagates them to declared outputs. Sensitivity alone is
+    not automatically a probabilistic uncertainty statement.
+\end{description}
+
+No class implies another. A proved implication does not validate its physical
+assumptions. A passing software regression does not establish numerical
+convergence. Agreement with a selected Kohn--Sham parent does not establish
+agreement with experiment. A validation comparison does not quantify every
+uncertainty source.
+
+\citationtodo{high priority}{Check the evidence-class taxonomy and the claim
+that the classes do not imply one another against an authoritative
+verification, validation, and uncertainty-quantification source. Candidate:
+National Research Council (2012), provisional key
+\texttt{nationalResearchCouncil2012}; the candidate record is present for this
+editorial note.}
+
+\section{Examples that share an array but not a claim}
+
+A Hermitian matrix may participate in several different evidence records.
+
+\begin{itemize}
+  \item Comparing \(H\) with \(H^{\dagger}\) can verify a declared software
+        invariant.
+  \item Comparing \(H\) with an independently derived small-matrix oracle can
+        numerically verify an implementation.
+  \item Comparing an observable derived from \(H\) with independent physical
+        data can contribute to scientific validation for a declared use.
+\end{itemize}
+
+The array does not carry an evidence class intrinsically. The class follows
+from the claim, reference, construction, and interpretation.
+
+Similarly, successful process completion is an observation about execution. It
+is not automatically evidence that inputs were scientifically accepted, a
+solver converged to the desired state, a discretization converged, or the model
+is valid.
+
+\section{Errors from different operations}
+\index{error!category separation}
+
+Projection error, discretization error, fitting error, truncation error, and
+parent-model error arise from different operations. They should be combined
+only when an owning mathematical contract defines a compatible relationship.
+The broad categories used throughout this monograph are
+
+\begin{description}
+  \item[Parent-model error.] Discrepancy attributable to the selected physical
+        parent and its assumptions relative to the intended physical use.
+  \item[Numerical or discretization error.] Discrepancy introduced while
+        approximating the stated mathematical problem at finite settings.
+  \item[Model-reduction error.] Discrepancy introduced when replacing the
+        accepted parent representation by a reduced class.
+\end{description}
+
+A reduced model can reproduce an unconverged parent accurately. A converged
+numerical solution can solve an inadequate parent model precisely. Agreement
+with experiment can arise through cancellation between parent and reduction
+errors. Evidence records must preserve these possibilities rather than report
+one undifferentiated ``model error.''
+
+\section{Finite-setting observations}
+\index{convergence!finite-setting}
+
+Suppose a quantity \(q_j\) is computed at two successive finite settings and
+satisfies
+\begin{equation}
+  |q_{j+1}-q_j|\leq\tau.
+\end{equation}
+This establishes stability over those tested settings under the recorded
+controls. It does not by itself bound
+\begin{equation}
+  |q_j-q_{\infty}|.
+\end{equation}
+An infinite-setting bound requires additional structure, such as a justified
+asymptotic error model, monotonicity result, variational bound, or sufficient
+higher-resolution evidence. ``Stable over the tested sequence'' is therefore a
+stronger description than ``converged'' when only the finite contrast is known.
+
+Derived quantities can amplify errors. A central second-difference estimate of
+curvature divides an energy combination by a squared step. Pointwise energy
+agreement therefore need not control effective mass. Conditioning and
+cancellation must be evaluated for the derived claim, not inferred from a
+visually smooth parent plot.
+
+\section{Finite references and exact language}
+\index{reference!finite represented}
+
+A numerical study may compare candidates with a declared high-resolution
+finite representation. If $q_h$ is the candidate and $q_{h_{\mathrm{ref}}}$ is
+that reference, the observed quantity
+\begin{equation}
+  \epsilon_{h,\mathrm{ref}}
+  =\left|q_h-q_{h_{\mathrm{ref}}}\right|
+\end{equation}
+is a finite-reference discrepancy. It is not automatically an error bound to
+the continuum quantity $q$. The latter would require information about
+$|q_{h_{\mathrm{ref}}}-q|$ or a theorem that otherwise controls the limit.
+
+This distinction changes the permitted language. A decreasing sequence of
+finite-reference discrepancies can be described as observed refinement over
+the tested settings. Calling the final value an exact continuum error would
+state more than the comparison measured. Small nonmonotone variations near
+floating-point or iterative-solver scales should also be retained rather than
+removed to manufacture a monotone convergence plot.
+
+\section{Transform training data and withheld evaluation}
+\index{training data!finite transform}
+\index{withheld evaluation!role separation}
+
+Training data can play a mathematical role beyond statistical parameter
+estimation. In a complete finite Fourier transform, the training mesh defines
+all transform coefficients. Exact reconstruction on that same mesh verifies
+the forward--inverse transform pair, but it is interpolation of the defining
+samples. It does not test behavior between them.
+
+A withheld mesh can evaluate the frozen interpolant at coordinates that were
+not used to calculate coefficients. To preserve that role, the withheld values
+must not alter
+\begin{itemize}
+  \item the fitted coefficients;
+  \item the candidate model class or hopping range;
+  \item the stopping rule;
+  \item the metric or tolerance; or
+  \item the selection of which outcomes are reported.
+\end{itemize}
+If withheld observations motivate redesign, the original observation remains
+part of the evidence history and a new untouched evaluation design is needed
+for a later confirmatory claim. In a synthetic numerical study, disjoint
+withheld evaluation remains numerical verification relative to the selected
+parent. The word ``withheld'' does not promote it to scientific validation.
+
+\section{Independent reconstruction is not producer replay}
+\index{verification!independent reconstruction}
+
+A producer may verify internal invariants before returning a result. That is
+valuable, but importing the producer and asking it to generate the same object
+again can repeat the same mistake. Stronger numerical-consistency evidence
+reconstructs decisive quantities from frozen inputs and retained outputs by a
+separately maintained route.
+
+Independence is bounded rather than absolute. A verifier may share the same
+language runtime, numerical libraries, or mathematical assumptions. Its record
+should therefore state what it reconstructs independently and what remains
+shared. A useful verifier also checks identities and roles---for example,
+coordinate inventories, transform representatives, tolerances, and the
+separation of training and withheld samples---rather than comparing only one
+headline scalar.
+
+Agreement within a prospectively frozen numerical tolerance establishes
+consistency for the reconstructed finite protocol. It does not select a model
+for a scientific use, quantify physical uncertainty, or validate the parent
+model. Chapter~\ref{ch:training-isolated-band-fourier-reduction} supplies a
+concrete transform, truncation, and route-comparison setting to which these
+rules apply.
+
+\section{Negative evidence and stop conditions}
+\index{negative evidence}
+\index{stop condition}
+
+A failed acceptance criterion is retained rather than weakened. It may indicate
+an implementation defect, inadequate resolution, incompatible representation,
+insufficient model-class expressiveness, or mismatch between a model and its
+intended use. These diagnoses have different remedies.
+
+A missing prerequisite can also be a valid stop condition. If units, geometry,
+basis ordering, energy reference, or alignment are incompatible, direct matrix
+subtraction should not proceed to a residual. A fail-closed compatibility
+finding is evidence about the attempted operation, not an inconvenience to be
+removed by guessing metadata.
+
+A well-executed negative result is bounded by the tested domain. Failure of one
+frozen model hierarchy does not prove failure of every possible model, and one
+nonconverged numerical sequence does not prove that convergence is impossible.
+
+\section{Reproducibility does not promote evidence}
+\index{reproducibility}
+\index{provenance}
+
+A result is reproducible only relative to retained identities and declared
+conditions. A useful record generally includes immutable inputs, code and
+dependency versions, physical and numerical settings, commands, artifact
+checksums, metric definitions, structured outcomes, warnings, and locations of
+externally retained large artifacts.
+
+Reproduction preserves the class of the reproduced claim. Reproducing a
+pedagogical calculation reproduces pedagogical behavior; reproducing a
+synthetic verification case reproduces bounded verification evidence;
+reproducing a production calculation reproduces that calculation under its
+recorded conditions. None is promoted automatically to scientific validation.
+
+\section{A compact evidence ledger}
+
+For each computational stage, a ledger can record
+
+\begin{enumerate}
+  \item the claim identifier and bounded statement;
+  \item identities of reference and candidate records;
+  \item compatibility checks and stop conditions;
+  \item metric, unit, normalization, and tolerance;
+  \item observed value and pass, fail, or diagnostic-only disposition;
+  \item evidence class and limitations; and
+  \item provenance for reproduction.
+\end{enumerate}
+
+This structure makes limitations part of the result rather than prose added
+only after a surprising outcome.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Classify a JSON round trip, a manufactured finite-difference solution,
+        and comparison with an experimental band edge by evidence class.
+  \item Write a bounded claim for a Hermiticity check, including metric, unit,
+        and tolerance. State three conclusions it does not support.
+  \item Explain why two stable successive settings do not establish a bound to
+        an infinite-setting limit.
+  \item Give one example of parent-model, numerical, and model-reduction error
+        in a single reduction workflow.
+  \item Design a negative-evidence record for incompatible energy references
+        that stops before matrix subtraction.
+\end{enumerate}
+
+\section{Next use and evidence boundary}
+
+Part~II applies this vocabulary to model adequacy, aligned operator comparison,
+and the retained benchmark inventory. The vocabulary itself does not establish
+that any project calculation has passed. Evidence status remains owned by the
+applicable proof package, test record, calculation record, scientific review,
+or accepted disposition.

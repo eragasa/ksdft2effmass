@@ -1,0 +1,829 @@
+\chapter{From an Isolated Band to a Finite-Range Lattice Hamiltonian}
+\index{isolated band!Fourier reduction|textbf}
+\index{hopping coefficient|textbf}
+\index{finite-range model|textbf}
+
+\label{ch:training-isolated-band-fourier-reduction}
+
+\chapterstatus{pedagogical derivation and synthetic computational example. This
+chapter explains the mathematical chain exercised by the controlled
+one-dimensional isolated-band calculation, but it reports no M1 numerical
+result, material calculation, scientific validation, or uncertainty
+quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item construct a one-dimensional Bloch-fiber matrix in plane-wave and
+        finite-difference representations;
+  \item distinguish a continuum parent, a finite represented reference, and a
+        sampled band dispersion;
+  \item explain what is retained when one isolated scalar band is selected;
+  \item derive the finite reciprocal-to-cell Fourier transform and its inverse;
+  \item interpret complete and finite-range hopping coefficients without
+        confusing truncation with projection or localization;
+  \item derive the Parseval relation for the stated transform convention;
+  \item formulate direct hopping recovery as a least-squares problem and state
+        the conditions under which it equals Fourier truncation;
+  \item keep training and withheld reciprocal samples in distinct roles; and
+  \item interpret Hermiticity, bandwidth, curvature, rank, conditioning, and
+        imaginary residuals as bounded diagnostics.
+\end{enumerate}
+
+Chapter~\ref{ch:training-periodic-geometry} introduced direct and reciprocal
+geometry. Chapter~\ref{ch:training-bloch-finite-differences} constructed
+Bloch-periodic finite representations, and
+Chapter~\ref{ch:training-projection-retained-spaces} distinguished a retained
+space from coordinates and later truncations. We now join those ideas in one
+complete but deliberately one-dimensional reduction.
+
+The sequence is
+\begin{equation}
+  \begin{aligned}
+    \text{periodic parent}
+    &\longrightarrow \text{Bloch fibers}
+     \longrightarrow \text{isolated band }E(k),\\
+    E(k)
+    &\longrightarrow \text{complete hoppings }t_R
+     \longrightarrow \text{finite-range model}.
+  \end{aligned}
+  \label{eq:training-isolated-reduction-sequence}
+\end{equation}
+Every arrow changes the mathematical object. The purpose of this chapter is to
+make those changes visible rather than hiding them behind one plotting routine.
+
+\section{A one-dimensional periodic parent}
+\index{cosine potential!pedagogical parent}
+
+Let the direct-lattice period be $a>0$ and define
+\begin{equation}
+  G=\frac{2\pi}{a}.
+  \label{eq:training-isolated-reciprocal-vector}
+\end{equation}
+Translation by $a$ in real space and translation by $G$ in reciprocal space
+supply the fundamental periodicities. Consider the continuum operator
+\begin{equation}
+  \widehat H
+  =-\frac{\hbar^2}{2m}\frac{\mathrm d^2}{\mathrm d x^2}
+   +V_0\cos(Gx)
+  \quad\text{on }L^2(\mathbb R).
+  \label{eq:training-isolated-parent}
+\end{equation}
+The cosine is a synthetic periodic potential. It is useful because its Fourier
+content is transparent; it is not a material potential.
+
+A Bloch state can be written
+\begin{equation}
+  \psi_k(x)=e^{ikx}u_k(x),
+  \qquad
+  u_k(x+a)=u_k(x).
+  \label{eq:training-isolated-bloch-factorization}
+\end{equation}
+Substitution into Equation~\eqref{eq:training-isolated-parent} gives the
+cell-periodic fiber operator
+\begin{equation}
+  \widehat H(k)
+  =\frac{\hbar^2}{2m}
+   \left(-i\frac{\mathrm d}{\mathrm d x}+k\right)^2
+   +V_0\cos(Gx).
+  \label{eq:training-isolated-fiber}
+\end{equation}
+The same physics can instead be represented by the original differential
+expression on one cell with Bloch boundary conditions. These conventions are
+unitarily related, but their matrices are not interchangeable without the
+corresponding transformation.
+
+\subsection{Reduced momentum and natural scales}
+
+Define the reduced momentum, reciprocal energy scale, and dimensionless
+potential strength by
+\begin{equation}
+  \kappa=\frac{k}{G},
+  \qquad
+  E_G=\frac{\hbar^2G^2}{2m},
+  \qquad
+  \lambda=\frac{V_0}{E_G}.
+  \label{eq:training-isolated-scales}
+\end{equation}
+If $y=Gx$, division by $E_G$ turns the fiber operator into
+\begin{equation}
+  \widehat h(\kappa)
+  =\left(-i\frac{\mathrm d}{\mathrm d y}+\kappa\right)^2
+   +\lambda\cos y.
+  \label{eq:training-isolated-dimensionless-fiber}
+\end{equation}
+Thus a statement such as $a=2\pi$, $G=1$, and $E_G=1$ is a dimensionless
+representation convention. It does not erase the physical meanings from which
+the scales were constructed.
+
+The first Brillouin zone may be represented by the half-open interval
+\begin{equation}
+  -\frac12\leq\kappa<\frac12.
+  \label{eq:training-isolated-first-zone}
+\end{equation}
+The two endpoints $-1/2$ and $1/2$ differ by one reciprocal-lattice translation
+and represent the same boundary point in the reciprocal quotient. A table may
+include both endpoints for a symmetry check, but a complete discrete Fourier
+mesh should not duplicate them.
+
+\section{Plane-wave representation of a Bloch fiber}
+\index{plane-wave representation!one-dimensional fiber}
+
+Because $u_k$ is periodic, expand it in the orthonormal cell basis
+\begin{equation}
+  \phi_n(x)=\frac{1}{\sqrt a}e^{inGx},
+  \qquad n\in\mathbb Z.
+  \label{eq:training-isolated-plane-wave-basis}
+\end{equation}
+Acting on one basis function gives
+\begin{equation}
+  \left(-i\frac{\mathrm d}{\mathrm d x}+k\right)\phi_n
+  =(k+nG)\phi_n.
+\end{equation}
+The kinetic term is therefore diagonal. The potential identity
+\begin{equation}
+  V_0\cos(Gx)
+  =\frac{V_0}{2}e^{iGx}+\frac{V_0}{2}e^{-iGx}
+\end{equation}
+shows that multiplication by the cosine changes the reciprocal index by
+exactly one. Consequently,
+\begin{equation}
+  H^{\mathrm{PW}}_{nm}(k)
+  =\frac{\hbar^2(k+nG)^2}{2m}\delta_{nm}
+   +\frac{V_0}{2}
+    \left(\delta_{n,m+1}+\delta_{n,m-1}\right).
+  \label{eq:training-isolated-plane-wave-matrix}
+\end{equation}
+In dimensionless form this becomes
+\begin{equation}
+  h^{\mathrm{PW}}_{nm}(\kappa)
+  =(n+\kappa)^2\delta_{nm}
+   +\frac{\lambda}{2}
+    \left(\delta_{n,m+1}+\delta_{n,m-1}\right).
+  \label{eq:training-isolated-dimensionless-plane-wave-matrix}
+\end{equation}
+
+A cutoff $P$ retains $n=-P,\ldots,P$ and gives a
+$(2P+1)\times(2P+1)$ Hermitian matrix. Increasing $P$ changes the represented
+state space. A cutoff sequence can therefore supply finite-representation
+refinement evidence for selected low eigenvalues; it does not make any one
+finite matrix identical to the continuum operator.
+
+The nearest-neighbor pattern in reciprocal index deserves careful language. It
+comes from the single cosine harmonic. It is not a nearest-neighbor
+real-space tight-binding approximation. Reciprocal-index coupling and
+real-space hopping are different representations introduced at different
+stages.
+
+\section{A finite-difference representation of the same parent}
+\index{finite difference!one-dimensional Bloch fiber}
+
+A second representation uses the endpoint-excluded grid
+\begin{equation}
+  x_j=j\Delta x,
+  \qquad
+  \Delta x=\frac{a}{N_x},
+  \qquad
+  j=0,\ldots,N_x-1.
+  \label{eq:training-isolated-real-grid}
+\end{equation}
+Represent the original differential expression on one cell and impose
+\begin{equation}
+  \psi(x+a)=e^{ika}\psi(x).
+  \label{eq:training-isolated-bloch-boundary}
+\end{equation}
+For the centered second derivative, define
+\begin{equation}
+  c_h=\frac{\hbar^2}{2m\Delta x^2}.
+\end{equation}
+The kinetic matrix has diagonal entries $2c_h$, adjacent entries $-c_h$, and
+seam entries
+\begin{equation}
+  T_{0,N_x-1}(k)=-c_h e^{-ika},
+  \qquad
+  T_{N_x-1,0}(k)=-c_h e^{ika}.
+  \label{eq:training-isolated-fd-seam}
+\end{equation}
+The two seam entries are complex conjugates. Together with the real diagonal
+potential samples $V_0\cos(Gx_j)$, this gives a Hermitian finite matrix.
+
+The plane-wave and finite-difference matrices have different bases and usually
+different dimensions. Their eigenvalues can be compared as approximations to
+the same declared spectral quantities. The matrices themselves cannot be
+subtracted until an explicit common-space map has been supplied. Spectral
+refinement and represented-operator refinement are therefore different
+questions.
+
+\subsection{A finite represented reference is not the continuum limit}
+
+Suppose a high plane-wave cutoff $P_{\mathrm{ref}}$ is declared as the
+reference for a finite study. For a candidate cutoff $P$, one may report
+\begin{equation}
+  \epsilon_P
+  =\max_{\kappa\in\mathcal K_{\mathrm{parent}}}
+    \max_{1\leq n\leq n_{\mathrm{cmp}}}
+    \left|
+      E_{n,P}^{\mathrm{PW}}(\kappa)
+      -E_{n,P_{\mathrm{ref}}}^{\mathrm{PW}}(\kappa)
+    \right|.
+  \label{eq:training-isolated-finite-reference-error}
+\end{equation}
+This is an error relative to the stated finite reference. It is not automatically
+$|E_{n,P}-E_{n,\infty}|$. Once discrepancies reach floating-point and
+eigensolver scales, they need not decrease monotonically. The accurate report
+is the observed finite discrepancy over the tested sequence, unless a separate
+argument supplies a continuum bound.
+
+A finite-difference sequence can be compared with the same represented
+reference, but its grid and stencil error remains a separate channel from the
+plane-wave cutoff error. Agreement of the two sequences is useful precisely
+because their discretization mechanisms differ.
+
+\section{What it means to retain an isolated band}
+\index{band isolation}
+
+Let $E_n(\kappa)$ be ordered fiber eigenvalues. A band is isolated over a
+declared reciprocal domain $\mathcal K$ when it remains separated from the
+excluded spectrum. For an interior band, a sampled isolation diagnostic is
+\begin{equation}
+  \gamma_n^{\mathrm{sampled}}
+  =\min_{\kappa\in\mathcal K}
+   \min\left\{
+     E_n(\kappa)-E_{n-1}(\kappa),
+     E_{n+1}(\kappa)-E_n(\kappa)
+   \right\}.
+  \label{eq:training-isolated-sampled-gap}
+\end{equation}
+For the lowest band, only the upper gap is present.
+A positive value on a finite mesh establishes sampled separation, not a theorem
+that the gap is positive at every unsampled point.
+
+At each momentum, four objects must remain distinct:
+\begin{enumerate}
+  \item the scalar eigenvalue $E_n(\kappa)$;
+  \item a normalized eigenvector, whose phase is not unique;
+  \item the one-dimensional eigenspace or its projector; and
+  \item a choice of phases over momentum, called a band gauge.
+\end{enumerate}
+For a scalar isolated band, the represented Hamiltonian within the eigenspace is
+just the $1\times1$ value $E_n(\kappa)$. Fourier transformation of these scalar
+values therefore does not require selecting eigenvector phases. It constructs a
+scalar lattice representation of the sampled dispersion. It does not, by
+itself, construct Wannier functions, calculate a localization gauge, or retain
+a real-space probability density. Those additional objects require eigenvectors
+and overlap information~\cite{kohn1959,marzari2012}.
+
+\section{The complete centered reciprocal mesh}
+\index{reciprocal mesh!centered uniform}
+\index{Born--von Karman representative}
+
+Let $N$ be even. A complete centered half-open mesh is
+\begin{equation}
+  \kappa_j=-\frac12+\frac{j}{N},
+  \qquad j=0,\ldots,N-1.
+  \label{eq:training-isolated-centered-mesh}
+\end{equation}
+It contains $-1/2$ and excludes the equivalent endpoint $1/2$. One convenient
+set of cell representatives is
+\begin{equation}
+  \mathcal R_N
+  =\left\{-\frac N2,-\frac N2+1,\ldots,\frac N2-1\right\}.
+  \label{eq:training-isolated-representatives}
+\end{equation}
+The labels in $\mathcal R_N$ are representatives of residue classes modulo
+$N$. Thus $R$ and $R+Nq$ produce the same phase at every mesh point. In
+particular, the even-mesh endpoint representative $-N/2$ is its own opposite
+modulo $N$, because $N/2$ belongs to the same residue class even though it is
+not separately stored.
+
+For $R,S\in\mathcal R_N$, finite Fourier orthogonality gives
+\begin{equation}
+  \sum_{j=0}^{N-1}
+  e^{2\pi i(R-S)\kappa_j}
+  =N\,\delta_{R,S}^{(N)},
+  \label{eq:training-isolated-fourier-orthogonality}
+\end{equation}
+where $\delta_{R,S}^{(N)}$ equals one when $R$ and $S$ are the same residue
+class modulo $N$ and zero otherwise. This identity is the algebraic reason that
+the complete transform is invertible.
+
+\section{From sampled energies to complete hoppings}
+\index{discrete Fourier transform!band to hopping}
+
+Let $E_j=E(\kappa_j)$ be one real scalar band sampled on the complete mesh.
+Define
+\begin{equation}
+  t_R
+  =\frac1N\sum_{j=0}^{N-1}
+    e^{-2\pi iR\kappa_j}E_j,
+  \qquad R\in\mathcal R_N.
+  \label{eq:training-isolated-forward-transform}
+\end{equation}
+Multiplying by the inverse phases and using
+Equation~\eqref{eq:training-isolated-fourier-orthogonality} gives
+\begin{equation}
+  E_j
+  =\sum_{R\in\mathcal R_N}
+    e^{2\pi iR\kappa_j}t_R.
+  \label{eq:training-isolated-inverse-transform}
+\end{equation}
+The normalization and signs in these two equations form one convention. Moving
+the factor $1/N$ or reversing both signs is possible, but every producer,
+interpolator, and verifier must then change consistently~\cite{trefethen2000}.
+
+The coefficient $t_0$ is the cell-diagonal or onsite scalar term. A coefficient
+$t_R$ with $R\neq0$ couples cells separated by $R$ direct-lattice periods in
+the represented lattice model. The finite mesh produces exactly $N$
+independent coefficients. Calling this the complete hopping model means
+complete relative to that finite transform, not infinite real-space exactness.
+
+\subsection{Hermiticity and modular opposites}
+
+A scalar lattice Hamiltonian is Hermitian when
+\begin{equation}
+  t_{\overline{-R}}=t_R^*,
+  \label{eq:training-isolated-hopping-hermiticity}
+\end{equation}
+where $\overline{-R}$ is the selected representative of the opposite residue
+class modulo $N$. If the sampled dispersion is real, the complete discrete
+transform satisfies this relation up to numerical error. If it is also even in
+$\kappa$, the hoppings are real and satisfy
+$t_{\overline{-R}}=t_R$.
+
+The modular qualifier matters at the representative boundary. A verifier that
+searches only for the literal integer $-R$ can incorrectly report the Nyquist
+representative as unpaired. The comparison belongs to the finite periodic
+index set, not to an unbounded integer list.
+
+\subsection{A four-point transform by hand}
+
+Consider the already finite scalar model
+\begin{equation}
+  E(\kappa)=\varepsilon_0+2t\cos(2\pi\kappa).
+  \label{eq:training-isolated-hand-band}
+\end{equation}
+For $N=4$, the mesh is
+$\{-1/2,-1/4,0,1/4\}$ and the sampled values are
+\begin{equation}
+  \varepsilon_0-2t,
+  \quad\varepsilon_0,
+  \quad\varepsilon_0+2t,
+  \quad\varepsilon_0.
+\end{equation}
+Substitution into Equation~\eqref{eq:training-isolated-forward-transform}
+gives
+\begin{equation}
+  t_0=\varepsilon_0,
+  \qquad
+  t_{-1}=t_1=t,
+  \qquad
+  t_{-2}=0.
+\end{equation}
+The inverse transform recovers all four samples. This example makes the meaning
+of ``range one'' literal: only the onsite and adjacent-cell coefficients are
+nonzero. A general sampled band need not terminate at any finite range.
+
+\section{Finite-range truncation}
+\index{hopping truncation}
+
+For an integer $R_{\max}<N/2$, retain the symmetric representative set
+\begin{equation}
+  \mathcal R_{R_{\max}}
+  =\{R\in\mathcal R_N:|R|\leq R_{\max}\}.
+  \label{eq:training-isolated-range-set}
+\end{equation}
+The Fourier-mediated finite-range model is
+\begin{equation}
+  E_{R_{\max}}^{\mathrm{med}}(\kappa)
+  =\sum_{R\in\mathcal R_{R_{\max}}}
+    e^{2\pi iR\kappa}t_R.
+  \label{eq:training-isolated-truncated-band}
+\end{equation}
+This operation removes hopping coefficients. It does not reduce the dimension
+of the already selected scalar band, select a new eigenspace, or choose a
+Wannier gauge. It is a model-class approximation performed after band
+retention.
+
+The omitted-coefficient norm
+\begin{equation}
+  \eta_{R_{\max}}
+  =\left(
+    \sum_{R\notin\mathcal R_{R_{\max}}}|t_R|^2
+   \right)^{1/2}
+  \label{eq:training-isolated-omitted-norm}
+\end{equation}
+is a representation diagnostic with energy units. It is not a probability, an
+energy fraction, or a material uncertainty.
+
+\section{Parseval's identity for the truncation residual}
+\index{Parseval identity!finite hopping transform}
+
+On the training mesh define
+\begin{equation}
+  r_j
+  =E_{R_{\max}}^{\mathrm{med}}(\kappa_j)-E_j
+  =-\sum_{R\notin\mathcal R_{R_{\max}}}
+    e^{2\pi iR\kappa_j}t_R.
+  \label{eq:training-isolated-training-residual}
+\end{equation}
+Then
+\begin{align}
+  \sum_{j=0}^{N-1}|r_j|^2
+  &=\sum_j
+    \sum_{R\notin\mathcal R_{R_{\max}}}
+    \sum_{S\notin\mathcal R_{R_{\max}}}
+    e^{2\pi i(R-S)\kappa_j}t_Rt_S^*\\
+  &=N\sum_{R\notin\mathcal R_{R_{\max}}}|t_R|^2.
+  \label{eq:training-isolated-parseval}
+\end{align}
+The second line follows from finite Fourier orthogonality. This is an exact
+identity for the stated complete mesh, representatives, and normalization.
+
+Parseval equates a squared residual summed over the training mesh with a
+squared omitted-coefficient norm. It does not state that the maximum error is
+the same quantity. It also does not determine the error at a new reciprocal
+coordinate, where finite Fourier interpolation rather than discrete
+orthogonality controls the comparison.
+
+\section{The direct least-squares route}
+\index{least squares!direct hopping fit}
+\index{route comparison!Fourier mediated}
+
+Instead of first calculating all $N$ coefficients, one can fit a chosen
+finite-range class directly. Let the columns be indexed by
+$R\in\mathcal R_{R_{\max}}$ and define
+\begin{equation}
+  A_{jR}=e^{2\pi iR\kappa_j}.
+  \label{eq:training-isolated-design-matrix}
+\end{equation}
+For nonnegative declared weights $w_j$, the direct route solves
+\begin{equation}
+  \min_{\boldsymbol\tau}
+  \sum_{j=0}^{N-1}w_j
+  \left|
+    E_j-\sum_R A_{jR}\tau_R
+  \right|^2.
+  \label{eq:training-isolated-weighted-fit}
+\end{equation}
+The unknown vector $\boldsymbol\tau$ contains the directly fitted hoppings. A
+stable numerical implementation normally uses a QR or singular-value method
+rather than explicitly forming inverse normal equations~\cite{golubVanLoan2013}.
+
+With the complete uniform mesh, equal weights, and distinct representatives,
+Fourier orthogonality gives
+\begin{equation}
+  A^{\dagger}A=NI.
+  \label{eq:training-isolated-orthogonal-design}
+\end{equation}
+The least-squares solution is therefore
+\begin{equation}
+  \boldsymbol\tau
+  =\frac1N A^{\dagger}\mathbf E,
+  \label{eq:training-isolated-fit-fourier-solution}
+\end{equation}
+which selects the same coefficients as the complete transform and then discards
+the unrepresented columns. Under these hypotheses, direct fitting and
+Fourier-mediated truncation are the same orthogonal projection.
+
+This equivalence is conditional, not a general property of two workflows. It
+can be lost by changing
+\begin{itemize}
+  \item the reciprocal coordinates or Fourier signs;
+  \item the weights;
+  \item the fitting domain;
+  \item the retained representatives;
+  \item Hermiticity or parameter-sharing constraints;
+  \item the fitted observable; or
+  \item, for a multiband operator, the aligned frame.
+\end{itemize}
+When one of these changes, a nonzero route defect may correctly report two
+different approximation problems rather than a software failure.
+
+\subsection{Rank, identifiability, and conditioning}
+
+The design rank is the dimension of the coefficient combinations visible on
+the training coordinates. If
+\begin{equation}
+  \operatorname{rank}(A)<|\mathcal R_{R_{\max}}|,
+\end{equation}
+then multiple coefficient vectors produce the same fitted samples and the
+individual hoppings are not identified by that design. Full column rank gives a
+unique least-squares minimizer, but uniqueness does not guarantee numerical
+stability.
+
+If $\sigma_{\max}$ and $\sigma_{\min}$ are the largest and smallest nonzero
+singular values, the two-norm condition number is
+\begin{equation}
+  \kappa_2(A)=\frac{\sigma_{\max}}{\sigma_{\min}}.
+  \label{eq:training-isolated-design-condition}
+\end{equation}
+A large condition number warns that small perturbations in samples may produce
+large coefficient changes. On the matched complete uniform design above, the
+columns are orthogonal and the condition number is one. That favorable value is
+a property of this design, not of every hopping fit.
+
+\section{Training and withheld reciprocal coordinates}
+\index{training mesh!complete Fourier}
+\index{withheld mesh!staggered reciprocal}
+
+The complete training mesh has a special algebraic role: it defines the
+finite Fourier transform. Reconstructing those same $N$ values with all $N$
+coefficients verifies the transform pair, but it is interpolation of the data
+that defined the coefficients. It is not evidence about unsampled coordinates.
+
+A separate uniform withheld mesh can be staggered so that it shares no training
+coordinates. For training extent $N$, withheld extent $M$, and
+\begin{equation}
+  \eta=\frac{1}{N+1},
+\end{equation}
+define
+\begin{equation}
+  \kappa_i^{\mathrm W}
+  =-\frac12+\frac{i+\eta}{M},
+  \qquad i=0,\ldots,M-1.
+  \label{eq:training-isolated-withheld-mesh}
+\end{equation}
+To see why the meshes are disjoint, suppose a training and withheld coordinate
+were equal. Cancelling $-1/2$ would give
+\begin{equation}
+  \frac{j}{N}=\frac{i+1/(N+1)}{M}.
+\end{equation}
+Multiplication by $MN(N+1)$ would require
+\begin{equation}
+  jM(N+1)=iN(N+1)+N.
+\end{equation}
+The left side is divisible by $N+1$, whereas the right side has remainder $N$
+and is not. The assumed equality is impossible.
+
+The withheld values are evaluated only after the coefficients, tested ranges,
+and tolerances have been frozen. They may reveal interpolation behavior between
+training points. They must not update the fit, choose a range, alter a threshold,
+or become a new training set while retaining the label ``withheld.'' In this
+synthetic setting, withheld evaluation is still numerical evidence relative to
+the selected parent representation; it is not scientific validation.
+
+\section{Band-shape and structural diagnostics}
+\index{bandwidth!scalar hopping model}
+\index{curvature!reduced momentum}
+
+A diagnostic has meaning only after its domain and coordinate are declared. On
+a finite comparison set $\mathcal K_{\mathrm{cmp}}$, the sampled bandwidth is
+\begin{equation}
+  W_{\mathrm{sampled}}
+  =\max_{\kappa\in\mathcal K_{\mathrm{cmp}}}E(\kappa)
+   -\min_{\kappa\in\mathcal K_{\mathrm{cmp}}}E(\kappa).
+  \label{eq:training-isolated-bandwidth}
+\end{equation}
+It need not equal the exact continuous bandwidth unless the extrema are known
+to lie in the sampled set.
+
+For the trigonometric polynomial
+\begin{equation}
+  E_R(\kappa)=\sum_R e^{2\pi iR\kappa}t_R,
+\end{equation}
+differentiation is analytical:
+\begin{equation}
+  \frac{\mathrm d^2E_R}{\mathrm d\kappa^2}(0)
+  =-(2\pi)^2\sum_R R^2t_R.
+  \label{eq:training-isolated-reduced-curvature}
+\end{equation}
+Because $\kappa=k/G$,
+\begin{equation}
+  \frac{\mathrm d^2E_R}{\mathrm d k^2}
+  =\frac{1}{G^2}
+   \frac{\mathrm d^2E_R}{\mathrm d\kappa^2}.
+  \label{eq:training-isolated-physical-curvature}
+\end{equation}
+Thus reduced-coordinate curvature and physical-wave-vector curvature have
+different units. Neither becomes a material effective mass until the extremum,
+physical scales, band identity, and effective-mass convention are supplied.
+
+Numerical interpolation may also produce small imaginary components even when
+the target band is real. A scalar diagnostic can report
+\begin{equation}
+  \epsilon_{\mathrm{imag}}
+  =\max\left\{
+    \max_{\kappa\in\mathcal K_{\mathrm{cmp}}}
+      |\operatorname{Im}E_R(\kappa)|,
+    \left|
+      \operatorname{Im}
+      \frac{\mathrm d^2E_R}{\mathrm d\kappa^2}(0)
+    \right|
+  \right\}.
+  \label{eq:training-isolated-imaginary-residual}
+\end{equation}
+This checks consistency with a real scalar observable. It does not replace the
+coefficient-level Hermiticity check in
+Equation~\eqref{eq:training-isolated-hopping-hermiticity}.
+
+Maximum error and root-mean-square error must also be named separately. For
+residuals $r_i$,
+\begin{equation}
+  \epsilon_{\max}=\max_i|r_i|,
+  \qquad
+  \epsilon_{\mathrm{RMS}}
+  =\left(\frac1M\sum_i|r_i|^2\right)^{1/2}.
+  \label{eq:training-isolated-max-rms}
+\end{equation}
+They answer different questions and generally have different values. A report
+must not transfer a number from one metric to the other because both are called
+``band error.''
+
+\section{A transparent computational example}
+
+The following synthetic example implements the transform, truncation, direct
+fit, and withheld comparison directly. It is intentionally smaller than a
+research calculation so that every array has an evident meaning.
+
+\begin{pythonexample}{transforming a sampled scalar band into hoppings}
+import numpy as np
+
+# Use an even complete mesh on the half-open reduced Brillouin zone.
+N = 8
+training_kappa = -0.5 + np.arange(N, dtype=np.float64) / N
+representatives = np.arange(-N // 2, N // 2, dtype=np.int64)
+
+# Define a synthetic scalar band with range-two Fourier content.
+epsilon_0 = 0.7
+t_1 = -0.12
+t_2 = 0.015
+training_energy = (
+    epsilon_0
+    + 2.0 * t_1 * np.cos(2.0 * np.pi * training_kappa)
+    + 2.0 * t_2 * np.cos(4.0 * np.pi * training_kappa)
+)
+
+# Apply the declared forward transform one representative at a time.
+hoppings = np.array(
+    [
+        np.mean(
+            training_energy
+            * np.exp(-2j * np.pi * R * training_kappa)
+        )
+        for R in representatives
+    ],
+    dtype=np.complex128,
+)
+
+# The complete inverse transform must reproduce every training value.
+complete_design = np.exp(
+    2j * np.pi * np.outer(training_kappa, representatives)
+)
+reconstructed = complete_design @ hoppings
+np.testing.assert_allclose(reconstructed.real, training_energy, atol=1e-14)
+np.testing.assert_allclose(reconstructed.imag, 0.0, atol=1e-14)
+
+# Retain the symmetric range-one model and evaluate its training residual.
+range_mask = np.abs(representatives) <= 1
+range_representatives = representatives[range_mask]
+mediated_hoppings = hoppings[range_mask]
+range_design = np.exp(
+    2j * np.pi * np.outer(training_kappa, range_representatives)
+)
+mediated_training = range_design @ mediated_hoppings
+
+# Equal-weight direct least squares on the same complete mesh is equivalent.
+direct_hoppings, _, rank, singular_values = np.linalg.lstsq(
+    range_design,
+    training_energy.astype(np.complex128),
+    rcond=None,
+)
+np.testing.assert_allclose(direct_hoppings, mediated_hoppings, atol=1e-14)
+assert rank == range_representatives.size
+condition_number = singular_values[0] / singular_values[-1]
+
+# Use a frozen staggered mesh only for evaluation, never for the fit.
+M = 17
+offset = 1.0 / (N + 1)
+withheld_kappa = -0.5 + (np.arange(M) + offset) / M
+withheld_target = (
+    epsilon_0
+    + 2.0 * t_1 * np.cos(2.0 * np.pi * withheld_kappa)
+    + 2.0 * t_2 * np.cos(4.0 * np.pi * withheld_kappa)
+)
+withheld_design = np.exp(
+    2j * np.pi * np.outer(withheld_kappa, range_representatives)
+)
+withheld_candidate = withheld_design @ mediated_hoppings
+withheld_maximum_error = np.max(
+    np.abs(withheld_candidate.real - withheld_target)
+)
+
+print("direct design rank:", rank)
+print("direct design condition number:", condition_number)
+print("withheld maximum error:", withheld_maximum_error)
+\end{pythonexample}
+
+The example's range-one error is intentional because the target contains a
+range-two term. Exact complete-mesh reconstruction checks the transform. The
+nonzero withheld error checks the deliberately truncated candidate. Neither
+observation is a material result.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/isolated_band_fourier_reduction.ipynb}
+only after this lecture contract is stable. Include explicit imports,
+explanatory inline comments, a hand-checkable transform, modular Hermiticity,
+Parseval, equal-weight route equivalence, a deliberately changed-weight route,
+and disjoint withheld evaluation. Keep all examples synthetic and do not create
+or execute the notebook as part of the present manuscript change.}
+
+\section{A staged isolated-band laboratory}
+\index{laboratory!isolated-band Fourier reduction}
+
+A useful laboratory should preserve the sequence of objects rather than jumping
+directly from a potential to a final error curve.
+
+\begin{enumerate}
+  \item Declare $a$, $G$, $E_G$, $\lambda$, the reciprocal interval, and the
+        energy zero.
+  \item Construct plane-wave fiber matrices and verify their Hermiticity and
+        reciprocal-index coupling pattern.
+  \item Construct the independent finite-difference fibers, including the
+        conjugate seam phases.
+  \item Compare a frozen set of low eigenvalues against a declared finite
+        reference while retaining the two discretization channels separately.
+  \item Check the sampled isolation gap before assigning a scalar band role.
+  \item Freeze the complete training mesh, representative convention, tested
+        ranges, withheld rule, metrics, and numerical tolerances.
+  \item Calculate the complete transform and verify inverse reconstruction and
+        modular hopping Hermiticity.
+  \item For each range, retain the omitted norm, training and withheld errors,
+        Parseval residual, direct-fit rank and conditioning, route defects, and
+        band-shape diagnostics.
+  \item Interpret numerical-consistency tolerances separately from any later
+        model-selection or scientific-acceptance threshold.
+\end{enumerate}
+
+If one stage fails, the workflow should stop or retain the failure explicitly.
+For example, a poorly isolated band is not repaired by making the hopping range
+larger, and a rank-deficient direct design is not repaired by reporting only its
+training residual.
+
+\section{Common mistakes}
+
+\begin{enumerate}
+  \item Including both reciprocal-zone endpoints in a complete Fourier mesh.
+  \item Calling the reciprocal-index tridiagonal plane-wave matrix a
+        real-space nearest-neighbor model.
+  \item Treating a high finite cutoff as the exact continuum spectrum.
+  \item Assuming a positive sampled gap proves isolation between sample points.
+  \item Claiming that scalar energy samples construct a Wannier gauge or
+        localized orbital.
+  \item Ignoring modular opposites at the even-mesh Nyquist representative.
+  \item Calling hopping truncation a projection onto fewer quantum states.
+  \item Applying Parseval's training-mesh identity directly to a withheld
+        maximum error.
+  \item Assuming direct fitting and mediated truncation agree after changing
+        weights, coordinates, constraints, or model classes.
+  \item Using withheld points to choose the hopping range and then continuing
+        to call them withheld.
+  \item Reporting reduced-coordinate curvature as a physical effective mass.
+  \item Treating a binary64 numerical tolerance as scientific uncertainty.
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Starting from Equation~\eqref{eq:training-isolated-fiber}, derive every
+        term in Equation~\eqref{eq:training-isolated-plane-wave-matrix}.
+  \item Construct the $P=1$ plane-wave matrix explicitly for arbitrary
+        $\kappa$ and $\lambda$, and verify its Hermiticity.
+  \item Derive the two finite-difference seam entries in
+        Equation~\eqref{eq:training-isolated-fd-seam} from the Bloch boundary
+        condition.
+  \item Prove Equation~\eqref{eq:training-isolated-fourier-orthogonality} by
+        summing a finite geometric series.
+  \item Complete every sum in the four-point example and explain why the
+        representative $-2$ is its own modular opposite.
+  \item Derive Equation~\eqref{eq:training-isolated-parseval} without invoking
+        an infinite Fourier-series theorem.
+  \item Use Equation~\eqref{eq:training-isolated-orthogonal-design} to derive
+        the direct-fit solution in
+        Equation~\eqref{eq:training-isolated-fit-fourier-solution}.
+  \item Change one weight in the Python example and measure the resulting
+        direct-versus-mediated coefficient defect.
+  \item Prove the withheld-mesh disjointness argument for arbitrary positive
+        integers $N$ and $M$.
+  \item Convert a reduced curvature to physical-$k$ curvature and list the
+        additional assumptions required to call it an effective mass.
+\end{enumerate}
+
+\section{Evidence boundary and next use}
+
+The derivations establish finite-transform identities under their stated
+conventions. The Python example checks those identities for synthetic data.
+Neither establishes that a particular continuum calculation is converged, that
+a finite hopping range is adequate for an application, or that a physical
+material is described correctly.
+
+Appendix~\ref{app:one-dimensional-reduction} applies this chain to retained
+controlled calculations. Its numerical outcomes, historical localization
+channels, and provenance remain owned by their calculation packages. The
+present chapter supplies the explanatory mathematics and does not inherit their
+evidence status. Chapter~\ref{ch:training-composite-band-gauge-alignment} next
+replaces the scalar retained space by a composite frame and derives the missing
+Bloch--Wannier, transport, alignment, and block-locality relations. The final
+Part~I chapter then explains how to classify claims, references, observations,
+and dispositions.

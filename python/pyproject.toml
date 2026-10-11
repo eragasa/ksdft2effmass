@@ -141,7 +141,7 @@ indent-style = "space"
 
 
 [tool.uv.sources]
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "0f17e84d421ebdae5d55d06f807db64d6b408262" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "949d106bc98975a18ad86d6fa84092ef0c68298e" }
 
 
 [tool.mypy]

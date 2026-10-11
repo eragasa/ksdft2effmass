@@ -15,6 +15,13 @@ remain intentionally duplicated as evidence; that does not make it the supported
 implementation. Plotting and manuscript-only exposition are not required to become
 scientific library APIs.
 
+The living monograph consumes this audit through its
+[current-library capability crosswalk](../../../publications/research-monograph/current-library-capability-crosswalk.md).
+That crosswalk maps these architecture and extraction dispositions to proposed new
+calculations and manuscript sections. It does not supersede this audit: architecture
+continues to own software status and migration gates, while the publication-side record
+owns rewrite sequence and evidence planning.
+
 Status meanings:
 
 - **integrated**: reusable computation and campaign contracts have public owners; only
