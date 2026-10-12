@@ -17,8 +17,9 @@ Generic immutable evaluation of that quadratic is supplied by exact-pinned
 `projectkoios-optimization` commit `ec3d290…` through
 `projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`. The
 [`exports/optimization`](../../../../../../exports/optimization/README.md) page records
-the completed transfer; no duplicate source remains here. Current M3 public routes and
-retained wire identities remain unchanged. Direct $L_E$ construction, $L_H$
+the completed transfer and separately stages new affine-quadratic and diagonal-metric
+donor candidates. Current M3 public routes and retained wire identities remain
+unchanged. Direct $L_E$ construction, $L_H$
 normalization, general admissible sets, and general certificates remain unimplemented.
 Reusable dimensionful hopping/path aggregation belongs to PhysKit.
 
@@ -28,9 +29,10 @@ classes, scientific weight and bound selection, thresholds, witnesses, support c
 bounded class/hierarchy dispositions. It is planned to compose PhysKit lattice
 primitives and `projectkoios.optimization.ParameterSpace`. Missing reusable PhysKit
 behavior belongs under the
-[`exports/physkit`](../../../../../../exports/physkit/README.md) boundary; remaining generic optimization behavior belongs to Optimization, with
-prospective
-transfer work recorded under `exports/optimization`. HSH-1 remains draft,
+[`exports/physkit`](../../../../../../exports/physkit/README.md) boundary; orbit, shell,
+projection, and hopping-geometry donor candidates are now staged there. Remaining
+generic optimization behavior belongs to Optimization, with transfer work recorded
+under `exports/optimization`. HSH-1 remains draft,
 unfrozen, and unimplemented.
 
 The ownership selection is explained in the
@@ -46,8 +48,8 @@ The current and prospective child surface is:
 | Child | Responsibility | Status |
 |---|---|---|
 | [`hopping_shell_hierarchy`](hopping_shell_hierarchy/index.md) | HSH-1 source projection, nested shell classes, proof objects, and bounded dispositions | Architecture selected; not implemented or frozen |
-| [`exports/optimization`](../../../../../../exports/optimization/README.md) | Completed quadratic transfer record and remaining prospective owner map | No active quadratic source; accepted owner commit exact-pinned |
-| [`exports/physkit`](../../../../../../exports/physkit/README.md) | Reuse map and future PhysKit-bound candidates | No new source candidate yet |
+| [`exports/optimization`](../../../../../../exports/optimization/README.md) | Completed quadratic transfer plus affine-quadratic and diagonal-metric donor candidates | Active non-runtime candidates; not owner-accepted |
+| [`exports/physkit`](../../../../../../exports/physkit/README.md) | Orbit, shell, projection, and hopping-geometry donor candidates | Active non-runtime candidates; not owner-accepted |
 
 Future general `admissible_sets` or `certificates` children require separate accepted
 contracts. HSH-local admissible sets and certificates do not create those general
@@ -137,8 +139,8 @@ monolithic private helper cannot become the sole owner of verifiable mathematics
 | Path | Role | Status |
 |---|---|---|
 | `python/src/ksdft2effmass/analysis/model_adequacy/` | Future KSD-specific analysis owner | Absent; no supported import |
-| `exports/optimization/` | Completed quadratic-transfer record and future candidate boundary | No active source; owner commit `ec3d290…` accepted and pinned |
-| `exports/physkit/` | Existing-API reuse map and future target-relative candidates | Staged boundary; no new source yet |
+| `exports/optimization/` | Completed quadratic-transfer record plus flattened donor source and transfer contracts | Active non-runtime candidate over owner commit `ec3d290…` |
+| `exports/physkit/` | Existing-API reuse map plus flattened lattice donor source and transfer contracts | Active non-runtime candidate over owner commit `d6333208…` |
 | `python/src/ksdft2effmass/analysis/model_adequacy/hopping_shell_hierarchy/` | Future HSH-1 domain owner | Absent; prospective only |
 
 ## Test mapping
@@ -148,6 +150,12 @@ exact-pinned `ParameterSpace` contract and quadratic facade at
 `python/tests/software_verification/ksdft2effmass/analysis/test__ProjectKoiosOptimizationParameterSpaceDependency.py`
 and
 `python/tests/software_verification/ksdft2effmass/analysis/test__ProjectKoiosOptimizationQuadraticLossDependency.py`.
+Mapped donor-candidate tests are staged below `exports/optimization/tests/` and
+`exports/physkit/tests/`. They verify generic formulas, deterministic ordering,
+full-block multiplicities, failure boundaries, and candidate integration against the
+exact owner bases. Passing those tests does not create a supported KSD API or establish
+scientific validation.
+
 HSH-1 requires separate software and numerical verification. Its independent verifier
 must reconstruct formulas and invariants without calling producer evaluators. M3's
 independent verifier remains separate.
@@ -170,8 +178,8 @@ API.
 
 | Evidence kind | Status | Evidence or reason | Validity domain |
 |---|---|---|---|
-| Software verification | Dependency evidence | Optimization reports 95 owner cases plus clean Ruff/mypy/build/wheel gates; 5 focused consuming-project parameter-space/quadratic cases pass locally | Exact-pinned owner API and dependency boundary only; no local model-adequacy API |
-| Numerical verification | Bounded dependency smoke evidence | Dense and sparse facade values agree with one hand-derived completed square | Selected smoke case only; not a retained scientific campaign |
+| Software verification | Dependency and donor-candidate evidence | Optimization reports 95 accepted-owner cases; local disposable overlays pass 111 Optimization and 1,188 non-slow PhysKit cases plus 20 subtests, scoped Ruff/format, strict candidate typing, build, and wheel-import gates | Exact owner bases and staged generic candidates only; no local model-adequacy API |
+| Numerical verification | Bounded dependency and candidate smoke evidence | Dense/sparse affine quadratics agree with direct residual sums; orbit/shell and Frobenius values agree with explicit finite examples | Selected deterministic software examples only; not a retained scientific campaign |
 | Scientific validation | Not evaluated | Mathematical analysis contract only | None |
 | Uncertainty quantification | Not applicable | Deterministic losses are not uncertainty models | None |
 | Human acceptance | Not applicable | Namespace selection is not scientific acceptance | None |
@@ -182,7 +190,8 @@ No local slice implements direct $L_E$ construction, $L_H$ normalization, spectr
 weights, operator-path sampling, threshold or bound selection, admissible-set
 dispositions, support arithmetic, or serializers. The generic closed-box record is
 reused from `projectkoios.optimization`; no local coordinate-box type is introduced.
-HSH-1 remains blocked on unresolved controls, missing PhysKit-owned foundations, and
-outward-rounding policy; generic quadratic availability is no longer a blocker. Current
+HSH-1 remains blocked on unresolved controls, owner acceptance and publication of the
+staged foundations, missing feasibility/support capabilities, and outward-rounding
+policy; generic quadratic availability is no longer a blocker. Current
 M3 quadratics remain implemented and supported at their existing `periodic1d` route.
 Any later delegation is a separately reviewed behavior-preserving implementation change.

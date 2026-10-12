@@ -19,6 +19,8 @@ itself.
 | M3 `Periodic1DQuadraticLoss` | `periodic1d.admissible_sets` | Maintained compatibility wrapper; may delegate behavior later |
 | M3 calculation/result/serializer/verifier | `periodic1d.admissible_sets` | Current route preserved; complete outward migration requires separate review |
 | Generic unit-free SPD quadratic | `projectkoios-optimization` | Implemented at commit `ec3d290…`, consumed through `projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`, and exact-pinned here |
+| Generic unit-free affine-quadratic construction and positive diagonal metric | Active donor candidates under `exports/optimization/` | Requires Optimization owner review, immutable owner commit, and separately authorized dependency repin before runtime use |
+| Generic hopping orbits, shells, real symmetry projection, and dimensionful Frobenius geometry | Active donor candidates under `exports/physkit/` | Requires PhysKit owner review, immutable owner commit, and separately authorized dependency repin before runtime use |
 | Prospective HSH shell/channel wrapper and certificates | Not implemented | Outward HSH owner under `analysis.model_adequacy`; HSH policy remains local to that child |
 | Generic spectral RMS loss $L_E$ | Private duplicated calculations only | Deferred pending stable sample contract |
 | Generic dimensionful hopping/operator RMS residual $R_H$ | Absent | Deferred to PhysKit, composing already compatible primitive residuals |
@@ -51,6 +53,22 @@ and `ParameterSpace` smoke tests. Superseded donor bytes were preserved in an ex
 recovery bundle and removed from active export staging, so there is no supported local
 quadratic import or duplicate implementation. No M3 source, retained package, schema, or
 verifier changed in this phase.
+
+## Phase 1A — owner-foundation export candidates
+
+Active flattened donor candidates under `exports/optimization/` and
+`exports/physkit/periodic/lattice/` implement the smallest reusable foundation tranche:
+unit-free affine-residual quadratic construction, unit-free positive diagonal metric
+geometry, signed-axis displacement orbits, exact integer shells, scalar-hopping defect
+analysis and real-orbit projection, and dimensionful full-block Frobenius distance.
+
+These files are non-runtime transfer candidates. They do not create supported KSD
+imports, alter the current exact dependency pins, or imply target-owner acceptance.
+Target integration requires separate owner review and immutable owner commits; KSD may
+consume those commits only after a separately authorized repin.
+
+Feasibility, reconstructable box-constrained minima, common-witness search, support
+optimization, set-distance bounds, and directed rounding remain unstaged.
 
 ## Phase 2 — M3 agreement without public migration
 
@@ -99,6 +117,8 @@ Reusable source projection, orbit/shell construction, multiplicities, and dimens
 hopping/Frobenius metrics belong to PhysKit.
 The generic inclusive box is represented by `projectkoios.optimization.ParameterSpace`;
 fixed inactive coordinates use equal lower and upper bounds rather than a tolerance.
+The staged donor candidates must first be accepted and published by their owners; files
+under `exports/` are not HSH runtime dependencies.
 
 ## Phase 4 — outward Action migration
 
@@ -119,7 +139,9 @@ One defining type may have deliberate re-export routes.
 
 ## Phase 5 — later loss channels
 
-Unit-free affine-residual and quadratic mechanics belong to optimization. A KSD-specific
+Unit-free affine-residual and quadratic mechanics belong to optimization. The active
+export candidate implements only affine construction over the existing quadratic
+facade; it does not implement bounded feasibility or certificates. A KSD-specific
 $L_E$ analyzer remains responsible for sampled-spectrum identity, physical-unit
 compatibility, ordering, weights, rank normalization, energy scale, and overflow
 behavior before crossing that unit-free boundary.

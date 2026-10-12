@@ -15,10 +15,9 @@ selected and its dependency update is separately authorized.
 Current target bundles:
 
 - [`optimization`](optimization/README.md) — accepted upstream unit-free quadratic and
-  bounded-coordinate APIs plus prospective feasibility, metric, and optimization
-  mathematics; no active source candidate currently remains;
-- [`physkit`](physkit/README.md) — dimensionful or physically interpreted quantities,
-  metrics, lattice, hopping, symmetry, projection, and coefficient geometry.
+  bounded-coordinate APIs plus active affine-quadratic and diagonal-metric candidates;
+- [`physkit`](physkit/README.md) — active finite hopping orbit, shell, projection, and
+  dimensionful Frobenius-geometry candidates built on accepted lattice primitives.
 
 A candidate that carries physical dimensions or units belongs to PhysKit, not
 optimization. Scientific callers must nondimensionalize before passing values into an

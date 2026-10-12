@@ -1,0 +1,29 @@
+schema_version = 1
+status = "non-runtime-candidate"
+target_repository = "https://github.com/eragasa/projectkoios-optimization"
+target_base_commit = "ec3d2907097a659aef4be2b3384bd1922a9cb4dc"
+donor_base_commit = "08a3211f0748bdbb1d45bfc12f2ca8f8205007d3"
+
+[[files]]
+source = "../affine.py"
+destination = "src/python/projectkoios/optimization/affine.py"
+kind = "python-source"
+sha256 = "1c2473e40aa94a466c4b1b92605a2f8b83ba583853d43970dc8e172ef08e10ad"
+
+[[files]]
+source = "../metric.py"
+destination = "src/python/projectkoios/optimization/metric.py"
+kind = "python-source"
+sha256 = "576e84d81abc245a5f37b05e79a6c7ee4cfbccb240e73a5e6fc3bc139e227efc"
+
+[[files]]
+source = "../tests/integration/test_affine_quadratic.py"
+destination = "tests/integration/test_affine_quadratic.py"
+kind = "python-test"
+sha256 = "71ae002966de48441237fb55899b3ff63bc34f8956b9803174a2d9c8ad44dbbf"
+
+[[files]]
+source = "../tests/unit/test_metric.py"
+destination = "tests/unit/test_metric.py"
+kind = "python-test"
+sha256 = "f062b24a16b5b3bf970c7ed04da8be0d7b54d7940f8abcdd256e0a4251f14603"
