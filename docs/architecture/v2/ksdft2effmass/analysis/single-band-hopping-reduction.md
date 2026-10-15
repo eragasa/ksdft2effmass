@@ -54,11 +54,14 @@ pre-scaling, maps coefficient rows to unit-bearing hopping blocks, and independe
 reconstructs domain diagnostics. The Workflow exposes no owner-neutral solver
 interface and contains no second `lstsq` implementation.
 
-The reviewed owner dependency is pinned to exact commit
-`d9a82252faa1b41d82cce11149329aa91b84dff0` in `python/pyproject.toml` and
-`python/uv.lock`; the least-squares capability is unchanged from its reviewed parent
-revision `6c3f73cd5f1810c8de915e1559658ea4b79c2357`. Owner qualification and adapter
-verification remain distinct from KSD scientific validation.
+The live reviewed owner dependencies are pinned to Optimization commit
+`f6bdecc418e46240087d1dfb1c22dac396cdc455` and synchronized PhysKit commit
+`2cede347e4beeb39f06ca096c15b7a76de276953` in `python/pyproject.toml` and
+`python/uv.lock`. The Optimization change from the version-one execution revision is a
+qualified typing refactor; the public least-squares contract is unchanged. Immutable
+version-one provenance and its experiment-owned lock retain the exact revisions used by
+the execution. Owner qualification and adapter verification remain distinct from KSD
+scientific validation.
 
 ## Experiment boundary
 

@@ -112,13 +112,25 @@ def main() -> int:
         != EXPECTED_PHYSKIT_REVISION
     ):
         raise ValueError("provenance dependency revisions do not match version v1")
-    for declaration in (
-        repository / "python/pyproject.toml",
-        repository / "python/uv.lock",
-        experiment / "uv.lock",
+    # Version-one execution dependencies remain frozen in the experiment-owned
+    # declarations. Repository-level development pins may advance independently.
+    require_revision_in_file(
+        experiment / "pyproject.toml", EXPECTED_OPTIMIZATION_REVISION
+    )
+    require_revision_in_file(experiment / "uv.lock", EXPECTED_OPTIMIZATION_REVISION)
+    require_revision_in_file(experiment / "uv.lock", EXPECTED_PHYSKIT_REVISION)
+
+    repository_provenance = provenance.get("repository")
+    if not isinstance(repository_provenance, dict):
+        raise TypeError("provenance repository record must be a dict")
+    source_manifest_name = repository_provenance.get("source_manifest")
+    source_manifest_digest = repository_provenance.get("source_manifest_sha256")
+    if not isinstance(source_manifest_name, str) or not isinstance(
+        source_manifest_digest, str
     ):
-        require_revision_in_file(declaration, EXPECTED_OPTIMIZATION_REVISION)
-        require_revision_in_file(declaration, EXPECTED_PHYSKIT_REVISION)
+        raise TypeError("source-manifest name and digest are required")
+    if sha256(package / source_manifest_name) != source_manifest_digest:
+        raise ValueError("source manifest does not match retained provenance")
 
     predecessor = provenance.get("historical_predecessor")
     if not isinstance(predecessor, dict):

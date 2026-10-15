@@ -42,8 +42,9 @@ Version `v1` retains the historical synthetic controls and adds:
 - canonical finite JSON and strict version-bound schemas;
 - a producer-independent verifier that does not call the experiment or reusable
   reduction Workflow Actions; and
-- exact dirty-worktree source, dependency, runtime, historical-predecessor, file, run,
-  and evidence-package identities.
+- exact dirty-worktree source, execution-time dependency, runtime,
+  historical-predecessor, file, run, and evidence-package identities, retained
+  separately from later repository-level dependency advances.
 
 The matched historical channels have zero retained binary64 defect in `parity.json`.
 The new sampled gaps are diagnostics only and do not retroactively alter historical M1.
