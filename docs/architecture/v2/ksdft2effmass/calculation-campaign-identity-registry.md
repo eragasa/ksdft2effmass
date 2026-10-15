@@ -88,7 +88,15 @@ Reference-data and extraction records use `ksdft2effmass.reference` and
 
 ## Consolidated family map
 
-### One-dimensional periodic reduction
+### Foundational model-system campaigns
+
+| Current locator or label | Permanent campaign-family ID | Scope note |
+|---|---|---|
+| `calculations/research-monograph/harmonic-oscillator/`; Appendix E | `ksdft2effmass.campaign.model-systems.harmonic-oscillator.common-space-comparison` | Analytical, finite-difference, and ladder-operator representations in one declared finite comparison space |
+| `calculations/research-monograph/particle-in-box/`; Appendix D | `ksdft2effmass.campaign.model-systems.particle-in-box.finite-representation-diagnostics` | Residual meaning, grid and mode refinement, norm behavior, and model-class identifiability |
+| `calculations/research-monograph/impurity-spin-spaces/`; Appendix I spin slice | `ksdft2effmass.campaign.operator-comparison.impurity.spin-space-compatibility` | Spinless, spin-degenerate, collinear, and spinor finite-space mappings and compatibility |
+
+### One-dimensional periodic reduction and model adequacy
 
 The historical `calculations/research-monograph/periodic-1d/` directory is an aggregate
 suite, not one permanent production campaign. Its retained files map to the following
@@ -100,10 +108,93 @@ families.
 | Appendix G periodic-1D stress files | `ksdft2effmass.campaign.periodic-reduction.periodic1d.isolated-band-robustness` | Potential, band, mesh, gauge, and fitting-route adverse controls |
 | Appendix G composite files; Conference Paper 1 M2 `multiband-alignment/` | `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | Composite frames, pointwise/global alignment, matrix hoppings, and gauge-dependent locality |
 | Appendix G retained Wannier90 attempts | `ksdft2effmass.campaign.periodic-reduction.periodic1d.wannier90-localization-comparison` | Bounded attempt history, preconditioning, localization, and independently retained comparison diagnostics |
+| Conference Paper 1 parent `paper_1/` direct calculation | `ksdft2effmass.campaign.model-adequacy.periodic1d.scalar-admissible-set-demonstration` | Scalar identity-alignment quadratic sets with a common witness and exact-rational separation bound |
+| Conference Paper 1 M3 `constrained-admissible-sets/` | `ksdft2effmass.campaign.model-adequacy.periodic1d.constrained-admissible-sets` | Rank-two two-parameter candidate family, finite global-alignment family, witness, and bounded separation certificate |
+| M3 `constrained-admissible-sets-threshold-sensitivity/` | `ksdft2effmass.campaign.model-adequacy.periodic1d.admissible-set-threshold-sensitivity` | Explicitly post-hoc sensitivity of the sealed M3 quadratics; separate from the confirmatory family |
 
-Historical aliases `M1` and `M2` describe a publication sequence. They may appear
+Historical aliases `M1`, `M2`, and `M3` describe a publication sequence. They may appear
 in provenance and prose, but maintained APIs and future runs should use the permanent
 family IDs.
+
+### Two-dimensional periodic reduction and model adequacy
+
+The historical `calculations/research-monograph/periodic-2d/` directory is also an
+aggregate suite. Production campaigns should not reproduce that colocation as one
+contract.
+
+| Current locator or label | Permanent campaign-family ID | Scope note |
+|---|---|---|
+| Appendix H scalar files | `ksdft2effmass.campaign.periodic-reduction.periodic2d.scalar-band-reduction` | Separable/coupled parent refinement, scalar band reduction, hopping shells, and effective-mass diagnostics |
+| Appendix H composite files | `ksdft2effmass.campaign.periodic-reduction.periodic2d.composite-band-gauge-and-locality` | Rank-three projected gauges, non-Abelian loops, finite-supercell spread, and block locality |
+| Appendix H topological files | `ksdft2effmass.campaign.periodic-reduction.periodic2d.topological-obstruction-controls` | QWZ, Hofstadter, and Haldane topological and trivial controls |
+| Appendix H topological phase-sweep files | `ksdft2effmass.campaign.periodic-reduction.periodic2d.topological-phase-boundaries` | Analytic and sampled phase-boundary checks; separate from the fixed-control campaign |
+| Appendix H balanced Wannier90 files | `ksdft2effmass.campaign.periodic-reduction.periodic2d.wannier90-localization-comparison` | Balanced embedding and direct-versus-native localization comparison |
+| Appendix H six-case Wannier90 study | `ksdft2effmass.campaign.periodic-reduction.periodic2d.wannier90-parameter-sensitivity` | Bounded mesh, cutoff, and inactive-embedding sensitivity; no convergence claim |
+| `periodic-2d-optimizer-basin/` initial study | `ksdft2effmass.campaign.periodic-reduction.periodic2d.wannier90-optimizer-basin` | Multi-start endpoint and basin sensitivity for the original bounded study |
+| `periodic-2d-optimizer-basin/` standalone expansion and continuations | `ksdft2effmass.campaign.periodic-reduction.periodic2d.wannier90-multistart-convergence` | Fixed-embedding multi-start and exact-checkpoint continuation study |
+| standalone censored regression | `ksdft2effmass.campaign.periodic-reduction.periodic2d.wannier90-convergence-regression` | Post-hoc right-censored convergence-iteration analysis; separate analysis family |
+| Conference Paper 1 draft M4 `two-dimensional-common-space/` | `ksdft2effmass.campaign.representation-comparison.periodic2d.common-finite-space` | Plane-wave and finite-difference representations transported to one declared finite comparison space |
+| Conference Paper 1 draft HSH-1 `hopping-shell-hierarchy/` | `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | Nested two-dimensional hopping-shell adequacy and certificate plan |
+
+Historical aliases `Appendix H`, `M4`, and `HSH-1` remain publication or planning
+labels, not production identities.
+
+### Dimensionality and anisotropy model-adequacy progression
+
+| Sequence role and current locator | Permanent campaign-family ID | Scope note |
+|---|---|---|
+| Isotropic 2-D; `docs/tasks/dev/experiments/isotropic2d/`; historical HSH-1 | `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | Existing square-symmetric retained scalar target; first stage and already listed in the periodic-2D table above |
+| Isotropic 3-D; `docs/tasks/dev/experiments/isotropic3d/` | `ksdft2effmass.campaign.model-adequacy.periodic3d.isotropic-hopping-support-hierarchy` | Selected simple-cubic scalar control introducing the third periodic coordinate while preserving signed-permutation symmetry; protocol not frozen |
+| Anisotropic 2-D; task not yet opened | `ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy` | Selected rectangular/sign-symmetric stress family removing axis-permutation equivalence in two dimensions; protocol not frozen |
+| Anisotropic 3-D; `experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/` | `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy` | Preserved controlled orthorhombic scalar parent and explicit anisotropic support classes; exact pre-version proposal and exploratory design note exist, with no silicon claim |
+
+These are four independent experiment families ordered by the
+[dimensionality and anisotropy ladder](../experiments/model-adequacy/dimensional-anisotropy-ladder.md),
+not one version chain. Later 2-D and 3-D
+[general-lattice-vector work](analysis/model_adequacy/general-lattice-vector-extension.md)
+is a prospective capability-extraction phase and has no experiment-family identity
+until concrete finite scientific questions and verification cases are selected.
+
+The synthetic families are not predecessor versions of a bulk-silicon study. Any future
+silicon admissible-set experiment receives a distinct family identity bound to its
+material parent, represented basis, gauge, orbital/valley/spin structure, and
+provenance.
+
+### Impurity and defect campaigns
+
+| Current locator or label | Permanent campaign-family ID | Scope note |
+|---|---|---|
+| `impurity-defect-1d/` | `ksdft2effmass.campaign.defect-extraction.periodic1d.matched-pristine-defect` | Matched pristine/defect construction with planted coordinate and energy-reference controls |
+| `impurity-defect-1d-independent-route/` | `ksdft2effmass.campaign.defect-extraction.periodic1d.route-reconciliation` | Direct real-space and independently assembled Bloch-fiber routes |
+| `impurity-defect-1d-blind-alignment/` | `ksdft2effmass.campaign.defect-extraction.periodic1d.blind-alignment` | Inference without access to authored alignment truth, followed by evaluation |
+| `impurity-defect-1d-analytical-oracle/` | `ksdft2effmass.campaign.defect-extraction.periodic1d.finite-rank-resolvent-oracle` | Finite-rank Bloch-resolvent oracle and independent site-space eigensolve |
+| `impurity-defect-1d-continuum-refinement/` | `ksdft2effmass.campaign.defect-reduction.periodic1d.continuum-refinement` | Separate continuum mesh/domain and lattice supercell/scale/defect-width axes |
+
+The historical `impurity-defect-2d/` directory is a staged suite. Stage letters are
+retained aliases, while permanent identities describe the question.
+
+| Historical stage label | Permanent campaign-family ID | Scope note |
+|---|---|---|
+| Stage A, `A_null_and_folding` | `ksdft2effmass.campaign.defect-extraction.periodic2d.null-and-folding-compatibility` | Null defect, folding, seams, Hermiticity, and represented-space compatibility |
+| Stage B, `B_scalar_onsite_and_D4` | `ksdft2effmass.campaign.defect-extraction.periodic2d.scalar-onsite-alignment-and-covariance` | Scalar onsite extraction, known/blind maps, route bridges, schedule order, and D4 covariance |
+| Stage C, `C_directional_and_nonlocal_model_classes` | `ksdft2effmass.campaign.defect-reduction.periodic2d.directional-and-nonlocal-model-hierarchy` | Directional/nonlocal plants, nested model classes, locality, symmetry, and accepted-parent adaptation |
+| Proposed Stage D, `D_area_shape_and_boundary_phase` | `ksdft2effmass.campaign.defect-extraction.periodic2d.finite-domain-and-boundary-phase-refinement` | Area, shape, and boundary-phase effects; not completed merely by naming it |
+| Proposed Stage E, `E_composite_degeneracy_and_coupled_parent` | `ksdft2effmass.campaign.defect-extraction.periodic2d.composite-degeneracy-and-coupled-parent` | Composite retained spaces, degeneracy, and coupled-parent controls; not completed merely by naming it |
+
+Checkpoint labels `HCxx` record human decisions and execution authority. They are never
+campaign IDs.
+
+### Bulk-silicon records
+
+| Current locator or label | Permanent identity | Record kind |
+|---|---|---|
+| `bulk-silicon/materials-project/` | `ksdft2effmass.reference.bulk-silicon.crystal-structure.materials-project-mp-149` | External reference data, not a project campaign |
+| `qe-example01-si-scf-davidson/` | `ksdft2effmass.campaign.bulk-silicon.quantum-espresso.tutorial-scf-davidson` | Tutorial reproduction |
+| `qe-example01-si-bands-davidson/` | `ksdft2effmass.campaign.bulk-silicon.quantum-espresso.tutorial-band-path-davidson` | Tutorial band-path calculation |
+| `qe-7.5-si-scf-smoke-comparison/` | `ksdft2effmass.campaign.bulk-silicon.quantum-espresso.scf-smoke-version-comparison` | Bounded comparison of tutorial records |
+| `production-convergence-preflight/` | `ksdft2effmass.campaign.bulk-silicon.quantum-espresso.cutoff-and-kmesh-convergence-preflight` | Provisional finite-setting study; the word `production` does not imply accepted production settings |
+| `docs/computational/Si-bulk/wannier-component-locality/` | `ksdft2effmass.campaign.bulk-silicon.si-vc.wannier-component-locality` | Proposed, unexecuted computational campaign; no immutable version, retained run, or evidence package exists |
+| Conference preview `silicon-wannier-kinetic-preview/` | `ksdft2effmass.extraction.bulk-silicon.wannier90.kinetic-hopping-preview` | Read-only publication extraction, not a production calculation |
 
 ## Historical aliases that must remain searchable
 
@@ -135,9 +226,9 @@ The publication-independent experiment at
 maintained implementation of this boundary. It consumes the model-independent
 single-band reduction Workflow in `python/src/` rather than retaining a second
 producer transform, truncation, fitting, or diagnostic implementation. The Workflow
-accepts prepared training and evaluation samples, caller-supplied fitting weights and
-ranges, publication-independent result semantics, and no experiment identity or frozen
-evidence policy.
+accepts prepared objective-construction and evaluation samples, caller-supplied fitting
+weights and ranges, publication-independent result semantics, and no experiment identity
+or frozen evidence policy.
 
 Immutable version
 `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1`
@@ -154,7 +245,13 @@ The composite-band alignment and locality family has a completed owner-boundary 
 Its maintained migration preserves backend-qualified eigenvector-diagonal frames,
 rejects rank-deficient pointwise and aggregate Procrustes inputs, and tracks the current
 local numerical selection mechanisms as `TECH_DEBT`. That decision does not silently
-move all current `periodic1d` or `campaigns` code..
+move all current `periodic1d` or `campaigns` code. The constrained-admissible-set
+successor has started under
+`experiments/model-adequacy/periodic1d/constrained-admissible-sets/` with
+owner-integrated quadratic geometry, composed rank-two baseline calculation, and
+experiment-owned loss derivation. It is not a complete replacement until evaluation
+and locality diagnostics, schemas, and frozen evidence policy move under the experiment
+owner.
 
 ## Maintained layout and version retention
 
@@ -169,12 +266,18 @@ experiments/
 │   │   └── periodic1d/
 │   └── composite-band-alignment-and-locality/
 │       └── periodic1d/
+├── model-adequacy/
+│   ├── periodic1d/constrained-admissible-sets/
+│   ├── periodic2d/hopping-shell-hierarchy/
+│   └── periodic3d/anisotropic-hopping-support-hierarchy/
 └── README.md
 ```
 
 The organizational family directories do not erase the dimension from stable experiment
-identities. Two- and three-dimensional children are added only after their own contracts
-exist; no empty dimensional placeholders are maintained.
+identities. Dimensional children and future domains such as `defect-extraction/` are
+added only after their own maintained contracts exist; no empty placeholders are
+maintained. Literature PDFs or other local reference caches are not experiment-family
+roots.
 
 The present `calculations/` paths remain historical locators until every migration gate
 below passes. `experiments/` must not become an uncorrelated duplicate tree: a successor
