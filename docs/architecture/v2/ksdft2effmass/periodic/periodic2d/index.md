@@ -30,13 +30,14 @@ in-plane frame, projector, and dual basis while routing its induced metric to th
 intrinsic $2\times2$ contract. That flat embedded plane remains distinct from a fully
 periodic $3\times3$ slab or supercell.
 
-The pinned PhysKit revision
-`949d106bc98975a18ad86d6fa84092ef0c68298e` provides the reusable nonorthogonal
+The live pinned PhysKit revision
+`2cede347e4beeb39f06ca096c15b7a76de276953` provides the reusable nonorthogonal
 Bloch-periodic scalar Laplacian under
 `projectkoios.physkit.periodic.finite_difference`. Its dimension-bounded 2D/3D
 implementation uses the full inverse metric, mixed centered derivatives, and
-reduced-twist seam phases. The same revision provides the explicit $3\times2$
-embedded-plane adapter and strict defining-geometry JSON codec under
+reduced-twist seam phases. These lattice sources are unchanged from the audited
+revision `949d106bc98975a18ad86d6fa84092ef0c68298e`. The pinned revision also provides
+the explicit $3\times2$ embedded-plane adapter and strict defining-geometry JSON codec under
 `projectkoios.physkit.periodic.lattice.embedding`. Dependency availability and the
 consumer smoke test do not by themselves close the periodic2d parity gate, supply
 kinetic-energy or effective-mass scaling, or establish material validation.
@@ -44,6 +45,33 @@ kinetic-energy or effective-mass scaling, or establish material validation.
 The [periodic2d capability-parity gate](../../periodic2d-capability-parity.md) remains
 in force. No new two-dimensional defect campaign should proceed until the applicable
 parent capabilities, typed results, verification, and documentation pass that gate.
+
+The prospective [HSH-1 hopping-shell hierarchy](../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/index.md)
+is an outward model-adequacy experiment over the already retained finite lowest-band
+target and the isotropic 2-D stage of the selected
+[dimensionality and anisotropy ladder](../../../experiments/model-adequacy/dimensional-anisotropy-ladder.md).
+Its active planning record is `docs/tasks/dev/experiments/isotropic2d/`.
+`periodic2d` owns the parent/model primitives and does not import HSH-1. The study does
+not use the M4/M5 scaffolds, close the parity gate, or establish a new parent
+calculation. Its draft architecture fixes ownership and proof obligations only; no
+HSH-1 implementation or result exists.
+
+After the isotropic 3-D stage, a distinct anisotropic 2-D family will remove
+axis-permutation equivalence while retaining explicit two-dimensional sign symmetries:
+
+```text
+ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy
+```
+
+That family has no opened development task, exact protocol, implementation, or result.
+It must not be represented as another threshold case or version of HSH-1.
+
+Only after the concrete isotropic/anisotropic sequence closes may reusable behavior be
+considered for the
+[general-lattice-vector extension](../../analysis/model_adequacy/general-lattice-vector-extension.md).
+The 2-D target must preserve a full-rank intrinsic or reviewed embedded-plane basis and
+its induced metric; it must not reinterpret a `3 x 2` plane as a 3-D periodic cell.
+PhysKit remains the owner of reusable lattice and embedding primitives.
 
 ## Target hierarchy
 

@@ -6,7 +6,8 @@ This architecture contract standardizes the **evidentiary meaning** of KSD admis
 set results across controlled model-adequacy studies. It applies to the retained scalar
 periodic-1D demonstration, the maintained periodic-1D constrained-admissible-sets
 experiment, the prospective periodic-2D hopping-shell hierarchy, and future periodic-3D
-studies that satisfy their separately maintained explicit experiment architecture.
+studies that satisfy the explicit
+[three-dimensional experiment architecture](../../../experiments/model-adequacy/periodic3d/index.md).
 
 This is a vocabulary and invariant contract, not a shared Python API, result schema,
 solver interface, metric, or scientific protocol. No common admissible-set code
@@ -212,9 +213,9 @@ names or equations alone remain insufficient grounds for an unbounded framework.
 | `calculations/ICMSEP2026/conference/paper_1/` direct scalar demonstration | Retained controlled calculation | Supplies an exact common witness and rational separation certificate; remains calculation-local historical evidence |
 | `experiments/model-adequacy/periodic1d/constrained-admissible-sets/` | Maintained successor under development | Uses common-witness, certified-separation, unresolved, correlation, and independent-reconstruction semantics; concrete finite-angle and rectangle geometry remain experiment-owned |
 | `ksdft2effmass.analysis.model_adequacy.hopping_shell_hierarchy` | Prospective architecture only | Plans the same decisive evidence meanings plus local channel-empty, invalid-premise, and hierarchy-minimality rules |
-| Dimensionality and anisotropy ladder | Selected experiment order; pre-version work | Orders isotropic 2-D, isotropic 3-D, anisotropic 2-D, and anisotropic 3-D as independent families without transferring outcomes or schemas |
-| Periodic-3D experiment architecture | Selected isotropic and preserved anisotropic targets | Applies the evidence vocabulary to two distinct scalar 3-D families while keeping scientific controls, certificate-method bindings, experiment inputs and retained premise evidence, evidence wrappers, failure policy, and interpretation experiment-local |
-| General-lattice-vector extension | Post-ladder architecture boundary only | Defines the later extraction gate for full-rank 2-D/3-D lattice bases; authorizes no generic result type, experiment, or arbitrary-lattice claim |
+| [Dimensionality and anisotropy ladder](../../../experiments/model-adequacy/dimensional-anisotropy-ladder.md) | Selected experiment order; pre-version work | Orders isotropic 2-D, isotropic 3-D, anisotropic 2-D, and anisotropic 3-D as independent families without transferring outcomes or schemas |
+| [Periodic-3D experiment architecture](../../../experiments/model-adequacy/periodic3d/index.md) | Selected isotropic and preserved anisotropic targets | Applies the evidence vocabulary to two distinct scalar 3-D families while keeping scientific controls, certificate-method bindings, experiment inputs and retained premise evidence, evidence wrappers, failure policy, and interpretation experiment-local |
+| [General-lattice-vector extension](general-lattice-vector-extension.md) | Post-ladder architecture boundary only | Defines the later extraction gate for full-rank 2-D/3-D lattice bases; authorizes no generic result type, experiment, or arbitrary-lattice claim |
 
 Historical names, paper labels, and enum wire strings are not standardized by this
 contract. Publication-independent experiment identities and schema versions continue to

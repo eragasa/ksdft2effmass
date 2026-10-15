@@ -35,6 +35,35 @@ but tensor, valley, orbital, spin, and defect-locality results require explicit 
 contracts. Lower-dimensional agreement does not establish three-dimensional numerical
 verification or silicon validation.
 
+## Prospective admissible-set model adequacy
+
+The shared
+[admissible-set evidence semantics](../../analysis/model_adequacy/admissible-set-evidence-semantics.md)
+are dimension-independent, but no three-dimensional scientific problem is implied by
+that common vocabulary. The
+[periodic-3D experiment architecture](../../../experiments/model-adequacy/periodic3d/index.md)
+records the required parent, lattice, symmetry, representation, candidate-family,
+channel, metric, certificate, role, and verification decisions before implementation.
+The selected sequence introduces an isotropic simple-cubic scalar 3-D control first,
+then returns to the preserved anisotropic orthorhombic 3-D proposal after an intervening
+anisotropic 2-D stage. The two 3-D targets are distinct experiment families and neither
+is a bulk-silicon surrogate. Development of the first is tracked under
+`docs/tasks/dev/experiments/isotropic3d/`; the later exact proposal remains under
+`experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`.
+
+No periodic-1D or periodic-2D certificate geometry, shell equivalence, alignment family,
+threshold, or metric transfers automatically to three dimensions. The isotropic target
+must define cubic signed-permutation orbits explicitly; the anisotropic target uses sign
+orbits without axis permutations and named support groups rather than cubic shells.
+Concrete composition and evidence remain experiment-owned until repeated implemented
+behavior justifies a reusable analysis owner.
+
+After the ordered concrete stages, the
+[general-lattice-vector extension](../../analysis/model_adequacy/general-lattice-vector-extension.md)
+may admit full-rank `3 x 3` direct bases with explicit dual, metric, orientation, units,
+and conditioning policy. It must consume reviewed PhysKit lattice primitives and must
+not infer model symmetry or hopping equivalence from lattice-vector lengths alone.
+
 ## Execution boundary
 
 Quantum ESPRESSO remains responsible for electronic-structure calculations and

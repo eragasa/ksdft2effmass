@@ -114,6 +114,7 @@ package or identity/result/failure hierarchy.
 
 - [Prospective package map](ksdft2effmass/index.md)
 - [Experiment architecture](experiments/index.md)
+- [Model-adequacy experiment architecture](experiments/model-adequacy/index.md)
 - [Application composition root](ksdft2effmass/application/index.md)
 - [Campaign definitions](ksdft2effmass/campaigns/index.md)
 - [Calculator architecture](ksdft2effmass/calculators/index.md)
@@ -153,6 +154,9 @@ ksdft2effmass/calculators/quantum-espresso-package-ownership-decision
 ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 documentation/index
 experiments/index
+experiments/model-adequacy/index
+experiments/model-adequacy/periodic2d/index
+experiments/model-adequacy/periodic3d/index
 ```
 
 ### Shared contracts

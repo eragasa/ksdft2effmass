@@ -17,6 +17,9 @@ flowchart LR
 - [Scientific analysis](analysis.md)
 - [Particle-in-a-box dimensional plan](particle-in-box-dimensional-plan.md)
 - [Admissible-set evidence semantics](model_adequacy/admissible-set-evidence-semantics.md)
+- [Experiment model-adequacy architecture](../../experiments/model-adequacy/index.md)
+- [Dimensionality and anisotropy experiment ladder](../../experiments/model-adequacy/dimensional-anisotropy-ladder.md)
+- [Post-sequence general-lattice-vector extension](model_adequacy/general-lattice-vector-extension.md)
 - [Legacy prospective HSH-1 design bundle](model_adequacy/hopping_shell_hierarchy/index.md)
 
 `NormalizedObservationSet` is calculator-independent and workflow-owned. Its implemented first contract retains exact immutable extracted Kohn–Sham ResultObjects through `NormalizedObservationSource`; it does not copy integration-owned identities or perform scientific normalization. Analysis implementations may import workflows, periodic, Kohn–Sham, and represented-operator contracts, but never calculator packages.

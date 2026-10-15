@@ -35,21 +35,41 @@ not maintained experiment identities. Superseded material remains locatable thro
 exact Git versions and commits rather than duplicate `legacy/` or `historical/`
 directories.
 
-Maintained experiment work currently includes:
+## Numerical-experiment index
 
-- `periodic-reduction/single-band-fourier-reduction/periodic1d/` — immutable `v1`
-  supplied-band reduction composed with reusable KSD analysis, with strict schemas,
-  independent reconstruction, exact predecessor provenance, and retained evidence;
-- `periodic-reduction/composite-band-alignment-and-locality/periodic1d/` — prospective
-  publication-independent successor for rank-two frame alignment and gauge-dependent
-  locality; owner replacements are tracked as technical debt and no immutable version
-  or maintained run exists;
-- `model-adequacy/periodic1d/constrained-admissible-sets/` — owner-integrated
-  constrained-quadratic geometry with composed rank-two parent derivation; evaluation,
-  schemas, and evidence freezing remain incomplete;
-- `model-adequacy/periodic2d/hopping-shell-hierarchy/` — maintained prospective
-  isotropic-2D protocol with exact orbit/support and package-execution structure;
-  implementation, schemas, and retained evidence do not yet exist;
+This index covers every family with a maintained directory in this tree and every
+architecture-selected family whose source directory intentionally does not yet exist.
+Historical packages under `calculations/` remain evidence or design donors and are not
+duplicated here.
+
+Lifecycle status has the following bounded meaning:
+
+- **Retained version** — an immutable experiment version and retained evidence package
+  exist.
+- **Pre-version implementation** — typed experiment code and tests exist, but the
+  remaining protocol, schema, or evidence gates block an immutable version.
+- **Prospective protocol** — scientific controls or package structure are being designed;
+  no complete implementation or immutable version exists.
+- **Architecture only** — the family boundary is selected, but no exact protocol or
+  source directory exists.
+- **Preserved proposal** — exact advance design work is retained out of sequence and
+  cannot advance to implementation until earlier stages close.
+
+| Experiment family | Maintained locator | Lifecycle status | Current evidence boundary |
+|---|---|---|---|
+| `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction` | [`periodic-reduction/single-band-fourier-reduction/periodic1d/`](periodic-reduction/single-band-fourier-reduction/periodic1d/) | **Retained version** | Immutable `.v1`, strict schemas, independent reconstruction, exact predecessor provenance, retained runs, and content-addressed evidence exist. This is controlled synthetic evidence, not material validation. |
+| `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | [`periodic-reduction/composite-band-alignment-and-locality/periodic1d/`](periodic-reduction/composite-band-alignment-and-locality/periodic1d/) | **Prospective protocol** | The rank-two alignment/locality successor and owner boundary are documented; no immutable version or maintained run exists. |
+| `ksdft2effmass.campaign.model-adequacy.periodic1d.constrained-admissible-sets` | [`model-adequacy/periodic1d/constrained-admissible-sets/`](model-adequacy/periodic1d/constrained-admissible-sets/) | **Pre-version implementation** | Owner-integrated quadratics, composed parent calculation, immutable typed results, tests, and independent verification exist. Evaluation roles, strict wire schemas, and retained-evidence policy remain incomplete. |
+| `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | [`model-adequacy/periodic2d/hopping-shell-hierarchy/`](model-adequacy/periodic2d/hopping-shell-hierarchy/) | **Prospective protocol** | Parent binding, orbit/support inventory, sample roles, weights, thresholds, resolution, and flat package structure are selected. Conservative certificate methods, schemas, implementation, and retained evidence remain open. |
+| `ksdft2effmass.campaign.model-adequacy.periodic3d.isotropic-hopping-support-hierarchy` | Intended `model-adequacy/periodic3d/isotropic-hopping-support-hierarchy/`; [architecture](../docs/architecture/v2/experiments/model-adequacy/periodic3d/isotropic-hopping-support-hierarchy/index.md) | **Architecture only** | The dimensional role and ownership boundary are selected; no exact parent protocol, source directory, immutable version, or result exists. |
+| `ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy` | Intended `model-adequacy/periodic2d/anisotropic-hopping-support-hierarchy/`; [architecture](../docs/architecture/v2/experiments/model-adequacy/periodic2d/anisotropic-hopping-support-hierarchy/index.md) | **Architecture only** | The anisotropy-isolation role is selected; no exact protocol, task, source directory, immutable version, or result exists. |
+| `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy` | [`model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`](model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/) | **Preserved proposal** | An exact orthorhombic pre-version proposal and disclosed exploratory threshold design exist. No implementation, schema, verifier, immutable version, retained run, or scientific result exists. |
+
+Mutable coordination for the first two sequence stages lives under
+`docs/tasks/dev/experiments/isotropic2d/` and
+`docs/tasks/dev/experiments/isotropic3d/`. Task paths are not experiment, run, or evidence
+identities. General full-rank lattice-vector extraction remains a post-sequence
+architecture direction rather than a numerical experiment.
 
 Creating source or passing tests under this tree does not authorize protected
 calculator execution and does not establish scientific validation, convergence,

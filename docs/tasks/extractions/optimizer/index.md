@@ -220,8 +220,8 @@ This register summarizes, but does not replace, the detailed mathematical contra
 - [`multiband_alignment/owner-boundary.md`](../../../architecture/v2/ksdft2effmass/periodic/periodic1d/multiband_alignment/owner-boundary.md);
 - [`composite-band alignment technical debt`](../../tech_debt/composite-band-alignment-and-locality/index.md);
 - [`admissible-set-evidence-semantics.md`](../../../architecture/v2/ksdft2effmass/analysis/model_adequacy/admissible-set-evidence-semantics.md);
-- the maintained periodic-2D model-adequacy implementation architecture; and
-- the maintained periodic-3D model-adequacy implementation architecture.
+- [`periodic2d/implementation.md`](../../../architecture/v2/experiments/model-adequacy/periodic2d/implementation.md); and
+- [`periodic3d/implementation.md`](../../../architecture/v2/experiments/model-adequacy/periodic3d/implementation.md).
 
 The Optimization repository maintains its owner-side execution tasks under
 `docs/tasks/active/ksdft2effmass-migration/`. This KSD register remains the authoritative

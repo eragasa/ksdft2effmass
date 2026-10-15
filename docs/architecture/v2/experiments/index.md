@@ -37,6 +37,7 @@ The five pages divide ownership without duplicating one another.
 
 Only experiment domains with authored architecture appear below this root.
 
+- [Model-adequacy experiments](model-adequacy/index.md).
 - Other existing experiment families remain valid even when their architecture has not yet migrated here.
 - Directory presence does not imply implementation, versioning, execution, or validation.
 
