@@ -15,7 +15,7 @@ The governing distinctions are developed in:
 - [Appendix C, operator spaces, compression, and alignment](../../../../publications/research-monograph/appendices/C-operator-spaces-compression-alignment.tex),
   which distinguishes the parent operator, retained operator, and finite matrix
   representation; and
-- [Appendix G, one-dimensional reduction](../../../../publications/research-monograph/appendices/G-one-dimensional-reduction.tex),
+- [Appendix G, periodic-reduction experiments](../../../../publications/research-monograph/appendices/G-periodic-reduction-experiments.tex),
   which states that a lattice model approximates a retained Bloch operator or its
   dispersion rather than the original scalar potential directly.
 

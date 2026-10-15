@@ -50,7 +50,11 @@ contracts under `docs/research/proofs/formal/theorem-catalog/`, retained calcula
 records, software contracts, verification evidence, and durable human decisions
 remain the owners
 of scientific meaning and project state. The monograph must link those owners
-rather than silently redefine them.
+rather than silently redefine them. The maintained one-dimensional single-band
+result is bound by [`experiment-references.json`](experiment-references.json), which
+records its permanent experiment family, immutable version, run, evidence-package
+digest, exact content-bound source revision, consumed fields, and presentation figure.
+The historical M1 package remains provenance rather than the live evidence citation.
 
 Every substantive result should retain one of the repository's declared
 statuses: calculated result, literature value, expected behavior, illustrative

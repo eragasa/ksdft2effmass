@@ -13,8 +13,9 @@ Authoritative project surfaces are:
 |---|---|
 | Physical and mathematical definitions | `specification/` |
 | Scientific assumptions | `docs/research/` |
-| Computational procedures and provenance | `docs/computational/`, `calculations/` |
-| Python source | `python/src/ksdft2effmass/` |
+| Reusable Python source | `python/src/ksdft2effmass/` |
+| Maintained experiment composition and future retained evidence | `experiments/` |
+| Existing retained calculations and provenance | `docs/computational/`, `calculations/` |
 | Python dependency declarations | `python/pyproject.toml` |
 | Resolved Python dependencies | `python/uv.lock` |
 | Architecture | `docs/architecture/` |

@@ -1,0 +1,426 @@
+{
+  "$id": "ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.input.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "identity": {
+      "additionalProperties": false,
+      "properties": {
+        "energy_reference_id": {
+          "const": "parent-model-fixed-zero-no-post-fit-shift.v1",
+          "type": "string"
+        },
+        "family_id": {
+          "const": "ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction",
+          "type": "string"
+        },
+        "fourier_convention_id": {
+          "const": "forward-negative-exponent-inverse-positive-exponent.v1",
+          "type": "string"
+        },
+        "fourier_normalization_id": {
+          "const": "forward-one-over-n-inverse-unit.v1",
+          "type": "string"
+        },
+        "objective_construction_role_id": {
+          "const": "complete-centered-training-mesh.v1",
+          "type": "string"
+        },
+        "objective_evaluation_role_id": {
+          "const": "disjoint-staggered-evaluation-mesh.v1",
+          "type": "string"
+        },
+        "version_id": {
+          "const": "ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "energy_reference_id",
+        "family_id",
+        "fourier_convention_id",
+        "fourier_normalization_id",
+        "objective_construction_role_id",
+        "objective_evaluation_role_id",
+        "version_id"
+      ],
+      "type": "object"
+    },
+    "model": {
+      "additionalProperties": false,
+      "properties": {
+        "constant_coefficient": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "cosine_coefficients": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 1,
+              "minItems": 1,
+              "type": "array"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "duality_absolute_tolerance": {
+          "type": "number"
+        },
+        "identity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "model_role": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "period": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "reciprocal_vector": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "recoil_energy": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "sine_coefficients": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 1,
+              "minItems": 1,
+              "type": "array"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "constant_coefficient",
+        "cosine_coefficients",
+        "duality_absolute_tolerance",
+        "identity",
+        "model_role",
+        "period",
+        "reciprocal_vector",
+        "recoil_energy",
+        "sine_coefficients"
+      ],
+      "type": "object"
+    },
+    "parent_representation": {
+      "additionalProperties": false,
+      "properties": {
+        "compared_band_count": {
+          "type": "integer"
+        },
+        "finite_difference_points": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array"
+        },
+        "plane_wave_cutoffs": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "minItems": 5,
+          "type": "array"
+        },
+        "plane_wave_reference_cutoff": {
+          "type": "integer"
+        },
+        "production_plane_wave_cutoff": {
+          "type": "integer"
+        },
+        "sample_reduced_momenta": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 5,
+          "minItems": 5,
+          "type": "array"
+        }
+      },
+      "required": [
+        "compared_band_count",
+        "finite_difference_points",
+        "plane_wave_cutoffs",
+        "plane_wave_reference_cutoff",
+        "production_plane_wave_cutoff",
+        "sample_reduced_momenta"
+      ],
+      "type": "object"
+    },
+    "reduction": {
+      "additionalProperties": false,
+      "properties": {
+        "evaluation_reduced_momenta": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 257,
+          "minItems": 257,
+          "type": "array"
+        },
+        "fitting_weights": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 64,
+          "minItems": 64,
+          "type": "array"
+        },
+        "hopping_ranges": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 7,
+          "minItems": 7,
+          "type": "array"
+        },
+        "selected_band_index": {
+          "type": "integer"
+        },
+        "training_reduced_momenta": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 64,
+          "minItems": 64,
+          "type": "array"
+        }
+      },
+      "required": [
+        "evaluation_reduced_momenta",
+        "fitting_weights",
+        "hopping_ranges",
+        "selected_band_index",
+        "training_reduced_momenta"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.input.v1",
+      "type": "string"
+    },
+    "scope": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_class": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "external_calculator_execution": {
+          "type": "boolean"
+        },
+        "material_validation": {
+          "type": "boolean"
+        },
+        "scientific_acceptance": {
+          "type": "boolean"
+        },
+        "uncertainty_quantification": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "evidence_class",
+        "external_calculator_execution",
+        "material_validation",
+        "scientific_acceptance",
+        "uncertainty_quantification"
+      ],
+      "type": "object"
+    },
+    "tolerances": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate_absolute": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "hermiticity_absolute": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "imaginary_absolute": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "parseval_absolute": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        },
+        "reconstruction_absolute": {
+          "additionalProperties": false,
+          "properties": {
+            "magnitude": {
+              "type": "number"
+            },
+            "unit": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "magnitude",
+            "unit"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "coordinate_absolute",
+        "hermiticity_absolute",
+        "imaginary_absolute",
+        "parseval_absolute",
+        "reconstruction_absolute"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "identity",
+    "model",
+    "parent_representation",
+    "reduction",
+    "schema",
+    "scope",
+    "tolerances"
+  ],
+  "type": "object"
+}

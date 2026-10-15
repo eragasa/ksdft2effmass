@@ -5,6 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.optimization.least_squares.factory import (
+    LinearLeastSquaresMethod,
+    LinearLeastSquaresSolverFactory,
+)
 
 from ksdft2effmass.operators import (
     MODEL_SYSTEM_UNIT_CONVERTER,
@@ -114,7 +118,13 @@ class BlockHoppingLeastSquaresFitResult1D:
 
 
 class BlockHoppingLeastSquaresFitter1D:
-    """Fit matrix-valued hopping blocks with explicit positive sample weights."""
+    """Adapt periodic hopping data to the Optimization least-squares owner.
+
+    KSD constructs the unitless Fourier design, converts represented matrices to one
+    numeric target matrix, maps owner coefficients back to unit-bearing hopping blocks,
+    and independently reconstructs KSD-domain residual diagnostics. Positive input
+    weights are objective multipliers and are passed to the owner without pre-scaling.
+    """
 
     __slots__ = ()
 
@@ -152,17 +162,20 @@ class BlockHoppingLeastSquaresFitter1D:
                 np.asarray(representatives, dtype=np.float64),
             )
         )
-        square_root_weights = np.sqrt(weights.magnitude)
-        weighted_design = square_root_weights[:, None] * design
         source_values = np.asarray(
             [matrix.magnitude for matrix in source.matrices], dtype=np.complex128
         )
-        weighted_targets = square_root_weights[:, None] * source_values.reshape(
-            len(source.matrices), -1
+        flattened_targets = source_values.reshape(len(source.matrices), -1)
+        solver = LinearLeastSquaresSolverFactory.create(
+            LinearLeastSquaresMethod.NUMPY_DENSE
         )
-        fitted_flat, _, rank, singular_values = np.linalg.lstsq(
-            weighted_design, weighted_targets, rcond=None
+        owner_result = solver.solve(
+            tuple(tuple(complex(value) for value in row) for row in design),
+            tuple(tuple(complex(value) for value in row) for row in flattened_targets),
+            weights=tuple(float(value) for value in weights.magnitude),
+            rank_tolerance=None,
         )
+        fitted_flat = np.asarray(owner_result.coefficients, dtype=np.complex128)
         blocks = fitted_flat.reshape(
             len(representatives), source.matrix_dimension, source.matrix_dimension
         )
@@ -184,20 +197,30 @@ class BlockHoppingLeastSquaresFitter1D:
             ],
             dtype=np.complex128,
         )
-        condition = (
-            None
-            if int(rank) < len(representatives)
-            else float(singular_values[0] / singular_values[-1])
-        )
+        owner_fitted = np.asarray(
+            owner_result.fitted_values, dtype=np.complex128
+        ).reshape(source_values.shape)
+        for reconstructed_matrix, expected_matrix in zip(
+            reconstructed.matrices, owner_fitted, strict=True
+        ):
+            for actual, expected in zip(
+                reconstructed_matrix.magnitude.flat,
+                expected_matrix.flat,
+                strict=True,
+            ):
+                if not solver.tolerance.accepts(complex(actual), complex(expected)):
+                    raise ValueError(
+                        "hopping reconstruction does not match owner fitted values"
+                    )
         return BlockHoppingLeastSquaresFitResult1D(
             source,
             representatives,
             weights,
             model,
             reconstructed,
-            int(rank),
-            condition,
-            int(rank) == len(representatives),
+            owner_result.rank,
+            owner_result.full_rank_condition_number,
+            owner_result.rank == len(representatives),
             float(np.linalg.norm(residuals)),
             float(np.max(np.linalg.norm(residuals, axis=(1, 2)))),
         )

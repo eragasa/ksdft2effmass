@@ -288,16 +288,14 @@ or neighboring-overlap cutoff is assumed: these diagnostics must be interpreted
 with external gaps, reciprocal-mesh refinement, and the intended downstream
 use.
 
-When the spaces are sufficiently compatible, a polar or orthogonal-Procrustes
+When the spaces are sufficiently compatible, an orthogonal-Procrustes or polar
 construction can supply a unitary coordinate
-identification~\cite{higham1986}. The exact map,
-its direction, numerical conditioning, and residual diagnostics must be stored.
-
-\citationtodo{medium priority}{Check the orthogonal-Procrustes attribution
-separately from the polar-decomposition source. Candidate: Schonemann (1966),
-provisional key \texttt{schonemann1966}, alongside \texttt{higham1986}.}
-This method is a planned Stage~05 operation, not an alignment result already
-obtained by the project.
+identification~\cite{schonemann1966,higham1986}. Sch\"onemann supplies the
+primary real orthogonal least-squares formulation, while Higham's polar-factor
+best-approximation result supports the complex unitary form used here. The exact
+map, its direction, numerical conditioning, and residual diagnostics must be
+stored. This method is a planned Stage~05 operation, not an alignment result
+already obtained by the project.
 
 \subsection{Transport and comparison}
 \index{parallel transport}

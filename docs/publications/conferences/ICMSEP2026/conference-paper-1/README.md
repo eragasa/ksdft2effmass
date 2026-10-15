@@ -32,10 +32,12 @@ results establish bounded software and numerical behavior only. They do not vali
 material, establish uncertainty quantification, or demonstrate transferability to
 silicon.
 
-The draft now includes a prospectively frozen isolated-band package at
-[`calculations/ICMSEP2026/conference/paper_1/isolated-band/`](../../../../../calculations/ICMSEP2026/conference/paper_1/isolated-band/).
-Its independent retained verification passes; this establishes bounded synthetic
-numerical consistency only.
+The draft now cites the publication-independent single-band Fourier-reduction
+successor through [`experiment-references.json`](experiment-references.json). The
+manifest binds permanent family, version, run, and evidence-package identities plus
+consumed fields and figure bytes. Independent verification and historical matched-channel
+parity pass; this establishes bounded synthetic numerical consistency only. The former
+paper-owned M1 package remains unchanged as the exact provenance predecessor.
 
 A second prospectively frozen synthetic package at
 [`calculations/ICMSEP2026/conference/paper_1/multiband-alignment/`](../../../../../calculations/ICMSEP2026/conference/paper_1/multiband-alignment/)

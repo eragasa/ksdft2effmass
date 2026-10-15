@@ -350,21 +350,22 @@ This smooth cosine parent supports independent plane-wave and finite-difference
 representations. With $z=x/2$, its eigenvalue equation becomes
 $y''(z)+[a_{\mathrm M}-2q_{\mathrm M}\cos(2z)]y(z)=0$ with
 $a_{\mathrm M}=4E$ and $q_{\mathrm M}=1$, so zone-center and zone-boundary
-energies also admit periodic and antiperiodic Mathieu controls [17]. M1 does not
-evaluate those external characteristic values; it uses the frozen finite plane-wave
-reference defined in Supplementary Appendix S2. The model is a verification benchmark,
-not a surrogate for a semiconductor.
+energies also admit periodic and antiperiodic Mathieu controls [17]. The maintained
+successor does not evaluate those external characteristic values; it uses the frozen
+finite plane-wave reference defined in Supplementary Appendix S2. The model is a
+verification benchmark, not a surrogate for a semiconductor.
 
 For the lowest three sampled bands, the plane-wave error relative to the declared
 $P=15$ reference is $5.31\times10^{-13}E_G$ at $P=5$. The reduced transform then
-retains exactly the lowest scalar band. M1 records no gap result, so its historical
-“isolated-band” identity is not evidence of band isolation. The independently
-assembled centered finite-difference error decreases from
+retains exactly the lowest scalar band. The successor records sampled training and
+evaluation external gaps of $0.49233922E_G$ and $0.49233924E_G$, respectively; neither
+is promoted to a continuum isolation certificate. The independently assembled
+centered finite-difference error decreases from
 $1.753\times10^{-2}E_G$ at 31 points
 to $2.598\times10^{-4}E_G$ at 255 points. Supplementary Appendix S2 records the
 complete frozen sequences and their interpretation boundary.
 
-![One-dimensional controlled reduction.](../../../../../calculations/ICMSEP2026/conference/paper_1/isolated-band/isolated-band-summary.png)
+![One-dimensional controlled reduction.](../../../../../experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png)
 
 **Figure 1.** Frozen parent-representation refinement, complete hopping decay, and
 finite-range training/withheld maximum errors for the controlled 1D model.
@@ -382,7 +383,9 @@ uniform mesh and Fourier model class. Under those matched conditions, their larg
 coefficient defect over the frozen range sequence is $7.38\times10^{-17}E_G$, and the
 largest sampled maximum defect is $1.56\times10^{-16}E_G$. This is an algebraic
 control under one matched objective, not evidence that arbitrary reduction routes
-commute. M1 contains no changed-weight, restricted-training, weak-potential,
+commute. Version `v1` exposes positive caller-supplied weights and caller-selected
+ranges, while this retained parity run deliberately uses the historical equal-weight
+controls. It contains no changed-weight, restricted-training, weak-potential,
 gap-closure, or gauge stress attack; Supplementary Appendix S2 states these exclusions
 explicitly.
 
@@ -572,8 +575,9 @@ supports compatibility; failure to find one does not prove incompatibility.
 
 The principal controlled findings are the route, truncation, shell, and locality
 results. Complete representation changes can be verified independently of finite-range
-approximation; direct and mediated routes agree under the identical objectives frozen
-in M1 without establishing a general commuting-reduction claim; and gauge-equivalent
+approximation; direct and mediated routes agree under the identical objectives retained
+by the publication-independent single-band successor without establishing a general
+commuting-reduction claim; and gauge-equivalent
 spectra can correspond to substantially different localization and truncated operators. The minimal analytic example adds a bounded
 demonstration that the same reduced class can have an exact common witness under one
 frozen spectral objective and certified positive separation after the training domain
@@ -597,7 +601,7 @@ The appendices are maintained as separate planning and evidence files:
 - [Appendix A — Evidence and Provenance Boundary](appendices/A-evidence-and-provenance-boundary.md)
 - [Appendix B — Direct Admissible-Set Demonstration](appendices/B-direct-admissible-set-demonstration.md)
 - [Supplementary Appendix S1 — Gauge-Orbit Diagnostic Decomposition](appendices/S1-gauge-orbit-diagnostic-decomposition.md)
-- [Supplementary Appendix S2 — M1 Isolated-Band Calculation](appendices/S2-M1-isolated-band-calculation.md)
+- [Supplementary Appendix S2 — Single-Band Fourier-Reduction Successor](appendices/S2-M1-isolated-band-calculation.md)
 - [Supplementary Appendix S3 — M2 Multiband Alignment and Locality](appendices/S3-M2-multiband-alignment-calculation.md)
 - [Supplementary Appendix S4 — Wannier90 Bridge Calculation](appendices/S4-Wannier90-bridge-calculation.tex)
 - [Supplementary Appendix S5 — M3 Constrained Admissible Sets](appendices/S5-M3-constrained-admissible-sets.md)

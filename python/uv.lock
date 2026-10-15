@@ -990,6 +990,7 @@ dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pint" },
+    { name = "projectkoios-optimization", extra = ["numpy"] },
     { name = "projectkoios-physkit" },
     { name = "scipy" },
 ]
@@ -1029,7 +1030,8 @@ requires-dist = [
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "pint", specifier = ">=0.26,<0.27" },
-    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=949d106bc98975a18ad86d6fa84092ef0c68298e" },
+    { name = "projectkoios-optimization", extras = ["numpy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=d9a82252faa1b41d82cce11149329aa91b84dff0" },
+    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=62ee89870db74b7b8b374c42add72701fd95d3a4" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -1549,14 +1551,25 @@ wheels = [
 ]
 
 [[package]]
+name = "projectkoios-optimization"
+version = "0.1.0.dev0"
+source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=d9a82252faa1b41d82cce11149329aa91b84dff0#d9a82252faa1b41d82cce11149329aa91b84dff0" }
+
+[package.optional-dependencies]
+numpy = [
+    { name = "numpy" },
+]
+
+[[package]]
 name = "projectkoios-physkit"
-version = "0.1.1"
-source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=949d106bc98975a18ad86d6fa84092ef0c68298e#949d106bc98975a18ad86d6fa84092ef0c68298e" }
+version = "0.1.3.dev0"
+source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=62ee89870db74b7b8b374c42add72701fd95d3a4#62ee89870db74b7b8b374c42add72701fd95d3a4" }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pandas" },
     { name = "pint" },
+    { name = "projectkoios-optimization", extra = ["numpy"] },
     { name = "scipy" },
     { name = "sympy" },
 ]

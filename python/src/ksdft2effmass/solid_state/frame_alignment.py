@@ -204,7 +204,20 @@ class BandFrameAligner1D:
             reference.frames, candidate.frames, strict=True
         ):
             overlap = candidate_frame.magnitude.conj().T @ reference_frame.magnitude
-            left, _, right_h = np.linalg.svd(overlap)
+            left, singular_values, right_h = np.linalg.svd(overlap)
+            rank_tolerance = (
+                float(max(overlap.shape))
+                * float(np.finfo(np.float64).eps)
+                * float(singular_values[0])
+            )
+            numerical_rank = int(
+                np.count_nonzero(singular_values > rank_tolerance)
+            )
+            if numerical_rank != reference.rank:
+                raise ValueError(
+                    "pointwise Procrustes cross-covariance must have full "
+                    "numerical rank"
+                )
             rotation = left @ right_h
             rotation_magnitudes.append(rotation)
             aligned_magnitudes.append(candidate_frame.magnitude @ rotation)

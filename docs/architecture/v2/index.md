@@ -1,6 +1,6 @@
 # Architecture v2
 
-This is the current architecture for deterministic scientific operations. Selected foundations are implemented incrementally while some aggregate and scientific-execution surfaces remain prospective. Package-owned pages follow the [`ksdft2effmass` namespace](ksdft2effmass/index.md); repository-wide contracts and live issues remain at this root.
+This is the current architecture for deterministic scientific operations. Selected foundations are implemented incrementally while some aggregate and scientific-execution surfaces remain prospective. Package-owned pages follow the [`ksdft2effmass` namespace](ksdft2effmass/index.md); publication-independent experiment architecture follows the [`experiments` source mirror](experiments/index.md); repository-wide contracts and live issues remain at this root.
 
 ## System overview
 
@@ -70,6 +70,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | Represented operators | `ksdft2effmass.operators` | Owns finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
 | Solid-state lattice models | `ksdft2effmass.solid_state` | Owns dimension-specific direct, reciprocal, Bravais, finite-lattice, boundary-twist, scalar-hopping, localized-perturbation, and integral-operation composition contracts |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns higher-level deterministic scientific algorithms, tolerances, numerical policy, and findings; consumes but does not redefine the represented-operator kernel |
+| Experiment composition | `experiments/` | Owns publication-independent concrete models, protocols, schemas, verification, evidence policy, and interpretation outside the installed wheel |
 
 ## Contract ownership
 
@@ -112,6 +113,7 @@ package or identity/result/failure hierarchy.
 ### Calculators, integration, observations, analysis, and composition
 
 - [Prospective package map](ksdft2effmass/index.md)
+- [Experiment architecture](experiments/index.md)
 - [Application composition root](ksdft2effmass/application/index.md)
 - [Campaign definitions](ksdft2effmass/campaigns/index.md)
 - [Calculator architecture](ksdft2effmass/calculators/index.md)
@@ -150,6 +152,7 @@ ksdft2effmass/calculators/quantum-espresso-local-execution-contract
 ksdft2effmass/calculators/quantum-espresso-package-ownership-decision
 ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 documentation/index
+experiments/index
 ```
 
 ### Shared contracts

@@ -3,7 +3,8 @@
 
 The maintained evidence is retained under:
 \begin{itemize}
- \item \path{calculations/ICMSEP2026/conference/paper_1/isolated-band/};
+ \item the single-band successor version/run/evidence package bound by
+       \path{experiment-references.json};
  \item \path{calculations/ICMSEP2026/}\\
        \path{conference/paper_1/multiband-alignment/};
  \item \path{calculations/ICMSEP2026/}\\
@@ -19,9 +20,11 @@ code, figures, report, and checksum manifest. The evidence has been classified
 as controlled illustrative software and numerical verification. It is not a
 public data deposit, DOI, material validation, or uncertainty analysis.
 
-The isolated-band package contains the prospectively frozen M1 lowest-band
-calculation. Its historical identity does not substitute for a retained gap or
-band-isolation result. The multiband package contains the prospectively frozen
+The publication-independent single-band successor contains the retained lowest-band
+calculation, sampled external-gap diagnostics, rank/conditioning channels, strict
+schemas, independent verification, and exact predecessor bindings. Its sampled gaps
+do not establish continuum isolation; historical M1 remains preserved provenance.
+The multiband package contains the prospectively frozen
 M2 rank-two alignment and locality calculation, including its independent
 reconstruction and disjoint withheld diagnostics. The constrained-admissible-
 set package contains M3's prospectively frozen two-parameter, nine-component
@@ -37,9 +40,11 @@ executions are not rerun by the manuscript.
 
 \subsection{Verifier and digest semantics}
 
-The standalone M1, M2, and M3 retained verifiers decode the frozen JSON
-documents and reconstruct their finite protocols without importing the
-corresponding producer Actions. The separate threshold-sensitivity verifier
+The single-band successor's typed direct-formula verifier and the standalone M2 and
+M3 retained verifiers reconstruct their finite protocols without calling the
+corresponding producer Actions. The successor package verifier separately checks
+canonical strict-schema bytes, digests, and predecessor bindings. The separate
+threshold-sensitivity verifier
 reconstructs its analytic grid after checking both the source-result digest and
 that result's exact entry in the source package manifest. These verifiers
 remain dependent on shared numerical libraries, runtime behavior, and declared

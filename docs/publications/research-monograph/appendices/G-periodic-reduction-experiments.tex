@@ -1,5 +1,5 @@
-\chapter[One-Dimensional Bloch-to-Lattice Reduction]{From Bloch Fibers to Finite-Range Lattice Hamiltonians in a One-Dimensional Cosine Potential}
-\index{warmup!one-dimensional|textbf}
+\chapter[Periodic-Reduction Experiments]{Periodic-Reduction Experiments: From Bloch Fibers to Finite-Range Lattice Hamiltonians}
+\index{experiments!periodic reduction|textbf}
 
 \label{app:one-dimensional-reduction}
 
@@ -8,6 +8,15 @@ discretizations, isolated- and composite-band reductions, and a converged
 Wannier90 comparison establish the numerical behavior of the specified cosine
 model. The results do not constitute semiconductor validation or evidence of
 transferability to silicon.}
+
+This appendix is the manuscript home for the dimensional periodic-reduction experiment
+sequence. The maintained family-first layout places the current one-dimensional
+single-band experiment at
+\path{experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/}.
+Two- and three-dimensional variants will appear beside it only after their scientific
+contracts, schemas, and evidence boundaries exist. The present appendix therefore
+reports the completed one-dimensional scalar and composite cases without implying that
+higher-dimensional successors have already been executed.
 
 \section*{Abstract}
 
@@ -377,7 +386,7 @@ For an $M$-band retained space, the neighboring overlap matrix is
 \end{equation}
 Its singular values distinguish a change of frame from a loss of subspace
 overlap. The unitary polar factor supplies the orthogonal-Procrustes rotation
-that maximizes neighboring-frame overlap~\cite{schonemann1966}. Sequential
+that maximizes neighboring-frame overlap~\cite{schonemann1966,higham1986}. Sequential
 polar transport and reciprocal closure define a smooth composite frame and a
 Wilson-loop matrix. In this one-dimensional setting, the Wilson eigenphases
 give Wannier centers modulo lattice translations, consistent with the
@@ -545,14 +554,25 @@ problem.
 
 \section{Numerical protocol}
 
-The nominal isolated-band calculation uses the dimensionless convention
+The maintained nominal single-band result is now the publication-independent
+experiment version
+\path{ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1},
+run \path{...v1.run-20261014T184707Z}, evidence package
+\path{sha256:6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377}.
+The publication binding is retained in \path{experiment-references.json}. This
+successor reproduces the matched historical M1 channels with zero retained binary64
+defect and adds positive objective weights, explicit construction/evaluation roles,
+sampled external gaps, rank and conditioning, strict schemas, and independent
+verification. The historical paper-owned package remains unchanged provenance.
+
+The nominal single-band calculation uses the dimensionless convention
 $a=2\pi$, $G=1$, and $E_G=1$, with $V_0/E_G=0.5$. Plane-wave cutoffs
 $P=3,5,7,9,11$ are compared with a $P=15$ reference. The corresponding
 Brillouin-zone supremum kinetic cutoffs are obtained from
 $(P+1/2)^2E_G$. The finite-difference study uses $N=31,63,127,255$ cell points,
 with exact spacings $\Delta x/a=1/N$. Parent comparisons are made at
 $k/G=-0.5,-0.25,0,0.25,0.5$ in the fixed low-mode sector $|n|\leq3$.
-The isolated-band hopping transform uses 64 reciprocal points, ranges
+The single-band hopping transform uses 64 reciprocal points, ranges
 $r_c/a=0,1,2,3,4,6,8$, and an independent 257-point withheld mesh. Bandwidth and
 zone-boundary gap are obtained directly from the sampled parent spectrum. The parent
 zone-center curvature is a three-point central difference with reduced-momentum step
@@ -619,7 +639,7 @@ $1.2\times10^{-16}E_G$.
     Quantity & Coarse & Fine \\
     \midrule
     Plane-wave spectrum &
-    $1.21\times10^{-5}$ ($P=3$) & $5.25\times10^{-13}$ ($P=5$) \\
+    $1.21\times10^{-5}$ ($P=3$) & $5.31\times10^{-13}$ ($P=5$) \\
     Finite-difference spectrum &
     $1.75\times10^{-2}$ ($N=31$) & $2.60\times10^{-4}$ ($N=255$) \\
     Common-coordinate operator &
@@ -646,16 +666,18 @@ normalized spread is $0.04175a^2$, and the quadrature norm agrees with unity to
 binary64 precision.
 
 The complete hopping transform reconstructs the represented band with maximum
-mesh error $2.1\times10^{-16}E_G$; the largest imaginary hopping component is
-$4.6\times10^{-18}E_G$. The withheld root-mean-square error decreases from
-$3.04\times10^{-2}E_G$ at $r_c=0$ to $5.55\times10^{-9}E_G$ at $r_c=8a$.
-No preferred range is selected because the benchmark specifies no
-application-dependent accuracy threshold.
+mesh error $4.17\times10^{-17}E_G$. The disjoint evaluation maximum error decreases
+from $4.62\times10^{-2}E_G$ at $r_c=0$ to $9.47\times10^{-9}E_G$ at $r_c=8a$.
+The sampled training and evaluation external gaps are $0.49233922E_G$ and
+$0.49233924E_G$; these finite samples do not certify continuum isolation. No preferred
+range is selected because the benchmark specifies no application-dependent accuracy
+threshold.
 
 On the same complete uniform mesh, equal-weight direct fitting and mediated
-truncation agree within $8.3\times10^{-17}$ in coefficient norm and
-$6.8\times10^{-16}E_G$ in training-band error. Figure~\ref{fig:periodic-1d-nominal}
-summarizes these results.
+truncation agree within $7.38\times10^{-17}E_G$ in coefficient norm and
+$1.56\times10^{-16}E_G$ in sampled maximum route defect. Every fit is full rank and
+retains its condition number. Figure~\ref{fig:periodic-1d-nominal} summarizes the
+finite-range error and locality channels.
 
 \begin{figure}[p]
   \centering
@@ -663,13 +685,11 @@ summarizes these results.
     width=\textwidth,
     height=0.82\textheight,
     keepaspectratio
-  ]{../../../calculations/research-monograph/periodic-1d/summary.png}
-  \caption{Isolated-band reduction at $V_0/E_G=0.5$. The independent
-  plane-wave and finite-difference sequences converge at their expected rates
-  (upper left). Increasing the hopping range improves the reconstructed lowest
-  band (upper right) as the real-space coefficients decay (lower left).
-  Training- and withheld-mesh root-mean-square errors remain nearly coincident
-  across the range hierarchy (lower right).}
+  ]{../../../experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png}
+  \caption{Maintained single-band Fourier-reduction successor at $V_0/E_G=0.5$.
+  Training and disjoint evaluation maximum errors decrease across the frozen range
+  inventory (left), while the omitted-block norm reports the corresponding locality
+  tail (right). The figure is bound by the publication reference manifest.}
   \label{fig:periodic-1d-nominal}
 \end{figure}
 

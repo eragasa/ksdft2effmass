@@ -54,7 +54,7 @@ class TestBandFrameAligner1D:
         reference = ReciprocalBandFramePath1D(
             mesh,
             (reference_frame, reference_frame),
-            ComplexMatrixQuantity(np.eye(3), Unitless()),
+            ComplexMatrixQuantity(np.eye(3, dtype=np.complex128), Unitless()),
             1.0e-14,
         )
         candidate = ReciprocalBandFramePath1D(
@@ -63,7 +63,7 @@ class TestBandFrameAligner1D:
                 ComplexMatrixQuantity(reference_matrix @ first_rotation, Unitless()),
                 ComplexMatrixQuantity(reference_matrix @ second_rotation, Unitless()),
             ),
-            ComplexMatrixQuantity(np.eye(3), Unitless()),
+            ComplexMatrixQuantity(np.eye(3, dtype=np.complex128), Unitless()),
             1.0e-14,
         )
 
@@ -78,25 +78,63 @@ class TestBandFrameAligner1D:
         assert result.frame_maximum_frobenius_defect <= 1.0e-14
         assert result.projector_maximum_frobenius_defect <= 1.0e-14
 
-    def test_method__execute__rejects_different_sewing_conventions(self) -> None:
+    def test_method__execute__rejects_rank_deficient_cross_covariance(self) -> None:
         """Evidence ID: SV-SOLID-STATE-PERIODIC-ONE-D-027
+
+        Requirement: Pointwise Procrustes fails closed when the optimal unitary is
+        nonunique because the candidate/reference cross-covariance is rank deficient.
+
+        Acceptance: Two valid rank-two frames with a rank-one overlap raise
+        ``ValueError`` instead of exposing backend-selected null-space action.
+        """
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
+        reference_frame = ComplexMatrixQuantity(
+            np.asarray(
+                [[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128
+            ),
+            Unitless(),
+        )
+        candidate_frame = ComplexMatrixQuantity(
+            np.asarray(
+                [[1.0, 0.0], [0.0, 0.0], [0.0, 1.0]], dtype=np.complex128
+            ),
+            Unitless(),
+        )
+        sewing = ComplexMatrixQuantity(np.eye(3, dtype=np.complex128), Unitless())
+        reference = ReciprocalBandFramePath1D(
+            mesh, (reference_frame, reference_frame), sewing, 1.0e-14
+        )
+        candidate = ReciprocalBandFramePath1D(
+            mesh, (candidate_frame, candidate_frame), sewing, 1.0e-14
+        )
+
+        with pytest.raises(ValueError, match="full numerical rank"):
+            BandFrameAligner1D().execute(reference, candidate)
+
+    def test_method__execute__rejects_different_sewing_conventions(self) -> None:
+        """Evidence ID: SV-SOLID-STATE-PERIODIC-ONE-D-028
 
         Requirement: Alignment does not silently bridge different sewing maps.
 
         Acceptance: Different explicit maps raise ``ValueError``.
         """
         mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
-        frame = ComplexMatrixQuantity(np.asarray([[1.0], [0.0]]), Unitless())
+        frame = ComplexMatrixQuantity(
+            np.asarray([[1.0], [0.0]], dtype=np.complex128), Unitless()
+        )
         identity = ReciprocalBandFramePath1D(
             mesh,
             (frame, frame),
-            ComplexMatrixQuantity(np.eye(2), Unitless()),
+            ComplexMatrixQuantity(np.eye(2, dtype=np.complex128), Unitless()),
             1.0e-14,
         )
         shifted = ReciprocalBandFramePath1D(
             mesh,
             (frame, frame),
-            ComplexMatrixQuantity(np.asarray([[0.0, 1.0], [1.0, 0.0]]), Unitless()),
+            ComplexMatrixQuantity(
+                np.asarray([[0.0, 1.0], [1.0, 0.0]], dtype=np.complex128),
+                Unitless(),
+            ),
             1.0e-14,
         )
 

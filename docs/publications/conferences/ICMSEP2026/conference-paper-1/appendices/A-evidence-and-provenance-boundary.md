@@ -12,7 +12,7 @@ The maintained evidence is retained under:
 
 | Location | Present role | Status and claim boundary |
 |---|---|---|
-| `calculations/ICMSEP2026/conference/paper_1/isolated-band/` | Prospectively frozen M1 parent refinement, lowest-band extraction, complete hopping reconstruction, finite-range truncation, matched-route comparison, and withheld evaluation | Retained controlled numerical-verification evidence; its historical identity does not substitute for a gap or isolation result, it excludes historical stress channels, and it is not a thresholded admissible-set map |
+| successor version/run/evidence package bound by `experiment-references.json` | Publication-independent parent refinement, sampled external gaps, lowest-band extraction, complete hopping reconstruction, finite-range truncation, positive-weight matched-route comparison, rank/conditioning, and disjoint evaluation | Retained controlled numerical-verification evidence with zero matched-channel defect against historical M1; sampled gaps are not a continuum isolation certificate, historical stress channels remain excluded, and no thresholded admissible-set map is claimed |
 | `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/` | Prospectively frozen M2 gapped rank-two parent, known periodic gauge attack, pointwise and global-unitary alignment channels, block-hopping locality, and withheld evaluation | Retained controlled numerical-verification evidence; not a general alignment solver or thresholded admissible-set map |
 | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/` | Prospectively frozen M3 two-parameter rank-two admissible sets over nine one-global-rotation components, including a common witness and a finite-component separation certificate | Retained controlled numerical-verification evidence for the frozen finite family only; not an unrestricted alignment result, physical threshold calibration, or material validation |
 | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/` | Post-hoc analytic reanalysis of the sealed M3 quadratics at fixed spectral threshold | Exploratory sensitivity evidence only; not part of the prospective M3 confirmatory package |
@@ -26,9 +26,11 @@ verification. It is not a public data deposit, DOI, material validation, statist
 uncertainty analysis, or evidence that a general alignment problem has been solved.
 Historical external executions are not rerun by the manuscript.
 
-The standalone M1, M2, and M3 retained verifiers decode the frozen JSON documents and
-reconstruct their finite protocols without importing the corresponding producer
-Actions. The separate threshold-sensitivity verifier reconstructs its analytic grid
+The single-band successor's typed direct-formula verifier and the standalone M2 and M3
+retained verifiers reconstruct the frozen numerical documents, while the successor
+package verifier checks canonical strict-schema bytes, digests, and predecessor
+bindings. The numerical routes reconstruct their finite protocols without calling the
+corresponding producer Actions. The separate threshold-sensitivity verifier reconstructs its analytic grid
 from the source quadratics after checking both the source-result digest and its exact
 entry in the source package manifest. These verifiers remain dependent on shared
 numerical libraries, runtime behavior, and declared mathematical conventions; passing

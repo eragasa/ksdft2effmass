@@ -61,6 +61,20 @@ continuous global search and constraint satisfaction. This reuse resolves no
 broader claim about which certified global method is applicable to the
 project's future material-scale model families.
 
+**Later Procrustes-source check:** The metadata for `schonemann1966` and
+`higham1986` were checked against DOI records and publisher or author-repository
+pages. Schönemann's article states the real orthogonal least-squares problem,
+including applicability when the input matrices lack full column rank. In the
+consulted Higham article, the relevant locator is **Theorem 2.2**, not Theorem
+2.1: equations (2.1)--(2.3) construct the polar factor from the SVD, inequality
+(2.4) in Theorem 2.2 gives its Frobenius best-approximation property for complex
+matrices, Theorem 1.1 states uniqueness under full column rank, and Section 6.1
+connects the polar factor explicitly to the orthogonal Procrustes problem. The
+manuscript now attributes the real orthogonal
+formulation to Schönemann and the complex unitary polar-factor form to Higham.
+This bounded check resolves the earlier Procrustes-specific citation prompt; it
+is not a general claim-by-claim audit of either article.
+
 **Later spectral-projection integration:** A supplied focused literature and
 methodology note has been integrated conceptually into
 `chapters/projection-and-retained-spaces.tex` and Appendix C rather than added as
@@ -1107,7 +1121,7 @@ main projection chapter derives the same distinction pedagogically and cites
 
 ---
 
-**Location:** `docs/publications/research-monograph/appendices/G-one-dimensional-reduction.tex`, approximately lines 307–351, section “Mathieu and Floquet formulation,” equations defining \(A\), \(q\), and the Floquet exponent \(\nu\).
+**Location:** `docs/publications/research-monograph/appendices/G-periodic-reduction-experiments.tex`, approximately lines 307–351, section “Mathieu and Floquet formulation,” equations defining \(A\), \(q\), and the Floquet exponent \(\nu\).
 
 **Passage / claim:** The cosine Schrödinger problem is converted to the Mathieu equation, Bloch periodicity becomes a Floquet condition, and Mathieu characteristic values can provide an independent reference for selected bands.
 

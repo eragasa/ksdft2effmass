@@ -1,20 +1,29 @@
-# Supplementary Appendix S2: M1 Isolated-Band Calculation
+# Supplementary Appendix S2: Single-Band Fourier-Reduction Successor
 
 ## S2.1 Role and frozen scope
 
-M1 is the planning identifier for the prospectively frozen, controlled
-one-dimensional lowest-band calculation used in the main paper. Its retained
-calculation identity is
-`icmsep2026.paper1.periodic1d.isolated-band.v1`.
+M1 is retained only as the historical publication alias for the controlled
+one-dimensional lowest-band calculation. The maintained evidence now resolves through
 
-The calculation is synthetic numerical-verification evidence. It evaluates a finite
+- family `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction`;
+- version `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1`;
+- run `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z`; and
+- evidence package `sha256:6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377`.
+
+The publication-side binding is `experiment-references.json`. The historical
+`icmsep2026.paper1.periodic1d.isolated-band.v1` package remains byte-preserved as the
+provenance predecessor and is no longer the live source for these reported values.
+
+The successor calculation is synthetic numerical-verification evidence. It evaluates a finite
 parent representation, extracts the lowest scalar band, performs a complete
 reciprocal-to-hopping transform, constructs finite-range reductions, compares matched
 routes, and evaluates disjoint withheld points. The retained schema contains no
 band-gap result and does not by itself establish that this lowest band is isolated; a
 sampled-gap or stronger isolation argument is a separate prerequisite channel. The
-historical identity is not reinterpreted as such evidence. The calculation contains no
-material parameters or external electronic-structure execution.
+historical alias is not reinterpreted as such evidence. The successor records sampled
+training/evaluation external gaps of $0.4923392224E_G$ and $0.4923392377E_G$ but does
+not promote them to continuum isolation. The calculation contains no material
+parameters or external electronic-structure execution.
 
 The dimensionless parent is
 
@@ -42,15 +51,15 @@ post-calculation energy shift is fitted.
 | Coordinate tolerance | $10^{-14}$ |
 
 The historical Mathieu values, common-low-mode comparison, weak-potential sweep, and
-stress attacks are outside M1. Multiband alignment, nonidentity gauge families, Wannier
+stress attacks are outside version `v1`. Multiband alignment, nonidentity gauge families, Wannier
 localization, topology, two-dimensional shells, material validation, and uncertainty
 quantification are also outside its frozen scope.
 
 ## S2.2 Parent-representation diagnostics
 
 At each frozen momentum, the lowest three eigenvalues were compared with the cutoff-15
-plane-wave representation. This cutoff is the declared finite reference for M1, not an
-exact continuum spectrum.
+plane-wave representation. This cutoff is the declared finite reference for version
+`v1`, not an exact continuum spectrum.
 
 | Cutoff $P$ | Maximum discrepancy ($E_G$) |
 |---:|---:|
@@ -71,8 +80,8 @@ independently assembled centered finite-difference channel produced:
 | 127 | $1.0471636947908536\times10^{-3}$ |
 | 255 | $2.597716946719508\times10^{-4}$ |
 
-The observed decrease is the finite-grid refinement diagnostic. M1 does not convert it
-into a continuum convergence certificate.
+The observed decrease is the finite-grid refinement diagnostic. Version `v1` does not
+convert it into a continuum convergence certificate.
 
 ## S2.3 Training and withheld roles
 
@@ -138,14 +147,14 @@ $7.38120416098117\times10^{-17}E_G$, and the largest sampled maximum route defec
 $1.564917933602745\times10^{-16}E_G$. The largest Parseval residual is
 $6.938893903907228\times10^{-18}E_G^2$, and the largest imaginary band-shape residual
 is $9.479926314907974\times10^{-16}E_G$. These are matched-route and
-numerical-consistency diagnostics. M1 defines no preferred hopping range or scientific
-acceptance threshold.
+numerical-consistency diagnostics. Version `v1` defines no preferred hopping range or
+scientific acceptance threshold. It additionally retains every direct-fit design rank
+and condition number under explicit positive weights.
 
 ## S2.4 Independent reconstruction and provenance
 
-The retained verifier strictly decodes the frozen input and result documents and
-imports neither the producer entry point nor the maintained `ksdft2effmass`
-calculation implementation. It independently rebuilds parent matrices, spectra,
+The retained typed verifier calls neither the experiment producer nor the reusable
+single-band reduction Workflow. It independently rebuilds parent matrices, spectra,
 Fourier coefficients, truncations, least-squares fits, route defects, Hermiticity,
 Parseval quantities, and band-shape diagnostics. It nevertheless shares NumPy, SciPy,
 eigensolver semantics, model conventions, and the runtime environment with the
@@ -158,18 +167,13 @@ physical or continuum oracle.
 | Hopping | $4.781392881215698\times10^{-17}$ |
 | Diagnostic | $2.731148640577885\times10^{-14}$ |
 
-All are below the frozen $10^{-12}$ verification tolerance. The result and verification
-wire identities are:
-
-- `ksdft2effmass.periodic1d.isolated-band-calculation-result.v1`;
-- `ksdft2effmass.periodic1d.isolated-band-calculation-verification.v1`.
-
-The protocol-freeze record contains the hashes of `input.json` and `protocol.md`
-recorded before confirmatory execution. The retained package further binds the result,
-verification, scripts, software record, source manifest, figure data, and figure
-through `SHA256SUMS`. These digests test byte identity relative to the retained
-manifests; by themselves they do not supply an external trusted timestamp or prove
-chronology. The source manifest records the calculation snapshot and is not a claim
-that a later evolving worktree has identical hashes. The calculation used local
-in-process Python software only; it invoked no external electronic-structure
-calculator, scheduler, remote resource, or material dataset.
+All are below the frozen $10^{-12}$ verification tolerance. The result and verification wire identities are the version-bound
+`...single-band-fourier-reduction.v1.result.v1` and
+`...single-band-fourier-reduction.v1.verification.v1` schemas. Unknown properties are
+rejected, canonical JSON bytes are checked, and the evidence manifest is bound by the
+package identity above. Exact provenance records the dirty-worktree source manifest,
+base Git commit, dependency revisions, and the historical predecessor's Git revision,
+path, tree, and file digests. Hashes test byte identity but are not an external trusted
+timestamp. The calculation used local in-process Python software only; it invoked no
+external electronic-structure calculator, scheduler, remote resource, or material
+dataset.
