@@ -1,0 +1,704 @@
+{
+  "schema": "ksdft2effmass.silicon-wannier-kinetic-read-only-prototype.v3",
+  "status": "read-only content-bound software/numerical prototype; not independently provenance-authenticated or scientifically validated",
+  "run_id": "silicon-example11-hminus-t-20261004T171505Z",
+  "run_root": "/Users/eugene/calculations/projectkoios-applications/silicon-example11-hminus-t-20261004T171505Z",
+  "provider_source_status": "clean local projectkoios-simulations commit",
+  "projectkoios_simulations_commit": "f3e7ee568434313b0c36e7e304484a4fac6e0a63",
+  "provider_source_manifest": {
+    "relative_path": "manifests/provider-source.sha256.tsv",
+    "sha256": "950e37828b3a3fbdbe6adfa14ee40e0ddd86e35d63305b745cb41b9951adf06b"
+  },
+  "analysis_script_sha256": "29a9592053317d9f36814fd43cd20aae39cbf8072c8c774a3328f08cbeede7b1",
+  "ksdft2effmass_source_status": "content-bound working-tree source over local base commit; base commit alone is insufficient",
+  "ksdft2effmass_base_commit": "de2f207d551c4d657c68a28c3032d5d797fa040d",
+  "ksdft2effmass_analysis_source_manifest": {
+    "relative_path": "manifests/analysis-source.sha256.tsv",
+    "sha256": "06c437603745e786fdcf50aa925c05fc5bd57663b2a766650678c4375695fda6",
+    "byte_size": 762
+  },
+  "provider_manifest_digest_sha256": "b34e28d5e0c7f8e90060f714f72d9d4dc0fd6a2d10307627cbbc5668f068b0e9",
+  "artifact_binding_authority": "bindings computed from bytes observed during this analysis; pre-existing production lineage manifests not consumed",
+  "represented_operator_payload": {
+    "relative_path": "represented-operators.npz",
+    "sha256": "cc383ed45dba4d27c68d749c28d3d10c0c6f6dcff52c4b93fb0cc5396018ae36",
+    "byte_size": 76207,
+    "arrays": {
+      "fractional_kpoints": [
+        64,
+        3
+      ],
+      "centered_lattice_representatives": [
+        64,
+        3
+      ],
+      "combined_frames": [
+        64,
+        12,
+        4
+      ],
+      "hamiltonian_reciprocal_eV": [
+        64,
+        4,
+        4
+      ],
+      "kinetic_reciprocal_eV": [
+        64,
+        4,
+        4
+      ],
+      "nonkinetic_remainder_reciprocal_eV": [
+        64,
+        4,
+        4
+      ],
+      "hamiltonian_lattice_eV": [
+        64,
+        4,
+        4
+      ],
+      "kinetic_lattice_eV": [
+        64,
+        4,
+        4
+      ],
+      "nonkinetic_remainder_lattice_eV": [
+        64,
+        4,
+        4
+      ]
+    },
+    "energy_unit": "electron_volt"
+  },
+  "artifact_bindings": [
+    {
+      "role": "post-nscf-state-manifest",
+      "relative_path": "manifests/qe-post-nscf-si.save.sha256.tsv",
+      "sha256": "86c4f6097123e8aa4efd519bb8e9244826397f0b685def5dabd9b0a71f6eb77d",
+      "byte_size": 5543,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "qexsd",
+      "relative_path": "artifacts/qe/post-nscf/si.save/data-file-schema.xml",
+      "sha256": "e22e6461a1361a4bf202f416ea53a652c696dda46b22c968fb8f38ea607c1d8c",
+      "byte_size": 120516,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "pseudopotential",
+      "relative_path": "pseudo/Si.pbe-n-van.UPF",
+      "sha256": "ecbf38a11397247e67bc4204e01f655459d6cb7c286e581ab125db8708dcb8fa",
+      "byte_size": 577736,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "win",
+      "relative_path": "inputs/derived/silicon.win",
+      "sha256": "c5c3851c62904d1aeda1cf4971cc652944b758e1d130ef05f8af34907ef4760e",
+      "byte_size": 3878,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "nnkp",
+      "relative_path": "artifacts/wannier90/preprocess/silicon.nnkp",
+      "sha256": "579922ca1dfd7c956bde81aa74c15cd5171051702fbd44043a05675b5d00468b",
+      "byte_size": 19070,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00001.1",
+      "sha256": "332cc74a4e88355c7a11f09cf216c8fd77bf1111d5756706e9e48105364b57b4",
+      "byte_size": 2654332,
+      "kpoint_index": 1,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00002.1",
+      "sha256": "523c00a3b473d10522d5fe211c2102a4e98fe1f347dd0628bdc53c3f556ff1f3",
+      "byte_size": 2654332,
+      "kpoint_index": 2,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00003.1",
+      "sha256": "936017173f6e5ee14b80d3d42502268e810c14f743e5f30ea0cda9616d13ea77",
+      "byte_size": 2654332,
+      "kpoint_index": 3,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00004.1",
+      "sha256": "e11fe9766a3669cc74abb07d046a4b0b8f0d9d65a30c49d958ca56f0f085c3e8",
+      "byte_size": 2654332,
+      "kpoint_index": 4,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00005.1",
+      "sha256": "9390df9b24371cfcde011b1c9818f91552339ac9824a7931d387502e523bf592",
+      "byte_size": 2654332,
+      "kpoint_index": 5,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00006.1",
+      "sha256": "db70ef9026436bdee2819d168cfee828296cf7bc21e41b3d2c6ed6ff7f3fc42f",
+      "byte_size": 2654332,
+      "kpoint_index": 6,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00007.1",
+      "sha256": "1c235ca047bf6a9ff460aa86efc29c67fb938c42f1ddc86984a143e19da5c1f0",
+      "byte_size": 2654332,
+      "kpoint_index": 7,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00008.1",
+      "sha256": "05ca8875c540217317cca7e33a27fbb961028533fefcbb57a1f5daf50d135aa9",
+      "byte_size": 2654332,
+      "kpoint_index": 8,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00009.1",
+      "sha256": "1b9ab2a36f6af1eadbbba1588cd992c5478623a6ab35b9dd825654df09b74e41",
+      "byte_size": 2654332,
+      "kpoint_index": 9,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00010.1",
+      "sha256": "739c94c655fe29e3225e81d57a5e6fc6ea44353ae7586aa9b666e402b06e827d",
+      "byte_size": 2654332,
+      "kpoint_index": 10,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00011.1",
+      "sha256": "07b29dacb47199912e7c7d314023f1f3f648c6e85769395160f1edc5532b2148",
+      "byte_size": 2654332,
+      "kpoint_index": 11,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00012.1",
+      "sha256": "848a69898b03c476b48a43318914748e1914b28565c0e78dc8af2ecae33535e9",
+      "byte_size": 2654332,
+      "kpoint_index": 12,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00013.1",
+      "sha256": "4c859e9aaf234fbd62c16be5603dc907cd68a013b35c7298a3a5280997981189",
+      "byte_size": 2654332,
+      "kpoint_index": 13,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00014.1",
+      "sha256": "ac643ae50c9afb3dd18ef52aaeb8f61a6660038cac4772a8dc5945a5a42dd0dc",
+      "byte_size": 2654332,
+      "kpoint_index": 14,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00015.1",
+      "sha256": "52749e293b3bc2794eb702040961f335947ae4c885d4700e14a5d4f7f9aed6f4",
+      "byte_size": 2654332,
+      "kpoint_index": 15,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00016.1",
+      "sha256": "a04790076ff443ff4d96656838e52c39f61a1cdd93404c1ca89105d04557a1a8",
+      "byte_size": 2654332,
+      "kpoint_index": 16,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00017.1",
+      "sha256": "a47cf48e8fd972c76f03758df07458d000d85dc19d6af44af0d9638e5e496757",
+      "byte_size": 2654332,
+      "kpoint_index": 17,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00018.1",
+      "sha256": "87fe67b4078cc8370f0d343e3a055e5e8fc60803b9b21314fc40dda380738e36",
+      "byte_size": 2654332,
+      "kpoint_index": 18,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00019.1",
+      "sha256": "72bc44db7f049e6e96b3ba8d56fdb383235a70fb5dc9aaf1c647e9f840e34a9f",
+      "byte_size": 2654332,
+      "kpoint_index": 19,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00020.1",
+      "sha256": "299aea24697657f6146893b77cd838c924dc72972522808e4b33bbea0a6c8c00",
+      "byte_size": 2654332,
+      "kpoint_index": 20,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00021.1",
+      "sha256": "f1d9a98e0f7d7b6bb33af473f00493a0a851a2461f18f334f8639b526418663d",
+      "byte_size": 2654332,
+      "kpoint_index": 21,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00022.1",
+      "sha256": "719a3c7be6d493ae31187f7432b0440be6ca11517e0b4df5fd67bbb0131723cb",
+      "byte_size": 2654332,
+      "kpoint_index": 22,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00023.1",
+      "sha256": "c5b4d2832abfe4ef9142368d980b8a1b9df5c40f10ea543c6f749eb29e2f4a19",
+      "byte_size": 2654332,
+      "kpoint_index": 23,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00024.1",
+      "sha256": "c2cd3040e2d0a92b0e09721fca764a6163f482f97cb166ea747a95f9de62732e",
+      "byte_size": 2654332,
+      "kpoint_index": 24,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00025.1",
+      "sha256": "7bdd0280d300a0aa3d0aa5bb06b2215229ac3eb7d907efb5afe8f075c9dc58f1",
+      "byte_size": 2654332,
+      "kpoint_index": 25,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00026.1",
+      "sha256": "2be552e1ac4aba0f9148444c7e2440bd0739887c1203b4e04badf425e9be991d",
+      "byte_size": 2654332,
+      "kpoint_index": 26,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00027.1",
+      "sha256": "d873f9a89d33c24208ffa78f286b7ae834fddf7ab41150f4e4dd79f5f6a3d602",
+      "byte_size": 2654332,
+      "kpoint_index": 27,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00028.1",
+      "sha256": "9669522a3c26748d336ff0ded7100aef74f733a9987d538603db7f8162d16eae",
+      "byte_size": 2654332,
+      "kpoint_index": 28,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00029.1",
+      "sha256": "2b37b7844c6cfbf30378e77ce90cdc9e2827922bcdeaa81435baad5bde2b5cd0",
+      "byte_size": 2654332,
+      "kpoint_index": 29,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00030.1",
+      "sha256": "d994b7843b6a4fea2ebd7ab1464b888e3c2633d7c70a309f396eaa6657314fd7",
+      "byte_size": 2654332,
+      "kpoint_index": 30,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00031.1",
+      "sha256": "c309665ebfd61098695be5fd10d591fd25c024cb218a21f1eb3dac45bb07dfef",
+      "byte_size": 2654332,
+      "kpoint_index": 31,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00032.1",
+      "sha256": "44e83c72c15df220f5cf7076a14a10d3dd4c125b5cd0ae9082d12da66d1d2f10",
+      "byte_size": 2654332,
+      "kpoint_index": 32,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00033.1",
+      "sha256": "2b1b45448b0d27a7c01a846e93944ea0b7ffe7bd9cb5f3214d6b283f1fb849b5",
+      "byte_size": 2654332,
+      "kpoint_index": 33,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00034.1",
+      "sha256": "cf6e2122482f9db80d85140841337d3f10f1287bf887e6db8255c2534d87b486",
+      "byte_size": 2654332,
+      "kpoint_index": 34,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00035.1",
+      "sha256": "c0115669508fe0b204d11f3406b6c9709595a4fb1b6ad6984eec1685fce91d80",
+      "byte_size": 2654332,
+      "kpoint_index": 35,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00036.1",
+      "sha256": "974a98faf1c5ea60482ae31eb3eca6f3c757c74af622881cc248023f8227a74f",
+      "byte_size": 2654332,
+      "kpoint_index": 36,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00037.1",
+      "sha256": "dac2f8b055d31e66a178f29fdf1e8abf3d08a2b1cbc25cc6d1ccf09599948ebd",
+      "byte_size": 2654332,
+      "kpoint_index": 37,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00038.1",
+      "sha256": "d1b85ca03e7cbbedfc7159a88ad72d3e58f03f06f97bcd08855cfa68e906322f",
+      "byte_size": 2654332,
+      "kpoint_index": 38,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00039.1",
+      "sha256": "8d1b840d2acc5b711af242e1f8bdbf3e67507964ffbc203a9f8b48c9854d44ba",
+      "byte_size": 2654332,
+      "kpoint_index": 39,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00040.1",
+      "sha256": "d3c53ac8da1ffc36aeedf965ccbe7bc51f7f5941ecb1add18ade2d38eb32572a",
+      "byte_size": 2654332,
+      "kpoint_index": 40,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00041.1",
+      "sha256": "ecaa6869cb5542b640c0bae299481a0bf318888c793a504dc76f1c5fc2b8c5fb",
+      "byte_size": 2654332,
+      "kpoint_index": 41,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00042.1",
+      "sha256": "96e60a2d091b38d1891094281ce220df05c69381cfc20933f93d6b70a3aa5261",
+      "byte_size": 2654332,
+      "kpoint_index": 42,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00043.1",
+      "sha256": "178ca39634ab5fc430d24db09505823aaf706fa0a2bb3edd2bb00aff34e345cc",
+      "byte_size": 2654332,
+      "kpoint_index": 43,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00044.1",
+      "sha256": "12703cf308334ec1ac740aaf69e280d545266e9f32fb8fc6f64ccc5ff5fa98a2",
+      "byte_size": 2654332,
+      "kpoint_index": 44,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00045.1",
+      "sha256": "eb09c1fd6160c55929dd8ce4a17fc1b43f5358c363fc73d8fee6cc5e3dafba5b",
+      "byte_size": 2654332,
+      "kpoint_index": 45,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00046.1",
+      "sha256": "b18f3c8d9e454e05109eb794a99133bef272608737e50d2dca1eaa3542141c62",
+      "byte_size": 2654332,
+      "kpoint_index": 46,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00047.1",
+      "sha256": "736963b30e055059a566fb77a3e8c979cab5ba12e72613328670328c8a03953a",
+      "byte_size": 2654332,
+      "kpoint_index": 47,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00048.1",
+      "sha256": "455d2ae19c12601d24871da91e686bd2ee9493c9048bedf8fe98707ad2ba872c",
+      "byte_size": 2654332,
+      "kpoint_index": 48,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00049.1",
+      "sha256": "3f67279c376060b1dcdeaaa0657cf33699064c8d8bfb5892088b25b4154ece7d",
+      "byte_size": 2654332,
+      "kpoint_index": 49,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00050.1",
+      "sha256": "8bb3d557f0c7adf0fd9085019024f31e606a430c065131e0a55f10c0436f9d6a",
+      "byte_size": 2654332,
+      "kpoint_index": 50,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00051.1",
+      "sha256": "630aad14cf65f02d343daa5c14f6841db16376b27d827b52c999fc977dc30a92",
+      "byte_size": 2654332,
+      "kpoint_index": 51,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00052.1",
+      "sha256": "16d3a5d462599e3b1338be639611e50d7e2b201c4f37342ad105cac552688c98",
+      "byte_size": 2654332,
+      "kpoint_index": 52,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00053.1",
+      "sha256": "b46841ebb2447b19c5230565bc99d9f46a779145bbd6c1118b633211a3cac11a",
+      "byte_size": 2654332,
+      "kpoint_index": 53,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00054.1",
+      "sha256": "ec5f05f811b155a2054dcf76386f2eb16898b6ca369fad8b646583a411b253e6",
+      "byte_size": 2654332,
+      "kpoint_index": 54,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00055.1",
+      "sha256": "638b418a8bb1c8ec4a45dd8f0f67a682cb20331c9092a0ad5162ed5e1f26d67e",
+      "byte_size": 2654332,
+      "kpoint_index": 55,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00056.1",
+      "sha256": "ae6227837065ff90d2343a357a2065d7e3f18dbfbdcac68e5dfdfb3709db5a03",
+      "byte_size": 2654332,
+      "kpoint_index": 56,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00057.1",
+      "sha256": "58cf367d857e141696d6b9fc3fe100b4c2471b5b019077cc91757ca734f131a9",
+      "byte_size": 2654332,
+      "kpoint_index": 57,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00058.1",
+      "sha256": "fab823a571e04eabfe3e4d210e177347a112f1c6fe43b329cf7922d71a316c1b",
+      "byte_size": 2654332,
+      "kpoint_index": 58,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00059.1",
+      "sha256": "899b8086f72c31c1a369f025783b964914feb3e003075497c47ed7109251c2bf",
+      "byte_size": 2654332,
+      "kpoint_index": 59,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00060.1",
+      "sha256": "ce3c6b15992b0f5312428cee23ebf4d90e33aa5f81e4834e9974f680d3beccf6",
+      "byte_size": 2654332,
+      "kpoint_index": 60,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00061.1",
+      "sha256": "4293c502abf75d23a151168e4e30d3af0bdf13fd4d480ec954d10e79fbfc4bbd",
+      "byte_size": 2654332,
+      "kpoint_index": 61,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00062.1",
+      "sha256": "a2dd1a9b72825192c439d3651c9ffe984531df47e312a33bb971754943a341fe",
+      "byte_size": 2654332,
+      "kpoint_index": 62,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00063.1",
+      "sha256": "63d8eb6af9cad0ead6478296358c12cb2952d36bcefa90267f6498b9c9861f9b",
+      "byte_size": 2654332,
+      "kpoint_index": 63,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "unk",
+      "relative_path": "artifacts/qe/pw2wannier90/unk/UNK00064.1",
+      "sha256": "88ace105ba01f721bbe514fe85cdd5e7133f7b5913d9d88b2bee95581c18691b",
+      "byte_size": 2654332,
+      "kpoint_index": 64,
+      "spin_channel_index": 1
+    },
+    {
+      "role": "eig",
+      "relative_path": "artifacts/qe/pw2wannier90/interface/silicon.eig",
+      "sha256": "48438182fcde4adec48a73615f4e22d580723e7d8de589753a50d5886a55b35e",
+      "byte_size": 29952,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "u.mat",
+      "relative_path": "artifacts/wannier90/localization/silicon_u.mat",
+      "sha256": "3cd3b962247248eed4490250d234f9d3598aac1b7a84eac55d9570c455404962",
+      "byte_size": 34824,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "u_dis.mat",
+      "relative_path": "artifacts/wannier90/localization/silicon_u_dis.mat",
+      "sha256": "7bb79dddbf837f163994d94447706ba2ae18587d239594b998d80dce901a911c",
+      "byte_size": 98312,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    },
+    {
+      "role": "hr",
+      "relative_path": "artifacts/wannier90/localization/silicon_hr.dat",
+      "sha256": "9a32c1d98e45172d911dd12b9c81de47daa168c21eaf96c3aaf5a2cb2554afdf",
+      "byte_size": 74933,
+      "kpoint_index": null,
+      "spin_channel_index": null
+    }
+  ],
+  "kpoint_count": 64,
+  "parent_band_count": 12,
+  "wannier_count": 4,
+  "fft_grid": [
+    24,
+    24,
+    24
+  ],
+  "retained_non_nyquist_grid_coordinate_count": 12167,
+  "excluded_even_grid_nyquist_coordinate_count": 1657,
+  "overlap_metric": "ultrasoft-generalized-overlap",
+  "unk_normalization_convention": "native-inverse-fft-samples-no-renormalization",
+  "unk_parent_band_l2_coefficient_norm_min": 0.9859758157562711,
+  "unk_parent_band_l2_coefficient_norm_max": 1.0249765285298555,
+  "unk_retained_frame_l2_coefficient_norm_min": 0.9996452204472691,
+  "unk_retained_frame_l2_coefficient_norm_max": 1.0025358744510655,
+  "unk_nyquist_plane_band_weight_upper_bound_max": 1.2570709491976472e-32,
+  "unk_nyquist_plane_total_weight_upper_bound_max": 7.931405079071697e-32,
+  "gauge_unitarity_maximum_frobenius": 2.8554932456102363e-10,
+  "disentanglement_isometry_maximum_frobenius": 0.0,
+  "combined_frame_isometry_maximum_frobenius": 2.8554932456102363e-10,
+  "hamiltonian_hermiticity_maximum_frobenius_eV": 1.2941548701325316e-15,
+  "kinetic_hermiticity_maximum_frobenius_eV": 4.628445090676577e-15,
+  "nonkinetic_remainder_hermiticity_maximum_frobenius_eV": 4.860040125755541e-15,
+  "reciprocal_decomposition_maximum_frobenius_eV": 1.5151595604785607e-15,
+  "hamiltonian_roundtrip_maximum_frobenius_eV": 1.8374620331900278e-15,
+  "kinetic_roundtrip_maximum_frobenius_eV": 6.852350962403901e-15,
+  "nonkinetic_remainder_roundtrip_maximum_frobenius_eV": 5.62499489734446e-15,
+  "lattice_decomposition_maximum_frobenius_eV": 2.072965974198471e-15,
+  "hr_vs_eigenvalue_frame_maximum_frobenius_eV": 1.2763350779398178e-05,
+  "hamiltonian_reciprocal_frobenius_min_eV": 3.9445105167864214,
+  "hamiltonian_reciprocal_frobenius_max_eV": 12.44376057805272,
+  "kinetic_reciprocal_frobenius_min_eV": 18.07927923997911,
+  "kinetic_reciprocal_frobenius_max_eV": 31.408624851311505,
+  "nonkinetic_remainder_reciprocal_frobenius_min_eV": 16.993027717617334,
+  "nonkinetic_remainder_reciprocal_frobenius_max_eV": 21.750872527839466,
+  "diagnostics_pass": true,
+  "limitations": [
+    "Provider source is locally committed but is not consumed as a published, pinned dependency.",
+    "Artifact bindings are computed from bytes observed during this analysis and do not authenticate prior production provenance; production-manifest integration is deferred.",
+    "Even-grid Nyquist coordinates are excluded because the provider fails closed on their signed G interpretation.",
+    "The production ultrasoft calculation uses a generalized overlap metric; ordinary coefficient norms are diagnostic observations only.",
+    "No QE or Wannier90 executable was run.",
+    "Software and numerical consistency do not establish convergence, physical adequacy, or scientific validation."
+  ]
+}

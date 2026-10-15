@@ -1,0 +1,3 @@
+# Preserve imported source bytes while suppressing false whitespace diagnostics.
+executed-silicon.win.diff whitespace=-trailing-space
+real-space-decay-shells.csv -text whitespace=-trailing-space
