@@ -9,6 +9,7 @@ does not authorize protected execution or establish scientific validation.
 - [Computational research program](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/ksdft2effmass.computational.00.md)
 - [Simulation-first bootstrap](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/ksdft2effmass.computational.bootstrap.md)
 - [Bulk-silicon production program](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/bulk-silicon-production-program.md)
+- [Si-VC PBE/ONCV QE--Wannier90 component-locality campaign](Si-bulk/wannier-component-locality/index.md)
 - [Quantum ESPRESSO tutorial simulations](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/quantum-espresso-tutorial-simulations.md)
 - [ABINIT tutorial correspondence](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/abinit-tutorial-correspondence.md)
 - [Wannier tutorial catalog](https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/wannier/wannier-tutorial-catalog.md)
