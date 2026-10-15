@@ -26,10 +26,16 @@ minimal two-parameter example shows the decision rule in exact form: one trainin
 choice yields a common model, while a restricted choice produces a clear, certified
 separation between the spectral and operator sets.
 
-These results are controlled numerical verification on synthetic operators, not
-material validation. Whether two reductions are compatible always depends on the
-chosen model class, loss functions, thresholds, alignment rules, and the finite domains
-used for comparison.
+A final read-only preview applies the represented-operator machinery to an external
+source run whose original input bytes match the official Wannier90 3.1.0 silicon
+tutorial. It reconstructs a
+rank-four same-frame Hamiltonian, kinetic operator, and non-kinetic remainder;
+on the tutorial's $4\times4\times4$ mesh, retaining 57 of 64 real-space blocks
+still leaves a maximum kinetic eigenvalue error of $84\ \mathrm{meV}$. This is
+tutorial-scale feasibility and negative truncation evidence, not a converged
+silicon model or material validation. Compatibility continues to depend on the
+chosen model class, loss functions, thresholds, alignment rules, and finite
+comparison domains.
 
 **Keywords:** admissible sets, model reduction, operator alignment, periodic
 Hamiltonians, spectral compatibility
@@ -76,7 +82,10 @@ truncation, shell, and gauge-locality calculations are the paper's primary contr
 benchmarks. A separate analytically tractable two-parameter case provides a compact,
 explicitly bounded illustration of the admissible-set decision logic. It is not a
 surrogate for the multiband, nonidentity-gauge problem, and none of these controlled
-results establishes transferability to a material.
+results establishes transferability to a material. A final material-facing preview
+uses byte-matched inputs from the official Wannier90 3.1.0 silicon tutorial to test the
+same-frame decomposition and finite-mesh locality diagnostics without promoting the
+tutorial into a production calculation.
 
 ## II. Methodology
 
@@ -550,7 +559,68 @@ principal controlled finding of the paper. Spectral equality does not determine 
 or a useful short-range representation. It also shows why alignment freedom must be
 constrained before operator residuals are interpreted.
 
-### *3.9 Evidence summary*
+### *3.9 Tutorial-scale silicon preview*
+
+A read-only material-facing preview consumed an externally retained
+QE 7.5--Wannier90 3.1.0 source run without executing either calculator for this
+paper. A post-hoc byte-identity correlation confirms that its four original input files
+match the official Wannier90 3.1.0 `examples/example11` silicon tutorial. The executed
+`silicon.win` adds only `write_hr = true` and `write_u_matrices = true` output-artifact
+requests; it changes no tutorial numerical setting. The source run uses the tutorial's
+legacy ultrasoft PBE pseudopotential reference, 25-Ry
+wavefunction cutoff, 12 parent bands, four retained Wannier functions, and
+$4\times4\times4$ Wannier mesh. These are legitimate upstream tutorial settings, not a
+production convergence design. The tutorial's familiar smooth band diagrams assess
+interpolation of the total represented Hamiltonian. Their visual quality does not
+certify separate locality or short-range compressibility of its kinetic and
+non-kinetic components.
+
+At each of the 64 reciprocal samples, the prototype composes
+$\mathbf W(\mathbf k)=\mathbf U_{\mathrm{dis}}(\mathbf k)\mathbf U(\mathbf k)$ and
+constructs in the same rank-four frame
+
+$$
+\begin{aligned}
+ \mathbf H^W(\mathbf k)
+ &=\mathbf W^\dagger\operatorname{diag}(\boldsymbol\epsilon)\mathbf W,\\
+ \mathbf T^W(\mathbf k)
+ &=\mathbf W^\dagger\mathbf C_{\mathrm{PW}}^\dagger
+   \operatorname{diag}\!\left(\frac{|\mathbf k+\mathbf G|^2}{2}\right)
+   \mathbf C_{\mathrm{PW}}\mathbf W,\\
+ \mathbf R^W(\mathbf k)&=\mathbf H^W(\mathbf k)-\mathbf T^W(\mathbf k).
+\end{aligned}
+$$
+
+Here $\mathbf C_{\mathrm{PW}}$ contains the pseudo-wavefunction plane-wave
+coefficients. The finite represented remainder $\mathbf R^W$ is not identified as a
+continuous local scalar potential. The reciprocal decomposition defect is
+$1.52\times10^{-15}\ \mathrm{eV}$, while the independent native `hr.dat` route differs
+by $1.28\times10^{-5}\ \mathrm{eV}$ in maximum Frobenius norm.
+
+The complete finite transform contains 64 centered lattice blocks. Retaining 57 blocks
+leaves maximum ordered-eigenvalue errors of $0.0207/0.0843/0.0636\ \mathrm{eV}$ for
+$\mathbf H^W/\mathbf T^W/\mathbf R^W$, respectively; all 64 blocks recover the sampled
+representation to roundoff. Thus a convincing total-band diagram and accurate complete
+reconstruction can coexist with componentwise truncation errors. Aggressive short-range
+compression is not supported for this one tutorial-scale representation.
+
+[Preliminary silicon finite-mesh truncation diagnostic.](../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-truncation-relative-error.pdf)
+
+**Figure 6.** Preliminary finite-mesh truncation diagnostic for the official
+Wannier90 3.1.0 silicon tutorial setting. The plotted relative matrix errors apply only
+to the identified $4\times4\times4$ represented mesh. The sharp final drop is complete
+finite-transform reconstruction, not evidence of infinite-lattice decay.
+
+The imported publication subset preserves the source JSON, figure, tutorial input
+correlation, external output manifest, and local checksums. The analysis had not
+consumed a pre-existing authenticated production-lineage manifest, so input identity
+does not authenticate the causal lineage of the source-run outputs. The preview
+establishes neither reciprocal-mesh convergence, a validated short-range model, nor
+silicon effective masses. Its role is to show that the controlled machinery can consume
+the identified tutorial-derived artifacts and to expose the locality gate that a later
+production calculation must pass.
+
+### *3.10 Evidence summary*
 
 | Controlled component | Demonstrated property | Unsupported conclusion |
 |---|---|---|
@@ -561,6 +631,7 @@ constrained before operator residuals are interpreted.
 | Rank-two gauge attack | Invariant spectra can coexist with frame-dependent locality | General alignment or material validation |
 | M3 constrained admissible sets | A frozen finite alignment family can retain a common witness or certified separation as thresholds change | Unrestricted alignment or material-level compatibility |
 | Direct admissible sets | Exact intersection and certified separation can both occur | Contract-independent compatibility |
+| Tutorial-scale silicon preview | Same-frame decomposition is feasible and aggressive truncation leaves finite errors on one mesh | Production Wannier validation, converged locality, or effective masses |
 
 The evidence has two complementary roles. The 1D and 2D route, truncation, shell, and
 gauge-locality studies are the primary numerical results; they were not designed as
@@ -571,7 +642,8 @@ It does not itself exercise a nonidentity alignment or multiband candidate. M2 s
 those controlled alignment and locality channels but not thresholded admissible sets.
 M3 supplies thresholded rank-two admissible sets for a bounded two-parameter,
 nine-component family, not material-relevant parameter complexity or an unrestricted
-alignment search. None of these records provides a 3D material result.
+alignment search. The silicon tutorial preview is a three-dimensional material-derived
+software and numerical prototype, but it is not an accepted material result.
 
 ## IV. Conclusions and Recommendations
 
@@ -597,10 +669,13 @@ pointwise recovery, and a distinct one-global-unitary constrained family. M3 add
 prospectively thresholded spectral and operator admissible sets, a common-witness case,
 and a positive analytic separation certificate in a frozen two-parameter,
 nine-component family. The direct map and M3 remain separate bounded demonstrations;
-neither establishes that an unrestricted alignment problem has been solved. A later
-first-principles silicon application must supply its own parent convergence,
-Wannier validation, symmetry alignment, thresholds, and withheld observables rather
-than inheriting acceptance or incompatibility from these toy models.
+neither establishes that an unrestricted alignment problem has been solved. The
+tutorial-scale silicon preview demonstrates same-frame construction on upstream example
+data and, for its one finite mesh, rejects an assumption of aggressive short-range
+compression. It does not replace production evidence. A later first-principles silicon
+application must supply its own parent convergence, Wannier validation, symmetry
+alignment, thresholds, and withheld observables rather than inheriting acceptance or
+incompatibility from either the toy models or the tutorial preview.
 
 ## Appendices
 
@@ -640,11 +715,16 @@ The appendices are maintained as separate planning and evidence files:
 ## Data and code availability
 
 The controlled-model protocols, retained result records, verification code, figures,
-and checksum manifests are maintained under
-`calculations/ICMSEP2026/conference/paper_1/isolated-band/`,
+and checksum manifests are maintained under the single-band successor referenced by
+`docs/publications/conferences/ICMSEP2026/conference-paper-1/experiment-references.json`,
+`calculations/ICMSEP2026/conference/paper_1/multiband-alignment/`,
+`calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/`,
+`calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/`,
 `calculations/research-monograph/periodic-2d/`, and
-`calculations/ICMSEP2026/conference/paper_1/`. These working repository records are not
-yet a public archival deposit or DOI.
+`calculations/ICMSEP2026/conference/paper_1/`. The silicon directory is a bounded
+publication extraction from an external read-only tutorial analysis, not a complete
+production package. These working repository records are not yet a public archival
+deposit or DOI.
 
 ## Acknowledgments
 

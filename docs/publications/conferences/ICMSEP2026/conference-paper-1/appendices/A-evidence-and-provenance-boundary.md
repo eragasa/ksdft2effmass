@@ -16,15 +16,18 @@ The maintained evidence is retained under:
 | `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/` | Prospectively frozen M2 gapped rank-two parent, known periodic gauge attack, pointwise and global-unitary alignment channels, block-hopping locality, and withheld evaluation | Retained controlled numerical-verification evidence; not a general alignment solver or thresholded admissible-set map |
 | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/` | Prospectively frozen M3 two-parameter rank-two admissible sets over nine one-global-rotation components, including a common witness and a finite-component separation certificate | Retained controlled numerical-verification evidence for the frozen finite family only; not an unrestricted alignment result, physical threshold calibration, or material validation |
 | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/` | Post-hoc analytic reanalysis of the sealed M3 quadratics at fixed spectral threshold | Exploratory sensitivity evidence only; not part of the prospective M3 confirmatory package |
+| `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/` | Bounded extraction from an external read-only analysis, including correlation of the four original files to Wannier90 3.1.0 `examples/example11`, the executed `silicon.win` with two output-artifact requests, and finite-mesh truncation diagnostics | Tutorial-scale software/numerical prototype only; input byte identity does not authenticate output lineage or establish convergence, a production Wannier model, or effective masses |
 | `calculations/research-monograph/periodic-2d/` | Coupling and shell hierarchy, projector/loop controls, gauge-locality comparison, and withheld-mesh diagnostics | Retained controlled numerical-verification evidence; not material or wavefunction validation |
 | `calculations/ICMSEP2026/conference/paper_1/` | Minimal scalar admissible-set illustration with an exact witness and certified separation | Retained analytic/numerical evidence for the frozen two-parameter identity-alignment contract only |
 
 Each retained directory contains, as applicable, its protocol, input and result records,
 independent verification code, figures, report, software record, and checksum manifest.
-The evidence is classified as controlled illustrative software and numerical
-verification. It is not a public data deposit, DOI, material validation, statistical
-uncertainty analysis, or evidence that a general alignment problem has been solved.
-Historical external executions are not rerun by the manuscript.
+The primary maintained M1-successor, M2--M3, and two-dimensional evidence is classified as controlled
+illustrative software and numerical verification. The silicon preview preserves its
+separate external tutorial-analysis evidence class. None is a public data deposit, DOI,
+material validation, statistical uncertainty analysis, or evidence that a general
+alignment problem has been solved. Historical external executions are not rerun by the
+manuscript.
 
 The single-band successor's typed direct-formula verifier and the standalone M2 and M3
 retained verifiers reconstruct the frozen numerical documents, while the successor

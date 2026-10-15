@@ -28,9 +28,10 @@ latexmk -pdf supplementary-material.tex
 
 The paper presents the general admissible-set framework and retained illustrative
 numerical-verification results from the controlled 1D and 2D periodic programs. Those
-results establish bounded software and numerical behavior only. They do not validate a
-material, establish uncertainty quantification, or demonstrate transferability to
-silicon.
+primary results establish bounded software and numerical behavior only. A final
+material-facing preview uses source bytes from the official Wannier90 3.1.0 silicon
+tutorial, but it does not validate a material, establish uncertainty quantification,
+or demonstrate transferability to production silicon.
 
 The draft now cites the publication-independent single-band Fourier-reduction
 successor through [`experiment-references.json`](experiment-references.json). The
@@ -61,6 +62,17 @@ physical threshold calibration.
 Supplementary Appendix S4 is a separate bridge to already retained synthetic
 Wannier90 3.1.0 evidence. It is not part of M2, was not rerun for this paper, and does
 not establish first-principles, material, optimizer, or convergence validity.
+
+The bounded preview package at
+[`calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/`](../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/)
+imports source JSON, a finite-mesh truncation figure, the external output manifest, and
+a post-hoc byte correlation showing that all four original source-run files match the
+official Wannier90 3.1.0 `examples/example11` silicon tutorial. The executed
+`silicon.win` adds only two recorded output-artifact requests and changes no tutorial
+numerical setting. The package supports a tutorial-scale same-frame decomposition and a
+negative aggressive-truncation observation on one
+`4 × 4 × 4` mesh. It does not establish authenticated output lineage, convergence, a
+production Wannier model, or effective masses.
 
 The draft also includes a direct low-dimensional admissible-set demonstration with an
 exact common witness and a certified separated case. Its retained calculation package

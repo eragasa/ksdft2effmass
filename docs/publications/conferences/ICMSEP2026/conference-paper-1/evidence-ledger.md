@@ -18,7 +18,12 @@ Evidence classes remain distinct:
 - M3 composes M2 into a prospectively frozen finite-family constrained-admissible-set
   calculation with a retained amendment chain;
 - the M3 threshold-sensitivity diagram is explicitly post-hoc analytic reanalysis of
-  the sealed M3 quadratics, not a prospective prediction; and
+  the sealed M3 quadratics, not a prospective prediction;
+- the silicon Wannier-kinetic preview is a bounded extraction from an external
+  read-only analysis whose four original source files match the official Wannier90
+  3.1.0 `examples/example11` tutorial by SHA-256; its executed `silicon.win`
+  adds only two bound output-artifact requests. It is neither a prospectively frozen
+  production calculation nor authenticated output lineage; and
 - none of these packages is material validation or uncertainty quantification.
 
 ## Proof and verification map
@@ -56,6 +61,9 @@ material system.
 | Post-hoc M3 resolution crossing $0.3137907655$, compatibility transition $0.3192641695$, and original-model admission threshold $0.3286318914$ | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/result.json` | named threshold fields | exact reanalysis at fixed $\tau_S=0.03$; verifier checks source-manifest correlation, zero shifts, both cross terms, symmetry, and positive curvature; not prospective or physically calibrated |
 | Wannier90 bridge projector/aligned-operator defects $2.65\times10^{-10}$ and $3.57\times10^{-10}E_G$; constrained-family operator defect $1.490E_G$ | `calculations/research-monograph/periodic-2d/wannier90-balanced-result.json` | retained frame and represented-operator comparison channels | historical authorized synthetic execution; portable verifier passes; not M2 or first-principles evidence |
 | Wannier90/direct radius-50 omitted norms $2.72\times10^{-4}E_G$ and $5.90\times10^{-3}E_G$ | same and the retained sensitivity-study records | shell-tail diagnostics | finite-case bridge only; the six-case study is nonmonotone and does not establish convergence or optimality |
+| Silicon tutorial preview reciprocal decomposition defect $1.52\times10^{-15}\,\mathrm{eV}$ and native-`hr.dat` discrepancy $1.28\times10^{-5}\,\mathrm{eV}$ | `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/result.json` | `reciprocal_decomposition_maximum_frobenius_eV` and `hr_vs_eigenvalue_frame_maximum_frobenius_eV` | copied from the content-bound external read-only analysis; tutorial input identity is checked separately, but output lineage is not independently authenticated |
+| Silicon tutorial preview 57-block maximum ordered-eigenvalue errors $0.0207/0.0843/0.0636\,\mathrm{eV}$ for $H^W/T^W/R^W$ | `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-decay-analysis.json` | `truncations` entry with `retained_block_count=57` | one $4\times4\times4$ tutorial mesh only; supports a negative aggressive-truncation observation, not infinite-lattice decay or a universal locality bound |
+| Silicon tutorial component-resolved shell norms and kinetic-to-remainder shell-maximum ratios of approximately $1.24$--$2.67$ at nonzero canonical radii | `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-decay-analysis.json` and `real-space-decay-shells.csv` | `shells[*].*_block_frobenius_max_eV`; Figure source `real-space-shell-block-norms.pdf` | finite, nonmonotone $4\times4\times4$ canonical representatives only; does not establish distinct asymptotic decay rates, and $R^W$ is not an identified scalar potential |
 | exact complete-mesh witness $(1,-1/4)$ and $\delta^\ast=0$ | `calculations/ICMSEP2026/conference/paper_1/result.json` | `compatible_complete_mesh` | `verify_result.py`, `report.md`, and parent-package seal |
 | certified $0.452\leq\delta^\ast\leq0.500$ | same | `separated_restricted_training` | exact rational enclosure plus retained verifier |
 | restricted-center withheld RMS $0.7211E_G$ | same | `separated_restricted_training` withheld diagnostics | withheld points are diagnostic only |
@@ -76,6 +84,8 @@ material system.
 | Figure 3, direct admissible sets | `calculations/ICMSEP2026/conference/paper_1/admissible-sets.png` | parent-package `result.json` | parent `run.py`, independent `verify_result.py`, report, and checksum manifest |
 | Figure 4, 2D scalar summary | `calculations/research-monograph/periodic-2d/summary.png` | periodic-2d `result.json` | historical periodic-2d retained package and checksum manifest |
 | Figure 5, composite gauge/locality summary | `calculations/research-monograph/periodic-2d/composite-summary.png` | `composite-result.json` | historical composite retained package; corrected projected-gauge record |
+| Figure 6, preliminary silicon truncation diagnostic | `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-truncation-relative-error.pdf` | copied `real-space-decay-analysis.json`; tutorial correlation in `tutorial-input-correlation.json` | byte-identical external-analysis figure retained in a locally checksummed publication subset; official tutorial input identity does not authenticate output lineage or establish convergence |
+| Conference Paper 1 v2 component-resolved silicon figure | `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-shell-block-norms.pdf` | copied `real-space-decay-shells.csv` and `real-space-decay-analysis.json` | byte-identical external-analysis figure; demonstrates finite-mesh component amplitude differences, not slower asymptotic kinetic decay or a potential/kinetic physical separation |
 | Appendix direct-set figure | `calculations/ICMSEP2026/conference/paper_1/admissible-sets.png` | parent-package `result.json` | same source as Figure 3; repeated presentation, not independent evidence |
 | Appendix S3 M2 figure | `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/multiband-alignment-summary.png` | same M2 result and figure-data CSV as Figure 2 | repeated presentation, not independent evidence |
 | Appendix S4 Wannier90 bridge figure | `calculations/research-monograph/periodic-2d/wannier90-balanced-summary.png` | retained balanced result and portable evidence | separate historical synthetic bridge; no external rerun and no first-principles or material claim |
@@ -95,3 +105,6 @@ material system.
    number or figure.
 6. If any sealed digest changes, update this ledger only after reviewing the new
    protocol, result, verification, report, and checksum boundary.
+7. Keep the silicon preview classified as a tutorial-scale external-analysis
+   extraction: matching official input bytes does not upgrade its output lineage,
+   convergence status, or material validity.
