@@ -44,6 +44,10 @@ Maintained experiment work currently includes:
   publication-independent successor for rank-two frame alignment and gauge-dependent
   locality; owner replacements are tracked as technical debt and no immutable version
   or maintained run exists;
+- `model-adequacy/periodic1d/constrained-admissible-sets/` — owner-integrated
+  constrained-quadratic geometry with composed rank-two parent derivation; evaluation,
+  schemas, and evidence freezing remain incomplete;
+
 Creating source or passing tests under this tree does not authorize protected
 calculator execution and does not establish scientific validation, convergence,
 uncertainty quantification, or publication evidence.

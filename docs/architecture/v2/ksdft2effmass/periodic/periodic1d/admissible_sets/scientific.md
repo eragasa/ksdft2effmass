@@ -1,5 +1,10 @@
 # M3 scientific boundary
 
+M3 instantiates the shared
+[admissible-set evidence semantics](../../../analysis/model_adequacy/admissible-set-evidence-semantics.md).
+The candidate family, finite alignment union, Euclidean parameter metric, rectangle
+containment premise, thresholds, and splitting-axis certificate remain M3-specific.
+
 ## Candidate family
 
 M3 fixes the M2 transported reference represented operator $H_i$ and the attacked target

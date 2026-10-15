@@ -225,7 +225,15 @@ $\bm{\theta}$, a dimensionless spectral loss is
 \label{eq:spectral-loss}
 \end{equation}
 where weights, scales, band identities, training points, and observables are
-frozen before fitting. The positive $s_{n\bm{k}}$ and $s_m$ are declared
+frozen before fitting. Only the combinations $w/s^2$ enter the squared
+residuals. A common positive rescaling of all weights leaves the spectral
+acceptance condition unchanged if its threshold is rescaled by the same factor,
+whereas changing relative weights changes the admissible set and can change the
+compatibility disposition. Weights are required to be strictly positive;
+omitting an observation requires excluding it prospectively rather than assigning
+zero weight. The retained demonstrations use equal normalized spectral weights or
+an equal-weight normalized RMS convention, with no relative weighting fitted during
+evaluation. The positive $s_{n\bm{k}}$ and $s_m$ are declared
 nondimensionalization scales. Unless a separate uncertainty model is supplied,
 they are not standard deviations, confidence intervals, or inferred numerical
 errors. An aligned normalized operator loss over a finite translation domain
@@ -317,8 +325,9 @@ $(\bm\theta_E,\bm\theta_H)$ supplies the upper bound
 $\delta_j^\ast\leq d_{\mathrm{red}}(\bm\theta_E,\bm\theta_H)$. Pareto or
 nondominated status is not itself a certificate: the applicable threshold
 memberships must be established. A positive incompatibility claim requires a
-lower-bound certificate over the frozen search domain. Interval methods provide
-one possible foundation~\cite{moore2009}; the controlled quadratic example in
+lower-bound certificate over the frozen search domain. Complete interval
+branch-and-bound search provides one possible foundation~\cite{neumaier2004,moore2009};
+the controlled quadratic example in
 Appendix~\ref{app:direct-admissible-set-demonstration} instead uses an exact
 eigenvalue enclosure and the reverse triangle inequality. No general
 nonconvex-family certificate is claimed. If neither compatibility nor

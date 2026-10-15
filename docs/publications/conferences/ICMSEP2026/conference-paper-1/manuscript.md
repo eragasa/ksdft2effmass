@@ -183,7 +183,14 @@ $$
 $$
 
 where weights, scales, band identities, training points, and observables are frozen
-before fitting. The positive $s_{n\mathbf k}$ and $s_m$ are declared
+before fitting. Only the combinations $w/s^2$ enter the squared residuals. A common
+positive rescaling of all weights leaves the spectral acceptance condition unchanged if
+its threshold is rescaled by the same factor, whereas changing relative weights changes
+the admissible set and can change the compatibility disposition. Weights are required
+to be strictly positive; omitting an observation requires excluding it prospectively
+rather than assigning zero weight. The retained demonstrations use equal normalized
+spectral weights or an equal-weight normalized RMS convention, with no relative
+weighting fitted during evaluation. The positive $s_{n\mathbf k}$ and $s_m$ are declared
 nondimensionalization scales. Unless a separate uncertainty model is supplied, they are
 not standard deviations, confidence intervals, or inferred numerical errors. An
 aligned normalized operator loss over a finite translation domain $\mathcal S_H$ is
@@ -283,8 +290,9 @@ $(\boldsymbol\theta_E,\boldsymbol\theta_H)$ supplies the upper bound
 $\delta_j^\ast\leq d_{\mathrm{red}}(\boldsymbol\theta_E,\boldsymbol\theta_H)$.
 Pareto or nondominated status is not itself a certificate: the applicable threshold
 memberships must be established. A positive incompatibility claim requires a lower-bound
-certificate over the frozen search domain. Interval methods provide one possible
-foundation [19]; the controlled quadratic example in Appendix B instead uses an exact
+certificate over the frozen search domain. Complete interval branch-and-bound search
+provides one possible foundation [19,26]; the controlled quadratic example in Appendix B
+instead uses an exact
 eigenvalue enclosure and the reverse triangle inequality. No general nonconvex-family
 certificate is claimed. If neither compatibility nor separation is established, the
 correct disposition is inconclusive. Compatibility, separation, and inconclusiveness
@@ -736,3 +744,7 @@ doi:10.1137/17M1129696.
 
 [25] Nocedal J, Wright SJ. 2006. *Numerical Optimization*. 2nd ed. New York:
 Springer. doi:10.1007/978-0-387-40065-5.
+
+[26] Neumaier A. 2004. Complete search in continuous global optimization and
+constraint satisfaction. Acta Numerica. 13:271–369.
+doi:10.1017/S0962492904000194.

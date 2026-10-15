@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ksdft2effmass-experiment-constrained-admissible-sets"
+version = "0.1.0.dev0"
+description = "Publication-independent constrained admissible-set experiment."
+requires-python = ">=3.14"
+dependencies = [
+    "ksdft2effmass",
+    "numpy>=1.26",
+    "projectkoios-optimization[numpy]",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.10",
+    "pytest>=8.0",
+    "ruff>=0.5",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["constrained_admissible_sets*"]
+
+[tool.uv.sources]
+ksdft2effmass = { path = "../../../../python", editable = true }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "f6bdecc418e46240087d1dfb1c22dac396cdc455" }
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+xfail_strict = true
+markers = [
+    "software_verification: implementation satisfies documented software contract",
+]
+
+[tool.mypy]
+python_version = "3.14"
+files = ["src", "tests"]
+mypy_path = "../../../../python/src"
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
