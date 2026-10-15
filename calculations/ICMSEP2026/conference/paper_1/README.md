@@ -1,7 +1,8 @@
 # ICMSEP 2026 Conference Paper 1 controlled calculation
 
-This directory retains the direct low-dimensional admissible-set demonstration and
-separately scoped M1/M2/M3 child packages used by Conference Paper 1.
+This directory retains the direct low-dimensional admissible-set demonstration,
+separately scoped M1/M2/M3 child packages used by Conference Paper 1, and draft
+plans for additional controlled studies.
 
 ## Evidence class
 
@@ -24,7 +25,8 @@ validation and does not execute a protected electronic-structure calculator.
 - `isolated-band/` — prospectively frozen M1 isolated-band evidence; and
 - `multiband-alignment/` — prospectively frozen M2 rank-two alignment and locality evidence;
 - `constrained-admissible-sets/` — prospectively frozen M3 witness-and-certificate evidence; and
-- `constrained-admissible-sets-threshold-sensitivity/` — explicitly post-hoc analytic sensitivity reanalysis of the sealed M3 quadratics.
+- `constrained-admissible-sets-threshold-sensitivity/` — explicitly post-hoc analytic sensitivity reanalysis of the sealed M3 quadratics; and
+- `hopping-shell-hierarchy/` — draft, unexecuted plan for a certified nested two-dimensional hopping-shell hierarchy intended to replace the generic 2D summary figure if later frozen, executed, and accepted.
 
 ## Reproduce and verify
 

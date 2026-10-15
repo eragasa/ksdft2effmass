@@ -47,6 +47,9 @@ Maintained experiment work currently includes:
 - `model-adequacy/periodic1d/constrained-admissible-sets/` — owner-integrated
   constrained-quadratic geometry with composed rank-two parent derivation; evaluation,
   schemas, and evidence freezing remain incomplete;
+- `model-adequacy/periodic2d/hopping-shell-hierarchy/` — maintained prospective
+  isotropic-2D protocol with exact orbit/support and package-execution structure;
+  implementation, schemas, and retained evidence do not yet exist;
 
 Creating source or passing tests under this tree does not authorize protected
 calculator execution and does not establish scientific validation, convergence,
