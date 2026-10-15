@@ -143,7 +143,7 @@ applications without redefining the primary discussion.
 | Crossover radius | `chapters/continuum-effective-mass.tex` | `chapters/mathematics-of-reduction.tex` | Proposed atomistic-to-continuum criterion |
 | Structured learning | `chapters/structured-learning.tex` (`ch:structured-learning`) | `chapters/dopant-transferability.tex` | Proposed model-class diagnostic |
 | Dopant transferability | `chapters/dopant-transferability.tex` (`ch:dopant-transferability`) | `chapters/doped-silicon-program.tex` | Phosphorus-to-boron methodological test |
-| Current evidence boundary | `chapters/current-evidence-boundary.tex` (`ch:results-and-limitations`) | `chapters/conclusions.tex` | Status inventory, not production scientific results |
+| Current evidence boundary | `chapters/current-evidence-boundary.tex` (`ch:results-and-limitations`) | `chapters/conclusions.tex`; `appendices/M-preliminary-silicon-work.tex` | Status inventory, not production scientific results |
 | Proof architecture | `chapters/proof-architecture.tex` (`ch:proof-program`) | `chapters/mechanization-status.tex` | Proof-package organization |
 | Finite-dimensional foundations | `chapters/finite-dimensional-foundations.tex` (`ch:finite-dimensional-foundations`) | `appendices/B-hilbert-schmidt-and-frobenius.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Exact operator identities |
 | Excluded-space reduction | `chapters/mathematics-of-reduction.tex` (`ch:mathematics-of-reduction`) | `appendices/C-operator-spaces-compression-alignment.tex` | Analytical reduction claim |
@@ -158,6 +158,7 @@ applications without redefining the primary discussion.
 | Controlled impurity-extraction benchmarks | `appendices/I-impurity-effective-mass-models.tex` (`app:impurity-model-classes`) | `chapters/impurity-operator-extraction.tex`; `chapters/current-evidence-boundary.tex` | Completed spin-space and one-dimensional synthetic verification |
 | Two-dimensional defect-extraction program | `appendices/J-two-dimensional-defect-extraction.tex` (`app:two-dimensional-defect-extraction`) | `appendices/H-two-dimensional-wannier-reduction.tex`; `appendices/I-impurity-effective-mass-models.tex` | Active controlled synthetic task with no result; material transfer remains proposed |
 | Candidate contemporary literature | `appendices/L-candidate-contemporary-literature.tex` (`app:candidate-contemporary-literature`) | `citation-audit.md`; `references.bib` | Prospective review queue; bibliography presence is not source acceptance |
+| Preliminary silicon evidence | `appendices/M-preliminary-silicon-work.tex` (`app:preliminary-silicon-work`) | `chapters/first-principles-bulk-parent.tex`; `chapters/current-evidence-boundary.tex`; `appendices/F-bulk-silicon-reduction-routes.tex` | Bounded tutorial and finite-setting records plus a separately identified external read-only Wannier decomposition prototype; not production validation |
 
 ## Navigation rules for agents
 

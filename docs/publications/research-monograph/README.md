@@ -31,9 +31,11 @@ moves from the scientific adequacy question through common-space operator
 comparison to spectral and operator admissible sets, common witnesses,
 quadratic-loss geometry, separation certificates, and evidence discipline. A
 substantial appendix collection owns detailed notation, derivations,
-controlled examples, route comparisons, and analytical warmups. It is a framework-rich pre-results draft: chapter
-development does not imply completion of the proofs or calculations described
-there.
+controlled examples, route comparisons, analytical warmups, and a bounded
+status synthesis of preliminary silicon work. It remains a framework-rich
+pre-results draft with preliminary evidence: chapter development and successful
+bootstrap observations do not imply completion of the proofs, production
+calculations, or validation described there.
 
 Red boxes headed **Prospective citation note** are unresolved editorial prompts.
 They record candidate sources and claim checks from the citation audit; they do
@@ -71,7 +73,8 @@ quantification, publication, or human acceptance.
   determines their current pedagogical order;
 - `figures/` — editable diagram sources and their manuscript-ready renderings;
 - `appendices/` — notation, derivations, controlled examples, route
-  comparisons, and analytical warmups supporting the main narrative;
+  comparisons, analytical warmups, and bounded evidence-status syntheses
+  supporting the main narrative;
 - `references.bib` — monograph-owned bibliography, independently maintained
   from article bibliographies;
 - `navigation-index.md` — machine-readable concept map from scientific terms to
