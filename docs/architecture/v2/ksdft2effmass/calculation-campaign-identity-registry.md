@@ -109,7 +109,7 @@ families.
 | Appendix G composite files; Conference Paper 1 M2 `multiband-alignment/` | `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | Composite frames, pointwise/global alignment, matrix hoppings, and gauge-dependent locality |
 | Appendix G retained Wannier90 attempts | `ksdft2effmass.campaign.periodic-reduction.periodic1d.wannier90-localization-comparison` | Bounded attempt history, preconditioning, localization, and independently retained comparison diagnostics |
 | Conference Paper 1 parent `paper_1/` direct calculation | `ksdft2effmass.campaign.model-adequacy.periodic1d.scalar-admissible-set-demonstration` | Scalar identity-alignment quadratic sets with a common witness and exact-rational separation bound |
-| Conference Paper 1 M3 `constrained-admissible-sets/` | `ksdft2effmass.campaign.model-adequacy.periodic1d.constrained-admissible-sets` | Rank-two two-parameter candidate family, finite global-alignment family, witness, and bounded separation certificate |
+| Conference Paper 1 M3 `constrained-admissible-sets/` | `ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality` | Historical finite-angle predecessor retained only as regression; the maintained family tests smooth band-equivalent representations using restricted-alignment matrix and hopping-locality diagnostics |
 | M3 `constrained-admissible-sets-threshold-sensitivity/` | `ksdft2effmass.campaign.model-adequacy.periodic1d.admissible-set-threshold-sensitivity` | Explicitly post-hoc sensitivity of the sealed M3 quadratics; separate from the confirmatory family |
 
 Historical aliases `M1`, `M2`, and `M3` describe a publication sequence. They may appear
@@ -245,13 +245,16 @@ The composite-band alignment and locality family has a completed owner-boundary 
 Its maintained migration preserves backend-qualified eigenvector-diagonal frames,
 rejects rank-deficient pointwise and aggregate Procrustes inputs, and tracks the current
 local numerical selection mechanisms as `TECH_DEBT`. That decision does not silently
-move all current `periodic1d` or `campaigns` code. The constrained-admissible-set
-successor has started under
-`experiments/model-adequacy/periodic1d/constrained-admissible-sets/` with
-owner-integrated quadratic geometry, composed rank-two baseline calculation, and
-experiment-owned loss derivation. It is not a complete replacement until evaluation
-and locality diagnostics, schemas, and frozen evidence policy move under the experiment
-owner.
+move all current `periodic1d` or `campaigns` code. **Band Equivalence versus Hopping
+Locality**, under
+`experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/`, is an active,
+unversioned smooth-continuum redesign. It uses exact continuous harmonic alignment,
+separates finite-mesh correlation from the analytic Bessel comparator, retains Fourier
+locality diagnostics, and classifies nested-mesh stability as `converged` or
+`unresolved`. The former draft `.v0` was retired without assignment. Historical 64/257
+behavior is isolated as a regression fixture with exact source-evidence locators and
+cannot determine maintained scientific controls. No maintained run or evidence-package
+identity exists yet.
 
 ## Maintained layout and version retention
 
@@ -267,7 +270,7 @@ experiments/
 │   └── composite-band-alignment-and-locality/
 │       └── periodic1d/
 ├── model-adequacy/
-│   ├── periodic1d/constrained-admissible-sets/
+│   ├── periodic1d/band-equivalence-versus-hopping-locality/
 │   ├── periodic2d/hopping-shell-hierarchy/
 │   └── periodic3d/anisotropic-hopping-support-hierarchy/
 └── README.md

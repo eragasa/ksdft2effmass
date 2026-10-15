@@ -1,4 +1,4 @@
-"""Owner-integrated composition for constrained admissible sets."""
+"""Historical finite-angle calculation retained only for regression."""
 
 from __future__ import annotations
 
@@ -6,11 +6,20 @@ from typing import cast
 
 import numpy as np
 import numpy.typing as npt
-from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER
+from ksdft2effmass.operators import (
+    MODEL_SYSTEM_UNIT_CONVERTER,
+    ComplexMatrixQuantity,
+)
 from ksdft2effmass.periodic1d.multiband_alignment import (
+    Periodic1DMultibandAlignmentCalculationResult,
     Periodic1DMultibandAlignmentCalculator,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+from ksdft2effmass.solid_state import (
+    BlockHoppingInterpolator1D,
+    BlockHoppingTruncator1D,
+    ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorSamples1D,
+)
 from projectkoios.optimization.affine.complex_quadratic import (
     ComplexAffineResidualQuadraticTolerance,
 )
@@ -36,22 +45,25 @@ from projectkoios.optimization.selection.finite import (
 )
 from projectkoios.optimization.spaces.parameters import ParameterBound, ParameterSpace
 
-from .definition import (
+from .regression_definition import (
     AdmissibleSetThresholds,
     ConstrainedAdmissibleSetsExperimentDefinition,
     QuadraticLoss2D,
 )
-from .results import (
+from .regression_results import (
     AdmissibleSetCaseResult,
     AdmissibleSetDisposition,
+    AdmissibleSetLocalityResult,
     AdmissibleSetPointEvaluation,
     ConstrainedAdmissibleSetsExperimentResult,
 )
 
 
 class ConstrainedAdmissibleSetsExperiment:
-    """Derive KSD losses and compose certificates from Optimization capabilities.
+    """Derive KSD losses and compose certificates from owner capabilities.
 
+    Notes
+    -----
     KSD owns the parent calculation, represented-space feature construction,
     normalization, angle labels, thresholds, containment, certificate assembly,
     resolution, and disposition. Optimization owns complex affine-residual quadratic
@@ -64,7 +76,26 @@ class ConstrainedAdmissibleSetsExperiment:
     def execute(
         self, definition: ConstrainedAdmissibleSetsExperimentDefinition
     ) -> ConstrainedAdmissibleSetsExperimentResult:
-        """Calculate the rank-two baseline, training losses, and both cases."""
+        """Calculate the baseline, losses, diagnostics, and threshold cases.
+
+        Parameters
+        ----------
+        definition
+            Exact rank-two parent composition and experiment-owned controls.
+
+        Returns
+        -------
+        ConstrainedAdmissibleSetsExperimentResult
+            Correlated parent evidence, objective-construction quadratics,
+            objective-evaluation diagnostics, locality, and bounded dispositions.
+
+        Raises
+        ------
+        TypeError
+            If ``definition`` is not the exact regression definition type.
+        ValueError
+            If a witness, owner result, containment premise, or certificate fails.
+        """
         if type(definition) is not ConstrainedAdmissibleSetsExperimentDefinition:
             raise TypeError(
                 "definition must be ConstrainedAdmissibleSetsExperimentDefinition"
@@ -94,8 +125,8 @@ class ConstrainedAdmissibleSetsExperiment:
             )
             for angle in definition.alignment_angles
         )
-        compatible = self._compatible_case(definition, spectral, operators)
-        separated = self._separated_case(definition, spectral, operators)
+        compatible = self._compatible_case(definition, baseline, spectral, operators)
+        separated = self._separated_case(definition, baseline, spectral, operators)
         return ConstrainedAdmissibleSetsExperimentResult(
             definition,
             baseline,
@@ -107,6 +138,7 @@ class ConstrainedAdmissibleSetsExperiment:
     def _compatible_case(
         self,
         definition: ConstrainedAdmissibleSetsExperimentDefinition,
+        baseline: Periodic1DMultibandAlignmentCalculationResult,
         spectral: QuadraticLoss2D,
         operators: tuple[QuadraticLoss2D, ...],
     ) -> AdmissibleSetCaseResult:
@@ -114,14 +146,18 @@ class ConstrainedAdmissibleSetsExperiment:
         thresholds = definition.compatible_thresholds
         witness = definition.compatible_witness
         evaluation = self._evaluation(
+            definition,
+            baseline,
             spectral,
             operators,
             "compatible-common-witness",
             witness,
         )
         if (
-            evaluation.spectral_rms_loss > thresholds.spectral_rms_threshold
-            or evaluation.operator_rms_loss > thresholds.operator_rms_threshold
+            evaluation.objective_construction_spectral_rms_loss
+            > thresholds.spectral_rms_threshold
+            or evaluation.objective_construction_operator_rms_loss
+            > thresholds.operator_rms_threshold
         ):
             raise ValueError("compatible witness is not threshold-feasible")
         return AdmissibleSetCaseResult(
@@ -139,6 +175,7 @@ class ConstrainedAdmissibleSetsExperiment:
     def _separated_case(
         self,
         definition: ConstrainedAdmissibleSetsExperimentDefinition,
+        baseline: Periodic1DMultibandAlignmentCalculationResult,
         spectral: QuadraticLoss2D,
         operators: tuple[QuadraticLoss2D, ...],
     ) -> AdmissibleSetCaseResult:
@@ -181,12 +218,16 @@ class ConstrainedAdmissibleSetsExperiment:
             else AdmissibleSetDisposition.UNRESOLVED
         )
         spectral_evaluation = self._evaluation(
+            definition,
+            baseline,
             spectral,
             operators,
             "separated-spectral-boundary",
             spectral_point,
         )
         operator_evaluation = self._evaluation(
+            definition,
+            baseline,
             spectral,
             operators,
             "separated-operator-boundary",
@@ -205,8 +246,11 @@ class ConstrainedAdmissibleSetsExperiment:
             definition.separation_resolution,
         )
 
-    @staticmethod
+    @classmethod
     def _evaluation(
+        cls,
+        definition: ConstrainedAdmissibleSetsExperimentDefinition,
+        baseline: Periodic1DMultibandAlignmentCalculationResult,
         spectral: QuadraticLoss2D,
         operators: tuple[QuadraticLoss2D, ...],
         role: str,
@@ -214,18 +258,90 @@ class ConstrainedAdmissibleSetsExperiment:
         *,
         forced_operator_index: int | None = None,
     ) -> AdmissibleSetPointEvaluation:
-        """Evaluate one point with first-on-tie finite-component selection."""
+        """Evaluate a construction-selected point on both roles and locality."""
         if forced_operator_index is None:
             forced_operator_index = first_minimum(
                 tuple(loss.squared_loss(parameter) for loss in operators)
             ).index
         selected = operators[forced_operator_index]
+        angle = cls._angle(selected)
+        energy_unit = baseline.reference_transform.hopping_model.hopping_blocks[0].unit
+        energy_scale = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            definition.loss_energy_scale, energy_unit
+        ).magnitude
+        construction_reference = cls._matrices(baseline.reference_transform.source)
+        evaluation_coordinates = baseline.withheld_target.coordinates
+        interpolator = BlockHoppingInterpolator1D()
+        evaluation_reference = cls._matrices(
+            interpolator.execute(
+                baseline.reference_transform.hopping_model,
+                evaluation_coordinates,
+            )
+        )
+        evaluation_attacked = cls._matrices(
+            interpolator.execute(
+                baseline.attacked_transform.hopping_model,
+                evaluation_coordinates,
+            )
+        )
+        construction_candidate = cls._candidate(
+            construction_reference, parameter, energy_scale
+        )
+        evaluation_candidate = cls._candidate(
+            evaluation_reference, parameter, energy_scale
+        )
+        rotation = cls._rotation(angle)
+        construction_rotated = cls._conjugate(construction_candidate, rotation)
+        evaluation_rotated = cls._conjugate(evaluation_candidate, rotation)
+        rank = definition.multiband_baseline.retained_rank
+        candidate_samples = ReciprocalOperatorSamples1D(
+            baseline.reference_transform.source.coordinates,
+            baseline.reference_transform.source.reciprocal_period,
+            tuple(
+                ComplexMatrixQuantity(matrix, energy_unit)
+                for matrix in construction_rotated
+            ),
+        )
+        candidate_transform = ReciprocalOperatorFourierTransformer1D().execute(
+            candidate_samples,
+            baseline.reference_transform.mesh,
+            definition.multiband_baseline.coordinate_absolute_tolerance,
+            definition.multiband_baseline.reconstruction_absolute_tolerance,
+        )
+        truncator = BlockHoppingTruncator1D()
+        locality = tuple(
+            AdmissibleSetLocalityResult(
+                maximum_range,
+                truncator.execute(
+                    baseline.reference_transform.hopping_model, maximum_range
+                ).omitted_block_l2_norm,
+                truncator.execute(
+                    baseline.attacked_transform.hopping_model, maximum_range
+                ).omitted_block_l2_norm,
+                truncator.execute(
+                    candidate_transform.hopping_model, maximum_range
+                ).omitted_block_l2_norm,
+            )
+            for maximum_range in definition.locality_ranges
+        )
         return AdmissibleSetPointEvaluation(
             role,
             parameter,
-            ConstrainedAdmissibleSetsExperiment._angle(selected),
+            angle,
             spectral.rms_loss(parameter),
             selected.rms_loss(parameter),
+            cls._spectral_rms(
+                evaluation_candidate,
+                baseline.withheld_target.eigenvalues.magnitude,
+                energy_scale,
+            ),
+            cls._operator_rms(
+                evaluation_rotated,
+                evaluation_attacked,
+                energy_scale,
+                rank,
+            ),
+            locality,
         )
 
     def _feasible_angles(
@@ -300,7 +416,7 @@ class ConstrainedAdmissibleSetsExperiment:
             axis=-1,
         )
         return ConstrainedAdmissibleSetsExperiment._quadratic(
-            "spectral-training-rms-v1",
+            "spectral-objective-construction-rms-v1",
             None,
             features,
             base - target,
@@ -333,7 +449,7 @@ class ConstrainedAdmissibleSetsExperiment:
             axis=-1,
         )
         return ConstrainedAdmissibleSetsExperiment._quadratic(
-            f"operator-training-rms-angle-{angle:.17g}",
+            f"operator-objective-construction-rms-angle-{angle:.17g}",
             angle,
             features,
             base - target,
@@ -435,6 +551,49 @@ class ConstrainedAdmissibleSetsExperiment:
         if loss.alignment_angle is None:
             raise ValueError("operator loss must retain an alignment angle")
         return loss.alignment_angle
+
+    @staticmethod
+    def _candidate(
+        reference: npt.NDArray[np.complex128],
+        parameter: tuple[float, float],
+        energy_scale: float,
+    ) -> npt.NDArray[np.complex128]:
+        """Construct the affine trace/shift/traceless-splitting family."""
+        rank = reference.shape[1]
+        identity = np.eye(rank, dtype=np.complex128)
+        mean = np.trace(reference, axis1=1, axis2=2) / float(rank)
+        base = mean[:, None, None] * identity
+        shift, splitting = parameter
+        return np.asarray(
+            base + shift * energy_scale * identity + splitting * (reference - base),
+            dtype=np.complex128,
+        )
+
+    @staticmethod
+    def _spectral_rms(
+        candidate: npt.NDArray[np.complex128],
+        target: npt.NDArray[np.float64],
+        energy_scale: float,
+    ) -> float:
+        """Return normalized ordered-eigenvalue RMS loss."""
+        return float(
+            np.sqrt(np.mean(np.abs(np.linalg.eigvalsh(candidate) - target) ** 2))
+            / energy_scale
+        )
+
+    @staticmethod
+    def _operator_rms(
+        candidate: npt.NDArray[np.complex128],
+        target: npt.NDArray[np.complex128],
+        energy_scale: float,
+        rank: int,
+    ) -> float:
+        """Return normalized represented-operator Frobenius RMS loss."""
+        squared = sum(
+            float(np.linalg.norm(left - right) ** 2)
+            for left, right in zip(candidate, target, strict=True)
+        )
+        return float(np.sqrt(squared / float(candidate.shape[0] * rank)) / energy_scale)
 
     @staticmethod
     def _rotation(angle: float) -> npt.NDArray[np.complex128]:

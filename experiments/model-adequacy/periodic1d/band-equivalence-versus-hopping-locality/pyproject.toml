@@ -3,14 +3,15 @@ requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ksdft2effmass-experiment-constrained-admissible-sets"
+name = "ksdft2effmass-experiment-band-equivalence-versus-hopping-locality"
 version = "0.1.0.dev0"
-description = "Publication-independent constrained admissible-set experiment."
+description = "Band equivalence versus hopping locality experiment."
 requires-python = ">=3.14"
 dependencies = [
     "ksdft2effmass",
     "numpy>=1.26",
     "projectkoios-optimization[numpy]",
+    "projectkoios-physkit",
 ]
 
 [project.optional-dependencies]
@@ -25,16 +26,17 @@ package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["constrained_admissible_sets*"]
+include = ["band_equivalence_hopping_locality*"]
 
 [tool.uv.sources]
 ksdft2effmass = { path = "../../../../python", editable = true }
-projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "f6bdecc418e46240087d1dfb1c22dac396cdc455" }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "cf551409872a621b4e47d2236ac4ffdc12c187c0" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "07b2a1ee3ccd07926e90f43b4d1046efccc5ad8c" }
 
 [tool.pytest.ini_options]
 minversion = "8.0"
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = [".", "src"]
 addopts = ["-ra", "--strict-config", "--strict-markers"]
 xfail_strict = true
 markers = [
@@ -43,8 +45,8 @@ markers = [
 
 [tool.mypy]
 python_version = "3.14"
-files = ["src", "tests"]
-mypy_path = "../../../../python/src"
+files = ["analysis", "src", "tests"]
+mypy_path = ["src", "../../../../python/src"]
 warn_unused_configs = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -55,7 +57,7 @@ no_implicit_optional = true
 [tool.ruff]
 target-version = "py314"
 line-length = 88
-src = ["src", "tests"]
+src = [".", "src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

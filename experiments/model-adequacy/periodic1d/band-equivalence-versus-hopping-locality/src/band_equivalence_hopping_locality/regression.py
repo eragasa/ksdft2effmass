@@ -1,27 +1,29 @@
-"""Publication-independent constrained admissible-set experiment."""
+"""Explicit namespace for the non-decisive historical finite-angle regression."""
 
-from .definition import (
-    EXPERIMENT_FAMILY_ID,
+from .regression_definition import (
+    REGRESSION_METHOD_ID,
     AdmissibleSetThresholds,
     ConstrainedAdmissibleSetsExperimentDefinition,
     QuadraticLoss2D,
 )
-from .experiment import ConstrainedAdmissibleSetsExperiment
-from .results import (
+from .regression_experiment import ConstrainedAdmissibleSetsExperiment
+from .regression_results import (
     AdmissibleSetCaseResult,
     AdmissibleSetDisposition,
+    AdmissibleSetLocalityResult,
     AdmissibleSetPointEvaluation,
     ConstrainedAdmissibleSetsExperimentResult,
 )
-from .verify import (
+from .regression_verify import (
     ConstrainedAdmissibleSetsExperimentVerifier,
     ConstrainedAdmissibleSetsVerificationResult,
 )
 
 __all__ = [
-    "EXPERIMENT_FAMILY_ID",
+    "REGRESSION_METHOD_ID",
     "AdmissibleSetCaseResult",
     "AdmissibleSetDisposition",
+    "AdmissibleSetLocalityResult",
     "AdmissibleSetPointEvaluation",
     "AdmissibleSetThresholds",
     "ConstrainedAdmissibleSetsExperiment",

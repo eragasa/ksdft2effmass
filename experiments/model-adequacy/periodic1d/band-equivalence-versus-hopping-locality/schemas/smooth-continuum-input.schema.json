@@ -1,0 +1,192 @@
+{
+  "$defs": {
+    "identity": {
+      "additionalProperties": false,
+      "properties": {
+        "alignment_method_id": {
+          "const": "continuous-global-real-rotation-harmonic.v1"
+        },
+        "family_id": {
+          "const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality"
+        },
+        "fourier_convention_id": {
+          "const": "forward-negative-exponent-inverse-positive-exponent.v1"
+        },
+        "fourier_normalization_id": {
+          "const": "forward-one-over-n-inverse-unit.v1"
+        },
+        "method_id": {
+          "const": "flat-rank-two-smooth-sinusoidal-gauge-continuum.v1"
+        },
+        "parent_model_id": {
+          "const": "normalized-flat-rank-two-traceless-parent.v1"
+        },
+        "reduced_coordinate_id": {
+          "const": "q-equals-k-over-reciprocal-period.v1"
+        }
+      },
+      "required": [
+        "alignment_method_id",
+        "family_id",
+        "fourier_convention_id",
+        "fourier_normalization_id",
+        "method_id",
+        "parent_model_id",
+        "reduced_coordinate_id"
+      ],
+      "type": "object"
+    },
+    "thresholds": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum_angle_change": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_band_defect": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_correlation_change": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_fine_quadrature_defect": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_hopping_block_power_change": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_hopping_weight_change": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_identity_defect": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_parseval_defect": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "maximum_threshold_change": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "maximum_correlation_change",
+        "maximum_threshold_change",
+        "maximum_hopping_weight_change",
+        "maximum_hopping_block_power_change",
+        "maximum_angle_change",
+        "maximum_fine_quadrature_defect",
+        "maximum_band_defect",
+        "maximum_identity_defect",
+        "maximum_parseval_defect"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.smooth-continuum.input.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "amplitude_unit": {
+      "const": "radian"
+    },
+    "amplitudes": {
+      "items": {
+        "maximum": 0.7853981633974483,
+        "minimum": 0.0,
+        "type": "number"
+      },
+      "minItems": 2,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "convergence_thresholds": {
+      "$ref": "#/$defs/thresholds"
+    },
+    "harmonic_absolute_degeneracy_tolerance": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "harmonic_relative_degeneracy_tolerance": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "identity": {
+      "$ref": "#/$defs/identity"
+    },
+    "mesh_rule": {
+      "const": "nested-uniform-half-open-doubling.v1"
+    },
+    "reciprocal_mesh_sizes": {
+      "items": {
+        "minimum": 8,
+        "multipleOf": 2,
+        "type": "integer"
+      },
+      "minItems": 2,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "required_stable_refinements": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "schema": {
+      "const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.smooth-continuum.input.v1"
+    },
+    "scope": {
+      "additionalProperties": false,
+      "properties": {
+        "continuous_global_alignment": {
+          "const": true
+        },
+        "external_calculator_execution": {
+          "const": false
+        },
+        "material_validation": {
+          "const": false
+        },
+        "retained_run": {
+          "const": false
+        },
+        "scientific_acceptance": {
+          "const": false
+        }
+      },
+      "required": [
+        "continuous_global_alignment",
+        "external_calculator_execution",
+        "material_validation",
+        "retained_run",
+        "scientific_acceptance"
+      ],
+      "type": "object"
+    },
+    "verification_absolute_tolerance": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    }
+  },
+  "required": [
+    "amplitude_unit",
+    "amplitudes",
+    "convergence_thresholds",
+    "harmonic_absolute_degeneracy_tolerance",
+    "harmonic_relative_degeneracy_tolerance",
+    "identity",
+    "mesh_rule",
+    "reciprocal_mesh_sizes",
+    "required_stable_refinements",
+    "schema",
+    "scope",
+    "verification_absolute_tolerance"
+  ],
+  "type": "object"
+}

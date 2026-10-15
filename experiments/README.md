@@ -46,6 +46,8 @@ Lifecycle status has the following bounded meaning:
 
 - **Retained version** — an immutable experiment version and retained evidence package
   exist.
+- **Immutable version, unexecuted** — a parity-reviewed version, protocol, schemas, and
+  evidence policy exist, but no retained run or evidence-package identity exists.
 - **Pre-version implementation** — typed experiment code and tests exist, but the
   remaining protocol, schema, or evidence gates block an immutable version.
 - **Prospective protocol** — scientific controls or package structure are being designed;
@@ -55,11 +57,16 @@ Lifecycle status has the following bounded meaning:
 - **Preserved proposal** — exact advance design work is retained out of sequence and
   cannot advance to implementation until earlier stages close.
 
+The periodic-1D **Band Equivalence versus Hopping Locality** experiment tests, in plain
+terms, whether two
+Hamiltonian representations can have identical Bloch bands while having different
+operator errors and different real-space hopping ranges.
+
 | Experiment family | Maintained locator | Lifecycle status | Current evidence boundary |
 |---|---|---|---|
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction` | [`periodic-reduction/single-band-fourier-reduction/periodic1d/`](periodic-reduction/single-band-fourier-reduction/periodic1d/) | **Retained version** | Immutable `.v1`, strict schemas, independent reconstruction, exact predecessor provenance, retained runs, and content-addressed evidence exist. This is controlled synthetic evidence, not material validation. |
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | [`periodic-reduction/composite-band-alignment-and-locality/periodic1d/`](periodic-reduction/composite-band-alignment-and-locality/periodic1d/) | **Prospective protocol** | The rank-two alignment/locality successor and owner boundary are documented; no immutable version or maintained run exists. |
-| `ksdft2effmass.campaign.model-adequacy.periodic1d.constrained-admissible-sets` | [`model-adequacy/periodic1d/constrained-admissible-sets/`](model-adequacy/periodic1d/constrained-admissible-sets/) | **Pre-version implementation** | Owner-integrated quadratics, composed parent calculation, immutable typed results, tests, and independent verification exist. Evaluation roles, strict wire schemas, and retained-evidence policy remain incomplete. |
+| `ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality` (**Band Equivalence versus Hopping Locality**) | [`model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/`](model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/) | **Pre-version implementation** | Tests whether identical Bloch bands can conceal restricted-alignment matrix mismatch and different hopping locality. The smooth flat-parent analysis finds roundoff-level momentum refinement changes and increasing matrix/hopping mismatch, but the proposed amplitude ladder through $N_a=64$ fails a $10^{-8}$ uniform linear-interpolation target. A non-flat four-state realization using the same smooth family is prospective; historical 64/257 behavior is regression-only. No retained run or evidence-package identity exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | [`model-adequacy/periodic2d/hopping-shell-hierarchy/`](model-adequacy/periodic2d/hopping-shell-hierarchy/) | **Prospective protocol** | Parent binding, orbit/support inventory, sample roles, weights, thresholds, resolution, and flat package structure are selected. Conservative certificate methods, schemas, implementation, and retained evidence remain open. |
 | `ksdft2effmass.campaign.model-adequacy.periodic3d.isotropic-hopping-support-hierarchy` | Intended `model-adequacy/periodic3d/isotropic-hopping-support-hierarchy/`; [architecture](../docs/architecture/v2/experiments/model-adequacy/periodic3d/isotropic-hopping-support-hierarchy/index.md) | **Architecture only** | The dimensional role and ownership boundary are selected; no exact parent protocol, source directory, immutable version, or result exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy` | Intended `model-adequacy/periodic2d/anisotropic-hopping-support-hierarchy/`; [architecture](../docs/architecture/v2/experiments/model-adequacy/periodic2d/anisotropic-hopping-support-hierarchy/index.md) | **Architecture only** | The anisotropy-isolation role is selected; no exact protocol, task, source directory, immutable version, or result exists. |

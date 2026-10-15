@@ -1,4 +1,4 @@
-"""Frozen controls for the publication-independent constrained-set experiment."""
+"""Historical finite-angle controls retained only for 64/257 regression."""
 
 from __future__ import annotations
 
@@ -14,8 +14,10 @@ from projectkoios.optimization.quadratic.quadratic import (
 )
 
 EXPERIMENT_FAMILY_ID = (
-    "ksdft2effmass.campaign.model-adequacy.periodic1d.constrained-admissible-sets"
+    "ksdft2effmass.campaign.model-adequacy.periodic1d."
+    "band-equivalence-versus-hopping-locality"
 )
+REGRESSION_METHOD_ID = "historical-finite-angle-64-257-regression.v1"
 
 
 def _finite_float(name: str, value: float) -> None:
@@ -38,6 +40,21 @@ def _parameter(name: str, value: tuple[float, float]) -> None:
 class QuadraticLoss2D:
     """Label one unit-free positive-definite completed-square loss.
 
+    Parameters
+    ----------
+    channel_id
+        Stable scientific channel identity.
+    alignment_angle
+        Global alignment angle in radians, or ``None`` for an invariant channel.
+    center
+        Completed-square center in energy-shift and splitting-scale order.
+    quadratic_matrix
+        Symmetric positive-definite two-dimensional curvature matrix.
+    minimum_squared_loss
+        Nonnegative dimensionless loss attained at ``center``.
+
+    Notes
+    -----
     KSD owns channel and alignment meaning. ``projectkoios-optimization`` owns generic
     validation and evaluation of the completed-square numerical state.
     """
@@ -70,12 +87,34 @@ class QuadraticLoss2D:
         self._owner_loss()
 
     def squared_loss(self, parameter: tuple[float, float]) -> float:
-        """Return the owner-evaluated squared loss at one KSD parameter."""
+        """Return squared loss at one scientific parameter.
+
+        Parameters
+        ----------
+        parameter
+            Energy-shift ratio and splitting scale in declared coordinate order.
+
+        Returns
+        -------
+        float
+            Dimensionless owner-evaluated squared loss.
+        """
         _parameter("parameter", parameter)
         return self._owner_loss().squared_loss(parameter)
 
     def rms_loss(self, parameter: tuple[float, float]) -> float:
-        """Return the owner-evaluated root-mean-square loss."""
+        """Return root-mean-square loss at one scientific parameter.
+
+        Parameters
+        ----------
+        parameter
+            Energy-shift ratio and splitting scale in declared coordinate order.
+
+        Returns
+        -------
+        float
+            Nonnegative dimensionless root loss.
+        """
         _parameter("parameter", parameter)
         return self._owner_loss().root_loss(parameter)
 
@@ -90,7 +129,15 @@ class QuadraticLoss2D:
 
 @dataclass(frozen=True, slots=True)
 class AdmissibleSetThresholds:
-    """Freeze one named pair of dimensionless RMS thresholds."""
+    """Freeze one named pair of dimensionless RMS thresholds.
+
+    Parameters
+    ----------
+    case_id
+        Stable nonempty case identity.
+    spectral_rms_threshold, operator_rms_threshold
+        Strictly positive dimensionless sublevel-set thresholds.
+    """
 
     case_id: str
     spectral_rms_threshold: float
@@ -115,9 +162,34 @@ class AdmissibleSetThresholds:
 class ConstrainedAdmissibleSetsExperimentDefinition:
     """Freeze parent composition and bounded admissible-set geometry.
 
+    Parameters
+    ----------
+    multiband_baseline
+        Exact rank-two parent calculation definition.
+    energy_shift_ratio_bounds, splitting_scale_bounds
+        Closed parameter intervals in declared coordinate order.
+    alignment_angles
+        Unique increasing global real-rotation angles in radians.
+    loss_energy_scale
+        Positive energy quantity normalizing both comparison channels.
+    compatible_thresholds, separated_thresholds
+        Distinct threshold cases with bounded evidence dispositions.
+    compatible_witness
+        Prospectively selected common point for the compatible case.
+    locality_ranges
+        Increasing nonnegative finite hopping ranges used only diagnostically.
+    separation_resolution
+        Positive Euclidean parameter-space resolution.
+    owner_absolute_tolerance
+        Absolute tolerance supplied to reviewed numerical-owner operations.
+    verification_absolute_tolerance
+        Absolute tolerance for independent reconstruction defects.
+
+    Notes
+    -----
     The experiment composes one exact rank-two multiband baseline and derives its
-    normalized spectral and represented-operator training quadratics internally.
-    Optimization receives only unit-free completed-square state and bounds.
+    normalized spectral and represented-operator objective-construction quadratics
+    internally. Optimization receives only unit-free completed-square state and bounds.
     """
 
     multiband_baseline: Periodic1DMultibandAlignmentCalculationDefinition
@@ -128,6 +200,7 @@ class ConstrainedAdmissibleSetsExperimentDefinition:
     compatible_thresholds: AdmissibleSetThresholds
     separated_thresholds: AdmissibleSetThresholds
     compatible_witness: tuple[float, float]
+    locality_ranges: tuple[int, ...]
     separation_resolution: float
     owner_absolute_tolerance: float
     verification_absolute_tolerance: float
@@ -182,6 +255,19 @@ class ConstrainedAdmissibleSetsExperimentDefinition:
         _parameter("compatible_witness", self.compatible_witness)
         if not self.contains(self.compatible_witness):
             raise ValueError("compatible_witness must lie in the parameter rectangle")
+        if type(self.locality_ranges) is not tuple or not self.locality_ranges:
+            raise TypeError("locality_ranges must be a nonempty tuple")
+        if any(type(value) is not int for value in self.locality_ranges):
+            raise TypeError("locality_ranges must contain built-in integers")
+        if tuple(sorted(set(self.locality_ranges))) != self.locality_ranges:
+            raise ValueError("locality_ranges must be unique and increasing")
+        if self.locality_ranges[0] < 0:
+            raise ValueError("locality_ranges must be nonnegative")
+        if (
+            self.locality_ranges[-1]
+            >= self.multiband_baseline.reciprocal_mesh_size // 2
+        ):
+            raise ValueError("locality_ranges must be smaller than half the mesh")
         for name, value in (
             ("separation_resolution", self.separation_resolution),
             ("owner_absolute_tolerance", self.owner_absolute_tolerance),
@@ -192,7 +278,18 @@ class ConstrainedAdmissibleSetsExperimentDefinition:
                 raise ValueError(f"{name} must be positive")
 
     def contains(self, parameter: tuple[float, float]) -> bool:
-        """Return whether one exact parameter lies in the closed rectangle."""
+        """Return whether one parameter lies in the closed rectangle.
+
+        Parameters
+        ----------
+        parameter
+            Energy-shift ratio and splitting scale as exact built-in floats.
+
+        Returns
+        -------
+        bool
+            ``True`` exactly when both coordinates lie in their closed intervals.
+        """
         _parameter("parameter", parameter)
         return (
             self.energy_shift_ratio_bounds[0]
@@ -207,6 +304,6 @@ class ConstrainedAdmissibleSetsExperimentDefinition:
 __all__ = [
     "AdmissibleSetThresholds",
     "ConstrainedAdmissibleSetsExperimentDefinition",
-    "EXPERIMENT_FAMILY_ID",
     "QuadraticLoss2D",
+    "REGRESSION_METHOD_ID",
 ]

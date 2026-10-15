@@ -17,6 +17,7 @@ flowchart LR
 - [Scientific analysis](analysis.md)
 - [Particle-in-a-box dimensional plan](particle-in-box-dimensional-plan.md)
 - [Admissible-set evidence semantics](model_adequacy/admissible-set-evidence-semantics.md)
+- [Band Equivalence versus Hopping Locality experiment](../band-equivalence-versus-hopping-locality-experiment.md)
 - [Experiment model-adequacy architecture](../../experiments/model-adequacy/index.md)
 - [Dimensionality and anisotropy experiment ladder](../../experiments/model-adequacy/dimensional-anisotropy-ladder.md)
 - [Post-sequence general-lattice-vector extension](model_adequacy/general-lattice-vector-extension.md)

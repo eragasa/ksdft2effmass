@@ -9,9 +9,11 @@ experiment family
 `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality`.
 It is not an authorization to run, retain, publish, commit, or push an experiment.
 
-Optimization is currently completing the already-authorized arbitrary-dimensional box-
-quadratic slice for the isotropic two-dimensional hierarchy. The work below must not
-interrupt or silently expand that owner task.
+Optimization now provides the bounded one-pair complex-unitary Procrustes contract at
+`cf551409872a621b4e47d2236ac4ffdc12c187c0`. Band Equivalence versus Hopping Locality
+consumes it directly. The broader composite-band donor migration, aggregate alignment,
+eigenframes, and path-closure behavior remain separate work and must not silently expand
+that owner contract.
 
 ## Frozen successor decisions
 
@@ -43,6 +45,9 @@ interrupt or silently expand that owner task.
 
 ### `TD-CBAL-002`: pointwise square complex Procrustes
 
+- **Owner availability:** the required generic one-pair solver exists at
+  `cf551409872a621b4e47d2236ac4ffdc12c187c0`; this debt remains open only for migration
+  of the older composite-band donor and its parity evidence.
 - **Current donor:** `BandFrameAligner1D` in
   `python/src/ksdft2effmass/solid_state/frame_alignment.py`.
 - **Current mechanism:** direct complete NumPy SVD and polar-factor selection.
@@ -83,12 +88,13 @@ interrupt or silently expand that owner task.
 ## Migration boundary
 
 The historical retained calculation and its manifests remain unchanged. The current KSD
-implementation remains supported while this debt is open because the maintained
-constrained-admissible-set successor consumes its result contract. A wrapper-only
+implementation remains supported while this debt is open because the isolated
+historical 64/257 regression consumes its result contract. The active Band Equivalence
+versus Hopping Locality continuum does not. A wrapper-only
 experiment package or duplicate implementation is not an acceptable migration.
 
 The final migration must move the concrete experiment composition, definition, results,
 serialization, and verifier under
 `experiments/periodic-reduction/composite-band-alignment-and-locality/periodic1d/`, update
-the constrained successor to consume the maintained experiment contract, and remove the
+the historical regression to consume the maintained experiment contract, and remove the
 obsolete concrete KSD composition only after all consumers have moved.

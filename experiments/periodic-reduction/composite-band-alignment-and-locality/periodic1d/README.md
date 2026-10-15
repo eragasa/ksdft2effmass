@@ -34,8 +34,9 @@ does not select a null-space completion.
 ## Migration boundary
 
 The current implementation remains under
-`python/src/ksdft2effmass/periodic1d/multiband_alignment/` while the maintained
-constrained-admissible-set successor consumes its result contract. Creating a thin
+`python/src/ksdft2effmass/periodic1d/multiband_alignment/` while the isolated historical
+64/257 regression under Band Equivalence versus Hopping Locality consumes its result
+contract. The active smooth continuum does not depend on that composition. Creating a thin
 experiment wrapper or copying that implementation here would violate the selected
 owner boundary. The concrete composition moves only when consumers can migrate without
 duplication.

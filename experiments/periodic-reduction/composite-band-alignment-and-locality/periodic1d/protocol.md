@@ -106,7 +106,7 @@ Before assigning `.v1` or retaining a maintained run:
 3. bind exact owner and experiment dependencies;
 4. replace temporary numerical selection mechanisms where reviewed owner contracts fit,
    without forwarding facades;
-5. migrate the constrained-admissible-set consumer to the maintained result contract;
+5. migrate the historical 64/257 regression consumer to the maintained result contract;
 6. define evidence retention and failure policy; and
 7. obtain separate execution authorization.
 

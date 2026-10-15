@@ -1,4 +1,4 @@
-"""Immutable outputs of the constrained admissible-set experiment."""
+"""Historical finite-angle results retained only for regression."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from ksdft2effmass.periodic1d.multiband_alignment import (
     Periodic1DMultibandAlignmentCalculationResult,
 )
 
-from .definition import (
+from .regression_definition import (
     AdmissibleSetThresholds,
     ConstrainedAdmissibleSetsExperimentDefinition,
     QuadraticLoss2D,
@@ -28,14 +28,79 @@ class AdmissibleSetDisposition(Enum):
 
 
 @dataclass(frozen=True, slots=True)
+class AdmissibleSetLocalityResult:
+    """Retain energy-valued omitted-block norms at one maximum range.
+
+    Parameters
+    ----------
+    maximum_range
+        Inclusive hopping-representative modulus retained by truncation.
+    reference_omitted_block_l2_norm
+        Omitted-block norm for the reference represented Hamiltonian.
+    attacked_omitted_block_l2_norm
+        Omitted-block norm for the attacked represented Hamiltonian.
+    candidate_omitted_block_l2_norm
+        Omitted-block norm for the selected aligned candidate.
+
+    Notes
+    -----
+    Each norm is a magnitude in the common parent energy unit. The aggregate result
+    supplies that unit through its exact composed parent definition.
+    """
+
+    maximum_range: int
+    reference_omitted_block_l2_norm: float
+    attacked_omitted_block_l2_norm: float
+    candidate_omitted_block_l2_norm: float
+
+    def __post_init__(self) -> None:
+        """Validate the range and finite nonnegative norm magnitudes."""
+        if type(self.maximum_range) is not int:
+            raise TypeError("maximum_range must be a built-in int")
+        if self.maximum_range < 0:
+            raise ValueError("maximum_range must be nonnegative")
+        for name, value in (
+            ("reference_omitted_block_l2_norm", self.reference_omitted_block_l2_norm),
+            ("attacked_omitted_block_l2_norm", self.attacked_omitted_block_l2_norm),
+            ("candidate_omitted_block_l2_norm", self.candidate_omitted_block_l2_norm),
+        ):
+            _finite_float(name, value)
+            if value < 0.0:
+                raise ValueError(f"{name} must be nonnegative")
+
+
+@dataclass(frozen=True, slots=True)
 class AdmissibleSetPointEvaluation:
-    """Retain both losses and the selected finite component at one point."""
+    """Retain objective-role losses and locality at one proof point.
+
+    Parameters
+    ----------
+    role
+        Stable witness or certificate-point role identity.
+    parameter
+        Energy-shift ratio and splitting scale.
+    selected_alignment_angle
+        Construction-selected global real-rotation angle in radians.
+    objective_construction_spectral_rms_loss
+        Spectral loss on samples that define quadratics and decisions.
+    objective_construction_operator_rms_loss
+        Operator loss on samples that define quadratics and decisions.
+    objective_evaluation_spectral_rms_loss
+        Post-decision spectral loss on the disjoint evaluation mesh.
+    objective_evaluation_operator_rms_loss
+        Post-decision operator loss on the disjoint evaluation mesh.
+    locality
+        Range-resolved finite-mesh omitted-block diagnostics.
+    """
 
     role: str
     parameter: tuple[float, float]
     selected_alignment_angle: float
-    spectral_rms_loss: float
-    operator_rms_loss: float
+    objective_construction_spectral_rms_loss: float
+    objective_construction_operator_rms_loss: float
+    objective_evaluation_spectral_rms_loss: float
+    objective_evaluation_operator_rms_loss: float
+    locality: tuple[AdmissibleSetLocalityResult, ...]
 
     def __post_init__(self) -> None:
         """Validate one role-identified finite evaluation."""
@@ -46,17 +111,56 @@ class AdmissibleSetPointEvaluation:
         _parameter("parameter", self.parameter)
         _finite_float("selected_alignment_angle", self.selected_alignment_angle)
         for name, value in (
-            ("spectral_rms_loss", self.spectral_rms_loss),
-            ("operator_rms_loss", self.operator_rms_loss),
+            (
+                "objective_construction_spectral_rms_loss",
+                self.objective_construction_spectral_rms_loss,
+            ),
+            (
+                "objective_construction_operator_rms_loss",
+                self.objective_construction_operator_rms_loss,
+            ),
+            (
+                "objective_evaluation_spectral_rms_loss",
+                self.objective_evaluation_spectral_rms_loss,
+            ),
+            (
+                "objective_evaluation_operator_rms_loss",
+                self.objective_evaluation_operator_rms_loss,
+            ),
         ):
             _finite_float(name, value)
             if value < 0.0:
                 raise ValueError(f"{name} must be nonnegative")
+        if type(self.locality) is not tuple or any(
+            type(item) is not AdmissibleSetLocalityResult for item in self.locality
+        ):
+            raise TypeError("locality must be a typed tuple")
+        ranges = tuple(item.maximum_range for item in self.locality)
+        if tuple(sorted(set(ranges))) != ranges:
+            raise ValueError("locality ranges must be unique and increasing")
 
 
 @dataclass(frozen=True, slots=True)
 class AdmissibleSetCaseResult:
-    """Retain a common witness or one bounded separation certificate."""
+    """Retain a common witness or one bounded separation certificate.
+
+    Parameters
+    ----------
+    thresholds
+        Named spectral and operator RMS thresholds.
+    disposition
+        Constructive compatibility, certified separation, or unresolved outcome.
+    feasible_operator_component_angles
+        Ordered operator components intersecting the parameter rectangle.
+    common_witness
+        Constructive common point, or ``None`` when none is retained.
+    spectral_certificate_point, operator_certificate_point
+        Feasible points defining the reported upper bound and axis certificate.
+    separation_lower_bound, separation_upper_bound
+        Ordered Euclidean parameter-distance bounds.
+    separation_resolution
+        Resolution that certified separation must strictly exceed.
+    """
 
     thresholds: AdmissibleSetThresholds
     disposition: AdmissibleSetDisposition
@@ -128,7 +232,21 @@ class AdmissibleSetCaseResult:
 
 @dataclass(frozen=True, slots=True)
 class ConstrainedAdmissibleSetsExperimentResult:
-    """Correlate parent evidence, derived losses, and both threshold cases."""
+    """Correlate parent evidence, derived losses, and threshold cases.
+
+    Parameters
+    ----------
+    definition
+        Exact immutable controls used by the producer.
+    multiband_baseline
+        Composed parent result using the exact nested definition.
+    spectral_loss
+        Alignment-invariant objective-construction quadratic.
+    operator_losses
+        One objective-construction quadratic per declared alignment angle.
+    cases
+        Compatible and separated threshold outcomes in declared order.
+    """
 
     definition: ConstrainedAdmissibleSetsExperimentDefinition
     multiband_baseline: Periodic1DMultibandAlignmentCalculationResult
@@ -194,22 +312,33 @@ class ConstrainedAdmissibleSetsExperimentResult:
                     raise ValueError(
                         "selected angle must belong to the declared family"
                     )
+                ranges = tuple(item.maximum_range for item in point.locality)
+                if ranges != self.definition.locality_ranges:
+                    raise ValueError("locality must match the declared range inventory")
                 expected_spectral = self.spectral_loss.rms_loss(point.parameter)
                 expected_operator = by_angle[point.selected_alignment_angle].rms_loss(
                     point.parameter
                 )
                 if (
-                    abs(point.spectral_rms_loss - expected_spectral) > tolerance
-                    or abs(point.operator_rms_loss - expected_operator) > tolerance
+                    abs(
+                        point.objective_construction_spectral_rms_loss
+                        - expected_spectral
+                    )
+                    > tolerance
+                    or abs(
+                        point.objective_construction_operator_rms_loss
+                        - expected_operator
+                    )
+                    > tolerance
                 ):
                     raise ValueError("point evaluations must match declared losses")
             if (
-                case.spectral_certificate_point.spectral_rms_loss
+                case.spectral_certificate_point.objective_construction_spectral_rms_loss
                 > case.thresholds.spectral_rms_threshold + tolerance
             ):
                 raise ValueError("spectral certificate point must be feasible")
             if (
-                case.operator_certificate_point.operator_rms_loss
+                case.operator_certificate_point.objective_construction_operator_rms_loss
                 > case.thresholds.operator_rms_threshold + tolerance
             ):
                 raise ValueError("operator certificate point must be feasible")
@@ -228,6 +357,7 @@ class ConstrainedAdmissibleSetsExperimentResult:
 __all__ = [
     "AdmissibleSetCaseResult",
     "AdmissibleSetDisposition",
+    "AdmissibleSetLocalityResult",
     "AdmissibleSetPointEvaluation",
     "ConstrainedAdmissibleSetsExperimentResult",
 ]

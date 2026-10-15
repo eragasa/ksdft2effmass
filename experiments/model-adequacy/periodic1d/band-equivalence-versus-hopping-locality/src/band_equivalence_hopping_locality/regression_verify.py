@@ -1,4 +1,4 @@
-"""Independent reconstruction for constrained admissible-set experiment results."""
+"""Independent reconstruction retained only for finite-angle regression."""
 
 from __future__ import annotations
 
@@ -11,13 +11,13 @@ from ksdft2effmass.periodic1d.multiband_alignment import (
 )
 from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
 
-from .definition import (
+from .regression_definition import (
     AdmissibleSetThresholds,
     ConstrainedAdmissibleSetsExperimentDefinition,
     QuadraticLoss2D,
     _finite_float,
 )
-from .results import (
+from .regression_results import (
     AdmissibleSetDisposition,
     AdmissibleSetPointEvaluation,
     ConstrainedAdmissibleSetsExperimentResult,
@@ -26,7 +26,21 @@ from .results import (
 
 @dataclass(frozen=True, slots=True)
 class ConstrainedAdmissibleSetsVerificationResult:
-    """Retain the maximum independently reconstructed dimensionless defect."""
+    """Retain independently reconstructed defects and pass disposition.
+
+    Parameters
+    ----------
+    experiment_result
+        Exact immutable result subjected to reconstruction.
+    dimensionless_maximum_absolute_defect
+        Maximum defect among geometry, loss, role, and disposition channels.
+    energy_maximum_absolute_defect
+        Maximum parent-energy defect among parent and locality channels.
+    absolute_tolerance
+        Common finite absolute acceptance tolerance.
+    passes
+        Derived conjunction of both defect channels meeting the tolerance.
+    """
 
     experiment_result: ConstrainedAdmissibleSetsExperimentResult
     dimensionless_maximum_absolute_defect: float
@@ -74,8 +88,10 @@ class ConstrainedAdmissibleSetsVerificationResult:
 
 
 class ConstrainedAdmissibleSetsExperimentVerifier:
-    """Reconstruct the parent-derived losses and decisive certificate geometry.
+    """Reconstruct losses, evaluations, locality, and certificate geometry.
 
+    Notes
+    -----
     The verifier does not call the producer Action or Optimization solvers. It delegates
     only the composed M2 verification to M2's independent verifier, then rebuilds M3
     feature quadratics and geometry with separate direct formulas.
@@ -86,7 +102,23 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
     def execute(
         self, result: ConstrainedAdmissibleSetsExperimentResult
     ) -> ConstrainedAdmissibleSetsVerificationResult:
-        """Return maximum defects for parent evidence, losses, and both cases."""
+        """Reconstruct all decisive evidence and return maximum defects.
+
+        Parameters
+        ----------
+        result
+            Exact experiment result to verify without invoking its producer.
+
+        Returns
+        -------
+        ConstrainedAdmissibleSetsVerificationResult
+            Separate dimensionless and parent-energy defects with a derived pass flag.
+
+        Raises
+        ------
+        TypeError
+            If ``result`` is not the exact regression result type.
+        """
         if type(result) is not ConstrainedAdmissibleSetsExperimentResult:
             raise TypeError("result must be ConstrainedAdmissibleSetsExperimentResult")
         baseline_verification = Periodic1DMultibandAlignmentResultVerifier().execute(
@@ -127,8 +159,8 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
                 result.operator_losses, operators, strict=True
             ):
                 self._loss_defects(retained, expected, defects)
-        self._compatible_defects(result, spectral, operators, defects)
-        self._separated_defects(result, spectral, operators, defects)
+        self._compatible_defects(result, spectral, operators, defects, energy_defects)
+        self._separated_defects(result, spectral, operators, defects, energy_defects)
         maximum = max(defects, default=0.0)
         maximum_energy = max(energy_defects, default=0.0)
         tolerance = definition.verification_absolute_tolerance
@@ -146,6 +178,7 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
         spectral: QuadraticLoss2D,
         operators: tuple[QuadraticLoss2D, ...],
         defects: list[float],
+        energy_defects: list[float],
     ) -> None:
         """Reconstruct the prospective common-witness case."""
         definition = result.definition
@@ -178,14 +211,14 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
             case.spectral_certificate_point,
             case.operator_certificate_point,
         ):
-            self._point_defects(
-                spectral,
-                operators,
+            self._evaluation_defects(
+                result,
                 point,
                 "compatible-common-witness",
                 witness,
-                selected,
+                self._angle(operators[selected]),
                 defects,
+                energy_defects,
             )
         defects.extend(
             (
@@ -208,6 +241,7 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
         spectral: QuadraticLoss2D,
         operators: tuple[QuadraticLoss2D, ...],
         defects: list[float],
+        energy_defects: list[float],
     ) -> None:
         """Reconstruct finite feasibility, support points, and separation bounds."""
         definition = result.definition
@@ -258,61 +292,148 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
                 0.0 if definition.contains(operator_point) else 1.0,
             )
         )
-        self._point_defects(
-            spectral,
-            operators,
+        self._evaluation_defects(
+            result,
             case.spectral_certificate_point,
             "separated-spectral-boundary",
             spectral_point,
-            spectral_selected,
+            self._angle(operators[spectral_selected]),
             defects,
+            energy_defects,
         )
-        self._point_defects(
-            spectral,
-            operators,
+        self._evaluation_defects(
+            result,
             case.operator_certificate_point,
             "separated-operator-boundary",
             operator_point,
-            operator_loss_index,
+            self._angle(operators[operator_loss_index]),
             defects,
+            energy_defects,
         )
 
-    @staticmethod
-    def _point_defects(
-        spectral: QuadraticLoss2D,
-        operators: tuple[QuadraticLoss2D, ...],
+    def _evaluation_defects(
+        self,
+        result: ConstrainedAdmissibleSetsExperimentResult,
         retained: AdmissibleSetPointEvaluation,
         role: str,
         parameter: tuple[float, float],
-        operator_index: int,
+        angle: float,
         defects: list[float],
+        energy_defects: list[float],
     ) -> None:
-        """Append independent identity, coordinate, angle, and loss defects."""
-        operator = operators[operator_index]
+        """Reconstruct both sample roles and every locality diagnostic."""
+        definition = result.definition
+        baseline = result.multiband_baseline
+        energy_unit = baseline.reference_transform.hopping_model.hopping_blocks[0].unit
+        energy_scale = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            definition.loss_energy_scale, energy_unit
+        ).magnitude
+        construction_reference = self._matrices(baseline.reference_transform.source)
+        construction_attacked = self._matrices(baseline.attacked_transform.source)
+        representatives = np.asarray(
+            baseline.reference_transform.hopping_model.representatives,
+            dtype=np.int64,
+        )
+        reference_blocks = np.asarray(
+            [
+                block.magnitude
+                for block in baseline.reference_transform.hopping_model.hopping_blocks
+            ],
+            dtype=np.complex128,
+        )
+        attacked_blocks = np.asarray(
+            [
+                block.magnitude
+                for block in baseline.attacked_transform.hopping_model.hopping_blocks
+            ],
+            dtype=np.complex128,
+        )
+        reduced_evaluation = (
+            baseline.withheld_target.coordinates.magnitude
+            / baseline.withheld_target.reciprocal_period.magnitude
+        )
+        evaluation_reference = self._interpolate(
+            reduced_evaluation, representatives, reference_blocks
+        )
+        evaluation_attacked = self._interpolate(
+            reduced_evaluation, representatives, attacked_blocks
+        )
+        construction_candidate = self._candidate(
+            construction_reference, parameter, energy_scale
+        )
+        evaluation_candidate = self._candidate(
+            evaluation_reference, parameter, energy_scale
+        )
+        rotation = self._rotation(angle)
+        construction_rotated = self._conjugate(construction_candidate, rotation)
+        evaluation_rotated = self._conjugate(evaluation_candidate, rotation)
+        rank = definition.multiband_baseline.retained_rank
+        expected = (
+            self._spectral_rms(
+                construction_candidate,
+                baseline.training_target.eigenvalues.magnitude,
+                energy_scale,
+            ),
+            self._operator_rms(
+                construction_rotated,
+                construction_attacked,
+                energy_scale,
+                rank,
+            ),
+            self._spectral_rms(
+                evaluation_candidate,
+                baseline.withheld_target.eigenvalues.magnitude,
+                energy_scale,
+            ),
+            self._operator_rms(
+                evaluation_rotated,
+                evaluation_attacked,
+                energy_scale,
+                rank,
+            ),
+        )
         defects.extend(
             (
                 0.0 if retained.role == role else 1.0,
-                ConstrainedAdmissibleSetsExperimentVerifier._maximum(
-                    retained.parameter, parameter
-                ),
-                abs(
-                    retained.selected_alignment_angle
-                    - ConstrainedAdmissibleSetsExperimentVerifier._angle(operator)
-                ),
-                abs(
-                    retained.spectral_rms_loss
-                    - ConstrainedAdmissibleSetsExperimentVerifier._rms_loss(
-                        spectral, parameter
-                    )
-                ),
-                abs(
-                    retained.operator_rms_loss
-                    - ConstrainedAdmissibleSetsExperimentVerifier._rms_loss(
-                        operator, parameter
-                    )
-                ),
+                self._maximum(retained.parameter, parameter),
+                abs(retained.selected_alignment_angle - angle),
+                abs(retained.objective_construction_spectral_rms_loss - expected[0]),
+                abs(retained.objective_construction_operator_rms_loss - expected[1]),
+                abs(retained.objective_evaluation_spectral_rms_loss - expected[2]),
+                abs(retained.objective_evaluation_operator_rms_loss - expected[3]),
             )
         )
+        reduced_construction = (
+            baseline.training_target.coordinates.magnitude
+            / baseline.training_target.reciprocal_period.magnitude
+        )
+        candidate_blocks = self._fourier(
+            reduced_construction, construction_rotated, representatives
+        )
+        if len(retained.locality) != len(definition.locality_ranges):
+            defects.append(1.0)
+            return
+        for item, maximum_range in zip(
+            retained.locality, definition.locality_ranges, strict=True
+        ):
+            keep = np.abs(representatives) <= maximum_range
+            defects.append(0.0 if item.maximum_range == maximum_range else 1.0)
+            energy_defects.extend(
+                (
+                    abs(
+                        item.reference_omitted_block_l2_norm
+                        - float(np.linalg.norm(reference_blocks[~keep]))
+                    ),
+                    abs(
+                        item.attacked_omitted_block_l2_norm
+                        - float(np.linalg.norm(attacked_blocks[~keep]))
+                    ),
+                    abs(
+                        item.candidate_omitted_block_l2_norm
+                        - float(np.linalg.norm(candidate_blocks[~keep]))
+                    ),
+                )
+            )
 
     @staticmethod
     def _loss_defects(
@@ -426,7 +547,7 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
         target: np.ndarray,
         energy_scale: float,
     ) -> QuadraticLoss2D:
-        """Independently derive the invariant spectral training quadratic."""
+        """Independently derive the invariant objective-construction quadratic."""
         rank = reference.shape[1]
         mean = np.trace(reference, axis1=1, axis2=2).real / float(rank)
         values = np.linalg.eigvalsh(reference)
@@ -435,7 +556,7 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
             (np.full_like(values, energy_scale), values - base), axis=-1
         )
         return ConstrainedAdmissibleSetsExperimentVerifier._quadratic(
-            "spectral-training-rms-v1",
+            "spectral-objective-construction-rms-v1",
             None,
             features,
             base - target,
@@ -449,7 +570,7 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
         energy_scale: float,
         angle: float,
     ) -> QuadraticLoss2D:
-        """Independently derive one angle-resolved operator training quadratic."""
+        """Independently derive one angle-resolved construction quadratic."""
         rank = reference.shape[1]
         identity = np.eye(rank, dtype=np.complex128)
         mean = np.trace(reference, axis1=1, axis2=2) / float(rank)
@@ -463,7 +584,7 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
             axis=-1,
         )
         return ConstrainedAdmissibleSetsExperimentVerifier._quadratic(
-            f"operator-training-rms-angle-{angle:.17g}",
+            f"operator-objective-construction-rms-angle-{angle:.17g}",
             angle,
             features,
             base - target,
@@ -552,6 +673,84 @@ class ConstrainedAdmissibleSetsExperimentVerifier:
         if loss.alignment_angle is None:
             raise ValueError("operator loss must retain an angle")
         return loss.alignment_angle
+
+    @staticmethod
+    def _candidate(
+        reference: np.ndarray,
+        parameter: tuple[float, float],
+        energy_scale: float,
+    ) -> np.ndarray:
+        """Independently rebuild one affine candidate family member."""
+        rank = reference.shape[1]
+        identity = np.eye(rank, dtype=np.complex128)
+        mean = np.trace(reference, axis1=1, axis2=2) / float(rank)
+        base = mean[:, None, None] * identity
+        return np.asarray(
+            base
+            + parameter[0] * energy_scale * identity
+            + parameter[1] * (reference - base),
+            dtype=np.complex128,
+        )
+
+    @staticmethod
+    def _spectral_rms(
+        candidate: np.ndarray,
+        target: np.ndarray,
+        energy_scale: float,
+    ) -> float:
+        """Independently rebuild normalized ordered-eigenvalue RMS loss."""
+        return float(
+            np.sqrt(np.mean(np.abs(np.linalg.eigvalsh(candidate) - target) ** 2))
+            / energy_scale
+        )
+
+    @staticmethod
+    def _operator_rms(
+        candidate: np.ndarray,
+        target: np.ndarray,
+        energy_scale: float,
+        rank: int,
+    ) -> float:
+        """Independently rebuild normalized operator Frobenius RMS loss."""
+        squared = sum(
+            float(np.linalg.norm(left - right) ** 2)
+            for left, right in zip(candidate, target, strict=True)
+        )
+        return float(np.sqrt(squared / float(candidate.shape[0] * rank)) / energy_scale)
+
+    @staticmethod
+    def _fourier(
+        reduced: np.ndarray,
+        matrices: np.ndarray,
+        representatives: np.ndarray,
+    ) -> np.ndarray:
+        """Reconstruct finite hopping blocks by the declared forward transform."""
+        return np.asarray(
+            [
+                np.mean(
+                    matrices
+                    * np.exp(-2j * np.pi * reduced * int(representative))[
+                        :, None, None
+                    ],
+                    axis=0,
+                )
+                for representative in representatives
+            ],
+            dtype=np.complex128,
+        )
+
+    @staticmethod
+    def _interpolate(
+        reduced: np.ndarray,
+        representatives: np.ndarray,
+        blocks: np.ndarray,
+    ) -> np.ndarray:
+        """Evaluate finite hopping blocks at reduced reciprocal coordinates."""
+        phases = np.exp(2j * np.pi * np.outer(reduced, representatives))
+        return np.asarray(
+            np.einsum("kr,rij->kij", phases, blocks, optimize=True),
+            dtype=np.complex128,
+        )
 
     @staticmethod
     def _rotation(angle: float) -> np.ndarray:

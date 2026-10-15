@@ -19,9 +19,10 @@ blocking decisions, and the KSD implementation that should disappear or never be
 ## Current owner baseline
 
 Live KSD development resolves the reviewed Optimization/Numerics owner revision
-`f6bdecc418e46240087d1dfb1c22dac396cdc455` in the root and constrained-admissible-set
-locks. PhysKit revision `2cede347e4beeb39f06ca096c15b7a76de276953` resolves that
-same exact owner revision. The immutable single-band version-one experiment separately
+`cf551409872a621b4e47d2236ac4ffdc12c187c0` in the root and **Band Equivalence versus
+Hopping Locality** locks. PhysKit revision
+`07b2a1ee3ccd07926e90f43b4d1046efccc5ad8c` resolves that same exact owner revision.
+The immutable single-band version-one experiment separately
 retains its authentic execution-time dependency pair.
 
 - The live revision includes every completed capability listed below. Least-squares,
@@ -33,7 +34,10 @@ retains its authentic execution-time dependency pair.
   `23e1c88772f1bc9a1505cd25df5418cd945a76fa`; it does not supply composite-band
   eigenframes.
 - The current successor adds deterministic dense positive-definite box-quadratic
-  minimization with retained KKT and execution diagnostics.
+  minimization, exact continuous periodic-harmonic maximization, dependency-free complex
+  matrix Frobenius values, and fail-closed complex-unitary pairwise Procrustes alignment.
+  Band Equivalence versus Hopping Locality directly consumes the harmonic, Frobenius
+  through PhysKit, and Procrustes capabilities.
 - Exact dependency resolution is software provenance, not scientific validation.
 - No KSD commit, release, retained calculation, or publication claim follows from this
   task status.
@@ -46,12 +50,13 @@ Optimization contracts.
 | Capability | Optimization owner surface | KSD donor or consumer | KSD status |
 |---|---|---|---|
 | Positive-weight real/complex multiple-right-hand-side linear least squares | `projectkoios.optimization.least_squares` | `python/src/ksdft2effmass/analysis/hopping_fits.py` and the single-band reduction experiment | Owner-integrated; KSD retains only domain construction, units, hopping meaning, and diagnostics |
-| Complex affine-residual quadratic construction over real parameters | `projectkoios.optimization.affine` | Maintained constrained-admissible-set experiment and historical M3 formulas | Owner-integrated; KSD supplies ordered complex observations, raw positive weights, normalization, and labels |
+| Complex affine-residual quadratic construction over real parameters | `projectkoios.optimization.affine` | Historical 64/257 regression and M3 formulas | Owner-integrated in regression only; KSD supplies ordered complex observations, raw positive weights, normalization, and labels |
 | Positive-definite completed-square quadratic records and evaluation | `projectkoios.optimization.quadratic` | Periodic-1D admissible-set calculations and successor experiment | Owner-integrated |
-| Exact two-dimensional closed-rectangle quadratic minimization | `projectkoios.optimization.quadratic` | Historical and maintained two-parameter M3 cases | Owner-integrated; it is not an arbitrary-dimensional box solver |
+| Exact two-dimensional closed-rectangle quadratic minimization | `projectkoios.optimization.quadratic` | Historical two-parameter M3 regression | Owner-integrated; it is not an arbitrary-dimensional box solver |
 | Full-ellipsoid support points | `projectkoios.optimization.quadratic` | M3 support-bound construction | Owner-integrated; KSD separately binds and checks the scientific domain-containment evidence |
-| Ordered finite-family filtering and first-on-exact-tie selection | `projectkoios.optimization.selection` | Finite alignment-angle and component inventories | Owner-integrated |
+| Ordered finite-family filtering and first-on-exact-tie selection | `projectkoios.optimization.selection` | Historical finite alignment-angle regression | Owner-integrated in regression only |
 | Arbitrary-dimensional dense positive-definite box-quadratic minimization | `projectkoios.optimization.quadratic.box` | Isotropic-2D hopping-shell hierarchy active dimensions 1 through 36 | Owner-implemented and exact-revision-bound; threshold-design consumption is next |
+| Exact continuous periodic-harmonic maximization | `projectkoios.optimization.selection.harmonic` | Band Equivalence versus Hopping Locality | Owner-integrated directly; KSD owns physical coefficients and interpretation, with no finite-angle inventory or PhysKit facade |
 
 ## Next extraction sequence
 
@@ -148,7 +153,10 @@ claim support or distance for an ellipsoid intersected with a box.
 The reusable operation selects a square unitary that minimizes the declared Frobenius
 frame residual for one candidate/reference pair.
 
-- **Status:** `TECH_DEBT` while the owner completes the already-authorized box-quadratic slice.
+- **Status:** `PARTIALLY_OWNER_INTEGRATED`; the generic one-pair capability exists at
+  `cf551409872a621b4e47d2236ac4ffdc12c187c0` and the Band Equivalence versus Hopping
+  Locality producer consumes it directly. The older `BandFrameAligner1D` donor remains
+  separate technical debt.
 - **KSD donor:** `BandFrameAligner1D` in
   `python/src/ksdft2effmass/solid_state/frame_alignment.py`.
 - **Owner target:** `projectkoios.optimization.alignment`.
@@ -158,7 +166,9 @@ frame residual for one candidate/reference pair.
 - **Selected nonuniqueness policy:** reject numerically rank-deficient inputs and return
   no transformation; deterministic null-space completion is outside this consumer contract.
 - **KSD removal target:** the transformation-selecting SVD/polar mechanism in
-  `BandFrameAligner1D`; future KSD experiments should call the owner operation directly.
+  `BandFrameAligner1D`; new KSD experiments call the owner operation directly. The
+  experiment's independent verifier retains a separate reconstruction path rather than
+  calling the producer action.
 - **KSD retains:** frame identities, path/sewing compatibility, channel meaning, units,
   and scientific interpretation.
 
