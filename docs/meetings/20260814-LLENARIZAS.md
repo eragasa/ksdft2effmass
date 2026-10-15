@@ -21,16 +21,16 @@ provenance, numerical convergence, scientific validation, or project acceptance.
 		- [X] simulations/conventionalcell/convergence/kpoints/2x2x2
 		- [X] simulations/conventionalcell/convergence/kpoints/3x3x3
 		- [X] ...
-		- [ ] graph, script to create the graph
+		- [X] graph, script to create the graph
 	- [X] encut convergence on conventional unit cell
 		- [ ] table,
 		- [X] simulations/conventionalcell/encut/xxx_eV/
 	- [ ] wannier process
 		- [ ] PBE-PAW flowchart
-		- [ ] simulations/conventionalcell/wannier/scf
-		- [ ] simulations/conventionalcell/wannier/nscf
-		- [ ] simulations/conventionalcell/wannier/wannier90
-		- [ ] simulations/conventioanlcell/wannier/analysis
+		- [X] simulations/conventionalcell/wannier/scf
+		- [X] simulations/conventionalcell/wannier/nscf
+		- [X] simulations/conventionalcell/wannier/wannier90
+		- [X] simulations/conventioanlcell/wannier/analysis
 - [ ] start looking at tight binding
 	- [ ] Traditional Multi-Orbital Matrix approach to TB. https://github.com/deepmodeling/tbplas
 	- [ ] Kittel, (tight binding).   Simon (tight binding, 2 chapters)
@@ -41,8 +41,8 @@ provenance, numerical convergence, scientific validation, or project acceptance.
 	- [ ] Computational Tasks: https://github.com/eragasa/ksdft2effmass/blob/dev/docs/computational/ksdft2effmass.computational.00.md
 	- [ ] https://github.com/eragasa/ksdft2effmass/blob/dev/docs/research/ksdft2effmass.00.md
 - [ ] Tight-binding
-- [ ] 2 atom, primitive unit cell of Si
-		- [ ] make an image of the primitive cell inside the the conventional cell (https://jp-minerals.org/vesta/en/)
+- [X] 2 atom, primitive unit cell of Si
+		- [ X] make an image of the primitive cell inside the the conventional cell (https://jp-minerals.org/vesta/en/)
 
 ## Tasks Completed
 - [x] QE, running, Si, PBE-GGA
