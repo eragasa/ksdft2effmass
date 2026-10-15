@@ -28,8 +28,8 @@ of admissible unitary identification maps. Restrictions imposed by continuity,
 reciprocal-boundary sewing, symmetry, orbital semantics, or locality belong to the
 definition of $\mathcal U$ rather than to a later interpretation of the residual.
 
-For a finite translation domain $\mathcal S_H$, nonnegative weights
-$\omega_{\mathbf R}$, and a positive frozen normalization
+For a finite translation domain $\mathcal S_H$, strictly positive raw objective
+weights $\omega_{\mathbf R}$, and a positive frozen normalization
 
 $$
 Z_{\mathrm{ref}}=
@@ -50,9 +50,10 @@ $$
 \tag{S1.1}
 $$
 
-A zero or unspecified normalization does not define this diagnostic. A different-rank
-comparison likewise requires a separately declared projection or embedding; its
-information loss cannot be absorbed into Eq. (S1.1).
+An omitted translation is excluded prospectively from $\mathcal S_H$ rather than given
+zero weight. A zero or unspecified normalization does not define this diagnostic. A
+different-rank comparison likewise requires a separately declared projection or
+embedding; its information loss cannot be absorbed into Eq. (S1.1).
 
 ## S1.3 Orbit loss and frame excess
 

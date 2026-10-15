@@ -2,8 +2,11 @@
 
 The former combined optional-paper narrative has been separated into two manuscripts:
 
-1. [`conference-paper-1/manuscript.md`](conference-paper-1/manuscript.md) owns the
-   material-neutral method and controlled 1D/2D numerical-verification results.
+1. [`conference-paper-1/manuscript.md`](conference-paper-1/manuscript.md) retains the
+   extended material-neutral method and controlled 1D/2D numerical-verification draft.
+   [`conference-paper-1v2/manuscript.tex`](conference-paper-1v2/manuscript.tex) is its
+   compact prose revision, with the main argument and supplementary methods combined in
+   one standalone document.
 2. [`conference-paper-2/manuscript.md`](conference-paper-2/manuscript.md) owns the
    first-principles bulk-silicon application and remains explicitly pre-results.
 
