@@ -32,15 +32,16 @@ Fourier convention, thresholds, convergence controls, evidence correlation, and
 interpretation.
 
 The exact live owner dependencies are
-`projectkoios-optimization@fff068dfe38309db05bf6de075bac53bb6597813` and
-`projectkoios-physkit@b3c7367654c316d74ebec64878ae211f34eecf4a`.
+`projectkoios-optimization@7ac5376bcb97e29f6927dda4d4ef714ed2e32140` and
+`projectkoios-physkit@ed2e8118db9902316797d270305456735fab9712`.
 `PeriodicHarmonicMaximizer` owns exact continuous harmonic maximization, and
 `ComplexUnitaryProcrustesSolver` owns each full-rank source-to-target pairwise frame
 alignment without null-space completion for deficient overlaps. The Numerics
 finite-Fourier evaluator constructs shifted-mesh discrete blocks and checks nodal
 reconstruction. PhysKit's block-hopping records and power analyzer own raw matrix-block
-Frobenius powers, while its band evaluator composes Bloch reconstruction with the
-canonical Numerics batched Hermitian-spectrum solver and restores energy units. KSD
+Frobenius powers, while its band evaluators compose Bloch reconstruction with the
+canonical Numerics multi-series Fourier and batched Hermitian-spectrum solvers and
+restore energy units. KSD
 calls these owners directly, retains finite-cyclic Nyquist Hermiticity semantics, and
 applies its own normalizations and scientific thresholds. The
 independent non-flat verifier reconstructs $b_0+\sqrt{c^2+d^2}$, frame transport, and
@@ -125,11 +126,13 @@ implemented only for the exploratory finite-range consequence action described b
 `SmoothFourStateTruncationExperiment` separates the complete even-mesh cyclic Fourier
 inventory from an ordinary-lattice hopping model. KSD removes and reports the centered
 Nyquist block as a distinct conversion-power channel. The remaining conjugate-closed
-ordinary inventory is passed directly to PhysKit for Hermiticity diagnostics, explicit
-symmetric truncation, raw omitted power, and Bloch reconstruction. KSD chooses the
-cutoffs, applies retained-rank and $E_G$ normalization, constructs the disjoint shifted
-evaluation mesh, and reports interpolation, deliberate truncation, and total sorted-band
-errors separately.
+ordinary inventory is passed directly to PhysKit for Hermiticity diagnostics and one
+canonical ordered range-family evaluation. PhysKit retains each exact symmetric
+truncation and raw omitted power, shares the reciprocal-grid phase matrix across source
+and retained models, and performs one concatenated complete-spectrum solve. KSD chooses
+the cutoffs, applies retained-rank and $E_G$ normalization, constructs the disjoint
+shifted evaluation mesh, and reports interpolation, deliberate truncation, and total
+sorted-band errors separately.
 
 The action does not infer cyclic equivalence inside PhysKit and requires every cutoff to
 satisfy $R_c<N/2$. Direct comparison matrices remain unitarily related to the ordinary

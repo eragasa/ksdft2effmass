@@ -23,14 +23,15 @@ from projectkoios.physkit.periodic.lattice.hopping import (
     BlockHoppingTerm,
 )
 from projectkoios.physkit.solidstate.tb.bands import (
-    BlockHoppingBandEvaluator,
+    BlockHoppingBandEvaluation,
     BlockHoppingBandTolerance,
+    BlockHoppingRangeBandEntry,
+    BlockHoppingRangeBandEvaluation,
+    BlockHoppingRangeBandEvaluator,
+    BlockHoppingRangeBandSelection,
 )
 from projectkoios.physkit.solidstate.tb.diagnostics import (
     BlockHoppingHermiticityAnalyzer,
-)
-from projectkoios.physkit.solidstate.tb.truncation import (
-    ConjugateClosedBlockHoppingTruncator,
 )
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
@@ -108,10 +109,15 @@ class SmoothFourStateTruncationExperiment:
         reference_hermiticity = self._maximum_hermiticity_defect(
             reference_model, model.frame_absolute_tolerance
         )
-        reference_full, reference_eigenvalues = self._evaluate_bands(
+        reference_family = self._evaluate_range_family(
             reference_model,
+            definition.maximum_ranges,
             evaluation_coordinates,
             model.frame_absolute_tolerance,
+            "reference",
+        )
+        reference_full, reference_eigenvalues = self._band_arrays(
+            reference_family.source_band_evaluation
         )
         reference_nyquist_power = self._nyquist_power(
             parent.reference_blocks[~ordinary_mask]
@@ -119,13 +125,15 @@ class SmoothFourStateTruncationExperiment:
         reference_ranges = tuple(
             self._reference_range(
                 maximum_range,
-                reference_model,
+                entry,
                 reference_full,
                 reference_eigenvalues,
-                evaluation_coordinates,
-                model.frame_absolute_tolerance,
             )
-            for maximum_range in definition.maximum_ranges
+            for maximum_range, entry in zip(
+                definition.maximum_ranges,
+                reference_family.entries,
+                strict=True,
+            )
         )
 
         points = tuple(
@@ -197,10 +205,15 @@ class SmoothFourStateTruncationExperiment:
         comparison_hermiticity = cls._maximum_hermiticity_defect(
             comparison_model, model.frame_absolute_tolerance
         )
-        comparison_full, comparison_full_eigenvalues = cls._evaluate_bands(
+        comparison_family = cls._evaluate_range_family(
             comparison_model,
+            definition.maximum_ranges,
             evaluation_coordinates,
             model.frame_absolute_tolerance,
+            f"comparison-{amplitude.hex()}",
+        )
+        comparison_full, comparison_full_eigenvalues = cls._band_arrays(
+            comparison_family.source_band_evaluation
         )
         direct_comparison = SmoothFourStateExperiment._comparison_matrices(
             evaluation_coordinates,
@@ -217,18 +230,18 @@ class SmoothFourStateTruncationExperiment:
             cls._range(
                 maximum_range,
                 reference_range,
-                comparison_model,
+                comparison_entry,
                 comparison_full,
                 comparison_full_eigenvalues,
                 direct_eigenvalues,
                 reference_nyquist_power,
                 comparison_nyquist_power,
-                evaluation_coordinates,
-                model.frame_absolute_tolerance,
-                amplitude,
             )
-            for maximum_range, reference_range in zip(
-                definition.maximum_ranges, reference_ranges, strict=True
+            for maximum_range, reference_range, comparison_entry in zip(
+                definition.maximum_ranges,
+                reference_ranges,
+                comparison_family.entries,
+                strict=True,
             )
         )
         return SmoothFourStateTruncationPointResult(
@@ -249,32 +262,17 @@ class SmoothFourStateTruncationExperiment:
     def _reference_range(
         cls,
         maximum_range: int,
-        reference_model: BlockHoppingModel,
+        entry: BlockHoppingRangeBandEntry,
         reference_full: ComplexArray,
         reference_eigenvalues: RealArray,
-        evaluation_coordinates: RealArray,
-        hermiticity_tolerance: float,
     ) -> _ReferenceRangeResult:
-        retained = tuple(
-            LatticeDisplacement(LatticeDimension.ONE, (displacement,))
-            for displacement in range(-maximum_range, maximum_range + 1)
-        )
-        truncated = ConjugateClosedBlockHoppingTruncator().execute(
-            reference_model,
-            retained,
-            f"reference-range-{maximum_range}",
-        )
-        matrices, eigenvalues = cls._evaluate_bands(
-            truncated.truncated,
-            evaluation_coordinates,
-            hermiticity_tolerance,
-        )
+        matrices, eigenvalues = cls._band_arrays(entry.band_evaluation)
         if not bool(np.isfinite(matrices - reference_full).all()):
             raise FloatingPointError("reference truncation difference became nonfinite")
         difference = eigenvalues - reference_eigenvalues
         return _ReferenceRangeResult(
             maximum_range=maximum_range,
-            ordinary_omitted_power=truncated.omitted_power.magnitude / 2.0,
+            ordinary_omitted_power=entry.truncation.omitted_power.magnitude / 2.0,
             maximum_band_error=float(np.max(np.abs(difference))),
             rms_band_error=cls._rms(difference),
         )
@@ -284,32 +282,17 @@ class SmoothFourStateTruncationExperiment:
         cls,
         maximum_range: int,
         reference_range: _ReferenceRangeResult,
-        comparison_model: BlockHoppingModel,
+        comparison_entry: BlockHoppingRangeBandEntry,
         comparison_full: ComplexArray,
         comparison_full_eigenvalues: RealArray,
         direct_eigenvalues: RealArray,
         reference_nyquist_power: float,
         comparison_nyquist_power: float,
-        evaluation_coordinates: RealArray,
-        hermiticity_tolerance: float,
-        amplitude: float,
     ) -> SmoothFourStateTruncationRangeResult:
-        retained = tuple(
-            LatticeDisplacement(LatticeDimension.ONE, (displacement,))
-            for displacement in range(-maximum_range, maximum_range + 1)
-        )
-        truncator = ConjugateClosedBlockHoppingTruncator()
         if reference_range.maximum_range != maximum_range:
             raise AssertionError("reference cutoff must match the comparison cutoff")
-        comparison = truncator.execute(
-            comparison_model,
-            retained,
-            f"comparison-{amplitude.hex()}-range-{maximum_range}",
-        )
-        comparison_truncated, comparison_truncated_eigenvalues = cls._evaluate_bands(
-            comparison.truncated,
-            evaluation_coordinates,
-            hermiticity_tolerance,
+        comparison_truncated, comparison_truncated_eigenvalues = cls._band_arrays(
+            comparison_entry.band_evaluation
         )
         # The matrix differences are intentionally formed before eigenvalue errors so
         # nonfinite arithmetic cannot be hidden by a Hermitian eigensolver.
@@ -324,7 +307,9 @@ class SmoothFourStateTruncationExperiment:
             comparison_truncated_eigenvalues - direct_eigenvalues
         )
         reference_ordinary_power = reference_range.ordinary_omitted_power
-        comparison_ordinary_power = comparison.omitted_power.magnitude / 2.0
+        comparison_ordinary_power = (
+            comparison_entry.truncation.omitted_power.magnitude / 2.0
+        )
         return SmoothFourStateTruncationRangeResult(
             maximum_range=maximum_range,
             reference_ordinary_omitted_power=reference_ordinary_power,
@@ -413,13 +398,26 @@ class SmoothFourStateTruncationExperiment:
         return defect
 
     @staticmethod
-    def _evaluate_bands(
+    def _evaluate_range_family(
         model: BlockHoppingModel,
+        maximum_ranges: tuple[int, ...],
         coordinates: RealArray,
         hermiticity_tolerance: float,
-    ) -> tuple[ComplexArray, RealArray]:
-        evaluation = BlockHoppingBandEvaluator().evaluate(
+        identifier_prefix: str,
+    ) -> BlockHoppingRangeBandEvaluation:
+        selections = tuple(
+            BlockHoppingRangeBandSelection(
+                retained_displacements=tuple(
+                    LatticeDisplacement(LatticeDimension.ONE, (displacement,))
+                    for displacement in range(-maximum_range, maximum_range + 1)
+                ),
+                truncated_identifier=f"{identifier_prefix}-range-{maximum_range}",
+            )
+            for maximum_range in maximum_ranges
+        )
+        return BlockHoppingRangeBandEvaluator().evaluate(
             model,
+            selections,
             MatrixQuantity(coordinates[:, None], Unitless()),
             BlockHoppingBandTolerance(
                 hermiticity_absolute=ScalarQuantity(
@@ -429,6 +427,11 @@ class SmoothFourStateTruncationExperiment:
                 hermiticity_relative=0.0,
             ),
         )
+
+    @staticmethod
+    def _band_arrays(
+        evaluation: BlockHoppingBandEvaluation,
+    ) -> tuple[ComplexArray, RealArray]:
         matrices = np.stack(
             tuple(
                 matrix.magnitude

@@ -31,8 +31,8 @@ include = ["band_equivalence_hopping_locality*"]
 
 [tool.uv.sources]
 ksdft2effmass = { path = "../../../../python", editable = true }
-projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "fff068dfe38309db05bf6de075bac53bb6597813" }
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "b3c7367654c316d74ebec64878ae211f34eecf4a" }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "7ac5376bcb97e29f6927dda4d4ef714ed2e32140" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "ed2e8118db9902316797d270305456735fab9712" }
 
 [tool.pytest.ini_options]
 minversion = "8.0"

@@ -59,9 +59,10 @@ residual--tail identity.
 
 An exploratory truncation action now converts the even finite-cyclic inventory to an
 ordinary-lattice inventory by removing and separately reporting the centered Nyquist
-block. It calls PhysKit's conjugate-closed truncator for explicit symmetric cutoffs and
-measures interpolation, deliberate truncation, and total sorted-band errors separately
-on the disjoint evaluation mesh. This action has no frozen cutoff inventory, acceptance
+block. It calls PhysKit's canonical range-family evaluator for ordered explicit
+symmetric cutoffs, retaining each exact truncation result while sharing the Bloch phases
+and complete-spectrum solve across the family. It measures interpolation, deliberate
+truncation, and total sorted-band errors separately on the disjoint evaluation mesh. This action has no frozen cutoff inventory, acceptance
 threshold, strict serializer, independent verifier, or retained result. It does not yet
 report velocities, curvature, or physical effective masses.
 
@@ -81,8 +82,8 @@ unchanged.
 The exact dependency
 
 ```text
-projectkoios-optimization@fff068dfe38309db05bf6de075bac53bb6597813
-projectkoios-physkit@b3c7367654c316d74ebec64878ae211f34eecf4a
+projectkoios-optimization@7ac5376bcb97e29f6927dda4d4ef714ed2e32140
+projectkoios-physkit@ed2e8118db9902316797d270305456735fab9712
 ```
 
 provide the active owner capabilities. Optimization owns exact maximization of a
@@ -99,10 +100,12 @@ non-flat producer uses the Numerics finite-Fourier evaluator both to construct i
 discrete blocks under the shifted-mesh convention and to check nodal reconstruction. It
 calls Optimization directly for each unique neighbor-frame alignment and PhysKit
 directly for block powers. The truncation action additionally calls PhysKit directly for
-ordinary-lattice Hermiticity, conjugate-closed selection, omitted raw power, Bloch
-reconstruction, and unit-aware complete band evaluation. The latter directly consumes
-the canonical Numerics batched Hermitian-spectrum owner. KSD owns Nyquist conversion,
-cutoff choice, normalization, disjoint sampling, and scientific error channels. The independent verifier reconstructs
+ordinary-lattice Hermiticity and its range-family evaluator, which retains
+conjugate-closed selections and omitted raw powers while performing shared-grid Bloch
+reconstruction and unit-aware complete band evaluation. That action directly consumes
+the canonical Numerics multi-series Fourier and batched Hermitian-spectrum owners. KSD
+owns Nyquist conversion, cutoff choice, normalization, disjoint sampling, and scientific
+error channels. The independent verifier reconstructs
 the harmonic maximum as
 $b_0+\sqrt{c^2+d^2}$ and independently repeats the SVD/frame and raw-power calculations.
 No finite angle inventory enters either active definition or result. Neither owner

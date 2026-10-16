@@ -1030,8 +1030,8 @@ requires-dist = [
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "pint", specifier = ">=0.26,<0.27" },
-    { name = "projectkoios-optimization", extras = ["numpy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=fff068dfe38309db05bf6de075bac53bb6597813" },
-    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=b3c7367654c316d74ebec64878ae211f34eecf4a" },
+    { name = "projectkoios-optimization", extras = ["numpy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=7ac5376bcb97e29f6927dda4d4ef714ed2e32140" },
+    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=ed2e8118db9902316797d270305456735fab9712" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -1553,7 +1553,7 @@ wheels = [
 [[package]]
 name = "projectkoios-optimization"
 version = "0.1.0.dev0"
-source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=fff068dfe38309db05bf6de075bac53bb6597813#fff068dfe38309db05bf6de075bac53bb6597813" }
+source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=7ac5376bcb97e29f6927dda4d4ef714ed2e32140#7ac5376bcb97e29f6927dda4d4ef714ed2e32140" }
 
 [package.optional-dependencies]
 numpy = [
@@ -1563,7 +1563,7 @@ numpy = [
 [[package]]
 name = "projectkoios-physkit"
 version = "0.1.3.dev0"
-source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=b3c7367654c316d74ebec64878ae211f34eecf4a#b3c7367654c316d74ebec64878ae211f34eecf4a" }
+source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=ed2e8118db9902316797d270305456735fab9712#ed2e8118db9902316797d270305456735fab9712" }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
