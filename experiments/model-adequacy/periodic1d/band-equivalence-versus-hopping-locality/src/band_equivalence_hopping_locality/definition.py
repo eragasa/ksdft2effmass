@@ -5,6 +5,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from ._validation import _finite_float
+
 EXPERIMENT_FAMILY_ID = (
     "ksdft2effmass.campaign.model-adequacy.periodic1d."
     "band-equivalence-versus-hopping-locality"
@@ -18,14 +20,6 @@ SMOOTH_CONTINUUM_RESULT_SCHEMA_ID = f"{EXPERIMENT_FAMILY_ID}.smooth-continuum.re
 SMOOTH_CONTINUUM_VERIFICATION_SCHEMA_ID = (
     f"{EXPERIMENT_FAMILY_ID}.smooth-continuum.verification.v1"
 )
-
-
-def _finite_float(name: str, value: float) -> None:
-    """Reject booleans, numeric strings, non-built-in scalars, and nonfinite values."""
-    if type(value) is not float:
-        raise TypeError(f"{name} must be a built-in float")
-    if not math.isfinite(value):
-        raise ValueError(f"{name} must be finite")
 
 
 @dataclass(frozen=True, slots=True)

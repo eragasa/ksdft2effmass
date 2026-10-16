@@ -19,9 +19,9 @@ blocking decisions, and the KSD implementation that should disappear or never be
 ## Current owner baseline
 
 Live KSD development resolves the reviewed Optimization/Numerics owner revision
-`cf551409872a621b4e47d2236ac4ffdc12c187c0` in the root and **Band Equivalence versus
+`fff068dfe38309db05bf6de075bac53bb6597813` in the root and **Band Equivalence versus
 Hopping Locality** locks. PhysKit revision
-`07b2a1ee3ccd07926e90f43b4d1046efccc5ad8c` resolves that same exact owner revision.
+`b3c7367654c316d74ebec64878ae211f34eecf4a` resolves that same exact owner revision.
 The immutable single-band version-one experiment separately
 retains its authentic execution-time dependency pair.
 
@@ -35,9 +35,10 @@ retains its authentic execution-time dependency pair.
   eigenframes.
 - The current successor adds deterministic dense positive-definite box-quadratic
   minimization, exact continuous periodic-harmonic maximization, dependency-free complex
-  matrix Frobenius values, and fail-closed complex-unitary pairwise Procrustes alignment.
-  Band Equivalence versus Hopping Locality directly consumes the harmonic, Frobenius
-  through PhysKit, and Procrustes capabilities.
+  matrix Frobenius values, fail-closed complex-unitary pairwise Procrustes alignment,
+  and complete batched Hermitian spectra. Band Equivalence versus Hopping Locality
+  directly consumes the harmonic, Procrustes, and spectrum capabilities and consumes
+  Frobenius and block-hopping band semantics through PhysKit.
 - Exact dependency resolution is software provenance, not scientific validation.
 - No KSD commit, release, retained calculation, or publication claim follows from this
   task status.
@@ -57,6 +58,7 @@ Optimization contracts.
 | Ordered finite-family filtering and first-on-exact-tie selection | `projectkoios.optimization.selection` | Historical finite alignment-angle regression | Owner-integrated in regression only |
 | Arbitrary-dimensional dense positive-definite box-quadratic minimization | `projectkoios.optimization.quadratic.box` | Isotropic-2D hopping-shell hierarchy active dimensions 1 through 36 | Owner-implemented and exact-revision-bound; threshold-design consumption is next |
 | Exact continuous periodic-harmonic maximization | `projectkoios.optimization.selection.harmonic` | Band Equivalence versus Hopping Locality | Owner-integrated directly; KSD owns physical coefficients and interpretation, with no finite-angle inventory or PhysKit facade |
+| Complete batched Hermitian spectra | `projectkoios.numerics.linalg.hermitian_spectrum` | Direct non-model comparison matrices in Band Equivalence versus Hopping Locality | Owner-integrated directly; PhysKit separately composes the same owner with block-hopping Bloch matrices and energy units |
 
 ## Next extraction sequence
 
@@ -154,7 +156,7 @@ The reusable operation selects a square unitary that minimizes the declared Frob
 frame residual for one candidate/reference pair.
 
 - **Status:** `PARTIALLY_OWNER_INTEGRATED`; the generic one-pair capability exists at
-  `cf551409872a621b4e47d2236ac4ffdc12c187c0` and the Band Equivalence versus Hopping
+  `fff068dfe38309db05bf6de075bac53bb6597813` and the Band Equivalence versus Hopping
   Locality producer consumes it directly. The older `BandFrameAligner1D` donor remains
   separate technical debt.
 - **KSD donor:** `BandFrameAligner1D` in

@@ -32,15 +32,17 @@ Fourier convention, thresholds, convergence controls, evidence correlation, and
 interpretation.
 
 The exact live owner dependencies are
-`projectkoios-optimization@cf551409872a621b4e47d2236ac4ffdc12c187c0` and
-`projectkoios-physkit@07b2a1ee3ccd07926e90f43b4d1046efccc5ad8c`.
+`projectkoios-optimization@fff068dfe38309db05bf6de075bac53bb6597813` and
+`projectkoios-physkit@b3c7367654c316d74ebec64878ae211f34eecf4a`.
 `PeriodicHarmonicMaximizer` owns exact continuous harmonic maximization, and
 `ComplexUnitaryProcrustesSolver` owns each full-rank source-to-target pairwise frame
 alignment without null-space completion for deficient overlaps. The Numerics
 finite-Fourier evaluator constructs shifted-mesh discrete blocks and checks nodal
 reconstruction. PhysKit's block-hopping records and power analyzer own raw matrix-block
-Frobenius powers. KSD calls these owners directly, retains finite-cyclic Nyquist
-Hermiticity semantics, and applies its own normalizations and scientific thresholds. The
+Frobenius powers, while its band evaluator composes Bloch reconstruction with the
+canonical Numerics batched Hermitian-spectrum solver and restores energy units. KSD
+calls these owners directly, retains finite-cyclic Nyquist Hermiticity semantics, and
+applies its own normalizations and scientific thresholds. The
 independent non-flat verifier reconstructs $b_0+\sqrt{c^2+d^2}$, frame transport, and
 block powers without calling the corresponding producer actions. No thin pass-through
 adapter is introduced.
@@ -114,8 +116,32 @@ evaluates every interval midpoint, refines only failing intervals, and requires 
 separate quarter-point inventory after midpoint acceptance. It adds the verification
 margin to every selection and validation test and remains `unresolved` at its explicit
 level or unique-sample cap. Its
-production cap and thresholds are not frozen. Disjoint post-decision evaluation,
-admissible-set/witness controls, strict serialization, and schemas remain prospective.
+production cap and thresholds are not frozen. Admissible-set/witness controls, strict
+serialization, and schemas remain prospective. Disjoint post-decision evaluation is now
+implemented only for the exploratory finite-range consequence action described below.
+
+## Finite-range consequence action
+
+`SmoothFourStateTruncationExperiment` separates the complete even-mesh cyclic Fourier
+inventory from an ordinary-lattice hopping model. KSD removes and reports the centered
+Nyquist block as a distinct conversion-power channel. The remaining conjugate-closed
+ordinary inventory is passed directly to PhysKit for Hermiticity diagnostics, explicit
+symmetric truncation, raw omitted power, and Bloch reconstruction. KSD chooses the
+cutoffs, applies retained-rank and $E_G$ normalization, constructs the disjoint shifted
+evaluation mesh, and reports interpolation, deliberate truncation, and total sorted-band
+errors separately.
+
+The action does not infer cyclic equivalence inside PhysKit and requires every cutoff to
+satisfy $R_c<N/2$. Direct comparison matrices remain unitarily related to the ordinary
+reference before truncation. The comparison finite interpolant is measured separately
+against that direct field, so its aliasing/interpolation defect cannot be reported as a
+range-truncation consequence.
+
+This layer is exploratory. Cutoffs and error targets are not frozen, independent result
+verification and strict serialization are not implemented, and no retained result or
+range-to-accuracy claim is issued. Velocity, curvature, and physical effective mass are
+outside the current action pending internal-band qualification, derivative conventions,
+and physical length/energy units.
 
 ## Parent-hopping homotopy
 
@@ -148,7 +174,8 @@ excluded from its baseline.
 ## Remaining work before versioning
 
 Before assigning a maintained version, the experiment still requires a reviewed
-momentum ladder, a direct or adaptive amplitude rule, disjoint evaluation controls,
-numerical tolerances, uncertainty propagation near thresholds, strict non-flat schemas,
-and qualification of the smooth non-flat four-state realization. Retained execution and
-evidence packaging require separate operator authorization.
+momentum ladder, a direct or adaptive amplitude rule, frozen disjoint-evaluation and
+cutoff inventories, numerical tolerances, uncertainty propagation near thresholds,
+independent truncation-result verification, strict non-flat schemas, and qualification
+of the smooth non-flat four-state realization. Retained execution and evidence packaging
+require separate operator authorization.

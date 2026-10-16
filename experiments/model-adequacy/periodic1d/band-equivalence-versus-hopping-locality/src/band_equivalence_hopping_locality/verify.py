@@ -9,10 +9,10 @@ from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonicMaximumStatus,
 )
 
+from ._validation import _finite_float
 from .definition import (
     SmoothBlochContinuumConvergenceDefinition,
     SmoothBlochContinuumDefinition,
-    _finite_float,
 )
 from .results import (
     SmoothBlochContinuumConvergenceDisposition,

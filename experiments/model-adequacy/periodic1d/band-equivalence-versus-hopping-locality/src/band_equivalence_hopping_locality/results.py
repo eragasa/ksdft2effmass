@@ -7,10 +7,10 @@ from enum import StrEnum
 
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximum
 
+from ._validation import _finite_float
 from .definition import (
     SmoothBlochContinuumConvergenceDefinition,
     SmoothBlochContinuumDefinition,
-    _finite_float,
 )
 
 

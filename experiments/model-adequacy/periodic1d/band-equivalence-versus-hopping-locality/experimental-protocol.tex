@@ -55,7 +55,9 @@ exposes unresolved amplitude interpolation. An initial non-flat four-state calcu
 using the same smooth family preserves roundoff-level band agreement while redistributing
 existing hopping weight. Its frame-invariant momentum controls converge, while amplitude
 interpolation remains unresolved. A bounded parent-hopping homotopy shows the mechanism
-throughout five sampled dispersion scales.
+throughout five sampled dispersion scales. An exploratory ordinary-lattice truncation
+layer then demonstrates on a disjoint mesh that the rotated representation requires
+substantially greater hopping range for comparable band accuracy.
 \end{abstract}
 
 \noindent\textbf{Keywords:} reduced Hamiltonian; model adequacy; admissible set;
@@ -71,9 +73,10 @@ The threshold continuum and admissible-set formulas are analytic results. A pre-
 flat-parent calculation is reported in Section~\ref{sec:exploratory-analysis} as
 development analysis, not as retained evidence. Section~\ref{sec:nonflat-exploratory}
 reports an initial four-state execution whose parent has finite-range hopping, with
-`converged' momentum refinement and `unresolved' amplitude interpolation. The retained
-Fourier inventories are analyzed without applying a hopping-range truncation. Its
-parameter bounds, instance-specific
+`converged' momentum refinement and `unresolved' amplitude interpolation. Complete
+Fourier inventories are analyzed first; a separate exploratory action converts them to
+ordinary-lattice models, applies explicit symmetric cutoffs, and reports pointwise band
+consequences. Its parameter bounds, instance-specific
 acceptance and separation
 controls, locality ranges, and final numerical tolerances are not frozen. No retained
 run or accepted instance-specific scientific disposition is asserted here. Non-flat
@@ -1459,10 +1462,10 @@ Finally, panel (f) reports
  \label{eq:implemented-cumulative-tail}
 \end{equation}
 for the full parent $\rho=1$ at selected amplitudes. This is the hopping power that a
-symmetric range cutoff would omit. The implementation does not yet construct the
-truncated Hamiltonian or calculate its post-truncation bands, velocities, or effective
-masses. Thus panel (f) measures representation-dependent real-space compactness, not a
-spectral truncation error.
+symmetric range cutoff would omit. The complete-model calculation underlying panel (f)
+does not itself construct a truncated Hamiltonian. Thus panel (f) measures
+representation-dependent real-space compactness, not a spectral truncation error. The
+separate truncation consequence action below tests the spectral effect explicitly.
 
 The figure matters for reduced solid-state modeling because the gauge of a retained
 subspace controls how economically its complete Bloch field can be represented by
@@ -1487,6 +1490,49 @@ with parent dispersion. The representation-induced mismatch is therefore observe
 throughout the sampled homotopy, not only for the endpoint parent.
 The five $\rho$ values and 33 amplitudes remain finite samples; they do not establish a
 continuous-$\rho$ bound or resolve amplitude interpolation.
+
+\subsection{Exploratory finite-range band consequences}
+
+The consequence action uses $N=256$, the $M=1025$ disjoint evaluation mesh, the same
+five parent scales and 33 pointwise amplitudes, and
+$R_c\in\{0,1,2,3,4,6,8,12,16,24,32,48,64\}$. These are development samples rather than
+a frozen retained inventory. The minimum periodic separation between the construction
+and evaluation meshes is $1.48\times10^{-8}$.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]
+    {analysis/truncation-band-consequences.pdf}
+  \caption{Pointwise finite-range consequences after explicit ordinary-lattice
+  truncation. \textbf{(a)} Maximum reference and rotated-comparison band errors for the
+  dispersive endpoint $(\rho,a)=(1,\pi/4)$. \textbf{(b)} Comparison total band error
+  across the five sampled parent scales at $a=\pi/4$. \textbf{(c)} Comparison total band
+  error against the square root of total omitted block power; the dashed $y=x$ line is a
+  visual comparator, not an identity or bound. The centered cyclic Nyquist block is
+  removed and reported separately before PhysKit applies each conjugate-closed cutoff.
+  Lines connect directly calculated cutoffs as guides to the eye. The binary64 floor,
+  finite $\rho$ and amplitude samples, and lack of a frozen accuracy target preclude a
+  continuous range-to-accuracy certificate. This is pre-version development analysis,
+  not retained evidence or material validation.}
+  \label{fig:truncation-consequences}
+\end{figure}
+
+Across the sampled family, direct pointwise unitary comparison preserves the two bands
+within $1.33\times10^{-15}E_G$, and the maximum full-comparison interpolation defect on
+the disjoint mesh is $2.40\times10^{-14}E_G$. At $(\rho,a)=(1,\pi/4)$, $R_c=3$ gives a
+reference maximum band error of $5.53\times10^{-8}E_G$ but a comparison total band error
+of $1.86\times10^{-2}E_G$. At $R_c=8$, those values are
+$4.22\times10^{-14}E_G$ and $8.65\times10^{-7}E_G$, respectively
+[Fig.~\ref{fig:truncation-consequences}(a)]. The same qualitative ordering persists
+through the five sampled parent scales [Fig.~\ref{fig:truncation-consequences}(b)]. Thus,
+at the sampled nodes, complete band-equivalent Hamiltonians can require substantially
+different finite hopping ranges for comparable band accuracy.
+
+Figure~\ref{fig:truncation-consequences}(c) shows that square-root omitted power and
+maximum band error track closely in this synthetic inventory, but no equality, upper
+bound, or universal range-to-accuracy law is inferred. The action does not report
+velocity, curvature, or physical effective mass. Its cutoff targets, independent result
+verification, strict serializer, and retained-evidence contract remain prospective.
 
 \section{Numerical-resolution study}
 
@@ -1583,7 +1629,9 @@ representation obtained on the construction mesh. The selected candidate is then
 evaluated without refitting. This procedure probes interpolation and aliasing behavior
 between construction nodes. It does not create statistical independence, estimate
 experimental uncertainty, or validate the parent model. Neither current smooth implementation assigns a post-decision admissible-set disposition
-or executes this evaluation-mesh workflow.
+or executes this evaluation-mesh workflow. The exploratory finite-range consequence
+action defined below does execute the disjoint mesh, but it does not issue an
+admissible-set disposition or retained evidence.
 
 \section{Fourier reconstruction and locality}
 
@@ -1624,6 +1672,75 @@ mesh.
 These diagnostics describe the selected finite mesh and basis. They are not general
 claims of exponential localization, compressibility, or material accuracy.
 
+\section{Exploratory finite-range consequence layer}
+
+The active development action converts an even finite-cyclic inventory to an ordinary
+integer-lattice inventory before applying any range cutoff. It removes the single
+centered Nyquist representative $-N_*/2$ rather than treating it as self-conjugate on
+the ordinary lattice. Its separately reported conversion power is
+\begin{equation}
+ P_{\mathrm{Nyq}}=\frac{1}{2E_G^2}
+ \left\|T_{-N_*/2}^{(N_*)}\right\|_F^2,
+ \label{eq:nyquist-conversion-power}
+\end{equation}
+where the factor two is the retained-state rank. The remaining inventory
+$\mathcal R_{\mathrm{ord}}=\{-N_*/2+1,\ldots,N_*/2-1\}$ must pass PhysKit's
+ordinary-lattice test $T_{-R}=T_R^\dagger$. This conversion channel is not silently
+combined with deliberate range truncation.
+
+For every prospectively declared integer $0\le R_c<N_*/2$, KSD passes the explicit
+conjugate-closed set $\{-R_c,\ldots,R_c\}$ to PhysKit's
+\texttt{ConjugateClosedBlockHoppingTruncator}. The resulting distinct model is
+\begin{equation}
+ H_{N_*,R_c}^{\mathrm{ord}}(q)=
+ \sum_{|R|\le R_c}e^{2\pi iqR}T_R^{(N_*)}.
+ \label{eq:ordinary-truncated-model}
+\end{equation}
+PhysKit reports raw omitted block power; KSD divides by $2E_G^2$ and reports both the
+ordinary omitted power and its sum with Eq.~\eqref{eq:nyquist-conversion-power}.
+Neither quantity is labeled a spectral error.
+
+On the disjoint mesh of Eq.~\eqref{eq:evaluation-mesh}, let
+$H_N^{\mathrm{ord}}$ and $A_N^{\mathrm{ord}}$ denote the untruncated ordinary-lattice
+reference and comparison interpolants. Define the direct pointwise comparison
+\begin{equation}
+ A_{N,a}^{\mathrm{dir}}(q)=
+ U_a(q)^\dagger H_N^{\mathrm{ord}}(q)U_a(q).
+ \label{eq:direct-evaluation-comparison}
+\end{equation}
+Every ordinary model first passes the declared block-Hermiticity tolerance. Evaluated
+Bloch matrices must also pass that tolerance; the sorted two-band spectrum is then taken
+from the explicit Hermitian part $(H+H^\dagger)/2$ so that an eigensolver cannot silently
+choose one triangle of a roundoff-level non-Hermitian matrix. The action reports maximum
+and root-mean-square errors in three distinct channels:
+\begin{align}
+ \Delta_{\mathrm{interp}} &:
+   \operatorname{eig}(A_N^{\mathrm{ord}})-
+   \operatorname{eig}(A_{N,a}^{\mathrm{dir}}),\\
+ \Delta_{\mathrm{trunc}} &:
+   \operatorname{eig}(A_{N,R_c}^{\mathrm{ord}})-
+   \operatorname{eig}(A_N^{\mathrm{ord}}),\\
+ \Delta_{\mathrm{total}} &:
+   \operatorname{eig}(A_{N,R_c}^{\mathrm{ord}})-
+   \operatorname{eig}(A_{N,a}^{\mathrm{dir}}).
+ \label{eq:truncation-error-channels}
+\end{align}
+The reference truncation channel is analogously compared with
+$H_N^{\mathrm{ord}}$. Equation~\eqref{eq:truncation-error-channels} prevents finite-mesh
+interpolation or aliasing error from being attributed to deliberate range deletion.
+Here ``total'' means interpolation plus range truncation relative to the direct
+ordinary-lattice field. No off-node Hermitian spectrum is assigned to the removed cyclic
+Nyquist term; its conversion evidence remains the distinct power in
+Eq.~\eqref{eq:nyquist-conversion-power}. Complete direct reference and comparison
+matrices remain unitarily related before truncation.
+
+This layer is exploratory: its cutoff inventory has not been frozen as a retained
+protocol, strict non-flat serialization and independent result verification are not yet
+implemented, and no range-to-accuracy acceptance threshold is issued. It reports only
+band-energy consequences. Velocity, reduced-coordinate curvature, and physical
+effective mass are excluded until derivative definitions, internal-band nondegeneracy,
+$a_0$, $E_G$, and physical units have been reviewed.
+
 \section{Independent verification and reproducibility}
 
 \subsection{Current numerical owners}
@@ -1632,17 +1749,20 @@ The pre-version implementation consumes the exact revisions
 \begin{center}
 \small
 \texttt{projectkoios-optimization}\\
-\texttt{cf551409872a621b4e47d2236ac4ffdc12c187c0}\\[2pt]
+\texttt{fff068dfe38309db05bf6de075bac53bb6597813}\\[2pt]
 \texttt{projectkoios-physkit}\\
-\texttt{07b2a1ee3ccd07926e90f43b4d1046efccc5ad8c}.
+\texttt{b3c7367654c316d74ebec64878ae211f34eecf4a}.
 \end{center}
 Optimization owns continuous harmonic maximization and each complex-unitary pairwise
 Procrustes solve in the producer. A numerically deficient overlap returns singular and
 rank evidence but no full unitary transformation; KSD then applies the stricter declared
 transport-overlap qualification gate. PhysKit owns immutable matrix-valued hopping
-records and raw block Frobenius powers. KSD supplies the finite-mesh identities, divides
-raw powers by the retained rank and $E_G^2$, checks Parseval consistency, and interprets
-the resulting locality channels.
+records, raw block Frobenius powers, and unit-aware complete bands from block-hopping
+Bloch evaluations. PhysKit's band action consumes the canonical Numerics batched
+Hermitian-spectrum solver and retains the correlated Bloch matrices, spectra, numerical
+diagnostics, and backend evidence. KSD supplies the finite-mesh identities, divides raw
+powers by the retained rank and $E_G^2$, checks Parseval consistency, and interprets the
+resulting locality and band-error channels.
 
 PhysKit's hopping contracts use ordinary integer-lattice displacement semantics. The
 complete even-$N$ Fourier inventory in this experiment remains cyclic and aliased: the

@@ -16,6 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "jsonschema>=4.23",
     "mypy>=1.10",
     "pytest>=8.0",
     "ruff>=0.5",
@@ -30,8 +31,8 @@ include = ["band_equivalence_hopping_locality*"]
 
 [tool.uv.sources]
 ksdft2effmass = { path = "../../../../python", editable = true }
-projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "cf551409872a621b4e47d2236ac4ffdc12c187c0" }
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "07b2a1ee3ccd07926e90f43b4d1046efccc5ad8c" }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "fff068dfe38309db05bf6de075bac53bb6597813" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "b3c7367654c316d74ebec64878ae211f34eecf4a" }
 
 [tool.pytest.ini_options]
 minversion = "8.0"

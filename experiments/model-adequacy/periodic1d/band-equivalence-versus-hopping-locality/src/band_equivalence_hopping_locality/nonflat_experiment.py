@@ -345,20 +345,10 @@ class SmoothFourStateExperiment:
         amplitude: float,
         maximizer: PeriodicHarmonicMaximizer,
     ) -> SmoothFourStatePointResult:
-        theta = amplitude * np.sin(2.0 * np.pi * parent.coordinates)
-        cosine = np.cos(theta)
-        sine = np.sin(theta)
-        rotations = np.empty((parent.coordinates.size, 2, 2), dtype=np.complex128)
-        rotations[:, 0, 0] = cosine
-        rotations[:, 0, 1] = -sine
-        rotations[:, 1, 0] = sine
-        rotations[:, 1, 1] = cosine
-        comparison = np.einsum(
-            "nji,njk,nkl->nil",
-            rotations.conj(),
+        comparison = cls._comparison_matrices(
+            parent.coordinates,
             parent.retained_matrices,
-            rotations,
-            optimize=True,
+            amplitude,
         )
         comparison_eigenvalues = np.linalg.eigvalsh(comparison)
         reference_eigenvalues = np.linalg.eigvalsh(parent.retained_matrices)
@@ -476,6 +466,34 @@ class SmoothFourStateExperiment:
             reference_parseval_defect=parent.reference_parseval_defect,
             comparison_parseval_defect=comparison_parseval_defect,
             hopping_blocks=blocks,
+        )
+
+    @staticmethod
+    def _gauge_rotations(coordinates: RealArray, amplitude: float) -> ComplexArray:
+        theta = amplitude * np.sin(2.0 * np.pi * coordinates)
+        cosine = np.cos(theta)
+        sine = np.sin(theta)
+        rotations = np.empty((coordinates.size, 2, 2), dtype=np.complex128)
+        rotations[:, 0, 0] = cosine
+        rotations[:, 0, 1] = -sine
+        rotations[:, 1, 0] = sine
+        rotations[:, 1, 1] = cosine
+        return rotations
+
+    @classmethod
+    def _comparison_matrices(
+        cls,
+        coordinates: RealArray,
+        reference_matrices: ComplexArray,
+        amplitude: float,
+    ) -> ComplexArray:
+        rotations = cls._gauge_rotations(coordinates, amplitude)
+        return np.einsum(
+            "nji,njk,nkl->nil",
+            rotations.conj(),
+            reference_matrices,
+            rotations,
+            optimize=True,
         )
 
     @staticmethod

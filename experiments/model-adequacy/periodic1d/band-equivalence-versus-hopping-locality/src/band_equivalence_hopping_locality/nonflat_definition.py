@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from .definition import _finite_float
+from ._validation import _finite_float
 
 SMOOTH_FOUR_STATE_METHOD_ID = "nonflat-four-state-smooth-sinusoidal-gauge.v1"
 SMOOTH_FOUR_STATE_PARENT_ID = "specified-finite-range-four-state-parent.v1"

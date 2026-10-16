@@ -9,8 +9,8 @@ experiment family
 `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality`.
 It is not an authorization to run, retain, publish, commit, or push an experiment.
 
-Optimization now provides the bounded one-pair complex-unitary Procrustes contract at
-`cf551409872a621b4e47d2236ac4ffdc12c187c0`. Band Equivalence versus Hopping Locality
+Optimization now provides the bounded one-pair complex-unitary Procrustes contract in
+the live owner revision `fff068dfe38309db05bf6de075bac53bb6597813`. Band Equivalence versus Hopping Locality
 consumes it directly. The broader composite-band donor migration, aggregate alignment,
 eigenframes, and path-closure behavior remain separate work and must not silently expand
 that owner contract.
@@ -45,8 +45,8 @@ that owner contract.
 
 ### `TD-CBAL-002`: pointwise square complex Procrustes
 
-- **Owner availability:** the required generic one-pair solver exists at
-  `cf551409872a621b4e47d2236ac4ffdc12c187c0`; this debt remains open only for migration
+- **Owner availability:** the required generic one-pair solver exists in
+  `fff068dfe38309db05bf6de075bac53bb6597813`; this debt remains open only for migration
   of the older composite-band donor and its parity evidence.
 - **Current donor:** `BandFrameAligner1D` in
   `python/src/ksdft2effmass/solid_state/frame_alignment.py`.

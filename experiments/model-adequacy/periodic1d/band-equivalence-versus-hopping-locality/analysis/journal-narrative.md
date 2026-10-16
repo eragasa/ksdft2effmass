@@ -168,12 +168,36 @@ identity, not a failure of spectral equivalence. The numerator defining $y$ is a
 difference of powers, not itself a norm.
 
 Panel (f) reports $P_{>R_c}=\sum_{|R|>R_c}p_R$, the block power that a symmetric range
-cutoff would omit. No block is actually deleted in the current calculation, and no
-post-truncation band, velocity, or effective-mass error is claimed. The present result
-therefore establishes representation-dependent real-space compactness of complete
-finite-mesh models. Its solid-state relevance is that this compactness controls the
-prospective cost of a finite-range tight-binding approximation; quantifying that
-post-truncation cost is a subsequent protocol layer.
+cutoff would omit. No block is deleted in this six-panel complete-model calculation.
+It therefore establishes representation-dependent real-space compactness before any
+finite-range approximation is applied.
+
+## Exploratory finite-range follow-on
+
+The follow-on action now deletes blocks through explicit conjugate-closed
+ordinary-lattice inventories. Because the construction mesh is even, KSD first removes
+and separately reports the cyclic Nyquist block rather than treating $-N/2$ as its own
+ordinary-lattice partner. PhysKit then applies the declared $|R|\le R_c$ inventory and
+reconstructs the distinct truncated model on the shifted $M=4N+1$ evaluation mesh.
+Interpolation, deliberate truncation, and total errors remain separate.
+
+Across the five sampled parent scales and 33 directly sampled amplitudes, the direct
+unitarily related fields preserve their bands within $1.33\times10^{-15}E_G$ and the
+largest full-comparison interpolation defect is $2.40\times10^{-14}E_G$. At
+$(\rho,a)=(1,\pi/4)$, $R_c=3$ gives a reference maximum band error of
+$5.53\times10^{-8}E_G$ but a rotated-comparison total band error of
+$1.86\times10^{-2}E_G$; at $R_c=8$ the values are $4.22\times10^{-14}E_G$ and
+$8.65\times10^{-7}E_G$. This sampled synthetic calculation directly connects the
+previous compactness diagnostic to a finite-range spectral consequence: complete
+unitarily related Hamiltonians can require substantially different ranges for comparable
+band accuracy.
+
+The three-panel follow-on figure shows the dispersive endpoint reference/comparison
+contrast, robustness across the five sampled parent scales, and the empirical relation
+between square-root omitted block power and maximum band error. Its $y=x$ line is a
+visual comparator, not a theorem or error bound. The current follow-on has no frozen
+accuracy target, strict serializer, independent verifier, velocity/curvature channel,
+physical effective mass, or retained evidence.
 
 ## Editorial placement
 

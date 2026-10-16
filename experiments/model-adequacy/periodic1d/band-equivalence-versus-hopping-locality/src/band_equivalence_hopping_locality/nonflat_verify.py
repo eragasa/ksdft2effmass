@@ -12,7 +12,7 @@ from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonicMaximumStatus,
 )
 
-from .definition import _finite_float
+from ._validation import _finite_float
 from .nonflat_definition import SmoothFourStateDefinition
 from .nonflat_results import (
     SmoothFourStateHoppingBlockResult,

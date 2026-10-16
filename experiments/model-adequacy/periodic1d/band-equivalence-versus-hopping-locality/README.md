@@ -57,6 +57,14 @@ identity holds at $\rho=0$ and deforms systematically as parent hopping increase
 non-flat realization has no $J_0(2a)$ comparator and does not assume the flat-parent
 residual--tail identity.
 
+An exploratory truncation action now converts the even finite-cyclic inventory to an
+ordinary-lattice inventory by removing and separately reporting the centered Nyquist
+block. It calls PhysKit's conjugate-closed truncator for explicit symmetric cutoffs and
+measures interpolation, deliberate truncation, and total sorted-band errors separately
+on the disjoint evaluation mesh. This action has no frozen cutoff inventory, acceptance
+threshold, strict serializer, independent verifier, or retained result. It does not yet
+report velocities, curvature, or physical effective masses.
+
 The existing finite-angle four-state implementation remains available only through the
 explicit `band_equivalence_hopping_locality.regression` namespace. Active definitions,
 results, calculations, and verification contain no finite-angle inventory. Strict
@@ -73,8 +81,8 @@ unchanged.
 The exact dependency
 
 ```text
-projectkoios-optimization@cf551409872a621b4e47d2236ac4ffdc12c187c0
-projectkoios-physkit@07b2a1ee3ccd07926e90f43b4d1046efccc5ad8c
+projectkoios-optimization@fff068dfe38309db05bf6de075bac53bb6597813
+projectkoios-physkit@b3c7367654c316d74ebec64878ae211f34eecf4a
 ```
 
 provide the active owner capabilities. Optimization owns exact maximization of a
@@ -90,7 +98,12 @@ coefficients locally and call the generic Optimization harmonic owner directly. 
 non-flat producer uses the Numerics finite-Fourier evaluator both to construct its
 discrete blocks under the shifted-mesh convention and to check nodal reconstruction. It
 calls Optimization directly for each unique neighbor-frame alignment and PhysKit
-directly for block powers. The independent verifier reconstructs the harmonic maximum as
+directly for block powers. The truncation action additionally calls PhysKit directly for
+ordinary-lattice Hermiticity, conjugate-closed selection, omitted raw power, Bloch
+reconstruction, and unit-aware complete band evaluation. The latter directly consumes
+the canonical Numerics batched Hermitian-spectrum owner. KSD owns Nyquist conversion,
+cutoff choice, normalization, disjoint sampling, and scientific error channels. The independent verifier reconstructs
+the harmonic maximum as
 $b_0+\sqrt{c^2+d^2}$ and independently repeats the SVD/frame and raw-power calculations.
 No finite angle inventory enters either active definition or result. Neither owner
 repository provides a thin KSD-specific pass-through adapter. No immutable experiment

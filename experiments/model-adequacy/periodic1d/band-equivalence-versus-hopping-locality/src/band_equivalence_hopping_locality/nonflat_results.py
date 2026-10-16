@@ -7,7 +7,7 @@ from enum import StrEnum
 
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximum
 
-from .definition import _finite_float
+from ._validation import _finite_float
 from .nonflat_definition import (
     SmoothFourStateAdaptiveAmplitudeDefinition,
     SmoothFourStateConvergenceDefinition,
