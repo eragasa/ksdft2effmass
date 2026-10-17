@@ -1,0 +1,1422 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\graphicspath{{../conference-paper-2/}}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\T}{\mathbb T}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\title{\textbf{Spectral Equivalence, Hamiltonian Fidelity, and Hopping Locality\\
+in Two- and Three-Dimensional Rank-Two Models}}
+\author{Eugene Joseph M. Ragasa\\
+Department of Physics, De La Salle University, Manila, Philippines}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Band eigenvalues do not determine a matrix-valued tight-binding representation or its
+real-space locality. We formulate a rank-two framework that keeps the finite
+cell--orbital, Bloch, spectral, retained-frame, and Wannier representations explicit and
+aligns their state spaces before comparing Hamiltonians. A Laurent-polynomial
+obstruction proves that spectral projection does not preserve finite hopping support in
+general. For orthogonal flat-parent models, exact Bessel identities equate the
+irreducible restricted-alignment residual with the normalized Fourier weight outside the
+onsite block, while shell-resolved Jacobi--Anger formulas provide factorial tail bounds.
+Bond-orbit identities extend the analytic comparison to non-orthogonal but physically
+isotropic lattices using complete metric shells. Calculations for eight square,
+triangular, honeycomb, simple-cubic, FCC, and diamond-inspired cases reveal non-collapsed
+sampled Pareto sets in retained-block count, Hamiltonian error, and sorted-band error.
+The optimized comparison scale ranges from $0.729890$ to $0.937745$; at the largest
+diamond shell, restoring unit scale increases the Hamiltonian mismatch by about $2.9\%$
+while reducing the sorted-band mismatch by about $82\%$. Synthetic rhombic and Bain
+paths separate geometry-only reordering, a frozen-parent null response, and a prescribed
+radial response. Across 201 samples, the retained subspaces remain isolated and
+well-conditioned, the frozen-parent response stays at binary64 roundoff, and the radial
+response is traceless dominated. Exact gauge equivalence therefore coexists with a
+geometry-dependent three-way compromise once one restricts alignment and hopping
+support. The numerical statements are finite-mesh results for synthetic models; they are
+not continuum certificates or material predictions.
+\end{abstract}
+
+\section{Introduction}
+
+Pointwise band equivalence does not determine hopping locality under a fixed
+identification of retained coordinates. Here we extend that distinction across spatial
+dimension and lattice geometry while the retained rank remains two. The purpose is not
+to infer a Hamiltonian from eigenvalues alone. It is to compare
+complete Hamiltonian representations connected by declared isometries and gauges, and
+to quantify the representation cost introduced by finite hopping support.
+
+The gauge dependence and localization of Wannier representations are established
+subjects, from analytic and exponential localization results
+\cite{Kohn1959AnalyticWannier,Brouder2007ExponentialWannier} through practical
+maximally localized constructions and Wannier90
+\cite{Mostofi2008Wannier90,Marzari2012MaximallyLocalized}. Compact support is a
+stronger algebraic property and need not coincide with maximal localization
+\cite{Sathe2024CompactWannier}. Material-specific Wannier and strained-Hamiltonian
+models likewise exist for graphene and other hexagonal systems
+\cite{Jung2013GrapheneWannier,Fang2018Strained2D}, while environment-dependent
+Hamiltonian mappings address geometry-responsive electronic structure
+\cite{Zhang2022EquivariantHamiltonians}. Our contribution is the controlled combination
+of pointwise spectral equivalence, declared gauge alignment, metric-complete truncation,
+and a decision landscape relating hopping complexity to operator and spectral error.
+
+The study addresses three questions:
+\begin{enumerate}
+ \item How are a finite cell--orbital operator, its Bloch representation, its complete
+       eigensystem, a retained periodic frame, and its Wannier/tight-binding blocks
+       related without conflating their state spaces?
+ \item After those spaces have been aligned, what compromises among retained hopping
+       blocks, Hamiltonian agreement, and sorted-band agreement remain when alignment is
+       restricted to one cell-local rotation and hopping support is finite?
+ \item Which parts of that compromise arise from physical-metric shell reordering,
+       which vanish for an unchanged parent, and which respond to a prescribed radial
+       change of bond amplitudes along synthetic deformation paths?
+\end{enumerate}
+
+Our main findings are fourfold. First, finite hopping support is not preserved by
+spectral projection in general. Second, the orthogonal flat-parent family admits exact
+residual--locality identities and certified Fourier tails. Third, all eight calculated
+fixed-geometry cases exhibit a genuine sampled trade-off rather than a single optimum
+shared by locality, operator fidelity, and spectral fidelity. Fourth, the strain
+controls separate metric reordering from Hamiltonian response: the frozen parent is a
+numerical null test, whereas the radial response is finite, predominantly traceless, and
+unaccompanied by loss of retained-subspace isolation or frame conditioning.
+
+The scope is deliberately rank two. Square and simple-cubic systems establish
+orthogonal baselines; triangular/honeycomb and FCC/diamond-inspired systems test
+non-orthogonal but physically isotropic geometry. Direction-dependent physical coupling
+laws, multiband $U(r)$ gauges, and material parametrizations lie outside the present
+study.
+
+\section{Theoretical framework and methods}
+
+This section fixes the spaces and maps used throughout the paper, following the finite
+spectral and tight-binding realization defined in the orthogonal family protocols.
+
+\subsection{Finite periodic spaces and transforms}
+
+Let $d\in\{2,3\}$ be the spatial dimension and let $N$ be an even number of periodically
+identified cells along each primitive direction. The finite cell set and its centered
+reduced reciprocal mesh are
+\begin{align}
+ \Lambda_N^{(d)}&=(\mathbb Z/N\mathbb Z)^d,\\
+ \mathcal Q_N^{(d)}
+ &=\left\{\mathbf q_{\mathbf j}:q_{j_\alpha}
+   =\frac{j_\alpha-N/2}{N},\quad
+   j_\alpha\in\{0,\ldots,N-1\}\right\}.
+ \label{eq:finite-cell-and-mesh}
+\end{align}
+A vector $\mathbf n\in\Lambda_N^{(d)}$ labels a periodic cell, whereas
+$\mathbf q\in\mathcal Q_N^{(d)}\subset[-1/2,1/2)^d$ is a dimensionless reduced
+reciprocal coordinate. The Bloch phase pairing is
+$e^{2\pi i\mathbf q\cdot\mathbf n}$.
+
+The cell-amplitude space and the two operator state spaces are
+\begin{equation}
+ \mathcal L_N^{(d)}
+ =\operatorname{span}\{\lvert\mathbf n\rangle:\mathbf n\in\Lambda_N^{(d)}\}
+ \cong(\C^N)^{\otimes d},\qquad
+ \mathcal H_{p,N}^{(d)}=\mathcal L_N^{(d)}\otimes\C^4,
+ \qquad
+ \mathcal H_{r,N}^{(d)}=\mathcal L_N^{(d)}\otimes\C^2.
+ \label{eq:spaces}
+\end{equation}
+The subscript $p$ denotes the four-state parent orbital fiber and $r$ denotes the
+rank-two retained fiber. Thus $\widehat K_{\rho,N}^{(d)}$ acts on
+$\mathcal H_{p,N}^{(d)}$, while the retained Bloch and Wannier operators act on
+$\mathcal H_{r,N}^{(d)}$. The symbol $I_m$ denotes the identity on $\C^m$.
+
+Let $\mathsf F_N$ be the unitary centered discrete Fourier transform and define the
+one-axis cyclic translation $\mathsf S_N$ by
+\begin{equation}
+ \mathsf F_N\mathsf S_N\mathsf F_N^\dagger
+ =\operatorname{diag}_{q\in\mathcal Q_N^{(1)}}e^{2\pi iq}.
+ \label{eq:one-axis-translation}
+\end{equation}
+The translation on primitive direction $\alpha$ and the $d$-dimensional Fourier
+transform are
+\begin{equation}
+ \mathsf S_{\alpha,N}
+ =I_N^{\otimes(\alpha-1)}\otimes\mathsf S_N
+  \otimes I_N^{\otimes(d-\alpha)},
+ \qquad
+ \mathcal F_{d,N}=\mathsf F_N^{\otimes d}.
+ \label{eq:tensor-translation-fourier}
+\end{equation}
+These Kronecker products act only on cell labels. They do not tensor the
+four-dimensional orbital fiber.
+
+\subsection{Exact orthogonal parent}
+
+Let $E_{\mathrm{ref}}>0$ be the fixed energy unit; it is not a band gap. The orthogonal
+directed-parent cases use the protocol matrices
+\begin{equation}
+ T_0=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ -1.20&0.06&0&0\\
+ 0.06&-0.35&0&0\\
+ 0&0&1.00&0.04\\
+ 0&0&0.04&1.75
+ \end{pmatrix},
+ \label{eq:exact-onsite-block}
+\end{equation}
+\begin{equation}
+ T_+=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ 0.15&0&0.12&0\\
+ 0&-0.10&0&0.10\\
+ 0&0&0.05&0\\
+ 0&0&0&-0.04
+ \end{pmatrix},
+ \qquad T_-=T_+^\dagger.
+ \label{eq:exact-directed-hopping-block}
+\end{equation}
+Thus $T_0\in\C^{4\times4}$ is the Hermitian onsite block,
+$T_+\in\C^{4\times4}$ is the directed positive-axis hopping block, and $T_-$ is its
+reverse. The parameter $\rho\in[0,1]$ is a dimensionless parent-hopping homotopy: at
+$\rho=0$ the parent is cell local, while $\rho=1$ gives the declared dispersive parent.
+The finite cell--orbital operator is
+\begin{equation}
+ \widehat K_{\rho,N}^{(d)}
+ =I_{N^d}\otimes T_0+
+ \frac{\rho}{d}\sum_{\alpha=1}^d
+ \left(\mathsf S_{\alpha,N}\otimes T_+
+ +\mathsf S_{\alpha,N}^\dagger\otimes T_-\right).
+ \label{eq:kronecker-parent}
+\end{equation}
+The factor $1/d$ keeps the summed axis-hopping scale fixed when dimension changes.
+Fourier transformation of the cell coordinate gives the direct sum
+\begin{align}
+ \widehat K_{B,\rho,N}^{(d)}
+ &:=(\mathcal F_{d,N}\otimes I_4)\widehat K_{\rho,N}^{(d)}
+ (\mathcal F_{d,N}^\dagger\otimes I_4)\notag\\
+ &=\bigoplus_{\mathbf q\in\mathcal Q_N^{(d)}}
+ K_\rho^{(d)}(\mathbf q),
+ \label{eq:bloch-map}\\
+ K_\rho^{(d)}(\mathbf q)
+ &=T_0+\frac{\rho}{d}\sum_{\alpha=1}^d
+ \left(e^{2\pi iq_\alpha}T_+
+       +e^{-2\pi iq_\alpha}T_-\right).
+ \label{eq:bloch-fiber-definition}
+\end{align}
+Here $B$ denotes the Bloch representation, and each
+$K_\rho^{(d)}(\mathbf q)\in\C^{4\times4}$ is the parent Hamiltonian at one reciprocal
+mesh point.
+
+\subsection{Complete spectrum and retained frame}
+
+At each $\mathbf q$, a complete eigensystem is
+\begin{equation}
+ K_\rho^{(d)}(\mathbf q)
+ =Q(\mathbf q)E(\mathbf q)Q^\dagger(\mathbf q),
+ \qquad
+ E(\mathbf q)=\operatorname{diag}
+ (\varepsilon_1(\mathbf q),\ldots,\varepsilon_4(\mathbf q)),
+ \label{eq:eigensystem}
+\end{equation}
+where $Q(\mathbf q)\in U(4)$ contains the corresponding eigenvectors and the real
+eigenvalues are ordered increasingly. The diagonal array $E(\mathbf q)$ is an operator
+only in its eigenvector coordinates. Without $Q(\mathbf q)$ it is not an operator in the
+parent orbital basis and cannot be subtracted from a tight-binding Hamiltonian.
+
+Let $I=\{1,2\}$ denote the retained two lowest bands. Their spectral projector is
+\begin{equation}
+ P_I(\mathbf q)=Q_I(\mathbf q)Q_I^\dagger(\mathbf q),
+ \label{eq:retained-projector}
+\end{equation}
+where $Q_I$ contains the two selected eigenvectors. A periodic retained frame is an
+isometry $F(\mathbf q):\C^2\to\C^4$ that satisfies
+\begin{equation}
+ F^\dagger(\mathbf q)F(\mathbf q)=I_2,
+ \qquad
+ F(\mathbf q)F^\dagger(\mathbf q)=P_I(\mathbf q),
+ \label{eq:frame-definition}
+\end{equation}
+with the declared reciprocal periodicity and transport qualification. The retained
+projector is admissible only while bands two and three remain externally isolated; a
+continuous lower bound is distinguished from a sampled minimum.
+
+The frame construction freezes an anchor, mesh traversal, neighbor-to-neighbor unitary
+Procrustes rule, reciprocal-boundary sewing rule, path-consistency diagnostics, and rank
+thresholds. If a periodic full-rank frame cannot be constructed and verified, the
+protocol stops rather than selecting a gauge across an obstruction. Transport closure
+and plaquette phases are sewing diagnostics here, not topological claims. Projectors and
+reconstructed operators provide cross-mesh evidence; raw frame entries do not.
+
+The frame chooses coordinates inside the retained subspace. Changing it by a
+momentum-dependent $U(2)$ rotation changes the hopping representation while preserving
+the retained bands. The retained Bloch matrix is
+\begin{equation}
+ H(\mathbf q)=F^\dagger(\mathbf q)
+ K_\rho^{(d)}(\mathbf q)F(\mathbf q)\in\C^{2\times2}.
+ \label{eq:retained}
+\end{equation}
+\subsection{Retained Bloch and Wannier operators}
+
+With $\mathcal V=\bigoplus_{\mathbf q}F(\mathbf q)$, the block isometry maps the retained
+Bloch direct sum into the parent-orbital Bloch direct sum. The complete retained Bloch
+operator and its cell-localized Wannier representation are
+\begin{align}
+ \widehat H_B
+ &=\mathcal V^\dagger\widehat K_{B,\rho,N}^{(d)}\mathcal V
+ =\bigoplus_{\mathbf q}H(\mathbf q),\\
+ \widehat H_W
+ &=(\mathcal F_{d,N}^\dagger\otimes I_2)\widehat H_B
+   (\mathcal F_{d,N}\otimes I_2).
+ \label{eq:retained-wannier-operator}
+\end{align}
+The $2\times2$ block connecting two cells separated by cyclic mode
+$\mathbf n\in\Lambda_N^{(d)}$ is the finite Fourier hopping block
+\begin{equation}
+ T_{\mathbf n}^{(N)}
+ =\frac{1}{N^d}\sum_{\mathbf q\in\mathcal Q_N^{(d)}}
+ e^{-2\pi i\mathbf q\cdot\mathbf n}H(\mathbf q),
+ \qquad
+ H(\mathbf q)=\sum_{\mathbf n\in\Lambda_N^{(d)}}
+ e^{2\pi i\mathbf q\cdot\mathbf n}T_{\mathbf n}^{(N)}.
+ \label{eq:finite-hopping-transform}
+\end{equation}
+``Complete'' means that every cyclic Fourier mode is retained. Interpolation onto a new
+mesh, conversion to an ordinary conjugate-closed inventory, and deliberate
+physical-radius truncation occur only after this exact finite representation chain.
+
+\subsection{Spectral projection is not finite-range compression}
+
+For a spectral projector $P_I$ with isometry $V_I$ onto its range,
+\begin{equation}
+ H_{\mathrm{red}}=V_I^\dagger H V_I,
+ \qquad
+ V_IH_{\mathrm{red}}V_I^\dagger=P_IHP_I.
+ \label{eq:spectral-projection}
+\end{equation}
+This operation preserves the retained eigenpairs exactly, but it need not preserve a
+finite hopping range. The following elementary example makes that statement exact.
+
+\begin{proposition}[Spectral projection can destroy finite hopping support]
+\label{prop:projection-destroys-range}
+Let
+\begin{equation}
+ H(k)=\begin{pmatrix}
+ \Delta&t(1+e^{-ik})\\
+ t(1+e^{ik})&-\Delta
+ \end{pmatrix},
+ \qquad \Delta t\ne0.
+ \label{eq:projection-example}
+\end{equation}
+Then $H$ has nearest-neighbor Fourier support and eigenvalues
+$E_\pm(k)=\pm d(k)$, where
+\begin{equation}
+ d(k)=\sqrt{\Delta^2+4t^2\cos^2(k/2)}.
+\end{equation}
+The embedded lower-band operator
+\begin{equation}
+ P_-(k)H(k)P_-(k)=\tfrac12[H(k)-d(k)I]
+ \label{eq:projected-range}
+\end{equation}
+is not a matrix-valued finite Fourier polynomial.
+\end{proposition}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:proof-projection-range}.
+
+
+The gap condition $\Delta\ne0$ keeps the two bands separated. The proposition does not
+claim that every spectral projection of every finite-range parent is long ranged; it
+shows that finite support is not preserved as an operation. Projection, frame selection,
+Fourier conversion, hopping truncation, and restriction to a candidate model class are
+therefore distinct operations.
+
+\section{Orthogonal isotropic baselines}
+
+The square and simple-cubic baselines use
+\begin{equation}
+ K_\rho^{(d)}(\mathbf q)=T_0+\frac{\rho}{d}
+ \sum_{\alpha=1}^d
+ \left(e^{2\pi iq_\alpha}T_+
+ +e^{-2\pi iq_\alpha}T_-\right)
+ \label{eq:orthogonal-parent}
+\end{equation}
+and
+\begin{equation}
+ U_a^{(d)}(\mathbf q)=R\!\left[
+ \frac{a}{d}\sum_{\alpha=1}^d\sin(2\pi q_\alpha)
+ \right].
+ \label{eq:rotation}
+\end{equation}
+The flat-parent correlations are $J_0(a)^2$ in two dimensions and
+$J_0(2a/3)^3$ in three dimensions. The next theorem proves these formulas and their
+exact real-space meaning. They are continuum analytic comparators and do not replace
+finite-mesh correlations. Square and cubic truncations retain every attainable metric
+shell through the declared cap using complete signed-permutation orbits.
+
+\subsection{Flat-parent residual--locality theorem}
+
+Throughout, $E_{\mathrm{ref}}>0$ is an arbitrary reference-energy normalization, not a
+band gap. Give $\T^d=[-1/2,1/2)^d$ normalized Lebesgue measure. Let
+$D\in\mathbb R^{2\times2}$ be nonzero, symmetric, and traceless, and let the flat
+retained parent be $H(\mathbf q)=\bar E I_2+D$. For the rotation in
+Eq.~\eqref{eq:rotation}, define
+\begin{align}
+ B_a^{(d)}(\mathbf q)
+ &=U_a^{(d)}(\mathbf q)^\dagger D U_a^{(d)}(\mathbf q),\\
+ B_{\mathbf R}^{(d)}
+ &=\int_{\T^d}e^{-2\pi i\mathbf q\cdot\mathbf R}
+ B_a^{(d)}(\mathbf q)\,d\mathbf q,
+ \qquad \mathbf R\in\Z^d,\\
+ \kappa&=\frac{\norm{D}_F^2}{2E_{\mathrm{ref}}^2}.
+ \label{eq:flat-definitions}
+\end{align}
+For one momentum-independent real rotation $R(\phi)$, centroid shift $s$, and the
+nonnegative closure $\lambda\ge0$ of the splitting-scale domain, define
+\begin{equation}
+ L_{\mathrm{op},\phi}^2(s,\lambda)
+ =\frac{1}{2E_{\mathrm{ref}}^2}\int_{\T^d}
+ \norm{sE_{\mathrm{ref}}I_2+\lambda R(\phi)^\dagger D R(\phi)
+       -B_a^{(d)}(\mathbf q)}_F^2\,d\mathbf q.
+ \label{eq:flat-operator-loss}
+\end{equation}
+The normalized best global-rotation correlation is
+\begin{equation}
+ \mu_{\max}^{(d)}(a)=
+ \max_{\phi\in\mathbb R}
+ \frac{1}{\norm D_F^2}
+ \int_{\T^d}
+ \operatorname{tr}\!\left[
+   R(\phi)^\dagger D R(\phi)B_a^{(d)}(\mathbf q)
+ \right]d\mathbf q.
+ \label{eq:flat-mu-definition}
+\end{equation}
+
+\begin{theorem}[Multidimensional flat-parent residual--locality identity]
+\label{thm:flat-parent}
+For $d\in\{2,3\}$ and $0\le a\le\pi/4$, set
+\begin{equation}
+ c_d(a)=J_0\!\left(\frac{2a}{d}\right)^d.
+ \label{eq:flat-correlation-general}
+\end{equation}
+Then $c_d(a)>0$ and
+\begin{align}
+ \int_{\T^d}e^{2i\theta_a^{(d)}(\mathbf q)}\,d\mathbf q
+ &=c_d(a),
+ \label{eq:bessel-factorization}\\
+ B_{\mathbf0}^{(d)}&=c_d(a)D.
+ \label{eq:onsite-average}
+\end{align}
+The best global-rotation correlation is
+$\mu_{\max}^{(d)}(a)=c_d(a)$, and the exact restricted-alignment residual satisfies
+\begin{align}
+ \inf_{s\in\mathbb R,\,\lambda\ge0,\,\phi\in\mathbb R}
+ L_{\mathrm{op},\phi}^2(s,\lambda)
+ &=\kappa\left[1-c_d(a)^2\right]
+ \label{eq:flat-residual}\\
+ &=\frac{1}{2E_{\mathrm{ref}}^2}
+   \sum_{\mathbf R\ne\mathbf0}\norm{B_{\mathbf R}^{(d)}}_F^2.
+ \label{eq:flat-tail}
+\end{align}
+If exact spectral agreement additionally fixes $s=0$ and $\lambda=1$, then
+\begin{equation}
+ \inf_{\phi\in\mathbb R}L_{\mathrm{op},\phi}^2(0,1)
+ =2\kappa\left[1-c_d(a)\right].
+ \label{eq:flat-exact-spectrum}
+\end{equation}
+Thus the two-dimensional formulas are
+$c_2(a)=J_0(a)^2$ and the three-dimensional formulas are
+$c_3(a)=J_0(2a/3)^3$.
+\end{theorem}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:proof-flat-parent}.
+
+
+\begin{theorem}[Shell-resolved coefficients and factorial Fourier-tail bound]
+\label{thm:orthogonal-fourier-tail}
+Use a constant real rotation that diagonalizes $D$ as
+$D=\delta\sigma_z$, and set
+\begin{equation}
+ z=\frac{2a}{d},\qquad
+ j_{\mathbf R}(z)=\prod_{\alpha=1}^d J_{R_\alpha}(z),\qquad
+ p(\mathbf R)=\sum_{\alpha=1}^dR_\alpha\pmod 2.
+\end{equation}
+Then every Fourier block is known exactly:
+\begin{equation}
+ B_{\mathbf R}^{(d)}
+ =\delta j_{\mathbf R}(z)
+ \begin{cases}
+  \sigma_z,&p(\mathbf R)=0,\\
+  i\sigma_x,&p(\mathbf R)=1.
+ \end{cases}
+ \label{eq:orthogonal-fourier-block}
+\end{equation}
+For the complete squared-radius shell $s\in\mathbb N_0$, define
+\begin{equation}
+ W_{d,s}(z)=
+ \sum_{\substack{\mathbf R\in\mathbb Z^d\\\norm{\mathbf R}_2^2=s}}
+ \prod_{\alpha=1}^dJ_{R_\alpha}(z)^2.
+ \label{eq:shell-weight}
+\end{equation}
+Its normalized hopping-block power and the total shell inventory satisfy
+\begin{align}
+ \frac{1}{2E_{\mathrm{ref}}^2}
+ \sum_{\norm{\mathbf R}_2^2=s}\norm{B_{\mathbf R}^{(d)}}_F^2
+ &=\kappa W_{d,s}(z),
+ \label{eq:shell-power}\\
+ \sum_{s=0}^{\infty}W_{d,s}(z)&=1.
+ \label{eq:shell-partition}
+\end{align}
+For an integer shell cap $S\ge0$, let
+\begin{equation}
+ L=\left\lfloor\sqrt{\frac{S}{d}}\right\rfloor+1,
+ \qquad x=\frac{|z|}{2}.
+\end{equation}
+Whenever $x<L+1$, the omitted normalized power has the rigorous bound
+\begin{equation}
+ \frac{1}{2E_{\mathrm{ref}}^2}
+ \sum_{\norm{\mathbf R}_2^2>S}\norm{B_{\mathbf R}^{(d)}}_F^2
+ \le
+ \kappa\,
+ \frac{2d\,e^{z^2/2}x^{2L}}
+ {(L!)^2\left[1-x^2/(L+1)^2\right]}.
+ \label{eq:orthogonal-factorial-tail}
+\end{equation}
+Thus the orthogonal flat-parent Fourier tail is certified directly from $a$, $d$, and
+$S$; no fitted decay law is required.
+\end{theorem}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:proof-orthogonal-tail}.
+
+
+\begin{corollary}[Monotonicity and the small-amplitude dimension law]
+\label{cor:dimension-law}
+Define the minimum-alignment and exact-spectrum thresholds by
+\begin{equation}
+ \tau_{\min,d}^2(a)=\kappa[1-c_d(a)^2],
+ \qquad
+ \tau_{\mathrm{exact},d}^2(a)=2\kappa[1-c_d(a)].
+\end{equation}
+Both thresholds are strictly increasing for $0<a\le\pi/4$. As $a\to0$,
+\begin{align}
+ c_d(a)
+ &=1-\frac{a^2}{d}+\frac{2d-1}{4d^3}a^4+O(a^6),
+ \label{eq:correlation-small-a}\\
+ \tau_{\min,d}^2(a)
+ &=\frac{2\kappa}{d}a^2
+   -\frac{\kappa(4d-1)}{2d^3}a^4+O(a^6),
+ \label{eq:min-threshold-small-a}\\
+ \tau_{\mathrm{exact},d}^2(a)
+ &=\frac{2\kappa}{d}a^2
+   -\frac{\kappa(2d-1)}{2d^3}a^4+O(a^6).
+ \label{eq:exact-threshold-small-a}
+\end{align}
+In particular, both thresholds have leading slope
+$\sqrt{2\kappa/d}$ with respect to the maximum rotation amplitude $a$.
+\end{corollary}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:proof-dimension-law}.
+
+
+Theorems~\ref{thm:flat-parent} and \ref{thm:orthogonal-fourier-tail}, together with
+Corollary~\ref{cor:dimension-law}, apply to the orthogonal flat-parent master family.
+The factorial bound certifies its complete-shell Fourier tail, but it must not be
+transferred to a dependent non-orthogonal bond orbit. The bond-orbit theorem below
+supplies that comparator's analytic form; a lattice-specific constrained-series tail
+still requires a separate certificate.
+
+The two- and three-dimensional calculations use independent meshes and shell
+inventories. Their numerical outcomes are compared only through the common normalized
+diagnostics defined above; no shell index or convergence statement is transferred
+between dimensions.
+
+\subsection{Two-dimensional scalar precursor}
+
+An earlier retained scalar calculation used
+\begin{equation}
+ \widehat H_{2\mathrm D}=-\nabla^2+0.5\cos x+0.5\cos y
+ +\lambda_{xy}\cos x\cos y.
+ \label{eq:legacy-2d}
+\end{equation}
+At $\lambda_{xy}=0$, its represented Kronecker-sum discrepancy was zero and its
+product-spectrum discrepancy was $3.55\times10^{-14}E_{\mathrm{ref}}$. At $\lambda_{xy}=0.30$, the
+mixed-direction hopping norm was $1.94\times10^{-3}E_{\mathrm{ref}}$, compared with a
+$3.00\times10^{-15}E_{\mathrm{ref}}$ numerical floor at zero coupling. On the strongest retained
+coupling, the withheld RMS interpolation error decreased from
+$5.75\times10^{-2}E_{\mathrm{ref}}$ for the onsite shell to $1.70\times10^{-6}E_{\mathrm{ref}}$ for the complete
+finite transform. The latter reconstructed its own $15\times15$ mesh within
+$1.11\times10^{-15}E_{\mathrm{ref}}$ while retaining nonzero error on an independent
+$31\times31$ mesh.
+
+These values are extracted from the earlier controlled scalar calculation. They
+establish a historical finite-mesh separability, mixed-hopping, and off-node
+interpolation control; they are not results of the new square-lattice rank-two protocol,
+do not establish a 3-D outcome, and do not qualify a non-orthogonal lattice.
+
+\section{Non-orthogonal but physically isotropic extension}
+
+Let the direct-lattice basis be the columns of $A$ and define the direct-lattice metric
+and reciprocal basis by
+\begin{equation}
+ G=A^{\mathsf T}A,
+ \qquad B=2\pi A^{-\mathsf T}.
+\end{equation}
+For $\mathbf R\in\Z^d$, physical squared distance is
+\begin{equation}
+ r_G^2(\mathbf R)=\mathbf R^{\mathsf T}G\mathbf R.
+ \label{eq:metric-radius}
+\end{equation}
+Thus the coordinate radius $R_x^2+R_y^2$ is not used for a non-orthogonal cell unless it
+coincides with the declared metric. The integer lattice point group is
+\begin{equation}
+ \Gamma_G=\{M\in GL(d,\Z):M^{\mathsf T}GM=G\}.
+ \label{eq:metric-group}
+\end{equation}
+An isotropic hopping inventory retains complete $\Gamma_G$ orbits and every attainable
+metric shell through its cap. Equal coefficients are required only when imposed by the
+model's point-group representation; support symmetry does not itself imply coefficient
+equality.
+
+A selected non-orthogonal parent must declare an inversion-complete and point-group-
+complete bond orbit $\mathcal B$. A dimension-normalized candidate form is
+\begin{equation}
+ K_{\rho,G}(\mathbf q)=T_0+
+ \frac{\rho}{|\mathcal B_+|}
+ \sum_{\mathbf b\in\mathcal B_+}
+ \left(e^{2\pi i\mathbf q\cdot\mathbf b}T_{\mathbf b}
+ +e^{-2\pi i\mathbf q\cdot\mathbf b}T_{\mathbf b}^\dagger\right),
+ \label{eq:general-parent}
+\end{equation}
+subject to the selected internal point-group representation. The smooth rotation must
+likewise be constructed from a complete bond orbit rather than privileged coordinate
+axes.
+
+\subsection{Bond-orbit analytic comparator}
+
+Let the chosen positive bond inventory be
+$\mathcal B_+=\{\mathbf b_1,\ldots,\mathbf b_m\}\subset\Z^d\setminus\{\mathbf0\}$.
+For real orbit weights $\eta_j$, set $W=\sum_j|\eta_j|>0$ and define the normalized
+bond-orbit phase
+\begin{equation}
+ \theta_{a,\mathcal B}(\mathbf q)
+ =\frac{a}{W}\sum_{j=1}^m\eta_j
+   \sin(2\pi\mathbf q\cdot\mathbf b_j),
+ \qquad |\theta_{a,\mathcal B}(\mathbf q)|\le a.
+ \label{eq:bond-orbit-phase}
+\end{equation}
+The weights must be fixed by the selected symmetry contract; the theorem below does not
+by itself declare them isotropic.
+
+\begin{theorem}[Bond-orbit flat-parent comparator]
+\label{thm:bond-orbit}
+For $0\le a\le\pi/4$, define
+\begin{equation}
+ c_{\mathcal B,\boldsymbol\eta}(a)
+ =\int_{\T^d}e^{2i\theta_{a,\mathcal B}(\mathbf q)}\,d\mathbf q.
+ \label{eq:bond-orbit-correlation}
+\end{equation}
+Then $c_{\mathcal B,\boldsymbol\eta}(a)$ is real and strictly positive. If
+\begin{align}
+ D_{a,\mathcal B}(\mathbf q)
+ &=R(\theta_{a,\mathcal B}(\mathbf q))^\dagger
+   D R(\theta_{a,\mathcal B}(\mathbf q)),\\
+ D_{\mathbf R}^{\mathcal B}
+ &=\int_{\T^d}e^{-2\pi i\mathbf q\cdot\mathbf R}
+   D_{a,\mathcal B}(\mathbf q)\,d\mathbf q,
+\end{align}
+then
+\begin{align}
+ D_{\mathbf0}^{\mathcal B}
+ &=c_{\mathcal B,\boldsymbol\eta}(a)D,\\
+ \inf_{s,\lambda\ge0,\phi}L_{\mathcal B,\phi}^2(s,\lambda)
+ &=\kappa[1-c_{\mathcal B,\boldsymbol\eta}(a)^2]
+ =\frac{1}{2E_{\mathrm{ref}}^2}\sum_{\mathbf R\ne\mathbf0}
+   \norm{D_{\mathbf R}^{\mathcal B}}_F^2,
+ \label{eq:bond-orbit-tail}\\
+ \inf_\phi L_{\mathcal B,\phi}^2(0,1)
+ &=2\kappa[1-c_{\mathcal B,\boldsymbol\eta}(a)],
+\end{align}
+where $L_{\mathcal B,\phi}$ is Eq.~\eqref{eq:flat-operator-loss} with
+$B_a^{(d)}$ replaced by $D_{a,\mathcal B}$.
+
+Moreover, the comparator has the exact zero-mode expansion
+\begin{equation}
+ c_{\mathcal B,\boldsymbol\eta}(a)
+ =\sum_{\substack{\mathbf n\in\Z^m\\
+                   \sum_{j=1}^m n_j\mathbf b_j=\mathbf0}}
+   \prod_{j=1}^m
+   J_{n_j}\!\left(\frac{2a\eta_j}{W}\right).
+ \label{eq:bond-orbit-bessel-sum}
+\end{equation}
+If the bond vectors have no nontrivial integer relation, this reduces to
+\begin{equation}
+ c_{\mathcal B,\boldsymbol\eta}(a)
+ =\prod_{j=1}^mJ_0\!\left(\frac{2a\eta_j}{W}\right).
+ \label{eq:independent-bond-product}
+\end{equation}
+\end{theorem}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:proof-bond-orbit}.
+
+
+\begin{theorem}[Constrained-series complete-shell tail certificate]
+\label{thm:constrained-tail}
+Let
+\begin{equation}
+ g_{\mathbf R}=
+ \sum_{\substack{\mathbf n\in\mathbb Z^m\\
+                   \sum_jn_j\mathbf b_j=\mathbf R}}
+ \prod_{j=1}^mJ_{n_j}\!\left(\frac{2a\eta_j}{W}\right)
+ \label{eq:constrained-coefficient}
+\end{equation}
+be the scalar Fourier coefficient of $e^{2i\theta_{a,\mathcal B}}$. In the constant
+basis where $D=\delta\sigma_z$,
+\begin{equation}
+ D_{\mathbf R}^{\mathcal B}
+ =\frac{\delta}{2}\left[
+ (g_{\mathbf R}+g_{-\mathbf R})\sigma_z
+ +i(g_{\mathbf R}-g_{-\mathbf R})\sigma_x
+ \right].
+ \label{eq:constrained-matrix-block}
+\end{equation}
+Let $\mathcal S_S$ be every lattice displacement in the complete physical-metric shells
+through $S$. If finite constrained sums $\widetilde g_{\mathbf R}$ obey certified bounds
+$|g_{\mathbf R}-\widetilde g_{\mathbf R}|\le\epsilon_{\mathbf R}$ for every
+$\mathbf R\in\mathcal S_S$, then
+\begin{equation}
+ \frac{1}{2E_{\mathrm{ref}}^2}
+ \sum_{\mathbf R\notin\mathcal S_S}
+ \norm{D_{\mathbf R}^{\mathcal B}}_F^2
+ \le\kappa\left\{
+ 1-\sum_{\mathbf R\in\mathcal S_S}
+ \left[\max\{0,|\widetilde g_{\mathbf R}|-\epsilon_{\mathbf R}\}\right]^2
+ \right\}.
+ \label{eq:constrained-tail-certificate}
+\end{equation}
+
+For the selected equal-weight triangular orbit
+$\{(1,0),(0,1),(1,-1)\}$, with $z=2a/3$,
+\begin{equation}
+ g_{(r_1,r_2)}=
+ \sum_{\ell\in\mathbb Z}
+ J_{r_1-\ell}(z)J_{r_2+\ell}(z)J_\ell(z).
+ \label{eq:triangular-coefficient}
+\end{equation}
+For the selected equal-weight FCC orbit
+\begin{equation}
+ \{(1,0,0),(0,1,0),(0,0,1),(-1,1,0),(-1,0,1),(0,-1,1)\},
+\end{equation}
+with $z=2a/6$,
+\begin{align}
+ g_{(r_1,r_2,r_3)}
+ =\sum_{u,v,w\in\mathbb Z}
+ &J_{r_1+u+v}(z)J_{r_2-u+w}(z)J_{r_3-v-w}(z)\notag\\
+ &\times J_u(z)J_v(z)J_w(z).
+ \label{eq:fcc-coefficient}
+\end{align}
+Set $x=|z|/2$ and
+\begin{align}
+ A_0(z)&=e^{x^2}(2e^x-1),\\
+ A_K(z)&=
+ \frac{2e^{x^2}x^{K+1}}
+ {(K+1)![1-x/(K+2)]}.
+ \label{eq:absolute-bessel-tail}
+\end{align}
+Truncating Eq.~\eqref{eq:triangular-coefficient} to $|\ell|\le K$ gives
+$\epsilon_{\mathbf R}=A_K(z)$. Truncating Eq.~\eqref{eq:fcc-coefficient} to
+$|u|,|v|,|w|\le K$ gives
+$\epsilon_{\mathbf R}=3A_K(z)A_0(z)^2$.
+\end{theorem}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:proof-constrained-tail}.
+
+
+For the selected maximum angle $a=\pi/4$, bounded binary64 evaluations with a declared
+$10^{-13}$ per-coefficient numerical margin give normalized scalar-tail upper bounds
+$2.8760\times10^{-9}$ for the triangular shell cap $S=21$ at $K=10$, and
+$5.5358\times10^{-6}$ for the FCC shell cap $S=7$ at $K=9$. These values evaluate the
+proved certificate in binary64 arithmetic with the stated margin; no interval-arithmetic
+or mesh-limit extrapolation is applied.
+
+The metric and point group select the physically admissible complete bond orbit; the
+integer relations among the selected reduced-coordinate bond vectors determine whether
+the comparator factorizes. Thus the square and cubic products arise from independent
+primitive-axis harmonics, whereas a bond orbit with integer dependencies generally has
+the constrained Bessel sum in Eq.~\eqref{eq:bond-orbit-bessel-sum} instead.
+
+The non-orthogonal calculations use a graphene-inspired triangular/honeycomb 2-D
+parent and a silicon-inspired FCC/diamond 3-D parent, together with matched Bravais
+controls at equal reciprocal-torus RMS gauge amplitude. ``Inspired'' denotes only the
+declared geometry, two-site basis, and bipartite connectivity; neither parent is a
+material parametrization. The triangular and FCC control orbits yield, respectively,
+one-index and three-index constrained Bessel sums under
+Theorems~\ref{thm:bond-orbit} and \ref{thm:constrained-tail}. These dependent bond
+orbits require their own metric shells and certificates; the square and cubic Bessel
+products cannot be transferred unchanged.
+
+\section{Restricted alignment and Hamiltonian comparison}
+
+For $\mathcal U=\bigoplus_{\mathbf q}U(\mathbf q)$, define
+\begin{equation}
+ \widehat A_B=\mathcal U^\dagger\widehat H_B\mathcal U.
+\end{equation}
+The corresponding Wannier-space unitary
+\begin{equation}
+ \mathcal G_W=(\mathcal F_{d,N}^\dagger\otimes I_2)
+ \mathcal U(\mathcal F_{d,N}\otimes I_2)
+\end{equation}
+is generally nonlocal and satisfies
+\begin{equation}
+ \widehat A_W=\mathcal G_W^\dagger\widehat H_W\mathcal G_W.
+ \label{eq:covariant}
+\end{equation}
+The covariantly aligned subtraction vanishes by construction. The restricted scientific
+comparison replaces $\mathcal G_W$ by one cell-local global rotation
+$I_{N^d}\otimes R(\phi)$. A parent-space comparison requires the retained projector and
+an explicit lift. Every subtraction must state its source and target spaces, basis,
+gauge, energy reference, units, geometry, and normalization.
+
+\section{Synthetic-strain methods}
+\label{sec:strain-protocol}
+
+\subsection{Scientific question and three controls}
+
+The strain protocol asks how a homogeneous change of lattice metric affects the
+mechanisms and sampled requirement coordinates associated with spectral fidelity,
+restricted operator agreement, and finite-range hopping locality. It keeps retained
+rank, energy reference, and reduced-coordinate gauge explicit. It is a synthetic gauge
+and model-response stress test, not an elastic, structural-stability, or material-strain
+calculation. The deformation does not make the exact spectral and hopping
+representations inconsistent. The fixed-geometry Pareto surfaces and strain-response
+scans remain separate until explicit strain-resolved landscapes are calculated.
+
+The protocol separates three controls:
+\begin{enumerate}
+ \item The \emph{geometry-only control} uses a constant rank-two parent and an imposed
+ smooth reduced-coordinate gauge. The Hamiltonian field, Fourier coefficients, exact
+ band equivalence, and covariant residual are strain invariant; only the physical metric
+ used to group complete hopping shells changes.
+ \item The \emph{frozen-parent null-response control} uses the four-state
+ bipartite parent, fixed onsite and hopping matrices, the seed-projected retained-frame
+ construction, and the explicit common-cell map. A nonzero aligned strain response is a
+ failed null test rather than a material signal.
+ \item The \emph{synthetic radial-response control} starts from the same parent and
+ onsite matrices but changes only selected inter-sublattice bond amplitudes according to
+ \begin{equation}
+  t_j(s)=t_j(0)\exp\!\left[-\beta
+  \left(\frac{d_j(s)}{d_j(0)}-1\right)\right],
+  \qquad \beta=1.
+  \label{eq:strain-radial-response-law}
+ \end{equation}
+ No onsite response, strain-dependent refit, normalization, structural relaxation, or
+ averaging with either other control is permitted.
+\end{enumerate}
+The three controls answer different questions and are not successive approximations to
+one Hamiltonian.
+
+\subsection{Shell--scale Pareto decision landscape}
+
+At strain coordinate $s$, let $H_s(\mathbf q)$ be the retained reference field,
+$\bar h_s(\mathbf q)=\operatorname{tr}H_s(\mathbf q)/2$, and
+$\widetilde H_s=H_s-\bar h_s I_2$. Let $B_{s,S}(\mathbf q)$ be the gauge-transformed
+comparison reconstructed after retaining every complete physical-metric shell through
+$S$. The restricted full-field alignment supplies one global rotation $R_{*,s}$ and a
+nonnegative optimized scale $\lambda_{*,s}$. We sample the scientifically interpretable
+path
+\begin{equation}
+ \lambda_s(u)=(1-u)\lambda_{*,s}+u,
+ \qquad 0\le u\le1,
+ \label{eq:scale-path}
+\end{equation}
+so that $u=0$ is the optimized operator-scale endpoint and $u=1$ preserves the original
+spectral splitting. The corresponding globally aligned target is
+\begin{equation}
+ A_{s,u}(\mathbf q)=\bar h_s(\mathbf q)I_2+
+ \lambda_s(u)R_{*,s}^{\mathsf T}\widetilde H_s(\mathbf q)R_{*,s}.
+ \label{eq:scale-path-target}
+\end{equation}
+For each calculated pair $(S,u)$, define
+\begin{align}
+ \varepsilon_H(s;S,u)
+ &=\max_{\mathbf q}\frac{\norm{B_{s,S}(\mathbf q)-A_{s,u}(\mathbf q)}_F}
+ {\sqrt2E_{\mathrm{ref}}},\\
+ \varepsilon_E(s;S,u)
+ &=\max_{\mathbf q,n}\frac{
+ \left|\varepsilon_n[B_{s,S}(\mathbf q)]-
+ \varepsilon_n[A_{s,u}(\mathbf q)]\right|}{E_{\mathrm{ref}}},\\
+ \mathcal J_s(S,u)
+ &=\left(N_s(S),\varepsilon_H(s;S,u),\varepsilon_E(s;S,u)\right).
+ \label{eq:pareto-decision-objectives}
+\end{align}
+Lower values of all three components are preferred. A calculated point is Pareto
+efficient when no other sampled pair weakly improves every component and strictly
+improves at least one. The strain coordinate therefore indexes a family of sampled
+Pareto decision landscapes; it is not itself minimized. The physical shell radius
+$R_s(S)$ remains a separately reported locality coordinate because it need not order
+shells in the same way as $N_s(S)$.
+
+This construction requires no acceptance tolerance. A tolerance is needed only later to
+select an operating point for a specified application or material. Tessellated cells may
+connect adjacent calculated $(S,u)$ samples for visualization, but they assert neither
+continuum coverage nor interpolation validity.
+
+\subsection{Area- and volume-preserving paths}
+
+We use the following area- and volume-preserving crystallographic paths and coordinate
+bridges.
+
+Let $s\in[0,1]$ be the dimensionless strain fraction. The 2-D unit-area rhombic path is
+\begin{align}
+ \theta(s)&=\frac\pi3+s\frac\pi6,\\
+ A_2(s)&=\frac{1}{\sqrt{\sin\theta(s)}}
+ \begin{pmatrix}
+ 1&\cos\theta(s)\\
+ 0&\sin\theta(s)
+ \end{pmatrix},
+ \qquad \det A_2(s)=1.
+ \label{eq:strain-rhombic-path}
+\end{align}
+It connects triangular metric geometry at $s=0$ to square metric geometry at $s=1$.
+
+For the 3-D Bain path, write $t=s\in[0,1]$ and define the tetragonal aspect ratio
+and volume-compensating transverse and longitudinal scales by
+\begin{equation}
+ \gamma(t)=\sqrt2+t(1-\sqrt2),
+ \qquad
+ \ell_\perp(t)=\left(\frac{2}{\gamma(t)}\right)^{1/3},
+ \qquad
+ \ell_\parallel(t)=\gamma(t)\ell_\perp(t).
+ \label{eq:strain-bain-scales}
+\end{equation}
+The three primitive vectors evolve continuously as
+\begin{align}
+ \mathbf a_1(t)&=\frac12
+ \begin{pmatrix}\ell_\perp(t)\\\ell_\perp(t)\\\ell_\parallel(t)\end{pmatrix},
+ &0\le t\le1,\\
+ \mathbf a_2(t)&=\frac12
+ \begin{pmatrix}-\ell_\perp(t)\\\ell_\perp(t)\\\ell_\parallel(t)\end{pmatrix},
+ &0\le t\le1,\\
+ \mathbf a_3(t)&=\frac12
+ \begin{pmatrix}\ell_\perp(t)\\-\ell_\perp(t)\\\ell_\parallel(t)\end{pmatrix},
+ &0\le t\le1.
+ \label{eq:strain-bain-vectors}
+\end{align}
+Equivalently,
+$A_3(t)=[\mathbf a_1(t)\ \mathbf a_2(t)\ \mathbf a_3(t)]$. Its primitive-cell volume
+is exactly
+\begin{equation}
+ V(t)=\left|\mathbf a_1(t)\cdot
+ [\mathbf a_2(t)\times\mathbf a_3(t)]\right|
+ =\det A_3(t)
+ =\frac{\ell_\perp(t)^2\ell_\parallel(t)}{2}=1
+ \qquad (0\le t\le1).
+ \label{eq:strain-bain-volume-invariant}
+\end{equation}
+Thus the complete path, including its endpoints, is volume preserving. The ratio
+$\ell_\parallel/\ell_\perp=\gamma$ runs from $\sqrt2$ at $t=0$ to $1$ at $t=1$,
+giving the FCC and BCC endpoint representations of the Bain path
+\cite{Bain1924Martensite}.
+
+\subsection{FCC--Bain common-cell identification}
+
+Let $\mathbf n_F$ denote the existing FCC primitive coordinate and $\mathbf n_B$ the
+Bain-coordinate label. The fixed unimodular map is
+\begin{equation}
+ \mathbf n_F=U\mathbf n_B,
+ \qquad
+ U=\begin{pmatrix}
+ 1&1&0\\
+ 0&0&1\\
+ 0&-1&0
+ \end{pmatrix},
+ \qquad \det U=1.
+ \label{eq:strain-common-cell-map}
+\end{equation}
+It induces
+\begin{equation}
+ \mathbf q_B=U^{\mathsf T}\mathbf q_F,
+ \qquad
+ \mathbf n_B\longmapsto U\mathbf n_B\pmod N
+ \label{eq:strain-reciprocal-cell-map}
+\end{equation}
+on the reciprocal torus and every finite periodic cell mesh. The diamond basis offset
+$(1/4,1/4,1/4)_F$ becomes $(1/2,-1/4,1/4)_B$; orbital and sublattice labels are
+unchanged. At the endpoint, $G_B=U^{\mathsf T}G_FU$, and the six FCC bond pairs map to
+the six Bain-coordinate pairs. These identities establish a coordinate and state-space
+map only; they do not identify a material Hamiltonian across strain.
+
+\subsection{Sampling and numerical diagnostics}
+
+The numerical protocol samples
+\begin{equation}
+ s\in\{0,1/8,2/8,\ldots,1\},
+ \qquad a=\pi/4,
+ \qquad \tau_{\mathrm{tail}}\in\{10^{-3},10^{-5}\}.
+ \label{eq:strain-frozen-samples}
+\end{equation}
+The geometry-only transform uses $64^2$ points in 2-D and $24^3$ points in 3-D. The
+frozen-parent and radial-response controls use construction/evaluation sizes
+$16^2/33^2$ in 2-D and $8^3/17^3$ in 3-D, with evaluation shift $1/3$. Both response
+controls fix $\rho=1$, the onsite matrices, $E_{\mathrm{ref}}$, and the imposed
+reduced-coordinate gauge at every strain point. These finite meshes define the reported
+synthetic scans; they are not extrapolated to a continuum-mesh limit.
+
+At every point the protocol reports the unit-determinant metric, bond-length extrema and
+orbit splitting, covariant and restricted-alignment meanings, ordinary and centered
+Nyquist Fourier power, and the first complete physical-radius support meeting each tail
+tolerance. Equal-radius ties are never split. The two response controls additionally use
+the matrix and sorted-band interpolation, deliberate-truncation, and total channels
+defined in Appendix~\ref{app:diagnostics}, both for the Hamiltonian and for the aligned
+strain difference $\Delta H_s$. The three error channels are not added.
+
+The bounded scan uses the base grid
+\begin{equation}
+ \widehat S_0=\{s_i=i/200:i=0,\ldots,200\}.
+ \label{eq:strain-scan-grid}
+\end{equation}
+A hat denotes a maximum over these samples, not a continuum supremum. If $\kappa_i$ is
+the retained splitting scale and $\mu_i$ the maximum finite-mesh correlation after one
+global real rotation, the pointwise optimized operator requirement and the requirement
+for the unchanged reference candidate $p_0=(0,1)$ are
+\begin{align}
+ \tau_{o,\min}(s_i)
+ &=\sqrt{\kappa_i[1-\max(0,\mu_i)^2]},\\
+ \tau_{o,p_0}(s_i)
+ &=\sqrt{2\kappa_i(1-\mu_i)}.
+ \label{eq:strain-scan-witness-requirements}
+\end{align}
+Their sampled envelopes are $\widehat\tau_{o,\min}=\max_i\tau_{o,\min}(s_i)$ and
+$\widehat\tau_{o,p_0}=\max_i\tau_{o,p_0}(s_i)$. Pointwise optimized candidates are not
+one common path witness, and $p_0$ is only a prescribed candidate path until frozen
+limits establish feasibility. Likewise,
+$\widehat R_\varepsilon=\max_iR_\varepsilon(s_i)$ and
+$\widehat N_\varepsilon=\max_iN_\varepsilon(s_i)$ are reported separately because their
+maxima need not occur at the same strain.
+
+Every adjacent base-grid interval whose endpoint block counts or bond-degeneracy counts
+differ is bisected five times, yielding detected transition brackets of width at most
+$1/6400$. This bounded rule does not detect an even number of hidden changes inside an
+equal-endpoint interval. It supplies sampled localization only, not a continuum
+certificate. No feasibility crossing is assigned: this protocol characterizes the sampled decision
+landscape rather than classifying it against an acceptance region.
+
+The calculations are synthetic and do not determine forces, stresses, strain energies,
+phase stability, realistic graphene or silicon response, or a material FCC--BCC
+transition. Material-specific strained Hamiltonians and environment-responsive models
+such as Refs.~\cite{Fang2018Strained2D,Zhang2022EquivariantHamiltonians} remain outside
+the present scope.
+
+\section{Diagnostic summary}
+
+The study keeps parent and retained-space reconstruction, covariant equivalence,
+restricted global alignment, cyclic conversion, interpolation, deliberate truncation,
+total matrix and band consequences, locality power, transport, and refinement as
+distinct diagnostic layers. Appendix~\ref{app:diagnostics} defines their
+normalizations, applicability conditions, and first-passing rules. In particular, the
+three approximation channels in Eq.~\eqref{eq:three-error-channels} are not additive,
+and the closure-phase reduction in
+Eq.~\eqref{eq:multidimensional-closure-phase-reduction} is defined only when every
+contributing transport link is full rank.
+
+Appendix~\ref{app:verification} summarizes the independent numerical reconstruction.
+
+\section{Results}
+
+The calculations use three construction levels, $16^2$, $32^2$, and $64^2$ in two
+dimensions and $8^3$, $16^3$, and $32^3$ in three dimensions, together with shifted
+evaluation meshes. Reconstruction, Hermiticity, Parseval, transport, and closure
+identities remain below $2.0\times10^{-14}$. One of 18 graphene-family first-passing
+shell decisions changes by one shell between the first two levels; every such decision
+is unchanged on the final refinement in all four families. Some deliberately strict
+tail cuts remain outside the finite shell caps, so the central comparison uses the full
+sampled decision landscapes rather than converting those cuts into acceptance tests.
+
+\paragraph{Central result: controlled incompatibility landscape.}
+The exact untruncated route preserves the retained spectrum under the declared
+momentum-dependent gauge. Once the comparison is restricted to one cell-local global
+rotation, one scale choice, and a finite complete-shell inventory, spectral fidelity,
+Hamiltonian fidelity, and locality cannot in general be optimized simultaneously.
+Shell cutoff controls retained complexity, while the path from $\lambda_{*,s}$ to unit
+scale resolves the compromise between restricted operator agreement and preservation of
+the original splitting. Synthetic deformation is analyzed through separate response
+channels, while the reported Pareto surfaces remain fixed-geometry results. Exact gauge
+equivalence holds throughout both calculations.
+
+The geometry-only control isolates metric reordering of the same Fourier inventory; the
+frozen-parent control tests that coordinate deformation alone produces no Hamiltonian
+response; and the radial-response control deliberately changes bond amplitudes. Taken
+together, the controls separate mechanisms rather than plotting an undifferentiated
+strain response. The scientific output here is the set of available nondominated
+compromises, not a self-selected acceptance boundary. A componentwise cover assembled
+from different samples is not an attainable decision and is therefore not a Pareto
+representative.
+
+The bounded fixed-geometry calculation samples 17 scales between $\lambda_*$ and unity
+at every available complete shell for each of the eight cases. The optimized scale rises
+from $0.729890$ for the square directed parent to $0.937745$ for the diamond-inspired
+case. Every case has a nonempty, non-collapsed nondominated set, but its sampled shape is
+geometry dependent. The diamond-inspired case is the most selective in this sampling,
+with 34 of 136 calculated vertices nondominated; the triangular and FCC controls retain
+156 of 187 and 116 of 136, respectively. At the largest sampled diamond shell, moving
+from $\lambda_*$ to unit scale increases the normalized Hamiltonian mismatch from
+$0.211780$ to $0.217933$ (about $2.9\%$) while reducing the sorted-band mismatch from
+$0.0193798$ to $0.00341626$ (about $82\%$). This is one endpoint comparison, not a
+universal preference for unit scale. The vertex counts describe the declared discrete
+grid and are not invariant geometric measures. Figure~\ref{fig:principal-decision-landscapes}
+shows the four principal cases; Appendix~\ref{app:case-decision-landscapes} gives all
+eight cases separately.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/principal-shell-scale-decision-landscapes.pdf}
+ \caption{Sampled shell--scale decision landscapes for the four principal cases. Each
+ surface uses every complete shell and 17 values along the path from the optimized
+ positive comparison scale to unit scale. Orange markers are nondominated calculated
+ vertices for the three minimized objectives: retained blocks, maximum Hamiltonian
+ error, and maximum sorted-band error. Tessellation connects adjacent calculated
+ shell--scale samples and represents the discrete sampling topology.}
+ \label{fig:principal-decision-landscapes}
+\end{figure}
+
+Figures~\ref{fig:family-square}--\ref{fig:family-silicon-inspired} compare the four
+model families at fixed geometry; the strain-responsive controls are reported
+separately.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/square-2d-scientific-story.pdf}
+ \caption{Square-lattice results. The panels separate withheld interpolation,
+ external retained-subspace isolation, hopping-tail power, withheld spectral
+ consequence, and the relation between tail power and spectral consequence.}
+ \label{fig:family-square}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/triangular-honeycomb-2d-scientific-story.pdf}
+ \caption{Graphene-inspired honeycomb results and matched Bravais controls. The
+ non-orthogonal physical metric changes the complete-shell inventory relative to the
+ square family.}
+ \label{fig:family-graphene-inspired}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/simple-cubic-3d-scientific-story.pdf}
+ \caption{Simple-cubic results at two displayed mesh levels. The separate panels retain
+ interpolation, external isolation, hopping-tail power, and spectral consequence as
+ distinct quantities.}
+ \label{fig:family-simple-cubic}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/fcc-diamond-3d-scientific-story.pdf}
+ \caption{Silicon-inspired diamond results and matched FCC Bravais controls. The two
+ cases share the FCC metric but differ in parent connectivity.}
+ \label{fig:family-silicon-inspired}
+\end{figure}
+
+Figures~\ref{fig:three-channel-square}--\ref{fig:three-channel-silicon-inspired}
+show the corresponding refined-mesh three-channel decompositions. Near overlap of the
+deliberate-truncation and total curves means interpolation is much smaller at these
+sampled points; it does not make the channels definitionally identical.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/square-2d-three-channel-error-decomposition.pdf}
+ \caption{Square-lattice endpoint comparison: maximum Hamiltonian and sorted-band
+ interpolation, deliberate-truncation, and total error channels.}
+ \label{fig:three-channel-square}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/triangular-honeycomb-2d-three-channel-error-decomposition.pdf}
+ \caption{Graphene-inspired family and matched controls: refined-mesh endpoint
+ three-channel decomposition. Every row retains its own complete physical-metric shell
+ inventory.}
+ \label{fig:three-channel-graphene-inspired}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/simple-cubic-3d-three-channel-error-decomposition.pdf}
+ \caption{Simple-cubic endpoint comparison: maximum Hamiltonian and sorted-band
+ interpolation, deliberate-truncation, and total error channels.}
+ \label{fig:three-channel-simple-cubic}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/fcc-diamond-3d-three-channel-error-decomposition.pdf}
+ \caption{Silicon-inspired family and matched controls: refined-mesh endpoint
+ three-channel decomposition. These are errors for the declared synthetic model, not
+ silicon material errors.}
+ \label{fig:three-channel-silicon-inspired}
+\end{figure}
+
+\paragraph{Bounded geometry-only control.}
+Separate frozen-parent geometry-stress diagnostics use nine unit-area rhombic and
+unit-volume Bain metrics. The reduced-coordinate Hamiltonian, gauge, Fourier-block
+weights, and restricted-alignment residual are invariant by construction. Nevertheless,
+the changing physical metric reorders complete hopping shells and changes the sampled
+first-passing physical radius and retained block count. At tail-power tolerance
+$10^{-5}$, the endpoint radius changes from $3.7224$ to $4.2426$ in 2-D and from
+$2.9698$ to $3.2734$ in 3-D; the corresponding block counts change from $43$ to $61$
+and from $135$ to $169$. At the looser 3-D tolerance $10^{-3}$, the endpoint radius
+instead changes from $2.2449$ to $2.1822$ while the block count changes from $55$ to
+$59$. Physical range and parameter count are therefore distinct locality costs even
+when the abstract reduced-coordinate operator is unchanged. A unimodular map identifies
+the existing FCC primitive coordinates with the Bain endpoint coordinates.
+Figures~\ref{fig:geometry-control-strain-2d} and
+\ref{fig:geometry-control-strain-3d} display the complete bounded geometry-only
+diagnostics.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/rhombic-2d-geometry-only-control.pdf}
+ \caption{Two-dimensional frozen-gauge geometry-only result. The parent, gauge,
+ Fourier weights, and unit-cell area remain fixed while the rhombic metric moves from
+ triangular to square. Panels separate bond-orbit splitting, invariant restricted
+ residual, first-passing physical radius, and retained block count. The plotted
+ tail-power thresholds are locality diagnostics, not universal spectral-error bounds.}
+ \label{fig:geometry-control-strain-2d}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/bain-3d-geometry-only-control.pdf}
+ \caption{Three-dimensional frozen-gauge geometry-only result along the unit-volume
+ FCC--BCC Bain metric path. The looser threshold shows that first-passing physical
+ radius and retained block count follow different trends along the same metric path.}
+ \label{fig:geometry-control-strain-3d}
+\end{figure}
+
+\paragraph{Bounded frozen-parent and radial-response controls.}
+The response calculation uses the four-state bipartite parent. The frozen-parent
+null-response control holds its onsite and hopping matrices
+fixed; its pointwise gauge-aligned strain difference remains below
+$1.4\times10^{-15}E_{\mathrm{ref}}$ on both paths. The synthetic radial-response
+control changes only the parent-bond amplitudes through the prescribed
+dimensionless radial law
+$t_j(s)/t_j(0)=\exp[-(d_j(s)/d_j(0)-1)]$. At the final 2-D metric, the responses span
+$0.81758$--$1.27146$ and the maximum aligned retained-space perturbation is
+$0.063575E_{\mathrm{ref}}$. At the BCC endpoint, the four selected bonds share response
+$0.97564$ and the corresponding maximum is $0.007289E_{\mathrm{ref}}$. The stored
+trace/traceless decomposition is dominated by the traceless channel on both paths. At
+the $10^{-5}$ tail support, the 2-D endpoint interpolation, deliberate-
+truncation, and total maximum matrix errors of $\Delta H_s$ are approximately
+$6.0\times10^{-8}$, $7.801\times10^{-4}$, and $7.802\times10^{-4}$; the 3-D values
+are $9.36\times10^{-5}$, $1.61\times10^{-4}$, and $1.89\times10^{-4}$. These
+channels are displayed in Figs.~\ref{fig:response-control-strain-2d} and
+\ref{fig:response-control-strain-3d} and are not added.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/rhombic-2d-strain-response-controls.pdf}
+ \caption{Two-dimensional response controls. The frozen-parent calculation gives the
+ null aligned difference expected from the unchanged parent. The radial-response
+ control uses the fixed synthetic law and reports its aligned perturbation,
+ scalar/traceless split, locality cost, and three approximation channels.}
+ \label{fig:response-control-strain-2d}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/bain-3d-strain-response-controls.pdf}
+ \caption{Three-dimensional Bain-path response controls. The prescribed radial law
+ generates a finite response while the frozen parent remains a numerical null.}
+ \label{fig:response-control-strain-3d}
+\end{figure}
+
+\paragraph{Pathwise qualification and approximation envelopes.}
+The 201-point response sweeps retain the external-gap, seed-overlap, frame-conditioning,
+approximation, and mechanism extrema together with the first strain sample where each
+occurs. For the radial-response control, the minimum sampled external isolation gaps are
+$2.00708E_{\mathrm{ref}}$ in 2-D and $2.01305E_{\mathrm{ref}}$ in 3-D; the minimum
+seed overlaps are $0.998684$ and $0.998687$. The minimum frame-overlap singular values
+remain above $0.9999998$ and $0.999999996$, respectively. Thus the sampled response does
+not coincide with loss of the retained subspace or a rank-deficient frame overlap.
+
+The maximum radial-response pointwise frame-alignment residuals are
+$8.27192\times10^{-4}$ in 2-D and $9.64819\times10^{-5}$ in 3-D, both at $s=1$.
+At the $10^{-5}$ support, the sampled maxima of the total aligned-difference Hamiltonian
+error are $7.80164\times10^{-4}E_{\mathrm{ref}}$ in 2-D and
+$1.89367\times10^{-4}E_{\mathrm{ref}}$ in 3-D. The corresponding frozen-parent
+envelopes remain at binary64 roundoff. In both radial controls the response is
+traceless-dominated: its maximum scalar/traceless components are
+$1.77497\times10^{-6}/0.0635748$ in 2-D and
+$8.93927\times10^{-7}/0.00728904$ in 3-D. These are maxima over calculated samples,
+not continuum bounds. Figures~\ref{fig:qualification-response-scan-2d} and
+\ref{fig:qualification-response-scan-3d} retain the corresponding pointwise envelopes.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/rhombic-2d-strain-qualification-response-scan.pdf}
+ \caption{Two-dimensional 201-point qualification and response-mechanism scan. External
+ gap, seed overlap, frame conditioning, radial-response magnitude and mechanism split,
+ and tight-support approximation errors remain distinct channels.}
+ \label{fig:qualification-response-scan-2d}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/bain-3d-strain-qualification-response-scan.pdf}
+ \caption{Three-dimensional 201-point Bain qualification and response-mechanism scan. The
+ synthetic diamond radial response remains separated from retained-subspace and frame
+ qualification throughout the sampled path.}
+ \label{fig:qualification-response-scan-3d}
+\end{figure}
+
+\paragraph{Sampled witness and transition scan.}
+The 201-point base scan preserves the normalized cell measure to
+$4.5\times10^{-16}$ in 2-D and $1.3\times10^{-15}$ in 3-D; direct sorted-band defects
+remain below $1.8\times10^{-15}$. In 2-D the synthetic radial response increases the
+pointwise optimized requirement from $0.0810724$ at $s=0$ to $0.0875414$ at $s=1$ and
+the fixed-$p_0$ requirement from $0.0835420$ to $0.0907685$. In 3-D both radial-response
+requirements attain their sampled maxima at $s=0$ and decrease slightly toward the BCC
+endpoint. The geometry-only and frozen-parent requirement curves are strain invariant,
+as their control definitions demand. These are sampled requirement coordinates within the decision landscape, not pass/fail
+results; no acceptance classification is intended for the synthetic controls.
+
+The sampled 2-D locality envelopes are $(\widehat R,\widehat N)=(2.82843,25)$ at
+$10^{-3}$ and $(4.24264,61)$ at $10^{-5}$, all attained at $s=1$. In 3-D, the looser
+tolerance separates the two costs: $\widehat R=2.24492$ occurs at $s=0$, whereas
+$\widehat N=59$ first occurs at $s=0.77$; the tighter envelope is
+$(3.27337,169)$ at $s=1$. Five bisections localize seven detected 2-D shell-count
+changes and six detected 3-D changes to intervals no wider than $1/6400$. On both paths
+the endpoint bond-degeneracy change is bracketed by $[0,1/6400]$. These brackets do not
+exclude hidden equal-endpoint transitions. Independent test-only finite sums reconstruct
+the first-passing shells, and an independent harmonic calculation reconstructs both
+operator-requirement channels. Figures~\ref{fig:strain-scan-2d} and
+\ref{fig:strain-scan-3d} show the sampled envelopes and controls.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/rhombic-2d-strain-scan.pdf}
+ \caption{Two-dimensional 201-point rhombic scan. Pointwise and fixed-candidate
+ requirements, geometry-only locality costs, the frozen-parent null response, and the
+ synthetic radial response remain separate across all 201 sampled coordinates.}
+ \label{fig:strain-scan-2d}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/bain-3d-strain-scan.pdf}
+ \caption{Three-dimensional 201-point Bain scan. At the looser tail tolerance, the sampled
+ maximum physical radius and maximum block count occur at different sampled strains.}
+ \label{fig:strain-scan-3d}
+\end{figure}
+
+Together, these scans establish the behavior of the declared finite synthetic models:
+metric deformation reorganizes complete physical shells, an unchanged parent produces
+no resolved Hamiltonian response, and the prescribed radial law produces a finite,
+predominantly traceless response without loss of retained-subspace isolation. They do
+not define a material strain potential or establish a continuum extremum.
+
+\clearpage
+\section{Discussion}
+
+\subsection{The three-way decision landscape}
+
+The central finding is that spectral fidelity, Hamiltonian fidelity, and hopping locality
+form a genuine three-way trade-off once two practical restrictions are imposed:
+alignment is limited to a single cell-local rotation, and hopping support is limited to
+a finite set of complete metric shells. Exact gauge equivalence continues to hold in
+the unrestricted setting; the incompatibility appears only after those restrictions are
+added.
+
+Consequently, a small sorted-band error is not by itself sufficient to establish the
+operator fidelity or locality of a finite-range Hamiltonian representation. The sampled
+Pareto fronts for all eight cases are nonempty and non-collapsed. In every geometry,
+some calculated points improve locality only by degrading operator or spectral
+agreement, and vice versa. The scientific output is therefore the set of available
+nondominated compromises rather than a single preferred Hamiltonian.
+
+\subsection{Geometry dependence and the role of the comparison scale}
+
+The shape of the decision surface is strongly geometry dependent. The diamond-inspired
+case is the most selective of the eight fronts examined: only 34 of 136 calculated
+vertices are nondominated, whereas the triangular and FCC controls retain substantially
+larger fractions of their sampled vertices. Similar retained-block counts can correspond
+to different physical ranges once the metric changes, and equal shell indices have no
+intrinsic cross-lattice meaning without the associated metric and orbit inventory.
+
+The path from the optimized scale $\lambda_*$ to unit scale quantifies a concrete
+compromise. At the largest sampled diamond shell, restoring unit scale increases the
+normalized Hamiltonian mismatch by about $2.9\%$ while reducing the sorted-band mismatch
+by approximately $82\%$. Neither endpoint is universally preferred: $\lambda_*$ favors
+restricted operator agreement, whereas unit scale recovers most of the original
+spectral splitting at modest additional operator cost. The appropriate operating point
+is application dependent and requires an external criterion.
+
+\subsection{Mechanism separation under synthetic strain}
+
+The three synthetic controls isolate distinct contributions to the observed trade-offs.
+Geometry-only deformation leaves the reduced-coordinate Hamiltonian, gauge, and Fourier
+weights invariant, yet reorders complete physical shells and changes both first-passing
+radius and retained block count. At the looser three-dimensional tail tolerance, these
+two locality costs move in opposite directions. Physical range and parameter count are
+therefore independent locality costs.
+
+The frozen-parent control returns a numerical null, with aligned differences at
+binary64 roundoff. Coordinate deformation alone produces no Hamiltonian response when
+the parent matrices are fixed. The prescribed radial-response control produces a finite,
+predominantly traceless perturbation while preserving external isolation of the retained
+subspace and full-rank frame conditioning. A finite response can therefore be introduced
+without losing the spectral isolation required by the representation chain.
+
+\subsection{Implications and outlook}
+
+The rank-two benchmark supplies a controlled setting in which finite-range models are
+assessed against an explicit three-objective surface rather than a single error metric.
+In Wannier or machine-learned tight-binding workflows, an application can impose its own
+Hamiltonian and spectral tolerances; the nondominated set then identifies the associated
+locality choices.
+
+Several extensions follow directly. Raising the retained rank above two will test how
+the residual--locality identities and Pareto-front structure change beyond the simple
+$U(2)$ gauge freedom used here. Direction-dependent coupling laws and material-specific
+parent Hamiltonians can enter the same diagnostic channels without changing the
+underlying state-space identifications. Repeating the shell--scale calculation along a
+denser strain path or a lattice-relaxation trajectory would resolve the corresponding
+motion of the decision landscape.
+
+The essential distinction remains: exact spectral equivalence alone is insufficient;
+restricted alignment and finite hopping support introduce the nontrivial representation
+cost.
+
+\section{Conclusions}
+
+We have separated exact spectral equivalence from the additional demands required of a
+finite-range tight-binding representation. Spectral projection can generate infinite
+support, and restricted global alignment exposes a residual that is exactly tied to
+non-onsite Fourier weight in the orthogonal flat-parent family. Metric-complete shells
+and bond-orbit identities extend the construction to non-orthogonal isotropic lattices.
+Across eight calculated cases, locality, Hamiltonian fidelity, and sorted-band fidelity
+form nontrivial sampled Pareto sets rather than sharing one optimum. Synthetic rhombic
+and Bain controls further separate geometric reordering, a frozen-parent null response,
+and a finite radial response. These results establish a controlled rank-two benchmark
+for assessing reduced Hamiltonians while preserving the distinctions among gauge
+equivalence, operator agreement, spectral agreement, and real-space support.
+
+\clearpage
+\appendix
+\input{appendices}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
