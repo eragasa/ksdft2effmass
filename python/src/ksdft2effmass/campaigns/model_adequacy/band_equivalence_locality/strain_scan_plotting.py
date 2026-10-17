@@ -12,6 +12,7 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain impo
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
     StrainResponseModel,
+    StrainResponsePointDiagnostic,
     StrainWitnessControl,
     SyntheticStrainResponseResult,
     SyntheticStrainWitnessScanResult,
@@ -19,6 +20,7 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_resp
 
 matplotlib.use("Agg")
 from matplotlib import pyplot as plt  # noqa: E402
+from matplotlib.axes import Axes  # noqa: E402
 
 _BLUE = "#0072B2"
 _VERMILION = "#D55E00"
@@ -108,6 +110,163 @@ class SyntheticStrainScanPlotResult:
     """Identify the sampled scan plots written by one request."""
 
     paths: tuple[Path, ...]
+
+
+def _positive(values: tuple[float, ...]) -> tuple[float, ...]:
+    """Return positive plotting values without changing stored diagnostics."""
+    return tuple(max(value, 1.0e-300) for value in values)
+
+
+def _delta_total_error(
+    point: StrainResponsePointDiagnostic,
+    cutoff_index: int,
+    *,
+    band: bool,
+) -> float:
+    """Return one optional aligned-difference total error for plotting."""
+    channels = point.cutoffs[cutoff_index].delta_total
+    if channels is None:
+        return float("nan")
+    return channels.maximum_band if band else channels.maximum_hamiltonian
+
+
+def _render_strain_qualification_axes(
+    axes: tuple[tuple[Axes, Axes], tuple[Axes, Axes], tuple[Axes, Axes]],
+    request: SyntheticStrainScanPlotRequest,
+) -> None:
+    """Render pathwise qualification, approximation, and mechanism channels."""
+    fractions = tuple(point.strain_fraction for point in request.geometry_result.points)
+    controls = (
+        ("frozen-parent null", _GREEN, request.frozen_response),
+        ("synthetic radial response", _VERMILION, request.radial_response),
+    )
+    for label, color, result in controls:
+        axes[0][0].plot(
+            fractions,
+            tuple(
+                point.minimum_sampled_external_isolation_gap for point in result.points
+            ),
+            color=color,
+            label=label,
+        )
+        axes[0][1].plot(
+            fractions,
+            tuple(point.minimum_seed_overlap for point in result.points),
+            color=color,
+            label=label,
+        )
+        axes[1][0].semilogy(
+            fractions,
+            _positive(
+                tuple(
+                    1.0 - point.minimum_frame_overlap_singular_value
+                    for point in result.points
+                )
+            ),
+            color=color,
+            label=label,
+        )
+    radial_points = request.radial_response.points
+    axes[1][1].semilogy(
+        fractions,
+        _positive(
+            tuple(
+                point.maximum_pointwise_frame_alignment_residual
+                for point in radial_points
+            )
+        ),
+        color=_VERMILION,
+        label="pointwise frame fit",
+    )
+    axes[1][1].semilogy(
+        fractions,
+        _positive(
+            tuple(
+                point.restricted_global_frame_alignment_residual
+                for point in radial_points
+            )
+        ),
+        color=_BLUE,
+        label="restricted global fit",
+    )
+    axes[2][0].semilogy(
+        fractions,
+        _positive(
+            tuple(point.maximum_scalar_strain_component for point in radial_points)
+        ),
+        color=_BLUE,
+        label="maximum scalar",
+    )
+    axes[2][0].semilogy(
+        fractions,
+        _positive(
+            tuple(point.maximum_traceless_strain_component for point in radial_points)
+        ),
+        color=_VERMILION,
+        label="maximum traceless",
+    )
+    axes[2][0].semilogy(
+        fractions,
+        _positive(tuple(point.rms_scalar_strain_component for point in radial_points)),
+        color=_BLUE,
+        linestyle="--",
+        label="RMS scalar",
+    )
+    axes[2][0].semilogy(
+        fractions,
+        _positive(
+            tuple(point.rms_traceless_strain_component for point in radial_points)
+        ),
+        color=_VERMILION,
+        linestyle="--",
+        label="RMS traceless",
+    )
+    tight_index = len(request.radial_response.tail_tolerances) - 1
+    axes[2][1].semilogy(
+        fractions,
+        _positive(
+            tuple(
+                _delta_total_error(point, tight_index, band=False)
+                for point in radial_points
+            )
+        ),
+        color=_VERMILION,
+        label="Hamiltonian",
+    )
+    axes[2][1].semilogy(
+        fractions,
+        _positive(
+            tuple(
+                _delta_total_error(point, tight_index, band=True)
+                for point in radial_points
+            )
+        ),
+        color=_BLUE,
+        label="sorted band",
+    )
+    axes[0][0].set_title("(a) retained-subspace isolation")
+    axes[0][0].set_ylabel(r"minimum external gap / $E_{\mathrm{ref}}$")
+    axes[0][0].legend(frameon=False)
+    axes[0][1].set_title("(b) seed qualification")
+    axes[0][1].set_ylabel("minimum seed overlap")
+    axes[1][0].set_title("(c) frame-overlap conditioning")
+    axes[1][0].set_ylabel(r"$1-\sigma_{\min}$")
+    axes[1][1].set_title("(d) radial-response frame alignment")
+    axes[1][1].set_ylabel("alignment residual")
+    axes[1][1].legend(frameon=False)
+    axes[2][0].set_title("(e) radial-response decomposition")
+    axes[2][0].set_ylabel(r"response / $E_{\mathrm{ref}}$")
+    axes[2][0].legend(frameon=False, ncol=2)
+    axes[2][1].set_title(
+        rf"(f) aligned-difference total error, tail $\leq "
+        rf"{request.radial_response.tail_tolerances[tight_index]:.0e}$"
+    )
+    axes[2][1].set_ylabel(r"maximum error / $E_{\mathrm{ref}}$")
+    axes[2][1].legend(frameon=False)
+    for row in axes:
+        for axis in row:
+            axis.set_xlabel("strain fraction")
+            axis.grid(alpha=0.22)
 
 
 class SyntheticStrainScanPlotWriter:
@@ -247,8 +406,41 @@ class SyntheticStrainScanPlotWriter:
             figure.savefig(stem.with_suffix(".pdf"), bbox_inches="tight")
             figure.savefig(stem.with_suffix(".png"), dpi=400, bbox_inches="tight")
             plt.close(figure)
+
+            diagnostic_figure, diagnostic_axes_array = plt.subplots(
+                3,
+                2,
+                figsize=(8.2, 9.2),
+                constrained_layout=True,
+            )
+            diagnostic_axes = (
+                (diagnostic_axes_array[0, 0], diagnostic_axes_array[0, 1]),
+                (diagnostic_axes_array[1, 0], diagnostic_axes_array[1, 1]),
+                (diagnostic_axes_array[2, 0], diagnostic_axes_array[2, 1]),
+            )
+            _render_strain_qualification_axes(diagnostic_axes, request)
+            diagnostic_figure.suptitle(
+                request.title
+                + "\nPathwise qualification and approximation diagnostics",
+                fontsize=10.5,
+            )
+            diagnostic_stem = (
+                request.output_directory / "strain-qualification-response-scan"
+            )
+            diagnostic_figure.savefig(
+                diagnostic_stem.with_suffix(".pdf"), bbox_inches="tight"
+            )
+            diagnostic_figure.savefig(
+                diagnostic_stem.with_suffix(".png"), dpi=400, bbox_inches="tight"
+            )
+            plt.close(diagnostic_figure)
         return SyntheticStrainScanPlotResult(
-            (stem.with_suffix(".pdf"), stem.with_suffix(".png"))
+            (
+                stem.with_suffix(".pdf"),
+                stem.with_suffix(".png"),
+                diagnostic_stem.with_suffix(".pdf"),
+                diagnostic_stem.with_suffix(".png"),
+            )
         )
 
 

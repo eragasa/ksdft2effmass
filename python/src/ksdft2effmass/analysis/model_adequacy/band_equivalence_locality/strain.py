@@ -8,6 +8,7 @@ from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
+from projectkoios.physkit.periodic.lattice import DirectLattice3D, DirectLatticeMetric
 
 FloatArray = npt.NDArray[np.float64]
 ComplexArray = npt.NDArray[np.complex128]
@@ -32,6 +33,78 @@ class SyntheticStrainPath(StrEnum):
 
     RHOMBIC_2D = "area-preserving-rhombic-triangular-to-square"
     BAIN_3D = "volume-preserving-bain-fcc-to-bcc"
+
+
+@dataclass(frozen=True, slots=True)
+class BainPathPoint:
+    """Represent one point on the continuous unit-volume Bain path."""
+
+    strain_fraction: float
+    aspect_ratio: float
+    transverse_scale: float
+    longitudinal_scale: float
+    direct_lattice: DirectLattice3D
+
+    def __post_init__(self) -> None:
+        if type(self.direct_lattice) is not DirectLattice3D:
+            raise TypeError("direct_lattice must be DirectLattice3D")
+
+    @property
+    def direct_metric(self) -> DirectLatticeMetric:
+        """Return PhysKit's metric representation of this path point."""
+        return DirectLatticeMetric(self.direct_lattice)
+
+    @property
+    def primitive_volume(self) -> float:
+        """Return the primitive-cell volume owned by the direct lattice."""
+        return self.direct_lattice.measure
+
+
+class BainPath:
+    """Evaluate the continuous unit-volume FCC-to-BCC Bain deformation."""
+
+    __slots__ = ()
+
+    def evaluate(self, strain_fraction: float) -> BainPathPoint:
+        """Evaluate the path on the closed interval containing its endpoints."""
+        if type(strain_fraction) is not float or not 0.0 <= strain_fraction <= 1.0:
+            raise ValueError("strain_fraction must be a built-in float in [0, 1]")
+        aspect_ratio = math.sqrt(2.0) + strain_fraction * (1.0 - math.sqrt(2.0))
+        transverse_scale = (2.0 / aspect_ratio) ** (1.0 / 3.0)
+        longitudinal_scale = aspect_ratio * transverse_scale
+        direct_lattice = DirectLattice3D(
+            a1=np.asarray(
+                (
+                    transverse_scale / 2.0,
+                    transverse_scale / 2.0,
+                    longitudinal_scale / 2.0,
+                ),
+                dtype=np.float64,
+            ),
+            a2=np.asarray(
+                (
+                    -transverse_scale / 2.0,
+                    transverse_scale / 2.0,
+                    longitudinal_scale / 2.0,
+                ),
+                dtype=np.float64,
+            ),
+            a3=np.asarray(
+                (
+                    transverse_scale / 2.0,
+                    -transverse_scale / 2.0,
+                    longitudinal_scale / 2.0,
+                ),
+                dtype=np.float64,
+            ),
+        )
+        return BainPathPoint(
+            strain_fraction=strain_fraction,
+            aspect_ratio=aspect_ratio,
+            transverse_scale=transverse_scale,
+            longitudinal_scale=longitudinal_scale,
+            direct_lattice=direct_lattice,
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -71,24 +144,16 @@ def _metric(path: SyntheticStrainPath, fraction: float) -> FloatArray:
         sine = math.sin(angle)
         cosine = math.cos(angle)
         return np.array(((1.0, cosine), (cosine, 1.0)), dtype=np.float64) / sine
-    ratio = math.sqrt(2.0) + fraction * (1.0 - math.sqrt(2.0))
-    basal = (2.0 / ratio) ** (1.0 / 3.0)
-    axial = ratio * basal
-    basis = np.array(
-        (
-            (basal / 2.0, -basal / 2.0, basal / 2.0),
-            (basal / 2.0, basal / 2.0, -basal / 2.0),
-            (axial / 2.0, axial / 2.0, axial / 2.0),
-        ),
+    return np.asarray(
+        BainPath().evaluate(fraction).direct_metric.metric_tensor,
         dtype=np.float64,
     )
-    return basis.T @ basis
 
 
 def _path_parameter(path: SyntheticStrainPath, fraction: float) -> float:
     if path is SyntheticStrainPath.RHOMBIC_2D:
         return math.pi / 3.0 + fraction * math.pi / 6.0
-    return math.sqrt(2.0) + fraction * (1.0 - math.sqrt(2.0))
+    return BainPath().evaluate(fraction).aspect_ratio
 
 
 def _bonds(path: SyntheticStrainPath) -> IntArray:
@@ -301,6 +366,8 @@ class SyntheticStrainCalculator:
 __all__ = [
     "BAIN_DIAMOND_BASIS_OFFSETS",
     "BAIN_FCC_UNIMODULAR_MAP",
+    "BainPath",
+    "BainPathPoint",
     "StrainPointDiagnostic",
     "SyntheticStrainCalculator",
     "SyntheticStrainPath",

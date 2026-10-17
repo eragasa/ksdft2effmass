@@ -84,16 +84,18 @@ class TestSyntheticStrainScanAssessor:
         )
         for envelope in result.locality:
             tolerance_index = tolerances.index(envelope.tail_tolerance)
-            assert envelope.maximum_physical_radius == max(
-                point.first_passing_radius[tolerance_index]
+            available_radii = tuple(
+                radius
                 for point in geometry.points
-                if point.first_passing_radius[tolerance_index] is not None
+                if (radius := point.first_passing_radius[tolerance_index]) is not None
             )
-            assert envelope.maximum_retained_blocks == max(
-                point.first_passing_blocks[tolerance_index]
+            available_block_counts = tuple(
+                count
                 for point in geometry.points
-                if point.first_passing_blocks[tolerance_index] is not None
+                if (count := point.first_passing_blocks[tolerance_index]) is not None
             )
+            assert envelope.maximum_physical_radius == max(available_radii)
+            assert envelope.maximum_retained_blocks == max(available_block_counts)
         response_by_control = {item.control: item for item in result.responses}
         assert (
             response_by_control[
@@ -107,6 +109,74 @@ class TestSyntheticStrainScanAssessor:
             ].maximum_aligned_hamiltonian_defect
             > 1.0e-3
         )
+        response_results = {
+            StrainWitnessControl.FROZEN_PARENT: frozen,
+            StrainWitnessControl.RADIAL_RESPONSE: radial,
+        }
+        qualification_by_control = {
+            item.control: item for item in result.qualifications
+        }
+        approximation_by_control = {
+            item.control: item for item in result.approximations
+        }
+        mechanism_by_control = {item.control: item for item in result.mechanisms}
+        assert set(qualification_by_control) == set(StrainWitnessControl) - {
+            StrainWitnessControl.GEOMETRY_ONLY
+        }
+        assert set(approximation_by_control) == set(qualification_by_control)
+        assert set(mechanism_by_control) == set(qualification_by_control)
+        for control, response_result in response_results.items():
+            qualification = qualification_by_control[control]
+            assert qualification.external_isolation_gap.value == min(
+                point.minimum_sampled_external_isolation_gap
+                for point in response_result.points
+            )
+            assert qualification.seed_overlap.value == min(
+                point.minimum_seed_overlap for point in response_result.points
+            )
+            assert qualification.frame_overlap_singular_value.value == min(
+                point.minimum_frame_overlap_singular_value
+                for point in response_result.points
+            )
+            assert qualification.pointwise_frame_alignment_residual.value == max(
+                point.maximum_pointwise_frame_alignment_residual
+                for point in response_result.points
+            )
+            approximation = approximation_by_control[control]
+            assert approximation.interpolation.sample_count == len(fractions)
+            assert approximation.interpolation.maximum_hamiltonian.value == max(
+                point.interpolation.maximum_hamiltonian
+                for point in response_result.points
+            )
+            assert approximation.delta_interpolation.maximum_band.value == max(
+                point.delta_interpolation.maximum_band
+                for point in response_result.points
+            )
+            assert len(approximation.cutoffs) == len(tolerances)
+            for tolerance_index, cutoff in enumerate(approximation.cutoffs):
+                assert cutoff.tail_tolerance == tolerances[tolerance_index]
+                assert cutoff.omitted_power.value == max(
+                    point.cutoffs[tolerance_index].omitted_power
+                    for point in response_result.points
+                )
+                assert cutoff.delta_omitted_power.value == max(
+                    point.cutoffs[tolerance_index].delta_omitted_power
+                    for point in response_result.points
+                )
+            mechanism = mechanism_by_control[control]
+            assert mechanism.hopping_response_minimum.value == min(
+                point.minimum_hopping_response for point in response_result.points
+            )
+            assert mechanism.hopping_response_maximum.value == max(
+                point.maximum_hopping_response for point in response_result.points
+            )
+            assert mechanism.traceless_component_maximum.value == max(
+                point.maximum_traceless_strain_component
+                for point in response_result.points
+            )
+            assert mechanism.delta_offsite_power_maximum.value == max(
+                point.delta_offsite_power for point in response_result.points
+            )
         assert result.status == "sampled-development-summary-not-continuum-certificate"
 
         mismatched = (replace(witnesses[0], points=witnesses[0].points[:-1]),) + (

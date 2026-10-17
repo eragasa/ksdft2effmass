@@ -82,8 +82,16 @@ def main() -> None:
             title="3-D Bain synthetic-strain scan",
         )
     )
-    print("maximum-volume-defect", summary.maximum_volume_defect)
-    print("maximum-direct-band-defect", summary.maximum_direct_band_defect)
+    print(
+        "maximum-volume-defect",
+        summary.maximum_volume_defect,
+        summary.maximum_volume_defect_strain_fraction,
+    )
+    print(
+        "maximum-direct-band-defect",
+        summary.maximum_direct_band_defect,
+        summary.maximum_direct_band_defect_strain_fraction,
+    )
     for witness in summary.witness_requirements:
         print(
             witness.control.value,
@@ -108,22 +116,28 @@ def main() -> None:
             response.maximum_aligned_hamiltonian_defect,
             response.maximum_strain_fraction,
         )
-    for transition in transitions.shell_transitions:
+    for qualification in summary.qualifications:
+        print("qualification-envelope", qualification)
+    for approximation in summary.approximations:
+        print("approximation-envelope", approximation)
+    for mechanism in summary.mechanisms:
+        print("response-mechanism-envelope", mechanism)
+    for shell_transition in transitions.shell_transitions:
         print(
             "shell-transition",
-            transition.tail_tolerance,
-            transition.left_strain_fraction,
-            transition.right_strain_fraction,
-            transition.left_retained_blocks,
-            transition.right_retained_blocks,
+            shell_transition.tail_tolerance,
+            shell_transition.left_strain_fraction,
+            shell_transition.right_strain_fraction,
+            shell_transition.left_retained_blocks,
+            shell_transition.right_retained_blocks,
         )
-    for transition in transitions.bond_degeneracy_transitions:
+    for bond_transition in transitions.bond_degeneracy_transitions:
         print(
             "bond-degeneracy-transition",
-            transition.left_strain_fraction,
-            transition.right_strain_fraction,
-            transition.left_distinct_bond_lengths,
-            transition.right_distinct_bond_lengths,
+            bond_transition.left_strain_fraction,
+            bond_transition.right_strain_fraction,
+            bond_transition.left_distinct_bond_lengths,
+            bond_transition.right_distinct_bond_lengths,
         )
     for path in result.paths:
         print(path)

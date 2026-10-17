@@ -24,7 +24,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestSyntheticStrainScanPlotWriter:
-    """Establish typed input checks and the two declared renderings."""
+    """Establish typed input checks and the declared renderings."""
 
     def test_execute__complete_typed_scan__writes_pdf_and_png(
         self, tmp_path: Path
@@ -85,6 +85,8 @@ class TestSyntheticStrainScanPlotWriter:
         assert result.paths == (
             tmp_path / "strain-witness-locality-scan.pdf",
             tmp_path / "strain-witness-locality-scan.png",
+            tmp_path / "strain-qualification-response-scan.pdf",
+            tmp_path / "strain-qualification-response-scan.png",
         )
         assert all(
             output.is_file() and output.stat().st_size > 0 for output in result.paths

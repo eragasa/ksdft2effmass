@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
 
 import numpy as np
@@ -12,7 +13,10 @@ from .strain import (
     SyntheticStrainResult,
 )
 from .strain_response import (
+    StrainErrorChannels,
+    StrainResponseCutoffDiagnostic,
     StrainResponseModel,
+    StrainResponsePointDiagnostic,
     StrainWitnessControl,
     SyntheticStrainResponseResult,
     SyntheticStrainWitnessScanResult,
@@ -21,13 +25,21 @@ from .strain_response import (
 
 @dataclass(frozen=True, slots=True)
 class StrainWitnessRequirementEnvelope:
-    """Retain sampled maxima for one representation-witness control."""
+    """Retain sampled extrema for one representation-witness control."""
 
     control: StrainWitnessControl
     optimized_maximum: float
     optimized_maximum_strain_fraction: float
     fixed_candidate_maximum: float
     fixed_candidate_maximum_strain_fraction: float
+    minimum_splitting_scale: float
+    minimum_splitting_scale_strain_fraction: float
+    maximum_splitting_scale: float
+    maximum_splitting_scale_strain_fraction: float
+    minimum_correlation: float
+    minimum_correlation_strain_fraction: float
+    maximum_correlation: float
+    maximum_correlation_strain_fraction: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -51,16 +63,170 @@ class StrainResponseEnvelope:
 
 
 @dataclass(frozen=True, slots=True)
+class SampledStrainMaximum:
+    """Retain one sampled maximum and the first strain where it occurs."""
+
+    value: float
+    strain_fraction: float
+
+
+@dataclass(frozen=True, slots=True)
+class SampledStrainMinimum:
+    """Retain one sampled minimum and the first strain where it occurs."""
+
+    value: float
+    strain_fraction: float
+
+
+@dataclass(frozen=True, slots=True)
+class StrainQualificationEnvelope:
+    """Retain sampled subspace and frame qualification extrema."""
+
+    control: StrainWitnessControl
+    external_isolation_gap: SampledStrainMinimum
+    seed_overlap: SampledStrainMinimum
+    frame_overlap_singular_value: SampledStrainMinimum
+    pointwise_frame_alignment_residual: SampledStrainMaximum
+    restricted_global_frame_alignment_residual: SampledStrainMaximum
+
+
+@dataclass(frozen=True, slots=True)
+class StrainErrorChannelEnvelope:
+    """Retain sampled maxima of one four-component error channel."""
+
+    sample_count: int
+    maximum_hamiltonian: SampledStrainMaximum
+    rms_hamiltonian: SampledStrainMaximum
+    maximum_band: SampledStrainMaximum
+    rms_band: SampledStrainMaximum
+
+
+@dataclass(frozen=True, slots=True)
+class StrainCutoffApproximationEnvelope:
+    """Retain sampled error and omitted-power extrema at one cutoff rule."""
+
+    tail_tolerance: float
+    omitted_power: SampledStrainMaximum
+    truncation: StrainErrorChannelEnvelope | None
+    total: StrainErrorChannelEnvelope | None
+    delta_omitted_power: SampledStrainMaximum
+    delta_truncation: StrainErrorChannelEnvelope | None
+    delta_total: StrainErrorChannelEnvelope | None
+
+
+@dataclass(frozen=True, slots=True)
+class StrainApproximationEnvelope:
+    """Retain sampled numerical-approximation extrema for one response control."""
+
+    control: StrainWitnessControl
+    aligned_strain_perturbation: StrainErrorChannelEnvelope
+    interpolation: StrainErrorChannelEnvelope
+    delta_interpolation: StrainErrorChannelEnvelope
+    nyquist_power: SampledStrainMaximum
+    delta_nyquist_power: SampledStrainMaximum
+    cutoffs: tuple[StrainCutoffApproximationEnvelope, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class StrainResponseMechanismEnvelope:
+    """Retain sampled extrema that attribute the synthetic response mechanism."""
+
+    control: StrainWitnessControl
+    hopping_response_minimum: SampledStrainMinimum
+    hopping_response_maximum: SampledStrainMaximum
+    scalar_component_maximum: SampledStrainMaximum
+    scalar_component_rms_maximum: SampledStrainMaximum
+    traceless_component_maximum: SampledStrainMaximum
+    traceless_component_rms_maximum: SampledStrainMaximum
+    delta_onsite_power_maximum: SampledStrainMaximum
+    delta_offsite_power_maximum: SampledStrainMaximum
+
+
+@dataclass(frozen=True, slots=True)
 class SyntheticStrainScanSummary:
     """Combine independently interpreted sampled scan envelopes."""
 
     base_sample_count: int
     maximum_volume_defect: float
+    maximum_volume_defect_strain_fraction: float
     maximum_direct_band_defect: float
+    maximum_direct_band_defect_strain_fraction: float
     witness_requirements: tuple[StrainWitnessRequirementEnvelope, ...]
     locality: tuple[StrainLocalityEnvelope, ...]
     responses: tuple[StrainResponseEnvelope, ...]
+    qualifications: tuple[StrainQualificationEnvelope, ...]
+    approximations: tuple[StrainApproximationEnvelope, ...]
+    mechanisms: tuple[StrainResponseMechanismEnvelope, ...]
     status: str = "sampled-development-summary-not-continuum-certificate"
+
+
+def _sampled_maximum(
+    points: tuple[StrainResponsePointDiagnostic, ...],
+    value: Callable[[StrainResponsePointDiagnostic], float],
+) -> SampledStrainMaximum:
+    point = max(points, key=value)
+    return SampledStrainMaximum(
+        value=value(point),
+        strain_fraction=point.strain_fraction,
+    )
+
+
+def _sampled_minimum(
+    points: tuple[StrainResponsePointDiagnostic, ...],
+    value: Callable[[StrainResponsePointDiagnostic], float],
+) -> SampledStrainMinimum:
+    point = min(points, key=value)
+    return SampledStrainMinimum(
+        value=value(point),
+        strain_fraction=point.strain_fraction,
+    )
+
+
+def _cutoff_maximum(
+    points: tuple[StrainResponsePointDiagnostic, ...],
+    cutoff_index: int,
+    value: Callable[[StrainResponseCutoffDiagnostic], float],
+) -> SampledStrainMaximum:
+    point = max(points, key=lambda item: value(item.cutoffs[cutoff_index]))
+    return SampledStrainMaximum(
+        value=value(point.cutoffs[cutoff_index]),
+        strain_fraction=point.strain_fraction,
+    )
+
+
+def _cutoff_error_samples(
+    points: tuple[StrainResponsePointDiagnostic, ...],
+    cutoff_index: int,
+    value: Callable[[StrainResponseCutoffDiagnostic], StrainErrorChannels | None],
+) -> tuple[tuple[float, StrainErrorChannels], ...]:
+    samples: list[tuple[float, StrainErrorChannels]] = []
+    for point in points:
+        channels = value(point.cutoffs[cutoff_index])
+        if channels is not None:
+            samples.append((point.strain_fraction, channels))
+    return tuple(samples)
+
+
+def _error_channel_envelope(
+    samples: tuple[tuple[float, StrainErrorChannels], ...],
+) -> StrainErrorChannelEnvelope | None:
+    if not samples:
+        return None
+
+    def maximum(value: Callable[[StrainErrorChannels], float]) -> SampledStrainMaximum:
+        fraction, channels = max(samples, key=lambda sample: value(sample[1]))
+        return SampledStrainMaximum(
+            value=value(channels),
+            strain_fraction=fraction,
+        )
+
+    return StrainErrorChannelEnvelope(
+        sample_count=len(samples),
+        maximum_hamiltonian=maximum(lambda channels: channels.maximum_hamiltonian),
+        rms_hamiltonian=maximum(lambda channels: channels.rms_hamiltonian),
+        maximum_band=maximum(lambda channels: channels.maximum_band),
+        rms_band=maximum(lambda channels: channels.rms_band),
+    )
 
 
 class SyntheticStrainScanAssessor:
@@ -97,6 +263,11 @@ class SyntheticStrainScanAssessor:
             raise ValueError("frozen_response must use the frozen-parent model")
         if radial_response.model is not StrainResponseModel.M2_RADIAL:
             raise ValueError("radial_response must use the radial-response model")
+        if any(
+            result.tail_tolerances != geometry_result.tail_tolerances
+            for result in (frozen_response, radial_response)
+        ):
+            raise ValueError("all scan results must use the same tail tolerances")
 
         path = geometry_result.path
         fractions = tuple(point.strain_fraction for point in geometry_result.points)
@@ -123,6 +294,22 @@ class SyntheticStrainScanAssessor:
                 result.points,
                 key=lambda point: point.fixed_candidate_operator_threshold,
             )
+            minimum_splitting = min(
+                result.points,
+                key=lambda point: point.splitting_scale,
+            )
+            maximum_splitting = max(
+                result.points,
+                key=lambda point: point.splitting_scale,
+            )
+            minimum_correlation = min(
+                result.points,
+                key=lambda point: point.finite_mesh_maximum_correlation,
+            )
+            maximum_correlation = max(
+                result.points,
+                key=lambda point: point.finite_mesh_maximum_correlation,
+            )
             witness_envelopes.append(
                 StrainWitnessRequirementEnvelope(
                     control=result.control,
@@ -130,6 +317,26 @@ class SyntheticStrainScanAssessor:
                     optimized_maximum_strain_fraction=optimized.strain_fraction,
                     fixed_candidate_maximum=fixed.fixed_candidate_operator_threshold,
                     fixed_candidate_maximum_strain_fraction=fixed.strain_fraction,
+                    minimum_splitting_scale=minimum_splitting.splitting_scale,
+                    minimum_splitting_scale_strain_fraction=(
+                        minimum_splitting.strain_fraction
+                    ),
+                    maximum_splitting_scale=maximum_splitting.splitting_scale,
+                    maximum_splitting_scale_strain_fraction=(
+                        maximum_splitting.strain_fraction
+                    ),
+                    minimum_correlation=(
+                        minimum_correlation.finite_mesh_maximum_correlation
+                    ),
+                    minimum_correlation_strain_fraction=(
+                        minimum_correlation.strain_fraction
+                    ),
+                    maximum_correlation=(
+                        maximum_correlation.finite_mesh_maximum_correlation
+                    ),
+                    maximum_correlation_strain_fraction=(
+                        maximum_correlation.strain_fraction
+                    ),
                 )
             )
 
@@ -186,12 +393,17 @@ class SyntheticStrainScanAssessor:
             )
 
         responses: list[StrainResponseEnvelope] = []
-        for control, response_result in (
+        qualifications: list[StrainQualificationEnvelope] = []
+        approximations: list[StrainApproximationEnvelope] = []
+        mechanisms: list[StrainResponseMechanismEnvelope] = []
+        response_results = (
             (StrainWitnessControl.FROZEN_PARENT, frozen_response),
             (StrainWitnessControl.RADIAL_RESPONSE, radial_response),
-        ):
+        )
+        for control, response_result in response_results:
+            points = response_result.points
             maximum = max(
-                response_result.points,
+                points,
                 key=lambda point: point.aligned_strain_perturbation.maximum_hamiltonian,
             )
             responses.append(
@@ -203,21 +415,174 @@ class SyntheticStrainScanAssessor:
                     maximum_strain_fraction=maximum.strain_fraction,
                 )
             )
+            qualifications.append(
+                StrainQualificationEnvelope(
+                    control=control,
+                    external_isolation_gap=_sampled_minimum(
+                        points,
+                        lambda point: point.minimum_sampled_external_isolation_gap,
+                    ),
+                    seed_overlap=_sampled_minimum(
+                        points,
+                        lambda point: point.minimum_seed_overlap,
+                    ),
+                    frame_overlap_singular_value=_sampled_minimum(
+                        points,
+                        lambda point: point.minimum_frame_overlap_singular_value,
+                    ),
+                    pointwise_frame_alignment_residual=_sampled_maximum(
+                        points,
+                        lambda point: point.maximum_pointwise_frame_alignment_residual,
+                    ),
+                    restricted_global_frame_alignment_residual=_sampled_maximum(
+                        points,
+                        lambda point: point.restricted_global_frame_alignment_residual,
+                    ),
+                )
+            )
+            aligned = _error_channel_envelope(
+                tuple(
+                    (point.strain_fraction, point.aligned_strain_perturbation)
+                    for point in points
+                )
+            )
+            interpolation = _error_channel_envelope(
+                tuple((point.strain_fraction, point.interpolation) for point in points)
+            )
+            delta_interpolation = _error_channel_envelope(
+                tuple(
+                    (point.strain_fraction, point.delta_interpolation)
+                    for point in points
+                )
+            )
+            if aligned is None or interpolation is None or delta_interpolation is None:
+                raise RuntimeError("complete scan error channels must not be empty")
+            cutoff_envelopes: list[StrainCutoffApproximationEnvelope] = []
+            for tolerance_index, tolerance in enumerate(
+                response_result.tail_tolerances
+            ):
+                cutoff_envelopes.append(
+                    StrainCutoffApproximationEnvelope(
+                        tail_tolerance=tolerance,
+                        omitted_power=_cutoff_maximum(
+                            points,
+                            tolerance_index,
+                            lambda cutoff: cutoff.omitted_power,
+                        ),
+                        truncation=_error_channel_envelope(
+                            _cutoff_error_samples(
+                                points,
+                                tolerance_index,
+                                lambda cutoff: cutoff.truncation,
+                            )
+                        ),
+                        total=_error_channel_envelope(
+                            _cutoff_error_samples(
+                                points,
+                                tolerance_index,
+                                lambda cutoff: cutoff.total,
+                            )
+                        ),
+                        delta_omitted_power=_cutoff_maximum(
+                            points,
+                            tolerance_index,
+                            lambda cutoff: cutoff.delta_omitted_power,
+                        ),
+                        delta_truncation=_error_channel_envelope(
+                            _cutoff_error_samples(
+                                points,
+                                tolerance_index,
+                                lambda cutoff: cutoff.delta_truncation,
+                            )
+                        ),
+                        delta_total=_error_channel_envelope(
+                            _cutoff_error_samples(
+                                points,
+                                tolerance_index,
+                                lambda cutoff: cutoff.delta_total,
+                            )
+                        ),
+                    )
+                )
+            approximations.append(
+                StrainApproximationEnvelope(
+                    control=control,
+                    aligned_strain_perturbation=aligned,
+                    interpolation=interpolation,
+                    delta_interpolation=delta_interpolation,
+                    nyquist_power=_sampled_maximum(
+                        points,
+                        lambda point: point.nyquist_power,
+                    ),
+                    delta_nyquist_power=_sampled_maximum(
+                        points,
+                        lambda point: point.delta_nyquist_power,
+                    ),
+                    cutoffs=tuple(cutoff_envelopes),
+                )
+            )
+            mechanisms.append(
+                StrainResponseMechanismEnvelope(
+                    control=control,
+                    hopping_response_minimum=_sampled_minimum(
+                        points,
+                        lambda point: point.minimum_hopping_response,
+                    ),
+                    hopping_response_maximum=_sampled_maximum(
+                        points,
+                        lambda point: point.maximum_hopping_response,
+                    ),
+                    scalar_component_maximum=_sampled_maximum(
+                        points,
+                        lambda point: point.maximum_scalar_strain_component,
+                    ),
+                    scalar_component_rms_maximum=_sampled_maximum(
+                        points,
+                        lambda point: point.rms_scalar_strain_component,
+                    ),
+                    traceless_component_maximum=_sampled_maximum(
+                        points,
+                        lambda point: point.maximum_traceless_strain_component,
+                    ),
+                    traceless_component_rms_maximum=_sampled_maximum(
+                        points,
+                        lambda point: point.rms_traceless_strain_component,
+                    ),
+                    delta_onsite_power_maximum=_sampled_maximum(
+                        points,
+                        lambda point: point.delta_onsite_power,
+                    ),
+                    delta_offsite_power_maximum=_sampled_maximum(
+                        points,
+                        lambda point: point.delta_offsite_power,
+                    ),
+                )
+            )
 
+        volume_point = max(
+            geometry_result.points,
+            key=lambda point: abs(float(np.linalg.det(np.asarray(point.metric))) - 1.0),
+        )
+        direct_band_point = max(
+            (point for result in witness_results for point in result.points),
+            key=lambda point: point.maximum_direct_band_defect,
+        )
         return SyntheticStrainScanSummary(
             base_sample_count=len(fractions),
-            maximum_volume_defect=max(
-                abs(float(np.linalg.det(np.asarray(point.metric))) - 1.0)
-                for point in geometry_result.points
+            maximum_volume_defect=abs(
+                float(np.linalg.det(np.asarray(volume_point.metric))) - 1.0
             ),
-            maximum_direct_band_defect=max(
-                point.maximum_direct_band_defect
-                for result in witness_results
-                for point in result.points
+            maximum_volume_defect_strain_fraction=volume_point.strain_fraction,
+            maximum_direct_band_defect=direct_band_point.maximum_direct_band_defect,
+            maximum_direct_band_defect_strain_fraction=(
+                direct_band_point.strain_fraction
             ),
             witness_requirements=tuple(witness_envelopes),
             locality=tuple(locality),
             responses=tuple(responses),
+            qualifications=tuple(qualifications),
+            approximations=tuple(approximations),
+            mechanisms=tuple(mechanisms),
         )
 
 
@@ -455,9 +820,16 @@ class SyntheticStrainTransitionRefiner:
 
 
 __all__ = [
+    "SampledStrainMaximum",
+    "SampledStrainMinimum",
+    "StrainApproximationEnvelope",
     "StrainBondDegeneracyTransitionBracket",
+    "StrainCutoffApproximationEnvelope",
+    "StrainErrorChannelEnvelope",
     "StrainLocalityEnvelope",
+    "StrainQualificationEnvelope",
     "StrainResponseEnvelope",
+    "StrainResponseMechanismEnvelope",
     "StrainWitnessRequirementEnvelope",
     "StrainShellTransitionBracket",
     "SyntheticStrainScanAssessor",
