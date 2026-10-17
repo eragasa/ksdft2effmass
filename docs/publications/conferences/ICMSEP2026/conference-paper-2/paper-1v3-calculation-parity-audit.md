@@ -28,41 +28,56 @@ remain distinct. \(E_{\mathrm{ref}}\) is the declared energy scale, \(\kappa\) i
 declared gauge-amplitude parameter, and all lattice radii are measured with the relevant
 direct-lattice metric.
 
-The checklist currently contains 110 obligations: 97 calculated quantities awaiting
-independent parity review, three tolerance-dependent conclusions that remain unresolved,
-two closure-phase quantities needing a defined multidimensional scalar reduction, and
-eight literal one-dimensional quantities whose inapplicability must be confirmed.
+The checklist currently contains 110 obligations: 73 calculated quantities awaiting
+independent parity review, 26 completed development-parity checks (five restricted-
+alignment checks, 12 threshold/refinement checks, and nine frame/transport/closure
+checks), three tolerance-dependent conclusions that remain unresolved, and eight
+literal one-dimensional quantities whose inapplicability must be confirmed. A completed box
+records a definition and an independent development reconstruction; it does not confer
+scientific qualification. For the completed alignment checks, direct finite-mesh
+correlations agree with the applicable Bessel-product or constrained zero-mode
+comparators in bounded square, cubic, triangular, and FCC controls, and the refinement
+angle, correlation, and midpoint reductions were reconstructed directly from adjacent
+levels. For the completed closure checks, the ordered link products and their phase
+reductions were reconstructed independently in bounded two- and three-dimensional
+frames. Full-rank transport singular values, Procrustes residuals, applied rank cutoffs,
+link-unitarity defects, closure-unitarity defects, frame orthonormality, and periodic
+frame closure were likewise reconstructed from the parent projectors and neighbor
+overlaps rather than accepted from the reported reductions. The positive-
+scale minimum and unit-scale exact-spectrum residuals were evaluated directly from the
+aligned matrices, while their normalized thresholds, midpoint defects, and refinement
+changes were reconstructed separately.
 
 ## 1. Restricted global alignment
 
 These checks concern the declared momentum-independent \(SO(2)\) alignment and positive
 splitting scale. They must not be replaced by a momentum-dependent pointwise gauge.
 
-- [ ] Evaluate the finite-mesh estimate of the maximum restricted correlation on the declared construction mesh. *(unitless)*
-- [ ] Bound the change in the optimizing global rotation angle under amplitude refinement. *(unitless)*
-- [ ] Recompute the maximum restricted correlation for every dimensional family. *(unitless)*
-- [ ] Bound the refinement change in the maximum restricted correlation. *(unitless)*
-- [ ] Evaluate the midpoint interpolation defect of the restricted correlation. *(unitless)*
+- [x] Evaluate the finite-mesh estimate of the maximum restricted correlation on the declared construction mesh. *(unitless)*
+- [x] Bound the change in the optimizing global rotation angle under amplitude refinement. *(unitless)*
+- [x] Recompute the maximum restricted correlation for every dimensional family. *(unitless)*
+- [x] Bound the refinement change in the maximum restricted correlation. *(unitless)*
+- [x] Evaluate the midpoint interpolation defect of the restricted correlation. *(unitless)*
 
 ## 2. Thresholds, scale optimization, refinement, and scientific dispositions
 
 These checks distinguish the best positive splitting scale from the unit-scale problem
 and keep numerical refinement separate from a scientific pass/fail conclusion.
 
-- [ ] State the dimensionless tolerance used for each scientific decision; do not inherit the Paper 1 value without justification.
-- [ ] Evaluate the endpoint minimum operator threshold divided by \(\sqrt{\kappa}\). *(unitless)*
-- [ ] Evaluate the departure from the flat-parent residual--locality identity. *(unitless)*
-- [ ] Evaluate the exact-spectrum joint operator threshold divided by \(\sqrt{\kappa}\). *(unitless)*
-- [ ] Bound the largest refinement change among the final reported outcomes. *(unitless)*
-- [ ] Bound the largest refinement change among invariants of the parent Hamiltonian. *(unitless)*
-- [ ] Evaluate the midpoint defect of the joint threshold. *(in units of \(E_{\mathrm{ref}}\))*
-- [ ] Separate interpolation error from the midpoint defect of the joint threshold. *(in units of \(E_{\mathrm{ref}}\))*
-- [ ] Bound the largest refinement change among parent-model diagnostics. *(unitless)*
-- [ ] Bound the largest refinement change in the operator or joint threshold. *(in units of \(E_{\mathrm{ref}}\))*
-- [ ] Determine whether the momentum-resolved criterion passes, fails, or remains scientifically unresolved.
+- [x] State the dimensionless tolerance used for each scientific decision; do not inherit the Paper 1 value without justification.
+- [x] Evaluate the endpoint minimum operator threshold divided by \(\sqrt{\kappa}\). *(unitless)*
+- [x] Evaluate the departure from the flat-parent residual--locality identity. *(unitless)*
+- [x] Evaluate the exact-spectrum joint operator threshold divided by \(\sqrt{\kappa}\). *(unitless)*
+- [x] Bound the largest refinement change among the final reported outcomes. *(unitless)*
+- [x] Bound the largest refinement change among invariants of the parent Hamiltonian. *(unitless)*
+- [x] Evaluate the midpoint defect of the joint threshold. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Separate interpolation error from the midpoint defect of the joint threshold. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Bound the largest refinement change among parent-model diagnostics. *(unitless)*
+- [x] Bound the largest refinement change in the operator or joint threshold. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Determine whether the momentum-resolved criterion passes, fails, or remains scientifically unresolved.
 - [ ] Decide whether the optimized-scale result meets a frozen family-specific tolerance. *(currently unresolved because no tolerance is frozen)*
 - [ ] Decide whether the unit-splitting-scale result meets a frozen family-specific tolerance. *(currently unresolved because no tolerance is frozen)*
-- [ ] Recompute the positive splitting scale that minimizes the restricted-alignment residual. *(unitless)*
+- [x] Recompute the parent splitting power \(\kappa\) and the optimal nonnegative comparison multiplier \(\lambda_\ast=\max(0,\mu_{\max})\). *(unitless)*
 - [ ] Decide whether all required family-specific tolerances are satisfied simultaneously. *(currently unresolved because no tolerances are frozen)*
 
 ## 3. Frame transport, periodic closure, and sewing
@@ -71,15 +86,15 @@ These checks qualify the retained frame over the Brillouin torus. A rank-deficie
 transport overlap invalidates closure and plaquette interpretation; an arbitrary unitary
 completion must not be treated as physical evidence.
 
-- [ ] Define and evaluate the first scalar reduction of the multidimensional closure-holonomy eigenphases. *(radians; reduction still to be defined)*
-- [ ] Define and evaluate the second scalar reduction of the multidimensional closure-holonomy eigenphases. *(radians; reduction still to be defined)*
-- [ ] Bound \(\|W^\dagger W-I\|\) for every closure holonomy \(W\). *(unitless)*
-- [ ] Bound \(\|F(\mathbf k)^\dagger F(\mathbf k)-I\|\) over the sampled Brillouin zone. *(unitless)*
-- [ ] Evaluate the maximum residual of the unitary Procrustes transport problem. *(unitless)*
-- [ ] Record the singular-value cutoff used to declare a transport overlap rank deficient. *(unitless)*
-- [ ] Bound the unitarity defect of every full-rank transport link. *(unitless)*
-- [ ] Record the minimum singular value among all sampled transport overlaps. *(unitless)*
-- [ ] Evaluate the defect in periodic closure of the transported frame. *(unitless)*
+- [x] Evaluate \(\Phi_0=\max_{\alpha,\mathbf k_\perp}|\phi_{\alpha,0}(\mathbf k_\perp)|\), where \(\phi_{\alpha,0}\) is the lower ordered principal eigenphase of the full-rank closure holonomy around reciprocal direction \(\alpha\). *(radians)*
+- [x] Evaluate \(\Phi_1=\max_{\alpha,\mathbf k_\perp}|\phi_{\alpha,1}(\mathbf k_\perp)|\), where \(\phi_{\alpha,1}\) is the upper ordered principal eigenphase of the same closure holonomy. *(radians)*
+- [x] Bound \(\|W^\dagger W-I\|\) for every closure holonomy \(W\). *(unitless)*
+- [x] Bound \(\|F(\mathbf k)^\dagger F(\mathbf k)-I\|\) over the sampled Brillouin zone. *(unitless)*
+- [x] Evaluate the maximum residual of the unitary Procrustes transport problem. *(unitless)*
+- [x] Record the singular-value cutoff used to declare a transport overlap rank deficient. *(unitless)*
+- [x] Bound the unitarity defect of every full-rank transport link. *(unitless)*
+- [x] Record the minimum singular value among all sampled transport overlaps. *(unitless)*
+- [x] Evaluate the defect in periodic closure of the transported frame. *(unitless)*
 
 ## 4. Fourier locality and omitted-weight accounting
 

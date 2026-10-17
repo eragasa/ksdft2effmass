@@ -116,8 +116,10 @@ operator threshold additionally optimizes the positive splitting scale and separ
 reports the unit-scale exact-spectrum threshold. That distinction is now explicit in the
 parity contract and calculator implementation. All four three-level artifact ladders
 have been regenerated, and every catalog row now has an implemented, explicitly
-unresolved, explicitly inapplicable, or multidimensional-partial mapping. Row-level
-independent parity verification and scalar closure-phase aggregation remain open.
+unresolved or explicitly inapplicable mapping. The two ordered closure phases now use
+the worst-case magnitude over reciprocal direction and transverse base point, with
+independent 2-D/3-D reconstruction. Row-level independent parity verification remains
+open.
 
 The other blockers remain frozen caps and tolerances, strict strain artifacts and
 independent verification, pointwise/global strain comparison, retained

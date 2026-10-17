@@ -837,16 +837,33 @@ cannot substitute for those two Paper 1 quantities. The complete predecessor cat
 also requires frame/sewing, locality-power, Weyl, first-passing-context, refinement, and
 provenance counterparts in every family.
 
+For rank-two closure diagnostics, let $W_\alpha(\mathbf k_\perp)$ be the ordered product
+of full-rank transport links around reciprocal direction $\alpha$ at transverse base
+point $\mathbf k_\perp$. If
+$-\pi\le\phi_{\alpha,0}(\mathbf k_\perp)\le
+\phi_{\alpha,1}(\mathbf k_\perp)\le\pi$ are its ordered principal eigenphases, the two
+Paper 1 phase-set counterparts are
+
+$$
+\Phi_j=\max_{\alpha,\mathbf k_\perp}
+|\phi_{\alpha,j}(\mathbf k_\perp)|,
+\qquad j\in\{0,1\}.
+$$
+
+This reduction is applicable only when every contributing link is full rank. It is
+reported with closure-unitarity and plaquette defects and has no asserted topological
+meaning.
+
 ## VII. Results
 
 Replaceable bounded development records exercise a partial numerical channel sequence
 from square lattice through the silicon-inspired diamond target. A strict Paper 1
 catalog audit initially found missing or incompletely serialized predecessor channels.
 The regenerated records now map all 110 predecessor quantities as implemented,
-explicitly unresolved, explicitly inapplicable, or multidimensional-partial, including
-the corrected positive-splitting alignment and analytic amplitude-resolution ladder.
-Row-level parity verification and scalar closure-phase aggregation remain open and still
-preclude quantitative scientific use. The sparse actions use three construction levels: $16^2$, $32^2$, and $64^2$ in 2-D and $8^3$,
+explicitly unresolved, or explicitly inapplicable, including the corrected
+positive-splitting alignment, analytic amplitude-resolution ladder, and the
+multidimensional closure-phase reduction defined above. Row-level parity verification
+remains open and still precludes quantitative scientific use. The sparse actions use three construction levels: $16^2$, $32^2$, and $64^2$ in 2-D and $8^3$,
 $16^3$, and $32^3$ in 3-D, with separately shifted evaluation meshes and unchanged
 models, thresholds, and shell caps. All development verifiers pass with stored identity
 defects below $2.0\times10^{-14}$; this envelope now includes the newly serialized

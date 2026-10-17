@@ -56,8 +56,9 @@ remain open. Bounded three-level actions with independent development verifiers 
 exercise all four families without conferring evidence status. One pointwise
 graphene-family shell decision changes between the first two levels; every decision is
 unchanged on the final refinement. All 110 Paper 1 catalog rows now have an explicit
-mapping, while row-level independent parity verification and the multidimensional
-closure-phase aggregation remain open.
+mapping. The rank-two multidimensional closure phases use independently reconstructed
+worst-case ordered-eigenphase magnitudes; row-level independent parity verification
+remains open.
 ``Graphene-inspired'' and
 ``silicon-inspired'' identify
 structural synthetic controls only; neither is a material parametrization or validation.
