@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ksdft2effmass.campaign.model-adequacy.band-equivalence-locality.shell-scale-decision-request.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["environment", "scale_sample_count", "schema", "source_analysis_request_sha256", "status"],
+  "properties": {
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ksdft2effmass", "matplotlib", "numpy", "platform", "projectkoios_optimization", "projectkoios_physkit", "python"],
+      "properties": {
+        "ksdft2effmass": {"type": "string", "minLength": 1},
+        "matplotlib": {"type": "string", "minLength": 1},
+        "numpy": {"type": "string", "minLength": 1},
+        "platform": {"type": "string", "minLength": 1},
+        "projectkoios_optimization": {"type": "string", "minLength": 1},
+        "projectkoios_physkit": {"type": "string", "minLength": 1},
+        "python": {"type": "string", "minLength": 1}
+      }
+    },
+    "scale_sample_count": {"type": "integer", "minimum": 2, "maximum": 1001},
+    "schema": {"const": "ksdft2effmass.campaign.model-adequacy.band-equivalence-locality.shell-scale-decision-request.v1"},
+    "source_analysis_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {"const": "sampled-development-request-not-evidence"}
+  }
+}

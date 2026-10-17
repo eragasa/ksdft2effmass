@@ -40,6 +40,30 @@ diamond need not originate from the same sampled point.
 
 ![Cross-family development tolerance-requirement map.](analysis/development/tolerance-requirement-map.png)
 
+## Companion shell--scale decision landscapes
+
+The companion calculation uses each case's maximum declared parent scale and gauge
+amplitude. For every complete metric shell under the declared cap, it samples 17
+uniformly spaced coordinates on
+
+$$
+\lambda(u)=(1-u)\lambda_*+u,\qquad 0\le u\le1,
+$$
+
+where $\lambda_*$ is the nonnegative restricted-alignment scale. It minimizes the
+three-component vector
+
+$$
+(N_{\mathrm{blocks}},\ \varepsilon_H,\ \varepsilon_E),
+$$
+
+with Hamiltonian error normalized by $\sqrt2E_{\mathrm{ref}}$ and sorted-band error by
+$E_{\mathrm{ref}}$. A calculated vertex is nondominated only when no other calculated
+vertex weakly improves all three components and strictly improves at least one. Unlike
+the componentwise family diamond above, every such vertex is one attainable sampled
+decision. The triangular surface visualization joins adjacent cells in the discrete
+shell--scale grid; it supplies no interpolation, convexity, or continuum-frontier claim.
+
 ## Interpretation boundary
 
 This is a requirement map, not an acceptance plot. No shaded pass region or decision

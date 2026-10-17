@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ksdft2effmass.campaign.model-adequacy.band-equivalence-locality.shell-scale-decision-result.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["cases", "construction_size", "decision_request_sha256", "evaluation_size", "family", "scale_sample_count", "schema", "status"],
+  "properties": {
+    "cases": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/case"}},
+    "construction_size": {"type": "integer", "minimum": 2},
+    "decision_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evaluation_size": {"type": "integer", "minimum": 2},
+    "family": {"enum": ["ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping-locality", "ksdft2effmass.campaign.model-adequacy.periodic2d-nonorthogonal.band-equivalence-versus-hopping-locality", "ksdft2effmass.campaign.model-adequacy.periodic3d.band-equivalence-versus-hopping-locality", "ksdft2effmass.campaign.model-adequacy.periodic3d-nonorthogonal.band-equivalence-versus-hopping-locality"]},
+    "scale_sample_count": {"type": "integer", "minimum": 2, "maximum": 1001},
+    "schema": {"const": "ksdft2effmass.campaign.model-adequacy.band-equivalence-locality.shell-scale-decision-result.v1"},
+    "status": {"const": "sampled-development-landscape-not-continuum-or-acceptance-evidence"}
+  },
+  "$defs": {
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["comparison_scale", "maximum_hamiltonian_error", "maximum_sorted_band_error", "pareto_efficient", "retained_blocks", "scale_path_coordinate", "shell_index"],
+      "properties": {
+        "comparison_scale": {"type": "number", "minimum": 0},
+        "maximum_hamiltonian_error": {"type": "number", "minimum": 0},
+        "maximum_sorted_band_error": {"type": "number", "minimum": 0},
+        "pareto_efficient": {"type": "boolean"},
+        "retained_blocks": {"type": "integer", "minimum": 1},
+        "scale_path_coordinate": {"type": "number", "minimum": 0, "maximum": 1},
+        "shell_index": {"type": "integer", "minimum": 0}
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["calculated_vertex_count", "comparison_scales", "gauge_amplitude", "name", "optimized_comparison_scale", "parent_scale", "pareto_efficient_vertex_count", "points", "retained_block_counts", "scale_path_coordinates", "shell_indices"],
+      "properties": {
+        "calculated_vertex_count": {"type": "integer", "minimum": 1},
+        "comparison_scales": {"type": "array", "minItems": 2, "items": {"type": "number", "minimum": 0}},
+        "gauge_amplitude": {"type": "number", "minimum": 0},
+        "name": {"type": "string", "minLength": 1},
+        "optimized_comparison_scale": {"type": "number", "minimum": 0},
+        "parent_scale": {"type": "number", "minimum": 0},
+        "pareto_efficient_vertex_count": {"type": "integer", "minimum": 1},
+        "points": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/point"}},
+        "retained_block_counts": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 1}},
+        "scale_path_coordinates": {"type": "array", "minItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+        "shell_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}
+      }
+    }
+  }
+}

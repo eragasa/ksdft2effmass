@@ -24,6 +24,13 @@ PYTHONPATH=python/src python/.venv/bin/python \
   experiments/model-adequacy/band-equivalence-dimensional-comparison/plot_development.py
 ```
 
-The command writes replaceable PNG and PDF outputs under `analysis/development/`. These
-outputs establish neither scientific acceptance nor retained evidence. No production
-Quantum ESPRESSO or Wannier90 execution is involved.
+The sampled shell--scale decision landscapes use a separate composition entry point:
+
+```console
+PYTHONPATH=python/src python/.venv/bin/python \
+  experiments/model-adequacy/band-equivalence-dimensional-comparison/plot_shell_scale_decision_landscapes.py
+```
+
+Both commands write replaceable PNG and PDF outputs under `analysis/development/`.
+These outputs establish neither a continuum Pareto frontier, scientific acceptance, nor
+retained evidence. No production Quantum ESPRESSO or Wannier90 execution is involved.
