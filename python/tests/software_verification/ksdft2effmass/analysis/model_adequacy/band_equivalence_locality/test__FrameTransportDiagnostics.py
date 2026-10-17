@@ -7,10 +7,7 @@ from typing import ClassVar
 
 import numpy as np
 import pytest
-from jsonschema import (  # type: ignore[import-untyped]
-    Draft202012Validator,
-    ValidationError,
-)
+from jsonschema import ValidationError  # type: ignore[import-untyped]
 from numpy.typing import NDArray
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
@@ -21,11 +18,10 @@ from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLattice
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
     alignment,
-    application,
     definitions,
-    schemas,
-    serialization,
 )
+from ksdft2effmass.application import band_equivalence_locality as application
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality import schemas
 
 type ComplexArray = NDArray[np.complex128]
 
@@ -280,23 +276,27 @@ class TestFrameTransportDiagnostics:
 
     def test_roundoff_cutoff_and_v1_schema_are_joint_evidence(self) -> None:
         definition = self.analysis_request()
-        result = application.BandEquivalenceLocalityAnalysis().calculate(definition)
-        point = result.cases[0].points[0]
+        result = application.BandEquivalenceLocalityResultConstructor().execute(
+            definition
+        )
+        point = result.diagnostics.cases[0].points[0]
 
         assert point.maximum_transport_procrustes_residual == 0.0
         assert point.maximum_transport_squared_residual_roundoff_cutoff > 0.0
-        document = serialization.band_equivalence_locality_result_document(result)
-        Draft202012Validator(
-            schemas.band_equivalence_locality_result_schema(result.family)
-        ).validate(document)
-        schema_identity = document["schema"]
-        assert isinstance(schema_identity, str)
-        assert schema_identity.endswith(".v1")
+        document = result.document
+        schemas.BandEquivalenceLocalitySchema(
+            result.diagnostics.family,
+            schemas.BandEquivalenceLocalitySchemaKind.ANALYSIS_RESULT,
+        ).validate(document.canonical_bytes())
+        assert b'"schema":"' in document.canonical_bytes()
+        assert b'.v1"' in document.canonical_bytes()
 
     def test_record_and_schema_reject_zero_filled_inapplicable_topology(self) -> None:
         definition = self.analysis_request()
-        result = application.BandEquivalenceLocalityAnalysis().calculate(definition)
-        point = result.cases[0].points[0]
+        result = application.BandEquivalenceLocalityResultConstructor().execute(
+            definition
+        )
+        point = result.diagnostics.cases[0].points[0]
         with pytest.raises(ValueError, match="prohibits topology diagnostics"):
             replace(
                 point,
@@ -310,21 +310,22 @@ class TestFrameTransportDiagnostics:
                 maximum_plaquette_holonomy_phase=0.0,
             )
 
-        document = serialization.band_equivalence_locality_result_document(result)
-        cases = document["cases"]
-        assert isinstance(cases, list)
-        first_case = cases[0]
-        assert isinstance(first_case, dict)
-        points = first_case["points"]
-        assert isinstance(points, list)
-        serialized_point = points[0]
-        assert isinstance(serialized_point, dict)
-        serialized_point["transport_rank_deficient_link_count"] = 1
-        serialized_point["transport_closure_and_plaquette_applicable"] = False
-        serialized_point["transport_closure_and_plaquette_inapplicable_reason"] = (
-            definitions.TRANSPORT_RANK_DEFICIENT_REASON
+        document = result.document
+        malformed = document.canonical_bytes().replace(
+            b'"transport_rank_deficient_link_count":0',
+            b'"transport_rank_deficient_link_count":1',
+        )
+        malformed = malformed.replace(
+            b'"transport_closure_and_plaquette_applicable":true',
+            b'"transport_closure_and_plaquette_applicable":false',
+        )
+        malformed = malformed.replace(
+            b'"transport_closure_and_plaquette_inapplicable_reason":null',
+            b'"transport_closure_and_plaquette_inapplicable_reason":'
+            b'"rank-deficient neighbor overlap does not identify unique transport"',
         )
         with pytest.raises(ValidationError):
-            Draft202012Validator(
-                schemas.band_equivalence_locality_result_schema(result.family)
-            ).validate(document)
+            schemas.BandEquivalenceLocalitySchema(
+                result.diagnostics.family,
+                schemas.BandEquivalenceLocalitySchemaKind.ANALYSIS_RESULT,
+            ).validate(malformed)

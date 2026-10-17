@@ -35,11 +35,10 @@ class BandEquivalenceLocalityRefinementPair:
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityRefinementResult:
-    """Retain a conservative three-level family refinement assessment."""
+class BandEquivalenceLocalityRefinementAssessment:
+    """Retain a conservative hash-free family refinement assessment."""
 
     family: BandEquivalenceLocalityFamily
-    source_result_sha256: tuple[str, ...]
     refinements: tuple[BandEquivalenceLocalityRefinementPair, ...]
     required_stable_refinements: int
     momentum_disposition: str
@@ -53,5 +52,5 @@ class BandEquivalenceLocalityRefinementResult:
 
 __all__ = [
     "BandEquivalenceLocalityRefinementPair",
-    "BandEquivalenceLocalityRefinementResult",
+    "BandEquivalenceLocalityRefinementAssessment",
 ]

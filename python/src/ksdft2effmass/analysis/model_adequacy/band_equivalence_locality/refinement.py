@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-import hashlib
 import math
 
-from .records import BandEquivalenceLocalityResult, PointDiagnostic
+from .records import BandEquivalenceLocalityDiagnostics, PointDiagnostic
 from .refinement_records import (
+    BandEquivalenceLocalityRefinementAssessment,
     BandEquivalenceLocalityRefinementPair,
-    BandEquivalenceLocalityRefinementResult,
-)
-from .serialization import (
-    band_equivalence_locality_result_document,
-    canonical_json_bytes,
 )
 
 
@@ -228,18 +223,16 @@ class BandEquivalenceLocalityRefinementAnalyzer:
 
     def execute(
         self,
-        results: tuple[BandEquivalenceLocalityResult, ...],
-    ) -> BandEquivalenceLocalityRefinementResult:
+        results: tuple[BandEquivalenceLocalityDiagnostics, ...],
+    ) -> BandEquivalenceLocalityRefinementAssessment:
         if type(results) is not tuple or len(results) < 3:
             raise ValueError("results must contain at least three mesh levels")
-        if any(type(result) is not BandEquivalenceLocalityResult for result in results):
-            raise TypeError("results must contain BandEquivalenceLocalityResult values")
-        source_result_sha256 = tuple(
-            hashlib.sha256(
-                canonical_json_bytes(band_equivalence_locality_result_document(result))
-            ).hexdigest()
-            for result in results
-        )
+        if any(
+            type(result) is not BandEquivalenceLocalityDiagnostics for result in results
+        ):
+            raise TypeError(
+                "results must contain BandEquivalenceLocalityDiagnostics values"
+            )
         family = results[0].family
         if any(result.family is not family for result in results):
             raise ValueError("all refinement results must belong to one family")
@@ -361,9 +354,8 @@ class BandEquivalenceLocalityRefinementAnalyzer:
                     ),
                 )
             )
-        return BandEquivalenceLocalityRefinementResult(
+        return BandEquivalenceLocalityRefinementAssessment(
             family=family,
-            source_result_sha256=source_result_sha256,
             refinements=tuple(pairs),
             required_stable_refinements=2,
             momentum_disposition="unresolved",

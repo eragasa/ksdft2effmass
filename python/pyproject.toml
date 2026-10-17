@@ -89,6 +89,13 @@ where = ["src"]
 include = ["ksdft2effmass*"]
 
 
+[tool.setuptools.package-data]
+ksdft2effmass = ["py.typed"]
+"ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality" = [
+    "schema_documents/*.json",
+]
+
+
 [tool.pytest.ini_options]
 minversion = "8.0"
 testpaths = ["tests"]
@@ -142,8 +149,8 @@ indent-style = "space"
 
 
 [tool.uv.sources]
-projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "f3a295fde4aeb905414da6375ec4f2794480628d" }
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "c44e9a2577734af59ceab63e695eac686788b8df" }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "2c6dd7f717722f6b0495feb8cfe1287a104268a6" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "d81febb811fbc4feb014530fcae6cf6d9ad9ead5" }
 
 
 [tool.mypy]

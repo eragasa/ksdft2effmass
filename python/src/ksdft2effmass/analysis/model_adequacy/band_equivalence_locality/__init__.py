@@ -1,10 +1,5 @@
 """Public API for bounded band-equivalence/locality analysis."""
 
-from .application import (
-    BandEquivalenceLocalityAnalysis,
-    BandEquivalenceLocalityRefinementRequest,
-    BandEquivalenceLocalityVerificationRequest,
-)
 from .definitions import (
     BandEquivalenceLocalityCase,
     BandEquivalenceLocalityFamily,
@@ -13,21 +8,18 @@ from .definitions import (
     ParentKind,
 )
 from .records import (
-    BandEquivalenceLocalityResult,
-    BandEquivalenceLocalityVerificationResult,
+    BandEquivalenceLocalityDiagnostics,
+    BandEquivalenceLocalityVerificationDiagnostics,
 )
-from .refinement_records import BandEquivalenceLocalityRefinementResult
+from .refinement_records import BandEquivalenceLocalityRefinementAssessment
 
 __all__ = [
-    "BandEquivalenceLocalityAnalysis",
     "BandEquivalenceLocalityCase",
+    "BandEquivalenceLocalityDiagnostics",
     "BandEquivalenceLocalityFamily",
-    "BandEquivalenceLocalityRefinementRequest",
-    "BandEquivalenceLocalityRefinementResult",
+    "BandEquivalenceLocalityRefinementAssessment",
     "BandEquivalenceLocalityRequest",
-    "BandEquivalenceLocalityResult",
-    "BandEquivalenceLocalityVerificationRequest",
-    "BandEquivalenceLocalityVerificationResult",
+    "BandEquivalenceLocalityVerificationDiagnostics",
     "GaugeNormalization",
     "ParentKind",
 ]

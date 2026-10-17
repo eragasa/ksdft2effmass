@@ -5,8 +5,9 @@
 - `typing.Any` or `object` used as an unspecified software boundary.
 - Type aliases that merely rename another type without narrowing its meaning or ownership.
 - Layers of import aliases that obscure the actual owner of a capability.
-- Package `__init__.py` files used as broad re-export bags instead of narrow public surfaces for behaviorful façade classes and their immutable request, response, and error contracts.
-- Nontrivial use cases exposed only as free functions instead of cohesive action or façade classes with explicit requests and results.
+- Package `__init__.py` files used as broad re-export bags instead of narrow public surfaces for behaviorful domain or action objects and their immutable request, response, and error contracts.
+- Nontrivial use cases exposed only as free functions instead of cohesive domain or action objects with explicit requests and results.
+- Procedural pipelines split across private helper functions when the behavior and invariants belong to a named domain or action object.
 - Local mirror types or wrapper hierarchies around an upstream owner's public contract.
 - Nominal inheritance where a structural protocol, direct composition, or an ordinary callable is sufficient.
 - Generic base classes introduced before two real consumers demonstrate the shared behavior.
@@ -26,6 +27,8 @@
 - Scientific or campaign policy leaking into a reusable numerical or workflow owner.
 - Upstream numerical or workflow policy copied locally and allowed to drift.
 - Serialization keys, schema identities, or filesystem output embedded in calculation code.
+- JSON Schema documents assembled at runtime and exposed as mutable generic mappings instead of immutable maintained documents with validation behavior.
+- Recursive arbitrary-JSON aliases escaping the narrow encoding or decoding boundary.
 - Calculation behavior embedded in serializers or document builders.
 - Large modules that mix definitions, numerical mechanics, orchestration, records, verification, plotting, and serialization.
 - Free-floating nontrivial behavior that lacks a clear domain or action owner.

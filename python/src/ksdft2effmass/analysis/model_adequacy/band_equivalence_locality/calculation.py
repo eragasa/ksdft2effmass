@@ -4,21 +4,34 @@ These calculations exercise the complete parent--subspace--gauge--Fourier--trunc
 chain on deliberately small synthetic meshes.  They are development diagnostics, not
 retained evidence, continuous convergence results, or material validation.
 
-Serialization intentionally does not live in this module. Definitions and immutable
-results are domain objects, while JSON keys, schema identities, canonical byte encoding,
-and file output are wire concerns owned by :mod:`.serialization`. Keeping that boundary
-prevents storage-format changes from becoming calculation changes. The independent
-verifier imports canonical serialization locally only to bind the exact input and result
-bytes by SHA-256; it does not choose or mutate scientific values.
+Definitions and immutable results are analysis-owned domain records. JSON keys, schema
+identities, canonical bytes, files, and artifact plots are outward campaign concerns.
+This module neither imports nor interprets those adapters; the application composition
+root supplies already-derived provenance digests when it invokes verification.
 """
 
 from __future__ import annotations
 
-import hashlib
 import math
 
 import numpy as np
 from numpy.typing import NDArray
+from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
+from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
+    NumpyFiniteFourierMatrixSeries,
+)
+from projectkoios.numerics.finite_periodic.numpy.tensor_product_evaluation import (
+    NumpyTensorProductFourierMatrixEvaluationDefinition,
+    NumpyTensorProductFourierMatrixSeriesEvaluator,
+)
+from projectkoios.numerics.finite_periodic.numpy.transform_diagnostics import (
+    NumpyCenteredUniformMeshHermiticityAnalyzer,
+    NumpyFinitePeriodicParsevalAnalyzer,
+)
+from projectkoios.numerics.finite_periodic.numpy.transforms import (
+    NumpyCenteredUniformMeshMatrixFourierTransformDefinition,
+    NumpyCenteredUniformMeshMatrixFourierTransformer,
+)
 from scipy.special import j0, jv  # type: ignore[import-untyped]
 
 from .alignment import (
@@ -40,10 +53,7 @@ from .definitions import (
 )
 from .fourier import (
     error_channels,
-    evaluate_blocks,
-    fourier_blocks,
-    fourier_hermiticity_defects,
-    iter_shell_fields,
+    iter_complete_shell_fields,
     maximum_matrix_defect,
 )
 from .geometry import (
@@ -56,8 +66,8 @@ from .geometry import (
 )
 from .records import (
     AmplitudeMidpointDiagnostic,
-    BandEquivalenceLocalityResult,
-    BandEquivalenceLocalityVerificationResult,
+    BandEquivalenceLocalityDiagnostics,
+    BandEquivalenceLocalityVerificationDiagnostics,
     CaseDiagnostic,
     FirstPassingDecision,
     FlatAmplitudeResolutionDiagnostic,
@@ -91,6 +101,14 @@ _HERMITIAN_BOND = _DIRECTED + _DIRECTED.conjugate().T
 _SEED = np.eye(4, 2, dtype=np.complex128)
 
 
+def _coordinate_axis(size: int, mesh_offset: float) -> FloatArray:
+    """Return one uniform reduced-coordinate axis with its declared offset."""
+    return np.asarray(
+        -0.5 + (np.arange(size, dtype=np.float64) + mesh_offset) / float(size),
+        dtype=np.float64,
+    )
+
+
 def _coordinates(size: int, dimension: int, mesh_offset: float) -> FloatArray:
     """Return a tensor grid in reduced reciprocal coordinates.
 
@@ -98,7 +116,7 @@ def _coordinates(size: int, dimension: int, mesh_offset: float) -> FloatArray:
     construction size. Other offsets define withheld uniform meshes and are not
     silently identified with the construction mesh.
     """
-    axis = -0.5 + (np.arange(size, dtype=np.float64) + mesh_offset) / float(size)
+    axis = _coordinate_axis(size, mesh_offset)
     return np.stack(np.meshgrid(*(axis,) * dimension, indexing="ij"), axis=-1)
 
 
@@ -438,18 +456,9 @@ class BandEquivalenceLocalityCalculator:
     def execute(
         self,
         definition: BandEquivalenceLocalityRequest,
-        analysis_request_sha256: str,
-    ) -> BandEquivalenceLocalityResult:
+    ) -> BandEquivalenceLocalityDiagnostics:
         if type(definition) is not BandEquivalenceLocalityRequest:
             raise TypeError("definition must be BandEquivalenceLocalityRequest")
-        if type(analysis_request_sha256) is not str:
-            raise TypeError("analysis_request_sha256 must be a built-in str")
-        if len(analysis_request_sha256) != 64 or any(
-            character not in "0123456789abcdef" for character in analysis_request_sha256
-        ):
-            raise ValueError(
-                "analysis_request_sha256 must be a lowercase SHA-256 digest"
-            )
         construction = _coordinates(
             definition.construction_size, definition.dimension, 0.5
         )
@@ -463,10 +472,9 @@ class BandEquivalenceLocalityCalculator:
             self._case(definition, case, construction, evaluation, separation)
             for case in definition.cases
         )
-        return BandEquivalenceLocalityResult(
+        return BandEquivalenceLocalityDiagnostics(
             family=definition.family,
             status="development-smoke-not-retained-evidence",
-            analysis_request_sha256=analysis_request_sha256,
             construction_size=definition.construction_size,
             evaluation_size=definition.evaluation_size,
             cases=case_results,
@@ -481,6 +489,20 @@ class BandEquivalenceLocalityCalculator:
         separation: float,
     ) -> CaseDiagnostic:
         points: list[PointDiagnostic] = []
+        source_mesh = CenteredUniformMesh(
+            case.dimension,
+            definition.construction_size,
+            (0.5,) * case.dimension,
+        )
+        construction_axis = _coordinate_axis(definition.construction_size, 0.5)
+        construction_axes = (construction_axis,) * case.dimension
+        evaluation_axis = _coordinate_axis(
+            definition.evaluation_size,
+            0.5 + definition.evaluation_shift,
+        )
+        evaluation_axes = (evaluation_axis,) * case.dimension
+        transformer = NumpyCenteredUniformMeshMatrixFourierTransformer()
+        tensor_evaluator = NumpyTensorProductFourierMatrixSeriesEvaluator()
         for parent_scale in definition.parent_scales:
             parent = _parent_field(case, construction, parent_scale)
             frame, eigenvalues, seed_gram_values = _retained_frame(parent)
@@ -499,16 +521,21 @@ class BandEquivalenceLocalityCalculator:
             identity = np.eye(2, dtype=np.complex128)
             parent_reconstruction = projector @ parent @ projector
             lifted = frame @ retained @ np.swapaxes(frame.conjugate(), -1, -2)
-            parent_displacements, parent_blocks = fourier_blocks(
-                parent, case.dimension, 0.5
+            parent_transform = transformer.transform(
+                NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
+                    source_mesh,
+                    parent,
+                )
             )
+            parent_fourier_values = tensor_evaluator.evaluate(
+                NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                    source_mesh,
+                    parent_transform.series,
+                    construction_axes,
+                )
+            ).matrix_values
             parent_fourier_reconstruction = maximum_matrix_defect(
-                evaluate_blocks(
-                    parent_displacements,
-                    parent_blocks,
-                    construction,
-                    definition.construction_size,
-                ),
+                parent_fourier_values,
                 parent,
             )
             periodic_frame_closure = 0.0
@@ -559,6 +586,9 @@ class BandEquivalenceLocalityCalculator:
                         case,
                         construction,
                         evaluation,
+                        source_mesh,
+                        construction_axes,
+                        evaluation_axes,
                         parent_scale,
                         amplitude,
                         retained,
@@ -606,6 +636,9 @@ class BandEquivalenceLocalityCalculator:
         case: BandEquivalenceLocalityCase,
         construction: FloatArray,
         evaluation: FloatArray,
+        source_mesh: CenteredUniformMesh,
+        construction_axes: tuple[FloatArray, ...],
+        evaluation_axes: tuple[FloatArray, ...],
         parent_scale: float,
         amplitude: float,
         reference: ComplexArray,
@@ -648,10 +681,27 @@ class BandEquivalenceLocalityCalculator:
             minimum_threshold,
             exact_spectrum_threshold,
         ) = restricted_alignment(reference, comparison)
-        displacements, reference_blocks = fourier_blocks(reference, case.dimension, 0.5)
-        comparison_displacements, comparison_blocks = fourier_blocks(
-            comparison, case.dimension, 0.5
+        transformer = NumpyCenteredUniformMeshMatrixFourierTransformer()
+        reference_transform_definition = (
+            NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
+                source_mesh,
+                reference,
+            )
         )
+        comparison_transform_definition = (
+            NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
+                source_mesh,
+                comparison,
+            )
+        )
+        reference_transform = transformer.transform(reference_transform_definition)
+        comparison_transform = transformer.transform(comparison_transform_definition)
+        reference_series = reference_transform.series
+        comparison_series = comparison_transform.series
+        displacements = reference_series.integer_modes
+        reference_blocks = reference_series.matrix_coefficients
+        comparison_displacements = comparison_series.integer_modes
+        comparison_blocks = comparison_series.matrix_coefficients
         if not np.array_equal(displacements, comparison_displacements):
             raise RuntimeError("reference and comparison Fourier inventories differ")
         analytic_correlation: float | None = None
@@ -696,31 +746,48 @@ class BandEquivalenceLocalityCalculator:
             if parent_scale == 0.0 and correlation is not None
             else None
         )
-        reconstructed_reference = evaluate_blocks(
-            displacements,
-            reference_blocks,
-            construction,
-            definition.construction_size,
+        tensor_evaluator = NumpyTensorProductFourierMatrixSeriesEvaluator()
+        reconstructed_reference = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                reference_series,
+                construction_axes,
+            )
+        ).matrix_values
+        reconstructed_comparison = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                comparison_series,
+                construction_axes,
+            )
+        ).matrix_values
+        parseval_analyzer = NumpyFinitePeriodicParsevalAnalyzer()
+        reference_parseval = parseval_analyzer.analyze(
+            reference_transform_definition,
+            reference_transform,
+        ).absolute_defect
+        comparison_parseval = parseval_analyzer.analyze(
+            comparison_transform_definition,
+            comparison_transform,
+        ).absolute_defect
+        hermiticity_analyzer = NumpyCenteredUniformMeshHermiticityAnalyzer()
+        reference_hermiticity_diagnostics = hermiticity_analyzer.analyze(
+            reference_transform
         )
-        reconstructed_comparison = evaluate_blocks(
-            displacements,
-            comparison_blocks,
-            construction,
-            definition.construction_size,
+        comparison_hermiticity_diagnostics = hermiticity_analyzer.analyze(
+            comparison_transform
         )
-        reference_parseval = abs(
-            float(np.mean(np.sum(np.abs(reference) ** 2, axis=(-2, -1))))
-            - float(np.sum(np.abs(reference_blocks) ** 2))
+        reference_twisted = (
+            reference_hermiticity_diagnostics.twisted_cyclic_maximum_frobenius_defect
         )
-        comparison_parseval = abs(
-            float(np.mean(np.sum(np.abs(comparison) ** 2, axis=(-2, -1))))
-            - float(np.sum(np.abs(comparison_blocks) ** 2))
+        reference_hermiticity = (
+            reference_hermiticity_diagnostics.ordinary_maximum_frobenius_defect
         )
-        reference_twisted, reference_hermiticity = fourier_hermiticity_defects(
-            definition.construction_size, displacements, reference_blocks
+        comparison_twisted = (
+            comparison_hermiticity_diagnostics.twisted_cyclic_maximum_frobenius_defect
         )
-        comparison_twisted, comparison_hermiticity = fourier_hermiticity_defects(
-            definition.construction_size, displacements, comparison_blocks
+        comparison_hermiticity = (
+            comparison_hermiticity_diagnostics.ordinary_maximum_frobenius_defect
         )
         nyquist = np.any(displacements == -definition.construction_size // 2, axis=1)
         reference_nyquist_power = float(
@@ -733,30 +800,44 @@ class BandEquivalenceLocalityCalculator:
         ordinary_displacements = displacements[ordinary]
         ordinary_reference = reference_blocks[ordinary]
         ordinary_comparison = comparison_blocks[ordinary]
-        full_reference_eval = evaluate_blocks(
+        ordinary_reference_series = NumpyFiniteFourierMatrixSeries.from_arrays(
+            case.dimension,
             ordinary_displacements,
             ordinary_reference,
-            evaluation,
-            definition.construction_size,
         )
-        full_comparison_eval = evaluate_blocks(
+        ordinary_comparison_series = NumpyFiniteFourierMatrixSeries.from_arrays(
+            case.dimension,
             ordinary_displacements,
             ordinary_comparison,
-            evaluation,
-            definition.construction_size,
         )
-        full_reference_source = evaluate_blocks(
-            ordinary_displacements,
-            ordinary_reference,
-            construction,
-            definition.construction_size,
-        )
-        full_comparison_source = evaluate_blocks(
-            ordinary_displacements,
-            ordinary_comparison,
-            construction,
-            definition.construction_size,
-        )
+        full_reference_eval = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                ordinary_reference_series,
+                evaluation_axes,
+            )
+        ).matrix_values
+        full_comparison_eval = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                ordinary_comparison_series,
+                evaluation_axes,
+            )
+        ).matrix_values
+        full_reference_source = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                ordinary_reference_series,
+                construction_axes,
+            )
+        ).matrix_values
+        full_comparison_source = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                ordinary_comparison_series,
+                construction_axes,
+            )
+        ).matrix_values
         reference_interpolation = error_channels(
             full_reference_eval, direct_reference_eval
         )
@@ -769,35 +850,31 @@ class BandEquivalenceLocalityCalculator:
             for value in sorted(set(metric_indices.tolist()))
             if value <= definition.shell_cap
         )
-        reference_evaluations = iter_shell_fields(
-            ordinary_displacements,
-            ordinary_reference,
-            evaluation,
-            definition.construction_size,
+        reference_evaluations = iter_complete_shell_fields(
+            source_mesh,
+            ordinary_reference_series,
+            evaluation_axes,
             metric_indices,
             shells,
         )
-        comparison_evaluations = iter_shell_fields(
-            ordinary_displacements,
-            ordinary_comparison,
-            evaluation,
-            definition.construction_size,
+        comparison_evaluations = iter_complete_shell_fields(
+            source_mesh,
+            ordinary_comparison_series,
+            evaluation_axes,
             metric_indices,
             shells,
         )
-        reference_sources = iter_shell_fields(
-            ordinary_displacements,
-            ordinary_reference,
-            construction,
-            definition.construction_size,
+        reference_sources = iter_complete_shell_fields(
+            source_mesh,
+            ordinary_reference_series,
+            construction_axes,
             metric_indices,
             shells,
         )
-        comparison_sources = iter_shell_fields(
-            ordinary_displacements,
-            ordinary_comparison,
-            construction,
-            definition.construction_size,
+        comparison_sources = iter_complete_shell_fields(
+            source_mesh,
+            ordinary_comparison_series,
+            construction_axes,
             metric_indices,
             shells,
         )
@@ -1099,26 +1176,13 @@ class BandEquivalenceLocalityVerifier:
     def execute(
         self,
         definition: BandEquivalenceLocalityRequest,
-        result: BandEquivalenceLocalityResult,
-    ) -> BandEquivalenceLocalityVerificationResult:
+        result: BandEquivalenceLocalityDiagnostics,
+    ) -> BandEquivalenceLocalityVerificationDiagnostics:
         if type(definition) is not BandEquivalenceLocalityRequest:
             raise TypeError("definition must be BandEquivalenceLocalityRequest")
-        if type(result) is not BandEquivalenceLocalityResult:
-            raise TypeError("result must be BandEquivalenceLocalityResult")
+        if type(result) is not BandEquivalenceLocalityDiagnostics:
+            raise TypeError("result must be BandEquivalenceLocalityDiagnostics")
 
-        # Local import keeps wire mechanics out of numerical module initialization.
-        from .serialization import (
-            band_equivalence_locality_request_document,
-            band_equivalence_locality_result_document,
-            canonical_json_bytes,
-        )
-
-        input_encoded = canonical_json_bytes(
-            band_equivalence_locality_request_document(definition)
-        )
-        input_sha256 = hashlib.sha256(input_encoded).hexdigest()
-        if result.analysis_request_sha256 != input_sha256:
-            raise ValueError("result does not belong to the analysis request")
         if result.family is not definition.family:
             raise ValueError("result family does not match definition")
         if (
@@ -1374,22 +1438,17 @@ class BandEquivalenceLocalityVerifier:
                     )
         maximum_stored = max(stored_defects, default=0.0)
 
-        result_encoded = canonical_json_bytes(
-            band_equivalence_locality_result_document(result)
-        )
         passes = (
             maximum_stored <= 5.0e-11
             and independent_parent <= 5.0e-14
             and independent_band <= 5.0e-14
         )
-        return BandEquivalenceLocalityVerificationResult(
+        return BandEquivalenceLocalityVerificationDiagnostics(
             family=result.family,
             passes=passes,
             maximum_stored_identity_defect=maximum_stored,
             maximum_independent_parent_defect=independent_parent,
             maximum_independent_band_defect=independent_band,
-            input_sha256=input_sha256,
-            result_sha256=hashlib.sha256(result_encoded).hexdigest(),
         )
 
 
@@ -1457,8 +1516,8 @@ __all__ = [
     "BandEquivalenceLocalityCase",
     "BandEquivalenceLocalityRequest",
     "BandEquivalenceLocalityFamily",
-    "BandEquivalenceLocalityResult",
-    "BandEquivalenceLocalityVerificationResult",
+    "BandEquivalenceLocalityDiagnostics",
+    "BandEquivalenceLocalityVerificationDiagnostics",
     "BandEquivalenceLocalityVerifier",
     "GaugeNormalization",
     "ParentKind",

@@ -219,46 +219,32 @@ class CaseDiagnostic:
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityResult:
-    """Retain a compact development result without claiming scientific qualification."""
+class BandEquivalenceLocalityDiagnostics:
+    """Retain calculated diagnostics without artifact provenance or evidence claims."""
 
     family: BandEquivalenceLocalityFamily
     status: str
-    analysis_request_sha256: str
     construction_size: int
     evaluation_size: int
     cases: tuple[CaseDiagnostic, ...]
 
-    def __post_init__(self) -> None:
-        digest = self.analysis_request_sha256
-        if type(digest) is not str:
-            raise TypeError("analysis_request_sha256 must be a built-in str")
-        if len(digest) != 64 or any(
-            character not in "0123456789abcdef" for character in digest
-        ):
-            raise ValueError(
-                "analysis_request_sha256 must be a lowercase SHA-256 digest"
-            )
-
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityVerificationResult:
-    """Retain independently recomputed checks of a development result."""
+class BandEquivalenceLocalityVerificationDiagnostics:
+    """Retain independent numerical checks without artifact provenance."""
 
     family: BandEquivalenceLocalityFamily
     passes: bool
     maximum_stored_identity_defect: float
     maximum_independent_parent_defect: float
     maximum_independent_band_defect: float
-    input_sha256: str
-    result_sha256: str
 
 
 __all__ = [
     "AmplitudeMidpointDiagnostic",
     "CaseDiagnostic",
-    "BandEquivalenceLocalityResult",
-    "BandEquivalenceLocalityVerificationResult",
+    "BandEquivalenceLocalityDiagnostics",
+    "BandEquivalenceLocalityVerificationDiagnostics",
     "ErrorChannels",
     "FirstPassingDecision",
     "FlatAmplitudeResolutionDiagnostic",

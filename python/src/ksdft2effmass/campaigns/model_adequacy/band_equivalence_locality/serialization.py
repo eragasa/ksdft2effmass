@@ -8,19 +8,319 @@ without selecting thresholds, recomputing diagnostics, or changing evidence stat
 
 from __future__ import annotations
 
+import hashlib
 import json
+from dataclasses import dataclass
 from pathlib import Path
+from typing import TypedDict
 
-from .definitions import BandEquivalenceLocalityFamily, BandEquivalenceLocalityRequest
-from .records import (
-    BandEquivalenceLocalityResult,
-    BandEquivalenceLocalityVerificationResult,
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (  # noqa: E501
+    BandEquivalenceLocalityFamily,
+    BandEquivalenceLocalityRequest,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.records import (
+    BandEquivalenceLocalityDiagnostics,
+    BandEquivalenceLocalityVerificationDiagnostics,
     ErrorChannels,
 )
-from .refinement_records import BandEquivalenceLocalityRefinementResult
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.refinement_records import (  # noqa: E501
+    BandEquivalenceLocalityRefinementAssessment,
+)
 
-type JsonScalar = None | bool | int | float | str
-type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
+
+class _ErrorChannelsWire(TypedDict):
+    maximum_band: float
+    maximum_hamiltonian: float
+    rms_band: float
+    rms_hamiltonian: float
+
+
+class _ShellWire(TypedDict):
+    comparison_omitted_power: float
+    comparison_shell_power: float
+    comparison_total: _ErrorChannelsWire
+    comparison_total_omitted_power: float
+    comparison_truncation: _ErrorChannelsWire
+    comparison_truncation_parseval_defect: float
+    reference_omitted_power: float
+    reference_shell_power: float
+    reference_total: _ErrorChannelsWire
+    reference_total_omitted_power: float
+    reference_truncation: _ErrorChannelsWire
+    reference_truncation_parseval_defect: float
+    retained_blocks: int
+    shell_index: int
+
+
+class _FirstPassingWire(TypedDict):
+    comparison_band_passing_error: float | None
+    comparison_band_preceding_error: float | None
+    comparison_band_shell: int | None
+    comparison_hamiltonian_passing_error: float | None
+    comparison_hamiltonian_preceding_error: float | None
+    comparison_hamiltonian_shell: int | None
+    reference_band_passing_error: float | None
+    reference_band_preceding_error: float | None
+    reference_band_shell: int | None
+    reference_hamiltonian_passing_error: float | None
+    reference_hamiltonian_preceding_error: float | None
+    reference_hamiltonian_shell: int | None
+    tolerance: float
+
+
+class _PointWire(TypedDict):
+    alignment_applicable: bool
+    alignment_inapplicable_reason: str | None
+    amplitude: float
+    analytic_correlation_remainder_bound: float | None
+    analytic_flat_correlation: float | None
+    basis_distance_maximum: float | None
+    basis_distance_minimum: float | None
+    comparison_fourier_reconstruction_defect: float
+    comparison_interpolation: _ErrorChannelsWire
+    comparison_nononsite_power: float
+    comparison_nyquist_power: float
+    comparison_onsite_power: float
+    comparison_ordinary_hermiticity_defect: float
+    comparison_parseval_defect: float
+    comparison_total_power: float
+    comparison_twisted_nyquist_defect: float
+    continuous_external_gap_lower_bound: float
+    correlation_quadrature_defect: float | None
+    exact_spectrum_joint_operator_threshold: float
+    exact_spectrum_joint_threshold_over_sqrt_splitting: float | None
+    excess_nonzero_hopping_weight: float
+    finite_mesh_maximum_correlation: float | None
+    first_passing: list[_FirstPassingWire]
+    flat_identity_departure: float | None
+    flat_residual_tail_identity_defect: float | None
+    maximum_absolute_closure_holonomy_phases: list[float] | None
+    maximum_closure_holonomy_unitarity_defect: float | None
+    maximum_covariant_defect: float
+    maximum_direct_band_defect: float
+    maximum_eigensystem_reconstruction_defect: float
+    maximum_frame_orthonormality_defect: float
+    maximum_parent_fourier_reconstruction_defect: float
+    maximum_parent_hermiticity_defect: float
+    maximum_parent_retained_reconstruction_defect: float
+    maximum_periodic_frame_closure_defect: float
+    maximum_plaquette_holonomy_phase: float | None
+    maximum_projector_reconstruction_defect: float
+    maximum_transport_procrustes_residual: float
+    maximum_transport_rank_cutoff: float
+    maximum_transport_squared_residual_roundoff_cutoff: float
+    maximum_transport_unitarity_defect: float
+    minimum_operator_threshold: float
+    minimum_operator_threshold_over_sqrt_splitting: float | None
+    minimum_sampled_external_gap: float
+    minimum_sampled_transport_singular_value: float
+    minimum_seed_overlap: float
+    normalized_excess_nonzero_hopping_weight: float | None
+    normalized_squared_operator_residual: float | None
+    parent_scale: float
+    reference_fourier_reconstruction_defect: float
+    reference_interpolation: _ErrorChannelsWire
+    reference_nononsite_power: float
+    reference_nyquist_power: float
+    reference_onsite_power: float
+    reference_ordinary_hermiticity_defect: float
+    reference_parseval_defect: float
+    reference_total_power: float
+    reference_twisted_nyquist_defect: float
+    restricted_global_rotation_angle: float | None
+    restricted_global_rotation_degenerate: bool
+    restricted_global_rotation_residual: float
+    shell_diagnostics: list[_ShellWire]
+    splitting_scale: float
+    transport_closure_and_plaquette_applicable: bool
+    transport_closure_and_plaquette_inapplicable_reason: str | None
+    transport_rank_deficient_link_count: int
+
+
+class _AmplitudeMidpointWire(TypedDict):
+    amplitude_nodes: int
+    applicable: bool
+    endpoint_minimum_threshold_over_sqrt_splitting: float | None
+    inapplicable_reason: str | None
+    maximum_correlation_midpoint_defect: float | None
+    maximum_hopping_block_power_midpoint_defect: float | None
+    maximum_joint_threshold_midpoint_defect: float | None
+    maximum_nonzero_hopping_weight_midpoint_defect: float | None
+    maximum_operator_threshold_midpoint_defect: float | None
+
+
+class _FlatAmplitudeResolutionWire(TypedDict):
+    amplitude_intervals: int
+    amplitude_nodes: int
+    maximum_joint_threshold_midpoint_interpolation_defect: float
+    maximum_operator_threshold_midpoint_interpolation_defect: float
+    passes_unit_scale_draft_tolerance: bool | None
+    tolerance_inapplicable_reason: str
+
+
+class _ResultCaseWire(TypedDict):
+    amplitude_midpoint: _AmplitudeMidpointWire
+    construction_evaluation_minimum_separation: float
+    flat_amplitude_resolution: list[_FlatAmplitudeResolutionWire]
+    metric_covariance_defect: float
+    name: str
+    points: list[_PointWire]
+
+
+class _RequestCaseWire(TypedDict):
+    basis_offsets: list[list[float]]
+    dimension: int
+    direct_lattice_primitive_basis_rows: list[list[float]]
+    direct_lattice_primitive_vector_axis: str
+    gauge_normalization: str
+    name: str
+    parent_kind: str
+    positive_bonds: list[list[int]]
+    shell_metric_scale: float
+
+
+class _RequestWire(TypedDict):
+    amplitude_resolution_intervals: list[int]
+    amplitudes: list[float]
+    band_tolerances: list[float]
+    cases: list[_RequestCaseWire]
+    construction_size: int
+    evaluation_shift: float
+    evaluation_size: int
+    family: str
+    parent_scales: list[float]
+    schema: str
+    shell_cap: int
+    status: str
+    transport_rank_absolute: float
+    transport_rank_relative: float
+
+
+class _ResultWire(TypedDict):
+    analysis_request_sha256: str
+    cases: list[_ResultCaseWire]
+    construction_size: int
+    evaluation_size: int
+    family: str
+    schema: str
+    status: str
+
+
+class _VerificationWire(TypedDict):
+    family: str
+    input_sha256: str
+    maximum_independent_band_defect: float
+    maximum_independent_parent_defect: float
+    maximum_stored_identity_defect: float
+    passes: bool
+    result_sha256: str
+    schema: str
+    status: str
+
+
+class _RefinementPairWire(TypedDict):
+    coarse_construction_size: int
+    fine_construction_size: int
+    first_passing_dispositions_stable: bool
+    maximum_angle_change: float
+    maximum_band_defect: float
+    maximum_correlation_change: float
+    maximum_final_outcome_change: int | None
+    maximum_final_parent_invariant_change: float
+    maximum_hopping_block_power_change: float
+    maximum_hopping_weight_change: float
+    maximum_parent_diagnostic_change: float
+    maximum_parseval_defect: float
+    maximum_reconstruction_defect: float
+    maximum_shared_parent_eigenvalue_defect: float | None
+    maximum_shared_projector_defect: float | None
+    maximum_threshold_change: float
+    shared_mesh_inapplicable_reason: str
+    shared_mesh_quantities_applicable: bool
+    tolerance_disposition_reason: str
+    transport_closure_and_plaquette_applicability_stable: bool
+    within_draft_tolerances: bool | None
+
+
+class _RefinementWire(TypedDict):
+    family: str
+    momentum_disposition: str
+    momentum_disposition_reason: str
+    paper1_literal_range_endpoints_applicable: bool
+    paper1_literal_range_endpoints_inapplicable_reason: str
+    passes_draft_tolerance: bool | None
+    passes_unit_scale_draft_tolerance: bool | None
+    refinements: list[_RefinementPairWire]
+    required_stable_refinements: int
+    schema: str
+    source_result_sha256: list[str]
+    status: str
+    tolerance_inapplicable_reason: str
+
+
+type _WireDocument = _RequestWire | _ResultWire | _VerificationWire | _RefinementWire
+
+
+@dataclass(frozen=True, slots=True)
+class CanonicalJsonDocument:
+    """Immutable canonical JSON bytes owned by the wire boundary."""
+
+    _content: bytes
+
+    def __post_init__(self) -> None:
+        if type(self._content) is not bytes:
+            raise TypeError("canonical JSON content must be built-in bytes")
+        try:
+            decoded = self._content.decode("utf-8")
+        except UnicodeDecodeError as error:
+            raise ValueError("canonical JSON content must be UTF-8") from error
+        try:
+            document = json.loads(decoded)
+        except json.JSONDecodeError as error:
+            raise ValueError("canonical JSON content must be valid JSON") from error
+        if type(document) is not dict:
+            raise ValueError("canonical JSON document must be an object")
+        try:
+            expected = (
+                json.dumps(
+                    document,
+                    allow_nan=False,
+                    separators=(",", ":"),
+                    sort_keys=True,
+                )
+                + "\n"
+            ).encode("utf-8")
+        except (TypeError, ValueError) as error:
+            raise ValueError(
+                "canonical JSON content contains invalid values"
+            ) from error
+        if self._content != expected:
+            raise ValueError("canonical JSON content must use canonical encoding")
+
+    @classmethod
+    def _from_wire(cls, document: _WireDocument) -> CanonicalJsonDocument:
+        content = (
+            json.dumps(document, allow_nan=False, separators=(",", ":"), sort_keys=True)
+            + "\n"
+        ).encode()
+        return cls(content)
+
+    def canonical_bytes(self) -> bytes:
+        """Return the immutable canonical UTF-8 bytes."""
+
+        return self._content
+
+    def content_sha256(self) -> str:
+        """Return the wire-level SHA-256 identity of these canonical bytes."""
+
+        return hashlib.sha256(self._content).hexdigest()
+
+    def write_to(self, path: Path) -> None:
+        """Write the complete canonical document to ``path``."""
+
+        if not isinstance(path, Path):
+            raise TypeError("path must be pathlib.Path")
+        path.write_bytes(self._content)
 
 
 def band_equivalence_locality_schema_id(
@@ -45,15 +345,7 @@ def refinement_schema_id(family: BandEquivalenceLocalityFamily) -> str:
     return f"{family.value}.calculation.refinement-assessment.v1"
 
 
-def canonical_json_bytes(document: dict[str, JsonValue]) -> bytes:
-    """Return deterministic UTF-8 JSON bytes for hashing and storage."""
-    return (
-        json.dumps(document, allow_nan=False, separators=(",", ":"), sort_keys=True)
-        + "\n"
-    ).encode()
-
-
-def _errors_document(value: ErrorChannels) -> dict[str, JsonValue]:
+def _errors_wire(value: ErrorChannels) -> _ErrorChannelsWire:
     return {
         "maximum_band": value.maximum_band,
         "maximum_hamiltonian": value.maximum_hamiltonian,
@@ -62,9 +354,7 @@ def _errors_document(value: ErrorChannels) -> dict[str, JsonValue]:
     }
 
 
-def band_equivalence_locality_request_document(
-    value: BandEquivalenceLocalityRequest,
-) -> dict[str, JsonValue]:
+def _request_wire(value: BandEquivalenceLocalityRequest) -> _RequestWire:
     """Serialize a development definition without accepting unspecified values."""
     return {
         "amplitude_resolution_intervals": list(value.amplitude_resolution_intervals),
@@ -100,37 +390,34 @@ def band_equivalence_locality_request_document(
     }
 
 
-def band_equivalence_locality_result_document(
-    value: BandEquivalenceLocalityResult,
-) -> dict[str, JsonValue]:
-    """Serialize compact development diagnostics without assigning evidence status."""
-    cases: list[JsonValue] = []
+def _result_wire(
+    value: BandEquivalenceLocalityDiagnostics,
+    analysis_request_sha256: str,
+) -> _ResultWire:
+    """Build the explicit result wire record without assigning evidence status."""
+    cases: list[_ResultCaseWire] = []
     for case in value.cases:
-        points: list[JsonValue] = []
+        points: list[_PointWire] = []
         for point in case.points:
-            shells: list[JsonValue] = [
+            shells: list[_ShellWire] = [
                 {
                     "comparison_omitted_power": shell.comparison_omitted_power,
                     "comparison_shell_power": shell.comparison_shell_power,
-                    "comparison_total": _errors_document(shell.comparison_total),
+                    "comparison_total": _errors_wire(shell.comparison_total),
                     "comparison_total_omitted_power": (
                         shell.comparison_total_omitted_power
                     ),
-                    "comparison_truncation": _errors_document(
-                        shell.comparison_truncation
-                    ),
+                    "comparison_truncation": _errors_wire(shell.comparison_truncation),
                     "comparison_truncation_parseval_defect": (
                         shell.comparison_truncation_parseval_defect
                     ),
                     "reference_omitted_power": shell.reference_omitted_power,
                     "reference_shell_power": shell.reference_shell_power,
-                    "reference_total": _errors_document(shell.reference_total),
+                    "reference_total": _errors_wire(shell.reference_total),
                     "reference_total_omitted_power": (
                         shell.reference_total_omitted_power
                     ),
-                    "reference_truncation": _errors_document(
-                        shell.reference_truncation
-                    ),
+                    "reference_truncation": _errors_wire(shell.reference_truncation),
                     "reference_truncation_parseval_defect": (
                         shell.reference_truncation_parseval_defect
                     ),
@@ -139,7 +426,7 @@ def band_equivalence_locality_result_document(
                 }
                 for shell in point.shell_diagnostics
             ]
-            decisions: list[JsonValue] = [
+            decisions: list[_FirstPassingWire] = [
                 {
                     "comparison_band_passing_error": (
                         decision.comparison_band_passing_error
@@ -193,7 +480,7 @@ def band_equivalence_locality_result_document(
                     "comparison_fourier_reconstruction_defect": (
                         point.comparison_fourier_reconstruction_defect
                     ),
-                    "comparison_interpolation": _errors_document(
+                    "comparison_interpolation": _errors_wire(
                         point.comparison_interpolation
                     ),
                     "comparison_nononsite_power": point.comparison_nononsite_power,
@@ -291,7 +578,7 @@ def band_equivalence_locality_result_document(
                     "reference_fourier_reconstruction_defect": (
                         point.reference_fourier_reconstruction_defect
                     ),
-                    "reference_interpolation": _errors_document(
+                    "reference_interpolation": _errors_wire(
                         point.reference_interpolation
                     ),
                     "normalized_excess_nonzero_hopping_weight": (
@@ -388,7 +675,7 @@ def band_equivalence_locality_result_document(
             }
         )
     return {
-        "analysis_request_sha256": value.analysis_request_sha256,
+        "analysis_request_sha256": analysis_request_sha256,
         "cases": cases,
         "construction_size": value.construction_size,
         "evaluation_size": value.evaluation_size,
@@ -398,9 +685,10 @@ def band_equivalence_locality_result_document(
     }
 
 
-def band_equivalence_locality_refinement_document(
-    value: BandEquivalenceLocalityRefinementResult,
-) -> dict[str, JsonValue]:
+def _refinement_wire(
+    value: BandEquivalenceLocalityRefinementAssessment,
+    source_result_sha256: tuple[str, ...],
+) -> _RefinementWire:
     """Serialize one conservative refinement assessment."""
     return {
         "family": value.family.value,
@@ -460,88 +748,119 @@ def band_equivalence_locality_refinement_document(
         ],
         "required_stable_refinements": value.required_stable_refinements,
         "schema": refinement_schema_id(value.family),
-        "source_result_sha256": list(value.source_result_sha256),
+        "source_result_sha256": list(source_result_sha256),
         "status": "replaceable-development-refinement-not-scientific-evidence",
         "tolerance_inapplicable_reason": value.tolerance_inapplicable_reason,
     }
 
 
-def band_equivalence_locality_verification_document(
-    value: BandEquivalenceLocalityVerificationResult,
-) -> dict[str, JsonValue]:
+def _verification_wire(
+    value: BandEquivalenceLocalityVerificationDiagnostics,
+    input_sha256: str,
+    result_sha256: str,
+) -> _VerificationWire:
     """Serialize independent development verification diagnostics."""
     return {
         "family": value.family.value,
-        "input_sha256": value.input_sha256,
+        "input_sha256": input_sha256,
         "maximum_independent_band_defect": value.maximum_independent_band_defect,
         "maximum_independent_parent_defect": value.maximum_independent_parent_defect,
         "maximum_stored_identity_defect": value.maximum_stored_identity_defect,
         "passes": value.passes,
-        "result_sha256": value.result_sha256,
+        "result_sha256": result_sha256,
         "schema": band_equivalence_locality_schema_id(value.family, "verification"),
         "status": "development-verification-not-scientific-validation",
     }
 
 
-def write_band_equivalence_locality_documents(
-    directory: Path,
-    definition: BandEquivalenceLocalityRequest,
-    result: BandEquivalenceLocalityResult,
-    verification: BandEquivalenceLocalityVerificationResult,
-) -> tuple[Path, Path, Path]:
-    """Write replaceable development JSON documents to an experiment directory."""
-    if not isinstance(directory, Path):
-        raise TypeError("directory must be pathlib.Path")
-    directory.mkdir(parents=True, exist_ok=True)
-    documents = (
-        (
-            directory / "development-input.json",
-            band_equivalence_locality_request_document(definition),
-        ),
-        (
-            directory / "development-result.json",
-            band_equivalence_locality_result_document(result),
-        ),
-        (
-            directory / "development-verification.json",
-            band_equivalence_locality_verification_document(verification),
-        ),
-    )
-    for path, document in documents:
-        path.write_bytes(canonical_json_bytes(document))
-    return documents[0][0], documents[1][0], documents[2][0]
+class BandEquivalenceLocalityRequestSerializer:
+    """Encode one analysis request as a canonical JSON document."""
+
+    __slots__ = ()
+
+    def execute(self, value: BandEquivalenceLocalityRequest) -> CanonicalJsonDocument:
+        if type(value) is not BandEquivalenceLocalityRequest:
+            raise TypeError("value must be BandEquivalenceLocalityRequest")
+        return CanonicalJsonDocument._from_wire(_request_wire(value))
 
 
-def write_band_equivalence_locality_refinement(
-    directory: Path,
-    result: BandEquivalenceLocalityRefinementResult,
-) -> tuple[Path, Path]:
-    """Write one refinement result and its strict family-bound schema."""
-    if not isinstance(directory, Path):
-        raise TypeError("directory must be pathlib.Path")
-    from .schemas import band_equivalence_locality_refinement_schema
+class BandEquivalenceLocalityResultSerializer:
+    """Encode diagnostics bound to their complete canonical analysis request."""
 
-    directory.mkdir(parents=True, exist_ok=True)
-    document_path = directory / "development-refinement-assessment.json"
-    schema_path = directory / "development-refinement-assessment.schema.json"
-    document_path.write_bytes(
-        canonical_json_bytes(band_equivalence_locality_refinement_document(result))
-    )
-    schema_path.write_bytes(
-        canonical_json_bytes(band_equivalence_locality_refinement_schema(result.family))
-    )
-    return document_path, schema_path
+    __slots__ = ()
+
+    def execute(
+        self,
+        value: BandEquivalenceLocalityDiagnostics,
+        analysis_request: CanonicalJsonDocument,
+    ) -> CanonicalJsonDocument:
+        if type(value) is not BandEquivalenceLocalityDiagnostics:
+            raise TypeError("value must be BandEquivalenceLocalityDiagnostics")
+        if type(analysis_request) is not CanonicalJsonDocument:
+            raise TypeError("analysis_request must be CanonicalJsonDocument")
+        return CanonicalJsonDocument._from_wire(
+            _result_wire(value, analysis_request.content_sha256())
+        )
+
+
+class BandEquivalenceLocalityVerificationSerializer:
+    """Encode verification bound to its complete canonical input documents."""
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        value: BandEquivalenceLocalityVerificationDiagnostics,
+        input_document: CanonicalJsonDocument,
+        result_document: CanonicalJsonDocument,
+    ) -> CanonicalJsonDocument:
+        if type(value) is not BandEquivalenceLocalityVerificationDiagnostics:
+            raise TypeError(
+                "value must be BandEquivalenceLocalityVerificationDiagnostics"
+            )
+        if type(input_document) is not CanonicalJsonDocument:
+            raise TypeError("input_document must be CanonicalJsonDocument")
+        if type(result_document) is not CanonicalJsonDocument:
+            raise TypeError("result_document must be CanonicalJsonDocument")
+        return CanonicalJsonDocument._from_wire(
+            _verification_wire(
+                value,
+                input_document.content_sha256(),
+                result_document.content_sha256(),
+            )
+        )
+
+
+class BandEquivalenceLocalityRefinementSerializer:
+    """Encode a refinement bound to its ordered canonical source results."""
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        value: BandEquivalenceLocalityRefinementAssessment,
+        source_results: tuple[CanonicalJsonDocument, ...],
+    ) -> CanonicalJsonDocument:
+        if type(value) is not BandEquivalenceLocalityRefinementAssessment:
+            raise TypeError("value must be BandEquivalenceLocalityRefinementAssessment")
+        if type(source_results) is not tuple or len(source_results) < 3:
+            raise ValueError("source_results must contain at least three documents")
+        if any(
+            type(document) is not CanonicalJsonDocument for document in source_results
+        ):
+            raise TypeError("source_results must contain CanonicalJsonDocument values")
+        return CanonicalJsonDocument._from_wire(
+            _refinement_wire(
+                value,
+                tuple(document.content_sha256() for document in source_results),
+            )
+        )
 
 
 __all__ = [
-    "JsonValue",
-    "canonical_json_bytes",
-    "band_equivalence_locality_refinement_document",
-    "band_equivalence_locality_request_document",
-    "band_equivalence_locality_result_document",
-    "band_equivalence_locality_schema_id",
-    "band_equivalence_locality_verification_document",
-    "refinement_schema_id",
-    "write_band_equivalence_locality_documents",
-    "write_band_equivalence_locality_refinement",
+    "BandEquivalenceLocalityRefinementSerializer",
+    "BandEquivalenceLocalityRequestSerializer",
+    "BandEquivalenceLocalityResultSerializer",
+    "BandEquivalenceLocalityVerificationSerializer",
+    "CanonicalJsonDocument",
 ]

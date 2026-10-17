@@ -45,14 +45,13 @@ an evidence claim, or authorization for a production or retained calculation.
 
 - **Disposition:** owner adoption under review.
 - **Numerical owner:** Optimization commit
-  `f3a295fde4aeb905414da6375ec4f2794480628d`, consumed through
-  `projectkoios.optimization.alignment.numpy.batched_procrustes`.
+  `2c6dd7f717722f6b0495feb8cfe1287a104268a6`, consumed through the canonical
+  Procrustes contracts and the finite-periodic mesh, matrix-transform, tensor-product
+  evaluation, Parseval, and Hermiticity contracts under `projectkoios.numerics`.
 - **Compatible geometry owner:** PhysKit commit
-  `c44e9a2577734af59ceab63e695eac686788b8df`, whose parent
-  `f8d556e1b4cf7d69f141d86ce80dd1ff0a896f83` pins that exact Optimization
-  revision. The later commit adds `DirectLatticeMetric` to the supported
-  `projectkoios.physkit.periodic.lattice` public API without changing metric
-  semantics.
+  `d81febb811fbc4feb014530fcae6cf6d9ad9ead5`, whose ancestry provides the
+  `DirectLatticeMetric` façade and whose dependency source advances to the exact
+  Optimization revision above without changing PhysKit behavior.
 - **Current mechanism:** KSD submits complete tensor-grid neighbor-overlap batches to
   `NumpyBatchedComplexUnitaryProcrustesSolver`. Optimization owns transformation
   selection, additive rank cutoffs, diagnostic deficient completions, squared-residual
@@ -72,12 +71,21 @@ an evidence claim, or authorization for a production or retained calculation.
   is invented.
 - **Completed software checks:** full-rank numerical parity, right-action orientation,
   additive-cutoff equality, rank-deficient fail-closed behavior, owner-failure
-  propagation, roundoff evidence, strict schema relations, complete request-to-result
-  SHA-256 binding, canonical derivation of refinement source hashes, and independent
-  verifier comparisons are covered by the bounded software-verification suite.
+  propagation, roundoff evidence, strict schema relations, complete canonical-document
+  request-to-result binding, campaign-owned SHA-256 wire identity, canonical derivation
+  of refinement source identities, and independent verifier comparisons are covered by
+  the bounded software-verification suite. The later owner cleanup enforces canonical
+  constructors and validation boundaries; KSD consumes the defensive-copy construction
+  paths. Centered transforms, bounded or separable evaluation, Parseval arithmetic, and
+  twisted/ordinary Hermiticity now come directly from Numerics. KSD retains physical
+  metric-shell selection, energy/rank normalization, interpolation/truncation/total
+  error channels, thresholds, and scientific dispositions.
 - **Independent review:** the initial review found incomplete request/result and
   refinement-source hash binding. Both findings were corrected; focused re-review
-  reported `NO_BLOCKING_FINDINGS`.
+  reported `NO_BLOCKING_FINDINGS`. A later ownership correction removed serialization,
+  schemas, filesystem writing, and plotting from the analysis package; campaign plots
+  now consume typed diagnostics rather than decoded JSON. That post-review correction
+  still requires fresh independent review.
 - **Bounded resource check:** the 38-test locality suite completed in 4.95 seconds with
   a reported maximum resident set size of 146,604,032 bytes on the local review host.
   This is a development resource observation, not a cross-platform guarantee.
