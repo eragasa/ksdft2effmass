@@ -8,8 +8,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (  # noqa: E501
+    SyntheticStrainCalculator,
     SyntheticStrainPath,
-    calculate_synthetic_strain,
 )
 from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_schemas import (  # noqa: E501
     SyntheticStrainSchema,
@@ -24,7 +24,7 @@ FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
 
 def main() -> None:
     """Write replaceable JSON plus 1-D-style PDF and PNG diagnostics."""
-    result = calculate_synthetic_strain(
+    result = SyntheticStrainCalculator().execute(
         SyntheticStrainPath.BAIN_3D,
         24,
         FRACTIONS,

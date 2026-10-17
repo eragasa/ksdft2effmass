@@ -7,7 +7,6 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
-import numpy.typing as npt
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
 from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
@@ -20,7 +19,12 @@ from projectkoios.numerics.finite_periodic.numpy.transforms import (
     NumpyCenteredUniformMeshMatrixFourierTransformDefinition,
     NumpyCenteredUniformMeshMatrixFourierTransformer,
 )
+from projectkoios.numerics.numpy.typing import BoolArray
+from projectkoios.numerics.numpy.typing import Complex128Array as ComplexArray
+from projectkoios.numerics.numpy.typing import Float64Array as FloatArray
+from projectkoios.numerics.numpy.typing import Int64Array as IntArray
 
+from .alignment import restricted_alignment
 from .strain import (
     BAIN_DIAMOND_BASIS_OFFSETS,
     SyntheticStrainPath,
@@ -28,11 +32,6 @@ from .strain import (
     _metric,
     _path_parameter,
 )
-
-FloatArray = npt.NDArray[np.float64]
-ComplexArray = npt.NDArray[np.complex128]
-IntArray = npt.NDArray[np.int64]
-BoolArray = npt.NDArray[np.bool_]
 
 _SEED = np.eye(4, 2, dtype=np.complex128)
 
@@ -42,6 +41,14 @@ class StrainResponseModel(StrEnum):
 
     M1_FROZEN = "M1-frozen-four-state-bipartite"
     M2_RADIAL = "M2-fixed-radial-response"
+
+
+class StrainWitnessControl(StrEnum):
+    """Select one independently interpreted strain witness control."""
+
+    GEOMETRY_ONLY = "geometry-only-control"
+    FROZEN_PARENT = "frozen-parent-null-response-control"
+    RADIAL_RESPONSE = "synthetic-radial-response-control"
 
 
 @dataclass(frozen=True, slots=True)
@@ -113,6 +120,37 @@ class SyntheticStrainResponseResult:
     tail_tolerances: tuple[float, ...]
     points: tuple[StrainResponsePointDiagnostic, ...]
     status: str = "bounded-synthetic-strain-response-development-not-retained-evidence"
+
+
+@dataclass(frozen=True, slots=True)
+class StrainWitnessPointDiagnostic:
+    """Retain sampled representation-witness requirements at one strain."""
+
+    strain_fraction: float
+    path_parameter: float
+    volume_defect: float
+    maximum_direct_band_defect: float
+    splitting_scale: float
+    finite_mesh_maximum_correlation: float
+    pointwise_optimized_operator_threshold: float
+    fixed_candidate_operator_threshold: float
+    optimized_threshold_over_sqrt_splitting: float
+    fixed_candidate_threshold_over_sqrt_splitting: float
+
+
+@dataclass(frozen=True, slots=True)
+class SyntheticStrainWitnessScanResult:
+    """Retain one sampled strain-witness requirement envelope."""
+
+    path: SyntheticStrainPath
+    control: StrainWitnessControl
+    construction_size: int
+    maximum_rotation_amplitude: float
+    radial_decay_beta: float
+    points: tuple[StrainWitnessPointDiagnostic, ...]
+    sampled_maximum_optimized_operator_threshold: float
+    sampled_maximum_fixed_candidate_operator_threshold: float
+    status: str = "sampled-development-scan-not-continuum-certificate"
 
 
 def _dimension(path: SyntheticStrainPath) -> int:
@@ -600,11 +638,133 @@ def calculate_synthetic_strain_response(
     )
 
 
+def calculate_strain_witness_scan(
+    path: SyntheticStrainPath,
+    control: StrainWitnessControl,
+    construction_size: int,
+    strain_fractions: tuple[float, ...],
+    maximum_rotation_amplitude: float,
+) -> SyntheticStrainWitnessScanResult:
+    """Scan sampled representation-witness requirements along one strain path."""
+    if type(path) is not SyntheticStrainPath:
+        raise TypeError("path must be SyntheticStrainPath")
+    if type(control) is not StrainWitnessControl:
+        raise TypeError("control must be StrainWitnessControl")
+    if (
+        type(construction_size) is not int
+        or construction_size < 4
+        or construction_size % 2
+    ):
+        raise ValueError(
+            "construction_size must be an even built-in integer at least four"
+        )
+    if not strain_fractions or strain_fractions != tuple(sorted(set(strain_fractions))):
+        raise ValueError("strain_fractions must be nonempty, sorted, and unique")
+    if any(
+        type(value) is not float or not 0.0 <= value <= 1.0
+        for value in strain_fractions
+    ):
+        raise ValueError("strain fractions must be built-in floats in [0, 1]")
+    if (
+        type(maximum_rotation_amplitude) is not float
+        or not 0.0 <= maximum_rotation_amplitude <= math.pi / 4.0
+    ):
+        raise ValueError("maximum_rotation_amplitude must be a float in [0, pi/4]")
+
+    dimension = _dimension(path)
+    coordinates = _coordinates(construction_size, dimension, 0.5)
+    rotations = _gauge_rotations(path, coordinates, maximum_rotation_amplitude)
+    constant_parent = np.broadcast_to(
+        np.diag(np.asarray((1.0, -1.0), dtype=np.complex128)),
+        (*coordinates.shape[:-1], 2, 2),
+    ).copy()
+    response_model = (
+        StrainResponseModel.M1_FROZEN
+        if control is StrainWitnessControl.FROZEN_PARENT
+        else StrainResponseModel.M2_RADIAL
+    )
+    radial_beta = 1.0 if control is StrainWitnessControl.RADIAL_RESPONSE else 0.0
+
+    points: list[StrainWitnessPointDiagnostic] = []
+    for fraction in strain_fractions:
+        metric = _metric(path, fraction)
+        if control is StrainWitnessControl.GEOMETRY_ONLY:
+            reference = constant_parent
+        else:
+            responses = _hopping_responses(
+                path,
+                response_model,
+                fraction,
+                radial_beta,
+            )
+            parent = _parent_field(path, coordinates, responses)
+            frame, _, _ = _retained_frame(parent)
+            reference = _retained_field(frame, parent)
+        comparison = np.swapaxes(rotations.conjugate(), -1, -2) @ reference @ rotations
+        (
+            _,
+            _,
+            splitting_scale,
+            correlation,
+            optimized_threshold,
+            reference_threshold,
+        ) = restricted_alignment(reference, comparison)
+        if correlation is None or splitting_scale <= 0.0:
+            raise RuntimeError(
+                "strain witness scan requires nonzero retained splitting"
+            )
+        root_splitting = math.sqrt(splitting_scale)
+        points.append(
+            StrainWitnessPointDiagnostic(
+                strain_fraction=fraction,
+                path_parameter=_path_parameter(path, fraction),
+                volume_defect=abs(float(np.linalg.det(metric)) - 1.0),
+                maximum_direct_band_defect=float(
+                    np.max(
+                        np.abs(
+                            np.linalg.eigvalsh(reference)
+                            - np.linalg.eigvalsh(comparison)
+                        )
+                    )
+                ),
+                splitting_scale=splitting_scale,
+                finite_mesh_maximum_correlation=correlation,
+                pointwise_optimized_operator_threshold=optimized_threshold,
+                fixed_candidate_operator_threshold=reference_threshold,
+                optimized_threshold_over_sqrt_splitting=(
+                    optimized_threshold / root_splitting
+                ),
+                fixed_candidate_threshold_over_sqrt_splitting=(
+                    reference_threshold / root_splitting
+                ),
+            )
+        )
+    immutable_points = tuple(points)
+    return SyntheticStrainWitnessScanResult(
+        path=path,
+        control=control,
+        construction_size=construction_size,
+        maximum_rotation_amplitude=maximum_rotation_amplitude,
+        radial_decay_beta=radial_beta,
+        points=immutable_points,
+        sampled_maximum_optimized_operator_threshold=max(
+            point.pointwise_optimized_operator_threshold for point in immutable_points
+        ),
+        sampled_maximum_fixed_candidate_operator_threshold=max(
+            point.fixed_candidate_operator_threshold for point in immutable_points
+        ),
+    )
+
+
 __all__ = [
     "StrainErrorChannels",
     "StrainResponseCutoffDiagnostic",
     "StrainResponseModel",
     "StrainResponsePointDiagnostic",
+    "StrainWitnessControl",
+    "StrainWitnessPointDiagnostic",
     "SyntheticStrainResponseResult",
+    "SyntheticStrainWitnessScanResult",
+    "calculate_strain_witness_scan",
     "calculate_synthetic_strain_response",
 ]

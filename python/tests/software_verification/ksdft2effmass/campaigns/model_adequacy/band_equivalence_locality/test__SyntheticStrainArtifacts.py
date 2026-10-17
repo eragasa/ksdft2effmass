@@ -8,8 +8,8 @@ import pytest
 from jsonschema import ValidationError  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
+    SyntheticStrainCalculator,
     SyntheticStrainPath,
-    calculate_synthetic_strain,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
     StrainResponseModel,
@@ -34,7 +34,7 @@ class TestSyntheticStrainArtifacts:
     """Establish explicit canonical M0/M1/M2 result serialization and schemas."""
 
     def test_m0_result__serializes_explicit_fields_and_validates(self) -> None:
-        result = calculate_synthetic_strain(
+        result = SyntheticStrainCalculator().execute(
             SyntheticStrainPath.RHOMBIC_2D,
             4,
             (0.0, 1.0),

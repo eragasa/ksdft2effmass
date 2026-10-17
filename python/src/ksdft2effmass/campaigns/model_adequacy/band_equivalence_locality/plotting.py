@@ -14,6 +14,9 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.constrained
     ConstrainedBesselTailDiagnostic,
     ConstrainedBesselTailRequest,
 )
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (  # noqa: E501
+    BandEquivalenceLocalityFamily,
+)
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.records import (
     BandEquivalenceLocalityDiagnostics,
 )
@@ -24,7 +27,20 @@ from matplotlib import pyplot as plt  # noqa: E402
 _BLUE = "#0072B2"
 _VERMILION = "#D55E00"
 _GREEN = "#009E73"
+_MAGENTA = "#CC79A7"
 _BLACK = "#202020"
+_FAMILY_PRESENTATION: dict[BandEquivalenceLocalityFamily, tuple[str, str]] = {
+    BandEquivalenceLocalityFamily.SQUARE: ("Square 2-D", _BLUE),
+    BandEquivalenceLocalityFamily.GRAPHENE_INSPIRED: (
+        "Nonorthogonal 2-D",
+        _VERMILION,
+    ),
+    BandEquivalenceLocalityFamily.SIMPLE_CUBIC: ("Simple-cubic 3-D", _GREEN),
+    BandEquivalenceLocalityFamily.SILICON_INSPIRED: (
+        "Nonorthogonal 3-D",
+        _MAGENTA,
+    ),
+}
 _STYLE: dict[str, str | float | int | bool] = {
     "font.family": "DejaVu Sans",
     "font.size": 7.5,
@@ -120,6 +136,43 @@ class BandEquivalenceLocalityPlotResult:
     """Identify every plot artifact written by one request."""
 
     paths: tuple[Path, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class BandEquivalenceToleranceMapRequest:
+    """Supply one typed development result per independently interpreted family."""
+
+    family_results: tuple[BandEquivalenceLocalityDiagnostics, ...]
+    output_directory: Path
+    title: str
+
+    def __post_init__(self) -> None:
+        if type(self.family_results) is not tuple or len(self.family_results) < 2:
+            raise ValueError("family_results must contain at least two diagnostics")
+        if any(
+            type(result) is not BandEquivalenceLocalityDiagnostics
+            for result in self.family_results
+        ):
+            raise TypeError(
+                "family_results must contain BandEquivalenceLocalityDiagnostics"
+            )
+        families = tuple(result.family for result in self.family_results)
+        if len(set(families)) != len(families):
+            raise ValueError("family_results must contain unique families")
+        for result in self.family_results:
+            if not any(
+                point.alignment_applicable
+                and point.minimum_operator_threshold_over_sqrt_splitting is not None
+                for case in result.cases
+                for point in case.points
+            ):
+                raise ValueError(
+                    "each family result must contain an applicable alignment point"
+                )
+        if not isinstance(self.output_directory, Path):
+            raise TypeError("output_directory must be pathlib.Path")
+        if type(self.title) is not str or not self.title:
+            raise ValueError("title must be a nonempty string")
 
 
 class BandEquivalenceLocalityPlotWriter:
@@ -668,8 +721,154 @@ class BandEquivalenceLocalityPlotWriter:
         return stem
 
 
+class BandEquivalenceToleranceMapWriter:
+    """Plot required threshold pairs without assigning scientific acceptance."""
+
+    __slots__ = ()
+
+    def execute(
+        self, request: BandEquivalenceToleranceMapRequest
+    ) -> BandEquivalenceLocalityPlotResult:
+        if type(request) is not BandEquivalenceToleranceMapRequest:
+            raise TypeError("request must be BandEquivalenceToleranceMapRequest")
+        request.output_directory.mkdir(parents=True, exist_ok=True)
+        with matplotlib.rc_context(_STYLE):  # type: ignore[arg-type]
+            figure, axis = plt.subplots(figsize=(8.8, 5.8))
+            figure.subplots_adjust(left=0.14, right=0.98, bottom=0.14, top=0.90)
+            annotation_offsets = ((7, 8), (7, 11), (7, -12), (7, -10))
+            for family_index, result in enumerate(request.family_results):
+                label, color = _FAMILY_PRESENTATION[result.family]
+                normalized_thresholds: list[float] = []
+                unit_scale_thresholds: list[float] = []
+                for case in result.cases:
+                    parent_scales = tuple(
+                        sorted({point.parent_scale for point in case.points})
+                    )
+                    for parent_scale in parent_scales:
+                        points = tuple(
+                            point
+                            for point in case.points
+                            if point.parent_scale == parent_scale
+                            and point.alignment_applicable
+                            and point.minimum_operator_threshold_over_sqrt_splitting
+                            is not None
+                        )
+                        x_values = tuple(
+                            point.minimum_operator_threshold_over_sqrt_splitting
+                            for point in points
+                            if point.minimum_operator_threshold_over_sqrt_splitting
+                            is not None
+                        )
+                        y_values = tuple(
+                            point.exact_spectrum_joint_operator_threshold
+                            for point in points
+                        )
+                        normalized_thresholds.extend(x_values)
+                        unit_scale_thresholds.extend(y_values)
+                        axis.plot(
+                            x_values,
+                            y_values,
+                            color=color,
+                            marker="o",
+                            markersize=3.2,
+                            markeredgewidth=0.0,
+                            alpha=0.34,
+                            zorder=1,
+                        )
+                envelope_x = max(normalized_thresholds)
+                envelope_y = max(unit_scale_thresholds)
+                axis.scatter(
+                    (envelope_x,),
+                    (envelope_y,),
+                    color=color,
+                    edgecolor=_BLACK,
+                    linewidth=0.7,
+                    marker="D",
+                    s=54,
+                    label=label,
+                    zorder=3,
+                )
+                axis.annotate(
+                    f"({envelope_x:.3f}, {envelope_y:.3f})",
+                    xy=(envelope_x, envelope_y),
+                    xytext=annotation_offsets[family_index],
+                    textcoords="offset points",
+                    color=color,
+                    fontsize=6.5,
+                )
+            axis.annotate(
+                "smaller required mismatch",
+                xy=(0.035, 0.012),
+                xytext=(0.22, 0.09),
+                arrowprops={"arrowstyle": "->", "color": _BLACK, "lw": 0.8},
+                color=_BLACK,
+                fontsize=7,
+            )
+            axis.set_xlim(left=0.0)
+            axis.set_ylim(bottom=0.0)
+            axis.set_xlabel(
+                r"optimized-scale requirement, $\tau_{o,\min}/\sqrt{\kappa}$"
+            )
+            axis.set_ylabel(
+                r"unit-scale exact-spectrum requirement, "
+                r"$\tau_{o,\mathrm{joint}}/E_{\mathrm{ref}}$"
+            )
+            axis.set_title(request.title)
+            axis.grid(True, alpha=0.22)
+            axis.legend(
+                title="componentwise family envelope",
+                frameon=False,
+                loc="upper left",
+            )
+            axis.text(
+                0.99,
+                0.97,
+                "faint lines: sampled parent-scale/amplitude trajectories",
+                transform=axis.transAxes,
+                ha="right",
+                va="top",
+                color="#666666",
+                fontsize=6.5,
+            )
+            axis.text(
+                0.99,
+                0.02,
+                "DEVELOPMENT — NO ACCEPTANCE LIMITS FROZEN",
+                transform=axis.transAxes,
+                ha="right",
+                va="bottom",
+                color="#666666",
+                fontsize=6.5,
+                fontweight="bold",
+            )
+            stem = request.output_directory / "tolerance-requirement-map"
+            metadata = {
+                "Title": request.title,
+                "Subject": (
+                    "Replaceable development requirements; not scientific acceptance"
+                ),
+            }
+            figure.savefig(
+                stem.with_suffix(".pdf"),
+                bbox_inches="tight",
+                metadata=metadata,
+            )
+            figure.savefig(
+                stem.with_suffix(".png"),
+                dpi=600,
+                bbox_inches="tight",
+                metadata=metadata,
+            )
+            plt.close(figure)
+        return BandEquivalenceLocalityPlotResult(
+            paths=(stem.with_suffix(".pdf"), stem.with_suffix(".png"))
+        )
+
+
 __all__ = [
     "BandEquivalenceLocalityPlotRequest",
     "BandEquivalenceLocalityPlotResult",
     "BandEquivalenceLocalityPlotWriter",
+    "BandEquivalenceToleranceMapRequest",
+    "BandEquivalenceToleranceMapWriter",
 ]

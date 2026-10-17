@@ -203,93 +203,106 @@ def _first_passing(
     return tuple(radii), tuple(blocks)
 
 
-def calculate_synthetic_strain(
-    path: SyntheticStrainPath,
-    construction_size: int,
-    strain_fractions: tuple[float, ...],
-    maximum_rotation_amplitude: float,
-    tail_tolerances: tuple[float, ...],
-) -> SyntheticStrainResult:
-    """Calculate one bounded frozen-parent gauge-locality strain sequence."""
-    if type(path) is not SyntheticStrainPath:
-        raise TypeError("path must be SyntheticStrainPath")
-    if (
-        type(construction_size) is not int
-        or construction_size < 4
-        or construction_size % 2
-    ):
-        raise ValueError(
-            "construction_size must be an even built-in integer at least four"
-        )
-    if (
-        type(maximum_rotation_amplitude) is not float
-        or not 0.0 <= maximum_rotation_amplitude <= math.pi / 4.0
-    ):
-        raise ValueError(
-            "maximum_rotation_amplitude must be a built-in float in [0, pi/4]"
-        )
-    if not strain_fractions or strain_fractions != tuple(sorted(set(strain_fractions))):
-        raise ValueError("strain_fractions must be nonempty, sorted, and unique")
-    if any(
-        type(value) is not float or not 0.0 <= value <= 1.0
-        for value in strain_fractions
-    ):
-        raise ValueError("strain fractions must be built-in floats in [0, 1]")
-    if not tail_tolerances or any(
-        type(value) is not float or not 0.0 < value < 1.0 for value in tail_tolerances
-    ):
-        raise ValueError("tail tolerances must be built-in floats in (0, 1)")
-    displacements, powers, nyquist, parseval, residual = _fourier_power(
-        path, construction_size, maximum_rotation_amplitude
-    )
-    bonds = _bonds(path).astype(np.float64)
-    points: list[StrainPointDiagnostic] = []
-    reference_power = float(np.sum(powers))
-    maximum_invariance = 0.0
-    for fraction in strain_fractions:
-        metric = _metric(path, fraction)
-        if abs(float(np.linalg.det(metric)) - 1.0) > 2.0e-13:
-            raise RuntimeError("strain metric lost unit determinant")
-        squared_radii = np.einsum("ri,ij,rj->r", displacements, metric, displacements)
-        bond_squared = np.einsum("bi,ij,bj->b", bonds, metric, bonds)
-        first_radii, first_blocks = _first_passing(
-            squared_radii, powers, nyquist, tail_tolerances
-        )
-        rounded_lengths = np.round(np.sqrt(bond_squared), decimals=12)
-        maximum_invariance = max(
-            maximum_invariance, abs(float(np.sum(powers)) - reference_power)
-        )
-        points.append(
-            StrainPointDiagnostic(
-                strain_fraction=fraction,
-                path_parameter=_path_parameter(path, fraction),
-                metric=tuple(tuple(float(value) for value in row) for row in metric),
-                minimum_bond_length=float(np.sqrt(np.min(bond_squared))),
-                maximum_bond_length=float(np.sqrt(np.max(bond_squared))),
-                distinct_bond_lengths=len(set(rounded_lengths.tolist())),
-                restricted_alignment_residual=residual,
-                ordinary_fourier_power=float(np.sum(powers)),
-                nyquist_power=nyquist,
-                first_passing_radius=first_radii,
-                first_passing_blocks=first_blocks,
+class SyntheticStrainCalculator:
+    """Calculate bounded frozen-parent gauge-locality strain sequences."""
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        path: SyntheticStrainPath,
+        construction_size: int,
+        strain_fractions: tuple[float, ...],
+        maximum_rotation_amplitude: float,
+        tail_tolerances: tuple[float, ...],
+    ) -> SyntheticStrainResult:
+        """Calculate one bounded frozen-parent gauge-locality strain sequence."""
+        if type(path) is not SyntheticStrainPath:
+            raise TypeError("path must be SyntheticStrainPath")
+        if (
+            type(construction_size) is not int
+            or construction_size < 4
+            or construction_size % 2
+        ):
+            raise ValueError(
+                "construction_size must be an even built-in integer at least four"
             )
+        if (
+            type(maximum_rotation_amplitude) is not float
+            or not 0.0 <= maximum_rotation_amplitude <= math.pi / 4.0
+        ):
+            raise ValueError(
+                "maximum_rotation_amplitude must be a built-in float in [0, pi/4]"
+            )
+        if not strain_fractions or strain_fractions != tuple(
+            sorted(set(strain_fractions))
+        ):
+            raise ValueError("strain_fractions must be nonempty, sorted, and unique")
+        if any(
+            type(value) is not float or not 0.0 <= value <= 1.0
+            for value in strain_fractions
+        ):
+            raise ValueError("strain fractions must be built-in floats in [0, 1]")
+        if not tail_tolerances or any(
+            type(value) is not float or not 0.0 < value < 1.0
+            for value in tail_tolerances
+        ):
+            raise ValueError("tail tolerances must be built-in floats in (0, 1)")
+        displacements, powers, nyquist, parseval, residual = _fourier_power(
+            path, construction_size, maximum_rotation_amplitude
         )
-    return SyntheticStrainResult(
-        path=path,
-        construction_size=construction_size,
-        maximum_rotation_amplitude=maximum_rotation_amplitude,
-        tail_tolerances=tail_tolerances,
-        maximum_parseval_defect=parseval,
-        maximum_strain_invariance_defect=maximum_invariance,
-        points=tuple(points),
-    )
+        bonds = _bonds(path).astype(np.float64)
+        points: list[StrainPointDiagnostic] = []
+        reference_power = float(np.sum(powers))
+        maximum_invariance = 0.0
+        for fraction in strain_fractions:
+            metric = _metric(path, fraction)
+            if abs(float(np.linalg.det(metric)) - 1.0) > 2.0e-13:
+                raise RuntimeError("strain metric lost unit determinant")
+            squared_radii = np.einsum(
+                "ri,ij,rj->r", displacements, metric, displacements
+            )
+            bond_squared = np.einsum("bi,ij,bj->b", bonds, metric, bonds)
+            first_radii, first_blocks = _first_passing(
+                squared_radii, powers, nyquist, tail_tolerances
+            )
+            rounded_lengths = np.round(np.sqrt(bond_squared), decimals=12)
+            maximum_invariance = max(
+                maximum_invariance, abs(float(np.sum(powers)) - reference_power)
+            )
+            points.append(
+                StrainPointDiagnostic(
+                    strain_fraction=fraction,
+                    path_parameter=_path_parameter(path, fraction),
+                    metric=tuple(
+                        tuple(float(value) for value in row) for row in metric
+                    ),
+                    minimum_bond_length=float(np.sqrt(np.min(bond_squared))),
+                    maximum_bond_length=float(np.sqrt(np.max(bond_squared))),
+                    distinct_bond_lengths=len(set(rounded_lengths.tolist())),
+                    restricted_alignment_residual=residual,
+                    ordinary_fourier_power=float(np.sum(powers)),
+                    nyquist_power=nyquist,
+                    first_passing_radius=first_radii,
+                    first_passing_blocks=first_blocks,
+                )
+            )
+        return SyntheticStrainResult(
+            path=path,
+            construction_size=construction_size,
+            maximum_rotation_amplitude=maximum_rotation_amplitude,
+            tail_tolerances=tail_tolerances,
+            maximum_parseval_defect=parseval,
+            maximum_strain_invariance_defect=maximum_invariance,
+            points=tuple(points),
+        )
 
 
 __all__ = [
     "BAIN_DIAMOND_BASIS_OFFSETS",
     "BAIN_FCC_UNIMODULAR_MAP",
     "StrainPointDiagnostic",
+    "SyntheticStrainCalculator",
     "SyntheticStrainPath",
     "SyntheticStrainResult",
-    "calculate_synthetic_strain",
 ]

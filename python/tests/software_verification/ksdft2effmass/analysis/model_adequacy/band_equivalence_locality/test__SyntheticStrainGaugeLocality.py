@@ -26,7 +26,7 @@ class TestSyntheticStrainGaugeLocality:
     def test_path__frozen_gauge__preserves_power_while_physical_range_changes(
         self, path: strain.SyntheticStrainPath, size: int
     ) -> None:
-        result = strain.calculate_synthetic_strain(
+        result = strain.SyntheticStrainCalculator().execute(
             path,
             size,
             (0.0, 0.5, 1.0),
@@ -58,13 +58,17 @@ class TestSyntheticStrainGaugeLocality:
             ((0.5, 0.25, 0.25), (0.25, 0.5, 0.25), (0.25, 0.25, 0.5))
         )
         unit_volume_fcc_metric = reference_fcc_metric * 2.0 ** (4.0 / 3.0)
-        endpoint = strain.calculate_synthetic_strain(
-            strain.SyntheticStrainPath.BAIN_3D,
-            8,
-            (0.0,),
-            math.pi / 4.0,
-            (1.0e-3,),
-        ).points[0]
+        endpoint = (
+            strain.SyntheticStrainCalculator()
+            .execute(
+                strain.SyntheticStrainPath.BAIN_3D,
+                8,
+                (0.0,),
+                math.pi / 4.0,
+                (1.0e-3,),
+            )
+            .points[0]
+        )
         assert transform.T @ unit_volume_fcc_metric @ transform == pytest.approx(
             np.asarray(endpoint.metric), abs=2.0e-15
         )
@@ -172,9 +176,70 @@ class TestSyntheticStrainGaugeLocality:
             for cutoff in strained.cutoffs
         )
 
+    @pytest.mark.parametrize(
+        ("path", "control"),
+        (
+            (
+                strain.SyntheticStrainPath.RHOMBIC_2D,
+                strain_response.StrainWitnessControl.GEOMETRY_ONLY,
+            ),
+            (
+                strain.SyntheticStrainPath.BAIN_3D,
+                strain_response.StrainWitnessControl.FROZEN_PARENT,
+            ),
+        ),
+    )
+    def test_witness_scan__invariant_controls__retain_one_requirement_envelope(
+        self,
+        path: strain.SyntheticStrainPath,
+        control: strain_response.StrainWitnessControl,
+    ) -> None:
+        result = strain_response.calculate_strain_witness_scan(
+            path,
+            control,
+            8,
+            (0.0, 0.5, 1.0),
+            math.pi / 4.0,
+        )
+
+        optimized = tuple(
+            point.pointwise_optimized_operator_threshold for point in result.points
+        )
+        reference = tuple(
+            point.fixed_candidate_operator_threshold for point in result.points
+        )
+        assert max(point.volume_defect for point in result.points) < 3.0e-15
+        assert (
+            max(point.maximum_direct_band_defect for point in result.points) < 2.0e-15
+        )
+        assert max(optimized) == pytest.approx(min(optimized), abs=1.0e-15)
+        assert max(reference) == pytest.approx(min(reference), abs=1.0e-15)
+        assert result.sampled_maximum_optimized_operator_threshold == max(optimized)
+        assert result.sampled_maximum_fixed_candidate_operator_threshold == max(
+            reference
+        )
+
+    def test_witness_scan__radial_response__changes_sampled_requirement(self) -> None:
+        result = strain_response.calculate_strain_witness_scan(
+            strain.SyntheticStrainPath.RHOMBIC_2D,
+            strain_response.StrainWitnessControl.RADIAL_RESPONSE,
+            8,
+            (0.0, 0.5, 1.0),
+            math.pi / 4.0,
+        )
+
+        reference, _, strained = result.points
+        assert strained.pointwise_optimized_operator_threshold > (
+            reference.pointwise_optimized_operator_threshold
+        )
+        assert strained.fixed_candidate_operator_threshold > (
+            reference.fixed_candidate_operator_threshold
+        )
+        assert result.status == "sampled-development-scan-not-continuum-certificate"
+
     def test_inputs__odd_mesh_and_boolean_amplitude__fail_closed(self) -> None:
         with pytest.raises(ValueError, match="even"):
-            strain.calculate_synthetic_strain(
+            strain.SyntheticStrainCalculator().execute(
                 strain.SyntheticStrainPath.RHOMBIC_2D,
                 15,
                 (0.0, 1.0),
@@ -182,10 +247,26 @@ class TestSyntheticStrainGaugeLocality:
                 (1.0e-3,),
             )
         with pytest.raises(ValueError, match="built-in float"):
-            strain.calculate_synthetic_strain(
+            strain.SyntheticStrainCalculator().execute(
                 strain.SyntheticStrainPath.RHOMBIC_2D,
                 16,
                 (0.0, 1.0),
                 True,
                 (1.0e-3,),
+            )
+        with pytest.raises(ValueError, match="even"):
+            strain_response.calculate_strain_witness_scan(
+                strain.SyntheticStrainPath.BAIN_3D,
+                strain_response.StrainWitnessControl.FROZEN_PARENT,
+                7,
+                (0.0, 1.0),
+                math.pi / 4.0,
+            )
+        with pytest.raises(ValueError, match="built-in floats"):
+            strain_response.calculate_strain_witness_scan(
+                strain.SyntheticStrainPath.BAIN_3D,
+                strain_response.StrainWitnessControl.FROZEN_PARENT,
+                8,
+                (0.0, True),
+                math.pi / 4.0,
             )
