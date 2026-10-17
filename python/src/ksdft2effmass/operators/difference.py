@@ -150,7 +150,7 @@ class OperatorRecordDifferenceResult:
     def matrix_dimension(self) -> int:
         """Positive represented matrix dimension."""
 
-        return self.matrix.shape[0]
+        return int(self.matrix.shape[0])
 
     def __eq__(self, other: object) -> bool:
         """Return exact equality for public metadata and matrix entries."""

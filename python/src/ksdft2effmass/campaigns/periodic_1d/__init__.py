@@ -89,9 +89,11 @@ from .isolated_verified_workflows import (
     Periodic1DIsolatedVerifiedWorkflowRequest,
     Periodic1DIsolatedVerifiedWorkflowResult,
 )
-from .model.integrations import Periodic1DWannier90IntegrationModel
-from .native_artifact_workflows import (
+from .model.integrations import (
+    Periodic1DWannier90IntegrationModel,
     Periodic1DWannier90NativeArtifactGroup,
+)
+from .native_artifact_workflows import (
     Periodic1DWannier90NativeArtifactGroupResult,
     Periodic1DWannier90NativeArtifactWorkflow,
     Periodic1DWannier90NativeArtifactWorkflowRequest,
