@@ -28,13 +28,14 @@ remain distinct. \(E_{\mathrm{ref}}\) is the declared energy scale, \(\kappa\) i
 declared gauge-amplitude parameter, and all lattice radii are measured with the relevant
 direct-lattice metric.
 
-The checklist currently contains 110 obligations: 51 calculated quantities awaiting
-independent parity review, 48 completed development-parity checks (five restricted-
-alignment checks, 12 threshold/refinement checks, nine frame/transport/closure checks,
-and 22 Fourier-locality and omitted-weight checks), three tolerance-dependent
-conclusions that remain unresolved, and eight literal one-dimensional quantities whose
-inapplicability must be confirmed. A completed box records a definition and an
-independent development reconstruction; it does not confer scientific qualification.
+The checklist currently contains 110 obligations: 107 completed development-parity
+checks (five restricted-alignment checks, 12 threshold/refinement checks, nine
+frame/transport/closure checks, 22 Fourier-locality and omitted-weight checks, eight
+numerical-identity checks, 24 Hamiltonian-error checks, four mesh/amplitude-resolution
+checks, 21 spectral-error checks, and two retained-subspace checks), three
+tolerance-dependent conclusions that remain unresolved, and no outstanding literal
+one-dimensional applicability determinations. A completed box records a definition and
+an independent development reconstruction; it does not confer scientific qualification.
 For the completed alignment checks, direct finite-mesh correlations agree with the
 applicable Bessel-product or constrained zero-mode comparators in bounded square,
 cubic, triangular, and FCC controls, and the refinement angle, correlation, and
@@ -52,7 +53,29 @@ the square, simple-cubic, triangular, and FCC construction fields, hopping block
 reconstructions, shell powers, ordinary omitted powers, Nyquist powers, and error
 channels without calling the production Fourier transform or evaluator. The bounded
 pointwise discrepancies and the independently reconstructed refinement and midpoint
-reductions agreed within an absolute tolerance of \(5\times10^{-13}\).
+reductions agreed within an absolute tolerance of \(5\times10^{-13}\). The added
+error-channel parity tranche independently rebuilt normalized Hamiltonian and sorted-band
+interpolation, truncation, and total errors on every complete metric shell, then selected
+the first-passing shell and its immediately preceding error without calling the
+production decision routine. The deliberately loose value \(10^{-1}\) exercises the
+first-passing development calculation only; it is not a frozen family-specific
+scientific tolerance. The same oracle checked the \(N=6\) half-step construction mesh,
+the independently shifted \(M=7\) evaluation mesh, their strictly positive torus
+separation, direct band covariance, Parseval and reconstruction defects, Hamiltonian
+Hermiticity, and the sampled external rank-two isolation gap. The literal one-dimensional
+range-zero endpoint has the unique onsite-shell replacement \(s=0\). Literal ranges 8
+and 16 have no family-independent multidimensional replacement because complete support
+is ordered by each family's scaled direct-lattice metric; all available complete shells
+and first-passing shells are retained instead. Positive construction--evaluation mesh
+separation also makes literal shared-node eigenvalue and projector comparisons
+inapplicable rather than zero. Independent \(N=8\) and \(N=16\) quadratures bounded
+the largest normalized change among the enumerated integrated alignment and Fourier
+power channels by \(10^{-5}\) in this development control. Direct closed-form
+second-harmonic maximization separately reproduced the optimized positive-scale and
+unit-scale thresholds, normalized squared residual, midpoint defects, and sampled
+small-amplitude behavior. Flat residual--locality identities were independently
+reconstructed where the flat parent has nonzero retained splitting; the bipartite
+flat-parent controls instead retain explicit zero-splitting inapplicability.
 
 ## 1. Restricted global alignment
 
@@ -143,14 +166,14 @@ not convergence or a retained scientific result.
 These checks establish numerical consistency only. They do not establish convergence of
 the scientific model or validate a material claim.
 
-- [ ] Compare the principal result with an independently refined momentum quadrature. *(unitless relative defect)*
-- [ ] Bound the change produced by the finer quadrature for every integrated quantity. *(unitless relative defect)*
-- [ ] Bound the numerical defect in every analytic residual--locality identity. *(unitless)*
-- [ ] Verify Parseval equality between momentum-space and hopping-space Frobenius weights. *(unitless relative defect)*
-- [ ] Reconstruct \(H(\mathbf k)\) from the complete hopping blocks and bound the maximum reconstruction defect. *(unitless relative defect)*
-- [ ] Bound \(\|H^{\mathrm{ref}}(\mathbf k)-H^{\mathrm{ref}}(\mathbf k)^\dagger\|\) over the sampled Brillouin zone. *(unitless relative defect)*
-- [ ] Independently reproduce every primary numerical quantity and report the maximum normalized defect.
-- [ ] Report the discrepancy between the primary calculation and the independent reconstruction without reusing the primary disposition.
+- [x] Compare the principal result with an independently refined momentum quadrature. *(unitless relative defect)*
+- [x] Bound the change produced by the finer quadrature for every integrated quantity. *(unitless relative defect)*
+- [x] Bound the numerical defect in every applicable analytic residual--locality identity and retain explicit zero-splitting inapplicability. *(unitless)*
+- [x] Verify Parseval equality between momentum-space and hopping-space Frobenius weights. *(unitless relative defect)*
+- [x] Reconstruct \(H(\mathbf k)\) from the complete hopping blocks and bound the maximum reconstruction defect. *(unitless relative defect)*
+- [x] Bound \(\|H^{\mathrm{ref}}(\mathbf k)-H^{\mathrm{ref}}(\mathbf k)^\dagger\|\) over the sampled Brillouin zone. *(unitless relative defect)*
+- [x] Independently reproduce every primary numerical quantity and report the maximum normalized defect.
+- [x] Report the discrepancy between the primary calculation and the independent reconstruction without reusing the primary disposition.
 
 ## 6. Hamiltonian errors, operator thresholds, and first-passing supports
 
@@ -159,40 +182,40 @@ deliberate truncation, and their total consequence must remain separate. A first
 support requires the passing error and the error at the immediately preceding complete
 support.
 
-- [ ] Find the smallest complete support for which the comparison Hamiltonian satisfies the matrix-error tolerance.
-- [ ] Report the comparison Hamiltonian error at that first-passing support.
-- [ ] Report the comparison Hamiltonian error at the immediately preceding complete support.
-- [ ] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{cmp}}^{\mathrm{int}}(\mathbf k)\).
-- [ ] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{cmp}}^{\mathrm{tot}}(\mathbf k)\).
-- [ ] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{cmp}}^{\mathrm{trunc}}(\mathbf k)\).
-- [ ] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{cmp}}^{\mathrm{int}}\).
-- [ ] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{cmp}}^{\mathrm{tot}}\).
-- [ ] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{cmp}}^{\mathrm{trunc}}\).
-- [ ] Confirm that the literal one-dimensional endpoint error at range zero has no unique multidimensional scalar-radius counterpart, or define one scientifically. *(currently inapplicable)*
-- [ ] Confirm that the literal one-dimensional endpoint error at range sixteen has no unique multidimensional scalar-radius counterpart, or define one scientifically. *(currently inapplicable)*
-- [ ] Confirm that the literal one-dimensional endpoint error at range eight has no unique multidimensional scalar-radius counterpart, or define one scientifically. *(currently inapplicable)*
-- [ ] Evaluate the exact-spectrum joint operator threshold without replacing it by the optimized-scale threshold. *(in units of \(E_{\mathrm{ref}}\))*
-- [ ] Evaluate \(\max_{\mathbf k}\varepsilon_H^{\mathrm{int}}(\mathbf k)\) for the representation under study.
-- [ ] Evaluate the amplitude-midpoint defect of the minimum operator threshold. *(in units of \(E_{\mathrm{ref}}\))*
-- [ ] Separate interpolation error from the amplitude-midpoint defect of the operator threshold. *(in units of \(E_{\mathrm{ref}}\))*
-- [ ] Minimize the aligned operator residual over the allowed global rotation and positive splitting scale. *(in units of \(E_{\mathrm{ref}}\))*
-- [ ] Divide the minimum operator threshold by \(\sqrt{\kappa}\) and examine its small-amplitude limit.
-- [ ] Evaluate the normalized squared operator residual on the common retained state space.
-- [ ] Find the smallest complete support for which the reference Hamiltonian satisfies the matrix-error tolerance.
-- [ ] Report the reference Hamiltonian error at that first-passing support.
-- [ ] Report the reference Hamiltonian error at the immediately preceding complete support.
-- [ ] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{ref}}^{\mathrm{trunc}}(\mathbf k)\).
-- [ ] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{ref}}^{\mathrm{trunc}}\).
+- [x] Find the smallest complete support for which the comparison Hamiltonian satisfies the matrix-error tolerance.
+- [x] Report the comparison Hamiltonian error at that first-passing support.
+- [x] Report the comparison Hamiltonian error at the immediately preceding complete support.
+- [x] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{cmp}}^{\mathrm{int}}(\mathbf k)\).
+- [x] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{cmp}}^{\mathrm{tot}}(\mathbf k)\).
+- [x] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{cmp}}^{\mathrm{trunc}}(\mathbf k)\).
+- [x] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{cmp}}^{\mathrm{int}}\).
+- [x] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{cmp}}^{\mathrm{tot}}\).
+- [x] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{cmp}}^{\mathrm{trunc}}\).
+- [x] Resolve the literal one-dimensional endpoint error at range zero by evaluating the unique multidimensional onsite-only complete shell \(s=0\).
+- [x] Confirm that the literal one-dimensional endpoint error at range sixteen has no unique multidimensional scalar-radius counterpart. *(inapplicable: family metrics give no common range-16 support)*
+- [x] Confirm that the literal one-dimensional endpoint error at range eight has no unique multidimensional scalar-radius counterpart. *(inapplicable: family metrics give no common range-8 support)*
+- [x] Evaluate the exact-spectrum joint operator threshold without replacing it by the optimized-scale threshold. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Evaluate \(\max_{\mathbf k}\varepsilon_H^{\mathrm{int}}(\mathbf k)\) for the representation under study.
+- [x] Evaluate the amplitude-midpoint defect of the minimum operator threshold. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Separate interpolation error from the amplitude-midpoint defect of the operator threshold. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Minimize the aligned operator residual over the allowed global rotation and positive splitting scale. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Divide the minimum operator threshold by \(\sqrt{\kappa}\) and examine its sampled small-amplitude limit.
+- [x] Evaluate the normalized squared operator residual on the common retained state space.
+- [x] Find the smallest complete support for which the reference Hamiltonian satisfies the matrix-error tolerance.
+- [x] Report the reference Hamiltonian error at that first-passing support.
+- [x] Report the reference Hamiltonian error at the immediately preceding complete support.
+- [x] Evaluate \(\max_{\mathbf k}\varepsilon_{H,\mathrm{ref}}^{\mathrm{trunc}}(\mathbf k)\).
+- [x] Evaluate the Brillouin-zone RMS of \(\varepsilon_{H,\mathrm{ref}}^{\mathrm{trunc}}\).
 
 ## 7. Momentum, amplitude, and refinement resolution
 
 Resolution counts document the discretization on which a quantity was evaluated; they
 are not, by themselves, convergence evidence.
 
-- [ ] Record the number and placement of gauge-amplitude nodes used in the analytic and numerical scans.
-- [ ] Record the tensor dimensions and origin convention of the construction mesh.
-- [ ] Record the tensor dimensions and shift of the independent evaluation mesh.
-- [ ] Evaluate the minimum periodic separation between the construction mesh and the shifted evaluation mesh. *(unitless reduced reciprocal coordinate)*
+- [x] Record the number and placement of gauge-amplitude nodes used in the analytic and numerical scans.
+- [x] Record the tensor dimensions and origin convention of the construction mesh.
+- [x] Record the tensor dimensions and shift of the independent evaluation mesh.
+- [x] Evaluate the minimum periodic separation between the construction mesh and the shifted evaluation mesh. *(unitless reduced reciprocal coordinate)*
 
 ## 8. Spectral errors and first-passing supports
 
@@ -200,35 +223,35 @@ Spectral errors compare sorted retained-band energies in units of
 \(E_{\mathrm{ref}}\). They must remain distinct from matrix-norm errors because spectral
 agreement alone does not establish operator equivalence or hopping locality.
 
-- [ ] Find the smallest complete support for which the comparison bands satisfy the spectral-error tolerance.
-- [ ] Report the comparison band error at that first-passing support.
-- [ ] Report the comparison band error at the immediately preceding complete support.
-- [ ] Evaluate the maximum comparison-band interpolation error over the evaluation mesh.
-- [ ] Evaluate the maximum total comparison-band error over the evaluation mesh.
-- [ ] Evaluate the maximum comparison-band truncation error over the evaluation mesh.
-- [ ] Evaluate the Brillouin-zone RMS comparison-band interpolation error.
-- [ ] Evaluate the Brillouin-zone RMS total comparison-band error.
-- [ ] Evaluate the Brillouin-zone RMS comparison-band truncation error.
-- [ ] Confirm that the literal one-dimensional endpoint band error at range zero has no unique multidimensional scalar-radius counterpart, or define one scientifically. *(currently inapplicable)*
-- [ ] Confirm that the literal one-dimensional endpoint band error at range sixteen has no unique multidimensional scalar-radius counterpart, or define one scientifically. *(currently inapplicable)*
-- [ ] Confirm that the literal one-dimensional endpoint band error at range eight has no unique multidimensional scalar-radius counterpart, or define one scientifically. *(currently inapplicable)*
-- [ ] Evaluate the maximum normalized discrepancy between the pointwise reference and comparison band eigenvalues.
-- [ ] Evaluate the maximum normalized discrepancy between the directly constructed reference and comparison band eigenvalues before Fourier interpolation or truncation.
-- [ ] Evaluate the maximum band interpolation error for the representation under study.
-- [ ] Confirm that a literal shared-node parent-eigenvalue comparison is unavailable when construction and evaluation meshes do not share nodes, or define a valid comparison. *(currently inapplicable)*
-- [ ] Find the smallest complete support for which the reference bands satisfy the spectral-error tolerance.
-- [ ] Report the reference band error at that first-passing support.
-- [ ] Report the reference band error at the immediately preceding complete support.
-- [ ] Evaluate the maximum reference-band truncation error over the evaluation mesh.
-- [ ] Evaluate the Brillouin-zone RMS reference-band truncation error.
+- [x] Find the smallest complete support for which the comparison bands satisfy the spectral-error tolerance.
+- [x] Report the comparison band error at that first-passing support.
+- [x] Report the comparison band error at the immediately preceding complete support.
+- [x] Evaluate the maximum comparison-band interpolation error over the evaluation mesh.
+- [x] Evaluate the maximum total comparison-band error over the evaluation mesh.
+- [x] Evaluate the maximum comparison-band truncation error over the evaluation mesh.
+- [x] Evaluate the Brillouin-zone RMS comparison-band interpolation error.
+- [x] Evaluate the Brillouin-zone RMS total comparison-band error.
+- [x] Evaluate the Brillouin-zone RMS comparison-band truncation error.
+- [x] Resolve the literal one-dimensional endpoint band error at range zero by evaluating the unique multidimensional onsite-only complete shell \(s=0\).
+- [x] Confirm that the literal one-dimensional endpoint band error at range sixteen has no unique multidimensional scalar-radius counterpart. *(inapplicable: family metrics give no common range-16 support)*
+- [x] Confirm that the literal one-dimensional endpoint band error at range eight has no unique multidimensional scalar-radius counterpart. *(inapplicable: family metrics give no common range-8 support)*
+- [x] Evaluate the maximum normalized discrepancy between the pointwise reference and comparison band eigenvalues.
+- [x] Evaluate the maximum normalized discrepancy between the directly constructed reference and comparison band eigenvalues before Fourier interpolation or truncation.
+- [x] Evaluate the maximum band interpolation error for the representation under study.
+- [x] Confirm that a literal shared-node parent-eigenvalue comparison is unavailable because the independently evaluated construction--evaluation torus separation is positive. *(inapplicable)*
+- [x] Find the smallest complete support for which the reference bands satisfy the spectral-error tolerance.
+- [x] Report the reference band error at that first-passing support.
+- [x] Report the reference band error at the immediately preceding complete support.
+- [x] Evaluate the maximum reference-band truncation error over the evaluation mesh.
+- [x] Evaluate the Brillouin-zone RMS reference-band truncation error.
 
 ## 9. Retained-subspace qualification
 
 The retained rank-two subspace must be identified and isolated before any aligned
 Hamiltonian subtraction is interpreted.
 
-- [ ] Confirm that a literal shared-node projector comparison is unavailable when construction and evaluation meshes do not share nodes, or define a valid projector comparison. *(currently inapplicable)*
-- [ ] Evaluate the minimum sampled external spectral gap separating the retained rank-two subspace from the discarded states. *(in units of \(E_{\mathrm{ref}}\))*
+- [x] Confirm that a literal shared-node projector comparison is unavailable because the independently evaluated construction--evaluation torus separation is positive. *(inapplicable)*
+- [x] Evaluate the minimum sampled external spectral gap separating the retained rank-two subspace from the discarded states. *(in units of \(E_{\mathrm{ref}}\))*
 
 ## Completion condition
 

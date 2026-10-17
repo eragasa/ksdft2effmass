@@ -64,6 +64,28 @@ class _PowerSummary:
     comparison_shells: Mapping[int, float]
 
 
+@dataclass(frozen=True, slots=True)
+class _ShellErrorSummary:
+    """Hold independently evaluated errors at one complete metric shell."""
+
+    shell_index: int
+    reference_truncation: tuple[float, float, float, float]
+    comparison_truncation: tuple[float, float, float, float]
+    reference_total: tuple[float, float, float, float]
+    comparison_total: tuple[float, float, float, float]
+
+
+@dataclass(frozen=True, slots=True)
+class _RestrictedAlignmentSummary:
+    """Hold an independent closed-form restricted-alignment solution."""
+
+    splitting_scale: float
+    maximum_correlation: float
+    minimum_threshold: float
+    exact_spectrum_threshold: float
+    normalized_squared_residual: float
+
+
 def _case(
     family: definitions.BandEquivalenceLocalityFamily,
 ) -> definitions.BandEquivalenceLocalityCase:
@@ -279,6 +301,72 @@ def _block_powers(blocks: ComplexArray) -> FloatArray:
     )
 
 
+def _restricted_alignment_summary(
+    reference: ComplexArray, comparison: ComplexArray
+) -> _RestrictedAlignmentSummary:
+    """Solve the rank-two restricted alignment without production actions."""
+    identity = np.eye(2, dtype=np.complex128)
+    reference_trace = np.trace(reference, axis1=-2, axis2=-1).real / 2.0
+    comparison_trace = np.trace(comparison, axis1=-2, axis2=-1).real / 2.0
+    reference_traceless = reference - reference_trace[..., None, None] * identity
+    comparison_traceless = comparison - comparison_trace[..., None, None] * identity
+    splitting_scale = float(
+        np.mean(np.sum(np.abs(reference_traceless) ** 2, axis=(-2, -1))) / 2.0
+    )
+    assert splitting_scale > 0.0
+
+    def numerator(angle: float) -> float:
+        rotation = _oracle_rotation_field(np.asarray(angle, dtype=np.float64))
+        aligned = (
+            np.swapaxes(rotation.conjugate(), -1, -2) @ reference_traceless @ rotation
+        )
+        products = np.einsum(
+            "...ij,...ij->...",
+            aligned.conjugate(),
+            comparison_traceless,
+            optimize=True,
+        )
+        return float(np.mean(products.real) / 2.0)
+
+    positive_quarter = numerator(math.pi / 4.0)
+    negative_quarter = numerator(-math.pi / 4.0)
+    constant = 0.5 * (positive_quarter + negative_quarter)
+    cosine_coefficient = numerator(0.0) - constant
+    sine_coefficient = 0.5 * (positive_quarter - negative_quarter)
+    angle = 0.5 * math.atan2(sine_coefficient, cosine_coefficient)
+    maximum_correlation = (
+        constant + math.hypot(cosine_coefficient, sine_coefficient)
+    ) / splitting_scale
+    positive_scale = max(0.0, maximum_correlation)
+    rotation = _oracle_rotation_field(np.asarray(angle, dtype=np.float64))
+    aligned = np.swapaxes(rotation.conjugate(), -1, -2) @ reference_traceless @ rotation
+    minimum_squared = float(
+        np.mean(
+            np.sum(
+                np.abs(positive_scale * aligned - comparison_traceless) ** 2,
+                axis=(-2, -1),
+            )
+        )
+        / 2.0
+    )
+    exact_squared = float(
+        np.mean(
+            np.sum(
+                np.abs(aligned - comparison_traceless) ** 2,
+                axis=(-2, -1),
+            )
+        )
+        / 2.0
+    )
+    return _RestrictedAlignmentSummary(
+        splitting_scale=splitting_scale,
+        maximum_correlation=maximum_correlation,
+        minimum_threshold=math.sqrt(max(0.0, minimum_squared)),
+        exact_spectrum_threshold=math.sqrt(max(0.0, exact_squared)),
+        normalized_squared_residual=minimum_squared / splitting_scale,
+    )
+
+
 def _metric_indices(
     case: definitions.BandEquivalenceLocalityCase,
     displacements: IntArray,
@@ -362,6 +450,110 @@ def _maximum_matrix_defect(left: ComplexArray, right: ComplexArray) -> float:
     return float(np.max(np.linalg.norm(left - right, axis=(-2, -1))))
 
 
+def _relative_maximum_matrix_defect(left: ComplexArray, right: ComplexArray) -> float:
+    scale = float(np.max(np.linalg.norm(right, axis=(-2, -1))))
+    assert scale > 0.0
+    return _maximum_matrix_defect(left, right) / scale
+
+
+def _brute_minimum_mesh_separation(
+    construction: FloatArray, evaluation: FloatArray
+) -> float:
+    """Evaluate the torus separation from every explicit point pair."""
+    dimension = construction.shape[-1]
+    construction_points = construction.reshape((-1, dimension))
+    evaluation_points = evaluation.reshape((-1, dimension))
+    deltas = evaluation_points[:, None, :] - construction_points[None, :, :]
+    deltas -= np.rint(deltas)
+    return float(np.min(np.linalg.norm(deltas, axis=-1)))
+
+
+def _select_first_passing(
+    values: tuple[tuple[int, float], ...], tolerance: float
+) -> tuple[int | None, float | None, float | None]:
+    """Select a first-passing shell without using production decision code."""
+    previous: float | None = None
+    for shell_index, value in values:
+        if value <= tolerance:
+            return shell_index, value, previous
+        previous = value
+    return None, None, None
+
+
+def _direct_alignment_summary(
+    case: definitions.BandEquivalenceLocalityCase,
+    size: int,
+    parent_scale: float,
+    amplitude: float,
+) -> _RestrictedAlignmentSummary:
+    coordinates = _coordinates(size, case.dimension, 0.5)
+    reference, comparison = _fields(case, coordinates, parent_scale, amplitude)
+    return _restricted_alignment_summary(reference, comparison)
+
+
+def _direct_integrated_values(
+    case: definitions.BandEquivalenceLocalityCase,
+    size: int,
+    parent_scale: float,
+    amplitude: float,
+    shell_cap: int,
+) -> tuple[float, ...]:
+    """Return every bounded integrated alignment and Fourier-power channel."""
+    coordinates = _coordinates(size, case.dimension, 0.5)
+    reference, comparison = _fields(case, coordinates, parent_scale, amplitude)
+    alignment = _restricted_alignment_summary(reference, comparison)
+    displacements, reference_blocks = _direct_blocks(coordinates, reference)
+    comparison_displacements, comparison_blocks = _direct_blocks(
+        coordinates, comparison
+    )
+    assert np.array_equal(displacements, comparison_displacements)
+    reference_powers = _block_powers(reference_blocks)
+    comparison_powers = _block_powers(comparison_blocks)
+    onsite = np.all(displacements == 0, axis=1)
+    nyquist = np.any(displacements == -size // 2, axis=1)
+    ordinary_metric_indices = _metric_indices(case, displacements[~nyquist])
+    reference_ordinary = reference_powers[~nyquist]
+    comparison_ordinary = comparison_powers[~nyquist]
+    reference_nyquist = float(np.sum(reference_powers[nyquist]))
+    comparison_nyquist = float(np.sum(comparison_powers[nyquist]))
+    values = [
+        alignment.splitting_scale,
+        alignment.maximum_correlation,
+        alignment.minimum_threshold,
+        alignment.exact_spectrum_threshold,
+        alignment.normalized_squared_residual,
+        float(np.sum(reference_powers)),
+        float(np.sum(comparison_powers)),
+        float(np.sum(reference_powers[onsite])),
+        float(np.sum(comparison_powers[onsite])),
+        float(np.sum(reference_powers[~onsite])),
+        float(np.sum(comparison_powers[~onsite])),
+        reference_nyquist,
+        comparison_nyquist,
+    ]
+    shells = tuple(
+        int(value)
+        for value in sorted(set(ordinary_metric_indices.tolist()))
+        if value <= shell_cap
+    )
+    for shell in shells:
+        retained = ordinary_metric_indices <= shell
+        shell_mask = ordinary_metric_indices == shell
+        reference_omitted = float(np.sum(reference_ordinary[~retained]))
+        comparison_omitted = float(np.sum(comparison_ordinary[~retained]))
+        values.extend(
+            (
+                float(np.sum(reference_ordinary[shell_mask])),
+                float(np.sum(comparison_ordinary[shell_mask])),
+                reference_omitted,
+                comparison_omitted,
+                reference_omitted + reference_nyquist,
+                comparison_omitted + comparison_nyquist,
+            )
+        )
+    return tuple(values)
+
+
 def _direct_power_summary(
     case: definitions.BandEquivalenceLocalityCase,
     size: int,
@@ -428,7 +620,7 @@ class TestFourierLocalityParity:
             evaluation_shift=1.0 / 3.0,
             parent_scales=(parent_scale,),
             amplitudes=(amplitude,),
-            band_tolerances=(1.0e-3,),
+            band_tolerances=(1.0e-1,),
             shell_cap=shell_cap,
             amplitude_resolution_intervals=(1, 2),
         )
@@ -447,6 +639,45 @@ class TestFourierLocalityParity:
         direct_reference, direct_comparison = _fields(
             case, evaluation, parent_scale, amplitude
         )
+        assert diagnostics.construction_size == size
+        assert diagnostics.evaluation_size == evaluation_size
+        assert construction.shape == (size,) * case.dimension + (case.dimension,)
+        assert evaluation.shape == (evaluation_size,) * case.dimension + (
+            case.dimension,
+        )
+        expected_construction_axis = -0.5 + (
+            np.arange(size, dtype=np.float64) + 0.5
+        ) / float(size)
+        expected_evaluation_axis = -0.5 + (
+            np.arange(evaluation_size, dtype=np.float64)
+            + 0.5
+            + request.evaluation_shift
+        ) / float(evaluation_size)
+        for axis in range(case.dimension):
+            construction_index: list[int | slice] = [0] * case.dimension
+            evaluation_index: list[int | slice] = [0] * case.dimension
+            construction_index[axis] = slice(None)
+            evaluation_index[axis] = slice(None)
+            np.testing.assert_allclose(
+                construction[tuple(construction_index)][..., axis],
+                expected_construction_axis,
+                rtol=0.0,
+                atol=2.0e-16,
+            )
+            np.testing.assert_allclose(
+                evaluation[tuple(evaluation_index)][..., axis],
+                expected_evaluation_axis,
+                rtol=0.0,
+                atol=2.0e-16,
+            )
+        expected_separation = _brute_minimum_mesh_separation(construction, evaluation)
+        assert expected_separation > 0.0
+        assert diagnostics.cases[
+            0
+        ].construction_evaluation_minimum_separation == pytest.approx(
+            expected_separation, abs=5.0e-15
+        )
+
         displacements, reference_blocks = _direct_blocks(construction, reference)
         comparison_displacements, comparison_blocks = _direct_blocks(
             construction, comparison
@@ -465,10 +696,65 @@ class TestFourierLocalityParity:
         ordinary_comparison_powers = comparison_powers[ordinary]
         metric_indices = _metric_indices(case, ordinary_displacements)
 
-        discrepancies: list[float] = []
+        comparisons: list[tuple[float, float]] = []
 
         def compare(observed: float, expected: float) -> None:
-            discrepancies.append(abs(observed - expected))
+            comparisons.append((observed, expected))
+
+        def compare_optional(observed: float | None, expected: float | None) -> None:
+            if expected is None:
+                assert observed is None
+            else:
+                assert observed is not None
+                compare(observed, expected)
+
+        alignment = _restricted_alignment_summary(reference, comparison)
+        parent = _oracle_parent_field(case, construction, parent_scale)
+        parent_eigenvalues = np.linalg.eigvalsh(parent)
+        compare(
+            point.minimum_sampled_external_gap,
+            float(np.min(parent_eigenvalues[..., 2] - parent_eigenvalues[..., 1])),
+        )
+        compare(
+            point.maximum_direct_band_defect,
+            float(
+                np.max(
+                    np.abs(
+                        np.linalg.eigvalsh(reference) - np.linalg.eigvalsh(comparison)
+                    )
+                )
+            ),
+        )
+        assert point.finite_mesh_maximum_correlation is not None
+        assert point.normalized_squared_operator_residual is not None
+        compare(point.splitting_scale, alignment.splitting_scale)
+        compare(point.finite_mesh_maximum_correlation, alignment.maximum_correlation)
+        compare(point.minimum_operator_threshold, alignment.minimum_threshold)
+        compare(
+            point.exact_spectrum_joint_operator_threshold,
+            alignment.exact_spectrum_threshold,
+        )
+        compare(
+            point.normalized_squared_operator_residual,
+            alignment.normalized_squared_residual,
+        )
+        compare(point.restricted_global_rotation_residual, alignment.minimum_threshold)
+        comparisons.extend(
+            (
+                (
+                    _relative_maximum_matrix_defect(
+                        reference, np.swapaxes(reference.conjugate(), -1, -2)
+                    ),
+                    0.0,
+                ),
+                (
+                    _relative_maximum_matrix_defect(
+                        comparison, np.swapaxes(comparison.conjugate(), -1, -2)
+                    ),
+                    0.0,
+                ),
+            )
+        )
 
         compare(point.reference_total_power, float(np.sum(reference_powers)))
         compare(point.comparison_total_power, float(np.sum(comparison_powers)))
@@ -501,27 +787,53 @@ class TestFourierLocalityParity:
         reconstructed_comparison = _direct_evaluation(
             displacements, comparison_blocks, construction
         )
+        reference_reconstruction_defect = _maximum_matrix_defect(
+            reconstructed_reference, reference
+        )
+        comparison_reconstruction_defect = _maximum_matrix_defect(
+            reconstructed_comparison, comparison
+        )
         compare(
             point.reference_fourier_reconstruction_defect,
-            _maximum_matrix_defect(reconstructed_reference, reference),
+            reference_reconstruction_defect,
         )
         compare(
             point.comparison_fourier_reconstruction_defect,
-            _maximum_matrix_defect(reconstructed_comparison, comparison),
+            comparison_reconstruction_defect,
         )
-        compare(
-            point.reference_parseval_defect,
-            abs(
-                float(np.mean(np.sum(np.abs(reference) ** 2, axis=(-2, -1))))
-                - float(np.sum(np.abs(reference_blocks) ** 2))
-            ),
+        comparisons.extend(
+            (
+                (
+                    _relative_maximum_matrix_defect(reconstructed_reference, reference),
+                    0.0,
+                ),
+                (
+                    _relative_maximum_matrix_defect(
+                        reconstructed_comparison, comparison
+                    ),
+                    0.0,
+                ),
+            )
         )
-        compare(
-            point.comparison_parseval_defect,
-            abs(
-                float(np.mean(np.sum(np.abs(comparison) ** 2, axis=(-2, -1))))
-                - float(np.sum(np.abs(comparison_blocks) ** 2))
-            ),
+        reference_momentum_weight = float(
+            np.mean(np.sum(np.abs(reference) ** 2, axis=(-2, -1)))
+        )
+        comparison_momentum_weight = float(
+            np.mean(np.sum(np.abs(comparison) ** 2, axis=(-2, -1)))
+        )
+        reference_parseval_defect = abs(
+            reference_momentum_weight - float(np.sum(np.abs(reference_blocks) ** 2))
+        )
+        comparison_parseval_defect = abs(
+            comparison_momentum_weight - float(np.sum(np.abs(comparison_blocks) ** 2))
+        )
+        compare(point.reference_parseval_defect, reference_parseval_defect)
+        compare(point.comparison_parseval_defect, comparison_parseval_defect)
+        comparisons.extend(
+            (
+                (reference_parseval_defect / reference_momentum_weight, 0.0),
+                (comparison_parseval_defect / comparison_momentum_weight, 0.0),
+            )
         )
         reference_twisted, reference_ordinary = _hermiticity_defects(
             size, displacements, reference_blocks
@@ -567,6 +879,7 @@ class TestFourierLocalityParity:
         assert tuple(value.shell_index for value in point.shell_diagnostics) == (
             expected_shells
         )
+        expected_shell_errors: list[_ShellErrorSummary] = []
         for shell_index, shell_diagnostic in zip(
             expected_shells, point.shell_diagnostics, strict=True
         ):
@@ -613,23 +926,38 @@ class TestFourierLocalityParity:
                 shell_diagnostic.comparison_total_omitted_power,
                 comparison_omitted + comparison_nyquist,
             )
+            expected_reference_truncation = _error_channels(
+                reference_evaluation, full_reference_evaluation
+            )
+            expected_comparison_truncation = _error_channels(
+                comparison_evaluation, full_comparison_evaluation
+            )
+            expected_reference_total = _error_channels(
+                reference_evaluation, direct_reference
+            )
+            expected_comparison_total = _error_channels(
+                comparison_evaluation, direct_comparison
+            )
+            expected_shell_errors.append(
+                _ShellErrorSummary(
+                    shell_index=shell_index,
+                    reference_truncation=expected_reference_truncation,
+                    comparison_truncation=expected_comparison_truncation,
+                    reference_total=expected_reference_total,
+                    comparison_total=expected_comparison_total,
+                )
+            )
             expected_channel_sets = (
                 (
                     shell_diagnostic.reference_truncation,
-                    _error_channels(reference_evaluation, full_reference_evaluation),
+                    expected_reference_truncation,
                 ),
                 (
                     shell_diagnostic.comparison_truncation,
-                    _error_channels(comparison_evaluation, full_comparison_evaluation),
+                    expected_comparison_truncation,
                 ),
-                (
-                    shell_diagnostic.reference_total,
-                    _error_channels(reference_evaluation, direct_reference),
-                ),
-                (
-                    shell_diagnostic.comparison_total,
-                    _error_channels(comparison_evaluation, direct_comparison),
-                ),
+                (shell_diagnostic.reference_total, expected_reference_total),
+                (shell_diagnostic.comparison_total, expected_comparison_total),
             )
             for observed_channels, expected_channels in expected_channel_sets:
                 for observed_value, expected_value in zip(
@@ -653,8 +981,146 @@ class TestFourierLocalityParity:
                 abs(comparison_source_rms**2 - comparison_omitted),
             )
 
+        assert len(point.first_passing) == 1
+        decision = point.first_passing[0]
+        tolerance = request.band_tolerances[0]
+        expected_reference_band = _select_first_passing(
+            tuple(
+                (shell.shell_index, shell.reference_total[2])
+                for shell in expected_shell_errors
+            ),
+            tolerance,
+        )
+        expected_comparison_band = _select_first_passing(
+            tuple(
+                (shell.shell_index, shell.comparison_total[2])
+                for shell in expected_shell_errors
+            ),
+            tolerance,
+        )
+        expected_reference_hamiltonian = _select_first_passing(
+            tuple(
+                (shell.shell_index, shell.reference_total[0])
+                for shell in expected_shell_errors
+            ),
+            tolerance,
+        )
+        expected_comparison_hamiltonian = _select_first_passing(
+            tuple(
+                (shell.shell_index, shell.comparison_total[0])
+                for shell in expected_shell_errors
+            ),
+            tolerance,
+        )
+        assert decision.tolerance == tolerance
+        assert decision.reference_band_shell == expected_reference_band[0]
+        assert decision.comparison_band_shell == expected_comparison_band[0]
+        assert decision.reference_hamiltonian_shell == expected_reference_hamiltonian[0]
+        assert (
+            decision.comparison_hamiltonian_shell == expected_comparison_hamiltonian[0]
+        )
+        compare_optional(
+            decision.reference_band_passing_error, expected_reference_band[1]
+        )
+        compare_optional(
+            decision.reference_band_preceding_error, expected_reference_band[2]
+        )
+        compare_optional(
+            decision.comparison_band_passing_error, expected_comparison_band[1]
+        )
+        compare_optional(
+            decision.comparison_band_preceding_error, expected_comparison_band[2]
+        )
+        compare_optional(
+            decision.reference_hamiltonian_passing_error,
+            expected_reference_hamiltonian[1],
+        )
+        compare_optional(
+            decision.reference_hamiltonian_preceding_error,
+            expected_reference_hamiltonian[2],
+        )
+        compare_optional(
+            decision.comparison_hamiltonian_passing_error,
+            expected_comparison_hamiltonian[1],
+        )
+        compare_optional(
+            decision.comparison_hamiltonian_preceding_error,
+            expected_comparison_hamiltonian[2],
+        )
+
+        normalized_defects = tuple(
+            abs(primary - independent) / max(1.0, abs(independent))
+            for primary, independent in comparisons
+        )
         assert verification.passes
-        assert max(discrepancies, default=0.0) < 5.0e-13
+        assert normalized_defects
+        assert max(normalized_defects) < 5.0e-13
+
+    @pytest.mark.parametrize("family", _FAMILIES)
+    def test_flat_residual_locality_identities_match_direct_sums(
+        self,
+        family: definitions.BandEquivalenceLocalityFamily,
+    ) -> None:
+        case = _case(family)
+        amplitude = math.pi / 8.0
+        request = definitions.BandEquivalenceLocalityRequest(
+            family=family,
+            cases=(case,),
+            construction_size=6,
+            evaluation_size=7,
+            evaluation_shift=1.0 / 3.0,
+            parent_scales=(0.0,),
+            amplitudes=(amplitude,),
+            band_tolerances=(1.0e-1,),
+            shell_cap=5,
+            amplitude_resolution_intervals=(1, 2),
+        )
+        diagnostics = calculation.BandEquivalenceLocalityCalculator().execute(request)
+        point = diagnostics.cases[0].points[0]
+        coordinates = _coordinates(6, case.dimension, 0.5)
+        reference, comparison = _fields(case, coordinates, 0.0, amplitude)
+        identity = np.eye(2, dtype=np.complex128)
+        reference_trace = np.trace(reference, axis1=-2, axis2=-1).real / 2.0
+        reference_traceless = reference - reference_trace[..., None, None] * identity
+        splitting_scale = float(
+            np.mean(np.sum(np.abs(reference_traceless) ** 2, axis=(-2, -1))) / 2.0
+        )
+        if splitting_scale <= 1.0e-30:
+            assert not point.alignment_applicable
+            assert point.normalized_excess_nonzero_hopping_weight is None
+            assert point.normalized_squared_operator_residual is None
+            assert point.flat_identity_departure is None
+            assert point.flat_residual_tail_identity_defect is None
+            return
+        alignment = _restricted_alignment_summary(reference, comparison)
+        displacements, reference_blocks = _direct_blocks(coordinates, reference)
+        comparison_displacements, comparison_blocks = _direct_blocks(
+            coordinates, comparison
+        )
+        assert np.array_equal(displacements, comparison_displacements)
+        onsite = np.all(displacements == 0, axis=1)
+        reference_nononsite = float(np.sum(_block_powers(reference_blocks)[~onsite]))
+        comparison_nononsite = float(np.sum(_block_powers(comparison_blocks)[~onsite]))
+        identity_defect = abs(alignment.minimum_threshold**2 - comparison_nononsite)
+        normalized_excess = (
+            comparison_nononsite - reference_nononsite
+        ) / alignment.splitting_scale
+        normalized_residual = alignment.minimum_threshold**2 / alignment.splitting_scale
+
+        assert point.flat_residual_tail_identity_defect == pytest.approx(
+            identity_defect, abs=5.0e-13
+        )
+        assert identity_defect < 5.0e-13
+        assert point.normalized_excess_nonzero_hopping_weight == pytest.approx(
+            normalized_excess, abs=5.0e-13
+        )
+        assert point.normalized_squared_operator_residual == pytest.approx(
+            normalized_residual, abs=5.0e-13
+        )
+        assert point.flat_identity_departure == pytest.approx(
+            normalized_excess - normalized_residual, abs=5.0e-13
+        )
+        assert abs(normalized_excess - normalized_residual) < 5.0e-13
 
     @pytest.mark.parametrize("family", _FAMILIES)
     def test_refinement_and_midpoint_power_changes_match_direct_sums(
@@ -692,10 +1158,22 @@ class TestFourierLocalityParity:
             )
             for size in sizes
         )
+        alignment_summaries = tuple(
+            tuple(
+                _direct_alignment_summary(case, size, 1.0, amplitude)
+                for amplitude in amplitudes
+            )
+            for size in sizes
+        )
 
-        for result, level in zip(results, summaries, strict=True):
+        for result, level, alignment_level in zip(
+            results, summaries, alignment_summaries, strict=True
+        ):
             points = result.cases[0].points
-            for point, expected in zip(points, level, strict=True):
+            assert tuple(point.amplitude for point in points) == amplitudes
+            for point, expected, expected_alignment in zip(
+                points, level, alignment_level, strict=True
+            ):
                 assert point.reference_nononsite_power == pytest.approx(
                     expected.reference_nononsite, abs=5.0e-13
                 )
@@ -705,6 +1183,18 @@ class TestFourierLocalityParity:
                 assert point.excess_nonzero_hopping_weight == pytest.approx(
                     expected.comparison_nononsite - expected.reference_nononsite,
                     abs=5.0e-13,
+                )
+                assert point.finite_mesh_maximum_correlation == pytest.approx(
+                    expected_alignment.maximum_correlation, abs=5.0e-13
+                )
+                assert point.minimum_operator_threshold == pytest.approx(
+                    expected_alignment.minimum_threshold, abs=5.0e-13
+                )
+                assert point.exact_spectrum_joint_operator_threshold == pytest.approx(
+                    expected_alignment.exact_spectrum_threshold, abs=5.0e-13
+                )
+                assert point.normalized_squared_operator_residual == pytest.approx(
+                    expected_alignment.normalized_squared_residual, abs=5.0e-13
                 )
                 for shell_diagnostic in point.shell_diagnostics:
                     assert shell_diagnostic.reference_shell_power == pytest.approx(
@@ -753,6 +1243,7 @@ class TestFourierLocalityParity:
             )
 
         left, midpoint, right = summaries[-1]
+        left_alignment, midpoint_alignment, right_alignment = alignment_summaries[-1]
         expected_nononsite_midpoint = abs(
             midpoint.comparison_nononsite
             - 0.5 * (left.comparison_nononsite + right.comparison_nononsite)
@@ -773,6 +1264,73 @@ class TestFourierLocalityParity:
             )
         )
         midpoint_diagnostic = results[-1].cases[0].amplitude_midpoint
+        assert midpoint_diagnostic.applicable
+        assert midpoint_diagnostic.amplitude_nodes == len(amplitudes)
+        assert midpoint_diagnostic.maximum_operator_threshold_midpoint_defect == (
+            pytest.approx(
+                abs(
+                    midpoint_alignment.minimum_threshold
+                    - 0.5
+                    * (
+                        left_alignment.minimum_threshold
+                        + right_alignment.minimum_threshold
+                    )
+                ),
+                abs=5.0e-13,
+            )
+        )
+        assert midpoint_diagnostic.maximum_joint_threshold_midpoint_defect == (
+            pytest.approx(
+                abs(
+                    midpoint_alignment.exact_spectrum_threshold
+                    - 0.5
+                    * (
+                        left_alignment.exact_spectrum_threshold
+                        + right_alignment.exact_spectrum_threshold
+                    )
+                ),
+                abs=5.0e-13,
+            )
+        )
+        normalized_thresholds = tuple(
+            value.minimum_threshold / math.sqrt(value.splitting_scale)
+            for value in alignment_summaries[-1]
+        )
+        assert normalized_thresholds[0] == pytest.approx(0.0, abs=5.0e-13)
+        assert 0.0 <= normalized_thresholds[0] <= normalized_thresholds[1]
+        assert normalized_thresholds[1] <= normalized_thresholds[2]
+        integrated_values = tuple(
+            tuple(
+                _direct_integrated_values(case, size, 1.0, amplitude, shell_cap)
+                for amplitude in amplitudes
+            )
+            for size in sizes
+        )
+        coarse_integrated = tuple(
+            value for point_values in integrated_values[-2] for value in point_values
+        )
+        fine_integrated = tuple(
+            value for point_values in integrated_values[-1] for value in point_values
+        )
+        assert len(coarse_integrated) == len(fine_integrated)
+        maximum_normalized_quadrature_change = max(
+            abs(coarse - fine) / max(1.0, abs(fine))
+            for coarse, fine in zip(coarse_integrated, fine_integrated, strict=True)
+        )
+        assert maximum_normalized_quadrature_change < 1.0e-5
+
+        for resolution, intervals in zip(
+            results[-1].cases[0].flat_amplitude_resolution,
+            requests[-1].amplitude_resolution_intervals,
+            strict=True,
+        ):
+            analytic_nodes = tuple(
+                amplitudes[-1] * index / intervals for index in range(intervals + 1)
+            )
+            assert resolution.amplitude_intervals == intervals
+            assert resolution.amplitude_nodes == len(analytic_nodes)
+            assert analytic_nodes[0] == 0.0
+            assert analytic_nodes[-1] == amplitudes[-1]
         assert midpoint_diagnostic.maximum_nonzero_hopping_weight_midpoint_defect == (
             pytest.approx(expected_nononsite_midpoint, abs=5.0e-13)
         )
