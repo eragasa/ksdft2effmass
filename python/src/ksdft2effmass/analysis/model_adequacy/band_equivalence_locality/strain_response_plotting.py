@@ -11,6 +11,7 @@ from .strain_response import StrainErrorChannels, SyntheticStrainResponseResult
 
 matplotlib.use("Agg")
 from matplotlib import pyplot as plt  # noqa: E402
+from matplotlib.axes import Axes  # noqa: E402
 
 _BLUE = "#0072B2"
 _VERMILION = "#D55E00"
@@ -27,7 +28,7 @@ def _maximum_or_zero(channels: StrainErrorChannels | None) -> float:
     return 0.0 if channels is None else channels.maximum_hamiltonian
 
 
-def _panel(axis: plt.Axes, label: str) -> None:
+def _panel(axis: Axes, label: str) -> None:
     axis.text(
         -0.13,
         1.04,

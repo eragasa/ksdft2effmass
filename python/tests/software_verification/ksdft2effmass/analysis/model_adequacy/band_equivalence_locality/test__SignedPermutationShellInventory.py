@@ -3,7 +3,7 @@
 import pytest
 from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.support import (
     SignedPermutationShellInventoryBuilder,
     SignedPermutationShellInventoryDefinition,
 )

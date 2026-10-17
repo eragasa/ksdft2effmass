@@ -53,7 +53,7 @@ class AxisSymmetricFourStateParent:
 
     ``parent_hopping_scale`` is the unit-free homotopy parameter ``rho`` and
     must lie in ``[0, 1]``. Returned matrix entries are normalized by the positive
-    energy scale :math:`E_ref`; this object does not attach a physical energy unit.
+    energy scale :math:`E_ref`; this model does not attach a physical energy unit.
     The axis average makes the diagonal specialization ``(q, ..., q)`` identical in
     one, two, and three dimensions.
     """

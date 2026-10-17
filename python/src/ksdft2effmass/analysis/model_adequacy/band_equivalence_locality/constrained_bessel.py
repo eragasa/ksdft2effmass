@@ -18,7 +18,7 @@ class ConstrainedBesselGeometry(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
-class ConstrainedBesselZeroModeDiagnostic:
+class ConstrainedBesselZeroModeDiagnosticResult:
     """Retain a bounded zero-mode constrained-series evaluation."""
 
     geometry: ConstrainedBesselGeometry
@@ -29,7 +29,7 @@ class ConstrainedBesselZeroModeDiagnostic:
 
 
 @dataclass(frozen=True, slots=True)
-class ConstrainedBesselTailDiagnostic:
+class ConstrainedBesselTailDiagnosticResult:
     """Retain one bounded evaluation of a proven analytic tail certificate.
 
     ``tail_power_upper_bound`` is unit-free and normalized by the total scalar Fourier
@@ -124,117 +124,158 @@ def _fcc_coefficient(
     )
 
 
-def constrained_bessel_zero_mode_diagnostic(
-    geometry: ConstrainedBesselGeometry,
-    bessel_argument: float,
-    kernel_cap: int,
-) -> ConstrainedBesselZeroModeDiagnostic:
-    """Evaluate the constrained scalar zero mode with an analytic remainder bound."""
-    if type(geometry) is not ConstrainedBesselGeometry:
-        raise TypeError("geometry must be ConstrainedBesselGeometry")
-    _finite_float("bessel_argument", bessel_argument)
-    if not 0.0 <= bessel_argument <= math.pi / 2.0:
-        raise ValueError("bessel_argument must lie in [0, pi/2]")
-    if type(kernel_cap) is not int:
-        raise TypeError("kernel_cap must be a built-in integer")
-    maximum_kernel_cap = 64 if geometry is ConstrainedBesselGeometry.TRIANGULAR else 12
-    if not 0 <= kernel_cap <= maximum_kernel_cap:
-        raise ValueError("kernel_cap exceeds the geometry-specific resource bound")
-    kernel_tail = _absolute_bessel_tail_bound(bessel_argument, kernel_cap)
-    if geometry is ConstrainedBesselGeometry.TRIANGULAR:
-        value = _triangular_coefficient((0, 0), bessel_argument, kernel_cap)
-        remainder = kernel_tail
-    else:
-        value = _fcc_coefficient((0, 0, 0), bessel_argument, kernel_cap)
-        remainder = 3.0 * kernel_tail * _absolute_bessel_sum_bound(bessel_argument) ** 2
-    return ConstrainedBesselZeroModeDiagnostic(
-        geometry=geometry,
-        bessel_argument=bessel_argument,
-        kernel_cap=kernel_cap,
-        value=value,
-        remainder_bound=remainder,
-    )
+@dataclass(frozen=True, slots=True)
+class ConstrainedBesselZeroModeRequest:
+    """Define one bounded constrained-series zero-mode evaluation."""
+
+    geometry: ConstrainedBesselGeometry
+    bessel_argument: float
+    kernel_cap: int
+
+    def __post_init__(self) -> None:
+        if type(self.geometry) is not ConstrainedBesselGeometry:
+            raise TypeError("geometry must be ConstrainedBesselGeometry")
+        _finite_float("bessel_argument", self.bessel_argument)
+        if not 0.0 <= self.bessel_argument <= math.pi / 2.0:
+            raise ValueError("bessel_argument must lie in [0, pi/2]")
+        if type(self.kernel_cap) is not int:
+            raise TypeError("kernel_cap must be a built-in integer")
+        maximum = 64 if self.geometry is ConstrainedBesselGeometry.TRIANGULAR else 12
+        if not 0 <= self.kernel_cap <= maximum:
+            raise ValueError("kernel_cap exceeds the geometry-specific resource bound")
 
 
-def constrained_bessel_tail_diagnostic(
-    geometry: ConstrainedBesselGeometry,
-    maximum_rotation_amplitude: float,
-    shell_cap: int,
-    kernel_cap: int,
-    numerical_margin: float,
-) -> ConstrainedBesselTailDiagnostic:
-    """Evaluate the selected constrained-series tail certificate.
+class ConstrainedBesselZeroModeDiagnostic:
+    """Evaluate one constrained scalar zero mode and its remainder bound."""
 
-    The amplitude is the maximum rotation angle in radians and must lie in
-    ``[0, pi/4]``. ``shell_cap`` uses the selected integer physical-metric shell.
-    ``kernel_cap`` truncates every free integer-kernel coordinate symmetrically.
-    Inputs are bounded to keep this development diagnostic resource safe.
-    """
-    if type(geometry) is not ConstrainedBesselGeometry:
-        raise TypeError("geometry must be ConstrainedBesselGeometry")
-    _finite_float("maximum_rotation_amplitude", maximum_rotation_amplitude)
-    _finite_float("numerical_margin", numerical_margin)
-    if not 0.0 <= maximum_rotation_amplitude <= math.pi / 4.0:
-        raise ValueError("maximum_rotation_amplitude must lie in [0, pi/4]")
-    if type(shell_cap) is not int or type(kernel_cap) is not int:
-        raise TypeError("shell_cap and kernel_cap must be built-in integers")
-    if not 0 <= shell_cap <= 64:
-        raise ValueError("shell_cap must lie in [0, 64]")
-    maximum_kernel_cap = 64 if geometry is ConstrainedBesselGeometry.TRIANGULAR else 12
-    if not 0 <= kernel_cap <= maximum_kernel_cap:
-        raise ValueError("kernel_cap exceeds the geometry-specific resource bound")
-    if not 0.0 <= numerical_margin <= 1.0e-8:
-        raise ValueError("numerical_margin must lie in [0, 1e-8]")
+    __slots__ = ()
 
-    bond_count = 3 if geometry is ConstrainedBesselGeometry.TRIANGULAR else 6
-    dimension = 2 if geometry is ConstrainedBesselGeometry.TRIANGULAR else 3
-    argument = 2.0 * maximum_rotation_amplitude / float(bond_count)
-    kernel_tail = _absolute_bessel_tail_bound(argument, kernel_cap)
-    if geometry is ConstrainedBesselGeometry.TRIANGULAR:
-        coefficient_remainder = kernel_tail
-    else:
-        coefficient_remainder = (
-            3.0 * kernel_tail * _absolute_bessel_sum_bound(argument) ** 2
+    def execute(
+        self, request: ConstrainedBesselZeroModeRequest
+    ) -> ConstrainedBesselZeroModeDiagnosticResult:
+        if type(request) is not ConstrainedBesselZeroModeRequest:
+            raise TypeError("request must be ConstrainedBesselZeroModeRequest")
+        kernel_tail = _absolute_bessel_tail_bound(
+            request.bessel_argument, request.kernel_cap
         )
-
-    coordinate_cap = math.ceil(math.sqrt(2.0 * float(shell_cap)))
-    retained_lower = 0.0
-    retained_count = 0
-    for displacement in itertools.product(
-        range(-coordinate_cap, coordinate_cap + 1), repeat=dimension
-    ):
-        if _metric_shell(geometry, displacement) > shell_cap:
-            continue
-        retained_count += 1
-        if geometry is ConstrainedBesselGeometry.TRIANGULAR:
-            coefficient = _triangular_coefficient(displacement, argument, kernel_cap)
+        if request.geometry is ConstrainedBesselGeometry.TRIANGULAR:
+            value = _triangular_coefficient(
+                (0, 0), request.bessel_argument, request.kernel_cap
+            )
+            remainder = kernel_tail
         else:
-            coefficient = _fcc_coefficient(displacement, argument, kernel_cap)
-        lower_absolute = max(
-            0.0,
-            abs(coefficient) - coefficient_remainder - numerical_margin,
+            value = _fcc_coefficient(
+                (0, 0, 0), request.bessel_argument, request.kernel_cap
+            )
+            remainder = (
+                3.0
+                * kernel_tail
+                * _absolute_bessel_sum_bound(request.bessel_argument) ** 2
+            )
+        return ConstrainedBesselZeroModeDiagnosticResult(
+            geometry=request.geometry,
+            bessel_argument=request.bessel_argument,
+            kernel_cap=request.kernel_cap,
+            value=value,
+            remainder_bound=remainder,
         )
-        retained_lower += lower_absolute**2
 
-    retained_lower = min(1.0, retained_lower)
-    return ConstrainedBesselTailDiagnostic(
-        geometry=geometry,
-        maximum_rotation_amplitude=maximum_rotation_amplitude,
-        bessel_argument=argument,
-        shell_cap=shell_cap,
-        kernel_cap=kernel_cap,
-        retained_displacements=retained_count,
-        coefficient_remainder_bound=coefficient_remainder,
-        numerical_margin=numerical_margin,
-        retained_power_lower_bound=retained_lower,
-        tail_power_upper_bound=max(0.0, 1.0 - retained_lower),
-    )
+
+@dataclass(frozen=True, slots=True)
+class ConstrainedBesselTailRequest:
+    """Define one bounded constrained-series tail evaluation."""
+
+    geometry: ConstrainedBesselGeometry
+    maximum_rotation_amplitude: float
+    shell_cap: int
+    kernel_cap: int
+    numerical_margin: float
+
+    def __post_init__(self) -> None:
+        if type(self.geometry) is not ConstrainedBesselGeometry:
+            raise TypeError("geometry must be ConstrainedBesselGeometry")
+        _finite_float("maximum_rotation_amplitude", self.maximum_rotation_amplitude)
+        _finite_float("numerical_margin", self.numerical_margin)
+        if not 0.0 <= self.maximum_rotation_amplitude <= math.pi / 4.0:
+            raise ValueError("maximum_rotation_amplitude must lie in [0, pi/4]")
+        if type(self.shell_cap) is not int or type(self.kernel_cap) is not int:
+            raise TypeError("shell_cap and kernel_cap must be built-in integers")
+        if not 0 <= self.shell_cap <= 64:
+            raise ValueError("shell_cap must lie in [0, 64]")
+        maximum = 64 if self.geometry is ConstrainedBesselGeometry.TRIANGULAR else 12
+        if not 0 <= self.kernel_cap <= maximum:
+            raise ValueError("kernel_cap exceeds the geometry-specific resource bound")
+        if not 0.0 <= self.numerical_margin <= 1.0e-8:
+            raise ValueError("numerical_margin must lie in [0, 1e-8]")
+
+
+class ConstrainedBesselTailDiagnostic:
+    """Evaluate one constrained-series tail certificate."""
+
+    __slots__ = ()
+
+    def execute(
+        self, request: ConstrainedBesselTailRequest
+    ) -> ConstrainedBesselTailDiagnosticResult:
+        """Return the selected resource-bounded tail diagnostic."""
+        if type(request) is not ConstrainedBesselTailRequest:
+            raise TypeError("request must be ConstrainedBesselTailRequest")
+        geometry = request.geometry
+        bond_count = 3 if geometry is ConstrainedBesselGeometry.TRIANGULAR else 6
+        dimension = 2 if geometry is ConstrainedBesselGeometry.TRIANGULAR else 3
+        argument = 2.0 * request.maximum_rotation_amplitude / float(bond_count)
+        kernel_tail = _absolute_bessel_tail_bound(argument, request.kernel_cap)
+        if geometry is ConstrainedBesselGeometry.TRIANGULAR:
+            coefficient_remainder = kernel_tail
+        else:
+            coefficient_remainder = (
+                3.0 * kernel_tail * _absolute_bessel_sum_bound(argument) ** 2
+            )
+
+        coordinate_cap = math.ceil(math.sqrt(2.0 * float(request.shell_cap)))
+        retained_lower = 0.0
+        retained_count = 0
+        for displacement in itertools.product(
+            range(-coordinate_cap, coordinate_cap + 1), repeat=dimension
+        ):
+            if _metric_shell(geometry, displacement) > request.shell_cap:
+                continue
+            retained_count += 1
+            if geometry is ConstrainedBesselGeometry.TRIANGULAR:
+                coefficient = _triangular_coefficient(
+                    displacement, argument, request.kernel_cap
+                )
+            else:
+                coefficient = _fcc_coefficient(
+                    displacement, argument, request.kernel_cap
+                )
+            lower_absolute = max(
+                0.0,
+                abs(coefficient) - coefficient_remainder - request.numerical_margin,
+            )
+            retained_lower += lower_absolute**2
+
+        retained_lower = min(1.0, retained_lower)
+        return ConstrainedBesselTailDiagnosticResult(
+            geometry=geometry,
+            maximum_rotation_amplitude=request.maximum_rotation_amplitude,
+            bessel_argument=argument,
+            shell_cap=request.shell_cap,
+            kernel_cap=request.kernel_cap,
+            retained_displacements=retained_count,
+            coefficient_remainder_bound=coefficient_remainder,
+            numerical_margin=request.numerical_margin,
+            retained_power_lower_bound=retained_lower,
+            tail_power_upper_bound=max(0.0, 1.0 - retained_lower),
+        )
 
 
 __all__ = [
     "ConstrainedBesselGeometry",
     "ConstrainedBesselTailDiagnostic",
+    "ConstrainedBesselTailDiagnosticResult",
+    "ConstrainedBesselTailRequest",
     "ConstrainedBesselZeroModeDiagnostic",
-    "constrained_bessel_tail_diagnostic",
-    "constrained_bessel_zero_mode_diagnostic",
+    "ConstrainedBesselZeroModeDiagnosticResult",
+    "ConstrainedBesselZeroModeRequest",
 ]

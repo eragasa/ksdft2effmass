@@ -6,7 +6,11 @@ import math
 from dataclasses import dataclass
 from enum import StrEnum
 
-import numpy as np
+from projectkoios.physkit.periodic.lattice import DirectLatticeMetric
+
+TRANSPORT_RANK_DEFICIENT_REASON = (
+    "rank-deficient neighbor overlap does not identify unique transport"
+)
 
 
 def _finite_float(name: str, value: float) -> None:
@@ -33,7 +37,7 @@ def _increasing_nonnegative(name: str, values: tuple[float, ...]) -> None:
         raise ValueError(f"{name} must be unique and increasing")
 
 
-class DevelopmentFamily(StrEnum):
+class BandEquivalenceLocalityFamily(StrEnum):
     """Name one independently interpreted development replication."""
 
     SQUARE = (
@@ -70,7 +74,7 @@ class GaugeNormalization(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
-class DevelopmentCase:
+class BandEquivalenceLocalityCase:
     """Define one parent and geometry inside an experiment family."""
 
     name: str
@@ -78,7 +82,7 @@ class DevelopmentCase:
     parent_kind: ParentKind
     gauge_normalization: GaugeNormalization
     positive_bonds: tuple[tuple[int, ...], ...]
-    metric: tuple[tuple[float, ...], ...]
+    direct_metric: DirectLatticeMetric
     shell_metric_scale: float
     basis_offsets: tuple[tuple[float, ...], ...] = ()
 
@@ -91,36 +95,47 @@ class DevelopmentCase:
             raise TypeError("parent_kind must be ParentKind")
         if type(self.gauge_normalization) is not GaugeNormalization:
             raise TypeError("gauge_normalization must be GaugeNormalization")
-        if not self.positive_bonds:
-            raise ValueError("positive_bonds must not be empty")
-        if any(len(bond) != self.dimension for bond in self.positive_bonds):
-            raise ValueError("every bond must match dimension")
-        if len(self.metric) != self.dimension or any(
-            len(row) != self.dimension for row in self.metric
+        if type(self.positive_bonds) is not tuple or not self.positive_bonds:
+            raise TypeError("positive_bonds must be a nonempty tuple")
+        if any(
+            type(bond) is not tuple
+            or len(bond) != self.dimension
+            or any(type(component) is not int for component in bond)
+            for bond in self.positive_bonds
         ):
-            raise ValueError("metric must be a square dimension-matched matrix")
-        metric = np.asarray(self.metric, dtype=np.float64)
-        if not bool(np.all(np.isfinite(metric))):
-            raise ValueError("metric entries must be finite")
-        if not np.array_equal(metric, metric.T):
-            raise ValueError("metric must be symmetric")
-        if float(np.min(np.linalg.eigvalsh(metric))) <= 0.0:
-            raise ValueError("metric must be positive definite")
+            raise TypeError(
+                "positive_bonds must contain built-in integer tuples matching dimension"
+            )
+        if type(self.direct_metric) is not DirectLatticeMetric:
+            raise TypeError("direct_metric must be DirectLatticeMetric")
+        if self.direct_metric.dimension != self.dimension:
+            raise ValueError("direct metric dimension must match the case")
         _finite_float("shell_metric_scale", self.shell_metric_scale)
         if self.shell_metric_scale <= 0.0:
             raise ValueError("shell_metric_scale must be positive")
-        if self.basis_offsets and any(
-            len(offset) != self.dimension for offset in self.basis_offsets
+        if type(self.basis_offsets) is not tuple:
+            raise TypeError("basis_offsets must be a tuple")
+        if any(
+            type(offset) is not tuple
+            or len(offset) != self.dimension
+            or any(
+                type(component) is not float or not math.isfinite(component)
+                for component in offset
+            )
+            for offset in self.basis_offsets
         ):
-            raise ValueError("every basis offset must match dimension")
+            raise TypeError(
+                "basis_offsets must contain finite built-in float tuples matching "
+                "dimension"
+            )
 
 
 @dataclass(frozen=True, slots=True)
-class DevelopmentDefinition:
+class BandEquivalenceLocalityRequest:
     """Freeze one bounded, non-evidentiary experiment execution."""
 
-    family: DevelopmentFamily
-    cases: tuple[DevelopmentCase, ...]
+    family: BandEquivalenceLocalityFamily
+    cases: tuple[BandEquivalenceLocalityCase, ...]
     construction_size: int
     evaluation_size: int
     evaluation_shift: float
@@ -144,12 +159,12 @@ class DevelopmentDefinition:
     transport_rank_relative: float = 1.0e-12
 
     def __post_init__(self) -> None:
-        if type(self.family) is not DevelopmentFamily:
-            raise TypeError("family must be DevelopmentFamily")
+        if type(self.family) is not BandEquivalenceLocalityFamily:
+            raise TypeError("family must be BandEquivalenceLocalityFamily")
         if type(self.cases) is not tuple or not self.cases:
             raise TypeError("cases must be a nonempty tuple")
-        if any(type(case) is not DevelopmentCase for case in self.cases):
-            raise TypeError("cases must contain DevelopmentCase values")
+        if any(type(case) is not BandEquivalenceLocalityCase for case in self.cases):
+            raise TypeError("cases must contain BandEquivalenceLocalityCase values")
         dimensions = {case.dimension for case in self.cases}
         if len(dimensions) != 1:
             raise ValueError("all cases in one family must have one dimension")
@@ -213,9 +228,10 @@ class DevelopmentDefinition:
 
 
 __all__ = [
-    "DevelopmentCase",
-    "DevelopmentDefinition",
-    "DevelopmentFamily",
+    "BandEquivalenceLocalityCase",
+    "BandEquivalenceLocalityRequest",
+    "BandEquivalenceLocalityFamily",
     "GaugeNormalization",
     "ParentKind",
+    "TRANSPORT_RANK_DEFICIENT_REASON",
 ]

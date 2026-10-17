@@ -8,7 +8,7 @@ import pytest
 from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
 from scipy.special import j0, jv  # type: ignore[import-untyped]
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.family import (
     AxisSymmetricFourStateParent,
     SeparableSineRotation,
 )

@@ -8,8 +8,19 @@ from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
+from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
+from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
+    NumpyFiniteFourierMatrixSeries,
+)
+from projectkoios.numerics.finite_periodic.numpy.tensor_product_evaluation import (
+    NumpyTensorProductFourierMatrixEvaluationDefinition,
+    NumpyTensorProductFourierMatrixSeriesEvaluator,
+)
+from projectkoios.numerics.finite_periodic.numpy.transforms import (
+    NumpyCenteredUniformMeshMatrixFourierTransformDefinition,
+    NumpyCenteredUniformMeshMatrixFourierTransformer,
+)
 
-from .fourier import evaluate_blocks, fourier_blocks
 from .strain import (
     BAIN_DIAMOND_BASIS_OFFSETS,
     SyntheticStrainPath,
@@ -108,8 +119,15 @@ def _dimension(path: SyntheticStrainPath) -> int:
     return 2 if path is SyntheticStrainPath.RHOMBIC_2D else 3
 
 
+def _coordinate_axis(size: int, offset: float) -> FloatArray:
+    return np.asarray(
+        -0.5 + (np.arange(size, dtype=np.float64) + offset) / float(size),
+        dtype=np.float64,
+    )
+
+
 def _coordinates(size: int, dimension: int, offset: float) -> FloatArray:
-    axis = -0.5 + (np.arange(size, dtype=np.float64) + offset) / float(size)
+    axis = _coordinate_axis(size, offset)
     return np.stack(np.meshgrid(*(axis,) * dimension, indexing="ij"), axis=-1)
 
 
@@ -129,7 +147,7 @@ def _bond_lengths(path: SyntheticStrainPath, metric: FloatArray) -> FloatArray:
     translations = _parent_translations(path).astype(np.float64)
     vectors = _basis_offset(path)[None, :] - translations
     squared = np.einsum("bi,ij,bj->b", vectors, metric, vectors)
-    return np.sqrt(squared)
+    return np.asarray(np.sqrt(squared), dtype=np.float64)
 
 
 def _hopping_responses(
@@ -353,6 +371,18 @@ def calculate_synthetic_strain_response(
     dimension = _dimension(path)
     construction = _coordinates(construction_size, dimension, 0.5)
     evaluation = _coordinates(evaluation_size, dimension, 0.5 + evaluation_shift)
+    source_mesh = CenteredUniformMesh(
+        dimension,
+        construction_size,
+        (0.5,) * dimension,
+    )
+    evaluation_axis = _coordinate_axis(
+        evaluation_size,
+        0.5 + evaluation_shift,
+    )
+    evaluation_axes = (evaluation_axis,) * dimension
+    transformer = NumpyCenteredUniformMeshMatrixFourierTransformer()
+    tensor_evaluator = NumpyTensorProductFourierMatrixSeriesEvaluator()
     rotations = _gauge_rotations(path, construction, maximum_rotation_amplitude)
     rotations_eval = _gauge_rotations(path, evaluation, maximum_rotation_amplitude)
 
@@ -396,8 +426,22 @@ def calculate_synthetic_strain_response(
         delta = attacked - reference_attacked
         delta_eval = attacked_eval - reference_attacked_eval
 
-        displacements, blocks = fourier_blocks(attacked, dimension, 0.5)
-        delta_displacements, delta_blocks = fourier_blocks(delta, dimension, 0.5)
+        attacked_transform = transformer.transform(
+            NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
+                source_mesh,
+                attacked,
+            )
+        )
+        delta_transform = transformer.transform(
+            NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
+                source_mesh,
+                delta,
+            )
+        )
+        displacements = attacked_transform.series.integer_modes
+        blocks = attacked_transform.series.matrix_coefficients
+        delta_displacements = delta_transform.series.integer_modes
+        delta_blocks = delta_transform.series.matrix_coefficients
         if not np.array_equal(displacements, delta_displacements):
             raise RuntimeError("Hamiltonian and strain-difference inventories differ")
         nyquist = np.any(displacements == -construction_size // 2, axis=1)
@@ -409,15 +453,30 @@ def calculate_synthetic_strain_response(
         onsite = np.all(ordinary_displacements == 0, axis=1)
         nyquist_power = float(np.sum(_powers(blocks[nyquist])))
         delta_nyquist_power = float(np.sum(_powers(delta_blocks[nyquist])))
-        full_eval = evaluate_blocks(
-            ordinary_displacements, ordinary_blocks, evaluation, construction_size
+        ordinary_series = NumpyFiniteFourierMatrixSeries.from_arrays(
+            dimension,
+            ordinary_displacements,
+            ordinary_blocks,
         )
-        full_delta_eval = evaluate_blocks(
+        ordinary_delta_series = NumpyFiniteFourierMatrixSeries.from_arrays(
+            dimension,
             ordinary_displacements,
             ordinary_delta_blocks,
-            evaluation,
-            construction_size,
         )
+        full_eval = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                ordinary_series,
+                evaluation_axes,
+            )
+        ).matrix_values
+        full_delta_eval = tensor_evaluator.evaluate(
+            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                source_mesh,
+                ordinary_delta_series,
+                evaluation_axes,
+            )
+        ).matrix_values
         interpolation = _errors(full_eval, attacked_eval)
         delta_interpolation = _errors(full_delta_eval, delta_eval)
         squared_radii = np.einsum(
@@ -445,18 +504,30 @@ def calculate_synthetic_strain_response(
                     )
                 )
                 continue
-            truncated_eval = evaluate_blocks(
+            truncated_series = NumpyFiniteFourierMatrixSeries.from_arrays(
+                dimension,
                 ordinary_displacements[support],
                 ordinary_blocks[support],
-                evaluation,
-                construction_size,
             )
-            truncated_delta_eval = evaluate_blocks(
+            truncated_delta_series = NumpyFiniteFourierMatrixSeries.from_arrays(
+                dimension,
                 ordinary_displacements[support],
                 ordinary_delta_blocks[support],
-                evaluation,
-                construction_size,
             )
+            truncated_eval = tensor_evaluator.evaluate(
+                NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                    source_mesh,
+                    truncated_series,
+                    evaluation_axes,
+                )
+            ).matrix_values
+            truncated_delta_eval = tensor_evaluator.evaluate(
+                NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                    source_mesh,
+                    truncated_delta_series,
+                    evaluation_axes,
+                )
+            ).matrix_values
             delta_omitted = float(np.sum(delta_power[~support])) + delta_nyquist_power
             cutoffs.append(
                 StrainResponseCutoffDiagnostic(
