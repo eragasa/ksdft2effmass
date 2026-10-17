@@ -26,10 +26,14 @@ Two-dimensional experiment children compose inward geometry and numerical owners
 Implementation status is reported by each child rather than aggregated into a false
 package capability.
 
-- Isotropic 2-D has architecture and task planning but no maintained experiment source.
+- Isotropic 2-D hopping-shell adequacy has a maintained prospective protocol but no source modules.
+- Square-lattice band equivalence versus hopping locality has a maintained protocol,
+  reusable typed development source, and bounded verified three-level matrix-free
+  tensor calculations; complete diagnostic parity, final retained schemas, formal convergence,
+  and retained-evidence actions remain open.
 - Anisotropic 2-D has architecture identity only.
-- No shared module or class has been selected.
-- Future module and class architecture will be created only with matching source contracts.
+- No general periodic-2D experiment framework has been selected; the reusable
+  model-adequacy owner remains bounded to this dimensional replication sequence.
 
 ## Verification
 

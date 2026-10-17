@@ -135,6 +135,9 @@ contract.
 | standalone censored regression | `ksdft2effmass.campaign.periodic-reduction.periodic2d.wannier90-convergence-regression` | Post-hoc right-censored convergence-iteration analysis; separate analysis family |
 | Conference Paper 1 draft M4 `two-dimensional-common-space/` | `ksdft2effmass.campaign.representation-comparison.periodic2d.common-finite-space` | Plane-wave and finite-difference representations transported to one declared finite comparison space |
 | Conference Paper 1 draft HSH-1 `hopping-shell-hierarchy/` | `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | Nested two-dimensional hopping-shell adequacy and certificate plan |
+| `experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/` | `ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping-locality` | Prospective orthogonal square-lattice rank-two band-equivalence, hopping-locality, and equal-accuracy truncation benchmark |
+| `experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/` | `ksdft2effmass.campaign.model-adequacy.periodic2d.gauge-locality-under-synthetic-strain` | Area-preserving rhombic triangular--square synthetic-strain family with bounded M0/M1/M2 development and strict packaged result schemas; not a graphene or elastic model |
+| `experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/` | `ksdft2effmass.campaign.model-adequacy.periodic2d-nonorthogonal.band-equivalence-versus-hopping-locality` | Separate prospective graphene-inspired synthetic benchmark with triangular Bravais geometry, a honeycomb basis, basis-aware support diagnostics, and matched Bravais controls; not a graphene material model |
 
 Historical aliases `Appendix H`, `M4`, and `HSH-1` remain publication or planning
 labels, not production identities.
@@ -145,12 +148,17 @@ labels, not production identities.
 |---|---|---|
 | Isotropic 2-D; `docs/tasks/dev/experiments/isotropic2d/`; historical HSH-1 | `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | Existing square-symmetric retained scalar target; first stage and already listed in the periodic-2D table above |
 | Isotropic 3-D; `docs/tasks/dev/experiments/isotropic3d/` | `ksdft2effmass.campaign.model-adequacy.periodic3d.isotropic-hopping-support-hierarchy` | Selected simple-cubic scalar control introducing the third periodic coordinate while preserving signed-permutation symmetry; protocol not frozen |
+| `experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/` | `ksdft2effmass.campaign.model-adequacy.periodic3d.band-equivalence-versus-hopping-locality` | Prospective orthogonal simple-cubic rank-two band-equivalence, hopping-locality, and equal-accuracy truncation benchmark; sequenced after its 2-D predecessor |
+| `experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/` | `ksdft2effmass.campaign.model-adequacy.periodic3d.gauge-locality-under-synthetic-strain` | Volume-preserving FCC--BCC Bain synthetic-strain family with bounded M0/M1/M2 development and strict packaged result schemas; not a phase-stability or material-silicon model |
+| `experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/` | `ksdft2effmass.campaign.model-adequacy.periodic3d-nonorthogonal.band-equivalence-versus-hopping-locality` | Separate prospective silicon-inspired synthetic benchmark with FCC Bravais geometry, a diamond basis, basis-aware support diagnostics, matched Bravais controls, and resource gates; not the specified material silicon model |
 | Anisotropic 2-D; task not yet opened | `ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy` | Selected rectangular/sign-symmetric stress family removing axis-permutation equivalence in two dimensions; protocol not frozen |
 | Anisotropic 3-D; `experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/` | `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy` | Preserved controlled orthorhombic scalar parent and explicit anisotropic support classes; exact pre-version proposal and exploratory design note exist, with no silicon claim |
 
-These are four independent experiment families ordered by the
-[dimensionality and anisotropy ladder](../experiments/model-adequacy/dimensional-anisotropy-ladder.md),
-not one version chain. Later 2-D and 3-D
+These are independent experiment families, not one version chain. The scalar isotropic
+and anisotropic subset is ordered by the
+[dimensionality and anisotropy ladder](../experiments/model-adequacy/dimensional-anisotropy-ladder.md).
+The orthogonal and non-orthogonal band-equivalence families instead follow their
+separate test-and-diagnostic parity contract. Later 2-D and 3-D
 [general-lattice-vector work](analysis/model_adequacy/general-lattice-vector-extension.md)
 is a prospective capability-extraction phase and has no experiment-family identity
 until concrete finite scientific questions and verification cases are selected.
@@ -271,7 +279,9 @@ experiments/
 │       └── periodic1d/
 ├── model-adequacy/
 │   ├── periodic1d/band-equivalence-versus-hopping-locality/
+│   ├── periodic2d/band-equivalence-versus-hopping-locality/
 │   ├── periodic2d/hopping-shell-hierarchy/
+│   ├── periodic3d/band-equivalence-versus-hopping-locality/
 │   └── periodic3d/anisotropic-hopping-support-hierarchy/
 └── README.md
 ```

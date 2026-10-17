@@ -1,0 +1,705 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\T}{\mathbb T}
+\newcommand{\Z}{\mathbb Z}
+\newtheorem{theorem}{Theorem}
+
+\title{\textbf{Prospective experimental protocol:\\
+Spectral-to-tight-binding representation and hopping locality\\
+on a simple-cubic lattice}}
+\author{KSD reduced-Hamiltonian research program}
+\date{Pre-version scientific design}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This protocol defines a prospective three-dimensional simple-cubic extension of the
+publication-independent experiment \emph{Band Equivalence versus Hopping Locality}. It
+constructs the finite parent on
+$(\mathbb C^N)^{\otimes3}\otimes\mathbb C^4$ with Kronecker translation operators,
+converts it unitarily to its complete Bloch representation, selects a qualified rank-two
+spectral subspace, and converts a declared periodic frame to a complete
+Wannier/tight-binding representation. The chain aligns state spaces before Hamiltonian
+subtraction and distinguishes a spectral-basis Hamiltonian from its eigenvalues alone.
+
+The smooth family rotates retained coordinates by
+$\theta_a(\mathbf q)=\tfrac a3\sum_{\alpha=1}^3\sin(2\pi q_\alpha)$ while preserving
+every Bloch eigenvalue. For the flat parent, the exact global-alignment correlation is
+$J_0(2a/3)^3$, and the irreducible matrix residual equals normalized Fourier weight
+outside the onsite block. The dispersive calculation will measure cubic-orbit support at
+fixed sampled band accuracy while separately reporting parent--retained reconstruction,
+covariant representation, restricted-alignment, cyclic conversion, interpolation,
+deliberate-truncation, and total channels. Separately authorized bounded local
+Monkhorst--Pack actions at $N=8,16,32$ now exercise these channels; they are neither a
+qualified convergence result, retained run, material claim, nor continuous-domain
+certificate.
+\end{abstract}
+
+\paragraph{Experiment identity.}
+The family identity is
+\path{ksdft2effmass.campaign.model-adequacy.periodic3d.band-equivalence-versus-hopping-locality}.
+It is distinct from the 1-D and 2-D families, the scalar isotropic hopping-support
+hierarchy, and every material-specific calculation.
+
+\paragraph{Status and sequence.}
+The exact parent and mathematical family below are selected development controls. The
+3-D implementation is gated on review of the square-lattice 2-D protocol and its owner
+contracts. The $N=8,16,32$ calculations have bounded resource envelopes and independent
+development verification records. Their six pointwise first-passing decision sets agree
+on both refinements, but complete diagnostic parity and a formal convergence disposition
+remain open. Final resource bounds, tolerances and retained-record schemas, frozen
+revisions, and evidence retention also remain open. No immutable version, production
+execution, or retained execution is authorized by this document.
+
+\section{Scientific question}
+
+Band spectra remain invariant under momentum-dependent unitary similarity, while
+real-space hopping locality depends on representation. This is established in the
+Wannier literature~\cite{marzari1997,marzari2012,marrazzo2024}; compact and maximally
+localized representatives need not coincide~\cite{sathe2024}, and hopping truncation can
+degrade band and response accuracy~\cite{ghosh2025}.
+
+The experiment asks how a third exchange-equivalent periodic coordinate changes the
+relation between complete Bloch-spectral, retained-frame, and Wannier/tight-binding
+representations and the cubic-complete hopping support required by two gauge-related
+rank-two fields at equal sampled band accuracy. The complete fields remain physically
+equivalent under consistent transformation of states and operators. Range inflation
+after truncation measures representation cost, not physical inequivalence or
+material-model error. Eigenvalue lists are used for spectral comparisons but are never
+treated as operators or subtracted from Hamiltonian matrices.
+
+\section{Coherence with the 1-D predecessor}
+
+The dimension-$d$ master family is
+\begin{align}
+ K_\rho^{(d)}(\mathbf q)
+ &=T_0+\frac\rho d\sum_{\alpha=1}^{d}
+ \left(e^{2\pi iq_\alpha}T_+ +e^{-2\pi iq_\alpha}T_-\right),\\
+ \theta_a^{(d)}(\mathbf q)
+ &=\frac a d\sum_{\alpha=1}^{d}\sin(2\pi q_\alpha).
+ \label{eq:master-family}
+\end{align}
+At $d=1$, Eq.~\eqref{eq:master-family} is exactly the maintained 1-D parent homotopy
+and sine rotation. This protocol preserves the same $T_0,T_+,T_-$, meanings of $\rho$
+and $a$, retained rank, periodic-frame role, continuous global $SO(2)$ restriction,
+flat-parent theorem, spectral comparisons, convergence outcomes, and error semantics.
+The 1-D development implementation now includes separate maximum/RMS reconstructed-
+Hamiltonian interpolation, deliberate-truncation, and total-error channels alongside the
+spectral channels. The 3-D protocol may inherit their definitions and normalization only
+after the 2-D protocol establishes the dimension-general contracts; it inherits neither
+lower-dimensional numerical outcomes nor evidence status. The frame construction on a
+3-torus, vector Fourier index, Nyquist boundary, support geometry, tensor meshes, and
+resource policy remain dimension specific. A future implementation must include
+specialization fixtures that reproduce both the maintained 1-D and reviewed 2-D
+contracts within their declared tolerances.
+
+\section{Simple-cubic convention}
+
+The direct and reciprocal bases are
+\begin{equation}
+ \mathbf a_\alpha=a_0\mathbf e_\alpha,
+ \qquad
+ \mathbf b_\alpha=\frac{2\pi}{a_0}\mathbf e_\alpha,
+ \qquad \alpha\in\{x,y,z\}.
+\end{equation}
+Reduced coordinates and displacements are
+\begin{equation}
+ \mathbf q=(q_x,q_y,q_z)\in[-1/2,1/2)^3,
+ \qquad
+ \mathbf R=(R_x,R_y,R_z)\in\Z^3,
+\end{equation}
+with phase $e^{2\pi i\mathbf q\cdot\mathbf R}$ and arbitrary positive reference-energy
+unit $E_{\mathrm{ref}}$, which is not a band gap.
+The parent and rotation family preserve all coordinate permutations and global
+reciprocal inversion. Global inversion acts with complex conjugation on the real-orbital
+Bloch matrix. The protocol does not assume coefficient equality under independent axis
+sign changes. Cubic-complete truncation supports use all 48 signed coordinate
+permutations, but support symmetry and coefficient symmetry remain distinct.
+
+\section{Finite spectral and tight-binding realizations}
+
+For construction size $N$, define
+\begin{equation}
+ \mathcal L_N^{(3)}=(\mathbb C^N)^{\otimes3},\qquad
+ \mathcal H_{p,N}^{(3)}=\mathcal L_N^{(3)}\otimes\mathbb C^4,\qquad
+ \mathcal H_{r,N}^{(3)}=\mathcal L_N^{(3)}\otimes\mathbb C^2.
+ \label{eq:spaces}
+\end{equation}
+Let $\mathsf F_N$ be the unitary centered discrete Fourier matrix and define
+$\mathsf S_N$ by
+\begin{equation}
+ \mathsf F_N\mathsf S_N\mathsf F_N^\dagger
+ =\operatorname{diag}\left(e^{2\pi iq_0},\ldots,e^{2\pi iq_{N-1}}\right).
+\end{equation}
+Set
+\begin{align}
+ \mathsf S_x&=\mathsf S_N\otimes I_N\otimes I_N,&
+ \mathsf S_y&=I_N\otimes\mathsf S_N\otimes I_N,\\
+ \mathsf S_z&=I_N\otimes I_N\otimes\mathsf S_N,&
+ \mathcal F_{3,N}&=\mathsf F_N^{\otimes3}.
+\end{align}
+The finite cell--orbital parent is
+\begin{equation}
+ \widehat K_{\rho,N}^{(3)}
+ =I_{N^3}\otimes T_0
+ +\frac\rho3\sum_{\alpha=x,y,z}
+ \left(\mathsf S_\alpha\otimes T_+
+ +\mathsf S_\alpha^\dagger\otimes T_-\right).
+ \label{eq:kronecker-parent}
+\end{equation}
+The tensor products act on lattice coordinates; the model retains four orbitals per
+cell rather than introducing $4^3$ composite orbitals. Exact unitary conversion gives
+\begin{equation}
+ (\mathcal F_{3,N}\otimes I_4)\widehat K_{\rho,N}^{(3)}
+ (\mathcal F_{3,N}^\dagger\otimes I_4)
+ =\bigoplus_{i,j,k}K_\rho^{(3)}(\mathbf q_{ijk}).
+ \label{eq:bloch-direct-sum}
+\end{equation}
+Denote the right-hand side by $\widehat K_{B,\rho,N}^{(3)}$. For complete unitary
+fiber eigensystems
+\begin{equation}
+ K_\rho^{(3)}(\mathbf q_{ijk})
+ =Q_{ijk}E_{ijk}Q_{ijk}^\dagger,
+ \qquad E_{ijk}=\operatorname{diag}(\varepsilon_1,\ldots,\varepsilon_4),
+\end{equation}
+the conventional spectral representation is
+\begin{equation}
+ \widehat E_{\rho,N}^{(3)}=\bigoplus_{i,j,k}E_{ijk},
+ \qquad
+ \widehat K_{B,\rho,N}^{(3)}
+ =\mathcal Q_{\rho,N}^{(3)}\widehat E_{\rho,N}^{(3)}
+  (\mathcal Q_{\rho,N}^{(3)})^\dagger,
+ \qquad \mathcal Q_{\rho,N}^{(3)}=\bigoplus_{i,j,k}Q_{ijk}.
+ \label{eq:spectral-representation}
+\end{equation}
+The diagonal array $\widehat E$ without $\mathcal Q$ does not identify an operator in
+orbital coordinates and may not be subtracted from a tight-binding Hamiltonian. The
+verifier must reconstruct Eqs.~\eqref{eq:bloch-direct-sum} and
+\eqref{eq:spectral-representation}, their inverses, and complete finite spectra without
+requiring a dense $4N^3\times4N^3$ allocation.
+
+A qualified frame defines
+\begin{equation}
+ \mathcal V_{\rho,N}^{(3)}=\bigoplus_{i,j,k}F_\rho^{(3)}(\mathbf q_{ijk})
+\end{equation}
+and
+\begin{align}
+ \widehat H_{B,\rho,N}^{(3)}
+ &=(\mathcal V_{\rho,N}^{(3)})^\dagger
+ \left[\bigoplus_{i,j,k}K_\rho^{(3)}(\mathbf q_{ijk})\right]
+ \mathcal V_{\rho,N}^{(3)},\label{eq:retained-direct-sum}\\
+ \widehat H_{W,\rho,N}^{(3)}
+ &=(\mathcal F_{3,N}^\dagger\otimes I_2)
+ \widehat H_{B,\rho,N}^{(3)}
+ (\mathcal F_{3,N}\otimes I_2).
+ \label{eq:wannier-transform}
+\end{align}
+The $2\times2$ block-circulant entries of $\widehat H_W$ are the finite Fourier hopping
+blocks. This is the synthetic subspace-selection, gauge, and Bloch-to-Wannier chain; it
+carries no material or first-principles claim.
+
+\section{Exact four-state parent and retained spectral subspace}
+
+Define
+\begin{equation}
+ T_0=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ -1.20&0.06&0&0\\
+ 0.06&-0.35&0&0\\
+ 0&0&1.00&0.04\\
+ 0&0&0.04&1.75
+ \end{pmatrix},
+\end{equation}
+\begin{equation}
+ T_+=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ 0.15&0&0.12&0\\
+ 0&-0.10&0&0.10\\
+ 0&0&0.05&0\\
+ 0&0&0&-0.04
+ \end{pmatrix},
+ \qquad T_-=T_+^\dagger.
+\end{equation}
+For $0\le\rho\le1$, let $z_\alpha=e^{2\pi iq_\alpha}$ and define the direct
+three-dimensional mirror of the 1-D parent,
+\begin{equation}
+ K_\rho^{(3)}(\mathbf q)
+ =T_0+\frac\rho3\sum_{\alpha=x,y,z}
+ \left(z_\alpha T_+ +z_\alpha^{-1}T_-\right).
+ \label{eq:parent}
+\end{equation}
+The nonzero hopping blocks are
+\begin{equation}
+ T_{\mathbf0}=T_0,
+ \qquad T_{+\mathbf e_\alpha}=\frac\rho3T_+,
+ \qquad T_{-\mathbf e_\alpha}=\frac\rho3T_-,
+ \qquad \alpha\in\{x,y,z\}.
+\end{equation}
+The factor $1/3$ holds the total axis-hopping scale comparable across dimensions. The
+field is invariant under coordinate permutations and obeys
+$K_\rho^{(3)}(-\mathbf q)=K_\rho^{(3)}(\mathbf q)^*$.
+
+Let $\varepsilon_1\le\cdots\le\varepsilon_4$ be the complete ordered spectrum. The experiment retains the two lowest bands, constructs a periodic orthonormal frame
+$F_\rho^{(3)}(\mathbf q)\in\mathbb C^{4\times2}$ for their spectral projector, and forms
+\begin{equation}
+ H_\rho^{(3)}(\mathbf q)=
+ F_\rho^{(3)}(\mathbf q)^\dagger
+ K_\rho^{(3)}(\mathbf q)F_\rho^{(3)}(\mathbf q).
+ \label{eq:retained}
+\end{equation}
+This mirrors the 1-D retained-frame construction. The 3-D frame method must freeze its
+anchor, traversal, neighbor Procrustes rule, three reciprocal-boundary sewing rules,
+path and plaquette consistency diagnostics, and rank thresholds. Existence of one
+globally periodic rank-two frame is a qualification premise: the implementation must
+either construct and verify it or stop without selecting a gauge across an obstruction.
+Wilson-loop and plaquette phases are sewing diagnostics, not topological claims.
+Projectors and reconstructed operators, rather than raw frame entries, supply invariant
+refinement evidence.
+
+All four parent eigenvalues are obtained from complete dense Hermitian spectra. Before
+version freeze, a conservative enclosure over
+\begin{equation}
+ w=\tfrac13(z_x+z_y+z_z),\qquad |w|\le1,
+\end{equation}
+must prove a positive external isolation gap between bands two and three. Any additional
+nondegeneracy required by the frame construction is a separate gate. A sampled minimum
+cannot establish either premise.
+
+\section{Cubic representation family and exact geometry}
+
+Define
+\begin{align}
+ \theta_a^{(3)}(\mathbf q)&=
+ \frac a3\sum_{\alpha=x,y,z}\sin(2\pi q_\alpha),
+ &0\le a\le\frac\pi4,\\
+ U_a^{(3)}(\mathbf q)&=
+ \begin{pmatrix}
+ \cos\theta_a^{(3)}&-\sin\theta_a^{(3)}\\
+ \sin\theta_a^{(3)}& \cos\theta_a^{(3)}
+ \end{pmatrix},\\
+ A_{\rho,a}^{(3)}(\mathbf q)&=
+ U_a^{(3)}(\mathbf q)^\dagger H_\rho^{(3)}(\mathbf q)U_a^{(3)}(\mathbf q).
+ \label{eq:comparison}
+\end{align}
+Then $|\theta_a^{(3)}|\le a$. The family is invariant under coordinate permutations and
+odd under global reciprocal inversion, exactly mirroring the 1-D sine rotation. The
+complete fields have identical ordered bands. The restricted comparison permits one
+momentum-independent real rotation and excludes reuse of $U_a^{(3)}$.
+
+Writing $H=\bar E I_2+D$ and using the candidate
+\begin{equation}
+ C_{s,\lambda}=\bar E I_2+sE_{\mathrm{ref}}I_2+\lambda D,
+ \qquad \lambda>0,
+\end{equation}
+produces the dimension-independent exact losses
+\begin{align}
+ L_{\mathrm{spec}}^2&=s^2+\kappa(\lambda-1)^2,\\
+ L_{\mathrm{op},*}^2&=s^2+\kappa(\lambda-\mu_{\max})^2
+                     +\kappa(1-\mu_{\max}^2).
+ \label{eq:losses}
+\end{align}
+The weights, parameter box, thresholds, and separation resolution must be frozen before
+these quadratics define an admissible-set decision.
+
+\section{Aligned Hamiltonian subtraction}
+
+Let
+\begin{equation}
+ \mathcal U_{a,N}^{(3)}=\bigoplus_{i,j,k}U_a^{(3)}(\mathbf q_{ijk}).
+\end{equation}
+The comparison operators are
+\begin{align}
+ \widehat A_{B,\rho,a,N}^{(3)}
+ &=(\mathcal U_{a,N}^{(3)})^\dagger
+   \widehat H_{B,\rho,N}^{(3)}\mathcal U_{a,N}^{(3)},\\
+ \widehat A_{W,\rho,a,N}^{(3)}
+ &=(\mathcal F_{3,N}^\dagger\otimes I_2)
+   \widehat A_{B,\rho,a,N}^{(3)}
+   (\mathcal F_{3,N}\otimes I_2).
+\end{align}
+Covariant subtraction under $\mathcal U$ vanishes by construction. In Wannier
+coordinates the corresponding unitary
+\begin{equation}
+ \mathcal G_{W,a,N}^{(3)}
+ =(\mathcal F_{3,N}^\dagger\otimes I_2)
+  \mathcal U_{a,N}^{(3)}
+ (\mathcal F_{3,N}\otimes I_2)
+\end{equation}
+is generally nonlocal and obeys
+$\widehat A_W=\mathcal G_W^\dagger\widehat H_W\mathcal G_W$.
+The restricted subtraction instead uses one cell-local rotation:
+\begin{equation}
+ \Delta\widehat H_{W,N}^{(3)}(\phi)
+ =\widehat A_{W,\rho,a,N}^{(3)}
+ -(I_{N^3}\otimes R(\phi))^\dagger
+  \widehat H_{W,\rho,N}^{(3)}
+  (I_{N^3}\otimes R(\phi)).
+ \label{eq:restricted-subtraction}
+\end{equation}
+Its normalized Frobenius value equals the mesh-averaged fiber residual. A parent-space
+subtraction requires the projector $\mathcal P=\mathcal V\mathcal V^\dagger$ and the
+lift $\mathcal V\widehat H_B\mathcal V^\dagger$; matrices on the $4N^3$ parent and
+$2N^3$ retained spaces are never subtracted directly. Every subtraction record names
+its spaces, isometry or alignment, basis, gauge, energy reference, units, and
+normalization.
+
+\section{Flat-parent analytic comparator}
+
+At $\rho=0$, the protocol fixes the retained frame to the constant two-lowest-eigenvector
+frame of $T_0$; the frame algorithm may not inject another momentum-dependent gauge.
+Uniform integration on $\T^3$ then factorizes:
+\begin{equation}
+ \left\langle e^{2i\theta_a^{(3)}(\mathbf q)}\right\rangle_{\T^3}
+ =J_0(2a/3)^3.
+\end{equation}
+The imaginary part vanishes by global inversion symmetry, giving
+\begin{equation}
+ \mu_{\max}^{(3)}(a)=J_0(2a/3)^3.
+ \label{eq:flat-correlation}
+\end{equation}
+Thus
+\begin{align}
+ \tau_{o,\min}^{(3)}(a)
+ &=\sqrt{\kappa\left[1-J_0(2a/3)^6\right]},\\
+ \tau_{o,\mathrm{joint}}^{(3)}(a;0)
+ &=\sqrt{2\kappa\left[1-J_0(2a/3)^3\right]}.
+\end{align}
+The analytic Bessel comparator~\cite{dlmf1012} remains separate from finite-mesh
+correlation evidence.
+
+For continuous Fourier blocks
+\begin{equation}
+ B_{\mathbf R}=\int_{\T^3}e^{-2\pi i\mathbf q\cdot\mathbf R}
+ U_a^{(3)}(\mathbf q)^\dagger D U_a^{(3)}(\mathbf q)\,d\mathbf q,
+\end{equation}
+the dimension-general Parseval identity is
+\begin{equation}
+ \inf_{s,\lambda\ge0,\phi}L_{\mathrm{op},\phi}^2
+ =\frac{1}{2E_{\mathrm{ref}}^2}
+  \sum_{\mathbf R\ne\mathbf0}\norm{B_{\mathbf R}}_F^2.
+ \label{eq:flat-locality}
+\end{equation}
+No corresponding equality is assumed for $\rho>0$.
+
+\section{Three-dimensional finite Fourier conversion}
+
+For an even $N^3$ construction mesh, use the tensor Monkhorst--Pack rule
+\begin{equation}
+ \mathbf q_{ijk}=
+ \left(-\frac12+\frac{i+1/2}{N},
+       -\frac12+\frac{j+1/2}{N},
+       -\frac12+\frac{k+1/2}{N}\right),
+ \qquad i,j,k=0,\ldots,N-1.
+\end{equation}
+with cyclic representatives
+\begin{equation}
+ \mathcal R_N=\{-N/2,\ldots,N/2-1\}^3.
+\end{equation}
+Finite coefficients use the normalized $N^{-3}$ transform with the exact Monkhorst--
+Pack origin phase and remain potentially aliased. Off-node evaluation concerns the finite
+trigonometric interpolant, not the
+continuous field~\cite{trefethen2000,higham2002}.
+
+Ordinary-lattice conversion removes the union of three Nyquist boundary planes
+\begin{equation}
+ \mathcal N_N=
+ \{\mathbf R\in\mathcal R_N:
+ R_x=-N/2\ \text{or}\ R_y=-N/2\ \text{or}\ R_z=-N/2\}.
+ \label{eq:nyquist}
+\end{equation}
+This union contains
+\begin{equation}
+ N^3-(N-1)^3=3N^2-3N+1
+\end{equation}
+distinct blocks. Plane intersections and the corner are counted once. Their normalized
+power is one separate conversion channel, and the cyclic boundary must satisfy the
+half-step mesh's twisted Nyquist relation. The remaining
+$\{-N/2+1,\ldots,N/2-1\}^3$ inventory must pass ordinary Hermiticity before truncation.
+
+\section{Cubic-orbit support and equal-accuracy cost}
+
+For $\mathbf R\in\Z^3$, define $r^2=R_x^2+R_y^2+R_z^2$. The canonical signed-permutation
+representative is
+\begin{equation}
+ (r_1,r_2,r_3)=\operatorname{sort}_{\mathrm{descending}}
+ (|R_x|,|R_y|,|R_z|).
+\end{equation}
+Canonical representatives are ordered by
+\begin{equation}
+ (r_1^2+r_2^2+r_3^2,r_1,r_2,r_3).
+\end{equation}
+Every support consists of complete orbits under the 48-element cubic signed-permutation
+group and is conjugate closed. A particular orbit can contain fewer than 48 distinct
+displacements when coordinates vanish or repeat. Orbit multiplicities, complete domain
+coverage, and nesting must be reconstructed rather than trusted from serialization. The
+sampled shell inventory must contain every attainable squared radius through its declared
+cap so no intermediate orbit shell is skipped when identifying the first passing
+support.
+
+For sampled shell inventory $\mathcal S_{\mathrm{samp}}$, define
+\begin{equation}
+ \widehat S^\star(\rho,a;\tau)=
+ \min_{S\in\mathcal S_{\mathrm{samp}}}
+ \{S:\epsilon_{\max}(\rho,a,S)\le\tau E_{\mathrm{ref}}\}.
+\end{equation}
+If $B(S)$ is the number of retained displacement blocks, the primary dimensional cost
+is
+\begin{equation}
+ \Delta\widehat B^\star=
+ B(\widehat S_{\mathrm{comparison}}^\star)
+ -B(\widehat S_{\mathrm{reference}}^\star).
+ \label{eq:block-inflation}
+\end{equation}
+Shell-radius inflation is secondary. No passing shell yields `unresolved'; no fit or
+extrapolation invents one.
+
+\section{Reconstructed-Hamiltonian and spectral error channels}
+
+The maintained 1-D development result now retains maximum/RMS reconstructed-Hamiltonian
+and spectral errors for interpolation, deliberate truncation, and total field pairs,
+alongside omitted Frobenius power. The definitions below preserve those rank-two
+normalizations. The 3-D version cannot freeze them until the reviewed 2-D protocol and
+implementation establish the dimension-general owner contracts and specialization
+evidence.
+
+The subtraction ledger reports separately: parent--retained reconstruction after an
+explicit projector lift; covariant gauge equivalence under $\mathcal U$ or $\mathcal
+G_W$; restricted global-rotation residual; cyclic-to-ordinary conversion power; finite
+interpolation; deliberate truncation; and total consequences. The first two are
+construction checks, the third is the intended representation residual, and the
+remaining channels are numerical or deliberate approximation consequences. They are
+not treated as independent additive errors.
+
+On a disjoint three-dimensional evaluation mesh, every ordinary-lattice model must pass
+block and evaluated-matrix Hermiticity. For Hermitian fields $X$ and $Y$, report
+\begin{align}
+ \mathcal E_{F,\max}(X,Y)
+ &=\max_{\mathbf q}\frac{\norm{X(\mathbf q)-Y(\mathbf q)}_F}{\sqrt{2}E_{\mathrm{ref}}},\\
+ \mathcal E_{F,\mathrm{rms}}(X,Y)
+ &=\left[
+ \frac{1}{2|K_{\mathrm{eval}}|E_{\mathrm{ref}}^2}
+ \sum_{\mathbf q\in K_{\mathrm{eval}}}
+ \norm{X(\mathbf q)-Y(\mathbf q)}_F^2
+ \right]^{1/2},\\
+ \mathcal E_{\lambda,\max}(X,Y)
+ &=\max_{\mathbf q,n}
+ \frac{|\lambda_n[X(\mathbf q)]-\lambda_n[Y(\mathbf q)]|}{E_{\mathrm{ref}}},\\
+ \mathcal E_{\lambda,\mathrm{rms}}(X,Y)
+ &=\left[
+ \frac{1}{2|K_{\mathrm{eval}}|E_{\mathrm{ref}}^2}
+ \sum_{\mathbf q,n}
+ |\lambda_n[X(\mathbf q)]-\lambda_n[Y(\mathbf q)]|^2
+ \right]^{1/2}.
+\end{align}
+Both matrix and sorted-band metric pairs are evaluated for the three distinct field
+pairs
+\begin{align}
+ \Delta_{\mathrm{interp}}&:
+ (A_N^{\mathrm{ord}},A^{\mathrm{dir}}),\\
+ \Delta_{\mathrm{trunc}}&:
+ (A_{N,S}^{\mathrm{ord}},A_N^{\mathrm{ord}}),\\
+ \Delta_{\mathrm{total}}&:
+ (A_{N,S}^{\mathrm{ord}},A^{\mathrm{dir}}),
+\end{align}
+and for the corresponding reference fields. Pointwise verification requires
+\begin{equation}
+ \frac{\max_n|\lambda_n(X)-\lambda_n(Y)|}{E_{\mathrm{ref}}}
+ \le\frac{\norm{X-Y}_F}{E_{\mathrm{ref}}}
+ =\sqrt{2}\,\mathcal E_F(X,Y).
+\end{equation}
+For deliberate truncation, the squared RMS Hamiltonian error must also reproduce
+the normalized ordinary omitted power by Parseval.
+Nyquist conversion power and omitted block power remain separate diagnostics. Matrix and
+spectral errors are not interchangeable, stacked, or treated as algebraically additive.
+Exact payload equality, numerical operator reconstruction, sorted-band equality, and
+scientific acceptance remain distinct statements.
+
+\section{Resource-aware draft numerical roles}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.23\textwidth}
+                  >{\raggedright\arraybackslash}p{0.42\textwidth}
+                  >{\raggedright\arraybackslash}p{0.25\textwidth}}
+\toprule
+Control & Draft design & Status\\
+\midrule
+Parent scales & $\rho\in\{0,1/4,1/2,3/4,1\}$ & selected for design\\
+Amplitudes & $a_j=j\pi/128$, $j=0,\ldots,32$ & pointwise primary\\
+Construction sizes & $N\in\{16,32,64\}$ per axis & resource preflight required\\
+Endpoint refinement & selected $N=128$ cases & not authorized\\
+Evaluation size & odd $M=2N+1$ per axis with rational shift & rule to be verified\\
+Band targets & $10^{-6},10^{-8},10^{-10}$ & synthetic draft\\
+Near-floor target & $10^{-12}$ & report only if numerically resolved\\
+Shell cap & every attainable shell through reviewed $S_{\max}$ & open\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A full $64^3$ construction grid contains 262,144 points; a $129^3$ evaluation grid
+contains 2,146,689 points. Those counts are scale statements, not authorization or
+runtime estimates. Before any execution, report the exact implementation, memory model,
+number of parent/amplitude/shell cases, anticipated outputs, and expected local or
+external resources. Production, remote, cluster, or cloud computation requires separate
+human authorization.
+
+Construction, convergence, evaluation, and locality roles remain separate. Direct
+amplitude and $\rho$ nodes support pointwise claims only. To mirror the 1-D supplementary
+interpolation contract, any continuous-amplitude claim must use the same deterministic
+midpoint selection, quarter-point validation, interval bisection, and reviewed-cap
+`unresolved' outcome. This does not replace the pointwise primary claim. Every first passing shell must
+remain unchanged under a finer construction mesh and an independently shifted
+evaluation mesh; otherwise its disposition is `unresolved'.
+
+\section{Cross-family test and diagnostic parity}
+
+Any implementation and analysis must satisfy every applicable common test and
+diagnostic category in
+\path{experiments/model-adequacy/band-equivalence-test-and-diagnostic-parity.md}.
+Cubic-specific orbit, Nyquist, and resource logic supplements rather than replaces the
+common parent, subspace, alignment, locality, Hamiltonian/spectral, first-passing,
+convergence, and independent-verification channels.
+
+\section{Qualification and independent verification}
+
+Producer and verifier must independently establish:
+
+\begin{enumerate}[label=\arabic*.]
+ \item the $d=1$ specialization reproduces the maintained 1-D parent, rotation, flat
+       comparator, reconstructed-Hamiltonian channels, and dense-cutoff fixtures;
+ \item the $d=2$ specialization reproduces the reviewed 2-D scientific and numerical
+       contracts;
+ \item exact parent, lattice, units, coordinate permutations, and global-inversion
+       covariance using complete dense Hermitian spectra;
+ \item dimensions and basis order of $\mathcal L_N^{(3)}$, $\mathcal H_{p,N}^{(3)}$,
+       and $\mathcal H_{r,N}^{(3)}$, the centered Fourier convention, and the exact
+       Kronecker-parent/direct-sum identity in Eq.~\eqref{eq:bloch-direct-sum} and
+       complete eigensystem reconstruction in Eq.~\eqref{eq:spectral-representation};
+ \item conservative retained-projector and gap premises over
+       $w=(z_x+z_y+z_z)/3$, $|w|\le1$;
+ \item existence and reconstruction of the declared global periodic frame, including
+       retained projectors, reciprocal sewing, plaquette consistency, exact pointwise
+       band equivalence, and continuous harmonic selection;
+ \item frame-isometry, projector-lift, parent--retained reconstruction, Bloch-to-Wannier
+       conversion, block-circulant/Fourier-block consistency, covariant equivalence, and
+       independent reconstruction of Eq.~\eqref{eq:restricted-subtraction};
+ \item finite-Fourier reconstruction, Hermiticity, and Parseval consistency;
+ \item exact three-plane Nyquist union and unique conversion-power accounting;
+ \item cubic orbit generation, canonical ordering, multiplicity, closure, and nesting;
+ \item exact source/truncation/band-entry correlation for every shell;
+ \item construction/evaluation disjointness and minimum coordinate separation;
+ \item independent reconstruction of every first passing sampled shell;
+ \item cross-mesh stability of parent invariants, selected outcomes, and dispositions;
+ \item explicit resource records and failure-safe caps; and
+ \item conservative `converged' or `unresolved' outcomes.
+\end{enumerate}
+
+The verifier must not invoke the producer action or trust serialized labels. Passing
+software and symmetry tests does not validate a material or establish a continuous
+three-dimensional bound.
+
+\section{Deterministic execution and verification sequence}
+
+After the 2-D stage gate and a separate resource review, one versioned 3-D calculation
+follows these fifteen steps. The bounded development action exercises the numerical
+representation and truncation channels, but it does not satisfy this qualified sequence
+or establish that a frozen result or retained package exists.
+
+\begin{enumerate}[label=\arabic*.]
+ \item Parse canonical input, validate the strict schema and resource plan, and reject
+       unknown fields, nonfinite values, invalid shapes, nonpositive weights, incomplete
+       shell inventories, inconsistent identities, or an unauthorized protected
+       execution mode.
+ \item Assemble the Kronecker parent $\widehat K_{\rho,N}^{(3)}$ and complete fiber
+       direct sum on every declared nested $N^3$ construction mesh. Verify
+       Eq.~\eqref{eq:bloch-direct-sum} without refitting and without allocating a dense
+       $4N^3\times4N^3$ matrix when structured operations suffice.
+ \item Compute complete dense Hermitian spectra of every $4\times4$ fiber, select the
+       lower rank-two projectors, and apply the external-isolation-gap and projector qualification
+       gates. Eigenvalue arrays remain spectral data, not Hamiltonian operands.
+ \item Construct the declared global periodic frame using the frozen traversal and
+       pairwise Procrustes rules. Apply overlap-rank, three-boundary sewing, path, and
+       plaquette gates; stop if a global frame is not established.
+ \item Form $\widehat H_B$, $\widehat H_W$, and the lifted retained operator. Verify
+       frame isometry, projector reconstruction, unitary Bloch--Wannier conversion,
+       basis order, and Fourier-block correlation using batched or matrix-free methods.
+ \item Form every $\widehat A_B$ and $\widehat A_W$. Verify covariant equivalence under
+       $\mathcal U$ and $\mathcal G_W$, then form the restricted Hamiltonian subtraction
+       under $I_{N^3}\otimes R(\phi)$. Evaluate the flat $J_0(2a/3)^3$ comparator
+       directly and keep it separate from finite-mesh correlations.
+ \item Assemble the spectral and restricted-matrix residual quadratics from the original
+       aligned matrix elements, including second-harmonic coefficients and all weights.
+ \item Maximize the continuous harmonic over its half-open fundamental interval, record
+       unique or degenerate angle status, and independently reconstruct the optimized
+       operator quadratic without a finite-angle inventory.
+ \item Apply all qualification and adjacent-mesh convergence gates, then select and
+       record $N_*$ by the prespecified rule without changing thresholds, parameter
+       bounds, amplitudes, parent scales, shell controls, or resource limits. Reaching a
+       mesh, memory, runtime, or sample cap first gives `unresolved'.
+ \item Minimize both quadratics over the frozen parameter rectangle and search for a
+       joint spectral/operator witness. Verify any witness against the original aligned
+       residuals rather than the quadratic summary alone.
+ \item If no witness is established, verify the full-ellipse containment premise,
+       reconstruct support points, and calculate conservative separation bounds. A
+       certified separation requires its lower bound to exceed the frozen resolution.
+ \item Assign `compatible', `separated', or `unresolved' using construction data only.
+       Later evaluation and truncation diagnostics cannot revise this disposition.
+ \item Generate the prespecified shifted, disjoint $M^3$ evaluation mesh and evaluate
+       interpolation and post-decision channels without refitting. The exact $M$ rule,
+       shift, batching, and memory policy belong to canonical input.
+ \item Compute the finite $N_*^3$ Fourier inventory; isolate the three-plane Nyquist
+       union; convert to the ordinary lattice; apply every attainable complete cubic-
+       orbit shell through $S_{\max}$; and report conversion, interpolation, deliberate-
+       truncation, and total Hamiltonian and spectral channels. Reconstruct every first
+       passing sampled shell and retained-block count independently.
+ \item Run the independent verifier, validate schemas, bind canonical input, result, and
+       verification bytes with SHA-256 digests, and write development records by a
+       no-overwrite operation. Creation of an immutable run or content-addressed
+       evidence package remains a separate protected action requiring authorization.
+\end{enumerate}
+
+Neither $N_*=256$ nor the 1-D observed $4.61\times10^{-13}$ reconstruction discrepancy
+is a 3-D control. The construction size, evaluation rule, tolerances, and resource caps
+must be established by the 3-D protocol gates and authorized preflight.
+
+\section{Open controls and version gate}
+
+An immutable version requires review and canonical binding of:
+
+\begin{itemize}
+ \item the 2-D stage-gate outcome and reusable owner contracts;
+ \item continuous gap enclosure and thresholds;
+ \item finite lattice, parent, and retained spaces; centered Fourier convention; basis
+       order; frame isometry; projector lift; and aligned-subtraction contracts;
+ \item construction, evaluation, and refinement meshes;
+ \item dense attainable-shell inventory, shell cap, and block-count convention;
+ \item amplitude and parent-scale inventories;
+ \item memory, runtime, and execution-resource caps;
+ \item channel tolerances and conservative numerical margins;
+ \item exact dependency revisions and method identities;
+ \item final retained-record schemas, a separately implemented verifier, and expanded
+       tamper tests beyond the bounded development schema/hash checks; and
+ \item evidence retention, failure, and interpretation policy.
+\end{itemize}
+
+No Quantum ESPRESSO, Wannier90, remote, cluster, cloud, production, or retained
+calculation is authorized. This synthetic simple-cubic experiment is not a silicon
+model and supplies no material validation.
+
+\bibliographystyle{unsrt}
+\bibliography{experimental-protocol}
+
+\end{document}

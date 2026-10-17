@@ -26,10 +26,14 @@ Three-dimensional experiments compose inward lattice and numerical owners.
 The children are at different design maturity and expose no shared implemented package
 contract.
 
-- Isotropic 3-D has a task and architecture but no source package.
+- Isotropic 3-D hopping support has a task and architecture but no source package.
+- Simple-cubic band equivalence versus hopping locality has a maintained protocol,
+  reusable typed development source, and bounded verified local three-level matrix-free
+  tensor calculations; complete diagnostic parity, final retained schemas, formal convergence,
+  and retained-evidence actions remain open.
 - Anisotropic 3-D has protocol documents but no source modules or classes.
-- No shared periodic-3D experiment module has been selected.
-- Module and `ClassName` architecture will be created only with matching source contracts.
+- No general periodic-3D experiment framework has been selected; the reusable
+  model-adequacy owner remains bounded to this dimensional replication sequence.
 
 ## Verification
 
