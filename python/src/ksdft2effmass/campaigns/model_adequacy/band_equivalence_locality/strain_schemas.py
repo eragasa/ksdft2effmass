@@ -14,6 +14,7 @@ from .strain_serialization import (
     M0_RESULT_SCHEMA_ID,
     M1_RESULT_SCHEMA_ID,
     M2_RESULT_SCHEMA_ID,
+    WITNESS_RESULT_SCHEMA_ID,
 )
 
 
@@ -23,6 +24,7 @@ class SyntheticStrainSchemaKind(StrEnum):
     M0_RESULT = "m0-result"
     M1_RESULT = "m1-result"
     M2_RESULT = "m2-result"
+    WITNESS_RESULT = "witness-result"
 
 
 @dataclass(frozen=True, slots=True)
@@ -46,6 +48,8 @@ class SyntheticStrainSchema:
                 return M1_RESULT_SCHEMA_ID
             case SyntheticStrainSchemaKind.M2_RESULT:
                 return M2_RESULT_SCHEMA_ID
+            case SyntheticStrainSchemaKind.WITNESS_RESULT:
+                return WITNESS_RESULT_SCHEMA_ID
 
     @property
     def artifact_filename(self) -> str:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from collections.abc import Callable
 from dataclasses import dataclass
 
@@ -10,6 +11,7 @@ import numpy as np
 from .strain import (
     StrainPointDiagnostic,
     SyntheticStrainCalculator,
+    SyntheticStrainPath,
     SyntheticStrainResult,
 )
 from .strain_response import (
@@ -21,6 +23,94 @@ from .strain_response import (
     SyntheticStrainResponseResult,
     SyntheticStrainWitnessScanResult,
 )
+
+
+@dataclass(frozen=True, slots=True)
+class SyntheticStrainScanRequest:
+    """Define one finite synthetic-strain scan and its refinement controls."""
+
+    path: SyntheticStrainPath
+    strain_fractions: tuple[float, ...]
+    geometry_construction_size: int
+    witness_construction_size: int
+    response_construction_size: int
+    response_evaluation_size: int
+    response_evaluation_shift: float
+    maximum_rotation_amplitude: float
+    radial_decay_beta: float
+    tail_tolerances: tuple[float, ...]
+    maximum_transition_refinement_depth: int
+
+    def __post_init__(self) -> None:
+        if type(self.path) is not SyntheticStrainPath:
+            raise TypeError("path must be SyntheticStrainPath")
+        for name, value in (
+            ("geometry_construction_size", self.geometry_construction_size),
+            ("witness_construction_size", self.witness_construction_size),
+            ("response_construction_size", self.response_construction_size),
+        ):
+            if type(value) is not int or value < 4 or value % 2:
+                raise ValueError(
+                    f"{name} must be an even built-in integer at least four"
+                )
+        if (
+            type(self.response_evaluation_size) is not int
+            or self.response_evaluation_size < 3
+        ):
+            raise ValueError(
+                "response_evaluation_size must be a built-in integer at least three"
+            )
+        if (
+            type(self.response_evaluation_shift) is not float
+            or not 0.0 < self.response_evaluation_shift < 1.0
+        ):
+            raise ValueError(
+                "response_evaluation_shift must be a built-in float in (0, 1)"
+            )
+        if (
+            type(self.strain_fractions) is not tuple
+            or not self.strain_fractions
+            or self.strain_fractions
+            != tuple(sorted(set(self.strain_fractions)))
+            or any(
+                type(value) is not float or not 0.0 <= value <= 1.0
+                for value in self.strain_fractions
+            )
+        ):
+            raise ValueError(
+                "strain_fractions must be a nonempty, sorted, unique tuple of built-in "
+                "floats in [0, 1]"
+            )
+        if (
+            type(self.maximum_rotation_amplitude) is not float
+            or not 0.0 <= self.maximum_rotation_amplitude <= math.pi / 4.0
+        ):
+            raise ValueError(
+                "maximum_rotation_amplitude must be a built-in float in [0, pi/4]"
+            )
+        if type(self.radial_decay_beta) is not float or self.radial_decay_beta != 1.0:
+            raise ValueError("radial_decay_beta must be the built-in float 1.0")
+        if (
+            type(self.tail_tolerances) is not tuple
+            or not self.tail_tolerances
+            or any(
+                type(value) is not float
+                or not math.isfinite(value)
+                or value <= 0.0
+                for value in self.tail_tolerances
+            )
+        ):
+            raise ValueError(
+                "tail_tolerances must be a nonempty tuple of positive built-in floats"
+            )
+        if (
+            type(self.maximum_transition_refinement_depth) is not int
+            or not 1 <= self.maximum_transition_refinement_depth <= 20
+        ):
+            raise ValueError(
+                "maximum_transition_refinement_depth must be a built-in integer in "
+                "[1, 20]"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -833,6 +923,7 @@ __all__ = [
     "StrainWitnessRequirementEnvelope",
     "StrainShellTransitionBracket",
     "SyntheticStrainScanAssessor",
+    "SyntheticStrainScanRequest",
     "SyntheticStrainScanSummary",
     "SyntheticStrainTransitionRefinementResult",
     "SyntheticStrainTransitionRefiner",

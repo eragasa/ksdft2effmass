@@ -8,10 +8,11 @@ scientific quantity.
 from __future__ import annotations
 
 import json
-from typing import TypedDict
+from typing import TypedDict, cast
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     StrainPointDiagnostic,
+    SyntheticStrainPath,
     SyntheticStrainResult,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
@@ -19,7 +20,10 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_resp
     StrainResponseCutoffDiagnostic,
     StrainResponseModel,
     StrainResponsePointDiagnostic,
+    StrainWitnessControl,
+    StrainWitnessPointDiagnostic,
     SyntheticStrainResponseResult,
+    SyntheticStrainWitnessScanResult,
 )
 
 from .serialization import CanonicalJsonDocument
@@ -35,6 +39,10 @@ M1_RESULT_SCHEMA_ID = (
 M2_RESULT_SCHEMA_ID = (
     "ksdft2effmass.campaign.model-adequacy."
     "gauge-locality-under-synthetic-strain.m2.result.v1"
+)
+WITNESS_RESULT_SCHEMA_ID = (
+    "ksdft2effmass.campaign.model-adequacy."
+    "gauge-locality-under-synthetic-strain.witness.result.v1"
 )
 
 
@@ -124,7 +132,33 @@ class _ResponseResultWire(TypedDict):
     tail_tolerances: list[float]
 
 
-type _StrainWire = _M0ResultWire | _ResponseResultWire
+class _WitnessPointWire(TypedDict):
+    finite_mesh_maximum_correlation: float
+    fixed_candidate_operator_threshold: float
+    fixed_candidate_threshold_over_sqrt_splitting: float
+    maximum_direct_band_defect: float
+    optimized_threshold_over_sqrt_splitting: float
+    path_parameter: float
+    pointwise_optimized_operator_threshold: float
+    splitting_scale: float
+    strain_fraction: float
+    volume_defect: float
+
+
+class _WitnessResultWire(TypedDict):
+    construction_size: int
+    control: str
+    maximum_rotation_amplitude: float
+    path: str
+    points: list[_WitnessPointWire]
+    radial_decay_beta: float
+    sampled_maximum_fixed_candidate_operator_threshold: float
+    sampled_maximum_optimized_operator_threshold: float
+    schema: str
+    status: str
+
+
+type _StrainWire = _M0ResultWire | _ResponseResultWire | _WitnessResultWire
 
 
 def _canonical_document(value: _StrainWire) -> CanonicalJsonDocument:
@@ -187,6 +221,29 @@ def _response_cutoff_wire(
     }
 
 
+def _witness_point_wire(value: StrainWitnessPointDiagnostic) -> _WitnessPointWire:
+    return {
+        "finite_mesh_maximum_correlation": value.finite_mesh_maximum_correlation,
+        "fixed_candidate_operator_threshold": (
+            value.fixed_candidate_operator_threshold
+        ),
+        "fixed_candidate_threshold_over_sqrt_splitting": (
+            value.fixed_candidate_threshold_over_sqrt_splitting
+        ),
+        "maximum_direct_band_defect": value.maximum_direct_band_defect,
+        "optimized_threshold_over_sqrt_splitting": (
+            value.optimized_threshold_over_sqrt_splitting
+        ),
+        "path_parameter": value.path_parameter,
+        "pointwise_optimized_operator_threshold": (
+            value.pointwise_optimized_operator_threshold
+        ),
+        "splitting_scale": value.splitting_scale,
+        "strain_fraction": value.strain_fraction,
+        "volume_defect": value.volume_defect,
+    }
+
+
 def _response_point_wire(
     value: StrainResponsePointDiagnostic,
 ) -> _ResponsePointWire:
@@ -228,6 +285,197 @@ def _response_point_wire(
     }
 
 
+def _error_from_wire(value: _ErrorChannelsWire) -> StrainErrorChannels:
+    return StrainErrorChannels(
+        maximum_band=value["maximum_band"],
+        maximum_hamiltonian=value["maximum_hamiltonian"],
+        rms_band=value["rms_band"],
+        rms_hamiltonian=value["rms_hamiltonian"],
+    )
+
+
+def _m0_point_from_wire(value: _M0PointWire) -> StrainPointDiagnostic:
+    return StrainPointDiagnostic(
+        strain_fraction=value["strain_fraction"],
+        path_parameter=value["path_parameter"],
+        metric=tuple(tuple(row) for row in value["metric"]),
+        minimum_bond_length=value["minimum_bond_length"],
+        maximum_bond_length=value["maximum_bond_length"],
+        distinct_bond_lengths=value["distinct_bond_lengths"],
+        ordinary_fourier_power=value["ordinary_fourier_power"],
+        nyquist_power=value["nyquist_power"],
+        restricted_alignment_residual=value["restricted_alignment_residual"],
+        first_passing_radius=tuple(value["first_passing_radius"]),
+        first_passing_blocks=tuple(value["first_passing_blocks"]),
+    )
+
+
+def _witness_point_from_wire(value: _WitnessPointWire) -> StrainWitnessPointDiagnostic:
+    return StrainWitnessPointDiagnostic(
+        strain_fraction=value["strain_fraction"],
+        path_parameter=value["path_parameter"],
+        volume_defect=value["volume_defect"],
+        maximum_direct_band_defect=value["maximum_direct_band_defect"],
+        splitting_scale=value["splitting_scale"],
+        finite_mesh_maximum_correlation=value["finite_mesh_maximum_correlation"],
+        pointwise_optimized_operator_threshold=(
+            value["pointwise_optimized_operator_threshold"]
+        ),
+        fixed_candidate_operator_threshold=(
+            value["fixed_candidate_operator_threshold"]
+        ),
+        optimized_threshold_over_sqrt_splitting=(
+            value["optimized_threshold_over_sqrt_splitting"]
+        ),
+        fixed_candidate_threshold_over_sqrt_splitting=(
+            value["fixed_candidate_threshold_over_sqrt_splitting"]
+        ),
+    )
+
+
+def _response_cutoff_from_wire(
+    value: _ResponseCutoffWire,
+) -> StrainResponseCutoffDiagnostic:
+    return StrainResponseCutoffDiagnostic(
+        tail_tolerance=value["tail_tolerance"],
+        physical_radius=value["physical_radius"],
+        retained_blocks=value["retained_blocks"],
+        omitted_power=value["omitted_power"],
+        truncation=(
+            None
+            if value["truncation"] is None
+            else _error_from_wire(value["truncation"])
+        ),
+        total=(
+            None if value["total"] is None else _error_from_wire(value["total"])
+        ),
+        delta_omitted_power=value["delta_omitted_power"],
+        delta_truncation=(
+            None
+            if value["delta_truncation"] is None
+            else _error_from_wire(value["delta_truncation"])
+        ),
+        delta_total=(
+            None
+            if value["delta_total"] is None
+            else _error_from_wire(value["delta_total"])
+        ),
+    )
+
+
+def _response_point_from_wire(
+    value: _ResponsePointWire,
+) -> StrainResponsePointDiagnostic:
+    return StrainResponsePointDiagnostic(
+        strain_fraction=value["strain_fraction"],
+        path_parameter=value["path_parameter"],
+        metric=tuple(tuple(row) for row in value["metric"]),
+        minimum_parent_bond_length=value["minimum_parent_bond_length"],
+        maximum_parent_bond_length=value["maximum_parent_bond_length"],
+        minimum_hopping_response=value["minimum_hopping_response"],
+        maximum_hopping_response=value["maximum_hopping_response"],
+        minimum_sampled_external_isolation_gap=(
+            value["minimum_sampled_external_isolation_gap"]
+        ),
+        minimum_seed_overlap=value["minimum_seed_overlap"],
+        minimum_frame_overlap_singular_value=(
+            value["minimum_frame_overlap_singular_value"]
+        ),
+        maximum_pointwise_frame_alignment_residual=(
+            value["maximum_pointwise_frame_alignment_residual"]
+        ),
+        restricted_global_frame_alignment_residual=(
+            value["restricted_global_frame_alignment_residual"]
+        ),
+        aligned_strain_perturbation=_error_from_wire(
+            value["aligned_strain_perturbation"]
+        ),
+        maximum_scalar_strain_component=value["maximum_scalar_strain_component"],
+        rms_scalar_strain_component=value["rms_scalar_strain_component"],
+        maximum_traceless_strain_component=(
+            value["maximum_traceless_strain_component"]
+        ),
+        rms_traceless_strain_component=value["rms_traceless_strain_component"],
+        delta_onsite_power=value["delta_onsite_power"],
+        delta_offsite_power=value["delta_offsite_power"],
+        interpolation=_error_from_wire(value["interpolation"]),
+        delta_interpolation=_error_from_wire(value["delta_interpolation"]),
+        nyquist_power=value["nyquist_power"],
+        delta_nyquist_power=value["delta_nyquist_power"],
+        cutoffs=tuple(_response_cutoff_from_wire(item) for item in value["cutoffs"]),
+    )
+
+
+def deserialize_synthetic_strain_result(
+    document: CanonicalJsonDocument,
+) -> SyntheticStrainResult:
+    """Reconstruct one schema-validated M0 result from canonical bytes."""
+    if type(document) is not CanonicalJsonDocument:
+        raise TypeError("document must be CanonicalJsonDocument")
+    value = cast(_M0ResultWire, json.loads(document.canonical_bytes()))
+    if value["schema"] != M0_RESULT_SCHEMA_ID:
+        raise ValueError("document is not an M0 result")
+    return SyntheticStrainResult(
+        path=SyntheticStrainPath(value["path"]),
+        construction_size=value["construction_size"],
+        maximum_rotation_amplitude=value["maximum_rotation_amplitude"],
+        tail_tolerances=tuple(value["tail_tolerances"]),
+        points=tuple(_m0_point_from_wire(item) for item in value["points"]),
+        maximum_parseval_defect=value["maximum_parseval_defect"],
+        maximum_strain_invariance_defect=value["maximum_strain_invariance_defect"],
+        status=value["status"],
+    )
+
+
+def deserialize_synthetic_strain_witness_result(
+    document: CanonicalJsonDocument,
+) -> SyntheticStrainWitnessScanResult:
+    """Reconstruct one schema-validated witness result from canonical bytes."""
+    if type(document) is not CanonicalJsonDocument:
+        raise TypeError("document must be CanonicalJsonDocument")
+    value = cast(_WitnessResultWire, json.loads(document.canonical_bytes()))
+    if value["schema"] != WITNESS_RESULT_SCHEMA_ID:
+        raise ValueError("document is not a witness result")
+    return SyntheticStrainWitnessScanResult(
+        path=SyntheticStrainPath(value["path"]),
+        control=StrainWitnessControl(value["control"]),
+        construction_size=value["construction_size"],
+        maximum_rotation_amplitude=value["maximum_rotation_amplitude"],
+        radial_decay_beta=value["radial_decay_beta"],
+        points=tuple(_witness_point_from_wire(item) for item in value["points"]),
+        sampled_maximum_optimized_operator_threshold=(
+            value["sampled_maximum_optimized_operator_threshold"]
+        ),
+        sampled_maximum_fixed_candidate_operator_threshold=(
+            value["sampled_maximum_fixed_candidate_operator_threshold"]
+        ),
+        status=value["status"],
+    )
+
+
+def deserialize_synthetic_strain_response_result(
+    document: CanonicalJsonDocument,
+) -> SyntheticStrainResponseResult:
+    """Reconstruct one schema-validated M1/M2 result from canonical bytes."""
+    if type(document) is not CanonicalJsonDocument:
+        raise TypeError("document must be CanonicalJsonDocument")
+    value = cast(_ResponseResultWire, json.loads(document.canonical_bytes()))
+    if value["schema"] not in {M1_RESULT_SCHEMA_ID, M2_RESULT_SCHEMA_ID}:
+        raise ValueError("document is not an M1/M2 result")
+    return SyntheticStrainResponseResult(
+        path=SyntheticStrainPath(value["path"]),
+        model=StrainResponseModel(value["model"]),
+        construction_size=value["construction_size"],
+        evaluation_size=value["evaluation_size"],
+        evaluation_shift=value["evaluation_shift"],
+        maximum_rotation_amplitude=value["maximum_rotation_amplitude"],
+        radial_decay_beta=value["radial_decay_beta"],
+        tail_tolerances=tuple(value["tail_tolerances"]),
+        points=tuple(_response_point_from_wire(item) for item in value["points"]),
+        status=value["status"],
+    )
+
+
 class SyntheticStrainResultSerializer:
     """Encode bounded M0 gauge-locality diagnostics as canonical JSON."""
 
@@ -250,6 +498,36 @@ class SyntheticStrainResultSerializer:
             "schema": M0_RESULT_SCHEMA_ID,
             "status": value.status,
             "tail_tolerances": list(value.tail_tolerances),
+        }
+        return _canonical_document(wire)
+
+
+class SyntheticStrainWitnessResultSerializer:
+    """Encode one sampled representation-witness scan as canonical JSON."""
+
+    __slots__ = ()
+
+    def execute(
+        self, value: SyntheticStrainWitnessScanResult
+    ) -> CanonicalJsonDocument:
+        """Return the explicit canonical witness result document."""
+        if type(value) is not SyntheticStrainWitnessScanResult:
+            raise TypeError("value must be SyntheticStrainWitnessScanResult")
+        wire: _WitnessResultWire = {
+            "construction_size": value.construction_size,
+            "control": value.control.value,
+            "maximum_rotation_amplitude": value.maximum_rotation_amplitude,
+            "path": value.path.value,
+            "points": [_witness_point_wire(point) for point in value.points],
+            "radial_decay_beta": value.radial_decay_beta,
+            "sampled_maximum_fixed_candidate_operator_threshold": (
+                value.sampled_maximum_fixed_candidate_operator_threshold
+            ),
+            "sampled_maximum_optimized_operator_threshold": (
+                value.sampled_maximum_optimized_operator_threshold
+            ),
+            "schema": WITNESS_RESULT_SCHEMA_ID,
+            "status": value.status,
         }
         return _canonical_document(wire)
 
@@ -289,6 +567,11 @@ __all__ = [
     "M0_RESULT_SCHEMA_ID",
     "M1_RESULT_SCHEMA_ID",
     "M2_RESULT_SCHEMA_ID",
+    "WITNESS_RESULT_SCHEMA_ID",
     "SyntheticStrainResponseResultSerializer",
     "SyntheticStrainResultSerializer",
+    "SyntheticStrainWitnessResultSerializer",
+    "deserialize_synthetic_strain_response_result",
+    "deserialize_synthetic_strain_result",
+    "deserialize_synthetic_strain_witness_result",
 ]

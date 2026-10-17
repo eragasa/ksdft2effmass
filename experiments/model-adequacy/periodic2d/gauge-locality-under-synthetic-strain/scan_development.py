@@ -17,11 +17,16 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_resp
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan import (  # noqa: E501
     SyntheticStrainScanAssessor,
+    SyntheticStrainScanRequest,
     SyntheticStrainTransitionRefiner,
 )
 from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_scan_plotting import (  # noqa: E501
     SyntheticStrainScanPlotRequest,
     SyntheticStrainScanPlotWriter,
+)
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_scan_serialization import (  # noqa: E501
+    SyntheticStrainScanArtifactWriter,
+    SyntheticStrainScanEnvironment,
 )
 
 FRACTIONS = tuple(float(index) / 200.0 for index in range(201))
@@ -30,40 +35,61 @@ PATH = SyntheticStrainPath.RHOMBIC_2D
 
 
 def main() -> None:
-    """Calculate and plot replaceable sampled development envelopes."""
+    """Calculate, bind, verify, and plot sampled finite-strain envelopes."""
+    request = SyntheticStrainScanRequest(
+        path=PATH,
+        strain_fractions=FRACTIONS,
+        geometry_construction_size=64,
+        witness_construction_size=16,
+        response_construction_size=16,
+        response_evaluation_size=33,
+        response_evaluation_shift=1.0 / 3.0,
+        maximum_rotation_amplitude=math.pi / 4.0,
+        radial_decay_beta=1.0,
+        tail_tolerances=TOLERANCES,
+        maximum_transition_refinement_depth=5,
+    )
     witnesses = tuple(
-        calculate_strain_witness_scan(PATH, control, 16, FRACTIONS, math.pi / 4.0)
+        calculate_strain_witness_scan(
+            request.path,
+            control,
+            request.witness_construction_size,
+            request.strain_fractions,
+            request.maximum_rotation_amplitude,
+        )
         for control in StrainWitnessControl
     )
     geometry = SyntheticStrainCalculator().execute(
-        PATH,
-        64,
-        FRACTIONS,
-        math.pi / 4.0,
-        TOLERANCES,
+        request.path,
+        request.geometry_construction_size,
+        request.strain_fractions,
+        request.maximum_rotation_amplitude,
+        request.tail_tolerances,
     )
-    transitions = SyntheticStrainTransitionRefiner().execute(geometry, 5)
+    transitions = SyntheticStrainTransitionRefiner().execute(
+        geometry, request.maximum_transition_refinement_depth
+    )
     frozen = calculate_synthetic_strain_response(
-        PATH,
+        request.path,
         StrainResponseModel.M1_FROZEN,
-        16,
-        33,
-        1.0 / 3.0,
-        FRACTIONS,
-        math.pi / 4.0,
+        request.response_construction_size,
+        request.response_evaluation_size,
+        request.response_evaluation_shift,
+        request.strain_fractions,
+        request.maximum_rotation_amplitude,
         0.0,
-        TOLERANCES,
+        request.tail_tolerances,
     )
     radial = calculate_synthetic_strain_response(
-        PATH,
+        request.path,
         StrainResponseModel.M2_RADIAL,
-        16,
-        33,
-        1.0 / 3.0,
-        FRACTIONS,
-        math.pi / 4.0,
-        1.0,
-        TOLERANCES,
+        request.response_construction_size,
+        request.response_evaluation_size,
+        request.response_evaluation_shift,
+        request.strain_fractions,
+        request.maximum_rotation_amplitude,
+        request.radial_decay_beta,
+        request.tail_tolerances,
     )
     summary = SyntheticStrainScanAssessor().execute(
         geometry,
@@ -72,6 +98,17 @@ def main() -> None:
         radial,
     )
     output = Path(__file__).resolve().parent / "analysis" / "scan-development"
+    artifacts = SyntheticStrainScanArtifactWriter().execute(
+        request,
+        summary,
+        transitions,
+        geometry,
+        witnesses,
+        frozen,
+        radial,
+        output,
+        SyntheticStrainScanEnvironment.capture(),
+    )
     result = SyntheticStrainScanPlotWriter().execute(
         SyntheticStrainScanPlotRequest(
             witness_results=witnesses,
@@ -139,8 +176,14 @@ def main() -> None:
             bond_transition.left_distinct_bond_lengths,
             bond_transition.right_distinct_bond_lengths,
         )
-    for path in result.paths:
+    for path in (*artifacts.paths.witness_paths, *result.paths):
         print(path)
+    print(artifacts.paths.request_path)
+    print(artifacts.paths.geometry_path)
+    print(artifacts.paths.frozen_response_path)
+    print(artifacts.paths.radial_response_path)
+    print(artifacts.paths.result_path)
+    print(artifacts.paths.verification_path)
 
 
 if __name__ == "__main__":

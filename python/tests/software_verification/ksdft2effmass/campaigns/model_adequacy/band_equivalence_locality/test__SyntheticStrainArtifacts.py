@@ -13,6 +13,8 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain impo
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
     StrainResponseModel,
+    StrainWitnessControl,
+    calculate_strain_witness_scan,
     calculate_synthetic_strain_response,
 )
 from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_schemas import (  # noqa: E501
@@ -23,15 +25,17 @@ from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_ser
     M0_RESULT_SCHEMA_ID,
     M1_RESULT_SCHEMA_ID,
     M2_RESULT_SCHEMA_ID,
+    WITNESS_RESULT_SCHEMA_ID,
     SyntheticStrainResponseResultSerializer,
     SyntheticStrainResultSerializer,
+    SyntheticStrainWitnessResultSerializer,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestSyntheticStrainArtifacts:
-    """Establish explicit canonical M0/M1/M2 result serialization and schemas."""
+    """Establish canonical geometry, witness, and response result artifacts."""
 
     def test_m0_result__serializes_explicit_fields_and_validates(self) -> None:
         result = SyntheticStrainCalculator().execute(
@@ -63,6 +67,24 @@ class TestSyntheticStrainArtifacts:
             )
             + "\n"
         ).encode("utf-8")
+
+    def test_witness_result__serializes_control_and_validates(self) -> None:
+        result = calculate_strain_witness_scan(
+            SyntheticStrainPath.RHOMBIC_2D,
+            StrainWitnessControl.GEOMETRY_ONLY,
+            4,
+            (0.0, 1.0),
+            math.pi / 8.0,
+        )
+
+        artifact = SyntheticStrainWitnessResultSerializer().execute(result)
+        document = json.loads(artifact.canonical_bytes())
+        schema = SyntheticStrainSchema(SyntheticStrainSchemaKind.WITNESS_RESULT)
+        schema.validate(artifact.canonical_bytes())
+
+        assert document["schema"] == WITNESS_RESULT_SCHEMA_ID == schema.identity
+        assert document["control"] == StrainWitnessControl.GEOMETRY_ONLY.value
+        assert document["points"][1]["strain_fraction"] == 1.0
 
     @pytest.mark.parametrize(
         ("model", "beta", "kind", "identity"),
