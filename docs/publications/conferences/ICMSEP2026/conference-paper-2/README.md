@@ -19,6 +19,9 @@ organized around the publication-independent experiment families:
 - [`../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/`](../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/)
 - [`../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/`](../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/)
 
+The four independent protocol outputs are composed without transferring their identities
+under [`band-equivalence-dimensional-comparison/`](../../../../experiments/model-adequacy/band-equivalence-dimensional-comparison/).
+
 A prospective geometry-stress extension is owned separately by:
 
 - [`../../../../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/`](../../../../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/)
@@ -56,9 +59,12 @@ remain open. Bounded three-level actions with independent development verifiers 
 exercise all four families without conferring evidence status. One pointwise
 graphene-family shell decision changes between the first two levels; every decision is
 unchanged on the final refinement. All 110 Paper 1 catalog rows now have an explicit
-mapping. The rank-two multidimensional closure phases use independently reconstructed
-worst-case ordered-eigenphase magnitudes; row-level independent parity verification
-remains open.
+mapping: 107 development-parity obligations are complete and three scientific
+disposition rows remain unresolved pending justified, frozen family-specific acceptance
+tolerances. The rank-two multidimensional closure phases use independently reconstructed
+worst-case ordered-eigenphase magnitudes. The independent explicit finite-sum oracle
+closes software-level parity for the applicable calculated rows without conferring
+scientific acceptance or retained-evidence status.
 ``Graphene-inspired'' and
 ``silicon-inspired'' identify
 structural synthetic controls only; neither is a material parametrization or validation.
@@ -71,6 +77,25 @@ In the rendered `manuscript.pdf`, red text marks prospective work, unexecuted
 calculations, open controls, conditional conclusions, or content that must be replaced
 by qualified evidence. Established definitions and currently selected mathematical
 contracts remain black.
+
+## Figure sources
+
+Manuscript figures are staged under [`figures/`](figures/). Each rendered figure has a
+same-stem Python generation entry point under [`figures/src/`](figures/src/); the local
+[figure README](figures/README.md) records the regeneration command and ownership
+boundary. Generated PDFs and PNGs remain ignored development outputs.
+
+## Appendices
+
+For the current pre-results package, supporting detail is maintained as manuscript
+appendices rather than as standalone supplemental information. The source is
+[`appendices.tex`](appendices.tex), included directly by
+[`manuscript.tex`](manuscript.tex). Appendix A and Appendix B are maintained separately
+as [`appendix_proofs.tex`](appendix_proofs.tex) and
+[`appendix_diagnostics.tex`](appendix_diagnostics.tex). Later appendices record
+coordinate and Fourier conventions, protocol and mesh inventories, case-resolved
+threshold requirements, the three distinct strain controls, and the
+independent-verification and evidence boundaries.
 
 ## Analytic proof status
 
@@ -111,14 +136,20 @@ and first-passing physical hopping range.
 
 ## Status
 
-The strain extension currently has bounded M0 diagnostics, separately labeled frozen
-four-state M1 and fixed radial-response M2 smoke actions, and a software-verified
-unimodular FCC-to-Bain common-cell map. Strict schemas, independent artifact verification,
-and convergence remain open; it contributes no material-strain result.
+The strain extension currently has bounded geometry-only diagnostics, separately
+labeled frozen-parent null-response and fixed synthetic radial-response smoke actions,
+and a replaceable 201-point scan with sampled witness-requirement and locality envelopes.
+Five-level bisection narrows detected shell and bond-degeneracy transitions to sampled
+brackets no wider than $1/6400$; it is not a continuum certificate. Test-only explicit
+finite sums and an independent harmonic reconstruction qualify the applicable scan
+channels at software level. Reusable Bain/rhombic paths, diamond decoration, and the
+FCC--Bain coordinate bridge are frozen KSD donor surfaces pending separately reviewed
+PhysKit owner checkpoints. Complete retained scan schemas, artifact-reading verification,
+and convergence remain open; the extension contributes no material-strain result.
 
 This remains a pre-results manuscript package. Replaceable bounded three-level records
-are available but do not constitute the paper's qualified numerical results or complete
-the diagnostic-parity and convergence requirements. Proximity-only correlation endpoint
+are available but do not constitute the paper's qualified numerical results or resolve
+the three tolerance-dependent dispositions and remaining convergence requirements. Proximity-only correlation endpoint
 canonicalization remains deferred technical debt under
 [`TD-BEL-001`](../../../../tasks/tech_debt/band-equivalence-locality/index.md). No protocol freeze,
 qualified convergence result, retained run, evidence package, material claim, conference

@@ -1,0 +1,224 @@
+\input{appendix_proofs}
+
+\input{appendix_diagnostics}
+
+\section{Coordinate, Fourier, and state-space conventions}
+\label{app:conventions}
+
+Let the columns of $A\in\mathbb R^{d\times d}$ be direct primitive vectors. Reduced
+reciprocal coordinates $\mathbf q\in\T^d$ and integer lattice modes
+$\mathbf n\in\Z^d$ are mapped to Cartesian vectors by
+\begin{equation}
+ B=2\pi A^{-\mathsf T},\qquad
+ \mathbf k=B\mathbf q,\qquad
+ \mathbf R=A\mathbf n.
+ \label{eq:app-direct-reciprocal-map}
+\end{equation}
+Consequently $\mathbf k\cdot\mathbf R=2\pi\mathbf q\cdot\mathbf n$. The
+nonorthogonal protocols retain this reduced-coordinate convention; the physical radius
+of a hopping mode is $\norm{A\mathbf n}$ rather than a coordinate-axis norm.
+
+For a matrix field $H(\mathbf q)$, the continuous Fourier convention is
+\begin{equation}
+ H_{\mathbf n}=\int_{\T^d}
+ e^{-2\pi i\mathbf q\cdot\mathbf n}H(\mathbf q)\,d\mathbf q,
+ \qquad
+ H(\mathbf q)=\sum_{\mathbf n\in\Z^d}
+ e^{2\pi i\mathbf q\cdot\mathbf n}H_{\mathbf n}.
+ \label{eq:app-fourier-convention}
+\end{equation}
+A finite even mesh first produces a cyclic centered inventory. Cyclic Nyquist modes are
+reported separately before selecting an ordinary conjugate-closed hopping inventory.
+Every finite support is completed in the physical metric and retains all equal-radius
+ties.
+
+Hamiltonian subtraction is performed only after state spaces have been identified. The
+parent orbital field, complete eigensystem, retained projector, periodic retained frame,
+and Wannier blocks remain distinct representations. Pointwise equality of sorted
+eigenvalues is not used as a substitute for an operator identification.
+
+\section{Protocol inventory and bounded numerical design}
+\label{app:protocols}
+
+The fixed-geometry comparison composes four independent protocols. The strain study
+adds two independent geometry paths. The comparison consumes typed diagnostics but does
+not own or transfer family geometry, tolerances, convergence dispositions, runs, or
+evidence.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Publication-independent protocol inventory used by Paper~2.}
+\label{tab:app-protocol-inventory}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.25\textwidth}
+                    >{\raggedright\arraybackslash}p{0.29\textwidth}
+                    >{\raggedright\arraybackslash}p{0.36\textwidth}@{}}
+\toprule
+Protocol & Geometry and role & Maintained experiment root \\
+\midrule
+Square 2-D & Orthogonal directed-parent baseline &
+{\tiny\path{periodic2d/band-equivalence-versus-hopping-locality}} \\
+Triangular/honeycomb 2-D & Nonorthogonal target with matched square and triangular
+Bravais controls &
+{\tiny\path{periodic2d_nonorthog/band-equivalence-versus-hopping-locality}} \\
+Simple-cubic 3-D & Orthogonal directed-parent baseline &
+{\tiny\path{periodic3d/band-equivalence-versus-hopping-locality}} \\
+FCC/diamond 3-D & Nonorthogonal target with matched simple-cubic and FCC Bravais
+controls &
+{\tiny\path{periodic3d_nonorthog/band-equivalence-versus-hopping-locality}} \\
+Rhombic strain & Unit-area triangular-to-square path with three scientific controls &
+{\tiny\path{periodic2d/gauge-locality-under-synthetic-strain}} \\
+Bain strain & Unit-volume FCC-to-BCC path with three scientific controls &
+{\tiny\path{periodic3d/gauge-locality-under-synthetic-strain}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The construction and shifted evaluation meshes are tensor products. The evaluation
+shift is one third of one evaluation-grid interval in every reduced reciprocal
+coordinate. Table~\ref{tab:app-numerical-design} gives the three-level bounded
+development ladder. The reported $10^{-3}$ and $10^{-5}$ tail-error tolerances select
+first-passing complete supports; they are not the unfrozen scientific acceptance limits
+for restricted operator mismatch.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Bounded fixed-geometry development design. Mesh sizes are per reciprocal
+coordinate.}
+\label{tab:app-numerical-design}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Family & Construction sizes & Evaluation sizes & Shell cap \\
+\midrule
+Square 2-D & $16,32,64$ & $33,65,129$ & 25 \\
+Triangular/honeycomb 2-D & $16,32,64$ & $33,65,129$ & 21 \\
+Simple-cubic 3-D & $8,16,32$ & $17,33,65$ & 9 \\
+FCC/diamond 3-D & $8,16,32$ & $17,33,65$ & 7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The orthogonal gauge amplitude is sampled at $0$, $\pi/8$, and $\pi/4$. The
+triangular/honeycomb family uses maximum amplitude $\pi/(4\sqrt6)$ and the FCC/diamond
+family uses $\pi/(4\sqrt{12})$; both include zero and the midpoint. Every family samples
+parent scales $\rho\in\{0,1\}$. These are synthetic controls, not graphene or silicon
+parameterizations.
+
+\section{Cross-protocol threshold requirements}
+\label{app:tolerance-requirements}
+
+The positive-splitting-scale optimization and the exact-spectrum unit-scale question are
+kept separate. For each applicable sampled point, the requirement map displays
+\begin{equation}
+ x=\frac{\tau_{o,\min}}{\sqrt\kappa},\qquad
+ y=\frac{\tau_{o,\mathrm{joint}}}{E_{\mathrm{ref}}}.
+ \label{eq:app-requirement-pair}
+\end{equation}
+The family diamonds in the main-text map are componentwise maxima over all sampled
+cases, parent scales, and amplitudes. Their two coordinates need not originate from the
+same sampled point. Table~\ref{tab:app-case-requirements} therefore exposes each case
+envelope separately.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Componentwise case envelopes in the current bounded development calculation.
+Values are replaceable observations, not acceptance limits.}
+\label{tab:app-case-requirements}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Case & $\max\tau_{o,\min}/\sqrt\kappa$ &
+$\max\tau_{o,\mathrm{joint}}/E_{\mathrm{ref}}$ \\
+\midrule
+Square directed parent & 0.688457 & 0.328854 \\
+Matched square Bravais control & 0.586917 & 0.273379 \\
+Triangular Bravais control & 0.584676 & 0.263702 \\
+Honeycomb-inspired target & 0.468419 & 0.083542 \\
+Simple-cubic directed parent & 0.584781 & 0.270259 \\
+Matched simple-cubic Bravais control & 0.432793 & 0.195029 \\
+FCC Bravais control & 0.430770 & 0.189573 \\
+Diamond-inspired target & 0.347324 & 0.052890 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A candidate family-specific limit pair would have to lie at or above every applicable
+point to accept the complete sampled family. Choosing that pair after observing
+Table~\ref{tab:app-case-requirements} would be post hoc. The three remaining items in
+the 110-item Paper~1 parity audit therefore remain unresolved: optimized-scale
+acceptance, unit-scale acceptance, and their simultaneous satisfaction. The audit has
+107 completed obligations, but this software and calculation coverage does not settle
+the three scientific dispositions.
+
+\section{Finite-strain control definitions}
+\label{app:strain-controls}
+
+The strain sequence separates three distinct questions. It does not assign the geometry
+control, null response, and prescribed response to a single model.
+
+\subsection{Geometry-only control}
+
+The 2-D unit-area rhombic path is
+\begin{equation}
+ A_2(\theta)=\frac{1}{\sqrt{\sin\theta}}
+ \begin{pmatrix}1&\cos\theta\\0&\sin\theta\end{pmatrix},
+ \qquad \theta:\pi/3\longrightarrow\pi/2.
+ \label{eq:app-rhombic-path}
+\end{equation}
+The 3-D path is the unit-primitive-volume Bain deformation from FCC to BCC in a common
+body-centered tetragonal primitive basis. In both cases, the reduced-coordinate parent,
+imposed gauge, and Fourier-block weights remain fixed. The changing physical metric
+alone reorders complete shells and changes first-passing physical radius and retained
+block count.
+
+\subsection{Frozen-parent null-response control}
+
+The frozen-parent control uses the sampled-qualified four-state bipartite parent and the
+same imposed gauge at every strain point while keeping onsite and hopping matrices fixed.
+Its gauge-aligned strain difference is expected to vanish up to numerical roundoff. This
+is a null-response control, not a strain-dependent Hamiltonian model.
+
+\subsection{Synthetic radial-response control}
+
+The radial-response control changes only the selected inter-sublattice bond amplitudes:
+\begin{equation}
+ \frac{t_j(s)}{t_j(0)}=
+ \exp\!\left[-\left(\frac{d_j(s)}{d_j(0)}-1\right)\right].
+ \label{eq:app-radial-response}
+\end{equation}
+No onsite response, refit, structural relaxation, or material calibration is included.
+The response field is aligned in a common retained space before scalar/traceless,
+onsite/offsite, interpolation, deliberate-truncation, and total channels are reported.
+The interpolation, truncation, and total channels are not added.
+
+At the final 2-D metric, the bounded development response factors span
+$0.81758$--$1.27146$ and the maximum aligned retained-space perturbation is
+$0.063575E_{\mathrm{ref}}$. At the BCC endpoint, the four selected bonds share response
+$0.97564$ and the maximum perturbation is $0.007289E_{\mathrm{ref}}$. These are
+synthetic development observations, not material parameters or predictions.
+
+\section{Independent reconstruction and evidence boundary}
+\label{app:verification}
+
+The software-verification oracle independently reconstructs mesh coordinates, minimum
+construction--evaluation separation, parent and retained fields, restricted global
+alignment, direct finite-sum Fourier blocks, Parseval identities, Hermiticity defects,
+complete physical shells, interpolation/truncation/total matrix and band channels, Weyl
+bounds, and first-passing shell decisions. It does not invoke the production Fourier
+implementation it verifies. Nonorthogonal cases retain reduced coordinates and integer
+modes while physical radii use $A\mathbf n$.
+
+Passing those checks establishes agreement between two software calculations. It does
+not establish scientific correctness, family-specific adequacy, frozen convergence, or
+material validity. The geometry-only, frozen-parent, and radial-response strain controls
+have strict packaged result-wire schemas, but typed canonical strain inputs, exact
+request/result binding, independent artifact-reading verification, environment
+provenance, and qualified convergence remain open.
+
+\begin{prospective}
+No command described by these appendices authorizes Quantum ESPRESSO, Wannier90, remote,
+cluster, cloud, retained-evidence, release, or publication execution. Displayed figures
+and values remain replaceable working outputs until their evidence role, limits, and
+provenance are independently reviewed and authorized.
+\end{prospective}

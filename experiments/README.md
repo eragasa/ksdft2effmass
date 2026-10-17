@@ -78,6 +78,14 @@ operator errors and different real-space hopping ranges.
 | `ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy` | Intended `model-adequacy/periodic2d/anisotropic-hopping-support-hierarchy/`; [architecture](../docs/architecture/v2/experiments/model-adequacy/periodic2d/anisotropic-hopping-support-hierarchy/index.md) | **Architecture only** | The anisotropy-isolation role is selected; no exact protocol, task, source directory, immutable version, or result exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy` | [`model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`](model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/) | **Preserved proposal** | An exact orthorhombic pre-version proposal and disclosed exploratory threshold design exist. No implementation, schema, verifier, immutable version, retained run, or scientific result exists. |
 
+## Cross-protocol development compositions
+
+[`model-adequacy/band-equivalence-dimensional-comparison/`](model-adequacy/band-equivalence-dimensional-comparison/)
+compares identically defined diagnostics from the four Paper 2 dimensional protocols.
+It is a thin composition root rather than an experiment family and does not own or
+transfer family-specific tolerances, convergence dispositions, runs, or evidence. Its
+plots remain replaceable development outputs.
+
 Mutable coordination for the first two sequence stages lives under
 `docs/tasks/dev/experiments/isotropic2d/` and
 `docs/tasks/dev/experiments/isotropic3d/`. Task paths are not experiment, run, or evidence

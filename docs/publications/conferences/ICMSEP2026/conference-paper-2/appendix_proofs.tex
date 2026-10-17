@@ -1,0 +1,241 @@
+\section{Proofs}
+\label{app:proofs}
+
+The theorem and corollary statements remain in the main text. Their proofs are collected
+here so that the main narrative can emphasize the representation chain, geometric
+controls, and numerical evidence.
+
+\subsection{Spectral projection and finite hopping support}
+\label{app:proof-projection-range}
+
+\begin{proof}[Proof of Proposition~\ref{prop:projection-destroys-range}]
+Set $z=e^{ik}$. If $d(k)$ were a finite Fourier polynomial, there would be a Laurent
+polynomial $f(z)$ whose restriction to the unit circle equals $d(k)$. Squaring on the
+unit circle and using equality on infinitely many points would give the Laurent-polynomial
+identity
+\begin{equation}
+ f(z)^2=\Delta^2+2t^2+t^2(z+z^{-1}).
+ \label{eq:laurent-square}
+\end{equation}
+If $m$ and $n$ are the smallest and largest exponents with nonzero coefficients in
+$f$, then the smallest and largest exponents in $f^2$ are $2m$ and $2n$; their
+coefficients cannot cancel because each is the square of an extreme coefficient. The
+right-hand side of Eq.~\eqref{eq:laurent-square} has extreme exponents $-1$ and $1$
+when $t\ne0$, which is impossible because $2m$ and $2n$ are even. Thus $d$ is not a
+finite Fourier polynomial. Equation~\eqref{eq:projected-range} has diagonal entries
+containing $-d(k)/2$ plus finite Fourier terms, so the embedded projected operator is not
+finite range.
+\end{proof}
+
+\subsection{Flat-parent residual--locality identity}
+\label{app:proof-flat-parent}
+
+\begin{proof}[Proof of Theorem~\ref{thm:flat-parent}]
+A constant real rotation diagonalizes $D$ without changing any Frobenius norm, Fourier
+weight, or minimization in the statement, so take $D=\delta\sigma_z$ with
+$\delta\ne0$. Conjugation through a real rotation gives
+\begin{equation}
+ B_a^{(d)}(\mathbf q)
+ =\delta\left[
+ \cos\!\left(2\theta_a^{(d)}(\mathbf q)\right)\sigma_z
+ -\sin\!\left(2\theta_a^{(d)}(\mathbf q)\right)\sigma_x
+ \right].
+ \label{eq:flat-rotated-pauli}
+\end{equation}
+Using the normalized integral representation
+\begin{equation}
+ J_0(x)=\int_{-1/2}^{1/2}e^{ix\sin(2\pi q)}\,dq
+ \label{eq:bessel-integral}
+\end{equation}
+and the product structure of $\T^d$,
+\begin{align}
+ \int_{\T^d}e^{2i\theta_a^{(d)}(\mathbf q)}\,d\mathbf q
+ &=\prod_{\alpha=1}^d
+   \int_{-1/2}^{1/2}
+   e^{i(2a/d)\sin(2\pi q_\alpha)}\,dq_\alpha\\
+ &=J_0\!\left(\frac{2a}{d}\right)^d=c_d(a).
+\end{align}
+Global inversion $\mathbf q\mapsto-\mathbf q$ makes the sine average in
+Eq.~\eqref{eq:flat-rotated-pauli} vanish, proving
+Eq.~\eqref{eq:onsite-average}. Moreover,
+$0\le2a/d\le\pi/4$, and the real part of the integrand in
+Eq.~\eqref{eq:bessel-integral} is at least $\cos(2a/d)>0$; hence $c_d(a)>0$.
+
+For any constant matrix $C$, the zero-mean property of
+$B_a^{(d)}-B_{\mathbf0}^{(d)}$ gives the orthogonal decomposition
+\begin{equation}
+ \int_{\T^d}\norm{C-B_a^{(d)}(\mathbf q)}_F^2\,d\mathbf q
+ =\int_{\T^d}\norm{B_a^{(d)}(\mathbf q)-B_{\mathbf0}^{(d)}}_F^2\,d\mathbf q
+  +\norm{C-B_{\mathbf0}^{(d)}}_F^2.
+ \label{eq:constant-projection}
+\end{equation}
+The constant $B_{\mathbf0}^{(d)}=c_d(a)D$ belongs to the allowed family in
+Eq.~\eqref{eq:flat-operator-loss}: choose $s=0$, $\lambda=c_d(a)$, and $\phi=0$.
+It is therefore the best constant restricted alignment. Equivalently, the normalized
+maximum correlation with one global rotation is $c_d(a)$.
+
+Parseval's identity applied entrywise yields
+\begin{equation}
+ \int_{\T^d}\norm{B_a^{(d)}-B_{\mathbf0}^{(d)}}_F^2
+ =\sum_{\mathbf R\ne\mathbf0}\norm{B_{\mathbf R}^{(d)}}_F^2.
+\end{equation}
+Pointwise unitary invariance gives
+$\norm{B_a^{(d)}(\mathbf q)}_F=\norm D_F$. A second use of Parseval, together with
+Eq.~\eqref{eq:onsite-average}, therefore gives
+\begin{equation}
+ \sum_{\mathbf R\ne\mathbf0}\norm{B_{\mathbf R}^{(d)}}_F^2
+ =\norm D_F^2-\norm{B_{\mathbf0}^{(d)}}_F^2
+ =\norm D_F^2\left[1-c_d(a)^2\right].
+\end{equation}
+Dividing by $2E_{\mathrm{ref}}^2$ proves Eqs.~\eqref{eq:flat-residual} and
+\eqref{eq:flat-tail}. Finally, fixing $s=0$ and $\lambda=1$ leaves the non-onsite
+weight plus the onsite mismatch:
+\begin{align}
+ \inf_\phi L_{\mathrm{op},\phi}^2(0,1)
+ &=\kappa[1-c_d(a)^2]+\kappa[1-c_d(a)]^2\\
+ &=2\kappa[1-c_d(a)],
+\end{align}
+which proves Eq.~\eqref{eq:flat-exact-spectrum}.
+\end{proof}
+
+\subsection{Orthogonal shell coefficients and factorial tail}
+\label{app:proof-orthogonal-tail}
+
+\begin{proof}[Proof of Theorem~\ref{thm:orthogonal-fourier-tail}]
+The Jacobi--Anger identity gives
+\begin{equation}
+ e^{2i\theta_a^{(d)}(\mathbf q)}
+ =\prod_{\alpha=1}^d
+  \sum_{n\in\mathbb Z}J_n(z)e^{2\pi inq_\alpha}
+ =\sum_{\mathbf R\in\mathbb Z^d}
+  j_{\mathbf R}(z)e^{2\pi i\mathbf q\cdot\mathbf R}.
+\end{equation}
+Because $J_{-n}(z)=(-1)^nJ_n(z)$, the cosine coefficient vanishes for odd
+$p(\mathbf R)$ and equals $j_{\mathbf R}(z)$ for even $p(\mathbf R)$; the sine
+coefficient vanishes for even parity and equals $-ij_{\mathbf R}(z)$ for odd parity.
+Substitution into Eq.~\eqref{eq:flat-rotated-pauli} proves
+Eq.~\eqref{eq:orthogonal-fourier-block}. Since both Pauli matrices have squared
+Frobenius norm two,
+\begin{equation}
+ \norm{B_{\mathbf R}^{(d)}}_F^2
+ =\norm D_F^2\prod_{\alpha=1}^dJ_{R_\alpha}(z)^2.
+ \label{eq:block-power-product}
+\end{equation}
+Equation~\eqref{eq:shell-power} follows by grouping a complete shell. Parseval applied
+to the unit-modulus function $e^{iz\sin(2\pi q)}$ gives
+$\sum_{n\in\mathbb Z}J_n(z)^2=1$; taking the $d$-fold product proves
+Eq.~\eqref{eq:shell-partition}.
+
+If $\norm{\mathbf R}_2^2>S$, at least one coordinate obeys $|R_\alpha|\ge L$.
+The union bound and the one-dimensional Bessel partition therefore give
+\begin{equation}
+ \sum_{\norm{\mathbf R}_2^2>S}
+ \prod_{\alpha=1}^dJ_{R_\alpha}(z)^2
+ \le 2d\sum_{n=L}^{\infty}|J_n(z)|^2.
+ \label{eq:tail-union}
+\end{equation}
+The defining Bessel series and $(n+m)!\ge n!m!$ imply, for $n\ge0$,
+\begin{equation}
+ |J_n(z)|
+ \le \frac{x^n}{n!}\sum_{m=0}^{\infty}\frac{x^{2m}}{m!}
+ =\frac{x^n}{n!}e^{x^2}.
+\end{equation}
+Moreover, $(L+m)!\ge L!(L+1)^m$, so when $x<L+1$,
+\begin{equation}
+ \sum_{n=L}^{\infty}\frac{x^{2n}}{(n!)^2}
+ \le \frac{x^{2L}}{(L!)^2}
+ \sum_{m=0}^{\infty}\left(\frac{x^2}{(L+1)^2}\right)^m
+ =\frac{x^{2L}}
+ {(L!)^2\left[1-x^2/(L+1)^2\right]}.
+\end{equation}
+Combining this estimate with Eq.~\eqref{eq:tail-union}, using
+$e^{2x^2}=e^{z^2/2}$ and Eq.~\eqref{eq:block-power-product}, proves
+Eq.~\eqref{eq:orthogonal-factorial-tail}.
+\end{proof}
+
+\subsection{Monotonicity and small-amplitude dimension law}
+\label{app:proof-dimension-law}
+
+\begin{proof}[Proof of Corollary~\ref{cor:dimension-law}]
+For $x>0$, $J_0'(x)=-J_1(x)$. On $0<x\le\pi/4$, the alternating series
+\begin{equation}
+ J_1(x)=\sum_{m=0}^{\infty}
+ \frac{(-1)^m}{m!(m+1)!}\left(\frac{x}{2}\right)^{2m+1}
+\end{equation}
+has strictly decreasing term magnitudes because their successive ratio is at most
+$\pi^2/128<1$. Hence $J_1(x)>0$. Together with the positivity already proved for
+$J_0(2a/d)$, this shows
+\begin{equation}
+ c_d'(a)=-2J_0(2a/d)^{d-1}J_1(2a/d)<0
+\end{equation}
+for $a>0$. The threshold monotonicity follows immediately. Finally,
+$J_0(x)=1-x^2/4+x^4/64+O(x^6)$. Substituting $x=2a/d$, raising to the $d$th power, and
+expanding the two threshold formulas proves
+Eqs.~\eqref{eq:correlation-small-a}--\eqref{eq:exact-threshold-small-a}.
+\end{proof}
+
+\subsection{Bond-orbit flat-parent comparator}
+\label{app:proof-bond-orbit}
+
+\begin{proof}[Proof of Theorem~\ref{thm:bond-orbit}]
+Equation~\eqref{eq:bond-orbit-phase} is odd under
+$\mathbf q\mapsto-\mathbf q$, so the imaginary part of
+Eq.~\eqref{eq:bond-orbit-correlation} integrates to zero. Since
+$|2\theta_{a,\mathcal B}|\le\pi/2$, its cosine is nonnegative; it is positive in a
+neighborhood of $\mathbf q=\mathbf0$, where the phase vanishes. Hence the integral is
+strictly positive. Diagonalizing $D$ by one constant real rotation and repeating
+Eq.~\eqref{eq:flat-rotated-pauli} gives
+$D_{\mathbf0}^{\mathcal B}=c_{\mathcal B,\boldsymbol\eta}D$. The constant-projection
+identity in Eq.~\eqref{eq:constant-projection} and entrywise Parseval then prove the two
+residual formulas exactly as in Theorem~\ref{thm:flat-parent}.
+
+For the explicit comparator, apply the Jacobi--Anger expansion to every bond harmonic:
+\begin{equation}
+ e^{i(2a\eta_j/W)\sin(2\pi\mathbf q\cdot\mathbf b_j)}
+ =\sum_{n_j\in\Z}
+ J_{n_j}\!\left(\frac{2a\eta_j}{W}\right)
+ e^{2\pi i n_j\mathbf q\cdot\mathbf b_j}.
+\end{equation}
+The finite product of these absolutely convergent series may be integrated termwise.
+Torus orthogonality retains exactly the tuples satisfying
+$\sum_jn_j\mathbf b_j=\mathbf0$, which proves
+Eq.~\eqref{eq:bond-orbit-bessel-sum}. If the integer kernel of the bond matrix is
+trivial, only $\mathbf n=\mathbf0$ remains, giving
+Eq.~\eqref{eq:independent-bond-product}.
+\end{proof}
+
+\subsection{Constrained-series complete-shell certificate}
+\label{app:proof-constrained-tail}
+
+\begin{proof}[Proof of Theorem~\ref{thm:constrained-tail}]
+Jacobi--Anger expansion and torus orthogonality give
+Eq.~\eqref{eq:constrained-coefficient}. The symmetry
+$e^{2i\theta(-\mathbf q)}=\overline{e^{2i\theta(\mathbf q)}}$ makes every
+$g_{\mathbf R}$ real. Splitting the cosine and sine coefficients into
+$(g_{\mathbf R}\pm g_{-\mathbf R})/2$ proves
+Eq.~\eqref{eq:constrained-matrix-block}. Hence
+\begin{equation}
+ \frac{\norm{D_{\mathbf R}^{\mathcal B}}_F^2}{\norm D_F^2}
+ =\frac{g_{\mathbf R}^2+g_{-\mathbf R}^2}{2}.
+\end{equation}
+Parseval for the unit-modulus scalar phase gives
+$\sum_{\mathbf R}g_{\mathbf R}^2=1$. Because $\mathcal S_S$ is inversion complete,
+the exact matrix tail normalized by $\norm D_F^2$ is
+$1-\sum_{\mathbf R\in\mathcal S_S}g_{\mathbf R}^2$. The reverse triangle inequality
+$|g_{\mathbf R}|\ge\max\{0,|\widetilde g_{\mathbf R}|-\epsilon_{\mathbf R}\}$
+proves Eq.~\eqref{eq:constrained-tail-certificate}.
+
+Solving the triangular constraint gives
+$(n_1,n_2,n_3)=(r_1-\ell,r_2+\ell,\ell)$, which proves
+Eq.~\eqref{eq:triangular-coefficient}. Taking
+$(u,v,w)=(n_4,n_5,n_6)$ in the FCC constraint gives
+\begin{equation}
+ (n_1,n_2,n_3)=(r_1+u+v,r_2-u+w,r_3-v-w),
+\end{equation}
+which proves Eq.~\eqref{eq:fcc-coefficient}. Finally, the defining Bessel series gives
+$|J_n(z)|\le e^{x^2}x^{|n|}/|n|!$. Summing it over all integers gives $A_0$; summing
+over $|n|>K$ and bounding the remaining exponential-series tail geometrically gives
+$A_K$. In the triangular remainder the other two Bessel factors have magnitude at most
+one. In the FCC remainder, a union bound over the three free indices gives
+$3A_KA_0^2$.
+\end{proof}

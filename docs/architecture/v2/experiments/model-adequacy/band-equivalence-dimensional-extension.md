@@ -120,6 +120,17 @@ and evidence packages. Their required comparable software-test layers
 and diagnostic categories are defined in the
 [test and diagnostic parity contract](band-equivalence-test-and-diagnostic-parity.md).
 
+## Cross-protocol comparison composition
+
+The publication-independent source root
+[`experiments/model-adequacy/band-equivalence-dimensional-comparison/`](../../../../../experiments/model-adequacy/band-equivalence-dimensional-comparison/)
+composes typed diagnostics from the four Paper 2 family requests. It may calculate
+componentwise cross-family display envelopes and render comparison figures, but it does
+not own family geometry, scientific parameters, thresholds, convergence dispositions,
+canonical artifacts, runs, or evidence. Its current tolerance-requirement map deliberately
+omits an acceptance region until each family has justified and frozen its scientific
+limits.
+
 ## Stage gates
 
 The 2-D family must review and freeze its finite spaces, basis order, Fourier convention,

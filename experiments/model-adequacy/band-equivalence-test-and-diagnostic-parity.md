@@ -161,3 +161,9 @@ qualified units. They must retain family-specific parent, geometry, mesh, shell,
 tolerance, convergence, and evidence identities. Similar tests and diagnostics do not
 make results directly subtractable and do not authorize transferring a cutoff,
 tolerance, or convergence outcome between dimensions or geometries.
+
+The separate
+[dimensional comparison composition](band-equivalence-dimensional-comparison/)
+consumes this contract when producing cross-protocol development summaries. It does not
+own or replace any family protocol, tolerance, convergence decision, or evidence
+identity.

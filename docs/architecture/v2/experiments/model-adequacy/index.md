@@ -45,8 +45,14 @@ The selected 2-D/3-D sequence remains pre-version work.
   diamond band-equivalence/locality families now have bounded three-level matrix-free
   tensor actions that produce independently verified, strict-schema-validated canonical
   documents. Replaceable numerical artifacts are not retained in this source tranche.
-  The families remain pre-version, lack a complete diagnostic-parity and convergence
-  disposition, and are outside retained evidence.
+  Software-level parity is complete for the applicable calculated rows; three scientific
+  disposition rows remain unresolved pending justified, frozen family-specific
+  acceptance tolerances. The families remain pre-version, lack complete convergence
+  dispositions, and are outside retained evidence.
+- A thin
+  [`band-equivalence-dimensional-comparison`](../../../../../experiments/model-adequacy/band-equivalence-dimensional-comparison/)
+  composition renders cross-protocol requirement maps without owning or transferring
+  family-specific tolerances, convergence decisions, runs, or evidence.
 - Separate 2-D rhombic and 3-D Bain deformation families now have publication-independent
   protocols, bounded frozen-parent M0 diagnostics, and separately labeled M1/M2 smoke
   actions. Their canonical result documents now have distinct strict packaged M0/M1/M2
