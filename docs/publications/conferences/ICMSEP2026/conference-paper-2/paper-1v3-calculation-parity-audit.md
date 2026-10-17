@@ -28,25 +28,31 @@ remain distinct. \(E_{\mathrm{ref}}\) is the declared energy scale, \(\kappa\) i
 declared gauge-amplitude parameter, and all lattice radii are measured with the relevant
 direct-lattice metric.
 
-The checklist currently contains 110 obligations: 73 calculated quantities awaiting
-independent parity review, 26 completed development-parity checks (five restricted-
-alignment checks, 12 threshold/refinement checks, and nine frame/transport/closure
-checks), three tolerance-dependent conclusions that remain unresolved, and eight
-literal one-dimensional quantities whose inapplicability must be confirmed. A completed box
-records a definition and an independent development reconstruction; it does not confer
-scientific qualification. For the completed alignment checks, direct finite-mesh
-correlations agree with the applicable Bessel-product or constrained zero-mode
-comparators in bounded square, cubic, triangular, and FCC controls, and the refinement
-angle, correlation, and midpoint reductions were reconstructed directly from adjacent
-levels. For the completed closure checks, the ordered link products and their phase
-reductions were reconstructed independently in bounded two- and three-dimensional
-frames. Full-rank transport singular values, Procrustes residuals, applied rank cutoffs,
-link-unitarity defects, closure-unitarity defects, frame orthonormality, and periodic
-frame closure were likewise reconstructed from the parent projectors and neighbor
-overlaps rather than accepted from the reported reductions. The positive-
-scale minimum and unit-scale exact-spectrum residuals were evaluated directly from the
-aligned matrices, while their normalized thresholds, midpoint defects, and refinement
-changes were reconstructed separately.
+The checklist currently contains 110 obligations: 51 calculated quantities awaiting
+independent parity review, 48 completed development-parity checks (five restricted-
+alignment checks, 12 threshold/refinement checks, nine frame/transport/closure checks,
+and 22 Fourier-locality and omitted-weight checks), three tolerance-dependent
+conclusions that remain unresolved, and eight literal one-dimensional quantities whose
+inapplicability must be confirmed. A completed box records a definition and an
+independent development reconstruction; it does not confer scientific qualification.
+For the completed alignment checks, direct finite-mesh correlations agree with the
+applicable Bessel-product or constrained zero-mode comparators in bounded square,
+cubic, triangular, and FCC controls, and the refinement angle, correlation, and
+midpoint reductions were reconstructed directly from adjacent levels. For the completed
+closure checks, the ordered link products and their phase reductions were reconstructed
+independently in bounded two- and three-dimensional frames. Full-rank transport singular
+values, Procrustes residuals, applied rank cutoffs, link-unitarity defects,
+closure-unitarity defects, frame orthonormality, and periodic frame closure were
+likewise reconstructed from the parent projectors and neighbor overlaps rather than
+accepted from the reported reductions. The positive-scale minimum and unit-scale
+exact-spectrum residuals were evaluated directly from the aligned matrices, while their
+normalized thresholds, midpoint defects, and refinement changes were reconstructed
+separately. For the completed Fourier checks, independent explicit finite sums rebuilt
+the square, simple-cubic, triangular, and FCC construction fields, hopping blocks,
+reconstructions, shell powers, ordinary omitted powers, Nyquist powers, and error
+channels without calling the production Fourier transform or evaluator. The bounded
+pointwise discrepancies and the independently reconstructed refinement and midpoint
+reductions agreed within an absolute tolerance of \(5\times10^{-13}\).
 
 ## 1. Restricted global alignment
 
@@ -101,29 +107,36 @@ completion must not be treated as physical evidence.
 For each representation, distinguish the non-onsite weight, the weight outside a chosen
 complete physical-metric support, ordinary omitted modes, and Nyquist modes. Reference
 and comparison quantities must be evaluated separately before taking their difference.
+The bounded parity reconstruction uses rank two and \(E_{\mathrm{ref}}=1\), so each
+reported block power is dimensionless. Ordinary omitted power excludes the removed
+Nyquist boundary and tends to zero when the complete support contains every ordinary
+mode; total omitted power is the ordinary omitted power plus the separately reported
+Nyquist power. Refinement checks use \(N=4,8,16\), while the independent shifted-mesh
+point check uses \(N=6\) and \(M=7\). These sizes establish development parity only,
+not convergence or a retained scientific result.
 
-- [ ] Evaluate the comparison non-onsite power \(\sum_{\mathbf R\ne0}P^{\mathrm{cmp}}_{\mathbf R}\).
-- [ ] Evaluate every shell-resolved comparison hopping-block power \(P^{\mathrm{cmp}}_{\mathbf R}\).
-- [ ] Evaluate the normalized comparison tail \(\sum_{\mathbf R\notin\mathcal S}P^{\mathrm{cmp}}_{\mathbf R}\) outside each complete support \(\mathcal S\).
-- [ ] Evaluate the comparison weight carried by Nyquist modes.
-- [ ] Evaluate the comparison weight omitted from the ordinary lattice after cyclic-to-ordinary conversion.
-- [ ] Evaluate the total omitted comparison weight, including ordinary and Nyquist contributions.
-- [ ] Evaluate the endpoint excess of comparison non-onsite weight over reference non-onsite weight.
-- [ ] Evaluate the excess non-onsite power \(\sum_{\mathbf R\ne0}(P^{\mathrm{cmp}}_{\mathbf R}-P^{\mathrm{ref}}_{\mathbf R})\).
-- [ ] Bound the refinement change of every shell-resolved hopping-block power.
-- [ ] Evaluate the amplitude-midpoint defect of every shell-resolved hopping-block power.
-- [ ] Bound the refinement change of the integrated hopping weight.
-- [ ] Evaluate the amplitude-midpoint defect of the non-onsite hopping weight.
-- [ ] Evaluate the non-onsite power \(\sum_{\mathbf R\ne0}P_{\mathbf R}\) for the representation under study.
-- [ ] Evaluate the normalized excess non-onsite power using the declared rank-two and energy normalization.
-- [ ] Evaluate every normalized shell-resolved hopping-block power \(P_{\mathbf R}\).
-- [ ] Evaluate the normalized tail \(\sum_{\mathbf R\notin\mathcal S}P_{\mathbf R}\) outside each complete support \(\mathcal S\).
-- [ ] Evaluate the reference non-onsite power \(\sum_{\mathbf R\ne0}P^{\mathrm{ref}}_{\mathbf R}\).
-- [ ] Evaluate every shell-resolved reference hopping-block power \(P^{\mathrm{ref}}_{\mathbf R}\).
-- [ ] Evaluate the normalized reference tail \(\sum_{\mathbf R\notin\mathcal S}P^{\mathrm{ref}}_{\mathbf R}\) outside each complete support \(\mathcal S\).
-- [ ] Evaluate the reference weight carried by Nyquist modes.
-- [ ] Evaluate the reference weight omitted from the ordinary lattice after cyclic-to-ordinary conversion.
-- [ ] Evaluate the total omitted reference weight, including ordinary and Nyquist contributions.
+- [x] Evaluate the comparison non-onsite power \(\sum_{\mathbf R\ne0}P^{\mathrm{cmp}}_{\mathbf R}\).
+- [x] Evaluate every shell-resolved comparison hopping-block power \(P^{\mathrm{cmp}}_{\mathbf R}\).
+- [x] Evaluate the normalized comparison tail \(\sum_{\mathbf R\notin\mathcal S}P^{\mathrm{cmp}}_{\mathbf R}\) outside each complete support \(\mathcal S\).
+- [x] Evaluate the comparison weight carried by Nyquist modes.
+- [x] Evaluate the comparison weight omitted from the ordinary lattice after cyclic-to-ordinary conversion.
+- [x] Evaluate the total omitted comparison weight, including ordinary and Nyquist contributions.
+- [x] Evaluate the endpoint excess of comparison non-onsite weight over reference non-onsite weight.
+- [x] Evaluate the excess non-onsite power \(\sum_{\mathbf R\ne0}(P^{\mathrm{cmp}}_{\mathbf R}-P^{\mathrm{ref}}_{\mathbf R})\).
+- [x] Bound the refinement change of every shell-resolved hopping-block power.
+- [x] Evaluate the amplitude-midpoint defect of every shell-resolved hopping-block power.
+- [x] Bound the refinement change of the integrated hopping weight.
+- [x] Evaluate the amplitude-midpoint defect of the non-onsite hopping weight.
+- [x] Evaluate the non-onsite power \(\sum_{\mathbf R\ne0}P_{\mathbf R}\) for the representation under study.
+- [x] Evaluate the normalized excess non-onsite power using the declared rank-two and energy normalization.
+- [x] Evaluate every normalized shell-resolved hopping-block power \(P_{\mathbf R}\).
+- [x] Evaluate the normalized tail \(\sum_{\mathbf R\notin\mathcal S}P_{\mathbf R}\) outside each complete support \(\mathcal S\).
+- [x] Evaluate the reference non-onsite power \(\sum_{\mathbf R\ne0}P^{\mathrm{ref}}_{\mathbf R}\).
+- [x] Evaluate every shell-resolved reference hopping-block power \(P^{\mathrm{ref}}_{\mathbf R}\).
+- [x] Evaluate the normalized reference tail \(\sum_{\mathbf R\notin\mathcal S}P^{\mathrm{ref}}_{\mathbf R}\) outside each complete support \(\mathcal S\).
+- [x] Evaluate the reference weight carried by Nyquist modes.
+- [x] Evaluate the reference weight omitted from the ordinary lattice after cyclic-to-ordinary conversion.
+- [x] Evaluate the total omitted reference weight, including ordinary and Nyquist contributions.
 
 ## 5. Numerical identities, reconstruction, and independent reproduction
 
