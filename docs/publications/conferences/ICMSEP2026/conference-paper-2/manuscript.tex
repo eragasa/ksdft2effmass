@@ -1,0 +1,1089 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{prospectivered}{RGB}{185,0,0}
+\newenvironment{prospective}{\color{prospectivered}}{}
+\newcommand{\futurework}[1]{\textcolor{prospectivered}{#1}}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\T}{\mathbb T}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\title{\textbf{From Spectral Hamiltonians to Tight Binding in Two and Three Dimensions:\\
+Isotropic Locality on Orthogonal and Non-Orthogonal Lattices}}
+\author{Eugene Joseph M. Ragasa\\
+Department of Physics, De La Salle University, Manila, Philippines}
+\date{Pre-results working manuscript}
+
+\begin{document}
+\maketitle
+
+\begin{prospective}
+\noindent\textbf{Working-color convention.} Red text identifies prospective work,
+unexecuted calculations, open controls, conditional conclusions, or material that must
+be replaced by qualified evidence. Red text is not a numerical result or scientific
+claim.
+\end{prospective}
+
+\begin{abstract}
+Band eigenvalues do not determine a matrix-valued tight-binding representation or its
+real-space locality. We formulate a multidimensional validation sequence that begins
+with a finite cell--orbital Hamiltonian, converts it unitarily to complete Bloch and
+spectral representations, selects a qualified retained subspace and periodic frame, and
+then constructs its complete Wannier/tight-binding representation. The construction
+makes explicit the state-space identifications required before Hamiltonian subtraction.
+A Laurent-polynomial obstruction proves that spectral projection does not preserve
+finite hopping support in general. For the orthogonal flat-parent master family, a
+factorized Bessel identity proves that the irreducible restricted-alignment residual is
+exactly the normalized Fourier weight outside the onsite block in both two and three
+dimensions. A shell-resolved Jacobi--Anger formula and factorial bound certify the
+orthogonal Fourier tail without fitting a decay law. Square and simple-cubic rank-two
+systems provide the corresponding isotropic baselines.
+Non-orthogonal but physically isotropic extensions replace coordinate-radius shells by
+metric-complete lattice shells and axis permutations by the applicable lattice point
+group. Gauge-covariant equivalence, restricted global alignment, cyclic Fourier
+conversion, interpolation, deliberate hopping truncation, and total consequences remain
+separate channels.
+\futurework{Numerical results and cross-lattice conclusions remain conditional on
+independently verified, dimension-specific calculations.}
+\end{abstract}
+
+\section{Introduction}
+
+Paper 1 establishes that pointwise band equivalence does not determine hopping locality
+under a fixed identification of retained coordinates. Paper 2 asks how that distinction
+extends across spatial dimension and lattice geometry while the retained rank remains
+two. The purpose is not to infer a Hamiltonian from eigenvalues alone. It is to compare
+complete Hamiltonian representations connected by declared isometries and gauges, and
+to quantify the representation cost introduced by finite hopping support.
+
+The gauge dependence and localization of Wannier representations are established
+subjects, from analytic and exponential localization results
+\cite{Kohn1959AnalyticWannier,Brouder2007ExponentialWannier} through practical
+maximally localized constructions and Wannier90
+\cite{Mostofi2008Wannier90,Marzari2012MaximallyLocalized}. Compact support is a
+stronger algebraic property and need not coincide with maximal localization
+\cite{Sathe2024CompactWannier}. Material-specific Wannier and strained-Hamiltonian
+models likewise exist for graphene and other hexagonal systems
+\cite{Jung2013GrapheneWannier,Fang2018Strained2D}, while environment-dependent
+Hamiltonian mappings address geometry-responsive electronic structure
+\cite{Zhang2022EquivariantHamiltonians}. The present work does not claim any of those
+ingredients individually as new. Its narrower target is a controlled separation of
+pointwise spectral equivalence, declared gauge alignment, metric-complete truncation,
+and the physical hopping range needed at a fixed tolerance.
+
+The study separates two questions:
+\begin{enumerate}
+ \item How are a finite cell--orbital operator, its Bloch representation, its complete
+       eigensystem, a retained periodic frame, and its Wannier/TB blocks related?
+ \item After those spaces have been aligned, how does a restricted representation
+       choice alter the hopping support required at the same sampled spectral accuracy?
+\end{enumerate}
+
+\begin{prospective}
+The intended evidence ladder begins with orthogonal square and simple-cubic systems and
+then adds non-orthogonal but physically isotropic cells. Direction-dependent coupling
+laws remain outside Paper 2. Retained rank greater than two belongs to Paper 3. None of
+these stage assignments asserts that the corresponding calculation has been executed.
+\end{prospective}
+
+\section{Complete representation chain}
+
+For dimension $d\in\{2,3\}$ and finite periodic size $N$, define
+\begin{equation}
+ \mathcal L_N^{(d)}=(\C^N)^{\otimes d},\qquad
+ \mathcal H_{p,N}^{(d)}=\mathcal L_N^{(d)}\otimes\C^4,\qquad
+ \mathcal H_{r,N}^{(d)}=\mathcal L_N^{(d)}\otimes\C^2.
+ \label{eq:spaces}
+\end{equation}
+Kronecker translation operators act on $\mathcal L_N^{(d)}$; they do not tensor the
+four-dimensional orbital fiber. With $\mathsf S_{\alpha,N}$ denoting translation on
+axis $\alpha$, the orthogonal finite parent is
+\begin{equation}
+ \widehat K_{\rho,N}^{(d)}
+ =I_{N^d}\otimes T_0+
+ \frac{\rho}{d}\sum_{\alpha=1}^d
+ \left(\mathsf S_{\alpha,N}\otimes T_+
+ +\mathsf S_{\alpha,N}^\dagger\otimes T_-\right).
+ \label{eq:kronecker-parent}
+\end{equation}
+The centered tensor Fourier transform $\mathcal F_{d,N}$ produces
+\begin{equation}
+ (\mathcal F_{d,N}\otimes I_4)\widehat K_{\rho,N}^{(d)}
+ (\mathcal F_{d,N}^\dagger\otimes I_4)
+ =\bigoplus_{\mathbf q}K_\rho^{(d)}(\mathbf q).
+ \label{eq:bloch-map}
+\end{equation}
+For a complete fiber eigensystem
+\begin{equation}
+ K(\mathbf q)=Q(\mathbf q)E(\mathbf q)Q^\dagger(\mathbf q),
+ \label{eq:eigensystem}
+\end{equation}
+$E(\mathbf q)$ is a diagonal spectral representation only together with the eigenvector
+map $Q(\mathbf q)$. An eigenvalue array without its state-space map is not an operator in
+orbital coordinates and cannot be subtracted from a TB Hamiltonian.
+
+A qualified periodic frame $F(\mathbf q):\C^2\to\C^4$ for the retained projector defines
+\begin{equation}
+ H(\mathbf q)=F^\dagger(\mathbf q)K(\mathbf q)F(\mathbf q).
+ \label{eq:retained}
+\end{equation}
+The inverse tensor Fourier transform of $\bigoplus_{\mathbf q}H(\mathbf q)$ gives the
+complete retained Wannier/TB operator. Its block-circulant entries are the finite Fourier
+hopping blocks $T_{\mathbf R}^{(N)}$.
+
+\subsection{Spectral projection is not finite-range compression}
+
+For a spectral projector $P_I$ with isometry $V_I$ onto its range,
+\begin{equation}
+ H_{\mathrm{red}}=V_I^\dagger H V_I,
+ \qquad
+ V_IH_{\mathrm{red}}V_I^\dagger=P_IHP_I.
+ \label{eq:spectral-projection}
+\end{equation}
+This operation preserves the retained eigenpairs exactly, but it need not preserve a
+finite hopping range. The following elementary example makes that statement exact.
+
+\begin{proposition}[Spectral projection can destroy finite hopping support]
+\label{prop:projection-destroys-range}
+Let
+\begin{equation}
+ H(k)=\begin{pmatrix}
+ \Delta&t(1+e^{-ik})\\
+ t(1+e^{ik})&-\Delta
+ \end{pmatrix},
+ \qquad \Delta t\ne0.
+ \label{eq:projection-example}
+\end{equation}
+Then $H$ has nearest-neighbor Fourier support and eigenvalues
+$E_\pm(k)=\pm d(k)$, where
+\begin{equation}
+ d(k)=\sqrt{\Delta^2+4t^2\cos^2(k/2)}.
+\end{equation}
+The embedded lower-band operator
+\begin{equation}
+ P_-(k)H(k)P_-(k)=\tfrac12[H(k)-d(k)I]
+ \label{eq:projected-range}
+\end{equation}
+is not a matrix-valued finite Fourier polynomial.
+\end{proposition}
+
+\begin{proof}
+Set $z=e^{ik}$. If $d(k)$ were a finite Fourier polynomial, there would be a Laurent
+polynomial $f(z)$ whose restriction to the unit circle equals $d(k)$. Squaring on the
+unit circle and using equality on infinitely many points would give the Laurent-polynomial
+identity
+\begin{equation}
+ f(z)^2=\Delta^2+2t^2+t^2(z+z^{-1}).
+ \label{eq:laurent-square}
+\end{equation}
+If $m$ and $n$ are the smallest and largest exponents with nonzero coefficients in
+$f$, then the smallest and largest exponents in $f^2$ are $2m$ and $2n$; their
+coefficients cannot cancel because each is the square of an extreme coefficient. The
+right-hand side of Eq.~\eqref{eq:laurent-square} has extreme exponents $-1$ and $1$
+when $t\ne0$, which is impossible because $2m$ and $2n$ are even. Thus $d$ is not a
+finite Fourier polynomial. Equation~\eqref{eq:projected-range} has diagonal entries
+containing $-d(k)/2$ plus finite Fourier terms, so the embedded projected operator is not
+finite range.
+\end{proof}
+
+The gap condition $\Delta\ne0$ keeps the two bands separated. The proposition does not
+claim that every spectral projection of every finite-range parent is long ranged; it
+shows that finite support is not preserved as an operation. Projection, frame selection,
+Fourier conversion, hopping truncation, and restriction to a candidate model class are
+therefore distinct operations.
+
+\section{Orthogonal isotropic baselines}
+
+The square and simple-cubic baselines use
+\begin{equation}
+ K_\rho^{(d)}(\mathbf q)=T_0+\frac{\rho}{d}
+ \sum_{\alpha=1}^d
+ \left(e^{2\pi iq_\alpha}T_+
+ +e^{-2\pi iq_\alpha}T_-\right)
+ \label{eq:orthogonal-parent}
+\end{equation}
+and
+\begin{equation}
+ U_a^{(d)}(\mathbf q)=R\!\left[
+ \frac{a}{d}\sum_{\alpha=1}^d\sin(2\pi q_\alpha)
+ \right].
+ \label{eq:rotation}
+\end{equation}
+The flat-parent correlations are $J_0(a)^2$ in two dimensions and
+$J_0(2a/3)^3$ in three dimensions. The next theorem proves these formulas and their
+exact real-space meaning. They are continuum analytic comparators and do not replace
+finite-mesh correlations. Square and cubic truncations retain every attainable metric
+shell through the declared cap using complete signed-permutation orbits.
+
+\subsection{Flat-parent residual--locality theorem}
+
+Throughout, $E_{\mathrm{ref}}>0$ is an arbitrary reference-energy normalization, not a
+band gap. Give $\T^d=[-1/2,1/2)^d$ normalized Lebesgue measure. Let
+$D\in\mathbb R^{2\times2}$ be nonzero, symmetric, and traceless, and let the flat
+retained parent be $H(\mathbf q)=\bar E I_2+D$. For the rotation in
+Eq.~\eqref{eq:rotation}, define
+\begin{align}
+ B_a^{(d)}(\mathbf q)
+ &=U_a^{(d)}(\mathbf q)^\dagger D U_a^{(d)}(\mathbf q),\\
+ B_{\mathbf R}^{(d)}
+ &=\int_{\T^d}e^{-2\pi i\mathbf q\cdot\mathbf R}
+ B_a^{(d)}(\mathbf q)\,d\mathbf q,
+ \qquad \mathbf R\in\Z^d,\\
+ \kappa&=\frac{\norm{D}_F^2}{2E_{\mathrm{ref}}^2}.
+ \label{eq:flat-definitions}
+\end{align}
+For one momentum-independent real rotation $R(\phi)$, centroid shift $s$, and the
+nonnegative closure $\lambda\ge0$ of the splitting-scale domain, define
+\begin{equation}
+ L_{\mathrm{op},\phi}^2(s,\lambda)
+ =\frac{1}{2E_{\mathrm{ref}}^2}\int_{\T^d}
+ \norm{sE_{\mathrm{ref}}I_2+\lambda R(\phi)^\dagger D R(\phi)
+       -B_a^{(d)}(\mathbf q)}_F^2\,d\mathbf q.
+ \label{eq:flat-operator-loss}
+\end{equation}
+The normalized best global-rotation correlation is
+\begin{equation}
+ \mu_{\max}^{(d)}(a)=
+ \max_{\phi\in\mathbb R}
+ \frac{1}{\norm D_F^2}
+ \int_{\T^d}
+ \operatorname{tr}\!\left[
+   R(\phi)^\dagger D R(\phi)B_a^{(d)}(\mathbf q)
+ \right]d\mathbf q.
+ \label{eq:flat-mu-definition}
+\end{equation}
+
+\begin{theorem}[Multidimensional flat-parent residual--locality identity]
+\label{thm:flat-parent}
+For $d\in\{2,3\}$ and $0\le a\le\pi/4$, set
+\begin{equation}
+ c_d(a)=J_0\!\left(\frac{2a}{d}\right)^d.
+ \label{eq:flat-correlation-general}
+\end{equation}
+Then $c_d(a)>0$ and
+\begin{align}
+ \int_{\T^d}e^{2i\theta_a^{(d)}(\mathbf q)}\,d\mathbf q
+ &=c_d(a),
+ \label{eq:bessel-factorization}\\
+ B_{\mathbf0}^{(d)}&=c_d(a)D.
+ \label{eq:onsite-average}
+\end{align}
+The best global-rotation correlation is
+$\mu_{\max}^{(d)}(a)=c_d(a)$, and the exact restricted-alignment residual satisfies
+\begin{align}
+ \inf_{s\in\mathbb R,\,\lambda\ge0,\,\phi\in\mathbb R}
+ L_{\mathrm{op},\phi}^2(s,\lambda)
+ &=\kappa\left[1-c_d(a)^2\right]
+ \label{eq:flat-residual}\\
+ &=\frac{1}{2E_{\mathrm{ref}}^2}
+   \sum_{\mathbf R\ne\mathbf0}\norm{B_{\mathbf R}^{(d)}}_F^2.
+ \label{eq:flat-tail}
+\end{align}
+If exact spectral agreement additionally fixes $s=0$ and $\lambda=1$, then
+\begin{equation}
+ \inf_{\phi\in\mathbb R}L_{\mathrm{op},\phi}^2(0,1)
+ =2\kappa\left[1-c_d(a)\right].
+ \label{eq:flat-exact-spectrum}
+\end{equation}
+Thus the two-dimensional formulas are
+$c_2(a)=J_0(a)^2$ and the three-dimensional formulas are
+$c_3(a)=J_0(2a/3)^3$.
+\end{theorem}
+
+\begin{proof}
+A constant real rotation diagonalizes $D$ without changing any Frobenius norm, Fourier
+weight, or minimization in the statement, so take $D=\delta\sigma_z$ with
+$\delta\ne0$. Conjugation through a real rotation gives
+\begin{equation}
+ B_a^{(d)}(\mathbf q)
+ =\delta\left[
+ \cos\!\left(2\theta_a^{(d)}(\mathbf q)\right)\sigma_z
+ -\sin\!\left(2\theta_a^{(d)}(\mathbf q)\right)\sigma_x
+ \right].
+ \label{eq:flat-rotated-pauli}
+\end{equation}
+Using the normalized integral representation
+\begin{equation}
+ J_0(x)=\int_{-1/2}^{1/2}e^{ix\sin(2\pi q)}\,dq
+ \label{eq:bessel-integral}
+\end{equation}
+and the product structure of $\T^d$,
+\begin{align}
+ \int_{\T^d}e^{2i\theta_a^{(d)}(\mathbf q)}\,d\mathbf q
+ &=\prod_{\alpha=1}^d
+   \int_{-1/2}^{1/2}
+   e^{i(2a/d)\sin(2\pi q_\alpha)}\,dq_\alpha\\
+ &=J_0\!\left(\frac{2a}{d}\right)^d=c_d(a).
+\end{align}
+Global inversion $\mathbf q\mapsto-\mathbf q$ makes the sine average in
+Eq.~\eqref{eq:flat-rotated-pauli} vanish, proving
+Eq.~\eqref{eq:onsite-average}. Moreover,
+$0\le2a/d\le\pi/4$, and the real part of the integrand in
+Eq.~\eqref{eq:bessel-integral} is at least $\cos(2a/d)>0$; hence $c_d(a)>0$.
+
+For any constant matrix $C$, the zero-mean property of
+$B_a^{(d)}-B_{\mathbf0}^{(d)}$ gives the orthogonal decomposition
+\begin{equation}
+ \int_{\T^d}\norm{C-B_a^{(d)}(\mathbf q)}_F^2\,d\mathbf q
+ =\int_{\T^d}\norm{B_a^{(d)}(\mathbf q)-B_{\mathbf0}^{(d)}}_F^2\,d\mathbf q
+  +\norm{C-B_{\mathbf0}^{(d)}}_F^2.
+ \label{eq:constant-projection}
+\end{equation}
+The constant $B_{\mathbf0}^{(d)}=c_d(a)D$ belongs to the allowed family in
+Eq.~\eqref{eq:flat-operator-loss}: choose $s=0$, $\lambda=c_d(a)$, and $\phi=0$.
+It is therefore the best constant restricted alignment. Equivalently, the normalized
+maximum correlation with one global rotation is $c_d(a)$.
+
+Parseval's identity applied entrywise yields
+\begin{equation}
+ \int_{\T^d}\norm{B_a^{(d)}-B_{\mathbf0}^{(d)}}_F^2
+ =\sum_{\mathbf R\ne\mathbf0}\norm{B_{\mathbf R}^{(d)}}_F^2.
+\end{equation}
+Pointwise unitary invariance gives
+$\norm{B_a^{(d)}(\mathbf q)}_F=\norm D_F$. A second use of Parseval, together with
+Eq.~\eqref{eq:onsite-average}, therefore gives
+\begin{equation}
+ \sum_{\mathbf R\ne\mathbf0}\norm{B_{\mathbf R}^{(d)}}_F^2
+ =\norm D_F^2-\norm{B_{\mathbf0}^{(d)}}_F^2
+ =\norm D_F^2\left[1-c_d(a)^2\right].
+\end{equation}
+Dividing by $2E_{\mathrm{ref}}^2$ proves Eqs.~\eqref{eq:flat-residual} and
+\eqref{eq:flat-tail}. Finally, fixing $s=0$ and $\lambda=1$ leaves the non-onsite
+weight plus the onsite mismatch:
+\begin{align}
+ \inf_\phi L_{\mathrm{op},\phi}^2(0,1)
+ &=\kappa[1-c_d(a)^2]+\kappa[1-c_d(a)]^2\\
+ &=2\kappa[1-c_d(a)],
+\end{align}
+which proves Eq.~\eqref{eq:flat-exact-spectrum}.
+\end{proof}
+
+\begin{theorem}[Shell-resolved coefficients and factorial Fourier-tail bound]
+\label{thm:orthogonal-fourier-tail}
+Use the constant real rotation from the preceding proof so that
+$D=\delta\sigma_z$, and set
+\begin{equation}
+ z=\frac{2a}{d},\qquad
+ j_{\mathbf R}(z)=\prod_{\alpha=1}^d J_{R_\alpha}(z),\qquad
+ p(\mathbf R)=\sum_{\alpha=1}^dR_\alpha\pmod 2.
+\end{equation}
+Then every Fourier block is known exactly:
+\begin{equation}
+ B_{\mathbf R}^{(d)}
+ =\delta j_{\mathbf R}(z)
+ \begin{cases}
+  \sigma_z,&p(\mathbf R)=0,\\
+  i\sigma_x,&p(\mathbf R)=1.
+ \end{cases}
+ \label{eq:orthogonal-fourier-block}
+\end{equation}
+For the complete squared-radius shell $s\in\mathbb N_0$, define
+\begin{equation}
+ W_{d,s}(z)=
+ \sum_{\substack{\mathbf R\in\mathbb Z^d\\\norm{\mathbf R}_2^2=s}}
+ \prod_{\alpha=1}^dJ_{R_\alpha}(z)^2.
+ \label{eq:shell-weight}
+\end{equation}
+Its normalized hopping-block power and the total shell inventory satisfy
+\begin{align}
+ \frac{1}{2E_{\mathrm{ref}}^2}
+ \sum_{\norm{\mathbf R}_2^2=s}\norm{B_{\mathbf R}^{(d)}}_F^2
+ &=\kappa W_{d,s}(z),
+ \label{eq:shell-power}\\
+ \sum_{s=0}^{\infty}W_{d,s}(z)&=1.
+ \label{eq:shell-partition}
+\end{align}
+For an integer shell cap $S\ge0$, let
+\begin{equation}
+ L=\left\lfloor\sqrt{\frac{S}{d}}\right\rfloor+1,
+ \qquad x=\frac{|z|}{2}.
+\end{equation}
+Whenever $x<L+1$, the omitted normalized power has the rigorous bound
+\begin{equation}
+ \frac{1}{2E_{\mathrm{ref}}^2}
+ \sum_{\norm{\mathbf R}_2^2>S}\norm{B_{\mathbf R}^{(d)}}_F^2
+ \le
+ \kappa\,
+ \frac{2d\,e^{z^2/2}x^{2L}}
+ {(L!)^2\left[1-x^2/(L+1)^2\right]}.
+ \label{eq:orthogonal-factorial-tail}
+\end{equation}
+Thus the orthogonal flat-parent Fourier tail is certified directly from $a$, $d$, and
+$S$; no fitted decay law is required.
+\end{theorem}
+
+\begin{proof}
+The Jacobi--Anger identity gives
+\begin{equation}
+ e^{2i\theta_a^{(d)}(\mathbf q)}
+ =\prod_{\alpha=1}^d
+  \sum_{n\in\mathbb Z}J_n(z)e^{2\pi inq_\alpha}
+ =\sum_{\mathbf R\in\mathbb Z^d}
+  j_{\mathbf R}(z)e^{2\pi i\mathbf q\cdot\mathbf R}.
+\end{equation}
+Because $J_{-n}(z)=(-1)^nJ_n(z)$, the cosine coefficient vanishes for odd
+$p(\mathbf R)$ and equals $j_{\mathbf R}(z)$ for even $p(\mathbf R)$; the sine
+coefficient vanishes for even parity and equals $-ij_{\mathbf R}(z)$ for odd parity.
+Substitution into Eq.~\eqref{eq:flat-rotated-pauli} proves
+Eq.~\eqref{eq:orthogonal-fourier-block}. Since both Pauli matrices have squared
+Frobenius norm two,
+\begin{equation}
+ \norm{B_{\mathbf R}^{(d)}}_F^2
+ =\norm D_F^2\prod_{\alpha=1}^dJ_{R_\alpha}(z)^2.
+ \label{eq:block-power-product}
+\end{equation}
+Equation~\eqref{eq:shell-power} follows by grouping a complete shell. Parseval applied
+to the unit-modulus function $e^{iz\sin(2\pi q)}$ gives
+$\sum_{n\in\mathbb Z}J_n(z)^2=1$; taking the $d$-fold product proves
+Eq.~\eqref{eq:shell-partition}.
+
+If $\norm{\mathbf R}_2^2>S$, at least one coordinate obeys $|R_\alpha|\ge L$.
+The union bound and the one-dimensional Bessel partition therefore give
+\begin{equation}
+ \sum_{\norm{\mathbf R}_2^2>S}
+ \prod_{\alpha=1}^dJ_{R_\alpha}(z)^2
+ \le 2d\sum_{n=L}^{\infty}|J_n(z)|^2.
+ \label{eq:tail-union}
+\end{equation}
+The defining Bessel series and $(n+m)!\ge n!m!$ imply, for $n\ge0$,
+\begin{equation}
+ |J_n(z)|
+ \le \frac{x^n}{n!}\sum_{m=0}^{\infty}\frac{x^{2m}}{m!}
+ =\frac{x^n}{n!}e^{x^2}.
+\end{equation}
+Moreover, $(L+m)!\ge L!(L+1)^m$, so when $x<L+1$,
+\begin{equation}
+ \sum_{n=L}^{\infty}\frac{x^{2n}}{(n!)^2}
+ \le \frac{x^{2L}}{(L!)^2}
+ \sum_{m=0}^{\infty}\left(\frac{x^2}{(L+1)^2}\right)^m
+ =\frac{x^{2L}}
+ {(L!)^2\left[1-x^2/(L+1)^2\right]}.
+\end{equation}
+Combining this estimate with Eq.~\eqref{eq:tail-union}, using
+$e^{2x^2}=e^{z^2/2}$ and Eq.~\eqref{eq:block-power-product}, proves
+Eq.~\eqref{eq:orthogonal-factorial-tail}.
+\end{proof}
+
+\begin{corollary}[Monotonicity and the small-amplitude dimension law]
+\label{cor:dimension-law}
+Define the minimum-alignment and exact-spectrum thresholds by
+\begin{equation}
+ \tau_{\min,d}^2(a)=\kappa[1-c_d(a)^2],
+ \qquad
+ \tau_{\mathrm{exact},d}^2(a)=2\kappa[1-c_d(a)].
+\end{equation}
+Both thresholds are strictly increasing for $0<a\le\pi/4$. As $a\to0$,
+\begin{align}
+ c_d(a)
+ &=1-\frac{a^2}{d}+\frac{2d-1}{4d^3}a^4+O(a^6),
+ \label{eq:correlation-small-a}\\
+ \tau_{\min,d}^2(a)
+ &=\frac{2\kappa}{d}a^2
+   -\frac{\kappa(4d-1)}{2d^3}a^4+O(a^6),
+ \label{eq:min-threshold-small-a}\\
+ \tau_{\mathrm{exact},d}^2(a)
+ &=\frac{2\kappa}{d}a^2
+   -\frac{\kappa(2d-1)}{2d^3}a^4+O(a^6).
+ \label{eq:exact-threshold-small-a}
+\end{align}
+In particular, both thresholds have leading slope
+$\sqrt{2\kappa/d}$ with respect to the maximum rotation amplitude $a$.
+\end{corollary}
+
+\begin{proof}
+For $x>0$, $J_0'(x)=-J_1(x)$. On $0<x\le\pi/4$, the alternating series
+\begin{equation}
+ J_1(x)=\sum_{m=0}^{\infty}
+ \frac{(-1)^m}{m!(m+1)!}\left(\frac{x}{2}\right)^{2m+1}
+\end{equation}
+has strictly decreasing term magnitudes because their successive ratio is at most
+$\pi^2/128<1$. Hence $J_1(x)>0$. Together with the positivity already proved for
+$J_0(2a/d)$, this shows
+\begin{equation}
+ c_d'(a)=-2J_0(2a/d)^{d-1}J_1(2a/d)<0
+\end{equation}
+for $a>0$. The threshold monotonicity follows immediately. Finally,
+$J_0(x)=1-x^2/4+x^4/64+O(x^6)$. Substituting $x=2a/d$, raising to the $d$th power, and
+expanding the two threshold formulas proves
+Eqs.~\eqref{eq:correlation-small-a}--\eqref{eq:exact-threshold-small-a}.
+\end{proof}
+
+Theorems~\ref{thm:flat-parent} and \ref{thm:orthogonal-fourier-tail}, together with
+Corollary~\ref{cor:dimension-law}, apply to the orthogonal flat-parent master family.
+The factorial bound certifies its complete-shell Fourier tail, but it must not be
+transferred to a dependent non-orthogonal bond orbit. The bond-orbit theorem below
+supplies that comparator's analytic form; a lattice-specific constrained-series tail
+still requires a separate certificate.
+
+\begin{prospective}
+The orthogonal calculations belong to separate publication-independent 2-D and 3-D
+experiment families. Their mesh sizes, shell caps, tolerances, convergence outcomes, and
+evidence identities remain to be qualified independently and are not shared merely
+because this manuscript compares them.
+\end{prospective}
+
+\subsection{Extracted two-dimensional precursor evidence}
+
+An earlier retained scalar calculation used
+\begin{equation}
+ \widehat H_{2\mathrm D}=-\nabla^2+0.5\cos x+0.5\cos y
+ +\lambda_{xy}\cos x\cos y.
+ \label{eq:legacy-2d}
+\end{equation}
+At $\lambda_{xy}=0$, its represented Kronecker-sum discrepancy was zero and its
+product-spectrum discrepancy was $3.55\times10^{-14}E_{\mathrm{ref}}$. At $\lambda_{xy}=0.30$, the
+mixed-direction hopping norm was $1.94\times10^{-3}E_{\mathrm{ref}}$, compared with a
+$3.00\times10^{-15}E_{\mathrm{ref}}$ numerical floor at zero coupling. On the strongest retained
+coupling, the withheld RMS interpolation error decreased from
+$5.75\times10^{-2}E_{\mathrm{ref}}$ for the onsite shell to $1.70\times10^{-6}E_{\mathrm{ref}}$ for the complete
+finite transform. The latter reconstructed its own $15\times15$ mesh within
+$1.11\times10^{-15}E_{\mathrm{ref}}$ while retaining nonzero error on an independent
+$31\times31$ mesh.
+
+These values are extracted from the preserved Paper 1 v2 controlled calculation. They
+establish a historical finite-mesh separability, mixed-hopping, and off-node
+interpolation control; they are not results of the new square-lattice rank-two protocol,
+do not establish a 3-D outcome, and do not qualify a non-orthogonal lattice.
+
+\section{Non-orthogonal but physically isotropic extension}
+
+Let the direct-lattice basis be the columns of $A$ and define the direct-lattice metric
+and reciprocal basis by
+\begin{equation}
+ G=A^{\mathsf T}A,
+ \qquad B=2\pi A^{-\mathsf T}.
+\end{equation}
+For $\mathbf R\in\Z^d$, physical squared distance is
+\begin{equation}
+ r_G^2(\mathbf R)=\mathbf R^{\mathsf T}G\mathbf R.
+ \label{eq:metric-radius}
+\end{equation}
+Thus the coordinate radius $R_x^2+R_y^2$ is not used for a non-orthogonal cell unless it
+coincides with the declared metric. The integer lattice point group is
+\begin{equation}
+ \Gamma_G=\{M\in GL(d,\Z):M^{\mathsf T}GM=G\}.
+ \label{eq:metric-group}
+\end{equation}
+An isotropic hopping inventory retains complete $\Gamma_G$ orbits and every attainable
+metric shell through its cap. Equal coefficients are required only when imposed by the
+model's point-group representation; support symmetry does not itself imply coefficient
+equality.
+
+A selected non-orthogonal parent must declare an inversion-complete and point-group-
+complete bond orbit $\mathcal B$. A dimension-normalized candidate form is
+\begin{equation}
+ K_{\rho,G}(\mathbf q)=T_0+
+ \frac{\rho}{|\mathcal B_+|}
+ \sum_{\mathbf b\in\mathcal B_+}
+ \left(e^{2\pi i\mathbf q\cdot\mathbf b}T_{\mathbf b}
+ +e^{-2\pi i\mathbf q\cdot\mathbf b}T_{\mathbf b}^\dagger\right),
+ \label{eq:general-parent}
+\end{equation}
+subject to the selected internal point-group representation. The smooth rotation must
+likewise be constructed from a complete bond orbit rather than privileged coordinate
+axes.
+
+\subsection{Bond-orbit analytic comparator}
+
+Let the chosen positive bond inventory be
+$\mathcal B_+=\{\mathbf b_1,\ldots,\mathbf b_m\}\subset\Z^d\setminus\{\mathbf0\}$.
+For real orbit weights $\eta_j$, set $W=\sum_j|\eta_j|>0$ and define the normalized
+bond-orbit phase
+\begin{equation}
+ \theta_{a,\mathcal B}(\mathbf q)
+ =\frac{a}{W}\sum_{j=1}^m\eta_j
+   \sin(2\pi\mathbf q\cdot\mathbf b_j),
+ \qquad |\theta_{a,\mathcal B}(\mathbf q)|\le a.
+ \label{eq:bond-orbit-phase}
+\end{equation}
+The weights must be fixed by the selected symmetry contract; the theorem below does not
+by itself declare them isotropic.
+
+\begin{theorem}[Bond-orbit flat-parent comparator]
+\label{thm:bond-orbit}
+For $0\le a\le\pi/4$, define
+\begin{equation}
+ c_{\mathcal B,\boldsymbol\eta}(a)
+ =\int_{\T^d}e^{2i\theta_{a,\mathcal B}(\mathbf q)}\,d\mathbf q.
+ \label{eq:bond-orbit-correlation}
+\end{equation}
+Then $c_{\mathcal B,\boldsymbol\eta}(a)$ is real and strictly positive. If
+\begin{align}
+ D_{a,\mathcal B}(\mathbf q)
+ &=R(\theta_{a,\mathcal B}(\mathbf q))^\dagger
+   D R(\theta_{a,\mathcal B}(\mathbf q)),\\
+ D_{\mathbf R}^{\mathcal B}
+ &=\int_{\T^d}e^{-2\pi i\mathbf q\cdot\mathbf R}
+   D_{a,\mathcal B}(\mathbf q)\,d\mathbf q,
+\end{align}
+then
+\begin{align}
+ D_{\mathbf0}^{\mathcal B}
+ &=c_{\mathcal B,\boldsymbol\eta}(a)D,\\
+ \inf_{s,\lambda\ge0,\phi}L_{\mathcal B,\phi}^2(s,\lambda)
+ &=\kappa[1-c_{\mathcal B,\boldsymbol\eta}(a)^2]
+ =\frac{1}{2E_{\mathrm{ref}}^2}\sum_{\mathbf R\ne\mathbf0}
+   \norm{D_{\mathbf R}^{\mathcal B}}_F^2,
+ \label{eq:bond-orbit-tail}\\
+ \inf_\phi L_{\mathcal B,\phi}^2(0,1)
+ &=2\kappa[1-c_{\mathcal B,\boldsymbol\eta}(a)],
+\end{align}
+where $L_{\mathcal B,\phi}$ is Eq.~\eqref{eq:flat-operator-loss} with
+$B_a^{(d)}$ replaced by $D_{a,\mathcal B}$.
+
+Moreover, the comparator has the exact zero-mode expansion
+\begin{equation}
+ c_{\mathcal B,\boldsymbol\eta}(a)
+ =\sum_{\substack{\mathbf n\in\Z^m\\
+                   \sum_{j=1}^m n_j\mathbf b_j=\mathbf0}}
+   \prod_{j=1}^m
+   J_{n_j}\!\left(\frac{2a\eta_j}{W}\right).
+ \label{eq:bond-orbit-bessel-sum}
+\end{equation}
+If the bond vectors have no nontrivial integer relation, this reduces to
+\begin{equation}
+ c_{\mathcal B,\boldsymbol\eta}(a)
+ =\prod_{j=1}^mJ_0\!\left(\frac{2a\eta_j}{W}\right).
+ \label{eq:independent-bond-product}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Equation~\eqref{eq:bond-orbit-phase} is odd under
+$\mathbf q\mapsto-\mathbf q$, so the imaginary part of
+Eq.~\eqref{eq:bond-orbit-correlation} integrates to zero. Since
+$|2\theta_{a,\mathcal B}|\le\pi/2$, its cosine is nonnegative; it is positive in a
+neighborhood of $\mathbf q=\mathbf0$, where the phase vanishes. Hence the integral is
+strictly positive. Diagonalizing $D$ by one constant real rotation and repeating
+Eq.~\eqref{eq:flat-rotated-pauli} gives
+$D_{\mathbf0}^{\mathcal B}=c_{\mathcal B,\boldsymbol\eta}D$. The constant-projection
+identity in Eq.~\eqref{eq:constant-projection} and entrywise Parseval then prove the two
+residual formulas exactly as in Theorem~\ref{thm:flat-parent}.
+
+For the explicit comparator, apply the Jacobi--Anger expansion to every bond harmonic:
+\begin{equation}
+ e^{i(2a\eta_j/W)\sin(2\pi\mathbf q\cdot\mathbf b_j)}
+ =\sum_{n_j\in\Z}
+ J_{n_j}\!\left(\frac{2a\eta_j}{W}\right)
+ e^{2\pi i n_j\mathbf q\cdot\mathbf b_j}.
+\end{equation}
+The finite product of these absolutely convergent series may be integrated termwise.
+Torus orthogonality retains exactly the tuples satisfying
+$\sum_jn_j\mathbf b_j=\mathbf0$, which proves
+Eq.~\eqref{eq:bond-orbit-bessel-sum}. If the integer kernel of the bond matrix is
+trivial, only $\mathbf n=\mathbf0$ remains, giving
+Eq.~\eqref{eq:independent-bond-product}.
+\end{proof}
+
+\begin{theorem}[Constrained-series complete-shell tail certificate]
+\label{thm:constrained-tail}
+Let
+\begin{equation}
+ g_{\mathbf R}=
+ \sum_{\substack{\mathbf n\in\mathbb Z^m\\
+                   \sum_jn_j\mathbf b_j=\mathbf R}}
+ \prod_{j=1}^mJ_{n_j}\!\left(\frac{2a\eta_j}{W}\right)
+ \label{eq:constrained-coefficient}
+\end{equation}
+be the scalar Fourier coefficient of $e^{2i\theta_{a,\mathcal B}}$. In the constant
+basis where $D=\delta\sigma_z$,
+\begin{equation}
+ D_{\mathbf R}^{\mathcal B}
+ =\frac{\delta}{2}\left[
+ (g_{\mathbf R}+g_{-\mathbf R})\sigma_z
+ +i(g_{\mathbf R}-g_{-\mathbf R})\sigma_x
+ \right].
+ \label{eq:constrained-matrix-block}
+\end{equation}
+Let $\mathcal S_S$ be every lattice displacement in the complete physical-metric shells
+through $S$. If finite constrained sums $\widetilde g_{\mathbf R}$ obey certified bounds
+$|g_{\mathbf R}-\widetilde g_{\mathbf R}|\le\epsilon_{\mathbf R}$ for every
+$\mathbf R\in\mathcal S_S$, then
+\begin{equation}
+ \frac{1}{2E_{\mathrm{ref}}^2}
+ \sum_{\mathbf R\notin\mathcal S_S}
+ \norm{D_{\mathbf R}^{\mathcal B}}_F^2
+ \le\kappa\left\{
+ 1-\sum_{\mathbf R\in\mathcal S_S}
+ \left[\max\{0,|\widetilde g_{\mathbf R}|-\epsilon_{\mathbf R}\}\right]^2
+ \right\}.
+ \label{eq:constrained-tail-certificate}
+\end{equation}
+
+For the selected equal-weight triangular orbit
+$\{(1,0),(0,1),(1,-1)\}$, with $z=2a/3$,
+\begin{equation}
+ g_{(r_1,r_2)}=
+ \sum_{\ell\in\mathbb Z}
+ J_{r_1-\ell}(z)J_{r_2+\ell}(z)J_\ell(z).
+ \label{eq:triangular-coefficient}
+\end{equation}
+For the selected equal-weight FCC orbit
+\begin{equation}
+ \{(1,0,0),(0,1,0),(0,0,1),(-1,1,0),(-1,0,1),(0,-1,1)\},
+\end{equation}
+with $z=2a/6$,
+\begin{align}
+ g_{(r_1,r_2,r_3)}
+ =\sum_{u,v,w\in\mathbb Z}
+ &J_{r_1+u+v}(z)J_{r_2-u+w}(z)J_{r_3-v-w}(z)\notag\\
+ &\times J_u(z)J_v(z)J_w(z).
+ \label{eq:fcc-coefficient}
+\end{align}
+Set $x=|z|/2$ and
+\begin{align}
+ A_0(z)&=e^{x^2}(2e^x-1),\\
+ A_K(z)&=
+ \frac{2e^{x^2}x^{K+1}}
+ {(K+1)![1-x/(K+2)]}.
+ \label{eq:absolute-bessel-tail}
+\end{align}
+Truncating Eq.~\eqref{eq:triangular-coefficient} to $|\ell|\le K$ gives
+$\epsilon_{\mathbf R}=A_K(z)$. Truncating Eq.~\eqref{eq:fcc-coefficient} to
+$|u|,|v|,|w|\le K$ gives
+$\epsilon_{\mathbf R}=3A_K(z)A_0(z)^2$.
+\end{theorem}
+
+\begin{proof}
+Jacobi--Anger expansion and torus orthogonality give
+Eq.~\eqref{eq:constrained-coefficient}. The symmetry
+$e^{2i\theta(-\mathbf q)}=\overline{e^{2i\theta(\mathbf q)}}$ makes every
+$g_{\mathbf R}$ real. Splitting the cosine and sine coefficients into
+$(g_{\mathbf R}\pm g_{-\mathbf R})/2$ proves
+Eq.~\eqref{eq:constrained-matrix-block}. Hence
+\begin{equation}
+ \frac{\norm{D_{\mathbf R}^{\mathcal B}}_F^2}{\norm D_F^2}
+ =\frac{g_{\mathbf R}^2+g_{-\mathbf R}^2}{2}.
+\end{equation}
+Parseval for the unit-modulus scalar phase gives
+$\sum_{\mathbf R}g_{\mathbf R}^2=1$. Because $\mathcal S_S$ is inversion complete,
+the exact matrix tail normalized by $\norm D_F^2$ is
+$1-\sum_{\mathbf R\in\mathcal S_S}g_{\mathbf R}^2$. The reverse triangle inequality
+$|g_{\mathbf R}|\ge\max\{0,|\widetilde g_{\mathbf R}|-\epsilon_{\mathbf R}\}$
+proves Eq.~\eqref{eq:constrained-tail-certificate}.
+
+Solving the triangular constraint gives
+$(n_1,n_2,n_3)=(r_1-\ell,r_2+\ell,\ell)$, which proves
+Eq.~\eqref{eq:triangular-coefficient}. Taking
+$(u,v,w)=(n_4,n_5,n_6)$ in the FCC constraint gives
+\begin{equation}
+ (n_1,n_2,n_3)=(r_1+u+v,r_2-u+w,r_3-v-w),
+\end{equation}
+which proves Eq.~\eqref{eq:fcc-coefficient}. Finally, the defining Bessel series gives
+$|J_n(z)|\le e^{x^2}x^{|n|}/|n|!$. Summing it over all integers gives $A_0$; summing
+over $|n|>K$ and bounding the remaining exponential-series tail geometrically gives
+$A_K$. In the triangular remainder the other two Bessel factors have magnitude at most
+one. In the FCC remainder, a union bound over the three free indices gives
+$3A_KA_0^2$.
+\end{proof}
+
+For the selected maximum angle $a=\pi/4$, bounded binary64 evaluations with a declared
+$10^{-13}$ per-coefficient numerical margin give normalized scalar-tail upper bounds
+$2.8760\times10^{-9}$ for the triangular shell cap $S=21$ at $K=10$, and
+$5.5358\times10^{-6}$ for the FCC shell cap $S=7$ at $K=9$. These values evaluate the
+proved certificate but are not formal interval-arithmetic results, convergence evidence,
+or material claims.
+
+The metric and point group select the physically admissible complete bond orbit; the
+integer relations among the selected reduced-coordinate bond vectors determine whether
+the comparator factorizes. Thus the square and cubic products arise from independent
+primitive-axis harmonics, whereas a bond orbit with integer dependencies generally has
+the constrained Bessel sum in Eq.~\eqref{eq:bond-orbit-bessel-sum} instead.
+
+\begin{prospective}
+Separate non-orthogonal families now select a graphene-inspired triangular/honeycomb
+2-D parent and a silicon-inspired FCC/diamond 3-D parent, together with matched Bravais-
+control pairs at equal reciprocal-torus RMS gauge amplitude. ``Inspired'' denotes only
+the declared Bravais geometry, two-site basis, and bipartite connectivity; neither parent
+is a material parametrization. The dependent triangular and FCC control orbits give
+respectively a one-index and a three-index constrained Bessel sum under
+Theorems~\ref{thm:bond-orbit} and \ref{thm:constrained-tail}. Bounded Monkhorst--Pack
+development actions and independent development verifiers now exist for all four
+2-D/3-D families. The constrained-series certificate is evaluated at the development
+caps, but qualified shell caps, full mesh ladders, control-parent gap certification,
+formal interval evaluation, final tolerances and schemas, and frozen revisions remain
+open. The square and cubic Bessel products must not be transferred unchanged to
+these dependent bond orbits.
+\end{prospective}
+
+\begin{prospective}
+A publication-independent extension now specifies frozen-gauge controls along a
+unit-area rhombic triangular--square deformation and a unit-volume FCC--BCC Bain
+path. The latter uses the crystallographic deformation associated with Bain's classic
+martensite construction \cite{Bain1924Martensite}, but the proposed calculation freezes
+the reduced-coordinate Hamiltonian and therefore is only a synthetic geometry stress
+test. It must not be interpreted as a phase-stability, elastic, or material prediction.
+Strain-responsive hopping laws, including the kinds of material-specific and
+environment-dependent models represented by
+Refs.~\cite{Fang2018Strained2D,Zhang2022EquivariantHamiltonians}, are separate
+robustness controls rather than corrections to the frozen-gauge result.
+\end{prospective}
+
+\section{Aligned Hamiltonian subtraction}
+
+For $\mathcal U=\bigoplus_{\mathbf q}U(\mathbf q)$, define
+\begin{equation}
+ \widehat A_B=\mathcal U^\dagger\widehat H_B\mathcal U.
+\end{equation}
+The corresponding Wannier-space unitary
+\begin{equation}
+ \mathcal G_W=(\mathcal F_{d,N}^\dagger\otimes I_2)
+ \mathcal U(\mathcal F_{d,N}\otimes I_2)
+\end{equation}
+is generally nonlocal and satisfies
+\begin{equation}
+ \widehat A_W=\mathcal G_W^\dagger\widehat H_W\mathcal G_W.
+ \label{eq:covariant}
+\end{equation}
+The covariantly aligned subtraction vanishes by construction. The restricted scientific
+comparison replaces $\mathcal G_W$ by one cell-local global rotation
+$I_{N^d}\otimes R(\phi)$. A parent-space comparison requires the retained projector and
+an explicit lift. Every subtraction must state its source and target spaces, basis,
+gauge, energy reference, units, geometry, and normalization.
+
+\section{Error and evidence ledger}
+
+The protocol reports separately:
+\begin{enumerate}
+ \item parent--retained reconstruction after projector lifting;
+ \item covariant representation equivalence;
+ \item restricted global-alignment residual;
+ \item cyclic Nyquist conversion power;
+ \item finite interpolation error;
+ \item deliberate truncation error; and
+ \item total reconstructed-Hamiltonian and spectral consequences.
+\end{enumerate}
+Writing $H^{\mathrm{dir}}$ for the direct withheld-mesh field,
+$H_N^{\mathrm{ord}}$ for the full ordinary Fourier interpolant, and
+$H_{N,R}^{\mathrm{ord}}$ for its complete-radius truncation, the three approximation
+channels are
+\begin{align}
+ \mathcal E_{\mathrm{interp}}&=\mathcal E(H_N^{\mathrm{ord}},H^{\mathrm{dir}}),\\
+ \mathcal E_{\mathrm{trunc}}&=\mathcal E(H_{N,R}^{\mathrm{ord}},H_N^{\mathrm{ord}}),\\
+ \mathcal E_{\mathrm{total}}&=\mathcal E(H_{N,R}^{\mathrm{ord}},H^{\mathrm{dir}}),
+ \label{eq:three-error-channels}
+\end{align}
+where $\mathcal E$ is reported independently as maximum/RMS normalized Frobenius error
+and maximum/RMS sorted-band error. These channels are not assumed additive:
+interpolation and truncation may reinforce or cancel. Omitted hopping-block power is a
+locality diagnostic, not a universal spectral-error bound. First-passing support
+decisions are sampled decisions and use hatted notation. For a future strain-responsive
+perturbation, Eq.~\eqref{eq:three-error-channels} must be applied again to the
+ gauge-aligned difference field $\Delta H_s$, after constructing that field in one
+common state space. The M0 strain plots report Fourier-tail locality only and do not
+constitute a three-channel strain-potential calculation; the separately labeled M1/M2
+smoke controls repeat the three channels without upgrading their evidence status.
+
+Calculation parity with Paper~1 requires every applicable predecessor diagnostic, not
+only the three error channels. In particular, the numerical alignment must report the
+splitting scale and finite-mesh maximum correlation, minimize over one global rotation
+\emph{and} the positive splitting scale for the minimum operator threshold, and report
+the distinct unit-splitting exact-spectrum joint threshold. A fixed-unit-scale rotation
+fit cannot substitute for those two Paper~1 quantities. The complete predecessor
+catalog also requires frame/sewing, locality-power, Weyl, first-passing-context,
+refinement, and provenance counterparts in every family.
+
+\section{Results}
+
+\begin{prospective}
+Replaceable bounded development records exercise a partial numerical channel sequence
+from square lattice through the silicon-inspired diamond target. A strict Paper~1
+catalog audit initially found missing or incompletely serialized predecessor channels.
+The regenerated records now map all 110 predecessor quantities as implemented,
+explicitly unresolved, explicitly inapplicable, or multidimensional-partial, including
+the corrected positive-splitting alignment and analytic amplitude-resolution ladder.
+Row-level parity verification and scalar closure-phase aggregation remain open and still
+preclude quantitative scientific use. The sparse actions use three
+construction levels: $16^2$, $32^2$, and $64^2$ in 2-D and $8^3$, $16^3$, and $32^3$
+in 3-D, with separately shifted evaluation meshes and unchanged models, thresholds, and
+shell caps. All development verifiers pass with stored identity defects below
+$2.0\times10^{-14}$; this envelope now includes the newly serialized transport and
+closure-unitarity channels. One of the 18 graphene-family pointwise first-passing decision sets
+moves by one shell between the first two levels, while every decision is unchanged on
+the final refinement in all four families. Several strict decisions remain unresolved
+at the deliberately small shell caps. These records establish software and bookkeeping
+behavior only; row-level Paper~1 parity verification, frozen tolerances, and cap policy
+remain open, so the three mesh levels do not yet populate the paper's qualified scientific
+results. Figures~\ref{fig:family-square}--
+\ref{fig:family-silicon-inspired} show the four distinct model-family development
+summaries. They must not be read as four strain-responsive models.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf}
+ \caption{Replaceable square-lattice family development summary. The panels keep
+ withheld interpolation, external retained-subspace isolation, hopping-tail power,
+ withheld spectral consequence, and tail-power/consequence comparison separate.}
+ \label{fig:family-square}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf}
+ \caption{Replaceable graphene-inspired family development summary, including its
+ matched Bravais controls. ``Inspired'' denotes geometry and connectivity only; this is
+ not a graphene parametrization or validation result.}
+ \label{fig:family-graphene-inspired}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf}
+ \caption{Replaceable simple-cubic family development summary. The two displayed mesh
+ levels establish software behavior only and are not a convergence result.}
+ \label{fig:family-simple-cubic}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf}
+ \caption{Replaceable silicon-inspired family development summary, including its
+ matched Bravais controls. ``Inspired'' denotes geometry and connectivity only; this is
+ not a silicon parametrization, material calculation, or Paper~4 substitute.}
+ \label{fig:family-silicon-inspired}
+\end{figure}
+
+Figures~\ref{fig:three-channel-square}--\ref{fig:three-channel-silicon-inspired}
+show the corresponding refined-mesh three-channel decompositions. Near overlap of the
+deliberate-truncation and total curves means interpolation is much smaller at these
+sampled points; it does not make the channels definitionally identical.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/analysis/three-channel-error-decomposition.pdf}
+ \caption{Square-lattice endpoint comparison: maximum Hamiltonian and sorted-band
+ interpolation, deliberate-truncation, and total error channels.}
+ \label{fig:three-channel-square}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/analysis/three-channel-error-decomposition.pdf}
+ \caption{Graphene-inspired family and matched controls: refined-mesh endpoint
+ three-channel decomposition. Every row retains its own complete physical-metric shell
+ inventory.}
+ \label{fig:three-channel-graphene-inspired}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/analysis/three-channel-error-decomposition.pdf}
+ \caption{Simple-cubic endpoint comparison: maximum Hamiltonian and sorted-band
+ interpolation, deliberate-truncation, and total error channels.}
+ \label{fig:three-channel-simple-cubic}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/analysis/three-channel-error-decomposition.pdf}
+ \caption{Silicon-inspired family and matched controls: refined-mesh endpoint
+ three-channel decomposition. These are synthetic development channels, not silicon
+ material errors.}
+ \label{fig:three-channel-silicon-inspired}
+\end{figure}
+
+\paragraph{Bounded M0 observation.}
+Separate frozen-parent geometry-stress diagnostics use nine unit-area rhombic and
+unit-volume Bain metrics. The reduced-coordinate Hamiltonian, gauge, Fourier-block
+weights, and restricted-alignment residual are invariant by construction. Nevertheless,
+the changing physical metric reorders complete hopping shells and changes the sampled
+first-passing physical radius and retained block count. At tail-power tolerance
+$10^{-5}$, the endpoint radius changes from $3.7224$ to $4.2426$ in 2-D and from
+$2.9698$ to $3.2734$ in 3-D; the corresponding block counts change from $43$ to $61$
+and from $135$ to $169$. At the looser 3-D tolerance $10^{-3}$, the endpoint radius
+instead changes from $2.2449$ to $2.1822$ while the block count changes from $55$ to
+$59$. Physical range and parameter count are therefore distinct locality costs even
+when the abstract reduced-coordinate operator is unchanged. A unimodular map identifies
+the existing FCC primitive coordinates with the Bain endpoint coordinates.
+Figures~\ref{fig:m0-strain-2d} and \ref{fig:m0-strain-3d} display the complete bounded
+M0 diagnostics.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/analysis/development/gauge-locality-under-synthetic-strain.pdf}
+ \caption{Replaceable 2-D frozen-gauge M0 development diagnostic. The parent, gauge,
+ Fourier weights, and unit cell area remain fixed while the rhombic metric moves from
+ triangular to square. Panels separate bond-orbit splitting, invariant restricted
+ residual, first-passing physical radius, and retained block count. The plotted
+ tail-power thresholds are locality diagnostics, not universal spectral-error bounds.}
+ \label{fig:m0-strain-2d}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/analysis/development/gauge-locality-under-synthetic-strain.pdf}
+ \caption{Replaceable 3-D frozen-gauge M0 development diagnostic along the unit-volume
+ FCC--BCC Bain metric path. The looser threshold shows that first-passing physical
+ radius and retained block count need not move together. This synthetic geometry stress
+ test is not a phase-stability, elasticity, strain-potential, or material result.}
+ \label{fig:m0-strain-3d}
+\end{figure}
+
+\paragraph{Bounded M1/M2 response controls.}
+A separately labeled smoke action applies the sampled-qualified four-state bipartite parent.
+M1 freezes its onsite and hopping matrices; its pointwise gauge-aligned strain
+difference remains below $1.4\times10^{-15}E_{\mathrm{ref}}$ on both paths. M2 changes
+only the parent-bond amplitudes through the prospectively fixed dimensionless radial law
+$t_j(s)/t_j(0)=\exp[-(d_j(s)/d_j(0)-1)]$. At the final 2-D metric, the responses span
+$0.81758$--$1.27146$ and the maximum aligned retained-space perturbation is
+$0.063575E_{\mathrm{ref}}$. At the BCC endpoint, the four selected bonds share response
+$0.97564$ and the corresponding maximum is $0.007289E_{\mathrm{ref}}$. The stored
+trace/traceless decomposition is dominated by the traceless channel in both smoke
+records. At the $10^{-5}$ tail support, the 2-D endpoint interpolation, deliberate-
+truncation, and total maximum matrix errors of $\Delta H_s$ are approximately
+$6.0\times10^{-8}$, $7.801\times10^{-4}$, and $7.802\times10^{-4}$; the 3-D values
+are $9.36\times10^{-5}$, $1.61\times10^{-4}$, and $1.89\times10^{-4}$. These
+channels are displayed in Figs.~\ref{fig:m1m2-strain-2d} and
+\ref{fig:m1m2-strain-3d} and are not added.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/analysis/response-development/m1-m2-strain-response.pdf}
+ \caption{Replaceable 2-D M1/M2 response smoke diagnostic. M1 verifies the zero aligned
+ difference expected from the frozen parent. M2 uses the fixed synthetic radial law and
+ reports its aligned perturbation, scalar/traceless split, locality cost, and three
+ approximation channels.}
+ \label{fig:m1m2-strain-2d}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{../../../../../experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/analysis/response-development/m1-m2-strain-response.pdf}
+ \caption{Replaceable 3-D M1/M2 Bain-response smoke diagnostic. The fixed M2 radial law
+ is a synthetic sensitivity control, not a phase-stability or material-silicon model.}
+ \label{fig:m1m2-strain-3d}
+\end{figure}
+
+These single-transform M0 and single-smoke M1/M2 records lack retained schemas,
+independent artifact verification, and convergence and therefore remain software-
+development diagnostics, not a material strain potential, material prediction, or paper
+evidence. The extracted scalar
+2-D precursor retains its historical finite-mesh scope. New scientific claims require
+qualified calculations from the cited experiment families.
+\end{prospective}
+
+\section{Bounded interpretation}
+
+\begin{prospective}
+If supported by future evidence, the paper may compare representation cost across the
+selected orthogonal and non-orthogonal isotropic systems. It will not infer a universal
+range law, claim material validity, identify eigenvalue equality with operator equality,
+or transfer a cutoff or tolerance between lattice geometries without qualification.
+\end{prospective}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
