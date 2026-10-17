@@ -56,8 +56,14 @@ Non-orthogonal but physically isotropic extensions replace coordinate-radius she
 metric-complete lattice shells and axis permutations by the applicable lattice point
 group. Gauge-covariant equivalence, restricted global alignment, cyclic Fourier
 conversion, interpolation, deliberate hopping truncation, and total consequences remain
-separate channels.
-\futurework{Numerical results and cross-lattice conclusions remain conditional on
+separate channels. Fixed-geometry shell--scale landscapes characterize the sampled
+compromise among retained hopping complexity, Hamiltonian agreement, and sorted-band
+agreement, while synthetic-deformation controls diagnose the response mechanisms and
+sampled requirement coordinates separately. Exact untruncated gauge equivalence remains
+intact: the incompatibility appears only after global alignment and finite hopping
+support are imposed. The present calculations do not directly establish strain-induced
+motion of a Pareto surface and define no pass/fail tolerance.
+\futurework{Numerical surfaces and cross-lattice conclusions remain conditional on
 independently verified, dimension-specific calculations.}
 \end{abstract}
 
@@ -83,14 +89,17 @@ Hamiltonian mappings address geometry-responsive electronic structure
 \cite{Zhang2022EquivariantHamiltonians}. The present work does not claim any of those
 ingredients individually as new. Its narrower target is a controlled separation of
 pointwise spectral equivalence, declared gauge alignment, metric-complete truncation,
-and the physical hopping range needed at a fixed tolerance.
+and the decision landscape relating hopping complexity to operator and spectral error.
 
-The study separates two questions:
+The study separates three questions:
 \begin{enumerate}
  \item How are a finite cell--orbital operator, its Bloch representation, its complete
        eigensystem, a retained periodic frame, and its Wannier/TB blocks related?
- \item After those spaces have been aligned, how does a restricted representation
-       choice alter the hopping support required at the same sampled spectral accuracy?
+ \item After those spaces have been aligned, what compromises among retained hopping
+       blocks, Hamiltonian agreement, and sorted-band agreement are available under a
+       restricted representation?
+ \item How does a controlled synthetic deformation move that decision landscape while
+       exact untruncated gauge equivalence remains intact?
 \end{enumerate}
 
 \begin{prospective}
@@ -795,11 +804,14 @@ gauge, energy reference, units, geometry, and normalization.
 
 \subsection{Scientific question and three controls}
 
-The strain protocol asks how a homogeneous change of lattice metric changes the physical
-real-space range required at a declared fidelity tolerance. It keeps retained rank,
-energy reference, and reduced-coordinate gauge explicit. It is a synthetic gauge and
-model-response stress test, not an elastic, structural-stability, or material-strain
-calculation.
+The strain protocol asks how a homogeneous change of lattice metric affects the
+mechanisms and sampled requirement coordinates associated with spectral fidelity,
+restricted operator agreement, and finite-range hopping locality. It keeps retained
+rank, energy reference, and reduced-coordinate gauge explicit. It is a synthetic gauge
+and model-response stress test, not an elastic, structural-stability, or material-strain
+calculation. The deformation does not make the exact spectral and hopping
+representations inconsistent. The fixed-geometry Pareto surfaces and strain-response
+scans remain separate until explicit strain-resolved landscapes are calculated.
 
 The protocol separates three controls:
 \begin{enumerate}
@@ -824,6 +836,52 @@ The protocol separates three controls:
 \end{enumerate}
 The three controls answer different questions and are not successive approximations to
 one Hamiltonian.
+
+\subsection{Shell--scale Pareto decision landscape}
+
+At strain coordinate $s$, let $H_s(\mathbf q)$ be the retained reference field,
+$\bar h_s(\mathbf q)=\operatorname{tr}H_s(\mathbf q)/2$, and
+$\widetilde H_s=H_s-\bar h_s I_2$. Let $B_{s,S}(\mathbf q)$ be the gauge-transformed
+comparison reconstructed after retaining every complete physical-metric shell through
+$S$. The restricted full-field alignment supplies one global rotation $R_{*,s}$ and a
+nonnegative optimized scale $\lambda_{*,s}$. We sample the scientifically interpretable
+path
+\begin{equation}
+ \lambda_s(u)=(1-u)\lambda_{*,s}+u,
+ \qquad 0\le u\le1,
+ \label{eq:scale-path}
+\end{equation}
+so that $u=0$ is the optimized operator-scale endpoint and $u=1$ preserves the original
+spectral splitting. The corresponding globally aligned target is
+\begin{equation}
+ A_{s,u}(\mathbf q)=\bar h_s(\mathbf q)I_2+
+ \lambda_s(u)R_{*,s}^{\mathsf T}\widetilde H_s(\mathbf q)R_{*,s}.
+ \label{eq:scale-path-target}
+\end{equation}
+For each calculated pair $(S,u)$, define
+\begin{align}
+ \varepsilon_H(s;S,u)
+ &=\max_{\mathbf q}\frac{\norm{B_{s,S}(\mathbf q)-A_{s,u}(\mathbf q)}_F}
+ {\sqrt2E_{\mathrm{ref}}},\\
+ \varepsilon_E(s;S,u)
+ &=\max_{\mathbf q,n}\frac{
+ \left|\varepsilon_n[B_{s,S}(\mathbf q)]-
+ \varepsilon_n[A_{s,u}(\mathbf q)]\right|}{E_{\mathrm{ref}}},\\
+ \mathcal J_s(S,u)
+ &=\left(N_s(S),\varepsilon_H(s;S,u),\varepsilon_E(s;S,u)\right).
+ \label{eq:pareto-decision-objectives}
+\end{align}
+Lower values of all three components are preferred. A calculated point is Pareto
+efficient when no other sampled pair weakly improves every component and strictly
+improves at least one. The strain coordinate therefore indexes a family of sampled
+Pareto decision landscapes; it is not itself minimized. The physical shell radius
+$R_s(S)$ remains a separately reported locality coordinate because it need not order
+shells in the same way as $N_s(S)$.
+
+This construction requires no acceptance tolerance. A tolerance is needed only later to
+select an operating point for a specified application or material. Tessellated cells may
+connect adjacent calculated $(S,u)$ samples for visualization, but they assert neither
+continuum coverage nor interpolation validity.
 
 \subsection{Area- and volume-preserving paths}
 
@@ -964,8 +1022,8 @@ Every adjacent base-grid interval whose endpoint block counts or bond-degeneracy
 differ is bisected five times, yielding detected transition brackets of width at most
 $1/6400$. This bounded rule does not detect an even number of hidden changes inside an
 equal-endpoint interval. It supplies sampled localization only, not a continuum
-certificate. Feasibility crossings remain undefined because family-specific spectral
-and operator acceptance limits are not frozen.
+certificate. No feasibility crossing is assigned: this protocol characterizes the sampled decision
+landscape rather than classifying it against an acceptance region.
 
 \begin{prospective}
 A failed determinant, Parseval, Hermiticity, Nyquist, state-space, gap, frame, sewing,
@@ -1003,10 +1061,11 @@ The regenerated records now map all 110 predecessor quantities as implemented,
 explicitly unresolved, or explicitly inapplicable, including the corrected
 positive-splitting alignment, analytic amplitude-resolution ladder, and the
 multidimensional closure-phase reduction in
-Eq.~\eqref{eq:multidimensional-closure-phase-reduction}. The literal audit records 107
-completed development-parity obligations. Its remaining three rows are scientific
-disposition questions that cannot be resolved until family-specific optimized-scale and
-unit-splitting-scale acceptance tolerances are justified and frozen. An independent
+Eq.~\eqref{eq:multidimensional-closure-phase-reduction}. The literal audit records all
+110 development-parity dispositions as complete. Its three inherited pass/fail rows are
+explicitly inapplicable because this synthetic study characterizes the sampled decision
+landscape in Eq.~\eqref{eq:pareto-decision-objectives} rather than defining an acceptance
+test. An independent
 explicit finite-sum oracle now reconstructs every applicable calculated row represented
 by the completed obligations without invoking the production Fourier implementation.
 This closes software-level row parity; it does not establish scientific acceptance or
@@ -1017,27 +1076,55 @@ verifiers pass with stored identity defects below $2.0\times10^{-14}$; this enve
 includes the newly serialized transport and closure-unitarity channels. One of the 18
 graphene-family pointwise first-passing decision sets moves by one shell between the
 first two levels, while every decision is unchanged on the final refinement in all four
-families. Several strict decisions remain unresolved at the deliberately small shell
-caps. These records establish software and bookkeeping behavior only; frozen scientific
-acceptance tolerances and cap policy remain open, so the three mesh levels do not yet
-populate the paper's qualified scientific results.
+families. Several strict first-passing decisions remain unresolved at the deliberately small
+shell caps. Those threshold slices are not the central result. They are individual cuts
+through a broader decision landscape and do not constrain its characterization.
 
-Figure~\ref{fig:tolerance-requirement-map} places the optimized-scale normalized
-operator threshold and the exact-spectrum unit-scale joint threshold on distinct axes.
-Faint curves retain sampled case, parent-scale, and amplitude variation; each diamond is
-the componentwise envelope required to cover every sampled point in one family. The map
-contains no acceptance region because selecting a boundary from these development
-outcomes would not provide an independently justified scientific tolerance.
+\paragraph{Central result: controlled incompatibility landscape.}
+The exact untruncated route preserves the retained spectrum under the declared
+momentum-dependent gauge. Once the comparison is restricted to one cell-local global
+rotation, one scale choice, and a finite complete-shell inventory, spectral fidelity,
+Hamiltonian fidelity, and locality cannot in general be optimized simultaneously.
+Shell cutoff controls retained complexity, while the path from $\lambda_{*,s}$ to unit
+scale resolves the compromise between restricted operator agreement and preservation of
+the original splitting. Synthetic deformation is diagnosed separately and does not
+create a failure of exact gauge equivalence. The present fixed-geometry landscapes do
+not directly establish motion of the surface with strain.
+
+The geometry-only control isolates metric reordering of the same Fourier inventory; the
+frozen-parent control tests that coordinate deformation alone produces no Hamiltonian
+response; and the radial-response control deliberately changes bond amplitudes. Taken
+together, the controls separate mechanisms rather than plotting an undifferentiated
+strain response. The scientific output here is the set of available nondominated
+compromises, not a self-selected acceptance boundary. A componentwise cover assembled
+from different samples is not an attainable decision and is therefore not a Pareto
+representative.
+
+The bounded fixed-geometry calculation samples 17 scales between $\lambda_*$ and unity
+at every available complete shell for each of the eight cases. The optimized scale rises
+from $0.729890$ for the square directed parent to $0.937745$ for the diamond-inspired
+case. Every case has a nonempty, non-collapsed nondominated set, but its sampled shape is
+geometry dependent. The diamond-inspired case is the most selective in this sampling,
+with 34 of 136 calculated vertices nondominated; the triangular and FCC controls retain
+156 of 187 and 116 of 136, respectively. At the largest sampled diamond shell, moving
+from $\lambda_*$ to unit scale increases the normalized Hamiltonian mismatch from
+$0.211780$ to $0.217933$ (about $2.9\%$) while reducing the sorted-band mismatch from
+$0.0193798$ to $0.00341626$ (about $82\%$). This is one endpoint comparison, not a
+universal preference for unit scale. The vertex counts describe the declared discrete
+grid and are not invariant geometric measures. Figure~\ref{fig:principal-decision-landscapes}
+shows the four principal cases; Appendix~\ref{app:case-decision-landscapes} gives all
+eight cases separately.
 
 \begin{figure}[p]
  \centering
- \includegraphics[width=0.98\textwidth]{figures/tolerance-requirement-map.pdf}
- \caption{Software-verified development requirements across four independent family
- protocols. Lower-left values require less admitted operator mismatch. Diamonds are
- componentwise family envelopes and need not correspond to a single sampled point. No
- scientific acceptance limits are frozen; this is not an acceptance or retained-evidence
- figure.}
- \label{fig:tolerance-requirement-map}
+ \includegraphics[width=0.98\textwidth]{figures/principal-shell-scale-decision-landscapes.pdf}
+ \caption{Sampled shell--scale decision landscapes for the four principal cases. Each
+ surface uses every complete shell and 17 values along the path from the optimized
+ positive comparison scale to unit scale. Orange markers are nondominated calculated
+ vertices for the three minimized objectives: retained blocks, maximum Hamiltonian
+ error, and maximum sorted-band error. Tessellation connects adjacent calculated
+ shell--scale samples only; it is not continuum or acceptance evidence.}
+ \label{fig:principal-decision-landscapes}
 \end{figure}
 
 Figures~\ref{fig:family-square}--\ref{fig:family-silicon-inspired} show the four
@@ -1193,6 +1280,45 @@ channels are displayed in Figs.~\ref{fig:response-control-strain-2d} and
  \label{fig:response-control-strain-3d}
 \end{figure}
 
+\paragraph{Pathwise qualification and approximation envelopes.}
+The 201-point response sweeps retain the external-gap, seed-overlap, frame-conditioning,
+approximation, and mechanism extrema together with the first strain sample where each
+occurs. For the radial-response control, the minimum sampled external isolation gaps are
+$2.00708E_{\mathrm{ref}}$ in 2-D and $2.01305E_{\mathrm{ref}}$ in 3-D; the minimum
+seed overlaps are $0.998684$ and $0.998687$. The minimum frame-overlap singular values
+remain above $0.9999998$ and $0.999999996$, respectively. Thus the sampled response does
+not coincide with loss of the retained subspace or a rank-deficient frame overlap.
+
+The maximum radial-response pointwise frame-alignment residuals are
+$8.27192\times10^{-4}$ in 2-D and $9.64819\times10^{-5}$ in 3-D, both at $s=1$.
+At the $10^{-5}$ support, the sampled maxima of the total aligned-difference Hamiltonian
+error are $7.80164\times10^{-4}E_{\mathrm{ref}}$ in 2-D and
+$1.89367\times10^{-4}E_{\mathrm{ref}}$ in 3-D. The corresponding frozen-parent
+envelopes remain at binary64 roundoff. In both radial controls the response is
+traceless-dominated: its maximum scalar/traceless components are
+$1.77497\times10^{-6}/0.0635748$ in 2-D and
+$8.93927\times10^{-7}/0.00728904$ in 3-D. These are maxima over calculated samples,
+not continuum bounds. Figures~\ref{fig:qualification-response-scan-2d} and
+\ref{fig:qualification-response-scan-3d} retain the corresponding pointwise envelopes.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/rhombic-2d-strain-qualification-response-scan.pdf}
+ \caption{Replaceable 201-point 2-D qualification and response-mechanism scan. External
+ gap, seed overlap, frame conditioning, radial-response magnitude and mechanism split,
+ and tight-support approximation errors remain distinct channels.}
+ \label{fig:qualification-response-scan-2d}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.98\textwidth]{figures/bain-3d-strain-qualification-response-scan.pdf}
+ \caption{Replaceable 201-point 3-D Bain qualification and response-mechanism scan. The
+ synthetic diamond radial response remains separated from retained-subspace and frame
+ qualification; no material transition is inferred.}
+ \label{fig:qualification-response-scan-3d}
+\end{figure}
+
 \paragraph{Sampled witness and transition scan.}
 The 201-point base scan preserves the normalized cell measure to
 $4.5\times10^{-16}$ in 2-D and $1.3\times10^{-15}$ in 3-D; direct sorted-band defects
@@ -1201,8 +1327,8 @@ pointwise optimized requirement from $0.0810724$ at $s=0$ to $0.0875414$ at $s=1
 the fixed-$p_0$ requirement from $0.0835420$ to $0.0907685$. In 3-D both radial-response
 requirements attain their sampled maxima at $s=0$ and decrease slightly toward the BCC
 endpoint. The geometry-only and frozen-parent requirement curves are strain invariant,
-as their control definitions demand. These are required thresholds, not pass/fail
-results, because no acceptance region is frozen.
+as their control definitions demand. These are sampled requirement coordinates within the decision landscape, not pass/fail
+results; no acceptance classification is intended for the synthetic controls.
 
 The sampled 2-D locality envelopes are $(\widehat R,\widehat N)=(2.82843,25)$ at
 $10^{-3}$ and $(4.24264,61)$ at $10^{-5}$, all attained at $s=1$. In 3-D, the looser
@@ -1245,11 +1371,22 @@ qualified calculations from the cited experiment families.
 
 \section{Bounded interpretation}
 
+The central result is a decision landscape, not an acceptance test. Synthetic deformation
+provides a controlled way to probe mechanisms and sampled requirement coordinates
+associated with the incompatibility among preservation of the retained spectrum,
+agreement under a restricted cell-local operator identification, and finite-range
+hopping support. Exact covariant equivalence remains intact before the
+restriction and truncation. Consequently, a small sorted-band error alone cannot select
+a local Hamiltonian representation, and neither optimized operator scale nor unit
+spectral scale supplies an objective-independent choice.
+
 \begin{prospective}
-If supported by future evidence, the paper may compare representation cost across the
-selected orthogonal and non-orthogonal isotropic systems. It will not infer a universal
-range law, claim material validity, identify eigenvalue equality with operator equality,
-or transfer a cutoff or tolerance between lattice geometries without qualification.
+Qualified calculations may compare the shape and strain dependence of this Pareto
+landscape across the selected orthogonal and non-orthogonal isotropic systems. The paper
+will not infer a universal range law, claim material validity, identify eigenvalue
+equality with operator equality, interpret a synthetic Bain path as a material phase
+transition, or transfer a shell index between lattice geometries without its physical
+metric, radius, and block inventory.
 \end{prospective}
 
 \clearpage

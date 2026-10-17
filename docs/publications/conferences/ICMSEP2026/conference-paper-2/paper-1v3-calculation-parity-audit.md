@@ -28,13 +28,15 @@ remain distinct. \(E_{\mathrm{ref}}\) is the declared energy scale, \(\kappa\) i
 declared gauge-amplitude parameter, and all lattice radii are measured with the relevant
 direct-lattice metric.
 
-The checklist currently contains 110 obligations: 107 completed development-parity
-checks (five restricted-alignment checks, 12 threshold/refinement checks, nine
+The checklist contains 110 completed development-parity dispositions: five
+restricted-alignment checks, 15 threshold/refinement/disposition checks, nine
 frame/transport/closure checks, 22 Fourier-locality and omitted-weight checks, eight
 numerical-identity checks, 24 Hamiltonian-error checks, four mesh/amplitude-resolution
-checks, 21 spectral-error checks, and two retained-subspace checks), three
-tolerance-dependent conclusions that remain unresolved, and no outstanding literal
-one-dimensional applicability determinations. A completed box records a definition and
+checks, 21 spectral-error checks, and two retained-subspace checks. The three inherited
+tolerance-dependent conclusions are explicitly inapplicable because the synthetic study
+characterizes a decision landscape and defines no acceptance test; their numerical
+requirements remain calculated coordinates rather than pass/fail outcomes. There are no
+outstanding literal one-dimensional applicability determinations. A completed box records a definition and
 an independent development reconstruction; it does not confer scientific qualification.
 For the completed alignment checks, direct finite-mesh correlations agree with the
 applicable Bessel-product or constrained zero-mode comparators in bounded square,
@@ -104,10 +106,10 @@ and keep numerical refinement separate from a scientific pass/fail conclusion.
 - [x] Bound the largest refinement change among parent-model diagnostics. *(unitless)*
 - [x] Bound the largest refinement change in the operator or joint threshold. *(in units of \(E_{\mathrm{ref}}\))*
 - [x] Determine whether the momentum-resolved criterion passes, fails, or remains scientifically unresolved.
-- [ ] Decide whether the optimized-scale result meets a frozen family-specific tolerance. *(currently unresolved because no tolerance is frozen)*
-- [ ] Decide whether the unit-splitting-scale result meets a frozen family-specific tolerance. *(currently unresolved because no tolerance is frozen)*
+- [x] Decide whether the optimized-scale result meets a frozen family-specific tolerance. *(inapplicable: the synthetic decision-landscape study defines no acceptance test; the optimized-scale requirement remains a calculated objective coordinate)*
+- [x] Decide whether the unit-splitting-scale result meets a frozen family-specific tolerance. *(inapplicable: the synthetic decision-landscape study defines no acceptance test; the unit-scale requirement remains a calculated objective coordinate)*
 - [x] Recompute the parent splitting power \(\kappa\) and the optimal nonnegative comparison multiplier \(\lambda_\ast=\max(0,\mu_{\max})\). *(unitless)*
-- [ ] Decide whether all required family-specific tolerances are satisfied simultaneously. *(currently unresolved because no tolerances are frozen)*
+- [x] Decide whether all required family-specific tolerances are satisfied simultaneously. *(inapplicable: simultaneous pass/fail classification is replaced by sampled nondominance among retained-block, Hamiltonian-error, and sorted-band-error objectives)*
 
 ## 3. Frame transport, periodic closure, and sewing
 
@@ -255,8 +257,9 @@ Hamiltonian subtraction is interpreted.
 
 ## Completion condition
 
-The checklist is complete only when every applicable box is supported by an
-independently reproduced quantity for every Paper 2 family, every tolerance-dependent
-conclusion has a frozen family-specific scientific rule, both closure-phase reductions
-have a stated mathematical meaning, and every inapplicability statement has been
-reviewed against the relevant geometry and meshes.
+The checklist is complete when every applicable box is supported by an independently
+reproduced quantity for every Paper 2 family, every inherited tolerance-dependent
+conclusion has either a frozen family-specific scientific rule or an explicit
+non-acceptance disposition, both closure-phase reductions have a stated mathematical
+meaning, and every inapplicability statement has been reviewed against the relevant
+geometry and meshes.

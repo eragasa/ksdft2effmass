@@ -58,9 +58,9 @@ tolerances and schemas, frozen revisions, and qualified convergence/verifier con
 remain open. Bounded three-level actions with independent development verifiers now
 exercise all four families without conferring evidence status. One pointwise
 graphene-family shell decision changes between the first two levels; every decision is
-unchanged on the final refinement. All 110 Paper 1 catalog rows now have an explicit
-mapping: 107 development-parity obligations are complete and three scientific
-disposition rows remain unresolved pending justified, frozen family-specific acceptance
+unchanged on the final refinement. All 110 Paper 1 catalog rows now have a completed
+parity disposition. The three inherited acceptance rows are explicitly inapplicable to
+the synthetic decision-landscape study rather than left open or assigned self-selected
 tolerances. The rank-two multidimensional closure phases use independently reconstructed
 worst-case ordered-eigenphase magnitudes. The independent explicit finite-sum oracle
 closes software-level parity for the applicable calculated rows without conferring
@@ -138,9 +138,18 @@ and first-passing physical hopping range.
 
 The strain extension currently has bounded geometry-only diagnostics, separately
 labeled frozen-parent null-response and fixed synthetic radial-response smoke actions,
-and a replaceable 201-point scan with sampled witness-requirement and locality envelopes.
-Five-level bisection narrows detected shell and bond-degeneracy transitions to sampled
-brackets no wider than $1/6400$; it is not a continuum certificate. Test-only explicit
+and a replaceable 201-point scan with sampled witness, locality, retained-subspace,
+frame-conditioning, approximation, and response-mechanism envelopes. A separate
+fixed-geometry shell--scale calculation now samples all eight cases and renders a
+four-case principal comparison plus eight case-resolved appendix plots. It characterizes
+the discrete compromise among retained blocks, Hamiltonian error, and sorted-band error;
+it does not define tolerances, establish a continuum Pareto frontier, or yet show motion
+of that landscape under strain. Its replaceable artifacts have strict schemas,
+SHA-256 source/request binding, environment identifiers, and exact canonical read-back
+verification; those checks qualify artifact mechanics, not scientific adequacy.
+Five-level bisection narrows detected shell and
+bond-degeneracy transitions to sampled brackets no
+wider than $1/6400$; it is not a continuum certificate. Test-only explicit
 finite sums and an independent harmonic reconstruction qualify the applicable scan
 channels at software level. Reusable Bain/rhombic paths, diamond decoration, and the
 FCC--Bain coordinate bridge are frozen KSD donor surfaces pending separately reviewed
@@ -149,7 +158,7 @@ and convergence remain open; the extension contributes no material-strain result
 
 This remains a pre-results manuscript package. Replaceable bounded three-level records
 are available but do not constitute the paper's qualified numerical results or resolve
-the three tolerance-dependent dispositions and remaining convergence requirements. Proximity-only correlation endpoint
+remaining convergence requirements. Proximity-only correlation endpoint
 canonicalization remains deferred technical debt under
 [`TD-BEL-001`](../../../../tasks/tech_debt/band-equivalence-locality/index.md). No protocol freeze,
 qualified convergence result, retained run, evidence package, material claim, conference

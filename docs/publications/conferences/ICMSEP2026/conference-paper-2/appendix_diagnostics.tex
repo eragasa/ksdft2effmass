@@ -133,6 +133,30 @@ are finite-sample statistics:
 \end{equation}
 Each maximum retains its own sample location; the locations need not agree.
 
+The response-sweep qualification envelope additionally retains
+\begin{equation}
+ \min_i g_{\mathrm{ext}}(s_i),\qquad
+ \min_i\sigma_{\mathrm{seed}}(s_i),\qquad
+ \min_i\sigma_{\mathrm{frame}}(s_i),\qquad
+ \max_i r_{\mathrm{point}}(s_i),\qquad
+ \max_i r_{\mathrm{global}}(s_i),
+ \label{eq:app-strain-qualification-envelope}
+\end{equation}
+where $g_{\mathrm{ext}}$ is the sampled external isolation gap,
+$\sigma_{\mathrm{seed}}$ is the minimum seed-projector overlap,
+$\sigma_{\mathrm{frame}}$ is the minimum singular value of the pointwise frame overlap,
+and the two $r$ channels are pointwise and restricted-global frame-alignment residuals.
+Every extremum retains the first sampled strain at which it occurs. These quantities
+qualify the retained state-space identification; they are not response observables.
+
+For the frozen-parent and radial-response controls, the sweep also takes separate sampled
+maxima of all four errors in Eq.~\eqref{eq:app-primary-error-channels} for the aligned
+response, interpolation, deliberate truncation, and total channels. The same reduction
+is applied to $\Delta H_s$, ordinary omitted power, cyclic Nyquist power, scalar and
+traceless response components, onsite and offsite response power, and minimum and
+maximum prescribed hopping-response factors. No maxima from distinct channels are
+combined into a synthetic sample, and none is relabeled as a continuum supremum.
+
 A detected transition bracket is an adjacent sampled interval whose endpoint values of
 a discrete channel differ. The present discrete channels are first-passing block count
 at each tail tolerance and number of distinct bond-length orbits. Five bisections reduce

@@ -105,20 +105,21 @@ family uses $\pi/(4\sqrt{12})$; both include zero and the midpoint. Every family
 parent scales $\rho\in\{0,1\}$. These are synthetic controls, not graphene or silicon
 parameterizations.
 
-\section{Cross-protocol threshold requirements}
+\section{Cross-protocol requirement coordinates}
 \label{app:tolerance-requirements}
 
 The positive-splitting-scale optimization and the exact-spectrum unit-scale question are
-kept separate. For each applicable sampled point, the requirement map displays
+kept separate. The earlier two-coordinate requirement reduction records
 \begin{equation}
  x=\frac{\tau_{o,\min}}{\sqrt\kappa},\qquad
  y=\frac{\tau_{o,\mathrm{joint}}}{E_{\mathrm{ref}}}.
  \label{eq:app-requirement-pair}
 \end{equation}
-The family diamonds in the main-text map are componentwise maxima over all sampled
-cases, parent scales, and amplitudes. Their two coordinates need not originate from the
-same sampled point. Table~\ref{tab:app-case-requirements} therefore exposes each case
-envelope separately.
+The componentwise maxima over cases, parent scales, and amplitudes need not originate
+from the same sampled point and are not attainable decisions in general.
+Table~\ref{tab:app-case-requirements} retains these scalar audit coordinates for each
+case, but the main text replaces their visual envelope with the shell--scale Pareto
+formulation in Eq.~\eqref{eq:pareto-decision-objectives}.
 
 \begin{table}[htbp]
 \centering
@@ -143,14 +144,139 @@ Diamond-inspired target & 0.347324 & 0.052890 \\
 \end{tabular}
 \end{table}
 
-A candidate family-specific limit pair would have to lie at or above every applicable
-point to accept the complete sampled family. Choosing that pair after observing
-Table~\ref{tab:app-case-requirements} would be post hoc. The three remaining items in
-the 110-item Paper~1 parity audit therefore remain unresolved: optimized-scale
-acceptance, unit-scale acceptance, and their simultaneous satisfaction. The audit has
-107 completed obligations, but this software and calculation coverage does not settle
-the three scientific dispositions.
+No limit pair is selected from Table~\ref{tab:app-case-requirements}. The three inherited
+acceptance questions in the 110-item Paper~1 parity audit are explicitly inapplicable to
+the synthetic decision-landscape study: their underlying requirements remain calculated,
+but no pass/fail classification is asked. All 110 parity dispositions are therefore
+complete without manufacturing a tolerance from the observed values.
 
+\section{Case-resolved shell--scale decision landscapes}
+\label{app:case-decision-landscapes}
+
+Table~\ref{tab:app-decision-landscape-inventory} records the fixed-geometry endpoint
+sampling used in the case-resolved plots. Each case uses its maximum declared parent
+scale and gauge amplitude, every complete shell under its own physical metric and shell
+cap, and 17 uniformly spaced values of the scale-path coordinate in
+Eq.~\eqref{eq:scale-path}. Exact componentwise dominance is evaluated only among these
+calculated vertices. The number of nondominated vertices is therefore a sampling
+diagnostic, not a continuum invariant or a measure of scientific adequacy.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Sampled shell--scale landscape inventory.}
+\label{tab:app-decision-landscape-inventory}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Case & $\lambda_*$ & Calculated & Nondominated \\
+\midrule
+Square directed parent & 0.729890 & 238 & 120 \\
+Matched square Bravais control & 0.813169 & 221 & 127 \\
+Triangular Bravais control & 0.835297 & 187 & 156 \\
+Graphene-inspired honeycomb & 0.883506 & 187 & 126 \\
+Simple-cubic directed parent & 0.812597 & 153 & 85 \\
+Matched simple-cubic Bravais control & 0.902347 & 119 & 80 \\
+FCC Bravais control & 0.913939 & 136 & 116 \\
+Silicon-inspired diamond & 0.937745 & 136 & 34 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The parent scale is $1$ in every row. The gauge amplitude and complete-shell inventory
+are as follows; parenthesized block counts give $N(S)$ in the same order as the listed
+shell indices.
+\begin{description}
+ \item[Square directed parent:] $a=\pi/4$;
+ $S=(0,\allowbreak 1,\allowbreak 2,\allowbreak 4,\allowbreak 5,\allowbreak 8,\allowbreak 9,\allowbreak 10,\allowbreak 13,\allowbreak 16,\allowbreak 17,\allowbreak 18,\allowbreak 20,\allowbreak 25)$;
+ $N=(1,\allowbreak 5,\allowbreak 9,\allowbreak 13,\allowbreak 21,\allowbreak 25,\allowbreak 29,\allowbreak 37,\allowbreak 45,\allowbreak 49,\allowbreak 57,\allowbreak 61,\allowbreak 69,\allowbreak 81)$.
+ \item[Matched square control:] $a=\pi/(4\sqrt6)$;
+ $S=(0,\allowbreak 1,\allowbreak 2,\allowbreak 4,\allowbreak 5,\allowbreak 8,\allowbreak 9,\allowbreak 10,\allowbreak 13,\allowbreak 16,\allowbreak 17,\allowbreak 18,\allowbreak 20)$;
+ $N=(1,\allowbreak 5,\allowbreak 9,\allowbreak 13,\allowbreak 21,\allowbreak 25,\allowbreak 29,\allowbreak 37,\allowbreak 45,\allowbreak 49,\allowbreak 57,\allowbreak 61,\allowbreak 69)$.
+ \item[Triangular control:] $a=\pi/(4\sqrt6)$;
+ $S=(0,\allowbreak 1,\allowbreak 3,\allowbreak 4,\allowbreak 7,\allowbreak 9,\allowbreak 12,\allowbreak 13,\allowbreak 16,\allowbreak 19,\allowbreak 21)$;
+ $N=(1,\allowbreak 7,\allowbreak 13,\allowbreak 19,\allowbreak 31,\allowbreak 37,\allowbreak 43,\allowbreak 55,\allowbreak 61,\allowbreak 73,\allowbreak 85)$.
+ \item[Honeycomb:] $a=\pi/(4\sqrt6)$; it uses the same shell indices and block counts
+ as the triangular control.
+ \item[Cubic parent:] $a=\pi/4$;
+ $S=(0,1,2,3,4,5,6,8,9)$; $N=(1,7,19,27,33,57,81,93,123)$.
+ \item[Matched cubic control:] $a=\pi/(4\sqrt{12})$;
+ $S=(0,1,2,3,4,5,6)$; $N=(1,7,19,27,33,57,81)$.
+ \item[FCC control:] $a=\pi/(4\sqrt{12})$;
+ $S=(0,1,2,3,4,5,6,7)$; $N=(1,13,19,43,55,79,87,135)$.
+ \item[Diamond:] $a=\pi/(4\sqrt{12})$; it uses the same shell indices and block
+ counts as the FCC control.
+\end{description}
+
+The axes of every plot are the three components of
+$\mathcal J_s(S,u)$ in Eq.~\eqref{eq:pareto-decision-objectives}, evaluated here at the
+fixed-geometry endpoint amplitude rather than along a strain path. Color gives the
+scale-path coordinate $u$. The displayed triangular faces connect only adjacent cells in
+the sampled $(S,u)$ grid. They do not assert that the objective-space image is convex,
+smooth, continuously covered, or valid between vertices.
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/square-directed-parent-shell-scale-decision-landscape.pdf}
+ \caption{Square directed-parent decision landscape. The comparatively broad separation
+ between $\lambda_*$ and unity produces a visible operator--spectrum scale compromise.}
+ \label{fig:app-decision-square-parent}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/matched-square-bravais-control-shell-scale-decision-landscape.pdf}
+ \caption{Matched square Bravais-control decision landscape. This control changes the
+ parent law while retaining the square metric.}
+ \label{fig:app-decision-square-control}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/triangular-bravais-control-shell-scale-decision-landscape.pdf}
+ \caption{Triangular Bravais-control decision landscape. Its shell inventory is defined
+ by the non-orthogonal physical metric rather than square-coordinate radius.}
+ \label{fig:app-decision-triangular-control}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/graphene-inspired-honeycomb-shell-scale-decision-landscape.pdf}
+ \caption{Graphene-inspired honeycomb decision landscape. ``Inspired'' denotes the
+ synthetic geometry and connectivity, not a graphene material parametrization.}
+ \label{fig:app-decision-honeycomb}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/simple-cubic-directed-parent-shell-scale-decision-landscape.pdf}
+ \caption{Simple-cubic directed-parent decision landscape.}
+ \label{fig:app-decision-cubic-parent}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/matched-simple-cubic-bravais-control-shell-scale-decision-landscape.pdf}
+ \caption{Matched simple-cubic Bravais-control decision landscape.}
+ \label{fig:app-decision-cubic-control}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/fcc-bravais-control-shell-scale-decision-landscape.pdf}
+ \caption{FCC Bravais-control decision landscape using complete FCC metric shells.}
+ \label{fig:app-decision-fcc-control}
+\end{figure}
+
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/silicon-inspired-diamond-shell-scale-decision-landscape.pdf}
+ \caption{Silicon-inspired diamond decision landscape. Its optimized scale is closest to
+ unity and its sampled nondominated set is the most selective of the eight cases. This
+ remains a synthetic rank-two control, not a silicon material calculation.}
+ \label{fig:app-decision-diamond}
+\end{figure}
+
+\clearpage
 \section{Finite-strain control definitions}
 \label{app:strain-controls}
 
