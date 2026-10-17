@@ -70,12 +70,15 @@ def evaluate_blocks(
         phase_second = np.exp(
             2.0j * np.pi * coordinates[0, :, 1, None] * integer[None, :]
         )
-        return np.einsum(
-            "ar,bs,rsij->abij",
-            phase_first,
-            phase_second,
-            grid,
-            optimize=True,
+        return np.asarray(
+            np.einsum(
+                "ar,bs,rsij->abij",
+                phase_first,
+                phase_second,
+                grid,
+                optimize=True,
+            ),
+            dtype=np.complex128,
         )
     if dimension == 3:
         phase_first = np.exp(
@@ -91,7 +94,10 @@ def evaluate_blocks(
         intermediate = np.einsum(
             "bs,astij->abtij", phase_second, intermediate, optimize=True
         )
-        return np.einsum("ct,abtij->abcij", phase_third, intermediate, optimize=True)
+        return np.asarray(
+            np.einsum("ct,abtij->abcij", phase_third, intermediate, optimize=True),
+            dtype=np.complex128,
+        )
     raise ValueError("only two- and three-dimensional tensor meshes are supported")
 
 

@@ -12,12 +12,15 @@ import numpy as np
 
 from .constrained_bessel import (
     ConstrainedBesselGeometry,
-    constrained_bessel_tail_diagnostic,
+    ConstrainedBesselTailDiagnostic,
+    ConstrainedBesselTailRequest,
 )
 from .serialization import JsonValue
 
 matplotlib.use("Agg")
 from matplotlib import pyplot as plt  # noqa: E402
+from matplotlib.axes import Axes  # noqa: E402
+from matplotlib.figure import Figure  # noqa: E402
 
 _BLUE = "#0072B2"
 _VERMILION = "#D55E00"
@@ -42,7 +45,7 @@ _STYLE: dict[str, JsonValue] = {
 }
 
 
-def _panel_label(axis: plt.Axes, label: str) -> None:
+def _panel_label(axis: Axes, label: str) -> None:
     axis.text(
         -0.13,
         1.04,
@@ -55,7 +58,7 @@ def _panel_label(axis: plt.Axes, label: str) -> None:
     )
 
 
-def _save(figure: plt.Figure, stem: Path, title: str, subject: str) -> None:
+def _save(figure: Figure, stem: Path, title: str, subject: str) -> None:
     metadata = {"Title": title, "Subject": subject}
     figure.savefig(stem.with_suffix(".pdf"), bbox_inches="tight", metadata=metadata)
     figure.savefig(
@@ -614,13 +617,16 @@ def _plot_constrained_tail(
     kernel_cap: int,
 ) -> None:
     shells = tuple(range(shell_cap + 1))
+    diagnostic = ConstrainedBesselTailDiagnostic()
     bounds = tuple(
-        constrained_bessel_tail_diagnostic(
-            geometry,
-            math.pi / 4.0,
-            shell,
-            kernel_cap,
-            1.0e-13,
+        diagnostic.execute(
+            ConstrainedBesselTailRequest(
+                geometry=geometry,
+                maximum_rotation_amplitude=math.pi / 4.0,
+                shell_cap=shell,
+                kernel_cap=kernel_cap,
+                numerical_margin=1.0e-13,
+            )
         ).tail_power_upper_bound
         for shell in shells
     )
@@ -659,7 +665,7 @@ def _plot_constrained_tail(
     plt.close(figure)
 
 
-def write_development_plots(
+def write_band_equivalence_locality_plots(
     smoke_result: Path,
     refinement_result: Path,
     output: Path,
@@ -727,4 +733,4 @@ def write_development_plots(
     )
 
 
-__all__ = ["write_development_plots"]
+__all__ = ["write_band_equivalence_locality_plots"]

@@ -5,8 +5,7 @@ import math
 import pytest
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
-    ConstrainedBesselGeometry,
-    constrained_bessel_tail_diagnostic,
+    constrained_bessel,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -16,12 +15,14 @@ class TestConstrainedBesselTailDiagnostic:
     """Establish selected triangular/FCC formulas and failure boundaries."""
 
     def test_triangular__selected_cap__has_bounded_one_index_remainder(self) -> None:
-        diagnostic = constrained_bessel_tail_diagnostic(
-            ConstrainedBesselGeometry.TRIANGULAR,
-            math.pi / 4.0,
-            shell_cap=21,
-            kernel_cap=10,
-            numerical_margin=1.0e-13,
+        diagnostic = constrained_bessel.ConstrainedBesselTailDiagnostic().execute(
+            constrained_bessel.ConstrainedBesselTailRequest(
+                geometry=constrained_bessel.ConstrainedBesselGeometry.TRIANGULAR,
+                maximum_rotation_amplitude=math.pi / 4.0,
+                shell_cap=21,
+                kernel_cap=10,
+                numerical_margin=1.0e-13,
+            )
         )
 
         assert diagnostic.bessel_argument == pytest.approx(math.pi / 6.0)
@@ -32,12 +33,14 @@ class TestConstrainedBesselTailDiagnostic:
         )
 
     def test_fcc__selected_cap__has_bounded_three_index_remainder(self) -> None:
-        diagnostic = constrained_bessel_tail_diagnostic(
-            ConstrainedBesselGeometry.FCC,
-            math.pi / 4.0,
-            shell_cap=7,
-            kernel_cap=9,
-            numerical_margin=1.0e-13,
+        diagnostic = constrained_bessel.ConstrainedBesselTailDiagnostic().execute(
+            constrained_bessel.ConstrainedBesselTailRequest(
+                geometry=constrained_bessel.ConstrainedBesselGeometry.FCC,
+                maximum_rotation_amplitude=math.pi / 4.0,
+                shell_cap=7,
+                kernel_cap=9,
+                numerical_margin=1.0e-13,
+            )
         )
 
         assert diagnostic.bessel_argument == pytest.approx(math.pi / 12.0)
@@ -47,25 +50,25 @@ class TestConstrainedBesselTailDiagnostic:
 
     def test_inputs__invalid_types_ranges_and_resource_caps__fail_closed(self) -> None:
         with pytest.raises(TypeError, match="geometry"):
-            constrained_bessel_tail_diagnostic(
-                "fcc",  # type: ignore[arg-type]
-                math.pi / 4.0,
+            constrained_bessel.ConstrainedBesselTailRequest(
+                geometry="fcc",  # type: ignore[arg-type]
+                maximum_rotation_amplitude=math.pi / 4.0,
                 shell_cap=7,
                 kernel_cap=9,
                 numerical_margin=1.0e-13,
             )
         with pytest.raises(TypeError, match="built-in integers"):
-            constrained_bessel_tail_diagnostic(
-                ConstrainedBesselGeometry.FCC,
-                math.pi / 4.0,
+            constrained_bessel.ConstrainedBesselTailRequest(
+                geometry=constrained_bessel.ConstrainedBesselGeometry.FCC,
+                maximum_rotation_amplitude=math.pi / 4.0,
                 shell_cap=True,
                 kernel_cap=9,
                 numerical_margin=1.0e-13,
             )
         with pytest.raises(ValueError, match="resource bound"):
-            constrained_bessel_tail_diagnostic(
-                ConstrainedBesselGeometry.FCC,
-                math.pi / 4.0,
+            constrained_bessel.ConstrainedBesselTailRequest(
+                geometry=constrained_bessel.ConstrainedBesselGeometry.FCC,
+                maximum_rotation_amplitude=math.pi / 4.0,
                 shell_cap=7,
                 kernel_cap=13,
                 numerical_margin=1.0e-13,

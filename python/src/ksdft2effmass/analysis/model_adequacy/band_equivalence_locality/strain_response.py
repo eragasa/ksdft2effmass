@@ -129,7 +129,7 @@ def _bond_lengths(path: SyntheticStrainPath, metric: FloatArray) -> FloatArray:
     translations = _parent_translations(path).astype(np.float64)
     vectors = _basis_offset(path)[None, :] - translations
     squared = np.einsum("bi,ij,bj->b", vectors, metric, vectors)
-    return np.sqrt(squared)
+    return np.asarray(np.sqrt(squared), dtype=np.float64)
 
 
 def _hopping_responses(

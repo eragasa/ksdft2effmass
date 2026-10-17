@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 
-from .definitions import DevelopmentFamily
+from .definitions import TRANSPORT_RANK_DEFICIENT_REASON, BandEquivalenceLocalityFamily
 
 
 @dataclass(frozen=True, slots=True)
@@ -74,11 +75,15 @@ class PointDiagnostic:
     maximum_periodic_frame_closure_defect: float
     minimum_sampled_transport_singular_value: float
     maximum_transport_procrustes_residual: float
+    maximum_transport_squared_residual_roundoff_cutoff: float
     maximum_transport_unitarity_defect: float
     maximum_transport_rank_cutoff: float
-    maximum_absolute_closure_holonomy_phases: tuple[float, float]
-    maximum_closure_holonomy_unitarity_defect: float
-    maximum_plaquette_holonomy_phase: float
+    transport_rank_deficient_link_count: int
+    transport_closure_and_plaquette_applicable: bool
+    transport_closure_and_plaquette_inapplicable_reason: str | None
+    maximum_absolute_closure_holonomy_phases: tuple[float, float] | None
+    maximum_closure_holonomy_unitarity_defect: float | None
+    maximum_plaquette_holonomy_phase: float | None
     maximum_direct_band_defect: float
     maximum_covariant_defect: float
     alignment_applicable: bool
@@ -123,6 +128,56 @@ class PointDiagnostic:
     shell_diagnostics: tuple[ShellDiagnostic, ...]
     first_passing: tuple[FirstPassingDecision, ...]
 
+    def __post_init__(self) -> None:
+        """Reject inconsistent transport applicability and resolution evidence."""
+        count = self.transport_rank_deficient_link_count
+        if type(count) is not int:
+            raise TypeError(
+                "transport_rank_deficient_link_count must be a built-in int"
+            )
+        if count < 0:
+            raise ValueError("transport_rank_deficient_link_count must be nonnegative")
+        cutoff = self.maximum_transport_squared_residual_roundoff_cutoff
+        if type(cutoff) is not float:
+            raise TypeError(
+                "maximum_transport_squared_residual_roundoff_cutoff must be a "
+                "built-in float"
+            )
+        if not math.isfinite(cutoff) or cutoff < 0.0:
+            raise ValueError(
+                "maximum_transport_squared_residual_roundoff_cutoff must be finite "
+                "and nonnegative"
+            )
+        applicable = self.transport_closure_and_plaquette_applicable
+        if type(applicable) is not bool:
+            raise TypeError(
+                "transport_closure_and_plaquette_applicable must be a built-in bool"
+            )
+        if applicable != (count == 0):
+            raise ValueError(
+                "transport applicability must equal zero rank-deficient links"
+            )
+        topology_values = (
+            self.maximum_absolute_closure_holonomy_phases,
+            self.maximum_closure_holonomy_unitarity_defect,
+            self.maximum_plaquette_holonomy_phase,
+        )
+        if applicable:
+            if self.transport_closure_and_plaquette_inapplicable_reason is not None:
+                raise ValueError("applicable transport must not have a reason")
+            if any(value is None for value in topology_values):
+                raise ValueError("applicable transport requires topology diagnostics")
+        else:
+            if (
+                self.transport_closure_and_plaquette_inapplicable_reason
+                != TRANSPORT_RANK_DEFICIENT_REASON
+            ):
+                raise ValueError("inapplicable transport requires the stable reason")
+            if any(value is not None for value in topology_values):
+                raise ValueError(
+                    "inapplicable transport prohibits topology diagnostics"
+                )
+
 
 @dataclass(frozen=True, slots=True)
 class FlatAmplitudeResolutionDiagnostic:
@@ -164,21 +219,33 @@ class CaseDiagnostic:
 
 
 @dataclass(frozen=True, slots=True)
-class DevelopmentResult:
+class BandEquivalenceLocalityResult:
     """Retain a compact development result without claiming scientific qualification."""
 
-    family: DevelopmentFamily
+    family: BandEquivalenceLocalityFamily
     status: str
+    analysis_request_sha256: str
     construction_size: int
     evaluation_size: int
     cases: tuple[CaseDiagnostic, ...]
 
+    def __post_init__(self) -> None:
+        digest = self.analysis_request_sha256
+        if type(digest) is not str:
+            raise TypeError("analysis_request_sha256 must be a built-in str")
+        if len(digest) != 64 or any(
+            character not in "0123456789abcdef" for character in digest
+        ):
+            raise ValueError(
+                "analysis_request_sha256 must be a lowercase SHA-256 digest"
+            )
+
 
 @dataclass(frozen=True, slots=True)
-class DevelopmentVerification:
+class BandEquivalenceLocalityVerificationResult:
     """Retain independently recomputed checks of a development result."""
 
-    family: DevelopmentFamily
+    family: BandEquivalenceLocalityFamily
     passes: bool
     maximum_stored_identity_defect: float
     maximum_independent_parent_defect: float
@@ -190,8 +257,8 @@ class DevelopmentVerification:
 __all__ = [
     "AmplitudeMidpointDiagnostic",
     "CaseDiagnostic",
-    "DevelopmentResult",
-    "DevelopmentVerification",
+    "BandEquivalenceLocalityResult",
+    "BandEquivalenceLocalityVerificationResult",
     "ErrorChannels",
     "FirstPassingDecision",
     "FlatAmplitudeResolutionDiagnostic",

@@ -12,13 +12,12 @@ from typing import Protocol
 
 import numpy as np
 from numpy.typing import NDArray
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLattice3D
+from projectkoios.physkit.periodic.lattice import DirectLatticeMetric
 from projectkoios.physkit.periodic.lattice.finite_domain import (
     LatticeDimension,
     LatticeDisplacement,
     LatticeIntegerComponents,
 )
-from projectkoios.physkit.periodic.lattice.metric import DirectLatticeMetric
 from projectkoios.physkit.periodic.lattice.symmetry import (
     IntegerMatrix,
     IntegralLatticeOperation,
@@ -36,7 +35,7 @@ class MetricGeometry(Protocol):
     def dimension(self) -> int: ...
 
     @property
-    def metric(self) -> tuple[tuple[float, ...], ...]: ...
+    def direct_metric(self) -> DirectLatticeMetric: ...
 
     @property
     def shell_metric_scale(self) -> float: ...
@@ -46,20 +45,9 @@ class MetricGeometry(Protocol):
 
 
 def _direct_metric(geometry: MetricGeometry) -> DirectLatticeMetric:
-    metric = np.asarray(geometry.metric, dtype=np.float64)
-    primitive = np.linalg.cholesky(metric).T
-    lattice: DirectLattice2D | DirectLattice3D
-    if geometry.dimension == 2:
-        lattice = DirectLattice2D(a1=primitive[:, 0], a2=primitive[:, 1])
-    elif geometry.dimension == 3:
-        lattice = DirectLattice3D(
-            a1=primitive[:, 0],
-            a2=primitive[:, 1],
-            a3=primitive[:, 2],
-        )
-    else:
-        raise ValueError("only two- and three-dimensional metrics are supported")
-    return DirectLatticeMetric(lattice)
+    if geometry.dimension != geometry.direct_metric.dimension:
+        raise ValueError("geometry and direct-metric dimensions must agree")
+    return geometry.direct_metric
 
 
 def metric_indices(geometry: MetricGeometry, displacements: IntArray) -> IntArray:
@@ -71,7 +59,7 @@ def metric_indices(geometry: MetricGeometry, displacements: IntArray) -> IntArra
     rounded = np.rint(values)
     if float(np.max(np.abs(values - rounded))) > 1.0e-12:
         raise ValueError("scaled physical metric does not give integer shell labels")
-    return rounded.astype(np.int64)
+    return np.asarray(rounded, dtype=np.int64)
 
 
 def minimum_mesh_separation(construction: FloatArray, evaluation: FloatArray) -> float:
@@ -126,9 +114,7 @@ def metric_covariance_defect(geometry: MetricGeometry) -> float:
         ).components
         for sample in samples
     )
-    # Preserve the campaign's exact declared metric entries for the covariance
-    # identity; PhysKit owns the integral operation and displacement transform.
-    metric = np.asarray(geometry.metric, dtype=np.float64)
+    metric = _direct_metric(geometry).metric_tensor
     transform_array = np.asarray(transform.matrix, dtype=np.float64)
     transformed_metric = transform_array.T @ metric @ transform_array
     sample_array = np.asarray(samples, dtype=np.float64)

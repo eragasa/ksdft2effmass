@@ -28,12 +28,13 @@ from .alignment import (
 )
 from .constrained_bessel import (
     ConstrainedBesselGeometry,
-    constrained_bessel_zero_mode_diagnostic,
+    ConstrainedBesselZeroModeDiagnostic,
+    ConstrainedBesselZeroModeRequest,
 )
 from .definitions import (
-    DevelopmentCase,
-    DevelopmentDefinition,
-    DevelopmentFamily,
+    BandEquivalenceLocalityCase,
+    BandEquivalenceLocalityFamily,
+    BandEquivalenceLocalityRequest,
     GaugeNormalization,
     ParentKind,
 )
@@ -55,9 +56,9 @@ from .geometry import (
 )
 from .records import (
     AmplitudeMidpointDiagnostic,
+    BandEquivalenceLocalityResult,
+    BandEquivalenceLocalityVerificationResult,
     CaseDiagnostic,
-    DevelopmentResult,
-    DevelopmentVerification,
     FirstPassingDecision,
     FlatAmplitudeResolutionDiagnostic,
     PointDiagnostic,
@@ -113,7 +114,7 @@ def _rotation_field(angles: FloatArray) -> ComplexArray:
 
 
 def _parent_field(
-    case: DevelopmentCase, coordinates: FloatArray, parent_scale: float
+    case: BandEquivalenceLocalityCase, coordinates: FloatArray, parent_scale: float
 ) -> ComplexArray:
     shape = coordinates.shape[:-1]
     result = np.broadcast_to(_ONSITE, (*shape, 4, 4)).copy()
@@ -146,7 +147,9 @@ def _parent_field(
     return result
 
 
-def _continuous_gap_lower_bound(case: DevelopmentCase, parent_scale: float) -> float:
+def _continuous_gap_lower_bound(
+    case: BandEquivalenceLocalityCase, parent_scale: float
+) -> float:
     if case.parent_kind is ParentKind.BIPARTITE_INSPIRED:
         return 2.40 - parent_scale * 0.40 - 0.16
     onsite_gap = float(np.linalg.eigvalsh(_ONSITE)[2] - np.linalg.eigvalsh(_ONSITE)[1])
@@ -176,7 +179,7 @@ def _retained_field(frame: ComplexArray, parent: ComplexArray) -> ComplexArray:
 
 
 def _gauge_angles(
-    case: DevelopmentCase, coordinates: FloatArray, amplitude: float
+    case: BandEquivalenceLocalityCase, coordinates: FloatArray, amplitude: float
 ) -> FloatArray:
     bonds = np.asarray(case.positive_bonds, dtype=np.float64)
     arguments = np.einsum("...d,bd->...b", coordinates, bonds)
@@ -187,7 +190,7 @@ def _gauge_angles(
 
 
 def _analytic_flat_correlation(
-    case: DevelopmentCase, amplitude: float
+    case: BandEquivalenceLocalityCase, amplitude: float
 ) -> tuple[float, float]:
     bond_count = len(case.positive_bonds)
     if case.gauge_normalization is GaugeNormalization.AXIS_MAXIMUM:
@@ -198,20 +201,28 @@ def _analytic_flat_correlation(
     if bond_count == case.dimension and np.linalg.matrix_rank(bonds) == case.dimension:
         return float(j0(argument)) ** bond_count, 0.0
     if case.dimension == 2 and bond_count == 3:
-        diagnostic = constrained_bessel_zero_mode_diagnostic(
-            ConstrainedBesselGeometry.TRIANGULAR, argument, 20
+        diagnostic = ConstrainedBesselZeroModeDiagnostic().execute(
+            ConstrainedBesselZeroModeRequest(
+                ConstrainedBesselGeometry.TRIANGULAR,
+                argument,
+                20,
+            )
         )
         return diagnostic.value, diagnostic.remainder_bound
     if case.dimension == 3 and bond_count == 6:
-        diagnostic = constrained_bessel_zero_mode_diagnostic(
-            ConstrainedBesselGeometry.FCC, argument, 9
+        diagnostic = ConstrainedBesselZeroModeDiagnostic().execute(
+            ConstrainedBesselZeroModeRequest(
+                ConstrainedBesselGeometry.FCC,
+                argument,
+                9,
+            )
         )
         return diagnostic.value, diagnostic.remainder_bound
     raise ValueError("no analytic flat correlation owns this bond inventory")
 
 
 def _analytic_flat_correlation_values(
-    case: DevelopmentCase, amplitudes: FloatArray
+    case: BandEquivalenceLocalityCase, amplitudes: FloatArray
 ) -> FloatArray:
     """Evaluate one flat correlation law vectorially for resolution diagnostics."""
     bond_count = len(case.positive_bonds)
@@ -261,7 +272,7 @@ def _analytic_flat_correlation_values(
 
 
 def _flat_amplitude_resolution(
-    definition: DevelopmentDefinition, case: DevelopmentCase
+    definition: BandEquivalenceLocalityRequest, case: BandEquivalenceLocalityCase
 ) -> tuple[FlatAmplitudeResolutionDiagnostic, ...]:
     maximum_amplitude = definition.amplitudes[-1]
     finest_intervals = definition.amplitude_resolution_intervals[-1]
@@ -302,7 +313,7 @@ def _flat_amplitude_resolution(
 
 
 def _amplitude_midpoint_diagnostic(
-    definition: DevelopmentDefinition, points: tuple[PointDiagnostic, ...]
+    definition: BandEquivalenceLocalityRequest, points: tuple[PointDiagnostic, ...]
 ) -> AmplitudeMidpointDiagnostic:
     amplitudes = definition.amplitudes
     if len(amplitudes) != 3 or not math.isclose(
@@ -419,14 +430,26 @@ def _amplitude_midpoint_diagnostic(
     )
 
 
-class DevelopmentCalculator:
+class BandEquivalenceLocalityCalculator:
     """Execute every methodological channel for one bounded family definition."""
 
     __slots__ = ()
 
-    def execute(self, definition: DevelopmentDefinition) -> DevelopmentResult:
-        if type(definition) is not DevelopmentDefinition:
-            raise TypeError("definition must be DevelopmentDefinition")
+    def execute(
+        self,
+        definition: BandEquivalenceLocalityRequest,
+        analysis_request_sha256: str,
+    ) -> BandEquivalenceLocalityResult:
+        if type(definition) is not BandEquivalenceLocalityRequest:
+            raise TypeError("definition must be BandEquivalenceLocalityRequest")
+        if type(analysis_request_sha256) is not str:
+            raise TypeError("analysis_request_sha256 must be a built-in str")
+        if len(analysis_request_sha256) != 64 or any(
+            character not in "0123456789abcdef" for character in analysis_request_sha256
+        ):
+            raise ValueError(
+                "analysis_request_sha256 must be a lowercase SHA-256 digest"
+            )
         construction = _coordinates(
             definition.construction_size, definition.dimension, 0.5
         )
@@ -440,9 +463,10 @@ class DevelopmentCalculator:
             self._case(definition, case, construction, evaluation, separation)
             for case in definition.cases
         )
-        return DevelopmentResult(
+        return BandEquivalenceLocalityResult(
             family=definition.family,
             status="development-smoke-not-retained-evidence",
+            analysis_request_sha256=analysis_request_sha256,
             construction_size=definition.construction_size,
             evaluation_size=definition.evaluation_size,
             cases=case_results,
@@ -450,8 +474,8 @@ class DevelopmentCalculator:
 
     def _case(
         self,
-        definition: DevelopmentDefinition,
-        case: DevelopmentCase,
+        definition: BandEquivalenceLocalityRequest,
+        case: BandEquivalenceLocalityCase,
         construction: FloatArray,
         evaluation: FloatArray,
         separation: float,
@@ -498,29 +522,31 @@ class DevelopmentCalculator:
                     periodic_frame_closure,
                     maximum_matrix_defect(shifted_frame, frame),
                 )
-            qualification = {
-                "gap": float(np.min(eigenvalues[..., 2] - eigenvalues[..., 1])),
-                "bound": _continuous_gap_lower_bound(case, parent_scale),
-                "seed": float(np.min(seed_gram_values)),
-                "parent_hermiticity": maximum_matrix_defect(
-                    parent, np.swapaxes(parent.conjugate(), -1, -2)
-                ),
-                "eigensystem": maximum_matrix_defect(parent, reconstructed_parent),
-                "frame": maximum_matrix_defect(
-                    np.swapaxes(frame.conjugate(), -1, -2) @ frame,
-                    np.broadcast_to(identity, (*construction.shape[:-1], 2, 2)),
-                ),
-                "projector": maximum_matrix_defect(
-                    projector,
-                    eigensystem.eigenvectors[..., :, :2]
-                    @ np.swapaxes(
-                        eigensystem.eigenvectors[..., :, :2].conjugate(), -1, -2
-                    ),
-                ),
-                "lift": maximum_matrix_defect(parent_reconstruction, lifted),
-                "parent_fourier": parent_fourier_reconstruction,
-                "periodic_frame": periodic_frame_closure,
-            }
+            minimum_sampled_external_gap = float(
+                np.min(eigenvalues[..., 2] - eigenvalues[..., 1])
+            )
+            continuous_external_gap_lower_bound = _continuous_gap_lower_bound(
+                case, parent_scale
+            )
+            minimum_seed_overlap = float(np.min(seed_gram_values))
+            maximum_parent_hermiticity_defect = maximum_matrix_defect(
+                parent, np.swapaxes(parent.conjugate(), -1, -2)
+            )
+            maximum_eigensystem_reconstruction_defect = maximum_matrix_defect(
+                parent, reconstructed_parent
+            )
+            maximum_frame_orthonormality_defect = maximum_matrix_defect(
+                np.swapaxes(frame.conjugate(), -1, -2) @ frame,
+                np.broadcast_to(identity, (*construction.shape[:-1], 2, 2)),
+            )
+            maximum_projector_reconstruction_defect = maximum_matrix_defect(
+                projector,
+                eigensystem.eigenvectors[..., :, :2]
+                @ np.swapaxes(eigensystem.eigenvectors[..., :, :2].conjugate(), -1, -2),
+            )
+            maximum_parent_retained_reconstruction_defect = maximum_matrix_defect(
+                parent_reconstruction, lifted
+            )
             direct_parent_eval = _parent_field(case, evaluation, parent_scale)
             direct_frame_eval, _, _ = _retained_frame(direct_parent_eval)
             direct_reference_eval = _retained_field(
@@ -537,8 +563,31 @@ class DevelopmentCalculator:
                         amplitude,
                         retained,
                         direct_reference_eval,
-                        qualification,
                         transport,
+                        minimum_sampled_external_gap=minimum_sampled_external_gap,
+                        continuous_external_gap_lower_bound=(
+                            continuous_external_gap_lower_bound
+                        ),
+                        minimum_seed_overlap=minimum_seed_overlap,
+                        maximum_parent_hermiticity_defect=(
+                            maximum_parent_hermiticity_defect
+                        ),
+                        maximum_eigensystem_reconstruction_defect=(
+                            maximum_eigensystem_reconstruction_defect
+                        ),
+                        maximum_frame_orthonormality_defect=(
+                            maximum_frame_orthonormality_defect
+                        ),
+                        maximum_projector_reconstruction_defect=(
+                            maximum_projector_reconstruction_defect
+                        ),
+                        maximum_parent_retained_reconstruction_defect=(
+                            maximum_parent_retained_reconstruction_defect
+                        ),
+                        maximum_parent_fourier_reconstruction_defect=(
+                            parent_fourier_reconstruction
+                        ),
+                        maximum_periodic_frame_closure_defect=periodic_frame_closure,
                     )
                 )
         point_tuple = tuple(points)
@@ -553,16 +602,26 @@ class DevelopmentCalculator:
 
     def _point(
         self,
-        definition: DevelopmentDefinition,
-        case: DevelopmentCase,
+        definition: BandEquivalenceLocalityRequest,
+        case: BandEquivalenceLocalityCase,
         construction: FloatArray,
         evaluation: FloatArray,
         parent_scale: float,
         amplitude: float,
         reference: ComplexArray,
         direct_reference_eval: ComplexArray,
-        qualification: dict[str, float],
         transport: FrameTransportDiagnostic,
+        *,
+        minimum_sampled_external_gap: float,
+        continuous_external_gap_lower_bound: float,
+        minimum_seed_overlap: float,
+        maximum_parent_hermiticity_defect: float,
+        maximum_eigensystem_reconstruction_defect: float,
+        maximum_frame_orthonormality_defect: float,
+        maximum_projector_reconstruction_defect: float,
+        maximum_parent_retained_reconstruction_defect: float,
+        maximum_parent_fourier_reconstruction_defect: float,
+        maximum_periodic_frame_closure_defect: float,
     ) -> PointDiagnostic:
         rotation = _rotation_field(_gauge_angles(case, construction, amplitude))
         comparison = np.swapaxes(rotation.conjugate(), -1, -2) @ reference @ rotation
@@ -824,24 +883,42 @@ class DevelopmentCalculator:
         return PointDiagnostic(
             parent_scale=parent_scale,
             amplitude=amplitude,
-            minimum_sampled_external_gap=qualification["gap"],
-            continuous_external_gap_lower_bound=qualification["bound"],
-            minimum_seed_overlap=qualification["seed"],
-            maximum_parent_hermiticity_defect=qualification["parent_hermiticity"],
-            maximum_eigensystem_reconstruction_defect=qualification["eigensystem"],
-            maximum_frame_orthonormality_defect=qualification["frame"],
-            maximum_projector_reconstruction_defect=qualification["projector"],
-            maximum_parent_retained_reconstruction_defect=qualification["lift"],
-            maximum_parent_fourier_reconstruction_defect=qualification[
-                "parent_fourier"
-            ],
-            maximum_periodic_frame_closure_defect=qualification["periodic_frame"],
+            minimum_sampled_external_gap=minimum_sampled_external_gap,
+            continuous_external_gap_lower_bound=continuous_external_gap_lower_bound,
+            minimum_seed_overlap=minimum_seed_overlap,
+            maximum_parent_hermiticity_defect=maximum_parent_hermiticity_defect,
+            maximum_eigensystem_reconstruction_defect=(
+                maximum_eigensystem_reconstruction_defect
+            ),
+            maximum_frame_orthonormality_defect=(maximum_frame_orthonormality_defect),
+            maximum_projector_reconstruction_defect=(
+                maximum_projector_reconstruction_defect
+            ),
+            maximum_parent_retained_reconstruction_defect=(
+                maximum_parent_retained_reconstruction_defect
+            ),
+            maximum_parent_fourier_reconstruction_defect=(
+                maximum_parent_fourier_reconstruction_defect
+            ),
+            maximum_periodic_frame_closure_defect=(
+                maximum_periodic_frame_closure_defect
+            ),
             minimum_sampled_transport_singular_value=(transport.minimum_singular_value),
             maximum_transport_procrustes_residual=(
                 transport.maximum_procrustes_residual
             ),
+            maximum_transport_squared_residual_roundoff_cutoff=(
+                transport.maximum_squared_residual_roundoff_cutoff
+            ),
             maximum_transport_unitarity_defect=transport.maximum_unitarity_defect,
             maximum_transport_rank_cutoff=transport.maximum_rank_cutoff,
+            transport_rank_deficient_link_count=(transport.rank_deficient_link_count),
+            transport_closure_and_plaquette_applicable=(
+                transport.closure_and_plaquette_applicable
+            ),
+            transport_closure_and_plaquette_inapplicable_reason=(
+                transport.closure_and_plaquette_inapplicable_reason
+            ),
             maximum_absolute_closure_holonomy_phases=(
                 transport.maximum_absolute_closure_phases
             ),
@@ -951,20 +1028,104 @@ def _first_passing(
     )
 
 
-class DevelopmentVerifier:
+def _transport_record_defects(
+    point: PointDiagnostic, expected: FrameTransportDiagnostic
+) -> tuple[float, ...]:
+    """Compare one stored transport record without zero-filling topology."""
+    defects = [
+        abs(
+            point.minimum_sampled_transport_singular_value
+            - expected.minimum_singular_value
+        ),
+        abs(
+            point.maximum_transport_procrustes_residual
+            - expected.maximum_procrustes_residual
+        ),
+        abs(
+            point.maximum_transport_squared_residual_roundoff_cutoff
+            - expected.maximum_squared_residual_roundoff_cutoff
+        ),
+        abs(
+            point.maximum_transport_unitarity_defect - expected.maximum_unitarity_defect
+        ),
+        abs(point.maximum_transport_rank_cutoff - expected.maximum_rank_cutoff),
+        float(
+            abs(
+                point.transport_rank_deficient_link_count
+                - expected.rank_deficient_link_count
+            )
+        ),
+        0.0
+        if point.transport_closure_and_plaquette_applicable
+        == expected.closure_and_plaquette_applicable
+        else 1.0,
+        0.0
+        if point.transport_closure_and_plaquette_inapplicable_reason
+        == expected.closure_and_plaquette_inapplicable_reason
+        else 1.0,
+    ]
+    if expected.closure_and_plaquette_applicable:
+        phases = point.maximum_absolute_closure_holonomy_phases
+        expected_phases = expected.maximum_absolute_closure_phases
+        closure = point.maximum_closure_holonomy_unitarity_defect
+        expected_closure = expected.maximum_closure_unitarity_defect
+        plaquette = point.maximum_plaquette_holonomy_phase
+        expected_plaquette = expected.maximum_plaquette_phase
+        if (
+            phases is None
+            or expected_phases is None
+            or closure is None
+            or expected_closure is None
+            or plaquette is None
+            or expected_plaquette is None
+        ):
+            raise ValueError("applicable transport is missing topology diagnostics")
+        defects.extend(
+            (
+                abs(phases[0] - expected_phases[0]),
+                abs(phases[1] - expected_phases[1]),
+                abs(closure - expected_closure),
+                abs(plaquette - expected_plaquette),
+            )
+        )
+    return tuple(defects)
+
+
+class BandEquivalenceLocalityVerifier:
     """Independently reconstruct selected point and stored-identity diagnostics."""
 
     __slots__ = ()
 
     def execute(
-        self, definition: DevelopmentDefinition, result: DevelopmentResult
-    ) -> DevelopmentVerification:
-        if type(definition) is not DevelopmentDefinition:
-            raise TypeError("definition must be DevelopmentDefinition")
-        if type(result) is not DevelopmentResult:
-            raise TypeError("result must be DevelopmentResult")
+        self,
+        definition: BandEquivalenceLocalityRequest,
+        result: BandEquivalenceLocalityResult,
+    ) -> BandEquivalenceLocalityVerificationResult:
+        if type(definition) is not BandEquivalenceLocalityRequest:
+            raise TypeError("definition must be BandEquivalenceLocalityRequest")
+        if type(result) is not BandEquivalenceLocalityResult:
+            raise TypeError("result must be BandEquivalenceLocalityResult")
+
+        # Local import keeps wire mechanics out of numerical module initialization.
+        from .serialization import (
+            band_equivalence_locality_request_document,
+            band_equivalence_locality_result_document,
+            canonical_json_bytes,
+        )
+
+        input_encoded = canonical_json_bytes(
+            band_equivalence_locality_request_document(definition)
+        )
+        input_sha256 = hashlib.sha256(input_encoded).hexdigest()
+        if result.analysis_request_sha256 != input_sha256:
+            raise ValueError("result does not belong to the analysis request")
         if result.family is not definition.family:
             raise ValueError("result family does not match definition")
+        if (
+            result.construction_size != definition.construction_size
+            or result.evaluation_size != definition.evaluation_size
+        ):
+            raise ValueError("result mesh sizes do not match definition")
         stored_defects: list[float] = []
         for case in result.cases:
             stored_defects.append(case.metric_covariance_defect)
@@ -980,7 +1141,6 @@ class DevelopmentVerifier:
                         point.maximum_parent_fourier_reconstruction_defect,
                         point.maximum_periodic_frame_closure_defect,
                         point.maximum_transport_unitarity_defect,
-                        point.maximum_closure_holonomy_unitarity_defect,
                         point.maximum_direct_band_defect,
                         point.maximum_covariant_defect,
                         point.flat_residual_tail_identity_defect or 0.0,
@@ -1019,6 +1179,13 @@ class DevelopmentVerifier:
                         point.comparison_ordinary_hermiticity_defect,
                     )
                 )
+                if point.transport_closure_and_plaquette_applicable:
+                    closure_defect = point.maximum_closure_holonomy_unitarity_defect
+                    if closure_defect is None:
+                        raise ValueError(
+                            "applicable transport is missing closure unitarity"
+                        )
+                    stored_defects.append(closure_defect)
                 for shell in point.shell_diagnostics:
                     stored_defects.append(
                         max(
@@ -1126,8 +1293,6 @@ class DevelopmentVerifier:
                                     max(0.0, decision.tolerance - preceding),
                                 )
                             )
-        maximum_stored = max(stored_defects, default=0.0)
-
         independent_parent = 0.0
         independent_band = 0.0
         probes = tuple(
@@ -1141,7 +1306,43 @@ class DevelopmentVerifier:
         ):
             if case_definition.name != case_result.name:
                 raise ValueError("case order or identity does not match definition")
+            expected_point_identities = tuple(
+                (parent_scale, amplitude)
+                for parent_scale in definition.parent_scales
+                for amplitude in definition.amplitudes
+            )
+            stored_point_identities = tuple(
+                (point.parent_scale, point.amplitude) for point in case_result.points
+            )
+            if stored_point_identities != expected_point_identities:
+                raise ValueError("point identities do not match the analysis request")
+            construction = _coordinates(
+                result.construction_size,
+                definition.dimension,
+                0.5,
+            )
             for parent_scale in definition.parent_scales:
+                parent_grid = _parent_field(case_definition, construction, parent_scale)
+                frame_grid, _, _ = _retained_frame(parent_grid)
+                expected_transport = frame_transport_diagnostics(
+                    frame_grid,
+                    case_definition.dimension,
+                    definition.transport_rank_absolute,
+                    definition.transport_rank_relative,
+                )
+                matching_points = tuple(
+                    point
+                    for point in case_result.points
+                    if point.parent_scale == parent_scale
+                )
+                if len(matching_points) != len(definition.amplitudes):
+                    raise ValueError(
+                        "transport point inventory does not match definition"
+                    )
+                for point in matching_points:
+                    stored_defects.extend(
+                        _transport_record_defects(point, expected_transport)
+                    )
                 parent = _independent_parent(case_definition, probes, parent_scale)
                 vectorized = _parent_field(
                     case_definition, coordinate, parent_scale
@@ -1171,36 +1372,31 @@ class DevelopmentVerifier:
                             )
                         ),
                     )
-        # Local import avoids making the domain calculation layer depend on wire
-        # serialization at module-import time.
-        from .serialization import (
-            canonical_json_bytes,
-            development_definition_document,
-            development_result_document,
-        )
+        maximum_stored = max(stored_defects, default=0.0)
 
-        input_encoded = canonical_json_bytes(
-            development_definition_document(definition)
+        result_encoded = canonical_json_bytes(
+            band_equivalence_locality_result_document(result)
         )
-        result_encoded = canonical_json_bytes(development_result_document(result))
         passes = (
             maximum_stored <= 5.0e-11
             and independent_parent <= 5.0e-14
             and independent_band <= 5.0e-14
         )
-        return DevelopmentVerification(
+        return BandEquivalenceLocalityVerificationResult(
             family=result.family,
             passes=passes,
             maximum_stored_identity_defect=maximum_stored,
             maximum_independent_parent_defect=independent_parent,
             maximum_independent_band_defect=independent_band,
-            input_sha256=hashlib.sha256(input_encoded).hexdigest(),
+            input_sha256=input_sha256,
             result_sha256=hashlib.sha256(result_encoded).hexdigest(),
         )
 
 
 def _independent_parent(
-    case: DevelopmentCase, coordinate: tuple[float, ...], parent_scale: float
+    case: BandEquivalenceLocalityCase,
+    coordinate: tuple[float, ...],
+    parent_scale: float,
 ) -> ComplexArray:
     if case.parent_kind is ParentKind.DIRECTED_AXIS:
         phase = sum(
@@ -1239,7 +1435,7 @@ def _independent_parent(
 
 
 def _independent_angle(
-    case: DevelopmentCase, coordinate: tuple[float, ...], amplitude: float
+    case: BandEquivalenceLocalityCase, coordinate: tuple[float, ...], amplitude: float
 ) -> float:
     total = math.fsum(
         math.sin(
@@ -1257,13 +1453,13 @@ def _independent_angle(
 
 
 __all__ = [
-    "DevelopmentCalculator",
-    "DevelopmentCase",
-    "DevelopmentDefinition",
-    "DevelopmentFamily",
-    "DevelopmentResult",
-    "DevelopmentVerification",
-    "DevelopmentVerifier",
+    "BandEquivalenceLocalityCalculator",
+    "BandEquivalenceLocalityCase",
+    "BandEquivalenceLocalityRequest",
+    "BandEquivalenceLocalityFamily",
+    "BandEquivalenceLocalityResult",
+    "BandEquivalenceLocalityVerificationResult",
+    "BandEquivalenceLocalityVerifier",
     "GaugeNormalization",
     "ParentKind",
 ]

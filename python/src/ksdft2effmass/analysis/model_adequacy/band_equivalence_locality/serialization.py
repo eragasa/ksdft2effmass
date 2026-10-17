@@ -11,24 +11,38 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from .definitions import DevelopmentDefinition, DevelopmentFamily
-from .records import DevelopmentResult, DevelopmentVerification, ErrorChannels
+from .definitions import BandEquivalenceLocalityFamily, BandEquivalenceLocalityRequest
+from .records import (
+    BandEquivalenceLocalityResult,
+    BandEquivalenceLocalityVerificationResult,
+    ErrorChannels,
+)
+from .refinement_records import BandEquivalenceLocalityRefinementResult
 
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 
 
-def development_schema_id(family: DevelopmentFamily, document: str) -> str:
+def band_equivalence_locality_schema_id(
+    family: BandEquivalenceLocalityFamily, document: str
+) -> str:
     """Return the family-bound development schema identity."""
-    if type(family) is not DevelopmentFamily:
-        raise TypeError("family must be DevelopmentFamily")
+    if type(family) is not BandEquivalenceLocalityFamily:
+        raise TypeError("family must be BandEquivalenceLocalityFamily")
     if type(document) is not str or document not in {
         "input",
         "result",
         "verification",
     }:
         raise ValueError("document must be input, result, or verification")
-    return f"{family.value}.development.{document}.v0"
+    return f"{family.value}.calculation.{document}.v1"
+
+
+def refinement_schema_id(family: BandEquivalenceLocalityFamily) -> str:
+    """Return the family-bound refinement-assessment schema identity."""
+    if type(family) is not BandEquivalenceLocalityFamily:
+        raise TypeError("family must be BandEquivalenceLocalityFamily")
+    return f"{family.value}.calculation.refinement-assessment.v1"
 
 
 def canonical_json_bytes(document: dict[str, JsonValue]) -> bytes:
@@ -48,8 +62,8 @@ def _errors_document(value: ErrorChannels) -> dict[str, JsonValue]:
     }
 
 
-def development_definition_document(
-    value: DevelopmentDefinition,
+def band_equivalence_locality_request_document(
+    value: BandEquivalenceLocalityRequest,
 ) -> dict[str, JsonValue]:
     """Serialize a development definition without accepting unspecified values."""
     return {
@@ -60,8 +74,12 @@ def development_definition_document(
             {
                 "basis_offsets": [list(offset) for offset in case.basis_offsets],
                 "dimension": case.dimension,
+                "direct_lattice_primitive_basis_rows": [
+                    [float(value) for value in row]
+                    for row in case.direct_metric.primitive_basis
+                ],
+                "direct_lattice_primitive_vector_axis": "columns",
                 "gauge_normalization": case.gauge_normalization.value,
-                "metric": [list(row) for row in case.metric],
                 "name": case.name,
                 "parent_kind": case.parent_kind.value,
                 "shell_metric_scale": case.shell_metric_scale,
@@ -74,7 +92,7 @@ def development_definition_document(
         "evaluation_size": value.evaluation_size,
         "family": value.family.value,
         "parent_scales": list(value.parent_scales),
-        "schema": development_schema_id(value.family, "input"),
+        "schema": band_equivalence_locality_schema_id(value.family, "input"),
         "shell_cap": value.shell_cap,
         "status": "bounded-development-smoke-input",
         "transport_rank_absolute": value.transport_rank_absolute,
@@ -82,7 +100,9 @@ def development_definition_document(
     }
 
 
-def development_result_document(value: DevelopmentResult) -> dict[str, JsonValue]:
+def band_equivalence_locality_result_document(
+    value: BandEquivalenceLocalityResult,
+) -> dict[str, JsonValue]:
     """Serialize compact development diagnostics without assigning evidence status."""
     cases: list[JsonValue] = []
     for case in value.cases:
@@ -210,8 +230,10 @@ def development_result_document(value: DevelopmentResult) -> dict[str, JsonValue
                     "flat_residual_tail_identity_defect": (
                         point.flat_residual_tail_identity_defect
                     ),
-                    "maximum_absolute_closure_holonomy_phases": list(
-                        point.maximum_absolute_closure_holonomy_phases
+                    "maximum_absolute_closure_holonomy_phases": (
+                        None
+                        if point.maximum_absolute_closure_holonomy_phases is None
+                        else list(point.maximum_absolute_closure_holonomy_phases)
                     ),
                     "maximum_closure_holonomy_unitarity_defect": (
                         point.maximum_closure_holonomy_unitarity_defect
@@ -244,6 +266,9 @@ def development_result_document(value: DevelopmentResult) -> dict[str, JsonValue
                     ),
                     "maximum_transport_procrustes_residual": (
                         point.maximum_transport_procrustes_residual
+                    ),
+                    "maximum_transport_squared_residual_roundoff_cutoff": (
+                        point.maximum_transport_squared_residual_roundoff_cutoff
                     ),
                     "maximum_transport_rank_cutoff": (
                         point.maximum_transport_rank_cutoff
@@ -297,6 +322,15 @@ def development_result_document(value: DevelopmentResult) -> dict[str, JsonValue
                     ),
                     "shell_diagnostics": shells,
                     "splitting_scale": point.splitting_scale,
+                    "transport_closure_and_plaquette_applicable": (
+                        point.transport_closure_and_plaquette_applicable
+                    ),
+                    "transport_closure_and_plaquette_inapplicable_reason": (
+                        point.transport_closure_and_plaquette_inapplicable_reason
+                    ),
+                    "transport_rank_deficient_link_count": (
+                        point.transport_rank_deficient_link_count
+                    ),
                 }
             )
         cases.append(
@@ -354,17 +388,86 @@ def development_result_document(value: DevelopmentResult) -> dict[str, JsonValue
             }
         )
     return {
+        "analysis_request_sha256": value.analysis_request_sha256,
         "cases": cases,
         "construction_size": value.construction_size,
         "evaluation_size": value.evaluation_size,
         "family": value.family.value,
-        "schema": development_schema_id(value.family, "result"),
+        "schema": band_equivalence_locality_schema_id(value.family, "result"),
         "status": value.status,
     }
 
 
-def development_verification_document(
-    value: DevelopmentVerification,
+def band_equivalence_locality_refinement_document(
+    value: BandEquivalenceLocalityRefinementResult,
+) -> dict[str, JsonValue]:
+    """Serialize one conservative refinement assessment."""
+    return {
+        "family": value.family.value,
+        "momentum_disposition": value.momentum_disposition,
+        "momentum_disposition_reason": value.momentum_disposition_reason,
+        "paper1_literal_range_endpoints_applicable": (
+            value.paper1_literal_range_endpoints_applicable
+        ),
+        "paper1_literal_range_endpoints_inapplicable_reason": (
+            value.paper1_literal_range_endpoints_inapplicable_reason
+        ),
+        "passes_draft_tolerance": value.passes_draft_tolerance,
+        "passes_unit_scale_draft_tolerance": (value.passes_unit_scale_draft_tolerance),
+        "refinements": [
+            {
+                "coarse_construction_size": item.coarse_construction_size,
+                "fine_construction_size": item.fine_construction_size,
+                "first_passing_dispositions_stable": (
+                    item.first_passing_dispositions_stable
+                ),
+                "transport_closure_and_plaquette_applicability_stable": (
+                    item.transport_closure_and_plaquette_applicability_stable
+                ),
+                "maximum_angle_change": item.maximum_angle_change,
+                "maximum_band_defect": item.maximum_band_defect,
+                "maximum_correlation_change": item.maximum_correlation_change,
+                "maximum_final_outcome_change": item.maximum_final_outcome_change,
+                "maximum_final_parent_invariant_change": (
+                    item.maximum_final_parent_invariant_change
+                ),
+                "maximum_hopping_block_power_change": (
+                    item.maximum_hopping_block_power_change
+                ),
+                "maximum_hopping_weight_change": item.maximum_hopping_weight_change,
+                "maximum_parent_diagnostic_change": (
+                    item.maximum_parent_diagnostic_change
+                ),
+                "maximum_parseval_defect": item.maximum_parseval_defect,
+                "maximum_reconstruction_defect": item.maximum_reconstruction_defect,
+                "maximum_shared_parent_eigenvalue_defect": (
+                    item.maximum_shared_parent_eigenvalue_defect
+                ),
+                "maximum_shared_projector_defect": (
+                    item.maximum_shared_projector_defect
+                ),
+                "maximum_threshold_change": item.maximum_threshold_change,
+                "shared_mesh_inapplicable_reason": (
+                    item.shared_mesh_inapplicable_reason
+                ),
+                "shared_mesh_quantities_applicable": (
+                    item.shared_mesh_quantities_applicable
+                ),
+                "tolerance_disposition_reason": item.tolerance_disposition_reason,
+                "within_draft_tolerances": item.within_draft_tolerances,
+            }
+            for item in value.refinements
+        ],
+        "required_stable_refinements": value.required_stable_refinements,
+        "schema": refinement_schema_id(value.family),
+        "source_result_sha256": list(value.source_result_sha256),
+        "status": "replaceable-development-refinement-not-scientific-evidence",
+        "tolerance_inapplicable_reason": value.tolerance_inapplicable_reason,
+    }
+
+
+def band_equivalence_locality_verification_document(
+    value: BandEquivalenceLocalityVerificationResult,
 ) -> dict[str, JsonValue]:
     """Serialize independent development verification diagnostics."""
     return {
@@ -375,16 +478,16 @@ def development_verification_document(
         "maximum_stored_identity_defect": value.maximum_stored_identity_defect,
         "passes": value.passes,
         "result_sha256": value.result_sha256,
-        "schema": development_schema_id(value.family, "verification"),
+        "schema": band_equivalence_locality_schema_id(value.family, "verification"),
         "status": "development-verification-not-scientific-validation",
     }
 
 
-def write_development_documents(
+def write_band_equivalence_locality_documents(
     directory: Path,
-    definition: DevelopmentDefinition,
-    result: DevelopmentResult,
-    verification: DevelopmentVerification,
+    definition: BandEquivalenceLocalityRequest,
+    result: BandEquivalenceLocalityResult,
+    verification: BandEquivalenceLocalityVerificationResult,
 ) -> tuple[Path, Path, Path]:
     """Write replaceable development JSON documents to an experiment directory."""
     if not isinstance(directory, Path):
@@ -393,12 +496,15 @@ def write_development_documents(
     documents = (
         (
             directory / "development-input.json",
-            development_definition_document(definition),
+            band_equivalence_locality_request_document(definition),
         ),
-        (directory / "development-result.json", development_result_document(result)),
+        (
+            directory / "development-result.json",
+            band_equivalence_locality_result_document(result),
+        ),
         (
             directory / "development-verification.json",
-            development_verification_document(verification),
+            band_equivalence_locality_verification_document(verification),
         ),
     )
     for path, document in documents:
@@ -406,12 +512,36 @@ def write_development_documents(
     return documents[0][0], documents[1][0], documents[2][0]
 
 
+def write_band_equivalence_locality_refinement(
+    directory: Path,
+    result: BandEquivalenceLocalityRefinementResult,
+) -> tuple[Path, Path]:
+    """Write one refinement result and its strict family-bound schema."""
+    if not isinstance(directory, Path):
+        raise TypeError("directory must be pathlib.Path")
+    from .schemas import band_equivalence_locality_refinement_schema
+
+    directory.mkdir(parents=True, exist_ok=True)
+    document_path = directory / "development-refinement-assessment.json"
+    schema_path = directory / "development-refinement-assessment.schema.json"
+    document_path.write_bytes(
+        canonical_json_bytes(band_equivalence_locality_refinement_document(result))
+    )
+    schema_path.write_bytes(
+        canonical_json_bytes(band_equivalence_locality_refinement_schema(result.family))
+    )
+    return document_path, schema_path
+
+
 __all__ = [
     "JsonValue",
     "canonical_json_bytes",
-    "development_definition_document",
-    "development_result_document",
-    "development_schema_id",
-    "development_verification_document",
-    "write_development_documents",
+    "band_equivalence_locality_refinement_document",
+    "band_equivalence_locality_request_document",
+    "band_equivalence_locality_result_document",
+    "band_equivalence_locality_schema_id",
+    "band_equivalence_locality_verification_document",
+    "refinement_schema_id",
+    "write_band_equivalence_locality_documents",
+    "write_band_equivalence_locality_refinement",
 ]

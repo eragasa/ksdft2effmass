@@ -6,12 +6,8 @@ import numpy as np
 import pytest
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
-    BAIN_DIAMOND_BASIS_OFFSETS,
-    BAIN_FCC_UNIMODULAR_MAP,
-    StrainResponseModel,
-    SyntheticStrainPath,
-    calculate_synthetic_strain,
-    calculate_synthetic_strain_response,
+    strain,
+    strain_response,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -22,12 +18,15 @@ class TestSyntheticStrainGaugeLocality:
 
     @pytest.mark.parametrize(
         ("path", "size"),
-        ((SyntheticStrainPath.RHOMBIC_2D, 16), (SyntheticStrainPath.BAIN_3D, 8)),
+        (
+            (strain.SyntheticStrainPath.RHOMBIC_2D, 16),
+            (strain.SyntheticStrainPath.BAIN_3D, 8),
+        ),
     )
     def test_path__frozen_gauge__preserves_power_while_physical_range_changes(
-        self, path: SyntheticStrainPath, size: int
+        self, path: strain.SyntheticStrainPath, size: int
     ) -> None:
-        result = calculate_synthetic_strain(
+        result = strain.calculate_synthetic_strain(
             path,
             size,
             (0.0, 0.5, 1.0),
@@ -52,15 +51,15 @@ class TestSyntheticStrainGaugeLocality:
         )
 
     def test_bain_common_cell_map__fcc_endpoint__is_unimodular_isometry(self) -> None:
-        transform = np.asarray(BAIN_FCC_UNIMODULAR_MAP, dtype=np.int64)
+        transform = np.asarray(strain.BAIN_FCC_UNIMODULAR_MAP, dtype=np.int64)
         assert round(float(np.linalg.det(transform))) == 1
 
         reference_fcc_metric = np.asarray(
             ((0.5, 0.25, 0.25), (0.25, 0.5, 0.25), (0.25, 0.25, 0.5))
         )
         unit_volume_fcc_metric = reference_fcc_metric * 2.0 ** (4.0 / 3.0)
-        endpoint = calculate_synthetic_strain(
-            SyntheticStrainPath.BAIN_3D,
+        endpoint = strain.calculate_synthetic_strain(
+            strain.SyntheticStrainPath.BAIN_3D,
             8,
             (0.0,),
             math.pi / 4.0,
@@ -71,7 +70,7 @@ class TestSyntheticStrainGaugeLocality:
         )
 
         reference_offset = np.asarray((0.25, 0.25, 0.25))
-        bain_offset = np.asarray(BAIN_DIAMOND_BASIS_OFFSETS[1])
+        bain_offset = np.asarray(strain.BAIN_DIAMOND_BASIS_OFFSETS[1])
         assert transform @ bain_offset == pytest.approx(reference_offset, abs=1.0e-15)
 
         reference_bonds = np.asarray(
@@ -105,14 +104,15 @@ class TestSyntheticStrainGaugeLocality:
             assert len(images) == size**3
 
     @pytest.mark.parametrize(
-        "path", (SyntheticStrainPath.RHOMBIC_2D, SyntheticStrainPath.BAIN_3D)
+        "path",
+        (strain.SyntheticStrainPath.RHOMBIC_2D, strain.SyntheticStrainPath.BAIN_3D),
     )
     def test_m1__frozen_parent__has_zero_aligned_strain_difference(
-        self, path: SyntheticStrainPath
+        self, path: strain.SyntheticStrainPath
     ) -> None:
-        result = calculate_synthetic_strain_response(
+        result = strain_response.calculate_synthetic_strain_response(
             path,
-            StrainResponseModel.M1_FROZEN,
+            strain_response.StrainResponseModel.M1_FROZEN,
             8,
             9,
             1.0 / 3.0,
@@ -142,9 +142,9 @@ class TestSyntheticStrainGaugeLocality:
         )
 
     def test_m2__radial_response__produces_qualified_nonzero_perturbation(self) -> None:
-        result = calculate_synthetic_strain_response(
-            SyntheticStrainPath.RHOMBIC_2D,
-            StrainResponseModel.M2_RADIAL,
+        result = strain_response.calculate_synthetic_strain_response(
+            strain.SyntheticStrainPath.RHOMBIC_2D,
+            strain_response.StrainResponseModel.M2_RADIAL,
             8,
             17,
             1.0 / 3.0,
@@ -174,16 +174,16 @@ class TestSyntheticStrainGaugeLocality:
 
     def test_inputs__odd_mesh_and_boolean_amplitude__fail_closed(self) -> None:
         with pytest.raises(ValueError, match="even"):
-            calculate_synthetic_strain(
-                SyntheticStrainPath.RHOMBIC_2D,
+            strain.calculate_synthetic_strain(
+                strain.SyntheticStrainPath.RHOMBIC_2D,
                 15,
                 (0.0, 1.0),
                 math.pi / 4.0,
                 (1.0e-3,),
             )
         with pytest.raises(ValueError, match="built-in float"):
-            calculate_synthetic_strain(
-                SyntheticStrainPath.RHOMBIC_2D,
+            strain.calculate_synthetic_strain(
+                strain.SyntheticStrainPath.RHOMBIC_2D,
                 16,
                 (0.0, 1.0),
                 True,

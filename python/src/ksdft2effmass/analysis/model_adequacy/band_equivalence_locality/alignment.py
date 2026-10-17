@@ -1,10 +1,8 @@
-"""Alignment-selection boundary for dimensional locality development.
+"""Alignment-selection boundary for dimensional locality analysis.
 
-The scalar restricted global rotation delegates periodic-harmonic maximization to
-``projectkoios-optimization``. Batched neighbor transport remains a local, isolated
-mechanism under the currently pinned dependency; converting every tensor-grid link to
-that revision's one-pair object API would defeat the bounded sparse execution design.
-A separately published batch contract is tracked for adoption under ``TD-BEL-002``.
+Optimization owns scalar periodic-harmonic maximization and batched complex-unitary
+Procrustes transformation selection. KSD owns reciprocal-neighbor topology, closure and
+plaquette applicability, scientific thresholds, and interpretation.
 """
 
 from __future__ import annotations
@@ -14,11 +12,20 @@ from dataclasses import dataclass
 
 import numpy as np
 from numpy.typing import NDArray
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesDefinition,
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+from projectkoios.optimization.alignment.procrustes import (
+    ComplexUnitaryProcrustesTolerance,
+)
 from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonic,
     PeriodicHarmonicMaximizer,
     PeriodicHarmonicMaximumStatus,
 )
+
+from .definitions import TRANSPORT_RANK_DEFICIENT_REASON
 
 type ComplexArray = NDArray[np.complex128]
 
@@ -29,11 +36,15 @@ class FrameTransportDiagnostic:
 
     minimum_singular_value: float
     maximum_procrustes_residual: float
+    maximum_squared_residual_roundoff_cutoff: float
     maximum_unitarity_defect: float
     maximum_rank_cutoff: float
-    maximum_absolute_closure_phases: tuple[float, float]
-    maximum_closure_unitarity_defect: float
-    maximum_plaquette_phase: float
+    rank_deficient_link_count: int
+    closure_and_plaquette_applicable: bool
+    closure_and_plaquette_inapplicable_reason: str | None
+    maximum_absolute_closure_phases: tuple[float, float] | None
+    maximum_closure_unitarity_defect: float | None
+    maximum_plaquette_phase: float | None
 
 
 def _maximum_matrix_defect(left: ComplexArray, right: ComplexArray) -> float:
@@ -48,32 +59,38 @@ def frame_transport_diagnostics(
 ) -> FrameTransportDiagnostic:
     """Measure neighbor transport, loop closure, and plaquette sewing sparsely."""
     identity = np.eye(2, dtype=np.complex128)
+    tolerance = ComplexUnitaryProcrustesTolerance(
+        rank_absolute=rank_absolute,
+        rank_relative=rank_relative,
+    )
+    solver = NumpyBatchedComplexUnitaryProcrustesSolver()
     minimum_singular = 1.0
     maximum_residual = 0.0
+    maximum_squared_residual_roundoff_cutoff = 0.0
     maximum_unitarity = 0.0
     maximum_rank_cutoff = 0.0
-    maximum_phase = np.zeros(2, dtype=np.float64)
-    maximum_closure_unitarity = 0.0
+    rank_deficient_link_count = 0
     link_unitaries: list[ComplexArray] = []
     for axis in range(dimension):
         neighbor = np.roll(frame, shift=-1, axis=axis)
-        overlap = np.swapaxes(frame.conjugate(), -1, -2) @ neighbor
-        left, singular_values, right_h = np.linalg.svd(overlap)
-        links = left @ right_h
+        transport = solver.solve(
+            NumpyBatchedComplexUnitaryProcrustesDefinition.from_arrays(
+                source_matrices=frame,
+                target_matrices=neighbor,
+                tolerance=tolerance,
+            )
+        )
+        links = transport.right_unitary_completions
+        singular_values = transport.cross_singular_values
         link_unitaries.append(links)
         minimum_singular = min(minimum_singular, float(np.min(singular_values)))
         maximum_residual = max(
             maximum_residual,
-            float(
-                np.sqrt(
-                    np.max(
-                        np.maximum(
-                            0.0,
-                            4.0 - 2.0 * np.sum(singular_values, axis=-1),
-                        )
-                    )
-                )
-            ),
+            float(np.max(transport.optimal_residual_frobenius_norms)),
+        )
+        maximum_squared_residual_roundoff_cutoff = max(
+            maximum_squared_residual_roundoff_cutoff,
+            float(np.max(transport.applied_residual_roundoff_cutoffs)),
         )
         maximum_unitarity = max(
             maximum_unitarity,
@@ -84,8 +101,30 @@ def frame_transport_diagnostics(
         )
         maximum_rank_cutoff = max(
             maximum_rank_cutoff,
-            max(rank_absolute, rank_relative * float(np.max(singular_values))),
+            float(np.max(transport.applied_rank_cutoffs)),
         )
+        rank_deficient_link_count += transport.rank_deficient_count
+
+    if rank_deficient_link_count:
+        return FrameTransportDiagnostic(
+            minimum_singular_value=minimum_singular,
+            maximum_procrustes_residual=maximum_residual,
+            maximum_squared_residual_roundoff_cutoff=(
+                maximum_squared_residual_roundoff_cutoff
+            ),
+            maximum_unitarity_defect=maximum_unitarity,
+            maximum_rank_cutoff=maximum_rank_cutoff,
+            rank_deficient_link_count=rank_deficient_link_count,
+            closure_and_plaquette_applicable=False,
+            closure_and_plaquette_inapplicable_reason=(TRANSPORT_RANK_DEFICIENT_REASON),
+            maximum_absolute_closure_phases=None,
+            maximum_closure_unitarity_defect=None,
+            maximum_plaquette_phase=None,
+        )
+
+    maximum_phase = np.zeros(2, dtype=np.float64)
+    maximum_closure_unitarity = 0.0
+    for axis, links in enumerate(link_unitaries):
         ordered = np.moveaxis(links, axis, 0).reshape(links.shape[axis], -1, 2, 2)
         holonomy = np.broadcast_to(identity, (ordered.shape[1], 2, 2)).copy()
         for link in ordered:
@@ -120,8 +159,14 @@ def frame_transport_diagnostics(
     return FrameTransportDiagnostic(
         minimum_singular_value=minimum_singular,
         maximum_procrustes_residual=maximum_residual,
+        maximum_squared_residual_roundoff_cutoff=(
+            maximum_squared_residual_roundoff_cutoff
+        ),
         maximum_unitarity_defect=maximum_unitarity,
         maximum_rank_cutoff=maximum_rank_cutoff,
+        rank_deficient_link_count=0,
+        closure_and_plaquette_applicable=True,
+        closure_and_plaquette_inapplicable_reason=None,
         maximum_absolute_closure_phases=(
             float(maximum_phase[0]),
             float(maximum_phase[1]),
