@@ -70,8 +70,7 @@ class SyntheticStrainScanRequest:
         if (
             type(self.strain_fractions) is not tuple
             or not self.strain_fractions
-            or self.strain_fractions
-            != tuple(sorted(set(self.strain_fractions)))
+            or self.strain_fractions != tuple(sorted(set(self.strain_fractions)))
             or any(
                 type(value) is not float or not 0.0 <= value <= 1.0
                 for value in self.strain_fractions
@@ -94,9 +93,7 @@ class SyntheticStrainScanRequest:
             type(self.tail_tolerances) is not tuple
             or not self.tail_tolerances
             or any(
-                type(value) is not float
-                or not math.isfinite(value)
-                or value <= 0.0
+                type(value) is not float or not math.isfinite(value) or value <= 0.0
                 for value in self.tail_tolerances
             )
         ):

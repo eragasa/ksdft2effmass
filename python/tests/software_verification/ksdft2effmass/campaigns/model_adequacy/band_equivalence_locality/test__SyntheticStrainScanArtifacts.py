@@ -143,17 +143,21 @@ def _environment() -> SyntheticStrainScanEnvironment:
 
 
 def _write(scan: _CalculatedScan, directory: Path) -> SyntheticStrainScanArtifactPaths:
-    return SyntheticStrainScanArtifactWriter().execute(
-        scan.request,
-        scan.summary,
-        scan.transitions,
-        scan.geometry,
-        scan.witnesses,
-        scan.frozen,
-        scan.radial,
-        directory,
-        _environment(),
-    ).paths
+    return (
+        SyntheticStrainScanArtifactWriter()
+        .execute(
+            scan.request,
+            scan.summary,
+            scan.transitions,
+            scan.geometry,
+            scan.witnesses,
+            scan.frozen,
+            scan.radial,
+            directory,
+            _environment(),
+        )
+        .paths
+    )
 
 
 class TestSyntheticStrainScanArtifacts:
@@ -171,12 +175,14 @@ class TestSyntheticStrainScanArtifacts:
         assert result["schema"] == SCAN_RESULT_SCHEMA_ID
         assert verification["schema"] == SCAN_VERIFICATION_SCHEMA_ID
         assert verification["passes"] is True
-        assert result["scan_request_sha256"] == CanonicalJsonDocument(
-            paths.request_path.read_bytes()
-        ).content_sha256()
-        assert verification["scan_result_sha256"] == CanonicalJsonDocument(
-            paths.result_path.read_bytes()
-        ).content_sha256()
+        assert (
+            result["scan_request_sha256"]
+            == CanonicalJsonDocument(paths.request_path.read_bytes()).content_sha256()
+        )
+        assert (
+            verification["scan_result_sha256"]
+            == CanonicalJsonDocument(paths.result_path.read_bytes()).content_sha256()
+        )
         assert result["summary"]["base_sample_count"] == 3
         assert len(paths.witness_paths) == len(StrainWitnessControl)
         assert all(path.is_file() for path in paths.witness_paths)

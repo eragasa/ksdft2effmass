@@ -89,15 +89,11 @@ class TestBandFrameAligner1D:
         """
         mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, Unitless()), 2)
         reference_frame = ComplexMatrixQuantity(
-            np.asarray(
-                [[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128
-            ),
+            np.asarray([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128),
             Unitless(),
         )
         candidate_frame = ComplexMatrixQuantity(
-            np.asarray(
-                [[1.0, 0.0], [0.0, 0.0], [0.0, 1.0]], dtype=np.complex128
-            ),
+            np.asarray([[1.0, 0.0], [0.0, 0.0], [0.0, 1.0]], dtype=np.complex128),
             Unitless(),
         )
         sewing = ComplexMatrixQuantity(np.eye(3, dtype=np.complex128), Unitless())

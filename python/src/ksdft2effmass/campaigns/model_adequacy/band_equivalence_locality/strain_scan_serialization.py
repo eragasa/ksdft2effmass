@@ -372,9 +372,7 @@ def _witness_envelope_wire(
             value.minimum_splitting_scale_strain_fraction
         ),
         "optimized_maximum": value.optimized_maximum,
-        "optimized_maximum_strain_fraction": (
-            value.optimized_maximum_strain_fraction
-        ),
+        "optimized_maximum_strain_fraction": (value.optimized_maximum_strain_fraction),
     }
 
 
@@ -456,21 +454,15 @@ def _mechanism_envelope_wire(
 ) -> _MechanismEnvelopeWire:
     return {
         "control": value.control.value,
-        "delta_offsite_power_maximum": _maximum_wire(
-            value.delta_offsite_power_maximum
-        ),
-        "delta_onsite_power_maximum": _maximum_wire(
-            value.delta_onsite_power_maximum
-        ),
+        "delta_offsite_power_maximum": _maximum_wire(value.delta_offsite_power_maximum),
+        "delta_onsite_power_maximum": _maximum_wire(value.delta_onsite_power_maximum),
         "hopping_response_maximum": _maximum_wire(value.hopping_response_maximum),
         "hopping_response_minimum": _minimum_wire(value.hopping_response_minimum),
         "scalar_component_maximum": _maximum_wire(value.scalar_component_maximum),
         "scalar_component_rms_maximum": _maximum_wire(
             value.scalar_component_rms_maximum
         ),
-        "traceless_component_maximum": _maximum_wire(
-            value.traceless_component_maximum
-        ),
+        "traceless_component_maximum": _maximum_wire(value.traceless_component_maximum),
         "traceless_component_rms_maximum": _maximum_wire(
             value.traceless_component_rms_maximum
         ),
@@ -492,9 +484,7 @@ def _summary_wire(value: SyntheticStrainScanSummary) -> _SummaryWire:
         "maximum_volume_defect_strain_fraction": (
             value.maximum_volume_defect_strain_fraction
         ),
-        "mechanisms": [
-            _mechanism_envelope_wire(item) for item in value.mechanisms
-        ],
+        "mechanisms": [_mechanism_envelope_wire(item) for item in value.mechanisms],
         "qualifications": [
             _qualification_envelope_wire(item) for item in value.qualifications
         ],
@@ -612,8 +602,7 @@ def _assert_sources_match_request(
         if (
             result.path is not request.path
             or result.construction_size != request.witness_construction_size
-            or result.maximum_rotation_amplitude
-            != request.maximum_rotation_amplitude
+            or result.maximum_rotation_amplitude != request.maximum_rotation_amplitude
             or result.radial_decay_beta != expected_beta
             or tuple(point.strain_fraction for point in result.points) != fractions
         ):
@@ -625,17 +614,14 @@ def _assert_sources_match_request(
         if (
             response_result.path is not request.path
             or response_result.model is not model
-            or response_result.construction_size
-            != request.response_construction_size
+            or response_result.construction_size != request.response_construction_size
             or response_result.evaluation_size != request.response_evaluation_size
             or response_result.evaluation_shift != request.response_evaluation_shift
             or response_result.maximum_rotation_amplitude
             != request.maximum_rotation_amplitude
             or response_result.radial_decay_beta != beta
             or response_result.tail_tolerances != request.tail_tolerances
-            or tuple(
-                point.strain_fraction for point in response_result.points
-            )
+            or tuple(point.strain_fraction for point in response_result.points)
             != fractions
         ):
             raise ValueError("response source does not match the scan request")
@@ -726,9 +712,7 @@ class SyntheticStrainScanResultSerializer:
                 path=path.value,
                 scan_request_sha256=scan_request.content_sha256(),
                 schema=SCAN_RESULT_SCHEMA_ID,
-                source_sha256=_source_digests_wire(
-                    geometry, witnesses, frozen, radial
-                ),
+                source_sha256=_source_digests_wire(geometry, witnesses, frozen, radial),
                 status="sampled-strain-scan-result-not-continuum-certificate",
                 summary=_summary_wire(summary),
                 transitions=_transitions_wire(transitions),
@@ -741,9 +725,7 @@ class SyntheticStrainScanArtifactVerifier:
 
     __slots__ = ()
 
-    def execute(
-        self, paths: SyntheticStrainScanArtifactPaths
-    ) -> CanonicalJsonDocument:
+    def execute(self, paths: SyntheticStrainScanArtifactPaths) -> CanonicalJsonDocument:
         """Validate identities and semantic reconstruction, then write verification."""
         if type(paths) is not SyntheticStrainScanArtifactPaths:
             raise TypeError("paths must be SyntheticStrainScanArtifactPaths")
@@ -758,12 +740,8 @@ class SyntheticStrainScanArtifactVerifier:
         witness_documents = tuple(
             CanonicalJsonDocument(path.read_bytes()) for path in paths.witness_paths
         )
-        frozen_document = CanonicalJsonDocument(
-            paths.frozen_response_path.read_bytes()
-        )
-        radial_document = CanonicalJsonDocument(
-            paths.radial_response_path.read_bytes()
-        )
+        frozen_document = CanonicalJsonDocument(paths.frozen_response_path.read_bytes())
+        radial_document = CanonicalJsonDocument(paths.radial_response_path.read_bytes())
         result_document = CanonicalJsonDocument(paths.result_path.read_bytes())
 
         SyntheticStrainScanSchema(SyntheticStrainScanSchemaKind.REQUEST).validate(
@@ -772,9 +750,7 @@ class SyntheticStrainScanArtifactVerifier:
         SyntheticStrainSchema(SyntheticStrainSchemaKind.M0_RESULT).validate(
             geometry_document.canonical_bytes()
         )
-        witness_schema = SyntheticStrainSchema(
-            SyntheticStrainSchemaKind.WITNESS_RESULT
-        )
+        witness_schema = SyntheticStrainSchema(SyntheticStrainSchemaKind.WITNESS_RESULT)
         for document in witness_documents:
             witness_schema.validate(document.canonical_bytes())
         SyntheticStrainSchema(SyntheticStrainSchemaKind.M1_RESULT).validate(
@@ -852,9 +828,7 @@ class SyntheticStrainScanArtifactVerifier:
                 status="canonical-read-back-and-semantic-reconstruction-passed",
             )
         )
-        schema = SyntheticStrainScanSchema(
-            SyntheticStrainScanSchemaKind.VERIFICATION
-        )
+        schema = SyntheticStrainScanSchema(SyntheticStrainScanSchemaKind.VERIFICATION)
         schema.validate(verification.canonical_bytes())
         verification.write_to(paths.verification_path)
         reread = CanonicalJsonDocument(paths.verification_path.read_bytes())
@@ -952,9 +926,7 @@ class SyntheticStrainScanArtifactWriter:
         SyntheticStrainSchema(SyntheticStrainSchemaKind.M0_RESULT).validate(
             geometry_document.canonical_bytes()
         )
-        witness_schema = SyntheticStrainSchema(
-            SyntheticStrainSchemaKind.WITNESS_RESULT
-        )
+        witness_schema = SyntheticStrainSchema(SyntheticStrainSchemaKind.WITNESS_RESULT)
         for _, document in witness_documents:
             witness_schema.validate(document.canonical_bytes())
         SyntheticStrainSchema(SyntheticStrainSchemaKind.M1_RESULT).validate(
@@ -977,9 +949,7 @@ class SyntheticStrainScanArtifactWriter:
         verification_path = output_directory / f"{slug}-strain-scan-verification.json"
         request_document.write_to(request_path)
         geometry_document.write_to(geometry_path)
-        for path, (_, document) in zip(
-            witness_paths, witness_documents, strict=True
-        ):
+        for path, (_, document) in zip(witness_paths, witness_documents, strict=True):
             document.write_to(path)
         frozen_document.write_to(frozen_path)
         radial_document.write_to(radial_path)

@@ -346,9 +346,7 @@ def _response_cutoff_from_wire(
             if value["truncation"] is None
             else _error_from_wire(value["truncation"])
         ),
-        total=(
-            None if value["total"] is None else _error_from_wire(value["total"])
-        ),
+        total=(None if value["total"] is None else _error_from_wire(value["total"])),
         delta_omitted_power=value["delta_omitted_power"],
         delta_truncation=(
             None
@@ -507,9 +505,7 @@ class SyntheticStrainWitnessResultSerializer:
 
     __slots__ = ()
 
-    def execute(
-        self, value: SyntheticStrainWitnessScanResult
-    ) -> CanonicalJsonDocument:
+    def execute(self, value: SyntheticStrainWitnessScanResult) -> CanonicalJsonDocument:
         """Return the explicit canonical witness result document."""
         if type(value) is not SyntheticStrainWitnessScanResult:
             raise TypeError("value must be SyntheticStrainWitnessScanResult")

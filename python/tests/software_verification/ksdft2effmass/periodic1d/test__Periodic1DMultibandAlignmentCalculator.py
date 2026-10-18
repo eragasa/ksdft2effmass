@@ -112,15 +112,11 @@ class TestPeriodic1DMultibandAlignmentCalculator:
         unit = Unitless()
         mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, unit), 2)
         frame = ComplexMatrixQuantity(
-            np.asarray(
-                [[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128
-            ),
+            np.asarray([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128),
             unit,
         )
         sewing = ComplexMatrixQuantity(np.eye(3, dtype=np.complex128), unit)
-        reference = ReciprocalBandFramePath1D(
-            mesh, (frame, frame), sewing, 1.0e-14
-        )
+        reference = ReciprocalBandFramePath1D(mesh, (frame, frame), sewing, 1.0e-14)
         candidate = ReciprocalBandFramePath1D(
             mesh,
             (

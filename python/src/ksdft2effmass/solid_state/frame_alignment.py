@@ -210,9 +210,7 @@ class BandFrameAligner1D:
                 * float(np.finfo(np.float64).eps)
                 * float(singular_values[0])
             )
-            numerical_rank = int(
-                np.count_nonzero(singular_values > rank_tolerance)
-            )
+            numerical_rank = int(np.count_nonzero(singular_values > rank_tolerance))
             if numerical_rank != reference.rank:
                 raise ValueError(
                     "pointwise Procrustes cross-covariance must have full "
