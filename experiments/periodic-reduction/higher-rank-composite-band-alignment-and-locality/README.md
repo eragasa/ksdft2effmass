@@ -12,12 +12,17 @@ candidate with reserved identity
 `ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality.v1`.
 Its parent, exact analytic certificates, real Givens-angle law, rank/depth ladder,
 A0--A3 channels, exact Procrustes orientation and application rules, fail-closed
-alignment dispositions, meshes, tolerances, supports, convergence and claim-resolution
-rules, complete diagnostic ledger, strict input/result/verification/provenance field
+alignment dispositions, Part 2-compatible sequential transport and distributed closure,
+meshes, tolerances, supports, per-channel sampled Pareto diagnostics, convergence and
+claim-resolution rules, complete diagnostic ledger, strict input/result/verification/provenance field
 inventory, verifier method, resource gate, and evidence policy are selected. Reusable,
 rank-generic diagnostic primitives are now under software verification at
-`python/src/ksdft2effmass/analysis/matrix_field/diagnostics/`; the experiment calculator,
-independent verifier, serializer, and retained composition remain unimplemented.
+`python/src/ksdft2effmass/analysis/matrix_field/diagnostics/`. A schema-free development
+calculator now implements the P0/G0 formulas, A0--A3 alignment, sequential transport,
+unit-aware Fourier route, full support/error ledger, refinement, and sampled Pareto
+classification under
+`python/src/ksdft2effmass/campaigns/periodic_reduction/higher_rank_d1/`. The independent
+verifier, strict serializer/schema layer, and retained composition remain unimplemented.
 The KSD development dependency binding now selects Optimization commit
 `d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f`, which contains the reviewed maximum-rule
 Procrustes tranche (`4c69ffa73ada6fd55576b0f9dee0350259813673`) and odd-parity
@@ -25,8 +30,10 @@ finite-periodic operations. It also selects PhysKit commit
 `7157dcedd0d220673d443c1c025e35a6fd1ffa7a`, whose unit-aware physical records and
 actions wrap those finite-periodic operations. Software verification covers the D1
 $513\rightarrow8191$ odd-mesh route, physical identity propagation, support extraction,
-and strict maximum-rule Procrustes behavior. This owner integration does not constitute
-the experiment calculator, a completed calculation, or evidence. The protocol has no
+strict maximum-rule Procrustes behavior, explicit rank-deficient and backend-unresolved
+alignment/transport dispositions without null-space completion, one complete rank-three
+schema-free case, and sampled Pareto classification. This development implementation and
+its replaceable local summaries do not constitute retained evidence. The protocol has no
 reviewed immutable version, retained run, or evidence package. The 2-D, 3-D, P1,
 G1, and A4 branches remain prospective. Empty dimensional implementation packages are
 intentionally not created.
@@ -40,8 +47,9 @@ $r\geq3$ and finite circuit depth, but every calculation remains bounded to a fr
 finite rank/depth ladder. The canonical protocol now states the property-by-construction
 grammar explicitly: retained rank, projector, represented spectrum, periodicity under the
 declared input constraints, and exterior isolation are analytic guarantees, whereas
-restricted alignment residuals, hopping tails, truncation errors, refinement behavior,
-and finite rank/depth trends remain measured outcomes. The Paper 1 v3 supplementary
+restricted alignment residuals, hopping tails, truncation errors, per-channel sampled
+support--error Pareto membership, refinement behavior, and finite rank/depth trends remain
+measured outcomes. The Paper 1 v3 supplementary
 workflow is used only as a diagnostic-completeness checklist: applicable gap, frame,
 sewing, Fourier, Parseval, error-decomposition, perturbation-bound, evaluation,
 refinement, serialization, and verification channels are retained, while rank-two-only
@@ -66,6 +74,9 @@ but are not executions of this analytic protocol.
   provides reusable typed structural, error-channel, perturbation-bound, decomposition,
   block-norm, tail, monotonicity, and scalar-refinement diagnostics. These primitives do
   not constitute the D1 experiment calculator or evidence.
+- [`run_development.py`](run_development.py) executes the frozen 16-case matrix and writes
+  only an ignored, replaceable schema-free summary under `analysis/development/`; it does
+  not write `runs/`, retained evidence, or a verification document.
 - [`verify_d1_p0_g0_controls.py`](verify_d1_p0_g0_controls.py) reproduces the finite-grid
   D1 isolation-energy and attack-angle sanity check. Its output is replaceable
   development diagnostics, not an analytic proof or retained evidence.
@@ -83,5 +94,7 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error \\
   -outdir=/tmp/hr-cbal-protocol-build experimental-protocol.tex
 ```
 
-No calculation, retained evidence, publication, or protected execution is authorized by
-these documents. Implementation and schema review must precede any execution request.
+The bounded local schema-free development composition is separate from retained evidence.
+No retained calculation, evidence promotion, production external-code execution,
+publication, or other protected action is authorized by these documents. Strict schema,
+serializer, and independent-verifier review must precede any retained execution request.
