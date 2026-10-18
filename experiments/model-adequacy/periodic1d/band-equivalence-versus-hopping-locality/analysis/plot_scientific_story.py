@@ -39,7 +39,7 @@ def _family_rows(data: np.ndarray, scale: float) -> np.ndarray:
     return data[mask][np.argsort(data["amplitude"][mask])]
 
 
-def main() -> None:
+def main() -> int:
     """Create the sampled theorem-to-robustness comparison figure."""
     family = np.genfromtxt(
         ANALYSIS / "parent-family-continuum.csv", delimiter=",", names=True
@@ -228,9 +228,10 @@ def main() -> None:
         figure.savefig(PDF_OUTPUT, bbox_inches="tight", metadata=metadata)
         figure.savefig(PNG_OUTPUT, dpi=600, bbox_inches="tight", metadata=metadata)
         plt.close(figure)
-    print(PDF_OUTPUT)
-    print(PNG_OUTPUT)
+    print(f"output={PDF_OUTPUT}")
+    print(f"output={PNG_OUTPUT}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

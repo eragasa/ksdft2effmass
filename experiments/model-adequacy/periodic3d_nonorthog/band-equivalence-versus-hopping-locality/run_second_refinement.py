@@ -16,12 +16,14 @@ from ksdft2effmass.application.band_equivalence_locality import (
 REFINEMENT = replace(DEFINITION, construction_size=32, evaluation_size=65)
 
 
-def main() -> None:
-    """Calculate, verify, and assess the complete three-level ladder."""
+def main() -> int:
+    """Calculate, verify, and assess the complete development ladder."""
     requests = (DEFINITION, FIRST_REFINEMENT, REFINEMENT)
     artifacts = tuple(construct_artifacts(request) for request in requests)
     results = tuple(result for result, _ in artifacts)
     verifications = tuple(verification for _, verification in artifacts)
+    if not all(item.diagnostics.passes for item in verifications):
+        raise RuntimeError("independent refinement-ladder verification failed")
     experiment = Path(__file__).resolve().parent
     outputs = (
         experiment / "analysis" / "development",
@@ -42,12 +44,12 @@ def main() -> None:
         / "development-refinement-assessment.json"
     )
     print(
-        f"{REFINEMENT.family.value}: "
-        f"N=8/16/32 passes="
-        f"{all(item.diagnostics.passes for item in verifications)} "
+        f"family={REFINEMENT.family.value} lifecycle=development "
+        "construction_sizes=8,16,32 verification=pass "
         f"disposition={assessment.assessment.momentum_disposition}"
     )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

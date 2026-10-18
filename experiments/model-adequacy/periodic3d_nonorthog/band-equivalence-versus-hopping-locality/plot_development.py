@@ -17,8 +17,8 @@ from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.plotting i
 )
 
 
-def main() -> None:
-    """Calculate typed diagnostics and write the maintained plot set."""
+def main() -> int:
+    """Calculate typed diagnostics and write the development plot set."""
     requests = (
         DEFINITION,
         replace(DEFINITION, construction_size=16, evaluation_size=33),
@@ -40,8 +40,9 @@ def main() -> None:
         )
     )
     for path in result.paths:
-        print(path)
+        print(f"output={path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -2,9 +2,10 @@
 
 This directory contains the synchronized pre-results sources
 [`manuscript.md`](manuscript.md) and [`manuscript.tex`](manuscript.tex). The manuscript
-formalizes matched comparison geometry, rank and bundle admission, constrained alignment,
-energy referencing, gauge-covariant subtraction, failure dispositions, and the current
-evidence boundary without asserting a production defect result.
+formalizes matched comparison geometry, rank and bundle admission, a finite-dimensional
+property-by-construction control grammar, constrained alignment, energy referencing,
+gauge-covariant subtraction, failure dispositions, and the current evidence boundary
+without asserting a production defect result.
 
 ## Prospective role
 

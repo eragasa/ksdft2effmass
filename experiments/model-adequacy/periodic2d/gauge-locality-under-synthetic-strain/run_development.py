@@ -22,7 +22,7 @@ from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_ser
 FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
 
 
-def main() -> None:
+def main() -> int:
     """Write replaceable JSON plus 1-D-style PDF and PNG diagnostics."""
     result = SyntheticStrainCalculator().execute(
         SyntheticStrainPath.RHOMBIC_2D,
@@ -39,15 +39,16 @@ def main() -> None:
     artifact.write_to(output / "development-result.json")
     schema.write_to(output)
 
-    style = {
-        "font.family": "DejaVu Sans",
-        "font.size": 7.5,
-        "axes.titlesize": 8.5,
-        "axes.labelsize": 8,
-        "legend.fontsize": 6.5,
-        "pdf.fonttype": 42,
-    }
-    with plt.rc_context(style):
+    with plt.rc_context(
+        {
+            "font.family": "DejaVu Sans",
+            "font.size": 7.5,
+            "axes.titlesize": 8.5,
+            "axes.labelsize": 8,
+            "legend.fontsize": 6.5,
+            "pdf.fonttype": 42,
+        }
+    ):
         figure, axes = plt.subplots(2, 2, figsize=(7.2, 6.2), constrained_layout=True)
         points = result.points
         strain = [point.strain_fraction for point in points]
@@ -97,8 +98,9 @@ def main() -> None:
         figure.savefig(stem.with_suffix(".pdf"), bbox_inches="tight")
         figure.savefig(stem.with_suffix(".png"), dpi=600, bbox_inches="tight")
         plt.close(figure)
-    print(output / "development-result.json")
+    print(f"output={output / 'development-result.json'}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

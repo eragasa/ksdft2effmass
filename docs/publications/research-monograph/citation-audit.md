@@ -61,6 +61,20 @@ continuous global search and constraint satisfaction. This reuse resolves no
 broader claim about which certified global method is applicable to the
 project's future material-scale model families.
 
+**Witness–separation attribution integration, 18 October 2026:** The chapter
+now cites `rudin1976` for standard metric-space background,
+`milaneseEtAl1996` for bounded-error/set-membership feasible-set precedent,
+`neumaier2004` for complete global search, and `mooreKearfottCloud2009` for
+interval-analysis methodology. It explicitly identifies *common witness or
+certified positive separation* as descriptive synthesis rather than an
+established named theory. The detailed claim-role and verification boundary is
+recorded in
+[`../papers/Ragasa2026c/v1/witness-separation-attribution-audit.md`](../papers/Ragasa2026c/v1/witness-separation-attribution-audit.md).
+No pinpoint Rudin theorem or page is asserted because that locator has not been
+checked against a physical copy, and none of these citations establishes that a
+particular validated global method applies automatically to future material
+model families.
+
 **Literature-positioning integration, 11 October 2026:** The references are
 integrated where their concepts enter the chapter rather than collected in a
 standalone literature paragraph: structural tight-binding restrictions appear
@@ -1310,7 +1324,7 @@ main projection chapter derives the same distinction pedagogically and cites
 - **Total locations flagged:** 47
 - **Priority:** 12 high, 28 medium, 7 low
 - **Existing citation keys checked at audit time:** 45 unique keys
-- **Prospective bibliography entries added after the audit:** 21 unique entries
+- **Prospective bibliography entries added after the audit:** 24 unique entries
 - **Conclusive incorrect existing citations:** 0
 - **Existing citations needing stronger attachment or supplementation:** 6 locations
 
@@ -1341,6 +1355,9 @@ editorial note is resolved.
 19. `neumaier2004`
 20. `mclachlan1947`
 21. `bornOppenheimer1927`
+22. `rudin1976`
+23. `milaneseEtAl1996`
+24. `mooreKearfottCloud2009`
 
 ### Systematic gaps
 

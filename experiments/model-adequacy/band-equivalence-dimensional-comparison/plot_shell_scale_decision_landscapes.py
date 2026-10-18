@@ -68,7 +68,7 @@ def _load_definition(path: Path, index: int) -> BandEquivalenceLocalityRequest:
     return definition
 
 
-def main() -> None:
+def main() -> int:
     """Calculate all family landscapes and render separate and composite views."""
     calculator = ShellScaleDecisionLandscapeCalculator()
     requests = tuple(
@@ -111,8 +111,9 @@ def main() -> None:
             artifact.decision_result_sha256,
         )
     for path in plots.paths:
-        print(path)
+        print(f"output={path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

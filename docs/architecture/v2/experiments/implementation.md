@@ -20,6 +20,17 @@ Experiment source is an outward composition layer.
 - Serializers own wire mechanics rather than scientific behavior.
 - Mutable task state is never imported into experiment results.
 
+## Executable composition roots
+
+Executable experiment scripts follow
+[`experiments/script-conventions.md`](../../../../experiments/script-conventions.md).
+They are import-safe outward composition roots with `main() -> int`, fail-closed process
+status, paths derived from their own location, explicit lifecycle-specific destinations,
+and no import-time execution. This common mechanical shape does not select a generic
+experiment runner: every family retains its typed definitions, producer and verifier
+routes, schemas, tolerances, statuses, and retention policy. Immutable retained-version
+scripts remain frozen with their source manifests rather than being rewritten for style.
+
 ## State and schemas
 
 Maintained definitions and results are operationally immutable and strictly correlated.

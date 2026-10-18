@@ -148,6 +148,17 @@ manuscript does not replace that outcome by a finite set-to-set distance. The pr
 is general decision bookkeeping, not a claim that an arbitrary nonconvex separation has
 been computed.
 
+This witness-or-separation wording is a paper-specific synthesis, not the name of an
+established theory. Its elementary implications follow from the standard definition of
+distance between sets and compactness arguments~\cite{rudin1976}. Interpreting
+threshold-consistent parameters as feasible sets has direct precedent in bounded-error
+and set-membership identification~\cite{milaneseEtAl1996}. A rigorous positive lower
+bound requires a complete or otherwise validated global argument rather than failure of
+local search; complete-search and interval-analysis methods provide established
+methodological settings for such certificates~\cite{neumaier2004,mooreKearfottCloud2009}.
+Here \emph{common witness} and \emph{certified positive separation} are descriptive terms
+for this contract-defined decision procedure.
+
 \subsection{Controlled rank-two common-witness precursor}
 The retained M3 calculation from the earlier rank-two study~\cite{Ragasa2026a} starts
 from a transported rank-two reference $H(k)$ and uses the two-parameter candidate below.
@@ -341,6 +352,92 @@ $d\in\{1,2,3\}$, retained rank $r\geq3$, and finite gauge-circuit depth $L\geq1$
 Arbitrary rank means that the mathematical definition has no rank-specific formula;
 every calculation still uses one declared finite $r$. It does not mean an
 infinite-dimensional calculation or rank-independent computational cost.
+
+\subsection{Construction with guaranteed properties}
+
+The higher-rank family is a property-by-construction design grammar. For any declared
+finite $r$, first choose a periodic Hermitian retained field
+$K(\mathbf k)\in\mathbb C^{r\times r}$, a periodic unitary
+$W(\mathbf k)\in U(2r)$, and a periodic Hermitian exterior field
+$D_{\mathrm{ext}}(\mathbf k)$ satisfying the certified ordering
+\begin{equation}
+ \inf_{\mathbf k}\left[
+ \lambda_{\min}(D_{\mathrm{ext}}(\mathbf k))
+ -\lambda_{\max}(K(\mathbf k))\right]\geq\Delta>0.
+ \label{eq:construction-gap}
+\end{equation}
+With $E_r:\mathbb C^r\to\mathbb C^{2r}$ the canonical embedding, define
+\begin{equation}
+ F(\mathbf k)=W(\mathbf k)E_r,
+ \qquad
+ P(\mathbf k)=F(\mathbf k)F^\dagger(\mathbf k),
+ \label{eq:construction-frame}
+\end{equation}
+\begin{equation}
+ H_p(\mathbf k)=W(\mathbf k)
+ \begin{pmatrix}
+ K(\mathbf k)&0\\
+ 0&D_{\mathrm{ext}}(\mathbf k)
+ \end{pmatrix}
+ W^\dagger(\mathbf k).
+ \label{eq:construction-parent}
+\end{equation}
+The construction then guarantees, before numerical sampling,
+\begin{equation}
+ F^\dagger F=I_r,
+ \qquad
+ F^\dagger H_pF=K,
+ \qquad
+ \operatorname{Ran}P=\operatorname{Ran}F,
+ \label{eq:construction-guarantees}
+\end{equation}
+and an exterior isolation energy of at least $\Delta$. A further periodic internal gauge
+$G(\mathbf k)\in U(r)$ gives
+\begin{equation}
+ F'(\mathbf k)=F(\mathbf k)G(\mathbf k),
+ \qquad
+ H_{F'}(\mathbf k)=G^\dagger(\mathbf k)K(\mathbf k)G(\mathbf k),
+ \label{eq:construction-internal-gauge}
+\end{equation}
+with the exact guarantees
+\begin{equation}
+ F'F^{\prime\dagger}=P,
+ \qquad
+ \operatorname{spec}H_{F'}=\operatorname{spec}K.
+ \label{eq:construction-gauge-guarantees}
+\end{equation}
+
+This grammar permits compatible properties to be imposed separately: $r$ selects the
+retained rank; $K$ selects the retained matrix field and spectrum;
+$D_{\mathrm{ext}}$ selects an analytically bounded exterior separation; $W$ selects a
+constant or moving globally framed projector; coefficient constraints select periodicity
+and declared symmetries; and $G$ selects the real $SO(r)$ or complex $U(r)$ gauge class,
+interaction graph, harmonic content, and circuit depth. If the entries of $K$ are finite
+trigonometric polynomials, their reference Fourier support is exact. Numerical execution
+checks these identities and then measures properties not fixed by the construction,
+including restricted-global alignment residuals, gauge-induced hopping tails,
+finite-support truncation errors, and rank/depth trends.
+
+The word \emph{arbitrary} is conditional on compatibility with this grammar. A globally
+periodic $W$ constructs a topologically trivial composite bundle and therefore cannot
+represent an obstructed bundle requiring patchwise frames. A fixed finite harmonic
+inventory and shallow Givens circuit do not span every periodic Hermitian or
+$U(r)$-valued field. The construction also does not imply material realism. It provides
+exact synthetic controls with declared properties, not an inverse solver for every
+possible collection of physical requirements.
+
+Papers 1 and 2 are rank-two specializations of this same construction principle, not
+executions of the higher-rank family. Paper 1 fixes $r=2$, $d=1$, and a smooth real
+$SO(2)$ sine rotation to establish exact spectral invariance, restricted-alignment
+geometry, and hopping-range consequences. Paper 2 keeps $r=2$ while extending the
+geometry to two and three dimensions, orthogonal and nonorthogonal metrics, complete
+physical shells, and synthetic strain paths. Paper 3 instead fixes $r\geq3$ and exposes
+rank, noncommuting Givens depth, projector motion, real versus complex gauge class, and
+spatial dimension as independently declared controls. This lineage transfers the
+construction logic only; it transfers no predecessor mesh, threshold, tolerance,
+result, or evidence status. The selected family below specializes the grammar to
+$K=D_r$, diagonal $D_{\mathrm{ext}}$, and the explicitly generated $W_r$; its P0
+control further sets $W_r=I_{2r}$.
 
 \subsection{Common isolated parent}
 Let the Brillouin torus be $\mathbb T^d=[-\pi,\pi)^d$ and let
@@ -616,6 +713,6 @@ separate unpublished works~\cite{Ragasa2026d,Ragasa2026e,Ragasa2026f,Ragasa2026g
 \input{appendices/A-2-d1-p0-g0-isolation-gap-certificate}
 
 \bibliographystyle{unsrt}
-\bibliography{../../unpublished-papers}
+\bibliography{references,../../unpublished-papers}
 
 \end{document}

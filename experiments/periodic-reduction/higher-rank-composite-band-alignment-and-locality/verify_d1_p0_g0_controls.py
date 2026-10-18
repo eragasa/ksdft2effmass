@@ -40,9 +40,7 @@ def _even_harmonic(momentum: float) -> float:
 
 
 def _layer_harmonic(momentum: float, layer: int) -> float:
-    return 0.75 * math.sin(momentum) + 0.25 * (-1.0) ** layer * math.sin(
-        2.0 * momentum
-    )
+    return 0.75 * math.sin(momentum) + 0.25 * (-1.0) ** layer * math.sin(2.0 * momentum)
 
 
 def _retained_energy(rank: int, index: int, harmonic: float) -> float:
@@ -95,12 +93,10 @@ def sample_control(rank: int, sample_intervals: int) -> SampledControlSummary:
         momentum = -math.pi + 2.0 * math.pi * sample_index / sample_intervals
         harmonic = _even_harmonic(momentum)
         retained = tuple(
-            _retained_energy(rank, index, harmonic)
-            for index in range(1, rank + 1)
+            _retained_energy(rank, index, harmonic) for index in range(1, rank + 1)
         )
         exterior = tuple(
-            _exterior_energy(rank, index, harmonic)
-            for index in range(1, rank + 1)
+            _exterior_energy(rank, index, harmonic) for index in range(1, rank + 1)
         )
         minimum_isolation_energy = min(
             minimum_isolation_energy,
@@ -125,8 +121,8 @@ def sample_control(rank: int, sample_intervals: int) -> SampledControlSummary:
     )
 
 
-def main() -> None:
-    """Run the finite-grid development sanity check."""
+def main() -> int:
+    """Run the finite-grid development sanity check and return success."""
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -140,12 +136,12 @@ def main() -> None:
     for rank in RANKS:
         summary = sample_control(rank, arguments.sample_intervals)
         print(
-            f"r={summary.rank:2d}: "
-            "sampled isolation energy="
-            f"{summary.sampled_isolation_energy:.12f} E_ref, "
-            f"sampled |theta|max={summary.sampled_max_angle:.12f} rad"
+            f"rank={summary.rank} "
+            f"sampled_isolation_energy_E_ref={summary.sampled_isolation_energy:.12f} "
+            f"sampled_maximum_angle_rad={summary.sampled_max_angle:.12f}"
         )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

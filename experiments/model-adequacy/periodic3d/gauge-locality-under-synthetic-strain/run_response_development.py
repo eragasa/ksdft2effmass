@@ -8,18 +8,18 @@ from pathlib import Path
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     SyntheticStrainPath,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
     StrainResponseModel,
     calculate_synthetic_strain_response,
 )
 from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality import (
     strain_response_plotting,
 )
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_schemas import (
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_schemas import (  # noqa: E501
     SyntheticStrainSchema,
     SyntheticStrainSchemaKind,
 )
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_serialization import (
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_serialization import (  # noqa: E501
     SyntheticStrainResponseResultSerializer,
 )
 
@@ -27,7 +27,7 @@ FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
 TOLERANCES = (1.0e-3, 1.0e-5)
 
 
-def main() -> None:
+def main() -> int:
     """Write replaceable M1/M2 JSON and publication-style development plots."""
     frozen = calculate_synthetic_strain_response(
         SyntheticStrainPath.BAIN_3D,
@@ -66,8 +66,9 @@ def main() -> None:
     for path in strain_response_plotting.write_strain_response_plots(
         frozen, radial, output, "3-D Bain path"
     ):
-        print(path)
+        print(f"output={path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

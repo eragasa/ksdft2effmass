@@ -2,9 +2,10 @@
 
 This directory contains the synchronized pre-results sources
 [`manuscript.md`](manuscript.md) and [`manuscript.tex`](manuscript.tex). The manuscript
-formalizes relative bundle alignment, qualified complex and symmetry obstruction
-diagnostics, patchwise operator comparison, staged controlled-model roles, and the
-current evidence boundary without asserting a topological classification.
+formalizes relative bundle alignment, a property-by-construction flat-band projector
+grammar, qualified complex and symmetry obstruction diagnostics, patchwise operator
+comparison, staged controlled-model roles, and the current evidence boundary without
+asserting a topological classification.
 
 ## Prospective role
 

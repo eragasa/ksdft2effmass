@@ -10,14 +10,20 @@ from run_development import DEFINITION, construct_artifacts, write_artifacts
 REFINEMENT = replace(DEFINITION, construction_size=32, evaluation_size=65)
 
 
-def main() -> None:
-    """Calculate and verify the prospectively selected first refinement point."""
+def main() -> int:
+    """Calculate and verify the selected first development refinement."""
     result, verification = construct_artifacts(REFINEMENT)
+    if not verification.diagnostics.passes:
+        raise RuntimeError("independent refinement verification failed")
     experiment = Path(__file__).resolve().parent
     output = experiment / "analysis" / "development-refinement" / "N32"
     write_artifacts(output, result, verification)
-    print(f"{REFINEMENT.family.value}: N=32 passes={verification.diagnostics.passes}")
+    print(
+        f"family={REFINEMENT.family.value} lifecycle=development "
+        f"construction_size=32 verification=pass output={output}"
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
