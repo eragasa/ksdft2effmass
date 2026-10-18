@@ -70,8 +70,9 @@ class BainPath:
         if type(strain_fraction) is not float or not 0.0 <= strain_fraction <= 1.0:
             raise ValueError("strain_fraction must be a built-in float in [0, 1]")
         aspect_ratio = math.sqrt(2.0) + strain_fraction * (1.0 - math.sqrt(2.0))
-        transverse_scale = (2.0 / aspect_ratio) ** (1.0 / 3.0)
-        longitudinal_scale = aspect_ratio * transverse_scale
+        transverse_scale = math.cbrt(2.0 / aspect_ratio)
+        # Use l=2/t^2 (algebraically l=gamma*t) so t^2*l/2 rounds to unit volume.
+        longitudinal_scale = 2.0 / (transverse_scale * transverse_scale)
         direct_lattice = DirectLattice3D(
             a1=np.asarray(
                 (
