@@ -8,7 +8,7 @@ Prospective strict serializer for HSH-1 schema v1. It is not implemented or supp
 
 Planned methods encode one definition/result pair to canonical UTF-8 JSON bytes and
 decode untrusted bytes to strict typed objects. The schema identity is
-`ksdft2effmass.periodic2d.hopping-shell-hierarchy-result.v1`.
+`ksdft2effmass.analysis.model-adequacy.hopping-shell-hierarchy-result.v1`.
 
 Planned supported route:
 `ksdft2effmass.analysis.model_adequacy.hopping_shell_hierarchy.Periodic2DHoppingShellHierarchyResultJsonSerializer`.
@@ -27,8 +27,9 @@ length/correlation defects. Failures do not produce partial objects.
 
 ## Dependencies and collaborators
 
-The serializer constructs HSH types from `definition` and `results`. It may nest or
-inline the composed common quadratic coefficients, but it retains the HSH schema and
+The serializer constructs HSH types from `definition` and `results`. It inlines
+canonical quadratic coefficients plus explicit dense/sparse selection rather than
+serializing NumPy/SciPy objects; it retains the HSH schema and
 does not create a universal primitive serializer. It cannot run the calculator,
 verifier, source projection, optimizer, or manifest correlation.
 

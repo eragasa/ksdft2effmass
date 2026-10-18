@@ -27,7 +27,10 @@ permitted.
 
 Unknown strings fail strict decoding. `certified-separated` requires two nonempty sets
 and a reconstructed lower bound above resolution. `compatible-common-witness` requires
-one verified point in both sets. Empty-set values forbid a distance interval.
+one verified point in both sets. Empty-set values forbid a distance interval. If both
+channel sets are empty, the deterministic disposition is `spectral-set-empty`, following
+the declared spectral-then-operator decision order; the class result still retains both
+channel nonemptiness outcomes, so the operator-set observation is not discarded.
 `unresolved-nonempty` requires both sets nonempty without either decisive proof.
 `invalid-premise` records a named class-local premise failure and blocks all hierarchy-
 level conclusions.

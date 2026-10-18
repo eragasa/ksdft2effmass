@@ -31,8 +31,9 @@ defects.
 
 The verifier consumes definition/result objects and may use low-level NumPy/SciPy,
 periodic parent/model primitives, and the accepted outward-rounding backend. It may read
-the stored center, matrix, and minimum from a result's common quadratic object, but it
-must not use the common constructor, `squared_loss`, or `rms_loss` as verification
+the stored center, canonical matrix entries, minimum, and backend selection from a
+result's Optimization facade, but it
+must not use the common constructor, `squared_loss`, or `root_loss` as verification
 logic. It independently validates shape, finiteness, symmetry, and positive curvature;
 reconstructs the energy-scale normalization and all coefficients; and evaluates direct
 and quadratic formulas through an independent code path. It must not call calculator
@@ -41,7 +42,8 @@ script boundary.
 
 ## Data and action flow
 
-The action rebuilds source projection, orbit/shell inventories, both channel quadratics,
+The action independently composes PhysKit source projection and orbit/shell invariants,
+then rebuilds both channel quadratics,
 box-constrained minima, feasible points, metric distances, support endpoints, lower
 bounds, class/hierarchy logic, and withheld diagnostics, then constructs the immutable
 verification result.

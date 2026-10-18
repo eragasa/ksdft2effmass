@@ -38,8 +38,8 @@ reclassified silently.
 ## Dependencies and neighboring owners
 
 These records depend on immutable standard-library types, narrow numerical validation,
-and the sibling
-`analysis.model_adequacy.losses.DimensionlessPositiveDefiniteQuadraticLoss`. The HSH
+and exact-pinned
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`. The HSH
 wrapper composes rather than subclasses that primitive. These records do not execute
 solvers, decode JSON, inspect manifests, or decide human acceptance.
 

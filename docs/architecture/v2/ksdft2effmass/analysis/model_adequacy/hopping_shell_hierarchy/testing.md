@@ -24,7 +24,7 @@ unrelated test containers.
 | Source defects are measured before projection | `test_execution__rejects_source_above_projection_tolerance` | Hermiticity, imaginary, and orbit mutations |
 | Projection produces and correlates one exact real target | `test_execution__projects_source_to_exact_d4_target` | Independent orbit averaging and projected-field mutation |
 | Shells are nested in one maximal space | `test_execution__embeds_nested_shell_masks_without_renormalization` | Inactive-coordinate and metric assertions |
-| Relative spectral weights affect the problem | `test_execution__rejects_weight_miscorrelation` | Reordered and relatively rescaled weights |
+| Relative spectral weights affect the problem and preserve declared symmetry | `test_execution__rejects_weight_miscorrelation` | Reordered, relatively rescaled, and $D_4$-asymmetric weights |
 | Both loss channels reconstruct as quadratics | `test_execution__quadratics_match_direct_losses` | Random bounded points and full coefficient comparison |
 | HSH wrapper delegates only active-coordinate evaluation | `test_result__quadratic_wrapper_validates_embedding_then_delegates` | Common primitive stub plus inactive-coordinate attacks |
 | Box-constrained nonemptiness is respected | `test_execution__distinguishes_unconstrained_and_box_constrained_minima` | Center outside coefficient box |
@@ -34,12 +34,13 @@ unrelated test containers.
 | Small numerical objective is not compatibility | `test_result__requires_explicit_common_witness` | Near-zero distinct feasible pair |
 | A compatible witness satisfies both channels | `test_verification__reconstructs_common_witness` | Threshold and witness mutation |
 | Minimality requires all smaller classes resolved | `test_result__rejects_minimality_with_unresolved_smaller_class` | Earlier-class disposition mutation |
-| Withheld data cannot alter training decisions | `test_execution__withheld_role_is_diagnostic_only` | Withheld energy mutation |
+| Withheld coordinates are point-disjoint and cannot alter training decisions | `test_execution__withheld_role_is_disjoint_and_diagnostic_only` | Coordinate-overlap and withheld-energy mutations |
 | Typed verification avoids producer execution | `test_verification__does_not_call_calculator` | Import/call boundary inspection |
-| Typed verifier does not use common quadratic evaluation as its oracle | `test_verification__does_not_call_common_quadratic_constructor_or_evaluators` | Constructor/`squared_loss`/`rms_loss` call traps while independent reconstruction passes |
+| Typed verifier does not use common quadratic evaluation as its oracle | `test_verification__does_not_call_common_quadratic_constructor_or_evaluators` | Constructor/`squared_loss`/`root_loss` call traps while independent reconstruction passes |
 | Standalone verification avoids producer imports | `test_retained_verifier__does_not_import_producer_modules` | AST/import inspection |
 | Wire decoding fails closed | `test_retained_verifier__rejects_contract_tampering` | Unknown keys, booleans, strings, nonfinite values |
-| Input generation is deterministic | `test_configuration__materializes_retained_input` | Byte-identical regeneration |
+| Input generation is deterministic | `test_configuration__materializes_retained_input` | Byte-identical regeneration, including pointwise withheld direct-parent values |
+| Withheld values bind exact generator provenance | `test_configuration__correlates_withheld_parent_generation` | Source/dependency/environment identity and energy mutation |
 | Source bytes match manifest entries | `test_retained_verifier__rejects_source_manifest_miscorrelation` | Digest-entry mutation |
 
 ## Numerical oracles

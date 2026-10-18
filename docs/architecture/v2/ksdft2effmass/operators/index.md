@@ -43,8 +43,24 @@ flowchart LR
     compatibility --> difference["Guarded signed difference"]
     difference --> residuals["Primitive residuals"]
     residuals --> comparison["Fixed-representation comparison"]
+    residuals -. prospective .-> aggregate["Path/sample RMS aggregate R_H"]
     records --> serialization["Versioned serialization"]
 ```
+
+## Prospective path/sample aggregate boundary
+
+This package owns compatibility checks, represented subtraction, and primitive residual
+mechanics. A reusable aggregate carrying an energy unit or producing dimensional $R_H$
+belongs to PhysKit under the project-wide physical-dimension rule. Such an Action may
+consume already compatible represented differences or correlated primitive residuals
+plus caller-selected finite positive sample weights, but it does not choose their
+scientific policy.
+
+`ksdft2effmass.analysis.model_adequacy` may consume the PhysKit dimensional result and a
+declared positive compatible $E_0$ to form $L_H=R_H/E_0$. It must not repeat operator
+subtraction or physical aggregation. No public aggregate class or module is selected by
+this architecture tranche, so this paragraph must not be represented as implemented
+capability.
 
 ## Boundary
 

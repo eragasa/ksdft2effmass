@@ -58,11 +58,11 @@ class TestResearchMonographCitationSnapshotCompiler:
         assert set(snapshot.repository_revision) <= set("0123456789abcdef")
         assert len(snapshot.source_files) == 47
         assert len(snapshot.include_instances) == 47
-        assert len(snapshot.groups) == 128
-        assert len(snapshot.calls) == 245
-        assert len(snapshot.occurrences) == 314
+        assert len(snapshot.groups) == 135
+        assert len(snapshot.calls) == 253
+        assert len(snapshot.occurrences) == 322
         assert len(snapshot.todos) == 43
-        assert len(snapshot.bibliography_entries) == 128
+        assert len(snapshot.bibliography_entries) == 135
         assert len(snapshot.source_gaps) == 2
         assert snapshot.missing_keys == ()
         assert snapshot.duplicate_keys == ()
@@ -84,7 +84,7 @@ class TestResearchMonographCitationSnapshotCompiler:
         snapshot = self.compile_repository()
 
         assert Counter(value.origin for value in snapshot.occurrences) == {
-            ManuscriptCitationOrigin.DIRECT: 236,
+            ManuscriptCitationOrigin.DIRECT: 244,
             ManuscriptCitationOrigin.CITATION_TODO_EXPANSION: 78,
         }
         assert Counter(value.priority for value in snapshot.todos) == {
@@ -112,7 +112,7 @@ class TestResearchMonographCitationSnapshotCompiler:
         Requirement: Equal exact repository inputs must produce equal immutable
         snapshots and leave References-owned observation identities unset.
 
-        Acceptance: Two independent compilations compare equal and all 128 target
+        Acceptance: Two independent compilations compare equal and all 135 target
         bibliography entries have a null source observation binding.
         """
         first = self.compile_repository()

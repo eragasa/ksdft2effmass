@@ -15,13 +15,52 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 
 ## Python libraries
 
+### Project Koios PhysKit
+
+- **Category:** Project Koios runtime physics and mathematical-representation library
+- **Purpose:** reusable lattice coordinates, displacements, symmetry operations, finite periodic domains, hopping records, represented operators, units, and numerical physics primitives
+- **Required or optional:** required by the implemented Python package
+- **Installation source:** Git repository through the lock workflow
+- **Supported-version policy:** `projectkoios-physkit==0.1.3.dev0` at exact commit `d81febb811fbc4feb014530fcae6cf6d9ad9ead5`
+- **Version actually tested:** 0.1.3.dev0 from that exact commit on the active Python 3.14 environment
+- **License:** Apache-2.0; upstream retains `LICENSE` and `NOTICE`
+- **Project/source:** <https://github.com/eragasa/projectkoios-physkit>
+- **Import name:** `projectkoios.physkit`
+- **Capability probes:** consuming-project tests cover selected embedded-periodic-plane and finite-lattice public routes; tests do not establish every PhysKit capability
+- **Configuration inputs:** explicit immutable project and PhysKit records
+- **Artifacts consumed and produced:** project-owned typed values, sparse represented operators, and derived numerical records
+- **Failure modes:** pinned-source mismatch, public-contract incompatibility, invalid units or geometry, or numerical failure at an invoked boundary
+- **Software-verification status:** selected consuming-project dependency tests pass
+- **Numerical-verification status:** capability-specific only; dependency installation is not numerical verification
+- **Scientific-validation status:** not established by dependency reuse
+
+### Project Koios Optimization
+
+- **Category:** Project Koios runtime optimization-contract library
+- **Purpose:** reusable ordered finite parameter bounds and parameter spaces plus unit-free dense/sparse positive-definite quadratic loss storage and evaluation; HSH scientific policy remains outside this dependency
+- **Required or optional:** declared runtime dependency with the `numpy` and `scipy` adapter extras; currently exercised by consuming-project verification, while the prospective model-adequacy runtime package remains unimplemented
+- **Installation source:** Git repository through the lock workflow
+- **Supported-version policy:** `projectkoios-optimization==0.1.0.dev0` at exact commit `2c6dd7f717722f6b0495feb8cfe1287a104268a6`
+- **Version actually tested:** 0.1.0.dev0 from that exact commit on the active Python 3.14 environment
+- **Direct dependencies:** none in the dependency-free package root; KSD requests the dependency's `numpy` and `scipy` extras and also declares NumPy/SciPy for its own numerical APIs
+- **License:** Apache-2.0; upstream retains `LICENSE` and `NOTICE`
+- **Project/source:** <https://github.com/eragasa/projectkoios-optimization>
+- **Import name:** `projectkoios.optimization`
+- **Capability probes:** `projectkoios.optimization.spaces.parameters.ParameterBound` and `ParameterSpace` imports, inclusive/fixed bounds, and the `projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` facade with NumPy dense and SciPy CSR selections
+- **Configuration inputs:** KSD-selected unit-free coordinates, matrices, backend selection, and finite bounds; the dependency does not select physical normalization or scientific bounds
+- **Artifacts consumed and produced:** immutable parameter-space records and unit-free quadratic values; no calculation artifact or scientific disposition
+- **Failure modes:** pinned-source mismatch, public-contract incompatibility, malformed names, invalid bounds, dimension mismatch, dense factorization failure, sparse eigensolver nonconvergence, or nonfinite evaluation
+- **Software-verification status:** focused consuming-project provenance, parameter-space, dense-quadratic, and sparse-quadratic cases pass
+- **Numerical-verification status:** bounded quadratic smoke values only; dependency installation is not scientific or campaign numerical validation
+- **Scientific-validation status:** not established; no HSH calculation has run
+
 ### NumPy
 
 - **Category:** runtime Python library
 - **Purpose:** immutable numerical array payloads and linear algebra inputs
 - **Required or optional:** required by the implemented Python package
 - **Installation source:** Python package index through the repository lock workflow
-- **Supported-version policy:** `numpy>=1.26` currently declared
+- **Supported-version policy:** `numpy>=2.3,<3`, matching the effective interval required by the pinned Optimization NumPy/SciPy extras
 - **Version actually tested:** current lock records 2.5.1; existing repository tests cover implemented operator code, not prospective CPN workflows
 - **License:** upstream license; verify from installed/package metadata for release records
 - **Import/executable names:** `numpy`
@@ -60,21 +99,21 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 ### SciPy
 
 - **Category:** runtime Python library
-- **Purpose:** declared dependency for future scientific numerical algorithms; no SciPy-backed maintained behavior was identified in the current package
+- **Purpose:** scientific numerical algorithms and the sparse CSR backend selected through the pinned Optimization quadratic facade
 - **Required or optional:** required by the implemented Python package
 - **Installation source:** Python package index through the repository lock workflow
-- **Supported-version policy:** `scipy>=1.12` currently declared
+- **Supported-version policy:** `scipy>=1.18,<2`, matching the effective interval required by the pinned Optimization SciPy extra
 - **Version actually tested:** current lock records 1.18.0; no prospective CPN role tested
 - **License:** upstream license; verify from package metadata for release records
 - **Import/executable names:** `scipy`
-- **Capability probes:** import and specifically required numerical routines
+- **Capability probes:** import plus sparse Optimization-facade construction and bounded CSR quadratic evaluation
 - **Configuration inputs:** Python environment and numerical backend
 - **Artifacts consumed:** project-owned numerical arrays and configurations
 - **Artifacts produced:** project-owned numerical results
 - **Associated CPN places/transitions:** analyzer payloads only where an accepted task requires them
 - **Failure modes:** import, linear-algebra, convergence, warning, or platform failures
-- **Software-verification status:** no SciPy-specific maintained behavior or verification evidence identified
-- **Numerical-verification status:** no SciPy-specific numerical-verification evidence identified
+- **Software-verification status:** bounded consuming-project sparse-adapter smoke evidence passes
+- **Numerical-verification status:** bounded quadratic agreement only; no campaign-level numerical verification
 - **Scientific-validation status:** not performed
 
 ### Matplotlib

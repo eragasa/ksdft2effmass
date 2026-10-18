@@ -91,8 +91,9 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.units` | [Canonical units and conversion provenance](units.md) | Canonical metal-unit identities, pinned conversion definitions, typed scalar conversions, and their provenance |
 | `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Implemented nominal 1D--3D scientific-model hierarchy and toy-model catalog contract; transitional compatibility exports remain pending migration, and cross-dimensional comparison is prospective |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
-| `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
+| `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and fixed-representation primitive residuals; unit-bearing reusable aggregation belongs to PhysKit |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |
+| prospective `ksdft2effmass.analysis.model_adequacy` | [Model adequacy](analysis/model_adequacy/index.md) | KSD-specific normalization, admissibility, certificate, and hierarchy policy; exact-pinned Optimization supplies generic quadratic geometry, `exports/physkit` records missing physical foundations, and no local Python package is implemented yet |
 
 No additional shared `contracts` package sits beneath these owners. Cross-package
 identity/version/failure semantics are defined at the architecture root, while each
@@ -123,6 +124,7 @@ sparse-fourier-transform-technology-review
 research-monograph-software-extraction-audit
 integration/wannier90/index
 serialization/index
+analysis/model_adequacy/index
 ```
 
 ## Documentation boundary

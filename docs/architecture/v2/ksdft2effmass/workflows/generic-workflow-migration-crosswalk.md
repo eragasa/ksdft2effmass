@@ -4,9 +4,10 @@
 runtime segment, payload codec, child route, migration, or retirement described here
 is implemented or authorized. The conformance target is the proposed
 `projectkoios.workflow.cpn-bindings@0.1.0` contract at SHA-256
-`463e1021d19cae8c2f5d6ed9fb65015f8dc81f38c527f92e227838f1d82346b1`.
-That exact proposal is a semantic target, not an importable API or a compatibility
-promise.
+`e6428a8b0d8a47d4f9a6596300fe5ccc65bb16c12e1cc8ffe64884720bd513c2`
+(owner source commit `9ec0944dad3af1706edf01101e443e244da22ef5`, merged as
+`3861f22db3b182743bd1e7ba6fe5721d7895948b`). That exact design
+contract is a semantic target, not an importable API or a compatibility promise.
 
 ## Purpose
 
@@ -72,13 +73,13 @@ target behavior is then evaluated independently against those fixtures.
 | Current owner/surface | Behavior that must be preserved | Generic Workflow target role | Bridge and parity disposition |
 |---|---|---|---|
 | `petrinet.colored.definitions` | Immutable colors, places, transitions, arcs, transition priority, and definition-level selection policy. | Canonical flat-definition representation inside an execution plan. | Export every semantic field to canonical owner-defined data. Mutating any field must change the canonical-definition digest and plan identity even when the nominal definition identity is unchanged. |
-| `petrinet.colored.values` and `markings` | Closed scalar values, typed tokens, optional individual token identities, multiplicity, place markings, complete markings, and ordered binding assignments. | Exact value-model, marking-representation, binding-representation, and token-identity profiles. | Compare normalized typed values and token occurrences, not Python object serialization. Payload-reference tokens are a later boundary extension, not a silent expansion of current scalar semantics. |
+| `petrinet.colored.values` and `markings` | Closed scalar values, typed tokens, optional individual token identities, multiplicity, place markings, complete markings, and ordered binding assignments. | Exact value-model, bounded control-record, marking-representation, binding-representation, and token-identity profiles. | Compare normalized typed values and token occurrences, not Python object serialization. Payload-reference and bounded control-record values are explicit target extensions with their own profiles and fixtures, not silent expansions of current scalar semantics. |
 | `ColoredPetriNetDefinitionValidator` and `ColoredPetriNetMarkingValidator` | Closed structural issue classification and fail-closed validation. | Definition- and marking-validator components of `WorkflowCpnExecutionProfile`. | Golden fixtures cover every current issue code and combinations where ordering matters. New payload-admission failures remain an outer target layer and are not mislabeled as current kernel behavior. |
-| `ColoredPetriNetExpressionEvaluator` | Pure value-expression, guard, input-pattern, inhibitor, and output-template evaluation. | Exact evaluator identity in the execution profile. | Fixture inputs contain scalars only. Any target attempt to resolve a payload or call a domain callback is a conformance failure. |
+| `ColoredPetriNetExpressionEvaluator` | Pure value-expression, guard, input-pattern, inhibitor, and output-template evaluation. | Exact evaluator identity in the execution profile, including the closed target `FIELD_PROJECTION` and `CONTROL_RECORD_CONSTRUCTOR` variants. | Legacy parity fixtures retain current scalar behavior. Separate explicit target fixtures cover bounded control records, projections, and constructors. Any attempt to resolve a payload or call a domain callback inside the kernel is a conformance failure. |
 | `ColoredPetriNetTransitionEnabler` | Complete enabled-binding enumeration, validation failures, evaluator identity, ordering identity, and enabler identity. | Complete enablement enumeration plus ordering profile. | Compare the full ordered binding tuple and closed failure witness; comparing only the selected transition is insufficient. |
 | `ColoredPetriNetBindingSelector` | Canonical selection and exact definition-permitted directed selection. | Binding selector and directive representation profile. | Preserve `selected`/`not_enabled`/`failure` behavior and directive correlation. Workflow permission remains independent of definition permission. |
 | `ColoredPetriNetTransitionFirer` | Identity-closed firing input, revalidation, exact consume/read/inhibitor audit, produced tokens, and immutable successor. | External-output validation and pure firing components of the execution profile. | Compare normalized audit and successor marking. External output must be independently validated; a supplied result must not bypass selection correlation. |
-| Nominal `ColoredPetriNetDefinitionIdentity` | Owner-local graph name. | Owner-local nominal identity only. | Never treat it as complete semantic closure. The compiler additionally retains canonical graph bytes/digest and all execution-profile identities. |
+| Nominal `ColoredPetriNetDefinitionIdentity` | Current owner-local graph name. | Target `CpnDefinitionIdentity`, still owner-local and nominal only. | Preserve an explicit nominal-identity mapping and never treat either name as complete semantic closure. The compiler additionally retains canonical graph bytes/digest and all execution-profile identities. |
 
 The current kernel therefore becomes a source profile for the first bridge. It is
 not copied into Generic Workflow as an unversioned implementation default. A
@@ -250,7 +251,7 @@ directive presence, ambiguity, or failure classification.
 | `P-02` | Repository | Compare-and-swap conflict, idempotent duplicate commit, claim receipt, validation failure with no commit, and real-SQLite retained revision. |
 | `P-03` | Replay | Equal, unequal, unsupported version, error, noncanonical transition order, and broken predecessor/result/control correlations. |
 
-These bridge fixtures supplement rather than replace the 32 conformance vectors in
+These bridge fixtures supplement rather than replace the 48 conformance vectors in
 the owner contract. In particular, later target-only suites must cover payload
 reference admission, plan/profile closure, child export and delivery, exact
 authority for every protected effect, staging receipts, cancellation, late
@@ -304,8 +305,9 @@ or scientific payloads, and receive independent review.
 - Run structural and behavioral parity.
 
 **Gate:** every semantic mutation changes the required identities; every `K`,
-`D-01`, and `D-02` witness matches; dependency checks prevent Generic Workflow
-from importing `ksdft2effmass`.
+`D-01`, and `D-02` witness matches; owner vectors 42--48 close bounded control
+records and expressions; dependency checks prevent Generic Workflow from
+importing `ksdft2effmass`.
 
 ### Slice 2 — model and adapter bridge
 
@@ -337,11 +339,11 @@ consumer implementations. Guards and pure firing remain unable to read payloads.
 
 ### Slice 5 — nested child route
 
-The corrected provider design at SHA-256
-`d33d584463c057783b955cd31cfdd801db75206e087bdef254ded99bd0065de5`
-(superseding `616b713c…`) is the current design input. Its consumer disposition
-and exact lineage schemas
-are recorded in the
+The merged provider design at SHA-256
+`adfa47ba9007e3b08b02d219bf5d7b29de28a48531876c79559a510fc5484858`
+(provider source commit `b6995de15dd44067c55d9055735d26b11b80e712`, merged
+as `8e70e02cc0f723477bcac42b0f163097f628c88a`) is the current design
+input. Its consumer disposition and exact lineage schemas are recorded in the
 [Si-VC SCF saved-state lineage contract](../../../../computational/Si-bulk/wannier-component-locality/scf-saved-state-lineage.md).
 
 - Consume the simulations-owned deterministic SCF child export and golden topology
@@ -353,9 +355,10 @@ are recorded in the
   idempotent creation, terminal delivery, and normal parent firing.
 - Do not copy the 12-place/eight-transition child topology into the parent.
 
-**Gate:** owner-contract vectors 10–24 pass, including ambiguity, cancellation
-race, late delivery, and quiescence withholding. Provider candidate output remains
-separate from Si-VC acceptance.
+**Gate:** owner-contract vectors 10--24 and 33--41 pass, including exact
+classification-specific companions, ambiguity, cancellation race, late delivery,
+and quiescence withholding. Provider candidate output remains separate from
+Si-VC acceptance.
 
 ### Slice 6 — staging and protected runtime segments
 
@@ -365,7 +368,8 @@ separate from Si-VC acceptance.
 - Add cancellation, reconciliation, late-delivery, containment, and quiescence
   segments.
 
-**Gate:** owner-contract vectors 20–30 pass; actual staging receipt is absent from
+**Gate:** owner-contract vectors 20--30 and every applicable companion/replay
+vector 33--41 pass; actual staging receipt is absent from
 the plan and first appears only after staging evidence; no unresolved state is
 classified quiescent.
 
@@ -375,9 +379,10 @@ classified quiescent.
 - Link exact payload bindings and the SCF child export.
 - Run all consumer and cross-repository fixtures without calculator execution.
 
-**Gate:** exact topology, plan closure, initial marking, parent/child separation,
-accepted-parent route, NSCF staging lineage, replay, and quiescence all pass
-software conformance review.
+**Gate:** all applicable owner vectors 1--48 plus the consumer and provider
+fixtures pass; exact topology, plan closure, initial marking, parent/child
+separation, accepted-parent route, NSCF staging lineage, replay, and quiescence
+all pass software conformance review.
 
 ### Slice 8 — retirement
 

@@ -6,7 +6,7 @@ Prospective strict canonical JSON boundary for HSH-1. No source module or schema
 
 ## Prospective public contract inventory
 
-- [`Periodic2DHoppingShellHierarchyResultJsonSerializer`](Periodic2DHoppingShellHierarchyResultJsonSerializer/index.md) — deterministic encoder and strict decoder for schema identity `ksdft2effmass.periodic2d.hopping-shell-hierarchy-result.v1`.
+- [`Periodic2DHoppingShellHierarchyResultJsonSerializer`](Periodic2DHoppingShellHierarchyResultJsonSerializer/index.md) — deterministic encoder and strict decoder for schema identity `ksdft2effmass.analysis.model-adequacy.hopping-shell-hierarchy-result.v1`.
 
 ## Represented wire object
 

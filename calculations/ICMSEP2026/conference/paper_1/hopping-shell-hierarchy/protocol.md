@@ -39,15 +39,15 @@ identify a universal minimum interaction range.
 ## 3. Retained source parent
 
 The intended source is the strongest-coupling member
-\(\lambda_{xy}=0.30\) of the retained scalar square-lattice family
+$\lambda_{xy}=0.30$ of the retained scalar square-lattice family
 
-\[
+$$
 H=-\nabla^2+0.5\cos x+0.5\cos y+0.30\cos x\cos y,
-\]
+$$
 
-with \(a=2\pi\), reciprocal scale \(G=1\), and energy scale \(E_G=1\).
-The retained calculation uses a \(15\times15\) reciprocal transform mesh and a
-separate \(31\times31\) withheld mesh.
+with $a=2\pi$, reciprocal scale $G=1$, and energy scale $E_G=1$.
+The retained calculation uses a $15\times15$ reciprocal transform mesh and a
+separate $31\times31$ withheld mesh.
 
 The current source identities are:
 
@@ -62,16 +62,32 @@ new calculation. Before freezing HSH-1, the builder must verify the exact source
 manifest entry for every consumed file and copy the required compact source
 values into a self-contained generated input.
 
+The retained `result.json` contains the pointwise $15\times15$ source energies and
+hopping blocks, but only aggregate shell errors on the historical $31\times31$
+evaluation mesh. Those aggregates cannot reconstruct errors for new HSH witnesses.
+Moreover, the two historical centered odd meshes share the $\mathbf k=\mathbf 0$ point,
+so the larger grid is role-separated but not point-disjoint from the source mesh. HSH-1
+requires a prospectively frozen $31\times31$ coordinate rule whose point set is strictly
+disjoint from the training set; a shifted rule is possible, but no shift is selected by
+this draft.
+
+The input builder must generate the pointwise withheld coordinates and direct-parent
+energies from the exact retained parent controls at a frozen source commit, retain those
+compact values in the canonical HSH input, and record generator, dependency, and
+environment identities. The independent verifier must recompute the direct-parent
+energies rather than treat copied values as their own oracle. No pointwise withheld HSH
+source has been generated yet.
+
 ### 3.1 Exact symmetry projection
 
 The source lowest-band hopping family is expected to obey Hermiticity, time
-reversal, and square-lattice \(D_4\) symmetry up to binary64-scale defects. The
+reversal, and square-lattice $D_4$ symmetry up to binary64-scale defects. The
 new input builder must:
 
-1. reconstruct the complete \(15\times15\) finite hopping family;
-2. measure raw Hermiticity, imaginary-part, and \(D_4\)-orbit defects;
+1. reconstruct the complete $15\times15$ finite hopping family;
+2. measure raw Hermiticity, imaginary-part, and $D_4$-orbit defects;
 3. fail if any defect exceeds a prospectively frozen source tolerance;
-4. average each accepted orbit to produce one exact real \(D_4\)-symmetric
+4. average each accepted orbit to produce one exact real $D_4$-symmetric
    scalar target; and
 5. retain the projection defect separately.
 
@@ -88,34 +104,39 @@ not refitted separately by the spectral and operator channels.
 
 Let the centered canonical representatives be
 
-\[
+$$
 \mathcal R_{\max}=\{(R_x,R_y):R_x,R_y\in\{-7,\ldots,7\}\}.
-\]
+$$
 
-Partition these representatives into \(D_4\) orbits. Associate one real hopping
-coefficient \(\theta_o\) with each orbit \(o\), including the onsite orbit.
+Partition these representatives into $D_4$ orbits. Associate one real hopping
+coefficient $\theta_o$ with each orbit $o$, including the onsite orbit.
 With orbit function
 
-\[
+$$
 \phi_o(\mathbf k)=\sum_{\mathbf R\in o}
  e^{2\pi i\mathbf k\cdot\mathbf R},
-\]
+$$
 
 the candidate scalar band is
 
-\[
+$$
 E_\theta(\mathbf k)=\sum_o\theta_o\phi_o(\mathbf k).
-\]
+$$
 
 The maximal parameter vector contains every orbit in
-\(\mathcal R_{\max}\), in deterministic order by squared radius, then a frozen
+$\mathcal R_{\max}$, in deterministic order by squared radius, then a frozen
 integer representative. All shell classes are embedded into this same vector
-space. An inactive orbit is fixed to zero; it is not deleted and the remaining
-coordinates are not renormalized.
+space. An inactive orbit is fixed to exactly zero; it is not deleted and the remaining
+coordinates are not renormalized. Any numerical solver candidate must be projected onto
+that exact affine slice before it becomes a retained proof point, while its
+pre-projection feasibility defect is retained and checked against a frozen solver
+tolerance. The tolerance diagnoses the solver; it does not enlarge the model class.
 
-A compact coefficient box must be frozen before execution and must contain the
-complete symmetric target with margin. The bound-selection rule may depend on
-\(E_G\) and declared target coefficient scales but not on the eventual
+A compact coefficient box must be frozen before execution and must contain both the
+exact zero vector and the complete symmetric target with a declared positive margin in
+every coordinate. This prevents the common box from making an inactive-zero class empty
+by construction. The bound-selection rule may depend on $E_G$ and declared target
+coefficient scales but not on the eventual
 admissible-set distances or desired figure shape. Booleans, strings, nonfinite
 values, and nonpositive scales are rejected by strict decoding.
 
@@ -123,24 +144,29 @@ values, and nonpositive scales are rejected by strict decoding.
 
 Use the already retained squared-radius sequence
 
-\[
+$$
 S=(0,1,2,4,8,18,50,98).
-\]
+$$
 
 Define
 
-\[
+$$
 \mathcal M_k=
 \{\theta:\theta_o=0\text{ whenever }
 \lVert\mathbf R_o\rVert^2>S_k\}.
-\]
+$$
 
-Thus \(\mathcal M_0\subset\cdots\subset\mathcal M_7\). Each class retains
-complete \(D_4\) orbits and therefore preserves Hermiticity, time reversal, and
-square symmetry by construction. This is an interaction-range hierarchy, not
-an expansion of the orbital basis.
+Thus $\mathcal M_0\subset\cdots\subset\mathcal M_7$. Exact integer enumeration gives
+active orbit counts $(1,2,3,4,6,12,27,36)$ and corresponding represented-block counts
+$(1,5,9,13,25,61,161,225)$. The final 36 orbit multiplicities sum to all 225 maximal
+representatives. These are definition-level combinatorial invariants, not calculated
+HSH outcomes.
 
-The complete class \(\mathcal M_7\) contains the exact symmetric finite target
+Each class retains complete $D_4$ orbits and therefore preserves Hermiticity, time
+reversal, and square symmetry by construction. This is an interaction-range hierarchy,
+not an expansion of the orbital basis.
+
+The complete class $\mathcal M_7$ contains the exact symmetric finite target
 and therefore supplies a predicted common witness. Whether an earlier class is
 compatible is a confirmatory result, not a design assumption.
 
@@ -148,41 +174,49 @@ compatible is a confirmatory result, not a design assumption.
 
 ### 6.1 Spectral channel
 
-The scalar spectral residual is linear in \(\theta\), so its squared loss is a
+The scalar spectral residual is linear in $\theta$, so its squared loss is a
 convex quadratic:
 
-\[
+$$
 L_E(\theta)^2=
 \frac{1}{E_G^2\sum_{\mathbf k\in K_E}w_{\mathbf k}}
 \sum_{\mathbf k\in K_E}w_{\mathbf k}
 \left|E_\theta(\mathbf k)-E_{\rm ref}(\mathbf k)\right|^2.
-\]
+$$
 
 The spectral point set and every positive weight are part of the fixed problem
 definition. They must be common to all shell classes. The intended design uses
-the complete \(15\times15\) source mesh with a prospectively defined,
-coordinate-based emphasis on the band-edge and symmetry-line region. All
-weights remain positive so that the design matrix can be checked for full rank;
-no weight may be fitted from hierarchy outcomes. Equal full-mesh weights are
-not suitable for the primary experiment because Parseval equivalence would
-make the spectral and operator reductions identical under matched objectives.
+the complete $15\times15$ source mesh with a prospectively defined,
+coordinate-based emphasis on the band-edge and symmetry-line region. The weight rule
+must be invariant on reciprocal-mesh $D_4$ orbits and all weights remain positive so
+that the design matrix can be checked for full rank; no weight may be fitted from
+hierarchy outcomes. The complete $15\times15$ discrete Fourier transform is
+invertible; disjoint orbit sums therefore give linearly independent design columns, and
+strictly positive diagonal weights preserve that rank for every active shell subset.
+Producer and verifier must still reconstruct the binary64 rank and curvature margin.
+Equal full-mesh weights are not suitable for the primary experiment. With the declared
+Fourier and RMS normalizations, Parseval gives
+$L_E^2=|\mathcal R_{\max}|L_H^2=225L_H^2$ for every candidate. The objectives are
+therefore proportional and their sublevel geometry is redundant after threshold
+rescaling; they cannot probe a genuine spectral/operator tradeoff.
 
 Before freeze, the exact weight formula and its physical interpretation must be
 selected. The builder must retain both raw weights and normalized effective
-weights. Common positive rescaling of all weights and \(\tau_E\) leaves the
-admissible set unchanged; relative reweighting changes the scientific problem.
+weights. Because the loss divides by the weight sum, common positive rescaling
+of all weights leaves the loss and admissible set unchanged. Rescaling
+$\tau_E$, or changing relative weights, changes the scientific problem.
 
 ### 6.2 Operator channel
 
 The operator target is the complete exact symmetric finite hopping family. Use
 one global normalization and fixed positive per-block weights:
 
-\[
+$$
 L_H(\theta)^2=
 \frac{1}{E_G^2\sum_{\mathbf R\in\mathcal R_{\max}}v_{\mathbf R}}
 \sum_{\mathbf R\in\mathcal R_{\max}}v_{\mathbf R}
 \left|t_\theta(\mathbf R)-t_{\rm ref}(\mathbf R)\right|^2.
-\]
+$$
 
 The primary proposal is equal weight per represented block. Orbit
 multiplicities are therefore included explicitly rather than giving one equal
@@ -197,18 +231,25 @@ subtraction.
 
 ### 6.3 Admissible sets
 
-For prospectively frozen positive thresholds \((\tau_E,\tau_H)\), define
+For prospectively frozen positive thresholds $(\tau_E,\tau_H)$, define
 
-\[
+$$
 \mathcal A_{E,k}=\{\theta\in\mathcal M_k:L_E(\theta)\le\tau_E\},
 \qquad
 \mathcal A_{H,k}=\{\theta\in\mathcal M_k:L_H(\theta)\le\tau_H\}.
-\]
+$$
 
 Each set is the intersection of a convex quadratic sublevel set, the common
-coefficient box, and the affine zero constraints defining \(\mathcal M_k\).
-Producer and verifier must establish positive-semidefinite quadratic matrices,
-active-coordinate rank, finite minima, and threshold feasibility independently.
+coefficient box, and the affine zero constraints defining $\mathcal M_k$.
+Producer and verifier must establish symmetric positive-definite restricted quadratic
+matrices, full active-coordinate rank, finite minima, and threshold feasibility
+independently. A singular or merely semidefinite restricted form is an invalid premise
+for the selected common quadratic contract; it is not regularized silently.
+The prospective implementation composes exact-pinned
+`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss` only after physical
+coefficients are normalized to unit-free coordinates. The frozen input must record
+whether NumPy dense (`sparse=false`) or SciPy CSR (`sparse=true`) backend behavior is
+selected; backend acceptance is a numerical premise, not an exact certificate.
 
 If either channel set is empty, the class fails that criterion directly and no
 finite inter-set distance is reported. The plot must show an explicit
@@ -220,29 +261,30 @@ when both sets are nonempty.
 
 Define a fixed orbit-multiplicity metric in the maximal coefficient space:
 
-\[
+$$
 d_{\rm red}(\theta,\theta')=
 \left[
 \frac{1}{E_G^2\,|\mathcal R_{\max}|}
 \sum_o |o|\,|\theta_o-\theta'_o|^2
 \right]^{1/2}.
-\]
+$$
 
 This is the normalized Frobenius distance between the two complete scalar
-hopping families. The metric is independent of active parameter count and shell
+hopping families. Reusable dimensionful hopping/Frobenius geometry belongs to PhysKit;
+this protocol selects its energy normalization and scientific role. The metric is independent of active parameter count and shell
 radius. All classes use the restriction of this one metric; distances from
 separately normalized parameter spaces must not be compared.
 
 For nonempty channel sets,
 
-\[
+$$
 \delta_k^*=\inf_{\theta_E\in\mathcal A_{E,k},\,
                        \theta_H\in\mathcal A_{H,k}}
  d_{\rm red}(\theta_E,\theta_H).
-\]
+$$
 
 Because both admissible sets expand under the exact nested embedding,
-\(\delta_{k+1}^*\le\delta_k^*\). This monotonicity is a semantic consequence of
+$\delta_{k+1}^*\le\delta_k^*$. This monotonicity is a semantic consequence of
 the design, not an oracle for accepting computed values. Loose certified
 intervals may overlap even when the exact distances are monotone.
 
@@ -265,14 +307,15 @@ be used to revise the sealed thresholds.
 
 Before confirmatory execution, freeze:
 
-- source identities and symmetry-projection tolerance;
+- source identities, canonical projection summation rule, and symmetry-projection
+  tolerance;
 - orbit ordering, coefficient box, and shell sequence;
 - spectral weights and operator weights;
-- \(\tau_E\), \(\tau_H\), and distance-resolution target;
+- $\tau_E$, $\tau_H$, and distance-resolution target;
 - certificate method and numerical tolerances;
-- training and withheld roles;
+- training coordinates and the exact point-disjoint withheld-coordinate rule;
 - figure axes and disposition vocabulary; and
-- producer, verifier, test, and dependency identities.
+- producer, verifier, test, exact dependency revisions, and quadratic backend identity.
 
 ## 9. Certified distance bounds
 
@@ -283,29 +326,29 @@ with two nonempty sets, retain both constructive and lower-bounding evidence.
 
 Any verified feasible pair gives
 
-\[
+$$
 \delta_k^*\le
 \overline\delta_k=d_{\rm red}(\theta_{E,k},\theta_{H,k}).
-\]
+$$
 
-A verified common witness \(\theta_k\in\mathcal A_{E,k}\cap\mathcal A_{H,k}\)
-establishes \(\delta_k^*=0\) exactly at the mathematical level. The verifier
+A verified common witness $\theta_k\in\mathcal A_{E,k}\cap\mathcal A_{H,k}$
+establishes $\delta_k^*=0$ exactly at the mathematical level. The verifier
 must check both inequalities from reconstructed quadratics with outward
 numerical tolerance; a small optimizer objective alone is insufficient.
 
 ### 9.2 Certified lower bound
 
 The primary lower certificate uses a separating direction in the fixed metric.
-For a declared covector \(u\), independently bound
+For a declared covector $u$, independently bound
 
-\[
+$$
 \alpha_{E,k}(u)=\min_{\theta\in\mathcal A_{E,k}}u^T\theta,
 \qquad
 \beta_{H,k}(u)=\max_{\theta\in\mathcal A_{H,k}}u^T\theta.
-\]
+$$
 
-If \(\alpha_{E,k}(u)>\beta_{H,k}(u)\), dual-norm geometry gives a positive
-lower bound on \(\delta_k^*\). The producer may obtain a candidate direction
+If $\alpha_{E,k}(u)>\beta_{H,k}(u)$, dual-norm geometry gives a positive
+lower bound on $\delta_k^*$. The producer may obtain a candidate direction
 from a convex quadratically constrained optimization, but the standalone
 verifier must reconstruct conservative support bounds with directed/outward
 rounding. Replacing a box-clipped ellipsoid by an enclosing full ellipsoid is
@@ -319,45 +362,48 @@ is not enough.
 
 The result reports intervals
 
-\[
+$$
 \underline\delta_k\le\delta_k^*\le\overline\delta_k,
-\]
+$$
 
 not point estimates unless the bounds coincide under the declared exact or
 interval argument.
 
 ## 10. Training and withheld evaluation
 
-Only the \(15\times15\) source-mesh objective defines quadratics, admissible
+Only the $15\times15$ source-mesh objective defines quadratics, admissible
 sets, thresholds, witnesses, bounds, the critical class, and dispositions.
 After all such objects are fixed, evaluate retained witnesses and certificate
-points on the disjoint \(31\times31\) direct-parent mesh.
+points on the disjoint $31\times31$ direct-parent mesh.
 
-Withheld outputs include:
+Post-training diagnostic outputs include:
 
-- maximum and RMS spectral error;
-- shell-resolved coefficient and omitted-tail diagnostics;
+- withheld maximum and RMS spectral error;
+- source-derived shell-resolved coefficient and omitted-tail diagnostics, labelled as
+  training/source diagnostics rather than withheld observations;
 - exact source-mesh reconstruction defect;
-- complete-class withheld interpolation floor; and
+- complete-class withheld source-projection/interpolation floor; and
 - whether withheld performance changes the interpretation without changing the
   training disposition.
 
 The withheld mesh cannot alter weights, thresholds, class order, witnesses,
-certificates, or the claimed minimum class. In particular, the known nonzero
-full-shell withheld error remains reciprocal-mesh interpolation error rather
-than hopping-shell inadequacy.
+certificates, or the claimed minimum class. In particular, any nonzero complete-class
+withheld error, if observed, must be reported as the combined frozen source-projection
+and finite source-mesh interpolation discrepancy relative to the direct parent, rather
+than silently attributed to hopping-shell inadequacy. Those two contributions must be
+reported separately when the retained data permit their independent reconstruction.
 
 ## 11. Critical-class decision
 
 Let
 
-\[
+$$
 k_{\rm crit}=\min\{k:\mathcal A_{E,k}\cap\mathcal A_{H,k}\neq\varnothing\}.
-\]
+$$
 
 The disposition `minimum-tested-compatible-class-certified` requires:
 
-1. an explicit verified common witness in \(\mathcal M_{k_{\rm crit}}\);
+1. an explicit verified common witness in $\mathcal M_{k_{\rm crit}}$;
 2. either certified positive separation or direct channel emptiness for every
    smaller class;
 3. the exact nested embedding and common metric checks;
@@ -385,7 +431,7 @@ The standalone verifier must not import producer modules. It must strictly
 decode source and result records and independently reconstruct:
 
 - source correlation and exact symmetric target projection;
-- \(D_4\) orbits, ordering, multiplicities, and shell masks;
+- $D_4$ orbits, ordering, multiplicities, and shell masks;
 - spectral and operator design matrices and analytic quadratics;
 - channel minima and nonemptiness;
 - the fixed maximal-space metric;
@@ -411,7 +457,7 @@ main-text figure.
 
 The proposed figure has two panels:
 
-1. certified \([\underline\delta_k,\overline\delta_k]\) intervals versus
+1. certified $[\underline\delta_k,\overline\delta_k]$ intervals versus
    squared-radius shell, with distinct markers for empty, separated,
    unresolved, and common-witness cases; and
 2. channel minima plus withheld spectral error for the same hierarchy, showing
@@ -459,14 +505,15 @@ it does not establish semantic validity, chronology, or scientific acceptance.
 This plan deliberately leaves the following unresolved until their owning
 review:
 
-1. the exact positive spectral-weight formula;
-2. coefficient-box construction and margin;
-3. \(\tau_E\), \(\tau_H\), and the separation-resolution target;
-4. the directed-rounding or interval implementation used by the standalone
+1. the exact positive, reciprocal-mesh-$D_4$-invariant spectral-weight formula;
+2. the exact point-disjoint $31\times31$ withheld-coordinate rule;
+3. coefficient-box construction and margin;
+4. $\tau_E$, $\tau_H$, and the separation-resolution target;
+5. the directed-rounding or interval implementation used by the standalone
    support-bound verifier;
-5. whether classes with an empty channel remain in the primary figure or appear
+6. whether classes with an empty channel remain in the primary figure or appear
    only in the supplement; and
-6. final manuscript label and placement after the result is known.
+7. final manuscript label and placement after the result is known.
 
 These are design decisions, not calculated outcomes. Resolving them and
 freezing the package does not itself authorize or establish the result.

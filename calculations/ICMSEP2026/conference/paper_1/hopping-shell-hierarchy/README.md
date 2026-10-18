@@ -42,7 +42,7 @@ composite-frame gauge-locality figure, or either silicon preview figure.
 
 The prospective package, module, class, scientific, numerical, implementation,
 and testing boundaries are documented in the
-[HSH-1 experiment architecture](../../../../../docs/architecture/v2/experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/index.md).
+[HSH-1 architecture bundle](../../../../../docs/architecture/v2/ksdft2effmass/analysis/model_adequacy/hopping_shell_hierarchy/index.md).
 Those pages describe target ownership only: no listed Python module, supported
 export, test evidence, or Sphinx API exists yet.
 
@@ -59,8 +59,9 @@ planning stage. A later implementation must add, before protocol freeze:
 - source and source-parent correlation manifests; and
 - a prospective freeze record.
 
-Only after those gates may a local synthetic run create result, verification,
-figure-data, figure, report, and software records. Thresholds, weights, and a
+Only after those gates and separate execution authorization may a local synthetic run
+create result, verification, figure-data, figure, report, and software records.
+Thresholds, weights, and a
 visually favorable transition must not be chosen after confirmatory execution.
 
 See [`protocol.md`](protocol.md) for the complete proposed design and unresolved

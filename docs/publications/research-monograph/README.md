@@ -28,7 +28,9 @@ range, isolated-band Fourier reduction to finite-range lattice Hamiltonians,
 composite Bloch frames, the Bloch--Wannier bridge, gauge
 transport and alignment, block locality, and evidence vocabulary. Part II then
 moves from the scientific adequacy question through common-space operator
-comparison to spectral and operator admissible sets, common witnesses,
+comparison to weighted spectral and operator losses, with fitting and
+model-class-expressivity precedents integrated where the corresponding concepts
+enter, followed by admissible sets, common witnesses,
 quadratic-loss geometry, separation certificates, and evidence discipline. A
 substantial appendix collection owns detailed notation, derivations,
 controlled examples, route comparisons, analytical warmups, and a bounded

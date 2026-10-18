@@ -118,8 +118,9 @@ accept_campaign_finalization
 ```
 
 The architecture fixes these prospective names and counts while implementation
-remains absent. The selected runtime-neutral owner is Generic Workflow, and the
-authoritative source path is
+remains absent. Generic Workflow owns the selected runtime-neutral CPN/binding
+contract and runtime mechanics; `ksdft2effmass` owns the scientific definition at
+the authoritative source path
 `python/src/ksdft2effmass/campaigns/si_vc/cpn/net.py`. The eventual reviewed
 source definition, not this rendering, becomes topology authority.
 
@@ -187,9 +188,11 @@ The parent must not copy the child's twelve places or these eight transitions:
 
 A `SiVcScfChildRequirement` identifies scientific role, exact request and parent
 references, and campaign coordinate. A `SiVcScfChildOutcome` wraps the
-Workflow-owned child occurrence and exact terminal SCF outcome. The neutral hierarchical/substitution contract and conformance tests do not yet
-exist. The selected Si-VC consumer requirements are specified in the
-[workflow binding profile](workflow-binding.md). In particular, the parent token
+Workflow-owned child occurrence and exact terminal SCF outcome. The selected
+neutral hierarchical/substitution design contract exists, but its APIs,
+canonical exporter, runtime segments, and conformance fixtures do not. The
+selected Si-VC consumer requirements are specified in the [workflow binding
+profile](workflow-binding.md). In particular, the parent token
 carries a content-addressed typed JSON reference rather than a raw mapping or
 machine path, and the child terminal mapping must bind the exact Workflow child
 instance, occurrence, attempt, terminal outcome, and saved-state handoff. The
@@ -330,12 +333,11 @@ marking.
 - Immediate operator request: `NONE`
 
 The operator selected Generic Workflow's runtime-neutral canonical CPN/binding
-contract and the authoritative `ksdft2effmass` path. Proposed owner contract
-SHA-256 `463e1021d19cae8c2f5d6ed9fb65015f8dc81f38c527f92e227838f1d82346b1`
-has Workflow-owner and simulations-provider technical reviews with no blocking
-findings. The operator selected it as the consumer-led conformance target and
-removed any separate Workflow acceptance gate. It remains unimplemented. The
-concrete API does not yet exist and requires separately authorized work. This
-architecture decision
-does not freeze H1--H3 or grant calculator, dependency, commit, push, or
-publication authority.
+contract and the authoritative `ksdft2effmass` path. The merged owner contract
+has SHA-256
+`e6428a8b0d8a47d4f9a6596300fe5ccc65bb16c12e1cc8ffe64884720bd513c2`.
+The retained [owner/consumer/provider exact-digest review](reviews/SI-VC-WORKFLOW-BINDING-001.md)
+reported `NO_BLOCKING_FINDINGS` for bounded design consistency. The contract and
+concrete APIs remain unimplemented and require separately authorized work. This
+architecture decision does not freeze H1--H3 or grant calculator, dependency,
+migration, publication, or release authority.

@@ -9,10 +9,10 @@ exists.
 
 - [`Periodic2DHoppingShellHierarchyCalculator`](Periodic2DHoppingShellHierarchyCalculator/index.md) — stateless ActionObject whose `execute(definition)` method returns one immutable hierarchy result.
 
-Orbit generation, source projection, quadratic restriction, bounded convex feasibility,
-feasible-pair construction, candidate separating directions, conservative support
-bounds, hierarchy resolution, and withheld evaluation are private cohesive behavior of
-the calculator unless later review identifies a separately reusable domain owner.
+The calculator composes public PhysKit orbit/projection/shell/physical-geometry Actions,
+the exact-pinned Optimization quadratic facade, future Optimization feasibility/support
+Actions, and cohesive HSH scientific Actions. It must not hide those formulas in private
+workflow helpers; only HSH-specific ordering and orchestration remain aggregate behavior.
 
 ## Represented action
 
@@ -30,9 +30,10 @@ geometry is `unresolved-nonempty`; neither state may be presented as separation.
 
 ## Dependencies and neighboring owners
 
-`definition` owns controls; `results` owns HSH proof/result invariants;
-`analysis.model_adequacy.losses` owns normalized dimensionless completed-square storage
-and evaluation; `serialization` owns HSH wire mechanics; and `verify` owns independent
+`definition` owns controls; `results` owns HSH proof/result invariants; exact-pinned
+Optimization owns generic unit-free completed-square storage and evaluation; PhysKit
+owns reusable lattice/physical geometry; `serialization` owns HSH wire mechanics; and
+`verify` owns independent
 reconstruction. The analysis package may consume `periodic2d` and NumPy/SciPy but cannot
 call the verifier to manufacture confidence.
 

@@ -30,10 +30,12 @@ geometry emits `unresolved-nonempty`.
 ## Dependencies and collaborators
 
 The calculator consumes `definition`, constructs HSH objects from `results`, composes
-`analysis.model_adequacy.losses.DimensionlessPositiveDefiniteQuadraticLoss`, and may use
-`periodic2d` parent/model primitives, NumPy/SciPy private arrays, and bounded convex
-optimization. It neither calls the result verifier nor delegates semantic validation to
-serialization. Existing M4/M5 scaffolds are not collaborators.
+exact-pinned
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`, and may
+use `periodic2d` parent/model primitives plus public PhysKit and Optimization Actions.
+The definition selects and retains dense/sparse quadratic backend use. The calculator
+neither calls the result verifier nor delegates semantic validation to serialization.
+Existing M4/M5 scaffolds are not collaborators.
 
 ## Data and action flow
 
@@ -88,8 +90,9 @@ Original local work under the repository license.
 
 ## Limitations and deviations
 
-The convex solver and interval backend are unresolved. They must be injected or
-explicitly identified, never selected by an undocumented environmental default.
+The public semantic stage-Action split, convex solver, and interval backend are
+unresolved. They must be selected explicitly before HSH source implementation; the
+aggregate calculator cannot hide scientific formulas in private workflow helpers.
 
 ## Detail navigation
 

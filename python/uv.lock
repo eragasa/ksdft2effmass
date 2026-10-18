@@ -990,7 +990,7 @@ dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pint" },
-    { name = "projectkoios-optimization", extra = ["numpy"] },
+    { name = "projectkoios-optimization", extra = ["numpy", "scipy"] },
     { name = "projectkoios-physkit" },
     { name = "scipy" },
 ]
@@ -1028,15 +1028,15 @@ requires-dist = [
     { name = "matplotlib", specifier = ">=3.8" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.10" },
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
-    { name = "numpy", specifier = ">=1.26" },
+    { name = "numpy", specifier = ">=2.3,<3" },
     { name = "pint", specifier = ">=0.26,<0.27" },
-    { name = "projectkoios-optimization", extras = ["numpy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=2c6dd7f717722f6b0495feb8cfe1287a104268a6" },
+    { name = "projectkoios-optimization", extras = ["numpy", "scipy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=2c6dd7f717722f6b0495feb8cfe1287a104268a6" },
     { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=d81febb811fbc4feb014530fcae6cf6d9ad9ead5" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
-    { name = "scipy", specifier = ">=1.12" },
+    { name = "scipy", specifier = ">=1.18,<2" },
     { name = "snakes", marker = "extra == 'workflow'", specifier = ">=0.9.33,<0.10" },
     { name = "sphinx", marker = "extra == 'docs'", specifier = ">=8,<10" },
 ]
@@ -1558,6 +1558,10 @@ source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=2
 [package.optional-dependencies]
 numpy = [
     { name = "numpy" },
+]
+scipy = [
+    { name = "numpy" },
+    { name = "scipy" },
 ]
 
 [[package]]

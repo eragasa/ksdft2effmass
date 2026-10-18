@@ -106,9 +106,9 @@ Three channels remain distinct:
    A withheld test of \(T^W\) or \(R^W\) is claimed only when the accepted
    retained frame is independently extended to those points.
 
-Objective-construction, candidate-selection, and withheld-evaluation roles are sealed
-before confirmatory analysis. Evaluation cannot revise fitting, frame, window,
-threshold, or candidate-selection decisions.
+Training, construction, and withheld roles are sealed before confirmatory
+analysis. Evaluation cannot revise fitting, frame, window, threshold, or
+candidate-selection decisions.
 
 ## Error bookkeeping
 
@@ -173,7 +173,7 @@ thresholds, or optimizer policy.
 ### Stage 6 — confirmatory locality evaluation
 
 Freeze radii, tolerances, grids, normalization, comparison rules, and
- dispositions before opening component-tail results. Evaluate \(\epsilon_X\),
+dispositions before opening component-tail results. Evaluate \(\epsilon_X\),
 \(B_X\), \(F_X\), and \(r_X(\tau)\) for every accepted numerical and gauge guard.
 The complete finite block family remains the reference representation;
 truncation is an evaluated approximation.

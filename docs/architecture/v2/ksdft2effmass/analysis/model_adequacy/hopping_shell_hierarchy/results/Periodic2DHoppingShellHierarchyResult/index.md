@@ -17,10 +17,10 @@ Planned supported route:
 
 ## State and identity
 
-Stable identity includes definition identity and exact source digests. Class results
-appear exactly once in the frozen increasing shell order. The result retains source
-projection defects and common metric coefficients rather than relying on an implicit
-reconstruction convention.
+Stable identity includes definition identity, exact source digests, exact dependency
+revisions, and quadratic backend selection. Class results appear exactly once in the
+frozen increasing shell order. The result retains source projection defects and common
+metric coefficients rather than relying on an implicit reconstruction convention.
 
 ## Invariants and failure behavior
 
@@ -28,8 +28,10 @@ The object enforces:
 
 - complete one-to-one class coverage and exact nested active masks;
 - a single common maximal-space metric and coefficient normalization;
-- nonincreasing exact set-distance semantics without demanding nonoverlap of loose
-  reported intervals;
+- exact nested-set premises, which imply a nonincreasing sequence of exact set
+  distances; reported loose intervals may overlap and their individual endpoints need
+  not be monotone, but the complete interval family must admit at least one
+  nonincreasing exact-distance sequence;
 - exact correlation of any first-witness class;
 - certified minimality only when that class has a common witness and every smaller
   class is channel-empty or certified separated;

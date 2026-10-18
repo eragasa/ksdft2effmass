@@ -61,6 +61,40 @@ continuous global search and constraint satisfaction. This reuse resolves no
 broader claim about which certified global method is applicable to the
 project's future material-scale model families.
 
+**Literature-positioning integration, 11 October 2026:** The references are
+integrated where their concepts enter the chapter rather than collected in a
+standalone literature paragraph: structural tight-binding restrictions appear
+with candidate-family definition, spectral and matrix supervision appear with
+their respective losses, and the negative-search example reappears at the
+witness-versus-certificate boundary. Publisher records or publisher pages were
+checked for
+`starrost1996`, `stiles1997`, `klimeck2000`,
+`boykinKlimeckOyafuso2004`, `wangEtAl2021`, `zhangEtAl2022`, and
+`schwadeEtAl2026`. The local claims are deliberately bounded:
+
+- Starrost et al. support genetic fitting of empirical tight-binding parameters
+  to energies at selected high-symmetry wave vectors.
+- Stiles supports automated determination of independent matrix elements for an
+  arbitrary crystal structure before tight-binding band fitting.
+- Klimeck et al. support the reported second-neighbor silicon fit and the
+  reported failure of their search to find a satisfactory nearest-neighbor
+  global fit; the monograph explicitly does not convert that search outcome
+  into an infeasibility proof.
+- Boykin, Klimeck, and Oyafuso support exact effective-mass relations and
+  resulting limitations of the specified empirical tight-binding class.
+- Wang et al. support band-energy mean-squared-error supervision of adjustable
+  tight-binding matrix elements.
+- Zhang et al. support direct equivariant learning of Hamiltonian and overlap
+  matrix blocks in an atomic-orbital representation.
+- Schwade et al. support contemporary physics-informed Hamiltonian learning
+  that combines an approximate tight-binding model with learned environmental
+  corrections. The monograph does not infer a universal norm or weighting from
+  this citation.
+
+These records support literature positioning only. They do not establish the
+novelty, correctness, or scientific validity of the monograph's proposed
+witness-or-certificate framework.
+
 **Later Procrustes-source check:** The metadata for `schonemann1966` and
 `higham1986` were checked against DOI records and publisher or author-repository
 pages. Schönemann's article states the real orthogonal least-squares problem,
@@ -70,10 +104,10 @@ consulted Higham article, the relevant locator is **Theorem 2.2**, not Theorem
 (2.4) in Theorem 2.2 gives its Frobenius best-approximation property for complex
 matrices, Theorem 1.1 states uniqueness under full column rank, and Section 6.1
 connects the polar factor explicitly to the orthogonal Procrustes problem. The
-manuscript now attributes the real orthogonal
-formulation to Schönemann and the complex unitary polar-factor form to Higham.
-This bounded check resolves the earlier Procrustes-specific citation prompt; it
-is not a general claim-by-claim audit of either article.
+manuscript now attributes the real orthogonal formulation to Schönemann and the
+complex unitary polar-factor form to Higham. This bounded check resolves the
+earlier Procrustes-specific citation prompt; it is not a general claim-by-claim
+audit of either article.
 
 **Later spectral-projection integration:** A supplied focused literature and
 methodology note has been integrated conceptually into

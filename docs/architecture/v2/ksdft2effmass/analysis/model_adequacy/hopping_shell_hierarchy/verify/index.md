@@ -27,10 +27,11 @@ inputs fail rather than being coerced.
 ## Dependencies and neighboring owners
 
 The verifier may share low-level NumPy/SciPy kernels and periodic conventions with the
-producer. It may read the stored center, matrix, and minimum from the HSH wrapper's
-`DimensionlessPositiveDefiniteQuadraticLoss` only as claimed values for comparison. Its
+producer. It may read the stored center, canonical matrix entries, minimum, and backend
+selection from the HSH wrapper's exact-pinned Optimization facade only as claimed values
+for comparison. Its
 verification logic must not call the shared primitive constructor, `squared_loss`, or
-`rms_loss`. Instead, it independently validates dimensions, finiteness, symmetry, and
+`root_loss`. Instead, it independently validates dimensions, finiteness, symmetry, and
 positive curvature and independently reconstructs direct and completed-square values.
 It must not call `Periodic2DHoppingShellHierarchyCalculator.execute()` or trust stored
 quadratic/certificate scalars. The standalone retained verifier adds wire,

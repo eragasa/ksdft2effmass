@@ -10,9 +10,12 @@ HSH-1 shell slice. It is not implemented or supported.
 Planned `squared_loss(maximal_energy_coefficients)` checks the maximal-space length and
 inactive-zero rule, extracts active energy coefficients in canonical order, divides by
 the retained positive energy scale, and delegates the resulting dimensionless ratios to
-one `DimensionlessPositiveDefiniteQuadraticLoss`. The shared primitive exposes immutable
-completed-square state, `squared_loss`, and `rms_loss`; HSH supplies no implicit unit
-conversion or normalization.
+one exact-pinned
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`. Optimization receives
+only unit-free values and exposes completed-square state, backend selection,
+`squared_loss`, and
+`root_loss`; the HSH wrapper performs explicit physical-unit conversion and
+nondimensionalization before delegation.
 
 Planned supported route:
 `ksdft2effmass.analysis.model_adequacy.hopping_shell_hierarchy.Periodic2DHoppingShellQuadraticLoss`.
@@ -20,43 +23,48 @@ Planned supported route:
 ## State and identity
 
 Identity includes class shell, HSH channel (`spectral` or `operator`), energy unit,
-positive energy scale, strictly ordered active maximal-space indices, inactive-zero
-tolerance, reconstruction/correlation defects, and one
-`DimensionlessPositiveDefiniteQuadraticLoss`. The primitive's center and matrix ordering
+positive energy scale, strictly ordered active maximal-space indices,
+reconstruction/correlation defects, one built-in-Boolean sparse-backend selection, and
+one exact-pinned Optimization `PositiveDefiniteQuadraticLoss`. The facade's center and
+matrix ordering
 follow the wrapper's active-index tuple.
 
 ## Invariants and failure behavior
 
 The wrapper requires unique increasing nonnegative active indices, an exact channel and
 shell identity, an exact supported energy unit, finite strictly positive energy scale,
-finite nonnegative inactive-zero tolerance, nonnegative reconstruction/correlation
-defects, and a primitive dimension matching the active-index count. It rejects wrong-
-length maximal vectors and nonzero inactive entries outside the frozen tolerance. The
-shared primitive owns strict finite dimensionless center/matrix/minimum typing, symmetry,
-positive definiteness, and direct canonical-coordinate evaluation.
+nonnegative reconstruction/correlation defects, and a primitive dimension matching the
+active-index count. It rejects wrong-length maximal vectors and every nonzero inactive
+entry. Solver candidates must be projected into the exact affine class before becoming
+proof points, with the pre-projection feasibility defect retained separately. The shared
+facade owns finite unit-free center/matrix/minimum validation, represented symmetry,
+backend-specific positive-definiteness acceptance, and canonical-coordinate evaluation.
+HSH may impose stricter exact built-in scalar and curvature-margin requirements.
 
 ## Dependencies and collaborators
 
-The calculator constructs the HSH wrapper and shared primitive from direct loss
-formulas. The verifier may read the primitive's immutable center, matrix, and minimum as
+The calculator constructs the HSH wrapper and exact-pinned Optimization facade from
+direct loss formulas. The verifier may read the facade's center, matrix, minimum, and
+backend selection as
 claimed data, but it must not call the primitive constructor, `squared_loss`, or
-`rms_loss`; it independently validates the premises and reconstructs direct/quadratic
+`root_loss`; it independently validates the premises and reconstructs direct/quadratic
 values. Class results correlate the wrapper with shell masks and channel minima. HSH
 does not move channel, energy unit/scale, active-index, weight, box, metric, defect, or
 certificate policy into the lower-level primitive.
 
 ## Data and action flow
 
-Direct design matrices produce a dimensionless completed-square primitive. The HSH
+Direct design matrices produce a unit-free completed-square facade. The HSH
 wrapper binds it to the energy scale and active maximal-space embedding and serves as the
 proof/evaluation object for feasibility, witness, certificate, and verifier checks.
 
 ## Serialization and compatibility
 
-HSH schema v1 nests or inlines the primitive's dimensionless matrix, center, and minimum
-together with the wrapper's energy unit/scale, active indices, channel, shell, inactive-
-zero tolerance, and defects in canonical order. The HSH decoder reconstructs both types
-and reruns all invariants; it does not define a universal primitive wire identity.
+HSH schema v1 inlines canonical unit-free matrix entries, center, minimum, and explicit
+`sparse` selection together with the wrapper's energy unit/scale, active indices,
+channel, shell, and defects. It does not serialize a NumPy array or SciPy CSR object.
+The HSH decoder reconstructs both types and reruns all invariants; it does not define a
+universal Optimization wire identity.
 
 ## Scientific and numerical boundary
 
@@ -100,6 +108,8 @@ from the affine finite Fourier model in the HSH-1 protocol.
 ## Limitations and deviations
 
 The wrapper does not own coefficient-box clipping, channel thresholds, metric distance,
-or certificates; those remain with the calculator, class result, and verifier. The
-shared primitive owns no shell, channel, active-index, energy-scale, weight, box, metric,
-certificate, or reconstruction-defect semantics.
+or certificates. Unit-free feasibility, distance, dual-norm, and support optimization
+belong to optimization; dimensionful hopping/Frobenius geometry belongs to PhysKit; HSH
+retains scientific controls, certificate meaning, and dispositions. The optimization
+quadratic owns no shell, channel, active-index, energy-scale, weight, box, certificate,
+or reconstruction-defect semantics.

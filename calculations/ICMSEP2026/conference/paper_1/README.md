@@ -29,7 +29,7 @@ preview executed no protected electronic-structure calculator.
 - `multiband-alignment/` — prospectively frozen M2 rank-two alignment and locality evidence;
 - `constrained-admissible-sets/` — prospectively frozen M3 witness-and-certificate evidence; and
 - `constrained-admissible-sets-threshold-sensitivity/` — explicitly post-hoc analytic sensitivity reanalysis of the sealed M3 quadratics;
-- `hopping-shell-hierarchy/` — draft, unexecuted plan for a certified nested two-dimensional hopping-shell hierarchy intended to replace the generic 2D summary figure if later frozen, executed, and accepted; and
+- `hopping-shell-hierarchy/` — draft, unexecuted plan for a certified nested two-dimensional hopping-shell hierarchy; it reports no result and requires a later freeze, authorized local synthetic execution, independent verification, and human acceptance before publication use; and
 - `silicon-wannier-kinetic-preview/` — bounded original-tutorial-file correlation, executed Wannier90 input diff, source JSON, finite-mesh truncation figure, and checksums for the preliminary material-facing preview.
 
 ## Reproduce and verify

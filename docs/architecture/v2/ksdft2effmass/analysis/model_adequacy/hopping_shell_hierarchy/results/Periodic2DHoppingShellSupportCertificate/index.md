@@ -7,10 +7,10 @@ distance. It is not implemented or supported.
 
 ## Public contract
 
-Read-only properties expose the maximal-space covector, orientation, conservative
-spectral/operator support endpoints, dual metric norm, raw directional gap,
-outward-rounded lower bound, arithmetic-policy identity, and premise defects. No method
-invokes an optimizer.
+Read-only properties expose the dimensionless maximal-space covector, orientation,
+energy-valued conservative spectral/operator support endpoints, energy-valued dual
+metric norm and raw directional gap, dimensionless outward-rounded lower bound,
+arithmetic-policy identity, and premise defects. No method invokes an optimizer.
 
 Planned supported route:
 `ksdft2effmass.analysis.model_adequacy.hopping_shell_hierarchy.Periodic2DHoppingShellSupportCertificate`.
@@ -25,13 +25,14 @@ rounding policy.
 ## Invariants and failure behavior
 
 The covector is finite, nonzero, and has maximal-space length. Its dual norm is finite
-and strictly positive. Conservative endpoints must agree with the declared orientation;
-the gap and lower bound are nonnegative; the lower bound cannot exceed the normalized
-conservative gap. Every premise defect is finite and within a named tolerance before the
-certificate can support `certified-separated`.
+and strictly positive. Conservative endpoints must agree with the declared orientation.
+The raw conservative directional gap is a finite signed value; the retained lower bound
+is nonnegative and cannot exceed $\max(0,g)/\lVert u\rVert_{M^{-1}}$ under the declared
+outward-rounding policy. Every premise defect is finite and within a named tolerance
+before the certificate can support `certified-separated`.
 
-A negative/ambiguous outward gap may be retained only as a zero lower bound and cannot
-support separation.
+A nonpositive or rounding-ambiguous outward gap may be retained only with a zero lower
+bound and cannot support separation.
 
 ## Dependencies and collaborators
 

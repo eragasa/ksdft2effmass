@@ -4,16 +4,24 @@
 
 Public numeric inputs must be exact built-in `float` or `int` values as declared.
 Booleans, numeric strings, NumPy scalar impostors, NaNs, and infinities are rejected.
-Maintained collections use immutable tuples. Internal dense computation may use
-`numpy.float64` and `numpy.ndarray`, but arrays cannot escape through maintained public
-objects.
+Maintained HSH collections use immutable tuples. External quadratic adapters may use
+private NumPy arrays or private SciPy CSR storage; their public dense matrix is a tuple
+and their public sparse matrix is a defensive CSR copy.
 
 ## Ordering and finite geometry
 
 The source mesh size is odd. Centered representatives are ordered lexicographically
-after generating $[-n,\ldots,n]^2$. Each $D_4$ orbit has one canonical integer
-representative. Orbits are ordered by squared radius and then representative. Every
-shell mask is a prefix in that orbit ordering and contains complete orbits.
+after generating $[-n,\ldots,n]^2$. Each PhysKit-provided $D_4$ orbit has one canonical integer representative. HSH selects
+and verifies ordering by squared radius and then representative. Every shell mask is a
+prefix in that orbit ordering and contains complete orbits.
+
+The maximal coefficient box uses the exact-pinned
+`projectkoios.optimization.ParameterSpace` contract. Its ordered unique names must equal
+the canonical orbit identities. The common box has strict bounds around zero; a derived
+shell slice retains those bounds for active coordinates and uses equal bounds `[0, 0]`
+for every inactive coordinate. Inclusive membership is exact at the stored binary64
+bounds. A solver tolerance diagnoses a candidate before exact projection and never
+widens a fixed bound.
 
 The target package must reconstruct rather than trust:
 
@@ -21,7 +29,15 @@ The target package must reconstruct rather than trust:
 - multiplicity sum equal to the block count;
 - nested shell masks and the full final shell;
 - real projected target and one common energy zero; and
-- exact zero inactive coefficients in every embedded point.
+- exact zero inactive coefficients in every embedded point; and
+- exact correlation among orbit order, `ParameterSpace` names, common bounds, and every
+  derived fixed-coordinate shell slice.
+
+“Exact real projected target” means that every retained orbit value is one built-in
+float, has no stored imaginary component, and is copied identically to every block in
+that orbit. It does not mean exact real arithmetic. The input builder must freeze its
+canonical member order and finite summation rule; producer and verifier independently
+reconstruct the resulting binary64 values and projection defects.
 
 ## Quadratic representation
 
@@ -31,19 +47,26 @@ $$
 q(z)=(z-c)^TQ(z-c)+m.
 $$
 
-`analysis.model_adequacy.losses.DimensionlessPositiveDefiniteQuadraticLoss` owns the
-finite dimensionless center, symmetric positive-definite matrix, nonnegative finite
-minimum squared loss, strict typing, immutable `quadratic_matrix` property,
-`squared_loss(coordinates)`, and `rms_loss(coordinates)`. It accepts only explicitly
-normalized dimensionless canonical coordinates.
+The exact-pinned Optimization-owned
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` owns the finite
+unit-free center, symmetric positive-definite matrix, nonnegative finite minimum squared
+loss, Optimization scalar validation, backend selection, `matrix` property,
+`squared_loss(coordinates)`, and `root_loss(coordinates)`. HSH supplies only explicitly
+normalized unit-free canonical coordinates and retains whether `sparse=False` NumPy
+dense or `sparse=True` SciPy CSR behavior was selected.
 
 The HSH-local `Periodic2DHoppingShellQuadraticLoss` owns the energy unit and scale
-$E_G$, shell identity, channel, strictly increasing active maximal-space indices,
-inactive-zero rule and tolerance, and nonnegative reconstruction/correlation defects.
-Its `squared_loss(maximal_coefficients)` validates the energy-coefficient embedding,
+$E_G$, shell identity, channel, strictly increasing active maximal-space indices, exact
+inactive-zero rule, and nonnegative reconstruction/correlation defects. Solver
+feasibility defects are retained separately and cannot relax class membership. Its
+`squared_loss(maximal_coefficients)` validates the energy-coefficient embedding,
 forms the ordered ratios $z=c_{\mathrm{active}}/E_G$, and delegates those ratios to the
-shared primitive. Positive definiteness is checked with a prospectively frozen absolute
-tolerance and an independently reconstructed factorization or eigenvalue bound.
+shared facade. The dense adapter requires successful NumPy Cholesky acceptance; the
+sparse adapter requires a finite strictly positive smallest algebraic eigenvalue from
+SciPy ARPACK and fails closed on nonconvergence. HSH additionally requires that an
+independently reconstructed curvature lower bound exceed a prospectively frozen margin;
+the HSH margin does not weaken the adapter invariant or turn backend acceptance into an
+exact certificate.
 
 A channel is nonempty only if its quadratic sublevel intersects the active slice of the
 coefficient box. Unconstrained minimum feasibility is insufficient when the center lies
@@ -56,10 +79,16 @@ nonemptiness. If neither proof closes within the frozen arithmetic policy, the c
 ## Metric and dual norm
 
 All classes use the same diagonal metric
-$M_{oo}=m_o/(E_G^2|\mathcal R_{\max}|)$. No class-dependent normalization is allowed.
-A support-certificate direction must be nonzero and finite in the maximal coefficient
-space. Its dual norm is $\sqrt{u^TM^{-1}u}$. Directions may be normalized for storage,
-but the verifier must reconstruct scale invariance.
+$M_{oo}=m_o/(E_G^2|\mathcal R_{\max}|)$. Because this metric carries inverse-energy
+squared dimensions before coefficient contraction and has hopping/Frobenius meaning,
+its reusable typed representation belongs to PhysKit. HSH selects $E_G$, the comparison
+domain, and the scientific role; unit-free optimization receives only the resulting
+nondimensionalized coordinates and metric values. No class-dependent normalization is
+allowed.
+A support-certificate direction must be nonzero, finite, and dimensionless in the
+maximal coefficient ordering. Its dual norm $\sqrt{u^TM^{-1}u}$ has the coefficient
+energy unit, as do directional support endpoints and gaps. Directions may be normalized
+for storage, but the verifier must reconstruct scale invariance.
 
 ## Lower and upper bounds
 
@@ -106,5 +135,6 @@ output is evidence only after deterministic reconstruction and certificate check
 
 Producer and verifier may share NumPy/SciPy, BLAS/LAPACK, binary64 behavior, and the
 same Fourier conventions. Independent code paths reduce but do not eliminate common-
-mode numerical errors. Withheld interpolation error is separate from model-class
-incompatibility.
+mode numerical errors. Withheld source-projection and finite-mesh interpolation errors
+are separate from model-class incompatibility and should be separated from each other
+when the retained comparisons permit it.

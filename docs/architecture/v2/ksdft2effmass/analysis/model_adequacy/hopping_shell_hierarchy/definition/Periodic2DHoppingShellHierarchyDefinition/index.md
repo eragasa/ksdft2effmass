@@ -24,11 +24,18 @@ The state includes:
 - source coupling selector and common energy shift;
 - centered representatives, raw complex source blocks, canonical orbit representatives,
   multiplicities, and builder-projected real target coefficients;
-- shell squared radii and maximal-space active masks;
-- positive source-mesh spectral weights and block/operator weights;
-- lower/upper coefficient bounds containing the target with declared margin;
+- exact PhysKit orbit/shell/projection implementation identities, HSH-selected shell
+  squared radii, and maximal-space active masks;
+- positive reciprocal-mesh-$D_4$-invariant spectral weights and positive
+  block/operator weights;
+- one composed `projectkoios.optimization.ParameterSpace` whose named inclusive
+  coefficient bounds contain both the zero vector and target with a declared positive
+  per-coordinate margin;
 - positive spectral/operator thresholds and nonnegative separation resolution;
-- training and withheld coordinates and direct-parent withheld energies;
+- training and withheld coordinates and direct-parent withheld energies, with exact
+  withheld-generator source, dependency, and environment identities;
+- exact Optimization revision plus built-in-Boolean dense/sparse quadratic backend
+  selection;
 - certificate-method identity and arithmetic policy; and
 - separate projection, quadratic, feasibility, rounding, and verification tolerances.
 
@@ -36,13 +43,19 @@ All ordering is canonical and all maintained sequences are tuples.
 
 ## Invariants and failure behavior
 
-The object enforces strict built-in types, finite values, positive energy scales and
-weights, lowercase SHA-256 syntax, exact source/target length correlations, complete
-disjoint orbit coverage, multiplicity sums, nested shells, full final support, disjoint
-mesh roles, and exact source-parent controls. It rejects relative rescaling or
-reordering that is not represented explicitly in a new definition. The producer and
-verifier, not the constructor, establish exact projection correlation and target
-containment with the declared box margin.
+The object requires the exact nominal `projectkoios.optimization.ParameterSpace` type
+and correlates its bound names with canonical maximal-orbit order. It enforces strict
+built-in types, finite values, positive energy scales and weights,
+reciprocal-mesh-$D_4$ weight invariance, exact supported dependency identities,
+lowercase SHA-256 syntax,
+exact source/target length correlations, complete
+disjoint orbit coverage, multiplicity sums, nested shells, full final support,
+point-disjoint training/withheld coordinate sets with distinct roles, and exact
+source-parent controls. The constructor requires strict common lower/upper bounds around zero even though the
+reused generic type also permits equal endpoints for derived fixed-coordinate slices;
+it rejects relative rescaling or reordering that is not represented explicitly in a new
+definition. The producer and verifier, not the constructor, establish exact projection
+correlation and target containment with the declared positive box margin.
 
 `TypeError` denotes an exact-type violation; `ValueError` denotes an invalid finite
 problem definition.
@@ -57,9 +70,11 @@ reconstruct its derived inventories.
 ## Data and action flow
 
 A deterministic input builder decodes retained source records, copies the compact raw
-block family, records its proposed projection, and constructs this object. The producer
-and verifier independently reconstruct that projection before using it. The object
-flows unchanged thereafter; evaluation cannot mutate it.
+block family, generates and retains the pointwise withheld direct-parent values that are
+absent from the historical result, records its proposed projection, and constructs this
+object. The producer and verifier independently reconstruct the projection and withheld
+values before using them. The object flows unchanged thereafter; evaluation cannot
+mutate it.
 
 ## Serialization and compatibility
 

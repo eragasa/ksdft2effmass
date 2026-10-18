@@ -14,6 +14,21 @@ are rejected.
 `squared_loss(parameter)` evaluates `EQ-M3-QUADRATIC-003`; `rms_loss(parameter)` returns
 the nonnegative square root. Both reject malformed/nonfinite/Boolean parameters.
 
+## Channel and common-primitive boundary
+
+The M3 wrapper identifies the represented function as spectral $L_E^2$ or one
+alignment-constrained operator $L_H^2$. Its `channel_id`, `alignment_angle`, and exact
+shift/splitting coordinate convention therefore remain M3-owned.
+
+The generic facade now exists at
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` in the
+exact-pinned accepted owner migration commit `2c6dd7f…`. A later M3 implementation may
+delegate completed-square validation
+and evaluation through that facade while preserving this class's constructor, supported
+import, M3-specific fields, and schema-v1 wire identity. This class does not
+become an alias or subclass of the external type. The retained verifier continues
+independent formula reconstruction.
+
 ## Invariants and evidence
 
 Symmetry and positive curvature are checked at construction and independently by the

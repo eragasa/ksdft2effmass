@@ -1,22 +1,14 @@
 # Si-VC Wannier-component-locality campaign
 
-**Status:** proposed, unexecuted, and blocked. The bounded re-review of the
-corrected CPN architecture found no remaining blocker in the three previously
-identified topology defects; implementation and scientific readiness remain
-incomplete. No Quantum ESPRESSO, `pw2wannier90.x`, Wannier90, scheduler, remote,
-or production execution is authorized by this bundle.
+**Status:** proposed, unexecuted, and blocked. The exact-digest owner, consumer,
+lineage, and provider design review found no blocking architecture inconsistency;
+implementation and scientific readiness remain incomplete. No Quantum ESPRESSO,
+`pw2wannier90.x`, Wannier90, scheduler, remote, or production execution is
+authorized by this bundle.
 
 This directory is the authoritative computational-planning surface for the
-**Si-VC** PBE/PseudoDojo-ONCV QE--Wannier90 component-locality campaign.
-
-- Campaign-family identity:
-  `ksdft2effmass.campaign.bulk-silicon.si-vc.wannier-component-locality`
-- Immutable campaign-version identity: not assigned
-- Retained run or evidence-package identity: none
-
-The family identity is independent of a publication and does not encode a provisional
-version. The former single-file entry point is retained only as a compatibility pointer
-at
+**Si-VC** PBE/PseudoDojo-ONCV QE--Wannier90 component-locality campaign. The
+former single-file entry point is retained only as a compatibility pointer at
 [`bulk-silicon-wannier-component-locality-plan.md`](../../bulk-silicon-wannier-component-locality-plan.md).
 
 ## Purpose
@@ -45,7 +37,11 @@ successful calculator interface.
   provenance, persistence, replay, cancellation, and conformance requirements.
 - [SCF saved-state lineage](scf-saved-state-lineage.md) — provider-candidate
   response, exact Si-VC accepted-parent and staging-receipt schemas, derived NSCF
-  lineage, companion-evidence amendment, and bounded cancellation declaration.
+  lineage, selected terminal-companion contract, and bounded cancellation
+  declaration.
+- [Exact-digest design review](reviews/SI-VC-WORKFLOW-BINDING-001.md) — immutable
+  owner/consumer/provider candidate, resolved findings, retained implementation
+  blockers, and change-invalidation rule.
 - [Implementation and readiness](implementation.md) — implemented foundations,
   provider preflight, missing contracts, evidence requirements, and execution
   blockers.
@@ -92,22 +88,24 @@ requirements for that contract are specified in the [workflow binding
 profile](workflow-binding.md): CPN tokens carry typed content-addressed JSON
 references, the authoritative simulations-owned SCF child is referenced without
 copying its topology, and an exact SCF handoff plus verified staging receipt
-binds the SCF saved-state outputs used as NSCF inputs. The proposed owner contract with exact SHA-256
-`463e1021d19cae8c2f5d6ed9fb65015f8dc81f38c527f92e227838f1d82346b1` has
-independent Workflow-owner and simulations-provider technical reviews with no
-blocking findings. The operator selected that digest as the consumer-led
-conformance target and removed any separate Workflow acceptance gate. It remains
+binds the SCF saved-state outputs used as NSCF inputs. The merged Generic Workflow owner contract has exact SHA-256
+`e6428a8b0d8a47d4f9a6596300fe5ccc65bb16c12e1cc8ffe64884720bd513c2`
+(owner source commit `9ec0944dad3af1706edf01101e443e244da22ef5`, merge
+commit `3861f22db3b182743bd1e7ba6fe5721d7895948b`). It defines the
+bounded control-record/expression, payload-reference, terminal-companion,
+staging, replay, cancellation, and quiescence design contracts. It remains
 unimplemented and must not be invented locally.
 
-A corrected simulations provider proposal, exact SHA-256
-`d33d584463c057783b955cd31cfdd801db75206e087bdef254ded99bd0065de5`
-(superseding `616b713c…`), now defines the candidate-handoff and
-deterministic-export design with exact candidate bounds and a truthful bounded
-cancellation declaration. Its bounded review outcome remains `CHANGES_REQUIRED`:
-terminal companion-evidence owner amendment, path-free artifact-set/success
-projection, and future canonical exporter/golden bytes remain blockers. The
-consumer response is recorded in
-[SCF saved-state lineage](scf-saved-state-lineage.md).
+The merged simulations provider design has exact SHA-256
+`adfa47ba9007e3b08b02d219bf5d7b29de28a48531876c79559a510fc5484858`
+(provider source commit `b6995de15dd44067c55d9055735d26b11b80e712`,
+merge commit `8e70e02cc0f723477bcac42b0f163097f628c88a`). It closes
+candidate bounds, exact child-export correlation, terminal-companion mapping,
+the version-pinned closed-AST export route, and truthful bounded cancellation at
+design level. The retained [exact-digest review](reviews/SI-VC-WORKFLOW-BINDING-001.md)
+reports `NO_BLOCKING_FINDINGS` for design consistency. A path-free immutable
+artifact-set/success projection and actual canonical exporter, profile, golden
+bytes, runtime segments, and fixtures remain implementation-readiness blockers.
 
 No second campaign SNAKES implementation may be added under simulations. The
 scientific freezes H1--H3 remain separate decisions. Protected execution

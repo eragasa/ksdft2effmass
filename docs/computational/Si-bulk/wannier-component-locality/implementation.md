@@ -25,13 +25,12 @@ Slice A retains effect-free local history and pure transition processing; it
 does not implement protected dispatch, attempts, leases, or reconciliation.
 The selected Si-VC consumer requirements are explicit in the [runtime-neutral
 CPN and hierarchical binding profile](workflow-binding.md) and are aligned to
-proposed owner contract `projectkoios.workflow.cpn-bindings@0.1.0`, exact
-SHA-256 `463e1021d19cae8c2f5d6ed9fb65015f8dc81f38c527f92e227838f1d82346b1`.
-Independent Workflow-owner and simulations-provider reviews found no blocking
-findings for that exact digest. The operator selected it as the consumer-led
-conformance target and removed any separate Workflow acceptance gate. It remains
-unimplemented, and neither review nor selection grants implementation or
-execution authority.
+merged owner contract `projectkoios.workflow.cpn-bindings@0.1.0`, exact SHA-256
+`e6428a8b0d8a47d4f9a6596300fe5ccc65bb16c12e1cc8ffe64884720bd513c2`.
+The retained [cross-repository exact-digest review](reviews/SI-VC-WORKFLOW-BINDING-001.md)
+reported `NO_BLOCKING_FINDINGS` for the bounded design-consistency scope. The
+contract remains unimplemented, and neither the review nor operator selection
+grants implementation, dependency, migration, or execution authority.
 
 ## Selected ownership boundary
 
@@ -146,19 +145,20 @@ classified but observably unresolved.
 
 ## Provider candidate/export proposal status
 
-The simulations provider completed a design-only candidate-handoff and canonical
-child-export proposal at SHA-256
-`d33d584463c057783b955cd31cfdd801db75206e087bdef254ded99bd0065de5`,
-which supersedes `616b713c…`.
+The merged simulations provider design has exact SHA-256
+`adfa47ba9007e3b08b02d219bf5d7b29de28a48531876c79559a510fc5484858`.
 It preserves the authoritative 12-place/eight-transition topology, separates
-stable topology from the two-token initial marking, proposes 24 parity/tamper
-vectors, and defines a post-terminal QE saved-state candidate. Its bounded review
-outcome is `CHANGES_REQUIRED`, with no operator request. Before nested
-implementation it must close primary-terminal-plus-companion mapping, immutable
-path-free artifact-set and success-projection contracts, exact canonical
-value/export profiles and golden bytes, and the unchanged child's bounded
-cancellation declaration. The consumer response and Si-VC-owned schemas are in
-[SCF saved-state lineage](scf-saved-state-lineage.md).
+stable topology from the two-token initial marking, defines exact candidate
+bounds and child-export correlation, selects a version-pinned closed-AST export
+route, and defines post-terminal QE saved-state companion evidence with truthful
+bounded cancellation. The exact owner/consumer/provider design review found no
+blocking compatibility inconsistency.
+
+Nested implementation remains blocked by the immutable path-free artifact-set
+and success-projection contracts, actual canonical control-record and exporter
+implementations, generated profile/plan/export/golden bytes, runtime segments,
+and independently verified fixtures. The consumer response and Si-VC-owned
+schemas are in [SCF saved-state lineage](scf-saved-state-lineage.md).
 
 ## Missing CPN/runtime contracts
 
@@ -185,10 +185,9 @@ places and a unique-finalization structure. Implementation review still needs:
 - replay/conformance tests covering directed and concurrent branch behavior.
 
 The stable campaign-family identifier is
-`ksdft2effmass.campaign.bulk-silicon.si-vc.wannier-component-locality`. No
-immutable campaign-version identity has been assigned. A family identity is not a
-substitute runtime occurrence scheme, and Si-VC must not invent
-`si-vc-occurrence-<digest>` identities.
+`projectkoios.campaigns.si-vc.pbe-pseudodojo-oncv.qe-wannier90.v1`. It is a
+domain identity, not a substitute runtime occurrence scheme. Si-VC must not
+invent `si-vc-occurrence-<digest>` identities.
 
 ## Missing provider capabilities
 
