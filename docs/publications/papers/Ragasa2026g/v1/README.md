@@ -1,5 +1,11 @@
 # Conference paper 7: SOC impurity operators for Si:P and Si:B
 
+This directory contains the synchronized pre-results sources
+[`manuscript.md`](manuscript.md) and [`manuscript.tex`](manuscript.tex). The manuscript
+formalizes the matched spinorial parent, common-space alignment, impurity extraction,
+reduction hierarchy, validation gates, and current specification blocker without
+asserting a production material result.
+
 ## Prospective role
 
 Paper 7 is reserved for the first-principles material application to substitutional
@@ -44,6 +50,16 @@ P:Si and B:Si remain distinct physical branches. Their electron counts, magnetic
 SOC response, target observables, pseudopotentials, projection choices, and surviving
 symmetries must not be averaged into a shared result merely because both use spinors.
 
+## Experiment-tree status
+
+No maintained experiment family under `experiments/` currently supplies Paper 7
+execution evidence; the program-wide
+[allocation ledger](../../experiment-to-paper-allocation.md) records this empty boundary.
+In particular, no matched SOC pristine-Si, Si:P, or Si:B production
+experiment, immutable version, or retained material run exists. Synthetic alignment,
+strain, and locality experiments from Papers 1--3 cannot be promoted to SOC material
+evidence.
+
 ## Specification and evidence boundary
 
 The current physical-specification v1 selects a scalar-relativistic non-SOC primary P:Si
@@ -55,3 +71,21 @@ structures, occupations, windows, meshes, tolerances, or acceptance requirements
 No production calculation, retained impurity operator, donor or acceptor result,
 continuum reduction, model-selection conclusion, submission, publication, release, or
 promotion is asserted or authorized.
+
+## Working-color convention
+
+Red text in the rendered manuscript marks proposed methods, unselected controls, and
+conditional future decisions. The introduction, current evidence boundary, and disclosed
+blockers remain black. Color does not confer evidence status.
+
+## Rendering
+
+Build the LaTeX manuscript locally with:
+
+```bash
+latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
+```
+
+The literature bibliography is maintained in [`references.bib`](references.bib) and is
+combined with the shared unpublished-paper identities during the build. A successful
+build verifies document mechanics only.

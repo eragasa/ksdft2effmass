@@ -320,7 +320,9 @@ This absence is an evidence boundary rather than a numerical result. Successful
 software tests, controlled toy-model calculations, tutorial runs, and proposed
 thresholds cannot substitute for the production gates. The bounded tutorial values in
 Appendices C and D remain historical software/numerical evidence, not production
-silicon results.
+silicon results. No maintained experiment family under `experiments/` currently supplies
+a production Paper 4 run; the tutorial records remain calculation-owned historical
+controls.
 
 ### *3.2 Permitted future outcomes*
 
@@ -476,10 +478,10 @@ manuscript.
 locality. Unpublished manuscript.
 
 [18] Ragasa EJM. 2026. Common-space construction of periodic defect operators.
-Unpublished manuscript in preparation.
+Unpublished pre-results manuscript.
 
 [19] Ragasa EJM. 2026. Topological and symmetry obstructions to multiband operator
-alignment. Unpublished manuscript in preparation.
+alignment. Unpublished pre-results manuscript.
 
 [20] Ragasa EJM. 2026. Spin–orbit-coupled impurity operators for substitutional
-phosphorus and boron in silicon. Unpublished manuscript in preparation.
+phosphorus and boron in silicon. Unpublished pre-results manuscript.

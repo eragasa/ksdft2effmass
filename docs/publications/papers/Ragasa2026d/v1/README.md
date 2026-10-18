@@ -15,7 +15,11 @@ extracted from Paper 1 v2; it is excluded from the production admissible sets. P
 2's separate silicon-inspired diamond-lattice parent is a synthetic structural control,
 not silicon evidence or a substitute for this paper's specified material hierarchy.
 
-Paper 4 remains the scalar-relativistic, non-spin-polarized, non-SOC bulk baseline. Its
+Paper 4 remains the scalar-relativistic, non-spin-polarized, non-SOC bulk baseline. No
+maintained experiment family under `experiments/` currently supplies Paper 4 execution
+evidence, as recorded in the program-wide
+[allocation ledger](../../experiment-to-paper-allocation.md). The tutorial Wannier90 preview remains historical material under
+`calculations/`, not a production experiment or a validated silicon Hamiltonian. Its
 ten-spatial-orbital operator is not a direct subtraction reference for the prospective
 SOC Si:P/Si:B program. That later application must construct its own matched pristine-Si
 SOC supercell and compatible spinorial Wannier representation. The current

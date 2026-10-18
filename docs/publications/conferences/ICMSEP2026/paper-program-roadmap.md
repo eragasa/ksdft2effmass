@@ -46,6 +46,26 @@ not by themselves establish compatible retained spaces. Electron count, magnetic
 SOC response, pseudopotentials, projections, windows, defect-localized states, and
 surviving symmetries remain branch-specific.
 
+The complete maintained-experiment assignment is recorded in the
+[experiment-to-paper allocation](../../papers/experiment-to-paper-allocation.md).
+
+## Wannier90 evidence allocation
+
+Historical Wannier90 records are assigned by scientific role rather than by their legacy
+conference path:
+
+| Retained calculation | Publication role |
+|---|---|
+| `calculations/research-monograph/periodic-1d/wannier90-*` | Paper 3 rank-two algorithm-selected precursor and future `periodic1d` child of a separate Wannier90 localization-reproducibility experiment; not part of the Paper 3 analytic D1 P0/G0 protocol |
+| `calculations/research-monograph/periodic-2d/wannier90-balanced-*` | Paper 3 rank-three algorithm-selected frame/locality bridge |
+| `calculations/research-monograph/periodic-2d/wannier90-study-*` | Paper 3 finite sensitivity evidence; not a convergence sequence |
+| `calculations/research-monograph/periodic-2d-optimizer-basin/` | Paper 3 optimizer-reproducibility result and future `periodic2d` child of the separate reproducibility experiment |
+| `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/` | Paper 4 tutorial-scale silicon appendix only; not production silicon evidence |
+
+The reproducibility family and the analytic higher-rank family remain distinct experiment
+identities. Paper 3 may compare their bounded conclusions without pooling their error
+channels or treating one protocol as execution evidence for the other.
+
 ## Current evidence boundary
 
 Papers 1--3 contain controlled synthetic or extracted precursor work with their stated

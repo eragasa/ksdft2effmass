@@ -5,8 +5,8 @@
 This is the complete audit ledger for what Paper 1 v3 presents, relies on, explicitly
 excludes, or promises as later work. It is an editorial and readiness aid, not a new
 scientific authority or evidence package. Mathematical definitions remain authoritative
-in the manuscript and supplement; numerical provenance remains owned by the maintained
-1-D experiment and its calculation records.
+in the manuscript and supplement; numerical provenance remains owned by the applicable
+maintained 1-D experiment families and their calculation records.
 
 The inventory covers `manuscript.tex`, `supplementary.tex`, `README.md`, and
 `novelty-and-convention-audit.md`. “Delivered” means that the working paper currently
@@ -18,6 +18,8 @@ mean reviewed publication evidence.
 - **Analytic—delivered:** proved in the paper under explicit assumptions.
 - **Development—delivered:** implemented and observed on a declared sampled inventory,
   but not retained publication evidence.
+- **Retained precursor—delivered:** a distinct immutable experiment and verified evidence
+  package exists, but it does not support the active rank-two headline.
 - **Contract—delivered:** a method, definition, boundary, or failure rule is explicit.
 - **Follow-up—active:** another maintained experiment now exercises the promised rung,
   but it is not evidence for Paper 1 v3.
@@ -100,6 +102,7 @@ mean reviewed publication evidence.
 | N20 | First-passing decisions are unchanged at `N=128,256,512`; every selected cutoff passes and its predecessor fails. | Threshold-adjacent development refinement, not a retained run. | **Development—delivered**. |
 | N21 | Independent truncation reconstruction differs by at most `4.61e-13`. | Same binary64 ecosystem, separate control flow rather than independent hardware. | **Development—delivered**. |
 | N22 | Frame and transform identities close near binary64 scale; closure phases remain non-topological diagnostics. | Five sampled parent scales. | **Development—delivered**. |
+| N23 | The separate scalar `single-band-fourier-reduction.v1` run has independent verification and historical parity, with complete transform reconstruction defect `4.17e-17 E_G` and range-eight disjoint-mesh error `9.47e-9 E_G`. | Distinct retained scalar experiment and finite protocol; not evidence for the rank-two claim or a selected adequate range. | **Retained precursor—delivered**, Supplement S7. |
 
 ## 5. Software verification, serialization, and provenance sold by the paper
 
@@ -113,7 +116,8 @@ mean reviewed publication evidence.
 | V06 | Exact Optimization and PhysKit revisions are disclosed. | **Development—delivered** in the supplement and experiment README. |
 | V07 | Analysis tables and figures are derived presentations, not independent provenance owners. | **Contract—delivered**. |
 | V08 | Independent means separate scientific reconstruction/control flow, not different hardware, arithmetic, or all numerical libraries. | **Contract—delivered**. |
-| V09 | A retained package would contain canonical records, convergence table, manifests, checksums, commands, platform, report, and distinct version/run/package identities. | **Open before submission**; this describes a future retained package only. |
+| V09 | A retained package for the active rank-two experiment would contain canonical records, convergence table, manifests, checksums, commands, platform, report, and distinct version/run/package identities. | **Open before submission** for the active experiment. |
+| V10 | The separate scalar precursor binds immutable version/run/package identities, strict schemas, checksums, provenance, and an independent verifier. | **Retained precursor—delivered**; status does not transfer to the active experiment. |
 
 ## 6. Explicit nonclaims and exclusions
 
@@ -130,7 +134,7 @@ mean reviewed publication evidence.
 | X09 | An MLWF optimization or new Wannier-spread decomposition. | Preserve the explicit distinction in the related-work and covariance sections. |
 | X10 | Full non-flat admissible-set, witness, or separation-certificate evidence. | Do not imply that the 14-step future certificate workflow has been executed. |
 | X11 | Higher-dimensional, anisotropic, non-orthogonal, higher-rank, or complex-`U(N)` results **of Paper 1**. | Later experiment results may be cited as follow-up work only after separate review; they do not retroactively support Paper 1. |
-| X12 | Retained, archived, released, or publication-qualified numerical evidence. | Keep development labels until the open readiness items are completed and separately authorized. |
+| X12 | Retained, archived, released, or publication-qualified numerical evidence for the active rank-two experiment. | Keep active-experiment development labels until the open readiness items are completed and separately authorized; identify the retained scalar precursor separately. |
 
 ## 7. Validation-ladder commitments
 
@@ -167,7 +171,7 @@ final publication evidence.
 | S12 | Complete acknowledgments and final date/version metadata. | The manuscript still contains an author placeholder. |
 | S13 | Re-run the novelty/convention audit if a priority, material, higher-dimensional, or continuous-domain range claim is added. | Required by the existing audit boundary. |
 | S14 | Reduce any future roadmap updates without implying that follow-up smoke calculations are Paper 1 evidence. | The repository has advanced beyond the original “design only” wording. |
-| S15 | Resolve the main-manuscript LaTeX warnings and visibly inspect the final two-column PDF. | The current build succeeds, but it still reports pre-existing underfull boxes, several overfull equations (including one about 57 pt), and a `nameref` package warning. The supplement builds cleanly. |
+| S15 | Regenerate the ignored development figure assets, resolve LaTeX warnings, and visibly inspect the final PDFs. | In a clean worktree the normal main and supplement builds stop at missing ignored experiment-owned figures; draft-graphics source builds pass. After figure regeneration, pre-existing underfull/overfull and `nameref` warnings still require review. |
 
 ## 9. Scope-dependent items that are **not** blockers for the current headline
 
@@ -187,7 +191,9 @@ The following become required only if the manuscript expands its current claim s
 ## 10. Audit conclusion
 
 Paper 1 v3 currently sells one complete rank-two analytic mechanism and one strongly
-checked but still development-status 1-D numerical consequence. The mathematics,
+checked but still development-status 1-D numerical consequence. It also records one
+separately retained scalar Fourier-reduction precursor without transferring that status
+to the active experiment. The mathematics,
 comparison contract, dense-cutoff result, diagnostic separation, and independent
 development reconstruction are present. The remaining blockers are evidence-lifecycle
 controls—freeze, retained identities and provenance, authorized confirmatory execution,

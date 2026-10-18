@@ -1,5 +1,11 @@
 # Conference paper 6: topological and symmetry obstructions to multiband alignment
 
+This directory contains the synchronized pre-results sources
+[`manuscript.md`](manuscript.md) and [`manuscript.tex`](manuscript.tex). The manuscript
+formalizes relative bundle alignment, qualified complex and symmetry obstruction
+diagnostics, patchwise operator comparison, staged controlled-model roles, and the
+current evidence boundary without asserting a topological classification.
+
 ## Prospective role
 
 Paper 6 is reserved for the conditions under which a retained periodic multiband space
@@ -40,8 +46,37 @@ reviewed material specialization and authenticated evidence are later added. The
 study should use controlled models whose topological class and transition functions are
 known independently.
 
-## Status
+## Experiment-tree status
 
-Prospective scope only. No model family, invariant protocol, implementation, numerical
-result, material classification, or retained evidence has been selected. No protected
-execution, submission, publication, release, or promotion is authorized.
+No maintained experiment family under `experiments/` currently supplies Paper 6
+obstruction evidence; the program-wide
+[allocation ledger](../../experiment-to-paper-allocation.md) records this empty boundary.
+Closure phases, Wilson loops, and plaquette diagnostics in Papers
+2 and 3 remain finite transport/sewing controls and must not be relabeled as continuum
+topological classifications. Historical topological calculations under `calculations/`
+require a separate evidence review and maintained successor before publication use.
+
+## Current evidence status
+
+A pre-results manuscript now exists, but no model family, immutable invariant protocol,
+implementation, numerical result, material classification, or retained evidence has
+been selected. No protected execution, submission, publication, release, or promotion
+is authorized.
+
+## Working-color convention
+
+Red text in the rendered manuscript marks proposed methods, unselected controls, and
+conditional future decisions. The introduction, current evidence boundary, and disclosed
+blockers remain black. Color does not confer evidence status.
+
+## Rendering
+
+Build the LaTeX manuscript locally with:
+
+```bash
+latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
+```
+
+The literature bibliography in [`references.bib`](references.bib) is combined with the
+shared unpublished-paper identities. A successful build verifies document mechanics
+only.

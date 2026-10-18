@@ -29,11 +29,13 @@ band-equivalence/locality program in terms of retained projectors, periodic fram
 complex unitary gauge classes, explicitly admissible alignments, and complete
 matrix-valued Fourier blocks. Retained rank-two controls establish the distinction
 between pointwise and global alignment and then demonstrate common-witness and
-certified-separation logic under a nonidentity constrained family. Historical rank-three
-calculations extracted from an earlier rank-two study~\cite{Ragasa2026a} demonstrate
-finite-mesh gauge consistency alongside large changes in spread and hopping tails, including one
-algorithm-selected Wannier90 frame. These controls
-motivate, but do not replace, a higher-rank protocol with independent verification and
+certified-separation logic under a nonidentity constrained family. Historical rank-two
+and rank-three calculations demonstrate finite-mesh gauge consistency alongside large
+changes in spread and hopping tails, including converged algorithm-selected Wannier90
+frames. A retained rank-three multistart follow-up additionally shows
+that the declared Wannier90 mesh and basin-reproducibility criteria are not supported for
+that synthetic rank-three interface. These controls motivate, but do not replace, a
+higher-rank protocol with independent verification and
 separately qualified projection, frame, conversion, and truncation channels.
 \end{abstract}
 
@@ -212,7 +214,60 @@ tails.}
 \label{fig:rank-three-gauge}
 \end{figure}
 
-\section{Extracted algorithm-selected Wannier90 bridge}\label{sec:wannier-bridge}
+\section{Algorithm-selected Wannier90 frames}\label{sec:wannier-bridge}
+Wannier90 constructs maximally localized Wannier representations from Bloch-state input
+using a discrete reciprocal-space localization procedure~\cite{Mostofi2008,Pizzi2020}.
+Here it is an external localization engine: the present work does not reimplement its
+spread optimizer or identify optimizer convergence with physical model validation.
+
+\subsection{Comparator hierarchy}
+Let $F_D(\mathbf k)$ be a direct projected frame and let $F_W(\mathbf k)$ be a
+Wannier90-selected frame of the same declared rank. Their represented projectors and
+Hamiltonians are
+\begin{equation}
+ P_X(\mathbf k)=F_X(\mathbf k)F_X^\dagger(\mathbf k),
+ \qquad
+ H_X(\mathbf k)=F_X^\dagger(\mathbf k)H_p(\mathbf k)F_X(\mathbf k),
+ \qquad X\in\{D,W\}.
+\end{equation}
+Projector agreement, pointwise identification, and restricted global identification are
+separate tests. When
+$M_{WD}(\mathbf k)=F_W^\dagger(\mathbf k)F_D(\mathbf k)$ is full rank, its polar factor
+$U_{WD}(\mathbf k)$ defines the pointwise comparison
+$U_{WD}^\dagger H_WU_{WD}-H_D$. A smaller admissible family may allow integer orbital
+translations
+\begin{equation}
+ D_{\mathbf m}(\mathbf k)=\operatorname{diag}
+ \left(e^{-i\mathbf k\cdot\mathbf m_1},\ldots,
+       e^{-i\mathbf k\cdot\mathbf m_r}\right)
+\end{equation}
+followed by one constant unitary. Failure of that restricted family to reproduce the
+pointwise result is an alignment-family statement, not a loss of abstract unitary
+equivalence.
+
+Native Wannier90 Berry-link spread, a common finite-supercell spread estimator, and a
+complete-block hopping tail are distinct quantities. Only values reconstructed with the
+same estimator, mesh, lattice metric, and support may be compared directly. Wannier90
+convergence establishes termination under its declared native criterion; it does not
+establish a unique basin, mesh convergence, or global MLWF optimality.
+
+\subsection{Retained one-dimensional rank-two precursor}
+A synthetic 128-point interface supplied Wannier90 3.1.0 with two isolated rank-two band
+groups. Its source normalization $E_G$ is relabeled $E_{\mathrm{ref}}$ here and is not a
+physical band gap. Initial runs did not satisfy the frozen spread criterion. Fresh runs adding only
+the documented preconditioner converged after 69 iterations for the lower pair and 4176
+iterations for the upper pair. Pointwise identification left maximum represented-
+operator defects $1.13\times10^{-10}E_{\mathrm{ref}}$ and
+$4.86\times10^{-10}E_{\mathrm{ref}}$, respectively. At range 12, their omitted-block
+norms were $2.53\times10^{-4}E_{\mathrm{ref}}$ and
+$6.33\times10^{-3}E_{\mathrm{ref}}$, with training spectral truncation errors
+$9.32\times10^{-4}E_{\mathrm{ref}}$ and $3.09\times10^{-2}E_{\mathrm{ref}}$.
+
+This precursor demonstrates a bounded interface, convergence rescue, and pointwise
+frame comparison for two finite rank-two groups. It does not establish multistart basin
+reproducibility, higher-rank behavior, or transferability of the preconditioner.
+
+\subsection{Extracted rank-three two-dimensional bridge}
 A separate synthetic two-dimensional calculation used Wannier90 3.1.0 on a $15\times15\times1$ mesh with three trial projections and no disentanglement. The direct projected and Wannier90-selected frames had maximum projector discrepancy $2.65\times10^{-10}$. Pointwise identification reduced their represented-operator discrepancy to $3.57\times10^{-10}E_{\mathrm{ref}}$. A bounded family allowing integer orbital translations in $[-1,1]^2$ followed by one constant orbital unitary instead left an operator discrepancy of $1.490E_{\mathrm{ref}}$.
 
 Under one common finite-supercell estimator, the Wannier90 and direct-frame spreads were $6.1359a^2$ and $24.5163a^2$. At squared radius 50, their omitted hopping norms were $2.72\times10^{-4}E_{\mathrm{ref}}$ and $5.90\times10^{-3}E_{\mathrm{ref}}$. A retained six-case mesh, cutoff, and embedding study was nonmonotone and reached different localization basins. The evidence therefore supports one finite algorithm-selected comparison, not mesh-independent localization or global MLWF optimality.
@@ -225,6 +280,59 @@ spreads are not interchangeable. Pointwise represented alignment, restricted glo
 alignment, and finite-shell hopping tails remain separate diagnostics.}
 \label{fig:wannier90-bridge}
 \end{figure}
+
+The one-dimensional and two-dimensional calculations are algorithm-selected historical
+controls, not executions of the analytic higher-rank protocol below. The full rank-three
+sensitivity record is retained in Appendix~\ref{app:evidence-boundary} rather than
+interpreted as a convergence sequence.
+
+\section{Extracted optimizer-basin follow-up}\label{sec:optimizer-basin}
+A subsequent study held the synthetic rank-three parent fixed while varying reciprocal
+mesh, plane-wave cutoff, inactive third-direction embedding, deterministic initial
+$U(3)$ frame, and preconditioner status. Fourteen distinct interfaces received sixteen
+starts, with two matched interfaces repeated without preconditioning. Of 256 initial
+localizations, 136 met the native Wannier90 criterion. The other 120 were continued once
+from their exact checkpoints; 60 were rescued and 60 remained nonconverged, giving 196
+converged final endpoints.
+
+At fixed inactive length and cutoff, convergence fell from 9 of 16 starts at $N=27$ to 6
+of 16 at $N=31$. Across that pair, the best observed invariant spread component changed
+by 4.66\% and the gauge-dependent component by 1.62\%. The finest cutoff pair stabilized
+its declared scalar, center, tail, and convergence-fraction diagnostics, but every
+observed density- and $D_4$-aware basin remained a singleton; the required repeated-best-
+basin condition failed in every group. The frozen combined convergence criteria were
+therefore not supported.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{YY}
+\toprule
+\textbf{Frozen channel} & \textbf{Retained outcome and disposition} \\
+\midrule
+Initial native convergence & 136/256; incomplete \\
+Checkpoint continuations & 60/120 rescued; 60 final nonconvergences retained \\
+Final native convergence & 196/256; bounded coverage, not complete convergence \\
+Finest fixed-mesh pair & 9/16 to 6/16 converged starts; convergence-fraction failure \\
+Finest cutoff pair & Scalar, center, tail, and fraction gates pass; repeated-best-basin gate fails \\
+Best observed basin occupancy & One in every group; reproducibility criterion fails \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../../../../../calculations/research-monograph/periodic-2d-optimizer-basin/standalone-summary.png}
+\caption{Extracted rank-three Wannier90 multistart and convergence study. Process
+completion, native convergence, finite-mesh spread components, hopping-tail stability,
+and observed-basin reproducibility remain separate diagnostics.}
+\label{fig:optimizer-basin}
+\end{figure}
+
+This is a controlled negative result for one synthetic interface and one finite protocol.
+The basin labels classify observed endpoints; they do not prove that every endpoint is a
+mathematically distinct local minimum, that Wannier90 generally fails, or that any
+material Hamiltonian has the same sensitivity. A missed pre-execution classifier-control
+record remains a disclosed protocol deviation; post-hoc roundoff controls do not erase
+it.
 
 \begin{prospective}
 \section{Dimension-indexed arbitrary-rank synthetic family}
@@ -420,8 +528,13 @@ assigned a finite hopping support merely because the input angles use two harmon
 
 The one-dimensional specialization has one primitive closure, one endpoint-sewing
 condition, and hopping blocks indexed by $R\in\mathbb Z$. It first separates retained
-rank from circuit depth without plaquettes. Its meshes, tolerances, supports, schemas,
-and evidence status remain open, and no result from this tranche is reported here. The
+rank from circuit depth without plaquettes. The complete pre-execution D1 v1 protocol
+uses odd construction meshes $M\in\{513,1025,2049\}$, a disjoint shifted 8191-point
+evaluation mesh, and supports $|R|\leq S$ for
+$S\in\{0,1,2,4,8,16,32,64,128\}$. It freezes singular-value and numerical tolerances,
+refinement and effect-resolution rules, strict schema identities, a direct-formula
+verifier, resource ceilings, and retained-evidence policy before execution. No
+implementation or result from this tranche is reported here. The
 two-dimensional specialization has two
 face-sewing pairs, two primitive closures, $xy$ plaquettes, and
 $\mathbf R\in\mathbb Z^2$. The three-dimensional specialization has three face-sewing
@@ -448,27 +561,49 @@ classification. A topologically obstructed family would require patchwise frames
 separate protocol.
 
 \section{Prospective multiband protocol}
-The publication-independent higher-rank protocol now specifies the common analytic
-one-, two-, and three-dimensional family above and selects the first bounded 1-D P0/G0
-tranche. The selected tranche fixes its parent coefficients, analytic gap, real
-Givens-angle law, rank/depth ladder, A0--A3 channels, and cross-rank normalizations. It
-must still select rank thresholds, construction and evaluation meshes, sewing
-traversal, support inventories, truncation targets, serializers, resource ceilings, and
-an independent verifier. Moving-projector, complex-gauge, and multidimensional cases
-remain open. Rank-two formulas and the multidimensional controls of the preceding
-study~\cite{Ragasa2026b} will not be inherited without a reviewed specialization.
+The dimension-indexed family above remains prospective outside D1. Its first bounded
+P0/G0 specialization now has the reserved version identity
+\texttt{ksdft2effmass.campaign.periodic-reduction.periodic1d.}
+\texttt{higher-rank-composite-band-alignment-and-locality.v1}.
+The protocol fixes the parent, exact certificates, real Givens-angle law, rank/depth
+ladder, A0--A3 channels, cross-rank normalizations, meshes, supports, singular-value and
+numerical tolerances, convergence gates, effect-resolution thresholds, strict schema
+identities, direct-formula verifier, resource gate, and evidence package. It remains a
+pre-execution candidate until implementation, schemas, and verifier pass review.
+Moving-projector, complex-gauge, restricted-circuit, and multidimensional cases remain
+separate open protocols. Rank-two formulas and the multidimensional controls of the
+preceding study~\cite{Ragasa2026b} will not be inherited without a reviewed
+specialization.
 
-The evidence ledger will keep parent discretization, projection or exact analytic
-embedding, frame construction, covariant equivalence, restricted alignment, Fourier
-conversion, interpolation, deliberate truncation, and total Hamiltonian and spectral
-consequences separate. Rank, circuit depth, and spatial dimension are independent
-variables. No combined diagnostic score is planned.
+The maintained experiment inventory is therefore:
+\begin{center}\small
+\begin{tabularx}{\textwidth}{YYY}
+\toprule
+\textbf{Experiment surface} & \textbf{Current status} & \textbf{Role in this paper} \\
+\midrule
+Periodic-1D composite-band alignment/locality & Migration in progress; prospective protocol; no maintained run & Publication-independent rank-two successor to the historical M2/M3 controls \\
+Periodic-1D higher-rank D1 P0/G0 & Complete pre-execution v1 protocol candidate; no implementation or run & Selected future rank/depth experiment \\
+Wannier90 localization reproducibility & No maintained experiment package yet & Historical calculation evidence only; future separate family \\
+\bottomrule
+\end{tabularx}
+\end{center}
+Consequently, the experiment tree currently contributes a retained owner boundary and
+complete prospective controls, but no new Paper 3 execution evidence.
+
+The evidence ledger keeps exact analytic certificates, sampled diagnostics, parent
+construction, projection or embedding, frame construction, covariant equivalence,
+restricted alignment, Fourier conversion, interpolation, deliberate truncation, and
+total Hamiltonian and spectral consequences separate. Rank and circuit depth are
+independent finite variables. No combined diagnostic score or asymptotic arbitrary-rank
+claim is admitted.
 
 \section{Results boundary}
-No calculation has instantiated this arbitrary-rank family. No new higher-rank
-numerical result, dimensional experiment identity, complete protocol freeze, retained
-run, or evidence package exists. New conclusions may be added only after a higher-rank protocol is frozen
-and independently verified. The extracted rank-three controls above retain their
+No calculation has instantiated this arbitrary-rank family. The D1 v1 identity and
+complete protocol controls are reserved, but no reviewed implementation, immutable
+executed version, D1 v1 numerical result, retained D1 run, or D1 evidence package exists.
+New numerical conclusions for that protocol may be added only after implementation review,
+authorized execution, and independent verification. The extracted rank-three controls
+above retain their
 original finite-mesh and synthetic scope. The non-SOC bulk-silicon reduction,
 common-space defect construction, obstruction study, and SOC dopant application remain
 separate unpublished works~\cite{Ragasa2026d,Ragasa2026e,Ragasa2026f,Ragasa2026g}.

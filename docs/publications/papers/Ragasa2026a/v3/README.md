@@ -35,7 +35,9 @@ experiments/model-adequacy/periodic1d/
 
 The experiment identity is independent of this publication version. The manuscript
 references experiment-owned figures and tabulated analysis directly rather than copying
-them into a second evidence tree.
+them into a second evidence tree. The program-wide
+[allocation ledger](../../experiment-to-paper-allocation.md) also assigns the retained
+single-band Fourier reduction to this paper as a separate scalar precursor.
 
 Prospective dimensional successors now have independent experiment identities and
 protocol manuscripts at:
@@ -57,7 +59,10 @@ upgrade the manuscript's numerical evidence status.
 The analytic rank-two geometry, Bessel threshold law, and flat-parent locality identity
 are mathematical results. The current dispersive homotopy and truncation figures are
 development calculations on declared sample inventories. They are not a retained
-production run or evidence package. The range-inflation map now reports the first passing cutoff over every integer
+production run or evidence package. Supplemental Section S7 now records the separate
+retained `single-band-fourier-reduction.v1` run as a verified scalar precursor; its
+retained status is not transferred to the active rank-two experiment. The range-inflation
+map now reports the first passing cutoff over every integer
 $R_c=0,\ldots,16$ on the sampled $(\rho,a)$ grid. The cap remains a development control,
 not a frozen universal range.
 
