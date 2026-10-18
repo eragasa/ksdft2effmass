@@ -50,8 +50,10 @@ checkpoint reported 95 passing tests plus Ruff, strict mypy, build, dependency-f
 facade, and installed-wheel backend
 smoke gates.
 
-KSD exact-pins that revision and owns focused consuming-project provenance, dense, sparse,
-and `ParameterSpace` smoke tests. Superseded donor bytes were preserved in an external
+KSD initially exact-pinned that migration revision; the live lock now selects reviewed
+Optimization descendant `d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` while retaining
+focused consuming-project provenance, dense, sparse, and `ParameterSpace` smoke tests.
+Superseded donor bytes were preserved in an external
 recovery bundle and removed from active export staging, so there is no supported local
 quadratic import or duplicate implementation. No M3 source, retained package, schema, or
 verifier changed in this phase.

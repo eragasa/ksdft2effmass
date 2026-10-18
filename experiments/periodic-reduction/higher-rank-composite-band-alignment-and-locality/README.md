@@ -18,15 +18,16 @@ inventory, verifier method, resource gate, and evidence policy are selected. Reu
 rank-generic diagnostic primitives are now under software verification at
 `python/src/ksdft2effmass/analysis/matrix_field/diagnostics/`; the experiment calculator,
 independent verifier, serializer, and retained composition remain unimplemented.
-Reviewed local Optimization owner tranches now provide the required maximum-rule
-Procrustes cutoff (`4c69ffa73ada6fd55576b0f9dee0350259813673`) and odd-parity
-finite-periodic operations (`d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f`). Both are
-published on the owner branch `origin/migration/ksdft2effmass`. PhysKit commit
-`7157dcedd0d220673d443c1c025e35a6fd1ffa7a` on its `origin/main` supplies the reviewed
-unit-aware physical boundary around those operations. These are capability-review
-references, not the KSD dependency binding, and no binding changes without explicit
-authorization. The protocol
-has no reviewed immutable version, retained run, or evidence package. The 2-D, 3-D, P1,
+The KSD development dependency binding now selects Optimization commit
+`d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f`, which contains the reviewed maximum-rule
+Procrustes tranche (`4c69ffa73ada6fd55576b0f9dee0350259813673`) and odd-parity
+finite-periodic operations. It also selects PhysKit commit
+`7157dcedd0d220673d443c1c025e35a6fd1ffa7a`, whose unit-aware physical records and
+actions wrap those finite-periodic operations. Software verification covers the D1
+$513\rightarrow8191$ odd-mesh route, physical identity propagation, support extraction,
+and strict maximum-rule Procrustes behavior. This owner integration does not constitute
+the experiment calculator, a completed calculation, or evidence. The protocol has no
+reviewed immutable version, retained run, or evidence package. The 2-D, 3-D, P1,
 G1, and A4 branches remain prospective. Empty dimensional implementation packages are
 intentionally not created.
 

@@ -6,9 +6,12 @@ import math
 
 import numpy as np
 import pytest
+from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
 from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
+from projectkoios.physkit.solidstate.tb import FinitePeriodicMatrixFourierSeries
+from projectkoios.physkit.units import Unitless
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import (
     FourierMatrixBlockNormInventoryAnalyzer1D,
@@ -38,8 +41,8 @@ class TestMatrixFieldDiagnostics:
         )
 
     @staticmethod
-    def series() -> NumpyFiniteFourierMatrixSeries:
-        """Return one inversion-complete rank-three matrix series."""
+    def series() -> FinitePeriodicMatrixFourierSeries:
+        """Return one unit-aware inversion-complete rank-three matrix series."""
         modes = np.arange(-2, 3, dtype=np.int64).reshape((-1, 1))
         desired_norms = np.asarray((1.0, 2.0, 3.0, 2.0, 1.0))
         identity = np.eye(3, dtype=np.complex128)
@@ -47,7 +50,14 @@ class TestMatrixFieldDiagnostics:
             [value * identity / math.sqrt(3.0) for value in desired_norms],
             dtype=np.complex128,
         )
-        return NumpyFiniteFourierMatrixSeries.from_arrays(1, modes, coefficients)
+        return FinitePeriodicMatrixFourierSeries.from_arrays(
+            source_mesh=CenteredUniformMesh(1, 5, (0.0,)),
+            integer_modes=modes,
+            matrix_coefficients=coefficients,
+            energy_unit=Unitless(),
+            energy_reference="synthetic-zero",
+            basis_identifier="rank-three-test-basis",
+        )
 
     def test_error_summary__retains_raw_and_rank_normalized_channels(self) -> None:
         """Raw pointwise norms and rank-normalized forms remain distinguishable."""
@@ -277,14 +287,14 @@ class TestMatrixFieldDiagnostics:
 
         modes = np.asarray(((0,), (0,)), dtype=np.int64)
         coefficients = np.zeros((2, 2, 2), dtype=np.complex128)
-        duplicate_series = NumpyFiniteFourierMatrixSeries.from_arrays(
+        unit_free_series = NumpyFiniteFourierMatrixSeries.from_arrays(
             1,
             modes,
             coefficients,
         )
-        with pytest.raises(ValueError, match="unique and increasing"):
+        with pytest.raises(TypeError, match="FinitePeriodicMatrixFourierSeries"):
             SymmetricRangeTailAnalyzer1D().execute(
-                duplicate_series,
+                unit_free_series,  # type: ignore[arg-type]
                 0,
                 energy_reference=1.0,
             )

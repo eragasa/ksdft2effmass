@@ -159,9 +159,9 @@ with equal endpoints represents an inactive coordinate exactly; solver tolerance
 not widen it. `ksdft2effmass` does not re-export or wrap `ParameterSpace` merely to
 rename it.
 
-The dependencies are pinned to exact accepted migration commits
-`2c6dd7f717722f6b0495feb8cfe1287a104268a6` for Optimization and
-`7120b735c7e3e450aa8924780a71deb59d812632` for PhysKit. This reuse decision does not transfer HSH
+The dependencies are pinned to exact reviewed commits
+`d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` for Optimization and
+`7157dcedd0d220673d443c1c025e35a6fd1ffa7a` for PhysKit. This reuse decision does not transfer HSH
 scientific policy, feasibility proofs, certificates, or dispositions to the
 optimization package.
 

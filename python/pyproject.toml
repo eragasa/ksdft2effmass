@@ -57,10 +57,13 @@ workflow = [
 dev = [
     "jsonschema>=4.23",
     "mypy>=1.10",
+    "pip>=25.2",
     "pytest>=8.0",
     "pytest-cov>=5.0",
     "rfc3339-validator>=0.1.4",
     "ruff>=0.5",
+    "setuptools>=77",
+    "wheel>=0.45",
 ]
 
 notebooks = [
@@ -149,8 +152,8 @@ indent-style = "space"
 
 
 [tool.uv.sources]
-projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "2c6dd7f717722f6b0495feb8cfe1287a104268a6" }
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "7120b735c7e3e450aa8924780a71deb59d812632" }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "7157dcedd0d220673d443c1c025e35a6fd1ffa7a" }
 
 
 [tool.mypy]

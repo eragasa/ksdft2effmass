@@ -47,8 +47,8 @@ Version `v1` retains the historical synthetic controls and adds:
   separately from later repository-level dependency advances.
 
 The live development and verification lock follows the current repository owner pins:
-Optimization `2c6dd7f717722f6b0495feb8cfe1287a104268a6` and PhysKit
-`7120b735c7e3e450aa8924780a71deb59d812632`. The retained v1 producer and package
+Optimization `d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` and PhysKit
+`7157dcedd0d220673d443c1c025e35a6fd1ffa7a`. The retained v1 producer and package
 verifier continue to require and report their historical execution-time revisions;
 advancing the live lock neither rewrites those records nor authorizes a replacement
 retained run.

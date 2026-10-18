@@ -236,8 +236,8 @@ requires-dist = [
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=2.3,<3" },
     { name = "pint", specifier = ">=0.26,<0.27" },
-    { name = "projectkoios-optimization", extras = ["numpy", "scipy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=2c6dd7f717722f6b0495feb8cfe1287a104268a6" },
-    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=7120b735c7e3e450aa8924780a71deb59d812632" },
+    { name = "projectkoios-optimization", extras = ["numpy", "scipy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f" },
+    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=7157dcedd0d220673d443c1c025e35a6fd1ffa7a" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -503,7 +503,7 @@ wheels = [
 [[package]]
 name = "projectkoios-optimization"
 version = "0.1.0.dev0"
-source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=2c6dd7f717722f6b0495feb8cfe1287a104268a6#2c6dd7f717722f6b0495feb8cfe1287a104268a6" }
+source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f#d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f" }
 
 [package.optional-dependencies]
 numpy = [
@@ -517,7 +517,7 @@ scipy = [
 [[package]]
 name = "projectkoios-physkit"
 version = "0.1.3.dev0"
-source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=7120b735c7e3e450aa8924780a71deb59d812632#7120b735c7e3e450aa8924780a71deb59d812632" }
+source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=7157dcedd0d220673d443c1c025e35a6fd1ffa7a#7157dcedd0d220673d443c1c025e35a6fd1ffa7a" }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },

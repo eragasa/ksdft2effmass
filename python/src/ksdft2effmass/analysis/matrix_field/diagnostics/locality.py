@@ -6,9 +6,7 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
-from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
-    NumpyFiniteFourierMatrixSeries,
-)
+from projectkoios.physkit.solidstate.tb import FinitePeriodicMatrixFourierSeries
 
 from ._validation import nonnegative_float, positive_float
 
@@ -31,9 +29,9 @@ class FourierMatrixBlockNorm1D:
 
 @dataclass(frozen=True, slots=True)
 class FourierMatrixBlockNormInventory1D:
-    """Retain an ordered bounded block-norm view of one owner matrix series."""
+    """Retain an ordered bounded block-norm view of one physical matrix series."""
 
-    series: NumpyFiniteFourierMatrixSeries
+    series: FinitePeriodicMatrixFourierSeries
     maximum_range: int
     rank: int
     energy_reference: float
@@ -41,8 +39,8 @@ class FourierMatrixBlockNormInventory1D:
 
     def __post_init__(self) -> None:
         """Correlate every retained norm with the immutable source series."""
-        if type(self.series) is not NumpyFiniteFourierMatrixSeries:
-            raise TypeError("series must be NumpyFiniteFourierMatrixSeries")
+        if type(self.series) is not FinitePeriodicMatrixFourierSeries:
+            raise TypeError("series must be FinitePeriodicMatrixFourierSeries")
         if self.series.dimension != 1:
             raise ValueError("series must be one dimensional")
         if type(self.maximum_range) is not int:
@@ -87,19 +85,19 @@ class FourierMatrixBlockNormInventory1D:
 
 
 class FourierMatrixBlockNormInventoryAnalyzer1D:
-    """Extract an ordered bounded norm inventory from an owner matrix series."""
+    """Extract a bounded norm inventory from a physical matrix series."""
 
     __slots__ = ()
 
     def execute(
         self,
-        series: NumpyFiniteFourierMatrixSeries,
+        series: FinitePeriodicMatrixFourierSeries,
         maximum_range: int,
         energy_reference: float,
     ) -> FourierMatrixBlockNormInventory1D:
         """Return every represented block with ``abs(R) <= maximum_range``."""
-        if type(series) is not NumpyFiniteFourierMatrixSeries:
-            raise TypeError("series must be NumpyFiniteFourierMatrixSeries")
+        if type(series) is not FinitePeriodicMatrixFourierSeries:
+            raise TypeError("series must be FinitePeriodicMatrixFourierSeries")
         if series.dimension != 1:
             raise ValueError("block inventory requires a one-dimensional series")
         if type(maximum_range) is not int:
@@ -139,7 +137,7 @@ class FourierMatrixBlockNormInventoryAnalyzer1D:
 class SymmetricRangeTailDiagnostics1D:
     """Retain explicit support and complete-matrix Fourier-tail norms."""
 
-    series: NumpyFiniteFourierMatrixSeries
+    series: FinitePeriodicMatrixFourierSeries
     maximum_range: int
     retained_translations: tuple[int, ...]
     omitted_translations: tuple[int, ...]
@@ -154,8 +152,8 @@ class SymmetricRangeTailDiagnostics1D:
 
     def __post_init__(self) -> None:
         """Validate support inventories, values, and rank/energy normalizations."""
-        if type(self.series) is not NumpyFiniteFourierMatrixSeries:
-            raise TypeError("series must be NumpyFiniteFourierMatrixSeries")
+        if type(self.series) is not FinitePeriodicMatrixFourierSeries:
+            raise TypeError("series must be FinitePeriodicMatrixFourierSeries")
         if self.series.dimension != 1:
             raise ValueError("series must be one dimensional")
         if type(self.maximum_range) is not int:
@@ -258,19 +256,19 @@ class SymmetricRangeTailDiagnostics1D:
 
 
 class SymmetricRangeTailAnalyzer1D:
-    """Measure supplied one-dimensional symmetric supports on an owner series."""
+    """Measure supplied one-dimensional supports on a physical series."""
 
     __slots__ = ()
 
     def execute(
         self,
-        series: NumpyFiniteFourierMatrixSeries,
+        series: FinitePeriodicMatrixFourierSeries,
         maximum_range: int,
         energy_reference: float,
     ) -> SymmetricRangeTailDiagnostics1D:
         """Return raw and normalized ``W``, ``N``, and block-``l1`` tails."""
-        if type(series) is not NumpyFiniteFourierMatrixSeries:
-            raise TypeError("series must be NumpyFiniteFourierMatrixSeries")
+        if type(series) is not FinitePeriodicMatrixFourierSeries:
+            raise TypeError("series must be FinitePeriodicMatrixFourierSeries")
         if series.dimension != 1:
             raise ValueError("symmetric range tails require a one-dimensional series")
         if type(maximum_range) is not int:
