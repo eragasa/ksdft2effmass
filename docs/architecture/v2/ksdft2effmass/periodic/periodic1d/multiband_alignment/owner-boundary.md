@@ -18,8 +18,8 @@ The immediate decisions are:
 - the invariant-only Hermitian spectral-subspace slice is implemented and qualified at
   `projectkoios-optimization@23e1c88772f1bc9a1505cd25df5418cd945a76fa` under
   `projectkoios.numerics.linalg`; the current live dependency chain is resolved through
-  PhysKit `7120b735c7e3e450aa8924780a71deb59d812632` and Optimization
-  `2c6dd7f717722f6b0495feb8cfe1287a104268a6`;
+  PhysKit `7157dcedd0d220673d443c1c025e35a6fd1ffa7a` and Optimization
+  `d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f`;
 - that invariant slice returns no frames; the maintained successor requires
   backend-qualified eigenvector-diagonal frames for historical parity, with the backend
   and version retained and no claim of cross-backend canonical coordinates;
@@ -28,8 +28,10 @@ The immediate decisions are:
 - square pointwise and aggregate Procrustes operations must reject numerically
   rank-deficient cross-covariances rather than complete unconstrained null-space action;
   and
-- the current local NumPy frame and SVD selection mechanisms are explicitly
-  `TECH_DEBT` until reviewed owner operations can replace them directly.
+- the current local NumPy frame and SVD selection mechanisms remain explicit
+  `TECH_DEBT` until the maintained rank-two successor is migrated; the reviewed
+  maximum-rule batched Procrustes owner is now dependency-bound and exercised directly
+  by higher-rank D1 software verification.
 
 This page now records the bound invariant Hermitian slice, the selected successor
 contracts, and deferred extraction candidates. The temporary mechanisms and exit
@@ -69,8 +71,8 @@ reusable optimizer or workflow.
 | Dense Hermitian invariant spectrum/projector | `projectkoios.numerics.linalg.hermitian_spectral_subspace` at owner revision `23e1c88772f1bc9a1505cd25df5418cd945a76fa` | Lowest-group selection, retained rank, energy units, scientific gap meaning, and sample roles | Implemented, qualified, and dependency-bound; consume directly when KSD needs invariant output |
 | Dense Hermitian eigenframes | Future `projectkoios.numerics.linalg` frame-selection capability | Backend-qualified eigenvector-diagonal frames for historical parity, backend/version provenance, and no canonical-frame claim | `TECH_DEBT`: selected locally through NumPy until a reviewed owner contract is available; the invariant slice is not a substitute |
 | Frame isometry, overlaps, projectors, supplied-unitary application, and $F^\dagger H F$ | `projectkoios.numerics.finite_periodic` | Frame/path identity, sewing meaning, basis/gauge interpretation, and unit-bearing operator records | Numerics candidate |
-| Pointwise unitary Procrustes selection | `projectkoios.optimization.alignment` | Which paths are compared, coordinate and sewing compatibility, channel identity, and scientific interpretation | `TECH_DEBT`: contract rejects numerical rank deficiency; local SVD selection remains until owner extraction |
-| One-global-unitary aggregate selection | `projectkoios.optimization.alignment` | The one-transform feasible-family meaning and equal training-point aggregation selected by M2 | `TECH_DEBT`: same rejection policy; local aggregate SVD selection remains until owner extraction |
+| Pointwise unitary Procrustes selection | `projectkoios.optimization.alignment` | Which paths are compared, coordinate and sewing compatibility, channel identity, and scientific interpretation | Owner reviewed and dependency-bound; historical local SVD selection remains `TECH_DEBT` until the maintained rank-two successor is migrated |
+| One-global-unitary aggregate selection | `projectkoios.optimization.alignment` | The one-transform feasible-family meaning and equal training-point aggregation selected by M2 | Owner reviewed with strict maximum-rule rank cutoff and fail-closed unique transformations; historical local aggregation remains pending migration |
 | Neighborwise polar transport and closure transformation selection | `projectkoios.optimization.alignment`, consuming Numerics frame records | Reciprocal-path ordering, sewing convention, overlap threshold meaning, and closure interpretation | Defer until Procrustes and degenerate-closure policies are qualified |
 | Rank-two sine-series attack and path rotation inventory | KSD experiment composition | Entire attack family, coefficients, angles, and role as a controlled gauge perturbation | Keep in KSD |
 | Symmetric range selection and omitted-block locality interpretation | Numerics kernel may apply a supplied mask; KSD owns the study | Range inventory, shell meaning, training/withheld comparisons, and locality claims | Keep policy in KSD; kernel extraction optional |

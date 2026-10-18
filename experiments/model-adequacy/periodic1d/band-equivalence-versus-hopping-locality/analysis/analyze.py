@@ -93,7 +93,7 @@ def _amplitude_rows() -> list[dict[str, str]]:
     return rows
 
 
-def main() -> None:
+def main() -> int:
     """Execute the exploratory analysis and write deterministic summaries."""
     analytic = np.genfromtxt(ANALYTIC_CURVE, delimiter=",", names=True)
     amplitudes_csv = np.asarray(analytic["a"], dtype=np.float64)
@@ -241,7 +241,8 @@ def main() -> None:
     print(f"analytic_rows={amplitudes_csv.size}")
     print(f"operator_endpoint={operator_csv[-1]:.17g}")
     print(f"joint_endpoint={joint_csv[-1]:.17g}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -282,14 +282,14 @@ will establish only implementation behavior within the tested contract.
 The experiment will call reviewed owner contracts directly.
 
 - PhysKit revision
-  `projectkoios-physkit@7120b735c7e3e450aa8924780a71deb59d812632` provides
+  `projectkoios-physkit@7157dcedd0d220673d443c1c025e35a6fd1ffa7a` provides
   lattice, scalar hopping, Bloch evaluation, and supplied-operation diagnostics.
 - Numerics provides finite Fourier arithmetic. The exact eight-operation orbit contract
   above is ready to drive a separate owner review; KSD will not add a generic orbit
   kernel first.
 - Optimization's arbitrary-dimensional closed-box positive-definite quadratic minimizer
   is reviewed and live development is bound at
-  `projectkoios-optimization@2c6dd7f717722f6b0495feb8cfe1287a104268a6`; the
+  `projectkoios-optimization@d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f`; the
   experiment will consume it directly. The public minimizer contract is unchanged from
   the earlier revision used by the disclosed threshold-design calculation.
   Intersection-feasibility and strict-separation contracts follow separately.

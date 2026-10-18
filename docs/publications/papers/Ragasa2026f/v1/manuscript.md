@@ -24,9 +24,11 @@ winding, or a failed gauge optimizer is not by itself classified as topology. Wh
 nontrivial bundles are nevertheless isomorphic, their operators may be compared through
 compatible patchwise representatives even though neither admits the requested global
 frame. When the relative bundles are nonisomorphic, no global operator difference is
-defined. A staged controlled-model suite, independent verification, convergence gates,
-and fail-closed dispositions are proposed. No model suite or invariant protocol has yet
-been frozen, and no maintained experiment or material classification is reported.
+defined. A flat-band projector grammar constructs globally framed, relatively
+isomorphic, complex-obstructed, and category-restricted synthetic controls with exact
+rank and gap. A staged controlled-model suite, independent verification, convergence
+gates, and fail-closed dispositions are proposed. No model suite or invariant protocol
+has yet been frozen, and no maintained experiment or material classification is reported.
 
 **Keywords:** Bloch bundle; topological obstruction; symmetry obstruction; multiband
 alignment; Wilson loop; Chern number; time reversal; patchwise frame
@@ -170,6 +172,80 @@ Failure in a narrower category does not imply failure in a broader one. If the s
 comparison only requires a complex unitary, a real-frame obstruction is inapplicable. If
 time reversal or a crystalline representation is physically mandatory, discarding it to
 obtain a complex frame changes the problem and requires an explicit human decision.
+
+### II.E. Controlled constructions with guaranteed properties
+
+Obstruction tests require positive and negative controls whose bundle properties do not
+depend on the tested numerical classifier. A common parent grammar starts from any
+periodic rank-$r$ projector $P(\mathbf k)$ with $Q=I-P$ and defines the flat-band
+Hamiltonian
+
+$$
+H_P(\mathbf k)=E_-P(\mathbf k)+E_+Q(\mathbf k),
+\qquad E_+-E_-=\Delta>0.
+$$
+
+Hermiticity, rank, periodicity, the retained projector, and the isolation gap $\Delta$
+are then exact construction guarantees. The topology is carried by $P$, not created by
+diagonalizing sampled values of $H_P$.
+
+Four related routes construct the required comparison classes.
+
+1. **Globally framed control.** Choose a periodic orthonormal frame $F$ and set
+   $P=FF^\dagger$. This guarantees a complex-trivial bundle and a supplied global frame.
+   Paper 3's periodic-unitary grammar is a higher-rank source of such controls.
+2. **Relatively isomorphic control.** Start from any $P_0$, including an analytically
+   certified nontrivial one, choose a periodic ambient unitary $V$, and set
+
+   $$
+   P_1=VP_0V^\dagger,
+   \qquad U=VP_0.
+   $$
+
+   Exactly $U^\dagger U=P_0$, $UU^\dagger=P_1$, and $P_1U=UP_0=U$. Hence $U$ is a
+   supplied relative isomorphism even when neither bundle has a global frame. If local
+   frames are used, their matrices $W_\alpha$ obey the gluing equation by construction,
+   and patchwise operator differences form one global endomorphism.
+3. **Complex-obstructed control.** Choose $P_0$ and $P_1$ with analytically certified
+   unequal characteristic data in a domain where that mismatch is a valid no-go result.
+   Over a two-dimensional Brillouin torus, $C[P_0]\ne C[P_1]$ is sufficient to forbid a
+   global complex relative isomorphism. For rank-one two-level controls, a smooth
+   periodic nonvanishing field $\mathbf d_s$ supplies
+
+   $$
+   P_s=\frac{I-\widehat{\mathbf d}_s\cdot\boldsymbol\sigma}{2},
+   \qquad
+   \widehat{\mathbf d}_s=\frac{\mathbf d_s}{|\mathbf d_s|},
+   $$
+
+   and its Chern class is fixed by the degree of $\widehat{\mathbf d}_s$ under the frozen
+   orientation and sign convention. Equal certified degree can seed a relative control;
+   unequal degree seeds an obstruction control.
+4. **Category-restricted control.** Supply a complex isomorphism as in route 2, but
+   choose exact symmetry sewing or real transition data with a separately proved
+   incompatibility in the narrower category. Inequivalent representation content at a
+   symmetry-invariant momentum, a certified time-reversal invariant mismatch, or a
+   qualified real characteristic-class mismatch can then forbid the corresponding
+   equivariant, real, or $SO(r)$ map without forbidding the supplied complex map. The
+   applicable theorem and its completeness domain are part of the construction, not
+   inferred from optimizer failure.
+
+These routes separate what is guaranteed from what remains measured. Analytic formulas,
+transition-function cocycles, or theorem-qualified invariants certify the intended rank,
+gap, bundle class, and relative disposition. Numerical execution verifies the serialized
+implementation and measures discretization, link conditioning, branch stability,
+constructive residuals, and convergence under mesh refinement and gauge attacks. A
+sampled integer or a failed frame search cannot replace the independent certificate.
+
+The grammar is not an assertion that arbitrary topology, symmetry representations,
+spectra, and locality can be combined independently. They must satisfy projector
+regularity, cocycle, symmetry, and representation-compatibility conditions in one finite
+state space. Global periodic frames realize only trivial bundles, while nontrivial cases
+require projectors or patchwise frames with certified transition data. Nor does an exact
+synthetic class imply material realism. Paper 5 uses the trivial or relatively admitted
+side of this grammar to authorize subtraction; Paper 6 owns the controlled obstruction
+and patchwise cases. No Paper 3 or Paper 5 mesh, threshold, result, or evidence status is
+transferred by this lineage, and no particular C0--S1 model is selected here.
 
 ## III. Obstruction hierarchy and diagnostics
 

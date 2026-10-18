@@ -20,7 +20,9 @@ stable experiment-family identity. Empty dimensional placeholders are not create
 Experiment code is not part of the public `ksdft2effmass` wheel. Installed packages
 must never import this tree. Reusable behavior is extracted into its domain owner and
 consumed from the experiment; experiment-specific behavior is not promoted merely
-because it is parameterized.
+because it is parameterized. Executable composition roots follow the
+[experiment script conventions](script-conventions.md); those mechanical conventions do
+not transfer scientific controls or evidence status between families.
 
 Every retained experiment must distinguish:
 

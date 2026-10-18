@@ -110,16 +110,19 @@ def write_artifacts(
     verification.document.write_to(output / "development-verification.json")
 
 
-def main() -> None:
-    """Calculate, independently verify, and write replaceable development records."""
+def main() -> int:
+    """Calculate, verify, and write replaceable development records."""
     result, verification = construct_artifacts(DEFINITION)
+    if not verification.diagnostics.passes:
+        raise RuntimeError("independent development verification failed")
     output = Path(__file__).resolve().parent / "analysis" / "development"
     write_artifacts(output, result, verification)
     print(
-        f"{DEFINITION.family.value}: "
-        f"verification passes={verification.diagnostics.passes}"
+        f"family={DEFINITION.family.value} lifecycle=development "
+        f"verification=pass output={output}"
     )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

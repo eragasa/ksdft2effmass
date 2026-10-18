@@ -67,8 +67,8 @@ multiple-right-hand-side linear least-squares kernel. KSD's
 `BlockHoppingLeastSquaresFitter1D` is the domain adapter: it owns Fourier construction,
 unit conversion, coefficient-to-hopping mapping, reconstruction, and KSD diagnostics,
 while delegating the numerical solve to the reviewed owner API. Live KSD development
-pins Optimization `2c6dd7f717722f6b0495feb8cfe1287a104268a6` together with PhysKit
-`7120b735c7e3e450aa8924780a71deb59d812632`; immutable version-one retained-run
+pins Optimization `d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` together with PhysKit
+`7157dcedd0d220673d443c1c025e35a6fd1ffa7a`; immutable version-one retained-run
 provenance preserves its earlier exact execution pair independently of the live lock.
 The KSD
 Workflow introduces no second `lstsq` implementation, owner-neutral solver ABC, or

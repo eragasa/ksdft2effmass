@@ -39,8 +39,8 @@ from single_band_fourier_reduction import (
 
 pytestmark = pytest.mark.software_verification
 
-_LIVE_OPTIMIZATION_REVISION = "2c6dd7f717722f6b0495feb8cfe1287a104268a6"
-_LIVE_PHYSKIT_REVISION = "7120b735c7e3e450aa8924780a71deb59d812632"
+_LIVE_OPTIMIZATION_REVISION = "d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f"
+_LIVE_PHYSKIT_REVISION = "7157dcedd0d220673d443c1c025e35a6fd1ffa7a"
 
 
 class TestSingleBandFourierReductionExperiment:

@@ -31,7 +31,10 @@ precursor, the rank-three two-dimensional Wannier90 bridge, and the later multis
 optimizer-basin follow-up. These historical algorithm-selected calculations remain
 separate from the prospective analytic higher-rank experiment. M2 compares pointwise and
 global alignment families; M3 uses nine frozen constant rotations and supports only its
-finite-family witness and separation statements.
+finite-family witness and separation statements. The
+[`witness–separation attribution audit`](witness-separation-attribution-audit.md) records
+which parts of that decision logic are standard metric-space facts, established
+feasible-set or validated-search methodology, and paper-specific synthesis.
 [`Appendix A`](appendices/A-1-extracted-evidence-boundary.md) records the permitted role
 of those extracted values together with the post-hoc M3 threshold, Wannier90 sensitivity,
 and optimizer-reproducibility boundaries. [`Appendix

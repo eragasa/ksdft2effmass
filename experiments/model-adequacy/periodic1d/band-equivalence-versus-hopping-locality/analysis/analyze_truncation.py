@@ -40,7 +40,7 @@ def _write_csv(path: Path, rows: list[dict[str, str]]) -> None:
         writer.writerows(rows)
 
 
-def main() -> None:
+def main() -> int:
     """Write pointwise interpolation, truncation, and total band-error channels."""
     rows: list[dict[str, str]] = []
     summary_rows: list[dict[str, str]] = []
@@ -161,7 +161,8 @@ def main() -> None:
     print(f"rows={len(rows)}")
     print(f"maximum_interpolation_band_error={maximum_interpolation:.17g}")
     print(f"maximum_endpoint_range_64_total_band_error={maximum_range_64:.17g}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

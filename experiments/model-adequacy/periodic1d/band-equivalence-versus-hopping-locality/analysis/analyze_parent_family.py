@@ -41,7 +41,7 @@ def _amplitudes() -> tuple[float, ...]:
     )
 
 
-def main() -> None:
+def main() -> int:
     """Write finite-mesh family surfaces and momentum-control summaries."""
     thresholds = SmoothFourStateConvergenceThresholds(
         maximum_parent_diagnostic_change=DRAFT_TOLERANCE,
@@ -161,7 +161,8 @@ def main() -> None:
         "momentum_dispositions="
         + ",".join(row["momentum_disposition"] for row in summary_rows)
     )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

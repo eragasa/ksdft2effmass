@@ -34,7 +34,7 @@ TOLERANCES = (1.0e-3, 1.0e-5)
 PATH = SyntheticStrainPath.BAIN_3D
 
 
-def main() -> None:
+def main() -> int:
     """Calculate, bind, verify, and plot sampled finite-strain envelopes."""
     request = SyntheticStrainScanRequest(
         path=PATH,
@@ -120,71 +120,53 @@ def main() -> None:
         )
     )
     print(
-        "maximum-volume-defect",
-        summary.maximum_volume_defect,
-        summary.maximum_volume_defect_strain_fraction,
+        f"lifecycle=development path={request.path.value} "
+        f"strain_samples={len(request.strain_fractions)}"
     )
     print(
-        "maximum-direct-band-defect",
-        summary.maximum_direct_band_defect,
-        summary.maximum_direct_band_defect_strain_fraction,
+        f"maximum_volume_defect={summary.maximum_volume_defect:.17g} "
+        f"strain_fraction={summary.maximum_volume_defect_strain_fraction:.17g}"
+    )
+    print(
+        f"maximum_direct_band_defect={summary.maximum_direct_band_defect:.17g} "
+        f"strain_fraction={summary.maximum_direct_band_defect_strain_fraction:.17g}"
     )
     for witness in summary.witness_requirements:
         print(
-            witness.control.value,
-            witness.optimized_maximum,
-            witness.optimized_maximum_strain_fraction,
-            witness.fixed_candidate_maximum,
-            witness.fixed_candidate_maximum_strain_fraction,
+            f"witness={witness.control.value} "
+            f"optimized_maximum={witness.optimized_maximum:.17g} "
+            f"optimized_strain_fraction={witness.optimized_maximum_strain_fraction:.17g}"
         )
     for locality in summary.locality:
         print(
-            "locality-envelope",
-            locality.tail_tolerance,
-            locality.maximum_physical_radius,
-            locality.maximum_physical_radius_strain_fraction,
-            locality.maximum_retained_blocks,
-            locality.maximum_retained_blocks_strain_fraction,
+            f"tail_tolerance={locality.tail_tolerance:.17g} "
+            f"maximum_physical_radius={locality.maximum_physical_radius:.17g} "
+            f"maximum_retained_blocks={locality.maximum_retained_blocks}"
         )
     for response in summary.responses:
         print(
-            "response-envelope",
-            response.control.value,
-            response.maximum_aligned_hamiltonian_defect,
-            response.maximum_strain_fraction,
+            f"response={response.control.value} "
+            f"maximum_aligned_hamiltonian_defect="
+            f"{response.maximum_aligned_hamiltonian_defect:.17g} "
+            f"strain_fraction={response.maximum_strain_fraction:.17g}"
         )
-    for qualification in summary.qualifications:
-        print("qualification-envelope", qualification)
-    for approximation in summary.approximations:
-        print("approximation-envelope", approximation)
-    for mechanism in summary.mechanisms:
-        print("response-mechanism-envelope", mechanism)
-    for shell_transition in transitions.shell_transitions:
-        print(
-            "shell-transition",
-            shell_transition.tail_tolerance,
-            shell_transition.left_strain_fraction,
-            shell_transition.right_strain_fraction,
-            shell_transition.left_retained_blocks,
-            shell_transition.right_retained_blocks,
-        )
-    for bond_transition in transitions.bond_degeneracy_transitions:
-        print(
-            "bond-degeneracy-transition",
-            bond_transition.left_strain_fraction,
-            bond_transition.right_strain_fraction,
-            bond_transition.left_distinct_bond_lengths,
-            bond_transition.right_distinct_bond_lengths,
-        )
+    print(
+        f"qualification_records={len(summary.qualifications)} "
+        f"approximation_records={len(summary.approximations)} "
+        f"mechanism_records={len(summary.mechanisms)} "
+        f"shell_transitions={len(transitions.shell_transitions)} "
+        f"bond_degeneracy_transitions={len(transitions.bond_degeneracy_transitions)}"
+    )
     for path in (*artifacts.paths.witness_paths, *result.paths):
-        print(path)
-    print(artifacts.paths.request_path)
-    print(artifacts.paths.geometry_path)
-    print(artifacts.paths.frozen_response_path)
-    print(artifacts.paths.radial_response_path)
-    print(artifacts.paths.result_path)
-    print(artifacts.paths.verification_path)
+        print(f"output={path}")
+    print(f"output={artifacts.paths.request_path}")
+    print(f"output={artifacts.paths.geometry_path}")
+    print(f"output={artifacts.paths.frozen_response_path}")
+    print(f"output={artifacts.paths.radial_response_path}")
+    print(f"output={artifacts.paths.result_path}")
+    print(f"output={artifacts.paths.verification_path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

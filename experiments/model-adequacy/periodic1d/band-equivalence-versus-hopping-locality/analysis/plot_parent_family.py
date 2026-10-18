@@ -70,7 +70,7 @@ def _heatmap(
     colorbar.ax.tick_params(labelsize=6.5)
 
 
-def main() -> None:
+def main() -> int:
     """Create a bounded visualization of the sampled two-parameter family."""
     continuum = np.genfromtxt(
         ANALYSIS / "parent-family-continuum.csv", delimiter=",", names=True
@@ -187,9 +187,10 @@ def main() -> None:
         figure.savefig(PDF_OUTPUT, bbox_inches="tight", metadata=metadata)
         figure.savefig(PNG_OUTPUT, dpi=600, bbox_inches="tight", metadata=metadata)
         plt.close(figure)
-    print(PDF_OUTPUT)
-    print(PNG_OUTPUT)
+    print(f"output={PDF_OUTPUT}")
+    print(f"output={PNG_OUTPUT}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

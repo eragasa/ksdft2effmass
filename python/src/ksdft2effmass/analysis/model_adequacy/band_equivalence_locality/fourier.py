@@ -7,7 +7,6 @@ band-equivalence study's physical-support selection and its matrix/band error ch
 
 from __future__ import annotations
 
-import math
 from collections.abc import Iterator
 
 import numpy as np
@@ -20,6 +19,8 @@ from projectkoios.numerics.finite_periodic.numpy.tensor_product_evaluation impor
     NumpyTensorProductFourierMatrixEvaluationDefinition,
     NumpyTensorProductFourierMatrixSeriesEvaluator,
 )
+
+from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldErrorAnalyzer
 
 from .records import ErrorChannels
 
@@ -58,17 +59,17 @@ def maximum_matrix_defect(left: ComplexArray, right: ComplexArray) -> float:
 
 
 def error_channels(approximation: ComplexArray, direct: ComplexArray) -> ErrorChannels:
-    """Return separate normalized matrix and sorted-band error channels."""
-    difference = approximation - direct
-    matrix_norms = np.linalg.norm(difference, axis=(-2, -1)) / math.sqrt(2.0)
-    approximation_bands = np.linalg.eigvalsh(approximation)
-    direct_bands = np.linalg.eigvalsh(direct)
-    band_difference = np.abs(approximation_bands - direct_bands)
+    """Return legacy rank-normalized matrix and sorted-band error channels."""
+    summary = MatrixFieldErrorAnalyzer().execute(
+        approximation,
+        direct,
+        energy_reference=1.0,
+    )
     return ErrorChannels(
-        maximum_hamiltonian=float(np.max(matrix_norms)),
-        rms_hamiltonian=float(np.sqrt(np.mean(matrix_norms**2))),
-        maximum_band=float(np.max(band_difference)),
-        rms_band=float(np.sqrt(np.mean(band_difference**2))),
+        maximum_hamiltonian=summary.normalized_matrix_frobenius_maximum,
+        rms_hamiltonian=summary.normalized_matrix_frobenius_rms,
+        maximum_band=summary.normalized_ordered_spectrum_maximum,
+        rms_band=summary.normalized_ordered_spectrum_l2_rms,
     )
 
 

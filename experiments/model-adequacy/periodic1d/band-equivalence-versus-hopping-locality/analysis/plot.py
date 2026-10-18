@@ -36,7 +36,7 @@ def _panel_label(axis: plt.Axes, label: str) -> None:
     )
 
 
-def main() -> None:
+def main() -> int:
     """Create vector PDF and 600-dpi PNG versions of the five-panel figure."""
     threshold_data = np.genfromtxt(
         ROOT / "smooth-threshold-continuum.csv", delimiter=",", names=True
@@ -248,9 +248,10 @@ def main() -> None:
         figure.savefig(PNG_OUTPUT, dpi=600, bbox_inches="tight", metadata=metadata)
         plt.close(figure)
 
-    print(PDF_OUTPUT)
-    print(PNG_OUTPUT)
+    print(f"output={PDF_OUTPUT}")
+    print(f"output={PNG_OUTPUT}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -38,7 +38,7 @@ def _endpoint(
     )
 
 
-def main() -> None:
+def main() -> int:
     """Write a three-panel sampled range-versus-accuracy figure."""
     rows = _rows()
     scales = sorted({row["parent_hopping_scale"] for row in rows})
@@ -111,10 +111,15 @@ def main() -> None:
         "Pointwise finite-range consequences on the disjoint evaluation mesh",
         fontsize=12,
     )
-    figure.savefig(OUTPUT.with_suffix(".pdf"), bbox_inches="tight")
-    figure.savefig(OUTPUT.with_suffix(".png"), dpi=220, bbox_inches="tight")
+    pdf_output = OUTPUT.with_suffix(".pdf")
+    png_output = OUTPUT.with_suffix(".png")
+    figure.savefig(pdf_output, bbox_inches="tight")
+    figure.savefig(png_output, dpi=220, bbox_inches="tight")
     plt.close(figure)
+    print(f"output={pdf_output}")
+    print(f"output={png_output}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

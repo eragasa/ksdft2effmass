@@ -64,7 +64,7 @@ def _load_definition(path: Path, index: int) -> BandEquivalenceLocalityRequest:
     return definition
 
 
-def main() -> None:
+def main() -> int:
     """Calculate typed development diagnostics and render the shared protocol map."""
     definitions = tuple(
         _load_definition(path, index)
@@ -85,8 +85,9 @@ def main() -> None:
         )
     )
     for path in result.paths:
-        print(path)
+        print(f"output={path}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

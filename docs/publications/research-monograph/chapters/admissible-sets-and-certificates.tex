@@ -571,6 +571,15 @@ A common witness is easy to verify: evaluate both losses at the same retained
 parameter and compare them with the frozen thresholds. Proving that no witness
 exists is harder.
 
+The underlying implications are standard metric-space facts: a common point
+forces zero set distance, any feasible pair bounds the defining infimum from
+above, and a valid positive lower bound excludes intersection~\cite{rudin1976}.
+Treating threshold-consistent parameters as a feasible set has direct precedent
+in bounded-error and set-membership identification~\cite{milaneseEtAl1996}.
+The combined wording \emph{common witness or certified positive separation} is
+used here as a descriptive synthesis for this contract-defined comparison, not
+as the name of an established theory.
+
 Let $d_{\Theta}$ be a declared metric on the parameter domain. Define
 \begin{equation}
   \delta^{\ast}
@@ -643,7 +652,7 @@ reported by Klimeck and collaborators above is an instructive example of this
 evidence boundary: ``no satisfactory fit found'' does not become a theorem
 that the admissible set is empty. Validated global-search methods can sometimes
 provide such bounds, but their applicability and assumptions must be stated
-explicitly~\cite{neumaier2004}.
+explicitly~\cite{neumaier2004,mooreKearfottCloud2009}.
 
 \subsection{The parameter metric is part of the claim}
 

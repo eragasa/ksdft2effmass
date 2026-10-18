@@ -22,8 +22,8 @@ include = ["single_band_fourier_reduction*"]
 
 [tool.uv.sources]
 ksdft2effmass = { path = "../../../../python", editable = true }
-projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "2c6dd7f717722f6b0495feb8cfe1287a104268a6" }
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "7120b735c7e3e450aa8924780a71deb59d812632" }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "7157dcedd0d220673d443c1c025e35a6fd1ffa7a" }
 
 [tool.pytest.ini_options]
 minversion = "8.0"

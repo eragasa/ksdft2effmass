@@ -16,7 +16,9 @@ common-space construction for periodic defect operators. The two calculations ar
 placed on a matched comparison lattice and Brillouin torus. Constant rank, projector
 compatibility, reciprocal-boundary sewing, and bundle topology are then screened before
 an overlap-derived unitary is admitted. Wannier centers, site and orbital semantics, and
-surviving symmetries constrain the remaining correspondence. A separately qualified
+surviving symmetries constrain the remaining correspondence. A finite-dimensional
+grammar supplies exact synthetic controls with prescribed rank, principal angles, polar
+alignment, scalar offsets, isolation, and operator difference. A separately qualified
 scalar energy reference completes the alignment, after which the pristine operator can
 be transported to the defect space and subtracted. The resulting impurity operator is
 gauge covariant rather than entrywise gauge invariant. Rank-changing defect states are
@@ -143,6 +145,98 @@ Zero padding, duplicate orbitals, or deletion chosen after inspecting the desire
 do not create a common space. A separate defect-only sector may be retained in a block
 operator, but the host-to-defect subtraction is then defined only on the admitted common
 block and its couplings to the extra sector remain visible.
+
+### II.D. Controlled construction with guaranteed properties
+
+A bounded synthetic benchmark can construct every premise of the common-space operation
+before asking numerical code to recover it. Let the finite ambient dimension satisfy
+$N\geq2M$, and choose periodic $N\times M$ frames $F_b$ and $E_b$ such that
+$[F_b\ E_b]$ has orthonormal columns. Choose a periodic $G(\mathbf k)\in U(M)$ and
+principal-angle fields
+
+$$
+0\leq\theta_j(\mathbf k)\leq\theta_{\max}<\frac{\pi}{2},
+\qquad
+C=\operatorname{diag}(\cos\theta_j),
+\qquad
+S=\operatorname{diag}(\sin\theta_j),
+$$
+
+and define
+
+$$
+F_d=F_bG^\dagger C+E_bS,
+\qquad
+P_s=F_sF_s^\dagger.
+$$
+
+These definitions give exact identities
+
+$$
+F_d^\dagger F_d=I_M,
+\qquad
+F_d^\dagger F_b=CG,
+\qquad
+\sigma_j(F_d^\dagger F_b)=\cos\theta_j,
+$$
+
+so the cross-overlap is full rank and its unitary polar factor is exactly $G$. Thus
+
+$$
+U=F_dGF_b^\dagger
+$$
+
+is a supplied periodic partial unitary from $\operatorname{Range}P_b$ onto
+$\operatorname{Range}P_d$. Rank, periodic sewing, principal angles, conditioning, and
+the intended alignment are construction guarantees rather than conclusions inferred
+from a sampled optimizer.
+
+To construct parent operators as well, choose periodic Hermitian retained fields $K_s$,
+scalar references $e_s$, and retained-relative exterior levels $\Lambda_s$ satisfying
+
+$$
+\Lambda_s-\lambda_{\max}(K_s(\mathbf k))\geq\Delta_s>0,
+$$
+
+and set
+
+$$
+H_s=F_sK_sF_s^\dagger+\Lambda_s(I-P_s)+e_sI_N.
+$$
+
+After subtracting the supplied scalar references, compression, transport, and subtraction
+then obey
+
+$$
+\overline H_s^{(P)}=F_sK_sF_s^\dagger,
+$$
+
+$$
+\Delta H_d^{(P)}
+=F_d\left(K_d-GK_bG^\dagger\right)F_d^\dagger.
+$$
+
+The grammar exposes compatible controls separately: $M$ fixes retained rank;
+$\theta_j$ fixes overlap conditioning; $G$ fixes the admitted coordinate map; $K_b$ and
+$K_d$ fix the aligned retained operators; $e_s$ tests scalar-reference recovery;
+$\Lambda_s$ and $\Delta_s$ fix exterior isolation; and the harmonic content of
+$F_b,E_b,G,$ and $K_s$ influences real-space support. Exact construction identities can
+be checked symbolically or by an independent formula route. Numerical work measures
+what the grammar does not fix, including recovery error under finite precision, response
+to controlled perturbations, real-space hopping tails, truncation error, and gate
+sensitivity.
+
+This is not a construction of an arbitrary physical defect. The global periodic frames
+make both retained bundles complex-trivial; semantic site and orbital correspondence is
+stipulated by the benchmark labels rather than discovered; and not every desired
+locality, symmetry, spectrum, and principal-angle profile can be imposed independently.
+Rank-changing, topologically obstructed, or materially derived cases require the separate
+routes already stated. Paper 3 [[9](#ref-paper3)] supplies the higher-rank gauge-circuit
+grammar from which $F_b$, $E_b$, and $G$ may be drawn. Paper 5 adds two-system
+principal-angle, energy-zero, and subtraction controls. Paper 6 replaces global frames
+by patchwise data when topology
+or a required symmetry category is itself under test. This relationship transfers no
+mesh, threshold, numerical result, or evidence status between papers.
 
 ## III. Alignment map
 
@@ -509,3 +603,4 @@ A future retained Paper 5 result must contain:
 6. <a id="ref-paper4"></a>E. J. M. Ragasa, “Compatibility of Spectral and Operator Reductions of a First-Principles Silicon Hamiltonian,” unpublished manuscript (2026).
 7. <a id="ref-paper6"></a>E. J. M. Ragasa, “Topological and Symmetry Obstructions to Multiband Operator Alignment,” unpublished pre-results manuscript (2026).
 8. <a id="ref-paper7"></a>E. J. M. Ragasa, “Spin–Orbit-Coupled Impurity Operators for Substitutional Phosphorus and Boron in Silicon,” unpublished pre-results manuscript (2026).
+9. <a id="ref-paper3"></a>E. J. M. Ragasa, “Multiband Gauge Structure, Aligned Operators, and Hopping Locality,” unpublished manuscript (2026).

@@ -63,7 +63,7 @@ def _definition(
     )
 
 
-def main() -> None:
+def main() -> int:
     """Execute the pre-version non-flat analysis and write deterministic tables."""
     amplitudes = _amplitudes(MOMENTUM_AMPLITUDE_INTERVALS)
     thresholds = SmoothFourStateConvergenceThresholds(
@@ -264,7 +264,8 @@ def main() -> None:
         f"{final.minimum_transport_singular_value:.17g}"
     )
     print(f"maximum_verification_defect={max(verification_defects.values()):.17g}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
