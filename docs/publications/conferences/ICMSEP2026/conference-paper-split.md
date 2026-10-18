@@ -1,13 +1,19 @@
 # ICMSEP 2026 conference-paper split
 
-The former combined optional-paper narrative has been separated into two manuscripts:
+> **Historical split record.** This file records the original two-paper separation and
+> is not the current publication-program authority. Paper 2 now owns the
+> multidimensional rank-two extension, Paper 3 the higher-rank synthetic study, and
+> Paper 4 the non-SOC bulk-silicon reduction. See the current
+> [seven-paper roadmap](paper-program-roadmap.md).
 
-1. [`conference-paper-1/manuscript.md`](conference-paper-1/manuscript.md) retains the
-   extended material-neutral method and controlled 1D/2D numerical-verification draft.
-   [`conference-paper-1v2/manuscript.tex`](conference-paper-1v2/manuscript.tex) is its
-   compact prose revision, with the main argument and supplementary methods combined in
-   one standalone document.
-2. [`conference-paper-2/manuscript.md`](conference-paper-2/manuscript.md) owns the
+The former combined optional-paper narrative was separated into two manuscripts:
+
+1. [`Ragasa2026a/v1/manuscript.md`](../../papers/Ragasa2026a/v1/manuscript.md) retains
+   the extended material-neutral method and controlled 1D/2D numerical-verification
+   draft. [`Ragasa2026a/v2/manuscript.tex`](../../papers/Ragasa2026a/v2/manuscript.tex)
+   is its compact prose revision, with the main argument and supplementary methods
+   combined in one standalone document.
+2. [`Ragasa2026b/v1/manuscript.md`](../../papers/Ragasa2026b/v1/manuscript.md) owns the
    first-principles bulk-silicon application and remains explicitly pre-results.
 
 Each paper stores its appendices under its own `appendices/` directory. These files own
