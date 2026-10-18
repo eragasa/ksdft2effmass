@@ -82,8 +82,8 @@ unchanged.
 The exact dependency
 
 ```text
-projectkoios-optimization@7ac5376bcb97e29f6927dda4d4ef714ed2e32140
-projectkoios-physkit@ed2e8118db9902316797d270305456735fab9712
+projectkoios-optimization@2c6dd7f717722f6b0495feb8cfe1287a104268a6
+projectkoios-physkit@7120b735c7e3e450aa8924780a71deb59d812632
 ```
 
 provide the active owner capabilities. Optimization owns exact maximization of a

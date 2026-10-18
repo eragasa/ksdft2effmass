@@ -20,9 +20,9 @@ successive refinements. At `N64`, the largest interpolation Hamiltonian error is
 `1.056979659142123 E_ref`, and the largest flat-correlation quadrature defect is
 `4.440892098500626e-16`.
 
-These observations provide the required third mesh level, but a formal family convergence
-disposition still requires the complete Paper 1 diagnostic-parity comparison and frozen
-channel-specific tolerances. Reproduce the two refinement points from the repository root:
+These observations provide the required third mesh level, and the complete Paper 1
+software-level diagnostic-parity comparison is now closed. A formal family convergence
+disposition still requires frozen channel-specific tolerances and qualification review. Reproduce the two refinement points from the repository root:
 
 ```bash
 python/.venv/bin/python experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/run_first_refinement.py

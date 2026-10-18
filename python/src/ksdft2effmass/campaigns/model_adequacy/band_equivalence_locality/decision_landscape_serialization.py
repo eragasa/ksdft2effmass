@@ -13,6 +13,7 @@ import numpy as np
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (  # noqa: E501
     ShellScaleCaseDecisionLandscape,
+    ShellScaleDecisionLandscapeCalculator,
     ShellScaleDecisionLandscapeRequest,
     ShellScaleDecisionLandscapeResult,
     ShellScaleDecisionPoint,
@@ -348,21 +349,50 @@ class ShellScaleDecisionLandscapeArtifactWriter:
             DecisionLandscapeSchema,
             DecisionLandscapeSchemaKind,
         )
+        from .schemas import (
+            BandEquivalenceLocalitySchema,
+            BandEquivalenceLocalitySchemaKind,
+        )
 
         output_directory.mkdir(parents=True, exist_ok=True)
         slug = result.family.name.lower().replace("_", "-")
-        source = BandEquivalenceLocalityRequestSerializer().execute(
-            request.locality_request
-        )
+        source_serializer = BandEquivalenceLocalityRequestSerializer()
+        source = source_serializer.execute(request.locality_request)
         decision_request = ShellScaleDecisionLandscapeRequestSerializer().execute(
             request,
             environment,
             source,
         )
-        decision_result = ShellScaleDecisionLandscapeResultSerializer().execute(
-            result,
+        source_schema = BandEquivalenceLocalitySchema(
+            request.locality_request.family,
+            BandEquivalenceLocalitySchemaKind.ANALYSIS_REQUEST,
+        )
+        source_schema.validate(source.canonical_bytes())
+        request_wire = cast(
+            _RequestWire, json.loads(decision_request.canonical_bytes())
+        )
+        if request_wire["source_analysis_request_sha256"] != source.content_sha256():
+            raise ValueError("decision request does not bind its source request")
+        reconstructed_request = ShellScaleDecisionLandscapeRequest(
+            locality_request=source_serializer.reconstruct(source),
+            scale_sample_count=request_wire["scale_sample_count"],
+        )
+        result_serializer = ShellScaleDecisionLandscapeResultSerializer()
+        decision_result = result_serializer.execute(result, decision_request)
+        expected_result = ShellScaleDecisionLandscapeCalculator().execute(
+            reconstructed_request
+        )
+        expected_decision_result = result_serializer.execute(
+            expected_result,
             decision_request,
         )
+        if (
+            decision_result.canonical_bytes()
+            != expected_decision_result.canonical_bytes()
+        ):
+            raise ValueError(
+                "decision-landscape result does not replay from the source request"
+            )
         request_schema = DecisionLandscapeSchema(DecisionLandscapeSchemaKind.REQUEST)
         result_schema = DecisionLandscapeSchema(DecisionLandscapeSchemaKind.RESULT)
         request_schema.validate(decision_request.canonical_bytes())
@@ -379,6 +409,7 @@ class ShellScaleDecisionLandscapeArtifactWriter:
         source_read = CanonicalJsonDocument(source_path.read_bytes())
         request_read = CanonicalJsonDocument(request_path.read_bytes())
         result_read = CanonicalJsonDocument(result_path.read_bytes())
+        source_schema.validate(source_read.canonical_bytes())
         request_schema.validate(request_read.canonical_bytes())
         result_schema.validate(result_read.canonical_bytes())
         request_wire = cast(_RequestWire, json.loads(request_read.canonical_bytes()))
@@ -412,7 +443,10 @@ class ShellScaleDecisionLandscapeArtifactWriter:
                 passes=True,
                 schema=DECISION_VERIFICATION_SCHEMA_ID,
                 source_analysis_request_sha256=source_read.content_sha256(),
-                status="independent-canonical-read-back-verification-not-adequacy",
+                status=(
+                    "canonical-read-back-and-request-recalculation-verification-"
+                    "not-adequacy"
+                ),
             )
         )
         verification_schema = DecisionLandscapeSchema(

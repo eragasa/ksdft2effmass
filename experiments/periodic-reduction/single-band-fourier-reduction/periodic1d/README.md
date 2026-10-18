@@ -46,6 +46,13 @@ Version `v1` retains the historical synthetic controls and adds:
   historical-predecessor, file, run, and evidence-package identities, retained
   separately from later repository-level dependency advances.
 
+The live development and verification lock follows the current repository owner pins:
+Optimization `2c6dd7f717722f6b0495feb8cfe1287a104268a6` and PhysKit
+`7120b735c7e3e450aa8924780a71deb59d812632`. The retained v1 producer and package
+verifier continue to require and report their historical execution-time revisions;
+advancing the live lock neither rewrites those records nor authorizes a replacement
+retained run.
+
 The matched historical channels have zero retained binary64 defect in `parity.json`.
 The new sampled gaps are diagnostics only and do not retroactively alter historical M1.
 Historical files remain unchanged and are bound by exact Git revision, path, tree, and

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import cast
-
 import numpy as np
 import numpy.typing as npt
 from ksdft2effmass.operators import (
@@ -494,7 +492,7 @@ class ConstrainedAdmissibleSetsExperiment:
         owner_matrix = owner_loss.matrix
         if type(owner_matrix) is not tuple:
             raise TypeError("owner quadratic matrix must use dense tuple storage")
-        matrix = cast(tuple[tuple[float, ...], ...], owner_matrix)
+        matrix = owner_matrix
         return QuadraticLoss2D(
             channel_id,
             angle,

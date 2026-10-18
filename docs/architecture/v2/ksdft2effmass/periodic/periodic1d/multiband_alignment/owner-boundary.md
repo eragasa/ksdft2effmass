@@ -17,9 +17,9 @@ The immediate decisions are:
   `projectkoios.numerics` slices;
 - the invariant-only Hermitian spectral-subspace slice is implemented and qualified at
   `projectkoios-optimization@23e1c88772f1bc9a1505cd25df5418cd945a76fa` under
-  `projectkoios.numerics.linalg`, and the live dependency chain is resolved through
-  PhysKit `2cede347e4beeb39f06ca096c15b7a76de276953` and its exact Optimization binding
-  `f6bdecc418e46240087d1dfb1c22dac396cdc455`;
+  `projectkoios.numerics.linalg`; the current live dependency chain is resolved through
+  PhysKit `7120b735c7e3e450aa8924780a71deb59d812632` and Optimization
+  `2c6dd7f717722f6b0495feb8cfe1287a104268a6`;
 - that invariant slice returns no frames; the maintained successor requires
   backend-qualified eigenvector-diagonal frames for historical parity, with the backend
   and version retained and no claim of cross-backend canonical coordinates;

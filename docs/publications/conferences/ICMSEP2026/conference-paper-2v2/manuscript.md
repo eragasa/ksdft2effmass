@@ -21,9 +21,11 @@ separate geometry-only reordering, a frozen-parent null response, and a prescrib
 radial response. Across 201 samples, the retained subspaces remain isolated and
 well-conditioned, the frozen-parent response stays at binary64 roundoff, and the radial
 response is traceless dominated. Exact gauge equivalence therefore coexists with a
-geometry-dependent three-way compromise once one restricts alignment and hopping
-support. The numerical results apply to finite meshes and synthetic models, with no
-continuum extrapolation or material parametrization.
+case-dependent three-way compromise once one restricts alignment and hopping support;
+the present comparison does not isolate metric-shell geometry from parent connectivity.
+These numerical values are replaceable finite-mesh development results for synthetic
+models, not qualified retained evidence, continuum certificates, or material
+predictions.
 
 ## I. Introduction
 
@@ -58,19 +60,21 @@ The study addresses three questions:
    vanish for an unchanged parent, and which respond to a prescribed radial change of
    bond amplitudes along synthetic deformation paths?
 
-The calculations establish four results. Spectral projection fails to preserve finite
-hopping support in general. The orthogonal flat-parent family admits exact
-residual--locality identities and certified Fourier tails. All eight fixed-geometry
-cases exhibit sampled trade-offs rather than a common optimum for locality, operator
-fidelity, and spectral fidelity. Finally, the strain controls separate metric reordering
-from Hamiltonian response: the frozen parent is a numerical null, whereas the radial
-response is finite, predominantly traceless, and unaccompanied by loss of
-retained-subspace isolation or frame conditioning.
+The analysis yields two theorem-level results and two finite sampled development
+findings. Spectral projection fails to preserve finite hopping support in general, and
+the orthogonal flat-parent family admits exact residual--locality identities and
+certified Fourier tails. In the replaceable development calculations, all eight
+fixed-geometry cases exhibit sampled trade-offs rather than a common optimum for
+locality, operator fidelity, and spectral fidelity. The sampled strain controls separate
+metric reordering from Hamiltonian response: the frozen parent is a numerical null,
+whereas the radial response is finite, predominantly traceless, and unaccompanied by
+loss of retained-subspace isolation or frame conditioning. These numerical findings are
+not qualified retained evidence.
 
 The scope is rank two. Square and simple-cubic systems establish orthogonal baselines;
 triangular/honeycomb and FCC/diamond-inspired systems test non-orthogonal but physically
-isotropic geometry. Direction-dependent coupling laws, multiband gauges, and material
-parametrizations lie outside this study.
+isotropic geometry. Direction-dependent coupling laws, higher-rank $U(r)$ gauges with
+$r>2$, and material parametrizations lie outside this study.
 
 ## II. Theoretical framework and methods
 
@@ -771,8 +775,9 @@ permitted. The three controls answer different questions.
 ### Shell--scale Pareto decision landscape
 
 At strain coordinate $s$, let $H_s(\mathbf q)$ be the retained reference field,
-$\bar h_s=\operatorname{tr}H_s/2$, and
-$\widetilde H_s=H_s-\bar h_sI_2$. Let $B_{s,S}(\mathbf q)$ be the gauge-transformed
+$\bar h_s(\mathbf q)=\operatorname{tr}H_s(\mathbf q)/2$, and
+$\widetilde H_s(\mathbf q)=H_s(\mathbf q)-\bar h_s(\mathbf q)I_2$. Let
+$B_{s,S}(\mathbf q)$ be the gauge-transformed
 comparison reconstructed after retaining every complete physical-metric shell through
 $S$. Restricted full-field alignment supplies one global rotation $R_{*,s}$ and
 nonnegative optimized scale $\lambda_{*,s}$. We sample
@@ -967,7 +972,7 @@ throughout both calculations.
 The geometry-only control isolates metric reordering of one Fourier inventory; the
 frozen-parent control checks that coordinate deformation alone produces no Hamiltonian
 response; and the radial-response control deliberately changes bond amplitudes. The
-scientific output is the set of available nondominated compromises, not a self-selected
+development output is the set of sampled nondominated compromises, not a self-selected
 acceptance boundary. A componentwise cover assembled from different samples is not an
 attainable decision and is not a Pareto representative.
 
@@ -1145,18 +1150,19 @@ coordinates.*
 *At the looser tail tolerance, maximum physical radius and maximum block count occur at
 different sampled strains.*
 
-Together, the scans establish the behavior of the declared finite synthetic models:
-metric deformation reorganizes complete physical shells, an unchanged parent produces
-no resolved Hamiltonian response, and the prescribed radial law produces a finite,
-predominantly traceless response without loss of retained-subspace isolation. The
-calculation contains no material strain potential and no continuum extrapolation.
+Within these replaceable finite sampled development calculations, metric deformation
+reorganizes complete physical shells, an unchanged parent produces no resolved
+Hamiltonian response, and the prescribed radial law produces a finite, predominantly
+traceless response without loss of retained-subspace isolation. The calculation contains
+no material strain potential or continuum extrapolation and is not qualified retained
+evidence.
 
 ## IX. Discussion
 
 ### 9.1 The three-way decision landscape
 
-The central finding is that spectral fidelity, Hamiltonian fidelity, and hopping locality
-form a genuine three-way trade-off once two practical restrictions are imposed:
+The sampled development surfaces show that spectral fidelity, Hamiltonian fidelity, and
+hopping locality form a three-way trade-off once two practical restrictions are imposed:
 alignment is limited to a single cell-local rotation, and hopping support is limited to
 a finite set of complete metric shells. Exact gauge equivalence continues to hold in
 the unrestricted setting; the incompatibility appears only after those restrictions are
@@ -1164,16 +1170,17 @@ added.
 
 Consequently, a small sorted-band error is not by itself sufficient to establish the
 operator fidelity or locality of a finite-range Hamiltonian representation. The sampled
-Pareto fronts for all eight cases are nonempty and non-collapsed. In every geometry,
-some calculated points improve locality only by degrading operator or spectral
-agreement, and vice versa. The scientific output is therefore the set of available
-nondominated compromises rather than a single preferred Hamiltonian.
+Pareto fronts for all eight cases are nonempty and non-collapsed. In every case, some
+calculated points improve locality only by degrading operator or spectral agreement, and
+vice versa. The development output is therefore the set of sampled nondominated
+compromises rather than a single preferred Hamiltonian.
 
-### 9.2 Geometry dependence and the role of the comparison scale
+### 9.2 Case dependence and the role of the comparison scale
 
-The shape of the decision surface is strongly geometry dependent. The diamond-inspired
-case is the most selective of the eight fronts examined: only 34 of 136 calculated
-vertices are nondominated, whereas the triangular and FCC controls retain substantially
+The shape of the decision surface is strongly case dependent. The present comparison
+does not isolate lattice metric and shell geometry from parent connectivity. The
+diamond-inspired case is the most selective of the eight fronts examined: only 34 of
+136 calculated vertices are nondominated, whereas the triangular and FCC controls retain substantially
 larger fractions of their sampled vertices. Similar retained-block counts can correspond
 to different physical ranges once the metric changes, and equal shell indices have no
 intrinsic cross-lattice meaning without the associated metric and orbit inventory.
@@ -1232,8 +1239,9 @@ bond-orbit identities extend the construction to non-orthogonal isotropic lattic
 Across eight calculated cases, locality, Hamiltonian fidelity, and sorted-band fidelity
 form nontrivial sampled Pareto sets rather than sharing one optimum. Synthetic rhombic
 and Bain controls further separate geometric reordering, a frozen-parent null response,
-and a finite radial response. These results establish a controlled rank-two benchmark
-for reduced Hamiltonians while preserving the distinctions among gauge equivalence,
+and a finite radial response. Taken as replaceable development diagnostics rather than
+qualified retained evidence, these results define a controlled rank-two benchmark for
+reduced Hamiltonians while preserving the distinctions among gauge equivalence,
 operator agreement, spectral agreement, and real-space support.
 
 ## Appendix A. Proofs

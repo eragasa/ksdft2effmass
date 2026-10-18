@@ -49,7 +49,7 @@ an evidence claim, or authorization for a production or retained calculation.
   Procrustes contracts and the finite-periodic mesh, matrix-transform, tensor-product
   evaluation, Parseval, and Hermiticity contracts under `projectkoios.numerics`.
 - **Compatible geometry owner:** PhysKit commit
-  `d81febb811fbc4feb014530fcae6cf6d9ad9ead5`, whose ancestry provides the
+  `7120b735c7e3e450aa8924780a71deb59d812632`, whose ancestry provides the
   `DirectLatticeMetric` façade and whose dependency source advances to the exact
   Optimization revision above without changing PhysKit behavior.
 - **Current mechanism:** KSD submits complete tensor-grid neighbor-overlap batches to

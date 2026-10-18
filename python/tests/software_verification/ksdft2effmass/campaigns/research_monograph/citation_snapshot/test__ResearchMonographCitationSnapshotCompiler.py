@@ -49,8 +49,8 @@ class TestResearchMonographCitationSnapshotCompiler:
         rendered citation semantics while recording the exact current repository
         revision.
 
-        Acceptance: The result has 47 files, 128 groups, 245 calls, 314 occurrences,
-        43 todos, 128 bibliography entries, two source gaps, and no closure gaps.
+        Acceptance: The result has 47 files, 135 groups, 253 calls, 322 occurrences,
+        43 todos, 135 bibliography entries, two source gaps, and no closure gaps.
         """
         snapshot = self.compile_repository()
 

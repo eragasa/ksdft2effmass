@@ -158,7 +158,7 @@ final publication evidence.
 | S03 | Freeze channel-specific numerical tolerances. | The current shared draft tolerance is explicitly provisional. |
 | S04 | Freeze the cutoff cap and prospective expansion/failure rule. | `0,...,16` is dense but remains a development cap. |
 | S05 | Freeze construction/evaluation levels and coordinate-disjointness tolerance. | Current meshes are development choices. |
-| S06 | Freeze exact dependency revisions and resolved environments. | Current revisions are disclosed but remain live development pins. |
+| S06 | Freeze exact dependency revisions and resolved environments. | The manuscript snapshot revisions are disclosed historically; a separately authorized confirmatory run still requires newly frozen revisions and a resolved environment, while current live development pins may advance. |
 | S07 | Add retained schemas with immutable experiment-version and run identities. | Development schemas intentionally deny retained status. |
 | S08 | Record exact source/dependency manifests, commands, platform, and checksums. | No retained evidence package exists. |
 | S09 | Obtain separate authorization and execute the frozen local confirmatory calculation. | Protected retained-evidence execution has not been authorized merely by manuscript development. |

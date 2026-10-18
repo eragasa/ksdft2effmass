@@ -18,10 +18,11 @@ blocking decisions, and the KSD implementation that should disappear or never be
 
 ## Current owner baseline
 
-Live KSD development resolves the reviewed Optimization/Numerics owner revision
-`fff068dfe38309db05bf6de075bac53bb6597813` in the root and **Band Equivalence versus
+Live KSD development resolves the KSD-compatible Optimization/Numerics owner revision
+`2c6dd7f717722f6b0495feb8cfe1287a104268a6` in the root and **Band Equivalence versus
 Hopping Locality** locks. PhysKit revision
-`b3c7367654c316d74ebec64878ae211f34eecf4a` resolves that same exact owner revision.
+`7120b735c7e3e450aa8924780a71deb59d812632` supplies the synchronized consumed owner
+surface.
 The immutable single-band version-one experiment separately
 retains its authentic execution-time dependency pair.
 
@@ -85,7 +86,7 @@ This is the first Optimization slice needed by the multidimensional hopping-supp
 hierarchy. The existing exact rectangle capability is intentionally two-dimensional and
 must not be stretched into an undocumented general solver.
 
-- **Status:** `OWNER_IMPLEMENTED_AND_BOUND` at `projectkoios-optimization@f6bdecc418e46240087d1dfb1c22dac396cdc455`; direct experiment consumption and threshold design remain downstream work.
+- **Status:** `OWNER_IMPLEMENTED_AND_BOUND` at the current KSD-compatible checkpoint `projectkoios-optimization@2c6dd7f717722f6b0495feb8cfe1287a104268a6`; direct experiment consumption and threshold design remain downstream work.
 - **KSD need:** minimize a positive-definite quadratic over a declared finite-dimensional
   closed coefficient box and distinguish minimum, minimizer, active bounds, and verified
   optimality information.

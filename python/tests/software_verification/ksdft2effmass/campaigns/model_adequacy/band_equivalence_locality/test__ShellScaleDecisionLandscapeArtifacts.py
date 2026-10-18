@@ -1,6 +1,7 @@
 """Software verification for canonical shell--scale artifacts."""
 
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -10,6 +11,7 @@ from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLattice
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (  # noqa: E501
     ShellScaleCaseDecisionLandscape,
+    ShellScaleDecisionLandscapeCalculator,
     ShellScaleDecisionLandscapeRequest,
     ShellScaleDecisionLandscapeResult,
     ShellScaleDecisionPoint,
@@ -108,9 +110,10 @@ class TestShellScaleDecisionLandscapeArtifacts:
             projectkoios_physkit="test-physkit",
         )
 
+        request = self.request()
         artifact = ShellScaleDecisionLandscapeArtifactWriter().execute(
-            self.request(),
-            self.result(),
+            request,
+            ShellScaleDecisionLandscapeCalculator().execute(request),
             tmp_path,
             environment,
         )
@@ -139,6 +142,68 @@ class TestShellScaleDecisionLandscapeArtifacts:
             verification_wire["decision_result_sha256"]
             == artifact.decision_result_sha256
         )
+
+    def test_execute__request_inconsistent_result__fails_closed(
+        self, tmp_path: Path
+    ) -> None:
+        environment = DecisionLandscapeEnvironment(
+            python="test-python",
+            platform="test-platform",
+            numpy="test-numpy",
+            matplotlib="test-matplotlib",
+            ksdft2effmass="test-ksd",
+            projectkoios_optimization="test-optimization",
+            projectkoios_physkit="test-physkit",
+        )
+
+        with pytest.raises(
+            ValueError,
+            match="result does not replay from the source request",
+        ):
+            ShellScaleDecisionLandscapeArtifactWriter().execute(
+                self.request(),
+                self.result(),
+                tmp_path,
+                environment,
+            )
+
+    def test_execute__changed_numerical_point__fails_closed(
+        self, tmp_path: Path
+    ) -> None:
+        request = self.request()
+        calculated = ShellScaleDecisionLandscapeCalculator().execute(request)
+        case = calculated.cases[0]
+        changed_point = replace(
+            case.points[0],
+            maximum_hamiltonian_error=(
+                case.points[0].maximum_hamiltonian_error + 1.0e-12
+            ),
+        )
+        changed_case = replace(
+            case,
+            points=(changed_point, *case.points[1:]),
+        )
+        changed_result = replace(calculated, cases=(changed_case,))
+        environment = DecisionLandscapeEnvironment(
+            python="test-python",
+            platform="test-platform",
+            numpy="test-numpy",
+            matplotlib="test-matplotlib",
+            ksdft2effmass="test-ksd",
+            projectkoios_optimization="test-optimization",
+            projectkoios_physkit="test-physkit",
+        )
+
+        with pytest.raises(
+            ValueError,
+            match="result does not replay from the source request",
+        ):
+            ShellScaleDecisionLandscapeArtifactWriter().execute(
+                request,
+                changed_result,
+                tmp_path,
+                environment,
+            )
 
     def test_result_schema__unknown_property__fails_closed(self) -> None:
         invalid = {

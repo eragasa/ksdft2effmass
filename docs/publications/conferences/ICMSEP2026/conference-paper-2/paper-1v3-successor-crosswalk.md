@@ -40,7 +40,7 @@ the publication-independent experiment families.
 | P2-13 | Keep interpolation, deliberate truncation, and total consequences separate. | All four baseline families report three matrix and sorted-band channels; M1/M2 strain-response smoke records now do likewise. | **Implemented in development**. |
 | P2-14 | Keep conversion/Nyquist evidence separate from truncation error. | Baseline family diagnostics retain twisted-Nyquist/ordinary-lattice conversion semantics rather than folding them into truncation. | **Implemented in development**. |
 | P2-15 | Preserve matrix and band errors as different questions. | Both channels retain their own normalization and first-passing decisions. | **Implemented in development**. |
-| P2-16 | Use independent verification rather than trusting producer dispositions. | Separate development verifiers reconstruct all four baseline families; strain artifact verification remains open. | **Partly implemented; open for strain qualification**. |
+| P2-16 | Use independent verification rather than trusting producer dispositions. | Separate development verifiers reconstruct all four baseline families; strain development artifacts now have schema-bound artifact-reading semantic reconstruction, while independent retained-evidence verification remains open. | **Implemented at software-development level; open for retained qualification**. |
 | P2-17 | Maintain a controlled diagnostic ladder instead of one aggregate score. | Gap/frame/sewing, alignment, Fourier locality, interpolation, truncation, total error, and decisions remain separate. | **Implemented in development**. |
 | P2-18 | Distinguish projection, gauge transformation, and truncation. | Paper 2 adds an exact Laurent-polynomial counterexample showing that projection need not preserve finite support. | **Delivered analytically**. |
 | P2-19 | Supply dimension-specific analytic anchors rather than extrapolating 1-D formulas. | Exact 2-D/3-D residual–locality, Bessel-product, monotonicity, and small-amplitude laws. | **Delivered analytically**. |
@@ -83,7 +83,7 @@ and lattice roadmap responsibly.
 | A2-09 | Constrained-series rather than product-family tail certificates for dependent bond orbits. | **Delivered analytically and evaluated in bounded development**. |
 | A2-10 | Common-cell/state-space map for the FCC-to-Bain endpoint. | **Implemented and software-verified**. |
 | A2-11 | Pointwise versus restricted-global strain alignment channels. | Pointwise alignment and restricted residual diagnostics exist; the complete comparative presentation remains **open for qualification**. |
-| A2-12 | Scalar trace, traceless/orbital, onsite, offsite, interpolation, truncation, and total strain-response channels. | **Implemented in M1/M2 smoke calculations; strict strain verification remains open**. |
+| A2-12 | Scalar trace, traceless/orbital, onsite, offsite, interpolation, truncation, and total strain-response channels. | **Implemented in replaceable M1/M2 development calculations; strict schemas, binding, and artifact-reading semantic reconstruction are complete, while retained qualification remains open**. |
 
 ## D. Qualification work still required for Paper 2 numerical conclusions
 
@@ -92,7 +92,7 @@ and lattice roadmap responsibly.
 | Q2-01 | Add a third justified transform/mesh level for each baseline family. | **Completed in development:** 2-D reaches `N=64` and 3-D reaches `N=32`; every decision is stable on the final refinement, but formal catalog-wide convergence remains open. |
 | Q2-02 | Freeze family-specific shell caps and prospective cap-expansion/failure rules. | Several strict decisions remain unresolved at current development caps. |
 | Q2-03 | Freeze family-specific numerical tolerances and qualification gates. | Cross-family parity does not authorize common tolerances. |
-| Q2-04 | Complete strict strain schemas, canonical inputs/results, SHA-256 binding, and independent artifact reconstruction. | Current M0/M1/M2 records remain replaceable smoke diagnostics. |
+| Q2-04 | Complete strict strain schemas, canonical inputs/results, SHA-256 binding, and independent artifact reconstruction. | **Completed for replaceable development artifacts:** canonical source, request, result, verification, environment, and SHA-256 binding documents exist, with artifact-reading reconstruction of grids, extrema, envelopes, and transition brackets. This does not create retained evidence. |
 | Q2-05 | Perform strain-response refinement, especially for 3-D interpolation. | The 3-D M2 interpolation error is not negligible compared with its truncation channel. |
 | Q2-06 | Compare pointwise and restricted-global aligned strain perturbations explicitly. | A momentum-dependent pointwise alignment and one global unitary answer different locality questions. |
 | Q2-07 | Review whether triangular/FCC constrained-tail certificates need formal interval evaluation. | Present certificates use declared binary64 margins. |
@@ -101,7 +101,7 @@ and lattice roadmap responsibly.
 | Q2-10 | Obtain separate authorization for retained confirmatory execution. | Synthetic development authorization does not itself create retained publication evidence. |
 | Q2-11 | Reduce the development figure inventory to a conference-length final selection. | The current manuscript intentionally shows more diagnostic figures than a final conference paper can retain. |
 | Q2-12 | Keep Paper 2 conclusions conditional until every family used in a cross-family statement clears its own gates. | Shared terminology does not imply shared numerical qualification. |
-| Q2-13 | Recompute every maintained Paper 1 v3 diagnostic-catalog quantity for every applicable Paper 2 family. | The first audit found that the development calculator had optimized only the global angle at fixed unit splitting scale; Paper 1 instead also optimizes the positive splitting scale and separately reports the unit-scale exact-spectrum threshold. The implementation is being corrected and every existing Paper 2 artifact must be regenerated. |
+| Q2-13 | Recompute every maintained Paper 1 v3 diagnostic-catalog quantity for every applicable Paper 2 family. | **Completed for software-level development parity:** all 110 rows have applicable, explicitly unresolved, or explicitly inapplicable dispositions, and an independent explicit finite-sum oracle reconstructs every applicable calculated row without invoking the production Fourier implementation. |
 
 ## E. Crosswalk conclusion
 
@@ -117,11 +117,12 @@ reports the unit-scale exact-spectrum threshold. That distinction is now explici
 parity contract and calculator implementation. All four three-level artifact ladders
 have been regenerated, and every catalog row now has an implemented, explicitly
 unresolved or explicitly inapplicable mapping. The two ordered closure phases now use
-the worst-case magnitude over reciprocal direction and transverse base point, with
-independent 2-D/3-D reconstruction. Row-level independent parity verification remains
-open.
+the worst-case magnitude over reciprocal direction and transverse base point. An
+independent explicit finite-sum oracle reconstructs every applicable calculated row in
+2-D and 3-D, closing software-level row parity without establishing scientific
+acceptance, formal convergence, or retained evidence.
 
-The other blockers remain frozen caps and tolerances, strict strain artifacts and
-independent verification, pointwise/global strain comparison, retained
+The other blockers remain frozen caps and tolerances, strain refinement and frozen
+resource gates, pointwise/global strain comparison, retained
 provenance, and authorized confirmatory execution. Anisotropic physical laws,
 higher-rank gauge classes, and material targets remain correctly outside Paper 2.

@@ -65,8 +65,10 @@ and resource tests and diagnostics.
 
 The inspired parent has an analytic conservative gap bound, and the bounded verifier
 reconstructs the sampled gap on all three development meshes. Every sampled decision is
-unchanged on both refinements, but row-level Paper 1 parity verification and a formal
-mesh/shell convergence disposition remain open. Constrained-series tail certification,
+unchanged on both refinements. Row-level Paper 1 software parity is complete for every
+applicable or explicitly inapplicable catalog quantity, including independent finite-sum
+reconstruction, but a formal mesh/shell convergence disposition remains open.
+Constrained-series tail certification,
 final tolerances and retained-record schemas, frozen revisions, and evidence policy
 remain open. The measured `N=32` action stayed below about 740 MB peak memory; it does
 not authorize larger or retained actions. No

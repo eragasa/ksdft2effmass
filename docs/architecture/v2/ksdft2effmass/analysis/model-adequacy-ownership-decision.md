@@ -161,7 +161,7 @@ rename it.
 
 The dependencies are pinned to exact accepted migration commits
 `2c6dd7f717722f6b0495feb8cfe1287a104268a6` for Optimization and
-`d81febb811fbc4feb014530fcae6cf6d9ad9ead5` for PhysKit. This reuse decision does not transfer HSH
+`7120b735c7e3e450aa8924780a71deb59d812632` for PhysKit. This reuse decision does not transfer HSH
 scientific policy, feasibility proofs, certificates, or dispositions to the
 optimization package.
 

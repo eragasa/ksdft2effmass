@@ -158,9 +158,12 @@ and strain samples must not be changed after observing results. Any adaptive sca
 must be selected by the prospective transition rules above and reported separately from
 the 201-point base grid. Strict packaged result schemas for all three controls now
 qualify the replaceable baseline wire shape; the scan records and renderer remain
-unretained development surfaces. Typed canonical inputs, exact request/result binding,
-verification schemas, environment provenance, independent artifact-reading verification,
-and separate authorization remain required before any retained execution.
+unretained development surfaces. Typed canonical source, request, result, and verification
+documents now bind exact SHA-256 identities and environment identifiers, and the
+artifact-reading verifier reconstructs the development grid, extrema, envelopes, and
+transition brackets. These capabilities establish source-bound software behavior only;
+frozen resource gates, independent evidence review, and separate authorization remain
+required before any retained execution.
 
 ## Related literature and boundary
 

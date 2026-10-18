@@ -19,9 +19,10 @@ between `N16` and `N32`; all 18 pointwise decision sets are unchanged between `N
 `2.69e-15`. The largest flat-correlation quadrature defect is
 `2.220446049250313e-16`.
 
-The inspired parent remains a synthetic connectivity control. A formal family convergence
-disposition still requires the complete Paper 1 diagnostic-parity comparison, frozen
-channel-specific tolerances, and review of unresolved cap failures. Reproduce with:
+The inspired parent remains a synthetic connectivity control. The complete Paper 1
+software-level diagnostic-parity comparison is now closed. A formal family convergence
+disposition still requires frozen channel-specific tolerances and review of unresolved
+cap failures. Reproduce with:
 
 ```bash
 python/.venv/bin/python experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/run_first_refinement.py

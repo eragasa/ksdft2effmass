@@ -25,7 +25,7 @@ That recovery bundle is provenance only, not a supported API or transfer candida
 The dependency-owned facade is:
 
 ```python
-from projectkoios.optimization.adapters import PositiveDefiniteQuadraticLoss
+from projectkoios.optimization.quadratic.quadratic import PositiveDefiniteQuadraticLoss
 ```
 
 Construction selects the NumPy dense backend by default and the SciPy CSR backend with
@@ -40,9 +40,11 @@ admissibility, certificate meaning, or evidence disposition.
 
 ## Existing upstream APIs reused directly
 
-The target also owns `ParameterBound` and `ParameterSpace`, including inclusive closed
-bounds and exact fixed coordinates with equal endpoints. KSD consumes these APIs from an
-exact-pinned dependency; they are deliberately not copied into `exports/`.
+The target also owns
+`projectkoios.optimization.spaces.parameters.ParameterBound` and `ParameterSpace`,
+including inclusive closed bounds and exact fixed coordinates with equal endpoints. KSD
+consumes these APIs from an exact-pinned dependency; they are deliberately not copied
+into `exports/`.
 
 ## Active and remaining Optimization-bound candidates
 

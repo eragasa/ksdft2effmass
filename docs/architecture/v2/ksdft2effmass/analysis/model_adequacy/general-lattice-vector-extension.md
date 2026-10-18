@@ -116,7 +116,13 @@ same generic mechanism merely to manufacture a second example.
 The equations above are project-applied finite-lattice coordinate identities; no new
 external algorithm implementation is selected by this topic.
 
-- PhysKit revision `2cede347e4beeb39f06ca096c15b7a76de276953` is the live pinned owner revision for nonorthogonal 2-D/3-D finite-periodic lattice primitives; those lattice sources are unchanged from the previously audited revision `949d106bc98975a18ad86d6fa84092ef0c68298e`, and the later PhysKit revisions only advance their exact Optimization/Numerics dependency and related provenance.
+- PhysKit revision `7120b735c7e3e450aa8924780a71deb59d812632` is the live
+  pinned KSD-compatible owner revision for nonorthogonal 2-D/3-D finite-periodic
+  lattice primitives. Earlier owner reviews audited this lineage at
+  `949d106bc98975a18ad86d6fa84092ef0c68298e` and
+  `2cede347e4beeb39f06ca096c15b7a76de276953`; current KSD dependency tests qualify
+  the exact consumed surface rather than treating those historical reviews as a
+  transferable scientific validation.
 - [Periodic-2D package architecture](../../periodic/periodic2d/index.md) records the current embedded-plane and inverse-metric contracts.
 - [Periodic-3D package architecture](../../periodic/periodic3d/index.md) records the three-dimensional ownership boundary.
 - Future class pages must cite primary sources and exact owner documentation for any adopted decomposition, interval, or lattice-reduction algorithm.

@@ -86,8 +86,10 @@ first-passing-shell, convergence, and verifier diagnostics.
 The protocol remains pre-version despite the bounded three-level development ladder
 under [`analysis/development-refinement/`](analysis/development-refinement/). The mesh
 points, shell cap, and thresholds are development controls rather than qualified
-scientific controls. Row-level Paper 1 parity verification, formal convergence
-disposition, final retained-record schemas, certified tolerances,
+scientific controls. Row-level Paper 1 software parity is complete for every applicable
+or explicitly inapplicable catalog quantity, including independent finite-sum
+reconstruction; this does not establish a formal convergence disposition or scientific
+acceptance. Final retained-record schemas, certified tolerances,
 exact owner revisions, and evidence retention remain open. No calculation may be
 described as retained or publication evidence until those controls are frozen and a
 separately authorized run is completed.

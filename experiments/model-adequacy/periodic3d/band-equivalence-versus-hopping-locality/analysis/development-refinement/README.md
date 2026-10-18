@@ -22,8 +22,9 @@ successive refinements. At `N32`, the largest interpolation Hamiltonian error is
 
 The local `N32` action completed in approximately 33 seconds with about 760 MB peak
 memory in the measured development environment. The rotated endpoint still has unresolved
-outcomes at the unchanged shell cap. A formal convergence disposition remains blocked on
-the complete Paper 1 diagnostic-parity comparison and frozen channel-specific tolerances.
+outcomes at the unchanged shell cap. The complete Paper 1 software-level
+diagnostic-parity comparison is now closed; a formal convergence disposition remains
+blocked on frozen channel-specific tolerances and cap policy.
 Reproduce with:
 
 ```bash

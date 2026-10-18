@@ -21,8 +21,9 @@ The largest flat-correlation quadrature defect is `4.440892098500626e-16`.
 
 The local `N32` action completed in approximately 80 seconds with about 740 MB peak
 memory in the measured development environment. Several outcomes remain unresolved at
-the unchanged shell cap. A formal convergence disposition remains blocked on the complete
-Paper 1 diagnostic-parity comparison, frozen tolerances, and cap-policy review. Reproduce
+the unchanged shell cap. The complete Paper 1 software-level diagnostic-parity
+comparison is now closed; a formal convergence disposition remains blocked on frozen
+tolerances and cap-policy review. Reproduce
 with:
 
 ```bash

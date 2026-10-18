@@ -153,8 +153,10 @@ wider than $1/6400$; it is not a continuum certificate. Test-only explicit
 finite sums and an independent harmonic reconstruction qualify the applicable scan
 channels at software level. Reusable Bain/rhombic paths, diamond decoration, and the
 FCC--Bain coordinate bridge are frozen KSD donor surfaces pending separately reviewed
-PhysKit owner checkpoints. Complete retained scan schemas, artifact-reading verification,
-and convergence remain open; the extension contributes no material-strain result.
+PhysKit owner checkpoints. A retained scan package, retained artifact-reading
+verification, frozen resource and convergence gates, independent evidence review, and
+execution authorization remain open; the extension contributes no material-strain
+result.
 
 This remains a pre-results manuscript package. Replaceable bounded three-level records
 are available but do not constitute the paper's qualified numerical results or resolve

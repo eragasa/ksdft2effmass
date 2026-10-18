@@ -55,13 +55,11 @@ reconstructs domain diagnostics. The Workflow exposes no owner-neutral solver
 interface and contains no second `lstsq` implementation.
 
 The live reviewed owner dependencies are pinned to Optimization commit
-`f6bdecc418e46240087d1dfb1c22dac396cdc455` and synchronized PhysKit commit
-`2cede347e4beeb39f06ca096c15b7a76de276953` in `python/pyproject.toml` and
-`python/uv.lock`. The Optimization change from the version-one execution revision is a
-qualified typing refactor; the public least-squares contract is unchanged. Immutable
-version-one provenance and its experiment-owned lock retain the exact revisions used by
-the execution. Owner qualification and adapter verification remain distinct from KSD
-scientific validation.
+`2c6dd7f717722f6b0495feb8cfe1287a104268a6` and synchronized PhysKit commit
+`7120b735c7e3e450aa8924780a71deb59d812632` in `python/pyproject.toml` and
+`python/uv.lock`. Immutable version-one retained-run provenance preserves the exact
+revisions used by that execution independently of the advancing live lock. Owner
+qualification and adapter verification remain distinct from KSD scientific validation.
 
 ## Experiment boundary
 

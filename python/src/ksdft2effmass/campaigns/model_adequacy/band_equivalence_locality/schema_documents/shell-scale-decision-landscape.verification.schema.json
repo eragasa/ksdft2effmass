@@ -10,6 +10,6 @@
     "passes": {"const": true},
     "schema": {"const": "ksdft2effmass.campaign.model-adequacy.band-equivalence-locality.shell-scale-decision-verification.v1"},
     "source_analysis_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "status": {"const": "independent-canonical-read-back-verification-not-adequacy"}
+    "status": {"const": "canonical-read-back-and-request-recalculation-verification-not-adequacy"}
   }
 }

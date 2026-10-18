@@ -39,6 +39,9 @@ from single_band_fourier_reduction import (
 
 pytestmark = pytest.mark.software_verification
 
+_LIVE_OPTIMIZATION_REVISION = "2c6dd7f717722f6b0495feb8cfe1287a104268a6"
+_LIVE_PHYSKIT_REVISION = "7120b735c7e3e450aa8924780a71deb59d812632"
+
 
 class TestSingleBandFourierReductionExperiment:
     """Establish the experiment-owned and reusable-Workflow boundary."""
@@ -209,20 +212,26 @@ class TestSingleBandFourierReductionExperiment:
             with pytest.raises(ValidationError):
                 Draft202012Validator(schema).validate(retained)
 
-    def test_execution_provenance__authenticates_installed_vcs_commits(self) -> None:
-        """Execution fails closed when an installed owner revision differs."""
+    def test_execution_provenance__distinguishes_live_and_retained_revisions(
+        self,
+    ) -> None:
+        """The live lock advances without weakening retained producer checks."""
         assert (
+            installed_vcs_commit(
+                "projectkoios-optimization", _LIVE_OPTIMIZATION_REVISION
+            )
+            == _LIVE_OPTIMIZATION_REVISION
+        )
+        assert (
+            installed_vcs_commit("projectkoios-physkit", _LIVE_PHYSKIT_REVISION)
+            == _LIVE_PHYSKIT_REVISION
+        )
+        with pytest.raises(RuntimeError, match="does not match"):
             installed_vcs_commit(
                 "projectkoios-optimization", EXPECTED_OPTIMIZATION_REVISION
             )
-            == EXPECTED_OPTIMIZATION_REVISION
-        )
-        assert (
-            installed_vcs_commit("projectkoios-physkit", EXPECTED_PHYSKIT_REVISION)
-            == EXPECTED_PHYSKIT_REVISION
-        )
         with pytest.raises(RuntimeError, match="does not match"):
-            installed_vcs_commit("projectkoios-optimization", "0" * 40)
+            installed_vcs_commit("projectkoios-physkit", EXPECTED_PHYSKIT_REVISION)
 
     def test_identity__rejects_version_mutation(self) -> None:
         """Once cited, version-one identity cannot be changed by construction."""

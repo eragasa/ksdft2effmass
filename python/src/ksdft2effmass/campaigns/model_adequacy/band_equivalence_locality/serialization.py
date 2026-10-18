@@ -12,11 +12,22 @@ import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TypedDict
+from typing import TypedDict, cast
+
+import numpy as np
+from projectkoios.physkit.periodic.lattice import (
+    DirectLattice,
+    DirectLattice2D,
+    DirectLattice3D,
+    DirectLatticeMetric,
+)
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (  # noqa: E501
+    BandEquivalenceLocalityCase,
     BandEquivalenceLocalityFamily,
     BandEquivalenceLocalityRequest,
+    GaugeNormalization,
+    ParentKind,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.records import (
     BandEquivalenceLocalityDiagnostics,
@@ -774,7 +785,7 @@ def _verification_wire(
 
 
 class BandEquivalenceLocalityRequestSerializer:
-    """Encode one analysis request as a canonical JSON document."""
+    """Encode and reconstruct one canonical analysis request."""
 
     __slots__ = ()
 
@@ -782,6 +793,72 @@ class BandEquivalenceLocalityRequestSerializer:
         if type(value) is not BandEquivalenceLocalityRequest:
             raise TypeError("value must be BandEquivalenceLocalityRequest")
         return CanonicalJsonDocument._from_wire(_request_wire(value))
+
+    def reconstruct(
+        self, document: CanonicalJsonDocument
+    ) -> BandEquivalenceLocalityRequest:
+        """Reconstruct a typed request from schema-validated canonical bytes."""
+        if type(document) is not CanonicalJsonDocument:
+            raise TypeError("document must be CanonicalJsonDocument")
+        wire = cast(_RequestWire, json.loads(document.canonical_bytes()))
+        family = BandEquivalenceLocalityFamily(wire["family"])
+        if wire["schema"] != band_equivalence_locality_schema_id(family, "input"):
+            raise ValueError("analysis request schema does not match its family")
+        cases: list[BandEquivalenceLocalityCase] = []
+        for case in wire["cases"]:
+            basis = np.asarray(
+                case["direct_lattice_primitive_basis_rows"], dtype=np.float64
+            )
+            if case["direct_lattice_primitive_vector_axis"] != "columns":
+                raise ValueError("direct lattice primitive vectors must be columns")
+            direct_lattice: DirectLattice
+            if case["dimension"] == 2:
+                direct_lattice = DirectLattice2D(
+                    a1=basis[:, 0],
+                    a2=basis[:, 1],
+                )
+            elif case["dimension"] == 3:
+                direct_lattice = DirectLattice3D(
+                    a1=basis[:, 0],
+                    a2=basis[:, 1],
+                    a3=basis[:, 2],
+                )
+            else:
+                raise ValueError("case dimension must be two or three")
+            cases.append(
+                BandEquivalenceLocalityCase(
+                    name=case["name"],
+                    dimension=case["dimension"],
+                    parent_kind=ParentKind(case["parent_kind"]),
+                    gauge_normalization=GaugeNormalization(case["gauge_normalization"]),
+                    positive_bonds=tuple(
+                        tuple(component for component in bond)
+                        for bond in case["positive_bonds"]
+                    ),
+                    direct_metric=DirectLatticeMetric(direct_lattice),
+                    shell_metric_scale=case["shell_metric_scale"],
+                    basis_offsets=tuple(
+                        tuple(component for component in offset)
+                        for offset in case["basis_offsets"]
+                    ),
+                )
+            )
+        return BandEquivalenceLocalityRequest(
+            family=family,
+            cases=tuple(cases),
+            construction_size=wire["construction_size"],
+            evaluation_size=wire["evaluation_size"],
+            evaluation_shift=wire["evaluation_shift"],
+            parent_scales=tuple(wire["parent_scales"]),
+            amplitudes=tuple(wire["amplitudes"]),
+            band_tolerances=tuple(wire["band_tolerances"]),
+            shell_cap=wire["shell_cap"],
+            amplitude_resolution_intervals=tuple(
+                wire["amplitude_resolution_intervals"]
+            ),
+            transport_rank_absolute=wire["transport_rank_absolute"],
+            transport_rank_relative=wire["transport_rank_relative"],
+        )
 
 
 class BandEquivalenceLocalityResultSerializer:

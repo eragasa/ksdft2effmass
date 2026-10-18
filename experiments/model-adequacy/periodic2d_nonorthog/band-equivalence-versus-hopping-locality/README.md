@@ -66,8 +66,10 @@ covariance tests and diagnostics.
 
 The inspired parent has an analytic conservative gap bound, and the bounded verifier
 reconstructs the sampled gap on all three development meshes. Every sampled decision is
-unchanged between `N=32` and `N=64`, but row-level Paper 1 parity verification and a formal
-mesh/shell convergence disposition remain open. Bessel-tail certification, final tolerances and
+unchanged between `N=32` and `N=64`. Row-level Paper 1 software parity is complete for
+every applicable or explicitly inapplicable catalog quantity, including independent
+finite-sum reconstruction, but a formal mesh/shell convergence disposition remains open.
+Bessel-tail certification, final tolerances and
 retained-record schemas, frozen revisions, and evidence policy remain open. No
 Quantum ESPRESSO, Wannier90, remote, production, or retained calculation is authorized
 by this development package.

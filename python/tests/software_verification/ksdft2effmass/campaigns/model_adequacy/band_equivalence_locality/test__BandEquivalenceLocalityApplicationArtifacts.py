@@ -62,6 +62,45 @@ class TestBandEquivalenceLocalityApplicationArtifacts:
 
         assert verification.diagnostics.passes
 
+    def test_request_serializer__two_and_three_dimensions__round_trips(self) -> None:
+        serializer = serialization.BandEquivalenceLocalityRequestSerializer()
+        for family, case in (
+            (
+                definitions.BandEquivalenceLocalityFamily.SQUARE,
+                self._square_directed(),
+            ),
+            (
+                definitions.BandEquivalenceLocalityFamily.GRAPHENE_INSPIRED,
+                self._graphene(),
+            ),
+            (
+                definitions.BandEquivalenceLocalityFamily.SIMPLE_CUBIC,
+                self._simple_cubic_directed(),
+            ),
+            (
+                definitions.BandEquivalenceLocalityFamily.SILICON_INSPIRED,
+                self._silicon(),
+            ),
+        ):
+            request = definitions.BandEquivalenceLocalityRequest(
+                family=family,
+                cases=(case,),
+                construction_size=4,
+                evaluation_size=5,
+                evaluation_shift=1.0 / 3.0,
+                parent_scales=(1.0,),
+                amplitudes=(math.pi / 8.0,),
+                band_tolerances=(1.0e-3,),
+                shell_cap=2,
+            )
+            document = serializer.execute(request)
+
+            reconstructed = serializer.reconstruct(document)
+
+            assert serializer.execute(reconstructed).canonical_bytes() == (
+                document.canonical_bytes()
+            )
+
     def test_verification_request__mismatched_analysis_controls__fail_closed(
         self,
     ) -> None:

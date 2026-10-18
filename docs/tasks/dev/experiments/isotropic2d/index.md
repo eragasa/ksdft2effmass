@@ -78,7 +78,7 @@ The maintained prospective protocol now selects:
 
 Optimization's arbitrary-dimensional closed-box positive-definite quadratic minimizer is
 reviewed and live development is exactly bound at
-`projectkoios-optimization@f6bdecc418e46240087d1dfb1c22dac396cdc455`. Its public
+`projectkoios-optimization@2c6dd7f717722f6b0495feb8cfe1287a104268a6`. Its public
 contract is unchanged from the earlier revision used by the disclosed threshold-design
 calculation. KSD will consume it directly and will not add a local generic solver.
 

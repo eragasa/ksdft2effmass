@@ -1171,12 +1171,14 @@ continuum certificate or acceptance plot.*
 *At the looser tail tolerance, maximum physical radius and maximum block count occur at
 different sampled strains. No material transition or continuum witness is inferred.*
 
-These geometry-only, response, and scan records lack complete retained request/result
-binding, scan verification schemas, independent artifact-reading verification, and
-convergence. They therefore remain software-development diagnostics, not a material
-strain potential, material prediction, or qualified paper evidence. The extracted scalar
-2-D precursor retains its historical finite-mesh scope. New scientific claims require
-qualified calculations from the cited experiment families.
+These geometry-only, response, and scan records now have typed canonical development
+source, request, result, and verification documents, exact SHA-256 binding, environment
+identifiers, and artifact-reading semantic reconstruction. They remain replaceable and
+lack retained provenance, frozen resource and convergence gates, independent evidence
+review, and execution authorization. They are therefore software-development
+diagnostics, not a material strain potential, material prediction, or qualified paper
+evidence. The extracted scalar 2-D precursor retains its historical finite-mesh scope.
+New scientific claims require qualified calculations from the cited experiment families.
 
 ## IX. Bounded interpretation
 

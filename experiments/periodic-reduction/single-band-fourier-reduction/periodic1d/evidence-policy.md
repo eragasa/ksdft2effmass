@@ -17,9 +17,9 @@ exact dependency revisions, runtime, local-only execution boundary, and exact
 historical predecessor revision/path/tree/file digests. A dirty worktree is not
 misrepresented as the base commit; `source.sha256` identifies every in-scope source
 file used by the run. The immutable version-one dependency pair remains in the
-experiment-owned project and lock records. Repository-level development dependencies
-may advance after the run; package verification must not reinterpret those later pins
-as execution provenance.
+checksummed retained provenance, retained source manifest, and verifier constants. Live
+experiment-owned project and lock declarations may advance after the run; package
+verification must not reinterpret those later pins as execution provenance.
 
 Any execution, serialization, strict-schema validation, digest, or independent
 verification failure prevents a success disposition. Failed attempts may be retained

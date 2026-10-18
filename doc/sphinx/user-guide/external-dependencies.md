@@ -21,7 +21,7 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Purpose:** reusable lattice coordinates, displacements, symmetry operations, finite periodic domains, hopping records, represented operators, units, and numerical physics primitives
 - **Required or optional:** required by the implemented Python package
 - **Installation source:** Git repository through the lock workflow
-- **Supported-version policy:** `projectkoios-physkit==0.1.3.dev0` at exact commit `d81febb811fbc4feb014530fcae6cf6d9ad9ead5`
+- **Supported-version policy:** `projectkoios-physkit==0.1.3.dev0` at exact commit `7120b735c7e3e450aa8924780a71deb59d812632`
 - **Version actually tested:** 0.1.3.dev0 from that exact commit on the active Python 3.14 environment
 - **License:** Apache-2.0; upstream retains `LICENSE` and `NOTICE`
 - **Project/source:** <https://github.com/eragasa/projectkoios-physkit>

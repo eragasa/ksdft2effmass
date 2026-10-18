@@ -10,7 +10,8 @@ experiment family
 It is not an authorization to run, retain, publish, commit, or push an experiment.
 
 Optimization now provides the bounded one-pair complex-unitary Procrustes contract in
-the live owner revision `fff068dfe38309db05bf6de075bac53bb6597813`. Band Equivalence versus Hopping Locality
+the live KSD-compatible owner revision
+`2c6dd7f717722f6b0495feb8cfe1287a104268a6`. Band Equivalence versus Hopping Locality
 consumes it directly. The broader composite-band donor migration, aggregate alignment,
 eigenframes, and path-closure behavior remain separate work and must not silently expand
 that owner contract.

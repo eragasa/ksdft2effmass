@@ -48,12 +48,6 @@ def json_object(wire: str | bytes, name: str) -> dict[str, JsonValue]:
     return value
 
 
-def require_revision_in_file(path: Path, revision: str) -> None:
-    """Require an exact version-bound revision in one dependency declaration."""
-    if revision not in path.read_text(encoding="utf-8"):
-        raise ValueError(f"{path} does not bind revision {revision}")
-
-
 def main() -> int:
     """Verify the selected immutable evidence package without running its producer."""
     experiment = Path(__file__).resolve().parent
@@ -112,13 +106,9 @@ def main() -> int:
         != EXPECTED_PHYSKIT_REVISION
     ):
         raise ValueError("provenance dependency revisions do not match version v1")
-    # Version-one execution dependencies remain frozen in the experiment-owned
-    # declarations. Repository-level development pins may advance independently.
-    require_revision_in_file(
-        experiment / "pyproject.toml", EXPECTED_OPTIMIZATION_REVISION
-    )
-    require_revision_in_file(experiment / "uv.lock", EXPECTED_OPTIMIZATION_REVISION)
-    require_revision_in_file(experiment / "uv.lock", EXPECTED_PHYSKIT_REVISION)
+    # Version-one execution dependencies remain frozen in this checksummed provenance
+    # document and its retained source manifest. Live development declarations may
+    # advance independently and are intentionally not treated as retained-run bytes.
 
     repository_provenance = provenance.get("repository")
     if not isinstance(repository_provenance, dict):

@@ -18,7 +18,11 @@ The flattened source files map to:
 Mapped tests are staged under `exports/optimization/tests/`. Exact relative-source,
 destination, and SHA-256 mappings are recorded in [`transfer.toml`](transfer.toml).
 The owner repository remains authoritative for final naming, public imports,
-integration, review, versioning, and release.
+integration, review, versioning, and release. This candidate targets the historical
+`ec3d290…` base and names that base's adapter import below; current KSD consumes the
+superseding `2c6dd7f…` owner checkpoint and
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`. The
+candidate therefore requires an owner-side rebase before any transfer review.
 
 ## Weighted affine residuals
 
