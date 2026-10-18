@@ -1,0 +1,447 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,tabularx,array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{prospectivered}{RGB}{185,0,0}
+\newenvironment{prospective}{\color{prospectivered}}{}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlist{nosep,leftmargin=*}
+\setlength{\emergencystretch}{2em}
+
+\title{Common-Space Construction of Periodic Defect Operators}
+\author{Eugene Joseph M. Ragasa\\
+Department of Physics, De La Salle University, Manila, Philippines\\
+\texttt{eugene.ragasa@dlsu.edu.ph}}
+\date{Unpublished pre-results manuscript}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A defect-induced operator is not defined by subtracting independently constructed
+Hamiltonian matrices merely because their dimensions agree. The pristine and defect
+operators may live on different lattices, Bloch bundles, projected subspaces, localized
+frames, orbital orderings, and energy references. This paper develops a fail-closed
+common-space construction for periodic defect operators. The two calculations are first
+placed on a matched comparison lattice and Brillouin torus. Constant rank, projector
+compatibility, reciprocal-boundary sewing, and bundle topology are then screened before
+an overlap-derived unitary is admitted. Wannier centers, site and orbital semantics, and
+surviving symmetries constrain the remaining correspondence. A separately qualified
+scalar energy reference completes the alignment, after which the pristine operator can
+be transported to the defect space and subtracted. The resulting impurity operator is
+gauge covariant rather than entrywise gauge invariant. Rank-changing defect states are
+handled by an explicit common-core projection or enlarged retained space, never by zero
+padding. The protocol separates geometry, projection, localization, alignment, energy,
+numerical, and finite-supercell errors and assigns explicit blocked or unresolved
+dispositions when a common space cannot be certified. Phosphorus and boron in silicon
+are stated only as future specialization contracts. No production defect calculation,
+retained common-space map, or material impurity operator is reported.
+\end{abstract}
+
+\noindent\textbf{Keywords:} defect Hamiltonian; common state space; operator alignment;
+principal angles; polar decomposition; Wannier representation; impurity operator
+
+\section{Introduction}
+The difference between two linear operators is meaningful only when their domains and
+codomains have been identified. In first-principles defect calculations this elementary
+requirement is obscured by matrix output: pristine and doped workflows can produce
+arrays of the same shape even though their supercell coordinates, target projectors,
+Wannier gauges, orbital meanings, and additive energy zeros differ. Direct subtraction
+then mixes a physical perturbation with representation mismatch.
+
+Localized Wannier representations provide a natural finite periodic language for
+operator comparison~\cite{marzari2012,Mostofi2008,Pizzi2020}. They do not, however, make
+independently selected retained spaces identical. Equal rank provides an abstract
+pointwise unitary map, not a unique physical correspondence. Principal angles and polar
+decomposition quantify and align subspaces~\cite{bjorck1973,higham1986}, but they must be
+embedded in a contract that also controls lattice folding, periodic sewing, orbital
+semantics, surviving symmetry, and energy alignment.
+
+For defect label $d$, the intended object is
+\begin{equation}
+ \Delta H_d^{(P)}
+ =\overline H_d^{(P)}-U_d\overline H_b^{(P)}U_d^\dagger,
+ \label{eq:target}
+\end{equation}
+where $H_b^{(P)}$ and $H_d^{(P)}$ are pristine and defect projected operators, $U_d$
+identifies their retained spaces, and bars denote a shared scalar energy convention.
+Every element of Eq.~\eqref{eq:target} is conditional on a declared physical and
+numerical construction. The formula is the endpoint of alignment, not its substitute.
+
+This paper formalizes that endpoint and its admission gates. It treats the common-space
+problem independently of the scalar-relativistic bulk-silicon reduction of Paper
+4~\cite{Ragasa2026d}, the general obstruction theory reserved for Paper
+6~\cite{Ragasa2026f}, and the SOC impurity application reserved for Paper
+7~\cite{Ragasa2026g}. The result is a prospective methodology. No numerical threshold,
+material specialization, or execution evidence is implied by the definitions below.
+
+\begin{prospective}
+\section{Comparison geometry and retained spaces}
+
+\subsection{Matched periodic geometry}
+Let $\mathcal L_c$ be the common comparison lattice and $\mathbb T_c^D$ its Brillouin
+torus. For a periodic defect supercell, the default comparison is a pristine calculation
+repeated in the same supercell:
+\begin{equation}
+ H_b(\mathbf k),H_d(\mathbf k):\mathcal H_{\mathrm{amb},\mathbf k}
+ \longrightarrow\mathcal H_{\mathrm{amb},\mathbf k},
+ \qquad \mathbf k\in\mathbb T_c^D.
+\end{equation}
+The two branches must share lattice vectors, reciprocal-coordinate convention,
+plane-wave or other ambient representation, boundary convention, units, relativistic
+and spin convention, and a declared coordinate ordering. Atomic positions may differ
+because of defect relaxation, but the mapping between comparison sites and translations
+must remain explicit.
+
+A primitive-cell pristine calculation may be folded into the defect supercell only
+through a recorded isometry that specifies reciprocal preimages, degeneracy ordering,
+normalization, and translation phases. Folded and directly recalculated pristine
+operators must not be interchanged silently. Agreement of their selected invariants is a
+validation test, not an identity assumed from equal spectra.
+
+\subsection{Projected fibers}
+For $s\in\{b,d\}$, let
+\begin{equation}
+ P_s(\mathbf k)^2=P_s(\mathbf k)=P_s(\mathbf k)^\dagger,
+ \qquad \mathcal E_{s,\mathbf k}=\operatorname{Range}P_s(\mathbf k),
+\end{equation}
+and define
+\begin{equation}
+ H_s^{(P)}(\mathbf k)=P_s(\mathbf k)H_s(\mathbf k)P_s(\mathbf k).
+\end{equation}
+The projector construction records target bands, outer and frozen windows,
+disentanglement, excluded states, and any defect-localized state policy. A common matrix
+size after localization does not retroactively establish compatible projectors.
+
+The primary route requires constant equal rank
+\begin{equation}
+ \operatorname{rank}P_b(\mathbf k)=\operatorname{rank}P_d(\mathbf k)=M
+\end{equation}
+throughout $\mathbb T_c^D$. The spectral isolation or entangled-subspace stability used
+to define each projector is checked separately from cross-system compatibility.
+
+\subsection{Rank-changing defect states}
+A defect can introduce or remove a localized state from the selected window. Three
+scientifically distinct responses are permitted:
+\begin{enumerate}
+ \item revise both retained spaces under a reviewed physical rule and repeat every
+ projection test;
+ \item choose rank-$q$ projectors $Q_b\le P_b$ and $Q_d\le P_d$ and construct only the
+ explicitly named common-core perturbation $\Delta H_d^{(q)}$, retaining omitted-space
+ weights and couplings as error channels; or
+ \item block subtraction when neither construction is physically justified.
+\end{enumerate}
+Zero padding, duplicate orbitals, or deletion chosen after inspecting the desired answer
+do not create a common space. A separate defect-only sector may be retained in a block
+operator, but host-to-defect subtraction is then defined only on the admitted common
+block and its couplings to the extra sector remain visible.
+
+\section{Alignment map}
+
+\subsection{Cross-overlap and principal angles}
+Let $F_s(\mathbf k):\mathbb C^M\rightarrow\mathcal H_{\mathrm{amb},\mathbf k}$ be
+orthonormal frame matrices. The cross-overlap and its singular-value decomposition are
+\begin{equation}
+ S_d(\mathbf k)=F_d(\mathbf k)^\dagger F_b(\mathbf k)
+ =L_d(\mathbf k)\Sigma_d(\mathbf k)R_d(\mathbf k)^\dagger.
+\end{equation}
+The singular values obey $\sigma_j=\cos\theta_j$ and define principal angles between the
+retained subspaces. Full rank is required for the polar candidate
+\begin{equation}
+ G_d^{\mathrm{pol}}(\mathbf k)=L_d(\mathbf k)R_d(\mathbf k)^\dagger,
+\end{equation}
+which maps pristine frame coordinates to defect frame coordinates. The associated fiber
+map is
+\begin{equation}
+ U_d(\mathbf k)=F_d(\mathbf k)G_d(\mathbf k)F_b(\mathbf k)^\dagger
+ :\mathcal E_{b,\mathbf k}\rightarrow\mathcal E_{d,\mathbf k}.
+\end{equation}
+A small $\sigma_{\min}$ indicates an ill-conditioned physical identification even when
+the polar factor is exactly unitary. Thresholds for rank, conditioning, principal
+angles, and mesh refinement must be frozen before execution.
+
+Overlap maximization is meaningful only in a common ambient representation. It is not a
+physical labeling rule by itself. Degenerate singular values can leave equally optimal
+polar correspondences that must be resolved, or retained as alignment uncertainty, using
+independent semantics.
+
+\subsection{Global periodicity and topology screen}
+A pointwise map is admitted globally only when $U_d(\mathbf k)$ is periodic, sufficiently
+regular for the intended representation, and compatible with reciprocal-face sewing.
+Equal rank does not guarantee this. Paper 5 applies only a minimal screen:
+\begin{itemize}
+ \item verify constant rank and projector continuity;
+ \item compute declared seam and loop residuals on refined meshes;
+ \item attempt an explicit periodic alignment and test its closure; and
+ \item escalate suspected complex, time-reversal, crystalline, or real-bundle
+ obstruction to Paper 6 rather than assigning a topology label here.
+\end{itemize}
+A nonidentity Wilson loop is not by itself a failure. Holonomy can be nontrivial in a
+bundle that still admits a global frame. A small finite-grid seam residual is not a
+continuum triviality certificate.
+
+\subsection{Orbital semantics and constrained correspondence}
+In a localized representation, the common coordinate label is
+\begin{equation}
+ a=(\mathbf R,\tau,\mu,\eta),
+\end{equation}
+where $\mathbf R$ is a comparison-lattice translation, $\tau$ a site, $\mu$ an orbital
+semantic, and $\eta$ an internal degree of freedom. A candidate correspondence must
+satisfy frozen constraints on translations, centers, sites, orbital character, internal
+coordinate order, interpolation continuity when used, and representations of symmetries
+that survive in both systems.
+
+The defect generally lowers symmetry. Only the common surviving subgroup may constrain
+the map. If $D_s(g,\mathbf k)$ represents a required unitary operation $g$, an equivariant
+map obeys
+\begin{equation}
+ D_d(g,\mathbf k)U_d(\mathbf k)
+ =U_d(g\mathbf k)D_b(g,\mathbf k).
+\end{equation}
+Antiunitary operations require their explicit conjugation rule rather than this unitary
+shorthand.
+
+Assignment may be formulated as constrained matching, but an optimizer score is not a
+scientific certificate. The admissible set, tie handling, assignment margins, and
+sensitivity to windows and localization starts are retained. If physically different
+pairings remain indistinguishable, the alignment is ambiguous.
+
+\subsection{Admission diagnostics}
+At minimum, a future protocol freezes norms and tolerances for
+\begin{equation}
+ \varepsilon_{\mathrm{unit}}
+ =\max_{\mathbf k}\lVert G_d^\dagger G_d-I\rVert,
+ \qquad
+ \sigma_{\min}=\min_{\mathbf k,j}\sigma_j(\mathbf k),
+\end{equation}
+\begin{equation}
+ \varepsilon_{\mathrm{sew}}
+ =\max_f\lVert U_d(\mathbf k_f^+)
+ -T_d(f)U_d(\mathbf k_f^-)T_b(f)^\dagger\rVert,
+\end{equation}
+and applicable symmetry, center, character, assignment-margin, and mesh-refinement
+residuals. $T_s(f)$ is the declared reciprocal-face sewing map. These channels are not
+combined into one score. Failure of any mandatory channel blocks the comparison.
+
+\section{Energy alignment and impurity construction}
+
+\subsection{Scalar energy reference}
+Independent Kohn--Sham operators are defined only up to an additive scalar for this
+comparison. Let
+\begin{equation}
+ \overline H_s^{(P)}(\mathbf k)
+ =H_s^{(P)}(\mathbf k)-E_{\mathrm{ref},s}I.
+\end{equation}
+The same physical estimator must be used for both branches: for example, an approved
+bulk-like electrostatic region, compatible deep state, or another reproducible
+reference. The estimator, region, finite-supercell drift, parameter sensitivity, and
+uncertainty are retained. A band edge may be used only if the same state identity and
+finite-size convention are maintained.
+
+Energy alignment removes one scalar identity component. It does not correct an
+incompatible projector, gauge, lattice, orbital assignment, spinor order, or local
+electrostatic response.
+
+\subsection{Transport and subtraction}
+The pristine operator transported to the defect fiber is
+\begin{equation}
+ H_{b\rightarrow d}^{(P)}(\mathbf k)
+ =U_d(\mathbf k)\overline H_b^{(P)}(\mathbf k)U_d(\mathbf k)^\dagger.
+\end{equation}
+The aligned defect-induced operator is
+\begin{equation}
+ \boxed{\Delta H_d^{(P)}(\mathbf k)
+ =\overline H_d^{(P)}(\mathbf k)-H_{b\rightarrow d}^{(P)}(\mathbf k)}.
+\end{equation}
+In aligned Wannier coordinates,
+\begin{equation}
+ \Delta H_{W,d}(\mathbf R)
+ =\frac{1}{|\mathbb T_c^D|}\int_{\mathbb T_c^D}
+ e^{-i\mathbf k\cdot\mathbf R}\Delta H_d^{(P)}(\mathbf k)\,d\mathbf k,
+\end{equation}
+with a declared discrete-transform convention in computation. Hermiticity is checked as
+\begin{equation}
+ \Delta H_{W,d}(-\mathbf R)=\Delta H_{W,d}(\mathbf R)^\dagger.
+\end{equation}
+
+Direct matrix subtraction is permitted only after the coordinates have been aligned so
+that the matrix of $U_d$ is the identity. Equal shape alone is insufficient.
+
+\subsection{Gauge covariance}
+Under independent retained-space frame changes $V_b$ and $V_d$,
+\begin{equation}
+ H_s\mapsto V_s^\dagger H_sV_s,
+ \qquad G_d\mapsto V_d^\dagger G_dV_b,
+\end{equation}
+and therefore
+\begin{equation}
+ \Delta H_d\mapsto V_d^\dagger\Delta H_dV_d.
+\end{equation}
+The spectrum, singular values, traces, and unitarily invariant norms are unchanged.
+Individual onsite and hopping entries, orbital decompositions, and apparent spatial
+support generally are not. They are reportable only in the frozen aligned localized
+gauge.
+
+A controlled covariance attack recomputes the full pipeline after independent admissible
+frame rotations and checks
+\begin{equation}
+ \varepsilon_{\mathrm{cov}}
+ =\lVert\Delta H_d'-V_d^\dagger\Delta H_dV_d\rVert.
+\end{equation}
+Rotating only the final matrix tests algebra, not the alignment implementation.
+
+\subsection{Independent reconstruction}
+A second implementation must reconstruct the transported pristine operator and defect
+difference without importing the primary alignment routine. It verifies spectra,
+Hermiticity, trace identities, selected real-space blocks, covariance, and reciprocal/
+real-space reconstruction. Agreement establishes implementation consistency under the
+frozen contract, not physical validation of the projector or parent model.
+
+\section{Validation, failure semantics, and specialization}
+
+\subsection{Separated error ledger}
+The protocol retains parent-model; basis, cutoff, and Brillouin-mesh; finite-supercell;
+folding; projection and disentanglement; localization and optimizer-basin; common-space
+alignment; scalar-reference; Fourier-transform and aliasing; and later impurity-reduction
+errors as distinct channels. They are not quadratically combined without a justified
+statistical model. A relative error with zero reference norm is replaced by its declared
+absolute form.
+
+\subsection{Fail-closed dispositions}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{0.32\textwidth}Y}
+\toprule
+Disposition & Meaning \\
+\midrule
+\nolinkurl{COMMON_SPACE_ADMITTED} & All mandatory geometry, rank, global, semantic, energy, and verification gates pass. \\
+\nolinkurl{COMMON_CORE_ONLY} & A reviewed lower-rank common block is admitted; omitted states and couplings remain explicit. \\
+\nolinkurl{RANK_INCOMPATIBLE} & Retained content differs and no approved common core or enlargement exists. \\
+\nolinkurl{ALIGNMENT_ILL_CONDITIONED} & Cross-overlap is singular or below its conditioning gate. \\
+\nolinkurl{GLOBAL_COMPATIBILITY_UNRESOLVED} & Periodic or topological compatibility is not certified. \\
+\nolinkurl{SEMANTIC_ASSIGNMENT_AMBIGUOUS} & More than one physically distinct correspondence survives. \\
+\nolinkurl{ENERGY_ALIGNMENT_UNRESOLVED} & No stable common scalar reference passes its gate. \\
+\nolinkurl{NUMERICALLY_UNRESOLVED} & Refinement or independent reconstruction fails without diagnosing structural obstruction. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+A blocked disposition does not create a zero impurity operator. Optional human choices,
+such as revising the projector family, remain separate from technical review and require
+a new versioned contract.
+
+\subsection{Silicon specialization contracts}
+A later P:Si or B:Si specialization must freeze separate pristine/defect pairs,
+pseudopotentials, charge and magnetic states, structural rules, projectors, spin
+conventions, supercells, alignment regions, thresholds, and finite-size sequences. The
+two dopants do not inherit one another's orbital assignment or tolerances.
+
+Paper 4's scalar-relativistic non-SOC ten-spatial-orbital model is a predecessor, not the
+direct common-space parent for an SOC defect calculation. Paper 7 therefore requires
+matched pristine-Si/SOC references. Its proposed SOC P:Si branch is also blocked by the
+current physical specification, which selects a scalar-relativistic non-SOC primary
+P:Si branch; only a reviewed amendment or successor can change that selection.
+\end{prospective}
+
+\section{Current evidence boundary}
+No maintained experiment under \texttt{experiments/} implements this common-space defect
+construction. No matched pristine/defect calculation, ambient cross-overlap, admitted
+alignment map, energy-alignment estimate, common-core construction, extracted impurity
+operator, independent verifier, or immutable Paper 5 evidence package exists.
+
+Synthetic gauge and locality calculations associated with Papers 1--3 can motivate
+software diagnostics but do not instantiate a pristine/defect comparison. Paper 4 has no
+production bulk-silicon parent, and Paper 7 has no production dopant branch. Historical
+files under \texttt{calculations/} do not transfer their identities, tolerances, or
+evidence status into this paper.
+
+Accordingly, this manuscript supports definitions, decision gates, and a prospective
+record schema only. It does not establish that P:Si, B:Si, or another material pair has
+compatible retained spaces. It reports no impurity matrix element, range, spectrum,
+binding energy, or continuum parameter.
+
+\section{Discussion}
+The construction separates three questions: do the calculations use compatible periodic
+geometry; do their retained projector families admit the required global identification;
+and does a particular alignment respect the scientific semantics assigned to its
+coordinates? A positive answer to one does not imply the others.
+
+The polar factor is useful precisely because its role is limited. It gives the nearest
+unitary to a full-rank cross-overlap, but it cannot decide whether two orbitals represent
+the same site or physical channel. Topology is likewise relative to the required global
+structure. Two individually nontrivial bundles can still be relatively isomorphic, while
+a symmetry-compatible identification can be obstructed even when an unconstrained
+complex unitary exists. Paper 6 owns those distinctions.
+
+A common-core construction can preserve useful information in a rank-changing problem,
+but it changes the scientific object. Its result is a projected common-core perturbation,
+not the full defect operator. Discarded weights and couplings are part of the result.
+
+Gauge covariance is not gauge independence of entries. Local impurity language such as
+``onsite shift'' or ``modified hopping'' becomes meaningful only after a localized and
+semantically aligned gauge has been declared. Operator invariants can test the
+construction; they cannot make an arbitrary decomposition unique.
+
+\section{Conclusions}
+A periodic defect operator is obtained by transport and subtraction on a certified
+common retained space. Required evidence includes matched geometry, compatible
+projectors, a regular periodic alignment, physical orbital correspondence, stable scalar
+energy alignment, covariance, and independent reconstruction. Rank change, global
+obstruction, semantic ambiguity, and numerical nonconvergence receive distinct
+fail-closed dispositions.
+
+The framework is ready to guide reviewed experiment design, but no immutable Paper 5
+protocol or execution exists. Before material work, the project must select a bounded
+synthetic common-space benchmark, schemas and verifier identities, exact tolerances, and
+then separate P:Si and B:Si specializations consistent with the physical specification.
+
+\appendix
+\section{Pre-execution commitment ledger}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{p{0.22\textwidth}YY}
+\toprule
+\textbf{Item} & \textbf{Required commitment} & \textbf{Current state} \\
+\midrule
+Comparison pair & Exact pristine/defect identities and physical branches & Unselected \\
+Geometry & Common lattice, folding route, site and translation maps & Method only \\
+Parent numerics & Code, pseudopotentials, cutoffs, meshes, tolerances & Unselected \\
+Retained spaces & Ranks, windows, projectors, defect-state policy & Unselected \\
+Global structure & Sewing conventions and minimal topology screen & Method only \\
+Correspondence & Center, site, orbital, internal, symmetry constraints & Method only \\
+Alignment gates & Norms, singular-value, seam, semantic, refinement thresholds & Unselected \\
+Energy reference & Estimator, region, uncertainty, stability rule & Unselected \\
+Verification & Independent route, attacks, reconstruction tolerances & Unselected \\
+Evidence & Immutable version, schemas, package and verifier identities & Absent \\
+Resources & Executables, inputs, scale, outputs, runtime and memory & Unreported \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Required result record}
+A future retained Paper 5 result must contain:
+\begin{enumerate}
+ \item immutable parent, code, environment, and pseudopotential identities;
+ \item pristine and defect geometry plus folding and translation maps;
+ \item projector ranks, windows, spectral gaps, and defect-state dispositions;
+ \item all cross-overlap singular values and principal-angle summaries;
+ \item periodic-sewing, topology-screen, and surviving-symmetry residuals;
+ \item orbital assignments, constraints, margins, ties, and localization sensitivity;
+ \item the alignment map and its unitarity, conditioning, and covariance diagnostics;
+ \item energy-reference estimates, regions, sensitivities, and uncertainties;
+ \item complete reciprocal- and real-space impurity operators with Hermiticity checks;
+ \item independent reconstruction and controlled frame-attack results;
+ \item separated numerical, finite-size, projection, localization, alignment, and transform errors;
+ \item every admitted, failed, blocked, and unresolved disposition; and
+ \item manifests, hashes, commands, platform, schema, run, verifier, and evidence-package identities.
+\end{enumerate}
+
+\bibliographystyle{unsrt}
+\bibliography{references,../../unpublished-papers}
+
+\end{document}

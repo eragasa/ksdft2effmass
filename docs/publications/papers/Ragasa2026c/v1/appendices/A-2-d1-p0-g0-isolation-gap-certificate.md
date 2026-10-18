@@ -1,0 +1,133 @@
+# Appendix B. Analytic Certificates for the D1 P0/G0 Tranche
+
+For fixed momentum $k$, the retained dispersion can be written as
+
+$$
+\frac{\epsilon_a(k)}{E_{\mathrm{ref}}}
+=0.25c(k)+x_{r,a}\left(0.40+0.05c(k)\right).
+$$
+
+Because $c(k)\in[-1,1]$, the coefficient of $x_{r,a}$ lies in $[0.35,0.45]$
+and is strictly positive. The maximum over the retained index therefore occurs at
+$x_{r,a}=1$ for every selected finite rank:
+
+$$
+\frac{\max_a\epsilon_a(k)}{E_{\mathrm{ref}}}=0.40+0.30c(k).
+$$
+
+The exterior dispersion is
+
+$$
+\frac{\epsilon_a^{\mathrm{ext}}(k)}{E_{\mathrm{ref}}}
+=3.00+0.10c(k)+0.30x_{r,a}.
+$$
+
+Its minimum occurs at $x_{r,a}=-1$, so
+
+$$
+\frac{\min_a\epsilon_a^{\mathrm{ext}}(k)}{E_{\mathrm{ref}}}
+=2.70+0.10c(k).
+$$
+
+The pointwise retained--exterior separation is consequently
+
+$$
+\frac{\Delta_{\mathrm{iso}}(k)}{E_{\mathrm{ref}}}
+=2.30-0.20c(k).
+$$
+
+The harmonic $c(k)=\tfrac34\cos k+\tfrac14\cos(2k)$ satisfies $c(k)\leq1$ and
+$c(0)=1$. Hence
+
+$$
+\Delta_{\mathrm{iso}}
+=\inf_{k\in[-\pi,\pi)}\Delta_{\mathrm{iso}}(k)
+=2.10E_{\mathrm{ref}}.
+$$
+
+The endpoints $x_{r,1}=-1$ and $x_{r,r}=1$ occur for every declared rank $r\geq2$.
+The certificate is therefore exact for the entire selected rank ladder and does not
+depend on reciprocal-mesh sampling. Here $E_{\mathrm{ref}}$ is the common positive
+energy scale; $E_g$ remains reserved for a physical valence--conduction band gap.
+
+## Exact attack-angle maximum
+
+For either layer parity, write the magnitude of the layer harmonic as
+
+$$
+|s_\ell(k)|=|\sin k|\left|\frac34\pm\frac12\cos k\right|.
+$$
+
+Setting $x=\cos k$ and differentiating its square gives the interior stationary equation
+$4x^2\pm3x-2=0$. The admissible maximizing cosines are $q$ for the plus sign and $-q$
+for the minus sign, where
+
+$$
+q=\frac{\sqrt{41}-3}{8},
+\qquad
+s_*=\max_k|s_\ell(k)|
+=\sqrt{1-q^2}\left(\frac34+\frac q2\right).
+$$
+
+The factor $1+0.15y_{r,j}$ is positive and increases with $j$, so its maximum over
+$j\in\{1,\ldots,r-1\}$ occurs at $j=r-1$, where
+$y_{r,r-1}=(r-2)/(r-1)$. Therefore
+
+$$
+\max_{\substack{k\in[-\pi,\pi)\\ \ell\geq1,\ 1\leq j<r}}
+|\theta_{\ell j}(k)|
+=0.35\left[1+0.15\frac{r-2}{r-1}\right]s_*.
+$$
+
+For $r=3,4,8,16$, these exact continuum maxima are respectively
+$0.327807336073$, $0.335430762493$, $0.344143249830$, and $0.347628244765$
+radians. The rank-uniform triangle-inequality bound $0.4025$ radians remains valid but
+is not sharp.
+
+## Finite-grid sanity check
+
+The accompanying development utility uses $M=20000$ equal intervals and the
+$M+1$-point grid
+
+$$
+\mathcal K_M=\left\{-\pi+\frac{2\pi n}{M}:n=0,\ldots,M\right\}.
+$$
+
+For each $r\in\{3,4,8,16\}$ it evaluates
+
+$$
+\widehat\Delta_{\mathrm{iso},r}
+=\min_{k\in\mathcal K_M}
+\left[
+\min_{1\leq a\leq r}\epsilon_a^{\mathrm{ext}}(k)
+-\max_{1\leq a\leq r}\epsilon_a(k)
+\right]
+$$
+
+and
+
+$$
+\widehat\theta_r
+=\max_{\substack{k\in\mathcal K_M,\ 1\leq\ell\leq8\\1\leq j<r}}
+\left|
+0.35(-1)^{\ell+j}
+\left(1+0.15\frac{2j-r}{r-1}\right)
+\left[\frac34\sin k+\frac14(-1)^\ell\sin(2k)\right]
+\right|.
+$$
+
+| $r$ | $\widehat\Delta_{\mathrm{iso},r}/E_{\mathrm{ref}}$ | $\widehat\theta_r$ (rad) |
+|---:|---:|---:|
+| 3 | 2.100000000000 | 0.327807332440 |
+| 4 | 2.100000000000 | 0.335430758776 |
+| 8 | 2.100000000000 | 0.344143246017 |
+| 16 | 2.100000000000 | 0.347628240913 |
+
+The sampled isolation energy agrees with the analytic value because the grid contains
+$k=0$. The sampled angle maxima lie slightly below the exact continuum values because
+the maximizing momenta need not lie on the grid. The sampled values remain finite-grid
+diagnostics; the formulas above are the certificates. The source is
+[`verify_d1_p0_g0_controls.py`](../../../../../../experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/verify_d1_p0_g0_controls.py).
+
+Neither analytic certificate nor the sampled sanity check establishes numerical
+convergence, locality, or scientific acceptance.

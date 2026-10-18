@@ -21,7 +21,11 @@ from ksdft2effmass.periodic1d import (
     Periodic1DMultibandAlignmentResultJsonSerializer,
     Periodic1DMultibandAlignmentResultVerifier,
 )
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+from ksdft2effmass.solid_state import (
+    BlockHoppingModel1D,
+    CenteredUniformReciprocalMesh1D,
+    ReciprocalBandFramePath1D,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -102,6 +106,31 @@ class TestPeriodic1DMultibandAlignmentCalculator:
             result.range_study[-1].attacked_truncation.omitted_block_l2_norm
             > result.range_study[-1].reference_truncation.omitted_block_l2_norm
         )
+
+    def test_global_rotation__rank_deficient_aggregate__fails_closed(self) -> None:
+        """Aggregate Procrustes rejects nonunique null-space action."""
+        unit = Unitless()
+        mesh = CenteredUniformReciprocalMesh1D(ScalarQuantity(1.0, unit), 2)
+        frame = ComplexMatrixQuantity(
+            np.asarray([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=np.complex128),
+            unit,
+        )
+        sewing = ComplexMatrixQuantity(np.eye(3, dtype=np.complex128), unit)
+        reference = ReciprocalBandFramePath1D(mesh, (frame, frame), sewing, 1.0e-14)
+        candidate = ReciprocalBandFramePath1D(
+            mesh,
+            (
+                frame,
+                ComplexMatrixQuantity(-frame.magnitude, unit),
+            ),
+            sewing,
+            1.0e-14,
+        )
+
+        with pytest.raises(ValueError, match="full numerical rank"):
+            Periodic1DMultibandAlignmentCalculator._global_rotation(
+                reference, candidate
+            )
 
     def test_verification__m2__independent_reconstruction_passes(self) -> None:
         """The independent M2 verifier reconstructs every retained channel."""

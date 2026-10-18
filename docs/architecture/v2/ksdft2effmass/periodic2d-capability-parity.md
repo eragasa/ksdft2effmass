@@ -25,9 +25,9 @@ remains unchanged while the parent periodic2d capabilities are brought to parity
 The current human instruction authorizes periodic2d lattice work to use the reusable
 Project Koios PhysKit lattice owners. Before this slice, this branch had no PhysKit
 package dependency and the cosine model left its square-cell duality implicit. The
-dependency is `projectkoios-physkit==0.1.2`, pinned to exact revision
-`d6333208a1ff723682a557afd593a5c932058cb7`, the commit referenced by the
-published `v0.1.2` tag. Periodic2d imports
+dependency is `projectkoios-physkit==0.1.3.dev0`, pinned to exact accepted migration
+revision `7120b735c7e3e450aa8924780a71deb59d812632`, which descends from the
+published `v0.1.2` release line. Periodic2d imports
 `DirectLattice2D` and `ReciprocalLattice2D` from
 `projectkoios.physkit.periodic.lattice`; it does not introduce another campaign-local
 direct or reciprocal lattice type. The pinned release also provides the

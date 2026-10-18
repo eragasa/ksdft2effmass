@@ -325,8 +325,13 @@ previous one in the declared Frobenius metric~\cite{schonemann1966,higham1986}.
 
 The minimum singular value over neighbor and boundary overlaps is a conditioning
 diagnostic. A frozen threshold can make insufficient overlap a fail-closed stop
-condition. It is not a universal physical constant, and passing it does not
-prove continuous smoothness between mesh points.
+condition. If an overlap is rank deficient, the positive-overlap condition does
+not determine a unique unitary action on its null directions: a complete SVD
+still returns matrices, but their null-space columns can depend on the backend.
+Neighborwise transport therefore requires the same rank and nonuniqueness policy
+as the Procrustes problem derived below. The threshold is not a universal
+physical constant, and passing it does not prove continuous smoothness between
+mesh points.
 
 \subsection{Sewing and closure holonomy}
 \index{reciprocal sewing}
@@ -413,20 +418,110 @@ At each reciprocal coordinate, solve
           -F_{\mathrm r}(\kappa)\rVert_{\mathrm F}.
   \label{eq:training-composite-pointwise-procrustes}
 \end{equation}
-If
+The orientation is part of the method: the returned matrix right-multiplies the
+candidate frame. If $S=F_{\mathrm c}^{\dagger}F_{\mathrm r}$, the squared
+objective is
+\begin{align}
+  J(U)
+  &=\lVert F_{\mathrm c}U-F_{\mathrm r}\rVert_{\mathrm F}^2 \\
+  &=2M-2\operatorname{Re}\operatorname{tr}(U^{\dagger}S),
+  \label{eq:training-composite-procrustes-expansion}
+\end{align}
+because both frames are isometries. Let
 \begin{equation}
-  F_{\mathrm c}^{\dagger}F_{\mathrm r}
-  =L\Sigma R^{\dagger},
+  S=L\Sigma V^{\dagger},
+  \qquad
+  \Sigma=\operatorname{diag}(\sigma_1,\ldots,\sigma_M)
+  \label{eq:training-composite-procrustes-svd}
 \end{equation}
-then one minimizing rotation is
+be a singular-value decomposition. Maximizing the trace term gives
 \begin{equation}
-  U_{\star}=LR^{\dagger}.
+  U_{\star}=LV^{\dagger},
+  \qquad
+  J_{\min}=2M-2\sum_{m=1}^{M}\sigma_m.
   \label{eq:training-composite-pointwise-solution}
 \end{equation}
-For the constructed attack $F_{\mathrm c}=F_{\mathrm r}A$, the overlap is
-$A^{\dagger}$ and pointwise alignment recovers $A^{\dagger}$ up to numerical
-and nonuniqueness effects. Exact recovery in that setting is expected
-mathematics, not evidence for a general optimizer.
+Sch\"onemann gives the corresponding real orthogonal least-squares
+formulation~\cite{schonemann1966}. For the complex unitary result, set Higham's
+$A=F_{\mathrm r}$ and $B=F_{\mathrm c}$, so that $B^{\dagger}A=S$. Equations
+(2.1)--(2.3) of Ref.~\cite{higham1986} construct the unitary polar factor from
+the SVD, and Higham's Theorem~2.2, specifically inequality~(2.4), proves that
+this factor minimizes the Frobenius residual over all unitary matrices. Section
+6.1 of the same article identifies the real specialization as the orthogonal
+Procrustes problem. Since the $\sigma_m$ are the cosines of the principal
+angles $\theta_m$, the minimum also has the geometric form
+\begin{equation}
+  J_{\min}=2\sum_{m=1}^{M}(1-\cos\theta_m).
+  \label{eq:training-composite-procrustes-principal-angle-residual}
+\end{equation}
+For comparison, the squared projector defect is
+$2\sum_m(1-\cos^2\theta_m)$. Procrustes alignment can choose coordinates within
+each retained space, but it cannot change either projector or erase a genuine
+subspace mismatch.
+
+The same orientation determines the represented-operator transformation. If
+$H_{\mathrm c}=F_{\mathrm c}^{\dagger}H_{\mathrm p}F_{\mathrm c}$, then the
+operator in the aligned frame $F_{\mathrm c}U_{\star}$ is
+\begin{equation}
+  H_{\mathrm c\rightarrow r}
+  =U_{\star}^{\dagger}H_{\mathrm c}U_{\star}.
+  \label{eq:training-composite-procrustes-operator-map}
+\end{equation}
+Using the opposite overlap convention reverses this transformation. A reported
+alignment must therefore state the overlap order, which frame receives the
+right action, and which similarity transform is applied to its operator.
+
+For the constructed attack $F_{\mathrm c}=F_{\mathrm r}A$, the overlap is the
+full-rank unitary $A^{\dagger}$, so pointwise alignment uniquely recovers
+$A^{\dagger}$ up to floating-point error. Exact recovery in that setting is
+expected mathematics, not evidence for a general optimizer or for unknown
+physical correspondence.
+
+\subsection{Uniqueness, numerical rank, and deterministic output}
+\index{Procrustes alignment!rank deficiency}
+
+In exact arithmetic, $U_{\star}$ is unique if and only if $S$ has full rank.
+The full-rank direction is Higham's Theorem~1.1: the unitary polar factor is
+uniquely determined when the matrix has full column rank~\cite{higham1986}.
+Repeated positive singular values may make individual singular vectors
+nonunique, but they do not make the polar factor $LV^{\dagger}$ nonunique when
+$S$ is nonsingular. The relevant instability is a small minimum singular value,
+not repetition by itself.
+
+If $r=\operatorname{rank}S<M$, every optimizer can be written, for a compatible
+complete SVD, as
+\begin{equation}
+  U_W
+  =L
+   \begin{pmatrix}
+     I_r&0\\
+     0&W
+   \end{pmatrix}
+   V^{\dagger},
+  \qquad W\in U(M-r).
+  \label{eq:training-composite-procrustes-rank-deficient-family}
+\end{equation}
+The objective fixes the partial polar map on the rank-$r$ support and leaves an
+arbitrary unitary identification between the two null spaces. A numerical
+implementation must replace exact rank with a declared cutoff. Returning
+$LV^{\dagger}$ from a complete backend SVD without further policy silently
+uses backend-selected null-space bases; it is an optimizer, but not a portable
+deterministic scientific identification.
+
+A reusable method must therefore choose one of two contracts: reject numerical
+rank deficiency, or define a versioned deterministic completion. One possible
+coordinate-dependent completion projects the standard coordinate vectors into
+each null space in fixed index order, reorthogonalizes them with a declared
+acceptance tolerance, fixes each phase by a declared first-pivot rule, and pairs
+the resulting bases in order. Such a completion is deterministic in the stated
+coordinates, not basis invariant. The present manuscript does not select that
+policy and makes no claim for a rank-deficient returned map.
+
+For every admitted problem, retain the overlap orientation, singular values,
+applied rank cutoff, numerical rank, selected unitary, objective residual,
+unitarity defect, and backend identity. A finite condition number should be
+reported only for numerical full rank; near the cutoff, sensitivity must remain
+visible rather than being hidden by the returned unitary.
 
 Pointwise freedom is a large admissible family: every reciprocal coordinate
 receives its own unitary. It can be inappropriate when the intended physical
@@ -445,17 +540,27 @@ Let
 \begin{equation}
   B=\sum_jF_{\mathrm c}(\kappa_j)^{\dagger}
           F_{\mathrm r}(\kappa_j)
-   =L_B\Sigma_BR_B^{\dagger}.
+   =L_B\Sigma_BV_B^{\dagger}.
   \label{eq:training-composite-global-aggregate}
 \end{equation}
-A minimizing global rotation is
+The objective reduces to the same trace maximization, now with aggregate
+cross-covariance $B$. For $N_k$ isometric frame pairs,
 \begin{equation}
-  U_{\mathrm{global}}=L_BR_B^{\dagger}.
+  U_{\mathrm{global}}=L_BV_B^{\dagger},
+  \qquad
+  J_{\mathrm{global},\min}=2N_kM-2\operatorname{tr}\Sigma_B.
   \label{eq:training-composite-global-solution}
 \end{equation}
-If $B$ is rank deficient or has repeated singular structure, the minimizer need
-not be unique or stable. Singular values and residuals should therefore be
-retained when uniqueness matters.
+Equal normalization by $N_k$ changes the reported objective scale but not its
+minimizer. Nonuniform weights instead define a different aggregate and must be
+part of the frozen protocol.
+
+The global minimizer is unique exactly when $B$ is full rank. It can be rank
+deficient through cancellation even when every pointwise overlap is nonsingular.
+Repeated nonzero singular values alone do not destroy uniqueness. Consequently
+the global channel requires its own singular values, numerical-rank decision,
+residual, and rank-deficiency policy rather than inheriting the pointwise
+conditioning record.
 
 One constant unitary generally cannot undo a genuinely momentum-dependent
 attack. A nonzero global residual establishes a limitation of this restricted
@@ -470,6 +575,32 @@ within a declared family. Chapter~\ref{ch:admissible-sets-certificates} defines
 operator-admissible parameter sets by minimizing only over that frozen
 alignment family. Failure for one global unitary, a finite list of rotations,
 or a pointwise family therefore produces three different claims.
+
+\subsection{Reproducible method record}
+
+A Procrustes result is interpretable only when its record binds the complete
+method, not merely the returned matrix. Before solving, establish common
+ambient coordinates, equal retained rank, compatible sewing, and the admissible
+alignment family. Then retain
+
+\begin{enumerate}
+  \item the ordered reference and candidate identities and sample-point order;
+  \item the right-action and overlap convention;
+  \item the equal or explicitly weighted Frobenius objective and its
+        normalization;
+  \item all cross-covariance singular values, the rank rule, and the applied
+        cutoff;
+  \item the selected transformation, residual, unitarity defect, and whether
+        uniqueness was established;
+  \item the backend and deterministic-completion policy, if any; and
+  \item the independently reconstructed aligned frames and transformed
+        operators.
+\end{enumerate}
+
+The independent check should evaluate the objective and unitary identities from
+the original frames. Repeating the same SVD call is parity evidence, not an
+independent oracle. None of these numerical checks establishes that the chosen
+alignment family is physically appropriate.
 
 \section{Complete block hoppings and gauge-dependent locality}
 \index{block hopping!complete transform}
@@ -682,16 +813,30 @@ attacked_projectors = np.einsum(
 np.testing.assert_allclose(attacked_projectors, reference_projectors, atol=1e-13)
 
 # Recover one unitary Procrustes rotation independently at each mesh point.
+# The cutoff is an illustrative numerical control, not a universal threshold.
+procrustes_rank_cutoff = 1.0e-12
 aligned = []
 recovered_rotations = []
+pointwise_overlap_singular_values = []
 for reference_frame, candidate_frame in zip(reference, attacked, strict=True):
     overlap = candidate_frame.conjugate().T @ reference_frame
-    left, _, right_h = np.linalg.svd(overlap)
+    left, singular_values, right_h = np.linalg.svd(overlap)
+    if singular_values[-1] <= procrustes_rank_cutoff:
+        raise RuntimeError("pointwise Procrustes overlap is rank deficient")
+    pointwise_overlap_singular_values.extend(singular_values)
     rotation = left @ right_h
     recovered_rotations.append(rotation)
     aligned.append(candidate_frame @ rotation)
 aligned = np.asarray(aligned, dtype=np.complex128)
 recovered_rotations = np.asarray(recovered_rotations, dtype=np.complex128)
+pointwise_frame_defect = max(
+    np.linalg.norm(candidate - target)
+    for candidate, target in zip(aligned, reference, strict=True)
+)
+pointwise_unitarity_defect = max(
+    np.linalg.norm(rotation.conjugate().T @ rotation - np.eye(2))
+    for rotation in recovered_rotations
+)
 np.testing.assert_allclose(aligned, reference, atol=1e-13)
 np.testing.assert_allclose(
     recovered_rotations,
@@ -704,7 +849,9 @@ aggregate = sum(
     candidate.conjugate().T @ target
     for candidate, target in zip(attacked, reference, strict=True)
 )
-left, _, right_h = np.linalg.svd(aggregate)
+left, global_singular_values, right_h = np.linalg.svd(aggregate)
+if global_singular_values[-1] <= procrustes_rank_cutoff:
+    raise RuntimeError("global Procrustes aggregate is rank deficient")
 global_rotation = left @ right_h
 globally_aligned = np.asarray(
     [frame @ global_rotation for frame in attacked],
@@ -766,6 +913,11 @@ reference_omitted = np.linalg.norm(reference_blocks[~range_mask])
 attacked_omitted = np.linalg.norm(attacked_blocks[~range_mask])
 
 print("minimum neighbor/closure singular value:", min(neighbor_singular_values))
+print("minimum pointwise Procrustes singular value:",
+      min(pointwise_overlap_singular_values))
+print("pointwise frame defect:", pointwise_frame_defect)
+print("pointwise unitarity defect:", pointwise_unitarity_defect)
+print("global Procrustes singular values:", global_singular_values)
 print("one-global-unitary frame defect:", global_frame_defect)
 print("reference omitted-block norm:", reference_omitted)
 print("attacked omitted-block norm:", attacked_omitted)
@@ -801,6 +953,10 @@ manuscript change.}
         and permutation handling.
   \item Describing exact recovery of a constructed pointwise attack as a
         general alignment solution.
+  \item Treating the complete-SVD product as a deterministic scientific map on
+        rank-deficient overlaps without declaring a null-space policy.
+  \item Confusing repeated positive singular values with rank-deficient
+        Procrustes nonuniqueness.
   \item Concluding from failure of one global unitary that every nonidentity
         alignment family fails.
   \item Assuming a finite harmonic series for the attack angle gives a
@@ -834,9 +990,16 @@ manuscript change.}
   \item Derive the positive overlap in
         Equation~\eqref{eq:training-composite-positive-overlap}.
   \item Prove the pointwise Procrustes solution by maximizing
-        $\operatorname{Re}\operatorname{tr}(U^{\dagger}F_{\mathrm c}^{\dagger}F_{\mathrm r})$.
-  \item Derive the aggregate matrix in
-        Equation~\eqref{eq:training-composite-global-aggregate}.
+        $\operatorname{Re}\operatorname{tr}(U^{\dagger}F_{\mathrm c}^{\dagger}F_{\mathrm r})$
+        and derive the minimum in
+        Equation~\eqref{eq:training-composite-pointwise-solution}.
+  \item Derive the rank-deficient optimizer family in
+        Equation~\eqref{eq:training-composite-procrustes-rank-deficient-family}
+        and explain why a complete backend SVD does not select a portable map
+        between the null spaces.
+  \item Derive the aggregate matrix and minimum in
+        Equations~\eqref{eq:training-composite-global-aggregate}
+        and~\eqref{eq:training-composite-global-solution}.
   \item Construct an attack that is constant in $\kappa$ and explain why the
         pointwise and global alignment families then contain the same inverse.
   \item Compare a frame defect, projector defect, and spectral defect for two
@@ -852,10 +1015,14 @@ manuscript change.}
 
 The derivations in this chapter establish finite-dimensional identities under
 stated frame, mesh, sewing, Fourier, and norm conventions. The Python example
-checks those identities for synthetic arrays. Neither establishes that an
-unknown physical alignment has been recovered, that a chosen gauge is
-maximally localized, that a hopping range is adequate for an application, or
-that a material is represented correctly.
+checks those identities for synthetic arrays. Its constructed pointwise
+overlaps are full rank; its illustrative cutoff neither qualifies a general
+numerical-rank rule nor a rank-deficient completion, and the example does not
+define deterministic degenerate closure coordinates. Neither the derivation
+nor the example establishes that an unknown physical alignment has been
+recovered, that a chosen gauge is maximally
+localized, that a hopping range is adequate for an application, or that a
+material is represented correctly.
 
 A controlled M2-like calculation can use this chain to test a known gauge
 attack, distinguish pointwise from globally constrained alignment, and expose

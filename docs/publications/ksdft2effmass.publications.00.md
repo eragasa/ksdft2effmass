@@ -24,6 +24,8 @@ applicable checkpoint for protected external or production execution.
 
 ## Paper planning and manuscripts
 
+- [Ragasa2026a--Ragasa2026g manuscript packages](papers/README.md): canonical
+  identity- and version-based source locations for the seven-paper working sequence.
 - [Publication pipeline](papers/ksdft2effmass.papers.00.md): static claim
   prerequisites and proposed-paper states.
 - [P01](papers/ksdft2effmass.P01.md),

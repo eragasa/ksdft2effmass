@@ -30,8 +30,8 @@ in-plane frame, projector, and dual basis while routing its induced metric to th
 intrinsic $2\times2$ contract. That flat embedded plane remains distinct from a fully
 periodic $3\times3$ slab or supercell.
 
-The pinned PhysKit version `0.1.2` at exact revision
-`d6333208a1ff723682a557afd593a5c932058cb7` provides the reusable nonorthogonal
+The pinned PhysKit version `0.1.3.dev0` at exact accepted migration revision
+`7120b735c7e3e450aa8924780a71deb59d812632` provides the reusable nonorthogonal
 Bloch-periodic scalar Laplacian under
 `projectkoios.physkit.periodic.finite_difference`. Its dimension-bounded 2D/3D
 implementation uses the full inverse metric, mixed centered derivatives, and
@@ -55,6 +55,23 @@ package: periodic2d owns the source model; PhysKit owns reusable lattice symmetr
 orbit, hopping-shell, projection, and physical hopping geometry; HSH owns the selected
 hierarchy, weights, normalization, thresholds, witnesses, certificate meaning, and
 bounded dispositions. No HSH implementation, result, or evidence claim exists.
+
+After the isotropic three-dimensional stage, a distinct anisotropic two-dimensional
+family will remove axis-permutation equivalence while retaining explicit
+sign symmetries:
+
+```text
+ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy
+```
+
+That family has no opened development task, exact protocol, implementation, or result.
+It must not be represented as another threshold case or version of HSH-1. Only after
+the concrete isotropic/anisotropic sequence closes may reusable behavior be considered
+for the
+[general-lattice-vector extension](../../analysis/model_adequacy/general-lattice-vector-extension.md).
+The two-dimensional target must preserve a full-rank intrinsic or reviewed
+embedded-plane basis and its induced metric; it must not reinterpret a `3 x 2` plane as
+a three-dimensional periodic cell.
 
 ## Target hierarchy
 

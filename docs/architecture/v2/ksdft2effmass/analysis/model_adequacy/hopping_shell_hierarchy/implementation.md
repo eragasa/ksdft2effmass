@@ -33,7 +33,8 @@ private implementations of orbit projection, loss construction, bounded feasibil
 metric geometry, support bounds, or hierarchy resolution.
 
 This requirement favors concrete composition over abstract base-class inheritance. The
-generic quadratic facade is supplied by exact-pinned Optimization commit `ec3d290…`.
+generic quadratic facade is supplied by exact-pinned accepted Optimization migration
+commit `2c6dd7f…`.
 The exact public HSH stage-Action split must be accepted before HSH
 source implementation; the aggregate
 calculator may remain as a convenience composition Action, but it cannot be the sole
@@ -75,7 +76,8 @@ calculation.
 - The HSH wrapper exposes maximal-energy-space `squared_loss`, owns the energy scale,
   active-to-maximal map, exact inactive-zero rule, channel/shell identity, and reconstruction
   defects, maps active coefficients to unit-free ratios, and delegates completed-square
-  evaluation to `projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`.
+  evaluation to
+  `projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`.
   The definition retains `sparse` backend selection and relevant numerical provenance;
   backend choice is never inferred from matrix shape.
 - The common coefficient box is an optimization `ParameterSpace`; derived class spaces

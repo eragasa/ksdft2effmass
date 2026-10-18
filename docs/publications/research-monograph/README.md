@@ -22,8 +22,10 @@ quantities, units, coordinates, and metadata through finite representations,
 Hermitian eigensystems and spectral subspaces, quantum operators and the
 one-dimensional box, two- and three-dimensional box
 models with Kronecker products, periodic geometry, Bloch-periodic finite
-differences, retained spaces, isolated-band Fourier reduction to finite-range
-lattice Hamiltonians, composite Bloch frames, the Bloch--Wannier bridge, gauge
+differences, retained spaces, the distinction between spectral projection and
+eliminated-space downfolding, projection-induced loss of exact finite hopping
+range, isolated-band Fourier reduction to finite-range lattice Hamiltonians,
+composite Bloch frames, the Bloch--Wannier bridge, gauge
 transport and alignment, block locality, and evidence vocabulary. Part II then
 moves from the scientific adequacy question through common-space operator
 comparison to weighted spectral and operator losses, with fitting and
@@ -31,9 +33,11 @@ model-class-expressivity precedents integrated where the corresponding concepts
 enter, followed by admissible sets, common witnesses,
 quadratic-loss geometry, separation certificates, and evidence discipline. A
 substantial appendix collection owns detailed notation, derivations,
-controlled examples, route comparisons, and analytical warmups. It is a framework-rich pre-results draft: chapter
-development does not imply completion of the proofs or calculations described
-there.
+controlled examples, route comparisons, analytical warmups, and a bounded
+status synthesis of preliminary silicon work. It remains a framework-rich
+pre-results draft with preliminary evidence: chapter development and successful
+bootstrap observations do not imply completion of the proofs, production
+calculations, or validation described there.
 
 Red boxes headed **Prospective citation note** are unresolved editorial prompts.
 They record candidate sources and claim checks from the citation audit; they do
@@ -50,7 +54,11 @@ contracts under `docs/research/proofs/formal/theorem-catalog/`, retained calcula
 records, software contracts, verification evidence, and durable human decisions
 remain the owners
 of scientific meaning and project state. The monograph must link those owners
-rather than silently redefine them.
+rather than silently redefine them. The maintained one-dimensional single-band
+result is bound by [`experiment-references.json`](experiment-references.json), which
+records its permanent experiment family, immutable version, run, evidence-package
+digest, exact content-bound source revision, consumed fields, and presentation figure.
+The historical M1 package remains provenance rather than the live evidence citation.
 
 Every substantive result should retain one of the repository's declared
 statuses: calculated result, literature value, expected behavior, illustrative
@@ -67,7 +75,8 @@ quantification, publication, or human acceptance.
   determines their current pedagogical order;
 - `figures/` — editable diagram sources and their manuscript-ready renderings;
 - `appendices/` — notation, derivations, controlled examples, route
-  comparisons, and analytical warmups supporting the main narrative;
+  comparisons, analytical warmups, and bounded evidence-status syntheses
+  supporting the main narrative;
 - `references.bib` — monograph-owned bibliography, independently maintained
   from article bibliographies;
 - `navigation-index.md` — machine-readable concept map from scientific terms to

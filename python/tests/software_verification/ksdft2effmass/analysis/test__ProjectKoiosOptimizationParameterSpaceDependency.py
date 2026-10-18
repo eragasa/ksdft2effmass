@@ -9,7 +9,7 @@ calculation.
 from __future__ import annotations
 
 import pytest
-from projectkoios.optimization import ParameterBound, ParameterSpace
+from projectkoios.optimization.spaces.parameters import ParameterBound, ParameterSpace
 
 pytestmark = pytest.mark.software_verification
 

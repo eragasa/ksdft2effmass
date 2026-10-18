@@ -1,0 +1,54 @@
+# Python code smells
+
+- Generic dictionaries, tuples, or containers carrying domain state across internal boundaries.
+- String keys standing in for fields that should be explicit in an owned contract.
+- `typing.Any` or `object` used as an unspecified software boundary.
+- Type aliases that merely rename another type without narrowing its meaning or ownership.
+- Layers of import aliases that obscure the actual owner of a capability.
+- Package `__init__.py` files used as broad re-export bags instead of narrow public surfaces for behaviorful domain or action objects and their immutable request, response, and error contracts.
+- Nontrivial use cases exposed only as free functions instead of cohesive domain or action objects with explicit requests and results.
+- Procedural pipelines split across private helper functions when the behavior and invariants belong to a named domain or action object.
+- Local mirror types or wrapper hierarchies around an upstream owner's public contract.
+- Nominal inheritance where a structural protocol, direct composition, or an ordinary callable is sufficient.
+- Generic base classes introduced before two real consumers demonstrate the shared behavior.
+- Marker classes that carry no invariant, behavior, or dispatch meaning.
+- `object.__setattr__`, including normalization performed inside `__post_init__`.
+- Frozen records that retain writable arrays, mutable collections, or rebindable nested state.
+- Post-construction installation, normalization, or repair of object state.
+- Constructors that accept loosely formed state and rely on later validation to make it usable.
+- Boolean flags whose combinations permit contradictory states.
+- Sentinel zero, empty-string, or empty-container values used for genuinely inapplicable results.
+- Nullable scientific values without an explicit applicability status and reason.
+- Broad exception catches or failures converted into plausible-looking default results.
+- Numeric strings or booleans accepted by public numeric APIs.
+- Hidden units, energy references, coordinate conventions, basis conventions, or gauge conventions.
+- Reimplementation of behavior already owned by PhysKit, Optimization, Workflow, Quantum ESPRESSO, or Wannier90.
+- Consumer code importing implementation modules instead of the owner's supported public façade.
+- Scientific or campaign policy leaking into a reusable numerical or workflow owner.
+- Upstream numerical or workflow policy copied locally and allowed to drift.
+- Serialization keys, schema identities, or filesystem output embedded in calculation code.
+- JSON Schema documents assembled at runtime and exposed as mutable generic mappings instead of immutable maintained documents with validation behavior.
+- Recursive arbitrary-JSON aliases escaping the narrow encoding or decoding boundary.
+- Calculation behavior embedded in serializers or document builders.
+- Large modules that mix definitions, numerical mechanics, orchestration, records, verification, plotting, and serialization.
+- Free-floating nontrivial behavior that lacks a clear domain or action owner.
+- Generic `Helper`, `Utils`, `Manager`, `Handler`, or `Processor` containers.
+- Private methods used to hide public policy or cross-object behavior.
+- Repeated conversions between arrays, tuples, and owner records without a declared boundary reason.
+- Copying data defensively at every layer instead of assigning one clear ownership boundary.
+- Zero-copy construction without a demonstrable immutable-storage contract.
+- Dense materialization where bounded streaming, batching, or tensor structure is part of the design.
+- Per-item Python object construction that defeats an available owner-provided batch operation.
+- Equality or exact-zero claims that omit the numerical resolution or roundoff evidence supporting them.
+- Rank-deficient numerical completions treated as unique transformations.
+- Closure, plaquette, or path quantities computed after uniqueness has failed.
+- Verification that calls the producer and labels the repeated result independent.
+- Tests that assert implementation trivia instead of an owned behavior or invariant.
+- Mocks that bypass the public consumer boundary being tested.
+- Compatibility shims for unpublished interfaces without a demonstrated consumer.
+- Historical directory layout, scripts, or incidental bytes promoted into a normative API or Workflow contract.
+- Fabricated Workflow lineage for imported, retained, or externally produced artifacts.
+- One large migration delayed until every layer moves together instead of small continuously integrated slices.
+- Dependency pins advanced independently when repositories require one compatible exact-commit set.
+- Untracked prerequisite implementations copied or stashed into clean adoption worktrees.
+- Passing software tests described as scientific validation, convergence, or evidence qualification.

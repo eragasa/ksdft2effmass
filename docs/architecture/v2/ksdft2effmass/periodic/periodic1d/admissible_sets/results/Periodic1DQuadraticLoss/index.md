@@ -21,8 +21,9 @@ alignment-constrained operator $L_H^2$. Its `channel_id`, `alignment_angle`, and
 shift/splitting coordinate convention therefore remain M3-owned.
 
 The generic facade now exists at
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss` in exact-pinned owner
-commit `ec3d290…`. A later M3 implementation may delegate completed-square validation
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` in the
+exact-pinned accepted owner migration commit `2c6dd7f…`. A later M3 implementation may
+delegate completed-square validation
 and evaluation through that facade while preserving this class's constructor, supported
 import, M3-specific fields, and schema-v1 wire identity. This class does not
 become an alias or subclass of the external type. The retained verifier continues

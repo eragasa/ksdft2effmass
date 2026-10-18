@@ -137,18 +137,22 @@ a Feshbach--L\"owdin construction gives the energy-dependent operator
     \left(E-\hat Q\hat H\hat Q\right)^{-1}
     \hat Q\hat H\hat P,
 \end{equation}
-whenever the reduced resolvent exists~\cite{lowdin1982}. The second term
-represents virtual excursions into the eliminated subspace. In general,
+whenever the reduced resolvent exists. This projection-operator elimination is
+the Feshbach--L\"owdin construction~\cite{feshbach1958,lowdin1962,lowdin1982}.
+The second term represents virtual excursions into the eliminated subspace. In
+general,
 \begin{equation}
     \hat H_{\mathrm{down}}(E)
     \neq
     \hat H^{(P)}.
 \end{equation}
+For the exact spectral projector used in the preceding section,
+$\hat P\hat H\hat Q=0$, so the correction vanishes. For a projector chosen from
+an orbital or other proposed model space, the coupling blocks need not vanish.
+A related Schrieffer--Wolff construction instead seeks a unitary transformation
+that exactly or perturbatively block diagonalizes the selected sectors; it must
+not be identified with merely deleting the $Q$ block~\cite{bravyi2011}.
 
-\citationtodo{low priority}{Complete the compound Feshbach--Lowdin attribution.
-The existing \texttt{lowdin1982} supports the Lowdin side; check and add the
-already-present primary key \texttt{feshbach1958} at this occurrence if its
-scope matches the displayed construction.}
 The approximation target must therefore be declared explicitly. A model
 fitted to $\hat H^{(P)}$ approximates the parent action on a selected subspace.
 A model fitted to $\hat H_{\mathrm{down}}(E)$ also attempts to reproduce
@@ -207,9 +211,13 @@ then
     \int \mathrm{d}y\,
     P(x,y)V(y)P(y,x'),
 \end{equation}
-which is not generally proportional to $\delta(x-x')$. Locality must therefore
-be treated as an admissible model assumption rather than as an automatic
-consequence of projection.
+which is not generally proportional to $\delta(x-x')$. In periodic problems,
+even an exactly finite-range parent can acquire nonzero projected Fourier blocks
+at arbitrarily distant translations because its spectral projector need not be
+a finite Fourier polynomial. Gaps and regularity may still imply decay, but
+exact finite support is a stronger condition~\cite{desCloizeaux1964,benzi2013}.
+Locality must therefore be treated as an admissible model assumption rather
+than as an automatic consequence of projection.
 
 \section{Hilbert--Schmidt geometry}
 

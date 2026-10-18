@@ -1030,8 +1030,8 @@ requires-dist = [
     { name = "myst-parser", marker = "extra == 'docs'", specifier = ">=5.1,<6" },
     { name = "numpy", specifier = ">=2.3,<3" },
     { name = "pint", specifier = ">=0.26,<0.27" },
-    { name = "projectkoios-optimization", extras = ["numpy", "scipy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=ec3d2907097a659aef4be2b3384bd1922a9cb4dc" },
-    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=d6333208a1ff723682a557afd593a5c932058cb7" },
+    { name = "projectkoios-optimization", extras = ["numpy", "scipy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=2c6dd7f717722f6b0495feb8cfe1287a104268a6" },
+    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=7120b735c7e3e450aa8924780a71deb59d812632" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -1553,7 +1553,7 @@ wheels = [
 [[package]]
 name = "projectkoios-optimization"
 version = "0.1.0.dev0"
-source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=ec3d2907097a659aef4be2b3384bd1922a9cb4dc#ec3d2907097a659aef4be2b3384bd1922a9cb4dc" }
+source = { git = "https://github.com/eragasa/projectkoios-optimization.git?rev=2c6dd7f717722f6b0495feb8cfe1287a104268a6#2c6dd7f717722f6b0495feb8cfe1287a104268a6" }
 
 [package.optional-dependencies]
 numpy = [
@@ -1566,13 +1566,14 @@ scipy = [
 
 [[package]]
 name = "projectkoios-physkit"
-version = "0.1.2"
-source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=d6333208a1ff723682a557afd593a5c932058cb7#d6333208a1ff723682a557afd593a5c932058cb7" }
+version = "0.1.3.dev0"
+source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=7120b735c7e3e450aa8924780a71deb59d812632#7120b735c7e3e450aa8924780a71deb59d812632" }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pandas" },
     { name = "pint" },
+    { name = "projectkoios-optimization", extra = ["numpy"] },
     { name = "scipy" },
     { name = "sympy" },
 ]

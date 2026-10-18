@@ -1,0 +1,10 @@
+--- /Users/eugene/calculations/projectkoios-applications/silicon-example11-hminus-t-20261004T171505Z/inputs/original/silicon.win	2026-09-29 23:40:56
++++ /Users/eugene/calculations/projectkoios-applications/silicon-example11-hminus-t-20261004T171505Z/inputs/derived/silicon.win	2026-10-05 01:16:17
+@@ -1,3 +1,7 @@
++! Output-only controls added for retained H^W-T^W reconstruction artifacts.
++write_hr = true
++write_u_matrices = true
++
+ num_bands        =   12
+ 
+ num_iter         =  100

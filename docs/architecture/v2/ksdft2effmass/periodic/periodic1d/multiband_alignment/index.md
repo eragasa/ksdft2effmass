@@ -20,6 +20,7 @@ Procrustes recovery from a finite one-global-unitary family.
 Cross-cutting documentation:
 
 - [scientific boundary](scientific.md);
+- [numerical owner-boundary review](owner-boundary.md);
 - [calculation schematic](schematic.md);
 - [numerical contract](numeric.md);
 - [implementation mapping](implementation.md); and
@@ -30,7 +31,10 @@ Cross-cutting documentation:
 M2 owns the frozen rank-two attack family, frame-channel distinctions, global alignment
 constraint, gauge-resolved hopping transforms, locality ranges, and training/evaluation
 roles. Lower-level frame transport, Procrustes alignment, Fourier transformation, and
-hopping interpolation remain with their reusable domain owners.
+hopping interpolation remain with their reusable domain owners. The
+[owner-boundary review](owner-boundary.md) separates prospective Numerics and Alignment
+candidates from KSD scientific composition; it authorizes no extraction and requires an
+explicit rank-deficient Procrustes contract first.
 
 M2 does not own a general momentum-dependent gauge optimizer, material validation,
 Wannier90 execution, or scientific acceptance.

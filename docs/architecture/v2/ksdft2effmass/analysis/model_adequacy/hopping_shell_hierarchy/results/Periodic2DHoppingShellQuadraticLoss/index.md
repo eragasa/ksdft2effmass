@@ -11,7 +11,7 @@ Planned `squared_loss(maximal_energy_coefficients)` checks the maximal-space len
 inactive-zero rule, extracts active energy coefficients in canonical order, divides by
 the retained positive energy scale, and delegates the resulting dimensionless ratios to
 one exact-pinned
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`. Optimization receives
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`. Optimization receives
 only unit-free values and exposes completed-square state, backend selection,
 `squared_loss`, and
 `root_loss`; the HSH wrapper performs explicit physical-unit conversion and

@@ -1,0 +1,196 @@
+\section{Diagnostic definitions}
+\label{app:diagnostics}
+
+Every discrepancy below is defined only after its two arguments have been represented on
+the same sampled reciprocal mesh, in the same retained state space, basis, gauge, energy
+reference, units, and lattice geometry. A small numerical value cannot repair a missing
+state-space identification.
+
+\subsection{Pointwise matrix and sorted-band errors}
+
+Let $A_\ell,B_\ell\in\mathbb C^{r\times r}$ be Hermitian fields evaluated at the same
+$M$ reciprocal points, with ordered eigenvalues
+$\varepsilon_j^A(\mathbf q_\ell)$ and
+$\varepsilon_j^B(\mathbf q_\ell)$. Define the rank-normalized pointwise Hamiltonian
+defect
+\begin{equation}
+ d_{H,\ell}(A,B)=\frac{\norm{A_\ell-B_\ell}_F}{\sqrt r}.
+ \label{eq:app-pointwise-hamiltonian-defect}
+\end{equation}
+The four primary error channels are
+\begin{align}
+ \epsilon_{H,\max}(A,B)&=\max_\ell d_{H,\ell}(A,B),\\
+ \epsilon_{H,\mathrm{rms}}(A,B)
+ &=\left[\frac1M\sum_{\ell=1}^M d_{H,\ell}(A,B)^2\right]^{1/2},\\
+ \epsilon_{b,\max}(A,B)
+ &=\max_{\ell,j}\left|\varepsilon_j^A(\mathbf q_\ell)
+                   -\varepsilon_j^B(\mathbf q_\ell)\right|,\\
+ \epsilon_{b,\mathrm{rms}}(A,B)
+ &=\left[\frac1{Mr}\sum_{\ell=1}^M\sum_{j=1}^r
+  \left|\varepsilon_j^A(\mathbf q_\ell)
+       -\varepsilon_j^B(\mathbf q_\ell)\right|^2\right]^{1/2}.
+ \label{eq:app-primary-error-channels}
+\end{align}
+They have energy units. A displayed dimensionless value divides them by the declared
+$E_{\mathrm{ref}}$. The present retained rank is $r=2$, so the implementation uses the
+factor $1/\sqrt2$ in Eq.~\eqref{eq:app-pointwise-hamiltonian-defect}. Pointwise Weyl
+control is checked separately; in this normalization,
+\begin{equation}
+ \epsilon_{b,\max}(A,B)\le
+ \sqrt r\,\epsilon_{H,\max}(A,B).
+ \label{eq:app-weyl-check}
+\end{equation}
+No equality between matrix and band errors is assumed.
+
+\subsection{Interpolation, deliberate truncation, and total error}
+
+Write $H^{\mathrm{dir}}$ for the direct withheld-mesh field,
+$H_N^{\mathrm{ord}}$ for the full ordinary Fourier interpolant, and
+$H_{N,R}^{\mathrm{ord}}$ for its complete-radius truncation. For each of the four
+functionals in Eq.~\eqref{eq:app-primary-error-channels}, the three approximation
+channels are
+\begin{align}
+ \mathcal E_{\mathrm{interp}}&=\mathcal E(H_N^{\mathrm{ord}},H^{\mathrm{dir}}),\\
+ \mathcal E_{\mathrm{trunc}}&=\mathcal E(H_{N,R}^{\mathrm{ord}},H_N^{\mathrm{ord}}),\\
+ \mathcal E_{\mathrm{total}}&=\mathcal E(H_{N,R}^{\mathrm{ord}},H^{\mathrm{dir}}).
+ \label{eq:three-error-channels}
+\end{align}
+These channels are not added: interpolation and truncation may reinforce or cancel. For
+a strain-responsive control, the same definitions are applied to the gauge-aligned
+difference field $\Delta H_s$ after constructing it in one common retained space. The
+geometry-only strain control reports locality under a changing metric and is not a
+three-channel strain-potential calculation.
+
+\subsection{Fourier power, complete shells, and first passing}
+
+For ordinary hopping blocks $T_{\mathbf n}$ and a complete physical-metric support
+$\mathcal S_s$, define
+\begin{align}
+ P_{\mathrm{shell}}(s)
+ &=\frac1r\sum_{\mathbf n\in\mathcal S_s\setminus\mathcal S_{s-1}}
+   \norm{T_{\mathbf n}}_F^2,\\
+ P_{\mathrm{omit}}(s)
+ &=\frac1r\sum_{\mathbf n\notin\mathcal S_s}
+   \norm{T_{\mathbf n}}_F^2.
+ \label{eq:app-shell-power}
+\end{align}
+Division by $E_{\mathrm{ref}}^2$ gives the dimensionless power. Cyclic Nyquist power is
+reported separately and is not silently reassigned to an ordinary conjugate-closed
+hopping block. Parseval defects compare reciprocal-space power with the complete cyclic
+block inventory; truncation Parseval defects compare deliberate omitted power with its
+reciprocal-space reconstruction consequence.
+
+For diagnostic channel $X$ and tolerance $\tau$, the sampled first-passing shell is
+\begin{equation}
+ \widehat s_X(\tau)=
+ \min\{s:\epsilon_{X,\mathrm{total},\max}(s)\le\tau\}.
+ \label{eq:app-first-passing}
+\end{equation}
+The record retains the physical radius, block count, passing error, and immediately
+preceding error. If no complete shell passes before the declared cap, the decision is
+unresolved rather than assigned to the cap.
+
+\subsection{Alignment, reconstruction, and isolation diagnostics}
+
+The reconstruction ledger keeps parent Hermiticity, complete-eigensystem reconstruction,
+frame orthonormality, projector reconstruction, parent--retained lifting, Fourier
+reconstruction, covariant equality, and restricted global alignment as separate
+defects. External retained-subspace isolation is reported both as the minimum sampled
+gap and as a continuous lower bound. A sampled gap is not relabeled as a continuous
+certificate.
+
+Restricted alignment records one global rotation, the optimized nonnegative splitting
+scale, the finite-mesh maximum correlation, the minimum operator threshold, and the
+distinct unit-splitting exact-spectrum joint threshold. A fixed-unit-scale rotation fit
+cannot substitute for the optimized-scale threshold. Flat-family analytic correlations,
+quadrature defects, residual--tail identities, amplitude midpoint defects, and
+amplitude-resolution ladders remain separate checks.
+
+\subsection{Strain candidates, sampled envelopes, and transition brackets}
+
+At sampled strain $s_i$, let $\kappa_i$ and $\mu_i$ denote the restricted-alignment
+splitting scale and maximum correlation. The pointwise optimized requirement and the
+fixed reference-candidate requirement are
+\begin{align}
+ \tau_{o,\min}(s_i)
+ &=\sqrt{\kappa_i[1-\max(0,\mu_i)^2]},\\
+ \tau_{o,p_0}(s_i)
+ &=\sqrt{2\kappa_i(1-\mu_i)},
+ \qquad p_0=(0,1).
+ \label{eq:app-strain-candidate-requirements}
+\end{align}
+The first quantity permits an independently optimized candidate at every sampled
+strain. It is not one common witness. The second evaluates one prescribed parameter
+path, but it is not a witness until declared spectral and operator limits establish
+feasibility. Their hatted maxima, and the hatted locality radius and block-count maxima,
+are finite-sample statistics:
+\begin{equation}
+ \widehat\tau_{o,\min}=\max_i\tau_{o,\min}(s_i),\quad
+ \widehat\tau_{o,p_0}=\max_i\tau_{o,p_0}(s_i),\quad
+ \widehat R_\varepsilon=\max_iR_\varepsilon(s_i),\quad
+ \widehat N_\varepsilon=\max_iN_\varepsilon(s_i).
+ \label{eq:app-strain-sampled-envelopes}
+\end{equation}
+Each maximum retains its own sample location; the locations need not agree.
+
+The response-sweep qualification envelope additionally retains
+\begin{equation}
+ \min_i g_{\mathrm{ext}}(s_i),\qquad
+ \min_i\sigma_{\mathrm{seed}}(s_i),\qquad
+ \min_i\sigma_{\mathrm{frame}}(s_i),\qquad
+ \max_i r_{\mathrm{point}}(s_i),\qquad
+ \max_i r_{\mathrm{global}}(s_i),
+ \label{eq:app-strain-qualification-envelope}
+\end{equation}
+where $g_{\mathrm{ext}}$ is the sampled external isolation gap,
+$\sigma_{\mathrm{seed}}$ is the minimum seed-projector overlap,
+$\sigma_{\mathrm{frame}}$ is the minimum singular value of the pointwise frame overlap,
+and the two $r$ channels are pointwise and restricted-global frame-alignment residuals.
+Every extremum retains the first sampled strain at which it occurs. These quantities
+qualify the retained state-space identification; they are not response observables.
+
+For the frozen-parent and radial-response controls, the sweep also takes separate sampled
+maxima of all four errors in Eq.~\eqref{eq:app-primary-error-channels} for the aligned
+response, interpolation, deliberate truncation, and total channels. The same reduction
+is applied to $\Delta H_s$, ordinary omitted power, cyclic Nyquist power, scalar and
+traceless response components, onsite and offsite response power, and minimum and
+maximum prescribed hopping-response factors. No maxima from distinct channels are
+combined into a synthetic sample, and none is relabeled as a continuum supremum.
+
+A detected transition bracket is an adjacent sampled interval whose endpoint values of
+a discrete channel differ. The present discrete channels are first-passing block count
+at each tail tolerance and number of distinct bond-length orbits. Five bisections reduce
+a base-grid interval of width at most $1/200$ to width at most $1/6400$. The bracket
+localizes a detected change only. Equal endpoint values do not prove that the channel is
+constant inside the interval, and the bracket supplies no derivative or interval bound
+for the continuous path.
+
+\subsection{Transport and closure diagnostics}
+
+For rank-two closure diagnostics, let $W_\alpha(\mathbf k_\perp)$ be the ordered product
+of full-rank transport links around reciprocal direction $\alpha$ at transverse base
+point $\mathbf k_\perp$. If
+$-\pi\le\phi_{\alpha,0}(\mathbf k_\perp)\le
+\phi_{\alpha,1}(\mathbf k_\perp)\le\pi$ are its ordered principal eigenphases, define
+\begin{equation}
+ \Phi_j=\max_{\alpha,\mathbf k_\perp}
+ |\phi_{\alpha,j}(\mathbf k_\perp)|,
+ \qquad j\in\{0,1\}.
+ \label{eq:multidimensional-closure-phase-reduction}
+\end{equation}
+This reduction is applicable only when every contributing transport link is full rank.
+It is accompanied by the minimum transport singular value, Procrustes residual,
+rank-cutoff and roundoff controls, link-unitarity defect, closure-unitarity defect, and
+maximum plaquette phase. These closure and plaquette channels have no asserted
+topological meaning here. A rank-deficient link makes the dependent closure channels
+explicitly inapplicable rather than numerically zero.
+
+\subsection{Evidence and disposition boundary}
+
+The complete Paper~1 parity catalog additionally retains mesh separation, metric
+covariance, basis-distance extrema where applicable, refinement changes, exact request
+and source identities, schema validity, and independent reconstruction defects. A
+passing software verifier establishes agreement between declared calculations; it does
+not establish scientific adequacy. Family-specific tolerance acceptance, convergence,
+and retained-evidence disposition therefore remain distinct from every numerical defect
+defined above.

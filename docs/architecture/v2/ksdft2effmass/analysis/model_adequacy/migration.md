@@ -15,10 +15,10 @@ itself.
 |---|---|---|
 | Finite represented-operator compatibility, difference, and primitive residuals | `ksdft2effmass.operators` | Remains inward; unit-bearing hopping/path aggregation $R_H$ is assigned to PhysKit |
 | Periodic parent/model/Fourier primitives | `periodic`, `periodic1d`, `periodic2d`, `solid_state`, and PhysKit periodic lattice primitives | Compose exact-pinned PhysKit owners; do not duplicate lattice displacement, symmetry-operation, hopping, or represented-operator types |
-| Ordered finite closed parameter box | `projectkoios.optimization.ParameterBound` and `ParameterSpace` | Reuse exact-pinned dependency directly; HSH owns names, bound selection, and scientific invariants, not the generic container |
+| Ordered finite closed parameter box | `projectkoios.optimization.spaces.parameters.ParameterBound` and `ParameterSpace` | Reuse exact-pinned dependency directly; HSH owns names, bound selection, and scientific invariants, not the generic container |
 | M3 `Periodic1DQuadraticLoss` | `periodic1d.admissible_sets` | Maintained compatibility wrapper; may delegate behavior later |
 | M3 calculation/result/serializer/verifier | `periodic1d.admissible_sets` | Current route preserved; complete outward migration requires separate review |
-| Generic unit-free SPD quadratic | `projectkoios-optimization` | Implemented at commit `ec3d290…`, consumed through `projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`, and exact-pinned here |
+| Generic unit-free SPD quadratic | `projectkoios-optimization` | Initially implemented at commit `ec3d290…`, consumed from accepted migration commit `2c6dd7f…` through `projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`, and exact-pinned here |
 | Generic unit-free affine-quadratic construction and positive diagonal metric | Active donor candidates under `exports/optimization/` | Requires Optimization owner review, immutable owner commit, and separately authorized dependency repin before runtime use |
 | Generic hopping orbits, shells, real symmetry projection, and dimensionful Frobenius geometry | Active donor candidates under `exports/physkit/` | Requires PhysKit owner review, immutable owner commit, and separately authorized dependency repin before runtime use |
 | Prospective HSH shell/channel wrapper and certificates | Not implemented | Outward HSH owner under `analysis.model_adequacy`; HSH policy remains local to that child |
@@ -41,11 +41,13 @@ verification record exists in this phase.
 
 ## Phase 1 — Optimization quadratic owner surface
 
-**Complete.** Optimization supplied its own owner implementation at immutable commit
-`ec3d2907097a659aef4be2b3384bd1922a9cb4dc`. The public facade is
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`, selecting NumPy dense
-storage by default or SciPy CSR with `sparse=True`. The owner reported 95 passing tests
-plus Ruff, strict mypy, build, dependency-free facade, and installed-wheel backend
+**Complete.** Optimization supplied its initial owner implementation at immutable
+commit `ec3d2907097a659aef4be2b3384bd1922a9cb4dc`; the accepted KSD migration checkpoint
+is `2c6dd7f717722f6b0495feb8cfe1287a104268a6`. Its public facade is
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`, selecting
+NumPy dense storage by default or SciPy CSR with `sparse=True`. The initial owner
+checkpoint reported 95 passing tests plus Ruff, strict mypy, build, dependency-free
+facade, and installed-wheel backend
 smoke gates.
 
 KSD exact-pins that revision and owns focused consuming-project provenance, dense, sparse,

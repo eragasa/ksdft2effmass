@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ksdft2effmass-experiment-single-band-fourier-reduction"
+version = "0.1.0.dev0"
+description = "Publication-independent single-band Fourier-reduction experiment."
+requires-python = ">=3.14"
+dependencies = [
+    "ksdft2effmass",
+    "numpy>=1.26",
+    "scipy>=1.12",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["single_band_fourier_reduction*"]
+
+[tool.uv.sources]
+ksdft2effmass = { path = "../../../../python", editable = true }
+projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "2c6dd7f717722f6b0495feb8cfe1287a104268a6" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "7120b735c7e3e450aa8924780a71deb59d812632" }
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+pythonpath = [".", "src", "../../../../python/src"]
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+xfail_strict = true
+markers = [
+    "software_verification: implementation satisfies documented software contract",
+    "numerical_verification: numerical algorithm implements stated mathematics",
+]
+
+[tool.mypy]
+python_version = "3.14"
+files = ["src", "tests"]
+mypy_path = "../../../../python/src"
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.format]
+quote-style = "double"

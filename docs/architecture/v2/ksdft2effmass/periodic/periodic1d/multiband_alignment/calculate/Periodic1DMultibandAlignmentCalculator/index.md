@@ -18,10 +18,14 @@ into [implementation](implementation/index.md),
 
 ## Mathematical ownership
 
-Private methods own finite protocol policy: external-gap minimum, raw eigenspaces,
-attack rotations, path rotation, aggregate global rotation, recovery/frame/operator
-defects, and range assembly. Reusable transport, projection, Fourier, truncation, and
-Hermiticity algorithms remain delegated.
+Private methods currently implement finite protocol policy: external-gap minimum, raw
+eigenspaces, attack rotations, path rotation, aggregate global rotation,
+recovery/frame/operator defects, and range assembly. The
+[numerical owner-boundary review](../../owner-boundary.md) classifies direct
+finite-periodic linear algebra as prospective Numerics mechanisms and transformation
+selection as prospective Alignment mechanisms. Attack, controls, channel meaning,
+correlation, and interpretation remain KSD-owned; no move is authorized until the
+rank-deficient Procrustes contract is resolved.
 
 ## State-space contract
 

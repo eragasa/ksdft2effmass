@@ -3,7 +3,7 @@
 ## Initial bounded scope
 
 The exact-pinned Optimization facade
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss` fixes the external
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` fixes the external
 scalar, shape, backend-selection, arithmetic, and failure boundary. It is not a local
 KSD API. This page also fixes the numerical
 ownership split between the spectral loss $L_E$, the operator residual $R_H$, and the

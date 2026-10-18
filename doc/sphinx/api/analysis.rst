@@ -54,14 +54,42 @@ separate calls and results.
 .. autoclass:: BandApproximationErrorAnalyzer1D
    :members:
 
+Single-band hopping reduction
+-----------------------------
+
+The reusable single-band Workflow consumes an already identified rank-one training
+band and a separate evaluation band. It owns no parent model, band-selection policy,
+experiment identity, evidence schema, or scientific acceptance decision. Explicit
+positive fitting weights and unit-bearing numerical-consistency tolerances remain part
+of the request.
+
+.. currentmodule:: ksdft2effmass.analysis.single_band_reduction
+
+.. autoclass:: SingleBandHoppingReductionTolerances1D
+   :members:
+
+.. autoclass:: SingleBandHoppingReductionRequest1D
+   :members:
+
+.. autoclass:: SingleBandHoppingRangeReductionResult1D
+   :members:
+
+.. autoclass:: SingleBandHoppingReductionResult1D
+   :members:
+
+.. autoclass:: SingleBandHoppingReductionWorkflow1D
+   :members:
+
 Hopping fitting and route comparison
 ------------------------------------
 
 Weighted least-squares fitting consumes explicit positive sample weights and retains
-design rank, condition number, identification status, and training residuals. Complete
-uniform, weighted, and incomplete sample sets therefore remain distinct inputs and
-results. Route comparison reports coefficient-space and sampled reciprocal-operator
-Frobenius defects separately.
+design rank, condition number, identification status, and training residuals. The KSD
+adapter constructs the Fourier problem and unit-bearing result while the pinned
+``projectkoios-optimization`` dependency owns the unit-free dense numerical solve.
+Complete uniform, weighted, and incomplete sample sets therefore remain distinct inputs
+and results. Route comparison reports coefficient-space and sampled
+reciprocal-operator Frobenius defects separately.
 
 .. currentmodule:: ksdft2effmass.analysis.hopping_fits
 

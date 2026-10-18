@@ -159,9 +159,9 @@ with equal endpoints represents an inactive coordinate exactly; solver tolerance
 not widen it. `ksdft2effmass` does not re-export or wrap `ParameterSpace` merely to
 rename it.
 
-The dependencies are pinned to exact optimization commit
-`ec3d2907097a659aef4be2b3384bd1922a9cb4dc` and PhysKit release commit
-`d6333208a1ff723682a557afd593a5c932058cb7`. This reuse decision does not transfer HSH
+The dependencies are pinned to exact accepted migration commits
+`2c6dd7f717722f6b0495feb8cfe1287a104268a6` for Optimization and
+`7120b735c7e3e450aa8924780a71deb59d812632` for PhysKit. This reuse decision does not transfer HSH
 scientific policy, feasibility proofs, certificates, or dispositions to the
 optimization package.
 
@@ -183,10 +183,11 @@ It does not own thresholded model adequacy or parameter-space loss geometry.
 
 ### `exports/optimization`
 
-Records the completed transfer of unit-free completed-square loss geometry to
-`projectkoios-optimization` commit `ec3d290…`; no duplicate quadratic source remains in
-this repository. The accepted facade is
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`, with NumPy dense
+Records the initial transfer of unit-free completed-square loss geometry to
+`projectkoios-optimization` commit `ec3d290…` and its accepted migration through
+`2c6dd7f…`; no duplicate quadratic source remains in this repository. The accepted
+facade is
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`, with NumPy dense
 selection by default and SciPy CSR selection through `sparse=True`. Remaining affine,
 metric, feasibility, distance, dual-norm, and support candidates are prospective and
 have no staged source bytes.
@@ -279,8 +280,8 @@ because this decision exists.
    boundaries.
 2. **Complete and superseded:** preserve then remove donor quadratic bytes after the
    Optimization owner supplied its own implementation.
-3. **Complete:** pin Optimization commit `ec3d290…` and verify the public facade from the
-   consuming project.
+3. **Complete:** pin accepted Optimization migration commit `2c6dd7f…` and verify the
+   public facade from the consuming project.
 4. Demonstrate exact agreement with the M3 quadratic over hand-derived and adversarial
    fixtures while the independent M3 verifier retains its own reconstruction.
 5. Decide whether M3 delegates internally without changing public construction or wire

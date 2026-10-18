@@ -13,9 +13,9 @@ the dimensionless represented-operator RMS loss $L_H$. A positive-definite quadr
 not a third channel: it is a reusable completed-square representation of $L_E^2$ or
 $L_H^2$ over a declared affine candidate family.
 
-Generic immutable evaluation of that quadratic is supplied by exact-pinned
-`projectkoios-optimization` commit `ec3d290…` through
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`. The
+Generic immutable evaluation of that quadratic is supplied by exact-pinned accepted
+`projectkoios-optimization` migration commit `2c6dd7f…` through
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`. The
 [`exports/optimization`](../../../../../../exports/optimization/README.md) page records
 the completed transfer and separately stages new affine-quadratic and diagonal-metric
 donor candidates. Current M3 public routes and retained wire identities remain

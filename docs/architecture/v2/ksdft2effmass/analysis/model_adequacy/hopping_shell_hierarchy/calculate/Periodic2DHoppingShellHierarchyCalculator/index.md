@@ -30,7 +30,8 @@ geometry emits `unresolved-nonempty`.
 ## Dependencies and collaborators
 
 The calculator consumes `definition`, constructs HSH objects from `results`, composes
-exact-pinned `projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`, and may
+exact-pinned
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`, and may
 use `periodic2d` parent/model primitives plus public PhysKit and Optimization Actions.
 The definition selects and retains dense/sparse quadratic backend use. The calculator
 neither calls the result verifier nor delegates semantic validation to serialization.

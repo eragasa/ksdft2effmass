@@ -1,0 +1,465 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,tabularx,array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{prospectivered}{RGB}{185,0,0}
+\newenvironment{prospective}{\color{prospectivered}}{}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlist{nosep,leftmargin=*}
+\setlength{\emergencystretch}{2em}
+
+\title{Topological and Symmetry Obstructions to Multiband\\Operator Alignment}
+\author{Eugene Joseph M. Ragasa\\
+Department of Physics, De La Salle University, Manila, Philippines\\
+\texttt{eugene.ragasa@dlsu.edu.ph}}
+\date{Unpublished pre-results manuscript}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Equal rank of two periodic retained spaces guarantees pointwise unitary maps but does not
+guarantee the global periodic, smooth, or symmetry-compatible identification required to
+compare their operators. This paper develops a prospective obstruction protocol for
+multiband alignment. Periodic projector fields define vector bundles over the Brillouin
+torus; local frames are related by transition functions, and an alignment is a relative
+bundle isomorphism subject to any additional time-reversal, crystalline, real, or
+orientation-preserving structure required by the scientific question. The protocol
+distinguishes rank or gap failure, numerical nonresolution, complex-bundle obstruction,
+symmetry-equivariant obstruction, and obstruction created only by a restricted real or
+$SO(r)$ frame class. It specifies qualified uses of projector Chern formulas,
+gauge-invariant lattice curvature, Wilson-loop flow, time-reversal sewing, symmetry
+intertwining, and real-bundle diagnostics. A nonidentity Wilson loop, a finite-grid
+winding, or a failed gauge optimizer is not by itself classified as topology. When two
+nontrivial bundles are nevertheless isomorphic, their operators may be compared through
+compatible patchwise representatives even though neither admits the requested global
+frame. When the relative bundles are nonisomorphic, no global operator difference is
+defined. A staged controlled-model suite, independent verification, convergence gates,
+and fail-closed dispositions are proposed. No model suite or invariant protocol has yet
+been frozen, and no maintained experiment or material classification is reported.
+\end{abstract}
+
+\noindent\textbf{Keywords:} Bloch bundle; topological obstruction; symmetry obstruction;
+multiband alignment; Wilson loop; Chern number; time reversal; patchwise frame
+
+\section{Introduction}
+A periodic rank-$r$ projector field $P(\mathbf k)$ defines more than a collection of
+$r$-dimensional vector spaces. As $\mathbf k$ moves over the Brillouin torus, the fibers
+form a vector bundle whose global structure controls whether one can choose a smooth
+periodic Bloch frame and, under suitable analytic hypotheses, exponentially localized
+Wannier functions~\cite{brouder2007,panati2007}. Local smooth eigenvectors exist across a
+sufficiently small gapped neighborhood; the obstruction concerns gluing them into the
+global frame required by a chosen representation.
+
+This distinction matters for operator alignment. Paper 5 asks for a periodic unitary map
+between pristine and defect retained spaces before subtraction~\cite{Ragasa2026e}. Equal
+fiber rank establishes an abstract unitary at each $\mathbf k$, but those unitaries may
+fail to glue globally or may fail only after a time-reversal, crystalline, real, or
+orientation-preserving constraint is imposed. A numerical seam defect can also arise
+from a poor gauge on a trivial bundle. These outcomes require different scientific
+dispositions.
+
+Wilson loops, plaquette phases, and sewing matrices are powerful tools, but their
+interpretation depends on symmetry class, base space, rank, gap, discretization, and
+required frame category~\cite{fukui2005,fukane2006,soluyanov2011,yu2011}. A nonidentity
+Wilson loop can occur in a trivial bundle. A zero total Chern number does not establish a
+time-reversal-compatible frame. A complex bundle can be trivial while a required real
+or crystalline-equivariant framing remains obstructed. Conversely, a failed localization
+or phase-smoothing algorithm does not prove any of these obstructions.
+
+This paper defines a hierarchy and fail-closed protocol for those cases. It owns the
+escalation path from the topologically trivial controls in Paper 3~\cite{Ragasa2026c} and
+the minimal compatibility screen in Paper 5. It does not classify silicon or its dopants
+and does not replace the material-specific contract of Paper 7~\cite{Ragasa2026g}. All
+numerical model choices and tolerances remain prospective.
+
+\begin{prospective}
+\section{Bundle and alignment problem}
+
+\subsection{Projector bundles and local frames}
+Let $\mathbb T^D$ be an oriented Brillouin torus and let
+\begin{equation}
+ P_s(\mathbf k)^2=P_s(\mathbf k)=P_s(\mathbf k)^\dagger,
+ \qquad s\in\{0,1\},
+\end{equation}
+be periodic rank-$r_s$ projector fields separated from excluded states under a declared
+gap or disentanglement contract. Their ranges form complex vector bundles
+$\mathcal E_s\rightarrow\mathbb T^D$.
+
+Choose an open cover $\{\Omega_\alpha\}$ and local orthonormal frames
+\begin{equation}
+ F_{s,\alpha}(\mathbf k):\mathbb C^{r_s}\rightarrow
+ \operatorname{Range}P_s(\mathbf k).
+\end{equation}
+On overlaps,
+\begin{equation}
+ F_{s,\beta}=F_{s,\alpha}g^s_{\alpha\beta},
+ \qquad g^s_{\alpha\beta}:\Omega_\alpha\cap\Omega_\beta\rightarrow U(r_s),
+\end{equation}
+with cocycle consistency on triple overlaps. A global complex periodic frame exists
+precisely when the bundle is trivial in the declared category. Additional regularity is
+needed before topological triviality becomes a localization statement; a numerically
+smooth finite mesh is not an analytic frame certificate.
+
+\subsection{Relative alignment}
+For equal rank $r_0=r_1=r$, an unconstrained global alignment is a bundle isomorphism
+\begin{equation}
+ U(\mathbf k):\mathcal E_{0,\mathbf k}\rightarrow\mathcal E_{1,\mathbf k}.
+\end{equation}
+In local frames write
+\begin{equation}
+ UF_{0,\alpha}=F_{1,\alpha}W_\alpha,
+ \qquad W_\alpha:\Omega_\alpha\rightarrow U(r).
+\end{equation}
+The local matrices glue exactly when
+\begin{equation}
+ W_\beta=(g^1_{\alpha\beta})^\dagger W_\alpha g^0_{\alpha\beta}
+ \label{eq:glue}
+\end{equation}
+on every overlap. The question is relative: two individually nontrivial bundles may
+admit a global isomorphism. Requiring a separate global frame for each would be
+unnecessarily strong. Conversely, different bundle classes cannot be made globally
+comparable by pointwise polar alignment.
+
+Characteristic data supply necessary compatibility tests and, in carefully stated low-
+dimensional categories, may be complete. This manuscript does not assume completeness
+outside a selected theorem domain. Matching sampled Chern or Wilson diagnostics alone is
+not a general proof of bundle isomorphism.
+
+\subsection{Patchwise operator comparison}
+Let $H_{s,\alpha}=F_{s,\alpha}^\dagger H_sF_{s,\alpha}$. When Eq.~\eqref{eq:glue} holds,
+define
+\begin{equation}
+ \Delta H_\alpha
+ =H_{1,\alpha}-W_\alpha H_{0,\alpha}W_\alpha^\dagger.
+\end{equation}
+The matrices $\Delta H_\alpha$ transform on overlaps by conjugation with
+$g^1_{\alpha\beta}$ and represent one global endomorphism of $\mathcal E_1$. Its
+spectrum, traces, and unitarily invariant fiber norms are global even when no single
+frame is admitted. A conventional global Wannier matrix and one globally labeled hopping
+table are not available in that obstructed frame category.
+
+If the bundles are not isomorphic, arbitrary local differences do not glue into one
+operator. They may diagnose where compatibility fails, but they are not pieces of a
+global impurity operator. This prevents ``patchwise comparison'' from concealing a
+relative obstruction.
+
+\subsection{Required category}
+An obstruction is meaningful only relative to a requested structure:
+\begin{enumerate}
+ \item \textbf{complex periodic}: frames and maps take values in $U(r)$;
+ \item \textbf{time-reversal compatible}: an antiunitary $\Theta$ and its square are
+ fixed, with a declared Kramers sewing rule;
+ \item \textbf{crystalline equivariant}: maps intertwine selected unitary or antiunitary
+ space-group representations;
+ \item \textbf{real}: a real structure is fixed and transitions lie in $O(r)$; or
+ \item \textbf{oriented real}: transitions and alignments lie in $SO(r)$.
+\end{enumerate}
+Failure in a narrower category does not imply failure in a broader one. If the comparison
+only requires a complex unitary, a real-frame obstruction is inapplicable. If time
+reversal or a crystalline representation is mandatory, discarding it changes the
+problem and requires an explicit human decision.
+
+\section{Obstruction hierarchy and diagnostics}
+
+\subsection{Rank and isolation precede topology}
+Topology is assigned only after constant rank and the defining isolation or
+entanglement-stability condition pass on the full parameter domain. A rank change or gap
+closing is reported directly. In a sweep it may locate a candidate phase boundary, but
+no invariant is assigned at the singular point unless nodal classification is separately
+in scope.
+
+Numerical inability to resolve a small gap, a rank-deficient neighbor overlap, or a
+mesh-dependent projector is \textbf{NUMERICALLY\_UNRESOLVED}, not topological evidence.
+
+\subsection{Complex Chern obstruction}
+For a sufficiently regular two-dimensional projector and frozen orientation, define
+\begin{equation}
+ C[P]=\frac{1}{2\pi i}\int_{\mathbb T^2}
+ \operatorname{Tr}\!\left(P[\partial_{k_x}P,\partial_{k_y}P]\right)
+ \,d^2\mathbf k.
+\end{equation}
+A nonzero first Chern number obstructs a global smooth periodic complex frame and the
+corresponding orthonormal exponentially localized Wannier representation under the
+standard hypotheses~\cite{brouder2007,panati2007}. For relative alignment,
+$C[P_0]\ne C[P_1]$ proves that the two complex bundles are not isomorphic. Equality is a
+compatibility condition, not a universal certificate in arbitrary dimension or symmetry
+class.
+
+On a mesh, the proposed primary calculation uses gauge-invariant link determinants or
+projector Bargmann loops. For frame overlaps
+$M_\mu(\mathbf k)=F^\dagger(\mathbf k)F(\mathbf k+\hat\mu)$, define
+\begin{equation}
+ \mathcal U_\mu(\mathbf k)
+ =\frac{\det M_\mu(\mathbf k)}{|\det M_\mu(\mathbf k)|}
+\end{equation}
+only when the magnitude passes a frozen conditioning gate. Oriented plaquette phases
+yield a lattice Chern sum~\cite{fukui2005}. An integer-looking finite sum is admitted as
+evidence only with a gap record, orientation and branch convention, independent
+projector-route reconstruction, gauge attacks, mesh refinement, and agreement with an
+analytic or certified control where available.
+
+For three-dimensional families, Chern calculations on two-dimensional slices are
+reported slice by slice. A slice invariant may change only where assumptions fail; it is
+not automatically a complete three-dimensional classification.
+
+\subsection{Wilson loops}
+A non-Abelian Wilson matrix is constructed from unitary polar factors of conditioned
+neighbor-overlap matrices along a closed loop. Its eigenphases are invariant as a set
+under periodic gauge transformations. The protocol retains path, base point,
+orientation, sewing closure, eigenphase matching, degeneracy handling, and refinement.
+
+A nonidentity Wilson matrix or nonzero Berry phase does not establish an obstruction.
+Even a trivial bundle can have nontrivial connection holonomy. Topological use requires
+a qualified spectral-flow or winding statement tied to the applicable invariant and
+symmetry~\cite{alexandradinata2014}. Ordinary closure failures are first tested as
+numerical or gauge-sewing defects.
+
+\subsection{Time-reversal-compatible obstruction}
+For fermionic time reversal, $\Theta^2=-1$ and the retained rank is even. A local frame
+defines the sewing matrix
+\begin{equation}
+ w_{mn}(\mathbf k)=\langle u_m(-\mathbf k)|\Theta u_n(\mathbf k)\rangle.
+\end{equation}
+The protocol verifies the antiunitary representation, Kramers degeneracy at time-
+reversal-invariant momenta, reciprocal sewing, and required projector covariance. A
+vanishing total Chern number does not establish a global Kramers-compatible frame. The
+$\mathbb Z_2$ channel must use a reviewed gauge-invariant formulation, such as time-
+reversal polarization, Pfaffian/sewing data, or qualified Wilson-loop partner switching,
+with cross-method agreement where assumptions overlap
+\cite{fukane2006,soluyanov2011,yu2011}.
+
+A time-reversal obstruction can coexist with an unconstrained complex frame. The correct
+disposition is \textbf{GLOBAL\_COMPLEX\_BUT\_TR\_OBSTRUCTED}, not ``no global frame''
+without qualification.
+
+\subsection{Crystalline and fragile obstruction}
+If a space-group or point-group action is required, the bundle and alignment must be
+equivariant. At invariant momenta and lines, retained representation content and
+compatibility relations provide necessary tests. A proposed relative map must intertwine
+the two sewing representations. Topological quantum chemistry makes these distinctions
+systematic~\cite{bradlyn2017}.
+
+Stable, fragile, and obstructed-atomic-limit statements remain separate. A fragile
+Wannier obstruction can disappear after adding selected trivial bands~\cite{po2018}.
+Such an enlargement changes the retained space and cannot be performed silently to pass
+an alignment gate. Representation matching at finitely many special momenta is not
+assumed sufficient unless a theorem for the declared symmetry and band class is in the
+protocol.
+
+\subsection{Real and orientation-preserving restrictions}
+An antiunitary symmetry squaring to $+1$, or another reviewed real structure, can reduce
+the gauge group from $U(r)$ to $O(r)$. Requiring oriented real frames further restricts
+it to $SO(r)$. Orientation and higher real-bundle obstructions may be probed through
+Stiefel--Whitney data, transition-function determinants, and qualified Wilson
+diagnostics~\cite{ahn2019}.
+
+These channels are evaluated only when the real structure and gauge restriction are
+part of the contract. The protocol records whether $w_1$, $w_2$, or another quantity is
+complete for the declared dimension and rank. A complex-trivial bundle must not be
+called topologically obstructed without naming the narrower real or symmetry category.
+
+\subsection{Obstruction ladder}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{p{0.08\textwidth}YY}
+\toprule
+\textbf{Level} & \textbf{Question} & \textbf{Failure disposition} \\
+\midrule
+0 & Are rank and defining gaps or stability conditions valid? & \nolinkurl{RANK_OR_GAP_FAILURE} \\
+1 & Are projectors, overlaps, seams, and invariants resolved? & \nolinkurl{NUMERICALLY_UNRESOLVED} \\
+2 & Are the complex bundles relatively isomorphic? & \nolinkurl{COMPLEX_RELATIVE_OBSTRUCTION} \\
+3 & Does a required time-reversal or crystalline-equivariant map exist? & \nolinkurl{SYMMETRY_RELATIVE_OBSTRUCTION} \\
+4 & Does a required real or $SO(r)$ isomorphism exist? & \nolinkurl{RESTRICTED_FRAME_OBSTRUCTION} \\
+5 & Can the admitted map be constructed with required regularity? & \nolinkurl{CONSTRUCTION_UNRESOLVED} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+The ladder is ordered by logical dependency, not severity. A lower-level failure stops
+higher-level claims whose premises it removes.
+
+\section{Prospective controlled-model protocol}
+
+\subsection{Model roles}
+The initial study should select the smallest exact models needed to distinguish:
+\begin{itemize}
+ \item \textbf{C0}: a gapped complex-trivial family with a supplied global frame;
+ \item \textbf{C1}: a rank-one Chern family with topological and trivial controls;
+ \item \textbf{C2}: same-nonzero-Chern copies or deformations, testing a relative map
+ despite absent individual global frames;
+ \item \textbf{C3}: equal-rank families with different Chern class;
+ \item \textbf{T0/T1}: time-reversal-trivial and nontrivial even-rank zero-total-Chern controls;
+ \item \textbf{R0/R1}: complex-trivial controls trivial or obstructed under a declared real restriction; and
+ \item \textbf{S0/S1}: crystalline-equivariant compatible and incompatible controls.
+\end{itemize}
+No model family is selected here. Standard two-dimensional Chern models, including
+Qi--Wu--Zhang and Haldane families~\cite{qi2006,haldane1988}, are candidates only after
+their state spaces, parameters, energy units, analytic boundaries, and publication roles
+are reviewed. A first immutable version may cover only C0--C3; later symmetry classes
+would receive separate versioned protocols.
+
+\subsection{Required analytic contracts}
+Each case must state:
+\begin{enumerate}
+ \item base torus, orientation, reciprocal coordinates, and boundary identifications;
+ \item finite Bloch state space, matrix ordering, units, and exact Hamiltonian;
+ \item target rank and analytic or independently certified gap domain;
+ \item required frame category and symmetry representations;
+ \item known invariant or transition functions and sign convention;
+ \item expected relative-alignment disposition;
+ \item singular parameter values excluded from invariant claims; and
+ \item the distinction between theorem, analytic certificate, and sampled diagnostic.
+\end{enumerate}
+Models with different state spaces or energy scales are not treated as approximations of
+one another and their errors are not pooled.
+
+\subsection{Numerical and verification design}
+A frozen mesh ladder must refine independently in each reciprocal direction and avoid
+unqualified conclusions at analytic singularities. The primary route computes spectra,
+projectors, conditioned links, plaquette invariants, Wilson data, transition functions,
+and constructive alignment residuals. A deterministic periodic $U(r)$ frame attack is
+applied to every case.
+
+An independent verifier reconstructs each Bloch operator from the serialized contract
+and uses projector traces or Bargmann invariants rather than importing primary
+eigenvectors or link routines. It checks Hermiticity, ranks, gaps, periodicity, seam
+projectors, integer and branch stability, gauge-attack invariance, analytic expectations,
+transition cocycles, relative gluing, and constructive frames where expected.
+
+A failed optimizer is never the obstruction certificate. Positive evidence is the
+qualified invariant or incompatibility of transition data; constructive failure is a
+secondary consistency check.
+
+\subsection{Acceptance and dispositions}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{0.38\textwidth}Y}
+\toprule
+Outcome & Meaning \\
+\midrule
+\nolinkurl{GLOBAL_COMPLEX_ALIGNMENT_ADMITTED} & A periodic complex relative map is constructively qualified. \\
+\nolinkurl{GLOBAL_SYMMETRY_ALIGNMENT_ADMITTED} & The map also satisfies every declared symmetry constraint. \\
+\nolinkurl{PATCHWISE_GLOBAL_OPERATOR_ADMITTED} & Relative bundles are isomorphic and local matrices glue, but the requested individual global frame is obstructed. \\
+\nolinkurl{COMPLEX_RELATIVE_OBSTRUCTION} & Qualified complex-bundle data forbid a global relative map. \\
+\nolinkurl{SYMMETRY_RELATIVE_OBSTRUCTION} & A complex map exists but no map in the required symmetry category is certified. \\
+\nolinkurl{RESTRICTED_FRAME_OBSTRUCTION} & Failure occurs only in the declared real or $SO(r)$ category. \\
+\nolinkurl{RANK_OR_GAP_FAILURE} & The invariant or alignment premises fail. \\
+\nolinkurl{NUMERICALLY_UNRESOLVED} & Refinement, conditioning, or independent verification does not support classification. \\
+\nolinkurl{OUT_OF_SCOPE} & The requested invariant is not defined by the frozen protocol. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+Operator authorization is downstream. For example,
+\nolinkurl{PATCHWISE_GLOBAL_OPERATOR_ADMITTED} permits invariant and patchwise operator
+comparison but does not create a conventional global Wannier hopping representation.
+\end{prospective}
+
+\section{Current evidence boundary}
+No maintained experiment under \texttt{experiments/} supplies Paper 6 obstruction
+evidence. No model suite, immutable protocol, schema, verifier identity, frozen mesh
+ladder, convergence threshold, or retained run has been selected.
+
+Historical development calculations are retained under
+\begin{center}
+\path{calculations/research-monograph/periodic-2d/}.
+\end{center}
+They include separate Qi--Wu--Zhang, Hofstadter, and Haldane Chern diagnostics and
+parameter sweeps. They remain calculation-tree synthetic records. They have not undergone
+the evidence review, migration, protocol
+freeze, and maintained successor packaging required for Paper 6 publication evidence.
+This manuscript reports none of their numerical values as Paper 6 results.
+
+Wilson loops and closure phases in Papers 2 and 3 remain transport and sewing controls
+in explicitly topologically trivial families. They are not retrospectively reclassified
+as continuum topological evidence. A future failed Paper 5 alignment enters Paper 6 only
+after rank, numerical conditioning, semantics, and ordinary sewing failures have been
+excluded.
+
+No Chern, $\mathbb Z_2$, crystalline, fragile, Stiefel--Whitney, real-bundle, silicon, or
+dopant classification is claimed here.
+
+\section{Discussion}
+The relative formulation changes the practical question. Operator comparison does not
+always require trivializing each bundle independently. If two nontrivial bundles are
+isomorphic, an alignment can exist and a global abstract operator difference can be
+represented consistently in patches. What fails is the requested single global frame or
+its Wannier representation, not necessarily the comparison itself.
+
+Symmetry adds a second distinction. A complex alignment may exist while a
+Kramers-compatible, crystalline-equivariant, real, or orientation-preserving alignment
+does not. Reporting only ``topological'' would hide which scientific requirement caused
+the failure. The ordered obstruction ladder keeps that requirement visible.
+
+Finite-mesh calculations require caution. Lattice Chern formulas can be exactly integer
+valued on a fixed mesh, and Wilson phases can show convincing flow, while the target gap,
+link conditioning, branch convention, or continuum refinement remains unresolved.
+Integer output is one channel in a certification protocol, not an automatic theorem.
+
+The proposed scope also prevents topology from becoming an explanation of last resort.
+Rank mismatch, state misassignment, optimizer-basin variation, discontinuous input data,
+and incorrect reciprocal sewing all have prior diagnostics. Only after those alternatives
+are excluded should the workflow escalate to bundle classification.
+
+\section{Conclusions}
+This paper defines a prospective hierarchy for global multiband alignment. It
+distinguishes complex bundle isomorphism from individual frame triviality, then separates
+symmetry-equivariant and restricted real-frame requirements. Projector invariants,
+transition functions, Wilson flows, and constructive maps have qualified roles; no
+single diagnostic is allowed to prove every obstruction.
+
+The next step is a reviewed C0--C3 synthetic protocol with exact model contracts, a
+frozen refinement ladder, independent projector verification, transition-function
+checks, and immutable evidence identities. Time-reversal, crystalline, and real classes
+should enter only through separately frozen successors. No material or dopant calculation
+is required to establish these controlled mathematical boundaries.
+
+\appendix
+\section{Pre-execution commitment ledger}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{p{0.20\textwidth}YY}
+\toprule
+\textbf{Item} & \textbf{Required commitment} & \textbf{Current state} \\
+\midrule
+Version scope & Exact subset of C, T, R, and S roles & Unselected \\
+Model contracts & Hamiltonians, spaces, parameters, units, controls & Unselected \\
+Base geometry & Dimension, torus, orientation, seams, loop paths & Method only \\
+Projectors & Rank, gap/stability rule, singular-point policy & Unselected \\
+Category & Complex, TR, crystalline, real, or $SO(r)$ requirement & Case roles only \\
+Invariants & Formula, sign, branch, completeness domain & Method only \\
+Numerics & Meshes, conditioning gates, tolerances, convergence & Unselected \\
+Construction & Frame/alignment algorithm and gluing tests & Unselected \\
+Verification & Independent projector route and attack family & Method only \\
+Evidence & Schemas, version, run, verifier, package identities & Absent \\
+Resources & Executable, outputs, runtime and memory ceilings & Unreported \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Required result record}
+A future retained Paper 6 result must include:
+\begin{enumerate}
+ \item immutable model, state-space, symmetry, coordinate, and software identities;
+ \item exact analytic expectations and excluded singular parameter sets;
+ \item complete gap, rank, periodicity, and projector-convergence records;
+ \item overlap conditioning and every omitted or invalid link;
+ \item lattice-curvature values with orientation, branch, and mesh refinement;
+ \item Wilson spectra with loop, base point, sewing, matching, and degeneracy rules;
+ \item time-reversal, crystalline, or real-structure residuals when applicable;
+ \item local frames, transition functions, cocycle residuals, and patch definitions;
+ \item relative gluing maps and constructive global-alignment attempts;
+ \item deterministic gauge-attack and independent-verifier results;
+ \item separate technical disposition for every case and mesh;
+ \item the theorem, certificate, diagnostic, and evidence boundary for each claim; and
+ \item manifests, hashes, commands, environment, schemas, verifier, run, and package identities.
+\end{enumerate}
+
+\bibliographystyle{unsrt}
+\bibliography{references,../../unpublished-papers}
+
+\end{document}

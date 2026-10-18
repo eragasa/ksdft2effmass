@@ -1,7 +1,7 @@
 """Execution-free native Wannier90 artifact correlation contracts."""
 
+from ...model.integrations import Periodic1DWannier90NativeArtifactGroup
 from ...native_artifact_workflows import (
-    Periodic1DWannier90NativeArtifactGroup,
     Periodic1DWannier90NativeArtifactGroupResult,
     Periodic1DWannier90NativeArtifactWorkflow,
     Periodic1DWannier90NativeArtifactWorkflowRequest,

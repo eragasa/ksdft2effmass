@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "identity": {
+      "additionalProperties": false,
+      "properties": {
+        "alignment_method_id": {
+          "const": "continuous-global-real-rotation-harmonic.v1"
+        },
+        "family_id": {
+          "const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality"
+        },
+        "fourier_convention_id": {
+          "const": "forward-negative-exponent-inverse-positive-exponent.v1"
+        },
+        "fourier_normalization_id": {
+          "const": "forward-one-over-n-inverse-unit.v1"
+        },
+        "method_id": {
+          "const": "flat-rank-two-smooth-sinusoidal-gauge-continuum.v1"
+        },
+        "parent_model_id": {
+          "const": "normalized-flat-rank-two-traceless-parent.v1"
+        },
+        "reduced_coordinate_id": {
+          "const": "q-equals-k-over-reciprocal-period.v1"
+        }
+      },
+      "required": [
+        "alignment_method_id",
+        "family_id",
+        "fourier_convention_id",
+        "fourier_normalization_id",
+        "method_id",
+        "parent_model_id",
+        "reduced_coordinate_id"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.smooth-continuum.verification.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "claim_boundary": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "disposition_matches": {
+      "type": "boolean"
+    },
+    "identity": {
+      "$ref": "#/$defs/identity"
+    },
+    "maximum_refinement_absolute_defect": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "mesh_maximum_absolute_defects": {
+      "items": {
+        "minimum": 0.0,
+        "type": "number"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "mesh_passes": {
+      "items": {
+        "type": "boolean"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "passes": {
+      "type": "boolean"
+    },
+    "result_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.smooth-continuum.result.v1"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.smooth-continuum.verification.v1"
+    }
+  },
+  "required": [
+    "claim_boundary",
+    "disposition_matches",
+    "identity",
+    "maximum_refinement_absolute_defect",
+    "mesh_maximum_absolute_defects",
+    "mesh_passes",
+    "passes",
+    "result_binding",
+    "schema"
+  ],
+  "type": "object"
+}

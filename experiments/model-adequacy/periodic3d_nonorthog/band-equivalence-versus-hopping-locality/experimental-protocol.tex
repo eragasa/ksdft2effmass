@@ -1,0 +1,591 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\T}{\mathbb T}
+\newcommand{\Z}{\mathbb Z}
+
+\title{\textbf{Prospective non-orthogonal 3-D protocol:\\
+Silicon-inspired diamond-lattice band equivalence and hopping locality}}
+\author{KSD reduced-Hamiltonian research program}
+\date{Pre-version scientific design}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This protocol selects a silicon-inspired synthetic parent on the diamond lattice: an
+FCC Bravais lattice in a non-orthogonal primitive basis with a two-site tetrahedral
+basis.  It is the three-dimensional non-orthogonal extension of the
+publication-independent experiment \emph{Band Equivalence versus Hopping Locality}.  A
+separate matched simple-cubic--FCC Bravais control isolates metric and bond-orbit
+behavior without being identified as silicon.  The inspired parent contains two sites
+and two abstract orbital channels per cell; it is not an $sp^3s^*$ model or a material
+parametrization.  Complete reference and rotated rank-two fields are pointwise unitarily
+equivalent before truncation.  The primary outcome is the additional metric- and
+point-group-complete hopping support required by the rotated silicon-inspired
+representation at a fixed withheld band-error target.
+
+The six positive FCC bond vectors have several integer relations.  Their flat-parent
+correlation is therefore a constrained three-index Bessel sum, not the simple-cubic
+product of independent $J_0$ factors.  The protocol independently checks this
+comparator, the residual--non-onsite-weight identity, three-dimensional finite Fourier
+conversion, metric-shell construction, primitive-basis covariance, and resource-safe
+execution.  Separately authorized bounded local Monkhorst--Pack actions at $N=8,16,32$
+now exercise these channels; they are not an immutable version, material claim,
+qualified convergence result, or continuum certificate.
+\end{abstract}
+
+\paragraph{Experiment identity.}
+The family identity is
+\path{ksdft2effmass.campaign.model-adequacy.periodic3d-nonorthogonal.band-equivalence-versus-hopping-locality}.
+It is distinct from the orthogonal periodic-3D family and from every version, run,
+evidence package, and publication identity.  The matched simple-cubic case below is an
+internal comparator, not evidence owned by the orthogonal family.  A later immutable
+version remains gated on the 2-D and simple-cubic owner contracts.
+
+\paragraph{Status and sequence.}
+The FCC lattice, diamond basis, inspired and matched-control parent forms, retained
+rank, bond inventories, primary amplitude convention, analytic comparator, shell
+metrics, basis-aware distance diagnostic, and required diagnostics are selected
+development controls.  After the bounded 2-D stage, the local $N=8,16,32$ actions ran
+within their reported resource envelopes and produced independent development
+verification records.  All eighteen pointwise first-passing decision sets agree on both
+refinements, but complete diagnostic parity and a formal convergence disposition remain
+open.  Control-parent gap qualification, comparator-tail certification, final tolerances
+and retained-record schemas, frozen revisions, and evidence retention also remain open.
+No production or retained execution is authorized by this document.
+
+\section{Scientific question and comparison boundary}
+
+The primary target is a silicon-inspired diamond-basis parent.  A separate matched
+simple-cubic--FCC Bravais pair isolates metric and bond-orbit behavior using the same
+internal matrices and numerical channels.  Complete reference and rotated fields are
+equivalent under consistent transformation of states and operators; only the cost of a
+deliberately truncated representation is compared.
+
+The comparison is conditional on the declared basis, bond orbits, and normalizations.
+It is not a silicon Hamiltonian, an $sp^3s^*$ model, a statement about atomic orbitals,
+or a universal ranking of crystal lattices.  Parent reconstruction, covariant
+equivalence, restricted
+global alignment, cyclic conversion, interpolation, deliberate truncation, and total
+consequences remain separate channels and are never summed as independent errors.
+
+\section{FCC primitive and matched simple-cubic geometry}
+
+Let $a_c$ be the conventional cubic length.  The FCC primitive matrix and Gram matrix
+are
+\begin{equation}
+ A_{\mathrm{fcc}}=\frac{a_c}{2}
+ \begin{pmatrix}
+ 0&1&1\\
+ 1&0&1\\
+ 1&1&0
+ \end{pmatrix},
+ \qquad
+ G_{\mathrm{fcc}}=A_{\mathrm{fcc}}^{\mathsf T}A_{\mathrm{fcc}}
+ =\frac{a_c^2}{4}
+ \begin{pmatrix}
+ 2&1&1\\
+ 1&2&1\\
+ 1&1&2
+ \end{pmatrix}.
+ \label{eq:fcc-metric}
+\end{equation}
+The reciprocal primitive matrix is
+$B_{\mathrm{fcc}}=2\pi A_{\mathrm{fcc}}^{-\mathsf T}$.  Reduced coordinates satisfy
+$\mathbf q\in[-1/2,1/2)^3$, physical wavevectors are
+$\mathbf k=B_{\mathrm{fcc}}\mathbf q$, and the Bloch phase is
+$e^{2\pi i\mathbf q\cdot\mathbf R}$.
+
+Choose the positive half of the FCC nearest-neighbor orbit as
+\begin{equation}
+ \mathcal B_{\mathrm{fcc},+}
+ =\{\mathbf e_1,\mathbf e_2,\mathbf e_3,
+     \mathbf e_2-\mathbf e_1,
+     \mathbf e_3-\mathbf e_1,
+     \mathbf e_3-\mathbf e_2\},
+ \qquad m_{\mathrm{fcc}}=6.
+ \label{eq:fcc-bonds}
+\end{equation}
+Together with its negatives it contains twelve bonds of length $a_c/\sqrt2$.  The
+matched simple-cubic control uses a nearest-neighbor length $a_c/\sqrt2$ so that its
+physical nearest-neighbor distance equals the FCC value:
+\begin{equation}
+ A_{\mathrm{sc}}=\frac{a_c}{\sqrt2}I_3,
+ \qquad
+ \mathcal B_{\mathrm{sc},+}=\{\mathbf e_1,\mathbf e_2,\mathbf e_3\},
+ \qquad m_{\mathrm{sc}}=3.
+\end{equation}
+This length matching does not make the cell volumes or dispersions equal; those remain
+reported geometry properties.
+
+For $X\in\{\mathrm{sc},\mathrm{fcc}\}$, define
+\begin{equation}
+ r_X^2(\mathbf R)=\mathbf R^{\mathsf T}G_X\mathbf R,
+ \qquad
+ \Gamma_X=\{M\in GL(3,\Z):M^{\mathsf T}G_XM=G_X\}.
+ \label{eq:metric-and-group}
+\end{equation}
+A convenient integer FCC shell index is
+\begin{equation}
+ s_{\mathrm{fcc}}(\mathbf R)
+ =\frac{2r_{\mathrm{fcc}}^2(\mathbf R)}{a_c^2}
+ =R_1^2+R_2^2+R_3^2+R_1R_2+R_1R_3+R_2R_3.
+ \label{eq:fcc-shell-index}
+\end{equation}
+Nearest neighbors have $s_{\mathrm{fcc}}=1$.  Support inventories must contain complete
+$\Gamma_X$ orbits and every attainable metric shell through the cap.  Coordinate radius
+$R_1^2+R_2^2+R_3^2$ is not an FCC physical shell label.
+
+PhysKit owns reusable direct, reciprocal, metric, and finite-domain lattice primitives.
+This experiment owns the selected FCC orbit, basis semantics, support acceptance,
+thresholds, verification, and evidence policy.
+
+\subsection{Diamond basis and silicon-inspired connectivity}
+
+The FCC Bravais lattice becomes diamond only after adding two tetrahedrally related
+basis sites.  In reduced direct coordinates, select
+\begin{equation}
+ \boldsymbol\tau_A=(0,0,0),
+ \qquad
+ \boldsymbol\tau_B=(1/4,1/4,1/4).
+ \label{eq:diamond-basis}
+\end{equation}
+The four nearest $A$--$B$ bonds use cell shifts
+\begin{equation}
+ \mathcal D_{AB}=\{\mathbf0,-\mathbf e_1,-\mathbf e_2,-\mathbf e_3\},
+ \qquad
+ \boldsymbol\delta_j=A_{\mathrm{fcc}}
+ (\boldsymbol\ell_j+\boldsymbol\tau_B-\boldsymbol\tau_A).
+ \label{eq:diamond-bonds}
+\end{equation}
+All four physical vectors have length $a_c\sqrt3/4$.  In the periodic orbital
+convention, define the normalized diamond structure factor
+\begin{equation}
+ \gamma_{\mathrm{dia}}(\mathbf q)
+ =\frac14\left[1+e^{-2\pi iq_1}+e^{-2\pi iq_2}+e^{-2\pi iq_3}\right],
+ \qquad |\gamma_{\mathrm{dia}}|\le1.
+ \label{eq:diamond-structure-factor}
+\end{equation}
+This encodes a diamond-like bipartite connectivity only.  It does not encode silicon
+valleys, $sp^3s^*$ orbitals, spin--orbit coupling, or first-principles matrix elements.
+
+\section{Matched Bravais-control parents}
+
+Here and below $E_{\mathrm{ref}}>0$ is an arbitrary reference-energy normalization, not
+a band gap. Use the common onsite matrix
+\begin{equation}
+ T_0=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ -1.20&0.06&0&0\\
+ 0.06&-0.35&0&0\\
+ 0&0&1.00&0.04\\
+ 0&0&0.04&1.75
+ \end{pmatrix}
+\end{equation}
+and the Hermitian orbital coupling
+\begin{equation}
+ V=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ 0.30&0&0.12&0\\
+ 0&-0.20&0&0.10\\
+ 0.12&0&0.10&0\\
+ 0&0.10&0&-0.08
+ \end{pmatrix}.
+ \label{eq:orbital-coupling}
+\end{equation}
+The same $V$ is assigned to each unoriented bond, giving a trivial internal action of
+the lattice point group.  This defines a matched-control parent distinct from the
+directed-hopping simple-cubic protocol; its numerical outcomes are not inherited.
+
+For $0\le\rho\le1$, define
+\begin{align}
+ f_X(\mathbf q)
+ &=\frac1{m_X}\sum_{\mathbf b\in\mathcal B_{X,+}}
+   \cos(2\pi\mathbf q\cdot\mathbf b),\\
+ K_{\rho,X}(\mathbf q)&=T_0+\rho f_X(\mathbf q)V.
+ \label{eq:parent}
+\end{align}
+Then $f_X(\mathbf0)=1$ and $|f_X|\le1$.  This fixes a common extremal scale, not equal
+cell volumes, densities of states, or curvatures.
+
+For construction size $N$, set
+\begin{equation}
+ \mathsf S_{\mathbf b}
+ =\mathsf S_N^{b_1}\otimes\mathsf S_N^{b_2}\otimes\mathsf S_N^{b_3}.
+\end{equation}
+The finite cell--orbital parent on
+$\mathcal H_{p,N}^{(3)}=(\mathbb C^N)^{\otimes3}\otimes\mathbb C^4$ is
+\begin{equation}
+ \widehat K_{\rho,X,N}
+ =I_{N^3}\otimes T_0
+ +\frac{\rho}{2m_X}\sum_{\mathbf b\in\mathcal B_{X,+}}
+  (\mathsf S_{\mathbf b}+\mathsf S_{\mathbf b}^{\dagger})\otimes V.
+ \label{eq:finite-parent}
+\end{equation}
+The tensor Fourier transform must reconstruct the direct sum of
+$K_{\rho,X}(\mathbf q_{ijk})$ without materializing a dense
+$4N^3\times4N^3$ matrix.  Four orbitals occur per primitive cell.
+
+Complete Hermitian fiber spectra define the lower rank-two projectors.  A qualified
+global periodic frame gives
+\begin{equation}
+ H_{\rho,X}(\mathbf q)
+ =F_{\rho,X}(\mathbf q)^\dagger
+  K_{\rho,X}(\mathbf q)F_{\rho,X}(\mathbf q).
+\end{equation}
+A conservative continuous enclosure must establish a positive band-two/band-three gap
+for all retained $\rho$ and both geometries.  A sampled minimum is insufficient.  The
+frame method must freeze its anchor, three-dimensional traversal, neighbor polar
+alignment, three reciprocal-boundary sewing maps, path and plaquette checks, and rank
+thresholds.  Failure gives an unresolved case, not a changed rank or gauge.
+
+\section{Silicon-inspired dispersive parent}
+
+The primary inspired parent uses the ordered basis
+$(L,A),(L,B),(U,A),(U,B)$, where $A/B$ are diamond sites and $L/U$ are abstract lower
+and upper orbital channels.  Define
+\begin{equation}
+ S_{\mathrm{dia}}(\mathbf q)=
+ \begin{pmatrix}
+ 0&\gamma_{\mathrm{dia}}(\mathbf q)\\
+ \gamma_{\mathrm{dia}}(\mathbf q)^*&0
+ \end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+ K_{\rho,\mathrm{Si}^*}(\mathbf q)=
+ \begin{pmatrix}
+ -\Delta I_2+\rho t_LS_{\mathrm{dia}}(\mathbf q)&vI_2\\
+ vI_2&+\Delta I_2+\rho t_US_{\mathrm{dia}}(\mathbf q)
+ \end{pmatrix},
+ \label{eq:silicon-inspired-parent}
+\end{equation}
+where the superscript $\mathrm{Si}^*$ labels inspiration only, and
+\begin{equation}
+ \Delta=1.20E_{\mathrm{ref}},
+ \qquad t_L=0.30E_{\mathrm{ref}},
+ \qquad t_U=0.10E_{\mathrm{ref}},
+ \qquad v=0.08E_{\mathrm{ref}}.
+\end{equation}
+This two-channel construction supplies a rank-two low-energy group with diamond
+connectivity while keeping two explicit spectator states.  Any implementation has model
+role \texttt{TOY}; it is not a \texttt{SiliconReferenceModel}.  It contains no spin,
+$s/p$ orbital representation, fitted silicon hopping, valley calibration, spin--orbit
+coupling, or electron interaction.
+
+Because $\norm{S_{\mathrm{dia}}}_2\le1$, a conservative Weyl bound gives
+\begin{equation}
+ \varepsilon_3-\varepsilon_2
+ \ge2\Delta-|t_L|-|t_U|-2|v|=1.84E_{\mathrm{ref}}
+ \label{eq:silicon-inspired-external-isolation-gap}
+\end{equation}
+for $0\le\rho\le1$.  The calculation must reconstruct the sampled gap and verify the
+bound from exact input matrices.  Internal degeneracy of the retained pair is permitted
+because the retained object is its rank-two projector.  A qualified periodic frame
+defines
+\begin{equation}
+ H_{\rho,\mathrm{Si}^*}(\mathbf q)
+ =F_{\rho,\mathrm{Si}^*}(\mathbf q)^\dagger
+  K_{\rho,\mathrm{Si}^*}(\mathbf q)F_{\rho,\mathrm{Si}^*}(\mathbf q).
+\end{equation}
+
+The finite parent replaces each exponential in
+Eq.~\eqref{eq:diamond-structure-factor} by its exact cell-shift operator.  Its tensor
+Fourier transform, full eigensystem, lower rank-two projector, periodic frame, projector
+lift, and Wannier transform obey the same checks as the Bravais-control parents.  At
+$\rho=0$ its retained pair is scalar, so the nontrivial flat residual--tail theorem is
+tested by the separate constant-splitting Bravais control; it is not attributed to the
+silicon-inspired endpoint.
+
+\section{RMS-matched gauge family}
+
+Let $g$ be the reciprocal-torus RMS rotation amplitude.  Define
+\begin{align}
+ \theta_{g,X}(\mathbf q)
+ &=g\sqrt{\frac{2}{m_X}}
+   \sum_{\mathbf b\in\mathcal B_{X,+}}
+   \sin(2\pi\mathbf q\cdot\mathbf b),
+ \label{eq:rms-phase}\\
+ U_{g,X}(\mathbf q)&=R(\theta_{g,X}(\mathbf q)),\\
+ A_{\rho,g,X}(\mathbf q)
+ &=U_{g,X}(\mathbf q)^\dagger
+   H_{\rho,X}(\mathbf q)U_{g,X}(\mathbf q).
+ \label{eq:comparison}
+\end{align}
+For the silicon-inspired parent, use the FCC Bravais phase and define
+\begin{equation}
+ A_{\rho,g,\mathrm{Si}^*}(\mathbf q)
+ =U_{g,\mathrm{fcc}}(\mathbf q)^\dagger
+  H_{\rho,\mathrm{Si}^*}(\mathbf q)U_{g,\mathrm{fcc}}(\mathbf q).
+ \label{eq:silicon-inspired-comparison}
+\end{equation}
+Orthogonality of distinct bond characters gives
+\begin{equation}
+ \int_{\T^3}\theta_{g,X}(\mathbf q)^2\,d\mathbf q=g^2.
+\end{equation}
+The envelope is $|\theta_{g,X}|\le a_X(g)=g\sqrt{2m_X}$.  Use the common primary range
+\begin{equation}
+ 0\le g\le g_{\max}^{(3)}=\frac{\pi}{4\sqrt{12}},
+ \label{eq:g-range}
+\end{equation}
+so $a_X(g)\le\pi/4$ for both cases.  The realized maximum phase is reported separately.
+
+Reference and rotated fields in Eqs.~\eqref{eq:comparison} and
+\eqref{eq:silicon-inspired-comparison} have identical pointwise spectra.  Their
+covariantly aligned subtractions under the applicable full $U_g(\mathbf q)$ vanish.  The restricted
+scientific comparison permits only one momentum-independent real rotation $R(\phi)$.
+The corresponding full Wannier-space unitary is generally nonlocal and is excluded from
+the restricted channel.
+
+\section{Flat-parent analytic comparators}
+
+At $\rho=0$, fix the retained frame to the constant lower-two-eigenvector frame of
+$T_0$.  For the simple-cubic control, put $x_{\mathrm{sc}}=2g\sqrt{2/3}$; character
+independence gives
+\begin{equation}
+ c_{\mathrm{sc}}(g)=J_0(x_{\mathrm{sc}})^3.
+ \label{eq:sc-comparator}
+\end{equation}
+This is the earlier $J_0(2a/3)^3$ law under the conversion
+$a=g\sqrt6$.
+
+For FCC, put $x_{\mathrm{fcc}}=2g/\sqrt3$.  Write the Bessel indices of the ordered
+bonds in Eq.~\eqref{eq:fcc-bonds} as $n_1,\ldots,n_6$.  The zero-mode constraint is
+\begin{align}
+ n_1-n_4-n_5&=0,\\
+ n_2+n_4-n_6&=0,\\
+ n_3+n_5+n_6&=0.
+\end{align}
+Applying the Jacobi--Anger expansion~\cite{dlmf1012} and taking $p=n_4$, $q=n_5$,
+and $r=n_6$ gives the exact comparator
+\begin{equation}
+ c_{\mathrm{fcc}}(g)
+ =\sum_{p,q,r\in\Z}
+ J_{p+q}(x_{\mathrm{fcc}})
+ J_{r-p}(x_{\mathrm{fcc}})
+ J_{-q-r}(x_{\mathrm{fcc}})
+ J_p(x_{\mathrm{fcc}})J_q(x_{\mathrm{fcc}})J_r(x_{\mathrm{fcc}}).
+ \label{eq:fcc-comparator}
+\end{equation}
+The producer must evaluate this series using a declared symmetric domain and reviewed
+tail bound.  An independent high-accuracy torus quadrature must reproduce it.  Neither
+calculation may silently replace the finite-mesh correlation stored with a run.
+
+For $X\in\{\mathrm{sc},\mathrm{fcc}\}$, the flat-parent theorem predicts
+\begin{align}
+ \inf_{s,\lambda\ge0,\phi}L_{\mathrm{op},X,\phi}^2
+ &=\kappa[1-c_X(g)^2]
+ =\frac{1}{2E_{\mathrm{ref}}^2}\sum_{\mathbf R\ne\mathbf0}
+   \norm{D_{\mathbf R}^{X}}_F^2,
+ \label{eq:flat-tail}\\
+ \inf_\phi L_{\mathrm{op},X,\phi}^2(0,1)
+ &=2\kappa[1-c_X(g)].
+\end{align}
+The calculation must independently verify the analytic correlation, both residuals,
+and shell-resolved Fourier weight.  No equality in Eq.~\eqref{eq:flat-tail} is assumed
+for $\rho>0$.
+
+\section{Three-dimensional Fourier conversion and metric shells}
+
+Use the tensor Monkhorst--Pack mesh in reduced reciprocal coordinates,
+\begin{equation}
+ \mathbf q_{ijk}=(-1/2+(i+1/2)/N,-1/2+(j+1/2)/N,
+                  -1/2+(k+1/2)/N),
+ \qquad i,j,k=0,\ldots,N-1.
+\end{equation}
+The finite Fourier blocks use the normalized $N^{-3}$ transform with the exact mesh-
+origin phase.  They reconstruct construction nodes and remain potentially aliased off-
+node.  The cyclic inventory must satisfy the half-step mesh's twisted Nyquist relation.
+Before ordinary-lattice truncation, remove the union of the three coordinate Nyquist planes.  Its
+$3N^2-3N+1$ blocks and normalized power are a separate conversion channel.
+
+A cutoff $S$ retains every complete point-group orbit satisfying
+\begin{equation}
+ r_X^2(\mathbf R)\le S
+\end{equation}
+or the exactly equivalent frozen integer shell index.  The inventory must contain every
+attainable shell through $S_{\max}$, be conjugate closed and nested, and be fixed before
+results are examined.
+
+For the inspired two-site basis, a cell block at $\mathbf R$ contains entries with
+basis-aware physical separations
+\begin{equation}
+ d_{\alpha\beta}(\mathbf R)
+ =\norm{A_{\mathrm{fcc}}(\mathbf R+\boldsymbol\tau_\beta-
+ \boldsymbol\tau_\alpha)}_2,
+ \qquad \alpha,\beta\in\{A,B\}.
+ \label{eq:basis-aware-distance}
+\end{equation}
+The primary parity outcome retains complete cell blocks under the Bravais metric.  A
+secondary entry-resolved diagnostic reports $d_{\alpha\beta}(\mathbf R)$ and must not
+relabel cell radius as an atomic bond length.
+
+On a disjoint shifted evaluation mesh, define
+\begin{equation}
+ \widehat S_X^\star(\rho,g;\tau)
+ =\min\{S:\mathcal E_{\lambda,\max}^{X}(\rho,g,S)\le\tau\}.
+\end{equation}
+If $B_X(S)$ is the retained block count, the primary within-geometry result is
+\begin{equation}
+ \Delta\widehat B_X^\star
+ =B_X(\widehat S_{X,\mathrm{rot}}^\star)
+  -B_X(\widehat S_{X,\mathrm{ref}}^\star).
+ \label{eq:block-inflation}
+\end{equation}
+No passing shell gives an unresolved outcome.  Cross-geometry comparison reports block
+inflation, physical radius, multiplicity, and cell volume separately.
+
+For interpolation, deliberate truncation, and total field pairs, report maximum and RMS
+Frobenius errors normalized by $\sqrt2E_{\mathrm{ref}}$, maximum and RMS sorted-band errors normalized
+by $E_{\mathrm{ref}}$, and omitted block power.  Weyl bounds and the Parseval relation between RMS
+truncation error and omitted power are independent-verifier obligations.
+
+\section{Primitive-basis covariance control}
+
+Select prospectively one nontrivial unimodular matrix $M\in GL(3,\Z)$ and transform
+\begin{equation}
+ A'=AM,
+ \qquad G'=M^{\mathsf T}GM,
+ \qquad \mathbf R'=M^{-1}\mathbf R,
+ \qquad \mathbf q'=M^{\mathsf T}\mathbf q
+ \quad (\mathrm{mod}\ \Z^3).
+\end{equation}
+After exact relabeling, the complete cyclic operator, spectra, physical bond set, metric
+radii, orbit multiplicities, and physical first-passing support must agree.  Coordinate
+representatives and Nyquist-plane bookkeeping may differ and are compared only through
+their declared maps.  This checks coordinate covariance; it is not another physical
+case.
+
+\section{Resource-aware draft numerical roles}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.25\textwidth}
+                  >{\raggedright\arraybackslash}p{0.42\textwidth}
+                  >{\raggedright\arraybackslash}p{0.23\textwidth}}
+\toprule
+Control & Draft design & Status\\
+\midrule
+Cases & silicon-inspired diamond target; matched simple-cubic/FCC Bravais controls & selected\\
+Parent scales & $\rho\in\{0,1/4,1/2,3/4,1\}$ & selected\\
+RMS amplitudes & $g_j=jg_{\max}^{(3)}/32$, $j=0,\ldots,32$ & selected\\
+Construction sizes & $N\in\{16,32,64\}$ per coordinate & resource preflight required\\
+Endpoint refinement & selected $N=128$ cases & not authorized\\
+Evaluation size & odd $M=2N+1$ with frozen rational shift & rule to be verified\\
+Band targets & $10^{-6},10^{-8},10^{-10}$ & synthetic draft\\
+Near-floor target & $10^{-12}$ & report only if resolved\\
+Shell cap & every attainable metric shell through $S_{\max}$ & open\\
+Series control & symmetric triple-sum domain plus certified tail & open\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A full $64^3$ construction mesh has 262,144 points and a $129^3$ evaluation mesh has
+2,146,689 points.  These counts are scale statements, not runtime estimates or execution
+authority.  Before execution, report the implementation, batching and memory model,
+case and shell counts, anticipated outputs, runtime estimate, and local or external
+resources.  A first passing shell must remain unchanged under the next qualified mesh
+and an independently shifted evaluation mesh or be reported unresolved.
+
+\section{Qualification and independent verification}
+
+Producer and independent verifier contracts must establish the applicable common tests
+and diagnostics in the
+\href{../../band-equivalence-test-and-diagnostic-parity.md}{shared parity contract},
+plus:
+\begin{enumerate}[label=\arabic*.]
+ \item exact FCC and simple-cubic primitive, reciprocal, and Gram matrices, units, cell
+       volumes, and column-basis convention;
+ \item exact diamond basis positions, four $A$--$B$ bond vectors, structure factor,
+       four-state inspired parent, conservative external-isolation-gap bound, and basis-aware
+       distance map;
+ \item nearest-neighbor orbit completeness, physical bond lengths, point-group closure,
+       multiplicities, and dense metric-shell inventories;
+ \item the finite-parent/direct-sum identity and complete four-state eigensystem
+       reconstruction without dense full-space allocation;
+ \item continuous external-isolation-gap enclosures for all retained $\rho$ and both geometries;
+ \item global periodic rank-two frames, three-boundary sewing, projector reconstruction,
+       and parent-space lifts;
+ \item exact pointwise spectral equality and covariant equivalence of reference and
+       rotated fields;
+ \item the RMS phase identity, phase envelope, and realized maximum;
+ \item independent simple-cubic and FCC comparators, including the triple-series tail
+       certificate, kept distinct from the silicon-inspired dispersive parent;
+ \item restricted global-alignment residuals reconstructed from original matrix fields;
+ \item Fourier nodal reconstruction, Hermiticity, Parseval, three-plane Nyquist
+       accounting, and ordinary-lattice conversion;
+ \item interpolation, truncation, and total matrix and spectral channels on a disjoint
+       mesh;
+ \item each first passing shell and retained-block count without trusting serialized
+       labels;
+ \item primitive-basis covariance after exact relabeling; and
+ \item conservative converged or unresolved outcomes under frozen resource caps.
+\end{enumerate}
+The verifier must not invoke the producer action.  Passing software and symmetry tests
+does not validate a material or establish a continuous three-dimensional bound.
+
+\section{Prospective execution sequence}
+
+After the 2-D gates, version review, and resource preflight, one deterministic
+calculation will:
+\begin{enumerate}[label=\arabic*.]
+ \item validate canonical input, identities, matrices, geometries, parameter grids,
+       shell inventories, and resource limits;
+ \item construct the silicon-inspired, simple-cubic-control, and FCC-control finite
+       parents on every nested mesh using batched or matrix-free operations;
+ \item compute complete fiber spectra, qualify the retained gap, and construct periodic
+       rank-two frames;
+ \item verify parent, projector, retained, Bloch, and Wannier representation identities;
+ \item form every RMS-matched rotated field and verify pointwise and covariant
+       equivalence;
+ \item evaluate continuous global alignment and the flat analytic comparators;
+ \item apply convergence and resource gates and select qualified construction sizes
+       separately for each geometry and case;
+ \item evaluate direct fields on the frozen shifted mesh without refitting;
+ \item convert cyclic blocks to the ordinary lattice and apply every dense metric shell
+       through $S_{\max}$;
+ \item determine first passing shells and all error channels for reference and rotated
+       representations, including basis-aware distance diagnostics for the inspired
+       parent;
+ \item execute the primitive-basis relabeling control; and
+ \item run the independent verifier and, only under separate authorization, retain a
+       no-overwrite run and evidence package with cryptographic digests.
+\end{enumerate}
+
+\section{Open controls and interpretation boundary}
+
+An immutable version requires review and binding of the 2-D stage-gate outcome,
+continuous gap method, construction and evaluation ladders, rational shift, shell cap,
+triple-series tail method, channel tolerances, frame algorithm, resource caps, PhysKit
+and project revisions, final retained-record schemas, a separately implemented verifier,
+an expanded tamper test suite, and evidence policy. Strict development schemas and
+SHA-256 binding already cover the replaceable smoke records.
+
+The experiment cannot establish a silicon material Hamiltonian, silicon hopping
+parameters, valley structure, effective masses, continuum topology, global Wannier
+optimality, universal decay law, or lattice-independent cutoff.  ``Silicon-inspired''
+means only FCC Bravais geometry, a two-site diamond basis, and four-bond tetrahedral
+connectivity in a synthetic four-state parent.  It is not the project's specified
+first-principles or $sp^3s^*$ silicon model.  Every conclusion remains conditional on
+the selected bond orbit, basis, normalization, parent, gauge family, metrics, and finite
+numerical controls.
+
+No Quantum ESPRESSO, Wannier90, remote, cluster, cloud, production, or retained
+calculation is authorized by this pre-version protocol.
+
+\bibliographystyle{unsrt}
+\bibliography{experimental-protocol}
+
+\end{document}

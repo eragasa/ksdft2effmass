@@ -1,0 +1,1028 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs,tabularx}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\setlength{\emergencystretch}{3em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newtheorem{proposition}{Proposition}
+
+\title{\textbf{Experimental protocol:\\
+Higher-rank composite-band alignment and hopping locality}}
+\author{KSD reduced-Hamiltonian research program}
+\date{Complete pre-execution D1 v1 protocol candidate}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This protocol defines a dimension-indexed synthetic family for testing how retained
+rank, noncommuting gauge-circuit depth, admissible alignment, and spatial dimension
+change matrix-valued hopping locality while the untruncated retained spectrum and
+projector remain exactly equivalent. The common analytic construction permits arbitrary
+declared finite rank and finite circuit depth and is topologically trivial by
+construction. Its first bounded specialization, D1 P0/G0 v1, fixes a constant-projector
+real-gauge model, exact exterior-isolation and alignment certificates, four ranks, four
+depths, A0--A3 alignment channels, odd Fourier-refinement meshes, a disjoint evaluation
+mesh, inversion-complete supports, numerical and convergence gates, claim-resolution
+thresholds, strict schema identities, an independent direct-formula verifier, resource
+ceilings, and retained-evidence policy. The protocol is complete but unimplemented and
+unexecuted; it reports no new higher-rank numerical result and makes no material,
+topological, or infinite-rank claim.
+\end{abstract}
+
+\noindent\textbf{Keywords:} composite bands; unitary gauge; operator alignment;
+Fourier hopping; locality; truncation; convergence; retained evidence
+
+
+\section{Status and authority}
+
+This document defines a publication-independent experiment family for spatial dimensions
+one, two, and three. The common mathematical family remains prospective outside the
+selected one-dimensional specialization. The first P0/G0 specialization is now a
+complete pre-execution protocol candidate with identity
+
+\begin{quote}\small
+\path{ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality.v1}\par
+\end{quote}
+
+and short label \path{HR-CBAL-D1-P0-G0-v1}. Its model, cases, sample roles, tolerances,
+supports, decision rules, schemas, verifier method, resource gate, and evidence policy
+are selected below. The identity is reserved but is not promoted to an immutable
+executed version until implementation, schema, and independent-verifier review pass.
+No run or result is reported, and this document does not authorize execution.
+
+The family is a successor to, not a replacement for, the retained rank-two controls and
+the extracted fixed rank-three two-dimensional calculation. No rank-two tolerance, mesh,
+gauge amplitude, truncation range, or evidence disposition transfers into this protocol.
+The 2-D, 3-D, P1, and G1 branches remain prospective and cannot inherit the D1 v1
+numerical controls without an explicit reviewed specialization.
+
+\section{Scientific question}
+
+For an isolated composite subspace of arbitrary finite rank, how do
+
+\begin{enumerate}
+\item retained rank,
+\item noncommuting gauge-decomposition depth,
+\item admissible alignment family, and
+\item spatial dimension
+\end{enumerate}
+
+change the matrix-valued hopping locality and the spectral consequences of deliberate
+finite-support truncation, even when the untruncated retained spectra and projectors are
+exactly equivalent?
+
+The protocol treats rank, decomposition depth, and spatial dimension as independent
+variables. A calculation may vary only one while holding the other declared controls
+fixed, or it must label the result as a joint variation. The phrase \textbf{arbitrary rank}
+means that the formulas and software contract accept any declared finite integer rank
+above the protocol minimum. It does not mean an infinite-dimensional computation,
+uniform cost in rank, or numerical evidence for every rank.
+
+\section{Common geometry and state spaces}
+
+The first control uses the dimensionless orthogonal unit lattice in
+$d\in\{1,2,3\}$ dimensions. Its reduced Brillouin torus is
+
+\[
+\mathbb T^d=[-\pi,\pi)^d,
+\]
+
+with periodic identification in every coordinate. Real-space translations are
+$\mathbf R\in\mathbb Z^d$, measured with the Euclidean unit-lattice metric. A later
+nonorthogonal or material specialization is a different protocol.
+
+For retained rank $r\geq3$, the parent state space is $\mathbb C^{2r}$ with canonical
+basis $\{|a\rangle\}_{a=1}^{2r}$. The embedding
+$E_r:\mathbb C^r\rightarrow\mathbb C^{2r}$ maps retained coordinates to the first $r$
+canonical coordinates, and
+
+\[
+P_0=E_rE_r^\dagger.
+\]
+
+Every result must record $d$, $r$, the ambient dimension $2r$, basis ordering, right-action
+frame convention, dimensionless reciprocal coordinates, energy unit, scalar energy
+reference, lattice metric, and Fourier-sign convention. Operators are never subtracted
+across unequal ranks or unidentified spaces.
+
+\section{Periodic scalar fields}
+
+For a finite harmonic inventory $\mathcal Q_d\subset\mathbb Z^d\setminus\{0\}$, define
+
+\[
+\mathcal F_d(\mathbf k;c_0,a,b)
+=c_0+\sum_{\mathbf q\in\mathcal Q_d}
+\left[
+ a_{\mathbf q}\sin(\mathbf q\cdot\mathbf k)
+ +b_{\mathbf q}\cos(\mathbf q\cdot\mathbf k)
+\right].
+\]
+
+The candidate inventories are
+
+\[
+\begin{aligned}
+\mathcal Q_1={}&\{(1),(2)\},\\
+\mathcal Q_2={}&\{(1,0),(0,1),(1,1),(1,-1)\},\\
+\mathcal Q_3={}&\{(1,0,0),(0,1,0),(0,0,1),
+(1,1,0),(0,1,1),(1,0,1),(1,1,1)\}.
+\end{aligned}
+\]
+
+These sets specify candidate functional support, not numerical coefficients. A genuinely
+multidimensional case must use at least one nonzero mixed-harmonic coefficient, and its
+active wavevectors must span $\mathbb R^d$. Otherwise it is labeled separable or
+effectively lower dimensional. The protocol assumes no point-group, time-reversal, or
+inversion symmetry beyond constraints explicitly imposed by a reviewed coefficient
+case.
+
+\section{Isolated analytic parent}
+
+Let
+
+\[
+D_r(\mathbf k)=\operatorname{diag}
+\bigl(\epsilon_1(\mathbf k),\ldots,\epsilon_r(\mathbf k)\bigr)
+\]
+
+and
+
+\[
+D_{\mathrm{ext}}(\mathbf k)=\operatorname{diag}
+\bigl(\epsilon^{\mathrm{ext}}_1(\mathbf k),\ldots,
+\epsilon^{\mathrm{ext}}_r(\mathbf k)\bigr),
+\]
+
+where every dispersion is a real field from the declared $\mathcal F_d$ family. A case
+is admissible only if it has the prospectively certified uniform exterior-isolation
+energy
+
+\[
+\Delta_{\mathrm{iso}}=\inf_{\mathbf k\in\mathbb T^d}
+\left[
+\min_b\epsilon_b^{\mathrm{ext}}(\mathbf k)
+-\max_a\epsilon_a(\mathbf k)
+\right]>0.
+\]
+
+A finite sampled minimum is not this certificate. Until an analytic interval bound or a
+reviewed verified enclosure is selected, a sampled isolation energy is reported only as
+a sampled diagnostic. The symbol $E_g$ is reserved for a physical valence--conduction
+band gap; $E_{\mathrm{ref}}$ is only the common positive energy scale.
+
+For each retained coordinate define the anti-Hermitian retained--exterior generator
+
+\[
+K_a=|r+a\rangle\langle a|-|a\rangle\langle r+a|.
+\]
+
+With real periodic fields $\eta_a(\mathbf k)$, set
+
+\[
+W_r(\mathbf k)=\prod_{a=1}^{r}
+\exp\!\left[\eta_a(\mathbf k)K_a\right],
+\qquad
+F_r(\mathbf k)=W_r(\mathbf k)E_r.
+\]
+
+The $K_a$ act on disjoint coordinate pairs, so the factors commute. The parent operator
+and retained projector are
+
+\[
+H_p^{(d,r)}(\mathbf k)=W_r(\mathbf k)
+\begin{pmatrix}
+D_r(\mathbf k)&0\\
+0&D_{\mathrm{ext}}(\mathbf k)
+\end{pmatrix}
+W_r^\dagger(\mathbf k),
+\qquad
+P_r(\mathbf k)=F_r(\mathbf k)F_r^\dagger(\mathbf k).
+\]
+
+The smooth represented operator is exactly
+
+\[
+H_{F_r}(\mathbf k)=F_r^\dagger H_p^{(d,r)}F_r=D_r(\mathbf k).
+\]
+
+Two projector controls remain separate:
+
+\begin{itemize}
+\item \textbf{P0, constant-projector control:} every $\eta_a=0$;
+\item \textbf{P1, moving-projector control:} prospectively selected nonconstant $\eta_a$ fields.
+\end{itemize}
+
+P0 isolates internal gauge, alignment, Fourier conversion, and truncation. P1 additionally
+tests frame construction, neighbor transport, reciprocal-boundary sewing, and projector
+reconstruction. P0 and P1 results are not pooled into one error measure.
+
+Internal retained-band crossings or degeneracies are permitted because the retained
+projector and analytic frame are defined as complete rank-$r$ objects. Individual
+backend-selected eigenvectors are not treated as canonical band labels.
+
+\section{Layered Givens gauge decomposition}
+
+For adjacent retained coordinates $j$ and $j+1$, define the embedded complex Givens
+rotation
+
+\[
+R_{j,j+1}(\theta,\phi)=
+\begin{pmatrix}
+\cos\theta&-e^{-i\phi}\sin\theta\\
+e^{i\phi}\sin\theta&\cos\theta
+\end{pmatrix}_{j,j+1}.
+\]
+
+At layer $\ell$, use the disjoint neighbor pairs
+
+\[
+\mathcal P_\ell=
+\left\{(j,j+1):1\leq j<r,\ j\equiv\ell\pmod 2\right\}.
+\]
+
+Let every $\theta_{\ell j}(\mathbf k)$, $\phi_{\ell j}(\mathbf k)$, and
+$\chi_a(\mathbf k)$ be a declared periodic field. For finite circuit depth $L\geq1$,
+define
+
+\[
+Q_r(\mathbf k)=\operatorname{diag}
+\left(e^{i\chi_1(\mathbf k)},\ldots,e^{i\chi_r(\mathbf k)}\right)
+\]
+
+and
+
+\[
+G_{r,L}(\mathbf k)=Q_r(\mathbf k)
+\prod_{\ell=1}^{L}
+\prod_{(j,j+1)\in\mathcal P_\ell}
+R_{j,j+1}\!\left(
+\theta_{\ell j}(\mathbf k),\phi_{\ell j}(\mathbf k)
+\right).
+\]
+
+Increasing layer order is part of the canonical definition. Factors within a layer
+commute; adjacent layers generally do not. The interaction graph is connected once the
+selected layers cover every adjacent pair, so the construction is not a direct sum of
+independent rank-two attacks.
+
+The protocol distinguishes two gauge classes:
+
+\begin{itemize}
+\item \textbf{G0, real class:} $\phi_{\ell j}=0$ and $\chi_a=0$, hence
+$G_{r,L}\in SO(r)$;
+\item \textbf{G1, complex class:} complex pair phases and diagonal phases are allowed, hence
+$G_{r,L}\in U(r)$.
+\end{itemize}
+
+A G0 result does not validate G1. The attacked frame and represented operator are
+
+\[
+F'_{r,L}(\mathbf k)=F_r(\mathbf k)G_{r,L}(\mathbf k),
+\qquad
+H'_{r,L}(\mathbf k)=G_{r,L}^\dagger(\mathbf k)
+D_r(\mathbf k)G_{r,L}(\mathbf k).
+\]
+
+The defining exact identities are
+
+\[
+F_{r,L}^{\prime\dagger}F'_{r,L}=I_r,
+\qquad
+F'_{r,L}F_{r,L}^{\prime\dagger}=P_r,
+\qquad
+\operatorname{spec}H'_{r,L}=\operatorname{spec}D_r.
+\]
+
+These are model identities and must be tested to numerical roundoff after sampling. They
+are not empirical scientific conclusions. Increasing $L$ changes a representation of the
+same retained operator unless another case explicitly changes the parent.
+
+\section{Alignment families}
+
+Every comparison declares its admissible alignment family before observing results.
+The initial diagnostic ladder is:
+
+\begin{enumerate}
+\item \textbf{A0, identity:} no alignment;
+\item \textbf{A1, one global unitary:} one $U\in U(r)$ for the complete sampled torus;
+\item \textbf{A2, pointwise complete unitary:} one independently selected full-rank
+$U(\mathbf k)\in U(r)$ at each construction point;
+\item \textbf{A3, known inverse oracle:} the analytic $G_{r,L}^{-1}(\mathbf k)$, used only to
+verify construction and convention;
+\item \textbf{A4, restricted circuit:} a separately frozen depth- and harmonic-bounded Givens
+family, if a reviewed optimizer and certificate policy are later selected.
+\end{enumerate}
+
+A1, A2, and A4 are different feasible sets. None is described as a numerical
+approximation to another. The oracle A3 is not an admissible fitted solution and cannot
+be used to claim practical recoverability.
+
+Pointwise and aggregate Procrustes selection must disclose absolute and relative
+singular-value cutoffs. Equality at the applied cutoff is deficient. A rank-deficient
+cross-covariance fails closed; no null-space completion is inferred. The retained output
+must include the complete singular-value inventory or sufficient lossless summaries to
+verify every rank disposition independently.
+
+Matrices are aligned before Fourier transformation. Aligning already truncated hopping
+blocks is a different, generally noncommuting operation and is outside this protocol.
+
+\section{Boundary to algorithm-selected localization}
+
+D1 v1 supplies every frame analytically and does not execute Wannier90 or optimize a
+spread functional. This exclusion is deliberate: it keeps parent construction, internal
+gauge attack, admissible alignment, Fourier conversion, and truncation independently
+identifiable. The retained one-dimensional and two-dimensional Wannier90 calculations
+reported by Paper 3 are historical algorithm-selected controls, not runs of this
+protocol.
+
+Initialization, native convergence, preconditioning, inactive embedding, optimizer
+continuation, and observed-basin reproducibility belong to a separate
+Wannier90-localization-reproducibility experiment family. Evidence from that family may
+qualify claims about algorithm-selected frames but cannot select or modify a D1 v1 mesh,
+tolerance, support, or disposition.
+
+\section{Selected v1 candidate: periodic 1-D real gauge}
+
+The first bounded specialization is \path{HR-CBAL-D1-P0-G0-v1}, with the full identity given
+above. It isolates retained rank and Givens-circuit depth before projector motion,
+complex phases, or multidimensional plaquettes are introduced. All numerical execution
+uses binary64 arithmetic and sets $E_{\mathrm{ref}}=1$ in the declared dimensionless
+energy unit; reported dimensional formulas retain $E_{\mathrm{ref}}$ explicitly.
+
+\subsection{Rank-normalized parent}
+
+For $a\in\{1,\ldots,r\}$ define the rank-normalized orbital coordinate
+
+\[
+x_{r,a}=\frac{2a-r-1}{r-1}\in[-1,1]
+\]
+
+and the bounded even harmonic
+
+\[
+c(k)=\frac34\cos k+\frac14\cos(2k),
+\qquad |c(k)|\leq1.
+\]
+
+In units of the declared positive reference energy $E_{\mathrm{ref}}$, the retained and
+exterior dispersions are
+
+\[
+\frac{\epsilon_a(k)}{E_{\mathrm{ref}}}
+=0.40x_{r,a}+0.25\left(1+0.20x_{r,a}\right)c(k),
+\]
+
+\[
+\frac{\epsilon_a^{\mathrm{ext}}(k)}{E_{\mathrm{ref}}}
+=3.00+0.30x_{r,a}+0.10c(k).
+\]
+
+For fixed $k$, the retained maximum occurs at $x_{r,a}=1$ and the exterior minimum at
+$x_{r,a}=-1$. Their separation is
+
+\[
+\frac{\min_a\epsilon_a^{\mathrm{ext}}(k)-\max_a\epsilon_a(k)}
+{E_{\mathrm{ref}}}
+=2.30-0.20c(k)\geq2.10.
+\]
+
+Because $c(0)=1$, equality is attained. Every selected rank therefore has the exact,
+mesh-independent isolation certificate
+$\Delta_{\mathrm{iso}}=2.10E_{\mathrm{ref}}$.
+
+The first tranche uses P0: $\eta_a(k)=0$, $W_r(k)=I_{2r}$, and
+$F_r(k)=E_r$. The parent and retained projector are consequently known without an
+eigensolver. Internal retained-band crossings, if present, do not change the complete
+rank-$r$ projector.
+
+\subsection{Deterministic real attack}
+
+For $j\in\{1,\ldots,r-1\}$ define
+
+\[
+y_{r,j}=\frac{2j-r}{r-1},
+\qquad |y_{r,j}|<1,
+\]
+
+and, for each positive layer index $\ell$,
+
+\[
+s_\ell(k)=\frac34\sin k+\frac14(-1)^\ell\sin(2k).
+\]
+
+The selected adjacent-pair angle is
+
+\[
+\theta_{\ell j}(k)=0.35(-1)^{\ell+j}
+\left(1+0.15y_{r,j}\right)s_\ell(k).
+\]
+
+All pair phases and diagonal phases vanish, so
+$G_{r,L}(k)\in SO(r)$. To state the exact continuum angle maximum, define
+
+\[
+q=\frac{\sqrt{41}-3}{8},
+\qquad
+s_*=\sqrt{1-q^2}\left(\frac34+\frac q2\right).
+\]
+
+For either sign in $s_\ell$, maximizing over $k$ gives $\max_k|s_\ell(k)|=s_*$;
+the maximizing cosine is $q$ for even $\ell$ and $-q$ for odd $\ell$. The positive
+amplitude factor is largest at $j=r-1$. Hence
+
+\[
+\max_{\substack{k\in[-\pi,\pi)\\ \ell\geq1,\ 1\leq j<r}}
+|\theta_{\ell j}(k)|
+=0.35\left[1+0.15\frac{r-2}{r-1}\right]s_*<0.4025\ \mathrm{rad}.
+\]
+
+This is an analytic continuum certificate, unlike the sampled development diagnostic
+below. Layers use the canonical odd/even pair sets and increasing product order defined
+above. One layer is an intentionally incomplete-connectivity baseline; two or more
+layers cover every adjacent edge and generate the noncommuting connected-chain control.
+
+\subsection{Exact representation certificates}
+
+The smooth represented field $D_r(k)$ is a trigonometric polynomial with harmonics only
+at $0$, $1$, and $2$. Under the continuum Fourier convention of this protocol, its
+blocks therefore satisfy
+
+\[
+T_{D_r}(R)=0\qquad\text{for every }|R|>2.
+\]
+
+This is an analytic support statement, not a sampled locality result. By contrast,
+entries of $G_{r,L}(k)$ contain sines and cosines of nonconstant trigonometric
+polynomials. Consequently the attacked field
+$H'_{r,L}(k)=G_{r,L}^{\dagger}(k)D_r(k)G_{r,L}(k)$ is periodic and analytic but is not
+assigned any finite Fourier support by the construction. The first-two-harmonic input
+inventory must not be mistaken for a hopping cutoff after the nonlinear gauge attack.
+
+For P0, the exact candidate-to-reference cross-overlap is
+
+\[
+M(k)=F_{r,L}^{\prime\dagger}(k)F_r(k)=G_{r,L}^{\dagger}(k).
+\]
+
+Every singular value of $M(k)$ is exactly one. The unique complete-unitary pointwise
+polar factor is therefore $G_{r,L}^{\dagger}(k)=G_{r,L}^{-1}(k)$. In exact arithmetic,
+A2 and A3 both restore $D_r(k)$ before Fourier transformation and hence restore its
+$|R|\leq2$ support. They remain separate diagnostic channels: A2 must reconstruct the
+polar factor from the sampled frames, whereas A3 receives the generating inverse. A
+finite-grid agreement between them tests implementation and convention only; it is not
+new scientific evidence. No corresponding recovery statement applies to A1, whose
+aggregate cross-covariance must independently pass its rank threshold.
+
+Every represented field is pointwise Hermitian and periodic, so its continuum Fourier
+blocks obey $T(-R)=T(R)^\dagger$. A finite transform must test the corresponding discrete
+pairing rather than assume it.
+
+\subsection{Rank and depth ladder}
+
+The selected full one-dimensional development grid is
+
+\[
+r\in\{3,4,8,16\},
+\qquad
+L\in\{1,2,4,8\}.
+\]
+
+The shared cross-dimensional core for later 2-D and 3-D specializations is the subset
+$r\in\{3,4,8\}$ and $L\in\{1,2,4\}$. Selecting that common subset now does not select
+2-D or 3-D harmonic coefficients, meshes, or evidence status.
+
+Every case evaluates A0 identity, A1 one-global-unitary, A2 pointwise-complete-unitary,
+and A3 known-inverse-oracle channels. Canonical case identifiers are
+\texttt{r\{rank:02d\}-L\{depth:02d\}} and channel identifiers are exactly \path{A0}, \path{A1}, \path{A2}, and
+\path{A3}; the schemas enumerate the resulting 16 case identifiers rather than accept an
+arbitrary string. A4 restricted-circuit fitting is excluded from this tranche because no
+optimizer or certificate policy has been selected. A3 remains a construction oracle and
+cannot be reported as a fitted recovery result.
+
+For cross-rank reporting, matrix Frobenius quantities must be retained both raw and
+normalized by $\sqrt rE_{\mathrm{ref}}$; quadratic matrix weights must be retained both
+raw and normalized by $rE_{\mathrm{ref}}^2$. This normalization is selected before
+observing outcomes and does not replace the raw values. Ordered-spectrum maximum errors
+are normalized by $E_{\mathrm{ref}}$, and spectrum RMS errors by
+$\sqrt rE_{\mathrm{ref}}$.
+
+\subsection{Frozen numerical controls}
+
+The three odd, centered, half-open construction meshes are
+
+\[
+\mathcal K_M=\left\{-\pi+\frac{2\pi n}{M}:n=0,\ldots,M-1\right\},
+\qquad M\in\{513,1025,2049\}.
+\]
+
+The $M=2049$ mesh is the final construction mesh. The smaller meshes are mandatory
+refinement controls, not optional pilot runs. A1 is selected once from the normalized
+aggregate cross-covariance on the final construction mesh,
+
+\[
+B_{2049}=\frac1{2049}\sum_{k\in\mathcal K_{2049}}
+F_{r,L}^{\prime\dagger}(k)F_r(k),
+\]
+
+and that one constant unitary is applied to every Fourier-refinement mesh and to direct
+evaluation. A2 is reconstructed independently at each construction point. A3 evaluates
+the analytic inverse and is never fitted.
+
+The withheld evaluation mesh is
+
+\[
+\mathcal K_{\mathrm{eval}}=
+\left\{-\pi+\frac{2\pi(m+1/2)}{8191}:m=0,\ldots,8190\right\}.
+\]
+
+It is disjoint from every construction mesh: equality would require an even integer to
+equal an odd integer after clearing the odd denominators. Evaluation cannot change any
+alignment, support, tolerance, case, or reporting rule.
+
+For each odd $M$, the complete discrete translation inventory is
+$R=-(M-1)/2,\ldots,(M-1)/2$. The prospectively fixed truncation supports are
+
+\[
+\Omega_S=\{R\in\mathbb Z:|R|\leq S\},
+\qquad S\in\{0,1,2,4,8,16,32,64,128\}.
+\]
+
+Every support contains complete inversion pairs. No first-passing support is selected;
+all nine supports are reported for every applicable channel, rank, depth, and mesh.
+
+A singular-value decision uses
+
+\[
+\tau_{\mathrm{sv}}(X)=
+\max\!\left(10^{-12},10^{-10}\sigma_{\max}(X)\right).
+\]
+
+A cross-covariance is full rank only when
+$\sigma_{\min}(X)>\tau_{\mathrm{sv}}(X)$; equality is deficient. A deficient A1
+aggregate makes A1 downstream diagnostics inapplicable for that case but does not erase
+A0, A2, or A3. A deficient A2 point makes the complete case invalid because P0 supplies
+an analytically full-rank overlap.
+
+All pass comparisons are inclusive except the strict singular-value test above. Norms
+are Frobenius unless another norm is named. A normalized frame or unitary defect is the
+raw Frobenius norm divided by $\sqrt r$; a normalized operator or hopping-block defect is
+divided by $\sqrt rE_{\mathrm{ref}}$. The relative Parseval defect divides the absolute
+difference by the larger of the two compared quadratic weights and
+$rE_{\mathrm{ref}}^2\times10^{-30}$. The frozen numerical tolerances are:
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{YYY}
+\toprule
+\textbf{Diagnostic} & \textbf{Normalization} & \textbf{Tolerance} \\
+\midrule
+momentum and endpoint coordinate construction & radians & $10^{-14}$ \\
+frame orthonormality, gauge unitarity, projector idempotency & raw Frobenius norm & $10^{-12}$ \\
+smooth/attacked projector equality & raw Frobenius norm & $10^{-12}$ \\
+direct ordered-spectrum equivalence & $E_{\mathrm{ref}}$ & $10^{-11}$ \\
+A2 and A3 frame recovery & $\sqrt r$ & $10^{-11}$ \\
+A2 and A3 represented-operator recovery & $\sqrt rE_{\mathrm{ref}}$ & $10^{-11}$ \\
+reciprocal-endpoint sewing and primitive closure & normalized Frobenius norm & $10^{-11}$ \\
+maximum closure-eigenphase magnitude & radians & $10^{-10}$ \\
+Fourier reconstruction on a construction mesh & $\sqrt rE_{\mathrm{ref}}$ & $2\times10^{-11}$ \\
+Fourier Hermitian-pairing defect & $\sqrt rE_{\mathrm{ref}}$ & $2\times10^{-11}$ \\
+relative Parseval defect & dimensionless & $2\times10^{-11}$ \\
+final full-interpolant operator error on evaluation mesh & $\sqrt rE_{\mathrm{ref}}$ & $10^{-9}$ \\
+final full-interpolant ordered-spectrum maximum error & $E_{\mathrm{ref}}$ & $10^{-10}$ \\
+retained-block change from $M=1025$ to $M=2049$, $\lvert R\rvert\leq128$ & $\sqrt rE_{\mathrm{ref}}$ per block & $10^{-10}$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The odd meshes avoid a self-inverse Nyquist block, each refinement approximately doubles
+resolution, and even the coarsest mesh leaves translations beyond the largest retained
+support. The evaluation mesh is roughly four times the final construction size. The
+$10^{-9}$--$10^{-10}$ evaluation gates sit well above binary64 roundoff while remaining
+at least four orders of magnitude below the $10^{-6}$ effect-resolution floor. These are
+prospective resolution choices, not tolerances fitted to an observed outcome.
+
+For a nonnegative scalar locality diagnostic $z$, refinement stability between
+$M=1025$ and $M=2049$ requires
+
+\[
+|z_{2049}-z_{1025}|\leq10^{-10}+10^{-6}
+\max(|z_{2049}|,|z_{1025}|)
+\]
+
+after the diagnostic's declared rank and energy normalization. All cases and applicable
+channels must satisfy the construction, equivalence, conversion, evaluation, and
+refinement gates. A failed gate invalidates scientific interpretation of that case; it
+is not repaired by relaxing a tolerance after inspection.
+
+\subsection{Non-authoritative finite-grid sanity check}
+
+The development utility \path{verify_d1_p0_g0_controls.py} samples the selected formulas on
+
+\[
+\mathcal K_M=\left\{-\pi+\frac{2\pi n}{M}:n=0,\ldots,M\right\},
+\qquad M=20000,
+\]
+
+and reports, for each selected rank,
+
+\[
+\widehat\Delta_{\mathrm{iso},r}
+=\min_{k\in\mathcal K_M}
+\left[\min_a\epsilon_a^{\mathrm{ext}}(k)-\max_a\epsilon_a(k)\right]
+\]
+
+and
+
+\[
+\widehat\theta_r
+=\max_{\substack{k\in\mathcal K_M,\ 1\leq\ell\leq8\\1\leq j<r}}
+|\theta_{\ell j}(k)|.
+\]
+
+This grid is not a selected construction mesh or evaluation mesh. The sampled isolation
+energy and sampled angle maximum are only reproducibility checks against the analytic
+certificates. The sampled angle is slightly below the exact continuum maximum because
+the maximizing momentum need not lie on the grid. Neither sampled value may be promoted
+to convergence or retained-evidence status.
+
+\section{Dimension-specific transport and sewing}
+
+All analytic fields are $2\pi$ periodic, so the canonical ambient basis has identity
+face sewing. A numerical route must nevertheless reconstruct and verify the declared
+sewing rather than infer it from array shape.
+
+\subsection{Periodic 1-D}
+
+The one-dimensional case has one neighbor-link family, one primitive reciprocal closure,
+and hopping blocks indexed by $R\in\mathbb Z$. It is the primary rank/depth isolation
+case because it introduces no plaquette channel. Closure eigenphases are stored as an
+unordered rank-$r$ multiset.
+
+\subsection{Periodic 2-D}
+
+The two-dimensional case has $x$- and $y$-link families, sewing across both reciprocal
+face pairs, primitive closures in both directions, and $xy$ plaquettes. Hopping blocks
+are indexed by $\mathbf R\in\mathbb Z^2$. Wilson-loop phase spectra are compared as
+unordered multisets; no band-by-band phase labeling is inferred through crossings.
+
+\subsection{Periodic 3-D}
+
+The three-dimensional case has $x$, $y$, and $z$ link families, sewing across all three
+reciprocal-face pairs, three primitive closures, and $xy$, $xz$, and $yz$ plaquettes.
+Hopping blocks are indexed by $\mathbf R\in\mathbb Z^3$. Dense tensor fields must not be
+materialized solely for diagnostics when a matrix-free or streamed route can provide the
+same declared quantity.
+
+Neighbor transport is applicable only if every required cross-overlap passes its applied
+singular-value threshold. Closure and plaquette diagnostics are inapplicable, rather than
+zero, when a required link is rank deficient.
+
+\section{Topological boundary}
+
+The analytic frame $F_r(\mathbf k)=W_r(\mathbf k)E_r$ is global and periodic. Therefore
+P0 and P1 define topologically trivial complex composite bundles. Wilson loops, closure
+phases, and plaquettes are transport and sewing diagnostics in this family; they are not
+claims of Chern, $\mathbb Z_2$, crystalline, or three-dimensional topological character.
+
+A nonidentity Wilson loop does not by itself imply a topological obstruction. A future
+obstructed model would require patchwise frames and transition functions, and would be a
+separate experiment family rather than a hidden coefficient choice here.
+
+The reusable diagnostics developed from this family may later support a fail-closed
+pristine/defect compatibility screen, but Paper 3 does not construct defect operators.
+Paper 5 owns the common-space subtraction decision, and Paper 6 owns full topological
+and symmetry-obstruction protocols. The synthetic P0/P1 cases exercise known-compatible
+frames; they do not validate material bundle compatibility.
+
+\section{Fourier representation and locality}
+
+For a declared represented field $H(\mathbf k)$, define the continuum hopping blocks
+
+\[
+T(\mathbf R)=\frac{1}{(2\pi)^d}
+\int_{\mathbb T^d}e^{-i\mathbf k\cdot\mathbf R}
+H(\mathbf k)\,d^d\mathbf k.
+\]
+
+For D1 v1, the selected discrete convention on $\mathcal K_M$ is
+
+\[
+T_M(R)=\frac1M\sum_{k\in\mathcal K_M}e^{-ikR}H(k),
+\qquad
+H_M(k)=\sum_{R=-(M-1)/2}^{(M-1)/2}e^{ikR}T_M(R).
+\]
+
+Only the forward transform carries $1/M$. The odd mesh gives a unique inversion-symmetric
+canonical translation inventory with no Nyquist singleton. The discrete transform is a
+finite representation of sampled data, not the continuum coefficient sequence.
+Continuum quadrature error, finite-mesh aliasing, and deliberate hopping truncation
+remain distinct.
+
+Every support is an explicit set of translation vectors. It must include inversion pairs
+and complete orbits of any point group actually declared by the case. Equal-radius ties
+are never split. A shell number is not transferred between dimensions or metrics without
+the full vector inventory and physical radius.
+
+For a retained support $\Omega\subset\mathbb Z^d$, define
+
+\[
+T_\Omega(\mathbf R)=
+\begin{cases}
+T(\mathbf R),&\mathbf R\in\Omega,\\
+0,&\mathbf R\notin\Omega.
+\end{cases}
+\]
+
+The protocol reports complete matrix-block norms, omitted quadratic weight, omitted block
+norm, reconstruction residual, and the spectral consequence of the reconstructed
+truncated operator. Frobenius quantities are reported both unnormalized and, when
+cross-rank comparison is intended, with a prospectively selected rank normalization.
+The normalization and its interpretation must be frozen before results; dividing by
+$\sqrt r$ after observing a trend is not permitted.
+
+\section{Construction and evaluation procedure}
+
+For each of the 16 $(r,L)$ cases, the producer performs the following fixed sequence.
+
+\begin{enumerate}
+\item Reconstruct $D_r(k)$, the exterior block, $G_{r,L}(k)$, $F_r(k)$, and
+$F'_{r,L}(k)$ directly from the canonical formulas on all three construction meshes.
+\item Evaluate analytic endpoint values at both $-\pi$ and $+\pi$ for sewing; a duplicated
+endpoint is never inserted into a Fourier mesh.
+\item Construct neighbor links in increasing mesh-index order with the last point linked to
+the first through the declared identity face sewing. Store the minimum threshold
+margin, maximum unitary defect, closure defect, and unordered closure eigenphases.
+\item Select A1 once on $\mathcal K_{2049}$. Construct A2 independently on every mesh and
+evaluate A3 from the known inverse. Record A1 as deficient rather than inventing a
+null-space completion when its aggregate fails the strict threshold.
+\item Align matrices before Fourier transformation and compute complete discrete blocks for
+every applicable channel on every construction mesh.
+\item Evaluate all fixed supports without selecting a preferred support. Reconstruct the
+full and truncated interpolants on the withheld mesh.
+\item Compare the full interpolant with the applicable direct analytic evaluation field:
+$H'_{r,L}$ for A0, $U_{\mathrm{glob}}^\dagger H'_{r,L}U_{\mathrm{glob}}$ for a
+qualified A1, and $D_r$ for A2 and A3.
+\item Apply every integrity, refinement, and claim-resolution rule without modifying any
+control.
+\end{enumerate}
+
+The evaluation role is withheld rather than called training: no statistical model is
+learned. Evaluation data cannot alter ranks, depths, coefficients, meshes, alignments,
+supports, thresholds, output selection, or figure selection.
+
+\section{Diagnostic definitions and ledger}
+
+For a channel $A$ and construction mesh $M$, write $T_{A,M}(R)$ for the complete block
+and $H_{A,M}(k)$ for its full interpolant. For support $\Omega_S$, retain both
+
+\[
+W_{A,M}(S)=\sum_{R\notin\Omega_S}\|T_{A,M}(R)\|_F^2,
+\qquad
+N_{A,M}(S)=\sqrt{W_{A,M}(S)},
+\]
+
+and the block-$\ell^1$ tail
+
+\[
+L_{A,M}(S)=\sum_{R\notin\Omega_S}\|T_{A,M}(R)\|_F.
+\]
+
+Report $W$ raw and divided by $rE_{\mathrm{ref}}^2$; report $N$ and $L$ raw and divided
+by $\sqrt rE_{\mathrm{ref}}$. These are complete-matrix quantities, not sums of selected
+orbital entries.
+
+On the withheld mesh, keep the following operator and spectral channels separate:
+
+\[
+\begin{aligned}
+e_{\mathrm{interp}}(k)&=H_{A,2049}(k)-H_A^{\mathrm{direct}}(k),\\
+e_{\mathrm{trunc}}^{(S)}(k)&=H_{A,2049}^{(S)}(k)-H_{A,2049}(k),\\
+e_{\mathrm{total}}^{(S)}(k)&=H_{A,2049}^{(S)}(k)-H_A^{\mathrm{direct}}(k).
+\end{aligned}
+\]
+
+For each, report maximum and RMS Frobenius operator errors and maximum and RMS ordered-
+eigenvalue errors with the fixed cross-rank normalizations. The three channels are not
+added, and no cancellation between interpolation and truncation is called convergence.
+
+Every case retains separate diagnostics for:
+
+\begin{enumerate}
+\item parent Hermiticity, basis order, scalar energy reference, and exact analytic gap;
+\item sampled retained/exterior separation on every mesh, labeled sampled;
+\item frame orthonormality, gauge unitarity, projector idempotency, and projector equality;
+\item direct ordered-spectrum equality before and after each applicable alignment;
+\item A1 aggregate singular values and threshold margin;
+\item for A2, minimum singular value, maximum singular value, minimum threshold margin,
+deficient-point count, and the exact indices of any deficient points;
+\item neighbor-link singular-value extrema and deficient-link indices;
+\item reciprocal-endpoint sewing, primitive closure, and unordered closure phases;
+\item A0--A3 frame and represented-operator residuals, with inapplicable distinguished from
+numerical zero;
+\item Fourier reconstruction, Hermitian pairing, Parseval, and canonical-index checks;
+\item every block norm for $|R|\leq128$ and the three tail quantities for every support;
+\item withheld interpolation error;
+\item deliberate truncation error relative to the full interpolant; and
+\item total error relative to the direct analytic evaluation field.
+\end{enumerate}
+
+Parent construction, covariant equivalence, restricted alignment, Fourier conversion,
+interpolation, and deliberate truncation remain distinct. No combined diagnostic score
+is defined.
+
+\section{Convergence and claim-resolution policy}
+
+A D1 v1 case is \textbf{numerically qualified} only if every mandatory integrity gate passes,
+its final interpolation errors pass, and all retained blocks and locality diagnostics
+meet the frozen $1025\rightarrow2049$ refinement rules. A1 may instead receive the
+explicit \path{aggregate-rank-deficient} disposition; this is a bounded A1 result, not a
+failed search and not permission to complete the map.
+
+The exact support and A2/A3 recovery statements are analytic certificates and never
+become empirical findings. Numerical values only test their implementation.
+
+For a qualified case, define a \textbf{resolved gauge-induced locality extension at $S=2$}
+only when
+
+\[
+\frac{N_{A0,2049}(2)}{\sqrt rE_{\mathrm{ref}}}\geq10^{-6},
+\qquad
+\frac{N_{A3,2049}(2)}{\sqrt rE_{\mathrm{ref}}}\leq10^{-10},
+\]
+
+and the A0 total ordered-spectrum maximum error after $S=2$ truncation is at least
+$10^{-6}E_{\mathrm{ref}}$. Below-threshold behavior is reported as unresolved at v1
+resolution, not as proof of equal locality. A qualified A1 is classified as a
+\textbf{resolved global-alignment residual} only if its maximum normalized represented-
+operator residual is at least $10^{-6}$; otherwise it is unresolved at v1 resolution.
+No ratio with a roundoff-scale denominator is used.
+
+Rank or depth differences are descriptive unless the absolute difference between two
+normalized diagnostics exceeds both $10^{-6}$ and ten times their larger measured
+refinement change. Monotonicity is not assumed, and the finite ladder supports no
+asymptotic-in-rank or asymptotic-in-depth law. A failure to resolve an effect is not a
+negative theorem.
+
+\section{Scaling study}
+
+The selected v1 matrix contains four rank sweeps at every fixed depth and four depth
+sweeps at every fixed rank. Rank comparisons hold dimension, parent coefficient rule,
+active harmonics, gauge class, supports, and $E_{\mathrm{ref}}$ fixed. Depth comparisons
+hold rank and the per-layer rule fixed. The shared later-dimensional subset creates no
+D1-to-D2 or D1-to-D3 claim until those protocols select matched meshes and metrics.
+
+Dense unitary factorization scales as $O(r^3)$ per sampled point. Actual peak memory,
+wall time, and processed mesh points are recorded per producer and verifier invocation.
+Resource failure is unresolved coverage, not a scientific failure of the model.
+
+\section{Independent verification}
+
+The selected verifier method identity is
+
+\begin{quote}\small
+\path{ksdft2effmass.verify.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality.direct-formula.v1}\par
+\end{quote}
+
+The verifier reconstructs all inputs from \path{input.json} and the canonical protocol; it
+does not trust producer-derived arrays. It independently composes scalar fields, Givens
+blocks, frames, parents, projectors, alignment objectives, neighbor links, closures,
+Fourier sums, supports, interpolants, and every error channel. It uses explicit direct
+Fourier sums for retained blocks and does not call the producer experiment action, its
+FFT wrapper, its serializer, or a reusable campaign workflow action.
+
+Shared Python, NumPy, BLAS, and LAPACK lineage is permitted only when disclosed in
+provenance. The verifier uses its own polar/SVD call site and independently checks the
+objective value, singular values, threshold margin, and unitary defect. It never silently
+completes a deficient map. Producer and verifier results must agree within
+$10^{-11}$ for normalized scalar diagnostics and within
+$10^{-10}+10^{-9}\max(|x|,|y|)$ for normalized locality diagnostics. Every categorical
+disposition must agree exactly.
+
+Passing software tests or independent reconstruction establishes bounded software and
+finite-protocol numerical behavior only. It does not establish material relevance,
+localization optimality, nontrivial topology, continuum behavior outside the selected
+analytic certificates, or validity at ranks and depths not executed.
+
+\section{Schemas and canonical serialization}
+
+The implementation must provide strict JSON Schemas with these immutable identifiers:
+
+\begin{quote}\small
+\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:input}\par
+\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:result}\par
+\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:verification}\par
+\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:provenance}\par
+\end{quote}
+
+Every object rejects unknown properties. Numeric fields reject booleans, strings,
+nonfinite values, and implicit units. Enumerations bind the exact ranks, depths, meshes,
+supports, channels, conventions, status values, and method identities. \path{input.json}
+contains the complete model coefficients and controls rather than only a protocol path.
+\path{result.json} contains every case disposition, raw and normalized diagnostic, support
+inventory, refinement comparison, resource measurement, and claim-resolution outcome.
+\path{verification.json} contains independently reconstructed values and per-field comparison
+dispositions. \path{provenance.json} binds source and runtime identities.
+
+Canonical JSON is UTF-8, key-sorted, compact, finite, and terminated by exactly one line
+feed. The implementation uses separators \path{(',', ':')}, preserves JSON array order where
+order is scientific, and forbids NaN and infinity. SHA-256 is computed over canonical
+bytes. Schema files themselves are checksummed and bound into provenance.
+
+\section{Resource and execution gate}
+
+D1 v1 is a deterministic local synthetic calculation. It must not invoke Quantum
+ESPRESSO, Wannier90, a scheduler, a remote service, a GPU, or network access. The
+producer and verifier each run as one process with numerical-library thread counts fixed
+to one. The prospective ceilings are:
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{YYY}
+\toprule
+\textbf{Resource} & \textbf{Producer ceiling} & \textbf{Verifier ceiling} \\
+\midrule
+wall time & 30 minutes & 45 minutes \\
+peak resident memory & 4 GiB & 4 GiB \\
+retained package size, excluding generated figure images & 50 MiB total & included \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The implementation must stream across rank/depth/channel cases and must not retain a
+complete all-case mesh-by-matrix tensor solely for convenience. Exceeding a ceiling gives
+\path{resource-limit-exceeded}, retains no successful evidence package, and triggers protocol
+review rather than an unreviewed increase. Runtime, peak resident memory, thread
+environment, platform, Python, NumPy, BLAS/LAPACK, and floating-point identifiers are
+recorded.
+
+Implementation review must pass unit tests, strict schema validation, type checking,
+linting, source-manifest reconstruction, and an unreleased end-to-end dry run before any
+retained execution is authorized. A dirty worktree is not represented as a clean Git
+revision; all in-scope dirty source bytes must be included in \path{source.sha256}.
+
+\section{Retained-evidence and failure policy}
+
+A run identity has the no-overwrite form
+\path{<version-id>.run-YYYYMMDDTHHMMSSZ} in UTC; a timestamp collision is an error rather than
+permission to replace an existing directory. A successful retained package contains:
+
+\begin{itemize}
+\item canonical \path{input.json}, \path{result.json}, \path{verification.json}, and \path{provenance.json};
+\item the four exact schemas used for validation;
+\item \path{diagnostics.csv} with one explicitly keyed row per case, mesh, channel, and support;
+\item \path{report.md} and publication-view figure data;
+\item \path{source.sha256}, \path{SHA256SUMS}, and \path{evidence-package-identity.txt}; and
+\item generated figures only as non-authoritative views of checksummed numerical records.
+\end{itemize}
+
+\path{SHA256SUMS} covers every retained file except itself and
+\path{evidence-package-identity.txt}. The evidence identity is
+\path{sha256:<SHA-256(SHA256SUMS bytes)>}. Consumers verify digests and schemas before reading
+scientific values. The package binds the exact Git base revision, dirty-source manifest,
+dependency revisions and lock digest, protocol and schema digests, run identity, verifier
+method, runtime environment, and measured resources.
+
+A successful package requires all 16 cases, all three construction meshes, all nine
+supports, A0/A2/A3, every qualified A1 or exact A1 deficiency disposition, and complete
+independent-verifier agreement. Partial rank/depth coverage, missing refinement levels,
+failed schemas, failed digests, failed numerical gates, or resource-limit failures cannot
+be promoted as successful evidence. Failed attempts may be kept only under a distinct
+failed-run identity with incomplete outputs and the failure made explicit. They are not
+publication evidence and never replace a successful package.
+
+Retained evidence supports only the selected finite synthetic D1 cases and the declared
+resolution classifications. It does not validate a material, a global localization
+optimum, an unrestricted alignment algorithm, arbitrary executed rank, a continuum decay
+law, or any topological classification. Publication, release, and evidence promotion
+remain separate human decisions.
+
+\section{Selections remaining outside D1 v1}
+
+No D1 v1 scientific or numerical control remains outcome-selectable. Implementation
+class names, file layout, and exact dependency revisions may be chosen during
+implementation review only when they preserve every contract above; the final revisions
+and bytes are then bound in provenance.
+
+The following remain open for later, separately versioned protocols:
+
+\begin{enumerate}
+\item P1 moving-projector coefficients and their certified exterior-gap method;
+\item every 2-D and 3-D coefficient table, mesh, support, and dimensional identity;
+\item G1 complex phases and diagonal-phase laws;
+\item A4 restricted-circuit optimizer, initialization, stopping rule, and certificate;
+\item nonorthogonal metrics, point-group constraints, or material specializations; and
+\item any topologically obstructed or patchwise-frame family.
+\end{enumerate}
+
+None of these may be added to D1 v1 after observing its outcomes. The D1 identity,
+coefficients, exact certificates, rank/depth ladder, meshes, supports, tolerances,
+A0--A3 channels, decision rules, verifier method, resource gate, and evidence policy are
+now selected. Until reviewed implementation and schemas exist, the version remains
+unexecuted and cannot supply higher-rank numerical evidence.
+\end{document}

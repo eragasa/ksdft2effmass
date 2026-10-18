@@ -1,0 +1,589 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\T}{\mathbb T}
+\newcommand{\Z}{\mathbb Z}
+
+\title{\textbf{Prospective non-orthogonal 2-D protocol:\\
+Graphene-inspired band equivalence and hopping locality}}
+\author{KSD reduced-Hamiltonian research program}
+\date{Pre-version scientific design}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This protocol selects a graphene-inspired synthetic parent on a two-dimensional
+triangular Bravais lattice with a two-site honeycomb basis.  It is the first
+non-orthogonal extension of the publication-independent experiment \emph{Band
+Equivalence versus Hopping Locality}.  A separate matched square--triangular Bravais
+control isolates metric and bond-orbit behavior without being identified as graphene.
+The inspired parent contains two sublattices and two abstract orbital channels per cell;
+it is not a carbon $p_z$ model or a material parametrization.  Complete reference and
+rotated rank-two fields are pointwise unitarily equivalent before truncation.  The
+primary outcome is the additional metric- and point-group-complete hopping support
+needed by the rotated graphene-inspired representation at the same withheld band-error
+target.
+
+The triangular bond vectors have a nontrivial integer relation.  Consequently, the
+flat-parent global-alignment correlation is a constrained Bessel sum rather than the
+square-lattice product of independent $J_0$ factors.  The protocol independently checks
+that comparator, the exact residual--non-onsite-weight identity, finite Fourier
+conversion, metric-shell generation, and primitive-basis covariance.  Separately
+authorized bounded Monkhorst--Pack actions at $N=16,32,64$ now exercise these channels;
+they are not an immutable version, material claim, qualified convergence result, or
+continuum certificate.
+\end{abstract}
+
+\paragraph{Experiment identity.}
+The family identity is
+\path{ksdft2effmass.campaign.model-adequacy.periodic2d-nonorthogonal.band-equivalence-versus-hopping-locality}.
+It is distinct from the orthogonal periodic-2D family and from every version, run,
+evidence package, and publication identity.  The matched square case below is an
+internal comparator, not evidence owned by the orthogonal family.
+
+\paragraph{Status.}
+The triangular lattice, honeycomb basis, inspired and matched-control parent forms,
+retained rank, bond inventories, primary amplitude convention, analytic comparator,
+shell metrics, basis-aware distance diagnostic, and required diagnostics are selected
+development controls.  The smoke and first $N=32$ refinement calculations have
+replaceable inputs, results, and independent development verification records.  One of
+eighteen pointwise first-passing decision sets changes between those mesh levels, so
+mesh stability remains unresolved.  Full mesh and shell ladders, control-parent gap
+qualification, comparator-tail certification, final channel
+tolerances and schemas, frozen revisions, and evidence retention remain open.  No
+further execution is authorized by this document.
+
+\section{Scientific question and comparison boundary}
+
+For two rank-two Bloch Hamiltonians related by a smooth momentum-dependent rotation,
+pointwise eigenvalues agree exactly while Fourier support can differ.  This experiment
+asks whether that representation cost persists when the primitive basis is
+non-orthogonal and hopping support is defined by physical distance and the lattice point
+group rather than by coordinate radius.
+
+The primary target is the graphene-inspired honeycomb-basis parent.  The matched
+square--triangular Bravais pair is a separate internal control constructed with the same
+onsite and orbital matrices.  Comparisons are conditional on the normalizations below;
+they are not universal rankings of lattice geometries.  The experiment measures
+representation cost after deliberate truncation, not physical inequivalence, graphene
+accuracy, material adequacy, or a preferred Wannier gauge.
+
+The following remain separate channels:
+\begin{enumerate}[label=\arabic*.]
+ \item parent-to-retained reconstruction after an explicit projector lift;
+ \item covariant equivalence under the full momentum-dependent rotation;
+ \item residual under one cell-local global rotation;
+ \item cyclic-to-ordinary finite-Fourier conversion;
+ \item off-node interpolation;
+ \item deliberate metric-shell truncation; and
+ \item total reconstructed-Hamiltonian and spectral consequences.
+\end{enumerate}
+They are not treated as independent additive errors.
+
+\section{Triangular and matched-square geometry}
+
+The triangular primitive matrix and Gram matrix are
+\begin{equation}
+ A_{\triangle}=a_0
+ \begin{pmatrix}
+  1&1/2\\
+  0&\sqrt3/2
+ \end{pmatrix},
+ \qquad
+ G_{\triangle}=A_{\triangle}^{\mathsf T}A_{\triangle}
+ =a_0^2
+ \begin{pmatrix}
+  1&1/2\\
+  1/2&1
+ \end{pmatrix}.
+ \label{eq:triangular-metric}
+\end{equation}
+The reciprocal primitive matrix is
+$B_{\triangle}=2\pi A_{\triangle}^{-\mathsf T}$.
+Reduced coordinates are $\mathbf q\in[-1/2,1/2)^2$, physical wavevectors are
+$\mathbf k=B_{\triangle}\mathbf q$, and the Bloch phase of an integer displacement
+$\mathbf R$ is $e^{2\pi i\mathbf q\cdot\mathbf R}$.
+
+The positive half of the nearest-neighbor orbit is
+\begin{equation}
+ \mathcal B_{\triangle,+}
+ =\{\mathbf e_1,\mathbf e_2,\mathbf e_1-\mathbf e_2\},
+ \qquad m_{\triangle}=3.
+ \label{eq:triangular-bonds}
+\end{equation}
+Together with its negatives it gives six equal-length physical bonds.  The matched
+square control uses
+\begin{equation}
+ A_{\square}=a_0I_2,
+ \qquad
+ \mathcal B_{\square,+}=\{\mathbf e_1,\mathbf e_2\},
+ \qquad m_{\square}=2.
+\end{equation}
+
+For either geometry $X\in\{\square,\triangle\}$, physical squared distance and integer
+point group are
+\begin{equation}
+ r_X^2(\mathbf R)=\mathbf R^{\mathsf T}G_X\mathbf R,
+ \qquad
+ \Gamma_X=\{M\in GL(2,\Z):M^{\mathsf T}G_XM=G_X\}.
+ \label{eq:metric-and-group}
+\end{equation}
+For the triangular lattice,
+\begin{equation}
+ r_{\triangle}^2(\mathbf R)/a_0^2
+ =R_1^2+R_1R_2+R_2^2.
+ \label{eq:triangular-shell-index}
+\end{equation}
+Support inventories must contain complete $\Gamma_X$ orbits and every attainable metric
+shell through the declared cap.  Coordinate squares $R_1^2+R_2^2$ are not triangular
+shell labels.
+
+Reusable lattice, reciprocal-lattice, metric, and finite-domain primitives are owned by
+PhysKit.  This experiment owns the selected orbit, basis semantics, shell acceptance,
+thresholds, verification obligations, and retained-result policy.
+
+\subsection{Honeycomb basis and graphene-inspired connectivity}
+
+The triangular Bravais lattice becomes honeycomb only after adding two basis sites.  In
+reduced direct coordinates, select
+\begin{equation}
+ \boldsymbol\tau_A=(0,0),
+ \qquad
+ \boldsymbol\tau_B=(1/3,1/3).
+ \label{eq:honeycomb-basis}
+\end{equation}
+The three nearest $A$--$B$ bonds use cell shifts
+\begin{equation}
+ \mathcal D_{AB}=\{\mathbf0,-\mathbf e_1,-\mathbf e_2\},
+ \qquad
+ \boldsymbol\delta_j=A_{\triangle}
+ (\boldsymbol\ell_j+\boldsymbol\tau_B-\boldsymbol\tau_A).
+ \label{eq:honeycomb-bonds}
+\end{equation}
+All three physical vectors have length $a_0/\sqrt3$.  In the periodic orbital convention
+the normalized honeycomb structure factor is
+\begin{equation}
+ \gamma_{\mathrm{hc}}(\mathbf q)
+ =\frac13\left[1+e^{-2\pi iq_1}+e^{-2\pi iq_2}\right],
+ \qquad |\gamma_{\mathrm{hc}}|\le1.
+ \label{eq:honeycomb-structure-factor}
+\end{equation}
+The zeros of this factor give graphene-like internal band contacts.  They do not by
+themselves establish a continuum Dirac theory or a carbon band structure.
+
+\section{Matched Bravais-control parents}
+
+Here and below $E_{\mathrm{ref}}>0$ is an arbitrary reference-energy normalization, not
+a band gap. The common onsite matrix is
+\begin{equation}
+ T_0=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ -1.20&0.06&0&0\\
+ 0.06&-0.35&0&0\\
+ 0&0&1.00&0.04\\
+ 0&0&0.04&1.75
+ \end{pmatrix}.
+\end{equation}
+To avoid conflating non-orthogonal geometry with an oriented hopping law, use the same
+Hermitian orbital coupling in every unoriented bond:
+\begin{equation}
+ V=E_{\mathrm{ref}}
+ \begin{pmatrix}
+ 0.30&0&0.12&0\\
+ 0&-0.20&0&0.10\\
+ 0.12&0&0.10&0\\
+ 0&0.10&0&-0.08
+ \end{pmatrix}.
+ \label{eq:orbital-coupling}
+\end{equation}
+This is the Hermitian sum of the directed block and its adjoint in the orthogonal
+predecessor.  It defines a new matched-control parent; numerical results from the
+directed-hopping square protocol are not transferred into this comparison.
+
+For $0\le\rho\le1$, define the point-group-invariant structure factor and parent
+\begin{align}
+ f_X(\mathbf q)
+ &=\frac1{m_X}\sum_{\mathbf b\in\mathcal B_{X,+}}
+   \cos(2\pi\mathbf q\cdot\mathbf b),\\
+ K_{\rho,X}(\mathbf q)&=T_0+\rho f_X(\mathbf q)V.
+ \label{eq:parent}
+\end{align}
+The normalization fixes $f_X(\mathbf0)=1$ and $|f_X|\le1$ in both geometries.  It does
+not make their dispersions identical.
+
+For construction size $N$, let $\mathsf S_N$ be the cyclic shift diagonalized by the
+centered unitary Fourier matrix $\mathsf F_N$, and define
+\begin{equation}
+ \mathsf S_{\mathbf b}=\mathsf S_N^{b_1}\otimes\mathsf S_N^{b_2}.
+\end{equation}
+The finite cell--orbital parent on
+$\mathcal H_{p,N}^{(2)}=(\mathbb C^N)^{\otimes2}\otimes\mathbb C^4$ is
+\begin{equation}
+ \widehat K_{\rho,X,N}
+ =I_{N^2}\otimes T_0
+ +\frac{\rho}{2m_X}\sum_{\mathbf b\in\mathcal B_{X,+}}
+  (\mathsf S_{\mathbf b}+\mathsf S_{\mathbf b}^{\dagger})\otimes V.
+ \label{eq:finite-parent}
+\end{equation}
+The tensor Fourier transform must reproduce the direct sum of
+$K_{\rho,X}(\mathbf q_{ij})$ exactly up to the frozen numerical tolerance.  Four
+orbitals occur per cell, not $4^{m_X}$.
+
+At every momentum, complete Hermitian spectra define the lower rank-two projector.  A
+qualified periodic orthonormal frame
+$F_{\rho,X}(\mathbf q):\mathbb C^2\to\mathbb C^4$ gives
+\begin{equation}
+ H_{\rho,X}(\mathbf q)
+ =F_{\rho,X}(\mathbf q)^\dagger
+  K_{\rho,X}(\mathbf q)F_{\rho,X}(\mathbf q).
+ \label{eq:retained}
+\end{equation}
+A conservative continuous enclosure must establish a positive band-two/band-three gap
+for every retained $\rho$ and both geometries.  A sampled minimum is insufficient.  The
+frame algorithm must freeze its anchor, traversal, neighbor polar alignment,
+reciprocal-boundary sewing, path checks, plaquette checks, and rank thresholds.  Failure
+to establish a global periodic frame gives an unresolved case rather than a changed
+rank or gauge.
+
+\section{Graphene-inspired dispersive parent}
+
+The primary inspired parent uses the ordered basis
+$(L,A),(L,B),(U,A),(U,B)$, where $A/B$ are honeycomb sites and $L/U$ are abstract lower
+and upper orbital channels.  Define
+\begin{equation}
+ S_{\mathrm{hc}}(\mathbf q)=
+ \begin{pmatrix}
+ 0&\gamma_{\mathrm{hc}}(\mathbf q)\\
+ \gamma_{\mathrm{hc}}(\mathbf q)^*&0
+ \end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+ K_{\rho,\mathrm G}(\mathbf q)=
+ \begin{pmatrix}
+ -\Delta I_2+\rho t_LS_{\mathrm{hc}}(\mathbf q)&vI_2\\
+ vI_2&+\Delta I_2+\rho t_US_{\mathrm{hc}}(\mathbf q)
+ \end{pmatrix},
+ \label{eq:graphene-inspired-parent}
+\end{equation}
+with
+\begin{equation}
+ \Delta=1.20E_{\mathrm{ref}},
+ \qquad t_L=0.30E_{\mathrm{ref}},
+ \qquad t_U=0.10E_{\mathrm{ref}},
+ \qquad v=0.08E_{\mathrm{ref}}.
+\end{equation}
+This two-channel construction supplies a rank-two low-energy group with honeycomb
+connectivity while keeping two explicit spectator states.  Any implementation has model
+role \texttt{TOY}; it is not a \texttt{GrapheneReferenceModel}.  It contains no spin, carbon
+$p_z$ radial physics, overlap matrix, fitted graphene hopping, substrate, strain,
+spin--orbit coupling, or electron interaction.
+
+Because $\norm{S_{\mathrm{hc}}}_2\le1$, a conservative Weyl bound gives
+\begin{equation}
+ \varepsilon_3-\varepsilon_2
+ \ge 2\Delta-|t_L|-|t_U|-2|v|=1.84E_{\mathrm{ref}}
+ \label{eq:graphene-external-isolation-gap}
+\end{equation}
+for $0\le\rho\le1$.  The calculation must still reconstruct the sampled gap and verify
+the bound from the exact input matrices.  Internal contact of the two retained bands is
+permitted because the retained object is their rank-two projector, not either individual
+band.  A qualified periodic frame defines
+\begin{equation}
+ H_{\rho,\mathrm G}(\mathbf q)
+ =F_{\rho,\mathrm G}(\mathbf q)^\dagger
+  K_{\rho,\mathrm G}(\mathbf q)F_{\rho,\mathrm G}(\mathbf q).
+\end{equation}
+
+The finite parent replaces each exponential in
+Eq.~\eqref{eq:honeycomb-structure-factor} by its exact cell-shift operator.  Its tensor
+Fourier transform, full four-state eigensystem, lower rank-two projector, periodic frame,
+projector lift, and Wannier transform obey the same representation checks as the
+Bravais-control parents.  At $\rho=0$ its retained pair is scalar, so the nontrivial flat
+residual--tail theorem is tested by the separate constant-splitting Bravais control; it
+is not falsely attributed to the graphene-inspired endpoint.
+
+\section{RMS-matched gauge family}
+
+Let $g\ge0$ denote the reciprocal-torus RMS rotation amplitude.  For each geometry,
+define
+\begin{align}
+ \theta_{g,X}(\mathbf q)
+ &=g\sqrt{\frac{2}{m_X}}
+   \sum_{\mathbf b\in\mathcal B_{X,+}}
+   \sin(2\pi\mathbf q\cdot\mathbf b),
+ \label{eq:rms-phase}\\
+ U_{g,X}(\mathbf q)&=R(\theta_{g,X}(\mathbf q)),\\
+ A_{\rho,g,X}(\mathbf q)
+ &=U_{g,X}(\mathbf q)^\dagger
+   H_{\rho,X}(\mathbf q)U_{g,X}(\mathbf q).
+ \label{eq:comparison}
+\end{align}
+For the graphene-inspired parent, use the triangular phase and define
+\begin{equation}
+ A_{\rho,g,\mathrm G}(\mathbf q)
+ =U_{g,\triangle}(\mathbf q)^\dagger
+  H_{\rho,\mathrm G}(\mathbf q)U_{g,\triangle}(\mathbf q).
+ \label{eq:graphene-comparison}
+\end{equation}
+Distinct positive-half bond characters are orthogonal on $\T^2$, hence
+\begin{equation}
+ \int_{\T^2}\theta_{g,X}(\mathbf q)^2\,d\mathbf q=g^2.
+\end{equation}
+Thus square and triangular cases are compared at equal phase RMS rather than equal raw
+bond count.  The envelope obeys
+$|\theta_{g,X}|\le a_X(g)=g\sqrt{2m_X}$.  The primary range is
+\begin{equation}
+ 0\le g\le g_{\max}^{(2)}=\frac{\pi}{4\sqrt6},
+ \label{eq:g-range}
+\end{equation}
+which ensures $a_X(g)\le\pi/4$ for both cases.  The realized maximum phase is reported
+separately and is not silently identified with its triangle-inequality envelope.
+
+The complete fields in Eqs.~\eqref{eq:comparison} and
+\eqref{eq:graphene-comparison} have identical pointwise spectra.  Their covariantly
+aligned subtractions under the applicable $U_g(\mathbf q)$ vanish.  The restricted
+scientific comparison allows only one momentum-independent real rotation $R(\phi)$.
+In Wannier coordinates, the full $U_{g,X}$ becomes a generally nonlocal unitary and may
+not be substituted into the restricted channel.
+
+\section{Flat-parent analytic comparators}
+
+At $\rho=0$, the retained frame is fixed to the constant lower-two-eigenvector frame of
+$T_0$.  Let $D$ be the traceless part of the resulting constant retained Hamiltonian.
+For the square control, character independence gives
+\begin{equation}
+ c_{\square}(g)
+ =\int_{\T^2}e^{2i\theta_{g,\square}}d\mathbf q
+ =J_0(2g)^2.
+ \label{eq:square-comparator}
+\end{equation}
+
+For the triangular target, put $x=2g\sqrt{2/3}$ and label the ordered bonds in
+Eq.~\eqref{eq:triangular-bonds} by $\mathbf b_1,\mathbf b_2,\mathbf b_3$.  Their
+relation $\mathbf b_1-\mathbf b_2-\mathbf b_3=\mathbf0$ constrains the zero Fourier
+mode of the Jacobi--Anger product~\cite{dlmf1012}.  With this orientation,
+\begin{equation}
+ c_{\triangle}(g)
+ =\sum_{\ell\in\Z}(-1)^\ell J_\ell(x)^3.
+ \label{eq:triangular-comparator}
+\end{equation}
+The protocol must evaluate this series with a declared symmetric truncation and a
+reviewed tail bound, and independently reproduce it by high-accuracy torus quadrature.
+Finite-mesh correlations remain separate numerical quantities.
+
+For either $X$, the bond-orbit theorem predicts
+\begin{align}
+ \inf_{s,\lambda\ge0,\phi}L_{\mathrm{op},X,\phi}^2
+ &=\kappa[1-c_X(g)^2]
+ =\frac{1}{2E_{\mathrm{ref}}^2}\sum_{\mathbf R\ne\mathbf0}
+   \norm{D_{\mathbf R}^{X}}_F^2,
+ \label{eq:flat-tail}\\
+ \inf_\phi L_{\mathrm{op},X,\phi}^2(0,1)
+ &=2\kappa[1-c_X(g)].
+\end{align}
+The finite calculation must verify the analytic correlation, both residual formulas,
+and shell-resolved Fourier weight independently.  No flat identity is assumed for
+$\rho>0$.
+
+\section{Finite Fourier conversion and metric-complete truncation}
+
+Construction uses the tensor Monkhorst--Pack mesh in reduced reciprocal coordinates,
+\begin{equation}
+ \mathbf q_{ij}=(-1/2+(i+1/2)/N,-1/2+(j+1/2)/N),
+ \qquad i,j=0,\ldots,N-1.
+\end{equation}
+The finite coefficients are
+\begin{equation}
+ T_{\mathbf R}^{(N)}=\frac1{N^2}\sum_{i,j}
+ e^{-2\pi i\mathbf q_{ij}\cdot\mathbf R}H(\mathbf q_{ij}).
+\end{equation}
+The transform includes the exact Monkhorst--Pack origin phase.  The coefficients
+reconstruct the construction nodes but are potentially aliased away from them.  The
+cyclic inventory must satisfy the half-step mesh's twisted Nyquist relation.  The
+two-line Nyquist union is removed and its power reported before ordinary-lattice
+truncation, exactly as in the reviewed square protocol.
+
+A cutoff $S$ retains every displacement satisfying
+\begin{equation}
+ r_X^2(\mathbf R)/a_0^2\le S
+\end{equation}
+and therefore every complete $\Gamma_X$ orbit on each attainable shell.  The inventory
+must be dense in attainable shell values through $S_{\max}$, conjugate closed, nested,
+and frozen before results are inspected.
+
+For the inspired two-site basis, a cell block at $\mathbf R$ contains entries with
+basis-aware physical separations
+\begin{equation}
+ d_{\alpha\beta}(\mathbf R)
+ =\norm{A_{\triangle}(\mathbf R+\boldsymbol\tau_\beta-
+ \boldsymbol\tau_\alpha)}_2,
+ \qquad \alpha,\beta\in\{A,B\}.
+ \label{eq:basis-aware-distance}
+\end{equation}
+The primary parity outcome retains complete cell blocks under the Bravais metric.  A
+secondary entry-resolved diagnostic reports the distribution of
+$d_{\alpha\beta}(\mathbf R)$ and must not relabel cell radius as an atomic bond length.
+
+On a disjoint shifted evaluation mesh, define the first passing shell
+\begin{equation}
+ \widehat S_X^\star(\rho,g;\tau)
+ =\min\{S:\mathcal E_{\lambda,\max}^{X}(\rho,g,S)\le\tau\}.
+\end{equation}
+If $B_X(S)$ counts retained displacement blocks, the within-geometry primary outcome is
+\begin{equation}
+ \Delta\widehat B_X^\star
+ =B_X(\widehat S_{X,\mathrm{rot}}^\star)
+  -B_X(\widehat S_{X,\mathrm{ref}}^\star).
+ \label{eq:block-inflation}
+\end{equation}
+No passing shell gives an unresolved result, never an extrapolated cutoff.  Cross-
+geometry comparisons report both $\Delta\widehat B_X^\star$ and physical shell radii;
+block counts and coordinate radii are not interchangeable.
+
+For interpolation, deliberate truncation, and total field pairs, report maximum and RMS
+Frobenius errors normalized by $\sqrt2E_{\mathrm{ref}}$, maximum and RMS sorted-band errors normalized
+by $E_{\mathrm{ref}}$, and omitted block power.  Pointwise Weyl bounds and the Parseval equality for
+RMS truncation error are verifier obligations.
+
+\section{Primitive-basis covariance control}
+
+Choose prospectively one unimodular matrix $M\in GL(2,\Z)$ that gives a nontrivial
+primitive-basis relabeling.  Recompute
+\begin{equation}
+ A'=AM,
+ \qquad G'=M^{\mathsf T}GM,
+ \qquad \mathbf R'=M^{-1}\mathbf R,
+ \qquad \mathbf q'=M^{\mathsf T}\mathbf q
+ \quad (\mathrm{mod}\ \Z^2).
+\end{equation}
+The complete cyclic operator, spectra, physical bond set, metric radii, orbit
+multiplicities, and physical first-passing support must agree after exact relabeling.
+Coordinate representatives and Nyquist-boundary bookkeeping may differ and are compared
+only after their declared maps.  This is a coordinate-covariance control, not a new
+scientific case.
+
+\section{Draft numerical roles}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{0.25\textwidth}p{0.42\textwidth}p{0.23\textwidth}}
+\toprule
+Control & Draft design & Status\\
+\midrule
+Cases & graphene-inspired honeycomb target; matched square/triangular Bravais controls & selected\\
+Parent scales & $\rho\in\{0,1/4,1/2,3/4,1\}$ & selected\\
+RMS amplitudes & $g_j=jg_{\max}^{(2)}/32$, $j=0,\ldots,32$ & selected\\
+Construction sizes & $N\in\{32,64,128,256\}$ per coordinate & resource qualification open\\
+Evaluation size & odd $M=2N+1$ with frozen rational shift & rule to be verified\\
+Band targets & $10^{-6},10^{-8},10^{-10}$ & synthetic draft\\
+Near-floor target & $10^{-12}$ & report only if resolved\\
+Shell cap & every attainable metric shell through $S_{\max}$ & open\\
+Series control & symmetric Bessel cutoff plus certified tail & open\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The same numerical tolerance is not assumed appropriate for every channel.  A first
+passing shell must remain unchanged on the next qualified construction mesh and on an
+independently shifted evaluation mesh; otherwise the disposition is unresolved.
+
+\section{Qualification and independent verification}
+
+Before an evidence-producing execution, producer and independent verifier contracts
+must establish the applicable common tests and diagnostics in
+\path{experiments/model-adequacy/band-equivalence-test-and-diagnostic-parity.md}, plus:
+\begin{enumerate}[label=\arabic*.]
+ \item exact triangular and square primitive, reciprocal, and Gram matrices, including
+       units and column-basis convention;
+ \item exact honeycomb basis positions, three $A$--$B$ bond vectors, structure factor,
+       four-state inspired parent, conservative external-isolation-gap bound, and basis-aware
+       distance map;
+ \item nearest-neighbor orbit completeness, physical bond lengths, point-group closure,
+       orbit multiplicities, and dense metric-shell inventories;
+ \item the finite-parent/direct-sum Fourier identity and complete four-state
+       eigensystem reconstruction;
+ \item a continuous external-isolation-gap enclosure for every retained $\rho$ and geometry;
+ \item global periodic rank-two frames, reciprocal sewing, projector reconstruction,
+       and parent-space lifting;
+ \item exact pointwise spectral equality and covariant equivalence of reference and
+       rotated fields;
+ \item the RMS phase identity, phase envelope, and realized maximum;
+ \item independent square and triangular analytic comparators, including the Bessel
+       series tail certificate, kept distinct from the graphene-inspired dispersive
+       parent;
+ \item restricted global-rotation residuals reconstructed from original matrix fields;
+ \item nodal Fourier reconstruction, Hermiticity, Parseval, Nyquist accounting, and
+       ordinary-lattice conversion;
+ \item interpolation, deliberate-truncation, and total matrix and spectral channels on
+       a disjoint mesh;
+ \item every first passing shell and retained-block count without trusting serialized
+       dispositions;
+ \item primitive-basis covariance after exact relabeling; and
+ \item conservative converged or unresolved outcomes under frozen resource caps.
+\end{enumerate}
+The verifier must not call the producer action.  Passing tests establishes only the
+software and finite numerical contract.
+
+\section{Prospective execution sequence}
+
+After version review, one deterministic calculation will:
+\begin{enumerate}[label=\arabic*.]
+ \item validate canonical input, identities, matrices, geometries, parameter grids,
+       shell inventories, and resource limits;
+ \item construct the graphene-inspired, square-control, and triangular-control finite
+       parents on every nested mesh without dense $4N^2\times4N^2$ allocation;
+ \item compute complete fiber spectra, qualify the retained gap, and construct the
+       periodic rank-two frames;
+ \item verify parent, projector, retained, Bloch, and Wannier representation identities;
+ \item form every RMS-matched rotated field and verify pointwise and covariant
+       equivalence;
+ \item evaluate continuous global alignment and the flat analytic comparators;
+ \item apply convergence gates and select a qualified construction size separately for
+       each geometry and case;
+ \item evaluate direct fields on the frozen shifted mesh without refitting;
+ \item convert cyclic Fourier blocks to the ordinary lattice, then apply every dense
+       metric shell through $S_{\max}$;
+ \item determine first passing shells and all error channels for reference and rotated
+       representations, including basis-aware distance diagnostics for the inspired
+       parent;
+ \item execute the primitive-basis relabeling control; and
+ \item run the independent verifier and, only under separate authorization, retain a
+       no-overwrite run and evidence package with cryptographic digests.
+\end{enumerate}
+
+\section{Open controls and interpretation boundary}
+
+An immutable version requires review and canonical binding of the gap enclosure,
+construction and evaluation ladders, rational shift, shell cap, Bessel-tail method,
+channel tolerances, resource caps, frame algorithm, PhysKit and project revisions,
+final retained-record schemas, a separately implemented verifier, an expanded tamper
+test suite, and evidence policy. Strict development schemas and SHA-256 binding already
+cover the replaceable smoke records.
+
+The experiment cannot establish a graphene material Hamiltonian, graphene parameters,
+continuum Dirac theory, continuum topology, a globally optimal Wannier gauge, universal
+decay law, or lattice-independent cutoff.  ``Graphene-inspired'' means only triangular
+Bravais geometry, a two-site honeycomb basis, and three-bond bipartite connectivity in a
+synthetic four-state parent.  Every conclusion remains conditional on the selected
+orbit, basis, normalization, parent, gauge family, metrics, and finite numerical
+controls.
+
+No Quantum ESPRESSO, Wannier90, remote, cluster, cloud, production, or retained
+calculation is authorized by this pre-version protocol.
+
+\bibliographystyle{unsrt}
+\bibliography{experimental-protocol}
+
+\end{document}

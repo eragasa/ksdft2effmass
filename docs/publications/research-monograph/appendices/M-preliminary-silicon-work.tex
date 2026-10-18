@@ -1,0 +1,462 @@
+\chapter{Preliminary Silicon Work: Executions, Finite-Setting Evidence, and an Exploratory Wannier Decomposition}
+\index{silicon!preliminary evidence|textbf}
+
+\label{app:preliminary-silicon-work}
+
+\chapterstatus{bounded synthesis of preliminary silicon work. The tutorial and
+finite-setting records cited here are retained repository evidence with their
+own statuses. The same-frame Wannier kinetic decomposition is a separately
+identified external, read-only prototype whose analysis package is not part of
+this manuscript branch. Nothing in this appendix establishes an accepted
+production silicon parent, converged Wannier representation, effective mass,
+scientific validation, uncertainty quantification, or authorization for new
+calculator execution.}
+
+\section{Purpose and evidence boundary}
+
+The silicon program has progressed beyond an entirely prospective plan, but it
+has not crossed the production-material acceptance boundary stated in
+Chapter~\ref{ch:results-and-limitations}. This appendix gathers the preliminary
+work in one place so that successful execution observations, finite-setting
+numerical evidence, and exploratory represented-operator analysis are not
+mistaken for one homogeneous result.
+
+The evidence is divided into four layers:
+
+\begin{enumerate}
+  \item a legacy Quantum ESPRESSO 7.2 silicon tutorial reproduction and its
+        associated band calculation;
+  \item a bounded Quantum ESPRESSO 7.5 rerun of the same tutorial-scale SCF
+        input and a mechanical cross-version comparison;
+  \item a direct PBE/PseudoDojo cutoff--mesh bootstrap matrix with a read-only
+        audit, provisional finite-setting selection, and an unresolved runtime
+        warning boundary; and
+  \item a read-only analysis of a separate QE~7.5--Wannier90~3.1.0 silicon run,
+        used to prototype a same-frame decomposition
+        $H^W=T^W+R^W$, interpolation, local multiband expansion, and
+        finite-mesh block truncation.
+\end{enumerate}
+
+These layers do not share one physical parent. In particular, the tutorial
+uses a legacy LDA pseudopotential, the cutoff--mesh matrix uses the frozen
+PseudoDojo PBE norm-conserving artifact, and the exploratory Wannier source run
+uses the legacy ultrasoft \path{Si.pbe-n-van.UPF}. Their energies and operators
+must not be combined as though they were refinements of one calculation.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Status of the preliminary silicon evidence summarized here.}
+  \label{tab:preliminary-si-status}
+  \begin{tabular}{p{0.22\linewidth}p{0.31\linewidth}p{0.37\linewidth}}
+    \toprule
+    Layer & Supported statement & Unsupported promotion \\
+    \midrule
+    QE 7.2 tutorial & The identified SCF reproduced the bundled printed energy
+    and iteration count; a separate band run completed and retained 28 points
+    with eight eigenvalues each. & Production convergence, modern band-path
+    adequacy, a band gap, a valley, an effective mass, or pseudopotential
+    suitability. \\
+    QE 7.5 tutorial comparison & The bounded rerun completed and the listed
+    scalar and QEXSD observations were mechanically compared with QE 7.2. &
+    General cross-version equivalence or validation of either physical parent. \\
+    PBE/PseudoDojo finite-setting matrix & The retained nine-case matrix passed
+    its integrity audit; declared adjacent-setting criteria support a
+    provisional C48/K8 selection. & Infinite-basis convergence, cutoff--mesh
+    interaction control, accepted lattice geometry, effective-mass convergence,
+    or downstream production eligibility. \\
+    Exploratory Wannier decomposition & The reported finite rank-four matrices
+    obey the same-frame decomposition and bounded numerical checks for the
+    identified external source bytes. & An accepted production Wannier operator,
+    short-range tight-binding model, converged curvature, or silicon validation. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Source records}
+
+Table~\ref{tab:preliminary-si-sources} identifies the records from which this
+appendix is projected. Repository paths are relative to the repository root.
+The complete package in the final row remains external. A bounded publication
+extraction containing the primary result, selected finite-mesh records and figures,
+and a copy of the external output manifest is retained locally; the omitted package
+payloads remain external.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Primary records for the preliminary silicon synthesis.}
+  \label{tab:preliminary-si-sources}
+  \begin{tabular}{p{0.23\linewidth}p{0.67\linewidth}}
+    \toprule
+    Evidence layer & Primary record or locator \\
+    \midrule
+    QE 7.2 tutorial SCF &
+    \path{calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md} \\
+    QE 7.2 tutorial bands &
+    \path{calculations/bulk-silicon/qe-example01-si-bands-davidson/result.md} \\
+    QE 7.5 smoke comparison &
+    \path{calculations/bulk-silicon/qe-7.5-si-scf-smoke-comparison/execution-comparison.json} \\
+    Finite-setting audit &
+    \path{calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md} \\
+    Provisional disposition &
+    \path{calculations/bulk-silicon/production-convergence-preflight/direct-results-setting-disposition.json} \\
+    Warning classification &
+    \path{calculations/bulk-silicon/production-convergence-preflight/ieee-warning-class-separated-nonmpi-c48-classification.md} \\
+    External Wannier prototype &
+    Local bounded extraction:
+    \path{calculations/ICMSEP2026/conference/paper_1/}\
+    \path{silicon-wannier-kinetic-preview/}; complete external package identifier
+    \path{silicon-example11-hminus-t-readonly-analysis-20261004T193610Z};
+    \path{result.json} SHA-256
+    \path{846564b1d716044c9ed0ac4ddc94a1d6b7e81019ae2235979fcadab5033cfcf0};
+    copied output-manifest SHA-256
+    \path{5f509ab1cd4fa998f4c4002eba364982e94ee239237dd1adc6e1e29f1094dfb5} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Legacy tutorial baseline}
+\index{silicon!Quantum ESPRESSO tutorial}
+
+The retained QE~7.2 Davidson SCF tutorial run exited with status zero, emitted
+\path{JOB DONE.}, and reported convergence after six iterations. Its printed
+total energy was
+\begin{equation}
+  E_{\mathrm{tutorial}}=-15.84452726\ \mathrm{Ry},
+\end{equation}
+matching the bundled example output at printed precision. This is an accepted
+tutorial reproduction, not a production material result. Its primary record is
+\path{calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md}.
+
+The associated band calculation also exited with status zero and emitted the
+end-of-band-structure and completion markers. It retained 28 ordered
+reciprocal-space points with eight printed eigenvalues at each point. Of the
+224 printed values, 166 were identical to the bundled legacy output at printed
+precision, and the largest observed printed difference was approximately
+$10^{-4}\ \mathrm{eV}$. No comparison tolerance was accepted, so that count is
+an observation rather than a numerical pass criterion. The coordinates form
+the legacy tutorial path; they are not an accepted modern silicon path or an
+effective-mass stencil.
+
+The band result file retains older ``awaiting human review'' prose, while the
+later lifecycle summary records the tutorial band task as closed
+human-accepted. This appendix does not use that administrative difference to
+strengthen the scientific claim: under either description, the result remains
+bounded tutorial evidence only.
+
+Both tutorial invocations emitted
+\begin{center}
+\small\path{IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG}.
+\end{center}
+Successful termination does not classify those flags as harmless.
+
+\section{QE 7.5 smoke comparison}
+
+A separately authorized, isolated, single-process QE~7.5 invocation reused the
+same tutorial-scale SCF input and legacy pseudopotential identity. It also
+completed in six iterations with printed total energy
+$-15.84452726\ \mathrm{Ry}$. The parsed QEXSD energies differed by
+$-2.00030214614344\times10^{-10}\ \mathrm{Ha}$, or
+$-4.00060429228688\times10^{-10}\ \mathrm{Ry}$, between the QE~7.5 and QE~7.2
+records. The largest listed absolute QEXSD eigenvalue difference was
+$2.3826225714618232\times10^{-11}\ \mathrm{Ha}$.
+
+These values are a bounded compatibility observation for one input. Native
+charge-density and wavefunction files were not byte-identical, and byte
+identity was not required. The exercise also motivated fail-closed parser
+support for the exact observed QEXSD format versions \path{23.03.10} and
+\path{25.05.21}; it did not establish exhaustive compatibility with either
+upstream schema. The exact comparison and its limits are retained in
+\path{calculations/bulk-silicon/qe-7.5-si-scf-smoke-comparison/execution-comparison.json}.
+The same four-class IEEE report recurred.
+
+\section{PBE/PseudoDojo finite-setting matrix}
+\index{silicon!finite-setting evidence}
+
+The physically relevant bootstrap branch is distinct from the tutorial. It
+uses the frozen scalar-relativistic, non-SOC, non-spin-polarized PBE parent and
+the exact PseudoDojo norm-conserving Si artifact required by the physical and
+numerical specifications. The direct campaign contains six cutoff labels
+\path{C30}, \path{C36}, \path{C42}, \path{C48}, \path{C54}, and \path{C60},
+and four shifted-mesh labels \path{K6}, \path{K8}, \path{K10}, and
+\path{K12}. The logical \path{K8} case reuses \path{C48}. Nine unique cases
+therefore supplied nine SCFs and nine linked diagnostic NSCFs.
+
+The later read-only audit recomputed the compact identities, checked all 18
+input copies, matched 41 retained text-output and receipt identities,
+independently parsed all nine cases, and reconstructed the eight adjacent
+comparisons. Every invocation had one \path{JOB DONE.} marker and no retry. The
+audit explicitly did not reread or duplicate the dense restart and wavefunction
+payloads merely to restate compact observables.
+
+The frozen adjacent-setting criteria were $10^{-5}\ \mathrm{Ry}$ per atom for
+total energy, $0.05\ \mathrm{kbar}$ for pressure and each stress component,
+and $1\ \mathrm{meV}$ for the retained fixed-point band and gap probes. The
+first two cutoff comparisons failed at least the energy, pressure, and stress
+criteria. Comparisons C42$\rightarrow$C48, C48$\rightarrow$C54, and
+C54$\rightarrow$C60 met all listed criteria. All three mesh comparisons,
+K6$\rightarrow$K8, K8$\rightarrow$K10, and K10$\rightarrow$K12, also met the
+listed criteria at the printed resolution.
+
+A later human disposition selected the smallest setting with passing lower and
+upper finite-setting guards:
+\begin{equation}
+  E_{\mathrm{cut}}^{\psi}=48\ \mathrm{Ry},\qquad
+  E_{\mathrm{cut}}^{\rho}=192\ \mathrm{Ry},\qquad
+  \mathcal K_{\mathrm{SCF}}=8\times8\times8\ \text{shifted}.
+\end{equation}
+The selection is provisional. Sequential one-variable scans do not bound the
+cutoff--mesh interaction, and the diagnostic points do not locate the
+conduction valley or test curvature. No infinite-basis estimate follows.
+
+\subsection{What the finite-setting data do and do not show}
+
+The extracted per-atom energy changed over the cutoff sequence:
+\begin{equation}
+  E_{\mathrm{C30}}=-8.461848470\ \mathrm{Ry},\qquad
+  E_{\mathrm{C60}}=-8.461975385\ \mathrm{Ry}.
+\end{equation}
+The fixed-point probes were numerically much less sensitive over the upper
+cutoff sequence, but their
+limited coordinates and four-decimal electron-volt printing make them
+unsuitable substitutes for the later valley and effective-mass calculations.
+Pressure remained near $37.8\ \mathrm{kbar}$ because the provisional geometry
+was not the accepted zero-pressure PBE-relaxed lattice required by the physical
+specification. Thus the matrix supports finite-setting behavior at a fixed
+provisional geometry; it does not accept that geometry.
+
+The authoritative synthesis is
+\path{calculations/bulk-silicon/production-convergence-preflight/direct-results-audit.md}.
+The selection and warning state are recorded separately in
+\path{direct-results-setting-disposition.json}; a digest or successful process
+exit is not a substitute for those semantic dispositions.
+
+\section{Runtime warning diagnosis and remaining block}
+
+Every SCF and diagnostic NSCF in the finite-setting matrix reported the same
+four IEEE classes. Subsequent separately authorized diagnostics localized more
+than the original text report alone could show:
+
+\begin{enumerate}
+  \item one first instrumented trap occurred in the external
+        MPI/PMIx/hwloc/OpenCL startup path;
+  \item after OpenCL discovery was disabled, a later floating-point division
+        trapped below \path{ZHEGVX} during initial-wavefunction subspace
+        diagonalization;
+  \item that later operation appeared with both Apple Accelerate and OpenBLAS;
+  \item a true non-MPI OpenBLAS build reproduced the matching OpenBLAS
+        \path{ztrsv_CUN+388} operation; and
+  \item a divide-by-zero-only non-MPI build reproduced the exact instruction,
+        classifying that matching first later operation as an IEEE
+        divide-by-zero exception.
+\end{enumerate}
+
+This localization does not recover the operands, explain the mathematical
+cause, establish whether the produced value affects retained observables,
+cover underflow, or identify every later invalid or overflow flag. The
+provisional setting therefore remains blocked from downstream protected
+execution pending an observable-effect and remaining-warning disposition. No
+new calculator execution is authorized by this appendix.
+
+\section{Exploratory same-frame Wannier kinetic decomposition}
+\index{silicon!Wannier kinetic decomposition}
+
+A separate local analysis consumed an externally retained QE~7.5--Wannier90
+3.1.0 source run without executing either calculator. The source-run identifier
+is
+\begin{center}
+\small\path{silicon-example11-hminus-t-20261004T171505Z}.
+\end{center}
+The analysis package identifies itself as
+\path{silicon-example11-hminus-t-readonly-analysis-20261004T193610Z}. Its
+\path{result.json} SHA-256 is
+\begin{center}
+\small\path{846564b1d716044c9ed0ac4ddc94a1d6b7e81019ae2235979fcadab5033cfcf0}.
+\end{center}
+The complete package remains in a separate development worktree and is not part
+of the present manuscript branch. A bounded publication subset---the primary
+result, truncation record, truncation figure, external output manifest, tutorial
+source record, executed Wannier90 input and diff, and local checksums---is
+retained under
+\path{calculations/ICMSEP2026/conference/paper_1/}\
+\path{silicon-wannier-kinetic-preview/}. Its hashes bind bytes observed by the
+analysis, but the analysis did not consume a pre-existing authenticated
+production-lineage manifest. Its runtime used content-bound working-tree source
+over a base commit that alone is insufficient to reconstruct the
+implementation. The numerical values below are therefore tutorial-scale
+prototype observations, not promoted production evidence.
+
+The numerical design is the official Wannier90~3.1.0
+\path{examples/example11} silicon tutorial, not an arbitrary choice of
+exploratory settings. A post-hoc byte-identity check confirms that the source
+run's four original files match the retained upstream tutorial records. The
+executed \path{silicon.win} is a derived copy adding only
+\path{write_hr=true} and \path{write_u_matrices=true} output-artifact requests;
+it changes no tutorial numerical setting. The tutorial uses the ultrasoft PBE
+pseudopotential reference
+\path{Si.pbe-n-van.UPF}, a 25-Ry wavefunction cutoff, an unshifted
+$10\times10\times10$ SCF mesh, a $4\times4\times4$ Wannier mesh, 12 parent
+bands, four retained Wannier functions, and $6.5\ \mathrm{eV}$ frozen- and
+outer-window ceilings. This makes it an appropriate interface and analysis
+preview, but not a production design: it cannot be joined to the PseudoDojo
+C48/K8 branch by name, material, or software version alone. The tutorial's
+familiar smooth band diagrams test interpolation of the total represented
+Hamiltonian; their visual quality does not certify separate locality or
+short-range compressibility of the represented kinetic and non-kinetic
+components.
+
+\subsection{Same-frame construction}
+
+At each of the 64 retained reciprocal samples, the prototype composes the
+rectangular disentanglement matrix and square Wannier gauge as
+\begin{equation}
+  W(\mathbf k)=U_{\mathrm{dis}}(\mathbf k)U(\mathbf k).
+\end{equation}
+Let $C(\mathbf k)$ contain the recovered pseudo-wavefunction plane-wave
+coefficients and let $\boldsymbol\epsilon(\mathbf k)$ contain the parent band
+energies. The represented operators are
+\begin{align}
+  H^W(\mathbf k)
+    &=W(\mathbf k)^\dagger
+      \operatorname{diag}\!\bigl(\boldsymbol\epsilon(\mathbf k)\bigr)
+      W(\mathbf k),\\
+  T^W(\mathbf k)
+    &=W(\mathbf k)^\dagger C(\mathbf k)^\dagger
+      \operatorname{diag}\!\left(\frac{|\mathbf k+\mathbf G|^2}{2}\right)
+      C(\mathbf k)W(\mathbf k),\\
+  R^W(\mathbf k)&=H^W(\mathbf k)-T^W(\mathbf k).
+\end{align}
+The kinetic diagonal is evaluated in Hartree before conversion to
+electron-volts. The remainder $R^W$ is a finite represented non-kinetic
+remainder; it is not identified with a continuous local scalar potential. It
+may contain represented local, nonlocal-pseudopotential, Hartree,
+exchange--correlation, and other parent-Hamiltonian contributions.
+
+The source-backed convention audit reports a maximum UNK Fourier round-trip
+defect of $2.16\times10^{-15}$ and a maximum Parseval defect of
+$8.88\times10^{-16}$. The 25-Ry geometric support contains 537--568 plane
+waves over the mesh. The even $24\times24\times24$ FFT grid has signed-Nyquist
+ambiguity, so Nyquist-plane coordinates were excluded instead of assigned by
+preference; their largest observed band weight was
+$1.26\times10^{-32}$ for this source run.
+
+Because the pseudopotential is ultrasoft, the parent eigenproblem has a
+generalized overlap. The ordinary pseudo-coefficient norms, observed between
+$0.98598$ and $1.02498$, were not forced to one. The UNK payload does not
+contain the beta-projector augmentation required to reconstruct the overlap
+matrix independently. The generalized-overlap interpretation is therefore
+source-backed but not numerically reconstructed from UNK bytes alone.
+
+\subsection{Reported finite-representation diagnostics}
+
+The prototype reports reciprocal decomposition and Hermiticity defects at
+approximately $10^{-15}\ \mathrm{eV}$ and Fourier round-trip defects below
+$7\times10^{-15}\ \mathrm{eV}$. The independent comparison with native
+\path{hr.dat} differs by $1.2763350779\times10^{-5}\ \mathrm{eV}$ in maximum
+Frobenius norm on the retained construction and by approximately
+$1.06\times10^{-5}\ \mathrm{eV}$ along the interpolated source-input path.
+That cross-route mismatch is not folded into the same-route algebraic closure.
+
+For each Hamiltonian eigenstate $v_n(\mathbf k)$, the reported expectation
+identity is
+\begin{equation}
+  E_n(\mathbf k)
+  =v_n^\dagger T^Wv_n+v_n^\dagger R^Wv_n,
+\end{equation}
+with maximum closure defect $5.33\times10^{-15}\ \mathrm{eV}$ over 256
+state samples. This does not define separate kinetic and remainder band
+structures: $T^W$ and $R^W$ are generally off diagonal in the Hamiltonian
+eigenbasis, and their individual expectations inside an exactly degenerate
+subspace depend on the chosen eigenvectors.
+
+\subsection{Local rank-three expansion at \texorpdfstring{$\Gamma$}{Gamma}}
+
+The reported represented Hamiltonian at $\Gamma$ contains one lower state and
+an upper numerical triplet,
+\begin{equation}
+  \operatorname{eig} H^W(\Gamma)
+  =(-5.6982916462,\ 6.3868784657,\ 6.3868784667,\ 6.3868784673)\ \mathrm{eV}.
+\end{equation}
+The triplet splitting is $1.57\times10^{-9}\ \mathrm{eV}$, below the declared
+$10^{-8}\ \mathrm{eV}$ degeneracy tolerance. The analysis therefore uses a
+rank-three selected-space quadratic tensor rather than differentiating three
+independently ordered scalar bands through the degeneracy.
+
+Analytic Cartesian derivatives of the Wigner--Seitz interpolation were checked
+by centered finite differences at seven step sizes. Reported gradient and
+Hessian convergence orders were approximately two for $H^W$, $T^W$, and
+$R^W$. The quadratic model's largest ordered-eigenvalue error over the tested
+directions and radii increased from $2.67\times10^{-10}\ \mathrm{eV}$ at the
+smallest reported offset to $4.29\times10^{-5}\ \mathrm{eV}$ at the largest.
+This checks the local expansion of the retained interpolation; it does not
+check reciprocal-mesh or parent-model convergence.
+
+The remote-state quadratic term contains kinetic--kinetic,
+remainder--remainder, and kinetic--remainder products. The reported cross-term
+norm reaches $8.864\ \mathrm{eV\,bohr^2}$. Separate additive ``kinetic'' and
+``remainder'' effective masses are therefore not defined by this construction.
+The prototype deliberately reports directional multiband curvatures without
+converting them to silicon effective masses.
+
+\subsection{Finite-mesh block truncation}
+
+The 64 reciprocal matrices define exactly 64 centered lattice representatives.
+The prototype tested inversion-closed radius truncations and reconstructed only
+the same retained reciprocal mesh. Selected maximum relative matrix errors are
+summarized in Table~\ref{tab:preliminary-si-truncation}.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Reported tutorial-scale finite-mesh truncation errors. The final column
+  gives the maximum ordered-eigenvalue error for $H^W/T^W/R^W$.}
+  \label{tab:preliminary-si-truncation}
+  \begin{tabular}{rrrrrr}
+    \toprule
+    Blocks & Radius (bohr) & $H^W$ & $T^W$ & $R^W$ & Error (eV) \\
+    \midrule
+     1 &  0.000 & 0.594   & 0.376   & 0.206   & $4.04/6.35/2.51$ \\
+    13 &  7.212 & 0.0665  & 0.0688  & 0.0641  & $0.558/1.467/0.942$ \\
+    57 & 24.985 & 0.00196 & 0.00332 & 0.00421 & $0.0207/0.0843/0.0636$ \\
+    63 & 29.738 & 0.000594& 0.00112 & 0.00127 & $0.00426/0.0202/0.0159$ \\
+    64 & 35.334 & roundoff& roundoff& roundoff& roundoff \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The data do not support an aggressive short-range truncation. Even 57 retained
+blocks permit a maximum kinetic eigenvalue error of about $84\ \mathrm{meV}$.
+Thus a convincing total-band diagram and accurate complete finite
+reconstruction can coexist with componentwise truncation errors. This is a
+negative result about compression on one small periodic mesh, not an
+infinite-lattice localization conclusion and not proof that a separately
+fitted short-range model is impossible.
+
+\section{What has not yet been established}
+
+The preliminary work does not supply any of the following:
+
+\begin{itemize}
+  \item an accepted zero-pressure PBE-relaxed lattice and production SCF parent;
+  \item a resolved observable-effect disposition for the recurring IEEE flags;
+  \item a cutoff--mesh interaction check or an infinite-setting error bound;
+  \item authenticated common lineage connecting the provisional PseudoDojo
+        parent to the exploratory ultrasoft Wannier source run;
+  \item an accepted Wannier rank, projection family, windows, gauge policy,
+        mesh-convergence result, or independent withheld interpolation test for
+        the production branch;
+  \item a converged conduction-valley coordinate, longitudinal or transverse
+        electron effective mass, or compatible SOC/spinor valence analysis;
+  \item an aligned $sp^3s^{\ast}$ operator fit, model-class selection, or route
+        comparison; or
+  \item scientific validation or propagated uncertainty for a declared use.
+\end{itemize}
+
+The next scientifically meaningful sequence remains the one defined by the
+production program: close the warning and finite-setting interaction boundary,
+obtain and accept the zero-pressure lattice, construct the production SCF
+parent, run purpose-specific path and local-valley children, and only then
+freeze a production Wannier design. The exploratory decomposition is useful as
+a prototype of representation and diagnostic machinery, but it cannot bypass
+those gates.

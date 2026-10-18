@@ -72,7 +72,7 @@ NumPy/SciPy numerical kernels, and project serialization primitives. Repository-
 `exports/` bytes are never runtime dependencies. The dependency direction is outward:
 `analysis.model_adequacy.hopping_shell_hierarchy -> periodic2d`; no `periodic2d` module
 may import the HSH adequacy layer. HSH-1 may compose its source parent and
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`; it must not subclass
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`; it must not subclass
 either one or reuse
 the M4/M5 scaffolds in `periodic2d.studies`.
 
@@ -84,7 +84,7 @@ projection, weights, thresholds, feasible points, certificates, or dispositions.
 ## Selected analysis layering
 
 The generic quadratic is available from exact-pinned Optimization through
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss`. HSH owns the energy
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss`. HSH owns the energy
 unit and scale, maps active energy coefficients to unit-free ratios, and must retain the
 selected dense/sparse backend as numerical provenance. Optimization owns generic
 unit-free metric, feasibility, distance, dual-norm, and support algorithms; HSH owns

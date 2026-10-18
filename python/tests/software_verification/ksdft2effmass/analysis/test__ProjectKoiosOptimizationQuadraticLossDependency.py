@@ -15,11 +15,13 @@ from typing import Protocol, cast
 import numpy as np
 import numpy.typing as npt
 import pytest
-from projectkoios.optimization.adapters import PositiveDefiniteQuadraticLoss
+from projectkoios.optimization.quadratic.quadratic import (
+    PositiveDefiniteQuadraticLoss,
+)
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
-_EXPECTED_COMMIT = "ec3d2907097a659aef4be2b3384bd1922a9cb4dc"
+_EXPECTED_COMMIT = "2c6dd7f717722f6b0495feb8cfe1287a104268a6"
 
 
 class _SparseMatrixView(Protocol):

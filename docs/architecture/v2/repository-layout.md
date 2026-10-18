@@ -23,6 +23,23 @@ dependency direction, and live issues remain at the v2 root. This documentation
 layout neither authorizes a source move nor changes the exact
 incremental implementation status owned by the migration pages.
 
+## Experiment architecture mirror
+
+Publication-independent experiment composition uses a separate recursive mirror so
+concrete scientific controls are not misrepresented as installed-package APIs.
+
+- Source root: `experiments/`.
+- Architecture root: `docs/architecture/v2/experiments/`.
+- Task root: `docs/tasks/dev/experiments/`.
+- Every selected package, subpackage, module, and public class receives its own architecture directory.
+- Every mirrored node contains `index.md`, `science.md`, `numerics.md`, `implementation.md`, and `schematics.md`.
+- Detail increases toward the implementing module and `ClassName`; parent pages remain coarse-grained.
+- Scientific and mathematical method prose is written for later paper extraction and includes references when a method or claim is literature-owned.
+
+The [experiment architecture root](experiments/index.md) owns navigation and dependency
+direction. Installed packages must not import experiment source, and a task path never
+becomes an experiment or evidence identity.
+
 ## Tutorial examples
 
 Maintained computational examples use the concept-first paired-backend layout

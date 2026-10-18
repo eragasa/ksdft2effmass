@@ -1,8 +1,8 @@
 # ICMSEP 2026 optional-paper working package
 
-> **Superseded working synthesis.** The authoritative split drafts are
-> [`../conference-paper-1/`](../conference-paper-1/) and
-> [`../conference-paper-2/`](../conference-paper-2/). This directory is retained as
+> **Superseded working synthesis.** The current split drafts are
+> [`Ragasa2026a/v3`](../../../papers/Ragasa2026a/v3/) and
+> [`Ragasa2026b/v2`](../../../papers/Ragasa2026b/v2/). This directory is retained as
 > development history and must not be submitted as a third manuscript.
 
 This directory contains the earlier combined source-first draft associated with the

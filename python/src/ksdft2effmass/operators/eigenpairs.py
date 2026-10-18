@@ -137,7 +137,8 @@ class RealSymmetricEigenpairSolver:
                 raise ValueError("operator must be square")
             if not np.array_equal(operator.magnitude, operator.magnitude.T):
                 raise ValueError("operator must be exactly real symmetric")
-            return rows
+            dimension: int = int(rows)
+            return dimension
         rows, columns = operator.shape
         if rows != columns:
             raise ValueError("operator must be square")
@@ -145,7 +146,8 @@ class RealSymmetricEigenpairSolver:
         difference.eliminate_zeros()
         if difference.nnz != 0:
             raise ValueError("operator must be exactly real symmetric")
-        return rows
+        sparse_dimension: int = int(rows)
+        return sparse_dimension
 
     @staticmethod
     def canonicalize_signs(

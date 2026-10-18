@@ -221,7 +221,7 @@ None of these objects establishes:
 
 | Equation | Owner | Implementation status |
 |---|---|---|
-| `EQ-MODEL-ADEQUACY-QUADRATIC-001` | `projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss` | Accepted upstream, exact-pinned, and consuming-project smoke-tested |
+| `EQ-MODEL-ADEQUACY-QUADRATIC-001` | `projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` | Accepted upstream, exact-pinned, and consuming-project smoke-tested |
 | `EQ-MODEL-ADEQUACY-SPECTRAL-002` | Future spectral-loss definition/analyzer | Deferred |
 | `EQ-MODEL-ADEQUACY-OPERATOR-003` | Future PhysKit dimensionful aggregate $R_H$ plus adequacy normalization $L_H$ | Deferred |
 

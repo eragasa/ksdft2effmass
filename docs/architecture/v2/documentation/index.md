@@ -3,9 +3,11 @@
 ## Scope
 
 This standard governs maintained architecture documentation for first-party Python
-packages under `python/src/ksdft2effmass/`. It defines canonical pages for each
-supported package, subpackage, module, and public class, plus optional detailed class
-pages for implementation, mathematics, references, and testing.
+packages under `python/src/ksdft2effmass/` and publication-independent composition under
+`experiments/`. It defines canonical mirrors for packages, subpackages, modules, and
+public classes. Installed-package class detail retains its existing hierarchy;
+experiment nodes use the required five-page method and implementation bundle defined
+below.
 
 Architecture pages describe current ownership, contracts, dependencies, implementation
 mapping, and evidence status. They do not replace:
@@ -61,6 +63,71 @@ precedent. Untouched legacy documentation need not move. A materially changed pu
 contract adopts the canonical path for the smallest affected package, module, or class.
 A behavior-preserving source rename updates mappings made false by the rename without
 forcing unrelated documentation migration.
+
+## Experiment source mirror
+
+Publication-independent experiment architecture follows a separate canonical mirror:
+
+```text
+experiments/<experiment-path>/
+    docs/architecture/v2/experiments/<experiment-path>/
+```
+
+The mirror applies recursively to every maintained experiment package, subpackage,
+subpackage child, source module, and public class. Each mirrored node is a directory,
+including a source module or class, and contains this required five-page bundle:
+
+```text
+<node>/index.md
+<node>/science.md
+<node>/numerics.md
+<node>/implementation.md
+<node>/schematics.md
+```
+
+The pages have distinct ownership:
+
+- `index.md` owns purpose, status, contract inventory, child navigation, source mapping,
+  evidence summary, and limitations;
+- `science.md` owns the scientific question, physical and mathematical objects, state
+  spaces, basis, gauge, units, energy reference, assumptions, sample roles, and bounded
+  interpretation;
+- `numerics.md` owns discretization, ordering, features, weights, normalization,
+  tolerances, metrics, conditioning, arithmetic, certificates, and numerical failure;
+- `implementation.md` owns dependency direction, data/action flow, immutable objects,
+  schema and serializer boundaries, producer/verifier separation, test mapping, and
+  retained-evidence mechanics; and
+- `schematics.md` owns maintained diagrams of composition, ownership, data flow, and
+  evidence flow without redefining the prose contracts.
+
+Every page is focused on the exact source node it mirrors. Detail increases toward the
+implementation:
+
+- an experiment-root page states only repository-wide experiment composition rules;
+- a package or subpackage page summarizes the scientific and numerical method owned by
+  that package and delegates child detail;
+- a module page documents the method implemented by that module and links its classes;
+- a `ClassName` page contains the most precise state, equations, algorithm steps,
+  tolerances, failure behavior, evidence mapping, and references for that class.
+
+A parent node summarizes and links child-owned detail rather than copying it. Paper-ready
+scientific and mathematical prose belongs in `science.md` and `numerics.md` at the
+narrowest owning node, normally the implementing class. Add primary-method references
+and pinpoint locators whenever an equation, algorithm, convention, or scientific claim
+is literature-owned; project-derived steps identify their internal protocol or
+specification source.
+
+A module or class node is created only when the corresponding experiment source contract
+is selected; architecture must not invent placeholder source symbols. Mutable work state
+belongs under `docs/tasks/`, exact experiment protocols remain with their experiment,
+and installed-package architecture remains under
+`docs/architecture/v2/ksdft2effmass/`. Moving concrete experiment composition into this
+mirror does not make it a reusable installed API.
+
+Legacy prospective experiment pages beneath `docs/architecture/v2/ksdft2effmass/` may
+remain as design inputs until their concrete owners are reviewed. New or materially
+reworked experiment architecture uses this mirror and must not preserve a false
+`python/src/ksdft2effmass/` code mapping merely for path continuity.
 
 ## Class detail hierarchy
 

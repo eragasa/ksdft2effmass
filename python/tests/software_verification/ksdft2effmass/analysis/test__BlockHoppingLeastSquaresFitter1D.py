@@ -81,6 +81,66 @@ class TestBlockHoppingLeastSquaresFitter1D:
         assert result.is_identified
         assert result.training_maximum_frobenius_residual <= 1.0e-14
 
+    def test_method__execute__maps_multiple_matrix_entries_as_owner_rhs(self) -> None:
+        """Matrix entries are flattened as RHS columns and restored as one block."""
+        source = ReciprocalOperatorSamples1D(
+            VectorQuantity(np.asarray([0.0, 0.5]), Unitless()),
+            ScalarQuantity(1.0, Unitless()),
+            (
+                ComplexMatrixQuantity(
+                    np.asarray([[1.0, 1.0j], [-1.0j, 2.0]]), Unitless()
+                ),
+                ComplexMatrixQuantity(
+                    np.asarray([[3.0, -1.0j], [1.0j, 4.0]]), Unitless()
+                ),
+            ),
+        )
+
+        result = BlockHoppingLeastSquaresFitter1D().execute(
+            source,
+            (0,),
+            VectorQuantity(np.ones(2), Unitless()),
+        )
+
+        np.testing.assert_allclose(
+            result.fitted_model.hopping_blocks[0].magnitude,
+            np.asarray([[2.0, 0.0], [0.0, 3.0]]),
+            atol=1.0e-14,
+        )
+        assert result.design_rank == 1
+        assert result.training_maximum_frobenius_residual == pytest.approx(
+            2.0, abs=1.0e-14
+        )
+
+    def test_method__execute__passes_objective_weights_without_pre_scaling(
+        self,
+    ) -> None:
+        """Positive weights remain objective multipliers at the owner boundary."""
+        source = ReciprocalOperatorSamples1D(
+            VectorQuantity(np.asarray([0.0, 0.25]), Unitless()),
+            ScalarQuantity(1.0, Unitless()),
+            (
+                ComplexMatrixQuantity(
+                    np.asarray([[0.0]], dtype=np.complex128), Unitless()
+                ),
+                ComplexMatrixQuantity(
+                    np.asarray([[2.0]], dtype=np.complex128), Unitless()
+                ),
+            ),
+        )
+
+        result = BlockHoppingLeastSquaresFitter1D().execute(
+            source,
+            (0,),
+            VectorQuantity(np.asarray([1.0, 3.0]), Unitless()),
+        )
+
+        assert result.fitted_model.hopping_blocks[0].magnitude[0, 0] == (
+            pytest.approx(1.5 + 0.0j, abs=1.0e-14)
+        )
+        assert result.design_rank == 1
+        assert result.design_condition_number == pytest.approx(1.0)
+
     def test_method__execute__retains_rank_deficiency_without_failure(self) -> None:
         """Evidence ID: SV-ANALYSIS-PERIODIC-ONE-D-024
 
@@ -93,7 +153,11 @@ class TestBlockHoppingLeastSquaresFitter1D:
         source = ReciprocalOperatorSamples1D(
             VectorQuantity(np.asarray([0.0]), Unitless()),
             ScalarQuantity(1.0, Unitless()),
-            (ComplexMatrixQuantity(np.asarray([[2.0]]), Unitless()),),
+            (
+                ComplexMatrixQuantity(
+                    np.asarray([[2.0]], dtype=np.complex128), Unitless()
+                ),
+            ),
         )
 
         result = BlockHoppingLeastSquaresFitter1D().execute(

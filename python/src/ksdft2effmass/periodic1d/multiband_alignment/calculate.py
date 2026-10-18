@@ -410,7 +410,16 @@ class Periodic1DMultibandAlignmentCalculator:
             ),
             np.zeros((reference.rank, reference.rank), dtype=np.complex128),
         )
-        left, _, right_h = np.linalg.svd(aggregate)
+        left, singular_values, right_h = np.linalg.svd(aggregate)
+        rank_tolerance = (
+            float(max(aggregate.shape))
+            * float(np.finfo(np.float64).eps)
+            * float(singular_values[0])
+        )
+        if int(np.count_nonzero(singular_values > rank_tolerance)) != reference.rank:
+            raise ValueError(
+                "aggregate Procrustes cross-covariance must have full numerical rank"
+            )
         return ComplexMatrixQuantity(left @ right_h, Unitless())
 
     @staticmethod

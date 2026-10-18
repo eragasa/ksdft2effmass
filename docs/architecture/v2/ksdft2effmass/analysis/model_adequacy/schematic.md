@@ -5,7 +5,7 @@
 ```mermaid
 flowchart LR
     physkit["projectkoios.physkit\nlattice displacements + symmetry operations\nhopping + represented operators"]
-    optimization["projectkoios.optimization @ ec3d290…\nParameterSpace + quadratic facade"]
+    optimization["projectkoios.optimization @ 2c6dd7f…\nParameterSpace + quadratic facade"]
     operators["operators\nrepresented records + primitive residuals"]
     periodic["periodic / periodic1d / periodic2d\nparents + model primitives"]
     bands["analysis periodic-band primitives\nexplicit sampled spectra"]
@@ -185,7 +185,7 @@ fixed exactly to zero.
 ```mermaid
 flowchart LR
     oldDraft["Superseded Optimization donor draft\nexternal recovery only"]
-    optCommit["Optimization quadratic owner commit\nec3d290…"]
+    optCommit["Accepted Optimization migration commit\n2c6dd7f…"]
     optPin["Current exact KSD dependency pin"]
     optRuntime["Supported quadratic facade"]
     optExport["exports/optimization\naffine and metric candidates"]

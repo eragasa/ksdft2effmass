@@ -21,8 +21,8 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Purpose:** reusable lattice coordinates, displacements, symmetry operations, finite periodic domains, hopping records, represented operators, units, and numerical physics primitives
 - **Required or optional:** required by the implemented Python package
 - **Installation source:** Git repository through the lock workflow
-- **Supported-version policy:** `projectkoios-physkit==0.1.2` at exact commit `d6333208a1ff723682a557afd593a5c932058cb7`
-- **Version actually tested:** 0.1.2 from that exact commit on the active Python 3.14 environment
+- **Supported-version policy:** `projectkoios-physkit==0.1.3.dev0` at exact commit `7120b735c7e3e450aa8924780a71deb59d812632`
+- **Version actually tested:** 0.1.3.dev0 from that exact commit on the active Python 3.14 environment
 - **License:** Apache-2.0; upstream retains `LICENSE` and `NOTICE`
 - **Project/source:** <https://github.com/eragasa/projectkoios-physkit>
 - **Import name:** `projectkoios.physkit`
@@ -40,13 +40,13 @@ An empty or unknown field is not evidence of support. The architecture pass did 
 - **Purpose:** reusable ordered finite parameter bounds and parameter spaces plus unit-free dense/sparse positive-definite quadratic loss storage and evaluation; HSH scientific policy remains outside this dependency
 - **Required or optional:** declared runtime dependency with the `numpy` and `scipy` adapter extras; currently exercised by consuming-project verification, while the prospective model-adequacy runtime package remains unimplemented
 - **Installation source:** Git repository through the lock workflow
-- **Supported-version policy:** `projectkoios-optimization==0.1.0.dev0` at exact commit `ec3d2907097a659aef4be2b3384bd1922a9cb4dc`
+- **Supported-version policy:** `projectkoios-optimization==0.1.0.dev0` at exact commit `2c6dd7f717722f6b0495feb8cfe1287a104268a6`
 - **Version actually tested:** 0.1.0.dev0 from that exact commit on the active Python 3.14 environment
 - **Direct dependencies:** none in the dependency-free package root; KSD requests the dependency's `numpy` and `scipy` extras and also declares NumPy/SciPy for its own numerical APIs
 - **License:** Apache-2.0; upstream retains `LICENSE` and `NOTICE`
 - **Project/source:** <https://github.com/eragasa/projectkoios-optimization>
 - **Import name:** `projectkoios.optimization`
-- **Capability probes:** `ParameterBound` and `ParameterSpace` imports, inclusive/fixed bounds, and the `projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss` facade with NumPy dense and SciPy CSR selections
+- **Capability probes:** `projectkoios.optimization.spaces.parameters.ParameterBound` and `ParameterSpace` imports, inclusive/fixed bounds, and the `projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` facade with NumPy dense and SciPy CSR selections
 - **Configuration inputs:** KSD-selected unit-free coordinates, matrices, backend selection, and finite bounds; the dependency does not select physical normalization or scientific bounds
 - **Artifacts consumed and produced:** immutable parameter-space records and unit-free quadratic values; no calculation artifact or scientific disposition
 - **Failure modes:** pinned-source mismatch, public-contract incompatibility, malformed names, invalid bounds, dimension mismatch, dense factorization failure, sparse eigensolver nonconvergence, or nonfinite evaluation

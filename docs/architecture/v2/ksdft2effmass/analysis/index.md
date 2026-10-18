@@ -18,6 +18,12 @@ flowchart LR
 - [Particle-in-a-box dimensional plan](particle-in-box-dimensional-plan.md)
 - [Model-adequacy analysis](model_adequacy/index.md)
 - [Model-adequacy ownership decision](model-adequacy-ownership-decision.md)
+- [Admissible-set evidence semantics](model_adequacy/admissible-set-evidence-semantics.md)
+- [Band Equivalence versus Hopping Locality experiment](../band-equivalence-versus-hopping-locality-experiment.md)
+- [Experiment model-adequacy architecture](../../experiments/model-adequacy/index.md)
+- [Dimensionality and anisotropy experiment ladder](../../experiments/model-adequacy/dimensional-anisotropy-ladder.md)
+- [Post-sequence general-lattice-vector extension](model_adequacy/general-lattice-vector-extension.md)
+- [Prospective HSH-1 design bundle](model_adequacy/hopping_shell_hierarchy/index.md)
 
 `NormalizedObservationSet` is calculator-independent and workflow-owned. Its implemented first contract retains exact immutable extracted Kohn–Sham ResultObjects through `NormalizedObservationSource`; it does not copy integration-owned identities or perform scientific normalization. Analysis implementations may import workflows, periodic, Kohn–Sham, and represented-operator contracts, but never calculator packages.
 
@@ -37,7 +43,7 @@ The selected [plane-wave QoI and parameter-study architecture](../plane-wave-par
 KSD-specific scientific normalization, channel meaning, admissibility, and
 certificate/hierarchy policy. It has no implemented Python package or supported import
 in this candidate. Generic unit-free positive-definite quadratic loss geometry is
-consumed from exact-pinned `projectkoios-optimization` commit `ec3d290…`; the
+consumed from exact-pinned `projectkoios-optimization` commit `2c6dd7f…`; the
 [`exports/optimization`](../../../../../exports/optimization/README.md) page records the
 completed ownership transfer and remaining prospective capabilities. Reusable lattice
 symmetry, orbit, hopping, and

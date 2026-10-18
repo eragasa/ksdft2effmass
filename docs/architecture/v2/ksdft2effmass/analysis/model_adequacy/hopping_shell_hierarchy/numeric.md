@@ -48,7 +48,7 @@ q(z)=(z-c)^TQ(z-c)+m.
 $$
 
 The exact-pinned Optimization-owned
-`projectkoios.optimization.adapters.PositiveDefiniteQuadraticLoss` owns the finite
+`projectkoios.optimization.quadratic.quadratic.PositiveDefiniteQuadraticLoss` owns the finite
 unit-free center, symmetric positive-definite matrix, nonnegative finite minimum squared
 loss, Optimization scalar validation, backend selection, `matrix` property,
 `squared_loss(coordinates)`, and `root_loss(coordinates)`. HSH supplies only explicitly
