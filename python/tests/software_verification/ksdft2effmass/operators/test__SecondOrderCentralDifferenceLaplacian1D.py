@@ -22,9 +22,8 @@ Laplacian, scientific validation, uncertainty quantification, or human acceptanc
 
 import numpy as np
 import pytest
-
 from ksdft2effmass import operators
-from ksdft2effmass.analysis.model_systems import (
+from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
     DirichletInterval,
     ScalarQuantity,

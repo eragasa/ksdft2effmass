@@ -1,11 +1,10 @@
 """Public calculator-independent scientific-analysis contracts.
 
 The package root exports scalar quantities of interest and calculated DFT reference
-targets. Public domain subpackages, including
-:mod:`ksdft2effmass.analysis.model_systems`, own additional documented scientific
-analyses without flattening their names into this
-package root. Other comparison algorithms and parameter-study contracts remain under
-active development and are not exported here.
+targets. Model definitions and finite representations are owned separately by
+:mod:`ksdft2effmass.model_systems`; analysis consumes them rather than owning them.
+Other comparison algorithms and parameter-study contracts remain under active
+development and are not exported here.
 """
 
 from .convergence import (

@@ -14,14 +14,14 @@ from ksdft2effmass.analysis.hopping_fits import (
     BlockHoppingLeastSquaresFitter1D,
     BlockHoppingModelComparator1D,
 )
-from ksdft2effmass.analysis.model_systems import (
-    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
-    PeriodicUniformGrid1D,
-    PlaneWaveFiberHamiltonian1DConstructor,
-)
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandSpectrumSamples1D,
+)
+from ksdft2effmass.model_systems import (
+    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
+    PeriodicUniformGrid1D,
+    PlaneWaveFiberHamiltonian1DConstructor,
 )
 from ksdft2effmass.operators import (
     ComplexMatrixQuantity,

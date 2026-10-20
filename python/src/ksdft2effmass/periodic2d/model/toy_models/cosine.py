@@ -10,7 +10,7 @@ from projectkoios.physkit.periodic.lattice import (
     ReciprocalLattice2D,
 )
 
-from ksdft2effmass.analysis.model_systems.periodic2d import (
+from ksdft2effmass.model_systems.periodic2d import (
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,
     PlaneWaveBlochHamiltonian2DRequest,

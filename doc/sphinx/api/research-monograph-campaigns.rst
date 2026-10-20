@@ -1291,41 +1291,20 @@ validation, topology or polarization evidence, UQ, or protected execution.
 .. autoclass:: Periodic1DHoppingReductionWorkflow
    :members:
 
-QHO1D controlled campaign
--------------------------
+QHO1D retained-adapter boundary
+-------------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.qho1d``. No
-publication-named nested import alias is maintained for this campaign.
+The canonical implementation is documented in :doc:`model-systems` and lives at
+``ksdft2effmass.model_systems.qho1d``. The former
+``ksdft2effmass.campaigns.qho1d`` package was removed rather than retained as a
+compatibility facade.
 
-The Appendix E campaign deserializes its closed version-one input, evaluates the
-ordered Cartesian product of interval half-width, grid spacing, and retained
-dimension, and serializes the resulting comparisons with explicit source identities.
-The mathematical models, common-coordinate map, campaign ownership, and retained
-artifact boundary are described in
-:doc:`../concepts/controlled-model-calculations`.
-The retained historical result remains bound to its original runner identity.  Newly
-authored records bind the current public model-system and campaign implementation
-sources; this does not relabel historical evidence.
-
-.. currentmodule:: ksdft2effmass.campaigns.qho1d
-
-.. autoclass:: HarmonicOscillatorStudyDefinition
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyResult
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyInputDeserializer
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyEvaluator
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyResultSerializer
-   :members:
-
-.. autoclass:: HarmonicOscillatorResultVerifier
-   :members:
+The bounded ``ksdft2effmass.campaigns.research_monograph`` root still exposes four
+historical ``HarmonicOscillator...`` spellings because the hash-bound calculation
+adapters import exactly those names. Each is a direct alias of its canonical
+``QHO1D...`` class. New code must import the canonical owner directly. This adapter
+boundary does not imply a general dimension-neutral QHO API and does not relabel the
+retained numerical result.
 
 Defect-2D finite-domain case inventory
 --------------------------------------
@@ -1371,65 +1350,54 @@ evaluations.
 .. autoclass:: FiniteDomainEffectsCampaignPlanningWorkflow
    :members:
 
-PIAB1D controlled campaigns
+PIAB1D calculation boundary
 ---------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.piab1d``. No
-publication-named nested import alias is maintained for these campaigns.
+The canonical reusable model package is ``ksdft2effmass.model_systems.piab1d``.
+The former ``ksdft2effmass.campaigns.piab1d`` package and its research-monograph
+facade are removed. ``calculations/piab1d/`` owns calculation composition and retained
+evidence; research-monograph documentation points to that canonical calculation.
 
-.. currentmodule:: ksdft2effmass.campaigns.piab1d
+.. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-The Appendix D core residual campaign deserializes its retained version-one input,
+The Appendix D core residual study deserializes its retained version-one input,
 composes the public one-dimensional box and represented-operator contracts, preserves
 the historical numerical JSON payload, and verifies retained or newly authored
-provenance without importing the implementation under verification. Public Workflows
-also own the convergence, higher-eigenpair, norm, and identifiability campaigns while
-calculation-directory runners and verifiers remain thin CLI adapters.
+provenance without importing the implementation under verification. Its module layout
+mirrors the QHO1D study layout.
 
-.. autoclass:: ParticleInBoxStudyDefinition
+.. autoclass:: Piab1dStudyDefinition
    :members:
 
-.. autoclass:: ParticleInBoxResidualStudyResult
+.. autoclass:: Piab1dResidualStudyResult
    :members:
 
-.. autoclass:: ParticleInBoxStudyInputDeserializer
+.. autoclass:: Piab1dStudyInputDeserializer
    :members:
 
-.. autoclass:: ParticleInBoxResidualStudyEvaluator
+.. autoclass:: Piab1dResidualStudyEvaluator
    :members:
 
-.. autoclass:: ParticleInBoxStudyResultSerializer
+.. autoclass:: Piab1dStudyResultSerializer
    :members:
 
-.. autoclass:: ParticleInBoxResultVerifier
+.. autoclass:: Piab1dResultVerifier
    :members:
 
-.. autoclass:: ParticleInBoxConvergenceWorkflow
+Reusable compression-residual, eigenpair-diagnostic, decomposition-identifiability,
+and model-class-fitting objects are finite-operator analyses. They contain no retained
+file paths, JSON decoding, provenance serialization, or CLI behavior.
+
+.. currentmodule:: ksdft2effmass.analysis.operators
+
+.. autoclass:: OrthogonalCompressionResidualAnalyzer
    :members:
 
-.. autoclass:: ParticleInBoxConvergenceVerifier
+.. autoclass:: RealSymmetricEigenpairDiagnosticAnalyzer
    :members:
 
-.. autoclass:: ParticleInBoxEigenpairSweepWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxEigenpairSweepVerifier
-   :members:
-
-.. autoclass:: ParticleInBoxNormSweepWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxNormSweepVerifier
-   :members:
-
-.. autoclass:: RetainedModelClassFitResult
+.. autoclass:: DecompositionIdentifiabilityAnalyzer
    :members:
 
 .. autoclass:: RetainedModelClassFitter
-   :members:
-
-.. autoclass:: ParticleInBoxIdentifiabilityWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxIdentifiabilityVerifier
    :members:

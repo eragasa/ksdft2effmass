@@ -22,9 +22,8 @@ scientific validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
-
 from ksdft2effmass import operators
-from ksdft2effmass.analysis.model_systems import (
+from ksdft2effmass.model_systems import (
     ScalarQuantity,
     UniformCartesianGrid1D,
     Unitless,

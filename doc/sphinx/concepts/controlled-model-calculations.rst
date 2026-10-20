@@ -1,8 +1,8 @@
-Controlled harmonic-oscillator and particle-in-a-box calculations
-=================================================================
+Controlled QHO1D and particle-in-a-box calculations
+====================================================
 
-The harmonic-oscillator and particle-in-a-box calculations are controlled model
-systems for studying representation, discretization, compression, and comparison.
+The QHO1D and particle-in-a-box calculations are controlled model systems for
+studying representation, discretization, compression, and comparison.
 They are not silicon calculations and do not validate a semiconductor model.  Their
 calculated outputs provide software and numerical evidence only for the finite
 mathematical constructions declared by each calculation protocol.
@@ -10,21 +10,25 @@ mathematical constructions declared by each calculation protocol.
 Ownership layers
 ----------------
 
-The implementation separates four layers.
+The implementation separates five concrete layers.
 
 ``ksdft2effmass.operators``
    Owns reusable represented operators, immutable unit-aware quantities, sparse
    matrices, eigensolvers, spectral-subspace selection, and operator compression.
 
-``ksdft2effmass.analysis.model_systems``
-   Owns the mathematical model definitions and reusable evaluations.  These objects
-   distinguish a continuum operator from a finite matrix representation and do not
-   know about monograph files or retained JSON formats.
+``ksdft2effmass.model_systems``
+   Owns mathematical model definitions and reusable evaluations. The concrete
+   ``qho1d`` owner also owns its fixed study records, version-one wire mechanics,
+   deterministic evaluation, provenance identities, and independent verifier. It
+   does not imply a dimension-neutral QHO implementation.
+
+``experiments/qho1d``
+   Owns the mutable QHO1D parameter selection, thin development scripts, and ignored
+   replaceable output location.
 
 ``ksdft2effmass.campaigns.research_monograph``
-   Owns the fixed parameter studies, version-one JSON decoding and serialization,
-   deterministic ordering, provenance identities, and independent retained-result
-   verification.
+   Retains only the historical harmonic-oscillator symbol spellings required by the
+   hash-bound calculation adapters. New code imports ``model_systems.qho1d``.
 
 ``calculations/research-monograph``
    Owns inputs, thin command-line adapters, retained calculated outputs, figures,
@@ -34,12 +38,12 @@ The implementation separates four layers.
 The API references are :doc:`../api/model-systems` and
 :doc:`../api/research-monograph-campaigns`.
 
-Finite harmonic oscillator
---------------------------
+QHO1D
+-----
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems.harmonic_oscillator
+.. currentmodule:: ksdft2effmass.model_systems.qho1d
 
-:class:`HarmonicOscillatorParameters` stores either a fully physical parameter set
+:class:`QHO1DParameters` stores either a fully physical parameter set
 or a fully nondimensional one.  The two modes cannot be mixed.  The oscillator
 length is
 
@@ -47,7 +51,7 @@ length is
 
    \ell = \sqrt{\frac{\hbar}{m\omega}}.
 
-:class:`HarmonicOscillatorAnalytical` represents the real-line oscillator.  It
+:class:`QHO1DAnalytical` represents the real-line oscillator.  It
 provides the exact number-state energies
 
 .. math::
@@ -57,13 +61,13 @@ provides the exact number-state energies
 and normalized Hermite wavefunctions sampled at explicit dimensionless coordinates
 :math:`x/\ell`.
 
-:class:`HarmonicOscillatorFiniteDifference` represents the same oscillator on a
+:class:`QHO1DFiniteDifference` represents the same oscillator on a
 symmetric finite interval with homogeneous Dirichlet data.  It composes a centered
 second-order Laplacian, Schrödinger kinetic-energy operator, and sampled quadratic
 potential.  The resulting CSR matrix is a finite numerical representation; it is not
 the real-line differential operator.
 
-:class:`HarmonicOscillatorLadderOperators` applies the oscillator energy scale to a
+:class:`QHO1DLadderOperators` applies the oscillator energy scale to a
 finite occupation-number basis.  Truncation leaves the expected highest-state defect
 in the ladder commutator, so the finite commutator must not be identified with the
 infinite-dimensional canonical relation.
@@ -71,7 +75,7 @@ infinite-dimensional canonical relation.
 Common-coordinate comparison
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:class:`HarmonicOscillatorComparator` compares the spatial and ladder
+:class:`QHO1DComparator` compares the spatial and ladder
 representations only after constructing an explicit map.  For retained analytical
 states sampled on the interior grid, let :math:`S` be the matrix whose columns include
 the square-root quadrature weight.  The sampled Gram matrix and symmetric
@@ -97,19 +101,32 @@ Hamiltonians, the signed difference, map diagnostics, and Frobenius discrepancy
 components.  The comparison combines finite-interval and finite-difference effects;
 the reported decomposition does not constitute uncertainty quantification.
 
-The monograph campaign evaluates box half-width, requested grid spacing, and retained
-dimension in a deterministic Cartesian product, with retained dimension varying
-fastest.  The retained calculation uses the explicit nondimensional convention
+The concrete QHO1D study evaluator processes box half-width, requested grid spacing,
+and retained dimension in a deterministic Cartesian product, with retained dimension
+varying fastest. The mutable experiment is under ``experiments/qho1d``. The retained
+historical calculation uses the explicit nondimensional convention
 :math:`\hbar=m=\omega=\ell=1`.
+
+The current discrepancy combines finite-domain closure, centered-difference,
+Gram-correction, and floating-point effects. It is not yet an error bound. For an
+exactly isometric injection, the computable residual identity
+
+.. math::
+
+   J^{\mathsf T}H_hJ-H_K = J^{\mathsf T}(H_hJ-JH_K)
+
+separates the next a-posteriori bound from later a-priori continuum estimates. The
+boundary-adjacent rows and interior stencil residual must be retained separately
+before either is interpreted.
 
 One-dimensional particle in a box
 ---------------------------------
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems
+.. currentmodule:: ksdft2effmass.model_systems
 
-:class:`ParticleInBoxParameters` stores the box length :math:`L`, particle mass
+:class:`Piab1dParameters` stores the box length :math:`L`, particle mass
 :math:`m`, and reduced Planck constant :math:`\hbar` in either one fully physical unit
-mode or one fully nondimensional mode.  :class:`ParticleInBoxAnalytical` represents
+mode or one fully nondimensional mode.  :class:`Piab1dAnalytical` represents
 the continuum homogeneous-Dirichlet spectrum
 
 .. math::
@@ -117,7 +134,7 @@ the continuum homogeneous-Dirichlet spectrum
    E_n = \frac{\hbar^2\pi^2n^2}{2mL^2},
    \qquad n=1,2,\ldots.
 
-:class:`ParticleInBoxFiniteDifference` uses :math:`N` interior points and spacing
+:class:`Piab1dFiniteDifference` uses :math:`N` interior points and spacing
 :math:`h=L/(N+1)`.  Its exact centered-difference eigenvalues are
 
 .. math::
@@ -127,7 +144,7 @@ the continuum homogeneous-Dirichlet spectrum
      \sin^2\left(\frac{n\pi}{2(N+1)}\right),
    \qquad n=1,\ldots,N.
 
-:class:`ParticleInBoxGridEvaluator` constructs the interval, sparse Hamiltonian, and
+:class:`Piab1dGridEvaluator` constructs the interval, sparse Hamiltonian, and
 complete real-symmetric eigensystem for one declared grid.  It supports either one
 fully physical unit mode or the explicitly nondimensional mode used by the retained
 monograph campaigns.  In physical mode the coordinate grid has length units, the
@@ -139,9 +156,9 @@ form checks matrix construction and eigensolver behavior; comparison with
 Residual experiment
 ~~~~~~~~~~~~~~~~~~~
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-:class:`ParticleInBoxResidualStudyEvaluator` selects the lowest spectral subspace
+:class:`Piab1dResidualStudyEvaluator` selects the lowest spectral subspace
 with orthonormal basis :math:`U`, projector :math:`P=UU^{\mathsf T}`, and complement
 :math:`Q=I-P`.  It keeps three differences separate:
 
@@ -163,7 +180,9 @@ potential.
 Auxiliary campaigns
 ~~~~~~~~~~~~~~~~~~~
 
-The particle-in-a-box directory contains four additional package-owned campaigns.
+The particle-in-a-box directory contains four additional bounded monograph campaigns.
+Their reusable numerical operations come from source-neutral analysis and operator
+tools; the campaign classes own retained composition and provenance.
 
 .. list-table::
    :header-rows: 1
@@ -171,22 +190,25 @@ The particle-in-a-box directory contains four additional package-owned campaigns
 
    * - Owner
      - Represented calculation
-   * - :class:`ParticleInBoxConvergenceWorkflow`
+   * - ``calculations/piab1d/analysis/convergence.py``
      - Fixed-mode continuum energy errors and observed refinement orders over an
        increasing grid sequence.  Raw residual norms from different finite spaces are
        retained only as within-grid diagnostics.
-   * - :class:`ParticleInBoxEigenpairSweepWorkflow`
+   * - ``calculations/piab1d/analysis/eigenpair_sweep.py``
      - Complete finite spectra, higher fixed modes, modes whose indices grow with grid
        dimension, nodal eigenvector overlap, and scaled algebraic residuals.
-   * - :class:`ParticleInBoxNormSweepWorkflow`
+   * - ``calculations/piab1d/analysis/norm_sweep.py``
      - Raw and same-grid-normalized Frobenius, spectral, and maximum-entry residual
        norms.  Maximum-entry results remain basis dependent.
-   * - :class:`ParticleInBoxIdentifiabilityWorkflow`
+   * - ``calculations/piab1d/analysis/identifiability.py``
      - Two exact decompositions of one retained Hamiltonian and least-Frobenius fits
        of nested scalar, diagonal, real-symmetric tridiagonal, and unrestricted
        real-symmetric model classes.
 
-The unrestricted identifiability fit is algebraically exact by construction.  It does
+These calculation adapters compose reusable objects from
+``ksdft2effmass.analysis.operators`` with calculation-local input, serialization, and
+provenance. The unrestricted identifiability fit is algebraically exact by
+construction. It does
 not identify a physical potential.  The restricted residuals depend on the declared
 basis, metric, and admissible model class.
 

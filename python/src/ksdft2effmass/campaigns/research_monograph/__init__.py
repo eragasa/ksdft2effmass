@@ -5,6 +5,18 @@ symbols consumed by repository-retained calculation adapters; it does not aggreg
 full campaign library or define a namespace pattern for new campaigns.
 """
 
+from ...model_systems.qho1d import (
+    QHO1DResultVerifier as HarmonicOscillatorResultVerifier,
+)
+from ...model_systems.qho1d import (
+    QHO1DStudyEvaluator as HarmonicOscillatorStudyEvaluator,
+)
+from ...model_systems.qho1d import (
+    QHO1DStudyInputDeserializer as HarmonicOscillatorStudyInputDeserializer,
+)
+from ...model_systems.qho1d import (
+    QHO1DStudyResultSerializer as HarmonicOscillatorStudyResultSerializer,
+)
 from ..periodic_1d import (
     Periodic1DCompositeCampaign,
     Periodic1DCompositeCampaignModel,
@@ -13,26 +25,6 @@ from ..periodic_1d import (
     Periodic1DStressCampaign,
     Periodic1DStressCampaignModel,
 )
-from ..piab1d import (
-    ParticleInBoxConvergenceVerifier,
-    ParticleInBoxConvergenceWorkflow,
-    ParticleInBoxEigenpairSweepVerifier,
-    ParticleInBoxEigenpairSweepWorkflow,
-    ParticleInBoxIdentifiabilityVerifier,
-    ParticleInBoxIdentifiabilityWorkflow,
-    ParticleInBoxNormSweepVerifier,
-    ParticleInBoxNormSweepWorkflow,
-    ParticleInBoxResidualStudyEvaluator,
-    ParticleInBoxResultVerifier,
-    ParticleInBoxStudyInputDeserializer,
-    ParticleInBoxStudyResultSerializer,
-)
-from ..qho1d import (
-    HarmonicOscillatorResultVerifier,
-    HarmonicOscillatorStudyEvaluator,
-    HarmonicOscillatorStudyInputDeserializer,
-    HarmonicOscillatorStudyResultSerializer,
-)
 from .impurity_defect_2d import StageCParentSvgPlotter
 
 __all__ = [
@@ -40,18 +32,6 @@ __all__ = [
     "HarmonicOscillatorStudyEvaluator",
     "HarmonicOscillatorStudyInputDeserializer",
     "HarmonicOscillatorStudyResultSerializer",
-    "ParticleInBoxConvergenceVerifier",
-    "ParticleInBoxConvergenceWorkflow",
-    "ParticleInBoxEigenpairSweepVerifier",
-    "ParticleInBoxEigenpairSweepWorkflow",
-    "ParticleInBoxIdentifiabilityVerifier",
-    "ParticleInBoxIdentifiabilityWorkflow",
-    "ParticleInBoxNormSweepVerifier",
-    "ParticleInBoxNormSweepWorkflow",
-    "ParticleInBoxResidualStudyEvaluator",
-    "ParticleInBoxResultVerifier",
-    "ParticleInBoxStudyInputDeserializer",
-    "ParticleInBoxStudyResultSerializer",
     "Periodic1DCompositeCampaign",
     "Periodic1DCompositeCampaignModel",
     "Periodic1DIsolatedBandCampaign",

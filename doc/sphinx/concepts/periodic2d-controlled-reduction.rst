@@ -38,7 +38,7 @@ produce the kinetic diagonal
 
 The campaign plane-wave adapter delegates matrix construction to the reusable
 ``PlaneWaveBlochHamiltonian2DConstructor`` documented in
-:doc:`../api/ksdft2effmass/analysis/model_systems/periodic2d/plane_waves`. That
+:doc:`../api/ksdft2effmass/model_systems/periodic2d/plane_waves`. That
 Action owns the general finite Fourier inventory, PhysKit lattice duality check,
 reduced-to-Cartesian reciprocal map, and represented operator result; the campaign
 retains only its cosine coefficients and provenance policy.
@@ -48,7 +48,7 @@ reciprocal sampling, positive-direction wrapping, and integer boundary translati
 explicit. ``PlaneWaveReciprocalSewing2DConstructor`` maps a wrapped momentum fiber by
 shifting reciprocal coefficients without wrapping the finite basis itself: coefficients
 leaving the retained cutoff are discarded. See
-:doc:`../api/ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh`.
+:doc:`../api/ksdft2effmass/model_systems/periodic2d/reciprocal_mesh`.
 This distinction separates periodic mesh topology from finite-basis truncation.
 
 ``Periodic2DCommonSpaceOperatorComparator`` now samples the retained plane waves on

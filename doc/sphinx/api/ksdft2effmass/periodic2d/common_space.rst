@@ -105,7 +105,7 @@ Implementation and evidence mapping
 * Numerical verification:
   ``python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/``
 * Represented operators:
-  :doc:`/api/ksdft2effmass/analysis/model_systems/periodic2d/plane_waves`
+  :doc:`/api/ksdft2effmass/model_systems/periodic2d/plane_waves`
 
 The numerical oracle independently evaluates the centered-difference dispersion
 

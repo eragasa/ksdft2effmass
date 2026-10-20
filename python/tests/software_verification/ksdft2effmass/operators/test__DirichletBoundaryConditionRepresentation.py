@@ -21,8 +21,7 @@ scientific validation, uncertainty quantification, or human acceptance.
 """
 
 import pytest
-
-from ksdft2effmass.analysis.model_systems import (
+from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
     ScalarQuantity,
     Unitless,

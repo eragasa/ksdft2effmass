@@ -12,11 +12,11 @@ from jsonschema import (  # type: ignore[import-untyped]
     Draft202012Validator,
     ValidationError,
 )
-from ksdft2effmass.analysis.model_systems import PeriodicFourierPotential1D
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionResult1D,
     SingleBandHoppingReductionTolerances1D,
 )
+from ksdft2effmass.model_systems import PeriodicFourierPotential1D
 from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
 from ksdft2effmass.periodic1d.model import Periodic1DFourierHamiltonianToyModel
 from run_experiment import (
@@ -24,7 +24,6 @@ from run_experiment import (
     EXPECTED_PHYSKIT_REVISION,
     installed_vcs_commit,
 )
-
 from single_band_fourier_reduction import (
     EXPERIMENT_FAMILY_ID,
     EXPERIMENT_IDENTITY,

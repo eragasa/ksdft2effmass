@@ -79,7 +79,7 @@ uncertainty quantification.
 | Package | Status | Included experiments and primary record |
 |---|---|---|
 | [`harmonic-oscillator/`](research-monograph/harmonic-oscillator/README.md) | Calculated | Finite common-space comparison of analytical, finite-difference, and ladder-operator harmonic-oscillator representations. |
-| [`particle-in-box/`](research-monograph/particle-in-box/README.md) | Calculated | Core residual comparison plus grid convergence, higher-eigenpair, norm, and identifiability studies. |
+| [`piab1d/`](piab1d/README.md) | Calculated | Canonical PIAB1D calculation: core residual comparison plus grid convergence, higher-eigenpair, norm, and decomposition-identifiability studies. |
 | [`periodic-1d/`](research-monograph/periodic-1d/README.md) | Calculated | Isolated-band nominal and stress studies, composite-band gauge/locality study, and retained Wannier90 attempts and comparison. |
 | [`periodic-2d/`](research-monograph/periodic-2d/README.md) | Calculated; human-accepted controlled exercise | Scalar and composite reductions, topology controls and phase sweeps, and bounded Wannier90 comparisons and parameter study. |
 | [`periodic-2d-optimizer-basin/`](research-monograph/periodic-2d-optimizer-basin/README.md) | Calculated | Synthetic non-DFT optimizer-basin, convergence, continuation, common-estimator, and post-hoc censored-regression studies. |
@@ -91,10 +91,8 @@ uncertainty quantification.
 | [`impurity-defect-1d-continuum-refinement/`](research-monograph/impurity-defect-1d-continuum-refinement/README.md) | Calculated | Separate continuum-mesh, domain, lattice-supercell, lattice-scale, and defect-width refinement axes. |
 | [`impurity-defect-2d/`](research-monograph/impurity-defect-2d/README.md) | Mixed staged record | Human-accepted calculated Stage A, Stage B, and accepted-parent Stage C synthetic packages; retained negative attempts and execution-free designs; later stages remain undesigned and unauthorized. |
 
-The operational log under
-[`research-monograph/campaigns/piab1d/`](research-monograph/campaigns/piab1d/)
-is retained campaign-run material, not a separate self-contained experiment
-package.
+The research monograph references the canonical top-level `calculations/piab1d/`
+record rather than owning a duplicate particle-in-box calculation directory.
 
 ## How to use this inventory
 

@@ -8,20 +8,11 @@ composition and retained root imports; it is not a namespace pattern for new
 campaigns. The periodic2d capability lives at :mod:`ksdft2effmass.periodic2d`.
 """
 
-from . import (
-    model_adequacy,
-    periodic_1d,
-    periodic_reduction,
-    piab1d,
-    qho1d,
-    research_monograph,
-)
+from . import model_adequacy, periodic_1d, periodic_reduction, research_monograph
 
 __all__ = [
     "model_adequacy",
     "periodic_1d",
     "periodic_reduction",
-    "piab1d",
-    "qho1d",
     "research_monograph",
 ]

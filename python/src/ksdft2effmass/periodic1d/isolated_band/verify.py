@@ -7,7 +7,7 @@ from dataclasses import dataclass
 import numpy as np
 from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
-from ksdft2effmass.analysis.model_systems import (
+from ksdft2effmass.model_systems import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicUniformGrid1D,
     PlaneWaveFiberHamiltonian1DConstructor,

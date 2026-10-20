@@ -1,7 +1,7 @@
 Quantum model systems
 =====================
 
-``ksdft2effmass.analysis.model_systems`` contains public analyses for controlled
+``ksdft2effmass.model_systems`` contains public analyses for controlled
 quantum model systems.  A model system is an idealized physical and mathematical
 system used to expose representation, discretization, and reduction behavior under
 explicit assumptions.  The term does not imply a toy calculation, and numerical
@@ -20,7 +20,7 @@ boundary records without selecting a Hamiltonian or physical model.
 :class:`~ksdft2effmass.operators.LadderOperator1D` owns the generic
 finite occupation-number basis and exposes its highest-state commutator defect.
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems
+.. currentmodule:: ksdft2effmass.model_systems
 
 .. autoclass:: UniformCartesianGrid1D
    :members:
@@ -42,18 +42,20 @@ model systems belong to :doc:`operators`. The complete code-to-calculation flow 
 represented equations are documented in
 :doc:`../concepts/controlled-model-calculations`.
 
-Finite harmonic oscillator
---------------------------
+QHO1D
+-----
 
-The harmonic-oscillator analysis uses three public mathematical software models of
+``QHO1D`` is the dimension-specific one-dimensional quantum harmonic oscillator
+owner. No dimension-neutral ``QHO`` API or 2D/3D implementation is claimed. The
+analysis uses three public mathematical software models of
 the same physical oscillator:
 
-* :class:`HarmonicOscillatorAnalytical` owns exact energies and coordinate-space
+* :class:`QHO1DAnalytical` owns exact energies and coordinate-space
   Hermite number states;
-* :class:`HarmonicOscillatorFiniteDifference` applies oscillator physics to a
-  reusable :class:`~ksdft2effmass.analysis.model_systems.DirichletInterval` and
+* :class:`QHO1DFiniteDifference` applies oscillator physics to a
+  reusable :class:`~ksdft2effmass.model_systems.DirichletInterval` and
   composes the centered second-order finite-difference Hamiltonian; and
-* :class:`HarmonicOscillatorLadderOperators` composes
+* :class:`QHO1DLadderOperators` composes
   :class:`~ksdft2effmass.operators.LadderOperator1D` and applies the
   oscillator energy scale.
 
@@ -87,34 +89,52 @@ and conversion through :class:`~ksdft2effmass.operators.PintUnitConverter`; proj
 records own strict value types and immutable array storage. Physical oscillator
 parameters retain action, mass, inverse-time, length, wavefunction, and energy
 dimensions. The historical normalized study enters through
-:class:`HarmonicOscillatorNondimensionalizer`, which explicitly attaches
+:class:`QHO1DNondimensionalizer`, which explicitly attaches
 :class:`~ksdft2effmass.operators.Unitless` without asserting that the corresponding
 physical quantities are intrinsically dimensionless.
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems.harmonic_oscillator
+.. currentmodule:: ksdft2effmass.model_systems.qho1d
 
-.. autoclass:: HarmonicOscillatorNondimensionalizer
+.. autoclass:: QHO1DNondimensionalizer
    :members:
 
-.. autoclass:: HarmonicOscillatorParameters
+.. autoclass:: QHO1DParameters
    :members:
 
-.. autoclass:: HarmonicOscillatorAnalytical
+.. autoclass:: QHO1DAnalytical
    :members:
 
-.. autoclass:: HarmonicOscillatorFiniteDifference
+.. autoclass:: QHO1DFiniteDifference
    :members:
 
-.. autoclass:: HarmonicOscillatorLadderOperators
+.. autoclass:: QHO1DLadderOperators
    :members:
 
-.. autoclass:: HarmonicOscillatorComparisonRequest
+.. autoclass:: QHO1DComparisonRequest
    :members:
 
-.. autoclass:: HarmonicOscillatorComparisonResult
+.. autoclass:: QHO1DComparisonResult
    :members:
 
-.. autoclass:: HarmonicOscillatorComparator
+.. autoclass:: QHO1DComparator
+   :members:
+
+.. autoclass:: QHO1DStudyDefinition
+   :members:
+
+.. autoclass:: QHO1DStudyResult
+   :members:
+
+.. autoclass:: QHO1DStudyInputDeserializer
+   :members:
+
+.. autoclass:: QHO1DStudyEvaluator
+   :members:
+
+.. autoclass:: QHO1DStudyResultSerializer
+   :members:
+
+.. autoclass:: QHO1DResultVerifier
    :members:
 
 One-dimensional particle in a box
@@ -124,21 +144,21 @@ The public particle-in-a-box surface separates continuum spectrum, reusable spat
 interval, and finite-difference representation. Its initial campaign remains the
 historical one-dimensional normalized Appendix D experiment.
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems
+.. currentmodule:: ksdft2effmass.model_systems
 
-.. autoclass:: ParticleInBoxParameters
+.. autoclass:: Piab1dParameters
    :members:
 
-.. autoclass:: ParticleInBoxAnalytical
+.. autoclass:: Piab1dAnalytical
    :members:
 
-.. autoclass:: ParticleInBoxFiniteDifference
+.. autoclass:: Piab1dFiniteDifference
    :members:
 
-.. autoclass:: ParticleInBoxGridEvaluation
+.. autoclass:: Piab1dGridEvaluation
    :members:
 
-.. autoclass:: ParticleInBoxGridEvaluator
+.. autoclass:: Piab1dGridEvaluator
    :members:
 
 Two-dimensional plane-wave Bloch operators
@@ -149,15 +169,15 @@ an explicit finite Fourier inventory, reduced primitive-basis momentum coordinat
 and a caller-toleranced two-pi duality check. The reciprocal-mesh surface adds
 centered half-open sampling, explicit positive-neighbor translations, and truncating
 finite-basis sewing maps. See
-:doc:`ksdft2effmass/analysis/model_systems/periodic2d/plane_waves` and
-:doc:`ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh` for the complete
+:doc:`ksdft2effmass/model_systems/periodic2d/plane_waves` and
+:doc:`ksdft2effmass/model_systems/periodic2d/reciprocal_mesh` for the complete
 mathematics, units, ordering, implementation, evidence, and limitation contracts.
 
 .. toctree::
    :hidden:
 
-   ksdft2effmass/analysis/model_systems/periodic2d/plane_waves
-   ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh
+   ksdft2effmass/model_systems/periodic2d/plane_waves
+   ksdft2effmass/model_systems/periodic2d/reciprocal_mesh
 
 One-dimensional periodic Fourier models
 ---------------------------------------

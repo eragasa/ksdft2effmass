@@ -4,14 +4,20 @@ This document records where maintained Python code belongs today. It is derived 
 `python/src/ksdft2effmass/` and does not authorize a package migration, compatibility
 layer, or new framework.
 
+Selected package, module, and class contracts are documented in the canonical
+[`ksdft2effmass` source mirror](ksdft2effmass/index.md). Prospective pages there are
+explicitly labeled and do not claim implemented or supported source.
+
 ## Ownership map
 
 | Package | Owns | Does not own |
 |---|---|---|
-| `operators` | Generic finite represented matrices, units, operator records, eigensolvers, subspace compression, residuals, compatibility, and matrix comparison | Lattices, Bloch paths, hopping models, scientific campaigns, or external calculators |
-| `solid_state` | Lattices, reciprocal paths, boundary twists, band frames, gauge alignment, hopping transforms, Wilson loops, and finite-lattice operator construction | Generic matrix utilities, campaign policy, or external-tool integration |
-| `analysis` | Calculator-independent scientific analyses, model-adequacy calculations, quantities of interest, and controlled model systems | Campaign orchestration, native file formats, or execution authority |
-| `campaigns` | Project-specific composition of declared inputs, analyses, verification, retained results, and campaign serialization | Reusable mathematics already owned by `operators`, `solid_state`, or `analysis` |
+| `operators` | Generic finite represented matrices, units, operator records, eigensolvers, operator compression, residuals, compatibility, and matrix comparison | State-space ownership, lattices, Bloch paths, hopping models, scientific campaigns, or external calculators |
+| `spaces` | Prospective finite state-space and subspace identities, injections, and intrinsic invariants; the initial documented leaf is the analytical trial subspace | Hamiltonians, operator reduction, scientific model construction, or experiment composition |
+| `solidstate` | Lattices, reciprocal paths, boundary twists, band frames, gauge alignment, hopping transforms, Wilson loops, and finite-lattice operator construction | Generic matrix utilities, campaign policy, or external-tool integration |
+| `model_systems` | Controlled physical and mathematical systems, shared finite-domain geometry, exact solutions, finite representations, and model-specific comparisons | General-purpose analysis, campaign authority, or external-tool integration |
+| `analysis` | Calculator-independent scientific analyses, model-adequacy calculations, and quantities of interest | Model definitions, campaign orchestration, native file formats, or execution authority |
+| `campaigns` | Project-specific composition of declared inputs, analyses, verification, retained results, and campaign serialization | Reusable mathematics already owned by `operators`, `solidstate`, or `analysis` |
 | `periodic1d` and `periodic2d` | Existing dimension-specific controlled-model capabilities and their established public APIs | Generic operator, lattice, workflow, or provenance infrastructure |
 | `periodic` | The existing periodic-model hierarchy, toy-model catalog, and explicitly transitional imports | New representation or transformation frameworks |
 | `calculators` | Calculator-facing requests and calculator-independent execution contracts | Native-format decoding or campaign acceptance policy |
@@ -43,18 +49,39 @@ The three similarly named source areas have different roles:
 There is no top-level `campaigns/` source tree. In repository documentation,
 “campaign library” means `python/src/ksdft2effmass/campaigns/`.
 
+The QHO1D and PIAB1D vertical slices are owned directly by
+`model_systems/qho1d/` and `model_systems/piab1d/`. Their `study/` subpackages own
+input, records, evaluation, serialization, and verification beside the concrete model
+system. `model_systems/study/base.py` defines the nominal identity boundary implemented
+by both study definitions and consumed by both serializers. `QHO1D` and `Piab1d` are
+intentionally dimension-specific names; a plain `QHO` or `PIAB` owner is reserved for
+a future implementation with a reviewed dimension-neutral contract. The mutable QHO1D
+composition root and fixed development-output path are under `experiments/qho1d/`.
+The former top-level `campaigns/qho1d/` and `campaigns/piab1d/` packages are not
+retained as compatibility facades. `calculations/piab1d/` owns PIAB1D calculation
+composition, retained inputs and outputs, provenance, verification adapters, plots,
+and reports. Reusable finite-operator analyses live under
+`analysis/operators/`. Research-monograph documentation points to the canonical
+calculation rather than owning another implementation or calculation tree. The
+`campaigns.research_monograph` root retains only unrelated bounded adapters still
+required by their calculation owners.
+
 ## Placement rule
 
 Before creating a package or module, identify a current caller and use the narrowest
 existing owner:
 
 1. Put representation-independent matrix behavior in `operators`.
-2. Put lattice-, Bloch-, frame-, gauge-, or hopping-specific behavior in `solid_state`.
-3. Put reusable scientific interpretation in `analysis`.
-4. Put experiment or retained-result composition in the existing campaign/capability
+2. Put finite state-space and subspace identities, injections, and intrinsic invariants
+   in `spaces` when they are independent of one represented operator.
+3. Put controlled physical or mathematical systems and their finite realizations in
+   `model_systems`.
+4. Put lattice-, Bloch-, frame-, gauge-, or hopping-specific behavior in `solidstate`.
+5. Put reusable scientific interpretation in `analysis`.
+6. Put experiment or retained-result composition in the existing campaign/capability
    owner.
-5. Put external syntax and tool adaptation in `integration`.
-6. Put task/run state in `workflows` and evidence lineage in `provenance`.
+7. Put external syntax and tool adaptation in `integration`.
+8. Put task/run state in `workflows` and evidence lineage in `provenance`.
 
 Do not create a parallel `representation`, `representations`, `transformation`, or
 `transformations` hierarchy merely to rename existing concepts. Introduce a new owner
@@ -62,8 +89,8 @@ only when a real caller cannot coherently use an existing one.
 
 ## Existing overlap
 
-The tree contains both capability packages (`periodic1d`, `periodic2d`) and campaign
-packages (`campaigns/periodic_1d`, `campaigns/piab1d`, and others). This is current
+The tree contains both capability packages (`periodic1d`, `periodic2d`) and remaining
+campaign packages (`campaigns/periodic_1d` and others). This is current
 source state, not a template for duplication. New work stays with the established owner
 of the edited capability. A later migration requires its own caller inventory and must
 update supported imports directly rather than add a compatibility facade.
