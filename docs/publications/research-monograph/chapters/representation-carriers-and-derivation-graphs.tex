@@ -1,0 +1,472 @@
+\chapter{Representation Carriers and Derivation Graphs}
+\index{representation carrier|textbf}
+\index{derivation graph|textbf}
+\index{Bloch operator field|textbf}
+\index{cell-hopping field|textbf}
+
+\label{ch:representation-carriers-derivation-graphs}
+
+\chapterstatus{foundational mathematical and scientific vocabulary. This
+chapter specifies distinctions used by later derivations; it reports no new
+calculation, numerical verification, material result, scientific validation, or
+uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish a Bloch-operator field from a cell-hopping coefficient
+        field by its carrier domain;
+  \item identify the state space, ordered basis, geometry, energy reference,
+        scalar field, coordinate convention, rank, and source needed to
+        interpret a finite representation node;
+  \item distinguish an ambient-space role from a retained-space role without
+        treating either label as evidence;
+  \item explain why gauge conjugation, alignment, Fourier conversion, support
+        truncation, and Fourier reconstruction are directed derivation edges
+        rather than mutually exclusive node states;
+  \item state what ``complete'' means for a declared finite Fourier inventory;
+  \item follow a composed reduction chain without conflating projection,
+        basis transformation, alignment, Fourier conversion, and truncation;
+        and
+  \item separate representation metadata, transformation witnesses, numerical
+        diagnostics, qualification decisions, and scientific claims.
+\end{enumerate}
+
+Chapter~\ref{ch:training-finite-representations} distinguished an abstract
+operator from a matrix in a declared basis.
+Chapter~\ref{ch:training-periodic-geometry} supplied the direct and reciprocal
+coordinate structure used by periodic fields,
+Chapter~\ref{ch:training-bloch-finite-differences} constructed finite Bloch
+representations, and Chapter~\ref{ch:training-projection-retained-spaces}
+distinguished retained-space projection from eliminated-space reduction.
+These prerequisites expose one more layer of care: the matrices usually form a
+field indexed either by momenta or by lattice translations. Those two index
+sets are not interchangeable. Nor is a label such as ``aligned Hamiltonian''
+sufficient to identify the space, basis, domain, and operations that produced
+the array.
+
+This chapter introduces a typed mathematical vocabulary for the resulting
+chain. The word \emph{typed} is used mathematically: a node states what kind of
+field it is, while an edge states what kind of transformation relates two
+nodes. The chapter does not prescribe a programming language or wire format.
+Its purpose is to keep later equations and evidence claims attached to the
+objects they actually concern.
+
+\section{Two carrier families}
+\index{carrier domain}
+\index{momentum domain}
+\index{translation domain}
+
+Let
+\begin{equation}
+  K=(k_0,\ldots,k_{N-1})
+  \label{eq:representation-carrier-momentum-domain}
+\end{equation}
+be an ordered finite momentum domain, and let
+\begin{equation}
+  \Gamma=(R_0,\ldots,R_{M-1})
+  \label{eq:representation-carrier-translation-domain}
+\end{equation}
+be an ordered finite inventory of lattice translations. The entries in each
+inventory are distinct, and a sum over an inventory means that every declared
+index position occurs exactly once. Ordering is part of both declarations
+because stored field values are correlated positionally with the corresponding
+domain. The coordinate convention is also part of the declaration: reduced
+reciprocal coordinates, Cartesian reciprocal coordinates, and integer cell
+coordinates cannot be exchanged silently.
+
+Let $V$ be a finite-dimensional represented state space. A Bloch-operator field
+has the carrier
+\begin{equation}
+  H_K:K\longrightarrow\operatorname{End}(V),
+  \qquad k\longmapsto H_K(k),
+  \label{eq:representation-carrier-bloch-field}
+\end{equation}
+whereas a cell-hopping coefficient field has the carrier
+\begin{equation}
+  \widehat H_\Gamma:\Gamma\longrightarrow\operatorname{End}(V),
+  \qquad R\longmapsto\widehat H_\Gamma(R).
+  \label{eq:representation-carrier-hopping-field}
+\end{equation}
+Even when every value is stored as an $r\times r$ complex matrix, the two
+fields have different domains and different interpretations. Equal matrix
+shape does not make them values of one carrier type.
+
+\begin{definition}[Bloch-operator representation]
+A finite Bloch-operator representation is an ordered momentum domain $K$, an
+identified finite represented space $V$ with an ordered basis, and a matrix
+value $H_K(k)\in\mathbb C^{r\times r}$ correlated with each $k\in K$. Its
+identity additionally states the geometry, energy reference, scalar field,
+coordinate convention, and source from which the representation was obtained.
+\end{definition}
+
+\begin{definition}[Cell-hopping representation]
+A finite cell-hopping representation is an ordered translation inventory
+$\Gamma$, the identified represented space and ordered basis in which the
+coefficients act, and a matrix value
+$\widehat H_\Gamma(R)\in\mathbb C^{r\times r}$ correlated with each
+$R\in\Gamma$. Its identity states the same interpretive metadata required for
+a Bloch representation.
+\end{definition}
+
+These definitions describe finite matrix representations. They do not identify
+a finite field with a continuum operator, prove Hermiticity, or assert that the
+declared domain is sufficiently refined.
+
+\subsection{Completeness is relative to a declared finite inventory}
+\index{complete declared inventory}
+
+For Fourier conversion, declaration of two inventories is not enough. Let
+$K=(k_0,\ldots,k_{N-1})$ be nonempty, so $N>0$, and let
+$\Gamma_K=(R_0,\ldots,R_{N-1})$ have the same cardinality. A declared phase
+pairing defines the characters
+\begin{equation}
+  \chi_R(k)=e^{+i\langle k,R\rangle}.
+  \label{eq:representation-carrier-character-pairing}
+\end{equation}
+
+\begin{definition}[Qualified finite Fourier pair]
+The ordered inventories $K$ and $\Gamma_K$, together with the declared phase
+pairing, form a qualified finite Fourier pair when
+\begin{align}
+  \frac{1}{N}\sum_{k\in K}
+    \overline{\chi_R(k)}\chi_{R'}(k)
+  &=\delta_{R,R'},
+  &&R,R'\in\Gamma_K,
+  \label{eq:representation-carrier-translation-orthogonality}\\
+  \frac{1}{N}\sum_{R\in\Gamma_K}
+    \chi_R(k)\overline{\chi_R(k')}
+  &=\delta_{k,k'},
+  &&k,k'\in K.
+  \label{eq:representation-carrier-momentum-orthogonality}
+\end{align}
+The first identity makes coefficient extraction recover every declared
+coefficient after synthesis; the second makes complete-inventory synthesis
+recover every declared momentum value after extraction.
+\end{definition}
+
+The adjective \emph{qualified} is substantive. In an exact derivation the two
+orthogonality identities are hypotheses or proved consequences of the finite
+character construction. In a computational record, naming two inventories a
+Fourier pair does not establish them: their cardinalities, index correspondence,
+phase convention, and orthogonality contract still require the declared exact
+or numerical qualification route.
+
+A coefficient field on all of a qualified $\Gamma_K$ may be called
+\emph{complete for the declared finite inventory}. This phrase means that no
+member of that finite transform inventory has been omitted. It does not mean
+that all translations of an infinite lattice have been retained, that a
+continuum limit has been reached, or that the parent physical model is complete.
+
+A support-truncated field instead retains a declared subset
+$S\subseteq\Gamma_K$. The distinction is therefore
+\begin{equation}
+  \text{complete on }\Gamma_K
+  \quad\hbox{versus}\quad
+  \text{restricted to }S\subseteq\Gamma_K,
+  \label{eq:representation-carrier-complete-versus-truncated}
+\end{equation}
+not ``exact physics'' versus ``approximate physics.'' The complete finite
+transform may already inherit parent-model and discretization errors.
+
+\section{Identity of a representation node}
+\index{representation node}
+\index{representation identity}
+
+A representation graph contains nodes for fields and directed edges for the
+operations relating them. For the present program, the identity of a node must
+retain at least
+
+\begin{enumerate}
+  \item an identity for the representation node;
+  \item its carrier-domain identity and ordering;
+  \item the represented state-space identity;
+  \item the ordered basis identity;
+  \item geometry and coordinate conventions;
+  \item scalar-field identity;
+  \item energy zero and energy unit;
+  \item represented rank;
+  \item a family-local role; and
+  \item the identity of the source formula, calculation, or artifact.
+\end{enumerate}
+
+The list is deliberately redundant with the cautions of
+Chapter~\ref{ch:training-finite-representations}. A graph node must make those
+cautions operational. For example, two arrays with the same shape and values
+but different ordered bases are not the same represented node. Two coefficient
+fields with the same matrices but different translation ordering are also not
+the same represented node.
+
+\subsection{Family-local roles}
+\index{ambient space}
+\index{retained space}
+
+Within the Bloch family, the labels \emph{ambient} and \emph{retained} are
+useful space roles. An ambient node represents the declared parent fiber space.
+A retained node represents a declared retained fiber space. The actual state
+space, basis, and rank must still be recorded; the role label does not prove
+them.
+
+Within the cell-hopping family, the corresponding useful roles are
+\emph{complete declared inventory} and \emph{support truncated}. These roles
+refer to coefficient-domain coverage, not to how the coefficient field was
+constructed or whether it passed a locality criterion.
+
+The two role families should not be merged into a single list of interchangeable
+states. Ambient and retained refer to represented Bloch spaces. Complete and
+support truncated refer to translation-domain inventories. Their meanings are
+tied to different carriers.
+
+\section{Transformation history belongs to edges}
+\index{transformation edge}
+\index{derivation history}
+
+A directed transformation edge records
+\begin{equation}
+  e=
+  \bigl(
+    \text{source},\text{target},\text{kind},
+    \text{method},\text{orientation}
+  \bigr),
+  \label{eq:representation-carrier-edge-identity}
+\end{equation}
+together with any witness, diagnostics, and qualification evidence required by
+the transformation contract. Source and target are full node identities rather
+than bare names. Orientation includes conventions such as whether a gauge acts
+as $G^\dagger H G$ or $G H G^\dagger$.
+
+The principal transformation kinds in the periodic reduction chain are
+
+\begin{description}
+  \item[Projector construction.] Construction of an ambient-space projector
+    $P=FF^\dagger$ from a qualified isometric frame $F$.
+  \item[Frame compression.] Passage from an ambient operator to its retained
+    coordinate matrix $F^\dagger H F$.
+  \item[Invariant restriction.] Identification of a frame compression with the
+    restriction of an ambient operator to the frame range, available only when
+    that range is invariant under the operator.
+  \item[Gauge conjugation.] A unitary change of coordinates within an identified
+    retained space.
+  \item[Alignment.] A corrective map chosen from a declared admissible family
+    and objective.
+  \item[Finite Fourier conversion.] A conversion from a Bloch-domain field to
+    a cell-hopping field on a declared finite transform inventory.
+  \item[Support truncation.] Restriction of the coefficient inventory to a
+    declared support.
+  \item[Fourier reconstruction.] Construction of a Bloch-domain field from a
+    declared coefficient field.
+\end{description}
+
+These are edge kinds, not mutually exclusive labels for a node. A retained
+Bloch representation may have been gauge conjugated, aligned, and reconstructed.
+Encoding those facts as one exclusive node state would discard valid derivation
+history. A directed multigraph permits each operation to retain its own source,
+target, method, orientation, and evidence.
+
+\begin{remark}[A derivation graph need not be acyclic]
+Under the qualified finite Fourier-pair identities, conversion and
+reconstruction form an exact inverse pair on the complete declared inventory.
+The representation structure is therefore a
+directed graph, and potentially a directed multigraph, rather than necessarily
+a directed acyclic graph. Repeated methods or alternative routes may also
+connect the same pair of nodes.
+\end{remark}
+
+\section{The controlled periodic chain}
+\index{gauge conjugation}
+\index{Fourier conversion}
+\index{support truncation}
+\index{Fourier reconstruction}
+
+Let $V_A$ and $V_B$ be identified finite-dimensional complex spaces with
+$\dim V_A=D$ and $\dim V_B=r$. The ambient and retained node identities record
+their ordered basis families $\mathcal B_A(k)$ and $\mathcal B_B(k)$. The
+ambient field and retained frame have the explicit types
+\begin{equation}
+  H_A:K\longrightarrow\operatorname{End}(V_A),
+  \qquad
+  F(k):V_B\longrightarrow V_A.
+  \label{eq:representation-carrier-ambient-frame-types}
+\end{equation}
+The columns of the $D\times r$ matrix $F(k)$ are the retained ordered basis
+vectors expressed in $\mathcal B_A(k)$; coordinate columns therefore obey
+$c_A=F(k)c_B$. For a qualified frame edge, $F(k)$ is an isometry,
+$F(k)^\dagger F(k)=I_{V_B}$.
+
+Projector construction and frame compression are different operations. The
+former creates the ambient-space projector
+\begin{equation}
+  P(k)=F(k)F(k)^\dagger\in\operatorname{End}(V_A),
+  \label{eq:representation-carrier-projector-construction}
+\end{equation}
+whereas the latter creates the retained reference
+\begin{equation}
+  H_B(k)=F(k)^\dagger H_A(k)F(k)
+  \in\operatorname{End}(V_B).
+  \label{eq:representation-carrier-retained-reference}
+\end{equation}
+Equation~\eqref{eq:representation-carrier-retained-reference} is a frame
+compression whether or not the frame range is invariant. It represents an
+invariant restriction only under the additional condition
+$H_A(k)\operatorname{ran}F(k)\subseteq\operatorname{ran}F(k)$. None of these
+operations is a gauge transformation or a support truncation.
+
+The displayed chain below is an exact conditional mathematical chain. A runtime
+array supplied as $F$, $G$, or $U$ is only a candidate witness until the required
+isometry, unitarity, orientation, domain coverage, and transformation contract
+have been qualified by the declared evidence route. Node metadata and role
+labels do not supply those facts.
+
+For a qualified gauge-conjugation edge, let $\mathcal B_G(k)$ be another
+ordered basis of $V_B$ and let $G(k)$ be pointwise unitary. Its columns are the
+vectors of $\mathcal B_G(k)$ expressed in $\mathcal B_B(k)$, so
+$c_B=G(k)c_G$. The gauge-conjugated representation is
+\begin{equation}
+  H_G(k)=G(k)^\dagger H_B(k)G(k)
+  \in\operatorname{End}(V_B).
+  \label{eq:representation-carrier-gauge-conjugation}
+\end{equation}
+Both $H_B$ and $H_G$ remain retained Bloch representations. Their different
+derivation histories are carried by the gauge-conjugation edge.
+
+For a qualified alignment edge, let $\mathcal B_U(k)$ be the aligned ordered
+basis, and let $U(k)$ be pointwise unitary with columns expressing
+$\mathcal B_U(k)$ in $\mathcal B_G(k)$, so $c_G=U(k)c_U$. Membership in the
+declared alignment family and acceptance under the declared objective,
+orientation, and uniqueness policy are separate qualification obligations.
+The aligned-coordinate representation is
+\begin{equation}
+  H_U(k)=U(k)^\dagger H_G(k)U(k)
+  \in\operatorname{End}(V_B).
+  \label{eq:representation-carrier-alignment}
+\end{equation}
+Again, $H_U$ remains a retained Bloch representation. Calling it only
+``aligned'' would omit the state-space role and would hide the edge on which the
+alignment witness and qualification belong.
+
+Assume now the qualified finite Fourier-pair contract above. The basis family
+$\mathcal B_U(k)$ supplies one declared ordering of retained coordinate labels
+across $K$; Fourier conversion acts entrywise in those identified labels. With
+the selected sign and normalization convention, define
+\begin{equation}
+  \widehat H:\Gamma_K\longrightarrow\operatorname{End}(V_B),
+  \qquad
+  \widehat H(R)
+  =\frac{1}{N}\sum_{k\in K}
+    \overline{\chi_R(k)}H_U(k).
+  \label{eq:representation-carrier-forward-fourier}
+\end{equation}
+This edge changes carrier family: its source is a Bloch field and its target is
+a cell-hopping field complete on the declared finite inventory. The sign,
+normalization, mesh ordering, translation ordering, coordinate pairing, and
+retained-label identification are part of the transformation convention.
+
+For $S\subseteq\Gamma_K$, with inherited translation identities and ordering,
+define the support-truncated coefficient field as the restriction
+\begin{equation}
+  \widehat H_S:S\longrightarrow\operatorname{End}(V_B),
+  \qquad
+  \widehat H_S(R)=\widehat H(R)\quad\text{for }R\in S.
+  \label{eq:representation-carrier-support-truncation}
+\end{equation}
+This edge remains within the cell-hopping family while changing the declared
+translation domain from $\Gamma_K$ to $S$. It does not change the retained
+state-space rank and is not another projection in state space. An implementation
+may equivalently store a zero extension on $\Gamma_K$, but it must declare that
+storage convention rather than confuse the zero extension with the support
+itself.
+
+The corresponding reconstructed Bloch field has type
+$H_C(U,S):K\to\operatorname{End}(V_B)$ and is
+\begin{equation}
+  H_C(U,S;k)
+  =\sum_{R\in S}\chi_R(k)\widehat H_S(R).
+  \label{eq:representation-carrier-reconstruction}
+\end{equation}
+Fourier reconstruction changes the carrier back to a Bloch-domain field. The
+target remains a retained Bloch representation; reconstruction is recorded by
+the incoming edge rather than by replacing its space role. On the complete
+qualified inventory, the momentum orthogonality identity gives the exact
+finite reconstruction
+\begin{equation}
+  H_C(U,\Gamma_K;k)
+  =\frac{1}{N}\sum_{k'\in K}
+    \left(\sum_{R\in\Gamma_K}
+      \chi_R(k)\overline{\chi_R(k')}\right)H_U(k')
+  =H_U(k).
+  \label{eq:representation-carrier-complete-reconstruction}
+\end{equation}
+No corresponding equality is asserted for a proper support $S$ without an
+additional support or residual hypothesis.
+
+The full typed chain is therefore
+\begin{equation}
+  \begin{aligned}
+    H_A
+    &\xrightarrow{\text{frame compression}} H_B
+     \xrightarrow{\text{gauge conjugation}} H_G
+     \xrightarrow{\text{alignment}} H_U,\\
+    H_U
+    &\xrightarrow{\text{finite Fourier conversion}} \widehat H
+     \xrightarrow{\text{support truncation}} \widehat H_S
+     \xrightarrow{\text{Fourier reconstruction}} H_C(U,S).
+  \end{aligned}
+  \label{eq:representation-carrier-full-chain}
+\end{equation}
+The first arrow uses the declared frame $F$ and must not be replaced by the
+separate projector-construction edge. Every subsequent comparison must identify
+which nodes are being compared and in which common representation.
+
+\section{What the graph does not prove}
+\index{evidence boundary!representation graph}
+
+A well-formed identity or edge is necessary for interpretation, but it is not
+scientific evidence. In particular, graph construction alone does not prove
+
+\begin{itemize}
+  \item Hermiticity, idempotence, orthogonality, unitarity, or determinant
+        constraints;
+  \item correctness or uniqueness of an alignment solution;
+  \item Fourier index bijection, inversion closure, or reconstruction accuracy;
+  \item support completeness under a physical metric or symmetry;
+  \item numerical convergence or independence of withheld evaluation samples;
+  \item agreement with a continuum parent or a material calculation; or
+  \item scientific validity or uncertainty bounds.
+\end{itemize}
+
+Those statements require separate property evidence with declared tolerances,
+methods, and dispositions. A useful evidence sequence is
+\begin{equation}
+  \text{identity}
+  \longrightarrow
+  \text{constructed value}
+  \longrightarrow
+  \text{diagnostics}
+  \longrightarrow
+  \text{qualification}
+  \longrightarrow
+  \text{bounded claim}.
+  \label{eq:representation-carrier-evidence-sequence}
+\end{equation}
+No arrow may be inferred merely from the presence of the object on its left.
+If a mandatory transformation is rejected or unresolved, it supplies no
+qualified target for later Fourier conversion, support truncation,
+reconstruction, or model comparison.
+
+\section{Consequences for the reductions that follow}
+
+The carrier distinction organizes the remaining reduction chapters.
+Chapter~\ref{ch:training-isolated-band-fourier-reduction} specializes the
+Fourier edges to a scalar isolated band, and
+Chapter~\ref{ch:training-composite-band-gauge-alignment} develops the
+higher-rank frame, gauge, alignment, and block-hopping structure.
+
+Later comparisons inherit the same discipline. Before subtracting two fields,
+one must align their carrier domains, represented spaces, ordered bases,
+geometries, energy references, units, and coordinate conventions. Before
+claiming locality, one must say whether the claim concerns a complete declared
+coefficient inventory or a support-truncated one. Before attributing a result
+to alignment or truncation, one must retain the separate edges so that the two
+operations cannot be silently conflated.

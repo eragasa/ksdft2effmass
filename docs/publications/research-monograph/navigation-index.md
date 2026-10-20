@@ -33,13 +33,16 @@ applications without redefining the primary discussion.
 8. `chapters/projection-and-retained-spaces.tex` — projection, exact retained
    operators, eliminated-space downfolding, and projection-induced loss of exact
    finite range;
-9. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
-   fibers, isolated scalar bands, complete hopping transforms, finite-range
-   truncation, direct fitting, and withheld evaluation;
-10. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
+9. `chapters/representation-carriers-and-derivation-graphs.tex` — Bloch and
+   cell-hopping carrier families, full node identities, family-local roles,
+   directed transformation edges, and their evidence boundary;
+10. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
+    fibers, isolated scalar bands, complete hopping transforms, finite-range
+    truncation, direct fitting, and withheld evaluation;
+11. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
     Bloch--Wannier bridge, polar transport, reciprocal closure, Procrustes
     alignment, block hoppings, and gauge-dependent locality; and
-11. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
+12. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
     verification, validation, uncertainty, and negative evidence.
 
 ## Part II model-adequacy sequence
@@ -93,8 +96,12 @@ applications without redefining the primary discussion.
 | PAW transformation | `chapters/model-adequacy.tex` | `chapters/bulk-representations.tex` | Explanatory contrast; not the active silicon parent |
 | Spectral reconstruction | `chapters/projection-and-retained-spaces.tex` | `chapters/model-adequacy.tex`; `appendices/D-particle-in-a-box-residuals.tex` | Exact retained operator versus model-class approximation |
 | State space | `chapters/quantum-states-and-operators.tex` | `chapters/projection-and-retained-spaces.tex`; `appendices/A-notation-and-status.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Operator and comparison prerequisite |
-| Finite matrix representation | `chapters/finite-representations.tex` | `chapters/computational-quantities.tex`; `appendices/A-notation-and-status.tex` | Representation contract |
-| Basis transformation and gauge | `chapters/finite-representations.tex` | `chapters/composite-band-gauge-alignment.tex`; `chapters/operator-comparison.tex`; `chapters/bulk-representations.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Generic coordinate freedom followed by periodic gauge constraints |
+| Finite matrix representation | `chapters/finite-representations.tex` | `chapters/computational-quantities.tex`; `chapters/representation-carriers-and-derivation-graphs.tex`; `appendices/A-notation-and-status.tex` | Representation contract |
+| Bloch and cell-hopping carrier families | `chapters/representation-carriers-and-derivation-graphs.tex` (`ch:representation-carriers-derivation-graphs`) | `chapters/isolated-band-fourier-reduction.tex`; `chapters/composite-band-gauge-alignment.tex`; `chapters/bulk-representations.tex` | Distinguishes momentum-domain operator fields from translation-domain coefficient fields |
+| Representation-node identity and family-local role | `chapters/representation-carriers-and-derivation-graphs.tex` | `chapters/projection-and-retained-spaces.tex`; `chapters/operator-comparison.tex` | Keeps domain, state space, basis, geometry, energy reference, rank, source, and carrier-local role explicit |
+| Derivation graph and transformation edge | `chapters/representation-carriers-and-derivation-graphs.tex` | `chapters/composite-band-gauge-alignment.tex`; `chapters/isolated-band-fourier-reduction.tex`; `appendices/G-periodic-reduction-experiments.tex` | Records gauge conjugation, alignment, finite Fourier conversion, support truncation, and reconstruction as composable directed history rather than exclusive node states |
+| Complete declared Fourier inventory | `chapters/representation-carriers-and-derivation-graphs.tex` | `chapters/isolated-band-fourier-reduction.tex`; `appendices/G-periodic-reduction-experiments.tex` | Means complete only on the declared finite transform inventory, not continuum-complete |
+| Basis transformation and gauge | `chapters/finite-representations.tex` | `chapters/representation-carriers-and-derivation-graphs.tex`; `chapters/composite-band-gauge-alignment.tex`; `chapters/operator-comparison.tex`; `chapters/bulk-representations.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Generic coordinate freedom followed by periodic gauge constraints |
 | Projection, localization, and truncation | `chapters/projection-and-retained-spaces.tex` | `chapters/isolated-band-fourier-reduction.tex`; `chapters/composite-band-gauge-alignment.tex`; `chapters/bulk-representations.tex`; `chapters/bulk-reduced-models.tex` | Distinct retained-space and approximation operations |
 | Isolated Bloch band | `chapters/projection-and-retained-spaces.tex` | `chapters/isolated-band-fourier-reduction.tex`; `appendices/G-periodic-reduction-experiments.tex` | Fiberwise rank-one retention separated from phase gauge and localization |
 | Composite Bloch frame and projector | `chapters/composite-band-gauge-alignment.tex` (`ch:training-composite-band-gauge-alignment`) | `chapters/projection-and-retained-spaces.tex`; `appendices/G-periodic-reduction-experiments.tex` | Higher-rank retained space separated from its gauge-dependent frame |

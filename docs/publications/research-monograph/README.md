@@ -18,15 +18,16 @@ The current draft has five main divisions, arranged from lower to higher
 conceptual load: computational foundations; criteria for a good reduced model;
 the bulk-silicon representation program; the doped-silicon representation
 program; and the mathematical and proof program. Part I proceeds from
-quantities, units, coordinates, and metadata through finite representations,
-Hermitian eigensystems and spectral subspaces, quantum operators and the
-one-dimensional box, two- and three-dimensional box
-models with Kronecker products, periodic geometry, Bloch-periodic finite
-differences, retained spaces, the distinction between spectral projection and
-eliminated-space downfolding, projection-induced loss of exact finite hopping
-range, isolated-band Fourier reduction to finite-range lattice Hamiltonians,
-composite Bloch frames, the Bloch--Wannier bridge, gauge
-transport and alignment, block locality, and evidence vocabulary. Part II then
+quantities, units, coordinates, and metadata through finite representations;
+Hermitian eigensystems and spectral subspaces; quantum operators and the
+one-dimensional box; two- and three-dimensional box models with Kronecker
+products; periodic geometry; Bloch-periodic finite differences; retained
+spaces; the distinction between spectral projection and eliminated-space
+downfolding; projection-induced loss of exact finite hopping range; Bloch and
+cell-hopping carrier families; representation nodes and typed derivation edges;
+isolated-band Fourier reduction to finite-range lattice Hamiltonians; composite
+Bloch frames; the Bloch--Wannier bridge; gauge transport and alignment; block
+locality; and evidence vocabulary. Part II then
 moves from the scientific adequacy question through common-space operator
 comparison to weighted spectral and operator losses, with fitting and
 model-class-expressivity precedents integrated where the corresponding concepts
@@ -107,6 +108,7 @@ contracts are stable:
 - `particle_in_box_dimensions.ipynb`;
 - `periodic_geometry.ipynb`;
 - `bloch_periodic_finite_differences.ipynb`;
+- `representation_carriers_and_derivation_graphs.ipynb`;
 - `isolated_band_fourier_reduction.ipynb`; and
 - `composite_band_gauge_alignment.ipynb`.
 
