@@ -35,9 +35,9 @@ lack external citations. This selectivity does not upgrade the recommendations
 from prospective notes to verified source judgments. Approximate line
 numbers refer to the audited source state and may move during later editing.
 
-**Later addition:** The Bloch-sector and fiber-operator definition subsequently
-added to `chapters/periodic-geometry.tex` cites `kittel2004` and `simon2013` for
-the standard solid-state Bloch construction and `kuchment2016` for the
+**Later addition:** The Bloch-sector and fiber-operator definition now owned by
+`chapters/bloch-theorem-one-dimensional.tex` cites `kittel2004` and `simon2013`
+for the standard solid-state Bloch construction and `kuchment2016` for the
 operator-level Floquet--Bloch direct-integral formulation. The Kuchment article
 metadata and DOI were checked when its record was added to `references.bib`.
 A future full source-reading audit should still check the exact direct-integral

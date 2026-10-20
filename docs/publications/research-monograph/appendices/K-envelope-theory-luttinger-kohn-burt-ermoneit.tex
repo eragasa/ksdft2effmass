@@ -693,17 +693,18 @@ warning for model reduction. Even when one envelope component dominates the
 norm and the product $F_nU_n$ closely approximates the wavefunction pointwise,
 that term alone need not approximate a matrix element of the position operator.
 Small envelope components and zone-boundary terms can determine the observable.
-For the one-dimensional dominant-component contribution, Burt's 1999 equation
-(6.12) isolates the zone-edge correction,
+For the one-dimensional dominant-component contribution, set $b=2\pi/a$ and
+$G_m=mb$ for $m\in\mathbb Z$. Burt's 1999 equation (6.12) then isolates the
+zone-edge correction,
 \begin{align}
   I_{cv}
   ={}&\pi i\,
   \widetilde F_c(\pi/a)^{*}\widetilde F_v(-\pi/a)
-  \sum_G U_{cG}^{*}U_{v,G+2\pi/a}
+  \sum_{m\in\mathbb Z} U_{c,G_m}^{*}U_{v,G_m+b}
   \notag\\
   &-\pi i\,
   \widetilde F_c(-\pi/a)^{*}\widetilde F_v(\pi/a)
-  \sum_G U_{c,G+2\pi/a}^{*}U_{vG}.
+  \sum_{m\in\mathbb Z} U_{c,G_m+b}^{*}U_{v,G_m}.
   \label{eq:burt-dipole-zone-edge}
 \end{align}
 This term is often small for globally slow envelopes, but it is not identically

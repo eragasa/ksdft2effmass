@@ -1,0 +1,372 @@
+\chapter{Periodic Systems and Bloch's Theorem in One Dimension}
+\index{Bloch theorem!one-dimensional|textbf}
+\index{periodic boundary condition!one-dimensional|textbf}
+\index{reciprocal lattice!one-dimensional|textbf}
+\index{Brillouin zone!one-dimensional|textbf}
+
+\label{ch:training-bloch-theorem-one-dimensional}
+
+\chapterstatus{pedagogical bridge from particle-in-a-box models to periodic
+quantum systems. The derivations and examples are illustrative mathematics;
+this chapter reports no material calculation, numerical convergence claim,
+scientific validation, or uncertainty quantification.}
+
+\section{Learning goals}
+
+After working through this chapter, a reader should be able to
+
+\begin{enumerate}
+  \item distinguish a Dirichlet box from a periodic system and a fixed Bloch
+        sector;
+  \item derive the one-dimensional Bloch condition from translation symmetry;
+  \item distinguish the Bloch wave number $k$, the primitive reciprocal
+        magnitude $b$, and a reciprocal-lattice vector $G_m=mb$;
+  \item interpret $k$ modulo reciprocal-lattice translations and choose a
+        first-Brillouin-zone representative;
+  \item factor a Bloch wave into a phase and a cell-periodic function;
+  \item construct the cell-periodic fiber operator for a periodic Schr\"odinger
+        Hamiltonian; and
+  \item identify the plane-wave momenta $k+G_m$ that occur inside one Bloch
+        fiber.
+\end{enumerate}
+
+Chapters~\ref{ch:training-quantum-operators} and
+\ref{ch:training-particle-box-higher-dimensions} used finite intervals and
+rectangular domains with Dirichlet boundary conditions. We now change the
+physical model. A periodic crystal is not obtained by relabeling the walls of a
+box. It is obtained by declaring translation symmetry and then resolving the
+infinite system into sectors characterized by the phase acquired under one
+primitive translation.
+
+This one-dimensional construction introduces Bloch's theorem before the
+notation is generalized to two and three dimensions. It also avoids a collision
+with the Gram metric used in the next chapter: $b=2\pi/a$ is the primitive
+reciprocal magnitude in one dimension, and $G_m=mb$ is a reciprocal-lattice
+vector indexed by the integer $m$.
+
+\section{Three boundary models that must not be conflated}
+\index{Dirichlet boundary condition}
+\index{Born--von Karman boundary condition}
+\index{Bloch boundary condition}
+
+Let $a>0$ be a length. Three superficially similar interval calculations
+represent different operators.
+
+\begin{description}
+  \item[Dirichlet box.] A wavefunction on $[0,a]$ obeys
+    \begin{equation}
+      \psi(0)=\psi(a)=0.
+    \end{equation}
+    The endpoints are walls, and translation by $a$ is not a symmetry of the
+    operator.
+  \item[Periodic ring or Born--von Karman cell.] A wavefunction obeys
+    \begin{equation}
+      \psi(x+a)=\psi(x).
+    \end{equation}
+    The endpoints are two coordinate representatives of one periodic point.
+  \item[Bloch sector.] A wavefunction obeys
+    \begin{equation}
+      \psi_k(x+a)=e^{ika}\psi_k(x).
+      \label{eq:training-bloch-1d-boundary-condition}
+    \end{equation}
+    The endpoints differ by a phase fixed by the sector label $k$.
+\end{description}
+
+The periodic ring is the special Bloch sector for which $e^{ika}=1$. A generic
+Bloch sector is quasiperiodic rather than periodic. None of these conditions is
+a numerical approximation to either of the others; each is part of a different
+operator domain.
+
+\section{Translation symmetry and Bloch's theorem}
+\index{translation operator}
+\index{quasimomentum}
+
+Let the infinite one-dimensional Hamiltonian be
+\begin{equation}
+  \widehat H
+  =-\frac{\hbar^2}{2m_0}\frac{\mathrm d^2}{\mathrm d x^2}+V(x),
+  \qquad
+  V(x+a)=V(x),
+  \label{eq:training-bloch-1d-parent}
+\end{equation}
+where $m_0$ is the particle mass. Define translation by one primitive period as
+\begin{equation}
+  (\widehat T_a\psi)(x)=\psi(x+a).
+\end{equation}
+The periodicity of $V$ implies
+\begin{equation}
+  [\widehat H,\widehat T_a]=0.
+\end{equation}
+Translation is unitary, so any translation eigenvalue has unit magnitude. Write
+such a phase as $e^{ika}$. On the infinite line, a nonzero function whose
+magnitude repeats in every cell is not square integrable; Bloch waves are
+therefore generalized states represented and normalized on one cell. They
+become ordinary normalizable eigenstates after a finite Born--von Karman
+supercell is imposed. In either formulation, simultaneous resolution by energy
+and translation gives
+\begin{equation}
+  \widehat T_a\psi_{nk}=e^{ika}\psi_{nk},
+\end{equation}
+which is precisely Equation~\eqref{eq:training-bloch-1d-boundary-condition}.
+The label $n$ distinguishes energy bands within the same $k$ sector.
+
+\begin{definition}[One-dimensional Bloch sector]
+The Bloch sector labelled by $k$ consists of functions square integrable on one
+cell whose quasiperiodic extensions satisfy
+\begin{equation}
+  \psi_k(x+\ell a)=e^{ik\ell a}\psi_k(x),
+  \qquad \ell\in\mathbb Z.
+  \label{eq:training-bloch-1d-sector}
+\end{equation}
+The corresponding Bloch-fiber operator is the restriction of the periodic
+Hamiltonian to that sector.
+\end{definition}
+
+This is the operational content of Bloch's theorem needed here: generalized
+states of an infinite translation-invariant periodic Hamiltonian, or ordinary
+eigenstates of its finite Born--von Karman counterpart, can be chosen to have a
+definite translation phase~\cite{kittel2004,simon2013}. It does not say that the
+wavefunction itself is periodic.
+
+\section{The reciprocal lattice and the first Brillouin zone}
+\index{reciprocal-lattice vector!one-dimensional}
+\index{reduced momentum}
+
+The primitive reciprocal magnitude is
+\begin{equation}
+  b=\frac{2\pi}{a}.
+  \label{eq:training-geometry-one-dimensional-reciprocal}
+\end{equation}
+Every reciprocal-lattice vector is
+\begin{equation}
+  G_m=mb,
+  \qquad m\in\mathbb Z.
+  \label{eq:training-bloch-1d-reciprocal-vector}
+\end{equation}
+It obeys
+\begin{equation}
+  e^{iG_m\ell a}=e^{i2\pi m\ell}=1.
+\end{equation}
+Consequently, $k$ and $k+G_m$ define the same translation phase:
+\begin{equation}
+  e^{i(k+G_m)\ell a}=e^{ik\ell a}.
+\end{equation}
+They label the same reciprocal class,
+\begin{equation}
+  k\sim k+G_m.
+  \label{eq:training-bloch-1d-equivalence}
+\end{equation}
+
+Define the reduced, dimensionless coordinate
+\begin{equation}
+  \kappa=\frac{k}{b}.
+  \label{eq:training-geometry-reduced-momentum}
+\end{equation}
+A convenient first-Brillouin-zone representative is
+\begin{equation}
+  -\frac12\leq\kappa<\frac12,
+  \qquad\text{equivalently}\qquad
+  -\frac b2\leq k<\frac b2.
+  \label{eq:training-geometry-first-brillouin-zone}
+\end{equation}
+The half-open interval avoids storing both endpoints of the same reciprocal
+class. A closed plotting path may display both endpoints, but a complete
+periodic mesh should not count them as distinct samples.
+
+\section{Bloch factorization and the cell-periodic space}
+\index{cell-periodic function}
+
+Define
+\begin{equation}
+  u_{nk}(x)=e^{-ikx}\psi_{nk}(x).
+\end{equation}
+Using the Bloch condition gives
+\begin{align}
+  u_{nk}(x+a)
+  &=e^{-ik(x+a)}\psi_{nk}(x+a)\\
+  &=e^{-ikx}e^{-ika}e^{ika}\psi_{nk}(x)\\
+  &=u_{nk}(x).
+\end{align}
+Thus
+\begin{equation}
+  \psi_{nk}(x)=e^{ikx}u_{nk}(x),
+  \qquad
+  u_{nk}(x+a)=u_{nk}(x).
+  \label{eq:training-geometry-bloch-factorization}
+\end{equation}
+The phase factor carries the translation character; the function $u_{nk}$ is
+periodic on one primitive cell.
+
+The factorization is not unique under reciprocal relabeling. Replacing $k$ by
+$k+G_m$ and $u_{nk}$ by $e^{-iG_mx}u_{nk}$ leaves the physical wavefunction
+unchanged. This is why a stored $k$ value must be interpreted together with its
+chosen Brillouin-zone representative and basis convention.
+
+\section{Cell-periodic fiber operators}
+\index{Bloch-fiber operator!one-dimensional}
+
+Work in the fixed periodic space
+\begin{equation}
+  \mathcal H_{\mathrm{per}}=L^2_{\mathrm{per}}([0,a]).
+\end{equation}
+Conjugating the parent Hamiltonian by the Bloch phase defines
+\begin{equation}
+  \widehat H(k)
+  =e^{-ikx}\widehat H e^{ikx}
+  \quad\text{on }\mathcal H_{\mathrm{per}}.
+  \label{eq:training-geometry-fiber-definition}
+\end{equation}
+For Equation~\eqref{eq:training-bloch-1d-parent},
+\begin{equation}
+  \widehat H(k)
+  =\frac{\hbar^2}{2m_0}
+   \left(-i\frac{\mathrm d}{\mathrm d x}+k\right)^2+V(x).
+  \label{eq:training-geometry-schrodinger-fiber}
+\end{equation}
+The $k$ dependence belongs to the represented derivative and boundary sector;
+it is not an additional potential.
+
+At the operator level, the Floquet--Bloch transformation assembles the
+continuum of fibers as a direct integral,
+\begin{equation}
+  \widehat H
+  \simeq
+  \int_{[-b/2,b/2)}^{\oplus}
+    \widehat H(k)\,\frac{a\,\mathrm d k}{2\pi}.
+  \label{eq:training-geometry-direct-integral}
+\end{equation}
+Here $\simeq$ means unitary equivalence and $\oplus$ indicates one fiber space
+for each reciprocal class~\cite{kuchment2016}. This formula is an optional
+operator-level summary; the later finite calculations require only the
+individual fibers and their declared $k$ samples.
+
+The primitive reciprocal magnitude defines the kinetic-energy scale
+\begin{equation}
+  E_G=\frac{\hbar^2b^2}{2m_0}.
+  \label{eq:training-geometry-reciprocal-energy}
+\end{equation}
+The conventional label $E_G$ is retained for compatibility with later
+calculation records, but its defining reciprocal magnitude is $b$. It does not
+introduce a standalone reciprocal magnitude called $G$.
+
+\section{Plane waves inside one Bloch fiber}
+\index{plane-wave basis!one-dimensional Bloch fiber}
+
+A periodic function on the cell has Fourier basis
+\begin{equation}
+  \phi_m(x)=\frac{1}{\sqrt a}e^{iG_mx}
+  =\frac{1}{\sqrt a}e^{imbx},
+  \qquad m\in\mathbb Z.
+  \label{eq:training-bloch-1d-cell-plane-wave}
+\end{equation}
+Multiplying by the Bloch phase gives the corresponding full-space factor
+\begin{equation}
+  e^{ikx}\phi_m(x)
+  =\frac{1}{\sqrt a}e^{i(k+G_m)x}.
+\end{equation}
+Thus $k$ labels the Bloch sector while $G_m$ labels a basis function inside
+that sector. Confusing these roles obscures band folding and reciprocal-basis
+ordering.
+
+For the free particle, the fiber energies are
+\begin{equation}
+  E_m^{(0)}(k)
+  =\frac{\hbar^2(k+G_m)^2}{2m_0}.
+  \label{eq:training-bloch-1d-free-folded-bands}
+\end{equation}
+As $k$ is restricted to the first Brillouin zone, the different integers $m$
+produce the familiar folded parabolas. A periodic potential couples these
+reciprocal basis functions according to its Fourier coefficients. The cosine
+parent used later has only the harmonics $G_{+1}=b$ and $G_{-1}=-b$, so it
+couples neighboring reciprocal indices.
+
+\section{Finite periodic samples and Born--von Karman quantization}
+
+A finite ring of $N$ primitive cells has length $L=Na$. Imposing
+\begin{equation}
+  \psi(x+L)=\psi(x)
+\end{equation}
+requires
+\begin{equation}
+  e^{ikL}=1,
+  \qquad
+  k_j=\frac{2\pi j}{Na},
+  \qquad j\in\mathbb Z.
+\end{equation}
+Modulo $b=2\pi/a$, this produces $N$ distinct reciprocal classes. A finite
+$k$ mesh is therefore a declared sampling of the Brillouin zone. Refining that
+mesh changes the sampling resolution; it does not change Bloch's theorem or
+turn a finite sample into the continuum of all $k$ values.
+
+\documentcallout{Notebook to do}{Create
+\path{examples/tutorials/research-monograph/foundations/bloch_theorem_one_dimensional.ipynb}
+with explicit imports, explanatory inline comments, Dirichlet/periodic/Bloch
+boundary comparisons, reciprocal equivalence, cell-periodic factorization,
+folded free-particle bands, and a finite Born--von Karman mesh. Keep all examples
+synthetic and the notebook unexecuted in the repository.}
+
+\section{A comparison table}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Model & Boundary statement & Natural modes \\
+\midrule
+Dirichlet box & $\psi(0)=\psi(a)=0$ & $\sin(n\pi x/a)$ \\
+Periodic cell & $\psi(x+a)=\psi(x)$ & $e^{iG_mx}$ \\
+Bloch sector & $\psi_k(x+a)=e^{ika}\psi_k(x)$ & $e^{i(k+G_m)x}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The table compares operator domains and mode labels. It does not identify the
+hard-wall box with a periodic crystal. The box provides a familiar eigenproblem;
+translation symmetry supplies the new physical structure.
+
+\section{Common mistakes}
+
+\begin{enumerate}
+  \item Treating the Dirichlet interval as a primitive periodic cell without
+        changing the boundary conditions and operator domain.
+  \item Calling $\psi_{nk}$ periodic when only $u_{nk}$ is cell periodic.
+  \item Confusing the Bloch wave number $k$ with the reciprocal-lattice vector
+        $G_m$.
+  \item Counting both endpoints of a half-open Brillouin-zone mesh as distinct
+        reciprocal classes.
+  \item Treating a finite Born--von Karman mesh as the continuum of all fibers.
+  \item Calling a plane-wave cutoff a new physical Bloch sector rather than a
+        finite basis selection inside one sector.
+\end{enumerate}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item In a finite Born--von Karman supercell, start from
+        $[\widehat H,\widehat T_a]=0$ and explain why a nondegenerate energy
+        eigenstate may be chosen as a translation eigenstate.
+  \item Verify directly that $k$ and $k+G_m$ give the same phase under every
+        translation by $\ell a$.
+  \item Derive the periodicity of $u_{nk}$ from the Bloch condition.
+  \item Derive Equation~\eqref{eq:training-geometry-schrodinger-fiber} by
+        applying the parent Hamiltonian to $e^{ikx}u(x)$.
+  \item For a ring of four cells, list four inequivalent $k$ representatives in
+        the half-open first Brillouin zone.
+  \item Sketch the three folded free-particle branches with $m=-1,0,1$ over
+        $-b/2\leq k<b/2$ and identify their crossings.
+  \item Explain why changing a Dirichlet wall to a Bloch phase is a change of
+        operator domain rather than a gauge transformation inside one fixed
+        problem.
+\end{enumerate}
+
+\section{Evidence boundary and next use}
+
+Bloch's theorem follows here from the declared translation symmetry of the
+one-dimensional parent. A finite basis or finite $k$ mesh is a separate
+representation choice. Neither the theorem nor the folded free-particle
+example establishes convergence of a numerical discretization or adequacy for
+a material.
+
+Chapter~\ref{ch:training-periodic-geometry} next generalizes direct and
+reciprocal lattices, Brillouin-zone coordinates, and the Bloch condition to two
+and three dimensions, including a two-dimensional plane embedded in ambient
+three-space.

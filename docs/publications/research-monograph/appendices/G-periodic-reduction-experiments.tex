@@ -101,19 +101,19 @@ quantitative setting.
 
 \section{Continuum parent and exact structure}
 
-Let the lattice period be $a$, define $G=2\pi/a$, and consider
+Let the lattice period be $a$, define $b=2\pi/a$, and consider
 \begin{equation}
     \hat H
     =
     -\frac{\hbar^2}{2m}
     \frac{\mathrm{d}^2}{\mathrm{d}x^2}
-    +V_0\cos(Gx)
+    +V_0\cos(bx)
     \quad\text{on }L^2(\mathbb R).
     \label{eq:periodic-1d-parent}
 \end{equation}
 The natural reciprocal energy scale is
 \begin{equation}
-    E_G=\frac{\hbar^2G^2}{2m},
+    E_G=\frac{\hbar^2b^2}{2m},
     \qquad
     \lambda=\frac{V_0}{E_G}.
     \label{eq:periodic-1d-scales}
@@ -130,7 +130,7 @@ and the cell-periodic fiber operator is
     =
     \frac{1}{2m}
     \left(-i\hbar\frac{\mathrm{d}}{\mathrm{d}x}+\hbar k\right)^2
-    +V_0\cos(Gx).
+    +V_0\cos(bx).
     \label{eq:periodic-1d-fiber}
 \end{equation}
 Equivalently, the original differential expression can act on a single cell
@@ -145,7 +145,7 @@ mixed without an explicit transformation.
 
 The real inversion-symmetric parent obeys
 \begin{align}
-    E_n(k+G)&=E_n(k),
+    E_n(k+b)&=E_n(k),
     &
     E_n(-k)&=E_n(k),
     \label{eq:periodic-1d-symmetry}
@@ -157,7 +157,7 @@ and gives a leading first-zone-boundary gap of $|V_0|$. These identities provide
 structural and perturbative checks that are independent of either numerical
 representation.
 
-With $z=Gx/2$, Eq.~\eqref{eq:periodic-1d-parent} becomes the Mathieu equation
+With $z=bx/2$, Eq.~\eqref{eq:periodic-1d-parent} becomes the Mathieu equation
 \begin{equation}
     \frac{\mathrm{d}^2\psi}{\mathrm{d}z^2}
     +\left[A-2q\cos(2z)\right]\psi=0,
@@ -171,7 +171,7 @@ with Floquet condition
 \begin{equation}
     \psi(z+\pi)=e^{ika}\psi(z),
     \qquad
-    \nu=\frac{2k}{G}\pmod 2.
+    \nu=\frac{2k}{b}\pmod 2.
 \end{equation}
 For the chosen Brillouin zone, $-1\leq\nu<1$; the equivalent representatives
 $0\leq\nu<2$ follow by reduction modulo 2. The checks used below are restricted
@@ -190,14 +190,14 @@ In the Bloch plane-wave basis
 \begin{equation}
     \langle x\mid n,k\rangle
     =
-    \frac{1}{\sqrt a}e^{i(k+nG)x},
+    \frac{1}{\sqrt a}e^{i(k+nb)x},
     \qquad n\in\mathbb Z,
 \end{equation}
 the fiber matrix is
 \begin{equation}
     H^{\mathrm{PW}}_{nm}(k)
     =
-    \frac{\hbar^2(k+nG)^2}{2m}\delta_{nm}
+    \frac{\hbar^2(k+nb)^2}{2m}\delta_{nm}
     +\frac{V_0}{2}
     \left(\delta_{n,m+1}+\delta_{n,m-1}\right).
     \label{eq:periodic-1d-pw-matrix}
@@ -207,7 +207,7 @@ the potential's Fourier content, not a real-space tight-binding approximation.
 A cutoff $P$ retains $n=-P,\ldots,P$ and defines the Galerkin matrix
 $\mathbf H_P^{\mathrm{PW}}(k)\in\mathbb C^{(2P+1)\times(2P+1)}$.
 At fixed $k$, the largest represented free-particle energy is
-$E_G\max_{|n|\leq P}(k/G+n)^2$; its supremum over the first Brillouin zone is
+$E_G\max_{|n|\leq P}(k/b+n)^2$; its supremum over the first Brillouin zone is
 $(P+1/2)^2E_G$. Convergence of low bands must be distinguished from the behavior
 of states near this reciprocal cutoff. This finite reciprocal-basis construction is
 the one-dimensional specialization of the plane-wave representation used in
@@ -241,7 +241,7 @@ Together with
 \begin{equation}
     \mathbf V_h
     =
-    \operatorname{diag}\left(V_0\cos(Gx_0),\ldots,V_0\cos(Gx_{N-1})\right),
+    \operatorname{diag}\left(V_0\cos(bx_0),\ldots,V_0\cos(bx_{N-1})\right),
 \end{equation}
 this gives
 \begin{equation}
@@ -252,7 +252,7 @@ this gives
 Hermiticity requires conjugate boundary phases. A failure of this condition is
 an implementation error rather than a physical band effect.
 
-For a discrete Bloch wave with $q=k+nG$, the represented kinetic energy is
+For a discrete Bloch wave with $q=k+nb$, the represented kinetic energy is
 \begin{equation}
     \varepsilon_h^{\mathrm{kin}}(q)
     =
@@ -274,7 +274,7 @@ directly. Choosing $N=2P+1$ gives equal matrix dimensions, after which the
 discrete Bloch--Fourier matrix
 \begin{equation}
     F_{jn}(k)
-    =\frac{1}{\sqrt N}e^{i(k+nG)x_j},
+    =\frac{1}{\sqrt N}e^{i(k+nb)x_j},
     \qquad n=-P,\ldots,P,
 \end{equation}
 transports the finite-difference matrix into discrete plane-wave coordinates:
@@ -311,7 +311,7 @@ used. If $\mathbf P_L$ selects $|n|\leq L<P$, then
 \end{equation}
 The sampled potential may wrap Fourier couplings across the finite cyclic grid.
 Discrete Fourier indices are identified modulo $N$, so on a coarse grid the
-$\pm G$ harmonic can connect the endpoint reciprocal indices through cyclic
+$\pm b$ harmonic can connect the endpoint reciprocal indices through cyclic
 wraparound. That aliasing is a property of the representation and must not be
 interpreted as a physical long-range Fourier component. The common-coordinate map and
 its aliasing behavior are finite Fourier/spectral representation statements in the
@@ -566,12 +566,12 @@ sampled external gaps, rank and conditioning, strict schemas, and independent
 verification. The historical paper-owned package remains unchanged provenance.
 
 The nominal single-band calculation uses the dimensionless convention
-$a=2\pi$, $G=1$, and $E_G=1$, with $V_0/E_G=0.5$. Plane-wave cutoffs
+$a=2\pi$, $b=1$, and $E_G=1$, with $V_0/E_G=0.5$. Plane-wave cutoffs
 $P=3,5,7,9,11$ are compared with a $P=15$ reference. The corresponding
 Brillouin-zone supremum kinetic cutoffs are obtained from
 $(P+1/2)^2E_G$. The finite-difference study uses $N=31,63,127,255$ cell points,
 with exact spacings $\Delta x/a=1/N$. Parent comparisons are made at
-$k/G=-0.5,-0.25,0,0.25,0.5$ in the fixed low-mode sector $|n|\leq3$.
+$k/b=-0.5,-0.25,0,0.25,0.5$ in the fixed low-mode sector $|n|\leq3$.
 The single-band hopping transform uses 64 reciprocal points, ranges
 $r_c/a=0,1,2,3,4,6,8$, and an independent 257-point withheld mesh. Bandwidth and
 zone-boundary gap are obtained directly from the sampled parent spectrum. The parent

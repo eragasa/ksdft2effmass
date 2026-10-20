@@ -27,22 +27,27 @@ applications without redefining the primary discussion.
 5. `chapters/particle-in-a-box-higher-dimensions.tex` — two- and
    three-dimensional boxes, tensor-product bases, Kronecker products, and
    sparse Kronecker sums;
-6. `chapters/periodic-geometry.tex` — direct and reciprocal periodic geometry;
-7. `chapters/bloch-periodic-finite-differences.tex` — Bloch seams and sparse
+6. `chapters/bloch-theorem-one-dimensional.tex` — the change from Dirichlet
+   boxes to translation-invariant periodic systems, one-dimensional Bloch
+   sectors, reciprocal classes, cell-periodic fibers, and plane-wave momenta;
+7. `chapters/periodic-lattices-and-bloch-theorem-higher-dimensions.tex` — direct
+   and reciprocal periodic geometry, Bloch's theorem in two and three
+   dimensions, and intrinsic versus embedded periodic cells;
+8. `chapters/bloch-periodic-finite-differences.tex` — Bloch seams and sparse
    finite-difference representations;
-8. `chapters/projection-and-retained-spaces.tex` — projection, exact retained
+9. `chapters/projection-and-retained-spaces.tex` — projection, exact retained
    operators, eliminated-space downfolding, and projection-induced loss of exact
    finite range;
-9. `chapters/representation-carriers-and-derivation-graphs.tex` — Bloch and
-   cell-hopping carrier families, full node identities, family-local roles,
-   directed transformation edges, and their evidence boundary;
-10. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
+10. `chapters/representation-carriers-and-derivation-graphs.tex` — Bloch and
+    cell-hopping carrier families, full node identities, family-local roles,
+    directed transformation edges, and their evidence boundary;
+11. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
     fibers, isolated scalar bands, complete hopping transforms, finite-range
     truncation, direct fitting, and withheld evaluation;
-11. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
+12. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
     Bloch--Wannier bridge, polar transport, reciprocal closure, Procrustes
     alignment, block hoppings, and gauge-dependent locality; and
-12. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
+13. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
     verification, validation, uncertainty, and negative evidence.
 
 ## Part II model-adequacy sequence
@@ -64,7 +69,7 @@ applications without redefining the primary discussion.
 | Concept | Primary source | Supporting sources | Role in the manuscript |
 |---|---|---|---|
 | Computational quantity and metadata | `chapters/computational-quantities.tex` (`ch:training-computational-quantities`) | `chapters/finite-representations.tex`; `chapters/operator-comparison.tex` | Numbers, units, references, axis meanings, and operation-relative metadata |
-| Fractional and Cartesian coordinates | `chapters/periodic-geometry.tex` (`ch:training-periodic-geometry`) | `chapters/computational-quantities.tex`; `chapters/bloch-periodic-finite-differences.tex` | Periodic coordinate map after general coordinate metadata |
+| Fractional and Cartesian coordinates | `chapters/periodic-lattices-and-bloch-theorem-higher-dimensions.tex` (`ch:training-periodic-geometry`) | `chapters/computational-quantities.tex`; `chapters/bloch-periodic-finite-differences.tex` | Periodic coordinate map after general coordinate metadata |
 | Vectors, bases, and matrices | `chapters/finite-representations.tex` (`ch:training-finite-representations`) | `chapters/quantum-states-and-operators.tex`; `chapters/operator-comparison.tex` | Finite coordinate representations |
 | Hermitian eigensystems | `chapters/hermitian-eigensystems.tex` (`ch:training-hermitian-eigensystems`) | `chapters/quantum-states-and-operators.tex`; `chapters/particle-in-a-box-higher-dimensions.tex`; `chapters/projection-and-retained-spaces.tex` | Eigenpairs, spectral decomposition, Rayleigh quotients, degeneracy, projectors, coordinate freedoms, and numerical diagnostics |
 | One-dimensional particle in a box | `chapters/quantum-states-and-operators.tex` (`ch:training-quantum-operators`) | `appendices/D-particle-in-a-box-residuals.tex` | Characteristic-equation solution, Born interpretation, and finite representation on $[a,b]$ |
@@ -73,9 +78,11 @@ applications without redefining the primary discussion.
 | Dirichlet Laplacian on an interval | `chapters/quantum-states-and-operators.tex` | `appendices/D-particle-in-a-box-residuals.tex` | Continuum operator, centered difference, and discrete sine eigensystem |
 | Two- and three-dimensional particle in a box | `chapters/particle-in-a-box-higher-dimensions.tex` (`ch:training-particle-box-higher-dimensions`) | `chapters/quantum-states-and-operators.tex` | Separable continuum and finite box models |
 | Kronecker product and Kronecker sum | `chapters/particle-in-a-box-higher-dimensions.tex` | `chapters/bloch-periodic-finite-differences.tex` | Separate coordinate actions, flattening order, and sparse multidimensional assembly |
-| Gram metric | `chapters/periodic-geometry.tex` | `chapters/bloch-periodic-finite-differences.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Intrinsic lengths, angles, and differential geometry |
-| Embedded periodic plane | `chapters/periodic-geometry.tex` | `chapters/bloch-periodic-finite-differences.tex` | Distinguishes a full-column-rank $3\times2$ plane from a slab |
-| Dual reciprocal basis | `chapters/periodic-geometry.tex` | `chapters/bulk-representations.tex` | Direct--reciprocal duality for square and rectangular bases |
+| Bloch's theorem in one dimension | `chapters/bloch-theorem-one-dimensional.tex` (`ch:training-bloch-theorem-one-dimensional`) | `chapters/bloch-periodic-finite-differences.tex`; `chapters/isolated-band-fourier-reduction.tex` | Changes the boundary model explicitly, then distinguishes $k$, $b$, $G_m$, cell-periodic factors, and one-dimensional fibers |
+| Bloch's theorem in two and three dimensions | `chapters/periodic-lattices-and-bloch-theorem-higher-dimensions.tex` (`ch:training-periodic-geometry`) | `chapters/bloch-periodic-finite-differences.tex`; `chapters/bulk-representations.tex` | Relates direct translations $\mathbf R_{\mathbf n}$, reciprocal vectors $\mathbf G_{\mathbf m}$, Bloch vectors $\mathbf k$, and higher-dimensional fibers |
+| Gram metric | `chapters/periodic-lattices-and-bloch-theorem-higher-dimensions.tex` | `chapters/bloch-periodic-finite-differences.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Intrinsic lengths, angles, and differential geometry |
+| Embedded periodic plane | `chapters/periodic-lattices-and-bloch-theorem-higher-dimensions.tex` | `chapters/bloch-periodic-finite-differences.tex` | Distinguishes a full-column-rank $3\times2$ plane from a slab |
+| Dual reciprocal basis | `chapters/periodic-lattices-and-bloch-theorem-higher-dimensions.tex` | `chapters/bloch-theorem-one-dimensional.tex`; `chapters/bulk-representations.tex` | Direct--reciprocal duality for square and rectangular bases |
 | Metric scalar Laplacian | `chapters/bloch-periodic-finite-differences.tex` (`ch:training-bloch-finite-differences`) | `appendices/H-two-dimensional-wannier-reduction.tex` | Coordinate-aware geometric operator |
 | Mixed finite differences | `chapters/bloch-periodic-finite-differences.tex` | `appendices/H-two-dimensional-wannier-reduction.tex` | Nonorthogonal-coordinate stencil |
 | Bloch quotient seam | `chapters/bloch-periodic-finite-differences.tex` | `chapters/bulk-representations.tex` | Twisted periodic boundary convention |

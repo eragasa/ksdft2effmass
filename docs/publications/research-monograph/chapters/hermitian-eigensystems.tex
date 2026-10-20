@@ -83,13 +83,40 @@ which a much stronger theorem is available.
 \index{Hermitian matrix}
 \index{self-adjoint matrix}
 
-A complex matrix is Hermitian when
+\begin{definition}[Hermitian matrix]
+Let $H\in\mathbb C^{N\times N}$ be a square complex matrix. Its
+\emph{conjugate transpose} $H^\dagger$ is obtained by transposing $H$ and then
+complex-conjugating every entry:
+\begin{equation}
+  (H^\dagger)_{ij}=\overline{H_{ji}}.
+\end{equation}
+The matrix $H$ is \emph{Hermitian} when
 \begin{equation}
   H=H^{\dagger},
   \label{eq:training-hermitian-definition}
 \end{equation}
-where \(\dagger\) denotes conjugate transpose. A real symmetric matrix,
-\(H=H^{\mathsf T}\), is the real-valued special case.
+or, equivalently,
+\begin{equation}
+  H_{ij}=\overline{H_{ji}}
+  \qquad\text{for every }i,j.
+  \label{eq:training-hermitian-entrywise}
+\end{equation}
+\end{definition}
+
+Thus every diagonal entry of a Hermitian matrix is real, while opposite
+off-diagonal entries are complex conjugates. For example, every Hermitian
+$2\times2$ matrix has the form
+\begin{equation}
+  H=
+  \begin{bmatrix}
+    a & z\\
+    \overline z & d
+  \end{bmatrix},
+  \qquad a,d\in\mathbb R,
+  \quad z\in\mathbb C.
+  \label{eq:training-hermitian-two-by-two-form}
+\end{equation}
+A real symmetric matrix, $H=H^{\mathsf T}$, is the real-valued special case.
 
 Suppose \((\lambda,\mathbf v)\) is an eigenpair of a Hermitian matrix. Using an
 inner product that is conjugate-linear in its first argument,

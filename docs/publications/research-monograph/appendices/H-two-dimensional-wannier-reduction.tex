@@ -79,19 +79,19 @@ Let the square lattice have primitive vectors
     \qquad
     \mathbf a_2=a\mathbf e_y,
 \end{equation}
-and reciprocal scale
+and primitive reciprocal magnitude
 \begin{equation}
-    G=\frac{2\pi}{a}.
+    b=\frac{2\pi}{a}.
 \end{equation}
 Define
 \begin{equation}
     V(x,y)
     =
-    V_x\cos(Gx)
+    V_x\cos(bx)
     +
-    V_y\cos(Gy)
+    V_y\cos(by)
     +
-    V_{xy}\cos(Gx)\cos(Gy).
+    V_{xy}\cos(bx)\cos(by).
 \end{equation}
 The continuum Hamiltonian on $L^2(\mathbb R^2)$ is
 \begin{equation}
@@ -114,11 +114,11 @@ Use the dimensionless controls
     \qquad
     \lambda_{xy}=\frac{V_{xy}}{E_G},
     \qquad
-    E_G=\frac{\hbar^2G^2}{2m}.
+    E_G=\frac{\hbar^2b^2}{2m}.
 \end{equation}
 The first Brillouin zone is
 \begin{equation}
-    -\frac{G}{2}\leq k_x,k_y<\frac{G}{2}.
+    -\frac{b}{2}\leq k_x,k_y<\frac{b}{2}.
 \end{equation}
 
 For crystal momentum $\mathbf k=(k_x,k_y)$, write
@@ -191,7 +191,7 @@ Use reciprocal indices $(p,q)\in\mathbb Z^2$ and basis functions
     \langle\mathbf r\mid p,q;\mathbf k\rangle
     =
     \frac{1}{a}
-    e^{i[(k_x+pG)x+(k_y+qG)y]}.
+    e^{i[(k_x+pb)x+(k_y+qb)y]}.
 \end{equation}
 The kinetic matrix is diagonal:
 \begin{equation}
@@ -199,7 +199,7 @@ The kinetic matrix is diagonal:
     =
     \frac{\hbar^2}{2m}
     \left[
-        (k_x+pG)^2+(k_y+qG)^2
+        (k_x+pb)^2+(k_y+qb)^2
     \right]
     \delta_{pp'}\delta_{qq'}.
 \end{equation}
@@ -326,9 +326,9 @@ points may be denoted
 \begin{equation}
     \Gamma=(0,0),
     \qquad
-    X=\left(\frac{G}{2},0\right),
+    X=\left(\frac{b}{2},0\right),
     \qquad
-    M=\left(\frac{G}{2},\frac{G}{2}\right).
+    M=\left(\frac{b}{2},\frac{b}{2}\right).
 \end{equation}
 A plotted $\Gamma$--$X$--$M$--$\Gamma$ path is useful for visualization but is
 not sufficient for Wannier localization or two-dimensional operator norms. The

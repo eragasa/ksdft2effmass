@@ -34,9 +34,11 @@ After working through this chapter, a reader should be able to
 
 Chapter~\ref{ch:representation-carriers-derivation-graphs} distinguished
 Bloch-domain fields, cell-hopping fields, and the directed edges connecting
-them. Chapter~\ref{ch:training-periodic-geometry} introduced direct and
-reciprocal geometry. Chapter~\ref{ch:training-bloch-finite-differences}
-constructed Bloch-periodic finite representations, and
+them. Chapter~\ref{ch:training-bloch-theorem-one-dimensional} introduced the
+one-dimensional Bloch sector, reciprocal classes, and cell-periodic fiber
+operator. Chapter~\ref{ch:training-periodic-geometry} generalized direct and
+reciprocal geometry, and Chapter~\ref{ch:training-bloch-finite-differences}
+constructed Bloch-periodic finite representations. Finally,
 Chapter~\ref{ch:training-projection-retained-spaces} distinguished a retained
 space from coordinates and later truncations. We now join those ideas in one
 complete but deliberately one-dimensional reduction.
@@ -59,17 +61,20 @@ make those changes visible rather than hiding them behind one plotting routine.
 \section{A one-dimensional periodic parent}
 \index{cosine potential!pedagogical parent}
 
-Let the direct-lattice period be $a>0$ and define
+Let the direct-lattice period be $a>0$ and define the primitive reciprocal
+magnitude
 \begin{equation}
-  G=\frac{2\pi}{a}.
+  b=\frac{2\pi}{a},
+  \qquad
+  G_n=nb\quad(n\in\mathbb Z).
   \label{eq:training-isolated-reciprocal-vector}
 \end{equation}
-Translation by $a$ in real space and translation by $G$ in reciprocal space
-supply the fundamental periodicities. Consider the continuum operator
+Translation by $a$ in real space and translation by a reciprocal-lattice vector
+$G_n$ in reciprocal space supply the fundamental periodicities. Consider the continuum operator
 \begin{equation}
   \widehat H
   =-\frac{\hbar^2}{2m}\frac{\mathrm d^2}{\mathrm d x^2}
-   +V_0\cos(Gx)
+   +V_0\cos(bx)
   \quad\text{on }L^2(\mathbb R).
   \label{eq:training-isolated-parent}
 \end{equation}
@@ -89,7 +94,7 @@ cell-periodic fiber operator
   \widehat H(k)
   =\frac{\hbar^2}{2m}
    \left(-i\frac{\mathrm d}{\mathrm d x}+k\right)^2
-   +V_0\cos(Gx).
+   +V_0\cos(bx).
   \label{eq:training-isolated-fiber}
 \end{equation}
 The same physics can instead be represented by the original differential
@@ -102,21 +107,21 @@ corresponding transformation.
 Define the reduced momentum, reciprocal energy scale, and dimensionless
 potential strength by
 \begin{equation}
-  \kappa=\frac{k}{G},
+  \kappa=\frac{k}{b},
   \qquad
-  E_G=\frac{\hbar^2G^2}{2m},
+  E_G=\frac{\hbar^2b^2}{2m},
   \qquad
   \lambda=\frac{V_0}{E_G}.
   \label{eq:training-isolated-scales}
 \end{equation}
-If $y=Gx$, division by $E_G$ turns the fiber operator into
+If $y=bx$, division by $E_G$ turns the fiber operator into
 \begin{equation}
   \widehat h(\kappa)
   =\left(-i\frac{\mathrm d}{\mathrm d y}+\kappa\right)^2
    +\lambda\cos y.
   \label{eq:training-isolated-dimensionless-fiber}
 \end{equation}
-Thus a statement such as $a=2\pi$, $G=1$, and $E_G=1$ is a dimensionless
+Thus a statement such as $a=2\pi$, $b=1$, and $E_G=1$ is a dimensionless
 representation convention. It does not erase the physical meanings from which
 the scales were constructed.
 
@@ -135,25 +140,26 @@ mesh should not duplicate them.
 
 Because $u_k$ is periodic, expand it in the orthonormal cell basis
 \begin{equation}
-  \phi_n(x)=\frac{1}{\sqrt a}e^{inGx},
+  \phi_n(x)=\frac{1}{\sqrt a}e^{iG_nx}
+  =\frac{1}{\sqrt a}e^{inbx},
   \qquad n\in\mathbb Z.
   \label{eq:training-isolated-plane-wave-basis}
 \end{equation}
 Acting on one basis function gives
 \begin{equation}
   \left(-i\frac{\mathrm d}{\mathrm d x}+k\right)\phi_n
-  =(k+nG)\phi_n.
+  =(k+G_n)\phi_n.
 \end{equation}
 The kinetic term is therefore diagonal. The potential identity
 \begin{equation}
-  V_0\cos(Gx)
-  =\frac{V_0}{2}e^{iGx}+\frac{V_0}{2}e^{-iGx}
+  V_0\cos(bx)
+  =\frac{V_0}{2}e^{ibx}+\frac{V_0}{2}e^{-ibx}
 \end{equation}
 shows that multiplication by the cosine changes the reciprocal index by
 exactly one. Consequently,
 \begin{equation}
   H^{\mathrm{PW}}_{nm}(k)
-  =\frac{\hbar^2(k+nG)^2}{2m}\delta_{nm}
+  =\frac{\hbar^2(k+G_n)^2}{2m}\delta_{nm}
    +\frac{V_0}{2}
     \left(\delta_{n,m+1}+\delta_{n,m-1}\right).
   \label{eq:training-isolated-plane-wave-matrix}
@@ -209,7 +215,7 @@ seam entries
   \label{eq:training-isolated-fd-seam}
 \end{equation}
 The two seam entries are complex conjugates. Together with the real diagonal
-potential samples $V_0\cos(Gx_j)$, this gives a Hermitian finite matrix.
+potential samples $V_0\cos(bx_j)$, this gives a Hermitian finite matrix.
 
 The plane-wave and finite-difference matrices have different bases and usually
 different dimensions. Their eigenvalues can be compared as approximations to
@@ -591,10 +597,10 @@ differentiation is analytical:
   =-(2\pi)^2\sum_R R^2t_R.
   \label{eq:training-isolated-reduced-curvature}
 \end{equation}
-Because $\kappa=k/G$,
+Because $\kappa=k/b$,
 \begin{equation}
   \frac{\mathrm d^2E_R}{\mathrm d k^2}
-  =\frac{1}{G^2}
+  =\frac{1}{b^2}
    \frac{\mathrm d^2E_R}{\mathrm d\kappa^2}.
   \label{eq:training-isolated-physical-curvature}
 \end{equation}
@@ -738,8 +744,8 @@ A useful laboratory should preserve the sequence of objects rather than jumping
 directly from a potential to a final error curve.
 
 \begin{enumerate}
-  \item Declare $a$, $G$, $E_G$, $\lambda$, the reciprocal interval, and the
-        energy zero.
+  \item Declare $a$, $b$, the reciprocal vectors $G_n$, $E_G$, $\lambda$,
+        the reciprocal interval, and the energy zero.
   \item Construct plane-wave fiber matrices and verify their Hermiticity and
         reciprocal-index coupling pattern.
   \item Construct the independent finite-difference fibers, including the

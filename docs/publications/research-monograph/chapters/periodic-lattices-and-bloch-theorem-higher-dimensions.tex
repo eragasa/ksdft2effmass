@@ -1,4 +1,5 @@
-\chapter{Periodic Geometry: Intrinsic Cells and Embedded Planes}
+\chapter{Periodic Lattices and Bloch's Theorem in Two and Three Dimensions}
+\index{Bloch theorem!two- and three-dimensional|textbf}
 \index{periodic geometry|textbf}
 \index{lattice!embedded plane|textbf}
 \index{reduced coordinates|textbf}
@@ -21,10 +22,14 @@ After working through this chapter, a reader should be able to
   \item construct the Gram metric of a nonorthogonal primitive basis;
   \item derive the dual reciprocal basis for both square and rectangular direct
         bases;
-  \item interpret a one-dimensional Brillouin zone as a reciprocal quotient
-        and distinguish physical from reduced momentum;
-  \item define a Bloch fiber as a fixed-quasimomentum sector and distinguish
-        its quasiperiodic and cell-periodic representations;
+  \item construct direct-lattice translations $\mathbf R_{\mathbf n}$ and
+        reciprocal-lattice vectors $\mathbf G_{\mathbf m}$ from their ordered
+        bases;
+  \item state Bloch's theorem in two and three dimensions and distinguish
+        $\mathbf k$, $\mathbf G_{\mathbf m}$, and reduced reciprocal
+        coordinates;
+  \item define a higher-dimensional Bloch fiber and its cell-periodic
+        representation;
   \item explain why an intrinsic two-dimensional cell and a two-dimensional
         plane embedded in three dimensions are different records even when they
         have the same metric;
@@ -33,11 +38,15 @@ After working through this chapter, a reader should be able to
         be reconstructed as derived quantities.
 \end{enumerate}
 
-The required background is elementary linear algebra: matrix multiplication,
-inner products, rank, inverses of positive-definite matrices, and orthogonal
-projection. The chapter prepares the finite-difference construction in
-Chapter~\ref{ch:training-bloch-finite-differences} and the controlled
-periodic example in Appendix~\ref{app:two-dimensional-reduction}.
+Chapter~\ref{ch:training-bloch-theorem-one-dimensional} introduced translation
+symmetry, reciprocal equivalence, and Bloch factorization in one dimension.
+The required additional background is elementary linear algebra: matrix
+multiplication, inner products, rank, inverses of positive-definite matrices,
+and orthogonal projection. This chapter generalizes the direct and reciprocal
+lattices to two and three dimensions, including a two-dimensional plane embedded
+in ambient three-space. It prepares the finite-difference construction in
+Chapter~\ref{ch:training-bloch-finite-differences} and the controlled periodic
+example in Appendix~\ref{app:two-dimensional-reduction}.
 
 \section{Why geometry comes before a periodic discretization}
 
@@ -338,16 +347,16 @@ print("maximum projector idempotence error:", idempotence_error)
 This code is pedagogical synthetic data, not a material calculation.
 
 \documentcallout{Notebook to do}{Create
-\path{examples/tutorials/research-monograph/foundations/periodic_geometry.ipynb}
+\path{examples/tutorials/research-monograph/foundations/periodic_lattices_and_bloch_theorem_higher_dimensions.ipynb}
 with explicit imports, explanatory inline comments, physical units, transparent
-NumPy checks, and exercises using the maintained PhysKit adapter and strict
-codec. Keep the notebook unexecuted in the repository and verify it through a
+NumPy checks, direct and reciprocal lattice vectors, higher-dimensional Bloch
+phases, and exercises using the maintained PhysKit adapter and strict codec. Keep the notebook unexecuted in the repository and verify it through a
 separate bounded test route.}
 
 \section{Dual reciprocal vectors}
 \index{reciprocal lattice!dual basis}
 
-For a full-column-rank $A\in\mathbb R^{m\times d}$, with $m\geq d$, define
+For a full-column-rank $A\in\mathbb R^{p\times d}$, with $p\geq d$, define
 \begin{equation}
   B=2\pi A\left(A^{\mathsf T}A\right)^{-1}
    =2\pi A G^{-1}.
@@ -411,122 +420,118 @@ transposition or scaling mistake before a numerical calculation is run. In
 lecture, it is useful to say the units aloud while moving through the product:
 ``length times inverse length squared gives inverse length.''
 
-\section{The one-dimensional reciprocal quotient}
-\index{Brillouin zone!one-dimensional}
-\index{reduced momentum}
+\section{Direct and reciprocal lattice vectors}
+\index{direct-lattice vector}
+\index{reciprocal-lattice vector}
 
-The general dual-basis construction becomes especially transparent in one
-dimension. Let the direct primitive vector have length $a>0$. Its reciprocal
-primitive vector has magnitude
+For an integer column $\mathbf n\in\mathbb Z^d$, the direct-lattice translation
+is
 \begin{equation}
-  G=\frac{2\pi}{a},
-  \label{eq:training-geometry-one-dimensional-reciprocal}
+  \mathbf R_{\mathbf n}=A\mathbf n.
+  \label{eq:training-higher-dimensional-direct-translation}
 \end{equation}
-because $aG=2\pi$. A physical wave vector $k$ can be written in the
-dimensionless reduced coordinate
+For $\mathbf m\in\mathbb Z^d$, the reciprocal-lattice vector is
 \begin{equation}
-  \kappa=\frac{k}{G}.
-  \label{eq:training-geometry-reduced-momentum}
+  \mathbf G_{\mathbf m}=B\mathbf m.
+  \label{eq:training-higher-dimensional-reciprocal-vector}
 \end{equation}
-Wave vectors whose reduced coordinates differ by an integer occupy the same
-point of the reciprocal quotient. Thus the first Brillouin zone is not
-fundamentally a closed interval with two distinct endpoints. It is a circle of
-reciprocal classes that can be represented, for example, by
+The duality relation gives
 \begin{equation}
-  -\frac12\leq\kappa<\frac12.
-  \label{eq:training-geometry-first-brillouin-zone}
-\end{equation}
-The endpoint $1/2$ is excluded because it is equivalent to $-1/2$ after one
-reciprocal translation. Including both may be useful when displaying a closed
-plotting path, but it duplicates one point when constructing a complete
-periodic mesh.
-
-\subsection{Bloch sectors and fiber operators}
-\index{Bloch fiber|textbf}
-\index{direct integral}
-\index{quasimomentum sector}
-
-The reciprocal quotient labels more than plotting coordinates. Suppose that
-an operator $\widehat H$ on the infinite periodic system commutes with
-translation by $a$. Bloch theory resolves its state space into sectors labelled
-by a reciprocal class $[k]$~\cite{kittel2004,simon2013}. In the sector
-labelled by $k$, a wavefunction
-obeys the quasiperiodic condition
-\begin{equation}
-  \psi_k(x+a)=e^{ika}\psi_k(x).
-  \label{eq:training-geometry-bloch-condition}
-\end{equation}
-Changing $k$ by an integer multiple of $G$ gives the same reciprocal class and
-therefore does not create a new physical sector.
-
-A \emph{Bloch fiber space} is the state space belonging to one fixed reciprocal
-class $[k]$. The corresponding \emph{Bloch-fiber operator} is the action of
-$\widehat H$ restricted to that sector. This is an operator and state-space
-statement, not yet a choice of numerical basis or finite matrix.
-
-There are two common, unitarily related ways to represent the same fiber. One
-may retain the original wavefunction on a primitive cell and impose
-Equation~\eqref{eq:training-geometry-bloch-condition}. Alternatively, write
-\begin{equation}
-  \psi_k(x)=e^{ikx}u_k(x),
+  \mathbf G_{\mathbf m}\cdot\mathbf R_{\mathbf n}
+  =2\pi\,\mathbf m^{\mathsf T}\mathbf n,
   \qquad
-  u_k(x+a)=u_k(x),
-  \label{eq:training-geometry-bloch-factorization}
+  e^{i\mathbf G_{\mathbf m}\cdot\mathbf R_{\mathbf n}}=1.
+  \label{eq:training-higher-dimensional-lattice-duality}
 \end{equation}
-and work in the fixed cell-periodic space
-$\mathcal H_{\mathrm{per}}=L^2_{\mathrm{per}}([0,a])$. In this representation,
-the fiber operator is
-\begin{equation}
-  \widehat H(k)
-  =e^{-ikx}\widehat H e^{ikx}
-  \quad\text{on }\mathcal H_{\mathrm{per}},
-  \label{eq:training-geometry-fiber-definition}
-\end{equation}
-with an operator domain carrying periodic boundary conditions. For example,
-if
-\begin{equation}
-  \widehat H
-  =-\frac{\hbar^2}{2m}\frac{\mathrm d^2}{\mathrm d x^2}+V(x),
-  \qquad V(x+a)=V(x),
-\end{equation}
-then
-\begin{equation}
-  \widehat H(k)
-  =\frac{\hbar^2}{2m}
-   \left(-i\frac{\mathrm d}{\mathrm d x}+k\right)^2+V(x).
-  \label{eq:training-geometry-schrodinger-fiber}
-\end{equation}
-The $k$ dependence therefore belongs to the represented derivative and its
-domain convention; it is not an additional potential.
+The matrix $G=A^{\mathsf T}A$ is the Gram metric; the bold symbol
+$\mathbf G_{\mathbf m}$ is a reciprocal-lattice vector. Their typography,
+units, and mathematical roles are different.
 
-At the operator level, the Floquet--Bloch transformation expresses this
-sector decomposition as a direct integral~\cite{kuchment2016},
+A Bloch wave vector in the reciprocal span can be written
 \begin{equation}
-  \widehat H
-  \simeq
-  \int_{[-G/2,G/2)}^{\oplus}
-    \widehat H(k)\,\frac{a\,\mathrm d k}{2\pi}.
-  \label{eq:training-geometry-direct-integral}
+  \mathbf k=B\boldsymbol\kappa,
+  \label{eq:training-higher-dimensional-reduced-wave-vector}
 \end{equation}
-The symbol $\simeq$ denotes unitary equivalence, and $\oplus$ indicates that
-there is one fiber space at each reciprocal class. Solving one fiber produces
-energies and states at one $k$; sampling many fibers produces a band
-representation. A plane-wave cutoff or finite-difference grid then produces a
-finite representation of each fiber. Such a matrix approximates or represents
-the declared fiber operator under a stated discretization; it is not the
-continuum fiber operator itself.
+where $\boldsymbol\kappa\in\mathbb R^d$ is dimensionless. Adding an integer
+column to $\boldsymbol\kappa$ adds a reciprocal-lattice vector to
+$\mathbf k$. Thus
+\begin{equation}
+  \mathbf k\sim\mathbf k+\mathbf G_{\mathbf m}.
+  \label{eq:training-higher-dimensional-reciprocal-equivalence}
+\end{equation}
+A first Brillouin zone chooses one representative from every such reciprocal
+class. Its shape depends on the reciprocal lattice; a half-open primitive
+reciprocal cell is a valid computational representative even when the
+Wigner--Seitz Brillouin zone has a different shape.
 
-For a particle of mass $m$, the reciprocal vector also defines the energy
-scale
+\section{Bloch's theorem in two and three dimensions}
+\index{Bloch theorem!higher-dimensional statement}
+\index{Bloch fiber!higher-dimensional}
+
+Let $\widehat H$ commute with every translation by
+$\mathbf R_{\mathbf n}$. Bloch's theorem resolves the infinite problem into
+generalized states represented on one cell; in a finite Born--von Karman
+supercell these are ordinary normalizable eigenstates. They may be chosen so
+that
 \begin{equation}
-  E_G=\frac{\hbar^2G^2}{2m}.
-  \label{eq:training-geometry-reciprocal-energy}
+  \psi_{\alpha\mathbf k}
+  (\mathbf r+\mathbf R_{\mathbf n})
+  =e^{i\mathbf k\cdot\mathbf R_{\mathbf n}}
+   \psi_{\alpha\mathbf k}(\mathbf r).
+  \label{eq:training-higher-dimensional-bloch-condition}
 \end{equation}
-An energy written as $E/E_G$ and a potential amplitude written as $V_0/E_G$
-are dimensionless only after $a$, $G$, $m$, and the scaling convention have
-been declared. Chapter~\ref{ch:training-isolated-band-fourier-reduction} uses
-these coordinates and scales to derive a complete one-dimensional
-Bloch-to-lattice reduction.
+The band label $\alpha$ distinguishes eigenstates within one reciprocal class.
+Equation~\eqref{eq:training-higher-dimensional-lattice-duality} shows directly
+that $\mathbf k$ and $\mathbf k+\mathbf G_{\mathbf m}$ impose the same
+translation phases.
+
+Factor the wavefunction as
+\begin{equation}
+  \psi_{\alpha\mathbf k}(\mathbf r)
+  =e^{i\mathbf k\cdot\mathbf r}
+   u_{\alpha\mathbf k}(\mathbf r).
+  \label{eq:training-higher-dimensional-bloch-factorization}
+\end{equation}
+Then
+\begin{equation}
+  u_{\alpha\mathbf k}
+  (\mathbf r+\mathbf R_{\mathbf n})
+  =u_{\alpha\mathbf k}(\mathbf r).
+\end{equation}
+The cell-periodic factor lives on one primitive cell. The Bloch fiber labelled
+by $[\mathbf k]$ is the state space satisfying the phase rule in
+Equation~\eqref{eq:training-higher-dimensional-bloch-condition}; representing
+it with cell-periodic functions places all fibers in a common periodic
+coordinate space.
+
+For a periodic scalar Schr\"odinger operator, conjugation by the Bloch phase
+gives
+\begin{equation}
+  \widehat H(\mathbf k)
+  =\frac{\hbar^2}{2m_0}
+   \left(-i\boldsymbol\nabla_{\!d}+\mathbf k\right)^2
+   +V(\mathbf r),
+  \qquad
+  V(\mathbf r+\mathbf R_{\mathbf n})=V(\mathbf r).
+  \label{eq:training-higher-dimensional-fiber-operator}
+\end{equation}
+Here $\boldsymbol\nabla_d$ is the ordinary gradient for a full
+$d$-dimensional cell and the intrinsic tangent gradient for an embedded plane;
+it is not an unspecified ambient three-dimensional derivative.
+A cell-periodic plane-wave basis uses
+\begin{equation}
+  e^{i\mathbf G_{\mathbf m}\cdot\mathbf r},
+\end{equation}
+so the corresponding full Bloch factors carry momenta
+$\mathbf k+\mathbf G_{\mathbf m}$. The role distinction from the
+one-dimensional chapter is unchanged: $\mathbf k$ labels the fiber, while
+$\mathbf G_{\mathbf m}$ labels reciprocal basis functions inside the fiber.
+
+For $d=3$, a square invertible $A\in\mathbb R^{3\times3}$ describes an ordinary
+three-dimensional periodic cell. For an embedded two-dimensional lattice,
+$A\in\mathbb R^{3\times2}$ and both $\mathbf k$ and
+$\mathbf G_{\mathbf m}$ lie in the tangent plane. The ambient third coordinate
+does not create a third periodic direction.
 
 \section{Projection and coordinate recovery}
 \index{pseudoinverse}
@@ -722,23 +727,29 @@ units, and a manifest. The scale changes; the conceptual obligation does not.
 \section{End-of-lecture synthesis}
 
 The central object of this lecture is the map $\mathbf r=A\mathbf s$. From it we
-obtained four families of derived information:
+obtained six families of derived information:
 
 \begin{enumerate}
   \item $G=A^{\mathsf T}A$ describes intrinsic lengths and angles;
-  \item $B=2\pi AG^{-1}$ supplies reciprocal vectors dual to the direct basis
-        and thereby defines reduced reciprocal coordinates;
+  \item $B=2\pi AG^{-1}$ supplies the reciprocal basis dual to the direct basis;
+  \item $\mathbf R_{\mathbf n}=A\mathbf n$ and
+        $\mathbf G_{\mathbf m}=B\mathbf m$ distinguish direct translations from
+        reciprocal-lattice vectors;
+  \item $\mathbf k=B\boldsymbol\kappa$ identifies a Bloch fiber modulo
+        reciprocal-lattice translations;
   \item $A^+=G^{-1}A^{\mathsf T}$ recovers fractional coordinates of the
         in-plane projection; and
   \item $P=AG^{-1}A^{\mathsf T}$ records the plane inside the ambient space.
 \end{enumerate}
 
 The formulas are short, but the distinctions are durable. Fractional
-coordinates are not Cartesian coordinates. Intrinsic geometry is not ambient
-orientation. A flat embedded plane is not a slab. A geometric off-diagonal
-metric entry is not a material effective-mass tensor. These distinctions are
-the vocabulary needed for the next lecture, where the metric becomes a
-differential operator.
+coordinates are not Cartesian coordinates. The Gram metric $G$ is not a
+reciprocal vector $\mathbf G_{\mathbf m}$. The Bloch vector $\mathbf k$ labels
+a reciprocal class, while $\mathbf G_{\mathbf m}$ labels a reciprocal-lattice
+translation or plane-wave basis function. Intrinsic geometry is not ambient
+orientation. A flat embedded plane is not a slab. These distinctions are the
+vocabulary needed for the next lecture, where the metric and Bloch phase become
+a finite-difference operator.
 
 \section{Exercises}
 
@@ -750,6 +761,14 @@ differential operator.
   \item Starting from Equation~\eqref{eq:training-rectangular-dual}, prove
         Equation~\eqref{eq:training-dual-identity} without assuming that $A$ is
         square.
+  \item Prove
+        $e^{i\mathbf G_{\mathbf m}\cdot\mathbf R_{\mathbf n}}=1$ from the
+        direct--reciprocal duality relation.
+  \item Derive the periodicity of $u_{\alpha\mathbf k}$ from the
+        higher-dimensional Bloch condition.
+  \item Explain why $\mathbf k$ and
+        $\mathbf k+\mathbf G_{\mathbf m}$ label the same translation sector but
+        can have different cell-periodic coordinate representations.
   \item Show that the projector in
         Equation~\eqref{eq:training-ambient-projector} is unchanged when $A$ is
         replaced by $AS$ for any invertible $2\times2$ matrix $S$. Explain what

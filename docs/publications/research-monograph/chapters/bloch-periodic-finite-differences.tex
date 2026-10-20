@@ -29,10 +29,13 @@ After working through this chapter, a reader should be able to
         into a scientific conclusion.
 \end{enumerate}
 
-Chapter~\ref{ch:training-periodic-geometry} supplies the direct basis $A$, Gram
-metric $G=A^{\mathsf T}A$, inverse metric $G^{-1}$, and explicit route from an
-ambient $3\times2$ basis to an intrinsic $2\times2$ basis. Standard
-finite-difference background may be found in Strikwerda~\cite{strikwerda2004};
+Chapter~\ref{ch:training-bloch-theorem-one-dimensional} introduced Bloch
+sectors, cell-periodic fibers, and the distinction between $k$ and $G_m$.
+Chapter~\ref{ch:training-periodic-geometry} then supplied the direct basis $A$,
+Gram metric $G=A^{\mathsf T}A$, inverse metric $G^{-1}$, higher-dimensional
+Bloch condition, and explicit route from an ambient $3\times2$ basis to an
+intrinsic $2\times2$ basis. Standard finite-difference background may be found
+in Strikwerda~\cite{strikwerda2004};
 the evidence classifications used here follow
 Chapter~\ref{ch:verification-and-validation}.
 
@@ -405,9 +408,9 @@ cell-periodic functions. Let
 \begin{equation}
   \widehat H
   =-\frac{\hbar^2}{2m}\frac{\mathrm d^2}{\mathrm d x^2}
-   +V_0\cos(Gx),
+   +V_0\cos(bx),
   \qquad
-  G=\frac{2\pi}{a}.
+  b=\frac{2\pi}{a}.
   \label{eq:training-fd-one-dimensional-parent}
 \end{equation}
 There are two common one-cell representations.
@@ -416,20 +419,22 @@ There are two common one-cell representations.
 
 Write $\psi_k(x)=e^{ikx}u_k(x)$ with $u_k(x+a)=u_k(x)$. In the periodic basis
 \begin{equation}
-  \phi_n(x)=a^{-1/2}e^{inGx},
+  \phi_n(x)=a^{-1/2}e^{iG_nx}=a^{-1/2}e^{inbx},
+  \qquad G_n=nb,
   \qquad n\in\mathbb Z,
 \end{equation}
 the cell-periodic fiber has entries
 \begin{equation}
   H^{\mathrm{PW}}_{nm}(k)
-  =\frac{\hbar^2(k+nG)^2}{2m}\delta_{nm}
+  =\frac{\hbar^2(k+G_n)^2}{2m}\delta_{nm}
    +\frac{V_0}{2}
     \left(\delta_{n,m+1}+\delta_{n,m-1}\right).
   \label{eq:training-fd-one-dimensional-plane-wave}
 \end{equation}
 The kinetic term is diagonal because each basis function is a derivative
-eigenfunction. The cosine contains only the harmonics $+G$ and $-G$, so it
-connects reciprocal indices separated by one. This reciprocal-index sparsity
+eigenfunction. The cosine contains only the reciprocal harmonics
+$G_{+1}=b$ and $G_{-1}=-b$, so it connects reciprocal indices separated by
+one. This reciprocal-index sparsity
 is a statement about the potential's Fourier content, not yet a short-range
 real-space hopping model.
 
@@ -457,7 +462,7 @@ $-c_h$, and seam entries
   T_{N_x-1,0}(k)=-c_h e^{ika}.
   \label{eq:training-fd-one-dimensional-seam}
 \end{equation}
-The potential is diagonal with values $V_0\cos(Gx_j)$. The two seam entries are
+The potential is diagonal with values $V_0\cos(bx_j)$. The two seam entries are
 complex conjugates, which is the one-dimensional instance of the quotient rule
 in Equation~\eqref{eq:training-seam-product}.
 

@@ -50,8 +50,18 @@ inner-product setting. \\
 Symbol & Meaning \\
 \midrule
 $\mathbf r$ & Real-space position coordinate. \\
-$\mathbf k$ & Crystal momentum in a declared reciprocal-coordinate convention. \\
-$\mathbf R$ & Bravais-lattice translation. \\
+$\mathbf k$ & Bloch wave vector in a declared reciprocal-coordinate convention. \\
+$A$ & Direct-lattice basis matrix in a lattice-geometry context; its columns
+are ordered primitive vectors. \\
+$G=A^{\mathsf T}A$ & Gram metric in a lattice-geometry context. \\
+$B$ & Reciprocal-basis matrix satisfying $A^{\mathsf T}B=2\pi I$. \\
+$b=2\pi/a$ & Primitive reciprocal magnitude for a one-dimensional lattice of
+period $a$. \\
+$G_m=mb$ & One-dimensional reciprocal-lattice vector indexed by $m\in\mathbb Z$. \\
+$\mathbf R_{\mathbf n}=A\mathbf n$ & Direct-lattice translation indexed by
+$\mathbf n\in\mathbb Z^d$. \\
+$\mathbf G_{\mathbf m}=B\mathbf m$ & Reciprocal-lattice vector indexed by
+$\mathbf m\in\mathbb Z^d$. \\
 $\psi_{n\mathbf k}$ & Bloch state with local band or frame index $n$. \\
 $u_{n\mathbf k}$ & Cell-periodic factor of a Bloch state. \\
 $U(\mathbf k)$ & Momentum-dependent unitary frame choice within a retained
@@ -67,9 +77,11 @@ $N_{\mathbf k}$ & Number of sampled wavevectors in the applicable uniform grid. 
 \end{center}
 
 The same letter $U$ is conventional for both a Wannier gauge and an interspace
-identification. The local domain and codomain must disambiguate it. Where
-confusion is likely, the monograph uses $G$ for an in-space gauge rotation and
-$U$ or $A$ for a map between retained spaces.
+identification. The local domain and codomain must disambiguate it. The letter
+$G$ is also overloaded conventionally: $G=A^{\mathsf T}A$ denotes a Gram metric
+in lattice-geometry sections, whereas $G$ denotes an in-space gauge rotation in
+retained-space sections. Where confusion is likely, the monograph uses $U$ or
+$A$ for a map between retained spaces and states its direction explicitly.
 
 \section{Frames, gauges, and alignment}
 \index{notation!alignment}

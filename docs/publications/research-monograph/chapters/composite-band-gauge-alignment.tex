@@ -67,8 +67,9 @@ contain.
 \section{A finite matrix-valued periodic parent}
 \index{block Hamiltonian!periodic parent}
 
-Let $G>0$ be one reciprocal period and let
-$\kappa=k/G\in[-1/2,1/2)$. Consider the finite Bloch matrix
+Let $a>0$ be the direct-lattice period and let
+$\kappa=k/b\in[-1/2,1/2)$, where $b=2\pi/a$ is the primitive reciprocal
+magnitude. Consider the finite Bloch matrix
 \begin{equation}
   H_{\mathrm p}(\kappa)
   =\sum_{R\in\mathcal R_{\mathrm p}}
@@ -342,9 +343,9 @@ mesh points.
 
 The first and last stored mesh points are not duplicate endpoints. To close the
 reciprocal loop, the first frame must be mapped across the zone boundary by a
-declared ambient sewing map $S_G$. After neighborwise transport, form
+declared ambient sewing map $S_b$. After neighborwise transport, form
 \begin{equation}
-  C=F_{N_k-1}^{\dagger}S_GF_0.
+  C=F_{N_k-1}^{\dagger}S_bF_0.
   \label{eq:training-composite-closure-overlap}
 \end{equation}
 The unitary polar factor of $C$ is the discrete closure holonomy. If its
@@ -353,10 +354,10 @@ modulo $2\pi$ and their ordering can change at degeneracies or branch cuts.
 They must therefore be treated as a phase set with an explicit branch
 convention~\cite{marzari2012}.
 
-A periodic orbital-coordinate parent may use $S_G=I$ because its ambient basis
+A periodic orbital-coordinate parent may use $S_b=I$ because its ambient basis
 is exactly periodic. Other representations can require a nontrivial sewing map.
 For example, reciprocal-index plane-wave coordinates relabel across
-$k\mapsto k+G$. Identity sewing must never be assumed merely because the
+$k\mapsto k+b$. Identity sewing must never be assumed merely because the
 Hamiltonian spectrum is periodic.
 
 One can distribute a matrix root of the closure holonomy along the path to

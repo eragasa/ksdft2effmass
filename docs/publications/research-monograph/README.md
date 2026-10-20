@@ -21,8 +21,9 @@ program; and the mathematical and proof program. Part I proceeds from
 quantities, units, coordinates, and metadata through finite representations;
 Hermitian eigensystems and spectral subspaces; quantum operators and the
 one-dimensional box; two- and three-dimensional box models with Kronecker
-products; periodic geometry; Bloch-periodic finite differences; retained
-spaces; the distinction between spectral projection and eliminated-space
+products; Bloch's theorem in one dimension; periodic lattices and Bloch's
+theorem in two and three dimensions; Bloch-periodic finite differences;
+retained spaces; the distinction between spectral projection and eliminated-space
 downfolding; projection-induced loss of exact finite hopping range; Bloch and
 cell-hopping carrier families; representation nodes and typed derivation edges;
 isolated-band Fourier reduction to finite-range lattice Hamiltonians; composite
@@ -106,7 +107,8 @@ contracts are stable:
 - `hermitian_eigensystems.ipynb`;
 - `quantum_operators.ipynb`;
 - `particle_in_box_dimensions.ipynb`;
-- `periodic_geometry.ipynb`;
+- `bloch_theorem_one_dimensional.ipynb`;
+- `periodic_lattices_and_bloch_theorem_higher_dimensions.ipynb`;
 - `bloch_periodic_finite_differences.ipynb`;
 - `representation_carriers_and_derivation_graphs.ipynb`;
 - `isolated_band_fourier_reduction.ipynb`; and
