@@ -14,13 +14,13 @@ validity, continuum convergence, scientific validation, or uncertainty quantific
 import numpy as np
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
+from ksdft2effmass.periodic2d import (
     Periodic2DDefect,
     Periodic2DDefectLocalityResult,
     Periodic2DDefectModel,
     Periodic2DDefectRepresentationResult,
 )
-from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
 from ksdft2effmass.solid_state import (
     BoundaryTwistLift,
     FiniteLatticeShape,

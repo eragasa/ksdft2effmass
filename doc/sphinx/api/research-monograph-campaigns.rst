@@ -1,13 +1,12 @@
 Research-monograph campaigns
 =============================
 
-``ksdft2effmass.campaigns.research_monograph`` contains public composition and
-retained-format contracts for the project's research-monograph calculations.  These
-campaign objects bind exact study controls to reusable analysis contracts.  They do
-not own generic scientific algorithms, grant protected execution authority, or decide
-scientific acceptance.  Campaign implementation classes and methods are public and
-use no underscore-prefixed implementation names; Python-required special methods are
-the only exception.
+Research-monograph-specific composition lives in cohesive subpackages beneath
+``ksdft2effmass.campaigns.research_monograph``. The package root exposes only the
+bounded symbols required by repository-retained calculation adapters; new code imports
+canonical capability or monograph subpackages directly. These campaign objects bind
+exact study controls to reusable analysis contracts. They do not own generic scientific
+algorithms, grant protected execution authority, or decide scientific acceptance.
 
 Results projection
 ------------------
@@ -44,7 +43,7 @@ The owner Result binds a root-independent request identity to the complete repla
 snapshot projection.  The nullable References observation binding remains unset until
 an independent References owner verifies it.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.citation_snapshot
 
 .. autoclass:: CitationContentAlgorithm
    :members:
@@ -132,7 +131,7 @@ SVG provenance remains bound to the frozen ``plot_stage_c_parent.py`` entry poin
 version-two CLI delegates new rendering to these public classes without reattributing
 historical results.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.impurity_defect_2d
 
 .. autoclass:: AdoptedCriterionPlotRecord
    :members:
@@ -424,9 +423,8 @@ for the methodological boundary and partition definitions.
 Periodic-1D hopping reduction
 -----------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. The former
-``ksdft2effmass.campaigns.research_monograph.periodic_1d`` import façade is deprecated;
-it re-exports the same public objects and emits :class:`DeprecationWarning`.
+The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. No
+publication-named nested import alias is maintained for this campaign.
 
 The versioned Appendix G Workflow composes complete uniform-mesh Fourier transform,
 symmetric truncation, Parseval analysis, explicit-weight least-squares fitting, and
@@ -1296,10 +1294,8 @@ validation, topology or polarization evidence, UQ, or protected execution.
 QHO1D controlled campaign
 -------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.qho1d``. The former
-``ksdft2effmass.campaigns.research_monograph.harmonic_oscillator`` import façade is
-deprecated; it re-exports the same public objects and emits
-:class:`DeprecationWarning`.
+The canonical public package is ``ksdft2effmass.campaigns.qho1d``. No
+publication-named nested import alias is maintained for this campaign.
 
 The Appendix E campaign deserializes its closed version-one input, evaluates the
 ordered Cartesian product of interval half-width, grid spacing, and retained
@@ -1378,10 +1374,8 @@ evaluations.
 PIAB1D controlled campaigns
 ---------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.piab1d``. The former
-``ksdft2effmass.campaigns.research_monograph.particle_in_box`` import façade is
-deprecated; it re-exports the same public objects and emits
-:class:`DeprecationWarning`.
+The canonical public package is ``ksdft2effmass.campaigns.piab1d``. No
+publication-named nested import alias is maintained for these campaigns.
 
 .. currentmodule:: ksdft2effmass.campaigns.piab1d
 

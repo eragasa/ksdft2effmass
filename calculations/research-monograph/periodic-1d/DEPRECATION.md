@@ -14,8 +14,7 @@ New software must use the public owners under:
 - `ksdft2effmass.solid_state`;
 - `ksdft2effmass.analysis`;
 - `ksdft2effmass.integration.wannier90`; and
-- `ksdft2effmass.campaigns.research_monograph.periodic_1d` when the versioned campaign
-  boundary is available.
+- `ksdft2effmass.campaigns.periodic_1d` for the versioned campaign boundary.
 
 Any future command-line adapter must be versioned separately from these historical
 files and contain typed argument/path adaptation only. It must not claim byte identity

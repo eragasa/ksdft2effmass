@@ -9,13 +9,15 @@ ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping
 ```
 
 The earlier `v0` draft has been retired without assigning a maintained version. Its
-64-point construction and 257-point staggered evaluation route is isolated under
-[`regression/historical-64-257/`](regression/historical-64-257/) as a non-decisive
-regression fixture. It does not define the scientific mesh, thresholds,
-continuous-alignment method, or evidence contract for the redesigned experiment.
+source remains available in repository history; it is not duplicated as an active or
+historical implementation in this maintained experiment tree. Retained calculation
+evidence under `calculations/` is unchanged. The retired draft does not define the
+scientific mesh, thresholds, continuous-alignment method, or evidence contract for the
+redesigned experiment.
 
-Initial source implementation now covers the smooth flat-parent band-equivalent
-continuum
+The installed implementation under
+`ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.periodic1d`
+now covers the smooth flat-parent band-equivalent continuum
 
 ```math
 U_a(q)=R(a\sin 2\pi q), \qquad 0\leq a\leq \pi/4.
@@ -66,12 +68,12 @@ truncation, and total sorted-band errors separately on the disjoint evaluation m
 threshold, strict serializer, independent verifier, or retained result. It does not yet
 report velocities, curvature, or physical effective masses.
 
-The existing finite-angle four-state implementation remains available only through the
-explicit `band_equivalence_hopping_locality.regression` namespace. Active definitions,
-results, calculations, and verification contain no finite-angle inventory. Strict
-non-flat serialization and schemas have not been defined because its numerical contract
-is not frozen. No maintained version, retained run, evidence package, or publication
-evidence has been created.
+The retired finite-angle four-state implementation is not part of the installed
+library or this maintained experiment tree. Active definitions, results, calculations,
+and verification contain no finite-angle inventory. Strict non-flat serialization and
+schemas have not been defined because its numerical contract is not frozen. No
+maintained version, retained run, evidence package, or publication evidence has been
+created.
 
 Historical `M3` and conference labels are searchable aliases only; they are not the
 maintained experiment identity. Existing evidence under `calculations/` remains
@@ -125,11 +127,21 @@ convergence result is `unresolved`, so no non-flat scientific acceptance claim f
 
 ## Development checks
 
+From the repository root:
+
 ```console
-cd experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality
-uv lock --check
-../../../../python/.venv/bin/pytest -q
-../../../../python/.venv/bin/ruff check .
-../../../../python/.venv/bin/ruff format --check .
-../../../../python/.venv/bin/mypy analysis src tests
+python/.venv/bin/pytest -q \
+  python/tests/software_verification/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d
+python/.venv/bin/ruff check \
+  python/src/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d \
+  python/tests/software_verification/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d \
+  experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis
+python/.venv/bin/ruff format --check \
+  python/src/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d \
+  python/tests/software_verification/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d \
+  experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis
+python/.venv/bin/mypy --config-file python/pyproject.toml \
+  python/src/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d \
+  python/tests/software_verification/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d \
+  experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis
 ```

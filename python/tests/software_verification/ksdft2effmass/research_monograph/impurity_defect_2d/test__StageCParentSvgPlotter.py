@@ -32,7 +32,9 @@ from typing import cast
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import StageCParentSvgPlotter
+from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
+    StageCParentSvgPlotter,
+)
 
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]

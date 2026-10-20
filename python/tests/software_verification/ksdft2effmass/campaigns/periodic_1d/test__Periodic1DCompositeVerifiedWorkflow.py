@@ -26,7 +26,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeCampaignWorkflowRequest,
     Periodic1DCompositeUnavailableVerificationChannel,
     Periodic1DCompositeVerifiedWorkflow,

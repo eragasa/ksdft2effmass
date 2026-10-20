@@ -20,7 +20,7 @@ This synthetic check is not a rerun or scientific validation of Appendix G.
 import numpy as np
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DHoppingReductionRequest,
     Periodic1DHoppingReductionWorkflow,
 )

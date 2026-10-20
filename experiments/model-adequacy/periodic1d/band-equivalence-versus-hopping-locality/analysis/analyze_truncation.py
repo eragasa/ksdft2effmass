@@ -6,7 +6,7 @@ import csv
 import math
 from pathlib import Path
 
-from band_equivalence_hopping_locality import (
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.periodic1d import (
     SmoothFourStateDefinition,
     SmoothFourStateTruncationDefinition,
     SmoothFourStateTruncationExperiment,

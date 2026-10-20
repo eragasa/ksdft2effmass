@@ -25,7 +25,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCampaignJsonDecoder,
     Periodic1DRetainedResultKind,
     Periodic1DWannier90NativeArtifactGroup,

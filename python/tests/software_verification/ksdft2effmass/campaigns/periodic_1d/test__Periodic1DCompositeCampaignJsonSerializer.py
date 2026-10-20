@@ -22,7 +22,7 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.analysis.periodic_bands import ContiguousBandSelection
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeCampaignJsonSerializer,
 )
 

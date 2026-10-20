@@ -27,7 +27,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DIsolatedBandCalculationRequest,
     Periodic1DIsolatedBandCalculationWorkflow,
     Periodic1DIsolatedBandCampaignJsonSerializer,

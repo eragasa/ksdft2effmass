@@ -10,6 +10,21 @@ and checksum files define each package's actual status and claim boundary.
 Passing software or numerical checks does not by itself establish scientific
 validation.
 
+## Code-ownership boundary
+
+This tree is not a second Python library. Hash-bound producers, verifiers, and adapters
+inside retained packages are preserved evidence bytes and must not be reformatted or
+rewritten solely to follow the current package layout. New and unsealed work places
+reusable implementation in `python/src/ksdft2effmass/`, with campaign composition under
+`ksdft2effmass.campaigns`; filesystem entry points contain only calculation-specific
+inputs, explicit effects, and artifact writing. Maintained publication-independent
+protocols belong under `experiments/`, not here.
+
+A migration must distinguish byte-preserved retained evidence from an unsealed script.
+For an unsealed script, callers move directly to the canonical library owner without a
+compatibility facade. For retained evidence, the original bytes and their provenance
+remain intact even when the current library has a cleaner implementation.
+
 ## Status terms
 
 - **Calculated**: retained numerical outputs exist. This does not imply human

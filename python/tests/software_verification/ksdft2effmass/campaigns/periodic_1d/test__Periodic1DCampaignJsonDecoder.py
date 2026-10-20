@@ -20,7 +20,7 @@ No campaign execution, numerical result, or scientific conclusion is assessed.
 import numpy as np
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCampaignJsonDecoder,
 )
 from ksdft2effmass.operators import Unitless

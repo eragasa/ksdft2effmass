@@ -28,7 +28,7 @@ from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.patches import Rectangle
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
     AdverseControlBarPlot,
     AdverseControlPlotRecord,
 )

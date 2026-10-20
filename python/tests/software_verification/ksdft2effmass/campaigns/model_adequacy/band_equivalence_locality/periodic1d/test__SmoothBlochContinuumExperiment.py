@@ -6,7 +6,8 @@ import hashlib
 import json
 import math
 from dataclasses import replace
-from pathlib import Path
+from importlib.resources import files
+from importlib.resources.abc import Traversable
 
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
@@ -14,7 +15,7 @@ from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonicMaximumStatus,
 )
 
-from band_equivalence_hopping_locality import (
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.periodic1d import (  # noqa: E501
     SmoothBlochContinuumConvergenceDefinition,
     SmoothBlochContinuumConvergenceDisposition,
     SmoothBlochContinuumConvergenceExperiment,
@@ -84,9 +85,11 @@ class TestSmoothBlochContinuumExperiment:
         )
 
     @staticmethod
-    def experiment_root() -> Path:
-        """Return the maintained experiment root."""
-        return Path(__file__).resolve().parents[1]
+    def schema_documents() -> Traversable:
+        """Return the installed campaign schema directory."""
+        return files(
+            "ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality"
+        ).joinpath("schema_documents")
 
     def test_definition_rejects_ambiguous_numeric_controls(self) -> None:
         """Reject booleans, numeric strings, incomplete meshes, and zero tolerance."""
@@ -259,13 +262,19 @@ class TestSmoothBlochContinuumExperiment:
         verification_wire = SmoothBlochContinuumVerificationSerializer().serialize(
             verification
         )
-        root = self.experiment_root()
+        schema_documents = self.schema_documents()
         records = (
-            (input_wire, root / "schemas/smooth-continuum-input.schema.json"),
-            (result_wire, root / "schemas/smooth-continuum-result.schema.json"),
+            (
+                input_wire,
+                schema_documents.joinpath("smooth-continuum-input.schema.json"),
+            ),
+            (
+                result_wire,
+                schema_documents.joinpath("smooth-continuum-result.schema.json"),
+            ),
             (
                 verification_wire,
-                root / "schemas/smooth-continuum-verification.schema.json",
+                schema_documents.joinpath("smooth-continuum-verification.schema.json"),
             ),
         )
         documents: list[dict[str, JsonValue]] = []

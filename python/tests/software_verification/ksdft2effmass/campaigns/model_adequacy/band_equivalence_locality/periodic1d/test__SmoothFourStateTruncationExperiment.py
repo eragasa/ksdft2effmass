@@ -8,7 +8,7 @@ from dataclasses import replace
 import numpy as np
 import pytest
 
-from band_equivalence_hopping_locality import (
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.periodic1d import (  # noqa: E501
     SmoothFourStateDefinition,
     SmoothFourStateTruncationDefinition,
     SmoothFourStateTruncationExperiment,

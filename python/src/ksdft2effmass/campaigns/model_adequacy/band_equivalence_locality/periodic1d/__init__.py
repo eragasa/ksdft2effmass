@@ -1,4 +1,4 @@
-"""Band Equivalence versus Hopping Locality experiment."""
+"""Periodic-1D Band Equivalence versus Hopping Locality campaign."""
 
 from .definition import (
     CONTINUOUS_ALIGNMENT_METHOD_ID,
