@@ -1,7 +1,9 @@
 # Experiments
 
-This tree is the maintained destination for publication-independent numerical
-experiments. An experiment selects models, cases, sample roles, thresholds, metrics,
+This tree is the maintained destination for cross-model and model-adequacy numerical
+experiments. Controlled model-system calculations such as PIAB1D and QHO1D are
+consolidated under `calculations/`. An experiment here selects models, cases, sample
+roles, thresholds, metrics,
 protocols, executable composition, interpretation boundaries, schemas, independent
 verification, and retained evidence while consuming reusable capabilities from
 installed owner libraries. New maintained experiment execution must not be added under
@@ -67,7 +69,6 @@ operator errors and different real-space hopping ranges.
 
 | Experiment family | Maintained locator | Lifecycle status | Current evidence boundary |
 |---|---|---|---|
-| `ksdft2effmass.experiment.qho1d` | [`qho1d/`](qho1d/) | **Pre-version implementation** | Mutable QHO1D input and thin calculate/verify scripts write one fixed ignored development result. Canonical code is owned by `model_systems.qho1d`; the current discrepancy remains combined and is not yet an error bound or retained evidence. |
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction` | [`periodic-reduction/single-band-fourier-reduction/periodic1d/`](periodic-reduction/single-band-fourier-reduction/periodic1d/) | **Retained version** | Immutable `.v1`, strict schemas, independent reconstruction, exact predecessor provenance, retained runs, and content-addressed evidence exist. This is controlled synthetic evidence, not material validation. |
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | [`periodic-reduction/composite-band-alignment-and-locality/periodic1d/`](periodic-reduction/composite-band-alignment-and-locality/periodic1d/) | **Prospective protocol** | The rank-two alignment/locality successor and owner boundary are documented; no immutable version or maintained run exists. |
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality` within a common higher-rank family | [`periodic-reduction/higher-rank-composite-band-alignment-and-locality/`](periodic-reduction/higher-rank-composite-band-alignment-and-locality/) | **Complete pre-execution v1 protocol candidate** | The D1 P0/G0 identity, parent, exact certificates, rank/depth ladder, A0--A3 channels, meshes, supports, tolerances, convergence and claim-resolution rules, schemas, direct-formula verifier identity, resource gate, and evidence policy are selected. Implementation, schema realization, immutable-version review, execution, and retained evidence do not exist. The 2-D, 3-D, P1, G1, and A4 branches remain prospective. |

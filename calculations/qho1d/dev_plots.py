@@ -18,10 +18,10 @@ from ksdft2effmass.model_systems.qho1d import (
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-EXPERIMENT_ROOT = Path(__file__).resolve().parent
-REPOSITORY_ROOT = EXPERIMENT_ROOT.parents[1]
-INPUT_PATH = EXPERIMENT_ROOT / "input.json"
-DEVELOPMENT_ROOT = EXPERIMENT_ROOT / "analysis" / "development"
+CALCULATION_ROOT = Path(__file__).resolve().parent
+REPOSITORY_ROOT = CALCULATION_ROOT.parents[1]
+INPUT_PATH = CALCULATION_ROOT / "input.json"
+DEVELOPMENT_ROOT = CALCULATION_ROOT / "analysis" / "development"
 RESULT_PATH = DEVELOPMENT_ROOT / "qho1d-result.json"
 EIGENSTATE_OUTPUT_PATH = DEVELOPMENT_ROOT / "qho1d-eigenstates.png"
 DISTORTION_OUTPUT_PATH = DEVELOPMENT_ROOT / "qho1d-eigenstate-distortion.png"
@@ -296,7 +296,7 @@ def main() -> int:
     plot_eigenstate_distortion(selected, DISTORTION_OUTPUT_PATH)
     plot_diagnostics(result, DIAGNOSTIC_OUTPUT_PATH)
     print(
-        "experiment=qho1d lifecycle=development plots=written "
+        "calculation=qho1d lifecycle=development plots=written "
         f"outputs={EIGENSTATE_OUTPUT_PATH},{DISTORTION_OUTPUT_PATH},"
         f"{DIAGNOSTIC_OUTPUT_PATH}"
     )

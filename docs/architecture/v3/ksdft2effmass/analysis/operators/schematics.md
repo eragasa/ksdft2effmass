@@ -84,7 +84,7 @@ flowchart TB
     operatorAnalysis --> scripts
     subspaceAnalysis --> scripts
     scripts --> piab["calculations/piab1d"]
-    scripts --> qho["experiments/qho1d"]
+    scripts --> qho["calculations/qho1d"]
 
     scripts -. "no suite or orchestrator moves inward" .-> operatorAnalysis
     scripts -. "no suite or orchestrator moves inward" .-> subspaceAnalysis

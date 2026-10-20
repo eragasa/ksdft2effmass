@@ -55,12 +55,13 @@ input, records, evaluation, serialization, and verification beside the concrete 
 system. `model_systems/study/base.py` defines the nominal identity boundary implemented
 by both study definitions and consumed by both serializers. `QHO1D` and `Piab1d` are
 intentionally dimension-specific names; a plain `QHO` or `PIAB` owner is reserved for
-a future implementation with a reviewed dimension-neutral contract. The mutable QHO1D
-composition root and fixed development-output path are under `experiments/qho1d/`.
-The former top-level `campaigns/qho1d/` and `campaigns/piab1d/` packages are not
-retained as compatibility facades. `calculations/piab1d/` owns PIAB1D calculation
-composition, retained inputs and outputs, provenance, verification adapters, plots,
-and reports. Reusable finite-operator analyses live under
+a future implementation with a reviewed dimension-neutral contract. The QHO1D and
+PIAB1D composition roots are consolidated under `calculations/qho1d/` and
+`calculations/piab1d/`. QHO1D currently owns mutable ignored development outputs;
+PIAB1D owns retained inputs and outputs. Each calculation owner also owns its paths,
+provenance, verification adapters, plots, and technical report. The former top-level
+`campaigns/qho1d/` and `campaigns/piab1d/` packages are not retained as compatibility
+facades. Reusable finite-operator analyses live under
 `analysis/operators/`. Research-monograph documentation points to the canonical
 calculation rather than owning another implementation or calculation tree. The
 `campaigns.research_monograph` root retains only unrelated bounded adapters still

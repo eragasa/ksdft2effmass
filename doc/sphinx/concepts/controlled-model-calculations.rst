@@ -22,9 +22,9 @@ The implementation separates five concrete layers.
    deterministic evaluation, provenance identities, and independent verifier. It
    does not imply a dimension-neutral QHO implementation.
 
-``experiments/qho1d``
-   Owns the mutable QHO1D parameter selection, thin development scripts, and ignored
-   replaceable output location.
+``calculations/qho1d``
+   Owns the mutable QHO1D parameter selection, thin development scripts, ignored
+   replaceable output location, and calculation-owned technical report.
 
 ``ksdft2effmass.campaigns.research_monograph``
    Retains only the historical harmonic-oscillator symbol spellings required by the
@@ -103,7 +103,7 @@ the reported decomposition does not constitute uncertainty quantification.
 
 The concrete QHO1D study evaluator processes box half-width, requested grid spacing,
 and retained dimension in a deterministic Cartesian product, with retained dimension
-varying fastest. The mutable experiment is under ``experiments/qho1d``. The retained
+varying fastest. The mutable calculation is under ``calculations/qho1d``. The retained
 historical calculation uses the explicit nondimensional convention
 :math:`\hbar=m=\omega=\ell=1`.
 

@@ -58,8 +58,8 @@ flowchart TB
     qho["model_systems.qho1d"] --> leaf
     leaf --> analysis["analysis.operators typed leaves"]
     analysis --> piabcalc["calculations/piab1d composition"]
-    analysis --> qhoexp["experiments/qho1d composition"]
+    analysis --> qhocalc["calculations/qho1d composition"]
 
     piabcalc -. "does not flow inward" .-> leaf
-    qhoexp -. "does not flow inward" .-> leaf
+    qhocalc -. "does not flow inward" .-> leaf
 ```

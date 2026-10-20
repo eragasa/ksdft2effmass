@@ -1,7 +1,7 @@
 # Calculation and experiment inventory
 
-This directory contains retained calculation packages, controlled numerical
-experiments, external-reference records, and unexecuted calculation plans. This
+This directory contains retained and development calculation packages, controlled
+numerical studies, external-reference records, and unexecuted calculation plans. This
 page is the repository-level index of those records.
 
 The inventory is a navigation aid, not an acceptance record or execution
@@ -15,10 +15,11 @@ validation.
 This tree is not a second Python library. Hash-bound producers, verifiers, and adapters
 inside retained packages are preserved evidence bytes and must not be reformatted or
 rewritten solely to follow the current package layout. New and unsealed work places
-reusable implementation in `python/src/ksdft2effmass/`, with campaign composition under
-`ksdft2effmass.campaigns`; filesystem entry points contain only calculation-specific
-inputs, explicit effects, and artifact writing. Maintained publication-independent
-protocols belong under `experiments/`, not here.
+reusable implementation in `python/src/ksdft2effmass/`; filesystem entry points contain
+only calculation-specific inputs, explicit composition, effects, verification,
+artifact writing, and reports. Controlled model-system calculations such as PIAB1D and
+QHO1D are consolidated here even when their outputs remain mutable development bytes.
+Broader model-adequacy experiment families remain under `experiments/`.
 
 A migration must distinguish byte-preserved retained evidence from an unsealed script.
 For an unsealed script, callers move directly to the canonical library owner without a
@@ -78,8 +79,9 @@ uncertainty quantification.
 
 | Package | Status | Included experiments and primary record |
 |---|---|---|
-| [`harmonic-oscillator/`](research-monograph/harmonic-oscillator/README.md) | Calculated | Finite common-space comparison of analytical, finite-difference, and ladder-operator harmonic-oscillator representations. |
-| [`piab1d/`](piab1d/README.md) | Calculated | Canonical PIAB1D calculation: core residual comparison plus grid convergence, higher-eigenpair, norm, and decomposition-identifiability studies. |
+| [`harmonic-oscillator/`](research-monograph/harmonic-oscillator/README.md) | Calculated historical record | Original finite common-space comparison of analytical, finite-difference, and ladder-operator harmonic-oscillator representations; preserved with its historical provenance. |
+| [`qho1d/`](qho1d/README.md) | Mutable development calculation | Canonical QHO1D spatial-truncation calculation, replaceable outputs, and calculation-owned technical report; not retained evidence. |
+| [`piab1d/`](piab1d/README.md) | Calculated | Canonical PIAB1D spectral-reduction calculation: core residual comparison plus grid convergence, higher-eigenpair, norm, decomposition-identifiability studies, and technical report. |
 | [`periodic-1d/`](research-monograph/periodic-1d/README.md) | Calculated | Isolated-band nominal and stress studies, composite-band gauge/locality study, and retained Wannier90 attempts and comparison. |
 | [`periodic-2d/`](research-monograph/periodic-2d/README.md) | Calculated; human-accepted controlled exercise | Scalar and composite reductions, topology controls and phase sweeps, and bounded Wannier90 comparisons and parameter study. |
 | [`periodic-2d-optimizer-basin/`](research-monograph/periodic-2d-optimizer-basin/README.md) | Calculated | Synthetic non-DFT optimizer-basin, convergence, continuation, common-estimator, and post-hoc censored-regression studies. |

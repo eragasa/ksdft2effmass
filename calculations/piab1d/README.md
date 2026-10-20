@@ -9,7 +9,9 @@ quantification study.
 
 `appendix-d-draft-report.md` is the experiment-level prose report and
 provisional Appendix D draft. `protocol.md` maps the manuscript's mathematical
-questions to retained evidence. The maintained LaTeX appendix remains the
+questions to retained evidence. `development_report/development_report.tex` is the
+calculation-owned report focused on spectral reduction, with its report-local BibTeX
+file at `development_report/references.bib`. The maintained LaTeX appendix remains the
 manuscript source of record.
 
 The standalone LaTeX source `appendix-d-draft.tex` renders the report with the
@@ -23,6 +25,18 @@ latexmk -lualatex -interaction=nonstopmode -halt-on-error \
 ```
 
 The compiled file is `build/appendix-d-draft.pdf`.
+
+Compile the spectral-reduction report from `development_report/`:
+
+```bash
+cd calculations/piab1d/development_report
+latexmk -pdf -interaction=nonstopmode -halt-on-error \
+  -outdir=../build development_report.tex
+```
+
+The generated report PDF is `calculations/piab1d/build/development_report.pdf`
+and is not retained evidence unless separately reviewed and admitted to the checksum
+catalog.
 
 The core residual experiment composes the public
 `ksdft2effmass.model_systems.piab1d` contracts with reusable finite-operator analyses
