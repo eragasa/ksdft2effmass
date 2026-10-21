@@ -7,26 +7,26 @@ from typing import cast
 
 import numpy as np
 
-from ..model import QHO1DNondimensionalizer
-from .records import QHO1DStudyDefinition
+from ..model import Qho1dNondimensionalizer
+from .records import Qho1dStudyDefinition
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
 
 
-class QHO1DStudyInputDeserializer:
+class Qho1dStudyInputDeserializer:
     """Deserialize the closed version-one monograph study input.
 
     The deserializer accepts UTF-8 JSON bytes, rejects unknown fields and unsupported
     versions, and converts exact wire values into a
-    ``QHO1DStudyDefinition``. Schema success is a wire-format result,
+    ``Qho1dStudyDefinition``. Schema success is a wire-format result,
     not numerical or scientific verification.
     """
 
     __slots__ = ()
 
-    def execute(self, payload: bytes) -> QHO1DStudyDefinition:
+    def execute(self, payload: bytes) -> Qho1dStudyDefinition:
         """Deserialize one version-one study definition.
 
         Parameters
@@ -36,7 +36,7 @@ class QHO1DStudyInputDeserializer:
 
         Returns
         -------
-        QHO1DStudyDefinition
+        Qho1dStudyDefinition
             Validated immutable study definition.
 
         Raises
@@ -69,12 +69,21 @@ class QHO1DStudyInputDeserializer:
             raise ValueError("study input fields do not match schema version 1")
         if self.integer(root["schema_version"], "schema_version") != 1:
             raise ValueError("unsupported study input schema version")
+        experiment_id = self.string(root["experiment_id"], "experiment_id")
+        if experiment_id not in (
+            "qho1d.development.v1",
+            "research-monograph.harmonic-oscillator.v1",
+        ):
+            raise ValueError("unsupported QHO1D experiment identity")
+        evidence_status = self.string(root["evidence_status"], "evidence_status")
+        if evidence_status != "illustrative numerical experiment":
+            raise ValueError("unsupported QHO1D evidence classification")
         constants = self.mapping(
             root["dimensionless_convention"], "dimensionless_convention"
         )
         if set(constants) != {"hbar", "mass", "omega", "oscillator_length"}:
             raise ValueError("dimensionless_convention fields are not closed")
-        parameters = QHO1DNondimensionalizer().execute(
+        parameters = Qho1dNondimensionalizer().execute(
             hbar=self.real(constants["hbar"], "hbar"),
             mass=self.real(constants["mass"], "mass"),
             omega=self.real(constants["omega"], "omega"),
@@ -84,9 +93,9 @@ class QHO1DStudyInputDeserializer:
         )
         if oscillator_length != parameters.oscillator_length.magnitude:
             raise ValueError("oscillator_length must equal sqrt(hbar/(mass*omega))")
-        return QHO1DStudyDefinition(
-            study_id=self.string(root["experiment_id"], "experiment_id"),
-            evidence_status=self.string(root["evidence_status"], "evidence_status"),
+        return Qho1dStudyDefinition(
+            experiment_id=experiment_id,
+            evidence_status=evidence_status,
             parameters=parameters,
             box_half_widths=self.real_sequence(
                 root["box_half_widths"], "box_half_widths"

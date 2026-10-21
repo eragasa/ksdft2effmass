@@ -50,12 +50,12 @@ owner. No dimension-neutral ``QHO`` API or 2D/3D implementation is claimed. The
 analysis uses three public mathematical software models of
 the same physical oscillator:
 
-* :class:`QHO1DAnalytical` owns exact energies and coordinate-space
+* :class:`Qho1dAnalytical` owns exact energies and coordinate-space
   Hermite number states;
-* :class:`QHO1DFiniteDifference` applies oscillator physics to a
+* :class:`Qho1dFiniteDifference` applies oscillator physics to a
   reusable :class:`~ksdft2effmass.model_systems.DirichletInterval` and
   composes the centered second-order finite-difference Hamiltonian; and
-* :class:`QHO1DLadderOperators` composes
+* :class:`Qho1dLadderOperators` composes
   :class:`~ksdft2effmass.operators.LadderOperator1D` and applies the
   oscillator energy scale.
 
@@ -89,52 +89,52 @@ and conversion through :class:`~ksdft2effmass.operators.PintUnitConverter`; proj
 records own strict value types and immutable array storage. Physical oscillator
 parameters retain action, mass, inverse-time, length, wavefunction, and energy
 dimensions. The historical normalized study enters through
-:class:`QHO1DNondimensionalizer`, which explicitly attaches
+:class:`Qho1dNondimensionalizer`, which explicitly attaches
 :class:`~ksdft2effmass.operators.Unitless` without asserting that the corresponding
 physical quantities are intrinsically dimensionless.
 
 .. currentmodule:: ksdft2effmass.model_systems.qho1d
 
-.. autoclass:: QHO1DNondimensionalizer
+.. autoclass:: Qho1dNondimensionalizer
    :members:
 
-.. autoclass:: QHO1DParameters
+.. autoclass:: Qho1dParameters
    :members:
 
-.. autoclass:: QHO1DAnalytical
+.. autoclass:: Qho1dAnalytical
    :members:
 
-.. autoclass:: QHO1DFiniteDifference
+.. autoclass:: Qho1dFiniteDifference
    :members:
 
-.. autoclass:: QHO1DLadderOperators
+.. autoclass:: Qho1dLadderOperators
    :members:
 
-.. autoclass:: QHO1DComparisonRequest
+.. autoclass:: Qho1dComparisonRequest
    :members:
 
-.. autoclass:: QHO1DComparisonResult
+.. autoclass:: Qho1dComparisonResult
    :members:
 
-.. autoclass:: QHO1DComparator
+.. autoclass:: Qho1dComparator
    :members:
 
-.. autoclass:: QHO1DStudyDefinition
+.. autoclass:: Qho1dStudyDefinition
    :members:
 
-.. autoclass:: QHO1DStudyResult
+.. autoclass:: Qho1dStudyResult
    :members:
 
-.. autoclass:: QHO1DStudyInputDeserializer
+.. autoclass:: Qho1dStudyInputDeserializer
    :members:
 
-.. autoclass:: QHO1DStudyEvaluator
+.. autoclass:: Qho1dStudyEvaluator
    :members:
 
-.. autoclass:: QHO1DStudyResultSerializer
+.. autoclass:: Qho1dStudyResultSerializer
    :members:
 
-.. autoclass:: QHO1DResultVerifier
+.. autoclass:: Qho1dResultVerifier
    :members:
 
 One-dimensional particle in a box

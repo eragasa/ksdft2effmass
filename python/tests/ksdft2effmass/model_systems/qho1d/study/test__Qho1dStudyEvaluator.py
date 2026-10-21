@@ -1,4 +1,4 @@
-r"""Software verification of ``QHO1DStudyEvaluator``.
+r"""Software verification of ``Qho1dStudyEvaluator``.
 
 Evidence profile: routine
 
@@ -25,28 +25,28 @@ human acceptance.
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass.campaigns import research_monograph
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DStudyEvaluator,
-    QHO1DStudyInputDeserializer,
-    QHO1DStudyResult,
+    Qho1dStudyEvaluator,
+    Qho1dStudyInputDeserializer,
+    Qho1dStudyResult,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DStudyEvaluator
+SUT = Qho1dStudyEvaluator
 
 
-class TestQHO1DStudyEvaluator:
-    """Own software evidence for ``QHO1DStudyEvaluator``."""
+class TestQho1dStudyEvaluator:
+    """Own software evidence for ``Qho1dStudyEvaluator``."""
 
     @staticmethod
     def input_path() -> Path:
-        """Return the maintained Appendix E input path."""
+        """Return the maintained QHO1D development input path."""
         return (
             Path(__file__).resolve().parents[6]
             / "calculations"
-            / "research-monograph"
-            / "harmonic-oscillator"
+            / "qho1d"
             / "input.json"
         )
 
@@ -61,15 +61,15 @@ class TestQHO1DStudyEvaluator:
         endpoint combinations.
         """
         assert (
-            research_monograph.HarmonicOscillatorStudyEvaluator is QHO1DStudyEvaluator
+            research_monograph.HarmonicOscillatorStudyEvaluator is Qho1dStudyEvaluator
         )
-        definition = QHO1DStudyInputDeserializer().execute(
+        definition = Qho1dStudyInputDeserializer().execute(
             self.input_path().read_bytes()
         )
 
-        result = QHO1DStudyEvaluator().execute(definition)
+        result = Qho1dStudyEvaluator().execute(definition)
 
-        assert isinstance(result, QHO1DStudyResult)
+        assert isinstance(result, Qho1dStudyResult)
         assert len(result.comparisons) == 27
         first = result.comparisons[0].request
         final = result.comparisons[-1].request

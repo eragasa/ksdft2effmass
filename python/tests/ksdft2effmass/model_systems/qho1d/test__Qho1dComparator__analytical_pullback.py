@@ -1,8 +1,8 @@
-r"""Numerical verification of ``QHO1DComparator``.
+r"""Numerical verification of ``Qho1dComparator``.
 
 Evidence profile: claim_bearing
 
-Bounded artifact scope: analytical one-state pullback for QHO1DComparator.
+Bounded artifact scope: analytical one-state pullback for Qho1dComparator.
 
 Facet and represented meaning
 
@@ -26,28 +26,29 @@ validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+
 from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
     DirichletInterval,
     UniformCartesianGrid1D,
 )
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DAnalytical,
-    QHO1DComparator,
-    QHO1DComparisonRequest,
-    QHO1DFiniteDifference,
-    QHO1DLadderOperators,
-    QHO1DNondimensionalizer,
+    Qho1dAnalytical,
+    Qho1dComparator,
+    Qho1dComparisonRequest,
+    Qho1dFiniteDifference,
+    Qho1dLadderOperators,
+    Qho1dNondimensionalizer,
     ScalarQuantity,
     Unitless,
 )
 from ksdft2effmass.operators import LadderOperator1D
 
 pytestmark = pytest.mark.numerical_verification
-SUT = QHO1DComparator
+SUT = Qho1dComparator
 
 
-class TestQHO1DComparator:
+class TestQho1dComparator:
     """Own numerical evidence for the harmonic-oscillator comparator."""
 
     def test_method__execute__matches_hand_constructed_ground_state_pullback(
@@ -79,12 +80,12 @@ class TestQHO1DComparator:
         Limitations: This single exactly specified finite case does not establish an
         asymptotic convergence rate or behavior for larger retained spaces.
         """
-        analytical = QHO1DAnalytical(
-            QHO1DNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+        analytical = Qho1dAnalytical(
+            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
         )
-        request = QHO1DComparisonRequest(
+        request = Qho1dComparisonRequest(
             analytical=analytical,
-            finite_difference=QHO1DFiniteDifference(
+            finite_difference=Qho1dFiniteDifference(
                 analytical,
                 DirichletInterval(
                     UniformCartesianGrid1D(
@@ -95,10 +96,10 @@ class TestQHO1DComparator:
                     DirichletBoundaryCondition(ScalarQuantity(0.0, Unitless())),
                 ),
             ),
-            ladder_operators=QHO1DLadderOperators(analytical, LadderOperator1D(1)),
+            ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
         )
 
-        result = QHO1DComparator().execute(request)
+        result = Qho1dComparator().execute(request)
 
         coordinates = np.array([-0.5, 0.0, 0.5], dtype=np.float64)
         unnormalized = np.exp(-0.5 * np.square(coordinates))

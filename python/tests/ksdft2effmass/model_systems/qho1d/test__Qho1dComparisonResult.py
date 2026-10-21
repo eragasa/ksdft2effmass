@@ -1,8 +1,8 @@
-r"""Software verification of ``QHO1DComparisonResult``.
+r"""Software verification of ``Qho1dComparisonResult``.
 
 Evidence profile: routine
 
-Bounded artifact scope: immutable array fields of QHO1DComparisonResult.
+Bounded artifact scope: immutable array fields of Qho1dComparisonResult.
 
 Facet and represented meaning
 
@@ -24,6 +24,7 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
+
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
@@ -31,34 +32,34 @@ from ksdft2effmass.model_systems import (
     UniformCartesianGrid1D,
 )
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DAnalytical,
-    QHO1DComparator,
-    QHO1DComparisonRequest,
-    QHO1DComparisonResult,
-    QHO1DFiniteDifference,
-    QHO1DLadderOperators,
-    QHO1DNondimensionalizer,
+    Qho1dAnalytical,
+    Qho1dComparator,
+    Qho1dComparisonRequest,
+    Qho1dComparisonResult,
+    Qho1dFiniteDifference,
+    Qho1dLadderOperators,
+    Qho1dNondimensionalizer,
     ScalarQuantity,
     Unitless,
 )
 from ksdft2effmass.operators import LadderOperator1D
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DComparisonResult
+SUT = Qho1dComparisonResult
 
 
-class TestQHO1DComparisonResult:
-    """Own software evidence for ``QHO1DComparisonResult``."""
+class TestQho1dComparisonResult:
+    """Own software evidence for ``Qho1dComparisonResult``."""
 
     @staticmethod
-    def result() -> QHO1DComparisonResult:
+    def result() -> Qho1dComparisonResult:
         """Return one coherent comparator-produced result fixture."""
-        analytical = QHO1DAnalytical(
-            QHO1DNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+        analytical = Qho1dAnalytical(
+            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
         )
-        request = QHO1DComparisonRequest(
+        request = Qho1dComparisonRequest(
             analytical=analytical,
-            finite_difference=QHO1DFiniteDifference(
+            finite_difference=Qho1dFiniteDifference(
                 analytical,
                 DirichletInterval(
                     UniformCartesianGrid1D(
@@ -69,25 +70,25 @@ class TestQHO1DComparisonResult:
                     DirichletBoundaryCondition(ScalarQuantity(0.0, Unitless())),
                 ),
             ),
-            ladder_operators=QHO1DLadderOperators(analytical, LadderOperator1D(1)),
+            ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
         )
-        return QHO1DComparator().execute(request)
+        return Qho1dComparator().execute(request)
 
     def test_public_api__package__exports_supported_result_class(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-005
 
-        Requirement: QHO1DComparisonResult is available through the
+        Requirement: Qho1dComparisonResult is available through the
         supported public model-systems import surface.
 
         Acceptance: The package binding is the same class object as the documented
         harmonic-oscillator import.
         """
-        assert model_systems.QHO1DComparisonResult is (QHO1DComparisonResult)
+        assert model_systems.Qho1dComparisonResult is (Qho1dComparisonResult)
 
     def test_field__arrays__own_immutable_binary64_storage(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-006
 
-        Requirement: QHO1DComparisonResult canonicalizes every numerical
+        Requirement: Qho1dComparisonResult canonicalizes every numerical
         array to finite immutable binary64 storage with contract-derived shapes.
 
         Acceptance: A coherent result has float64 arrays with expected shapes, no

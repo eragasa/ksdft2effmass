@@ -1,9 +1,9 @@
-r"""Software verification of ``QHO1DComparator``.
+r"""Software verification of ``Qho1dComparator``.
 
 Evidence profile: routine
 
 Bounded artifact scope: public request-admissibility behavior of
-QHO1DComparator.
+Qho1dComparator.
 
 Facet and represented meaning
 
@@ -24,6 +24,7 @@ human acceptance.
 """
 
 import pytest
+
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
@@ -31,35 +32,35 @@ from ksdft2effmass.model_systems import (
     UniformCartesianGrid1D,
 )
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DAnalytical,
-    QHO1DComparator,
-    QHO1DComparisonRequest,
-    QHO1DFiniteDifference,
-    QHO1DLadderOperators,
-    QHO1DNondimensionalizer,
+    Qho1dAnalytical,
+    Qho1dComparator,
+    Qho1dComparisonRequest,
+    Qho1dFiniteDifference,
+    Qho1dLadderOperators,
+    Qho1dNondimensionalizer,
     ScalarQuantity,
     Unitless,
 )
 from ksdft2effmass.operators import LadderOperator1D
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DComparator
+SUT = Qho1dComparator
 
 
-class TestQHO1DComparator:
-    """Own software evidence for ``QHO1DComparator``."""
+class TestQho1dComparator:
+    """Own software evidence for ``Qho1dComparator``."""
 
     @staticmethod
     def request(
         *, spacing: float = 0.5, retained_dimension: int = 1
-    ) -> QHO1DComparisonRequest:
+    ) -> Qho1dComparisonRequest:
         """Return one dimensionless comparison request."""
-        analytical = QHO1DAnalytical(
-            QHO1DNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+        analytical = Qho1dAnalytical(
+            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
         )
-        return QHO1DComparisonRequest(
+        return Qho1dComparisonRequest(
             analytical=analytical,
-            finite_difference=QHO1DFiniteDifference(
+            finite_difference=Qho1dFiniteDifference(
                 analytical=analytical,
                 interval=DirichletInterval(
                     grid=UniformCartesianGrid1D(
@@ -72,7 +73,7 @@ class TestQHO1DComparator:
                     ),
                 ),
             ),
-            ladder_operators=QHO1DLadderOperators(
+            ladder_operators=Qho1dLadderOperators(
                 analytical=analytical,
                 ladder_operator=LadderOperator1D(retained_dimension),
             ),
@@ -81,13 +82,13 @@ class TestQHO1DComparator:
     def test_public_api__package__exports_supported_comparator_class(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-007
 
-        Requirement: QHO1DComparator is available through the supported
+        Requirement: Qho1dComparator is available through the supported
         public model-systems import surface.
 
         Acceptance: The package binding is the same class object as the documented
         harmonic-oscillator import.
         """
-        assert model_systems.QHO1DComparator is (QHO1DComparator)
+        assert model_systems.Qho1dComparator is (Qho1dComparator)
 
     def test_method__execute__requires_bound_three_model_request(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-008
@@ -98,7 +99,7 @@ class TestQHO1DComparator:
         Acceptance: A Boolean request raises TypeError, while one admissible request
         produces a result bound to the exact request.
         """
-        comparator = QHO1DComparator()
+        comparator = Qho1dComparator()
 
         with pytest.raises(TypeError, match="request must be"):
             comparator.execute(True)  # type: ignore[arg-type]

@@ -7,20 +7,19 @@ from dataclasses import dataclass
 import numpy as np
 
 from ...study import ModelSystemStudyBase, ModelSystemStudyIdentity
-from ..model import QHO1DComparisonResult, QHO1DParameters
+from ..model import Qho1dComparisonResult, Qho1dParameters
 
 
 @dataclass(frozen=True, slots=True)
-class QHO1DStudyDefinition(ModelSystemStudyBase):
+class Qho1dStudyDefinition(ModelSystemStudyBase):
     """Define the exact finite harmonic-oscillator parameter sweep.
 
     Parameters
     ----------
-    study_id
-        Nonempty stable study identifier.
+    experiment_id
+        Closed calculation identity, distinct from the model and schema enums.
     evidence_status
-        Exact evidence label. Version one requires
-        ``"illustrative numerical experiment"``.
+        Calculation-owned evidence classification.
     parameters
         Harmonic-oscillator physical parameters.
     box_half_widths
@@ -42,9 +41,9 @@ class QHO1DStudyDefinition(ModelSystemStudyBase):
         If a field violates the closed study invariants.
     """
 
-    study_id: str
+    experiment_id: str
     evidence_status: str
-    parameters: QHO1DParameters
+    parameters: Qho1dParameters
     box_half_widths: tuple[float, ...]
     grid_spacings: tuple[float, ...]
     retained_dimensions: tuple[int, ...]
@@ -52,11 +51,17 @@ class QHO1DStudyDefinition(ModelSystemStudyBase):
     comparison_map: str
 
     def __post_init__(self) -> None:
-        identity = self.study_identity()
-        if identity.evidence_status != "illustrative numerical experiment":
+        if self.experiment_id not in (
+            "qho1d.development.v1",
+            "research-monograph.harmonic-oscillator.v1",
+        ):
+            raise ValueError(
+                "experiment_id must identify a supported QHO1D calculation"
+            )
+        if self.evidence_status != "illustrative numerical experiment":
             raise ValueError("evidence_status must identify an illustrative experiment")
-        if not isinstance(self.parameters, QHO1DParameters):
-            raise TypeError("parameters must be QHO1DParameters")
+        if not isinstance(self.parameters, Qho1dParameters):
+            raise TypeError("parameters must be Qho1dParameters")
         self.validate_real_sweep(
             self.box_half_widths, "box_half_widths", increasing=True
         )
@@ -77,8 +82,11 @@ class QHO1DStudyDefinition(ModelSystemStudyBase):
         self.validate_nonempty_string(self.comparison_map, "comparison_map")
 
     def study_identity(self) -> ModelSystemStudyIdentity:
-        """Return the shared nominal identity for this QHO1D study."""
-        return ModelSystemStudyIdentity(self.study_id, self.evidence_status)
+        """Return the fixed model and schema identity."""
+        return ModelSystemStudyIdentity(
+            self.experiment_id,
+            self.evidence_status,
+        )
 
     @staticmethod
     def validate_nonempty_string(value: str, name: str) -> None:
@@ -108,7 +116,7 @@ class QHO1DStudyDefinition(ModelSystemStudyBase):
 
 
 @dataclass(frozen=True, slots=True)
-class QHO1DStudyResult:
+class Qho1dStudyResult:
     """Record all comparison results for one exact study definition.
 
     Parameters
@@ -127,14 +135,14 @@ class QHO1DStudyResult:
         If the comparison requests do not equal the declared ordered sweep.
     """
 
-    definition: QHO1DStudyDefinition
-    comparisons: tuple[QHO1DComparisonResult, ...]
+    definition: Qho1dStudyDefinition
+    comparisons: tuple[Qho1dComparisonResult, ...]
 
     def __post_init__(self) -> None:
-        if not isinstance(self.definition, QHO1DStudyDefinition):
-            raise TypeError("definition must be QHO1DStudyDefinition")
+        if not isinstance(self.definition, Qho1dStudyDefinition):
+            raise TypeError("definition must be Qho1dStudyDefinition")
         if not isinstance(self.comparisons, tuple) or any(
-            not isinstance(item, QHO1DComparisonResult) for item in self.comparisons
+            not isinstance(item, Qho1dComparisonResult) for item in self.comparisons
         ):
             raise TypeError("comparisons must contain comparison results")
         expected = tuple(

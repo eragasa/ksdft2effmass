@@ -1,4 +1,4 @@
-r"""Software verification of ``QHO1DAnalytical``.
+r"""Software verification of ``Qho1dAnalytical``.
 
 Evidence profile: routine
 
@@ -6,7 +6,7 @@ Bounded artifact scope: public exact-energy and number-state evaluation contract
 
 Facet and represented meaning
 
-The class under test owns the declared public QHO1DAnalytical contract.
+The class under test owns the declared public Qho1dAnalytical contract.
 
 Intrinsic and cross-object scope
 
@@ -21,40 +21,41 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
+
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems.qho1d import (
     PhysicalUnit,
-    QHO1DAnalytical,
-    QHO1DNondimensionalizer,
-    QHO1DParameters,
+    Qho1dAnalytical,
+    Qho1dNondimensionalizer,
+    Qho1dParameters,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DAnalytical
+SUT = Qho1dAnalytical
 
 
-class TestQHO1DAnalytical:
-    """Own software evidence for ``QHO1DAnalytical``."""
+class TestQho1dAnalytical:
+    """Own software evidence for ``Qho1dAnalytical``."""
 
     @staticmethod
-    def model() -> QHO1DAnalytical:
+    def model() -> Qho1dAnalytical:
         """Return the dimensionless exact oscillator model."""
-        return QHO1DAnalytical(
-            QHO1DNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+        return Qho1dAnalytical(
+            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
         )
 
     def test_public_api__package__exports_supported_analytical_model(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-009
 
-        Requirement: QHO1DAnalytical is available from the supported
+        Requirement: Qho1dAnalytical is available from the supported
         model-systems package.
 
         Acceptance: The package binding is the documented class object.
         """
-        assert model_systems.QHO1DAnalytical is QHO1DAnalytical
+        assert model_systems.Qho1dAnalytical is Qho1dAnalytical
 
     def test_method__number_state_wavefunctions__returns_unit_aware_exact_states(
         self,
@@ -92,8 +93,8 @@ class TestQHO1DAnalytical:
         Acceptance: ``hbar=1 J*s``, ``m=1 kg``, and ``omega=1/s`` produce ground
         energy ``0.5 J`` and a coordinate-space wavefunction in ``m**-0.5``.
         """
-        model = QHO1DAnalytical(
-            QHO1DParameters(
+        model = Qho1dAnalytical(
+            Qho1dParameters(
                 hbar=ScalarQuantity(1.0, PhysicalUnit("joule * second")),
                 mass=ScalarQuantity(1.0, PhysicalUnit("kilogram")),
                 omega=ScalarQuantity(1.0, PhysicalUnit("1 / second")),

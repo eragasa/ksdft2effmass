@@ -11,22 +11,22 @@ from ksdft2effmass.operators import (
 from ...boundary_conditions import DirichletBoundaryCondition
 from ...cartesian_grids import UniformCartesianGrid1D
 from ...intervals import DirichletInterval
-from ..comparison import QHO1DComparator
+from ..comparison import Qho1dComparator
 from ..model import (
-    QHO1DAnalytical,
-    QHO1DComparisonRequest,
-    QHO1DFiniteDifference,
-    QHO1DLadderOperators,
+    Qho1dAnalytical,
+    Qho1dComparisonRequest,
+    Qho1dFiniteDifference,
+    Qho1dLadderOperators,
 )
-from .records import QHO1DStudyDefinition, QHO1DStudyResult
+from .records import Qho1dStudyDefinition, Qho1dStudyResult
 
 
-class QHO1DStudyEvaluator:
+class Qho1dStudyEvaluator:
     """Evaluate the exact ordered Cartesian product in one study definition."""
 
     __slots__ = ("comparator",)
 
-    def __init__(self, comparator: QHO1DComparator | None = None) -> None:
+    def __init__(self, comparator: Qho1dComparator | None = None) -> None:
         """Construct the evaluator with an explicit or default comparator.
 
         Parameters
@@ -34,11 +34,11 @@ class QHO1DStudyEvaluator:
         comparator
             Stateless reusable comparator. ``None`` constructs the supported default.
         """
-        if comparator is not None and not isinstance(comparator, QHO1DComparator):
-            raise TypeError("comparator must be QHO1DComparator or None")
-        self.comparator = comparator or QHO1DComparator()
+        if comparator is not None and not isinstance(comparator, Qho1dComparator):
+            raise TypeError("comparator must be Qho1dComparator or None")
+        self.comparator = comparator or Qho1dComparator()
 
-    def execute(self, definition: QHO1DStudyDefinition) -> QHO1DStudyResult:
+    def execute(self, definition: Qho1dStudyDefinition) -> Qho1dStudyResult:
         """Evaluate every declared comparison in deterministic order.
 
         Parameters
@@ -48,17 +48,17 @@ class QHO1DStudyEvaluator:
 
         Returns
         -------
-        QHO1DStudyResult
+        Qho1dStudyResult
             Immutable ordered comparison aggregate.
         """
-        if not isinstance(definition, QHO1DStudyDefinition):
-            raise TypeError("definition must be QHO1DStudyDefinition")
-        analytical = QHO1DAnalytical(definition.parameters)
+        if not isinstance(definition, Qho1dStudyDefinition):
+            raise TypeError("definition must be Qho1dStudyDefinition")
+        analytical = Qho1dAnalytical(definition.parameters)
         comparisons = tuple(
             self.comparator.execute(
-                QHO1DComparisonRequest(
+                Qho1dComparisonRequest(
                     analytical=analytical,
-                    finite_difference=QHO1DFiniteDifference(
+                    finite_difference=Qho1dFiniteDifference(
                         analytical=analytical,
                         interval=DirichletInterval(
                             grid=UniformCartesianGrid1D(
@@ -71,7 +71,7 @@ class QHO1DStudyEvaluator:
                             ),
                         ),
                     ),
-                    ladder_operators=QHO1DLadderOperators(
+                    ladder_operators=Qho1dLadderOperators(
                         analytical=analytical,
                         ladder_operator=LadderOperator1D(retained),
                     ),
@@ -81,4 +81,4 @@ class QHO1DStudyEvaluator:
             for spacing in definition.grid_spacings
             for retained in definition.retained_dimensions
         )
-        return QHO1DStudyResult(definition, comparisons)
+        return Qho1dStudyResult(definition, comparisons)

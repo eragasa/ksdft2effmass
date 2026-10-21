@@ -10,16 +10,15 @@ from typing import cast
 
 import numpy as np
 
-from ...study import model_system_study_identity
-from ..model import QHO1DComparisonResult
-from .records import QHO1DStudyResult
+from ..model import Qho1dComparisonResult
+from .records import Qho1dStudyResult
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
 
 
-class QHO1DStudyResultSerializer:
+class Qho1dStudyResultSerializer:
     """Serialize the Appendix E study result to canonical version-one JSON.
 
     This repository-bound serializer retains source paths and SHA-256 identities for
@@ -31,7 +30,7 @@ class QHO1DStudyResultSerializer:
 
     def execute(
         self,
-        result: QHO1DStudyResult,
+        result: Qho1dStudyResult,
         input_path: Path,
         script_path: Path,
         repository_root: Path,
@@ -61,8 +60,8 @@ class QHO1DStudyResultSerializer:
         ValueError
             If a source path is not a file beneath ``repository_root``.
         """
-        if not isinstance(result, QHO1DStudyResult):
-            raise TypeError("result must be QHO1DStudyResult")
+        if not isinstance(result, Qho1dStudyResult):
+            raise TypeError("result must be Qho1dStudyResult")
         root = self.resolved_directory(repository_root, "repository_root")
         input_source = self.contained_file(input_path, root, "input_path")
         script_source = self.contained_file(script_path, root, "script_path")
@@ -71,12 +70,11 @@ class QHO1DStudyResultSerializer:
             for path in self.implementation_paths()
         )
         definition = result.definition
-        identity = model_system_study_identity(definition)
         cases = cast(list[JsonValue], [self.case(item) for item in result.comparisons])
         payload: dict[str, JsonValue] = {
             "schema_version": 1,
-            "experiment_id": identity.study_id,
-            "evidence_status": identity.evidence_status,
+            "experiment_id": definition.experiment_id,
+            "evidence_status": definition.evidence_status,
             "calculation_status": "calculated illustrative result",
             "dimensionless_convention": {
                 "hbar": definition.parameters.hbar.magnitude,
@@ -198,7 +196,7 @@ class QHO1DStudyResultSerializer:
         canonical = np.asarray(value, dtype="<f8", order="C")
         return hashlib.sha256(canonical.tobytes(order="C")).hexdigest()
 
-    def case(self, result: QHO1DComparisonResult) -> dict[str, JsonValue]:
+    def case(self, result: Qho1dComparisonResult) -> dict[str, JsonValue]:
         """Represent one comparison result in the retained wire contract."""
         request = result.request
         return {
@@ -261,10 +259,10 @@ class QHO1DStudyResultSerializer:
             },
         }
 
-    def cross_grid(self, results: tuple[QHO1DComparisonResult, ...]) -> list[JsonValue]:
+    def cross_grid(self, results: tuple[Qho1dComparisonResult, ...]) -> list[JsonValue]:
         """Represent fixed-box, fixed-retained-dimension grid differences."""
         records: list[JsonValue] = []
-        groups: dict[tuple[float, int], list[QHO1DComparisonResult]] = {}
+        groups: dict[tuple[float, int], list[Qho1dComparisonResult]] = {}
         for result in results:
             groups.setdefault(
                 (

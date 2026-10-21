@@ -1,4 +1,4 @@
-r"""Software verification of ``QHO1DStudyInputDeserializer``.
+r"""Software verification of ``Qho1dStudyInputDeserializer``.
 
 Evidence profile: routine
 
@@ -25,28 +25,29 @@ human acceptance.
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass.campaigns import research_monograph
 from ksdft2effmass.model_systems import ScalarQuantity, Unitless
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DStudyDefinition,
-    QHO1DStudyInputDeserializer,
+    Qho1dStudyDefinition,
+    Qho1dStudyInputDeserializer,
 )
+from ksdft2effmass.model_systems.study import ModelSystemStudyIdentity
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DStudyInputDeserializer
+SUT = Qho1dStudyInputDeserializer
 
 
-class TestQHO1DStudyInputDeserializer:
-    """Own software evidence for ``QHO1DStudyInputDeserializer``."""
+class TestQho1dStudyInputDeserializer:
+    """Own software evidence for ``Qho1dStudyInputDeserializer``."""
 
     @staticmethod
     def input_path() -> Path:
-        """Return the maintained Appendix E input path."""
+        """Return the maintained QHO1D input path."""
         return (
             Path(__file__).resolve().parents[6]
             / "calculations"
-            / "research-monograph"
-            / "harmonic-oscillator"
+            / "qho1d"
             / "input.json"
         )
 
@@ -62,16 +63,20 @@ class TestQHO1DStudyInputDeserializer:
         """
         assert (
             research_monograph.HarmonicOscillatorStudyInputDeserializer
-            is QHO1DStudyInputDeserializer
+            is Qho1dStudyInputDeserializer
         )
 
-        definition = QHO1DStudyInputDeserializer().execute(
+        definition = Qho1dStudyInputDeserializer().execute(
             self.input_path().read_bytes()
         )
 
-        assert isinstance(definition, QHO1DStudyDefinition)
-        assert definition.study_id == "research-monograph.harmonic-oscillator.v1"
+        assert isinstance(definition, Qho1dStudyDefinition)
+        assert definition.experiment_id == "qho1d.development.v1"
         assert definition.evidence_status == "illustrative numerical experiment"
+        assert definition.study_identity() == ModelSystemStudyIdentity(
+            definition.experiment_id,
+            definition.evidence_status,
+        )
         assert definition.parameters.hbar == ScalarQuantity(1.0, Unitless())
         assert definition.parameters.mass == ScalarQuantity(1.0, Unitless())
         assert definition.parameters.omega == ScalarQuantity(1.0, Unitless())
@@ -88,4 +93,27 @@ class TestQHO1DStudyInputDeserializer:
         assert definition.comparison_map == (
             "quadrature-scaled real-line oscillator states followed by symmetric "
             "Gram orthonormalization"
+        )
+
+    def test_method__execute__preserves_historical_calculation_identity(self) -> None:
+        """The retained monograph input remains a supported immutable payload."""
+        historical_input = (
+            Path(__file__).resolve().parents[6]
+            / "calculations"
+            / "research-monograph"
+            / "harmonic-oscillator"
+            / "input.json"
+        )
+
+        definition = Qho1dStudyInputDeserializer().execute(
+            historical_input.read_bytes()
+        )
+
+        assert definition.experiment_id == (
+            "research-monograph.harmonic-oscillator.v1"
+        )
+        assert definition.evidence_status == "illustrative numerical experiment"
+        assert definition.study_identity() == ModelSystemStudyIdentity(
+            definition.experiment_id,
+            definition.evidence_status,
         )

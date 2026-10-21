@@ -1,4 +1,4 @@
-r"""Software verification of ``QHO1DStudyResultSerializer``.
+r"""Software verification of ``Qho1dStudyResultSerializer``.
 
 Evidence profile: routine
 
@@ -27,11 +27,12 @@ from pathlib import Path
 from typing import cast
 
 import pytest
+
 from ksdft2effmass.campaigns import research_monograph
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DStudyEvaluator,
-    QHO1DStudyInputDeserializer,
-    QHO1DStudyResultSerializer,
+    Qho1dStudyEvaluator,
+    Qho1dStudyInputDeserializer,
+    Qho1dStudyResultSerializer,
 )
 
 type JsonValue = (
@@ -39,11 +40,11 @@ type JsonValue = (
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DStudyResultSerializer
+SUT = Qho1dStudyResultSerializer
 
 
-class TestQHO1DStudyResultSerializer:
-    """Own software evidence for ``QHO1DStudyResultSerializer``."""
+class TestQho1dStudyResultSerializer:
+    """Own software evidence for ``Qho1dStudyResultSerializer``."""
 
     @staticmethod
     def repository_root() -> Path:
@@ -53,12 +54,7 @@ class TestQHO1DStudyResultSerializer:
     @classmethod
     def calculation_root(cls) -> Path:
         """Return the maintained harmonic-oscillator calculation directory."""
-        return (
-            cls.repository_root()
-            / "calculations"
-            / "research-monograph"
-            / "harmonic-oscillator"
-        )
+        return cls.repository_root() / "calculations" / "qho1d"
 
     def test_method__execute__binds_public_implementation_identities(self) -> None:
         """Evidence ID: SV-MONOGRAPH-HO-003
@@ -73,34 +69,32 @@ class TestQHO1DStudyResultSerializer:
         """
         assert (
             research_monograph.HarmonicOscillatorStudyResultSerializer
-            is QHO1DStudyResultSerializer
+            is Qho1dStudyResultSerializer
         )
         root = self.repository_root()
         calculation = self.calculation_root()
-        definition = QHO1DStudyInputDeserializer().execute(
+        definition = Qho1dStudyInputDeserializer().execute(
             (calculation / "input.json").read_bytes()
         )
-        result = QHO1DStudyEvaluator().execute(definition)
+        result = Qho1dStudyEvaluator().execute(definition)
 
-        encoded = QHO1DStudyResultSerializer().execute(
+        encoded = Qho1dStudyResultSerializer().execute(
             result,
             calculation / "input.json",
-            calculation / "run_experiment.py",
+            calculation / "dev_analysis.py",
             root,
         )
         payload = cast(JsonValue, json.loads(encoded.decode("utf-8")))
         assert isinstance(payload, dict)
+        assert payload["experiment_id"] == "qho1d.development.v1"
+        assert payload["evidence_status"] == "illustrative numerical experiment"
         cases = payload["cases"]
         provenance = payload["provenance"]
         assert isinstance(cases, list)
         assert len(cases) == 27
         assert isinstance(provenance, dict)
-        assert provenance["input_path"] == (
-            "calculations/research-monograph/harmonic-oscillator/input.json"
-        )
-        assert provenance["script_path"] == (
-            "calculations/research-monograph/harmonic-oscillator/run_experiment.py"
-        )
+        assert provenance["input_path"] == "calculations/qho1d/input.json"
+        assert provenance["script_path"] == "calculations/qho1d/dev_analysis.py"
         identities = provenance["implementation_identities"]
         assert isinstance(identities, list)
         assert len(identities) == 11

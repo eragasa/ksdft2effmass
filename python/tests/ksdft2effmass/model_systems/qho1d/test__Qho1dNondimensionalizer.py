@@ -1,4 +1,4 @@
-r"""Software verification of ``QHO1DNondimensionalizer``.
+r"""Software verification of ``Qho1dNondimensionalizer``.
 
 Evidence profile: routine
 
@@ -21,19 +21,20 @@ or human acceptance.
 """
 
 import pytest
+
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DNondimensionalizer,
+    Qho1dNondimensionalizer,
     ScalarQuantity,
     Unitless,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DNondimensionalizer
+SUT = Qho1dNondimensionalizer
 
 
-class TestQHO1DNondimensionalizer:
-    """Own software evidence for ``QHO1DNondimensionalizer``."""
+class TestQho1dNondimensionalizer:
+    """Own software evidence for ``Qho1dNondimensionalizer``."""
 
     def test_method__execute__attaches_unitless_without_rescaling(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-018
@@ -44,9 +45,9 @@ class TestQHO1DNondimensionalizer:
         Acceptance: The public export is exact and inputs ``(2, 3, 4)`` become exact
         Unitless scalar quantities with those magnitudes.
         """
-        assert model_systems.QHO1DNondimensionalizer is (QHO1DNondimensionalizer)
+        assert model_systems.Qho1dNondimensionalizer is (Qho1dNondimensionalizer)
 
-        parameters = QHO1DNondimensionalizer().execute(2.0, 3.0, 4.0)
+        parameters = Qho1dNondimensionalizer().execute(2.0, 3.0, 4.0)
 
         assert parameters.hbar == ScalarQuantity(2.0, Unitless())
         assert parameters.mass == ScalarQuantity(3.0, Unitless())

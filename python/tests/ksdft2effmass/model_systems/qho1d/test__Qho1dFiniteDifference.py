@@ -1,4 +1,4 @@
-r"""Software verification of ``QHO1DFiniteDifference``.
+r"""Software verification of ``Qho1dFiniteDifference``.
 
 Evidence profile: routine
 
@@ -23,6 +23,7 @@ or human acceptance.
 
 import numpy as np
 import pytest
+
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
@@ -31,26 +32,26 @@ from ksdft2effmass.model_systems import (
 )
 from ksdft2effmass.model_systems.qho1d import (
     PhysicalUnit,
-    QHO1DAnalytical,
-    QHO1DFiniteDifference,
-    QHO1DNondimensionalizer,
-    QHO1DParameters,
+    Qho1dAnalytical,
+    Qho1dFiniteDifference,
+    Qho1dNondimensionalizer,
+    Qho1dParameters,
     ScalarQuantity,
     Unitless,
 )
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DFiniteDifference
+SUT = Qho1dFiniteDifference
 
 
-class TestQHO1DFiniteDifference:
-    """Own software evidence for ``QHO1DFiniteDifference``."""
+class TestQho1dFiniteDifference:
+    """Own software evidence for ``Qho1dFiniteDifference``."""
 
     @staticmethod
-    def analytical() -> QHO1DAnalytical:
+    def analytical() -> Qho1dAnalytical:
         """Return the shared dimensionless analytical model."""
-        return QHO1DAnalytical(
-            QHO1DNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+        return Qho1dAnalytical(
+            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
         )
 
     def test_public_api__package__exports_supported_finite_difference_model(
@@ -58,11 +59,11 @@ class TestQHO1DFiniteDifference:
     ) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-011
 
-        Requirement: QHO1DFiniteDifference is publicly exported.
+        Requirement: Qho1dFiniteDifference is publicly exported.
 
         Acceptance: The package binding is the documented class object.
         """
-        assert model_systems.QHO1DFiniteDifference is (QHO1DFiniteDifference)
+        assert model_systems.Qho1dFiniteDifference is (Qho1dFiniteDifference)
 
     def test_method__hamiltonian__applies_harmonic_physics_to_interval(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-012
@@ -81,7 +82,7 @@ class TestQHO1DFiniteDifference:
             ),
             DirichletBoundaryCondition(ScalarQuantity(0.0, Unitless())),
         )
-        model = QHO1DFiniteDifference(self.analytical(), interval)
+        model = Qho1dFiniteDifference(self.analytical(), interval)
 
         assert model.interior_points == 3
         assert model.grid_spacing == ScalarQuantity(0.5, Unitless())
@@ -95,7 +96,7 @@ class TestQHO1DFiniteDifference:
         assert isinstance(model.hamiltonian().unit, Unitless)
         assert not model.hamiltonian().data.flags.writeable
         with pytest.raises(ValueError, match="requires homogeneous"):
-            QHO1DFiniteDifference(
+            Qho1dFiniteDifference(
                 self.analytical(),
                 DirichletInterval(
                     interval.grid,
@@ -112,14 +113,14 @@ class TestQHO1DFiniteDifference:
         Acceptance: A one-meter half-width represented as 100 centimeters and a
         0.5-meter spacing produce canonical meter grid values and a joule matrix.
         """
-        analytical = QHO1DAnalytical(
-            QHO1DParameters(
+        analytical = Qho1dAnalytical(
+            Qho1dParameters(
                 hbar=ScalarQuantity(1.0, PhysicalUnit("joule * second")),
                 mass=ScalarQuantity(1.0, PhysicalUnit("kilogram")),
                 omega=ScalarQuantity(1.0, PhysicalUnit("1 / second")),
             )
         )
-        model = QHO1DFiniteDifference(
+        model = Qho1dFiniteDifference(
             analytical,
             DirichletInterval(
                 UniformCartesianGrid1D(

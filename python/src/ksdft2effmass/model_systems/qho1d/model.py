@@ -43,7 +43,7 @@ from ..intervals import DirichletInterval
 
 
 @dataclass(frozen=True, slots=True)
-class QHO1DParameters:
+class Qho1dParameters:
     r"""Define positive unit-aware harmonic-oscillator parameters.
 
     A parameter set is either fully physical or fully nondimensional. Physical values
@@ -115,14 +115,14 @@ class QHO1DParameters:
         )
 
 
-class QHO1DNondimensionalizer:
+class Qho1dNondimensionalizer:
     """Adapt explicit normalized scalar inputs to first-class Unitless quantities."""
 
     __slots__ = ()
 
-    def execute(self, hbar: float, mass: float, omega: float) -> QHO1DParameters:
+    def execute(self, hbar: float, mass: float, omega: float) -> Qho1dParameters:
         """Return a fully Unitless parameter set without implying physical units."""
-        return QHO1DParameters(
+        return Qho1dParameters(
             hbar=ScalarQuantity(hbar, Unitless()),
             mass=ScalarQuantity(mass, Unitless()),
             omega=ScalarQuantity(omega, Unitless()),
@@ -130,7 +130,7 @@ class QHO1DNondimensionalizer:
 
 
 @dataclass(frozen=True, slots=True)
-class QHO1DAnalytical:
+class Qho1dAnalytical:
     """Represent the exact real-line harmonic-oscillator solution.
 
     Parameters
@@ -144,11 +144,11 @@ class QHO1DAnalytical:
         Exact physical parameter record.
     """
 
-    parameters: QHO1DParameters
+    parameters: Qho1dParameters
 
     def __post_init__(self) -> None:
-        if not isinstance(self.parameters, QHO1DParameters):
-            raise TypeError("parameters must be QHO1DParameters")
+        if not isinstance(self.parameters, Qho1dParameters):
+            raise TypeError("parameters must be Qho1dParameters")
 
     def number_state_energies(self, retained_dimension: int) -> VectorQuantity:
         """Return exact unit-aware energies for states ``|0>`` through ``|K-1>``."""
@@ -211,7 +211,7 @@ class QHO1DAnalytical:
 
 
 @dataclass(frozen=True, slots=True)
-class QHO1DFiniteDifference:
+class Qho1dFiniteDifference:
     """Represent a harmonic oscillator on a reusable Dirichlet interval.
 
     Parameters
@@ -222,12 +222,12 @@ class QHO1DFiniteDifference:
         Symmetric interval with homogeneous Dirichlet boundary data.
     """
 
-    analytical: QHO1DAnalytical
+    analytical: Qho1dAnalytical
     interval: DirichletInterval
 
     def __post_init__(self) -> None:
-        if not isinstance(self.analytical, QHO1DAnalytical):
-            raise TypeError("analytical must be QHO1DAnalytical")
+        if not isinstance(self.analytical, Qho1dAnalytical):
+            raise TypeError("analytical must be Qho1dAnalytical")
         if not isinstance(self.interval, DirichletInterval):
             raise TypeError("interval must be DirichletInterval")
         if not self.interval.boundary_condition.is_homogeneous:
@@ -331,7 +331,7 @@ class QHO1DFiniteDifference:
 
 
 @dataclass(frozen=True, slots=True)
-class QHO1DLadderOperators:
+class Qho1dLadderOperators:
     """Apply harmonic-oscillator energy scaling to a generic ladder basis.
 
     Parameters
@@ -342,12 +342,12 @@ class QHO1DLadderOperators:
         Generic retained one-dimensional occupation-number basis.
     """
 
-    analytical: QHO1DAnalytical
+    analytical: Qho1dAnalytical
     ladder_operator: LadderOperator1D
 
     def __post_init__(self) -> None:
-        if not isinstance(self.analytical, QHO1DAnalytical):
-            raise TypeError("analytical must be QHO1DAnalytical")
+        if not isinstance(self.analytical, Qho1dAnalytical):
+            raise TypeError("analytical must be Qho1dAnalytical")
         if not isinstance(self.ladder_operator, LadderOperator1D):
             raise TypeError("ladder_operator must be LadderOperator1D")
 
@@ -386,7 +386,7 @@ class QHO1DLadderOperators:
 
 
 @dataclass(frozen=True, slots=True)
-class QHO1DComparisonRequest:
+class Qho1dComparisonRequest:
     """Bind analytical, finite-difference, and ladder-operator oscillator models.
 
     Parameters
@@ -408,17 +408,17 @@ class QHO1DComparisonRequest:
         dimension exceeds the interval-grid dimension.
     """
 
-    analytical: QHO1DAnalytical
-    finite_difference: QHO1DFiniteDifference
-    ladder_operators: QHO1DLadderOperators
+    analytical: Qho1dAnalytical
+    finite_difference: Qho1dFiniteDifference
+    ladder_operators: Qho1dLadderOperators
 
     def __post_init__(self) -> None:
-        if not isinstance(self.analytical, QHO1DAnalytical):
-            raise TypeError("analytical must be QHO1DAnalytical")
-        if not isinstance(self.finite_difference, QHO1DFiniteDifference):
-            raise TypeError("finite_difference must be QHO1DFiniteDifference")
-        if not isinstance(self.ladder_operators, QHO1DLadderOperators):
-            raise TypeError("ladder_operators must be QHO1DLadderOperators")
+        if not isinstance(self.analytical, Qho1dAnalytical):
+            raise TypeError("analytical must be Qho1dAnalytical")
+        if not isinstance(self.finite_difference, Qho1dFiniteDifference):
+            raise TypeError("finite_difference must be Qho1dFiniteDifference")
+        if not isinstance(self.ladder_operators, Qho1dLadderOperators):
+            raise TypeError("ladder_operators must be Qho1dLadderOperators")
         if self.finite_difference.analytical != self.analytical:
             raise ValueError("finite_difference must share the analytical model")
         if self.ladder_operators.analytical != self.analytical:
@@ -427,7 +427,7 @@ class QHO1DComparisonRequest:
             raise ValueError("retained dimension exceeds the spatial dimension")
 
     @property
-    def parameters(self) -> QHO1DParameters:
+    def parameters(self) -> Qho1dParameters:
         """Return the shared physical parameter record."""
         return self.analytical.parameters
 
@@ -453,7 +453,7 @@ class QHO1DComparisonRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class QHO1DComparisonResult:
+class Qho1dComparisonResult:
     """Represent one aligned finite-grid and number-state comparison.
 
     The injection :math:`J` maps retained number-state coordinates into ordered
@@ -508,7 +508,7 @@ class QHO1DComparisonResult:
     fields under explicit exact or numerical policy.
     """
 
-    request: QHO1DComparisonRequest
+    request: Qho1dComparisonRequest
     grid_spacing: ScalarQuantity
     interior_points: int
     grid_coordinates: VectorQuantity
@@ -527,8 +527,8 @@ class QHO1DComparisonResult:
     off_diagonal_discrepancy: ScalarQuantity
 
     def __post_init__(self) -> None:
-        if not isinstance(self.request, QHO1DComparisonRequest):
-            raise TypeError("request must be QHO1DComparisonRequest")
+        if not isinstance(self.request, Qho1dComparisonRequest):
+            raise TypeError("request must be Qho1dComparisonRequest")
         if not isinstance(self.grid_spacing, ScalarQuantity):
             raise TypeError("grid_spacing must be ScalarQuantity")
         if self.grid_spacing.magnitude <= 0.0:

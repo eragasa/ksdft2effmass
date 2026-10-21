@@ -43,7 +43,7 @@ QHO1D
 
 .. currentmodule:: ksdft2effmass.model_systems.qho1d
 
-:class:`QHO1DParameters` stores either a fully physical parameter set
+:class:`Qho1dParameters` stores either a fully physical parameter set
 or a fully nondimensional one.  The two modes cannot be mixed.  The oscillator
 length is
 
@@ -51,7 +51,7 @@ length is
 
    \ell = \sqrt{\frac{\hbar}{m\omega}}.
 
-:class:`QHO1DAnalytical` represents the real-line oscillator.  It
+:class:`Qho1dAnalytical` represents the real-line oscillator.  It
 provides the exact number-state energies
 
 .. math::
@@ -61,13 +61,13 @@ provides the exact number-state energies
 and normalized Hermite wavefunctions sampled at explicit dimensionless coordinates
 :math:`x/\ell`.
 
-:class:`QHO1DFiniteDifference` represents the same oscillator on a
+:class:`Qho1dFiniteDifference` represents the same oscillator on a
 symmetric finite interval with homogeneous Dirichlet data.  It composes a centered
 second-order Laplacian, Schrödinger kinetic-energy operator, and sampled quadratic
 potential.  The resulting CSR matrix is a finite numerical representation; it is not
 the real-line differential operator.
 
-:class:`QHO1DLadderOperators` applies the oscillator energy scale to a
+:class:`Qho1dLadderOperators` applies the oscillator energy scale to a
 finite occupation-number basis.  Truncation leaves the expected highest-state defect
 in the ladder commutator, so the finite commutator must not be identified with the
 infinite-dimensional canonical relation.
@@ -75,7 +75,7 @@ infinite-dimensional canonical relation.
 Common-coordinate comparison
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:class:`QHO1DComparator` compares the spatial and ladder
+:class:`Qho1dComparator` compares the spatial and ladder
 representations only after constructing an explicit map.  For retained analytical
 states sampled on the interior grid, let :math:`S` be the matrix whose columns include
 the square-root quadrature weight.  The sampled Gram matrix and symmetric

@@ -6,16 +6,16 @@ full campaign library or define a namespace pattern for new campaigns.
 """
 
 from ...model_systems.qho1d import (
-    QHO1DResultVerifier as HarmonicOscillatorResultVerifier,
+    Qho1dResultVerifier as HarmonicOscillatorResultVerifier,
 )
 from ...model_systems.qho1d import (
-    QHO1DStudyEvaluator as HarmonicOscillatorStudyEvaluator,
+    Qho1dStudyEvaluator as HarmonicOscillatorStudyEvaluator,
 )
 from ...model_systems.qho1d import (
-    QHO1DStudyInputDeserializer as HarmonicOscillatorStudyInputDeserializer,
+    Qho1dStudyInputDeserializer as HarmonicOscillatorStudyInputDeserializer,
 )
 from ...model_systems.qho1d import (
-    QHO1DStudyResultSerializer as HarmonicOscillatorStudyResultSerializer,
+    Qho1dStudyResultSerializer as HarmonicOscillatorStudyResultSerializer,
 )
 from ..periodic_1d import (
     Periodic1DCompositeCampaign,

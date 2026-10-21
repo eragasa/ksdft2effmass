@@ -34,7 +34,7 @@ LEGACY_RUNNER_SHA256 = (
 )
 
 
-class QHO1DResultVerifier:
+class Qho1dResultVerifier:
     """Verify retained maps, operators, diagnostics, and cross-grid comparisons.
 
     The verifier is a stateless ActionObject. Its independent analytical construction

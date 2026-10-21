@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import pytest
+
 from ksdft2effmass.model_systems.piab1d import Piab1dStudyDefinition
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DNondimensionalizer,
-    QHO1DStudyDefinition,
+    Qho1dNondimensionalizer,
+    Qho1dStudyDefinition,
 )
 from ksdft2effmass.model_systems.study import (
     ModelSystemStudyBase,
@@ -22,12 +23,12 @@ class TestModelSystemStudyBase:
     """Own software evidence for the shared nominal study boundary."""
 
     @staticmethod
-    def qho1d_definition() -> QHO1DStudyDefinition:
-        """Return one valid concrete QHO1D study definition."""
-        return QHO1DStudyDefinition(
-            study_id="qho1d.test.v1",
+    def qho1d_definition() -> Qho1dStudyDefinition:
+        """Return one valid concrete Qho1d study definition."""
+        return Qho1dStudyDefinition(
+            experiment_id="qho1d.development.v1",
             evidence_status="illustrative numerical experiment",
-            parameters=QHO1DNondimensionalizer().execute(1.0, 1.0, 1.0),
+            parameters=Qho1dNondimensionalizer().execute(1.0, 1.0, 1.0),
             box_half_widths=(4.0,),
             grid_spacings=(0.1,),
             retained_dimensions=(2,),
@@ -62,7 +63,7 @@ class TestModelSystemStudyBase:
         assert isinstance(qho1d, ModelSystemStudyBase)
         assert isinstance(piab1d, ModelSystemStudyBase)
         assert model_system_study_identity(qho1d) == ModelSystemStudyIdentity(
-            "qho1d.test.v1", "illustrative numerical experiment"
+            "qho1d.development.v1", "illustrative numerical experiment"
         )
         assert model_system_study_identity(piab1d) == ModelSystemStudyIdentity(
             "piab1d.test.v1", "illustrative numerical experiment"

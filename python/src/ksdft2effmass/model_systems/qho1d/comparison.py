@@ -22,12 +22,12 @@ from ksdft2effmass.operators.quantities import (
 )
 
 from .model import (
-    QHO1DComparisonRequest,
-    QHO1DComparisonResult,
+    Qho1dComparisonRequest,
+    Qho1dComparisonResult,
 )
 
 
-class QHO1DComparator:
+class Qho1dComparator:
     """Compare analytical, Dirichlet-interval, and ladder-operator models.
 
     The ActionObject has no hidden mutable state. It performs one deterministic
@@ -38,8 +38,8 @@ class QHO1DComparator:
 
     def execute(
         self,
-        request: QHO1DComparisonRequest,
-    ) -> QHO1DComparisonResult:
+        request: Qho1dComparisonRequest,
+    ) -> Qho1dComparisonResult:
         """Execute one aligned three-model comparison.
 
         Parameters
@@ -49,20 +49,20 @@ class QHO1DComparator:
 
         Returns
         -------
-        QHO1DComparisonResult
+        Qho1dComparisonResult
             Immutable injection, common-coordinate operators, signed difference, and
             numerical diagnostics.
 
         Raises
         ------
         TypeError
-            If ``request`` is not ``QHO1DComparisonRequest``.
+            If ``request`` is not ``Qho1dComparisonRequest``.
         ValueError
             If the sampled-state Gram matrix is not positive definite or the exact
             analytical energies and retained ladder Hamiltonian disagree.
         """
-        if not isinstance(request, QHO1DComparisonRequest):
-            raise TypeError("request must be QHO1DComparisonRequest")
+        if not isinstance(request, Qho1dComparisonRequest):
+            raise TypeError("request must be Qho1dComparisonRequest")
 
         analytical = request.analytical
         finite_difference = request.finite_difference
@@ -108,7 +108,7 @@ class QHO1DComparator:
         off_diagonal = difference - diagonal
         absolute = float(np.linalg.norm(difference, ord="fro"))
         reference_scale = float(np.linalg.norm(reference, ord="fro"))
-        return QHO1DComparisonResult(
+        return Qho1dComparisonResult(
             request=request,
             grid_spacing=spacing,
             interior_points=finite_difference.interior_points,

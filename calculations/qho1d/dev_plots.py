@@ -6,17 +6,18 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DComparisonResult,
-    QHO1DResultVerifier,
-    QHO1DStudyEvaluator,
-    QHO1DStudyInputDeserializer,
-    QHO1DStudyResult,
+    Qho1dComparisonResult,
+    Qho1dResultVerifier,
+    Qho1dStudyEvaluator,
+    Qho1dStudyInputDeserializer,
+    Qho1dStudyResult,
     Unitless,
     VectorQuantity,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 CALCULATION_ROOT = Path(__file__).resolve().parent
 REPOSITORY_ROOT = CALCULATION_ROOT.parents[1]
@@ -32,7 +33,7 @@ SELECTED_RETAINED_DIMENSION = 6
 DISPLAYED_STATES = 4
 
 
-def selected_comparison(result: QHO1DStudyResult) -> QHO1DComparisonResult:
+def selected_comparison(result: Qho1dStudyResult) -> Qho1dComparisonResult:
     """Return the fixed fine-grid comparison used by the state plots."""
     selected = tuple(
         comparison
@@ -47,7 +48,7 @@ def selected_comparison(result: QHO1DStudyResult) -> QHO1DComparisonResult:
 
 
 def aligned_eigenstates(
-    comparison: QHO1DComparisonResult,
+    comparison: Qho1dComparisonResult,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Return coordinates, exact states, aligned grid states, and grid eigenvalues."""
     request = comparison.request
@@ -79,7 +80,7 @@ def state_axes() -> tuple[Figure, np.ndarray]:
     return figure, np.asarray(axes, dtype=object)
 
 
-def plot_eigenstates(comparison: QHO1DComparisonResult, output: Path) -> None:
+def plot_eigenstates(comparison: Qho1dComparisonResult, output: Path) -> None:
     """Plot exact Hermite states and aligned finite-grid eigenvectors."""
     coordinates, exact, grid_states, _ = aligned_eigenstates(comparison)
     figure, axes = state_axes()
@@ -127,7 +128,7 @@ def plot_eigenstates(comparison: QHO1DComparisonResult, output: Path) -> None:
     plt.close(figure)
 
 
-def plot_eigenstate_distortion(comparison: QHO1DComparisonResult, output: Path) -> None:
+def plot_eigenstate_distortion(comparison: Qho1dComparisonResult, output: Path) -> None:
     """Plot pointwise state distortion and finite-grid eigenvalue error."""
     coordinates, exact, grid_states, grid_eigenvalues = aligned_eigenstates(comparison)
     exact_eigenvalues = comparison.request.analytical.number_state_energies(
@@ -161,11 +162,11 @@ def plot_eigenstate_distortion(comparison: QHO1DComparisonResult, output: Path) 
 
 
 def matching_results(
-    result: QHO1DStudyResult,
+    result: Qho1dStudyResult,
     *,
     box_half_width: float | None = None,
     grid_spacing: float | None = None,
-) -> tuple[QHO1DComparisonResult, ...]:
+) -> tuple[Qho1dComparisonResult, ...]:
     """Return deterministically ordered results matching explicit controls."""
     return tuple(
         comparison
@@ -178,7 +179,7 @@ def matching_results(
     )
 
 
-def residual_frobenius(comparison: QHO1DComparisonResult) -> float:
+def residual_frobenius(comparison: Qho1dComparisonResult) -> float:
     """Return the binary64 residual norm ``||H J - J H_K||_F``."""
     hamiltonian = (
         comparison.request.finite_difference.hamiltonian().to_dense().magnitude
@@ -190,7 +191,7 @@ def residual_frobenius(comparison: QHO1DComparisonResult) -> float:
     )
 
 
-def plot_diagnostics(result: QHO1DStudyResult, output: Path) -> None:
+def plot_diagnostics(result: Qho1dStudyResult, output: Path) -> None:
     """Plot existing discrepancy channels and the reusable residual diagnostic."""
     figure, axes = plt.subplots(2, 2, figsize=(11.0, 8.5))
     convergence_axis, gram_axis, components_axis, residual_axis = axes.ravel()
@@ -287,9 +288,9 @@ def plot_diagnostics(result: QHO1DStudyResult, output: Path) -> None:
 
 def main() -> int:
     """Verify the development result and write three replaceable figures."""
-    QHO1DResultVerifier().execute(RESULT_PATH, REPOSITORY_ROOT)
-    definition = QHO1DStudyInputDeserializer().execute(INPUT_PATH.read_bytes())
-    result = QHO1DStudyEvaluator().execute(definition)
+    Qho1dResultVerifier().execute(RESULT_PATH, REPOSITORY_ROOT)
+    definition = Qho1dStudyInputDeserializer().execute(INPUT_PATH.read_bytes())
+    result = Qho1dStudyEvaluator().execute(definition)
     selected = selected_comparison(result)
     DEVELOPMENT_ROOT.mkdir(parents=True, exist_ok=True)
     plot_eigenstates(selected, EIGENSTATE_OUTPUT_PATH)

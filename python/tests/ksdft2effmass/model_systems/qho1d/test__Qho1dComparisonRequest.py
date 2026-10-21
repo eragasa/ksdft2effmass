@@ -1,4 +1,4 @@
-r"""Software verification of ``QHO1DComparisonRequest``.
+r"""Software verification of ``Qho1dComparisonRequest``.
 
 Evidence profile: routine
 
@@ -22,6 +22,7 @@ human acceptance.
 """
 
 import pytest
+
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
@@ -29,36 +30,36 @@ from ksdft2effmass.model_systems import (
     UniformCartesianGrid1D,
 )
 from ksdft2effmass.model_systems.qho1d import (
-    QHO1DAnalytical,
-    QHO1DComparisonRequest,
-    QHO1DFiniteDifference,
-    QHO1DLadderOperators,
-    QHO1DNondimensionalizer,
+    Qho1dAnalytical,
+    Qho1dComparisonRequest,
+    Qho1dFiniteDifference,
+    Qho1dLadderOperators,
+    Qho1dNondimensionalizer,
     ScalarQuantity,
     Unitless,
 )
 from ksdft2effmass.operators import LadderOperator1D
 
 pytestmark = pytest.mark.software_verification
-SUT = QHO1DComparisonRequest
+SUT = Qho1dComparisonRequest
 
 
-class TestQHO1DComparisonRequest:
-    """Own software evidence for ``QHO1DComparisonRequest``."""
+class TestQho1dComparisonRequest:
+    """Own software evidence for ``Qho1dComparisonRequest``."""
 
     @staticmethod
-    def analytical(*, omega: float = 1.0) -> QHO1DAnalytical:
+    def analytical(*, omega: float = 1.0) -> Qho1dAnalytical:
         """Return valid dimensionless analytical oscillator parameters."""
-        return QHO1DAnalytical(
-            QHO1DNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=omega)
+        return Qho1dAnalytical(
+            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=omega)
         )
 
     @staticmethod
     def finite_difference(
-        analytical: QHO1DAnalytical,
-    ) -> QHO1DFiniteDifference:
+        analytical: Qho1dAnalytical,
+    ) -> Qho1dFiniteDifference:
         """Return one oscillator on a symmetric homogeneous Dirichlet interval."""
-        return QHO1DFiniteDifference(
+        return Qho1dFiniteDifference(
             analytical,
             DirichletInterval(
                 UniformCartesianGrid1D(
@@ -73,13 +74,13 @@ class TestQHO1DComparisonRequest:
     def test_public_api__package__exports_supported_request_class(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-003
 
-        Requirement: QHO1DComparisonRequest is available through the
+        Requirement: Qho1dComparisonRequest is available through the
         supported public model-systems import surface.
 
         Acceptance: The package binding is the same class object as the documented
         harmonic-oscillator import.
         """
-        assert model_systems.QHO1DComparisonRequest is (QHO1DComparisonRequest)
+        assert model_systems.Qho1dComparisonRequest is (Qho1dComparisonRequest)
 
     def test_constructor__model_binding__rejects_incompatible_models(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-004
@@ -93,19 +94,19 @@ class TestQHO1DComparisonRequest:
         """
         analytical = self.analytical()
         finite_difference = self.finite_difference(analytical)
-        ladder = QHO1DLadderOperators(analytical, LadderOperator1D(1))
+        ladder = Qho1dLadderOperators(analytical, LadderOperator1D(1))
 
         with pytest.raises(TypeError, match="analytical must be"):
-            QHO1DComparisonRequest(True, finite_difference, ladder)  # type: ignore[arg-type]
+            Qho1dComparisonRequest(True, finite_difference, ladder)  # type: ignore[arg-type]
         with pytest.raises(ValueError, match="must share"):
-            QHO1DComparisonRequest(
+            Qho1dComparisonRequest(
                 analytical,
                 self.finite_difference(self.analytical(omega=2.0)),
                 ladder,
             )
         with pytest.raises(ValueError, match="exceeds the spatial dimension"):
-            QHO1DComparisonRequest(
+            Qho1dComparisonRequest(
                 analytical,
                 finite_difference,
-                QHO1DLadderOperators(analytical, LadderOperator1D(4)),
+                Qho1dLadderOperators(analytical, LadderOperator1D(4)),
             )
