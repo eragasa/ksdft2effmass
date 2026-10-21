@@ -116,7 +116,7 @@ same generic mechanism merely to manufacture a second example.
 The equations above are project-applied finite-lattice coordinate identities; no new
 external algorithm implementation is selected by this topic.
 
-- PhysKit revision `7157dcedd0d220673d443c1c025e35a6fd1ffa7a` is the live
+- PhysKit revision `2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439` is the live
   pinned KSD-compatible owner revision for nonorthogonal 2-D/3-D finite-periodic
   lattice primitives. Earlier owner reviews audited this lineage at
   `949d106bc98975a18ad86d6fa84092ef0c68298e` and

@@ -51,7 +51,7 @@ facade, and installed-wheel backend
 smoke gates.
 
 KSD initially exact-pinned that migration revision; the live lock now selects reviewed
-Optimization descendant `d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` while retaining
+Optimization descendant `3cd32ea8985a855bcdbaffbf89af95e970b3bf14` while retaining
 focused consuming-project provenance, dense, sparse, and `ParameterSpace` smoke tests.
 Superseded donor bytes were preserved in an external
 recovery bundle and removed from active export staging, so there is no supported local

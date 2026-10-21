@@ -160,8 +160,8 @@ not widen it. `ksdft2effmass` does not re-export or wrap `ParameterSpace` merely
 rename it.
 
 The dependencies are pinned to exact reviewed commits
-`d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` for Optimization and
-`7157dcedd0d220673d443c1c025e35a6fd1ffa7a` for PhysKit. This reuse decision does not transfer HSH
+`3cd32ea8985a855bcdbaffbf89af95e970b3bf14` for Optimization and
+`2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439` for PhysKit. This reuse decision does not transfer HSH
 scientific policy, feasibility proofs, certificates, or dispositions to the
 optimization package.
 

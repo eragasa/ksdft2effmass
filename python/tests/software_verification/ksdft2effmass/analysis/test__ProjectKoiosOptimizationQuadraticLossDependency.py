@@ -21,7 +21,7 @@ from projectkoios.optimization.quadratic.quadratic import (
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
-_EXPECTED_COMMIT = "d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f"
+_EXPECTED_COMMIT = "3cd32ea8985a855bcdbaffbf89af95e970b3bf14"
 
 
 class _SparseMatrixView(Protocol):
