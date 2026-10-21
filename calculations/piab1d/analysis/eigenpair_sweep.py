@@ -9,16 +9,22 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.qm.piab1d.tise_analytical import (
+    Piab1DAnalyticalSolution,
+)
+from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
+from projectkoios.physkit.units import UnitSystem
+
 from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
 from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
-from ksdft2effmass.model_systems import (
-    Piab1dGridEvaluator,
-    Piab1dParameters,
-    ScalarQuantity,
+from ksdft2effmass.operators import (
+    MatrixQuantity,
+    RealSymmetricEigenpairResult,
+    SparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.operators import MatrixQuantity, SparseMatrixQuantity
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -28,11 +34,15 @@ type JsonValue = (
 class Piab1dEigenpairSweepWorkflow:
     """Decode, evaluate, and serialize the higher-index eigenpair campaign."""
 
-    __slots__ = ("diagnostic_analyzer", "grid_evaluator", "order_estimator")
+    __slots__ = (
+        "diagnostic_analyzer",
+        "finite_difference_solver",
+        "order_estimator",
+    )
 
     def __init__(self) -> None:
         """Construct the campaign from reusable public analysis actions."""
-        self.grid_evaluator = Piab1dGridEvaluator()
+        self.finite_difference_solver = Piab1dTiseFdSolver()
         self.order_estimator = ObservedConvergenceOrderEstimator()
         self.diagnostic_analyzer = RealSymmetricEigenpairDiagnosticAnalyzer()
 
@@ -54,13 +64,14 @@ class Piab1dEigenpairSweepWorkflow:
         values = self.mapping(
             payload.get("dimensionless_parameters"), "dimensionless_parameters"
         )
+        if set(values) != {"length", "mass"}:
+            raise ValueError("dimensionless_parameters fields do not match schema one")
         length = self.positive_real(values.get("length"), "length")
         mass = self.positive_real(values.get("mass"), "mass")
-        hbar = self.positive_real(values.get("hbar"), "hbar")
-        parameters = Piab1dParameters(
-            ScalarQuantity(length, Unitless()),
-            ScalarQuantity(mass, Unitless()),
-            ScalarQuantity(hbar, Unitless()),
+        model = Piab1D(
+            length=length,
+            mass=mass,
+            unit_system=UnitSystem.NONDIMENSIONAL,
         )
         series = self.mapping(payload.get("grid_series"), "grid_series")
         point_counts = self.integer_sequence(
@@ -77,12 +88,27 @@ class Piab1dEigenpairSweepWorkflow:
         fixed_spacings: dict[int, list[float]] = {mode: [] for mode in fixed_modes}
         fixed_point_counts: dict[int, list[int]] = {mode: [] for mode in fixed_modes}
         for points in point_counts:
-            evaluation = self.grid_evaluator.execute(parameters, points)
-            eigenpairs = evaluation.eigenpairs
-            if not isinstance(eigenpairs.operator, SparseMatrixQuantity):
-                raise TypeError("grid evaluator must retain a sparse Hamiltonian")
+            solution = self.finite_difference_solver.solve(
+                model=model,
+                interior_points=points,
+            )
+            hamiltonian = SparseMatrixQuantity.from_csr(
+                solution.hamiltonian.to_csr(),
+                Unitless(),
+            )
+            eigenpairs = RealSymmetricEigenpairResult(
+                operator=hamiltonian,
+                eigenvalues=VectorQuantity(
+                    solution.eigenpairs.eigenvalues,
+                    hamiltonian.unit,
+                ),
+                eigenvectors=MatrixQuantity(
+                    solution.eigenpairs.eigenvectors,
+                    Unitless(),
+                ),
+            )
             eigenvalues = eigenpairs.eigenvalues.magnitude
-            spacing = evaluation.finite_difference.grid_spacing.magnitude
+            spacing = solution.grid_spacing.magnitude
             node_indices = np.arange(1, points + 1, dtype=np.float64)[:, np.newaxis]
             mode_indices = np.arange(1, points + 1, dtype=np.float64)[np.newaxis, :]
             nodal_oracles = np.sqrt(2.0 / (points + 1)) * np.sin(
@@ -96,7 +122,9 @@ class Piab1dEigenpairSweepWorkflow:
             diagnostic_overlaps = diagnostics.overlap_defects.magnitude
             diagnostic_residuals = diagnostics.scaled_column_residuals.magnitude
             records: list[JsonValue] = []
-            continuum_levels = evaluation.analytical.energy_levels(points).magnitude
+            continuum_levels = Piab1DAnalyticalSolution(model=model).evaluate(
+                count=points
+            ).energies.magnitude
             overlap_defects: list[float] = []
             scaled_residuals: list[float] = []
             for mode in range(1, points + 1):
@@ -178,11 +206,30 @@ class Piab1dEigenpairSweepWorkflow:
                 {"path": path.relative_to(root).as_posix(), "sha256": self.sha256(path)}
                 for path in self.implementation_paths()
             ],
+            "dependency_identities": self.dependency_identities(),
             "python_version": platform.python_version(),
             "numpy_version": np.__version__,
             "floating_point": "IEEE-754 binary64 through numpy.float64",
             "eigensolver": "scipy.linalg.eigh_tridiagonal",
         }
+
+    @staticmethod
+    def dependency_identities() -> list[JsonValue]:
+        """Return exact external owners used by PIAB1D production."""
+        return [
+            {
+                "distribution": "projectkoios-optimization",
+                "repository": "https://github.com/eragasa/projectkoios-optimization",
+                "revision": "3cd32ea8985a855bcdbaffbf89af95e970b3bf14",
+                "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
+            },
+            {
+                "distribution": "projectkoios-physkit",
+                "repository": "https://github.com/eragasa/projectkoios-physkit",
+                "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
+                "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+            },
+        ]
 
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
@@ -196,8 +243,6 @@ class Piab1dEigenpairSweepWorkflow:
         return (
             source_root / "analysis" / "convergence.py",
             source_root / "analysis" / "operators" / "eigenpair_diagnostics.py",
-            source_root / "model_systems" / "piab1d" / "model.py",
-            source_root / "model_systems" / "piab1d" / "evaluation.py",
             source_root / "operators" / "eigenpairs.py",
             Path(__file__).resolve(),
         )

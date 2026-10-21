@@ -47,13 +47,6 @@ from .periodic_1d import (
     PlaneWaveFiberHamiltonian1DConstructor,
     PlaneWaveFiberHamiltonian1DResult,
 )
-from .piab1d import (
-    Piab1dAnalytical,
-    Piab1dFiniteDifference,
-    Piab1dGridEvaluation,
-    Piab1dGridEvaluator,
-    Piab1dParameters,
-)
 from .qho1d import (
     Qho1dAnalytical,
     Qho1dComparator,
@@ -79,11 +72,6 @@ __all__ = [
     "Qho1dParameters",
     "MODEL_SYSTEM_UNIT_CONVERTER",
     "MatrixQuantity",
-    "Piab1dAnalytical",
-    "Piab1dFiniteDifference",
-    "Piab1dGridEvaluation",
-    "Piab1dGridEvaluator",
-    "Piab1dParameters",
     "PeriodicFiniteDifferenceFiberHamiltonian1DConstructor",
     "PeriodicFiniteDifferenceFiberHamiltonian1DResult",
     "PeriodicFourierPotential1D",

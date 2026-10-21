@@ -9,23 +9,24 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
+from projectkoios.physkit.units import UnitSystem
+
 from ksdft2effmass.analysis.operators import (
     OrthogonalCompressionResidualAnalyzer,
     RealSymmetricEigenpairDiagnosticAnalyzer,
-)
-from ksdft2effmass.model_systems import (
-    Piab1dGridEvaluator,
-    Piab1dParameters,
-    ScalarQuantity,
-    Unitless,
 )
 from ksdft2effmass.operators import (
     MatrixQuantity,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
+    RealSymmetricEigenpairResult,
     RepresentedMatrixNormAnalyzer,
     RepresentedMatrixNormResult,
     SparseMatrixQuantity,
+    Unitless,
+    VectorQuantity,
 )
 
 type JsonValue = (
@@ -39,7 +40,7 @@ class Piab1dNormSweepWorkflow:
     __slots__ = (
         "compression",
         "eigenpair_analyzer",
-        "grid_evaluator",
+        "finite_difference_solver",
         "norm_analyzer",
         "residual_analyzer",
         "selector",
@@ -47,7 +48,7 @@ class Piab1dNormSweepWorkflow:
 
     def __init__(self) -> None:
         """Construct the campaign from reusable public operator actions."""
-        self.grid_evaluator = Piab1dGridEvaluator()
+        self.finite_difference_solver = Piab1dTiseFdSolver()
         self.selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
         self.norm_analyzer = RepresentedMatrixNormAnalyzer()
@@ -74,12 +75,14 @@ class Piab1dNormSweepWorkflow:
         values = self.mapping(
             payload.get("dimensionless_parameters"), "dimensionless_parameters"
         )
-        parameters = Piab1dParameters(
-            ScalarQuantity(
-                self.positive_real(values.get("length"), "length"), Unitless()
-            ),
-            ScalarQuantity(self.positive_real(values.get("mass"), "mass"), Unitless()),
-            ScalarQuantity(self.positive_real(values.get("hbar"), "hbar"), Unitless()),
+        if set(values) != {"length", "mass"}:
+            raise ValueError("dimensionless_parameters fields do not match schema one")
+        length = self.positive_real(values.get("length"), "length")
+        mass = self.positive_real(values.get("mass"), "mass")
+        model = Piab1D(
+            length=length,
+            mass=mass,
+            unit_system=UnitSystem.NONDIMENSIONAL,
         )
         series = self.mapping(payload.get("grid_series"), "grid_series")
         point_counts = self.integer_sequence(
@@ -93,14 +96,71 @@ class Piab1dNormSweepWorkflow:
 
         grids: list[JsonValue] = []
         for points in point_counts:
-            evaluation = self.grid_evaluator.execute(parameters, points)
-            eigenpairs = evaluation.eigenpairs
-            if not isinstance(eigenpairs.operator, SparseMatrixQuantity):
-                raise TypeError("grid evaluator must retain a sparse Hamiltonian")
-            hamiltonian = eigenpairs.operator
+            solution = self.finite_difference_solver.solve(
+                model=model,
+                interior_points=points,
+            )
+            hamiltonian = SparseMatrixQuantity.from_csr(
+                solution.hamiltonian.to_csr(),
+                Unitless(),
+            )
+            eigenpairs = RealSymmetricEigenpairResult(
+                operator=hamiltonian,
+                eigenvalues=VectorQuantity(
+                    solution.eigenpairs.eigenvalues,
+                    hamiltonian.unit,
+                ),
+                eigenvectors=MatrixQuantity(
+                    solution.eigenpairs.eigenvectors,
+                    Unitless(),
+                ),
+            )
             dense_hamiltonian = hamiltonian.to_dense().magnitude
             subspace = self.selector.execute(eigenpairs, retained)
             compression = self.compression.execute(hamiltonian, subspace)
+            eigenvalues = eigenpairs.eigenvalues.magnitude
+            eigenvectors = eigenpairs.eigenvectors.magnitude
+            retained_vectors = subspace.basis_vectors.magnitude
+            projector = subspace.projector().magnitude
+            retained_coordinates = compression.coordinates.magnitude
+            retained_embedded = compression.embedded.magnitude
+            exact_discrete = solution.closed_form_discrete_energies().magnitude
+            expected_retained = np.diag(exact_discrete[:retained])
+            complement = np.eye(points) - projector
+            finite_identity_diagnostics: dict[str, JsonValue] = {
+                "discrete_spectrum_maximum_absolute_error": float(
+                    np.max(np.abs(eigenvalues - exact_discrete))
+                ),
+                "spectral_reconstruction_frobenius_error": float(
+                    np.linalg.norm(
+                        dense_hamiltonian
+                        - eigenvectors @ np.diag(eigenvalues) @ eigenvectors.T,
+                        ord="fro",
+                    )
+                ),
+                "projector_idempotency_frobenius_error": float(
+                    np.linalg.norm(projector @ projector - projector, ord="fro")
+                ),
+                "retained_coordinate_frobenius_error": float(
+                    np.linalg.norm(
+                        retained_coordinates - expected_retained, ord="fro"
+                    )
+                ),
+                "retained_embedding_frobenius_error": float(
+                    np.linalg.norm(
+                        retained_embedded
+                        - retained_vectors
+                        @ retained_coordinates
+                        @ retained_vectors.T,
+                        ord="fro",
+                    )
+                ),
+                "spectral_leakage_frobenius_norm": float(
+                    np.linalg.norm(
+                        complement @ dense_hamiltonian @ retained_vectors, ord="fro"
+                    )
+                ),
+            }
             compression_residuals = self.residual_analyzer.execute(
                 hamiltonian, subspace, compression
             )
@@ -136,8 +196,9 @@ class Piab1dNormSweepWorkflow:
             grids.append(
                 {
                     "interior_points": points,
-                    "spacing": evaluation.finite_difference.grid_spacing.magnitude,
+                    "spacing": solution.grid_spacing.magnitude,
                     "hamiltonian_norms": self.norms(reference_norms),
+                    "finite_identity_diagnostics": finite_identity_diagnostics,
                     "operator_residuals": residuals,
                     "full_eigenpair_algebraic_residual": {
                         "raw": self.norms(algebraic_norms),
@@ -192,11 +253,30 @@ class Piab1dNormSweepWorkflow:
                 {"path": path.relative_to(root).as_posix(), "sha256": self.sha256(path)}
                 for path in self.implementation_paths()
             ],
+            "dependency_identities": self.dependency_identities(),
             "python_version": platform.python_version(),
             "numpy_version": np.__version__,
             "floating_point": "IEEE-754 binary64 through numpy.float64",
             "eigensolver": "scipy.linalg.eigh_tridiagonal",
         }
+
+    @staticmethod
+    def dependency_identities() -> list[JsonValue]:
+        """Return exact external owners used by PIAB1D production."""
+        return [
+            {
+                "distribution": "projectkoios-optimization",
+                "repository": "https://github.com/eragasa/projectkoios-optimization",
+                "revision": "3cd32ea8985a855bcdbaffbf89af95e970b3bf14",
+                "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
+            },
+            {
+                "distribution": "projectkoios-physkit",
+                "repository": "https://github.com/eragasa/projectkoios-physkit",
+                "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
+                "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+            },
+        ]
 
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
@@ -210,8 +290,6 @@ class Piab1dNormSweepWorkflow:
         return (
             source_root / "analysis" / "operators" / "compression_residuals.py",
             source_root / "analysis" / "operators" / "eigenpair_diagnostics.py",
-            source_root / "model_systems" / "piab1d" / "model.py",
-            source_root / "model_systems" / "piab1d" / "evaluation.py",
             source_root / "operators" / "eigenpairs.py",
             source_root / "operators" / "subspaces.py",
             source_root / "operators" / "matrix_norms.py",

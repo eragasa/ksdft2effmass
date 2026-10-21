@@ -2,13 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
+from projectkoios.numerics.quadrature.numpy.uniform_1d import (
+    NumpyHomogeneousDirichletInteriorQuadrature1D,
+)
+from projectkoios.physkit.qm.piab1d import Piab1D
 
 from ksdft2effmass.model_systems.study import (
+    ModelId,
     ModelSystemStudyBase,
     ModelSystemStudyIdentity,
+    ModelSystemStudySchemaId,
 )
 from ksdft2effmass.operators import (
     MatrixQuantity,
@@ -20,61 +26,38 @@ from ksdft2effmass.operators import (
 
 @dataclass(frozen=True, slots=True)
 class Piab1dStudyDefinition(ModelSystemStudyBase):
-    """Retain one validated version-one residual-study definition."""
+    """Define one finite PIAB1D spectral-reduction study."""
 
-    schema_version: int
-    experiment_id: str
-    evidence_status: str
-    length: float
-    mass: float
-    hbar: float
-    interior_points: int
-    retained_dimension: int
-    boundary_kind: str
-    boundary_interpretation: str
+    model: Piab1D
+    Nx_pts_interior: int
+    N_retained_eigenpairs: int
+    quadrature: bool = True
+    model_id: ModelId = field(default=ModelId.piab1d, init=False)
+    schema_id: ModelSystemStudySchemaId = field(
+        default=ModelSystemStudySchemaId.piab1d_v2,
+        init=False,
+    )
 
     def __post_init__(self) -> None:
-        if self.schema_version != 1:
-            raise ValueError("schema_version must equal one")
-        identity = self.study_identity()
-        if identity.evidence_status != "illustrative numerical experiment":
-            raise ValueError("evidence_status must identify an illustrative experiment")
-        for value, name in (
-            (self.length, "length"),
-            (self.mass, "mass"),
-            (self.hbar, "hbar"),
-        ):
-            if type(value) is not float:
-                raise TypeError(f"{name} must be a built-in float")
-            if not np.isfinite(value) or value <= 0.0:
-                raise ValueError(f"{name} must be positive and finite")
-        if type(self.interior_points) is not int:
-            raise TypeError("interior_points must be a built-in int")
-        if self.interior_points <= 0:
-            raise ValueError("interior_points must be positive")
-        if type(self.retained_dimension) is not int:
-            raise TypeError("retained_dimension must be a built-in int")
-        if self.retained_dimension <= 0:
-            raise ValueError("retained_dimension must be positive")
-        if self.retained_dimension > self.interior_points:
-            raise ValueError("retained_dimension must not exceed interior_points")
-        if type(self.boundary_kind) is not str:
-            raise TypeError("boundary_kind must be a string")
-        if self.boundary_kind != "cyclic closure on the same finite coordinate space":
-            raise ValueError("boundary_kind must identify the version-one reference")
-        if type(self.boundary_interpretation) is not str:
-            raise TypeError("boundary_interpretation must be a string")
-        if self.boundary_interpretation != (
-            "Declared comparison reference only; not a "
-            "representation-independent continuum potential."
-        ):
+        if not isinstance(self.model, Piab1D):
+            raise TypeError("model must be Piab1D")
+        if type(self.Nx_pts_interior) is not int:
+            raise TypeError("Nx_pts_interior must be a built-in int")
+        if self.Nx_pts_interior <= 0:
+            raise ValueError("Nx_pts_interior must be positive")
+        if type(self.N_retained_eigenpairs) is not int:
+            raise TypeError("N_retained_eigenpairs must be a built-in int")
+        if not 0 < self.N_retained_eigenpairs <= self.Nx_pts_interior:
             raise ValueError(
-                "boundary_interpretation must identify the version-one interpretation"
+                "N_retained_eigenpairs must be positive and not exceed "
+                "Nx_pts_interior"
             )
+        if type(self.quadrature) is not bool:
+            raise TypeError("quadrature must be a built-in bool")
 
     def study_identity(self) -> ModelSystemStudyIdentity:
-        """Return the shared nominal identity for this PIAB1D study."""
-        return ModelSystemStudyIdentity(self.experiment_id, self.evidence_status)
+        """Return the fixed model and schema identity."""
+        return ModelSystemStudyIdentity(self.model_id, self.schema_id)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -85,6 +68,8 @@ class Piab1dResidualStudyResult:
     hamiltonian: SparseMatrixQuantity
     eigenvalues: VectorQuantity
     eigenvectors: MatrixQuantity
+    quadrature_rule: NumpyHomogeneousDirichletInteriorQuadrature1D | None
+    quadrature_normalized_eigenvectors: MatrixQuantity | None
     retained_vectors: MatrixQuantity
     projector: MatrixQuantity
     retained_embedded: MatrixQuantity
@@ -107,6 +92,25 @@ class Piab1dResidualStudyResult:
             raise TypeError("eigenvalues must be VectorQuantity")
         if not isinstance(self.eigenvectors, MatrixQuantity):
             raise TypeError("eigenvectors must be MatrixQuantity")
+        if self.definition.quadrature:
+            if not isinstance(
+                self.quadrature_rule,
+                NumpyHomogeneousDirichletInteriorQuadrature1D,
+            ):
+                raise TypeError(
+                    "quadrature_rule must retain the enabled interior rule"
+                )
+            if not isinstance(
+                self.quadrature_normalized_eigenvectors,
+                MatrixQuantity,
+            ):
+                raise TypeError(
+                    "quadrature_normalized_eigenvectors must be MatrixQuantity"
+                )
+        elif self.quadrature_rule is not None or (
+            self.quadrature_normalized_eigenvectors is not None
+        ):
+            raise ValueError("disabled quadrature must not retain quadrature results")
         for quantity in (
             self.retained_vectors,
             self.projector,
@@ -132,8 +136,8 @@ class Piab1dResidualStudyResult:
             for item in self.diagnostics
         ):
             raise TypeError("diagnostics must be immutable named scalar quantities")
-        full_dimension = self.definition.interior_points
-        retained_dimension = self.definition.retained_dimension
+        full_dimension = self.definition.Nx_pts_interior
+        retained_dimension = self.definition.N_retained_eigenpairs
         full_shape = (full_dimension, full_dimension)
         retained_shape = (retained_dimension, retained_dimension)
         if self.hamiltonian.shape != full_shape:
@@ -142,6 +146,45 @@ class Piab1dResidualStudyResult:
             raise ValueError("eigenvalues must span the full state space")
         if self.eigenvectors.magnitude.shape != full_shape:
             raise ValueError("eigenvectors must span the full state space")
+        if self.quadrature_rule is not None:
+            if self.quadrature_rule.interval != (0.0, self.definition.model.length):
+                raise ValueError("quadrature interval must match the PIAB1D model")
+            if self.quadrature_rule.point_count != full_dimension + 2:
+                raise ValueError(
+                    "quadrature point count must include both Dirichlet endpoints"
+                )
+            quadrature_vectors = self.quadrature_normalized_eigenvectors
+            if quadrature_vectors is None:
+                raise RuntimeError("enabled quadrature vectors must be retained")
+            if quadrature_vectors.magnitude.shape != full_shape:
+                raise ValueError(
+                    "quadrature_normalized_eigenvectors must span the full state space"
+                )
+            weights = self.quadrature_rule.interior_weights
+            expected_vectors = self.eigenvectors.magnitude / np.sqrt(weights[:, None])
+            tolerance = 256.0 * np.finfo(np.float64).eps
+            if not np.allclose(
+                quadrature_vectors.magnitude,
+                expected_vectors,
+                rtol=tolerance,
+                atol=tolerance,
+            ):
+                raise ValueError(
+                    "quadrature-normalized eigenvectors must rescale solver vectors"
+                )
+            weighted_gram = (
+                quadrature_vectors.magnitude.T
+                @ (weights[:, None] * quadrature_vectors.magnitude)
+            )
+            if not np.allclose(
+                weighted_gram,
+                np.eye(full_dimension),
+                rtol=tolerance,
+                atol=tolerance,
+            ):
+                raise ValueError(
+                    "quadrature-normalized eigenvectors must have unit weighted Gram"
+                )
         if self.retained_vectors.magnitude.shape != (
             full_dimension,
             retained_dimension,

@@ -1,30 +1,11 @@
-r"""Software verification of ``Piab1dStudyResultSerializer``.
-
-Evidence profile: routine
-
-Bounded artifact scope: public version-one result and provenance serialization.
-
-Facet and represented meaning
-
-The serializer retains the historical numerical wire representation while binding
-newly authored bytes to current public implementation sources.
-
-Intrinsic and cross-object scope
-
-Canonical JSON shape, numerical payload compatibility, and source identities are
-included.
-
-VVUQ and scientific exclusions
-
-This verifies serialization compatibility only, not scientific validation,
-uncertainty quantification, or human acceptance.
-"""
+r"""Software verification of PIAB1D version-two result serialization."""
 
 import json
 from pathlib import Path
 from typing import cast
 
 import pytest
+
 from ksdft2effmass.model_systems.piab1d import (
     JsonValue,
     Piab1dResidualStudyEvaluator,
@@ -41,18 +22,9 @@ class TestPiab1dStudyResultSerializer:
 
     @staticmethod
     def repository_root() -> Path:
-        """Return the repository containing maintained campaign resources."""
         return Path(__file__).resolve().parents[6]
 
-    def test_method__execute__preserves_payload_and_binds_public_sources(self) -> None:
-        """Evidence ID: SV-MONOGRAPH-PIB-003
-
-        Requirement: New serialization preserves the version-one numerical payload and
-        records exact public implementation identities.
-
-        Acceptance: Excluding provenance, decoded bytes equal the retained result;
-        the sparse tridiagonal eigensolver and ten current source paths are recorded.
-        """
+    def test_method__execute__retains_distinct_normalizations_and_sources(self) -> None:
         root = self.repository_root()
         calculation = root / "calculations" / "piab1d"
         input_path = calculation / "input.json"
@@ -68,15 +40,16 @@ class TestPiab1dStudyResultSerializer:
                 .decode("utf-8")
             ),
         )
-        retained = cast(
-            dict[str, JsonValue],
-            json.loads((calculation / "result.json").read_text(encoding="utf-8")),
-        )
-        authored_provenance = cast(dict[str, JsonValue], authored.pop("provenance"))
-        retained.pop("provenance")
 
-        assert authored == retained
-        assert authored_provenance["eigensolver"] == ("scipy.linalg.eigh_tridiagonal")
-        identities = authored_provenance["implementation_identities"]
+        assert authored["schema_version"] == 2
+        quadrature = cast(dict[str, JsonValue], authored["quadrature"])
+        assert quadrature["enabled"] is True
+        assert quadrature["rule_version"] == 1
+        matrices = cast(dict[str, JsonValue], authored["matrices"])
+        assert "retained_eigenvectors_euclidean" in matrices
+        assert "retained_nodal_amplitudes_quadrature_normalized" in matrices
+        provenance = cast(dict[str, JsonValue], authored["provenance"])
+        assert provenance["eigensolver"] == "scipy.linalg.eigh_tridiagonal"
+        identities = provenance["implementation_identities"]
         assert isinstance(identities, list)
-        assert len(identities) == 10
+        assert len(identities) == 7

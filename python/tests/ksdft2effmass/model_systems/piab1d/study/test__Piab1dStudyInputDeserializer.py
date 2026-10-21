@@ -1,41 +1,20 @@
-r"""Software verification of ``Piab1dStudyInputDeserializer``.
-
-Evidence profile: routine
-
-Bounded artifact scope: version-one particle-in-a-box campaign input adapter.
-
-Facet and represented meaning
-
-The serializer-owned ActionObject converts retained UTF-8 JSON bytes into one closed
-immutable study definition.
-
-Intrinsic and cross-object scope
-
-Field closure, numeric admission, and exact retained values are included.
-
-VVUQ and scientific exclusions
-
-This verifies wire adaptation only, not numerical correctness, scientific validation,
-uncertainty quantification, or human acceptance.
-"""
+r"""Software verification of the version-two PIAB1D input adapter."""
 
 from pathlib import Path
 
 import pytest
-from ksdft2effmass.model_systems.piab1d import (
-    Piab1dStudyInputDeserializer,
-)
+
+from ksdft2effmass.model_systems.piab1d import Piab1dStudyInputDeserializer
 
 pytestmark = pytest.mark.software_verification
 SUT = Piab1dStudyInputDeserializer
 
 
 class TestPiab1dStudyInputDeserializer:
-    """Own software evidence for the particle-in-box input adapter."""
+    """Own software evidence for the closed particle-in-box input adapter."""
 
     @staticmethod
     def input_path() -> Path:
-        """Return the maintained version-one input path."""
         return (
             Path(__file__).resolve().parents[6]
             / "calculations"
@@ -43,20 +22,33 @@ class TestPiab1dStudyInputDeserializer:
             / "input.json"
         )
 
-    def test_method__execute__decodes_exact_retained_definition(self) -> None:
-        """Evidence ID: SV-MONOGRAPH-PIB-001
-
-        Requirement: The public adapter decodes only the closed version-one input.
-
-        Acceptance: The maintained input yields ``L=m=hbar=1``, eight interior points,
-        and retained dimension three.
-        """
+    def test_method__execute__decodes_physkit_model_and_quadrature(self) -> None:
         definition = Piab1dStudyInputDeserializer().execute(
             self.input_path().read_bytes()
         )
 
-        assert definition.length == 1.0
-        assert definition.mass == 1.0
-        assert definition.hbar == 1.0
-        assert definition.interior_points == 8
-        assert definition.retained_dimension == 3
+        assert definition.model.length == 1.0
+        assert definition.model.mass == 1.0
+        assert definition.model.hbar_quantity.magnitude == 1.0
+        assert definition.Nx_pts_interior == 8
+        assert definition.N_retained_eigenpairs == 3
+        assert definition.quadrature is True
+
+    def test_method__execute__accepts_explicitly_disabled_quadrature(self) -> None:
+        payload = self.input_path().read_bytes().replace(
+            b'"quadrature": true',
+            b'"quadrature": false',
+        )
+
+        definition = Piab1dStudyInputDeserializer().execute(payload)
+
+        assert definition.quadrature is False
+
+    def test_method__execute__rejects_numeric_quadrature_flag(self) -> None:
+        payload = self.input_path().read_bytes().replace(
+            b'"quadrature": true',
+            b'"quadrature": 1',
+        )
+
+        with pytest.raises(TypeError, match="quadrature"):
+            Piab1dStudyInputDeserializer().execute(payload)

@@ -11,7 +11,9 @@ quantification study.
 provisional Appendix D draft. `protocol.md` maps the manuscript's mathematical
 questions to retained evidence. `development_report/development_report.tex` is the
 calculation-owned report focused on spectral reduction, with its report-local BibTeX
-file at `development_report/references.bib`. The maintained LaTeX appendix remains the
+file at `development_report/references.bib`. The dated search protocol, screening
+criteria, evidence matrix, and bounded novelty assessment are retained in
+`development_report/prior_art_review.md`. The maintained LaTeX appendix remains the
 manuscript source of record.
 
 The standalone LaTeX source `appendix-d-draft.tex` renders the report with the
@@ -38,22 +40,30 @@ The generated report PDF is `calculations/piab1d/build/development_report.pdf`
 and is not retained evidence unless separately reviewed and admitted to the checksum
 catalog.
 
-The core residual experiment composes the public
-`ksdft2effmass.model_systems.piab1d` contracts with reusable finite-operator analyses
-from `ksdft2effmass.analysis.operators`. Calculation-local modules under `analysis/`
-own input decoding, retained wire shapes, provenance, and independent verification;
-the root runners remain thin CLI adapters. The retained version-one numerical payloads
-remain unchanged. Their embedded historical paths record the pre-consolidation
-location and are resolved only by the bounded historical verifier rule. The
-finite-difference Hamiltonian uses immutable canonical CSR storage, and its complete
-tridiagonal eigensystem is solved from the three represented diagonals without dense
-materialization before diagonalization.
+PhysKit owns the `Piab1D` model, analytical spectrum, homogeneous-Dirichlet
+grid, finite-difference Hamiltonian, and eigensolution. Project Koios Numerics owns
+the unit-free closed-interval trapezoidal rule, homogeneous-Dirichlet interior
+restriction, and diagonal mass algebra. The core residual experiment composes those
+pinned owners with reusable finite-operator analyses from
+`ksdft2effmass.analysis.operators`; KSD owns retained-mode selection, residual
+semantics, wire shapes, provenance, and independent verification. No local PIAB1D
+model or solver compatibility facade is retained. The current calculation pins
+Project Koios Numerics through Optimization revision
+`3cd32ea8985a855bcdbaffbf89af95e970b3bf14` and PhysKit revision
+`2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`.
 
-The experiment uses the dimensionless convention $L=m=\hbar=1$. The residual
-example uses eight interior Dirichlet-grid coordinates and retains the three
-lowest discrete eigenvectors. A grid-refinement extension uses
-$N=8,16,32,64,128,256$ interior points and follows the first six fixed continuum
-mode indices.
+The version-two core input enables quadrature explicitly by default. The result keeps
+Euclidean-normalized solver vectors separate from quadrature-normalized nodal
+amplitudes and serializes the rule identity, spacing, weights, and diagonal mass
+matrix. Constant interior weight leaves the spectral projector, reduced Hamiltonian,
+and residual matrices invariant. The Hamiltonian is solved as a standard
+real-symmetric eigenproblem, not a generalized eigenproblem.
+
+The experiment uses PhysKit's nondimensional unit system, which supplies
+$\hbar=1$, with $L=m=1$. The residual example uses eight interior
+Dirichlet-grid coordinates and retains the three lowest discrete eigenvectors. The
+grid studies evaluate every interior dimension from 8 through 256 and report declared
+fixed or full-spectrum mode inventories.
 
 ## Question
 
@@ -150,7 +160,9 @@ uv run --extra notebooks python \
   --operator-output \
   ../calculations/piab1d/operator-residual-norms.png \
   --algebraic-output \
-  ../calculations/piab1d/eigensolver-residual-norms.png
+  ../calculations/piab1d/eigensolver-residual-norms.png \
+  --identity-output \
+  ../calculations/piab1d/finite-identity-diagnostics.png
 
 uv run python \
   ../calculations/piab1d/run_identifiability.py \
@@ -183,9 +195,9 @@ $1.1207\times10^{-4}$. Their final observed refinement orders are 1.99998,
 1.99991, and 1.99981. This supports the expected second-order behavior for these
 fixed modes under this grid series.
 
-The higher-index sweep diagonalizes the full
-$N=8,16,32,64,128,256$ spectra. Fixed modes enter when they exist: $n=8$ from
-$N=8$, $n=16$ from $N=16$, and $n=32$ from $N=32$. They converge toward order
+The higher-index sweep diagonalizes every full spectrum for interior dimensions
+$N=8,9,\ldots,256$. Fixed modes enter when they exist: $n=8$ from $N=8$,
+$n=16$ from $N=16$, and $n=32$ from $N=32$. They converge toward order
 two, but eigenvalues whose index
 grows in proportion to $N$ retain substantial dispersion error. At fractional
 mode index near one half, the relative error remains about 0.18 across the grid

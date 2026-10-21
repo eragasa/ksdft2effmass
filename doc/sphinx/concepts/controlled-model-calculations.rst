@@ -122,20 +122,18 @@ before either is interpreted.
 One-dimensional particle in a box
 ---------------------------------
 
-.. currentmodule:: ksdft2effmass.model_systems
-
-:class:`Piab1dParameters` stores the box length :math:`L`, particle mass
-:math:`m`, and reduced Planck constant :math:`\hbar` in either one fully physical unit
-mode or one fully nondimensional mode.  :class:`Piab1dAnalytical` represents
-the continuum homogeneous-Dirichlet spectrum
+PhysKit owns the ``Piab1D`` model, its unit system, the analytical solution, and the
+homogeneous-Dirichlet finite-difference eigensolution. The unit system supplies
+:math:`\hbar`; KSD callers provide the box length :math:`L`, particle mass :math:`m`,
+and the selected PhysKit unit system. The analytical spectrum is
 
 .. math::
 
    E_n = \frac{\hbar^2\pi^2n^2}{2mL^2},
    \qquad n=1,2,\ldots.
 
-:class:`Piab1dFiniteDifference` uses :math:`N` interior points and spacing
-:math:`h=L/(N+1)`.  Its exact centered-difference eigenvalues are
+The PhysKit finite-difference solution uses :math:`N` interior points and spacing
+:math:`h=L/(N+1)`. Its exact centered-difference eigenvalues are
 
 .. math::
 
@@ -144,14 +142,19 @@ the continuum homogeneous-Dirichlet spectrum
      \sin^2\left(\frac{n\pi}{2(N+1)}\right),
    \qquad n=1,\ldots,N.
 
-:class:`Piab1dGridEvaluator` constructs the interval, sparse Hamiltonian, and
-complete real-symmetric eigensystem for one declared grid.  It supports either one
-fully physical unit mode or the explicitly nondimensional mode used by the retained
-monograph campaigns.  In physical mode the coordinate grid has length units, the
-homogeneous wavefunction boundary value has inverse-square-root-length units, and the
-Hamiltonian and eigenvalues have energy units.  Agreement with the discrete closed
-form checks matrix construction and eigensolver behavior; comparison with
-:math:`E_n` measures finite-difference error for the declared modes and grids.
+``projectkoios.physkit.qm.piab1d.tise_fd.Piab1dTiseFdSolver`` constructs the
+interval, sparse Hamiltonian, and complete real-symmetric eigensystem for one declared
+grid. KSD converts that result only at the explicit boundary required by its retained
+operator-analysis types. Agreement with PhysKit's discrete closed form checks matrix
+construction and eigensolver behavior; comparison with :math:`E_n` measures
+finite-difference error for the declared modes and grids.
+
+The optional version-two quadrature record is enabled by default. Project Koios
+Numerics supplies the unit-free endpoint-inclusive trapezoidal rule, its explicit
+homogeneous-Dirichlet interior restriction, and the diagonal mass matrix. PhysKit
+applies the resulting unit-bearing weights to sampled quantum states. This produces
+quadrature-normalized nodal amplitudes while retaining the Euclidean-normalized solver
+vectors separately; it does not introduce a generalized eigenproblem.
 
 Residual experiment
 ~~~~~~~~~~~~~~~~~~~

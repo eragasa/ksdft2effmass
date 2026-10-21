@@ -18,6 +18,30 @@ type RealMatrix = npt.NDArray[np.float64]
 HISTORICAL_RUNNER_SHA256 = (
     "e945c0a6320f84b3b32e938e5cf7cd6f779ecf3261846abd67a2ae192a08252d"
 )
+EXPECTED_DEPENDENCY_IDENTITIES: list[JsonValue] = [
+    {
+        "distribution": "projectkoios-optimization",
+        "repository": "https://github.com/eragasa/projectkoios-optimization",
+        "revision": "3cd32ea8985a855bcdbaffbf89af95e970b3bf14",
+        "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
+        "capabilities": [
+            "projectkoios.numerics.quadrature.uniform_1d",
+            "projectkoios.numerics.quadrature.numpy.uniform_1d",
+        ],
+    },
+    {
+        "distribution": "projectkoios-physkit",
+        "repository": "https://github.com/eragasa/projectkoios-physkit",
+        "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
+        "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+        "capabilities": [
+            "projectkoios.physkit.qm.piab1d",
+            "projectkoios.physkit.qm.piab1d.tise_fd",
+            "projectkoios.physkit.qm.piab1d.tise_analytical",
+            "projectkoios.physkit.qm.sampled_states",
+        ],
+    },
+]
 
 
 class Piab1dResultVerifier:
@@ -26,7 +50,7 @@ class Piab1dResultVerifier:
     __slots__ = ()
 
     def execute(self, path: Path, repository_root: Path) -> None:
-        """Raise unless one version-one result satisfies independent identities."""
+        """Raise unless one supported result satisfies independent identities."""
         if not isinstance(path, Path):
             raise TypeError("path must be pathlib.Path")
         if not isinstance(repository_root, Path):
@@ -34,19 +58,45 @@ class Piab1dResultVerifier:
         payload = self.mapping(
             cast(JsonValue, json.loads(path.read_text(encoding="utf-8"))), "result"
         )
-        if self.integer(payload["schema_version"], "schema_version") != 1:
-            raise ValueError("result schema_version must equal one")
+        schema_version = self.integer(payload["schema_version"], "schema_version")
+        if schema_version not in {1, 2}:
+            raise ValueError("result schema_version must equal one or two")
         if payload["evidence_status"] != "illustrative numerical experiment":
             raise ValueError("result has an unsupported evidence_status")
         if payload["calculation_status"] != "calculated illustrative result":
             raise ValueError("result has an unsupported calculation_status")
         input_payload = self.mapping(payload["input"], "input")
+        if schema_version == 2:
+            if self.integer(
+                input_payload["schema_version"], "input schema_version"
+            ) != 2:
+                raise ValueError("input schema_version must equal two")
+            if input_payload["experiment_id"] != (
+                "research-monograph.particle-in-box.v2"
+            ):
+                raise ValueError("input experiment_id is unsupported")
+            if payload["experiment_id"] != input_payload["experiment_id"]:
+                raise ValueError("result and input experiment identities must agree")
         parameters = self.mapping(
             input_payload["dimensionless_parameters"], "dimensionless_parameters"
         )
         length = self.real(parameters["length"], "length")
         mass = self.real(parameters["mass"], "mass")
-        hbar = self.real(parameters["hbar"], "hbar")
+        if length <= 0.0 or mass <= 0.0:
+            raise ValueError("length and mass must be positive")
+        if schema_version == 1:
+            hbar = self.real(parameters["hbar"], "hbar")
+        else:
+            if set(parameters) != {
+                "length",
+                "mass",
+                "interior_points",
+                "retained_dimension",
+            }:
+                raise ValueError(
+                    "dimensionless_parameters fields do not match schema version two"
+                )
+            hbar = 1.0
         points = self.integer(parameters["interior_points"], "interior_points")
         retained = self.integer(parameters["retained_dimension"], "retained_dimension")
         spacing = length / (points + 1)
@@ -81,7 +131,12 @@ class Piab1dResultVerifier:
             spectra["discrete_to_continuum_ratio"], "discrete_to_continuum_ratio"
         )
         np.testing.assert_array_equal(recorded_discrete, expected_discrete)
-        np.testing.assert_array_equal(recorded_continuum, expected_continuum)
+        np.testing.assert_allclose(
+            recorded_continuum,
+            expected_continuum,
+            rtol=16.0 * np.finfo(np.float64).eps,
+            atol=0.0,
+        )
         np.testing.assert_allclose(
             recorded_ratio,
             (np.sin(z) / z) ** 2,
@@ -96,7 +151,12 @@ class Piab1dResultVerifier:
             atol=64.0 * np.finfo(np.float64).eps * scale,
         )
 
-        vectors = self.matrix(payload, "matrices", "retained_eigenvectors")
+        vector_field = (
+            "retained_eigenvectors"
+            if schema_version == 1
+            else "retained_eigenvectors_euclidean"
+        )
+        vectors = self.matrix(payload, "matrices", vector_field)
         projector = self.matrix(payload, "matrices", "spectral_projector_full")
         embedded = self.matrix(
             payload, "matrices", "retained_hamiltonian_embedded_full"
@@ -122,6 +182,46 @@ class Piab1dResultVerifier:
         )
         np.testing.assert_allclose(
             coordinates, np.diag(expected_discrete[:retained]), atol=tolerance
+        )
+        if schema_version == 2:
+            self.verify_quadrature(
+                payload=payload,
+                length=length,
+                points=points,
+                retained=retained,
+                euclidean_vectors=vectors,
+                projector=projector,
+                tolerance=tolerance,
+            )
+        diagnostics = self.mapping(payload["diagnostics"], "diagnostics")
+        expected_diagnostic_names = {
+            "boundary_realization_frobenius_norm",
+            "consistently_compressed_residual_frobenius_norm",
+            "discrete_spectrum_maximum_absolute_error",
+            "projector_complement_frobenius_error",
+            "projector_idempotency_frobenius_error",
+            "retained_coordinate_frobenius_error",
+            "retained_embedding_frobenius_error",
+            "spectral_leakage_frobenius_norm",
+            "spectral_reconstruction_frobenius_error",
+            "unmatched_compression_frobenius_norm",
+            "unmatched_equals_discarded_frobenius_error",
+        }
+        if set(diagnostics) != expected_diagnostic_names:
+            raise ValueError("result diagnostics do not match schema version one")
+        leakage = float(
+            np.linalg.norm(
+                (np.eye(points) - projector) @ hamiltonian @ vectors, ord="fro"
+            )
+        )
+        np.testing.assert_allclose(
+            self.real(
+                diagnostics["spectral_leakage_frobenius_norm"],
+                "spectral_leakage_frobenius_norm",
+            ),
+            leakage,
+            rtol=0.0,
+            atol=tolerance,
         )
 
         compressed = self.residual(
@@ -154,13 +254,187 @@ class Piab1dResultVerifier:
             "The result is not semiconductor evidence or scientific validation.",
         ]:
             raise ValueError("result limitations do not match schema version one")
-        self.verify_provenance(payload, repository_root.resolve())
+        self.verify_provenance(
+            payload,
+            repository_root.resolve(),
+            schema_version,
+        )
+
+    def verify_quadrature(
+        self,
+        *,
+        payload: dict[str, JsonValue],
+        length: float,
+        points: int,
+        retained: int,
+        euclidean_vectors: RealMatrix,
+        projector: RealMatrix,
+        tolerance: float,
+    ) -> None:
+        """Independently reconstruct and verify version-two quadrature evidence."""
+        input_payload = self.mapping(payload["input"], "input")
+        representation = self.mapping(
+            input_payload["finite_representation"],
+            "finite_representation",
+        )
+        if set(representation) != {"quadrature"}:
+            raise ValueError("finite_representation fields do not match schema two")
+        enabled = representation["quadrature"]
+        if type(enabled) is not bool:
+            raise TypeError("quadrature must be a JSON Boolean")
+        quadrature = self.mapping(payload["quadrature"], "quadrature")
+        matrices = self.mapping(payload["matrices"], "matrices")
+        nodal_values = matrices["retained_nodal_amplitudes_quadrature_normalized"]
+        if not enabled:
+            if quadrature != {"enabled": False}:
+                raise ValueError("disabled quadrature must retain only its status")
+            if nodal_values is not None:
+                raise ValueError("disabled quadrature must not retain nodal amplitudes")
+            return
+        if quadrature.get("enabled") is not True:
+            raise ValueError("enabled quadrature status is inconsistent")
+        expected_fields = {
+            "enabled",
+            "rule_identifier",
+            "rule_version",
+            "node_convention",
+            "full_weight_convention",
+            "interior_restriction_convention",
+            "mass_matrix_convention",
+            "interval",
+            "full_grid_point_count",
+            "interior_full_grid_indices",
+            "spacing",
+            "full_weights",
+            "interior_weights",
+            "diagonal_mass_matrix",
+            "solver_eigenvector_normalization",
+            "stored_nodal_amplitude_normalization",
+            "weighted_gram_frobenius_error",
+            "projector_equivalence_frobenius_error",
+        }
+        if set(quadrature) != expected_fields:
+            raise ValueError("quadrature fields do not match schema version two")
+        spacing = length / (points + 1)
+        expected_full_weights = np.full(points + 2, spacing, dtype=np.float64)
+        expected_full_weights[0] = 0.5 * spacing
+        expected_full_weights[-1] = 0.5 * spacing
+        expected_indices = np.arange(1, points + 1, dtype=np.int64)
+        expected_interior_weights = np.full(points, spacing, dtype=np.float64)
+        if quadrature.get("rule_identifier") != (
+            "projectkoios.numerics.quadrature."
+            "uniform_closed_interval_trapezoidal"
+        ):
+            raise ValueError("quadrature rule_identifier is unsupported")
+        if self.integer(quadrature["rule_version"], "rule_version") != 1:
+            raise ValueError("quadrature rule_version is unsupported")
+        expected_conventions = {
+            "node_convention": "endpoint-inclusive-uniform-closed-interval",
+            "full_weight_convention": "composite-trapezoidal",
+            "interior_restriction_convention": (
+                "homogeneous-dirichlet-interior-nodes"
+            ),
+            "mass_matrix_convention": "diagonal-lumped-diag-weights",
+            "solver_eigenvector_normalization": "euclidean",
+            "stored_nodal_amplitude_normalization": (
+                "homogeneous-Dirichlet interior quadrature"
+            ),
+        }
+        for name, expected in expected_conventions.items():
+            if quadrature.get(name) != expected:
+                raise ValueError(f"quadrature {name} is unsupported")
+        interval = self.vector(quadrature["interval"], "quadrature interval")
+        np.testing.assert_array_equal(interval, np.array([0.0, length]))
+        if self.integer(
+            quadrature["full_grid_point_count"], "full_grid_point_count"
+        ) != points + 2:
+            raise ValueError("quadrature full_grid_point_count is inconsistent")
+        np.testing.assert_array_equal(
+            self.vector(
+                quadrature["interior_full_grid_indices"],
+                "interior_full_grid_indices",
+            ),
+            expected_indices,
+        )
+        np.testing.assert_array_equal(
+            self.vector(quadrature["full_weights"], "full_weights"),
+            expected_full_weights,
+        )
+        interior_weights = self.vector(
+            quadrature["interior_weights"], "interior_weights"
+        )
+        np.testing.assert_array_equal(interior_weights, expected_interior_weights)
+        np.testing.assert_array_equal(
+            self.vector(
+                self.mapping(
+                    quadrature["diagonal_mass_matrix"],
+                    "diagonal_mass_matrix",
+                )["diagonal"],
+                "diagonal_mass_matrix.diagonal",
+            ),
+            expected_interior_weights,
+        )
+        if self.mapping(
+            quadrature["diagonal_mass_matrix"], "diagonal_mass_matrix"
+        ).get("representation") != "diagonal":
+            raise ValueError("quadrature mass matrix representation is unsupported")
+        recorded_spacing = self.real(quadrature["spacing"], "quadrature spacing")
+        if recorded_spacing != spacing:
+            raise ValueError("quadrature spacing is inconsistent")
+        if not isinstance(nodal_values, list):
+            raise TypeError("quadrature-normalized nodal amplitudes must be an array")
+        nodal = np.asarray(nodal_values, dtype=np.float64)
+        expected_nodal = euclidean_vectors / np.sqrt(spacing)
+        np.testing.assert_allclose(
+            nodal,
+            expected_nodal,
+            rtol=0.0,
+            atol=tolerance,
+        )
+        weighted_gram_error = float(
+            np.linalg.norm(
+                nodal.T @ (interior_weights[:, None] * nodal)
+                - np.eye(retained),
+                ord="fro",
+            )
+        )
+        weighted_projector_error = float(
+            np.linalg.norm(
+                nodal @ (interior_weights[:, None] * nodal).T - projector,
+                ord="fro",
+            )
+        )
+        np.testing.assert_allclose(
+            self.real(
+                quadrature["weighted_gram_frobenius_error"],
+                "weighted_gram_frobenius_error",
+            ),
+            weighted_gram_error,
+            rtol=0.0,
+            atol=tolerance,
+        )
+        np.testing.assert_allclose(
+            self.real(
+                quadrature["projector_equivalence_frobenius_error"],
+                "projector_equivalence_frobenius_error",
+            ),
+            weighted_projector_error,
+            rtol=0.0,
+            atol=tolerance,
+        )
 
     def verify_provenance(
-        self, payload: dict[str, JsonValue], repository_root: Path
+        self,
+        payload: dict[str, JsonValue],
+        repository_root: Path,
+        schema_version: int,
     ) -> None:
         """Verify historical or current implementation identities explicitly."""
         provenance = self.mapping(payload["provenance"], "provenance")
+        if schema_version == 2 and provenance.get("dependency_identities") != (
+            EXPECTED_DEPENDENCY_IDENTITIES
+        ):
+            raise ValueError("dependency identities do not match schema version two")
         input_path = self.evidence_path(
             repository_root,
             self.string(provenance["input_path"], "input_path"),
@@ -177,18 +451,29 @@ class Piab1dResultVerifier:
             return
         if not isinstance(identities, list):
             raise TypeError("implementation_identities must be a JSON array")
-        expected = {
-            "python/src/ksdft2effmass/model_systems/intervals.py",
-            "python/src/ksdft2effmass/model_systems/piab1d/model.py",
-            "python/src/ksdft2effmass/model_systems/study/base.py",
-            "python/src/ksdft2effmass/operators/eigenpairs.py",
-            "python/src/ksdft2effmass/operators/finite_differences.py",
-            "python/src/ksdft2effmass/operators/quantities.py",
-            "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
-            "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
-            "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
-            "python/src/ksdft2effmass/model_systems/piab1d/study/serialization.py",
-        }
+        if schema_version == 1:
+            expected = {
+                "python/src/ksdft2effmass/model_systems/intervals.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/model.py",
+                "python/src/ksdft2effmass/model_systems/study/base.py",
+                "python/src/ksdft2effmass/operators/eigenpairs.py",
+                "python/src/ksdft2effmass/operators/finite_differences.py",
+                "python/src/ksdft2effmass/operators/quantities.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/serialization.py",
+            }
+        else:
+            expected = {
+                "python/src/ksdft2effmass/model_systems/study/base.py",
+                "python/src/ksdft2effmass/operators/eigenpairs.py",
+                "python/src/ksdft2effmass/operators/quantities.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/serialization.py",
+            }
         observed: set[str] = set()
         for value in identities:
             identity = self.mapping(value, "implementation identity")

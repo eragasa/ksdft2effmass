@@ -1,51 +1,50 @@
-r"""Software verification of ``Piab1dStudyDefinition``.
-
-Evidence profile: routine
-
-Bounded artifact scope: immutable version-one particle-in-a-box study definition.
-
-Facet and represented meaning
-
-The DataObject retains exact study controls and boundary-reference text.
-
-Intrinsic and cross-object scope
-
-Positive controls and retained/full dimension ordering are included.
-
-VVUQ and scientific exclusions
-
-This verifies input invariants only, not numerical correctness, scientific validation,
-uncertainty quantification, or human acceptance.
-"""
+r"""Software verification of the version-two PIAB1D study definition."""
 
 import pytest
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.units import UnitSystem
+
 from ksdft2effmass.model_systems.piab1d import Piab1dStudyDefinition
+from ksdft2effmass.model_systems.study import ModelSystemStudySchemaId
 
 pytestmark = pytest.mark.software_verification
 SUT = Piab1dStudyDefinition
 
 
+def _model() -> Piab1D:
+    return Piab1D(
+        length=1.0,
+        mass=1.0,
+        unit_system=UnitSystem.NONDIMENSIONAL,
+    )
+
+
 class TestPiab1dStudyDefinition:
     """Own software evidence for ``Piab1dStudyDefinition``."""
 
-    def test_constructor__dimension_contract__rejects_oversized_retention(self) -> None:
-        """Evidence ID: SV-MONOGRAPH-PIB-005
+    def test_constructor__default_quadrature__is_enabled(self) -> None:
+        definition = Piab1dStudyDefinition(
+            model=_model(),
+            Nx_pts_interior=8,
+            N_retained_eigenpairs=3,
+        )
 
-        Requirement: The retained dimension cannot exceed the finite coordinate-space
-        dimension.
+        assert definition.quadrature is True
+        assert definition.schema_id is ModelSystemStudySchemaId.piab1d_v2
 
-        Acceptance: Retaining four states from a three-point space raises ValueError.
-        """
-        with pytest.raises(ValueError, match="must not exceed"):
+    def test_constructor__quadrature_type__rejects_integer(self) -> None:
+        with pytest.raises(TypeError, match="quadrature"):
             Piab1dStudyDefinition(
-                1,
-                "study",
-                "illustrative numerical experiment",
-                1.0,
-                1.0,
-                1.0,
-                3,
-                4,
-                "cyclic",
-                "comparison only",
+                model=_model(),
+                Nx_pts_interior=8,
+                N_retained_eigenpairs=3,
+                quadrature=1,  # type: ignore[arg-type]
+            )
+
+    def test_constructor__dimension_contract__rejects_oversized_retention(self) -> None:
+        with pytest.raises(ValueError, match="not exceed"):
+            Piab1dStudyDefinition(
+                model=_model(),
+                Nx_pts_interior=3,
+                N_retained_eigenpairs=4,
             )

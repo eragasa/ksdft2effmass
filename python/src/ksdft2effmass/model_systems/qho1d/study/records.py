@@ -2,11 +2,16 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 
-from ...study import ModelSystemStudyBase, ModelSystemStudyIdentity
+from ...study import (
+    ModelId,
+    ModelSystemStudyBase,
+    ModelSystemStudyIdentity,
+    ModelSystemStudySchemaId,
+)
 from ..model import Qho1dComparisonResult, Qho1dParameters
 
 
@@ -49,6 +54,11 @@ class Qho1dStudyDefinition(ModelSystemStudyBase):
     retained_dimensions: tuple[int, ...]
     spatial_representation: str
     comparison_map: str
+    model_id: ModelId = field(default=ModelId.qho1d, init=False)
+    schema_id: ModelSystemStudySchemaId = field(
+        default=ModelSystemStudySchemaId.qho1d_v1,
+        init=False,
+    )
 
     def __post_init__(self) -> None:
         if self.experiment_id not in (
@@ -83,10 +93,7 @@ class Qho1dStudyDefinition(ModelSystemStudyBase):
 
     def study_identity(self) -> ModelSystemStudyIdentity:
         """Return the fixed model and schema identity."""
-        return ModelSystemStudyIdentity(
-            self.experiment_id,
-            self.evidence_status,
-        )
+        return ModelSystemStudyIdentity(self.model_id, self.schema_id)
 
     @staticmethod
     def validate_nonempty_string(value: str, name: str) -> None:

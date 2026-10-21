@@ -1,29 +1,11 @@
-r"""Software verification of ``Piab1dResidualStudyEvaluator``.
+r"""Software verification of the PhysKit-backed PIAB1D study evaluator."""
 
-Evidence profile: routine
-
-Bounded artifact scope: public version-one residual-study composition.
-
-Facet and represented meaning
-
-The ActionObject composes public model-system, operator, projection, and residual
-operations for one exact study definition.
-
-Intrinsic and cross-object scope
-
-Finite dimensions, exact zero residual, discarded-sector identity, and immutable
-result arrays are included.
-
-VVUQ and scientific exclusions
-
-This verifies software composition only, not continuum convergence, scientific
-validation, uncertainty quantification, or human acceptance.
-"""
-
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
 import pytest
+
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dResidualStudyEvaluator,
     Piab1dStudyInputDeserializer,
@@ -34,11 +16,10 @@ SUT = Piab1dResidualStudyEvaluator
 
 
 class TestPiab1dResidualStudyEvaluator:
-    """Own software evidence for the residual-study evaluator."""
+    """Own software evidence for the residual-study composition."""
 
     @staticmethod
     def definition_bytes() -> bytes:
-        """Return maintained version-one input bytes."""
         path = (
             Path(__file__).resolve().parents[6]
             / "calculations"
@@ -47,17 +28,9 @@ class TestPiab1dResidualStudyEvaluator:
         )
         return path.read_bytes()
 
-    def test_method__execute__preserves_projector_and_discarded_sector_identities(
+    def test_method__execute__preserves_reduction_and_quadrature_identities(
         self,
     ) -> None:
-        """Evidence ID: SV-MONOGRAPH-PIB-002
-
-        Requirement: The evaluator composes the exact retained-space constructions
-        without conflating their different represented meanings.
-
-        Acceptance: The result has dimension eight, a zero consistent residual, an
-        unmatched residual equal to the discarded sector, and immutable arrays.
-        """
         definition = Piab1dStudyInputDeserializer().execute(
             self.definition_bytes()
         )
@@ -66,11 +39,40 @@ class TestPiab1dResidualStudyEvaluator:
         assert result.hamiltonian.shape == (8, 8)
         assert result.hamiltonian.nonzero_count == 22
         np.testing.assert_array_equal(
-            result.consistently_compressed.magnitude, np.zeros((8, 8))
+            result.consistently_compressed.magnitude,
+            np.zeros((8, 8)),
         )
         np.testing.assert_allclose(
             result.unmatched_compression.magnitude,
             result.discarded_sector.magnitude,
             atol=128.0 * np.finfo(np.float64).eps,
         )
+        assert result.quadrature_rule is not None
+        assert result.quadrature_normalized_eigenvectors is not None
+        weights = result.quadrature_rule.interior_weights
+        amplitudes = result.quadrature_normalized_eigenvectors.magnitude
+        np.testing.assert_allclose(
+            amplitudes.T @ (weights[:, None] * amplitudes),
+            np.eye(8),
+            atol=256.0 * np.finfo(np.float64).eps,
+        )
+        retained = amplitudes[:, :3]
+        np.testing.assert_allclose(
+            retained @ (weights[:, None] * retained).T,
+            result.projector.magnitude,
+            atol=256.0 * np.finfo(np.float64).eps,
+        )
         assert not result.projector.magnitude.flags.writeable
+
+    def test_method__execute__disabled_quadrature__retains_no_weighted_payload(
+        self,
+    ) -> None:
+        definition = replace(
+            Piab1dStudyInputDeserializer().execute(self.definition_bytes()),
+            quadrature=False,
+        )
+
+        result = Piab1dResidualStudyEvaluator().execute(definition)
+
+        assert result.quadrature_rule is None
+        assert result.quadrature_normalized_eigenvectors is None

@@ -1,11 +1,5 @@
-"""Public one-dimensional particle-in-a-box model contracts."""
+"""KSD-owned studies of the PhysKit one-dimensional particle-in-a-box model."""
 
-from .evaluation import Piab1dGridEvaluation, Piab1dGridEvaluator
-from .model import (
-    Piab1dAnalytical,
-    Piab1dFiniteDifference,
-    Piab1dParameters,
-)
 from .study import (
     JsonValue,
     Piab1dResidualStudyEvaluator,
@@ -18,11 +12,6 @@ from .study import (
 
 __all__ = [
     "JsonValue",
-    "Piab1dAnalytical",
-    "Piab1dFiniteDifference",
-    "Piab1dGridEvaluation",
-    "Piab1dGridEvaluator",
-    "Piab1dParameters",
     "Piab1dResidualStudyEvaluator",
     "Piab1dResidualStudyResult",
     "Piab1dResultVerifier",

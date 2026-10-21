@@ -32,7 +32,11 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dStudyDefinition,
     Qho1dStudyInputDeserializer,
 )
-from ksdft2effmass.model_systems.study import ModelSystemStudyIdentity
+from ksdft2effmass.model_systems.study import (
+    ModelId,
+    ModelSystemStudyIdentity,
+    ModelSystemStudySchemaId,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = Qho1dStudyInputDeserializer
@@ -74,8 +78,8 @@ class TestQho1dStudyInputDeserializer:
         assert definition.experiment_id == "qho1d.development.v1"
         assert definition.evidence_status == "illustrative numerical experiment"
         assert definition.study_identity() == ModelSystemStudyIdentity(
-            definition.experiment_id,
-            definition.evidence_status,
+            model_id=ModelId.qho1d,
+            schema_id=ModelSystemStudySchemaId.qho1d_v1,
         )
         assert definition.parameters.hbar == ScalarQuantity(1.0, Unitless())
         assert definition.parameters.mass == ScalarQuantity(1.0, Unitless())
@@ -114,6 +118,6 @@ class TestQho1dStudyInputDeserializer:
         )
         assert definition.evidence_status == "illustrative numerical experiment"
         assert definition.study_identity() == ModelSystemStudyIdentity(
-            definition.experiment_id,
-            definition.evidence_status,
+            model_id=ModelId.qho1d,
+            schema_id=ModelSystemStudySchemaId.qho1d_v1,
         )

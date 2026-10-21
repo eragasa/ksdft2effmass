@@ -2,34 +2,6 @@
   "schema_version": 1,
   "modules": [
     {
-      "path": "python/tests/ksdft2effmass/model_systems/piab1d/test__Piab1dAnalytical.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Piab1dAnalytical"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/piab1d/test__Piab1dFiniteDifference.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Piab1dFiniteDifference"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/piab1d/test__Piab1dGridEvaluator.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Piab1dGridEvaluator"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/piab1d/test__Piab1dParameters.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Piab1dParameters"
-    },
-    {
       "path": "python/tests/ksdft2effmass/model_systems/piab1d/study/test__Piab1dResidualStudyEvaluator.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+
 from ksdft2effmass.analysis.operators import DecompositionIdentifiabilityAnalyzer
 from ksdft2effmass.operators import MatrixQuantity, Unitless
 

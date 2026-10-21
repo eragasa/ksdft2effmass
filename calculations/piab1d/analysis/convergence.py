@@ -9,19 +9,23 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.qm.piab1d.tise_analytical import (
+    Piab1DAnalyticalSolution,
+)
+from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
+from projectkoios.physkit.units import UnitSystem
+
 from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
 from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
-from ksdft2effmass.model_systems import (
-    Piab1dGridEvaluator,
-    Piab1dParameters,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
-)
 from ksdft2effmass.operators import (
+    MatrixQuantity,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
+    RealSymmetricEigenpairResult,
     SparseMatrixQuantity,
+    Unitless,
+    VectorQuantity,
 )
 
 type JsonValue = (
@@ -34,7 +38,7 @@ class Piab1dConvergenceWorkflow:
 
     __slots__ = (
         "compression",
-        "grid_evaluator",
+        "finite_difference_solver",
         "order_estimator",
         "residual_analyzer",
         "selector",
@@ -42,7 +46,7 @@ class Piab1dConvergenceWorkflow:
 
     def __init__(self) -> None:
         """Construct the campaign from reusable public analysis actions."""
-        self.grid_evaluator = Piab1dGridEvaluator()
+        self.finite_difference_solver = Piab1dTiseFdSolver()
         self.order_estimator = ObservedConvergenceOrderEstimator()
         self.selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
@@ -66,13 +70,14 @@ class Piab1dConvergenceWorkflow:
         parameters_value = self.mapping(
             payload.get("dimensionless_parameters"), "dimensionless_parameters"
         )
+        if set(parameters_value) != {"length", "mass"}:
+            raise ValueError("dimensionless_parameters fields do not match schema one")
         length = self.positive_real(parameters_value.get("length"), "length")
         mass = self.positive_real(parameters_value.get("mass"), "mass")
-        hbar = self.positive_real(parameters_value.get("hbar"), "hbar")
-        parameters = Piab1dParameters(
-            ScalarQuantity(length, Unitless()),
-            ScalarQuantity(mass, Unitless()),
-            ScalarQuantity(hbar, Unitless()),
+        model = Piab1D(
+            length=length,
+            mass=mass,
+            unit_system=UnitSystem.NONDIMENSIONAL,
         )
         series = self.mapping(payload.get("grid_series"), "grid_series")
         point_counts = self.integer_sequence(
@@ -96,21 +101,35 @@ class Piab1dConvergenceWorkflow:
         refinements: list[JsonValue] = []
         relative_errors: dict[int, list[float]] = {mode: [] for mode in order_modes}
         for points in point_counts:
-            evaluation = self.grid_evaluator.execute(parameters, points)
-            eigenpairs = evaluation.eigenpairs
-            if not isinstance(eigenpairs.operator, SparseMatrixQuantity):
-                raise TypeError("grid evaluator must retain a sparse Hamiltonian")
-            hamiltonian = eigenpairs.operator
+            solution = self.finite_difference_solver.solve(
+                model=model,
+                interior_points=points,
+            )
+            hamiltonian = SparseMatrixQuantity.from_csr(
+                solution.hamiltonian.to_csr(),
+                Unitless(),
+            )
+            eigenpairs = RealSymmetricEigenpairResult(
+                operator=hamiltonian,
+                eigenvalues=VectorQuantity(
+                    solution.eigenpairs.eigenvalues,
+                    hamiltonian.unit,
+                ),
+                eigenvectors=MatrixQuantity(
+                    solution.eigenpairs.eigenvectors,
+                    Unitless(),
+                ),
+            )
             eigenvalues = eigenpairs.eigenvalues.magnitude
-            spacing = evaluation.finite_difference.grid_spacing.magnitude
+            spacing = solution.grid_spacing.magnitude
             spacings.append(spacing)
-            continuum = evaluation.analytical.energy_levels(points).magnitude[
-                np.asarray(reported_modes) - 1
-            ]
+            continuum = Piab1DAnalyticalSolution(model=model).evaluate(
+                count=points
+            ).energies.magnitude[np.asarray(reported_modes) - 1]
             computed = eigenvalues[np.asarray(reported_modes) - 1]
             absolute = np.abs(computed - continuum)
             relative = absolute / continuum
-            discrete = evaluation.finite_difference.discrete_energy_levels().magnitude[
+            discrete = solution.closed_form_discrete_energies().magnitude[
                 np.asarray(reported_modes) - 1
             ]
             subspace = self.selector.execute(eigenpairs, retained)
@@ -209,11 +228,30 @@ class Piab1dConvergenceWorkflow:
                 }
                 for path in self.implementation_paths()
             ],
+            "dependency_identities": self.dependency_identities(),
             "python_version": platform.python_version(),
             "numpy_version": np.__version__,
             "floating_point": "IEEE-754 binary64 through numpy.float64",
             "eigensolver": "scipy.linalg.eigh_tridiagonal",
         }
+
+    @staticmethod
+    def dependency_identities() -> list[JsonValue]:
+        """Return exact external owners used by PIAB1D production."""
+        return [
+            {
+                "distribution": "projectkoios-optimization",
+                "repository": "https://github.com/eragasa/projectkoios-optimization",
+                "revision": "3cd32ea8985a855bcdbaffbf89af95e970b3bf14",
+                "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
+            },
+            {
+                "distribution": "projectkoios-physkit",
+                "repository": "https://github.com/eragasa/projectkoios-physkit",
+                "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
+                "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+            },
+        ]
 
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
@@ -227,8 +265,6 @@ class Piab1dConvergenceWorkflow:
         return (
             source_root / "analysis" / "convergence.py",
             source_root / "analysis" / "operators" / "compression_residuals.py",
-            source_root / "model_systems" / "piab1d" / "model.py",
-            source_root / "model_systems" / "piab1d" / "evaluation.py",
             source_root / "operators" / "eigenpairs.py",
             source_root / "operators" / "subspaces.py",
             Path(__file__).resolve(),

@@ -1,4 +1,4 @@
-"""Version-one input decoding for the core particle-in-a-box residual study."""
+"""Version-two input decoding for the core particle-in-a-box residual study."""
 
 from __future__ import annotations
 
@@ -6,6 +6,8 @@ import json
 from typing import cast
 
 import numpy as np
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.units import UnitSystem
 
 from .records import Piab1dStudyDefinition
 
@@ -15,7 +17,7 @@ type JsonValue = (
 
 
 class Piab1dStudyInputDeserializer:
-    """Decode the retained version-one JSON input into a closed definition."""
+    """Decode the retained version-two JSON input into a closed definition."""
 
     __slots__ = ()
 
@@ -30,31 +32,63 @@ class Piab1dStudyInputDeserializer:
             "experiment_id",
             "evidence_status",
             "dimensionless_parameters",
+            "finite_representation",
             "boundary_reference",
         }
         if set(root) != expected:
-            raise ValueError("experiment input fields do not match schema version 1")
+            raise ValueError("experiment input fields do not match schema version 2")
         parameters = self.mapping(
             root["dimensionless_parameters"], "dimensionless_parameters"
         )
+        representation = self.mapping(
+            root["finite_representation"], "finite_representation"
+        )
         boundary = self.mapping(root["boundary_reference"], "boundary_reference")
+        if set(parameters) != {
+            "length",
+            "mass",
+            "interior_points",
+            "retained_dimension",
+        }:
+            raise ValueError("dimensionless_parameters fields do not match schema 2")
+        if set(representation) != {"quadrature"}:
+            raise ValueError("finite_representation fields do not match schema 2")
+        if set(boundary) != {"kind", "interpretation"}:
+            raise ValueError("boundary_reference fields do not match schema 2")
+        if self.integer(root["schema_version"], "schema_version") != 2:
+            raise ValueError("unsupported study input schema version")
+        if self.string(root["experiment_id"], "experiment_id") != (
+            "research-monograph.particle-in-box.v2"
+        ):
+            raise ValueError("unsupported PIAB1D experiment identity")
+        if self.string(root["evidence_status"], "evidence_status") != (
+            "illustrative numerical experiment"
+        ):
+            raise ValueError("unsupported PIAB1D evidence classification")
+        if self.string(boundary.get("kind"), "boundary kind") != (
+            "cyclic closure on the same finite coordinate space"
+        ):
+            raise ValueError("unsupported historical boundary reference")
+        if self.string(
+            boundary.get("interpretation"), "boundary interpretation"
+        ) != (
+            "Declared comparison reference only; not a "
+            "representation-independent continuum potential."
+        ):
+            raise ValueError("unsupported historical boundary interpretation")
         return Piab1dStudyDefinition(
-            schema_version=self.integer(root["schema_version"], "schema_version"),
-            experiment_id=self.string(root["experiment_id"], "experiment_id"),
-            evidence_status=self.string(root["evidence_status"], "evidence_status"),
-            length=self.positive_real(parameters.get("length"), "length"),
-            mass=self.positive_real(parameters.get("mass"), "mass"),
-            hbar=self.positive_real(parameters.get("hbar"), "hbar"),
-            interior_points=self.positive_integer(
+            model=Piab1D(
+                length=self.positive_real(parameters.get("length"), "length"),
+                mass=self.positive_real(parameters.get("mass"), "mass"),
+                unit_system=UnitSystem.NONDIMENSIONAL,
+            ),
+            Nx_pts_interior=self.positive_integer(
                 parameters.get("interior_points"), "interior_points"
             ),
-            retained_dimension=self.positive_integer(
+            N_retained_eigenpairs=self.positive_integer(
                 parameters.get("retained_dimension"), "retained_dimension"
             ),
-            boundary_kind=self.string(boundary.get("kind"), "boundary kind"),
-            boundary_interpretation=self.string(
-                boundary.get("interpretation"), "boundary interpretation"
-            ),
+            quadrature=self.boolean(representation.get("quadrature"), "quadrature"),
         )
 
     @staticmethod
@@ -78,6 +112,13 @@ class Piab1dStudyInputDeserializer:
         """Return a built-in JSON integer excluding booleans."""
         if isinstance(value, bool) or not isinstance(value, int):
             raise TypeError(f"{name} must be a JSON integer")
+        return value
+
+    @staticmethod
+    def boolean(value: JsonValue, name: str) -> bool:
+        """Return a JSON Boolean without numeric coercion."""
+        if type(value) is not bool:
+            raise TypeError(f"{name} must be a JSON Boolean")
         return value
 
     @classmethod

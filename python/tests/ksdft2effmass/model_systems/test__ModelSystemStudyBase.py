@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import pytest
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.units import UnitSystem
 
 from ksdft2effmass.model_systems.piab1d import Piab1dStudyDefinition
 from ksdft2effmass.model_systems.qho1d import (
@@ -10,8 +12,10 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dStudyDefinition,
 )
 from ksdft2effmass.model_systems.study import (
+    ModelId,
     ModelSystemStudyBase,
     ModelSystemStudyIdentity,
+    ModelSystemStudySchemaId,
     model_system_study_identity,
 )
 
@@ -24,7 +28,6 @@ class TestModelSystemStudyBase:
 
     @staticmethod
     def qho1d_definition() -> Qho1dStudyDefinition:
-        """Return one valid concrete Qho1d study definition."""
         return Qho1dStudyDefinition(
             experiment_id="qho1d.development.v1",
             evidence_status="illustrative numerical experiment",
@@ -38,33 +41,27 @@ class TestModelSystemStudyBase:
 
     @staticmethod
     def piab1d_definition() -> Piab1dStudyDefinition:
-        """Return one valid concrete PIAB1D study definition."""
         return Piab1dStudyDefinition(
-            schema_version=1,
-            experiment_id="piab1d.test.v1",
-            evidence_status="illustrative numerical experiment",
-            length=1.0,
-            mass=1.0,
-            hbar=1.0,
-            interior_points=4,
-            retained_dimension=2,
-            boundary_kind="cyclic closure on the same finite coordinate space",
-            boundary_interpretation=(
-                "Declared comparison reference only; not a "
-                "representation-independent continuum potential."
+            model=Piab1D(
+                length=1.0,
+                mass=1.0,
+                unit_system=UnitSystem.NONDIMENSIONAL,
             ),
+            Nx_pts_interior=4,
+            N_retained_eigenpairs=2,
         )
 
     def test_method__study_identity__supports_qho1d_and_piab1d(self) -> None:
-        """Both maintained controlled systems implement the nominal contract."""
         qho1d = self.qho1d_definition()
         piab1d = self.piab1d_definition()
 
         assert isinstance(qho1d, ModelSystemStudyBase)
         assert isinstance(piab1d, ModelSystemStudyBase)
         assert model_system_study_identity(qho1d) == ModelSystemStudyIdentity(
-            "qho1d.development.v1", "illustrative numerical experiment"
+            ModelId.qho1d,
+            ModelSystemStudySchemaId.qho1d_v1,
         )
         assert model_system_study_identity(piab1d) == ModelSystemStudyIdentity(
-            "piab1d.test.v1", "illustrative numerical experiment"
+            ModelId.piab1d,
+            ModelSystemStudySchemaId.piab1d_v2,
         )

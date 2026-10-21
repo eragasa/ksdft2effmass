@@ -282,6 +282,7 @@ htmlcov/
 
 # Generated manuscript renderings
 /docs/publications/**/manuscript.pdf
+/calculations/*/development_report/*.pdf
 
 # Editor and backup files
 *.bak

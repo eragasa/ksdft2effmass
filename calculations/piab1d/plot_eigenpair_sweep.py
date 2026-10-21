@@ -15,12 +15,14 @@ import numpy as np
 def plot_full_spectrum(payload: dict[str, Any], output: Path) -> None:
     """Plot energy dispersion and nodal eigenvector agreement across the spectrum."""
     grids = payload["grids"]
+    selected_indices = np.unique(np.linspace(0, len(grids) - 1, 7, dtype=int))
+    selected = [grids[index] for index in selected_indices]
     figure, axes = plt.subplots(1, 2, figsize=(11.8, 4.5), constrained_layout=True)
     energy_axis, vector_axis = axes
-    colors = plt.colormaps["viridis"](np.linspace(0.08, 0.9, len(grids)))
+    colors = plt.colormaps["viridis"](np.linspace(0.08, 0.9, len(selected)))
     floor = np.finfo(np.float64).eps
 
-    for grid, color in zip(grids, colors, strict=True):
+    for grid, color in zip(selected, colors, strict=True):
         fraction = [record["fractional_mode_index"] for record in grid["eigenpairs"]]
         energy_error = [
             record["relative_energy_error"] for record in grid["eigenpairs"]
@@ -28,18 +30,18 @@ def plot_full_spectrum(payload: dict[str, Any], output: Path) -> None:
         overlap_error = [
             max(record["nodal_overlap_defect"], floor) for record in grid["eigenpairs"]
         ]
-        label = rf"$N={grid['interior_points']}$"
+        label = rf"$N={grid['interior_points'] + 2}$"
         energy_axis.semilogy(fraction, energy_error, "-", color=color, label=label)
         vector_axis.semilogy(fraction, overlap_error, ".", color=color, label=label)
 
     energy_axis.set(
         title="Eigenvalue dispersion across the spectrum",
-        xlabel=r"fractional mode index $n/(N+1)$",
+        xlabel=r"fractional mode index $n/(N-1)$",
         ylabel="relative energy error",
     )
     vector_axis.set(
         title="Agreement with continuum sine at grid nodes",
-        xlabel=r"fractional mode index $n/(N+1)$",
+        xlabel=r"fractional mode index $n/(N-1)$",
         ylabel=r"nodal overlap defect $1-|\langle v,s_n\rangle|$",
     )
     for axis in axes:
@@ -57,13 +59,9 @@ def plot_full_spectrum(payload: dict[str, Any], output: Path) -> None:
 def plot_fixed_modes(payload: dict[str, Any], output: Path) -> None:
     """Plot refinement errors and observed orders for fixed higher modes."""
     grids = payload["grids"]
-    point_counts = [grid["interior_points"] for grid in grids]
     fixed = payload["fixed_higher_mode_series"]
     fixed_modes = payload["input"]["grid_series"]["fixed_higher_modes"]
     colors = ["#0072B2", "#D55E00", "#009E73"]
-    order_positions = {
-        points: index for index, points in enumerate(point_counts[1:], start=1)
-    }
     figure, axes = plt.subplots(1, 2, figsize=(11.5, 4.5), constrained_layout=True)
     error_axis, order_axis = axes
 
@@ -72,12 +70,26 @@ def plot_fixed_modes(payload: dict[str, Any], output: Path) -> None:
         spacings = np.asarray(record["spacings"], dtype=float)
         errors = np.asarray(record["relative_energy_errors"], dtype=float)
         orders = np.asarray(record["observed_orders"][1:], dtype=float)
-        error_axis.loglog(spacings, errors, "o-", color=color, label=rf"$n={mode}$")
-        order_axis.plot(
-            [order_positions[points] for points in record["interior_points"][1:]],
-            orders,
-            "o-",
+        total_points = np.asarray(record["interior_points"], dtype=int) + 2
+        marker_interval = max(len(total_points) // 12, 1)
+        error_axis.loglog(
+            spacings,
+            errors,
+            "-",
             color=color,
+            marker="o",
+            markevery=marker_interval,
+            markersize=4,
+            label=rf"$n={mode}$",
+        )
+        order_axis.plot(
+            total_points[1:],
+            orders,
+            "-",
+            color=color,
+            marker="o",
+            markevery=marker_interval,
+            markersize=4,
             label=rf"$n={mode}$",
         )
 
@@ -85,22 +97,20 @@ def plot_fixed_modes(payload: dict[str, Any], output: Path) -> None:
     reference = reference_spacings**2
     reference *= 0.8 * error_axis.get_ylim()[1] / reference[0]
     error_axis.loglog(
-        reference_spacings, reference, "k--", alpha=0.65, label=r"$O(h^2)$"
+        reference_spacings, reference, "k--", alpha=0.65, label=r"$O((\Delta x)^2)$"
     )
     error_axis.invert_xaxis()
     error_axis.set(
         title="Fixed higher-mode refinement",
-        xlabel="grid spacing $h$",
+        xlabel=r"grid spacing $\Delta x$",
         ylabel="relative energy error",
     )
     order_axis.axhline(2.0, color="black", linestyle="--", alpha=0.65)
     order_axis.set(
         title="Observed order between refinements",
-        xlabel="interior points on finer grid",
+        xlabel=r"closed-interval grid points $N$",
         ylabel="observed order",
-        xticks=list(order_positions.values()),
     )
-    order_axis.set_xticklabels([str(points) for points in point_counts[1:]])
     for axis in axes:
         axis.grid(True, which="both", alpha=0.25)
         axis.legend(frameon=False)

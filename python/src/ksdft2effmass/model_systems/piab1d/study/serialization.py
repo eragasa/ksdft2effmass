@@ -1,4 +1,4 @@
-"""Version-one serialization for the core particle-in-a-box residual study."""
+"""Version-two serialization for the core particle-in-a-box residual study."""
 
 from __future__ import annotations
 
@@ -10,7 +10,6 @@ from typing import cast
 
 import numpy as np
 
-from ksdft2effmass.model_systems.study import model_system_study_identity
 from ksdft2effmass.operators import SparseMatrixQuantity
 
 from .records import Piab1dResidualStudyResult
@@ -21,7 +20,7 @@ type JsonValue = (
 
 
 class Piab1dStudyResultSerializer:
-    """Serialize one result to the retained version-one JSON representation."""
+    """Serialize one result to the retained version-two JSON representation."""
 
     __slots__ = ()
 
@@ -39,37 +38,103 @@ class Piab1dStudyResultSerializer:
         input_file = self.contained_file(input_path, root, "input_path")
         script_file = self.contained_file(script_path, root, "script_path")
         definition = result.definition
-        identity = model_system_study_identity(definition)
+        quadrature: dict[str, JsonValue] = {"enabled": definition.quadrature}
+        if definition.quadrature:
+            rule = result.quadrature_rule
+            quadrature_vectors = result.quadrature_normalized_eigenvectors
+            if rule is None or quadrature_vectors is None:
+                raise RuntimeError("enabled quadrature result is incomplete")
+            retained_quadrature_vectors = quadrature_vectors.magnitude[
+                :, : definition.N_retained_eigenpairs
+            ]
+            weighted_gram = retained_quadrature_vectors.T @ (
+                rule.interior_weights[:, None] * retained_quadrature_vectors
+            )
+            weighted_projector = retained_quadrature_vectors @ (
+                rule.interior_weights[:, None] * retained_quadrature_vectors
+            ).T
+            quadrature = {
+                "enabled": True,
+                "rule_identifier": rule.rule_identifier,
+                "rule_version": rule.rule_version,
+                "node_convention": rule.definition.node_convention,
+                "full_weight_convention": rule.definition.full_weight_convention,
+                "interior_restriction_convention": (
+                    rule.definition.interior_restriction_convention
+                ),
+                "mass_matrix_convention": rule.definition.mass_matrix_convention,
+                "interval": list(rule.interval),
+                "full_grid_point_count": rule.point_count,
+                "interior_full_grid_indices": cast(
+                    list[JsonValue], rule.full_grid_indices.tolist()
+                ),
+                "spacing": rule.spacing,
+                "full_weights": cast(
+                    list[JsonValue], rule.full_rule.full_weights.tolist()
+                ),
+                "interior_weights": cast(
+                    list[JsonValue], rule.interior_weights.tolist()
+                ),
+                "diagonal_mass_matrix": {
+                    "representation": "diagonal",
+                    "diagonal": cast(
+                        list[JsonValue], rule.mass_matrix.diagonal.tolist()
+                    ),
+                },
+                "solver_eigenvector_normalization": "euclidean",
+                "stored_nodal_amplitude_normalization": (
+                    "homogeneous-Dirichlet interior quadrature"
+                ),
+                "weighted_gram_frobenius_error": float(
+                    np.linalg.norm(
+                        weighted_gram
+                        - np.eye(definition.N_retained_eigenpairs),
+                        ord="fro",
+                    )
+                ),
+                "projector_equivalence_frobenius_error": float(
+                    np.linalg.norm(
+                        weighted_projector - result.projector.magnitude,
+                        ord="fro",
+                    )
+                ),
+            }
         payload: dict[str, JsonValue] = {
-            "schema_version": 1,
-            "experiment_id": identity.study_id,
-            "evidence_status": identity.evidence_status,
+            "schema_version": 2,
+            "experiment_id": "research-monograph.particle-in-box.v2",
+            "evidence_status": "illustrative numerical experiment",
             "calculation_status": "calculated illustrative result",
             "input": {
-                "schema_version": 1,
-                "experiment_id": identity.study_id,
-                "evidence_status": identity.evidence_status,
+                "schema_version": 2,
+                "experiment_id": "research-monograph.particle-in-box.v2",
+                "evidence_status": "illustrative numerical experiment",
                 "dimensionless_parameters": {
-                    "length": definition.length,
-                    "mass": definition.mass,
-                    "hbar": definition.hbar,
-                    "interior_points": definition.interior_points,
-                    "retained_dimension": definition.retained_dimension,
+                    "length": definition.model.length,
+                    "mass": definition.model.mass,
+                    "interior_points": definition.Nx_pts_interior,
+                    "retained_dimension": definition.N_retained_eigenpairs,
+                },
+                "finite_representation": {
+                    "quadrature": definition.quadrature,
                 },
                 "boundary_reference": {
-                    "kind": definition.boundary_kind,
-                    "interpretation": definition.boundary_interpretation,
+                    "kind": "cyclic closure on the same finite coordinate space",
+                    "interpretation": (
+                        "Declared comparison reference only; not a "
+                        "representation-independent continuum potential."
+                    ),
                 },
             },
+            "quadrature": quadrature,
             "state_spaces": {
                 "full": {
                     "identifier": "interior Dirichlet grid coordinates",
-                    "dimension": definition.interior_points,
+                    "dimension": definition.Nx_pts_interior,
                 },
                 "retained": {
                     "identifier": "lowest discrete spectral coordinates",
-                    "dimension": definition.retained_dimension,
-                    "embedding": "columns of retained_eigenvectors",
+                    "dimension": definition.N_retained_eigenpairs,
+                    "embedding": "columns of retained_eigenvectors_euclidean",
                 },
             },
             "spectra": {
@@ -87,7 +152,18 @@ class Piab1dStudyResultSerializer:
             },
             "matrices": {
                 "dirichlet_hamiltonian_full": self.sparse_matrix(result.hamiltonian),
-                "retained_eigenvectors": self.matrix(result.retained_vectors.magnitude),
+                "retained_eigenvectors_euclidean": self.matrix(
+                    result.retained_vectors.magnitude
+                ),
+                "retained_nodal_amplitudes_quadrature_normalized": (
+                    self.matrix(
+                        result.quadrature_normalized_eigenvectors.magnitude[
+                            :, : definition.N_retained_eigenpairs
+                        ]
+                    )
+                    if result.quadrature_normalized_eigenvectors is not None
+                    else None
+                ),
                 "spectral_projector_full": self.matrix(result.projector.magnitude),
                 "retained_hamiltonian_embedded_full": self.matrix(
                     result.retained_embedded.magnitude
@@ -130,6 +206,36 @@ class Piab1dStudyResultSerializer:
                         "sha256": self.sha256(path),
                     }
                     for path in self.implementation_paths()
+                ],
+                "dependency_identities": [
+                    {
+                        "distribution": "projectkoios-optimization",
+                        "repository": (
+                            "https://github.com/eragasa/projectkoios-optimization"
+                        ),
+                        "revision": (
+                            "3cd32ea8985a855bcdbaffbf89af95e970b3bf14"
+                        ),
+                        "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
+                        "capabilities": [
+                            "projectkoios.numerics.quadrature.uniform_1d",
+                            "projectkoios.numerics.quadrature.numpy.uniform_1d",
+                        ],
+                    },
+                    {
+                        "distribution": "projectkoios-physkit",
+                        "repository": "https://github.com/eragasa/projectkoios-physkit",
+                        "revision": (
+                            "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439"
+                        ),
+                        "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+                        "capabilities": [
+                            "projectkoios.physkit.qm.piab1d",
+                            "projectkoios.physkit.qm.piab1d.tise_fd",
+                            "projectkoios.physkit.qm.piab1d.tise_analytical",
+                            "projectkoios.physkit.qm.sampled_states",
+                        ],
+                    },
                 ],
                 "python_version": platform.python_version(),
                 "numpy_version": np.__version__,
@@ -196,11 +302,8 @@ class Piab1dStudyResultSerializer:
         model_root = package_root / "model_systems"
         operator_root = package_root / "operators"
         return (
-            model_root / "intervals.py",
-            model_root / "piab1d" / "model.py",
             model_root / "study" / "base.py",
             operator_root / "eigenpairs.py",
-            operator_root / "finite_differences.py",
             operator_root / "quantities.py",
             Path(__file__).resolve().with_name("records.py"),
             Path(__file__).resolve().with_name("input.py"),

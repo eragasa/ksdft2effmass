@@ -140,25 +140,29 @@ physical quantities are intrinsically dimensionless.
 One-dimensional particle in a box
 ---------------------------------
 
-The public particle-in-a-box surface separates continuum spectrum, reusable spatial
-interval, and finite-difference representation. Its initial campaign remains the
-historical one-dimensional normalized Appendix D experiment.
+PhysKit owns the ``Piab1D`` continuum model, analytical solution, homogeneous-
+Dirichlet grid, finite-difference Hamiltonian, and eigensolution. KSD owns only the
+calculation-specific spectral reduction, residual diagnostics, retained evidence, and
+verification composed around that pinned implementation.
 
-.. currentmodule:: ksdft2effmass.model_systems
+.. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-.. autoclass:: Piab1dParameters
+.. autoclass:: Piab1dStudyDefinition
    :members:
 
-.. autoclass:: Piab1dAnalytical
+.. autoclass:: Piab1dResidualStudyResult
    :members:
 
-.. autoclass:: Piab1dFiniteDifference
+.. autoclass:: Piab1dResidualStudyEvaluator
    :members:
 
-.. autoclass:: Piab1dGridEvaluation
+.. autoclass:: Piab1dStudyInputDeserializer
    :members:
 
-.. autoclass:: Piab1dGridEvaluator
+.. autoclass:: Piab1dStudyResultSerializer
+   :members:
+
+.. autoclass:: Piab1dResultVerifier
    :members:
 
 Two-dimensional plane-wave Bloch operators

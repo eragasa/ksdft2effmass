@@ -3,21 +3,36 @@
 from __future__ import annotations
 
 import numpy as np
+from projectkoios.numerics.quadrature.numpy.uniform_1d import (
+    NumpyHomogeneousDirichletInteriorQuadrature1D,
+    NumpyUniformClosedIntervalTrapezoidalRule,
+)
+from projectkoios.numerics.quadrature.uniform_1d import (
+    UniformClosedIntervalTrapezoidalRuleDefinition,
+)
+from projectkoios.physkit.qm.piab1d.tise_analytical import (
+    Piab1DAnalyticalSolution,
+)
+from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
+from projectkoios.physkit.qm.sampled_states import SampledQuantumState1D
+from projectkoios.physkit.units import (
+    ComplexVectorQuantity as PhysKitComplexVectorQuantity,
+)
+from projectkoios.physkit.units import Unitless as PhysKitUnitless
+from projectkoios.physkit.units import VectorQuantity as PhysKitVectorQuantity
 
 from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
 from ksdft2effmass.operators import (
     MatrixQuantity,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairSolver,
+    RealSymmetricEigenpairResult,
     ScalarQuantity,
     SparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
 
-from ..evaluation import Piab1dGridEvaluator
-from ..model import Piab1dParameters
 from .records import Piab1dResidualStudyResult, Piab1dStudyDefinition
 
 
@@ -26,20 +41,24 @@ class Piab1dResidualStudyEvaluator:
 
     __slots__ = (
         "compression",
-        "grid_evaluator",
+        "finite_difference_solver",
         "residual_analyzer",
         "subspace_selector",
     )
 
-    def __init__(self, eigenpair_solver: RealSymmetricEigenpairSolver | None = None):
-        """Construct with an explicit or default sparse-capable eigensolver."""
-        if eigenpair_solver is not None and not isinstance(
-            eigenpair_solver, RealSymmetricEigenpairSolver
+    def __init__(
+        self, finite_difference_solver: Piab1dTiseFdSolver | None = None
+    ) -> None:
+        """Construct with the pinned PhysKit PIAB1D finite-difference solver."""
+        if finite_difference_solver is not None and not isinstance(
+            finite_difference_solver, Piab1dTiseFdSolver
         ):
             raise TypeError(
-                "eigenpair_solver must be RealSymmetricEigenpairSolver or None"
+                "finite_difference_solver must be Piab1dTiseFdSolver or None"
             )
-        self.grid_evaluator = Piab1dGridEvaluator(eigenpair_solver)
+        self.finite_difference_solver = (
+            finite_difference_solver or Piab1dTiseFdSolver()
+        )
         self.subspace_selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
         self.residual_analyzer = OrthogonalCompressionResidualAnalyzer()
@@ -50,27 +69,58 @@ class Piab1dResidualStudyEvaluator:
         """Return the deterministic finite residual study result."""
         if not isinstance(definition, Piab1dStudyDefinition):
             raise TypeError("definition must be Piab1dStudyDefinition")
-        parameters = Piab1dParameters(
-            length=ScalarQuantity(definition.length, Unitless()),
-            mass=ScalarQuantity(definition.mass, Unitless()),
-            hbar=ScalarQuantity(definition.hbar, Unitless()),
+        finite_difference = self.finite_difference_solver.solve(
+            model=definition.model,
+            interior_points=definition.Nx_pts_interior,
         )
-        evaluation = self.grid_evaluator.execute(parameters, definition.interior_points)
-        analytical = evaluation.analytical
-        finite_difference = evaluation.finite_difference
-        eigenpairs = evaluation.eigenpairs
-        if not isinstance(eigenpairs.operator, SparseMatrixQuantity):
-            raise TypeError("grid evaluation must retain a sparse Hamiltonian")
-        hamiltonian = eigenpairs.operator
+        hamiltonian = SparseMatrixQuantity.from_csr(
+            finite_difference.hamiltonian.to_csr(),
+            Unitless(),
+        )
+        eigenpairs = RealSymmetricEigenpairResult(
+            operator=hamiltonian,
+            eigenvalues=VectorQuantity(
+                finite_difference.eigenpairs.eigenvalues,
+                hamiltonian.unit,
+            ),
+            eigenvectors=MatrixQuantity(
+                finite_difference.eigenpairs.eigenvectors,
+                Unitless(),
+            ),
+        )
+        quadrature_rule: NumpyHomogeneousDirichletInteriorQuadrature1D | None = None
+        quadrature_vectors: MatrixQuantity | None = None
+        if definition.quadrature:
+            full_rule = NumpyUniformClosedIntervalTrapezoidalRule().calculate(
+                UniformClosedIntervalTrapezoidalRuleDefinition(
+                    0.0,
+                    definition.model.length,
+                    definition.Nx_pts_interior + 2,
+                )
+            )
+            quadrature_rule = full_rule.restrict_homogeneous_dirichlet()
+            if quadrature_rule.spacing != finite_difference.grid_spacing.magnitude:
+                raise ValueError("quadrature spacing must match the PhysKit grid")
+            quadrature_vectors = MatrixQuantity(
+                self.normalize_eigenvectors(
+                    finite_difference.eigenpairs.eigenvectors,
+                    finite_difference.interval.grid.interior_coordinates(),
+                    PhysKitVectorQuantity(
+                        magnitude=quadrature_rule.interior_weights,
+                        unit=finite_difference.grid_spacing.unit,
+                    ),
+                ),
+                Unitless(),
+            )
         hamiltonian_dense = hamiltonian.to_dense().magnitude
         eigenvalues = eigenpairs.eigenvalues.magnitude
         eigenvectors = eigenpairs.eigenvectors.magnitude
-        retained = definition.retained_dimension
+        retained = definition.N_retained_eigenpairs
         subspace = self.subspace_selector.execute(eigenpairs, retained)
         compression = self.compression.execute(hamiltonian, subspace)
         retained_vectors = subspace.basis_vectors.magnitude
         projector = subspace.projector().magnitude
-        complement = np.eye(definition.interior_points) - projector
+        complement = np.eye(definition.Nx_pts_interior) - projector
         retained_embedded = compression.embedded.magnitude
         retained_coordinates = compression.coordinates.magnitude
         residuals = self.residual_analyzer.execute(
@@ -80,14 +130,16 @@ class Piab1dResidualStudyEvaluator:
         unmatched_compression = residuals.unmatched.magnitude
         discarded_sector = residuals.discarded_sector.magnitude
         cyclic_reference = hamiltonian_dense.copy()
-        if definition.interior_points > 1:
+        if definition.Nx_pts_interior > 1:
             cyclic_reference[0, -1] = hamiltonian_dense[0, 1]
             cyclic_reference[-1, 0] = hamiltonian_dense[1, 0]
         boundary_realization = hamiltonian_dense - cyclic_reference
-        discrete = finite_difference.discrete_energy_levels().magnitude
-        continuum = analytical.energy_levels(definition.interior_points).magnitude
+        discrete = finite_difference.closed_form_discrete_energies().magnitude
+        continuum = Piab1DAnalyticalSolution(model=definition.model).evaluate(
+            count=definition.Nx_pts_interior
+        ).energies.magnitude
         expected_retained = np.diag(discrete[:retained])
-        identity = np.eye(definition.interior_points)
+        identity = np.eye(definition.Nx_pts_interior)
         diagnostics = (
             (
                 "discrete_spectrum_maximum_absolute_error",
@@ -135,6 +187,15 @@ class Piab1dResidualStudyEvaluator:
                 ),
             ),
             (
+                "spectral_leakage_frobenius_norm",
+                ScalarQuantity(
+                    self.frobenius_norm(
+                        complement @ hamiltonian_dense @ retained_vectors
+                    ),
+                    hamiltonian.unit,
+                ),
+            ),
+            (
                 "consistently_compressed_residual_frobenius_norm",
                 ScalarQuantity(
                     self.frobenius_norm(consistently_compressed), hamiltonian.unit
@@ -165,6 +226,8 @@ class Piab1dResidualStudyEvaluator:
             hamiltonian=hamiltonian,
             eigenvalues=eigenpairs.eigenvalues,
             eigenvectors=eigenpairs.eigenvectors,
+            quadrature_rule=quadrature_rule,
+            quadrature_normalized_eigenvectors=quadrature_vectors,
             retained_vectors=MatrixQuantity(retained_vectors, Unitless()),
             projector=MatrixQuantity(projector, Unitless()),
             retained_embedded=MatrixQuantity(retained_embedded, hamiltonian.unit),
@@ -182,6 +245,31 @@ class Piab1dResidualStudyEvaluator:
             continuum_closed_form=VectorQuantity(continuum, hamiltonian.unit),
             diagnostics=diagnostics,
         )
+
+    @staticmethod
+    def normalize_eigenvectors(
+        eigenvectors: np.ndarray[tuple[int, int], np.dtype[np.float64]],
+        coordinates: PhysKitVectorQuantity,
+        quadrature_weights: PhysKitVectorQuantity,
+    ) -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
+        """Apply PhysKit's unit-aware sampled-state normalizer by column."""
+        normalized_columns: list[np.ndarray[tuple[int], np.dtype[np.float64]]] = []
+        for column in range(eigenvectors.shape[1]):
+            normalized = SampledQuantumState1D(
+                coordinates=coordinates,
+                amplitudes=PhysKitComplexVectorQuantity(
+                    magnitude=np.asarray(
+                        eigenvectors[:, column],
+                        dtype=np.complex128,
+                    ),
+                    unit=PhysKitUnitless(),
+                ),
+            ).normalize(quadrature_weights=quadrature_weights)
+            amplitudes = normalized.normalized_state.amplitudes.magnitude
+            if np.any(amplitudes.imag != 0.0):
+                raise ValueError("real PIAB1D eigenvectors must remain real")
+            normalized_columns.append(np.asarray(amplitudes.real, dtype=np.float64))
+        return np.column_stack(normalized_columns)
 
     @staticmethod
     def frobenius_norm(

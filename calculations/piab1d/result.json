@@ -8,27 +8,30 @@
     "projector_idempotency_frobenius_error": 8.479837176952556e-16,
     "retained_coordinate_frobenius_error": 2.4631417609541625e-14,
     "retained_embedding_frobenius_error": 1.0237707180687914e-14,
+    "spectral_leakage_frobenius_norm": 4.1844227353728673e-14,
     "spectral_reconstruction_frobenius_error": 3.0434814945306115e-13,
     "unmatched_compression_frobenius_norm": 270.97651210035116,
     "unmatched_equals_discarded_frobenius_error": 8.753242574618725e-14
   },
   "evidence_status": "illustrative numerical experiment",
-  "experiment_id": "research-monograph.particle-in-box.v1",
+  "experiment_id": "research-monograph.particle-in-box.v2",
   "input": {
     "boundary_reference": {
       "interpretation": "Declared comparison reference only; not a representation-independent continuum potential.",
       "kind": "cyclic closure on the same finite coordinate space"
     },
     "dimensionless_parameters": {
-      "hbar": 1.0,
       "interior_points": 8,
       "length": 1.0,
       "mass": 1.0,
       "retained_dimension": 3
     },
     "evidence_status": "illustrative numerical experiment",
-    "experiment_id": "research-monograph.particle-in-box.v1",
-    "schema_version": 1
+    "experiment_id": "research-monograph.particle-in-box.v2",
+    "finite_representation": {
+      "quadrature": true
+    },
+    "schema_version": 2
   },
   "limitations": [
     "The finite matrix is not the continuum differential operator.",
@@ -200,62 +203,62 @@
         81.0
       ]
     ],
-    "retained_eigenvectors": [
+    "retained_eigenvectors_euclidean": [
       [
         0.16122984176531704,
         -0.3030129851146958,
-        -0.4082482904638629
+        0.4082482904638629
       ],
       [
         0.30301298511469615,
         -0.4642428268800125,
-        -0.4082482904638628
+        0.4082482904638628
       ],
       [
         0.40824829046386346,
         -0.4082482904638628,
-        5.4475842999055974e-17
+        -5.4475842999055974e-17
       ],
       [
         0.4642428268800131,
         -0.16122984176531638,
-        0.40824829046386296
+        -0.40824829046386296
       ],
       [
         0.46424282688001267,
         0.1612298417653174,
-        0.40824829046386296
+        -0.40824829046386296
       ],
       [
         0.40824829046386246,
         0.4082482904638633,
-        -6.76350404980622e-17
+        6.76350404980622e-17
       ],
       [
         0.3030129851146955,
         0.4642428268800129,
-        -0.40824829046386296
+        0.40824829046386296
       ],
       [
         0.1612298417653168,
         0.303012985114696,
-        -0.4082482904638631
+        0.4082482904638631
       ]
     ],
     "retained_hamiltonian_coordinates": [
       [
         4.884897716341421,
         -9.782766946686441e-15,
-        5.948489225594269e-15
+        -5.948489225594269e-15
       ],
       [
         -1.1169260312949949e-14,
         18.950400107362785,
-        3.3526846137020598e-15
+        -3.3526846137020598e-15
       ],
       [
-        3.0400725571433525e-15,
-        3.748539189034861e-15,
+        -3.0400725571433525e-15,
+        -3.748539189034861e-15,
         40.49999999999998
       ]
     ],
@@ -339,6 +342,48 @@
         2.6657831945342148,
         9.654433581108574,
         8.616949625354835
+      ]
+    ],
+    "retained_nodal_amplitudes_quadrature_normalized": [
+      [
+        0.48368952529595105,
+        -0.9090389553440873,
+        1.2247448713915892
+      ],
+      [
+        0.9090389553440883,
+        -1.3927284806400373,
+        1.2247448713915887
+      ],
+      [
+        1.2247448713915903,
+        -1.2247448713915883,
+        -1.6342752899716797e-16
+      ],
+      [
+        1.392728480640039,
+        -0.48368952529594905,
+        -1.2247448713915892
+      ],
+      [
+        1.3927284806400377,
+        0.48368952529595216,
+        -1.2247448713915892
+      ],
+      [
+        1.2247448713915872,
+        1.2247448713915896,
+        2.0290512149418666e-16
+      ],
+      [
+        0.9090389553440863,
+        1.3927284806400384,
+        1.2247448713915892
+      ],
+      [
+        0.48368952529595033,
+        0.9090389553440879,
+        1.2247448713915896
       ]
     ],
     "spectral_projector_full": [
@@ -425,14 +470,132 @@
     ]
   },
   "provenance": {
-    "eigensolver": "numpy.linalg.eigh",
+    "dependency_identities": [
+      {
+        "capabilities": [
+          "projectkoios.numerics.quadrature.uniform_1d",
+          "projectkoios.numerics.quadrature.numpy.uniform_1d"
+        ],
+        "distribution": "projectkoios-optimization",
+        "repository": "https://github.com/eragasa/projectkoios-optimization",
+        "revision": "3cd32ea8985a855bcdbaffbf89af95e970b3bf14",
+        "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb"
+      },
+      {
+        "capabilities": [
+          "projectkoios.physkit.qm.piab1d",
+          "projectkoios.physkit.qm.piab1d.tise_fd",
+          "projectkoios.physkit.qm.piab1d.tise_analytical",
+          "projectkoios.physkit.qm.sampled_states"
+        ],
+        "distribution": "projectkoios-physkit",
+        "repository": "https://github.com/eragasa/projectkoios-physkit",
+        "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
+        "tree": "a85740480be8ca397a9495c362771fa62de55c26"
+      }
+    ],
+    "eigensolver": "scipy.linalg.eigh_tridiagonal",
     "floating_point": "IEEE-754 binary64 through numpy.float64",
-    "input_path": "calculations/research-monograph/particle-in-box/input.json",
-    "input_sha256": "85dd2b11225278194aedce6346cfb93ec6358e0c5df8a4009ff0567bb0b833ed",
+    "implementation_identities": [
+      {
+        "path": "python/src/ksdft2effmass/model_systems/study/base.py",
+        "sha256": "431489f9add1829590174463411e7deaaf0584a192b360d11b5c67d499c0574e"
+      },
+      {
+        "path": "python/src/ksdft2effmass/operators/eigenpairs.py",
+        "sha256": "74b9d86939eed22b8210b84895da196a52aed09bdaefc7762ab50e363e1a94a7"
+      },
+      {
+        "path": "python/src/ksdft2effmass/operators/quantities.py",
+        "sha256": "132ab2efb5dac7c56ddd5d199b75c8d22dab39941e28244ac88e106aca0db9b5"
+      },
+      {
+        "path": "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
+        "sha256": "607804bc5de5e9531ff24520b4048c5f67fae15c24c2dd3182a070d0c0af29f6"
+      },
+      {
+        "path": "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
+        "sha256": "5e70b9fee54888acc1618e15214bf9a3e399ca54f02d3d6587ee37fe7f54e00e"
+      },
+      {
+        "path": "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
+        "sha256": "eeb42bf531f0bfc6863881e35765879f37d1cbdee722847c6748440d17e5ca1e"
+      },
+      {
+        "path": "python/src/ksdft2effmass/model_systems/piab1d/study/serialization.py",
+        "sha256": "9c9919ec2282a498395cb73d7acb32a7abf3322fcb1c566827c4c8b244b7d2f7"
+      }
+    ],
+    "input_path": "calculations/piab1d/input.json",
+    "input_sha256": "e0daa5a75c5a957036405d6827d400900e05c7b8ec38d8490e09d0da21f274ab",
     "numpy_version": "2.5.1",
     "python_version": "3.14.6",
-    "script_path": "calculations/research-monograph/particle-in-box/run_experiment.py",
-    "script_sha256": "e945c0a6320f84b3b32e938e5cf7cd6f779ecf3261846abd67a2ae192a08252d"
+    "script_path": "calculations/piab1d/run_experiment.py",
+    "script_sha256": "7eeacb916d4209ef278dcf741f8a6141e9450e1e2879f498f0ecf1397c146f7a"
+  },
+  "quadrature": {
+    "diagonal_mass_matrix": {
+      "diagonal": [
+        0.1111111111111111,
+        0.1111111111111111,
+        0.1111111111111111,
+        0.1111111111111111,
+        0.1111111111111111,
+        0.1111111111111111,
+        0.1111111111111111,
+        0.1111111111111111
+      ],
+      "representation": "diagonal"
+    },
+    "enabled": true,
+    "full_grid_point_count": 10,
+    "full_weight_convention": "composite-trapezoidal",
+    "full_weights": [
+      0.05555555555555555,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.05555555555555555
+    ],
+    "interior_full_grid_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "interior_restriction_convention": "homogeneous-dirichlet-interior-nodes",
+    "interior_weights": [
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111,
+      0.1111111111111111
+    ],
+    "interval": [
+      0.0,
+      1.0
+    ],
+    "mass_matrix_convention": "diagonal-lumped-diag-weights",
+    "node_convention": "endpoint-inclusive-uniform-closed-interval",
+    "projector_equivalence_frobenius_error": 7.454059003397239e-16,
+    "rule_identifier": "projectkoios.numerics.quadrature.uniform_closed_interval_trapezoidal",
+    "rule_version": 1,
+    "solver_eigenvector_normalization": "euclidean",
+    "spacing": 0.1111111111111111,
+    "stored_nodal_amplitude_normalization": "homogeneous-Dirichlet interior quadrature",
+    "weighted_gram_frobenius_error": 2.6648453547151524e-16
   },
   "residuals": {
     "consistently_compressed_physical_potential": {
@@ -773,7 +936,7 @@
       ]
     }
   },
-  "schema_version": 1,
+  "schema_version": 2,
   "spectra": {
     "computed_discrete": [
       4.884897716341432,
@@ -790,7 +953,7 @@
       19.739208802178716,
       44.41321980490211,
       78.95683520871486,
-      123.37005501361699,
+      123.37005501361698,
       177.65287921960845,
       241.80530782668927,
       315.82734083485946
@@ -810,7 +973,7 @@
       0.9600384846869406,
       0.9118906527810398,
       0.8477353155308679,
-      0.770571938064942,
+      0.7705719380649421,
       0.6839179895857799,
       0.5915899910483606,
       0.4974715041083516
@@ -823,7 +986,7 @@
     },
     "retained": {
       "dimension": 3,
-      "embedding": "columns of retained_eigenvectors",
+      "embedding": "columns of retained_eigenvectors_euclidean",
       "identifier": "lowest discrete spectral coordinates"
     }
   }

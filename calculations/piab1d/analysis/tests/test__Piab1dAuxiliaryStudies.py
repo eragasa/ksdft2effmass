@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import cast
 
 import pytest
+
 from ksdft2effmass.model_systems.piab1d import JsonValue
 
 from ..convergence import Piab1dConvergenceWorkflow

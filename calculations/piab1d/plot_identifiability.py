@@ -18,7 +18,7 @@ def plot_identifiability(payload: dict[str, Any], output: Path) -> None:
     shift = np.asarray(payload["illustrative_shift"], dtype=np.float64)
     fits = payload["model_class_fits"]
     class_names = payload["input"]["admissible_model_classes"]
-    labels = ["scalar", "diagonal", "tridiagonal", "arbitrary\nHermitian"]
+    labels = ["scalar", "diagonal", "tridiagonal", "arbitrary\nreal symmetric"]
     values = [fits[name]["unexplained_frobenius_norm"] for name in class_names]
 
     figure, axes = plt.subplots(1, 2, figsize=(10.8, 4.4), constrained_layout=True)

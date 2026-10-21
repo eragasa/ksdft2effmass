@@ -78,6 +78,27 @@ class Piab1dCampaignResultDecoder:
             raise ValueError(f"{name} must be a finite matrix")
         return matrix
 
+    @classmethod
+    def verify_dependency_identities(cls, payload: dict[str, JsonValue]) -> None:
+        """Verify the exact external PIAB1D production owners."""
+        provenance = cls.mapping(payload["provenance"], "provenance")
+        expected: list[JsonValue] = [
+            {
+                "distribution": "projectkoios-optimization",
+                "repository": "https://github.com/eragasa/projectkoios-optimization",
+                "revision": "3cd32ea8985a855bcdbaffbf89af95e970b3bf14",
+                "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
+            },
+            {
+                "distribution": "projectkoios-physkit",
+                "repository": "https://github.com/eragasa/projectkoios-physkit",
+                "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
+                "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+            },
+        ]
+        if provenance.get("dependency_identities") != expected:
+            raise ValueError("dependency identities do not match the PIAB1D contract")
+
 
 class Piab1dConvergenceVerifier(Piab1dCampaignResultDecoder):
     """Independently verify the retained grid-convergence campaign."""
@@ -85,6 +106,7 @@ class Piab1dConvergenceVerifier(Piab1dCampaignResultDecoder):
     def execute(self, path: Path) -> None:
         """Raise unless one result satisfies the declared convergence identities."""
         payload = self.decode(path)
+        self.verify_dependency_identities(payload)
         assert self.integer(payload["schema_version"], "schema_version") == 1
         assert payload["evidence_status"] == "illustrative numerical experiment"
         assert payload["calculation_status"] == "calculated illustrative result"
@@ -195,6 +217,7 @@ class Piab1dEigenpairSweepVerifier(Piab1dCampaignResultDecoder):
     def execute(self, path: Path) -> None:
         """Raise unless one result satisfies the declared eigenpair identities."""
         payload = self.decode(path)
+        self.verify_dependency_identities(payload)
         assert self.integer(payload["schema_version"], "schema_version") == 1
         input_payload = self.mapping(payload["input"], "input")
         series = self.mapping(input_payload["grid_series"], "grid_series")
@@ -309,6 +332,7 @@ class Piab1dNormSweepVerifier(Piab1dCampaignResultDecoder):
     def execute(self, path: Path) -> None:
         """Raise unless one result satisfies the declared norm identities."""
         payload = self.decode(path)
+        self.verify_dependency_identities(payload)
         assert self.integer(payload["schema_version"], "schema_version") == 1
         input_payload = self.mapping(payload["input"], "input")
         series = self.mapping(input_payload["grid_series"], "grid_series")
@@ -344,6 +368,52 @@ class Piab1dNormSweepVerifier(Piab1dCampaignResultDecoder):
                     rtol=2.0e-13,
                     atol=2.0e-12,
                 )
+            diagnostics = self.mapping(
+                grid["finite_identity_diagnostics"], "finite_identity_diagnostics"
+            )
+            expected_diagnostic_names = {
+                "discrete_spectrum_maximum_absolute_error",
+                "spectral_reconstruction_frobenius_error",
+                "projector_idempotency_frobenius_error",
+                "retained_coordinate_frobenius_error",
+                "retained_embedding_frobenius_error",
+                "spectral_leakage_frobenius_norm",
+            }
+            assert set(diagnostics) == expected_diagnostic_names
+            diagnostic_values = {
+                name: self.real(value, name) for name, value in diagnostics.items()
+            }
+            assert all(value >= 0.0 for value in diagnostic_values.values())
+            energy_roundoff_bound = (
+                1024.0
+                * np.finfo(np.float64).eps
+                * points
+                * expected_hamiltonian["frobenius"]
+            )
+            assert (
+                diagnostic_values["discrete_spectrum_maximum_absolute_error"]
+                < energy_roundoff_bound
+            )
+            assert (
+                diagnostic_values["spectral_reconstruction_frobenius_error"]
+                < energy_roundoff_bound
+            )
+            assert (
+                diagnostic_values["retained_coordinate_frobenius_error"]
+                < energy_roundoff_bound
+            )
+            assert (
+                diagnostic_values["retained_embedding_frobenius_error"]
+                < energy_roundoff_bound
+            )
+            assert (
+                diagnostic_values["spectral_leakage_frobenius_norm"]
+                < energy_roundoff_bound
+            )
+            assert (
+                diagnostic_values["projector_idempotency_frobenius_error"]
+                < 1024.0 * np.finfo(np.float64).eps * points
+            )
             residuals = self.mapping(grid["operator_residuals"], "residuals")
             consistent = self.mapping(
                 residuals["consistent_compression"], "consistent compression"

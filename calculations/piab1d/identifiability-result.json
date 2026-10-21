@@ -7,16 +7,16 @@
         [
           4.884897716341421,
           -9.782766946686441e-15,
-          5.948489225594269e-15
+          -5.948489225594269e-15
         ],
         [
           -1.1169260312949949e-14,
           18.950400107362785,
-          3.3526846137020598e-15
+          -3.3526846137020598e-15
         ],
         [
-          3.0400725571433525e-15,
-          3.748539189034861e-15,
+          -3.0400725571433525e-15,
+          -3.748539189034861e-15,
           40.49999999999998
         ]
       ],
@@ -45,16 +45,16 @@
         [
           4.384897716341421,
           -1.0000000000000098,
-          -0.3999999999999941
+          -0.40000000000000596
         ],
         [
           -1.000000000000011,
           19.200400107362785,
-          0.7500000000000033
+          0.7499999999999967
         ],
         [
-          -0.39999999999999697,
-          0.7500000000000038,
+          -0.4000000000000031,
+          0.7499999999999962,
           39.74999999999998
         ]
       ],
@@ -296,14 +296,28 @@
   },
   "provenance": {
     "floating_point": "IEEE-754 binary64 through numpy.float64",
-    "input_path": "calculations/research-monograph/particle-in-box/identifiability-input.json",
+    "implementation_identities": [
+      {
+        "path": "python/src/ksdft2effmass/analysis/operators/model_fitting.py",
+        "sha256": "3e566d523fb8daccce414242e4b0f51596e74bcdfac011a14482cf534d627ada"
+      },
+      {
+        "path": "python/src/ksdft2effmass/analysis/operators/decomposition_identifiability.py",
+        "sha256": "14eeb46747ca4d458d143063726f948634598a7a4ef1f33c62b8bc5c48edd36c"
+      },
+      {
+        "path": "calculations/piab1d/analysis/identifiability.py",
+        "sha256": "15b756f552d585fe9e913fb24bae28ed2ea7fe2e15385e897249357e1a95e2a6"
+      }
+    ],
+    "input_path": "calculations/piab1d/identifiability-input.json",
     "input_sha256": "eec29587b013a93fad107d36e596804c06131dd59126207510d7a237912fd506",
     "numpy_version": "2.5.1",
     "python_version": "3.14.6",
-    "retained_result_path": "calculations/research-monograph/particle-in-box/result.json",
-    "retained_result_sha256": "38a581367468498f50048173c5da7411dd9ab3488484ddb8f89b72ff84824c54",
-    "script_path": "calculations/research-monograph/particle-in-box/run_identifiability.py",
-    "script_sha256": "f1080fe6d1de047302cb15483c1cddfea653fba0f4e32c85db7e751c063a017c"
+    "retained_result_path": "calculations/piab1d/result.json",
+    "retained_result_sha256": "beb64cea8b0f147610984c1d1ae68c5c4dee3031e5518987ba6b356e82e2dda1",
+    "script_path": "calculations/piab1d/run_identifiability.py",
+    "script_sha256": "400ac9ab3761dac0d6258bf4a7b77685590f62c1c0e3fe8ad33271db71606a29"
   },
   "retained_space": {
     "dimension": 3,
@@ -312,16 +326,16 @@
       [
         4.884897716341421,
         -9.782766946686441e-15,
-        5.948489225594269e-15
+        -5.948489225594269e-15
       ],
       [
         -1.1169260312949949e-14,
         18.950400107362785,
-        3.3526846137020598e-15
+        -3.3526846137020598e-15
       ],
       [
-        3.0400725571433525e-15,
-        3.748539189034861e-15,
+        -3.0400725571433525e-15,
+        -3.748539189034861e-15,
         40.49999999999998
       ]
     ]

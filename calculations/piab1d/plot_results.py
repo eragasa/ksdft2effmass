@@ -13,6 +13,8 @@ import numpy as np
 import numpy.typing as npt
 from matplotlib.colors import TwoSlopeNorm
 
+from ksdft2effmass.model_systems.piab1d import Piab1dResultVerifier
+
 RealMatrix = npt.NDArray[np.float64]
 
 
@@ -32,7 +34,12 @@ def plot_summary(payload: dict[str, Any], output: Path) -> None:
     length = float(parameters["length"])
 
     positions = np.linspace(0.0, length, points + 2)
-    vectors = matrix(payload, "retained_eigenvectors")
+    if payload["quadrature"]["enabled"] is not True:
+        raise ValueError("summary plotting requires enabled quadrature evidence")
+    vectors = matrix(
+        payload,
+        "retained_nodal_amplitudes_quadrature_normalized",
+    )
     discrete = np.asarray(payload["spectra"]["computed_discrete"], dtype=np.float64)
     continuum = np.asarray(
         payload["spectra"]["continuum_closed_form"], dtype=np.float64
@@ -56,7 +63,7 @@ def plot_summary(payload: dict[str, Any], output: Path) -> None:
     state_axis.set(
         title="Three retained discrete eigenstates",
         xlabel=rf"position $x$ ($L={length:g}$)",
-        ylabel="grid-normalized amplitude",
+        ylabel="quadrature-normalized nodal amplitude",
     )
     state_axis.legend(frameon=False)
 
@@ -150,7 +157,10 @@ def main() -> int:
     parser.add_argument("--summary-output", type=Path, required=True)
     parser.add_argument("--residual-output", type=Path, required=True)
     args = parser.parse_args()
-    payload = json.loads(args.result.read_text(encoding="utf-8"))
+    result_path = args.result.resolve()
+    repository_root = Path(__file__).resolve().parents[2]
+    Piab1dResultVerifier().execute(result_path, repository_root)
+    payload = json.loads(result_path.read_text(encoding="utf-8"))
     plot_summary(payload, args.summary_output)
     plot_residuals(payload, args.residual_output)
     return 0
