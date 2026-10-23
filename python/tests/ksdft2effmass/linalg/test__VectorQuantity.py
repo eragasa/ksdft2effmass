@@ -21,8 +21,12 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems import Unitless, VectorQuantity
+
+from ksdft2effmass import linalg
+from ksdft2effmass.linalg import (
+    Unitless,
+    VectorQuantity,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = VectorQuantity
@@ -40,7 +44,7 @@ class TestVectorQuantity:
         Acceptance: The public export is exact, source mutation cannot alter the
         record, and direct record-array mutation is rejected.
         """
-        assert model_systems.VectorQuantity is VectorQuantity
+        assert linalg.VectorQuantity is VectorQuantity
         source = np.array([1.0, 2.0])
         quantity = VectorQuantity(source, Unitless())
         source[0] = 3.0

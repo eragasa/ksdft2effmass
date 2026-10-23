@@ -40,11 +40,13 @@ The three similarly named source areas have different roles:
   dependency lock. Tests for installed campaign behavior belong under `python/tests/`.
   An immutable retained version may preserve hash-bound source and lock bytes as part of
   its evidence package; that exception is not a template for new development.
-- `calculations/` is an inventory of retained or historical calculation packages.
-  Hash-bound executable files are evidence bytes and are not rewritten merely to match
-  current source organization. New reusable behavior is not added there. An unsealed
-  calculation that is migrated uses installed library behavior and retains at most a
-  thin input/output adapter.
+- [`calculations/`](calculations/implementation.md) is an inventory of retained or
+  historical calculation packages. Its implementation contract defines the target
+  staged execution-package layout and the boundary between pre-arXiv execution identity
+  and publication versioning. Hash-bound executable files are evidence bytes and are
+  not rewritten merely to match current source organization. New reusable behavior is
+  not added there. An unsealed calculation that is migrated uses installed library
+  behavior and retains only thin calculation-specific entry points.
 
 There is no top-level `campaigns/` source tree. In repository documentation,
 “campaign library” means `python/src/ksdft2effmass/campaigns/`.

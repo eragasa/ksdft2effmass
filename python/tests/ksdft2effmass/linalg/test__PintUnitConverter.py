@@ -21,18 +21,17 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems import (
+from scipy import sparse  # type: ignore[import-untyped]
+
+from ksdft2effmass import linalg
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    CsrComplexMatrixQuantity,
+    CsrRealMatrixQuantity,
     PhysicalUnit,
     PintUnitConverter,
     ScalarQuantity,
-    SparseMatrixQuantity,
 )
-from ksdft2effmass.operators import (
-    ComplexMatrixQuantity,
-    ComplexSparseMatrixQuantity,
-)
-from scipy import sparse  # type: ignore[import-untyped]
 
 pytestmark = pytest.mark.software_verification
 SUT = PintUnitConverter
@@ -50,7 +49,7 @@ class TestPintUnitConverter:
         Acceptance: The public export is exact, 100 centimeters converts to one meter,
         and length-to-energy conversion is rejected.
         """
-        assert model_systems.PintUnitConverter is PintUnitConverter
+        assert linalg.PintUnitConverter is PintUnitConverter
         converter = PintUnitConverter()
         converted = converter.convert_scalar(
             ScalarQuantity(100.0, PhysicalUnit("centimeter")),
@@ -72,7 +71,7 @@ class TestPintUnitConverter:
         Acceptance: A centimeter diagonal converts to meters with the same two stored
         entries and no dense intermediate in the returned quantity.
         """
-        source = SparseMatrixQuantity.from_csr(
+        source = CsrRealMatrixQuantity.from_csr(
             sparse.diags([100.0, 200.0], offsets=0, format="csr"),
             PhysicalUnit("centimeter"),
         )
@@ -115,7 +114,7 @@ class TestPintUnitConverter:
         Acceptance: One stored complex centimeter value converts to meters with both
         components scaled by ``0.01`` and one stored position retained.
         """
-        source = ComplexSparseMatrixQuantity.from_csr(
+        source = CsrComplexMatrixQuantity.from_csr(
             sparse.csr_array([[100.0 + 200.0j]]), PhysicalUnit("centimeter")
         )
 

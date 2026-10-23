@@ -1,4 +1,4 @@
-r"""Software verification of ``ComplexSparseMatrixQuantity``.
+r"""Software verification of ``CsrComplexMatrixQuantity``.
 
 Evidence profile: routine
 
@@ -25,14 +25,17 @@ import numpy as np
 import pytest
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import ComplexSparseMatrixQuantity, Unitless
+from ksdft2effmass.linalg import (
+    CsrComplexMatrixQuantity,
+    Unitless,
+)
 
 pytestmark = pytest.mark.software_verification
-SUT = ComplexSparseMatrixQuantity
+SUT = CsrComplexMatrixQuantity
 
 
-class TestComplexSparseMatrixQuantity:
-    """Own software evidence for ``ComplexSparseMatrixQuantity``."""
+class TestCsrComplexMatrixQuantity:
+    """Own software evidence for ``CsrComplexMatrixQuantity``."""
 
     def test_method__from_csr__canonicalizes_and_owns_complex_storage(self) -> None:
         """Evidence ID: SV-OPERATORS-COMPLEX-SPARSE-001
@@ -49,7 +52,7 @@ class TestComplexSparseMatrixQuantity:
             ),
             shape=(2, 2),
         )
-        quantity = ComplexSparseMatrixQuantity.from_csr(source, Unitless())
+        quantity = CsrComplexMatrixQuantity.from_csr(source, Unitless())
 
         assert quantity.shape == (2, 2)
         assert quantity.nonzero_count == 2
@@ -77,7 +80,7 @@ class TestComplexSparseMatrixQuantity:
         Acceptance: An explicit complex zero and Boolean sparse matrix are rejected.
         """
         with pytest.raises(ValueError, match="explicit zeros"):
-            ComplexSparseMatrixQuantity(
+            CsrComplexMatrixQuantity(
                 data=np.array([0.0 + 0.0j]),
                 column_indices=np.array([0], dtype=np.int64),
                 row_offsets=np.array([0, 1], dtype=np.int64),
@@ -85,6 +88,6 @@ class TestComplexSparseMatrixQuantity:
                 unit=Unitless(),
             )
         with pytest.raises(TypeError, match="excluding booleans"):
-            ComplexSparseMatrixQuantity.from_csr(
+            CsrComplexMatrixQuantity.from_csr(
                 sparse.csr_array([[True]], dtype=np.bool_), Unitless()
             )

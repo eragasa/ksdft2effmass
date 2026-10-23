@@ -23,11 +23,13 @@ import numpy as np
 import pytest
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import (
-    MatrixQuantity,
-    RealSymmetricEigenpairSolver,
-    SparseMatrixQuantity,
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
     Unitless,
+)
+from ksdft2effmass.operators import (
+    RealSymmetricEigenpairSolver,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -46,7 +48,7 @@ class TestRealSymmetricEigenpairSolver:
         Acceptance: The two-dimensional result reconstructs the input to binary64
         tolerance and a nonsymmetric input is rejected.
         """
-        operator = MatrixQuantity(np.array([[2.0, -1.0], [-1.0, 2.0]]), Unitless())
+        operator = RealMatrixQuantity(np.array([[2.0, -1.0], [-1.0, 2.0]]), Unitless())
         result = RealSymmetricEigenpairSolver().execute(operator)
 
         np.testing.assert_allclose(result.eigenvalues.magnitude, [1.0, 3.0])
@@ -59,7 +61,7 @@ class TestRealSymmetricEigenpairSolver:
         )
         with pytest.raises(ValueError, match="exactly real symmetric"):
             RealSymmetricEigenpairSolver().execute(
-                MatrixQuantity(np.array([[1.0, 1.0], [0.0, 1.0]]), Unitless())
+                RealMatrixQuantity(np.array([[1.0, 1.0], [0.0, 1.0]]), Unitless())
             )
 
     def test_method__execute__solves_sparse_tridiagonal_without_densifying(
@@ -73,7 +75,7 @@ class TestRealSymmetricEigenpairSolver:
         Acceptance: A three-point tridiagonal operator reconstructs to tolerance even
         when the sparse quantity's explicit dense-conversion method is forbidden.
         """
-        operator = SparseMatrixQuantity.from_csr(
+        operator = CsrRealMatrixQuantity.from_csr(
             sparse.diags(
                 ([-1.0, -1.0], [2.0, 2.0, 2.0], [-1.0, -1.0]),
                 offsets=(-1, 0, 1),
@@ -83,7 +85,7 @@ class TestRealSymmetricEigenpairSolver:
         )
 
         monkeypatch.setattr(
-            SparseMatrixQuantity, "to_dense", self.reject_dense_conversion
+            CsrRealMatrixQuantity, "to_dense", self.reject_dense_conversion
         )
         result = RealSymmetricEigenpairSolver().execute(operator)
 
@@ -107,7 +109,7 @@ class TestRealSymmetricEigenpairSolver:
         Acceptance: Selecting two states from a four-state diagonal operator returns
         the two lowest ordered eigenvalues and a four-by-two eigenvector matrix.
         """
-        operator = SparseMatrixQuantity.from_csr(
+        operator = CsrRealMatrixQuantity.from_csr(
             sparse.diags([4.0, 1.0, 3.0, 2.0], offsets=0, format="csr"),
             Unitless(),
         )
@@ -128,7 +130,7 @@ class TestRealSymmetricEigenpairSolver:
         Acceptance: A symmetric matrix with a second off-diagonal is rejected with an
         explicit tridiagonal-contract error.
         """
-        operator = SparseMatrixQuantity.from_csr(
+        operator = CsrRealMatrixQuantity.from_csr(
             sparse.csr_array(
                 np.array([[2.0, -1.0, 0.5], [-1.0, 2.0, -1.0], [0.5, -1.0, 2.0]])
             ),
@@ -140,8 +142,8 @@ class TestRealSymmetricEigenpairSolver:
 
     @staticmethod
     def reject_dense_conversion(
-        quantity: SparseMatrixQuantity,
-    ) -> MatrixQuantity:
+        quantity: CsrRealMatrixQuantity,
+    ) -> RealMatrixQuantity:
         """Reject any attempted sparse-to-dense conversion during a solver test."""
         del quantity
         raise AssertionError("sparse eigensolver must not materialize dense input")

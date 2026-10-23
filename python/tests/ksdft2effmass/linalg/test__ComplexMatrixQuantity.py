@@ -24,7 +24,10 @@ scientific validation, uncertainty quantification, or human acceptance.
 import numpy as np
 import pytest
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, Unitless
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    Unitless,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = ComplexMatrixQuantity

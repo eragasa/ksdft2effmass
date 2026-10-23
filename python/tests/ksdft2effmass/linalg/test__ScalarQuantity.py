@@ -20,8 +20,12 @@ quantification, or human acceptance.
 """
 
 import pytest
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems import ScalarQuantity, Unitless
+
+from ksdft2effmass import linalg
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    Unitless,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = ScalarQuantity
@@ -41,7 +45,7 @@ class TestScalarQuantity:
         Acceptance: The public export is exact, one Unitless value is retained, and a
         nonfinite magnitude is rejected.
         """
-        assert model_systems.ScalarQuantity is ScalarQuantity
+        assert linalg.ScalarQuantity is ScalarQuantity
         assert ScalarQuantity(1.0, Unitless()) == ScalarQuantity(1.0, Unitless())
         with pytest.raises(ValueError, match="finite"):
             ScalarQuantity(float("nan"), Unitless())

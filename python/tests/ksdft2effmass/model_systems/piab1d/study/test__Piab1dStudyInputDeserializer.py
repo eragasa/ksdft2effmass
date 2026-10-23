@@ -35,9 +35,13 @@ class TestPiab1dStudyInputDeserializer:
         assert definition.quadrature is True
 
     def test_method__execute__accepts_explicitly_disabled_quadrature(self) -> None:
-        payload = self.input_path().read_bytes().replace(
-            b'"quadrature": true',
-            b'"quadrature": false',
+        payload = (
+            self.input_path()
+            .read_bytes()
+            .replace(
+                b'"quadrature": true',
+                b'"quadrature": false',
+            )
         )
 
         definition = Piab1dStudyInputDeserializer().execute(payload)
@@ -45,9 +49,13 @@ class TestPiab1dStudyInputDeserializer:
         assert definition.quadrature is False
 
     def test_method__execute__rejects_numeric_quadrature_flag(self) -> None:
-        payload = self.input_path().read_bytes().replace(
-            b'"quadrature": true',
-            b'"quadrature": 1',
+        payload = (
+            self.input_path()
+            .read_bytes()
+            .replace(
+                b'"quadrature": true',
+                b'"quadrature": 1',
+            )
         )
 
         with pytest.raises(TypeError, match="quadrature"):

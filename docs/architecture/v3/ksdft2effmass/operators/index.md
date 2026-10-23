@@ -2,12 +2,18 @@
 
 ## Purpose and status
 
-`ksdft2effmass.operators` owns representation-independent finite matrices, quantities,
-eigensolvers, compression, and matrix norms. Typed state-space and subspace contracts
+`ksdft2effmass.operators` owns finite operators, eigensolvers, compression, and
+operator-matrix norms. Immutable numerical quantities and matrix-property verification
+belong to [`ksdft2effmass.linalg`](../linalg/index.md). Typed state-space and subspace contracts
 are assigned prospectively to the separate [`spaces`](../spaces/index.md) owner rather
 than added beneath `operators`.
 
-Existing modules remain documented by their current source, tests, Sphinx pages, and
+The implemented `hamiltonians.py` module owns the general `Hamiltonian`, its exact
+`HermitianHamiltonian` refinement, and `ReducedHamiltonian`. The reduced type binds a
+reduced matrix to an abstract `SpectralSubspace` and a parent-coordinate `Hamiltonian`
+embedding. The currently implemented `OrthogonalSpectralSubspace` owns the PIAB1D
+orthonormal realization. Other
+existing modules remain documented by their current source, tests, Sphinx pages, and
 older architecture records until touched. This page does not replace those records.
 
 ## Ownership boundary
@@ -19,12 +25,14 @@ threshold.
 
 ## Dependency rules
 
-The prospective `spaces` owner may consume immutable operator quantity records. The
-reverse dependency must be justified by a concrete contract and is not selected by
-this tranche. `operators` must not depend on `analysis`, model systems, experiments,
-calculations, serializers, plotting, or provenance owners.
+`operators` consumes immutable quantities from `ksdft2effmass.linalg`; `linalg` must
+not depend on `operators`. The prospective `spaces` owner may consume immutable
+linear-algebra quantities. `operators` must not depend on `analysis`, model systems,
+experiments, calculations, serializers, plotting, or provenance owners.
 
 ## Evidence and limitations
 
-No new `operators` source contract is introduced by this documentation tranche.
-Existing implementation and evidence status remain unchanged.
+Focused tests cover Hermitian refinement, spectral-subspace substitution, and
+`ReducedHamiltonian` shape and retention invariants. Matrix-property evidence belongs
+to `ksdft2effmass.linalg`. That software
+evidence does not establish adequacy of any selected retained space or model.

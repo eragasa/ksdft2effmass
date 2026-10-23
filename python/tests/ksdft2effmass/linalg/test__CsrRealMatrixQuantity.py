@@ -1,4 +1,4 @@
-r"""Software verification of ``SparseMatrixQuantity``.
+r"""Software verification of ``CsrRealMatrixQuantity``.
 
 Evidence profile: routine
 
@@ -25,19 +25,22 @@ import numpy as np
 import pytest
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import SparseMatrixQuantity, Unitless
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    Unitless,
+)
 
 pytestmark = pytest.mark.software_verification
-SUT = SparseMatrixQuantity
+SUT = CsrRealMatrixQuantity
 
 
-class TestSparseMatrixQuantity:
-    """Own software evidence for ``SparseMatrixQuantity``."""
+class TestCsrRealMatrixQuantity:
+    """Own software evidence for ``CsrRealMatrixQuantity``."""
 
     def test_constructor__canonical_csr_storage__is_compact_and_immutable(self) -> None:
         """Evidence ID: SV-OPERATORS-SPARSE-001
 
-        Requirement: SparseMatrixQuantity owns canonical finite CSR data without
+        Requirement: CsrRealMatrixQuantity owns canonical finite CSR data without
         exposing mutable maintained storage.
 
         Acceptance: A three-by-three tridiagonal matrix stores seven nonzeros in
@@ -49,7 +52,7 @@ class TestSparseMatrixQuantity:
             offsets=(-1, 0, 1),
             format="csr",
         )
-        quantity = SparseMatrixQuantity.from_csr(source, Unitless())
+        quantity = CsrRealMatrixQuantity.from_csr(source, Unitless())
 
         assert quantity.shape == (3, 3)
         assert quantity.nonzero_count == 7
@@ -72,7 +75,7 @@ class TestSparseMatrixQuantity:
         Acceptance: Explicit stored zeros and Boolean sparse values are rejected.
         """
         with pytest.raises(ValueError, match="explicit zeros"):
-            SparseMatrixQuantity(
+            CsrRealMatrixQuantity(
                 data=np.array([0.0]),
                 column_indices=np.array([0], dtype=np.int64),
                 row_offsets=np.array([0, 1], dtype=np.int64),
@@ -80,6 +83,6 @@ class TestSparseMatrixQuantity:
                 unit=Unitless(),
             )
         with pytest.raises(TypeError, match="excluding booleans"):
-            SparseMatrixQuantity.from_csr(
+            CsrRealMatrixQuantity.from_csr(
                 sparse.csr_array([[True]], dtype=np.bool_), Unitless()
             )

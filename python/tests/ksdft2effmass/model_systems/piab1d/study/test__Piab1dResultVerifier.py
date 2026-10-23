@@ -32,9 +32,7 @@ class TestPiab1dResultVerifier:
         root = self.repository_root()
         calculation = root / "calculations" / "piab1d"
         input_path = calculation / "input.json"
-        definition = Piab1dStudyInputDeserializer().execute(
-            input_path.read_bytes()
-        )
+        definition = Piab1dStudyInputDeserializer().execute(input_path.read_bytes())
         result = Piab1dResidualStudyEvaluator().execute(definition)
         destination.write_bytes(
             Piab1dStudyResultSerializer().execute(

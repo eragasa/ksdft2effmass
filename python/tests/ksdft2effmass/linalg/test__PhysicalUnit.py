@@ -20,8 +20,11 @@ quantification, or human acceptance.
 """
 
 import pytest
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems import PhysicalUnit
+
+from ksdft2effmass import linalg
+from ksdft2effmass.linalg import (
+    PhysicalUnit,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = PhysicalUnit
@@ -41,7 +44,7 @@ class TestPhysicalUnit:
         Acceptance: The public export is exact, meter is retained, and empty or
         dimensionless expressions are rejected.
         """
-        assert model_systems.PhysicalUnit is PhysicalUnit
+        assert linalg.PhysicalUnit is PhysicalUnit
         assert PhysicalUnit("meter").expression == "meter"
         with pytest.raises(ValueError, match="nonempty"):
             PhysicalUnit("")

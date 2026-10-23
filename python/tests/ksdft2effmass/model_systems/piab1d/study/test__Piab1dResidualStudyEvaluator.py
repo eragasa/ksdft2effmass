@@ -31,9 +31,7 @@ class TestPiab1dResidualStudyEvaluator:
     def test_method__execute__preserves_reduction_and_quadrature_identities(
         self,
     ) -> None:
-        definition = Piab1dStudyInputDeserializer().execute(
-            self.definition_bytes()
-        )
+        definition = Piab1dStudyInputDeserializer().execute(self.definition_bytes())
         result = Piab1dResidualStudyEvaluator().execute(definition)
 
         assert result.hamiltonian.shape == (8, 8)
@@ -57,12 +55,13 @@ class TestPiab1dResidualStudyEvaluator:
             atol=256.0 * np.finfo(np.float64).eps,
         )
         retained = amplitudes[:, :3]
+        projector = result.reduced_hamiltonian.spectral_subspace.projector()
         np.testing.assert_allclose(
             retained @ (weights[:, None] * retained).T,
-            result.projector.magnitude,
+            projector.magnitude,
             atol=256.0 * np.finfo(np.float64).eps,
         )
-        assert not result.projector.magnitude.flags.writeable
+        assert not projector.magnitude.flags.writeable
 
     def test_method__execute__disabled_quadrature__retains_no_weighted_payload(
         self,

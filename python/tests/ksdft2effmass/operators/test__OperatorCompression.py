@@ -22,12 +22,14 @@ import numpy as np
 import pytest
 from scipy import sparse  # type: ignore[import-untyped]
 
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    Unitless,
+)
 from ksdft2effmass.operators import (
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
     RealSymmetricEigenpairSolver,
-    SparseMatrixQuantity,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -48,7 +50,7 @@ class TestOperatorCompression:
         Acceptance: Retaining two states of a three-state sparse diagonal operator
         yields ``diag(1,2)`` and ``diag(1,2,0)`` in the respective spaces.
         """
-        operator = SparseMatrixQuantity.from_csr(
+        operator = CsrRealMatrixQuantity.from_csr(
             sparse.diags([1.0, 2.0, 3.0], offsets=0, format="csr"), Unitless()
         )
         eigenpairs = RealSymmetricEigenpairSolver().execute(operator)

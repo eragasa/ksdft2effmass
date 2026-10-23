@@ -1,12 +1,12 @@
-r"""Software verification of ``MatrixQuantity``.
+r"""Software verification of ``RealMatrixQuantity``.
 
 Evidence profile: routine
 
-Bounded artifact scope: public MatrixQuantity represented software contract.
+Bounded artifact scope: public RealMatrixQuantity represented software contract.
 
 Facet and represented meaning
 
-The class under test owns the declared public MatrixQuantity contract.
+The class under test owns the declared public RealMatrixQuantity contract.
 
 Intrinsic and cross-object scope
 
@@ -21,28 +21,29 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems import MatrixQuantity, PhysicalUnit
+
+from ksdft2effmass import linalg
+from ksdft2effmass.linalg import PhysicalUnit, RealMatrixQuantity
 
 pytestmark = pytest.mark.software_verification
-SUT = MatrixQuantity
+SUT = RealMatrixQuantity
 
 
-class TestMatrixQuantity:
-    """Own software evidence for ``MatrixQuantity``."""
+class TestRealMatrixQuantity:
+    """Own software evidence for ``RealMatrixQuantity``."""
 
     def test_constructor__matrix__copies_to_immutable_binary64_storage(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-UNIT-005
 
-        Requirement: MatrixQuantity owns finite immutable binary64 matrix storage and
-        an explicit unit.
+        Requirement: RealMatrixQuantity owns finite immutable binary64 matrix storage
+        and an explicit unit.
 
         Acceptance: The public export is exact, source mutation cannot alter the
         record, and the physical unit remains attached.
         """
-        assert model_systems.MatrixQuantity is MatrixQuantity
+        assert linalg.RealMatrixQuantity is RealMatrixQuantity
         source = np.eye(2)
-        quantity = MatrixQuantity(source, PhysicalUnit("joule"))
+        quantity = RealMatrixQuantity(source, PhysicalUnit("joule"))
         source[0, 0] = 2.0
         np.testing.assert_array_equal(quantity.magnitude, np.eye(2))
         assert quantity.unit == PhysicalUnit("joule")

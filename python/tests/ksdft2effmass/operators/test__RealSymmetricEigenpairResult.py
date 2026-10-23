@@ -22,11 +22,13 @@ uncertainty quantification, or human acceptance.
 import numpy as np
 import pytest
 
-from ksdft2effmass.operators import (
-    MatrixQuantity,
-    RealSymmetricEigenpairResult,
+from ksdft2effmass.linalg import (
+    RealMatrixQuantity,
     Unitless,
     VectorQuantity,
+)
+from ksdft2effmass.operators import (
+    RealSymmetricEigenpairResult,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -44,11 +46,11 @@ class TestRealSymmetricEigenpairResult:
         Acceptance: A coherent two-dimensional result constructs and an eigenvector
         matrix inconsistent with the selected eigenvalue count is rejected.
         """
-        operator = MatrixQuantity(np.diag([1.0, 2.0]), Unitless())
+        operator = RealMatrixQuantity(np.diag([1.0, 2.0]), Unitless())
         result = RealSymmetricEigenpairResult(
             operator,
             VectorQuantity(np.array([1.0, 2.0]), Unitless()),
-            MatrixQuantity(np.eye(2), Unitless()),
+            RealMatrixQuantity(np.eye(2), Unitless()),
         )
 
         assert result.operator is operator
@@ -56,5 +58,5 @@ class TestRealSymmetricEigenpairResult:
             RealSymmetricEigenpairResult(
                 operator,
                 VectorQuantity(np.array([1.0, 2.0]), Unitless()),
-                MatrixQuantity(np.ones((2, 1)), Unitless()),
+                RealMatrixQuantity(np.ones((2, 1)), Unitless()),
             )

@@ -9,6 +9,8 @@ or supported import already exists.
 
 ## Child map
 
+- [`linalg`](linalg/index.md): immutable finite numerical quantities, dense and
+  canonical CSR representations, units, and matrix verification.
 - [`operators`](operators/index.md): representation-independent finite-operator values
   and operations.
 - [`spaces`](spaces/index.md): finite state-space and subspace contracts.

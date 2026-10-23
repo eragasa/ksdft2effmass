@@ -21,11 +21,13 @@ uncertainty quantification, or human acceptance.
 import numpy as np
 import pytest
 
+from ksdft2effmass.linalg import (
+    RealMatrixQuantity,
+    Unitless,
+)
 from ksdft2effmass.operators import (
-    MatrixQuantity,
     OrthogonalSpectralSubspaceSelector,
     RealSymmetricEigenpairSolver,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -45,7 +47,7 @@ class TestOrthogonalSpectralSubspaceSelector:
         idempotent rank-two and rank-one complementary projectors summing to identity.
         """
         eigenpairs = RealSymmetricEigenpairSolver().execute(
-            MatrixQuantity(np.diag([1.0, 2.0, 3.0]), Unitless())
+            RealMatrixQuantity(np.diag([1.0, 2.0, 3.0]), Unitless())
         )
         subspace = OrthogonalSpectralSubspaceSelector().execute(eigenpairs, 2)
         projector = subspace.projector().magnitude

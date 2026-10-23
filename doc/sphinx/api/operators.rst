@@ -72,8 +72,13 @@ physical scaling.
 .. autoclass:: DirichletIntervalRepresentation
    :members:
 
-Represented quantities
-----------------------
+Linear-algebra quantities
+-------------------------
+
+These immutable dense and CSR representations are imported from
+``ksdft2effmass.linalg`` rather than re-exported by ``ksdft2effmass.operators``.
+
+.. currentmodule:: ksdft2effmass.linalg
 
 .. autoclass:: PhysicalUnit
    :members:
@@ -87,17 +92,19 @@ Represented quantities
 .. autoclass:: VectorQuantity
    :members:
 
-.. autoclass:: MatrixQuantity
+.. autoclass:: RealMatrixQuantity
    :members:
 
-.. autoclass:: SparseMatrixQuantity
+.. autoclass:: CsrRealMatrixQuantity
    :members:
 
 .. autoclass:: ComplexMatrixQuantity
    :members:
 
-.. autoclass:: ComplexSparseMatrixQuantity
+.. autoclass:: CsrComplexMatrixQuantity
    :members:
+
+.. currentmodule:: ksdft2effmass.operators
 
 .. autoclass:: ComplexSparseHermiticityResult
    :members:
@@ -131,14 +138,18 @@ canonical sparse operator directly, requires a correlated passing Hermiticity re
 and evaluates algebraic residuals after the iterative solve. Complete eigensystems
 require a separately explicit dense boundary rather than implicit densification.
 
-``ComplexSparseMatrixQuantity`` is the canonical sparse complex-value boundary used by
+``CsrComplexMatrixQuantity`` is the canonical sparse complex-value boundary used by
 twisted finite-lattice construction. It never densifies implicitly;
 ``to_dense()`` is the explicit dense boundary. Like the real quantity records, it owns
 matrix values and units only. Basis, geometry, gauge, and energy-reference identity
 must be supplied by the higher-level represented-operator contract before comparison.
 
+.. currentmodule:: ksdft2effmass.linalg
+
 .. autoclass:: PintUnitConverter
    :members:
+
+.. currentmodule:: ksdft2effmass.operators
 
 DataObjects and ResultObjects
 -----------------------------

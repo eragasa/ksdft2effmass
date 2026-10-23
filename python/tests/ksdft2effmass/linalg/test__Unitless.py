@@ -20,8 +20,11 @@ quantification, or human acceptance.
 """
 
 import pytest
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems import Unitless
+
+from ksdft2effmass import linalg
+from ksdft2effmass.linalg import (
+    Unitless,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = Unitless
@@ -38,5 +41,5 @@ class TestUnitless:
         Acceptance: The public export is exact and a Unitless instance identifies
         Pint's canonical dimensionless expression.
         """
-        assert model_systems.Unitless is Unitless
+        assert linalg.Unitless is Unitless
         assert Unitless().expression == "dimensionless"
