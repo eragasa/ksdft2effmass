@@ -18,7 +18,10 @@ from typing import Literal
 
 import numpy as np
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, Unitless
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    Unitless,
+)
 
 from .plane_waves import PlaneWaveBlochHamiltonian2DModel
 

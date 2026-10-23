@@ -8,8 +8,11 @@ from dataclasses import dataclass
 import numpy as np
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import PhysicalUnit, Unitless
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.linalg import (
+    PhysicalUnit,
+    Unitless,
+)
+from ksdft2effmass.solidstate import (
     FiniteLatticeCoordinateResolver,
     FiniteLatticeShape,
     LatticeCoordinate,

@@ -27,7 +27,10 @@ from projectkoios.physkit.periodic.lattice import (
     ReciprocalLattice2D,
 )
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+)
 
 type ReciprocalIndex2D = tuple[int, int]
 type ReducedMomentum2D = tuple[float, float]

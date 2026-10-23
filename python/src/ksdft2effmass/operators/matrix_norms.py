@@ -6,9 +6,14 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .quantities import MatrixQuantity, ScalarQuantity, SparseMatrixQuantity, Unitless
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-type RepresentedRealMatrix = MatrixQuantity | SparseMatrixQuantity
+type RepresentedRealMatrix = RealMatrixQuantity | CsrRealMatrixQuantity
 
 
 @dataclass(frozen=True, slots=True)
@@ -74,11 +79,11 @@ class RepresentedMatrixNormAnalyzer:
         dense NumPy calculation, so this action materializes sparse input here rather
         than before eigensolution.
         """
-        if not isinstance(matrix, MatrixQuantity | SparseMatrixQuantity):
+        if not isinstance(matrix, RealMatrixQuantity | CsrRealMatrixQuantity):
             raise TypeError("matrix must be a dense or sparse matrix quantity")
         represented = (
             matrix.magnitude
-            if isinstance(matrix, MatrixQuantity)
+            if isinstance(matrix, RealMatrixQuantity)
             else matrix.to_dense().magnitude
         )
         dense = np.array(represented, dtype=np.float64, order="C", copy=True)

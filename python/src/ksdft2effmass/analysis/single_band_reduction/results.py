@@ -16,7 +16,7 @@ from ksdft2effmass.analysis.hopping_fits import (
     BlockHoppingModelComparisonResult1D,
 )
 from ksdft2effmass.analysis.periodic_bands import BandApproximationErrorResult1D
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingTruncationResult1D,
     ReciprocalOperatorFourierTransformResult1D,
     ReciprocalOperatorSamples1D,

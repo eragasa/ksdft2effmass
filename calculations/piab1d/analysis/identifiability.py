@@ -9,9 +9,11 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
-
 from ksdft2effmass.analysis.operators import DecompositionIdentifiabilityAnalyzer
-from ksdft2effmass.operators import MatrixQuantity, Unitless
+from ksdft2effmass.linalg import (
+    RealMatrixQuantity,
+    Unitless,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -69,14 +71,12 @@ class Piab1dIdentifiabilityWorkflow:
         dimension = reduced_hamiltonian.shape[0]
         shift = self.build_shift(payload, dimension)
         identifiability = self.identifiability_analyzer.execute(
-            MatrixQuantity(reduced_hamiltonian, Unitless()),
-            MatrixQuantity(shift, Unitless()),
+            RealMatrixQuantity(reduced_hamiltonian, Unitless()),
+            RealMatrixQuantity(shift, Unitless()),
         )
         decompositions: dict[str, JsonValue] = {
             "consistently_reduced_dirichlet": {
-                "kinetic": self.matrix_json(
-                    identifiability.physical_kinetic.magnitude
-                ),
+                "kinetic": self.matrix_json(identifiability.physical_kinetic.magnitude),
                 "potential": self.matrix_json(
                     identifiability.physical_potential.magnitude
                 ),

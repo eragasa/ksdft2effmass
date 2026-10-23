@@ -12,7 +12,11 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity, Unitless
+from ksdft2effmass.linalg import (
+    PhysicalUnit,
+    ScalarQuantity,
+    Unitless,
+)
 
 from .interface_data import (
     Wannier90EigenvalueData,

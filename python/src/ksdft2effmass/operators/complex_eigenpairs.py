@@ -8,13 +8,14 @@ from enum import StrEnum
 
 import numpy as np
 
-from .quantities import (
+from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
-    ComplexSparseMatrixQuantity,
+    CsrComplexMatrixQuantity,
     PhysicalUnit,
     Unitless,
     VectorQuantity,
 )
+
 from .sparse_hermiticity import ComplexSparseHermiticityResult
 
 type EigenpairResidualUnit = PhysicalUnit | Unitless
@@ -30,7 +31,7 @@ class HermitianEigenpairSelection(StrEnum):
 class ComplexHermitianEigenpairResult:
     """Retain ascending selected eigenpairs of one complex sparse Hermitian matrix."""
 
-    operator: ComplexSparseMatrixQuantity
+    operator: CsrComplexMatrixQuantity
     hermiticity: ComplexSparseHermiticityResult
     eigenvalues: VectorQuantity
     eigenvectors: ComplexMatrixQuantity
@@ -38,8 +39,8 @@ class ComplexHermitianEigenpairResult:
 
     def __post_init__(self) -> None:
         """Validate dimensions, units, ordering, and binary64 orthonormality."""
-        if type(self.operator) is not ComplexSparseMatrixQuantity:
-            raise TypeError("operator must be ComplexSparseMatrixQuantity")
+        if type(self.operator) is not CsrComplexMatrixQuantity:
+            raise TypeError("operator must be CsrComplexMatrixQuantity")
         if type(self.hermiticity) is not ComplexSparseHermiticityResult:
             raise TypeError("hermiticity must be ComplexSparseHermiticityResult")
         if self.hermiticity.matrix is not self.operator:

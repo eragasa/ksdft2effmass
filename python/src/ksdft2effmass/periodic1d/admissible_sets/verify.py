@@ -6,11 +6,14 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER, ScalarQuantity
+from ksdft2effmass.linalg import (
+    MODEL_SYSTEM_UNIT_CONVERTER,
+    ScalarQuantity,
+)
 from ksdft2effmass.periodic1d.multiband_alignment import (
     Periodic1DMultibandAlignmentResultVerifier,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
 
 from .definition import Periodic1DConstrainedAdmissibleSetCalculationDefinition
 from .results import (

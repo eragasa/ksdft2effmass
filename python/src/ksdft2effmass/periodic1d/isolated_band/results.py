@@ -19,8 +19,10 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorResult1D,
     BandSpectrumSamples1D,
 )
-from ksdft2effmass.operators import ScalarQuantity
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+)
+from ksdft2effmass.solidstate import (
     BlockHoppingTruncationResult1D,
     ReciprocalOperatorFourierTransformResult1D,
 )

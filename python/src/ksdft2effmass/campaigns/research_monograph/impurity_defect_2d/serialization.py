@@ -7,7 +7,7 @@ import json
 from typing import cast
 
 from ksdft2effmass.serialization import JsonCodec
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistMesh,
     FiniteLatticeShape,
     LatticeDimension,

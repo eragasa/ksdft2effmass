@@ -18,14 +18,14 @@ from enum import StrEnum
 
 import numpy as np
 
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
 from ksdft2effmass.serialization import JsonCodec
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingModel1D,
     ReciprocalOperatorSamples1D,
     WilsonLoopSpectrum1D,

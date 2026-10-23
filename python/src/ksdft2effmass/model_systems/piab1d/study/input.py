@@ -69,9 +69,7 @@ class Piab1dStudyInputDeserializer:
             "cyclic closure on the same finite coordinate space"
         ):
             raise ValueError("unsupported historical boundary reference")
-        if self.string(
-            boundary.get("interpretation"), "boundary interpretation"
-        ) != (
+        if self.string(boundary.get("interpretation"), "boundary interpretation") != (
             "Declared comparison reference only; not a "
             "representation-independent continuum potential."
         ):

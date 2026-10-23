@@ -7,12 +7,12 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import FiniteLatticeCoordinateResolver
+from ksdft2effmass.solidstate import FiniteLatticeCoordinateResolver
 
 from .finite_domain_locality import MinimumImageChebyshevPartition
 from .finite_domain_spectra import HostEdgeBoundStateResult

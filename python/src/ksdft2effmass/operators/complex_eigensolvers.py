@@ -8,17 +8,18 @@ from dataclasses import dataclass
 import numpy as np
 from scipy.sparse import linalg as sparse_linalg  # type: ignore[import-untyped]
 
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    CsrComplexMatrixQuantity,
+    Unitless,
+    VectorQuantity,
+)
+
 from .complex_eigenpairs import (
     ComplexHermitianEigenpairResidualAnalyzer,
     ComplexHermitianEigenpairResidualResult,
     ComplexHermitianEigenpairResult,
     HermitianEigenpairSelection,
-)
-from .quantities import (
-    ComplexMatrixQuantity,
-    ComplexSparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
 )
 from .sparse_hermiticity import ComplexSparseHermiticityResult
 
@@ -105,13 +106,13 @@ class ComplexHermitianSparseEigenpairSolver:
 
     def execute(
         self,
-        operator: ComplexSparseMatrixQuantity,
+        operator: CsrComplexMatrixQuantity,
         hermiticity: ComplexSparseHermiticityResult,
         request: ComplexHermitianEigensolverRequest,
     ) -> ComplexHermitianEigensolverResult:
         """Run sparse ``eigsh`` without materializing the represented operator."""
-        if type(operator) is not ComplexSparseMatrixQuantity:
-            raise TypeError("operator must be ComplexSparseMatrixQuantity")
+        if type(operator) is not CsrComplexMatrixQuantity:
+            raise TypeError("operator must be CsrComplexMatrixQuantity")
         if type(hermiticity) is not ComplexSparseHermiticityResult:
             raise TypeError("hermiticity must be ComplexSparseHermiticityResult")
         if hermiticity.matrix is not operator:

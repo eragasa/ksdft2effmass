@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import json
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+)
 from ksdft2effmass.serialization import JsonSerializer
 
 from .definition import Periodic1DAdmissibleSetThresholds

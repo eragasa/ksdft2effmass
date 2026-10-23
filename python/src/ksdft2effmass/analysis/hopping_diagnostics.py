@@ -6,14 +6,14 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
     BlockHoppingTruncationResult1D,

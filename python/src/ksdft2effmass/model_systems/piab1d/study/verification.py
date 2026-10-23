@@ -67,9 +67,10 @@ class Piab1dResultVerifier:
             raise ValueError("result has an unsupported calculation_status")
         input_payload = self.mapping(payload["input"], "input")
         if schema_version == 2:
-            if self.integer(
-                input_payload["schema_version"], "input schema_version"
-            ) != 2:
+            if (
+                self.integer(input_payload["schema_version"], "input schema_version")
+                != 2
+            ):
                 raise ValueError("input schema_version must equal two")
             if input_payload["experiment_id"] != (
                 "research-monograph.particle-in-box.v2"
@@ -322,8 +323,7 @@ class Piab1dResultVerifier:
         expected_indices = np.arange(1, points + 1, dtype=np.int64)
         expected_interior_weights = np.full(points, spacing, dtype=np.float64)
         if quadrature.get("rule_identifier") != (
-            "projectkoios.numerics.quadrature."
-            "uniform_closed_interval_trapezoidal"
+            "projectkoios.numerics.quadrature.uniform_closed_interval_trapezoidal"
         ):
             raise ValueError("quadrature rule_identifier is unsupported")
         if self.integer(quadrature["rule_version"], "rule_version") != 1:
@@ -331,9 +331,7 @@ class Piab1dResultVerifier:
         expected_conventions = {
             "node_convention": "endpoint-inclusive-uniform-closed-interval",
             "full_weight_convention": "composite-trapezoidal",
-            "interior_restriction_convention": (
-                "homogeneous-dirichlet-interior-nodes"
-            ),
+            "interior_restriction_convention": ("homogeneous-dirichlet-interior-nodes"),
             "mass_matrix_convention": "diagonal-lumped-diag-weights",
             "solver_eigenvector_normalization": "euclidean",
             "stored_nodal_amplitude_normalization": (
@@ -345,9 +343,10 @@ class Piab1dResultVerifier:
                 raise ValueError(f"quadrature {name} is unsupported")
         interval = self.vector(quadrature["interval"], "quadrature interval")
         np.testing.assert_array_equal(interval, np.array([0.0, length]))
-        if self.integer(
-            quadrature["full_grid_point_count"], "full_grid_point_count"
-        ) != points + 2:
+        if (
+            self.integer(quadrature["full_grid_point_count"], "full_grid_point_count")
+            != points + 2
+        ):
             raise ValueError("quadrature full_grid_point_count is inconsistent")
         np.testing.assert_array_equal(
             self.vector(
@@ -374,9 +373,12 @@ class Piab1dResultVerifier:
             ),
             expected_interior_weights,
         )
-        if self.mapping(
-            quadrature["diagonal_mass_matrix"], "diagonal_mass_matrix"
-        ).get("representation") != "diagonal":
+        if (
+            self.mapping(
+                quadrature["diagonal_mass_matrix"], "diagonal_mass_matrix"
+            ).get("representation")
+            != "diagonal"
+        ):
             raise ValueError("quadrature mass matrix representation is unsupported")
         recorded_spacing = self.real(quadrature["spacing"], "quadrature spacing")
         if recorded_spacing != spacing:
@@ -393,8 +395,7 @@ class Piab1dResultVerifier:
         )
         weighted_gram_error = float(
             np.linalg.norm(
-                nodal.T @ (interior_weights[:, None] * nodal)
-                - np.eye(retained),
+                nodal.T @ (interior_weights[:, None] * nodal) - np.eye(retained),
                 ord="fro",
             )
         )
@@ -458,7 +459,7 @@ class Piab1dResultVerifier:
                 "python/src/ksdft2effmass/model_systems/study/base.py",
                 "python/src/ksdft2effmass/operators/eigenpairs.py",
                 "python/src/ksdft2effmass/operators/finite_differences.py",
-                "python/src/ksdft2effmass/operators/quantities.py",
+                "python/src/ksdft2effmass/linalg/quantities.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
@@ -468,7 +469,7 @@ class Piab1dResultVerifier:
             expected = {
                 "python/src/ksdft2effmass/model_systems/study/base.py",
                 "python/src/ksdft2effmass/operators/eigenpairs.py",
-                "python/src/ksdft2effmass/operators/quantities.py",
+                "python/src/ksdft2effmass/linalg/quantities.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
@@ -498,9 +499,7 @@ class Piab1dResultVerifier:
         """Resolve current paths and the exact relocated historical PIAB1D path."""
         historical_prefix = "calculations/research-monograph/particle-in-box/"
         if relative.startswith(historical_prefix):
-            relative = "calculations/piab1d/" + relative.removeprefix(
-                historical_prefix
-            )
+            relative = "calculations/piab1d/" + relative.removeprefix(historical_prefix)
         return repository_root / relative
 
     @staticmethod

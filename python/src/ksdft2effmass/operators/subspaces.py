@@ -1,27 +1,95 @@
-"""Public orthogonal spectral-subspace selection and operator compression."""
+"""Public spectral-subspace selection and operator compression."""
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 import numpy as np
 
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
+    Unitless,
+    VectorQuantity,
+)
+
 from .eigenpairs import RealSymmetricEigenpairResult, RealSymmetricOperator
-from .quantities import MatrixQuantity, SparseMatrixQuantity, Unitless, VectorQuantity
+
+
+class SpectralSubspace(ABC):
+    """Define the common boundary for represented spectral subspaces.
+
+    Notes
+    -----
+    Implementations must declare parent and subspace dimensions and materialize
+    their represented spectral projector. The abstract contract does not require
+    that projector to be orthogonal.
+    """
+
+    @property
+    @abstractmethod
+    def full_dimension(self) -> int:
+        """Return the parent-space dimension.
+
+        Returns
+        -------
+        int
+            Positive parent-space dimension.
+        """
+
+    @property
+    @abstractmethod
+    def dimension(self) -> int:
+        """Return the spectral-subspace dimension.
+
+        Returns
+        -------
+        int
+            Positive subspace dimension not exceeding the parent dimension.
+        """
+
+    @abstractmethod
+    def projector(self) -> RealMatrixQuantity | ComplexMatrixQuantity:
+        """Return the represented spectral projector.
+
+        Returns
+        -------
+        RealMatrixQuantity or ComplexMatrixQuantity
+            Full-dimensional projector supplied by the concrete representation.
+        """
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class OrthogonalSpectralSubspace:
-    """Retain selected eigenvalues and an orthonormal column embedding."""
+class OrthogonalSpectralSubspace(SpectralSubspace):
+    """Retain selected real eigenvalues and an orthonormal column embedding.
+
+    Parameters
+    ----------
+    eigenvalues
+        Selected real eigenvalues with one entry per basis column.
+    basis_vectors
+        Unitless ``N`` by ``M`` real matrix whose columns form an orthonormal
+        spectral-subspace basis.
+
+    Raises
+    ------
+    TypeError
+        If either field has the wrong quantity type.
+    ValueError
+        If units, dimensions, or numerical orthonormality fail the concrete
+        contract.
+    """
 
     eigenvalues: VectorQuantity
-    basis_vectors: MatrixQuantity
+    basis_vectors: RealMatrixQuantity
 
     def __post_init__(self) -> None:
         if not isinstance(self.eigenvalues, VectorQuantity):
             raise TypeError("eigenvalues must be VectorQuantity")
-        if not isinstance(self.basis_vectors, MatrixQuantity):
-            raise TypeError("basis_vectors must be MatrixQuantity")
+        if not isinstance(self.basis_vectors, RealMatrixQuantity):
+            raise TypeError("basis_vectors must be RealMatrixQuantity")
         if not isinstance(self.basis_vectors.unit, Unitless):
             raise ValueError("basis_vectors must be Unitless")
         rows, columns = self.basis_vectors.magnitude.shape
@@ -42,19 +110,24 @@ class OrthogonalSpectralSubspace:
         return int(self.basis_vectors.magnitude.shape[0])
 
     @property
-    def retained_dimension(self) -> int:
-        """Return the selected spectral-subspace dimension."""
+    def dimension(self) -> int:
+        """Return the spectral-subspace dimension."""
         return int(self.basis_vectors.magnitude.shape[1])
 
-    def projector(self) -> MatrixQuantity:
-        """Materialize the full-space orthogonal projector at an explicit boundary."""
-        vectors = self.basis_vectors.magnitude
-        return MatrixQuantity(vectors @ vectors.T, Unitless())
+    @property
+    def retained_dimension(self) -> int:
+        """Return the selected dimension using the established selector vocabulary."""
+        return self.dimension
 
-    def complement_projector(self) -> MatrixQuantity:
+    def projector(self) -> RealMatrixQuantity:
+        """Materialize the full-space orthogonal projector."""
+        vectors = self.basis_vectors.magnitude
+        return RealMatrixQuantity(vectors @ vectors.T, Unitless())
+
+    def complement_projector(self) -> RealMatrixQuantity:
         """Materialize the complementary full-space orthogonal projector."""
         projector = self.projector().magnitude
-        return MatrixQuantity(np.eye(self.full_dimension) - projector, Unitless())
+        return RealMatrixQuantity(np.eye(self.full_dimension) - projector, Unitless())
 
 
 class OrthogonalSpectralSubspaceSelector:
@@ -78,7 +151,7 @@ class OrthogonalSpectralSubspaceSelector:
                 eigenpairs.eigenvalues.magnitude[:retained_dimension],
                 eigenpairs.eigenvalues.unit,
             ),
-            basis_vectors=MatrixQuantity(
+            basis_vectors=RealMatrixQuantity(
                 eigenpairs.eigenvectors.magnitude[:, :retained_dimension], Unitless()
             ),
         )
@@ -90,19 +163,19 @@ class OperatorCompressionResult:
 
     operator: RealSymmetricOperator
     subspace: OrthogonalSpectralSubspace
-    coordinates: MatrixQuantity
-    embedded: MatrixQuantity
+    coordinates: RealMatrixQuantity
+    embedded: RealMatrixQuantity
 
     def __post_init__(self) -> None:
-        if not isinstance(self.operator, MatrixQuantity | SparseMatrixQuantity):
+        if not isinstance(self.operator, RealMatrixQuantity | CsrRealMatrixQuantity):
             raise TypeError("operator must be a dense or sparse matrix quantity")
         if not isinstance(self.subspace, OrthogonalSpectralSubspace):
             raise TypeError("subspace must be OrthogonalSpectralSubspace")
-        if not isinstance(self.coordinates, MatrixQuantity):
-            raise TypeError("coordinates must be MatrixQuantity")
-        if not isinstance(self.embedded, MatrixQuantity):
-            raise TypeError("embedded must be MatrixQuantity")
-        retained = self.subspace.retained_dimension
+        if not isinstance(self.coordinates, RealMatrixQuantity):
+            raise TypeError("coordinates must be RealMatrixQuantity")
+        if not isinstance(self.embedded, RealMatrixQuantity):
+            raise TypeError("embedded must be RealMatrixQuantity")
+        retained = self.subspace.dimension
         full = self.subspace.full_dimension
         if self.coordinates.magnitude.shape != (retained, retained):
             raise ValueError("coordinates must match the retained dimension")
@@ -121,13 +194,13 @@ class OperatorCompression:
         self, operator: RealSymmetricOperator, subspace: OrthogonalSpectralSubspace
     ) -> OperatorCompressionResult:
         """Return ``Q.T @ H @ Q`` and ``Q @ (Q.T @ H @ Q) @ Q.T``."""
-        if not isinstance(operator, MatrixQuantity | SparseMatrixQuantity):
+        if not isinstance(operator, RealMatrixQuantity | CsrRealMatrixQuantity):
             raise TypeError("operator must be a dense or sparse matrix quantity")
         if not isinstance(subspace, OrthogonalSpectralSubspace):
             raise TypeError("subspace must be OrthogonalSpectralSubspace")
         shape = (
             operator.magnitude.shape
-            if isinstance(operator, MatrixQuantity)
+            if isinstance(operator, RealMatrixQuantity)
             else operator.shape
         )
         if shape != (subspace.full_dimension, subspace.full_dimension):
@@ -135,7 +208,7 @@ class OperatorCompression:
         vectors = subspace.basis_vectors.magnitude
         dense = (
             operator.magnitude
-            if isinstance(operator, MatrixQuantity)
+            if isinstance(operator, RealMatrixQuantity)
             else operator.to_dense().magnitude
         )
         projector = subspace.projector().magnitude
@@ -144,6 +217,6 @@ class OperatorCompression:
         return OperatorCompressionResult(
             operator=operator,
             subspace=subspace,
-            coordinates=MatrixQuantity(coordinates, operator.unit),
-            embedded=MatrixQuantity(embedded, operator.unit),
+            coordinates=RealMatrixQuantity(coordinates, operator.unit),
+            embedded=RealMatrixQuantity(embedded, operator.unit),
         )

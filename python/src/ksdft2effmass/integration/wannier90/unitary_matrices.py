@@ -6,7 +6,11 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, MatrixQuantity, Unitless
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    RealMatrixQuantity,
+    Unitless,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -18,13 +22,13 @@ class Wannier90UnitaryMatrixData:
     adapter preserves rectangular native matrices.
     """
 
-    fractional_kpoints: MatrixQuantity
+    fractional_kpoints: RealMatrixQuantity
     matrices: tuple[ComplexMatrixQuantity, ...]
 
     def __post_init__(self) -> None:
         """Validate unitless three-coordinate points and homogeneous matrix shapes."""
-        if type(self.fractional_kpoints) is not MatrixQuantity:
-            raise TypeError("fractional_kpoints must be MatrixQuantity")
+        if type(self.fractional_kpoints) is not RealMatrixQuantity:
+            raise TypeError("fractional_kpoints must be RealMatrixQuantity")
         if not isinstance(self.fractional_kpoints.unit, Unitless):
             raise ValueError("fractional_kpoints must be unitless")
         if (
@@ -134,5 +138,5 @@ class Wannier90UnitaryMatrixParser:
         if any(line.strip() for line in lines[line_index:]):
             raise ValueError("u-matrix payload contains trailing nonempty lines")
         return Wannier90UnitaryMatrixData(
-            MatrixQuantity(kpoints, Unitless()), tuple(matrices)
+            RealMatrixQuantity(kpoints, Unitless()), tuple(matrices)
         )

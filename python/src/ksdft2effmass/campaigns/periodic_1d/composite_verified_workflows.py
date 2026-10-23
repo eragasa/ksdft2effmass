@@ -15,7 +15,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ScalarQuantity, Unitless
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from .composite_verification import (
     Periodic1DCompositeResultVerifier,

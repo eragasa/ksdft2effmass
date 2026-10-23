@@ -18,19 +18,19 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandSpectrumSamples1D,
 )
-from ksdft2effmass.model_systems import (
-    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
-    PeriodicUniformGrid1D,
-    PlaneWaveFiberHamiltonian1DConstructor,
-)
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
-    MatrixQuantity,
+    RealMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.model_systems.periodic_1d import (
+    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
+    PeriodicUniformGrid1D,
+    PlaneWaveFiberHamiltonian1DConstructor,
+)
+from ksdft2effmass.solidstate import (
     BlockHoppingInterpolator1D,
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,
@@ -297,7 +297,7 @@ class Periodic1DIsolatedBandCalculator:
         return BandSpectrumSamples1D(
             coordinates,
             model.reciprocal_vector,
-            MatrixQuantity(values, model.recoil_energy.unit),
+            RealMatrixQuantity(values, model.recoil_energy.unit),
         )
 
     def _finite_difference_spectrum(
@@ -344,7 +344,7 @@ class Periodic1DIsolatedBandCalculator:
         return BandSpectrumSamples1D(
             coordinates,
             model.reciprocal_vector,
-            MatrixQuantity(np.asarray(values), model.recoil_energy.unit),
+            RealMatrixQuantity(np.asarray(values), model.recoil_energy.unit),
         )
 
     def _physical_coordinates(

@@ -13,15 +13,15 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorResult1D,
     BandSpectrumSamples1D,
 )
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
-    MatrixQuantity,
+    RealMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BandFrameAligner1D,
     BandProjectedOperatorPathConstructor1D,
     BlockHoppingInterpolator1D,
@@ -321,7 +321,7 @@ class Periodic1DMultibandAlignmentCalculator:
         return BandSpectrumSamples1D(
             samples.coordinates,
             samples.reciprocal_period,
-            MatrixQuantity(values, samples.matrices[0].unit),
+            RealMatrixQuantity(values, samples.matrices[0].unit),
         )
 
     @staticmethod

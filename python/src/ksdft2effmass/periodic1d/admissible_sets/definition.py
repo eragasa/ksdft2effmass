@@ -6,7 +6,10 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER, ScalarQuantity
+from ksdft2effmass.linalg import (
+    MODEL_SYSTEM_UNIT_CONVERTER,
+    ScalarQuantity,
+)
 from ksdft2effmass.periodic1d.model import Periodic1DBlockHamiltonianToyModel
 from ksdft2effmass.periodic1d.multiband_alignment import (
     Periodic1DMultibandAlignmentCalculationDefinition,

@@ -9,22 +9,23 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
+from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
+    Unitless,
+    VectorQuantity,
+)
+from ksdft2effmass.operators import (
+    RealSymmetricEigenpairResult,
+)
 from projectkoios.physkit.qm.piab1d import Piab1D
 from projectkoios.physkit.qm.piab1d.tise_analytical import (
     Piab1DAnalyticalSolution,
 )
 from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
 from projectkoios.physkit.units import UnitSystem
-
-from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
-from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
-from ksdft2effmass.operators import (
-    MatrixQuantity,
-    RealSymmetricEigenpairResult,
-    SparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
-)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -92,7 +93,7 @@ class Piab1dEigenpairSweepWorkflow:
                 model=model,
                 interior_points=points,
             )
-            hamiltonian = SparseMatrixQuantity.from_csr(
+            hamiltonian = CsrRealMatrixQuantity.from_csr(
                 solution.hamiltonian.to_csr(),
                 Unitless(),
             )
@@ -102,7 +103,7 @@ class Piab1dEigenpairSweepWorkflow:
                     solution.eigenpairs.eigenvalues,
                     hamiltonian.unit,
                 ),
-                eigenvectors=MatrixQuantity(
+                eigenvectors=RealMatrixQuantity(
                     solution.eigenpairs.eigenvectors,
                     Unitless(),
                 ),
@@ -115,16 +116,18 @@ class Piab1dEigenpairSweepWorkflow:
                 node_indices * mode_indices * np.pi / (points + 1)
             )
             diagnostics = self.diagnostic_analyzer.execute(
-                eigenpairs, MatrixQuantity(nodal_oracles, Unitless())
+                eigenpairs, RealMatrixQuantity(nodal_oracles, Unitless())
             )
             if diagnostics.overlap_defects is None:
                 raise RuntimeError("reference-vector diagnostics must include overlaps")
             diagnostic_overlaps = diagnostics.overlap_defects.magnitude
             diagnostic_residuals = diagnostics.scaled_column_residuals.magnitude
             records: list[JsonValue] = []
-            continuum_levels = Piab1DAnalyticalSolution(model=model).evaluate(
-                count=points
-            ).energies.magnitude
+            continuum_levels = (
+                Piab1DAnalyticalSolution(model=model)
+                .evaluate(count=points)
+                .energies.magnitude
+            )
             overlap_defects: list[float] = []
             scaled_residuals: list[float] = []
             for mode in range(1, points + 1):
@@ -235,10 +238,7 @@ class Piab1dEigenpairSweepWorkflow:
     def implementation_paths() -> tuple[Path, ...]:
         """Return exact public sources implementing the campaign."""
         source_root = (
-            Path(__file__).resolve().parents[3]
-            / "python"
-            / "src"
-            / "ksdft2effmass"
+            Path(__file__).resolve().parents[3] / "python" / "src" / "ksdft2effmass"
         )
         return (
             source_root / "analysis" / "convergence.py",

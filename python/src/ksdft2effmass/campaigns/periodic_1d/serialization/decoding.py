@@ -6,7 +6,11 @@ import json
 
 import numpy as np
 
-from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
 
 class Periodic1DCampaignJsonDecoder:

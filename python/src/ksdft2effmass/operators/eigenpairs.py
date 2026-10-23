@@ -8,14 +8,14 @@ import numpy as np
 from scipy import linalg, sparse  # type: ignore[import-untyped]
 from scipy.sparse import linalg as sparse_linalg  # type: ignore[import-untyped]
 
-from .quantities import (
-    MatrixQuantity,
-    SparseMatrixQuantity,
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
 
-type RealSymmetricOperator = MatrixQuantity | SparseMatrixQuantity
+type RealSymmetricOperator = RealMatrixQuantity | CsrRealMatrixQuantity
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -24,18 +24,18 @@ class RealSymmetricEigenpairResult:
 
     operator: RealSymmetricOperator
     eigenvalues: VectorQuantity
-    eigenvectors: MatrixQuantity
+    eigenvectors: RealMatrixQuantity
 
     def __post_init__(self) -> None:
-        if not isinstance(self.operator, MatrixQuantity | SparseMatrixQuantity):
+        if not isinstance(self.operator, RealMatrixQuantity | CsrRealMatrixQuantity):
             raise TypeError("operator must be a dense or sparse matrix quantity")
         if not isinstance(self.eigenvalues, VectorQuantity):
             raise TypeError("eigenvalues must be VectorQuantity")
-        if not isinstance(self.eigenvectors, MatrixQuantity):
-            raise TypeError("eigenvectors must be MatrixQuantity")
+        if not isinstance(self.eigenvectors, RealMatrixQuantity):
+            raise TypeError("eigenvectors must be RealMatrixQuantity")
         shape = (
             self.operator.magnitude.shape
-            if isinstance(self.operator, MatrixQuantity)
+            if isinstance(self.operator, RealMatrixQuantity)
             else self.operator.shape
         )
         dimension = shape[0]
@@ -63,7 +63,7 @@ class RealSymmetricEigenpairSolver:
     def execute(self, operator: RealSymmetricOperator) -> RealSymmetricEigenpairResult:
         """Return the complete ascending eigensystem without sparse densification."""
         dimension = self.validate(operator)
-        if isinstance(operator, MatrixQuantity):
+        if isinstance(operator, RealMatrixQuantity):
             eigenvalues, eigenvectors = np.linalg.eigh(operator.magnitude)
         else:
             matrix = operator.to_csr()
@@ -91,7 +91,7 @@ class RealSymmetricEigenpairSolver:
         return RealSymmetricEigenpairResult(
             operator=operator,
             eigenvalues=VectorQuantity(eigenvalues, operator.unit),
-            eigenvectors=MatrixQuantity(eigenvectors, Unitless()),
+            eigenvectors=RealMatrixQuantity(eigenvectors, Unitless()),
         )
 
     def execute_lowest(
@@ -105,7 +105,7 @@ class RealSymmetricEigenpairSolver:
             raise ValueError("count must select between one and all states")
         if count == dimension:
             return self.execute(operator)
-        if isinstance(operator, MatrixQuantity):
+        if isinstance(operator, RealMatrixQuantity):
             eigenvalues, eigenvectors = np.linalg.eigh(operator.magnitude)
             selected_values = eigenvalues[:count]
             selected_vectors = eigenvectors[:, :count]
@@ -123,15 +123,15 @@ class RealSymmetricEigenpairSolver:
         return RealSymmetricEigenpairResult(
             operator=operator,
             eigenvalues=VectorQuantity(selected_values, operator.unit),
-            eigenvectors=MatrixQuantity(selected_vectors, Unitless()),
+            eigenvectors=RealMatrixQuantity(selected_vectors, Unitless()),
         )
 
     @staticmethod
     def validate(operator: RealSymmetricOperator) -> int:
         """Validate one real-symmetric operator and return its dimension."""
-        if not isinstance(operator, MatrixQuantity | SparseMatrixQuantity):
+        if not isinstance(operator, RealMatrixQuantity | CsrRealMatrixQuantity):
             raise TypeError("operator must be a dense or sparse matrix quantity")
-        if isinstance(operator, MatrixQuantity):
+        if isinstance(operator, RealMatrixQuantity):
             rows, columns = operator.magnitude.shape
             if rows != columns:
                 raise ValueError("operator must be square")

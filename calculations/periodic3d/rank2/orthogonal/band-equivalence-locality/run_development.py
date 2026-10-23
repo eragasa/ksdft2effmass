@@ -1,0 +1,108 @@
+"""Run the bounded simple-cubic development replication."""
+
+from __future__ import annotations
+
+import math
+import sys
+from pathlib import Path
+
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+    BandEquivalenceLocalityCase,
+    BandEquivalenceLocalityFamily,
+    BandEquivalenceLocalityRequest,
+    GaugeNormalization,
+    ParentKind,
+)
+
+_WORKFLOW_ROOT = (
+    Path(__file__).resolve().parents[4] / "band-equivalence-dimensional-comparison"
+)
+sys.path.insert(0, str(_WORKFLOW_ROOT))
+
+from band_equivalence_workflow.application import (
+    BandEquivalenceLocalityResult,
+    BandEquivalenceLocalityResultConstructor,
+    BandEquivalenceLocalityResultVerifier,
+    BandEquivalenceLocalityVerificationRequest,
+    BandEquivalenceLocalityVerificationResult,
+)
+from projectkoios.physkit.periodic.lattice import (
+    BravaisLattice,
+    DirectLatticeMetric,
+)
+
+SIMPLE_CUBIC_METRIC = DirectLatticeMetric(
+    BravaisLattice.cubic_primitive().direct_lattice
+)
+
+DEFINITION = BandEquivalenceLocalityRequest(
+    family=BandEquivalenceLocalityFamily.SIMPLE_CUBIC,
+    cases=(
+        BandEquivalenceLocalityCase(
+            name="simple-cubic-directed-parent",
+            dimension=3,
+            parent_kind=ParentKind.DIRECTED_AXIS,
+            gauge_normalization=GaugeNormalization.AXIS_MAXIMUM,
+            positive_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
+            direct_metric=SIMPLE_CUBIC_METRIC,
+            shell_metric_scale=1.0,
+        ),
+    ),
+    construction_size=8,
+    evaluation_size=17,
+    evaluation_shift=1.0 / 3.0,
+    parent_scales=(0.0, 1.0),
+    amplitudes=(0.0, math.pi / 8.0, math.pi / 4.0),
+    band_tolerances=(1.0e-3, 1.0e-5),
+    shell_cap=9,
+)
+
+
+def construct_artifacts(
+    request: BandEquivalenceLocalityRequest,
+) -> tuple[
+    BandEquivalenceLocalityResult,
+    BandEquivalenceLocalityVerificationResult,
+]:
+    """Construct one canonical result and its independent verification artifact."""
+    result = BandEquivalenceLocalityResultConstructor().execute(request)
+    verification = BandEquivalenceLocalityResultVerifier().execute(
+        BandEquivalenceLocalityVerificationRequest(request, result)
+    )
+    return result, verification
+
+
+def write_artifacts(
+    output: Path,
+    result: BandEquivalenceLocalityResult,
+    verification: BandEquivalenceLocalityVerificationResult,
+) -> None:
+    """Write the three canonical replaceable development documents."""
+    output.mkdir(parents=True, exist_ok=True)
+    result.request_document.write_to(output / "development-input.json")
+    result.document.write_to(output / "development-result.json")
+    verification.document.write_to(output / "development-verification.json")
+
+
+def main() -> int:
+    """Calculate, verify, and write replaceable development records."""
+    result, verification = construct_artifacts(DEFINITION)
+    if not verification.diagnostics.passes:
+        raise RuntimeError("independent development verification failed")
+    output = (
+        Path(__file__).resolve().parent
+        / "simulations"
+        / "development"
+        / "results"
+        / "development"
+    )
+    write_artifacts(output, result, verification)
+    print(
+        f"family={DEFINITION.family.value} lifecycle=development "
+        f"verification=pass output={output}"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

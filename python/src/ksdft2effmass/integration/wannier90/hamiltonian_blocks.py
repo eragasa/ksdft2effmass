@@ -6,7 +6,10 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ModelSystemUnit
+from ksdft2effmass.linalg import (
+    ComplexMatrixQuantity,
+    ModelSystemUnit,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)

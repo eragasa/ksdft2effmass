@@ -6,17 +6,6 @@ They are not described as toys, and their numerical verification does not establ
 scientific validation for semiconductor applications.
 """
 
-from ksdft2effmass.operators.quantities import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
-    MatrixQuantity,
-    PhysicalUnit,
-    PintUnitConverter,
-    ScalarQuantity,
-    SparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
-)
-
 from .boundary_conditions import DirichletBoundaryCondition
 from .cartesian_grids import (
     UniformCartesianGrid1D,
@@ -24,6 +13,17 @@ from .cartesian_grids import (
     UniformCartesianGrid3D,
 )
 from .intervals import DirichletInterval
+from .mathieu1d import (
+    Mathieu1dStudyDefinition,
+    Mathieu1dStudyEvaluator,
+    Mathieu1dStudyInputDeserializer,
+    Mathieu1dStudyInputSerializer,
+    Mathieu1dStudyResult,
+    Mathieu1dStudyResultSerializer,
+    Mathieu1dStudyVerificationResult,
+    Mathieu1dStudyVerificationSerializer,
+    Mathieu1dStudyVerifier,
+)
 from .periodic2d import (
     CenteredUniformReciprocalMesh2D,
     PlaneWaveBlochHamiltonian2DConstructor,
@@ -70,13 +70,19 @@ __all__ = [
     "Qho1dLadderOperators",
     "Qho1dNondimensionalizer",
     "Qho1dParameters",
-    "MODEL_SYSTEM_UNIT_CONVERTER",
-    "MatrixQuantity",
+    "Mathieu1dStudyDefinition",
+    "Mathieu1dStudyEvaluator",
+    "Mathieu1dStudyInputDeserializer",
+    "Mathieu1dStudyInputSerializer",
+    "Mathieu1dStudyResult",
+    "Mathieu1dStudyResultSerializer",
+    "Mathieu1dStudyVerificationResult",
+    "Mathieu1dStudyVerificationSerializer",
+    "Mathieu1dStudyVerifier",
     "PeriodicFiniteDifferenceFiberHamiltonian1DConstructor",
     "PeriodicFiniteDifferenceFiberHamiltonian1DResult",
     "PeriodicFourierPotential1D",
     "PeriodicUniformGrid1D",
-    "PhysicalUnit",
     "PlaneWaveBlochHamiltonian2DConstructor",
     "PlaneWaveBlochHamiltonian2DModel",
     "PlaneWaveBlochHamiltonian2DRequest",
@@ -87,16 +93,11 @@ __all__ = [
     "PlaneWaveReciprocalSewing2DConstructor",
     "PlaneWaveReciprocalSewing2DRequest",
     "PlaneWaveReciprocalSewing2DResult",
-    "PintUnitConverter",
     "PositiveReciprocalDirection2D",
     "ReciprocalMeshNeighbor2DConstructor",
     "ReciprocalMeshNeighbor2DRequest",
     "ReciprocalMeshNeighbor2DResult",
-    "ScalarQuantity",
-    "SparseMatrixQuantity",
     "UniformCartesianGrid1D",
     "UniformCartesianGrid2D",
     "UniformCartesianGrid3D",
-    "Unitless",
-    "VectorQuantity",
 ]

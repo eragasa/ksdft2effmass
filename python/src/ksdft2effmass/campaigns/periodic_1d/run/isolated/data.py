@@ -2,7 +2,9 @@
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ScalarQuantity
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+)
 
 from ...model.retained.isolated import Periodic1DIsolatedBandCampaignModel
 from .correlate import (

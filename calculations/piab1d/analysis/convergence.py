@@ -9,24 +9,25 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
+from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
+    Unitless,
+    VectorQuantity,
+)
+from ksdft2effmass.operators import (
+    OperatorCompression,
+    OrthogonalSpectralSubspaceSelector,
+    RealSymmetricEigenpairResult,
+)
 from projectkoios.physkit.qm.piab1d import Piab1D
 from projectkoios.physkit.qm.piab1d.tise_analytical import (
     Piab1DAnalyticalSolution,
 )
 from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
 from projectkoios.physkit.units import UnitSystem
-
-from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
-from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
-from ksdft2effmass.operators import (
-    MatrixQuantity,
-    OperatorCompression,
-    OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairResult,
-    SparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
-)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -105,7 +106,7 @@ class Piab1dConvergenceWorkflow:
                 model=model,
                 interior_points=points,
             )
-            hamiltonian = SparseMatrixQuantity.from_csr(
+            hamiltonian = CsrRealMatrixQuantity.from_csr(
                 solution.hamiltonian.to_csr(),
                 Unitless(),
             )
@@ -115,7 +116,7 @@ class Piab1dConvergenceWorkflow:
                     solution.eigenpairs.eigenvalues,
                     hamiltonian.unit,
                 ),
-                eigenvectors=MatrixQuantity(
+                eigenvectors=RealMatrixQuantity(
                     solution.eigenpairs.eigenvectors,
                     Unitless(),
                 ),
@@ -123,9 +124,11 @@ class Piab1dConvergenceWorkflow:
             eigenvalues = eigenpairs.eigenvalues.magnitude
             spacing = solution.grid_spacing.magnitude
             spacings.append(spacing)
-            continuum = Piab1DAnalyticalSolution(model=model).evaluate(
-                count=points
-            ).energies.magnitude[np.asarray(reported_modes) - 1]
+            continuum = (
+                Piab1DAnalyticalSolution(model=model)
+                .evaluate(count=points)
+                .energies.magnitude[np.asarray(reported_modes) - 1]
+            )
             computed = eigenvalues[np.asarray(reported_modes) - 1]
             absolute = np.abs(computed - continuum)
             relative = absolute / continuum
@@ -257,10 +260,7 @@ class Piab1dConvergenceWorkflow:
     def implementation_paths() -> tuple[Path, ...]:
         """Return exact public sources implementing the campaign."""
         source_root = (
-            Path(__file__).resolve().parents[3]
-            / "python"
-            / "src"
-            / "ksdft2effmass"
+            Path(__file__).resolve().parents[3] / "python" / "src" / "ksdft2effmass"
         )
         return (
             source_root / "analysis" / "convergence.py",

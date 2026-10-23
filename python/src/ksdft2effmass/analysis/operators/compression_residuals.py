@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
+)
 from ksdft2effmass.operators import (
-    MatrixQuantity,
     OperatorCompressionResult,
     OrthogonalSpectralSubspace,
-    SparseMatrixQuantity,
 )
 
 
@@ -16,9 +18,9 @@ from ksdft2effmass.operators import (
 class OrthogonalCompressionResidualResult:
     """Retain distinct consistent, unmatched, and discarded-sector residuals."""
 
-    consistent: MatrixQuantity
-    unmatched: MatrixQuantity
-    discarded_sector: MatrixQuantity
+    consistent: RealMatrixQuantity
+    unmatched: RealMatrixQuantity
+    discarded_sector: RealMatrixQuantity
 
 
 class OrthogonalCompressionResidualAnalyzer:
@@ -28,20 +30,22 @@ class OrthogonalCompressionResidualAnalyzer:
 
     def execute(
         self,
-        operator: MatrixQuantity | SparseMatrixQuantity,
+        operator: RealMatrixQuantity | CsrRealMatrixQuantity,
         subspace: OrthogonalSpectralSubspace,
         compression: OperatorCompressionResult,
     ) -> OrthogonalCompressionResidualResult:
         """Return the three residual matrices on the original coordinate space."""
-        if not isinstance(operator, MatrixQuantity | SparseMatrixQuantity):
-            raise TypeError("operator must be MatrixQuantity or SparseMatrixQuantity")
+        if not isinstance(operator, RealMatrixQuantity | CsrRealMatrixQuantity):
+            raise TypeError(
+                "operator must be RealMatrixQuantity or CsrRealMatrixQuantity"
+            )
         if not isinstance(subspace, OrthogonalSpectralSubspace):
             raise TypeError("subspace must be OrthogonalSpectralSubspace")
         if not isinstance(compression, OperatorCompressionResult):
             raise TypeError("compression must be OperatorCompressionResult")
         dense = (
             operator.magnitude
-            if isinstance(operator, MatrixQuantity)
+            if isinstance(operator, RealMatrixQuantity)
             else operator.to_dense().magnitude
         )
         projector = subspace.projector().magnitude
@@ -52,11 +56,11 @@ class OrthogonalCompressionResidualAnalyzer:
                 "operator, subspace, and compression dimensions must match"
             )
         return OrthogonalCompressionResidualResult(
-            consistent=MatrixQuantity(
+            consistent=RealMatrixQuantity(
                 embedded - projector @ dense @ projector, operator.unit
             ),
-            unmatched=MatrixQuantity(embedded - dense, operator.unit),
-            discarded_sector=MatrixQuantity(
+            unmatched=RealMatrixQuantity(embedded - dense, operator.unit),
+            discarded_sector=RealMatrixQuantity(
                 -(complement @ dense @ complement), operator.unit
             ),
         )

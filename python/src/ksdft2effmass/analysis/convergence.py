@@ -6,7 +6,11 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
 
 @dataclass(frozen=True, slots=True)

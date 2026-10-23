@@ -145,9 +145,7 @@ def plot_algebraic_norms(payload: dict[str, Any], output: Path) -> None:
     plt.close(figure)
 
 
-def plot_finite_identity_diagnostics(
-    payload: dict[str, Any], output: Path
-) -> None:
+def plot_finite_identity_diagnostics(payload: dict[str, Any], output: Path) -> None:
     """Plot the six finite-identity diagnostics defined in the report."""
     grids = payload["grids"]
     points = np.asarray([grid["interior_points"] + 2 for grid in grids])

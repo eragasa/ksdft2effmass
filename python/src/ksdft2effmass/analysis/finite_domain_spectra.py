@@ -7,11 +7,13 @@ from enum import StrEnum
 
 import numpy as np
 
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    VectorQuantity,
+)
 from ksdft2effmass.operators import (
     ComplexHermitianEigenpairResidualResult,
     ComplexHermitianEigenpairResult,
-    ScalarQuantity,
-    VectorQuantity,
 )
 
 

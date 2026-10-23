@@ -8,10 +8,14 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFourierPotential1D,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
 from ksdft2effmass.serialization import JsonCodec
 
 from .serialization import Periodic1DCampaignJsonDecoder

@@ -9,8 +9,10 @@ general finite-extent operator changes required by the campaign.
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ScalarQuantity
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+)
+from ksdft2effmass.solidstate import (
     BoundaryTwistLift,
     FiniteLatticeShape,
     LatticeCoordinate,

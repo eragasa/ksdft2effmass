@@ -6,7 +6,10 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import MatrixQuantity, ScalarQuantity
+from ksdft2effmass.linalg import (
+    RealMatrixQuantity,
+    ScalarQuantity,
+)
 
 from .model_fitting import RetainedModelClassFitResult, RetainedModelClassFitter
 
@@ -15,10 +18,10 @@ from .model_fitting import RetainedModelClassFitResult, RetainedModelClassFitter
 class DecompositionIdentifiabilityResult:
     """Retain two exact decompositions and declared model-class fits."""
 
-    physical_kinetic: MatrixQuantity
-    physical_potential: MatrixQuantity
-    alternative_kinetic: MatrixQuantity
-    alternative_potential: MatrixQuantity
+    physical_kinetic: RealMatrixQuantity
+    physical_potential: RealMatrixQuantity
+    alternative_kinetic: RealMatrixQuantity
+    alternative_potential: RealMatrixQuantity
     physical_reconstruction_error: ScalarQuantity
     alternative_reconstruction_error: ScalarQuantity
     model_class_fits: tuple[RetainedModelClassFitResult, ...]
@@ -38,13 +41,13 @@ class DecompositionIdentifiabilityAnalyzer:
         self.model_fitter = model_fitter or RetainedModelClassFitter()
 
     def execute(
-        self, reduced_hamiltonian: MatrixQuantity, shift: MatrixQuantity
+        self, reduced_hamiltonian: RealMatrixQuantity, shift: RealMatrixQuantity
     ) -> DecompositionIdentifiabilityResult:
         """Return exact decompositions and fits of the declared shift."""
-        if not isinstance(reduced_hamiltonian, MatrixQuantity):
-            raise TypeError("reduced_hamiltonian must be MatrixQuantity")
-        if not isinstance(shift, MatrixQuantity):
-            raise TypeError("shift must be MatrixQuantity")
+        if not isinstance(reduced_hamiltonian, RealMatrixQuantity):
+            raise TypeError("reduced_hamiltonian must be RealMatrixQuantity")
+        if not isinstance(shift, RealMatrixQuantity):
+            raise TypeError("shift must be RealMatrixQuantity")
         hamiltonian = reduced_hamiltonian.magnitude
         shift_matrix = shift.magnitude
         if hamiltonian.shape != shift_matrix.shape:
@@ -59,15 +62,13 @@ class DecompositionIdentifiabilityAnalyzer:
         alternative_kinetic = hamiltonian - shift_matrix
         alternative_potential = shift_matrix.copy()
         physical_residual = hamiltonian - physical_kinetic - physical_potential
-        alternative_residual = (
-            hamiltonian - alternative_kinetic - alternative_potential
-        )
+        alternative_residual = hamiltonian - alternative_kinetic - alternative_potential
         unit = reduced_hamiltonian.unit
         return DecompositionIdentifiabilityResult(
-            physical_kinetic=MatrixQuantity(physical_kinetic, unit),
-            physical_potential=MatrixQuantity(physical_potential, unit),
-            alternative_kinetic=MatrixQuantity(alternative_kinetic, unit),
-            alternative_potential=MatrixQuantity(alternative_potential, unit),
+            physical_kinetic=RealMatrixQuantity(physical_kinetic, unit),
+            physical_potential=RealMatrixQuantity(physical_potential, unit),
+            alternative_kinetic=RealMatrixQuantity(alternative_kinetic, unit),
+            alternative_potential=RealMatrixQuantity(alternative_potential, unit),
             physical_reconstruction_error=ScalarQuantity(
                 float(np.linalg.norm(physical_residual, ord="fro")), unit
             ),

@@ -17,14 +17,14 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandSpectrumSamples1D,
 )
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingInterpolator1D,
     BlockHoppingTruncator1D,
     ReciprocalOperatorFourierTransformer1D,

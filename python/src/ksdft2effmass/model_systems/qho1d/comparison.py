@@ -14,8 +14,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from ksdft2effmass.operators.quantities import (
-    MatrixQuantity,
+from ksdft2effmass.linalg import (
+    RealMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
@@ -113,16 +113,18 @@ class Qho1dComparator:
             grid_spacing=spacing,
             interior_points=finite_difference.interior_points,
             grid_coordinates=coordinates,
-            injection=MatrixQuantity(injection, Unitless()),
-            gram_matrix=MatrixQuantity(gram, Unitless()),
-            gram_inverse_square_root=MatrixQuantity(
+            injection=RealMatrixQuantity(injection, Unitless()),
+            gram_matrix=RealMatrixQuantity(gram, Unitless()),
+            gram_inverse_square_root=RealMatrixQuantity(
                 gram_inverse_square_root, Unitless()
             ),
-            pulled_back_hamiltonian=MatrixQuantity(
+            pulled_back_hamiltonian=RealMatrixQuantity(
                 pulled_back, finite_difference_hamiltonian.unit
             ),
-            reference_hamiltonian=MatrixQuantity(reference, ladder_hamiltonian.unit),
-            difference=MatrixQuantity(difference, ladder_hamiltonian.unit),
+            reference_hamiltonian=RealMatrixQuantity(
+                reference, ladder_hamiltonian.unit
+            ),
+            difference=RealMatrixQuantity(difference, ladder_hamiltonian.unit),
             gram_deviation=ScalarQuantity(
                 float(np.linalg.norm(gram - np.eye(request.retained_dimension))),
                 Unitless(),

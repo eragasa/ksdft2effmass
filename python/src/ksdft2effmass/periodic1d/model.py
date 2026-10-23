@@ -6,10 +6,13 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.model_systems import PeriodicFourierPotential1D
-from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER, ScalarQuantity
+from ksdft2effmass.linalg import (
+    MODEL_SYSTEM_UNIT_CONVERTER,
+    ScalarQuantity,
+)
+from ksdft2effmass.model_systems.periodic_1d import PeriodicFourierPotential1D
 from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 
 @dataclass(frozen=True, slots=True)

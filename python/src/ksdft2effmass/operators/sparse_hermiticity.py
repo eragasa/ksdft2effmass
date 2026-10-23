@@ -18,7 +18,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .quantities import ComplexSparseMatrixQuantity, ModelSystemUnit
+from ksdft2effmass.linalg import CsrComplexMatrixQuantity, ModelSystemUnit
 
 
 @dataclass(frozen=True, slots=True)
@@ -35,14 +35,14 @@ class ComplexSparseHermiticityResult:
         Nonnegative finite caller tolerance in ``matrix.unit``.
     """
 
-    matrix: ComplexSparseMatrixQuantity
+    matrix: CsrComplexMatrixQuantity
     maximum_absolute_residual: float
     absolute_tolerance: float
 
     def __post_init__(self) -> None:
         """Validate retained input and finite nonnegative result scalars."""
-        if type(self.matrix) is not ComplexSparseMatrixQuantity:
-            raise TypeError("matrix must be ComplexSparseMatrixQuantity")
+        if type(self.matrix) is not CsrComplexMatrixQuantity:
+            raise TypeError("matrix must be CsrComplexMatrixQuantity")
         for value, name in (
             (self.maximum_absolute_residual, "maximum_absolute_residual"),
             (self.absolute_tolerance, "absolute_tolerance"),
@@ -70,7 +70,7 @@ class ComplexSparseHermiticityAnalyzer:
 
     def execute(
         self,
-        matrix: ComplexSparseMatrixQuantity,
+        matrix: CsrComplexMatrixQuantity,
         *,
         absolute_tolerance: float,
     ) -> ComplexSparseHermiticityResult:
@@ -84,8 +84,8 @@ class ComplexSparseHermiticityAnalyzer:
             If the matrix is nonsquare, the tolerance is negative or nonfinite, or
             sparse subtraction produces a nonfinite residual intermediate.
         """
-        if type(matrix) is not ComplexSparseMatrixQuantity:
-            raise TypeError("matrix must be ComplexSparseMatrixQuantity")
+        if type(matrix) is not CsrComplexMatrixQuantity:
+            raise TypeError("matrix must be CsrComplexMatrixQuantity")
         if type(absolute_tolerance) is not float:
             raise TypeError("absolute_tolerance must be a built-in float")
         if not math.isfinite(absolute_tolerance) or absolute_tolerance < 0.0:

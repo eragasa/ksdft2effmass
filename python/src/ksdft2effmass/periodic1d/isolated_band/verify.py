@@ -7,13 +7,15 @@ from dataclasses import dataclass
 import numpy as np
 from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
-from ksdft2effmass.model_systems import (
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+)
+from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicUniformGrid1D,
     PlaneWaveFiberHamiltonian1DConstructor,
 )
-from ksdft2effmass.operators import ScalarQuantity
-from ksdft2effmass.solid_state import PlaneWaveBasis1D
+from ksdft2effmass.solidstate import PlaneWaveBasis1D
 
 from .definition import Periodic1DIsolatedBandCalculationDefinition
 from .results import Periodic1DIsolatedBandCalculationResult

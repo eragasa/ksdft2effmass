@@ -5,7 +5,11 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ModelSystemUnit, PhysicalUnit, Unitless
+from ksdft2effmass.linalg import (
+    ModelSystemUnit,
+    PhysicalUnit,
+    Unitless,
+)
 
 from .hamiltonian_blocks import (
     Wannier90HamiltonianBlockData,

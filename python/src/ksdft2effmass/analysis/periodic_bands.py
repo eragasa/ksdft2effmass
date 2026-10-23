@@ -6,13 +6,13 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     MODEL_SYSTEM_UNIT_CONVERTER,
-    MatrixQuantity,
+    RealMatrixQuantity,
     ScalarQuantity,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -21,7 +21,7 @@ class BandSpectrumSamples1D:
 
     coordinates: VectorQuantity
     reciprocal_period: ScalarQuantity
-    eigenvalues: MatrixQuantity
+    eigenvalues: RealMatrixQuantity
 
     def __post_init__(self) -> None:
         """Validate coordinate and eigenvalue sample dimensions."""
@@ -42,8 +42,8 @@ class BandSpectrumSamples1D:
                 self.coordinates, self.reciprocal_period.unit
             ),
         )
-        if type(self.eigenvalues) is not MatrixQuantity:
-            raise TypeError("eigenvalues must be MatrixQuantity")
+        if type(self.eigenvalues) is not RealMatrixQuantity:
+            raise TypeError("eigenvalues must be RealMatrixQuantity")
         sample_count, band_count = self.eigenvalues.magnitude.shape
         if sample_count != self.coordinates.magnitude.size:
             raise ValueError("eigenvalue rows must equal coordinate count")

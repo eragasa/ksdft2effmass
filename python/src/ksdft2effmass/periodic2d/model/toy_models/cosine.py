@@ -10,13 +10,16 @@ from projectkoios.physkit.periodic.lattice import (
     ReciprocalLattice2D,
 )
 
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    Unitless,
+)
 from ksdft2effmass.model_systems.periodic2d import (
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,
     PlaneWaveBlochHamiltonian2DRequest,
     PlaneWaveFourierCoefficient2D,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 type ComplexMatrix = npt.NDArray[np.complex128]
 

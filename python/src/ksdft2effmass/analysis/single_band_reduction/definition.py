@@ -7,14 +7,14 @@ from dataclasses import dataclass
 import numpy as np
 
 from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import CenteredUniformReciprocalMesh1D
+from ksdft2effmass.solidstate import CenteredUniformReciprocalMesh1D
 
 
 @dataclass(frozen=True, slots=True)

@@ -8,12 +8,12 @@ The comparison separates represented finite operators from the continuum differe
 operator and makes no semiconductor-validation claim.
 """
 
-from ksdft2effmass.operators.quantities import (
-    MatrixQuantity,
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
     PhysicalUnit,
     PintUnitConverter,
+    RealMatrixQuantity,
     ScalarQuantity,
-    SparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
@@ -52,11 +52,11 @@ __all__ = [
     "Qho1dStudyInputDeserializer",
     "Qho1dStudyResult",
     "Qho1dStudyResultSerializer",
-    "MatrixQuantity",
+    "RealMatrixQuantity",
     "PhysicalUnit",
     "PintUnitConverter",
     "ScalarQuantity",
-    "SparseMatrixQuantity",
+    "CsrRealMatrixQuantity",
     "Unitless",
     "VectorQuantity",
 ]

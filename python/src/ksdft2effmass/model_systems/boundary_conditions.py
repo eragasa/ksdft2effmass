@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators.quantities import ScalarQuantity
+from ksdft2effmass.linalg import ScalarQuantity
 
 
 @dataclass(frozen=True, slots=True)

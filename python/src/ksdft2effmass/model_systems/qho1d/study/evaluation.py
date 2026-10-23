@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from ksdft2effmass.operators import (
-    LadderOperator1D,
+from ksdft2effmass.linalg import (
     ScalarQuantity,
     Unitless,
+)
+from ksdft2effmass.operators import (
+    LadderOperator1D,
 )
 
 from ...boundary_conditions import DirichletBoundaryCondition

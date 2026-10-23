@@ -9,7 +9,6 @@ from typing import cast
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from ksdft2effmass.model_systems.piab1d import Piab1dResultVerifier
 
 type JsonValue = (
@@ -87,9 +86,7 @@ def discrete_ladder(output: Path, result_path: Path) -> None:
     amplitude_scale = 2.4
     for mode, color in zip(range(1, 4), colors, strict=True):
         energy = float(energies[mode - 1])
-        plotted_values = np.concatenate(
-            ([0.0], nodal_amplitudes[:, mode - 1], [0.0])
-        )
+        plotted_values = np.concatenate(([0.0], nodal_amplitudes[:, mode - 1], [0.0]))
         axis.axhline(energy, color=color, linewidth=0.8, alpha=0.45)
         axis.plot(
             plotted_coordinates,

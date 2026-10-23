@@ -6,11 +6,13 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import (
-    MatrixQuantity,
-    RealSymmetricEigenpairResult,
+from ksdft2effmass.linalg import (
+    RealMatrixQuantity,
     Unitless,
     VectorQuantity,
+)
+from ksdft2effmass.operators import (
+    RealSymmetricEigenpairResult,
 )
 
 
@@ -18,7 +20,7 @@ from ksdft2effmass.operators import (
 class RealSymmetricEigenpairDiagnosticResult:
     """Retain algebraic residuals and optional reference-vector overlaps."""
 
-    algebraic_residual: MatrixQuantity
+    algebraic_residual: RealMatrixQuantity
     scaled_column_residuals: VectorQuantity
     overlap_defects: VectorQuantity | None
 
@@ -31,19 +33,19 @@ class RealSymmetricEigenpairDiagnosticAnalyzer:
     def execute(
         self,
         eigenpairs: RealSymmetricEigenpairResult,
-        reference_vectors: MatrixQuantity | None = None,
+        reference_vectors: RealMatrixQuantity | None = None,
     ) -> RealSymmetricEigenpairDiagnosticResult:
         """Return residual and overlap diagnostics for the represented eigensystem."""
         if not isinstance(eigenpairs, RealSymmetricEigenpairResult):
             raise TypeError("eigenpairs must be RealSymmetricEigenpairResult")
         if reference_vectors is not None and not isinstance(
-            reference_vectors, MatrixQuantity
+            reference_vectors, RealMatrixQuantity
         ):
-            raise TypeError("reference_vectors must be MatrixQuantity or None")
+            raise TypeError("reference_vectors must be RealMatrixQuantity or None")
         operator = eigenpairs.operator
         dense = (
             operator.magnitude
-            if isinstance(operator, MatrixQuantity)
+            if isinstance(operator, RealMatrixQuantity)
             else operator.to_dense().magnitude
         )
         values = eigenpairs.eigenvalues.magnitude
@@ -73,8 +75,7 @@ class RealSymmetricEigenpairDiagnosticAnalyzer:
                 [
                     max(
                         0.0,
-                        1.0
-                        - abs(float(vectors[:, index] @ reference[:, index])),
+                        1.0 - abs(float(vectors[:, index] @ reference[:, index])),
                     )
                     for index in range(values.size)
                 ],
@@ -82,7 +83,7 @@ class RealSymmetricEigenpairDiagnosticAnalyzer:
             )
             overlaps = VectorQuantity(overlap_values, Unitless())
         return RealSymmetricEigenpairDiagnosticResult(
-            algebraic_residual=MatrixQuantity(residual, operator.unit),
+            algebraic_residual=RealMatrixQuantity(residual, operator.unit),
             scaled_column_residuals=VectorQuantity(scaled, Unitless()),
             overlap_defects=overlaps,
         )

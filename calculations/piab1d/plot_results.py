@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import numpy.typing as npt
 from matplotlib.colors import TwoSlopeNorm
-
 from ksdft2effmass.model_systems.piab1d import Piab1dResultVerifier
 
 RealMatrix = npt.NDArray[np.float64]

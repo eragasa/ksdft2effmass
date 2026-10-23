@@ -9,25 +9,26 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
-from projectkoios.physkit.qm.piab1d import Piab1D
-from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
-from projectkoios.physkit.units import UnitSystem
-
 from ksdft2effmass.analysis.operators import (
     OrthogonalCompressionResidualAnalyzer,
     RealSymmetricEigenpairDiagnosticAnalyzer,
 )
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from ksdft2effmass.operators import (
-    MatrixQuantity,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
     RealSymmetricEigenpairResult,
     RepresentedMatrixNormAnalyzer,
     RepresentedMatrixNormResult,
-    SparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
 )
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
+from projectkoios.physkit.units import UnitSystem
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -100,7 +101,7 @@ class Piab1dNormSweepWorkflow:
                 model=model,
                 interior_points=points,
             )
-            hamiltonian = SparseMatrixQuantity.from_csr(
+            hamiltonian = CsrRealMatrixQuantity.from_csr(
                 solution.hamiltonian.to_csr(),
                 Unitless(),
             )
@@ -110,7 +111,7 @@ class Piab1dNormSweepWorkflow:
                     solution.eigenpairs.eigenvalues,
                     hamiltonian.unit,
                 ),
-                eigenvectors=MatrixQuantity(
+                eigenvectors=RealMatrixQuantity(
                     solution.eigenpairs.eigenvectors,
                     Unitless(),
                 ),
@@ -142,16 +143,12 @@ class Piab1dNormSweepWorkflow:
                     np.linalg.norm(projector @ projector - projector, ord="fro")
                 ),
                 "retained_coordinate_frobenius_error": float(
-                    np.linalg.norm(
-                        retained_coordinates - expected_retained, ord="fro"
-                    )
+                    np.linalg.norm(retained_coordinates - expected_retained, ord="fro")
                 ),
                 "retained_embedding_frobenius_error": float(
                     np.linalg.norm(
                         retained_embedded
-                        - retained_vectors
-                        @ retained_coordinates
-                        @ retained_vectors.T,
+                        - retained_vectors @ retained_coordinates @ retained_vectors.T,
                         ord="fro",
                     )
                 ),
@@ -182,7 +179,7 @@ class Piab1dNormSweepWorkflow:
                 ("boundary_realization", boundary),
             ):
                 norms = self.norm_analyzer.execute(
-                    MatrixQuantity(matrix, hamiltonian.unit)
+                    RealMatrixQuantity(matrix, hamiltonian.unit)
                 )
                 residuals[name] = {
                     "raw": self.norms(norms),
@@ -191,7 +188,7 @@ class Piab1dNormSweepWorkflow:
                     ),
                 }
             algebraic_norms = self.norm_analyzer.execute(
-                MatrixQuantity(algebraic, hamiltonian.unit)
+                RealMatrixQuantity(algebraic, hamiltonian.unit)
             )
             grids.append(
                 {
@@ -282,10 +279,7 @@ class Piab1dNormSweepWorkflow:
     def implementation_paths() -> tuple[Path, ...]:
         """Return exact public sources implementing the campaign."""
         source_root = (
-            Path(__file__).resolve().parents[3]
-            / "python"
-            / "src"
-            / "ksdft2effmass"
+            Path(__file__).resolve().parents[3] / "python" / "src" / "ksdft2effmass"
         )
         return (
             source_root / "analysis" / "operators" / "compression_residuals.py",

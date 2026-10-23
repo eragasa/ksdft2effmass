@@ -54,13 +54,13 @@ import numpy.typing as npt
 from scipy.linalg import eigh  # type: ignore[import-untyped]
 from scipy.special import mathieu_a, mathieu_b  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import BlockHoppingModel1D, ReciprocalOperatorSamples1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D, ReciprocalOperatorSamples1D
 
 from .isolated import Periodic1DIsolatedBandCampaignDefinition
 from .isolated_results import (

@@ -6,10 +6,10 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
-    MatrixQuantity,
     ModelSystemUnit,
+    RealMatrixQuantity,
     Unitless,
 )
 
@@ -18,12 +18,12 @@ from ksdft2effmass.operators import (
 class Wannier90EigenvalueData:
     """Retain the complete native band-by-k-point eigenvalue table."""
 
-    eigenvalues: MatrixQuantity
+    eigenvalues: RealMatrixQuantity
 
     def __post_init__(self) -> None:
         """Validate a nonempty finite two-dimensional energy table."""
-        if type(self.eigenvalues) is not MatrixQuantity:
-            raise TypeError("eigenvalues must be MatrixQuantity")
+        if type(self.eigenvalues) is not RealMatrixQuantity:
+            raise TypeError("eigenvalues must be RealMatrixQuantity")
         if 0 in self.eigenvalues.magnitude.shape:
             raise ValueError("eigenvalues must be nonempty")
 
@@ -79,7 +79,7 @@ class Wannier90EigenvalueParser:
             values[key] = value
         if len(occupied) != kpoint_count * band_count:
             raise ValueError("eigenvalue payload does not contain a complete table")
-        return Wannier90EigenvalueData(MatrixQuantity(values, energy_unit))
+        return Wannier90EigenvalueData(RealMatrixQuantity(values, energy_unit))
 
     @staticmethod
     def _decode_nonempty_lines(payload: bytes, label: str) -> tuple[str, ...]:

@@ -1,0 +1,26 @@
+\section{Model and conventions}
+
+The parent is a one-dimensional finite-range Bloch Hamiltonian
+\begin{equation}
+ K(q)=\sum_{R=-1}^{1} e^{2\pi i qR}T_R,
+ \qquad -\tfrac12\le q<\tfrac12,
+\end{equation}
+with four orbitals per cell and Hermitian reverse hopping
+$T_{-1}=T_{+1}^{\dagger}$.  The two lowest eigenvectors are retained only when
+the second-to-third-band isolation gate passes.  A discrete parallel-transport and
+closure procedure supplies a periodic orthonormal frame $F(q)$, giving
+\begin{equation}
+ H(q)=F(q)^{\dagger}K(q)F(q).
+\end{equation}
+
+The band-equivalent comparison field is
+\begin{align}
+ \theta_a(q)&=a\sin(2\pi q),\\
+ U_a(q)&=R(\theta_a(q)),\\
+ A_a(q)&=U_a(q)^{\dagger}H(q)U_a(q),
+ \qquad 0\le a\le\pi/4.
+\end{align}
+Thus $A_a(q)$ and $H(q)$ have identical ordered eigenvalues at every momentum, while
+their Fourier hopping blocks in the declared retained coordinates generally differ.
+The comparison admits one momentum-independent real rotation and deliberately excludes
+reuse of $U_a(q)$.

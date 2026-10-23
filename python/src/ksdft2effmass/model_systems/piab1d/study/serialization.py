@@ -10,7 +10,13 @@ from typing import cast
 
 import numpy as np
 
-from ksdft2effmass.operators import SparseMatrixQuantity
+from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
+    RealMatrixQuantity,
+)
+from ksdft2effmass.operators import (
+    OrthogonalSpectralSubspace,
+)
 
 from .records import Piab1dResidualStudyResult
 
@@ -38,6 +44,16 @@ class Piab1dStudyResultSerializer:
         input_file = self.contained_file(input_path, root, "input_path")
         script_file = self.contained_file(script_path, root, "script_path")
         definition = result.definition
+        reduced_matrix = result.reduced_hamiltonian.matrix
+        embedded_matrix = result.reduced_hamiltonian.embedded.matrix
+        if not isinstance(reduced_matrix, RealMatrixQuantity) or not isinstance(
+            embedded_matrix, RealMatrixQuantity
+        ):
+            raise TypeError("PIAB1D serialization requires real Hamiltonian matrices")
+        subspace = result.reduced_hamiltonian.spectral_subspace
+        if not isinstance(subspace, OrthogonalSpectralSubspace):
+            raise TypeError("PIAB1D serialization requires OrthogonalSpectralSubspace")
+        projector = subspace.projector()
         quadrature: dict[str, JsonValue] = {"enabled": definition.quadrature}
         if definition.quadrature:
             rule = result.quadrature_rule
@@ -50,9 +66,10 @@ class Piab1dStudyResultSerializer:
             weighted_gram = retained_quadrature_vectors.T @ (
                 rule.interior_weights[:, None] * retained_quadrature_vectors
             )
-            weighted_projector = retained_quadrature_vectors @ (
-                rule.interior_weights[:, None] * retained_quadrature_vectors
-            ).T
+            weighted_projector = (
+                retained_quadrature_vectors
+                @ (rule.interior_weights[:, None] * retained_quadrature_vectors).T
+            )
             quadrature = {
                 "enabled": True,
                 "rule_identifier": rule.rule_identifier,
@@ -87,14 +104,13 @@ class Piab1dStudyResultSerializer:
                 ),
                 "weighted_gram_frobenius_error": float(
                     np.linalg.norm(
-                        weighted_gram
-                        - np.eye(definition.N_retained_eigenpairs),
+                        weighted_gram - np.eye(definition.N_retained_eigenpairs),
                         ord="fro",
                     )
                 ),
                 "projector_equivalence_frobenius_error": float(
                     np.linalg.norm(
-                        weighted_projector - result.projector.magnitude,
+                        weighted_projector - projector.magnitude,
                         ord="fro",
                     )
                 ),
@@ -153,7 +169,7 @@ class Piab1dStudyResultSerializer:
             "matrices": {
                 "dirichlet_hamiltonian_full": self.sparse_matrix(result.hamiltonian),
                 "retained_eigenvectors_euclidean": self.matrix(
-                    result.retained_vectors.magnitude
+                    subspace.basis_vectors.magnitude
                 ),
                 "retained_nodal_amplitudes_quadrature_normalized": (
                     self.matrix(
@@ -164,12 +180,12 @@ class Piab1dStudyResultSerializer:
                     if result.quadrature_normalized_eigenvectors is not None
                     else None
                 ),
-                "spectral_projector_full": self.matrix(result.projector.magnitude),
+                "spectral_projector_full": self.matrix(projector.magnitude),
                 "retained_hamiltonian_embedded_full": self.matrix(
-                    result.retained_embedded.magnitude
+                    embedded_matrix.magnitude
                 ),
                 "retained_hamiltonian_coordinates": self.matrix(
-                    result.retained_coordinates.magnitude
+                    reduced_matrix.magnitude
                 ),
                 "cyclic_reference_full": self.matrix(result.cyclic_reference.magnitude),
             },
@@ -213,9 +229,7 @@ class Piab1dStudyResultSerializer:
                         "repository": (
                             "https://github.com/eragasa/projectkoios-optimization"
                         ),
-                        "revision": (
-                            "3cd32ea8985a855bcdbaffbf89af95e970b3bf14"
-                        ),
+                        "revision": ("3cd32ea8985a855bcdbaffbf89af95e970b3bf14"),
                         "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
                         "capabilities": [
                             "projectkoios.numerics.quadrature.uniform_1d",
@@ -225,9 +239,7 @@ class Piab1dStudyResultSerializer:
                     {
                         "distribution": "projectkoios-physkit",
                         "repository": "https://github.com/eragasa/projectkoios-physkit",
-                        "revision": (
-                            "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439"
-                        ),
+                        "revision": ("2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439"),
                         "tree": "a85740480be8ca397a9495c362771fa62de55c26",
                         "capabilities": [
                             "projectkoios.physkit.qm.piab1d",
@@ -270,10 +282,10 @@ class Piab1dStudyResultSerializer:
         return cast(list[JsonValue], value.tolist())
 
     @staticmethod
-    def sparse_matrix(value: SparseMatrixQuantity) -> list[JsonValue]:
+    def sparse_matrix(value: CsrRealMatrixQuantity) -> list[JsonValue]:
         """Convert CSR data to nested JSON arrays one row at a time."""
-        if not isinstance(value, SparseMatrixQuantity):
-            raise TypeError("value must be SparseMatrixQuantity")
+        if not isinstance(value, CsrRealMatrixQuantity):
+            raise TypeError("value must be CsrRealMatrixQuantity")
         matrix = value.to_csr()
         rows: list[JsonValue] = []
         for row in range(value.shape[0]):
@@ -300,11 +312,12 @@ class Piab1dStudyResultSerializer:
         """Return exact public source files implementing newly authored results."""
         package_root = Path(__file__).resolve().parents[3]
         model_root = package_root / "model_systems"
+        linalg_root = package_root / "linalg"
         operator_root = package_root / "operators"
         return (
             model_root / "study" / "base.py",
             operator_root / "eigenpairs.py",
-            operator_root / "quantities.py",
+            linalg_root / "quantities.py",
             Path(__file__).resolve().with_name("records.py"),
             Path(__file__).resolve().with_name("input.py"),
             Path(__file__).resolve().with_name("evaluation.py"),

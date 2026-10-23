@@ -6,12 +6,12 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ksdft2effmass.operators import (
+from ksdft2effmass.linalg import (
     MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     ScalarQuantity,
 )
-from ksdft2effmass.solid_state import PlaneWaveBasis1D
+from ksdft2effmass.solidstate import PlaneWaveBasis1D
 
 from .model import PeriodicFourierPotential1D
 

@@ -5,7 +5,9 @@ from __future__ import annotations
 import json
 
 from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
-from ksdft2effmass.operators import ScalarQuantity
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+)
 from ksdft2effmass.serialization import JsonSerializer
 
 from .results import (

@@ -12,7 +12,9 @@ from ksdft2effmass.integration.wannier90 import (
     Wannier90NativeArtifactSetParser,
     Wannier90ParsedNativeArtifactSet,
 )
-from ksdft2effmass.operators import PhysicalUnit
+from ksdft2effmass.linalg import (
+    PhysicalUnit,
+)
 
 from .model.integrations import Periodic1DWannier90NativeArtifactGroup
 from .result_documents import Periodic1DRetainedResultKind

@@ -19,18 +19,13 @@ OMITTED_PROBABILITY_TOLERANCE = 0.01
 def represented_energy(mode: int, total_points: int) -> float:
     """Return the nondimensional centered-difference box energy."""
     spacing = 1.0 / (total_points - 1)
-    return (
-        2.0
-        / spacing**2
-        * math.sin(mode * math.pi / (2.0 * (total_points - 1))) ** 2
-    )
+    return 2.0 / spacing**2 * math.sin(mode * math.pi / (2.0 * (total_points - 1))) ** 2
 
 
 def calculate_selection() -> dict[str, object]:
     """Return canonical weights and the first dimension meeting the tolerance."""
     energies = [
-        represented_energy(mode, TOTAL_POINTS)
-        for mode in range(1, TOTAL_POINTS - 1)
+        represented_energy(mode, TOTAL_POINTS) for mode in range(1, TOTAL_POINTS - 1)
     ]
     boltzmann_factors = [math.exp(-BETA * energy) for energy in energies]
     partition_function = math.fsum(boltzmann_factors)
@@ -39,8 +34,7 @@ def calculate_selection() -> dict[str, object]:
     selected_dimension: int | None = None
     for retained_dimension in range(1, TOTAL_POINTS - 1):
         omitted_probability = (
-            math.fsum(boltzmann_factors[retained_dimension:])
-            / partition_function
+            math.fsum(boltzmann_factors[retained_dimension:]) / partition_function
         )
         passes = omitted_probability <= OMITTED_PROBABILITY_TOLERANCE
         candidates.append(

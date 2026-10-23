@@ -2,7 +2,10 @@
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ScalarQuantity, Unitless
+from ksdft2effmass.linalg import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ...isolated_verification import (
     Periodic1DIsolatedResultVerifier,

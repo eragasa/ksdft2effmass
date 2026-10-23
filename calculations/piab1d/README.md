@@ -40,6 +40,40 @@ The generated report PDF is `calculations/piab1d/build/development_report.pdf`
 and is not retained evidence unless separately reviewed and admitted to the checksum
 catalog.
 
+## Successor directory structure
+
+The package now separates active authored material into:
+
+- `inputs/` reserved for a later researcher-facing authored input;
+- `technical_report/` for the maintained `technical_report.tex` and its local assets;
+  and
+- `executions/` for future immutable execution packages.
+
+No successor execution has been created. The existing top-level inputs, results,
+figures, scripts, report directory, and checksum catalog remain unchanged as historical
+flat artifacts because retained results and provenance identify those paths. No
+successor input document has been admitted yet, and this directory split does not
+reclassify the historical outputs as one atomic execution. Schemas and generic
+study-container code are intentionally outside this first PIAB1D-only restructuring
+step.
+
+`hamiltonian_decomposition.py` is the first thin successor entry point. It evaluates
+the typed PIAB1D study, obtains its `ReducedHamiltonian`, applies the existing declared
+shift, and constructs `HamiltonianDecomposition` directly. It then runs, verifies, and
+visualizes without a PIAB1D Workflow or decomposition subclass:
+
+```bash
+cd python
+uv run python ../calculations/piab1d/hamiltonian_decomposition.py \
+  --study-input ../calculations/piab1d/input.json \
+  --decomposition-input ../calculations/piab1d/identifiability-input.json \
+  --figure-output /tmp/piab1d-hamiltonian-decomposition.png
+```
+
+The command writes only the requested verified PNG and refuses to overwrite it. It does
+not modify either input document, consume the historical retained result as its
+Hamiltonian source, or establish a successor execution package.
+
 PhysKit owns the `Piab1D` model, analytical spectrum, homogeneous-Dirichlet
 grid, finite-difference Hamiltonian, and eigensolution. Project Koios Numerics owns
 the unit-free closed-interval trapezoidal rule, homogeneous-Dirichlet interior

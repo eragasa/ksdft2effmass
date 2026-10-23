@@ -54,6 +54,7 @@ from .finite_differences import (
     SecondOrderCentralDifferenceLaplacian1D,
     UniformGrid1DRepresentation,
 )
+from .hamiltonians import Hamiltonian, HermitianHamiltonian, ReducedHamiltonian
 from .hermiticity import (
     HermiticityAnalyzer,
     HermiticityNumericalError,
@@ -67,19 +68,6 @@ from .matrix_norms import (
     RepresentedMatrixNormAnalyzer,
     RepresentedMatrixNormResult,
     RepresentedRealMatrix,
-)
-from .quantities import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
-    ComplexMatrixQuantity,
-    ComplexSparseMatrixQuantity,
-    MatrixQuantity,
-    ModelSystemUnit,
-    PhysicalUnit,
-    PintUnitConverter,
-    ScalarQuantity,
-    SparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
 )
 from .records import Basis, EnergyReference, Geometry, OperatorRecord, StateSpace
 from .residuals import (
@@ -98,6 +86,7 @@ from .subspaces import (
     OperatorCompressionResult,
     OrthogonalSpectralSubspace,
     OrthogonalSpectralSubspaceSelector,
+    SpectralSubspace,
 )
 
 __all__ = [
@@ -108,15 +97,15 @@ __all__ = [
     "ComplexHermitianEigensolverRequest",
     "ComplexHermitianEigensolverResult",
     "ComplexHermitianSparseEigenpairSolver",
-    "ComplexMatrixQuantity",
     "ComplexSparseHermiticityAnalyzer",
     "ComplexSparseHermiticityResult",
-    "ComplexSparseMatrixQuantity",
     "DirichletBoundaryConditionRepresentation",
     "DirichletIntervalRepresentation",
     "EnergyReference",
     "FiniteDifferenceHamiltonian1D",
     "Geometry",
+    "Hamiltonian",
+    "HermitianHamiltonian",
     "HermiticityAnalyzer",
     "HermiticityNumericalError",
     "HermiticityNumericalErrorCode",
@@ -126,9 +115,6 @@ __all__ = [
     "HermitianEigenpairSelection",
     "IncompatibleOperatorRecordsError",
     "LadderOperator1D",
-    "MODEL_SYSTEM_UNIT_CONVERTER",
-    "MatrixQuantity",
-    "ModelSystemUnit",
     "OperatorCompression",
     "OperatorCompressionResult",
     "OperatorRecord",
@@ -148,21 +134,17 @@ __all__ = [
     "OperatorRecordResidualAnalyzer",
     "OrthogonalSpectralSubspace",
     "OrthogonalSpectralSubspaceSelector",
-    "PhysicalUnit",
-    "PintUnitConverter",
     "RealSymmetricEigenpairResult",
     "RealSymmetricEigenpairSolver",
     "RealSymmetricOperator",
     "RepresentedMatrixNormAnalyzer",
     "RepresentedMatrixNormResult",
     "RepresentedRealMatrix",
+    "ReducedHamiltonian",
     "SampledPotential1D",
     "SchrodingerKineticEnergy1D",
     "SecondOrderCentralDifferenceLaplacian1D",
-    "ScalarQuantity",
-    "SparseMatrixQuantity",
+    "SpectralSubspace",
     "StateSpace",
     "UniformGrid1DRepresentation",
-    "Unitless",
-    "VectorQuantity",
 ]

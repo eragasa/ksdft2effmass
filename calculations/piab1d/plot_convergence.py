@@ -92,9 +92,7 @@ def plot_convergence(payload: dict[str, Any], output: Path) -> None:
 def plot_mode_sweep(payload: dict[str, Any], output: Path) -> None:
     """Plot mode-wise relative errors for every retained grid refinement."""
     refinements = payload["refinements"]
-    selected_indices = np.unique(
-        np.linspace(0, len(refinements) - 1, 7, dtype=int)
-    )
+    selected_indices = np.unique(np.linspace(0, len(refinements) - 1, 7, dtype=int))
     selected = [refinements[index] for index in selected_indices]
     figure, axis = plt.subplots(figsize=(7.6, 4.8), constrained_layout=True)
     colors = plt.colormaps["viridis"](np.linspace(0.08, 0.9, len(selected)))
