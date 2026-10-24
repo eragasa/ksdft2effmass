@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
 )
 from ksdft2effmass.periodic1d.multiband_alignment import (
@@ -83,7 +83,7 @@ class Periodic1DConstrainedAdmissibleSetCalculator:
         reference = self._matrices(baseline.reference_transform.source)
         attacked = self._matrices(baseline.attacked_transform.source)
         energy_unit = baseline.reference_transform.hopping_model.hopping_blocks[0].unit
-        energy_scale = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        energy_scale = ModelSystemUnitConverter.convert_scalar(
             definition.loss_energy_scale, energy_unit
         ).magnitude
         spectral = self._spectral_quadratic(
@@ -234,7 +234,7 @@ class Periodic1DConstrainedAdmissibleSetCalculator:
         Evaluation values cannot alter either or change a disposition.
         """
         energy_unit = baseline.reference_transform.hopping_model.hopping_blocks[0].unit
-        energy_scale = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        energy_scale = ModelSystemUnitConverter.convert_scalar(
             definition.loss_energy_scale, energy_unit
         ).magnitude
         training_reference = self._matrices(baseline.reference_transform.source)

@@ -18,7 +18,7 @@ type RealMatrix = npt.NDArray[np.float64]
 HISTORICAL_RUNNER_SHA256 = (
     "e945c0a6320f84b3b32e938e5cf7cd6f779ecf3261846abd67a2ae192a08252d"
 )
-EXPECTED_DEPENDENCY_IDENTITIES: list[JsonValue] = [
+HISTORICAL_DEPENDENCY_IDENTITIES: list[JsonValue] = [
     {
         "distribution": "projectkoios-optimization",
         "repository": "https://github.com/eragasa/projectkoios-optimization",
@@ -39,6 +39,22 @@ EXPECTED_DEPENDENCY_IDENTITIES: list[JsonValue] = [
             "projectkoios.physkit.qm.piab1d.tise_fd",
             "projectkoios.physkit.qm.piab1d.tise_analytical",
             "projectkoios.physkit.qm.sampled_states",
+        ],
+    },
+]
+CURRENT_DEPENDENCY_IDENTITIES: list[JsonValue] = [
+    HISTORICAL_DEPENDENCY_IDENTITIES[0],
+    {
+        "distribution": "projectkoios-physkit",
+        "repository": "https://github.com/eragasa/projectkoios-physkit",
+        "revision": "ccdcfcda4a2c7cef29be01b3c09831fda022c55a",
+        "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
+        "capabilities": [
+            "projectkoios.physkit.qm.piab1d",
+            "projectkoios.physkit.qm.piab1d.tise_fd",
+            "projectkoios.physkit.qm.piab1d.tise_analytical",
+            "projectkoios.physkit.qm.sampled_states",
+            "projectkoios.physkit.linalg.eigen",
         ],
     },
 ]
@@ -432,10 +448,15 @@ class Piab1dResultVerifier:
     ) -> None:
         """Verify historical or current implementation identities explicitly."""
         provenance = self.mapping(payload["provenance"], "provenance")
-        if schema_version == 2 and provenance.get("dependency_identities") != (
-            EXPECTED_DEPENDENCY_IDENTITIES
-        ):
-            raise ValueError("dependency identities do not match schema version two")
+        current_profile = False
+        if schema_version == 2:
+            dependency_identities = provenance.get("dependency_identities")
+            if dependency_identities == CURRENT_DEPENDENCY_IDENTITIES:
+                current_profile = True
+            elif dependency_identities != HISTORICAL_DEPENDENCY_IDENTITIES:
+                raise ValueError(
+                    "dependency identities do not match a supported schema-two profile"
+                )
         input_path = self.evidence_path(
             repository_root,
             self.string(provenance["input_path"], "input_path"),
@@ -465,11 +486,23 @@ class Piab1dResultVerifier:
                 "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/serialization.py",
             }
+        elif current_profile:
+            expected = {
+                "python/src/ksdft2effmass/model_systems/study/base.py",
+                "python/src/ksdft2effmass/analysis/operators/compression_residuals.py",
+                "python/src/ksdft2effmass/operators/hamiltonians.py",
+                "python/src/ksdft2effmass/operators/subspaces.py",
+                "python/src/ksdft2effmass/linalg/quantities.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/study/serialization.py",
+            }
         else:
             expected = {
                 "python/src/ksdft2effmass/model_systems/study/base.py",
                 "python/src/ksdft2effmass/operators/eigenpairs.py",
-                "python/src/ksdft2effmass/linalg/quantities.py",
+                "python/src/ksdft2effmass/operators/quantities.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
@@ -481,6 +514,8 @@ class Piab1dResultVerifier:
             relative = self.string(identity["path"], "implementation path")
             observed.add(relative)
             source = repository_root / relative
+            if not source.is_file():
+                raise ValueError("implementation source path is unavailable")
             if hashlib.sha256(source.read_bytes()).hexdigest() != self.string(
                 identity["sha256"], "implementation sha256"
             ):

@@ -153,7 +153,7 @@ indent-style = "space"
 
 [tool.uv.sources]
 projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "3cd32ea8985a855bcdbaffbf89af95e970b3bf14" }
-projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439" }
+projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "ccdcfcda4a2c7cef29be01b3c09831fda022c55a" }
 
 
 [tool.mypy]

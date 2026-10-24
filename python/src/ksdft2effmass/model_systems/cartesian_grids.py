@@ -5,10 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
-    PhysicalUnit,
+    ModelSystemUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
@@ -52,7 +52,7 @@ class UniformCartesianGrid1D:
                 "grid coordinates must not mix unitless and physical units"
             )
         for name, value in values[1:]:
-            if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+            if not ModelSystemUnitConverter.compatible(
                 value.unit, self.lower_bound.unit
             ):
                 raise ValueError(f"{name} has incompatible coordinate dimensions")
@@ -70,7 +70,7 @@ class UniformCartesianGrid1D:
             raise ValueError("grid must contain at least one interval")
 
     @property
-    def coordinate_unit(self) -> PhysicalUnit | Unitless:
+    def coordinate_unit(self) -> ModelSystemUnit:
         """Return the canonical unit selected by the lower bound."""
         return self.lower_bound.unit
 
@@ -82,14 +82,14 @@ class UniformCartesianGrid1D:
     @property
     def upper_magnitude(self) -> float:
         """Return the upper coordinate in the canonical coordinate unit."""
-        return MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        return ModelSystemUnitConverter.convert_scalar(
             self.upper_bound, self.coordinate_unit
         ).magnitude
 
     @property
     def spacing_magnitude(self) -> float:
         """Return the requested spacing in the canonical coordinate unit."""
-        return MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        return ModelSystemUnitConverter.convert_scalar(
             self.requested_spacing, self.coordinate_unit
         ).magnitude
 
@@ -151,7 +151,7 @@ class UniformCartesianGrid2D:
             raise TypeError("first_axis must be UniformCartesianGrid1D")
         if not isinstance(self.second_axis, UniformCartesianGrid1D):
             raise TypeError("second_axis must be UniformCartesianGrid1D")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.first_axis.coordinate_unit, self.second_axis.coordinate_unit
         ):
             raise ValueError("Cartesian axes must have compatible coordinate units")
@@ -207,7 +207,7 @@ class UniformCartesianGrid3D:
         if any(not isinstance(axis, UniformCartesianGrid1D) for axis in axes):
             raise TypeError("every axis must be UniformCartesianGrid1D")
         if any(
-            not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+            not ModelSystemUnitConverter.compatible(
                 self.first_axis.coordinate_unit, axis.coordinate_unit
             )
             for axis in axes[1:]

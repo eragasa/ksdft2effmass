@@ -12,7 +12,7 @@ explicitly labeled and do not claim implemented or supported source.
 
 | Package | Owns | Does not own |
 |---|---|---|
-| `operators` | Generic finite represented matrices, units, operator records, eigensolvers, operator compression, residuals, compatibility, and matrix comparison | State-space ownership, lattices, Bloch paths, hopping models, scientific campaigns, or external calculators |
+| `operators` | KSD Hamiltonian wrappers, spectral subspaces, operator compression, residual policy, operator records, compatibility, matrix comparison, and the retained complex-Hermitian sparse solver boundary | Generic quantities, matrix verification, real-symmetric spectral decomposition, state-space ownership, lattices, Bloch paths, hopping models, scientific campaigns, or external calculators |
 | `spaces` | Prospective finite state-space and subspace identities, injections, and intrinsic invariants; the initial documented leaf is the analytical trial subspace | Hamiltonians, operator reduction, scientific model construction, or experiment composition |
 | `solidstate` | Lattices, reciprocal paths, boundary twists, band frames, gauge alignment, hopping transforms, Wilson loops, and finite-lattice operator construction | Generic matrix utilities, campaign policy, or external-tool integration |
 | `model_systems` | Controlled physical and mathematical systems, shared finite-domain geometry, exact solutions, finite representations, and model-specific comparisons | General-purpose analysis, campaign authority, or external-tool integration |

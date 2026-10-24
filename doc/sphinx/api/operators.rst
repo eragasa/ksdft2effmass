@@ -39,11 +39,9 @@ physical scaling.
 .. autoclass:: FiniteDifferenceHamiltonian1D
    :members:
 
-.. autoclass:: RealSymmetricEigenpairResult
-   :members:
-
-.. autoclass:: RealSymmetricEigenpairSolver
-   :members:
+Real-symmetric spectral decomposition and eigensystem records are owned by
+``projectkoios.physkit.linalg.eigen``.  KSD subspace selectors consume PhysKit's
+``Eigensystem`` directly.
 
 .. autoclass:: OrthogonalSpectralSubspace
    :members:

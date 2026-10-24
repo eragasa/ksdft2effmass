@@ -8,10 +8,7 @@ from dataclasses import dataclass
 import numpy as np
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.linalg import (
-    PhysicalUnit,
-    Unitless,
-)
+from ksdft2effmass.linalg import ModelSystemUnit, PhysicalUnit, Unitless
 from ksdft2effmass.solidstate import (
     FiniteLatticeCoordinateResolver,
     FiniteLatticeShape,
@@ -20,7 +17,7 @@ from ksdft2effmass.solidstate import (
     ScalarFiniteLatticeOperatorCompatibilityResult,
 )
 
-type LocalityResidualUnit = PhysicalUnit | Unitless
+type LocalityResidualUnit = ModelSystemUnit
 """Closed unit union for sparse locality residuals."""
 
 

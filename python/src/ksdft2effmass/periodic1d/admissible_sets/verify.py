@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ScalarQuantity,
 )
 from ksdft2effmass.periodic1d.multiband_alignment import (
@@ -126,7 +126,7 @@ class Periodic1DConstrainedAdmissibleSetResultVerifier:
         ]
         energy = [baseline_verification.energy_maximum_absolute_defect.magnitude]
         energy_unit = definition.parent_model.hopping_model.hopping_blocks[0].unit
-        scale = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        scale = ModelSystemUnitConverter.convert_scalar(
             definition.loss_energy_scale, energy_unit
         ).magnitude
         reference = self._samples(baseline.reference_transform.source)
@@ -317,7 +317,7 @@ class Periodic1DConstrainedAdmissibleSetResultVerifier:
         definition = calculation.definition
         baseline = calculation.multiband_baseline
         energy_unit = definition.parent_model.hopping_model.hopping_blocks[0].unit
-        scale = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        scale = ModelSystemUnitConverter.convert_scalar(
             definition.loss_energy_scale, energy_unit
         ).magnitude
         training_reference = self._samples(baseline.reference_transform.source)

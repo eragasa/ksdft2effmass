@@ -50,4 +50,21 @@ class TestPiab1dStudyResultSerializer:
         assert provenance["eigensolver"] == "scipy.linalg.eigh_tridiagonal"
         identities = provenance["implementation_identities"]
         assert isinstance(identities, list)
-        assert len(identities) == 7
+        paths = {
+            cast(dict[str, JsonValue], identity)["path"] for identity in identities
+        }
+        assert paths == {
+            "python/src/ksdft2effmass/model_systems/study/base.py",
+            "python/src/ksdft2effmass/analysis/operators/compression_residuals.py",
+            "python/src/ksdft2effmass/operators/hamiltonians.py",
+            "python/src/ksdft2effmass/operators/subspaces.py",
+            "python/src/ksdft2effmass/linalg/quantities.py",
+            "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
+            "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
+            "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
+            "python/src/ksdft2effmass/model_systems/piab1d/study/serialization.py",
+        }
+        dependencies = provenance["dependency_identities"]
+        assert isinstance(dependencies, list)
+        physkit = cast(dict[str, JsonValue], dependencies[1])
+        assert physkit["revision"] == "ccdcfcda4a2c7cef29be01b3c09831fda022c55a"

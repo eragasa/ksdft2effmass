@@ -82,7 +82,7 @@ class Piab1dCampaignResultDecoder:
     def verify_dependency_identities(cls, payload: dict[str, JsonValue]) -> None:
         """Verify the exact external PIAB1D production owners."""
         provenance = cls.mapping(payload["provenance"], "provenance")
-        expected: list[JsonValue] = [
+        historical: list[JsonValue] = [
             {
                 "distribution": "projectkoios-optimization",
                 "repository": "https://github.com/eragasa/projectkoios-optimization",
@@ -96,7 +96,17 @@ class Piab1dCampaignResultDecoder:
                 "tree": "a85740480be8ca397a9495c362771fa62de55c26",
             },
         ]
-        if provenance.get("dependency_identities") != expected:
+        current: list[JsonValue] = [
+            historical[0],
+            {
+                "distribution": "projectkoios-physkit",
+                "repository": "https://github.com/eragasa/projectkoios-physkit",
+                "revision": "ccdcfcda4a2c7cef29be01b3c09831fda022c55a",
+                "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
+            },
+        ]
+        dependency_identities = provenance.get("dependency_identities")
+        if dependency_identities not in (historical, current):
             raise ValueError("dependency identities do not match the PIAB1D contract")
 
 

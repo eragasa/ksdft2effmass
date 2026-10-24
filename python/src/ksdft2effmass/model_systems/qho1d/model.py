@@ -20,10 +20,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     CsrRealMatrixQuantity,
     PhysicalUnit,
     RealMatrixQuantity,
@@ -79,7 +79,7 @@ class Qho1dParameters:
                 "unitless and physical units"
             )
         if not all(unitless):
-            converter = MODEL_SYSTEM_UNIT_CONVERTER
+            converter = ModelSystemUnitConverter
             expectations = (
                 (self.hbar.unit, PhysicalUnit("joule * second"), "hbar"),
                 (self.mass.unit, PhysicalUnit("kilogram"), "mass"),
@@ -102,7 +102,7 @@ class Qho1dParameters:
                 self.hbar.magnitude / (self.mass.magnitude * self.omega.magnitude)
             )
             return ScalarQuantity(float(value), Unitless())
-        converter = MODEL_SYSTEM_UNIT_CONVERTER
+        converter = ModelSystemUnitConverter
         hbar = converter.convert_scalar(
             self.hbar, PhysicalUnit("joule * second")
         ).magnitude
@@ -161,7 +161,7 @@ class Qho1dAnalytical:
             scale = parameters.hbar.magnitude * parameters.omega.magnitude
             unit: PhysicalUnit | Unitless = Unitless()
         else:
-            converter = MODEL_SYSTEM_UNIT_CONVERTER
+            converter = ModelSystemUnitConverter
             hbar = converter.convert_scalar(
                 parameters.hbar, PhysicalUnit("joule * second")
             ).magnitude
@@ -235,7 +235,7 @@ class Qho1dFiniteDifference:
                 "finite-matrix realization requires homogeneous Dirichlet data"
             )
         expected_length = self.canonical_length_unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.interval.grid.coordinate_unit, expected_length
         ):
             raise ValueError("grid has incompatible coordinate dimensions")
@@ -244,14 +244,14 @@ class Qho1dFiniteDifference:
             expected_field = Unitless()
         else:
             expected_field = PhysicalUnit("meter ** -0.5")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.interval.boundary_condition.value.unit, expected_field
         ):
             raise ValueError("boundary value has incompatible wavefunction dimensions")
-        lower = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        lower = ModelSystemUnitConverter.convert_scalar(
             self.interval.grid.lower_bound, expected_length
         ).magnitude
-        upper = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        upper = ModelSystemUnitConverter.convert_scalar(
             self.interval.grid.upper_bound, expected_length
         ).magnitude
         if not np.isclose(lower, -upper, rtol=0.0, atol=1.0e-12):
@@ -269,7 +269,7 @@ class Qho1dFiniteDifference:
     @property
     def box_half_width(self) -> ScalarQuantity:
         """Return the symmetric interval half-width in the canonical length unit."""
-        upper = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        upper = ModelSystemUnitConverter.convert_scalar(
             self.interval.grid.upper_bound, self.canonical_length_unit
         )
         return ScalarQuantity(upper.magnitude, self.canonical_length_unit)
@@ -277,7 +277,7 @@ class Qho1dFiniteDifference:
     @property
     def requested_grid_spacing(self) -> ScalarQuantity:
         """Return the requested grid spacing in the canonical length unit."""
-        return MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        return ModelSystemUnitConverter.convert_scalar(
             self.interval.grid.requested_spacing, self.canonical_length_unit
         )
 
@@ -289,13 +289,13 @@ class Qho1dFiniteDifference:
     @property
     def grid_spacing(self) -> ScalarQuantity:
         """Return the realized uniform spacing in the canonical length unit."""
-        return MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        return ModelSystemUnitConverter.convert_scalar(
             self.interval.grid.spacing, self.canonical_length_unit
         )
 
     def grid_coordinates(self) -> VectorQuantity:
         """Return interior grid coordinates in the canonical length unit."""
-        return MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        return ModelSystemUnitConverter.convert_vector(
             self.interval.grid.interior_coordinates(), self.canonical_length_unit
         )
 
@@ -314,10 +314,10 @@ class Qho1dFiniteDifference:
             omega = parameters.omega.magnitude
             energy_unit: PhysicalUnit | Unitless = Unitless()
         else:
-            mass = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            mass = ModelSystemUnitConverter.convert_scalar(
                 parameters.mass, PhysicalUnit("kilogram")
             ).magnitude
-            omega = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            omega = ModelSystemUnitConverter.convert_scalar(
                 parameters.omega, PhysicalUnit("1 / second")
             ).magnitude
             energy_unit = PhysicalUnit("joule")
@@ -574,9 +574,9 @@ class Qho1dComparisonResult:
         if any(not isinstance(item.unit, Unitless) for item in unitless_arrays):
             raise ValueError("map and Gram arrays must use Unitless")
         length_unit = self.request.finite_difference.canonical_length_unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.grid_spacing.unit, length_unit
-        ) or not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        ) or not ModelSystemUnitConverter.compatible(
             self.grid_coordinates.unit, length_unit
         ):
             raise ValueError("grid quantities must use compatible length units")
@@ -587,7 +587,7 @@ class Qho1dComparisonResult:
             self.difference,
         )
         if any(
-            not MODEL_SYSTEM_UNIT_CONVERTER.compatible(item.unit, energy_unit)
+            not ModelSystemUnitConverter.compatible(item.unit, energy_unit)
             for item in energy_arrays
         ):
             raise ValueError("Hamiltonian arrays must use compatible energy units")
@@ -608,7 +608,7 @@ class Qho1dComparisonResult:
                 raise ValueError(f"{name} must be nonnegative")
             if must_be_unitless and not isinstance(metric_quantity.unit, Unitless):
                 raise ValueError(f"{name} must use Unitless")
-            if not must_be_unitless and not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+            if not must_be_unitless and not ModelSystemUnitConverter.compatible(
                 metric_quantity.unit, energy_unit
             ):
                 raise ValueError(f"{name} must use an energy unit")

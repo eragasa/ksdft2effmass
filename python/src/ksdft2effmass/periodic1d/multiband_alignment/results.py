@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityResult1D,
@@ -14,7 +15,6 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandSpectrumSamples1D,
 )
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
@@ -242,10 +242,10 @@ class Periodic1DMultibandAlignmentCalculationResult:
             ("training", self.training_target, expected_training),
             ("withheld", self.withheld_target, expected_withheld),
         ):
-            coordinates = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+            coordinates = ModelSystemUnitConverter.convert_vector(
                 target.coordinates, parent_period.unit
             )
-            period = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            period = ModelSystemUnitConverter.convert_scalar(
                 target.reciprocal_period, parent_period.unit
             )
             if period.magnitude != parent_period.magnitude:
@@ -298,10 +298,10 @@ class Periodic1DMultibandAlignmentCalculationResult:
             ):
                 raise ValueError("transform source coordinates do not match training")
         energy_unit = self.definition.parent_model.hopping_model.hopping_blocks[0].unit
-        external_gap_lower_bound = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        external_gap_lower_bound = ModelSystemUnitConverter.convert_scalar(
             self.definition.external_gap_lower_bound, energy_unit
         )
-        external_gap = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        external_gap = ModelSystemUnitConverter.convert_scalar(
             self.diagnostics.external_gap_minimum, energy_unit
         )
         if external_gap.magnitude < external_gap_lower_bound.magnitude:
@@ -332,10 +332,10 @@ class Periodic1DMultibandAlignmentCalculationResult:
                 )
             if diagnostic.model is not transform.hopping_model:
                 raise ValueError("Hermiticity channels must analyze their transform")
-            tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            tolerance = ModelSystemUnitConverter.convert_scalar(
                 diagnostic.absolute_tolerance, energy_unit
             )
-            expected_tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            expected_tolerance = ModelSystemUnitConverter.convert_scalar(
                 self.definition.hermiticity_absolute_tolerance, energy_unit
             )
             if tolerance.magnitude != expected_tolerance.magnitude:

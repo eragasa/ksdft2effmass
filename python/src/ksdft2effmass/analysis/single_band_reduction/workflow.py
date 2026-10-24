@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
@@ -18,7 +19,6 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandSpectrumSamples1D,
 )
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     PhysicalUnit,
     ScalarQuantity,
@@ -64,7 +64,7 @@ class SingleBandHoppingReductionWorkflow1D:
         """Return the complete transform and every requested range result."""
         if type(request) is not SingleBandHoppingReductionRequest1D:
             raise TypeError("request must be SingleBandHoppingReductionRequest1D")
-        converter = MODEL_SYSTEM_UNIT_CONVERTER
+        converter = ModelSystemUnitConverter
         energy_unit = request.training_target.eigenvalues.unit
         reciprocal_unit = request.training_target.reciprocal_period.unit
         squared_energy_unit = (

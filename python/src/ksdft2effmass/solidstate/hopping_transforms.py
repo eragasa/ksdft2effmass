@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     ScalarQuantity,
     VectorQuantity,
@@ -33,7 +33,7 @@ class ReciprocalOperatorSamples1D:
             raise TypeError("reciprocal_period must be ScalarQuantity")
         if self.reciprocal_period.magnitude <= 0.0:
             raise ValueError("reciprocal_period must be positive")
-        converter = MODEL_SYSTEM_UNIT_CONVERTER
+        converter = ModelSystemUnitConverter
         if not converter.compatible(self.coordinates.unit, self.reciprocal_period.unit):
             raise ValueError("coordinates and reciprocal_period must be compatible")
         object.__setattr__(
@@ -90,7 +90,7 @@ class BandProjectedOperatorPathConstructor1D:
             raise ValueError(
                 "coordinate_absolute_tolerance must be finite and nonnegative"
             )
-        mesh_coordinates = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        mesh_coordinates = ModelSystemUnitConverter.convert_vector(
             frames.mesh.coordinates, parent.reciprocal_period.unit
         )
         if parent.coordinates.magnitude.shape != mesh_coordinates.magnitude.shape:
@@ -235,7 +235,7 @@ class ReciprocalOperatorFourierTransformResult1D:
             raise ValueError(
                 "complete transform must retain the centered mesh representatives"
             )
-        expected_coordinates = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        expected_coordinates = ModelSystemUnitConverter.convert_vector(
             self.mesh.coordinates, self.source.reciprocal_period.unit
         )
         if (
@@ -255,7 +255,7 @@ class ReciprocalOperatorFourierTransformResult1D:
             > self.coordinate_absolute_tolerance
         ):
             raise ValueError("source coordinates do not match the declared mesh")
-        reconstructed_coordinates = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        reconstructed_coordinates = ModelSystemUnitConverter.convert_vector(
             self.reconstructed.coordinates, self.source.reciprocal_period.unit
         )
         if not np.array_equal(
@@ -289,7 +289,7 @@ class BlockHoppingInterpolator1D:
             raise TypeError("model must be BlockHoppingModel1D")
         if type(coordinates) is not VectorQuantity:
             raise TypeError("coordinates must be VectorQuantity")
-        converted = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        converted = ModelSystemUnitConverter.convert_vector(
             coordinates, model.reciprocal_period.unit
         )
         representatives = np.asarray(model.representatives, dtype=np.float64)
@@ -341,7 +341,7 @@ class ReciprocalOperatorFourierTransformer1D:
                 raise TypeError(f"{name} must be a built-in float")
             if not np.isfinite(tolerance) or tolerance < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
-        expected_coordinates = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        expected_coordinates = ModelSystemUnitConverter.convert_vector(
             mesh.coordinates, source.reciprocal_period.unit
         )
         if source.coordinates.magnitude.shape != expected_coordinates.magnitude.shape:

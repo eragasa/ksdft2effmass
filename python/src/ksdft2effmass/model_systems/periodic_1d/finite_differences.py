@@ -5,10 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     CsrComplexMatrixQuantity,
     ScalarQuantity,
     VectorQuantity,
@@ -31,14 +31,12 @@ class PeriodicUniformGrid1D:
             raise TypeError("origin must be ScalarQuantity")
         if type(self.period) is not ScalarQuantity:
             raise TypeError("period must be ScalarQuantity")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
-            self.origin.unit, self.period.unit
-        ):
+        if not ModelSystemUnitConverter.compatible(self.origin.unit, self.period.unit):
             raise ValueError("origin and period units must be compatible")
         object.__setattr__(
             self,
             "origin",
-            MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(self.origin, self.period.unit),
+            ModelSystemUnitConverter.convert_scalar(self.origin, self.period.unit),
         )
         if self.period.magnitude <= 0.0:
             raise ValueError("period must be positive")
@@ -141,7 +139,7 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
             or period_absolute_tolerance < 0.0
         ):
             raise ValueError("period_absolute_tolerance must be finite and nonnegative")
-        potential_period = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        potential_period = ModelSystemUnitConverter.convert_scalar(
             potential.period, grid.period.unit
         )
         if not np.isclose(
@@ -151,7 +149,7 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
             atol=period_absolute_tolerance,
         ):
             raise ValueError("grid and potential periods do not agree")
-        converter = MODEL_SYSTEM_UNIT_CONVERTER
+        converter = ModelSystemUnitConverter
         if not converter.compatible(
             potential.constant_coefficient.unit, recoil_energy.unit
         ):

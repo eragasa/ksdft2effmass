@@ -2,13 +2,13 @@
 
 import numpy as np
 import pytest
+from projectkoios.physkit.linalg.eigen import SpectralDecomposition
+
 from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
+from ksdft2effmass.linalg import RealMatrixQuantity, Unitless
 from ksdft2effmass.operators import (
-    MatrixQuantity,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairSolver,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -22,9 +22,9 @@ class TestOrthogonalCompressionResidualAnalyzer:
         self,
     ) -> None:
         """Spectral compression is consistent and unmatched loss is discarded."""
-        operator = MatrixQuantity(np.diag([1.0, 2.0, 4.0]), Unitless())
-        eigenpairs = RealSymmetricEigenpairSolver().execute(operator)
-        subspace = OrthogonalSpectralSubspaceSelector().execute(eigenpairs, 2)
+        operator = RealMatrixQuantity(np.diag([1.0, 2.0, 4.0]), Unitless())
+        eigensystem = SpectralDecomposition(operator).eigensystem()
+        subspace = OrthogonalSpectralSubspaceSelector().execute(eigensystem, 2)
         compression = OperatorCompression().execute(operator, subspace)
 
         result = SUT().execute(operator, subspace, compression)

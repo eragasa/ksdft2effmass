@@ -7,7 +7,6 @@ from .matrices import (
     VerifiedMatrixUtils,
 )
 from .quantities import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     CsrComplexMatrixQuantity,
     CsrRealMatrixQuantity,
@@ -25,7 +24,6 @@ __all__ = [
     "CsrComplexMatrixQuantity",
     "CsrRealMatrixQuantity",
     "CsrSparseMatrix",
-    "MODEL_SYSTEM_UNIT_CONVERTER",
     "RealMatrixQuantity",
     "MatrixVerifier",
     "ModelSystemUnit",

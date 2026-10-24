@@ -81,10 +81,20 @@ restriction, and diagonal mass algebra. The core residual experiment composes th
 pinned owners with reusable finite-operator analyses from
 `ksdft2effmass.analysis.operators`; KSD owns retained-mode selection, residual
 semantics, wire shapes, provenance, and independent verification. No local PIAB1D
-model or solver compatibility facade is retained. The current calculation pins
-Project Koios Numerics through Optimization revision
-`3cd32ea8985a855bcdbaffbf89af95e970b3bf14` and PhysKit revision
-`2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`.
+model or solver compatibility facade is retained. Maintained scripts bind each model
+when constructing `Piab1dTiseFdSolver` and consume the returned PhysKit `Eigensystem`
+directly. The current source environment pins Project Koios Numerics through
+Optimization revision `3cd32ea8985a855bcdbaffbf89af95e970b3bf14` and PhysKit
+revision `ccdcfcda4a2c7cef29be01b3c09831fda022c55a`.
+
+The retained JSON results remain historical evidence and continue to record PhysKit
+revision `2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`. Re-executing the legacy
+eigenpair- and norm-sweep scripts under the current owner revision preserves all
+non-residual fields exactly; algebraic residual observations can differ at binary64
+roundoff because they now come from the current PhysKit eigensystem and residual
+kernel. Tests isolate those fields and require both historical and current values to
+satisfy the independently declared residual bounds. The retained files are not
+rewritten by this migration.
 
 The version-two core input enables quadrature explicitly by default. The result keeps
 Euclidean-normalized solver vectors separate from quadrature-normalized nodal

@@ -12,8 +12,8 @@ classes behind thin calculation-directory adapters.
 
 Intrinsic and cross-object scope
 
-Retained numerical compatibility, current provenance production, and independent
-verification are included.
+Retained numerical compatibility, explicitly isolated eigensolver-residual roundoff
+changes, current provenance production, and independent verification are included.
 
 VVUQ and scientific exclusions
 
@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import cast
 
 import pytest
+
 from ksdft2effmass.model_systems.piab1d import JsonValue
 
 from ..convergence import Piab1dConvergenceWorkflow
@@ -75,11 +76,11 @@ class TestPiab1dAuxiliaryStudies:
     ) -> None:
         """Evidence ID: SV-MONOGRAPH-PIB-AUX-002
 
-        Requirement: The public higher-eigenpair Workflow preserves the retained
-        numerical document and independent verification.
+        Requirement: The migrated higher-eigenpair Workflow preserves every retained
+        field except algebraic residual roundoff owned by the current PhysKit solver.
 
-        Acceptance: Authored and retained numerical payloads are equal after excluding
-        provenance, and the verifier accepts both documents.
+        Acceptance: Non-residual numerical fields remain exact, both residual profiles
+        satisfy the declared bound, and the verifier accepts both documents.
         """
         root, calculation = self.paths()
         encoded = Piab1dEigenpairSweepWorkflow().execute(
@@ -87,7 +88,7 @@ class TestPiab1dAuxiliaryStudies:
             calculation / "run_eigenpair_sweep.py",
             root,
         )
-        self.assert_numerical_payload(
+        self.assert_eigenpair_migration_payload(
             encoded, calculation / "eigenpair-sweep-result.json"
         )
         authored = tmp_path / "eigenpairs.json"
@@ -101,11 +102,11 @@ class TestPiab1dAuxiliaryStudies:
     ) -> None:
         """Evidence ID: SV-MONOGRAPH-PIB-AUX-003
 
-        Requirement: The public norm Workflow preserves the retained numerical
-        document and independent verification.
+        Requirement: The migrated norm Workflow preserves every retained field except
+        norms of algebraic eigensolver residuals owned by the current PhysKit solver.
 
-        Acceptance: Authored and retained numerical payloads are equal after excluding
-        provenance, and the verifier accepts both documents.
+        Acceptance: Non-residual numerical fields remain exact, both residual profiles
+        satisfy the declared bound, and the verifier accepts both documents.
         """
         root, calculation = self.paths()
         encoded = Piab1dNormSweepWorkflow().execute(
@@ -113,7 +114,9 @@ class TestPiab1dAuxiliaryStudies:
             calculation / "run_norm_sweep.py",
             root,
         )
-        self.assert_numerical_payload(encoded, calculation / "norm-sweep-result.json")
+        self.assert_norm_migration_payload(
+            encoded, calculation / "norm-sweep-result.json"
+        )
         authored = tmp_path / "norms.json"
         authored.write_bytes(encoded)
         verifier = Piab1dNormSweepVerifier()
@@ -154,12 +157,66 @@ class TestPiab1dAuxiliaryStudies:
         return root, root / "calculations" / "piab1d"
 
     @staticmethod
-    def assert_numerical_payload(encoded: bytes, retained_path: Path) -> None:
-        """Assert equality after excluding implementation provenance."""
+    def payloads(
+        encoded: bytes, retained_path: Path
+    ) -> tuple[dict[str, JsonValue], dict[str, JsonValue]]:
+        """Return authored and retained payloads without provenance."""
         authored = cast(dict[str, JsonValue], json.loads(encoded.decode("utf-8")))
         retained = cast(
             dict[str, JsonValue], json.loads(retained_path.read_text(encoding="utf-8"))
         )
         authored.pop("provenance")
         retained.pop("provenance")
+        return authored, retained
+
+    @classmethod
+    def assert_numerical_payload(cls, encoded: bytes, retained_path: Path) -> None:
+        """Assert exact numerical equality after excluding provenance."""
+        authored, retained = cls.payloads(encoded, retained_path)
+        assert authored == retained
+
+    @classmethod
+    def assert_eigenpair_migration_payload(
+        cls, encoded: bytes, retained_path: Path
+    ) -> None:
+        """Isolate the expected owner-migration change to residual roundoff."""
+        authored, retained = cls.payloads(encoded, retained_path)
+        for payload in (authored, retained):
+            grids = cast(list[JsonValue], payload["grids"])
+            for grid_value in grids:
+                grid = cast(dict[str, JsonValue], grid_value)
+                records = cast(list[JsonValue], grid["eigenpairs"])
+                residuals = []
+                for record_value in records:
+                    record = cast(dict[str, JsonValue], record_value)
+                    residuals.append(
+                        float(cast(float, record.pop("scaled_eigenpair_residual")))
+                    )
+                maximum = float(
+                    cast(float, grid.pop("maximum_scaled_eigenpair_residual"))
+                )
+                assert maximum == max(residuals)
+                assert all(0.0 <= value < 1.0e-13 for value in residuals)
+        assert authored == retained
+
+    @classmethod
+    def assert_norm_migration_payload(cls, encoded: bytes, retained_path: Path) -> None:
+        """Isolate norm changes to the algebraic eigensolver-residual record."""
+        authored, retained = cls.payloads(encoded, retained_path)
+        for payload in (authored, retained):
+            grids = cast(list[JsonValue], payload["grids"])
+            for grid_value in grids:
+                grid = cast(dict[str, JsonValue], grid_value)
+                residual = cast(
+                    dict[str, JsonValue],
+                    grid.pop("full_eigenpair_algebraic_residual"),
+                )
+                relative = cast(
+                    dict[str, JsonValue], residual["relative_to_hamiltonian"]
+                )
+                assert set(relative) == {"frobenius", "spectral", "maximum_entry"}
+                assert all(
+                    0.0 <= float(cast(float, value)) < 1.0e-13
+                    for value in relative.values()
+                )
         assert authored == retained

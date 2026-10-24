@@ -62,6 +62,28 @@ class TestPintUnitConverter:
                 PhysicalUnit("joule"),
             )
 
+    def test_affine_scalar_and_vector_conversion(self) -> None:
+        """Affine conversions use PhysKit's canonical Pint-backed behavior."""
+        converter = PintUnitConverter()
+
+        scalar = converter.convert_scalar(
+            ScalarQuantity(25.0, PhysicalUnit("degree_Celsius")),
+            PhysicalUnit("kelvin"),
+        )
+        vector = converter.convert_vector(
+            linalg.VectorQuantity(
+                np.array([0.0, 100.0]), PhysicalUnit("degree_Celsius")
+            ),
+            PhysicalUnit("kelvin"),
+        )
+
+        assert scalar.magnitude == pytest.approx(298.15)
+        np.testing.assert_allclose(vector.magnitude, [273.15, 373.15])
+        with pytest.raises(ValueError, match="affine offset"):
+            converter.conversion_factor(
+                PhysicalUnit("degree_Celsius"), PhysicalUnit("kelvin")
+            )
+
     def test_method__convert_sparse_matrix__preserves_csr_structure(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-UNIT-007
 

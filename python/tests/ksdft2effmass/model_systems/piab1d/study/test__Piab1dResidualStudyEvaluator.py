@@ -5,11 +5,13 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
 
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dResidualStudyEvaluator,
     Piab1dStudyInputDeserializer,
 )
+from ksdft2effmass.model_systems.piab1d.study import evaluation as evaluation_module
 
 pytestmark = pytest.mark.software_verification
 SUT = Piab1dResidualStudyEvaluator
@@ -62,6 +64,33 @@ class TestPiab1dResidualStudyEvaluator:
             atol=256.0 * np.finfo(np.float64).eps,
         )
         assert not projector.magnitude.flags.writeable
+
+    def test_method__execute__retains_exact_physkit_spectral_quantities(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """The KSD result must not reconstruct PhysKit spectral quantities."""
+        definition = Piab1dStudyInputDeserializer().execute(self.definition_bytes())
+        solution = Piab1dTiseFdSolver(model=definition.model).solve(
+            interior_points=definition.Nx_pts_interior
+        )
+
+        class FixedSolver:
+            """Expose one precomputed solution through the bound-model contract."""
+
+            def __init__(self, *, model: object) -> None:
+                assert model is definition.model
+
+            def solve(self, *, interior_points: int) -> object:
+                assert interior_points == definition.Nx_pts_interior
+                return solution
+
+        monkeypatch.setattr(evaluation_module, "Piab1dTiseFdSolver", FixedSolver)
+
+        result = Piab1dResidualStudyEvaluator().execute(definition)
+
+        assert result.hamiltonian is solution.hamiltonian
+        assert result.eigenvalues is solution.energies
+        assert result.eigenvectors is solution.eigenvectors
 
     def test_method__execute__disabled_quadrature__retains_no_weighted_payload(
         self,

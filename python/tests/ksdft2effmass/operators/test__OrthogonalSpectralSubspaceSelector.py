@@ -20,15 +20,13 @@ uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.linalg.eigen import SpectralDecomposition
 
 from ksdft2effmass.linalg import (
     RealMatrixQuantity,
     Unitless,
 )
-from ksdft2effmass.operators import (
-    OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairSolver,
-)
+from ksdft2effmass.operators import OrthogonalSpectralSubspaceSelector
 
 pytestmark = pytest.mark.software_verification
 SUT = OrthogonalSpectralSubspaceSelector
@@ -46,10 +44,10 @@ class TestOrthogonalSpectralSubspaceSelector:
         Acceptance: A three-state diagonal operator retained at dimension two yields
         idempotent rank-two and rank-one complementary projectors summing to identity.
         """
-        eigenpairs = RealSymmetricEigenpairSolver().execute(
+        eigensystem = SpectralDecomposition(
             RealMatrixQuantity(np.diag([1.0, 2.0, 3.0]), Unitless())
-        )
-        subspace = OrthogonalSpectralSubspaceSelector().execute(eigenpairs, 2)
+        ).eigensystem()
+        subspace = OrthogonalSpectralSubspaceSelector().execute(eigensystem, 2)
         projector = subspace.projector().magnitude
         complement = subspace.complement_projector().magnitude
 

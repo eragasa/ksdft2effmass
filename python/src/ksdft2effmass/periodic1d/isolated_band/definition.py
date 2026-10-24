@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
@@ -185,7 +185,7 @@ class Periodic1DIsolatedBandCalculationDefinition:
                 raise TypeError(f"{name} must be ScalarQuantity")
             if tolerance.magnitude < 0.0:
                 raise ValueError(f"{name} must be nonnegative")
-            if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(tolerance.unit, energy_unit):
+            if not ModelSystemUnitConverter.compatible(tolerance.unit, energy_unit):
                 raise ValueError(f"{name} must use energy dimensions")
         if type(self.parseval_absolute_tolerance) is not ScalarQuantity:
             raise TypeError("parseval_absolute_tolerance must be ScalarQuantity")
@@ -196,7 +196,7 @@ class Periodic1DIsolatedBandCalculationDefinition:
             if isinstance(energy_unit, Unitless)
             else PhysicalUnit(f"({energy_unit.expression}) ** 2")
         )
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.parseval_absolute_tolerance.unit, squared_energy_unit
         ):
             raise ValueError(

@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     ScalarQuantity,
 )
@@ -108,7 +108,7 @@ class PlaneWaveFiberHamiltonian1DConstructor:
             atol=duality_absolute_tolerance,
         ):
             raise ValueError("basis reciprocal vector is incompatible with the period")
-        converter = MODEL_SYSTEM_UNIT_CONVERTER
+        converter = ModelSystemUnitConverter
         if not converter.compatible(
             potential.constant_coefficient.unit, recoil_energy.unit
         ):

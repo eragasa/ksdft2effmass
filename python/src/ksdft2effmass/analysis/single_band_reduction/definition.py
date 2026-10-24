@@ -5,10 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
@@ -130,7 +130,7 @@ class SingleBandHoppingReductionRequest1D:
         if type(self.tolerances) is not SingleBandHoppingReductionTolerances1D:
             raise TypeError("tolerances must be SingleBandHoppingReductionTolerances1D")
 
-        converter = MODEL_SYSTEM_UNIT_CONVERTER
+        converter = ModelSystemUnitConverter
         training_period = self.training_target.reciprocal_period
         evaluation_period = converter.convert_scalar(
             self.evaluation_target.reciprocal_period, training_period.unit

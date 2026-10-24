@@ -1,18 +1,20 @@
-"""Reusable diagnostics for finite real-symmetric eigenpairs."""
+"""Reusable diagnostics for finite real-symmetric eigensystems."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.linalg.eigen import Eigensystem
+from projectkoios.physkit.numerics.eigenproblems.residuals import (
+    eigenpair_residual_norms,
+)
 
 from ksdft2effmass.linalg import (
+    CsrRealMatrixQuantity,
     RealMatrixQuantity,
     Unitless,
     VectorQuantity,
-)
-from ksdft2effmass.operators import (
-    RealSymmetricEigenpairResult,
 )
 
 
@@ -26,46 +28,41 @@ class RealSymmetricEigenpairDiagnosticResult:
 
 
 class RealSymmetricEigenpairDiagnosticAnalyzer:
-    """Analyze eigensolver residuals separately from reference-vector agreement."""
+    """Analyze eigensystem residuals separately from reference-vector agreement."""
 
     __slots__ = ()
 
     def execute(
         self,
-        eigenpairs: RealSymmetricEigenpairResult,
+        eigensystem: Eigensystem,
         reference_vectors: RealMatrixQuantity | None = None,
     ) -> RealSymmetricEigenpairDiagnosticResult:
         """Return residual and overlap diagnostics for the represented eigensystem."""
-        if not isinstance(eigenpairs, RealSymmetricEigenpairResult):
-            raise TypeError("eigenpairs must be RealSymmetricEigenpairResult")
+        if not isinstance(eigensystem, Eigensystem):
+            raise TypeError("eigensystem must be Eigensystem")
+        if not isinstance(
+            eigensystem.matrix, RealMatrixQuantity | CsrRealMatrixQuantity
+        ):
+            raise TypeError("eigensystem matrix must be real")
+        if not isinstance(eigensystem.eigenvectors, RealMatrixQuantity):
+            raise TypeError("eigensystem eigenvectors must be real")
         if reference_vectors is not None and not isinstance(
             reference_vectors, RealMatrixQuantity
         ):
             raise TypeError("reference_vectors must be RealMatrixQuantity or None")
-        operator = eigenpairs.operator
-        dense = (
+        operator = eigensystem.matrix
+        represented = (
             operator.magnitude
             if isinstance(operator, RealMatrixQuantity)
-            else operator.to_dense().magnitude
+            else operator.to_csr()
         )
-        values = eigenpairs.eigenvalues.magnitude
-        vectors = eigenpairs.eigenvectors.magnitude
-        residual = dense @ vectors - vectors * values[np.newaxis, :]
+        values = eigensystem.eigenvalues.magnitude
+        vectors = eigensystem.eigenvectors.magnitude
+        residual = represented @ vectors - vectors * values[np.newaxis, :]
         spectral_scale = float(np.max(np.abs(values)))
         if spectral_scale == 0.0:
             raise ValueError("eigenvalue scale must be nonzero")
-        scaled = np.asarray(
-            [
-                float(
-                    np.linalg.norm(
-                        dense @ vectors[:, index] - values[index] * vectors[:, index]
-                    )
-                    / spectral_scale
-                )
-                for index in range(values.size)
-            ],
-            dtype=np.float64,
-        )
+        scaled = eigenpair_residual_norms(represented, values, vectors) / spectral_scale
         overlaps: VectorQuantity | None = None
         if reference_vectors is not None:
             reference = reference_vectors.magnitude
@@ -83,7 +80,11 @@ class RealSymmetricEigenpairDiagnosticAnalyzer:
             )
             overlaps = VectorQuantity(overlap_values, Unitless())
         return RealSymmetricEigenpairDiagnosticResult(
-            algebraic_residual=RealMatrixQuantity(residual, operator.unit),
-            scaled_column_residuals=VectorQuantity(scaled, Unitless()),
+            algebraic_residual=RealMatrixQuantity(
+                np.asarray(residual, dtype=np.float64), operator.unit
+            ),
+            scaled_column_residuals=VectorQuantity(
+                np.asarray(scaled, dtype=np.float64), Unitless()
+            ),
             overlap_defects=overlaps,
         )

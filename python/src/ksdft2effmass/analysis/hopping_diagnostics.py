@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
@@ -188,11 +188,11 @@ class HoppingParsevalAnalyzer1D:
             raise TypeError("absolute_tolerance must be ScalarQuantity")
         if absolute_tolerance.magnitude < 0.0:
             raise ValueError("absolute_tolerance must be nonnegative")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             absolute_tolerance.unit, squared_unit
         ):
             raise ValueError("tolerance must have squared hopping-block dimensions")
-        tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        tolerance = ModelSystemUnitConverter.convert_scalar(
             absolute_tolerance, squared_unit
         )
         reconstructed = BlockHoppingInterpolator1D().execute(
@@ -297,11 +297,11 @@ class ScalarHoppingBandShapeAnalyzer1D:
         if imaginary_absolute_tolerance.magnitude < 0.0:
             raise ValueError("imaginary_absolute_tolerance must be nonnegative")
         unit = model.hopping_blocks[0].unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             imaginary_absolute_tolerance.unit, unit
         ):
             raise ValueError("imaginary tolerance and hopping units must be compatible")
-        tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        tolerance = ModelSystemUnitConverter.convert_scalar(
             imaginary_absolute_tolerance, unit
         )
         samples = BlockHoppingInterpolator1D().execute(model, comparison_coordinates)
@@ -348,11 +348,11 @@ class BlockHoppingHermiticityAnalyzer1D:
             raise TypeError("absolute_tolerance must be ScalarQuantity")
         if absolute_tolerance.magnitude < 0.0:
             raise ValueError("absolute_tolerance must be nonnegative")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             absolute_tolerance.unit, model.hopping_blocks[0].unit
         ):
             raise ValueError("tolerance and hopping-block units must be compatible")
-        tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        tolerance = ModelSystemUnitConverter.convert_scalar(
             absolute_tolerance, model.hopping_blocks[0].unit
         )
         if representative_modulus is not None:

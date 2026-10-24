@@ -1035,7 +1035,7 @@ requires-dist = [
     { name = "pint", specifier = ">=0.26,<0.27" },
     { name = "pip", marker = "extra == 'dev'", specifier = ">=25.2" },
     { name = "projectkoios-optimization", extras = ["numpy", "scipy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=3cd32ea8985a855bcdbaffbf89af95e970b3bf14" },
-    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439" },
+    { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=ccdcfcda4a2c7cef29be01b3c09831fda022c55a" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "rfc3339-validator", marker = "extra == 'dev'", specifier = ">=0.1.4" },
@@ -1582,7 +1582,7 @@ scipy = [
 [[package]]
 name = "projectkoios-physkit"
 version = "0.1.3.dev0"
-source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439#2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439" }
+source = { git = "https://github.com/eragasa/projectkoios-physkit.git?rev=ccdcfcda4a2c7cef29be01b3c09831fda022c55a#ccdcfcda4a2c7cef29be01b3c09831fda022c55a" }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },

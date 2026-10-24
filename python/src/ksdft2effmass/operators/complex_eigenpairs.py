@@ -7,10 +7,14 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
+from projectkoios.physkit.numerics.eigenproblems.residuals import (
+    eigenpair_residual_norms,
+)
 
 from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
     CsrComplexMatrixQuantity,
+    ModelSystemUnit,
     PhysicalUnit,
     Unitless,
     VectorQuantity,
@@ -18,7 +22,7 @@ from ksdft2effmass.linalg import (
 
 from .sparse_hermiticity import ComplexSparseHermiticityResult
 
-type EigenpairResidualUnit = PhysicalUnit | Unitless
+type EigenpairResidualUnit = ModelSystemUnit
 
 
 class HermitianEigenpairSelection(StrEnum):
@@ -154,12 +158,13 @@ class ComplexHermitianEigenpairResidualAnalyzer:
             raise TypeError("absolute_tolerance must be a built-in float")
         if not math.isfinite(absolute_tolerance) or absolute_tolerance < 0.0:
             raise ValueError("absolute_tolerance must be finite and nonnegative")
-        vectors = eigenpairs.eigenvectors.magnitude
-        values = eigenpairs.eigenvalues.magnitude
-        residual_matrix = eigenpairs.operator.to_csr() @ vectors - vectors * values
         residuals = tuple(
-            float(np.linalg.norm(residual_matrix[:, column], ord=2))
-            for column in range(eigenpairs.selected_count)
+            float(value)
+            for value in eigenpair_residual_norms(
+                eigenpairs.operator.to_csr(),
+                eigenpairs.eigenvalues.magnitude,
+                eigenpairs.eigenvectors.magnitude,
+            )
         )
         return ComplexHermitianEigenpairResidualResult(
             eigenpairs,

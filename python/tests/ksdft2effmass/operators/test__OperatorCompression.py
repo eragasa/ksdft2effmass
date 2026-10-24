@@ -20,6 +20,7 @@ convergence, scientific validation, uncertainty quantification, or human accepta
 
 import numpy as np
 import pytest
+from projectkoios.physkit.linalg.eigen import SpectralDecomposition
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.linalg import (
@@ -29,7 +30,6 @@ from ksdft2effmass.linalg import (
 from ksdft2effmass.operators import (
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairSolver,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -53,8 +53,8 @@ class TestOperatorCompression:
         operator = CsrRealMatrixQuantity.from_csr(
             sparse.diags([1.0, 2.0, 3.0], offsets=0, format="csr"), Unitless()
         )
-        eigenpairs = RealSymmetricEigenpairSolver().execute(operator)
-        subspace = OrthogonalSpectralSubspaceSelector().execute(eigenpairs, 2)
+        eigensystem = SpectralDecomposition(operator).eigensystem()
+        subspace = OrthogonalSpectralSubspaceSelector().execute(eigensystem, 2)
 
         result = OperatorCompression().execute(operator, subspace)
 

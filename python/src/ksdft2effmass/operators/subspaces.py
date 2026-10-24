@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.linalg.eigen import Eigensystem
 
 from ksdft2effmass.linalg import (
     ComplexMatrixQuantity,
@@ -15,7 +16,7 @@ from ksdft2effmass.linalg import (
     VectorQuantity,
 )
 
-from .eigenpairs import RealSymmetricEigenpairResult, RealSymmetricOperator
+type RealSymmetricOperator = RealMatrixQuantity | CsrRealMatrixQuantity
 
 
 class SpectralSubspace(ABC):
@@ -136,23 +137,25 @@ class OrthogonalSpectralSubspaceSelector:
     __slots__ = ()
 
     def execute(
-        self, eigenpairs: RealSymmetricEigenpairResult, retained_dimension: int
+        self, eigensystem: Eigensystem, retained_dimension: int
     ) -> OrthogonalSpectralSubspace:
-        """Return the first ``retained_dimension`` ordered eigenpairs."""
-        if not isinstance(eigenpairs, RealSymmetricEigenpairResult):
-            raise TypeError("eigenpairs must be RealSymmetricEigenpairResult")
+        """Return the first ``retained_dimension`` ordered real eigenpairs."""
+        if not isinstance(eigensystem, Eigensystem):
+            raise TypeError("eigensystem must be Eigensystem")
+        if not isinstance(eigensystem.eigenvectors, RealMatrixQuantity):
+            raise TypeError("eigensystem eigenvectors must be real")
         if type(retained_dimension) is not int:
             raise TypeError("retained_dimension must be a built-in int")
-        available = eigenpairs.eigenvalues.magnitude.size
+        available = eigensystem.n_rank
         if retained_dimension <= 0 or retained_dimension > available:
             raise ValueError("retained_dimension must select available eigenpairs")
         return OrthogonalSpectralSubspace(
             eigenvalues=VectorQuantity(
-                eigenpairs.eigenvalues.magnitude[:retained_dimension],
-                eigenpairs.eigenvalues.unit,
+                eigensystem.eigenvalues.magnitude[:retained_dimension],
+                eigensystem.eigenvalues.unit,
             ),
             basis_vectors=RealMatrixQuantity(
-                eigenpairs.eigenvectors.magnitude[:, :retained_dimension], Unitless()
+                eigensystem.eigenvectors.magnitude[:, :retained_dimension], Unitless()
             ),
         )
 

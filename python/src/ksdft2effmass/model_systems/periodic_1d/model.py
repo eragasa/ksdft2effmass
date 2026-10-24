@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
@@ -55,7 +55,7 @@ class PeriodicFourierPotential1D:
             raise ValueError(
                 "cosine and sine coefficient inventories must have equal length"
             )
-        converter = MODEL_SYSTEM_UNIT_CONVERTER
+        converter = ModelSystemUnitConverter
         if not converter.compatible(
             self.constant_coefficient.unit, self.cosine_coefficients.unit
         ) or not converter.compatible(
@@ -86,11 +86,9 @@ class PeriodicFourierPotential1D:
         """Evaluate the represented potential at finite coordinates."""
         if type(coordinates) is not VectorQuantity:
             raise TypeError("coordinates must be VectorQuantity")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
-            coordinates.unit, self.period.unit
-        ):
+        if not ModelSystemUnitConverter.compatible(coordinates.unit, self.period.unit):
             raise ValueError("coordinate and period units must be compatible")
-        converted = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        converted = ModelSystemUnitConverter.convert_vector(
             coordinates, self.period.unit
         )
         angles = 2.0 * np.pi * converted.magnitude / self.period.magnitude
@@ -130,7 +128,7 @@ class PeriodicFourierPotential1D:
         if not isinstance(self.period.unit, PhysicalUnit):
             raise TypeError("period unit must be PhysicalUnit or Unitless")
         inverse_period_unit = PhysicalUnit(f"1 / ({self.period.unit.expression})")
-        reciprocal_in_target = MODEL_SYSTEM_UNIT_CONVERTER.conversion_factor(
+        reciprocal_in_target = ModelSystemUnitConverter.conversion_factor(
             inverse_period_unit, target.unit
         )
         return (2.0 * np.pi / self.period.magnitude) * reciprocal_in_target

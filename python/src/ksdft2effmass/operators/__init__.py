@@ -40,11 +40,6 @@ from .difference import (
     OperatorRecordDifferencer,
     OperatorRecordDifferenceResult,
 )
-from .eigenpairs import (
-    RealSymmetricEigenpairResult,
-    RealSymmetricEigenpairSolver,
-    RealSymmetricOperator,
-)
 from .finite_differences import (
     DirichletBoundaryConditionRepresentation,
     DirichletIntervalRepresentation,
@@ -86,6 +81,7 @@ from .subspaces import (
     OperatorCompressionResult,
     OrthogonalSpectralSubspace,
     OrthogonalSpectralSubspaceSelector,
+    RealSymmetricOperator,
     SpectralSubspace,
 )
 
@@ -134,8 +130,6 @@ __all__ = [
     "OperatorRecordResidualAnalyzer",
     "OrthogonalSpectralSubspace",
     "OrthogonalSpectralSubspaceSelector",
-    "RealSymmetricEigenpairResult",
-    "RealSymmetricEigenpairSolver",
     "RealSymmetricOperator",
     "RepresentedMatrixNormAnalyzer",
     "RepresentedMatrixNormResult",

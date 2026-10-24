@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ScalarQuantity,
 )
 from ksdft2effmass.model_systems.periodic_1d import PeriodicFourierPotential1D
@@ -70,7 +70,7 @@ class Periodic1DFourierHamiltonianToyModel(Periodic1DModel):
             raise ValueError(
                 "duality_absolute_tolerance must be finite and nonnegative"
             )
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.potential.constant_coefficient.unit, self.recoil_energy.unit
         ):
             raise ValueError("potential and recoil_energy units must be compatible")
@@ -122,11 +122,11 @@ class Periodic1DBlockHamiltonianToyModel(Periodic1DModel):
         if self.hermiticity_absolute_tolerance.magnitude < 0.0:
             raise ValueError("hermiticity_absolute_tolerance must be nonnegative")
         block_unit = self.hopping_model.hopping_blocks[0].unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.hermiticity_absolute_tolerance.unit, block_unit
         ):
             raise ValueError("Hermiticity tolerance must use energy dimensions")
-        tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        tolerance = ModelSystemUnitConverter.convert_scalar(
             self.hermiticity_absolute_tolerance, block_unit
         )
         blocks = dict(

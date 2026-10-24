@@ -9,25 +9,20 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
-from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
-from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
-    RealMatrixQuantity,
-    Unitless,
-    VectorQuantity,
-)
-from ksdft2effmass.operators import (
-    OperatorCompression,
-    OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairResult,
-)
 from projectkoios.physkit.qm.piab1d import Piab1D
 from projectkoios.physkit.qm.piab1d.tise_analytical import (
     Piab1DAnalyticalSolution,
 )
 from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
 from projectkoios.physkit.units import UnitSystem
+
+from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
+from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
+from ksdft2effmass.linalg import Unitless, VectorQuantity
+from ksdft2effmass.operators import (
+    OperatorCompression,
+    OrthogonalSpectralSubspaceSelector,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -39,7 +34,6 @@ class Piab1dConvergenceWorkflow:
 
     __slots__ = (
         "compression",
-        "finite_difference_solver",
         "order_estimator",
         "residual_analyzer",
         "selector",
@@ -47,7 +41,6 @@ class Piab1dConvergenceWorkflow:
 
     def __init__(self) -> None:
         """Construct the campaign from reusable public analysis actions."""
-        self.finite_difference_solver = Piab1dTiseFdSolver()
         self.order_estimator = ObservedConvergenceOrderEstimator()
         self.selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
@@ -102,26 +95,10 @@ class Piab1dConvergenceWorkflow:
         refinements: list[JsonValue] = []
         relative_errors: dict[int, list[float]] = {mode: [] for mode in order_modes}
         for points in point_counts:
-            solution = self.finite_difference_solver.solve(
-                model=model,
-                interior_points=points,
-            )
-            hamiltonian = CsrRealMatrixQuantity.from_csr(
-                solution.hamiltonian.to_csr(),
-                Unitless(),
-            )
-            eigenpairs = RealSymmetricEigenpairResult(
-                operator=hamiltonian,
-                eigenvalues=VectorQuantity(
-                    solution.eigenpairs.eigenvalues,
-                    hamiltonian.unit,
-                ),
-                eigenvectors=RealMatrixQuantity(
-                    solution.eigenpairs.eigenvectors,
-                    Unitless(),
-                ),
-            )
-            eigenvalues = eigenpairs.eigenvalues.magnitude
+            solution = Piab1dTiseFdSolver(model=model).solve(interior_points=points)
+            hamiltonian = solution.hamiltonian
+            eigensystem = solution.eigensystem
+            eigenvalues = solution.energies.magnitude
             spacing = solution.grid_spacing.magnitude
             spacings.append(spacing)
             continuum = (
@@ -135,7 +112,7 @@ class Piab1dConvergenceWorkflow:
             discrete = solution.closed_form_discrete_energies().magnitude[
                 np.asarray(reported_modes) - 1
             ]
-            subspace = self.selector.execute(eigenpairs, retained)
+            subspace = self.selector.execute(eigensystem, retained)
             compression = self.compression.execute(hamiltonian, subspace)
             residuals = self.residual_analyzer.execute(
                 hamiltonian, subspace, compression
@@ -251,8 +228,8 @@ class Piab1dConvergenceWorkflow:
             {
                 "distribution": "projectkoios-physkit",
                 "repository": "https://github.com/eragasa/projectkoios-physkit",
-                "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
-                "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+                "revision": "ccdcfcda4a2c7cef29be01b3c09831fda022c55a",
+                "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
             },
         ]
 
@@ -265,7 +242,6 @@ class Piab1dConvergenceWorkflow:
         return (
             source_root / "analysis" / "convergence.py",
             source_root / "analysis" / "operators" / "compression_residuals.py",
-            source_root / "operators" / "eigenpairs.py",
             source_root / "operators" / "subspaces.py",
             Path(__file__).resolve(),
         )

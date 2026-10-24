@@ -457,20 +457,6 @@
       "sut": "OrthogonalSpectralSubspaceSelector"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairResult.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "RealSymmetricEigenpairResult"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairSolver.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "RealSymmetricEigenpairSolver"
-    },
-    {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__RepresentedMatrixNormAnalyzer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",

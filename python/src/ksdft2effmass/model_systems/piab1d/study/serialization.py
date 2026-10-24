@@ -239,13 +239,14 @@ class Piab1dStudyResultSerializer:
                     {
                         "distribution": "projectkoios-physkit",
                         "repository": "https://github.com/eragasa/projectkoios-physkit",
-                        "revision": ("2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439"),
-                        "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+                        "revision": ("ccdcfcda4a2c7cef29be01b3c09831fda022c55a"),
+                        "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
                         "capabilities": [
                             "projectkoios.physkit.qm.piab1d",
                             "projectkoios.physkit.qm.piab1d.tise_fd",
                             "projectkoios.physkit.qm.piab1d.tise_analytical",
                             "projectkoios.physkit.qm.sampled_states",
+                            "projectkoios.physkit.linalg.eigen",
                         ],
                     },
                 ],
@@ -312,11 +313,14 @@ class Piab1dStudyResultSerializer:
         """Return exact public source files implementing newly authored results."""
         package_root = Path(__file__).resolve().parents[3]
         model_root = package_root / "model_systems"
+        analysis_root = package_root / "analysis" / "operators"
         linalg_root = package_root / "linalg"
         operator_root = package_root / "operators"
         return (
             model_root / "study" / "base.py",
-            operator_root / "eigenpairs.py",
+            analysis_root / "compression_residuals.py",
+            operator_root / "hamiltonians.py",
+            operator_root / "subspaces.py",
             linalg_root / "quantities.py",
             Path(__file__).resolve().with_name("records.py"),
             Path(__file__).resolve().with_name("input.py"),

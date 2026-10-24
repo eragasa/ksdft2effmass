@@ -9,26 +9,21 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+from projectkoios.physkit.qm.piab1d import Piab1D
+from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
+from projectkoios.physkit.units import UnitSystem
+
 from ksdft2effmass.analysis.operators import (
     OrthogonalCompressionResidualAnalyzer,
     RealSymmetricEigenpairDiagnosticAnalyzer,
 )
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
-    RealMatrixQuantity,
-    Unitless,
-    VectorQuantity,
-)
+from ksdft2effmass.linalg import RealMatrixQuantity
 from ksdft2effmass.operators import (
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairResult,
     RepresentedMatrixNormAnalyzer,
     RepresentedMatrixNormResult,
 )
-from projectkoios.physkit.qm.piab1d import Piab1D
-from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
-from projectkoios.physkit.units import UnitSystem
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -41,7 +36,6 @@ class Piab1dNormSweepWorkflow:
     __slots__ = (
         "compression",
         "eigenpair_analyzer",
-        "finite_difference_solver",
         "norm_analyzer",
         "residual_analyzer",
         "selector",
@@ -49,7 +43,6 @@ class Piab1dNormSweepWorkflow:
 
     def __init__(self) -> None:
         """Construct the campaign from reusable public operator actions."""
-        self.finite_difference_solver = Piab1dTiseFdSolver()
         self.selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
         self.norm_analyzer = RepresentedMatrixNormAnalyzer()
@@ -97,30 +90,14 @@ class Piab1dNormSweepWorkflow:
 
         grids: list[JsonValue] = []
         for points in point_counts:
-            solution = self.finite_difference_solver.solve(
-                model=model,
-                interior_points=points,
-            )
-            hamiltonian = CsrRealMatrixQuantity.from_csr(
-                solution.hamiltonian.to_csr(),
-                Unitless(),
-            )
-            eigenpairs = RealSymmetricEigenpairResult(
-                operator=hamiltonian,
-                eigenvalues=VectorQuantity(
-                    solution.eigenpairs.eigenvalues,
-                    hamiltonian.unit,
-                ),
-                eigenvectors=RealMatrixQuantity(
-                    solution.eigenpairs.eigenvectors,
-                    Unitless(),
-                ),
-            )
+            solution = Piab1dTiseFdSolver(model=model).solve(interior_points=points)
+            hamiltonian = solution.hamiltonian
+            eigensystem = solution.eigensystem
             dense_hamiltonian = hamiltonian.to_dense().magnitude
-            subspace = self.selector.execute(eigenpairs, retained)
+            subspace = self.selector.execute(eigensystem, retained)
             compression = self.compression.execute(hamiltonian, subspace)
-            eigenvalues = eigenpairs.eigenvalues.magnitude
-            eigenvectors = eigenpairs.eigenvectors.magnitude
+            eigenvalues = solution.energies.magnitude
+            eigenvectors = solution.eigenvectors.magnitude
             retained_vectors = subspace.basis_vectors.magnitude
             projector = subspace.projector().magnitude
             retained_coordinates = compression.coordinates.magnitude
@@ -169,7 +146,7 @@ class Piab1dNormSweepWorkflow:
                 cyclic[-1, 0] = dense_hamiltonian[1, 0]
             boundary = dense_hamiltonian - cyclic
             algebraic = self.eigenpair_analyzer.execute(
-                eigenpairs
+                eigensystem
             ).algebraic_residual.magnitude
             reference_norms = self.norm_analyzer.execute(hamiltonian)
             residuals: dict[str, JsonValue] = {}
@@ -270,8 +247,8 @@ class Piab1dNormSweepWorkflow:
             {
                 "distribution": "projectkoios-physkit",
                 "repository": "https://github.com/eragasa/projectkoios-physkit",
-                "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
-                "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+                "revision": "ccdcfcda4a2c7cef29be01b3c09831fda022c55a",
+                "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
             },
         ]
 
@@ -284,7 +261,6 @@ class Piab1dNormSweepWorkflow:
         return (
             source_root / "analysis" / "operators" / "compression_residuals.py",
             source_root / "analysis" / "operators" / "eigenpair_diagnostics.py",
-            source_root / "operators" / "eigenpairs.py",
             source_root / "operators" / "subspaces.py",
             source_root / "operators" / "matrix_norms.py",
             Path(__file__).resolve(),

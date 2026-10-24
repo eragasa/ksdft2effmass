@@ -5,8 +5,9 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from projectkoios.physkit.units import ModelSystemUnitConverter
+
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
 )
 
@@ -150,7 +151,7 @@ class LatticeDualityAnalyzer:
                 ("SOLID_STATE.LATTICE_DUALITY.DIMENSION_MISMATCH",),
             )
         target = PhysicalUnit(f"1 / ({direct.unit.expression})")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(reciprocal.unit, target):
+        if not ModelSystemUnitConverter.compatible(reciprocal.unit, target):
             return LatticeDualityResult(
                 direct,
                 reciprocal,
@@ -159,7 +160,7 @@ class LatticeDualityAnalyzer:
                 None,
                 ("SOLID_STATE.LATTICE_DUALITY.UNIT_MISMATCH",),
             )
-        factor = MODEL_SYSTEM_UNIT_CONVERTER.conversion_factor(reciprocal.unit, target)
+        factor = ModelSystemUnitConverter.conversion_factor(reciprocal.unit, target)
         direct_vectors: LatticeBasisVectors
         reciprocal_vectors: LatticeBasisVectors
         if type(direct) is DirectLattice1D and type(reciprocal) is ReciprocalLattice1D:

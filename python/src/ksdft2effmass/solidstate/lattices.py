@@ -14,8 +14,9 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
+from projectkoios.physkit.units import ModelSystemUnitConverter
+
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
 )
 
@@ -73,7 +74,7 @@ class DirectLattice1D:
             raise ValueError("direct basis vector must be nonzero")
         if type(self.unit) is not PhysicalUnit:
             raise TypeError("unit must be PhysicalUnit")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(self.unit, PhysicalUnit("meter")):
+        if not ModelSystemUnitConverter.compatible(self.unit, PhysicalUnit("meter")):
             raise ValueError("direct lattice unit must have length dimensionality")
 
 
@@ -107,7 +108,7 @@ class DirectLattice2D:
             raise ValueError("direct lattice vectors must be linearly independent")
         if type(self.unit) is not PhysicalUnit:
             raise TypeError("unit must be PhysicalUnit")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(self.unit, PhysicalUnit("meter")):
+        if not ModelSystemUnitConverter.compatible(self.unit, PhysicalUnit("meter")):
             raise ValueError("direct lattice unit must have length dimensionality")
 
     @property
@@ -149,7 +150,7 @@ class DirectLattice3D:
             raise ValueError("direct lattice vectors must be linearly independent")
         if type(self.unit) is not PhysicalUnit:
             raise TypeError("unit must be PhysicalUnit")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(self.unit, PhysicalUnit("meter")):
+        if not ModelSystemUnitConverter.compatible(self.unit, PhysicalUnit("meter")):
             raise ValueError("direct lattice unit must have length dimensionality")
 
     @property
@@ -193,7 +194,7 @@ class ReciprocalLattice1D:
             raise ValueError("reciprocal basis vector must be nonzero")
         if type(self.unit) is not PhysicalUnit:
             raise TypeError("unit must be PhysicalUnit")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.unit, PhysicalUnit("1 / meter")
         ):
             raise ValueError(
@@ -236,7 +237,7 @@ class ReciprocalLattice2D:
             raise ValueError("reciprocal vectors must be linearly independent")
         if type(self.unit) is not PhysicalUnit:
             raise TypeError("unit must be PhysicalUnit")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.unit, PhysicalUnit("1 / meter")
         ):
             raise ValueError(
@@ -287,7 +288,7 @@ class ReciprocalLattice3D:
             raise ValueError("reciprocal vectors must be linearly independent")
         if type(self.unit) is not PhysicalUnit:
             raise TypeError("unit must be PhysicalUnit")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.unit, PhysicalUnit("1 / meter")
         ):
             raise ValueError(

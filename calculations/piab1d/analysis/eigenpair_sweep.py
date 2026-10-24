@@ -9,23 +9,16 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
-from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
-from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
-    RealMatrixQuantity,
-    Unitless,
-    VectorQuantity,
-)
-from ksdft2effmass.operators import (
-    RealSymmetricEigenpairResult,
-)
 from projectkoios.physkit.qm.piab1d import Piab1D
 from projectkoios.physkit.qm.piab1d.tise_analytical import (
     Piab1DAnalyticalSolution,
 )
 from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
 from projectkoios.physkit.units import UnitSystem
+
+from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
+from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
+from ksdft2effmass.linalg import RealMatrixQuantity, Unitless, VectorQuantity
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -37,13 +30,11 @@ class Piab1dEigenpairSweepWorkflow:
 
     __slots__ = (
         "diagnostic_analyzer",
-        "finite_difference_solver",
         "order_estimator",
     )
 
     def __init__(self) -> None:
         """Construct the campaign from reusable public analysis actions."""
-        self.finite_difference_solver = Piab1dTiseFdSolver()
         self.order_estimator = ObservedConvergenceOrderEstimator()
         self.diagnostic_analyzer = RealSymmetricEigenpairDiagnosticAnalyzer()
 
@@ -89,26 +80,9 @@ class Piab1dEigenpairSweepWorkflow:
         fixed_spacings: dict[int, list[float]] = {mode: [] for mode in fixed_modes}
         fixed_point_counts: dict[int, list[int]] = {mode: [] for mode in fixed_modes}
         for points in point_counts:
-            solution = self.finite_difference_solver.solve(
-                model=model,
-                interior_points=points,
-            )
-            hamiltonian = CsrRealMatrixQuantity.from_csr(
-                solution.hamiltonian.to_csr(),
-                Unitless(),
-            )
-            eigenpairs = RealSymmetricEigenpairResult(
-                operator=hamiltonian,
-                eigenvalues=VectorQuantity(
-                    solution.eigenpairs.eigenvalues,
-                    hamiltonian.unit,
-                ),
-                eigenvectors=RealMatrixQuantity(
-                    solution.eigenpairs.eigenvectors,
-                    Unitless(),
-                ),
-            )
-            eigenvalues = eigenpairs.eigenvalues.magnitude
+            solution = Piab1dTiseFdSolver(model=model).solve(interior_points=points)
+            eigensystem = solution.eigensystem
+            eigenvalues = solution.energies.magnitude
             spacing = solution.grid_spacing.magnitude
             node_indices = np.arange(1, points + 1, dtype=np.float64)[:, np.newaxis]
             mode_indices = np.arange(1, points + 1, dtype=np.float64)[np.newaxis, :]
@@ -116,7 +90,7 @@ class Piab1dEigenpairSweepWorkflow:
                 node_indices * mode_indices * np.pi / (points + 1)
             )
             diagnostics = self.diagnostic_analyzer.execute(
-                eigenpairs, RealMatrixQuantity(nodal_oracles, Unitless())
+                eigensystem, RealMatrixQuantity(nodal_oracles, Unitless())
             )
             if diagnostics.overlap_defects is None:
                 raise RuntimeError("reference-vector diagnostics must include overlaps")
@@ -229,8 +203,8 @@ class Piab1dEigenpairSweepWorkflow:
             {
                 "distribution": "projectkoios-physkit",
                 "repository": "https://github.com/eragasa/projectkoios-physkit",
-                "revision": "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439",
-                "tree": "a85740480be8ca397a9495c362771fa62de55c26",
+                "revision": "ccdcfcda4a2c7cef29be01b3c09831fda022c55a",
+                "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
             },
         ]
 
@@ -243,7 +217,6 @@ class Piab1dEigenpairSweepWorkflow:
         return (
             source_root / "analysis" / "convergence.py",
             source_root / "analysis" / "operators" / "eigenpair_diagnostics.py",
-            source_root / "operators" / "eigenpairs.py",
             Path(__file__).resolve(),
         )
 

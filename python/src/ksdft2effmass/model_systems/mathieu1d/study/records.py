@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.analysis.periodic_bands import (
     BandGapResult1D,
@@ -15,7 +16,6 @@ from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionTolerances1D,
 )
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ScalarQuantity,
     VectorQuantity,
 )
@@ -157,7 +157,7 @@ class Mathieu1dStudyDefinition(ModelSystemStudyBase):
         if type(self.tolerances) is not SingleBandHoppingReductionTolerances1D:
             raise TypeError("tolerances must be SingleBandHoppingReductionTolerances1D")
         reciprocal_unit = self.parent_model.reciprocal_vector.unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.tolerances.coordinate_absolute.unit, reciprocal_unit
         ):
             raise ValueError(
@@ -215,7 +215,7 @@ class Mathieu1dStudyDefinition(ModelSystemStudyBase):
         training = np.asarray(self.training_reduced_momenta, dtype=np.float64)
         evaluation = np.asarray(self.evaluation_reduced_momenta, dtype=np.float64)
         reciprocal = self.parent_model.reciprocal_vector
-        tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        tolerance = ModelSystemUnitConverter.convert_scalar(
             self.tolerances.coordinate_absolute, reciprocal.unit
         ).magnitude
         reduced_tolerance = tolerance / reciprocal.magnitude

@@ -3,8 +3,9 @@
 ## Purpose and status
 
 This implemented subpackage owns source-neutral analyses of finite represented
-operators. Existing leaves include compression residuals, real-symmetric eigenpair
-diagnostics, additive decomposition identifiability, and retained model-class fitting.
+operators. Existing leaves include compression residuals, diagnostics over PhysKit
+real-symmetric eigensystems, additive decomposition identifiability, and retained
+model-class fitting.
 This tranche proposes typed leaves for orthogonal reduction, retained-operator
 comparison, and analytical-reference residuals.
 
@@ -12,8 +13,8 @@ comparison, and analytical-reference residuals.
 
 - Existing `compression_residuals.py` — consistent, unmatched, and discarded-sector
   residual matrices.
-- Existing `eigenpair_diagnostics.py` — algebraic eigenpair residuals and optional
-  reference-vector overlaps.
+- Existing `eigenpair_diagnostics.py` — algebraic residuals and optional
+  reference-vector overlaps for exact PhysKit `Eigensystem` inputs.
 - Existing `decomposition_identifiability.py` — retained additive decomposition
   analysis.
 - Existing `model_fitting.py` — explicitly least-Frobenius retained model-class fits.
@@ -41,8 +42,9 @@ is explicitly defined by a particular metric.
 
 ## Dependency rules
 
-The subpackage may import `ksdft2effmass.operators` and
-`ksdft2effmass.spaces.subspaces`. It must not import concrete model systems,
+The subpackage may import `ksdft2effmass.operators`, exact PhysKit eigensystem and
+unit-free residual capabilities, and `ksdft2effmass.spaces.subspaces`. It must not
+import concrete model systems,
 experiments, calculations, campaign composition, or serializers.
 
 ## Code and evidence

@@ -6,9 +6,9 @@ import hashlib
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
@@ -188,7 +188,7 @@ class BornVonKarmanLocalizationAnalyzer1D:
             if isinstance(basis.reciprocal_vector.unit, Unitless):
                 raise ValueError("physical period requires physical reciprocal vector")
             inverse_period_unit = PhysicalUnit(f"1 / ({period.unit.expression})")
-            reciprocal_magnitude = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            reciprocal_magnitude = ModelSystemUnitConverter.convert_scalar(
                 basis.reciprocal_vector, inverse_period_unit
             ).magnitude
         if not np.isclose(
@@ -198,7 +198,7 @@ class BornVonKarmanLocalizationAnalyzer1D:
             atol=duality_absolute_tolerance,
         ):
             raise ValueError("period and plane-wave reciprocal vector are incompatible")
-        mesh_period = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        mesh_period = ModelSystemUnitConverter.convert_scalar(
             source.mesh.reciprocal_period, basis.reciprocal_vector.unit
         )
         if not np.isclose(
@@ -230,7 +230,7 @@ class BornVonKarmanLocalizationAnalyzer1D:
             tuple(frame.magnitude[:, 0] for frame in source.frames)
         )
         periodic_parts = cell_basis @ coefficients
-        momenta = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        momenta = ModelSystemUnitConverter.convert_vector(
             source.mesh.coordinates, basis.reciprocal_vector.unit
         ).magnitude
         bloch_states = periodic_parts * np.exp(

@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ScalarQuantity,
 )
 from ksdft2effmass.periodic1d.model import Periodic1DBlockHamiltonianToyModel
@@ -162,7 +162,7 @@ class Periodic1DMultibandAlignmentCalculationDefinition:
                 raise TypeError(f"{name} must be ScalarQuantity")
             if quantity.magnitude < 0.0:
                 raise ValueError(f"{name} must be nonnegative")
-            if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(quantity.unit, energy_unit):
+            if not ModelSystemUnitConverter.compatible(quantity.unit, energy_unit):
                 raise ValueError(f"{name} must use energy dimensions")
 
     @property

@@ -23,7 +23,6 @@ from projectkoios.physkit.units import VectorQuantity as PhysKitVectorQuantity
 
 from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
 from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
     RealMatrixQuantity,
     ScalarQuantity,
     Unitless,
@@ -33,7 +32,6 @@ from ksdft2effmass.operators import (
     Hamiltonian,
     OperatorCompression,
     OrthogonalSpectralSubspaceSelector,
-    RealSymmetricEigenpairResult,
     ReducedHamiltonian,
 )
 
@@ -45,22 +43,12 @@ class Piab1dResidualStudyEvaluator:
 
     __slots__ = (
         "compression",
-        "finite_difference_solver",
         "residual_analyzer",
         "subspace_selector",
     )
 
-    def __init__(
-        self, finite_difference_solver: Piab1dTiseFdSolver | None = None
-    ) -> None:
-        """Construct with the pinned PhysKit PIAB1D finite-difference solver."""
-        if finite_difference_solver is not None and not isinstance(
-            finite_difference_solver, Piab1dTiseFdSolver
-        ):
-            raise TypeError(
-                "finite_difference_solver must be Piab1dTiseFdSolver or None"
-            )
-        self.finite_difference_solver = finite_difference_solver or Piab1dTiseFdSolver()
+    def __init__(self) -> None:
+        """Construct the KSD-owned subspace and residual actions."""
         self.subspace_selector = OrthogonalSpectralSubspaceSelector()
         self.compression = OperatorCompression()
         self.residual_analyzer = OrthogonalCompressionResidualAnalyzer()
@@ -69,25 +57,11 @@ class Piab1dResidualStudyEvaluator:
         """Return the deterministic finite residual study result."""
         if not isinstance(definition, Piab1dStudyDefinition):
             raise TypeError("definition must be Piab1dStudyDefinition")
-        finite_difference = self.finite_difference_solver.solve(
-            model=definition.model,
-            interior_points=definition.Nx_pts_interior,
+        finite_difference = Piab1dTiseFdSolver(model=definition.model).solve(
+            interior_points=definition.Nx_pts_interior
         )
-        hamiltonian = CsrRealMatrixQuantity.from_csr(
-            finite_difference.hamiltonian.to_csr(),
-            Unitless(),
-        )
-        eigenpairs = RealSymmetricEigenpairResult(
-            operator=hamiltonian,
-            eigenvalues=VectorQuantity(
-                finite_difference.eigenpairs.eigenvalues,
-                hamiltonian.unit,
-            ),
-            eigenvectors=RealMatrixQuantity(
-                finite_difference.eigenpairs.eigenvectors,
-                Unitless(),
-            ),
-        )
+        hamiltonian = finite_difference.hamiltonian
+        eigensystem = finite_difference.eigensystem
         quadrature_rule: NumpyHomogeneousDirichletInteriorQuadrature1D | None = None
         quadrature_vectors: RealMatrixQuantity | None = None
         if definition.quadrature:
@@ -103,7 +77,7 @@ class Piab1dResidualStudyEvaluator:
                 raise ValueError("quadrature spacing must match the PhysKit grid")
             quadrature_vectors = RealMatrixQuantity(
                 self.normalize_eigenvectors(
-                    finite_difference.eigenpairs.eigenvectors,
+                    finite_difference.eigenvectors.magnitude,
                     finite_difference.interval.grid.interior_coordinates(),
                     PhysKitVectorQuantity(
                         magnitude=quadrature_rule.interior_weights,
@@ -113,10 +87,10 @@ class Piab1dResidualStudyEvaluator:
                 Unitless(),
             )
         hamiltonian_dense = hamiltonian.to_dense().magnitude
-        eigenvalues = eigenpairs.eigenvalues.magnitude
-        eigenvectors = eigenpairs.eigenvectors.magnitude
+        eigenvalues = finite_difference.energies.magnitude
+        eigenvectors = finite_difference.eigenvectors.magnitude
         retained = definition.N_retained_eigenpairs
-        subspace = self.subspace_selector.execute(eigenpairs, retained)
+        subspace = self.subspace_selector.execute(eigensystem, retained)
         compression = self.compression.execute(hamiltonian, subspace)
         reduction_basis = subspace.basis_vectors.magnitude
         projector = subspace.projector().magnitude
@@ -224,8 +198,8 @@ class Piab1dResidualStudyEvaluator:
         return Piab1dResidualStudyResult(
             definition=definition,
             hamiltonian=hamiltonian,
-            eigenvalues=eigenpairs.eigenvalues,
-            eigenvectors=eigenpairs.eigenvectors,
+            eigenvalues=finite_difference.energies,
+            eigenvectors=finite_difference.eigenvectors,
             quadrature_rule=quadrature_rule,
             quadrature_normalized_eigenvectors=quadrature_vectors,
             reduced_hamiltonian=ReducedHamiltonian(

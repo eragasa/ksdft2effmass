@@ -9,9 +9,9 @@ from projectkoios.optimization.least_squares.factory import (
     LinearLeastSquaresMethod,
     LinearLeastSquaresSolverFactory,
 )
+from projectkoios.physkit.units import ModelSystemUnitConverter
 
 from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
@@ -292,16 +292,16 @@ class BlockHoppingModelComparator1D:
             raise ValueError("route representatives must agree")
         if reference.matrix_dimension != candidate.matrix_dimension:
             raise ValueError("route matrix dimensions must agree")
-        reference_period = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        reference_period = ModelSystemUnitConverter.convert_scalar(
             candidate.reciprocal_period, reference.reciprocal_period.unit
         )
         if reference_period.magnitude != reference.reciprocal_period.magnitude:
             raise ValueError("route reciprocal periods must agree")
         reference_unit = reference.hopping_blocks[0].unit
         candidate_unit = candidate.hopping_blocks[0].unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(reference_unit, candidate_unit):
+        if not ModelSystemUnitConverter.compatible(reference_unit, candidate_unit):
             raise ValueError("route block units must be compatible")
-        factor = MODEL_SYSTEM_UNIT_CONVERTER.conversion_factor(
+        factor = ModelSystemUnitConverter.conversion_factor(
             candidate_unit, reference_unit
         )
         coefficient_defect = float(
