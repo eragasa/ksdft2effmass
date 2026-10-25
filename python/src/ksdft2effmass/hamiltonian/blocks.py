@@ -82,12 +82,8 @@ class OrthogonalHamiltonianBlockAnalyzer:
         projector = spectral_subspace.projector.magnitude
         complement = spectral_subspace.complement_projector.magnitude
         retained_values = np.asarray(projector @ represented @ projector)
-        retained_to_discarded_values = np.asarray(
-            projector @ represented @ complement
-        )
-        discarded_to_retained_values = np.asarray(
-            complement @ represented @ projector
-        )
+        retained_to_discarded_values = np.asarray(projector @ represented @ complement)
+        discarded_to_retained_values = np.asarray(complement @ represented @ projector)
         discarded_values = np.asarray(complement @ represented @ complement)
         if isinstance(matrix, ComplexMatrixQuantity | ComplexSparseMatrixQuantity):
             retained: HamiltonianBlockMatrix = ComplexMatrixQuantity(

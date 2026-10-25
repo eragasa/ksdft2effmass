@@ -61,30 +61,24 @@ class SpectralReduction:
         if not isinstance(reduction_map.unit, Unitless):
             raise ValueError("reduction_map must be Unitless")
         if reduction_map.magnitude.shape != (reduced_dimension, full_dimension):
-            raise ValueError(
-                "reduction_map shape does not match the spectral subspace"
-            )
+            raise ValueError("reduction_map shape does not match the spectral subspace")
         if not isinstance(embedding_map, MatrixQuantity | ComplexMatrixQuantity):
             raise TypeError("embedding_map must be a dense matrix quantity")
         if not isinstance(embedding_map.unit, Unitless):
             raise ValueError("embedding_map must be Unitless")
         if embedding_map.magnitude.shape != (full_dimension, reduced_dimension):
-            raise ValueError(
-                "embedding_map shape does not match the spectral subspace"
-            )
+            raise ValueError("embedding_map shape does not match the spectral subspace")
         represented = (
             matrix.magnitude
             if isinstance(matrix, MatrixQuantity | ComplexMatrixQuantity)
             else matrix.to_csr()
         )
-        reduced_values = (
-            reduction_map.magnitude @ represented @ embedding_map.magnitude
+        reduced_values = reduction_map.magnitude @ represented @ embedding_map.magnitude
+        is_complex = (
+            isinstance(matrix, ComplexMatrixQuantity | ComplexSparseMatrixQuantity)
+            or isinstance(reduction_map, ComplexMatrixQuantity)
+            or isinstance(embedding_map, ComplexMatrixQuantity)
         )
-        is_complex = isinstance(
-            matrix, ComplexMatrixQuantity | ComplexSparseMatrixQuantity
-        ) or isinstance(
-            reduction_map, ComplexMatrixQuantity
-        ) or isinstance(embedding_map, ComplexMatrixQuantity)
         reduced_matrix: MatrixQuantity | ComplexMatrixQuantity
         embedded_matrix: MatrixQuantity | ComplexMatrixQuantity
         if is_complex:
