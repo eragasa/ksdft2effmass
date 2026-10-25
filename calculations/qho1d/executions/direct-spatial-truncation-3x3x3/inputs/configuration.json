@@ -1,0 +1,33 @@
+{
+  "box_half_widths": {
+    "__ksd_type__": "tuple",
+    "items": [
+      4.0,
+      6.0,
+      8.0
+    ]
+  },
+  "displayed_states": 4,
+  "grid_spacings": {
+    "__ksd_type__": "tuple",
+    "items": [
+      0.2,
+      0.1,
+      0.05
+    ]
+  },
+  "hbar": 1.0,
+  "mass": 1.0,
+  "omega": 1.0,
+  "retained_dimensions": {
+    "__ksd_type__": "tuple",
+    "items": [
+      2,
+      4,
+      6
+    ]
+  },
+  "selected_box_half_width": 8.0,
+  "selected_grid_spacing": 0.05,
+  "selected_retained_dimension": 6
+}

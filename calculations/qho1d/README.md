@@ -1,88 +1,89 @@
 # QHO1D spatial-truncation calculation
 
-This mutable calculation composes the canonical one-dimensional quantum harmonic
-oscillator implementation in `ksdft2effmass.model_systems.qho1d`. It studies spatial
-truncation: replacement of the real-line oscillator by a finite homogeneous-Dirichlet
-box and centered finite-difference grid.
+This package composes the dimension-specific one-dimensional quantum harmonic
+oscillator implementation in `ksdft2effmass.model_systems.qho1d`. It studies the
+finite represented effect of replacing the real-line oscillator by a finite
+homogeneous-Dirichlet interval and centered finite-difference grid.
 
-The `QHO1D` name is deliberately dimension-specific. No dimension-neutral `QHO`
-implementation or 2D/3D extension is claimed.
+No dimension-neutral `QHO` implementation, continuum proof, physical uncertainty
+statement, semiconductor result, or scientific validation is claimed.
 
-## Status
+## Direct lifecycle
 
-This is a development calculation, not retained evidence, a publication manuscript, a
-continuum-convergence proof, a physical uncertainty statement, or a scientific
-validation result. The generated JSON beneath `analysis/development/` remains ignored
-and replaceable. Report-local figure inputs and a compiled PDF snapshot are retained
-for reproducible review, but they do not acquire evidentiary or validation status. The
-historical retained package under
-`calculations/research-monograph/harmonic-oscillator/` remains separate and preserves
-its original provenance.
+The maintained successor uses three explicit module-scope scripts:
 
-PIAB1D and QHO1D are consolidated under `calculations/` because both compose reusable
-model-system and analysis code into concrete numerical studies. PIAB1D calibrates
-spectral reduction; QHO1D exposes spatial-truncation, boundary, and discretization
-channels.
-
-## Files and output
-
-- `input.json` declares the development sweep.
-- `dev_analysis.py` calculates and independently verifies a candidate before writing
-  the replaceable result.
-- `dev_verification.py` independently verifies the existing development result.
-- `dev_plots.py` verifies that result and writes replaceable report figures.
-- `development_report/development_report.tex` is the LaTeX report focused on spatial
-  truncation.
-- `development_report/references.bib` owns the report-local bibliography.
-- `development_report/README.md` records the retained figure identities and build chain.
-- Report-local PNG inputs and `development_report.pdf` are retained review snapshots.
-- Replaceable generated files are written under `analysis/development/` and ignored.
-
-From `python/`:
-
-```console
-uv run python ../calculations/qho1d/dev_analysis.py
-uv run python ../calculations/qho1d/dev_verification.py
-uv run python ../calculations/qho1d/dev_plots.py
+```text
+run_01_calculation.py → run_02_verification.py → run_03_render.py
 ```
 
-Compile the report from `calculations/qho1d/development_report/`:
+From `python/`, execute them in order with the repository source selected explicitly:
 
 ```console
-latexmk -pdf -interaction=nonstopmode -halt-on-error development_report.tex
+PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_01_calculation.py
+PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_02_verification.py
+PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_03_render.py
 ```
 
-Only the selected PDF is retained; LaTeX auxiliary files remain ignored.
+The scripts contain no Workflow, `main()` function, argument parser, or JSON-authored
+scientific input. They refuse to overwrite stage-owned artifacts. Reusable calculation,
+verification, serialization, and visualization behavior belongs to the Python package.
 
-## Comparison and diagnostic boundary
+The successor JSON boundary is the same shared boundary used by PIAB1D:
 
-The current comparison forms
+```text
+to_json → to_dict → TypedJsonMappingSerializer.serialize
+from_json → TypedJsonMappingDeserializer.deserialize → from_dict
+```
+
+Concrete records implement `_mapping` and `_from_mapping`. QHO1D has no custom JSON
+array transport and no `.tolist()` serialization logic.
+
+## Package structure
+
+- `protocol.md` declares the finite scientific question, sweep, independent route, and
+  claim boundary.
+- `evidence-policy.md` distinguishes development output from sealed evidence.
+- `inputs/README.md` explains the Python-authored configuration boundary.
+- `run_01_calculation.py` writes one typed result and exact serialized configuration.
+- `run_02_verification.py` reconstructs the result through independent formulas.
+- `run_03_render.py` consumes only authenticated verification and publishes figures.
+- `technical_report/` owns the maintained self-contained calculation report.
+- `executions/` contains concrete unsealed or separately sealed execution directories.
+
+## Mathematical comparison
+
+For each declared box half-width, requested grid spacing, and retained dimension, the
+calculation forms
 
 \[
-J^{\mathsf T}H_{b,h}J-D_M,
+J^{\mathsf T}H_{b,h}J-D_K,
 \]
 
-where `J` is the sampled-Hermite Gram-orthonormalized injection, `H_{b,h}` is the
-finite Dirichlet-grid Hamiltonian, and `D_M` is the direct diagonal number-state
-reference. The direct reference avoids the highest-state defect introduced by products
-of already-truncated ladder matrices.
-
-The reported discrepancy currently combines:
-
-1. finite-box closure;
-2. the two boundary-adjacent rows;
-3. the interior centered-difference residual;
-4. finite sampled-state Gram correction;
-5. projection into retained coordinates; and
-6. binary64 reconstruction and verification tolerance.
+where `J` is the sampled-Hermite Gram-orthonormalized injection, `H_{b,h}` is the finite
+Dirichlet-grid Hamiltonian, and `D_K` is the direct diagonal number-state reference.
+The direct reference avoids the highest-state defect introduced by products of already
+truncated ladder matrices.
 
 For an exactly isometric `J`,
 
 \[
-J^{\mathsf T}H_{b,h}J-D_M
-=J^{\mathsf T}(H_{b,h}J-JD_M).
+J^{\mathsf T}H_{b,h}J-D_K
+=J^{\mathsf T}(H_{b,h}J-JD_K).
 \]
 
-This is a computable a-posteriori relation, not a continuum finite-box bound. The next
-calculation should retain the boundary, interior, leakage, projector, and aligned
-retained-operator channels separately rather than enlarge the undifferentiated sweep.
+This is a computable finite-dimensional a-posteriori relation, not a continuum
+finite-box bound. The aggregate discrepancy currently combines finite-box closure,
+boundary-adjacent rows, interior discretization, finite sampled-state Gram correction,
+projection, and binary64 reconstruction.
+
+## Historical development boundary
+
+The predecessor files `input.json`, `dev_analysis.py`, `dev_verification.py`,
+`dev_plots.py`, `analysis/development/`, and `development_report/` remain available for
+their existing development and report provenance. They are not used by the direct
+successor lifecycle. Removing them is a separate destructive action and is not part of
+this additive migration.
+
+The separately retained historical package under
+`calculations/research-monograph/harmonic-oscillator/` remains an independent
+historical locator; the direct successor does not rewrite its identities.

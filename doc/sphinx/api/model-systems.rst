@@ -170,6 +170,53 @@ physical quantities are intrinsically dimensionless.
 .. autoclass:: Qho1dComparator
    :members:
 
+The direct successor surface owns one Python-authored typed configuration, immutable
+calculation records, an independent reference route, operation-partitioned
+verification, and authenticated visualization. It uses the same shared typed JSON
+boundary as PIAB1D; historical ``study`` serialization is not involved.
+
+.. autoclass:: Qho1dConfiguration
+   :members:
+
+.. autoclass:: Qho1dCaseResult
+   :members:
+
+.. autoclass:: Qho1dStateComparisonResult
+   :members:
+
+.. autoclass:: Qho1dCalculationResult
+   :members:
+
+.. autoclass:: Qho1dAnalyzer
+   :members:
+
+.. autoclass:: Qho1dIndependentReferenceAnalyzer
+   :members:
+
+.. autoclass:: Qho1dSweepVerification
+   :members:
+
+.. autoclass:: Qho1dStateComparisonVerification
+   :members:
+
+.. autoclass:: Qho1dVerification
+   :members:
+
+.. autoclass:: Qho1dVerifier
+   :members:
+
+.. autoclass:: Qho1dVisualizationPlotEnum
+   :members:
+
+.. autoclass:: Qho1dVisualizationData
+   :members:
+
+.. autoclass:: Qho1dVisualizer
+   :members:
+
+The following classes retain the historical JSON-authored study contract. They do not
+participate in direct calculate--verify--render executions.
+
 .. autoclass:: Qho1dStudyDefinition
    :members:
 

@@ -2,6 +2,13 @@
   "schema_version": 1,
   "modules": [
     {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dAnalyzer"
+    },
+    {
       "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dComparator__analytical_pullback.py",
       "mode": "class_owned",
       "evidence_class": "numerical_verification",
@@ -49,6 +56,13 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "Qho1dComparisonResult"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dDirectScripts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dDirectScripts"
     },
     {
       "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dFiniteDifference.py",
@@ -140,6 +154,20 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "VectorQuantity"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dVerifier"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dVisualizer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dVisualizer"
     },
     {
       "path": "python/tests/ksdft2effmass/model_systems/qho1d/study/test__Qho1dStudyEvaluator.py",

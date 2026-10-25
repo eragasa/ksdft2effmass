@@ -20,6 +20,8 @@ or supported import already exists.
   final record boundaries.
 - [`model_systems/piab1d`](model_systems/piab1d/index.md): the complete typed PIAB1D
   calculate, verify, and render vertical slice.
+- [`model_systems/qho1d`](model_systems/qho1d/index.md): the typed QHO1D spatial-
+  truncation calculate, verify, and render vertical slice.
 
 Only touched source areas are mirrored in this tranche. Absence from this directory is
 not an ownership reassignment.

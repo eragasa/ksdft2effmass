@@ -1,0 +1,43 @@
+{
+  "claim_boundary": "Derived figures and report source from independently verified finite results; not new evidence, physical validation, or publication acceptance.",
+  "execution_id": "direct-spatial-truncation-3x3x3",
+  "figures": {
+    "qho1d-diagnostics.png": {
+      "media_type": "image/png",
+      "sha256": "47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441"
+    },
+    "qho1d-eigenstate-distortion.png": {
+      "media_type": "image/png",
+      "sha256": "792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66"
+    },
+    "qho1d-eigenstates.png": {
+      "media_type": "image/png",
+      "sha256": "d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7"
+    }
+  },
+  "outcome": "completed",
+  "result_path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/results/result.json",
+  "result_sha256": "83c420ccd365bfba23401b98069566625049bd18dfac47568b006e848176993b",
+  "runtime": {
+    "matplotlib_backend": "macosx",
+    "matplotlib_version": "3.11.1",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6"
+  },
+  "schema": "ksdft2effmass.qho1d-rendering.v1",
+  "script_path": "calculations/qho1d/run_03_render.py",
+  "script_sha256": "491bc09256fdc626e8fdda481a9724254dad3f50e382c8b891b60241b87b9047",
+  "technical_report": {
+    "README.md": "6dcf174904e9b7de302c36e4c5c18ff13e83aaca62ca663b9e4bece461b4b495",
+    "qho1d-diagnostics.png": "47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441",
+    "qho1d-eigenstate-distortion.png": "792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66",
+    "qho1d-eigenstates.png": "d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7",
+    "references.bib": "bf2abdb9d3814ef8076abc30182bd1305a202e2b06194f71847871ef452b353a",
+    "technical_report.pdf": "6289bdd96c873ef9c8bea9d6159fafa4790d2e8462510fa59391556bbed9bb78",
+    "technical_report.tex": "44ddb29a2077689b9ddddc5c2144515013315ad15586932c97fa642945a8f56d"
+  },
+  "verification_path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/verification/verification.json",
+  "verification_sha256": "c8f1fcc968a2c8e497d6bd9ea6e287506eb2f528bcaaa7ea523b937d3c86c7ac",
+  "visualizer_source_path": "python/src/ksdft2effmass/model_systems/qho1d/visualization.py",
+  "visualizer_source_sha256": "9c56b9b3d65373eae629d9b7c4f77a1f790ef1339357132f92fe6b8e23615ef9"
+}

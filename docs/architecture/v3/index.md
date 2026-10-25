@@ -53,16 +53,17 @@ There is no top-level `campaigns/` source tree. In repository documentation,
 
 The QHO1D and PIAB1D vertical slices are owned directly by
 `model_systems/qho1d/` and `model_systems/piab1d/`. Their `study/` subpackages preserve
-historical retained-result contracts. The PIAB1D successor uses typed root records,
-independent reference analyzers, and authenticated visualization data outside the
-historical study wire. `model_systems/study/base.py` defines the nominal identity
+historical retained-result contracts. The PIAB1D and QHO1D successors use typed root
+records, independent reference analyzers, and authenticated visualization data outside
+the historical study wire. `model_systems/study/base.py` defines the nominal identity
 boundary consumed by historical serializers. `QHO1D` and `Piab1d` are
 intentionally dimension-specific names; a plain `QHO` or `PIAB` owner is reserved for
 a future implementation with a reviewed dimension-neutral contract. The QHO1D and
 PIAB1D composition roots are consolidated under `calculations/qho1d/` and
-`calculations/piab1d/`. QHO1D currently owns mutable ignored development outputs;
-PIAB1D owns retained inputs and outputs. Each calculation owner also owns its paths,
-provenance, verification adapters, plots, and technical report. The former top-level
+`calculations/piab1d/`. Both implement direct calculate → verify → render successors;
+QHO1D retains its predecessor development surface separately, while PIAB1D retains its
+historical flat calculation surface. Each calculation owner also owns its paths,
+provenance, verification composition, plots, and technical report. The former top-level
 `campaigns/qho1d/` and `campaigns/piab1d/` packages are not retained as compatibility
 facades. Reusable finite-operator analyses live under
 `analysis/operators/`. Research-monograph documentation points to the canonical
