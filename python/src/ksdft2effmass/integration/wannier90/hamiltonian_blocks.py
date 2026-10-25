@@ -5,8 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.operators import ComplexMatrixQuantity, ModelSystemUnit
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ModelSystemUnit,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)

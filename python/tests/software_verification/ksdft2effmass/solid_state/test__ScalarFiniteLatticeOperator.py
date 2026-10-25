@@ -24,10 +24,13 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexSparseMatrixQuantity,
+    PhysicalUnit,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import ComplexSparseMatrixQuantity, PhysicalUnit
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistLift,
     BoundaryTwistReducer,
     FiniteLatticeShape,

@@ -19,15 +19,18 @@ not become independent numerical evidence.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeCampaign,
     Periodic1DCompositeCampaignCorrelationResult,
     Periodic1DCompositeCampaignModel,
     Periodic1DCompositeCampaignVerificationResult,
     Periodic1DCompositeUnavailableVerificationChannel,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DCompositeCampaign

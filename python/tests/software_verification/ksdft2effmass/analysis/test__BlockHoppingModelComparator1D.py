@@ -19,16 +19,16 @@ Route agreement is not physical model validation or uncertainty quantification.
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.analysis.hopping_fits import BlockHoppingModelComparator1D
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+
+from ksdft2effmass.analysis.hopping_fits import BlockHoppingModelComparator1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 pytestmark = pytest.mark.software_verification
 SUT = BlockHoppingModelComparator1D

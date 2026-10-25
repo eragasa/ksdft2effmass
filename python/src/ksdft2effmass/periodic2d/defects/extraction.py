@@ -7,8 +7,9 @@ It performs no alignment and does not infer that compatibility from matrix value
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ComplexSparseMatrixQuantity
-from ksdft2effmass.solid_state import (
+from projectkoios.physkit.units import ComplexSparseMatrixQuantity
+
+from ksdft2effmass.solidstate import (
     LatticeDimension,
     ScalarFiniteLatticeOperator,
     ScalarFiniteLatticeOperatorCompatibilityAnalyzer,

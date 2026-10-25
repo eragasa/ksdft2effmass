@@ -19,9 +19,12 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.operators import ScalarQuantity, Unitless
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     PlaneWaveBasis1D,
     PlaneWaveReciprocalSewingConstructor,
     ReciprocalSewingDirection1D,

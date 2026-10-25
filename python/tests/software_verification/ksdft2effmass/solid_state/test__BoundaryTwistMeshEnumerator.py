@@ -19,7 +19,7 @@ This verifies enumeration, not reciprocal integration or k-point weighting.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistMesh,
     BoundaryTwistMeshEnumerator,
     LatticeDimension,

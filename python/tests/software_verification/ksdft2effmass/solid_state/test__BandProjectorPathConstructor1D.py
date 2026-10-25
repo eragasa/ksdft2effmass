@@ -19,9 +19,13 @@ Projector equality does not establish physical band isolation or validation.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity, Unitless
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BandProjectorPathConstructor1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalBandFramePath1D,

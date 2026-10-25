@@ -70,6 +70,7 @@ quantification, publication, or human acceptance.
 ## Structure
 
 - `manuscript/manuscript.tex` — standard-LaTeX composition root;
+- `manuscript/manuscript.pdf` — retained compiled review snapshot;
 - `chapters/` — independently maintainable, semantically named lecture sources;
   filenames carry no sequence numbers, and `manuscript/manuscript.tex` alone
   determines their current pedagogical order;
@@ -130,7 +131,10 @@ latexmk -lualatex -output-directory=build manuscript/manuscript.tex
 The manuscript uses `fontspec`, so the pdfLaTeX-oriented `-pdf` mode is not
 supported. `latexmk` also runs `makeindex` for the curated back-of-book index.
 Legacy BibTeX-generated `manuscript.bbl` files must not be reused by the Biber
-build. The build is formatting evidence only. Generated output remains local.
+build. The build tree and LaTeX intermediates remain local. The selected compiled
+`manuscript/manuscript.pdf` snapshot is retained for review convenience; a successful
+build does not make it evidence, a reviewed release, scientific validation, or a
+publication.
 
 ## Maintained source audit
 

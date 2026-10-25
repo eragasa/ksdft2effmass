@@ -359,27 +359,37 @@ class TestQoiReferenceTargetContract:
                 evaluator_identity=QuantityOfInterestEvaluatorIdentity("other.v1"),
             )
 
-    def test_public_api__analysis_package__exports_only_supported_qoi_contracts(
+    def test_public_api__analysis_package__exports_supported_analysis_contracts(
         self,
     ) -> None:
         """Evidence ID: SV-QOI-REFERENCE-005
 
-        Requirement: The analysis package exports the supported scalar QoI, DFT
-        reference-target, explicit scalar-codec, and observed-order contracts while
-        private comparison and parameter-study probes remain absent.
+        Requirement: The analysis package exports the supported reusable diagnostics,
+        verification, convergence, probability-selection, scalar QoI, DFT reference-
+        target, explicit scalar-codec, and observed-order contracts while private
+        comparison and parameter-study probes remain absent.
 
         Acceptance: ``analysis.__all__`` equals the exact supported inventory and the
         private probe names are not package attributes.
         """
         assert analysis.__all__ == [
+            "BaseDiagnosticAnalyzer",
+            "DiagnosticObservation",
+            "DiagnosticVerification",
             "DftReferenceCalculationIdentity",
             "DftReferenceCalculatorIdentity",
             "DftReferenceMethodIdentity",
             "DftScalarQuantityOfInterestReferenceTarget",
+            "EigensystemVerification",
+            "KineticPotentialDecompositionVerification",
+            "MatrixNormDiagnosticOptions",
             "NormalizedObservationRequirementIdentity",
             "ObservedConvergenceOrder",
             "ObservedConvergenceOrderEstimator",
             "ObservedConvergenceOrderResult",
+            "RelativeErrorConvergenceAnalyzer",
+            "RelativeErrorConvergenceResult",
+            "RelativeErrorConvergenceVerification",
             "QuantityOfInterestCompleteness",
             "QuantityOfInterestConventionIdentity",
             "QuantityOfInterestEvaluationFailureCode",
@@ -394,6 +404,9 @@ class TestQoiReferenceTargetContract:
             "ScalarQuantityOfInterestEvaluationFailure",
             "ScalarQuantityOfInterestEvaluationResult",
             "ScalarQuantityOfInterestValue",
+            "TailProbabilitySelection",
+            "TailProbabilitySelector",
+            "TailProbabilitySelectionVerification",
         ]
         assert not hasattr(analysis, "ParameterStudyRevision")
         assert not hasattr(analysis, "FiniteSequenceParameterStudyRefiner")

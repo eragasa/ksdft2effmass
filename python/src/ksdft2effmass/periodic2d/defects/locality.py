@@ -2,14 +2,15 @@
 
 from dataclasses import dataclass
 
+from projectkoios.physkit.units import ModelSystemUnitConverter, ScalarQuantity
+
 from ksdft2effmass.analysis.finite_domain_locality import (
     MinimumImageChebyshevPartition,
     MinimumImageChebyshevPartitioner,
     SparseLocalityResidualAnalyzer,
     SparseLocalityResidualResult,
 )
-from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER, ScalarQuantity
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     LatticeCoordinate,
     LatticeDimension,
     ScalarFiniteLatticeOperator,
@@ -186,10 +187,10 @@ class Periodic2DDefectLocalityAnalyzer:
             compatibility,
             partition,
         )
-        exterior_tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        exterior_tolerance = ModelSystemUnitConverter.convert_scalar(
             request.exterior_frobenius_tolerance, residual.unit
         )
-        coupling_tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        coupling_tolerance = ModelSystemUnitConverter.convert_scalar(
             request.core_exterior_frobenius_tolerance, residual.unit
         )
         return Periodic2DDefectLocalityResult(

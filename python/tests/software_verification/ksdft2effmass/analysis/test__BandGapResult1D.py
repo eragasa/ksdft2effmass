@@ -19,17 +19,17 @@ Result consistency does not establish global or material band isolation.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
 from ksdft2effmass.analysis.periodic_bands import (
     BandGapResult1D,
     BandSpectrumSamples1D,
     ContiguousBandSelection,
-)
-from ksdft2effmass.operators import (
-    MatrixQuantity,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
 )
 
 pytestmark = pytest.mark.software_verification

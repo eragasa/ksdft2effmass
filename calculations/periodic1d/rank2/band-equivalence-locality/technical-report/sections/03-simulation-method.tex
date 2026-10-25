@@ -1,0 +1,19 @@
+\section{Simulation method}
+
+The development calculation has three related layers.  A flat traceless rank-two limit
+supports exact analytic correlation and residual identities.  A dispersive four-state
+finite-range parent supplies a momentum-dependent retained subspace and transported
+periodic frame.  A bounded parent homotopy separates representation-induced effects
+from pre-existing parent dispersion and hopping locality.
+
+Momentum calculations assemble the same Bloch parent on nested meshes; refinement does
+not change the parent Hamiltonian.  Fourier blocks are evaluated with an explicit
+shifted-mesh convention.  Even finite-cyclic data are converted to an ordinary-lattice
+inventory by removing and separately reporting the centered Nyquist block.  Ordered
+symmetric cutoffs are then evaluated on a disjoint momentum mesh.  Cyclic conversion,
+finite interpolation, deliberate truncation, and total sorted-band effects remain
+separate channels.
+
+The versioned five-stage calculation entry points have not yet been created.  Existing
+values remain development outputs of the maintained experiment rather than results
+produced from this successor directory.

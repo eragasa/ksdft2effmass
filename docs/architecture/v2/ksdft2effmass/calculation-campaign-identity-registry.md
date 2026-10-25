@@ -93,7 +93,7 @@ Reference-data and extraction records use `ksdft2effmass.reference` and
 | Current locator or label | Permanent campaign-family ID | Scope note |
 |---|---|---|
 | `calculations/research-monograph/harmonic-oscillator/`; Appendix E | `ksdft2effmass.campaign.model-systems.harmonic-oscillator.common-space-comparison` | Analytical, finite-difference, and ladder-operator representations in one declared finite comparison space |
-| `calculations/research-monograph/particle-in-box/`; Appendix D | `ksdft2effmass.campaign.model-systems.particle-in-box.finite-representation-diagnostics` | Residual meaning, grid and mode refinement, norm behavior, and model-class identifiability |
+| `calculations/piab1d/`; Appendix D | `ksdft2effmass.campaign.model-systems.particle-in-box.finite-representation-diagnostics` | Residual meaning, grid and mode refinement, norm behavior, and model-class identifiability |
 | `calculations/research-monograph/impurity-spin-spaces/`; Appendix I spin slice | `ksdft2effmass.campaign.operator-comparison.impurity.spin-space-compatibility` | Spinless, spin-degenerate, collinear, and spinor finite-space mappings and compatibility |
 
 ### One-dimensional periodic reduction and model adequacy

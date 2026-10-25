@@ -1,13 +1,12 @@
 Research-monograph campaigns
 =============================
 
-``ksdft2effmass.campaigns.research_monograph`` contains public composition and
-retained-format contracts for the project's research-monograph calculations.  These
-campaign objects bind exact study controls to reusable analysis contracts.  They do
-not own generic scientific algorithms, grant protected execution authority, or decide
-scientific acceptance.  Campaign implementation classes and methods are public and
-use no underscore-prefixed implementation names; Python-required special methods are
-the only exception.
+Research-monograph-specific composition lives in cohesive subpackages beneath
+``ksdft2effmass.campaigns.research_monograph``. The package root exposes only the
+bounded symbols required by repository-retained calculation adapters; new code imports
+canonical capability or monograph subpackages directly. These campaign objects bind
+exact study controls to reusable analysis contracts. They do not own generic scientific
+algorithms, grant protected execution authority, or decide scientific acceptance.
 
 Results projection
 ------------------
@@ -44,7 +43,7 @@ The owner Result binds a root-independent request identity to the complete repla
 snapshot projection.  The nullable References observation binding remains unset until
 an independent References owner verifies it.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.citation_snapshot
 
 .. autoclass:: CitationContentAlgorithm
    :members:
@@ -132,7 +131,7 @@ SVG provenance remains bound to the frozen ``plot_stage_c_parent.py`` entry poin
 version-two CLI delegates new rendering to these public classes without reattributing
 historical results.
 
-.. currentmodule:: ksdft2effmass.campaigns.research_monograph
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.impurity_defect_2d
 
 .. autoclass:: AdoptedCriterionPlotRecord
    :members:
@@ -424,9 +423,8 @@ for the methodological boundary and partition definitions.
 Periodic-1D hopping reduction
 -----------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. The former
-``ksdft2effmass.campaigns.research_monograph.periodic_1d`` import façade is deprecated;
-it re-exports the same public objects and emits :class:`DeprecationWarning`.
+The canonical public package is ``ksdft2effmass.campaigns.periodic_1d``. No
+publication-named nested import alias is maintained for this campaign.
 
 The versioned Appendix G Workflow composes complete uniform-mesh Fourier transform,
 symmetric truncation, Parseval analysis, explicit-weight least-squares fitting, and
@@ -443,10 +441,16 @@ external Wannier90 operation.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
-Periodic-1D defect toy models
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Historical periodic-1D defect APIs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Reusable controlled systems demonstrated by the defect campaigns are available from
+The following defect subsections describe historical source APIs that are no longer
+part of the maintained import surface. Retained calculations and provenance continue
+to identify their exact repository revisions; this page does not recreate compatibility
+imports for them.
+
+Reusable controlled systems demonstrated by the historical defect campaigns were
+available from
 ``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
 ``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
 Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
@@ -462,60 +466,27 @@ no retained paths, campaign thresholds, phase labels, evidence acceptance, silic
 interpretation, or protected execution. A general finite-extent operator perturbation
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
 
-.. autoclass:: Periodic1DBasisScramblingModel
-   :members:
 
-.. autoclass:: Periodic1DBasisScramblingRequest
-   :members:
 
-.. autoclass:: Periodic1DBasisScramblingResult
-   :members:
 
-.. autoclass:: Periodic1DBasisScramblingConstructor
-   :members:
 
-.. autoclass:: Periodic1DHoppingBlock
-   :members:
 
-.. autoclass:: Periodic1DFiniteHoppingToyModel
-   :members:
 
-.. autoclass:: Periodic1DPrimitiveFiberHamiltonianRequest
-   :members:
 
-.. autoclass:: Periodic1DPrimitiveFiberHamiltonianResult
-   :members:
 
-.. autoclass:: Periodic1DPrimitiveFiberHamiltonianConstructor
-   :members:
 
-.. autoclass:: Periodic1DSupercellHamiltonianRequest
-   :members:
 
-.. autoclass:: Periodic1DSupercellHamiltonianResult
-   :members:
 
-.. autoclass:: Periodic1DSupercellHamiltonianConstructor
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectModel
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectRequest
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectResult
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectConstructor
-   :members:
 
 Periodic-1D matched defect extraction
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The maintained matched known-map capability is available from
+The historical matched known-map capability was available from
 ``ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction``.
 Its immutable records preserve the retained version-one controls and represented-space
 metadata.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
@@ -532,69 +503,30 @@ own provenance; it does not inherit the historical result's acceptance status.  
 :doc:`../concepts/periodic-1d-defect-extraction` for the comparison and evidence
 boundary.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction
 
-.. autoclass:: ParentSourceReference
-   :members:
 
-.. autoclass:: FoldingControl
-   :members:
 
-.. autoclass:: ExtractionControl
-   :members:
 
-.. autoclass:: AlignmentControl
-   :members:
 
-.. autoclass:: FiniteSizeControl
-   :members:
 
-.. autoclass:: SmoothnessControl
-   :members:
 
-.. autoclass:: MetricContrastControl
-   :members:
 
-.. autoclass:: DefectExerciseInput
-   :members:
 
-.. autoclass:: SupercellBasis
-   :members:
 
-.. autoclass:: RepresentedOperator
-   :members:
 
-.. autoclass:: CompatibilityResult
-   :members:
 
-.. autoclass:: ParentData
-   :members:
 
-.. autoclass:: MatchedDefectExtractionInputDeserializer
-   :members:
 
-.. autoclass:: MatchedDefectParentDataLoader
-   :members:
 
-.. autoclass:: MatchedDefectExtractionResultSerializer
-   :members:
 
-.. autoclass:: MatchedDefectOperatorCompatibilityAnalyzer
-   :members:
 
-.. autoclass:: MatchedDefectExtractionWorkflow
-   :members:
 
-.. autoclass:: MatchedDefectExtractionWorkflowResult
-   :members:
 
-.. autoclass:: MatchedDefectExtractionResultVerifier
-   :members:
 
 Periodic-1D blind alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The maintained public route exports only ``BlindAlignmentCampaign`` and
+The historical public route exported ``BlindAlignmentCampaign`` and
 ``BlindAlignmentCampaignModel`` from
 ``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``.
 The model encapsulates exact input and retained-result bytes plus the repository
@@ -646,18 +578,13 @@ perform post hoc campaign acceptance. Independent agreement is numerical verific
 of this bounded synthetic campaign, not material validation or uncertainty
 quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment
 
-.. autoclass:: BlindAlignmentCampaignModel
-   :members:
 
-.. autoclass:: BlindAlignmentCampaign
-   :members:
 
 Periodic-1D independent-route reconciliation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The maintained public route exports only ``RouteReconciliationCampaign`` and
+The historical public route exported ``RouteReconciliationCampaign`` and
 ``RouteReconciliationCampaignModel`` from
 ``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``.
 The model encapsulates the exact version-one input and retained result plus the
@@ -680,19 +607,14 @@ identities, and reconstructs all 15 nominal, adversarial, and reconciliation rec
 This is bounded synthetic software and numerical verification, not evidence for
 silicon, continuum convergence, scientific validation, or uncertainty quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation
 
-.. autoclass:: RouteReconciliationCampaignModel
-   :members:
 
-.. autoclass:: RouteReconciliationCampaign
-   :members:
 
 Periodic-1D finite-rank oracle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` form the narrow
-public route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
+``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` formed the
+historical route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
 the periodic parent, matched-extraction result, and route-reconciliation result before
 comparing a rank-one Bloch-resolvent root with an independently assembled site-space
 eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
@@ -705,25 +627,20 @@ concerns finite represented synthetic operators only; it does not establish an
 infinite-system limit, continuum convergence, silicon behavior, scientific validation,
 or uncertainty quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle
 
-.. autoclass:: FiniteRankOracleCampaignModel
-   :members:
 
-.. autoclass:: FiniteRankOracleCampaign
-   :members:
 
 Periodic-1D separated continuum refinement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` form the
-narrow public route under ``periodic_1d.defects.continuum_refinement``. The model
+``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` formed the
+historical route under ``periodic_1d.defects.continuum_refinement``. The model
 encapsulates exact version-one input and result bytes plus the repository boundary for
 three authenticated sources. The façade provides retained access, exact canonical
 correlation, and independent verification without re-exporting lower-level numerical
 owners.
 
-The maintained Workflow evaluates continuum mesh, continuum domain, lattice
+The historical Workflow evaluated continuum mesh, continuum domain, lattice
 supercell, lattice scale, and profile family as distinct axes. It does not relabel
 profile broadening as lattice refinement or combine discretization, finite-domain,
 periodic-image, lattice-scale, profile-model, operator, spectral, and state errors.
@@ -733,13 +650,8 @@ has a persistent bounded pass, while neither profile-width family establishes a
 profile-defined continuum crossover over the tested domain. This is not an asymptotic
 theorem, material validation, transferability evidence, or uncertainty quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement
 
-.. autoclass:: ContinuumRefinementCampaignModel
-   :members:
 
-.. autoclass:: ContinuumRefinementCampaign
-   :members:
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
@@ -1293,43 +1205,20 @@ validation, topology or polarization evidence, UQ, or protected execution.
 .. autoclass:: Periodic1DHoppingReductionWorkflow
    :members:
 
-QHO1D controlled campaign
--------------------------
+QHO1D retained-adapter boundary
+-------------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.qho1d``. The former
-``ksdft2effmass.campaigns.research_monograph.harmonic_oscillator`` import façade is
-deprecated; it re-exports the same public objects and emits
-:class:`DeprecationWarning`.
+The canonical implementation is documented in :doc:`model-systems` and lives at
+``ksdft2effmass.model_systems.qho1d``. The former
+``ksdft2effmass.campaigns.qho1d`` package was removed rather than retained as a
+compatibility facade.
 
-The Appendix E campaign deserializes its closed version-one input, evaluates the
-ordered Cartesian product of interval half-width, grid spacing, and retained
-dimension, and serializes the resulting comparisons with explicit source identities.
-The mathematical models, common-coordinate map, campaign ownership, and retained
-artifact boundary are described in
-:doc:`../concepts/controlled-model-calculations`.
-The retained historical result remains bound to its original runner identity.  Newly
-authored records bind the current public model-system and campaign implementation
-sources; this does not relabel historical evidence.
-
-.. currentmodule:: ksdft2effmass.campaigns.qho1d
-
-.. autoclass:: HarmonicOscillatorStudyDefinition
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyResult
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyInputDeserializer
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyEvaluator
-   :members:
-
-.. autoclass:: HarmonicOscillatorStudyResultSerializer
-   :members:
-
-.. autoclass:: HarmonicOscillatorResultVerifier
-   :members:
+The bounded ``ksdft2effmass.campaigns.research_monograph`` root still exposes four
+historical ``HarmonicOscillator...`` spellings because the hash-bound calculation
+adapters import exactly those names. Each is a direct alias of its canonical
+``QHO1D...`` class. New code must import the canonical owner directly. This adapter
+boundary does not imply a general dimension-neutral QHO API and does not relabel the
+retained numerical result.
 
 Defect-2D finite-domain case inventory
 --------------------------------------
@@ -1375,67 +1264,51 @@ evaluations.
 .. autoclass:: FiniteDomainEffectsCampaignPlanningWorkflow
    :members:
 
-PIAB1D controlled campaigns
+PIAB1D calculation boundary
 ---------------------------
 
-The canonical public package is ``ksdft2effmass.campaigns.piab1d``. The former
-``ksdft2effmass.campaigns.research_monograph.particle_in_box`` import façade is
-deprecated; it re-exports the same public objects and emits
-:class:`DeprecationWarning`.
+The canonical reusable model package is ``ksdft2effmass.model_systems.piab1d``.
+The former ``ksdft2effmass.campaigns.piab1d`` package and its research-monograph
+facade are removed. ``calculations/piab1d/`` owns calculation composition and retained
+evidence; research-monograph documentation points to that canonical calculation.
 
-.. currentmodule:: ksdft2effmass.campaigns.piab1d
+.. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-The Appendix D core residual campaign deserializes its retained version-one input,
+The Appendix D core residual study deserializes its retained version-one input,
 composes the public one-dimensional box and represented-operator contracts, preserves
 the historical numerical JSON payload, and verifies retained or newly authored
-provenance without importing the implementation under verification. Public Workflows
-also own the convergence, higher-eigenpair, norm, and identifiability campaigns while
-calculation-directory runners and verifiers remain thin CLI adapters.
+provenance without importing the implementation under verification. Its module layout
+mirrors the QHO1D study layout.
 
-.. autoclass:: ParticleInBoxStudyDefinition
+.. autoclass:: Piab1dStudyDefinition
    :members:
 
-.. autoclass:: ParticleInBoxResidualStudyResult
+.. autoclass:: Piab1dResidualStudyResult
    :members:
 
-.. autoclass:: ParticleInBoxStudyInputDeserializer
+.. autoclass:: Piab1dStudyInputDeserializer
    :members:
 
-.. autoclass:: ParticleInBoxResidualStudyEvaluator
+.. autoclass:: Piab1dResidualStudyEvaluator
    :members:
 
-.. autoclass:: ParticleInBoxStudyResultSerializer
+.. autoclass:: Piab1dStudyResultSerializer
    :members:
 
-.. autoclass:: ParticleInBoxResultVerifier
+.. autoclass:: Piab1dResultVerifier
    :members:
 
-.. autoclass:: ParticleInBoxConvergenceWorkflow
+Reusable eigenpair diagnostics, kinetic-potential decomposition, and model-class
+fitting are finite-operator analyses. They contain no retained file paths, provenance
+policy, or CLI behavior.
+
+.. currentmodule:: ksdft2effmass.analysis.operators
+
+.. autoclass:: RealSymmetricEigenpairDiagnosticAnalyzer
    :members:
 
-.. autoclass:: ParticleInBoxConvergenceVerifier
-   :members:
-
-.. autoclass:: ParticleInBoxEigenpairSweepWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxEigenpairSweepVerifier
-   :members:
-
-.. autoclass:: ParticleInBoxNormSweepWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxNormSweepVerifier
-   :members:
-
-.. autoclass:: RetainedModelClassFitResult
+.. autoclass:: KineticPotentialDecompositionAnalyzer
    :members:
 
 .. autoclass:: RetainedModelClassFitter
-   :members:
-
-.. autoclass:: ParticleInBoxIdentifiabilityWorkflow
-   :members:
-
-.. autoclass:: ParticleInBoxIdentifiabilityVerifier
    :members:

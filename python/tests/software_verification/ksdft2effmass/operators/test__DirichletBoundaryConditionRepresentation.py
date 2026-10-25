@@ -21,12 +21,12 @@ scientific validation, uncertainty quantification, or human acceptance.
 """
 
 import pytest
-
-from ksdft2effmass.analysis.model_systems import (
-    DirichletBoundaryCondition,
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
+
+from ksdft2effmass.model_systems import DirichletBoundaryCondition
 from ksdft2effmass.operators import DirichletBoundaryConditionRepresentation
 
 pytestmark = pytest.mark.software_verification

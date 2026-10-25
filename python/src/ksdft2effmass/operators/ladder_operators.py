@@ -5,9 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import (
+    SparseMatrixQuantity,
+    Unitless,
+)
 from scipy import sparse  # type: ignore[import-untyped]
-
-from .quantities import SparseMatrixQuantity, Unitless
 
 
 @dataclass(frozen=True, slots=True)

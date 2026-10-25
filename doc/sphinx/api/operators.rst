@@ -39,29 +39,12 @@ physical scaling.
 .. autoclass:: FiniteDifferenceHamiltonian1D
    :members:
 
-.. autoclass:: RealSymmetricEigenpairResult
-   :members:
+Real-symmetric spectral decomposition and eigensystem records are owned by
+``projectkoios.physkit.linalg.eigen``. Hamiltonian spectral subspaces and reduction
+are documented under :doc:`hamiltonian`.
 
-.. autoclass:: RealSymmetricEigenpairSolver
-   :members:
-
-.. autoclass:: OrthogonalSpectralSubspace
-   :members:
-
-.. autoclass:: OrthogonalSpectralSubspaceSelector
-   :members:
-
-.. autoclass:: OperatorCompressionResult
-   :members:
-
-.. autoclass:: OperatorCompression
-   :members:
-
-.. autoclass:: RepresentedMatrixNormResult
-   :members:
-
-.. autoclass:: RepresentedMatrixNormAnalyzer
-   :members:
+KSD does not define or re-export generic matrix norms. Generic linear algebra is
+imported directly from ``projectkoios.physkit.linalg``.
 
 .. autoclass:: UniformGrid1DRepresentation
    :members:
@@ -72,32 +55,10 @@ physical scaling.
 .. autoclass:: DirichletIntervalRepresentation
    :members:
 
-Represented quantities
-----------------------
-
-.. autoclass:: PhysicalUnit
-   :members:
-
-.. autoclass:: Unitless
-   :members:
-
-.. autoclass:: ScalarQuantity
-   :members:
-
-.. autoclass:: VectorQuantity
-   :members:
-
-.. autoclass:: MatrixQuantity
-   :members:
-
-.. autoclass:: SparseMatrixQuantity
-   :members:
-
-.. autoclass:: ComplexMatrixQuantity
-   :members:
-
-.. autoclass:: ComplexSparseMatrixQuantity
-   :members:
+Generic quantities, unit conversion, matrix verification, and real-symmetric spectral
+decomposition are imported directly from their owner under
+``projectkoios.physkit``. KSD defines no compatibility aliases or re-export surface
+for them.
 
 .. autoclass:: ComplexSparseHermiticityResult
    :members:
@@ -131,14 +92,11 @@ canonical sparse operator directly, requires a correlated passing Hermiticity re
 and evaluates algebraic residuals after the iterative solve. Complete eigensystems
 require a separately explicit dense boundary rather than implicit densification.
 
-``ComplexSparseMatrixQuantity`` is the canonical sparse complex-value boundary used by
+PhysKit's ``ComplexSparseMatrixQuantity`` is the canonical sparse complex-value boundary used by
 twisted finite-lattice construction. It never densifies implicitly;
 ``to_dense()`` is the explicit dense boundary. Like the real quantity records, it owns
 matrix values and units only. Basis, geometry, gauge, and energy-reference identity
 must be supplied by the higher-level represented-operator contract before comparison.
-
-.. autoclass:: PintUnitConverter
-   :members:
 
 DataObjects and ResultObjects
 -----------------------------

@@ -24,6 +24,10 @@ from dataclasses import replace
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexSparseMatrixQuantity,
+    Unitless,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.operators import (
@@ -31,8 +35,6 @@ from ksdft2effmass.operators import (
     ComplexHermitianEigensolverResult,
     ComplexHermitianSparseEigenpairSolver,
     ComplexSparseHermiticityAnalyzer,
-    ComplexSparseMatrixQuantity,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification

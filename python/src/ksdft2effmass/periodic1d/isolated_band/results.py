@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ScalarQuantity
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityResult1D,
@@ -19,8 +20,7 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorResult1D,
     BandSpectrumSamples1D,
 )
-from ksdft2effmass.operators import ScalarQuantity
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingTruncationResult1D,
     ReciprocalOperatorFourierTransformResult1D,
 )

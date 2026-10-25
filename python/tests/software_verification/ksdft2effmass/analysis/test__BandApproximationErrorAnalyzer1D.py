@@ -19,12 +19,7 @@ The error is a software comparison, not uncertainty quantification or validation
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.analysis.periodic_bands import (
-    BandApproximationErrorAnalyzer1D,
-    BandSpectrumSamples1D,
-)
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     MatrixQuantity,
     PhysicalUnit,
@@ -32,7 +27,12 @@ from ksdft2effmass.operators import (
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+
+from ksdft2effmass.analysis.periodic_bands import (
+    BandApproximationErrorAnalyzer1D,
+    BandSpectrumSamples1D,
+)
+from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
 
 pytestmark = pytest.mark.software_verification
 SUT = BandApproximationErrorAnalyzer1D

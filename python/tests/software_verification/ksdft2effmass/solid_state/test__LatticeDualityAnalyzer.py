@@ -18,9 +18,9 @@ This verifies represented duality, not physical basis alignment or validation.
 """
 
 import pytest
+from projectkoios.physkit.units import PhysicalUnit
 
-from ksdft2effmass.operators import PhysicalUnit
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     DirectLattice1D,
     DirectLattice2D,
     DirectLattice3D,

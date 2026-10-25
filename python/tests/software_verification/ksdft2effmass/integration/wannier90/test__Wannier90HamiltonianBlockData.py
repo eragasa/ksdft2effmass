@@ -19,9 +19,12 @@ These checks do not execute Wannier90 or validate a represented Hamiltonian phys
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    PhysicalUnit,
+)
 
 from ksdft2effmass.integration.wannier90 import Wannier90HamiltonianBlockData
-from ksdft2effmass.operators import ComplexMatrixQuantity, PhysicalUnit
 
 pytestmark = pytest.mark.software_verification
 SUT = Wannier90HamiltonianBlockData

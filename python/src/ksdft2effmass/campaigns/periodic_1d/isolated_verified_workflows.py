@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ScalarQuantity, Unitless
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from .isolated_verification import (
     Periodic1DIsolatedResultVerifier,

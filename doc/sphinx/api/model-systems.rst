@@ -1,7 +1,7 @@
 Quantum model systems
 =====================
 
-``ksdft2effmass.analysis.model_systems`` contains public analyses for controlled
+``ksdft2effmass.model_systems`` contains public analyses for controlled
 quantum model systems.  A model system is an idealized physical and mathematical
 system used to expose representation, discretization, and reduction behavior under
 explicit assumptions.  The term does not imply a toy calculation, and numerical
@@ -20,7 +20,58 @@ boundary records without selecting a Hamiltonian or physical model.
 :class:`~ksdft2effmass.operators.LadderOperator1D` owns the generic
 finite occupation-number basis and exposes its highest-state commutator defect.
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems
+.. currentmodule:: ksdft2effmass.model_systems
+
+``BaseModelSystemAnalyzer`` remains a nominal action type.
+``BaseVerification`` enforces final ``to_dict``/``from_dict`` and
+``to_json``/``from_json`` representation boundaries for every concrete verification.
+``BaseModelAnalysisVerification`` adds the authenticated visualization-data binding.
+``BaseModelAnalysisVerifier`` owns the final derive--digest--verify composition so
+callers cannot supply projection digests.
+``BaseModelAnalysisVisualizationPlotter`` defines the operation that produces one
+immutable visualization, while ``BaseModelAnalysisVisualizer`` defines aggregate
+visualization over a unique set. ``BaseModelAnalysisVisualization`` is the nominal
+value base. Generic PNG values require a cross-platform-safe basename ending exactly
+in ``.png`` and decode the supplied bytes before admission.
+``BaseModelAnalysisVisualizationData`` and ``BaseModelAnalysisVerification``
+separately fix the dictionary and JSON boundaries for immutable verification values;
+concrete values implement only their typed mapping.
+
+.. autoclass:: BaseModelSystemAnalyzer
+   :members:
+
+.. autoclass:: BaseModelAnalysisVerifier
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualizer
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualizationPlotter
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualization
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualizationData
+   :members:
+
+.. autoclass:: ModelAnalysisPngVisualization
+   :members:
+
+.. autoclass:: BaseVerification
+   :members:
+
+.. autoclass:: BaseModelAnalysisVerification
+   :members:
+
+.. autoclass:: ModelAnalysisVerificationResult
+   :members:
+
+.. autoclass:: QuadratureVerification
+   :members:
+
+.. autoclass:: VisualizationProjectionVerification
+   :members:
 
 .. autoclass:: UniformCartesianGrid1D
    :members:
@@ -42,18 +93,20 @@ model systems belong to :doc:`operators`. The complete code-to-calculation flow 
 represented equations are documented in
 :doc:`../concepts/controlled-model-calculations`.
 
-Finite harmonic oscillator
---------------------------
+QHO1D
+-----
 
-The harmonic-oscillator analysis uses three public mathematical software models of
+``QHO1D`` is the dimension-specific one-dimensional quantum harmonic oscillator
+owner. No dimension-neutral ``QHO`` API or 2D/3D implementation is claimed. The
+analysis uses three public mathematical software models of
 the same physical oscillator:
 
-* :class:`HarmonicOscillatorAnalytical` owns exact energies and coordinate-space
+* :class:`Qho1dAnalytical` owns exact energies and coordinate-space
   Hermite number states;
-* :class:`HarmonicOscillatorFiniteDifference` applies oscillator physics to a
-  reusable :class:`~ksdft2effmass.analysis.model_systems.DirichletInterval` and
+* :class:`Qho1dFiniteDifference` applies oscillator physics to a
+  reusable :class:`~ksdft2effmass.model_systems.DirichletInterval` and
   composes the centered second-order finite-difference Hamiltonian; and
-* :class:`HarmonicOscillatorLadderOperators` composes
+* :class:`Qho1dLadderOperators` composes
   :class:`~ksdft2effmass.operators.LadderOperator1D` and applies the
   oscillator energy scale.
 
@@ -87,59 +140,144 @@ and conversion through :class:`~ksdft2effmass.operators.PintUnitConverter`; proj
 records own strict value types and immutable array storage. Physical oscillator
 parameters retain action, mass, inverse-time, length, wavefunction, and energy
 dimensions. The historical normalized study enters through
-:class:`HarmonicOscillatorNondimensionalizer`, which explicitly attaches
+:class:`Qho1dNondimensionalizer`, which explicitly attaches
 :class:`~ksdft2effmass.operators.Unitless` without asserting that the corresponding
 physical quantities are intrinsically dimensionless.
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems.harmonic_oscillator
+.. currentmodule:: ksdft2effmass.model_systems.qho1d
 
-.. autoclass:: HarmonicOscillatorNondimensionalizer
+.. autoclass:: Qho1dNondimensionalizer
    :members:
 
-.. autoclass:: HarmonicOscillatorParameters
+.. autoclass:: Qho1dParameters
    :members:
 
-.. autoclass:: HarmonicOscillatorAnalytical
+.. autoclass:: Qho1dAnalytical
    :members:
 
-.. autoclass:: HarmonicOscillatorFiniteDifference
+.. autoclass:: Qho1dFiniteDifference
    :members:
 
-.. autoclass:: HarmonicOscillatorLadderOperators
+.. autoclass:: Qho1dLadderOperators
    :members:
 
-.. autoclass:: HarmonicOscillatorComparisonRequest
+.. autoclass:: Qho1dComparisonRequest
    :members:
 
-.. autoclass:: HarmonicOscillatorComparisonResult
+.. autoclass:: Qho1dComparisonResult
    :members:
 
-.. autoclass:: HarmonicOscillatorComparator
+.. autoclass:: Qho1dComparator
+   :members:
+
+The direct successor surface owns one Python-authored typed configuration, immutable
+calculation records, an independent reference route, operation-partitioned
+verification, and authenticated visualization. It uses the same shared typed JSON
+boundary as PIAB1D; historical ``study`` serialization is not involved.
+
+.. autoclass:: Qho1dConfiguration
+   :members:
+
+.. autoclass:: Qho1dCaseResult
+   :members:
+
+.. autoclass:: Qho1dStateComparisonResult
+   :members:
+
+.. autoclass:: Qho1dCalculationResult
+   :members:
+
+.. autoclass:: Qho1dAnalyzer
+   :members:
+
+.. autoclass:: Qho1dIndependentReferenceAnalyzer
+   :members:
+
+.. autoclass:: Qho1dSweepVerification
+   :members:
+
+.. autoclass:: Qho1dStateComparisonVerification
+   :members:
+
+.. autoclass:: Qho1dVerification
+   :members:
+
+.. autoclass:: Qho1dVerifier
+   :members:
+
+.. autoclass:: Qho1dVisualizationPlotEnum
+   :members:
+
+.. autoclass:: Qho1dVisualizationData
+   :members:
+
+.. autoclass:: Qho1dVisualizer
+   :members:
+
+The following classes retain the historical JSON-authored study contract. They do not
+participate in direct calculate--verify--render executions.
+
+.. autoclass:: Qho1dStudyDefinition
+   :members:
+
+.. autoclass:: Qho1dStudyResult
+   :members:
+
+.. autoclass:: Qho1dStudyInputDeserializer
+   :members:
+
+.. autoclass:: Qho1dStudyEvaluator
+   :members:
+
+.. autoclass:: Qho1dStudyResultSerializer
+   :members:
+
+.. autoclass:: Qho1dResultVerifier
    :members:
 
 One-dimensional particle in a box
 ---------------------------------
 
-The public particle-in-a-box surface separates continuum spectrum, reusable spatial
-interval, and finite-difference representation. Its initial campaign remains the
-historical one-dimensional normalized Appendix D experiment.
+PhysKit owns the ``Piab1D`` continuum model, analytical solution, homogeneous-
+Dirichlet grid, finite-difference Hamiltonian, and eigensolution. KSD owns only the
+calculation-specific spectral reduction, residual diagnostics, retained evidence, and
+verification composed around that pinned implementation.
 
-.. currentmodule:: ksdft2effmass.analysis.model_systems
+.. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-.. autoclass:: ParticleInBoxParameters
+.. autoclass:: Piab1dAnalysis
    :members:
 
-.. autoclass:: ParticleInBoxAnalytical
+.. autoclass:: Piab1dAnalyzer
    :members:
 
-.. autoclass:: ParticleInBoxFiniteDifference
+.. autoclass:: Piab1dDiagnostics
    :members:
 
-.. autoclass:: ParticleInBoxGridEvaluation
+.. autoclass:: Piab1dVerification
    :members:
 
-.. autoclass:: ParticleInBoxGridEvaluator
+.. autoclass:: Piab1dVerifier
    :members:
+
+.. autoclass:: Piab1dVisualizationPlotEnum
+   :members:
+
+.. autoclass:: Piab1dVisualizationData
+   :members:
+
+.. autoclass:: Piab1dVisualization
+   :members:
+
+.. autoclass:: Piab1dVisualizer
+   :members:
+
+``Piab1dAnalyzer`` constructs a set of cohesive diagnostic analyzers and iterates over
+that set to produce the complete immutable ``Piab1dDiagnostics`` inventory. There is
+no diagnostic facade or factory in this tranche.
+
+Historical retained-result wire objects remain documented with their owning research
+monograph campaign API. They are not part of the direct successor calculation surface.
 
 Two-dimensional plane-wave Bloch operators
 -------------------------------------------
@@ -149,15 +287,15 @@ an explicit finite Fourier inventory, reduced primitive-basis momentum coordinat
 and a caller-toleranced two-pi duality check. The reciprocal-mesh surface adds
 centered half-open sampling, explicit positive-neighbor translations, and truncating
 finite-basis sewing maps. See
-:doc:`ksdft2effmass/analysis/model_systems/periodic2d/plane_waves` and
-:doc:`ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh` for the complete
+:doc:`ksdft2effmass/model_systems/periodic2d/plane_waves` and
+:doc:`ksdft2effmass/model_systems/periodic2d/reciprocal_mesh` for the complete
 mathematics, units, ordering, implementation, evidence, and limitation contracts.
 
 .. toctree::
    :hidden:
 
-   ksdft2effmass/analysis/model_systems/periodic2d/plane_waves
-   ksdft2effmass/analysis/model_systems/periodic2d/reciprocal_mesh
+   ksdft2effmass/model_systems/periodic2d/plane_waves
+   ksdft2effmass/model_systems/periodic2d/reciprocal_mesh
 
 One-dimensional periodic Fourier models
 ---------------------------------------
@@ -171,8 +309,10 @@ Neither finite matrix is identified with the continuum operator.
 
 The constructors require explicit period or reciprocal-duality tolerances and
 compatible energy units.  They do not select bands, construct gauges, run Wannier90,
-or apply Appendix G acceptance criteria.  Reciprocal frame and hopping operations
+or apply Appendix G acceptance criteria. Reciprocal frame and hopping operations
 belong to :doc:`solid-state`.
+
+.. currentmodule:: ksdft2effmass.model_systems.periodic_1d
 
 .. autoclass:: PeriodicFourierPotential1D
    :members:

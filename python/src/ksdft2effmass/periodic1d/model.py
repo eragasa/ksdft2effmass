@@ -5,11 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter, ScalarQuantity
 
-from ksdft2effmass.analysis.model_systems import PeriodicFourierPotential1D
-from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER, ScalarQuantity
+from ksdft2effmass.model_systems.periodic_1d import PeriodicFourierPotential1D
 from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 
 @dataclass(frozen=True, slots=True)
@@ -67,7 +67,7 @@ class Periodic1DFourierHamiltonianToyModel(Periodic1DModel):
             raise ValueError(
                 "duality_absolute_tolerance must be finite and nonnegative"
             )
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.potential.constant_coefficient.unit, self.recoil_energy.unit
         ):
             raise ValueError("potential and recoil_energy units must be compatible")
@@ -119,11 +119,11 @@ class Periodic1DBlockHamiltonianToyModel(Periodic1DModel):
         if self.hermiticity_absolute_tolerance.magnitude < 0.0:
             raise ValueError("hermiticity_absolute_tolerance must be nonnegative")
         block_unit = self.hopping_model.hopping_blocks[0].unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.hermiticity_absolute_tolerance.unit, block_unit
         ):
             raise ValueError("Hermiticity tolerance must use energy dimensions")
-        tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        tolerance = ModelSystemUnitConverter.convert_scalar(
             self.hermiticity_absolute_tolerance, block_unit
         )
         blocks = dict(

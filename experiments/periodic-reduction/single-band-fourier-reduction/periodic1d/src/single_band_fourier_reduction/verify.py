@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from ksdft2effmass.analysis.model_systems import (
+from ksdft2effmass.model_systems import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicUniformGrid1D,
     PlaneWaveFiberHamiltonian1DConstructor,

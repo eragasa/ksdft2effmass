@@ -27,7 +27,7 @@ from typing import Literal
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.research_monograph.citation_snapshot import (
     ManuscriptCitationSnapshot,
     ResearchMonographCitationSnapshotCompiler,
     ResearchMonographCitationSnapshotIntegrityValidator,

@@ -34,8 +34,8 @@ Encapsulated model and representation
 .. currentmodule:: ksdft2effmass.periodic2d
 
 :class:`Periodic2DDefectModel` encapsulates one
-:class:`~ksdft2effmass.solid_state.ScalarHoppingModel` and one
-:class:`~ksdft2effmass.solid_state.LocalizedPerturbation`.  The perturbation is a
+:class:`~ksdft2effmass.solidstate.ScalarHoppingModel` and one
+:class:`~ksdft2effmass.solidstate.LocalizedPerturbation`.  The perturbation is a
 finite, canonically ordered tuple of onsite and directed-bond terms relative to a
 declared defect origin.  The model owns only immutable state and intrinsic
 two-dimensional invariants.

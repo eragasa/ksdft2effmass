@@ -31,7 +31,7 @@ intrinsic $2\times2$ contract. That flat embedded plane remains distinct from a 
 periodic $3\times3$ slab or supercell.
 
 The pinned PhysKit version `0.1.3.dev0` at exact accepted migration revision
-`7157dcedd0d220673d443c1c025e35a6fd1ffa7a` provides the reusable nonorthogonal
+`2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439` provides the reusable nonorthogonal
 Bloch-periodic scalar Laplacian under
 `projectkoios.physkit.periodic.finite_difference`. Its dimension-bounded 2D/3D
 implementation uses the full inverse metric, mixed centered derivatives, and

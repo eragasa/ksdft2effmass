@@ -25,14 +25,17 @@ import math
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexSparseMatrixQuantity,
+    Unitless,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.finite_domain_locality import (
     MinimumImageChebyshevPartitioner,
     SparseLocalityResidualAnalyzer,
 )
-from ksdft2effmass.operators import ComplexSparseMatrixQuantity, Unitless
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistLift,
     BoundaryTwistReducer,
     FiniteLatticeShape,

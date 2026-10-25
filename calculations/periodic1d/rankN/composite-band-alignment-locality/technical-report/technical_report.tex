@@ -1,0 +1,43 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\title{Technical Report: Periodic-1D Higher-Rank Composite-Band Alignment and Locality}
+\author{Project Koios}
+\date{Schema-free development calculation}
+
+\begin{document}
+\maketitle
+
+\section{Scope and evidence boundary}
+This report covers the finite one-dimensional higher-rank controlled calculation used by the Paper C development program.  It is calculation-owned and publication-independent.  The current implementation and ignored summaries are replaceable development work, not a retained run, convergence result, or evidence package.
+
+\section{Finite model inventory}
+The selected ladder uses retained ranks $r\in\{3,4,8,16\}$, rotation depths $L\in\{1,2,4,8\}$, ambient dimension $2r$, construction meshes $513$, $1025$, and $2049$, an independent evaluation mesh of size $8191$, and hopping supports $0,1,2,4,8,16,32,64,128$.
+
+Four alignment controls remain separate: no alignment, one global unitary, pointwise complete unitaries, and the known generating inverse.  The known inverse is an oracle control and is not evidence of practical recoverability.
+
+\section{Analytic qualification}
+For the selected fixed-subspace real-rotation parent, the retained--exterior separation has the exact value
+\begin{equation}
+  \Delta_{\mathrm{iso}}=2.10 E_{\mathrm{ref}}.
+\end{equation}
+The calculation-owned finite-grid utility reproduces this value on a grid containing the attaining momentum.  Sampling is a sanity check; the protocol derivation is the analytic certificate.
+
+\section{Development computation}
+The schema-free producer evaluates all sixteen rank/depth cases, the four alignment controls, transport and sewing diagnostics, Fourier support, interpolation and truncation errors, refinement records, and sampled support--error Pareto classifications.  It writes a compact replaceable summary rather than a retained package.
+
+\section{Verification boundary}
+Software tests cover model construction, alignment selection and failure dispositions, transport, scalar ledgers, numerical exception handling, and one complete schema-free case.  The analytic-control checker is not a producer-independent reconstruction of the complete result.  Strict serializers, schemas, source binding, and a full independent verifier remain required.
+
+\section{Limitations and nonclaims}
+No two- or three-dimensional higher-rank calculation exists.  Moving retained subspaces, complex unitary transformations, and restricted-circuit fitting remain prospective.  The controlled family is topologically trivial and is not a material model.  Current work establishes neither continuum convergence nor scientific validation.
+
+\section{Next gate}
+The next gate is a strict versioned input/result contract and a producer-independent direct-formula verifier.  Only after those pass may a separately authorized retained execution be considered.  Analysis and plots must consume verified output rather than rerun the producer implicitly.
+
+\end{document}

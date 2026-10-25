@@ -15,13 +15,12 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
-from ksdft2effmass.analysis.model_systems import PeriodicFourierPotential1D
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionTolerances1D,
 )
+from ksdft2effmass.model_systems import PeriodicFourierPotential1D
 from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
 from ksdft2effmass.periodic1d.model import Periodic1DFourierHamiltonianToyModel
-
 from single_band_fourier_reduction import (
     EXPERIMENT_VERSION_ID,
     SingleBandFourierReductionExperiment,

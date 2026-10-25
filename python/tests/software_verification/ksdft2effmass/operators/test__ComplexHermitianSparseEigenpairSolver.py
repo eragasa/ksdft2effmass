@@ -23,15 +23,17 @@ material validation, UQ, campaign execution, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
+    Unitless,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.operators import (
     ComplexHermitianEigensolverRequest,
     ComplexHermitianSparseEigenpairSolver,
-    ComplexMatrixQuantity,
     ComplexSparseHermiticityAnalyzer,
-    ComplexSparseMatrixQuantity,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification

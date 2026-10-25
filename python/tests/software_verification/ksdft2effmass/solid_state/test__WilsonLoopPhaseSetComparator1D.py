@@ -20,7 +20,7 @@ The authored phases verify software semantics, not a physical topological claim.
 import numpy as np
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     WilsonLoopPhaseSetComparator1D,
     WilsonLoopSpectrum1D,
 )

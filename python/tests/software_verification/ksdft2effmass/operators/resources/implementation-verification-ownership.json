@@ -233,11 +233,11 @@
       "sut": "LadderOperator1D"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorCompression.py",
+      "path": "python/tests/ksdft2effmass/hamiltonian/test__SpectralReduction.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "OperatorCompression"
+      "sut": "SpectralReduction"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__OperatorRecordComparisonNumericalError.py",
@@ -450,32 +450,11 @@
       "sut": "OperatorRecord"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__OrthogonalSpectralSubspaceSelector.py",
+      "path": "python/tests/ksdft2effmass/hamiltonian/test__OrthogonalSpectralSubspaceSelector.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "OrthogonalSpectralSubspaceSelector"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairResult.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "RealSymmetricEigenpairResult"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RealSymmetricEigenpairSolver.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "RealSymmetricEigenpairSolver"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__RepresentedMatrixNormAnalyzer.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "RepresentedMatrixNormAnalyzer"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__SampledPotential1D.py",

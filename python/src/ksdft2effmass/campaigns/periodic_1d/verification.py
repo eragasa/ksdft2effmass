@@ -32,7 +32,7 @@ import numpy.typing as npt
 from scipy.optimize import linear_sum_assignment  # type: ignore[import-untyped]
 
 from ksdft2effmass.integration.wannier90 import Wannier90ParsedNativeArtifactSet
-from ksdft2effmass.solid_state import WilsonLoopSpectrum1D
+from ksdft2effmass.solidstate import WilsonLoopSpectrum1D
 
 from .native_artifact_workflows import (
     Periodic1DWannier90NativeArtifactGroupResult,
@@ -293,7 +293,7 @@ class Periodic1DWannier90WilsonVerifier:
 
     See Also
     --------
-    ksdft2effmass.solid_state.WilsonLoopSpectrum1D
+    ksdft2effmass.solidstate.WilsonLoopSpectrum1D
         Immutable public representation used for retained phase multisets.
     Periodic1DWannier90NativeArtifactWorkflowResult
         Authenticated and parsed native input to this verifier.

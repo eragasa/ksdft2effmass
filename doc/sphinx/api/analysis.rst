@@ -9,12 +9,49 @@ see :doc:`model-systems`.
 
 .. currentmodule:: ksdft2effmass.analysis
 
+Diagnostic observations
+-----------------------
+
+``DiagnosticObservation`` retains one nonnegative computed value together with its
+unit-compatible absolute tolerance, relative tolerance, and typed options. Concrete
+diagnostic actions derive nominally from ``BaseDiagnosticAnalyzer``; the base imposes
+only the method identity and result contract.
+
+.. autoclass:: DiagnosticObservation
+   :members:
+
+.. autoclass:: MatrixNormDiagnosticOptions
+   :members:
+
+.. autoclass:: BaseDiagnosticAnalyzer
+   :members:
+
+Composable verification
+-----------------------
+
+These values group unit-bearing verification observations while inheriting final
+``to_dict``/``from_dict`` and generic JSON boundaries.
+
+.. autoclass:: EigensystemVerification
+   :members:
+
+.. autoclass:: RelativeErrorConvergenceVerification
+   :members:
+
+.. autoclass:: TailProbabilitySelectionVerification
+   :members:
+
+.. autoclass:: DiagnosticVerification
+   :members:
+
 Observed numerical order
 ------------------------
 
 These records and actions compute adjacent-level observed orders for one declared
-positive error sequence. They do not by themselves establish convergence or scientific
-acceptance.
+positive error sequence. Multi-series results require at least two positive, strictly
+decreasing spacings, nonnegative relative errors, positive selected-series errors, and
+observed orders consistent with their retained spacings and errors. They do not by
+themselves establish convergence or scientific acceptance.
 
 .. autoclass:: ObservedConvergenceOrder
    :members:
@@ -23,6 +60,28 @@ acceptance.
    :members:
 
 .. autoclass:: ObservedConvergenceOrderEstimator
+   :members:
+
+.. autoclass:: RelativeErrorConvergenceResult
+   :members:
+
+.. autoclass:: RelativeErrorConvergenceAnalyzer
+   :members:
+
+Finite probability selection
+----------------------------
+
+These reusable records and actions select the smallest retained prefix whose
+cumulative omitted probability satisfies a declared tolerance. Probability vectors
+must be nonnegative and normalized. Result construction independently checks the
+cumulative tails and first-passing count using an absolute arithmetic tolerance of
+``64 * eps(float64) * candidate_count``. They do not choose a physical ensemble or
+establish model adequacy.
+
+.. autoclass:: TailProbabilitySelection
+   :members:
+
+.. autoclass:: TailProbabilitySelector
    :members:
 
 Periodic band paths

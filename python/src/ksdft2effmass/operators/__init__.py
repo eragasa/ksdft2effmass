@@ -40,11 +40,6 @@ from .difference import (
     OperatorRecordDifferencer,
     OperatorRecordDifferenceResult,
 )
-from .eigenpairs import (
-    RealSymmetricEigenpairResult,
-    RealSymmetricEigenpairSolver,
-    RealSymmetricOperator,
-)
 from .finite_differences import (
     DirichletBoundaryConditionRepresentation,
     DirichletIntervalRepresentation,
@@ -63,24 +58,6 @@ from .hermiticity import (
     HermiticityUnitMismatchError,
 )
 from .ladder_operators import LadderOperator1D
-from .matrix_norms import (
-    RepresentedMatrixNormAnalyzer,
-    RepresentedMatrixNormResult,
-    RepresentedRealMatrix,
-)
-from .quantities import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
-    ComplexMatrixQuantity,
-    ComplexSparseMatrixQuantity,
-    MatrixQuantity,
-    ModelSystemUnit,
-    PhysicalUnit,
-    PintUnitConverter,
-    ScalarQuantity,
-    SparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
-)
 from .records import Basis, EnergyReference, Geometry, OperatorRecord, StateSpace
 from .residuals import (
     OperatorRecordComparisonNumericalError,
@@ -93,12 +70,6 @@ from .sparse_hermiticity import (
     ComplexSparseHermiticityAnalyzer,
     ComplexSparseHermiticityResult,
 )
-from .subspaces import (
-    OperatorCompression,
-    OperatorCompressionResult,
-    OrthogonalSpectralSubspace,
-    OrthogonalSpectralSubspaceSelector,
-)
 
 __all__ = [
     "Basis",
@@ -108,10 +79,8 @@ __all__ = [
     "ComplexHermitianEigensolverRequest",
     "ComplexHermitianEigensolverResult",
     "ComplexHermitianSparseEigenpairSolver",
-    "ComplexMatrixQuantity",
     "ComplexSparseHermiticityAnalyzer",
     "ComplexSparseHermiticityResult",
-    "ComplexSparseMatrixQuantity",
     "DirichletBoundaryConditionRepresentation",
     "DirichletIntervalRepresentation",
     "EnergyReference",
@@ -126,11 +95,6 @@ __all__ = [
     "HermitianEigenpairSelection",
     "IncompatibleOperatorRecordsError",
     "LadderOperator1D",
-    "MODEL_SYSTEM_UNIT_CONVERTER",
-    "MatrixQuantity",
-    "ModelSystemUnit",
-    "OperatorCompression",
-    "OperatorCompressionResult",
     "OperatorRecord",
     "OperatorRecordComparator",
     "OperatorRecordComparisonNumericalError",
@@ -146,23 +110,9 @@ __all__ = [
     "OperatorRecordDifferencer",
     "OperatorRecordJsonSerializer",
     "OperatorRecordResidualAnalyzer",
-    "OrthogonalSpectralSubspace",
-    "OrthogonalSpectralSubspaceSelector",
-    "PhysicalUnit",
-    "PintUnitConverter",
-    "RealSymmetricEigenpairResult",
-    "RealSymmetricEigenpairSolver",
-    "RealSymmetricOperator",
-    "RepresentedMatrixNormAnalyzer",
-    "RepresentedMatrixNormResult",
-    "RepresentedRealMatrix",
     "SampledPotential1D",
     "SchrodingerKineticEnergy1D",
     "SecondOrderCentralDifferenceLaplacian1D",
-    "ScalarQuantity",
-    "SparseMatrixQuantity",
     "StateSpace",
     "UniformGrid1DRepresentation",
-    "Unitless",
-    "VectorQuantity",
 ]

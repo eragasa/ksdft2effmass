@@ -4,6 +4,14 @@ from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    ModelSystemUnitConverter,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
@@ -13,15 +21,7 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorResult1D,
     BandSpectrumSamples1D,
 )
-from ksdft2effmass.operators import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
-    ComplexMatrixQuantity,
-    MatrixQuantity,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
-)
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BandFrameAligner1D,
     BandProjectedOperatorPathConstructor1D,
     BlockHoppingInterpolator1D,
@@ -254,7 +254,7 @@ class Periodic1DMultibandAlignmentCalculator:
         ]
         unit = training.matrices[0].unit
         result = ScalarQuantity(min(gaps), unit)
-        lower_bound = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        lower_bound = ModelSystemUnitConverter.convert_scalar(
             definition.external_gap_lower_bound, unit
         )
         if result.magnitude < lower_bound.magnitude:

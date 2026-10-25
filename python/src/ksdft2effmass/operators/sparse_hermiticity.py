@@ -17,8 +17,10 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
-
-from .quantities import ComplexSparseMatrixQuantity, ModelSystemUnit
+from projectkoios.physkit.units import (
+    ComplexSparseMatrixQuantity,
+    ModelSystemUnit,
+)
 
 
 @dataclass(frozen=True, slots=True)

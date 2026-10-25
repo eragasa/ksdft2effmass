@@ -1,0 +1,150 @@
+{
+  "calculation_family": "qho1d-spatial-truncation",
+  "calculation_result": {
+    "case_count": 27,
+    "path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/results/result.json",
+    "sha256": "83c420ccd365bfba23401b98069566625049bd18dfac47568b006e848176993b"
+  },
+  "checks": [
+    {
+      "command": "pytest focused direct QHO1D and shared infrastructure",
+      "outcome": "58 passed"
+    },
+    {
+      "command": "pytest -m not expensive tests",
+      "outcome": "4537 passed, 38 skipped, 115 deselected; 35 skips explicitly qualify intentionally absent historical calculation trees"
+    },
+    {
+      "command": "ruff format --check python && ruff check python",
+      "outcome": "passed"
+    },
+    {
+      "command": "mypy --config-file python/pyproject.toml python/src",
+      "outcome": "passed for the production source inventory"
+    },
+    {
+      "command": "sphinx-build -W doc/sphinx",
+      "outcome": "passed for 82 source files"
+    },
+    {
+      "command": "fresh scratch calculate -> verify -> render lifecycle",
+      "outcome": "passed with 468 comparisons and 3 figures"
+    },
+    {
+      "command": "latexmk technical_report.tex",
+      "outcome": "built 7-page PDF; final pass had no undefined citations or references"
+    }
+  ],
+  "claim_boundary": "This record correlates dirty development bytes. It is not a source seal, evidence-package seal, continuum-convergence result, scientific validation, publication, release, or human acceptance.",
+  "dependencies": {
+    "lock_path": "python/uv.lock",
+    "lock_sha256": "df396cf798831fe908ffbde60d291267d72c21d1df9473dd992eb1fce5e6fb9c",
+    "optimization_revision": "2a18e485109e307b2f7928bd0418bcf796aeb0d5",
+    "physkit_revision": "9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5"
+  },
+  "evidence_status": "retained unsealed development execution",
+  "execution_artifacts": {
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/UNSEALED.md": "39ff05fe0e196fb5e992176896511a352130719a44bc7ec889d7da87db1041ae",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/execution.json": "187ff78fa77d091666e0ca1f7bf525160a2202d4eda5452b683a2cbc4e093a0c",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/qho1d-diagnostics.png": "47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/qho1d-eigenstate-distortion.png": "792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/qho1d-eigenstates.png": "d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/rendering.json": "a4eec752da615071b61917bd338941e997f8dd8ce253319ad5dc7cdb41c5494b",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/inputs/configuration.json": "2b766676fbad10d3dd6293c68980db66b2c83a02bd21f51b465e30c6f4dc7614",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/results/result.json": "83c420ccd365bfba23401b98069566625049bd18dfac47568b006e848176993b",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/technical_report/README.md": "6dcf174904e9b7de302c36e4c5c18ff13e83aaca62ca663b9e4bece461b4b495",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/technical_report/qho1d-diagnostics.png": "47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/technical_report/qho1d-eigenstate-distortion.png": "792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/technical_report/qho1d-eigenstates.png": "d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/technical_report/references.bib": "bf2abdb9d3814ef8076abc30182bd1305a202e2b06194f71847871ef452b353a",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/technical_report/technical_report.pdf": "6289bdd96c873ef9c8bea9d6159fafa4790d2e8462510fa59391556bbed9bb78",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/technical_report/technical_report.tex": "44ddb29a2077689b9ddddc5c2144515013315ad15586932c97fa642945a8f56d",
+    "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/verification/verification.json": "c8f1fcc968a2c8e497d6bd9ea6e287506eb2f528bcaaa7ea523b937d3c86c7ac"
+  },
+  "execution_id": "direct-spatial-truncation-3x3x3",
+  "generated_utc": "2026-10-25T18:08:47.620806+00:00",
+  "git": {
+    "branch": "work/physkit-linalg-migration",
+    "head": "9c7fda07a161b8824fba7045a79bf0108b903883",
+    "qualification": "The QHO1D successor, tests, documentation, execution, CI remediation, and this record were uncommitted when this development provenance was assembled.",
+    "repository": "ksdft2effmass",
+    "state": "dirty"
+  },
+  "implementation": {
+    "calculations/qho1d/run_01_calculation.py": "a7d1c10cce17041317efb4d1e777933125585453e6ac3dfaadc53fbf1d4d9308",
+    "calculations/qho1d/run_02_verification.py": "b913a004f64630be95a3a1a5e1273440594006d4523c85541efa668618d1495b",
+    "calculations/qho1d/run_03_render.py": "491bc09256fdc626e8fdda481a9724254dad3f50e382c8b891b60241b87b9047",
+    "python/src/ksdft2effmass/model_systems/analysis.py": "3be75038153872166193640e7e738ef9245897400fa9ee6dbc4c447cba38d788",
+    "python/src/ksdft2effmass/model_systems/boundary_conditions.py": "76c7d974cb6135faf13c49e6626e29af0f77a9796288385dad9c9ae8c513857f",
+    "python/src/ksdft2effmass/model_systems/cartesian_grids.py": "82c47a2ce550cca9108cba2575e233d4c255ed36b7d30027a716e7afea79980b",
+    "python/src/ksdft2effmass/model_systems/intervals.py": "e413cd46119a1e35283a9b71350b889ea1b69903e2fc30deae929518d6aaa739",
+    "python/src/ksdft2effmass/model_systems/qho1d/analysis.py": "c0f4f6b239ca533f4470fbde32457a472ef41943b18a63eef662e47975d1a7c1",
+    "python/src/ksdft2effmass/model_systems/qho1d/comparison.py": "77cd8085e8dd09d6a29f7d228d3fc13b3c820c3efa8bcff431955b7fc19908ad",
+    "python/src/ksdft2effmass/model_systems/qho1d/configuration.py": "4f58767a3b1d4475e45c4c6494634a7d71a1db635e3edfda57a33f11e6cae553",
+    "python/src/ksdft2effmass/model_systems/qho1d/model.py": "e0f967027bee1ec6271dec4156f0335cf6fdc38b566bb246cba2ddd63054d568",
+    "python/src/ksdft2effmass/model_systems/qho1d/result.py": "10f6e0ac414b3f76dd88c81eebdd8b1ee067de28b5bc7b60edb1181345484be4",
+    "python/src/ksdft2effmass/model_systems/qho1d/verification.py": "998f6f78a6c35a0350bd4ae420727d70e70b71d03c2317dee593993e331f3eff",
+    "python/src/ksdft2effmass/model_systems/qho1d/verification_values.py": "560506ae3bb8d0641060f8f4117192c3932cc2d3ffbe524cda9a21265f7c3ada",
+    "python/src/ksdft2effmass/model_systems/qho1d/visualization.py": "9c56b9b3d65373eae629d9b7c4f77a1f790ef1339357132f92fe6b8e23615ef9",
+    "python/src/ksdft2effmass/model_systems/verification.py": "7a4b303b13684b8e2f88f2e881d83e16938f7acc841e972fe85f3d7d5bcf60b2",
+    "python/src/ksdft2effmass/model_systems/visualization.py": "301ce9d4e047ef38526a2f06298210a58b3718a37524703b0639091a70194a29",
+    "python/src/ksdft2effmass/operators/ladder_operators.py": "2b1408b2122830c3fcfd52e922bb3039a656d3d4d34776502724db02654a84d7",
+    "python/src/ksdft2effmass/serialization/__init__.py": "2ea7b96c8f130413e388aa10e6aeb2ace074ea80688ec6f7182f82f3ddf62e72",
+    "python/src/ksdft2effmass/serialization/contracts.py": "f2e287950a2fdd94c1a54af16363ee0b43bcfa96777e3203ddf1be49eec4885b",
+    "python/src/ksdft2effmass/serialization/mapping_json.py": "6ee5463c574c5e4727bac4b30267251ce88a152f387f69e04fe082f1f9a88073",
+    "python/src/ksdft2effmass/serialization/records.py": "74c360c4394a65bfbfe639c6afacde6bd66000404e177e1285ae535a98cb6d3c",
+    "python/src/ksdft2effmass/serialization/typed_values.py": "1fe149435ce5bcb16d302c457933273734ae25ad3a75adc55d34f16c0db168e7"
+  },
+  "maintained_report_snapshot": {
+    "calculations/qho1d/technical_report/README.md": "6dcf174904e9b7de302c36e4c5c18ff13e83aaca62ca663b9e4bece461b4b495",
+    "calculations/qho1d/technical_report/qho1d-diagnostics.png": "47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441",
+    "calculations/qho1d/technical_report/qho1d-eigenstate-distortion.png": "792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66",
+    "calculations/qho1d/technical_report/qho1d-eigenstates.png": "d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7",
+    "calculations/qho1d/technical_report/references.bib": "bf2abdb9d3814ef8076abc30182bd1305a202e2b06194f71847871ef452b353a",
+    "calculations/qho1d/technical_report/technical_report.pdf": "6289bdd96c873ef9c8bea9d6159fafa4790d2e8462510fa59391556bbed9bb78",
+    "calculations/qho1d/technical_report/technical_report.tex": "44ddb29a2077689b9ddddc5c2144515013315ad15586932c97fa642945a8f56d"
+  },
+  "rendering": {
+    "figures": {
+      "qho1d-diagnostics.png": {
+        "media_type": "image/png",
+        "sha256": "47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441"
+      },
+      "qho1d-eigenstate-distortion.png": {
+        "media_type": "image/png",
+        "sha256": "792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66"
+      },
+      "qho1d-eigenstates.png": {
+        "media_type": "image/png",
+        "sha256": "d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7"
+      }
+    },
+    "path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/rendering.json",
+    "sha256": "a4eec752da615071b61917bd338941e997f8dd8ce253319ad5dc7cdb41c5494b",
+    "technical_report": {
+      "README.md": "6dcf174904e9b7de302c36e4c5c18ff13e83aaca62ca663b9e4bece461b4b495",
+      "qho1d-diagnostics.png": "47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441",
+      "qho1d-eigenstate-distortion.png": "792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66",
+      "qho1d-eigenstates.png": "d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7",
+      "references.bib": "bf2abdb9d3814ef8076abc30182bd1305a202e2b06194f71847871ef452b353a",
+      "technical_report.pdf": "6289bdd96c873ef9c8bea9d6159fafa4790d2e8462510fa59391556bbed9bb78",
+      "technical_report.tex": "44ddb29a2077689b9ddddc5c2144515013315ad15586932c97fa642945a8f56d"
+    }
+  },
+  "runtime": {
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.1",
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6",
+    "scipy": "1.18.0"
+  },
+  "schema": "ksdft2effmass.qho1d-development-provenance.v1",
+  "sealed": false,
+  "verification": {
+    "comparison_count": 468,
+    "passed": true,
+    "path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3/verification/verification.json",
+    "route": "independent SciPy Hermite evaluation and direct NumPy construction of the centered-difference Dirichlet Hamiltonian",
+    "sha256": "c8f1fcc968a2c8e497d6bd9ea6e287506eb2f528bcaaa7ea523b937d3c86c7ac"
+  }
+}

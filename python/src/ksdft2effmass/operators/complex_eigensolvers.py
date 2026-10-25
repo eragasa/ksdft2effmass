@@ -6,6 +6,12 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from scipy.sparse import linalg as sparse_linalg  # type: ignore[import-untyped]
 
 from .complex_eigenpairs import (
@@ -13,12 +19,6 @@ from .complex_eigenpairs import (
     ComplexHermitianEigenpairResidualResult,
     ComplexHermitianEigenpairResult,
     HermitianEigenpairSelection,
-)
-from .quantities import (
-    ComplexMatrixQuantity,
-    ComplexSparseMatrixQuantity,
-    Unitless,
-    VectorQuantity,
 )
 from .sparse_hermiticity import ComplexSparseHermiticityResult
 

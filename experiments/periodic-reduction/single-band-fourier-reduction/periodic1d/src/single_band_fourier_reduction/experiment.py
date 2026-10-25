@@ -3,11 +3,6 @@
 from __future__ import annotations
 
 import numpy as np
-from ksdft2effmass.analysis.model_systems import (
-    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
-    PeriodicUniformGrid1D,
-    PlaneWaveFiberHamiltonian1DConstructor,
-)
 from ksdft2effmass.analysis.periodic_bands import (
     BandGapAnalyzer1D,
     BandSpectrumSamples1D,
@@ -16,6 +11,11 @@ from ksdft2effmass.analysis.periodic_bands import (
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionRequest1D,
     SingleBandHoppingReductionWorkflow1D,
+)
+from ksdft2effmass.model_systems import (
+    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
+    PeriodicUniformGrid1D,
+    PlaneWaveFiberHamiltonian1DConstructor,
 )
 from ksdft2effmass.operators import (
     MatrixQuantity,

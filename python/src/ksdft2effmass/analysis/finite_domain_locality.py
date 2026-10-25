@@ -6,10 +6,14 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import (
+    ModelSystemUnit,
+    PhysicalUnit,
+    Unitless,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import PhysicalUnit, Unitless
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     FiniteLatticeCoordinateResolver,
     FiniteLatticeShape,
     LatticeCoordinate,
@@ -17,7 +21,7 @@ from ksdft2effmass.solid_state import (
     ScalarFiniteLatticeOperatorCompatibilityResult,
 )
 
-type LocalityResidualUnit = PhysicalUnit | Unitless
+type LocalityResidualUnit = ModelSystemUnit
 """Closed unit union for sparse locality residuals."""
 
 

@@ -2,7 +2,10 @@
 
 from dataclasses import dataclass
 
-from ksdft2effmass.operators import ScalarQuantity, Unitless
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ...model.retained.stress import Periodic1DStressCampaignModel
 from ...stress_verification import (

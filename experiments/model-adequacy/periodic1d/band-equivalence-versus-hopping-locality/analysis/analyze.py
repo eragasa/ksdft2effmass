@@ -11,14 +11,13 @@ import math
 from pathlib import Path
 
 import numpy as np
-from scipy.special import j0  # type: ignore[import-untyped]
-
-from band_equivalence_hopping_locality import (
+from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.periodic1d import (
     SmoothBlochContinuumConvergenceDefinition,
     SmoothBlochContinuumConvergenceExperiment,
     SmoothBlochContinuumConvergenceThresholds,
     SmoothBlochContinuumConvergenceVerifier,
 )
+from scipy.special import j0  # type: ignore[import-untyped]
 
 ROOT = Path(__file__).resolve().parents[1]
 ANALYSIS = Path(__file__).resolve().parent

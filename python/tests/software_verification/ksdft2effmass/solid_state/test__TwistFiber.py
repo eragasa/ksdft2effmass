@@ -21,7 +21,7 @@ scientific validation, uncertainty quantification, or human acceptance.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistLift,
     BoundaryTwistReducer,
     LatticeDimension,

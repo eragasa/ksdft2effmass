@@ -19,7 +19,7 @@ This verifies the bounded transform contract, not gauge-equivalent observables.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistLift,
     BoundaryTwistTransformer,
     IntegralLatticeOperation,

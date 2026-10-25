@@ -18,9 +18,11 @@ from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 from scipy.special import mathieu_a, mathieu_b  # type: ignore[import-untyped]
-
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 from .isolated import Periodic1DIsolatedBandCampaignDefinition
 from .isolated_results import (

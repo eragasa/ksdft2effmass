@@ -18,9 +18,9 @@ This verifies data retention, not impurity-model adequacy or scientific validati
 """
 
 import pytest
+from projectkoios.physkit.units import Unitless
 
-from ksdft2effmass.operators import Unitless
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     LatticeCoordinate,
     LatticeDimension,
     LatticeDisplacement,

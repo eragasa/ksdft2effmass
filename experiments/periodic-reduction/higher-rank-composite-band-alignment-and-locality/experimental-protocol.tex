@@ -611,6 +611,12 @@ dispositions are:
       operator recovery, or independent reconstruction; the complete case is invalid.
 \end{itemize}
 
+Every numerically unresolved alignment or transport record carries exactly one stable
+\path{exception_code}: \path{backend-arithmetic-nonfinite},
+\path{backend-nonconvergence}, or \path{backend-validation-failed}. These codes classify
+the documented backend exception boundary; implementation-dependent exception text,
+tracebacks, and host paths are not scientific result fields.
+
 A0 is deterministic and carries \path{qualified} whenever the parent, frame, and
 represented-field integrity gates pass. A3 carries \path{qualified} only after its
 oracle gates pass. An A1 \path{aggregate-rank-deficient} disposition is a bounded result
@@ -953,6 +959,41 @@ sewing rather than infer it from array shape.
 
 \subsection{Periodic 1-D}
 
+The one-dimensional case uses the same sequential parallel-transport and distributed
+closure-correction convention as the Part~2 rank-two workflow, generalized to rank $r$
+and using the D1 maximum-rule rank cutoff. Let $Y_n=F_r(k_n)$ be the directly sampled
+analytic reference frame, set $\widetilde F_0=Y_0$, and append the direct endpoint
+$Y_M=F_r(+\pi)$ after the $M$ half-open samples. In increasing index order define
+\[
+ O_n=\widetilde F_n^\dagger Y_{n+1}=L_n\Sigma_nR_n^\dagger,
+ \qquad Q_n=R_nL_n^\dagger,
+ \qquad \widetilde F_{n+1}=Y_{n+1}Q_n .
+\]
+Equivalently, $Q_n$ is the unique full-rank right-unitary Procrustes transformation from
+$Y_{n+1}$ to $\widetilde F_n$. Every neighbor step and the endpoint step use the strict
+cutoff $\tau_{\mathrm{sv}}$ already selected for D1; no deficient null-space completion is
+permitted. Sequential transport stops at the first deficient required link, retains that
+evaluated deficient index and the exact ordered indices left unattempted, and does not
+infer rank outcomes for links whose transported source frame is consequently unavailable.
+
+Let the endpoint mismatch be $S=\widetilde F_0^\dagger\widetilde F_M$ and let the unitary
+polar factor of $S$ have the spectral representation
+$Z\operatorname{diag}(e^{i\gamma_1},\ldots,e^{i\gamma_r})Z^\dagger$ with principal phases
+in $(-\pi,\pi]$. The periodically closed frame is
+\[
+ F_n^{\mathrm{pt}}=\widetilde F_n
+ Z\operatorname{diag}\!\left(e^{-i(n/M)\gamma_1},\ldots,
+ e^{-i(n/M)\gamma_r}\right)Z^\dagger,
+ \qquad n=0,\ldots,M.
+\]
+The ordered closure product therefore follows the same increasing-index traversal rather
+than an independently chosen link orientation. Endpoint frame and projector sewing are
+evaluated directly from $F_r(-\pi)$, $F_r(+\pi)$, $P_r(-\pi)$, and $P_r(+\pi)$.
+Transport acts on the analytic reference frame and is shared by A0--A3; attacked-frame
+behavior remains in the separate alignment and recovery diagnostics. For P0 the exact
+reference frame is constant, but the complete transport route is still executed rather
+than replaced by a fabricated zero.
+
 The one-dimensional case has one neighbor-link family, one primitive reciprocal closure,
 and hopping blocks indexed by $R\in\mathbb Z$. It is the primary rank/depth isolation
 case because it introduces no plaquette channel. Closure eigenphases are stored as an
@@ -1290,6 +1331,41 @@ refinement change. Monotonicity is not assumed, and the finite ladder supports n
 asymptotic-in-rank or asymptotic-in-depth law. A failure to resolve an effect is not a
 negative theorem.
 
+\section{Support--error Pareto diagnostics}
+
+D1 adopts Part~2's sampled nondominance rule while keeping the higher-rank alignment
+families separate. For each technically qualified case, applicable channel $A$, and
+final construction mesh $M=2049$, every declared support $S$ defines the three-objective
+point
+\[
+ \mathcal J_{r,L,A}(S)=\left(
+ |\Omega_S|,
+ \varepsilon_{H,r,L,A}^{\mathrm{total}}(S),
+ \varepsilon_{E,r,L,A}^{\mathrm{total}}(S)
+ \right),
+\]
+where $|\Omega_S|=2S+1$, $\varepsilon_H^{\mathrm{total}}$ is the withheld-mesh maximum
+total Frobenius error divided by $\sqrt rE_{\mathrm{ref}}$, and
+$\varepsilon_E^{\mathrm{total}}$ is the withheld-mesh maximum total ordered-spectrum
+error divided by $E_{\mathrm{ref}}$. Lower values of all three components are preferred.
+A sampled support is Pareto efficient exactly when no other declared support in the same
+case and channel weakly improves all three components and strictly improves at least one.
+
+Channels are never pooled into one Pareto set: A0, A1, A2, and A3 are distinct feasible
+alignment families rather than scale samples of one family. A1 has no Pareto record
+when its aggregate alignment is rank deficient. A2 and A3 Pareto records are explicitly
+control diagnostics; in particular, the known-inverse A3 oracle is not an attainable
+fitted decision and cannot support a practical-selection claim. Pareto membership uses
+only technically qualified final-mesh values, selects no preferred support, applies no
+acceptance tolerance, and asserts neither interpolation between supports nor a continuum
+front. The producer retains all objective triples and Boolean membership values, and
+the independent verifier reconstructs the dominance relation directly.
+
+This diagnostic is additional to, not a replacement for, the fixed $S=2$ claim-resolution
+rules, complete support ledger, or $1025\rightarrow2049$ refinement checks. A
+componentwise envelope assembled from different supports is not an attainable decision
+and is never serialized as a Pareto representative.
+
 \section{Scaling study}
 
 The selected v1 matrix contains four rank sweeps at every fixed depth and four depth
@@ -1467,7 +1543,8 @@ together with signed margins to the analytic bounds and an explicit
 \item \textbf{\path{endpoint_and_transport}.}
 Three mesh records ordered $513,1025,2049$, each containing endpoint
 frame/projector/sewing defects, neighbor and closure singular-value extrema, applied
-cutoffs and margins, deficient-link indices, link-unitary extrema, primitive closure
+cutoffs and margins, deficient-link indices, unattempted-link indices, link-unitary
+extrema, primitive closure
 defect, closure-unitarity defect, and unordered closure eigenphases.
 
 \item \textbf{\path{alignment_selection}.}
@@ -1490,6 +1567,12 @@ records ordered A0--A3. Sewing and transport values are referenced from the matc
 For every mandatory block or scalar diagnostic, the $M=1025$ value, $M=2049$ value,
 absolute change, relative change under the frozen denominator, applied absolute and
 relative thresholds, signed margin, and pass/fail status.
+
+\item \textbf{\path{pareto_diagnostics}.}
+For each applicable channel, the final-mesh support order, retained-block counts,
+normalized total operator and ordered-spectrum objectives, Boolean sampled-Pareto
+membership, and nondominated count. Channel feasible sets remain separate, and A2/A3
+records carry their control-only role.
 
 \item \textbf{\path{claim_resolution}.}
 The locality-extension-at-$S=2$ and global-alignment-residual operands, thresholds,
@@ -1571,8 +1654,8 @@ support order. Its leading key columns are \path{case_id}, \path{rank}, \path{de
 \path{mesh_size}, \path{channel}, and \path{support}. They are followed by technical
 qualification, alignment status, downstream applicability, raw and normalized $W/N/L$,
 interpolation/truncation/total operator and spectral summaries, Parseval and error-
-decomposition defects, perturbation-bound violations and ratios, refinement status, and
-claim-resolution fields. Inapplicable numeric cells are empty; zero is reserved for an
+decomposition defects, perturbation-bound violations and ratios, final-mesh Pareto
+membership when applicable, refinement status, and claim-resolution fields. Inapplicable numeric cells are empty; zero is reserved for an
 applicable calculated zero. Numeric text uses a round-trip-safe decimal representation,
 line endings are LF, and CSV values must reconstruct the corresponding JSON scalars
 exactly.

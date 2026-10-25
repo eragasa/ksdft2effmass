@@ -5,8 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ModelSystemUnitConverter, ScalarQuantity
 
-from ksdft2effmass.operators import MODEL_SYSTEM_UNIT_CONVERTER, ScalarQuantity
 from ksdft2effmass.periodic1d.model import Periodic1DBlockHamiltonianToyModel
 from ksdft2effmass.periodic1d.multiband_alignment import (
     Periodic1DMultibandAlignmentCalculationDefinition,
@@ -150,7 +150,7 @@ class Periodic1DConstrainedAdmissibleSetCalculationDefinition:
         parent_unit = self.multiband_baseline.parent_model.hopping_model.hopping_blocks[
             0
         ].unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.loss_energy_scale.unit, parent_unit
         ):
             raise ValueError("loss_energy_scale must use parent energy dimensions")

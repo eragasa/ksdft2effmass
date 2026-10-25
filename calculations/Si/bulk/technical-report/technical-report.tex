@@ -1,0 +1,322 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\title{Bulk-Silicon Parent Qualification and\\Joint-Reduction Technical Report}
+\author{Project Koios}
+\date{Draft calculation report}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report defines the calculation boundary for a prospective
+scalar-relativistic, non-spin-polarized, non-spin--orbit-coupled bulk-silicon
+parent, a compatible ten-spatial-orbital Wannier bridge, and a finite-support
+local-model hierarchy.  Existing evidence is limited to an audited provisional
+direct bootstrap.  No production parent, qualified Wannier representation,
+joint-fidelity result, or material-validation claim is established.
+\end{abstract}
+
+\section{Evidence status}
+
+This is a publication-independent calculation report.  It describes a prospective
+material calculation with an audited provisional bootstrap.  It is not a completed
+production calculation, validated silicon Hamiltonian, qualified Wannier
+representation, model-selection result, or scientific validation.  No new scientific
+calculator was executed for this report.
+
+\section{Scientific objective}
+
+The target is a pristine bulk-silicon parent represented consistently at three levels:
+\begin{enumerate}
+  \item a first-principles plane-wave oracle $O_A(\mathbf{k})$;
+  \item a retained ten-spatial-orbital Wannier bridge $O_B(\mathbf{k})$; and
+  \item a finite-support $sp^3s^*$ local-model hierarchy
+    $O_C^{U,S}(\mathbf{k})$.
+\end{enumerate}
+
+For retained frame $Q(\mathbf{k})$, alignment $U(\mathbf{k})$, support $S$, and
+real-space blocks $T_U(\mathbf{R})$, the intended relations are
+\begin{align}
+  O_B(\mathbf{k})
+    &= Q(\mathbf{k})^\dagger O_A(\mathbf{k})Q(\mathbf{k}), \\
+  O_C^{U,S}(\mathbf{k})
+    &= \sum_{\mathbf{R}\in S}
+       e^{i\mathbf{k}\cdot\mathbf{R}}T_U(\mathbf{R}).
+\end{align}
+A candidate is adequate only if the same model, support, alignment, basis, and energy
+reference satisfy both declared spectral and aligned-operator tolerances.  Visual band
+agreement alone is insufficient.
+
+\section{External empirical development control}
+
+The calculation-local Vogl $sp^3s^*$ control follows the empirical model of
+Vogl, Hjalmarson, and Dow~\cite{Vogl1983} and contains the accepted complete Table~1
+transcription: 16 compounds, 13 parameters per compound, and energies in eV.  An
+independent implementation constructs the nearest-neighbor, spinless, non-SOC ten-band
+Bloch Hamiltonian in the ordered anion--cation basis
+$(s,p_x,p_y,p_z,s^*)_a\oplus(s,p_x,p_y,p_z,s^*)_c$.  Its reduced Cartesian wavevector
+uses $\mathbf{k}=(2\pi/a_L)\mathbf{q}$.
+
+Software and analytic checks cover the table inventory, silicon parameter row,
+structure factors at symmetry points, exact Hermitian assembly, the silicon $\Gamma$
+spectrum, reciprocal periodicity, and invalid-input rejection.  This external empirical
+control is not derived from the provisional first-principles bootstrap or a Wannier
+bridge and does not freeze the candidate inventory, establish model adequacy, or qualify
+a material result.
+
+\section{Existing evidence}
+
+The historical direct bootstrap evaluated six wavefunction-cutoff candidates and four
+reciprocal-mesh candidates, with exact reuse of the C48 branch as logical K8.  This
+produced nine unique self-consistent-field (SCF) and nine linked diagnostic
+non-self-consistent-field (NSCF) executions.  The compact audit recomputed the required
+identities and observables and found the retained matrix complete and internally
+consistent.
+
+Several adjacent comparisons meet the frozen finite-setting criteria.  Human
+disposition selected C48/K8---48/192~Ry with a shifted $8\times8\times8$ mesh---as a
+provisional finite-setting parameter pair.  This establishes neither an accepted
+production setting nor an infinite-basis error bound.  The provisional geometry is not
+an accepted equilibrium lattice, the three diagnostic momenta do not locate the
+conduction valley, and printed fixed-point bands do not converge an effective mass.
+
+Every invocation also emitted the same IEEE flag report.  Instrumented diagnoses
+localized one event to external OpenCL discovery during startup and classified a
+separate cross-BLAS, cross-MPI divide-by-zero below \texttt{ZHEGVX} during
+initial-wavefunction subspace diagonalization.  The effect on retained observables and
+the sources of the remaining reported flag classes are unresolved.  Successful exit
+and \texttt{JOB DONE.} do not establish harmlessness.  A mixed cutoff--mesh interaction
+check implied by C48/K8 would be new protected execution.
+
+Exact values, hashes, criteria, and warning investigations remain at the historical
+locations catalogued in
+\path{calculations/Si/bulk/evidence-crosswalk.md}.  They are referenced rather than
+copied or relabelled.
+
+\section{Required parent qualification}
+
+The production parent must freeze the physical branch, lattice, PBE/ONCV approximation,
+Quantum ESPRESSO executable, pseudopotential identity, occupations, solver settings,
+cutoff and mesh inventory, compact/native artifact boundary, and warning policy before
+execution.  Qualification must keep energy, stress, fixed-point bands, gaps, valley
+identity, and curvature requirements distinct.
+
+For each retained observable $q$, finite-setting agreement
+\begin{equation}
+  \lvert q_j-q_{j+1}\rvert \leq \tau_q
+\end{equation}
+demonstrates only stability across the tested pair.  It does not imply a bound on
+$\lvert q_j-q_\infty\rvert$ without an additional reviewed error argument.
+
+\section{Required retained-space bridge}
+
+The Wannier bridge must retain projections, windows, centers, spreads, convergence
+status, reciprocal sewing, symmetry and orbital semantics, energy reference, and direct
+parent comparisons.  At crossings or degeneracies, comparison must use spectral
+clusters or projectors rather than undocumented individual eigenvector labels.
+
+Wannier90 may produce a candidate witness.  Wannier90 convergence is not by itself a
+proof of the bridge contract.  The tutorial-scale silicon Wannier extraction remains an
+integration precursor and is excluded from the production admissible sets.
+
+\section{Joint spectral/operator decision}
+
+For a frozen finite candidate inventory $D$, define
+\begin{equation}
+  F(\tau_E,\tau_O)
+  = \left\{d\in D:
+      L_E(d)\leq\tau_E\ \land\ L_O(d)\leq\tau_O
+    \right\}.
+\end{equation}
+If this set is nonempty, the intended finite decision is
+\begin{equation}
+  C^*(\tau_E,\tau_O)
+  = \min_{d\in F(\tau_E,\tau_O)} C(d).
+\end{equation}
+The same $d$ must determine the model, support, alignment, and energy reference in both
+loss channels.  Separate spectral and operator optima do not form a common witness.
+
+The decision must preserve distinct numerical, subspace, alignment, interpolation, and
+support-truncation error channels.  It must report one of the following:
+\begin{itemize}
+  \item a common witness and the smallest adequate declared model;
+  \item a reviewed separation result for an exhaustively evaluated finite inventory;
+    or
+  \item an explicit inconclusive outcome.
+\end{itemize}
+Failure of a local optimizer does not prove infeasibility.
+
+\section{Withheld analysis and residual attribution}
+
+Construction and withheld momentum sets must be disjoint by contract.  Withheld
+analysis must report band, gap, valley, effective-mass, projector, represented-operator,
+and locality channels separately.  Stable residuals may be attributed by onsite or
+hopping block, orbital semantics, symmetry channel, and support shell only when the
+representation and alignment contracts permit that interpretation.
+
+Sensitivity analysis must include every prospectively declared parent, Wannier,
+stencil, alignment-map resolution, and threshold variation.  Post-hoc sensitivity does
+not retroactively justify thresholds.
+
+\section{Verification and retention}
+
+A completed calculation requires independent verification of sources, schemas,
+identities, finite candidate coverage, objective reconstruction, threshold evaluation,
+and withheld results.  Generated plots must consume verified records.  A retained
+package must be no-overwrite and checksum-bound.
+
+Formal proofs or certificates may establish exact implications for finite definitions
+and accepted interval premises.  They do not certify Quantum ESPRESSO or Wannier90
+execution, JSON, binary64 rounding, pseudopotential transferability, or physical
+validation.
+
+\section{Current gate and next decision}
+
+The active successor disposition permits explicitly labelled downstream development
+and exploratory analysis using provisional C48/K8 evidence.  Production-parent and
+publication-grade acceptance remain pending an observable-level comparison through an
+independently identified established QE/toolchain path and the absent mixed
+cutoff--mesh interaction check.  Capturing and replaying the exact first
+$8\times8$ subspace Hamiltonian and overlap matrices remains an optional focused
+diagnosis rather than a prerequisite for all downstream work.  Every new QE invocation
+requires separate authorization.  The detailed gates are recorded in
+\path{calculations/Si/bulk/development-plan.md} and the active decision in
+\path{calculations/Si/bulk/provisional-use-disposition.md}.
+
+\section{Nonclaims}
+
+This report does not establish production convergence, an infinite-basis result,
+experimental agreement, pseudopotential transferability, a qualified Wannier model,
+an adequate tight-binding model, or scientific validation.  It authorizes no Quantum
+ESPRESSO or Wannier90 execution, evidence promotion, publication, or release.
+
+\appendix
+\section{Supplemental material}
+
+\subsection{Technical note: Vogl-control implementation provenance}
+
+The scientific definition and parameter authority for the empirical control are the
+published Vogl model and its Table~1~\cite{Vogl1983}.  A separate development lineage
+was inspected for comparison: a public zinc-blende LCAO Gist by
+Mahdisadjadi~\cite{MahdisadjadiGist} and the 2026
+\texttt{SiliconLCAO\_4sDOS-v3} notebook attributed within the notebook to Simon
+Phillpot~\cite{Phillpot2026}.  The notebook states that it began from the Gist, corrected
+phase factors, and added the $s^*$ orbitals, with modifications dated 29~April through
+11~May 2026.
+
+The calculation-local module
+\path{vogl1983_lcao_sp3sstar/model.py} was written independently from the published
+model equations and the accepted Table~1 transcription.  No Gist or notebook source code
+was copied.  Their role is limited to development provenance and numerical cross-checking;
+they do not supersede the primary source.  The notebook agreed with 203 of the 208 Table~1
+cells at four-decimal numerical normalization.  The five disagreements were resolved in
+favor of the printed Vogl values.  Neither the Gist nor the notebook exposed an explicit
+license in the inspected material, which is an additional reason to keep their role
+separate from the maintained implementation.
+
+\subsection{Technical note: LCAO and tetrahedral \texorpdfstring{$sp^3$}{sp3} construction}
+
+This summary follows the tight-binding treatments of Harrison, Chadi and Cohen, and
+Vogl et al.~\cite{Harrison1980,ChadiCohen1975,Vogl1983}.  At one site, begin with the
+orthonormal orbitals $\lvert s\rangle$, $\lvert p_x\rangle$, $\lvert p_y\rangle$, and
+$\lvert p_z\rangle$,
+\begin{equation}
+  \langle \alpha\mid\beta\rangle=\delta_{\alpha\beta},
+  \qquad \alpha,\beta\in\{s,p_x,p_y,p_z\}.
+\end{equation}
+The four $sp^3$ hybrid orbitals are formed by combining the $s$, $p_x$, $p_y$,
+and $p_z$ orbitals with equal magnitudes but different sign patterns:
+\begin{equation}
+  \begin{pmatrix}
+    \lvert h_1\rangle \\
+    \lvert h_2\rangle \\
+    \lvert h_3\rangle \\
+    \lvert h_4\rangle
+  \end{pmatrix}
+  = \frac12
+  \underbrace{
+  \begin{pmatrix}
+     1 &  1 &  1 &  1 \\
+     1 &  1 & -1 & -1 \\
+     1 & -1 &  1 & -1 \\
+     1 & -1 & -1 &  1
+  \end{pmatrix}}_{H}
+  \begin{pmatrix}
+    \lvert s\rangle \\
+    \lvert p_x\rangle \\
+    \lvert p_y\rangle \\
+    \lvert p_z\rangle
+  \end{pmatrix}.
+\end{equation}
+The sign matrix $H$ is a $4\times4$ Hadamard matrix.  Its rows are mutually
+orthogonal and satisfy
+\begin{equation}
+  HH^{\mathsf{T}}=4I.
+\end{equation}
+Consequently, $H/2$ defines an orthogonal change of basis that preserves norms and
+inner products.  It transforms the orthonormal atomic-orbital basis into four
+orthonormal hybrid orbitals, $\langle h_m\mid h_n\rangle=\delta_{mn}$.  Each row's sign
+pattern selects one of the $(1,1,1)$, $(1,\bar{1},\bar{1})$,
+$(\bar{1},1,\bar{1})$, or $(\bar{1},\bar{1},1)$ tetrahedral bond directions.  Because
+this normalized Hadamard transform is symmetric and orthogonal, the same matrix also
+recovers the original $s$ and $p$ orbitals from the hybrid basis.
+
+For a periodic solid, form Bloch sums of localized orbitals,
+\begin{equation}
+  \lvert \alpha b\mathbf{k}\rangle
+  = \frac{1}{\sqrt{N}}\sum_{\mathbf{R}}
+    e^{i\mathbf{k}\cdot(\mathbf{R}+\boldsymbol{\nu}_b)}
+    \lvert \alpha b\mathbf{R}\rangle,
+\end{equation}
+where $b$ labels the anion or cation sublattice.  Translation therefore enters a
+Hamiltonian matrix element through a phase $e^{i\mathbf{k}\cdot\mathbf{r}}$; reversing
+the bond gives the complex-conjugate phase required by Hermiticity.  The LCAO
+approximation represents each symmetry-distinct localized matrix element by a constant:
+onsite $E_s$ and $E_p$, and nearest-neighbor $V_{ss}$, $V_{sp}$, $V_{xx}$, and
+$V_{xy}$.  In a heteropolar crystal, anion and cation onsite energies differ, and
+$V(s_a,p_c)$ and $V(s_c,p_a)$ are separate directional parameters.  Onsite $s$--$p$
+matrix elements vanish by the site symmetry of the orthogonal basis; intersite $s$--$p$
+entries acquire signs from the odd parity of the $p$ orbital.
+
+For the four nearest-neighbor displacements
+\begin{equation}
+  \mathbf{r}_{1,2,3,4}
+  = \frac{a_L}{4}
+    \bigl\{(1,1,1),(1,-1,-1),(-1,1,-1),(-1,-1,1)\bigr\},
+\end{equation}
+write $e_n=e^{i\mathbf{k}\cdot\mathbf{r}_n}$.  The four structure factors are
+\begin{align}
+  g_0 &= \tfrac14(e_1+e_2+e_3+e_4), &
+  g_1 &= \tfrac14(e_1+e_2-e_3-e_4), \\
+  g_2 &= \tfrac14(e_1-e_2+e_3-e_4), &
+  g_3 &= \tfrac14(e_1-e_2-e_3+e_4).
+\end{align}
+Thus representative Bloch-matrix entries are $g_0V(s,s)$ for $s$--$s$ coupling and
+$g_jV(s_a,p_{j,c})$ for $s$--$p_j$ coupling, with the reverse entries fixed by the
+Hermitian conjugate and the orbital-direction sign convention.  The $sp^3$ construction
+produces an $8\times8$ Hamiltonian for two four-orbital sites.  Vogl's $sp^3s^*$ model
+adds one excited $s^*$ orbital per site and only the declared nearest-neighbor
+$s^*$--$p$ couplings, producing the maintained $10\times10$ block form
+\begin{equation}
+  H(\mathbf{k})=
+  \begin{pmatrix}
+    D_a & T(\mathbf{k}) \\
+    T(\mathbf{k})^\dagger & D_c
+  \end{pmatrix},
+  \qquad
+  D_b=\operatorname{diag}
+  \bigl(E(s,b),E(p,b),E(p,b),E(p,b),E(s^*,b)\bigr).
+\end{equation}
+The Table~1 transfer parameters determine $T(\mathbf{k})$; the $s^*$--$s$ and
+$s^*$--$s^*$ transfers are structural zeros in this model.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

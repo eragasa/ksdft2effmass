@@ -5,14 +5,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.operators import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
+from projectkoios.physkit.units import (
     MatrixQuantity,
+    ModelSystemUnitConverter,
     ScalarQuantity,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+
+from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -31,14 +31,14 @@ class BandSpectrumSamples1D:
             raise TypeError("reciprocal_period must be ScalarQuantity")
         if self.reciprocal_period.magnitude <= 0.0:
             raise ValueError("reciprocal_period must be positive")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.coordinates.unit, self.reciprocal_period.unit
         ):
             raise ValueError("coordinates and reciprocal_period must be compatible")
         object.__setattr__(
             self,
             "coordinates",
-            MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+            ModelSystemUnitConverter.convert_vector(
                 self.coordinates, self.reciprocal_period.unit
             ),
         )
@@ -236,7 +236,7 @@ class BandApproximationErrorAnalyzer1D:
             )
         if candidate.matrix_dimension != target.band_count:
             raise ValueError("candidate dimension must equal target band count")
-        coordinates = MODEL_SYSTEM_UNIT_CONVERTER.convert_vector(
+        coordinates = ModelSystemUnitConverter.convert_vector(
             candidate.coordinates, target.reciprocal_period.unit
         )
         if coordinates.magnitude.shape != target.coordinates.magnitude.shape:
@@ -247,11 +247,11 @@ class BandApproximationErrorAnalyzer1D:
         ):
             raise ValueError("candidate and target coordinates do not agree")
         candidate_unit = candidate.matrices[0].unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             candidate_unit, target.eigenvalues.unit
         ):
             raise ValueError("candidate and target energy units must be compatible")
-        factor = MODEL_SYSTEM_UNIT_CONVERTER.conversion_factor(
+        factor = ModelSystemUnitConverter.conversion_factor(
             candidate_unit, target.eigenvalues.unit
         )
         values = np.asarray(

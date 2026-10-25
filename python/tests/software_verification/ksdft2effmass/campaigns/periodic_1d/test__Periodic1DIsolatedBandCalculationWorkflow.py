@@ -26,14 +26,17 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DIsolatedBandCalculationRequest,
     Periodic1DIsolatedBandCalculationWorkflow,
     Periodic1DIsolatedBandCampaignJsonSerializer,
     Periodic1DIsolatedBandResultJsonSerializer,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DIsolatedBandCalculationWorkflow

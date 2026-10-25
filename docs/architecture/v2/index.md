@@ -18,7 +18,7 @@ flowchart TB
     sampling["ksdft2effmass.electronic_structure.sampling"]
     ksdft["ksdft2effmass.ksdft"]
     operators["ksdft2effmass.operators"]
-    solid_state["ksdft2effmass.solid_state"]
+    solid_state["ksdft2effmass.solidstate"]
     analysis["ksdft2effmass.analysis"]
 
     application --> persistence
@@ -68,7 +68,7 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | LAMMPS integration | `ksdft2effmass.integration.lammps` (prospective) | Owns LAMMPS-native contracts and adapters after calculator-independent QoI and atomistic requirements are defined; no LAMMPS Simulation Task is implemented |
 | Structures and scientific observations | `ksdft2effmass.structures.periodic`, `.electronic_structure`, `.ksdft` | Owns neutral periodic geometry, electronic sampling, and Kohn–Sham observation invariants |
 | Represented operators | `ksdft2effmass.operators` | Owns finite represented-operator records, serialization, exact compatibility, and narrowly fixed-representation operations |
-| Solid-state lattice models | `ksdft2effmass.solid_state` | Owns dimension-specific direct, reciprocal, Bravais, finite-lattice, boundary-twist, scalar-hopping, localized-perturbation, and integral-operation composition contracts |
+| Solid-state lattice models | `ksdft2effmass.solidstate` | Owns dimension-specific direct, reciprocal, Bravais, finite-lattice, boundary-twist, scalar-hopping, localized-perturbation, and integral-operation composition contracts |
 | Scientific analysis | `ksdft2effmass.analysis` | Owns higher-level deterministic scientific algorithms, tolerances, numerical policy, and findings; consumes but does not redefine the represented-operator kernel |
 | Experiment composition | `experiments/` | Owns publication-independent concrete models, protocols, schemas, verification, evidence policy, and interpretation outside the installed wheel |
 

@@ -19,7 +19,7 @@ This verifies represented shape compatibility, not Hamiltonian equivalence.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     FiniteLatticeShape,
     IntegralLatticeOperation,
     LatticeDimension,

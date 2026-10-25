@@ -19,7 +19,7 @@ This verifies integer quotient mechanics, not boundary-phase physics.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     FiniteLatticeShape,
     LatticeCoordinate,
     LatticeDimension,

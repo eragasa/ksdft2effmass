@@ -27,7 +27,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.research_monograph.citation_snapshot import (
     ManuscriptCitationOrigin,
     ManuscriptCitationPriority,
     ManuscriptCitationSnapshot,

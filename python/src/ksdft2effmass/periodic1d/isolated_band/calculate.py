@@ -3,6 +3,13 @@
 from __future__ import annotations
 
 import numpy as np
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
@@ -14,23 +21,16 @@ from ksdft2effmass.analysis.hopping_fits import (
     BlockHoppingLeastSquaresFitter1D,
     BlockHoppingModelComparator1D,
 )
-from ksdft2effmass.analysis.model_systems import (
-    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
-    PeriodicUniformGrid1D,
-    PlaneWaveFiberHamiltonian1DConstructor,
-)
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandSpectrumSamples1D,
 )
-from ksdft2effmass.operators import (
-    ComplexMatrixQuantity,
-    MatrixQuantity,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
+from ksdft2effmass.model_systems.periodic_1d import (
+    PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
+    PeriodicUniformGrid1D,
+    PlaneWaveFiberHamiltonian1DConstructor,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingInterpolator1D,
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,

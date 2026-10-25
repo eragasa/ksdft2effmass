@@ -23,8 +23,10 @@ from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
-
-from ksdft2effmass.operators import ScalarQuantity, Unitless
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from .composite import Periodic1DCompositeCampaignDefinition
 from .composite_results import Periodic1DCompositeBandGroupResult

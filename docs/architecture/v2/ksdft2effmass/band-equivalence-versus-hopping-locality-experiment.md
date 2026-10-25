@@ -32,8 +32,8 @@ Fourier convention, thresholds, convergence controls, evidence correlation, and
 interpretation.
 
 The exact live owner dependencies are
-`projectkoios-optimization@d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` and
-`projectkoios-physkit@7157dcedd0d220673d443c1c025e35a6fd1ffa7a`.
+`projectkoios-optimization@3cd32ea8985a855bcdbaffbf89af95e970b3bf14` and
+`projectkoios-physkit@2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`.
 `PeriodicHarmonicMaximizer` owns exact continuous harmonic maximization, and
 `ComplexUnitaryProcrustesSolver` owns each full-rank source-to-target pairwise frame
 alignment without null-space completion for deficient overlaps. The Numerics

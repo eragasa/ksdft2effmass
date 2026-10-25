@@ -21,13 +21,13 @@ scientific validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
-from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.operators import (
-    ComplexSparseHermiticityResult,
+from projectkoios.physkit.units import (
     ComplexSparseMatrixQuantity,
     PhysicalUnit,
 )
+from scipy import sparse  # type: ignore[import-untyped]
+
+from ksdft2effmass.operators import ComplexSparseHermiticityResult
 
 pytestmark = pytest.mark.software_verification
 SUT = ComplexSparseHermiticityResult

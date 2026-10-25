@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "modules": [
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dAnalyzer"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dComparator__analytical_pullback.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dComparator"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__DirichletBoundaryCondition.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DirichletBoundaryCondition"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__DirichletInterval.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DirichletInterval"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dAnalytical.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dAnalytical"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dComparator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dComparator"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dComparisonRequest.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dComparisonRequest"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dComparisonResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dComparisonResult"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dDirectScripts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dDirectScripts"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dFiniteDifference.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dFiniteDifference"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dLadderOperators.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dLadderOperators"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dNondimensionalizer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dNondimensionalizer"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dParameters.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dParameters"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__MatrixQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "MatrixQuantity"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__PhysicalUnit.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PhysicalUnit"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__PintUnitConverter.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "PintUnitConverter"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__ScalarQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ScalarQuantity"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__UniformCartesianGrid1D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "UniformCartesianGrid1D"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__UniformCartesianGrid2D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "UniformCartesianGrid2D"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__UniformCartesianGrid3D.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "UniformCartesianGrid3D"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__Unitless.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Unitless"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/test__VectorQuantity.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "VectorQuantity"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dVerifier"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dVisualizer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dVisualizer"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/study/test__Qho1dStudyEvaluator.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dStudyEvaluator"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/study/test__Qho1dStudyInputDeserializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dStudyInputDeserializer"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/study/test__Qho1dStudyResultSerializer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1dStudyResultSerializer"
+    }
+  ]
+}

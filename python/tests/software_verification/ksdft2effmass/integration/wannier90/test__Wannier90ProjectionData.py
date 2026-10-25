@@ -19,9 +19,12 @@ These checks do not execute Wannier90 or validate a physical projection choice.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.integration.wannier90 import Wannier90ProjectionData
-from ksdft2effmass.operators import ComplexMatrixQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Wannier90ProjectionData

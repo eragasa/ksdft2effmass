@@ -7,6 +7,7 @@ public compatibility contract.
 .. toctree::
    :maxdepth: 1
 
+   hamiltonian
    operators
    solid-state
    analysis

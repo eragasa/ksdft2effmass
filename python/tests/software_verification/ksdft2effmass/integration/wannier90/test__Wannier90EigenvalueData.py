@@ -19,9 +19,12 @@ These checks do not execute Wannier90 or establish numerical or scientific valid
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    PhysicalUnit,
+)
 
 from ksdft2effmass.integration.wannier90 import Wannier90EigenvalueData
-from ksdft2effmass.operators import MatrixQuantity, PhysicalUnit
 
 pytestmark = pytest.mark.software_verification
 SUT = Wannier90EigenvalueData

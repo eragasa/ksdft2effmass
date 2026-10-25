@@ -21,13 +21,16 @@ validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    PhysicalUnit,
+)
 
 from ksdft2effmass.integration.wannier90 import (
     Wannier90EigenvalueData,
     Wannier90EigenvalueFileWriter,
     Wannier90EigenvalueParser,
 )
-from ksdft2effmass.operators import MatrixQuantity, PhysicalUnit
 
 pytestmark = pytest.mark.software_verification
 SUT = Wannier90EigenvalueFileWriter

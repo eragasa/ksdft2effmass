@@ -1,4 +1,4 @@
-# `ksdft2effmass.solid_state` package
+# `ksdft2effmass.solidstate` package
 
 The human-selected solid-state aggregate owns reusable composition contracts for
 reduced finite lattice models. The initial implemented slice contains:

@@ -5,8 +5,11 @@ from __future__ import annotations
 import json
 
 import numpy as np
-
-from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
 
 class Periodic1DCampaignJsonDecoder:

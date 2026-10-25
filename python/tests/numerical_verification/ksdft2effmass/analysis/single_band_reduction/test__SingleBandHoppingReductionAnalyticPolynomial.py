@@ -4,6 +4,12 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
 from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
 from ksdft2effmass.analysis.single_band_reduction import (
@@ -11,13 +17,7 @@ from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionTolerances1D,
     SingleBandHoppingReductionWorkflow1D,
 )
-from ksdft2effmass.operators import (
-    MatrixQuantity,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
-)
-from ksdft2effmass.solid_state import CenteredUniformReciprocalMesh1D
+from ksdft2effmass.solidstate import CenteredUniformReciprocalMesh1D
 
 pytestmark = pytest.mark.numerical_verification
 

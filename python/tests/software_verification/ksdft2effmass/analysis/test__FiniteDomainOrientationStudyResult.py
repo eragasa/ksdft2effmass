@@ -21,13 +21,13 @@ campaign execution, or human acceptance.
 """
 
 import pytest
+from projectkoios.physkit.units import PhysicalUnit
 
 from ksdft2effmass.analysis.finite_domains import (
     FiniteDomainOrientationStudyResult,
     FiniteDomainScalarMetric,
 )
-from ksdft2effmass.operators import PhysicalUnit
-from ksdft2effmass.solid_state import FiniteLatticeShape, LatticeDimension
+from ksdft2effmass.solidstate import FiniteLatticeShape, LatticeDimension
 
 pytestmark = pytest.mark.software_verification
 SUT = FiniteDomainOrientationStudyResult

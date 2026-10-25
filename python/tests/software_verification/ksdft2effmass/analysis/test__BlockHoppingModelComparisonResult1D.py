@@ -19,15 +19,15 @@ Result consistency does not establish scientific equivalence.
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.analysis.hopping_fits import BlockHoppingModelComparisonResult1D
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+
+from ksdft2effmass.analysis.hopping_fits import BlockHoppingModelComparisonResult1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 pytestmark = pytest.mark.software_verification
 SUT = BlockHoppingModelComparisonResult1D

@@ -15,6 +15,8 @@ from projectkoios.numerics.finite_periodic.numpy.transforms import (
     NumpyCenteredUniformMeshMatrixFourierTransformer,
 )
 
+from ksdft2effmass.analysis.pareto import SampledParetoClassifier
+
 from .alignment import restricted_alignment
 from .calculation import (
     _coordinate_axis,
@@ -223,34 +225,6 @@ class ShellScaleDecisionLandscapeResult:
             raise ValueError("status must be a nonempty built-in str")
 
 
-def _dominates(
-    candidate: tuple[int, float, float],
-    point: tuple[int, float, float],
-) -> bool:
-    return (
-        candidate[0] <= point[0]
-        and candidate[1] <= point[1]
-        and candidate[2] <= point[2]
-        and (
-            candidate[0] < point[0]
-            or candidate[1] < point[1]
-            or candidate[2] < point[2]
-        )
-    )
-
-
-def _pareto_efficient_mask(
-    objectives: tuple[tuple[int, float, float], ...],
-) -> tuple[bool, ...]:
-    return tuple(
-        not any(
-            other_index != point_index and _dominates(other, point)
-            for other_index, other in enumerate(objectives)
-        )
-        for point_index, point in enumerate(objectives)
-    )
-
-
 class ShellScaleDecisionLandscapeCalculator:
     """Calculate sampled rank-two shell--scale objective landscapes."""
 
@@ -399,8 +373,10 @@ class ShellScaleDecisionLandscapeCalculator:
                         channels.maximum_band,
                     )
                 )
-        objectives = tuple((point[1], point[4], point[5]) for point in raw_points)
-        efficient = _pareto_efficient_mask(objectives)
+        objectives = tuple(
+            (float(point[1]), point[4], point[5]) for point in raw_points
+        )
+        efficient = SampledParetoClassifier().execute(objectives)
         points = tuple(
             ShellScaleDecisionPoint(
                 shell_index=point[0],

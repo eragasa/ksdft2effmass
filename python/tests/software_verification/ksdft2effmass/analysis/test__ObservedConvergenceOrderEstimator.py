@@ -20,9 +20,12 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    Unitless,
+    VectorQuantity,
+)
 
 from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
-from ksdft2effmass.operators import Unitless, VectorQuantity
 
 pytestmark = pytest.mark.software_verification
 SUT = ObservedConvergenceOrderEstimator

@@ -20,7 +20,7 @@ These authored phase values do not establish topology, polarization, or validati
 import numpy as np
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     WilsonCenterConvention1D,
     WilsonLoopSpectrum1D,
 )

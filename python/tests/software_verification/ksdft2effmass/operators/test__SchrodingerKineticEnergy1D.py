@@ -22,14 +22,16 @@ scientific validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass import operators
-from ksdft2effmass.analysis.model_systems import (
+from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
     DirichletInterval,
-    ScalarQuantity,
     UniformCartesianGrid1D,
-    Unitless,
 )
 from ksdft2effmass.operators import (
     SchrodingerKineticEnergy1D,

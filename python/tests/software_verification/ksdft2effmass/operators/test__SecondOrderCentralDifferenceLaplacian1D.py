@@ -22,18 +22,18 @@ Laplacian, scientific validation, uncertainty quantification, or human acceptanc
 
 import numpy as np
 import pytest
-
-from ksdft2effmass import operators
-from ksdft2effmass.analysis.model_systems import (
-    DirichletBoundaryCondition,
-    DirichletInterval,
+from projectkoios.physkit.units import (
     ScalarQuantity,
-    UniformCartesianGrid1D,
     Unitless,
 )
-from ksdft2effmass.operators import (
-    SecondOrderCentralDifferenceLaplacian1D,
+
+from ksdft2effmass import operators
+from ksdft2effmass.model_systems import (
+    DirichletBoundaryCondition,
+    DirichletInterval,
+    UniformCartesianGrid1D,
 )
+from ksdft2effmass.operators import SecondOrderCentralDifferenceLaplacian1D
 
 pytestmark = pytest.mark.software_verification
 SUT = SecondOrderCentralDifferenceLaplacian1D

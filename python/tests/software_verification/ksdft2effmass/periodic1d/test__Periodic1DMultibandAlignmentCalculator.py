@@ -12,8 +12,12 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity, Unitless
 from ksdft2effmass.periodic1d import (
     Periodic1DBlockHamiltonianToyModel,
     Periodic1DMultibandAlignmentCalculationDefinition,
@@ -21,7 +25,7 @@ from ksdft2effmass.periodic1d import (
     Periodic1DMultibandAlignmentResultJsonSerializer,
     Periodic1DMultibandAlignmentResultVerifier,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingModel1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalBandFramePath1D,
@@ -205,6 +209,10 @@ class TestPeriodic1DMultibandAlignmentCalculator:
             / "calculations/ICMSEP2026/conference/paper_1/multiband-alignment"
             / "verify_result.py"
         )
+        if not path.is_file():
+            pytest.skip(
+                "historical calculation tree is intentionally absent from this branch"
+            )
         tree = ast.parse(path.read_text())
         imports = [
             node
@@ -237,6 +245,10 @@ class TestPeriodic1DMultibandAlignmentCalculator:
             Path(__file__).resolve().parents[5]
             / "calculations/ICMSEP2026/conference/paper_1/multiband-alignment"
         )
+        if not source.is_dir():
+            pytest.skip(
+                "historical calculation tree is intentionally absent from this branch"
+            )
         for name in ("input.json", "result.json", "verify_result.py"):
             shutil.copy2(source / name, tmp_path / name)
         input_document = json.loads((tmp_path / "input.json").read_text())

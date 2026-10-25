@@ -22,12 +22,12 @@ scientific validation, uncertainty quantification, or human acceptance.
 """
 
 import pytest
-
-from ksdft2effmass.analysis.model_systems import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
-    UniformCartesianGrid1D,
     Unitless,
 )
+
+from ksdft2effmass.model_systems import UniformCartesianGrid1D
 from ksdft2effmass.operators import UniformGrid1DRepresentation
 
 pytestmark = pytest.mark.software_verification

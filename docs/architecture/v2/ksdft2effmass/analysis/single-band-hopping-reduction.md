@@ -55,8 +55,8 @@ reconstructs domain diagnostics. The Workflow exposes no owner-neutral solver
 interface and contains no second `lstsq` implementation.
 
 The live reviewed owner dependencies are pinned to Optimization commit
-`d38e00ceef7f0fb1c137d5c3450d210c1ae4c99f` and synchronized PhysKit commit
-`7157dcedd0d220673d443c1c025e35a6fd1ffa7a` in `python/pyproject.toml` and
+`3cd32ea8985a855bcdbaffbf89af95e970b3bf14` and synchronized PhysKit commit
+`2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439` in `python/pyproject.toml` and
 `python/uv.lock`. Immutable version-one retained-run provenance preserves the exact
 revisions used by that execution independently of the advancing live lock. Owner
 qualification and adapter verification remain distinct from KSD scientific validation.

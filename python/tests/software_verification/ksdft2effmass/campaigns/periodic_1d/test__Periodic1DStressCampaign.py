@@ -14,14 +14,17 @@ separate numerical evidence and does not establish material validation or UQ.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DStressCampaign,
     Periodic1DStressCampaignCorrelationResult,
     Periodic1DStressCampaignModel,
     Periodic1DStressCampaignVerificationResult,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DStressCampaign

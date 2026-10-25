@@ -6,15 +6,15 @@ import warnings
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
+
 from ksdft2effmass.serialization import JsonCodec
-from ksdft2effmass.solid_state import BlockHoppingModel1D, ReciprocalOperatorSamples1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D, ReciprocalOperatorSamples1D
 
 from .result_documents import (
     Periodic1DJsonObject,

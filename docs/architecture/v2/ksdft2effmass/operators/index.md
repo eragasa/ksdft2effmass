@@ -30,7 +30,13 @@ representations. It retains:
   canonical complex CSR matrix quantities;
 - guarded signed subtraction for already compatible records;
 - primitive maximum-entry, Frobenius, and spectral residual mechanics; and
-- narrow composition of differencing and primitive residual analysis.
+- narrow composition of differencing and primitive residual analysis;
+- the provisional [`representations`](representations/index.md) sibling package for
+  finite carriers, represented spaces, intrinsic node identities, and matrix fields;
+- the provisional [`transformations`](transformations/index.md) sibling package for
+  directed edge identities and nominal transformation contracts; and
+- first-class concrete mathematical operator-family packages as separately reviewed,
+  without treating runtime instances, campaign cases, or paper stages as packages.
 
 ```mermaid
 flowchart LR
@@ -62,6 +68,16 @@ subtraction or physical aggregation. No public aggregate class or module is sele
 this architecture tranche, so this paragraph must not be represented as implemented
 capability.
 
+## Child architecture
+
+- [`representations`](representations/index.md) mirrors
+  `python/src/ksdft2effmass/operators/representations/`.
+- [`transformations`](transformations/index.md) mirrors
+  `python/src/ksdft2effmass/operators/transformations/`.
+- Future concrete families such as `operators.hamiltonian` own operator-specific laws,
+  parameters, invariants, and specialized construction. They may depend on both generic
+  siblings; neither generic sibling imports a concrete family.
+
 ## Boundary
 
 The package does not select or estimate basis, gauge, geometry, spin, unit, or
@@ -89,15 +105,16 @@ analysis consumes this package through the dependency
 
 ## Migration and status
 
-Human-authorized Option A retains the Architecture v1 package owner. The selected
-records-disposition plan is a provisional no-change baseline: it leaves
-`operators.records`, `operators.serialization`, and `operators.compatibility` in
-place, keeps the currently supported `ksdft2effmass.operators` imports and nominal
-type identities, and leaves the version-1 specification and golden fixtures
-unchanged. It does not freeze the final Architecture v2 scientific API. Controlled
-manuscript exercises may identify later state-space, projection, embedding,
-comparison, or model-class requirements, but any resulting public-contract change
-requires separate authorization and migration evidence. No facade, duplicate record
-type, v2 wire, or source cutover is introduced by this planning result. The
-higher-level analysis disposition remains with its separate Task. This result changes
-no implemented dependency and authorizes no scientific or protected execution.
+The selected generic owners leave `operators.records`, `operators.serialization`, and
+`operators.compatibility` in place, keep currently supported `ksdft2effmass.operators`
+imports and nominal type identities, and leave version-1 specifications and golden
+fixtures unchanged. Phase 1 adds provisional sibling `operators.representations` and
+`operators.transformations` packages but does not re-export them from this initializer
+or freeze them as schema surfaces. No compatibility facade preserves the discarded
+uncommitted singular path. Phase 1 does not freeze the final Architecture v2 scientific
+API. Controlled manuscript exercises may identify later
+state-space, projection, embedding, comparison, or model-class requirements, but any
+resulting public-contract change requires separate authorization and migration evidence.
+No facade, duplicate record type, v2 wire, or source cutover is introduced. Higher-level
+analysis remains with its existing owner. This phase authorizes no scientific or
+protected execution.

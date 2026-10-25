@@ -6,8 +6,12 @@ import json
 import warnings
 from dataclasses import dataclass
 
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
+
 from ksdft2effmass.analysis.periodic_bands import ContiguousBandSelection
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 from ksdft2effmass.serialization import JsonCodec
 
 from .serialization import Periodic1DCampaignJsonDecoder

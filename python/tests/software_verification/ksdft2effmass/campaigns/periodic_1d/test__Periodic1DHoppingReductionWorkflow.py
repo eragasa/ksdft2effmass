@@ -19,18 +19,18 @@ This synthetic check is not a rerun or scientific validation of Appendix G.
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.campaigns.research_monograph import (
-    Periodic1DHoppingReductionRequest,
-    Periodic1DHoppingReductionWorkflow,
-)
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import (
+
+from ksdft2effmass.campaigns.periodic_1d import (
+    Periodic1DHoppingReductionRequest,
+    Periodic1DHoppingReductionWorkflow,
+)
+from ksdft2effmass.solidstate import (
     CenteredUniformReciprocalMesh1D,
     ReciprocalOperatorSamples1D,
 )

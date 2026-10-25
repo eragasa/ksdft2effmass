@@ -77,7 +77,10 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
-from ksdft2effmass.operators import HermiticityRequirementError, HermiticityResult
+from ksdft2effmass.operators import (
+    HermiticityRequirementError,
+    HermiticityResult,
+)
 
 
 class _ArbitraryInput:

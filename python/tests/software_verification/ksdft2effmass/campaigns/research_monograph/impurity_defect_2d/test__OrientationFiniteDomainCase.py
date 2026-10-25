@@ -26,7 +26,7 @@ import pytest
 from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
     OrientationFiniteDomainCase,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistRepresentative,
     FiniteLatticeShape,
     LatticeDimension,

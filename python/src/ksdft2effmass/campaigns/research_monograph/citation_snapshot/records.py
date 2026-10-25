@@ -66,7 +66,7 @@ class CitationSnapshotErrorCode(StrEnum):
     INTEGRITY_REPLAY_FAILED = "integrity_replay_failed"
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class CitationSnapshotError(Exception):
     """Represent one fail-closed structural citation extraction failure.
 

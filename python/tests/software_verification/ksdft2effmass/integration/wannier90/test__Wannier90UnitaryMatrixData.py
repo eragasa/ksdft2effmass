@@ -19,9 +19,13 @@ These checks do not execute Wannier90 or validate a gauge physically.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.integration.wannier90 import Wannier90UnitaryMatrixData
-from ksdft2effmass.operators import ComplexMatrixQuantity, MatrixQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Wannier90UnitaryMatrixData

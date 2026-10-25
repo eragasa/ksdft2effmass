@@ -6,8 +6,7 @@ import re
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     MatrixQuantity,
     ModelSystemUnit,
     PhysicalUnit,

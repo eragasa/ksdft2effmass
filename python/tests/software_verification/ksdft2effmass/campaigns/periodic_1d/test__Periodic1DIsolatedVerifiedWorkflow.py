@@ -23,14 +23,17 @@ human acceptance.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DIsolatedBandCampaignWorkflowRequest,
     Periodic1DIsolatedUnavailableVerificationChannel,
     Periodic1DIsolatedVerifiedWorkflow,
     Periodic1DIsolatedVerifiedWorkflowRequest,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DIsolatedVerifiedWorkflow

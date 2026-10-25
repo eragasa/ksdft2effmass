@@ -6,17 +6,16 @@ from dataclasses import dataclass
 from typing import Protocol, runtime_checkable
 
 import numpy as np
-from scipy import sparse  # type: ignore[import-untyped]
-
-from .quantities import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
+from projectkoios.physkit.units import (
     ModelSystemUnit,
+    ModelSystemUnitConverter,
     PhysicalUnit,
     ScalarQuantity,
     SparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
+from scipy import sparse  # type: ignore[import-untyped]
 
 
 @runtime_checkable
@@ -99,7 +98,7 @@ class SecondOrderCentralDifferenceLaplacian1D:
             spacing = self.interval.grid.spacing.magnitude
             unit: ModelSystemUnit = Unitless()
         else:
-            spacing = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            spacing = ModelSystemUnitConverter.convert_scalar(
                 self.interval.grid.spacing, PhysicalUnit("meter")
             ).magnitude
             unit = PhysicalUnit("1 / meter ** 2")
@@ -154,11 +153,11 @@ class SchrodingerKineticEnergy1D:
         ):
             raise ValueError("kinetic parameters and grid must use the same unit mode")
         if not nondimensional:
-            if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+            if not ModelSystemUnitConverter.compatible(
                 self.hbar.unit, PhysicalUnit("joule * second")
             ):
                 raise ValueError("hbar has incompatible action dimensions")
-            if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+            if not ModelSystemUnitConverter.compatible(
                 self.mass.unit, PhysicalUnit("kilogram")
             ):
                 raise ValueError("mass has incompatible mass dimensions")
@@ -178,10 +177,10 @@ class SchrodingerKineticEnergy1D:
                 2.0 * self.mass.magnitude
             )
         else:
-            hbar = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            hbar = ModelSystemUnitConverter.convert_scalar(
                 self.hbar, PhysicalUnit("joule * second")
             ).magnitude
-            mass = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+            mass = ModelSystemUnitConverter.convert_scalar(
                 self.mass, PhysicalUnit("kilogram")
             ).magnitude
             scale = -(hbar * hbar) / (2.0 * mass)
@@ -215,7 +214,7 @@ class SampledPotential1D:
         if isinstance(self.grid.coordinate_unit, Unitless):
             if not isinstance(self.values.unit, Unitless):
                 raise ValueError("a Unitless grid requires a Unitless potential")
-        elif not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        elif not ModelSystemUnitConverter.compatible(
             self.values.unit, PhysicalUnit("joule")
         ):
             raise ValueError("physical potential values must have energy dimensions")
@@ -254,7 +253,7 @@ class FiniteDifferenceHamiltonian1D:
             raise TypeError("potential must be SampledPotential1D")
         if self.kinetic_energy.laplacian.interval.grid != self.potential.grid:
             raise ValueError("kinetic energy and potential must share the exact grid")
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.potential.values.unit, self.kinetic_energy.energy_unit
         ):
             raise ValueError("kinetic and potential energy units are incompatible")
@@ -262,7 +261,7 @@ class FiniteDifferenceHamiltonian1D:
     def matrix(self) -> SparseMatrixQuantity:
         """Return the compatible sparse kinetic-plus-potential Hamiltonian."""
         kinetic = self.kinetic_energy.matrix()
-        potential = MODEL_SYSTEM_UNIT_CONVERTER.convert_sparse_matrix(
+        potential = ModelSystemUnitConverter.convert_sparse_matrix(
             self.potential.diagonal_operator(), kinetic.unit
         )
         return SparseMatrixQuantity.from_csr(

@@ -7,11 +7,15 @@ import warnings
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
-from ksdft2effmass.analysis.model_systems.periodic_1d import (
+from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFourierPotential1D,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
 from ksdft2effmass.serialization import JsonCodec
 
 from .serialization import Periodic1DCampaignJsonDecoder

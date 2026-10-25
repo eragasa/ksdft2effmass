@@ -8,7 +8,7 @@ import numpy as np
 
 from ksdft2effmass.integration.wannier90 import Wannier90NativeArtifactIdentity
 from ksdft2effmass.serialization import JsonCodec
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     WilsonCenterConvention1D,
     WilsonLoopPhaseSetComparator1D,
     WilsonLoopPhaseSetComparisonResult1D,

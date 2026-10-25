@@ -4,13 +4,17 @@ from __future__ import annotations
 
 import json
 
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+)
+
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityResult1D,
 )
 from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity
 from ksdft2effmass.serialization import JsonSerializer
-from ksdft2effmass.solid_state import ReciprocalOperatorFourierTransformResult1D
+from ksdft2effmass.solidstate import ReciprocalOperatorFourierTransformResult1D
 
 from .results import (
     Periodic1DMultibandAlignmentCalculationResult,

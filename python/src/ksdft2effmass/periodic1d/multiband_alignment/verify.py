@@ -5,10 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ScalarQuantity
 from scipy.linalg import schur  # type: ignore[import-untyped]
 
-from ksdft2effmass.operators import ScalarQuantity
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 from .definition import Periodic1DMultibandAlignmentCalculationDefinition
 from .results import Periodic1DMultibandAlignmentCalculationResult

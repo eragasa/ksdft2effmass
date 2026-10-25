@@ -20,9 +20,12 @@ campaign execution, or human acceptance.
 """
 
 import pytest
+from projectkoios.physkit.units import (
+    PhysicalUnit,
+    ScalarQuantity,
+)
 
 from ksdft2effmass.analysis.finite_domain_spectra import HostEdgeReference
-from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
 
 pytestmark = pytest.mark.software_verification
 SUT = HostEdgeReference

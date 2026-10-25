@@ -19,7 +19,7 @@ This verifies represented quotient reduction, not finite-domain observables.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BoundaryTwistLift,
     BoundaryTwistReducer,
     LatticeDimension,

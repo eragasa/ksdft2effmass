@@ -19,19 +19,19 @@ Result consistency does not establish model validity or uncertainty bounds.
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.analysis.periodic_bands import (
-    BandApproximationErrorResult1D,
-    BandSpectrumSamples1D,
-)
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     MatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+
+from ksdft2effmass.analysis.periodic_bands import (
+    BandApproximationErrorResult1D,
+    BandSpectrumSamples1D,
+)
+from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
 
 pytestmark = pytest.mark.software_verification
 SUT = BandApproximationErrorResult1D

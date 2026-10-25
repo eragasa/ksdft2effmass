@@ -22,6 +22,14 @@ model, uncertainty estimate, campaign execution, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
+    PhysicalUnit,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.finite_domain_spectra import (
@@ -32,14 +40,8 @@ from ksdft2effmass.analysis.finite_domain_spectra import (
 from ksdft2effmass.operators import (
     ComplexHermitianEigenpairResidualAnalyzer,
     ComplexHermitianEigenpairResult,
-    ComplexMatrixQuantity,
     ComplexSparseHermiticityAnalyzer,
-    ComplexSparseMatrixQuantity,
     HermitianEigenpairSelection,
-    PhysicalUnit,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
 )
 
 pytestmark = pytest.mark.software_verification

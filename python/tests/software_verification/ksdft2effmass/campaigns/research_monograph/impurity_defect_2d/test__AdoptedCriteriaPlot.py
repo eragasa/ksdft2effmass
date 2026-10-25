@@ -27,7 +27,7 @@ from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from ksdft2effmass.campaigns.research_monograph import (
+from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
     AdoptedCriteriaPlot,
     AdoptedCriterionPlotRecord,
 )

@@ -5,8 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.operators import ComplexMatrixQuantity, MatrixQuantity, Unitless
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    Unitless,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
