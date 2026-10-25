@@ -19,7 +19,7 @@ This verifies software typing and invariants, not physical domain adequacy.
 
 import pytest
 
-from ksdft2effmass.solid_state import FiniteLatticeShape, LatticeDimension
+from ksdft2effmass.solidstate import FiniteLatticeShape, LatticeDimension
 
 pytestmark = pytest.mark.software_verification
 SUT = FiniteLatticeShape

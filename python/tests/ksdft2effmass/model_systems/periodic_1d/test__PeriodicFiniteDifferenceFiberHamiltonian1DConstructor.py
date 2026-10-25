@@ -19,12 +19,17 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
+
 from ksdft2effmass.model_systems import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicFourierPotential1D,
     PeriodicUniformGrid1D,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless, VectorQuantity
 
 pytestmark = pytest.mark.software_verification
 SUT = PeriodicFiniteDifferenceFiberHamiltonian1DConstructor

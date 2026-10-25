@@ -24,7 +24,8 @@ H_{\mathrm{embedded}}
 $$
 
 The object stores the concrete `OrthogonalSpectralSubspace`, whose `basis_vectors` are
-$\Phi_M$ and whose `projector()` derives $P_M$. It stores $H_{\mathrm{red}}$ as the
+$\Phi_M$ and whose `projector` property derives $P_M$. It stores
+$H_{\mathrm{red}}$ as the
 inherited `matrix` and stores $H_{\mathrm{embedded}}$ as `embedded.matrix`. The
 constructor checks types, units, and dimensions. Numerical identities among these
 representations require an explicit verifier with a declared tolerance. The abstract
@@ -46,7 +47,7 @@ The verifier independently checks:
 - reconstruction by the reference kinetic and zero-potential decomposition;
 - reconstruction by Hamiltonian-minus-shift and shift;
 - matrix shapes and units;
-- scalar-identity, reduced-basis diagonal, real-symmetric tridiagonal, and arbitrary
+- scalar, retained-basis diagonal, real-symmetric tridiagonal, and unrestricted
   real-symmetric fits; and
 - their unexplained residual matrices and Frobenius norms.
 

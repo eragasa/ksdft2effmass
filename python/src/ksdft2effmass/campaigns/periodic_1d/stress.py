@@ -7,12 +7,12 @@ import warnings
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
+
 from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFourierPotential1D,
 )

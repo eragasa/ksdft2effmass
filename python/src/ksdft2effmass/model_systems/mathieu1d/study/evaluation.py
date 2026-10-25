@@ -3,6 +3,12 @@
 from __future__ import annotations
 
 import numpy as np
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.periodic_bands import (
@@ -13,12 +19,6 @@ from ksdft2effmass.analysis.periodic_bands import (
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionRequest1D,
     SingleBandHoppingReductionWorkflow1D,
-)
-from ksdft2effmass.linalg import (
-    RealMatrixQuantity,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
 )
 from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
@@ -165,7 +165,7 @@ class Mathieu1dStudyEvaluator:
         return BandSpectrumSamples1D(
             spectrum.coordinates,
             spectrum.reciprocal_period,
-            RealMatrixQuantity(
+            MatrixQuantity(
                 spectrum.eigenvalues.magnitude[:, index : index + 1],
                 spectrum.eigenvalues.unit,
             ),
@@ -201,7 +201,7 @@ class Mathieu1dStudyEvaluator:
         return BandSpectrumSamples1D(
             coordinates,
             model.reciprocal_vector,
-            RealMatrixQuantity(values, model.recoil_energy.unit),
+            MatrixQuantity(values, model.recoil_energy.unit),
         )
 
     @staticmethod
@@ -244,7 +244,7 @@ class Mathieu1dStudyEvaluator:
         return BandSpectrumSamples1D(
             coordinates,
             model.reciprocal_vector,
-            RealMatrixQuantity(np.asarray(values), model.recoil_energy.unit),
+            MatrixQuantity(np.asarray(values), model.recoil_energy.unit),
         )
 
     @staticmethod

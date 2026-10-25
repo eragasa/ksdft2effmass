@@ -5,8 +5,7 @@ from __future__ import annotations
 import json
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
     VectorQuantity,

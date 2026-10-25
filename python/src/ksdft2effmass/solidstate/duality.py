@@ -5,11 +5,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from projectkoios.physkit.units import ModelSystemUnitConverter
-
-from ksdft2effmass.linalg import (
-    PhysicalUnit,
-)
+from projectkoios.physkit.units import ModelSystemUnitConverter, PhysicalUnit
 
 from .lattices import (
     DirectLattice,

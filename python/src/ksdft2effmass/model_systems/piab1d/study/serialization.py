@@ -9,14 +9,12 @@ from pathlib import Path
 from typing import cast
 
 import numpy as np
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    SparseMatrixQuantity,
+)
 
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
-    RealMatrixQuantity,
-)
-from ksdft2effmass.operators import (
-    OrthogonalSpectralSubspace,
-)
+from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
 
 from .records import Piab1dResidualStudyResult
 
@@ -37,7 +35,31 @@ class Piab1dStudyResultSerializer:
         script_path: Path,
         repository_root: Path,
     ) -> bytes:
-        """Return canonical JSON bytes with current source identities."""
+        """Serialize one historical result with exact source identities.
+
+        Parameters
+        ----------
+        result
+            Typed retained study result.
+        input_path, script_path
+            Existing repository-contained producer inputs.
+        repository_root
+            Root used for containment and relative provenance paths.
+
+        Returns
+        -------
+        bytes
+            Canonical retained version-two JSON bytes.
+
+        Raises
+        ------
+        TypeError
+            A result or path has the wrong type.
+        ValueError
+            A path escapes the repository or a result invariant is invalid.
+        RuntimeError
+            Enabled quadrature data is incomplete.
+        """
         if not isinstance(result, Piab1dResidualStudyResult):
             raise TypeError("result must be Piab1dResidualStudyResult")
         root = repository_root.resolve()
@@ -46,14 +68,14 @@ class Piab1dStudyResultSerializer:
         definition = result.definition
         reduced_matrix = result.reduced_hamiltonian.matrix
         embedded_matrix = result.reduced_hamiltonian.embedded.matrix
-        if not isinstance(reduced_matrix, RealMatrixQuantity) or not isinstance(
-            embedded_matrix, RealMatrixQuantity
+        if not isinstance(reduced_matrix, MatrixQuantity) or not isinstance(
+            embedded_matrix, MatrixQuantity
         ):
             raise TypeError("PIAB1D serialization requires real Hamiltonian matrices")
         subspace = result.reduced_hamiltonian.spectral_subspace
         if not isinstance(subspace, OrthogonalSpectralSubspace):
             raise TypeError("PIAB1D serialization requires OrthogonalSpectralSubspace")
-        projector = subspace.projector()
+        projector = subspace.projector
         quadrature: dict[str, JsonValue] = {"enabled": definition.quadrature}
         if definition.quadrature:
             rule = result.quadrature_rule
@@ -229,24 +251,26 @@ class Piab1dStudyResultSerializer:
                         "repository": (
                             "https://github.com/eragasa/projectkoios-optimization"
                         ),
-                        "revision": ("3cd32ea8985a855bcdbaffbf89af95e970b3bf14"),
-                        "tree": "7596151740065d63e0bcfb61629ea3a57ae760bb",
+                        "revision": ("2a18e485109e307b2f7928bd0418bcf796aeb0d5"),
+                        "tree": "77262fed5d75e7ddf01334321f9fb24bf6d5961e",
                         "capabilities": [
                             "projectkoios.numerics.quadrature.uniform_1d",
                             "projectkoios.numerics.quadrature.numpy.uniform_1d",
+                            "projectkoios.numerics.linalg.matrix_norm",
                         ],
                     },
                     {
                         "distribution": "projectkoios-physkit",
                         "repository": "https://github.com/eragasa/projectkoios-physkit",
-                        "revision": ("ccdcfcda4a2c7cef29be01b3c09831fda022c55a"),
-                        "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
+                        "revision": ("9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5"),
+                        "tree": "e95aacc3b67bb3718e1e1a49fe3f46f9e16b109f",
                         "capabilities": [
                             "projectkoios.physkit.qm.piab1d",
                             "projectkoios.physkit.qm.piab1d.tise_fd",
                             "projectkoios.physkit.qm.piab1d.tise_analytical",
                             "projectkoios.physkit.qm.sampled_states",
                             "projectkoios.physkit.linalg.eigen",
+                            "projectkoios.physkit.linalg.matrix.norm",
                         ],
                     },
                 ],
@@ -272,21 +296,59 @@ class Piab1dStudyResultSerializer:
     def vector(
         value: np.ndarray[tuple[int], np.dtype[np.float64]],
     ) -> list[JsonValue]:
-        """Convert one binary64 vector to a JSON array."""
+        """Convert one historical binary64 vector to a JSON array.
+
+        Parameters
+        ----------
+        value
+            One-dimensional binary64 array.
+
+        Returns
+        -------
+        list[JsonValue]
+            Historical list representation.
+        """
         return cast(list[JsonValue], value.tolist())
 
     @staticmethod
     def matrix(
         value: np.ndarray[tuple[int, int], np.dtype[np.float64]],
     ) -> list[JsonValue]:
-        """Convert one binary64 matrix to nested JSON arrays."""
+        """Convert one historical binary64 matrix to nested JSON arrays.
+
+        Parameters
+        ----------
+        value
+            Two-dimensional binary64 array.
+
+        Returns
+        -------
+        list[JsonValue]
+            Historical row-major nested-list representation.
+        """
         return cast(list[JsonValue], value.tolist())
 
     @staticmethod
-    def sparse_matrix(value: CsrRealMatrixQuantity) -> list[JsonValue]:
-        """Convert CSR data to nested JSON arrays one row at a time."""
-        if not isinstance(value, CsrRealMatrixQuantity):
-            raise TypeError("value must be CsrRealMatrixQuantity")
+    def sparse_matrix(value: SparseMatrixQuantity) -> list[JsonValue]:
+        """Convert historical CSR data to dense nested JSON rows.
+
+        Parameters
+        ----------
+        value
+            Real sparse matrix quantity.
+
+        Returns
+        -------
+        list[JsonValue]
+            Historical dense row-major list representation.
+
+        Raises
+        ------
+        TypeError
+            ``value`` is not a sparse matrix quantity.
+        """
+        if not isinstance(value, SparseMatrixQuantity):
+            raise TypeError("value must be SparseMatrixQuantity")
         matrix = value.to_csr()
         rows: list[JsonValue] = []
         for row in range(value.shape[0]):
@@ -296,7 +358,29 @@ class Piab1dStudyResultSerializer:
 
     @staticmethod
     def contained_file(path: Path, root: Path, name: str) -> Path:
-        """Return one existing file resolved beneath ``root``."""
+        """Resolve one existing file beneath a provenance root.
+
+        Parameters
+        ----------
+        path
+            Candidate file path.
+        root
+            Required containing directory.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        pathlib.Path
+            Absolute resolved contained file.
+
+        Raises
+        ------
+        TypeError
+            ``path`` is not ``pathlib.Path``.
+        ValueError
+            The path is not a file or escapes ``root``.
+        """
         if not isinstance(path, Path):
             raise TypeError(f"{name} must be pathlib.Path")
         resolved = path.resolve()
@@ -310,18 +394,28 @@ class Piab1dStudyResultSerializer:
 
     @staticmethod
     def implementation_paths() -> tuple[Path, ...]:
-        """Return exact public source files implementing newly authored results."""
+        """Return exact source files bound by the historical serializer.
+
+        Returns
+        -------
+        tuple[pathlib.Path, ...]
+            Ordered implementation-file inventory used for provenance hashes.
+        """
         package_root = Path(__file__).resolve().parents[3]
         model_root = package_root / "model_systems"
-        analysis_root = package_root / "analysis" / "operators"
-        linalg_root = package_root / "linalg"
-        operator_root = package_root / "operators"
+        hamiltonian_root = package_root / "hamiltonian"
         return (
+            package_root / "analysis" / "diagnostics.py",
+            package_root / "analysis" / "operators" / "eigenpair_diagnostics.py",
+            model_root / "analysis.py",
             model_root / "study" / "base.py",
-            analysis_root / "compression_residuals.py",
-            operator_root / "hamiltonians.py",
-            operator_root / "subspaces.py",
-            linalg_root / "quantities.py",
+            hamiltonian_root / "blocks.py",
+            hamiltonian_root / "decomposition.py",
+            hamiltonian_root / "records.py",
+            hamiltonian_root / "reduction.py",
+            hamiltonian_root / "subspaces.py",
+            model_root / "piab1d" / "analysis" / "core.py",
+            model_root / "piab1d" / "diagnostics.py",
             Path(__file__).resolve().with_name("records.py"),
             Path(__file__).resolve().with_name("input.py"),
             Path(__file__).resolve().with_name("evaluation.py"),
@@ -330,5 +424,16 @@ class Piab1dStudyResultSerializer:
 
     @staticmethod
     def sha256(path: Path) -> str:
-        """Return one file's lowercase SHA-256 identity."""
+        """Calculate one file's lowercase SHA-256 identity.
+
+        Parameters
+        ----------
+        path
+            Existing readable file.
+
+        Returns
+        -------
+        str
+            Lowercase hexadecimal SHA-256 digest.
+        """
         return hashlib.sha256(path.read_bytes()).hexdigest()

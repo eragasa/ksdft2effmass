@@ -6,8 +6,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,

@@ -20,17 +20,17 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter
-from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    ModelSystemUnitConverter,
     PhysicalUnit,
-    RealMatrixQuantity,
     ScalarQuantity,
+    SparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
+from scipy import sparse  # type: ignore[import-untyped]
+
 from ksdft2effmass.operators import (
     FiniteDifferenceHamiltonian1D,
     LadderOperator1D,
@@ -177,7 +177,7 @@ class Qho1dAnalytical:
         self,
         dimensionless_coordinates: VectorQuantity,
         retained_dimension: int,
-    ) -> RealMatrixQuantity:
+    ) -> MatrixQuantity:
         """Evaluate normalized Hermite states at Unitless coordinates ``x / ell``."""
         if not isinstance(dimensionless_coordinates, VectorQuantity):
             raise TypeError("dimensionless_coordinates must be VectorQuantity")
@@ -207,7 +207,7 @@ class Qho1dAnalytical:
             unit = Unitless()
         else:
             unit = PhysicalUnit("meter ** -0.5")
-        return RealMatrixQuantity(states, unit)
+        return MatrixQuantity(states, unit)
 
 
 @dataclass(frozen=True, slots=True)
@@ -299,7 +299,7 @@ class Qho1dFiniteDifference:
             self.interval.grid.interior_coordinates(), self.canonical_length_unit
         )
 
-    def hamiltonian(self) -> CsrRealMatrixQuantity:
+    def hamiltonian(self) -> SparseMatrixQuantity:
         """Return the sparse kinetic-plus-harmonic-potential Hamiltonian."""
         parameters = self.analytical.parameters
         laplacian = SecondOrderCentralDifferenceLaplacian1D(self.interval)
@@ -356,19 +356,19 @@ class Qho1dLadderOperators:
         """Return the generic ladder basis dimension."""
         return self.ladder_operator.retained_dimension
 
-    def annihilation(self) -> CsrRealMatrixQuantity:
+    def annihilation(self) -> SparseMatrixQuantity:
         """Return the composed sparse Unitless annihilation operator."""
         return self.ladder_operator.annihilation()
 
-    def creation(self) -> CsrRealMatrixQuantity:
+    def creation(self) -> SparseMatrixQuantity:
         """Return the composed sparse Unitless creation operator."""
         return self.ladder_operator.creation()
 
-    def number(self) -> CsrRealMatrixQuantity:
+    def number(self) -> SparseMatrixQuantity:
         """Return the composed exact sparse Unitless number operator."""
         return self.ladder_operator.number()
 
-    def hamiltonian(self) -> CsrRealMatrixQuantity:
+    def hamiltonian(self) -> SparseMatrixQuantity:
         """Return the sparse retained ``hbar*omega*(N + I/2)`` matrix."""
         energies = self.analytical.number_state_energies(self.retained_dimension)
         matrix = sparse.diags(
@@ -378,9 +378,9 @@ class Qho1dLadderOperators:
             format="csr",
             dtype=np.float64,
         )
-        return CsrRealMatrixQuantity.from_csr(matrix, energies.unit)
+        return SparseMatrixQuantity.from_csr(matrix, energies.unit)
 
-    def commutator(self) -> CsrRealMatrixQuantity:
+    def commutator(self) -> SparseMatrixQuantity:
         """Return the composed finite sparse Unitless ladder commutator."""
         return self.ladder_operator.commutator()
 
@@ -512,12 +512,12 @@ class Qho1dComparisonResult:
     grid_spacing: ScalarQuantity
     interior_points: int
     grid_coordinates: VectorQuantity
-    injection: RealMatrixQuantity
-    gram_matrix: RealMatrixQuantity
-    gram_inverse_square_root: RealMatrixQuantity
-    pulled_back_hamiltonian: RealMatrixQuantity
-    reference_hamiltonian: RealMatrixQuantity
-    difference: RealMatrixQuantity
+    injection: MatrixQuantity
+    gram_matrix: MatrixQuantity
+    gram_inverse_square_root: MatrixQuantity
+    pulled_back_hamiltonian: MatrixQuantity
+    reference_hamiltonian: MatrixQuantity
+    difference: MatrixQuantity
     gram_deviation: ScalarQuantity
     gram_condition_number: ScalarQuantity
     injection_isometry_error: ScalarQuantity
@@ -561,7 +561,7 @@ class Qho1dComparisonResult:
             ("difference", self.difference, (retained, retained)),
         )
         for name, array_quantity, shape in arrays:
-            if not isinstance(array_quantity, VectorQuantity | RealMatrixQuantity):
+            if not isinstance(array_quantity, VectorQuantity | MatrixQuantity):
                 raise TypeError(f"{name} must be a typed array quantity")
             if array_quantity.magnitude.shape != shape:
                 raise ValueError(f"{name} must have shape {shape}")

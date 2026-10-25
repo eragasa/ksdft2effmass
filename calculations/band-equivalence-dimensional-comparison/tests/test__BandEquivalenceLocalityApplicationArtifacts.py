@@ -16,12 +16,6 @@ from band_equivalence_workflow.application import (
     BandEquivalenceLocalityVerificationRequest,
 )
 from jsonschema import ValidationError  # type: ignore[import-untyped]
-from ksdft2effmass.analysis.model_adequacy import band_equivalence_locality
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
-    calculation,
-    definitions,
-    records,
-)
 from numpy.typing import NDArray
 from projectkoios.physkit.periodic.lattice import (
     DirectLattice2D,
@@ -29,6 +23,13 @@ from projectkoios.physkit.periodic.lattice import (
     DirectLatticeMetric,
 )
 from scipy.special import j0  # type: ignore[import-untyped]
+
+from ksdft2effmass.analysis.model_adequacy import band_equivalence_locality
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+    calculation,
+    definitions,
+    records,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 

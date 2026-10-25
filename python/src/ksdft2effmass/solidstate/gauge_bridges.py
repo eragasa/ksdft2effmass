@@ -8,12 +8,11 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
-from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
-    CsrComplexMatrixQuantity,
+from projectkoios.physkit.units import (
+    ComplexSparseMatrixQuantity,
     Unitless,
 )
+from scipy import sparse  # type: ignore[import-untyped]
 
 from .boundary_phases import TwistFiber, TwistGaugeRepresentation
 from .geometry import FiniteLatticeCoordinateResolver, FiniteLatticeShape
@@ -52,7 +51,7 @@ class TwistGaugeBridgeResult:
     shape: FiniteLatticeShape
     source_fiber: TwistFiber
     target_fiber: TwistFiber
-    transformation: CsrComplexMatrixQuantity
+    transformation: ComplexSparseMatrixQuantity
     convention: TwistGaugeBridgeConvention
 
     def __post_init__(self) -> None:
@@ -63,8 +62,8 @@ class TwistGaugeBridgeResult:
             raise TypeError("source_fiber must be TwistFiber")
         if type(self.target_fiber) is not TwistFiber:
             raise TypeError("target_fiber must be TwistFiber")
-        if type(self.transformation) is not CsrComplexMatrixQuantity:
-            raise TypeError("transformation must be CsrComplexMatrixQuantity")
+        if type(self.transformation) is not ComplexSparseMatrixQuantity:
+            raise TypeError("transformation must be ComplexSparseMatrixQuantity")
         if type(self.convention) is not TwistGaugeBridgeConvention:
             raise TypeError("convention must be TwistGaugeBridgeConvention")
         if self.source_fiber.dimension is not self.shape.dimension:
@@ -216,7 +215,7 @@ class TwistGaugeBridgeConstructor:
                 for axis in range(shape.dimension.value)
             )
             phases.append(cmath.exp(2.0j * math.pi * phase_turns))
-        transformation = CsrComplexMatrixQuantity.from_csr(
+        transformation = ComplexSparseMatrixQuantity.from_csr(
             sparse.diags(
                 np.asarray(phases, dtype=np.complex128), offsets=0, format="csr"
             ),

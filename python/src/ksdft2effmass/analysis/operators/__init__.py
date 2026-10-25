@@ -1,12 +1,8 @@
 """Reusable analysis of finite represented operators."""
 
-from .compression_residuals import (
-    OrthogonalCompressionResidualAnalyzer,
-    OrthogonalCompressionResidualResult,
-)
-from .decomposition_identifiability import (
-    DecompositionIdentifiabilityAnalyzer,
-    DecompositionIdentifiabilityResult,
+from .decomposition import (
+    KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionResult,
 )
 from .eigenpair_diagnostics import (
     RealSymmetricEigenpairDiagnosticAnalyzer,
@@ -15,12 +11,10 @@ from .eigenpair_diagnostics import (
 from .model_fitting import RetainedModelClassFitResult, RetainedModelClassFitter
 
 __all__ = [
-    "OrthogonalCompressionResidualAnalyzer",
-    "OrthogonalCompressionResidualResult",
     "RealSymmetricEigenpairDiagnosticAnalyzer",
     "RealSymmetricEigenpairDiagnosticResult",
-    "DecompositionIdentifiabilityAnalyzer",
-    "DecompositionIdentifiabilityResult",
+    "KineticPotentialDecompositionAnalyzer",
+    "KineticPotentialDecompositionResult",
     "RetainedModelClassFitResult",
     "RetainedModelClassFitter",
 ]

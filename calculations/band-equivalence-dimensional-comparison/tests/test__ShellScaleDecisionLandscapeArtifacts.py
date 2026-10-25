@@ -16,21 +16,22 @@ from band_equivalence_workflow.decision_landscape_serialization import (
     ShellScaleDecisionLandscapeArtifactWriter,
 )
 from jsonschema import ValidationError  # type: ignore[import-untyped]
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (  # noqa: E501
     ShellScaleCaseDecisionLandscape,
     ShellScaleDecisionLandscapeCalculator,
     ShellScaleDecisionLandscapeRequest,
     ShellScaleDecisionLandscapeResult,
     ShellScaleDecisionPoint,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (  # noqa: E501
     BandEquivalenceLocalityCase,
     BandEquivalenceLocalityFamily,
     BandEquivalenceLocalityRequest,
     GaugeNormalization,
     ParentKind,
 )
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 

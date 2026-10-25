@@ -12,9 +12,7 @@ from ksdft2effmass.analysis.periodic_bands import (
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionResult1D,
 )
-from ksdft2effmass.linalg import (
-    ScalarQuantity,
-)
+from projectkoios.physkit.units import ScalarQuantity
 
 from .definition import SingleBandFourierReductionExperimentDefinition
 

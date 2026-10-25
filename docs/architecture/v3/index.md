@@ -24,7 +24,7 @@ explicitly labeled and do not claim implemented or supported source.
 | `integration` | Native calculator/file-format adapters such as Quantum ESPRESSO and Wannier90 integration | Generic scientific analysis or workflow policy |
 | `workflows` | Calculator-independent task, workflow, gate, run-state, and execution-authority contracts | Scientific algorithms and native external-tool behavior |
 | `provenance` | Portable artifact, execution, lineage, and external-tool provenance records | Scientific validity or campaign-specific result meaning |
-| `serialization` | Shared serialization contracts only | Domain schemas that belong beside their domain or campaign owner |
+| `serialization` | Shared typed JSON contracts, scientific-value normalization, mapping byte actions, and final typed-record boundaries | Domain schemas, filesystem persistence, provenance policy, or scientific interpretation |
 | `structures` | Atomic periodic-structure records | Finite represented matrices or lattice-model calculations |
 | `electronic_structure` | General electronic-structure sampling records | Calculator execution or campaign composition |
 
@@ -52,10 +52,11 @@ There is no top-level `campaigns/` source tree. In repository documentation,
 “campaign library” means `python/src/ksdft2effmass/campaigns/`.
 
 The QHO1D and PIAB1D vertical slices are owned directly by
-`model_systems/qho1d/` and `model_systems/piab1d/`. Their `study/` subpackages own
-input, records, evaluation, serialization, and verification beside the concrete model
-system. `model_systems/study/base.py` defines the nominal identity boundary implemented
-by both study definitions and consumed by both serializers. `QHO1D` and `Piab1d` are
+`model_systems/qho1d/` and `model_systems/piab1d/`. Their `study/` subpackages preserve
+historical retained-result contracts. The PIAB1D successor uses typed root records,
+independent reference analyzers, and authenticated visualization data outside the
+historical study wire. `model_systems/study/base.py` defines the nominal identity
+boundary consumed by historical serializers. `QHO1D` and `Piab1d` are
 intentionally dimension-specific names; a plain `QHO` or `PIAB` owner is reserved for
 a future implementation with a reviewed dimension-neutral contract. The QHO1D and
 PIAB1D composition roots are consolidated under `calculations/qho1d/` and

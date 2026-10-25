@@ -8,11 +8,11 @@ import numpy as np
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionTolerances1D,
 )
-from ksdft2effmass.linalg import (
-    MODEL_SYSTEM_UNIT_CONVERTER,
+from ksdft2effmass.periodic1d.model import Periodic1DFourierHamiltonianToyModel
+from projectkoios.physkit.units import (
+    ModelSystemUnitConverter,
     VectorQuantity,
 )
-from ksdft2effmass.periodic1d.model import Periodic1DFourierHamiltonianToyModel
 
 EXPERIMENT_FAMILY_ID = (
     "ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction"
@@ -199,7 +199,7 @@ class SingleBandFourierReductionExperimentDefinition:
         if type(self.tolerances) is not SingleBandHoppingReductionTolerances1D:
             raise TypeError("tolerances must be SingleBandHoppingReductionTolerances1D")
         reciprocal_unit = self.parent_model.reciprocal_vector.unit
-        if not MODEL_SYSTEM_UNIT_CONVERTER.compatible(
+        if not ModelSystemUnitConverter.compatible(
             self.tolerances.coordinate_absolute.unit, reciprocal_unit
         ):
             raise ValueError(
@@ -253,7 +253,7 @@ class SingleBandFourierReductionExperimentDefinition:
         training = np.asarray(self.training_reduced_momenta, dtype=np.float64)
         evaluation = np.asarray(self.evaluation_reduced_momenta, dtype=np.float64)
         reciprocal = self.parent_model.reciprocal_vector
-        tolerance = MODEL_SYSTEM_UNIT_CONVERTER.convert_scalar(
+        tolerance = ModelSystemUnitConverter.convert_scalar(
             self.tolerances.coordinate_absolute, reciprocal.unit
         ).magnitude
         reduced_tolerance = tolerance / reciprocal.magnitude

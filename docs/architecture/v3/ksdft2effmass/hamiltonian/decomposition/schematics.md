@@ -9,7 +9,7 @@ classDiagram
         <<abstract>>
         +full_dimension
         +dimension
-        +projector()
+        +projector
     }
     class OrthogonalSpectralSubspace {
         +VectorQuantity eigenvalues
@@ -30,7 +30,7 @@ classDiagram
         +execute() HamiltonianDecompositionResult
     }
     class HamiltonianDecompositionRunner {
-        +run() DecompositionIdentifiabilityResult
+        +run() KineticPotentialDecompositionResult
     }
     class HamiltonianDecompositionVerifier {
         +verify(calculation) HamiltonianDecompositionVerification

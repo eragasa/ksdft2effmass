@@ -18,9 +18,9 @@ This verifies represented metric rules, not material classification or validatio
 """
 
 import pytest
+from projectkoios.physkit.units import PhysicalUnit
 
-from ksdft2effmass.operators import PhysicalUnit
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BravaisCentering,
     BravaisLattice2D,
     BravaisLattice3D,

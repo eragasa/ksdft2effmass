@@ -12,8 +12,12 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity, Unitless
 from ksdft2effmass.periodic1d import (
     Periodic1DBlockHamiltonianToyModel,
     Periodic1DMultibandAlignmentCalculationDefinition,
@@ -21,7 +25,7 @@ from ksdft2effmass.periodic1d import (
     Periodic1DMultibandAlignmentResultJsonSerializer,
     Periodic1DMultibandAlignmentResultVerifier,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BlockHoppingModel1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalBandFramePath1D,

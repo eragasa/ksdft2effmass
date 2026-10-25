@@ -4,11 +4,8 @@ from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
-from projectkoios.physkit.units import ModelSystemUnitConverter
+from projectkoios.physkit.units import ComplexMatrixQuantity, ModelSystemUnitConverter
 
-from ksdft2effmass.linalg import (
-    ComplexMatrixQuantity,
-)
 from ksdft2effmass.periodic1d.multiband_alignment import (
     Periodic1DMultibandAlignmentCalculationResult,
     Periodic1DMultibandAlignmentCalculator,

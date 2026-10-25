@@ -22,14 +22,16 @@ acceptance.
 from dataclasses import FrozenInstanceError
 
 import pytest
+from projectkoios.physkit.units import (
+    PhysicalUnit,
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems.qho1d import (
-    PhysicalUnit,
     Qho1dNondimensionalizer,
     Qho1dParameters,
-    ScalarQuantity,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification

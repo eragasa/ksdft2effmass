@@ -12,8 +12,12 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity, Unitless
 from ksdft2effmass.periodic1d import (
     Periodic1DAdmissibleSetDisposition,
     Periodic1DAdmissibleSetThresholds,
@@ -24,7 +28,7 @@ from ksdft2effmass.periodic1d import (
     Periodic1DConstrainedAdmissibleSetResultVerifier,
     Periodic1DMultibandAlignmentCalculationDefinition,
 )
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 

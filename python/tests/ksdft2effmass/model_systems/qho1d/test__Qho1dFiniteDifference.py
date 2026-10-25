@@ -23,6 +23,11 @@ or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    PhysicalUnit,
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems import (
@@ -31,13 +36,10 @@ from ksdft2effmass.model_systems import (
     UniformCartesianGrid1D,
 )
 from ksdft2effmass.model_systems.qho1d import (
-    PhysicalUnit,
     Qho1dAnalytical,
     Qho1dFiniteDifference,
     Qho1dNondimensionalizer,
     Qho1dParameters,
-    ScalarQuantity,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification

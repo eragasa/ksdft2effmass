@@ -19,7 +19,7 @@ This verifies lattice-index representation, not atomic Cartesian coordinates.
 
 import pytest
 
-from ksdft2effmass.solid_state import LatticeCoordinate, LatticeDimension
+from ksdft2effmass.solidstate import LatticeCoordinate, LatticeDimension
 
 pytestmark = pytest.mark.software_verification
 SUT = LatticeCoordinate

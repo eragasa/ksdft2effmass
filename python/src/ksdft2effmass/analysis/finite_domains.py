@@ -10,10 +10,11 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     PhysicalUnit,
     Unitless,
 )
+
 from ksdft2effmass.solidstate import (
     BoundaryTwistMesh,
     FiniteLatticeShape,

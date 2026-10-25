@@ -441,10 +441,16 @@ external Wannier90 operation.
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
-Periodic-1D defect toy models
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Historical periodic-1D defect APIs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Reusable controlled systems demonstrated by the defect campaigns are available from
+The following defect subsections describe historical source APIs that are no longer
+part of the maintained import surface. Retained calculations and provenance continue
+to identify their exact repository revisions; this page does not recreate compatibility
+imports for them.
+
+Reusable controlled systems demonstrated by the historical defect campaigns were
+available from
 ``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
 ``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
 Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
@@ -460,60 +466,27 @@ no retained paths, campaign thresholds, phase labels, evidence acceptance, silic
 interpretation, or protected execution. A general finite-extent operator perturbation
 with directed bond blocks is not represented as an onsite Gaussian potential.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.model.toy_defects
 
-.. autoclass:: Periodic1DBasisScramblingModel
-   :members:
 
-.. autoclass:: Periodic1DBasisScramblingRequest
-   :members:
 
-.. autoclass:: Periodic1DBasisScramblingResult
-   :members:
 
-.. autoclass:: Periodic1DBasisScramblingConstructor
-   :members:
 
-.. autoclass:: Periodic1DHoppingBlock
-   :members:
 
-.. autoclass:: Periodic1DFiniteHoppingToyModel
-   :members:
 
-.. autoclass:: Periodic1DPrimitiveFiberHamiltonianRequest
-   :members:
 
-.. autoclass:: Periodic1DPrimitiveFiberHamiltonianResult
-   :members:
 
-.. autoclass:: Periodic1DPrimitiveFiberHamiltonianConstructor
-   :members:
 
-.. autoclass:: Periodic1DSupercellHamiltonianRequest
-   :members:
 
-.. autoclass:: Periodic1DSupercellHamiltonianResult
-   :members:
 
-.. autoclass:: Periodic1DSupercellHamiltonianConstructor
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectModel
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectRequest
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectResult
-   :members:
 
-.. autoclass:: Periodic1DGaussianOnsiteDefectConstructor
-   :members:
 
 Periodic-1D matched defect extraction
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The maintained matched known-map capability is available from
+The historical matched known-map capability was available from
 ``ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction``.
 Its immutable records preserve the retained version-one controls and represented-space
 metadata.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
@@ -530,69 +503,30 @@ own provenance; it does not inherit the historical result's acceptance status.  
 :doc:`../concepts/periodic-1d-defect-extraction` for the comparison and evidence
 boundary.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction
 
-.. autoclass:: ParentSourceReference
-   :members:
 
-.. autoclass:: FoldingControl
-   :members:
 
-.. autoclass:: ExtractionControl
-   :members:
 
-.. autoclass:: AlignmentControl
-   :members:
 
-.. autoclass:: FiniteSizeControl
-   :members:
 
-.. autoclass:: SmoothnessControl
-   :members:
 
-.. autoclass:: MetricContrastControl
-   :members:
 
-.. autoclass:: DefectExerciseInput
-   :members:
 
-.. autoclass:: SupercellBasis
-   :members:
 
-.. autoclass:: RepresentedOperator
-   :members:
 
-.. autoclass:: CompatibilityResult
-   :members:
 
-.. autoclass:: ParentData
-   :members:
 
-.. autoclass:: MatchedDefectExtractionInputDeserializer
-   :members:
 
-.. autoclass:: MatchedDefectParentDataLoader
-   :members:
 
-.. autoclass:: MatchedDefectExtractionResultSerializer
-   :members:
 
-.. autoclass:: MatchedDefectOperatorCompatibilityAnalyzer
-   :members:
 
-.. autoclass:: MatchedDefectExtractionWorkflow
-   :members:
 
-.. autoclass:: MatchedDefectExtractionWorkflowResult
-   :members:
 
-.. autoclass:: MatchedDefectExtractionResultVerifier
-   :members:
 
 Periodic-1D blind alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The maintained public route exports only ``BlindAlignmentCampaign`` and
+The historical public route exported ``BlindAlignmentCampaign`` and
 ``BlindAlignmentCampaignModel`` from
 ``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``.
 The model encapsulates exact input and retained-result bytes plus the repository
@@ -644,18 +578,13 @@ perform post hoc campaign acceptance. Independent agreement is numerical verific
 of this bounded synthetic campaign, not material validation or uncertainty
 quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment
 
-.. autoclass:: BlindAlignmentCampaignModel
-   :members:
 
-.. autoclass:: BlindAlignmentCampaign
-   :members:
 
 Periodic-1D independent-route reconciliation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The maintained public route exports only ``RouteReconciliationCampaign`` and
+The historical public route exported ``RouteReconciliationCampaign`` and
 ``RouteReconciliationCampaignModel`` from
 ``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``.
 The model encapsulates the exact version-one input and retained result plus the
@@ -678,19 +607,14 @@ identities, and reconstructs all 15 nominal, adversarial, and reconciliation rec
 This is bounded synthetic software and numerical verification, not evidence for
 silicon, continuum convergence, scientific validation, or uncertainty quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation
 
-.. autoclass:: RouteReconciliationCampaignModel
-   :members:
 
-.. autoclass:: RouteReconciliationCampaign
-   :members:
 
 Periodic-1D finite-rank oracle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` form the narrow
-public route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
+``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` formed the
+historical route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
 the periodic parent, matched-extraction result, and route-reconciliation result before
 comparing a rank-one Bloch-resolvent root with an independently assembled site-space
 eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
@@ -703,25 +627,20 @@ concerns finite represented synthetic operators only; it does not establish an
 infinite-system limit, continuum convergence, silicon behavior, scientific validation,
 or uncertainty quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.finite_rank_oracle
 
-.. autoclass:: FiniteRankOracleCampaignModel
-   :members:
 
-.. autoclass:: FiniteRankOracleCampaign
-   :members:
 
 Periodic-1D separated continuum refinement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` form the
-narrow public route under ``periodic_1d.defects.continuum_refinement``. The model
+``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` formed the
+historical route under ``periodic_1d.defects.continuum_refinement``. The model
 encapsulates exact version-one input and result bytes plus the repository boundary for
 three authenticated sources. The façade provides retained access, exact canonical
 correlation, and independent verification without re-exporting lower-level numerical
 owners.
 
-The maintained Workflow evaluates continuum mesh, continuum domain, lattice
+The historical Workflow evaluated continuum mesh, continuum domain, lattice
 supercell, lattice scale, and profile family as distinct axes. It does not relabel
 profile broadening as lattice refinement or combine discretization, finite-domain,
 periodic-image, lattice-scale, profile-model, operator, spectral, and state errors.
@@ -731,13 +650,8 @@ has a persistent bounded pass, while neither profile-width family establishes a
 profile-defined continuum crossover over the tested domain. This is not an asymptotic
 theorem, material validation, transferability evidence, or uncertainty quantification.
 
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d.defects.continuum_refinement
 
-.. autoclass:: ContinuumRefinementCampaignModel
-   :members:
 
-.. autoclass:: ContinuumRefinementCampaign
-   :members:
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
@@ -1384,19 +1298,16 @@ mirrors the QHO1D study layout.
 .. autoclass:: Piab1dResultVerifier
    :members:
 
-Reusable compression-residual, eigenpair-diagnostic, decomposition-identifiability,
-and model-class-fitting objects are finite-operator analyses. They contain no retained
-file paths, JSON decoding, provenance serialization, or CLI behavior.
+Reusable eigenpair diagnostics, kinetic-potential decomposition, and model-class
+fitting are finite-operator analyses. They contain no retained file paths, provenance
+policy, or CLI behavior.
 
 .. currentmodule:: ksdft2effmass.analysis.operators
-
-.. autoclass:: OrthogonalCompressionResidualAnalyzer
-   :members:
 
 .. autoclass:: RealSymmetricEigenpairDiagnosticAnalyzer
    :members:
 
-.. autoclass:: DecompositionIdentifiabilityAnalyzer
+.. autoclass:: KineticPotentialDecompositionAnalyzer
    :members:
 
 .. autoclass:: RetainedModelClassFitter

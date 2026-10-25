@@ -19,7 +19,7 @@ This verifies classification labels, not metric inference or physical validity.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BravaisCentering,
     BravaisLattice1D,
     LatticeSystem1D,

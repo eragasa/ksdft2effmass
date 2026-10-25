@@ -21,13 +21,13 @@ or human acceptance.
 """
 
 import pytest
-
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems.qho1d import (
-    Qho1dNondimensionalizer,
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
+
+from ksdft2effmass import model_systems
+from ksdft2effmass.model_systems.qho1d import Qho1dNondimensionalizer
 
 pytestmark = pytest.mark.software_verification
 SUT = Qho1dNondimensionalizer

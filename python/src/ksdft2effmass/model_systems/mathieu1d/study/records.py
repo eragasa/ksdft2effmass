@@ -5,7 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter
+from projectkoios.physkit.units import (
+    ModelSystemUnitConverter,
+    ScalarQuantity,
+    VectorQuantity,
+)
 
 from ksdft2effmass.analysis.periodic_bands import (
     BandGapResult1D,
@@ -14,10 +18,6 @@ from ksdft2effmass.analysis.periodic_bands import (
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingReductionResult1D,
     SingleBandHoppingReductionTolerances1D,
-)
-from ksdft2effmass.linalg import (
-    ScalarQuantity,
-    VectorQuantity,
 )
 from ksdft2effmass.periodic1d.model import Periodic1DFourierHamiltonianToyModel
 

@@ -49,7 +49,6 @@ from .finite_differences import (
     SecondOrderCentralDifferenceLaplacian1D,
     UniformGrid1DRepresentation,
 )
-from .hamiltonians import Hamiltonian, HermitianHamiltonian, ReducedHamiltonian
 from .hermiticity import (
     HermiticityAnalyzer,
     HermiticityNumericalError,
@@ -59,11 +58,6 @@ from .hermiticity import (
     HermiticityUnitMismatchError,
 )
 from .ladder_operators import LadderOperator1D
-from .matrix_norms import (
-    RepresentedMatrixNormAnalyzer,
-    RepresentedMatrixNormResult,
-    RepresentedRealMatrix,
-)
 from .records import Basis, EnergyReference, Geometry, OperatorRecord, StateSpace
 from .residuals import (
     OperatorRecordComparisonNumericalError,
@@ -75,14 +69,6 @@ from .serialization import OperatorRecordJsonSerializer
 from .sparse_hermiticity import (
     ComplexSparseHermiticityAnalyzer,
     ComplexSparseHermiticityResult,
-)
-from .subspaces import (
-    OperatorCompression,
-    OperatorCompressionResult,
-    OrthogonalSpectralSubspace,
-    OrthogonalSpectralSubspaceSelector,
-    RealSymmetricOperator,
-    SpectralSubspace,
 )
 
 __all__ = [
@@ -100,8 +86,6 @@ __all__ = [
     "EnergyReference",
     "FiniteDifferenceHamiltonian1D",
     "Geometry",
-    "Hamiltonian",
-    "HermitianHamiltonian",
     "HermiticityAnalyzer",
     "HermiticityNumericalError",
     "HermiticityNumericalErrorCode",
@@ -111,8 +95,6 @@ __all__ = [
     "HermitianEigenpairSelection",
     "IncompatibleOperatorRecordsError",
     "LadderOperator1D",
-    "OperatorCompression",
-    "OperatorCompressionResult",
     "OperatorRecord",
     "OperatorRecordComparator",
     "OperatorRecordComparisonNumericalError",
@@ -128,17 +110,9 @@ __all__ = [
     "OperatorRecordDifferencer",
     "OperatorRecordJsonSerializer",
     "OperatorRecordResidualAnalyzer",
-    "OrthogonalSpectralSubspace",
-    "OrthogonalSpectralSubspaceSelector",
-    "RealSymmetricOperator",
-    "RepresentedMatrixNormAnalyzer",
-    "RepresentedMatrixNormResult",
-    "RepresentedRealMatrix",
-    "ReducedHamiltonian",
     "SampledPotential1D",
     "SchrodingerKineticEnergy1D",
     "SecondOrderCentralDifferenceLaplacian1D",
-    "SpectralSubspace",
     "StateSpace",
     "UniformGrid1DRepresentation",
 ]

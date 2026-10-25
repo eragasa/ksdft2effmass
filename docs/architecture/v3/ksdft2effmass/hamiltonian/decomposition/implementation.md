@@ -29,33 +29,30 @@ concrete collaborators. Its `execute()` method:
 5. returns one correlated `HamiltonianDecompositionResult`.
 
 The runner uses the established
-`analysis.operators.DecompositionIdentifiabilityAnalyzer`. The verifier independently
+`analysis.operators.KineticPotentialDecompositionAnalyzer`. The verifier independently
 reconstructs the reference and shifted decompositions and the four retained
 model-class fits; it does not call that analyzer. The visualizer renders the declared
 shift and unexplained fit norms to immutable PNG bytes and closes the Matplotlib figure.
 
-## First caller and migration boundary
+## PIAB1D composition boundary
 
-The implemented class is dimension-independent. PIAB1D is the first concrete caller,
-not a specialization. Installed source contains no `Piab1dHamiltonianDecomposition`,
-PIAB1D runner, PIAB1D verifier, or PIAB1D visualizer. PIAB1D supplies its represented
-Hamiltonian and shift to the same class used by any other supported caller.
+The implemented Hamiltonian class is dimension-independent. Installed source contains
+no `Piab1dHamiltonianDecomposition` subtype or PIAB1D-specific decomposition runner.
+The PIAB1D successor obtains its retained matrix from `Piab1dAnalyzer` and passes that
+matrix and the declared shift directly to
+`KineticPotentialDecompositionAnalyzer` during `run_01_calculation.py`.
 
-`Piab1dResidualStudyResult.reduced_hamiltonian` is one `ReducedHamiltonian` binding
-the reduced matrix, PIAB1D's concrete orthogonal spectral subspace, and a typed
-parent-coordinate Hamiltonian embedding. The concrete subspace owns the basis and
-derives the projector.
-`calculations/piab1d/hamiltonian_decomposition.py` is the first
-thin migration entry point. It evaluates the typed PIAB1D study in memory, passes that
-object and the declared shift to `HamiltonianDecomposition`, and invokes `run()`,
-`verify()`, and `visualize()` in order. It does not parse the historical retained result
-to recover the Hamiltonian. It defines no
-Workflow, adapter class, PIAB1D decomposition subclass, runner, verifier, or visualizer.
-It writes only a caller-selected verified PNG with no-overwrite behavior.
+The typed `KineticPotentialDecompositionResult` is stored once inside
+`Piab1dCalculationResult`. Independent reconstruction belongs to
+`Piab1dKineticPotentialDecompositionReferenceAnalyzer`; authenticated rendering belongs
+to the decomposition plotter in `model_systems.piab1d.visualization`. The calculation
+script therefore contains no reusable decomposition kernel, verifier, visualizer,
+Workflow, adapter class, or command-line parser.
 
-Historical `identifiability.py`, `run_identifiability.py`, retained results, provenance
-paths, and checksum entries remain unchanged. The successor entry point does not assert
-that the historical flat artifacts form one execution package.
+The superseded calculation-local decomposition producer and its dedicated CLI test have
+been removed from the maintained tip. Retained results, provenance paths, and checksum
+entries remain historical records. Their references to removed producer paths identify
+exact repository history and are not rewritten as successor provenance.
 
 ## Tests
 
@@ -66,7 +63,7 @@ Focused tests establish:
 - PIAB1D declared-shift model-class norm parity;
 - fail-fast rejection of a nonsymmetric shift;
 - rejection of Boolean numeric controls; and
-- package export of only `HamiltonianDecomposition`.
+- deliberate export of `HamiltonianDecomposition` from the Hamiltonian domain.
 
 Passing these tests establishes software and bounded numerical behavior only. It does
 not validate a physical Hamiltonian decomposition or an inferred model class.

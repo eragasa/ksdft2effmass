@@ -28,7 +28,7 @@ from ksdft2effmass.analysis.finite_domain_locality import (
     MinimumImageChebyshevPartition,
     MinimumImageChebyshevPartitioner,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     FiniteLatticeShape,
     LatticeCoordinate,
     LatticeDimension,

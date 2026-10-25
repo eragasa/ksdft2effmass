@@ -18,9 +18,9 @@ This verifies represented terms, not Hermiticity or a finite Hamiltonian.
 """
 
 import pytest
+from projectkoios.physkit.units import Unitless
 
-from ksdft2effmass.operators import Unitless
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     LatticeDimension,
     LatticeDisplacement,
     ScalarHoppingModel,

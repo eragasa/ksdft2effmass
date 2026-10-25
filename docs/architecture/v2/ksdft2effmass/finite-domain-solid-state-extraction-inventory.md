@@ -13,7 +13,7 @@ scope. It does not pre-authorize phonons, electron--phonon coupling, topology,
 many-body models, multi-orbital defect-2D work, spin generalization, material-specific
 DFT, production Wannier90, implementation, or calculation execution.
 
-HC20 selected the broad `ksdft2effmass.solid_state` composition aggregate. The tables'
+HC20 selected the broad `ksdft2effmass.solidstate` composition aggregate. The tables'
 earlier focused-owner labels are interpreted as cohesive responsibilities inside that
 selected aggregate; types must not be duplicated across structures, electronic
 structure, operators, analysis, or campaigns. HC21 further selects dimension-specific
@@ -413,7 +413,7 @@ A later implementation plan is incomplete if it fails any of these attacks:
 
 The solid-state extraction architecture must accommodate every first-slice item in one,
 two, and three dimensions without implementing deferred multi-orbital or composite
-contracts. The selected `ksdft2effmass.solid_state` aggregate is compatible with this inventory
+contracts. The selected `ksdft2effmass.solidstate` aggregate is compatible with this inventory
 when it preserves the listed cohesive submodule and dependency boundaries. HC20 and
 HC21 resolve package ownership and Bravais-type factoring; they do not authorize
 calculation execution.

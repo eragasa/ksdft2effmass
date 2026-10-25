@@ -8,15 +8,15 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import TwoSlopeNorm
+from projectkoios.physkit.linalg.matrices import VerifiedMatrixUtils
+from projectkoios.physkit.units import MatrixQuantity
 
 from ksdft2effmass.analysis.operators import (
-    DecompositionIdentifiabilityAnalyzer,
-    DecompositionIdentifiabilityResult,
+    KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionResult,
 )
-from ksdft2effmass.linalg import RealMatrixQuantity, VerifiedMatrixUtils
-from ksdft2effmass.operators import (
-    ReducedHamiltonian,
-)
+
+from .records import ReducedHamiltonian
 
 
 @dataclass(frozen=True, slots=True)
@@ -54,16 +54,16 @@ class HamiltonianDecompositionVisualization:
 
 
 @dataclass(frozen=True, slots=True)
-class HamiltonianDecompositionResult:
+class HamiltonianKineticPotentialDecompositionResult:
     """Correlate calculation, verification, and visualization results."""
 
-    calculation: DecompositionIdentifiabilityResult
+    calculation: KineticPotentialDecompositionResult
     verification: HamiltonianDecompositionVerification
     visualization: HamiltonianDecompositionVisualization
 
     def __post_init__(self) -> None:
-        if type(self.calculation) is not DecompositionIdentifiabilityResult:
-            raise TypeError("calculation must be DecompositionIdentifiabilityResult")
+        if type(self.calculation) is not KineticPotentialDecompositionResult:
+            raise TypeError("calculation must be KineticPotentialDecompositionResult")
         if type(self.verification) is not HamiltonianDecompositionVerification:
             raise TypeError("verification must be HamiltonianDecompositionVerification")
         if type(self.visualization) is not HamiltonianDecompositionVisualization:
@@ -82,23 +82,23 @@ class HamiltonianDecompositionRunner:
     def __init__(
         self,
         reduced_hamiltonian: ReducedHamiltonian,
-        shift: RealMatrixQuantity,
+        shift: MatrixQuantity,
         symmetry_absolute_tolerance: float,
     ) -> None:
         self.reduced_hamiltonian = reduced_hamiltonian
         self.shift = shift
         self.symmetry_absolute_tolerance = symmetry_absolute_tolerance
 
-    def run(self) -> DecompositionIdentifiabilityResult:
+    def run(self) -> KineticPotentialDecompositionResult:
         """Return the generic finite Hamiltonian decomposition calculation."""
         matrix = self._require_compatible_real_symmetric_inputs()
-        return DecompositionIdentifiabilityAnalyzer().execute(matrix, self.shift)
+        return KineticPotentialDecompositionAnalyzer().execute(matrix, self.shift)
 
-    def _require_compatible_real_symmetric_inputs(self) -> RealMatrixQuantity:
+    def _require_compatible_real_symmetric_inputs(self) -> MatrixQuantity:
         dense_matrix = VerifiedMatrixUtils(
             self.reduced_hamiltonian.matrix
         ).to_dense_matrix()
-        if not isinstance(dense_matrix, RealMatrixQuantity):
+        if not isinstance(dense_matrix, MatrixQuantity):
             raise TypeError("Hamiltonian decomposition requires a real matrix")
         matrix = dense_matrix
         hamiltonian = matrix.magnitude
@@ -132,7 +132,7 @@ class HamiltonianDecompositionVerifier:
     def __init__(
         self,
         reduced_hamiltonian: ReducedHamiltonian,
-        shift: RealMatrixQuantity,
+        shift: MatrixQuantity,
         absolute_tolerance: float,
     ) -> None:
         self.reduced_hamiltonian = reduced_hamiltonian
@@ -141,15 +141,15 @@ class HamiltonianDecompositionVerifier:
 
     def verify(
         self,
-        calculation: DecompositionIdentifiabilityResult,
+        calculation: KineticPotentialDecompositionResult,
     ) -> HamiltonianDecompositionVerification:
         """Return all failed independently reconstructed identities."""
-        if type(calculation) is not DecompositionIdentifiabilityResult:
-            raise TypeError("calculation must be DecompositionIdentifiabilityResult")
+        if type(calculation) is not KineticPotentialDecompositionResult:
+            raise TypeError("calculation must be KineticPotentialDecompositionResult")
         dense_matrix = VerifiedMatrixUtils(
             self.reduced_hamiltonian.matrix
         ).to_dense_matrix()
-        if not isinstance(dense_matrix, RealMatrixQuantity):
+        if not isinstance(dense_matrix, MatrixQuantity):
             raise TypeError("Hamiltonian decomposition requires a real matrix")
         matrix = dense_matrix
         hamiltonian = matrix.magnitude
@@ -213,7 +213,7 @@ class HamiltonianDecompositionVerifier:
 
     def _verify_model_class_fits(
         self,
-        calculation: DecompositionIdentifiabilityResult,
+        calculation: KineticPotentialDecompositionResult,
         issues: list[str],
     ) -> None:
         shift = self.shift.magnitude
@@ -221,15 +221,15 @@ class HamiltonianDecompositionVerifier:
         rows, columns = np.indices(shift.shape)
         expected = (
             (
-                "scalar_identity",
+                "scalar",
                 np.eye(dimension) * float(np.trace(shift) / dimension),
             ),
-            ("diagonal_in_retained_basis", np.diag(np.diag(shift))),
+            ("diagonal", np.diag(np.diag(shift))),
             (
-                "real_symmetric_tridiagonal",
+                "tridiagonal",
                 np.where(np.abs(rows - columns) <= 1, shift, 0.0),
             ),
-            ("arbitrary_real_symmetric", shift),
+            ("real_symmetric", shift),
         )
         if len(calculation.model_class_fits) != len(expected):
             issues.append("model-class fit inventory is incomplete")
@@ -289,12 +289,12 @@ class HamiltonianDecompositionVisualizer:
 
     def visualize(
         self,
-        calculation: DecompositionIdentifiabilityResult,
+        calculation: KineticPotentialDecompositionResult,
         verification: HamiltonianDecompositionVerification,
     ) -> HamiltonianDecompositionVisualization:
         """Return an immutable PNG only for a verified calculation."""
-        if type(calculation) is not DecompositionIdentifiabilityResult:
-            raise TypeError("calculation must be DecompositionIdentifiabilityResult")
+        if type(calculation) is not KineticPotentialDecompositionResult:
+            raise TypeError("calculation must be KineticPotentialDecompositionResult")
         if type(verification) is not HamiltonianDecompositionVerification:
             raise TypeError("verification must be HamiltonianDecompositionVerification")
         if not verification.passed:
@@ -365,7 +365,7 @@ class HamiltonianDecomposition:
     def __init__(
         self,
         reduced_hamiltonian: ReducedHamiltonian,
-        shift: RealMatrixQuantity,
+        shift: MatrixQuantity,
         *,
         absolute_tolerance: float = 2.0e-14,
         visualization_dpi: int = 180,
@@ -373,8 +373,8 @@ class HamiltonianDecomposition:
         """Compose the reusable concrete actions for one declared input pair."""
         if not isinstance(reduced_hamiltonian, ReducedHamiltonian):
             raise TypeError("reduced_hamiltonian must be ReducedHamiltonian")
-        if not isinstance(shift, RealMatrixQuantity):
-            raise TypeError("shift must be RealMatrixQuantity")
+        if not isinstance(shift, MatrixQuantity):
+            raise TypeError("shift must be MatrixQuantity")
         if type(absolute_tolerance) is not float:
             raise TypeError("absolute_tolerance must be a built-in float")
         if not np.isfinite(absolute_tolerance) or absolute_tolerance < 0.0:
@@ -395,26 +395,26 @@ class HamiltonianDecomposition:
         )
         self.o_visualizer = HamiltonianDecompositionVisualizer(visualization_dpi)
 
-    def run(self) -> DecompositionIdentifiabilityResult:
+    def run(self) -> KineticPotentialDecompositionResult:
         """Return the decomposition calculation without later stages."""
         return self.o_runner.run()
 
     def verify(
         self,
-        calculation: DecompositionIdentifiabilityResult,
+        calculation: KineticPotentialDecompositionResult,
     ) -> HamiltonianDecompositionVerification:
         """Independently verify one calculation from this declared input pair."""
         return self.o_verifier.verify(calculation)
 
     def visualize(
         self,
-        calculation: DecompositionIdentifiabilityResult,
+        calculation: KineticPotentialDecompositionResult,
         verification: HamiltonianDecompositionVerification,
     ) -> HamiltonianDecompositionVisualization:
         """Visualize one successfully verified calculation."""
         return self.o_visualizer.visualize(calculation, verification)
 
-    def execute(self) -> HamiltonianDecompositionResult:
+    def execute(self) -> HamiltonianKineticPotentialDecompositionResult:
         """Run, verify, and visualize in order, failing closed before rendering."""
         calculation = self.run()
         verification = self.verify(calculation)
@@ -422,7 +422,7 @@ class HamiltonianDecomposition:
             joined = "; ".join(verification.issues)
             raise ValueError(f"Hamiltonian decomposition verification failed: {joined}")
         visualization = self.visualize(calculation, verification)
-        return HamiltonianDecompositionResult(
+        return HamiltonianKineticPotentialDecompositionResult(
             calculation=calculation,
             verification=verification,
             visualization=visualization,

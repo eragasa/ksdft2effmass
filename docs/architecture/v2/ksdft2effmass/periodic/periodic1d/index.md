@@ -49,7 +49,7 @@ This namespace owns:
 
 Reusable lattice geometry and Bloch finite-difference primitives are owned by PhysKit.
 General operator quantities and state-space records are owned by their existing
-`ksdft2effmass.operators` and `ksdft2effmass.solid_state` modules. Quantum ESPRESSO and
+`ksdft2effmass.operators` and `ksdft2effmass.solidstate` modules. Quantum ESPRESSO and
 Wannier90 own first-principles calculation and localization respectively.
 
 ## Dependency rules

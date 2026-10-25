@@ -19,18 +19,19 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
-from ksdft2effmass.model_systems import (
-    PeriodicFiniteDifferenceFiberHamiltonian1DResult,
-    PeriodicFourierPotential1D,
-    PeriodicUniformGrid1D,
-)
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexSparseMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
 from scipy import sparse  # type: ignore[import-untyped]
+
+from ksdft2effmass.model_systems import (
+    PeriodicFiniteDifferenceFiberHamiltonian1DResult,
+    PeriodicFourierPotential1D,
+    PeriodicUniformGrid1D,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = PeriodicFiniteDifferenceFiberHamiltonian1DResult

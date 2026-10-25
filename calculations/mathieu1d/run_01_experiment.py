@@ -15,9 +15,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
-from ksdft2effmass.linalg import (
-    ScalarQuantity,
-)
 from ksdft2effmass.model_systems.mathieu1d import (
     Mathieu1dStudyDefinition,
     Mathieu1dStudyEvaluator,
@@ -30,6 +27,7 @@ from ksdft2effmass.model_systems.mathieu1d import (
     Mathieu1dStudyVerifier,
 )
 from ksdft2effmass.model_systems.mathieu1d.study import canonical_json_bytes
+from projectkoios.physkit.units import ScalarQuantity
 
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]

@@ -20,7 +20,7 @@ The inventory covers boundary-defining types under:
 - `ksdft2effmass.campaigns.periodic_1d`;
 - `ksdft2effmass.periodic2d`;
 - applicable records in `ksdft2effmass.analysis.periodic_bands`,
-  `ksdft2effmass.operators`, and `ksdft2effmass.solid_state`.
+  `ksdft2effmass.operators`, and `ksdft2effmass.solidstate`.
 
 A type is boundary-defining here when it names a model, retention selection or space,
 operator or representation, encoded campaign document, campaign definition, campaign

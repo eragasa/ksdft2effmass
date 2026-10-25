@@ -19,7 +19,7 @@ This verifies represented indexing, not a physical lattice or calculation result
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     FiniteLatticeIndexer,
     FiniteLatticeShape,
     LatticeCoordinate,

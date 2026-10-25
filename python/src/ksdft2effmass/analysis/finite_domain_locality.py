@@ -6,9 +6,13 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import (
+    ModelSystemUnit,
+    PhysicalUnit,
+    Unitless,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.linalg import ModelSystemUnit, PhysicalUnit, Unitless
 from ksdft2effmass.solidstate import (
     FiniteLatticeCoordinateResolver,
     FiniteLatticeShape,

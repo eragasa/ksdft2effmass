@@ -2,8 +2,12 @@
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    Unitless,
+)
+
 from ksdft2effmass.analysis.operators import RetainedModelClassFitter
-from ksdft2effmass.operators import MatrixQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = RetainedModelClassFitter
@@ -28,10 +32,10 @@ class TestRetainedModelClassFitter:
         results = SUT().execute(target)
 
         assert tuple(result.name for result in results) == (
-            "scalar_identity",
-            "diagonal_in_retained_basis",
-            "real_symmetric_tridiagonal",
-            "arbitrary_real_symmetric",
+            "scalar",
+            "diagonal",
+            "tridiagonal",
+            "real_symmetric",
         )
         np.testing.assert_allclose(results[0].best_fit.magnitude, 4.0 * np.eye(3))
         np.testing.assert_allclose(

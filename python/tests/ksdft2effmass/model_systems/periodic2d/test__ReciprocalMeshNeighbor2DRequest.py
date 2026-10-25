@@ -1,6 +1,7 @@
 """Software verification for ``ReciprocalMeshNeighbor2DRequest``."""
 
 import pytest
+
 from ksdft2effmass.model_systems import (
     CenteredUniformReciprocalMesh2D,
     PositiveReciprocalDirection2D,

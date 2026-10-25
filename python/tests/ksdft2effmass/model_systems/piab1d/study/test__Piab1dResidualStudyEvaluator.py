@@ -57,7 +57,7 @@ class TestPiab1dResidualStudyEvaluator:
             atol=256.0 * np.finfo(np.float64).eps,
         )
         retained = amplitudes[:, :3]
-        projector = result.reduced_hamiltonian.spectral_subspace.projector()
+        projector = result.reduced_hamiltonian.spectral_subspace.projector
         np.testing.assert_allclose(
             retained @ (weights[:, None] * retained).T,
             projector.magnitude,

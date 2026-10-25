@@ -2,9 +2,7 @@
 
 from dataclasses import dataclass
 
-from ksdft2effmass.linalg import (
-    ScalarQuantity,
-)
+from projectkoios.physkit.units import ScalarQuantity
 
 from ...model.retained.stress import Periodic1DStressCampaignModel
 from .correlate import (

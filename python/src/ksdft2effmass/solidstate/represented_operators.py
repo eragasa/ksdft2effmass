@@ -11,9 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ksdft2effmass.linalg import (
-    CsrComplexMatrixQuantity,
-)
+from projectkoios.physkit.units import ComplexSparseMatrixQuantity
 
 from .boundary_phases import TwistFiber
 from .geometry import FiniteLatticeShape, LatticeDimension
@@ -56,7 +54,7 @@ class ScalarFiniteLatticeOperator:
     """
 
     identifier: str
-    matrix: CsrComplexMatrixQuantity
+    matrix: ComplexSparseMatrixQuantity
     shape: FiniteLatticeShape
     twist_fiber: TwistFiber
     basis_identifier: str
@@ -66,8 +64,8 @@ class ScalarFiniteLatticeOperator:
     def __post_init__(self) -> None:
         """Validate exact component types and cross-field representation invariants."""
         self._require_nonempty_string(self.identifier, "identifier")
-        if type(self.matrix) is not CsrComplexMatrixQuantity:
-            raise TypeError("matrix must be CsrComplexMatrixQuantity")
+        if type(self.matrix) is not ComplexSparseMatrixQuantity:
+            raise TypeError("matrix must be ComplexSparseMatrixQuantity")
         if type(self.shape) is not FiniteLatticeShape:
             raise TypeError("shape must be FiniteLatticeShape")
         if type(self.twist_fiber) is not TwistFiber:

@@ -21,16 +21,18 @@ quantification, or human acceptance.
 
 import numpy as np
 import pytest
-
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems.qho1d import (
+from projectkoios.physkit.units import (
     PhysicalUnit,
-    Qho1dAnalytical,
-    Qho1dNondimensionalizer,
-    Qho1dParameters,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
+)
+
+from ksdft2effmass import model_systems
+from ksdft2effmass.model_systems.qho1d import (
+    Qho1dAnalytical,
+    Qho1dNondimensionalizer,
+    Qho1dParameters,
 )
 
 pytestmark = pytest.mark.software_verification

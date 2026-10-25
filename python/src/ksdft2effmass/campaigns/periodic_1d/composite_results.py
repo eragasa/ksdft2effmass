@@ -17,13 +17,13 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
+
 from ksdft2effmass.serialization import JsonCodec
 from ksdft2effmass.solidstate import (
     BlockHoppingModel1D,

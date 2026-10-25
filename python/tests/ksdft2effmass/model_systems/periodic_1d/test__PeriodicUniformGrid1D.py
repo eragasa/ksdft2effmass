@@ -19,8 +19,12 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    PhysicalUnit,
+    ScalarQuantity,
+)
+
 from ksdft2effmass.model_systems import PeriodicUniformGrid1D
-from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
 
 pytestmark = pytest.mark.software_verification
 SUT = PeriodicUniformGrid1D

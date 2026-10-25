@@ -2,14 +2,18 @@
 
 import numpy as np
 import pytest
-from ksdft2effmass.model_systems import (
-    PlaneWaveBlochHamiltonian2DModel,
-    PlaneWaveFourierCoefficient2D,
-)
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 from projectkoios.physkit.periodic.lattice import (
     DirectLattice2D,
     ReciprocalLattice2D,
+)
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
+
+from ksdft2effmass.model_systems import (
+    PlaneWaveBlochHamiltonian2DModel,
+    PlaneWaveFourierCoefficient2D,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]

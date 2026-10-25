@@ -9,13 +9,14 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from ksdft2effmass.model_systems import PeriodicFourierPotential1D
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
+
+from ksdft2effmass.model_systems import PeriodicFourierPotential1D
 from ksdft2effmass.periodic import PeriodicModelRole
 from ksdft2effmass.periodic1d import (
     Periodic1DFourierHamiltonianToyModel,

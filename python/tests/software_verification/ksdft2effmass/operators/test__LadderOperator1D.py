@@ -23,11 +23,10 @@ validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import Unitless
+
 from ksdft2effmass import operators
-from ksdft2effmass.model_systems import Unitless
-from ksdft2effmass.operators import (
-    LadderOperator1D,
-)
+from ksdft2effmass.operators import LadderOperator1D
 
 pytestmark = pytest.mark.software_verification
 SUT = LadderOperator1D

@@ -6,17 +6,20 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from projectkoios.physkit.units import (
+    Unitless,
+    VectorQuantity,
+)
+
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dComparisonResult,
     Qho1dResultVerifier,
     Qho1dStudyEvaluator,
     Qho1dStudyInputDeserializer,
     Qho1dStudyResult,
-    Unitless,
-    VectorQuantity,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 CALCULATION_ROOT = Path(__file__).resolve().parent
 REPOSITORY_ROOT = CALCULATION_ROOT.parents[1]

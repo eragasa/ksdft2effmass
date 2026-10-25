@@ -6,11 +6,10 @@ import re
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
+    MatrixQuantity,
     ModelSystemUnit,
     PhysicalUnit,
-    RealMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
@@ -21,7 +20,7 @@ from ksdft2effmass.linalg import (
 class Wannier90LocalizationData:
     """Retain final native centers, spreads, spread decomposition, and iteration."""
 
-    centers: RealMatrixQuantity
+    centers: MatrixQuantity
     spreads: VectorQuantity
     omega_invariant: ScalarQuantity
     omega_diagonal: ScalarQuantity
@@ -31,8 +30,8 @@ class Wannier90LocalizationData:
 
     def __post_init__(self) -> None:
         """Validate center/spread dimensions and the native spread decomposition."""
-        if type(self.centers) is not RealMatrixQuantity:
-            raise TypeError("centers must be RealMatrixQuantity")
+        if type(self.centers) is not MatrixQuantity:
+            raise TypeError("centers must be MatrixQuantity")
         if self.centers.magnitude.ndim != 2 or self.centers.magnitude.shape[1] != 3:
             raise ValueError("centers must have shape (wannier_count, 3)")
         if type(self.spreads) is not VectorQuantity:
@@ -125,7 +124,7 @@ class Wannier90LocalizationParser:
         if not iterations:
             raise ValueError("wout payload lacks converged iteration records")
         return Wannier90LocalizationData(
-            RealMatrixQuantity(centers, length_unit),
+            MatrixQuantity(centers, length_unit),
             VectorQuantity(spreads, squared_unit),
             ScalarQuantity(omega_values[0], squared_unit),
             ScalarQuantity(omega_values[1], squared_unit),

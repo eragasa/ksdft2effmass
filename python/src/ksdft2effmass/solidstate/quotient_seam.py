@@ -6,11 +6,8 @@ import cmath
 import math
 
 import numpy as np
+from projectkoios.physkit.units import ComplexSparseMatrixQuantity
 from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
-    CsrComplexMatrixQuantity,
-)
 
 from .boundary_phases import (
     BoundaryTwistLift,
@@ -230,7 +227,7 @@ class QuotientSeamOperatorConstructor:
             shape=(shape.cell_count, shape.cell_count),
             dtype=np.complex128,
         )
-        matrix = CsrComplexMatrixQuantity.from_csr(assembled, energy_unit)
+        matrix = ComplexSparseMatrixQuantity.from_csr(assembled, energy_unit)
         fiber = TwistFiber(
             BoundaryTwistReducer().execute(twist),
             TwistGaugeRepresentation.QUOTIENT_SEAM,

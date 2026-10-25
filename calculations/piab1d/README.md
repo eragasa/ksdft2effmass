@@ -42,37 +42,53 @@ catalog.
 
 ## Successor directory structure
 
-The package now separates active authored material into:
+The package separates active authored material into:
 
-- `inputs/` reserved for a later researcher-facing authored input;
-- `technical_report/` for the maintained `technical_report.tex` and its local assets;
-  and
-- `executions/` for future immutable execution packages.
+- `run_01_calculation.py`, containing the visible Python calculation configuration;
+- `run_02_verification.py`, independently reconstructing the declared finite problem;
+- `run_03_render.py`, rendering only a verified result and recording exact input and
+  output byte identities;
+- `technical_report/`, containing the maintained report and local assets; and
+- `executions/`, containing immutable successor execution directories.
 
-No successor execution has been created. The existing top-level inputs, results,
-figures, scripts, report directory, and checksum catalog remain unchanged as historical
-flat artifacts because retained results and provenance identify those paths. No
-successor input document has been admitted yet, and this directory split does not
-reclassify the historical outputs as one atomic execution. Schemas and generic
-study-container code are intentionally outside this first PIAB1D-only restructuring
-step.
+The scripts execute sequentially at module scope. They have no `main()` function,
+command-line parser, JSON-authored input, Workflow, or generic study container. JSON is
+used only for result, execution, verification, and rendering records. Each stage refuses to
+overwrite its owned artifacts.
 
-`hamiltonian_decomposition.py` is the first thin successor entry point. It evaluates
-the typed PIAB1D study, obtains its `ReducedHamiltonian`, applies the existing declared
-shift, and constructs `HamiltonianDecomposition` directly. It then runs, verifies, and
-visualizes without a PIAB1D Workflow or decomposition subclass:
+No successor execution has been created yet. The authored execution identity is
+`direct-core-n8-m3`; its configuration declares $L=m=\hbar=1$, eight independent
+interior degrees of freedom, and three retained states. Its renderer covers the closed
+13-figure inventory: the spectrum/state summary, residual matrices, continuum and
+discrete wavefunction ladders, retained-dimension selection, convergence series,
+higher-eigenpair and higher-mode sweeps, operator and eigensolver residual norms,
+finite algebraic diagnostics, and kinetic-potential decomposition under declared
+model classes. Every plot consumes the authenticated successor projection. The
+calculation stores analytical
+sampling, convergence, and retained-selection values once; it does not persist a
+second visualization-data copy. Verification derives and authenticates the rendering
+projection from those authoritative sections, and rendering consumes that projection
+from the verification record. The calculation obtains the
+finite Hamiltonian and eigensystem from PhysKit, reduces it through KSD Hamiltonian
+objects, and retains both Euclidean and homogeneous-Dirichlet quadrature normalization
+checks. Diagnostic values, unit-compatible tolerances, and typed matrix-norm options
+are normalized by the reusable typed-value codec. Generic mapping serializers and
+deserializers connect final `to_json`/`from_json` boundaries to `to_dict`/`from_dict`.
+The script authenticates paths and bytes, then delegates the decoded nested mapping to
+`Piab1dVerifier`, which independently reconstructs the centered-difference matrix and
+its discrete and continuum spectra with NumPy rather than calling the producer. The
+base verifier composes Hamiltonian, eigensystem, spectral-reduction, quadrature,
+convergence, selection, diagnostic, and visualization-projection verification values.
+Every component inherits the final generic representation boundary; PIAB1D declares
+only the ordered inventory and genuinely model-specific reference calculations.
+
+From `python/`, the staged successor commands are:
 
 ```bash
-cd python
-uv run python ../calculations/piab1d/hamiltonian_decomposition.py \
-  --study-input ../calculations/piab1d/input.json \
-  --decomposition-input ../calculations/piab1d/identifiability-input.json \
-  --figure-output /tmp/piab1d-hamiltonian-decomposition.png
+uv run python ../calculations/piab1d/run_01_calculation.py
+uv run python ../calculations/piab1d/run_02_verification.py
+uv run --extra notebooks python ../calculations/piab1d/run_03_render.py
 ```
-
-The command writes only the requested verified PNG and refuses to overwrite it. It does
-not modify either input document, consume the historical retained result as its
-Hamiltonian source, or establish a successor execution package.
 
 PhysKit owns the `Piab1D` model, analytical spectrum, homogeneous-Dirichlet
 grid, finite-difference Hamiltonian, and eigensolution. Project Koios Numerics owns
@@ -84,17 +100,15 @@ semantics, wire shapes, provenance, and independent verification. No local PIAB1
 model or solver compatibility facade is retained. Maintained scripts bind each model
 when constructing `Piab1dTiseFdSolver` and consume the returned PhysKit `Eigensystem`
 directly. The current source environment pins Project Koios Numerics through
-Optimization revision `3cd32ea8985a855bcdbaffbf89af95e970b3bf14` and PhysKit
-revision `ccdcfcda4a2c7cef29be01b3c09831fda022c55a`.
+Optimization revision `2a18e485109e307b2f7928bd0418bcf796aeb0d5` and PhysKit
+revision `9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5`. PIAB1D matrix diagnostics
+consume only `projectkoios.physkit.linalg.matrix.norm`.
 
 The retained JSON results remain historical evidence and continue to record PhysKit
-revision `2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`. Re-executing the legacy
-eigenpair- and norm-sweep scripts under the current owner revision preserves all
-non-residual fields exactly; algebraic residual observations can differ at binary64
-roundoff because they now come from the current PhysKit eigensystem and residual
-kernel. Tests isolate those fields and require both historical and current values to
-satisfy the independently declared residual bounds. The retained files are not
-rewritten by this migration.
+revision `2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`. Their calculation-local Workflow
+producers have been removed from the maintained source surface. The retained result
+bytes have not been rewritten, and their recorded historical source identities remain
+the provenance locators for reproduction of those exact producers.
 
 The version-two core input enables quadrature explicitly by default. The result keeps
 Euclidean-normalized solver vectors separate from quadrature-normalized nodal
@@ -129,7 +143,7 @@ approach the continuum Dirichlet spectrum at the second order expected from the
 centered finite-difference stencil. Raw residual norms are not compared across
 grids because those matrices act on different finite state spaces.
 
-## Reproduction
+## Historical verification and rendering
 
 From `python/` using the resolved project environment:
 
@@ -150,13 +164,6 @@ uv run --extra notebooks python \
   ../calculations/piab1d/residual-matrices.png
 
 uv run python \
-  ../calculations/piab1d/run_convergence.py \
-  --input \
-  ../calculations/piab1d/convergence-input.json \
-  --output \
-  ../calculations/piab1d/convergence-result.json
-
-uv run python \
   ../calculations/piab1d/verify_convergence.py \
   ../calculations/piab1d/convergence-result.json
 
@@ -167,13 +174,6 @@ uv run --extra notebooks python \
   ../calculations/piab1d/convergence-series.png \
   --mode-sweep-output \
   ../calculations/piab1d/convergence-mode-sweep.png
-
-uv run python \
-  ../calculations/piab1d/run_eigenpair_sweep.py \
-  --input \
-  ../calculations/piab1d/eigenpair-sweep-input.json \
-  --output \
-  ../calculations/piab1d/eigenpair-sweep-result.json
 
 uv run python \
   ../calculations/piab1d/verify_eigenpair_sweep.py \
@@ -188,13 +188,6 @@ uv run --extra notebooks python \
   ../calculations/piab1d/higher-mode-convergence.png
 
 uv run python \
-  ../calculations/piab1d/run_norm_sweep.py \
-  --input \
-  ../calculations/piab1d/norm-sweep-input.json \
-  --output \
-  ../calculations/piab1d/norm-sweep-result.json
-
-uv run python \
   ../calculations/piab1d/verify_norm_sweep.py \
   ../calculations/piab1d/norm-sweep-result.json
 
@@ -207,15 +200,6 @@ uv run --extra notebooks python \
   ../calculations/piab1d/eigensolver-residual-norms.png \
   --identity-output \
   ../calculations/piab1d/finite-identity-diagnostics.png
-
-uv run python \
-  ../calculations/piab1d/run_identifiability.py \
-  --input \
-  ../calculations/piab1d/identifiability-input.json \
-  --retained-result \
-  ../calculations/piab1d/result.json \
-  --output \
-  ../calculations/piab1d/identifiability-result.json
 
 uv run python \
   ../calculations/piab1d/verify_identifiability.py \
@@ -259,8 +243,8 @@ boundary realization, the normalized Frobenius ratio decreases from 0.209 to
 maximum-entry ratio remains 0.5. Full-eigensystem algebraic residual ratios stay
 below $10^{-15}$ and measure only discrete eigensolver accuracy.
 
-The executable identifiability demonstration addresses Appendix D's central
-purpose directly. The physical Dirichlet decomposition and an illustratively
+The executable kinetic-potential decomposition demonstration addresses Appendix D's
+central purpose directly. The physical Dirichlet decomposition and an illustratively
 shifted decomposition reconstruct the same retained Hamiltonian, although only
 the former has the declared physical interpretation. Fitting the illustrative
 shift leaves unexplained Frobenius norms of 1.997, 1.856, 0.566, and zero for
@@ -274,9 +258,11 @@ independently stated finite-difference eigenvalues, projector identities, the
 discarded-sector identity, and the declared boundary-closure difference. They
 do not rerun or validate a material model.
 
-The maintained files are listed in `SHA256SUMS` using SHA-256.
-The result also records input and script identities, Python and NumPy versions,
-floating-point representation, and eigensolver name.
+`SHA256SUMS` is retained as a historical catalog. It still names removed Workflow
+entry points and therefore does not describe the maintained tip after this migration;
+its exact entries remain resolvable at their recorded Git revision. The retained result
+also records input and script identities, Python and NumPy versions, floating-point
+representation, and eigensolver name.
 
 ## Interpretation boundary
 
@@ -287,7 +273,7 @@ only for the declared fixed modes and grids. The full-spectrum sweep explicitly
 shows the lack of uniform eigenvalue accuracy when the mode index scales with
 grid dimension. The normalized multi-norm sweep compares residuals only with
 the same-grid Hamiltonian; it does not align changing finite spaces or establish
-operator convergence. The identifiability result demonstrates why the reduced
+operator convergence. The decomposition result demonstrates why the reduced
 Hamiltonian alone does not select a unique decomposition; it does not assign
 physical meaning to the illustrative alternative. These results do not validate
 a material model or supply evidence about silicon, DFT, Wannier localization,

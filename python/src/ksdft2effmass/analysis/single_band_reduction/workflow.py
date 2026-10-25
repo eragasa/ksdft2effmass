@@ -3,7 +3,13 @@
 from __future__ import annotations
 
 import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ModelSystemUnitConverter,
+    PhysicalUnit,
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
@@ -17,12 +23,6 @@ from ksdft2effmass.analysis.hopping_fits import (
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandSpectrumSamples1D,
-)
-from ksdft2effmass.linalg import (
-    ComplexMatrixQuantity,
-    PhysicalUnit,
-    ScalarQuantity,
-    Unitless,
 )
 from ksdft2effmass.solidstate import (
     BlockHoppingInterpolator1D,

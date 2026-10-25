@@ -19,13 +19,14 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
-from ksdft2effmass.model_systems import PeriodicFourierPotential1D
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
+
+from ksdft2effmass.model_systems import PeriodicFourierPotential1D
 
 pytestmark = pytest.mark.software_verification
 SUT = PeriodicFourierPotential1D

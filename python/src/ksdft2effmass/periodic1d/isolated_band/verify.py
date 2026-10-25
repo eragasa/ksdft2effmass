@@ -5,11 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import ScalarQuantity
 from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
-from ksdft2effmass.linalg import (
-    ScalarQuantity,
-)
 from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicUniformGrid1D,

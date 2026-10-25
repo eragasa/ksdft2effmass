@@ -17,8 +17,7 @@ from enum import StrEnum
 from typing import Literal
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     Unitless,
 )

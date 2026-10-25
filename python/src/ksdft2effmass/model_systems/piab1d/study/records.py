@@ -9,22 +9,22 @@ from projectkoios.numerics.quadrature.numpy.uniform_1d import (
     NumpyHomogeneousDirichletInteriorQuadrature1D,
 )
 from projectkoios.physkit.qm.piab1d import Piab1D
-
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
-    RealMatrixQuantity,
+from projectkoios.physkit.units import (
+    MatrixQuantity,
     ScalarQuantity,
+    SparseMatrixQuantity,
     VectorQuantity,
+)
+
+from ksdft2effmass.hamiltonian import (
+    OrthogonalSpectralSubspace,
+    ReducedHamiltonian,
 )
 from ksdft2effmass.model_systems.study import (
     ModelId,
     ModelSystemStudyBase,
     ModelSystemStudyIdentity,
     ModelSystemStudySchemaId,
-)
-from ksdft2effmass.operators import (
-    OrthogonalSpectralSubspace,
-    ReducedHamiltonian,
 )
 
 
@@ -59,7 +59,13 @@ class Piab1dStudyDefinition(ModelSystemStudyBase):
             raise TypeError("quadrature must be a built-in bool")
 
     def study_identity(self) -> ModelSystemStudyIdentity:
-        """Return the fixed model and schema identity."""
+        """Return the fixed historical model and schema identity.
+
+        Returns
+        -------
+        ModelSystemStudyIdentity
+            PIAB1D retained-study identity with schema version two.
+        """
         return ModelSystemStudyIdentity(self.model_id, self.schema_id)
 
 
@@ -80,17 +86,17 @@ class Piab1dResidualStudyResult:
     """
 
     definition: Piab1dStudyDefinition
-    hamiltonian: CsrRealMatrixQuantity
+    hamiltonian: SparseMatrixQuantity
     eigenvalues: VectorQuantity
-    eigenvectors: RealMatrixQuantity
+    eigenvectors: MatrixQuantity
     quadrature_rule: NumpyHomogeneousDirichletInteriorQuadrature1D | None
-    quadrature_normalized_eigenvectors: RealMatrixQuantity | None
+    quadrature_normalized_eigenvectors: MatrixQuantity | None
     reduced_hamiltonian: ReducedHamiltonian
-    cyclic_reference: RealMatrixQuantity
-    consistently_compressed: RealMatrixQuantity
-    unmatched_compression: RealMatrixQuantity
-    discarded_sector: RealMatrixQuantity
-    boundary_realization: RealMatrixQuantity
+    cyclic_reference: MatrixQuantity
+    consistently_compressed: MatrixQuantity
+    unmatched_compression: MatrixQuantity
+    discarded_sector: MatrixQuantity
+    boundary_realization: MatrixQuantity
     discrete_closed_form: VectorQuantity
     continuum_closed_form: VectorQuantity
     diagnostics: tuple[tuple[str, ScalarQuantity], ...]
@@ -98,12 +104,12 @@ class Piab1dResidualStudyResult:
     def __post_init__(self) -> None:
         if not isinstance(self.definition, Piab1dStudyDefinition):
             raise TypeError("definition must be Piab1dStudyDefinition")
-        if not isinstance(self.hamiltonian, CsrRealMatrixQuantity):
-            raise TypeError("hamiltonian must be CsrRealMatrixQuantity")
+        if not isinstance(self.hamiltonian, SparseMatrixQuantity):
+            raise TypeError("hamiltonian must be SparseMatrixQuantity")
         if not isinstance(self.eigenvalues, VectorQuantity):
             raise TypeError("eigenvalues must be VectorQuantity")
-        if not isinstance(self.eigenvectors, RealMatrixQuantity):
-            raise TypeError("eigenvectors must be RealMatrixQuantity")
+        if not isinstance(self.eigenvectors, MatrixQuantity):
+            raise TypeError("eigenvectors must be MatrixQuantity")
         if self.definition.quadrature:
             if not isinstance(
                 self.quadrature_rule,
@@ -112,10 +118,10 @@ class Piab1dResidualStudyResult:
                 raise TypeError("quadrature_rule must retain the enabled interior rule")
             if not isinstance(
                 self.quadrature_normalized_eigenvectors,
-                RealMatrixQuantity,
+                MatrixQuantity,
             ):
                 raise TypeError(
-                    "quadrature_normalized_eigenvectors must be RealMatrixQuantity"
+                    "quadrature_normalized_eigenvectors must be MatrixQuantity"
                 )
         elif self.quadrature_rule is not None or (
             self.quadrature_normalized_eigenvectors is not None
@@ -130,10 +136,8 @@ class Piab1dResidualStudyResult:
             self.discarded_sector,
             self.boundary_realization,
         ):
-            if not isinstance(quantity, RealMatrixQuantity):
-                raise TypeError(
-                    "represented result matrices must be RealMatrixQuantity"
-                )
+            if not isinstance(quantity, MatrixQuantity):
+                raise TypeError("represented result matrices must be MatrixQuantity")
         if not isinstance(self.discrete_closed_form, VectorQuantity):
             raise TypeError("discrete_closed_form must be VectorQuantity")
         if not isinstance(self.continuum_closed_form, VectorQuantity):
@@ -197,8 +201,8 @@ class Piab1dResidualStudyResult:
         reduction = self.reduced_hamiltonian
         reduced_matrix = reduction.matrix
         embedded_matrix = reduction.embedded.matrix
-        if not isinstance(reduced_matrix, RealMatrixQuantity) or not isinstance(
-            embedded_matrix, RealMatrixQuantity
+        if not isinstance(reduced_matrix, MatrixQuantity) or not isinstance(
+            embedded_matrix, MatrixQuantity
         ):
             raise TypeError("PIAB1D reduced Hamiltonian matrices must be real")
         subspace = reduction.spectral_subspace
@@ -212,7 +216,7 @@ class Piab1dResidualStudyResult:
         ):
             raise ValueError("spectral subspace must map reduced to full coordinates")
         for name, quantity in (
-            ("projector", subspace.projector()),
+            ("projector", subspace.projector),
             ("embedded", embedded_matrix),
             ("cyclic_reference", self.cyclic_reference),
             ("consistently_compressed", self.consistently_compressed),

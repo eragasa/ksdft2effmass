@@ -18,52 +18,61 @@ from projectkoios.physkit.qm.sampled_states import SampledQuantumState1D
 from projectkoios.physkit.units import (
     ComplexVectorQuantity as PhysKitComplexVectorQuantity,
 )
-from projectkoios.physkit.units import Unitless as PhysKitUnitless
-from projectkoios.physkit.units import VectorQuantity as PhysKitVectorQuantity
-
-from ksdft2effmass.analysis.operators import OrthogonalCompressionResidualAnalyzer
-from ksdft2effmass.linalg import (
-    RealMatrixQuantity,
+from projectkoios.physkit.units import (
+    MatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.operators import (
-    Hamiltonian,
-    OperatorCompression,
-    OrthogonalSpectralSubspaceSelector,
-    ReducedHamiltonian,
-)
+from projectkoios.physkit.units import Unitless as PhysKitUnitless
+from projectkoios.physkit.units import VectorQuantity as PhysKitVectorQuantity
 
+from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
+
+from ..analysis import Piab1dAnalyzer
 from .records import Piab1dResidualStudyResult, Piab1dStudyDefinition
 
 
 class Piab1dResidualStudyEvaluator:
     """Evaluate the retained one-dimensional residual experiment."""
 
-    __slots__ = (
-        "compression",
-        "residual_analyzer",
-        "subspace_selector",
-    )
+    __slots__ = ("analyzer",)
 
     def __init__(self) -> None:
         """Construct the KSD-owned subspace and residual actions."""
-        self.subspace_selector = OrthogonalSpectralSubspaceSelector()
-        self.compression = OperatorCompression()
-        self.residual_analyzer = OrthogonalCompressionResidualAnalyzer()
+        self.analyzer = Piab1dAnalyzer()
 
     def execute(self, definition: Piab1dStudyDefinition) -> Piab1dResidualStudyResult:
-        """Return the deterministic finite residual study result."""
+        """Evaluate one retained deterministic residual study.
+
+        Parameters
+        ----------
+        definition
+            Validated historical PIAB1D study definition.
+
+        Returns
+        -------
+        Piab1dResidualStudyResult
+            Finite solution, reduction, normalization, and residual values governed
+            by the retained version-two schema.
+
+        Raises
+        ------
+        TypeError
+            ``definition`` has the wrong domain type.
+        ValueError
+            A declared dimension or generated finite identity is invalid.
+        """
         if not isinstance(definition, Piab1dStudyDefinition):
             raise TypeError("definition must be Piab1dStudyDefinition")
         finite_difference = Piab1dTiseFdSolver(model=definition.model).solve(
             interior_points=definition.Nx_pts_interior
         )
         hamiltonian = finite_difference.hamiltonian
-        eigensystem = finite_difference.eigensystem
+        retained = definition.N_retained_eigenpairs
+        piab1d_analysis = self.analyzer.execute(finite_difference, retained)
         quadrature_rule: NumpyHomogeneousDirichletInteriorQuadrature1D | None = None
-        quadrature_vectors: RealMatrixQuantity | None = None
+        quadrature_vectors: MatrixQuantity | None = None
         if definition.quadrature:
             full_rule = NumpyUniformClosedIntervalTrapezoidalRule().calculate(
                 UniformClosedIntervalTrapezoidalRuleDefinition(
@@ -75,7 +84,7 @@ class Piab1dResidualStudyEvaluator:
             quadrature_rule = full_rule.restrict_homogeneous_dirichlet()
             if quadrature_rule.spacing != finite_difference.grid_spacing.magnitude:
                 raise ValueError("quadrature spacing must match the PhysKit grid")
-            quadrature_vectors = RealMatrixQuantity(
+            quadrature_vectors = MatrixQuantity(
                 self.normalize_eigenvectors(
                     finite_difference.eigenvectors.magnitude,
                     finite_difference.interval.grid.interior_coordinates(),
@@ -89,18 +98,22 @@ class Piab1dResidualStudyEvaluator:
         hamiltonian_dense = hamiltonian.to_dense().magnitude
         eigenvalues = finite_difference.energies.magnitude
         eigenvectors = finite_difference.eigenvectors.magnitude
-        retained = definition.N_retained_eigenpairs
-        subspace = self.subspace_selector.execute(eigensystem, retained)
-        compression = self.compression.execute(hamiltonian, subspace)
+        reduction = piab1d_analysis.reduced_hamiltonian
+        subspace = reduction.spectral_subspace
+        if not isinstance(subspace, OrthogonalSpectralSubspace):
+            raise TypeError("PIAB1D analysis must use OrthogonalSpectralSubspace")
         reduction_basis = subspace.basis_vectors.magnitude
-        projector = subspace.projector().magnitude
+        projector = subspace.projector.magnitude
         complement = np.eye(definition.Nx_pts_interior) - projector
-        reduced_hamiltonian_embedded = compression.embedded.magnitude
-        reduced_hamiltonian = compression.coordinates.magnitude
-        residuals = self.residual_analyzer.execute(hamiltonian, subspace, compression)
-        consistently_compressed = residuals.consistent.magnitude
-        unmatched_compression = residuals.unmatched.magnitude
-        discarded_sector = residuals.discarded_sector.magnitude
+        if not isinstance(reduction.matrix, MatrixQuantity) or not isinstance(
+            reduction.embedded.matrix, MatrixQuantity
+        ):
+            raise TypeError("PIAB1D spectral reduction must remain real")
+        reduced_hamiltonian_embedded = reduction.embedded.matrix.magnitude
+        reduced_hamiltonian = reduction.matrix.magnitude
+        consistently_compressed = piab1d_analysis.consistent_reduction.magnitude
+        unmatched_compression = piab1d_analysis.unmatched_reduction.magnitude
+        discarded_sector = piab1d_analysis.discarded_sector.magnitude
         cyclic_reference = hamiltonian_dense.copy()
         if definition.Nx_pts_interior > 1:
             cyclic_reference[0, -1] = hamiltonian_dense[0, 1]
@@ -202,27 +215,16 @@ class Piab1dResidualStudyEvaluator:
             eigenvectors=finite_difference.eigenvectors,
             quadrature_rule=quadrature_rule,
             quadrature_normalized_eigenvectors=quadrature_vectors,
-            reduced_hamiltonian=ReducedHamiltonian(
-                matrix=RealMatrixQuantity(reduced_hamiltonian, hamiltonian.unit),
-                spectral_subspace=subspace,
-                embedded=Hamiltonian(
-                    matrix=RealMatrixQuantity(
-                        reduced_hamiltonian_embedded,
-                        hamiltonian.unit,
-                    )
-                ),
-            ),
-            cyclic_reference=RealMatrixQuantity(cyclic_reference, hamiltonian.unit),
-            consistently_compressed=RealMatrixQuantity(
+            reduced_hamiltonian=reduction,
+            cyclic_reference=MatrixQuantity(cyclic_reference, hamiltonian.unit),
+            consistently_compressed=MatrixQuantity(
                 consistently_compressed, hamiltonian.unit
             ),
-            unmatched_compression=RealMatrixQuantity(
+            unmatched_compression=MatrixQuantity(
                 unmatched_compression, hamiltonian.unit
             ),
-            discarded_sector=RealMatrixQuantity(discarded_sector, hamiltonian.unit),
-            boundary_realization=RealMatrixQuantity(
-                boundary_realization, hamiltonian.unit
-            ),
+            discarded_sector=MatrixQuantity(discarded_sector, hamiltonian.unit),
+            boundary_realization=MatrixQuantity(boundary_realization, hamiltonian.unit),
             discrete_closed_form=VectorQuantity(discrete, hamiltonian.unit),
             continuum_closed_form=VectorQuantity(continuum, hamiltonian.unit),
             diagnostics=diagnostics,
@@ -234,7 +236,27 @@ class Piab1dResidualStudyEvaluator:
         coordinates: PhysKitVectorQuantity,
         quadrature_weights: PhysKitVectorQuantity,
     ) -> np.ndarray[tuple[int, int], np.dtype[np.float64]]:
-        """Apply PhysKit's unit-aware sampled-state normalizer by column."""
+        """Normalize sampled eigenvectors column by column.
+
+        Parameters
+        ----------
+        eigenvectors
+            Euclidean-normalized represented eigenvector matrix.
+        coordinates
+            PhysKit coordinate vector for the interior samples.
+        quadrature_weights
+            PhysKit integration weights aligned with ``coordinates``.
+
+        Returns
+        -------
+        numpy.ndarray
+            Binary64 matrix of column-normalized real sampled states.
+
+        Raises
+        ------
+        ValueError
+            Normalization produces a nonreal amplitude.
+        """
         normalized_columns: list[np.ndarray[tuple[int], np.dtype[np.float64]]] = []
         for column in range(eigenvectors.shape[1]):
             normalized = SampledQuantumState1D(
@@ -257,5 +279,16 @@ class Piab1dResidualStudyEvaluator:
     def frobenius_norm(
         matrix: np.ndarray[tuple[int, ...], np.dtype[np.float64]],
     ) -> float:
-        """Return the historical square-sum Frobenius norm evaluation."""
+        """Evaluate the historical square-sum Frobenius norm.
+
+        Parameters
+        ----------
+        matrix
+            Finite binary64 NumPy matrix.
+
+        Returns
+        -------
+        float
+            Square root of the sum of squared entries under the historical contract.
+        """
         return float(np.sqrt(np.sum(np.square(matrix))))

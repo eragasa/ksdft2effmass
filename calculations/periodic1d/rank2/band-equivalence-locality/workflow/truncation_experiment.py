@@ -35,7 +35,7 @@ from projectkoios.physkit.solidstate.tb.diagnostics import (
 )
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
-    RealMatrixQuantity,
+    MatrixQuantity,
     ScalarQuantity,
     Unitless,
 )
@@ -418,7 +418,7 @@ class SmoothFourStateTruncationExperiment:
         return BlockHoppingRangeBandEvaluator().evaluate(
             model,
             selections,
-            RealMatrixQuantity(coordinates[:, None], Unitless()),
+            MatrixQuantity(coordinates[:, None], Unitless()),
             BlockHoppingBandTolerance(
                 hermiticity_absolute=ScalarQuantity(
                     hermiticity_tolerance,

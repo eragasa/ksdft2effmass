@@ -43,18 +43,29 @@ HISTORICAL_DEPENDENCY_IDENTITIES: list[JsonValue] = [
     },
 ]
 CURRENT_DEPENDENCY_IDENTITIES: list[JsonValue] = [
-    HISTORICAL_DEPENDENCY_IDENTITIES[0],
+    {
+        "distribution": "projectkoios-optimization",
+        "repository": "https://github.com/eragasa/projectkoios-optimization",
+        "revision": "2a18e485109e307b2f7928bd0418bcf796aeb0d5",
+        "tree": "77262fed5d75e7ddf01334321f9fb24bf6d5961e",
+        "capabilities": [
+            "projectkoios.numerics.quadrature.uniform_1d",
+            "projectkoios.numerics.quadrature.numpy.uniform_1d",
+            "projectkoios.numerics.linalg.matrix_norm",
+        ],
+    },
     {
         "distribution": "projectkoios-physkit",
         "repository": "https://github.com/eragasa/projectkoios-physkit",
-        "revision": "ccdcfcda4a2c7cef29be01b3c09831fda022c55a",
-        "tree": "63891a5272d3032b6a57918619cd2ade625a12f3",
+        "revision": "9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5",
+        "tree": "e95aacc3b67bb3718e1e1a49fe3f46f9e16b109f",
         "capabilities": [
             "projectkoios.physkit.qm.piab1d",
             "projectkoios.physkit.qm.piab1d.tise_fd",
             "projectkoios.physkit.qm.piab1d.tise_analytical",
             "projectkoios.physkit.qm.sampled_states",
             "projectkoios.physkit.linalg.eigen",
+            "projectkoios.physkit.linalg.matrix.norm",
         ],
     },
 ]
@@ -66,7 +77,27 @@ class Piab1dResultVerifier:
     __slots__ = ()
 
     def execute(self, path: Path, repository_root: Path) -> None:
-        """Raise unless one supported result satisfies independent identities."""
+        """Verify one retained result and its exact provenance.
+
+        Parameters
+        ----------
+        path
+            Historical result JSON path.
+        repository_root
+            Repository root used to resolve recorded evidence paths.
+
+        Returns
+        -------
+        None
+            Completion without an exception signifies passing declared checks.
+
+        Raises
+        ------
+        TypeError
+            A path, document, or field has the wrong type.
+        ValueError
+            Schema, numerical identity, or provenance authentication fails.
+        """
         if not isinstance(path, Path):
             raise TypeError("path must be pathlib.Path")
         if not isinstance(repository_root, Path):
@@ -288,7 +319,31 @@ class Piab1dResultVerifier:
         projector: RealMatrix,
         tolerance: float,
     ) -> None:
-        """Independently reconstruct and verify version-two quadrature evidence."""
+        """Independently verify retained version-two quadrature evidence.
+
+        Parameters
+        ----------
+        payload
+            Decoded historical result document.
+        length, points, retained
+            Declared box length, interior dimension, and retained dimension.
+        euclidean_vectors, projector
+            Independently checked retained vectors and projector.
+        tolerance
+            Absolute numerical comparison tolerance.
+
+        Returns
+        -------
+        None
+            Completion signifies agreement with the retained quadrature contract.
+
+        Raises
+        ------
+        TypeError
+            A quadrature field has the wrong JSON type.
+        ValueError
+            Metadata, dimensions, or reconstructed identities disagree.
+        """
         input_payload = self.mapping(payload["input"], "input")
         representation = self.mapping(
             input_payload["finite_representation"],
@@ -446,7 +501,29 @@ class Piab1dResultVerifier:
         repository_root: Path,
         schema_version: int,
     ) -> None:
-        """Verify historical or current implementation identities explicitly."""
+        """Verify a supported historical implementation-identity profile.
+
+        Parameters
+        ----------
+        payload
+            Decoded historical result document.
+        repository_root
+            Root containing every recorded evidence path.
+        schema_version
+            Supported retained schema version.
+
+        Returns
+        -------
+        None
+            Completion signifies exact path and SHA-256 agreement.
+
+        Raises
+        ------
+        TypeError
+            A provenance field has the wrong JSON type.
+        ValueError
+            A path, dependency profile, source inventory, or digest differs.
+        """
         provenance = self.mapping(payload["provenance"], "provenance")
         current_profile = False
         if schema_version == 2:
@@ -488,11 +565,17 @@ class Piab1dResultVerifier:
             }
         elif current_profile:
             expected = {
+                "python/src/ksdft2effmass/analysis/diagnostics.py",
+                "python/src/ksdft2effmass/analysis/operators/eigenpair_diagnostics.py",
+                "python/src/ksdft2effmass/model_systems/analysis.py",
                 "python/src/ksdft2effmass/model_systems/study/base.py",
-                "python/src/ksdft2effmass/analysis/operators/compression_residuals.py",
-                "python/src/ksdft2effmass/operators/hamiltonians.py",
-                "python/src/ksdft2effmass/operators/subspaces.py",
-                "python/src/ksdft2effmass/linalg/quantities.py",
+                "python/src/ksdft2effmass/hamiltonian/blocks.py",
+                "python/src/ksdft2effmass/hamiltonian/decomposition.py",
+                "python/src/ksdft2effmass/hamiltonian/records.py",
+                "python/src/ksdft2effmass/hamiltonian/reduction.py",
+                "python/src/ksdft2effmass/hamiltonian/subspaces.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/analysis/core.py",
+                "python/src/ksdft2effmass/model_systems/piab1d/diagnostics.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
                 "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
@@ -531,7 +614,20 @@ class Piab1dResultVerifier:
 
     @staticmethod
     def evidence_path(repository_root: Path, relative: str) -> Path:
-        """Resolve current paths and the exact relocated historical PIAB1D path."""
+        """Resolve a current or relocated historical evidence path.
+
+        Parameters
+        ----------
+        repository_root
+            Current repository root.
+        relative
+            Recorded repository-relative path.
+
+        Returns
+        -------
+        pathlib.Path
+            Current filesystem locator preserving the explicit historical relocation.
+        """
         historical_prefix = "calculations/research-monograph/particle-in-box/"
         if relative.startswith(historical_prefix):
             relative = "calculations/piab1d/" + relative.removeprefix(historical_prefix)
@@ -539,7 +635,25 @@ class Piab1dResultVerifier:
 
     @staticmethod
     def mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:
-        """Return one JSON object with string keys."""
+        """Validate one JSON object with string keys.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        dict[str, JsonValue]
+            Validated object.
+
+        Raises
+        ------
+        TypeError
+            The value is not a string-keyed object.
+        """
         if not isinstance(value, dict) or not all(
             isinstance(key, str) for key in value
         ):
@@ -548,21 +662,77 @@ class Piab1dResultVerifier:
 
     @staticmethod
     def string(value: JsonValue, name: str) -> str:
-        """Return one nonempty JSON string."""
+        """Validate one nonempty JSON string.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        str
+            Nonempty string.
+
+        Raises
+        ------
+        TypeError
+            The value is not a nonempty string.
+        """
         if not isinstance(value, str) or not value:
             raise TypeError(f"{name} must be a nonempty string")
         return value
 
     @staticmethod
     def integer(value: JsonValue, name: str) -> int:
-        """Return one built-in integer excluding booleans."""
+        """Validate one built-in integer excluding booleans.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        int
+            Exact built-in integer.
+
+        Raises
+        ------
+        TypeError
+            The value is Boolean or not an integer.
+        """
         if isinstance(value, bool) or not isinstance(value, int):
             raise TypeError(f"{name} must be an integer")
         return value
 
     @staticmethod
     def real(value: JsonValue, name: str) -> float:
-        """Return one built-in finite JSON real excluding booleans."""
+        """Validate one finite JSON real excluding booleans.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        float
+            Finite built-in floating-point value.
+
+        Raises
+        ------
+        TypeError
+            The value is Boolean or nonnumeric.
+        ValueError
+            The converted value is nonfinite.
+        """
         if isinstance(value, bool) or not isinstance(value, int | float):
             raise TypeError(f"{name} must be a JSON real")
         result = float(value)
@@ -572,7 +742,25 @@ class Piab1dResultVerifier:
 
     @staticmethod
     def vector(value: JsonValue, name: str) -> npt.NDArray[np.float64]:
-        """Decode one binary64 vector."""
+        """Decode one historical binary64 vector.
+
+        Parameters
+        ----------
+        value
+            JSON array.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        numpy.ndarray
+            Binary64 array.
+
+        Raises
+        ------
+        TypeError
+            The value is not a JSON array.
+        """
         if not isinstance(value, list):
             raise TypeError(f"{name} must be a JSON array")
         return np.asarray(value, dtype=np.float64)
@@ -580,7 +768,27 @@ class Piab1dResultVerifier:
     def matrix(
         self, payload: dict[str, JsonValue], section: str, name: str
     ) -> RealMatrix:
-        """Decode one matrix from a named result section."""
+        """Decode one matrix from a named result section.
+
+        Parameters
+        ----------
+        payload
+            Decoded result document.
+        section
+            Top-level matrix section name.
+        name
+            Matrix field name.
+
+        Returns
+        -------
+        RealMatrix
+            Binary64 matrix.
+
+        Raises
+        ------
+        TypeError
+            The section or matrix is not represented by a JSON object or array.
+        """
         values = self.mapping(payload[section], section)[name]
         if not isinstance(values, list):
             raise TypeError(f"{name} must be a JSON array")
@@ -589,7 +797,27 @@ class Piab1dResultVerifier:
     def residual(
         self, payload: dict[str, JsonValue], name: str, field: str
     ) -> RealMatrix:
-        """Decode one residual matrix field."""
+        """Decode one historical residual matrix field.
+
+        Parameters
+        ----------
+        payload
+            Decoded result document.
+        name
+            Residual-record name.
+        field
+            Matrix field within the residual record.
+
+        Returns
+        -------
+        RealMatrix
+            Binary64 residual matrix.
+
+        Raises
+        ------
+        TypeError
+            The residual record or matrix has the wrong JSON representation.
+        """
         residuals = self.mapping(payload["residuals"], "residuals")
         record = self.mapping(residuals[name], name)
         values = record[field]

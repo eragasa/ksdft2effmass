@@ -5,9 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.units import (
+    SparseMatrixQuantity,
+    Unitless,
+)
 from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import CsrRealMatrixQuantity, Unitless
 
 
 @dataclass(frozen=True, slots=True)
@@ -32,7 +34,7 @@ class LadderOperator1D:
         if self.retained_dimension <= 0:
             raise ValueError("retained_dimension must be positive")
 
-    def annihilation(self) -> CsrRealMatrixQuantity:
+    def annihilation(self) -> SparseMatrixQuantity:
         """Return the immutable sparse Unitless annihilation operator."""
         values = np.sqrt(np.arange(1, self.retained_dimension, dtype=np.float64))
         matrix = sparse.diags(
@@ -42,15 +44,15 @@ class LadderOperator1D:
             format="csr",
             dtype=np.float64,
         )
-        return CsrRealMatrixQuantity.from_csr(matrix, Unitless())
+        return SparseMatrixQuantity.from_csr(matrix, Unitless())
 
-    def creation(self) -> CsrRealMatrixQuantity:
+    def creation(self) -> SparseMatrixQuantity:
         """Return the immutable sparse Unitless creation operator."""
-        return CsrRealMatrixQuantity.from_csr(
+        return SparseMatrixQuantity.from_csr(
             self.annihilation().to_csr().transpose(), Unitless()
         )
 
-    def number(self) -> CsrRealMatrixQuantity:
+    def number(self) -> SparseMatrixQuantity:
         """Return the exact diagonal immutable Unitless number operator.
 
         The diagonal is formed directly from integer labels so exact retained spectra
@@ -64,12 +66,12 @@ class LadderOperator1D:
             format="csr",
             dtype=np.float64,
         )
-        return CsrRealMatrixQuantity.from_csr(matrix, Unitless())
+        return SparseMatrixQuantity.from_csr(matrix, Unitless())
 
-    def commutator(self) -> CsrRealMatrixQuantity:
+    def commutator(self) -> SparseMatrixQuantity:
         """Return the finite sparse commutator ``a@adag - adag@a``."""
         annihilation = self.annihilation().to_csr()
         creation = self.creation().to_csr()
-        return CsrRealMatrixQuantity.from_csr(
+        return SparseMatrixQuantity.from_csr(
             annihilation @ creation - creation @ annihilation, Unitless()
         )

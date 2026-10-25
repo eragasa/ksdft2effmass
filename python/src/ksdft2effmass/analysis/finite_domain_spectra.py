@@ -6,11 +6,11 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     VectorQuantity,
 )
+
 from ksdft2effmass.operators import (
     ComplexHermitianEigenpairResidualResult,
     ComplexHermitianEigenpairResult,

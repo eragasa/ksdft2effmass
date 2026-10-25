@@ -21,9 +21,9 @@ campaign execution, or human acceptance.
 """
 
 import pytest
+from projectkoios.physkit.units import Unitless
 
 from ksdft2effmass.analysis.finite_domains import FiniteDomainScalarMetric
-from ksdft2effmass.operators import Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = FiniteDomainScalarMetric

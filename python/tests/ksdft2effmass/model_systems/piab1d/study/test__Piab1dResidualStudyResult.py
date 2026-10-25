@@ -22,17 +22,13 @@ uncertainty quantification, or human acceptance.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import MatrixQuantity
 
-from ksdft2effmass.linalg import (
-    RealMatrixQuantity,
-)
+from ksdft2effmass.hamiltonian import ReducedHamiltonian
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dResidualStudyEvaluator,
     Piab1dResidualStudyResult,
     Piab1dStudyInputDeserializer,
-)
-from ksdft2effmass.operators import (
-    ReducedHamiltonian,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -58,7 +54,7 @@ class TestPiab1dResidualStudyResult:
         result = Piab1dResidualStudyEvaluator().execute(definition)
 
         assert result.definition is definition
-        projector = result.reduced_hamiltonian.spectral_subspace.projector()
+        projector = result.reduced_hamiltonian.spectral_subspace.projector
         with pytest.raises(ValueError, match="read-only"):
             projector.magnitude[0, 0] = 1.0
 
@@ -74,8 +70,8 @@ class TestPiab1dResidualStudyResult:
         assert type(reduced) is ReducedHamiltonian
         assert reduced.spectral_subspace.full_dimension == 8
         assert reduced.spectral_subspace.dimension == 3
-        assert reduced.spectral_subspace.projector().magnitude.shape == (8, 8)
-        assert isinstance(reduced.matrix, RealMatrixQuantity)
-        assert isinstance(reduced.embedded.matrix, RealMatrixQuantity)
+        assert reduced.spectral_subspace.projector.magnitude.shape == (8, 8)
+        assert isinstance(reduced.matrix, MatrixQuantity)
+        assert isinstance(reduced.embedded.matrix, MatrixQuantity)
         assert reduced.matrix.magnitude.shape == (3, 3)
         assert reduced.embedded.matrix.magnitude.shape == (8, 8)

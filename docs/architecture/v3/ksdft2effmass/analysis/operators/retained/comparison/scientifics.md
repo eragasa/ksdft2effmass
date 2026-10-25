@@ -15,4 +15,4 @@ aggregates finite-difference spectral discrepancies only after the sampled sine 
 are declared as the retained coordinates.
 
 The comparator does not establish operator convergence, physical adequacy,
-identifiability, or uncertainty quantification.
+uniqueness of a physical decomposition, or uncertainty quantification.

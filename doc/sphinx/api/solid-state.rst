@@ -1,7 +1,7 @@
 Solid-state lattice models API
 ==============================
 
-The supported public import path is ``ksdft2effmass.solid_state``.  This initial
+The supported public import path is ``ksdft2effmass.solidstate``.  This initial
 surface owns finite integer lattice geometry, boundary twists, one-dimensional
 reciprocal paths and band frames, scalar and block hopping models, localized scalar
 perturbations, and explicit integral lattice operations in one, two, and three spatial
@@ -13,9 +13,9 @@ geometry remains in ``ksdft2effmass.structures.periodic``; weighted reciprocal s
 remains in ``ksdft2effmass.electronic_structure``; generic matrix representations
 remain in ``ksdft2effmass.operators``.
 
-.. currentmodule:: ksdft2effmass.solid_state
+.. currentmodule:: ksdft2effmass.solidstate
 
-.. automodule:: ksdft2effmass.solid_state
+.. automodule:: ksdft2effmass.solidstate
 
 Bravais, direct, and reciprocal lattices
 ----------------------------------------

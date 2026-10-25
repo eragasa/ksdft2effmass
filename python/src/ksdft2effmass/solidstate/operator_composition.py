@@ -5,9 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
 
-from ksdft2effmass.linalg import (
-    CsrComplexMatrixQuantity,
-)
+from projectkoios.physkit.units import ComplexSparseMatrixQuantity
 
 from .represented_operators import ScalarFiniteLatticeOperator
 
@@ -134,7 +132,7 @@ class ScalarFiniteLatticeOperatorAdder:
             raise ValueError("compatibility result must correlate the exact operands")
         if not compatibility.compatible:
             raise ValueError("compatibility result must pass before operator addition")
-        matrix = CsrComplexMatrixQuantity.from_csr(
+        matrix = ComplexSparseMatrixQuantity.from_csr(
             left.matrix.to_csr() + right.matrix.to_csr(), left.matrix.unit
         )
         return ScalarFiniteLatticeOperator(

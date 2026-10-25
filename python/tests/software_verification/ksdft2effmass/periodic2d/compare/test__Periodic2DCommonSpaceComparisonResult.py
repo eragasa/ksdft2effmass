@@ -2,8 +2,12 @@
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity, Unitless
 from ksdft2effmass.periodic2d import (
     Periodic2DCommonSpaceComparisonRequest,
     Periodic2DCommonSpaceComparisonResult,

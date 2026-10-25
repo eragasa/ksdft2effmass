@@ -3,6 +3,13 @@
 from __future__ import annotations
 
 import numpy as np
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
@@ -17,13 +24,6 @@ from ksdft2effmass.analysis.hopping_fits import (
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandSpectrumSamples1D,
-)
-from ksdft2effmass.linalg import (
-    ComplexMatrixQuantity,
-    RealMatrixQuantity,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
 )
 from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
@@ -297,7 +297,7 @@ class Periodic1DIsolatedBandCalculator:
         return BandSpectrumSamples1D(
             coordinates,
             model.reciprocal_vector,
-            RealMatrixQuantity(values, model.recoil_energy.unit),
+            MatrixQuantity(values, model.recoil_energy.unit),
         )
 
     def _finite_difference_spectrum(
@@ -344,7 +344,7 @@ class Periodic1DIsolatedBandCalculator:
         return BandSpectrumSamples1D(
             coordinates,
             model.reciprocal_vector,
-            RealMatrixQuantity(np.asarray(values), model.recoil_energy.unit),
+            MatrixQuantity(np.asarray(values), model.recoil_energy.unit),
         )
 
     def _physical_coordinates(

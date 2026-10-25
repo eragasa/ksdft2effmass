@@ -6,12 +6,12 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
+
 from ksdft2effmass.solidstate import FiniteLatticeCoordinateResolver
 
 from .finite_domain_locality import MinimumImageChebyshevPartition

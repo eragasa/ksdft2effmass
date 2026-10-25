@@ -23,6 +23,13 @@ scientific validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    PhysicalUnit,
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.integration.wannier90 import (
     Wannier90EigenvalueData,
@@ -35,13 +42,6 @@ from ksdft2effmass.integration.wannier90 import (
     Wannier90NeighborOverlapParser,
     Wannier90ProjectionData,
     Wannier90ProjectionParser,
-)
-from ksdft2effmass.operators import (
-    ComplexMatrixQuantity,
-    MatrixQuantity,
-    PhysicalUnit,
-    ScalarQuantity,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification

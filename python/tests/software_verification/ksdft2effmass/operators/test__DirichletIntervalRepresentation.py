@@ -21,12 +21,15 @@ validation, uncertainty quantification, or human acceptance.
 """
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
+
 from ksdft2effmass.model_systems import (
     DirichletBoundaryCondition,
     DirichletInterval,
-    ScalarQuantity,
     UniformCartesianGrid1D,
-    Unitless,
 )
 from ksdft2effmass.operators import DirichletIntervalRepresentation
 

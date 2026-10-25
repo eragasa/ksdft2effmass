@@ -6,14 +6,14 @@ import json
 from typing import cast
 
 import numpy as np
-
-from ksdft2effmass.analysis.single_band_reduction import (
-    SingleBandHoppingReductionTolerances1D,
-)
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
     VectorQuantity,
+)
+
+from ksdft2effmass.analysis.single_band_reduction import (
+    SingleBandHoppingReductionTolerances1D,
 )
 from ksdft2effmass.model_systems.periodic_1d import PeriodicFourierPotential1D
 from ksdft2effmass.periodic1d.model import Periodic1DFourierHamiltonianToyModel

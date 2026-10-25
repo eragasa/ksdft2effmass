@@ -54,11 +54,17 @@ class TestPiab1dStudyResultSerializer:
             cast(dict[str, JsonValue], identity)["path"] for identity in identities
         }
         assert paths == {
+            "python/src/ksdft2effmass/analysis/diagnostics.py",
+            "python/src/ksdft2effmass/analysis/operators/eigenpair_diagnostics.py",
+            "python/src/ksdft2effmass/model_systems/analysis.py",
             "python/src/ksdft2effmass/model_systems/study/base.py",
-            "python/src/ksdft2effmass/analysis/operators/compression_residuals.py",
-            "python/src/ksdft2effmass/operators/hamiltonians.py",
-            "python/src/ksdft2effmass/operators/subspaces.py",
-            "python/src/ksdft2effmass/linalg/quantities.py",
+            "python/src/ksdft2effmass/hamiltonian/blocks.py",
+            "python/src/ksdft2effmass/hamiltonian/decomposition.py",
+            "python/src/ksdft2effmass/hamiltonian/records.py",
+            "python/src/ksdft2effmass/hamiltonian/reduction.py",
+            "python/src/ksdft2effmass/hamiltonian/subspaces.py",
+            "python/src/ksdft2effmass/model_systems/piab1d/analysis/core.py",
+            "python/src/ksdft2effmass/model_systems/piab1d/diagnostics.py",
             "python/src/ksdft2effmass/model_systems/piab1d/study/records.py",
             "python/src/ksdft2effmass/model_systems/piab1d/study/input.py",
             "python/src/ksdft2effmass/model_systems/piab1d/study/evaluation.py",
@@ -67,4 +73,4 @@ class TestPiab1dStudyResultSerializer:
         dependencies = provenance["dependency_identities"]
         assert isinstance(dependencies, list)
         physkit = cast(dict[str, JsonValue], dependencies[1])
-        assert physkit["revision"] == "ccdcfcda4a2c7cef29be01b3c09831fda022c55a"
+        assert physkit["revision"] == "9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5"

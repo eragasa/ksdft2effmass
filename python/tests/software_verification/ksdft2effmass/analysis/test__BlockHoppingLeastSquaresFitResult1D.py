@@ -19,18 +19,18 @@ Result consistency does not establish model adequacy or validation.
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.analysis.hopping_fits import (
-    BlockHoppingLeastSquaresFitResult1D,
-    BlockHoppingLeastSquaresFitter1D,
-)
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+
+from ksdft2effmass.analysis.hopping_fits import (
+    BlockHoppingLeastSquaresFitResult1D,
+    BlockHoppingLeastSquaresFitter1D,
+)
+from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
 
 pytestmark = pytest.mark.software_verification
 SUT = BlockHoppingLeastSquaresFitResult1D

@@ -21,12 +21,13 @@ acceptance.
 """
 
 import pytest
-from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems import (
-    DirichletBoundaryCondition,
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
+
+from ksdft2effmass import model_systems
+from ksdft2effmass.model_systems import DirichletBoundaryCondition
 
 pytestmark = pytest.mark.software_verification
 SUT = DirichletBoundaryCondition

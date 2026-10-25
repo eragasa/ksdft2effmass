@@ -25,12 +25,13 @@ from band_equivalence_workflow.strain_scan_serialization import (
 from band_equivalence_workflow.strain_serialization import (
     SyntheticStrainResponseResultSerializer,
 )
+
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     SyntheticStrainCalculator,
     SyntheticStrainPath,
     SyntheticStrainResult,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
     StrainResponseModel,
     StrainWitnessControl,
     SyntheticStrainResponseResult,
@@ -38,7 +39,7 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_resp
     calculate_strain_witness_scan,
     calculate_synthetic_strain_response,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan import (  # noqa: E501
     SyntheticStrainScanAssessor,
     SyntheticStrainScanRequest,
     SyntheticStrainScanSummary,

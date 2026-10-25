@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
-from ksdft2effmass.operators import (
-    LadderOperator1D,
-)
+
+from ksdft2effmass.operators import LadderOperator1D
 
 from ...boundary_conditions import DirichletBoundaryCondition
 from ...cartesian_grids import UniformCartesianGrid1D

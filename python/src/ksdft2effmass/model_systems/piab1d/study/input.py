@@ -22,7 +22,25 @@ class Piab1dStudyInputDeserializer:
     __slots__ = ()
 
     def execute(self, payload: bytes) -> Piab1dStudyDefinition:
-        """Return one validated definition decoded from UTF-8 JSON bytes."""
+        """Decode one retained version-two study definition.
+
+        Parameters
+        ----------
+        payload
+            UTF-8 JSON bytes containing the historical input schema.
+
+        Returns
+        -------
+        Piab1dStudyDefinition
+            Immutable validated historical study definition.
+
+        Raises
+        ------
+        TypeError
+            The payload or a decoded field has the wrong exact type.
+        ValueError
+            JSON syntax, field inventory, or a study invariant is invalid.
+        """
         if not isinstance(payload, bytes):
             raise TypeError("payload must be bytes")
         decoded = cast(JsonValue, json.loads(payload.decode("utf-8")))
@@ -91,7 +109,25 @@ class Piab1dStudyInputDeserializer:
 
     @staticmethod
     def mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:
-        """Return a JSON object with string keys."""
+        """Validate and return a JSON object with string keys.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        Mapping[str, JsonValue]
+            Validated mapping.
+
+        Raises
+        ------
+        TypeError
+            The value is not a string-keyed mapping.
+        """
         if not isinstance(value, dict) or not all(
             isinstance(key, str) for key in value
         ):
@@ -100,28 +136,102 @@ class Piab1dStudyInputDeserializer:
 
     @staticmethod
     def string(value: JsonValue, name: str) -> str:
-        """Return a nonempty JSON string."""
+        """Validate and return a nonempty JSON string.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        str
+            Nonempty built-in string.
+
+        Raises
+        ------
+        TypeError
+            The value is not a nonempty built-in string.
+        """
         if not isinstance(value, str) or not value:
             raise TypeError(f"{name} must be a nonempty string")
         return value
 
     @staticmethod
     def integer(value: JsonValue, name: str) -> int:
-        """Return a built-in JSON integer excluding booleans."""
+        """Validate and return a built-in integer excluding booleans.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        int
+            Exact built-in integer.
+
+        Raises
+        ------
+        TypeError
+            The value is a Boolean or not a built-in integer.
+        """
         if isinstance(value, bool) or not isinstance(value, int):
             raise TypeError(f"{name} must be a JSON integer")
         return value
 
     @staticmethod
     def boolean(value: JsonValue, name: str) -> bool:
-        """Return a JSON Boolean without numeric coercion."""
+        """Validate and return a JSON Boolean without numeric coercion.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        bool
+            Exact Boolean value.
+
+        Raises
+        ------
+        TypeError
+            The value is not a built-in Boolean.
+        """
         if type(value) is not bool:
             raise TypeError(f"{name} must be a JSON Boolean")
         return value
 
     @classmethod
     def positive_integer(cls, value: JsonValue, name: str) -> int:
-        """Return a positive built-in JSON integer."""
+        """Validate and return a positive built-in integer.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        int
+            Positive exact integer.
+
+        Raises
+        ------
+        TypeError
+            The value is not an exact integer.
+        ValueError
+            The integer is not positive.
+        """
         result = cls.integer(value, name)
         if result <= 0:
             raise ValueError(f"{name} must be positive")
@@ -129,7 +239,27 @@ class Piab1dStudyInputDeserializer:
 
     @staticmethod
     def positive_real(value: JsonValue, name: str) -> float:
-        """Return a positive finite JSON real excluding booleans."""
+        """Validate and return a positive finite real excluding booleans.
+
+        Parameters
+        ----------
+        value
+            Decoded JSON value.
+        name
+            Field name used in failure messages.
+
+        Returns
+        -------
+        float
+            Positive finite built-in floating-point value.
+
+        Raises
+        ------
+        TypeError
+            The value is Boolean or not a built-in integer or float.
+        ValueError
+            The converted value is nonfinite or nonpositive.
+        """
         if isinstance(value, bool) or not isinstance(value, int | float):
             raise TypeError(f"{name} must be a positive JSON number")
         result = float(value)

@@ -187,7 +187,7 @@ result.
 
 **Conceptual model**
 
-Create a broad `ksdft2effmass.solid_state` aggregate. It owns a curated application
+Create a broad `ksdft2effmass.solidstate` aggregate. It owns a curated application
 layer over crystal structures, reciprocal sampling, lattice Hamiltonians, symmetry,
 boundary twists, and finite-domain construction. Its persistent contracts would be
 solid-state-domain records; operator matrices and campaign results remain owned by
@@ -376,7 +376,7 @@ open-ended solid-state facade. It also supports an adversarial implementation se
 first prove immutable contracts and sparse construction, then independently reconstruct
 the seam route, and only afterward connect the exact finite-domain campaign. The
 recommendation remains architecture advice rather than retrospective human selection.
-HC20 subsequently selected Option B, the broad `ksdft2effmass.solid_state` composition
+HC20 subsequently selected Option B, the broad `ksdft2effmass.solidstate` composition
 aggregate, whose implementation must preserve the cohesive submodule and dependency
 boundaries identified here.
 
@@ -402,7 +402,7 @@ The following options are retained as the original decision interface:
 
 - **A — Electronic-structure ownership:** place lattice-model and twist contracts under
   `ksdft2effmass.electronic_structure.lattice_models`.
-- **B — Broad solid-state aggregate:** create `ksdft2effmass.solid_state` as the
+- **B — Broad solid-state aggregate:** create `ksdft2effmass.solidstate` as the
   composition owner spanning existing domain packages.
 - **C — Focused lattice-model package:** create
   `ksdft2effmass.lattice_models` with narrow reduced-model authority.

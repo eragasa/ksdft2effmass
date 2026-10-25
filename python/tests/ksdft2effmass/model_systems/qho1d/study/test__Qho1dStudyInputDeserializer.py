@@ -25,9 +25,12 @@ human acceptance.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.campaigns import research_monograph
-from ksdft2effmass.model_systems import ScalarQuantity, Unitless
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dStudyDefinition,
     Qho1dStudyInputDeserializer,
@@ -113,9 +116,7 @@ class TestQho1dStudyInputDeserializer:
             historical_input.read_bytes()
         )
 
-        assert definition.experiment_id == (
-            "research-monograph.harmonic-oscillator.v1"
-        )
+        assert definition.experiment_id == ("research-monograph.harmonic-oscillator.v1")
         assert definition.evidence_status == "illustrative numerical experiment"
         assert definition.study_identity() == ModelSystemStudyIdentity(
             model_id=ModelId.qho1d,

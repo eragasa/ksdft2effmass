@@ -26,8 +26,7 @@ from projectkoios.physkit.periodic.lattice import (
     DirectLattice2D,
     ReciprocalLattice2D,
 )
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
 )

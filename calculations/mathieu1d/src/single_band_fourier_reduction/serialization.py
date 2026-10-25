@@ -8,7 +8,7 @@ from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
 from ksdft2effmass.analysis.single_band_reduction import (
     SingleBandHoppingRangeReductionResult1D,
 )
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
 )

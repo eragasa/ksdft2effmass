@@ -23,6 +23,13 @@ from dataclasses import replace
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 from scipy import sparse  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.bound_subspaces import (
@@ -40,15 +47,10 @@ from ksdft2effmass.analysis.finite_domain_spectra import (
 from ksdft2effmass.operators import (
     ComplexHermitianEigenpairResidualAnalyzer,
     ComplexHermitianEigenpairResult,
-    ComplexMatrixQuantity,
     ComplexSparseHermiticityAnalyzer,
-    ComplexSparseMatrixQuantity,
     HermitianEigenpairSelection,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
 )
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     FiniteLatticeShape,
     LatticeCoordinate,
     LatticeDimension,

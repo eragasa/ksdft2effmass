@@ -5,7 +5,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ModelSystemUnitConverter,
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityResult1D,
@@ -13,11 +18,6 @@ from ksdft2effmass.analysis.hopping_diagnostics import (
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorResult1D,
     BandSpectrumSamples1D,
-)
-from ksdft2effmass.linalg import (
-    ComplexMatrixQuantity,
-    ScalarQuantity,
-    Unitless,
 )
 from ksdft2effmass.solidstate import (
     BandFrameAlignmentResult1D,

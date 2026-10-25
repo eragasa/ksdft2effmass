@@ -12,8 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,

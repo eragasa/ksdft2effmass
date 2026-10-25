@@ -86,7 +86,7 @@ and checksums it.
 
 A package may have multiple named result or verification documents when its protocol
 contains multiple prespecified channels. Their dependencies are explicit. For example,
-a derived identifiability result that consumes a residual result records the exact
+a derived decomposition result that consumes a residual result records the exact
 consumed result digest rather than relying on a shared directory or filename. Optional
 artifacts are declared by the protocol; absence must not be silently treated as
 success.
@@ -116,10 +116,12 @@ scientific acceptance or authorize publication.
 
 ## Staged entry points
 
-Every entry point is import-safe, resolves paths from its own location, returns nonzero
-on failure, and refuses to overwrite an artifact owned by its stage. The scripts are
-thin calculation-specific composition roots; reusable scientific behavior remains in
-`python/src/ksdft2effmass/` or its reviewed dependency owner.
+Maintained calculation entry points resolve paths from their own location, terminate
+with failure on an exception, and refuse to overwrite an artifact owned by their stage.
+They are executable composition scripts, not importable source modules. The scripts
+contain direct module-scope composition and remain outside package API discovery and
+test collection. Reusable scientific behavior remains in `python/src/ksdft2effmass/`
+or its reviewed dependency owner.
 
 ### `run_01_calculation.py`
 
@@ -165,6 +167,26 @@ The rendering stage:
 
 Figures and prose are derived presentation artifacts, not additional scientific
 evidence classes.
+
+### Implemented PIAB1D direct lifecycle
+
+The PIAB1D successor implements `run_01_calculation.py`,
+`run_02_verification.py`, and `run_03_render.py` as a direct
+calculate → verify → render chain. It does not implement a Workflow, registry, generic
+execution engine, nested execution graph, argument parser, or JSON-authored scientific
+input.
+
+Calculation writes one typed `Piab1dCalculationResult` through an incomplete-stage
+path. Verification decodes that result, independently reconstructs all reference
+families, derives and authenticates visualization data, and writes a 79-comparison
+aggregate through `.verification.incomplete`. Rendering accepts only the passing
+aggregate bound to the exact result and projection digests, generates the closed
+13-figure inventory, and publishes through `.figures.incomplete`.
+
+The complete source architecture is documented at
+[`ksdft2effmass.model_systems.piab1d`](../ksdft2effmass/model_systems/piab1d/index.md).
+The retained flat PIAB1D artifacts remain historical. Successor execution retention,
+checksum updates, sealing, and evidence promotion remain separate authorized actions.
 
 ### `run_04_seal.py`
 

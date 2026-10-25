@@ -5,12 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from scipy.linalg import schur  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     Unitless,
 )
+from scipy.linalg import schur  # type: ignore[import-untyped]
 
 from .reciprocal_paths import CenteredUniformReciprocalMesh1D
 

@@ -22,6 +22,10 @@ human acceptance.
 """
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems import (
@@ -35,8 +39,6 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dFiniteDifference,
     Qho1dLadderOperators,
     Qho1dNondimensionalizer,
-    ScalarQuantity,
-    Unitless,
 )
 from ksdft2effmass.operators import LadderOperator1D
 

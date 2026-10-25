@@ -26,12 +26,11 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
-from scipy.linalg import eigh  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
+from scipy.linalg import eigh  # type: ignore[import-untyped]
 
 from .stress import Periodic1DStressCampaignDefinition, Periodic1DStressPotentialShape
 from .stress_results import Periodic1DStressCampaignResult

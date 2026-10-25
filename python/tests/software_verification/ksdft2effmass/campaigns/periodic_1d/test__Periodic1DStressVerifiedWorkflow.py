@@ -24,13 +24,16 @@ validation, perform uncertainty quantification, or provide human acceptance.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DStressCampaignWorkflowRequest,
     Periodic1DStressVerifiedWorkflow,
     Periodic1DStressVerifiedWorkflowRequest,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DStressVerifiedWorkflow

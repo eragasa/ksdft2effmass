@@ -14,11 +14,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from projectkoios.physkit.units import ModelSystemUnitConverter
-
-from ksdft2effmass.linalg import (
-    PhysicalUnit,
-)
+from projectkoios.physkit.units import ModelSystemUnitConverter, PhysicalUnit
 
 from .bravais import (
     BravaisLattice1D,

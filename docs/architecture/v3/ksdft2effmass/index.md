@@ -9,13 +9,17 @@ or supported import already exists.
 
 ## Child map
 
-- [`linalg`](linalg/index.md): immutable finite numerical quantities, dense and
-  canonical CSR representations, units, and matrix verification.
+- [`hamiltonian`](hamiltonian/index.md): Hamiltonian records, spectral spaces,
+  reduction, diagnostics, and decomposition.
 - [`operators`](operators/index.md): representation-independent finite-operator values
   and operations.
 - [`spaces`](spaces/index.md): finite state-space and subspace contracts.
 - [`analysis`](analysis/index.md): reusable analyses over already typed numerical
   objects.
+- [`serialization`](serialization/index.md): typed scientific JSON normalization and
+  final record boundaries.
+- [`model_systems/piab1d`](model_systems/piab1d/index.md): the complete typed PIAB1D
+  calculate, verify, and render vertical slice.
 
 Only touched source areas are mirrored in this tranche. Absence from this directory is
 not an ownership reassignment.
@@ -34,5 +38,5 @@ suite.
 
 ## Evidence and limitations
 
-The proposed reduction contracts linked below are documentation-first designs. They
-have no source, test, Sphinx, retained-result, or scientific-validation evidence yet.
+Implemented reduction contracts have focused software evidence. They do not establish
+scientific validation, retained-result acceptance, or publication status.

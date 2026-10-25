@@ -9,11 +9,11 @@ from projectkoios.physkit.periodic.lattice import (
     DirectLattice2D,
     ReciprocalLattice2D,
 )
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
+
 from ksdft2effmass.model_systems.periodic2d import (
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,

@@ -1,6 +1,7 @@
 """Software verification for ``PlaneWaveFourierCoefficient2D``."""
 
 import pytest
+
 from ksdft2effmass.model_systems import PlaneWaveFourierCoefficient2D
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]

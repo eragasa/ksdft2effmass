@@ -2,8 +2,13 @@
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
+
 from ksdft2effmass.analysis.operators import RetainedModelClassFitResult
-from ksdft2effmass.operators import MatrixQuantity, ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = RetainedModelClassFitResult
@@ -19,9 +24,9 @@ class TestRetainedModelClassFitResult:
         residual = MatrixQuantity(np.zeros((2, 2)), unit)
         norm = ScalarQuantity(0.0, unit)
 
-        result = SUT("arbitrary_real_symmetric", fit, residual, norm)
+        result = SUT("real_symmetric", fit, residual, norm)
 
-        assert result.name == "arbitrary_real_symmetric"
+        assert result.name == "real_symmetric"
         assert result.best_fit is fit
         assert result.unexplained_residual is residual
         assert result.unexplained_frobenius_norm is norm

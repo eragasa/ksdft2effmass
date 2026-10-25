@@ -25,6 +25,10 @@ quantification.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeCampaignWorkflowRequest,
@@ -32,7 +36,6 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeVerifiedWorkflow,
     Periodic1DCompositeVerifiedWorkflowRequest,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DCompositeVerifiedWorkflow

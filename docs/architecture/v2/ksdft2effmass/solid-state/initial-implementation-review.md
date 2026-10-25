@@ -2,7 +2,7 @@
 
 ## Scope
 
-This review challenges the initial public `ksdft2effmass.solid_state` records and
+This review challenges the initial public `ksdft2effmass.solidstate` records and
 actions. It covers dimensional closure, Bravais classification, direct/reciprocal
 lattices, finite integer geometry, boundary twists, scalar lattice models, localized
 perturbations, and integral lattice operations. Subsequent bounded corrections and

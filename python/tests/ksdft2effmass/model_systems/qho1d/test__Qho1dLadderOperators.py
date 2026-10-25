@@ -23,16 +23,18 @@ validation, uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    PhysicalUnit,
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems.qho1d import (
-    PhysicalUnit,
     Qho1dAnalytical,
     Qho1dLadderOperators,
     Qho1dNondimensionalizer,
     Qho1dParameters,
-    ScalarQuantity,
-    Unitless,
 )
 from ksdft2effmass.operators import LadderOperator1D
 

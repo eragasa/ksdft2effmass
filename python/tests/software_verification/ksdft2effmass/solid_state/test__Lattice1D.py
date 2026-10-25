@@ -18,9 +18,9 @@ This verifies software composition, not scientific validation.
 """
 
 import pytest
+from projectkoios.physkit.units import PhysicalUnit
 
-from ksdft2effmass.operators import PhysicalUnit
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BravaisCentering,
     BravaisLattice1D,
     BravaisMetricCompatibilityAnalyzer,

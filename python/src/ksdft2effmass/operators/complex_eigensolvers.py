@@ -6,14 +6,13 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
-from scipy.sparse import linalg as sparse_linalg  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
-    CsrComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
+from scipy.sparse import linalg as sparse_linalg  # type: ignore[import-untyped]
 
 from .complex_eigenpairs import (
     ComplexHermitianEigenpairResidualAnalyzer,
@@ -106,13 +105,13 @@ class ComplexHermitianSparseEigenpairSolver:
 
     def execute(
         self,
-        operator: CsrComplexMatrixQuantity,
+        operator: ComplexSparseMatrixQuantity,
         hermiticity: ComplexSparseHermiticityResult,
         request: ComplexHermitianEigensolverRequest,
     ) -> ComplexHermitianEigensolverResult:
         """Run sparse ``eigsh`` without materializing the represented operator."""
-        if type(operator) is not CsrComplexMatrixQuantity:
-            raise TypeError("operator must be CsrComplexMatrixQuantity")
+        if type(operator) is not ComplexSparseMatrixQuantity:
+            raise TypeError("operator must be ComplexSparseMatrixQuantity")
         if type(hermiticity) is not ComplexSparseHermiticityResult:
             raise TypeError("hermiticity must be ComplexSparseHermiticityResult")
         if hermiticity.matrix is not operator:

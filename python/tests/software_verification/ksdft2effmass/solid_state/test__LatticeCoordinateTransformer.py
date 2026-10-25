@@ -19,7 +19,7 @@ This verifies integer transformation mechanics, not a material symmetry claim.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     IntegralLatticeOperation,
     LatticeCoordinate,
     LatticeCoordinateTransformer,

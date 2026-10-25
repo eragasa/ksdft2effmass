@@ -5,14 +5,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter
-from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
-    CsrComplexMatrixQuantity,
+from projectkoios.physkit.units import (
+    ComplexSparseMatrixQuantity,
+    ModelSystemUnitConverter,
     ScalarQuantity,
     VectorQuantity,
 )
+from scipy import sparse  # type: ignore[import-untyped]
 
 from .model import PeriodicFourierPotential1D
 
@@ -70,7 +69,7 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DResult:
     potential: PeriodicFourierPotential1D
     recoil_energy: ScalarQuantity
     period_absolute_tolerance: float
-    represented_matrix: CsrComplexMatrixQuantity
+    represented_matrix: ComplexSparseMatrixQuantity
 
     def __post_init__(self) -> None:
         """Validate the represented fiber correlations."""
@@ -95,8 +94,8 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DResult:
             or self.period_absolute_tolerance < 0.0
         ):
             raise ValueError("period_absolute_tolerance must be finite and nonnegative")
-        if type(self.represented_matrix) is not CsrComplexMatrixQuantity:
-            raise TypeError("represented_matrix must be CsrComplexMatrixQuantity")
+        if type(self.represented_matrix) is not ComplexSparseMatrixQuantity:
+            raise TypeError("represented_matrix must be ComplexSparseMatrixQuantity")
         expected_shape = (self.grid.point_count, self.grid.point_count)
         if self.represented_matrix.shape != expected_shape:
             raise ValueError("represented_matrix shape must match the grid")
@@ -175,7 +174,7 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
         seam = -kinetic_link * np.exp(-2j * np.pi * reduced_momentum)
         matrix[0, dimension - 1] = seam
         matrix[dimension - 1, 0] = np.conjugate(seam)
-        represented = CsrComplexMatrixQuantity.from_csr(
+        represented = ComplexSparseMatrixQuantity.from_csr(
             matrix.tocsr(), recoil_energy.unit
         )
         return PeriodicFiniteDifferenceFiberHamiltonian1DResult(

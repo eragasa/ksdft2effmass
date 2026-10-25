@@ -5,11 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter
+from projectkoios.physkit.units import ModelSystemUnitConverter, ScalarQuantity
 
-from ksdft2effmass.linalg import (
-    ScalarQuantity,
-)
 from ksdft2effmass.model_systems.periodic_1d import PeriodicFourierPotential1D
 from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
 from ksdft2effmass.solidstate import BlockHoppingModel1D

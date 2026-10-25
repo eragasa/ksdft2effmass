@@ -19,11 +19,12 @@ from band_equivalence_workflow.strain_serialization import (
     SyntheticStrainWitnessResultSerializer,
 )
 from jsonschema import ValidationError  # type: ignore[import-untyped]
+
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     SyntheticStrainCalculator,
     SyntheticStrainPath,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
     StrainResponseModel,
     StrainWitnessControl,
     calculate_strain_witness_scan,

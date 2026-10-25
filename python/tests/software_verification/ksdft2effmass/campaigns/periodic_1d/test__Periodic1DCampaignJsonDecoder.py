@@ -19,11 +19,11 @@ No campaign execution, numerical result, or scientific conclusion is assessed.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import Unitless
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCampaignJsonDecoder,
 )
-from ksdft2effmass.operators import Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DCampaignJsonDecoder

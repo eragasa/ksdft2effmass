@@ -13,13 +13,12 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 import numpy as np
-from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
-    CsrComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
     Unitless,
 )
+from scipy import sparse  # type: ignore[import-untyped]
 
 from .boundary_phases import (
     BoundaryTwistLift,
@@ -39,7 +38,7 @@ class BlockFiniteLatticeOperator1D:
     """
 
     identifier: str
-    matrix: CsrComplexMatrixQuantity
+    matrix: ComplexSparseMatrixQuantity
     cell_count: int
     basis_identifier: str
     block_basis_labels: tuple[str, ...]
@@ -50,8 +49,8 @@ class BlockFiniteLatticeOperator1D:
         """Validate representation identity, shape, and basis metadata."""
         if type(self.identifier) is not str or not self.identifier:
             raise ValueError("identifier must be a nonempty string")
-        if not isinstance(self.matrix, CsrComplexMatrixQuantity):
-            raise TypeError("matrix must be a CsrComplexMatrixQuantity")
+        if not isinstance(self.matrix, ComplexSparseMatrixQuantity):
+            raise TypeError("matrix must be a ComplexSparseMatrixQuantity")
         if type(self.cell_count) is not int:
             raise TypeError("cell_count must be a built-in integer")
         if self.cell_count < 1:
@@ -138,7 +137,7 @@ class BlockHoppingSupercellOperatorConstructor1D:
         reduction = BoundaryTwistReducer().execute(twist)
         return BlockFiniteLatticeOperator1D(
             identifier=identifier,
-            matrix=CsrComplexMatrixQuantity.from_csr(
+            matrix=ComplexSparseMatrixQuantity.from_csr(
                 matrix, model.hopping_blocks[0].unit
             ),
             cell_count=cell_count,
@@ -227,7 +226,7 @@ class BlockHoppingQuotientSeamOperatorConstructor1D:
         reduction = BoundaryTwistReducer().execute(twist)
         return BlockFiniteLatticeOperator1D(
             identifier=identifier,
-            matrix=CsrComplexMatrixQuantity.from_csr(
+            matrix=ComplexSparseMatrixQuantity.from_csr(
                 matrix, model.hopping_blocks[0].unit
             ),
             cell_count=cell_count,

@@ -19,15 +19,15 @@ This verifies software invariants, not the physical validity of sampled bands.
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     MatrixQuantity,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
+
+from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
 
 pytestmark = pytest.mark.software_verification
 SUT = BandSpectrumSamples1D

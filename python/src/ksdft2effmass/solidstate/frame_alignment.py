@@ -6,8 +6,7 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     Unitless,
 )

@@ -9,14 +9,14 @@ from projectkoios.optimization.least_squares.factory import (
     LinearLeastSquaresMethod,
     LinearLeastSquaresSolverFactory,
 )
-from projectkoios.physkit.units import ModelSystemUnitConverter
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
+    ModelSystemUnitConverter,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
+
 from ksdft2effmass.solidstate import (
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,

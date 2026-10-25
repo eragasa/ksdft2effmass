@@ -19,6 +19,7 @@ All matrices have one common `K`-by-`K` shape and unit. The action uses
 The diagonal/off-diagonal split is basis dependent. It is meaningful only under the
 request's explicit common coordinate identity.
 
-The result contains no Frobenius norm. An experiment may separately apply
-`RepresentedMatrixNormAnalyzer` to `difference`, `diagonal_difference`, or
-`off_diagonal_difference` and must declare any normalization.
+The result contains no matrix norm. A caller may separately apply a norm from
+`projectkoios.physkit.linalg.matrix.norm` to `difference`, `diagonal_difference`, or
+`off_diagonal_difference` and must declare the norm definition, sparse spectral path
+when applicable, and normalization. KSD defines no matrix-norm action or re-export.

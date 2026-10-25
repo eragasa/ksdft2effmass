@@ -19,5 +19,6 @@ J^{\mathsf T}R_{J,D}
 $$
 
 The analyzer does not form the right-hand comparison itself and does not select a norm.
-An experiment may apply `RepresentedMatrixNormAnalyzer` to the residual and must state
-any normalization.
+A caller may apply a norm from `projectkoios.physkit.linalg.matrix.norm` and must state
+the norm definition, sparse spectral path when applicable, and normalization. KSD
+defines no matrix-norm action or re-export.

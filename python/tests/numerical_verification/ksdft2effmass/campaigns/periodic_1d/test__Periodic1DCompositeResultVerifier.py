@@ -27,6 +27,10 @@ quantification, or human acceptance.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeCampaignWorkflow,
@@ -35,7 +39,6 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeUnavailableVerificationChannel,
     Periodic1DCompositeVerificationRequest,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.numerical_verification
 SUT = Periodic1DCompositeResultVerifier

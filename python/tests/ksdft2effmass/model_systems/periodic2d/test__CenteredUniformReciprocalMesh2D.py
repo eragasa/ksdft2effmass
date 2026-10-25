@@ -1,6 +1,7 @@
 """Software verification for ``CenteredUniformReciprocalMesh2D``."""
 
 import pytest
+
 from ksdft2effmass.model_systems import CenteredUniformReciprocalMesh2D
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]

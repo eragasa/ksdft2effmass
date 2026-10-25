@@ -23,8 +23,7 @@ from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )

@@ -12,7 +12,25 @@ class JsonSerializer[RecordT, WireT: (str, bytes)](ABC):
 
     @abstractmethod
     def serialize(self, record: RecordT) -> WireT:
-        """Return the JSON wire representation of ``record``."""
+        """Serialize one record without performing filesystem effects.
+
+        Parameters
+        ----------
+        record
+            Exact record accepted by the concrete serializer.
+
+        Returns
+        -------
+        WireT
+            JSON text or UTF-8 JSON bytes owned by the concrete wire contract.
+
+        Raises
+        ------
+        TypeError
+            The record does not satisfy the concrete serializer boundary.
+        ValueError
+            The record contains a value forbidden by the concrete wire contract.
+        """
 
 
 class JsonDeserializer[RecordT, WireT: (str, bytes)](ABC):
@@ -22,7 +40,25 @@ class JsonDeserializer[RecordT, WireT: (str, bytes)](ABC):
 
     @abstractmethod
     def deserialize(self, wire: WireT) -> RecordT:
-        """Return the exact record represented by ``wire``."""
+        """Deserialize one wire value without performing filesystem effects.
+
+        Parameters
+        ----------
+        wire
+            JSON text or bytes accepted by the concrete decoder.
+
+        Returns
+        -------
+        RecordT
+            Reconstructed exact record type.
+
+        Raises
+        ------
+        TypeError
+            The wire type or a decoded value has the wrong type.
+        ValueError
+            The JSON document or decoded record violates the concrete contract.
+        """
 
 
 class JsonCodec[RecordT, WireT: (str, bytes)](

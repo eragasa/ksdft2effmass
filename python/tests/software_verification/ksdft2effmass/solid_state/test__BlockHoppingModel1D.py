@@ -19,9 +19,13 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.operators import ComplexMatrixQuantity, ScalarQuantity, Unitless
-from ksdft2effmass.solid_state import BlockHoppingModel1D
+from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 pytestmark = pytest.mark.software_verification
 SUT = BlockHoppingModel1D

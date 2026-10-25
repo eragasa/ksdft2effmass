@@ -3,9 +3,12 @@
 import numpy as np
 import pytest
 from projectkoios.physkit.linalg.eigen import SpectralDecomposition
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
-from ksdft2effmass.linalg import RealMatrixQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = RealSymmetricEigenpairDiagnosticAnalyzer
@@ -16,9 +19,9 @@ class TestRealSymmetricEigenpairDiagnosticAnalyzer:
 
     def test_method__execute__separates_residuals_from_reference_overlaps(self) -> None:
         """Exact diagonal eigenpairs have zero algebraic and overlap defects."""
-        operator = RealMatrixQuantity(np.diag([1.0, 3.0]), Unitless())
+        operator = MatrixQuantity(np.diag([1.0, 3.0]), Unitless())
         eigensystem = SpectralDecomposition(operator).eigensystem()
-        reference = RealMatrixQuantity(np.eye(2), Unitless())
+        reference = MatrixQuantity(np.eye(2), Unitless())
 
         result = SUT().execute(eigensystem, reference)
 

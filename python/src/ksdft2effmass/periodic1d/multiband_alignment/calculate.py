@@ -4,7 +4,14 @@ from __future__ import annotations
 
 import numpy as np
 import numpy.typing as npt
-from projectkoios.physkit.units import ModelSystemUnitConverter
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    ModelSystemUnitConverter,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
+)
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
@@ -13,13 +20,6 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandApproximationErrorResult1D,
     BandSpectrumSamples1D,
-)
-from ksdft2effmass.linalg import (
-    ComplexMatrixQuantity,
-    RealMatrixQuantity,
-    ScalarQuantity,
-    Unitless,
-    VectorQuantity,
 )
 from ksdft2effmass.solidstate import (
     BandFrameAligner1D,
@@ -321,7 +321,7 @@ class Periodic1DMultibandAlignmentCalculator:
         return BandSpectrumSamples1D(
             samples.coordinates,
             samples.reciprocal_period,
-            RealMatrixQuantity(values, samples.matrices[0].unit),
+            MatrixQuantity(values, samples.matrices[0].unit),
         )
 
     @staticmethod

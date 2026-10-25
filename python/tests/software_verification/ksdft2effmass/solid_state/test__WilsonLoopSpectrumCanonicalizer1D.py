@@ -20,7 +20,7 @@ Authored phases establish software behavior only, not topology or validation.
 import numpy as np
 import pytest
 
-from ksdft2effmass.solid_state import WilsonLoopSpectrumCanonicalizer1D
+from ksdft2effmass.solidstate import WilsonLoopSpectrumCanonicalizer1D
 
 pytestmark = pytest.mark.software_verification
 SUT = WilsonLoopSpectrumCanonicalizer1D

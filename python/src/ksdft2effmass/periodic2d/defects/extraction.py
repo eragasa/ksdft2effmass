@@ -7,9 +7,8 @@ It performs no alignment and does not infer that compatibility from matrix value
 
 from dataclasses import dataclass
 
-from ksdft2effmass.linalg import (
-    CsrComplexMatrixQuantity,
-)
+from projectkoios.physkit.units import ComplexSparseMatrixQuantity
+
 from ksdft2effmass.solidstate import (
     LatticeDimension,
     ScalarFiniteLatticeOperator,
@@ -124,7 +123,7 @@ class Periodic2DDefectPerturbationExtractor:
                 "bulk and defect operators are incompatible for subtraction: "
                 f"{issue_values}"
             )
-        matrix = CsrComplexMatrixQuantity.from_csr(
+        matrix = ComplexSparseMatrixQuantity.from_csr(
             request.defect_operator.matrix.to_csr()
             - request.bulk_operator.matrix.to_csr(),
             request.bulk_operator.matrix.unit,

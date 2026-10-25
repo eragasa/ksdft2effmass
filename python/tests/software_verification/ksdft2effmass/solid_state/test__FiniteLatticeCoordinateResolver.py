@@ -19,7 +19,7 @@ This verifies represented indexing, not physical geometry or scientific validati
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     FiniteLatticeCoordinateResolver,
     FiniteLatticeShape,
     LatticeDimension,

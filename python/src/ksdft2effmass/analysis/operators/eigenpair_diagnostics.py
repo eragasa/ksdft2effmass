@@ -9,10 +9,9 @@ from projectkoios.physkit.linalg.eigen import Eigensystem
 from projectkoios.physkit.numerics.eigenproblems.residuals import (
     eigenpair_residual_norms,
 )
-
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
-    RealMatrixQuantity,
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    SparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
@@ -22,7 +21,7 @@ from ksdft2effmass.linalg import (
 class RealSymmetricEigenpairDiagnosticResult:
     """Retain algebraic residuals and optional reference-vector overlaps."""
 
-    algebraic_residual: RealMatrixQuantity
+    algebraic_residual: MatrixQuantity
     scaled_column_residuals: VectorQuantity
     overlap_defects: VectorQuantity | None
 
@@ -35,25 +34,23 @@ class RealSymmetricEigenpairDiagnosticAnalyzer:
     def execute(
         self,
         eigensystem: Eigensystem,
-        reference_vectors: RealMatrixQuantity | None = None,
+        reference_vectors: MatrixQuantity | None = None,
     ) -> RealSymmetricEigenpairDiagnosticResult:
         """Return residual and overlap diagnostics for the represented eigensystem."""
         if not isinstance(eigensystem, Eigensystem):
             raise TypeError("eigensystem must be Eigensystem")
-        if not isinstance(
-            eigensystem.matrix, RealMatrixQuantity | CsrRealMatrixQuantity
-        ):
+        if not isinstance(eigensystem.matrix, MatrixQuantity | SparseMatrixQuantity):
             raise TypeError("eigensystem matrix must be real")
-        if not isinstance(eigensystem.eigenvectors, RealMatrixQuantity):
+        if not isinstance(eigensystem.eigenvectors, MatrixQuantity):
             raise TypeError("eigensystem eigenvectors must be real")
         if reference_vectors is not None and not isinstance(
-            reference_vectors, RealMatrixQuantity
+            reference_vectors, MatrixQuantity
         ):
-            raise TypeError("reference_vectors must be RealMatrixQuantity or None")
+            raise TypeError("reference_vectors must be MatrixQuantity or None")
         operator = eigensystem.matrix
         represented = (
             operator.magnitude
-            if isinstance(operator, RealMatrixQuantity)
+            if isinstance(operator, MatrixQuantity)
             else operator.to_csr()
         )
         values = eigensystem.eigenvalues.magnitude
@@ -80,7 +77,7 @@ class RealSymmetricEigenpairDiagnosticAnalyzer:
             )
             overlaps = VectorQuantity(overlap_values, Unitless())
         return RealSymmetricEigenpairDiagnosticResult(
-            algebraic_residual=RealMatrixQuantity(
+            algebraic_residual=MatrixQuantity(
                 np.asarray(residual, dtype=np.float64), operator.unit
             ),
             scaled_column_residuals=VectorQuantity(

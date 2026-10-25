@@ -6,11 +6,8 @@ import cmath
 import math
 
 import numpy as np
+from projectkoios.physkit.units import ComplexSparseMatrixQuantity
 from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
-    CsrComplexMatrixQuantity,
-)
 
 from .boundary_phases import (
     BoundaryTwistLift,
@@ -138,7 +135,7 @@ class TwistedSupercellOperatorConstructor:
             shape=(shape.cell_count, shape.cell_count),
             dtype=np.complex128,
         )
-        matrix = CsrComplexMatrixQuantity.from_csr(assembled, model.energy_unit)
+        matrix = ComplexSparseMatrixQuantity.from_csr(assembled, model.energy_unit)
         reduction = BoundaryTwistReducer().execute(twist)
         fiber = TwistFiber(reduction, TwistGaugeRepresentation.CENTERED_UNIFORM_LINK)
         provenance = (
@@ -249,7 +246,9 @@ class LocalizedPerturbationOperatorConstructor:
             shape=(shape.cell_count, shape.cell_count),
             dtype=np.complex128,
         )
-        matrix = CsrComplexMatrixQuantity.from_csr(assembled, perturbation.energy_unit)
+        matrix = ComplexSparseMatrixQuantity.from_csr(
+            assembled, perturbation.energy_unit
+        )
         fiber = TwistFiber(
             BoundaryTwistReducer().execute(twist),
             TwistGaugeRepresentation.CENTERED_UNIFORM_LINK,

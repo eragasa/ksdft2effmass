@@ -6,17 +6,16 @@ from dataclasses import dataclass
 from typing import Protocol, runtime_checkable
 
 import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter
-from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
-    CsrRealMatrixQuantity,
+from projectkoios.physkit.units import (
     ModelSystemUnit,
+    ModelSystemUnitConverter,
     PhysicalUnit,
     ScalarQuantity,
+    SparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
+from scipy import sparse  # type: ignore[import-untyped]
 
 
 @runtime_checkable
@@ -93,7 +92,7 @@ class SecondOrderCentralDifferenceLaplacian1D:
         if self.interval.grid.interior_point_count <= 0:
             raise ValueError("Laplacian grid must contain at least one interior point")
 
-    def matrix(self) -> CsrRealMatrixQuantity:
+    def matrix(self) -> SparseMatrixQuantity:
         """Return the sparse second-derivative matrix and inverse-area unit."""
         if isinstance(self.interval.grid.coordinate_unit, Unitless):
             spacing = self.interval.grid.spacing.magnitude
@@ -114,7 +113,7 @@ class SecondOrderCentralDifferenceLaplacian1D:
             format="csr",
             dtype=np.float64,
         )
-        return CsrRealMatrixQuantity.from_csr(matrix, unit)
+        return SparseMatrixQuantity.from_csr(matrix, unit)
 
 
 @dataclass(frozen=True, slots=True)
@@ -170,7 +169,7 @@ class SchrodingerKineticEnergy1D:
             return Unitless()
         return PhysicalUnit("joule")
 
-    def matrix(self) -> CsrRealMatrixQuantity:
+    def matrix(self) -> SparseMatrixQuantity:
         """Return the represented sparse kinetic-energy matrix."""
         laplacian = self.laplacian.matrix()
         if isinstance(self.hbar.unit, Unitless):
@@ -185,7 +184,7 @@ class SchrodingerKineticEnergy1D:
                 self.mass, PhysicalUnit("kilogram")
             ).magnitude
             scale = -(hbar * hbar) / (2.0 * mass)
-        return CsrRealMatrixQuantity.from_csr(
+        return SparseMatrixQuantity.from_csr(
             scale * laplacian.to_csr(), self.energy_unit
         )
 
@@ -220,7 +219,7 @@ class SampledPotential1D:
         ):
             raise ValueError("physical potential values must have energy dimensions")
 
-    def diagonal_operator(self) -> CsrRealMatrixQuantity:
+    def diagonal_operator(self) -> SparseMatrixQuantity:
         """Return the potential as an immutable sparse diagonal matrix."""
         matrix = sparse.diags(
             self.values.magnitude,
@@ -229,7 +228,7 @@ class SampledPotential1D:
             format="csr",
             dtype=np.float64,
         )
-        return CsrRealMatrixQuantity.from_csr(matrix, self.values.unit)
+        return SparseMatrixQuantity.from_csr(matrix, self.values.unit)
 
 
 @dataclass(frozen=True, slots=True)
@@ -259,12 +258,12 @@ class FiniteDifferenceHamiltonian1D:
         ):
             raise ValueError("kinetic and potential energy units are incompatible")
 
-    def matrix(self) -> CsrRealMatrixQuantity:
+    def matrix(self) -> SparseMatrixQuantity:
         """Return the compatible sparse kinetic-plus-potential Hamiltonian."""
         kinetic = self.kinetic_energy.matrix()
         potential = ModelSystemUnitConverter.convert_sparse_matrix(
             self.potential.diagonal_operator(), kinetic.unit
         )
-        return CsrRealMatrixQuantity.from_csr(
+        return SparseMatrixQuantity.from_csr(
             kinetic.to_csr() + potential.to_csr(), kinetic.unit
         )

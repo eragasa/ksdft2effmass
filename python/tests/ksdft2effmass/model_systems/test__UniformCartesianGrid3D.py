@@ -20,12 +20,15 @@ validation, uncertainty quantification, or human acceptance.
 """
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
+
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems import (
-    ScalarQuantity,
     UniformCartesianGrid1D,
     UniformCartesianGrid3D,
-    Unitless,
 )
 
 pytestmark = pytest.mark.software_verification

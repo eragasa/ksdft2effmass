@@ -19,15 +19,15 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
-
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     PhysicalUnit,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import ReciprocalOperatorSamples1D
+
+from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
 
 pytestmark = pytest.mark.software_verification
 SUT = ReciprocalOperatorSamples1D

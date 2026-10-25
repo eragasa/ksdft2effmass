@@ -11,7 +11,15 @@ from .convergence import (
     ObservedConvergenceOrder,
     ObservedConvergenceOrderEstimator,
     ObservedConvergenceOrderResult,
+    RelativeErrorConvergenceAnalyzer,
+    RelativeErrorConvergenceResult,
 )
+from .diagnostics import (
+    BaseDiagnosticAnalyzer,
+    DiagnosticObservation,
+    MatrixNormDiagnosticOptions,
+)
+from .probability_selection import TailProbabilitySelection, TailProbabilitySelector
 from .qoi import (
     DftReferenceCalculationIdentity,
     DftReferenceCalculatorIdentity,
@@ -33,16 +41,32 @@ from .qoi import (
     ScalarQuantityOfInterestValue,
 )
 from .result_values import QuantityOfInterestResultValueSerializer
+from .verification import (
+    DiagnosticVerification,
+    EigensystemVerification,
+    KineticPotentialDecompositionVerification,
+    RelativeErrorConvergenceVerification,
+    TailProbabilitySelectionVerification,
+)
 
 __all__ = [
+    "BaseDiagnosticAnalyzer",
+    "DiagnosticObservation",
+    "DiagnosticVerification",
     "DftReferenceCalculationIdentity",
     "DftReferenceCalculatorIdentity",
     "DftReferenceMethodIdentity",
     "DftScalarQuantityOfInterestReferenceTarget",
+    "EigensystemVerification",
+    "KineticPotentialDecompositionVerification",
+    "MatrixNormDiagnosticOptions",
     "NormalizedObservationRequirementIdentity",
     "ObservedConvergenceOrder",
     "ObservedConvergenceOrderEstimator",
     "ObservedConvergenceOrderResult",
+    "RelativeErrorConvergenceAnalyzer",
+    "RelativeErrorConvergenceResult",
+    "RelativeErrorConvergenceVerification",
     "QuantityOfInterestCompleteness",
     "QuantityOfInterestConventionIdentity",
     "QuantityOfInterestEvaluationFailureCode",
@@ -57,4 +81,7 @@ __all__ = [
     "ScalarQuantityOfInterestEvaluationFailure",
     "ScalarQuantityOfInterestEvaluationResult",
     "ScalarQuantityOfInterestValue",
+    "TailProbabilitySelection",
+    "TailProbabilitySelector",
+    "TailProbabilitySelectionVerification",
 ]

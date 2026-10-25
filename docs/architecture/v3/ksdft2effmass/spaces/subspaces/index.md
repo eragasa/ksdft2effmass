@@ -10,9 +10,10 @@ construction operations.
 - [`trial`](trial/index.md) — sampled trial frames, orthogonal trial subspaces, and
   symmetric Gram orthonormalization.
 
-Existing `operators.subspaces.OrthogonalSpectralSubspace` remains an implemented
-legacy owner until a separately reviewed migration places spectral subspaces here.
-This tranche does not add a compatibility facade or move that existing class.
+Hamiltonian spectral spaces remain with `ksdft2effmass.hamiltonian` because their
+contract owns reduced-Hamiltonian coordinate reduction and embedding. A genuinely
+generic mathematical subspace belongs to PhysKit rather than a KSD linear-algebra
+compatibility package.
 
 ## Ownership boundary
 

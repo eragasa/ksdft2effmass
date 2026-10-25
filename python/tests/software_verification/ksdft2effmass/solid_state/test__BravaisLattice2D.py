@@ -19,7 +19,7 @@ This verifies allowed labels, not basis-metric compatibility.
 
 import pytest
 
-from ksdft2effmass.solid_state import (
+from ksdft2effmass.solidstate import (
     BravaisCentering,
     BravaisLattice2D,
     LatticeSystem2D,

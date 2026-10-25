@@ -22,6 +22,57 @@ finite occupation-number basis and exposes its highest-state commutator defect.
 
 .. currentmodule:: ksdft2effmass.model_systems
 
+``BaseModelSystemAnalyzer`` remains a nominal action type.
+``BaseVerification`` enforces final ``to_dict``/``from_dict`` and
+``to_json``/``from_json`` representation boundaries for every concrete verification.
+``BaseModelAnalysisVerification`` adds the authenticated visualization-data binding.
+``BaseModelAnalysisVerifier`` owns the final derive--digest--verify composition so
+callers cannot supply projection digests.
+``BaseModelAnalysisVisualizationPlotter`` defines the operation that produces one
+immutable visualization, while ``BaseModelAnalysisVisualizer`` defines aggregate
+visualization over a unique set. ``BaseModelAnalysisVisualization`` is the nominal
+value base. Generic PNG values require a cross-platform-safe basename ending exactly
+in ``.png`` and decode the supplied bytes before admission.
+``BaseModelAnalysisVisualizationData`` and ``BaseModelAnalysisVerification``
+separately fix the dictionary and JSON boundaries for immutable verification values;
+concrete values implement only their typed mapping.
+
+.. autoclass:: BaseModelSystemAnalyzer
+   :members:
+
+.. autoclass:: BaseModelAnalysisVerifier
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualizer
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualizationPlotter
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualization
+   :members:
+
+.. autoclass:: BaseModelAnalysisVisualizationData
+   :members:
+
+.. autoclass:: ModelAnalysisPngVisualization
+   :members:
+
+.. autoclass:: BaseVerification
+   :members:
+
+.. autoclass:: BaseModelAnalysisVerification
+   :members:
+
+.. autoclass:: ModelAnalysisVerificationResult
+   :members:
+
+.. autoclass:: QuadratureVerification
+   :members:
+
+.. autoclass:: VisualizationProjectionVerification
+   :members:
+
 .. autoclass:: UniformCartesianGrid1D
    :members:
 
@@ -147,23 +198,39 @@ verification composed around that pinned implementation.
 
 .. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-.. autoclass:: Piab1dStudyDefinition
+.. autoclass:: Piab1dAnalysis
    :members:
 
-.. autoclass:: Piab1dResidualStudyResult
+.. autoclass:: Piab1dAnalyzer
    :members:
 
-.. autoclass:: Piab1dResidualStudyEvaluator
+.. autoclass:: Piab1dDiagnostics
    :members:
 
-.. autoclass:: Piab1dStudyInputDeserializer
+.. autoclass:: Piab1dVerification
    :members:
 
-.. autoclass:: Piab1dStudyResultSerializer
+.. autoclass:: Piab1dVerifier
    :members:
 
-.. autoclass:: Piab1dResultVerifier
+.. autoclass:: Piab1dVisualizationPlotEnum
    :members:
+
+.. autoclass:: Piab1dVisualizationData
+   :members:
+
+.. autoclass:: Piab1dVisualization
+   :members:
+
+.. autoclass:: Piab1dVisualizer
+   :members:
+
+``Piab1dAnalyzer`` constructs a set of cohesive diagnostic analyzers and iterates over
+that set to produce the complete immutable ``Piab1dDiagnostics`` inventory. There is
+no diagnostic facade or factory in this tranche.
+
+Historical retained-result wire objects remain documented with their owning research
+monograph campaign API. They are not part of the direct successor calculation surface.
 
 Two-dimensional plane-wave Bloch operators
 -------------------------------------------
@@ -195,8 +262,10 @@ Neither finite matrix is identified with the continuum operator.
 
 The constructors require explicit period or reciprocal-duality tolerances and
 compatible energy units.  They do not select bands, construct gauges, run Wannier90,
-or apply Appendix G acceptance criteria.  Reciprocal frame and hopping operations
+or apply Appendix G acceptance criteria. Reciprocal frame and hopping operations
 belong to :doc:`solid-state`.
+
+.. currentmodule:: ksdft2effmass.model_systems.periodic_1d
 
 .. autoclass:: PeriodicFourierPotential1D
    :members:

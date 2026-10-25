@@ -2,16 +2,20 @@
 
 import numpy as np
 import pytest
+from projectkoios.physkit.periodic.lattice import (
+    DirectLattice2D,
+    ReciprocalLattice2D,
+)
+from projectkoios.physkit.units import (
+    PhysicalUnit,
+    ScalarQuantity,
+)
+
 from ksdft2effmass.model_systems import (
     PlaneWaveBlochHamiltonian2DConstructor,
     PlaneWaveBlochHamiltonian2DModel,
     PlaneWaveBlochHamiltonian2DRequest,
     PlaneWaveFourierCoefficient2D,
-)
-from ksdft2effmass.operators import PhysicalUnit, ScalarQuantity
-from projectkoios.physkit.periodic.lattice import (
-    DirectLattice2D,
-    ReciprocalLattice2D,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.numerical_verification]

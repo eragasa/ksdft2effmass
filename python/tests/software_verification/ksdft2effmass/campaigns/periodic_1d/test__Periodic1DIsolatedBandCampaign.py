@@ -19,6 +19,10 @@ owned, and unavailable localization channels remain unavailable.
 from pathlib import Path
 
 import pytest
+from projectkoios.physkit.units import (
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DIsolatedBandCampaign,
@@ -27,7 +31,6 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DIsolatedBandCampaignVerificationResult,
     Periodic1DIsolatedUnavailableVerificationChannel,
 )
-from ksdft2effmass.operators import ScalarQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Periodic1DIsolatedBandCampaign

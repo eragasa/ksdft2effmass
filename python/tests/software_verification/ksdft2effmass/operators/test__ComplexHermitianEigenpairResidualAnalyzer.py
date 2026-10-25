@@ -25,14 +25,14 @@ import math
 
 import numpy as np
 import pytest
-from scipy import sparse  # type: ignore[import-untyped]
-
-from ksdft2effmass.linalg import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
-    CsrComplexMatrixQuantity,
+    ComplexSparseMatrixQuantity,
     Unitless,
     VectorQuantity,
 )
+from scipy import sparse  # type: ignore[import-untyped]
+
 from ksdft2effmass.operators import (
     ComplexHermitianEigenpairResidualAnalyzer,
     ComplexHermitianEigenpairResult,
@@ -57,7 +57,7 @@ class TestComplexHermitianEigenpairResidualAnalyzer:
         gives residual ``1/sqrt(2)`` for each assigned eigenvalue.
         """
         scale = 1.0 / math.sqrt(2.0)
-        operator = CsrComplexMatrixQuantity.from_csr(
+        operator = ComplexSparseMatrixQuantity.from_csr(
             sparse.diags([-2.0, -1.0, 1.0], format="csr"), Unitless()
         )
         eigenpairs = ComplexHermitianEigenpairResult(

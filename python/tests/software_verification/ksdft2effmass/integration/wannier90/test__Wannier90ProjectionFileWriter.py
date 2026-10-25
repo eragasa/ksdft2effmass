@@ -21,13 +21,16 @@ uncertainty quantification, or human acceptance.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.integration.wannier90 import (
     Wannier90ProjectionData,
     Wannier90ProjectionFileWriter,
     Wannier90ProjectionParser,
 )
-from ksdft2effmass.operators import ComplexMatrixQuantity, Unitless
 
 pytestmark = pytest.mark.software_verification
 SUT = Wannier90ProjectionFileWriter

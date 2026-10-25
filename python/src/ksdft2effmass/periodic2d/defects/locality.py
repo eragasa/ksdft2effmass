@@ -2,16 +2,13 @@
 
 from dataclasses import dataclass
 
-from projectkoios.physkit.units import ModelSystemUnitConverter
+from projectkoios.physkit.units import ModelSystemUnitConverter, ScalarQuantity
 
 from ksdft2effmass.analysis.finite_domain_locality import (
     MinimumImageChebyshevPartition,
     MinimumImageChebyshevPartitioner,
     SparseLocalityResidualAnalyzer,
     SparseLocalityResidualResult,
-)
-from ksdft2effmass.linalg import (
-    ScalarQuantity,
 )
 from ksdft2effmass.solidstate import (
     LatticeCoordinate,

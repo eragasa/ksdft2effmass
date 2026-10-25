@@ -5,16 +5,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from ksdft2effmass.linalg import (
-    ComplexMatrixQuantity,
-    ScalarQuantity,
-)
 from ksdft2effmass.model_systems import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
     PeriodicUniformGrid1D,
     PlaneWaveFiberHamiltonian1DConstructor,
 )
 from ksdft2effmass.solidstate import PlaneWaveBasis1D
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+)
 from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
 from .definition import SingleBandFourierReductionExperimentDefinition

@@ -19,17 +19,18 @@ This is software verification, not a rerun or scientific validation of Appendix 
 
 import numpy as np
 import pytest
-from ksdft2effmass.model_systems import (
-    PeriodicFourierPotential1D,
-    PlaneWaveFiberHamiltonian1DResult,
-)
-from ksdft2effmass.operators import (
+from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
 )
-from ksdft2effmass.solid_state import PlaneWaveBasis1D
+
+from ksdft2effmass.model_systems import (
+    PeriodicFourierPotential1D,
+    PlaneWaveFiberHamiltonian1DResult,
+)
+from ksdft2effmass.solidstate import PlaneWaveBasis1D
 
 pytestmark = pytest.mark.software_verification
 SUT = PlaneWaveFiberHamiltonian1DResult
