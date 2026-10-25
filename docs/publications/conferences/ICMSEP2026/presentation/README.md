@@ -43,6 +43,30 @@ the Canva role sizes. The green used in the deck is RGB `(0, 129, 77)`, sampled 
 official transparent DLSU page-header wordmark. No obsolete departmental template was
 used.
 
+## Presentation-local scientific figures
+
+Every figure consumed by `presentation.tex` is copied beneath `assets/`, so the deck
+has no build-time dependency on calculation or experiment paths outside this directory.
+These copies are presentation inputs, not independent scientific evidence; their claim
+status remains that of the identified source calculation or development analysis.
+
+| Local asset | Source path at copy time | SHA-256 |
+|---|---|---|
+| `assets/band-equivalence-locality-scientific-story.pdf` | `experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf` | `9e88e334c7b6c3ae25fbd264428d128d2ba17f16121ed8613c2412c886c1e9be` |
+| `assets/periodic-2d-summary.png` | `calculations/research-monograph/periodic-2d/summary.png` | `ba921830f01cd39908a5a84ac02546b8804cc2916fd937501ad8a8922b5c53b1` |
+| `assets/periodic-2d-composite-summary.png` | `calculations/research-monograph/periodic-2d/composite-summary.png` | `8554a2ef16e833475149f12827fbd3d6c6386d85adc16e90b70b7f7bc44a3c57` |
+| `assets/periodic-2d-wannier90-balanced-summary.png` | `calculations/research-monograph/periodic-2d/wannier90-balanced-summary.png` | `cad8e5de538761e8e03c6a456f0b0f4c03ec34c5b2f28265f104f03b1d54cbaf` |
+| `assets/silicon-real-space-shell-block-norms.pdf` | `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-shell-block-norms.pdf` | `8decd56396b97ab6ce02a2847092e3b901a590724955476feaa8396bacf62d25` |
+| `assets/silicon-real-space-truncation-relative-error.pdf` | `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-truncation-relative-error.pdf` | `2b16e3d4cb92719000d9d2014ca381dab9df7102492c792bdd4558c8d710325f` |
+
+The five calculation-owned source files matched `origin/main` when copied. The
+band-equivalence figure was copied from the dirty
+`work/monograph-current-library-capabilities` worktree and therefore requires explicit
+Git-state qualification: its copied digest is the value above, while the corresponding
+`origin/main` byte identity was
+`191d8fff0dbc777a6268c0e1e3dd481f8160da11bc9b5797510919ca9e57b2a8`.
+Neither identity establishes scientific validation or publication acceptance.
+
 ## Build
 
 Build with BibLaTeX/Biber through `latexmk`:
