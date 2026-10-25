@@ -1,0 +1,74 @@
+{
+  "claim_boundary": "Derived figures from one independently verified finite-dimensional illustrative result; not material validation or publication acceptance.",
+  "execution_id": "direct-core-n8-m3",
+  "figures": {
+    "convergence-mode-sweep.png": {
+      "media_type": "image/png",
+      "sha256": "a6f40ee12944d917081ee77afc89b771c84d987e96631c4b42e2277e918f2418"
+    },
+    "convergence-series.png": {
+      "media_type": "image/png",
+      "sha256": "7cbd8f089e44bbfca0e26cb483a7307925d1218bb8ba9a8d7cae413c00726b05"
+    },
+    "eigensolver-residual-norms.png": {
+      "media_type": "image/png",
+      "sha256": "ccb53788cf960f6a82a6ca7a88b0dba79d7f0efd204a1aa5cc69c968cc125325"
+    },
+    "figure_01a_continuum_wavefunction_ladder.png": {
+      "media_type": "image/png",
+      "sha256": "1b8507b0d037561884e4a61b3455f53b1c0cc83275ad9ba7961c8acd6a8f503a"
+    },
+    "figure_01b_discrete_wavefunction_ladder.png": {
+      "media_type": "image/png",
+      "sha256": "d23683dd36119c149aeba3b0eac99d91d9bc0ce2edf61306e1c9ec708a35540b"
+    },
+    "figure_02_retained_dimension_selection.png": {
+      "media_type": "image/png",
+      "sha256": "4e3840bef156d32ba419ef3f3de48d1a27f2580e9f6bf6b564a8bfa7f8eb4a91"
+    },
+    "finite-algebraic-diagnostics.png": {
+      "media_type": "image/png",
+      "sha256": "da72786c7739219cd892d1adc5f3c25cb0b8fa5f0567b6971247e02c8ed6ae8d"
+    },
+    "higher-eigenpair-sweep.png": {
+      "media_type": "image/png",
+      "sha256": "171d2729da2a1345cb9ed5a4b17cf4542517af49af53eb14fff0a4a55ec4a3e1"
+    },
+    "higher-mode-convergence.png": {
+      "media_type": "image/png",
+      "sha256": "7ea3afc605dec9cd4286c3f1058b20c8b5968dcc91e5d680eade006cd2e08f51"
+    },
+    "kinetic-potential-decomposition.png": {
+      "media_type": "image/png",
+      "sha256": "aeaa61e5f67860ca6f9102b53729abe8401c5dccffbfb2ca5d56140d548fcefb"
+    },
+    "operator-residual-norms.png": {
+      "media_type": "image/png",
+      "sha256": "01faaf2d654707330e2017c621660a8f677505905a5b4ec7d5f5684541cd0958"
+    },
+    "residual-matrices.png": {
+      "media_type": "image/png",
+      "sha256": "00ea60e897d47728882fa526064733bca164a66f78817c30233472e82274db3a"
+    },
+    "spectrum-and-states.png": {
+      "media_type": "image/png",
+      "sha256": "c62e85d3cc61cc81f577160d05498fb01d915d6028576a25ecab088d95b3e8bc"
+    }
+  },
+  "outcome": "completed",
+  "result_path": "calculations/piab1d/executions/direct-core-n8-m3/results/result.json",
+  "result_sha256": "999920e5de0b6228fe0634821d14114116021f3fc8f0c447033b68ca4758ceb5",
+  "runtime": {
+    "matplotlib_backend": "Agg",
+    "matplotlib_version": "3.11.1",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6"
+  },
+  "schema": "ksdft2effmass.piab1d-rendering.v1",
+  "script_path": "calculations/piab1d/run_03_render.py",
+  "script_sha256": "359ce654fe514564d4a8fca96dc1ca4698a8aea34cfe83f32fdbf148e98e02fd",
+  "verification_path": "calculations/piab1d/executions/direct-core-n8-m3/verification/verification.json",
+  "verification_sha256": "b42b93e0e8f9f47b4e77dee799a1d4cadbc70fc11c25ff0a41f98065143158b5",
+  "visualizer_source_path": "python/src/ksdft2effmass/model_systems/piab1d/visualization.py",
+  "visualizer_source_sha256": "3fe4e41d093d75ca4b989b8bea3f263e214e24ecce04787ea10704e0f2347be2"
+}

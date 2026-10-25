@@ -1,0 +1,111 @@
+{
+  "artifacts": {
+    "UNSEALED.md": {
+      "bytes": 767,
+      "sha256": "ebd09a5d9665798696a4a679396facb7d1e188d634af4069313f020e3c08eb8b"
+    },
+    "execution.json": {
+      "bytes": 549,
+      "sha256": "80f2624529777b771afe48a59ea03c0af96c146bf1235588a014ed181e5876d7"
+    },
+    "figures/convergence-mode-sweep.png": {
+      "bytes": 124645,
+      "sha256": "a6f40ee12944d917081ee77afc89b771c84d987e96631c4b42e2277e918f2418"
+    },
+    "figures/convergence-series.png": {
+      "bytes": 181560,
+      "sha256": "7cbd8f089e44bbfca0e26cb483a7307925d1218bb8ba9a8d7cae413c00726b05"
+    },
+    "figures/eigensolver-residual-norms.png": {
+      "bytes": 193374,
+      "sha256": "ccb53788cf960f6a82a6ca7a88b0dba79d7f0efd204a1aa5cc69c968cc125325"
+    },
+    "figures/figure_01a_continuum_wavefunction_ladder.png": {
+      "bytes": 68010,
+      "sha256": "1b8507b0d037561884e4a61b3455f53b1c0cc83275ad9ba7961c8acd6a8f503a"
+    },
+    "figures/figure_01b_discrete_wavefunction_ladder.png": {
+      "bytes": 76528,
+      "sha256": "d23683dd36119c149aeba3b0eac99d91d9bc0ce2edf61306e1c9ec708a35540b"
+    },
+    "figures/figure_02_retained_dimension_selection.png": {
+      "bytes": 55133,
+      "sha256": "4e3840bef156d32ba419ef3f3de48d1a27f2580e9f6bf6b564a8bfa7f8eb4a91"
+    },
+    "figures/finite-algebraic-diagnostics.png": {
+      "bytes": 277208,
+      "sha256": "da72786c7739219cd892d1adc5f3c25cb0b8fa5f0567b6971247e02c8ed6ae8d"
+    },
+    "figures/higher-eigenpair-sweep.png": {
+      "bytes": 173040,
+      "sha256": "171d2729da2a1345cb9ed5a4b17cf4542517af49af53eb14fff0a4a55ec4a3e1"
+    },
+    "figures/higher-mode-convergence.png": {
+      "bytes": 169960,
+      "sha256": "7ea3afc605dec9cd4286c3f1058b20c8b5968dcc91e5d680eade006cd2e08f51"
+    },
+    "figures/kinetic-potential-decomposition.png": {
+      "bytes": 86422,
+      "sha256": "aeaa61e5f67860ca6f9102b53729abe8401c5dccffbfb2ca5d56140d548fcefb"
+    },
+    "figures/operator-residual-norms.png": {
+      "bytes": 195297,
+      "sha256": "01faaf2d654707330e2017c621660a8f677505905a5b4ec7d5f5684541cd0958"
+    },
+    "figures/rendering.json": {
+      "bytes": 3286,
+      "sha256": "4cbf6d95ab026be6c4a28f193f62a1eeb7631ce5dfaf93a4ff562c9abbf64ca3"
+    },
+    "figures/residual-matrices.png": {
+      "bytes": 64362,
+      "sha256": "00ea60e897d47728882fa526064733bca164a66f78817c30233472e82274db3a"
+    },
+    "figures/spectrum-and-states.png": {
+      "bytes": 131555,
+      "sha256": "c62e85d3cc61cc81f577160d05498fb01d915d6028576a25ecab088d95b3e8bc"
+    },
+    "results/result.json": {
+      "bytes": 4852546,
+      "sha256": "999920e5de0b6228fe0634821d14114116021f3fc8f0c447033b68ca4758ceb5"
+    },
+    "verification/verification.json": {
+      "bytes": 5216752,
+      "sha256": "b42b93e0e8f9f47b4e77dee799a1d4cadbc70fc11c25ff0a41f98065143158b5"
+    }
+  },
+  "calculation_family": "piab1d-spectral-reduction",
+  "claim_boundary": "Unsealed development provenance for an illustrative finite-dimensional execution; not sealed evidence, scientific validation, publication acceptance, release, or archival deposit.",
+  "commands": [
+    "cd python && PYTHONPATH=$PWD/src uv run python ../calculations/piab1d/run_01_calculation.py",
+    "cd python && PYTHONPATH=$PWD/src uv run python ../calculations/piab1d/run_02_verification.py",
+    "cd python && PYTHONPATH=$PWD/src MPLBACKEND=Agg uv run --extra notebooks python ../calculations/piab1d/run_03_render.py"
+  ],
+  "dependencies": {
+    "projectkoios-optimization": "2a18e485109e307b2f7928bd0418bcf796aeb0d5",
+    "projectkoios-physkit": "9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5"
+  },
+  "execution_id": "direct-core-n8-m3",
+  "lifecycle_status": "unsealed development execution",
+  "schema": "ksdft2effmass.piab1d-development-provenance.v1",
+  "sealed": false,
+  "source": {
+    "branch": "work/physkit-linalg-migration",
+    "dependency_lock": {
+      "path": "python/uv.lock",
+      "sha256": "df396cf798831fe908ffbde60d291267d72c21d1df9473dd992eb1fce5e6fb9c"
+    },
+    "repository": "ksdft2effmass",
+    "revision": "6f03395120823859bd581d60efdfcd107b939aef",
+    "scripts": {
+      "calculations/piab1d/run_01_calculation.py": "187a6a40446faabd66ec9890e40b7c950597867eb6d70acd07a24fbc898fbc44",
+      "calculations/piab1d/run_02_verification.py": "6a41098fb6f982c4a157563165fba6f50941a88a9025f478b6e6ca8911a7205f",
+      "calculations/piab1d/run_03_render.py": "359ce654fe514564d4a8fca96dc1ca4698a8aea34cfe83f32fdbf148e98e02fd"
+    },
+    "worktree_status_before_execution": "clean"
+  },
+  "verification_summary": {
+    "comparison_count": 79,
+    "figure_count": 13,
+    "outcome": "passed"
+  }
+}

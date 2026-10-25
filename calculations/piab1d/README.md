@@ -56,8 +56,11 @@ command-line parser, JSON-authored input, Workflow, or generic study container. 
 used only for result, execution, verification, and rendering records. Each stage refuses to
 overwrite its owned artifacts.
 
-No successor execution has been created yet. The authored execution identity is
-`direct-core-n8-m3`; its configuration declares $L=m=\hbar=1$, eight independent
+The retained successor directory `executions/direct-core-n8-m3/` is an explicitly
+unsealed development execution. It contains completed calculation, verification, and
+rendering stages plus an explicit development-provenance record. It has no
+evidence-package seal, source manifest, sealed provenance record, or execution-wide
+checksum catalog. Its configuration declares $L=m=\hbar=1$, eight independent
 interior degrees of freedom, and three retained states. Its renderer covers the closed
 13-figure inventory: the spectrum/state summary, residual matrices, continuum and
 discrete wavefunction ladders, retained-dimension selection, convergence series,
