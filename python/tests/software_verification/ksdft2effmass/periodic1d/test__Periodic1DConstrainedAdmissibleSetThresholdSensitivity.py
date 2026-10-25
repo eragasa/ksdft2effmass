@@ -43,13 +43,19 @@ class TestPeriodic1DConstrainedAdmissibleSetThresholdSensitivity:
     @classmethod
     def copied_packages(cls, tmp_path: Path) -> tuple[Path, Path]:
         """Copy both correlated packages beneath a temporary repository root."""
+        retained_source = cls.source_directory()
+        retained_sensitivity = cls.sensitivity_directory()
+        if not retained_source.is_dir() or not retained_sensitivity.is_dir():
+            pytest.skip(
+                "historical calculation trees are intentionally absent from this branch"
+            )
         paper_directory = tmp_path / "calculations/ICMSEP2026/conference/paper_1"
         source = paper_directory / "constrained-admissible-sets"
         sensitivity = (
             paper_directory / "constrained-admissible-sets-threshold-sensitivity"
         )
-        shutil.copytree(cls.source_directory(), source)
-        shutil.copytree(cls.sensitivity_directory(), sensitivity)
+        shutil.copytree(retained_source, source)
+        shutil.copytree(retained_sensitivity, sensitivity)
         return source, sensitivity
 
     @staticmethod

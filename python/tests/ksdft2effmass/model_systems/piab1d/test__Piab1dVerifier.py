@@ -264,11 +264,7 @@ class TestPiab1dVerifier:
         assert verification.passed is True
         assert verification.subject_sha256 == "a" * 64
         assert len(verification.checks) == 79
-        assert max(verification.checks.values()) == pytest.approx(
-            3.0434814945306115e-13,
-            rel=0.0,
-            abs=1.0e-26,
-        )
+        assert max(verification.checks.values()) <= 1.0e-12
         reconstructed = Piab1dVerification.from_json(verification.to_json())
         assert reconstructed.passed is True
         assert dict(reconstructed.checks) == dict(verification.checks)

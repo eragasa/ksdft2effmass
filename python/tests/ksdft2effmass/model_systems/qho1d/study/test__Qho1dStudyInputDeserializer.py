@@ -112,6 +112,10 @@ class TestQho1dStudyInputDeserializer:
             / "input.json"
         )
 
+        if not historical_input.is_file():
+            pytest.skip(
+                "historical calculation tree is intentionally absent from this branch"
+            )
         definition = Qho1dStudyInputDeserializer().execute(
             historical_input.read_bytes()
         )
