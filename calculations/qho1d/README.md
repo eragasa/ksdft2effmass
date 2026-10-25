@@ -12,8 +12,10 @@ implementation or 2D/3D extension is claimed.
 
 This is a development calculation, not retained evidence, a publication manuscript, a
 continuum-convergence proof, a physical uncertainty statement, or a scientific
-validation result. Generated JSON, figures, and PDF files remain ignored and
-replaceable. The historical retained package under
+validation result. The generated JSON beneath `analysis/development/` remains ignored
+and replaceable. Report-local figure inputs and a compiled PDF snapshot are retained
+for reproducible review, but they do not acquire evidentiary or validation status. The
+historical retained package under
 `calculations/research-monograph/harmonic-oscillator/` remains separate and preserves
 its original provenance.
 
@@ -32,7 +34,9 @@ channels.
 - `development_report/development_report.tex` is the LaTeX report focused on spatial
   truncation.
 - `development_report/references.bib` owns the report-local bibliography.
-- Generated files are written under `analysis/development/` and ignored.
+- `development_report/README.md` records the retained figure identities and build chain.
+- Report-local PNG inputs and `development_report.pdf` are retained review snapshots.
+- Replaceable generated files are written under `analysis/development/` and ignored.
 
 From `python/`:
 
@@ -45,9 +49,10 @@ uv run python ../calculations/qho1d/dev_plots.py
 Compile the report from `calculations/qho1d/development_report/`:
 
 ```console
-latexmk -pdf -interaction=nonstopmode -halt-on-error \
-  -outdir=../analysis/development development_report.tex
+latexmk -pdf -interaction=nonstopmode -halt-on-error development_report.tex
 ```
+
+Only the selected PDF is retained; LaTeX auxiliary files remain ignored.
 
 ## Comparison and diagnostic boundary
 

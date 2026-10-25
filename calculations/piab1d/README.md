@@ -16,29 +16,27 @@ criteria, evidence matrix, and bounded novelty assessment are retained in
 `development_report/prior_art_review.md`. The maintained LaTeX appendix remains the
 manuscript source of record.
 
-The standalone LaTeX source `appendix-d-draft.tex` renders the report with the
-retained graphics. Its generated PDF is local and ignored:
+The standalone LaTeX source `appendix-d-draft.tex` renders the report with committed
+graphics. Build it with LuaLaTeX:
 
 ```bash
 cd calculations/piab1d
-mkdir -p build
-latexmk -lualatex -interaction=nonstopmode -halt-on-error \
-  -output-directory=build appendix-d-draft.tex
+latexmk -lualatex -interaction=nonstopmode -halt-on-error appendix-d-draft.tex
 ```
 
-The compiled file is `build/appendix-d-draft.pdf`.
+The selected `appendix-d-draft.pdf` is retained as a review snapshot.
 
 Compile the spectral-reduction report from `development_report/`:
 
 ```bash
 cd calculations/piab1d/development_report
-latexmk -pdf -interaction=nonstopmode -halt-on-error \
-  -outdir=../build development_report.tex
+latexmk -pdf -interaction=nonstopmode -halt-on-error development_report.tex
 ```
 
-The generated report PDF is `calculations/piab1d/build/development_report.pdf`
-and is not retained evidence unless separately reviewed and admitted to the checksum
-catalog.
+The selected `development_report/development_report.pdf` is also retained as a review
+snapshot. These PDFs and the maintained `technical_report/technical_report.pdf` are
+not retained calculation evidence unless separately reviewed and admitted to a
+checksum contract. LaTeX auxiliary products remain ignored.
 
 ## Successor directory structure
 

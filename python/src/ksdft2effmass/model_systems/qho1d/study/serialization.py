@@ -163,7 +163,6 @@ class Qho1dStudyResultSerializer:
         package_root = Path(__file__).resolve().parents[3]
         model_system_root = package_root / "model_systems"
         qho1d_root = model_system_root / "qho1d"
-        linalg_root = package_root / "linalg"
         operator_root = package_root / "operators"
         return (
             model_system_root / "intervals.py",
@@ -172,7 +171,6 @@ class Qho1dStudyResultSerializer:
             model_system_root / "study" / "base.py",
             operator_root / "finite_differences.py",
             operator_root / "ladder_operators.py",
-            linalg_root / "quantities.py",
             Path(__file__).resolve().with_name("records.py"),
             Path(__file__).resolve().with_name("input.py"),
             Path(__file__).resolve().with_name("evaluation.py"),

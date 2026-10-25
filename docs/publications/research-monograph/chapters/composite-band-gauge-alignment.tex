@@ -659,6 +659,34 @@ The maximum spectral error on a declared set $\mathcal K$ is
 It is an eigenvalue metric. It does not measure entrywise or aligned-operator
 agreement.
 
+When the complete and truncated matrices use the same retained coordinates, the
+complementary rank-normalized Hamiltonian residuals on $\mathcal K$ are
+\begin{align}
+  \epsilon_{H,F,\max}
+  &=\max_{\kappa\in\mathcal K}
+    \frac{\lVert H^{\mathrm{truncated}}(\kappa)
+    -H^{\mathrm{target}}(\kappa)\rVert_{\mathrm F}}{\sqrt{M}},\\
+  \epsilon_{H,F,\mathrm{rms}}
+  &=\left[
+    \frac{1}{M|\mathcal K|}
+    \sum_{\kappa\in\mathcal K}
+    \lVert H^{\mathrm{truncated}}(\kappa)
+    -H^{\mathrm{target}}(\kappa)\rVert_{\mathrm F}^{2}
+    \right]^{1/2}.
+  \label{eq:training-composite-hamiltonian-errors}
+\end{align}
+Here $M$ is the retained rank. These quantities have energy units; division by a
+separately declared positive energy scale produces dimensionless residuals. They are not
+defined until state spaces, bases, gauges, energy references, units, and reciprocal
+coordinates agree. The maximum spectral discrepancy obeys the pointwise perturbation
+bound supplied by the unnormalized Frobenius residual, but need not determine it.
+
+For a complete uniform transform, when the target is the untruncated finite interpolant
+and $\mathcal K$ supplies exact quadrature for the squared finite series, Parseval makes
+$\epsilon_{H,F,\mathrm{rms}}^2$ equal the omitted-block power divided by $M$. This
+identity does not extend automatically to interpolation-plus-truncation residuals,
+nonuniform weights, incomplete transforms, or a separately removed cyclic Nyquist term.
+
 \section{Training and withheld roles}
 \index{withheld mesh!multiband alignment}
 
@@ -691,14 +719,18 @@ agreement.
     Quantity & Compared objects & Unit & Interpretation \\
     \midrule
     External gap & retained and excluded eigenvalues & energy & sampled spectral separation \\
-    Minimum overlap singular value & neighboring or closure frames & unitless & transport conditioning \\
-    Closure eigenphases & unitary closure holonomy & radians & branch-dependent phase set \\
+    Minimum overlap singular value & neighboring or closure frames & unitless & transport conditioning and rank gate \\
+    Procrustes record & overlap spectrum, rank cutoff, optimum residual, and unitary & unitless & reproducible alignment method and numerical checks \\
+    Closure eigenphases & unitary closure holonomy & radians & branch-dependent Wilson-loop-like phase set \\
+    Closure and unitarity defects & corrected boundary frames and returned unitaries & unitless & numerical sewing checks \\
     Frame Frobenius defect & two coordinate frames & unitless & gauge-dependent basis difference \\
     Projector Frobenius defect & two retained subspaces & unitless & gauge-invariant subspace difference \\
     Projected-operator defect & two matrices in declared coordinates & energy & coordinate-sensitive operator difference \\
     Block Hermiticity defect & $H(-R)$ and $H(R)^{\dagger}$ & energy & represented structural consistency \\
     Omitted-block norm & discarded hopping blocks & energy & range-truncation diagnostic \\
+    Hamiltonian truncation error & complete and truncated matrices in common coordinates & energy & sampled operator discrepancy \\
     Maximum spectral error & ordered eigenvalues on a mesh & energy & worst sampled band discrepancy \\
+    Reconstruction, Parseval, and Weyl defects & redundant matrix, coefficient, and eigenvalue relations & declared tolerance units & numerical consistency only \\
     \bottomrule
   \end{tabular}
 \end{table}

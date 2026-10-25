@@ -164,7 +164,6 @@ class Qho1dResultVerifier:
                 "python/src/ksdft2effmass/model_systems/study/base.py",
                 "python/src/ksdft2effmass/operators/finite_differences.py",
                 "python/src/ksdft2effmass/operators/ladder_operators.py",
-                "python/src/ksdft2effmass/linalg/quantities.py",
                 "python/src/ksdft2effmass/model_systems/qho1d/study/records.py",
                 "python/src/ksdft2effmass/model_systems/qho1d/study/input.py",
                 "python/src/ksdft2effmass/model_systems/qho1d/study/evaluation.py",

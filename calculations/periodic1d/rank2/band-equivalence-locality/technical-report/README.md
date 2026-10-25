@@ -14,4 +14,6 @@ Build from this directory with:
 latexmk -pdf -interaction=nonstopmode -halt-on-error technical-report.tex
 ```
 
-Generated LaTeX products are not evidence and should remain untracked.
+The selected compiled `technical-report.pdf` is retained as a review snapshot. It is
+not evidence, scientific validation, or a publication; all LaTeX auxiliary products
+remain untracked.

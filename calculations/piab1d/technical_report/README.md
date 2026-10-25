@@ -14,5 +14,8 @@ Build the maintained report from this directory:
 latexmk -pdf -interaction=nonstopmode -halt-on-error technical_report.tex
 ```
 
-The generated PDF and LaTeX intermediates are not retained evidence unless a later
-execution contract explicitly admits and checksums them.
+The report-local figures are presentation copies of committed calculation outputs;
+they do not create new independent scientific evidence. The compiled
+`technical_report.pdf` is retained as a review snapshot. It and the ignored LaTeX
+intermediates are not retained calculation evidence unless a later execution contract
+explicitly admits and checksums them.

@@ -64,7 +64,7 @@ class TestQho1dStudyResultSerializer:
         campaign implementation sources without rewriting the retained result.
 
         Acceptance: The public package resolves to the documented serializer; decoded
-        output has 27 cases, maintained input and runner paths, and the eleven exact
+        output has 27 cases, maintained input and runner paths, and the ten exact
         public implementation paths with lowercase SHA-256 identities.
         """
         assert (
@@ -97,7 +97,7 @@ class TestQho1dStudyResultSerializer:
         assert provenance["script_path"] == "calculations/qho1d/dev_analysis.py"
         identities = provenance["implementation_identities"]
         assert isinstance(identities, list)
-        assert len(identities) == 11
+        assert len(identities) == 10
         expected_paths = {
             "python/src/ksdft2effmass/model_systems/intervals.py",
             "python/src/ksdft2effmass/model_systems/qho1d/model.py",
@@ -105,7 +105,6 @@ class TestQho1dStudyResultSerializer:
             "python/src/ksdft2effmass/model_systems/study/base.py",
             "python/src/ksdft2effmass/operators/finite_differences.py",
             "python/src/ksdft2effmass/operators/ladder_operators.py",
-            "python/src/ksdft2effmass/operators/quantities.py",
             "python/src/ksdft2effmass/model_systems/qho1d/study/records.py",
             "python/src/ksdft2effmass/model_systems/qho1d/study/input.py",
             "python/src/ksdft2effmass/model_systems/qho1d/study/evaluation.py",

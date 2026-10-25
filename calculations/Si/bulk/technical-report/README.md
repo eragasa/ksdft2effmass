@@ -12,6 +12,10 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error \
   -outdir=/tmp/ksd-si-bulk-technical-report technical-report.tex
 ```
 
+The selected compiled `technical-report.pdf` is retained as a review snapshot. It is
+not retained calculation evidence, scientific validation, or a publication; LaTeX
+auxiliary products remain untracked.
+
 The detailed production-parent audit remains in
 [`docs/computational/bulk-silicon-production-convergence-design.md`](../../../../docs/computational/bulk-silicon-production-convergence-design.md).
 The separate external empirical development control and its source boundary are under
