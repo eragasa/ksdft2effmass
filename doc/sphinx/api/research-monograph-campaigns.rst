@@ -1205,22 +1205,18 @@ validation, topology or polarization evidence, UQ, or protected execution.
 .. autoclass:: Periodic1DHoppingReductionWorkflow
    :members:
 
-QHO1D retained-adapter boundary
--------------------------------
+QHO1D direct boundary
+---------------------
 
 The canonical implementation is documented in :doc:`model-systems` and lives at
 ``ksdft2effmass.model_systems.qho1d``. The former
-``ksdft2effmass.campaigns.qho1d`` package was removed rather than retained as a
-compatibility facade.
+``ksdft2effmass.campaigns.qho1d`` package, JSON-authored study package, and
+``HarmonicOscillator...`` research-monograph aliases were removed rather than retained
+as compatibility facades.
 
-The research monograph now consumes the direct typed QHO1D execution under
-``calculations/qho1d``. It no longer consumes the absent historical
-``calculations/research-monograph/harmonic-oscillator`` result or its adapters.
-
-The bounded ``ksdft2effmass.campaigns.research_monograph`` root still exposes four
-historical ``HarmonicOscillator...`` aliases pending separately authorized removal.
-They are not manuscript result owners and new code must not import them. This temporary
-compatibility boundary does not imply a dimension-neutral QHO API.
+The research monograph consumes the direct typed QHO1D execution under
+``calculations/qho1d``. It does not consume the absent historical
+``calculations/research-monograph/harmonic-oscillator`` result or predecessor adapters.
 
 Defect-2D finite-domain case inventory
 --------------------------------------
@@ -1279,8 +1275,8 @@ evidence; research-monograph documentation points to that canonical calculation.
 The Appendix D core residual study deserializes its retained version-one input,
 composes the public one-dimensional box and represented-operator contracts, preserves
 the historical numerical JSON payload, and verifies retained or newly authored
-provenance without importing the implementation under verification. Its module layout
-mirrors the QHO1D study layout.
+provenance without importing the implementation under verification. Its historical
+study layout remains owned by PIAB1D and does not imply a QHO1D compatibility surface.
 
 .. autoclass:: Piab1dStudyDefinition
    :members:

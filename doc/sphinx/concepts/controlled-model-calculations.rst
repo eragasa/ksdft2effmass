@@ -10,7 +10,7 @@ mathematical constructions declared by each calculation protocol.
 Ownership layers
 ----------------
 
-The implementation separates five concrete layers.
+The implementation separates four concrete layers.
 
 ``ksdft2effmass.operators``
    Owns reusable represented operators, immutable unit-aware quantities, sparse
@@ -20,17 +20,13 @@ The implementation separates five concrete layers.
    Owns mathematical model definitions and reusable evaluations. The concrete
    ``qho1d`` owner owns typed direct analysis, adjacent-grid diagnostics, independent
    verification, and authenticated visualization. It does not imply a
-   dimension-neutral QHO implementation. Historical ``study`` contracts remain a
-   predecessor-only surface pending separately authorized removal.
+   dimension-neutral QHO implementation. The former JSON-authored QHO1D ``study``
+   contract was removed after migration.
 
 ``calculations/qho1d``
    Owns the Python-authored QHO1D configuration, direct calculate--verify--render
    scripts, unsealed execution, provenance records, and calculation-owned technical
    report.
-
-``ksdft2effmass.campaigns.research_monograph``
-   Temporarily retains historical harmonic-oscillator aliases pending separately
-   authorized removal. The research monograph no longer consumes those aliases.
 
 ``docs/publications/research-monograph``
    Consumes the direct QHO1D result, verification identities, and exact presentation

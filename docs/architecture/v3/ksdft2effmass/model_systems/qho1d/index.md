@@ -41,9 +41,9 @@ model_systems/qho1d/
 └── visualization.py
 ```
 
-The neighboring `study/` package supports historical JSON-authored calculation
-contracts. It is not used by the direct successor and is governed by the
-[non-destructive legacy disposition](legacy-disposition.md).
+The former neighboring `study/` package and its JSON-authored calculation contract
+were removed after migration. The [legacy disposition](legacy-disposition.md) records
+the authorized scope, recovery commit, and historical content identities.
 
 ## Invariants
 
@@ -71,4 +71,4 @@ contracts. It is not used by the direct successor and is governed by the
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)
 - [Schematics](schematics.md)
-- [Legacy disposition](legacy-disposition.md)
+- [Legacy removal record](legacy-disposition.md)

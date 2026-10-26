@@ -38,14 +38,6 @@ from .result import (
     Qho1dCaseResult,
     Qho1dStateComparisonResult,
 )
-from .study import (
-    Qho1dResultVerifier,
-    Qho1dStudyDefinition,
-    Qho1dStudyEvaluator,
-    Qho1dStudyInputDeserializer,
-    Qho1dStudyResult,
-    Qho1dStudyResultSerializer,
-)
 from .verification import Qho1dIndependentReferenceAnalyzer, Qho1dVerifier
 from .verification_values import (
     Qho1dHamiltonianComparisonVerification,
@@ -85,18 +77,12 @@ __all__ = [
     "Qho1dParameters",
     "Qho1dResidualResult",
     "Qho1dResidualVerification",
-    "Qho1dResultVerifier",
     "Qho1dSampledStateAlignmentResult",
     "Qho1dSampledStateAlignmentVerification",
     "Qho1dSpatialRepresentationResult",
     "Qho1dSpatialRepresentationVerification",
-    "Qho1dStudyDefinition",
-    "Qho1dStudyEvaluator",
-    "Qho1dStudyInputDeserializer",
     "Qho1dStateComparisonResult",
     "Qho1dStateComparisonVerification",
-    "Qho1dStudyResult",
-    "Qho1dStudyResultSerializer",
     "Qho1dSweepVerification",
     "Qho1dVerification",
     "Qho1dVerifier",

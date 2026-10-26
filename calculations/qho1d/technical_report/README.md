@@ -38,7 +38,8 @@ and they are not continuum-error estimates.
 The retained nine-page PDF SHA-256 is
 `80e71530cf54f897a39c30b34ef75603029aa2dad23a86f0ab582736eed9a9b0`.
 
-The earlier flat-case execution and its report snapshot beneath
-`../executions/direct-spatial-truncation-3x3x3/` remain byte-exact. The predecessor
-under `../development_report/` also remains unchanged. Neither historical surface is
-the source contract for the maintained semantic-section successor.
+The earlier flat-case direct execution and its report snapshot beneath
+`../executions/direct-spatial-truncation-3x3x3/` remain byte-exact because the research
+monograph consumes them. The older JSON-authored development implementation and report
+were removed after migration; their Git-history locator and qualification are recorded
+in the Architecture v3 QHO1D legacy-disposition page.

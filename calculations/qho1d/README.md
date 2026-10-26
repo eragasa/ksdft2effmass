@@ -87,16 +87,15 @@ act in the same ordered number-state coordinates, their difference is well-defin
 Its Frobenius norm is an adjacent-representation change diagnostic, not a continuum
 error estimate or convergence rate.
 
-## Historical development boundary
+## Removed predecessor
 
-The predecessor files `input.json`, `dev_analysis.py`, `dev_verification.py`,
-`dev_plots.py`, `analysis/development/`, and `development_report/` remain available for
-their existing development and report provenance. They are not used by the direct
-successor lifecycle. Removing them is a separate destructive action and is not part of
-this additive migration. Their audited maintenance and removal gates are recorded in
+The JSON-authored development input, `dev_*` scripts, replaceable development-output
+path, predecessor report, `model_systems.qho1d.study` package, and compatibility aliases
+were removed after the direct migration was completed. They are recoverable from Git
+commit `7e3331eb3addd8034cdf97cc2a65e64c4f74ac67`; their disposition and content
+identities are recorded in
 `docs/architecture/v3/ksdft2effmass/model_systems/qho1d/legacy-disposition.md`.
 
-The historical locator
-`calculations/research-monograph/harmonic-oscillator/` remains represented by legacy
-API identities, but its calculation tree is intentionally absent. The direct successor
-does not recreate the tree or rewrite its identities.
+The absent historical locator
+`calculations/research-monograph/harmonic-oscillator/` was not restored. New and
+maintained work uses only the direct typed lifecycle documented above.

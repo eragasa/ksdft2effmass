@@ -260,29 +260,10 @@ three-component direct verification record.
 .. autoclass:: Qho1dVisualizer
    :members:
 
-The following classes retain the historical JSON-authored study contract. They do not
-participate in direct calculate--verify--render executions. They are maintained for
-historical reproduction and compatibility only; new callers must use the direct typed
-surface. The non-destructive maintenance and removal gates are recorded in
+The former JSON-authored QHO1D study contract and its compatibility exports were
+removed after completion of the direct migration. Recovery identities and the removal
+scope are recorded in
 ``docs/architecture/v3/ksdft2effmass/model_systems/qho1d/legacy-disposition.md``.
-
-.. autoclass:: Qho1dStudyDefinition
-   :members:
-
-.. autoclass:: Qho1dStudyResult
-   :members:
-
-.. autoclass:: Qho1dStudyInputDeserializer
-   :members:
-
-.. autoclass:: Qho1dStudyEvaluator
-   :members:
-
-.. autoclass:: Qho1dStudyResultSerializer
-   :members:
-
-.. autoclass:: Qho1dResultVerifier
-   :members:
 
 One-dimensional particle in a box
 ---------------------------------

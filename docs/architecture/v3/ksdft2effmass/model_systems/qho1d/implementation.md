@@ -69,11 +69,12 @@ digest matches the supplied typed data. It returns exactly one validated
 report source, bibliography, and authenticated figures into an execution-bound
 technical-report directory.
 
-## Historical boundary
+## Removed predecessor
 
-The adjacent-grid diagnostic is the only predecessor capability selected for the
-direct successor. The JSON-authored `study/` package and `dev_*` scripts remain
-historical development interfaces only; their input contract, wire format, source-
-coupled verifier, replaceable execution behavior, and compatibility aliases are not
-successor capabilities. Their removal requires a separate authorized destructive
-tranche.
+The adjacent-grid diagnostic was the only predecessor capability selected for the
+direct successor. After that migration, the JSON-authored `study/` package, `dev_*`
+scripts, custom wire, source-coupled verifier, replaceable execution path, predecessor
+report, and compatibility aliases were removed under explicit authorization. Commit
+`7e3331eb3addd8034cdf97cc2a65e64c4f74ac67` retains their last complete tree state;
+the [legacy disposition](legacy-disposition.md) records recovery identities and the
+historical report qualification.

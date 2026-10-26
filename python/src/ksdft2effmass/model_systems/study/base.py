@@ -11,7 +11,6 @@ class ModelId(Enum):
     """Identify a supported controlled model system without stringly typing."""
 
     piab1d = auto()
-    qho1d = auto()
     mathieu1d = auto()
 
 
@@ -20,7 +19,6 @@ class ModelSystemStudySchemaId(Enum):
 
     piab1d_v1 = auto()
     piab1d_v2 = auto()
-    qho1d_v1 = auto()
     mathieu1d_v1 = auto()
 
 
