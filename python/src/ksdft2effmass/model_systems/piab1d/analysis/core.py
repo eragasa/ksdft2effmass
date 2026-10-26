@@ -40,7 +40,6 @@ from ksdft2effmass.hamiltonian import (
     ReducedHamiltonian,
     SpectralReduction,
 )
-from ksdft2effmass.model_systems.analysis import BaseModelSystemAnalyzer
 
 from ..diagnostics import (
     DiagnosticMethodsEnum,
@@ -132,7 +131,7 @@ class Piab1dAnalysis:
             raise TypeError("diagnostics must be Piab1dDiagnostics")
 
 
-class Piab1dAnalyzer(BaseModelSystemAnalyzer):
+class Piab1dAnalyzer:
     """Perform the complete KSD analysis of one PhysKit PIAB1D solution."""
 
     __slots__ = (

@@ -10,7 +10,6 @@ from projectkoios.physkit.qm.piab1d.tise_fd import Piab1dTiseFdSolver
 from projectkoios.physkit.units import Unitless, UnitSystem
 
 from ksdft2effmass.analysis import DiagnosticObservation
-from ksdft2effmass.model_systems import BaseModelSystemAnalyzer
 from ksdft2effmass.model_systems.piab1d import (
     DiagnosticMethodsEnum,
     Piab1dAnalyzer,
@@ -32,7 +31,6 @@ class TestPiab1dAnalyzer:
         analyzer = SUT()
         result = analyzer.execute(solution, retained_dimension=3)
 
-        assert isinstance(analyzer, BaseModelSystemAnalyzer)
         assert result.solution is solution
         assert result.reduced_hamiltonian.spectral_subspace.dimension == 3
         assert result.reduced_hamiltonian.spectral_subspace.full_dimension == 8

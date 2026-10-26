@@ -18,8 +18,8 @@ from ksdft2effmass.hamiltonian import (
     HamiltonianVerification,
     SpectralReductionVerification,
 )
-from ksdft2effmass.model_systems.analysis import BaseModelAnalysisVerification
 from ksdft2effmass.model_systems.verification import (
+    BaseModelAnalysisVerification,
     QuadratureVerification,
     VisualizationProjectionVerification,
 )
@@ -76,13 +76,7 @@ class Piab1dVerification(BaseModelAnalysisVerification):
     )
 
     def __post_init__(self) -> None:
-        self._validate_digest(self.subject_sha256, "subject_sha256")
-        self._validate_digest(
-            self.visualization_data_sha256,
-            "visualization_data_sha256",
-        )
-        if not isinstance(self.components, tuple):
-            raise TypeError("components must be a tuple")
+        self._validate_common_fields()
         expected_types = tuple(self.component_types.values())
         if len(self.components) != len(expected_types) or any(
             type(component) is not expected
@@ -95,69 +89,6 @@ class Piab1dVerification(BaseModelAnalysisVerification):
             raise ValueError(
                 "components must match the declared verification inventory"
             )
-        names: set[str] = set()
-        for component in self.components:
-            overlap = names.intersection(component.observations)
-            if overlap:
-                raise ValueError(
-                    "verification observation names must be globally unique"
-                )
-            names.update(component.observations)
-
-    @property
-    def checks(self) -> Mapping[str, float]:
-        """Return flattened discrepancy magnitudes for reporting.
-
-        Returns
-        -------
-        Mapping[str, float]
-            Read-only mapping of all 79 operation-qualified observation values.
-        """
-        return MappingProxyType(
-            {
-                name: observation.value.magnitude
-                for component in self.components
-                for name, observation in component.observations.items()
-            }
-        )
-
-    @property
-    def check_tolerances(self) -> Mapping[str, float]:
-        """Return flattened tolerance magnitudes for reporting.
-
-        Returns
-        -------
-        Mapping[str, float]
-            Read-only mapping aligned exactly with :attr:`checks`.
-        """
-        return MappingProxyType(
-            {
-                name: observation.tolerance.magnitude
-                for component in self.components
-                for name, observation in component.observations.items()
-            }
-        )
-
-    @property
-    def passed(self) -> bool:
-        """Return whether every reusable verification component passes.
-
-        Returns
-        -------
-        bool
-            ``True`` exactly when every component satisfies every observation.
-        """
-        return all(component.passed for component in self.components)
-
-    def authenticated_visualization_data_sha256(self) -> str:
-        """Return the authenticated visualization-projection digest.
-
-        Returns
-        -------
-        str
-            Lowercase SHA-256 digest computed before component composition.
-        """
-        return self.visualization_data_sha256
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         """Return each verification component through its final mapping boundary."""
@@ -210,12 +141,3 @@ class Piab1dVerification(BaseModelAnalysisVerification):
             visualization_data_sha256=visualization_data_sha256,
             components=tuple(components),
         )
-
-    @staticmethod
-    def _validate_digest(value: str, name: str) -> None:
-        if (
-            type(value) is not str
-            or len(value) != 64
-            or any(character not in "0123456789abcdef" for character in value)
-        ):
-            raise ValueError(f"{name} must be a lowercase SHA-256 digest")
