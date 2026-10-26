@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import math
 
 import numpy as np
@@ -233,9 +234,8 @@ class TestPiab1dVerifier:
             },
         }
 
-        decoded_result = TypedJsonValueCodec().deserialize_bytes(
-            TypedJsonValueCodec().serialize_bytes(result)
-        )
+        result_wire = TypedJsonValueCodec().serialize_bytes(result)
+        decoded_result = TypedJsonValueCodec().deserialize_bytes(result_wire)
         assert isinstance(decoded_result, dict)
         typed_result = Piab1dCalculationResult.from_dict(decoded_result)
         reference = Piab1dIndependentReferenceAnalyzer().execute(
@@ -249,10 +249,7 @@ class TestPiab1dVerifier:
                 "parent_hamiltonian_maximum_absolute_error"
             ]
 
-        verifier = SUT(
-            result=decoded_result,
-            subject_sha256="a" * 64,
-        )
+        verifier = SUT(result_wire=result_wire)
         verification_result = verifier.result()
         verification = verification_result.verification
 
@@ -262,7 +259,7 @@ class TestPiab1dVerifier:
             visualization_data.to_json()
         )
         assert verification.passed is True
-        assert verification.subject_sha256 == "a" * 64
+        assert verification.subject_sha256 == hashlib.sha256(result_wire).hexdigest()
         assert len(verification.checks) == 79
         assert max(verification.checks.values()) <= 1.0e-12
         reconstructed = Piab1dVerification.from_json(verification.to_json())

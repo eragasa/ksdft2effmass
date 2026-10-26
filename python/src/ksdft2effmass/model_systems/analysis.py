@@ -4,11 +4,10 @@ from __future__ import annotations
 
 import hashlib
 from abc import ABC, abstractmethod
-from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import final
 
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.serialization import BaseTypedRecord
 from ksdft2effmass.verification import CompositeVerification
 
 from .verification import BaseModelAnalysisVerification
@@ -73,9 +72,10 @@ class BaseModelAnalysisVerifier[
 ](ABC):
     """Bind, verify, and authenticate one typed model-analysis result.
 
-    The base owns validation of the decoded subject mapping and its exact SHA-256
-    identity. Concrete verifiers own result reconstruction, independent scientific
-    comparisons, visualization projection, and aggregate composition.
+    The base owns exact subject bytes, computes their SHA-256 identity, and
+    reconstructs the concrete typed result from those same bytes. Concrete verifiers
+    own independent scientific comparisons, visualization projection, and aggregate
+    composition.
     """
 
     __slots__ = ("_result", "_subject_sha256")
@@ -84,43 +84,32 @@ class BaseModelAnalysisVerifier[
     _subject_sha256: str
 
     @final
-    def __init__(
-        self,
-        *,
-        result: Mapping[str, SerializableValue],
-        subject_sha256: str,
-    ) -> None:
-        """Bind a typed decoded result to its exact subject digest.
+    def __init__(self, *, result_wire: bytes) -> None:
+        """Bind one typed result to the identity of its exact input bytes.
 
         Parameters
         ----------
-        result
-            String-keyed mapping decoded by the shared typed JSON deserializer.
-        subject_sha256
-            Lowercase SHA-256 digest of the exact result bytes under verification.
+        result_wire
+            Complete typed JSON bytes of the calculation result under verification.
 
         Raises
         ------
         TypeError
-            ``result`` is not a mapping or a key is not a built-in string.
+            ``result_wire`` is not a built-in ``bytes`` value or a decoded field has
+            the wrong type.
         ValueError
-            The digest is malformed or concrete result reconstruction fails.
+            The JSON representation or a concrete result invariant is invalid.
+
+        Notes
+        -----
+        The digest is calculated before deserialization from the same immutable bytes
+        used to reconstruct the result. Callers cannot pair a decoded result with an
+        unrelated digest.
         """
-        if not isinstance(result, Mapping):
-            raise TypeError("result must be a mapping")
-        if (
-            type(subject_sha256) is not str
-            or len(subject_sha256) != 64
-            or any(character not in "0123456789abcdef" for character in subject_sha256)
-        ):
-            raise ValueError("subject_sha256 must be a lowercase SHA-256 digest")
-        copied: dict[str, SerializableValue] = {}
-        for name, value in result.items():
-            if type(name) is not str:
-                raise TypeError("result keys must be built-in strings")
-            copied[name] = value
-        self._result = self._result_type().from_dict(copied)
-        self._subject_sha256 = subject_sha256
+        if type(result_wire) is not bytes:
+            raise TypeError("result_wire must be built-in bytes")
+        self._subject_sha256 = hashlib.sha256(result_wire).hexdigest()
+        self._result = self._result_type().from_json(result_wire)
 
     @classmethod
     @abstractmethod

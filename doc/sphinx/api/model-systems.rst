@@ -29,9 +29,10 @@ analyzer base. ``BaseVerification`` enforces final ``to_dict``/``from_dict`` and
 ``BaseModelAnalysisVerification`` owns digest validation, global observation identity,
 pass reduction, flattened reporting, and the authenticated visualization-data binding.
 Concrete aggregates retain their model-specific component inventories and wire
-layouts. ``BaseModelAnalysisVerifier`` owns subject reconstruction, subject-digest
-validation, and the final derive--digest--verify composition so callers cannot supply
-projection digests.
+layouts. ``BaseModelAnalysisVerifier`` accepts exact result bytes, computes their
+SHA-256 identity, reconstructs the typed result from those same bytes, and owns the
+final derive--digest--verify composition. Callers cannot pair a decoded result with an
+unrelated subject digest or supply a projection digest.
 
 Visualization separates four responsibilities. ``BaseModelAnalysisPlot`` draws one
 data relation on a caller-owned axis. ``BaseModelAnalysisSubplot`` composes plots and

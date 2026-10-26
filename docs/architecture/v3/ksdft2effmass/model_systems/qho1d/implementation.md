@@ -66,8 +66,9 @@ incomplete-stage paths before exposing the execution directory.
 Hamiltonian directly in NumPy, reconstructs the Gram orthonormalization, and compares
 every case and selected eigensolution through typed maximum-error comparisons.
 
-`Qho1dVerifier` uses the final `BaseModelAnalysisVerifier` subject constructor to
-validate the exact result digest and reconstruct `Qho1dCalculationResult`. It derives
+`Qho1dVerifier` gives the final `BaseModelAnalysisVerifier` subject constructor the
+exact result bytes. The base computes their digest and reconstructs
+`Qho1dCalculationResult` from those same bytes. It derives
 `Qho1dVisualizationData`, hashes its canonical shared-codec JSON bytes, and composes
 six operation-named verification components: spatial representation, sampled-state
 alignment, Hamiltonian comparison, residual, state comparison, and visualization

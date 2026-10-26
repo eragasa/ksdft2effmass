@@ -93,10 +93,8 @@ class TestModelAnalysisInfrastructure:
         assert Piab1dVerifier._result_type() is Piab1dCalculationResult
         assert Qho1dVerifier._result_type() is Qho1dCalculationResult
         for verifier_type in (Piab1dVerifier, Qho1dVerifier):
-            with pytest.raises(TypeError, match="result must be a mapping"):
-                verifier_type(result=(), subject_sha256="0" * 64)  # type: ignore[arg-type]
-            with pytest.raises(ValueError, match="lowercase SHA-256"):
-                verifier_type(result={}, subject_sha256="invalid")
+            with pytest.raises(TypeError, match="result_wire must be built-in bytes"):
+                verifier_type(result_wire=bytearray())  # type: ignore[arg-type]
 
     def test_renderer__plot_subplot_and_figure__remain_independently_composable(
         self,
