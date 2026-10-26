@@ -22,15 +22,16 @@ finite occupation-number basis and exposes its highest-state commutator defect.
 
 .. currentmodule:: ksdft2effmass.model_systems
 
-Concrete PIAB1D and QHO1D configurations and results retain their model-specific
-fields and invariants. ``BaseModelSystemAnalyzer`` remains a nominal action type
-because model-specific operations have materially different signatures.
-``BaseVerification`` enforces final ``to_dict``/``from_dict`` and
+Concrete PIAB1D and QHO1D configurations, results, and analyzers retain their
+model-specific fields, invariants, and operation signatures; there is no nominal
+analyzer base. ``BaseVerification`` enforces final ``to_dict``/``from_dict`` and
 ``to_json``/``from_json`` representation boundaries for every concrete verification.
-``BaseModelAnalysisVerification`` adds the authenticated visualization-data binding.
-``BaseModelAnalysisVerifier`` owns subject reconstruction, subject-digest validation,
-and the final derive--digest--verify composition so callers cannot supply projection
-digests.
+``BaseModelAnalysisVerification`` owns digest validation, global observation identity,
+pass reduction, flattened reporting, and the authenticated visualization-data binding.
+Concrete aggregates retain their model-specific component inventories and wire
+layouts. ``BaseModelAnalysisVerifier`` owns subject reconstruction, subject-digest
+validation, and the final derive--digest--verify composition so callers cannot supply
+projection digests.
 
 Visualization separates four responsibilities. ``BaseModelAnalysisPlot`` draws one
 data relation on a caller-owned axis. ``BaseModelAnalysisSubplot`` composes plots and
@@ -42,9 +43,6 @@ exactly in ``.png`` and decode supplied bytes before admission.
 ``BaseModelAnalysisVisualizationData`` and ``BaseModelAnalysisVerification``
 separately fix the dictionary and JSON boundaries for immutable verification values;
 concrete values implement only their typed mapping.
-
-.. autoclass:: BaseModelSystemAnalyzer
-   :members:
 
 .. autoclass:: BaseModelAnalysisVerifier
    :members:

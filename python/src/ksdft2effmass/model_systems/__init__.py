@@ -8,11 +8,7 @@ scientific validation for semiconductor applications.
 
 from ksdft2effmass.verification import BaseVerification
 
-from .analysis import (
-    BaseModelAnalysisVerifier,
-    BaseModelSystemAnalyzer,
-    ModelAnalysisVerificationResult,
-)
+from .analysis import BaseModelAnalysisVerifier, ModelAnalysisVerificationResult
 from .boundary_conditions import DirichletBoundaryCondition
 from .cartesian_grids import (
     UniformCartesianGrid1D,
@@ -104,7 +100,6 @@ __all__ = [
     "ModelAnalysisPngFigureRenderer",
     "ModelAnalysisPngVisualization",
     "ModelAnalysisVerificationResult",
-    "BaseModelSystemAnalyzer",
     "BaseVerification",
     "CenteredUniformReciprocalMesh2D",
     "DirichletBoundaryCondition",

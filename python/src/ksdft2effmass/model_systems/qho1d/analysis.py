@@ -11,7 +11,6 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.model_systems.analysis import BaseModelSystemAnalyzer
 from ksdft2effmass.operators import LadderOperator1D
 
 from ..boundary_conditions import DirichletBoundaryCondition
@@ -31,7 +30,7 @@ from .result import (
 )
 
 
-class Qho1dAnalyzer(BaseModelSystemAnalyzer):
+class Qho1dAnalyzer:
     """Calculate an ordered QHO1D spatial-truncation sweep.
 
     The analyzer owns calculation composition only. The analytical model,

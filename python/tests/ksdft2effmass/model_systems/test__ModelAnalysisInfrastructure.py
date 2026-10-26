@@ -9,19 +9,25 @@ import pytest
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
+import ksdft2effmass.model_systems as model_systems
 from ksdft2effmass.model_systems import (
     BaseModelAnalysisFigure,
     BaseModelAnalysisPlot,
     BaseModelAnalysisSubplot,
+    BaseModelAnalysisVerification,
     BaseModelAnalysisVerifier,
     ModelAnalysisPngFigureRenderer,
 )
 from ksdft2effmass.model_systems.piab1d import (
+    Piab1dAnalyzer,
     Piab1dCalculationResult,
+    Piab1dVerification,
     Piab1dVerifier,
 )
 from ksdft2effmass.model_systems.qho1d import (
+    Qho1dAnalyzer,
     Qho1dCalculationResult,
+    Qho1dVerification,
     Qho1dVerifier,
 )
 
@@ -59,6 +65,26 @@ class _LineFigure(BaseModelAnalysisFigure):
 
 class TestModelAnalysisInfrastructure:
     """Verify shared boundaries without imposing model-specific science."""
+
+    def test_analyzers__nominal_common_base__is_absent(self) -> None:
+        """Model analyzers remain concrete when they share no executed behavior."""
+        assert not hasattr(model_systems, "BaseModelSystemAnalyzer")
+        assert Piab1dAnalyzer.__bases__ == (object,)
+        assert Qho1dAnalyzer.__bases__ == (object,)
+
+    def test_verification__aggregate_behavior__is_owned_once(self) -> None:
+        """Concrete aggregates inherit common reporting and authentication behavior."""
+        for verification_type in (Piab1dVerification, Qho1dVerification):
+            assert verification_type.passed is BaseModelAnalysisVerification.passed
+            assert verification_type.checks is BaseModelAnalysisVerification.checks
+            assert (
+                verification_type.check_tolerances
+                is BaseModelAnalysisVerification.check_tolerances
+            )
+            assert (
+                verification_type.authenticated_visualization_data_sha256
+                is BaseModelAnalysisVerification.authenticated_visualization_data_sha256
+            )
 
     def test_verifier__subject_boundary__is_owned_once(self) -> None:
         """Both concrete verifiers inherit the final shared subject constructor."""

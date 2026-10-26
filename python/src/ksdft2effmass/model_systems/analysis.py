@@ -15,12 +15,6 @@ from .verification import BaseModelAnalysisVerification
 from .visualization import BaseModelAnalysisVisualizationData
 
 
-class BaseModelSystemAnalyzer:
-    """Identify a model-system analyzer without imposing a shared operation."""
-
-    __slots__ = ()
-
-
 @dataclass(frozen=True, slots=True)
 class ModelAnalysisVerificationResult[
     VerificationT: BaseModelAnalysisVerification,

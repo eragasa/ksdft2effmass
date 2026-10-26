@@ -89,12 +89,7 @@ class Qho1dVerification(BaseModelAnalysisVerification):
     )
 
     def __post_init__(self) -> None:
-        self._validate_digest(self.subject_sha256, "subject_sha256")
-        self._validate_digest(
-            self.visualization_data_sha256, "visualization_data_sha256"
-        )
-        if not isinstance(self.components, tuple):
-            raise TypeError("components must be a tuple")
+        self._validate_common_fields()
         observed_types = tuple(type(component) for component in self.components)
         supported_types = (
             tuple(self.component_types.values()),
@@ -102,67 +97,6 @@ class Qho1dVerification(BaseModelAnalysisVerification):
         )
         if observed_types not in supported_types:
             raise ValueError("components must match a QHO1D verification inventory")
-        names: set[str] = set()
-        for component in self.components:
-            overlap = names.intersection(component.observations)
-            if overlap:
-                raise ValueError("verification observation names must be unique")
-            names.update(component.observations)
-
-    @property
-    def passed(self) -> bool:
-        """Return whether every verification observation passes.
-
-        Returns
-        -------
-        bool
-            ``True`` exactly when every component passes.
-        """
-        return all(component.passed for component in self.components)
-
-    @property
-    def checks(self) -> Mapping[str, float]:
-        """Return a read-only mapping of discrepancy magnitudes.
-
-        Returns
-        -------
-        Mapping[str, float]
-            Flattened operation-qualified observations.
-        """
-        return MappingProxyType(
-            {
-                name: observation.value.magnitude
-                for component in self.components
-                for name, observation in component.observations.items()
-            }
-        )
-
-    @property
-    def check_tolerances(self) -> Mapping[str, float]:
-        """Return a read-only mapping of observation tolerances.
-
-        Returns
-        -------
-        Mapping[str, float]
-            Tolerances aligned exactly with :attr:`checks`.
-        """
-        return MappingProxyType(
-            {
-                name: observation.tolerance.magnitude
-                for component in self.components
-                for name, observation in component.observations.items()
-            }
-        )
-
-    def authenticated_visualization_data_sha256(self) -> str:
-        """Return the authenticated visualization-projection digest.
-
-        Returns
-        -------
-        str
-            Lowercase SHA-256 digest calculated before verification composition.
-        """
-        return self.visualization_data_sha256
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         component_types = (
@@ -214,12 +148,3 @@ class Qho1dVerification(BaseModelAnalysisVerification):
             visualization_data_sha256=visualization_sha256,
             components=tuple(components),
         )
-
-    @staticmethod
-    def _validate_digest(value: str, name: str) -> None:
-        if (
-            type(value) is not str
-            or len(value) != 64
-            or any(character not in "0123456789abcdef" for character in value)
-        ):
-            raise ValueError(f"{name} must be a lowercase SHA-256 digest")

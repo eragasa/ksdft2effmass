@@ -23,8 +23,14 @@ begins only where behavior is genuinely identical.
 6. calculate model-specific independent verification components; and
 7. compose the model-specific aggregate verification.
 
-The base does not implement scientific references, comparison inventories,
-tolerances, or acceptance policy. Those remain with PIAB1D and QHO1D.
+`BaseModelAnalysisVerification` owns digest validation, global observation-name
+uniqueness, pass reduction, flattened value and tolerance reporting, and access to the
+authenticated projection digest. Concrete aggregates retain their component
+inventories and wire layouts, including the retained QHO1D layout.
+
+The shared layer does not implement scientific references, comparison inventories,
+tolerances, acceptance policy, or a nominal analyzer type. PIAB1D and QHO1D analyzers
+remain concrete because their executed operations have different signatures.
 
 ## Flexible visualization composition
 
