@@ -6,7 +6,7 @@
 state-resolved selection. `Qho1dAnalyzer` produces `Qho1dCalculationResult`, composed
 from ordered `Qho1dCaseResult` values and one `Qho1dStateComparisonResult`.
 
-Each maintained case exposes and serializes four typed semantic sections:
+Each maintained case constructor owns and serializes four typed semantic sections:
 
 - `Qho1dSpatialRepresentationResult` owns the box, requested and realized spacing,
   dimensions, and ordered coordinates;
@@ -15,6 +15,11 @@ Each maintained case exposes and serializes four typed semantic sections:
 - `Qho1dHamiltonianComparisonResult` owns the two aligned Hamiltonians, signed
   difference, and discrepancy decomposition; and
 - `Qho1dResidualResult` owns the full-space intertwining-residual norm.
+
+`Qho1dComparisonResult` constructor-owns the first three sections, and
+`Qho1dAnalyzer` reuses those immutable values when it adds the residual section. Flat
+read-only projections remain available for concise numerical consumers without
+creating a second authoritative value owner.
 
 The selected state comparison retains analytical samples and the sign-aligned finite
 eigensolution once. The earlier flat-case execution remains byte-exact; decoding and

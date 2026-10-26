@@ -57,6 +57,25 @@ class TestQho1dAnalyzer:
             )
             assert case.residual_frobenius.magnitude >= 0.0
 
+    def test_case__constructor__owns_four_semantic_sections(self) -> None:
+        """Each case stores semantic sections while projections remain convenient."""
+        case = self.result().cases[0]
+
+        assert tuple(case.__dataclass_fields__) == (
+            "representation",
+            "alignment",
+            "hamiltonian_comparison",
+            "residual",
+            "_wire_layout",
+        )
+        assert case.grid_coordinates is case.representation.grid_coordinates
+        assert case.injection is case.alignment.injection
+        assert (
+            case.pulled_back_hamiltonian
+            is case.hamiltonian_comparison.pulled_back_hamiltonian
+        )
+        assert case.residual_frobenius is case.residual.frobenius
+
     def test_representation__shared_typed_json__round_trips_exact_bytes(self) -> None:
         """The root record uses the generic final JSON boundary without data loss."""
         result = self.result()

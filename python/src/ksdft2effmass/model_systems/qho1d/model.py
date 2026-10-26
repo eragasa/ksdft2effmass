@@ -40,6 +40,11 @@ from ksdft2effmass.operators import (
 )
 
 from ..intervals import DirichletInterval
+from .case_sections import (
+    Qho1dHamiltonianComparisonResult,
+    Qho1dSampledStateAlignmentResult,
+    Qho1dSpatialRepresentationResult,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -466,40 +471,12 @@ class Qho1dComparisonResult:
     ----------
     request
         Exact comparison request that produced this result.
-    grid_spacing
-        Positive realized finite-difference spacing with its explicit length unit.
-    interior_points
-        Number of ordered interior Dirichlet-grid coordinates.
-    grid_coordinates
-        Immutable vector quantity with shape ``(interior_points,)`` and the request
-        length unit.
-    injection
-        Immutable Unitless matrix quantity with shape
-        ``(interior_points, retained_dimension)``.
-    gram_matrix
-        Immutable Unitless sampled-state Gram matrix with shape ``(K, K)``.
-    gram_inverse_square_root
-        Immutable symmetric inverse square root of ``gram_matrix``.
-    pulled_back_hamiltonian
-        Immutable finite-grid Hamiltonian represented in retained coordinates.
-    reference_hamiltonian
-        Immutable exact retained number-state Hamiltonian.
-    difference
-        Immutable ``pulled_back_hamiltonian - reference_hamiltonian`` matrix.
-    gram_deviation
-        Nonnegative Frobenius norm of ``gram_matrix - I``.
-    gram_condition_number
-        Positive spectral condition number of the Gram matrix.
-    injection_isometry_error
-        Nonnegative Frobenius norm of ``injection.T @ injection - I``.
-    absolute_discrepancy
-        Nonnegative Frobenius norm of ``difference`` in the implied energy unit.
-    relative_discrepancy
-        Nonnegative absolute discrepancy divided by the reference Frobenius norm.
-    diagonal_discrepancy
-        Nonnegative Frobenius norm of the diagonal part of ``difference``.
-    off_diagonal_discrepancy
-        Nonnegative Frobenius norm of the off-diagonal part of ``difference``.
+    representation
+        Finite spatial representation and its authored controls.
+    alignment
+        Sampled-state coordinate alignment and map diagnostics.
+    hamiltonian_comparison
+        Hamiltonians and discrepancy values in common retained coordinates.
 
     Notes
     -----
@@ -509,39 +486,44 @@ class Qho1dComparisonResult:
     """
 
     request: Qho1dComparisonRequest
-    grid_spacing: ScalarQuantity
-    interior_points: int
-    grid_coordinates: VectorQuantity
-    injection: MatrixQuantity
-    gram_matrix: MatrixQuantity
-    gram_inverse_square_root: MatrixQuantity
-    pulled_back_hamiltonian: MatrixQuantity
-    reference_hamiltonian: MatrixQuantity
-    difference: MatrixQuantity
-    gram_deviation: ScalarQuantity
-    gram_condition_number: ScalarQuantity
-    injection_isometry_error: ScalarQuantity
-    absolute_discrepancy: ScalarQuantity
-    relative_discrepancy: ScalarQuantity
-    diagonal_discrepancy: ScalarQuantity
-    off_diagonal_discrepancy: ScalarQuantity
+    representation: Qho1dSpatialRepresentationResult
+    alignment: Qho1dSampledStateAlignmentResult
+    hamiltonian_comparison: Qho1dHamiltonianComparisonResult
 
     def __post_init__(self) -> None:
         if not isinstance(self.request, Qho1dComparisonRequest):
             raise TypeError("request must be Qho1dComparisonRequest")
-        if not isinstance(self.grid_spacing, ScalarQuantity):
-            raise TypeError("grid_spacing must be ScalarQuantity")
-        if self.grid_spacing.magnitude <= 0.0:
-            raise ValueError("grid_spacing must be positive")
-        if type(self.interior_points) is not int:
-            raise TypeError("interior_points must be a built-in int")
-        if self.interior_points <= 0:
-            raise ValueError("interior_points must be positive")
+        section_types = (
+            ("representation", Qho1dSpatialRepresentationResult),
+            ("alignment", Qho1dSampledStateAlignmentResult),
+            ("hamiltonian_comparison", Qho1dHamiltonianComparisonResult),
+        )
+        for name, expected_type in section_types:
+            if not isinstance(getattr(self, name), expected_type):
+                raise TypeError(f"{name} must be {expected_type.__name__}")
+        represented_box = ModelSystemUnitConverter.convert_scalar(
+            self.representation.box_half_width, self.request.box_half_width.unit
+        )
+        if represented_box.magnitude != self.request.box_half_width.magnitude:
+            raise ValueError("representation box half-width differs from request")
+        represented_spacing = ModelSystemUnitConverter.convert_scalar(
+            self.representation.requested_grid_spacing,
+            self.request.requested_grid_spacing.unit,
+        )
+        if (
+            represented_spacing.magnitude
+            != self.request.requested_grid_spacing.magnitude
+        ):
+            raise ValueError("representation requested spacing differs from request")
+        if self.representation.retained_dimension != self.request.retained_dimension:
+            raise ValueError("representation retained dimension differs from request")
+        if self.representation.interior_points != self.request.interior_points:
+            raise ValueError("representation interior dimension differs from request")
 
-        retained = self.request.retained_dimension
+        retained = self.representation.retained_dimension
+        points = self.representation.interior_points
         arrays = (
-            ("grid_coordinates", self.grid_coordinates, (self.interior_points,)),
-            ("injection", self.injection, (self.interior_points, retained)),
+            ("injection", self.injection, (points, retained)),
             ("gram_matrix", self.gram_matrix, (retained, retained)),
             (
                 "gram_inverse_square_root",
@@ -561,56 +543,85 @@ class Qho1dComparisonResult:
             ("difference", self.difference, (retained, retained)),
         )
         for name, array_quantity, shape in arrays:
-            if not isinstance(array_quantity, VectorQuantity | MatrixQuantity):
-                raise TypeError(f"{name} must be a typed array quantity")
             if array_quantity.magnitude.shape != shape:
                 raise ValueError(f"{name} must have shape {shape}")
 
-        unitless_arrays = (
-            self.injection,
-            self.gram_matrix,
-            self.gram_inverse_square_root,
-        )
-        if any(not isinstance(item.unit, Unitless) for item in unitless_arrays):
-            raise ValueError("map and Gram arrays must use Unitless")
-        length_unit = self.request.finite_difference.canonical_length_unit
-        if not ModelSystemUnitConverter.compatible(
-            self.grid_spacing.unit, length_unit
-        ) or not ModelSystemUnitConverter.compatible(
-            self.grid_coordinates.unit, length_unit
-        ):
-            raise ValueError("grid quantities must use compatible length units")
-        energy_unit = self.reference_hamiltonian.unit
-        energy_arrays = (
-            self.pulled_back_hamiltonian,
-            self.reference_hamiltonian,
-            self.difference,
-        )
-        if any(
-            not ModelSystemUnitConverter.compatible(item.unit, energy_unit)
-            for item in energy_arrays
-        ):
-            raise ValueError("Hamiltonian arrays must use compatible energy units")
+    @property
+    def grid_spacing(self) -> ScalarQuantity:
+        """Return the realized finite-difference spacing."""
+        return self.representation.grid_spacing
 
-        metrics = (
-            ("gram_deviation", self.gram_deviation, True),
-            ("gram_condition_number", self.gram_condition_number, True),
-            ("injection_isometry_error", self.injection_isometry_error, True),
-            ("absolute_discrepancy", self.absolute_discrepancy, False),
-            ("relative_discrepancy", self.relative_discrepancy, True),
-            ("diagonal_discrepancy", self.diagonal_discrepancy, False),
-            ("off_diagonal_discrepancy", self.off_diagonal_discrepancy, False),
-        )
-        for name, metric_quantity, must_be_unitless in metrics:
-            if not isinstance(metric_quantity, ScalarQuantity):
-                raise TypeError(f"{name} must be ScalarQuantity")
-            if metric_quantity.magnitude < 0.0:
-                raise ValueError(f"{name} must be nonnegative")
-            if must_be_unitless and not isinstance(metric_quantity.unit, Unitless):
-                raise ValueError(f"{name} must use Unitless")
-            if not must_be_unitless and not ModelSystemUnitConverter.compatible(
-                metric_quantity.unit, energy_unit
-            ):
-                raise ValueError(f"{name} must use an energy unit")
-        if self.gram_condition_number.magnitude <= 0.0:
-            raise ValueError("gram_condition_number must be positive")
+    @property
+    def interior_points(self) -> int:
+        """Return the represented finite-grid dimension."""
+        return self.representation.interior_points
+
+    @property
+    def grid_coordinates(self) -> VectorQuantity:
+        """Return the ordered interior grid coordinates."""
+        return self.representation.grid_coordinates
+
+    @property
+    def injection(self) -> MatrixQuantity:
+        """Return the retained-to-spatial coordinate injection."""
+        return self.alignment.injection
+
+    @property
+    def gram_matrix(self) -> MatrixQuantity:
+        """Return the sampled-state Gram matrix."""
+        return self.alignment.gram_matrix
+
+    @property
+    def gram_inverse_square_root(self) -> MatrixQuantity:
+        """Return the symmetric Gram inverse square root."""
+        return self.alignment.gram_inverse_square_root
+
+    @property
+    def gram_deviation(self) -> ScalarQuantity:
+        """Return the sampled-state Gram deviation."""
+        return self.alignment.gram_deviation
+
+    @property
+    def gram_condition_number(self) -> ScalarQuantity:
+        """Return the sampled-state Gram condition number."""
+        return self.alignment.gram_condition_number
+
+    @property
+    def injection_isometry_error(self) -> ScalarQuantity:
+        """Return the injection-isometry discrepancy."""
+        return self.alignment.injection_isometry_error
+
+    @property
+    def pulled_back_hamiltonian(self) -> MatrixQuantity:
+        """Return the finite Hamiltonian in retained coordinates."""
+        return self.hamiltonian_comparison.pulled_back_hamiltonian
+
+    @property
+    def reference_hamiltonian(self) -> MatrixQuantity:
+        """Return the exact retained number-state Hamiltonian."""
+        return self.hamiltonian_comparison.reference_hamiltonian
+
+    @property
+    def difference(self) -> MatrixQuantity:
+        """Return pullback minus reference in common coordinates."""
+        return self.hamiltonian_comparison.difference
+
+    @property
+    def absolute_discrepancy(self) -> ScalarQuantity:
+        """Return the absolute Hamiltonian discrepancy."""
+        return self.hamiltonian_comparison.absolute_discrepancy
+
+    @property
+    def relative_discrepancy(self) -> ScalarQuantity:
+        """Return the reference-normalized Hamiltonian discrepancy."""
+        return self.hamiltonian_comparison.relative_discrepancy
+
+    @property
+    def diagonal_discrepancy(self) -> ScalarQuantity:
+        """Return the diagonal discrepancy component."""
+        return self.hamiltonian_comparison.diagonal_discrepancy
+
+    @property
+    def off_diagonal_discrepancy(self) -> ScalarQuantity:
+        """Return the off-diagonal discrepancy component."""
+        return self.hamiltonian_comparison.off_diagonal_discrepancy

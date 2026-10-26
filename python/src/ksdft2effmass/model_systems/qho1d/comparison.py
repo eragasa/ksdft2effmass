@@ -20,6 +20,11 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
+from .case_sections import (
+    Qho1dHamiltonianComparisonResult,
+    Qho1dSampledStateAlignmentResult,
+    Qho1dSpatialRepresentationResult,
+)
 from .model import (
     Qho1dComparisonRequest,
     Qho1dComparisonResult,
@@ -109,41 +114,55 @@ class Qho1dComparator:
         reference_scale = float(np.linalg.norm(reference, ord="fro"))
         return Qho1dComparisonResult(
             request=request,
-            grid_spacing=spacing,
-            interior_points=finite_difference.interior_points,
-            grid_coordinates=coordinates,
-            injection=MatrixQuantity(injection, Unitless()),
-            gram_matrix=MatrixQuantity(gram, Unitless()),
-            gram_inverse_square_root=MatrixQuantity(
-                gram_inverse_square_root, Unitless()
+            representation=Qho1dSpatialRepresentationResult(
+                box_half_width=request.box_half_width,
+                requested_grid_spacing=request.requested_grid_spacing,
+                grid_spacing=spacing,
+                retained_dimension=request.retained_dimension,
+                interior_points=finite_difference.interior_points,
+                grid_coordinates=coordinates,
             ),
-            pulled_back_hamiltonian=MatrixQuantity(
-                pulled_back, finite_difference_hamiltonian.unit
-            ),
-            reference_hamiltonian=MatrixQuantity(reference, ladder_hamiltonian.unit),
-            difference=MatrixQuantity(difference, ladder_hamiltonian.unit),
-            gram_deviation=ScalarQuantity(
-                float(np.linalg.norm(gram - np.eye(request.retained_dimension))),
-                Unitless(),
-            ),
-            gram_condition_number=ScalarQuantity(
-                float(gram_eigenvalues[-1] / gram_eigenvalues[0]), Unitless()
-            ),
-            injection_isometry_error=ScalarQuantity(
-                float(
-                    np.linalg.norm(
-                        injection.T @ injection - np.eye(request.retained_dimension)
-                    )
+            alignment=Qho1dSampledStateAlignmentResult(
+                injection=MatrixQuantity(injection, Unitless()),
+                gram_matrix=MatrixQuantity(gram, Unitless()),
+                gram_inverse_square_root=MatrixQuantity(
+                    gram_inverse_square_root, Unitless()
                 ),
-                Unitless(),
+                gram_deviation=ScalarQuantity(
+                    float(np.linalg.norm(gram - np.eye(request.retained_dimension))),
+                    Unitless(),
+                ),
+                gram_condition_number=ScalarQuantity(
+                    float(gram_eigenvalues[-1] / gram_eigenvalues[0]), Unitless()
+                ),
+                injection_isometry_error=ScalarQuantity(
+                    float(
+                        np.linalg.norm(
+                            injection.T @ injection - np.eye(request.retained_dimension)
+                        )
+                    ),
+                    Unitless(),
+                ),
             ),
-            absolute_discrepancy=ScalarQuantity(absolute, ladder_hamiltonian.unit),
-            relative_discrepancy=ScalarQuantity(absolute / reference_scale, Unitless()),
-            diagonal_discrepancy=ScalarQuantity(
-                float(np.linalg.norm(diagonal, ord="fro")), ladder_hamiltonian.unit
-            ),
-            off_diagonal_discrepancy=ScalarQuantity(
-                float(np.linalg.norm(off_diagonal, ord="fro")),
-                ladder_hamiltonian.unit,
+            hamiltonian_comparison=Qho1dHamiltonianComparisonResult(
+                pulled_back_hamiltonian=MatrixQuantity(
+                    pulled_back, finite_difference_hamiltonian.unit
+                ),
+                reference_hamiltonian=MatrixQuantity(
+                    reference, ladder_hamiltonian.unit
+                ),
+                difference=MatrixQuantity(difference, ladder_hamiltonian.unit),
+                absolute_discrepancy=ScalarQuantity(absolute, ladder_hamiltonian.unit),
+                relative_discrepancy=ScalarQuantity(
+                    absolute / reference_scale, Unitless()
+                ),
+                diagonal_discrepancy=ScalarQuantity(
+                    float(np.linalg.norm(diagonal, ord="fro")),
+                    ladder_hamiltonian.unit,
+                ),
+                off_diagonal_discrepancy=ScalarQuantity(
+                    float(np.linalg.norm(off_diagonal, ord="fro")),
+                    ladder_hamiltonian.unit,
+                ),
             ),
         )

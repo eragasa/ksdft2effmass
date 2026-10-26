@@ -1,4 +1,4 @@
-"""Semantic result sections for one direct QHO1D comparison case."""
+"""Semantic result sections shared by reusable and direct QHO1D comparisons."""
 
 from __future__ import annotations
 
@@ -9,6 +9,7 @@ from typing import Self
 import numpy as np
 from projectkoios.physkit.units import (
     MatrixQuantity,
+    ModelSystemUnitConverter,
     ScalarQuantity,
     Unitless,
     VectorQuantity,
@@ -51,9 +52,14 @@ class Qho1dSpatialRepresentationResult(BaseTypedRecord):
             value = getattr(self, name)
             if not isinstance(value, ScalarQuantity):
                 raise TypeError(f"{name} must be ScalarQuantity")
-            _unitless(value, name)
             if not np.isfinite(value.magnitude) or value.magnitude <= 0.0:
                 raise ValueError(f"{name} must be positive and finite")
+        length_unit = self.box_half_width.unit
+        if any(
+            not ModelSystemUnitConverter.compatible(value.unit, length_unit)
+            for value in (self.requested_grid_spacing, self.grid_spacing)
+        ):
+            raise ValueError("spatial controls must use compatible length units")
         for name in ("retained_dimension", "interior_points"):
             value = getattr(self, name)
             if type(value) is not int:
@@ -64,7 +70,10 @@ class Qho1dSpatialRepresentationResult(BaseTypedRecord):
             raise ValueError("retained_dimension exceeds interior_points")
         if not isinstance(self.grid_coordinates, VectorQuantity):
             raise TypeError("grid_coordinates must be VectorQuantity")
-        _unitless(self.grid_coordinates, "grid_coordinates")
+        if not ModelSystemUnitConverter.compatible(
+            self.grid_coordinates.unit, length_unit
+        ):
+            raise ValueError("grid_coordinates must use a compatible length unit")
         if self.grid_coordinates.magnitude.shape != (self.interior_points,):
             raise ValueError("grid_coordinates shape does not match interior_points")
         if not np.all(np.diff(self.grid_coordinates.magnitude) > 0.0):
@@ -187,23 +196,41 @@ class Qho1dHamiltonianComparisonResult(BaseTypedRecord):
             value = getattr(self, name)
             if not isinstance(value, MatrixQuantity):
                 raise TypeError(f"{name} must be MatrixQuantity")
-            _unitless(value, name)
-        for name in (
-            "absolute_discrepancy",
-            "relative_discrepancy",
-            "diagonal_discrepancy",
-            "off_diagonal_discrepancy",
+        energy_unit = self.reference_hamiltonian.unit
+        if any(
+            not ModelSystemUnitConverter.compatible(value.unit, energy_unit)
+            for value in (self.pulled_back_hamiltonian, self.difference)
         ):
-            value = getattr(self, name)
+            raise ValueError("Hamiltonian arrays must use compatible energy units")
+        energy_metrics = (
+            ("absolute_discrepancy", self.absolute_discrepancy),
+            ("diagonal_discrepancy", self.diagonal_discrepancy),
+            ("off_diagonal_discrepancy", self.off_diagonal_discrepancy),
+        )
+        for name, value in energy_metrics:
             if not isinstance(value, ScalarQuantity):
                 raise TypeError(f"{name} must be ScalarQuantity")
-            _unitless(value, name)
+            if not ModelSystemUnitConverter.compatible(value.unit, energy_unit):
+                raise ValueError(f"{name} must use a compatible energy unit")
             if not np.isfinite(value.magnitude) or value.magnitude < 0.0:
                 raise ValueError(f"{name} must be nonnegative and finite")
+        if not isinstance(self.relative_discrepancy, ScalarQuantity):
+            raise TypeError("relative_discrepancy must be ScalarQuantity")
+        _unitless(self.relative_discrepancy, "relative_discrepancy")
+        if (
+            not np.isfinite(self.relative_discrepancy.magnitude)
+            or self.relative_discrepancy.magnitude < 0.0
+        ):
+            raise ValueError("relative_discrepancy must be nonnegative and finite")
+        pullback = ModelSystemUnitConverter.convert_matrix(
+            self.pulled_back_hamiltonian, energy_unit
+        )
+        difference = ModelSystemUnitConverter.convert_matrix(
+            self.difference, energy_unit
+        )
         if not np.array_equal(
-            self.pulled_back_hamiltonian.magnitude
-            - self.reference_hamiltonian.magnitude,
-            self.difference.magnitude,
+            pullback.magnitude - self.reference_hamiltonian.magnitude,
+            difference.magnitude,
         ):
             raise ValueError("difference must equal pullback minus reference")
 
