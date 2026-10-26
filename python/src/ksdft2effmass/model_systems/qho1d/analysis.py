@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+from projectkoios.physkit.linalg.matrix.norm import FrobeniusMatrixNorm
 from projectkoios.physkit.units import (
     MatrixQuantity,
     ScalarQuantity,
@@ -189,10 +190,9 @@ class Qho1dAnalyzer(BaseModelSystemAnalyzer):
             alignment=comparison.alignment,
             hamiltonian_comparison=comparison.hamiltonian_comparison,
             residual=Qho1dResidualResult(
-                frobenius=ScalarQuantity(
-                    float(np.linalg.norm(residual, ord="fro")),
-                    hamiltonian.unit,
-                )
+                frobenius=FrobeniusMatrixNorm(
+                    MatrixQuantity(residual, hamiltonian.unit)
+                ).result()
             ),
         )
 

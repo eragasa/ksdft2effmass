@@ -52,8 +52,9 @@ and is decoded through its explicitly retained layout.
 - `run_03_render.py` consumes only authenticated verification and publishes figures.
 - `technical_report/` owns the maintained self-contained calculation report.
 - `executions/` contains concrete unsealed or separately sealed execution directories.
-  `direct-spatial-truncation-3x3x3-sections` is the maintained semantic-section
-  execution; `direct-spatial-truncation-3x3x3` remains the earlier flat-case record.
+  `direct-spatial-truncation-3x3x3-physkit-norms` is the maintained execution;
+  `direct-spatial-truncation-3x3x3-sections` and
+  `direct-spatial-truncation-3x3x3` remain prior byte-exact records.
 
 ## Mathematical comparison
 
@@ -67,7 +68,9 @@ J^{\mathsf T}H_{b,h}J-D_K,
 where `J` is the sampled-Hermite Gram-orthonormalized injection, `H_{b,h}` is the finite
 Dirichlet-grid Hamiltonian, and `D_K` is the direct diagonal number-state reference.
 The direct reference avoids the highest-state defect introduced by products of already
-truncated ladder matrices.
+truncated ladder matrices. Production Frobenius diagnostics use
+`projectkoios.physkit.linalg.matrix.norm.FrobeniusMatrixNorm`; the independent verifier
+retains a direct NumPy route.
 
 For an exactly isometric `J`,
 

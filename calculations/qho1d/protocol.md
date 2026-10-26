@@ -28,9 +28,11 @@ For each case, production analysis:
 3. applies symmetric Gram inverse-square-root orthonormalization;
 4. constructs the injection `J` from retained coordinates to the finite grid;
 5. forms `J.T @ H_h @ J - D_K`;
-6. groups finite geometry, sampled-state alignment, common-coordinate Hamiltonian
+6. evaluates production Frobenius diagnostics through
+   `projectkoios.physkit.linalg.matrix.norm.FrobeniusMatrixNorm`;
+7. groups finite geometry, sampled-state alignment, common-coordinate Hamiltonian
    comparison, and full-space residual values into separate typed sections; and
-7. retains the selected finite eigensolution and analytical samples once.
+8. retains the selected finite eigensolution and analytical samples once.
 
 All arrays and quantities use the shared typed JSON codec. QHO1D owns no JSON array
 transport and does not call `.tolist()`.
@@ -55,7 +57,8 @@ Verification does not invoke `Qho1dAnalyzer` or `Qho1dComparator`. It reconstruc
 - Hermite functions through `scipy.special.eval_hermite`;
 - the centered-difference kinetic and harmonic-potential matrix directly in NumPy;
 - the sampled Gram matrix and symmetric orthonormalization;
-- the common-coordinate operators and all scalar diagnostics; and
+- the common-coordinate operators and all scalar diagnostics through its independent
+  direct NumPy norm route; and
 - the selected finite eigensolution with explicit sign alignment.
 
 The verifier derives and hashes the exact visualization projection before composing

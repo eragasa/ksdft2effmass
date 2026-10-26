@@ -1,0 +1,162 @@
+{
+  "schema": "ksdft2effmass.qho1d-development-provenance.v1",
+  "calculation_family": "qho1d-spatial-truncation",
+  "execution_id": "direct-spatial-truncation-3x3x3-physkit-norms",
+  "evidence_status": "retained unsealed development execution",
+  "sealed": false,
+  "generated_utc": "2026-10-26T06:56:26Z",
+  "claim_boundary": "This record correlates dirty development bytes. It is not a source seal, evidence-package seal, continuum-convergence result, scientific validation, publication, release, or human acceptance.",
+  "git": {
+    "repository": "ksdft2effmass",
+    "branch": "work/qho1d-physkit-norms",
+    "head": "a6aeac321de603c81a410f06757123de244dce7e",
+    "state": "dirty",
+    "qualification": "The canonical-norm source, tests, documentation, report, execution, and this record were uncommitted when this development provenance was assembled."
+  },
+  "dependencies": {
+    "lock_path": "python/uv.lock",
+    "lock_sha256": "df396cf798831fe908ffbde60d291267d72c21d1df9473dd992eb1fce5e6fb9c",
+    "optimization_revision": "2a18e485109e307b2f7928bd0418bcf796aeb0d5",
+    "physkit_revision": "9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5"
+  },
+  "calculation_result": {
+    "path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3-physkit-norms/results/result.json",
+    "schema": "ksdft2effmass.qho1d-calculation-result.sections.v1",
+    "sha256": "cb5469d2c4959dd6d7a9474d12252f0a32469abfbf2b54667a03bc9ab6e62e18",
+    "case_count": 27,
+    "production_norm_route": "projectkoios.physkit.linalg.matrix.norm.FrobeniusMatrixNorm",
+    "relation_to_prior_semantic_execution": {
+      "prior_result_sha256": "df3fd9f9cccf1f2cdcde200537a22064e6925498da7c738ffbfbc4bd5205e1b0",
+      "exact_non_norm_case_arrays": true,
+      "exact_selected_state_result": true,
+      "changed_metric_value_count": 31,
+      "changed_fields": {
+        "gram_deviation": 8,
+        "injection_isometry_error": 1,
+        "absolute_discrepancy": 3,
+        "relative_discrepancy": 3,
+        "diagonal_discrepancy": 5,
+        "off_diagonal_discrepancy": 2,
+        "residual_frobenius": 9
+      },
+      "maximum_absolute_difference": 4.440892098500626e-16,
+      "qualification": "Differences arise from the canonical norm reduction route and characterize represented binary64 output; they are not physical uncertainties or scientific-significance claims."
+    }
+  },
+  "verification": {
+    "path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3-physkit-norms/verification/verification.json",
+    "schema": "ksdft2effmass.qho1d-verification.semantic-sections.v1",
+    "sha256": "521c8778e05a0a9aaee9ecae3111d3e1df1863050c21c4bf20a007bb95e0439b",
+    "comparison_count": 468,
+    "component_count": 6,
+    "passed": true,
+    "route": "independent SciPy Hermite evaluation and direct NumPy construction of the centered-difference Dirichlet Hamiltonian"
+  },
+  "adjacent_grid_post_analysis": {
+    "source_path": "python/src/ksdft2effmass/model_systems/qho1d/cross_grid.py",
+    "source_sha256": "761815a6959eaef010dd5ea612e876db2b3218d4d2e799de3bcc5041de7e7855",
+    "input_result_sha256": "cb5469d2c4959dd6d7a9474d12252f0a32469abfbf2b54667a03bc9ab6e62e18",
+    "comparison_count": 18,
+    "derivation_check_count": 90,
+    "passed": true,
+    "retained_artifact": false,
+    "qualification": "The maintained report presents selected values recomputed from retained case matrices. The typed post-analysis is not embedded in or used to rewrite the calculation result and is not a continuum-error estimate."
+  },
+  "execution_artifacts": {
+    "UNSEALED.md": "653aca9fdd66a07e61eaa68db47a05756d2bde094aceb5cb416dd10c72361806",
+    "execution.json": "2408740f731e6a622944bf09ae0b1f8bed24e74d25268b7ec15ac01600499212",
+    "figures/qho1d-diagnostics.png": "e52b4c85edad2f2c6073924afd00e68a5f07f5fe1e72b082da885b98e5aac5fb",
+    "figures/qho1d-eigenstate-distortion.png": "85d6ee44da149d4f10f84ed89f1875899a1df770790ec139fe214646b0ff6fbf",
+    "figures/qho1d-eigenstates.png": "c204502198311b93afd1d608732d2d4cfae8322b6da657a17acfab3cda1eca4e",
+    "figures/rendering.json": "6996e0692ff3d843c3914d53bb84681ff8605a5d1e2a22ed0849f2ca57886ce0",
+    "inputs/configuration.json": "2b766676fbad10d3dd6293c68980db66b2c83a02bd21f51b465e30c6f4dc7614",
+    "results/result.json": "cb5469d2c4959dd6d7a9474d12252f0a32469abfbf2b54667a03bc9ab6e62e18",
+    "technical_report/README.md": "2e1d64ca41a7b6d7a00be6479a84d0ba78fafd384e3bce734d55c50997426481",
+    "technical_report/qho1d-diagnostics.png": "e52b4c85edad2f2c6073924afd00e68a5f07f5fe1e72b082da885b98e5aac5fb",
+    "technical_report/qho1d-eigenstate-distortion.png": "85d6ee44da149d4f10f84ed89f1875899a1df770790ec139fe214646b0ff6fbf",
+    "technical_report/qho1d-eigenstates.png": "c204502198311b93afd1d608732d2d4cfae8322b6da657a17acfab3cda1eca4e",
+    "technical_report/references.bib": "bf2abdb9d3814ef8076abc30182bd1305a202e2b06194f71847871ef452b353a",
+    "technical_report/technical_report.pdf": "7acd12af1ed1fd170ed423049ac191a0bbffb71f9e4a13c45eadf98cac900633",
+    "technical_report/technical_report.tex": "18d3a61199d4c3aac4474589ad8953f1a04c06cf4791c989b6e60bd4bdfe32e2",
+    "verification/verification.json": "521c8778e05a0a9aaee9ecae3111d3e1df1863050c21c4bf20a007bb95e0439b"
+  },
+  "implementation": {
+    "calculations/qho1d/run_01_calculation.py": "96e06295c7e5faa4e7f0d5ed300ca5ade5d2fdd316b3792fe4e962c5f352e8dd",
+    "calculations/qho1d/run_02_verification.py": "bd7f6b54f20daf3927cdcda5dca026364cf1d1759b37edcfdf2d1c685dae116f",
+    "calculations/qho1d/run_03_render.py": "b11d72db0a23282327d38e2e1655729ac27be464494824c4ad4c5448f4bea278",
+    "python/src/ksdft2effmass/model_systems/qho1d/analysis.py": "19a044205c399579fc240a138fb82fcc483341e8327814ca67040e4ba76db313",
+    "python/src/ksdft2effmass/model_systems/qho1d/case_sections.py": "4dbddfbec753f140f76ca2b695fd1476380178d4d389abea418d440282837f89",
+    "python/src/ksdft2effmass/model_systems/qho1d/comparison.py": "60ddcda143fc01a4c35042cb97c2459540f86ca7347c9f7eacd19a39ce49876a",
+    "python/src/ksdft2effmass/model_systems/qho1d/configuration.py": "4f58767a3b1d4475e45c4c6494634a7d71a1db635e3edfda57a33f11e6cae553",
+    "python/src/ksdft2effmass/model_systems/qho1d/cross_grid.py": "761815a6959eaef010dd5ea612e876db2b3218d4d2e799de3bcc5041de7e7855",
+    "python/src/ksdft2effmass/model_systems/qho1d/model.py": "da483613e9fe2a3b5a3fc55363132d52614e0c2680e4953b1368bb1d57e1caeb",
+    "python/src/ksdft2effmass/model_systems/qho1d/result.py": "2cc3537cd8edade4c196ae18c95d4219d9419e662d2e8c4397c409421182eb3b",
+    "python/src/ksdft2effmass/model_systems/qho1d/verification.py": "6f71c706bc1da645a80b9100181b0aea3d8807c8925a081a84b280ad9961f21b",
+    "python/src/ksdft2effmass/model_systems/qho1d/verification_values.py": "46688a986ec9578da2860af313fccde4415cc126ef006cafcb1a80cb1a2839c3",
+    "python/src/ksdft2effmass/model_systems/qho1d/visualization.py": "9c56b9b3d65373eae629d9b7c4f77a1f790ef1339357132f92fe6b8e23615ef9"
+  },
+  "maintained_report_snapshot": {
+    "README.md": "2e1d64ca41a7b6d7a00be6479a84d0ba78fafd384e3bce734d55c50997426481",
+    "references.bib": "bf2abdb9d3814ef8076abc30182bd1305a202e2b06194f71847871ef452b353a",
+    "technical_report.pdf": "7acd12af1ed1fd170ed423049ac191a0bbffb71f9e4a13c45eadf98cac900633",
+    "technical_report.tex": "18d3a61199d4c3aac4474589ad8953f1a04c06cf4791c989b6e60bd4bdfe32e2"
+  },
+  "report_correlation": "Every execution-bound technical-report source, PDF, bibliography, README, and figure byte exactly matches its maintained report counterpart at rendering time.",
+  "checks": [
+    {
+      "command": "pytest -m not expensive",
+      "outcome": "4549 passed, 37 skipped, 115 deselected"
+    },
+    {
+      "command": "focused QHO1D test package",
+      "outcome": "39 passed"
+    },
+    {
+      "command": "fresh calculate -> verify -> render lifecycle",
+      "outcome": "passed with 468 comparisons in 6 components and 3 figures"
+    },
+    {
+      "command": "exact comparison against the prior semantic-section result",
+      "outcome": "all non-norm case arrays and the selected-state result are exactly equal; 31 stored norm metrics differ by at most 4.440892098500626e-16"
+    },
+    {
+      "command": "retained execution checksum, decoding, verification, and rendering compatibility checks",
+      "outcome": "all three result and verification wires round-trip exactly, pass 468 comparisons, and render 3 authenticated figures; both prior executions retain their recorded SHA-256 identities"
+    },
+    {
+      "command": "adjacent-grid post-analysis verification",
+      "outcome": "18 comparisons and 90 derivation checks passed"
+    },
+    {
+      "command": "ruff format --check and ruff check",
+      "outcome": "passed for 1190 files"
+    },
+    {
+      "command": "mypy production source",
+      "outcome": "passed for 427 source files"
+    },
+    {
+      "command": "sphinx -W --keep-going",
+      "outcome": "passed for 82 source files"
+    },
+    {
+      "command": "wheel, source distribution, and compileall",
+      "outcome": "passed"
+    },
+    {
+      "command": "latexmk technical_report.tex",
+      "outcome": "built 10-page PDF without undefined citations or references"
+    },
+    {
+      "command": "execution-bound report byte comparison",
+      "outcome": "all seven report files exactly match the maintained report snapshot"
+    }
+  ],
+  "runtime": {
+    "python": "3.14.6",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "matplotlib": "3.11.1",
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O"
+  }
+}
