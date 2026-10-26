@@ -42,4 +42,4 @@ class TestModelSystemStudyIdentity:
         )
 
         with pytest.raises(FrozenInstanceError):
-            identity.model_id = ModelId.qho1d  # type: ignore[misc]
+            identity.model_id = ModelId.mathieu1d  # type: ignore[misc]

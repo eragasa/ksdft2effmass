@@ -1,16 +1,19 @@
 # Monograph-local calculation figures
 
-These files are exact presentation copies of historical calculation figures formerly
-referenced outside the monograph tree. They make the manuscript build independent of
-those calculation paths. They are not new calculations, independent evidence, a seal,
-or scientific validation.
+These files are exact presentation copies of calculation figures owned elsewhere in
+the repository. They make the manuscript build independent of those calculation paths.
+They are not new calculations, independent evidence, a seal, or scientific validation.
 
-The source bytes were read from `origin/main` at
-`c6f21928b8c7cd42dc1df1ccbf2cbeee2f60c9c8`. The manuscript-local filename avoids
-collisions while the source path records the historical owner.
+Most historical source bytes were read from `origin/main` at
+`c6f21928b8c7cd42dc1df1ccbf2cbeee2f60c9c8`. The direct QHO1D copies come from the
+unsealed execution merged at `0433d9c4e20eaa99afed40f14332e49301eaf9cc`. The
+manuscript-local filename avoids collisions while the source path records the owner.
 
-| Local file | Historical source path | SHA-256 |
+| Local file | Source path | SHA-256 |
 |---|---|---|
+| `qho1d-eigenstates.png` | `calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/qho1d-eigenstates.png` | `d016e16a6ecc2eea216a8e329347f1c878febb7839c096384e2009c5cb328ca7` |
+| `qho1d-eigenstate-distortion.png` | `calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/qho1d-eigenstate-distortion.png` | `792b8a6b80806f62efd1b6f18562d7fa21d9b76792b15c97725e744076508a66` |
+| `qho1d-diagnostics.png` | `calculations/qho1d/executions/direct-spatial-truncation-3x3x3/figures/qho1d-diagnostics.png` | `47fc9084f3c409506befc847fbdce752f31452cdd5df8cd58b5fcf19a4cc5441` |
 | `icmsep2026-constrained-admissible-sets-summary.png` | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/constrained-admissible-sets-summary.png` | `cd80ec345cc8019d49a58625a2cd439f827ccd3bbe0e7897308d597119669a73` |
 | `periodic-1d-stress-summary.png` | `calculations/research-monograph/periodic-1d/stress-summary.png` | `737081a8fe5e0bf3b79d2e5a7f9ec5d952f18afc0beb6aea71ad00d69dcbf8d9` |
 | `periodic-1d-composite-summary.png` | `calculations/research-monograph/periodic-1d/composite-summary.png` | `41d0234e28e0c71da3a4f78a4a942568e2116df2c8728258d6163c3beeb2532d` |

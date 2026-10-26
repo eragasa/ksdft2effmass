@@ -3,13 +3,16 @@
 
 \label{app:harmonic-oscillator}
 
-\chapterstatus{calculated illustrative numerical experiment. The retained
-sweep, comparison maps, verifier, report, and graphics are under
-\texttt{calculations/research-monograph/harmonic-oscillator/}. The calculation
-compares a ladder-operator representation with a harmonic-oscillator potential
-enclosed by a finite Dirichlet box after both have been placed in the same
-retained ladder coordinates. The results provide numerical verification for
-the declared finite construction, not semiconductor validation.}
+\chapterstatus{calculated illustrative numerical experiment. This appendix consumes
+the unsealed direct QHO1D execution
+\texttt{calculations/qho1d/executions/direct-spatial-truncation-3x3x3/}, not the
+absent historical research-monograph calculation tree. The typed result, independent
+verification, authenticated visualization projection, and three exact figure copies
+are correlated by SHA-256 identities. The calculation compares a finite Dirichlet-grid
+harmonic oscillator with the exact retained number-state Hamiltonian after both have
+been placed in the same retained coordinates. The results establish bounded software
+and finite-dimensional numerical verification only, not continuum convergence,
+semiconductor validation, publication acceptance, or a sealed evidence package.}
 
 \section{Question addressed by the experiment}
 
@@ -357,8 +360,16 @@ This remains well-defined when the two grids have different spacings, numbers
 of points, stencils, or other declared representation details. The ladder
 space supplies the common coordinates.
 
+The direct QHO1D implementation evaluates adjacent authored coarse--fine pairs with
+\path{Qho1dCrossGridAnalyzer} and the canonical PhysKit Frobenius norm.
+\path{Qho1dCrossGridVerifier} checks the derived controls, represented dimensions,
+and norm directly from the authoritative case matrices; independent reconstruction of
+those matrices remains the responsibility of \path{Qho1dVerifier}. The diagnostic
+is an adjacent finite-representation change, not a continuum error estimate or
+convergence rate.
+
 The maps $\mathbf J_{X,h}^{(K)}$ and $\mathbf J_{X,h'}^{(K)}$ are part of the
-comparison and must be retained with the result. Equal output dimensions do not
+comparison and are retained in the typed direct result. Equal output dimensions do not
 make the comparison independent of these maps.
 
 \section{Convergence questions}
@@ -401,20 +412,60 @@ then examine the large-box behavior of those estimates. The reverse order may
 also be reported, but the order of limits and the numerical controls must be
 explicit.
 
-\section{Calculated graphics and retained result}
+\section{Direct QHO1D result and authenticated graphics}
 
-The retained \texttt{convergence-summary.png} reports the relative Frobenius
-discrepancy under box expansion and fixed-box spatial refinement, the diagonal
-and off-diagonal discrepancy components, and the sampled-state Gram deviation.
-The retained \texttt{operator-difference-heatmap.png} displays
-\begin{equation*}
-    \frac{\mathbf A_{X,h}^{(K)}-
-    \mathbf H_{\mathrm{lad}}^{(K)}}{\hbar\omega}
-\end{equation*}
-for $b=8$, $\eta=0.05$, and $K=6$. Exact comparison-map reconstruction
-contracts and content identities, compact common-coordinate operators,
-cross-grid comparisons, and diagnostics are in \texttt{result.json}; the
-figures are visualizations of those retained values, not independent evidence.
+The authoritative typed calculation result is
+\path{calculations/qho1d/executions/direct-spatial-truncation-3x3x3/results/result.json},
+with SHA-256
+\path{83c420ccd365bfba23401b98069566625049bd18dfac47568b006e848176993b}.
+It retains every grid coordinate, comparison injection, Gram factor,
+common-coordinate operator, signed difference, discrepancy channel, and full-space
+residual for all 27 cases. The independent verification record has SHA-256
+\path{c8f1fcc968a2c8e497d6bd9ea6e287506eb2f528bcaaa7ea523b937d3c86c7ac}
+and reports 468 passing tolerance-qualified comparisons. These identities correlate
+the present unsealed development execution; they do not seal it or establish
+scientific validation.
+
+Figure~\ref{fig:qho1d-eigenstates} compares real-line Hermite states with sign-aligned
+finite-grid eigenstates for the selected $(b,h,K)=(8,0.05,6)$ case.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[
+    width=\linewidth
+  ]{figures/retained-calculations/qho1d-eigenstates.png}
+  \caption{Exact number-state wavefunctions and finite Dirichlet-grid eigenstates.
+  Plot-scale agreement is illustrative and does not replace the numerical checks.}
+  \label{fig:qho1d-eigenstates}
+\end{figure}
+
+Figure~\ref{fig:qho1d-eigenstate-distortion} exposes the corresponding pointwise state
+and finite-grid eigenvalue differences.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[
+    width=0.94\linewidth
+  ]{figures/retained-calculations/qho1d-eigenstate-distortion.png}
+  \caption{Pointwise eigenstate distortion and finite-grid eigenvalue distortion for
+  the selected case. These binary64 observations are not spectral enclosures.}
+  \label{fig:qho1d-eigenstate-distortion}
+\end{figure}
+
+Figure~\ref{fig:qho1d-diagnostics} reports fixed-box spatial refinement, sampled Gram
+defect, diagonal/off-diagonal decomposition, and the a-posteriori residual diagnostic.
+The rendering stage accepted only the passing verification and authenticated the exact
+visualization projection before publishing the PNG bytes.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[
+    width=\linewidth
+  ]{figures/retained-calculations/qho1d-diagnostics.png}
+  \caption{Authenticated direct-QHO1D diagnostics. The trends separate observable
+  finite channels but do not prove a continuum limit.}
+  \label{fig:qho1d-diagnostics}
+\end{figure}
 
 At $\eta=0.05$, expansion from $b=4$ to $b=6$ substantially reduces the total
 discrepancy for $K=4$ and $K=6$. The $K=2$ total discrepancy is instead
@@ -424,6 +475,7 @@ spatial-discretization contributions can partially cancel in the total matrix
 difference. A continuous two-parameter surface beyond the retained grid remains
 proposed work and is not represented as a calculated result.
 
+\clearpage
 \section{Interpretation boundary}
 
 The calculated experiment tests represented finite-box harmonic oscillators
@@ -434,9 +486,10 @@ after the two operators have been placed in the same orthonormal ladder
 coordinates, as described in
 Appendix~\ref{app:hilbert-schmidt-and-frobenius}.
 
-The retained verifier establishes numerical agreement with the declared finite
-mathematics and independent analytic oscillator states under binary64
-tolerances. The observed refinement behavior is numerical verification for
-this illustrative comparison under the declared conditions. It does not
-validate a semiconductor model, establish a continuum limit for silicon, or
-supply evidence for an unperformed first-principles calculation.
+The direct QHO1D verifier independently reconstructs the finite matrices and analytic
+oscillator states under declared binary64 tolerances. The observed refinement behavior
+is finite-dimensional numerical verification for this illustrative comparison under
+the declared conditions. The exact figure copies in this manuscript are presentation
+assets, not independent evidence. Nothing here validates a semiconductor model,
+establishes a continuum limit for silicon, seals the execution, or supplies evidence
+for an unperformed first-principles calculation.

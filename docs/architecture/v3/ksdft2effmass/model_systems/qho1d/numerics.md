@@ -23,6 +23,31 @@ The common-coordinate difference is
 All maintained successor calculations use binary64 arrays, row-major ordering,
 increasing interior coordinates, and increasing number-state order.
 
+## Adjacent-grid diagnostic
+
+For adjacent authored spacings whose realized values satisfy
+`h_coarse > h_fine`, fixed box half-width `b`, and fixed retained dimension `K`, the
+ported diagnostic is
+
+\[
+C_{b,K}(h_{\mathrm{coarse}},h_{\mathrm{fine}})
+=
+\left\|
+J_{\mathrm{coarse}}^{\mathsf T}H_{b,h_{\mathrm{coarse}}}J_{\mathrm{coarse}}
+-
+J_{\mathrm{fine}}^{\mathsf T}H_{b,h_{\mathrm{fine}}}J_{\mathrm{fine}}
+\right\|_{\mathrm F}.
+\]
+
+The two finite spatial matrices act in different grid spaces and are never subtracted
+directly. Their pullbacks act in the same ordered retained number-state coordinates,
+which makes the displayed subtraction well-defined. The norm is evaluated only by
+`projectkoios.physkit.linalg.matrix.norm.FrobeniusMatrixNorm`.
+
+This is an adjacent-representation change diagnostic. Without an extrapolation model,
+regularity assumptions, or an independently justified asymptotic regime, it is not a
+continuum error estimate, convergence rate, uncertainty, or acceptance criterion.
+
 ## Independent route
 
 Production analytical states use the maintained three-term recurrence. Independent

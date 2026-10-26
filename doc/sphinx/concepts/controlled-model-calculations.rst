@@ -10,7 +10,7 @@ mathematical constructions declared by each calculation protocol.
 Ownership layers
 ----------------
 
-The implementation separates five concrete layers.
+The implementation separates four concrete layers.
 
 ``ksdft2effmass.operators``
    Owns reusable represented operators, immutable unit-aware quantities, sparse
@@ -18,22 +18,20 @@ The implementation separates five concrete layers.
 
 ``ksdft2effmass.model_systems``
    Owns mathematical model definitions and reusable evaluations. The concrete
-   ``qho1d`` owner also owns its fixed study records, version-one wire mechanics,
-   deterministic evaluation, provenance identities, and independent verifier. It
-   does not imply a dimension-neutral QHO implementation.
+   ``qho1d`` owner owns typed direct analysis, adjacent-grid diagnostics, independent
+   verification, and authenticated visualization. It does not imply a
+   dimension-neutral QHO implementation. The former JSON-authored QHO1D ``study``
+   contract was removed after migration.
 
 ``calculations/qho1d``
-   Owns the mutable QHO1D parameter selection, thin development scripts, ignored
-   replaceable output location, and calculation-owned technical report.
+   Owns the Python-authored QHO1D configuration, direct calculate--verify--render
+   scripts, unsealed execution, provenance records, and calculation-owned technical
+   report.
 
-``ksdft2effmass.campaigns.research_monograph``
-   Retains only the historical harmonic-oscillator symbol spellings required by the
-   hash-bound calculation adapters. New code imports ``model_systems.qho1d``.
-
-``calculations/research-monograph``
-   Owns inputs, thin command-line adapters, retained calculated outputs, figures,
-   protocols, reports, and checksum catalogs.  The command-line files adapt paths to
-   the package-owned classes; they do not own the numerical algorithms.
+``docs/publications/research-monograph``
+   Consumes the direct QHO1D result, verification identities, and exact presentation
+   copies of authenticated figures. It does not own the numerical algorithms or create
+   an independent evidence package.
 
 The API references are :doc:`../api/model-systems` and
 :doc:`../api/research-monograph-campaigns`.
@@ -101,11 +99,12 @@ Hamiltonians, the signed difference, map diagnostics, and Frobenius discrepancy
 components.  The comparison combines finite-interval and finite-difference effects;
 the reported decomposition does not constitute uncertainty quantification.
 
-The concrete QHO1D study evaluator processes box half-width, requested grid spacing,
+The direct :class:`Qho1dAnalyzer` processes box half-width, requested grid spacing,
 and retained dimension in a deterministic Cartesian product, with retained dimension
-varying fastest. The mutable calculation is under ``calculations/qho1d``. The retained
-historical calculation uses the explicit nondimensional convention
-:math:`\hbar=m=\omega=\ell=1`.
+varying fastest. :class:`Qho1dCrossGridAnalyzer` compares adjacent coarse/fine
+pullbacks at fixed box and retained dimension after state-space alignment. The
+calculation is under ``calculations/qho1d`` and uses the explicit nondimensional
+convention :math:`\hbar=m=\omega=\ell=1`.
 
 The current discrepancy combines finite-domain closure, centered-difference,
 Gram-correction, and floating-point effects. It is not yet an error bound. For an

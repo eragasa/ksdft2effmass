@@ -9,8 +9,21 @@ operator and makes no semiconductor-validation claim.
 """
 
 from .analysis import Qho1dAnalyzer
+from .case_sections import (
+    Qho1dHamiltonianComparisonResult,
+    Qho1dResidualResult,
+    Qho1dSampledStateAlignmentResult,
+    Qho1dSpatialRepresentationResult,
+)
 from .comparison import Qho1dComparator
 from .configuration import Qho1dConfiguration
+from .cross_grid import (
+    Qho1dCrossGridAnalysisResult,
+    Qho1dCrossGridAnalyzer,
+    Qho1dCrossGridComparisonResult,
+    Qho1dCrossGridVerification,
+    Qho1dCrossGridVerifier,
+)
 from .model import (
     Qho1dAnalytical,
     Qho1dComparisonRequest,
@@ -25,16 +38,12 @@ from .result import (
     Qho1dCaseResult,
     Qho1dStateComparisonResult,
 )
-from .study import (
-    Qho1dResultVerifier,
-    Qho1dStudyDefinition,
-    Qho1dStudyEvaluator,
-    Qho1dStudyInputDeserializer,
-    Qho1dStudyResult,
-    Qho1dStudyResultSerializer,
-)
 from .verification import Qho1dIndependentReferenceAnalyzer, Qho1dVerifier
 from .verification_values import (
+    Qho1dHamiltonianComparisonVerification,
+    Qho1dResidualVerification,
+    Qho1dSampledStateAlignmentVerification,
+    Qho1dSpatialRepresentationVerification,
     Qho1dStateComparisonVerification,
     Qho1dSweepVerification,
     Qho1dVerification,
@@ -54,19 +63,26 @@ __all__ = [
     "Qho1dComparisonRequest",
     "Qho1dComparisonResult",
     "Qho1dConfiguration",
+    "Qho1dCrossGridAnalysisResult",
+    "Qho1dCrossGridAnalyzer",
+    "Qho1dCrossGridComparisonResult",
+    "Qho1dCrossGridVerification",
+    "Qho1dCrossGridVerifier",
     "Qho1dFiniteDifference",
+    "Qho1dHamiltonianComparisonResult",
+    "Qho1dHamiltonianComparisonVerification",
     "Qho1dIndependentReferenceAnalyzer",
     "Qho1dLadderOperators",
     "Qho1dNondimensionalizer",
     "Qho1dParameters",
-    "Qho1dResultVerifier",
-    "Qho1dStudyDefinition",
-    "Qho1dStudyEvaluator",
-    "Qho1dStudyInputDeserializer",
+    "Qho1dResidualResult",
+    "Qho1dResidualVerification",
+    "Qho1dSampledStateAlignmentResult",
+    "Qho1dSampledStateAlignmentVerification",
+    "Qho1dSpatialRepresentationResult",
+    "Qho1dSpatialRepresentationVerification",
     "Qho1dStateComparisonResult",
     "Qho1dStateComparisonVerification",
-    "Qho1dStudyResult",
-    "Qho1dStudyResultSerializer",
     "Qho1dSweepVerification",
     "Qho1dVerification",
     "Qho1dVerifier",

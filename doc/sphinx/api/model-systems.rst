@@ -178,6 +178,18 @@ boundary as PIAB1D; historical ``study`` serialization is not involved.
 .. autoclass:: Qho1dConfiguration
    :members:
 
+.. autoclass:: Qho1dSpatialRepresentationResult
+   :members:
+
+.. autoclass:: Qho1dSampledStateAlignmentResult
+   :members:
+
+.. autoclass:: Qho1dHamiltonianComparisonResult
+   :members:
+
+.. autoclass:: Qho1dResidualResult
+   :members:
+
 .. autoclass:: Qho1dCaseResult
    :members:
 
@@ -190,13 +202,47 @@ boundary as PIAB1D; historical ``study`` serialization is not involved.
 .. autoclass:: Qho1dAnalyzer
    :members:
 
+The adjacent-grid analyzer compares successive coarse/fine pulled-back Hamiltonians
+only after both act in the same retained number-state coordinates. Its Frobenius norm
+is a finite-representation change diagnostic, not a continuum error estimate.
+
+.. autoclass:: Qho1dCrossGridComparisonResult
+   :members:
+
+.. autoclass:: Qho1dCrossGridAnalysisResult
+   :members:
+
+.. autoclass:: Qho1dCrossGridAnalyzer
+   :members:
+
+.. autoclass:: Qho1dCrossGridVerification
+   :members:
+
+.. autoclass:: Qho1dCrossGridVerifier
+   :members:
+
 .. autoclass:: Qho1dIndependentReferenceAnalyzer
    :members:
 
-.. autoclass:: Qho1dSweepVerification
+.. autoclass:: Qho1dSpatialRepresentationVerification
+   :members:
+
+.. autoclass:: Qho1dSampledStateAlignmentVerification
+   :members:
+
+.. autoclass:: Qho1dHamiltonianComparisonVerification
+   :members:
+
+.. autoclass:: Qho1dResidualVerification
    :members:
 
 .. autoclass:: Qho1dStateComparisonVerification
+   :members:
+
+``Qho1dSweepVerification`` remains available only to decode the earlier retained
+three-component direct verification record.
+
+.. autoclass:: Qho1dSweepVerification
    :members:
 
 .. autoclass:: Qho1dVerification
@@ -214,26 +260,10 @@ boundary as PIAB1D; historical ``study`` serialization is not involved.
 .. autoclass:: Qho1dVisualizer
    :members:
 
-The following classes retain the historical JSON-authored study contract. They do not
-participate in direct calculate--verify--render executions.
-
-.. autoclass:: Qho1dStudyDefinition
-   :members:
-
-.. autoclass:: Qho1dStudyResult
-   :members:
-
-.. autoclass:: Qho1dStudyInputDeserializer
-   :members:
-
-.. autoclass:: Qho1dStudyEvaluator
-   :members:
-
-.. autoclass:: Qho1dStudyResultSerializer
-   :members:
-
-.. autoclass:: Qho1dResultVerifier
-   :members:
+The former JSON-authored QHO1D study contract and its compatibility exports were
+removed after completion of the direct migration. Recovery identities and the removal
+scope are recorded in
+``docs/architecture/v3/ksdft2effmass/model_systems/qho1d/legacy-disposition.md``.
 
 One-dimensional particle in a box
 ---------------------------------

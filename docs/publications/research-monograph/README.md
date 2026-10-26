@@ -67,6 +67,13 @@ completed draft, successful build, or extraction into an article does not
 establish numerical verification, scientific validation, uncertainty
 quantification, publication, or human acceptance.
 
+Appendix E consumes the unsealed direct QHO1D execution at
+`calculations/qho1d/executions/direct-spatial-truncation-3x3x3/`. Its result and
+verification identities remain calculation-owned, while the monograph retains exact
+presentation copies of the three authenticated figures. The appendix no longer cites
+or implies the absent historical `calculations/research-monograph/harmonic-oscillator/`
+tree.
+
 ## Structure
 
 - `manuscript/manuscript.tex` — standard-LaTeX composition root;

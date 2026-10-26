@@ -6,14 +6,38 @@
 state-resolved selection. `Qho1dAnalyzer` produces `Qho1dCalculationResult`, composed
 from ordered `Qho1dCaseResult` values and one `Qho1dStateComparisonResult`.
 
-Each case retains the realized grid, sampled-state injection, Gram factors,
-common-coordinate Hamiltonians, signed difference, discrepancy components, and
-full-space residual norm. The selected state comparison retains analytical samples and
-the sign-aligned finite eigensolution once.
+Each maintained case exposes and serializes four typed semantic sections:
+
+- `Qho1dSpatialRepresentationResult` owns the box, requested and realized spacing,
+  dimensions, and ordered coordinates;
+- `Qho1dSampledStateAlignmentResult` owns the Gram correction, injection, and map
+  diagnostics;
+- `Qho1dHamiltonianComparisonResult` owns the two aligned Hamiltonians, signed
+  difference, and discrepancy decomposition; and
+- `Qho1dResidualResult` owns the full-space intertwining-residual norm.
+
+The selected state comparison retains analytical samples and the sign-aligned finite
+eigensolution once. The earlier flat-case execution remains byte-exact; decoding and
+reserializing it preserves its retained layout, while newly produced results use the
+semantic-section schema.
 
 Every successor record inherits the shared final `to_dict`, `from_dict`, `to_json`, and
 `from_json` boundaries. Concrete records implement only `_mapping` and `_from_mapping`.
 The QHO1D successor has no custom NumPy transport or `.tolist()` serialization.
+
+## Adjacent-grid diagnostic
+
+`Qho1dCrossGridAnalyzer` groups direct result cases at fixed box half-width and
+retained dimension, then compares each adjacent authored coarse/fine grid pair.
+`Qho1dCrossGridComparisonResult` retains both requested and realized spacings,
+represented dimensions, and the coarse-minus-fine Frobenius norm. The complete
+ordered inventory is a typed `Qho1dCrossGridAnalysisResult` and does not alter the
+wire contract of previously retained direct executions.
+
+`Qho1dCrossGridVerifier` recomputes each derived value directly from the authoritative
+pulled-back case matrices without invoking the production QHO1D analyzer, comparator,
+or cross-grid analyzer. It depends on `Qho1dVerifier` for independent reconstruction
+of those authoritative matrices.
 
 ## Calculation
 
@@ -30,8 +54,11 @@ Hamiltonian directly in NumPy, reconstructs the Gram orthonormalization, and com
 every case and selected eigensolution through typed maximum-error comparisons.
 
 `Qho1dVerifier` derives `Qho1dVisualizationData`, hashes its canonical shared-codec JSON
-bytes, composes operation-named verification components, and returns the aggregate and
-authenticated projection together.
+bytes, and composes six operation-named verification components: spatial
+representation, sampled-state alignment, Hamiltonian comparison, residual,
+state comparison, and visualization projection. The aggregate retains 468 comparisons.
+The retained flat-case three-component verification remains decodable without changing
+its bytes.
 
 ## Rendering
 
@@ -42,8 +69,12 @@ digest matches the supplied typed data. It returns exactly one validated
 report source, bibliography, and authenticated figures into an execution-bound
 technical-report directory.
 
-## Historical boundary
+## Removed predecessor
 
-The JSON-authored `study/` package and `dev_*` scripts remain historical development
-interfaces. They do not define successor serialization, verification, or rendering.
-Their removal requires a separate authorized destructive tranche.
+The adjacent-grid diagnostic was the only predecessor capability selected for the
+direct successor. After that migration, the JSON-authored `study/` package, `dev_*`
+scripts, custom wire, source-coupled verifier, replaceable execution path, predecessor
+report, and compatibility aliases were removed under explicit authorization. Commit
+`7e3331eb3addd8034cdf97cc2a65e64c4f74ac67` retains their last complete tree state;
+the [legacy disposition](legacy-disposition.md) records recovery identities and the
+historical report qualification.

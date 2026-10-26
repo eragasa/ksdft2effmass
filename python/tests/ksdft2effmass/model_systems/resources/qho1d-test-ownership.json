@@ -9,6 +9,20 @@
       "sut": "Qho1dAnalyzer"
     },
     {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dCrossGridAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Qho1dCrossGridAnalyzer"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dLegacySurfaceRemoval.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Qho1d legacy surface removal"
+    },
+    {
       "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dComparator__analytical_pullback.py",
       "mode": "class_owned",
       "evidence_class": "numerical_verification",
@@ -168,27 +182,6 @@
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Qho1dVisualizer"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/qho1d/study/test__Qho1dStudyEvaluator.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Qho1dStudyEvaluator"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/qho1d/study/test__Qho1dStudyInputDeserializer.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Qho1dStudyInputDeserializer"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/qho1d/study/test__Qho1dStudyResultSerializer.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Qho1dStudyResultSerializer"
     }
   ]
 }

@@ -9,6 +9,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dCalculationResult,
     Qho1dConfiguration,
 )
+from ksdft2effmass.serialization import TypedJsonMappingDeserializer
 
 
 class TestQho1dAnalyzer:
@@ -61,6 +62,16 @@ class TestQho1dAnalyzer:
         result = self.result()
         wire = result.to_json()
         reconstructed = Qho1dCalculationResult.from_json(wire)
+        mapping = TypedJsonMappingDeserializer().deserialize(wire)
+        cases_value = mapping["cases"]
+        assert isinstance(cases_value, tuple)
+        assert isinstance(cases_value[0], dict)
+        assert set(cases_value[0]) == {
+            "representation",
+            "alignment",
+            "hamiltonian_comparison",
+            "residual",
+        }
 
         assert reconstructed.to_json() == wire
         assert len(reconstructed.cases) == 27
@@ -74,8 +85,10 @@ class TestQho1dAnalyzer:
         source_root = Path(__file__).resolve().parents[4] / "src" / "ksdft2effmass"
         paths = (
             source_root / "model_systems" / "qho1d" / "configuration.py",
+            source_root / "model_systems" / "qho1d" / "case_sections.py",
             source_root / "model_systems" / "qho1d" / "result.py",
             source_root / "model_systems" / "qho1d" / "analysis.py",
+            source_root / "model_systems" / "qho1d" / "cross_grid.py",
             source_root / "model_systems" / "qho1d" / "verification.py",
             source_root / "model_systems" / "qho1d" / "visualization.py",
         )

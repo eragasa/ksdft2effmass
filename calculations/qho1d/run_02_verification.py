@@ -13,7 +13,7 @@ from ksdft2effmass.serialization import (
     TypedJsonValueCodec,
 )
 
-EXECUTION_ID = "direct-spatial-truncation-3x3x3"
+EXECUTION_ID = "direct-spatial-truncation-3x3x3-sections"
 CALCULATION_FAMILY = "qho1d-spatial-truncation"
 
 script_path = Path(__file__).resolve()
@@ -44,6 +44,10 @@ if execution.get("outcome") != "completed":
     raise ValueError("verification requires a completed calculation execution")
 if execution.get("result_path") != "results/result.json":
     raise ValueError("execution declares an unexpected result path")
+if execution.get("result_schema") != (
+    "ksdft2effmass.qho1d-calculation-result.sections.v1"
+):
+    raise ValueError("execution declares an unexpected result schema")
 if execution.get("configuration_path") != "inputs/configuration.json":
     raise ValueError("execution declares an unexpected configuration path")
 configuration_sha256 = hashlib.sha256(configuration_path.read_bytes()).hexdigest()
@@ -61,6 +65,7 @@ verification_result = Qho1dVerifier(
 verification = verification_result.verification
 verification_document = {
     "schema_version": 1,
+    "schema": "ksdft2effmass.qho1d-verification.semantic-sections.v1",
     "calculation_family": CALCULATION_FAMILY,
     "execution_id": EXECUTION_ID,
     "verification_route": (

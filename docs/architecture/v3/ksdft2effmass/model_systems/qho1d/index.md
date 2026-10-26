@@ -32,25 +32,34 @@ model_systems/qho1d/
 ├── model.py
 ├── comparison.py
 ├── configuration.py
+├── case_sections.py
 ├── result.py
 ├── analysis.py
+├── cross_grid.py
 ├── verification_values.py
 ├── verification.py
 └── visualization.py
 ```
 
-The neighboring `study/` package supports historical JSON-authored calculation
-contracts. It is not used by the direct successor.
+The former neighboring `study/` package and its JSON-authored calculation contract
+were removed after migration. The [legacy disposition](legacy-disposition.md) records
+the authorized scope, recovery commit, and historical content identities.
 
 ## Invariants
 
 - Maintained successor records are immutable and typed.
+- Each produced case groups spatial representation, sampled-state alignment,
+  Hamiltonian comparison, and residual values into named typed sections.
 - All numerical values carry explicit `Unitless()` quantities under the declared
   nondimensional convention.
 - The injection maps retained number-state coordinates into ordered finite-grid
   coordinates.
 - Verification evaluates Hermite functions and constructs the finite Hamiltonian
-  independently of production analyzers.
+  independently of production analyzers, then partitions its 468 comparisons into six
+  operation-named components.
+- Adjacent-grid diagnostics subtract pulled-back Hamiltonians only after alignment in
+  the same retained number-state coordinates and use the canonical PhysKit Frobenius
+  norm.
 - Rendering consumes only a passing verification that authenticates the exact
   visualization projection.
 - The closed rendering inventory contains three figures.
@@ -62,3 +71,4 @@ contracts. It is not used by the direct successor.
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)
 - [Schematics](schematics.md)
+- [Legacy removal record](legacy-disposition.md)

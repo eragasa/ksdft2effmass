@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{microtype}
+\usepackage[section]{placeins}
 \usepackage{xcolor}
 
 \geometry{margin=1in}
@@ -27,11 +28,11 @@
 
 \begin{center}
 \fbox{\begin{minipage}{0.92\linewidth}
-\textbf{Status.} This is a mutable technical report for
-\code{calculations/qho1d}. It is not retained evidence, a publication manuscript,
+\textbf{Status.} This is the maintained calculation-facing technical report for
+\code{calculations/qho1d}. It is not sealed evidence, a publication manuscript,
 a continuum-convergence proof, or a physical uncertainty statement. The plotted
-arrays are binary64 development outputs. Exact Lean results are cited separately and
-do not certify the runtime arrays in this experiment.
+arrays are authenticated binary64 development outputs. Exact Lean results are cited
+separately and do not certify the runtime arrays in this experiment.
 \end{minipage}}
 \end{center}
 
@@ -43,7 +44,7 @@ experiment compares a centered second-order finite-difference Hamiltonian with t
 direct diagonal number-state Hamiltonian after sampled Hermite states have been
 Gram-orthonormalized and used as a common-coordinate injection.  It records
 Frobenius, diagonal, off-diagonal, Gram, isometry, refinement, eigenvalue, eigenstate,
-and residual diagnostics.  The development sweep demonstrates the expected
+residual, and adjacent-grid diagnostics.  The direct sweep demonstrates the expected
 second-order spatial trend once the finite box is sufficiently large, while a smaller
 box exhibits a distinct boundary-dominated regime.  Formal results establish the
 exact Hermite--Gaussian pointwise eigenfunction identity, finite ladder boundary
@@ -148,7 +149,7 @@ The audited Lean proofs contain no \code{sorry}; their reported transitive found
 are limited to the repository's disclosed standard classical axioms.  No theorem binds
 the exact matrices directly to the JSON bytes produced here.
 
-\section{Development protocol}
+\section{Direct calculation protocol}
 
 The declared Cartesian sweep is
 \begin{equation}
@@ -157,16 +158,15 @@ The declared Cartesian sweep is
  K\in\{2,4,6\}.
 \end{equation}
 This produces 27 deterministically ordered cases.  Each case retains the realized
-spacing, interior-point count, comparison-map content hash, Gram matrix, inverse Gram
-square root, pulled-back Hamiltonian, direct reference, signed difference, and scalar
-diagnostics.  Cross-grid records compare adjacent spatial resolutions while holding
-$b$ and $K$ fixed.
+spacing, interior-point count, Gram matrix, inverse Gram square root, injection,
+pulled-back Hamiltonian, direct reference, signed difference, scalar discrepancy
+channels, and the full-space residual norm.
 
 The implementation is library-owned by
-\code{ksdft2effmass.model\_systems.qho1d}.  The experiment directory owns only the
-input, development entry points, this report, and replaceable outputs.  The finite
-difference, ladder, and typed-quantity mechanisms reuse existing
-\code{ksdft2effmass.operators} components.
+\code{ksdft2effmass.model\_systems.qho1d}.  The calculation directory owns thin direct
+entry points, the authored protocol, execution paths, and this report.  The finite
+difference, ladder, typed-quantity, shared JSON, verification, and PNG mechanisms remain
+with their reusable owners.
 
 \section{Eigenstates and finite-grid distortion}
 
@@ -231,11 +231,66 @@ so $\delta_{\mathrm{abs}}\leq\rho_{b,h,K}$ in the Euclidean operator/Frobenius
 bound.  The plot reports the binary64 evaluation of both quantities.  It is not an
 interval-certified inequality.
 
+\subsection{Adjacent-grid change in common coordinates}
+
+The direct typed result also supports comparison between adjacent authored grid
+spacings at fixed $b$ and $K$.  The parent finite-grid matrices have different
+spatial dimensions and are not subtracted.  Instead, define
+\begin{equation}
+  \chi_{b,K}(h_{\mathrm c},h_{\mathrm f})
+  =
+  \left\|
+    J_{b,h_{\mathrm c},K}^{\mathsf T}H_{b,h_{\mathrm c}}
+    J_{b,h_{\mathrm c},K}
+    -
+    J_{b,h_{\mathrm f},K}^{\mathsf T}H_{b,h_{\mathrm f}}
+    J_{b,h_{\mathrm f},K}
+  \right\|_{\fro},
+  \qquad h_{\mathrm c}>h_{\mathrm f}.
+  \label{eq:cross-grid}
+\end{equation}
+Both pullbacks act in the same ordered retained number-state coordinates, so the
+subtraction is defined.  \code{Qho1dCrossGridAnalyzer} evaluates the norm through the
+canonical PhysKit \code{FrobeniusMatrixNorm}.  Its paired verifier checks the authored
+controls, realized spacings, represented dimensions, and norm directly from the typed
+case matrices.  It does not reconstruct those matrices; that independent route remains
+owned by \code{Qho1dVerifier}.
+
+Table~\ref{tab:cross-grid-b8} reports the six adjacent-grid observations at $b=8$.
+The coarse-to-fine decrease is close to a factor of four over this bounded sequence,
+consistent with the refinement trend already visible in the relative discrepancy.
+The values are changes between two finite representations, not errors against an
+unknown continuum operator.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$K$ & $h_{\mathrm c}$ & $h_{\mathrm f}$ &
+$\chi_{8,K}(h_{\mathrm c},h_{\mathrm f})$ \\
+\midrule
+2 & 0.20 & 0.10 & $4.7528\times10^{-3}$ \\
+2 & 0.10 & 0.05 & $1.1934\times10^{-3}$ \\
+4 & 0.20 & 0.10 & $2.8909\times10^{-2}$ \\
+4 & 0.10 & 0.05 & $7.2795\times10^{-3}$ \\
+6 & 0.20 & 0.10 & $8.4552\times10^{-2}$ \\
+6 & 0.10 & 0.05 & $2.1362\times10^{-2}$ \\
+\bottomrule
+\end{tabular}
+\caption{Adjacent-grid pulled-back Hamiltonian changes at fixed $b=8$.}
+\label{tab:cross-grid-b8}
+\end{table}
+
+The complete configured inventory contains 18 adjacent-grid comparisons.  The
+post-analysis verifier reports 90 exact derivation checks: five controls or values for
+each pair.  Passing those checks establishes derivation from the supplied direct-result
+matrices only; it does not create a new independent continuum reference.
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{qho1d-diagnostics.png}
 \caption{Spatial refinement, sampled Gram defect, diagonal/off-diagonal decomposition,
-and residual diagnostic.  Every panel reports mutable binary64 development data.}
+and residual diagnostic.  Every panel reports authenticated binary64 development data.}
 \label{fig:diagnostics}
 \end{figure}
 
@@ -308,22 +363,26 @@ norm, and serialized decimal is binary64 and has no interval certificate here.
 
 \section{Reproduction and provenance}
 
-From the repository's \code{python/} directory, the mutable development workflow is
+From the repository's \code{python/} directory, the direct development lifecycle is
 \begin{verbatim}
-uv run python ../calculations/qho1d/dev_analysis.py
-uv run python ../calculations/qho1d/dev_verification.py
-uv run python ../calculations/qho1d/dev_plots.py
+PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_01_calculation.py
+PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_02_verification.py
+PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_03_render.py
 \end{verbatim}
-The fixed result path is
-\code{calculations/qho1d/analysis/development/qho1d-result.json}.  The current generated
-result has SHA-256
-\begin{center}
-\small\code{e22e83398b7f77d1ad3717e6789da30847092af5eebf5af4ebe9c7f7d57ac25d}.
-\end{center}
-This digest identifies only the present replaceable development bytes; it does not
-promote them to retained evidence.  The JSON independently records input, runner, and
-implementation-file identities and is checked by the QHO1D result verifier before the
-plots are produced.
+The execution is written beneath
+\code{calculations/qho1d/executions/direct-spatial-truncation-3x3x3-sections/}.  The
+typed result groups every case by spatial representation, sampled-state alignment,
+Hamiltonian comparison, and residual.  Its verification record, visualization
+projection, and rendering manifest bind
+exact SHA-256 identities.  Those identities establish byte correlation only; the
+execution remains unsealed development output unless a separately authorized seal is
+created.
+
+The adjacent-grid table is a typed post-analysis of that retained result.  It does not
+rewrite the execution result or add a stage to the execution manifest.  It is
+reproducible by decoding \code{results/result.json}, executing
+\code{Qho1dCrossGridAnalyzer}, and passing the returned aggregate with the decoded
+result to \code{Qho1dCrossGridVerifier}.
 
 \section{Next steps}
 

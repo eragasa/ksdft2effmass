@@ -70,7 +70,9 @@ class TestQho1dDirectScripts:
             )
             assert completed.returncode == 0, completed.stderr
 
-        execution = calculation / "executions" / "direct-spatial-truncation-3x3x3"
+        execution = (
+            calculation / "executions" / "direct-spatial-truncation-3x3x3-sections"
+        )
         codec = TypedJsonValueCodec()
         execution_document = self._mapping(
             codec.deserialize_bytes((execution / "execution.json").read_bytes())

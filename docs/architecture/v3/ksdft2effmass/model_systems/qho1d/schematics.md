@@ -16,12 +16,19 @@ Python-authored Qho1dConfiguration
                 ▼
        Qho1dCalculationResult ───────┐
                 │                    │
+                ├── spatial representation
+                ├── sampled-state alignment
+                ├── Hamiltonian comparison
+                ├── residual
+                │                    │
                 │ typed JSON         │ independent formulas
                 ▼                    ▼
           result.json       Qho1dIndependentReferenceAnalyzer
                                      │
                                      ▼
                               Qho1dVerifier
+                                     │
+                six operation-named verification components
                                      │
                     ┌────────────────┴───────────────┐
                     ▼                                ▼

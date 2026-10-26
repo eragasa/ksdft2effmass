@@ -28,8 +28,11 @@ from ksdft2effmass.verification import (
 
 from .result import Qho1dCalculationResult, Qho1dCaseResult
 from .verification_values import (
+    Qho1dHamiltonianComparisonVerification,
+    Qho1dResidualVerification,
+    Qho1dSampledStateAlignmentVerification,
+    Qho1dSpatialRepresentationVerification,
     Qho1dStateComparisonVerification,
-    Qho1dSweepVerification,
     Qho1dVerification,
 )
 from .visualization import Qho1dVisualizationData
@@ -43,8 +46,14 @@ class Qho1dIndependentReferenceComparisons:
 
     Parameters
     ----------
-    sweep
-        Named comparisons for every finite sweep case.
+    spatial_representation
+        Finite-grid geometry and represented-dimension comparisons.
+    sampled_state_alignment
+        Gram-correction and injection comparisons.
+    hamiltonian_comparison
+        Common-coordinate operator and discrepancy comparisons.
+    residual
+        Full-space intertwining-residual comparisons.
     state_comparison
         Named comparisons for the selected state-resolved case.
     visualization_projection
@@ -58,14 +67,20 @@ class Qho1dIndependentReferenceComparisons:
         A partition is empty or observation names collide across partitions.
     """
 
-    sweep: Mapping[str, MaximumAbsoluteErrorComparison]
+    spatial_representation: Mapping[str, MaximumAbsoluteErrorComparison]
+    sampled_state_alignment: Mapping[str, MaximumAbsoluteErrorComparison]
+    hamiltonian_comparison: Mapping[str, MaximumAbsoluteErrorComparison]
+    residual: Mapping[str, MaximumAbsoluteErrorComparison]
     state_comparison: Mapping[str, MaximumAbsoluteErrorComparison]
     visualization_projection: Mapping[str, MaximumAbsoluteErrorComparison]
 
     def __post_init__(self) -> None:
         names: set[str] = set()
         for field_name in (
-            "sweep",
+            "spatial_representation",
+            "sampled_state_alignment",
+            "hamiltonian_comparison",
+            "residual",
             "state_comparison",
             "visualization_projection",
         ):
@@ -125,13 +140,24 @@ class Qho1dIndependentReferenceAnalyzer:
             raise TypeError("result must be Qho1dCalculationResult")
         if not isinstance(visualization_data, Qho1dVisualizationData):
             raise TypeError("visualization_data must be Qho1dVisualizationData")
-        sweep: dict[str, MaximumAbsoluteErrorComparison] = {}
+        representation: dict[str, MaximumAbsoluteErrorComparison] = {}
+        alignment: dict[str, MaximumAbsoluteErrorComparison] = {}
+        hamiltonian: dict[str, MaximumAbsoluteErrorComparison] = {}
+        residual: dict[str, MaximumAbsoluteErrorComparison] = {}
         references: dict[tuple[float, float, int], Mapping[str, ReferenceQuantity]] = {}
         for index, case in enumerate(result.cases):
             reference = self._case_reference(result, case)
             references[case.key] = reference
             prefix = f"case_{index:02d}"
-            self._append_case_comparisons(sweep, prefix, case, reference)
+            self._append_case_comparisons(
+                representation,
+                alignment,
+                hamiltonian,
+                residual,
+                prefix,
+                case,
+                reference,
+            )
         selected_key = (
             result.configuration.selected_box_half_width,
             result.configuration.selected_grid_spacing,
@@ -143,7 +169,10 @@ class Qho1dIndependentReferenceAnalyzer:
         state = self._state_comparisons(result, selected_reference)
         projection = self._projection_comparisons(result, visualization_data)
         return Qho1dIndependentReferenceComparisons(
-            sweep=sweep,
+            spatial_representation=representation,
+            sampled_state_alignment=alignment,
+            hamiltonian_comparison=hamiltonian,
+            residual=residual,
             state_comparison=state,
             visualization_projection=projection,
         )
@@ -270,7 +299,10 @@ class Qho1dIndependentReferenceAnalyzer:
     @classmethod
     def _append_case_comparisons(
         cls,
-        comparisons: dict[str, MaximumAbsoluteErrorComparison],
+        representation: dict[str, MaximumAbsoluteErrorComparison],
+        alignment: dict[str, MaximumAbsoluteErrorComparison],
+        hamiltonian: dict[str, MaximumAbsoluteErrorComparison],
+        residual: dict[str, MaximumAbsoluteErrorComparison],
         prefix: str,
         case: Qho1dCaseResult,
         reference: Mapping[str, ReferenceQuantity],
@@ -294,12 +326,32 @@ class Qho1dIndependentReferenceAnalyzer:
             "off_diagonal_discrepancy": case.off_diagonal_discrepancy,
             "residual_frobenius": case.residual_frobenius,
         }
-        tight = {"interior_points", "grid_spacing", "grid_coordinates"}
+        representation_names = {
+            "interior_points",
+            "grid_spacing",
+            "grid_coordinates",
+        }
+        alignment_names = {
+            "injection",
+            "gram_matrix",
+            "gram_inverse_square_root",
+            "gram_deviation",
+            "gram_condition_number",
+            "injection_isometry_error",
+        }
         for name, value in observed.items():
-            comparisons[f"{prefix}_{name}_maximum_absolute_error"] = cls._comparison(
+            if name in representation_names:
+                destination = representation
+            elif name in alignment_names:
+                destination = alignment
+            elif name == "residual_frobenius":
+                destination = residual
+            else:
+                destination = hamiltonian
+            destination[f"{prefix}_{name}_maximum_absolute_error"] = cls._comparison(
                 value,
                 reference[name],
-                2.0e-14 if name in tight else 5.0e-11,
+                2.0e-14 if name in representation_names else 5.0e-11,
             )
 
     @classmethod
@@ -452,7 +504,10 @@ class Qho1dVerifier(
 
     def _verification_types(self) -> tuple[type[CompositeVerification], ...]:
         return (
-            Qho1dSweepVerification,
+            Qho1dSpatialRepresentationVerification,
+            Qho1dSampledStateAlignmentVerification,
+            Qho1dHamiltonianComparisonVerification,
+            Qho1dResidualVerification,
             Qho1dStateComparisonVerification,
             VisualizationProjectionVerification,
         )
@@ -462,7 +517,16 @@ class Qho1dVerifier(
             self._result, self._visualization_data()
         )
         return (
-            Qho1dSweepVerification.evaluate(reference.sweep),
+            Qho1dSpatialRepresentationVerification.evaluate(
+                reference.spatial_representation
+            ),
+            Qho1dSampledStateAlignmentVerification.evaluate(
+                reference.sampled_state_alignment
+            ),
+            Qho1dHamiltonianComparisonVerification.evaluate(
+                reference.hamiltonian_comparison
+            ),
+            Qho1dResidualVerification.evaluate(reference.residual),
             Qho1dStateComparisonVerification.evaluate(reference.state_comparison),
             VisualizationProjectionVerification.evaluate(
                 reference.visualization_projection
