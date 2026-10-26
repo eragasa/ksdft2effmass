@@ -16,6 +16,7 @@ from ksdft2effmass.operators import LadderOperator1D
 from ..boundary_conditions import DirichletBoundaryCondition
 from ..cartesian_grids import UniformCartesianGrid1D
 from ..intervals import DirichletInterval
+from .case_sections import Qho1dResidualResult
 from .comparison import Qho1dComparator
 from .configuration import Qho1dConfiguration
 from .model import (
@@ -184,28 +185,14 @@ class Qho1dAnalyzer(BaseModelSystemAnalyzer):
             @ comparison.reference_hamiltonian.magnitude
         )
         return Qho1dCaseResult(
-            box_half_width=request.box_half_width,
-            requested_grid_spacing=request.requested_grid_spacing,
-            grid_spacing=comparison.grid_spacing,
-            retained_dimension=request.retained_dimension,
-            interior_points=comparison.interior_points,
-            grid_coordinates=comparison.grid_coordinates,
-            injection=comparison.injection,
-            gram_matrix=comparison.gram_matrix,
-            gram_inverse_square_root=comparison.gram_inverse_square_root,
-            pulled_back_hamiltonian=comparison.pulled_back_hamiltonian,
-            reference_hamiltonian=comparison.reference_hamiltonian,
-            difference=comparison.difference,
-            gram_deviation=comparison.gram_deviation,
-            gram_condition_number=comparison.gram_condition_number,
-            injection_isometry_error=comparison.injection_isometry_error,
-            absolute_discrepancy=comparison.absolute_discrepancy,
-            relative_discrepancy=comparison.relative_discrepancy,
-            diagonal_discrepancy=comparison.diagonal_discrepancy,
-            off_diagonal_discrepancy=comparison.off_diagonal_discrepancy,
-            residual_frobenius=ScalarQuantity(
-                float(np.linalg.norm(residual, ord="fro")),
-                hamiltonian.unit,
+            representation=comparison.representation,
+            alignment=comparison.alignment,
+            hamiltonian_comparison=comparison.hamiltonian_comparison,
+            residual=Qho1dResidualResult(
+                frobenius=ScalarQuantity(
+                    float(np.linalg.norm(residual, ord="fro")),
+                    hamiltonian.unit,
+                )
             ),
         )
 

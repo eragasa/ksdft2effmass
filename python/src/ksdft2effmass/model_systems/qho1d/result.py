@@ -49,27 +49,14 @@ class Qho1dCaseResult(BaseTypedRecord):
 
     Parameters
     ----------
-    box_half_width, requested_grid_spacing, grid_spacing
-        Positive nondimensional geometry and grid controls.
-    retained_dimension, interior_points
-        Positive retained and represented dimensions.
-    grid_coordinates
-        Ordered interior coordinates of the finite Dirichlet representation.
-    injection
-        Map from retained number-state coordinates to finite-grid coordinates.
-    gram_matrix, gram_inverse_square_root
-        Sampled-state Gram matrix and its symmetric inverse square root.
-    pulled_back_hamiltonian, reference_hamiltonian, difference
-        Finite-grid pullback, exact retained reference, and signed difference in
-        common coordinates.
-    gram_deviation, gram_condition_number, injection_isometry_error
-        Unitless map diagnostics.
-    absolute_discrepancy, relative_discrepancy
-        Frobenius discrepancy and its reference-normalized value.
-    diagonal_discrepancy, off_diagonal_discrepancy
-        Orthogonal Frobenius components of the signed difference.
-    residual_frobenius
-        Frobenius norm of ``H_h J - J D_K`` in finite-grid coordinates.
+    representation
+        Finite spatial representation and its authored controls.
+    alignment
+        Sampled-state coordinate alignment and map diagnostics.
+    hamiltonian_comparison
+        Hamiltonians and discrepancy values in common retained coordinates.
+    residual
+        Full-space intertwining residual diagnostic.
 
     Raises
     ------
@@ -79,35 +66,35 @@ class Qho1dCaseResult(BaseTypedRecord):
         Units, shapes, positivity, ordering, or the signed-difference invariant fails.
     """
 
-    box_half_width: ScalarQuantity
-    requested_grid_spacing: ScalarQuantity
-    grid_spacing: ScalarQuantity
-    retained_dimension: int
-    interior_points: int
-    grid_coordinates: VectorQuantity
-    injection: MatrixQuantity
-    gram_matrix: MatrixQuantity
-    gram_inverse_square_root: MatrixQuantity
-    pulled_back_hamiltonian: MatrixQuantity
-    reference_hamiltonian: MatrixQuantity
-    difference: MatrixQuantity
-    gram_deviation: ScalarQuantity
-    gram_condition_number: ScalarQuantity
-    injection_isometry_error: ScalarQuantity
-    absolute_discrepancy: ScalarQuantity
-    relative_discrepancy: ScalarQuantity
-    diagonal_discrepancy: ScalarQuantity
-    off_diagonal_discrepancy: ScalarQuantity
-    residual_frobenius: ScalarQuantity
+    representation: Qho1dSpatialRepresentationResult
+    alignment: Qho1dSampledStateAlignmentResult
+    hamiltonian_comparison: Qho1dHamiltonianComparisonResult
+    residual: Qho1dResidualResult
     _wire_layout: str = "nested"
 
     def __post_init__(self) -> None:
+        section_types = (
+            ("representation", Qho1dSpatialRepresentationResult),
+            ("alignment", Qho1dSampledStateAlignmentResult),
+            ("hamiltonian_comparison", Qho1dHamiltonianComparisonResult),
+            ("residual", Qho1dResidualResult),
+        )
+        for name, expected_type in section_types:
+            if not isinstance(getattr(self, name), expected_type):
+                raise TypeError(f"{name} must be {expected_type.__name__}")
         if self._wire_layout not in {"flat", "nested"}:
             raise ValueError("_wire_layout must be flat or nested")
-        scalar_names = (
+        for name in (
             "box_half_width",
             "requested_grid_spacing",
             "grid_spacing",
+            "grid_coordinates",
+            "injection",
+            "gram_matrix",
+            "gram_inverse_square_root",
+            "pulled_back_hamiltonian",
+            "reference_hamiltonian",
+            "difference",
             "gram_deviation",
             "gram_condition_number",
             "injection_isometry_error",
@@ -116,77 +103,30 @@ class Qho1dCaseResult(BaseTypedRecord):
             "diagonal_discrepancy",
             "off_diagonal_discrepancy",
             "residual_frobenius",
-        )
-        for name in scalar_names:
-            value = getattr(self, name)
-            if not isinstance(value, ScalarQuantity):
-                raise TypeError(f"{name} must be ScalarQuantity")
-            _require_unitless(value, name)
-            if not np.isfinite(value.magnitude):
-                raise ValueError(f"{name} must be finite")
-        for name in ("box_half_width", "requested_grid_spacing", "grid_spacing"):
-            if getattr(self, name).magnitude <= 0.0:
-                raise ValueError(f"{name} must be positive")
-        for name in (
-            "gram_deviation",
-            "injection_isometry_error",
-            "absolute_discrepancy",
-            "relative_discrepancy",
-            "diagonal_discrepancy",
-            "off_diagonal_discrepancy",
-            "residual_frobenius",
         ):
-            if getattr(self, name).magnitude < 0.0:
-                raise ValueError(f"{name} must be nonnegative")
-        if self.gram_condition_number.magnitude <= 0.0:
-            raise ValueError("gram_condition_number must be positive")
-        for name in ("retained_dimension", "interior_points"):
-            value = getattr(self, name)
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in int")
-            if value <= 0:
-                raise ValueError(f"{name} must be positive")
-        if self.retained_dimension > self.interior_points:
-            raise ValueError("retained_dimension exceeds interior_points")
-        if not isinstance(self.grid_coordinates, VectorQuantity):
-            raise TypeError("grid_coordinates must be VectorQuantity")
-        _require_unitless(self.grid_coordinates, "grid_coordinates")
-        if self.grid_coordinates.magnitude.shape != (self.interior_points,):
-            raise ValueError("grid_coordinates shape does not match interior_points")
-        if not np.all(np.diff(self.grid_coordinates.magnitude) > 0.0):
-            raise ValueError("grid_coordinates must be strictly increasing")
+            _require_unitless(getattr(self, name), name)
+
+        retained = self.representation.retained_dimension
+        points = self.representation.interior_points
         shapes = {
-            "injection": (self.interior_points, self.retained_dimension),
-            "gram_matrix": (self.retained_dimension, self.retained_dimension),
-            "gram_inverse_square_root": (
-                self.retained_dimension,
-                self.retained_dimension,
-            ),
-            "pulled_back_hamiltonian": (
-                self.retained_dimension,
-                self.retained_dimension,
-            ),
-            "reference_hamiltonian": (
-                self.retained_dimension,
-                self.retained_dimension,
-            ),
-            "difference": (self.retained_dimension, self.retained_dimension),
+            "injection": (points, retained),
+            "gram_matrix": (retained, retained),
+            "gram_inverse_square_root": (retained, retained),
+            "pulled_back_hamiltonian": (retained, retained),
+            "reference_hamiltonian": (retained, retained),
+            "difference": (retained, retained),
         }
         for name, shape in shapes.items():
-            value = getattr(self, name)
-            if not isinstance(value, MatrixQuantity):
-                raise TypeError(f"{name} must be MatrixQuantity")
-            _require_unitless(value, name)
+            if name in {
+                "injection",
+                "gram_matrix",
+                "gram_inverse_square_root",
+            }:
+                value = getattr(self.alignment, name)
+            else:
+                value = getattr(self.hamiltonian_comparison, name)
             if value.magnitude.shape != shape:
                 raise ValueError(f"{name} shape does not match the declared spaces")
-        if not np.array_equal(
-            self.pulled_back_hamiltonian.magnitude
-            - self.reference_hamiltonian.magnitude,
-            self.difference.magnitude,
-        ):
-            raise ValueError(
-                "difference must equal pulled_back_hamiltonian - reference"
-            )
 
     @property
     def key(self) -> tuple[float, float, int]:
@@ -204,52 +144,127 @@ class Qho1dCaseResult(BaseTypedRecord):
         )
 
     @property
-    def representation(self) -> Qho1dSpatialRepresentationResult:
-        """Return the finite spatial-representation section."""
-        return Qho1dSpatialRepresentationResult(
-            box_half_width=self.box_half_width,
-            requested_grid_spacing=self.requested_grid_spacing,
-            grid_spacing=self.grid_spacing,
-            retained_dimension=self.retained_dimension,
-            interior_points=self.interior_points,
-            grid_coordinates=self.grid_coordinates,
-        )
+    def box_half_width(self) -> ScalarQuantity:
+        """Return the finite-domain half-width."""
+        return self.representation.box_half_width
 
     @property
-    def alignment(self) -> Qho1dSampledStateAlignmentResult:
-        """Return the sampled-state coordinate-alignment section."""
-        return Qho1dSampledStateAlignmentResult(
-            injection=self.injection,
-            gram_matrix=self.gram_matrix,
-            gram_inverse_square_root=self.gram_inverse_square_root,
-            gram_deviation=self.gram_deviation,
-            gram_condition_number=self.gram_condition_number,
-            injection_isometry_error=self.injection_isometry_error,
-        )
+    def requested_grid_spacing(self) -> ScalarQuantity:
+        """Return the authored grid-spacing control."""
+        return self.representation.requested_grid_spacing
 
     @property
-    def hamiltonian_comparison(self) -> Qho1dHamiltonianComparisonResult:
-        """Return the common-coordinate Hamiltonian-comparison section."""
-        return Qho1dHamiltonianComparisonResult(
-            pulled_back_hamiltonian=self.pulled_back_hamiltonian,
-            reference_hamiltonian=self.reference_hamiltonian,
-            difference=self.difference,
-            absolute_discrepancy=self.absolute_discrepancy,
-            relative_discrepancy=self.relative_discrepancy,
-            diagonal_discrepancy=self.diagonal_discrepancy,
-            off_diagonal_discrepancy=self.off_diagonal_discrepancy,
-        )
+    def grid_spacing(self) -> ScalarQuantity:
+        """Return the realized grid spacing."""
+        return self.representation.grid_spacing
 
     @property
-    def residual(self) -> Qho1dResidualResult:
-        """Return the full-space intertwining-residual section."""
-        return Qho1dResidualResult(frobenius=self.residual_frobenius)
+    def retained_dimension(self) -> int:
+        """Return the retained number-state dimension."""
+        return self.representation.retained_dimension
+
+    @property
+    def interior_points(self) -> int:
+        """Return the finite spatial dimension."""
+        return self.representation.interior_points
+
+    @property
+    def grid_coordinates(self) -> VectorQuantity:
+        """Return the ordered interior grid coordinates."""
+        return self.representation.grid_coordinates
+
+    @property
+    def injection(self) -> MatrixQuantity:
+        """Return the retained-to-spatial coordinate injection."""
+        return self.alignment.injection
+
+    @property
+    def gram_matrix(self) -> MatrixQuantity:
+        """Return the sampled-state Gram matrix."""
+        return self.alignment.gram_matrix
+
+    @property
+    def gram_inverse_square_root(self) -> MatrixQuantity:
+        """Return the symmetric Gram inverse square root."""
+        return self.alignment.gram_inverse_square_root
+
+    @property
+    def gram_deviation(self) -> ScalarQuantity:
+        """Return the sampled-state Gram deviation."""
+        return self.alignment.gram_deviation
+
+    @property
+    def gram_condition_number(self) -> ScalarQuantity:
+        """Return the sampled-state Gram condition number."""
+        return self.alignment.gram_condition_number
+
+    @property
+    def injection_isometry_error(self) -> ScalarQuantity:
+        """Return the injection-isometry discrepancy."""
+        return self.alignment.injection_isometry_error
+
+    @property
+    def pulled_back_hamiltonian(self) -> MatrixQuantity:
+        """Return the finite Hamiltonian in retained coordinates."""
+        return self.hamiltonian_comparison.pulled_back_hamiltonian
+
+    @property
+    def reference_hamiltonian(self) -> MatrixQuantity:
+        """Return the exact retained number-state Hamiltonian."""
+        return self.hamiltonian_comparison.reference_hamiltonian
+
+    @property
+    def difference(self) -> MatrixQuantity:
+        """Return pullback minus reference in common coordinates."""
+        return self.hamiltonian_comparison.difference
+
+    @property
+    def absolute_discrepancy(self) -> ScalarQuantity:
+        """Return the absolute Hamiltonian discrepancy."""
+        return self.hamiltonian_comparison.absolute_discrepancy
+
+    @property
+    def relative_discrepancy(self) -> ScalarQuantity:
+        """Return the reference-normalized Hamiltonian discrepancy."""
+        return self.hamiltonian_comparison.relative_discrepancy
+
+    @property
+    def diagonal_discrepancy(self) -> ScalarQuantity:
+        """Return the diagonal discrepancy component."""
+        return self.hamiltonian_comparison.diagonal_discrepancy
+
+    @property
+    def off_diagonal_discrepancy(self) -> ScalarQuantity:
+        """Return the off-diagonal discrepancy component."""
+        return self.hamiltonian_comparison.off_diagonal_discrepancy
+
+    @property
+    def residual_frobenius(self) -> ScalarQuantity:
+        """Return the full-space intertwining residual norm."""
+        return self.residual.frobenius
 
     def _flat_mapping(self) -> Mapping[str, SerializableValue]:
         return {
-            name: getattr(self, name)
-            for name in self.__dataclass_fields__
-            if name != "_wire_layout"
+            "box_half_width": self.box_half_width,
+            "requested_grid_spacing": self.requested_grid_spacing,
+            "grid_spacing": self.grid_spacing,
+            "retained_dimension": self.retained_dimension,
+            "interior_points": self.interior_points,
+            "grid_coordinates": self.grid_coordinates,
+            "injection": self.injection,
+            "gram_matrix": self.gram_matrix,
+            "gram_inverse_square_root": self.gram_inverse_square_root,
+            "pulled_back_hamiltonian": self.pulled_back_hamiltonian,
+            "reference_hamiltonian": self.reference_hamiltonian,
+            "difference": self.difference,
+            "gram_deviation": self.gram_deviation,
+            "gram_condition_number": self.gram_condition_number,
+            "injection_isometry_error": self.injection_isometry_error,
+            "absolute_discrepancy": self.absolute_discrepancy,
+            "relative_discrepancy": self.relative_discrepancy,
+            "diagonal_discrepancy": self.diagonal_discrepancy,
+            "off_diagonal_discrepancy": self.off_diagonal_discrepancy,
+            "residual_frobenius": self.residual_frobenius,
         }
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
@@ -283,35 +298,18 @@ class Qho1dCaseResult(BaseTypedRecord):
                 raise TypeError("hamiltonian_comparison must decode to a mapping")
             if not isinstance(residual_value, Mapping):
                 raise TypeError("residual must decode to a mapping")
-            representation = Qho1dSpatialRepresentationResult.from_dict(
-                representation_value
-            )
-            alignment = Qho1dSampledStateAlignmentResult.from_dict(alignment_value)
-            hamiltonian = Qho1dHamiltonianComparisonResult.from_dict(hamiltonian_value)
-            residual = Qho1dResidualResult.from_dict(residual_value)
             return cls(
-                box_half_width=representation.box_half_width,
-                requested_grid_spacing=representation.requested_grid_spacing,
-                grid_spacing=representation.grid_spacing,
-                retained_dimension=representation.retained_dimension,
-                interior_points=representation.interior_points,
-                grid_coordinates=representation.grid_coordinates,
-                injection=alignment.injection,
-                gram_matrix=alignment.gram_matrix,
-                gram_inverse_square_root=alignment.gram_inverse_square_root,
-                pulled_back_hamiltonian=hamiltonian.pulled_back_hamiltonian,
-                reference_hamiltonian=hamiltonian.reference_hamiltonian,
-                difference=hamiltonian.difference,
-                gram_deviation=alignment.gram_deviation,
-                gram_condition_number=alignment.gram_condition_number,
-                injection_isometry_error=alignment.injection_isometry_error,
-                absolute_discrepancy=hamiltonian.absolute_discrepancy,
-                relative_discrepancy=hamiltonian.relative_discrepancy,
-                diagonal_discrepancy=hamiltonian.diagonal_discrepancy,
-                off_diagonal_discrepancy=hamiltonian.off_diagonal_discrepancy,
-                residual_frobenius=residual.frobenius,
+                representation=Qho1dSpatialRepresentationResult.from_dict(
+                    representation_value
+                ),
+                alignment=Qho1dSampledStateAlignmentResult.from_dict(alignment_value),
+                hamiltonian_comparison=Qho1dHamiltonianComparisonResult.from_dict(
+                    hamiltonian_value
+                ),
+                residual=Qho1dResidualResult.from_dict(residual_value),
             )
-        flat_fields = set(cls.__dataclass_fields__) - {"_wire_layout"}
+
+        flat_fields = set(cls._flat_field_names())
         if set(values) != flat_fields:
             raise ValueError("QHO1D case fields do not match")
         retained_dimension = values["retained_dimension"]
@@ -319,51 +317,88 @@ class Qho1dCaseResult(BaseTypedRecord):
         if type(retained_dimension) is not int or type(interior_points) is not int:
             raise TypeError("QHO1D case dimensions must decode to built-in ints")
         return cls(
-            box_half_width=_decoded_quantity(values, "box_half_width", ScalarQuantity),
-            requested_grid_spacing=_decoded_quantity(
-                values, "requested_grid_spacing", ScalarQuantity
+            representation=Qho1dSpatialRepresentationResult(
+                box_half_width=_decoded_quantity(
+                    values, "box_half_width", ScalarQuantity
+                ),
+                requested_grid_spacing=_decoded_quantity(
+                    values, "requested_grid_spacing", ScalarQuantity
+                ),
+                grid_spacing=_decoded_quantity(values, "grid_spacing", ScalarQuantity),
+                retained_dimension=retained_dimension,
+                interior_points=interior_points,
+                grid_coordinates=_decoded_quantity(
+                    values, "grid_coordinates", VectorQuantity
+                ),
             ),
-            grid_spacing=_decoded_quantity(values, "grid_spacing", ScalarQuantity),
-            retained_dimension=retained_dimension,
-            interior_points=interior_points,
-            grid_coordinates=_decoded_quantity(
-                values, "grid_coordinates", VectorQuantity
+            alignment=Qho1dSampledStateAlignmentResult(
+                injection=_decoded_quantity(values, "injection", MatrixQuantity),
+                gram_matrix=_decoded_quantity(values, "gram_matrix", MatrixQuantity),
+                gram_inverse_square_root=_decoded_quantity(
+                    values, "gram_inverse_square_root", MatrixQuantity
+                ),
+                gram_deviation=_decoded_quantity(
+                    values, "gram_deviation", ScalarQuantity
+                ),
+                gram_condition_number=_decoded_quantity(
+                    values, "gram_condition_number", ScalarQuantity
+                ),
+                injection_isometry_error=_decoded_quantity(
+                    values, "injection_isometry_error", ScalarQuantity
+                ),
             ),
-            injection=_decoded_quantity(values, "injection", MatrixQuantity),
-            gram_matrix=_decoded_quantity(values, "gram_matrix", MatrixQuantity),
-            gram_inverse_square_root=_decoded_quantity(
-                values, "gram_inverse_square_root", MatrixQuantity
+            hamiltonian_comparison=Qho1dHamiltonianComparisonResult(
+                pulled_back_hamiltonian=_decoded_quantity(
+                    values, "pulled_back_hamiltonian", MatrixQuantity
+                ),
+                reference_hamiltonian=_decoded_quantity(
+                    values, "reference_hamiltonian", MatrixQuantity
+                ),
+                difference=_decoded_quantity(values, "difference", MatrixQuantity),
+                absolute_discrepancy=_decoded_quantity(
+                    values, "absolute_discrepancy", ScalarQuantity
+                ),
+                relative_discrepancy=_decoded_quantity(
+                    values, "relative_discrepancy", ScalarQuantity
+                ),
+                diagonal_discrepancy=_decoded_quantity(
+                    values, "diagonal_discrepancy", ScalarQuantity
+                ),
+                off_diagonal_discrepancy=_decoded_quantity(
+                    values, "off_diagonal_discrepancy", ScalarQuantity
+                ),
             ),
-            pulled_back_hamiltonian=_decoded_quantity(
-                values, "pulled_back_hamiltonian", MatrixQuantity
-            ),
-            reference_hamiltonian=_decoded_quantity(
-                values, "reference_hamiltonian", MatrixQuantity
-            ),
-            difference=_decoded_quantity(values, "difference", MatrixQuantity),
-            gram_deviation=_decoded_quantity(values, "gram_deviation", ScalarQuantity),
-            gram_condition_number=_decoded_quantity(
-                values, "gram_condition_number", ScalarQuantity
-            ),
-            injection_isometry_error=_decoded_quantity(
-                values, "injection_isometry_error", ScalarQuantity
-            ),
-            absolute_discrepancy=_decoded_quantity(
-                values, "absolute_discrepancy", ScalarQuantity
-            ),
-            relative_discrepancy=_decoded_quantity(
-                values, "relative_discrepancy", ScalarQuantity
-            ),
-            diagonal_discrepancy=_decoded_quantity(
-                values, "diagonal_discrepancy", ScalarQuantity
-            ),
-            off_diagonal_discrepancy=_decoded_quantity(
-                values, "off_diagonal_discrepancy", ScalarQuantity
-            ),
-            residual_frobenius=_decoded_quantity(
-                values, "residual_frobenius", ScalarQuantity
+            residual=Qho1dResidualResult(
+                frobenius=_decoded_quantity(
+                    values, "residual_frobenius", ScalarQuantity
+                )
             ),
             _wire_layout="flat",
+        )
+
+    @staticmethod
+    def _flat_field_names() -> tuple[str, ...]:
+        return (
+            "box_half_width",
+            "requested_grid_spacing",
+            "grid_spacing",
+            "retained_dimension",
+            "interior_points",
+            "grid_coordinates",
+            "injection",
+            "gram_matrix",
+            "gram_inverse_square_root",
+            "pulled_back_hamiltonian",
+            "reference_hamiltonian",
+            "difference",
+            "gram_deviation",
+            "gram_condition_number",
+            "injection_isometry_error",
+            "absolute_discrepancy",
+            "relative_discrepancy",
+            "diagonal_discrepancy",
+            "off_diagonal_discrepancy",
+            "residual_frobenius",
         )
 
 

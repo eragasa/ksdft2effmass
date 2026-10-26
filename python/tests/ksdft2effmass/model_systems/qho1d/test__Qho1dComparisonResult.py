@@ -25,6 +25,7 @@ quantification, or human acceptance.
 import numpy as np
 import pytest
 from projectkoios.physkit.units import (
+    PhysicalUnit,
     ScalarQuantity,
     Unitless,
 )
@@ -43,6 +44,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dFiniteDifference,
     Qho1dLadderOperators,
     Qho1dNondimensionalizer,
+    Qho1dParameters,
 )
 from ksdft2effmass.operators import LadderOperator1D
 
@@ -86,6 +88,53 @@ class TestQho1dComparisonResult:
         harmonic-oscillator import.
         """
         assert model_systems.Qho1dComparisonResult is (Qho1dComparisonResult)
+
+    def test_constructor__owns_shared_semantic_sections(self) -> None:
+        """The comparator result stores sections instead of duplicated flat fields."""
+        result = self.result()
+
+        assert tuple(result.__dataclass_fields__) == (
+            "request",
+            "representation",
+            "alignment",
+            "hamiltonian_comparison",
+        )
+        assert result.grid_coordinates is result.representation.grid_coordinates
+        assert result.injection is result.alignment.injection
+        assert (
+            result.pulled_back_hamiltonian
+            is result.hamiltonian_comparison.pulled_back_hamiltonian
+        )
+
+    def test_constructor__sections__retain_physical_units(self) -> None:
+        """Shared sections preserve the comparator's supported physical mode."""
+        analytical = Qho1dAnalytical(
+            Qho1dParameters(
+                hbar=ScalarQuantity(1.0, PhysicalUnit("joule * second")),
+                mass=ScalarQuantity(1.0, PhysicalUnit("kilogram")),
+                omega=ScalarQuantity(1.0, PhysicalUnit("1 / second")),
+            )
+        )
+        interval = DirichletInterval(
+            UniformCartesianGrid1D(
+                ScalarQuantity(-100.0, PhysicalUnit("centimeter")),
+                ScalarQuantity(100.0, PhysicalUnit("centimeter")),
+                ScalarQuantity(50.0, PhysicalUnit("centimeter")),
+            ),
+            DirichletBoundaryCondition(
+                ScalarQuantity(0.0, PhysicalUnit("meter ** -0.5"))
+            ),
+        )
+        result = Qho1dComparator().execute(
+            Qho1dComparisonRequest(
+                analytical=analytical,
+                finite_difference=Qho1dFiniteDifference(analytical, interval),
+                ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
+            )
+        )
+
+        assert result.grid_spacing.unit == PhysicalUnit("meter")
+        assert result.absolute_discrepancy.unit == PhysicalUnit("joule")
 
     def test_field__arrays__own_immutable_binary64_storage(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-006
