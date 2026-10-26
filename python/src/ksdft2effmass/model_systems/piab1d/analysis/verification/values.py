@@ -18,8 +18,8 @@ from ksdft2effmass.hamiltonian import (
     HamiltonianVerification,
     SpectralReductionVerification,
 )
-from ksdft2effmass.model_systems.analysis import BaseModelAnalysisVerification
 from ksdft2effmass.model_systems.verification import (
+    BaseModelAnalysisVerification,
     QuadratureVerification,
     VisualizationProjectionVerification,
 )

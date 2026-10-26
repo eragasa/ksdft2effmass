@@ -9,7 +9,6 @@ scientific validation for semiconductor applications.
 from ksdft2effmass.verification import BaseVerification
 
 from .analysis import (
-    BaseModelAnalysisVerification,
     BaseModelAnalysisVerifier,
     BaseModelSystemAnalyzer,
     ModelAnalysisVerificationResult,
@@ -73,12 +72,20 @@ from .result_sections import (
     QuadratureResultSection,
     SpectralReductionResultSection,
 )
-from .verification import QuadratureVerification, VisualizationProjectionVerification
+from .verification import (
+    BaseModelAnalysisVerification,
+    QuadratureVerification,
+    VisualizationProjectionVerification,
+)
 from .visualization import (
+    BaseModelAnalysisFigure,
+    BaseModelAnalysisFigureRenderer,
+    BaseModelAnalysisPlot,
+    BaseModelAnalysisSubplot,
     BaseModelAnalysisVisualization,
     BaseModelAnalysisVisualizationData,
-    BaseModelAnalysisVisualizationPlotter,
     BaseModelAnalysisVisualizer,
+    ModelAnalysisPngFigureRenderer,
     ModelAnalysisPngVisualization,
 )
 
@@ -87,10 +94,14 @@ __all__ = [
     "BaseModelAnalysisResultSection",
     "BaseModelAnalysisVerification",
     "BaseModelAnalysisVerifier",
+    "BaseModelAnalysisFigure",
+    "BaseModelAnalysisFigureRenderer",
+    "BaseModelAnalysisPlot",
+    "BaseModelAnalysisSubplot",
     "BaseModelAnalysisVisualization",
     "BaseModelAnalysisVisualizationData",
-    "BaseModelAnalysisVisualizationPlotter",
     "BaseModelAnalysisVisualizer",
+    "ModelAnalysisPngFigureRenderer",
     "ModelAnalysisPngVisualization",
     "ModelAnalysisVerificationResult",
     "BaseModelSystemAnalyzer",

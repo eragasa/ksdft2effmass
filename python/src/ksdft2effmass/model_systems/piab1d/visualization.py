@@ -2,17 +2,16 @@
 
 from __future__ import annotations
 
-import hashlib
-from abc import abstractmethod
 from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import Enum
-from io import BytesIO
-from typing import ClassVar, Self
+from typing import Self
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.axes import Axes
 from matplotlib.colors import TwoSlopeNorm
+from matplotlib.figure import Figure
 from projectkoios.physkit.units import (
     MatrixQuantity,
     ScalarQuantity,
@@ -26,8 +25,11 @@ from ksdft2effmass.analysis import (
 )
 from ksdft2effmass.analysis.operators import KineticPotentialDecompositionResult
 from ksdft2effmass.model_systems.visualization import (
+    BaseModelAnalysisFigure,
+    BaseModelAnalysisFigureRenderer,
+    BaseModelAnalysisPlot,
+    BaseModelAnalysisSubplot,
     BaseModelAnalysisVisualizationData,
-    BaseModelAnalysisVisualizationPlotter,
     BaseModelAnalysisVisualizer,
     ModelAnalysisPngVisualization,
 )
@@ -376,84 +378,147 @@ class Piab1dVisualization(ModelAnalysisPngVisualization[Piab1dVisualizationPlotE
         super().__post_init__()
 
 
-class _Piab1dPngPlotter(BaseModelAnalysisVisualizationPlotter):
-    """Own shared PNG mechanics for one cohesive PIAB1D plotter."""
+@dataclass(frozen=True, slots=True)
+class _Piab1dPngFigureRenderer(BaseModelAnalysisFigureRenderer):
+    """Encode one independently composed PIAB1D figure as a PNG value."""
 
-    __slots__ = ("_data", "_dpi")
-    plot: ClassVar[Piab1dVisualizationPlotEnum]
+    plot: Piab1dVisualizationPlotEnum
+    figure: BaseModelAnalysisFigure
+    dpi: int
 
-    def __init__(self, data: Piab1dVisualizationData, dpi: int) -> None:
-        if not isinstance(data, Piab1dVisualizationData):
-            raise TypeError("data must be Piab1dVisualizationData")
-        if type(dpi) is not int:
+    def __post_init__(self) -> None:
+        if not isinstance(self.plot, Piab1dVisualizationPlotEnum):
+            raise TypeError("plot must be Piab1dVisualizationPlotEnum")
+        if not isinstance(self.figure, BaseModelAnalysisFigure):
+            raise TypeError("figure must be BaseModelAnalysisFigure")
+        if type(self.dpi) is not int:
             raise TypeError("dpi must be a built-in integer")
-        if dpi <= 0:
+        if self.dpi <= 0:
             raise ValueError("dpi must be positive")
+
+    def visualize(self) -> Piab1dVisualization:
+        """Draw, encode, close, and admit the owned PIAB1D figure."""
+        return Piab1dVisualization(
+            plot=self.plot,
+            png=self._encode_png(self.figure.draw(), self.dpi),
+        )
+
+
+class _Piab1dSpectrumPlot(BaseModelAnalysisPlot):
+    """Draw continuum and represented energies with the retained cutoff."""
+
+    __slots__ = ("_data",)
+
+    def __init__(self, data: Piab1dVisualizationData) -> None:
         self._data = data
-        self._dpi = dpi
 
-    @abstractmethod
-    def visualize(self) -> Piab1dVisualization:
-        """Return the one plot owned by this cohesive plotter."""
-
-    def _visualization(self, figure: plt.Figure) -> Piab1dVisualization:
-        buffer = BytesIO()
-        try:
-            figure.savefig(buffer, format="png", dpi=self._dpi)
-        finally:
-            plt.close(figure)
-        return Piab1dVisualization(plot=self.plot, png=buffer.getvalue())
-
-
-class _SpectrumAndStatesPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.spectrum_and_states
-
-    def visualize(self) -> Piab1dVisualization:
+    def draw(self, axis: Axes) -> None:
         data = self._data
         points = data.computed_energies.magnitude.size
-        length = data.length.magnitude
-        coordinates = np.linspace(0.0, length, points + 2)[1:-1]
-        figure, axes = plt.subplots(1, 2, figsize=(10.0, 4.0), constrained_layout=True)
         mode_numbers = np.arange(1, points + 1)
-        axes[0].plot(
+        axis.plot(
             mode_numbers,
             data.continuum_energies.magnitude,
             "o-",
             label="continuum",
         )
-        axes[0].plot(
+        axis.plot(
             mode_numbers,
             data.computed_energies.magnitude,
             "s--",
             label="finite difference",
         )
-        axes[0].axvline(
+        axis.axvline(
             data.retained_dimension + 0.5,
             color="black",
             linewidth=0.8,
             linestyle=":",
         )
-        axes[0].set_xlabel("mode index")
-        axes[0].set_ylabel("nondimensional energy")
-        axes[0].set_title("PIAB1D spectrum")
-        axes[0].legend()
+
+
+class _Piab1dSpectrumSubplot(BaseModelAnalysisSubplot):
+    """Compose the spectrum plot with energy-axis presentation."""
+
+    __slots__ = ("_plot",)
+
+    def __init__(self, data: Piab1dVisualizationData) -> None:
+        self._plot = _Piab1dSpectrumPlot(data)
+
+    def draw(self, axis: Axes) -> None:
+        self._plot.draw(axis)
+        axis.set_xlabel("mode index")
+        axis.set_ylabel("nondimensional energy")
+        axis.set_title("PIAB1D spectrum")
+        axis.legend()
+
+
+class _Piab1dRetainedStatesPlot(BaseModelAnalysisPlot):
+    """Draw normalized retained eigenvectors at vertically offset levels."""
+
+    __slots__ = ("_data",)
+
+    def __init__(self, data: Piab1dVisualizationData) -> None:
+        self._data = data
+
+    def draw(self, axis: Axes) -> None:
+        data = self._data
+        points = data.computed_energies.magnitude.size
+        coordinates = np.linspace(0.0, data.length.magnitude, points + 2)[1:-1]
         for mode in range(data.retained_dimension):
             vector = data.eigenvectors.magnitude[:, mode]
             amplitude = vector / np.max(np.abs(vector))
-            axes[1].plot(coordinates, amplitude + 2.0 * mode, label=f"mode {mode + 1}")
-        axes[1].set_xlabel("position")
-        axes[1].set_ylabel("normalized amplitude + offset")
-        axes[1].set_title("Retained discrete states")
-        axes[1].legend()
-        return self._visualization(figure)
+            axis.plot(coordinates, amplitude + 2.0 * mode, label=f"mode {mode + 1}")
 
 
-class _ResidualMatricesPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.residual_matrices
+class _Piab1dRetainedStatesSubplot(BaseModelAnalysisSubplot):
+    """Compose retained-state curves with position-axis presentation."""
 
-    def visualize(self) -> Piab1dVisualization:
+    __slots__ = ("_plot",)
+
+    def __init__(self, data: Piab1dVisualizationData) -> None:
+        self._plot = _Piab1dRetainedStatesPlot(data)
+
+    def draw(self, axis: Axes) -> None:
+        self._plot.draw(axis)
+        axis.set_xlabel("position")
+        axis.set_ylabel("normalized amplitude + offset")
+        axis.set_title("Retained discrete states")
+        axis.legend()
+
+
+class _Piab1dSpectrumAndStatesFigure(BaseModelAnalysisFigure):
+    """Compose independently owned spectrum and retained-state subplots."""
+
+    __slots__ = ("_data",)
+
+    def __init__(self, data: Piab1dVisualizationData) -> None:
+        self._data = data
+
+    def draw(self) -> Figure:
+        figure, axes = plt.subplots(
+            1,
+            2,
+            figsize=(10.0, 4.0),
+            constrained_layout=True,
+        )
+        _Piab1dSpectrumSubplot(self._data).draw(axes[0])
+        _Piab1dRetainedStatesSubplot(self._data).draw(axes[1])
+        return figure
+
+
+class _Piab1dFigure(BaseModelAnalysisFigure):
+    """Bind authenticated PIAB1D data to one model-specific figure action."""
+
+    __slots__ = ("_data",)
+
+    def __init__(self, data: Piab1dVisualizationData) -> None:
+        if not isinstance(data, Piab1dVisualizationData):
+            raise TypeError("data must be Piab1dVisualizationData")
+        self._data = data
+
+
+class _ResidualMatricesFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         residuals = (
             ("consistent reduction", self._data.consistent.magnitude),
             ("embedded minus parent", self._data.unmatched.magnitude),
@@ -473,14 +538,11 @@ class _ResidualMatricesPlotter(_Piab1dPngPlotter):
         if image is None:
             raise RuntimeError("no residual matrix was rendered")
         figure.colorbar(image, ax=axes, shrink=0.8, label="matrix entry")
-        return self._visualization(figure)
+        return figure
 
 
-class _ContinuumWavefunctionLadderPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.continuum_wavefunction_ladder
-
-    def visualize(self) -> Piab1dVisualization:
+class _ContinuumWavefunctionLadderFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         data = self._data
         if data.retained_dimension != 3:
             raise ValueError("the ladder plot requires exactly three retained states")
@@ -505,7 +567,7 @@ class _ContinuumWavefunctionLadderPlotter(_Piab1dPngPlotter):
                 ha="left",
             )
         self._style_axis(axis, "Continuum eigenfunctions")
-        return self._visualization(figure)
+        return figure
 
     def _style_axis(self, axis: plt.Axes, title: str) -> None:
         axis.axvline(0.0, color="black", linewidth=1.2)
@@ -517,11 +579,8 @@ class _ContinuumWavefunctionLadderPlotter(_Piab1dPngPlotter):
         axis.spines[["top", "right"]].set_visible(False)
 
 
-class _DiscreteWavefunctionLadderPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.discrete_wavefunction_ladder
-
-    def visualize(self) -> Piab1dVisualization:
+class _DiscreteWavefunctionLadderFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         data = self._data
         if data.retained_dimension != 3:
             raise ValueError("the ladder plot requires exactly three retained states")
@@ -570,14 +629,11 @@ class _DiscreteWavefunctionLadderPlotter(_Piab1dPngPlotter):
         axis.set_ylabel("energy")
         axis.set_title(rf"Finite-grid wavefunctions ($N={points + 2}$)")
         axis.spines[["top", "right"]].set_visible(False)
-        return self._visualization(figure)
+        return figure
 
 
-class _RetainedDimensionSelectionPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.retained_dimension_selection
-
-    def visualize(self) -> Piab1dVisualization:
+class _RetainedDimensionSelectionFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         data = self._data
         dimensions = np.arange(
             1,
@@ -625,14 +681,11 @@ class _RetainedDimensionSelectionPlotter(_Piab1dPngPlotter):
         )
         axis.grid(True, which="both", alpha=0.25)
         axis.legend(frameon=False, loc="upper right")
-        return self._visualization(figure)
+        return figure
 
 
-class _ConvergenceSeriesPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.convergence_series
-
-    def visualize(self) -> Piab1dVisualization:
+class _ConvergenceSeriesFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         data = self._data
         convergence = data.convergence
         spacings = convergence.spacings.magnitude
@@ -696,14 +749,11 @@ class _ConvergenceSeriesPlotter(_Piab1dPngPlotter):
             fontsize=14,
             fontweight="bold",
         )
-        return self._visualization(figure)
+        return figure
 
 
-class _ConvergenceModeSweepPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.convergence_mode_sweep
-
-    def visualize(self) -> Piab1dVisualization:
+class _ConvergenceModeSweepFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         data = self._data
         convergence = data.convergence
         selected_indices = np.unique(
@@ -732,14 +782,11 @@ class _ConvergenceModeSweepPlotter(_Piab1dPngPlotter):
         )
         axis.grid(True, which="both", alpha=0.25)
         axis.legend(frameon=False, ncol=2)
-        return self._visualization(figure)
+        return figure
 
 
-class _HigherEigenpairSweepPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.higher_eigenpair_sweep
-
-    def visualize(self) -> Piab1dVisualization:
+class _HigherEigenpairSweepFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         sweep = self._data.eigenpair_sweep
         dimensions = sweep.definition.interior_points
         selected = np.unique(np.linspace(0, len(dimensions) - 1, 7, dtype=np.int64))
@@ -783,14 +830,11 @@ class _HigherEigenpairSweepPlotter(_Piab1dPngPlotter):
             fontsize=14,
             fontweight="bold",
         )
-        return self._visualization(figure)
+        return figure
 
 
-class _HigherModeConvergencePlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.higher_mode_convergence
-
-    def visualize(self) -> Piab1dVisualization:
+class _HigherModeConvergenceFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         sweep = self._data.eigenpair_sweep
         fixed_modes = sweep.definition.fixed_modes
         colors = plt.colormaps["tab10"](np.linspace(0.0, 0.8, len(fixed_modes)))
@@ -853,14 +897,11 @@ class _HigherModeConvergencePlotter(_Piab1dPngPlotter):
             fontsize=14,
             fontweight="bold",
         )
-        return self._visualization(figure)
+        return figure
 
 
-class _OperatorResidualNormsPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.operator_residual_norms
-
-    def visualize(self) -> Piab1dVisualization:
+class _OperatorResidualNormsFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         result = self._data.residual_norm_sweep
         points = np.asarray(result.definition.interior_points) + 2
         marker_interval = max(points.size // 12, 1)
@@ -912,14 +953,11 @@ class _OperatorResidualNormsPlotter(_Piab1dPngPlotter):
         figure.suptitle(
             "Operator residuals under canonical matrix norms", fontweight="bold"
         )
-        return self._visualization(figure)
+        return figure
 
 
-class _EigensolverResidualNormsPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.eigensolver_residual_norms
-
-    def visualize(self) -> Piab1dVisualization:
+class _EigensolverResidualNormsFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         result = self._data.residual_norm_sweep
         points = np.asarray(result.definition.interior_points) + 2
         labels = ("Frobenius", "spectral", "maximum absolute entry")
@@ -948,14 +986,11 @@ class _EigensolverResidualNormsPlotter(_Piab1dPngPlotter):
             "Solver diagnostic only—not continuum error",
             transform=axis.transAxes,
         )
-        return self._visualization(figure)
+        return figure
 
 
-class _FiniteAlgebraicDiagnosticsPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.finite_algebraic_diagnostics
-
-    def visualize(self) -> Piab1dVisualization:
+class _FiniteAlgebraicDiagnosticsFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         data = self._data.finite_algebraic_diagnostics
         points = np.asarray(data.definition.interior_points) + 2
         panels = (
@@ -1011,14 +1046,11 @@ class _FiniteAlgebraicDiagnosticsPlotter(_Piab1dPngPlotter):
             fontsize=15,
             fontweight="bold",
         )
-        return self._visualization(figure)
+        return figure
 
 
-class _KineticPotentialDecompositionPlotter(_Piab1dPngPlotter):
-    __slots__ = ()
-    plot = Piab1dVisualizationPlotEnum.kinetic_potential_decomposition
-
-    def visualize(self) -> Piab1dVisualization:
+class _KineticPotentialDecompositionFigure(_Piab1dFigure):
+    def draw(self) -> Figure:
         result = self._data.kinetic_potential_decomposition
         shift = result.alternative_potential.magnitude
         maximum = float(np.max(np.abs(shift)))
@@ -1069,13 +1101,13 @@ class _KineticPotentialDecompositionPlotter(_Piab1dPngPlotter):
             fontsize=13,
             fontweight="bold",
         )
-        return self._visualization(figure)
+        return figure
 
 
 class Piab1dVisualizer(BaseModelAnalysisVisualizer):
     """Render a typed, digest-bound PIAB1D plot inventory."""
 
-    __slots__ = ("_plotters",)
+    __slots__ = ("_renderers",)
 
     def __init__(
         self,
@@ -1110,7 +1142,7 @@ class Piab1dVisualizer(BaseModelAnalysisVisualizer):
         ValueError
             Verification failed, the data digest differs, or a DPI is not positive.
         RuntimeError
-            Plotter ownership is duplicated or does not cover all 13 enum members.
+            Renderer ownership is duplicated or does not cover all 13 enum members.
 
         Notes
         -----
@@ -1121,33 +1153,83 @@ class Piab1dVisualizer(BaseModelAnalysisVisualizer):
             raise TypeError("data must be Piab1dVisualizationData")
         if not isinstance(verification, Piab1dVerification):
             raise TypeError("verification must be Piab1dVerification")
-        if not verification.passed:
-            raise ValueError("cannot visualize a failed PIAB1D verification")
-        visualization_data_sha256 = hashlib.sha256(data.to_json()).hexdigest()
-        if verification.visualization_data_sha256 != visualization_data_sha256:
-            raise ValueError("visualization data and verification digests differ")
-        self._plotters: frozenset[_Piab1dPngPlotter] = frozenset(
-            {
-                _SpectrumAndStatesPlotter(data, summary_dpi),
-                _ResidualMatricesPlotter(data, summary_dpi),
-                _ContinuumWavefunctionLadderPlotter(data, ladder_dpi),
-                _DiscreteWavefunctionLadderPlotter(data, ladder_dpi),
-                _RetainedDimensionSelectionPlotter(data, selection_dpi),
-                _ConvergenceSeriesPlotter(data, selection_dpi),
-                _ConvergenceModeSweepPlotter(data, selection_dpi),
-                _HigherEigenpairSweepPlotter(data, selection_dpi),
-                _HigherModeConvergencePlotter(data, selection_dpi),
-                _OperatorResidualNormsPlotter(data, selection_dpi),
-                _EigensolverResidualNormsPlotter(data, selection_dpi),
-                _FiniteAlgebraicDiagnosticsPlotter(data, selection_dpi),
-                _KineticPotentialDecompositionPlotter(data, selection_dpi),
-            }
+        self._authenticate(data, verification)
+        figure_specs = (
+            (
+                Piab1dVisualizationPlotEnum.spectrum_and_states,
+                _Piab1dSpectrumAndStatesFigure(data),
+                summary_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.residual_matrices,
+                _ResidualMatricesFigure(data),
+                summary_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.continuum_wavefunction_ladder,
+                _ContinuumWavefunctionLadderFigure(data),
+                ladder_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.discrete_wavefunction_ladder,
+                _DiscreteWavefunctionLadderFigure(data),
+                ladder_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.retained_dimension_selection,
+                _RetainedDimensionSelectionFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.convergence_series,
+                _ConvergenceSeriesFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.convergence_mode_sweep,
+                _ConvergenceModeSweepFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.higher_eigenpair_sweep,
+                _HigherEigenpairSweepFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.higher_mode_convergence,
+                _HigherModeConvergenceFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.operator_residual_norms,
+                _OperatorResidualNormsFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.eigensolver_residual_norms,
+                _EigensolverResidualNormsFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.finite_algebraic_diagnostics,
+                _FiniteAlgebraicDiagnosticsFigure(data),
+                selection_dpi,
+            ),
+            (
+                Piab1dVisualizationPlotEnum.kinetic_potential_decomposition,
+                _KineticPotentialDecompositionFigure(data),
+                selection_dpi,
+            ),
         )
-        plots = {plotter.plot for plotter in self._plotters}
-        if len(plots) != len(self._plotters):
-            raise RuntimeError("PIAB1D plotters must own unique plot enum members")
+        self._renderers: frozenset[_Piab1dPngFigureRenderer] = frozenset(
+            _Piab1dPngFigureRenderer(plot=plot, figure=figure, dpi=dpi)
+            for plot, figure, dpi in figure_specs
+        )
+        plots = {renderer.plot for renderer in self._renderers}
+        if len(plots) != len(self._renderers):
+            raise RuntimeError("PIAB1D renderers must own unique plot enum members")
         if plots != set(Piab1dVisualizationPlotEnum):
-            raise RuntimeError("PIAB1D plotters must cover the closed plot inventory")
+            raise RuntimeError("PIAB1D renderers must cover the closed plot inventory")
 
     @property
     def plots(self) -> frozenset[Piab1dVisualizationPlotEnum]:
@@ -1158,7 +1240,7 @@ class Piab1dVisualizer(BaseModelAnalysisVisualizer):
         frozenset[Piab1dVisualizationPlotEnum]
             Exactly the 13 uniquely owned plot identities.
         """
-        return frozenset(plotter.plot for plotter in self._plotters)
+        return frozenset(renderer.plot for renderer in self._renderers)
 
     def visualize(self) -> frozenset[Piab1dVisualization]:
         """Render the complete authenticated PIAB1D figure set.
@@ -1171,7 +1253,7 @@ class Piab1dVisualizer(BaseModelAnalysisVisualizer):
         Raises
         ------
         RuntimeError
-            Rendered plot identities differ from the closed plotter inventory.
+            Rendered plot identities differ from the closed renderer inventory.
         ValueError
             A plot-specific precondition or PNG validation rule fails.
 
@@ -1180,9 +1262,9 @@ class Piab1dVisualizer(BaseModelAnalysisVisualizer):
         This method returns in-memory values. Atomic directory publication and hash
         manifest creation remain responsibilities of the rendering script.
         """
-        visualizations = frozenset(plotter.visualize() for plotter in self._plotters)
-        if {item.plot for item in visualizations} != set(self.plots):
-            raise RuntimeError(
-                "PIAB1D visualizations do not match the plotter inventory"
-            )
+        visualizations = frozenset(renderer.visualize() for renderer in self._renderers)
+        self._require_complete_inventory(
+            visualizations,
+            self.plots,
+        )
         return visualizations

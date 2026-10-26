@@ -22,17 +22,23 @@ finite occupation-number basis and exposes its highest-state commutator defect.
 
 .. currentmodule:: ksdft2effmass.model_systems
 
-``BaseModelSystemAnalyzer`` remains a nominal action type.
+Concrete PIAB1D and QHO1D configurations and results retain their model-specific
+fields and invariants. ``BaseModelSystemAnalyzer`` remains a nominal action type
+because model-specific operations have materially different signatures.
 ``BaseVerification`` enforces final ``to_dict``/``from_dict`` and
 ``to_json``/``from_json`` representation boundaries for every concrete verification.
 ``BaseModelAnalysisVerification`` adds the authenticated visualization-data binding.
-``BaseModelAnalysisVerifier`` owns the final derive--digest--verify composition so
-callers cannot supply projection digests.
-``BaseModelAnalysisVisualizationPlotter`` defines the operation that produces one
-immutable visualization, while ``BaseModelAnalysisVisualizer`` defines aggregate
-visualization over a unique set. ``BaseModelAnalysisVisualization`` is the nominal
-value base. Generic PNG values require a cross-platform-safe basename ending exactly
-in ``.png`` and decode the supplied bytes before admission.
+``BaseModelAnalysisVerifier`` owns subject reconstruction, subject-digest validation,
+and the final derive--digest--verify composition so callers cannot supply projection
+digests.
+
+Visualization separates four responsibilities. ``BaseModelAnalysisPlot`` draws one
+data relation on a caller-owned axis. ``BaseModelAnalysisSubplot`` composes plots and
+axis-local presentation. ``BaseModelAnalysisFigure`` chooses the subplot layout and
+figure-wide presentation. ``BaseModelAnalysisFigureRenderer`` encodes one composed
+figure as an immutable value. ``BaseModelAnalysisVisualizer`` owns the complete
+figure inventory. Generic PNG values require a cross-platform-safe basename ending
+exactly in ``.png`` and decode supplied bytes before admission.
 ``BaseModelAnalysisVisualizationData`` and ``BaseModelAnalysisVerification``
 separately fix the dictionary and JSON boundaries for immutable verification values;
 concrete values implement only their typed mapping.
@@ -46,7 +52,19 @@ concrete values implement only their typed mapping.
 .. autoclass:: BaseModelAnalysisVisualizer
    :members:
 
-.. autoclass:: BaseModelAnalysisVisualizationPlotter
+.. autoclass:: BaseModelAnalysisPlot
+   :members:
+
+.. autoclass:: BaseModelAnalysisSubplot
+   :members:
+
+.. autoclass:: BaseModelAnalysisFigure
+   :members:
+
+.. autoclass:: BaseModelAnalysisFigureRenderer
+   :members:
+
+.. autoclass:: ModelAnalysisPngFigureRenderer
    :members:
 
 .. autoclass:: BaseModelAnalysisVisualization

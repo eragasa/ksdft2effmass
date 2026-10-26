@@ -7,8 +7,8 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import ClassVar, Self
 
-from ksdft2effmass.model_systems.analysis import BaseModelAnalysisVerification
 from ksdft2effmass.model_systems.verification import (
+    BaseModelAnalysisVerification,
     VisualizationProjectionVerification,
 )
 from ksdft2effmass.serialization import SerializableValue

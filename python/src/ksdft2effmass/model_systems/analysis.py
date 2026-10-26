@@ -4,14 +4,14 @@ from __future__ import annotations
 
 import hashlib
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import final
 
-from ksdft2effmass.verification import (
-    BaseVerification,
-    CompositeVerification,
-)
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.verification import CompositeVerification
 
+from .verification import BaseModelAnalysisVerification
 from .visualization import BaseModelAnalysisVisualizationData
 
 
@@ -19,22 +19,6 @@ class BaseModelSystemAnalyzer:
     """Identify a model-system analyzer without imposing a shared operation."""
 
     __slots__ = ()
-
-
-class BaseModelAnalysisVerification(BaseVerification, ABC):
-    """Require one authenticated visualization binding for model analysis."""
-
-    __slots__ = ()
-
-    @abstractmethod
-    def authenticated_visualization_data_sha256(self) -> str:
-        """Return the authenticated visualization-data SHA-256 digest.
-
-        Returns
-        -------
-        str
-            Lowercase digest of the exact canonical projection JSON bytes.
-        """
 
 
 @dataclass(frozen=True, slots=True)
@@ -89,12 +73,65 @@ class ModelAnalysisVerificationResult[
 
 
 class BaseModelAnalysisVerifier[
+    ResultT: BaseTypedRecord,
     VerificationT: BaseModelAnalysisVerification,
     VisualizationDataT: BaseModelAnalysisVisualizationData,
 ](ABC):
-    """Derive, authenticate, and verify one model-analysis visualization projection."""
+    """Bind, verify, and authenticate one typed model-analysis result.
 
-    __slots__ = ()
+    The base owns validation of the decoded subject mapping and its exact SHA-256
+    identity. Concrete verifiers own result reconstruction, independent scientific
+    comparisons, visualization projection, and aggregate composition.
+    """
+
+    __slots__ = ("_result", "_subject_sha256")
+
+    _result: ResultT
+    _subject_sha256: str
+
+    @final
+    def __init__(
+        self,
+        *,
+        result: Mapping[str, SerializableValue],
+        subject_sha256: str,
+    ) -> None:
+        """Bind a typed decoded result to its exact subject digest.
+
+        Parameters
+        ----------
+        result
+            String-keyed mapping decoded by the shared typed JSON deserializer.
+        subject_sha256
+            Lowercase SHA-256 digest of the exact result bytes under verification.
+
+        Raises
+        ------
+        TypeError
+            ``result`` is not a mapping or a key is not a built-in string.
+        ValueError
+            The digest is malformed or concrete result reconstruction fails.
+        """
+        if not isinstance(result, Mapping):
+            raise TypeError("result must be a mapping")
+        if (
+            type(subject_sha256) is not str
+            or len(subject_sha256) != 64
+            or any(character not in "0123456789abcdef" for character in subject_sha256)
+        ):
+            raise ValueError("subject_sha256 must be a lowercase SHA-256 digest")
+        copied: dict[str, SerializableValue] = {}
+        for name, value in result.items():
+            if type(name) is not str:
+                raise TypeError("result keys must be built-in strings")
+            copied[name] = value
+        self._result = self._result_type().from_dict(copied)
+        self._subject_sha256 = subject_sha256
+
+    @classmethod
+    @abstractmethod
+    def _result_type(cls) -> type[ResultT]:
+        """Return the concrete typed root result reconstructed by the verifier."""
 
     @abstractmethod
     def _visualization_data(self) -> VisualizationDataT:
@@ -107,8 +144,11 @@ class BaseModelAnalysisVerifier[
         """Return the exact ordered reusable verification class inventory."""
 
     @abstractmethod
-    def _verification_components(self) -> tuple[CompositeVerification, ...]:
-        """Calculate reusable verification values from authoritative inputs."""
+    def _verification_components(
+        self,
+        visualization_data: VisualizationDataT,
+    ) -> tuple[CompositeVerification, ...]:
+        """Calculate verification values for the exact authenticated projection."""
 
     @abstractmethod
     def _verification(
@@ -150,7 +190,7 @@ class BaseModelAnalysisVerifier[
             visualization_data.to_json()
         ).hexdigest()
         component_types = self._verification_types()
-        components = self._verification_components()
+        components = self._verification_components(visualization_data)
         if len(components) != len(component_types) or any(
             type(component) is not component_type
             for component, component_type in zip(

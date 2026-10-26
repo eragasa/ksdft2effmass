@@ -20,7 +20,6 @@ from ksdft2effmass.model_systems.analysis import BaseModelAnalysisVerifier
 from ksdft2effmass.model_systems.verification import (
     VisualizationProjectionVerification,
 )
-from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.verification import (
     CompositeVerification,
     MaximumAbsoluteErrorComparison,
@@ -451,49 +450,20 @@ class Qho1dIndependentReferenceAnalyzer:
 
 
 class Qho1dVerifier(
-    BaseModelAnalysisVerifier[Qho1dVerification, Qho1dVisualizationData]
+    BaseModelAnalysisVerifier[
+        Qho1dCalculationResult,
+        Qho1dVerification,
+        Qho1dVisualizationData,
+    ]
 ):
     """Derive, authenticate, and independently verify one QHO1D result."""
 
-    __slots__ = ("_result", "_subject_sha256")
+    __slots__ = ()
 
-    def __init__(
-        self,
-        *,
-        result: Mapping[str, SerializableValue],
-        subject_sha256: str,
-    ) -> None:
-        """Bind a decoded typed result to its exact byte digest.
-
-        Parameters
-        ----------
-        result
-            Mapping decoded by the shared typed JSON deserializer.
-        subject_sha256
-            Lowercase SHA-256 digest of the exact result bytes.
-
-        Raises
-        ------
-        TypeError
-            ``result`` is not a string-keyed mapping.
-        ValueError
-            The digest is malformed or the result violates its typed contract.
-        """
-        if not isinstance(result, Mapping):
-            raise TypeError("result must be a mapping")
-        if (
-            type(subject_sha256) is not str
-            or len(subject_sha256) != 64
-            or any(character not in "0123456789abcdef" for character in subject_sha256)
-        ):
-            raise ValueError("subject_sha256 must be a lowercase SHA-256 digest")
-        copied: dict[str, SerializableValue] = {}
-        for name, value in result.items():
-            if type(name) is not str:
-                raise TypeError("result keys must be built-in strings")
-            copied[name] = value
-        self._result = Qho1dCalculationResult.from_dict(copied)
-        self._subject_sha256 = subject_sha256
+    @classmethod
+    def _result_type(cls) -> type[Qho1dCalculationResult]:
+        """Return the typed QHO1D root reconstructed by the shared boundary."""
+        return Qho1dCalculationResult
 
     def _visualization_data(self) -> Qho1dVisualizationData:
         return Qho1dVisualizationData(
@@ -512,9 +482,13 @@ class Qho1dVerifier(
             VisualizationProjectionVerification,
         )
 
-    def _verification_components(self) -> tuple[CompositeVerification, ...]:
+    def _verification_components(
+        self,
+        visualization_data: Qho1dVisualizationData,
+    ) -> tuple[CompositeVerification, ...]:
         reference = Qho1dIndependentReferenceAnalyzer().execute(
-            self._result, self._visualization_data()
+            self._result,
+            visualization_data,
         )
         return (
             Qho1dSpatialRepresentationVerification.evaluate(

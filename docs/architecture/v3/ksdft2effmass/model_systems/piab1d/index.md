@@ -77,7 +77,7 @@ It does not own the direct successor design.
 - One eigensolution per grid supplies every sweep family.
 - Verification reconstructs references without invoking production analyzers.
 - Rendering consumes only digest-authenticated verification output.
-- Each plot enum member has exactly one plotter.
+- Each plot enum member has exactly one figure renderer.
 - The closed rendering inventory contains 13 figures.
 - Passing checks establish software and bounded numerical behavior only.
 

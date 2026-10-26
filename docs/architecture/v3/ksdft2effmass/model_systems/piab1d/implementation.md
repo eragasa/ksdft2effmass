@@ -37,10 +37,11 @@ inventories.
 
 ## Independent verification
 
-`Piab1dVerifier` derives `Piab1dVisualizationData`, computes its SHA-256 digest, and
-then composes independent reference analyzers through
-`BaseModelAnalysisVerifier`. The verifier does not accept a caller-authored projection
-digest.
+`Piab1dVerifier` uses the final `BaseModelAnalysisVerifier` subject constructor to
+validate the exact result digest and reconstruct `Piab1dCalculationResult`. It then
+derives `Piab1dVisualizationData`, computes its SHA-256 digest, and composes
+independent reference analyzers through the shared final verification sequence. The
+verifier does not accept a caller-authored projection digest.
 
 The independent route reconstructs:
 
@@ -62,11 +63,16 @@ objects.
 
 `Piab1dVisualizer` accepts only a passing `Piab1dVerification` whose authenticated
 visualization-data digest matches the supplied typed projection. It constructs one
-cohesive plotter per `Piab1dVisualizationPlotEnum` member and checks exact equality
-between the plotter inventory and the closed enum.
+model-specific figure action and one encoding-only renderer per
+`Piab1dVisualizationPlotEnum` member, then checks exact equality between the renderer
+inventory and the closed enum. All thirteen figures are separated from PNG encoding.
+The spectrum-and-states figure additionally composes separate plot and subplot actions;
+the remaining figure actions retain their specialized internal axis composition pending
+incremental plot/subplot extraction.
 
-Every plotter returns `ModelAnalysisPngVisualization`. The PNG value decodes image
-bytes before admission and stores an exact cross-platform-safe filename. The rendering
+Every figure renderer uses the common in-memory PNG encoding and figure-closure path.
+The PNG value decodes image bytes before admission and stores an exact
+cross-platform-safe filename. The rendering
 script writes through `.figures.incomplete`, publishes the completed directory
 atomically, and records result, verification, implementation, runtime, and figure
 hashes.

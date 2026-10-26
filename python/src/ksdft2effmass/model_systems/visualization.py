@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -10,12 +11,17 @@ from io import BytesIO
 from typing import ClassVar, Self, final
 
 import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 from ksdft2effmass.serialization import (
     SerializableValue,
     TypedJsonMappingDeserializer,
     TypedJsonMappingSerializer,
 )
+
+from .verification import BaseModelAnalysisVerification
 
 
 class BaseModelAnalysisVisualization:
@@ -194,26 +200,188 @@ class BaseModelAnalysisVisualizationData(ABC):
         return cls.from_dict(values)
 
 
-class BaseModelAnalysisVisualizationPlotter(ABC):
-    """Define one cohesive model-analysis plot-rendering action."""
+class BaseModelAnalysisPlot(ABC):
+    """Draw one model-analysis data relation on a caller-owned axis.
+
+    A plot owns data-to-mark transformation only. It does not allocate a figure,
+    choose a subplot layout, authenticate inputs, or encode presentation bytes.
+    """
 
     __slots__ = ()
 
     @abstractmethod
+    def draw(self, axis: Axes) -> None:
+        """Draw one data relation without allocating a figure.
+
+        Parameters
+        ----------
+        axis
+            Caller-owned Matplotlib axis receiving the concrete data marks.
+        """
+
+
+class BaseModelAnalysisSubplot(ABC):
+    """Compose plots and axis-local presentation on one caller-owned axis.
+
+    Concrete subplots may combine any ordered set of model-specific plot actions and
+    own axis labels, limits, scales, legends, and annotations. They do not choose the
+    enclosing figure layout or encode output bytes.
+    """
+
+    __slots__ = ()
+
+    @abstractmethod
+    def draw(self, axis: Axes) -> None:
+        """Draw one complete subplot.
+
+        Parameters
+        ----------
+        axis
+            Caller-owned Matplotlib axis receiving plots and local presentation.
+        """
+
+
+class BaseModelAnalysisFigure(ABC):
+    """Allocate and compose one figure from model-analysis subplots.
+
+    The figure owner chooses layout and figure-wide presentation while remaining
+    independent of PNG encoding, filesystem publication, and authentication policy.
+    """
+
+    __slots__ = ()
+
+    @abstractmethod
+    def draw(self) -> Figure:
+        """Return one fully composed in-memory Matplotlib figure.
+
+        Returns
+        -------
+        matplotlib.figure.Figure
+            Figure with its model-specific layout, subplots, and presentation.
+        """
+
+
+class BaseModelAnalysisFigureRenderer(ABC):
+    """Encode one composed model-analysis figure as an immutable visualization."""
+
+    __slots__ = ()
+
+    @staticmethod
+    @final
+    def _encode_png(figure: Figure, dpi: int) -> bytes:
+        """Encode and close one figure through the common in-memory PNG path."""
+        if not isinstance(figure, Figure):
+            raise TypeError("figure action must return a Matplotlib Figure")
+        if type(dpi) is not int:
+            raise TypeError("dpi must be a built-in int")
+        if dpi <= 0:
+            raise ValueError("dpi must be positive")
+        output = BytesIO()
+        try:
+            figure.savefig(output, format="png", dpi=dpi)
+        finally:
+            plt.close(figure)
+        return output.getvalue()
+
+    @abstractmethod
     def visualize(self) -> BaseModelAnalysisVisualization:
-        """Render one immutable visualization value.
+        """Render and encode one immutable visualization value.
 
         Returns
         -------
         BaseModelAnalysisVisualization
-            Validated in-memory value owned by the concrete plotter.
+            Validated in-memory value owned by the concrete figure renderer.
         """
 
 
+@dataclass(frozen=True, slots=True)
+class ModelAnalysisPngFigureRenderer[PlotT: Enum](BaseModelAnalysisFigureRenderer):
+    """Encode one independently composed figure as an admitted PNG value.
+
+    Parameters
+    ----------
+    plot
+        Enum member supplying the canonical output filename.
+    figure
+        Figure action owning layout, subplots, and figure-wide presentation.
+    dpi
+        Positive built-in integer PNG resolution.
+
+    Notes
+    -----
+    The renderer owns PNG encoding and closes the figure after the attempt. It does
+    not own scientific data projection, axis content, layout, or filesystem writing.
+    """
+
+    plot: PlotT
+    figure: BaseModelAnalysisFigure
+    dpi: int
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.plot, Enum):
+            raise TypeError("plot must be an Enum member")
+        if not isinstance(self.figure, BaseModelAnalysisFigure):
+            raise TypeError("figure must be BaseModelAnalysisFigure")
+        if type(self.dpi) is not int:
+            raise TypeError("dpi must be a built-in int")
+        if self.dpi <= 0:
+            raise ValueError("dpi must be positive")
+
+    def visualize(self) -> ModelAnalysisPngVisualization[PlotT]:
+        """Draw, encode, close, and admit one PNG visualization.
+
+        Returns
+        -------
+        ModelAnalysisPngVisualization[PlotT]
+            Validated immutable PNG bytes associated with ``plot``.
+
+        Raises
+        ------
+        TypeError
+            The figure action returns a value other than a Matplotlib figure.
+        ValueError
+            The encoded bytes fail PNG admission.
+        """
+        png = self._encode_png(self.figure.draw(), self.dpi)
+        return ModelAnalysisPngVisualization(plot=self.plot, png=png)
+
+
 class BaseModelAnalysisVisualizer(ABC):
-    """Define an aggregate model-analysis visualization action."""
+    """Authenticate data and define aggregate model-analysis visualization."""
 
     __slots__ = ()
+
+    @staticmethod
+    @final
+    def _authenticate(
+        data: BaseModelAnalysisVisualizationData,
+        verification: BaseModelAnalysisVerification,
+    ) -> None:
+        """Require passing verification of the exact canonical projection bytes."""
+        if not isinstance(data, BaseModelAnalysisVisualizationData):
+            raise TypeError("data must be BaseModelAnalysisVisualizationData")
+        if not isinstance(verification, BaseModelAnalysisVerification):
+            raise TypeError("verification must be BaseModelAnalysisVerification")
+        if not verification.passed:
+            raise ValueError("visualization requires passing verification")
+        digest = hashlib.sha256(data.to_json()).hexdigest()
+        if verification.authenticated_visualization_data_sha256() != digest:
+            raise ValueError(
+                "verification authenticates different visualization data; "
+                "digests differ"
+            )
+
+    @staticmethod
+    @final
+    def _require_complete_inventory[PlotT: Enum](
+        visualizations: frozenset[ModelAnalysisPngVisualization[PlotT]],
+        expected_plots: frozenset[PlotT],
+    ) -> None:
+        """Require visualizations to cover the exact declared plot inventory."""
+        if {visualization.plot for visualization in visualizations} != expected_plots:
+            raise RuntimeError(
+                "visualization inventory differs from the declared plot inventory"
+            )
 
     @abstractmethod
     def visualize(self) -> frozenset[BaseModelAnalysisVisualization]:

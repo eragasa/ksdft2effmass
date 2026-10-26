@@ -18,6 +18,8 @@ or supported import already exists.
   objects.
 - [`serialization`](serialization/index.md): typed scientific JSON normalization and
   final record boundaries.
+- [`model_systems`](model_systems/index.md): common analysis, verification, and
+  flexible plot/subplot/figure/rendering infrastructure.
 - [`model_systems/piab1d`](model_systems/piab1d/index.md): the complete typed PIAB1D
   calculate, verify, and render vertical slice.
 - [`model_systems/qho1d`](model_systems/qho1d/index.md): the typed QHO1D spatial-

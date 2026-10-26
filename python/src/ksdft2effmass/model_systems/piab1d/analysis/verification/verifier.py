@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from typing import ClassVar
 
 from projectkoios.physkit.units import ScalarQuantity, Unitless
@@ -23,7 +22,6 @@ from ksdft2effmass.model_systems.verification import (
     QuadratureVerification,
     VisualizationProjectionVerification,
 )
-from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.verification import (
     CompositeVerification,
 )
@@ -35,11 +33,15 @@ from .values import Piab1dVerification
 
 
 class Piab1dVerifier(
-    BaseModelAnalysisVerifier[Piab1dVerification, Piab1dVisualizationData]
+    BaseModelAnalysisVerifier[
+        Piab1dCalculationResult,
+        Piab1dVerification,
+        Piab1dVisualizationData,
+    ]
 ):
     """Independently verify one decoded successor PIAB1D result mapping."""
 
-    __slots__ = ("_result", "_subject_sha256")
+    __slots__ = ()
 
     verification_inventory: ClassVar[
         tuple[tuple[type[CompositeVerification], frozenset[str]], ...]
@@ -188,50 +190,10 @@ class Piab1dVerifier(
         ),
     )
 
-    def __init__(
-        self,
-        *,
-        result: Mapping[str, SerializableValue],
-        subject_sha256: str,
-    ) -> None:
-        """Bind a typed decoded result to its exact subject digest.
-
-        Parameters
-        ----------
-        result
-            Typed mapping decoded from the calculation-result JSON bytes.
-        subject_sha256
-            Lowercase SHA-256 digest of the exact result bytes under verification.
-
-        Raises
-        ------
-        TypeError
-            ``result`` is not a string-keyed mapping or a decoded field has the wrong
-            domain type.
-        ValueError
-            The digest is malformed or the typed result violates a local or correlated
-            invariant.
-
-        Notes
-        -----
-        Construction imports no calculation script and executes no production
-        analyzer. The digest binds later verification values to exact subject bytes.
-        """
-        if not isinstance(result, Mapping):
-            raise TypeError("result must be a mapping")
-        if (
-            type(subject_sha256) is not str
-            or len(subject_sha256) != 64
-            or any(character not in "0123456789abcdef" for character in subject_sha256)
-        ):
-            raise ValueError("subject_sha256 must be a lowercase SHA-256 digest")
-        copied: dict[str, SerializableValue] = {}
-        for name, value in result.items():
-            if type(name) is not str:
-                raise TypeError("result keys must be built-in strings")
-            copied[name] = value
-        self._result = Piab1dCalculationResult.from_dict(copied)
-        self._subject_sha256 = subject_sha256
+    @classmethod
+    def _result_type(cls) -> type[Piab1dCalculationResult]:
+        """Return the typed PIAB1D root reconstructed by the shared boundary."""
+        return Piab1dCalculationResult
 
     def _visualization_data(self) -> Piab1dVisualizationData:
         """Derive the visualization projection from authoritative result sections."""
@@ -278,11 +240,14 @@ class Piab1dVerifier(
             component_type for component_type, _ in self.verification_inventory
         )
 
-    def _verification_components(self) -> tuple[CompositeVerification, ...]:
-        """Compose reusable checks from the independent PIAB1D reference."""
+    def _verification_components(
+        self,
+        visualization_data: Piab1dVisualizationData,
+    ) -> tuple[CompositeVerification, ...]:
+        """Compose reusable checks for the exact authenticated projection."""
         reference = Piab1dIndependentReferenceAnalyzer().execute(
             self._result,
-            self._visualization_data(),
+            visualization_data,
         )
         return tuple(
             component_type.evaluate(
