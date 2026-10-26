@@ -35,8 +35,11 @@ to_json → to_dict → TypedJsonMappingSerializer.serialize
 from_json → TypedJsonMappingDeserializer.deserialize → from_dict
 ```
 
-Concrete records implement `_mapping` and `_from_mapping`. QHO1D has no custom JSON
-array transport and no `.tolist()` serialization logic.
+Concrete records implement `_mapping` and `_from_mapping`. Each maintained case is
+serialized as four typed semantic sections: `representation`, `alignment`,
+`hamiltonian_comparison`, and `residual`. QHO1D has no custom JSON array transport and
+no `.tolist()` serialization logic. The earlier flat-case execution remains byte-exact
+and is decoded through its explicitly retained layout.
 
 ## Package structure
 
@@ -49,6 +52,8 @@ array transport and no `.tolist()` serialization logic.
 - `run_03_render.py` consumes only authenticated verification and publishes figures.
 - `technical_report/` owns the maintained self-contained calculation report.
 - `executions/` contains concrete unsealed or separately sealed execution directories.
+  `direct-spatial-truncation-3x3x3-sections` is the maintained semantic-section
+  execution; `direct-spatial-truncation-3x3x3` remains the earlier flat-case record.
 
 ## Mathematical comparison
 
@@ -76,14 +81,22 @@ finite-box bound. The aggregate discrepancy currently combines finite-box closur
 boundary-adjacent rows, interior discretization, finite sampled-state Gram correction,
 projection, and binary64 reconstruction.
 
+The reusable `Qho1dCrossGridAnalyzer` additionally compares adjacent coarse/fine
+pulled-back Hamiltonians at fixed box and retained dimension. Because both pullbacks
+act in the same ordered number-state coordinates, their difference is well-defined.
+Its Frobenius norm is an adjacent-representation change diagnostic, not a continuum
+error estimate or convergence rate.
+
 ## Historical development boundary
 
 The predecessor files `input.json`, `dev_analysis.py`, `dev_verification.py`,
 `dev_plots.py`, `analysis/development/`, and `development_report/` remain available for
 their existing development and report provenance. They are not used by the direct
 successor lifecycle. Removing them is a separate destructive action and is not part of
-this additive migration.
+this additive migration. Their audited maintenance and removal gates are recorded in
+`docs/architecture/v3/ksdft2effmass/model_systems/qho1d/legacy-disposition.md`.
 
-The separately retained historical package under
-`calculations/research-monograph/harmonic-oscillator/` remains an independent
-historical locator; the direct successor does not rewrite its identities.
+The historical locator
+`calculations/research-monograph/harmonic-oscillator/` remains represented by legacy
+API identities, but its calculation tree is intentionally absent. The direct successor
+does not recreate the tree or rewrite its identities.

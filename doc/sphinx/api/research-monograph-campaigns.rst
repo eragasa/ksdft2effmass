@@ -1213,12 +1213,14 @@ The canonical implementation is documented in :doc:`model-systems` and lives at
 ``ksdft2effmass.campaigns.qho1d`` package was removed rather than retained as a
 compatibility facade.
 
+The research monograph now consumes the direct typed QHO1D execution under
+``calculations/qho1d``. It no longer consumes the absent historical
+``calculations/research-monograph/harmonic-oscillator`` result or its adapters.
+
 The bounded ``ksdft2effmass.campaigns.research_monograph`` root still exposes four
-historical ``HarmonicOscillator...`` spellings because the hash-bound calculation
-adapters import exactly those names. Each is a direct alias of its canonical
-``QHO1D...`` class. New code must import the canonical owner directly. This adapter
-boundary does not imply a general dimension-neutral QHO API and does not relabel the
-retained numerical result.
+historical ``HarmonicOscillator...`` aliases pending separately authorized removal.
+They are not manuscript result owners and new code must not import them. This temporary
+compatibility boundary does not imply a dimension-neutral QHO API.
 
 Defect-2D finite-domain case inventory
 --------------------------------------

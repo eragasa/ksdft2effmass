@@ -16,6 +16,12 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
+from .case_sections import (
+    Qho1dHamiltonianComparisonResult,
+    Qho1dResidualResult,
+    Qho1dSampledStateAlignmentResult,
+    Qho1dSpatialRepresentationResult,
+)
 from .configuration import Qho1dConfiguration
 
 
@@ -93,8 +99,11 @@ class Qho1dCaseResult(BaseTypedRecord):
     diagonal_discrepancy: ScalarQuantity
     off_diagonal_discrepancy: ScalarQuantity
     residual_frobenius: ScalarQuantity
+    _wire_layout: str = "nested"
 
     def __post_init__(self) -> None:
+        if self._wire_layout not in {"flat", "nested"}:
+            raise ValueError("_wire_layout must be flat or nested")
         scalar_names = (
             "box_half_width",
             "requested_grid_spacing",
@@ -194,13 +203,116 @@ class Qho1dCaseResult(BaseTypedRecord):
             self.retained_dimension,
         )
 
+    @property
+    def representation(self) -> Qho1dSpatialRepresentationResult:
+        """Return the finite spatial-representation section."""
+        return Qho1dSpatialRepresentationResult(
+            box_half_width=self.box_half_width,
+            requested_grid_spacing=self.requested_grid_spacing,
+            grid_spacing=self.grid_spacing,
+            retained_dimension=self.retained_dimension,
+            interior_points=self.interior_points,
+            grid_coordinates=self.grid_coordinates,
+        )
+
+    @property
+    def alignment(self) -> Qho1dSampledStateAlignmentResult:
+        """Return the sampled-state coordinate-alignment section."""
+        return Qho1dSampledStateAlignmentResult(
+            injection=self.injection,
+            gram_matrix=self.gram_matrix,
+            gram_inverse_square_root=self.gram_inverse_square_root,
+            gram_deviation=self.gram_deviation,
+            gram_condition_number=self.gram_condition_number,
+            injection_isometry_error=self.injection_isometry_error,
+        )
+
+    @property
+    def hamiltonian_comparison(self) -> Qho1dHamiltonianComparisonResult:
+        """Return the common-coordinate Hamiltonian-comparison section."""
+        return Qho1dHamiltonianComparisonResult(
+            pulled_back_hamiltonian=self.pulled_back_hamiltonian,
+            reference_hamiltonian=self.reference_hamiltonian,
+            difference=self.difference,
+            absolute_discrepancy=self.absolute_discrepancy,
+            relative_discrepancy=self.relative_discrepancy,
+            diagonal_discrepancy=self.diagonal_discrepancy,
+            off_diagonal_discrepancy=self.off_diagonal_discrepancy,
+        )
+
+    @property
+    def residual(self) -> Qho1dResidualResult:
+        """Return the full-space intertwining-residual section."""
+        return Qho1dResidualResult(frobenius=self.residual_frobenius)
+
+    def _flat_mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            name: getattr(self, name)
+            for name in self.__dataclass_fields__
+            if name != "_wire_layout"
+        }
+
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        if self._wire_layout == "flat":
+            return self._flat_mapping()
+        return {
+            "representation": self.representation,
+            "alignment": self.alignment,
+            "hamiltonian_comparison": self.hamiltonian_comparison,
+            "residual": self.residual,
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        fields = set(cls.__dataclass_fields__)
-        if set(values) != fields:
+        nested_fields = {
+            "representation",
+            "alignment",
+            "hamiltonian_comparison",
+            "residual",
+        }
+        if set(values) == nested_fields:
+            representation_value = values["representation"]
+            alignment_value = values["alignment"]
+            hamiltonian_value = values["hamiltonian_comparison"]
+            residual_value = values["residual"]
+            if not isinstance(representation_value, Mapping):
+                raise TypeError("representation must decode to a mapping")
+            if not isinstance(alignment_value, Mapping):
+                raise TypeError("alignment must decode to a mapping")
+            if not isinstance(hamiltonian_value, Mapping):
+                raise TypeError("hamiltonian_comparison must decode to a mapping")
+            if not isinstance(residual_value, Mapping):
+                raise TypeError("residual must decode to a mapping")
+            representation = Qho1dSpatialRepresentationResult.from_dict(
+                representation_value
+            )
+            alignment = Qho1dSampledStateAlignmentResult.from_dict(alignment_value)
+            hamiltonian = Qho1dHamiltonianComparisonResult.from_dict(hamiltonian_value)
+            residual = Qho1dResidualResult.from_dict(residual_value)
+            return cls(
+                box_half_width=representation.box_half_width,
+                requested_grid_spacing=representation.requested_grid_spacing,
+                grid_spacing=representation.grid_spacing,
+                retained_dimension=representation.retained_dimension,
+                interior_points=representation.interior_points,
+                grid_coordinates=representation.grid_coordinates,
+                injection=alignment.injection,
+                gram_matrix=alignment.gram_matrix,
+                gram_inverse_square_root=alignment.gram_inverse_square_root,
+                pulled_back_hamiltonian=hamiltonian.pulled_back_hamiltonian,
+                reference_hamiltonian=hamiltonian.reference_hamiltonian,
+                difference=hamiltonian.difference,
+                gram_deviation=alignment.gram_deviation,
+                gram_condition_number=alignment.gram_condition_number,
+                injection_isometry_error=alignment.injection_isometry_error,
+                absolute_discrepancy=hamiltonian.absolute_discrepancy,
+                relative_discrepancy=hamiltonian.relative_discrepancy,
+                diagonal_discrepancy=hamiltonian.diagonal_discrepancy,
+                off_diagonal_discrepancy=hamiltonian.off_diagonal_discrepancy,
+                residual_frobenius=residual.frobenius,
+            )
+        flat_fields = set(cls.__dataclass_fields__) - {"_wire_layout"}
+        if set(values) != flat_fields:
             raise ValueError("QHO1D case fields do not match")
         retained_dimension = values["retained_dimension"]
         interior_points = values["interior_points"]
@@ -251,6 +363,7 @@ class Qho1dCaseResult(BaseTypedRecord):
             residual_frobenius=_decoded_quantity(
                 values, "residual_frobenius", ScalarQuantity
             ),
+            _wire_layout="flat",
         )
 
 

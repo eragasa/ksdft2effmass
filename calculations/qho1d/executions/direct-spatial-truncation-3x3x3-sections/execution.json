@@ -1,0 +1,24 @@
+{
+  "analyzer_source_path": "python/src/ksdft2effmass/model_systems/qho1d/analysis.py",
+  "analyzer_source_sha256": "c0f4f6b239ca533f4470fbde32457a472ef41943b18a63eef662e47975d1a7c1",
+  "calculation_family": "qho1d-spatial-truncation",
+  "claim_boundary": "Calculated finite-dimensional spatial-truncation comparison; not continuum convergence evidence, physical uncertainty quantification, semiconductor validation, publication acceptance, or a sealed evidence package.",
+  "configuration_path": "inputs/configuration.json",
+  "configuration_sha256": "2b766676fbad10d3dd6293c68980db66b2c83a02bd21f51b465e30c6f4dc7614",
+  "created_utc": "2026-10-26T00:02:38.656948+00:00",
+  "evidence_status": "illustrative numerical experiment",
+  "execution_id": "direct-spatial-truncation-3x3x3-sections",
+  "execution_kind": "local deterministic Python calculation",
+  "outcome": "completed",
+  "result_path": "results/result.json",
+  "result_schema": "ksdft2effmass.qho1d-calculation-result.sections.v1",
+  "result_sha256": "df3fd9f9cccf1f2cdcde200537a22064e6925498da7c738ffbfbc4bd5205e1b0",
+  "runtime": {
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6"
+  },
+  "schema_version": 1,
+  "script_path": "calculations/qho1d/run_01_calculation.py",
+  "script_sha256": "3ccf308f464f69d954e3a5691bb935ef6d9da8f8d2ae57426babceb798ae3f98",
+  "sealed": false
+}

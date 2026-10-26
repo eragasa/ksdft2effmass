@@ -55,6 +55,16 @@ class TestQho1dVerifier:
 
         assert verification_result.verification.passed
         assert len(verification_result.verification.checks) == 468
+        components = verification_result.verification.to_dict()["components"]
+        assert isinstance(components, Mapping)
+        assert set(components) == {
+            "spatial_representation",
+            "sampled_state_alignment",
+            "hamiltonian_comparison",
+            "residual",
+            "state_comparison",
+            "visualization_projection",
+        }
         assert (
             verification_result.verification.visualization_data_sha256
             == hashlib.sha256(
@@ -69,7 +79,11 @@ class TestQho1dVerifier:
         assert isinstance(cases_value, tuple)
         assert cases_value and isinstance(cases_value[0], Mapping)
         first_case: dict[str, SerializableValue] = dict(cases_value[0])
-        first_case["relative_discrepancy"] = ScalarQuantity(0.0, Unitless())
+        hamiltonian_value = first_case["hamiltonian_comparison"]
+        assert isinstance(hamiltonian_value, Mapping)
+        hamiltonian: dict[str, SerializableValue] = dict(hamiltonian_value)
+        hamiltonian["relative_discrepancy"] = ScalarQuantity(0.0, Unitless())
+        first_case["hamiltonian_comparison"] = hamiltonian
         tampered: dict[str, SerializableValue] = dict(decoded)
         tampered["cases"] = (first_case, *cases_value[1:])
 

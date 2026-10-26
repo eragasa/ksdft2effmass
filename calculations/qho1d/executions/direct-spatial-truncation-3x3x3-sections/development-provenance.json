@@ -1,0 +1,132 @@
+{
+  "schema": "ksdft2effmass.qho1d-development-provenance.v1",
+  "calculation_family": "qho1d-spatial-truncation",
+  "execution_id": "direct-spatial-truncation-3x3x3-sections",
+  "evidence_status": "retained unsealed development execution",
+  "sealed": false,
+  "generated_utc": "2026-10-26T00:12:20Z",
+  "claim_boundary": "This record correlates dirty development bytes. It is not a source seal, evidence-package seal, continuum-convergence result, scientific validation, publication, release, or human acceptance.",
+  "git": {
+    "repository": "ksdft2effmass",
+    "branch": "work/qho1d-legacy-disposition",
+    "head": "0433d9c4e20eaa99afed40f14332e49301eaf9cc",
+    "state": "dirty",
+    "qualification": "The QHO1D semantic-section source, tests, documentation, report, execution, and this record were uncommitted when this development provenance was assembled."
+  },
+  "dependencies": {
+    "lock_path": "python/uv.lock",
+    "lock_sha256": "df396cf798831fe908ffbde60d291267d72c21d1df9473dd992eb1fce5e6fb9c",
+    "optimization_revision": "2a18e485109e307b2f7928bd0418bcf796aeb0d5",
+    "physkit_revision": "9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5"
+  },
+  "calculation_result": {
+    "path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3-sections/results/result.json",
+    "schema": "ksdft2effmass.qho1d-calculation-result.sections.v1",
+    "sha256": "df3fd9f9cccf1f2cdcde200537a22064e6925498da7c738ffbfbc4bd5205e1b0",
+    "case_count": 27,
+    "scientific_field_relation": "Every typed scientific field is exactly equal to the earlier flat-case result; only semantic grouping and representation identity differ."
+  },
+  "verification": {
+    "path": "calculations/qho1d/executions/direct-spatial-truncation-3x3x3-sections/verification/verification.json",
+    "schema": "ksdft2effmass.qho1d-verification.semantic-sections.v1",
+    "sha256": "242190efbbf656a4130b7db6a2af47f82c53283d34be799536ebddcae5d9a1ba",
+    "comparison_count": 468,
+    "component_count": 6,
+    "passed": true,
+    "route": "independent SciPy Hermite evaluation and direct NumPy construction of the centered-difference Dirichlet Hamiltonian"
+  },
+  "adjacent_grid_post_analysis": {
+    "source_path": "python/src/ksdft2effmass/model_systems/qho1d/cross_grid.py",
+    "source_sha256": "761815a6959eaef010dd5ea612e876db2b3218d4d2e799de3bcc5041de7e7855",
+    "input_result_sha256": "df3fd9f9cccf1f2cdcde200537a22064e6925498da7c738ffbfbc4bd5205e1b0",
+    "comparison_count": 18,
+    "derivation_check_count": 90,
+    "passed": true,
+    "retained_artifact": false,
+    "qualification": "The maintained report presents selected values recomputed from the retained case matrices. The typed post-analysis is not embedded in or used to rewrite the calculation result and is not a continuum-error estimate."
+  },
+  "execution_artifacts": {
+    "UNSEALED.md": "0063c8ffab26f1440d076921914ab24acd3ad2be34b8a382616b8f220ab20b2f",
+    "execution.json": "666c1c87f8dc9a18ba8754a4ba5e7c8e55bc617175f94ea1f4f169422e02ffdc",
+    "inputs/configuration.json": "2b766676fbad10d3dd6293c68980db66b2c83a02bd21f51b465e30c6f4dc7614",
+    "results/result.json": "df3fd9f9cccf1f2cdcde200537a22064e6925498da7c738ffbfbc4bd5205e1b0",
+    "verification/verification.json": "242190efbbf656a4130b7db6a2af47f82c53283d34be799536ebddcae5d9a1ba",
+    "figures/rendering.json": "49c6e35024c40d5066c130080838d5e1b514889835d3d36396e3ad1ee91cc4d8",
+    "figures/qho1d-diagnostics.png": "e52b4c85edad2f2c6073924afd00e68a5f07f5fe1e72b082da885b98e5aac5fb",
+    "figures/qho1d-eigenstate-distortion.png": "85d6ee44da149d4f10f84ed89f1875899a1df770790ec139fe214646b0ff6fbf",
+    "figures/qho1d-eigenstates.png": "c204502198311b93afd1d608732d2d4cfae8322b6da657a17acfab3cda1eca4e",
+    "technical_report/README.md": "6b67b6a68638140cd9fe49bed3447ec9c75fb66a20b98e9c56eb5c27caa83b15",
+    "technical_report/references.bib": "bf2abdb9d3814ef8076abc30182bd1305a202e2b06194f71847871ef452b353a",
+    "technical_report/technical_report.tex": "339a5ed1c56ffd48e2a43c672c0b740f81b0214803264c6a917faac9cba602b7",
+    "technical_report/technical_report.pdf": "80e71530cf54f897a39c30b34ef75603029aa2dad23a86f0ab582736eed9a9b0",
+    "technical_report/qho1d-diagnostics.png": "e52b4c85edad2f2c6073924afd00e68a5f07f5fe1e72b082da885b98e5aac5fb",
+    "technical_report/qho1d-eigenstate-distortion.png": "85d6ee44da149d4f10f84ed89f1875899a1df770790ec139fe214646b0ff6fbf",
+    "technical_report/qho1d-eigenstates.png": "c204502198311b93afd1d608732d2d4cfae8322b6da657a17acfab3cda1eca4e"
+  },
+  "implementation": {
+    "calculations/qho1d/run_01_calculation.py": "3ccf308f464f69d954e3a5691bb935ef6d9da8f8d2ae57426babceb798ae3f98",
+    "calculations/qho1d/run_02_verification.py": "579b6d7c894d6cee5f338bd35548faf41588edba5484af738dceb1a87929dea9",
+    "calculations/qho1d/run_03_render.py": "0b00c2701ea4a07c06d74f52d12da25486b92b4d12bdb3593d5988a5b8507389",
+    "python/src/ksdft2effmass/model_systems/qho1d/analysis.py": "c0f4f6b239ca533f4470fbde32457a472ef41943b18a63eef662e47975d1a7c1",
+    "python/src/ksdft2effmass/model_systems/qho1d/case_sections.py": "dd3048bddb2500519376b720a5f102c4fc0bb134514dcf9a003dbd7bfc348af2",
+    "python/src/ksdft2effmass/model_systems/qho1d/comparison.py": "77cd8085e8dd09d6a29f7d228d3fc13b3c820c3efa8bcff431955b7fc19908ad",
+    "python/src/ksdft2effmass/model_systems/qho1d/configuration.py": "4f58767a3b1d4475e45c4c6494634a7d71a1db635e3edfda57a33f11e6cae553",
+    "python/src/ksdft2effmass/model_systems/qho1d/cross_grid.py": "761815a6959eaef010dd5ea612e876db2b3218d4d2e799de3bcc5041de7e7855",
+    "python/src/ksdft2effmass/model_systems/qho1d/model.py": "e0f967027bee1ec6271dec4156f0335cf6fdc38b566bb246cba2ddd63054d568",
+    "python/src/ksdft2effmass/model_systems/qho1d/result.py": "50263b45ac8e4b4bbf356a0e220dded41494d91ef1f71f8e20dd0648f91b7508",
+    "python/src/ksdft2effmass/model_systems/qho1d/verification.py": "6f71c706bc1da645a80b9100181b0aea3d8807c8925a081a84b280ad9961f21b",
+    "python/src/ksdft2effmass/model_systems/qho1d/verification_values.py": "46688a986ec9578da2860af313fccde4415cc126ef006cafcb1a80cb1a2839c3",
+    "python/src/ksdft2effmass/model_systems/qho1d/visualization.py": "9c56b9b3d65373eae629d9b7c4f77a1f790ef1339357132f92fe6b8e23615ef9"
+  },
+  "maintained_report_snapshot": {
+    "README.md": "6b67b6a68638140cd9fe49bed3447ec9c75fb66a20b98e9c56eb5c27caa83b15",
+    "technical_report.tex": "339a5ed1c56ffd48e2a43c672c0b740f81b0214803264c6a917faac9cba602b7",
+    "technical_report.pdf": "80e71530cf54f897a39c30b34ef75603029aa2dad23a86f0ab582736eed9a9b0"
+  },
+  "report_correlation": "Every execution-bound technical-report source, PDF, bibliography, README, and figure byte exactly matches its maintained report counterpart at rendering time.",
+  "checks": [
+    {
+      "command": "pytest focused QHO1D and research-monograph projection",
+      "outcome": "39 passed, 1 skipped"
+    },
+    {
+      "command": "fresh scratch calculate -> verify -> render lifecycle",
+      "outcome": "passed with 468 comparisons in 6 components and 3 figures"
+    },
+    {
+      "command": "exact scientific-field comparison against the earlier flat-case result",
+      "outcome": "all case and selected-state scientific fields exactly equal"
+    },
+    {
+      "command": "retained flat-case verification and authenticated rendering compatibility checks",
+      "outcome": "passed with 3 retained components, 468 comparisons, and 3 figures"
+    },
+    {
+      "command": "execution-bound report byte comparison",
+      "outcome": "all seven report files exactly match the maintained report snapshot"
+    },
+    {
+      "command": "ruff format --check and ruff check",
+      "outcome": "passed for 1198 files"
+    },
+    {
+      "command": "mypy QHO1D production package",
+      "outcome": "passed for 17 source files"
+    },
+    {
+      "command": "sphinx-build -W",
+      "outcome": "passed for 82 source files"
+    },
+    {
+      "command": "latexmk technical_report.tex",
+      "outcome": "built 9-page PDF without undefined citations or references"
+    }
+  ],
+  "runtime": {
+    "python": "3.14.6",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "matplotlib": "3.11.1",
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O"
+  }
+}

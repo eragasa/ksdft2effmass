@@ -28,12 +28,25 @@ For each case, production analysis:
 3. applies symmetric Gram inverse-square-root orthonormalization;
 4. constructs the injection `J` from retained coordinates to the finite grid;
 5. forms `J.T @ H_h @ J - D_K`;
-6. retains Gram, isometry, diagonal/off-diagonal, relative, and full-space residual
-   diagnostics; and
+6. groups finite geometry, sampled-state alignment, common-coordinate Hamiltonian
+   comparison, and full-space residual values into separate typed sections; and
 7. retains the selected finite eigensolution and analytical samples once.
 
 All arrays and quantities use the shared typed JSON codec. QHO1D owns no JSON array
 transport and does not call `.tolist()`.
+
+## Adjacent-grid analysis
+
+`Qho1dCrossGridAnalyzer` may derive a separate typed analysis from a direct result. At
+fixed box half-width and retained dimension, it subtracts adjacent coarse/fine
+pulled-back Hamiltonians and evaluates the canonical PhysKit Frobenius norm. The
+pulled-back matrices act in the same retained number-state coordinates even though
+the parent finite-grid matrices act in different spatial spaces.
+
+`Qho1dCrossGridVerifier` checks the derived controls, represented dimensions, and norm
+directly from the authoritative case matrices. The existing retained execution is not
+rewritten to embed this later analysis. The diagnostic measures adjacent finite-
+representation change; it is not a continuum error estimate or convergence rate.
 
 ## Independent verification
 
@@ -46,7 +59,10 @@ Verification does not invoke `Qho1dAnalyzer` or `Qho1dComparator`. It reconstruc
 - the selected finite eigensolution with explicit sign alignment.
 
 The verifier derives and hashes the exact visualization projection before composing
-operation-named comparison values.
+operation-named spatial-representation, sampled-state-alignment,
+Hamiltonian-comparison, residual, state-comparison, and visualization-projection
+verification values. The semantic-section execution retains 468 comparisons across
+those six components.
 
 ## Rendering
 
