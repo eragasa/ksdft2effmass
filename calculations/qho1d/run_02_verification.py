@@ -13,7 +13,7 @@ from ksdft2effmass.serialization import (
     TypedJsonValueCodec,
 )
 
-EXECUTION_ID = "direct-spatial-truncation-3x3x3-sections"
+EXECUTION_ID = "direct-spatial-truncation-3x3x3-physkit-norms"
 CALCULATION_FAMILY = "qho1d-spatial-truncation"
 
 script_path = Path(__file__).resolve()
@@ -48,6 +48,10 @@ if execution.get("result_schema") != (
     "ksdft2effmass.qho1d-calculation-result.sections.v1"
 ):
     raise ValueError("execution declares an unexpected result schema")
+if execution.get("matrix_norm_route") != (
+    "projectkoios.physkit.linalg.matrix.norm.FrobeniusMatrixNorm"
+):
+    raise ValueError("execution declares an unexpected matrix-norm route")
 if execution.get("configuration_path") != "inputs/configuration.json":
     raise ValueError("execution declares an unexpected configuration path")
 configuration_sha256 = hashlib.sha256(configuration_path.read_bytes()).hexdigest()

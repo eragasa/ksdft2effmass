@@ -213,7 +213,9 @@ For each case the result records
  \delta_J &= \|J^{\mathsf T}J-I\|_{\fro}.
 \end{align}
 It also records $\|\operatorname{diag}D\|_{\fro}$ and
-$\|D-\operatorname{diag}D\|_{\fro}$.  These channels distinguish normalization and
+$\|D-\operatorname{diag}D\|_{\fro}$.  Production evaluates these Frobenius quantities
+through the canonical PhysKit \code{FrobeniusMatrixNorm}; independent verification
+retains its direct NumPy route.  These channels distinguish normalization and
 common-coordinate effects from diagonal energy shifts and representation-induced
 couplings.
 
@@ -370,7 +372,8 @@ PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_02_verification.py
 PYTHONPATH=$PWD/src uv run python ../calculations/qho1d/run_03_render.py
 \end{verbatim}
 The execution is written beneath
-\code{calculations/qho1d/executions/direct-spatial-truncation-3x3x3-sections/}.  The
+\code{calculations/qho1d/executions/direct-spatial-truncation-3x3x3-physkit-norms/}.
+The
 typed result groups every case by spatial representation, sampled-state alignment,
 Hamiltonian comparison, and residual.  Its verification record, visualization
 projection, and rendering manifest bind

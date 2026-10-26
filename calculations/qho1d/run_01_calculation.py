@@ -15,7 +15,7 @@ from ksdft2effmass.model_systems.qho1d import Qho1dAnalyzer, Qho1dConfiguration
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
 # Authored scientific configuration. JSON is an output representation, not an input.
-EXECUTION_ID = "direct-spatial-truncation-3x3x3-sections"
+EXECUTION_ID = "direct-spatial-truncation-3x3x3-physkit-norms"
 CALCULATION_FAMILY = "qho1d-spatial-truncation"
 EVIDENCE_STATUS = "illustrative numerical experiment"
 CLAIM_BOUNDARY = (
@@ -84,6 +84,9 @@ execution = {
     "result_path": "results/result.json",
     "result_sha256": result_sha256,
     "result_schema": "ksdft2effmass.qho1d-calculation-result.sections.v1",
+    "matrix_norm_route": (
+        "projectkoios.physkit.linalg.matrix.norm.FrobeniusMatrixNorm"
+    ),
     "script_path": script_path.relative_to(repository_root).as_posix(),
     "script_sha256": hashlib.sha256(script_path.read_bytes()).hexdigest(),
     "analyzer_source_path": analyzer_source_locator,

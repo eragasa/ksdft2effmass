@@ -4,10 +4,11 @@ Each child directory is one concrete execution of the stable
 `qho1d-spatial-truncation` calculation family. Execution identifiers are not
 publication versions.
 
-The maintained scripts target `direct-spatial-truncation-3x3x3-sections`, whose typed
-case representation and verification inventory are grouped by scientific operation.
-The earlier `direct-spatial-truncation-3x3x3` execution remains byte-exact and
-independently qualified under its retained flat-case schema.
+The maintained scripts target `direct-spatial-truncation-3x3x3-physkit-norms`, whose
+production Frobenius diagnostics use the canonical PhysKit owner. Its typed case
+representation and verification inventory are grouped by scientific operation. The
+prior semantic-section execution and earlier flat-case execution remain byte-exact and
+independently qualified under their retained schemas.
 
 A direct execution is created by the module-scope calculate → verify → render scripts.
 Unless a later authorized seal supplies `provenance.json`, `source.sha256`,

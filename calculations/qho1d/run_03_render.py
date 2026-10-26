@@ -20,7 +20,7 @@ from ksdft2effmass.model_systems.qho1d import (
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
-EXECUTION_ID = "direct-spatial-truncation-3x3x3-sections"
+EXECUTION_ID = "direct-spatial-truncation-3x3x3-physkit-norms"
 
 script_path = Path(__file__).resolve()
 repository_root = script_path.parents[2]

@@ -13,6 +13,7 @@ regularization policy.
 from __future__ import annotations
 
 import numpy as np
+from projectkoios.physkit.linalg.matrix.norm import FrobeniusMatrixNorm
 from projectkoios.physkit.units import (
     MatrixQuantity,
     ScalarQuantity,
@@ -110,8 +111,15 @@ class Qho1dComparator:
         difference = pulled_back - reference
         diagonal = np.diag(np.diag(difference))
         off_diagonal = difference - diagonal
-        absolute = float(np.linalg.norm(difference, ord="fro"))
-        reference_scale = float(np.linalg.norm(reference, ord="fro"))
+        pulled_back_quantity = MatrixQuantity(
+            pulled_back, finite_difference_hamiltonian.unit
+        )
+        reference_quantity = MatrixQuantity(reference, ladder_hamiltonian.unit)
+        difference_quantity = MatrixQuantity(difference, ladder_hamiltonian.unit)
+        diagonal_quantity = MatrixQuantity(diagonal, ladder_hamiltonian.unit)
+        off_diagonal_quantity = MatrixQuantity(off_diagonal, ladder_hamiltonian.unit)
+        absolute = FrobeniusMatrixNorm(difference_quantity).result()
+        reference_scale = FrobeniusMatrixNorm(reference_quantity).result()
         return Qho1dComparisonResult(
             request=request,
             representation=Qho1dSpatialRepresentationResult(
@@ -128,41 +136,32 @@ class Qho1dComparator:
                 gram_inverse_square_root=MatrixQuantity(
                     gram_inverse_square_root, Unitless()
                 ),
-                gram_deviation=ScalarQuantity(
-                    float(np.linalg.norm(gram - np.eye(request.retained_dimension))),
-                    Unitless(),
-                ),
+                gram_deviation=FrobeniusMatrixNorm(
+                    MatrixQuantity(
+                        gram - np.eye(request.retained_dimension), Unitless()
+                    )
+                ).result(),
                 gram_condition_number=ScalarQuantity(
                     float(gram_eigenvalues[-1] / gram_eigenvalues[0]), Unitless()
                 ),
-                injection_isometry_error=ScalarQuantity(
-                    float(
-                        np.linalg.norm(
-                            injection.T @ injection - np.eye(request.retained_dimension)
-                        )
-                    ),
-                    Unitless(),
-                ),
+                injection_isometry_error=FrobeniusMatrixNorm(
+                    MatrixQuantity(
+                        injection.T @ injection - np.eye(request.retained_dimension),
+                        Unitless(),
+                    )
+                ).result(),
             ),
             hamiltonian_comparison=Qho1dHamiltonianComparisonResult(
-                pulled_back_hamiltonian=MatrixQuantity(
-                    pulled_back, finite_difference_hamiltonian.unit
-                ),
-                reference_hamiltonian=MatrixQuantity(
-                    reference, ladder_hamiltonian.unit
-                ),
-                difference=MatrixQuantity(difference, ladder_hamiltonian.unit),
-                absolute_discrepancy=ScalarQuantity(absolute, ladder_hamiltonian.unit),
+                pulled_back_hamiltonian=pulled_back_quantity,
+                reference_hamiltonian=reference_quantity,
+                difference=difference_quantity,
+                absolute_discrepancy=absolute,
                 relative_discrepancy=ScalarQuantity(
-                    absolute / reference_scale, Unitless()
+                    absolute.magnitude / reference_scale.magnitude, Unitless()
                 ),
-                diagonal_discrepancy=ScalarQuantity(
-                    float(np.linalg.norm(diagonal, ord="fro")),
-                    ladder_hamiltonian.unit,
-                ),
-                off_diagonal_discrepancy=ScalarQuantity(
-                    float(np.linalg.norm(off_diagonal, ord="fro")),
-                    ladder_hamiltonian.unit,
-                ),
+                diagonal_discrepancy=FrobeniusMatrixNorm(diagonal_quantity).result(),
+                off_diagonal_discrepancy=FrobeniusMatrixNorm(
+                    off_diagonal_quantity
+                ).result(),
             ),
         )

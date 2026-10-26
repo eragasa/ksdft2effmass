@@ -12,9 +12,9 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error technical_report.tex
 scientific validation, or a publication. LaTeX auxiliary products remain ignored.
 
 The local figure bytes are exact copies from the independently verified unsealed
-semantic-section execution
-`../executions/direct-spatial-truncation-3x3x3-sections/`, whose result SHA-256 is
-`df3fd9f9cccf1f2cdcde200537a22064e6925498da7c738ffbfbc4bd5205e1b0`:
+PhysKit-norm execution
+`../executions/direct-spatial-truncation-3x3x3-physkit-norms/`, whose result SHA-256 is
+`cb5469d2c4959dd6d7a9474d12252f0a32469abfbf2b54667a03bc9ab6e62e18`:
 
 | figure | SHA-256 |
 |---|---|
@@ -22,12 +22,14 @@ semantic-section execution
 | `qho1d-eigenstate-distortion.png` | `85d6ee44da149d4f10f84ed89f1875899a1df770790ec139fe214646b0ff6fbf` |
 | `qho1d-diagnostics.png` | `e52b4c85edad2f2c6073924afd00e68a5f07f5fe1e72b082da885b98e5aac5fb` |
 
-The maintained report now uses the semantic-section successor result
-`../executions/direct-spatial-truncation-3x3x3-sections/results/result.json`, SHA-256
-`df3fd9f9cccf1f2cdcde200537a22064e6925498da7c738ffbfbc4bd5205e1b0`. Its
-scientific fields are exactly equal to the earlier result; the JSON identity differs
-because cases are grouped into representation, alignment, Hamiltonian-comparison, and
-residual sections.
+The maintained report uses the semantic-section result
+`../executions/direct-spatial-truncation-3x3x3-physkit-norms/results/result.json`,
+SHA-256
+`cb5469d2c4959dd6d7a9474d12252f0a32469abfbf2b54667a03bc9ab6e62e18`.
+Its production Frobenius diagnostics use the canonical PhysKit owner. Relative to the
+prior semantic-section execution, every non-norm case array and selected-state value is
+exactly equal. Reduction-order differences affect 31 stored case metrics across seven
+fields; the largest absolute difference is `4.440892098500626e-16`.
 
 The report also evaluates the direct typed result with
 `Qho1dCrossGridAnalyzer` and `Qho1dCrossGridVerifier`. The resulting 18
@@ -35,8 +37,8 @@ adjacent-grid comparisons and 90 passing derivation checks are post-analysis of 
 retained case matrices. They are not embedded in or used to rewrite either execution,
 and they are not continuum-error estimates.
 
-The retained nine-page PDF SHA-256 is
-`80e71530cf54f897a39c30b34ef75603029aa2dad23a86f0ab582736eed9a9b0`.
+The retained ten-page PDF SHA-256 is
+`7acd12af1ed1fd170ed423049ac191a0bbffb71f9e4a13c45eadf98cac900633`.
 
 The earlier flat-case direct execution and its report snapshot beneath
 `../executions/direct-spatial-truncation-3x3x3/` remain byte-exact because the research

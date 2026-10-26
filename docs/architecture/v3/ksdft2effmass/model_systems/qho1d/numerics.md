@@ -21,7 +21,9 @@ The common-coordinate difference is
 \]
 
 All maintained successor calculations use binary64 arrays, row-major ordering,
-increasing interior coordinates, and increasing number-state order.
+increasing interior coordinates, and increasing number-state order. Production
+Frobenius diagnostics are evaluated by
+`projectkoios.physkit.linalg.matrix.norm.FrobeniusMatrixNorm`.
 
 ## Adjacent-grid diagnostic
 
@@ -53,8 +55,8 @@ continuum error estimate, convergence rate, uncertainty, or acceptance criterion
 Production analytical states use the maintained three-term recurrence. Independent
 verification evaluates `scipy.special.eval_hermite` with factorial normalization.
 Production finite Hamiltonians compose operator owners; verification constructs their
-tridiagonal entries directly. Both routes explicitly align finite-eigenvector signs to
-analytical samples before comparison.
+tridiagonal entries directly and retains direct NumPy Frobenius reductions. Both routes
+explicitly align finite-eigenvector signs to analytical samples before comparison.
 
 The verification tolerances bound software-route differences. They are not continuum
 error bars or physical uncertainty estimates.

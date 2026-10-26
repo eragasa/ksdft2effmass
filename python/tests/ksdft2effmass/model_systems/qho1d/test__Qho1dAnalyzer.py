@@ -99,6 +99,26 @@ class TestQho1dAnalyzer:
             result.selected_state_comparison.finite_wavefunctions.magnitude,
         )
 
+    def test_source__matrix_norms__separate_production_and_verification_routes(
+        self,
+    ) -> None:
+        """Production uses PhysKit while independent verification retains NumPy."""
+        source_root = Path(__file__).resolve().parents[4] / "src" / "ksdft2effmass"
+        production_paths = (
+            source_root / "model_systems" / "qho1d" / "analysis.py",
+            source_root / "model_systems" / "qho1d" / "comparison.py",
+            source_root / "model_systems" / "qho1d" / "cross_grid.py",
+        )
+        for path in production_paths:
+            source = path.read_text(encoding="utf-8")
+            assert "FrobeniusMatrixNorm" in source
+            assert "np.linalg.norm" not in source
+        verification_source = (
+            source_root / "model_systems" / "qho1d" / "verification.py"
+        ).read_text(encoding="utf-8")
+        assert "np.linalg.norm" in verification_source
+        assert "FrobeniusMatrixNorm" not in verification_source
+
     def test_source__successor_modules__contain_no_custom_json_transport(self) -> None:
         """Successor domain modules delegate array transport to shared serialization."""
         source_root = Path(__file__).resolve().parents[4] / "src" / "ksdft2effmass"
