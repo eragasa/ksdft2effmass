@@ -10,7 +10,7 @@ import numpy as np
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from .model import Qho1dNondimensionalizer, Qho1dParameters
+from .parameters import Qho1dNondimensionalizer, Qho1dParameters
 
 
 @dataclass(frozen=True, slots=True)

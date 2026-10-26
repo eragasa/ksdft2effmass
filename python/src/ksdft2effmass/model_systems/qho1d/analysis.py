@@ -17,16 +17,13 @@ from ksdft2effmass.operators import LadderOperator1D
 from ..boundary_conditions import DirichletBoundaryCondition
 from ..cartesian_grids import UniformCartesianGrid1D
 from ..intervals import DirichletInterval
+from .analytical import Qho1dAnalytical
 from .case_sections import Qho1dResidualResult
 from .comparison import Qho1dComparator
+from .comparison_records import Qho1dComparisonRequest, Qho1dComparisonResult
 from .configuration import Qho1dConfiguration
-from .model import (
-    Qho1dAnalytical,
-    Qho1dComparisonRequest,
-    Qho1dComparisonResult,
-    Qho1dFiniteDifference,
-    Qho1dLadderOperators,
-)
+from .finite_difference import Qho1dFiniteDifference
+from .ladder_operators import Qho1dLadderOperators
 from .result import (
     Qho1dCalculationResult,
     Qho1dCaseResult,

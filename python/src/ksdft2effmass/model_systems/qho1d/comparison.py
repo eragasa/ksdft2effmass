@@ -26,10 +26,7 @@ from .case_sections import (
     Qho1dSampledStateAlignmentResult,
     Qho1dSpatialRepresentationResult,
 )
-from .model import (
-    Qho1dComparisonRequest,
-    Qho1dComparisonResult,
-)
+from .comparison_records import Qho1dComparisonRequest, Qho1dComparisonResult
 
 
 class Qho1dComparator:

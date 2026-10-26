@@ -9,6 +9,7 @@ operator and makes no semiconductor-validation claim.
 """
 
 from .analysis import Qho1dAnalyzer
+from .analytical import Qho1dAnalytical
 from .case_sections import (
     Qho1dHamiltonianComparisonResult,
     Qho1dResidualResult,
@@ -16,6 +17,7 @@ from .case_sections import (
     Qho1dSpatialRepresentationResult,
 )
 from .comparison import Qho1dComparator
+from .comparison_records import Qho1dComparisonRequest, Qho1dComparisonResult
 from .configuration import Qho1dConfiguration
 from .cross_grid import (
     Qho1dCrossGridAnalysisResult,
@@ -24,15 +26,9 @@ from .cross_grid import (
     Qho1dCrossGridVerification,
     Qho1dCrossGridVerifier,
 )
-from .model import (
-    Qho1dAnalytical,
-    Qho1dComparisonRequest,
-    Qho1dComparisonResult,
-    Qho1dFiniteDifference,
-    Qho1dLadderOperators,
-    Qho1dNondimensionalizer,
-    Qho1dParameters,
-)
+from .finite_difference import Qho1dFiniteDifference
+from .ladder_operators import Qho1dLadderOperators
+from .parameters import Qho1dNondimensionalizer, Qho1dParameters
 from .result import (
     Qho1dCalculationResult,
     Qho1dCaseResult,
