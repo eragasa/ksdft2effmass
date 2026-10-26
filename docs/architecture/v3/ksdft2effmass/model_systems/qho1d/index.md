@@ -29,7 +29,11 @@ verification, PNG admission, and final representation boundaries.
 
 ```text
 model_systems/qho1d/
-├── model.py
+├── parameters.py
+├── analytical.py
+├── finite_difference.py
+├── ladder_operators.py
+├── comparison_records.py
 ├── comparison.py
 ├── configuration.py
 ├── case_sections.py
