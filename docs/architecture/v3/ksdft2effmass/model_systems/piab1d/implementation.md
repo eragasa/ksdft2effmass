@@ -37,8 +37,9 @@ inventories.
 
 ## Independent verification
 
-`Piab1dVerifier` uses the final `BaseModelAnalysisVerifier` subject constructor to
-validate the exact result digest and reconstruct `Piab1dCalculationResult`. It then
+`Piab1dVerifier` gives the final `BaseModelAnalysisVerifier` subject constructor the
+exact result bytes. The base computes their digest and reconstructs
+`Piab1dCalculationResult` from those same bytes. It then
 derives `Piab1dVisualizationData`, computes its SHA-256 digest, and composes
 independent reference analyzers through the shared final verification sequence. The
 verifier does not accept a caller-authored projection digest.

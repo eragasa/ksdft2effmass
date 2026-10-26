@@ -15,13 +15,14 @@ begins only where behavior is genuinely identical.
 
 `BaseModelAnalysisVerifier` owns the common subject boundary:
 
-1. require a string-keyed decoded typed mapping;
-2. require the exact lowercase SHA-256 identity of the subject bytes;
-3. reconstruct the model-specific root result;
-4. derive the model-specific visualization projection;
-5. hash its canonical typed JSON bytes;
-6. calculate model-specific independent verification components; and
-7. compose the model-specific aggregate verification.
+1. require the exact result wire as an immutable built-in `bytes` value;
+2. calculate its lowercase SHA-256 identity internally;
+3. deserialize those same bytes through the shared typed JSON boundary;
+4. reconstruct the model-specific root result;
+5. derive the model-specific visualization projection;
+6. hash its canonical typed JSON bytes;
+7. calculate model-specific independent verification components; and
+8. compose the model-specific aggregate verification.
 
 `BaseModelAnalysisVerification` owns digest validation, global observation-name
 uniqueness, pass reduction, flattened value and tolerance reporting, and access to the

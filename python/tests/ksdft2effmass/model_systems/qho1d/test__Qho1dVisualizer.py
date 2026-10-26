@@ -1,6 +1,5 @@
 """Authenticated-rendering tests for direct QHO1D results."""
 
-import hashlib
 from dataclasses import replace
 
 import pytest
@@ -14,7 +13,6 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dVisualizationData,
     Qho1dVisualizer,
 )
-from ksdft2effmass.serialization import TypedJsonMappingDeserializer
 
 
 class TestQho1dVisualizer:
@@ -45,10 +43,7 @@ class TestQho1dVisualizer:
             claim_boundary="test fixture; no scientific-validation claim",
         )
         wire = result.to_json()
-        return Qho1dVerifier(
-            result=TypedJsonMappingDeserializer().deserialize(wire),
-            subject_sha256=hashlib.sha256(wire).hexdigest(),
-        ).result()
+        return Qho1dVerifier(result_wire=wire).result()
 
     def test_method__visualize__returns_closed_valid_png_inventory(self) -> None:
         """Every declared plot produces one validated PNG byte value."""

@@ -13,6 +13,7 @@ from ksdft2effmass.model_systems.qho1d import (
 from ksdft2effmass.serialization import (
     SerializableValue,
     TypedJsonMappingDeserializer,
+    TypedJsonMappingSerializer,
 )
 
 
@@ -46,14 +47,15 @@ class TestQho1dVerifier:
 
     def test_method__result__passes_independent_reference_comparisons(self) -> None:
         """Independent formulas pass all sweep, state, and projection checks."""
-        wire, decoded = self.decoded_result()
+        wire, _ = self.decoded_result()
 
-        verification_result = Qho1dVerifier(
-            result=decoded,
-            subject_sha256=hashlib.sha256(wire).hexdigest(),
-        ).result()
+        verification_result = Qho1dVerifier(result_wire=wire).result()
 
         assert verification_result.verification.passed
+        assert (
+            verification_result.verification.subject_sha256
+            == hashlib.sha256(wire).hexdigest()
+        )
         assert len(verification_result.verification.checks) == 468
         components = verification_result.verification.to_dict()["components"]
         assert isinstance(components, Mapping)
@@ -74,7 +76,7 @@ class TestQho1dVerifier:
 
     def test_method__result__detects_tampered_typed_diagnostic(self) -> None:
         """A locally valid but altered discrepancy fails independent verification."""
-        wire, decoded = self.decoded_result()
+        _, decoded = self.decoded_result()
         cases_value = decoded["cases"]
         assert isinstance(cases_value, tuple)
         assert cases_value and isinstance(cases_value[0], Mapping)
@@ -87,14 +89,8 @@ class TestQho1dVerifier:
         tampered: dict[str, SerializableValue] = dict(decoded)
         tampered["cases"] = (first_case, *cases_value[1:])
 
-        verification = (
-            Qho1dVerifier(
-                result=tampered,
-                subject_sha256=hashlib.sha256(wire).hexdigest(),
-            )
-            .result()
-            .verification
-        )
+        tampered_wire = TypedJsonMappingSerializer().serialize(tampered)
+        verification = Qho1dVerifier(result_wire=tampered_wire).result().verification
 
         assert not verification.passed
         assert (

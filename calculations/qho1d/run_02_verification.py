@@ -8,10 +8,7 @@ from collections.abc import Mapping
 from pathlib import Path
 
 from ksdft2effmass.model_systems.qho1d import Qho1dVerifier
-from ksdft2effmass.serialization import (
-    TypedJsonMappingDeserializer,
-    TypedJsonValueCodec,
-)
+from ksdft2effmass.serialization import TypedJsonValueCodec
 
 EXECUTION_ID = "direct-spatial-truncation-3x3x3-physkit-norms"
 CALCULATION_FAMILY = "qho1d-spatial-truncation"
@@ -61,11 +58,7 @@ result_bytes = result_path.read_bytes()
 result_sha256 = hashlib.sha256(result_bytes).hexdigest()
 if execution.get("result_sha256") != result_sha256:
     raise ValueError("result bytes do not match execution.json")
-result = TypedJsonMappingDeserializer().deserialize(result_bytes)
-verification_result = Qho1dVerifier(
-    result=result,
-    subject_sha256=result_sha256,
-).result()
+verification_result = Qho1dVerifier(result_wire=result_bytes).result()
 verification = verification_result.verification
 verification_document = {
     "schema_version": 1,

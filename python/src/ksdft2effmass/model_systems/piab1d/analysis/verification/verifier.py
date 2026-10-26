@@ -39,7 +39,7 @@ class Piab1dVerifier(
         Piab1dVisualizationData,
     ]
 ):
-    """Independently verify one decoded successor PIAB1D result mapping."""
+    """Independently verify one exact successor PIAB1D result wire."""
 
     __slots__ = ()
 

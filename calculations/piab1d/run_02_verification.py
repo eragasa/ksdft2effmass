@@ -30,7 +30,8 @@ if not execution_path.is_file() or not result_path.is_file():
 
 codec = TypedJsonValueCodec()
 execution = codec.deserialize_bytes(execution_path.read_bytes())
-result = codec.deserialize_bytes(result_path.read_bytes())
+result_bytes = result_path.read_bytes()
+result = codec.deserialize_bytes(result_bytes)
 if not isinstance(execution, Mapping) or not isinstance(result, Mapping):
     raise TypeError("execution and result documents must decode to mappings")
 if execution.get("execution_id") != EXECUTION_ID:
@@ -43,14 +44,11 @@ if result.get("execution_id") != EXECUTION_ID:
     raise ValueError("result identity does not match the verification target")
 if result.get("calculation_family") != "piab1d-spectral-reduction":
     raise ValueError("result declares an unexpected calculation family")
-result_sha256 = hashlib.sha256(result_path.read_bytes()).hexdigest()
+result_sha256 = hashlib.sha256(result_bytes).hexdigest()
 if execution.get("result_sha256") != result_sha256:
     raise ValueError("result bytes do not match execution.json")
 
-verification_result = Piab1dVerifier(
-    result=result,
-    subject_sha256=result_sha256,
-).result()
+verification_result = Piab1dVerifier(result_wire=result_bytes).result()
 verification = verification_result.verification
 verification_document: dict[str, SerializableValue] = {
     "schema_version": 1,
