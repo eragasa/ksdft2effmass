@@ -27,7 +27,11 @@ from ksdft2effmass.campaigns.periodic_1d import (
 )
 from ksdft2effmass.integration.wannier90 import Wannier90NativeArtifact
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [
+    pytest.mark.expensive,
+    pytest.mark.integration,
+    pytest.mark.software_verification,
+]
 SUT = Periodic1DWannier90Integration
 
 

@@ -39,7 +39,11 @@ from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [
+    pytest.mark.expensive,
+    pytest.mark.integration,
+    pytest.mark.software_verification,
+]
 
 
 class TestStageCProtectedOperationContract:

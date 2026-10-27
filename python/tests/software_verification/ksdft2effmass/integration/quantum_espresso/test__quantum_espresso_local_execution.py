@@ -119,7 +119,7 @@ from ksdft2effmass.workflows import (
     TaskInstanceIdentity,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 _MAX_U64 = 18_446_744_073_709_551_615
 _TREE_MANIFEST_IDENTITY = (

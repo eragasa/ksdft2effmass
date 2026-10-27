@@ -25,7 +25,7 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCampaignJsonDecoder,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.software_verification, pytest.mark.unit]
 SUT = Periodic1DCampaignJsonDecoder
 
 

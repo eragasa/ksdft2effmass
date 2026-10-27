@@ -14,9 +14,9 @@ from ksdft2effmass.periodic2d.run import wannier90
 
 Verifier = wannier90.study.verify.Periodic2DWannier90StudyCampaignVerifier
 pytestmark = [
+    pytest.mark.expensive,
     pytest.mark.integration,
     pytest.mark.numerical_verification,
-    pytest.mark.expensive,
 ]
 
 

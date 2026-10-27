@@ -28,7 +28,11 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DWannier90CampaignWorkflowRequest,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [
+    pytest.mark.expensive,
+    pytest.mark.integration,
+    pytest.mark.software_verification,
+]
 SUT = Periodic1DWannier90CampaignWorkflow
 
 

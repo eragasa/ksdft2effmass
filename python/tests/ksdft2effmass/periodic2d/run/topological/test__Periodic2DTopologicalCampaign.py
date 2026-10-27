@@ -19,9 +19,9 @@ Periodic2DTopologicalCampaignVerifier = (
 )
 
 pytestmark = [
+    pytest.mark.expensive,
     pytest.mark.integration,
     pytest.mark.numerical_verification,
-    pytest.mark.expensive,
 ]
 
 

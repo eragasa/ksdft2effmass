@@ -20,7 +20,7 @@ from ksdft2effmass.model_systems.piab1d import (
 from ksdft2effmass.serialization import SerializableValue, TypedJsonValueCodec
 from ksdft2effmass.verification import VerificationObservation
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 SUT = "calculations/piab1d/run_03_render.py"
 
 
@@ -112,6 +112,7 @@ class TestPiab1dRenderScript:
         assert not figures.exists()
         assert not (execution / ".figures.incomplete").exists()
 
+    @pytest.mark.expensive
     def test_module__verified_result__atomically_writes_authenticated_inventory(
         self,
         tmp_path: Path,

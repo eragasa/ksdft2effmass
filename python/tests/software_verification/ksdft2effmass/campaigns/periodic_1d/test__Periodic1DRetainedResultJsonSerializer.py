@@ -31,7 +31,11 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DRetainedResultKind,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [
+    pytest.mark.expensive,
+    pytest.mark.integration,
+    pytest.mark.software_verification,
+]
 SUT = Periodic1DRetainedResultJsonSerializer
 type NestedKind = type[Periodic1DJsonArray] | type[Periodic1DJsonObject]
 RESULT_CASES = (

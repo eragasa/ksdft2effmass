@@ -11,7 +11,11 @@ from workflow import (
     HigherRankD1ScalarLedger,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [
+    pytest.mark.expensive,
+    pytest.mark.integration,
+    pytest.mark.software_verification,
+]
 
 
 class TestHigherRankD1CaseCalculator:

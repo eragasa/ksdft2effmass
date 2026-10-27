@@ -586,6 +586,7 @@ class TestWorkflowRunDispatchEntryCommitter:
         with pytest.raises(TypeError):
             service.execute("request")  # type: ignore[arg-type]
 
+    @pytest.mark.integration
     @pytest.mark.parametrize(
         "mode",
         [

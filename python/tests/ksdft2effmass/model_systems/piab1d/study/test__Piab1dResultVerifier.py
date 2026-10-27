@@ -17,7 +17,7 @@ from ksdft2effmass.model_systems.piab1d import (
     Piab1dStudyResultSerializer,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 SUT = Piab1dResultVerifier
 
 

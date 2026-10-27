@@ -7,7 +7,7 @@ from projectkoios.physkit.units import UnitSystem
 from ksdft2effmass.model_systems.piab1d import Piab1dStudyDefinition
 from ksdft2effmass.model_systems.study import ModelSystemStudySchemaId
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.software_verification, pytest.mark.unit]
 SUT = Piab1dStudyDefinition
 
 

@@ -13,7 +13,7 @@ from ksdft2effmass.model_systems.piab1d import (
 )
 from ksdft2effmass.model_systems.piab1d.study import evaluation as evaluation_module
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 SUT = Piab1dResidualStudyEvaluator
 
 

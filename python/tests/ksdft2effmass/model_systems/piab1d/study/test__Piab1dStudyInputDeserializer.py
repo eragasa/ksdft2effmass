@@ -6,7 +6,7 @@ import pytest
 
 from ksdft2effmass.model_systems.piab1d import Piab1dStudyInputDeserializer
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.software_verification, pytest.mark.unit]
 SUT = Piab1dStudyInputDeserializer
 
 
