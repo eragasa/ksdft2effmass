@@ -35,7 +35,7 @@ from ksdft2effmass.campaigns.research_monograph.citation_snapshot import (
     ResearchMonographCitationSnapshotRequest,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 SUT = ResearchMonographCitationSnapshotCompiler
 
 

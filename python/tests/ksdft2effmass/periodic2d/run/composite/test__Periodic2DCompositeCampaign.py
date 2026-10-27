@@ -15,9 +15,9 @@ from ksdft2effmass.periodic2d.run.composite.verify import (
 )
 
 pytestmark = [
+    pytest.mark.expensive,
     pytest.mark.integration,
     pytest.mark.numerical_verification,
-    pytest.mark.expensive,
 ]
 
 

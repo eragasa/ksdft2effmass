@@ -16,9 +16,9 @@ from ksdft2effmass.periodic2d.run.topological import (
 
 Verifier = phase_sweep.verify.Periodic2DTopologicalPhaseSweepCampaignVerifier
 pytestmark = [
+    pytest.mark.expensive,
     pytest.mark.integration,
     pytest.mark.numerical_verification,
-    pytest.mark.expensive,
 ]
 
 

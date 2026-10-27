@@ -16,7 +16,7 @@ import pytest
 from ksdft2effmass.model_systems.qho1d import Qho1dVerification
 from ksdft2effmass.serialization import SerializableValue, TypedJsonValueCodec
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 class TestQho1dDirectScripts:

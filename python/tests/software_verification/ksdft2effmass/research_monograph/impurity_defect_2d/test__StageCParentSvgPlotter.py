@@ -39,7 +39,11 @@ from ksdft2effmass.campaigns.research_monograph.impurity_defect_2d import (
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [
+    pytest.mark.expensive,
+    pytest.mark.integration,
+    pytest.mark.software_verification,
+]
 SUT = StageCParentSvgPlotter
 
 

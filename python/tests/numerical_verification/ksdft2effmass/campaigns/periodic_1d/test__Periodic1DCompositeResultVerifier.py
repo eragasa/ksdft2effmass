@@ -40,7 +40,11 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCompositeVerificationRequest,
 )
 
-pytestmark = pytest.mark.numerical_verification
+pytestmark = [
+    pytest.mark.expensive,
+    pytest.mark.integration,
+    pytest.mark.numerical_verification,
+]
 SUT = Periodic1DCompositeResultVerifier
 
 

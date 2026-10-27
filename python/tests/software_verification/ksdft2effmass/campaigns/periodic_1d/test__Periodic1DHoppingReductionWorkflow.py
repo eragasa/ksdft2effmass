@@ -35,7 +35,7 @@ from ksdft2effmass.solidstate import (
     ReciprocalOperatorSamples1D,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 SUT = Periodic1DHoppingReductionWorkflow
 
 

@@ -42,7 +42,7 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[6]
 PYTHON_ROOT = REPO_ROOT / "python"
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 EXPECTED_WHEEL_MODULES = {
     "ksdft2effmass/provenance/__init__.py",
