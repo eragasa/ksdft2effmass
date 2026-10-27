@@ -8,28 +8,32 @@ bytes to change.
 ## Experiment-tree migration
 
 - [x] Assign all 65 tracked files under `experiments/periodic-reduction/single-band-fourier-reduction/` to this calculation owner.
-- [ ] Create a file-by-file experiment → calculation destination/digest crosswalk.
-- [ ] Migrate every protocol, schema, script, source, test, run, and evidence file not already byte-identical here.
-- [ ] Update every maintained consumer to the calculation path.
-- [ ] Prove no maintained code, test, documentation, publication, or build depends on the experiment path.
-- [ ] Remove the experiment files only after exact parity, predecessor recovery, and separate authorization.
+- [x] Create a file-by-file experiment → calculation destination/digest crosswalk in [`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md) and [`experiment-migration-manifest.json`](experiment-migration-manifest.json).
+- [x] Confirm that all 65 files have destinations or explicit dispositions: 53 exact duplicates, 10 adapted or integrated successors, and two provenance-only environment donors.
+- [x] Complete consumer migration before treating the destination set as removal-ready.
+- [x] Update every maintained consumer to the calculation path while preserving artifact digests and evidence-package identity.
+- [x] Prove no maintained code, test, documentation, publication, or build depends on the experiment path; remaining occurrences are qualified migration or immutable provenance records.
+- [x] Remove exactly the 65 manifest-bound experiment files after exact parity, predecessor recovery, and separate operator authorization.
 
 ## Inventory and preservation
 
 - [x] Enumerate the four immutable `v1` executions and their dispositions.
 - [x] Identify the calculation-root and experiment-root filesystem surfaces.
-- [x] Identify the retained schemas, execution-source copy, manifests, reports, and figures.
-- [ ] Record a file-by-file digest crosswalk between the two live filesystem surfaces.
-- [ ] Record every publication manifest that consumes the publication-facing run.
-- [ ] Verify every retained evidence-package identity and checksum catalog without rewriting files.
-- [ ] Bind predecessor recovery paths and Git revisions in the successor design.
+- [x] Identify the retained schemas, execution-source surfaces, manifests, reports, and figures.
+- [x] Record a file-by-file digest crosswalk between the two live filesystem surfaces.
+- [x] Record both publication manifests and every maintained path consumer in [`experiment-removal-readiness.md`](experiment-removal-readiness.md).
+- [x] Verify all eight retained evidence-package copies, identities, and checksum catalogs without rewriting files.
+- [x] Bind the predecessor revision, tree, path, and recorded digests to direct Git-object recovery.
+- [x] Reconcile the maintained package verifier with Git-bound predecessor recovery without restoring the removed predecessor tree or changing retained bytes.
+- [x] Complete the non-destructive removal review in [`experiment-removal-readiness.md`](experiment-removal-readiness.md).
 
 ## Maintained ownership
 
-- [ ] Map each calculation-local source class to its maintained owner or mark it evidence-only.
-- [ ] Prove that maintained code does not import `calculations/mathieu1d/src/`.
-- [ ] Reconcile the current input and direct scripts with `ksdft2effmass.model_systems.mathieu1d.study`.
-- [ ] Remove no duplicate or retained surface without separate authorization.
+- [x] Map each calculation-local source class to its maintained owner and classify the local package as adapted historical audit support.
+- [x] Prove that maintained source, package tests, and calculation entry points do not import `calculations/mathieu1d/src/`.
+- [x] Confirm that `input.json` and `run_01_experiment.py` use `ksdft2effmass.model_systems.mathieu1d.study`; keep the retained-run identity separate from a future direct successor.
+- [x] Remove the duplicate calculation-local dependency authority, use the repository Python environment, and align the live-revision test without altering retained provenance identities.
+- [x] Remove no other duplicate or retained surface; the exact donor removal was separately authorized and left calculation-owned retained bytes unchanged.
 
 ## Direct successor lifecycle
 

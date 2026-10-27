@@ -1,12 +1,13 @@
-#!/usr/bin/env python3
 """Verify retained package bytes, strict schemas, and bound predecessor identities."""
 
 from __future__ import annotations
 
 import hashlib
 import json
+import re
+import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
@@ -24,6 +25,44 @@ EXPECTED_PHYSKIT_REVISION = "62ee89870db74b7b8b374c42add72701fd95d3a4"
 def sha256(path: Path) -> str:
     """Return one lowercase SHA-256 digest."""
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def sha256_bytes(wire: bytes) -> str:
+    """Return the lowercase SHA-256 digest of immutable bytes."""
+    return hashlib.sha256(wire).hexdigest()
+
+
+def git_object(repository: Path, revision: str, relative_path: str) -> bytes:
+    """Read one blob from an exact Git revision without restoring it."""
+    if re.fullmatch(r"[0-9a-f]{40}", revision) is None:
+        raise ValueError("historical predecessor revision must be a full Git object ID")
+    path = PurePosixPath(relative_path)
+    if path.is_absolute() or ".." in path.parts or str(path) in {"", "."}:
+        raise ValueError("historical predecessor path must be repository-relative")
+    completed = subprocess.run(
+        ("git", "-C", str(repository), "cat-file", "blob", f"{revision}:{path}"),
+        check=True,
+        capture_output=True,
+    )
+    return completed.stdout
+
+
+def git_tree_identity(repository: Path, revision: str, relative_path: str) -> str:
+    """Return the exact Git tree identity for one historical path."""
+    if re.fullmatch(r"[0-9a-f]{40}", revision) is None:
+        raise ValueError("historical predecessor revision must be a full Git object ID")
+    path = PurePosixPath(relative_path)
+    if path.is_absolute() or ".." in path.parts or str(path) in {"", "."}:
+        raise ValueError("historical predecessor path must be repository-relative")
+    completed = subprocess.run(
+        ("git", "-C", str(repository), "rev-parse", f"{revision}:{path}"),
+        check=True,
+        capture_output=True,
+    )
+    identity = completed.stdout.decode("ascii").strip()
+    if re.fullmatch(r"[0-9a-f]{40}", identity) is None:
+        raise ValueError("historical predecessor tree has an invalid Git object ID")
+    return identity
 
 
 def canonical(document: dict[str, JsonValue]) -> bytes:
@@ -125,19 +164,41 @@ def main() -> int:
     predecessor = provenance.get("historical_predecessor")
     if not isinstance(predecessor, dict):
         raise TypeError("historical_predecessor must be a dict")
+    predecessor_revision = predecessor.get("git_revision")
+    predecessor_tree = predecessor.get("git_tree")
     predecessor_path = predecessor.get("repository_relative_path")
     predecessor_digests = predecessor.get("sha256")
+    if not isinstance(predecessor_revision, str) or not isinstance(
+        predecessor_tree, str
+    ):
+        raise TypeError("historical predecessor revision and tree are required")
     if not isinstance(predecessor_path, str) or not isinstance(
         predecessor_digests, dict
     ):
         raise TypeError("historical predecessor path and digests are required")
+    if (
+        git_tree_identity(repository, predecessor_revision, predecessor_path)
+        != predecessor_tree
+    ):
+        raise ValueError("historical predecessor Git tree changed")
     for predecessor_filename, predecessor_digest in predecessor_digests.items():
-        if not isinstance(predecessor_digest, str):
-            raise TypeError("historical predecessor digest entries must be strings")
-        if (
-            sha256(repository / predecessor_path / predecessor_filename)
-            != predecessor_digest
+        if not isinstance(predecessor_filename, str) or not isinstance(
+            predecessor_digest, str
         ):
+            raise TypeError("historical predecessor digest entries must be strings")
+        predecessor_basename = PurePosixPath(predecessor_filename)
+        if len(predecessor_basename.parts) != 1 or str(predecessor_basename) in {
+            "",
+            ".",
+            "..",
+        }:
+            raise ValueError("historical predecessor filenames must be basenames")
+        wire = git_object(
+            repository,
+            predecessor_revision,
+            f"{predecessor_path}/{predecessor_filename}",
+        )
+        if sha256_bytes(wire) != predecessor_digest:
             raise ValueError(f"historical predecessor changed: {predecessor_filename}")
 
     print(RUN_ID)

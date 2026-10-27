@@ -28,7 +28,6 @@ from run_01_experiment import (
     EXPECTED_PHYSKIT_REVISION,
     installed_vcs_commit,
 )
-
 from single_band_fourier_reduction import (
     EXPERIMENT_FAMILY_ID,
     EXPERIMENT_IDENTITY,
@@ -43,8 +42,8 @@ from single_band_fourier_reduction import (
 
 pytestmark = pytest.mark.software_verification
 
-_LIVE_OPTIMIZATION_REVISION = "3cd32ea8985a855bcdbaffbf89af95e970b3bf14"
-_LIVE_PHYSKIT_REVISION = "2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439"
+_LIVE_OPTIMIZATION_REVISION = "2a18e485109e307b2f7928bd0418bcf796aeb0d5"
+_LIVE_PHYSKIT_REVISION = "9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5"
 
 
 class TestSingleBandFourierReductionExperiment:

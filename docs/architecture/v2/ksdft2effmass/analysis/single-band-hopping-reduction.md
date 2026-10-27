@@ -55,21 +55,21 @@ reconstructs domain diagnostics. The Workflow exposes no owner-neutral solver
 interface and contains no second `lstsq` implementation.
 
 The live reviewed owner dependencies are pinned to Optimization commit
-`3cd32ea8985a855bcdbaffbf89af95e970b3bf14` and synchronized PhysKit commit
-`2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439` in `python/pyproject.toml` and
+`2a18e485109e307b2f7928bd0418bcf796aeb0d5` and synchronized PhysKit commit
+`9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5` in `python/pyproject.toml` and
 `python/uv.lock`. Immutable version-one retained-run provenance preserves the exact
 revisions used by that execution independently of the advancing live lock. Owner
 qualification and adapter verification remain distinct from KSD scientific validation.
 
 ## Experiment boundary
 
-The first consumer is
+The maintained calculation consumer is
 
 ```text
-experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/
+calculations/mathieu1d/
 ```
 
-That experiment owns the finite Fourier parent, represented-reference sweeps, retained
+That calculation owns the finite Fourier parent, represented-reference sweeps, retained
 band and sampled-gap calculation, disjoint sample-role policy, fitting weights, ranges,
 and future protocol/evidence interpretation. The installed package never imports the
 experiment.

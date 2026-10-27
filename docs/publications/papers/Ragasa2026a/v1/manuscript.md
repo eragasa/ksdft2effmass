@@ -382,7 +382,7 @@ $1.753\times10^{-2}E_G$ at 31 points
 to $2.598\times10^{-4}E_G$ at 255 points. Supplementary Appendix S2 records the
 complete frozen sequences and their interpretation boundary.
 
-![One-dimensional controlled reduction.](../../../../../experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png)
+![One-dimensional controlled reduction.](../../../../../calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png)
 
 **Figure 1.** Frozen parent-representation refinement, complete hopping decay, and
 finite-range training/withheld maximum errors for the controlled 1D model.
