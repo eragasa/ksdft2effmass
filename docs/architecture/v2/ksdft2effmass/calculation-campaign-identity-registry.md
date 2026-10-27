@@ -264,11 +264,13 @@ behavior is isolated as a regression fixture with exact source-evidence locators
 cannot determine maintained scientific controls. No maintained run or evidence-package
 identity exists yet.
 
-## Maintained layout and version retention
+## Migration-baseline layout and version retention
 
-The maintained tree contains publication-independent experiment and reference material
-outside the installed source tree. Periodic-reduction experiments use a family-first,
-dimension-second layout:
+At broad periodic-migration baseline
+`40c84109bfd49718f1519f9bfd298f5ef90ddac0`, the source tree contained
+publication-independent experiment and reference material outside the installed source
+tree. The following family-first, dimension-second schematic is a migration locator,
+not a claim that every listed donor remains present at the current revision:
 
 ```text
 experiments/
@@ -290,12 +292,15 @@ The organizational family directories do not erase the dimension from stable exp
 identities. Dimensional children and future domains such as `defect-extraction/` are
 added only after their own maintained contracts exist; no empty placeholders are
 maintained. Literature PDFs or other local reference caches are not experiment-family
-roots.
+roots. The periodic-1D band-equivalence donor shown in the schematic was removed after
+its calculation-side owner closed a 35-file manifest and received separate operator
+authorization; its predecessor remains Git-recoverable from
+`011eee90f7be30770dd5fb2db844fe35633755fc`.
 
-The present `calculations/` paths remain historical locators until every migration gate
-below passes. `experiments/` must not become an uncorrelated duplicate tree: a successor
-is admitted only with an explicit alias, version, run, evidence, and replacement
-relation to every prior maintained path.
+Current `calculations/` paths are maintained owners as recorded in
+`calculations/README.md`. Baseline experiment paths become exact historical locators as
+each distributed migration closes. A successor is admitted only with an explicit alias,
+version, run, evidence, and replacement relation to every prior maintained path.
 
 There is no `legacy/`, `historical/`, or publication-specific experiment store in the
 maintained tree. Git history is the legacy store. When an exploratory or superseded

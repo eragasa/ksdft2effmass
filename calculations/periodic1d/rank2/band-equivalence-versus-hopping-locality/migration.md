@@ -23,18 +23,20 @@ and reproduction paths agree with the canonical owner.
 - [x] Redirect maintained consumers of existing tracked inputs and figures to calculation-owned paths.
 - [x] Migrate every analysis script, table, narrative, and figure into the calculation package or mark it provenance-only.
 - [x] Audit the five unresolved Ragasa2026a figure inputs and their local dirty source graph in [`publication-input-recovery-audit.md`](publication-input-recovery-audit.md).
-- [x] Complete the operator-authorized full-source recovery tranche and bind its exact/adapted destinations in [`recovered-development-source-manifest.json`](recovered-development-source-manifest.json).
+- [x] Complete the operator-authorized full-source recovery tranche and bind its exact/adapted/source-only dispositions in [`recovered-development-source-manifest.json`](recovered-development-source-manifest.json).
+- [x] Bind every remaining experiment file to an exact, superseded, adapted, or provenance-only removal disposition in [`experiment-removal-manifest.json`](experiment-removal-manifest.json).
 - [x] Prove no maintained consumer depends on the experiment path; repository search leaves only explicit immutable historical locators, not runtime, build, or publication inputs.
-- [ ] Remove experiment files only after parity, predecessor recovery, and separate authorization.
+- [x] Complete the non-destructive technical review in [`experiment-removal-readiness.md`](experiment-removal-readiness.md).
+- [x] Remove exactly the 35 manifest-bound experiment files after separate operator authorization; no other periodic-1D family was removed.
 
 ## Inventory and protocol
 
 - [x] Inventory flat, nonflat, parent-family, truncation, refinement, and rendering channels.
-- [x] Identify the calculation-local `workflow/` and parallel maintained experiment surface.
+- [x] Identify the calculation-local `workflow/` and baseline experiment donor surface.
 - [x] Record the direct flat analytic rule, pointwise nonflat scope, dense-cutoff refinement result, and remaining retained-lifecycle gates.
-- [ ] Create a path, class, schema, and artifact crosswalk for every nested channel.
-- [ ] Resolve which protocol document is authoritative for each channel.
-- [ ] Crosswalk historical M2 and monograph composite donors by exact revision and digest.
+- [x] Create a path, class, schema, and artifact crosswalk for every nested channel in [`nested-channel-crosswalk.md`](nested-channel-crosswalk.md).
+- [x] Resolve protocol authority and conflict rules in [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md).
+- [x] Crosswalk historical M2, monograph-composite, and finite-angle regression donors by exact revision, Git tree, selected digest, and restoration role.
 
 ## Source ownership
 
@@ -42,7 +44,7 @@ and reproduction paths agree with the canonical owner.
 - [ ] Obtain separate authorization before activating pandas as a direct project dependency; the recovered donor manifests are digest-bound but not activated.
 - [ ] Keep the four-state model, meshes, amplitudes, thresholds, and channel inventory family-owned.
 - [ ] Replace calculation-local serialization with canonical typed records without a compatibility facade.
-- [ ] Remove no parallel experiment script or development artifact until parity and authorization are recorded.
+- [x] Record parity and predecessor dispositions for every parallel experiment script and development artifact; physical removal remains separately gated above.
 
 ## Direct lifecycle
 
