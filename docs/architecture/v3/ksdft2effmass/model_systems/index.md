@@ -72,6 +72,19 @@ of plotting and validates the encoded image container only.
 - Refactoring presentation code does not establish scientific validation or visual
   equivalence unless an explicit comparison says so.
 
+## Periodic1D relationship
+
+`model_systems.periodic_1d` owns unit-aware finite Fourier potentials and plane-wave or
+periodic finite-difference fiber construction. `model_systems.mathieu1d` owns the
+concrete Mathieu model. Neither is a generic campaign or a substitute for the
+scientifically distinct scalar, composite, admissible-set, and higher-rank families
+owned by `ksdft2effmass.periodic1d` and their calculation roots.
+
+The [Periodic1D rewrite plan](../periodic1d/index.md) may reuse the common byte-owning
+verification and flexible visualization behavior described here. It does not add a
+`model_systems.periodic1d` alias, move lattice behavior out of PhysKit, or impose a
+universal periodic result record.
+
 ## Implemented children
 
 - [PIAB1D](piab1d/index.md)

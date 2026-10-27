@@ -18,7 +18,7 @@ explicitly labeled and do not claim implemented or supported source.
 | `model_systems` | Controlled physical and mathematical systems, shared finite-domain geometry, exact solutions, finite representations, and model-specific comparisons | General-purpose analysis, campaign authority, or external-tool integration |
 | `analysis` | Calculator-independent scientific analyses, model-adequacy calculations, and quantities of interest | Model definitions, campaign orchestration, native file formats, or execution authority |
 | `campaigns` | Project-specific composition of declared inputs, analyses, verification, retained results, and campaign serialization | Reusable mathematics already owned by `operators`, `solidstate`, or `analysis` |
-| `periodic1d` and `periodic2d` | Existing dimension-specific controlled-model capabilities and their established public APIs | Generic operator, lattice, workflow, or provenance infrastructure |
+| `periodic1d` and `periodic2d` | Dimension-specific controlled-model capabilities and deliberate family APIs; the prospective Periodic1D direct-lifecycle rewrite is documented in the source mirror | Generic operator, lattice, workflow, provenance infrastructure, or a universal scientific result layout |
 | `periodic` | The existing periodic-model hierarchy, toy-model catalog, and explicitly transitional imports | New representation or transformation frameworks |
 | `calculators` | Calculator-facing requests and calculator-independent execution contracts | Native-format decoding or campaign acceptance policy |
 | `integration` | Native calculator/file-format adapters such as Quantum ESPRESSO and Wannier90 integration | Generic scientific analysis or workflow policy |
@@ -53,7 +53,10 @@ There is no top-level `campaigns/` source tree. In repository documentation,
 
 The QHO1D and PIAB1D vertical slices are owned directly by
 `model_systems/qho1d/` and `model_systems/piab1d/`. Both successors use typed root
-records, independent reference analyzers, and authenticated visualization data. QHO1D's
+records, independent reference analyzers, and authenticated visualization data. The
+[Periodic1D rewrite plan](ksdft2effmass/periodic1d/index.md) adopts those behavioral
+boundaries family by family while keeping scalar, composite, admissible-set, and
+higher-rank scientific families separate. QHO1D's
 former JSON-authored `study/` predecessor was removed after migration; PIAB1D retains
 its own historical study contracts. `model_systems/study/base.py` defines the nominal
 identity boundary still consumed by retained non-QHO serializers. `QHO1D` and `Piab1d`

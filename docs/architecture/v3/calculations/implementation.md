@@ -188,6 +188,22 @@ The complete source architecture is documented at
 The retained flat PIAB1D artifacts remain historical. Successor execution retention,
 checksum updates, sealing, and evidence promotion remain separate authorized actions.
 
+### Prospective Periodic1D direct lifecycles
+
+The [Periodic1D Architecture v3 plan](../ksdft2effmass/periodic1d/index.md) applies the
+same direct calculate → verify → render behavior to eight separate studies: Mathieu1D,
+the compatible rank-one null control, rank-two band-equivalence locality, rank-two
+composite alignment, confirmatory constrained admissible sets, the minimal scalar/direct
+admissible-set demonstration, post-hoc threshold sensitivity, and higher-rank composite
+alignment. These are separate calculation records, not stages or versions of one
+universal Periodic1D execution.
+
+Each selected family receives concrete typed records, a byte-owning independent
+verifier, an authenticated family-specific visualization projection, and its own closed
+rendering inventory. Shared mechanics do not imply shared scientific inputs, result
+wires, tolerances, evidence policies, or claims. No direct Periodic1D successor is
+claimed implemented by this prospective section.
+
 ### `run_04_seal.py`
 
 The seal stage is the sole writer of the final checksum catalog and evidence-package
