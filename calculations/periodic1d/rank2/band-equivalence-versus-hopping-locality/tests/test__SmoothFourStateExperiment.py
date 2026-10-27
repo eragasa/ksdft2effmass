@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import math
 from dataclasses import replace
+from pathlib import Path
 
 import numpy as np
 import pytest
-from workflow import (
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
+from workflow import canonical_json_bytes
+from workflow.nonflat import (
     SmoothFourStateAdaptiveAmplitudeDefinition,
     SmoothFourStateAdaptiveAmplitudeExperiment,
     SmoothFourStateAmplitudeThresholds,
@@ -17,11 +22,15 @@ from workflow import (
     SmoothFourStateConvergenceThresholds,
     SmoothFourStateDefinition,
     SmoothFourStateExperiment,
+    SmoothFourStateInputSerializer,
     SmoothFourStateParentFamilyDefinition,
     SmoothFourStateParentFamilyExperiment,
     SmoothFourStateParentFamilyVerifier,
+    SmoothFourStateResultSerializer,
+    SmoothFourStateVerificationSerializer,
     SmoothFourStateVerifier,
 )
+from workflow.serialization import JsonValue
 
 pytestmark = pytest.mark.software_verification
 
@@ -42,6 +51,16 @@ class TestSmoothFourStateExperiment:
             verification_absolute_tolerance=1.0e-10,
             parent_hopping_scale=1.0,
         )
+
+    @staticmethod
+    def _mapping(value: JsonValue, name: str) -> dict[str, JsonValue]:
+        if type(value) is not dict:
+            raise TypeError(f"{name} must be a mapping")
+        return value
+
+    @staticmethod
+    def _experiment_root() -> Path:
+        return Path(__file__).resolve().parents[1]
 
     @staticmethod
     def _thresholds(parent_change: float) -> SmoothFourStateConvergenceThresholds:
@@ -161,6 +180,48 @@ class TestSmoothFourStateExperiment:
             ),
         )
         assert not SmoothFourStateVerifier().execute(tampered_harmonic).passes
+
+    def test_serialization__is_strict_canonical_and_digest_bound(self) -> None:
+        result = SmoothFourStateExperiment().execute(self._definition())
+        verification = SmoothFourStateVerifier().execute(result)
+        input_wire = SmoothFourStateInputSerializer().serialize(result.definition)
+        result_wire = SmoothFourStateResultSerializer().serialize(result)
+        verification_wire = SmoothFourStateVerificationSerializer().serialize(
+            verification
+        )
+        records = (
+            (input_wire, "nonflat-input.schema.json"),
+            (result_wire, "nonflat-result.schema.json"),
+            (verification_wire, "nonflat-verification.schema.json"),
+        )
+        documents: list[dict[str, JsonValue]] = []
+        for wire, filename in records:
+            document_value: JsonValue = json.loads(wire)
+            document = self._mapping(document_value, "serialized document")
+            documents.append(document)
+            assert canonical_json_bytes(document) == wire
+            schema_value: JsonValue = json.loads(
+                (
+                    self._experiment_root() / "workflow" / "schema_documents" / filename
+                ).read_text(encoding="utf-8")
+            )
+            schema = self._mapping(schema_value, "schema")
+            Draft202012Validator.check_schema(schema)
+            validator = Draft202012Validator(schema)
+            assert validator.is_valid(document)
+            changed_value: JsonValue = json.loads(json.dumps(document))
+            changed = self._mapping(changed_value, "changed document")
+            changed["unknown"] = True
+            assert not validator.is_valid(changed)
+
+        input_binding = self._mapping(documents[1]["input_binding"], "input binding")
+        result_binding = self._mapping(documents[2]["result_binding"], "result binding")
+        assert input_binding["sha256"] == hashlib.sha256(input_wire).hexdigest()
+        assert result_binding["sha256"] == hashlib.sha256(result_wire).hexdigest()
+        scope = self._mapping(documents[0]["scope"], "scope")
+        assert scope["protocol_frozen"] is False
+        assert scope["provenance_record"] is False
+        assert scope["retained_run"] is False
 
     def test_convergence__uses_invariants_not_neighbor_overlap_as_a_metric(
         self,

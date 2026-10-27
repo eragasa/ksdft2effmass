@@ -1,0 +1,700 @@
+{
+  "adapted_copies": [
+    {
+      "adaptation": "package import and calculation-owned results path only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_nonflat_development.py",
+      "destination_sha256": "5986bae859f095850c908b1a9b082e2a564be99a1cc67335c4a8c01d72efb46b",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze_nonflat.py",
+      "source_sha256": "28958b9b48153b9a8469bba0e2b6b2c0668117d104d07c89ab85b24959e4fbe6"
+    },
+    {
+      "adaptation": "package import and calculation-owned results path only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_parent_family_development.py",
+      "destination_sha256": "368c0e25258b7d5683be8866b3ea58579bf688e67072903cb86591ed6a4a3ae8",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze_parent_family.py",
+      "source_sha256": "6fd88f0de2b2b981fc3105f36bec054d1e8ec32db2bb1d359ddb8d5b0722de8e"
+    },
+    {
+      "adaptation": "package import and calculation-owned results path only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_truncation_development.py",
+      "destination_sha256": "0af031761946575019ffec6631e2514681a7b30d2ed0082c7b8bf90e1b8d0fa0",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze_truncation.py",
+      "source_sha256": "662082a6d3b47b3e602f5dc343bbaca172c329ed8dad7926e24dc7cc941dd74a"
+    },
+    {
+      "adaptation": "package import and calculation-owned results path only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_truncation_refinement_development.py",
+      "destination_sha256": "2212d64ec1f0304495639ca5036382dc1c75dcc97248ba8fd330600a5b471be3",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze_truncation_refinement.py",
+      "source_sha256": "4a4d4dab5c2bc330ff363fda1f4b6f85dd92723be782e46f1600b0fd7e79473a"
+    },
+    {
+      "adaptation": "calculation-owned input, result, and figure paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot.py",
+      "destination_sha256": "d0a6d5eace787d798b4b55672d7edee7417932adcecd18bfd48b4df06b04624f",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot.py",
+      "source_sha256": "626bf2b66c2c52b245db072c8591fcf0606b5acb3ef26d48e2a3e62247c7f6ef"
+    },
+    {
+      "adaptation": "calculation-owned input, result, and figure paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_nonflat.py",
+      "destination_sha256": "176e58f33fe6607e2dc2226ecebb04a6f95f4232c9e98bbed87c3f2c5c0a32d4",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_nonflat.py",
+      "source_sha256": "691793cf93068f88e6e9f8c5751c42cab145a7a038bf0215b8a8e2f27fb128c2"
+    },
+    {
+      "adaptation": "calculation-owned input, result, and figure paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_parent_family.py",
+      "destination_sha256": "991d9532482c105e6adf445c8cdc6581dafdacc15ccfbb175b830e34f9cc7356",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_parent_family.py",
+      "source_sha256": "ba4194df03c19f2336397cc0ea602d29b3940800864931be06512dc9a1c6c8d3"
+    },
+    {
+      "adaptation": "calculation-owned input, result, and figure paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_scientific_story.py",
+      "destination_sha256": "b14d8301322952cc1287da8afcfc8abd54b9dd9903273843a623563788d7309b",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_scientific_story.py",
+      "source_sha256": "1f29649ec71b1897dcbe6aadb4313bfeef31007bfa27a9b4d8e174f1dbcdbc3b"
+    },
+    {
+      "adaptation": "calculation-owned input, result, and figure paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_truncation.py",
+      "destination_sha256": "bf4986225f853d342552c2b10e210472d6018c03b9d95c94282f44bfc2ba8451",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_truncation.py",
+      "source_sha256": "2d56c97fdc7a7f72a748bb4d29a0efba802524cd6a3277b53f2984912e785372"
+    },
+    {
+      "adaptation": "calculation-owned input, result, and figure paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_range_inflation_preview.py",
+      "destination_sha256": "596f098abee6b9869fa6a81158d7bdfa35886dca4b2b69a9f3f9439d31b2d2b4",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_range_inflation_preview.py",
+      "source_sha256": "15f89d6e25634413b85d6d9b5050bc9748bdd150042d7a2fa5a3f36b4cf8dff4"
+    },
+    {
+      "adaptation": "calculation-owned input, result, and figure paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_error_channel_decomposition.py",
+      "destination_sha256": "3b620f0c5921beae216e5fd01291ec3e305fe813b13c408341186c8970a75eb4",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_error_channel_decomposition.py",
+      "source_sha256": "c481b433e23046021628bf0bc33ee8c80ddd428ca7329657b49635d1f4459088"
+    },
+    {
+      "adaptation": "root effect-adapter placement plus calculation-owned result and figure paths",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_diagnostic_packaging_development.py",
+      "destination_sha256": "0247c6c3012ba58725cf503c403b67aebecc5558148ebd61d6a1539024fb1a8b",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/package_diagnostics.py",
+      "source_sha256": "e6e51ca5f9f1e21266ad67694fe21d581a384fbb8bf4bd9c1bb9014fd22dcc69"
+    },
+    {
+      "adaptation": "workflow package import and calculation-owned schema/result paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/tests/test__SmoothBlochContinuumExperiment.py",
+      "destination_sha256": "a2a2f7f7df04ecd5336a613bc6ed4bfff9db6bf8d3ee204b00f2ed5580212d66",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/tests/test__SmoothBlochContinuumExperiment.py",
+      "source_sha256": "f533a795782944586f8eefdf0b6ddda78340443ccf08e2f0d0dc90ae9c69170a"
+    },
+    {
+      "adaptation": "workflow package import and calculation-owned schema/result paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/tests/test__SmoothFourStateExperiment.py",
+      "destination_sha256": "d884e0f6a284ca4c7f8167799be108b8f1564782b5ec5779b6f05e8db606c35b",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/tests/test__SmoothFourStateExperiment.py",
+      "source_sha256": "fa0a0c2fec3b3385550e3d55432b348e89d098643067f8d76dd6714731fdc72f"
+    },
+    {
+      "adaptation": "workflow package import and calculation-owned schema/result paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/tests/test__SmoothFourStateTruncationExperiment.py",
+      "destination_sha256": "3bec32f9a99d2c6264714cd84f530ecd5ba3359d3d7eb4178eb6818c83b5fc8e",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/tests/test__SmoothFourStateTruncationExperiment.py",
+      "source_sha256": "95c66aa8808c08d2a1eefa254e3e38d74b4b809f7d56c91416d22e1f36a3b11a"
+    },
+    {
+      "adaptation": "workflow package import and calculation-owned schema/result paths only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/tests/test__DiagnosticBundle.py",
+      "destination_sha256": "f758cb7c08d499a4554d3eb4e9c4a87da598ed689a109dfac71c7283bb37f195",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/tests/test__DiagnosticBundle.py",
+      "source_sha256": "fdc17aee62ac7fa18c4c23640ab741838534b9fe65220b7c5d2a01a38e672d0e"
+    },
+    {
+      "adaptation": "calculation-owned commands and links",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/README.md",
+      "destination_sha256": "76f2327c88014ebda4e7df11ed8d4aa90c9ce8b6a6524205f417289c67c0bb00",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/README.md",
+      "source_sha256": "bc45513946ff8d92ffd26400375eb6b049e91c3fe5fa86600d6c08ffce266b0b"
+    },
+    {
+      "adaptation": "figure subdirectory link only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/range-inflation-preview-narrative.md",
+      "destination_sha256": "e068268e453dcf825d71b3fe729d5ee12804b4f8084ef30dfec646df27ecbd31",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/range-inflation-preview-narrative.md",
+      "source_sha256": "91aa1c5fa62d42a1d55945a4e7fadea9872d576816bba714bb1a141f41067887"
+    },
+    {
+      "adaptation": "figure subdirectory link only",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/truncation-error-channel-decomposition-narrative.md",
+      "destination_sha256": "565b0fadebd1fbaeb22a932074b04e97ff4d33ae4514aa7c94cb7ed15a7a88d7",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-error-channel-decomposition-narrative.md",
+      "source_sha256": "a3d73e87f5de24e6f9607258240151d2e49b5513540735b677ef55aca91dbf26"
+    },
+    {
+      "adaptation": "calculation-owner status, paths, and retained-evidence boundary; selected recovered scientific inventory integrated",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md",
+      "destination_sha256": "97d7aa9898ffb414de4d528e6f67b3ab1fd2f34eaedbf3b1af66c3cc4d7e5db6",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/README.md",
+      "source_sha256": "f443552e8b7f7e95a262b15e3001f30fe3c77e5e028e6afab570d065d50e8e2f"
+    },
+    {
+      "adaptation": "project Ruff/style normalization only; scientific behavior unchanged",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/analysis.py",
+      "destination_sha256": "bf304493ec07ea1d0acdcbad142e958b78654036e99149b4ee53f7f4d4ce94db",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/analysis.py",
+      "source_sha256": "b227962352684f141beb306834c1cd1ed1ad2ad8b2a9b7de2d636b64b5006bd2"
+    },
+    {
+      "adaptation": "project Ruff/style normalization only; scientific behavior unchanged",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/nonflat/experiment.py",
+      "destination_sha256": "8e32a5107149bebc2c867751fdaa93580e3cc970726efaf0974585aec140221f",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/nonflat/experiment.py",
+      "source_sha256": "e38bdd2de5a9f5570fcdfb65fc7a066ce0e7b3465e80752f1f2b2dc24e7eb097"
+    },
+    {
+      "adaptation": "project Ruff/style normalization only; scientific behavior unchanged",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/nonflat/results.py",
+      "destination_sha256": "f1603c5d7e6d57b4b5b02c2cd4dda6d3115803fbbecca9c929f839e7c8a1be07",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/nonflat/results.py",
+      "source_sha256": "8d0dffa679486c52e42855cc97fe011abad5a17637e59ed628ab288ae6175a41"
+    },
+    {
+      "adaptation": "project Ruff/mypy normalization only; scientific behavior unchanged",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/analysis_plot.py",
+      "destination_sha256": "ec40f0b02fa85daf0483dc6092897429c3487d1a1cb91d9feaf6b86ac51684c1",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/analysis_plot.py",
+      "source_sha256": "cadc39d9d187154f680229309f0e49796f8fd83a85c1cf2c8d144f98046f3a79"
+    }
+  ],
+  "authorization": "Operator authorized the recommended complete-source recovery; this does not authorize retained execution, sealing, publication, or dependency activation.",
+  "captured_at_utc": "2026-10-27T05:46:56Z",
+  "destination_repository": {
+    "branch": "work/periodic1d-band-equivalence-owner",
+    "family_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality"
+  },
+  "exact_byte_copies": [
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/__init__.py",
+      "destination_sha256": "3c48181a5b7310fba179282f6c7691fa5f39fbe6c4fe16239fdaa9e927f8e183",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/__init__.py",
+      "source_sha256": "3c48181a5b7310fba179282f6c7691fa5f39fbe6c4fe16239fdaa9e927f8e183"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/definition.py",
+      "destination_sha256": "5bc658afe113de81fab7e102ecfd8a2e8ce89d54b75d6707207e6bee6f69d0f6",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/definition.py",
+      "source_sha256": "5bc658afe113de81fab7e102ecfd8a2e8ce89d54b75d6707207e6bee6f69d0f6"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/results.py",
+      "destination_sha256": "6011aea9b5a800d3a09d8286f2cbef6278d5c4efba1840d2568975ac4cb24e65",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/results.py",
+      "source_sha256": "6011aea9b5a800d3a09d8286f2cbef6278d5c4efba1840d2568975ac4cb24e65"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/nonflat/__init__.py",
+      "destination_sha256": "dd76cc183ccbca45d9f46e520bb8b51857afd1c0ef52103030154edd5ab6ec88",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/nonflat/__init__.py",
+      "source_sha256": "dd76cc183ccbca45d9f46e520bb8b51857afd1c0ef52103030154edd5ab6ec88"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/nonflat/definition.py",
+      "destination_sha256": "3bda7db18051e4eef5562d919fdfa7cf89e9e40c01393adeef7eb0383d4ce8a4",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/nonflat/definition.py",
+      "source_sha256": "3bda7db18051e4eef5562d919fdfa7cf89e9e40c01393adeef7eb0383d4ce8a4"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/nonflat/serialization.py",
+      "destination_sha256": "4cea074bb82104dfbaaaf7f8b19f2f35a0f9ef9e3cf89e397ec5762d66eb493c",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/nonflat/serialization.py",
+      "source_sha256": "4cea074bb82104dfbaaaf7f8b19f2f35a0f9ef9e3cf89e397ec5762d66eb493c"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/nonflat/verify.py",
+      "destination_sha256": "9c3fc2163804675dad498030750352e68f590d5b8b927c14dd5e6e041a8a61a0",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/nonflat/verify.py",
+      "source_sha256": "9c3fc2163804675dad498030750352e68f590d5b8b927c14dd5e6e041a8a61a0"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/truncation/__init__.py",
+      "destination_sha256": "7b49b7d0ee96489bdc4190ff3f47d13fc8c500126c9fadcba30607f5de760101",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/truncation/__init__.py",
+      "source_sha256": "7b49b7d0ee96489bdc4190ff3f47d13fc8c500126c9fadcba30607f5de760101"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/truncation/definition.py",
+      "destination_sha256": "71480f6ff9dcbd1eac86ce85aa823f6ac24c9e295368978324966839d1f19b08",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/truncation/definition.py",
+      "source_sha256": "71480f6ff9dcbd1eac86ce85aa823f6ac24c9e295368978324966839d1f19b08"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/truncation/experiment.py",
+      "destination_sha256": "e7d6634d6f49bdc3dbb90ff6ec1d094b67883a6d0a74eacc0a750bdf4a7c64a7",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/truncation/experiment.py",
+      "source_sha256": "e7d6634d6f49bdc3dbb90ff6ec1d094b67883a6d0a74eacc0a750bdf4a7c64a7"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/truncation/results.py",
+      "destination_sha256": "f1e164fb0606cec5b0233d7e3d613cae53e91238b7a8484443103a00934def6e",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/truncation/results.py",
+      "source_sha256": "f1e164fb0606cec5b0233d7e3d613cae53e91238b7a8484443103a00934def6e"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/truncation/serialization.py",
+      "destination_sha256": "4482f30381eea5fad80458daf28b0c59a4df99ef15f45a32fad0a20775a3dc3a",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/truncation/serialization.py",
+      "source_sha256": "4482f30381eea5fad80458daf28b0c59a4df99ef15f45a32fad0a20775a3dc3a"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/truncation/verify.py",
+      "destination_sha256": "0e99c588791c714ef09c2f7b157d56ae75465fd69bf9a0fe16a19b59d6e743ed",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/truncation/verify.py",
+      "source_sha256": "0e99c588791c714ef09c2f7b157d56ae75465fd69bf9a0fe16a19b59d6e743ed"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/schema_documents/nonflat-input.schema.json",
+      "destination_sha256": "b32f1eb54d60b0d2f7359522b39e3e6f1b087bae56a33a061df20889405c5d83",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/schemas/nonflat-input.schema.json",
+      "source_sha256": "b32f1eb54d60b0d2f7359522b39e3e6f1b087bae56a33a061df20889405c5d83"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/schema_documents/nonflat-result.schema.json",
+      "destination_sha256": "87c40d4ef0309bb155b32008d6ff32aba907b5994be1b6cd5ba256e5aa04faaa",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/schemas/nonflat-result.schema.json",
+      "source_sha256": "87c40d4ef0309bb155b32008d6ff32aba907b5994be1b6cd5ba256e5aa04faaa"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/schema_documents/nonflat-verification.schema.json",
+      "destination_sha256": "5f2f924f73f1e3f5fa410bd8bc6ec7cb04d8963c0c5627f07a12104d46ced38f",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/schemas/nonflat-verification.schema.json",
+      "source_sha256": "5f2f924f73f1e3f5fa410bd8bc6ec7cb04d8963c0c5627f07a12104d46ced38f"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/schema_documents/truncation-input.schema.json",
+      "destination_sha256": "fe65a9792d558975f366d8570ebad8cd1d618cf827dc9004ec43c8dd1587fd2b",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/schemas/truncation-input.schema.json",
+      "source_sha256": "fe65a9792d558975f366d8570ebad8cd1d618cf827dc9004ec43c8dd1587fd2b"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/schema_documents/truncation-result.schema.json",
+      "destination_sha256": "8e439d1ce625cd0860c4efa1abc18391ec12b0278d71993ce576d503e0639898",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/schemas/truncation-result.schema.json",
+      "source_sha256": "8e439d1ce625cd0860c4efa1abc18391ec12b0278d71993ce576d503e0639898"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/schema_documents/truncation-verification.schema.json",
+      "destination_sha256": "aa7c0f9239947450f9c238eda4fe60e3cdbd6a12d602a96b1a204411bf406458",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/schemas/truncation-verification.schema.json",
+      "source_sha256": "aa7c0f9239947450f9c238eda4fe60e3cdbd6a12d602a96b1a204411bf406458"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/amplitude-resolution.csv",
+      "destination_sha256": "e3ca18e0e636aa5623365b7e8acaf3837bef0f4344c1355f4565c7ab1016c29b",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/amplitude-resolution.csv",
+      "source_sha256": "e3ca18e0e636aa5623365b7e8acaf3837bef0f4344c1355f4565c7ab1016c29b"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/hopping-power-map.csv",
+      "destination_sha256": "256d3750899af828b11ed1e96a471593e3bfe12a13e9920481fc4561df5f40e4",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/hopping-power-map.csv",
+      "source_sha256": "256d3750899af828b11ed1e96a471593e3bfe12a13e9920481fc4561df5f40e4"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/momentum-refinement.csv",
+      "destination_sha256": "d7ebcebde6fe1915f5841fe68d598f89d81a17379a7f8a0484ff96033f751f0f",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/momentum-refinement.csv",
+      "source_sha256": "d7ebcebde6fe1915f5841fe68d598f89d81a17379a7f8a0484ff96033f751f0f"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-amplitude-resolution.csv",
+      "destination_sha256": "72873cbaa911a20145700148b77b4deb885617c7f37c08c9e468aaadb2ef8d18",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-amplitude-resolution.csv",
+      "source_sha256": "72873cbaa911a20145700148b77b4deb885617c7f37c08c9e468aaadb2ef8d18"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-continuum.csv",
+      "destination_sha256": "d59c34e829025a66037fa97f7be6408ef6a40fc393f66c9a6da99e17034f38f9",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-continuum.csv",
+      "source_sha256": "d59c34e829025a66037fa97f7be6408ef6a40fc393f66c9a6da99e17034f38f9"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-hopping-power-map.csv",
+      "destination_sha256": "f48ddc94f6559853c1c9124cddae29d890f06f747bddfd36e72c3460817601a0",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-hopping-power-map.csv",
+      "source_sha256": "f48ddc94f6559853c1c9124cddae29d890f06f747bddfd36e72c3460817601a0"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-momentum-refinement.csv",
+      "destination_sha256": "cd513a6fea1d4f28984e857f64c2995cf7fab493e9775ddef64ec1b4dc8c28d3",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-momentum-refinement.csv",
+      "source_sha256": "cd513a6fea1d4f28984e857f64c2995cf7fab493e9775ddef64ec1b4dc8c28d3"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-selected-hopping-tails.csv",
+      "destination_sha256": "98c9c46430e4840ad7497a1a6f0a61591ef87e1acf68353bcb6d5054c8515857",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-selected-hopping-tails.csv",
+      "source_sha256": "98c9c46430e4840ad7497a1a6f0a61591ef87e1acf68353bcb6d5054c8515857"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/parent-family-continuum.csv",
+      "destination_sha256": "1ab9a26544f70f2f53ad798f6ab61aa9f72b7f065f5dc3fa67ff84f8b5557597",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-continuum.csv",
+      "source_sha256": "1ab9a26544f70f2f53ad798f6ab61aa9f72b7f065f5dc3fa67ff84f8b5557597"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/parent-family-summary.csv",
+      "destination_sha256": "aa249ec7b19b8126e906f10ee657e79998c81980e6531440d2da2c0359c1aeb9",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-summary.csv",
+      "source_sha256": "aa249ec7b19b8126e906f10ee657e79998c81980e6531440d2da2c0359c1aeb9"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/selected-hopping-tails.csv",
+      "destination_sha256": "5e81b380307d9af9f39efb477a97fef6904cd1642c1da2b230b66ad3364d8574",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/selected-hopping-tails.csv",
+      "source_sha256": "5e81b380307d9af9f39efb477a97fef6904cd1642c1da2b230b66ad3364d8574"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/truncation-consequences.csv",
+      "destination_sha256": "84c1769c98d737f2e65e53c1ea105cca9c01e7f36c39713112c6649a2f92c40c",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-consequences.csv",
+      "source_sha256": "84c1769c98d737f2e65e53c1ea105cca9c01e7f36c39713112c6649a2f92c40c"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/truncation-refinement.csv",
+      "destination_sha256": "bf3b3c80cc7b9ee37da00ad02735368a9b1b5b281d5af56098f77a2cc0d09b20",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-refinement.csv",
+      "source_sha256": "bf3b3c80cc7b9ee37da00ad02735368a9b1b5b281d5af56098f77a2cc0d09b20"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/truncation-summary.csv",
+      "destination_sha256": "5c18c4d8506f0a4e54b921cb7d508862c9ed8067bf879a1fe5e403a8a15a7575",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-summary.csv",
+      "source_sha256": "5c18c4d8506f0a4e54b921cb7d508862c9ed8067bf879a1fe5e403a8a15a7575"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/diagnostic-catalog.csv",
+      "destination_sha256": "a9f4d39af6fe682f4964ef0c3c9bc2f4a7ddc1595700faae1589681ea2bf0e5c",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/diagnostic-catalog.csv",
+      "source_sha256": "a9f4d39af6fe682f4964ef0c3c9bc2f4a7ddc1595700faae1589681ea2bf0e5c"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/sampled-range-decisions.csv",
+      "destination_sha256": "724f6ea95cd798b643efcfe7ae728f9dc9f019a27ebaf90b4279c7f2a11e1848",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/sampled-range-decisions.csv",
+      "source_sha256": "724f6ea95cd798b643efcfe7ae728f9dc9f019a27ebaf90b4279c7f2a11e1848"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf",
+      "destination_sha256": "9e88e334c7b6c3ae25fbd264428d128d2ba17f16121ed8613c2412c886c1e9be",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf",
+      "source_sha256": "9e88e334c7b6c3ae25fbd264428d128d2ba17f16121ed8613c2412c886c1e9be"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.png",
+      "destination_sha256": "8f8b6e2274bf9c626f9e2cccae2d057f9f17820f726418a741849f3f48a9fab7",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.png",
+      "source_sha256": "8f8b6e2274bf9c626f9e2cccae2d057f9f17820f726418a741849f3f48a9fab7"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-versus-hopping-locality.pdf",
+      "destination_sha256": "8c5337f12ea390c2d827ce65fe828e078d9398b0f8db3491c8b526fe7794c222",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-versus-hopping-locality.pdf",
+      "source_sha256": "8c5337f12ea390c2d827ce65fe828e078d9398b0f8db3491c8b526fe7794c222"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-versus-hopping-locality.png",
+      "destination_sha256": "5e75a765e81e343ce3fb83a88c81340c219bacbff5f91c182ddbbf82aa8c97c4",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-versus-hopping-locality.png",
+      "source_sha256": "5e75a765e81e343ce3fb83a88c81340c219bacbff5f91c182ddbbf82aa8c97c4"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/nonflat-four-state-exploratory.pdf",
+      "destination_sha256": "dccf0445bf324e4d840c6699d8ab1fe202d36507d463ebd186d477937ccd2ef1",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-four-state-exploratory.pdf",
+      "source_sha256": "dccf0445bf324e4d840c6699d8ab1fe202d36507d463ebd186d477937ccd2ef1"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/nonflat-four-state-exploratory.png",
+      "destination_sha256": "682a239ef0bb45f0a8a478673244b4294dc6b6d705d894b659972afdae3baa30",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-four-state-exploratory.png",
+      "source_sha256": "682a239ef0bb45f0a8a478673244b4294dc6b6d705d894b659972afdae3baa30"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/parent-family-robustness-exploratory.pdf",
+      "destination_sha256": "c33f88d42d774e6337698426c03aa2426c10065dbbecffdde5a6067ffc8a0c60",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-robustness-exploratory.pdf",
+      "source_sha256": "c33f88d42d774e6337698426c03aa2426c10065dbbecffdde5a6067ffc8a0c60"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/parent-family-robustness-exploratory.png",
+      "destination_sha256": "84c847386cfe206f1c55ceac229e0c70cde3cd4f5f7139da7541e810baab2b9d",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-robustness-exploratory.png",
+      "source_sha256": "84c847386cfe206f1c55ceac229e0c70cde3cd4f5f7139da7541e810baab2b9d"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-band-consequences.pdf",
+      "destination_sha256": "1c7bfcd9507ab1673237df7bb8b409113a6ee44c0d432bbc11efe0b724935d67",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-band-consequences.pdf",
+      "source_sha256": "1c7bfcd9507ab1673237df7bb8b409113a6ee44c0d432bbc11efe0b724935d67"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-band-consequences.png",
+      "destination_sha256": "9bdea3d3777c539b4faf05f720172a2651e12466fe7834e695f6daabf2944728",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-band-consequences.png",
+      "source_sha256": "9bdea3d3777c539b4faf05f720172a2651e12466fe7834e695f6daabf2944728"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/range-inflation-preview.pdf",
+      "destination_sha256": "08b0ad0959d083aa0e36b8f3531aed853d40f71df7b291c4235dc15fdcc542e4",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/range-inflation-preview.pdf",
+      "source_sha256": "08b0ad0959d083aa0e36b8f3531aed853d40f71df7b291c4235dc15fdcc542e4"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/range-inflation-preview.png",
+      "destination_sha256": "7badbd53cbffdae86de6c8190267a453eabd76e1c0654c9e00d7634d220af9df",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/range-inflation-preview.png",
+      "source_sha256": "7badbd53cbffdae86de6c8190267a453eabd76e1c0654c9e00d7634d220af9df"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-error-channel-decomposition.pdf",
+      "destination_sha256": "13e48321309f56d08191cc0ae81b9940f46bbe89842a8701dc469ace217285a0",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-error-channel-decomposition.pdf",
+      "source_sha256": "13e48321309f56d08191cc0ae81b9940f46bbe89842a8701dc469ace217285a0"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-error-channel-decomposition.png",
+      "destination_sha256": "538d5cd9c6d02f1570d3ecbff5b4edc66761b4c1a88187d71e34665098ea45ae",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-error-channel-decomposition.png",
+      "source_sha256": "538d5cd9c6d02f1570d3ecbff5b4edc66761b4c1a88187d71e34665098ea45ae"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/frame-sewing-diagnostics.pdf",
+      "destination_sha256": "14e149980b2c8553d408fa0b14c9e104f04716315ae66cae09b05d0139cc56b8",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/frame-sewing-diagnostics.pdf",
+      "source_sha256": "14e149980b2c8553d408fa0b14c9e104f04716315ae66cae09b05d0139cc56b8"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/frame-sewing-diagnostics.png",
+      "destination_sha256": "4a83d7a710834d4c2aa2c3b62c815853a1da8a937b1f0c0dc1c876788bdca5e7",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/frame-sewing-diagnostics.png",
+      "source_sha256": "4a83d7a710834d4c2aa2c3b62c815853a1da8a937b1f0c0dc1c876788bdca5e7"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/hamiltonian-spectral-diagnostics.pdf",
+      "destination_sha256": "d2481b139153b6a33c8e15544b90f4bb37f2103f65e840f3b3dd339750346ffd",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/hamiltonian-spectral-diagnostics.pdf",
+      "source_sha256": "d2481b139153b6a33c8e15544b90f4bb37f2103f65e840f3b3dd339750346ffd"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/hamiltonian-spectral-diagnostics.png",
+      "destination_sha256": "f50691f6b707a59b1c0ea7248e9acdd3eebf447765773721354680436252326e",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/hamiltonian-spectral-diagnostics.png",
+      "source_sha256": "f50691f6b707a59b1c0ea7248e9acdd3eebf447765773721354680436252326e"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/sampled-range-decision-map.pdf",
+      "destination_sha256": "cdcc4a1b5f6ca5bdb72c7ffe5d10ffee77196e83576aca17d396d3d3a185cb3e",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/sampled-range-decision-map.pdf",
+      "source_sha256": "cdcc4a1b5f6ca5bdb72c7ffe5d10ffee77196e83576aca17d396d3d3a185cb3e"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/sampled-range-decision-map.png",
+      "destination_sha256": "7a923f0f2a06baa6e6268408faf49156df3ce833c9044af274628652d29eb4c0",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/sampled-range-decision-map.png",
+      "source_sha256": "7a923f0f2a06baa6e6268408faf49156df3ce833c9044af274628652d29eb4c0"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/journal-narrative.md",
+      "destination_sha256": "eec275219007e311b84379c6b5d06ff7751d782cfc1e523abe60c36f261640a4",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/journal-narrative.md",
+      "source_sha256": "eec275219007e311b84379c6b5d06ff7751d782cfc1e523abe60c36f261640a4"
+    },
+    {
+      "adaptation": "none",
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/diagnostic-ledger-findings.md",
+      "destination_sha256": "9df6a3be283261bb7d0494cb62e0e8a9b25c33d8b057158e03c72b936db8360b",
+      "source_git_status": "??",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/diagnostic-ledger-findings.md",
+      "source_sha256": "9df6a3be283261bb7d0494cb62e0e8a9b25c33d8b057158e03c72b936db8360b"
+    }
+  ],
+  "nonclaims": [
+    "No retained execution or evidence package was created.",
+    "No protocol was frozen.",
+    "No dependency change was activated.",
+    "Software and rendering parity do not establish scientific validation, convergence beyond the declared sampled checks, publication acceptance, sealing, or release."
+  ],
+  "schema": "ksdft2effmass.recovered-development-source-manifest.v1",
+  "source_only_dispositions": [
+    {
+      "disposition": "Not copied over the calculation owner: the destination retains the previously reviewed strict zip route rather than the dirty donor pairwise spelling; focused tests cover equivalent behavior.",
+      "source_git_status": "  tracked-or-unchanged",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/src/band_equivalence_hopping_locality/experiment.py",
+      "source_sha256": "8360505d7fe844cae330ed40646f429565aa819b206f62b73687de3c71dac0db"
+    },
+    {
+      "disposition": "Not activated. The dirty donor adds pandas as an optional analysis dependency; adding or replacing a dependency remains a separately protected action.",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/pyproject.toml",
+      "source_sha256": "2b5cc265653e367e3cc7b3a7b18b077da4484e0b2ae682bd75d488be11cf38c3"
+    },
+    {
+      "disposition": "Not activated. Exact dirty lock bytes and digest are recorded, but the calculation owner lock remains unchanged pending separate dependency authorization.",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/uv.lock",
+      "source_sha256": "ad1f1869e963c2d0a3fb6af5ffdd3fd3adce3a93201045ebc262272b2bb6c5bd"
+    }
+  ],
+  "source_repository": {
+    "branch": "work/monograph-current-library-capabilities",
+    "git_state": "dirty; inspected and copied read-only",
+    "head": "4835e7bf9161729cc8f0537bcc13db083896a6ae"
+  },
+  "validation": {
+    "diagnostic_packaging": "14 tables, 77191 long-form rows, 110 catalog rows, and 660 decisions; both derived CSVs reproduced byte-exactly.",
+    "figure_reproduction": "All ten affected PNG pixel arrays and 150-dpi Ghostscript PDF renderings reproduced exactly under CPython 3.14.6, NumPy 2.5.1, pandas 3.0.6, Matplotlib 3.11.1, and Ghostscript 10.04.0. Raw bytes with embedded producer metadata remain predecessor-owned.",
+    "focused_tests": "33 passed with the repository software_verification marker declared explicitly for the calculation-local invocation.",
+    "producer_reproduction": "Recovered donor graph had already reproduced all five candidate figures. After adaptation, the parent-family producer reproduced both CSVs byte-exactly; the combined parent/truncation/refinement rerun exceeded the 900-second command window during truncation. Unit and schema tests cover the adapted truncation behavior.",
+    "publication_build": "Scratch latexmk builds completed for the 21-page main manuscript and 21-page supplement. Undefined Ragasa2026b\u2013d and Marzari citations remain separate bibliography gates.",
+    "static_checks": "Ruff check and format passed for 40 files; mypy passed for 31 workflow, test, and effect-adapter sources; compileall passed."
+  }
+}

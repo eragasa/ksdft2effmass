@@ -6,7 +6,7 @@ import csv
 import math
 from pathlib import Path
 
-from workflow import (
+from workflow.nonflat import (
     SmoothFourStateAdaptiveAmplitudeDefinition,
     SmoothFourStateAdaptiveAmplitudeExperiment,
     SmoothFourStateAmplitudeThresholds,
@@ -63,7 +63,7 @@ def _definition(
     )
 
 
-def main() -> int:
+def main() -> None:
     """Execute the pre-version non-flat analysis and write deterministic tables."""
     amplitudes = _amplitudes(MOMENTUM_AMPLITUDE_INTERVALS)
     thresholds = SmoothFourStateConvergenceThresholds(
@@ -264,8 +264,7 @@ def main() -> int:
         f"{final.minimum_transport_singular_value:.17g}"
     )
     print(f"maximum_verification_defect={max(verification_defects.values()):.17g}")
-    return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

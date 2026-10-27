@@ -1,4 +1,4 @@
-"""Periodic-1D Band Equivalence versus Hopping Locality campaign."""
+"""Band Equivalence versus Hopping Locality experiment."""
 
 from .definition import (
     CONTINUOUS_ALIGNMENT_METHOD_ID,
@@ -17,39 +17,6 @@ from .experiment import (
     SmoothBlochContinuumConvergenceExperiment,
     SmoothBlochContinuumExperiment,
 )
-from .nonflat_definition import (
-    SMOOTH_FOUR_STATE_METHOD_ID,
-    SMOOTH_FOUR_STATE_PARENT_ID,
-    SmoothFourStateAdaptiveAmplitudeDefinition,
-    SmoothFourStateAmplitudeThresholds,
-    SmoothFourStateConvergenceDefinition,
-    SmoothFourStateConvergenceThresholds,
-    SmoothFourStateDefinition,
-    SmoothFourStateParentFamilyDefinition,
-)
-from .nonflat_experiment import (
-    SmoothFourStateAdaptiveAmplitudeExperiment,
-    SmoothFourStateConvergenceExperiment,
-    SmoothFourStateExperiment,
-    SmoothFourStateParentFamilyExperiment,
-)
-from .nonflat_results import (
-    SmoothFourStateAdaptiveAmplitudeResult,
-    SmoothFourStateAmplitudeRefinementResult,
-    SmoothFourStateAmplitudeValidationResult,
-    SmoothFourStateConvergenceDisposition,
-    SmoothFourStateConvergenceResult,
-    SmoothFourStateHoppingBlockResult,
-    SmoothFourStateParentFamilyResult,
-    SmoothFourStatePointResult,
-    SmoothFourStateRefinementResult,
-    SmoothFourStateResult,
-)
-from .nonflat_verify import (
-    SmoothFourStateParentFamilyVerifier,
-    SmoothFourStateVerificationResult,
-    SmoothFourStateVerifier,
-)
 from .results import (
     SmoothBlochContinuumConvergenceDisposition,
     SmoothBlochContinuumConvergenceResult,
@@ -64,16 +31,6 @@ from .serialization import (
     SmoothBlochContinuumVerificationSerializer,
     canonical_json_bytes,
     smooth_continuum_identity_document,
-)
-from .truncation_definition import (
-    SMOOTH_FOUR_STATE_TRUNCATION_METHOD_ID,
-    SmoothFourStateTruncationDefinition,
-)
-from .truncation_experiment import SmoothFourStateTruncationExperiment
-from .truncation_results import (
-    SmoothFourStateTruncationPointResult,
-    SmoothFourStateTruncationRangeResult,
-    SmoothFourStateTruncationResult,
 )
 from .verify import (
     SmoothBlochContinuumConvergenceVerificationResult,
@@ -91,9 +48,6 @@ __all__ = [
     "SMOOTH_CONTINUUM_METHOD_ID",
     "SMOOTH_CONTINUUM_RESULT_SCHEMA_ID",
     "SMOOTH_CONTINUUM_VERIFICATION_SCHEMA_ID",
-    "SMOOTH_FOUR_STATE_METHOD_ID",
-    "SMOOTH_FOUR_STATE_PARENT_ID",
-    "SMOOTH_FOUR_STATE_TRUNCATION_METHOD_ID",
     "SmoothBlochContinuumConvergenceDefinition",
     "SmoothBlochContinuumConvergenceDisposition",
     "SmoothBlochContinuumConvergenceExperiment",
@@ -112,34 +66,6 @@ __all__ = [
     "SmoothBlochContinuumVerificationResult",
     "SmoothBlochContinuumVerificationSerializer",
     "SmoothBlochContinuumVerifier",
-    "SmoothFourStateAdaptiveAmplitudeDefinition",
-    "SmoothFourStateAdaptiveAmplitudeExperiment",
-    "SmoothFourStateAdaptiveAmplitudeResult",
-    "SmoothFourStateAmplitudeRefinementResult",
-    "SmoothFourStateAmplitudeThresholds",
-    "SmoothFourStateAmplitudeValidationResult",
-    "SmoothFourStateConvergenceDefinition",
-    "SmoothFourStateConvergenceDisposition",
-    "SmoothFourStateConvergenceExperiment",
-    "SmoothFourStateConvergenceResult",
-    "SmoothFourStateConvergenceThresholds",
-    "SmoothFourStateDefinition",
-    "SmoothFourStateExperiment",
-    "SmoothFourStateHoppingBlockResult",
-    "SmoothFourStateParentFamilyDefinition",
-    "SmoothFourStateParentFamilyExperiment",
-    "SmoothFourStateParentFamilyResult",
-    "SmoothFourStateParentFamilyVerifier",
-    "SmoothFourStatePointResult",
-    "SmoothFourStateRefinementResult",
-    "SmoothFourStateResult",
-    "SmoothFourStateTruncationDefinition",
-    "SmoothFourStateTruncationExperiment",
-    "SmoothFourStateTruncationPointResult",
-    "SmoothFourStateTruncationRangeResult",
-    "SmoothFourStateTruncationResult",
-    "SmoothFourStateVerificationResult",
-    "SmoothFourStateVerifier",
     "canonical_json_bytes",
     "smooth_continuum_identity_document",
 ]

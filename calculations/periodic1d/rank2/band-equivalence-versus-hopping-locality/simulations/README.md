@@ -14,13 +14,16 @@ experiments/model-adequacy/periodic1d/
   band-equivalence-versus-hopping-locality/
 ```
 
-Expected calculation channels include the flat analytic benchmark, the dispersive
-four-state parent, the bounded parent homotopy, momentum refinement, and ordinary-lattice
-range truncation. They may share declared inputs, but their results and evidence statuses
-must remain distinguishable.
+Calculation channels include the flat analytic benchmark, the dispersive four-state
+parent, the bounded parent homotopy, momentum refinement, dense ordinary-lattice range
+truncation, and threshold-adjacent truncation refinement. The results directory also
+contains a derived diagnostic catalog and sampled range-decision table produced only
+after the 14 source tables pass their declared schema and cross-table checks. Shared
+inputs do not merge their scientific channels or evidence statuses.
 
 The extracted entrypoints preserve their development status and write deterministic CSV
-summaries under `development/results/`. They combine calculation and tabulation and are
-not yet the separated versioned five-stage workflow. No `run_01_experiment.py`,
-`run_02_experiment_verification.py`, closed schema, or retained run directory is created
-until the maintained version and wire contracts are selected.
+summaries under `development/results/`. Strict development serializers and independent
+reconstruction checks now exist for the nonflat and truncation records, but the
+entrypoints still combine calculation and tabulation and are not a separated versioned
+lifecycle. No retained run directory or retained execution identity is created until the
+maintained configuration, wire, acceptance, and provenance contracts are selected.

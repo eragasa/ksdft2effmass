@@ -5,17 +5,29 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ._validation import _finite_float
+from .._validation import _finite_float
 
 SMOOTH_FOUR_STATE_METHOD_ID = "nonflat-four-state-smooth-sinusoidal-gauge.v1"
 SMOOTH_FOUR_STATE_PARENT_ID = "specified-finite-range-four-state-parent.v1"
+SMOOTH_FOUR_STATE_INPUT_SCHEMA_ID = (
+    "ksdft2effmass.campaign.model-adequacy.periodic1d."
+    "band-equivalence-versus-hopping-locality.nonflat.input.v0"
+)
+SMOOTH_FOUR_STATE_RESULT_SCHEMA_ID = (
+    "ksdft2effmass.campaign.model-adequacy.periodic1d."
+    "band-equivalence-versus-hopping-locality.nonflat.result.v0"
+)
+SMOOTH_FOUR_STATE_VERIFICATION_SCHEMA_ID = (
+    "ksdft2effmass.campaign.model-adequacy.periodic1d."
+    "band-equivalence-versus-hopping-locality.nonflat.verification.v0"
+)
 
 
 @dataclass(frozen=True, slots=True)
 class SmoothFourStateDefinition:
     """Define one exploratory non-flat four-state calculation.
 
-    All energy-valued parent matrices are normalized by the positive scale ``E_G``.
+    All energy-valued parent matrices are normalized by the positive scale ``E_ref``.
     Caller-supplied thresholds are numerical controls, not physical error bars. Numeric
     controls are finite built-in binary64 floats; booleans, strings, nonfinite values,
     and values that cannot already be represented as floats are rejected rather than

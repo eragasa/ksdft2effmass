@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.truncation.result.v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "identity", "input_binding", "qualification", "evaluation", "points", "interpretation"],
+  "properties": {
+    "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.truncation.result.v0"},
+    "identity": {"$ref": "#/$defs/identity"},
+    "input_binding": {"$ref": "#/$defs/input_binding"},
+    "qualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_external_gap", "minimum_transport_singular_value", "maximum_transport_procrustes_residual", "maximum_transport_unitarity_residual", "maximum_transport_rank_cutoff", "closure_holonomy_phases", "closure_holonomy_unitarity_residual", "maximum_frame_orthonormality_residual", "periodic_closure_residual", "maximum_reference_hermiticity_residual"],
+      "properties": {
+        "minimum_external_gap": {"$ref": "#/$defs/nonnegative"},
+        "minimum_transport_singular_value": {"$ref": "#/$defs/nonnegative"},
+        "maximum_transport_procrustes_residual": {"$ref": "#/$defs/nonnegative"},
+        "maximum_transport_unitarity_residual": {"$ref": "#/$defs/nonnegative"},
+        "maximum_transport_rank_cutoff": {"$ref": "#/$defs/nonnegative"},
+        "closure_holonomy_phases": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": -3.141592653589793, "maximum": 3.141592653589793}},
+        "closure_holonomy_unitarity_residual": {"$ref": "#/$defs/nonnegative"},
+        "maximum_frame_orthonormality_residual": {"$ref": "#/$defs/nonnegative"},
+        "periodic_closure_residual": {"$ref": "#/$defs/nonnegative"},
+        "maximum_reference_hermiticity_residual": {"$ref": "#/$defs/nonnegative"}
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coordinate_offset", "minimum_construction_evaluation_separation"],
+      "properties": {
+        "coordinate_offset": {"type": "number", "exclusiveMinimum": 0},
+        "minimum_construction_evaluation_separation": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "points": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/point"}},
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conversion_interpolation_and_truncation_are_separate", "hamiltonian_and_spectral_decisions_are_separate", "scientific_acceptance", "retained_evidence"],
+      "properties": {
+        "conversion_interpolation_and_truncation_are_separate": {"const": true},
+        "hamiltonian_and_spectral_decisions_are_separate": {"const": true},
+        "scientific_acceptance": {"const": false},
+        "retained_evidence": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "nonnegative": {"type": "number", "minimum": 0},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family_id", "method_id", "parent_model_id", "reciprocal_coordinate_id", "finite_fourier_id", "ordinary_lattice_conversion_id", "range_rule_id"],
+      "properties": {
+        "family_id": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality"},
+        "method_id": {"const": "nonflat-four-state-ordinary-lattice-truncation.v1"},
+        "parent_model_id": {"const": "specified-finite-range-four-state-parent.v1"},
+        "reciprocal_coordinate_id": {"const": "q-equals-k-over-reciprocal-period.v1"},
+        "finite_fourier_id": {"const": "centered-finite-cyclic-fourier.v1"},
+        "ordinary_lattice_conversion_id": {"const": "remove-centered-nyquist-block.v1"},
+        "range_rule_id": {"const": "symmetric-ordinary-integer-displacements.v1"}
+      }
+    },
+    "input_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "sha256"],
+      "properties": {
+        "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.truncation.input.v0"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amplitude", "conversion", "complete_model", "ranges"],
+      "properties": {
+        "amplitude": {"$ref": "#/$defs/nonnegative"},
+        "conversion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["reference_nyquist_power", "comparison_nyquist_power", "reference_maximum_ordinary_hermiticity_residual", "comparison_maximum_ordinary_hermiticity_residual"],
+          "properties": {
+            "reference_nyquist_power": {"$ref": "#/$defs/nonnegative"},
+            "comparison_nyquist_power": {"$ref": "#/$defs/nonnegative"},
+            "reference_maximum_ordinary_hermiticity_residual": {"$ref": "#/$defs/nonnegative"},
+            "comparison_maximum_ordinary_hermiticity_residual": {"$ref": "#/$defs/nonnegative"}
+          }
+        },
+        "complete_model": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["maximum_direct_band_discrepancy", "comparison_maximum_interpolation_hamiltonian_error", "comparison_rms_interpolation_hamiltonian_error", "comparison_maximum_interpolation_band_error", "comparison_rms_interpolation_band_error"],
+          "properties": {
+            "maximum_direct_band_discrepancy": {"$ref": "#/$defs/nonnegative"},
+            "comparison_maximum_interpolation_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+            "comparison_rms_interpolation_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+            "comparison_maximum_interpolation_band_error": {"$ref": "#/$defs/nonnegative"},
+            "comparison_rms_interpolation_band_error": {"$ref": "#/$defs/nonnegative"}
+          }
+        },
+        "ranges": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/range"}}
+      }
+    },
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maximum_range", "reference_ordinary_omitted_power", "comparison_ordinary_omitted_power", "reference_total_omitted_power", "comparison_total_omitted_power", "reference_maximum_truncation_hamiltonian_error", "reference_rms_truncation_hamiltonian_error", "reference_maximum_band_error", "reference_rms_band_error", "comparison_maximum_truncation_hamiltonian_error", "comparison_rms_truncation_hamiltonian_error", "comparison_maximum_truncation_band_error", "comparison_rms_truncation_band_error", "comparison_maximum_total_hamiltonian_error", "comparison_rms_total_hamiltonian_error", "comparison_maximum_total_band_error", "comparison_rms_total_band_error"],
+      "properties": {
+        "maximum_range": {"type": "integer", "minimum": 0},
+        "reference_ordinary_omitted_power": {"$ref": "#/$defs/nonnegative"},
+        "comparison_ordinary_omitted_power": {"$ref": "#/$defs/nonnegative"},
+        "reference_total_omitted_power": {"$ref": "#/$defs/nonnegative"},
+        "comparison_total_omitted_power": {"$ref": "#/$defs/nonnegative"},
+        "reference_maximum_truncation_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+        "reference_rms_truncation_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+        "reference_maximum_band_error": {"$ref": "#/$defs/nonnegative"},
+        "reference_rms_band_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_maximum_truncation_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_rms_truncation_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_maximum_truncation_band_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_rms_truncation_band_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_maximum_total_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_rms_total_hamiltonian_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_maximum_total_band_error": {"$ref": "#/$defs/nonnegative"},
+        "comparison_rms_total_band_error": {"$ref": "#/$defs/nonnegative"}
+      }
+    }
+  }
+}

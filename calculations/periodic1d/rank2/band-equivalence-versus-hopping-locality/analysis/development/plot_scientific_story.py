@@ -9,10 +9,11 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-CALCULATION = Path(__file__).resolve().parents[2]
+DEVELOPMENT = Path(__file__).resolve().parent
+CALCULATION = DEVELOPMENT.parents[1]
 INPUTS = CALCULATION / "simulations" / "development" / "inputs"
 RESULTS = CALCULATION / "simulations" / "development" / "results"
-FIGURES = Path(__file__).resolve().parent / "figures"
+FIGURES = DEVELOPMENT / "figures"
 PDF_OUTPUT = FIGURES / "band-equivalence-locality-scientific-story.pdf"
 PNG_OUTPUT = FIGURES / "band-equivalence-locality-scientific-story.png"
 BLACK = "#202020"
@@ -42,7 +43,7 @@ def _family_rows(data: np.ndarray, scale: float) -> np.ndarray:
     return data[mask][np.argsort(data["amplitude"][mask])]
 
 
-def main() -> int:
+def main() -> None:
     """Create the sampled theorem-to-robustness comparison figure."""
     family = np.genfromtxt(
         RESULTS / "parent-family-continuum.csv", delimiter=",", names=True
@@ -88,7 +89,7 @@ def main() -> int:
             )
         _amplitude_ticks(flat_axes[0])
         flat_axes[0].set_xlabel("rotation amplitude $a$")
-        flat_axes[0].set_ylabel("maximum band defect")
+        flat_axes[0].set_ylabel("maximum band discrepancy")
         flat_axes[0].set_title("Band blindness")
         flat_axes[0].legend(frameon=False, ncol=2)
         flat_axes[0].grid(which="both", alpha=0.2, linewidth=0.5)
@@ -231,10 +232,9 @@ def main() -> int:
         figure.savefig(PDF_OUTPUT, bbox_inches="tight", metadata=metadata)
         figure.savefig(PNG_OUTPUT, dpi=600, bbox_inches="tight", metadata=metadata)
         plt.close(figure)
-    print(f"output={PDF_OUTPUT}")
-    print(f"output={PNG_OUTPUT}")
-    return 0
+    print(PDF_OUTPUT)
+    print(PNG_OUTPUT)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

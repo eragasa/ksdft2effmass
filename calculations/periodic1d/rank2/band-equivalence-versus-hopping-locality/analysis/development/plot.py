@@ -10,10 +10,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import LogNorm
 
-CALCULATION = Path(__file__).resolve().parents[2]
+DEVELOPMENT = Path(__file__).resolve().parent
+CALCULATION = DEVELOPMENT.parents[1]
 INPUTS = CALCULATION / "simulations" / "development" / "inputs"
 RESULTS = CALCULATION / "simulations" / "development" / "results"
-FIGURES = Path(__file__).resolve().parent / "figures"
+FIGURES = DEVELOPMENT / "figures"
 PNG_OUTPUT = FIGURES / "band-equivalence-versus-hopping-locality.png"
 PDF_OUTPUT = FIGURES / "band-equivalence-versus-hopping-locality.pdf"
 
@@ -38,13 +39,10 @@ def _panel_label(axis: plt.Axes, label: str) -> None:
     )
 
 
-def main() -> int:
+def main() -> None:
     """Create vector PDF and 600-dpi PNG versions of the five-panel figure."""
     threshold_data = np.genfromtxt(
         INPUTS / "smooth-threshold-continuum.csv", delimiter=",", names=True
-    )
-    amplitude_data = np.genfromtxt(
-        RESULTS / "amplitude-resolution.csv", delimiter=",", names=True
     )
     hopping_data = np.genfromtxt(
         RESULTS / "selected-hopping-tails.csv", delimiter=",", names=True
@@ -105,36 +103,26 @@ def main() -> int:
         axes[0].grid(alpha=0.2, linewidth=0.5)
         _panel_label(axes[0], "(a)")
 
-        intervals = np.asarray(amplitude_data["amplitude_intervals"], dtype=np.float64)
-        axes[1].loglog(
-            intervals,
-            amplitude_data["maximum_operator_threshold_midpoint_interpolation_defect"],
-            marker="o",
-            markersize=3.2,
-            color=BLUE,
-            label="operator",
+        correlation = np.sqrt(
+            np.maximum(
+                0.0,
+                1.0
+                - np.asarray(
+                    threshold_data["operator_threshold_over_sqrt_kappa"],
+                    dtype=np.float64,
+                )
+                ** 2,
+            )
         )
-        axes[1].loglog(
-            intervals,
-            amplitude_data["maximum_joint_threshold_midpoint_interpolation_defect"],
-            marker="s",
-            markersize=3.0,
-            color=VERMILION,
-            label="joint",
+        axes[1].plot(amplitude, correlation, color=GREEN)
+        axes[1].set_xticks(
+            (0.0, math.pi / 8.0, math.pi / 4.0),
+            ("0", r"$\pi/8$", r"$\pi/4$"),
         )
-        axes[1].axhline(
-            1.01e-8,
-            color="#555555",
-            linestyle=":",
-            linewidth=1.0,
-            label=r"draft $1.01\times10^{-8}$",
-        )
-        axes[1].axvspan(8, 64, color="#999999", alpha=0.12)
-        axes[1].set_xlabel("amplitude intervals $N_a$")
-        axes[1].set_ylabel("midpoint interpolation defect")
-        axes[1].set_title("Amplitude resolution")
-        axes[1].legend(frameon=False, loc="upper right")
-        axes[1].grid(which="both", alpha=0.2, linewidth=0.5)
+        axes[1].set_xlabel("rotation amplitude $a$")
+        axes[1].set_ylabel(r"$\mu_{\max}(a)=J_0(2a)$")
+        axes[1].set_title("Direct analytic correlation")
+        axes[1].grid(alpha=0.2, linewidth=0.5)
         _panel_label(axes[1], "(b)")
 
         selected = (
@@ -202,7 +190,7 @@ def main() -> int:
         axes[3].text(
             0.02,
             0.50,
-            r"maximum defect $2.22\times10^{-16}$",
+            r"maximum discrepancy $2.22\times10^{-16}$",
             transform=axes[3].transAxes,
             fontsize=7,
             va="center",
@@ -250,10 +238,9 @@ def main() -> int:
         figure.savefig(PNG_OUTPUT, dpi=600, bbox_inches="tight", metadata=metadata)
         plt.close(figure)
 
-    print(f"output={PDF_OUTPUT}")
-    print(f"output={PNG_OUTPUT}")
-    return 0
+    print(PDF_OUTPUT)
+    print(PNG_OUTPUT)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

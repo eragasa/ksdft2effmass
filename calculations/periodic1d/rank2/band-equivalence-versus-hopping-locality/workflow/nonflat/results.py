@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from enum import StrEnum
 
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximum
 
-from ._validation import _finite_float
-from .nonflat_definition import (
+from .._validation import _finite_float
+from .definition import (
     SmoothFourStateAdaptiveAmplitudeDefinition,
     SmoothFourStateConvergenceDefinition,
     SmoothFourStateDefinition,
@@ -120,6 +121,11 @@ class SmoothFourStateResult:
     definition: SmoothFourStateDefinition
     minimum_external_gap: float
     minimum_transport_singular_value: float
+    maximum_transport_procrustes_residual: float
+    maximum_transport_unitarity_defect: float
+    maximum_transport_rank_cutoff: float
+    closure_holonomy_phases: tuple[float, ...]
+    closure_holonomy_unitarity_defect: float
     maximum_frame_orthonormality_defect: float
     periodic_closure_defect: float
     maximum_reference_hermiticity_defect: float
@@ -136,6 +142,19 @@ class SmoothFourStateResult:
                 self.minimum_transport_singular_value,
             ),
             (
+                "maximum_transport_procrustes_residual",
+                self.maximum_transport_procrustes_residual,
+            ),
+            (
+                "maximum_transport_unitarity_defect",
+                self.maximum_transport_unitarity_defect,
+            ),
+            ("maximum_transport_rank_cutoff", self.maximum_transport_rank_cutoff),
+            (
+                "closure_holonomy_unitarity_defect",
+                self.closure_holonomy_unitarity_defect,
+            ),
+            (
                 "maximum_frame_orthonormality_defect",
                 self.maximum_frame_orthonormality_defect,
             ),
@@ -148,6 +167,19 @@ class SmoothFourStateResult:
             _finite_float(name, value)
             if value < 0.0:
                 raise ValueError(f"{name} must be nonnegative")
+        if (
+            type(self.closure_holonomy_phases) is not tuple
+            or len(self.closure_holonomy_phases) != 2
+        ):
+            raise TypeError(
+                "closure_holonomy_phases must contain the rank-two phase set"
+            )
+        for phase in self.closure_holonomy_phases:
+            _finite_float("closure_holonomy_phase", phase)
+            if not -math.pi <= phase <= math.pi:
+                raise ValueError("closure holonomy phases must lie in [-pi, pi]")
+        if self.closure_holonomy_phases != tuple(sorted(self.closure_holonomy_phases)):
+            raise ValueError("closure holonomy phases must be ordered")
         if self.minimum_external_gap < self.definition.minimum_external_gap:
             raise ValueError("minimum_external_gap fails its declared lower bound")
         if (

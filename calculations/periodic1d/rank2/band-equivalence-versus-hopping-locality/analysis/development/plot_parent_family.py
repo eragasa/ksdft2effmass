@@ -9,9 +9,11 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-CALCULATION = Path(__file__).resolve().parents[2]
+DEVELOPMENT = Path(__file__).resolve().parent
+CALCULATION = DEVELOPMENT.parents[1]
+INPUTS = CALCULATION / "simulations" / "development" / "inputs"
 RESULTS = CALCULATION / "simulations" / "development" / "results"
-FIGURES = Path(__file__).resolve().parent / "figures"
+FIGURES = DEVELOPMENT / "figures"
 PDF_OUTPUT = FIGURES / "parent-family-robustness-exploratory.pdf"
 PNG_OUTPUT = FIGURES / "parent-family-robustness-exploratory.png"
 BLUE = "#0072B2"
@@ -72,7 +74,7 @@ def _heatmap(
     colorbar.ax.tick_params(labelsize=6.5)
 
 
-def main() -> int:
+def main() -> None:
     """Create a bounded visualization of the sampled two-parameter family."""
     continuum = np.genfromtxt(
         RESULTS / "parent-family-continuum.csv", delimiter=",", names=True
@@ -143,7 +145,7 @@ def main() -> int:
             label="sampled external gap",
         )
         flat_axes[3].set_xlabel(r"parent hopping scale $\rho$")
-        flat_axes[3].set_ylabel(r"sampled gap ($E_G$)", color=BLUE)
+        flat_axes[3].set_ylabel(r"sampled gap ($E_{\mathrm{ref}}$)", color=BLUE)
         flat_axes[3].tick_params(axis="y", colors=BLUE)
         companion = flat_axes[3].twinx()
         reference_weight = np.asarray(
@@ -189,10 +191,9 @@ def main() -> int:
         figure.savefig(PDF_OUTPUT, bbox_inches="tight", metadata=metadata)
         figure.savefig(PNG_OUTPUT, dpi=600, bbox_inches="tight", metadata=metadata)
         plt.close(figure)
-    print(f"output={PDF_OUTPUT}")
-    print(f"output={PNG_OUTPUT}")
-    return 0
+    print(PDF_OUTPUT)
+    print(PNG_OUTPUT)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

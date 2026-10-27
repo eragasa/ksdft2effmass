@@ -10,7 +10,7 @@ $K(q)=\sigma_z$, and the comparison family is
 $A_a(q)=R[a\sin(2\pi q)]^{\mathsf T}K(q)R[a\sin(2\pi q)]$ for
 $0\leq a\leq\pi/4$. Because this construction is an orthogonal similarity at every
 $q$, the two eigenvalues remain $-1$ and $+1$ throughout the Brillouin zone. The largest
-computed band defect over the tested amplitude and momentum grids was
+computed band discrepancy over the tested amplitude and momentum grids was
 $2.22\times10^{-16}$ [Fig. 1(d)]. The conventional band structure therefore cannot
 distinguish the parent and comparison representations. If the generating
 momentum-dependent rotation is admitted as the state-space identification, the two
@@ -37,36 +37,31 @@ support broadens continuously even though the bands remain unchanged. Thus, for 
 family, band equivalence coexists with both a nonzero restricted-alignment matrix
 mismatch and an extended hopping representation.
 
-The numerical study also separates momentum and amplitude resolution. Refinement from
-$N=32$ through $N=512$ changes all monitored momentum-dependent quantities only at
-approximately binary64 roundoff. By contrast, the proposed uniform amplitude ladder
-through $N_a=64$ is insufficient to reconstruct a continuous threshold curve at the
-draft $1.01\times10^{-8}$ level [Fig. 1(b)]. Its maximum midpoint interpolation defects
-are $3.08\times10^{-5}$ and $1.41\times10^{-5}$ for the operator and joint thresholds.
-The observed second-order decay places the first tested passing uniform grid at
-$N_a=4096$. This does not imply that every calculation requires 4096 amplitudes: the
-analytic flat-parent thresholds can be evaluated directly, while a non-analytic model
-should use a reviewed adaptive refinement rule rather than infer convergence from shared
-nested nodes alone.
+The numerical study separates momentum resolution from amplitude evaluation. Refinement
+from $N=32$ through $N=512$ changes all monitored momentum-dependent quantities only at
+approximately binary64 roundoff. The continuous flat-parent correlation and thresholds
+are evaluated directly from their $J_0(2a)$ laws [Fig. 1(a,b)], so no uniform amplitude
+interpolant enters those claims. The earlier $N_a\le64$ midpoint test is retained only as
+a rejected interpolation diagnostic. Numerical hopping quantities remain pointwise at
+their explicitly evaluated amplitudes.
 
 This benchmark establishes the mechanism and verifies the implemented flat-parent
 channels; it does not exercise the prospective admissible-set, witness, or separation
 workflow and does not establish material realism. The parent is deliberately flat and
 the $N=512$ hopping blocks remain finite-mesh Fourier coefficients. An initial non-flat
-four-state realization now exists, but its momentum and amplitude controls remain
-`unresolved`. A qualified non-flat calculation and a retained, protocol-frozen run are
-still required before the family can serve as final publication evidence.
+four-state realization now exists with converged momentum controls and pointwise
+amplitude claims. A retained, protocol-frozen run is still required before the family
+can serve as final publication evidence.
 
 ## Suggested figure caption
 
 **Figure 1. Band equivalence versus hopping locality in the smooth flat-parent
 continuum.** **(a)** Normalized minimum operator and exact-spectrum joint acceptance
-thresholds as functions of the maximum rotation amplitude $a$. **(b)** Maximum
-midpoint defect of piecewise-linear interpolation on nested uniform amplitude grids;
-the shaded region marks the proposed $N_a=8$--64 ladder, and the dotted line is the
-draft $1.01\times10^{-8}$ unit-scale target. **(c)** Cumulative normalized hopping
+thresholds as functions of the maximum rotation amplitude $a$. **(b)** Direct analytic
+correlation $\mu_{\max}(a)=J_0(2a)$; no amplitude interpolant supports the continuum
+claim. **(c)** Cumulative normalized hopping
 weight outside the retained range $|R|\leq R_{\max}$ for two amplitudes.
-**(d)** Reference and transformed Bloch bands; the largest computed eigenvalue defect
+**(d)** Reference and transformed Bloch bands; the largest computed eigenvalue discrepancy
 is $2.22\times10^{-16}$. **(e)** Normalized range-resolved hopping weight over amplitude
 and absolute displacement. Thresholds in (a) use the analytic $J_0(2a)$ comparator;
 (c) and (e) use the converged $N=512$ finite transform. The calculation shown is a
@@ -76,8 +71,8 @@ pre-version development analysis and is not a retained evidence run.
 
 The dispersive four-state construction preserves the same central qualitative contrast
 without importing either the flat-parent $J_0(2a)$ comparator or its exact
-residual--tail identity. At $N=512$, its minimum sampled external gap is $1.0566461$, and its
-largest computed band defect over 65 amplitudes is $1.45\times10^{-15}$. At
+residual--tail identity. At $N=512$, its minimum sampled external isolation gap is $1.0566461$, and its
+largest computed band discrepancy over 65 amplitudes is $1.45\times10^{-15}$. At
 $a=\pi/4$, the restricted-alignment minimum and exact-spectrum joint thresholds are
 $0.4004394$ and $0.4611609$, while the non-onsite hopping weight increases from the
 reference value $0.0323839$ to $0.1761533$. The weight outside $|R|\leq4$ is
@@ -91,10 +86,10 @@ physical-outcome change from $N=256$ to $N=512$ is $1.08\times10^{-11}$, and the
 largest parent-invariant change is $1.67\times10^{-16}$. Neighboring-frame overlap is
 retained as a qualification lower bound rather than treated as a convergence observable;
 shared parent eigenvalues and spectral projectors provide the invariant cross-mesh
-checks. The 64-interval amplitude grid remains `unresolved`, with a maximum correlation
-midpoint defect of $3.49\times10^{-5}$. That failure must remain visible: momentum
-convergence and roundoff-level band agreement cannot substitute for between-amplitude
-resolution.
+checks. The diagnostic 64-interval interpolant has a maximum correlation midpoint
+discrepancy of $3.49\times10^{-5}$ and is not used. This limitation remains visible:
+momentum convergence and roundoff-level band agreement do not support a between-amplitude
+claim, so the reported non-flat conclusions remain pointwise.
 
 **Exploratory companion figure. Smooth non-flat four-state realization.** **(a)**
 Restricted-alignment thresholds over a 65-node sampling of the smooth amplitude family;
@@ -103,7 +98,7 @@ and comparison non-onsite weights over the same family. **(c)** Range-resolved
 comparison hopping redistribution over amplitude and absolute displacement. **(d)**
 Selected cumulative finite-mesh hopping tails. **(e)** Adjacent momentum-refinement
 changes; both parent-invariant and selected outcome channels lie below the draft target.
-**(f)** Midpoint amplitude-interpolation defects,
+**(f)** Midpoint amplitude-interpolation discrepancies,
 all above the draft target on the tested $N_a\leq64$ ladder. The figure is a pre-version
 diagnostic and must not be cited as retained evidence; only its momentum-refinement
 component is `converged`.
@@ -115,14 +110,14 @@ specific to the selected dispersive parent. Across five sampled scales and 33 am
 all momentum studies through $N=256$ are `converged`. At $a=\pi/4$, the normalized
 minimum threshold changes from $0.8815979$ at $\rho=0$ to $0.8613625$ at $\rho=1$,
 while the excess non-onsite weight changes from $0.1431824$ to $0.1437693$. The sampled
-external gap remains above $1.05E_G$. The normalized departure from the flat
+external isolation gap remains above $1.05E_{\mathrm{ref}}$. The normalized departure from the flat
 residual--tail identity changes from roundoff at $\rho=0$ to $-0.0767265$ at $\rho=1$.
 The restricted mismatch and excess hopping therefore remain large while their exact flat
 identity deforms systematically with dispersion. The effect persists throughout the
 sampled homotopy, although the finite inventory does not certify every intermediate
 $\rho$ or resolve the amplitude-interpolation limitation.
 
-**Exploratory parent-family scientific figure.** **(a)** Maximum band defect, with exact
+**Exploratory parent-family scientific figure.** **(a)** Maximum band discrepancy, with exact
 zeros floored at $10^{-18}$ for logarithmic display. **(b)** Scale-normalized minimum
 operator threshold and flat analytic comparator. **(c)** Scale-normalized excess
 non-onsite hopping weight and flat analytic identity. **(d)** Parametric relation between
@@ -138,7 +133,7 @@ retained run, continuous-domain certificate, or material validation.
 The calculation first forms the complete retained field $H_\rho(q_i)$ in a transported
 periodic frame and then applies the smooth pointwise rotation
 $A_{\rho,a}(q_i)=U_a(q_i)^\dagger H_\rho(q_i)U_a(q_i)$. The maximum ordered-eigenvalue
-defect in panel (a) is therefore a numerical check of this constructed similarity, not a
+discrepancy in panel (a) is therefore a numerical check of this constructed similarity, not a
 comparison of independently generated material models. The restricted threshold in
 panel (b) is
 
@@ -152,7 +147,7 @@ rotation. It measures the component that cannot be represented by that deliberat
 restricted global rotation and positive scale. It is not a distance under arbitrary
 momentum-dependent unitary equivalence.
 
-For each finite-mesh Fourier block, $p_R=\lVert T_R\rVert_F^2/(2E_G^2)$, and the
+For each finite-mesh Fourier block, $p_R=\lVert T_R\rVert_F^2/(2E_{\mathrm{ref}}^2)$, and the
 non-onsite power is $P_{>0}=\sum_{R\ne0}p_R$. Panels (c)--(e) compare
 
 ```math
@@ -182,12 +177,12 @@ reconstructs the distinct truncated model on the shifted $M=4N+1$ evaluation mes
 Interpolation, deliberate truncation, and total errors remain separate.
 
 Across the five sampled parent scales and 33 directly sampled amplitudes, the direct
-unitarily related fields preserve their bands within $1.33\times10^{-15}E_G$ and the
-largest full-comparison interpolation defect is $2.40\times10^{-14}E_G$. At
+unitarily related fields preserve their bands within $1.33\times10^{-15}E_{\mathrm{ref}}$ and the
+largest full-comparison interpolation discrepancy is $2.40\times10^{-14}E_{\mathrm{ref}}$. At
 $(\rho,a)=(1,\pi/4)$, $R_c=3$ gives a reference maximum band error of
-$5.53\times10^{-8}E_G$ but a rotated-comparison total band error of
-$1.86\times10^{-2}E_G$; at $R_c=8$ the values are $4.22\times10^{-14}E_G$ and
-$8.65\times10^{-7}E_G$. This sampled synthetic calculation directly connects the
+$5.53\times10^{-8}E_{\mathrm{ref}}$ but a rotated-comparison total band error of
+$1.86\times10^{-2}E_{\mathrm{ref}}$; at $R_c=8$ the values are $4.22\times10^{-14}E_{\mathrm{ref}}$ and
+$8.65\times10^{-7}E_{\mathrm{ref}}$. This sampled synthetic calculation directly connects the
 previous compactness diagnostic to a finite-range spectral consequence: complete
 unitarily related Hamiltonians can require substantially different ranges for comparable
 band accuracy.

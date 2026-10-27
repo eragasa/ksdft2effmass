@@ -4,10 +4,22 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .nonflat_definition import SmoothFourStateDefinition
+from ..nonflat.definition import SmoothFourStateDefinition
 
 SMOOTH_FOUR_STATE_TRUNCATION_METHOD_ID = (
     "nonflat-four-state-ordinary-lattice-truncation.v1"
+)
+SMOOTH_FOUR_STATE_TRUNCATION_INPUT_SCHEMA_ID = (
+    "ksdft2effmass.campaign.model-adequacy.periodic1d."
+    "band-equivalence-versus-hopping-locality.truncation.input.v0"
+)
+SMOOTH_FOUR_STATE_TRUNCATION_RESULT_SCHEMA_ID = (
+    "ksdft2effmass.campaign.model-adequacy.periodic1d."
+    "band-equivalence-versus-hopping-locality.truncation.result.v0"
+)
+SMOOTH_FOUR_STATE_TRUNCATION_VERIFICATION_SCHEMA_ID = (
+    "ksdft2effmass.campaign.model-adequacy.periodic1d."
+    "band-equivalence-versus-hopping-locality.truncation.verification.v0"
 )
 
 
@@ -24,6 +36,35 @@ class SmoothFourStateTruncationDefinition:
     model: SmoothFourStateDefinition
     maximum_ranges: tuple[int, ...]
     evaluation_mesh_size: int
+
+    @classmethod
+    def every_integer_through(
+        cls,
+        *,
+        model: SmoothFourStateDefinition,
+        maximum_range: int,
+        evaluation_mesh_size: int,
+    ) -> SmoothFourStateTruncationDefinition:
+        """Construct the dense integer inventory ``0, ..., maximum_range``.
+
+        This constructor declares a candidate inventory only.  It does not freeze a
+        protocol, select an accuracy target, execute a calculation, or assign retained
+        evidence status.
+        """
+        if type(maximum_range) is not int:
+            raise TypeError("maximum_range must be a built-in int")
+        if maximum_range < 0:
+            raise ValueError("maximum_range must be nonnegative")
+        return cls(
+            model=model,
+            maximum_ranges=tuple(range(maximum_range + 1)),
+            evaluation_mesh_size=evaluation_mesh_size,
+        )
+
+    @property
+    def has_dense_integer_inventory(self) -> bool:
+        """Return whether every integer cutoff from zero through the cap is present."""
+        return self.maximum_ranges == tuple(range(self.maximum_ranges[-1] + 1))
 
     def __post_init__(self) -> None:
         """Reject cyclic, undersampled, or ambiguous cutoff inventories."""

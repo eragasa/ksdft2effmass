@@ -973,11 +973,11 @@ A complete derivation is given in Supplementary Sec.~S1.4.
 ]
 \addplot[protocolblue,very thick]
  table[x=a,y=operator_threshold_over_sqrt_kappa,col sep=comma]
- {../../../../../experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/smooth-threshold-continuum.csv};
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/inputs/smooth-threshold-continuum.csv};
 \addlegendentry{$\tau_{o,\min}/\sqrt\kappa$}
 \addplot[red!70!black,very thick,dashed]
  table[x=a,y=joint_threshold_over_sqrt_kappa,col sep=comma]
- {../../../../../experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/smooth-threshold-continuum.csv};
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/inputs/smooth-threshold-continuum.csv};
 \addlegendentry{$\tau_{o,\mathrm{joint}}(a;0)/\sqrt\kappa$}
 \end{axis}
 \end{tikzpicture}
@@ -1555,7 +1555,7 @@ transport-rank, reconstruction, and momentum-refinement controls.
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]
-    {../../../../../experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf}
+    {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf}
   \caption{Band equivalence and locality across the sampled parent family.
   \textbf{(a)} Maximum ordered-eigenvalue discrepancy; exact zeros are displayed at
   $10^{-18}$ on the logarithmic axis. \textbf{(b)} Minimum restricted-alignment
@@ -1763,7 +1763,7 @@ finite-interpolant discrepancy.
 \begin{figure*}[t]
   \centering
   \includegraphics[width=0.96\textwidth]
-    {../../../../../experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/range-inflation-preview.pdf}
+    {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/range-inflation-preview.pdf}
   \caption{Exploratory sampled range inflation at four band-error targets. Each tile is
   one directly sampled $(\rho,a)$ pair, and color gives
   $\Delta\widehat R_c^\star$ from Eq.~\eqref{eq:sampled-range-inflation}. No smoothing
@@ -1792,9 +1792,10 @@ to conversion, interpolation, or deliberate truncation. Material-derived Wannier
 Hamiltonians and higher dimensions remain outside the demonstrated scope; in higher
 dimensions, the retained-neighbor count generally grows more rapidly with range. The dense inventory removes skipped-integer ambiguity. Independent reconstruction gives
 a maximum absolute discrepancy of $4.61\times10^{-13}$, and threshold-adjacent checks
-show no first-passing decision changes from $N=128$ through 512. Protocol freeze, exact
-source provenance, retained execution, and retained-package verification are still
-required before Fig.~\ref{fig:range-inflation-preview} can serve as retained evidence.
+show no first-passing decision changes from $N=128$ through 512. The calculation owner
+records the recovered source and data bytes for this development analysis. Protocol
+freeze, retained execution, and retained-package verification are still required before
+Fig.~\ref{fig:range-inflation-preview} can serve as retained evidence.
 
 \paragraph{Error-channel accounting.}
 Figure~\ref{fig:truncation-error-decomposition} separates the numerical error channels
@@ -1803,7 +1804,7 @@ that underlie the range comparison.
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]
-    {../../../../../experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-error-channel-decomposition.pdf}
+    {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-error-channel-decomposition.pdf}
   \caption{The four approximation channels are reported separately.
   \textbf{(a)} Normalized Frobenius power in the centered cyclic Nyquist block removed
   during conversion to an ordinary-lattice inventory; this is conversion power, not an

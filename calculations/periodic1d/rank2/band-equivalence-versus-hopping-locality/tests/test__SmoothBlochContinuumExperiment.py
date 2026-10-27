@@ -6,8 +6,7 @@ import hashlib
 import json
 import math
 from dataclasses import replace
-from importlib.resources import files
-from importlib.resources.abc import Traversable
+from pathlib import Path
 
 import pytest
 from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
@@ -84,9 +83,9 @@ class TestSmoothBlochContinuumExperiment:
         )
 
     @staticmethod
-    def schema_documents() -> Traversable:
-        """Return the calculation-owned workflow schema directory."""
-        return files("workflow").joinpath("schema_documents")
+    def experiment_root() -> Path:
+        """Return the maintained experiment root."""
+        return Path(__file__).resolve().parents[1]
 
     def test_definition_rejects_ambiguous_numeric_controls(self) -> None:
         """Reject booleans, numeric strings, incomplete meshes, and zero tolerance."""
@@ -259,19 +258,14 @@ class TestSmoothBlochContinuumExperiment:
         verification_wire = SmoothBlochContinuumVerificationSerializer().serialize(
             verification
         )
-        schema_documents = self.schema_documents()
+        root = self.experiment_root()
+        schemas = root / "workflow" / "schema_documents"
         records = (
-            (
-                input_wire,
-                schema_documents.joinpath("smooth-continuum-input.schema.json"),
-            ),
-            (
-                result_wire,
-                schema_documents.joinpath("smooth-continuum-result.schema.json"),
-            ),
+            (input_wire, schemas / "smooth-continuum-input.schema.json"),
+            (result_wire, schemas / "smooth-continuum-result.schema.json"),
             (
                 verification_wire,
-                schema_documents.joinpath("smooth-continuum-verification.schema.json"),
+                schemas / "smooth-continuum-verification.schema.json",
             ),
         )
         documents: list[dict[str, JsonValue]] = []

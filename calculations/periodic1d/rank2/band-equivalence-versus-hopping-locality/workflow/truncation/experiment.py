@@ -7,6 +7,7 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
+from projectkoios.numerics.linalg.frobenius import complex_matrix_frobenius
 from projectkoios.numerics.linalg.hermitian_spectrum import (
     BatchedHermitianSpectrumDefinition,
     BatchedHermitianSpectrumTolerance,
@@ -40,9 +41,9 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from .nonflat_experiment import ComplexArray, SmoothFourStateExperiment
-from .truncation_definition import SmoothFourStateTruncationDefinition
-from .truncation_results import (
+from ..nonflat.experiment import ComplexArray, SmoothFourStateExperiment
+from .definition import SmoothFourStateTruncationDefinition
+from .results import (
     SmoothFourStateTruncationPointResult,
     SmoothFourStateTruncationRangeResult,
     SmoothFourStateTruncationResult,
@@ -52,9 +53,17 @@ RealArray = npt.NDArray[np.float64]
 
 
 @dataclass(frozen=True, slots=True)
+class _HamiltonianErrors:
+    maximum: float
+    rms: float
+
+
+@dataclass(frozen=True, slots=True)
 class _ReferenceRangeResult:
     maximum_range: int
     ordinary_omitted_power: float
+    maximum_hamiltonian_error: float
+    rms_hamiltonian_error: float
     maximum_band_error: float
     rms_band_error: float
 
@@ -155,6 +164,26 @@ class SmoothFourStateTruncationExperiment:
         )
         return SmoothFourStateTruncationResult(
             definition=definition,
+            minimum_external_gap=parent.minimum_external_gap,
+            minimum_transport_singular_value=parent.minimum_transport_singular_value,
+            maximum_transport_procrustes_residual=(
+                parent.maximum_transport_procrustes_residual
+            ),
+            maximum_transport_unitarity_defect=(
+                parent.maximum_transport_unitarity_defect
+            ),
+            maximum_transport_rank_cutoff=parent.maximum_transport_rank_cutoff,
+            closure_holonomy_phases=parent.closure_holonomy_phases,
+            closure_holonomy_unitarity_defect=(
+                parent.closure_holonomy_unitarity_defect
+            ),
+            maximum_frame_orthonormality_defect=(
+                parent.maximum_frame_orthonormality_defect
+            ),
+            periodic_closure_defect=parent.periodic_closure_defect,
+            maximum_reference_hermiticity_defect=(
+                parent.maximum_reference_hermiticity_defect
+            ),
             evaluation_coordinate_offset=offset,
             minimum_construction_evaluation_separation=separation,
             points=points,
@@ -225,6 +254,10 @@ class SmoothFourStateTruncationExperiment:
         )
         direct_difference = direct_eigenvalues - reference_eigenvalues
         interpolation_difference = comparison_full_eigenvalues - direct_eigenvalues
+        interpolation_hamiltonian_errors = cls._hamiltonian_errors(
+            comparison_full - direct_comparison,
+            interpolation_difference,
+        )
 
         ranges = tuple(
             cls._range(
@@ -233,6 +266,7 @@ class SmoothFourStateTruncationExperiment:
                 comparison_entry,
                 comparison_full,
                 comparison_full_eigenvalues,
+                direct_comparison,
                 direct_eigenvalues,
                 reference_nyquist_power,
                 comparison_nyquist_power,
@@ -251,6 +285,12 @@ class SmoothFourStateTruncationExperiment:
             reference_maximum_ordinary_hermiticity_defect=reference_hermiticity,
             comparison_maximum_ordinary_hermiticity_defect=comparison_hermiticity,
             maximum_direct_band_defect=float(np.max(np.abs(direct_difference))),
+            comparison_maximum_interpolation_hamiltonian_error=(
+                interpolation_hamiltonian_errors.maximum
+            ),
+            comparison_rms_interpolation_hamiltonian_error=(
+                interpolation_hamiltonian_errors.rms
+            ),
             comparison_maximum_interpolation_band_error=float(
                 np.max(np.abs(interpolation_difference))
             ),
@@ -267,12 +307,16 @@ class SmoothFourStateTruncationExperiment:
         reference_eigenvalues: RealArray,
     ) -> _ReferenceRangeResult:
         matrices, eigenvalues = cls._band_arrays(entry.band_evaluation)
-        if not bool(np.isfinite(matrices - reference_full).all()):
+        matrix_difference = matrices - reference_full
+        if not bool(np.isfinite(matrix_difference).all()):
             raise FloatingPointError("reference truncation difference became nonfinite")
         difference = eigenvalues - reference_eigenvalues
+        hamiltonian_errors = cls._hamiltonian_errors(matrix_difference, difference)
         return _ReferenceRangeResult(
             maximum_range=maximum_range,
             ordinary_omitted_power=entry.truncation.omitted_power.magnitude / 2.0,
+            maximum_hamiltonian_error=hamiltonian_errors.maximum,
+            rms_hamiltonian_error=hamiltonian_errors.rms,
             maximum_band_error=float(np.max(np.abs(difference))),
             rms_band_error=cls._rms(difference),
         )
@@ -285,6 +329,7 @@ class SmoothFourStateTruncationExperiment:
         comparison_entry: BlockHoppingRangeBandEntry,
         comparison_full: ComplexArray,
         comparison_full_eigenvalues: RealArray,
+        direct_comparison: ComplexArray,
         direct_eigenvalues: RealArray,
         reference_nyquist_power: float,
         comparison_nyquist_power: float,
@@ -294,17 +339,23 @@ class SmoothFourStateTruncationExperiment:
         comparison_truncated, comparison_truncated_eigenvalues = cls._band_arrays(
             comparison_entry.band_evaluation
         )
-        # The matrix differences are intentionally formed before eigenvalue errors so
-        # nonfinite arithmetic cannot be hidden by a Hermitian eigensolver.
-        if not bool(np.isfinite(comparison_truncated - comparison_full).all()):
-            raise FloatingPointError(
-                "comparison truncation difference became nonfinite"
-            )
+        # Matrix differences are formed before eigenvalue errors so nonfinite
+        # arithmetic cannot be hidden by a Hermitian eigensolver.
+        comparison_truncation_matrix_difference = comparison_truncated - comparison_full
+        comparison_total_matrix_difference = comparison_truncated - direct_comparison
         comparison_truncation_difference = (
             comparison_truncated_eigenvalues - comparison_full_eigenvalues
         )
         comparison_total_difference = (
             comparison_truncated_eigenvalues - direct_eigenvalues
+        )
+        comparison_truncation_hamiltonian_errors = cls._hamiltonian_errors(
+            comparison_truncation_matrix_difference,
+            comparison_truncation_difference,
+        )
+        comparison_total_hamiltonian_errors = cls._hamiltonian_errors(
+            comparison_total_matrix_difference,
+            comparison_total_difference,
         )
         reference_ordinary_power = reference_range.ordinary_omitted_power
         comparison_ordinary_power = (
@@ -320,13 +371,31 @@ class SmoothFourStateTruncationExperiment:
             comparison_total_omitted_power=(
                 comparison_ordinary_power + comparison_nyquist_power
             ),
+            reference_maximum_truncation_hamiltonian_error=(
+                reference_range.maximum_hamiltonian_error
+            ),
+            reference_rms_truncation_hamiltonian_error=(
+                reference_range.rms_hamiltonian_error
+            ),
             reference_maximum_band_error=reference_range.maximum_band_error,
             reference_rms_band_error=reference_range.rms_band_error,
+            comparison_maximum_truncation_hamiltonian_error=(
+                comparison_truncation_hamiltonian_errors.maximum
+            ),
+            comparison_rms_truncation_hamiltonian_error=(
+                comparison_truncation_hamiltonian_errors.rms
+            ),
             comparison_maximum_truncation_band_error=float(
                 np.max(np.abs(comparison_truncation_difference))
             ),
             comparison_rms_truncation_band_error=cls._rms(
                 comparison_truncation_difference
+            ),
+            comparison_maximum_total_hamiltonian_error=(
+                comparison_total_hamiltonian_errors.maximum
+            ),
+            comparison_rms_total_hamiltonian_error=(
+                comparison_total_hamiltonian_errors.rms
             ),
             comparison_maximum_total_band_error=float(
                 np.max(np.abs(comparison_total_difference))
@@ -468,6 +537,44 @@ class SmoothFourStateTruncationExperiment:
         return np.asarray(result.eigenvalues, dtype=np.float64).reshape(
             result.batch_size,
             result.dimension,
+        )
+
+    @staticmethod
+    def _hamiltonian_errors(
+        matrix_differences: ComplexArray,
+        eigenvalue_differences: RealArray,
+    ) -> _HamiltonianErrors:
+        """Return rank-normalized Frobenius errors and verify spectral bounds."""
+        if matrix_differences.ndim != 3 or matrix_differences.shape[1:] != (2, 2):
+            raise ValueError("matrix differences must have shape (point, 2, 2)")
+        if eigenvalue_differences.shape != (matrix_differences.shape[0], 2):
+            raise ValueError("eigenvalue differences must have shape (point, 2)")
+        if matrix_differences.shape[0] == 0:
+            raise ValueError("Hamiltonian error evaluation requires at least one point")
+
+        powers: list[float] = []
+        norms: list[float] = []
+        for matrix, eigenvalues in zip(
+            matrix_differences, eigenvalue_differences, strict=True
+        ):
+            value = complex_matrix_frobenius(
+                tuple(tuple(complex(entry) for entry in row) for row in matrix)
+            )
+            spectral_maximum = float(np.max(np.abs(eigenvalues)))
+            bound_tolerance = (
+                32.0 * np.finfo(np.float64).eps * max(1.0, value.norm, spectral_maximum)
+            )
+            if spectral_maximum > value.norm + bound_tolerance:
+                raise FloatingPointError(
+                    "spectral error exceeds its Frobenius perturbation bound"
+                )
+            powers.append(value.power)
+            norms.append(value.norm)
+
+        rank = 2.0
+        return _HamiltonianErrors(
+            maximum=max(norms) / math.sqrt(rank),
+            rms=math.sqrt(math.fsum(powers) / (rank * len(powers))),
         )
 
     @staticmethod

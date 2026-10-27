@@ -9,9 +9,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-CALCULATION = Path(__file__).resolve().parents[2]
+DEVELOPMENT = Path(__file__).resolve().parent
+CALCULATION = DEVELOPMENT.parents[1]
+INPUTS = CALCULATION / "simulations" / "development" / "inputs"
 RESULTS = CALCULATION / "simulations" / "development" / "results"
-FIGURES = Path(__file__).resolve().parent / "figures"
+FIGURES = DEVELOPMENT / "figures"
 INPUT = RESULTS / "truncation-consequences.csv"
 OUTPUT = FIGURES / "truncation-band-consequences"
 ENDPOINT = math.pi / 4.0
@@ -40,7 +42,7 @@ def _endpoint(
     )
 
 
-def main() -> int:
+def main() -> None:
     """Write a three-panel sampled range-versus-accuracy figure."""
     rows = _rows()
     scales = sorted({row["parent_hopping_scale"] for row in rows})
@@ -64,7 +66,7 @@ def main() -> int:
     )
     axes[0].set_title(r"(a) $\rho=1$, $a=\pi/4$")
     axes[0].set_xlabel(r"cutoff $R_c$")
-    axes[0].set_ylabel(r"maximum band error / $E_G$")
+    axes[0].set_ylabel(r"maximum band error / $E_{\mathrm{ref}}$")
     axes[0].legend(frameon=False)
 
     colors = plt.cm.viridis(np.linspace(0.05, 0.95, len(scales)))
@@ -82,7 +84,7 @@ def main() -> int:
         )
     axes[1].set_title(r"(b) sampled parent homotopy, $a=\pi/4$")
     axes[1].set_xlabel(r"cutoff $R_c$")
-    axes[1].set_ylabel(r"comparison total band error / $E_G$")
+    axes[1].set_ylabel(r"comparison total band error / $E_{\mathrm{ref}}$")
     axes[1].legend(frameon=False, fontsize=8)
 
     for color, scale in zip(colors, scales, strict=True):
@@ -103,8 +105,8 @@ def main() -> int:
     guide = np.logspace(-14, 0, 128)
     axes[2].loglog(guide, guide, "--", color="0.45", linewidth=1.0, label=r"$y=x$")
     axes[2].set_title("(c) tail power versus spectral consequence")
-    axes[2].set_xlabel(r"$\sqrt{P_{>R_c}}/E_G$")
-    axes[2].set_ylabel(r"comparison total band error / $E_G$")
+    axes[2].set_xlabel(r"$\sqrt{P_{>R_c}}/E_ref$")
+    axes[2].set_ylabel(r"comparison total band error / $E_{\mathrm{ref}}$")
     axes[2].legend(frameon=False, fontsize=8)
 
     for axis in axes:
@@ -113,15 +115,10 @@ def main() -> int:
         "Pointwise finite-range consequences on the disjoint evaluation mesh",
         fontsize=12,
     )
-    pdf_output = OUTPUT.with_suffix(".pdf")
-    png_output = OUTPUT.with_suffix(".png")
-    figure.savefig(pdf_output, bbox_inches="tight")
-    figure.savefig(png_output, dpi=220, bbox_inches="tight")
+    figure.savefig(OUTPUT.with_suffix(".pdf"), bbox_inches="tight")
+    figure.savefig(OUTPUT.with_suffix(".png"), dpi=220, bbox_inches="tight")
     plt.close(figure)
-    print(f"output={pdf_output}")
-    print(f"output={png_output}")
-    return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

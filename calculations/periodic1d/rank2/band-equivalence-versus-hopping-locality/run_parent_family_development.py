@@ -6,7 +6,7 @@ import csv
 import math
 from pathlib import Path
 
-from workflow import (
+from workflow.nonflat import (
     SmoothFourStateConvergenceDefinition,
     SmoothFourStateConvergenceExperiment,
     SmoothFourStateConvergenceThresholds,
@@ -41,7 +41,7 @@ def _amplitudes() -> tuple[float, ...]:
     )
 
 
-def main() -> int:
+def main() -> None:
     """Write finite-mesh family surfaces and momentum-control summaries."""
     thresholds = SmoothFourStateConvergenceThresholds(
         maximum_parent_diagnostic_change=DRAFT_TOLERANCE,
@@ -131,6 +131,27 @@ def main() -> int:
                 "minimum_sampled_transport_singular_value": _number(
                     final.minimum_transport_singular_value
                 ),
+                "maximum_transport_procrustes_residual": _number(
+                    final.maximum_transport_procrustes_residual
+                ),
+                "maximum_transport_unitarity_defect": _number(
+                    final.maximum_transport_unitarity_defect
+                ),
+                "maximum_transport_rank_cutoff": _number(
+                    final.maximum_transport_rank_cutoff
+                ),
+                "closure_holonomy_phase_0": _number(final.closure_holonomy_phases[0]),
+                "closure_holonomy_phase_1": _number(final.closure_holonomy_phases[1]),
+                "closure_holonomy_unitarity_defect": _number(
+                    final.closure_holonomy_unitarity_defect
+                ),
+                "maximum_frame_orthonormality_defect": _number(
+                    final.maximum_frame_orthonormality_defect
+                ),
+                "periodic_closure_defect": _number(final.periodic_closure_defect),
+                "maximum_reference_hermiticity_defect": _number(
+                    final.maximum_reference_hermiticity_defect
+                ),
                 "maximum_final_parent_invariant_change": _number(
                     final_refinement.maximum_parent_diagnostic_change
                 ),
@@ -161,8 +182,7 @@ def main() -> int:
         "momentum_dispositions="
         + ",".join(row["momentum_disposition"] for row in summary_rows)
     )
-    return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

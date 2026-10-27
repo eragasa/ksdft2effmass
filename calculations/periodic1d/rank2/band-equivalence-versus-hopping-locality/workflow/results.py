@@ -23,7 +23,7 @@ class SmoothBlochContinuumHoppingBlockResult:
     displacement
         Centered integer cell displacement.
     normalized_squared_frobenius_norm
-        ``||B_R||_F^2 / (2 E_G^2)`` for the attacked traceless field.
+        ``||B_R||_F^2 / (2 E_ref^2)`` for the attacked traceless field.
     """
 
     displacement: int

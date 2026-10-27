@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.result.v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "identity", "input_binding", "qualification", "points", "interpretation"],
+  "properties": {
+    "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.result.v0"},
+    "identity": {"$ref": "#/$defs/identity"},
+    "input_binding": {"$ref": "#/$defs/input_binding"},
+    "qualification": {"$ref": "#/$defs/qualification"},
+    "points": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/point"}},
+    "interpretation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["complete_band_equivalence_is_locality_equivalence", "finite_mesh_correlations_are_continuum_correlations", "flat_parent_residual_locality_identity_assumed", "scientific_acceptance", "retained_evidence"],
+      "properties": {
+        "complete_band_equivalence_is_locality_equivalence": {"const": false},
+        "finite_mesh_correlations_are_continuum_correlations": {"const": false},
+        "flat_parent_residual_locality_identity_assumed": {"const": false},
+        "scientific_acceptance": {"const": false},
+        "retained_evidence": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["family_id", "method_id", "parent_model_id", "alignment_method_id", "reciprocal_coordinate_id", "fourier_convention_id", "fourier_normalization_id", "frame_transport_id"],
+      "properties": {
+        "family_id": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality"},
+        "method_id": {"const": "nonflat-four-state-smooth-sinusoidal-gauge.v1"},
+        "parent_model_id": {"const": "specified-finite-range-four-state-parent.v1"},
+        "alignment_method_id": {"const": "continuous-global-real-rotation-harmonic.v1"},
+        "reciprocal_coordinate_id": {"const": "q-equals-k-over-reciprocal-period.v1"},
+        "fourier_convention_id": {"const": "forward-negative-exponent-inverse-positive-exponent.v1"},
+        "fourier_normalization_id": {"const": "forward-one-over-n-inverse-unit.v1"},
+        "frame_transport_id": {"const": "neighbor-procrustes-with-closure-sewing.v1"}
+      }
+    },
+    "input_binding": {
+      "type": "object", "additionalProperties": false, "required": ["schema", "sha256"],
+      "properties": {
+        "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.input.v0"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "qualification": {
+      "type": "object", "additionalProperties": false,
+      "required": ["minimum_external_gap", "minimum_transport_singular_value", "maximum_transport_procrustes_residual", "maximum_transport_unitarity_residual", "maximum_transport_rank_cutoff", "closure_holonomy_phases", "closure_holonomy_unitarity_residual", "maximum_frame_orthonormality_residual", "periodic_closure_residual", "maximum_reference_hermiticity_residual"],
+      "properties": {
+        "minimum_external_gap": {"type": "number", "minimum": 0},
+        "minimum_transport_singular_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "maximum_transport_procrustes_residual": {"type": "number", "minimum": 0},
+        "maximum_transport_unitarity_residual": {"type": "number", "minimum": 0},
+        "maximum_transport_rank_cutoff": {"type": "number", "minimum": 0},
+        "closure_holonomy_phases": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+        "closure_holonomy_unitarity_residual": {"type": "number", "minimum": 0},
+        "maximum_frame_orthonormality_residual": {"type": "number", "minimum": 0},
+        "periodic_closure_residual": {"type": "number", "minimum": 0},
+        "maximum_reference_hermiticity_residual": {"type": "number", "minimum": 0}
+      }
+    },
+    "point": {
+      "type": "object", "additionalProperties": false,
+      "required": ["amplitude", "maximum_band_discrepancy", "splitting_scale", "continuous_alignment", "finite_mesh"],
+      "properties": {
+        "amplitude": {"type": "number", "minimum": 0, "maximum": 0.7853981633974483},
+        "maximum_band_discrepancy": {"type": "number", "minimum": 0},
+        "splitting_scale": {"type": "number", "minimum": 0},
+        "continuous_alignment": {"$ref": "#/$defs/alignment"},
+        "finite_mesh": {"$ref": "#/$defs/finite_mesh"}
+      }
+    },
+    "alignment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["harmonic_offset", "harmonic_cosine_coefficient", "harmonic_sine_coefficient", "harmonic_order", "fundamental_interval_start", "status", "harmonic_amplitude", "applied_degeneracy_cutoff", "canonical_maximizing_angle", "maximum_value"],
+      "properties": {
+        "harmonic_offset": {"type": "number"},
+        "harmonic_cosine_coefficient": {"type": "number"},
+        "harmonic_sine_coefficient": {"type": "number"},
+        "harmonic_order": {"const": 2},
+        "fundamental_interval_start": {"type": "number"},
+        "status": {"enum": ["unique", "numerically-constant"]},
+        "harmonic_amplitude": {"type": "number", "minimum": 0},
+        "applied_degeneracy_cutoff": {"type": "number", "minimum": 0},
+        "canonical_maximizing_angle": {"type": "number"},
+        "maximum_value": {"type": "number"}
+      }
+    },
+    "finite_mesh": {
+      "type": "object", "additionalProperties": false,
+      "required": ["maximum_correlation", "minimum_operator_threshold", "exact_spectrum_joint_operator_threshold", "minimum_loss_reconstruction_residual", "reference_nonzero_hopping_weight", "comparison_nonzero_hopping_weight", "reference_parseval_residual", "comparison_parseval_residual", "hopping_blocks"],
+      "properties": {
+        "maximum_correlation": {"type": "number"},
+        "minimum_operator_threshold": {"type": "number", "minimum": 0},
+        "exact_spectrum_joint_operator_threshold": {"type": "number", "minimum": 0},
+        "minimum_loss_reconstruction_residual": {"type": "number", "minimum": 0},
+        "reference_nonzero_hopping_weight": {"type": "number", "minimum": 0},
+        "comparison_nonzero_hopping_weight": {"type": "number", "minimum": 0},
+        "reference_parseval_residual": {"type": "number", "minimum": 0},
+        "comparison_parseval_residual": {"type": "number", "minimum": 0},
+        "hopping_blocks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/block"}}
+      }
+    },
+    "block": {
+      "type": "object", "additionalProperties": false,
+      "required": ["displacement", "reference_normalized_squared_frobenius_norm", "comparison_normalized_squared_frobenius_norm"],
+      "properties": {
+        "displacement": {"type": "integer"},
+        "reference_normalized_squared_frobenius_norm": {"type": "number", "minimum": 0},
+        "comparison_normalized_squared_frobenius_norm": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}

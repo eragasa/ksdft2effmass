@@ -8,8 +8,12 @@ available figures extracted from the publication-independent experiment. Its inp
 the tables under `../simulations/development/results/`. It includes flat-parent,
 dispersive-parent, parent-homotopy, momentum-refinement, and truncation studies.
 
-Some figures referenced by `Ragasa2026a` v3 currently exist only in a dirty development
-checkout and therefore are not yet reconstructed or commit-bound evidence.
+The five figures formerly available only in a dirty checkout and their complete
+producing graph have been recovered into `development/` after operator authorization.
+Their predecessor identities and bounded reproduction checks are recorded in
+[`../publication-input-recovery-audit.md`](../publication-input-recovery-audit.md) and
+[`../recovered-development-source-manifest.json`](../recovered-development-source-manifest.json).
+They are maintained development publication inputs, not retained evidence.
 
 The maintained successor analysis must:
 

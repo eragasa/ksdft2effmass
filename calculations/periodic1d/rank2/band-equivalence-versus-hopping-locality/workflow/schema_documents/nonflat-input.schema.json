@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.input.v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "identity", "reciprocal_mesh_size", "mesh_rule", "amplitudes", "amplitude_unit", "minimum_external_gap", "minimum_transport_singular_value", "frame_absolute_tolerance", "harmonic_absolute_degeneracy_tolerance", "harmonic_relative_degeneracy_tolerance", "verification_absolute_tolerance", "parent_hopping_scale", "scope"],
+  "properties": {
+    "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.input.v0"},
+    "identity": {"$ref": "#/$defs/identity"},
+    "reciprocal_mesh_size": {"type": "integer", "minimum": 8, "multipleOf": 2},
+    "mesh_rule": {"const": "uniform-half-open-centered.v1"},
+    "amplitudes": {"type": "array", "minItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 0.7853981633974483}},
+    "amplitude_unit": {"const": "radian"},
+    "minimum_external_gap": {"type": "number", "exclusiveMinimum": 0},
+    "minimum_transport_singular_value": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+    "frame_absolute_tolerance": {"type": "number", "exclusiveMinimum": 0},
+    "harmonic_absolute_degeneracy_tolerance": {"type": "number", "minimum": 0},
+    "harmonic_relative_degeneracy_tolerance": {"type": "number", "minimum": 0},
+    "verification_absolute_tolerance": {"type": "number", "exclusiveMinimum": 0},
+    "parent_hopping_scale": {"type": "number", "minimum": 0, "maximum": 1},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["continuous_global_alignment", "external_calculator_execution", "material_validation", "protocol_frozen", "provenance_record", "retained_run"],
+      "properties": {
+        "continuous_global_alignment": {"const": true},
+        "external_calculator_execution": {"const": false},
+        "material_validation": {"const": false},
+        "protocol_frozen": {"const": false},
+        "provenance_record": {"const": false},
+        "retained_run": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family_id", "method_id", "parent_model_id", "alignment_method_id", "reciprocal_coordinate_id", "fourier_convention_id", "fourier_normalization_id", "frame_transport_id"],
+      "properties": {
+        "family_id": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality"},
+        "method_id": {"const": "nonflat-four-state-smooth-sinusoidal-gauge.v1"},
+        "parent_model_id": {"const": "specified-finite-range-four-state-parent.v1"},
+        "alignment_method_id": {"const": "continuous-global-real-rotation-harmonic.v1"},
+        "reciprocal_coordinate_id": {"const": "q-equals-k-over-reciprocal-period.v1"},
+        "fourier_convention_id": {"const": "forward-negative-exponent-inverse-positive-exponent.v1"},
+        "fourier_normalization_id": {"const": "forward-one-over-n-inverse-unit.v1"},
+        "frame_transport_id": {"const": "neighbor-procrustes-with-closure-sewing.v1"}
+      }
+    }
+  }
+}

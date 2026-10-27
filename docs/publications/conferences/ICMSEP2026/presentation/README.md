@@ -65,6 +65,11 @@ band-equivalence figure was copied from the dirty
 Git-state qualification: its copied digest is the value above, while the corresponding
 `origin/main` byte identity was
 `191d8fff0dbc777a6268c0e1e3dd481f8160da11bc9b5797510919ca9e57b2a8`.
+The table's experiment path is therefore a historical copy-time locator, not a live
+build dependency. The corresponding maintained development figure is now
+`calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf`
+with SHA-256
+`191d8fff0dbc777a6268c0e1e3dd481f8160da11bc9b5797510919ca9e57b2a8`.
 Neither identity establishes scientific validation or publication acceptance.
 
 ## Build

@@ -42,7 +42,7 @@ class SmoothBlochContinuumDefinition:
 
     Notes
     -----
-    The analytic parent is normalized by ``E_G``: its traceless block is
+    The analytic parent is normalized by ``E_ref``: its traceless block is
     ``diag(1, -1)``. Consequently, all retained losses and hopping powers are
     dimensionless. The definition describes one reciprocal-space calculation sampled
     at several gauge amplitudes, not several independently fitted parent models.

@@ -8,10 +8,10 @@ The publication-independent family is
 ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality
 ```
 
-Its maintained source is under
-`experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/`. Historical `M3`,
-conference, paper, and appendix labels remain searchable aliases only. Existing source
-and retained calculation evidence under `calculations/` is not rewritten.
+Its maintained calculation owner is
+`calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/`. Historical
+`M3`, conference, paper, and appendix labels remain searchable aliases only. Historical
+retained calculation evidence is not rewritten by this migration.
 
 No maintained version, retained run, or evidence-package identity has been assigned.
 The former draft `v0` freeze was retired before commitment and is not an experiment
@@ -84,8 +84,8 @@ fields and altered method identities.
 
 ## Current exploratory analysis
 
-The local analysis under
-`experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/`
+The local development analysis under
+`calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/`
 finds roundoff-level momentum-refinement changes throughout the proposed
 $N=32,64,128,256,512$ ladder for the analytic flat-parent family. It also tests
 between-node amplitude resolution rather than comparing only nested shared nodes. The
@@ -163,16 +163,18 @@ than defining a new publication-derived experiment family.
 
 ## Historical regression isolation
 
-The prior four-state, nine-angle, 64/257 calculation is retained only through the
-explicit `band_equivalence_hopping_locality.regression` namespace and
-`regression/historical-64-257/`. Its binding records the historical revision, tree, and
-file digests. It has no maintained version identity, source freeze, evidence policy,
-run identity, or evidence-package identity.
+The prior four-state, nine-angle, 64/257 regression surface is not present in the
+maintained tree. Its last tracked experiment-side fixture is recoverable from revision
+`d065c44802e5564111fa68b288f6ab73a2fb9d3a` at
+`experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/regression/historical-64-257/`.
+That fixture binds historical calculation revision, tree, and file digests. It has no
+maintained version identity, source freeze, evidence policy, run identity, or
+evidence-package identity.
 
-That fixture detects unintended changes to historically matched software channels. It
-does not select scientific meshes, thresholds, alignment, convergence, dispositions, or
-publication conclusions. The separate threshold-sensitivity calculation remains
-excluded from its baseline.
+The removed fixture was intended to detect unintended changes to historically matched
+software channels. It does not select current scientific meshes, thresholds, alignment,
+convergence, dispositions, or publication conclusions. The separate threshold-sensitivity
+calculation remains excluded from its baseline.
 
 ## Remaining work before versioning
 

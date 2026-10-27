@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-import itertools
 import math
 from dataclasses import dataclass
+from itertools import pairwise
 
 import numpy as np
 import numpy.typing as npt
@@ -35,13 +35,13 @@ from projectkoios.physkit.periodic.lattice.hopping import (
 from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
-from .nonflat_definition import (
+from .definition import (
     SmoothFourStateAdaptiveAmplitudeDefinition,
     SmoothFourStateConvergenceDefinition,
     SmoothFourStateDefinition,
     SmoothFourStateParentFamilyDefinition,
 )
-from .nonflat_results import (
+from .results import (
     SmoothFourStateAdaptiveAmplitudeResult,
     SmoothFourStateAmplitudeRefinementResult,
     SmoothFourStateAmplitudeValidationResult,
@@ -68,6 +68,11 @@ class _PreparedFourStateParent:
     splitting_scale: float
     minimum_external_gap: float
     minimum_transport_singular_value: float
+    maximum_transport_procrustes_residual: float
+    maximum_transport_unitarity_defect: float
+    maximum_transport_rank_cutoff: float
+    closure_holonomy_phases: tuple[float, ...]
+    closure_holonomy_unitarity_defect: float
     maximum_frame_orthonormality_defect: float
     periodic_closure_defect: float
     maximum_reference_hermiticity_defect: float
@@ -103,6 +108,17 @@ class SmoothFourStateExperiment:
             definition=definition,
             minimum_external_gap=parent.minimum_external_gap,
             minimum_transport_singular_value=(parent.minimum_transport_singular_value),
+            maximum_transport_procrustes_residual=(
+                parent.maximum_transport_procrustes_residual
+            ),
+            maximum_transport_unitarity_defect=(
+                parent.maximum_transport_unitarity_defect
+            ),
+            maximum_transport_rank_cutoff=parent.maximum_transport_rank_cutoff,
+            closure_holonomy_phases=parent.closure_holonomy_phases,
+            closure_holonomy_unitarity_defect=(
+                parent.closure_holonomy_unitarity_defect
+            ),
             maximum_frame_orthonormality_defect=(
                 parent.maximum_frame_orthonormality_defect
             ),
@@ -129,9 +145,16 @@ class SmoothFourStateExperiment:
         if external_gap < definition.minimum_external_gap:
             raise ValueError("external gap fails its declared lower bound")
         raw_frames = eigenvectors[:, :, :2]
-        frames, minimum_singular, closure_defect = cls._periodic_frame(
-            raw_frames, definition
-        )
+        (
+            frames,
+            minimum_singular,
+            maximum_procrustes_residual,
+            maximum_transport_unitarity_defect,
+            maximum_rank_cutoff,
+            closure_phases,
+            closure_holonomy_unitarity_defect,
+            closure_defect,
+        ) = cls._periodic_frame(raw_frames, definition)
         identity = np.eye(2, dtype=np.complex128)
         orthonormality_defect = float(
             max(np.linalg.norm(frame.conj().T @ frame - identity) for frame in frames)
@@ -203,6 +226,11 @@ class SmoothFourStateExperiment:
             splitting_scale=splitting_scale,
             minimum_external_gap=external_gap,
             minimum_transport_singular_value=minimum_singular,
+            maximum_transport_procrustes_residual=maximum_procrustes_residual,
+            maximum_transport_unitarity_defect=maximum_transport_unitarity_defect,
+            maximum_transport_rank_cutoff=maximum_rank_cutoff,
+            closure_holonomy_phases=closure_phases,
+            closure_holonomy_unitarity_defect=closure_holonomy_unitarity_defect,
             maximum_frame_orthonormality_defect=orthonormality_defect,
             periodic_closure_defect=closure_defect,
             maximum_reference_hermiticity_defect=hermiticity_defect,
@@ -248,26 +276,64 @@ class SmoothFourStateExperiment:
         cls,
         raw_frames: ComplexArray,
         definition: SmoothFourStateDefinition,
-    ) -> tuple[ComplexArray, float, float]:
+    ) -> tuple[
+        ComplexArray,
+        float,
+        float,
+        float,
+        float,
+        tuple[float, ...],
+        float,
+        float,
+    ]:
         sample_count = raw_frames.shape[0]
         transported = [raw_frames[0]]
         minimum_singular = 1.0
+        maximum_procrustes_residual = 0.0
+        maximum_transport_unitarity_defect = 0.0
+        maximum_rank_cutoff = 0.0
         for index in range(1, sample_count):
-            aligned, singular_values = cls._align_neighbor(
+            (
+                aligned,
+                singular_values,
+                procrustes_residual,
+                unitarity_defect,
+                rank_cutoff,
+            ) = cls._align_neighbor(
                 transported[-1],
                 raw_frames[index],
                 definition.minimum_transport_singular_value,
                 definition.frame_absolute_tolerance,
             )
             minimum_singular = min(minimum_singular, float(singular_values[-1]))
+            maximum_procrustes_residual = max(
+                maximum_procrustes_residual, procrustes_residual
+            )
+            maximum_transport_unitarity_defect = max(
+                maximum_transport_unitarity_defect, unitarity_defect
+            )
+            maximum_rank_cutoff = max(maximum_rank_cutoff, rank_cutoff)
             transported.append(aligned)
-        duplicate, singular_values = cls._align_neighbor(
+        (
+            duplicate,
+            singular_values,
+            procrustes_residual,
+            unitarity_defect,
+            rank_cutoff,
+        ) = cls._align_neighbor(
             transported[-1],
             raw_frames[0],
             definition.minimum_transport_singular_value,
             definition.frame_absolute_tolerance,
         )
         minimum_singular = min(minimum_singular, float(singular_values[-1]))
+        maximum_procrustes_residual = max(
+            maximum_procrustes_residual, procrustes_residual
+        )
+        maximum_transport_unitarity_defect = max(
+            maximum_transport_unitarity_defect, unitarity_defect
+        )
+        maximum_rank_cutoff = max(maximum_rank_cutoff, rank_cutoff)
         if minimum_singular <= definition.minimum_transport_singular_value:
             raise ValueError("transport overlap fails its declared lower bound")
 
@@ -275,9 +341,18 @@ class SmoothFourStateExperiment:
         mismatch = transported_array[0].conj().T @ duplicate
         left, _, right_h = np.linalg.svd(mismatch)
         mismatch_unitary = left @ right_h
+        closure_holonomy_unitarity_defect = float(
+            np.max(
+                np.abs(
+                    mismatch_unitary.conj().T @ mismatch_unitary
+                    - np.eye(2, dtype=np.complex128)
+                )
+            )
+        )
         eigenvalues, eigenvectors = np.linalg.eig(mismatch_unitary)
         eigenvector_inverse = np.linalg.inv(eigenvectors)
         phases = np.angle(eigenvalues)
+        closure_phases = tuple(sorted(float(phase) for phase in phases))
         corrected = np.empty_like(transported_array)
         for index in range(sample_count):
             fraction = float(index) / float(sample_count)
@@ -299,7 +374,16 @@ class SmoothFourStateExperiment:
         )
         if closure_defect > definition.frame_absolute_tolerance:
             raise FloatingPointError("periodic frame fails closure tolerance")
-        return corrected, minimum_singular, closure_defect
+        return (
+            corrected,
+            minimum_singular,
+            maximum_procrustes_residual,
+            maximum_transport_unitarity_defect,
+            maximum_rank_cutoff,
+            closure_phases,
+            closure_holonomy_unitarity_defect,
+            closure_defect,
+        )
 
     @staticmethod
     def _align_neighbor(
@@ -307,7 +391,7 @@ class SmoothFourStateExperiment:
         raw: ComplexArray,
         minimum_singular_value: float,
         numerical_absolute_tolerance: float,
-    ) -> tuple[ComplexArray, RealArray]:
+    ) -> tuple[ComplexArray, RealArray, float, float, float]:
         result = ComplexUnitaryProcrustesSolverFactory.create(
             ComplexUnitaryProcrustesMethod.NUMPY_DENSE
         ).solve(
@@ -336,7 +420,21 @@ class SmoothFourStateExperiment:
                 "unique Procrustes result must contain a transformation"
             )
         rotation = np.asarray(result.transformation, dtype=np.complex128)
-        return raw @ rotation, singular_values
+        unitarity_defect = float(
+            np.max(
+                np.abs(
+                    rotation.conj().T @ rotation
+                    - np.eye(rotation.shape[0], dtype=np.complex128)
+                )
+            )
+        )
+        return (
+            raw @ rotation,
+            singular_values,
+            result.optimal_residual_frobenius_norm,
+            unitarity_defect,
+            result.applied_rank_cutoff,
+        )
 
     @classmethod
     def _point(
@@ -675,7 +773,7 @@ class SmoothFourStateConvergenceExperiment:
         )
         refinements = tuple(
             self._refinement(definition, coarse, fine)
-            for coarse, fine in itertools.pairwise(mesh_results)
+            for coarse, fine in pairwise(mesh_results)
         )
         required = definition.required_stable_refinements
         disposition = (
@@ -925,6 +1023,17 @@ class SmoothFourStateAdaptiveAmplitudeExperiment:
                 minimum_transport_singular_value=(
                     parent.minimum_transport_singular_value
                 ),
+                maximum_transport_procrustes_residual=(
+                    parent.maximum_transport_procrustes_residual
+                ),
+                maximum_transport_unitarity_defect=(
+                    parent.maximum_transport_unitarity_defect
+                ),
+                maximum_transport_rank_cutoff=parent.maximum_transport_rank_cutoff,
+                closure_holonomy_phases=parent.closure_holonomy_phases,
+                closure_holonomy_unitarity_defect=(
+                    parent.closure_holonomy_unitarity_defect
+                ),
                 maximum_frame_orthonormality_defect=(
                     parent.maximum_frame_orthonormality_defect
                 ),
@@ -940,9 +1049,7 @@ class SmoothFourStateAdaptiveAmplitudeExperiment:
         validations: list[SmoothFourStateAmplitudeValidationResult] = []
         final_evaluation: SmoothFourStateResult | None = None
         for level_index in range(definition.maximum_refinement_levels):
-            midpoints = tuple(
-                0.5 * (left + right) for left, right in itertools.pairwise(nodes)
-            )
+            midpoints = tuple(0.5 * (left + right) for left, right in pairwise(nodes))
             midpoint_inventory = tuple(sorted(set(nodes) | set(midpoints)))
             midpoint_evaluation = evaluate(midpoint_inventory)
             if midpoint_evaluation is None:
@@ -997,7 +1104,7 @@ class SmoothFourStateAdaptiveAmplitudeExperiment:
             if level.within_tolerances:
                 quarter_samples = tuple(
                     sample
-                    for left, right in itertools.pairwise(nodes)
+                    for left, right in pairwise(nodes)
                     for sample in (
                         left + 0.25 * (right - left),
                         left + 0.75 * (right - left),
@@ -1012,7 +1119,7 @@ class SmoothFourStateAdaptiveAmplitudeExperiment:
                     self._interpolation_defects(
                         cache[left], cache[sample], cache[right], fraction
                     )
-                    for left, right in itertools.pairwise(nodes)
+                    for left, right in pairwise(nodes)
                     for sample, fraction in (
                         (left + 0.25 * (right - left), 0.25),
                         (left + 0.75 * (right - left), 0.75),

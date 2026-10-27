@@ -5,8 +5,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ._validation import _finite_float
-from .truncation_definition import SmoothFourStateTruncationDefinition
+from .._validation import _finite_float
+from .definition import SmoothFourStateTruncationDefinition
 
 
 def _nonnegative(name: str, value: float) -> None:
@@ -20,9 +20,11 @@ class SmoothFourStateTruncationRangeResult:
     """Report errors caused by one conjugate-closed ordinary-lattice cutoff.
 
     Powers are squared Frobenius norms divided by the retained rank two and by
-    ``E_G**2``. Band errors are normalized by ``E_G``. ``total_band_error`` means
+    ``E_ref**2``. Hamiltonian errors are Frobenius norms divided by
+    ``sqrt(2) * E_ref``; band errors are normalized by ``E_ref``. ``total`` means
     interpolation plus deliberate truncation relative to the direct ordinary-lattice
-    field; it does not assign an off-node spectrum to the removed cyclic Nyquist term.
+    field; it does not assign an
+    off-node spectrum to the removed cyclic Nyquist term.
     """
 
     maximum_range: int
@@ -30,10 +32,16 @@ class SmoothFourStateTruncationRangeResult:
     comparison_ordinary_omitted_power: float
     reference_total_omitted_power: float
     comparison_total_omitted_power: float
+    reference_maximum_truncation_hamiltonian_error: float
+    reference_rms_truncation_hamiltonian_error: float
     reference_maximum_band_error: float
     reference_rms_band_error: float
+    comparison_maximum_truncation_hamiltonian_error: float
+    comparison_rms_truncation_hamiltonian_error: float
     comparison_maximum_truncation_band_error: float
     comparison_rms_truncation_band_error: float
+    comparison_maximum_total_hamiltonian_error: float
+    comparison_rms_total_hamiltonian_error: float
     comparison_maximum_total_band_error: float
     comparison_rms_total_band_error: float
 
@@ -48,10 +56,16 @@ class SmoothFourStateTruncationRangeResult:
             "comparison_ordinary_omitted_power",
             "reference_total_omitted_power",
             "comparison_total_omitted_power",
+            "reference_maximum_truncation_hamiltonian_error",
+            "reference_rms_truncation_hamiltonian_error",
             "reference_maximum_band_error",
             "reference_rms_band_error",
+            "comparison_maximum_truncation_hamiltonian_error",
+            "comparison_rms_truncation_hamiltonian_error",
             "comparison_maximum_truncation_band_error",
             "comparison_rms_truncation_band_error",
+            "comparison_maximum_total_hamiltonian_error",
+            "comparison_rms_total_hamiltonian_error",
             "comparison_maximum_total_band_error",
             "comparison_rms_total_band_error",
         ):
@@ -74,6 +88,8 @@ class SmoothFourStateTruncationPointResult:
     reference_maximum_ordinary_hermiticity_defect: float
     comparison_maximum_ordinary_hermiticity_defect: float
     maximum_direct_band_defect: float
+    comparison_maximum_interpolation_hamiltonian_error: float
+    comparison_rms_interpolation_hamiltonian_error: float
     comparison_maximum_interpolation_band_error: float
     comparison_rms_interpolation_band_error: float
     ranges: tuple[SmoothFourStateTruncationRangeResult, ...]
@@ -87,6 +103,8 @@ class SmoothFourStateTruncationPointResult:
             "reference_maximum_ordinary_hermiticity_defect",
             "comparison_maximum_ordinary_hermiticity_defect",
             "maximum_direct_band_defect",
+            "comparison_maximum_interpolation_hamiltonian_error",
+            "comparison_rms_interpolation_hamiltonian_error",
             "comparison_maximum_interpolation_band_error",
             "comparison_rms_interpolation_band_error",
         ):
@@ -108,6 +126,16 @@ class SmoothFourStateTruncationResult:
     """Retain one pointwise finite-range consequence study."""
 
     definition: SmoothFourStateTruncationDefinition
+    minimum_external_gap: float
+    minimum_transport_singular_value: float
+    maximum_transport_procrustes_residual: float
+    maximum_transport_unitarity_defect: float
+    maximum_transport_rank_cutoff: float
+    closure_holonomy_phases: tuple[float, ...]
+    closure_holonomy_unitarity_defect: float
+    maximum_frame_orthonormality_defect: float
+    periodic_closure_defect: float
+    maximum_reference_hermiticity_defect: float
     evaluation_coordinate_offset: float
     minimum_construction_evaluation_separation: float
     points: tuple[SmoothFourStateTruncationPointResult, ...]
@@ -116,6 +144,38 @@ class SmoothFourStateTruncationResult:
         """Correlate the result with its definition and disjoint sample roles."""
         if type(self.definition) is not SmoothFourStateTruncationDefinition:
             raise TypeError("definition must be SmoothFourStateTruncationDefinition")
+        for name in (
+            "minimum_external_gap",
+            "minimum_transport_singular_value",
+            "maximum_transport_procrustes_residual",
+            "maximum_transport_unitarity_defect",
+            "maximum_transport_rank_cutoff",
+            "closure_holonomy_unitarity_defect",
+            "maximum_frame_orthonormality_defect",
+            "periodic_closure_defect",
+            "maximum_reference_hermiticity_defect",
+        ):
+            _nonnegative(name, getattr(self, name))
+        if (
+            type(self.closure_holonomy_phases) is not tuple
+            or len(self.closure_holonomy_phases) != 2
+        ):
+            raise TypeError(
+                "closure_holonomy_phases must contain the rank-two phase set"
+            )
+        for phase in self.closure_holonomy_phases:
+            _finite_float("closure_holonomy_phase", phase)
+            if not -math.pi <= phase <= math.pi:
+                raise ValueError("closure holonomy phases must lie in [-pi, pi]")
+        if self.closure_holonomy_phases != tuple(sorted(self.closure_holonomy_phases)):
+            raise ValueError("closure holonomy phases must be ordered")
+        if self.minimum_external_gap < self.definition.model.minimum_external_gap:
+            raise ValueError("minimum_external_gap fails its declared lower bound")
+        if (
+            self.minimum_transport_singular_value
+            <= self.definition.model.minimum_transport_singular_value
+        ):
+            raise ValueError("minimum_transport_singular_value fails its lower bound")
         _nonnegative("evaluation_coordinate_offset", self.evaluation_coordinate_offset)
         _nonnegative(
             "minimum_construction_evaluation_separation",

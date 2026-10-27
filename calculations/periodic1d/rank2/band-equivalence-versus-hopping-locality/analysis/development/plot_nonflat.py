@@ -9,9 +9,11 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-CALCULATION = Path(__file__).resolve().parents[2]
+DEVELOPMENT = Path(__file__).resolve().parent
+CALCULATION = DEVELOPMENT.parents[1]
+INPUTS = CALCULATION / "simulations" / "development" / "inputs"
 RESULTS = CALCULATION / "simulations" / "development" / "results"
-FIGURES = Path(__file__).resolve().parent / "figures"
+FIGURES = DEVELOPMENT / "figures"
 PDF_OUTPUT = FIGURES / "nonflat-four-state-exploratory.pdf"
 PNG_OUTPUT = FIGURES / "nonflat-four-state-exploratory.png"
 BLUE = "#0072B2"
@@ -40,8 +42,8 @@ def _amplitude_ticks(axis: plt.Axes) -> None:
     )
 
 
-def main() -> int:
-    """Plot the full non-flat amplitude family and unresolved controls."""
+def main() -> None:
+    """Plot the sampled non-flat amplitude family and resolution diagnostics."""
     continuum = np.genfromtxt(
         RESULTS / "nonflat-continuum.csv", delimiter=",", names=True
     )
@@ -257,8 +259,8 @@ def main() -> int:
         )
         flat_axes[5].xaxis.set_minor_locator(mpl.ticker.NullLocator())
         flat_axes[5].set_xlabel("amplitude intervals $N_a$")
-        flat_axes[5].set_ylabel("maximum midpoint defect")
-        flat_axes[5].set_title("Amplitude: unresolved")
+        flat_axes[5].set_ylabel("maximum midpoint interpolation error")
+        flat_axes[5].set_title("Between-node test (not claimed)")
         flat_axes[5].legend(frameon=False, loc="lower left")
         flat_axes[5].grid(which="both", alpha=0.2, linewidth=0.5)
         _panel_label(flat_axes[5], "(f)")
@@ -270,10 +272,9 @@ def main() -> int:
         figure.savefig(PDF_OUTPUT, bbox_inches="tight", metadata=metadata)
         figure.savefig(PNG_OUTPUT, dpi=600, bbox_inches="tight", metadata=metadata)
         plt.close(figure)
-    print(f"output={PDF_OUTPUT}")
-    print(f"output={PNG_OUTPUT}")
-    return 0
+    print(PDF_OUTPUT)
+    print(PNG_OUTPUT)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

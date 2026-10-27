@@ -12,9 +12,9 @@ from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonicMaximumStatus,
 )
 
-from ._validation import _finite_float
-from .nonflat_definition import SmoothFourStateDefinition
-from .nonflat_results import (
+from .._validation import _finite_float
+from .definition import SmoothFourStateDefinition
+from .results import (
     SmoothFourStateHoppingBlockResult,
     SmoothFourStateParentFamilyResult,
     SmoothFourStatePointResult,
@@ -26,12 +26,18 @@ from .nonflat_results import (
 class SmoothFourStateVerificationResult:
     """Retain the bounded outcome of independent non-flat reconstruction."""
 
+    experiment_result: SmoothFourStateResult | SmoothFourStateParentFamilyResult
     passes: bool
     absolute_tolerance: float
     maximum_absolute_defect: float
 
     def __post_init__(self) -> None:
         """Validate the verification decision against its maximum defect."""
+        if type(self.experiment_result) not in (
+            SmoothFourStateResult,
+            SmoothFourStateParentFamilyResult,
+        ):
+            raise TypeError("experiment_result must be a supported non-flat result")
         if type(self.passes) is not bool:
             raise TypeError("passes must be a built-in bool")
         _finite_float("absolute_tolerance", self.absolute_tolerance)
@@ -63,6 +69,22 @@ class SmoothFourStateVerifier:
                 - retained.minimum_transport_singular_value
             ),
             abs(
+                expected.maximum_transport_procrustes_residual
+                - retained.maximum_transport_procrustes_residual
+            ),
+            abs(
+                expected.maximum_transport_unitarity_defect
+                - retained.maximum_transport_unitarity_defect
+            ),
+            abs(
+                expected.maximum_transport_rank_cutoff
+                - retained.maximum_transport_rank_cutoff
+            ),
+            abs(
+                expected.closure_holonomy_unitarity_defect
+                - retained.closure_holonomy_unitarity_defect
+            ),
+            abs(
                 expected.maximum_frame_orthonormality_defect
                 - retained.maximum_frame_orthonormality_defect
             ),
@@ -72,6 +94,19 @@ class SmoothFourStateVerifier:
                 - retained.maximum_reference_hermiticity_defect
             ),
         ]
+        if len(expected.closure_holonomy_phases) != len(
+            retained.closure_holonomy_phases
+        ):
+            defects.append(math.inf)
+        else:
+            defects.extend(
+                abs(expected_phase - retained_phase)
+                for expected_phase, retained_phase in zip(
+                    expected.closure_holonomy_phases,
+                    retained.closure_holonomy_phases,
+                    strict=True,
+                )
+            )
         if len(expected.points) != len(retained.points):
             defects.append(math.inf)
         else:
@@ -82,6 +117,7 @@ class SmoothFourStateVerifier:
         maximum = float(max(defects, default=0.0))
         tolerance = retained.definition.verification_absolute_tolerance
         return SmoothFourStateVerificationResult(
+            experiment_result=retained,
             passes=maximum <= tolerance,
             absolute_tolerance=tolerance,
             maximum_absolute_defect=maximum,
@@ -214,9 +250,16 @@ class SmoothFourStateVerifier:
         parent = cls._parent(coordinates, definition.parent_hopping_scale)
         eigenvalues, eigenvectors = np.linalg.eigh(parent)
         external_gap = float(np.min(eigenvalues[:, 2] - eigenvalues[:, 1]))
-        frames, minimum_singular, closure_defect = cls._frame(
-            eigenvectors[:, :, :2], definition
-        )
+        (
+            frames,
+            minimum_singular,
+            maximum_procrustes_residual,
+            maximum_transport_unitarity_defect,
+            maximum_rank_cutoff,
+            closure_phases,
+            closure_holonomy_unitarity_defect,
+            closure_defect,
+        ) = cls._frame(eigenvectors[:, :, :2], definition)
         identity = np.eye(2, dtype=np.complex128)
         orthonormality_defect = float(
             max(np.linalg.norm(frame.conj().T @ frame - identity) for frame in frames)
@@ -272,6 +315,11 @@ class SmoothFourStateVerifier:
             definition=definition,
             minimum_external_gap=external_gap,
             minimum_transport_singular_value=minimum_singular,
+            maximum_transport_procrustes_residual=maximum_procrustes_residual,
+            maximum_transport_unitarity_defect=maximum_transport_unitarity_defect,
+            maximum_transport_rank_cutoff=maximum_rank_cutoff,
+            closure_holonomy_phases=closure_phases,
+            closure_holonomy_unitarity_defect=closure_holonomy_unitarity_defect,
             maximum_frame_orthonormality_defect=orthonormality_defect,
             periodic_closure_defect=closure_defect,
             maximum_reference_hermiticity_defect=hermiticity_defect,
@@ -312,9 +360,21 @@ class SmoothFourStateVerifier:
     @classmethod
     def _frame(
         cls, raw: np.ndarray, definition: SmoothFourStateDefinition
-    ) -> tuple[np.ndarray, float, float]:
+    ) -> tuple[
+        np.ndarray,
+        float,
+        float,
+        float,
+        float,
+        tuple[float, ...],
+        float,
+        float,
+    ]:
         transported = [raw[0]]
         minimum_singular = 1.0
+        maximum_procrustes_residual = 0.0
+        maximum_transport_unitarity_defect = 0.0
+        maximum_rank_cutoff = 0.0
         for next_frame in raw[1:]:
             overlap = transported[-1].conj().T @ next_frame
             left, singular_values, right_h = np.linalg.svd(overlap)
@@ -323,8 +383,30 @@ class SmoothFourStateVerifier:
                 raise ValueError(
                     "independent transport overlap fails before unitary completion"
                 )
-            transported.append(next_frame @ right_h.conj().T @ left.conj().T)
+            rotation = right_h.conj().T @ left.conj().T
+            aligned = next_frame @ rotation
+            transported.append(aligned)
             minimum_singular = min(minimum_singular, smallest)
+            maximum_procrustes_residual = max(
+                maximum_procrustes_residual,
+                float(np.linalg.norm(aligned - transported[-2])),
+            )
+            maximum_transport_unitarity_defect = max(
+                maximum_transport_unitarity_defect,
+                float(
+                    np.max(
+                        np.abs(
+                            rotation.conj().T @ rotation
+                            - np.eye(2, dtype=np.complex128)
+                        )
+                    )
+                ),
+            )
+            maximum_rank_cutoff = max(
+                maximum_rank_cutoff,
+                definition.frame_absolute_tolerance
+                + 1.0e-12 * float(singular_values[0]),
+            )
         overlap = transported[-1].conj().T @ raw[0]
         left, singular_values, right_h = np.linalg.svd(overlap)
         smallest = float(singular_values[-1])
@@ -332,14 +414,37 @@ class SmoothFourStateVerifier:
             raise ValueError(
                 "independent closure overlap fails before unitary completion"
             )
-        duplicate = raw[0] @ right_h.conj().T @ left.conj().T
+        rotation = right_h.conj().T @ left.conj().T
+        duplicate = raw[0] @ rotation
         minimum_singular = min(minimum_singular, smallest)
+        maximum_procrustes_residual = max(
+            maximum_procrustes_residual,
+            float(np.linalg.norm(duplicate - transported[-1])),
+        )
+        maximum_transport_unitarity_defect = max(
+            maximum_transport_unitarity_defect,
+            float(
+                np.max(
+                    np.abs(
+                        rotation.conj().T @ rotation - np.eye(2, dtype=np.complex128)
+                    )
+                )
+            ),
+        )
+        maximum_rank_cutoff = max(
+            maximum_rank_cutoff,
+            definition.frame_absolute_tolerance + 1.0e-12 * float(singular_values[0]),
+        )
         mismatch = transported[0].conj().T @ duplicate
         left, _, right_h = np.linalg.svd(mismatch)
         unitary = left @ right_h
+        closure_holonomy_unitarity_defect = float(
+            np.max(np.abs(unitary.conj().T @ unitary - np.eye(2, dtype=np.complex128)))
+        )
         eigenvalues, eigenvectors = np.linalg.eig(unitary)
         inverse = np.linalg.inv(eigenvectors)
         phases = np.angle(eigenvalues)
+        closure_phases = tuple(sorted(float(phase) for phase in phases))
         sample_count = raw.shape[0]
         corrected = []
         for index, frame in enumerate(transported):
@@ -353,7 +458,16 @@ class SmoothFourStateVerifier:
         endpoint = eigenvectors @ np.diag(np.exp(-1.0j * phases)) @ inverse
         left, _, right_h = np.linalg.svd(endpoint)
         closure = float(np.linalg.norm(duplicate @ left @ right_h - corrected[0]))
-        return np.asarray(corrected, dtype=np.complex128), minimum_singular, closure
+        return (
+            np.asarray(corrected, dtype=np.complex128),
+            minimum_singular,
+            maximum_procrustes_residual,
+            maximum_transport_unitarity_defect,
+            maximum_rank_cutoff,
+            closure_phases,
+            closure_holonomy_unitarity_defect,
+            closure,
+        )
 
     @classmethod
     def _point(
@@ -550,6 +664,7 @@ class SmoothFourStateParentFamilyVerifier:
             retained.definition.template_definition.verification_absolute_tolerance
         )
         return SmoothFourStateVerificationResult(
+            experiment_result=retained,
             passes=all(item.passes for item in member_verifications),
             absolute_tolerance=tolerance,
             maximum_absolute_defect=maximum,
