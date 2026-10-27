@@ -75,9 +75,11 @@ objects, and retains both Euclidean and homogeneous-Dirichlet quadrature normali
 checks. Diagnostic values, unit-compatible tolerances, and typed matrix-norm options
 are normalized by the reusable typed-value codec. Generic mapping serializers and
 deserializers connect final `to_json`/`from_json` boundaries to `to_dict`/`from_dict`.
-The script authenticates paths and bytes, then delegates the decoded nested mapping to
-`Piab1dVerifier`, which independently reconstructs the centered-difference matrix and
-its discrete and continuum spectra with NumPy rather than calling the producer. The
+The calculation admits its composed values through `Piab1dCalculationResult` before
+writing canonical result bytes. The verification script authenticates the declared
+path and execution digest, then gives those exact bytes to `Piab1dVerifier`, which
+independently reconstructs the centered-difference matrix and its discrete and
+continuum spectra with NumPy rather than calling the producer. The
 base verifier composes Hamiltonian, eigensystem, spectral-reduction, quadrature,
 convergence, selection, diagnostic, and visualization-projection verification values.
 Every component inherits the final generic representation boundary; PIAB1D declares
@@ -113,8 +115,7 @@ the provenance locators for reproduction of those exact producers.
 
 The version-two core input enables quadrature explicitly by default. The result keeps
 Euclidean-normalized solver vectors separate from quadrature-normalized nodal
-amplitudes and serializes the rule identity, spacing, weights, and diagonal mass
-matrix. Constant interior weight leaves the spectral projector, reduced Hamiltonian,
+amplitudes and serializes the spacing, weights, and represented weighted operators. Constant interior weight leaves the spectral projector, reduced Hamiltonian,
 and residual matrices invariant. The Hamiltonian is solved as a standard
 real-symmetric eigenproblem, not a generalized eigenproblem.
 
