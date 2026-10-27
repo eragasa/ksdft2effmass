@@ -18,7 +18,12 @@ from projectkoios.physkit.units import (
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 type ResultSectionFieldType = (
-    type[float] | type[ScalarQuantity] | type[VectorQuantity] | type[MatrixQuantity]
+    type[int]
+    | type[float]
+    | type[str]
+    | type[ScalarQuantity]
+    | type[VectorQuantity]
+    | type[MatrixQuantity]
 )
 
 
@@ -50,7 +55,10 @@ class BaseModelAnalysisResultSection(BaseTypedRecord):
         copied: dict[str, SerializableValue] = {}
         for name, value in self.values.items():
             expected_type = self.field_types[name]
-            if not isinstance(value, expected_type):
+            if expected_type in (int, float, str):
+                if type(value) is not expected_type:
+                    raise TypeError(f"{name} must be {expected_type.__name__}")
+            elif not isinstance(value, expected_type):
                 raise TypeError(f"{name} must be {expected_type.__name__}")
             copied[name] = value
         object.__setattr__(self, "values", MappingProxyType(copied))
@@ -129,6 +137,52 @@ class BaseModelAnalysisResultSection(BaseTypedRecord):
         value = self.values.get(name)
         if type(value) is not float:
             raise TypeError(f"{name} is not a built-in float field")
+        return value
+
+    def integer(self, name: str) -> int:
+        """Return one declared built-in integer value.
+
+        Parameters
+        ----------
+        name
+            Exact field name in the closed section schema.
+
+        Returns
+        -------
+        int
+            Exact built-in integer field.
+
+        Raises
+        ------
+        TypeError
+            The name is absent or does not identify an exact built-in integer.
+        """
+        value = self.values.get(name)
+        if type(value) is not int:
+            raise TypeError(f"{name} is not a built-in integer field")
+        return value
+
+    def text(self, name: str) -> str:
+        """Return one declared built-in string value.
+
+        Parameters
+        ----------
+        name
+            Exact field name in the closed section schema.
+
+        Returns
+        -------
+        str
+            Exact built-in string field.
+
+        Raises
+        ------
+        TypeError
+            The name is absent or does not identify an exact built-in string.
+        """
+        value = self.values.get(name)
+        if type(value) is not str:
+            raise TypeError(f"{name} is not a built-in string field")
         return value
 
     def scalar(self, name: str) -> ScalarQuantity:
@@ -302,12 +356,13 @@ class SpectralReductionResultSection(BaseModelAnalysisResultSection):
 
 
 class QuadratureResultSection(BaseModelAnalysisResultSection):
-    """Retain typed quadrature spacing, weights, Gram matrix, and projector.
+    """Retain one identified quadrature rule and its represented values.
 
     Parameters
     ----------
     values
-        Exact spacing, interior-weight, weighted-Gram, and weighted-projector mapping.
+        Exact rule identity, version, name, spacing, interior-weight, weighted-Gram,
+        and weighted-projector mapping.
 
     Raises
     ------
@@ -317,6 +372,9 @@ class QuadratureResultSection(BaseModelAnalysisResultSection):
 
     field_types = MappingProxyType(
         {
+            "rule_identifier": str,
+            "rule_version": int,
+            "rule": str,
             "spacing": ScalarQuantity,
             "interior_weights": VectorQuantity,
             "weighted_gram": MatrixQuantity,
@@ -326,6 +384,10 @@ class QuadratureResultSection(BaseModelAnalysisResultSection):
 
     def __post_init__(self) -> None:
         super().__post_init__()
+        if not self.text("rule_identifier") or not self.text("rule"):
+            raise ValueError("quadrature rule identity and name must be nonempty")
+        if self.integer("rule_version") <= 0:
+            raise ValueError("quadrature rule version must be positive")
         spacing = self.scalar("spacing")
         weights = self.vector("interior_weights")
         if spacing.unit != weights.unit:

@@ -1,12 +1,12 @@
 {
   "artifacts": {
     "UNSEALED.md": {
-      "bytes": 767,
-      "sha256": "ebd09a5d9665798696a4a679396facb7d1e188d634af4069313f020e3c08eb8b"
+      "bytes": 1311,
+      "sha256": "591901f289b0f47b096e2330006ca90949007700d99a1a59ff511fee9df3f1d1"
     },
     "execution.json": {
       "bytes": 549,
-      "sha256": "80f2624529777b771afe48a59ea03c0af96c146bf1235588a014ed181e5876d7"
+      "sha256": "897de7f703f8a579b113803f21c4c20febd1dc440e7432beb666ee881b473e58"
     },
     "figures/convergence-mode-sweep.png": {
       "bytes": 124645,
@@ -54,7 +54,7 @@
     },
     "figures/rendering.json": {
       "bytes": 3286,
-      "sha256": "4cbf6d95ab026be6c4a28f193f62a1eeb7631ce5dfaf93a4ff562c9abbf64ca3"
+      "sha256": "f16bc2b7573b4f73f9ccb266b07b50b18feae864cbed2024aa309c86d273d095"
     },
     "figures/residual-matrices.png": {
       "bytes": 64362,
@@ -65,20 +65,20 @@
       "sha256": "c62e85d3cc61cc81f577160d05498fb01d915d6028576a25ecab088d95b3e8bc"
     },
     "results/result.json": {
-      "bytes": 4852546,
-      "sha256": "999920e5de0b6228fe0634821d14114116021f3fc8f0c447033b68ca4758ceb5"
+      "bytes": 4852267,
+      "sha256": "7941264158f6662da4d6b34236bcb300f82b41018f3398d719c936437f30d8bf"
     },
     "verification/verification.json": {
       "bytes": 5216752,
-      "sha256": "b42b93e0e8f9f47b4e77dee799a1d4cadbc70fc11c25ff0a41f98065143158b5"
+      "sha256": "d64dfbb7910ad64ab8d3eb0ccc78b97ad9665293d71c35dcfb54e147fc3274fb"
     }
   },
   "calculation_family": "piab1d-spectral-reduction",
   "claim_boundary": "Unsealed development provenance for an illustrative finite-dimensional execution; not sealed evidence, scientific validation, publication acceptance, release, or archival deposit.",
   "commands": [
-    "cd python && PYTHONPATH=$PWD/src uv run python ../calculations/piab1d/run_01_calculation.py",
-    "cd python && PYTHONPATH=$PWD/src uv run python ../calculations/piab1d/run_02_verification.py",
-    "cd python && PYTHONPATH=$PWD/src MPLBACKEND=Agg uv run --extra notebooks python ../calculations/piab1d/run_03_render.py"
+    "cd python && uv run --locked python ../calculations/piab1d/run_01_calculation.py",
+    "cd python && uv run --locked python ../calculations/piab1d/run_02_verification.py",
+    "cd python && MPLBACKEND=Agg uv run --locked --extra notebooks python ../calculations/piab1d/run_03_render.py"
   ],
   "dependencies": {
     "projectkoios-optimization": "2a18e485109e307b2f7928bd0418bcf796aeb0d5",
@@ -86,19 +86,27 @@
   },
   "execution_id": "direct-core-n8-m3",
   "lifecycle_status": "unsealed development execution",
+  "replacement": {
+    "disposition": "complete execution replaced at explicit operator direction",
+    "predecessor_rendering_sha256": "4cbf6d95ab026be6c4a28f193f62a1eeb7631ce5dfaf93a4ff562c9abbf64ca3",
+    "predecessor_repository_revision": "e7b8ab63f5efbe0458d3efbcfe2faedf45c8896c",
+    "predecessor_result_sha256": "999920e5de0b6228fe0634821d14114116021f3fc8f0c447033b68ca4758ceb5",
+    "predecessor_verification_sha256": "b42b93e0e8f9f47b4e77dee799a1d4cadbc70fc11c25ff0a41f98065143158b5",
+    "recovery": "The predecessor remains recoverable from the recorded Git revision; it is not a supported current execution."
+  },
   "schema": "ksdft2effmass.piab1d-development-provenance.v1",
   "sealed": false,
   "source": {
-    "branch": "work/physkit-linalg-migration",
+    "branch": "work/replace-piab1d-execution",
     "dependency_lock": {
       "path": "python/uv.lock",
       "sha256": "df396cf798831fe908ffbde60d291267d72c21d1df9473dd992eb1fce5e6fb9c"
     },
     "repository": "ksdft2effmass",
-    "revision": "6f03395120823859bd581d60efdfcd107b939aef",
+    "revision": "c8d808c6b8959dec8338207dff0450ebacc31646",
     "scripts": {
-      "calculations/piab1d/run_01_calculation.py": "187a6a40446faabd66ec9890e40b7c950597867eb6d70acd07a24fbc898fbc44",
-      "calculations/piab1d/run_02_verification.py": "6a41098fb6f982c4a157563165fba6f50941a88a9025f478b6e6ca8911a7205f",
+      "calculations/piab1d/run_01_calculation.py": "3e174cfa68ddc1c35a58932e2203723ba0ee00c1982a86a1848c3d70b7e2e7cb",
+      "calculations/piab1d/run_02_verification.py": "00577c4455b0f47ae88be1a9dae3adec344e21348680551ca087c34523435f46",
       "calculations/piab1d/run_03_render.py": "359ce654fe514564d4a8fca96dc1ca4698a8aea34cfe83f32fdbf148e98e02fd"
     },
     "worktree_status_before_execution": "clean"

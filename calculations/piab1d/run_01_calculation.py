@@ -29,10 +29,11 @@ from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyz
 from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dAnalyzer,
+    Piab1dCalculationResult,
     Piab1dGridSweepAnalyzer,
     Piab1dGridSweepDefinition,
 )
-from ksdft2effmass.serialization import TypedJsonValueCodec
+from ksdft2effmass.serialization import SerializableValue, TypedJsonValueCodec
 
 # Authored calculation configuration. These values are Python source, not wire input.
 EXECUTION_ID = "direct-core-n8-m3"
@@ -159,7 +160,7 @@ convergence = RelativeErrorConvergenceAnalyzer().execute(
     references=convergence_references,
     order_columns=(0, 1, 2),
 )
-result = {
+result: dict[str, SerializableValue] = {
     "schema_version": 1,
     "calculation_family": "piab1d-spectral-reduction",
     "execution_id": EXECUTION_ID,
@@ -177,6 +178,7 @@ result = {
         "retained_dimension": RETAINED_DIMENSION,
         "boundary_condition": "homogeneous Dirichlet",
         "grid_convention": "uniform full grid with interior-only Hamiltonian",
+        "euclidean_normalization": "finite-dimensional Euclidean",
     },
     "state_spaces": {
         "parent": {
@@ -218,7 +220,6 @@ result = {
     },
     "eigenvectors": {
         "euclidean": solution.eigenvectors,
-        "euclidean_normalization": "finite-dimensional Euclidean",
         "quadrature_normalized": analysis.quadrature_normalized_eigenvectors,
     },
     "quadrature": {
@@ -235,10 +236,6 @@ result = {
         ),
         "weighted_gram": analysis.weighted_gram,
         "weighted_projector": analysis.weighted_projector,
-        "interpretation": (
-            "The interior weight matrix is the constant scalar hI for this uniform "
-            "homogeneous-Dirichlet grid."
-        ),
     },
     "diagnostics": diagnostics,
     "analytical_sampling": {
@@ -257,10 +254,6 @@ result = {
     "retained_dimension_selection": {
         "beta": THERMAL_BETA,
         "selection": selection,
-        "interpretation": (
-            "Canonical weights over the complete finite discrete spectrum; the "
-            "selection is an illustrative a priori criterion, not validation."
-        ),
     },
     "provenance": {
         "script_path": script_path.relative_to(
@@ -274,7 +267,9 @@ result = {
 }
 
 codec = TypedJsonValueCodec()
-result_bytes = codec.serialize_bytes(result)
+result_bytes = Piab1dCalculationResult.from_json(
+    codec.serialize_bytes(result)
+).to_json()
 result_sha256 = hashlib.sha256(result_bytes).hexdigest()
 temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete")
 if temporary_directory.exists():

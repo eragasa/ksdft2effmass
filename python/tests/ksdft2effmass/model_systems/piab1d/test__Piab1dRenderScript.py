@@ -13,6 +13,7 @@ import pytest
 from projectkoios.physkit.units import ScalarQuantity, Unitless
 
 from ksdft2effmass.model_systems.piab1d import (
+    Piab1dCalculationResult,
     Piab1dVerification,
     Piab1dVisualizationPlotEnum,
 )
@@ -140,6 +141,38 @@ class TestPiab1dRenderScript:
             assert completed.returncode == 0, completed.stderr
 
         execution = calculation / "executions" / "direct-core-n8-m3"
+        result_wire = (execution / "results" / "result.json").read_bytes()
+        assert Piab1dCalculationResult.from_json(result_wire).to_json() == result_wire
+        decoded_result = TypedJsonValueCodec().deserialize_bytes(result_wire)
+        assert isinstance(decoded_result, dict)
+        expected_section_fields = {
+            "configuration": {
+                "unit_system",
+                "hbar",
+                "length",
+                "mass",
+                "interior_points",
+                "retained_dimension",
+                "boundary_condition",
+                "grid_convention",
+                "euclidean_normalization",
+            },
+            "eigenvectors": {"euclidean", "quadrature_normalized"},
+            "quadrature": {
+                "rule_identifier",
+                "rule_version",
+                "rule",
+                "spacing",
+                "interior_weights",
+                "weighted_gram",
+                "weighted_projector",
+            },
+            "retained_dimension_selection": {"beta", "selection"},
+        }
+        for section_name, expected_fields in expected_section_fields.items():
+            section = decoded_result[section_name]
+            assert isinstance(section, dict)
+            assert set(section) == expected_fields
         figures = execution / "figures"
         rendering_value = TypedJsonValueCodec().deserialize_bytes(
             (figures / "rendering.json").read_bytes()

@@ -2,9 +2,9 @@
   "calculation_family": "piab1d-spectral-reduction",
   "claim_boundary": "Software and finite-dimensional numerical verification only; not physical validation or publication acceptance.",
   "execution_id": "direct-core-n8-m3",
-  "result_sha256": "999920e5de0b6228fe0634821d14114116021f3fc8f0c447033b68ca4758ceb5",
+  "result_sha256": "7941264158f6662da4d6b34236bcb300f82b41018f3398d719c936437f30d8bf",
   "schema_version": 1,
-  "script_sha256": "6a41098fb6f982c4a157563165fba6f50941a88a9025f478b6e6ca8911a7205f",
+  "script_sha256": "00577c4455b0f47ae88be1a9dae3adec344e21348680551ca087c34523435f46",
   "verification": {
     "components": {
       "diagnostics": {
@@ -1308,7 +1308,7 @@
         }
       }
     },
-    "subject_sha256": "999920e5de0b6228fe0634821d14114116021f3fc8f0c447033b68ca4758ceb5",
+    "subject_sha256": "7941264158f6662da4d6b34236bcb300f82b41018f3398d719c936437f30d8bf",
     "visualization_data_sha256": "8264fd5c7d412d0976c9d7bbace9951afa71bc04f446a5a1d11bd7d65ea8a250"
   },
   "verification_route": "independent NumPy construction from the declared centered-difference Dirichlet formulas",

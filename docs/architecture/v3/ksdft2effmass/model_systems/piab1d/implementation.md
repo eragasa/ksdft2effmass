@@ -2,14 +2,16 @@
 
 ## Typed calculation aggregate
 
-`Piab1dConfiguration` declares the nondimensional model, boundary convention, parent
-dimension, and retained dimension. `Piab1dCalculationResult` composes reusable typed
-sections rather than storing anonymous nested mappings:
+`Piab1dConfiguration` declares the nondimensional model, boundary and represented-grid
+conventions, parent and retained dimensions, and Euclidean eigenvector normalization.
+`Piab1dCalculationResult` composes reusable typed sections rather than storing
+anonymous nested mappings:
 
 - `HamiltonianResultSection`;
 - `EigensystemResultSection`;
 - `SpectralReductionResultSection`;
-- `QuadratureResultSection`;
+- `QuadratureResultSection`, including the rule identifier, version, name, spacing,
+  weights, weighted Gram matrix, and weighted projector;
 - `AnalyticalSamplingResultSection`;
 - `Piab1dDiagnostics`;
 - `Piab1dConvergenceResult`;
