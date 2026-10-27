@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.verification.v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "identity", "result_binding", "passes", "absolute_tolerance", "maximum_absolute_discrepancy", "claim_boundary"],
+  "properties": {
+    "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.verification.v0"},
+    "identity": {"$ref": "#/$defs/identity"},
+    "result_binding": {
+      "type": "object", "additionalProperties": false, "required": ["schema", "sha256"],
+      "properties": {
+        "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.nonflat.result.v0"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "passes": {"type": "boolean"},
+    "absolute_tolerance": {"type": "number", "exclusiveMinimum": 0},
+    "maximum_absolute_discrepancy": {"type": "number", "minimum": 0},
+    "claim_boundary": {"const": "Passing establishes development reconstruction of sampled non-flat channels only; it does not freeze a protocol, create provenance, retain evidence, or establish material validity."}
+  },
+  "$defs": {
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["family_id", "method_id", "parent_model_id", "alignment_method_id", "reciprocal_coordinate_id", "fourier_convention_id", "fourier_normalization_id", "frame_transport_id"],
+      "properties": {
+        "family_id": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality"},
+        "method_id": {"const": "nonflat-four-state-smooth-sinusoidal-gauge.v1"},
+        "parent_model_id": {"const": "specified-finite-range-four-state-parent.v1"},
+        "alignment_method_id": {"const": "continuous-global-real-rotation-harmonic.v1"},
+        "reciprocal_coordinate_id": {"const": "q-equals-k-over-reciprocal-period.v1"},
+        "fourier_convention_id": {"const": "forward-negative-exponent-inverse-positive-exponent.v1"},
+        "fourier_normalization_id": {"const": "forward-one-over-n-inverse-unit.v1"},
+        "frame_transport_id": {"const": "neighbor-procrustes-with-closure-sewing.v1"}
+      }
+    }
+  }
+}

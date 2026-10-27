@@ -1,0 +1,111 @@
+quantity,category,aggregation,unit,normalization,role
+finite_mesh_maximum_correlation,alignment,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_angle_change,alignment,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_correlation,alignment,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_correlation_change,alignment,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_correlation_midpoint_defect,alignment,maximum,unitless,as-declared-by-source-table,numerical-check
+decision_tolerance,control-or-derived,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+endpoint_minimum_threshold_over_sqrt_kappa,control-or-derived,minimum,unitless,value/sqrt(kappa),reported-diagnostic
+flat_identity_departure,control-or-derived,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+joint_threshold_over_sqrt_kappa,control-or-derived,pointwise-or-control,unitless,value/sqrt(kappa),reported-diagnostic
+maximum_final_outcome_change,control-or-derived,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_final_parent_invariant_change,control-or-derived,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_joint_threshold_midpoint_defect,control-or-derived,maximum,E_ref,as-declared-by-source-table,numerical-check
+maximum_joint_threshold_midpoint_interpolation_defect,control-or-derived,maximum,E_ref,as-declared-by-source-table,numerical-check
+maximum_parent_diagnostic_change,control-or-derived,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_threshold_change,control-or-derived,maximum,E_ref,as-declared-by-source-table,reported-diagnostic
+momentum_disposition,control-or-derived,disposition,unitless,as-declared-by-source-table,disposition
+passes_draft_tolerance,control-or-derived,disposition,unitless,as-declared-by-source-table,disposition
+passes_unit_scale_draft_tolerance,control-or-derived,disposition,unitless,as-declared-by-source-table,disposition
+splitting_scale,control-or-derived,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+within_draft_tolerances,control-or-derived,pointwise-or-control,unitless,as-declared-by-source-table,disposition
+closure_holonomy_phase_0,frame-and-sewing,phase-set-member,radian,as-declared-by-source-table,reported-diagnostic
+closure_holonomy_phase_1,frame-and-sewing,phase-set-member,radian,as-declared-by-source-table,reported-diagnostic
+closure_holonomy_unitarity_defect,frame-and-sewing,pointwise-or-control,unitless,as-declared-by-source-table,numerical-check
+maximum_frame_orthonormality_defect,frame-and-sewing,maximum,unitless,as-declared-by-source-table,numerical-check
+maximum_transport_procrustes_residual,frame-and-sewing,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_transport_rank_cutoff,frame-and-sewing,maximum,unitless,as-declared-by-source-table,numerical-check
+maximum_transport_unitarity_defect,frame-and-sewing,maximum,unitless,as-declared-by-source-table,numerical-check
+minimum_sampled_transport_singular_value,frame-and-sewing,minimum,unitless,as-declared-by-source-table,qualification-gate
+periodic_closure_defect,frame-and-sewing,pointwise-or-control,unitless,as-declared-by-source-table,numerical-check
+comparison_nonzero_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+comparison_normalized_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+comparison_normalized_tail_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+comparison_nyquist_power,locality,power,unitless,Frobenius-power/(2*E_ref^2),reported-diagnostic
+comparison_ordinary_omitted_power,locality,power,unitless,Frobenius-power/(2*E_ref^2),reported-diagnostic
+comparison_total_omitted_power,locality,power,unitless,Frobenius-power/(2*E_ref^2),reported-diagnostic
+endpoint_excess_nonzero_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+excess_nonzero_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+maximum_hopping_block_power_change,locality,maximum,unitless,as-declared-by-source-table,reported-diagnostic
+maximum_hopping_block_power_midpoint_defect,locality,maximum,unitless,as-declared-by-source-table,numerical-check
+maximum_hopping_weight_change,locality,maximum,unitless,rank-two normalized Frobenius power,reported-diagnostic
+maximum_nonzero_hopping_weight_midpoint_defect,locality,maximum,unitless,rank-two normalized Frobenius power,numerical-check
+nonzero_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+normalized_excess_nonzero_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+normalized_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+normalized_tail_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+reference_nonzero_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+reference_normalized_hopping_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+reference_normalized_tail_weight,locality,power,unitless,rank-two normalized Frobenius power,reported-diagnostic
+reference_nyquist_power,locality,power,unitless,Frobenius-power/(2*E_ref^2),reported-diagnostic
+reference_ordinary_omitted_power,locality,power,unitless,Frobenius-power/(2*E_ref^2),reported-diagnostic
+reference_total_omitted_power,locality,power,unitless,Frobenius-power/(2*E_ref^2),reported-diagnostic
+fine_mesh_verification_defect,numerical-consistency,pointwise-or-control,unitless,as-declared-by-source-table,numerical-check
+maximum_fine_quadrature_defect,numerical-consistency,maximum,unitless,as-declared-by-source-table,numerical-check
+maximum_identity_defect,numerical-consistency,maximum,unitless,as-declared-by-source-table,numerical-check
+maximum_parseval_defect,numerical-consistency,maximum,unitless,as-declared-by-source-table,numerical-check
+maximum_reconstruction_defect,numerical-consistency,maximum,unitless,as-declared-by-source-table,numerical-check
+maximum_reference_hermiticity_defect,numerical-consistency,maximum,unitless,as-declared-by-source-table,numerical-check
+verification_defect,numerical-consistency,pointwise-or-control,unitless,as-declared-by-source-table,numerical-check
+verification_discrepancy,numerical-consistency,pointwise-or-control,unitless,as-declared-by-source-table,numerical-check
+comparison_hamiltonian_first_passing_range,operator,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+comparison_hamiltonian_passing_error,operator,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+comparison_hamiltonian_preceding_error,operator,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+comparison_maximum_interpolation_hamiltonian_error,operator,maximum,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+comparison_maximum_total_hamiltonian_error,operator,maximum,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+comparison_maximum_truncation_hamiltonian_error,operator,maximum,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+comparison_rms_interpolation_hamiltonian_error,operator,root-mean-square,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+comparison_rms_total_hamiltonian_error,operator,root-mean-square,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+comparison_rms_truncation_hamiltonian_error,operator,root-mean-square,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+endpoint_range_0_total_hamiltonian_error,operator,pointwise-or-control,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+endpoint_range_16_total_hamiltonian_error,operator,pointwise-or-control,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+endpoint_range_8_total_hamiltonian_error,operator,pointwise-or-control,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+exact_spectrum_joint_operator_threshold,operator,pointwise-or-control,E_ref,as-declared-by-source-table,reported-diagnostic
+maximum_interpolation_hamiltonian_error,operator,maximum,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+maximum_operator_threshold_midpoint_defect,operator,maximum,E_ref,as-declared-by-source-table,numerical-check
+maximum_operator_threshold_midpoint_interpolation_defect,operator,maximum,E_ref,as-declared-by-source-table,numerical-check
+minimum_operator_threshold,operator,minimum,E_ref,as-declared-by-source-table,reported-diagnostic
+minimum_operator_threshold_over_sqrt_kappa,operator,minimum,unitless,value/sqrt(kappa),reported-diagnostic
+normalized_squared_operator_residual,operator,pointwise-or-control,unitless,operator-residual^2/kappa,reported-diagnostic
+reference_hamiltonian_first_passing_range,operator,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+reference_hamiltonian_passing_error,operator,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+reference_hamiltonian_preceding_error,operator,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+reference_maximum_truncation_hamiltonian_error,operator,maximum,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+reference_rms_truncation_hamiltonian_error,operator,root-mean-square,unitless,Frobenius/(sqrt(2)*E_ref),reported-diagnostic
+amplitude_nodes,resolution,pointwise-or-control,count,as-declared-by-source-table,control
+construction_mesh_size,resolution,pointwise-or-control,count,as-declared-by-source-table,control
+evaluation_mesh_size,resolution,pointwise-or-control,count,as-declared-by-source-table,control
+minimum_mesh_separation,resolution,minimum,unitless,as-declared-by-source-table,reported-diagnostic
+comparison_band_first_passing_range,spectrum,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+comparison_band_passing_error,spectrum,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+comparison_band_preceding_error,spectrum,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+comparison_maximum_interpolation_band_error,spectrum,maximum,unitless,energy/E_ref,reported-diagnostic
+comparison_maximum_total_band_error,spectrum,maximum,unitless,energy/E_ref,reported-diagnostic
+comparison_maximum_truncation_band_error,spectrum,maximum,unitless,energy/E_ref,reported-diagnostic
+comparison_rms_interpolation_band_error,spectrum,root-mean-square,unitless,energy/E_ref,reported-diagnostic
+comparison_rms_total_band_error,spectrum,root-mean-square,unitless,energy/E_ref,reported-diagnostic
+comparison_rms_truncation_band_error,spectrum,root-mean-square,unitless,energy/E_ref,reported-diagnostic
+endpoint_range_0_total_band_error,spectrum,pointwise-or-control,unitless,energy/E_ref,reported-diagnostic
+endpoint_range_16_total_band_error,spectrum,pointwise-or-control,unitless,energy/E_ref,reported-diagnostic
+endpoint_range_8_total_band_error,spectrum,pointwise-or-control,unitless,energy/E_ref,reported-diagnostic
+maximum_band_defect,spectrum,maximum,unitless,energy/E_ref,numerical-check
+maximum_direct_band_defect,spectrum,maximum,unitless,energy/E_ref,numerical-check
+maximum_interpolation_band_error,spectrum,maximum,unitless,energy/E_ref,reported-diagnostic
+maximum_shared_parent_eigenvalue_defect,spectrum,maximum,unitless,as-declared-by-source-table,numerical-check
+reference_band_first_passing_range,spectrum,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+reference_band_passing_error,spectrum,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+reference_band_preceding_error,spectrum,pointwise-or-control,unitless,as-declared-by-source-table,reported-diagnostic
+reference_maximum_band_error,spectrum,maximum,unitless,energy/E_ref,reported-diagnostic
+reference_rms_band_error,spectrum,root-mean-square,unitless,energy/E_ref,reported-diagnostic
+maximum_shared_projector_defect,subspace,maximum,unitless,as-declared-by-source-table,numerical-check
+minimum_sampled_external_gap,subspace,minimum,E_ref,as-declared-by-source-table,qualification-gate

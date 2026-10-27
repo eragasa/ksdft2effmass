@@ -8,7 +8,7 @@ calculations remain distinct.
 | Experiment surface | Paper | Permitted publication role | Current boundary |
 |---|---|---|---|
 | `periodic-reduction/single-band-fourier-reduction/periodic1d/` | Paper 1 (`Ragasa2026a`) | Retained scalar reduction-chain precursor in the supplement | Immutable v1 and a publication-facing retained synthetic run exist; it is not evidence for the active rank-two range-inflation claim |
-| `model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/` | Paper 1 | Primary rank-two analytic and development experiment | Analytic results and bounded development diagnostics exist; no retained active-experiment run or evidence package exists |
+| `calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/` | Paper 1 | Primary rank-two analytic and development calculation | Prospective protocol, analytic results, and bounded development diagnostics exist; no retained active-calculation run or evidence package exists |
 | `calculations/periodic1d/rank2/composite-band-alignment-locality/` | Paper 3 (`Ragasa2026c`) | Publication-independent rank-two successor to historical M2/M3 alignment controls | Protocol migrated to the calculation owner; no immutable version or maintained run |
 | `periodic-reduction/higher-rank-composite-band-alignment-and-locality/` | Paper 3 | Selected higher-rank D1 P0/G0 protocol and later rank/depth result source | Complete pre-execution v1 protocol candidate; no implementation, immutable version, or retained run |
 | `model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/` | Paper 2 (`Ragasa2026b`) | Orthogonal square-lattice bounded dimensional control | Verified three-mesh development ladder; replaceable, not retained evidence |

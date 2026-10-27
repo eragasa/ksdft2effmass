@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.truncation.verification.v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "identity", "result_binding", "passes", "absolute_tolerance", "maximum_absolute_discrepancy", "inventory_is_dense", "decisions", "claim_boundary"],
+  "properties": {
+    "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.truncation.verification.v0"},
+    "identity": {"$ref": "#/$defs/identity"},
+    "result_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "sha256"],
+      "properties": {
+        "schema": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality.truncation.result.v0"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "passes": {"type": "boolean"},
+    "absolute_tolerance": {"type": "number", "exclusiveMinimum": 0},
+    "maximum_absolute_discrepancy": {"type": "number", "minimum": 0},
+    "inventory_is_dense": {"type": "boolean"},
+    "decisions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/decision"}},
+    "claim_boundary": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "optional_range": {"type": ["integer", "null"], "minimum": 0},
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family_id", "method_id", "parent_model_id", "reciprocal_coordinate_id", "finite_fourier_id", "ordinary_lattice_conversion_id", "range_rule_id"],
+      "properties": {
+        "family_id": {"const": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality"},
+        "method_id": {"const": "nonflat-four-state-ordinary-lattice-truncation.v1"},
+        "parent_model_id": {"const": "specified-finite-range-four-state-parent.v1"},
+        "reciprocal_coordinate_id": {"const": "q-equals-k-over-reciprocal-period.v1"},
+        "finite_fourier_id": {"const": "centered-finite-cyclic-fourier.v1"},
+        "ordinary_lattice_conversion_id": {"const": "remove-centered-nyquist-block.v1"},
+        "range_rule_id": {"const": "symmetric-ordinary-integer-displacements.v1"}
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amplitude", "tolerance", "reference_band_first_passing_range", "comparison_band_first_passing_range", "reference_hamiltonian_first_passing_range", "comparison_hamiltonian_first_passing_range", "band_range_inflation", "hamiltonian_range_inflation"],
+      "properties": {
+        "amplitude": {"type": "number", "minimum": 0},
+        "tolerance": {"type": "number", "exclusiveMinimum": 0},
+        "reference_band_first_passing_range": {"$ref": "#/$defs/optional_range"},
+        "comparison_band_first_passing_range": {"$ref": "#/$defs/optional_range"},
+        "reference_hamiltonian_first_passing_range": {"$ref": "#/$defs/optional_range"},
+        "comparison_hamiltonian_first_passing_range": {"$ref": "#/$defs/optional_range"},
+        "band_range_inflation": {"type": ["integer", "null"]},
+        "hamiltonian_range_inflation": {"type": ["integer", "null"]}
+      }
+    }
+  }
+}

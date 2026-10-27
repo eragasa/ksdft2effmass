@@ -255,7 +255,7 @@ rejects rank-deficient pointwise and aggregate Procrustes inputs, and tracks the
 local numerical selection mechanisms as `TECH_DEBT`. That decision does not silently
 move all current `periodic1d` or `campaigns` code. **Band Equivalence versus Hopping
 Locality**, under
-`experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/`, is an active,
+`calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/`, is an active,
 unversioned smooth-continuum redesign. It uses exact continuous harmonic alignment,
 separates finite-mesh correlation from the analytic Bessel comparator, retains Fourier
 locality diagnostics, and classifies nested-mesh stability as `converged` or
