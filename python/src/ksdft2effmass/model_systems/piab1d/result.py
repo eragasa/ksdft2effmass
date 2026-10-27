@@ -166,7 +166,8 @@ class Piab1dCalculationResult(BaseTypedRecord):
     reduction
         Coordinate maps, orthogonal blocks, and reduction residual analyses.
     quadrature
-        Spacing, interior weights, weighted Gram matrix, and weighted projector.
+        Rule identity, version, name, spacing, interior weights, weighted Gram matrix,
+        and weighted projector.
     diagnostics
         Tolerance-bearing core diagnostic observations.
     analytical_sampling
@@ -257,6 +258,16 @@ class Piab1dCalculationResult(BaseTypedRecord):
             dimension,
         ):
             raise ValueError("configuration and reduction-map dimensions disagree")
+        if self.quadrature.text("rule_identifier") != (
+            "projectkoios.numerics.quadrature.uniform_closed_interval_trapezoidal"
+        ):
+            raise ValueError("quadrature rule identifier is unsupported")
+        if self.quadrature.integer("rule_version") != 1:
+            raise ValueError("quadrature rule version is unsupported")
+        if self.quadrature.text("rule") != (
+            "uniform interior restriction of the closed-interval trapezoidal rule"
+        ):
+            raise ValueError("quadrature rule name is unsupported")
         if self.quadrature.vector("interior_weights").magnitude.size != dimension:
             raise ValueError("quadrature and represented dimensions disagree")
         if (

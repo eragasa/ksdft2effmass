@@ -113,10 +113,12 @@ producers have been removed from the maintained source surface. The retained res
 bytes have not been rewritten, and their recorded historical source identities remain
 the provenance locators for reproduction of those exact producers.
 
-The version-two core input enables quadrature explicitly by default. The result keeps
-Euclidean-normalized solver vectors separate from quadrature-normalized nodal
-amplitudes and serializes the spacing, weights, and represented weighted operators. Constant interior weight leaves the spectral projector, reduced Hamiltonian,
-and residual matrices invariant. The Hamiltonian is solved as a standard
+The version-two core input enables quadrature explicitly by default. The shared
+quadrature result section declares the rule identifier, version, name, spacing,
+weights, and represented weighted operators. The result keeps Euclidean-normalized
+solver vectors separate from quadrature-normalized nodal amplitudes.
+Constant interior weight leaves the spectral projector, reduced Hamiltonian, and
+residual matrices invariant. The Hamiltonian is solved as a standard
 real-symmetric eigenproblem, not a generalized eigenproblem.
 
 The experiment uses PhysKit's nondimensional unit system, which supplies

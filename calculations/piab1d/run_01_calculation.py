@@ -177,6 +177,8 @@ result: dict[str, SerializableValue] = {
         "interior_points": INTERIOR_POINTS,
         "retained_dimension": RETAINED_DIMENSION,
         "boundary_condition": "homogeneous Dirichlet",
+        "grid_convention": "uniform full grid with interior-only Hamiltonian",
+        "euclidean_normalization": "finite-dimensional Euclidean",
     },
     "state_spaces": {
         "parent": {
@@ -221,6 +223,9 @@ result: dict[str, SerializableValue] = {
         "quadrature_normalized": analysis.quadrature_normalized_eigenvectors,
     },
     "quadrature": {
+        "rule_identifier": quadrature_rule.rule_identifier,
+        "rule_version": quadrature_rule.rule_version,
+        "rule": "uniform interior restriction of the closed-interval trapezoidal rule",
         "spacing": ScalarQuantity(
             float(quadrature_rule.spacing),
             model.length_quantity.unit,

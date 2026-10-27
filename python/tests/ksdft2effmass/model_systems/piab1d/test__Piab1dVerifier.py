@@ -168,6 +168,8 @@ class TestPiab1dVerifier:
                 "interior_points": 8,
                 "retained_dimension": 3,
                 "boundary_condition": "homogeneous Dirichlet",
+                "grid_convention": ("uniform full grid with interior-only Hamiltonian"),
+                "euclidean_normalization": "finite-dimensional Euclidean",
             },
             "spectra": {
                 "computed_discrete": solution.energies,
@@ -202,6 +204,15 @@ class TestPiab1dVerifier:
                 "quadrature_normalized": analysis.quadrature_normalized_eigenvectors,
             },
             "quadrature": {
+                "rule_identifier": (
+                    "projectkoios.numerics.quadrature."
+                    "uniform_closed_interval_trapezoidal"
+                ),
+                "rule_version": 1,
+                "rule": (
+                    "uniform interior restriction of the closed-interval "
+                    "trapezoidal rule"
+                ),
                 "spacing": ScalarQuantity(
                     float(analysis.quadrature_rule.spacing),
                     Unitless(),
@@ -230,7 +241,6 @@ class TestPiab1dVerifier:
             "retained_dimension_selection": {
                 "beta": 0.1,
                 "selection": selection,
-                "interpretation": "illustrative test selection",
             },
         }
 

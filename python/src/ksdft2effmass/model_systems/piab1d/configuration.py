@@ -31,6 +31,10 @@ class Piab1dConfiguration(BaseTypedRecord):
         Number of lowest-energy states retained in the spectral reduction.
     boundary_condition
         Exact ``"homogeneous Dirichlet"`` boundary identifier.
+    grid_convention
+        Exact represented-grid coordinate convention.
+    euclidean_normalization
+        Exact normalization convention of the solver eigenvectors.
 
     Raises
     ------
@@ -52,6 +56,8 @@ class Piab1dConfiguration(BaseTypedRecord):
     interior_points: int
     retained_dimension: int
     boundary_condition: str
+    grid_convention: str
+    euclidean_normalization: str
 
     def __post_init__(self) -> None:
         if self.unit_system != "nondimensional":
@@ -76,6 +82,10 @@ class Piab1dConfiguration(BaseTypedRecord):
             raise ValueError("retained_dimension must select the represented space")
         if self.boundary_condition != "homogeneous Dirichlet":
             raise ValueError("boundary_condition must be homogeneous Dirichlet")
+        if self.grid_convention != ("uniform full grid with interior-only Hamiltonian"):
+            raise ValueError("grid_convention does not identify the represented grid")
+        if self.euclidean_normalization != "finite-dimensional Euclidean":
+            raise ValueError("euclidean_normalization convention is unsupported")
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
@@ -86,6 +96,8 @@ class Piab1dConfiguration(BaseTypedRecord):
             "interior_points": self.interior_points,
             "retained_dimension": self.retained_dimension,
             "boundary_condition": self.boundary_condition,
+            "grid_convention": self.grid_convention,
+            "euclidean_normalization": self.euclidean_normalization,
         }
 
     @classmethod
@@ -98,9 +110,11 @@ class Piab1dConfiguration(BaseTypedRecord):
             "interior_points",
             "retained_dimension",
             "boundary_condition",
+            "grid_convention",
+            "euclidean_normalization",
         }
-        if not required.issubset(values):
-            raise ValueError("PIAB1D configuration fields are incomplete")
+        if set(values) != required:
+            raise ValueError("PIAB1D configuration fields do not match")
         unit_system = values["unit_system"]
         hbar = values["hbar"]
         length = values["length"]
@@ -108,7 +122,14 @@ class Piab1dConfiguration(BaseTypedRecord):
         interior_points = values["interior_points"]
         retained_dimension = values["retained_dimension"]
         boundary_condition = values["boundary_condition"]
-        if type(unit_system) is not str or type(boundary_condition) is not str:
+        grid_convention = values["grid_convention"]
+        euclidean_normalization = values["euclidean_normalization"]
+        if (
+            type(unit_system) is not str
+            or type(boundary_condition) is not str
+            or type(grid_convention) is not str
+            or type(euclidean_normalization) is not str
+        ):
             raise TypeError("configuration labels must be built-in strings")
         if (
             type(hbar) is not float
@@ -126,4 +147,6 @@ class Piab1dConfiguration(BaseTypedRecord):
             interior_points=interior_points,
             retained_dimension=retained_dimension,
             boundary_condition=boundary_condition,
+            grid_convention=grid_convention,
+            euclidean_normalization=euclidean_normalization,
         )
