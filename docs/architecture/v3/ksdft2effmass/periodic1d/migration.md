@@ -34,6 +34,12 @@ Before source mutation:
 **Gate:** every current public symbol and retained byte surface has one target owner or
 explicit historical disposition. No source deletion occurs in this phase.
 
+**Status:** complete at baseline
+`2a5681b877b5fbf9e1cf8fcdd0c9332d0bc69c63`; see the
+[Phase 0 inventory](phase-0-inventory.md). The selected strategy is complete replacement:
+old imports, serializers, workflow-shaped APIs, and live decoders are not preserved.
+Historical bytes remain Git-recoverable provenance only.
+
 ## Phase 1 — complete the Mathieu1D direct vertical slice
 
 Use `calculations/mathieu1d/` as the first periodic direct-lifecycle implementation
@@ -45,7 +51,9 @@ verification, authenticated visualization data, and direct calculation, verifica
 and rendering scripts. The historical `study/` and retained `v1` packages remain separate
 until exact parity and consumer migration are proven.
 
-This phase does not redefine Mathieu1D as the compatible rank-one null control.
+This phase does not redefine Mathieu1D as the compatible rank-one null control. The new
+source does not import the calculation-local `single_band_fourier_reduction` package; it
+uses retained results only as behavioral-parity inputs.
 
 **Gate:** calculate → verify → render works from Python-authored controls; rendering
 rejects unauthenticated data; historical retained bytes are unchanged.
@@ -70,9 +78,10 @@ Migrate the two rank-two questions independently:
 2. `composite-band-alignment-locality` owns its selected parent, sampling roles,
    pointwise/global alignment policy, and block-locality diagnostics.
 
-Move reusable calculation-local behavior into cohesive installed owners only after its
-meaning and callers are identified. Do not copy `workflow/` trees into source, and do
-not preserve Workflow-shaped public APIs.
+Write the installed owners from the scientific specification and canonical PhysKit and
+Optimization operations. Calculation-local `workflow/` trees are read-only parity
+references: do not import, copy, wrap, subclass, or execute them from successor source,
+and do not preserve Workflow-shaped public APIs.
 
 **Gate:** each family has separate typed wires, independent verification, rendering,
 tolerances, execution record, and claim boundary. Neither imports the other's
@@ -90,9 +99,11 @@ oracles; changing thresholds cannot mutate or masquerade as the confirmatory res
 
 ## Phase 5 — higher rank
 
-Migrate the higher-rank composite calculation only after rank-two contracts expose the
-reusable behavior it actually needs. Preserve declared rank, frame, sewing, alignment,
-and scalar-ledger semantics. Do not infer higher-rank validation from rank-two tests.
+Implement the higher-rank composite calculation only after rank-two contracts expose the
+behavior it actually needs. Preserve declared rank, frame, sewing, alignment, and
+scalar-ledger semantics. The current calculation-local `workflow/` package is a read-only
+parity reference and is not imported or copied. Do not infer higher-rank validation from
+rank-two tests.
 
 **Gate:** typed result and verification wires exist, every decisive value has an
 independent check, authenticated rendering is closed, and any retained execution uses a
@@ -130,8 +141,10 @@ For each old module, calculation-local package, script, or artifact:
 4. run package, documentation, schema, checksum, and calculation-stage checks; and
 5. request separate authorization for every destructive removal.
 
-Remove no compatibility facade, retained wire decoder, historical artifact, branch,
-worktree, or calculation data merely because the successor tests pass.
+Do not add a compatibility facade or retained-wire decoder. Old live source is removed
+only after the Phase 0 calculation and plot-data parity gates, consumer migration, Git
+recovery checks, and separate removal authorization pass. Historical Git objects are not
+rewritten.
 
 ## Per-phase checks
 

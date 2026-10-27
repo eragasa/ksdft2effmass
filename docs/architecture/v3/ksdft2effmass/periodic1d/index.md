@@ -109,4 +109,5 @@ searchable provenance aliases; they are not names for new studies or a version c
 - [Direct run-script template](direct-scripts.md)
 - [Temporary visualization migration plan](visualization.md)
 - [Migration sequence](migration.md)
+- [Phase 0 inventory and replacement boundary](phase-0-inventory.md)
 - [Formal-method boundary](formal.md)

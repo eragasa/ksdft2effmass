@@ -159,20 +159,20 @@ The initial rewrite may retain unsealed executions with an explicit `UNSEALED.md
 PIAB1D and QHO1D do. `run_04_seal.py`, package verification, evidence promotion, and
 retained execution creation remain separate reviewed and authorized scopes.
 
-## Legacy disposition
+## Predecessor disposition
 
-The historical M1--M3 APIs, schema-v1 wires, publication paths, and retained evidence
-remain readable until an exact consumer and artifact inventory proves otherwise. A
-migration slice must choose one of these explicit dispositions for every old symbol and
-file:
+The [Phase 0 inventory](phase-0-inventory.md) selects complete replacement. Current
+M1--M3 imports, class layouts, serializer APIs, schema-v1 runtime decoding, and
+calculation-local Python packages are not preserved. The successor must reproduce the
+specified finite calculations and authenticated plot-data channels within unchanged
+comparison tolerances before predecessor source is eligible for separately authorized
+removal.
 
-- retained historical decoder/verifier only;
-- direct successor with named behavioral and wire parity;
-- provenance-only recovery from an exact Git object; or
-- separately authorized removal after all consumers move.
-
-There is no deprecation shim, wildcard re-export, compatibility module, or calculation-
-local duplicate source tree. Supported callers move directly to the selected owner.
+Historical result and artifact bytes remain unchanged and recoverable from exact Git
+objects for provenance. The new runtime neither decodes those packages nor imports,
+copies, wraps, subclasses, or executes a calculation `workflow/` directory. There is no
+deprecation shim, wildcard re-export, compatibility module, or calculation-local
+duplicate source tree. Supported callers move directly to the selected owner.
 
 ## Optional formal-certificate export
 
