@@ -58,14 +58,6 @@
     },
     {
       "adaptation": "calculation-owned input, result, and figure paths only",
-      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_scientific_story.py",
-      "destination_sha256": "b14d8301322952cc1287da8afcfc8abd54b9dd9903273843a623563788d7309b",
-      "source_git_status": " M",
-      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_scientific_story.py",
-      "source_sha256": "1f29649ec71b1897dcbe6aadb4313bfeef31007bfa27a9b4d8e174f1dbcdbc3b"
-    },
-    {
-      "adaptation": "calculation-owned input, result, and figure paths only",
       "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_truncation.py",
       "destination_sha256": "bf4986225f853d342552c2b10e210472d6018c03b9d95c94282f44bfc2ba8451",
       "source_git_status": " M",
@@ -155,7 +147,7 @@
     {
       "adaptation": "calculation-owner status, paths, and retained-evidence boundary; selected recovered scientific inventory integrated",
       "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md",
-      "destination_sha256": "97d7aa9898ffb414de4d528e6f67b3ab1fd2f34eaedbf3b1af66c3cc4d7e5db6",
+      "destination_sha256": "8ef3b6013dfbaf229a5ac743d01aaa96f52dbf0558e075ad1020e058cfecd758",
       "source_git_status": " M",
       "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/README.md",
       "source_sha256": "f443552e8b7f7e95a262b15e3001f30fe3c77e5e028e6afab570d065d50e8e2f"
@@ -482,22 +474,6 @@
     },
     {
       "adaptation": "none",
-      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf",
-      "destination_sha256": "9e88e334c7b6c3ae25fbd264428d128d2ba17f16121ed8613c2412c886c1e9be",
-      "source_git_status": " M",
-      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf",
-      "source_sha256": "9e88e334c7b6c3ae25fbd264428d128d2ba17f16121ed8613c2412c886c1e9be"
-    },
-    {
-      "adaptation": "none",
-      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.png",
-      "destination_sha256": "8f8b6e2274bf9c626f9e2cccae2d057f9f17820f726418a741849f3f48a9fab7",
-      "source_git_status": " M",
-      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.png",
-      "source_sha256": "8f8b6e2274bf9c626f9e2cccae2d057f9f17820f726418a741849f3f48a9fab7"
-    },
-    {
-      "adaptation": "none",
       "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-versus-hopping-locality.pdf",
       "destination_sha256": "8c5337f12ea390c2d827ce65fe828e078d9398b0f8db3491c8b526fe7794c222",
       "source_git_status": " M",
@@ -682,6 +658,42 @@
       "source_git_status": " M",
       "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/uv.lock",
       "source_sha256": "ad1f1869e963c2d0a3fb6af5ffdd3fd3adce3a93201045ebc262272b2bb6c5bd"
+    },
+    {
+      "disposition": "The dirty recovered scientific-story candidate is not the maintained destination. Removal-readiness review restored the authoritative pre-recovery calculation bytes so the distinct 9e88e334 presentation copy is not promoted into calculation ownership. The rejected dirty bytes remain Git-recoverable from the recorded recovery revision.",
+      "maintained_destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf",
+      "maintained_destination_sha256": "191d8fff0dbc777a6268c0e1e3dd481f8160da11bc9b5797510919ca9e57b2a8",
+      "recovery_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf",
+      "recovery_relation": "exact dirty source bytes",
+      "recovery_revision": "011eee90f7be30770dd5fb2db844fe35633755fc",
+      "recovery_sha256": "9e88e334c7b6c3ae25fbd264428d128d2ba17f16121ed8613c2412c886c1e9be",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf",
+      "source_sha256": "9e88e334c7b6c3ae25fbd264428d128d2ba17f16121ed8613c2412c886c1e9be"
+    },
+    {
+      "disposition": "The dirty recovered scientific-story candidate is not the maintained destination. Removal-readiness review restored the authoritative pre-recovery calculation bytes so the distinct 9e88e334 presentation copy is not promoted into calculation ownership. The rejected dirty bytes remain Git-recoverable from the recorded recovery revision.",
+      "maintained_destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.png",
+      "maintained_destination_sha256": "b323ab00db328a3e0ad4304781d9ac79f68396861b15e1e24dc183793fea05ce",
+      "recovery_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.png",
+      "recovery_relation": "exact dirty source bytes",
+      "recovery_revision": "011eee90f7be30770dd5fb2db844fe35633755fc",
+      "recovery_sha256": "8f8b6e2274bf9c626f9e2cccae2d057f9f17820f726418a741849f3f48a9fab7",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.png",
+      "source_sha256": "8f8b6e2274bf9c626f9e2cccae2d057f9f17820f726418a741849f3f48a9fab7"
+    },
+    {
+      "disposition": "The dirty recovered scientific-story plotter is not the maintained destination. Removal-readiness review restored the authoritative pre-recovery calculation plotter so the presentation-copy behavior is not promoted into calculation ownership. The exact dirty source is identified by SHA-256; its calculation-path-adapted candidate remains Git-recoverable from the recorded recovery revision.",
+      "maintained_destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_scientific_story.py",
+      "maintained_destination_sha256": "50201f4af29319ad2989157b84d0599e22b8fb24143380e083185acc37656431",
+      "recovery_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_scientific_story.py",
+      "recovery_relation": "calculation-path-adapted candidate; exact dirty source is hash-identified but was never a committed Git blob",
+      "recovery_revision": "011eee90f7be30770dd5fb2db844fe35633755fc",
+      "recovery_sha256": "b14d8301322952cc1287da8afcfc8abd54b9dd9903273843a623563788d7309b",
+      "source_git_status": " M",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_scientific_story.py",
+      "source_sha256": "1f29649ec71b1897dcbe6aadb4313bfeef31007bfa27a9b4d8e174f1dbcdbc3b"
     }
   ],
   "source_repository": {
@@ -691,7 +703,7 @@
   },
   "validation": {
     "diagnostic_packaging": "14 tables, 77191 long-form rows, 110 catalog rows, and 660 decisions; both derived CSVs reproduced byte-exactly.",
-    "figure_reproduction": "All ten affected PNG pixel arrays and 150-dpi Ghostscript PDF renderings reproduced exactly under CPython 3.14.6, NumPy 2.5.1, pandas 3.0.6, Matplotlib 3.11.1, and Ghostscript 10.04.0. Raw bytes with embedded producer metadata remain predecessor-owned.",
+    "figure_reproduction": "The five formerly missing figure pairs and four updated development figure pairs reproduced pixel/render exact against their dirty predecessors. The scientific-story pair was subsequently restored to its authoritative pre-recovery calculation identity; the rejected dirty pair remains recoverable from recovery revision 011eee90f7be30770dd5fb2db844fe35633755fc.",
     "focused_tests": "33 passed with the repository software_verification marker declared explicitly for the calculation-local invocation.",
     "producer_reproduction": "Recovered donor graph had already reproduced all five candidate figures. After adaptation, the parent-family producer reproduced both CSVs byte-exactly; the combined parent/truncation/refinement rerun exceeded the 900-second command window during truncation. Unit and schema tests cover the adapted truncation behavior.",
     "publication_build": "Scratch latexmk builds completed for the 21-page main manuscript and 21-page supplement. Undefined Ragasa2026b\u2013d and Marzari citations remain separate bibliography gates.",

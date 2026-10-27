@@ -59,30 +59,49 @@ all maintained consumers have moved.
 | `experimental-protocol.tex` | `3b1cff165ebd3ec803469d4df8cd40422f4bf80b73472ec220ca67ed1c982725` | Exact move completed: `protocol/experimental-protocol.tex`. |
 | `smooth-threshold-continuum.csv` | `09452fb9a202c351b756681598e6910891f0208f73da2388e27fdf8638cbc9ae` | `simulations/development/inputs/smooth-threshold-continuum.csv` (exact duplicate). |
 
-The partition is closed: 25 source files have exact-byte calculation-side duplicates,
-nine scripts have named adapted counterparts and a completed parity audit, two README
-integrations are complete, three protocol files have moved exactly as one buildable
-maintained protocol set, and one local ignore file is provenance-only.
+The baseline partition is closed: 25 source files originally had exact-byte
+calculation-side duplicates, nine scripts had named adapted counterparts and a completed
+parity audit, two README integrations are complete, three protocol files moved exactly as
+one buildable maintained protocol set, and one local ignore file is provenance-only.
+
+After the authorized dirty-source recovery and scientific-story correction, the 35 files
+that physically remain in the experiment tree have these removal-time dispositions:
+
+- 13 remain exact-byte duplicates of their calculation-owned destinations;
+- 12 are superseded baseline predecessors whose current calculation destinations have
+  different, explicitly recorded successor bytes;
+- nine are adapted script predecessors; and
+- one `.gitignore` is provenance-only.
+
+[`experiment-removal-manifest.json`](experiment-removal-manifest.json) binds every current
+source SHA-256, destination SHA-256 where applicable, disposition, and exact Git recovery
+revision.
 
 ## Parity gates
 
-### Exact-byte duplicates
+### Exact-byte and superseded predecessors
 
-Before removing the 25 duplicate source files, recompute both source and destination
-SHA-256 values and require the values in the table. No numerical re-execution is needed
-to establish byte identity. These files remain development inputs, outputs, narratives,
-and figures; byte identity does not promote them to retained evidence.
+Before removal, validate all 35 entries in `experiment-removal-manifest.json`. The 13
+`exact_duplicate` entries must still match their destinations byte for byte. The 12
+`superseded_predecessor` entries must retain their source SHA-256 at recovery revision
+`011eee90f7be30770dd5fb2db844fe35633755fc` and their recorded successor destination
+SHA-256. No numerical re-execution is needed to establish these byte and supersession
+identities. These files remain development inputs, outputs, narratives, and figures;
+neither byte identity nor supersession promotes them to retained evidence.
 
 ### Adapted analysis and plotting scripts
 
 The completed nine-pair audit is recorded in
 [`adapted-script-parity.md`](adapted-script-parity.md).
 
-The four source analysis scripts currently import the removed installed
+The four source analysis scripts import the removed installed
 `ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.periodic1d` package and
 are not a maintained executable route. Their calculation-side counterparts import the
-calculation-local `workflow` donor and write into the calculation-owned development
-layout. The five plotting counterparts likewise target the calculation layout.
+calculation-local `workflow` owner and write into the calculation-owned development
+layout. The five plotting counterparts likewise target the calculation layout. Recovery
+introduced later development changes to several counterparts; the removal manifest
+therefore classifies all nine source scripts as adapted predecessors rather than current
+byte-equivalent implementations.
 
 Before source-script removal:
 
@@ -103,8 +122,9 @@ lifecycle can be proposed.
 ### Documentation and protocol
 
 The two README donors have been integrated while preserving their family identity,
-development status, unresolved amplitude/refinement result, nonclaims, commands, and
-complete channel inventory in calculation-owned documentation. The three full protocol
+development status, direct flat analytic rule, pointwise nonflat scope, refinement
+limitations, nonclaims, commands, and complete channel inventory in calculation-owned
+documentation. The three full protocol
 files moved together without byte changes into [`protocol/`](protocol/); they remain a
 prospective pre-version protocol and do not become immutable merely by moving.
 
@@ -151,13 +171,14 @@ tree and migration records are immutable predecessor locators in architecture/pr
 documentation and the original-copy locator for the distinct ICMSEP2026 presentation
 asset. None is a runtime, test, documentation-build, or publication input.
 
-## Removal gate
+## Removal gate and execution
 
-Removal of the experiment directory requires all of the following:
+Removal of the experiment directory required all of the following:
 
-- all 40 rows retain exactly one verified destination or provenance-only disposition;
-- adapted-script differences and channel parity are recorded;
-- the three-file protocol donor is recovered under the calculation owner;
+- all 40 baseline rows retain exactly one verified destination or provenance-only disposition, and all 35 remaining source files pass `experiment-removal-manifest.json`;
+- adapted-script differences, channel parity, nested ownership, and artifact/schema paths are recorded;
+- the three-file protocol donor is recovered under the calculation owner and protocol authority is explicit;
+- historical M2, monograph-composite, and finite-angle donors have exact Git/digest dispositions;
 - every maintained consumer uses a calculation path or an explicit immutable predecessor
   reference;
 - the five formerly unresolved publication inputs retain their reviewed complete-source
@@ -165,3 +186,10 @@ Removal of the experiment directory requires all of the following:
 - no installed source, test, documentation build, or publication build depends on the
   experiment path; and
 - deletion receives separate operator authorization.
+
+All gates passed. After explicit authorization, exactly the 35 manifest-bound files were
+removed at `2026-10-27T06:37:02Z`. Preflight proved that the manifest, tracked-file, and
+filesystem-file sets were identical and that every source hash matched. No other
+periodic-1D family was removed. The deleted bytes remain exactly recoverable from
+`011eee90f7be30770dd5fb2db844fe35633755fc`; deletion authorization did not include any
+Git commit, push, pull request, or merge.

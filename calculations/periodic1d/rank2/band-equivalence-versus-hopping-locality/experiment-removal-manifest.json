@@ -1,0 +1,316 @@
+{
+  "baseline_revision": "c49aaf816702c321cdd649e2567af70da57246fe",
+  "counts": {
+    "adapted_predecessor": 9,
+    "exact_duplicate": 13,
+    "provenance_only": 1,
+    "superseded_predecessor": 12
+  },
+  "destination_owner": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality",
+  "entries": [
+    {
+      "disposition": "provenance_only",
+      "reason": "The repository-root .gitignore owns all six patterns. Source bytes remain Git-recoverable from source_revision.",
+      "root_gitignore_path": ".gitignore",
+      "root_gitignore_sha256": "631fc8a6429c951a65e50a15af9dc4ea3967c9b3c692e92660d106e2c32ea22a",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/.gitignore",
+      "source_sha256": "26b93cca510c4bd9eca7028e0c451befb03bf76d67efd975cf9413bf0a43dcdc"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/amplitude-resolution.csv",
+      "destination_sha256": "e3ca18e0e636aa5623365b7e8acaf3837bef0f4344c1355f4565c7ab1016c29b",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/amplitude-resolution.csv",
+      "source_sha256": "e3ca18e0e636aa5623365b7e8acaf3837bef0f4344c1355f4565c7ab1016c29b"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_flat_development.py",
+      "destination_sha256": "9f66d625e9ad3a31f1f1ab565954f9ed6884a8950ce0c283db5d86b35389fc65",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze.py",
+      "source_sha256": "316537795cba86f638edc173e02062ba318392216862ae1c020365d2d0e954b1"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_nonflat_development.py",
+      "destination_sha256": "5986bae859f095850c908b1a9b082e2a564be99a1cc67335c4a8c01d72efb46b",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze_nonflat.py",
+      "source_sha256": "b32e43ba25a9cdcbde7656a4d0ab5de74a83e69a95ba241e8bcb375777df8434"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_parent_family_development.py",
+      "destination_sha256": "368c0e25258b7d5683be8866b3ea58579bf688e67072903cb86591ed6a4a3ae8",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze_parent_family.py",
+      "source_sha256": "d523b7dbb49db7fc7d8d5963c34fbd8dccb764263da51ca3781a8fea3a62ce8c"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/run_truncation_development.py",
+      "destination_sha256": "0af031761946575019ffec6631e2514681a7b30d2ed0082c7b8bf90e1b8d0fa0",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/analyze_truncation.py",
+      "source_sha256": "728788701a0b8e8e02c22e2212ed8a2327b0c4f46bdf2e15d71bcce8d5f52091"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf",
+      "destination_sha256": "191d8fff0dbc777a6268c0e1e3dd481f8160da11bc9b5797510919ca9e57b2a8",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.pdf",
+      "source_sha256": "191d8fff0dbc777a6268c0e1e3dd481f8160da11bc9b5797510919ca9e57b2a8"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.png",
+      "destination_sha256": "b323ab00db328a3e0ad4304781d9ac79f68396861b15e1e24dc183793fea05ce",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-locality-scientific-story.png",
+      "source_sha256": "b323ab00db328a3e0ad4304781d9ac79f68396861b15e1e24dc183793fea05ce"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-versus-hopping-locality.pdf",
+      "destination_sha256": "8c5337f12ea390c2d827ce65fe828e078d9398b0f8db3491c8b526fe7794c222",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-versus-hopping-locality.pdf",
+      "source_sha256": "0be6089cc08ee90cb67fddde3983c98bad2f481fffffa5f4833e1f933efe6053"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-versus-hopping-locality.png",
+      "destination_sha256": "5e75a765e81e343ce3fb83a88c81340c219bacbff5f91c182ddbbf82aa8c97c4",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/band-equivalence-versus-hopping-locality.png",
+      "source_sha256": "0aeb71efae8570e2e38a20a9e1825efaf9548fc7683754714a3cd9cb7ab4a7b9"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/hopping-power-map.csv",
+      "destination_sha256": "256d3750899af828b11ed1e96a471593e3bfe12a13e9920481fc4561df5f40e4",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/hopping-power-map.csv",
+      "source_sha256": "256d3750899af828b11ed1e96a471593e3bfe12a13e9920481fc4561df5f40e4"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/journal-narrative.md",
+      "destination_sha256": "eec275219007e311b84379c6b5d06ff7751d782cfc1e523abe60c36f261640a4",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/journal-narrative.md",
+      "source_sha256": "e48829fbeff136b977d88f32372ee6ecb098f06524d57d0bad225b9205a01dfe"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/momentum-refinement.csv",
+      "destination_sha256": "d7ebcebde6fe1915f5841fe68d598f89d81a17379a7f8a0484ff96033f751f0f",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/momentum-refinement.csv",
+      "source_sha256": "d7ebcebde6fe1915f5841fe68d598f89d81a17379a7f8a0484ff96033f751f0f"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-amplitude-resolution.csv",
+      "destination_sha256": "72873cbaa911a20145700148b77b4deb885617c7f37c08c9e468aaadb2ef8d18",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-amplitude-resolution.csv",
+      "source_sha256": "72873cbaa911a20145700148b77b4deb885617c7f37c08c9e468aaadb2ef8d18"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-continuum.csv",
+      "destination_sha256": "d59c34e829025a66037fa97f7be6408ef6a40fc393f66c9a6da99e17034f38f9",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-continuum.csv",
+      "source_sha256": "d59c34e829025a66037fa97f7be6408ef6a40fc393f66c9a6da99e17034f38f9"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/nonflat-four-state-exploratory.pdf",
+      "destination_sha256": "dccf0445bf324e4d840c6699d8ab1fe202d36507d463ebd186d477937ccd2ef1",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-four-state-exploratory.pdf",
+      "source_sha256": "35d5602eed7982a78e2bfe1d6ebecc42a77c95428445e59636c1a8bda1bb4b19"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/nonflat-four-state-exploratory.png",
+      "destination_sha256": "682a239ef0bb45f0a8a478673244b4294dc6b6d705d894b659972afdae3baa30",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-four-state-exploratory.png",
+      "source_sha256": "1c643dfbe40940ab97d2765990e326a5c4753ce84e6c8b50fc0acee97fc9e438"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-hopping-power-map.csv",
+      "destination_sha256": "f48ddc94f6559853c1c9124cddae29d890f06f747bddfd36e72c3460817601a0",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-hopping-power-map.csv",
+      "source_sha256": "f48ddc94f6559853c1c9124cddae29d890f06f747bddfd36e72c3460817601a0"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-momentum-refinement.csv",
+      "destination_sha256": "cd513a6fea1d4f28984e857f64c2995cf7fab493e9775ddef64ec1b4dc8c28d3",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-momentum-refinement.csv",
+      "source_sha256": "cd513a6fea1d4f28984e857f64c2995cf7fab493e9775ddef64ec1b4dc8c28d3"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/nonflat-selected-hopping-tails.csv",
+      "destination_sha256": "98c9c46430e4840ad7497a1a6f0a61591ef87e1acf68353bcb6d5054c8515857",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/nonflat-selected-hopping-tails.csv",
+      "source_sha256": "98c9c46430e4840ad7497a1a6f0a61591ef87e1acf68353bcb6d5054c8515857"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/parent-family-continuum.csv",
+      "destination_sha256": "1ab9a26544f70f2f53ad798f6ab61aa9f72b7f065f5dc3fa67ff84f8b5557597",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-continuum.csv",
+      "source_sha256": "1ab9a26544f70f2f53ad798f6ab61aa9f72b7f065f5dc3fa67ff84f8b5557597"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/parent-family-robustness-exploratory.pdf",
+      "destination_sha256": "c33f88d42d774e6337698426c03aa2426c10065dbbecffdde5a6067ffc8a0c60",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-robustness-exploratory.pdf",
+      "source_sha256": "68a5358e22652cf0fe92298cca9d082b4bfb702d62432b01b23e6fe7638810ac"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/parent-family-robustness-exploratory.png",
+      "destination_sha256": "84c847386cfe206f1c55ceac229e0c70cde3cd4f5f7139da7541e810baab2b9d",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-robustness-exploratory.png",
+      "source_sha256": "c1ca49fe78dd38619ee9abe94ca33b6b67037c7460586f67dd96ba3fdf681976"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/parent-family-summary.csv",
+      "destination_sha256": "aa249ec7b19b8126e906f10ee657e79998c81980e6531440d2da2c0359c1aeb9",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/parent-family-summary.csv",
+      "source_sha256": "38427e90bf7d336210bdd7e0845e593b2a83d5d298530991bb30321fc0143ed6"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot.py",
+      "destination_sha256": "d0a6d5eace787d798b4b55672d7edee7417932adcecd18bfd48b4df06b04624f",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot.py",
+      "source_sha256": "37e12d242c6db5e64dcc2c6701cbfa5e0f6d60e9dc341d436eb90f51ac0f0c83"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_nonflat.py",
+      "destination_sha256": "176e58f33fe6607e2dc2226ecebb04a6f95f4232c9e98bbed87c3f2c5c0a32d4",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_nonflat.py",
+      "source_sha256": "fc3bd2db69fe373714f98a6deb0f539616964a4ccee1a9495a836b2e8921f88e"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_parent_family.py",
+      "destination_sha256": "991d9532482c105e6adf445c8cdc6581dafdacc15ccfbb175b830e34f9cc7356",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_parent_family.py",
+      "source_sha256": "b4d0b146eb0d400b9c0ad28075c65dbb5a8bd8e66c1c885ee317cc939c512bee"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_scientific_story.py",
+      "destination_sha256": "50201f4af29319ad2989157b84d0599e22b8fb24143380e083185acc37656431",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_scientific_story.py",
+      "source_sha256": "38cc2c224b512296fef9ed838f50b0fb5286ee66787ee1452edf4bd7be85965a"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/plot_truncation.py",
+      "destination_sha256": "bf4986225f853d342552c2b10e210472d6018c03b9d95c94282f44bfc2ba8451",
+      "disposition": "adapted_predecessor",
+      "reason": "Calculation-owned effect adapter uses current ownership and paths. Baseline parity and later recovery adaptations are recorded in adapted-script-parity.md and recovered-development-source-manifest.json.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/plot_truncation.py",
+      "source_sha256": "c31057999d984f4227b2cc90b2d20a5b040bfe75f748d71dfdcecd3d450114e5"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/selected-hopping-tails.csv",
+      "destination_sha256": "5e81b380307d9af9f39efb477a97fef6904cd1642c1da2b230b66ad3364d8574",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/selected-hopping-tails.csv",
+      "source_sha256": "5e81b380307d9af9f39efb477a97fef6904cd1642c1da2b230b66ad3364d8574"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-band-consequences.pdf",
+      "destination_sha256": "1c7bfcd9507ab1673237df7bb8b409113a6ee44c0d432bbc11efe0b724935d67",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-band-consequences.pdf",
+      "source_sha256": "56e2b48ea53daee593648f9b0f9aaa0ddcf80c45e12f761d75db3006955c6327"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-band-consequences.png",
+      "destination_sha256": "9bdea3d3777c539b4faf05f720172a2651e12466fe7834e695f6daabf2944728",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-band-consequences.png",
+      "source_sha256": "1ebbdc96ec58c3b800734551b8f56a492bac6c5b74a46cabc62a504f0d4321ea"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/truncation-consequences.csv",
+      "destination_sha256": "84c1769c98d737f2e65e53c1ea105cca9c01e7f36c39713112c6649a2f92c40c",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-consequences.csv",
+      "source_sha256": "f5bfdf47c3e3163e95eb9105f648885654c0a5759ba37acff328a5a5d1b03f3e"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/results/truncation-summary.csv",
+      "destination_sha256": "5c18c4d8506f0a4e54b921cb7d508862c9ed8067bf879a1fe5e403a8a15a7575",
+      "disposition": "superseded_predecessor",
+      "reason": "The source is the baseline development predecessor; the calculation-owned destination is a reviewed recovered successor. The predecessor remains Git-recoverable from source_revision.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis/truncation-summary.csv",
+      "source_sha256": "635e37b583fdc6b8f0e24c2077a85b7ccff80acfe6c7d3745de0a8b642ae87b9"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/simulations/development/inputs/smooth-threshold-continuum.csv",
+      "destination_sha256": "09452fb9a202c351b756681598e6910891f0208f73da2388e27fdf8638cbc9ae",
+      "disposition": "exact_duplicate",
+      "reason": "Source and calculation-owned destination are byte-identical.",
+      "source_path": "experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/smooth-threshold-continuum.csv",
+      "source_sha256": "09452fb9a202c351b756681598e6910891f0208f73da2388e27fdf8638cbc9ae"
+    }
+  ],
+  "family": "ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality",
+  "gates": {
+    "consumer_independence": "Verified: no Ragasa2026a v3 or executable/test build input uses this experiment path; remaining repository references are immutable historical locators or migration records.",
+    "deletion_authorization": "Granted for exactly the 35 manifest entries and executed at 2026-10-27T06:37:02Z. The deletion authorization did not include commit, push, or merge.",
+    "nested_channels": "See nested-channel-crosswalk.md.",
+    "protocol_authority": "See protocol-authority-and-historical-donors.md."
+  },
+  "nonclaims": [
+    "Digest and destination coverage do not establish scientific validation.",
+    "Superseded predecessor status does not promote successor outputs to retained evidence.",
+    "This manifest does not authorize deletion, retained execution, sealing, release, or publication."
+  ],
+  "removal_execution": {
+    "authorization_scope": "Delete exactly the 35 tracked source_path entries in this manifest; no other experiment or calculation family.",
+    "authorized": true,
+    "completed_utc": "2026-10-27T06:37:02Z",
+    "deleted_file_count": 35,
+    "postcondition": "The authorized family path is absent. Other periodic-1D experiment and calculation owners were not removed.",
+    "predecessor_revision": "011eee90f7be30770dd5fb2db844fe35633755fc",
+    "preflight": "The manifest source set equaled the complete tracked and filesystem file set under the authorized family path, and every source SHA-256 matched before unlinking.",
+    "status": "completed"
+  },
+  "schema": "ksdft2effmass.experiment-removal-manifest.v1",
+  "source_revision": "011eee90f7be30770dd5fb2db844fe35633755fc"
+}

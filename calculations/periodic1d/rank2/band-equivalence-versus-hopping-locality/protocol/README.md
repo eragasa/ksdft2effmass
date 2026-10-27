@@ -46,5 +46,7 @@ byte-exact against the tracked snapshot. Raw PDF bytes were not identical and ar
 substituted for the tracked artifact.
 
 [`../protocol.md`](../protocol.md) records the concise calculation boundary and migration
-targets. [`../technical-report/`](../technical-report/) is a separate calculation-facing
-migration report; it does not replace this protocol.
+targets. Authority and conflict rules are explicit in
+[`../protocol-authority-and-historical-donors.md`](../protocol-authority-and-historical-donors.md).
+[`../technical-report/`](../technical-report/) is a separate calculation-facing migration
+report; it does not replace this protocol.

@@ -125,12 +125,12 @@ now contains:
 - the structured nonflat and truncation implementation, strict serializers, schemas,
   and independent verifiers under [`workflow/`](workflow/);
 - the producer, refinement, packaging, and rendering effect adapters;
-- all 14 source tables, the two derived diagnostic tables, and the predecessor bytes of
-  all ten affected figure pairs;
+- all 14 source tables, the two derived diagnostic tables, the five formerly missing
+  figure pairs, and four other changed development figure pairs;
 - the four analysis narratives and focused software-verification tests; and
 - [`recovered-development-source-manifest.json`](recovered-development-source-manifest.json),
-  which binds 57 exact-byte copies and 24 explicit path/ownership/style adaptations to the
-  dirty donor state and gives three source-only dispositions.
+  which binds 55 exact-byte copies and 23 explicit path/ownership/style adaptations to the
+  dirty donor state and gives six source-only dispositions.
 
 The dirty donor `pyproject.toml` and `uv.lock` are identified in the manifest but were
 not activated: adding a direct pandas dependency remains a separately protected
@@ -143,7 +143,14 @@ window during the truncation sweep; the recovered donor graph had already produc
 complete table and figure inventory in the initial scratch audit. The calculation-owned
 diagnostic packager reproduced the 110-row catalog and 660-decision table byte-exactly.
 All five recovered PNG pixel arrays and all five 150-dpi Ghostscript PDF renderings were
-again exact against the observed predecessor candidates.
+again exact against the observed predecessor candidates. Removal-readiness review found
+that the dirty scientific-story pair duplicated the separately qualified historical
+presentation copy. The maintained scientific-story PDF, PNG, and plotter were restored
+to their pre-recovery calculation identities. The rejected dirty PDF and PNG remain
+exactly Git-recoverable from recovery revision
+`011eee90f7be30770dd5fb2db844fe35633755fc`; the dirty plotter has an exact recorded
+source hash and a Git-recoverable calculation-path-adapted candidate. All three have
+explicit source-only dispositions.
 
 The Ragasa2026a version-3 manuscript and supplement now consume the five PDFs from
 `analysis/development/figures/` under this calculation owner rather than from the

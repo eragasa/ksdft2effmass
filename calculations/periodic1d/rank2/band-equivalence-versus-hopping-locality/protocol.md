@@ -47,10 +47,14 @@ These paths are contractual targets, not assertions that the stages already exis
 
 ## Migration boundary
 
-The active mathematical and numerical specification currently remains in the maintained
-experiment and the `Ragasa2026a` v3 manuscript. Migration must preserve numerical values,
-model conventions, development status, and provenance. Historical retained artifacts
-must remain byte-identical and are referenced rather than moved.
+The maintained calculation owner now contains the development implementation, schemas,
+tables, figures, and complete buildable prospective protocol bundle. The exact authority
+and conflict rules for this concise boundary, the buildable bundle, implementation,
+technical report, and publication consumers are recorded in
+[`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md).
+Historical M2, monograph-composite, finite-angle regression, and retained artifacts remain
+distinct and Git-recoverable; they are referenced rather than restored, merged, or
+rewritten.
 
 Production controls, a maintained version identifier, immutable run identity, retained
 execution, public archive, and scientific validation remain open.

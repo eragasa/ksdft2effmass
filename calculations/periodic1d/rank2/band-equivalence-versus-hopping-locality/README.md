@@ -70,8 +70,15 @@ identities; this directory does not copy, rename, or upgrade them.
 - [`publication-input-recovery-audit.md`](publication-input-recovery-audit.md) records the
   audit and authorized recovery of five Ragasa2026a development figure inputs.
 - [`recovered-development-source-manifest.json`](recovered-development-source-manifest.json)
-  binds the dirty donor identities to exact or explicitly adapted calculation-owned
-  destinations and records dependency dispositions and reproduction checks.
+  binds the dirty donor identities to exact, adapted, or source-only dispositions and
+  records dependency dispositions and reproduction checks.
+- [`nested-channel-crosswalk.md`](nested-channel-crosswalk.md) binds each scientific and
+  derived channel to classes, schemas, effect adapters, and artifacts.
+- [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md)
+  defines protocol authority and exact M2, monograph-composite, and regression boundaries.
+- [`experiment-removal-manifest.json`](experiment-removal-manifest.json) and
+  [`experiment-removal-readiness.md`](experiment-removal-readiness.md) cover all 35
+  remaining experiment files without authorizing deletion.
 - [`technical-report/`](technical-report/README.md) owns the calculation-facing technical
   report split into reviewable sections.
 
@@ -97,6 +104,9 @@ distributed checklist.
 | [`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md) | Closed 40-file source partition with SHA-256 identities, exact destinations or dispositions, consumer inventory, and parity/removal gates. |
 | [`adapted-script-parity.md`](adapted-script-parity.md) | Nine-pair AST, scratch-result, PNG, and normalized-PDF parity audit; software evidence only. |
 | [`publication-input-recovery-audit.md`](publication-input-recovery-audit.md) | Five development figure inputs and their complete producing graph were recovered into this owner after operator authorization; retained status was not assigned. |
-| [`recovered-development-source-manifest.json`](recovered-development-source-manifest.json) | 57 exact-byte copies, 24 path/ownership/style adaptations, three explicit source-only dispositions, and bounded reproduction evidence. |
-| Experiment migration source | The baseline 40-file partition and the authorized dirty-source recovery now have calculation-owned destinations or explicit dispositions; consumer and physical-removal gates remain open. |
+| [`recovered-development-source-manifest.json`](recovered-development-source-manifest.json) | 55 exact-byte copies, 23 path/ownership/style adaptations, six explicit source-only dispositions, and bounded reproduction evidence. |
+| [`nested-channel-crosswalk.md`](nested-channel-crosswalk.md) | Flat, nonflat, parent-family, truncation, refinement, packaging, rendering, and protocol class/schema/artifact ownership. |
+| [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md) | Explicit protocol conflict rules and Git/digest dispositions for scientifically distinct historical donors. |
+| [`experiment-removal-manifest.json`](experiment-removal-manifest.json) | Closed 35-file removal partition: 13 exact duplicates, 12 superseded predecessors, nine adapted predecessors, and one provenance-only file. |
+| Experiment migration source | The baseline 40-file partition and authorized dirty-source recovery have calculation-owned destinations or explicit dispositions. Exactly 35 remaining donor files were removed after separate authorization; no other periodic-1D family was removed. |
 | Historical M2 and monograph composite work | Gauge/alignment/hopping donors at the exact historical revision; not this family identity. |
