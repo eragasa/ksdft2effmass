@@ -4836,6 +4836,7 @@
   "claim_boundary": "Calculated finite-dimensional illustrative result; not material validation, continuum convergence evidence, or publication acceptance.",
   "configuration": {
     "boundary_condition": "homogeneous Dirichlet",
+    "euclidean_normalization": "finite-dimensional Euclidean",
     "grid_convention": "uniform full grid with interior-only Hamiltonian",
     "hbar": 1.0,
     "interior_points": 8,
@@ -174289,7 +174290,6 @@
         "__ksd_type__": "unitless"
       }
     },
-    "euclidean_normalization": "finite-dimensional Euclidean",
     "quadrature_normalized": {
       "__ksd_type__": "matrix_quantity",
       "magnitude": {
@@ -177773,7 +177773,7 @@
     "numpy_version": "2.5.1",
     "python_version": "3.14.6",
     "script_path": "calculations/piab1d/run_01_calculation.py",
-    "script_sha256": "187a6a40446faabd66ec9890e40b7c950597867eb6d70acd07a24fbc898fbc44"
+    "script_sha256": "3e174cfa68ddc1c35a58932e2203723ba0ee00c1982a86a1848c3d70b7e2e7cb"
   },
   "quadrature": {
     "interior_weights": {
@@ -177799,7 +177799,6 @@
         "__ksd_type__": "unitless"
       }
     },
-    "interpretation": "The interior weight matrix is the constant scalar hI for this uniform homogeneous-Dirichlet grid.",
     "rule": "uniform interior restriction of the closed-interval trapezoidal rule",
     "rule_identifier": "projectkoios.numerics.quadrature.uniform_closed_interval_trapezoidal",
     "rule_version": 1,
@@ -189578,7 +189577,6 @@
   },
   "retained_dimension_selection": {
     "beta": 0.1,
-    "interpretation": "Canonical weights over the complete finite discrete spectrum; the selection is an illustrative a priori criterion, not validation.",
     "selection": {
       "omitted_probabilities": {
         "__ksd_type__": "vector_quantity",

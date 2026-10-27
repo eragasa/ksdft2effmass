@@ -57,7 +57,7 @@
   },
   "outcome": "completed",
   "result_path": "calculations/piab1d/executions/direct-core-n8-m3/results/result.json",
-  "result_sha256": "999920e5de0b6228fe0634821d14114116021f3fc8f0c447033b68ca4758ceb5",
+  "result_sha256": "7941264158f6662da4d6b34236bcb300f82b41018f3398d719c936437f30d8bf",
   "runtime": {
     "matplotlib_backend": "Agg",
     "matplotlib_version": "3.11.1",
@@ -68,7 +68,7 @@
   "script_path": "calculations/piab1d/run_03_render.py",
   "script_sha256": "359ce654fe514564d4a8fca96dc1ca4698a8aea34cfe83f32fdbf148e98e02fd",
   "verification_path": "calculations/piab1d/executions/direct-core-n8-m3/verification/verification.json",
-  "verification_sha256": "b42b93e0e8f9f47b4e77dee799a1d4cadbc70fc11c25ff0a41f98065143158b5",
+  "verification_sha256": "d64dfbb7910ad64ab8d3eb0ccc78b97ad9665293d71c35dcfb54e147fc3274fb",
   "visualizer_source_path": "python/src/ksdft2effmass/model_systems/piab1d/visualization.py",
-  "visualizer_source_sha256": "3fe4e41d093d75ca4b989b8bea3f263e214e24ecce04787ea10704e0f2347be2"
+  "visualizer_source_sha256": "8aaca48f49c5c9902921242ecde08060080e67c59d9c18c966a261eedbe8ef1c"
 }
