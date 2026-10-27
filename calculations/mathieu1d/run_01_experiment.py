@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Execute and retain immutable version-one local synthetic evidence."""
 
 from __future__ import annotations
@@ -136,7 +135,7 @@ def installed_vcs_commit(distribution_name: str, expected: str) -> str:
     document = _json_object(direct_url, f"{distribution_name} direct_url")
     vcs_info = document.get("vcs_info")
     if not isinstance(vcs_info, dict):
-        raise RuntimeError(f"{distribution_name} has no VCS identity")
+        raise TypeError(f"{distribution_name} has no VCS identity")
     vcs = vcs_info.get("vcs")
     commit_id = vcs_info.get("commit_id")
     if vcs != "git" or type(commit_id) is not str:

@@ -1,0 +1,604 @@
+{
+  "adapted_or_integrated_count": 10,
+  "baseline_git_revision": "c73aa96077ee03e1f7438ecbb44349b445a3eec8",
+  "exact_duplicate_count": 53,
+  "provenance_only_count": 2,
+  "records": [
+    {
+      "content_role": "maintained_family_documentation",
+      "destination_path": "calculations/mathieu1d/README.md",
+      "destination_sha256": "b1150c8b538ac5ac18cd29cad6c8d1cda7a4dfc4d8489f0c7b6970f8e98020b9",
+      "note": "container documentation integrated into the calculation README",
+      "relation": "integrated_documentation",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/README.md",
+      "source_sha256": "cbc6fbe45f13b6876e2a99ef7d4ff787a1461b9bc3a92eae926be2bcadd00b60"
+    },
+    {
+      "content_role": "repository_policy",
+      "destination_path": "calculations/mathieu1d/.gitattributes",
+      "destination_sha256": "10bd9cd47645107ff0bc44c492a352601dfcf5b98f010ef1e1e05abc61a4906d",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/.gitattributes",
+      "source_sha256": "10bd9cd47645107ff0bc44c492a352601dfcf5b98f010ef1e1e05abc61a4906d"
+    },
+    {
+      "content_role": "repository_policy",
+      "destination_path": "calculations/mathieu1d/.gitignore",
+      "destination_sha256": "f868b88b5e09e4d7737b6a22d1b3969fee279ea2b68f943062217086ad1b9328",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/.gitignore",
+      "source_sha256": "f868b88b5e09e4d7737b6a22d1b3969fee279ea2b68f943062217086ad1b9328"
+    },
+    {
+      "content_role": "maintained_family_documentation",
+      "destination_path": "calculations/mathieu1d/README.md",
+      "destination_sha256": "b1150c8b538ac5ac18cd29cad6c8d1cda7a4dfc4d8489f0c7b6970f8e98020b9",
+      "note": "family documentation integrated with calculation ownership and migration status",
+      "relation": "integrated_documentation",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/README.md",
+      "source_sha256": "b249949fe8172fd7131f3bf24f9569f8e48c9a41ea064ff779fdccb22c8012f8"
+    },
+    {
+      "content_role": "maintained_family_documentation",
+      "destination_path": "calculations/mathieu1d/evidence-policy.md",
+      "destination_sha256": "f242185f9e6bf491f9d14bb06921be2ce87e656be22b64fe94568ca4c213600b",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/evidence-policy.md",
+      "source_sha256": "f242185f9e6bf491f9d14bb06921be2ce87e656be22b64fe94568ca4c213600b"
+    },
+    {
+      "content_role": "maintained_family_documentation",
+      "destination_path": "calculations/mathieu1d/protocol.md",
+      "destination_sha256": "9ba0d329d4210c546854a3c94a9c91f528e9ed6ba58251bf3551c7c6f1a422ec",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/protocol.md",
+      "source_sha256": "9ba0d329d4210c546854a3c94a9c91f528e9ed6ba58251bf3551c7c6f1a422ec"
+    },
+    {
+      "content_role": "live_environment_declaration",
+      "destination_path": null,
+      "destination_sha256": null,
+      "note": "historical experiment environment declaration; live dependency ownership remains in python/pyproject.toml",
+      "relation": "provenance_only",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/pyproject.toml",
+      "source_sha256": "d4a8d407492ad0508848acc0324f048d7d351d32982200606a9d3a78b650b352"
+    },
+    {
+      "content_role": "historical_producer_entrypoint",
+      "destination_path": "calculations/mathieu1d/run_01_experiment.py",
+      "destination_sha256": "02869e291ce0818ac7e977714a47325f6d178afc39aab10dafaf1cce524ea12c",
+      "note": "calculation entry point consumes the maintained Mathieu1D study owner and canonical input",
+      "relation": "adapted_maintained_entrypoint",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/run_experiment.py",
+      "source_sha256": "bdc5c88e9b48a8674c0c4b283fab798f10d7e95462380cd17825266aca724997"
+    },
+    {
+      "content_role": "maintained_family_documentation",
+      "destination_path": "calculations/mathieu1d/runs/README.md",
+      "destination_sha256": "6901fde61c4ae9bb2d7c159d73acfd5e00a3f22a8fa426f91b239f226846e393",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/README.md",
+      "source_sha256": "6901fde61c4ae9bb2d7c159d73acfd5e00a3f22a8fa426f91b239f226846e393"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/SHA256SUMS",
+      "destination_sha256": "4afd3142c75713c3ab4354d28c6143317143635d5fcdb0b3a2103574bad53047",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/SHA256SUMS",
+      "source_sha256": "4afd3142c75713c3ab4354d28c6143317143635d5fcdb0b3a2103574bad53047"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/evidence-package-identity.txt",
+      "destination_sha256": "746e919b3e0e2d4c54f83cad9f20ed25d5e199b12b773e96299996919732c829",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/evidence-package-identity.txt",
+      "source_sha256": "746e919b3e0e2d4c54f83cad9f20ed25d5e199b12b773e96299996919732c829"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/figure-data.csv",
+      "destination_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/figure-data.csv",
+      "source_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/input.json",
+      "destination_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/input.json",
+      "source_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/parity.json",
+      "destination_sha256": "c63e30601c7c202a7e05ce2f3462e3f67f4239199591f82c1063ba962e8e8727",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/parity.json",
+      "source_sha256": "c63e30601c7c202a7e05ce2f3462e3f67f4239199591f82c1063ba962e8e8727"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/provenance.json",
+      "destination_sha256": "868e479e7aa0ddd25ebc292d4e7dc51551c42c62b19c6553983b925576d10ad9",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/provenance.json",
+      "source_sha256": "868e479e7aa0ddd25ebc292d4e7dc51551c42c62b19c6553983b925576d10ad9"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/report.md",
+      "destination_sha256": "ffb8771276518c39b987c9ae5572ac85eadc754a56dd1a572bfb98cc56604d25",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/report.md",
+      "source_sha256": "ffb8771276518c39b987c9ae5572ac85eadc754a56dd1a572bfb98cc56604d25"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/result.json",
+      "destination_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/result.json",
+      "source_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/single-band-fourier-reduction-summary.png",
+      "destination_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/single-band-fourier-reduction-summary.png",
+      "source_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/source.sha256",
+      "destination_sha256": "e18b8298ece9f54147e10f082f18ab53b69d16c2fd9e217252b4fae4582d9f15",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/source.sha256",
+      "source_sha256": "e18b8298ece9f54147e10f082f18ab53b69d16c2fd9e217252b4fae4582d9f15"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/verification.json",
+      "destination_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183028Z/verification.json",
+      "source_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/SHA256SUMS",
+      "destination_sha256": "e1bf988bbd3792cd648ac3059e63d5566ce1d3ae982212a1885f9270bdc9fefb",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/SHA256SUMS",
+      "source_sha256": "e1bf988bbd3792cd648ac3059e63d5566ce1d3ae982212a1885f9270bdc9fefb"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/evidence-package-identity.txt",
+      "destination_sha256": "202d7cdffa4dbb8535512be2df3512f11855481debe14b3d5314df9e3c362e6d",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/evidence-package-identity.txt",
+      "source_sha256": "202d7cdffa4dbb8535512be2df3512f11855481debe14b3d5314df9e3c362e6d"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/figure-data.csv",
+      "destination_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/figure-data.csv",
+      "source_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/input.json",
+      "destination_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/input.json",
+      "source_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/parity.json",
+      "destination_sha256": "20365d62342ddab144e7f62a5e2d130ff4c1b073ee2356ef6718e19f94b39116",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/parity.json",
+      "source_sha256": "20365d62342ddab144e7f62a5e2d130ff4c1b073ee2356ef6718e19f94b39116"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/provenance.json",
+      "destination_sha256": "c618abbb142e8f25d3233f628888de5d531d349bd22f9dbb2471ccf98789ab4e",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/provenance.json",
+      "source_sha256": "c618abbb142e8f25d3233f628888de5d531d349bd22f9dbb2471ccf98789ab4e"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/report.md",
+      "destination_sha256": "09c92f7881d4ff7d0009231854e3e4206f8844022f1081d98c0187f7c5ba4d63",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/report.md",
+      "source_sha256": "09c92f7881d4ff7d0009231854e3e4206f8844022f1081d98c0187f7c5ba4d63"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/result.json",
+      "destination_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/result.json",
+      "source_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/single-band-fourier-reduction-summary.png",
+      "destination_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/single-band-fourier-reduction-summary.png",
+      "source_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/source.sha256",
+      "destination_sha256": "10266fb183b5ae896a3b2b329cdebce0495a1dd8118bd60a1d72fdcfd2cb7b86",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/source.sha256",
+      "source_sha256": "10266fb183b5ae896a3b2b329cdebce0495a1dd8118bd60a1d72fdcfd2cb7b86"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/verification.json",
+      "destination_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183603Z/verification.json",
+      "source_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/SHA256SUMS",
+      "destination_sha256": "84860c02965ae0e192994664100e81eb789299f67867a2d066009a4712ce4092",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/SHA256SUMS",
+      "source_sha256": "84860c02965ae0e192994664100e81eb789299f67867a2d066009a4712ce4092"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/evidence-package-identity.txt",
+      "destination_sha256": "c0f2b7b4560427186065dd06ea691710bff8f0320ca388aae5bca53662156165",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/evidence-package-identity.txt",
+      "source_sha256": "c0f2b7b4560427186065dd06ea691710bff8f0320ca388aae5bca53662156165"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/figure-data.csv",
+      "destination_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/figure-data.csv",
+      "source_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/input.json",
+      "destination_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/input.json",
+      "source_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/parity.json",
+      "destination_sha256": "94c7786e9011b17de26497d799cecfc95ea173bbbcab7b0a972434e17389236e",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/parity.json",
+      "source_sha256": "94c7786e9011b17de26497d799cecfc95ea173bbbcab7b0a972434e17389236e"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/provenance.json",
+      "destination_sha256": "96d5854ae03c1feac128dc590d368a1e6fca98533fb2de8a8c92ce02ff72324b",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/provenance.json",
+      "source_sha256": "96d5854ae03c1feac128dc590d368a1e6fca98533fb2de8a8c92ce02ff72324b"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/report.md",
+      "destination_sha256": "93eb178caecb138f1de203243c0e4dfe0f7c68eb1210dabfb0a4f13cbeac9639",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/report.md",
+      "source_sha256": "93eb178caecb138f1de203243c0e4dfe0f7c68eb1210dabfb0a4f13cbeac9639"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/result.json",
+      "destination_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/result.json",
+      "source_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/single-band-fourier-reduction-summary.png",
+      "destination_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/single-band-fourier-reduction-summary.png",
+      "source_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/source.sha256",
+      "destination_sha256": "7ac132d6a661a31f527afb3ff3ae73755f987255695cce3187fa54d52d46229a",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/source.sha256",
+      "source_sha256": "7ac132d6a661a31f527afb3ff3ae73755f987255695cce3187fa54d52d46229a"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/verification.json",
+      "destination_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T183721Z/verification.json",
+      "source_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/SHA256SUMS",
+      "destination_sha256": "6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/SHA256SUMS",
+      "source_sha256": "6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/evidence-package-identity.txt",
+      "destination_sha256": "1bd08492b2e408aa19ecbdc347fd046e710ba5adabcd12d01bca292781772b2c",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/evidence-package-identity.txt",
+      "source_sha256": "1bd08492b2e408aa19ecbdc347fd046e710ba5adabcd12d01bca292781772b2c"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/figure-data.csv",
+      "destination_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/figure-data.csv",
+      "source_sha256": "aa4628fd022006bf9c4512c113bfa96f55d6cc6c7e2f69336f0fab00e11e5f15"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/input.json",
+      "destination_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/input.json",
+      "source_sha256": "5dc6c4ab4a70c5dd169f6da3bbc70583a5970906cee78f8cf25fe23ba52e5e2e"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/parity.json",
+      "destination_sha256": "31d5f73d54dd0c02cecff0168fd7fd32a1930b3e605d7356e0e1fa1001d470a3",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/parity.json",
+      "source_sha256": "31d5f73d54dd0c02cecff0168fd7fd32a1930b3e605d7356e0e1fa1001d470a3"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/provenance.json",
+      "destination_sha256": "534d3aa716949f6aee00f96a2eaca42f51c6193a155ac79ccdd095818b038f0c",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/provenance.json",
+      "source_sha256": "534d3aa716949f6aee00f96a2eaca42f51c6193a155ac79ccdd095818b038f0c"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/report.md",
+      "destination_sha256": "23496c90ac5046fdb5b1277b9036bd41993b71bf7b8db67d7e8d5ac5891c4928",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/report.md",
+      "source_sha256": "23496c90ac5046fdb5b1277b9036bd41993b71bf7b8db67d7e8d5ac5891c4928"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/result.json",
+      "destination_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/result.json",
+      "source_sha256": "472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png",
+      "destination_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png",
+      "source_sha256": "80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/source.sha256",
+      "destination_sha256": "587f2e34fd4d28415bb30f053817ed70158da710e6904ed877d17f15a0d842ad",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/source.sha256",
+      "source_sha256": "587f2e34fd4d28415bb30f053817ed70158da710e6904ed877d17f15a0d842ad"
+    },
+    {
+      "content_role": "immutable_retained_execution",
+      "destination_path": "calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/verification.json",
+      "destination_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/verification.json",
+      "source_sha256": "277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4"
+    },
+    {
+      "content_role": "immutable_v1_schema",
+      "destination_path": "calculations/mathieu1d/schemas/input.schema.json",
+      "destination_sha256": "51f5cc6da6be7249900189b4c8510159f02f3bc0bc7a58c5773d5883c5dca7d6",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/schemas/input.schema.json",
+      "source_sha256": "51f5cc6da6be7249900189b4c8510159f02f3bc0bc7a58c5773d5883c5dca7d6"
+    },
+    {
+      "content_role": "immutable_v1_schema",
+      "destination_path": "calculations/mathieu1d/schemas/result.schema.json",
+      "destination_sha256": "91c08e092a5ff2e876728b00d796019d4f6c1239a7082dd47bbc693f663b419b",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/schemas/result.schema.json",
+      "source_sha256": "91c08e092a5ff2e876728b00d796019d4f6c1239a7082dd47bbc693f663b419b"
+    },
+    {
+      "content_role": "immutable_v1_schema",
+      "destination_path": "calculations/mathieu1d/schemas/verification.schema.json",
+      "destination_sha256": "9e905816af6caf49dc787a90be172ac5398cc83327094c2d2bad3c6150d4f8db",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/schemas/verification.schema.json",
+      "source_sha256": "9e905816af6caf49dc787a90be172ac5398cc83327094c2d2bad3c6150d4f8db"
+    },
+    {
+      "content_role": "historical_execution_source",
+      "destination_path": "calculations/mathieu1d/src/single_band_fourier_reduction/__init__.py",
+      "destination_sha256": "d716f7d99b5d45b24aba3b866fb730c816847e94143261f4feb6baa07f1eb212",
+      "note": "source and destination bytes are identical",
+      "relation": "exact_duplicate",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/src/single_band_fourier_reduction/__init__.py",
+      "source_sha256": "d716f7d99b5d45b24aba3b866fb730c816847e94143261f4feb6baa07f1eb212"
+    },
+    {
+      "content_role": "historical_execution_source",
+      "destination_path": "calculations/mathieu1d/src/single_band_fourier_reduction/definition.py",
+      "destination_sha256": "236a34f71da2ded161f90a06386c39664e7d9906e21cf9a95b92b7947e1f61ba",
+      "note": "calculation copy uses current canonical solidstate and PhysKit unit imports; original bytes remain recoverable from the baseline revision",
+      "relation": "adapted_historical_source_successor",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/src/single_band_fourier_reduction/definition.py",
+      "source_sha256": "5aa803190825a9335fcf40d484828c021d9e61a6db5a1366a05203966e647f59"
+    },
+    {
+      "content_role": "historical_execution_source",
+      "destination_path": "calculations/mathieu1d/src/single_band_fourier_reduction/experiment.py",
+      "destination_sha256": "0badb99530ad9e97644f8bbc584ea7255af28ef6154c2ccf3c50769f64e3e421",
+      "note": "calculation copy uses current canonical solidstate and PhysKit unit imports; original bytes remain recoverable from the baseline revision",
+      "relation": "adapted_historical_source_successor",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/src/single_band_fourier_reduction/experiment.py",
+      "source_sha256": "431cafb95b96f0dfec0f9dafdd6b52b1d8b33e72e450c90b3c7dfd3f2569a904"
+    },
+    {
+      "content_role": "historical_execution_source",
+      "destination_path": "calculations/mathieu1d/src/single_band_fourier_reduction/results.py",
+      "destination_sha256": "d29c6bf49ac9ea17b977d73b98859dd3633ffa1de53d152a024a664923a573de",
+      "note": "calculation copy uses current canonical solidstate and PhysKit unit imports; original bytes remain recoverable from the baseline revision",
+      "relation": "adapted_historical_source_successor",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/src/single_band_fourier_reduction/results.py",
+      "source_sha256": "d3373a47f878bc8a61f62b16433fc786aca87ebb8ef9a322d145dc51a31360a2"
+    },
+    {
+      "content_role": "historical_execution_source",
+      "destination_path": "calculations/mathieu1d/src/single_band_fourier_reduction/serialization.py",
+      "destination_sha256": "109e7dd5a6f320b0b1c7ee290f35749ada319215c48d0ddf9dda4956faae0a5c",
+      "note": "calculation copy uses current canonical solidstate and PhysKit unit imports; original bytes remain recoverable from the baseline revision",
+      "relation": "adapted_historical_source_successor",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/src/single_band_fourier_reduction/serialization.py",
+      "source_sha256": "6a73a5ab83b0d6cd7b8856d4f3ab86c041172b6bed841fd5ce511cfeaea2cd54"
+    },
+    {
+      "content_role": "historical_execution_source",
+      "destination_path": "calculations/mathieu1d/src/single_band_fourier_reduction/verify.py",
+      "destination_sha256": "ba932374d7d9373a8d73c5e822eb8d9e4088fede8b5fed0ce7db6672c3297c85",
+      "note": "calculation copy uses current canonical solidstate and PhysKit unit imports; original bytes remain recoverable from the baseline revision",
+      "relation": "adapted_historical_source_successor",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/src/single_band_fourier_reduction/verify.py",
+      "source_sha256": "7a0c2d6f5c58c1381d42a55c72ca382dd99ac814a4537879afcf2e01e508c599"
+    },
+    {
+      "content_role": "software_test",
+      "destination_path": "calculations/mathieu1d/tests/test__SingleBandFourierReductionExperiment.py",
+      "destination_sha256": "13981fd3510b2072cc84ce33d7f37f56e8103e1e323ed996c3bc74c53bb06070",
+      "note": "calculation test uses canonical imports, current dependency revisions, and asserts the maintained entry-point boundary",
+      "relation": "adapted_calculation_test",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/tests/test__SingleBandFourierReductionExperiment.py",
+      "source_sha256": "0d1385b393319ceb4173002894ab8895927a15ec6a2d38a5f849b5fb118cc36d"
+    },
+    {
+      "content_role": "live_environment_declaration",
+      "destination_path": null,
+      "destination_sha256": null,
+      "note": "historical experiment lock; live resolved dependency ownership remains in python/uv.lock",
+      "relation": "provenance_only",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/uv.lock",
+      "source_sha256": "c5d1dc84c62f59c90d5adfd51ece019f868a1d290c2793c0851159119062cb8a"
+    },
+    {
+      "content_role": "package_verifier_entrypoint",
+      "destination_path": "calculations/mathieu1d/run_02_experiment_verification.py",
+      "destination_sha256": "6a736a576b412abf33dbbeae898f0691ac06784f79faa08fe40ae9a11d6e094b",
+      "note": "maintained verifier authenticates the removed predecessor from its recorded Git revision, tree, and blob bytes",
+      "relation": "adapted_verifier_location",
+      "source_path": "experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/verify_package.py",
+      "source_sha256": "cb015d040b82acba544f6eb8901f4b3abd55c6ad4d44d637f238cb1571658879"
+    }
+  ],
+  "removal": {
+    "authorization": "separate operator authorization in the active session",
+    "deleted_file_count": 65,
+    "executed_at_utc": "2026-10-27T14:02:06Z",
+    "recovery_git_revision": "c73aa96077ee03e1f7438ecbb44349b445a3eec8",
+    "scope": "exactly the manifest source paths"
+  },
+  "schema": "ksdft2effmass.calculations.mathieu1d.experiment-migration-manifest.v1",
+  "source_file_count": 65,
+  "source_git_tree": "bf20cf55a06c9eaae72f34093b72da0ea00c9240",
+  "source_root": "experiments/periodic-reduction/single-band-fourier-reduction"
+}

@@ -5,7 +5,7 @@
 The maintained direction is implemented as two one-way layers:
 
 ```text
-experiments/periodic-reduction/single-band-fourier-reduction/periodic1d
+calculations/mathieu1d
     -> ksdft2effmass.analysis.single_band_reduction
         -> reusable model, transform, fit, and diagnostic Actions
 ```
@@ -67,8 +67,8 @@ multiple-right-hand-side linear least-squares kernel. KSD's
 `BlockHoppingLeastSquaresFitter1D` is the domain adapter: it owns Fourier construction,
 unit conversion, coefficient-to-hopping mapping, reconstruction, and KSD diagnostics,
 while delegating the numerical solve to the reviewed owner API. Live KSD development
-pins Optimization `3cd32ea8985a855bcdbaffbf89af95e970b3bf14` together with PhysKit
-`2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`; immutable version-one retained-run
+pins Optimization `2a18e485109e307b2f7928bd0418bcf796aeb0d5` together with PhysKit
+`9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5`; immutable version-one retained-run
 provenance preserves its earlier exact execution pair independently of the live lock.
 The KSD
 Workflow introduces no second `lstsq` implementation, owner-neutral solver ABC, or

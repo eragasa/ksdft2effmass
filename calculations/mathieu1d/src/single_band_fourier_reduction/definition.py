@@ -273,7 +273,7 @@ __all__ = [
     "OBJECTIVE_CONSTRUCTION_ROLE_ID",
     "OBJECTIVE_EVALUATION_ROLE_ID",
     "RESULT_SCHEMA_ID",
+    "VERIFICATION_SCHEMA_ID",
     "SingleBandFourierReductionExperimentDefinition",
     "SingleBandFourierReductionExperimentIdentity",
-    "VERIFICATION_SCHEMA_ID",
 ]

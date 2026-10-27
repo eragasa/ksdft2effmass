@@ -220,7 +220,7 @@ Existing retained JSON and checksum catalogs must not be edited merely to replac
 old label with a new family ID. The permanent identity is added by the maintained
 registry and by future production protocols.
 
-## Source and experiment boundary
+## Source and calculation boundary
 
 A parameterized calculation is not thereby a reusable library Workflow. Concrete
 experiment composition belongs outside `python/src/`, including frozen model and case
@@ -229,11 +229,10 @@ independent evidence verification, figures, reports, manifests, and retained out
 Reusable model construction, transforms, fitting kernels, and diagnostics remain in
 the installed packages.
 
-The publication-independent experiment at
-`experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/` is the first
-maintained implementation of this boundary. It consumes the model-independent
-single-band reduction Workflow in `python/src/` rather than retaining a second
-producer transform, truncation, fitting, or diagnostic implementation. The Workflow
+The publication-independent calculation at `calculations/mathieu1d/` is the maintained
+implementation of this boundary. It consumes the model-independent single-band
+reduction Workflow in `python/src/` rather than retaining a second producer transform,
+truncation, fitting, or diagnostic implementation. The Workflow
 accepts prepared objective-construction and evaluation samples, caller-supplied fitting
 weights and ranges, publication-independent result semantics, and no experiment identity
 or frozen evidence policy.
