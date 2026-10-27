@@ -9,7 +9,7 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 | Spatial dimension | Retained rank | Current owner | Status |
 |---|---:|---|---|
 | 1-D | 1 | [`periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/) | Pre-execution model-family-compatible scalar null-control design; no implementation or result |
-| 1-D | 2 | [`periodic1d/rank2/band-equivalence-locality/`](../../periodic1d/rank2/band-equivalence-locality/) | Extracted development calculation; no retained successor run |
+| 1-D | 2 | [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](../../periodic1d/rank2/band-equivalence-versus-hopping-locality/) | Extracted development calculation; no retained successor run |
 | 1-D | 2 | [`periodic1d/rank2/composite-band-alignment-locality/`](../../periodic1d/rank2/composite-band-alignment-locality/) | Three-file protocol migrated; donor reconciliation and implementation remain open; no successor execution |
 | 2-D | 2 | [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](../../periodic2d/rank2/orthogonal/band-equivalence-locality/) | Bounded orthogonal development calculation |
 | 2-D | 2 | [`periodic2d/rank2/nonorthogonal/band-equivalence-locality/`](../../periodic2d/rank2/nonorthogonal/band-equivalence-locality/) | Bounded nonorthogonal development calculation |
@@ -42,7 +42,7 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ### Level 2 --- one-dimensional rank-two alignment and locality
 
-- [`periodic1d/rank2/band-equivalence-locality/`](../../periodic1d/rank2/band-equivalence-locality/) --- active four-state parent with a rank-two retained representation, smooth momentum-dependent rotations, and hopping-locality diagnostics.
+- [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](../../periodic1d/rank2/band-equivalence-versus-hopping-locality/) --- active four-state parent with a rank-two retained representation, smooth momentum-dependent rotations, and hopping-locality diagnostics.
 - Historical `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/` at Git tree `c5d34a93b4710a4a430738c404c775865d418d42` --- retained rank-two synthetic alignment and matrix-valued hopping predecessor.
 - Historical `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/` at the same tree --- retained finite alignment-family witness and separation calculation.
 

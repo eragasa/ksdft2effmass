@@ -150,6 +150,6 @@ python/.venv/bin/mypy --config-file python/pyproject.toml \
 
 The complete cross-surface inventory and authoritative checklist are maintained with the
 calculation owner in
-[`calculations/periodic1d/rank2/band-equivalence-locality/README.md`](../../../../calculations/periodic1d/rank2/band-equivalence-locality/README.md)
-and [`migration.md`](../../../../calculations/periodic1d/rank2/band-equivalence-locality/migration.md).
+[`calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md`](../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md)
+and [`migration.md`](../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/migration.md).
 This protocol surface does not maintain a competing checklist.

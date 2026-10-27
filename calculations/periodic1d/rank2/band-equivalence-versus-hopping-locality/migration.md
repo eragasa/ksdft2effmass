@@ -1,7 +1,17 @@
-# Periodic-1D rank-two band-equivalence/locality migration
+# Periodic-1D rank-two band equivalence versus hopping locality migration
 
 This checklist tracks the nested surfaces in [`README.md`](README.md). Development plots
 and passing tests are not retained evidence or a convergence result.
+
+## Calculation-owner path
+
+The calculation owner was renamed from
+`calculations/periodic1d/rank2/band-equivalence-locality/` to the canonical family slug
+`calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/`. The earlier
+shorthand omitted both the comparative relation and the hopping-locality quantity. This
+path normalization changes no family identity, numerical value, scientific status, or
+retained evidence. The development technical-report snapshot was rebuilt so its title
+and reproduction paths agree with the canonical owner.
 
 ## Experiment-tree migration
 

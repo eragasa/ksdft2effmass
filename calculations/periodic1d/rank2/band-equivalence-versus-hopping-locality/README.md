@@ -1,4 +1,4 @@
-# Periodic-1D rank-two band-equivalence and locality calculation
+# Periodic-1D rank-two band equivalence versus hopping locality
 
 **Status:** migration-in-progress development calculation; no retained run or evidence
 package exists at this location.

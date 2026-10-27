@@ -1,6 +1,6 @@
 # Calculation workflow
 
-This package owns the calculation-specific periodic-1D rank-two band-equivalence and locality workflow: definitions, result records, calculation actions, serialization for the flat development branch, and independent reconstruction checks.
+This package owns the calculation-specific periodic-1D rank-two band-equivalence-versus-hopping-locality workflow: definitions, result records, calculation actions, serialization for the flat development branch, and independent reconstruction checks.
 
 It is not part of the installed `ksdft2effmass` library API. Generic matrix-field, Fourier, optimization, and PhysKit capabilities remain with their canonical reusable owners. The calculation-root `run_*_development.py` files are thin composition and tabulation entrypoints over this package.
 

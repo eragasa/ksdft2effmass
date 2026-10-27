@@ -1,7 +1,7 @@
 # Technical report
 
 This directory owns the calculation-facing technical report for the periodic-1D
-rank-two band-equivalence/locality study. It separates model definition, simulation,
+rank-two band-equivalence-versus-hopping-locality study. It separates model definition, simulation,
 verification, analysis, limitations, and provenance from the shorter publication
 narrative in `Ragasa2026a`.
 
