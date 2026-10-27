@@ -47,7 +47,7 @@ isolated separately.
 
 - Family ID: `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy`.
 - Architecture: [anisotropic 3-D package](periodic3d/anisotropic-hopping-support-hierarchy/index.md).
-- Source proposal: `experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`.
+- Maintained proposal: `calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/`.
 - Status: exact pre-version proposal and exploratory design record; implementation deferred.
 
 ## Terminology

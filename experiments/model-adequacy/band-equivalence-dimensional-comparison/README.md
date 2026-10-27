@@ -34,3 +34,10 @@ PYTHONPATH=python/src python/.venv/bin/python \
 Both commands write replaceable PNG and PDF outputs under `analysis/development/`.
 These outputs establish neither a continuum Pareto frontier, scientific acceptance, nor
 retained evidence. No production Quantum ESPRESSO or Wannier90 execution is involved.
+
+## Distributed migration ledger
+
+The complete cross-surface inventory and authoritative checklist are maintained with the
+calculation owner in
+[`calculations/band-equivalence-dimensional-comparison/README.md`](../../../calculations/band-equivalence-dimensional-comparison/README.md)
+and [`migration.md`](../../../calculations/band-equivalence-dimensional-comparison/migration.md).

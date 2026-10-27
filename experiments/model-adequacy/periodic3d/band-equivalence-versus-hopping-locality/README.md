@@ -105,3 +105,10 @@ retention.
 No
 calculation may be described as retained or publication evidence until those controls
 are frozen and a separately authorized run is completed.
+
+## Distributed migration ledger
+
+The complete cross-surface inventory and authoritative checklist are maintained with the
+calculation owner in
+[`calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/README.md`](../../../../calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/README.md)
+and [`migration.md`](../../../../calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/migration.md).

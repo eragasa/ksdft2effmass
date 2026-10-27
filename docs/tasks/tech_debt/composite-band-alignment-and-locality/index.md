@@ -94,8 +94,9 @@ historical 64/257 regression consumes its result contract. The active Band Equiv
 versus Hopping Locality continuum does not. A wrapper-only
 experiment package or duplicate implementation is not an acceptable migration.
 
-The final migration must move the concrete experiment composition, definition, results,
-serialization, and verifier under
-`experiments/periodic-reduction/composite-band-alignment-and-locality/periodic1d/`, update
-the historical regression to consume the maintained experiment contract, and remove the
-obsolete concrete KSD composition only after all consumers have moved.
+The protocol is now maintained under
+`calculations/periodic1d/rank2/composite-band-alignment-locality/`. The remaining
+migration must place reusable behavior with cohesive source owners, keep concrete
+scientific composition and effects with that calculation, update the historical
+regression to consume the maintained typed contract, and remove obsolete concrete KSD
+composition only after all consumers have moved.

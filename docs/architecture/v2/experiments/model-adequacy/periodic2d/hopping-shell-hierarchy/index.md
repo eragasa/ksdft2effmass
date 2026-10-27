@@ -7,7 +7,7 @@ This package is the architecture home for the first stage of the selected sequen
 - Family ID: `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy`.
 - Historical alias: `HSH-1`.
 - Development task: `docs/tasks/dev/experiments/isotropic2d/`.
-- Maintained design: `experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/`.
+- Maintained calculation/design owner: `calculations/periodic2d/rank1/hopping-shell-hierarchy/`.
 - Current status: maintained prospective protocol with an exact selected orbit/support inventory and periodic-1D-shaped package execution graph; no source package, immutable version, run, or result.
 
 ## Architecture bundle
@@ -35,12 +35,12 @@ a common spectral/operator witness.
 The maintained prospective protocol owns current design decisions; older records remain
 traceable donors.
 
-- [Maintained prospective protocol](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/protocol.md).
-- [Exact orbit and support inventory](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/orbit-support-inventory.md).
-- [Projection and loss design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/projection-and-loss-design.md).
-- [Sample-role design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/sample-role-design.md).
-- [Threshold and resolution design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/threshold-design.md).
-- [Selected package execution structure](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/execution-structure.md).
+- [Maintained prospective protocol](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/protocol.md).
+- [Exact orbit and support inventory](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/orbit-support-inventory.md).
+- [Projection and loss design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/projection-and-loss-design.md).
+- [Sample-role design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/sample-role-design.md).
+- [Threshold and resolution design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/threshold-design.md).
+- [Execution-structure donor](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/execution-structure.md).
 - [Legacy HSH architecture bundle](../../../../ksdft2effmass/analysis/model_adequacy/hopping_shell_hierarchy/index.md).
 - [Historical draft protocol](../../../../../../../calculations/ICMSEP2026/conference/paper_1/hopping-shell-hierarchy/protocol.md).
 - [Shared evidence semantics](../../../../ksdft2effmass/analysis/model_adequacy/admissible-set-evidence-semantics.md).

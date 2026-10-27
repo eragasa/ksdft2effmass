@@ -1,10 +1,12 @@
 # Experiment script conventions
 
-This document defines the common shape of executable Python composition roots under
-`experiments/`. It standardizes execution mechanics without creating a generic
-experiment framework or transferring scientific policy between experiment families.
-Each family continues to own its controls, tolerances, statuses, schemas, evidence
-policy, and interpretation.
+This document records the transitional common shape of executable Python composition
+roots under `experiments/`. Every such root is being migrated to its distributed
+calculation owner and the applicable mechanics are being integrated into the
+Architecture v3 calculation contract. This document does not create a generic
+experiment framework or transfer scientific policy between families. Each family
+continues to own its controls, tolerances, statuses, schemas, evidence policy, and
+interpretation during migration.
 
 ## Inventory and migration boundary
 
@@ -19,10 +21,13 @@ The current tree has 36 executable Python scripts in these roles:
 | Single-band retained producer and package verifier | 2 | Immutable version-one evidence tooling |
 | Higher-rank analytic-control sampler | 1 | Pre-execution development sanity check |
 
-All 36 current entry points satisfy the mechanical `main() -> int` and `SystemExit`
-contract below. The retained single-band version-one scripts were already conforming and
-remain frozen with their retained source manifest; they were not rewritten for style.
-Conformance of prospective and pre-version scripts does not promote their outputs.
+All 36 inventoried entry points satisfy the mechanical `main() -> int` and `SystemExit`
+contract below. Their calculation-side migration is tracked by the family-local
+`migration.md` files and by the four-file shared ledger at
+`calculations/periodic/multiband/migration.md`. The retained single-band version-one
+scripts remain frozen with their retained source manifest and are not rewritten for
+style. Conformance of prospective and pre-version scripts does not promote their
+outputs.
 
 ## Required executable shape
 

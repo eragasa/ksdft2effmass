@@ -1,5 +1,9 @@
 # Single-band Fourier-reduction experiments
 
+> **Migration status:** this container and its complete child tree are assigned to
+> [`calculations/mathieu1d/`](../../../calculations/mathieu1d/); the authoritative
+> checklist is [`calculations/mathieu1d/migration.md`](../../../calculations/mathieu1d/migration.md).
+
 This family-first directory groups dimension-specific maintained experiments that reduce
 one isolated scalar band to a finite Fourier/hopping representation.
 

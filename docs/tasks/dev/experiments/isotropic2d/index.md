@@ -20,25 +20,25 @@ publication reference.
 
 - Sequence definition: `docs/architecture/v2/experiments/model-adequacy/dimensional-anisotropy-ladder.md`
 - [Isotropic 2-D experiment architecture](../../../../architecture/v2/experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/index.md)
-- [Maintained prospective protocol](../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/protocol.md)
-- [Exact orbit and support inventory](../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/orbit-support-inventory.md)
-- [Projection and loss design](../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/projection-and-loss-design.md)
-- [Sample-role design](../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/sample-role-design.md)
-- [Threshold and resolution design](../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/threshold-design.md)
+- [Maintained prospective protocol](../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/protocol.md)
+- [Exact orbit and support inventory](../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/orbit-support-inventory.md)
+- [Projection and loss design](../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/projection-and-loss-design.md)
+- [Sample-role design](../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/sample-role-design.md)
+- [Threshold and resolution design](../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/threshold-design.md)
 - [Legacy HSH design bundle](../../../../architecture/v2/ksdft2effmass/analysis/model_adequacy/hopping_shell_hierarchy/index.md)
 - [Shared admissible-set evidence semantics](../../../../architecture/v2/ksdft2effmass/analysis/model_adequacy/admissible-set-evidence-semantics.md)
 - [Draft historical protocol](../../../../../calculations/ICMSEP2026/conference/paper_1/hopping-shell-hierarchy/protocol.md)
 
-The historical calculation directory is a design source, not the maintained experiment
-owner. The publication-independent maintained design now lives at
-`experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/`; future concrete
-composition belongs there as well.
+The historical calculation directory is a design source, not the maintained owner. The
+publication-independent maintained design now lives at
+`calculations/periodic2d/rank1/hopping-shell-hierarchy/`; future concrete calculation
+composition belongs there while reusable behavior remains under installed source owners.
 
 ## Definition of done for the development stage
 
 Before the isotropic 3-D task advances to implementation, this task must provide:
 
-1. a publication-independent experiment directory and stable family identity;
+1. a publication-independent calculation directory and stable family identity;
 2. an exact square-symmetric scalar parent binding and source digests;
 3. a reviewed orbit inventory, maximal coordinate embedding, and nested support classes;
 4. frozen objective-construction, evaluation, withheld, and locality roles;
@@ -49,10 +49,11 @@ Before the isotropic 3-D task advances to implementation, this task must provide
 9. reviewed exact dependency and adapter identities; and
 10. tests and an evidence policy that preserve the bounded synthetic nonclaim.
 
-The maintained experiment must remain outside `python/src/`. It consumes reviewed owner
-contracts directly when their boundaries fit. One concrete need and clear semantic
-ownership are sufficient to extract the smallest complete reusable capability before KSD
-creates a duplicate; a second implementation or consumer is not required.
+The maintained calculation composition remains outside `python/src/`, while reusable
+behavior belongs inside its reviewed source owner. It consumes dependency contracts
+directly when their boundaries fit. One concrete need and clear semantic ownership are
+sufficient to extract the smallest complete reusable capability before KSD creates a
+duplicate; a second implementation or consumer is not required.
 
 ## Completed development decisions
 

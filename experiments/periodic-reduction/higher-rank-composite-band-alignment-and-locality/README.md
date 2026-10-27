@@ -82,9 +82,9 @@ but are not executions of this analytic protocol.
   development diagnostics, not an analytic proof or retained evidence.
 - [Ragasa2026c/v1](../../../docs/publications/papers/Ragasa2026c/v1/README.md)
   is the publication-side consumer and does not own the experiment identity.
-- The retained rank-two
-  [`periodic1d/composite-band-alignment-and-locality`](../composite-band-alignment-and-locality/periodic1d/)
-  experiment is a predecessor control, not an interchangeable implementation.
+- The prospective rank-two
+  [`composite-band alignment/locality calculation`](../../../calculations/periodic1d/rank2/composite-band-alignment-locality/)
+  is a predecessor control, not an interchangeable implementation.
 
 Render the protocol without placing build products in the source tree:
 
@@ -98,3 +98,11 @@ The bounded local schema-free development composition is separate from retained 
 No retained calculation, evidence promotion, production external-code execution,
 publication, or other protected action is authorized by these documents. Strict schema,
 serializer, and independent-verifier review must precede any retained execution request.
+
+## Distributed migration ledger
+
+The complete cross-surface inventory and authoritative checklist are maintained with the
+calculation owner in
+[`calculations/periodic1d/rankN/composite-band-alignment-locality/README.md`](../../../calculations/periodic1d/rankN/composite-band-alignment-locality/README.md)
+and [`migration.md`](../../../calculations/periodic1d/rankN/composite-band-alignment-locality/migration.md).
+This protocol surface does not maintain a competing checklist.

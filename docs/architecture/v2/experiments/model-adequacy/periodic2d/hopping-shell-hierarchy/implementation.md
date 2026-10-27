@@ -2,14 +2,14 @@
 
 ## Planned package
 
-Concrete HSH composition will live in the experiment tree rather than the installed KSD
-package.
+Concrete HSH composition will use the Architecture v3 calculation lifecycle, while
+reusable behavior lives with reviewed installed source owners.
 
-- Maintained numerical-experiment root: `experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/`.
+- Maintained calculation root: `calculations/periodic2d/rank1/hopping-shell-hierarchy/`.
 - Architecture: `docs/architecture/v2/experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/`.
 - Task: `docs/tasks/dev/experiments/isotropic2d/`.
-- The design root currently contains the maintained protocol, exact orbit/support inventory, and [selected execution structure](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/execution-structure.md).
-- Source is not implemented, but the selected flat package mirrors existing experiments as `src/hopping_shell_hierarchy/{definition,experiment,results,verify,serialization}.py`; there is no nested `experiment/` or `execution/` source package.
+- The design root currently contains the maintained protocol, exact orbit/support inventory, and [pre-canonical execution-structure donor](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/execution-structure.md).
+- Source is not implemented. Its cohesive installed owner and concrete types must be selected before implementation; the calculation root will not host a second installable `src/` package.
 
 ## Planned responsibilities
 
@@ -20,7 +20,7 @@ The future package follows the maintained periodic-1D experiment execution graph
 - `results.py` owns immutable parent, class, hierarchy, evidence, and disposition records.
 - `verify.py` owns `HoppingShellHierarchyResultVerifier`, which reconstructs decisive mathematics without calling or importing the producer Action.
 - `serialization.py` owns strict canonical input, result, and verification wire mechanics without scientific behavior.
-- Retained file entry points remain adapters around these typed objects and live in this experiment tree, not in installed KSD or publication-specific calculation directories.
+- Calculation entry points remain thin effect adapters around these typed objects and live in the maintained calculation root; reusable behavior remains in installed owner source.
 
 ## Dependency ownership
 

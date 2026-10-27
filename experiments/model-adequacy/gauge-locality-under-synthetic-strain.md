@@ -1,5 +1,9 @@
 # Gauge-locality cost under synthetic finite strain
 
+> **Migration status:** this shared experiment-tree document is assigned to
+> `calculations/periodic/multiband/`. Its move and all dependent-link updates are tracked
+> in [`calculations/periodic/multiband/migration.md`](../../calculations/periodic/multiband/migration.md).
+
 ## Scientific question
 
 With the parent operator, onsite terms, hopping coefficients, retained rank, energy
