@@ -578,7 +578,7 @@ Python or schema changes occur.
 
 Proposed companion path, subject to separate approval:
 
-`experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/implementation-and-evidence-contract.md`
+`calculations/periodic1d/rankN/composite-band-alignment-locality/implementation-and-evidence-contract.md`
 
 ### Phase 1 — representations and nominal transformation contracts
 

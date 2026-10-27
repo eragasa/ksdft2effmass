@@ -1,0 +1,77 @@
+{
+  "counts": {
+    "adapted_policy": 1,
+    "adapted_script": 2,
+    "exact_copy": 1,
+    "integrated_documentation": 1
+  },
+  "deletion_gate": "Granted for exactly the five listed source files and executed at 2026-10-27T12:05:11Z. The authorization did not include commit, push, merge, execution, release, or publication.",
+  "destination_owner": "calculations/periodic1d/rankN/composite-band-alignment-locality",
+  "entries": [
+    {
+      "destination_path": "calculations/periodic1d/rankN/composite-band-alignment-locality/.gitignore",
+      "destination_sha256": "ed90455fd2838720ed5838676bfe67e00edefda83bb2c1c86ebf65014040373d",
+      "disposition": "adapted_policy",
+      "reason": "The maintained calculation writes results/ and uses repository-wide cache rules.",
+      "source_path": "experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/.gitignore",
+      "source_sha256": "a169f73e7e78f2837fcf552e0abfa6b0b162606ce488293e86481afff485921f"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rankN/composite-band-alignment-locality/protocol/experimental-protocol.tex",
+      "destination_sha256": "160b61b2c2dc87e7628524c710c779f8e3b2c547f0a2d228615300aa06bdce0b",
+      "disposition": "exact_copy",
+      "reason": "The complete calculation plan is copied byte-for-byte.",
+      "source_path": "experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/experimental-protocol.tex",
+      "source_sha256": "160b61b2c2dc87e7628524c710c779f8e3b2c547f0a2d228615300aa06bdce0b"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rankN/composite-band-alignment-locality/README.md",
+      "destination_sha256": "1ff19f20655d8ed576c9119ad429ba8cda2f47668da397534e0c76b039c4a8d0",
+      "disposition": "integrated_documentation",
+      "reason": "The plain-language calculation README and migration records incorporate the source content and correct stale ownership claims.",
+      "source_path": "experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/README.md",
+      "source_sha256": "5608ddd21db3f68110866ab63e25247e50b56765752e5f4c60e0b5ac97c00101"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rankN/composite-band-alignment-locality/run_development.py",
+      "destination_sha256": "11b7d09f5760f74e5f37d2070f5663fe19105a61ec53a65513995bca32112bc8",
+      "disposition": "adapted_script",
+      "reason": "The maintained script changes only the removed import owner and output directory.",
+      "source_path": "experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/run_development.py",
+      "source_sha256": "2c548efc6ca144fdbd0bc93b92d719855a40107d5a7300a193ba73b049c7e9ef"
+    },
+    {
+      "destination_path": "calculations/periodic1d/rankN/composite-band-alignment-locality/verify_analytic_controls.py",
+      "destination_sha256": "3d090ac885a9d1c1cab9dc06ea31f048696bd85dd70d23b3969b0ea24cc8d77d",
+      "disposition": "adapted_script",
+      "reason": "The maintained script is byte-identical after removing the source shebang.",
+      "source_path": "experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/verify_d1_p0_g0_controls.py",
+      "source_sha256": "d4aa8c0893b73dadf9ac5994c8a4e7484edbd15d4f68f6d1e274adb9e04357ca"
+    }
+  ],
+  "family": "ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality",
+  "historical_implementation": {
+    "current_successor": "calculations/periodic1d/rankN/composite-band-alignment-locality/workflow",
+    "deletion_revision": "c5d34a93b4710a4a430738c404c775865d418d42",
+    "last_complete_revision": "25161d7f55c708a464c18ea8d5d0fd6152ff86a6",
+    "tree": "94f2f042322aa69969448ca77b8d47c163edef70"
+  },
+  "nonclaims": [
+    "Migration coverage does not establish scientific validation.",
+    "The copied plan is not an immutable executed version.",
+    "The formula check is not independent full-result verification.",
+    "This manifest does not authorize deletion, execution, commit, push, merge, release, or publication."
+  ],
+  "removal_execution": {
+    "authorization_scope": "Delete exactly the five source_path entries in this manifest; no other experiment or calculation family.",
+    "authorized": true,
+    "completed_utc": "2026-10-27T12:05:11Z",
+    "deleted_file_count": 5,
+    "postcondition": "The authorized experiment family path is absent. No other experiment or calculation family was removed.",
+    "predecessor_revision": "81f7c09a5edc50be698bd3a5f047438cd61d4eca",
+    "preflight": "The manifest, tracked-file, and filesystem-file sets were identical, and all source hashes matched before deletion.",
+    "status": "completed"
+  },
+  "schema": "ksdft2effmass.experiment-removal-manifest.v1",
+  "source_revision": "81f7c09a5edc50be698bd3a5f047438cd61d4eca"
+}

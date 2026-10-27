@@ -6,19 +6,20 @@ current schema-free summary is replaceable development output only.
 ## Experiment-tree migration
 
 - [x] Assign all five tracked files under the higher-rank experiment path to this calculation owner.
-- [ ] Create a file-by-file experiment → calculation destination/disposition crosswalk.
-- [ ] Migrate the protocol manuscript, README, development producer, control verifier, and ignore contract here.
-- [ ] Update every maintained consumer to the calculation path.
-- [ ] Prove no maintained consumer depends on the experiment path.
-- [ ] Remove experiment files only after parity, predecessor recovery, and separate authorization.
+- [x] Record all five source files and their calculation destinations in [`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md).
+- [x] Copy the calculation plan exactly, integrate the README, and record the maintained development runner, formula checker, and ignore rules.
+- [x] Update maintained documentation and publication links to calculation paths.
+- [x] Prove no maintained runtime, test, build, or publication input depends on the experiment path. See [`experiment-removal-readiness.md`](experiment-removal-readiness.md).
+- [x] Complete the non-destructive hash, script-parity, consumer, test, document-build, and link review.
+- [x] Remove exactly the five manifest-listed experiment files after separate operator authorization; no other experiment or calculation family was removed.
 
 ## Inventory and reconciliation
 
 - [x] Inventory D1 P0/G0, rank/depth ladders, A0--A3, sewing, transport, ledger, and failure channels.
 - [x] Record P1, G1, A4, complex-unitary, moving-subspace, 2-D, and 3-D branches as absent.
-- [ ] Reconcile the maintained protocol's absent `campaigns.periodic_reduction.higher_rank_d1` locator with the calculation-local `workflow/`.
-- [ ] Crosswalk the experiment and calculation development entry points and analytic controls.
-- [ ] Record every publication consumer without transferring publication labels into the family identity.
+- [x] Record the removed installed-package tree and its calculation-local `workflow/` successor by revision, tree identity, and file digest.
+- [x] Crosswalk the old and current development runners and formula checks.
+- [x] Record and redirect publication consumers without making a publication label part of the calculation identity.
 
 ## Source ownership
 
