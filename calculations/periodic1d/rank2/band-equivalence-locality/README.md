@@ -48,3 +48,19 @@ identities; this directory does not copy, rename, or upgrade them.
 
 No stage script is added until that stage has an implemented input/output contract. No
 new numerical result is claimed by creating this directory.
+
+## Migration inventory
+
+This README owns the complete local inventory; [`migration.md`](migration.md) owns its
+distributed checklist.
+
+| Surface | Current disposition |
+|---|---|
+| Flat-parent baseline | Development producer, result/verification records, refinement tables, and plots exist. |
+| Nonflat four-state realization | Separate development definition, producer, verifier, records, tables, and plots exist. |
+| Parent-family robustness | Separate development composition and plots exist; it is explanatory, not a retained experiment. |
+| Truncation consequences | Separate development definition, producer, records, tables, and plots exist. |
+| Momentum and amplitude refinement | Development diagnostics exist; the proposed amplitude ladder does not satisfy the declared interpolation target. |
+| `workflow/` | Calculation-local definitions, producers, records, serialization, schemas, and verification to extract to reviewed source owners. |
+| Experiment migration source | 40 tracked files under `experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/`: protocol, analysis scripts, tables, narratives, figures, and path contracts; every file must receive a destination or provenance-only disposition. |
+| Historical M2 and monograph composite work | Gauge/alignment/hopping donors at the exact historical revision; not this family identity. |

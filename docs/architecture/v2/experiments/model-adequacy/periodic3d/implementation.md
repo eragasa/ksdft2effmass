@@ -5,10 +5,10 @@
 The package mirror groups three-dimensional model-adequacy families beneath one source
 subpackage.
 
-- Planned source root: `experiments/model-adequacy/periodic3d/`.
+- Distributed calculation roots: `calculations/periodic3d/`.
 - Architecture root: `docs/architecture/v2/experiments/model-adequacy/periodic3d/`.
 - Isotropic task: `docs/tasks/dev/experiments/isotropic3d/`.
-- Anisotropic source: `experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`.
+- Anisotropic calculation/design owner: `calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/`.
 
 ## Dependency direction
 
@@ -18,8 +18,8 @@ Three-dimensional experiments compose inward lattice and numerical owners.
 - Numerics owns reusable unit-free finite Fourier/Bloch sums, invariant-diagnostic kernels with explicit public contracts, deterministic finite-orbit enumeration, and interval or enclosure primitives and arithmetic validity conditions when extracted through reviewed contracts.
 - Optimization owns reusable unit-free fitting, quadratic construction, support functions, intersection-feasibility witnesses, and capability-specific strict-separation certificate mathematics for explicitly supported set representations through exact reviewed contracts.
 - KSD installed analysis may own reviewed domain-specific feature construction, but not competing generic kernels; KSD may consume Numerics or Optimization directly when no physics adapter is needed.
-- Child experiments own features, units, normalization, domains, thresholds, metric selection, certificate-method bindings, experiment data and retained evidence instantiating owner-defined validity conditions, schemas, evidence wrappers, premise-failure policy, dispositions, and interpretation.
-- Installed packages never import experiment code.
+- Child calculations own features, units, normalization, domains, thresholds, metric selection, certificate-method bindings, calculation data and retained evidence instantiating owner-defined validity conditions, schemas, evidence wrappers, premise-failure policy, dispositions, and interpretation.
+- Installed packages never import calculation-tree code.
 
 ## Child implementation status
 

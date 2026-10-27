@@ -47,7 +47,7 @@ operator witness.
 The construction is project-derived and documented by maintained internal sources rather
 than an external material model.
 
-- [Source protocol](../../../../../../../experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/protocol.md).
-- [Exploratory threshold design](../../../../../../../experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/threshold-design.md).
+- [Maintained protocol](../../../../../../../calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/protocol.md).
+- [Exploratory threshold design](../../../../../../../calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/threshold-design.md).
 - [Shared evidence semantics](../../../../ksdft2effmass/analysis/model_adequacy/admissible-set-evidence-semantics.md).
 - External numerical references must be added beneath future implementing classes when methods are selected.

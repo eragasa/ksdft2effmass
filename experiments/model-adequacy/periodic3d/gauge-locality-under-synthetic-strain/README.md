@@ -30,3 +30,10 @@ and `beta=1`, the BCC endpoint has a common selected-bond response of about `0.9
 and a maximum aligned retained-space perturbation of about `0.007289 E_ref`. The M1 and M2 JSON documents are canonically encoded and validated against distinct
 strict packaged v1 schemas. The action is unconverged and has no retained-evidence
 status.
+
+## Distributed migration ledger
+
+The complete cross-surface inventory and authoritative checklist are maintained with the
+calculation owner in
+[`calculations/periodic3d/rank2/strain-locality/README.md`](../../../../calculations/periodic3d/rank2/strain-locality/README.md)
+and [`migration.md`](../../../../calculations/periodic3d/rank2/strain-locality/migration.md).

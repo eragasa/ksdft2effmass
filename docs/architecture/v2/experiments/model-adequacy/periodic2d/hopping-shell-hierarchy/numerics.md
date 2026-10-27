@@ -5,7 +5,7 @@
 The numerical construction reconstructs the complete finite hopping target before
 reducing it to square-symmetry orbit coordinates.
 
-- Enumerate the exact eight signed-permutation operations, canonical representatives, and first-occurrence members selected by the [maintained inventory](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/orbit-support-inventory.md).
+- Enumerate the exact eight signed-permutation operations, canonical representatives, and first-occurrence members selected by the [maintained inventory](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/orbit-support-inventory.md).
 - Verify 36 disjoint orbits, complete coverage, multiplicity sum 225, and the eight prefix counts.
 - Apply the positive-exponent, no-forward-normalization Fourier convention.
 - Reconstruct the projected source-mesh band and retain its defect.
@@ -24,7 +24,7 @@ space.
 
 ## Sample-role calculation
 
-The [selected role design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/sample-role-design.md) uses:
+The [selected role design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/sample-role-design.md) uses:
 
 - 225 ordered objective-construction points on the centered 15-grid;
 - 480 even-index-parity evaluation points on the centered 31-grid after removing the origin;
@@ -61,10 +61,10 @@ before source implementation.
 Detailed formulas remain in the legacy design bundle until their implementing classes
 are selected and mirrored here.
 
-- [Maintained prospective protocol](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/protocol.md).
-- [Projection and loss design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/projection-and-loss-design.md).
-- [Sample-role design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/sample-role-design.md).
-- [Threshold and resolution design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/threshold-design.md).
+- [Maintained prospective protocol](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/protocol.md).
+- [Projection and loss design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/projection-and-loss-design.md).
+- [Sample-role design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/sample-role-design.md).
+- [Threshold and resolution design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/threshold-design.md).
 - [Legacy numerical contract](../../../../ksdft2effmass/analysis/model_adequacy/hopping_shell_hierarchy/numeric.md).
 - [Legacy calculation derivation](../../../../ksdft2effmass/analysis/model_adequacy/hopping_shell_hierarchy/scientific.md).
 - The future certificate class must record any external convex-optimization or interval-arithmetic reference it implements.

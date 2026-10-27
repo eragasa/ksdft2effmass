@@ -17,7 +17,7 @@ exact square-symmetric target after defect checks.
 
 Every candidate class is embedded in one selected 36-coordinate maximal orbit space.
 The exact operations, member order, multiplicities, and prefixes are recorded in the
-[maintained inventory](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/orbit-support-inventory.md).
+[maintained inventory](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/orbit-support-inventory.md).
 
 - One real coefficient represents each accepted square-symmetry orbit.
 - Canonical representatives use `0 <= b <= a <= 7` and order by `(a*a + b*b, a, b)`.
@@ -52,10 +52,10 @@ The current method is project-derived from retained parent data and a draft calc
 protocol; literature references will be added at the implementing class when a sourced
 numerical method is selected.
 
-- [Maintained prospective protocol](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/protocol.md).
-- [Projection and loss design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/projection-and-loss-design.md).
-- [Sample-role design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/sample-role-design.md).
-- [Threshold and resolution design](../../../../../../../experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/threshold-design.md).
+- [Maintained prospective protocol](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/protocol.md).
+- [Projection and loss design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/projection-and-loss-design.md).
+- [Sample-role design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/sample-role-design.md).
+- [Threshold and resolution design](../../../../../../../calculations/periodic2d/rank1/hopping-shell-hierarchy/threshold-design.md).
 - [Historical draft protocol](../../../../../../../calculations/ICMSEP2026/conference/paper_1/hopping-shell-hierarchy/protocol.md).
 - [Legacy scientific derivation](../../../../ksdft2effmass/analysis/model_adequacy/hopping_shell_hierarchy/scientific.md).
 - [Shared evidence semantics](../../../../ksdft2effmass/analysis/model_adequacy/admissible-set-evidence-semantics.md).

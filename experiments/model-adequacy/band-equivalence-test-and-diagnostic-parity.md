@@ -1,5 +1,9 @@
 # Band-equivalence test and diagnostic parity contract
 
+> **Migration status:** this shared experiment-tree document is assigned to
+> `calculations/periodic/multiband/`. Its move and all dependent-link updates are tracked
+> in [`calculations/periodic/multiband/migration.md`](../../calculations/periodic/multiband/migration.md).
+
 ## Purpose
 
 This document defines the minimum common software-test and diagnostic surface for the

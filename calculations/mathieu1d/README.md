@@ -110,3 +110,18 @@ uv lock --check
 `run_01_experiment.py` uses an immutable no-overwrite run identity. It performs only cheap
 local deterministic synthetic work and does not invoke Quantum ESPRESSO, Wannier90, a
 scheduler, remote resources, or external calculators.
+
+## Migration inventory
+
+This README owns the complete local inventory; [`migration.md`](migration.md) owns its
+distributed checklist.
+
+| Surface | Current disposition |
+|---|---|
+| Four immutable `v1` run directories | Preserve: three development runs and one publication-facing run, each with its own result, verification, parity, provenance, source, checksum, report, figure, and evidence identity. |
+| `schemas/` | Retained strict `v1` input/result/verification contracts; not silently revised. |
+| `src/single_band_fourier_reduction/` | Historical execution-source copy authenticated by retained manifests; not a maintained import owner. |
+| `ksdft2effmass.model_systems.mathieu1d.study` | Maintained study composition for new code. |
+| `run_01_experiment.py` and `run_02_experiment_verification.py` | Current calculation-root composition; not yet the complete canonical calculate → verify → render → seal lifecycle. |
+| `experiments/periodic-reduction/single-band-fourier-reduction/` | Migration source containing 65 tracked files across the family container, historical experiment layout, schemas, source, tests, four retained runs, and package verifier; exact overlap and divergence must be crosswalked before every file moves here. |
+| `periodic1d/rank1/fourier-locality/` and historical M1 isolated-band work | Related donors only; scientifically distinct from Mathieu1D. |

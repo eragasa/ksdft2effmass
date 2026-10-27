@@ -48,15 +48,15 @@ The selected sequence introduces an isotropic simple-cubic scalar 3-D control fi
 then returns to the preserved anisotropic orthorhombic 3-D proposal after an intervening
 anisotropic 2-D stage. The two 3-D targets are distinct experiment families and neither
 is a bulk-silicon surrogate. Development of the first is tracked under
-`docs/tasks/dev/experiments/isotropic3d/`; the later exact proposal remains under
-`experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`.
+`docs/tasks/dev/experiments/isotropic3d/`; the later exact proposal is maintained under
+`calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/`.
 
 No periodic-1D or periodic-2D certificate geometry, shell equivalence, alignment family,
 threshold, or metric transfers automatically to three dimensions. The isotropic target
 must define cubic signed-permutation orbits explicitly; the anisotropic target uses sign
 orbits without axis permutations and named support groups rather than cubic shells.
-Concrete composition and evidence remain experiment-owned until repeated implemented
-behavior justifies a reusable analysis owner.
+Concrete composition and evidence remain calculation-owned; reusable behavior moves to
+a reviewed source owner when its semantic boundary is established.
 
 After the ordered concrete stages, the
 [general-lattice-vector extension](../../analysis/model_adequacy/general-lattice-vector-extension.md)

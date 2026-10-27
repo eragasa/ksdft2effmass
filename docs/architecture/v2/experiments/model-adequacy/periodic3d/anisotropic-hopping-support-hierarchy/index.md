@@ -5,9 +5,9 @@
 This package mirrors the preserved fourth-stage experiment proposal.
 
 - Family ID: `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy`.
-- Source: `experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`.
-- Exact protocol: `protocol.md` in the source package.
-- Exploratory design provenance: `threshold-design.md` in the source package.
+- Maintained calculation/design owner: `calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/`.
+- Exact protocol: `protocol.md` in the calculation package.
+- Exploratory design provenance: `threshold-design.md` in the calculation package.
 - Current status: pre-version documentation only; no modules, classes, schemas, or result.
 
 ## Architecture bundle

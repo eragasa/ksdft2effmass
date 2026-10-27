@@ -1,12 +1,16 @@
-# Experiment execution structure
+# Pre-canonical execution-structure donor
+
+This document preserves the earlier experiment-package design as migration input. The
+Architecture v3 calculation contract and [`migration.md`](migration.md) govern the
+successor. In particular, the calculation root will not contain a second installable
+`src/` tree, and its final class/module inventory remains open.
 
 ## Baseline
 
-The maintained source baseline is the existing publication-independent periodic-1D
-experiment package:
+The historical structural baseline is the retained periodic-1D package now owned at:
 
 ```text
-experiments/periodic-reduction/single-band-fourier-reduction/periodic1d/
+calculations/mathieu1d/
 ├── pyproject.toml
 ├── uv.lock
 ├── README.md
@@ -41,32 +45,29 @@ module that owns the experiment Action, matching the existing experiment package
 ## Selected package structure
 
 Once the remaining controls and source contracts close, the isotropic periodic-2D
-package will use:
+calculation will follow this filesystem boundary:
 
 ```text
-experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/
-├── pyproject.toml
-├── uv.lock
+calculations/periodic2d/rank1/hopping-shell-hierarchy/
 ├── README.md
+├── migration.md
 ├── protocol.md
-├── orbit-support-inventory.md
-├── execution-structure.md
-├── src/hopping_shell_hierarchy/
-│   ├── __init__.py
-│   ├── definition.py
-│   ├── experiment.py
-│   ├── results.py
-│   ├── verify.py
-│   └── serialization.py
-└── tests/
-    ├── test__HoppingShellHierarchyExperiment.py
-    ├── test__HoppingShellHierarchyResultVerifier.py
-    └── test__HoppingShellHierarchySerialization.py
+├── evidence-policy.md
+├── inputs/
+├── schemas/
+├── technical_report/
+├── run_01_calculation.py
+├── run_02_verification.py
+├── run_03_render.py
+├── run_04_seal.py
+├── verify_package.py
+└── executions/
 ```
 
-The source directory is not created until the definition, result, verifier, and schema
-contracts are ready. This page selects the module boundaries; it does not create empty
-implementation placeholders.
+Reusable typed definitions, calculation actions, results, verification, and
+serialization belong to cohesive reviewed owners under `python/src/ksdft2effmass/`.
+Those source modules are not created until their contracts are ready. This donor page
+does not select an installed module path or create empty implementation placeholders.
 
 ## Execution graph
 

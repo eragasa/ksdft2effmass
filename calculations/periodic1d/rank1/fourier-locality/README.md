@@ -28,3 +28,16 @@ The retained [`calculations/mathieu1d/`](../../../mathieu1d/) package remains a 
 ## Program context
 
 The cross-rank plan and current evidence map are maintained under [`calculations/periodic/multiband/`](../../../periodic/multiband/).
+
+## Migration inventory
+
+This README owns the complete local inventory; [`migration.md`](migration.md) owns its
+distributed checklist.
+
+| Surface | Current disposition |
+|---|---|
+| Scalar null-control protocol | Present and pre-execution; phase alignment is operator-trivial and must not be emitted as duplicate alignment results. |
+| Simulation, analysis, and technical-report surfaces | Documentation only; no input, schema, producer, verifier, renderer, or execution exists. |
+| [`calculations/mathieu1d/`](../../../mathieu1d/) | Retained scalar periodic-potential benchmark and method donor, not this compatible specialization. |
+| Historical ICMSEP M1 isolated-band package | Refinement, reconstruction, truncation, fitting-route, and withheld-evaluation donor at Git tree `c5d34a93b4710a4a430738c404c775865d418d42`; not this family identity. |
+| Shared single-band reduction operations | Candidate reusable owners must be audited before implementation; this calculation retains its own model, conventions, controls, tolerances, and interpretation. |

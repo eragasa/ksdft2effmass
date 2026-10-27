@@ -61,7 +61,7 @@ reconstruction of the objective-construction quadratic.
 
 The exact controls and exploratory numerical observations remain in the source package.
 
-- [Source protocol](../../../../../../../experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/protocol.md).
-- [Exploratory threshold design](../../../../../../../experiments/model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/threshold-design.md).
+- [Maintained protocol](../../../../../../../calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/protocol.md).
+- [Exploratory threshold design](../../../../../../../calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/threshold-design.md).
 - No external interval or convex-support implementation has yet been selected or cited.
 - Future class pages must cite the exact numerical owner and primary method reference when applicable.

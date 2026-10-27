@@ -26,3 +26,10 @@ and `beta=1`, the square-metric endpoint has hopping responses from about `0.817
 `0.063575 E_ref`. The M1 and M2 JSON documents are canonically encoded and validated against distinct
 strict packaged v1 schemas. The action is unconverged and has no retained-evidence
 status.
+
+## Distributed migration ledger
+
+The complete cross-surface inventory and authoritative checklist are maintained with the
+calculation owner in
+[`calculations/periodic2d/rank2/strain-locality/README.md`](../../../../calculations/periodic2d/rank2/strain-locality/README.md)
+and [`migration.md`](../../../../calculations/periodic2d/rank2/strain-locality/migration.md).

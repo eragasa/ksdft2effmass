@@ -90,3 +90,11 @@ uv lock --check
 `run_experiment.py` uses an immutable no-overwrite run identity. It performs only cheap
 local deterministic synthetic work and does not invoke Quantum ESPRESSO, Wannier90, a
 scheduler, remote resources, or external calculators.
+
+## Distributed migration ledger
+
+The complete current cross-surface inventory and authoritative checklist are maintained
+with the calculation owner in
+[`calculations/mathieu1d/README.md`](../../../../calculations/mathieu1d/README.md) and
+[`calculations/mathieu1d/migration.md`](../../../../calculations/mathieu1d/migration.md).
+This retained experiment surface does not maintain a competing checklist.

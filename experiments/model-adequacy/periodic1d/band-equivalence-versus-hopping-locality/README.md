@@ -145,3 +145,11 @@ python/.venv/bin/mypy --config-file python/pyproject.toml \
   python/tests/software_verification/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/periodic1d \
   experiments/model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/analysis
 ```
+
+## Distributed migration ledger
+
+The complete cross-surface inventory and authoritative checklist are maintained with the
+calculation owner in
+[`calculations/periodic1d/rank2/band-equivalence-locality/README.md`](../../../../calculations/periodic1d/rank2/band-equivalence-locality/README.md)
+and [`migration.md`](../../../../calculations/periodic1d/rank2/band-equivalence-locality/migration.md).
+This protocol surface does not maintain a competing checklist.

@@ -762,7 +762,7 @@ The maintained experiment inventory is therefore:
 
 | Experiment surface | Current status | Role in this paper |
 |---|---|---|
-| periodic-1D composite-band alignment/locality | migration in progress; prospective protocol; no maintained run | publication-independent rank-two successor to the historical M2/M3 controls |
+| periodic-1D composite-band alignment/locality | protocol migrated to calculation owner; prospective and unexecuted | publication-independent rank-two successor to the historical M2/M3 controls |
 | periodic-1D higher-rank composite-band alignment/locality D1 P0/G0 | complete pre-execution v1 protocol candidate; no implementation or run | selected future rank/depth experiment |
 | Wannier90 localization reproducibility | no maintained experiment package yet | historical calculation evidence only; future separate family |
 

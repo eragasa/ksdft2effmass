@@ -12,3 +12,17 @@ This calculation owns the one-dimensional higher-rank composition used by the Pa
 The scientific protocol remains under [`experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/`](../../../../experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/). Reusable matrix-field diagnostics and external numerical capabilities remain under their canonical library owners; the bounded rank/depth campaign workflow is calculation-owned here.
 
 The current producer writes only an ignored, replaceable summary. Strict serialization, a complete producer-independent verifier, retained composition, two- and three-dimensional extensions, moving-subspace controls, complex-unitary controls, and restricted-circuit fitting remain absent.
+
+## Migration inventory
+
+This README owns the complete local inventory; [`migration.md`](migration.md) owns its
+distributed checklist.
+
+| Surface | Current disposition |
+|---|---|
+| D1 P0/G0 parent and 16-case rank/depth ladder | Implemented in the calculation-local `workflow/`; outputs are replaceable and schema-free. |
+| Alignment channels A0--A3 | No alignment, global, pointwise, and known-inverse oracle are implemented and remain distinct. |
+| Model, Procrustes, sewing, transport, Fourier, ledger, and failure-disposition operations | Split across calculation-local modules and tests; owner extraction remains incomplete. |
+| Analytic controls | A bounded sanity-check entry point exists; it is not a full independent result verifier. |
+| Experiment migration source | Five tracked files under `experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/`: protocol manuscript, README, producer, control verifier, and ignore contract. Its documented `campaigns.periodic_reduction.higher_rank_d1` path is absent and must be reconciled with this calculation-local implementation. |
+| P1, G1, A4, complex-unitary, moving-subspace, 2-D, and 3-D branches | Prospective and absent; no placeholder implementation or inherited result. |

@@ -73,3 +73,10 @@ Bessel-tail certification, final tolerances and
 retained-record schemas, frozen revisions, and evidence policy remain open. No
 Quantum ESPRESSO, Wannier90, remote, production, or retained calculation is authorized
 by this development package.
+
+## Distributed migration ledger
+
+The complete cross-surface inventory and authoritative checklist are maintained with the
+calculation owner in
+[`calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/README.md`](../../../../calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/README.md)
+and [`migration.md`](../../../../calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/migration.md).

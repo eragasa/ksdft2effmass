@@ -1,24 +1,27 @@
 # Experiments
 
-This tree is the maintained destination for cross-model and model-adequacy numerical
-experiments. Controlled model-system calculations such as PIAB1D and QHO1D are
-consolidated under `calculations/`. An experiment here selects models, cases, sample
-roles, thresholds, metrics,
-protocols, executable composition, interpretation boundaries, schemas, independent
-verification, and retained evidence while consuming reusable capabilities from
-installed owner libraries. New maintained experiment execution must not be added under
-publication-specific `calculations/` paths; those paths remain historical evidence and
-design donors. Importable definitions, calculations, result records, schemas,
-serialization, and verification belong to their owners under
-`python/src/ksdft2effmass/`. This tree retains protocols, explicit parameter selections,
-thin executable or plotting entry points, and lifecycle-appropriate outputs. New or
-mutable experiments do not host a second installable implementation package; immutable
-versions may preserve hash-bound source and lock bytes as retained evidence.
+This tree is a transitional migration source for cross-model and model-adequacy
+numerical experiments. Every tracked file here is assigned to a distributed maintained
+owner under `calculations/`; no new maintained experiment execution or protocol should
+be added here. The repository-level mapping is recorded in
+[`calculations/README.md`](../calculations/README.md), while each calculation owner keeps
+its complete local inventory in `README.md` and actionable checklist in `migration.md`.
 
-Within `periodic-reduction/`, reusable scientific experiment families are grouped first
-and dimensional realizations (`periodic1d/`, later `periodic2d/` or `periodic3d/`) are
-children. A family container is organizational; each dimensional child retains its own
-stable experiment-family identity. Empty dimensional placeholders are not created.
+An experiment selects models, cases, sample roles, thresholds, metrics, protocols,
+executable composition, interpretation boundaries, schemas, independent verification,
+and retained evidence while consuming reusable capabilities from installed owner
+libraries. Importable definitions, calculations, result records, schemas,
+serialization, and verification belong under `python/src/ksdft2effmass/`. Calculation
+roots retain protocols, explicit parameter selections, thin executable or plotting
+entry points, and lifecycle-appropriate outputs. New or mutable calculations do not host
+a second installable implementation package; immutable executions may preserve
+hash-bound source and lock bytes as retained evidence.
+
+Within the transitional `periodic-reduction/` tree, reusable scientific experiment
+families are grouped first and dimensional realizations are children. Migration
+preserves each stable family identity while moving the family/container documents to
+their calculation-side owners. Empty implementation placeholders are not created, but a
+calculation-side README and checklist may exist to own an explicit migration inventory.
 
 Experiment code is not part of the public `ksdft2effmass` wheel. Installed packages
 must never import this tree. Reusable behavior is extracted into its domain owner and
@@ -42,10 +45,11 @@ directories.
 
 ## Numerical-experiment index
 
-This index covers every family with a maintained directory in this tree and every
-architecture-selected family whose source directory intentionally does not yet exist.
-Historical packages under `calculations/` remain evidence or design donors and are not
-duplicated here.
+This index covers every family currently represented in this transitional tree and
+every architecture-selected family whose source directory intentionally does not yet
+exist. Its lifecycle descriptions remain source material until their calculation-side
+copies are reviewed. Historical packages remain evidence or design donors and are not
+silently rewritten during migration.
 
 Lifecycle status has the following bounded meaning:
 
@@ -70,7 +74,7 @@ operator errors and different real-space hopping ranges.
 | Experiment family | Maintained locator | Lifecycle status | Current evidence boundary |
 |---|---|---|---|
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction` | [`periodic-reduction/single-band-fourier-reduction/periodic1d/`](periodic-reduction/single-band-fourier-reduction/periodic1d/) | **Retained version** | Immutable `.v1`, strict schemas, independent reconstruction, exact predecessor provenance, retained runs, and content-addressed evidence exist. This is controlled synthetic evidence, not material validation. |
-| `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | [`periodic-reduction/composite-band-alignment-and-locality/periodic1d/`](periodic-reduction/composite-band-alignment-and-locality/periodic1d/) | **Prospective protocol** | The rank-two alignment/locality successor and owner boundary are documented; no immutable version or maintained run exists. |
+| `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | [`calculations/periodic1d/rank2/composite-band-alignment-locality/`](../calculations/periodic1d/rank2/composite-band-alignment-locality/) | **Migrated prospective protocol** | All three experiment-tree files now reside with the calculation owner; no immutable version or maintained run exists. |
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality` within a common higher-rank family | [`periodic-reduction/higher-rank-composite-band-alignment-and-locality/`](periodic-reduction/higher-rank-composite-band-alignment-and-locality/) | **Complete pre-execution v1 protocol candidate** | The D1 P0/G0 identity, parent, exact certificates, rank/depth ladder, A0--A3 channels, meshes, supports, tolerances, convergence and claim-resolution rules, schemas, direct-formula verifier identity, resource gate, and evidence policy are selected. Implementation, schema realization, immutable-version review, execution, and retained evidence do not exist. The 2-D, 3-D, P1, G1, and A4 branches remain prospective. |
 | `ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality` (**Band Equivalence versus Hopping Locality**) | [`model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/`](model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/) | **Pre-version implementation** | Tests whether identical Bloch bands can conceal restricted-alignment matrix mismatch and different hopping locality. The implementation, schemas, and tests are library-owned under `ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.periodic1d`; this directory owns the protocol and analysis entry points. The smooth flat-parent analysis finds roundoff-level momentum refinement changes and increasing matrix/hopping mismatch, but the proposed amplitude ladder through $N_a=64$ fails a $10^{-8}$ uniform linear-interpolation target. A non-flat four-state realization using the same smooth family is prospective. No retained run or evidence-package identity exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping-locality` | [`model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/`](model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/) | **Protocol plus bounded development refinement** | Orthogonal directed-hopping square extension with completed, independently verified `16 x 16`, `32 x 32`, and `64 x 64` local development calculations. Replaceable numerical artifacts are not retained in this source tranche. Full convergence, final retained schemas and tolerances, and retained evidence remain open. |
@@ -79,10 +83,10 @@ operator errors and different real-space hopping ranges.
 | `ksdft2effmass.campaign.model-adequacy.periodic3d-nonorthogonal.band-equivalence-versus-hopping-locality` | [`model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/`](model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/) | **Protocol plus bounded development refinement** | Silicon-inspired synthetic target and matched Bravais controls with completed, verified `8 x 8 x 8`, `16 x 16 x 16`, and `32 x 32 x 32` local development calculations. Replaceable numerical artifacts are not retained here. No silicon parametrization, convergence result, or retained evidence exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic2d.gauge-locality-under-synthetic-strain` | [`model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/`](model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/) | **Protocol plus bounded M0/M1/M2 development** | Frozen flat-parent M0 plus separately labeled frozen four-state M1 and fixed radial-response M2 controls along a unit-area triangular-to-square-metric rhombic path. M2 produces a nonzero synthetic aligned perturbation; no convergence or material-strain claim exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic3d.gauge-locality-under-synthetic-strain` | [`model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/`](model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/) | **Protocol plus bounded M0/M1/M2 development** | Frozen flat-parent M0 plus separately labeled frozen four-state M1 and fixed radial-response M2 controls along a unit-volume FCC-to-BCC Bain path, with a software-verified common-cell map. No convergence, material transition, or silicon claim exists. |
-| `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | [`model-adequacy/periodic2d/hopping-shell-hierarchy/`](model-adequacy/periodic2d/hopping-shell-hierarchy/) | **Prospective protocol** | Parent binding, orbit/support inventory, sample roles, weights, thresholds, resolution, and flat package structure are selected. Conservative certificate methods, schemas, implementation, and retained evidence remain open. |
+| `ksdft2effmass.campaign.model-adequacy.periodic2d.hopping-shell-hierarchy` | [`calculations/periodic2d/rank1/hopping-shell-hierarchy/`](../calculations/periodic2d/rank1/hopping-shell-hierarchy/) | **Migrated prospective protocol** | All seven experiment-tree design files now reside with the calculation owner. Conservative certificate methods, schemas, implementation, and retained evidence remain open. |
 | `ksdft2effmass.campaign.model-adequacy.periodic3d.isotropic-hopping-support-hierarchy` | No maintained source directory | **Architecture only** | The dimensional role and ownership boundary are selected; no exact parent protocol, source directory, immutable version, or result exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic2d.anisotropic-hopping-support-hierarchy` | No maintained source directory | **Architecture only** | The anisotropy-isolation role is selected; no exact protocol, task, source directory, immutable version, or result exists. |
-| `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy` | [`model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/`](model-adequacy/periodic3d/anisotropic-hopping-support-hierarchy/) | **Preserved proposal** | An exact orthorhombic pre-version proposal and disclosed exploratory threshold design exist. No implementation, schema, verifier, immutable version, retained run, or scientific result exists. |
+| `ksdft2effmass.campaign.model-adequacy.periodic3d.anisotropic-hopping-support-hierarchy` | [`calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/`](../calculations/periodic3d/rank1/anisotropic-hopping-support-hierarchy/) | **Migrated preserved proposal** | All three experiment-tree files now reside with the calculation owner. No implementation, schema, verifier, immutable version, retained run, or scientific result exists. |
 
 Publication use is recorded separately in the
 [experiment-to-paper allocation](../docs/publications/papers/experiment-to-paper-allocation.md).
@@ -104,4 +108,6 @@ architecture direction rather than a numerical experiment.
 
 Creating source or passing tests under this tree does not authorize protected
 calculator execution and does not establish scientific validation, convergence,
-uncertainty quantification, or publication evidence.
+uncertainty quantification, or publication evidence. After migration, exact Git history
+and retained manifests preserve old experiment paths; the live tree is removed only
+after every distributed checklist passes and deletion is separately authorized.

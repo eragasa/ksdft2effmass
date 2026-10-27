@@ -1,5 +1,9 @@
 # Non-orthogonal periodic 2-D model-adequacy experiments
 
+> **Migration status:** this container and family tree are assigned to
+> [`calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/`](../../../calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/);
+> the authoritative checklist is maintained there in `migration.md`.
+
 This subtree contains two-dimensional experiment families whose primitive direct-lattice
 basis is non-orthogonal. It is separate from `periodic2d/` so orthogonal and
 non-orthogonal geometry do not become implicit cases of one version contract.
