@@ -126,8 +126,8 @@ $$
 The sampled isolation energy agrees with the analytic value because the grid contains
 $k=0$. The sampled angle maxima lie slightly below the exact continuum values because
 the maximizing momenta need not lie on the grid. The sampled values remain finite-grid
-diagnostics; the formulas above are the certificates. The source is
-[`verify_d1_p0_g0_controls.py`](../../../../../../experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/verify_d1_p0_g0_controls.py).
+diagnostics; the formulas above are the certificates. The maintained calculation-side source is
+[`verify_analytic_controls.py`](../../../../../../calculations/periodic1d/rankN/composite-band-alignment-locality/verify_analytic_controls.py).
 
 Neither analytic certificate nor the sampled sanity check establishes numerical
 convergence, locality, or scientific acceptance.

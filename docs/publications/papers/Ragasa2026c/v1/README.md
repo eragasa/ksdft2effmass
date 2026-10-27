@@ -47,17 +47,15 @@ the rank-two composite successor and higher-rank family to Paper 3 while keeping
 Wannier90 records calculation-owned pending a separate reproducibility experiment.
 
 The publication-independent
-[higher-rank protocol](../../../../../experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/experimental-protocol.tex)
-defines a common analytic model for arbitrary finite retained rank and finite
-Givens-circuit depth in one, two, and three spatial dimensions. Its first bounded 1-D
-P0/G0 specialization is a complete pre-execution v1 protocol candidate with reserved
-identity, selected parent and analytic certificates, rank/depth ladder, A0--A3 channels,
-construction and evaluation meshes, supports, tolerances, convergence and
-claim-resolution rules, schema identities, direct-formula verifier, resource gate, and
-evidence policy. No implementation, run, result, or evidence status is established by
-this README. Paper 3 must not inherit
-rank-two formulas or Paper 2 numerical controls unless a reviewed specialization
-establishes them.
+[higher-rank calculation plan](../../../../../calculations/periodic1d/rankN/composite-band-alignment-locality/protocol/experimental-protocol.tex)
+defines a synthetic one-dimensional study with a fixed retained subspace and real basis
+rotations. It compares four retained-state counts, four rotation depths, and four
+alignment choices, then measures the resulting real-space hopping range and truncation
+error. The plan fixes the cases, meshes, tolerances, result fields, proposed independent
+check, and resource limits. Development code exists, but there is no stable result
+format, independent full-result check, retained run, or evidence package. Paper 3 must
+not inherit rank-two formulas or Paper 2 numerical controls without a separate reviewed
+study.
 
 Paper 3 deliberately supplies a topologically trivial synthetic baseline. Paper 5 owns
 the downstream fail-closed pristine/defect compatibility decision, while Paper 6 owns
