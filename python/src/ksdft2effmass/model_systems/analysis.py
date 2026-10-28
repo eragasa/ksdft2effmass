@@ -255,8 +255,7 @@ class BaseModelAnalysisVerifier[
             )
         if type(visualization_data) is not type(expected.visualization_data):
             raise TypeError(
-                "stored visualization-data type differs from independent "
-                "reconstruction"
+                "stored visualization-data type differs from independent reconstruction"
             )
         if verification.to_json() != expected.verification.to_json():
             raise ValueError(
