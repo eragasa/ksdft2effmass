@@ -16,7 +16,7 @@ owners. It must not import, copy, wrap, subclass, or execute a calculation-local
 | Donor | Exact identity | Permitted role |
 |---|---|---|
 | Direct Mathieu1D package | tree `a4d7f6bca1e1253feb99b340ac6ff555971722a5` at `bc1601f3` | Typed-record, byte-owning verification, authenticated-projection, direct-script, and report mechanics only. |
-| Current installed M1 owner | tree `084e4a02aa22513a1e11e0c1a484bf23677814d3` at `bc1601f3` | Behavioral baseline for transform, truncation, fit, Parseval, Hermiticity, and disjoint-evaluation composition. Its Action API and schema-v1 wire are scheduled for replacement. |
+| Former installed M1 owner | tree `084e4a02aa22513a1e11e0c1a484bf23677814d3` at `165207149a52a8d071e14f96c3e37b0d45d45792` | Behavioral baseline for transform, truncation, fit, Parseval, Hermiticity, and disjoint-evaluation composition. Its Action API, schema-v1 wire, source package, test consumer, and Sphinx page were removed after direct replacement; exact recovery is recorded in [`legacy-retirement.md`](legacy-retirement.md). |
 | Historical ICMSEP M1 package | tree `418999a90efa3001d2e50a2e7912f126bc30903f` at `c5d34a93b4710a4a430738c404c775865d418d42` | Exact finite-data and plot-channel parity reference only. Result SHA-256 `c7262e3527a58dfd8fe237fa495549c53a1a65f3e46a98ed6d40673f14b6a394`; figure-data SHA-256 `300ea7b2bd42b21cf52b079edcbab5f80850dbf4b760c78100e0ea744a139110`. |
 | Rank-two controlled-family workflow | tree `9ba77fc1fea2ee4957678c70baaa00a7a08d3d46` at `bc1601f3` | Read-only convention and parent-candidate reference. It is development calculation code, not an import or implementation donor. |
 | Canonical solid-state operations | tree `e62e325a53e876f270dfc149f9906d21105b413f` at `bc1601f3` | Reusable reciprocal mesh, Fourier transform, interpolation, truncation, and hopping records where meanings are unchanged. |
@@ -72,21 +72,26 @@ No compatibility facade or universal Periodic1D result is introduced.
 
 ## Consumer audit
 
-At `bc1601f3`, the live `ksdft2effmass.periodic1d.isolated_band` surface has one direct
-external Python consumer: its package-aligned software-verification module
-`python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DIsolatedBandCalculator.py`.
-Internal root re-exports and Sphinx pages remain migration obligations. The formerly
-listed Mathieu1D consumers are absent after Phase 1.
+At replacement revision `165207149a52a8d071e14f96c3e37b0d45d45792`, the live
+`ksdft2effmass.periodic1d.isolated_band` surface had one direct external Python consumer:
+its aggregate software-verification module. The authorized retirement removed that test,
+the installed subpackage, its root exports, the Fourier toy-parent record, and its Sphinx page
+together. A package-aligned removal test now rejects accidental restoration. The
+similarly named `campaigns.periodic_1d` types are a distinct campaign surface and were
+not modified.
 
 The historical M1 publication path remains a Git-only provenance donor. No current
-publication is silently redirected to the future rank-one control, and no donor result
-will be presented as a result of this family.
+publication is redirected to the rank-one control, and no donor result is presented as a
+result of this family.
 
 ## Audit conclusion
 
-The reusable behavior and prohibited inheritance are now explicit. The scalar parent and exact energy reference are frozen in
+The reusable behavior and prohibited inheritance are explicit. The scalar parent and
+exact energy reference are frozen in
 [`scientific-control-decision.md`](scientific-control-decision.md), and the finite
 numerical controls are frozen in
-[`numerical-control-decision.md`](numerical-control-decision.md). The next gate is design
-and review of the family-owned typed records, byte-owning independent verification, and
-authenticated visualization projection before any stage script or execution exists.
+[`numerical-control-decision.md`](numerical-control-decision.md). Family-owned typed
+records, byte-owning independent verification, authenticated visualization, direct stage
+scripts, and package-aligned tests are implemented. The predecessor retirement is bound
+by [`legacy-retirement.md`](legacy-retirement.md). Retained execution and sealing remain
+separate future gates.

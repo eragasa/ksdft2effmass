@@ -42,6 +42,48 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "PlaneWaveFiberHamiltonian1DResult"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/fourier_locality/test__Periodic1DFourierLocalityAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DFourierLocalityAnalyzer"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/fourier_locality/test__Periodic1DFourierLocalityConfiguration.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DFourierLocalityConfiguration"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/fourier_locality/test__Periodic1DFourierLocalityDirectScripts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DFourierLocality direct scripts"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/fourier_locality/test__Periodic1DFourierLocalityLegacySurfaceRemoval.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DFourierLocality legacy surface removal"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/fourier_locality/test__Periodic1DFourierLocalityResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DFourierLocalityCalculationResult"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/fourier_locality/test__Periodic1DFourierLocalityVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DFourierLocalityVerifier"
     }
   ]
 }

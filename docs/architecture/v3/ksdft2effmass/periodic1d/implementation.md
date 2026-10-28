@@ -7,20 +7,25 @@ Phase 1 is implemented outside the retained-generation package:
 Mathieu1D vertical slice and `calculations/mathieu1d/` owns its direct scripts and sole
 live unsealed execution.
 
-The implemented `ksdft2effmass.periodic1d` package still contains three
-retained-generation surfaces for the remaining migrations:
+Phase 2 is also implemented. `periodic1d.fourier_locality` owns the direct rank-one
+configuration, analyzer, result, byte-owning independent verifier, authenticated
+visualization projection, and closed renderer. The former `isolated_band/` source,
+Fourier toy-parent record, aggregate predecessor test, exports, and Sphinx page were removed
+after direct replacement and explicit authorization.
+
+The installed package now has this mixed migration state:
 
 ```text
 periodic1d/
 ├── model.py
-├── isolated_band/
-├── multiband_alignment/
-└── admissible_sets/
+├── fourier_locality/       # implemented direct lifecycle
+├── multiband_alignment/    # predecessor retained for Phase 3
+└── admissible_sets/         # predecessor retained for Phase 4
 ```
 
-Each child already has frozen definitions and results, a producer, a serializer, and an
-independent numerical verifier. Those are real supported contracts, but they predate the
-PIAB1D/QHO1D/Mathieu1D direct architecture in four important respects:
+The two remaining predecessor children have frozen definitions and results, a producer,
+a serializer, and an independent numerical verifier. Those real supported contracts
+predate the direct architecture in four important respects:
 
 1. result serializers are family-local rather than shared typed-record boundaries;
 2. verifiers accept reconstructed result objects rather than owning original wire bytes;
@@ -28,8 +33,8 @@ PIAB1D/QHO1D/Mathieu1D direct architecture in four important respects:
 4. historical publication-oriented compositions are not yet direct calculation-root
    calculate → verify → render successors.
 
-The rewrite replaces these boundaries family by family. It does not wrap them in a
-compatibility facade or retain two maintained implementations indefinitely.
+The rewrite replaces these remaining boundaries family by family. It does not wrap them
+in a compatibility facade or retain two maintained implementations indefinitely.
 
 ## Target source shape
 
@@ -166,12 +171,13 @@ retained execution creation remain separate reviewed and authorized scopes.
 
 ## Predecessor disposition
 
-The [Phase 0 inventory](phase-0-inventory.md) selects complete replacement. Current
-M1--M3 imports, class layouts, serializer APIs, schema-v1 runtime decoding, and
-calculation-local Python packages are not preserved. The successor must reproduce the
-specified finite calculations and authenticated plot-data channels within unchanged
-comparison tolerances before predecessor source is eligible for separately authorized
-removal.
+The [Phase 0 inventory](phase-0-inventory.md) selects complete replacement. The former
+M1 imports, class layouts, serializer API, schema-v1 runtime surface, and sole direct test
+consumer were removed after the Phase 2 replacement gate and explicit authorization;
+exact recovery is recorded in the calculation-owned retirement record. Current M2--M3
+predecessors remain supported only until their own specified finite calculations,
+authenticated plot-data channels, and consumer migrations pass unchanged comparison
+gates and receive separate removal authorization.
 
 Historical result and artifact bytes remain unchanged and recoverable from exact Git
 objects for provenance. The new runtime neither decodes those packages nor imports,

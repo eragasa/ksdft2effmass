@@ -20,7 +20,10 @@ The calculation therefore cannot exhibit gauge-induced represented-operator loca
   decomposition, Mathieu-compatible range/error--locality analysis, implemented typed
   lifecycle, and evidence boundary.
 - [`donor-crosswalk.md`](donor-crosswalk.md) classifies every Mathieu1D, historical M1,
-  current installed M1, rank-two, and shared-operation donor channel.
+  former installed M1, rank-two, and shared-operation donor channel.
+- [`legacy-retirement.md`](legacy-retirement.md) binds the exact removed source, test, and
+  API-documentation bytes to their Git recovery authority and records package-aligned
+  successor test ownership.
 - [`scientific-control-decision.md`](scientific-control-decision.md) records the selected
   lowest ordered eigenvalue field of the exact controlled four-state parent, rejected
   alternatives, and the exact-versus-sampled claim boundary.
@@ -58,6 +61,7 @@ distributed checklist.
 | Simulation, analysis, and technical-report surfaces | Typed configuration/result wires, producer, independent verifier, authenticated projection, closed renderer, direct scripts, tests, and provisional report exist; no retained execution or sealed package exists. |
 | [`calculations/mathieu1d/`](../../../mathieu1d/) | Retained scalar periodic-potential benchmark and method donor, not this compatible specialization. |
 | Historical ICMSEP M1 isolated-band package | Refinement, reconstruction, truncation, fitting-route, and withheld-evaluation donor at Git tree `418999a90efa3001d2e50a2e7912f126bc30903f` from commit `c5d34a93b4710a4a430738c404c775865d418d42`; not this family identity. |
+| Former installed M1 surface | Completely retired after direct replacement; exact source, test, and Sphinx bytes remain recoverable through `legacy-retirement.md`, with no compatibility facade or live schema-v1 decoder. |
 | Shared single-band reduction operations | Audited in `donor-crosswalk.md`; canonical `solidstate`, `analysis`, and model-analysis infrastructure retain reusable behavior, while this calculation retains its own model, conventions, controls, tolerances, and interpretation. |
 | Scalar parent | Bound in the typed configuration as the lowest ordered eigenvalue field of exact parent `ksdft2effmass.periodic1d.controlled-four-state-parent.v1`; sampled gap qualification does not establish a globally isolated band. |
 | Finite numerical controls | Frozen in `numerical-control-decision.md`; all results remain finite and numerical, and no Formal certificate is introduced. |

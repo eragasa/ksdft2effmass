@@ -8,6 +8,8 @@ from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
 
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
+
 
 def configuration() -> Periodic1DFourierLocalityConfiguration:
     """Return the selected compatible rank-one finite request."""

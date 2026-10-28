@@ -7,13 +7,14 @@ representations, and finite-range hopping descriptions be calculated, independen
 checked, and presented without confusing their state spaces, gauges, numerical errors,
 or scientific families?
 
-This Architecture v3 surface is an **active family-by-family rewrite**. Phase 1 is
-implemented: Mathieu1D has typed source records, direct calculation stages, a byte-owning
-verifier, authenticated rendering, and one retained unsealed execution. Its predecessor
-runtime and artifact contracts are absent from the live tree. The other seven studies
-remain prospective until each source owner, consumer, and retained contract is migrated
-through a reviewed slice. Existing `ksdft2effmass.periodic1d` imports remain supported
-only for those not-yet-migrated families.
+This Architecture v3 surface is an **active family-by-family rewrite**. Phase 1
+Mathieu1D and Phase 2 compatible rank-one Fourier locality are implemented with typed
+source records, direct calculation stages, byte-owning verification, and authenticated
+rendering. Mathieu1D has one retained unsealed execution; rank-one Fourier locality has
+only provisional non-retained review results. Both predecessor runtimes are absent from
+the live tree. The other six studies remain prospective until each source owner,
+consumer, and retained contract is migrated through a reviewed slice. Existing
+`ksdft2effmass.periodic1d` imports remain supported only for not-yet-migrated families.
 
 The rewrite adopts the behavioral structure demonstrated by PIAB1D and QHO1D and now
 implemented directly by Mathieu1D:
@@ -68,7 +69,7 @@ status, or conclusions:
 | Study | Distinguishing question | Architecture disposition |
 |---|---|---|
 | 1. Mathieu1D single-band Fourier reduction | How do two finite parent representations support one scalar retained-band reduction? | Implemented [`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) vertical slice and `calculations/mathieu1d/`; not the rank-one specialization below. |
-| 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Prospective typed source contract under [`periodic1d.fourier_locality`](fourier_locality/index.md) and separate calculation under `calculations/periodic1d/rank1/fourier-locality/`. |
+| 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Implemented typed source under [`periodic1d.fourier_locality`](fourier_locality/index.md) with direct stages and provisional non-retained report material under `calculations/periodic1d/rank1/fourier-locality/`; the legacy M1 runtime is retired. |
 | 3. Rank-two band equivalence versus hopping locality | Can analytically or certifiably band-equivalent represented Hamiltonians have different finite-range locality? | Separate typed source child and calculation owner. |
 | 4. Rank-two composite-band alignment and locality | How do declared pointwise or global alignment choices affect block hoppings and diagnostics? | Separate typed source child and calculation owner. |
 | 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Separate confirmatory calculation record with complete finite coverage. |
@@ -114,4 +115,5 @@ searchable provenance aliases; they are not names for new studies or a version c
 - [Temporary visualization migration plan](visualization.md)
 - [Migration sequence](migration.md)
 - [Phase 0 inventory and replacement boundary](phase-0-inventory.md)
+- [Phase 2 legacy retirement record](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md)
 - [Formal-method boundary](formal.md)

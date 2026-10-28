@@ -17,6 +17,8 @@ from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityVisualizer,
 )
 
+pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
+
 
 class TestPeriodic1DFourierLocalityVerifier:
     """Establish independent reconstruction, authentication, and readmission."""
