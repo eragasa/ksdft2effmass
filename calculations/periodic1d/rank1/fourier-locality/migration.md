@@ -39,5 +39,7 @@ implied capabilities.
 - [x] Implement direct calculate → verify → render composition scripts.
 - [ ] Define sealing and read-only package verification before retaining an execution.
 - [x] Add focused software tests and documentation for basis, Fourier signs, units, overflow, malformed values, frozen production coordinates, parent binding, decision inventories, and authenticated rendering.
+- [x] Retire the installed legacy M1 source, Fourier toy-parent export, aggregate predecessor test, and obsolete Sphinx page without a compatibility facade; bind every removed byte and modified export module to [`legacy-retirement.md`](legacy-retirement.md).
+- [x] Record the analyzer, configuration, direct-script, result, independent-verifier, and legacy-removal modules in the package-aligned Periodic1D test-ownership inventory.
 - [x] Exercise the frozen finite control locally through calculate → independently verify → authenticated render and record its provisional non-retained results without creating an execution package.
 - [x] Resolve the dedicated ProjectKoios-Formal implementation review; the final bounded read-only rereview reported `NO_BLOCKING_FINDINGS` and created no certificate.

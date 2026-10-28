@@ -28,7 +28,8 @@ or supported import already exists.
   Mathieu1D finite-parent, Fourier-reduction, verification, and rendering vertical slice.
 - [`periodic1d`](periodic1d/index.md): the active family-by-family rewrite of
   one-dimensional periodic calculation, byte-owning verification, and authenticated
-  rendering; Mathieu1D is implemented and the other seven studies remain prospective.
+  rendering; Mathieu1D and compatible rank-one Fourier locality are implemented, while
+  the other six studies remain prospective.
 
 Only touched source areas are mirrored in this tranche. Absence from this directory is
 not an ownership reassignment.

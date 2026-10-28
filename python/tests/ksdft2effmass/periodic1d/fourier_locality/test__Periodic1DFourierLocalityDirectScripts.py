@@ -3,6 +3,10 @@
 import ast
 from pathlib import Path
 
+import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
+
 
 class TestPeriodic1DFourierLocalityDirectScripts:
     """Establish the closed direct calculate, verify, and render adapter set."""

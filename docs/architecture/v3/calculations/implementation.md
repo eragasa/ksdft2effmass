@@ -200,17 +200,24 @@ Its retained unsealed execution contains typed result bytes, byte-owning indepen
 verification, two authenticated figures, and an execution-bound report. Its predecessor
 code, runs, input, and schemas are absent from the live tree.
 
-The remaining seven studies are the compatible rank-one null control, rank-two
-band-equivalence locality, rank-two composite alignment, confirmatory constrained
-admissible sets, the minimal scalar/direct admissible-set demonstration, post-hoc
-threshold sensitivity, and higher-rank composite alignment. They remain separate
-calculation records, not stages or versions of one universal Periodic1D execution.
+The second study, compatible rank-one Fourier locality, is implemented at
+`calculations/periodic1d/rank1/fourier-locality/`. It has concrete typed records, a
+byte-owning independent verifier, two authenticated figures, and direct stage scripts,
+but no retained execution or seal. Its legacy M1 source and API surfaces were removed
+after separate authorization and remain recoverable through the calculation-owned
+retirement record.
+
+The remaining six studies are rank-two band-equivalence locality, rank-two composite
+alignment, confirmatory constrained admissible sets, the minimal scalar/direct
+admissible-set demonstration, post-hoc threshold sensitivity, and higher-rank composite
+alignment. They remain separate calculation records, not stages or versions of one
+universal Periodic1D execution.
 
 Each family receives concrete typed records, a byte-owning independent verifier, an
 authenticated family-specific visualization projection, and its own closed rendering
 inventory. Shared mechanics do not imply shared scientific inputs, result wires,
-tolerances, evidence policies, or claims. Implementation of Mathieu1D does not claim
-implementation of any other Periodic1D successor.
+tolerances, evidence policies, or claims. Implementation of Mathieu1D or the compatible
+rank-one control does not claim implementation of any remaining successor.
 
 ### `run_04_seal.py`
 

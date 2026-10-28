@@ -17,13 +17,14 @@ This inventory is bound to baseline commit
 `2a5681b877b5fbf9e1cf8fcdd0c9332d0bc69c63`. No source or artifact is removed by Phase
 0.
 
-## Current installed package
+## Baseline installed package
 
-The current root exports 31 distinct names. All are scheduled for removal after the
-relevant behavioral-parity gate and direct caller migration. No alias or re-export is
-planned.
+At the bound Phase 0 baseline, the root exported 31 distinct names. All were scheduled
+for removal after the relevant behavioral-parity gate and direct caller migration. No
+alias or re-export was planned. The Phase 2 M1 rows were later retired as recorded in the
+update below; the M2 and M3 rows remain live until their own replacement gates pass.
 
-| Current source surface | Exported names | Replacement owner and gate |
+| Baseline source surface | Exported names | Replacement owner and gate |
 |---|---|---|
 | `periodic1d.model` | `Periodic1DFourierHamiltonianToyModel`, `Periodic1DBlockHamiltonianToyModel` | Replace with concrete typed parent data owned by `model_systems.mathieu1d`, `periodic1d.fourier_locality`, and the two rank-two owners as applicable; remove after Phases 1--4 migrate callers. |
 | `periodic1d.isolated_band.definition` | `Periodic1DIsolatedBandCalculationDefinition` | Replace in `periodic1d.fourier_locality` during Phase 2. |
@@ -42,13 +43,13 @@ planned.
 | `periodic1d.admissible_sets.serialization` | `Periodic1DConstrainedAdmissibleSetResultJsonSerializer`, qualified `SCHEMA_ID` | Replace with separate study wires; no schema-v1 decoder is required. |
 | `periodic1d.admissible_sets.verify` | `Periodic1DConstrainedAdmissibleSetResultVerifier`, `Periodic1DConstrainedAdmissibleSetVerificationResult` | Replace with separate byte-owning verifiers. |
 
-The root `periodic1d.__init__` re-exports the 31 non-`SCHEMA_ID` names above. The three
-subpackages also re-export their family names. Those aggregate import surfaces are all
-removed rather than reproduced.
+At the baseline, the root `periodic1d.__init__` re-exported the 31 non-`SCHEMA_ID` names
+above, and the three subpackages re-exported their family names. Each aggregate import
+surface is removed with its family rather than reproduced by its successor.
 
-### Current Python callers
+### Baseline Python callers
 
-Seven Python files outside the package import the current surface:
+Seven Python files outside the package imported the baseline surface:
 
 - `calculations/mathieu1d/src/single_band_fourier_reduction/definition.py`;
 - `calculations/mathieu1d/tests/test__SingleBandFourierReductionExperiment.py`;
@@ -58,25 +59,38 @@ Seven Python files outside the package import the current surface:
 - `python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DMultibandAlignmentCalculator.py`; and
 - `python/tests/software_verification/ksdft2effmass/periodic1d/test__Periodic1DConstrainedAdmissibleSetCalculator.py`.
 
-The first four move to Phase 1 owners or disappear with the old Mathieu1D package. The
-last three are replaced by package-aligned successor tests. Internal imports among the
-three current families disappear with the package.
+The first four moved to Phase 1 owners or disappeared with the old Mathieu1D package.
+The M1 aggregate test was removed in Phase 2 and replaced by package-aligned successor
+coverage. The M2 and M3 aggregate tests remain until their own migrations. Internal
+imports among the baseline families disappear with each retired package.
 
-The four Sphinx pages under `doc/sphinx/api/ksdft2effmass/periodic1d/` are replaced by
-pages for the concrete successor owners. Architecture v2 pages remain historical
-records, not supported import documentation.
+The four baseline Sphinx pages under `doc/sphinx/api/ksdft2effmass/periodic1d/` are
+replaced family by family by pages for the concrete successor owners. Architecture v2
+pages remain historical records, not supported import documentation.
 
-## Current serializer and verifier boundary
+### Phase 2 retirement update
 
-| Family | Current result schema | Current serializer input | Current verifier input | Replacement disposition |
+After merge revision `165207149a52a8d071e14f96c3e37b0d45d45792`, explicit operator
+authorization permitted removal of the complete `periodic1d.isolated_band` source tree,
+its sole direct external test consumer, the `Periodic1DFourierHamiltonianToyModel`
+definition and exports, and the obsolete Sphinx page. The package-aligned direct
+Fourier-locality tests and a legacy-surface-removal test now own the replacement boundary.
+Exact source, test, documentation, export-module, and recovery identities are recorded in
+[`legacy-retirement.md`](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md).
+The historical Architecture v2 pages remain unchanged and the distinct
+`campaigns.periodic_1d` API is outside this retirement.
+
+## Baseline serializer and verifier boundary
+
+| Family | Baseline result schema | Baseline serializer input | Baseline verifier input | Replacement disposition |
 |---|---|---|---|---|
 | M1 isolated band | `ksdft2effmass.periodic1d.isolated-band-calculation-result.v1` | typed `Periodic1DIsolatedBandCalculationResult` | typed result object | Replace completely in Phase 2. |
 | M2 multiband alignment | `ksdft2effmass.periodic1d.multiband-alignment-calculation-result.v1` | typed `Periodic1DMultibandAlignmentCalculationResult` | typed result object | Replace completely in Phase 3. |
 | M3 constrained sets | `ksdft2effmass.periodic1d.constrained-admissible-set-result.v1` | typed `Periodic1DConstrainedAdmissibleSetCalculationResult` | typed result object | Replace completely in Phase 4. |
 
-The current serializers only encode. They do not reconstruct these result types from
-wire bytes, and the current verifiers do not own subject bytes. Therefore none of the
-three current runtime schemas qualifies as the target direct lifecycle. The successor
+At the baseline, these serializers only encoded. They did not reconstruct their result
+types from wire bytes, and their verifiers did not own subject bytes. Therefore none of
+the three baseline runtime schemas qualified as the target direct lifecycle. Successor
 verifiers accept exact immutable bytes and reconstruct their own subjects.
 
 ## Historical calculation packages

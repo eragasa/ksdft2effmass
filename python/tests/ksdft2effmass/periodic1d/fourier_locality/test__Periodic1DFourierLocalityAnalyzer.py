@@ -11,6 +11,8 @@ from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
 
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
+
 
 class TestPeriodic1DFourierLocalityAnalyzer:
     """Establish pure typed calculation on a reduced finite control."""

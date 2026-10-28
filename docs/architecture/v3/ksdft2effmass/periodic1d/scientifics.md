@@ -15,8 +15,8 @@ It does not strengthen the scientific claims of historical retained calculations
 A scalar Fourier-locality result may establish, for its declared finite meshes and
 parent representations, reconstruction agreement, hopping coefficients, truncation
 behavior, fitting-route differences, and withheld-coordinate discrepancies. It does not
-establish that a band is physically isolated merely because a historical route is named
-`isolated_band`.
+establish that a band is physically isolated merely because the retired historical route
+was named `isolated_band`.
 
 A composite alignment result may establish pointwise or sampled spectral equivalence,
 frame-transport behavior, block-hopping equalities, and finite-range consequences under

@@ -88,6 +88,15 @@ source module, and every public class have separate `index.md`, `schematics.md`,
 the complete transform and declared truncation/fitting routes, and remains distinct from
 Mathieu1D in scientific scope and provenance.
 
+**Status:** complete for the software/report checkpoint. The direct typed lifecycle,
+byte-owning independent verification, authenticated two-figure inventory, executable
+stage scripts, Architecture v3 corpus, and provisional non-retained technical report are
+implemented. After exact consumer and recovery review, explicit authorization permitted
+removal of the legacy M1 source package, Fourier toy-parent export, aggregate predecessor test,
+and obsolete Sphinx page. The recovery boundary is recorded in
+[`calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md`](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md).
+No retained execution, seal, publication update, or Formal certificate exists.
+
 ## Phase 3 — split the rank-two families
 
 Migrate the two rank-two questions independently:

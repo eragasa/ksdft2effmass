@@ -20,6 +20,8 @@ from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityRangeResult,
 )
 
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
+
 
 class TestPeriodic1DFourierLocalityResult:
     """Establish direct wire and strict coefficient/threshold correlation."""
