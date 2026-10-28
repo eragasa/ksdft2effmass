@@ -268,6 +268,118 @@ class BlockHoppingModelComparisonResult1D:
                 raise ValueError(f"{name} must be nonnegative")
 
 
+class ScalarHermitianHoppingLeastSquaresFitter1D:
+    """Fit a rank-one scalar hopping model in an explicit Hermitian basis."""
+
+    __slots__ = ()
+
+    def execute(
+        self,
+        source: ReciprocalOperatorSamples1D,
+        maximum_range: int,
+        weights: VectorQuantity,
+    ) -> BlockHoppingLeastSquaresFitResult1D:
+        """Fit one real onsite value and conjugate positive-range pairs."""
+        if type(source) is not ReciprocalOperatorSamples1D:
+            raise TypeError("source must be ReciprocalOperatorSamples1D")
+        if source.matrix_dimension != 1:
+            raise ValueError("source must contain rank-one scalar operators")
+        if type(maximum_range) is not int:
+            raise TypeError("maximum_range must be a built-in int")
+        if maximum_range < 0:
+            raise ValueError("maximum_range must be nonnegative")
+        if type(weights) is not VectorQuantity:
+            raise TypeError("weights must be VectorQuantity")
+        if not isinstance(weights.unit, Unitless):
+            raise ValueError("weights must be unitless")
+        if weights.magnitude.shape != source.coordinates.magnitude.shape:
+            raise ValueError("one weight is required per source sample")
+        if np.any(weights.magnitude <= 0.0):
+            raise ValueError("weights must be positive")
+        source_values = np.asarray(
+            [matrix.magnitude[0, 0] for matrix in source.matrices],
+            dtype=np.complex128,
+        )
+        if np.any(source_values.imag != 0.0):
+            raise ValueError("scalar Hermitian source values must be exactly real")
+        normalized_coordinates = (
+            source.coordinates.magnitude / source.reciprocal_period.magnitude
+        )
+        columns = [np.ones(source_values.size, dtype=np.float64)]
+        for representative in range(1, maximum_range + 1):
+            phases = 2.0 * np.pi * representative * normalized_coordinates
+            columns.extend((2.0 * np.cos(phases), -2.0 * np.sin(phases)))
+        design = np.column_stack(columns)
+        solver = LinearLeastSquaresSolverFactory.create(
+            LinearLeastSquaresMethod.NUMPY_DENSE
+        )
+        owner_result = solver.solve(
+            tuple(tuple(float(value) for value in row) for row in design),
+            tuple((float(value.real),) for value in source_values),
+            weights=tuple(float(value) for value in weights.magnitude),
+            rank_tolerance=None,
+        )
+        parameters = np.asarray(
+            owner_result.coefficients,
+            dtype=np.complex128,
+        ).reshape(-1)
+        if np.any(parameters.imag != 0.0):
+            raise ValueError("real Hermitian fit returned complex parameters")
+        hopping_by_representative: dict[int, complex] = {
+            0: complex(float(parameters[0].real), 0.0)
+        }
+        for representative in range(1, maximum_range + 1):
+            parameter_index = 2 * representative - 1
+            positive = complex(
+                float(parameters[parameter_index].real),
+                float(parameters[parameter_index + 1].real),
+            )
+            hopping_by_representative[representative] = positive
+            hopping_by_representative[-representative] = positive.conjugate()
+        representatives = tuple(range(-maximum_range, maximum_range + 1))
+        model = BlockHoppingModel1D(
+            source.reciprocal_period,
+            representatives,
+            tuple(
+                ComplexMatrixQuantity(
+                    np.asarray(
+                        [[hopping_by_representative[representative]]],
+                        dtype=np.complex128,
+                    ),
+                    source.matrices[0].unit,
+                )
+                for representative in representatives
+            ),
+        )
+        reconstructed = BlockHoppingInterpolator1D().execute(
+            model,
+            source.coordinates,
+        )
+        residuals = np.asarray(
+            [
+                fitted.magnitude - target.magnitude
+                for fitted, target in zip(
+                    reconstructed.matrices,
+                    source.matrices,
+                    strict=True,
+                )
+            ],
+            dtype=np.complex128,
+        )
+        return BlockHoppingLeastSquaresFitResult1D(
+            source,
+            representatives,
+            weights,
+            model,
+            reconstructed,
+            owner_result.rank,
+            owner_result.full_rank_condition_number,
+            owner_result.rank == len(representatives),
+            float(np.linalg.norm(residuals)),
+            float(np.max(np.linalg.norm(residuals, axis=(1, 2)))),
+        )
+
+
 class BlockHoppingModelComparator1D:
     """Compare compatible hopping routes in coefficient and reciprocal spaces."""
 

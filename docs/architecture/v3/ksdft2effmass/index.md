@@ -33,6 +33,12 @@ or supported import already exists.
 Only touched source areas are mirrored in this tranche. Absence from this directory is
 not an ownership reassignment.
 
+## Package pages
+
+- [Schematics](schematics.md)
+- [Numerics](numerics.md)
+- [Scientific interpretation](scientifics.md)
+
 ## Ownership boundary
 
 Model construction remains under `ksdft2effmass.model_systems`. Selection and

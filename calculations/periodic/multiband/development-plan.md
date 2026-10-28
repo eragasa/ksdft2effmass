@@ -19,7 +19,7 @@ The program asks how retained rank, spatial dimension, lattice geometry, interna
 
 ## Rank-one boundary
 
-The pre-execution rank-one owner is [`calculations/periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/). Its directory contains only the calculation boundary, compatibility requirements, empty execution/analysis surfaces, and a technical design note. No model coefficients, input, executable stage, or result exists. The retained Mathieu1D package remains a separate periodic-potential benchmark and does not serve as this compatible specialization.
+The pre-execution rank-one owner is [`calculations/periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/). Its exact controlled four-state parent, lowest-ordered-eigenvalue scalar-field rule, Mathieu-compatible attained range/error--locality channels, separate interpolation/truncation/total-error semantics, exact finite meshes and supports, gates, tolerances, threshold, passage rules, and per-mesh attained error--complexity diagnostic are now frozen prospectively. Family-owned typed wires and implementation remain open. Its directory contains only the calculation boundary, donor crosswalk, scientific-control record, documentation surfaces, and a technical design note. No input, executable stage, result, or execution exists. The retained Mathieu1D package remains a separate periodic-potential benchmark and does not serve as this compatible specialization.
 
 For a scalar represented Hamiltonian, global, pointwise, and known-inverse phase alignments are operator-identical. They must be marked inapplicable as distinct alignment channels rather than emitted as duplicated numerical results.
 

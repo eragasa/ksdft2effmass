@@ -242,7 +242,8 @@ values, support boundaries, thresholds, witnesses, or dispositions.
 | Successor baseline PNG | Parity reference | Required data-channel parity |
 |---|---|---|
 | `mathieu1d-finite-reduction.png` | direct typed Mathieu1D execution | parent dispersion, reconstructed dispersion, hopping magnitudes, truncation-error series, and declared case labels |
-| `rank1-fourier-locality.png` | recovered M1 result and `figure-data.csv` | parent refinement, complete transform, hopping decay, range study, and withheld error |
+| `rank1-fourier-locality.png` | recovered M1 result and `figure-data.csv` plus the prospective Option B controls | mapped complete-transform, hopping-decay, omitted-norm, range-study, and withheld-error semantics; the new parent/gap, three-channel, threshold, and finite error--complexity values have no donor-value parity, and M1 parent-refinement values are excluded |
+| `rank1-fourier-route-agreement.png` | recovered M1 range records | mapped direct/mediated coefficient and sampled-defect meanings plus separately named route total errors; no donor result value is reused |
 | `rank2-band-equivalence-locality.png` | current rank-two development results at the baseline commit | Hamiltonian and band-error channels, cyclic/interpolation/truncation separation, hopping power, and finite attainable range decisions |
 | `rank2-alignment-locality.png` | recovered M2 result and `figure-data.csv` | retained spectrum, pointwise/global alignment channels, omitted block norms, and withheld errors |
 | `confirmatory-admissible-sets.png` | recovered M3 result and `figure-data.csv` | exact finite angle inventory, common witness, separated case, quadratic boundaries, thresholds, and separation certificate |

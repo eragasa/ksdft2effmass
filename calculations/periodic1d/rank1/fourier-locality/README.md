@@ -1,8 +1,10 @@
 # Periodic 1-D rank-one single-band Fourier locality
 
-**Status:** pre-execution calculation design; no implemented model, run, result, or evidence package.
+**Status:** typed calculate → independently verify → authenticated render lifecycle
+implemented and exercised as a provisional in-memory development control; no retained
+execution, sealed evidence package, publication artifact, or release exists.
 
-This calculation root is reserved for the model-family-compatible rank-one null control in the periodic multiband program. It will test scalar Fourier interpolation, hopping-support truncation, and spectral consequences using conventions compatible with the rank-two and higher-rank controlled calculations.
+This calculation root owns the model-family-compatible rank-one null control in the periodic multiband program. It tests scalar Fourier interpolation, hopping-support truncation, and spectral consequences using conventions compatible with the rank-two and higher-rank controlled calculations.
 
 For a scalar represented Hamiltonian, phase conjugation is operator-trivial:
 
@@ -14,12 +16,28 @@ The calculation therefore cannot exhibit gauge-induced represented-operator loca
 
 ## Surfaces
 
-- [`protocol.md`](protocol.md) records the pre-execution compatibility and evidence contract.
-- [`simulations/`](simulations/README.md) will own inputs, execution, runs, and experiment verification after those contracts exist.
-- [`analysis/`](analysis/README.md) will own verified-input analysis, analysis verification, and plots.
-- [`technical-report/`](technical-report/technical_report.tex) contains the current calculation-facing design note.
+- [`protocol.md`](protocol.md) records the frozen compatibility, three-channel error
+  decomposition, Mathieu-compatible range/error--locality analysis, implemented typed
+  lifecycle, and evidence boundary.
+- [`donor-crosswalk.md`](donor-crosswalk.md) classifies every Mathieu1D, historical M1,
+  current installed M1, rank-two, and shared-operation donor channel.
+- [`scientific-control-decision.md`](scientific-control-decision.md) records the selected
+  lowest ordered eigenvalue field of the exact controlled four-state parent, rejected
+  alternatives, and the exact-versus-sampled claim boundary.
+- [`numerical-control-decision.md`](numerical-control-decision.md) freezes the exact
+  construction and Mathieu-scaled evaluation point sets, support inventory, three error
+  channels, donor-compatible range analysis, finite error--complexity diagnostic, gates,
+  thresholds, passage rules, and figure inventory.
+- [`simulations/`](simulations/README.md) records the in-process calculation boundary;
+  direct calculate, independently verify, and authenticated-render adapters live at this
+  calculation root.
+- [`analysis/`](analysis/README.md) records the implemented channels; reusable analysis
+  belongs to installed source owners and rendering consumes verifier-authenticated data.
+- [`technical-report/`](technical-report/technical_report.tex) records the frozen design
+  and provisional, non-retained independently verified finite results.
+- [`docs/architecture/v3/ksdft2effmass/periodic1d/fourier_locality/`](../../../../docs/architecture/v3/ksdft2effmass/periodic1d/fourier_locality/index.md) records the implemented package, module, and public-class contracts.
 
-No stage scripts, input files, generated results, schemas, or run directories are created yet.
+The three direct stage scripts exist. No retained input, result, verification, figure, or execution directory has been produced.
 
 ## Relationship to Mathieu1D
 
@@ -36,8 +54,10 @@ distributed checklist.
 
 | Surface | Current disposition |
 |---|---|
-| Scalar null-control protocol | Present and pre-execution; phase alignment is operator-trivial and must not be emitted as duplicate alignment results. |
-| Simulation, analysis, and technical-report surfaces | Documentation only; no input, schema, producer, verifier, renderer, or execution exists. |
+| Scalar null-control protocol | Implemented; phase alignment is operator-trivial and is not emitted as duplicate alignment results. |
+| Simulation, analysis, and technical-report surfaces | Typed configuration/result wires, producer, independent verifier, authenticated projection, closed renderer, direct scripts, tests, and provisional report exist; no retained execution or sealed package exists. |
 | [`calculations/mathieu1d/`](../../../mathieu1d/) | Retained scalar periodic-potential benchmark and method donor, not this compatible specialization. |
-| Historical ICMSEP M1 isolated-band package | Refinement, reconstruction, truncation, fitting-route, and withheld-evaluation donor at Git tree `c5d34a93b4710a4a430738c404c775865d418d42`; not this family identity. |
-| Shared single-band reduction operations | Candidate reusable owners must be audited before implementation; this calculation retains its own model, conventions, controls, tolerances, and interpretation. |
+| Historical ICMSEP M1 isolated-band package | Refinement, reconstruction, truncation, fitting-route, and withheld-evaluation donor at Git tree `418999a90efa3001d2e50a2e7912f126bc30903f` from commit `c5d34a93b4710a4a430738c404c775865d418d42`; not this family identity. |
+| Shared single-band reduction operations | Audited in `donor-crosswalk.md`; canonical `solidstate`, `analysis`, and model-analysis infrastructure retain reusable behavior, while this calculation retains its own model, conventions, controls, tolerances, and interpretation. |
+| Scalar parent | Bound in the typed configuration as the lowest ordered eigenvalue field of exact parent `ksdft2effmass.periodic1d.controlled-four-state-parent.v1`; sampled gap qualification does not establish a globally isolated band. |
+| Finite numerical controls | Frozen in `numerical-control-decision.md`; all results remain finite and numerical, and no Formal certificate is introduced. |

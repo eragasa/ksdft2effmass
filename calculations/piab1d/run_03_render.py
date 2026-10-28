@@ -14,6 +14,7 @@ import numpy as np
 
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dVerification,
+    Piab1dVerifier,
     Piab1dVisualizationData,
     Piab1dVisualizer,
 )
@@ -67,6 +68,12 @@ visualization_mapping = verification_document.get("visualization_data")
 if not isinstance(visualization_mapping, Mapping):
     raise TypeError("verification must contain visualization_data")
 data = Piab1dVisualizationData.from_dict(visualization_mapping)
+admitted = Piab1dVerifier(result_wire=result_bytes).admit_stored(
+    verification=verification,
+    visualization_data=data,
+)
+verification = admitted.verification
+data = admitted.visualization_data
 visualizer = Piab1dVisualizer(data=data, verification=verification)
 visualizations = visualizer.visualize()
 if {item.plot for item in visualizations} != set(visualizer.plots):

@@ -171,7 +171,13 @@ Read exact result and verification bytes. Check:
 - passing typed verification; and
 - typed visualization projection admission.
 
-Construct the concrete family visualizer from typed projection data and the passing
+Re-run the concrete byte-owning verifier from the exact result bytes and admit the
+stored aggregate and projection only when their canonical bytes equal the independently
+recomputed pair. Render the recomputed pair, not the merely decoded stored values. This
+rejects an omitted or altered comparison without maintaining a second hard-coded list of
+all dynamically named observations.
+
+Construct the concrete family visualizer from the admitted projection data and passing
 verification. No plotting begins before these checks pass.
 
 ### 3. Closed rendering

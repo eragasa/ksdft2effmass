@@ -90,6 +90,8 @@ class TestModelAnalysisInfrastructure:
         """Both concrete verifiers inherit the final shared subject constructor."""
         assert Piab1dVerifier.__init__ is BaseModelAnalysisVerifier.__init__
         assert Qho1dVerifier.__init__ is BaseModelAnalysisVerifier.__init__
+        assert Piab1dVerifier.admit_stored is BaseModelAnalysisVerifier.admit_stored
+        assert Qho1dVerifier.admit_stored is BaseModelAnalysisVerifier.admit_stored
         assert Piab1dVerifier._result_type() is Piab1dCalculationResult
         assert Qho1dVerifier._result_type() is Qho1dCalculationResult
         for verifier_type in (Piab1dVerifier, Qho1dVerifier):

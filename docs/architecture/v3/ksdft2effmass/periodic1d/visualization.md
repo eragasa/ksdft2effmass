@@ -95,21 +95,26 @@ band, smooth feasibility region, or claim that a sampled gap proves continuum is
 
 ## 2. Compatible rank-one Fourier-locality control
 
-### Baseline
+### Closed native inventory
 
-`rank1-fourier-locality.png`, three panels:
+`rank1-fourier-locality.png`, four panels:
 
-1. declared momentum versus scalar represented energy, overlaying the direct field,
-   complete Fourier reconstruction, and selected finite-support reconstructions;
-2. centered cell representative versus `|t_R| / E_ref`, with support markers; and
-3. support identifier versus separately authenticated interpolation, truncation, total
-   evaluation, and fit-route errors, with declared thresholds and the actual finite
-   first-passing member.
+1. declared momentum versus the first two ordered parent eigenvalues, with the sampled
+   minimum-gap point and gate;
+2. centered cell representative versus `|t_R| / E_ref`, accompanied by authenticated
+   support-indexed omitted norms;
+3. support identifier versus separately authenticated interpolation, deliberate
+   truncation, and total maximum/root-mean-square errors for each declared construction
+   mesh; and
+4. the per-mesh attained objective pair `(2*R + 1, total evaluation error)`, with the
+   independently verified finite nondominated mask, production `1e-8 E_ref` threshold,
+   actual first joint passage, and sustained-after-first-pass qualification.
 
-### Certificate supplement
+`rank1-fourier-route-agreement.png` retains direct-versus-mediated coefficient and
+sampled defects plus the separately named total evaluation errors of both routes.
 
-`rank1-fourier-certificate-obligations.png` is limited to finite transform/inversion,
-Parseval/tail, support, and scalar-conjugation obligations.
+No Formal certificate figure is emitted. Every threshold, mask, flag, support, and
+marker comes from the verifier-owned authenticated projection.
 
 ### Excluded
 
