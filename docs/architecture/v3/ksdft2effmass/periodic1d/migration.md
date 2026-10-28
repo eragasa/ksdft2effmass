@@ -2,7 +2,7 @@
 
 ## Definition of done
 
-Periodic1D matches the PIAB1D/QHO1D architectural style when each selected scientific
+Periodic1D matches the PIAB1D/QHO1D/Mathieu1D architectural style when each selected scientific
 family has:
 
 - concrete immutable typed configuration and result owners;
@@ -16,7 +16,7 @@ family has:
 - explicit unsealed or sealed provenance state; and
 - an exact disposition for every predecessor import, wire, artifact, and consumer.
 
-The program is not done merely because files share PIAB1D/QHO1D names or inherit common
+The program is not done merely because files share lifecycle names or inherit common
 base classes.
 
 ## Phase 0 — freeze the current boundary
@@ -48,15 +48,31 @@ verifier, and a concrete model-system owner.
 
 Implement model-owned configuration, result sections, analyzer, byte-owning independent
 verification, authenticated visualization data, and direct calculation, verification,
-and rendering scripts. The historical `study/` and retained `v1` packages remain separate
-until exact parity and consumer migration are proven.
+and rendering scripts. Use predecessor values only for the bounded migration gate, then
+remove their live runtime and data surfaces after consumer migration.
 
 This phase does not redefine Mathieu1D as the compatible rank-one null control. The new
-source does not import the calculation-local `single_band_fourier_reduction` package; it
-uses retained results only as behavioral-parity inputs.
+source does not import the calculation-local `single_band_fourier_reduction` package or
+read a predecessor dataset.
 
 **Gate:** calculate → verify → render works from Python-authored controls; rendering
-rejects unauthenticated data; historical retained bytes are unchanged.
+rejects unauthenticated data; every consumer resolves the new authenticated artifacts;
+legacy code and run bytes are absent from the live tree.
+
+**Status:** complete. The direct typed lifecycle and authenticated two-figure inventory
+are implemented and tested through fresh temporary executions. One dirty-worktree-
+qualified direct execution is retained unsealed, a buildable technical report exists,
+and Ragasa2026a v1--v3 plus the research monograph bind the direct result and figure.
+The source architecture is documented under
+[`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md).
+The legacy calculation scripts, calculation-local package and tests, installed `study/`
+predecessor, all 45 predecessor run files, the orphaned version-one input, and all three
+legacy JSON schemas were removed after explicit authorization. Recovery boundaries are recorded in
+[`calculations/mathieu1d/direct-successor-retirement.md`](../../../../../calculations/mathieu1d/direct-successor-retirement.md),
+[`calculations/mathieu1d/installed-successor-retirement.md`](../../../../../calculations/mathieu1d/installed-successor-retirement.md),
+and
+[`calculations/mathieu1d/legacy-run-retirement.md`](../../../../../calculations/mathieu1d/legacy-run-retirement.md),
+and [`calculations/mathieu1d/legacy-contract-retirement.md`](../../../../../calculations/mathieu1d/legacy-contract-retirement.md).
 
 ## Phase 2 — implement the compatible rank-one null control
 

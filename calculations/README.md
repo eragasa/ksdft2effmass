@@ -102,7 +102,7 @@ evidence identities are not renamed by filesystem consolidation.
 | Package | Status | Scope and primary record |
 |---|---|---|
 | [`periodic/multiband/`](periodic/multiband/README.md) | Planning and aggregation layer | Cross-dimensional and cross-rank map of periodic multiband calculation owners, salient source-linked results, comparability limits, and staged development gates; not an execution or evidence owner. |
-| [`mathieu1d/`](mathieu1d/README.md) | Retained version | Immutable Mathieu1D single-band Fourier-reduction version `v1`, strict schemas, producer-independent verification, exact predecessor provenance, and content-addressed synthetic evidence; not material validation. |
+| [`mathieu1d/`](mathieu1d/README.md) | Direct unsealed execution | `executions/direct-finite-reduction-n64/` owns the live typed calculation, byte-owning verification, authenticated two-figure rendering, and buildable technical report. Predecessor code and run artifacts are absent from the live tree. This does not establish material validation. |
 | [`periodic1d/rank1/fourier-locality/`](periodic1d/rank1/fourier-locality/README.md) | Pre-execution design | Model-family-compatible scalar Fourier/locality null control for the periodic multiband rank ladder; no implemented model, run, or result. |
 | [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md) | Calculation-owned development family | Active synthetic four-state periodic parent, rank-two retained representation, smooth band-equivalent rotation, and hopping-locality analysis intended for the Ragasa2026a v3 calculation. The experiment donor was removed after exact-manifest review; no retained successor run exists. |
 | [`periodic1d/rank2/composite-band-alignment-locality/`](periodic1d/rank2/composite-band-alignment-locality/README.md) | Prospective protocol | Complete three-file protocol migrated to the calculation owner; M2/monograph donor reconciliation and implementation remain open, and no successor execution exists. |
@@ -153,7 +153,7 @@ is to be created before the model, protocol, and input/output contracts exist.
 
 | Experiment or composition | Experiment-tree migration source | Calculation-side owner | Integration disposition |
 |---|---|---|---|
-| Periodic-1D single-band Fourier reduction | Historical 65-file donor formerly at `experiments/periodic-reduction/single-band-fourier-reduction/`, removed after exact-manifest review and separately authorized; recoverable from `c73aa96077ee03e1f7438ecbb44349b445a3eec8` | [`mathieu1d/`](mathieu1d/README.md), including immutable `v1` evidence and an adapted historical-source successor | Preserve every `v1` byte and historical identity. The [65-file crosswalk](mathieu1d/experiment-migration-crosswalk.md) is closed, Git-bound predecessor verification passes, live consumers use calculation paths, and the repository Python project is the sole live dependency authority. Introduce any direct-lifecycle successor under a new execution identity; never rewrite a retained run in place. |
+| Periodic-1D single-band Fourier reduction | Historical 65-file donor formerly at `experiments/periodic-reduction/single-band-fourier-reduction/`, removed after exact-manifest review and separately authorized; recoverable from `c73aa96077ee03e1f7438ecbb44349b445a3eec8` | [`mathieu1d/`](mathieu1d/README.md), direct typed lifecycle and unsealed execution | The [65-file crosswalk](mathieu1d/experiment-migration-crosswalk.md) is closed. All predecessor run artifacts were subsequently deleted; publication consumers use only the direct execution, and the repository Python project is the sole live dependency authority. |
 | Periodic-1D composite-band alignment and locality | Migrated from `experiments/periodic-reduction/composite-band-alignment-and-locality/` | [`periodic1d/rank2/composite-band-alignment-locality/`](periodic1d/rank2/composite-band-alignment-locality/README.md) | The complete three-file protocol now resides with its distinct calculation owner. Reuse reviewed operations without treating the model-adequacy rank-two family as the same experiment. |
 | Periodic-1D higher-rank basis rotations and hopping range | Historical five-file donor removed after exact-hash review; migration and recovery details are recorded in the calculation-side [crosswalk](periodic1d/rankN/composite-band-alignment-locality/experiment-migration-crosswalk.md) | [`periodic1d/rankN/composite-band-alignment-locality/`](periodic1d/rankN/composite-band-alignment-locality/README.md) | Move reusable code to reviewed source owners; define stable typed inputs and results; independently check the full result; authenticate plotted values; and add direct calculation, verification, and rendering scripts. Keep moving-subspace, complex-rotation, 2-D, and 3-D studies separate. |
 | Periodic-1D band equivalence versus hopping locality | Historical donor removed; exact migration and recovery provenance is recorded in the calculation-side [crosswalk](periodic1d/rank2/band-equivalence-versus-hopping-locality/experiment-migration-crosswalk.md) | [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md) | Extract reusable behavior from calculation-local `workflow/` into cohesive source owners; complete direct calculate → independently verify → render stages. The flat rule is direct, the nonflat claim is pointwise, adaptive refinement remains reserved, and no retained execution is authorized. |
@@ -193,7 +193,7 @@ separate historical artifacts as one atomic execution.
 | `calculations/research-monograph/periodic-1d/` | Isolated-band nominal and stress studies; rank-two composite alignment/locality; failed, diagnosed, and converged Wannier90 attempts | Split the channels into explicit successor dependencies. Preserve the exact historical result bytes and failed attempts; keep external-code execution separate from synthetic in-process calculations. |
 | `calculations/research-monograph/periodic-2d/` | Scalar and rank-three composite reduction, topology controls and phase sweeps, Wannier90 failure/balanced comparison, and a bounded Wannier90 parameter study | Inventory each channel as a distinct typed calculation or derived analysis. Do not collapse topology, localization, common-space reduction, and optimizer behavior into one result wire. |
 | `calculations/research-monograph/periodic-2d-optimizer-basin/` | Wannier90 multi-start execution, reanalysis, standalone continuation, common-estimator checks, and censored convergence regression | Preserve execution outcomes, including nonconverged endpoints, as historical evidence. Any successor must retain dependency digests between execution, extraction, reanalysis, and regression and requires separate authorization for external execution. |
-| Historical execution-time `experiments/periodic-reduction/periodic1d/single-band-fourier-reduction/` | Source path embedded in immutable Mathieu1D `v1` manifests before relocation | Keep the source-path identity resolvable through the retained manifests and Git history. Do not normalize it to the current `calculations/mathieu1d/` path. |
+| Historical execution-time `experiments/periodic-reduction/periodic1d/single-band-fourier-reduction/` | Removed predecessor source path | No live manifest consumes this path. Recovery is confined to the Mathieu1D migration and retirement ledgers. |
 
 #### Nested channel and donor-surface inventory
 
@@ -204,7 +204,7 @@ requires its own crosswalk row before its parent can be considered integrated.
 
 | Parent surface | Nested surfaces that must remain distinguishable |
 |---|---|
-| Mathieu1D single-band reduction | The live experiment protocol tree and the `calculations/mathieu1d/` tree; four immutable run directories; input, result, and verification schemas; per-run parity, provenance, source manifest, checksum catalog, report, figure, and evidence-package identity; the historical calculation-local source implementation; and the maintained `ksdft2effmass.model_systems.mathieu1d.study` composition. The two live filesystem trees are not assumed byte- or behavior-identical. |
+| Mathieu1D single-band reduction | The direct `ksdft2effmass.model_systems.mathieu1d` lifecycle; the retained unsealed direct execution with typed result, byte-owning verification, two authenticated figures, and technical report; and compact Git recovery records for removed donor, calculation-local, installed `study/`, run, and schema-v1 predecessors. No predecessor run wire, input, or JSON schema remains in the live tree. |
 | Periodic-1D rank-two band equivalence/locality | Flat-parent baseline, nonflat four-state realization, parent-family robustness, truncation consequences, momentum refinement, amplitude resolution, hopping-tail/power diagnostics, scientific-story rendering, and their separate result and verification definitions. |
 | Periodic-1D higher-rank alignment/locality | D1 P0/G0 parent construction, rank ladder, rotation-depth ladder, no/global/pointwise/known-inverse alignment channels, endpoint sewing, transport, case ledger, failure dispositions, numerical backend, and analytic-control verification. Future P1, G1, A4, complex-unitary, moving-subspace, 2-D, and 3-D branches remain separate absent surfaces. |
 | Each 2-D/3-D band-equivalence family | Nominal development calculation, first refinement, second refinement, independent family verification, development plotting, and the replaceable result/refinement directories. The four orthogonal/nonorthogonal dimensional families have parallel mechanics but separate scientific identities and thresholds. |
@@ -250,9 +250,9 @@ surfaces are:
   calculation roots.
 
 The intended direction is from calculation composition to one reviewed source owner,
-never from the installed package back into `calculations/` or `experiments/`. The
-retained source copy under `mathieu1d/src/` is exempt because it authenticates immutable
-version-one evidence; maintained code must not import it.
+never from the installed package back into `calculations/` or `experiments/`. The former
+Mathieu1D calculation-local source copy has been removed; maintained code imports only
+the reviewed source owner.
 
 Migration ledgers follow ownership rather than dimension. Each family-local
 `migration.md` is authoritative for its checkboxes and must link every nested donor,
@@ -272,9 +272,10 @@ only in the owning distributed ledger and only with the evidence named by that i
    validation, and atomic artifact publication where behavior is identical. Keep lattices,
    gauges, meshes, supports, tolerances, and scientific inventories concrete and
    family-owned.
-3. **Close the one-dimensional scalar slice.** Preserve Mathieu1D `v1`; reconcile the
-   compatible rank-one control, M1 isolated-band donor, and scalar admissible-set donor
-   as distinct families before creating successor executions.
+3. **Close the one-dimensional scalar slice.** Mathieu1D direct replacement is complete;
+   implement the compatible rank-one control, M1-related scientific questions, and
+   scalar admissible-set study as distinct direct families rather than restoring any
+   predecessor runtime.
 4. **Close the one-dimensional multiband slice.** Finish the rank-two
    band-equivalence owner, then the separate composite-band family, constrained
    admissibility, and higher-rank family. Each receives independent reconstruction and

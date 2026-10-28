@@ -26,11 +26,11 @@ from ksdft2effmass.analysis import (
 from ksdft2effmass.analysis.operators import KineticPotentialDecompositionResult
 from ksdft2effmass.model_systems.visualization import (
     BaseModelAnalysisFigure,
-    BaseModelAnalysisFigureRenderer,
     BaseModelAnalysisPlot,
     BaseModelAnalysisSubplot,
     BaseModelAnalysisVisualizationData,
     BaseModelAnalysisVisualizer,
+    ModelAnalysisPngFigureRenderer,
     ModelAnalysisPngVisualization,
 )
 from ksdft2effmass.serialization import SerializableValue
@@ -367,43 +367,6 @@ class Piab1dVisualizationData(BaseModelAnalysisVisualizationData):
         )
 
 
-class Piab1dVisualization(ModelAnalysisPngVisualization[Piab1dVisualizationPlotEnum]):
-    """Associate a reusable PNG value with the PIAB1D plot inventory."""
-
-    __slots__ = ()
-
-    def __post_init__(self) -> None:
-        if not isinstance(self.plot, Piab1dVisualizationPlotEnum):
-            raise TypeError("plot must be Piab1dVisualizationPlotEnum")
-        super().__post_init__()
-
-
-@dataclass(frozen=True, slots=True)
-class _Piab1dPngFigureRenderer(BaseModelAnalysisFigureRenderer):
-    """Encode one independently composed PIAB1D figure as a PNG value."""
-
-    plot: Piab1dVisualizationPlotEnum
-    figure: BaseModelAnalysisFigure
-    dpi: int
-
-    def __post_init__(self) -> None:
-        if not isinstance(self.plot, Piab1dVisualizationPlotEnum):
-            raise TypeError("plot must be Piab1dVisualizationPlotEnum")
-        if not isinstance(self.figure, BaseModelAnalysisFigure):
-            raise TypeError("figure must be BaseModelAnalysisFigure")
-        if type(self.dpi) is not int:
-            raise TypeError("dpi must be a built-in integer")
-        if self.dpi <= 0:
-            raise ValueError("dpi must be positive")
-
-    def visualize(self) -> Piab1dVisualization:
-        """Draw, encode, close, and admit the owned PIAB1D figure."""
-        return Piab1dVisualization(
-            plot=self.plot,
-            png=self._encode_png(self.figure.draw(), self.dpi),
-        )
-
-
 class _Piab1dSpectrumPlot(BaseModelAnalysisPlot):
     """Draw continuum and represented energies with the retained cutoff."""
 
@@ -569,7 +532,7 @@ class _ContinuumWavefunctionLadderFigure(_Piab1dFigure):
         self._style_axis(axis, "Continuum eigenfunctions")
         return figure
 
-    def _style_axis(self, axis: plt.Axes, title: str) -> None:
+    def _style_axis(self, axis: Axes, title: str) -> None:
         axis.axvline(0.0, color="black", linewidth=1.2)
         axis.axvline(1.0, color="black", linewidth=1.2)
         axis.set_xlim(-0.04, 1.04)
@@ -1221,8 +1184,10 @@ class Piab1dVisualizer(BaseModelAnalysisVisualizer):
                 selection_dpi,
             ),
         )
-        self._renderers: frozenset[_Piab1dPngFigureRenderer] = frozenset(
-            _Piab1dPngFigureRenderer(plot=plot, figure=figure, dpi=dpi)
+        self._renderers: frozenset[
+            ModelAnalysisPngFigureRenderer[Piab1dVisualizationPlotEnum]
+        ] = frozenset(
+            ModelAnalysisPngFigureRenderer(plot=plot, figure=figure, dpi=dpi)
             for plot, figure, dpi in figure_specs
         )
         plots = {renderer.plot for renderer in self._renderers}
@@ -1242,12 +1207,14 @@ class Piab1dVisualizer(BaseModelAnalysisVisualizer):
         """
         return frozenset(renderer.plot for renderer in self._renderers)
 
-    def visualize(self) -> frozenset[Piab1dVisualization]:
+    def visualize(
+        self,
+    ) -> frozenset[ModelAnalysisPngVisualization[Piab1dVisualizationPlotEnum]]:
         """Render the complete authenticated PIAB1D figure set.
 
         Returns
         -------
-        frozenset[Piab1dVisualization]
+        frozenset[ModelAnalysisPngVisualization[Piab1dVisualizationPlotEnum]]
             Thirteen immutable validated PNG values with unique canonical filenames.
 
         Raises

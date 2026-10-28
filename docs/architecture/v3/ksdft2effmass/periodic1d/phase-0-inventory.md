@@ -241,7 +241,7 @@ values, support boundaries, thresholds, witnesses, or dispositions.
 
 | Successor baseline PNG | Parity reference | Required data-channel parity |
 |---|---|---|
-| `mathieu1d-finite-reduction.png` | latest retained Mathieu1D summary package | parent dispersion, reconstructed dispersion, hopping magnitudes, truncation-error series, and declared case labels |
+| `mathieu1d-finite-reduction.png` | direct typed Mathieu1D execution | parent dispersion, reconstructed dispersion, hopping magnitudes, truncation-error series, and declared case labels |
 | `rank1-fourier-locality.png` | recovered M1 result and `figure-data.csv` | parent refinement, complete transform, hopping decay, range study, and withheld error |
 | `rank2-band-equivalence-locality.png` | current rank-two development results at the baseline commit | Hamiltonian and band-error channels, cyclic/interpolation/truncation separation, hopping power, and finite attainable range decisions |
 | `rank2-alignment-locality.png` | recovered M2 result and `figure-data.csv` | retained spectrum, pointwise/global alignment channels, omitted block norms, and withheld errors |
@@ -250,14 +250,14 @@ values, support boundaries, thresholds, witnesses, or dispositions.
 | `threshold-sensitivity-finite-ledger.png` | recovered sensitivity result and `figure-data.csv` | finite threshold grid, three named transitions, original threshold, and recorded dispositions only |
 | `higher-rank-alignment-locality.png` | current higher-rank development records at the baseline commit | rank/depth inventory, gate outcomes, alignment and sewing diagnostics, support/tail channels, and scalar ledger values |
 
-The latest retained Mathieu1D reference is
-`calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/`,
-Git tree `d6c73e2822dbf4d4bebc6923db7fcb0250e4314a`. Its 9 manifest entries pass. Its result,
-verification, PNG, and manifest SHA-256 values are respectively
-`472bc41121541d11596b895acbadf463c70609494695e9c6bc50548f351c0ab2`,
-`277ec3f3433ba606831347329b3c8253b03e1ce4c84be4b49aaf88e23f0eddb4`,
-`80cdb8b145db963ec0b87a671fc3b7ac4714a9703dcfc61e771a3cb1bd0ec06b`,
-and `6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377`.
+Mathieu1D Phase 1 is complete. The direct execution is
+`calculations/mathieu1d/executions/direct-finite-reduction-n64/`; its exact result,
+verification, and authenticated full-figure SHA-256 values are
+`83d25e824a0aedf085e77e86a998c02a17d4a51c320375b0bfb395986dae3fe6`,
+`61553c16636efc39452706006dc480b827c2f2d04f3e318e02e3c2eec4f24664`, and
+`de0ae08bd6e4c16afee074b14a73be2a7efbfa133044fc08ee75492238886b7e`.
+The predecessor run tree has been removed; its Git recovery boundary is confined to
+`calculations/mathieu1d/legacy-run-retirement.md`.
 
 ## Calculation-local Python disposition
 
@@ -266,7 +266,7 @@ crosswalks. New installed source must not import or copy it.
 
 | Current location | Python files | Disposition |
 |---|---:|---|
-| `calculations/mathieu1d/src/single_band_fourier_reduction/` | 6 | Compare Phase 1 outputs against retained package channels, then remove the package after caller migration. Do not preserve its serializers or API. |
+| Retired Mathieu1D calculation-local package | 0 | Phase 1 parity and consumer migration completed; package, legacy scripts, tests, predecessor runs, orphaned input, and schema-v1 files removed from the live tree. |
 | `calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/` | 21 | Use existing result tables and tests only to specify Phase 3 parity. Write new installed implementations from the scientific specification and canonical PhysKit/Optimization owners. Remove the workflow tree after parity and consumer migration. |
 | `calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/` plotting scripts | 7 | Use only to enumerate predecessor channels. Replace with authenticated source-owned rendering and remove after parity. |
 | `calculations/periodic1d/rankN/composite-band-alignment-locality/workflow/` | 11 | Use records and tests only to specify Phase 5 parity. Write the new higher-rank owner independently; remove the workflow tree after parity. |

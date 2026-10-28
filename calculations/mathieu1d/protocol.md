@@ -1,77 +1,82 @@
-# Immutable experiment version `v1`
+# Mathieu1D direct finite-reduction protocol
 
-## Identity
+## Scientific question
 
-- Family: `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction`
-- Version: `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1`
-- Historical publication alias: `M1`
-- Evidence class: controlled local synthetic numerical verification
+For the finite scalar Mathieu Hamiltonian
 
-Version `v1` freezes the historical M1 model and discretization controls while adding
-positive fitting weights, explicit objective-construction and evaluation roles,
-caller-selected hopping ranges, sampled external-gap diagnostics, typed immutable
-records, owner API composition, canonical strict-schema serialization, and a
-producer-independent reconstruction route.
+\[
+H(k)=-\frac{d^2}{dx^2}+0.5\cos x,
+\]
+
+how accurately do declared plane-wave and periodic finite-difference representations
+resolve the sampled parent spectrum, and how does a finite reciprocal inventory support
+complete and range-truncated scalar hopping representations?
+
+This protocol concerns finite represented calculations only. It does not establish a
+continuum isolation certificate, uncertainty quantification, a universally adequate
+hopping range, material validity, publication acceptance, evidence sealing, or release.
 
 ## Mathematical conventions
 
-The parent is
+- period: \(a=2\pi\);
+- reciprocal vector: \(G=1\);
+- recoil energy: \(E_G=1\);
+- fixed parent-model energy zero;
+- reduced momentum: \(k/G\) on one centered reciprocal period;
+- selected band: zero-based band 0;
+- forward transform:
 
-\[
-H(k)=-\frac{d^2}{dx^2}+0.5\cos x,\qquad a=2\pi,\quad G=1,\quad E_G=1.
-\]
+  \[
+  t_R=N^{-1}\sum_j e^{-2\pi i R k_j/G}E(k_j);
+  \]
 
-All quantities are dimensionless. The energy reference is the fixed parent-model zero;
-no post-fit energy shift is admitted. Reduced momentum is `k/G` in one reciprocal
-period. The complete transform uses
+- inverse interpolation:
 
-\[
-t_R=N^{-1}\sum_j e^{-2\pi i R k_j/G}E(k_j),\qquad
-E(k)=\sum_R e^{+2\pi i R k/G}t_R.
-\]
+  \[
+  E(k)=\sum_R e^{+2\pi i R k/G}t_R.
+  \]
 
-The forward transform alone carries `1/N`. The training role is the complete 64-point
-centered half-open mesh. The evaluation role is the disjoint 257-point staggered mesh
-`-1/2 + (i + 1/65)/257`. Evaluation cannot update coefficients, ranges, weights, or
-tolerances.
+The complete training inventory is a 64-point centered half-open mesh. The disjoint
+257-point evaluation mesh is \(-1/2+(i+1/65)/257\). Evaluation coordinates cannot alter
+coefficients, fitting weights, hopping ranges, or tolerances.
 
-## Frozen controls
+## Finite controls
 
-- plane-wave sweep: `3, 5, 7, 9, 11`;
-- finite represented plane-wave reference: `15`;
+- plane-wave cutoffs: `3, 5, 7, 9, 11`;
+- finite plane-wave reference cutoff: `15`;
 - production plane-wave cutoff: `11`;
-- finite-difference grids: `31, 63, 127, 255`;
-- parent coordinates: `-1/2, -1/4, 0, 1/4, 1/2`;
+- finite-difference points: `31, 63, 127, 255`;
+- parent reduced momenta: `-1/2, -1/4, 0, 1/4, 1/2`;
 - compared parent bands: lowest three ordered bands;
-- selected band: zero-based band `0`;
 - hopping ranges: `0, 1, 2, 3, 4, 6, 8`;
-- direct-fit weights: 64 strictly positive unit weights;
-- coordinate tolerance: `1e-14`;
-- reconstruction, Hermiticity, Parseval, and imaginary tolerances: `1e-12` in
-  their declared units.
+- fitting weights: 64 positive unit weights;
+- coordinate and Fourier-duality tolerance: `1e-14`;
+- reconstruction, Hermiticity, Parseval, and imaginary tolerances: `1e-12`.
 
-The sampled training and evaluation external gaps are diagnostics. A positive sampled
-gap is not a continuum isolation certificate. No range is scientifically accepted.
+The sampled training and evaluation external gaps are diagnostics. Positive values on
+these inventories are not a continuum spectral certificate.
 
-## Verification and failure policy
+## Direct lifecycle
 
-The independent verifier must not call `SingleBandFourierReductionExperiment` or
-`SingleBandHoppingReductionWorkflow1D`. It directly reconstructs parent matrices,
-spectra, band selection, sampled gaps, Fourier coefficients, interpolation, weighted
-least squares, rank, conditioning, route defects, omitted-block locality, Parseval,
-Hermiticity, bandwidth, curvature, and imaginary residuals.
+1. `run_01_calculation.py` constructs typed configuration and result bytes through
+   `Mathieu1dAnalyzer` and canonical numerical owners.
+2. `run_02_verification.py` admits the exact result bytes, correlates the embedded
+   configuration, independently reconstructs the finite formulas, and emits typed
+   verification and visualization data.
+3. `run_03_render.py` repeats independent admission, compares complete verification and
+   projection bytes, renders the closed figure inventory, and copies the buildable
+   technical-report snapshot.
 
-A retained run passes only when strict structure checks pass and both energy and
-squared-energy reconstruction defects are within their frozen tolerances. A failed
-producer, schema validation, digest check, or independent verification is retained as
-a failed attempt only if explicitly labeled; it must not replace publication evidence.
-Passing establishes bounded software and finite-protocol numerical consistency only.
+The scripts refuse to overwrite a completed or incomplete stage. They do not import or
+read predecessor code, schemas, results, figures, or run directories.
 
-## Historical predecessor
+## Retained direct execution
 
-The exact predecessor locator is Git revision
-`9a65849d886d5be499b2664e2b653c3983fab06e`, path
-`calculations/ICMSEP2026/conference/paper_1/isolated-band/`, Git tree
-`418999a90efa3001d2e50a2e7912f126bc30903f`, with historical `input.json`,
-`result.json`, `verification.json`, and `SHA256SUMS` SHA-256 digests retained in each
-successor run's `provenance.json`. Historical files are not modified.
+`executions/direct-finite-reduction-n64/` is the only live execution. It is a local
+deterministic Python calculation with recorded dirty-worktree qualification and remains
+explicitly unsealed. Its result and verification SHA-256 values are:
+
+- result: `83d25e824a0aedf085e77e86a998c02a17d4a51c320375b0bfb395986dae3fe6`;
+- verification: `61553c16636efc39452706006dc480b827c2f2d04f3e318e02e3c2eec4f24664`.
+
+Predecessor run artifacts are absent from the live tree.

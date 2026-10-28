@@ -7,13 +7,16 @@ representations, and finite-range hopping descriptions be calculated, independen
 checked, and presented without confusing their state spaces, gauges, numerical errors,
 or scientific families?
 
-This Architecture v3 surface is a **prospective rewrite plan**. It does not claim that
-the target source modules, direct calculation stages, wire contracts, verification
-inventories, or rendering inventories already exist. The implemented
-`ksdft2effmass.periodic1d` package remains the supported M1--M3 surface until each
-consumer and retained contract is migrated through a reviewed slice.
+This Architecture v3 surface is an **active family-by-family rewrite**. Phase 1 is
+implemented: Mathieu1D has typed source records, direct calculation stages, a byte-owning
+verifier, authenticated rendering, and one retained unsealed execution. Its predecessor
+runtime and artifact contracts are absent from the live tree. The other seven studies
+remain prospective until each source owner, consumer, and retained contract is migrated
+through a reviewed slice. Existing `ksdft2effmass.periodic1d` imports remain supported
+only for those not-yet-migrated families.
 
-The rewrite adopts the behavioral structure demonstrated by PIAB1D and QHO1D:
+The rewrite adopts the behavioral structure demonstrated by PIAB1D and QHO1D and now
+implemented directly by Mathieu1D:
 
 ```text
 Python-authored typed configuration
@@ -47,7 +50,7 @@ Neighboring owners remain distinct:
 | Owner | Responsibility |
 |---|---|
 | `ksdft2effmass.model_systems.periodic_1d` | Unit-aware finite Fourier potentials and plane-wave or periodic finite-difference fiber construction. |
-| `ksdft2effmass.model_systems.mathieu1d` | The concrete Mathieu1D parent and its own direct vertical slice. |
+| [`ksdft2effmass.model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) | The concrete implemented Mathieu1D parent and its own direct vertical slice. |
 | `ksdft2effmass.solidstate` | Lattices, reciprocal paths, sewing, frames, gauge alignment, hopping transforms, and Wilson-loop behavior. |
 | `ksdft2effmass.operators` and `ksdft2effmass.analysis` | Representation-independent operator values and reusable analyses. |
 | `projectkoios.physkit` | Reusable lattice primitives, quantities, canonical represented linear algebra, and matrix norms. |
@@ -64,7 +67,7 @@ status, or conclusions:
 
 | Study | Distinguishing question | Architecture disposition |
 |---|---|---|
-| 1. Mathieu1D single-band Fourier reduction | How do two finite parent representations support one scalar retained-band reduction? | Concrete `model_systems.mathieu1d` vertical slice and `calculations/mathieu1d/`; not the rank-one specialization below. |
+| 1. Mathieu1D single-band Fourier reduction | How do two finite parent representations support one scalar retained-band reduction? | Implemented [`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) vertical slice and `calculations/mathieu1d/`; not the rank-one specialization below. |
 | 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Separate calculation under `calculations/periodic1d/rank1/fourier-locality/`. |
 | 3. Rank-two band equivalence versus hopping locality | Can analytically or certifiably band-equivalent represented Hamiltonians have different finite-range locality? | Separate typed source child and calculation owner. |
 | 4. Rank-two composite-band alignment and locality | How do declared pointwise or global alignment choices affect block hoppings and diagnostics? | Separate typed source child and calculation owner. |
@@ -96,7 +99,7 @@ searchable provenance aliases; they are not names for new studies or a version c
 - Rendering consumes only a passing verification and its authenticated typed projection.
 - Calculation scripts use direct module-scope composition and contain no Workflow,
   `main()`, argument parser, JSON-authored scientific input, or reusable kernel.
-- Historical evidence bytes and paths are not rewritten to match the successor layout.
+- Historical bytes are not rewritten into successor wires; retired predecessor payloads remain recoverable only through recorded Git identities.
 - Passing software and bounded numerical checks do not establish continuum convergence,
   uncertainty quantification, material validity, publication acceptance, or release.
 

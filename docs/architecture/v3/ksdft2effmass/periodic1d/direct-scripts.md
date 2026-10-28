@@ -203,8 +203,10 @@ been written. No incomplete path remains after success.
 
 ## Study-specific class bindings
 
-The implementation slices finalize these prospective concrete bindings. Names may be
-refined before they become public, but no generic Periodic1D aggregate replaces them.
+Mathieu1D has finalized the first concrete binding; its source contract is documented at
+[`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md). Later implementation
+slices finalize the remaining prospective bindings. Those names may be refined before
+they become public, but no generic Periodic1D aggregate replaces them.
 
 | Study | Configuration/analyzer/result prefix | Verification prefix | Visualization prefix |
 |---|---|---|---|

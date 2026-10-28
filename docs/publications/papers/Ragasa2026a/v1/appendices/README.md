@@ -18,7 +18,7 @@ Supplementary Appendix S1 defines the invariant orbit loss, frame-dependent exce
 state-space-mismatch outcome, and the precise relation to the Wannier spread
 decomposition. Supplementary Appendix S2 records the immutable successor controls,
 parent-representation diagnostics, construction/evaluation roles, finite-range results,
-independent verification, exact predecessor binding, and evidence exclusions.
+independent verification, direct artifact binding, and evidence exclusions.
 Supplementary Appendix S3 records
 the gapped rank-two parent, periodic gauge attack, separate pointwise and global-unitary
 alignment channels, gauge-resolved block-hopping locality, disjoint withheld checks, and

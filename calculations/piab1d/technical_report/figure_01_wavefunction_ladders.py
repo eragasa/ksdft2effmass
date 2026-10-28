@@ -3,17 +3,18 @@
 
 from __future__ import annotations
 
-import json
+import hashlib
+from collections.abc import Mapping
 from pathlib import Path
-from typing import cast
 
 import matplotlib.pyplot as plt
 import numpy as np
-from ksdft2effmass.model_systems.piab1d import Piab1dResultVerifier
 
-type JsonValue = (
-    None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
+from ksdft2effmass.model_systems.piab1d import (
+    Piab1dCalculationResult,
+    Piab1dVerification,
 )
+from ksdft2effmass.serialization import TypedJsonValueCodec
 
 
 def style_axis(axis: plt.Axes) -> None:
@@ -56,31 +57,18 @@ def continuum_ladder(output: Path) -> None:
     plt.close(figure)
 
 
-def discrete_ladder(output: Path, result_path: Path) -> None:
+def discrete_ladder(output: Path, result: Piab1dCalculationResult) -> None:
     """Plot retained quadrature-normalized amplitudes from verified evidence."""
-    payload = cast(
-        dict[str, JsonValue],
-        json.loads(result_path.read_text(encoding="utf-8")),
+    total_points = result.configuration.interior_points + 2
+    spacing = result.configuration.length / (total_points - 1)
+    coordinates = spacing * np.arange(1, total_points - 1, dtype=np.float64)
+    plotted_coordinates = np.concatenate(
+        ((0.0,), coordinates, (result.configuration.length,))
     )
-    quadrature = cast(dict[str, JsonValue], payload["quadrature"])
-    if quadrature.get("enabled") is not True:
-        raise ValueError("the report requires enabled quadrature evidence")
-    interval = np.asarray(quadrature["interval"], dtype=np.float64)
-    spacing = float(cast(float, quadrature["spacing"]))
-    node_indices = np.asarray(
-        quadrature["interior_full_grid_indices"],
-        dtype=np.float64,
-    )
-    coordinates = interval[0] + node_indices * spacing
-    plotted_coordinates = np.concatenate(([interval[0]], coordinates, [interval[1]]))
-    matrices = cast(dict[str, JsonValue], payload["matrices"])
-    nodal_amplitudes = np.asarray(
-        matrices["retained_nodal_amplitudes_quadrature_normalized"],
-        dtype=np.float64,
-    )
-    spectra = cast(dict[str, JsonValue], payload["spectra"])
-    energies = np.asarray(spectra["computed_discrete"], dtype=np.float64)
-    total_points = node_indices.size + 2
+    nodal_amplitudes = result.eigensystem.matrix(
+        "quadrature_normalized"
+    ).magnitude[:, : result.configuration.retained_dimension]
+    energies = result.eigensystem.vector("computed_discrete").magnitude
     colors = ("#0072B2", "#D55E00", "#009E73")
     figure, axis = plt.subplots(figsize=(5.2, 5.0), constrained_layout=True)
     amplitude_scale = 2.4
@@ -121,13 +109,26 @@ def discrete_ladder(output: Path, result_path: Path) -> None:
 def main() -> int:
     """Generate both Figure 1 panels beside the report source."""
     root = Path(__file__).resolve().parent
-    repository_root = root.parents[2]
-    result_path = root.parent / "result.json"
-    Piab1dResultVerifier().execute(result_path, repository_root)
+    execution = root.parent / "executions" / "direct-core-n8-m3"
+    result_bytes = (execution / "results" / "result.json").read_bytes()
+    verification_document = TypedJsonValueCodec().deserialize_bytes(
+        (execution / "verification" / "verification.json").read_bytes()
+    )
+    if not isinstance(verification_document, Mapping):
+        raise TypeError("verification document must decode to a mapping")
+    verification_value = verification_document.get("verification")
+    if not isinstance(verification_value, Mapping):
+        raise TypeError("verification aggregate must decode to a mapping")
+    verification = Piab1dVerification.from_dict(verification_value)
+    if not verification.passed:
+        raise ValueError("the report requires passing typed verification")
+    if verification.subject_sha256 != hashlib.sha256(result_bytes).hexdigest():
+        raise ValueError("verification does not authenticate the direct result bytes")
+    result = Piab1dCalculationResult.from_json(result_bytes)
     continuum_ladder(root / "figure_01a_continuum_wavefunction_ladder.png")
     discrete_ladder(
         root / "figure_01b_discrete_wavefunction_ladder.png",
-        result_path,
+        result,
     )
     return 0
 

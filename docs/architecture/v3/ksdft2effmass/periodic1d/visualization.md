@@ -21,9 +21,9 @@ reimplement plot behavior.
 
 The expected destinations are:
 
-| Study | Prospective source destination |
+| Study | Source destination or prospective destination |
 |---|---|
-| Mathieu1D | `ksdft2effmass.model_systems.mathieu1d.visualization` |
+| Mathieu1D | Implemented by `ksdft2effmass.model_systems.mathieu1d.visualization` |
 | Compatible rank-one control | `ksdft2effmass.periodic1d.fourier_locality.visualization` |
 | Rank-two band equivalence | `ksdft2effmass.periodic1d.band_equivalence_locality.visualization` |
 | Rank-two composite alignment | `ksdft2effmass.periodic1d.composite_band_alignment.visualization` |
@@ -32,8 +32,9 @@ The expected destinations are:
 | Threshold sensitivity | `ksdft2effmass.periodic1d.admissible_sets.threshold_sensitivity_visualization` |
 | Higher-rank composite alignment | A cohesive higher-rank source owner selected in Phase 5 after its reusable behavior is established; no placeholder package is created by this plan. |
 
-These module paths are prospective and become supported only in their implementation
-slices. There is no generic `Periodic1DVisualizationData`, universal Periodic1D plot
+The Mathieu1D path is implemented and documented under
+[`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md). The other destinations
+are prospective and become supported only in their implementation slices. There is no generic `Periodic1DVisualizationData`, universal Periodic1D plot
 enum, or compatibility facade.
 
 After all eight sections have implemented source owners, public API documentation, and
@@ -75,35 +76,22 @@ proof, scientific acceptance, or additional evidence.
   report outputs unless a family explicitly admits them into a separate closed
   inventory.
 
-## 1. Mathieu1D direct vertical slice
+## 1. Mathieu1D direct vertical slice — migrated
 
-### Baseline
+The runtime contract now belongs to
+`ksdft2effmass.model_systems.mathieu1d.visualization`; this temporary page no longer owns
+its projection fields or plot composition. The closed native inventory contains
+`mathieu1d-finite-reduction.png` and `mathieu1d-publication-summary.png`. Concrete typed
+projection, plot, subplot, figure, renderer, plot-enum, and authenticated visualizer
+classes own both layouts. The complete view has four recorded panels: finite
+representation refinement, the ordered finite evaluation inventory, complete
+finite-transform hopping magnitudes, and range-indexed diagnostics. The compact
+publication view reuses only authenticated range errors and omitted-block norms; it
+derives no additional scientific values.
 
-`mathieu1d-finite-reduction.png`, three panels:
-
-1. **Finite parent and retained band** — reduced momentum versus energy divided by the
-   declared energy reference. Overlay plane-wave and finite-difference selected-band
-   samples, complete retained reconstruction, and faint neighboring represented bands
-   only where needed to show the sampled direct gap. Construction and withheld points
-   use distinct markers.
-2. **Complete hopping coefficients** — centered finite cell representative versus
-   `|t_R| / E_ref` on a logarithmic scale, with declared support boundaries.
-3. **Finite-support consequences** — declared support identifier versus authenticated
-   withheld-mesh error. Transform truncation and direct-fit routes remain separate;
-   prespecified thresholds and an actual first-passing member are shown only when they
-   exist.
-
-### Certificate supplement
-
-`mathieu1d-certificate-obligations.png` displays interval whiskers for reconstruction,
-Parseval, Hermitian pairing, and support-completeness obligations against exact bounds,
-plus an `accepted`/`rejected`/`unresolved` status strip. It does not present sampled band
-isolation as a formal conclusion unless a separate checked proposition covers it.
-
-### Excluded
-
-No continuum-convergence curve, fitted rate, uncertainty band inferred from parent-route
-differences, or suggestion that a sampled gap proves continuum isolation.
+The implementation emits no certificate supplement because no certificate export or
+checker result is admitted. It draws no continuum-convergence rate, inferred uncertainty
+band, smooth feasibility region, or claim that a sampled gap proves continuum isolation.
 
 ## 2. Compatible rank-one Fourier-locality control
 

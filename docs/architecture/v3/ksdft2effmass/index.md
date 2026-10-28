@@ -24,9 +24,11 @@ or supported import already exists.
   calculate, verify, and render vertical slice.
 - [`model_systems/qho1d`](model_systems/qho1d/index.md): the typed QHO1D spatial-
   truncation calculate, verify, and render vertical slice.
-- [`periodic1d`](periodic1d/index.md): the prospective family-by-family rewrite of
+- [`model_systems/mathieu1d`](model_systems/mathieu1d/index.md): the direct typed
+  Mathieu1D finite-parent, Fourier-reduction, verification, and rendering vertical slice.
+- [`periodic1d`](periodic1d/index.md): the active family-by-family rewrite of
   one-dimensional periodic calculation, byte-owning verification, and authenticated
-  rendering in the PIAB1D/QHO1D architectural style.
+  rendering; Mathieu1D is implemented and the other seven studies remain prospective.
 
 Only touched source areas are mirrored in this tranche. Absence from this directory is
 not an ownership reassignment.

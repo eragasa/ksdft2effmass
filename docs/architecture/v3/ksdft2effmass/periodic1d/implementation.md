@@ -2,8 +2,13 @@
 
 ## Current boundary
 
-The implemented `ksdft2effmass.periodic1d` package contains three retained-generation
-surfaces:
+Phase 1 is implemented outside the retained-generation package:
+[`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) owns the direct typed
+Mathieu1D vertical slice and `calculations/mathieu1d/` owns its direct scripts and sole
+live unsealed execution.
+
+The implemented `ksdft2effmass.periodic1d` package still contains three
+retained-generation surfaces for the remaining migrations:
 
 ```text
 periodic1d/
@@ -15,7 +20,7 @@ periodic1d/
 
 Each child already has frozen definitions and results, a producer, a serializer, and an
 independent numerical verifier. Those are real supported contracts, but they predate the
-PIAB1D/QHO1D direct architecture in four important respects:
+PIAB1D/QHO1D/Mathieu1D direct architecture in four important respects:
 
 1. result serializers are family-local rather than shared typed-record boundaries;
 2. verifiers accept reconstructed result objects rather than owning original wire bytes;
@@ -97,7 +102,7 @@ separate cases rather than being pooled as repeated estimates of one value.
 
 ## Byte-owning independent verification
 
-Each successor verifier uses the same admission rule as PIAB1D and QHO1D:
+Each successor verifier uses the same admission rule as PIAB1D, QHO1D, and Mathieu1D:
 
 1. require the exact result wire as built-in immutable `bytes`;
 2. hash those exact bytes internally;
@@ -149,14 +154,14 @@ run_01_calculation.py → run_02_verification.py → run_03_render.py
 ```
 
 The [direct run-script template](direct-scripts.md) is derived from the implemented
-PIAB1D and QHO1D adapters. The scripts resolve paths from their own location, execute at
+PIAB1D, QHO1D, and Mathieu1D adapters. The scripts resolve paths from their own location, execute at
 module scope, contain no functions, Workflow, `main()`, parser, custom JSON transport, or
 `.tolist()`, refuse to overwrite final or incomplete stage paths, authenticate exact
 bytes between stages, and retain incomplete or failed outcomes honestly. Reusable
 behavior remains in `python/src/ksdft2effmass/`.
 
 The initial rewrite may retain unsealed executions with an explicit `UNSEALED.md`, as
-PIAB1D and QHO1D do. `run_04_seal.py`, package verification, evidence promotion, and
+PIAB1D, QHO1D, and Mathieu1D do. `run_04_seal.py`, package verification, evidence promotion, and
 retained execution creation remain separate reviewed and authorized scopes.
 
 ## Predecessor disposition

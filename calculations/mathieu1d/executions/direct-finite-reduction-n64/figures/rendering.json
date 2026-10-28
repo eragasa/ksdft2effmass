@@ -1,0 +1,39 @@
+{
+  "calculation_family": "mathieu1d-finite-reduction",
+  "claim_boundary": "Presentation derived only from independently verified finite Mathieu1D values; not new evidence, continuum convergence, uncertainty quantification, material validation, publication acceptance, or evidence sealing.",
+  "evidence_status": "illustrative numerical experiment",
+  "execution_id": "direct-finite-reduction-n64",
+  "figures": {
+    "mathieu1d-finite-reduction.png": {
+      "media_type": "image/png",
+      "sha256": "de0ae08bd6e4c16afee074b14a73be2a7efbfa133044fc08ee75492238886b7e"
+    },
+    "mathieu1d-publication-summary.png": {
+      "media_type": "image/png",
+      "sha256": "243722cfd538943dce572b32b1104e587371d88b59d13181c369ccfdac7d6c6c"
+    }
+  },
+  "outcome": "completed",
+  "result_path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/results/result.json",
+  "result_sha256": "83d25e824a0aedf085e77e86a998c02a17d4a51c320375b0bfb395986dae3fe6",
+  "runtime": {
+    "matplotlib_backend": "Agg",
+    "matplotlib_version": "3.11.1",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6"
+  },
+  "schema": "ksdft2effmass.mathieu1d-rendering.direct.v1",
+  "script_path": "calculations/mathieu1d/run_03_render.py",
+  "script_sha256": "5f144870efa58ce1ef04a812fb876a420a8692d1b4046bae0989405b71eecb86",
+  "technical_report": {
+    "README.md": "1a5dad67b17f3c7eba9defc90b9bcd00f90074883d1765470063952ab9a768f7",
+    "mathieu1d-finite-reduction.png": "de0ae08bd6e4c16afee074b14a73be2a7efbfa133044fc08ee75492238886b7e",
+    "mathieu1d-publication-summary.png": "243722cfd538943dce572b32b1104e587371d88b59d13181c369ccfdac7d6c6c",
+    "technical-report.pdf": "ee5fde28270bc183df18175f8abd3b916a74351993ee44af639c4076abfd7416",
+    "technical-report.tex": "71fb7813bf36be7a4bbe0eabbdd2280a6bbb187c895c93b02b9713cf8ae25e5b"
+  },
+  "verification_path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/verification/verification.json",
+  "verification_sha256": "61553c16636efc39452706006dc480b827c2f2d04f3e318e02e3c2eec4f24664",
+  "visualizer_source_path": "python/src/ksdft2effmass/model_systems/mathieu1d/visualization.py",
+  "visualizer_source_sha256": "bc40985a0fea1ca8989bdb5d97be78d09106f6fe16114d77912276bb4e1bf1e6"
+}

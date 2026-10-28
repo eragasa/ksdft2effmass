@@ -51,22 +51,24 @@ The three similarly named source areas have different roles:
 There is no top-level `campaigns/` source tree. In repository documentation,
 “campaign library” means `python/src/ksdft2effmass/campaigns/`.
 
-The QHO1D and PIAB1D vertical slices are owned directly by
-`model_systems/qho1d/` and `model_systems/piab1d/`. Both successors use typed root
-records, independent reference analyzers, and authenticated visualization data. The
+The QHO1D, PIAB1D, and Mathieu1D vertical slices are owned directly by
+`model_systems/qho1d/`, `model_systems/piab1d/`, and `model_systems/mathieu1d/`. All
+three successors use typed root records, independent reference analyzers, and
+authenticated visualization data. The
 [Periodic1D rewrite plan](ksdft2effmass/periodic1d/index.md) adopts those behavioral
 boundaries family by family while keeping scalar, composite, admissible-set, and
 higher-rank scientific families separate. QHO1D's
-former JSON-authored `study/` predecessor was removed after migration; PIAB1D retains
-its own historical study contracts. `model_systems/study/base.py` defines the nominal
-identity boundary still consumed by retained non-QHO serializers. `QHO1D` and `Piab1d`
-are intentionally dimension-specific names; a plain `QHO` or `PIAB` owner is reserved
-for a future implementation with a reviewed dimension-neutral contract. The QHO1D and
-PIAB1D composition roots are consolidated under `calculations/qho1d/` and
-`calculations/piab1d/`. Both implement direct calculate → verify → render successors;
-PIAB1D additionally retains its historical flat calculation surface. Each calculation
-owner also owns its paths, provenance, verification composition, plots, and technical
-report. The former top-level `campaigns/qho1d/` and `campaigns/piab1d/` packages are not
+former JSON-authored `study/` predecessor was removed after migration; Mathieu1D's
+installed `study/`, calculation-local package, predecessor runs, input, and schemas were
+also retired after direct replacement; and PIAB1D's flat wires, installed `study/`,
+custom adapters, duplicate report, predecessor tests, and now-orphaned generic study base
+were removed after a separate compatibility audit. `QHO1D` and `Piab1d` are
+intentionally dimension-specific names; a plain `QHO` or `PIAB` owner is reserved for a
+future implementation with a reviewed dimension-neutral contract. The QHO1D, PIAB1D,
+and Mathieu1D composition roots are consolidated under `calculations/qho1d/`,
+`calculations/piab1d/`, and `calculations/mathieu1d/`. All three implement direct
+calculate → verify → render successors. Each calculation owner also owns its paths,
+provenance, verification composition, plots, and technical report. The former top-level `campaigns/qho1d/` and `campaigns/piab1d/` packages are not
 retained as compatibility facades. Reusable finite-operator analyses live under
 `analysis/operators/`. Research-monograph documentation points to the canonical
 calculation rather than owning another implementation or calculation tree. The

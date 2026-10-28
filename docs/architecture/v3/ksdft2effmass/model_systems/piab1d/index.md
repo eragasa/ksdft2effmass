@@ -63,8 +63,10 @@ model_systems/piab1d/
         └── verifier.py
 ```
 
-The neighboring `study/` package supports exact historical retained-result contracts.
-It does not own the direct successor design.
+The former neighboring `study/` package, generic study base, flat predecessor wires,
+custom adapters, duplicate report, and predecessor-only tests were removed after the
+direct replacement. The [legacy disposition](legacy-disposition.md) records exact Git
+recovery identities and the retained direct boundary.
 
 ## Architectural invariants
 
@@ -87,3 +89,4 @@ It does not own the direct successor design.
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)
 - [Schematics](schematics.md)
+- [Legacy disposition](legacy-disposition.md)

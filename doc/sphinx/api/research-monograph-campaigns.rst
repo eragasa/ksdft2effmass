@@ -1272,29 +1272,16 @@ evidence; research-monograph documentation points to that canonical calculation.
 
 .. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-The Appendix D core residual study deserializes its retained version-one input,
-composes the public one-dimensional box and represented-operator contracts, preserves
-the historical numerical JSON payload, and verifies retained or newly authored
-provenance without importing the implementation under verification. Its historical
-study layout remains owned by PIAB1D and does not imply a QHO1D compatibility surface.
+The Appendix D calculation uses the direct typed configuration, calculation-result,
+byte-owning verification, and authenticated rendering boundary. The former version-one
+``study`` package and flat predecessor wires were removed after replacement; their
+recovery identities are recorded in
+``docs/architecture/v3/ksdft2effmass/model_systems/piab1d/legacy-disposition.md``.
 
-.. autoclass:: Piab1dStudyDefinition
-   :members:
-
-.. autoclass:: Piab1dResidualStudyResult
-   :members:
-
-.. autoclass:: Piab1dStudyInputDeserializer
-   :members:
-
-.. autoclass:: Piab1dResidualStudyEvaluator
-   :members:
-
-.. autoclass:: Piab1dStudyResultSerializer
-   :members:
-
-.. autoclass:: Piab1dResultVerifier
-   :members:
+The reusable contracts are :class:`Piab1dConfiguration`,
+:class:`Piab1dCalculationResult`, :class:`Piab1dAnalyzer`, and
+:class:`Piab1dVerifier`. Their complete API is documented under the model-system
+reference rather than duplicated on this campaign boundary.
 
 Reusable eigenpair diagnostics, kinetic-potential decomposition, and model-class
 fitting are finite-operator analyses. They contain no retained file paths, provenance

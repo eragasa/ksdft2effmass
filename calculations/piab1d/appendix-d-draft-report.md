@@ -149,7 +149,7 @@ For the retained $N=8$, $M=3$ calculation, the numerical checks were:
 These are binary64 numerical-verification diagnostics. They do not establish a
 physical interpretation.
 
-![The three retained states and the finite and continuum spectra](spectrum-and-states.png)
+![The three retained states and the finite and continuum spectra](executions/direct-core-n8-m3/figures/spectrum-and-states.png)
 
 ## 4. Three inequivalent residual constructions
 
@@ -215,7 +215,7 @@ contains two corner couplings. At $N=8$, its Frobenius norm is $57.276$. This is
 a finite boundary-realization difference relative to the declared cyclic
 reference. It is not a representation-independent continuum potential.
 
-![The three residual matrices](residual-matrices.png)
+![The three residual matrices](executions/direct-core-n8-m3/figures/residual-matrices.png)
 
 The comparison establishes that identical subtraction syntax can produce a
 physical zero potential, a discarded kinetic sector, or a boundary-reference
@@ -254,7 +254,7 @@ The final observed orders were 1.99998, 1.99991, and 1.99981 for
 $n=1,2,3$, respectively. This is the expected second-order behavior for fixed
 resolved modes.
 
-![Fixed low-mode convergence](convergence-series.png)
+![Fixed low-mode convergence](executions/direct-core-n8-m3/figures/convergence-series.png)
 
 ### 5.2 Fixed higher modes
 
@@ -271,7 +271,7 @@ The initial points are under-resolved and pre-asymptotic. Each fixed mode moves
 toward second-order behavior as the number of grid points per wavelength
 increases.
 
-![Fixed higher-mode convergence](higher-mode-convergence.png)
+![Fixed higher-mode convergence](executions/direct-core-n8-m3/figures/higher-mode-convergence.png)
 
 ## 6. Full-spectrum eigenpair sweep
 
@@ -305,7 +305,7 @@ $7.14\times10^{-16}$ at $N=256$. These values show that the discrete eigenpairs
 were solved accurately and that the discrete sine vectors agree at the grid
 nodes. They do not measure the error of an interpolated continuum wavefunction.
 
-![Full-spectrum eigenvalue dispersion and nodal overlap](higher-eigenpair-sweep.png)
+![Full-spectrum eigenvalue dispersion and nodal overlap](executions/direct-core-n8-m3/figures/higher-eigenpair-sweep.png)
 
 ## 7. Dependence on matrix norm
 
@@ -358,7 +358,7 @@ of the Hamiltonian scale. The maximum-entry ratio remains 0.5 in the declared
 grid basis. These statements are compatible because the norms answer different
 questions.
 
-![Raw and normalized operator residual norms](operator-residual-norms.png)
+![Raw and normalized operator residual norms](executions/direct-core-n8-m3/figures/operator-residual-norms.png)
 
 The full-eigensystem algebraic residual matrix
 
@@ -369,7 +369,7 @@ $$
 has same-grid norm ratios below $10^{-15}$ throughout the series. This is an
 eigensolver diagnostic only.
 
-![Algebraic eigensolver residual norms](eigensolver-residual-norms.png)
+![Algebraic eigensolver residual norms](executions/direct-core-n8-m3/figures/eigensolver-residual-norms.png)
 
 ## 8. Residual identifiability
 
@@ -422,7 +422,7 @@ problem begins only after locality, range, symmetry, differential form,
 parameter sharing, transferability, or another admissible structure has been
 specified.
 
-![Illustrative decomposition shift and model-class fits](identifiability-model-classes.png)
+![Illustrative decomposition shift and model-class fits](executions/direct-core-n8-m3/figures/kinetic-potential-decomposition.png)
 
 ## 10. What the combined study establishes
 
@@ -466,16 +466,15 @@ been declared.
 
 ## 12. Reproduction and retained evidence
 
-The exact commands are recorded in `README.md`. The retained evidence consists
+The exact direct commands are recorded in `README.md`. The retained execution consists
 of:
 
-- frozen JSON inputs;
-- standalone calculation scripts;
-- independent verification scripts;
-- retained JSON results;
-- calculated graphics;
-- Python, NumPy, floating-point, and eigensolver identities; and
-- `SHA256SUMS` covering every maintained experiment artifact.
+- one typed calculation configuration embedded in the exact result wire;
+- separate calculation, independent-verification, and authenticated-render scripts;
+- one typed calculation result and byte-owning 79-comparison verification aggregate;
+- authenticated calculated graphics and their rendering manifest; and
+- a development-provenance inventory with source, dependency, runtime, floating-point,
+  eigensolver, path, and SHA-256 identities.
 
 Passing verification establishes agreement with the stated finite mathematics
 and analytical oracles. It does not provide scientific validation or human

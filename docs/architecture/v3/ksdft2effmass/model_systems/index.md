@@ -3,14 +3,14 @@
 ## Purpose
 
 The shared model-system layer owns reusable lifecycle behavior without erasing the
-physical and numerical distinctions among model systems. PIAB1D and QHO1D remain
-separate scientific owners; they share typed boundaries, verification sequencing, and
-presentation mechanics only where that behavior has the same meaning.
+physical and numerical distinctions among model systems. PIAB1D, QHO1D, and Mathieu1D
+remain separate scientific owners; they share typed boundaries, verification sequencing,
+and presentation mechanics only where that behavior has the same meaning.
 
 ## Common typed lifecycle
 
-PIAB1D and QHO1D configurations and results remain concrete model-owned records with
-their exact fields, units, shapes, correlations, and wire layouts. The shared layer
+PIAB1D, QHO1D, and Mathieu1D configurations and results remain concrete model-owned
+records with their exact fields, units, shapes, correlations, and wire layouts. The shared layer
 begins only where behavior is genuinely identical.
 
 `BaseModelAnalysisVerifier` owns the common subject boundary:
@@ -26,12 +26,12 @@ begins only where behavior is genuinely identical.
 
 `BaseModelAnalysisVerification` owns digest validation, global observation-name
 uniqueness, pass reduction, flattened value and tolerance reporting, and access to the
-authenticated projection digest. Concrete aggregates retain their component
-inventories and wire layouts, including the retained QHO1D layout.
+authenticated projection digest. Concrete aggregates retain their component inventories and wire layouts, including the
+retained QHO1D layout and Mathieu1D's two-component, 873-comparison aggregate.
 
 The shared layer does not implement scientific references, comparison inventories,
-tolerances, acceptance policy, or a nominal analyzer type. PIAB1D and QHO1D analyzers
-remain concrete because their executed operations have different signatures.
+tolerances, acceptance policy, or a nominal analyzer type. PIAB1D, QHO1D, and Mathieu1D
+analyzers remain concrete because their executed operations have different signatures.
 
 ## Flexible visualization composition
 
@@ -89,3 +89,4 @@ universal periodic result record.
 
 - [PIAB1D](piab1d/index.md)
 - [QHO1D](qho1d/index.md)
+- [Mathieu1D](mathieu1d/index.md)

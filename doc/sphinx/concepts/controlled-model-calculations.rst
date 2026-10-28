@@ -160,9 +160,9 @@ Residual experiment
 
 .. currentmodule:: ksdft2effmass.model_systems.piab1d
 
-:class:`Piab1dResidualStudyEvaluator` selects the lowest spectral subspace
-with orthonormal basis :math:`U`, projector :math:`P=UU^{\mathsf T}`, and complement
-:math:`Q=I-P`.  It keeps three differences separate:
+:class:`Piab1dAnalyzer` selects the lowest spectral subspace with orthonormal basis
+:math:`U`, projector :math:`P=UU^{\mathsf T}`, and complement :math:`Q=I-P`. It stores
+three differences separately in the typed direct result:
 
 .. math::
 
@@ -182,53 +182,32 @@ potential.
 Auxiliary campaigns
 ~~~~~~~~~~~~~~~~~~~
 
-The particle-in-a-box directory contains four additional bounded monograph campaigns.
-Their reusable numerical operations come from source-neutral analysis and operator
-tools; the campaign classes own retained composition and provenance.
+The typed :class:`Piab1dCalculationResult` also stores four bounded monograph analyses:
+fixed-mode refinement, complete-spectrum and higher-mode diagnostics, raw and
+same-grid-normalized residual norms, and two exact decompositions with nested
+least-Frobenius model-class fits. :class:`Piab1dVerifier` reconstructs these values
+independently of :class:`Piab1dAnalyzer`; :class:`Piab1dVisualizer` renders only an
+authenticated passing projection.
 
-.. list-table::
-   :header-rows: 1
-   :widths: 28 72
-
-   * - Owner
-     - Represented calculation
-   * - ``calculations/piab1d/analysis/convergence.py``
-     - Fixed-mode continuum energy errors and observed refinement orders over an
-       increasing grid sequence.  Raw residual norms from different finite spaces are
-       retained only as within-grid diagnostics.
-   * - ``calculations/piab1d/analysis/eigenpair_sweep.py``
-     - Complete finite spectra, higher fixed modes, modes whose indices grow with grid
-       dimension, nodal eigenvector overlap, and scaled algebraic residuals.
-   * - ``calculations/piab1d/analysis/norm_sweep.py``
-     - Raw and same-grid-normalized Frobenius, spectral, and maximum-entry residual
-       norms.  Maximum-entry results remain basis dependent.
-   * - ``calculations/piab1d/analysis/identifiability.py``
-     - Two exact decompositions of one retained Hamiltonian and least-Frobenius fits
-       of nested scalar, diagonal, real-symmetric tridiagonal, and unrestricted
-       real-symmetric model classes.
-
-These calculation adapters compose reusable objects from
-``ksdft2effmass.analysis.operators`` with calculation-local input, serialization, and
-provenance. The unrestricted identifiability fit is algebraically exact by
-construction. It does
-not identify a physical potential.  The restricted residuals depend on the declared
-basis, metric, and admissible model class.
+The unrestricted identifiability fit is algebraically exact by construction. It does
+not identify a physical potential. The restricted residuals depend on the declared
+basis, metric, and admissible model class. The former calculation-local campaign
+modules, flat version-one wires, and installed ``study`` package were removed after the
+direct replacement. Exact Git recovery identities are recorded in the Architecture v3
+PIAB1D legacy disposition.
 
 Serialization, provenance, and verification
 --------------------------------------------
 
-The retained calculations use closed version-one JSON inputs and canonical JSON
-outputs.  New outputs include repository-relative input and runner paths, SHA-256
-identities, implementation-source identities, Python and NumPy versions, the binary64
-representation, and the declared eigensolver where applicable.  Paths supplied to
-campaign workflows must resolve beneath the explicit repository root.
+The direct controlled-model calculations write typed canonical JSON results,
+byte-owning independent verification aggregates, authenticated visualization
+projections, and development-provenance records. Outputs include repository-relative
+paths, SHA-256 identities, implementation-source identities, runtime versions, the
+binary64 representation, and the declared eigensolver where applicable.
 
-The independent result verifiers decode the retained representation and reconstruct
-analytic or algebraic checks without treating the serializer as the oracle.  A
-passing verifier establishes only the verifier's declared finite software or
-numerical requirements.  It does not establish physical model adequacy, semiconductor
-validation, transferability, or uncertainty quantification.
-
-The checksum catalogs bind the maintained calculation artifacts as a set.  They do
-not replace the semantic verifiers, and a successful semantic verifier does not
-replace checksum agreement.
+The independent result verifiers admit exact immutable bytes and reconstruct analytic
+or algebraic checks without treating the production analyzer or serializer as the
+oracle. A passing verifier establishes only its declared finite software or numerical
+requirements. It does not establish physical model adequacy, semiconductor validation,
+transferability, or uncertainty quantification. Development-provenance inventories and
+semantic verification remain separate contracts.

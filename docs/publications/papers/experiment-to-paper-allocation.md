@@ -7,7 +7,7 @@ calculations remain distinct.
 
 | Experiment surface | Paper | Permitted publication role | Current boundary |
 |---|---|---|---|
-| `calculations/mathieu1d/` | Paper 1 (`Ragasa2026a`) | Retained scalar reduction-chain precursor in the supplement | Immutable v1 and a publication-facing retained synthetic run exist; the historical experiment donor was removed after exact-manifest review, and this evidence is not evidence for the active rank-two range-inflation claim |
+| `calculations/mathieu1d/` | Paper 1 (`Ragasa2026a`) | Retained scalar reduction-chain precursor in the supplement | The publication consumes only the retained unsealed direct execution and authenticated compact figure through exact v1/v3 manifests; predecessor run artifacts are absent from the live tree, and this scalar calculation is not evidence for the active rank-two range-inflation claim |
 | `calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/` | Paper 1 | Primary rank-two analytic and development calculation | Prospective protocol, analytic results, and bounded development diagnostics exist; no retained active-calculation run or evidence package exists |
 | `calculations/periodic1d/rank2/composite-band-alignment-locality/` | Paper 3 (`Ragasa2026c`) | Publication-independent rank-two successor to historical M2/M3 alignment controls | Protocol migrated to the calculation owner; no immutable version or maintained run |
 | `calculations/periodic1d/rankN/composite-band-alignment-locality/` | Paper 3 | Planned one-dimensional study of how retained-state count and basis-rotation depth affect hopping range | Development code and a complete calculation plan exist; no stable result format, independent full-result check, retained run, or evidence package exists |

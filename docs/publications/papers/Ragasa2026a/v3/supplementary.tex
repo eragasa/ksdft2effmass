@@ -709,16 +709,18 @@ The paper does not establish material validity, physical effective masses, unive
 \section{Retained scalar Fourier-reduction precursor}
 \label{sec:retained-scalar-precursor}
 
-A separate publication-independent experiment predates the active rank-two model-
-adequacy calculation:
+A separate publication-independent calculation predates the active rank-two model-
+adequacy calculation. Its live publication source is now the direct typed execution
 \begin{center}
 \small
-\path{ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1}\par
-\path{ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z}.
+\path{mathieu1d-finite-reduction}\par
+\path{direct-finite-reduction-n64}.
 \end{center}
-It is a retained local synthetic run with strict schemas, content-addressed evidence,
-independent direct-formula verification, and exact historical-channel parity. The
-cutoff-five plane-wave discrepancy is
+The exact artifact binding is recorded in \path{experiment-references.json}. This is a
+retained unsealed local synthetic execution with byte-owning independent verification
+and authenticated rendering. The values are recalculated by the direct implementation;
+no predecessor dataset is a runtime or figure input. The cutoff-five plane-wave
+discrepancy is
 $5.3113069498067489\times10^{-13}E_G$. The finite-difference discrepancies on 31- and
 255-point grids are $1.7532741974955801\times10^{-2}E_G$ and
 $2.5977169467195083\times10^{-4}E_G$, respectively. Complete transform reconstruction
@@ -731,11 +733,11 @@ $9.2157184661267877\times10^{-19}E_G^2$.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.96\textwidth]
-    {../../../../../calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png}
-  \caption{Retained one-dimensional single-band Fourier-reduction control. The panels
-  report finite-difference, plane-wave, Fourier-reconstruction, and finite-range
-  channels under the experiment's own versioned contract. This retained scalar evidence
-  is not an execution of the active rank-two model-adequacy protocol.}
+    {../../../../../calculations/mathieu1d/executions/direct-finite-reduction-n64/figures/mathieu1d-publication-summary.png}
+  \caption{Retained one-dimensional finite-range reduction control. The two panels
+  report the authenticated training/evaluation maximum errors and omitted-block norms
+  over the declared finite range inventory. This unsealed scalar calculation is not an
+  execution of the active rank-two model-adequacy protocol.}
   \label{fig:retained-single-band-precursor}
 \end{figure}
 

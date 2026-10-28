@@ -382,10 +382,10 @@ $1.753\times10^{-2}E_G$ at 31 points
 to $2.598\times10^{-4}E_G$ at 255 points. Supplementary Appendix S2 records the
 complete frozen sequences and their interpretation boundary.
 
-![One-dimensional controlled reduction.](../../../../../calculations/mathieu1d/runs/ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z/single-band-fourier-reduction-summary.png)
+![One-dimensional controlled reduction.](../../../../../calculations/mathieu1d/executions/direct-finite-reduction-n64/figures/mathieu1d-publication-summary.png)
 
-**Figure 1.** Frozen parent-representation refinement, complete hopping decay, and
-finite-range training/withheld maximum errors for the controlled 1D model.
+**Figure 1.** Authenticated finite-range training/evaluation maximum errors and
+omitted-block norms for the controlled 1D model.
 
 The complete 64-point transform reconstructs the represented lowest band within
 $4.17\times10^{-17}E_G$. The withheld maximum absolute error decreases from
@@ -400,9 +400,9 @@ uniform mesh and Fourier model class. Under those matched conditions, their larg
 coefficient defect over the frozen range sequence is $7.38\times10^{-17}E_G$, and the
 largest sampled maximum defect is $1.56\times10^{-16}E_G$. This is an algebraic
 control under one matched objective, not evidence that arbitrary reduction routes
-commute. Version `v1` exposes positive caller-supplied weights and caller-selected
-ranges, while this retained parity run deliberately uses the historical equal-weight
-controls. It contains no changed-weight, restricted-training, weak-potential,
+commute. The direct typed configuration exposes positive caller-supplied weights and
+caller-selected ranges, while this retained unsealed execution deliberately uses the
+historical equal-weight controls. It contains no changed-weight, restricted-training, weak-potential,
 gap-closure, or gauge stress attack; Supplementary Appendix S2 states these exclusions
 explicitly.
 
@@ -656,7 +656,7 @@ supports compatibility; failure to find one does not prove incompatibility.
 The principal controlled findings are the route, truncation, shell, and locality
 results. Complete representation changes can be verified independently of finite-range
 approximation; direct and mediated routes agree under the identical objectives retained
-by the publication-independent single-band successor without establishing a general
+by the publication-independent direct Mathieu1D calculation without establishing a general
 commuting-reduction claim; and gauge-equivalent
 spectra can correspond to substantially different localization and truncated operators. The minimal analytic example adds a bounded
 demonstration that the same reduced class can have an exact common witness under one
@@ -715,8 +715,8 @@ The appendices are maintained as separate planning and evidence files:
 ## Data and code availability
 
 The controlled-model protocols, retained result records, verification code, figures,
-and checksum manifests are maintained under the single-band successor referenced by
-`docs/publications/papers/Ragasa2026a/v1/experiment-references.json`,
+and exact artifact bindings are maintained under the direct Mathieu1D execution
+referenced by `docs/publications/papers/Ragasa2026a/v1/experiment-references.json`,
 `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/`,
 `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/`,
 `calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/`,

@@ -6,7 +6,6 @@ import importlib.util
 
 from ksdft2effmass.campaigns import research_monograph
 from ksdft2effmass.model_systems import qho1d
-from ksdft2effmass.model_systems.study import ModelId, ModelSystemStudySchemaId
 
 
 class TestQho1dLegacySurfaceRemoval:
@@ -47,7 +46,6 @@ class TestQho1dLegacySurfaceRemoval:
             importlib.util.find_spec("ksdft2effmass.model_systems.qho1d.study") is None
         )
 
-    def test_identity__former_study_enums__are_absent(self) -> None:
-        """Shared historical identity enums no longer advertise a QHO1D study."""
-        assert "qho1d" not in ModelId.__members__
-        assert "qho1d_v1" not in ModelSystemStudySchemaId.__members__
+    def test_import__orphaned_generic_study_package__is_absent(self) -> None:
+        """The shared predecessor base is removed after its final consumer."""
+        assert importlib.util.find_spec("ksdft2effmass.model_systems.study") is None

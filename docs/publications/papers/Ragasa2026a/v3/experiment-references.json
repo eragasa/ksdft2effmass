@@ -1,0 +1,52 @@
+{
+  "artifacts": {
+    "configuration_json": {
+      "path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/inputs/configuration.json",
+      "sha256": "cc1b1c2d61f764315700bd60f178c0bf013255821630dd11e9f52c42c914ca54"
+    },
+    "figure": {
+      "path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/figures/mathieu1d-publication-summary.png",
+      "sha256": "243722cfd538943dce572b32b1104e587371d88b59d13181c369ccfdac7d6c6c"
+    },
+    "rendering_json": {
+      "path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/figures/rendering.json",
+      "sha256": "05f02f3a07d8514df581b8380b47a8b259aec9df5184359ec586e850c496f97b"
+    },
+    "result_json": {
+      "path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/results/result.json",
+      "sha256": "83d25e824a0aedf085e77e86a998c02a17d4a51c320375b0bfb395986dae3fe6"
+    },
+    "technical_report_pdf": {
+      "path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/technical_report/technical-report.pdf",
+      "sha256": "ee5fde28270bc183df18175f8abd3b916a74351993ee44af639c4076abfd7416"
+    },
+    "verification_json": {
+      "path": "calculations/mathieu1d/executions/direct-finite-reduction-n64/verification/verification.json",
+      "sha256": "61553c16636efc39452706006dc480b827c2f2d04f3e318e02e3c2eec4f24664"
+    }
+  },
+  "calculation_family": "mathieu1d-finite-reduction",
+  "claim_boundary": "Illustrative finite-protocol numerical calculation with independent software and numerical verification; no continuum isolation certificate, universal range acceptance, uncertainty quantification, material validation, publication acceptance, evidence sealing, or release.",
+  "consumed_result_fields": [
+    "refinement.parent_reference_energies",
+    "refinement.plane_wave_maximum_errors",
+    "refinement.finite_difference_maximum_errors",
+    "bands.training_external_gap",
+    "bands.evaluation_external_gap",
+    "transform.hopping_blocks",
+    "transform.reconstruction_maximum_error",
+    "ranges"
+  ],
+  "evidence_status": "illustrative numerical experiment",
+  "execution_id": "direct-finite-reduction-n64",
+  "execution_path": "calculations/mathieu1d/executions/direct-finite-reduction-n64",
+  "publication_id": "ragasa2026a-v3-working-manuscript",
+  "repository": {
+    "execution_record": "calculations/mathieu1d/executions/direct-finite-reduction-n64/execution.json",
+    "execution_record_sha256": "37f899c066a47c1e9f9b1cbb802b05acea8bf44fc7aacf126f577d39e8a95415",
+    "git_head": "2ea109d5165366bc507d8900cf85a67de1a2bf73",
+    "git_worktree_state": "dirty"
+  },
+  "schema": "ksdft2effmass.publication.calculation-reference-manifest.v1",
+  "sealed": false
+}

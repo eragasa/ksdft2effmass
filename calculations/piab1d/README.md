@@ -7,14 +7,12 @@ Appendix D of the research monograph. It is not a software harness, public API,
 semiconductor calculation, scientific validation result, or uncertainty
 quantification study.
 
-`appendix-d-draft-report.md` is the experiment-level prose report and
-provisional Appendix D draft. `protocol.md` maps the manuscript's mathematical
-questions to retained evidence. `development_report/development_report.tex` is the
-calculation-owned report focused on spectral reduction, with its report-local BibTeX
-file at `development_report/references.bib`. The dated search protocol, screening
-criteria, evidence matrix, and bounded novelty assessment are retained in
-`development_report/prior_art_review.md`. The maintained LaTeX appendix remains the
-manuscript source of record.
+`appendix-d-draft-report.md` is the experiment-level prose report and provisional
+Appendix D draft. `protocol.md` maps the manuscript's mathematical questions to the
+direct retained execution. `technical_report/technical_report.tex` is the maintained
+calculation-owned report, and `technical_report/prior_art_review.md` retains the dated
+search protocol, screening criteria, evidence matrix, and bounded novelty assessment.
+The maintained research-monograph appendix remains the manuscript source of record.
 
 The standalone LaTeX source `appendix-d-draft.tex` renders the report with committed
 graphics. Build it with LuaLaTeX:
@@ -24,19 +22,10 @@ cd calculations/piab1d
 latexmk -lualatex -interaction=nonstopmode -halt-on-error appendix-d-draft.tex
 ```
 
-The selected `appendix-d-draft.pdf` is retained as a review snapshot.
-
-Compile the spectral-reduction report from `development_report/`:
-
-```bash
-cd calculations/piab1d/development_report
-latexmk -pdf -interaction=nonstopmode -halt-on-error development_report.tex
-```
-
-The selected `development_report/development_report.pdf` is also retained as a review
-snapshot. These PDFs and the maintained `technical_report/technical_report.pdf` are
-not retained calculation evidence unless separately reviewed and admitted to a
-checksum contract. LaTeX auxiliary products remain ignored.
+The selected `appendix-d-draft.pdf` is retained as a historical review snapshot. Build
+the maintained calculation report from `technical_report/` with `latexmk -pdf`. Neither PDF
+is retained calculation evidence unless separately reviewed and admitted to a checksum
+contract. LaTeX auxiliary products remain ignored.
 
 ## Successor directory structure
 
@@ -107,11 +96,13 @@ Optimization revision `2a18e485109e307b2f7928bd0418bcf796aeb0d5` and PhysKit
 revision `9c74ffa2fa0f40792117ccaa6c0bf0bcb0e70fe5`. PIAB1D matrix diagnostics
 consume only `projectkoios.physkit.linalg.matrix.norm`.
 
-The retained JSON results remain historical evidence and continue to record PhysKit
-revision `2aaa4ba5ff4c51f5c5068ac895ef4ec5de293439`. Their calculation-local Workflow
-producers have been removed from the maintained source surface. The retained result
-bytes have not been rewritten, and their recorded historical source identities remain
-the provenance locators for reproduction of those exact producers.
+The former flat JSON results, custom verifiers and plots, Workflow-era producers,
+calculation-local analysis package, installed `study/` package, and duplicate development
+report were retired after the direct lifecycle replaced their maintained behavior. Their
+exact bytes remain Git-recoverable through
+[`legacy-retirement.md`](legacy-retirement.md). The Architecture v3
+[legacy disposition](../../docs/architecture/v3/ksdft2effmass/model_systems/piab1d/legacy-disposition.md)
+consolidates the current ownership decision.
 
 The version-two core input enables quadrature explicitly by default. The shared
 quadrature result section declares the rule identifier, version, name, spacing,
@@ -147,79 +138,14 @@ approach the continuum Dirichlet spectrum at the second order expected from the
 centered finite-difference stencil. Raw residual norms are not compared across
 grids because those matrices act on different finite state spaces.
 
-## Historical verification and rendering
+## Direct verification and rendering
 
-From `python/` using the resolved project environment:
-
-```bash
-uv run python ../calculations/piab1d/run_experiment.py \
-  --input ../calculations/piab1d/input.json \
-  --output ../calculations/piab1d/result.json
-
-uv run python ../calculations/piab1d/verify_result.py \
-  ../calculations/piab1d/result.json
-
-uv run --extra notebooks python \
-  ../calculations/piab1d/plot_results.py \
-  ../calculations/piab1d/result.json \
-  --summary-output \
-  ../calculations/piab1d/spectrum-and-states.png \
-  --residual-output \
-  ../calculations/piab1d/residual-matrices.png
-
-uv run python \
-  ../calculations/piab1d/verify_convergence.py \
-  ../calculations/piab1d/convergence-result.json
-
-uv run --extra notebooks python \
-  ../calculations/piab1d/plot_convergence.py \
-  ../calculations/piab1d/convergence-result.json \
-  --convergence-output \
-  ../calculations/piab1d/convergence-series.png \
-  --mode-sweep-output \
-  ../calculations/piab1d/convergence-mode-sweep.png
-
-uv run python \
-  ../calculations/piab1d/verify_eigenpair_sweep.py \
-  ../calculations/piab1d/eigenpair-sweep-result.json
-
-uv run --extra notebooks python \
-  ../calculations/piab1d/plot_eigenpair_sweep.py \
-  ../calculations/piab1d/eigenpair-sweep-result.json \
-  --spectrum-output \
-  ../calculations/piab1d/higher-eigenpair-sweep.png \
-  --fixed-mode-output \
-  ../calculations/piab1d/higher-mode-convergence.png
-
-uv run python \
-  ../calculations/piab1d/verify_norm_sweep.py \
-  ../calculations/piab1d/norm-sweep-result.json
-
-uv run --extra notebooks python \
-  ../calculations/piab1d/plot_norm_sweep.py \
-  ../calculations/piab1d/norm-sweep-result.json \
-  --operator-output \
-  ../calculations/piab1d/operator-residual-norms.png \
-  --algebraic-output \
-  ../calculations/piab1d/eigensolver-residual-norms.png \
-  --identity-output \
-  ../calculations/piab1d/finite-identity-diagnostics.png
-
-uv run python \
-  ../calculations/piab1d/verify_identifiability.py \
-  ../calculations/piab1d/identifiability-result.json
-
-uv run --extra notebooks python \
-  ../calculations/piab1d/plot_identifiability.py \
-  ../calculations/piab1d/identifiability-result.json \
-  --output \
-  ../calculations/piab1d/identifiability-model-classes.png
-```
-
-The retained PNG graphics show the lowest discrete states, the finite-grid
-and continuum spectra, and heat maps of the three residual constructions. They
-are visualizations of the retained JSON results, not additional scientific
-evidence.
+The direct commands under “Successor directory structure” own calculation,
+verification, and rendering. The authenticated figures under
+`executions/direct-core-n8-m3/figures/` show the lowest discrete states, finite and
+continuum spectra, residual constructions, convergence, eigenpair, norm, algebraic, and
+decomposition diagnostics. They visualize independently verified direct-result values;
+they are not additional scientific evidence.
 
 For modes $n=1,2,3$, the final $N=256$ relative energy errors are respectively
 $1.2452\times10^{-5}$, $4.9809\times10^{-5}$, and
@@ -262,11 +188,11 @@ independently stated finite-difference eigenvalues, projector identities, the
 discarded-sector identity, and the declared boundary-closure difference. They
 do not rerun or validate a material model.
 
-`SHA256SUMS` is retained as a historical catalog. It still names removed Workflow
-entry points and therefore does not describe the maintained tip after this migration;
-its exact entries remain resolvable at their recorded Git revision. The retained result
-also records input and script identities, Python and NumPy versions, floating-point
-representation, and eigensolver name.
+The obsolete composite `SHA256SUMS` catalog was removed with the flat predecessor
+artifacts. `legacy-retirement.md` records its exact blob identity, mixed-revision
+qualification, and recovery locators. The direct development-provenance record now owns
+the live artifact inventory, source and dependency identities, runtime versions, and
+reproduction commands.
 
 ## Interpretation boundary
 

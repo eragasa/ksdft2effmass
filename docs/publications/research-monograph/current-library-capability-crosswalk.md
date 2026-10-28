@@ -90,7 +90,7 @@ target merely because it has a plausible name.
 | Symmetric hopping truncation and omitted-block norm | `BlockHoppingTruncator1D`, `BlockHoppingTruncationResult1D` | Public and ready; omitted-block norm is a representation diagnostic, not a physical energy fraction | `chapters/evidence-for-model-adequacy.tex` and `chapters/bulk-reduced-models.tex`; Appendix G | Add block-resolved and withheld spectral diagnostics for every tested range |
 | Weighted direct hopping fit and route comparison | `BlockHoppingLeastSquaresFitter1D`, `BlockHoppingModelComparator1D` | Public and ready; rank and conditioning are retained, and fit weights are explicit | `chapters/evidence-for-model-adequacy.tex`, `chapters/bulk-reduced-models.tex`, and `chapters/current-evidence-boundary.tex`; Appendix G | Recalculate matched and changed-objective routes through the maintained Actions |
 | Hopping Hermiticity, Parseval, and scalar band-shape diagnostics | `BlockHoppingHermiticityAnalyzer1D`, `HoppingParsevalAnalyzer1D`, `ScalarHoppingBandShapeAnalyzer1D` | Public and ready; global diagnostics do not replace individual block inspection | `chapters/evidence-for-model-adequacy.tex` and `chapters/current-evidence-boundary.tex`; Appendix G | Add an explicit diagnostic ledger to the new calculation result |
-| End-to-end one-dimensional single-band Fourier reduction | publication-independent experiment package consuming `SingleBandHoppingReductionWorkflow1D` and reviewed owner APIs | **Immutable successor retained and independently verified:** version `...single-band-fourier-reduction.v1`, run `...v1.run-20261014T184707Z`, evidence `sha256:6e8d5d...6377`; strict schemas, exact conventions/provenance, positive weights, roles, sampled gaps, rank/conditioning, locality, and zero-defect historical matched-channel parity are retained | Appendix G; `chapters/current-evidence-boundary.tex`; `experiment-references.json` | Preserve bounded synthetic interpretation; sampled gaps are not continuum isolation and the historical M1 package remains unchanged provenance |
+| End-to-end one-dimensional single-band Fourier reduction | direct typed `ksdft2effmass.model_systems.mathieu1d` lifecycle consuming canonical numerical owners | **Retained unsealed direct execution:** exact typed configuration/result bytes, byte-owning independent verification, positive weights, explicit roles, sampled gaps, rank/conditioning, authenticated figures, and a buildable report; predecessor artifacts are absent from the live tree | Appendix G; `chapters/current-evidence-boundary.tex`; `experiment-references.json` | Keep the bounded synthetic interpretation; sampled gaps are not continuum isolation, and no predecessor dataset is a live input |
 | Constrained one-dimensional spectral/operator admissible sets | `Periodic1DConstrainedAdmissibleSetCalculator`, its typed results, schema-v1 serializer, and verifier | **Complete bounded synthetic M3 package:** composes the rank-two M2 baseline with a two-parameter candidate domain, a finite global-rotation family, normalized spectral and operator losses, common-witness and analytic separation routes, disjoint withheld diagnostics, and hopping-locality diagnostics; the corrected public and standalone verification routes pass adversarial role, domain, manifest-correlation, and certificate-premise checks | `chapters/admissible-sets-and-certificates.tex`, `chapters/evidence-for-model-adequacy.tex`, and Appendix G | Preserve the finite-family, synthetic, threshold-relative, and post-hoc sensitivity boundaries in every extracted claim |
 | One-dimensional isolated, stress, and composite retained-result correlation and verification | `Periodic1DIsolatedVerifiedWorkflow`, `Periodic1DStressVerifiedWorkflow`, `Periodic1DCompositeVerifiedWorkflow` | **Partially extracted:** maintained read-only verification of reconstructable historical channels; composite and gauge/localization calculation producers remain outstanding | Appendix G; `chapters/current-evidence-boundary.tex` | Preserve as historical verification and implement a new composite producer before claiming a current-library end-to-end composite campaign |
 | Wannier90 interface preparation and native artifact verification | Public integration and periodic-1D native-artifact Workflows | Execution-free preparation, parsing, authentication, and verification are available; they do not authorize or execute Wannier90 | `chapters/evidence-for-model-adequacy.tex` and `chapters/bulk-representations.tex`; Appendix G | Rewrite the interface boundary; do not schedule a new external execution without separate authorization |
@@ -115,20 +115,18 @@ target merely because it has a plausible name.
 The following calculations replace neither the monograph nor its historical evidence.
 They provide new evidence for what the maintained library can calculate now.
 
-### Historical M1 alias — maintained single-band Fourier-reduction successor
+### Mathieu1D direct finite reduction
 
-**Readiness:** complete bounded synthetic evidence package.
+**Readiness:** retained unsealed bounded synthetic execution.
 
-The publication-independent experiment family
-`ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction`
-owns immutable version `v1`. Run `...v1.run-20261014T184707Z` and evidence package
-`sha256:6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377` exercise
-parent refinement, complete Fourier reconstruction, symmetric truncation, explicit
-positive-weight direct fitting, route comparison, Parseval, Hermiticity, sampled gaps,
-rank/conditioning, and disjoint evaluation. Strict schemas and a producer-independent
-direct-formula verifier pass. Matched historical channels have zero retained binary64
-defect. Exact predecessor Git/path/tree/file identities point to the unchanged M1
-package; no historical wire identity is reused or rewritten.
+`calculations/mathieu1d/executions/direct-finite-reduction-n64/` was recalculated by the
+direct typed implementation. It records parent refinement, complete Fourier
+reconstruction, symmetric truncation, explicit positive-weight direct fitting, route
+comparison, Parseval, Hermiticity, sampled gaps, rank and conditioning, and disjoint
+evaluation. A byte-owning independent verifier passes, and rendering consumes only its
+authenticated typed projection. The predecessor runs have been removed from the live
+tree and are not calculation or publication inputs. This execution remains illustrative
+finite numerical evidence, not sealed evidence or scientific validation.
 
 ### M2 — one-dimensional multiband alignment and locality calculation
 

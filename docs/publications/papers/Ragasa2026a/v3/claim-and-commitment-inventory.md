@@ -102,7 +102,7 @@ mean reviewed publication evidence.
 | N20 | First-passing decisions are unchanged at `N=128,256,512`; every selected cutoff passes and its predecessor fails. | Threshold-adjacent development refinement, not a retained run. | **Development—delivered**. |
 | N21 | Independent truncation reconstruction differs by at most `4.61e-13`. | Same binary64 ecosystem, separate control flow rather than independent hardware. | **Development—delivered**. |
 | N22 | Frame and transform identities close near binary64 scale; closure phases remain non-topological diagnostics. | Five sampled parent scales. | **Development—delivered**. |
-| N23 | The separate scalar `single-band-fourier-reduction.v1` run has independent verification and historical parity, with complete transform reconstruction defect `4.17e-17 E_G` and range-eight disjoint-mesh error `9.47e-9 E_G`. | Distinct retained scalar experiment and finite protocol; not evidence for the rank-two claim or a selected adequate range. | **Retained precursor—delivered**, Supplement S7. |
+| N23 | The separate scalar `mathieu1d-finite-reduction` execution has byte-owning independent verification, with complete transform reconstruction defect `4.17e-17 E_G` and range-eight disjoint-mesh error `9.47e-9 E_G`. | Distinct retained unsealed illustrative direct calculation and finite protocol; no predecessor dataset is a live input, and it is not evidence for the rank-two claim or a selected adequate range. | **Retained unsealed precursor—delivered**, Supplement S7 and `experiment-references.json`. |
 
 ## 5. Software verification, serialization, and provenance sold by the paper
 
@@ -117,7 +117,7 @@ mean reviewed publication evidence.
 | V07 | Analysis tables and figures are derived presentations, not independent provenance owners. | **Contract—delivered**. |
 | V08 | Independent means separate scientific reconstruction/control flow, not different hardware, arithmetic, or all numerical libraries. | **Contract—delivered**. |
 | V09 | A retained package for the active rank-two experiment would contain canonical records, convergence table, manifests, checksums, commands, platform, report, and distinct version/run/package identities. | **Open before submission** for the active experiment. |
-| V10 | The separate scalar precursor binds immutable version/run/package identities, strict schemas, checksums, provenance, and an independent verifier. | **Retained precursor—delivered**; status does not transfer to the active experiment. |
+| V10 | The separate scalar precursor binds exact configuration, result, verification, rendering, figure, and report bytes; typed constructors and a byte-owning independent verifier reject inconsistent data. The execution remains unsealed. | **Retained unsealed precursor—delivered**; status does not transfer to the active experiment. |
 
 ## 6. Explicit nonclaims and exclusions
 
