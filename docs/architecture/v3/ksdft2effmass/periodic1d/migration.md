@@ -77,9 +77,12 @@ and [`calculations/mathieu1d/legacy-contract-retirement.md`](../../../../../calc
 ## Phase 2 — implement the compatible rank-one null control
 
 Implement the distinct
-`calculations/periodic1d/rank1/fourier-locality/` family. Reuse scalar Fourier behavior
-that has the same meaning, but retain the compatible parent definition and explicit
-operator-trivial phase result.
+`calculations/periodic1d/rank1/fourier-locality/` family from the documentation-first
+[`ksdft2effmass.periodic1d.fourier_locality`](fourier_locality/index.md) contract. Reuse
+scalar Fourier behavior that has the same meaning, but retain the compatible parent
+definition and explicit operator-trivial phase result. The prospective package, every
+source module, and every public class have separate `index.md`, `schematics.md`,
+`numerics.md`, and `scientifics.md` pages before Python implementation.
 
 **Gate:** the calculation emits no false gauge-locality channel, independently verifies
 the complete transform and declared truncation/fitting routes, and remains distinct from

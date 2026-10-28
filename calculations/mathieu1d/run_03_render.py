@@ -137,11 +137,12 @@ if verification.subject_sha256 != result_sha256:
     raise ValueError("verification authenticates different result bytes")
 if not verification.passed:
     raise ValueError("rendering requires passing independent verification")
-expected = Mathieu1dVerifier(result_wire=result_bytes).result()
-if verification.to_json() != expected.verification.to_json():
-    raise ValueError("verification aggregate differs from independent reconstruction")
-if data.to_json() != expected.visualization_data.to_json():
-    raise ValueError("visualization projection differs from verifier reconstruction")
+admitted = Mathieu1dVerifier(result_wire=result_bytes).admit_stored(
+    verification=verification,
+    visualization_data=data,
+)
+verification = admitted.verification
+data = admitted.visualization_data
 if verification_document.get("comparison_count") != len(verification.checks):
     raise ValueError("verification comparison count does not match the aggregate")
 visualizer = Mathieu1dVisualizer(data=data, verification=verification)

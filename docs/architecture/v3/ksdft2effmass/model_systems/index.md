@@ -24,6 +24,13 @@ begins only where behavior is genuinely identical.
 7. calculate model-specific independent verification components; and
 8. compose the model-specific aggregate verification.
 
+For later consumption, `admit_stored()` repeats that complete derivation from the exact
+result bytes and requires canonical byte equality with both the stored aggregate and the
+stored visualization projection. It returns the independently recomputed pair rather
+than trusting the decoded stored values. This single comparison rejects omitted,
+renamed, additional, or altered observations without a second literal inventory of every
+dynamically generated comparison name.
+
 `BaseModelAnalysisVerification` owns digest validation, global observation-name
 uniqueness, pass reduction, flattened value and tolerance reporting, and access to the
 authenticated projection digest. Concrete aggregates retain their component inventories and wire layouts, including the

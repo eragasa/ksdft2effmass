@@ -227,12 +227,28 @@ class TestMathieu1dDirectScripts:
         original_bytes = verification_path.read_bytes()
         codec = TypedJsonValueCodec()
         document = dict(self._mapping(codec.deserialize_bytes(original_bytes)))
-        document["verification_route"] = "modified after independent verification"
+        verification_value = document["verification"]
+        assert isinstance(verification_value, Mapping)
+        verification = dict(verification_value)
+        components_value = verification["components"]
+        assert isinstance(components_value, Mapping)
+        components = dict(components_value)
+        independent_value = components["independent_reconstruction"]
+        assert isinstance(independent_value, Mapping)
+        independent = dict(independent_value)
+        observations_value = independent["observations"]
+        assert isinstance(observations_value, Mapping)
+        observations = dict(observations_value)
+        del observations[next(iter(observations))]
+        independent["observations"] = observations
+        components["independent_reconstruction"] = independent
+        verification["components"] = components
+        document["verification"] = verification
         verification_path.write_bytes(codec.serialize_bytes(document))
 
         rendered = self._run(calculation / "run_03_render.py", environment)
         assert rendered.returncode != 0
-        assert "unexpected independent route" in rendered.stderr
+        assert "stored verification differs" in rendered.stderr
         assert not (execution / "figures").exists()
         assert not (execution / "technical_report").exists()
 

@@ -201,3 +201,69 @@ class BaseModelAnalysisVerifier[
             verification=verification,
             visualization_data=visualization_data,
         )
+
+    @final
+    def admit_stored(
+        self,
+        *,
+        verification: VerificationT,
+        visualization_data: VisualizationDataT,
+    ) -> ModelAnalysisVerificationResult[VerificationT, VisualizationDataT]:
+        """Recompute and admit exact stored verification outputs.
+
+        Parameters
+        ----------
+        verification
+            Decoded stored aggregate proposed for later consumption.
+        visualization_data
+            Decoded stored projection proposed for later consumption.
+
+        Returns
+        -------
+        ModelAnalysisVerificationResult[VerificationT, VisualizationDataT]
+            Independently recomputed aggregate and projection. Stored values are
+            admitted only when their canonical bytes match these values exactly.
+
+        Raises
+        ------
+        TypeError
+            A stored value does not belong to the required shared boundary or has a
+            different concrete type from the independently reconstructed value.
+        ValueError
+            Stored canonical aggregate or projection bytes differ from independent
+            reconstruction.
+
+        Notes
+        -----
+        Exact comparison avoids a second, separately maintained inventory of every
+        dynamically named observation. It also prevents rendering from trusting a
+        structurally valid aggregate from which a required observation was removed.
+        """
+        if not isinstance(verification, BaseModelAnalysisVerification):
+            raise TypeError("verification must be BaseModelAnalysisVerification")
+        if not isinstance(
+            visualization_data,
+            BaseModelAnalysisVisualizationData,
+        ):
+            raise TypeError(
+                "visualization_data must be BaseModelAnalysisVisualizationData"
+            )
+        expected = self.result()
+        if type(verification) is not type(expected.verification):
+            raise TypeError(
+                "stored verification type differs from independent reconstruction"
+            )
+        if type(visualization_data) is not type(expected.visualization_data):
+            raise TypeError(
+                "stored visualization-data type differs from independent reconstruction"
+            )
+        if verification.to_json() != expected.verification.to_json():
+            raise ValueError(
+                "stored verification differs from independent reconstruction"
+            )
+        if visualization_data.to_json() != expected.visualization_data.to_json():
+            raise ValueError(
+                "stored visualization projection differs from independent "
+                "reconstruction"
+            )
+        return expected

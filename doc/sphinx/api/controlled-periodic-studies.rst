@@ -15,6 +15,7 @@ families. M3 dispositions apply only to the frozen two-parameter, nine-angle fam
    :maxdepth: 1
 
    ksdft2effmass/periodic1d/model
+   ksdft2effmass/periodic1d/fourier_locality
    ksdft2effmass/periodic1d/isolated_band
    ksdft2effmass/periodic1d/multiband_alignment
    ksdft2effmass/periodic1d/admissible_sets

@@ -15,6 +15,7 @@ import numpy as np
 
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dVerification,
+    Qho1dVerifier,
     Qho1dVisualizationData,
     Qho1dVisualizer,
 )
@@ -63,6 +64,12 @@ verification = Qho1dVerification.from_dict(verification_mapping)
 data = Qho1dVisualizationData.from_dict(visualization_mapping)
 if verification.subject_sha256 != result_sha256:
     raise ValueError("verification authenticates different result bytes")
+admitted = Qho1dVerifier(result_wire=result_bytes).admit_stored(
+    verification=verification,
+    visualization_data=data,
+)
+verification = admitted.verification
+data = admitted.visualization_data
 visualizer = Qho1dVisualizer(data=data, verification=verification)
 visualizations = visualizer.visualize()
 if {item.plot for item in visualizations} != set(visualizer.plots):

@@ -68,7 +68,7 @@ status, or conclusions:
 | Study | Distinguishing question | Architecture disposition |
 |---|---|---|
 | 1. Mathieu1D single-band Fourier reduction | How do two finite parent representations support one scalar retained-band reduction? | Implemented [`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) vertical slice and `calculations/mathieu1d/`; not the rank-one specialization below. |
-| 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Separate calculation under `calculations/periodic1d/rank1/fourier-locality/`. |
+| 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Prospective typed source contract under [`periodic1d.fourier_locality`](fourier_locality/index.md) and separate calculation under `calculations/periodic1d/rank1/fourier-locality/`. |
 | 3. Rank-two band equivalence versus hopping locality | Can analytically or certifiably band-equivalent represented Hamiltonians have different finite-range locality? | Separate typed source child and calculation owner. |
 | 4. Rank-two composite-band alignment and locality | How do declared pointwise or global alignment choices affect block hoppings and diagnostics? | Separate typed source child and calculation owner. |
 | 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Separate confirmatory calculation record with complete finite coverage. |
@@ -105,6 +105,7 @@ searchable provenance aliases; they are not names for new studies or a version c
 
 ## Detailed plan
 
+- [Compatible rank-one Fourier-locality architecture](fourier_locality/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)
