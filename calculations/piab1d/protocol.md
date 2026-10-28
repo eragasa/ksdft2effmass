@@ -148,16 +148,16 @@ scientifically informative.
 | Appendix D requirement | Retained evidence |
 |---|---|
 | Continuum operator and domain | This protocol and Appendix D |
-| Second-order finite realization | `input.json`, `run_experiment.py`, `result.json` |
-| Full and retained spaces, projection and embedding | `result.json`, `verify_result.py` |
-| Three inequivalent residuals | `result.json`, `residual-matrices.png` |
-| Fixed-mode numerical convergence | `convergence-result.json`, `convergence-series.png` |
-| High-index dispersion and eigenpair quality | `eigenpair-sweep-result.json`, higher-eigenpair graphics |
-| Norm dependence | `norm-sweep-result.json`, norm graphics |
-| Decomposition nonuniqueness | `identifiability-result.json` |
-| Dependence on admissible model class | `identifiability-model-classes.png` and verifier |
+| Second-order finite realization | `run_01_calculation.py` and `executions/direct-core-n8-m3/results/result.json` |
+| Full and retained spaces, projection and embedding | Direct result and `run_02_verification.py` |
+| Three inequivalent residuals | Direct result and authenticated `figures/residual-matrices.png` |
+| Fixed-mode numerical convergence | Direct result and authenticated convergence figures |
+| High-index dispersion and eigenpair quality | Direct result and authenticated eigenpair figures |
+| Norm dependence | Direct result and authenticated norm figures |
+| Decomposition nonuniqueness | Direct kinetic-potential decomposition section |
+| Dependence on admissible model class | Authenticated `figures/kinetic-potential-decomposition.png` and direct verification |
 | Integrated provisional narrative | `appendix-d-draft-report.md`, `appendix-d-draft.tex` |
-| Reproducibility and identities | reproduction scripts, verification scripts, `SHA256SUMS` |
+| Reproducibility and identities | Direct scripts and `executions/direct-core-n8-m3/development-provenance.json` |
 
 ## Acceptance boundary
 

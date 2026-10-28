@@ -58,8 +58,10 @@ The analytic rank-two geometry, Bessel threshold law, and flat-parent locality i
 are mathematical results. The current dispersive homotopy and truncation figures are
 development calculations on declared sample inventories. They are not a retained
 production run or evidence package. Supplemental Section S7 now records the separate
-retained `single-band-fourier-reduction.v1` run as a verified scalar precursor; its
-retained status is not transferred to the active rank-two experiment. The range-inflation
+retained unsealed `mathieu1d-finite-reduction` execution as a verified scalar precursor,
+bound by [`experiment-references.json`](experiment-references.json). Its status is not
+transferred to the active rank-two experiment; no predecessor run artifact remains in
+the live tree. The range-inflation
 map now reports the first passing cutoff over every integer
 $R_c=0,\ldots,16$ on the sampled $(\rho,a)$ grid. The cap remains a development control,
 not a frozen universal range.

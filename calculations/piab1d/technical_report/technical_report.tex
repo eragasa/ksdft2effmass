@@ -1224,10 +1224,11 @@ sources are preserved together under the stable calculation owner
 \begin{center}
 \url{https://github.com/eragasa/ksdft2effmass/tree/main/calculations/piab1d}
 \end{center}
-File-level provenance and byte integrity are recorded in the accompanying
-\code{SHA256SUMS} manifest. At release, the archived repository snapshot will also be
-identified by its immutable Git commit identifier. The Git commit identifies the
-source snapshot, whereas the SHA-256 manifest identifies the retained artifact bytes.
+File-level provenance and byte integrity for the direct retained execution are recorded
+in its development-provenance JSON inventory, typed verification aggregate, and
+rendering manifest. At release, any archived repository snapshot will also require an
+immutable Git commit identifier. The Git commit would identify the source snapshot,
+whereas the retained SHA-256 values identify exact artifact bytes.
 
 \section{Conclusion}
 

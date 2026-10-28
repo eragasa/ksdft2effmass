@@ -185,8 +185,32 @@ aggregate bound to the exact result and projection digests, generates the closed
 
 The complete source architecture is documented at
 [`ksdft2effmass.model_systems.piab1d`](../ksdft2effmass/model_systems/piab1d/index.md).
-The retained flat PIAB1D artifacts remain historical. Successor execution retention,
-checksum updates, sealing, and evidence promotion remain separate authorized actions.
+The flat PIAB1D predecessor, installed `study/` package, generic study base, custom
+adapters, and duplicate report were removed after a separately authorized compatibility
+audit. The direct execution remains unchanged and unsealed; sealing and evidence
+promotion remain separate authorized actions.
+
+### Periodic1D direct lifecycles
+
+The [Periodic1D Architecture v3 plan](../ksdft2effmass/periodic1d/index.md) applies the
+same direct calculate → verify → render behavior to eight separate studies. The first,
+Mathieu1D, is implemented at `calculations/mathieu1d/` and documented at
+[`ksdft2effmass.model_systems.mathieu1d`](../ksdft2effmass/model_systems/mathieu1d/index.md).
+Its retained unsealed execution contains typed result bytes, byte-owning independent
+verification, two authenticated figures, and an execution-bound report. Its predecessor
+code, runs, input, and schemas are absent from the live tree.
+
+The remaining seven studies are the compatible rank-one null control, rank-two
+band-equivalence locality, rank-two composite alignment, confirmatory constrained
+admissible sets, the minimal scalar/direct admissible-set demonstration, post-hoc
+threshold sensitivity, and higher-rank composite alignment. They remain separate
+calculation records, not stages or versions of one universal Periodic1D execution.
+
+Each family receives concrete typed records, a byte-owning independent verifier, an
+authenticated family-specific visualization projection, and its own closed rendering
+inventory. Shared mechanics do not imply shared scientific inputs, result wires,
+tolerances, evidence policies, or claims. Implementation of Mathieu1D does not claim
+implementation of any other Periodic1D successor.
 
 ### `run_04_seal.py`
 

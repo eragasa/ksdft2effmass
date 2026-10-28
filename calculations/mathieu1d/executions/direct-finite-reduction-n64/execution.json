@@ -1,0 +1,35 @@
+{
+  "analyzer_source_path": "python/src/ksdft2effmass/model_systems/mathieu1d/analysis.py",
+  "analyzer_source_sha256": "2022cdfa07a735ebb1ea1491a732a46814f524514c9a22336e5ee97bfc8dc4a5",
+  "calculation_family": "mathieu1d-finite-reduction",
+  "claim_boundary": "Calculated finite plane-wave, finite-difference, reciprocal-mesh, and finite-range values for Mathieu1D; not continuum convergence, uncertainty quantification, material validation, publication acceptance, or sealed evidence.",
+  "configuration_path": "inputs/configuration.json",
+  "configuration_schema": "ksdft2effmass.mathieu1d-configuration.direct.v1",
+  "configuration_sha256": "cc1b1c2d61f764315700bd60f178c0bf013255821630dd11e9f52c42c914ca54",
+  "created_utc": "2026-10-27T17:02:55.487785+00:00",
+  "evidence_status": "illustrative numerical experiment",
+  "execution_id": "direct-finite-reduction-n64",
+  "execution_kind": "local deterministic Python calculation",
+  "finite_difference_route": "ksdft2effmass.model_systems.periodic_1d.PeriodicFiniteDifferenceFiberHamiltonian1DConstructor",
+  "hopping_fit_route": "ksdft2effmass.analysis.hopping_fits.BlockHoppingLeastSquaresFitter1D",
+  "hopping_transform_route": "ksdft2effmass.solidstate.ReciprocalOperatorFourierTransformer1D",
+  "outcome": "completed",
+  "plane_wave_route": "ksdft2effmass.model_systems.periodic_1d.PlaneWaveFiberHamiltonian1DConstructor",
+  "repository": {
+    "git_available": true,
+    "git_head": "2ea109d5165366bc507d8900cf85a67de1a2bf73",
+    "git_status_sha256": "7f0ce6d68f16584749c4c658650fe0e79a0e3915b3b178146ea9847c8c4db1e8",
+    "git_worktree_state": "dirty"
+  },
+  "result_path": "results/result.json",
+  "result_schema": "ksdft2effmass.mathieu1d-calculation-result.direct.v1",
+  "result_sha256": "83d25e824a0aedf085e77e86a998c02a17d4a51c320375b0bfb395986dae3fe6",
+  "runtime": {
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6"
+  },
+  "schema_version": 1,
+  "script_path": "calculations/mathieu1d/run_01_calculation.py",
+  "script_sha256": "33beea76a5951323360fb4d6201d89ba85c5b80334267bcdd810952c8ce31c11",
+  "sealed": false
+}

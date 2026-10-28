@@ -3,24 +3,22 @@
 ## S2.1 Role and frozen scope
 
 M1 is retained only as the historical publication alias for the controlled
-one-dimensional lowest-band calculation. The maintained evidence now resolves through
+one-dimensional lowest-band calculation. The live publication source now resolves
+through
 
-- family `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction`;
-- version `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1`;
-- run `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1.run-20261014T184707Z`; and
-- evidence package `sha256:6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377`.
+- calculation family `mathieu1d-finite-reduction`;
+- execution `direct-finite-reduction-n64`;
+- evidence status `illustrative numerical experiment`; and
+- the exact unsealed artifact binding in `experiment-references.json`.
 
-The publication-side binding is `experiment-references.json`. The historical
-`icmsep2026.paper1.periodic1d.isolated-band.v1` package remains byte-preserved as the
-provenance predecessor and is no longer the live source for these reported values.
+All predecessor run and code artifacts are absent from the live tree. They are not
+runtime, verification, figure, or publication inputs.
 
-The successor calculation is synthetic numerical-verification evidence. It evaluates a finite
-parent representation, extracts the lowest scalar band, performs a complete
+The direct calculation is finite synthetic numerical-verification evidence. It evaluates
+a finite parent representation, extracts the lowest scalar band, performs a complete
 reciprocal-to-hopping transform, constructs finite-range reductions, compares matched
-routes, and evaluates disjoint withheld points. The retained schema contains no
-band-gap result and does not by itself establish that this lowest band is isolated; a
-sampled-gap or stronger isolation argument is a separate prerequisite channel. The
-historical alias is not reinterpreted as such evidence. The successor records sampled
+routes, and evaluates disjoint withheld points. Its sampled gaps do not by themselves
+establish that this lowest band is isolated over the continuum. The direct result records sampled
 training/evaluation external gaps of $0.4923392224E_G$ and $0.4923392377E_G$ but does
 not promote them to continuum isolation. The calculation contains no material
 parameters or external electronic-structure execution.
@@ -167,13 +165,15 @@ physical or continuum oracle.
 | Hopping | $4.781392881215698\times10^{-17}$ |
 | Diagnostic | $2.731148640577885\times10^{-14}$ |
 
-All are below the frozen $10^{-12}$ verification tolerance. The result and verification wire identities are the version-bound
-`...single-band-fourier-reduction.v1.result.v1` and
-`...single-band-fourier-reduction.v1.verification.v1` schemas. Unknown properties are
-rejected, canonical JSON bytes are checked, and the evidence manifest is bound by the
-package identity above. Exact provenance records the dirty-worktree source manifest,
-base Git commit, dependency revisions, and the historical predecessor's Git revision,
-path, tree, and file digests. Hashes test byte identity but are not an external trusted
-timestamp. The calculation used local in-process Python software only; it invoked no
-external electronic-structure calculator, scheduler, remote resource, or material
-dataset.
+All are below the declared $10^{-12}$ verification tolerance. The direct result and
+verification wires use `ksdft2effmass.mathieu1d-calculation-result.direct.v1` and
+`ksdft2effmass.mathieu1d-verification.direct.v1`. Typed constructors reject unknown or
+inconsistent fields, canonical JSON bytes are checked, and the verification owns the
+SHA-256 digest of the exact admitted result bytes. The publication manifest binds the
+configuration, result, verification, rendering record, figure, and technical-report
+PDF separately; the execution is explicitly unsealed. Provenance records the dirty
+Git revision and state digest, source-module and script digests, and runtime versions.
+Hashes test byte identity but are not an external
+trusted timestamp. The calculation used local in-process Python software only; it
+invoked no external electronic-structure calculator, scheduler, remote resource, or
+material dataset.

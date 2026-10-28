@@ -12,7 +12,7 @@ The maintained evidence is retained under:
 
 | Location | Present role | Status and claim boundary |
 |---|---|---|
-| successor version/run/evidence package bound by `experiment-references.json` | Publication-independent parent refinement, sampled external gaps, lowest-band extraction, complete hopping reconstruction, finite-range truncation, positive-weight matched-route comparison, rank/conditioning, and disjoint evaluation | Retained controlled numerical-verification evidence with zero matched-channel defect against historical M1; sampled gaps are not a continuum isolation certificate, historical stress channels remain excluded, and no thresholded admissible-set map is claimed |
+| direct unsealed execution bound by `experiment-references.json` | Publication-independent parent refinement, sampled external gaps, lowest-band extraction, complete hopping reconstruction, finite-range truncation, positive-weight matched-route comparison, rank/conditioning, and disjoint evaluation | Retained illustrative finite numerical calculation with byte-owning independent verification; no predecessor dataset is a live input, sampled gaps are not a continuum isolation certificate, historical stress channels remain excluded, and no thresholded admissible-set map is claimed |
 | `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/` | Prospectively frozen M2 gapped rank-two parent, known periodic gauge attack, pointwise and global-unitary alignment channels, block-hopping locality, and withheld evaluation | Retained controlled numerical-verification evidence; not a general alignment solver or thresholded admissible-set map |
 | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets/` | Prospectively frozen M3 two-parameter rank-two admissible sets over nine one-global-rotation components, including a common witness and a finite-component separation certificate | Retained controlled numerical-verification evidence for the frozen finite family only; not an unrestricted alignment result, physical threshold calibration, or material validation |
 | `calculations/ICMSEP2026/conference/paper_1/constrained-admissible-sets-threshold-sensitivity/` | Post-hoc analytic reanalysis of the sealed M3 quadratics at fixed spectral threshold | Exploratory sensitivity evidence only; not part of the prospective M3 confirmatory package |
@@ -22,18 +22,18 @@ The maintained evidence is retained under:
 
 Each retained directory contains, as applicable, its protocol, input and result records,
 independent verification code, figures, report, software record, and checksum manifest.
-The primary maintained M1-successor, M2--M3, and two-dimensional evidence is classified as controlled
+The direct Mathieu1D execution, M2--M3, and two-dimensional evidence is classified as controlled
 illustrative software and numerical verification. The silicon preview preserves its
 separate external tutorial-analysis evidence class. None is a public data deposit, DOI,
 material validation, statistical uncertainty analysis, or evidence that a general
 alignment problem has been solved. Historical external executions are not rerun by the
 manuscript.
 
-The single-band successor's typed direct-formula verifier and the standalone M2 and M3
-retained verifiers reconstruct the frozen numerical documents, while the successor
-package verifier checks canonical strict-schema bytes, digests, and predecessor
-bindings. The numerical routes reconstruct their finite protocols without calling the
-corresponding producer Actions. The separate threshold-sensitivity verifier reconstructs its analytic grid
+The direct Mathieu1D byte-owning verifier and the standalone M2 and M3 retained
+verifiers reconstruct the finite numerical documents. The direct verifier checks
+canonical typed bytes, constructor-restored correlations, and exact subject and projection
+digests. The numerical routes
+reconstruct their finite protocols without calling the corresponding producer Actions. The separate threshold-sensitivity verifier reconstructs its analytic grid
 from the source quadratics after checking both the source-result digest and its exact
 entry in the source package manifest. These verifiers remain dependent on shared
 numerical libraries, runtime behavior, and declared mathematical conventions; passing

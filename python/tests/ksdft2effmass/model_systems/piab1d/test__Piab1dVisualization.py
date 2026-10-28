@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 import hashlib
-from io import BytesIO
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 from projectkoios.physkit.units import (
@@ -20,15 +18,10 @@ from ksdft2effmass.analysis import (
     TailProbabilitySelection,
 )
 from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
-from ksdft2effmass.model_systems import (
-    BaseModelAnalysisVisualization,
-    BaseModelAnalysisVisualizer,
-)
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dGridSweepAnalyzer,
     Piab1dGridSweepDefinition,
     Piab1dVerification,
-    Piab1dVisualization,
     Piab1dVisualizationData,
     Piab1dVisualizationPlotEnum,
     Piab1dVisualizer,
@@ -36,37 +29,10 @@ from ksdft2effmass.model_systems.piab1d import (
 from ksdft2effmass.verification import VerificationObservation
 
 pytestmark = pytest.mark.software_verification
-SUT = Piab1dVisualization
 
 
 class TestPiab1dVisualization:
-    """Own the immutable PNG and plot-enum boundary."""
-
-    def test_init__png_and_plot__retains_stable_filename(self) -> None:
-        figure, axis = plt.subplots()
-        axis.plot([0.0, 1.0], [0.0, 1.0])
-        buffer = BytesIO()
-        figure.savefig(buffer, format="png")
-        plt.close(figure)
-        png = buffer.getvalue()
-
-        visualization = SUT(
-            plot=Piab1dVisualizationPlotEnum.spectrum_and_states,
-            png=png,
-        )
-
-        assert isinstance(visualization, BaseModelAnalysisVisualization)
-        assert issubclass(Piab1dVisualizer, BaseModelAnalysisVisualizer)
-        assert visualization.png is png
-        assert visualization.filename == "spectrum-and-states.png"
-        assert visualization.media_type == "image/png"
-
-    def test_init__non_png_bytes__rejects_value(self) -> None:
-        with pytest.raises(ValueError, match="decodable PNG image"):
-            SUT(
-                plot=Piab1dVisualizationPlotEnum.residual_matrices,
-                png=b"not-png",
-            )
+    """Own PIAB1D authentication and the closed plot inventory."""
 
     def test_visualizer__different_verified_digest__rejects_typed_immutable_data(
         self,

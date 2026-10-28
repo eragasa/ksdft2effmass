@@ -230,23 +230,19 @@ Reusable model construction, transforms, fitting kernels, and diagnostics remain
 the installed packages.
 
 The publication-independent calculation at `calculations/mathieu1d/` is the maintained
-implementation of this boundary. It consumes the model-independent single-band
-reduction Workflow in `python/src/` rather than retaining a second producer transform,
-truncation, fitting, or diagnostic implementation. The Workflow
-accepts prepared objective-construction and evaluation samples, caller-supplied fitting
-weights and ranges, publication-independent result semantics, and no experiment identity
-or frozen evidence policy.
+implementation of this boundary. Its direct typed analyzer composes the canonical
+plane-wave, periodic finite-difference, Fourier-transform, truncation, fitting,
+interpolation, and diagnostic owners without a calculation Workflow or compatibility
+facade. Its independent verifier reconstructs the finite formulas without invoking the
+producer.
 
-Immutable version
-`ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction.v1`
-now has retained run `...v1.run-20261014T184707Z` and evidence package
-`sha256:6e8d5db988df97d4b8cf7843b3baceb16e2eb70d2b03c729497a82251fca6377`.
-Version-bound strict schemas, direct-formula independent verification, exact dirty-source
-and dependency provenance, and historical parity are retained. Historical M1 evidence
-remains outside this implementation, unchanged; successor provenance points to exact
-revision `9a65849d886d5be499b2664e2b653c3983fab06e`, path
-`calculations/ICMSEP2026/conference/paper_1/isolated-band/`, Git tree
-`418999a90efa3001d2e50a2e7912f126bc30903f`, and predecessor file digests.
+The only live execution is
+`calculations/mathieu1d/executions/direct-finite-reduction-n64/`. It owns exact typed
+configuration and result bytes, independent verification, authenticated figures, and a
+buildable technical report. The four version-one predecessor runs were removed after
+direct recalculation and consumer migration; they are not live data or publication
+inputs. `calculations/mathieu1d/legacy-run-retirement.md` records the compact Git recovery
+boundary.
 
 The composite-band alignment and locality family has a completed owner-boundary review.
 Its maintained migration preserves backend-qualified eigenvector-diagonal frames,

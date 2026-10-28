@@ -3,14 +3,14 @@
 ## Purpose
 
 The shared model-system layer owns reusable lifecycle behavior without erasing the
-physical and numerical distinctions among model systems. PIAB1D and QHO1D remain
-separate scientific owners; they share typed boundaries, verification sequencing, and
-presentation mechanics only where that behavior has the same meaning.
+physical and numerical distinctions among model systems. PIAB1D, QHO1D, and Mathieu1D
+remain separate scientific owners; they share typed boundaries, verification sequencing,
+and presentation mechanics only where that behavior has the same meaning.
 
 ## Common typed lifecycle
 
-PIAB1D and QHO1D configurations and results remain concrete model-owned records with
-their exact fields, units, shapes, correlations, and wire layouts. The shared layer
+PIAB1D, QHO1D, and Mathieu1D configurations and results remain concrete model-owned
+records with their exact fields, units, shapes, correlations, and wire layouts. The shared layer
 begins only where behavior is genuinely identical.
 
 `BaseModelAnalysisVerifier` owns the common subject boundary:
@@ -26,12 +26,12 @@ begins only where behavior is genuinely identical.
 
 `BaseModelAnalysisVerification` owns digest validation, global observation-name
 uniqueness, pass reduction, flattened value and tolerance reporting, and access to the
-authenticated projection digest. Concrete aggregates retain their component
-inventories and wire layouts, including the retained QHO1D layout.
+authenticated projection digest. Concrete aggregates retain their component inventories and wire layouts, including the
+retained QHO1D layout and Mathieu1D's two-component, 873-comparison aggregate.
 
 The shared layer does not implement scientific references, comparison inventories,
-tolerances, acceptance policy, or a nominal analyzer type. PIAB1D and QHO1D analyzers
-remain concrete because their executed operations have different signatures.
+tolerances, acceptance policy, or a nominal analyzer type. PIAB1D, QHO1D, and Mathieu1D
+analyzers remain concrete because their executed operations have different signatures.
 
 ## Flexible visualization composition
 
@@ -72,7 +72,21 @@ of plotting and validates the encoded image container only.
 - Refactoring presentation code does not establish scientific validation or visual
   equivalence unless an explicit comparison says so.
 
+## Periodic1D relationship
+
+`model_systems.periodic_1d` owns unit-aware finite Fourier potentials and plane-wave or
+periodic finite-difference fiber construction. `model_systems.mathieu1d` owns the
+concrete Mathieu model. Neither is a generic campaign or a substitute for the
+scientifically distinct scalar, composite, admissible-set, and higher-rank families
+owned by `ksdft2effmass.periodic1d` and their calculation roots.
+
+The [Periodic1D rewrite plan](../periodic1d/index.md) may reuse the common byte-owning
+verification and flexible visualization behavior described here. It does not add a
+`model_systems.periodic1d` alias, move lattice behavior out of PhysKit, or impose a
+universal periodic result record.
+
 ## Implemented children
 
 - [PIAB1D](piab1d/index.md)
 - [QHO1D](qho1d/index.md)
+- [Mathieu1D](mathieu1d/index.md)

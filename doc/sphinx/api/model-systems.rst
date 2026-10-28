@@ -282,6 +282,18 @@ removed after completion of the direct migration. Recovery identities and the re
 scope are recorded in
 ``docs/architecture/v3/ksdft2effmass/model_systems/qho1d/legacy-disposition.md``.
 
+Mathieu1D direct finite reduction
+---------------------------------
+
+The direct Mathieu1D surface owns typed configuration, calculation-result sections,
+byte-owning independent verification, and authenticated visualization for one finite
+single-band reduction. It consumes existing reusable numerical owners and does not
+preserve the calculation-local predecessor package, installed ``study`` package, or
+their wire layouts. Exact source recovery is recorded in
+``calculations/mathieu1d/installed-successor-retirement.md``. See
+:doc:`ksdft2effmass/model_systems/mathieu1d` for the complete public module surface and
+claim boundary.
+
 One-dimensional particle in a box
 ---------------------------------
 
@@ -313,9 +325,6 @@ verification composed around that pinned implementation.
 .. autoclass:: Piab1dVisualizationData
    :members:
 
-.. autoclass:: Piab1dVisualization
-   :members:
-
 .. autoclass:: Piab1dVisualizer
    :members:
 
@@ -323,8 +332,10 @@ verification composed around that pinned implementation.
 that set to produce the complete immutable ``Piab1dDiagnostics`` inventory. There is
 no diagnostic facade or factory in this tranche.
 
-Historical retained-result wire objects remain documented with their owning research
-monograph campaign API. They are not part of the direct successor calculation surface.
+The former historical retained-result wires and ``study`` package were removed after
+the direct replacement. Exact Git recovery identities and the maintained boundary are
+recorded in
+``docs/architecture/v3/ksdft2effmass/model_systems/piab1d/legacy-disposition.md``.
 
 Two-dimensional plane-wave Bloch operators
 -------------------------------------------
@@ -341,6 +352,7 @@ mathematics, units, ordering, implementation, evidence, and limitation contracts
 .. toctree::
    :hidden:
 
+   ksdft2effmass/model_systems/mathieu1d
    ksdft2effmass/model_systems/periodic2d/plane_waves
    ksdft2effmass/model_systems/periodic2d/reciprocal_mesh
 

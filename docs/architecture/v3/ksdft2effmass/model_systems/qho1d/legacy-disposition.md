@@ -32,6 +32,10 @@ The authorized removal covered:
 - predecessor-only tests, test-ownership entries, and API documentation; and
 - the unused QHO1D values in the shared historical study-identity enums.
 
+The remaining generic study-identity package was later removed when the separately
+audited PIAB1D predecessor, its final consumer, was retired. It is not a compatibility
+surface for this direct lifecycle.
+
 The adjacent-grid coarse/fine Frobenius diagnostic was the only predecessor scientific
 analysis selected for migration. Its maintained typed owner is `Qho1dCrossGridAnalyzer`,
 with derivation checks owned by `Qho1dCrossGridVerifier`.

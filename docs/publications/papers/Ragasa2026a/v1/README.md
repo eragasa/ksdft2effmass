@@ -33,12 +33,13 @@ material-facing preview uses source bytes from the official Wannier90 3.1.0 sili
 tutorial, but it does not validate a material, establish uncertainty quantification,
 or demonstrate transferability to production silicon.
 
-The draft now cites the publication-independent single-band Fourier-reduction
-successor through [`experiment-references.json`](experiment-references.json). The
-manifest binds permanent family, version, run, and evidence-package identities plus
-consumed fields and figure bytes. Independent verification and historical matched-channel
-parity pass; this establishes bounded synthetic numerical consistency only. The former
-paper-owned M1 package remains unchanged as the exact provenance predecessor.
+The draft now cites the publication-independent direct Mathieu1D calculation through
+[`experiment-references.json`](experiment-references.json). The manifest binds the
+unsealed execution, exact configuration, result, verification, rendering, figure, and
+technical-report bytes plus the consumed typed-result fields. Byte-owning independent
+verification passes; this establishes bounded finite synthetic numerical consistency
+only. All predecessor run artifacts were removed from the live tree and are not
+publication inputs.
 
 A second prospectively frozen synthetic package at
 [`calculations/ICMSEP2026/conference/paper_1/multiband-alignment/`](../../../../../calculations/ICMSEP2026/conference/paper_1/multiband-alignment/)
