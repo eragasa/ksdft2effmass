@@ -115,6 +115,14 @@ and do not preserve Workflow-shaped public APIs.
 tolerances, execution record, and claim boundary. Neither imports the other's
 calculation tree.
 
+**Audit status:** the exact live M2 package, root/API surfaces, aggregate test, historical
+package, and direct M3 consumers are crosswalked in
+[`calculations/periodic1d/rank2/phase-3-split-audit.md`](../../../../../calculations/periodic1d/rank2/phase-3-split-audit.md).
+The audit selects composite-band alignment/locality as the first direct implementation
+because it is the bounded scientific successor of M2. It also establishes that M2 source
+removal remains blocked until Phase 4 migrates the admissible-set definition, producer,
+result, verifier, serializer composition, and tests. No compatibility facade is allowed.
+
 ## Phase 4 — constrained admissible sets and sensitivity
 
 Rebuild admissible-set composition over authenticated typed upstream results. Keep the

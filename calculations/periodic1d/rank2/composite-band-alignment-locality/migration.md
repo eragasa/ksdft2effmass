@@ -23,8 +23,14 @@ Baseline source revision:
 
 ## Scientific and source migration
 
-- [ ] Record exact revisions, hashes, schemas, and consumers for M2 and monograph donors.
-- [ ] Classify every donor field and diagnostic as adopted, adapted, rejected, or provenance-only.
+- [x] Record the live M2 revision, package tree, file/blob/content hashes, schemas,
+  direct M3 consumers, and historical Conference Paper 1 package identities in
+  [`../phase-3-split-audit.md`](../phase-3-split-audit.md).
+- [x] Classify the live and historical M2 fields and diagnostics as adopted, adapted,
+  rejected, or provenance-only between the composite and band-equivalence successors in
+  [`../phase-3-split-audit.md`](../phase-3-split-audit.md).
+- [ ] Record exact revisions, hashes, schemas, and consumers for the separate monograph
+  composite donor before implementation freeze.
 - [ ] Resolve eigensystem, Procrustes, and transport selection technical debt.
 - [ ] Freeze the model, meshes, frame convention, alignment families, supports, tolerances, and failure rules.
 - [ ] Move concrete composition from source owners only when consumers migrate directly.

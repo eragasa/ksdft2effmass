@@ -15,10 +15,10 @@ assigned here, with predecessor identities and remaining work recorded in
 [`migration.md`](migration.md).
 
 This family is distinct from the existing rank-two
-[`band-equivalence-locality`](../band-equivalence-locality/README.md) model-adequacy
-calculation. Shared reusable operations do not collapse the scientific identities,
-inputs, thresholds, schemas, verification routes, or evidence policies of the two
-families.
+[`band-equivalence-versus-hopping-locality`](../band-equivalence-versus-hopping-locality/README.md)
+model-adequacy calculation. Shared reusable operations do not collapse the scientific
+identities, inputs, thresholds, schemas, verification routes, or evidence policies of
+the two families.
 
 ## Complete local inventory
 
@@ -26,8 +26,9 @@ families.
 |---|---|
 | [`protocol.md`](protocol.md) | Exact migrated prospective protocol; selected controls and outstanding freeze points. |
 | [`migration.md`](migration.md) | File-level predecessor crosswalk and actionable implementation/evidence ledger. |
-| `python/src/ksdft2effmass/periodic1d/multiband_alignment.py` | Current reusable rank-two alignment-analysis surface to audit for direct canonical use. |
-| `python/src/ksdft2effmass/periodic1d/campaign.py` | Current campaign-side composition surface requiring ownership reconciliation. |
+| [`../phase-3-split-audit.md`](../phase-3-split-audit.md) | Exact live-M2 recovery/consumer inventory, two-family channel split, parity gaps, implementation order, and removal gates. |
+| `python/src/ksdft2effmass/periodic1d/multiband_alignment/` | Six-file live predecessor package; direct scientific successor is this family, but removal is blocked by M3 consumers. |
+| `python/src/ksdft2effmass/periodic1d/admissible_sets/` | Direct M3 consumer of the M2 definition, producer, result, and verifier; migration belongs to Phase 4. |
 | Historical `ksdft2effmass.experiments.multiband` package at `c5d34a93b4710a4a430738c404c775865d418d42` | Removed donor containing M2/M3 schemas, producer, verifier, quadratics, and rendering routes; recover definitions selectively, not the package wholesale. |
 | Historical research-monograph periodic-1D package at the same revision | Removed donor containing composite, stress, extraction, and verification routes plus historical execution outcomes. |
 | [`docs/tasks/tech_debt/composite-band-alignment-and-locality/`](../../../../docs/tasks/tech_debt/composite-band-alignment-and-locality/index.md) | Design and migration rationale; not the maintained calculation owner. |
