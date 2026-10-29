@@ -103,63 +103,86 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DResult:
             raise ValueError("represented_matrix must use the recoil-energy unit")
 
 
-class PeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
-    """Construct sparse twisted second-order fibers on one periodic cell."""
+@dataclass(frozen=True, slots=True)
+class PeriodicFiniteDifferenceFiberHamiltonian1DRequest:
+    """Bind one complete twisted finite-difference fiber request."""
 
-    __slots__ = ()
+    reduced_momentum: float
+    grid: PeriodicUniformGrid1D
+    potential: PeriodicFourierPotential1D
+    recoil_energy: ScalarQuantity
+    period_absolute_tolerance: float
 
-    def execute(
-        self,
-        reduced_momentum: float,
-        grid: PeriodicUniformGrid1D,
-        potential: PeriodicFourierPotential1D,
-        recoil_energy: ScalarQuantity,
-        period_absolute_tolerance: float,
-    ) -> PeriodicFiniteDifferenceFiberHamiltonian1DResult:
-        """Construct the periodic central-difference Hamiltonian with Bloch seam."""
-        if type(reduced_momentum) is not float:
+    def __post_init__(self) -> None:
+        """Admit one correlated represented-fiber request."""
+        if type(self.reduced_momentum) is not float:
             raise TypeError("reduced_momentum must be a built-in float")
-        if not np.isfinite(reduced_momentum):
+        if not np.isfinite(self.reduced_momentum):
             raise ValueError("reduced_momentum must be finite")
-        if reduced_momentum < -0.5 or reduced_momentum > 0.5:
+        if self.reduced_momentum < -0.5 or self.reduced_momentum > 0.5:
             raise ValueError("reduced_momentum must lie in [-0.5, 0.5]")
-        if type(grid) is not PeriodicUniformGrid1D:
+        if type(self.grid) is not PeriodicUniformGrid1D:
             raise TypeError("grid must be PeriodicUniformGrid1D")
-        if type(potential) is not PeriodicFourierPotential1D:
+        if type(self.potential) is not PeriodicFourierPotential1D:
             raise TypeError("potential must be PeriodicFourierPotential1D")
-        if type(recoil_energy) is not ScalarQuantity:
+        if type(self.recoil_energy) is not ScalarQuantity:
             raise TypeError("recoil_energy must be ScalarQuantity")
-        if recoil_energy.magnitude <= 0.0:
+        if self.recoil_energy.magnitude <= 0.0:
             raise ValueError("recoil_energy must be positive")
-        if type(period_absolute_tolerance) is not float:
+        if type(self.period_absolute_tolerance) is not float:
             raise TypeError("period_absolute_tolerance must be a built-in float")
         if (
-            not np.isfinite(period_absolute_tolerance)
-            or period_absolute_tolerance < 0.0
+            not np.isfinite(self.period_absolute_tolerance)
+            or self.period_absolute_tolerance < 0.0
         ):
             raise ValueError("period_absolute_tolerance must be finite and nonnegative")
         potential_period = ModelSystemUnitConverter.convert_scalar(
-            potential.period, grid.period.unit
+            self.potential.period, self.grid.period.unit
         )
         if not np.isclose(
             potential_period.magnitude,
-            grid.period.magnitude,
+            self.grid.period.magnitude,
             rtol=0.0,
-            atol=period_absolute_tolerance,
+            atol=self.period_absolute_tolerance,
         ):
             raise ValueError("grid and potential periods do not agree")
-        converter = ModelSystemUnitConverter
-        if not converter.compatible(
-            potential.constant_coefficient.unit, recoil_energy.unit
+        if not ModelSystemUnitConverter.compatible(
+            self.potential.constant_coefficient.unit, self.recoil_energy.unit
         ):
             raise ValueError("potential and recoil-energy units must be compatible")
+
+
+class PeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
+    """Construct one bound twisted finite-difference fiber request."""
+
+    __slots__ = ("_request",)
+
+    def __init__(
+        self, request: PeriodicFiniteDifferenceFiberHamiltonian1DRequest
+    ) -> None:
+        if type(request) is not PeriodicFiniteDifferenceFiberHamiltonian1DRequest:
+            raise TypeError(
+                "request must be PeriodicFiniteDifferenceFiberHamiltonian1DRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> PeriodicFiniteDifferenceFiberHamiltonian1DRequest:
+        """Return the complete immutable construction request."""
+        return self._request
+
+    def execute(self) -> PeriodicFiniteDifferenceFiberHamiltonian1DResult:
+        """Construct the periodic central-difference Hamiltonian with Bloch seam."""
+        request = self.request
+        converter = ModelSystemUnitConverter
         sampled_potential = converter.convert_vector(
-            potential.evaluate(grid.coordinates), recoil_energy.unit
+            request.potential.evaluate(request.grid.coordinates),
+            request.recoil_energy.unit,
         )
-        reciprocal_spacing = 2.0 * np.pi / float(grid.point_count)
-        kinetic_link = recoil_energy.magnitude / (reciprocal_spacing**2)
+        reciprocal_spacing = 2.0 * np.pi / float(request.grid.point_count)
+        kinetic_link = request.recoil_energy.magnitude / (reciprocal_spacing**2)
         diagonal = 2.0 * kinetic_link + sampled_potential.magnitude
-        dimension = grid.point_count
+        dimension = request.grid.point_count
         matrix = sparse.diags(
             (
                 np.full(dimension - 1, -kinetic_link, dtype=np.complex128),
@@ -171,17 +194,17 @@ class PeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
             format="lil",
             dtype=np.complex128,
         )
-        seam = -kinetic_link * np.exp(-2j * np.pi * reduced_momentum)
+        seam = -kinetic_link * np.exp(-2j * np.pi * request.reduced_momentum)
         matrix[0, dimension - 1] = seam
         matrix[dimension - 1, 0] = np.conjugate(seam)
         represented = ComplexSparseMatrixQuantity.from_csr(
-            matrix.tocsr(), recoil_energy.unit
+            matrix.tocsr(), request.recoil_energy.unit
         )
         return PeriodicFiniteDifferenceFiberHamiltonian1DResult(
-            reduced_momentum,
-            grid,
-            potential,
-            recoil_energy,
-            period_absolute_tolerance,
+            request.reduced_momentum,
+            request.grid,
+            request.potential,
+            request.recoil_energy,
+            request.period_absolute_tolerance,
             represented,
         )

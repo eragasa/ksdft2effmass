@@ -204,7 +204,12 @@ independent-reference route binds the result and verifier-derived projection in
 instance methods rather than static or class utility methods. A follow-up completeness
 audit identified the previously omitted `Qho1dNondimensionalizer`; it now binds
 positive finite built-in floats in `Qho1dNondimensionalizationRequest` before
-explicit Unitless adaptation.
+explicit Unitless adaptation. The next periodic-representation leaf slice binds
+`PlaneWaveFiberHamiltonian1DRequest` and
+`PeriodicFiniteDifferenceFiberHamiltonian1DRequest` before represented-matrix
+construction. `Mathieu1dAnalysisRequest` then binds the complete configuration and
+result identity; `Mathieu1dAnalyzer` exposes only zero-argument `execute()` and its
+scientific operations are cohesive instance methods.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in
@@ -215,11 +220,8 @@ are outside the 78-class KSD inventory, but the selected collaborator must becom
 explicit required dependency at the KSD composition boundary rather than remain a
 hidden default.
 
-The direct composition roots currently expose the empty top-level calls at
-`calculations/piab1d/run_01_calculation.py:55`,
-`calculations/qho1d/run_01_calculation.py:49`,
-`calculations/mathieu1d/run_01_calculation.py:96`,
-`calculations/periodic1d/rank1/fourier-locality/run_01_calculation.py:53`, and
+The remaining direct composition roots expose empty top-level calls at
+`calculations/periodic1d/rank1/fourier-locality/run_01_calculation.py:53` and
 `calculations/periodic1d/rank2/composite-band-alignment-locality/run_01_calculation.py:55`.
 The rank-two review renderer repeats the pattern at
 `calculations/periodic1d/rank2/composite-band-alignment-locality/technical-report/render_review_figures.py:49`.

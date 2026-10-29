@@ -413,10 +413,16 @@ belong to :doc:`solid-state`.
 .. autoclass:: PeriodicUniformGrid1D
    :members:
 
+.. autoclass:: PlaneWaveFiberHamiltonian1DRequest
+   :members:
+
 .. autoclass:: PlaneWaveFiberHamiltonian1DResult
    :members:
 
 .. autoclass:: PlaneWaveFiberHamiltonian1DConstructor
+   :members:
+
+.. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DRequest
    :members:
 
 .. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DResult

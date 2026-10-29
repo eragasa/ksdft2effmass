@@ -13,6 +13,7 @@ from pathlib import Path
 import numpy as np
 
 from ksdft2effmass.model_systems.mathieu1d import (
+    Mathieu1dAnalysisRequest,
     Mathieu1dAnalyzer,
     Mathieu1dCalculationResult,
     Mathieu1dConfiguration,
@@ -93,13 +94,15 @@ else:
     git_status_bytes = b""
     git_worktree_state = "unavailable"
 
-result = Mathieu1dAnalyzer().calculate(
-    configuration,
-    calculation_family=CALCULATION_FAMILY,
-    execution_id=EXECUTION_ID,
-    evidence_status=EVIDENCE_STATUS,
-    claim_boundary=CLAIM_BOUNDARY,
-)
+result = Mathieu1dAnalyzer(
+    Mathieu1dAnalysisRequest(
+        configuration=configuration,
+        calculation_family=CALCULATION_FAMILY,
+        execution_id=EXECUTION_ID,
+        evidence_status=EVIDENCE_STATUS,
+        claim_boundary=CLAIM_BOUNDARY,
+    )
+).execute()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
 if Mathieu1dConfiguration.from_json(configuration_bytes).to_json() != (

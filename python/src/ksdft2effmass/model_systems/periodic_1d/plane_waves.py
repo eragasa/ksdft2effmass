@@ -63,72 +63,95 @@ class PlaneWaveFiberHamiltonian1DResult:
             raise ValueError("represented_matrix must use the recoil-energy unit")
 
 
-class PlaneWaveFiberHamiltonian1DConstructor:
-    """Construct finite plane-wave fibers for real periodic Fourier potentials."""
+@dataclass(frozen=True, slots=True)
+class PlaneWaveFiberHamiltonian1DRequest:
+    """Bind one complete finite plane-wave fiber construction request."""
 
-    __slots__ = ()
+    reduced_momentum: float
+    basis: PlaneWaveBasis1D
+    potential: PeriodicFourierPotential1D
+    recoil_energy: ScalarQuantity
+    duality_absolute_tolerance: float
 
-    def execute(
-        self,
-        reduced_momentum: float,
-        basis: PlaneWaveBasis1D,
-        potential: PeriodicFourierPotential1D,
-        recoil_energy: ScalarQuantity,
-        duality_absolute_tolerance: float,
-    ) -> PlaneWaveFiberHamiltonian1DResult:
-        """Construct ``H_nm(k)`` in ordered reciprocal-index convention."""
-        if type(reduced_momentum) is not float:
+    def __post_init__(self) -> None:
+        """Admit one correlated represented-fiber request."""
+        if type(self.reduced_momentum) is not float:
             raise TypeError("reduced_momentum must be a built-in float")
-        if not np.isfinite(reduced_momentum):
+        if not np.isfinite(self.reduced_momentum):
             raise ValueError("reduced_momentum must be finite")
-        if reduced_momentum < -0.5 or reduced_momentum > 0.5:
+        if self.reduced_momentum < -0.5 or self.reduced_momentum > 0.5:
             raise ValueError("reduced_momentum must lie in [-0.5, 0.5]")
-        if type(basis) is not PlaneWaveBasis1D:
+        if type(self.basis) is not PlaneWaveBasis1D:
             raise TypeError("basis must be PlaneWaveBasis1D")
-        if type(potential) is not PeriodicFourierPotential1D:
+        if type(self.potential) is not PeriodicFourierPotential1D:
             raise TypeError("potential must be PeriodicFourierPotential1D")
-        if type(recoil_energy) is not ScalarQuantity:
+        if type(self.recoil_energy) is not ScalarQuantity:
             raise TypeError("recoil_energy must be ScalarQuantity")
-        if recoil_energy.magnitude <= 0.0:
+        if self.recoil_energy.magnitude <= 0.0:
             raise ValueError("recoil_energy must be positive")
-        if type(duality_absolute_tolerance) is not float:
+        if type(self.duality_absolute_tolerance) is not float:
             raise TypeError("duality_absolute_tolerance must be a built-in float")
         if (
-            not np.isfinite(duality_absolute_tolerance)
-            or duality_absolute_tolerance < 0.0
+            not np.isfinite(self.duality_absolute_tolerance)
+            or self.duality_absolute_tolerance < 0.0
         ):
             raise ValueError(
                 "duality_absolute_tolerance must be finite and nonnegative"
             )
-        expected_reciprocal = potential.reciprocal_period_in(basis.reciprocal_vector)
+        expected_reciprocal = self.potential.reciprocal_period_in(
+            self.basis.reciprocal_vector
+        )
         if not np.isclose(
-            basis.reciprocal_vector.magnitude,
+            self.basis.reciprocal_vector.magnitude,
             expected_reciprocal,
             rtol=0.0,
-            atol=duality_absolute_tolerance,
+            atol=self.duality_absolute_tolerance,
         ):
             raise ValueError("basis reciprocal vector is incompatible with the period")
-        converter = ModelSystemUnitConverter
-        if not converter.compatible(
-            potential.constant_coefficient.unit, recoil_energy.unit
+        if not ModelSystemUnitConverter.compatible(
+            self.potential.constant_coefficient.unit, self.recoil_energy.unit
         ):
             raise ValueError("potential and recoil-energy units must be compatible")
+
+
+class PlaneWaveFiberHamiltonian1DConstructor:
+    """Construct one bound finite plane-wave fiber request."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: PlaneWaveFiberHamiltonian1DRequest) -> None:
+        if type(request) is not PlaneWaveFiberHamiltonian1DRequest:
+            raise TypeError("request must be PlaneWaveFiberHamiltonian1DRequest")
+        self._request = request
+
+    @property
+    def request(self) -> PlaneWaveFiberHamiltonian1DRequest:
+        """Return the complete immutable construction request."""
+        return self._request
+
+    def execute(self) -> PlaneWaveFiberHamiltonian1DResult:
+        """Construct ``H_nm(k)`` in ordered reciprocal-index convention."""
+        request = self.request
+        converter = ModelSystemUnitConverter
         constant = converter.convert_scalar(
-            potential.constant_coefficient, recoil_energy.unit
+            request.potential.constant_coefficient, request.recoil_energy.unit
         )
         cosine = converter.convert_vector(
-            potential.cosine_coefficients, recoil_energy.unit
+            request.potential.cosine_coefficients, request.recoil_energy.unit
         )
-        sine = converter.convert_vector(potential.sine_coefficients, recoil_energy.unit)
-        indices = np.asarray(basis.reciprocal_indices, dtype=np.float64)
+        sine = converter.convert_vector(
+            request.potential.sine_coefficients, request.recoil_energy.unit
+        )
+        indices = np.asarray(request.basis.reciprocal_indices, dtype=np.float64)
         matrix = np.diag(
-            recoil_energy.magnitude * np.square(reduced_momentum + indices)
+            request.recoil_energy.magnitude
+            * np.square(request.reduced_momentum + indices)
             + constant.magnitude
         ).astype(np.complex128)
         for harmonic, (cosine_value, sine_value) in enumerate(
             zip(cosine.magnitude, sine.magnitude, strict=True), start=1
         ):
-            diagonal_size = basis.dimension - harmonic
+            diagonal_size = request.basis.dimension - harmonic
             if diagonal_size <= 0:
                 continue
             matrix += np.diag(
@@ -148,10 +171,10 @@ class PlaneWaveFiberHamiltonian1DConstructor:
                 -harmonic,
             )
         return PlaneWaveFiberHamiltonian1DResult(
-            reduced_momentum,
-            basis,
-            potential,
-            recoil_energy,
-            duality_absolute_tolerance,
-            ComplexMatrixQuantity(matrix, recoil_energy.unit),
+            request.reduced_momentum,
+            request.basis,
+            request.potential,
+            request.recoil_energy,
+            request.duality_absolute_tolerance,
+            ComplexMatrixQuantity(matrix, request.recoil_energy.unit),
         )

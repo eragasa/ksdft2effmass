@@ -16,7 +16,10 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.model_systems.mathieu1d.analysis import Mathieu1dAnalyzer
+from ksdft2effmass.model_systems.mathieu1d.analysis import (
+    Mathieu1dAnalysisRequest,
+    Mathieu1dAnalyzer,
+)
 from ksdft2effmass.model_systems.mathieu1d.configuration import (
     Mathieu1dConfiguration,
 )
@@ -31,7 +34,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 class TestMathieu1dDirectAnalysis:
-    """Verify typed calculate, byte-owning verification, and rendering behavior."""
+    """Verify typed execution, byte-owning verification, and rendering behavior."""
 
     def test_source__successor_modules__import_no_legacy_or_calculation_code(
         self,
@@ -81,7 +84,7 @@ class TestMathieu1dDirectAnalysis:
         with pytest.raises(TypeError, match="recoil_energy"):
             replace(self._configuration(), recoil_energy=True)
 
-    def test_calculate__typed_result__round_trips_and_retains_closed_ranges(
+    def test_execute__typed_result__round_trips_and_retains_closed_ranges(
         self,
     ) -> None:
         """The direct analyzer returns one immutable typed finite result."""
@@ -227,13 +230,16 @@ class TestMathieu1dDirectAnalysis:
     def _calculate(
         configuration: Mathieu1dConfiguration,
     ) -> Mathieu1dCalculationResult:
-        return Mathieu1dAnalyzer().calculate(
-            configuration,
+        request = Mathieu1dAnalysisRequest(
+            configuration=configuration,
             calculation_family="mathieu1d-finite-reduction",
             execution_id="test-direct",
             evidence_status="illustrative numerical experiment",
             claim_boundary="test fixture; no scientific-validation claim",
         )
+        analyzer = Mathieu1dAnalyzer(request)
+        assert analyzer.request is request
+        return analyzer.execute()
 
     @staticmethod
     def _configuration() -> Mathieu1dConfiguration:

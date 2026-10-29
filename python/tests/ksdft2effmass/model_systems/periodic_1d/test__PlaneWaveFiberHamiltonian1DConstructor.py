@@ -29,6 +29,7 @@ from projectkoios.physkit.units import (
 from ksdft2effmass.model_systems import (
     PeriodicFourierPotential1D,
     PlaneWaveFiberHamiltonian1DConstructor,
+    PlaneWaveFiberHamiltonian1DRequest,
 )
 from ksdft2effmass.solidstate import PlaneWaveBasis1D
 
@@ -61,13 +62,17 @@ class TestPlaneWaveFiberHamiltonian1DConstructor:
         )
         basis = PlaneWaveBasis1D(ScalarQuantity(1.0, Unitless()), 1)
 
-        result = PlaneWaveFiberHamiltonian1DConstructor().execute(
+        request = PlaneWaveFiberHamiltonian1DRequest(
             0.25,
             basis,
             potential,
             ScalarQuantity(2.0, PhysicalUnit("electron_volt")),
             1.0e-14,
         )
+        constructor = PlaneWaveFiberHamiltonian1DConstructor(request)
+        result = constructor.execute()
+
+        assert constructor.request is request
 
         expected = np.asarray(
             [
@@ -103,7 +108,7 @@ class TestPlaneWaveFiberHamiltonian1DConstructor:
         basis = PlaneWaveBasis1D(ScalarQuantity(2.0, Unitless()), 1)
 
         with pytest.raises(ValueError, match="incompatible with the period"):
-            PlaneWaveFiberHamiltonian1DConstructor().execute(
+            PlaneWaveFiberHamiltonian1DRequest(
                 0.0,
                 basis,
                 potential,

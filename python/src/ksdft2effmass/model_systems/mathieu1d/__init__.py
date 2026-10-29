@@ -5,7 +5,7 @@ cosine parent and one finite single-band Fourier/hopping reduction. Its sampled 
 diagnostics do not establish continuum isolation or material validation.
 """
 
-from .analysis import Mathieu1dAnalyzer
+from .analysis import Mathieu1dAnalysisRequest, Mathieu1dAnalyzer
 from .configuration import Mathieu1dConfiguration
 from .result import (
     Mathieu1dBandSamplesResult,
@@ -26,6 +26,7 @@ from .visualizations import (
 )
 
 __all__ = [
+    "Mathieu1dAnalysisRequest",
     "Mathieu1dAnalyzer",
     "Mathieu1dBandSamplesResult",
     "Mathieu1dCalculationResult",

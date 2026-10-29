@@ -27,6 +27,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.model_systems import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
+    PeriodicFiniteDifferenceFiberHamiltonian1DRequest,
     PeriodicFourierPotential1D,
     PeriodicUniformGrid1D,
 )
@@ -60,9 +61,13 @@ class TestPeriodicFiniteDifferenceFiberHamiltonian1DConstructor:
             VectorQuantity(np.asarray([]), Unitless()),
         )
 
-        result = PeriodicFiniteDifferenceFiberHamiltonian1DConstructor().execute(
+        request = PeriodicFiniteDifferenceFiberHamiltonian1DRequest(
             0.25, grid, potential, ScalarQuantity(1.0, Unitless()), 0.0
         )
+        constructor = PeriodicFiniteDifferenceFiberHamiltonian1DConstructor(request)
+        result = constructor.execute()
+
+        assert constructor.request is request
 
         matrix = result.represented_matrix.to_csr().toarray()
         link = 4.0 / np.pi**2

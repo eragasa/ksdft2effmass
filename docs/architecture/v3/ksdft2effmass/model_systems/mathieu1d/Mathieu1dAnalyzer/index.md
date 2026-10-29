@@ -2,20 +2,22 @@
 
 ## Status and responsibility
 
-Implemented stateless production action in
+Implemented request-bound production action in
 `python/src/ksdft2effmass/model_systems/mathieu1d/analysis.py`.
 
 ```python
-result = Mathieu1dAnalyzer().calculate(
-    configuration,
+request = Mathieu1dAnalysisRequest(
+    configuration=configuration,
     calculation_family="mathieu1d-finite-reduction",
     execution_id="direct-finite-reduction-n64",
     evidence_status="illustrative numerical experiment",
     claim_boundary="finite represented calculation only",
 )
+result = Mathieu1dAnalyzer(request).execute()
 ```
 
-`calculate()` composes canonical finite parent constructors, Fourier transformation,
+The zero-argument `execute()` composes request-bound canonical finite parent
+constructors, Fourier transformation,
 truncation, interpolation, weighted fitting, and diagnostics into one
 `Mathieu1dCalculationResult`. It performs no filesystem effects and reads no retained
 artifact.
@@ -32,7 +34,10 @@ artifact.
 ## Public import
 
 ```python
-from ksdft2effmass.model_systems.mathieu1d import Mathieu1dAnalyzer
+from ksdft2effmass.model_systems.mathieu1d import (
+    Mathieu1dAnalysisRequest,
+    Mathieu1dAnalyzer,
+)
 ```
 
 ## Claim boundary

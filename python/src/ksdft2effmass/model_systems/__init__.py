@@ -17,6 +17,7 @@ from .cartesian_grids import (
 )
 from .intervals import DirichletInterval
 from .mathieu1d import (
+    Mathieu1dAnalysisRequest,
     Mathieu1dAnalyzer,
     Mathieu1dBandSamplesResult,
     Mathieu1dCalculationResult,
@@ -48,10 +49,12 @@ from .periodic2d import (
 )
 from .periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
+    PeriodicFiniteDifferenceFiberHamiltonian1DRequest,
     PeriodicFiniteDifferenceFiberHamiltonian1DResult,
     PeriodicFourierPotential1D,
     PeriodicUniformGrid1D,
     PlaneWaveFiberHamiltonian1DConstructor,
+    PlaneWaveFiberHamiltonian1DRequest,
     PlaneWaveFiberHamiltonian1DResult,
 )
 from .qho1d import (
@@ -102,6 +105,7 @@ __all__ = [
     "Qho1dParameters",
     "QuadratureResultSection",
     "QuadratureVerification",
+    "Mathieu1dAnalysisRequest",
     "Mathieu1dAnalyzer",
     "Mathieu1dBandSamplesResult",
     "Mathieu1dCalculationResult",
@@ -116,6 +120,7 @@ __all__ = [
     "Mathieu1dVisualizationPlotEnum",
     "Mathieu1dVisualizer",
     "PeriodicFiniteDifferenceFiberHamiltonian1DConstructor",
+    "PeriodicFiniteDifferenceFiberHamiltonian1DRequest",
     "PeriodicFiniteDifferenceFiberHamiltonian1DResult",
     "PeriodicFourierPotential1D",
     "PeriodicUniformGrid1D",
@@ -124,6 +129,7 @@ __all__ = [
     "PlaneWaveBlochHamiltonian2DRequest",
     "PlaneWaveBlochHamiltonian2DResult",
     "PlaneWaveFiberHamiltonian1DConstructor",
+    "PlaneWaveFiberHamiltonian1DRequest",
     "PlaneWaveFiberHamiltonian1DResult",
     "PlaneWaveFourierCoefficient2D",
     "PlaneWaveReciprocalSewing2DConstructor",

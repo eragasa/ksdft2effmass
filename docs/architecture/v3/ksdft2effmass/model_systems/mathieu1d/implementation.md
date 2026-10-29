@@ -27,8 +27,11 @@ code owns array and quantity transport; Mathieu1D defines no custom wire codec.
 
 ## Production composition
 
-`Mathieu1dAnalyzer` constructs the declared `PeriodicFourierPotential1D`, delegates
-finite plane-wave and periodic finite-difference fibers to their canonical owners, and
+`Mathieu1dAnalysisRequest` binds the complete configuration and result identity;
+`Mathieu1dAnalyzer` admits it at construction and exposes only zero-argument
+`execute()`. The analyzer constructs the declared `PeriodicFourierPotential1D`,
+delegates finite plane-wave and periodic finite-difference fibers through their own
+constructor-bound request contracts to their canonical owners, and
 uses ordered eigenspectra for the parent comparisons. It then composes the existing
 reciprocal transform, truncation, interpolation, weighted least-squares fit, Parseval,
 Hermiticity, route-comparison, and band-shape actions.

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import numpy as np
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
@@ -34,9 +36,11 @@ from ksdft2effmass.analysis.periodic_bands import (
 )
 from ksdft2effmass.model_systems.periodic_1d import (
     PeriodicFiniteDifferenceFiberHamiltonian1DConstructor,
+    PeriodicFiniteDifferenceFiberHamiltonian1DRequest,
     PeriodicFourierPotential1D,
     PeriodicUniformGrid1D,
     PlaneWaveFiberHamiltonian1DConstructor,
+    PlaneWaveFiberHamiltonian1DRequest,
 )
 from ksdft2effmass.solidstate import (
     BlockHoppingInterpolationRequest1D,
@@ -61,8 +65,36 @@ from .result import (
 )
 
 
+@dataclass(frozen=True, slots=True)
+class Mathieu1dAnalysisRequest:
+    """Bind one complete direct finite Mathieu1D reduction request."""
+
+    configuration: Mathieu1dConfiguration
+    calculation_family: str
+    execution_id: str
+    evidence_status: str
+    claim_boundary: str
+
+    def __post_init__(self) -> None:
+        """Admit the configuration and complete immutable result identity."""
+        if type(self.configuration) is not Mathieu1dConfiguration:
+            raise TypeError("configuration must be Mathieu1dConfiguration")
+        for name, value in (
+            ("calculation_family", self.calculation_family),
+            ("execution_id", self.execution_id),
+            ("evidence_status", self.evidence_status),
+            ("claim_boundary", self.claim_boundary),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in string")
+            if not value:
+                raise ValueError(f"{name} must be nonempty")
+        if self.calculation_family != "mathieu1d-finite-reduction":
+            raise ValueError("calculation_family does not identify Mathieu1D reduction")
+
+
 class Mathieu1dAnalyzer:
-    """Calculate one direct finite Mathieu1D reduction.
+    """Calculate one bound direct finite Mathieu1D reduction request.
 
     The analyzer calls canonical representation, Fourier, truncation, fitting, and
     diagnostic owners directly. It does not call a Workflow, read retained artifacts,
@@ -70,59 +102,21 @@ class Mathieu1dAnalyzer:
     isolation.
     """
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def calculate(
-        self,
-        configuration: Mathieu1dConfiguration,
-        *,
-        calculation_family: str,
-        execution_id: str,
-        evidence_status: str,
-        claim_boundary: str,
-    ) -> Mathieu1dCalculationResult:
-        """Return one typed finite-reduction result.
+    def __init__(self, request: Mathieu1dAnalysisRequest) -> None:
+        if type(request) is not Mathieu1dAnalysisRequest:
+            raise TypeError("request must be Mathieu1dAnalysisRequest")
+        self._request = request
 
-        Parameters
-        ----------
-        configuration
-            Validated unitless finite calculation controls.
-        calculation_family
-            Stable ``"mathieu1d-finite-reduction"`` family identifier.
-        execution_id
-            Concrete execution identifier attached to the result bytes.
-        evidence_status
-            Explicit classification of the finite numerical result.
-        claim_boundary
-            Human-readable limit on claims supported by the calculation.
+    @property
+    def request(self) -> Mathieu1dAnalysisRequest:
+        """Return the complete immutable finite-reduction request."""
+        return self._request
 
-        Returns
-        -------
-        Mathieu1dCalculationResult
-            Complete metadata, parent refinement, band samples, transform, and range
-            result.
-
-        Raises
-        ------
-        TypeError
-            Configuration or metadata has the wrong domain type.
-        ValueError
-            Metadata is empty or the calculation family is unsupported.
-        """
-        if not isinstance(configuration, Mathieu1dConfiguration):
-            raise TypeError("configuration must be Mathieu1dConfiguration")
-        for name, value in (
-            ("calculation_family", calculation_family),
-            ("execution_id", execution_id),
-            ("evidence_status", evidence_status),
-            ("claim_boundary", claim_boundary),
-        ):
-            if type(value) is not str:
-                raise TypeError(f"{name} must be a built-in string")
-            if not value:
-                raise ValueError(f"{name} must be nonempty")
-        if calculation_family != "mathieu1d-finite-reduction":
-            raise ValueError("calculation_family does not identify Mathieu1D reduction")
+    def execute(self) -> Mathieu1dCalculationResult:
+        """Return one typed finite-reduction result."""
+        configuration = self.request.configuration
         # Materialize the one-harmonic parent once so both represented routes consume
         # identical model coefficients and direct/reciprocal conventions.
         unit = Unitless()
@@ -144,7 +138,6 @@ class Mathieu1dAnalyzer:
         # The largest plane-wave cutoff is an explicitly finite comparison reference;
         # no value in this block is labeled as a continuum spectrum.
         parent_reference = self._plane_wave_spectrum(
-            configuration,
             potential,
             reciprocal,
             recoil,
@@ -156,7 +149,6 @@ class Mathieu1dAnalyzer:
             [
                 self._maximum_error(
                     self._plane_wave_spectrum(
-                        configuration,
                         potential,
                         reciprocal,
                         recoil,
@@ -174,7 +166,6 @@ class Mathieu1dAnalyzer:
             [
                 self._maximum_error(
                     self._finite_difference_spectrum(
-                        configuration,
                         potential,
                         recoil,
                         point_count,
@@ -208,7 +199,6 @@ class Mathieu1dAnalyzer:
         )
         retained_count = configuration.selected_band_index + 2
         training_spectrum = self._plane_wave_spectrum(
-            configuration,
             potential,
             reciprocal,
             recoil,
@@ -217,7 +207,6 @@ class Mathieu1dAnalyzer:
             retained_count,
         )
         evaluation_spectrum = self._plane_wave_spectrum(
-            configuration,
             potential,
             reciprocal,
             recoil,
@@ -338,7 +327,6 @@ class Mathieu1dAnalyzer:
         # exactly the same representative inventory.
         ranges = tuple(
             self._calculate_range(
-                configuration,
                 source,
                 complete,
                 training_target,
@@ -351,10 +339,10 @@ class Mathieu1dAnalyzer:
             for maximum_range in configuration.hopping_ranges
         )
         return Mathieu1dCalculationResult(
-            calculation_family=calculation_family,
-            execution_id=execution_id,
-            evidence_status=evidence_status,
-            claim_boundary=claim_boundary,
+            calculation_family=self.request.calculation_family,
+            execution_id=self.request.execution_id,
+            evidence_status=self.request.evidence_status,
+            claim_boundary=self.request.claim_boundary,
             configuration=configuration,
             refinement=refinement,
             bands=bands,
@@ -362,10 +350,8 @@ class Mathieu1dAnalyzer:
             ranges=ranges,
         )
 
-    @classmethod
     def _calculate_range(
-        cls,
-        configuration: Mathieu1dConfiguration,
+        self,
         source: ReciprocalOperatorSamples1D,
         complete: ReciprocalOperatorFourierTransformResult1D,
         training_target: BandSpectrumSamples1D,
@@ -376,6 +362,7 @@ class Mathieu1dAnalyzer:
         maximum_range: int,
     ) -> Mathieu1dRangeResult:
         """Calculate one finite-range route pair and diagnostics."""
+        configuration = self.request.configuration
         if not isinstance(complete, ReciprocalOperatorFourierTransformResult1D):
             raise TypeError("complete must be a Fourier-transform result")
         unit = Unitless()
@@ -440,16 +427,16 @@ class Mathieu1dAnalyzer:
             maximum_range=maximum_range,
             representatives=truncation.truncated.representatives,
             mediated_hopping_blocks=ComplexVectorQuantity(
-                cls._scalar_blocks(truncation.truncated.hopping_blocks), unit
+                self._scalar_blocks(truncation.truncated.hopping_blocks), unit
             ),
             direct_hopping_blocks=ComplexVectorQuantity(
-                cls._scalar_blocks(direct.fitted_model.hopping_blocks), unit
+                self._scalar_blocks(direct.fitted_model.hopping_blocks), unit
             ),
             training_candidate=ComplexVectorQuantity(
-                cls._scalar_samples(training_candidate), unit
+                self._scalar_samples(training_candidate), unit
             ),
             evaluation_candidate=ComplexVectorQuantity(
-                cls._scalar_samples(evaluation_candidate), unit
+                self._scalar_samples(evaluation_candidate), unit
             ),
             training_maximum_error=training_error.maximum_absolute_error,
             evaluation_maximum_error=evaluation_error.maximum_absolute_error,
@@ -484,9 +471,8 @@ class Mathieu1dAnalyzer:
             band_shape_passes=shape.passes,
         )
 
-    @staticmethod
     def _plane_wave_spectrum(
-        configuration: Mathieu1dConfiguration,
+        self,
         potential: PeriodicFourierPotential1D,
         reciprocal: ScalarQuantity,
         recoil: ScalarQuantity,
@@ -495,27 +481,30 @@ class Mathieu1dAnalyzer:
         band_count: int,
     ) -> np.ndarray:
         """Return ordered finite plane-wave eigenvalues."""
+        configuration = self.request.configuration
         basis = PlaneWaveBasis1D(reciprocal, cutoff)
-        constructor = PlaneWaveFiberHamiltonian1DConstructor()
         return np.asarray(
             [
                 np.linalg.eigvalsh(
-                    constructor.execute(
-                        float(momentum),
-                        basis,
-                        potential,
-                        recoil,
-                        configuration.duality_absolute_tolerance,
-                    ).represented_matrix.magnitude
+                    PlaneWaveFiberHamiltonian1DConstructor(
+                        PlaneWaveFiberHamiltonian1DRequest(
+                            float(momentum),
+                            basis,
+                            potential,
+                            recoil,
+                            configuration.duality_absolute_tolerance,
+                        )
+                    )
+                    .execute()
+                    .represented_matrix.magnitude
                 )[:band_count]
                 for momentum in reduced
             ],
             dtype=np.float64,
         )
 
-    @staticmethod
     def _finite_difference_spectrum(
-        configuration: Mathieu1dConfiguration,
+        self,
         potential: PeriodicFourierPotential1D,
         recoil: ScalarQuantity,
         point_count: int,
@@ -523,22 +512,28 @@ class Mathieu1dAnalyzer:
         band_count: int,
     ) -> np.ndarray:
         """Return ordered periodic finite-difference eigenvalues."""
+        configuration = self.request.configuration
         unit = Unitless()
         grid = PeriodicUniformGrid1D(
             ScalarQuantity(0.0, unit),
             ScalarQuantity(configuration.period, unit),
             point_count,
         )
-        constructor = PeriodicFiniteDifferenceFiberHamiltonian1DConstructor()
         rows: list[np.ndarray] = []
         for momentum in reduced:
-            matrix = constructor.execute(
-                float(momentum),
-                grid,
-                potential,
-                recoil,
-                configuration.duality_absolute_tolerance,
-            ).represented_matrix.to_csr()
+            matrix = (
+                PeriodicFiniteDifferenceFiberHamiltonian1DConstructor(
+                    PeriodicFiniteDifferenceFiberHamiltonian1DRequest(
+                        float(momentum),
+                        grid,
+                        potential,
+                        recoil,
+                        configuration.duality_absolute_tolerance,
+                    )
+                )
+                .execute()
+                .represented_matrix.to_csr()
+            )
             # A deterministic nonzero starting vector avoids treating ARPACK's random
             # initialization as undeclared execution state.
             values = eigsh(
@@ -555,34 +550,31 @@ class Mathieu1dAnalyzer:
             rows.append(np.sort(np.asarray(values, dtype=np.float64)))
         return np.asarray(rows, dtype=np.float64)
 
-    @staticmethod
-    def _maximum_error(candidate: np.ndarray, reference: np.ndarray) -> float:
+    def _maximum_error(self, candidate: np.ndarray, reference: np.ndarray) -> float:
         """Return the maximum absolute entrywise discrepancy."""
         if candidate.shape != reference.shape:
             raise ValueError("candidate and reference shapes must agree")
         return float(np.max(np.abs(candidate - reference)))
 
-    @staticmethod
     def _scalar_blocks(
+        self,
         blocks: tuple[ComplexMatrixQuantity, ...],
     ) -> np.ndarray:
         """Return scalar complex hopping entries in declared order."""
         values = np.asarray(
             [block.magnitude[0, 0] for block in blocks], dtype=np.complex128
         )
-        return Mathieu1dAnalyzer._canonical_complex(values)
+        return self._canonical_complex(values)
 
-    @staticmethod
-    def _scalar_samples(samples: ReciprocalOperatorSamples1D) -> np.ndarray:
+    def _scalar_samples(self, samples: ReciprocalOperatorSamples1D) -> np.ndarray:
         """Return scalar complex reciprocal samples in coordinate order."""
         values = np.asarray(
             [matrix.magnitude[0, 0] for matrix in samples.matrices],
             dtype=np.complex128,
         )
-        return Mathieu1dAnalyzer._canonical_complex(values)
+        return self._canonical_complex(values)
 
-    @staticmethod
-    def _canonical_complex(values: np.ndarray) -> np.ndarray:
+    def _canonical_complex(self, values: np.ndarray) -> np.ndarray:
         """Normalize signed complex zeros for stable typed-wire round trips."""
         # JSON preserves the sign bit of floating zero. Canonicalizing it here avoids
         # platform-dependent byte differences with no mathematical distinction.
@@ -591,4 +583,4 @@ class Mathieu1dAnalyzer:
         return np.asarray(real + 1j * imaginary, dtype=np.complex128)
 
 
-__all__ = ["Mathieu1dAnalyzer"]
+__all__ = ["Mathieu1dAnalysisRequest", "Mathieu1dAnalyzer"]

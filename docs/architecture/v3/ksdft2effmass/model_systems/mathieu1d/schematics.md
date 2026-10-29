@@ -4,7 +4,8 @@
 
 ```mermaid
 flowchart LR
-    C[Python-authored Mathieu1dConfiguration] --> A[Mathieu1dAnalyzer]
+    C[Python-authored Mathieu1dConfiguration] --> Q[Mathieu1dAnalysisRequest]
+    Q --> A[Mathieu1dAnalyzer]
     P[Periodic parent constructors] --> A
     F[Fourier, truncation, fit, and diagnostics] --> A
     A --> R[Mathieu1dCalculationResult]
