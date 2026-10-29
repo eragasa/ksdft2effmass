@@ -207,6 +207,9 @@ is a finite-representation change diagnostic, not a continuum error estimate.
 .. autoclass:: Qho1dCrossGridAnalysisResult
    :members:
 
+.. autoclass:: Qho1dCrossGridAnalysisRequest
+   :members:
+
 .. autoclass:: Qho1dCrossGridAnalyzer
    :members:
 

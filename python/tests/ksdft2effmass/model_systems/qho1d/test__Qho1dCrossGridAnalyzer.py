@@ -11,6 +11,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dAnalyzer,
     Qho1dCalculationResult,
     Qho1dConfiguration,
+    Qho1dCrossGridAnalysisRequest,
     Qho1dCrossGridAnalysisResult,
     Qho1dCrossGridAnalyzer,
     Qho1dCrossGridVerifier,
@@ -57,8 +58,11 @@ class TestQho1dCrossGridAnalyzer:
     def test_method__execute__calculates_ordered_adjacent_grid_norms(self) -> None:
         """Every fixed-box, fixed-dimension adjacent pair is compared once."""
         calculation = self.calculation()
-        analysis = Qho1dCrossGridAnalyzer().execute(calculation)
+        request = Qho1dCrossGridAnalysisRequest(calculation)
+        analyzer = Qho1dCrossGridAnalyzer(request)
+        analysis = analyzer.execute()
 
+        assert analyzer.request is request
         assert len(analysis.comparisons) == 4
         assert tuple(value.key for value in analysis.comparisons) == (
             (4.0, 2, 0.2, 0.1),
@@ -80,7 +84,9 @@ class TestQho1dCrossGridAnalyzer:
 
     def test_representation__typed_json__round_trips_exact_bytes(self) -> None:
         """The diagnostic aggregate uses the shared typed serialization boundary."""
-        analysis = Qho1dCrossGridAnalyzer().execute(self.calculation())
+        analysis = Qho1dCrossGridAnalyzer(
+            Qho1dCrossGridAnalysisRequest(self.calculation())
+        ).execute()
         wire = analysis.to_json()
 
         reconstructed = Qho1dCrossGridAnalysisResult.from_json(wire)
@@ -93,7 +99,9 @@ class TestQho1dCrossGridAnalyzer:
     def test_method__verifier__detects_changed_derived_norm(self) -> None:
         """Verification recomputes each norm from authoritative case matrices."""
         calculation = self.calculation()
-        analysis = Qho1dCrossGridAnalyzer().execute(calculation)
+        analysis = Qho1dCrossGridAnalyzer(
+            Qho1dCrossGridAnalysisRequest(calculation)
+        ).execute()
         verification = Qho1dCrossGridVerifier().execute(calculation, analysis)
         first = analysis.comparisons[0]
         changed_first = replace(
@@ -122,4 +130,4 @@ class TestQho1dCrossGridAnalyzer:
             ValueError,
             match="cross-grid analysis requires at least two grid spacings",
         ):
-            Qho1dCrossGridAnalyzer().execute(calculation)
+            Qho1dCrossGridAnalyzer(Qho1dCrossGridAnalysisRequest(calculation)).execute()

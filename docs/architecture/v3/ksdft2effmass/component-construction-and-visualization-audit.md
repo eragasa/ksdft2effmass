@@ -192,7 +192,10 @@ at the common-coordinate leaf: `Qho1dComparator` now binds the existing complete
 `Qho1dComparisonRequest`, and the sweep composition constructs each request-bound
 comparator only after the exact case models exist. `Qho1dAnalyzer` then binds the
 configuration and full result identity in `Qho1dAnalysisRequest`; its zero-argument
-`execute()` owns only deterministic calculation composition.
+`execute()` owns only deterministic calculation composition. The adjacent-grid
+analysis then binds the complete calculated subject in
+`Qho1dCrossGridAnalysisRequest` before deriving its ordered finite-representation
+change diagnostics.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

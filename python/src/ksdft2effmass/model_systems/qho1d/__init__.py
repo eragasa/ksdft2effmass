@@ -20,6 +20,7 @@ from .comparison import Qho1dComparator
 from .comparison_records import Qho1dComparisonRequest, Qho1dComparisonResult
 from .configuration import Qho1dConfiguration
 from .cross_grid import (
+    Qho1dCrossGridAnalysisRequest,
     Qho1dCrossGridAnalysisResult,
     Qho1dCrossGridAnalyzer,
     Qho1dCrossGridComparisonResult,
@@ -60,6 +61,7 @@ __all__ = [
     "Qho1dComparisonRequest",
     "Qho1dComparisonResult",
     "Qho1dConfiguration",
+    "Qho1dCrossGridAnalysisRequest",
     "Qho1dCrossGridAnalysisResult",
     "Qho1dCrossGridAnalyzer",
     "Qho1dCrossGridComparisonResult",

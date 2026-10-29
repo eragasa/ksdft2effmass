@@ -43,8 +43,9 @@ The QHO1D successor has no custom NumPy transport or `.tolist()` serialization.
 
 ## Adjacent-grid diagnostic
 
-`Qho1dCrossGridAnalyzer` groups direct result cases at fixed box half-width and
-retained dimension, then compares each adjacent authored coarse/fine grid pair.
+`Qho1dCrossGridAnalysisRequest` binds one complete immutable direct result before
+`Qho1dCrossGridAnalyzer.execute()` groups cases at fixed box half-width and retained
+dimension, then compares each adjacent authored coarse/fine grid pair.
 `Qho1dCrossGridComparisonResult` retains both requested and realized spacings,
 represented dimensions, and the coarse-minus-fine Frobenius norm. The complete
 ordered inventory is a typed `Qho1dCrossGridAnalysisResult` and does not alter the

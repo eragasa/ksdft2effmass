@@ -260,19 +260,35 @@ class Qho1dCrossGridAnalysisResult(BaseTypedRecord):
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Qho1dCrossGridAnalysisRequest:
+    """Bind one complete direct result for adjacent-grid analysis."""
+
+    result: Qho1dCalculationResult
+
+    def __post_init__(self) -> None:
+        """Admit the exact typed calculation subject."""
+        if type(self.result) is not Qho1dCalculationResult:
+            raise TypeError("result must be Qho1dCalculationResult")
+
+
 class Qho1dCrossGridAnalyzer:
-    """Calculate adjacent-grid changes from direct QHO1D result matrices."""
+    """Calculate adjacent-grid changes from one bound QHO1D result."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(self, result: Qho1dCalculationResult) -> Qho1dCrossGridAnalysisResult:
+    def __init__(self, request: Qho1dCrossGridAnalysisRequest) -> None:
+        if type(request) is not Qho1dCrossGridAnalysisRequest:
+            raise TypeError("request must be Qho1dCrossGridAnalysisRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Qho1dCrossGridAnalysisRequest:
+        """Return the complete immutable adjacent-grid analysis request."""
+        return self._request
+
+    def execute(self) -> Qho1dCrossGridAnalysisResult:
         """Calculate the complete adjacent-grid comparison inventory.
-
-        Parameters
-        ----------
-        result
-            Complete direct QHO1D result whose pulled-back Hamiltonians already act
-            in aligned retained number-state coordinates.
 
         Returns
         -------
@@ -281,14 +297,11 @@ class Qho1dCrossGridAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``result`` is not a ``Qho1dCalculationResult``.
         ValueError
             A configured case is absent, duplicated, or does not define a strict
             coarse/fine pair after grid realization.
         """
-        if not isinstance(result, Qho1dCalculationResult):
-            raise TypeError("result must be Qho1dCalculationResult")
+        result = self.request.result
         cases = {case.key: case for case in result.cases}
         if len(cases) != len(result.cases):
             raise ValueError("result cases must have unique authored sweep keys")
