@@ -76,8 +76,9 @@ identities; this directory does not copy, rename, or upgrade them.
   derived channel to classes, schemas, effect adapters, and artifacts.
 - [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md)
   defines protocol authority and exact M2, monograph-composite, and regression boundaries.
-- [`../phase-3-split-audit.md`](../phase-3-split-audit.md) distinguishes the live M2
-  predecessor's composite successor from this family's adapted parent and locality donors.
+- [`../phase-3-split-audit.md`](../phase-3-split-audit.md) distinguishes the then-live
+  M2 predecessor's composite successor from this family's adapted parent and locality
+  donors; the predecessor runtime is now retired and Git-recoverable.
 - [`experiment-removal-manifest.json`](experiment-removal-manifest.json) and
   [`experiment-removal-readiness.md`](experiment-removal-readiness.md) cover all 35
   remaining experiment files without authorizing deletion.

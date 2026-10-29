@@ -231,24 +231,23 @@ The remaining direct composition root exposes an empty top-level call at
 The rank-two review renderer repeats the pattern at
 `calculations/periodic1d/rank2/composite-band-alignment-locality/technical-report/render_review_figures.py:49`.
 
-## Transitional Periodic1D predecessors
+## Retired Periodic1D predecessors
 
-These four actions are not migration targets. Phase 4 must replace their consumers and
-then remove them under the existing predecessor-retirement gate.
+The four transitional actions identified by the audit have been resolved without
+compatibility facades.
 
-| Source | Empty-callable concrete action | Disposition |
+| Former source | Former empty-callable action | Final disposition |
 |---|---|---|
-| `periodic1d/multiband_alignment/calculate.py` | `Periodic1DMultibandAlignmentCalculator` | Remove after all admissible-set consumers migrate. |
-| `periodic1d/multiband_alignment/verify.py` | `Periodic1DMultibandAlignmentResultVerifier` | Remove with the predecessor result contract. |
-| `periodic1d/admissible_sets/calculate.py` | `Periodic1DConstrainedAdmissibleSetCalculator` | Replace with request-bound Phase 4 actions. |
-| `periodic1d/admissible_sets/verify.py` | `Periodic1DConstrainedAdmissibleSetResultVerifier` | Replace with exact-byte-owning Phase 4 verification. |
+| `periodic1d/multiband_alignment/calculate.py` | `Periodic1DMultibandAlignmentCalculator` | Removed after all admissible-set consumers migrated. |
+| `periodic1d/multiband_alignment/verify.py` | `Periodic1DMultibandAlignmentResultVerifier` | Removed with the predecessor result contract. |
+| `periodic1d/admissible_sets/calculate.py` | `Periodic1DConstrainedAdmissibleSetCalculator` | Replaced by a request-bound analyzer. |
+| `periodic1d/admissible_sets/verify.py` | `Periodic1DConstrainedAdmissibleSetResultVerifier` | Replaced by exact-byte-owning verification with a closed inventory. |
 
-The installed defect is explicit at
-`periodic1d/admissible_sets/calculate.py:77`, where
-`Periodic1DMultibandAlignmentCalculator().execute(...)` implicitly produces an upstream
-baseline. Phase 4 must instead receive independently admitted upstream bytes and their
-calculated digest as explicit dependencies. A stored pass label is not an upstream
-subject.
+The former M3 producer implicitly created its upstream M2 baseline. The installed M3
+analyzer now requires exact independently admitted canonical composite-result bytes,
+their digest, and explicit scientific collaborators. The M2 runtime and its generic
+block-parent record were retired after review and explicit authorization; their final
+bytes remain recoverable through the calculation-owned retirement record.
 
 ## Adjacent installed actions
 

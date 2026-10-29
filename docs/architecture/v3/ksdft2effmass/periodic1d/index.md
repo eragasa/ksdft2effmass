@@ -8,15 +8,14 @@ checked, and presented without confusing their state spaces, gauges, numerical e
 or scientific families?
 
 This Architecture v3 surface is an **active family-by-family rewrite**. Phase 1
-Mathieu1D, Phase 2 compatible rank-one Fourier locality, and the Phase 3 rank-two
-composite-alignment family are implemented with typed source records, direct calculation
-stages, byte-owning verification, and authenticated rendering. A provisional Phase 4
-constrained-admissible-set source migration is under review and has no retained successor
-execution. Mathieu1D has one retained unsealed execution; the two locality families have
-only provisional non-retained review results. The Mathieu1D and rank-one predecessor
-runtimes are absent from the live tree. Four studies remain prospective, including the
-distinct rank-two band-equivalence family. Existing `ksdft2effmass.periodic1d` imports
-remain supported only for not-yet-migrated families.
+Mathieu1D, Phase 2 compatible rank-one Fourier locality, the Phase 3 rank-two
+composite-alignment family, and the confirmatory Phase 4 constrained-admissible-set
+family are implemented with typed source records, direct calculation stages,
+byte-owning verification, and authenticated rendering. Mathieu1D has one retained
+unsealed execution; the locality and admissible-set successors have only provisional
+non-retained review results. The Mathieu1D, M1, and M2 predecessor runtimes are absent
+from the live tree. Four studies remain prospective, including the distinct rank-two
+band-equivalence family.
 
 The rewrite adopts the behavioral structure demonstrated by PIAB1D and QHO1D and now
 implemented directly by Mathieu1D:
@@ -74,7 +73,7 @@ status, or conclusions:
 | 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Implemented typed source under [`periodic1d.fourier_locality`](fourier_locality/index.md) with direct stages and provisional non-retained report material under `calculations/periodic1d/rank1/fourier-locality/`; the legacy M1 runtime is retired. |
 | 3. Rank-two band equivalence versus hopping locality | Can analytically or certifiably band-equivalent represented Hamiltonians have different finite-range locality? | Separate typed source child and calculation owner. |
 | 4. Rank-two composite-band alignment and locality | How do declared pointwise or global alignment choices affect block hoppings and diagnostics? | Implemented direct typed lifecycle under [`periodic1d.composite_band_alignment`](composite_band_alignment/index.md) and `calculations/periodic1d/rank2/composite-band-alignment-locality/`; no retained execution exists. |
-| 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Provisional authenticated source migration under review at [`periodic1d.admissible_sets`](admissible_sets/index.md); no retained successor execution exists. |
+| 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Implemented authenticated source lifecycle at [`periodic1d.admissible_sets`](admissible_sets/index.md); no retained successor execution exists. |
 | 6. Minimal scalar/direct admissible-set demonstration | Can a bounded scalar construction exhibit the declared witness or separation property? | Separate analytical or numerical control; never a substitute for study 5. |
 | 7. Post-hoc threshold sensitivity | How do dispositions change across one complete declared finite threshold inventory? | Separate post-hoc analysis that cannot mutate study 5. |
 | 8. Higher-rank composite alignment | Which alignment and locality behavior persists at declared ranks greater than two? | Separate calculation family; reuse only behavior with unchanged meaning. |
@@ -110,7 +109,7 @@ searchable provenance aliases; they are not names for new studies or a version c
 
 - [Compatible rank-one Fourier-locality architecture](fourier_locality/index.md)
 - [Rank-two composite-band alignment/locality architecture](composite_band_alignment/index.md)
-- [Provisional constrained-admissible-set architecture](admissible_sets/index.md)
+- [Constrained-admissible-set architecture](admissible_sets/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)
@@ -120,4 +119,5 @@ searchable provenance aliases; they are not names for new studies or a version c
 - [Migration sequence](migration.md)
 - [Phase 0 inventory and replacement boundary](phase-0-inventory.md)
 - [Phase 2 legacy retirement record](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md)
+- [M2 legacy retirement record](../../../../../calculations/periodic1d/rank2/composite-band-alignment-locality/legacy-retirement.md)
 - [Formal-method boundary](formal.md)

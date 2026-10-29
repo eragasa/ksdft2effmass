@@ -13,34 +13,27 @@ visualization projection, and closed renderer. The former `isolated_band/` sourc
 Fourier toy-parent record, aggregate predecessor test, exports, and Sphinx page were removed
 after direct replacement and explicit authorization.
 
-Phase 3 now also has its first direct successor.
+Phase 3 and the confirmatory portion of Phase 4 now have direct successors.
 [`periodic1d.composite_band_alignment`](composite_band_alignment/index.md) owns the
-rank-two typed lifecycle, while the M2 predecessor remains installed solely because M3
-still imports it.
+rank-two typed lifecycle, and
+[`periodic1d.admissible_sets`](admissible_sets/index.md) consumes authenticated composite
+result bytes through its own request-bound lifecycle. The M2 predecessor, generic block
+toy-parent, aggregate test, exports, and API pages were removed after consumer migration,
+review, and explicit authorization. Exact recovery is recorded in the
+[calculation-owned retirement record](../../../../../calculations/periodic1d/rank2/composite-band-alignment-locality/legacy-retirement.md).
 
-The installed package now has this mixed migration state:
+The installed package now contains only direct family owners:
 
 ```text
 periodic1d/
-├── model.py
 ├── fourier_locality/             # implemented direct lifecycle
 ├── composite_band_alignment/     # implemented direct rank-two lifecycle
-├── multiband_alignment/          # predecessor blocked on M3 migration
-└── admissible_sets/               # predecessor retained for Phase 4
+└── admissible_sets/               # implemented confirmatory M3 lifecycle
 ```
 
-The two predecessor children have frozen definitions and results, a producer,
-a serializer, and an independent numerical verifier. Those real supported contracts
-predate the direct architecture in four important respects:
-
-1. result serializers are family-local rather than shared typed-record boundaries;
-2. verifiers accept reconstructed result objects rather than owning original wire bytes;
-3. no authenticated typed visualization projection binds verification to rendering; and
-4. historical publication-oriented compositions are not yet direct calculation-root
-   calculate → verify → render successors.
-
-The rewrite replaces these remaining boundaries family by family. It does not wrap them
-in a compatibility facade or retain two maintained implementations indefinitely.
+No compatibility facade or runtime decoder preserves the former M1 or M2 contracts.
+Historical result, publication, and evidence bytes remain bound to their exact Git
+objects rather than being relabeled as successor results.
 
 ## Target source shape
 
@@ -53,7 +46,6 @@ ksdft2effmass/
 │   ├── periodic_1d/                 # finite parent/fiber representations
 │   └── mathieu1d/                   # concrete Mathieu1D vertical slice
 └── periodic1d/
-    ├── model.py                     # controlled parent models still used by callers
     ├── fourier_locality/            # reusable scalar reduction/locality behavior
     ├── composite_band_alignment/    # alignment and block-locality behavior
     ├── band_equivalence_locality/   # equivalence/locality analysis
@@ -180,10 +172,10 @@ retained execution creation remain separate reviewed and authorized scopes.
 The [Phase 0 inventory](phase-0-inventory.md) selects complete replacement. The former
 M1 imports, class layouts, serializer API, schema-v1 runtime surface, and sole direct test
 consumer were removed after the Phase 2 replacement gate and explicit authorization;
-exact recovery is recorded in the calculation-owned retirement record. Current M2--M3
-predecessors remain supported only until their own specified finite calculations,
-authenticated plot-data channels, and consumer migrations pass unchanged comparison
-gates and receive separate removal authorization.
+exact recovery is recorded in the calculation-owned retirement record. The former M2 runtime, its generic block-parent record, and its aggregate test were
+removed after the composite and M3 consumer gates passed and removal was explicitly
+authorized. The retirement inventory records their final pre-removal bytes and recovery
+revision.
 
 Historical result and artifact bytes remain unchanged and recoverable from exact Git
 objects for provenance. The new runtime neither decodes those packages nor imports,

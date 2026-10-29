@@ -9,10 +9,10 @@ declared numerical resolution?
 
 ## Status
 
-This package contains the provisional confirmatory M3 source migration currently under
-review. It consumes exact canonical `Periodic1DCompositeBandAlignmentCalculationResult`
-bytes and an explicitly supplied byte-owning composite verifier. It does not import or
-execute the historical `periodic1d.multiband_alignment` producer.
+This package contains the implemented confirmatory M3 source lifecycle. It consumes exact
+canonical `Periodic1DCompositeBandAlignmentCalculationResult` bytes and an explicitly
+supplied byte-owning composite verifier. It does not import or execute the retired
+historical `periodic1d.multiband_alignment` producer.
 
 The package provides:
 

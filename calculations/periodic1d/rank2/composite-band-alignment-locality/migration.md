@@ -65,9 +65,16 @@ Baseline source revision:
 - [ ] Complete independent review of the direct lifecycle before proposing any retained
   execution.
 
-## Deliberate non-removal
+## Predecessor retirement
 
-The live `periodic1d.multiband_alignment` predecessor remains installed. Its six direct
-M3 admissible-set consumers still block removal, as recorded by the Phase 3 split audit.
-This successor does not wrap or facade that dependency. Phase 4 must migrate those
-consumers to authenticated upstream bytes and digests before predecessor retirement.
+- [x] Migrate all six M3 consumer surfaces to authenticated canonical composite-result
+  bytes, explicit digests, and an explicit byte-owning composite verifier.
+- [x] Confirm the maintained source tree has no runtime import of
+  `periodic1d.multiband_alignment`.
+- [x] Record the final pre-removal source, test, export, and Sphinx bytes and recovery
+  revision in [`legacy-retirement.md`](legacy-retirement.md).
+- [x] Remove the M2 package, generic block-parent record, aggregate test, exports, and
+  API pages after explicit authorization, without a compatibility facade.
+
+Historical M2 result, verification, CSV, PNG, publication, and evidence-manifest bytes
+remain provenance-only and were not modified or redirected by source retirement.

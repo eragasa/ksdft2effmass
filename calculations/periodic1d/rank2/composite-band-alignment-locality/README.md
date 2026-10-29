@@ -33,9 +33,9 @@ the two families.
 | `run_02_verification.py` | Direct byte-owning verification adapter; independently reconstructs all numerical channels. |
 | `run_03_render.py` | Direct authenticated render adapter; publishes the closed three-PNG alignment, locality, and error-channel inventory atomically. |
 | `python/src/ksdft2effmass/periodic1d/composite_band_alignment/` | Typed configuration, result, pure analysis, independent verification, authenticated visualization, and public exports. |
-| [`../phase-3-split-audit.md`](../phase-3-split-audit.md) | Exact live-M2 recovery/consumer inventory, two-family channel split, parity gaps, implementation order, and removal gates. |
-| `python/src/ksdft2effmass/periodic1d/multiband_alignment/` | Six-file live predecessor package; direct scientific successor is this family, but removal is blocked by M3 consumers. |
-| `python/src/ksdft2effmass/periodic1d/admissible_sets/` | Direct M3 consumer of the M2 definition, producer, result, and verifier; migration belongs to Phase 4. |
+| [`../phase-3-split-audit.md`](../phase-3-split-audit.md) | Exact pre-retirement M2 recovery/consumer inventory, two-family channel split, parity gaps, implementation order, and removal gates. |
+| [`legacy-retirement.md`](legacy-retirement.md) | Final pre-removal source/test/API inventory and exact Git recovery authority for the retired M2 runtime and generic block-parent record. |
+| `python/src/ksdft2effmass/periodic1d/admissible_sets/` | Migrated M3 lifecycle consuming authenticated canonical composite-result bytes and explicit verification dependencies. |
 | Historical `ksdft2effmass.experiments.multiband` package at `c5d34a93b4710a4a430738c404c775865d418d42` | Removed donor containing M2/M3 schemas, producer, verifier, quadratics, and rendering routes; recover definitions selectively, not the package wholesale. |
 | Historical research-monograph periodic-1D package at the same revision | Removed donor containing composite, stress, extraction, and verification routes plus historical execution outcomes. |
 | [`docs/tasks/tech_debt/composite-band-alignment-and-locality/`](../../../../docs/tasks/tech_debt/composite-band-alignment-and-locality/index.md) | Design and migration rationale; not the maintained calculation owner. |

@@ -7,7 +7,7 @@ import importlib.util
 import pytest
 
 from ksdft2effmass import periodic1d
-from ksdft2effmass.periodic1d import fourier_locality, model
+from ksdft2effmass.periodic1d import fourier_locality
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -35,11 +35,9 @@ class TestPeriodic1DFourierLocalityLegacySurfaceRemoval:
         assert self.former_exports.isdisjoint(periodic1d.__all__)
         assert all(not hasattr(periodic1d, name) for name in self.former_exports)
 
-    def test__model__fourier_toy_parent_is_absent(self) -> None:
-        """The superseded Fourier toy-parent record is not retained as a facade."""
-        name = "Periodic1DFourierHamiltonianToyModel"
-        assert name not in model.__all__
-        assert not hasattr(model, name)
+    def test__model__legacy_toy_parent_module_is_absent(self) -> None:
+        """The superseded generic toy-parent module is not retained as a facade."""
+        assert importlib.util.find_spec("ksdft2effmass.periodic1d.model") is None
 
     def test__import__legacy_isolated_band_package_is_absent(self) -> None:
         """The predecessor package remains Git-recoverable but not importable."""

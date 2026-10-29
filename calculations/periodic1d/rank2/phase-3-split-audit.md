@@ -221,3 +221,16 @@ test, and Sphinx page become removal candidates only when all of these gates pas
 
 This audit creates no retained execution, seal, release, publication update, scientific
 validation, or Formal certificate.
+
+## Retirement completion
+
+Phase 4 later migrated all six direct M3 consumer surfaces to authenticated canonical
+composite-result bytes and explicit verification dependencies. After the replacement
+passed its focused and bounded checks, the operator explicitly authorized retirement of
+the installed M2 package, its generic block-parent record, aggregate test, root exports,
+and Sphinx pages without a compatibility facade.
+
+The final pre-removal inventory and exact recovery revision are recorded in
+[`composite-band-alignment-locality/legacy-retirement.md`](composite-band-alignment-locality/legacy-retirement.md).
+The historical M2 package, checksums, publication references, and evidence manifests
+remain bound to their original bytes and were not redirected to the successor.
