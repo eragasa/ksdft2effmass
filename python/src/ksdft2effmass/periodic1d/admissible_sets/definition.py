@@ -1,98 +1,82 @@
-"""Prospective controls for the one-dimensional constrained admissible-set study."""
+"""Typed configuration and request for constrained admissible-set analysis."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import hashlib
+from collections.abc import Mapping
+from dataclasses import dataclass, field
+from math import isfinite
+from typing import Self
 
-import numpy as np
-from projectkoios.physkit.units import ModelSystemUnitConverter, ScalarQuantity
+from projectkoios.physkit.units import ScalarQuantity, Unitless
 
-from ksdft2effmass.periodic1d.model import Periodic1DBlockHamiltonianToyModel
-from ksdft2effmass.periodic1d.multiband_alignment import (
-    Periodic1DMultibandAlignmentCalculationDefinition,
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+
+from ..composite_band_alignment import (
+    Periodic1DCompositeBandAlignmentCalculationResult,
 )
 
 
 def _finite_float(name: str, value: float) -> None:
-    """Require a finite exact built-in float and reject Boolean impostors."""
     if type(value) is not float:
         raise TypeError(f"{name} must be a built-in float")
-    if not np.isfinite(value):
+    if not isfinite(value):
         raise ValueError(f"{name} must be finite")
 
 
 def _positive_float(name: str, value: float) -> None:
-    """Require a finite strictly positive exact built-in float."""
     _finite_float(name, value)
     if value <= 0.0:
         raise ValueError(f"{name} must be positive")
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DAdmissibleSetThresholds:
-    """Freeze one named pair of dimensionless RMS benchmark thresholds.
-
-    Parameters
-    ----------
-    case_id
-        Stable nonempty case identity.
-    spectral_rms_threshold, operator_rms_threshold
-        Finite strictly positive built-in floats defining spectral and represented-
-        operator sublevel sets.  They are design controls, not uncertainty bounds.
-    """
+class Periodic1DAdmissibleSetThresholds(BaseTypedRecord):
+    """Freeze one named pair of dimensionless RMS design thresholds."""
 
     case_id: str
     spectral_rms_threshold: float
     operator_rms_threshold: float
 
     def __post_init__(self) -> None:
-        """Reject ambiguous identities and nonpositive thresholds."""
-        if type(self.case_id) is not str:
-            raise TypeError("case_id must be a built-in str")
-        if not self.case_id:
-            raise ValueError("case_id must be nonempty")
+        if type(self.case_id) is not str or not self.case_id:
+            raise ValueError("case_id must be a nonempty built-in string")
         _positive_float("spectral_rms_threshold", self.spectral_rms_threshold)
         _positive_float("operator_rms_threshold", self.operator_rms_threshold)
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "case_id": self.case_id,
+            "spectral_rms_threshold": self.spectral_rms_threshold,
+            "operator_rms_threshold": self.operator_rms_threshold,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        if set(values) != {
+            "case_id",
+            "spectral_rms_threshold",
+            "operator_rms_threshold",
+        }:
+            raise ValueError("threshold fields do not match")
+        case_id = values["case_id"]
+        spectral = values["spectral_rms_threshold"]
+        operator = values["operator_rms_threshold"]
+        if (
+            type(case_id) is not str
+            or type(spectral) is not float
+            or type(operator) is not float
+        ):
+            raise TypeError("threshold fields decode to wrong types")
+        return cls(case_id, spectral, operator)
+
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DConstrainedAdmissibleSetCalculationDefinition:
-    """Freeze the M3 rectangular domain, angle family, losses, and thresholds.
-
-    Parameters
-    ----------
-    calculation_id
-        Stable nonempty M3 calculation identity.
-    multiband_baseline
-        Exact rank-two M2 definition composed by M3.
-    energy_shift_ratio_bounds, splitting_scale_bounds
-        Strictly increasing intervals defining a continuous closed rectangle.  The
-        splitting scale remains strictly positive.
-    alignment_angles
-        Finite strictly increasing radian inventory of one-global real rotations.
-    loss_energy_scale
-        Positive parent-energy quantity used to normalize both RMS losses.
-    compatible_thresholds, separated_thresholds
-        Distinct prospective case controls.
-    compatible_witness
-        Prospective point ``(energy_shift_ratio, splitting_scale)`` in the rectangle.
-    locality_ranges
-        Ordered finite ranges used only for locality diagnostics.
-    separation_resolution
-        Positive Euclidean parameter-space resolution for the bounded certificate.
-    quadratic_absolute_tolerance, verification_absolute_tolerance
-        Positive finite controls for proof-object and independent reconstruction checks.
-
-    Notes
-    -----
-    At each reciprocal point, the candidate is the trace part of the M2 reference plus
-    ``energy_shift_ratio * loss_energy_scale`` times identity and ``splitting_scale``
-    times the traceless part.  Training formulas define quadratics, witnesses, and
-    certificates; the M2 staggered mesh is evaluation-only.
-    """
+class Periodic1DConstrainedAdmissibleSetConfiguration(BaseTypedRecord):
+    """Freeze M3 controls and an exact canonical upstream-result identity."""
 
     calculation_id: str
-    multiband_baseline: Periodic1DMultibandAlignmentCalculationDefinition
+    upstream_result_sha256: str
     energy_shift_ratio_bounds: tuple[float, float]
     splitting_scale_bounds: tuple[float, float]
     alignment_angles: tuple[float, ...]
@@ -106,20 +90,17 @@ class Periodic1DConstrainedAdmissibleSetCalculationDefinition:
     verification_absolute_tolerance: float
 
     def __post_init__(self) -> None:
-        """Require a compact domain, finite alignment family, and frozen roles."""
-        if type(self.calculation_id) is not str:
-            raise TypeError("calculation_id must be a built-in str")
-        if not self.calculation_id:
-            raise ValueError("calculation_id must be nonempty")
-        if type(self.multiband_baseline) is not (
-            Periodic1DMultibandAlignmentCalculationDefinition
-        ):
-            raise TypeError(
-                "multiband_baseline must be "
-                "Periodic1DMultibandAlignmentCalculationDefinition"
+        if type(self.calculation_id) is not str or not self.calculation_id:
+            raise ValueError("calculation_id must be a nonempty built-in string")
+        if (
+            type(self.upstream_result_sha256) is not str
+            or len(self.upstream_result_sha256) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.upstream_result_sha256
             )
-        if self.multiband_baseline.retained_rank != 2:
-            raise ValueError("M3 v1 requires a rank-two M2 baseline")
+        ):
+            raise ValueError("upstream_result_sha256 must be a lowercase SHA-256")
         for name, bounds in (
             ("energy_shift_ratio_bounds", self.energy_shift_ratio_bounds),
             ("splitting_scale_bounds", self.splitting_scale_bounds),
@@ -145,21 +126,17 @@ class Periodic1DConstrainedAdmissibleSetCalculationDefinition:
             raise ValueError("alignment family must contain a nonidentity rotation")
         if type(self.loss_energy_scale) is not ScalarQuantity:
             raise TypeError("loss_energy_scale must be ScalarQuantity")
+        if not isinstance(self.loss_energy_scale.unit, Unitless):
+            raise ValueError(
+                "loss_energy_scale must use the unitless parent-energy unit"
+            )
         if self.loss_energy_scale.magnitude <= 0.0:
             raise ValueError("loss_energy_scale must be positive")
-        parent_unit = self.multiband_baseline.parent_model.hopping_model.hopping_blocks[
-            0
-        ].unit
-        if not ModelSystemUnitConverter.compatible(
-            self.loss_energy_scale.unit, parent_unit
+        if (
+            type(self.compatible_thresholds) is not Periodic1DAdmissibleSetThresholds
+            or type(self.separated_thresholds) is not Periodic1DAdmissibleSetThresholds
         ):
-            raise ValueError("loss_energy_scale must use parent energy dimensions")
-        for name, thresholds in (
-            ("compatible_thresholds", self.compatible_thresholds),
-            ("separated_thresholds", self.separated_thresholds),
-        ):
-            if type(thresholds) is not Periodic1DAdmissibleSetThresholds:
-                raise TypeError(f"{name} must be Periodic1DAdmissibleSetThresholds")
+            raise TypeError("threshold controls have the wrong exact type")
         if self.compatible_thresholds.case_id == self.separated_thresholds.case_id:
             raise ValueError("threshold cases must have distinct identities")
         if (
@@ -179,10 +156,6 @@ class Periodic1DConstrainedAdmissibleSetCalculationDefinition:
             raise ValueError("locality_ranges must be unique and strictly increasing")
         if self.locality_ranges[0] < 0:
             raise ValueError("locality_ranges must be nonnegative")
-        if self.locality_ranges[-1] >= (
-            self.multiband_baseline.reciprocal_mesh_size // 2
-        ):
-            raise ValueError("locality ranges must be smaller than half the mesh")
         _positive_float("separation_resolution", self.separation_resolution)
         _positive_float(
             "quadratic_absolute_tolerance", self.quadratic_absolute_tolerance
@@ -192,32 +165,165 @@ class Periodic1DConstrainedAdmissibleSetCalculationDefinition:
         )
 
     def contains(self, parameter: tuple[float, float]) -> bool:
-        """Return whether a strict numeric pair lies in the closed rectangle.
-
-        ``parameter`` is ordered as ``(energy_shift_ratio, splitting_scale)``.  Boolean,
-        non-float, nonfinite, and malformed inputs raise rather than compare loosely.
-        """
+        """Return whether a strict numeric pair lies in the closed rectangle."""
         if not isinstance(parameter, tuple) or len(parameter) != 2:
             raise TypeError("parameter must be a length-two tuple")
         for index, value in enumerate(parameter):
             _finite_float(f"parameter[{index}]", value)
-        shift, splitting = parameter
         return (
             self.energy_shift_ratio_bounds[0]
-            <= shift
+            <= parameter[0]
             <= self.energy_shift_ratio_bounds[1]
             and self.splitting_scale_bounds[0]
-            <= splitting
+            <= parameter[1]
             <= self.splitting_scale_bounds[1]
         )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "calculation_id": self.calculation_id,
+            "upstream_result_sha256": self.upstream_result_sha256,
+            "energy_shift_ratio_bounds": self.energy_shift_ratio_bounds,
+            "splitting_scale_bounds": self.splitting_scale_bounds,
+            "alignment_angles": self.alignment_angles,
+            "loss_energy_scale": self.loss_energy_scale,
+            "compatible_thresholds": self.compatible_thresholds,
+            "separated_thresholds": self.separated_thresholds,
+            "compatible_witness": self.compatible_witness,
+            "locality_ranges": self.locality_ranges,
+            "separation_resolution": self.separation_resolution,
+            "quadratic_absolute_tolerance": self.quadratic_absolute_tolerance,
+            "verification_absolute_tolerance": self.verification_absolute_tolerance,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "calculation_id",
+            "upstream_result_sha256",
+            "energy_shift_ratio_bounds",
+            "splitting_scale_bounds",
+            "alignment_angles",
+            "loss_energy_scale",
+            "compatible_thresholds",
+            "separated_thresholds",
+            "compatible_witness",
+            "locality_ranges",
+            "separation_resolution",
+            "quadratic_absolute_tolerance",
+            "verification_absolute_tolerance",
+        }
+        if set(values) != required:
+            raise ValueError("configuration fields do not match")
+        calculation_id = values["calculation_id"]
+        digest = values["upstream_result_sha256"]
+        scale = values["loss_energy_scale"]
+        compatible = values["compatible_thresholds"]
+        separated = values["separated_thresholds"]
+        if type(calculation_id) is not str or type(digest) is not str:
+            raise TypeError("configuration identities must decode to strings")
+        if type(scale) is not ScalarQuantity:
+            raise TypeError("loss_energy_scale must decode to ScalarQuantity")
+        if not isinstance(compatible, Mapping) or not isinstance(separated, Mapping):
+            raise TypeError("thresholds must decode to mappings")
+
+        def float_pair(name: str) -> tuple[float, float]:
+            value = values[name]
+            if (
+                not isinstance(value, tuple)
+                or len(value) != 2
+                or any(type(item) is not float for item in value)
+            ):
+                raise TypeError(f"{name} must decode to a float pair")
+            return value
+
+        angles = values["alignment_angles"]
+        ranges = values["locality_ranges"]
+        if not isinstance(angles, tuple) or any(
+            type(item) is not float for item in angles
+        ):
+            raise TypeError("alignment_angles must decode to floats")
+        if not isinstance(ranges, tuple) or any(
+            type(item) is not int for item in ranges
+        ):
+            raise TypeError("locality_ranges must decode to integers")
+        separation_resolution = values["separation_resolution"]
+        quadratic_absolute_tolerance = values["quadratic_absolute_tolerance"]
+        verification_absolute_tolerance = values["verification_absolute_tolerance"]
+        if type(separation_resolution) is not float:
+            raise TypeError("separation_resolution must decode to a float")
+        if type(quadratic_absolute_tolerance) is not float:
+            raise TypeError("quadratic_absolute_tolerance must decode to a float")
+        if type(verification_absolute_tolerance) is not float:
+            raise TypeError("verification_absolute_tolerance must decode to a float")
+        return cls(
+            calculation_id=calculation_id,
+            upstream_result_sha256=digest,
+            energy_shift_ratio_bounds=float_pair("energy_shift_ratio_bounds"),
+            splitting_scale_bounds=float_pair("splitting_scale_bounds"),
+            alignment_angles=angles,
+            loss_energy_scale=scale,
+            compatible_thresholds=Periodic1DAdmissibleSetThresholds.from_dict(
+                compatible
+            ),
+            separated_thresholds=Periodic1DAdmissibleSetThresholds.from_dict(separated),
+            compatible_witness=float_pair("compatible_witness"),
+            locality_ranges=ranges,
+            separation_resolution=separation_resolution,
+            quadratic_absolute_tolerance=quadratic_absolute_tolerance,
+            verification_absolute_tolerance=verification_absolute_tolerance,
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class Periodic1DConstrainedAdmissibleSetAnalysisRequest:
+    """Bind one configuration to exact canonical upstream result bytes."""
+
+    configuration: Periodic1DConstrainedAdmissibleSetConfiguration
+    upstream_result_wire: bytes
+    _upstream_result: Periodic1DCompositeBandAlignmentCalculationResult = field(
+        init=False,
+        repr=False,
+        compare=False,
+    )
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.configuration)
+            is not Periodic1DConstrainedAdmissibleSetConfiguration
+        ):
+            raise TypeError("configuration has the wrong exact type")
+        if type(self.upstream_result_wire) is not bytes:
+            raise TypeError("upstream_result_wire must be built-in bytes")
+        upstream = Periodic1DCompositeBandAlignmentCalculationResult.from_json(
+            self.upstream_result_wire
+        )
+        if upstream.to_json() != self.upstream_result_wire:
+            raise ValueError("upstream_result_wire must be canonical typed JSON bytes")
+        if (
+            hashlib.sha256(self.upstream_result_wire).hexdigest()
+            != self.configuration.upstream_result_sha256
+        ):
+            raise ValueError("upstream result bytes differ from the configured SHA-256")
+        if upstream.configuration.retained_rank != 2:
+            raise ValueError(
+                "admissible-set analysis requires a rank-two upstream result"
+            )
+        if (
+            self.configuration.locality_ranges[-1]
+            >= upstream.configuration.construction_size // 2
+        ):
+            raise ValueError("locality ranges must exclude the cyclic Nyquist class")
+        object.__setattr__(self, "_upstream_result", upstream)
+
     @property
-    def parent_model(self) -> Periodic1DBlockHamiltonianToyModel:
-        """Return the exact parent model supplied by the M2 baseline."""
-        return self.multiband_baseline.parent_model
+    def upstream_result(self) -> Periodic1DCompositeBandAlignmentCalculationResult:
+        """Return the typed result reconstructed from the exact admitted bytes."""
+        return self._upstream_result
 
 
 __all__ = [
     "Periodic1DAdmissibleSetThresholds",
-    "Periodic1DConstrainedAdmissibleSetCalculationDefinition",
+    "Periodic1DConstrainedAdmissibleSetAnalysisRequest",
+    "Periodic1DConstrainedAdmissibleSetConfiguration",
 ]
