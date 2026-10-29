@@ -27,7 +27,10 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass import model_systems
-from ksdft2effmass.model_systems.qho1d import Qho1dNondimensionalizer
+from ksdft2effmass.model_systems.qho1d import (
+    Qho1dNondimensionalizationRequest,
+    Qho1dNondimensionalizer,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = Qho1dNondimensionalizer
@@ -47,8 +50,13 @@ class TestQho1dNondimensionalizer:
         """
         assert model_systems.Qho1dNondimensionalizer is (Qho1dNondimensionalizer)
 
-        parameters = Qho1dNondimensionalizer().execute(2.0, 3.0, 4.0)
+        request = Qho1dNondimensionalizationRequest(2.0, 3.0, 4.0)
+        nondimensionalizer = Qho1dNondimensionalizer(request)
+        parameters = nondimensionalizer.execute()
 
+        assert nondimensionalizer.request is request
         assert parameters.hbar == ScalarQuantity(2.0, Unitless())
         assert parameters.mass == ScalarQuantity(3.0, Unitless())
         assert parameters.omega == ScalarQuantity(4.0, Unitless())
+        with pytest.raises(TypeError, match="hbar must be a built-in float"):
+            Qho1dNondimensionalizationRequest(True, 3.0, 4.0)  # type: ignore[arg-type]

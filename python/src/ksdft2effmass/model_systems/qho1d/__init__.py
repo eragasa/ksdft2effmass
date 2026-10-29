@@ -30,7 +30,11 @@ from .cross_grid import (
 )
 from .finite_difference import Qho1dFiniteDifference
 from .ladder_operators import Qho1dLadderOperators
-from .parameters import Qho1dNondimensionalizer, Qho1dParameters
+from .parameters import (
+    Qho1dNondimensionalizationRequest,
+    Qho1dNondimensionalizer,
+    Qho1dParameters,
+)
 from .result import (
     Qho1dCalculationResult,
     Qho1dCaseResult,
@@ -79,6 +83,7 @@ __all__ = [
     "Qho1dIndependentReferenceAnalyzer",
     "Qho1dIndependentReferenceRequest",
     "Qho1dLadderOperators",
+    "Qho1dNondimensionalizationRequest",
     "Qho1dNondimensionalizer",
     "Qho1dParameters",
     "Qho1dResidualResult",

@@ -33,6 +33,7 @@ from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dAnalytical,
     Qho1dLadderOperators,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -49,7 +50,9 @@ class TestQho1dLadderOperators:
     def model() -> Qho1dLadderOperators:
         """Return a three-state dimensionless retained ladder model."""
         analytical = Qho1dAnalytical(
-            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+            Qho1dNondimensionalizer(
+                Qho1dNondimensionalizationRequest(1.0, 1.0, 1.0)
+            ).execute()
         )
         return Qho1dLadderOperators(analytical, LadderOperator1D(3))
 

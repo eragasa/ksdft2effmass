@@ -86,15 +86,48 @@ class Qho1dParameters:
         )
 
 
+@dataclass(frozen=True, slots=True)
+class Qho1dNondimensionalizationRequest:
+    """Bind positive finite normalized oscillator scalars for explicit adaptation."""
+
+    hbar: float
+    mass: float
+    omega: float
+
+    def __post_init__(self) -> None:
+        """Admit exact built-in binary64-compatible scalar values."""
+        for name, value in (
+            ("hbar", self.hbar),
+            ("mass", self.mass),
+            ("omega", self.omega),
+        ):
+            if type(value) is not float:
+                raise TypeError(f"{name} must be a built-in float")
+            if not np.isfinite(value):
+                raise ValueError(f"{name} must be finite")
+            if value <= 0.0:
+                raise ValueError(f"{name} must be positive")
+
+
 class Qho1dNondimensionalizer:
-    """Adapt explicit normalized scalar inputs to first-class Unitless quantities."""
+    """Adapt one bound normalized-scalar request to Unitless quantities."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(self, hbar: float, mass: float, omega: float) -> Qho1dParameters:
+    def __init__(self, request: Qho1dNondimensionalizationRequest) -> None:
+        if type(request) is not Qho1dNondimensionalizationRequest:
+            raise TypeError("request must be Qho1dNondimensionalizationRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Qho1dNondimensionalizationRequest:
+        """Return the complete immutable nondimensionalization request."""
+        return self._request
+
+    def execute(self) -> Qho1dParameters:
         """Return a fully Unitless parameter set without implying physical units."""
         return Qho1dParameters(
-            hbar=ScalarQuantity(hbar, Unitless()),
-            mass=ScalarQuantity(mass, Unitless()),
-            omega=ScalarQuantity(omega, Unitless()),
+            hbar=ScalarQuantity(self.request.hbar, Unitless()),
+            mass=ScalarQuantity(self.request.mass, Unitless()),
+            omega=ScalarQuantity(self.request.omega, Unitless()),
         )

@@ -10,7 +10,8 @@ composed from ordered `Qho1dCaseResult` values and one
 `Qho1dStateComparisonResult`.
 
 The reusable model surface is partitioned by scientific responsibility:
-`parameters.py` owns unit-aware parameters and nondimensionalization,
+`parameters.py` owns unit-aware parameters and constructor-bound explicit
+nondimensionalization through `Qho1dNondimensionalizationRequest`,
 `analytical.py` owns the exact real-line solution, `finite_difference.py` owns the
 finite Dirichlet-grid representation, `ladder_operators.py` owns the retained
 number-state representation, and `comparison_records.py` owns the typed request and

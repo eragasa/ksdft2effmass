@@ -43,6 +43,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dComparisonResult,
     Qho1dFiniteDifference,
     Qho1dLadderOperators,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -59,7 +60,9 @@ class TestQho1dComparisonResult:
     def result() -> Qho1dComparisonResult:
         """Return one coherent comparator-produced result fixture."""
         analytical = Qho1dAnalytical(
-            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+            Qho1dNondimensionalizer(
+                Qho1dNondimensionalizationRequest(1.0, 1.0, 1.0)
+            ).execute()
         )
         request = Qho1dComparisonRequest(
             analytical=analytical,

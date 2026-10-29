@@ -30,6 +30,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems.qho1d import (
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -62,7 +63,9 @@ class TestQho1dParameters:
         unit modes, wrong physical dimensions, and nonpositive values are rejected;
         field assignment raises FrozenInstanceError.
         """
-        parameters = Qho1dNondimensionalizer().execute(1.0, 1.0, 1.0)
+        parameters = Qho1dNondimensionalizer(
+            Qho1dNondimensionalizationRequest(1.0, 1.0, 1.0)
+        ).execute()
 
         assert parameters.oscillator_length == ScalarQuantity(1.0, Unitless())
         physical = Qho1dParameters(

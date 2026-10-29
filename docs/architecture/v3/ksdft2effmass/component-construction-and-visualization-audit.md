@@ -96,7 +96,7 @@ verbs remain prospective owner decisions; they do not justify empty construction
 
 ## Current V3 migration boundary
 
-The following 39 installed actions were identified directly in an implemented V3
+The following 40 installed actions were identified directly in an implemented V3
 family or among the reusable dependencies composed by those families. The rows not
 superseded by completed slices below require request-bound migration before the direct
 families are construction-coherent with Phase 4.
@@ -127,6 +127,7 @@ families are construction-coherent with Phase 4.
 | `model_systems/qho1d/analysis.py` | `Qho1dAnalyzer` | Bind configuration and result identity; construct each request-bound comparator only after the exact case models exist. |
 | `model_systems/qho1d/comparison.py` | `Qho1dComparator` | Bind the common-coordinate comparison request. |
 | `model_systems/qho1d/cross_grid.py` | `Qho1dCrossGridAnalyzer`; `Qho1dCrossGridVerifier` | Bind the calculation, and bind the analysis as an additional verifier subject. |
+| `model_systems/qho1d/parameters.py` | `Qho1dNondimensionalizer` | Bind the exact positive finite normalized scalars before explicit Unitless adaptation. |
 | `model_systems/qho1d/verification.py` | `Qho1dIndependentReferenceAnalyzer` | Bind the admitted result subject. |
 | `periodic1d/fourier_locality/analysis.py` | `Periodic1DFourierLocalityAnalyzer` | Bind the Fourier-locality configuration. |
 | `periodic1d/fourier_locality/verification_values.py` | `Periodic1DFourierLocalityIndependentVerifier` | Bind the admitted result reconstructed from exact bytes. |
@@ -200,7 +201,10 @@ analysis with the exact calculated subject before direct recomputation. Both act
 share a cohesive case inventory rather than a dangling lookup function. The QHO1D
 independent-reference route binds the result and verifier-derived projection in
 `Qho1dIndependentReferenceRequest`; its internal scientific operations are cohesive
-instance methods rather than static or class utility methods.
+instance methods rather than static or class utility methods. A follow-up completeness
+audit identified the previously omitted `Qho1dNondimensionalizer`; it now binds
+positive finite built-in floats in `Qho1dNondimensionalizationRequest` before
+explicit Unitless adaptation.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

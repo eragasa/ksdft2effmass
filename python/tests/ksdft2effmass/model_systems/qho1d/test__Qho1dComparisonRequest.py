@@ -38,6 +38,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dComparisonRequest,
     Qho1dFiniteDifference,
     Qho1dLadderOperators,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
 )
 from ksdft2effmass.operators import LadderOperator1D
@@ -53,7 +54,9 @@ class TestQho1dComparisonRequest:
     def analytical(*, omega: float = 1.0) -> Qho1dAnalytical:
         """Return valid dimensionless analytical oscillator parameters."""
         return Qho1dAnalytical(
-            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=omega)
+            Qho1dNondimensionalizer(
+                Qho1dNondimensionalizationRequest(1.0, 1.0, omega)
+            ).execute()
         )
 
     @staticmethod

@@ -129,6 +129,9 @@ physical quantities are intrinsically dimensionless.
 
 .. currentmodule:: ksdft2effmass.model_systems.qho1d
 
+.. autoclass:: Qho1dNondimensionalizationRequest
+   :members:
+
 .. autoclass:: Qho1dNondimensionalizer
    :members:
 

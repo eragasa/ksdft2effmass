@@ -61,6 +61,7 @@ from .qho1d import (
     Qho1dComparisonResult,
     Qho1dFiniteDifference,
     Qho1dLadderOperators,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -96,6 +97,7 @@ __all__ = [
     "Qho1dComparisonResult",
     "Qho1dFiniteDifference",
     "Qho1dLadderOperators",
+    "Qho1dNondimensionalizationRequest",
     "Qho1dNondimensionalizer",
     "Qho1dParameters",
     "QuadratureResultSection",
