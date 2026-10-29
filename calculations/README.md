@@ -71,6 +71,7 @@ Neither location currently establishes an accepted bulk-silicon parent.
 | [`qe-example01-si-bands-davidson/`](bulk-silicon/qe-example01-si-bands-davidson/result.md) | Historical calculated record; awaiting human review | One QE 7.2 tutorial band-path calculation; not an effective-mass, Wannier, tight-binding, or production dataset. |
 | [`qe-7.5-si-scf-smoke-comparison/`](bulk-silicon/qe-7.5-si-scf-smoke-comparison/execution-comparison.json) | Historical calculated record; not human-accepted | One QE 7.5 tutorial SCF smoke test and bounded mechanical comparison with the QE 7.2 record. |
 | [`production-convergence-preflight/`](bulk-silicon/production-convergence-preflight/execution-result.md) | Historical calculated record; provisional | Direct bootstrap study containing nine SCFs and nine linked NSCFs. It reports finite-setting observations but selects no production cutoff or mesh and is not accepted production convergence. |
+| [`wannier-gauge-locality-comparison/`](bulk-silicon/wannier-gauge-locality-comparison/README.md) | Planned | Prospective fixed-subspace silicon DFT–Wannier gauge/locality comparison with explicit state-space, operator, Nyquist-conversion, verification, and protected-execution boundaries; no admitted artifacts, implementation, execution, or result. |
 
 The detailed scientific preparation and source audit remain under
 [`docs/computational/`](../docs/computational/index.md) and are cross-linked from the
