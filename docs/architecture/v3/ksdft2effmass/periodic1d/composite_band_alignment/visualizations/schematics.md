@@ -7,7 +7,7 @@ flowchart LR
     D --> A[alignment figure action]
     D --> L[locality figure action]
     D --> C[error-channel figure action]
-    A --> G[generic PNG renderer]
+    A --> G[root PngFigureRenderer]
     L --> G
     C --> G
     E[closed plot enum] --> G

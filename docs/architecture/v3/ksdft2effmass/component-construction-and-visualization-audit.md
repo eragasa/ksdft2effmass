@@ -276,6 +276,16 @@ authentication contract owned at the root verification boundary. It must not dep
 Family-root public imports may deliberately re-export supported family types; this is a
 public API, not a compatibility facade.
 
+The adopted target is documented before runtime migration in:
+
+- [`ksdft2effmass.visualizations`](visualizations/index.md);
+- [`piab1d.visualizations`](model_systems/piab1d/visualizations/index.md);
+- [`qho1d.visualizations`](model_systems/qho1d/visualizations/index.md);
+- [`mathieu1d.visualizations`](model_systems/mathieu1d/visualizations/index.md);
+- [`fourier_locality.visualizations`](periodic1d/fourier_locality/visualizations/index.md);
+  and
+- [`composite_band_alignment.visualizations`](periodic1d/composite_band_alignment/visualizations/index.md).
+
 ## Migration sequence and gates
 
 The audit freezes this order:

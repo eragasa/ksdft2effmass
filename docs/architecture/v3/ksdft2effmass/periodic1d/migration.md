@@ -173,7 +173,7 @@ checked conclusion remains separate from scientific acceptance or evidence promo
 ## Phase 7 — retire predecessor and temporary planning surfaces
 
 For each implemented study, migrate its section of
-[`visualization.md`](visualization.md) into concrete projection, plot, subplot, figure,
+[`visualizations.md`](visualizations.md) into concrete projection, plot, subplot, figure,
 renderer, and visualizer classes under the selected installed source owner. Add public API
 documentation and tests there. When all eight sections have moved, reduce the temporary
 page to source links or remove it so it cannot compete with the implementation.

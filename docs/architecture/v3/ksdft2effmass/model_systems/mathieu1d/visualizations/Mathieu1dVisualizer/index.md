@@ -12,7 +12,7 @@ figures = Mathieu1dVisualizer(
 Authentication occurs before Matplotlib objects are created. The verification must pass
 and its projection digest must match the supplied typed data. Figure actions may choose
 layout, axes, and styling but calculate no new scientific values. The shared
-`ModelAnalysisPngFigureRenderer` encodes both figures. `visualize()` returns exactly the
+The root `PngFigureRenderer` encodes both figures. `visualize()` returns exactly the
 two validated immutable PNG values declared by `Mathieu1dVisualizationPlotEnum`.
 
 ```python

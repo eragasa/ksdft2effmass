@@ -22,7 +22,7 @@ flowchart TB
     D[Authenticated data] --> P[Plot actions: one relation]
     P --> S[Subplot actions: axis-local presentation]
     S --> F[Figure actions: layout]
-    F --> G[ModelAnalysisPngFigureRenderer]
+    F --> G[ksdft2effmass.visualizations.PngFigureRenderer]
     G --> I[Immutable PNG values]
 ```
 

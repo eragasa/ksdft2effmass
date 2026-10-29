@@ -80,10 +80,9 @@ three-component verification remains decodable without changing its bytes.
 `Qho1dVisualizer` accepts only passing `Qho1dVerification` values whose projection
 digest matches the supplied typed data. QHO1D plot actions draw model-specific data
 relations on caller-owned axes; subplot actions own axis-local composition and
-presentation; figure actions own layout and figure-wide presentation; and the shared
-`ModelAnalysisPngFigureRenderer` owns PNG encoding and figure closure. The visualizer
-returns exactly one validated
-`ModelAnalysisPngVisualization` for each `Qho1dVisualizationPlotEnum` member.
+presentation; figure actions own layout and figure-wide presentation; and the root
+`PngFigureRenderer` owns PNG encoding and figure closure. The visualizer returns exactly
+one validated `PngVisualization` for each `Qho1dVisualizationPlotEnum` member.
 `run_03_render.py` publishes figures through an incomplete-stage directory and copies
 report source, bibliography, and authenticated figures into an execution-bound
 technical-report directory.

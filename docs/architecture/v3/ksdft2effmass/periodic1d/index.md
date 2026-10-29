@@ -8,13 +8,14 @@ checked, and presented without confusing their state spaces, gauges, numerical e
 or scientific families?
 
 This Architecture v3 surface is an **active family-by-family rewrite**. Phase 1
-Mathieu1D and Phase 2 compatible rank-one Fourier locality are implemented with typed
-source records, direct calculation stages, byte-owning verification, and authenticated
-rendering. Mathieu1D has one retained unsealed execution; rank-one Fourier locality has
-only provisional non-retained review results. Both predecessor runtimes are absent from
-the live tree. The other six studies remain prospective until each source owner,
-consumer, and retained contract is migrated through a reviewed slice. Existing
-`ksdft2effmass.periodic1d` imports remain supported only for not-yet-migrated families.
+Mathieu1D, Phase 2 compatible rank-one Fourier locality, and the Phase 3 rank-two
+composite-alignment family are implemented with typed source records, direct calculation
+stages, byte-owning verification, and authenticated rendering. Mathieu1D has one
+retained unsealed execution; the two locality families have only provisional
+non-retained review results. The Mathieu1D and rank-one predecessor runtimes are absent
+from the live tree. Five studies remain prospective, including the distinct rank-two
+band-equivalence family. Existing `ksdft2effmass.periodic1d` imports remain supported
+only for not-yet-migrated families.
 
 The rewrite adopts the behavioral structure demonstrated by PIAB1D and QHO1D and now
 implemented directly by Mathieu1D:
@@ -113,7 +114,7 @@ searchable provenance aliases; they are not names for new studies or a version c
 - [Scientific interpretation](scientifics.md)
 - [Schematics](schematics.md)
 - [Direct run-script template](direct-scripts.md)
-- [Temporary visualization migration plan](visualization.md)
+- [Visualization migration plan](visualizations.md)
 - [Migration sequence](migration.md)
 - [Phase 0 inventory and replacement boundary](phase-0-inventory.md)
 - [Phase 2 legacy retirement record](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md)

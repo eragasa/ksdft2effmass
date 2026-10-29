@@ -1,9 +1,19 @@
-# `ksdft2effmass.periodic1d.fourier_locality.visualization`
+# `ksdft2effmass.periodic1d.fourier_locality.visualizations`
 
 ## Status and responsibility
 
-Authenticated visualization module for the closed two-figure native
-inventory.
+Target authenticated visualization package for the closed two-figure native inventory.
+It replaces the current singular source module without changing projection bytes,
+filenames, scientific values, or rendering policy.
+
+```text
+periodic1d/fourier_locality/visualizations/
+├── __init__.py
+├── data.py
+├── figures.py
+├── inventory.py
+└── visualizer.py
+```
 
 ## Public classes
 
@@ -37,7 +47,9 @@ supported.
 
 ## Related pages
 
+- [Implementation](implementation.md)
 - [Schematics](schematics.md)
 - [Numerics](numerics.md)
 - [Scientific interpretation](scientifics.md)
 - [Parent package](../index.md)
+- [Shared visualization architecture](../../../visualizations/index.md)

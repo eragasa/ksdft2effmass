@@ -23,39 +23,39 @@ The expected destinations are:
 
 | Study | Source destination or prospective destination |
 |---|---|
-| Mathieu1D | Implemented by `ksdft2effmass.model_systems.mathieu1d.visualization` |
-| Compatible rank-one control | `ksdft2effmass.periodic1d.fourier_locality.visualization` |
-| Rank-two band equivalence | `ksdft2effmass.periodic1d.band_equivalence_locality.visualization` |
-| Rank-two composite alignment | `ksdft2effmass.periodic1d.composite_band_alignment.visualization` |
-| Confirmatory admissible sets | `ksdft2effmass.periodic1d.admissible_sets.confirmatory_visualization` |
-| Scalar/direct demonstration | `ksdft2effmass.periodic1d.admissible_sets.scalar_demonstration_visualization` |
-| Threshold sensitivity | `ksdft2effmass.periodic1d.admissible_sets.threshold_sensitivity_visualization` |
+| Mathieu1D | Target `ksdft2effmass.model_systems.mathieu1d.visualizations` |
+| Compatible rank-one control | Target `ksdft2effmass.periodic1d.fourier_locality.visualizations` |
+| Rank-two band equivalence | Prospective `ksdft2effmass.periodic1d.band_equivalence_locality.visualizations` |
+| Rank-two composite alignment | Target `ksdft2effmass.periodic1d.composite_band_alignment.visualizations` |
+| Confirmatory admissible sets | Prospective confirmatory modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |
+| Scalar/direct demonstration | Prospective scalar-control modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |
+| Threshold sensitivity | Prospective sensitivity modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |
 | Higher-rank composite alignment | A cohesive higher-rank source owner selected in Phase 5 after its reusable behavior is established; no placeholder package is created by this plan. |
 
-The Mathieu1D path is implemented and documented under
-[`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md). The other destinations
-are prospective and become supported only in their implementation slices. There is no generic `Periodic1DVisualizationData`, universal Periodic1D plot
-enum, or compatibility facade.
+Mathieu1D, rank-one Fourier locality, and rank-two composite alignment have implemented
+singular source modules and approved target package architectures. The remaining
+destinations are prospective and become supported only in their implementation slices.
+There is no generic `Periodic1DVisualizationData`, universal Periodic1D plot enum, or
+compatibility facade. Shared mechanics belong to
+[`ksdft2effmass.visualizations`](../visualizations/index.md).
 
 After all eight sections have implemented source owners, public API documentation, and
 tests, this page is reduced to links to those source contracts or removed through a
 reviewed documentation cleanup. It must not remain a competing normative plot catalog.
 
-## Closed planning inventory
+## Closed planning inventories
 
-Periodic1D renders **eight baseline PNG figures**, one for each separate study. Every
-baseline figure consumes only the authenticated typed projection derived during
-independent KSD verification.
+Each study owns its own closed figure inventory; Architecture v3 does not prescribe one
+baseline PNG per study. Current native inventories are:
 
-A study may additionally render **one certificate-obligation PNG** only after it has an
-admitted compact certificate export and checker result. The execution declares either a
-`native_only` or `native_plus_certificate` inventory before rendering. A certificate
-placeholder is never emitted.
+- Mathieu1D: two PNGs;
+- compatible rank-one Fourier locality: two PNGs; and
+- rank-two composite alignment: three PNGs.
 
-Therefore the program has:
-
-- exactly 8 baseline figures; and
-- from 0 to 8 certificate supplements, each bound to one actual checked export.
+Every figure consumes only the authenticated typed projection derived during independent
+KSD verification. A prospective study must freeze its own inventory before rendering.
+A certificate-obligation figure is admitted only after a compact certificate export and
+checker result exist; a placeholder is never emitted.
 
 A plot presents already calculated or checked values. It is not itself verification,
 proof, scientific acceptance, or additional evidence.
@@ -79,7 +79,7 @@ proof, scientific acceptance, or additional evidence.
 ## 1. Mathieu1D direct vertical slice — migrated
 
 The runtime contract now belongs to
-`ksdft2effmass.model_systems.mathieu1d.visualization`; this temporary page no longer owns
+`ksdft2effmass.model_systems.mathieu1d.visualizations`; this temporary page no longer owns
 its projection fields or plot composition. The closed native inventory contains
 `mathieu1d-finite-reduction.png` and `mathieu1d-publication-summary.png`. Concrete typed
 projection, plot, subplot, figure, renderer, plot-enum, and authenticated visualizer
@@ -97,18 +97,10 @@ band, smooth feasibility region, or claim that a sampled gap proves continuum is
 
 ### Closed native inventory
 
-`rank1-fourier-locality.png`, four panels:
-
-1. declared momentum versus the first two ordered parent eigenvalues, with the sampled
-   minimum-gap point and gate;
-2. centered cell representative versus `|t_R| / E_ref`, accompanied by authenticated
-   support-indexed omitted norms;
-3. support identifier versus separately authenticated interpolation, deliberate
-   truncation, and total maximum/root-mean-square errors for each declared construction
-   mesh; and
-4. the per-mesh attained objective pair `(2*R + 1, total evaluation error)`, with the
-   independently verified finite nondominated mask, production `1e-8 E_ref` threshold,
-   actual first joint passage, and sustained-after-first-pass qualification.
+`rank1-fourier-locality.png` contains eight authenticated panels for sampled parent
+bands, finite sampled-gap qualification, complete production coefficients,
+interpolation/refinement, separate production error channels, omitted norms, attained
+error--complexity masks, and threshold passage with sustained status.
 
 `rank1-fourier-route-agreement.png` retains direct-versus-mediated coefficient and
 sampled defects plus the separately named total evaluation errors of both routes.
@@ -158,34 +150,26 @@ No invisible equal-spectrum overplot presented as proof, interpolated continuum 
 curve, locality envelope assembled from different representations, or inference that
 pointwise spectral equivalence ensures finite-range adequacy.
 
-## 4. Rank-two composite-band alignment and locality
+## 4. Rank-two composite-band alignment and locality — implemented
 
-### Baseline
+The closed native inventory contains three authenticated figures:
 
-`rank2-alignment-locality.png`, four panels:
+1. `rank2-composite-alignment.png` presents retained parent bands and declared frame,
+   sewing, and represented-operator alignment diagnostics;
+2. `rank2-composite-locality.png` presents complete block-hopping norms and finite-range
+   Hamiltonian and sorted-band consequences by channel; and
+3. `rank2-composite-error-channels.png` keeps centered-Nyquist conversion power,
+   interpolation, deliberate truncation, and total consequences separate.
 
-1. declared momentum versus alignment objective or residual, with separate unaligned,
-   global-fixed, pointwise, and declared analytical-control channels;
-2. momentum or case identifier versus independently verified sewing residual and
-   conditioning diagnostics, using separate axes when units differ and explicit markers
-   for failed qualifications;
-3. centered cell representative versus `||T_R||_F / E_ref`, separated by alignment
-   channel; and
-4. support identifier versus separate spectral and operator interpolation/truncation
-   consequences, showing only attainable channel/support decisions.
-
-### Certificate supplement
-
-`rank2-alignment-certificate-obligations.png` displays exact or enclosing unitarity,
-Frobenius-invariance, Fourier-equivariance, and support obligations for the fixed/global
-channel. Point-dependent channels are labeled as separate finite reconstructions and do
-not inherit fixed-unitary conclusions.
+No certificate supplement is admitted. The pointwise channel remains an oracle control,
+the fixed global unitary remains diagnostic-only for locality, and neither is presented
+as Wannier localization or dimensional reduction.
 
 ### Excluded
 
-No curve implying that point-dependent `U(k)` commutes with Fourier transformation, no
-best-gauge claim across incomparable families, no topology panel, and no silent omission
-of failed conditioning cases.
+No curve implies that point-dependent `U(k)` commutes with Fourier transformation, no
+best-gauge claim is made across incomparable families, no topology panel is shown, and
+failed conditioning cases may not be silently omitted.
 
 ## 5. Confirmatory constrained admissible sets
 

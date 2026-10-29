@@ -144,17 +144,17 @@ Rendering proceeds only when:
 - the renderer inventory exactly equals the declared plot inventory.
 
 Model-specific plot actions own data-to-mark relations, subplot actions own axis-local
-composition, figure actions own layout, and the common renderer owns PNG encoding and
-container admission. The calculation script publishes through an incomplete directory
+composition and figure actions own layout in the family package; the root
+[`ksdft2effmass.visualizations`](../visualizations/index.md) renderer owns PNG encoding
+and container admission. The calculation script publishes through an incomplete directory
 and atomically exposes only the complete rendering inventory.
 
 No figure reads unauthenticated CSV, imports a producer script, or calculates a new
-scientific value that is absent from the authenticated projection. The temporary
-[visualization migration plan](visualization.md) defines eight baseline PNGs, one per
-study, until each inventory is implemented by concrete classes in its source owner. A
-study adds exactly one certificate-obligation PNG only when its declared
-`native_plus_certificate` inventory is backed by an admitted certificate export and
-checker result; no placeholder is rendered.
+scientific value that is absent from the authenticated projection. The
+[visualization migration plan](visualizations.md) records family-owned closed
+inventories. It does not impose one figure per study. A certificate-obligation PNG is
+admitted only when backed by an admitted certificate export and checker result; no
+placeholder is rendered.
 
 ## Direct calculation roots
 

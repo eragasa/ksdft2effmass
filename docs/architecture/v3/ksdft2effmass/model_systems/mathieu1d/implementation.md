@@ -63,8 +63,8 @@ through an incomplete stage.
 
 `Mathieu1dVisualizationData` stores only values already present in the independently
 reconstructed result. Plot actions draw one relation, subplot actions own axis-local
-presentation, figure actions own layout, and the shared
-`ModelAnalysisPngFigureRenderer` encodes immutable PNG values.
+presentation, figure actions own layout, and the root `PngFigureRenderer` encodes
+immutable PNG values.
 `Mathieu1dVisualizer` requires a passing `Mathieu1dVerification` whose projection digest
 matches the supplied data and returns exactly:
 

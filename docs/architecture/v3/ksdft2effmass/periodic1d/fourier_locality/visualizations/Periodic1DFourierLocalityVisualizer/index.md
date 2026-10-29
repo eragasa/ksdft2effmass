@@ -15,7 +15,7 @@ performs no file writes.
 - Every enum member is rendered exactly once.
 - Figure actions consume authenticated values only and expose all declared gap,
   refinement, omitted-norm, decision-mask, passage, and route-diagnostic channels.
-- Shared `ModelAnalysisPngFigureRenderer` owns PNG encoding and structural validation.
+- The root `PngFigureRenderer` owns PNG encoding and structural validation.
 - No scientific value or decision is calculated during rendering.
 
 ## Public import

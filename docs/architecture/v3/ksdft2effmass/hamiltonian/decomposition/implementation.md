@@ -45,7 +45,7 @@ matrix and the declared shift directly to
 The typed `KineticPotentialDecompositionResult` is stored once inside
 `Piab1dCalculationResult`. Independent reconstruction belongs to
 `Piab1dKineticPotentialDecompositionReferenceAnalyzer`; authenticated rendering belongs
-to the decomposition plotter in `model_systems.piab1d.visualization`. The calculation
+to the decomposition figure action in `model_systems.piab1d.visualizations`. The calculation
 script therefore contains no reusable decomposition kernel, verifier, visualizer,
 Workflow, adapter class, or command-line parser.
 

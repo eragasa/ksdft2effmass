@@ -65,16 +65,17 @@ objects.
 ## Authenticated visualization
 
 `Piab1dVisualizer` accepts only a passing `Piab1dVerification` whose authenticated
-visualization-data digest matches the supplied typed projection. It constructs one
-model-specific figure action and one shared `ModelAnalysisPngFigureRenderer` per
-`Piab1dVisualizationPlotEnum` member, then checks exact equality between the renderer
+visualization-data digest matches the supplied typed projection. Its target
+`visualizations/` package constructs one model-specific figure action and one root
+`PngFigureRenderer` per `Piab1dVisualizationPlotEnum` member, then checks exact equality
+between the renderer
 inventory and the closed enum. All thirteen figures are separated from PNG encoding.
 The spectrum-and-states figure additionally composes separate plot and subplot actions;
 the remaining figure actions retain their specialized internal axis composition pending
 incremental plot/subplot extraction.
 
 The shared renderer owns the common in-memory PNG encoding and figure-closure path.
-Its `ModelAnalysisPngVisualization` value decodes image bytes before admission and stores an exact
+Its `PngVisualization` value decodes image bytes before admission and stores an exact
 cross-platform-safe filename. The rendering
 script writes through `.figures.incomplete`, publishes the completed directory
 atomically, and records result, verification, implementation, runtime, and figure

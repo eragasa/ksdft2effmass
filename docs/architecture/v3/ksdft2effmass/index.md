@@ -18,8 +18,10 @@ or supported import already exists.
   objects.
 - [`serialization`](serialization/index.md): typed scientific JSON normalization and
   final record boundaries.
-- [`model_systems`](model_systems/index.md): common analysis, verification, and
-  flexible plot/subplot/figure/rendering infrastructure.
+- [`visualizations`](visualizations/index.md): domain-neutral authenticated projection,
+  figure composition, PNG admission, and closed-inventory mechanics.
+- [`model_systems`](model_systems/index.md): controlled physical and mathematical
+  systems plus shared model-analysis verification sequencing.
 - [`model_systems/piab1d`](model_systems/piab1d/index.md): the complete typed PIAB1D
   calculate, verify, and render vertical slice.
 - [`model_systems/qho1d`](model_systems/qho1d/index.md): the typed QHO1D spatial-
@@ -28,8 +30,8 @@ or supported import already exists.
   Mathieu1D finite-parent, Fourier-reduction, verification, and rendering vertical slice.
 - [`periodic1d`](periodic1d/index.md): the active family-by-family rewrite of
   one-dimensional periodic calculation, byte-owning verification, and authenticated
-  rendering; Mathieu1D and compatible rank-one Fourier locality are implemented, while
-  the other six studies remain prospective.
+  rendering; Mathieu1D, compatible rank-one Fourier locality, and rank-two composite
+  alignment are implemented, while five studies remain prospective.
 
 Only touched source areas are mirrored in this tranche. Absence from this directory is
 not an ownership reassignment.

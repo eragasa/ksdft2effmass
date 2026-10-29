@@ -17,8 +17,8 @@ independent verification, and authenticated figures.
   numerical reconstruction.
 - [`verification`](verification/index.md) owns exact-byte admission and aggregate
   authentication.
-- [`visualization`](visualization/index.md) owns the authenticated projection and closed
-  PNG inventory.
+- [`visualizations`](visualizations/index.md) owns the authenticated projection and
+  closed three-PNG inventory.
 
 The package imports no historical campaign, `multiband_alignment`, or calculation-local
 workflow code. It is distinct from band-equivalence/locality and from M3 admissible-set

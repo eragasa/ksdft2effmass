@@ -5,7 +5,7 @@ sequenceDiagram
     participant Caller
     participant Visualizer
     participant Figures as Figure actions
-    participant Renderer as ModelAnalysisPngFigureRenderer
+    participant Renderer as PngFigureRenderer
 
     Caller->>Visualizer: render(verification, data)
     Visualizer->>Visualizer: require passing verification
