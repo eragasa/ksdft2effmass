@@ -184,6 +184,125 @@ class BlockHoppingModel1D:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
+class CenteredEvenMeshCyclicToOrdinaryRequest1D:
+    """Bind one complete centered even-mesh cyclic hopping representation."""
+
+    source: BlockHoppingModel1D
+
+    def __post_init__(self) -> None:
+        if type(self.source) is not BlockHoppingModel1D:
+            raise TypeError("source must be BlockHoppingModel1D")
+        size = len(self.source.representatives)
+        if size % 2 != 0:
+            raise ValueError("cyclic source must have an even representative count")
+        expected = tuple(range(-size // 2, size // 2))
+        if self.source.representatives != expected:
+            raise ValueError(
+                "cyclic source must use the complete centered even-mesh inventory"
+            )
+
+
+@dataclass(frozen=True, slots=True, eq=False)
+class CenteredEvenMeshCyclicToOrdinaryResult1D:
+    """Retain ordinary support and the removed negative-Nyquist power."""
+
+    source: BlockHoppingModel1D
+    ordinary: BlockHoppingModel1D
+    conversion_representative: int
+    conversion_power_per_matrix_dimension: float
+
+    def __post_init__(self) -> None:
+        if type(self.source) is not BlockHoppingModel1D:
+            raise TypeError("source must be BlockHoppingModel1D")
+        if type(self.ordinary) is not BlockHoppingModel1D:
+            raise TypeError("ordinary must be BlockHoppingModel1D")
+        expected_representative = -len(self.source.representatives) // 2
+        if self.conversion_representative != expected_representative:
+            raise ValueError("conversion must remove the negative Nyquist class")
+        retained = tuple(
+            (representative, block)
+            for representative, block in zip(
+                self.source.representatives,
+                self.source.hopping_blocks,
+                strict=True,
+            )
+            if representative != self.conversion_representative
+        )
+        if self.ordinary.representatives != tuple(item[0] for item in retained):
+            raise ValueError("ordinary support must remove only the conversion class")
+        if any(
+            ordinary_block is not retained_item[1]
+            for ordinary_block, retained_item in zip(
+                self.ordinary.hopping_blocks,
+                retained,
+                strict=True,
+            )
+        ):
+            raise ValueError("ordinary blocks must preserve the retained cyclic blocks")
+        if self.ordinary.reciprocal_period is not self.source.reciprocal_period:
+            raise ValueError("ordinary and cyclic reciprocal periods must agree")
+        if type(self.conversion_power_per_matrix_dimension) is not float:
+            raise TypeError(
+                "conversion_power_per_matrix_dimension must be a built-in float"
+            )
+        removed_index = self.source.representatives.index(
+            self.conversion_representative
+        )
+        expected_power = float(
+            np.linalg.norm(self.source.hopping_blocks[removed_index].magnitude) ** 2
+            / self.source.matrix_dimension
+        )
+        if self.conversion_power_per_matrix_dimension != expected_power:
+            raise ValueError("conversion power must match the removed hopping block")
+
+
+class CenteredEvenMeshCyclicToOrdinaryConverter1D:
+    """Remove the negative-Nyquist class from one bound cyclic representation."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: CenteredEvenMeshCyclicToOrdinaryRequest1D) -> None:
+        if type(request) is not CenteredEvenMeshCyclicToOrdinaryRequest1D:
+            raise TypeError("request must be CenteredEvenMeshCyclicToOrdinaryRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> CenteredEvenMeshCyclicToOrdinaryRequest1D:
+        """Return the complete immutable conversion request."""
+        return self._request
+
+    def execute(self) -> CenteredEvenMeshCyclicToOrdinaryResult1D:
+        """Return ordinary support and the separate cyclic-conversion power."""
+        source = self.request.source
+        conversion_representative = -len(source.representatives) // 2
+        retained = tuple(
+            (representative, block)
+            for representative, block in zip(
+                source.representatives,
+                source.hopping_blocks,
+                strict=True,
+            )
+            if representative != conversion_representative
+        )
+        removed_index = source.representatives.index(conversion_representative)
+        ordinary = BlockHoppingModel1D(
+            reciprocal_period=source.reciprocal_period,
+            representatives=tuple(item[0] for item in retained),
+            hopping_blocks=tuple(item[1] for item in retained),
+        )
+        power = float(
+            np.linalg.norm(source.hopping_blocks[removed_index].magnitude) ** 2
+            / source.matrix_dimension
+        )
+        return CenteredEvenMeshCyclicToOrdinaryResult1D(
+            source=source,
+            ordinary=ordinary,
+            conversion_representative=conversion_representative,
+            conversion_power_per_matrix_dimension=power,
+        )
+
+
+@dataclass(frozen=True, slots=True, eq=False)
 class ReciprocalOperatorFourierTransformResult1D:
     """Retain a complete uniform-mesh transform and reconstruction check."""
 

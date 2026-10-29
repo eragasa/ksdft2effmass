@@ -39,6 +39,8 @@ from ksdft2effmass.solidstate import (
     BlockHoppingModel1D,
     BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
+    CenteredEvenMeshCyclicToOrdinaryConverter1D,
+    CenteredEvenMeshCyclicToOrdinaryRequest1D,
     CenteredUniformReciprocalMesh1D,
     PolarBandFrameTransporter1D,
     PolarBandFrameTransportRequest1D,
@@ -232,7 +234,15 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             for transform in transformed
         )
         cyclic_models = tuple(transform.hopping_model for transform in transformed)
-        ordinary_models = tuple(self._ordinary_model(model) for model in cyclic_models)
+        ordinary_conversions = tuple(
+            CenteredEvenMeshCyclicToOrdinaryConverter1D(
+                CenteredEvenMeshCyclicToOrdinaryRequest1D(model)
+            ).execute()
+            for model in cyclic_models
+        )
+        ordinary_models = tuple(
+            conversion.ordinary for conversion in ordinary_conversions
+        )
         direct_evaluation_targets = self._direct_evaluation_targets(
             ordinary_models,
             evaluation_coordinates,
@@ -256,15 +266,10 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 channel=channel,
                 representatives=transform.hopping_model.representatives,
                 hopping_blocks=transform.hopping_model.hopping_blocks,
-                ordinary_representatives=ordinary.representatives,
-                cyclic_conversion_representative=(
-                    transform.hopping_model.representatives[0]
-                ),
+                ordinary_representatives=conversion.ordinary.representatives,
+                cyclic_conversion_representative=(conversion.conversion_representative),
                 cyclic_conversion_power=ScalarQuantity(
-                    self._cyclic_conversion_power(
-                        transform.hopping_model,
-                        configuration.retained_rank,
-                    ),
+                    conversion.conversion_power_per_matrix_dimension,
                     unit,
                 ),
                 reconstruction_maximum_frobenius_error=ScalarQuantity(
@@ -283,10 +288,10 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                     unit,
                 ),
             )
-            for channel, transform, ordinary, diagnostic, interpolation_error in zip(
+            for channel, transform, conversion, diagnostic, interpolation_error in zip(
                 Periodic1DCompositeBandAlignmentTransformResult.CHANNELS,
                 transformed,
-                ordinary_models,
+                ordinary_conversions,
                 hermiticity,
                 interpolation_errors,
                 strict=True,
@@ -513,36 +518,6 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 source.orthonormality_absolute_tolerance
             ),
         )
-
-    def _ordinary_model(self, model: BlockHoppingModel1D) -> BlockHoppingModel1D:
-        conversion_representative = -len(model.representatives) // 2
-        retained = tuple(
-            (representative, block)
-            for representative, block in zip(
-                model.representatives,
-                model.hopping_blocks,
-                strict=True,
-            )
-            if representative != conversion_representative
-        )
-        if len(retained) != len(model.representatives) - 1:
-            raise ValueError("cyclic model does not contain one negative Nyquist class")
-        return BlockHoppingModel1D(
-            reciprocal_period=model.reciprocal_period,
-            representatives=tuple(item[0] for item in retained),
-            hopping_blocks=tuple(item[1] for item in retained),
-        )
-
-    def _cyclic_conversion_power(
-        self,
-        model: BlockHoppingModel1D,
-        retained_rank: int,
-    ) -> float:
-        conversion_representative = -len(model.representatives) // 2
-        block = model.hopping_blocks[
-            model.representatives.index(conversion_representative)
-        ]
-        return float(np.linalg.norm(block.magnitude) ** 2 / retained_rank)
 
     def _direct_evaluation_targets(
         self,
