@@ -9,6 +9,7 @@ from projectkoios.physkit.units import MatrixQuantity, Unitless, VectorQuantity
 from ksdft2effmass.hamiltonian import (
     Hamiltonian,
     OrthogonalHamiltonianBlockAnalyzer,
+    OrthogonalHamiltonianBlockRequest,
     OrthogonalSpectralSubspace,
 )
 
@@ -27,8 +28,12 @@ class TestOrthogonalHamiltonianBlockAnalyzer:
             basis_vectors=MatrixQuantity(np.array([[1.0], [0.0]]), Unitless()),
         )
 
-        result = SUT().execute(hamiltonian, subspace)
+        request = OrthogonalHamiltonianBlockRequest(hamiltonian, subspace)
+        analyzer = SUT(request)
 
+        result = analyzer.execute()
+
+        assert analyzer.request is request
         assert result.hamiltonian is hamiltonian
         assert result.spectral_subspace is subspace
         np.testing.assert_array_equal(
@@ -52,3 +57,14 @@ class TestOrthogonalHamiltonianBlockAnalyzer:
             + result.discarded.magnitude
         )
         np.testing.assert_array_equal(reconstructed, matrix.magnitude)
+
+    def test_request__different_parent_dimensions__raises_value_error(self) -> None:
+        """The Hamiltonian and orthogonal subspace must share one parent space."""
+        hamiltonian = Hamiltonian(matrix=MatrixQuantity(np.eye(3), Unitless()))
+        subspace = OrthogonalSpectralSubspace(
+            eigenvalues=VectorQuantity(np.array([1.0]), Unitless()),
+            basis_vectors=MatrixQuantity(np.array([[1.0], [0.0]]), Unitless()),
+        )
+
+        with pytest.raises(ValueError, match="dimensions must agree"):
+            OrthogonalHamiltonianBlockRequest(hamiltonian, subspace)

@@ -43,6 +43,9 @@ Spectral subspaces and reduction
 .. autoclass:: OrthogonalHamiltonianBlockResult
    :members:
 
+.. autoclass:: OrthogonalHamiltonianBlockRequest
+   :members:
+
 .. autoclass:: OrthogonalHamiltonianBlockAnalyzer
    :members:
 

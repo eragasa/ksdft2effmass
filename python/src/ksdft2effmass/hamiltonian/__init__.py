@@ -2,6 +2,7 @@
 
 from .blocks import (
     OrthogonalHamiltonianBlockAnalyzer,
+    OrthogonalHamiltonianBlockRequest,
     OrthogonalHamiltonianBlockResult,
 )
 from .decomposition import HamiltonianDecomposition
@@ -21,6 +22,7 @@ __all__ = [
     "HamiltonianVerification",
     "HermitianHamiltonian",
     "OrthogonalHamiltonianBlockAnalyzer",
+    "OrthogonalHamiltonianBlockRequest",
     "OrthogonalHamiltonianBlockResult",
     "OrthogonalSpectralSubspace",
     "OrthogonalSpectralSubspaceSelectionRequest",

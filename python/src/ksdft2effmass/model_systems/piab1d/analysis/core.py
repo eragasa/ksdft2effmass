@@ -35,6 +35,7 @@ from ksdft2effmass.analysis.operators import (
 from ksdft2effmass.hamiltonian import (
     HermitianHamiltonian,
     OrthogonalHamiltonianBlockAnalyzer,
+    OrthogonalHamiltonianBlockRequest,
     OrthogonalHamiltonianBlockResult,
     OrthogonalSpectralSubspace,
     OrthogonalSpectralSubspaceSelectionRequest,
@@ -136,17 +137,7 @@ class Piab1dAnalysis:
 class Piab1dAnalyzer:
     """Perform the complete KSD analysis of one PhysKit PIAB1D solution."""
 
-    __slots__ = ("block_analyzer",)
-
-    def __init__(self) -> None:
-        """Compose the reusable finite-operator diagnostic actions.
-
-        Notes
-        -----
-        Construction allocates no represented model and executes no eigensolver. The
-        action remains reusable across independently constructed PhysKit solutions.
-        """
-        self.block_analyzer = OrthogonalHamiltonianBlockAnalyzer()
+    __slots__ = ()
 
     def execute(
         self,
@@ -206,7 +197,9 @@ class Piab1dAnalyzer:
         ):
             raise TypeError("PIAB1D reduced Hamiltonian matrices must be real")
 
-        hamiltonian_blocks = self.block_analyzer.execute(parent_hamiltonian, subspace)
+        hamiltonian_blocks = OrthogonalHamiltonianBlockAnalyzer(
+            OrthogonalHamiltonianBlockRequest(parent_hamiltonian, subspace)
+        ).execute()
         if not isinstance(
             hamiltonian_blocks.retained, MatrixQuantity
         ) or not isinstance(hamiltonian_blocks.discarded, MatrixQuantity):

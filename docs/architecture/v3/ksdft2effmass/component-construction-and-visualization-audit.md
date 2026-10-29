@@ -164,7 +164,9 @@ request; PIAB1D core and grid-sweep composition now construct complete per-eigen
 diagnostic actions instead of retaining one empty reusable action. The following
 Hamiltonian leaf slice binds the ordered real eigensystem and retained dimension in an
 immutable `OrthogonalSpectralSubspaceSelectionRequest`; PIAB1D constructs the complete
-selector only after its eigensystem request exists.
+selector only after its eigensystem request exists. The next Hamiltonian leaf slice
+binds the finite Hamiltonian and exact orthogonal subspace in an immutable
+`OrthogonalHamiltonianBlockRequest`; PIAB1D no longer retains an empty block analyzer.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in
