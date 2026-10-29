@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
+from types import MappingProxyType
 from typing import Self, cast
 
 import numpy as np
@@ -20,14 +21,23 @@ from .configuration import Qho1dConfiguration
 from .result import Qho1dCalculationResult, Qho1dCaseResult
 
 
-def _required_case(
-    cases: Mapping[tuple[float, float, int], Qho1dCaseResult],
-    key: tuple[float, float, int],
-) -> Qho1dCaseResult:
-    try:
-        return cases[key]
-    except KeyError as error:
-        raise ValueError(f"configured QHO1D case is absent: {key}") from error
+class _Qho1dCaseInventory:
+    """Index one calculation's unique cases by their authored sweep keys."""
+
+    __slots__ = ("_cases",)
+
+    def __init__(self, result: Qho1dCalculationResult) -> None:
+        cases = {case.key: case for case in result.cases}
+        if len(cases) != len(result.cases):
+            raise ValueError("result cases must have unique authored sweep keys")
+        self._cases = MappingProxyType(cases)
+
+    def required(self, key: tuple[float, float, int]) -> Qho1dCaseResult:
+        """Return one required configured case or fail closed."""
+        try:
+            return self._cases[key]
+        except KeyError as error:
+            raise ValueError(f"configured QHO1D case is absent: {key}") from error
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -302,9 +312,7 @@ class Qho1dCrossGridAnalyzer:
             coarse/fine pair after grid realization.
         """
         result = self.request.result
-        cases = {case.key: case for case in result.cases}
-        if len(cases) != len(result.cases):
-            raise ValueError("result cases must have unique authored sweep keys")
+        cases = _Qho1dCaseInventory(result)
         comparisons: list[Qho1dCrossGridComparisonResult] = []
         configuration = result.configuration
         for box in configuration.box_half_widths:
@@ -314,8 +322,8 @@ class Qho1dCrossGridAnalyzer:
                     configuration.grid_spacings[1:],
                     strict=False,
                 ):
-                    coarse = _required_case(cases, (box, coarse_requested, retained))
-                    fine = _required_case(cases, (box, fine_requested, retained))
+                    coarse = cases.required((box, coarse_requested, retained))
+                    fine = cases.required((box, fine_requested, retained))
                     difference = MatrixQuantity(
                         coarse.pulled_back_hamiltonian.magnitude
                         - fine.pulled_back_hamiltonian.magnitude,
@@ -348,25 +356,40 @@ class Qho1dCrossGridVerification(CompositeVerification):
     """Compose checks of derived adjacent-grid Frobenius diagnostics."""
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Qho1dCrossGridVerificationRequest:
+    """Bind one calculation and its correlated derived cross-grid analysis."""
+
+    result: Qho1dCalculationResult
+    analysis: Qho1dCrossGridAnalysisResult
+
+    def __post_init__(self) -> None:
+        """Admit both typed subjects and their exact configuration correlation."""
+        if type(self.result) is not Qho1dCalculationResult:
+            raise TypeError("result must be Qho1dCalculationResult")
+        if type(self.analysis) is not Qho1dCrossGridAnalysisResult:
+            raise TypeError("analysis must be Qho1dCrossGridAnalysisResult")
+        if self.analysis.configuration.to_json() != self.result.configuration.to_json():
+            raise ValueError("analysis configuration differs from calculation result")
+
+
 class Qho1dCrossGridVerifier:
-    """Verify adjacent-grid diagnostics directly from authoritative case matrices."""
+    """Verify one bound adjacent-grid analysis from authoritative case matrices."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        result: Qho1dCalculationResult,
-        analysis: Qho1dCrossGridAnalysisResult,
-    ) -> Qho1dCrossGridVerification:
+    def __init__(self, request: Qho1dCrossGridVerificationRequest) -> None:
+        if type(request) is not Qho1dCrossGridVerificationRequest:
+            raise TypeError("request must be Qho1dCrossGridVerificationRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Qho1dCrossGridVerificationRequest:
+        """Return the complete immutable cross-grid verification request."""
+        return self._request
+
+    def execute(self) -> Qho1dCrossGridVerification:
         """Verify every stored diagnostic against direct matrix subtraction.
-
-        Parameters
-        ----------
-        result
-            Direct QHO1D calculation result. Its matrices are independently checked
-            by ``Qho1dVerifier`` before this derived diagnostic is relied upon.
-        analysis
-            Typed adjacent-grid diagnostic inventory to verify.
 
         Returns
         -------
@@ -375,11 +398,8 @@ class Qho1dCrossGridVerifier:
 
         Raises
         ------
-        TypeError
-            Either argument has the wrong domain type.
         ValueError
-            The analysis configuration differs from the calculation configuration or
-            a declared case is absent.
+            A declared case is absent or duplicated.
 
         Notes
         -----
@@ -388,18 +408,14 @@ class Qho1dCrossGridVerifier:
         authoritative matrices; independent reconstruction of those matrices remains
         the responsibility of ``Qho1dVerifier``.
         """
-        if not isinstance(result, Qho1dCalculationResult):
-            raise TypeError("result must be Qho1dCalculationResult")
-        if not isinstance(analysis, Qho1dCrossGridAnalysisResult):
-            raise TypeError("analysis must be Qho1dCrossGridAnalysisResult")
-        if analysis.configuration.to_json() != result.configuration.to_json():
-            raise ValueError("analysis configuration differs from calculation result")
-        cases = {case.key: case for case in result.cases}
+        result = self.request.result
+        analysis = self.request.analysis
+        cases = _Qho1dCaseInventory(result)
         comparisons: dict[str, MaximumAbsoluteErrorComparison] = {}
         for index, diagnostic in enumerate(analysis.comparisons):
             box, retained, coarse_requested, fine_requested = diagnostic.key
-            coarse = _required_case(cases, (box, coarse_requested, retained))
-            fine = _required_case(cases, (box, fine_requested, retained))
+            coarse = cases.required((box, coarse_requested, retained))
+            fine = cases.required((box, fine_requested, retained))
             difference = MatrixQuantity(
                 coarse.pulled_back_hamiltonian.magnitude
                 - fine.pulled_back_hamiltonian.magnitude,

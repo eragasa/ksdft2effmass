@@ -14,6 +14,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dCrossGridAnalysisRequest,
     Qho1dCrossGridAnalysisResult,
     Qho1dCrossGridAnalyzer,
+    Qho1dCrossGridVerificationRequest,
     Qho1dCrossGridVerifier,
 )
 
@@ -102,7 +103,10 @@ class TestQho1dCrossGridAnalyzer:
         analysis = Qho1dCrossGridAnalyzer(
             Qho1dCrossGridAnalysisRequest(calculation)
         ).execute()
-        verification = Qho1dCrossGridVerifier().execute(calculation, analysis)
+        verification_request = Qho1dCrossGridVerificationRequest(calculation, analysis)
+        verifier = Qho1dCrossGridVerifier(verification_request)
+        verification = verifier.execute()
+        assert verifier.request is verification_request
         first = analysis.comparisons[0]
         changed_first = replace(
             first,
@@ -116,7 +120,9 @@ class TestQho1dCrossGridAnalyzer:
             comparisons=(changed_first, *analysis.comparisons[1:]),
         )
 
-        changed_verification = Qho1dCrossGridVerifier().execute(calculation, changed)
+        changed_verification = Qho1dCrossGridVerifier(
+            Qho1dCrossGridVerificationRequest(calculation, changed)
+        ).execute()
 
         assert verification.passed
         assert len(verification.observations) == 20

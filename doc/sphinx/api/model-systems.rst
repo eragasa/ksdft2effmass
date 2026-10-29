@@ -216,6 +216,9 @@ is a finite-representation change diagnostic, not a continuum error estimate.
 .. autoclass:: Qho1dCrossGridVerification
    :members:
 
+.. autoclass:: Qho1dCrossGridVerificationRequest
+   :members:
+
 .. autoclass:: Qho1dCrossGridVerifier
    :members:
 

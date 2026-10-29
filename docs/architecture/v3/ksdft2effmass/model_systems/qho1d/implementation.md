@@ -51,9 +51,11 @@ represented dimensions, and the coarse-minus-fine Frobenius norm. The complete
 ordered inventory is a typed `Qho1dCrossGridAnalysisResult` and does not alter the
 wire contract of previously retained direct executions.
 
-`Qho1dCrossGridVerifier` recomputes each derived value directly from the authoritative
-pulled-back case matrices without invoking the production QHO1D analyzer, comparator,
-or cross-grid analyzer. It depends on `Qho1dVerifier` for independent reconstruction
+`Qho1dCrossGridVerificationRequest` binds the exact calculation and its correlated
+analysis before `Qho1dCrossGridVerifier.execute()` recomputes each derived value
+directly from the authoritative pulled-back case matrices without invoking the
+production QHO1D analyzer, comparator, or cross-grid analyzer. It depends on
+`Qho1dVerifier` for independent reconstruction
 of those authoritative matrices.
 
 ## Calculation

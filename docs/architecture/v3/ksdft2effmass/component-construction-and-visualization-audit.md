@@ -195,7 +195,9 @@ configuration and full result identity in `Qho1dAnalysisRequest`; its zero-argum
 `execute()` owns only deterministic calculation composition. The adjacent-grid
 analysis then binds the complete calculated subject in
 `Qho1dCrossGridAnalysisRequest` before deriving its ordered finite-representation
-change diagnostics.
+change diagnostics. `Qho1dCrossGridVerificationRequest` subsequently correlates that
+analysis with the exact calculated subject before direct recomputation. Both actions
+share a cohesive case inventory rather than a dangling lookup function.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

@@ -8,6 +8,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dCalculationResult,
     Qho1dCrossGridAnalysisRequest,
     Qho1dCrossGridAnalyzer,
+    Qho1dCrossGridVerificationRequest,
     Qho1dCrossGridVerifier,
 )
 
@@ -97,7 +98,9 @@ class TestResearchMonographQho1dProjection:
         analysis = Qho1dCrossGridAnalyzer(
             Qho1dCrossGridAnalysisRequest(result)
         ).execute()
-        verification = Qho1dCrossGridVerifier().execute(result, analysis)
+        verification = Qho1dCrossGridVerifier(
+            Qho1dCrossGridVerificationRequest(result, analysis)
+        ).execute()
 
         assert len(analysis.comparisons) == 18
         assert len(verification.observations) == 90

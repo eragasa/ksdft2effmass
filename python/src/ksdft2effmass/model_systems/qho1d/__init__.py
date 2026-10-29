@@ -25,6 +25,7 @@ from .cross_grid import (
     Qho1dCrossGridAnalyzer,
     Qho1dCrossGridComparisonResult,
     Qho1dCrossGridVerification,
+    Qho1dCrossGridVerificationRequest,
     Qho1dCrossGridVerifier,
 )
 from .finite_difference import Qho1dFiniteDifference
@@ -66,6 +67,7 @@ __all__ = [
     "Qho1dCrossGridAnalyzer",
     "Qho1dCrossGridComparisonResult",
     "Qho1dCrossGridVerification",
+    "Qho1dCrossGridVerificationRequest",
     "Qho1dCrossGridVerifier",
     "Qho1dFiniteDifference",
     "Qho1dHamiltonianComparisonResult",
