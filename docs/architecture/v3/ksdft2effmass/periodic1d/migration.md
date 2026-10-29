@@ -161,9 +161,19 @@ scalar-ledger semantics. The current calculation-local `workflow/` package is a 
 parity reference and is not imported or copied. Do not infer higher-rank validation from
 rank-two tests.
 
-**Gate:** typed result and verification wires exist, every decisive value has an
-independent check, authenticated rendering is closed, and any retained execution uses a
-fresh identifier.
+**Implementation status:** partial. The maintained
+[`periodic1d.higher_rank_alignment`](higher_rank_alignment/index.md) child now freezes
+the alignment configuration, closed dispositions, and typed adaptation of exact PhysKit
+transport outcomes. This is native Architecture v3 composition, not Workflow migration.
+It consumes the upstream branch/action/rank-progression contract and does not import,
+copy, adapt, or redirect the calculation-local `workflow/`. Maximum-entry owner
+validation evidence remains explicitly distinct from future normalized-Frobenius KSD
+diagnostics. No higher-rank producer, independent reference, verifier, visualization,
+direct script, resource evidence, or retained execution exists yet.
+
+**Gate:** typed complete calculation-result and verification wires exist, every decisive
+value has an independent check, authenticated rendering is closed, and any retained
+execution uses a fresh identifier.
 
 ## Phase 6 — add selected formal certificates only after native freeze
 
