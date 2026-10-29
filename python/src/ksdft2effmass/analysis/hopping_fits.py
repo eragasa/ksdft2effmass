@@ -118,8 +118,36 @@ class BlockHoppingLeastSquaresFitResult1D:
             raise ValueError("training_maximum_frobenius_residual must match matrices")
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class BlockHoppingLeastSquaresFitRequest1D:
+    """Bind one represented sample path, hopping basis, and objective weights."""
+
+    source: ReciprocalOperatorSamples1D
+    representatives: tuple[int, ...]
+    weights: VectorQuantity
+
+    def __post_init__(self) -> None:
+        """Admit samples, ordered representatives, and positive unitless weights."""
+        if type(self.source) is not ReciprocalOperatorSamples1D:
+            raise TypeError("source must be ReciprocalOperatorSamples1D")
+        if not isinstance(self.representatives, tuple) or not self.representatives:
+            raise TypeError("representatives must be a nonempty tuple")
+        if any(type(value) is not int for value in self.representatives):
+            raise TypeError("representatives must contain built-in integers")
+        if tuple(sorted(set(self.representatives))) != self.representatives:
+            raise ValueError("representatives must be unique and strictly increasing")
+        if type(self.weights) is not VectorQuantity:
+            raise TypeError("weights must be VectorQuantity")
+        if not isinstance(self.weights.unit, Unitless):
+            raise ValueError("weights must be unitless")
+        if self.weights.magnitude.shape != self.source.coordinates.magnitude.shape:
+            raise ValueError("one weight is required per source sample")
+        if np.any(self.weights.magnitude <= 0.0):
+            raise ValueError("weights must be positive")
+
+
 class BlockHoppingLeastSquaresFitter1D:
-    """Adapt periodic hopping data to the Optimization least-squares owner.
+    """Adapt one constructor-bound hopping fit to the Optimization owner.
 
     KSD constructs the unitless Fourier design, converts represented matrices to one
     numeric target matrix, maps owner coefficients back to unit-bearing hopping blocks,
@@ -127,31 +155,23 @@ class BlockHoppingLeastSquaresFitter1D:
     weights are objective multipliers and are passed to the owner without pre-scaling.
     """
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        source: ReciprocalOperatorSamples1D,
-        representatives: tuple[int, ...],
-        weights: VectorQuantity,
-    ) -> BlockHoppingLeastSquaresFitResult1D:
+    def __init__(self, request: BlockHoppingLeastSquaresFitRequest1D) -> None:
+        if type(request) is not BlockHoppingLeastSquaresFitRequest1D:
+            raise TypeError("request must be BlockHoppingLeastSquaresFitRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> BlockHoppingLeastSquaresFitRequest1D:
+        """Return the complete immutable block-hopping fit request."""
+        return self._request
+
+    def execute(self) -> BlockHoppingLeastSquaresFitResult1D:
         """Solve the weighted complex least-squares problem entrywise."""
-        if type(source) is not ReciprocalOperatorSamples1D:
-            raise TypeError("source must be ReciprocalOperatorSamples1D")
-        if not isinstance(representatives, tuple) or not representatives:
-            raise TypeError("representatives must be a nonempty tuple")
-        if any(type(value) is not int for value in representatives):
-            raise TypeError("representatives must contain built-in integers")
-        if tuple(sorted(set(representatives))) != representatives:
-            raise ValueError("representatives must be unique and strictly increasing")
-        if type(weights) is not VectorQuantity:
-            raise TypeError("weights must be VectorQuantity")
-        if not isinstance(weights.unit, Unitless):
-            raise ValueError("weights must be unitless")
-        if weights.magnitude.shape != source.coordinates.magnitude.shape:
-            raise ValueError("one weight is required per source sample")
-        if np.any(weights.magnitude <= 0.0):
-            raise ValueError("weights must be positive")
+        source = self.request.source
+        representatives = self.request.representatives
+        weights = self.request.weights
         normalized_coordinates = (
             source.coordinates.magnitude / source.reciprocal_period.magnitude
         )
@@ -271,40 +291,66 @@ class BlockHoppingModelComparisonResult1D:
                 raise ValueError(f"{name} must be nonnegative")
 
 
-class ScalarHermitianHoppingLeastSquaresFitter1D:
-    """Fit a rank-one scalar hopping model in an explicit Hermitian basis."""
+@dataclass(frozen=True, slots=True, eq=False)
+class ScalarHermitianHoppingLeastSquaresFitRequest1D:
+    """Bind one real scalar sample path, symmetric range, and fit weights."""
 
-    __slots__ = ()
+    source: ReciprocalOperatorSamples1D
+    maximum_range: int
+    weights: VectorQuantity
 
-    def execute(
-        self,
-        source: ReciprocalOperatorSamples1D,
-        maximum_range: int,
-        weights: VectorQuantity,
-    ) -> BlockHoppingLeastSquaresFitResult1D:
-        """Fit one real onsite value and conjugate positive-range pairs."""
-        if type(source) is not ReciprocalOperatorSamples1D:
+    def __post_init__(self) -> None:
+        """Admit scalar Hermitian samples, range, and positive unitless weights."""
+        if type(self.source) is not ReciprocalOperatorSamples1D:
             raise TypeError("source must be ReciprocalOperatorSamples1D")
-        if source.matrix_dimension != 1:
+        if self.source.matrix_dimension != 1:
             raise ValueError("source must contain rank-one scalar operators")
-        if type(maximum_range) is not int:
+        if type(self.maximum_range) is not int:
             raise TypeError("maximum_range must be a built-in int")
-        if maximum_range < 0:
+        if self.maximum_range < 0:
             raise ValueError("maximum_range must be nonnegative")
-        if type(weights) is not VectorQuantity:
+        if type(self.weights) is not VectorQuantity:
             raise TypeError("weights must be VectorQuantity")
-        if not isinstance(weights.unit, Unitless):
+        if not isinstance(self.weights.unit, Unitless):
             raise ValueError("weights must be unitless")
-        if weights.magnitude.shape != source.coordinates.magnitude.shape:
+        if self.weights.magnitude.shape != self.source.coordinates.magnitude.shape:
             raise ValueError("one weight is required per source sample")
-        if np.any(weights.magnitude <= 0.0):
+        if np.any(self.weights.magnitude <= 0.0):
             raise ValueError("weights must be positive")
         source_values = np.asarray(
-            [matrix.magnitude[0, 0] for matrix in source.matrices],
+            [matrix.magnitude[0, 0] for matrix in self.source.matrices],
             dtype=np.complex128,
         )
         if np.any(source_values.imag != 0.0):
             raise ValueError("scalar Hermitian source values must be exactly real")
+
+
+class ScalarHermitianHoppingLeastSquaresFitter1D:
+    """Fit one constructor-bound scalar model in a Hermitian hopping basis."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: ScalarHermitianHoppingLeastSquaresFitRequest1D) -> None:
+        if type(request) is not ScalarHermitianHoppingLeastSquaresFitRequest1D:
+            raise TypeError(
+                "request must be ScalarHermitianHoppingLeastSquaresFitRequest1D"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> ScalarHermitianHoppingLeastSquaresFitRequest1D:
+        """Return the complete immutable scalar Hermitian fit request."""
+        return self._request
+
+    def execute(self) -> BlockHoppingLeastSquaresFitResult1D:
+        """Fit one real onsite value and conjugate positive-range pairs."""
+        source = self.request.source
+        maximum_range = self.request.maximum_range
+        weights = self.request.weights
+        source_values = np.asarray(
+            [matrix.magnitude[0, 0] for matrix in source.matrices],
+            dtype=np.complex128,
+        )
         normalized_coordinates = (
             source.coordinates.magnitude / source.reciprocal_period.magnitude
         )
@@ -382,41 +428,63 @@ class ScalarHermitianHoppingLeastSquaresFitter1D:
         )
 
 
-class BlockHoppingModelComparator1D:
-    """Compare compatible hopping routes in coefficient and reciprocal spaces."""
+@dataclass(frozen=True, slots=True, eq=False)
+class BlockHoppingModelComparisonRequest1D:
+    """Bind two compatible hopping routes and their comparison coordinates."""
 
-    __slots__ = ()
+    reference: BlockHoppingModel1D
+    candidate: BlockHoppingModel1D
+    comparison_coordinates: VectorQuantity
 
-    def execute(
-        self,
-        reference: BlockHoppingModel1D,
-        candidate: BlockHoppingModel1D,
-        comparison_coordinates: VectorQuantity,
-    ) -> BlockHoppingModelComparisonResult1D:
-        """Measure coefficient and interpolated operator Frobenius defects."""
-        if type(reference) is not BlockHoppingModel1D:
+    def __post_init__(self) -> None:
+        """Admit route basis, period, unit, and coordinate compatibility."""
+        if type(self.reference) is not BlockHoppingModel1D:
             raise TypeError("reference must be BlockHoppingModel1D")
-        if type(candidate) is not BlockHoppingModel1D:
+        if type(self.candidate) is not BlockHoppingModel1D:
             raise TypeError("candidate must be BlockHoppingModel1D")
-        if type(comparison_coordinates) is not VectorQuantity:
+        if type(self.comparison_coordinates) is not VectorQuantity:
             raise TypeError("comparison_coordinates must be VectorQuantity")
-        if comparison_coordinates.magnitude.size == 0:
+        if self.comparison_coordinates.magnitude.size == 0:
             raise ValueError("comparison_coordinates must be nonempty")
-        if reference.representatives != candidate.representatives:
+        if self.reference.representatives != self.candidate.representatives:
             raise ValueError("route representatives must agree")
-        if reference.matrix_dimension != candidate.matrix_dimension:
+        if self.reference.matrix_dimension != self.candidate.matrix_dimension:
             raise ValueError("route matrix dimensions must agree")
-        reference_period = ModelSystemUnitConverter.convert_scalar(
-            candidate.reciprocal_period, reference.reciprocal_period.unit
+        candidate_period = ModelSystemUnitConverter.convert_scalar(
+            self.candidate.reciprocal_period, self.reference.reciprocal_period.unit
         )
-        if reference_period.magnitude != reference.reciprocal_period.magnitude:
+        if candidate_period.magnitude != self.reference.reciprocal_period.magnitude:
             raise ValueError("route reciprocal periods must agree")
-        reference_unit = reference.hopping_blocks[0].unit
-        candidate_unit = candidate.hopping_blocks[0].unit
-        if not ModelSystemUnitConverter.compatible(reference_unit, candidate_unit):
+        if not ModelSystemUnitConverter.compatible(
+            self.reference.hopping_blocks[0].unit,
+            self.candidate.hopping_blocks[0].unit,
+        ):
             raise ValueError("route block units must be compatible")
+
+
+class BlockHoppingModelComparator1D:
+    """Compare one constructor-bound pair of compatible hopping routes."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: BlockHoppingModelComparisonRequest1D) -> None:
+        if type(request) is not BlockHoppingModelComparisonRequest1D:
+            raise TypeError("request must be BlockHoppingModelComparisonRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> BlockHoppingModelComparisonRequest1D:
+        """Return the complete immutable hopping-route comparison request."""
+        return self._request
+
+    def execute(self) -> BlockHoppingModelComparisonResult1D:
+        """Measure coefficient and interpolated operator Frobenius defects."""
+        reference = self.request.reference
+        candidate = self.request.candidate
+        comparison_coordinates = self.request.comparison_coordinates
+        reference_unit = reference.hopping_blocks[0].unit
         factor = ModelSystemUnitConverter.conversion_factor(
-            candidate_unit, reference_unit
+            candidate.hopping_blocks[0].unit, reference_unit
         )
         coefficient_defect = float(
             np.sqrt(

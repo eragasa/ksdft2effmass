@@ -27,6 +27,7 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.analysis.hopping_fits import (
+    BlockHoppingLeastSquaresFitRequest1D,
     BlockHoppingLeastSquaresFitResult1D,
     BlockHoppingLeastSquaresFitter1D,
 )
@@ -57,9 +58,11 @@ class TestBlockHoppingLeastSquaresFitResult1D:
                 ComplexMatrixQuantity(np.asarray([[2.0]]), Unitless()),
             ),
         )
-        valid = BlockHoppingLeastSquaresFitter1D().execute(
-            source, (0,), VectorQuantity(np.ones(2), Unitless())
-        )
+        valid = BlockHoppingLeastSquaresFitter1D(
+            BlockHoppingLeastSquaresFitRequest1D(
+                source, (0,), VectorQuantity(np.ones(2), Unitless())
+            )
+        ).execute()
 
         with pytest.raises(ValueError, match="must match design rank"):
             BlockHoppingLeastSquaresFitResult1D(

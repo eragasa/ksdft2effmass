@@ -25,7 +25,10 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.analysis.hopping_diagnostics import HoppingParsevalAnalyzer1D
+from ksdft2effmass.analysis.hopping_diagnostics import (
+    HoppingParsevalAnalyzer1D,
+    HoppingParsevalRequest1D,
+)
 from ksdft2effmass.solidstate import (
     BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
@@ -70,9 +73,14 @@ class TestHoppingParsevalAnalyzer1D:
             BlockHoppingTruncationRequest1D(transform.hopping_model, 0)
         ).execute()
 
-        result = HoppingParsevalAnalyzer1D().execute(
+        request = HoppingParsevalRequest1D(
             transform, truncation, ScalarQuantity(1.0e-14, Unitless())
         )
+        analyzer = HoppingParsevalAnalyzer1D(request)
+
+        result = analyzer.execute()
+
+        assert analyzer.request is request
 
         np.testing.assert_allclose(
             result.training_squared_frobenius_residual.magnitude, 2.0

@@ -23,6 +23,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
+    BlockHoppingHermiticityRequest1D,
 )
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
@@ -203,11 +204,13 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         )
         hermiticity = tuple(
-            BlockHoppingHermiticityAnalyzer1D().execute(
-                transform.hopping_model,
-                ScalarQuantity(configuration.energy_absolute_tolerance, unit),
-                configuration.construction_size,
-            )
+            BlockHoppingHermiticityAnalyzer1D(
+                BlockHoppingHermiticityRequest1D(
+                    transform.hopping_model,
+                    ScalarQuantity(configuration.energy_absolute_tolerance, unit),
+                    configuration.construction_size,
+                )
+            ).execute()
             for transform in transformed
         )
         cyclic_models = tuple(transform.hopping_model for transform in transformed)

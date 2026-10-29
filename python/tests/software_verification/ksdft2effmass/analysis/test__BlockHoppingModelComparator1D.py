@@ -27,7 +27,10 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.analysis.hopping_fits import BlockHoppingModelComparator1D
+from ksdft2effmass.analysis.hopping_fits import (
+    BlockHoppingModelComparator1D,
+    BlockHoppingModelComparisonRequest1D,
+)
 from ksdft2effmass.solidstate import BlockHoppingModel1D
 
 pytestmark = pytest.mark.software_verification
@@ -64,11 +67,16 @@ class TestBlockHoppingModelComparator1D:
             ),
         )
 
-        result = BlockHoppingModelComparator1D().execute(
+        request = BlockHoppingModelComparisonRequest1D(
             reference,
             candidate,
             VectorQuantity(np.asarray([-0.25, 0.25]), Unitless()),
         )
+        comparator = BlockHoppingModelComparator1D(request)
+
+        result = comparator.execute()
+
+        assert comparator.request is request
 
         np.testing.assert_allclose(
             result.coefficient_l2_frobenius_defect.magnitude, 0.1

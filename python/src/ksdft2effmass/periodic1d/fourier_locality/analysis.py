@@ -16,6 +16,8 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_fits import (
     BlockHoppingModelComparator1D,
+    BlockHoppingModelComparisonRequest1D,
+    ScalarHermitianHoppingLeastSquaresFitRequest1D,
     ScalarHermitianHoppingLeastSquaresFitter1D,
 )
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
@@ -152,11 +154,11 @@ class Periodic1DFourierLocalityAnalyzer:
                     mediated_construction_samples
                 )
                 mediated_evaluation = self._scalar_vector(mediated_evaluation_samples)
-                direct_fit = ScalarHermitianHoppingLeastSquaresFitter1D().execute(
-                    source,
-                    maximum_range,
-                    weights,
-                )
+                direct_fit = ScalarHermitianHoppingLeastSquaresFitter1D(
+                    ScalarHermitianHoppingLeastSquaresFitRequest1D(
+                        source, maximum_range, weights
+                    )
+                ).execute()
                 if direct_fit.design_condition_number is None:
                     raise ValueError("direct scalar fit must be identified")
                 direct_evaluation_samples = BlockHoppingInterpolator1D(
@@ -168,11 +170,13 @@ class Periodic1DFourierLocalityAnalyzer:
                     direct_fit.reconstructed_training
                 )
                 direct_evaluation = self._scalar_vector(direct_evaluation_samples)
-                route_comparison = BlockHoppingModelComparator1D().execute(
-                    truncation.truncated,
-                    direct_fit.fitted_model,
-                    mesh.coordinates,
-                )
+                route_comparison = BlockHoppingModelComparator1D(
+                    BlockHoppingModelComparisonRequest1D(
+                        truncation.truncated,
+                        direct_fit.fitted_model,
+                        mesh.coordinates,
+                    )
+                ).execute()
                 mediated_coefficients = ComplexVectorQuantity(
                     self._canonical_complex_values(
                         np.asarray(

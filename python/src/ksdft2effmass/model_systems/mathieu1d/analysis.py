@@ -15,12 +15,17 @@ from scipy.sparse.linalg import eigsh  # type: ignore[import-untyped]
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
+    BlockHoppingHermiticityRequest1D,
     HoppingParsevalAnalyzer1D,
+    HoppingParsevalRequest1D,
     ScalarHoppingBandShapeAnalyzer1D,
+    ScalarHoppingBandShapeRequest1D,
 )
 from ksdft2effmass.analysis.hopping_fits import (
+    BlockHoppingLeastSquaresFitRequest1D,
     BlockHoppingLeastSquaresFitter1D,
     BlockHoppingModelComparator1D,
+    BlockHoppingModelComparisonRequest1D,
 )
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
@@ -294,11 +299,13 @@ class Mathieu1dAnalyzer:
                 configuration.reconstruction_absolute_tolerance,
             )
         ).execute()
-        hermiticity = BlockHoppingHermiticityAnalyzer1D().execute(
-            complete.hopping_model,
-            ScalarQuantity(configuration.hermiticity_absolute_tolerance, unit),
-            configuration.reciprocal_training_mesh_size,
-        )
+        hermiticity = BlockHoppingHermiticityAnalyzer1D(
+            BlockHoppingHermiticityRequest1D(
+                complete.hopping_model,
+                ScalarQuantity(configuration.hermiticity_absolute_tolerance, unit),
+                configuration.reciprocal_training_mesh_size,
+            )
+        ).execute()
         transform = Mathieu1dTransformResult(
             representatives=complete.hopping_model.representatives,
             hopping_blocks=ComplexVectorQuantity(
@@ -397,26 +404,34 @@ class Mathieu1dAnalyzer:
             evaluation_candidate,
             configuration.coordinate_absolute_tolerance,
         )
-        parseval = HoppingParsevalAnalyzer1D().execute(
-            complete,
-            truncation,
-            ScalarQuantity(configuration.parseval_absolute_tolerance, unit),
-        )
+        parseval = HoppingParsevalAnalyzer1D(
+            HoppingParsevalRequest1D(
+                complete,
+                truncation,
+                ScalarQuantity(configuration.parseval_absolute_tolerance, unit),
+            )
+        ).execute()
         # Positive authored weights make the fit objective explicit and prevent the
         # withheld evaluation inventory from influencing coefficient construction.
-        direct = BlockHoppingLeastSquaresFitter1D().execute(
-            source, truncation.truncated.representatives, weights
-        )
+        direct = BlockHoppingLeastSquaresFitter1D(
+            BlockHoppingLeastSquaresFitRequest1D(
+                source, truncation.truncated.representatives, weights
+            )
+        ).execute()
         if direct.design_condition_number is None:
             raise RuntimeError("configured direct fit must have full numerical rank")
-        route = BlockHoppingModelComparator1D().execute(
-            truncation.truncated, direct.fitted_model, training_coordinates
-        )
-        shape = ScalarHoppingBandShapeAnalyzer1D().execute(
-            truncation.truncated,
-            evaluation_coordinates,
-            ScalarQuantity(configuration.imaginary_absolute_tolerance, unit),
-        )
+        route = BlockHoppingModelComparator1D(
+            BlockHoppingModelComparisonRequest1D(
+                truncation.truncated, direct.fitted_model, training_coordinates
+            )
+        ).execute()
+        shape = ScalarHoppingBandShapeAnalyzer1D(
+            ScalarHoppingBandShapeRequest1D(
+                truncation.truncated,
+                evaluation_coordinates,
+                ScalarQuantity(configuration.imaginary_absolute_tolerance, unit),
+            )
+        ).execute()
         return Mathieu1dRangeResult(
             maximum_range=maximum_range,
             representatives=truncation.truncated.representatives,

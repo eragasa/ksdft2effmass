@@ -28,6 +28,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     ScalarHoppingBandShapeAnalyzer1D,
+    ScalarHoppingBandShapeRequest1D,
     ScalarHoppingBandShapeResult1D,
 )
 from ksdft2effmass.solidstate import BlockHoppingModel1D
@@ -52,9 +53,11 @@ class TestScalarHoppingBandShapeResult1D:
             (ComplexMatrixQuantity(np.asarray([[1.0]]), Unitless()),),
         )
         coordinates = VectorQuantity(np.asarray([0.0]), Unitless())
-        valid = ScalarHoppingBandShapeAnalyzer1D().execute(
-            model, coordinates, ScalarQuantity(0.0, Unitless())
-        )
+        valid = ScalarHoppingBandShapeAnalyzer1D(
+            ScalarHoppingBandShapeRequest1D(
+                model, coordinates, ScalarQuantity(0.0, Unitless())
+            )
+        ).execute()
 
         with pytest.raises(ValueError, match="must match imaginary"):
             ScalarHoppingBandShapeResult1D(

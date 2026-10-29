@@ -27,6 +27,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     HoppingParsevalAnalyzer1D,
+    HoppingParsevalRequest1D,
     HoppingParsevalResult1D,
 )
 from ksdft2effmass.solidstate import (
@@ -63,9 +64,11 @@ class TestHoppingParsevalResult1D:
         truncation = BlockHoppingTruncator1D(
             BlockHoppingTruncationRequest1D(transform.hopping_model, 1)
         ).execute()
-        valid = HoppingParsevalAnalyzer1D().execute(
-            transform, truncation, ScalarQuantity(1.0e-14, Unitless())
-        )
+        valid = HoppingParsevalAnalyzer1D(
+            HoppingParsevalRequest1D(
+                transform, truncation, ScalarQuantity(1.0e-14, Unitless())
+            )
+        ).execute()
 
         with pytest.raises(ValueError, match="must match residual"):
             HoppingParsevalResult1D(

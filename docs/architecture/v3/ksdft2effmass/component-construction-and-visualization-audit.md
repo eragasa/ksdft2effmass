@@ -96,11 +96,12 @@ verbs remain prospective owner decisions; they do not justify empty construction
 
 ## Current V3 migration boundary
 
-The following 39 installed actions are directly in an implemented V3 family or are
-reusable dependencies composed by those families. They require request-bound migration
-before the direct families are construction-coherent with Phase 4.
+The following 39 installed actions were identified directly in an implemented V3
+family or among the reusable dependencies composed by those families. The rows not
+superseded by completed slices below require request-bound migration before the direct
+families are construction-coherent with Phase 4.
 
-| Source | Empty-callable concrete actions | Disposition |
+| Source | Initially empty-callable concrete actions | Disposition |
 |---|---|---|
 | `analysis/convergence.py` | `RelativeErrorConvergenceAnalyzer` | Bind the convergence request. |
 | `analysis/hopping_diagnostics.py` | `HoppingParsevalAnalyzer1D`; `ScalarHoppingBandShapeAnalyzer1D`; `BlockHoppingHermiticityAnalyzer1D` | Bind each declared diagnostic request. |
@@ -142,7 +143,11 @@ campaign-level `Periodic1DHoppingReductionWorkflow` surface were retired instead
 being adapted to the new action API; no compatibility facade remains. The next
 bottom-up slice implements the `solidstate/band_frames.py` row with an immutable
 polar-transport request, a request-bound transporter, and a zero-argument terminal
-operation.
+operation. The next two analysis slices implement the `analysis/hopping_diagnostics.py`
+and `analysis/hopping_fits.py` rows with six immutable request records, request-bound
+actions, and zero-argument `execute()` methods. Their direct-family and transitional
+predecessor consumers now provide complete requests, and no empty construction of
+those six actions remains.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

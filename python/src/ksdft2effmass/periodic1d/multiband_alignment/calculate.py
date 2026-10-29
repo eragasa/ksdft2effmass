@@ -15,6 +15,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
+    BlockHoppingHermiticityRequest1D,
 )
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
@@ -218,22 +219,27 @@ class Periodic1DMultibandAlignmentCalculator:
                 reference_operator, constrained_operator
             ),
         )
-        hermiticity_analyzer = BlockHoppingHermiticityAnalyzer1D()
-        reference_hermiticity = hermiticity_analyzer.execute(
-            reference_transform.hopping_model,
-            definition.hermiticity_absolute_tolerance,
-            definition.reciprocal_mesh_size,
-        )
-        attacked_hermiticity = hermiticity_analyzer.execute(
-            attacked_transform.hopping_model,
-            definition.hermiticity_absolute_tolerance,
-            definition.reciprocal_mesh_size,
-        )
-        aligned_hermiticity = hermiticity_analyzer.execute(
-            aligned_transform.hopping_model,
-            definition.hermiticity_absolute_tolerance,
-            definition.reciprocal_mesh_size,
-        )
+        reference_hermiticity = BlockHoppingHermiticityAnalyzer1D(
+            BlockHoppingHermiticityRequest1D(
+                reference_transform.hopping_model,
+                definition.hermiticity_absolute_tolerance,
+                definition.reciprocal_mesh_size,
+            )
+        ).execute()
+        attacked_hermiticity = BlockHoppingHermiticityAnalyzer1D(
+            BlockHoppingHermiticityRequest1D(
+                attacked_transform.hopping_model,
+                definition.hermiticity_absolute_tolerance,
+                definition.reciprocal_mesh_size,
+            )
+        ).execute()
+        aligned_hermiticity = BlockHoppingHermiticityAnalyzer1D(
+            BlockHoppingHermiticityRequest1D(
+                aligned_transform.hopping_model,
+                definition.hermiticity_absolute_tolerance,
+                definition.reciprocal_mesh_size,
+            )
+        ).execute()
         range_study = tuple(
             self._range_result(
                 definition,

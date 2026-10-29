@@ -27,6 +27,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
+    BlockHoppingHermiticityRequest1D,
 )
 from ksdft2effmass.solidstate import BlockHoppingModel1D
 
@@ -55,9 +56,14 @@ class TestBlockHoppingHermiticityAnalyzer1D:
             ),
         )
 
-        result = BlockHoppingHermiticityAnalyzer1D().execute(
+        request = BlockHoppingHermiticityRequest1D(
             model, ScalarQuantity(1.0e-14, Unitless()), 4
         )
+        analyzer = BlockHoppingHermiticityAnalyzer1D(request)
+
+        result = analyzer.execute()
+
+        assert analyzer.request is request
 
         assert result.paired_representatives == (-2, -1, 0, 1)
         assert result.missing_opposite_representatives == ()
@@ -78,9 +84,11 @@ class TestBlockHoppingHermiticityAnalyzer1D:
             ScalarQuantity(1.0, Unitless()), (-2, -1, 0, 1), (block,) * 4
         )
 
-        result = BlockHoppingHermiticityAnalyzer1D().execute(
-            model, ScalarQuantity(0.0, Unitless()), None
-        )
+        result = BlockHoppingHermiticityAnalyzer1D(
+            BlockHoppingHermiticityRequest1D(
+                model, ScalarQuantity(0.0, Unitless()), None
+            )
+        ).execute()
 
         assert result.missing_opposite_representatives == (-2,)
         assert not result.passes

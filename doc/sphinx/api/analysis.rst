@@ -126,10 +126,22 @@ reciprocal-operator Frobenius defects separately.
 
 .. currentmodule:: ksdft2effmass.analysis.hopping_fits
 
+.. autoclass:: BlockHoppingLeastSquaresFitRequest1D
+   :members:
+
 .. autoclass:: BlockHoppingLeastSquaresFitResult1D
    :members:
 
 .. autoclass:: BlockHoppingLeastSquaresFitter1D
+   :members:
+
+.. autoclass:: ScalarHermitianHoppingLeastSquaresFitRequest1D
+   :members:
+
+.. autoclass:: ScalarHermitianHoppingLeastSquaresFitter1D
+   :members:
+
+.. autoclass:: BlockHoppingModelComparisonRequest1D
    :members:
 
 .. autoclass:: BlockHoppingModelComparisonResult1D
@@ -147,6 +159,9 @@ centered even-mesh Nyquist representative is not silently treated as self-opposi
 
 .. currentmodule:: ksdft2effmass.analysis.hopping_diagnostics
 
+.. autoclass:: BlockHoppingHermiticityRequest1D
+   :members:
+
 .. autoclass:: BlockHoppingHermiticityResult1D
    :members:
 
@@ -155,6 +170,9 @@ centered even-mesh Nyquist representative is not silently treated as self-opposi
 
 Complete-mesh Parseval analysis keeps the reciprocal training residual and omitted
 block norm explicit and checks their discrete-Fourier scaling in squared energy units.
+
+.. autoclass:: HoppingParsevalRequest1D
+   :members:
 
 .. autoclass:: HoppingParsevalResult1D
    :members:
@@ -165,6 +183,9 @@ block norm explicit and checks their discrete-Fourier scaling in squared energy 
 For scalar hopping blocks, band-shape analysis reports sampled bandwidth, analytical
 zone-center curvature with respect to reduced reciprocal coordinate, and an independent
 imaginary residual.
+
+.. autoclass:: ScalarHoppingBandShapeRequest1D
+   :members:
 
 .. autoclass:: ScalarHoppingBandShapeResult1D
    :members:
