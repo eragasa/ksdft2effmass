@@ -156,6 +156,7 @@ class TestHamiltonianDecomposition:
             "OrthogonalHamiltonianBlockAnalyzer",
             "OrthogonalHamiltonianBlockResult",
             "OrthogonalSpectralSubspace",
+            "OrthogonalSpectralSubspaceSelectionRequest",
             "OrthogonalSpectralSubspaceSelector",
             "ReducedHamiltonian",
             "SpectralReduction",

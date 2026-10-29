@@ -6,6 +6,9 @@ correlated result. Its `reduced_hamiltonian` property returns that exact
 
 Construction retains the exact parent and subspace objects, delegates the two
 coordinate transformations to the subspace, and applies no acceptance tolerance.
+`OrthogonalSpectralSubspaceSelector` separately requires a complete immutable
+`OrthogonalSpectralSubspaceSelectionRequest` containing the ordered real eigensystem
+and retained dimension; its terminal `execute()` accepts no scientific arguments.
 
 `OrthogonalSpectralSubspace` performs sparse parent multiplication without an implicit
 dense-parent conversion. It materializes the reduced and embedded matrices because

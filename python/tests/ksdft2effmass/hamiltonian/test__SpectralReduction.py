@@ -16,6 +16,7 @@ from scipy import sparse  # type: ignore[import-untyped]
 from ksdft2effmass.hamiltonian import (
     Hamiltonian,
     OrthogonalSpectralSubspace,
+    OrthogonalSpectralSubspaceSelectionRequest,
     OrthogonalSpectralSubspaceSelector,
     SpectralReduction,
     SpectralSubspace,
@@ -64,9 +65,11 @@ class TestSpectralReduction:
         matrix = SparseMatrixQuantity.from_csr(
             sparse.diags([1.0, 2.0, 3.0], offsets=0, format="csr"), Unitless()
         )
-        subspace = OrthogonalSpectralSubspaceSelector().execute(
-            SpectralDecomposition(matrix).eigensystem(), 2
-        )
+        subspace = OrthogonalSpectralSubspaceSelector(
+            OrthogonalSpectralSubspaceSelectionRequest(
+                SpectralDecomposition(matrix).eigensystem(), 2
+            )
+        ).execute()
         hamiltonian = Hamiltonian(matrix=matrix)
 
         reduction = SUT(

@@ -37,6 +37,7 @@ from ksdft2effmass.hamiltonian import (
     OrthogonalHamiltonianBlockAnalyzer,
     OrthogonalHamiltonianBlockResult,
     OrthogonalSpectralSubspace,
+    OrthogonalSpectralSubspaceSelectionRequest,
     OrthogonalSpectralSubspaceSelector,
     ReducedHamiltonian,
     SpectralReduction,
@@ -135,10 +136,7 @@ class Piab1dAnalysis:
 class Piab1dAnalyzer:
     """Perform the complete KSD analysis of one PhysKit PIAB1D solution."""
 
-    __slots__ = (
-        "block_analyzer",
-        "subspace_selector",
-    )
+    __slots__ = ("block_analyzer",)
 
     def __init__(self) -> None:
         """Compose the reusable finite-operator diagnostic actions.
@@ -149,7 +147,6 @@ class Piab1dAnalyzer:
         action remains reusable across independently constructed PhysKit solutions.
         """
         self.block_analyzer = OrthogonalHamiltonianBlockAnalyzer()
-        self.subspace_selector = OrthogonalSpectralSubspaceSelector()
 
     def execute(
         self,
@@ -195,9 +192,11 @@ class Piab1dAnalyzer:
             raise ValueError("retained_dimension must select available eigenpairs")
 
         parent_hamiltonian = HermitianHamiltonian(matrix=solution.hamiltonian)
-        subspace = self.subspace_selector.execute(
-            solution.eigensystem, retained_dimension
-        )
+        subspace = OrthogonalSpectralSubspaceSelector(
+            OrthogonalSpectralSubspaceSelectionRequest(
+                solution.eigensystem, retained_dimension
+            )
+        ).execute()
         reduced_hamiltonian = SpectralReduction(
             hamiltonian=parent_hamiltonian,
             spectral_subspace=subspace,

@@ -161,7 +161,10 @@ its complete matrix request and an explicit fitter bound to the exact admitted s
 it no longer synthesizes a fitter from `None`. The subsequent leaf slice binds each
 real-symmetric eigensystem and optional reference-vector set in an immutable diagnostic
 request; PIAB1D core and grid-sweep composition now construct complete per-eigensystem
-diagnostic actions instead of retaining one empty reusable action.
+diagnostic actions instead of retaining one empty reusable action. The following
+Hamiltonian leaf slice binds the ordered real eigensystem and retained dimension in an
+immutable `OrthogonalSpectralSubspaceSelectionRequest`; PIAB1D constructs the complete
+selector only after its eigensystem request exists.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

@@ -31,6 +31,9 @@ Spectral subspaces and reduction
 .. autoclass:: OrthogonalSpectralSubspace
    :members:
 
+.. autoclass:: OrthogonalSpectralSubspaceSelectionRequest
+   :members:
+
 .. autoclass:: OrthogonalSpectralSubspaceSelector
    :members:
 
