@@ -24,13 +24,17 @@ from ksdft2effmass.analysis.periodic_bands import (
 from ksdft2effmass.solidstate import (
     BandFrameAligner1D,
     BandProjectedOperatorPathConstructor1D,
+    BandProjectedOperatorPathRequest1D,
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,
     PolarBandFrameTransporter1D,
     ReciprocalBandFramePath1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
@@ -92,9 +96,9 @@ class Periodic1DMultibandAlignmentCalculator:
             model.hopping_model.reciprocal_period,
             definition.reciprocal_mesh_size,
         )
-        parent_training = BlockHoppingInterpolator1D().execute(
-            model.hopping_model, mesh.coordinates
-        )
+        parent_training = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(model.hopping_model, mesh.coordinates)
+        ).execute()
         training_target = self._spectrum(parent_training, definition.retained_rank)
         raw_frames = self._eigenframes(
             parent_training,
@@ -118,50 +122,70 @@ class Periodic1DMultibandAlignmentCalculator:
             ),
         )
 
-        projector = BandProjectedOperatorPathConstructor1D()
-        reference_operator = projector.execute(
-            parent_training, reference, definition.coordinate_absolute_tolerance
-        )
-        attacked_operator = projector.execute(
-            parent_training, attacked, definition.coordinate_absolute_tolerance
-        )
-        aligned_operator = projector.execute(
-            parent_training,
-            pointwise.aligned,
-            definition.coordinate_absolute_tolerance,
-        )
-        constrained_operator = projector.execute(
-            parent_training, constrained, definition.coordinate_absolute_tolerance
-        )
+        reference_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                parent_training,
+                reference,
+                definition.coordinate_absolute_tolerance,
+            )
+        ).execute()
+        attacked_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                parent_training,
+                attacked,
+                definition.coordinate_absolute_tolerance,
+            )
+        ).execute()
+        aligned_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                parent_training,
+                pointwise.aligned,
+                definition.coordinate_absolute_tolerance,
+            )
+        ).execute()
+        constrained_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                parent_training,
+                constrained,
+                definition.coordinate_absolute_tolerance,
+            )
+        ).execute()
 
-        transformer = ReciprocalOperatorFourierTransformer1D()
-        reference_transform = transformer.execute(
-            reference_operator,
-            mesh,
-            definition.coordinate_absolute_tolerance,
-            definition.reconstruction_absolute_tolerance,
-        )
-        attacked_transform = transformer.execute(
-            attacked_operator,
-            mesh,
-            definition.coordinate_absolute_tolerance,
-            definition.reconstruction_absolute_tolerance,
-        )
-        aligned_transform = transformer.execute(
-            aligned_operator,
-            mesh,
-            definition.coordinate_absolute_tolerance,
-            definition.reconstruction_absolute_tolerance,
-        )
+        reference_transform = ReciprocalOperatorFourierTransformer1D(
+            ReciprocalOperatorFourierTransformRequest1D(
+                reference_operator,
+                mesh,
+                definition.coordinate_absolute_tolerance,
+                definition.reconstruction_absolute_tolerance,
+            )
+        ).execute()
+        attacked_transform = ReciprocalOperatorFourierTransformer1D(
+            ReciprocalOperatorFourierTransformRequest1D(
+                attacked_operator,
+                mesh,
+                definition.coordinate_absolute_tolerance,
+                definition.reconstruction_absolute_tolerance,
+            )
+        ).execute()
+        aligned_transform = ReciprocalOperatorFourierTransformer1D(
+            ReciprocalOperatorFourierTransformRequest1D(
+                aligned_operator,
+                mesh,
+                definition.coordinate_absolute_tolerance,
+                definition.reconstruction_absolute_tolerance,
+            )
+        ).execute()
 
         withheld_coordinates = VectorQuantity(
             model.hopping_model.reciprocal_period.magnitude
             * np.asarray(definition.withheld_reduced_momenta, dtype=np.float64),
             model.hopping_model.reciprocal_period.unit,
         )
-        parent_withheld = BlockHoppingInterpolator1D().execute(
-            model.hopping_model, withheld_coordinates
-        )
+        parent_withheld = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                model.hopping_model, withheld_coordinates
+            )
+        ).execute()
         withheld_target = self._spectrum(parent_withheld, definition.retained_rank)
         external_gap = self._external_gap_minimum(
             definition, parent_training, parent_withheld
@@ -277,11 +301,15 @@ class Periodic1DMultibandAlignmentCalculator:
             for model in (reference_model, attacked_model, aligned_model)
         ):
             raise TypeError("range models must be BlockHoppingModel1D")
-        truncator = BlockHoppingTruncator1D()
-        reference = truncator.execute(reference_model, maximum_range)
-        attacked = truncator.execute(attacked_model, maximum_range)
-        aligned = truncator.execute(aligned_model, maximum_range)
-        interpolator = BlockHoppingInterpolator1D()
+        reference = BlockHoppingTruncator1D(
+            BlockHoppingTruncationRequest1D(reference_model, maximum_range)
+        ).execute()
+        attacked = BlockHoppingTruncator1D(
+            BlockHoppingTruncationRequest1D(attacked_model, maximum_range)
+        ).execute()
+        aligned = BlockHoppingTruncator1D(
+            BlockHoppingTruncationRequest1D(aligned_model, maximum_range)
+        ).execute()
         analyzer = BandApproximationErrorAnalyzer1D()
 
         def error(
@@ -290,7 +318,9 @@ class Periodic1DMultibandAlignmentCalculator:
             """Evaluate one truncated channel on one identified target mesh."""
             return analyzer.execute(
                 target,
-                interpolator.execute(model, target.coordinates),
+                BlockHoppingInterpolator1D(
+                    BlockHoppingInterpolationRequest1D(model, target.coordinates)
+                ).execute(),
                 definition.coordinate_absolute_tolerance,
             )
 

@@ -134,6 +134,13 @@ before the direct families are construction-coherent with Phase 4.
 | `solidstate/band_frames.py` | `PolarBandFrameTransporter1D` | Bind the frame path and transport threshold. |
 | `solidstate/hopping_transforms.py` | `BandProjectedOperatorPathConstructor1D`; `BlockHoppingInterpolator1D`; `ReciprocalOperatorFourierTransformer1D`; `BlockHoppingTruncator1D` | Bind each complete represented-operator, mesh, interpolation, transform, or truncation request. |
 
+The first bottom-up remediation slice implements the `solidstate/hopping_transforms.py`
+row with four immutable request records, request-bound constructors, and zero-argument
+`execute()` methods. Direct family and transitional predecessor consumers now construct
+complete requests. The obsolete `analysis.single_band_reduction` package and the
+campaign-level `Periodic1DHoppingReductionWorkflow` surface were retired instead of
+being adapted to the new action API; no compatibility facade remains.
+
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in
 `model_systems/piab1d/analysis/core.py:243` and

@@ -25,7 +25,11 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.solidstate import BlockHoppingModel1D, BlockHoppingTruncator1D
+from ksdft2effmass.solidstate import (
+    BlockHoppingModel1D,
+    BlockHoppingTruncationRequest1D,
+    BlockHoppingTruncator1D,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = BlockHoppingTruncator1D
@@ -54,7 +58,12 @@ class TestBlockHoppingTruncator1D:
             ),
         )
 
-        result = BlockHoppingTruncator1D().execute(model, 1)
+        request = BlockHoppingTruncationRequest1D(model, 1)
+        truncator = BlockHoppingTruncator1D(request)
+
+        result = truncator.execute()
+
+        assert truncator.request is request
 
         assert result.truncated.representatives == (-1, 0, 1)
         np.testing.assert_allclose(

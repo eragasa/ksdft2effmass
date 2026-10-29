@@ -11,9 +11,12 @@ from ksdft2effmass.periodic1d.multiband_alignment import (
     Periodic1DMultibandAlignmentCalculator,
 )
 from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
@@ -237,16 +240,21 @@ class Periodic1DConstrainedAdmissibleSetCalculator:
         training_reference = self._matrices(baseline.reference_transform.source)
         training_attacked = self._matrices(baseline.attacked_transform.source)
         withheld_coordinates = baseline.withheld_target.coordinates
-        interpolator = BlockHoppingInterpolator1D()
         withheld_reference = self._matrices(
-            interpolator.execute(
-                baseline.reference_transform.hopping_model, withheld_coordinates
-            )
+            BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(
+                    baseline.reference_transform.hopping_model,
+                    withheld_coordinates,
+                )
+            ).execute()
         )
         withheld_attacked = self._matrices(
-            interpolator.execute(
-                baseline.attacked_transform.hopping_model, withheld_coordinates
-            )
+            BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(
+                    baseline.attacked_transform.hopping_model,
+                    withheld_coordinates,
+                )
+            ).execute()
         )
         training_candidate = self._candidate(
             training_reference, parameter, energy_scale
@@ -282,25 +290,38 @@ class Periodic1DConstrainedAdmissibleSetCalculator:
                 for matrix in training_rotated
             ),
         )
-        candidate_transform = ReciprocalOperatorFourierTransformer1D().execute(
-            candidate_samples,
-            baseline.reference_transform.mesh,
-            definition.multiband_baseline.coordinate_absolute_tolerance,
-            definition.multiband_baseline.reconstruction_absolute_tolerance,
-        )
-        truncator = BlockHoppingTruncator1D()
+        candidate_transform = ReciprocalOperatorFourierTransformer1D(
+            ReciprocalOperatorFourierTransformRequest1D(
+                candidate_samples,
+                baseline.reference_transform.mesh,
+                definition.multiband_baseline.coordinate_absolute_tolerance,
+                definition.multiband_baseline.reconstruction_absolute_tolerance,
+            )
+        ).execute()
         locality = tuple(
             Periodic1DAdmissibleSetLocalityResult(
                 maximum_range,
-                truncator.execute(
-                    baseline.reference_transform.hopping_model, maximum_range
-                ).omitted_block_l2_norm,
-                truncator.execute(
-                    baseline.attacked_transform.hopping_model, maximum_range
-                ).omitted_block_l2_norm,
-                truncator.execute(
-                    candidate_transform.hopping_model, maximum_range
-                ).omitted_block_l2_norm,
+                BlockHoppingTruncator1D(
+                    BlockHoppingTruncationRequest1D(
+                        baseline.reference_transform.hopping_model, maximum_range
+                    )
+                )
+                .execute()
+                .omitted_block_l2_norm,
+                BlockHoppingTruncator1D(
+                    BlockHoppingTruncationRequest1D(
+                        baseline.attacked_transform.hopping_model, maximum_range
+                    )
+                )
+                .execute()
+                .omitted_block_l2_norm,
+                BlockHoppingTruncator1D(
+                    BlockHoppingTruncationRequest1D(
+                        candidate_transform.hopping_model, maximum_range
+                    )
+                )
+                .execute()
+                .omitted_block_l2_norm,
             )
             for maximum_range in definition.locality_ranges
         )

@@ -18,6 +18,7 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
     ReciprocalOperatorSamples1D,
@@ -187,7 +188,9 @@ class BlockHoppingLeastSquaresFitter1D:
                 for block in blocks
             ),
         )
-        reconstructed = BlockHoppingInterpolator1D().execute(model, source.coordinates)
+        reconstructed = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(model, source.coordinates)
+        ).execute()
         residuals = np.asarray(
             [
                 fitted.magnitude - target.magnitude
@@ -351,10 +354,9 @@ class ScalarHermitianHoppingLeastSquaresFitter1D:
                 for representative in representatives
             ),
         )
-        reconstructed = BlockHoppingInterpolator1D().execute(
-            model,
-            source.coordinates,
-        )
+        reconstructed = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(model, source.coordinates)
+        ).execute()
         residuals = np.asarray(
             [
                 fitted.magnitude - target.magnitude
@@ -431,12 +433,12 @@ class BlockHoppingModelComparator1D:
                 )
             )
         )
-        reference_samples = BlockHoppingInterpolator1D().execute(
-            reference, comparison_coordinates
-        )
-        candidate_samples = BlockHoppingInterpolator1D().execute(
-            candidate, comparison_coordinates
-        )
+        reference_samples = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(reference, comparison_coordinates)
+        ).execute()
+        candidate_samples = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(candidate, comparison_coordinates)
+        ).execute()
         sampled_defects = np.asarray(
             [
                 candidate_matrix.magnitude * factor - reference_matrix.magnitude

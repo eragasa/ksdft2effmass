@@ -181,10 +181,14 @@ Reciprocal operator samples carry explicit coordinates, reciprocal period, matri
 unit, and ordering.  Projection requires an exactly compatible frame path.  The
 complete Fourier transform uses centered Born--von Karman representatives and retains
 its inverse-reconstruction result; interpolation and finite-range truncation remain
-separate actions.  Scalar bands use one-by-one blocks rather than a separate implicit
-scalar convention.
+separate actions. Each action binds one immutable request at construction and exposes a
+zero-argument terminal operation. Scalar bands use one-by-one blocks rather than a
+separate implicit scalar convention.
 
 .. autoclass:: ReciprocalOperatorSamples1D
+   :members:
+
+.. autoclass:: BandProjectedOperatorPathRequest1D
    :members:
 
 .. autoclass:: BandProjectedOperatorPathConstructor1D
@@ -193,13 +197,22 @@ scalar convention.
 .. autoclass:: BlockHoppingModel1D
    :members:
 
+.. autoclass:: ReciprocalOperatorFourierTransformRequest1D
+   :members:
+
 .. autoclass:: ReciprocalOperatorFourierTransformResult1D
    :members:
 
 .. autoclass:: ReciprocalOperatorFourierTransformer1D
    :members:
 
+.. autoclass:: BlockHoppingInterpolationRequest1D
+   :members:
+
 .. autoclass:: BlockHoppingInterpolator1D
+   :members:
+
+.. autoclass:: BlockHoppingTruncationRequest1D
    :members:
 
 .. autoclass:: BlockHoppingTruncationResult1D

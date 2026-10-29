@@ -31,13 +31,17 @@ from ksdft2effmass.analysis.periodic_bands import (
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
 from ksdft2effmass.solidstate import (
     BandProjectedOperatorPathConstructor1D,
+    BandProjectedOperatorPathRequest1D,
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,
     PolarBandFrameTransporter1D,
     ReciprocalBandFramePath1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
@@ -75,12 +79,12 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             np.asarray(configuration.evaluation_reduced_momenta(), dtype=np.float64),
             unit,
         )
-        construction_parent = BlockHoppingInterpolator1D().execute(
-            parent, construction_coordinates
-        )
-        evaluation_parent = BlockHoppingInterpolator1D().execute(
-            parent, evaluation_coordinates
-        )
+        construction_parent = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(parent, construction_coordinates)
+        ).execute()
+        evaluation_parent = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(parent, evaluation_coordinates)
+        ).execute()
         construction_spectrum, raw_frames = self._spectrum_and_frames(
             construction_parent,
             configuration,
@@ -152,35 +156,43 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ),
         )
 
-        projector = BandProjectedOperatorPathConstructor1D()
-        reference_operator = projector.execute(
-            construction_parent,
-            reference,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        attacked_operator = projector.execute(
-            construction_parent,
-            attacked,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        pointwise_operator = projector.execute(
-            construction_parent,
-            pointwise,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        global_operator = projector.execute(
-            construction_parent,
-            globally_aligned,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        transformer = ReciprocalOperatorFourierTransformer1D()
-        transformed = tuple(
-            transformer.execute(
-                samples,
-                mesh,
+        reference_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                reference,
                 configuration.dimensionless_absolute_tolerance,
-                configuration.energy_absolute_tolerance,
             )
+        ).execute()
+        attacked_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                attacked,
+                configuration.dimensionless_absolute_tolerance,
+            )
+        ).execute()
+        pointwise_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                pointwise,
+                configuration.dimensionless_absolute_tolerance,
+            )
+        ).execute()
+        global_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                globally_aligned,
+                configuration.dimensionless_absolute_tolerance,
+            )
+        ).execute()
+        transformed = tuple(
+            ReciprocalOperatorFourierTransformer1D(
+                ReciprocalOperatorFourierTransformRequest1D(
+                    samples,
+                    mesh,
+                    configuration.dimensionless_absolute_tolerance,
+                    configuration.energy_absolute_tolerance,
+                )
+            ).execute()
             for samples in (
                 reference_operator,
                 attacked_operator,
@@ -202,9 +214,10 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ordinary_models,
             evaluation_coordinates,
         )
-        interpolator = BlockHoppingInterpolator1D()
         complete_evaluation = tuple(
-            interpolator.execute(model, evaluation_coordinates)
+            BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(model, evaluation_coordinates)
+            ).execute()
             for model in ordinary_models
         )
         interpolation_errors = tuple(
@@ -524,10 +537,11 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         ordinary_models: tuple[BlockHoppingModel1D, ...],
         evaluation_coordinates: VectorQuantity,
     ) -> tuple[ReciprocalOperatorSamples1D, ...]:
-        reference = BlockHoppingInterpolator1D().execute(
-            ordinary_models[0],
-            evaluation_coordinates,
-        )
+        reference = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                ordinary_models[0], evaluation_coordinates
+            )
+        ).execute()
         attacks = cls._attack_rotations_at(
             configuration,
             configuration.evaluation_reduced_momenta(),
@@ -595,8 +609,6 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         complete_evaluation: tuple[ReciprocalOperatorSamples1D, ...],
         direct_evaluation_targets: tuple[ReciprocalOperatorSamples1D, ...],
     ) -> Periodic1DCompositeBandAlignmentRangeResult:
-        truncator = BlockHoppingTruncator1D()
-        interpolator = BlockHoppingInterpolator1D()
         analyzer = BandApproximationErrorAnalyzer1D()
         channels: list[Periodic1DCompositeBandAlignmentChannelRangeResult] = []
         for channel, model, complete, direct in zip(
@@ -606,15 +618,19 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             direct_evaluation_targets,
             strict=True,
         ):
-            truncation = truncator.execute(model, maximum_range)
-            construction = interpolator.execute(
-                truncation.truncated,
-                construction_target.coordinates,
-            )
-            evaluation = interpolator.execute(
-                truncation.truncated,
-                direct.coordinates,
-            )
+            truncation = BlockHoppingTruncator1D(
+                BlockHoppingTruncationRequest1D(model, maximum_range)
+            ).execute()
+            construction = BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(
+                    truncation.truncated, construction_target.coordinates
+                )
+            ).execute()
+            evaluation = BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(
+                    truncation.truncated, direct.coordinates
+                )
+            ).execute()
             truncation_errors = cls._maximum_error_channels(evaluation, complete)
             total_errors = cls._maximum_error_channels(evaluation, direct)
             channels.append(

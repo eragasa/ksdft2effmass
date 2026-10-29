@@ -169,9 +169,6 @@ from .wilson_workflows import (
     Periodic1DWannier90CampaignWorkflowResult,
 )
 from .workflows import (
-    Periodic1DHoppingReductionRequest,
-    Periodic1DHoppingReductionResult,
-    Periodic1DHoppingReductionWorkflow,
     Periodic1DIsolatedBandCampaignWorkflow,
     Periodic1DIsolatedBandCampaignWorkflowRequest,
     Periodic1DIsolatedBandCampaignWorkflowResult,
@@ -214,12 +211,9 @@ __all__ = [
     "Periodic1DCompositeVerifiedWorkflowResult",
     "Periodic1DCompositeWilsonGroupResult",
     "Periodic1DCampaignJsonDecoder",
-    "Periodic1DHoppingReductionRequest",
-    "Periodic1DHoppingReductionResult",
     "Periodic1DFiniteDifferenceGridObservation",
     "Periodic1DGaugeCovarianceStressResult",
     "Periodic1DHoppingRangeDiagnostic",
-    "Periodic1DHoppingReductionWorkflow",
     "Periodic1DIsolatedBandCalculationRequest",
     "Periodic1DIsolatedBandCalculationResult",
     "Periodic1DIsolatedBandCalculationWorkflow",

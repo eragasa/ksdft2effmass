@@ -20,10 +20,13 @@ from ksdft2effmass.analysis.hopping_fits import (
 )
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
 from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
@@ -83,17 +86,20 @@ class Periodic1DFourierLocalityAnalyzer:
                 reciprocal_period,
                 construction_lowest,
             )
-            transform = ReciprocalOperatorFourierTransformer1D().execute(
-                source,
-                mesh,
-                configuration.dimensionless_absolute_tolerance,
-                configuration.energy_absolute_tolerance,
-            )
+            transform = ReciprocalOperatorFourierTransformer1D(
+                ReciprocalOperatorFourierTransformRequest1D(
+                    source,
+                    mesh,
+                    configuration.dimensionless_absolute_tolerance,
+                    configuration.energy_absolute_tolerance,
+                )
+            ).execute()
             complete_construction = self._scalar_vector(transform.reconstructed)
-            complete_evaluation_samples = BlockHoppingInterpolator1D().execute(
-                transform.hopping_model,
-                evaluation_coordinates,
-            )
+            complete_evaluation_samples = BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(
+                    transform.hopping_model, evaluation_coordinates
+                )
+            ).execute()
             complete_evaluation = self._scalar_vector(complete_evaluation_samples)
             complete_coefficients = ComplexVectorQuantity(
                 self._canonical_complex_values(
@@ -127,18 +133,21 @@ class Periodic1DFourierLocalityAnalyzer:
             joint_passes: list[bool] = []
             mediated_total_errors: list[float] = []
             for maximum_range in configuration.maximum_ranges:
-                truncation = BlockHoppingTruncator1D().execute(
-                    transform.hopping_model,
-                    maximum_range,
-                )
-                mediated_construction_samples = BlockHoppingInterpolator1D().execute(
-                    truncation.truncated,
-                    mesh.coordinates,
-                )
-                mediated_evaluation_samples = BlockHoppingInterpolator1D().execute(
-                    truncation.truncated,
-                    evaluation_coordinates,
-                )
+                truncation = BlockHoppingTruncator1D(
+                    BlockHoppingTruncationRequest1D(
+                        transform.hopping_model, maximum_range
+                    )
+                ).execute()
+                mediated_construction_samples = BlockHoppingInterpolator1D(
+                    BlockHoppingInterpolationRequest1D(
+                        truncation.truncated, mesh.coordinates
+                    )
+                ).execute()
+                mediated_evaluation_samples = BlockHoppingInterpolator1D(
+                    BlockHoppingInterpolationRequest1D(
+                        truncation.truncated, evaluation_coordinates
+                    )
+                ).execute()
                 mediated_construction = self._scalar_vector(
                     mediated_construction_samples
                 )
@@ -150,10 +159,11 @@ class Periodic1DFourierLocalityAnalyzer:
                 )
                 if direct_fit.design_condition_number is None:
                     raise ValueError("direct scalar fit must be identified")
-                direct_evaluation_samples = BlockHoppingInterpolator1D().execute(
-                    direct_fit.fitted_model,
-                    evaluation_coordinates,
-                )
+                direct_evaluation_samples = BlockHoppingInterpolator1D(
+                    BlockHoppingInterpolationRequest1D(
+                        direct_fit.fitted_model, evaluation_coordinates
+                    )
+                ).execute()
                 direct_construction = self._scalar_vector(
                     direct_fit.reconstructed_training
                 )

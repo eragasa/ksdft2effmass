@@ -33,11 +33,14 @@ from ksdft2effmass.model_systems.periodic_1d import (
     PlaneWaveFiberHamiltonian1DConstructor,
 )
 from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,
     PlaneWaveBasis1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorFourierTransformResult1D,
     ReciprocalOperatorSamples1D,
 )
@@ -283,12 +286,14 @@ class Mathieu1dAnalyzer:
         )
         # The complete transform owns all N coefficients. Range studies below derive
         # from this immutable parent rather than chaining truncations between ranges.
-        complete = ReciprocalOperatorFourierTransformer1D().execute(
-            source,
-            mesh,
-            configuration.coordinate_absolute_tolerance,
-            configuration.reconstruction_absolute_tolerance,
-        )
+        complete = ReciprocalOperatorFourierTransformer1D(
+            ReciprocalOperatorFourierTransformRequest1D(
+                source,
+                mesh,
+                configuration.coordinate_absolute_tolerance,
+                configuration.reconstruction_absolute_tolerance,
+            )
+        ).execute()
         hermiticity = BlockHoppingHermiticityAnalyzer1D().execute(
             complete.hopping_model,
             ScalarQuantity(configuration.hermiticity_absolute_tolerance, unit),
@@ -368,16 +373,19 @@ class Mathieu1dAnalyzer:
         unit = Unitless()
         # The mediated route discards complete-transform blocks outside the authored
         # symmetric range; the direct route below refits rather than reuses them.
-        truncation = BlockHoppingTruncator1D().execute(
-            complete.hopping_model, maximum_range
-        )
-        interpolator = BlockHoppingInterpolator1D()
-        training_candidate = interpolator.execute(
-            truncation.truncated, training_coordinates
-        )
-        evaluation_candidate = interpolator.execute(
-            truncation.truncated, evaluation_coordinates
-        )
+        truncation = BlockHoppingTruncator1D(
+            BlockHoppingTruncationRequest1D(complete.hopping_model, maximum_range)
+        ).execute()
+        training_candidate = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                truncation.truncated, training_coordinates
+            )
+        ).execute()
+        evaluation_candidate = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                truncation.truncated, evaluation_coordinates
+            )
+        ).execute()
         error_analyzer = BandApproximationErrorAnalyzer1D()
         training_error = error_analyzer.execute(
             training_target,

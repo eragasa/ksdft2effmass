@@ -1196,15 +1196,6 @@ validation, topology or polarization evidence, UQ, or protected execution.
 .. autoclass:: Periodic1DStressVerifiedWorkflow
    :members:
 
-.. autoclass:: Periodic1DHoppingReductionRequest
-   :members:
-
-.. autoclass:: Periodic1DHoppingReductionResult
-   :members:
-
-.. autoclass:: Periodic1DHoppingReductionWorkflow
-   :members:
-
 QHO1D direct boundary
 ---------------------
 

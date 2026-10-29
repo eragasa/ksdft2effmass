@@ -14,6 +14,7 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
     BlockHoppingTruncationResult1D,
@@ -195,9 +196,11 @@ class HoppingParsevalAnalyzer1D:
         tolerance = ModelSystemUnitConverter.convert_scalar(
             absolute_tolerance, squared_unit
         )
-        reconstructed = BlockHoppingInterpolator1D().execute(
-            truncation.truncated, transform.source.coordinates
-        )
+        reconstructed = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                truncation.truncated, transform.source.coordinates
+            )
+        ).execute()
         training_squared = float(
             sum(
                 np.linalg.norm(candidate.magnitude - reference.magnitude) ** 2
@@ -304,7 +307,9 @@ class ScalarHoppingBandShapeAnalyzer1D:
         tolerance = ModelSystemUnitConverter.convert_scalar(
             imaginary_absolute_tolerance, unit
         )
-        samples = BlockHoppingInterpolator1D().execute(model, comparison_coordinates)
+        samples = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(model, comparison_coordinates)
+        ).execute()
         values = np.asarray(
             [matrix.magnitude[0, 0] for matrix in samples.matrices],
             dtype=np.complex128,

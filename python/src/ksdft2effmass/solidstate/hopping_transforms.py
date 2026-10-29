@@ -64,43 +64,64 @@ class ReciprocalOperatorSamples1D:
         return int(self.matrices[0].magnitude.shape[0])
 
 
-class BandProjectedOperatorPathConstructor1D:
-    """Project parent reciprocal operators into a compatible band-frame path."""
+@dataclass(frozen=True, slots=True, eq=False)
+class BandProjectedOperatorPathRequest1D:
+    """Bind one parent operator path and compatible band-frame projection request."""
 
-    __slots__ = ()
+    parent: ReciprocalOperatorSamples1D
+    frames: ReciprocalBandFramePath1D
+    coordinate_absolute_tolerance: float
 
-    def execute(
-        self,
-        parent: ReciprocalOperatorSamples1D,
-        frames: ReciprocalBandFramePath1D,
-        coordinate_absolute_tolerance: float,
-    ) -> ReciprocalOperatorSamples1D:
-        """Return ``F(k)^dagger A(k) F(k)`` at every ordered sample."""
-        if type(parent) is not ReciprocalOperatorSamples1D:
+    def __post_init__(self) -> None:
+        """Admit coordinate, dimension, and tolerance correlations."""
+        if type(self.parent) is not ReciprocalOperatorSamples1D:
             raise TypeError("parent must be ReciprocalOperatorSamples1D")
-        if type(frames) is not ReciprocalBandFramePath1D:
+        if type(self.frames) is not ReciprocalBandFramePath1D:
             raise TypeError("frames must be ReciprocalBandFramePath1D")
-        if type(coordinate_absolute_tolerance) is not float:
+        if type(self.coordinate_absolute_tolerance) is not float:
             raise TypeError("coordinate_absolute_tolerance must be a built-in float")
         if (
-            not np.isfinite(coordinate_absolute_tolerance)
-            or coordinate_absolute_tolerance < 0.0
+            not np.isfinite(self.coordinate_absolute_tolerance)
+            or self.coordinate_absolute_tolerance < 0.0
         ):
             raise ValueError(
                 "coordinate_absolute_tolerance must be finite and nonnegative"
             )
         mesh_coordinates = ModelSystemUnitConverter.convert_vector(
-            frames.mesh.coordinates, parent.reciprocal_period.unit
+            self.frames.mesh.coordinates, self.parent.reciprocal_period.unit
         )
-        if parent.coordinates.magnitude.shape != mesh_coordinates.magnitude.shape:
+        if self.parent.coordinates.magnitude.shape != mesh_coordinates.magnitude.shape:
             raise ValueError("parent and frame coordinate counts must agree")
         coordinate_defect = float(
-            np.max(np.abs(parent.coordinates.magnitude - mesh_coordinates.magnitude))
+            np.max(
+                np.abs(self.parent.coordinates.magnitude - mesh_coordinates.magnitude)
+            )
         )
-        if coordinate_defect > coordinate_absolute_tolerance:
+        if coordinate_defect > self.coordinate_absolute_tolerance:
             raise ValueError("parent and frame coordinates do not agree")
-        if parent.matrix_dimension != frames.ambient_dimension:
+        if self.parent.matrix_dimension != self.frames.ambient_dimension:
             raise ValueError("parent matrix and frame ambient dimensions must agree")
+
+
+class BandProjectedOperatorPathConstructor1D:
+    """Project one constructor-bound reciprocal operator path into band frames."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: BandProjectedOperatorPathRequest1D) -> None:
+        if type(request) is not BandProjectedOperatorPathRequest1D:
+            raise TypeError("request must be BandProjectedOperatorPathRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> BandProjectedOperatorPathRequest1D:
+        """Return the complete immutable projection request."""
+        return self._request
+
+    def execute(self) -> ReciprocalOperatorSamples1D:
+        """Return ``F(k)^dagger A(k) F(k)`` at every ordered sample."""
+        parent = self.request.parent
+        frames = self.request.frames
         projected = tuple(
             ComplexMatrixQuantity(
                 frame.magnitude.conj().T @ matrix.magnitude @ frame.magnitude,
@@ -275,21 +296,47 @@ class ReciprocalOperatorFourierTransformResult1D:
             )
 
 
-class BlockHoppingInterpolator1D:
-    """Evaluate a finite or complete hopping model at reciprocal coordinates."""
+@dataclass(frozen=True, slots=True, eq=False)
+class BlockHoppingInterpolationRequest1D:
+    """Bind one block-hopping model and reciprocal evaluation inventory."""
 
-    __slots__ = ()
+    model: BlockHoppingModel1D
+    coordinates: VectorQuantity
 
-    def execute(
-        self, model: BlockHoppingModel1D, coordinates: VectorQuantity
-    ) -> ReciprocalOperatorSamples1D:
-        """Evaluate ``sum_R exp(i 2π R k/G) T_R`` without diagonalization."""
-        if type(model) is not BlockHoppingModel1D:
+    def __post_init__(self) -> None:
+        """Admit the model, coordinates, and reciprocal-unit compatibility."""
+        if type(self.model) is not BlockHoppingModel1D:
             raise TypeError("model must be BlockHoppingModel1D")
-        if type(coordinates) is not VectorQuantity:
+        if type(self.coordinates) is not VectorQuantity:
             raise TypeError("coordinates must be VectorQuantity")
+        if self.coordinates.magnitude.size == 0:
+            raise ValueError("coordinates must be nonempty")
+        if not ModelSystemUnitConverter.compatible(
+            self.coordinates.unit, self.model.reciprocal_period.unit
+        ):
+            raise ValueError("coordinates and reciprocal_period must be compatible")
+
+
+class BlockHoppingInterpolator1D:
+    """Evaluate one constructor-bound hopping model at reciprocal coordinates."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: BlockHoppingInterpolationRequest1D) -> None:
+        if type(request) is not BlockHoppingInterpolationRequest1D:
+            raise TypeError("request must be BlockHoppingInterpolationRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> BlockHoppingInterpolationRequest1D:
+        """Return the complete immutable interpolation request."""
+        return self._request
+
+    def execute(self) -> ReciprocalOperatorSamples1D:
+        """Evaluate ``sum_R exp(i 2π R k/G) T_R`` without diagonalization."""
+        model = self.request.model
         converted = ModelSystemUnitConverter.convert_vector(
-            coordinates, model.reciprocal_period.unit
+            self.request.coordinates, model.reciprocal_period.unit
         )
         representatives = np.asarray(model.representatives, dtype=np.float64)
         phases = np.exp(
@@ -315,43 +362,72 @@ class BlockHoppingInterpolator1D:
         )
 
 
-class ReciprocalOperatorFourierTransformer1D:
-    """Transform complete centered uniform reciprocal samples to cell hoppings."""
+@dataclass(frozen=True, slots=True, eq=False)
+class ReciprocalOperatorFourierTransformRequest1D:
+    """Bind one complete centered reciprocal transform request."""
 
-    __slots__ = ()
+    source: ReciprocalOperatorSamples1D
+    mesh: CenteredUniformReciprocalMesh1D
+    coordinate_absolute_tolerance: float
+    reconstruction_absolute_tolerance: float
 
-    def execute(
-        self,
-        source: ReciprocalOperatorSamples1D,
-        mesh: CenteredUniformReciprocalMesh1D,
-        coordinate_absolute_tolerance: float,
-        reconstruction_absolute_tolerance: float,
-    ) -> ReciprocalOperatorFourierTransformResult1D:
-        """Apply the exact finite-mesh Fourier pair and assess reconstruction."""
-        if type(source) is not ReciprocalOperatorSamples1D:
+    def __post_init__(self) -> None:
+        """Admit the complete mesh, source coordinates, and tolerances."""
+        if type(self.source) is not ReciprocalOperatorSamples1D:
             raise TypeError("source must be ReciprocalOperatorSamples1D")
-        if type(mesh) is not CenteredUniformReciprocalMesh1D:
+        if type(self.mesh) is not CenteredUniformReciprocalMesh1D:
             raise TypeError("mesh must be CenteredUniformReciprocalMesh1D")
         for name, tolerance in (
-            ("coordinate_absolute_tolerance", coordinate_absolute_tolerance),
-            ("reconstruction_absolute_tolerance", reconstruction_absolute_tolerance),
+            ("coordinate_absolute_tolerance", self.coordinate_absolute_tolerance),
+            (
+                "reconstruction_absolute_tolerance",
+                self.reconstruction_absolute_tolerance,
+            ),
         ):
             if type(tolerance) is not float:
                 raise TypeError(f"{name} must be a built-in float")
             if not np.isfinite(tolerance) or tolerance < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
         expected_coordinates = ModelSystemUnitConverter.convert_vector(
-            mesh.coordinates, source.reciprocal_period.unit
+            self.mesh.coordinates, self.source.reciprocal_period.unit
         )
-        if source.coordinates.magnitude.shape != expected_coordinates.magnitude.shape:
+        if (
+            self.source.coordinates.magnitude.shape
+            != expected_coordinates.magnitude.shape
+        ):
             raise ValueError("source must contain every mesh coordinate")
         coordinate_defect = float(
             np.max(
-                np.abs(source.coordinates.magnitude - expected_coordinates.magnitude)
+                np.abs(
+                    self.source.coordinates.magnitude - expected_coordinates.magnitude
+                )
             )
         )
-        if coordinate_defect > coordinate_absolute_tolerance:
+        if coordinate_defect > self.coordinate_absolute_tolerance:
             raise ValueError("source coordinates do not match the declared mesh")
+
+
+class ReciprocalOperatorFourierTransformer1D:
+    """Transform one constructor-bound reciprocal sample path to cell hoppings."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: ReciprocalOperatorFourierTransformRequest1D) -> None:
+        if type(request) is not ReciprocalOperatorFourierTransformRequest1D:
+            raise TypeError(
+                "request must be ReciprocalOperatorFourierTransformRequest1D"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> ReciprocalOperatorFourierTransformRequest1D:
+        """Return the complete immutable Fourier-transform request."""
+        return self._request
+
+    def execute(self) -> ReciprocalOperatorFourierTransformResult1D:
+        """Apply the exact finite-mesh Fourier pair and assess reconstruction."""
+        source = self.request.source
+        mesh = self.request.mesh
         representatives = mesh.centered_cell_representatives
         representative_array = np.asarray(representatives, dtype=np.int64)
         matrices = np.asarray(
@@ -373,7 +449,9 @@ class ReciprocalOperatorFourierTransformer1D:
                 for block in blocks
             ),
         )
-        reconstructed = BlockHoppingInterpolator1D().execute(model, source.coordinates)
+        reconstructed = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(model, source.coordinates)
+        ).execute()
         error = float(
             max(
                 np.linalg.norm(candidate.magnitude - reference.magnitude)
@@ -387,10 +465,10 @@ class ReciprocalOperatorFourierTransformer1D:
             mesh,
             model,
             reconstructed,
-            coordinate_absolute_tolerance,
+            self.request.coordinate_absolute_tolerance,
             error,
-            reconstruction_absolute_tolerance,
-            error <= reconstruction_absolute_tolerance,
+            self.request.reconstruction_absolute_tolerance,
+            error <= self.request.reconstruction_absolute_tolerance,
         )
 
 
@@ -447,28 +525,52 @@ class BlockHoppingTruncationResult1D:
             )
 
 
-class BlockHoppingTruncator1D:
-    """Apply symmetric cell-range truncation without mutating full hoppings."""
+@dataclass(frozen=True, slots=True, eq=False)
+class BlockHoppingTruncationRequest1D:
+    """Bind one block-hopping model and symmetric retained range."""
 
-    __slots__ = ()
+    source: BlockHoppingModel1D
+    maximum_range: int
 
-    def execute(
-        self, source: BlockHoppingModel1D, maximum_range: int
-    ) -> BlockHoppingTruncationResult1D:
-        """Retain blocks with ``|R| <= maximum_range`` and report the omitted norm."""
-        if type(source) is not BlockHoppingModel1D:
+    def __post_init__(self) -> None:
+        """Admit the source, range, and nonempty retained support."""
+        if type(self.source) is not BlockHoppingModel1D:
             raise TypeError("source must be BlockHoppingModel1D")
-        if type(maximum_range) is not int:
+        if type(self.maximum_range) is not int:
             raise TypeError("maximum_range must be a built-in int")
-        if maximum_range < 0:
+        if self.maximum_range < 0:
             raise ValueError("maximum_range must be nonnegative")
+        if not any(
+            abs(representative) <= self.maximum_range
+            for representative in self.source.representatives
+        ):
+            raise ValueError("truncation retains no represented hopping block")
+
+
+class BlockHoppingTruncator1D:
+    """Apply one constructor-bound symmetric cell-range truncation."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: BlockHoppingTruncationRequest1D) -> None:
+        if type(request) is not BlockHoppingTruncationRequest1D:
+            raise TypeError("request must be BlockHoppingTruncationRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> BlockHoppingTruncationRequest1D:
+        """Return the complete immutable truncation request."""
+        return self._request
+
+    def execute(self) -> BlockHoppingTruncationResult1D:
+        """Retain blocks with ``|R| <= maximum_range`` and report the omitted norm."""
+        source = self.request.source
+        maximum_range = self.request.maximum_range
         retained = tuple(
             index
             for index, representative in enumerate(source.representatives)
             if abs(representative) <= maximum_range
         )
-        if not retained:
-            raise ValueError("truncation retains no represented hopping block")
         omitted_squared = sum(
             float(np.linalg.norm(block.magnitude) ** 2)
             for index, block in enumerate(source.hopping_blocks)
