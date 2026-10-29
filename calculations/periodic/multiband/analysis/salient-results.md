@@ -6,7 +6,7 @@
 
 | Calculation family | Salient supportable statement | Evidence classification | Source |
 |---|---|---|---|
-| Periodic 1-D, rank one, compatible control | A pre-execution calculation root now records the scalar null-control boundary and required shared conventions; scalar phase conjugation cannot produce gauge-induced represented-operator locality. | Pre-execution design; no implemented model or result | [`periodic1d/rank1/fourier-locality`](../../../periodic1d/rank1/fourier-locality/) |
+| Periodic 1-D, rank one, compatible control | The typed calculate → independently verify → authenticated render lifecycle implements the scalar null control; scalar phase conjugation cannot produce gauge-induced represented-operator locality, and the provisional in-memory control reports all 725 named comparisons passing. | Provisional finite development result; no retained execution, evidence promotion, publication artifact, or release | [`periodic1d/rank1/fourier-locality`](../../../periodic1d/rank1/fourier-locality/) |
 | Mathieu1D scalar benchmark | A retained unsealed direct typed execution exists, but its periodic-potential model is not the compatible rank-one specialization of the multiband controlled family. | Distinct related direct calculation; excluded from the controlled rank ladder | [`mathieu1d`](../../../mathieu1d/) |
 | Periodic 1-D, rank two | Development tables and figures exercise band-equivalent momentum-dependent rotations and their hopping-locality consequences. | Replaceable development output; no retained successor run | [`periodic1d/rank2/band-equivalence-versus-hopping-locality`](../../../periodic1d/rank2/band-equivalence-versus-hopping-locality/) |
 | Periodic 2-D, rank two, orthogonal | A bounded three-mesh square-lattice development ladder and independent in-repository verification path exist. | Development calculation; not retained or material evidence | [`periodic2d/rank2/orthogonal/band-equivalence-locality`](../../../periodic2d/rank2/orthogonal/band-equivalence-locality/) |
@@ -19,6 +19,6 @@
 
 ## Comparability limits
 
-The current records do not yet support a single verified numerical table spanning rank, spatial dimension, lattice class, and alignment family. In particular, there is no compatible rank-one result to include. The owners use development outputs with different maturity and, in some cases, no retained generated artifacts. Quantitative aggregation must wait for explicit shared field definitions, normalization, source identities, and independent verification.
+The current records do not yet support a single conformant verified numerical table spanning rank, spatial dimension, lattice class, and alignment family. A compatible rank-one provisional finite result now exists, but it has not been retained or promoted as evidence and does not by itself make the cross-rank channels quantitatively comparable. The owners use outputs with different definitions and maturity and, in some cases, no retained generated artifacts. Quantitative aggregation must wait for explicit shared field definitions, normalization, source identities, and family-appropriate independent verification.
 
 The exact higher-rank isolation certificate is a model qualification result. It is not a result about locality, convergence, dimensional scaling, practical alignment recovery, or material applicability.
