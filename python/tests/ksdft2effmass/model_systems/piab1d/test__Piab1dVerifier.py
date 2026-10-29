@@ -46,6 +46,10 @@ from ksdft2effmass.model_systems.piab1d import (
     Piab1dVerifier,
     Piab1dVisualizationData,
 )
+from ksdft2effmass.model_systems.piab1d.analysis.verification import (
+    Piab1dKineticPotentialDecompositionReferenceAnalyzer,
+    Piab1dKineticPotentialDecompositionReferenceRequest,
+)
 from ksdft2effmass.model_systems.piab1d.analysis.verification.core import (
     Piab1dCoreReferenceAnalyzer,
     Piab1dCoreReferenceRequest,
@@ -143,6 +147,29 @@ class TestPiab1dVerifier:
             KineticPotentialDecompositionRequest(reduction.matrix, decomposition_shift),
             RetainedModelClassFitter(RetainedModelClassFitRequest(decomposition_shift)),
         ).execute()
+        decomposition_reference_request = (
+            Piab1dKineticPotentialDecompositionReferenceRequest(
+                decomposition, reduction.matrix
+            )
+        )
+        decomposition_reference_analyzer = (
+            Piab1dKineticPotentialDecompositionReferenceAnalyzer(
+                decomposition_reference_request
+            )
+        )
+        decomposition_reference = decomposition_reference_analyzer.execute()
+        assert (
+            decomposition_reference_analyzer.request is decomposition_reference_request
+        )
+        assert all(
+            comparison.result().passed
+            for comparison in decomposition_reference.comparisons.values()
+        )
+        with pytest.raises(ValueError, match="shape must match"):
+            Piab1dKineticPotentialDecompositionReferenceRequest(
+                decomposition,
+                MatrixQuantity(np.eye(2), reduction.matrix.unit),
+            )
         visualization_data = Piab1dVisualizationData(
             length=solution.model.length_quantity,
             retained_dimension=3,

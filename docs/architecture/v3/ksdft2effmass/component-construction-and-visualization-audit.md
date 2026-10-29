@@ -181,7 +181,10 @@ The following leaf likewise binds the exact residual-norm sweep in
 `Piab1dResidualNormSweepReferenceRequest` before independent operator reconstruction
 and norm comparison. The finite-algebraic verifier leaf then binds its exact typed
 result in `Piab1dFiniteAlgebraicDiagnosticsReferenceRequest` before applying
-independently derived floating-point bounds.
+independently derived floating-point bounds. The final verifier leaf binds the exact
+decomposition result and authoritative reduced Hamiltonian in
+`Piab1dKineticPotentialDecompositionReferenceRequest`, including local shape and unit
+correlation, before independent projection reconstruction.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

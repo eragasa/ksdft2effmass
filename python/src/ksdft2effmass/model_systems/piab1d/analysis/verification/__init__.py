@@ -3,6 +3,7 @@
 from .decomposition import (
     Piab1dKineticPotentialDecompositionReference,
     Piab1dKineticPotentialDecompositionReferenceAnalyzer,
+    Piab1dKineticPotentialDecompositionReferenceRequest,
 )
 from .eigenpair_convergence import (
     Piab1dEigenpairSweepReference,
@@ -37,6 +38,7 @@ __all__ = [
     "Piab1dIndependentReferenceAnalyzer",
     "Piab1dKineticPotentialDecompositionReference",
     "Piab1dKineticPotentialDecompositionReferenceAnalyzer",
+    "Piab1dKineticPotentialDecompositionReferenceRequest",
     "Piab1dResidualNormSweepReference",
     "Piab1dResidualNormSweepReferenceAnalyzer",
     "Piab1dResidualNormSweepReferenceRequest",

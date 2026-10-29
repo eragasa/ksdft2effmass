@@ -13,6 +13,7 @@ from ...visualizations.data import Piab1dVisualizationData
 from .core import Piab1dCoreReferenceAnalyzer, Piab1dCoreReferenceRequest
 from .decomposition import (
     Piab1dKineticPotentialDecompositionReferenceAnalyzer,
+    Piab1dKineticPotentialDecompositionReferenceRequest,
 )
 from .eigenpair_convergence import (
     Piab1dEigenpairSweepReferenceAnalyzer,
@@ -47,12 +48,7 @@ class Piab1dIndependentReference:
 class Piab1dIndependentReferenceAnalyzer:
     """Compose independent operation-specific PIAB1D reference analyses."""
 
-    __slots__ = ("decomposition_analyzer",)
-
-    def __init__(self) -> None:
-        self.decomposition_analyzer = (
-            Piab1dKineticPotentialDecompositionReferenceAnalyzer()
-        )
+    __slots__ = ()
 
     def execute(
         self,
@@ -101,10 +97,12 @@ class Piab1dIndependentReferenceAnalyzer:
                 result.finite_algebraic_diagnostics
             )
         ).execute()
-        decomposition = self.decomposition_analyzer.execute(
-            result.kinetic_potential_decomposition,
-            result.hamiltonian.matrix("reduced_hamiltonian"),
-        )
+        decomposition = Piab1dKineticPotentialDecompositionReferenceAnalyzer(
+            Piab1dKineticPotentialDecompositionReferenceRequest(
+                result.kinetic_potential_decomposition,
+                result.hamiltonian.matrix("reduced_hamiltonian"),
+            )
+        ).execute()
         inventories = (
             core.comparisons,
             eigenpair_sweep.comparisons,
