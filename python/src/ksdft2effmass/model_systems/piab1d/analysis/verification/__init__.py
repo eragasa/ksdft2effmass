@@ -7,6 +7,7 @@ from .decomposition import (
 from .eigenpair_convergence import (
     Piab1dEigenpairSweepReference,
     Piab1dEigenpairSweepReferenceAnalyzer,
+    Piab1dEigenpairSweepReferenceRequest,
 )
 from .finite_algebraic_diagnostics import (
     Piab1dFiniteAlgebraicDiagnosticsReference,
@@ -26,6 +27,7 @@ from .verifier import Piab1dVerifier
 __all__ = [
     "Piab1dEigenpairSweepReference",
     "Piab1dEigenpairSweepReferenceAnalyzer",
+    "Piab1dEigenpairSweepReferenceRequest",
     "Piab1dFiniteAlgebraicDiagnosticsReference",
     "Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer",
     "Piab1dIndependentReference",

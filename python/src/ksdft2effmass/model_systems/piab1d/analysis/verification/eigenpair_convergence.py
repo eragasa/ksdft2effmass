@@ -30,21 +30,35 @@ class Piab1dEigenpairSweepReference:
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dEigenpairSweepReferenceRequest:
+    """Bind one admitted eigenpair-sweep result for independent reconstruction."""
+
+    result: Piab1dEigenpairSweepResult
+
+    def __post_init__(self) -> None:
+        """Admit the complete typed eigenpair-sweep reference request."""
+        if type(self.result) is not Piab1dEigenpairSweepResult:
+            raise TypeError("result must be Piab1dEigenpairSweepResult")
+
+
 class Piab1dEigenpairSweepReferenceAnalyzer:
-    """Reconstruct PIAB1D grid dispersion independently of the sweep analyzer."""
+    """Reconstruct one bound PIAB1D grid-dispersion result independently."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        result: Piab1dEigenpairSweepResult,
-    ) -> Piab1dEigenpairSweepReference:
+    def __init__(self, request: Piab1dEigenpairSweepReferenceRequest) -> None:
+        if type(request) is not Piab1dEigenpairSweepReferenceRequest:
+            raise TypeError("request must be Piab1dEigenpairSweepReferenceRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dEigenpairSweepReferenceRequest:
+        """Return the complete immutable eigenpair-sweep reference request."""
+        return self._request
+
+    def execute(self) -> Piab1dEigenpairSweepReference:
         """Reconstruct the complete represented-spectrum sweep.
-
-        Parameters
-        ----------
-        result
-            Typed flattened eigenpair observations for every declared grid.
 
         Returns
         -------
@@ -54,8 +68,6 @@ class Piab1dEigenpairSweepReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``result`` is not a ``Piab1dEigenpairSweepResult``.
         ValueError
             The declared grid inventory or reconstructed comparison is invalid.
 
@@ -64,8 +76,7 @@ class Piab1dEigenpairSweepReferenceAnalyzer:
         The expected dispersion uses the closed-form finite-difference spectrum and
         does not execute the production sweep analyzer.
         """
-        if not isinstance(result, Piab1dEigenpairSweepResult):
-            raise TypeError("result must be Piab1dEigenpairSweepResult")
+        result = self.request.result
         definition = result.definition
         expected_spacings = definition.length / (
             np.asarray(definition.interior_points, dtype=np.float64) + 1.0

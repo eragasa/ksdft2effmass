@@ -288,6 +288,12 @@ verification composed around that pinned implementation.
 .. autoclass:: Piab1dGridSweepAnalysis
    :members:
 
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dEigenpairSweepReferenceRequest
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dEigenpairSweepReferenceAnalyzer
+   :members:
+
 .. autoclass:: Piab1dDiagnostics
    :members:
 

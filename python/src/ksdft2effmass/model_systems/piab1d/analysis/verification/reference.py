@@ -14,7 +14,10 @@ from .core import Piab1dCoreReferenceAnalyzer, Piab1dCoreReferenceRequest
 from .decomposition import (
     Piab1dKineticPotentialDecompositionReferenceAnalyzer,
 )
-from .eigenpair_convergence import Piab1dEigenpairSweepReferenceAnalyzer
+from .eigenpair_convergence import (
+    Piab1dEigenpairSweepReferenceAnalyzer,
+    Piab1dEigenpairSweepReferenceRequest,
+)
 from .finite_algebraic_diagnostics import (
     Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer,
 )
@@ -41,14 +44,12 @@ class Piab1dIndependentReferenceAnalyzer:
     """Compose independent operation-specific PIAB1D reference analyses."""
 
     __slots__ = (
-        "eigenpair_sweep_analyzer",
         "residual_norm_sweep_analyzer",
         "finite_algebraic_diagnostics_analyzer",
         "decomposition_analyzer",
     )
 
     def __init__(self) -> None:
-        self.eigenpair_sweep_analyzer = Piab1dEigenpairSweepReferenceAnalyzer()
         self.residual_norm_sweep_analyzer = Piab1dResidualNormSweepReferenceAnalyzer()
         self.finite_algebraic_diagnostics_analyzer = (
             Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer()
@@ -93,7 +94,9 @@ class Piab1dIndependentReferenceAnalyzer:
         core = Piab1dCoreReferenceAnalyzer(
             Piab1dCoreReferenceRequest(result, visualization_data)
         ).execute()
-        eigenpair_sweep = self.eigenpair_sweep_analyzer.execute(result.eigenpair_sweep)
+        eigenpair_sweep = Piab1dEigenpairSweepReferenceAnalyzer(
+            Piab1dEigenpairSweepReferenceRequest(result.eigenpair_sweep)
+        ).execute()
         residual_norms = self.residual_norm_sweep_analyzer.execute(
             result.residual_norm_sweep
         )

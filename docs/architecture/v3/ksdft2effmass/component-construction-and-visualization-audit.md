@@ -174,7 +174,9 @@ existing immutable `Piab1dGridSweepDefinition` as its complete request and makes
 analyzer constructor-bound with a zero-argument `execute()`. Verification migration
 then proceeds leaf-first: `Piab1dCoreReferenceAnalyzer` binds the exact typed result and
 verifier-derived visualization projection in `Piab1dCoreReferenceRequest`, and the
-aggregate constructs that complete child action only after both subjects exist.
+aggregate constructs that complete child action only after both subjects exist. The
+next verifier leaf binds the exact typed eigenpair-sweep result in
+`Piab1dEigenpairSweepReferenceRequest` before independent dispersion reconstruction.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

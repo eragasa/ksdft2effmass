@@ -21,6 +21,7 @@ from ksdft2effmass.model_systems.piab1d.analysis.grid_sweep import (
 )
 from ksdft2effmass.model_systems.piab1d.analysis.verification import (
     Piab1dEigenpairSweepReferenceAnalyzer,
+    Piab1dEigenpairSweepReferenceRequest,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -52,7 +53,10 @@ class TestPiab1dGridSweepAnalyzer:
         convergence = result.fixed_mode_convergence(8)
         assert convergence.relative_errors.magnitude.shape == (2, 1)
         assert convergence.observed_orders.magnitude.shape == (1, 1)
-        reference = Piab1dEigenpairSweepReferenceAnalyzer().execute(result)
+        reference_request = Piab1dEigenpairSweepReferenceRequest(result)
+        reference_analyzer = Piab1dEigenpairSweepReferenceAnalyzer(reference_request)
+        reference = reference_analyzer.execute()
+        assert reference_analyzer.request is reference_request
         assert all(
             comparison.result().passed for comparison in reference.comparisons.values()
         )
