@@ -22,7 +22,12 @@ from ksdft2effmass.analysis import (
     TailProbabilitySelectionRequest,
     TailProbabilitySelector,
 )
-from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
+from ksdft2effmass.analysis.operators import (
+    KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionRequest,
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
+)
 from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
 from ksdft2effmass.model_systems import (
     BaseModelAnalysisVerifier,
@@ -120,19 +125,20 @@ class TestPiab1dVerifier:
             )
         )
         eigenpair_sweep = grid_sweep.eigenpairs
-        decomposition = KineticPotentialDecompositionAnalyzer().execute(
-            reduction.matrix,
-            MatrixQuantity(
-                np.asarray(
-                    [
-                        [0.5, 1.0, 0.4],
-                        [1.0, -0.25, -0.75],
-                        [0.4, -0.75, 0.75],
-                    ]
-                ),
-                reduction.matrix.unit,
+        decomposition_shift = MatrixQuantity(
+            np.asarray(
+                [
+                    [0.5, 1.0, 0.4],
+                    [1.0, -0.25, -0.75],
+                    [0.4, -0.75, 0.75],
+                ]
             ),
+            reduction.matrix.unit,
         )
+        decomposition = KineticPotentialDecompositionAnalyzer(
+            KineticPotentialDecompositionRequest(reduction.matrix, decomposition_shift),
+            RetainedModelClassFitter(RetainedModelClassFitRequest(decomposition_shift)),
+        ).execute()
         visualization_data = Piab1dVisualizationData(
             length=solution.model.length_quantity,
             retained_dimension=3,

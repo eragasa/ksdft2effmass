@@ -12,7 +12,10 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.operators import (
     KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionRequest,
     KineticPotentialDecompositionResult,
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -27,8 +30,14 @@ class TestKineticPotentialDecompositionAnalyzer:
         hamiltonian = MatrixQuantity(np.diag([1.0, 3.0]), Unitless())
         shift = MatrixQuantity(np.array([[0.5, 0.25], [0.25, -0.5]]), Unitless())
 
-        result = SUT().execute(hamiltonian, shift)
+        request = KineticPotentialDecompositionRequest(hamiltonian, shift)
+        model_fitter = RetainedModelClassFitter(RetainedModelClassFitRequest(shift))
+        analyzer = SUT(request, model_fitter)
 
+        result = analyzer.execute()
+
+        assert analyzer.request is request
+        assert analyzer.model_fitter is model_fitter
         np.testing.assert_allclose(
             result.physical_kinetic.magnitude + result.physical_potential.magnitude,
             hamiltonian.magnitude,
@@ -49,11 +58,28 @@ class TestKineticPotentialDecompositionAnalyzer:
             "real_symmetric",
         )
 
+    def test_init__rejects_model_fitter_for_different_shift(self) -> None:
+        """The explicit fitter must bind the exact admitted shift quantity."""
+        hamiltonian = MatrixQuantity(np.diag([1.0, 3.0]), Unitless())
+        shift = MatrixQuantity(np.array([[0.5, 0.25], [0.25, -0.5]]), Unitless())
+        different_shift = MatrixQuantity(shift.magnitude.copy(), Unitless())
+        request = KineticPotentialDecompositionRequest(hamiltonian, shift)
+        model_fitter = RetainedModelClassFitter(
+            RetainedModelClassFitRequest(different_shift)
+        )
+
+        with pytest.raises(ValueError, match="exact decomposition shift"):
+            SUT(request, model_fitter)
+
     def test_init__rejects_inconsistent_matrix_unit(self) -> None:
         """Every decomposition matrix belongs to one quantity space."""
         hamiltonian = MatrixQuantity(np.diag([1.0, 3.0]), Unitless())
         shift = MatrixQuantity(np.array([[0.5, 0.25], [0.25, -0.5]]), Unitless())
-        result = SUT().execute(hamiltonian, shift)
+        request = KineticPotentialDecompositionRequest(hamiltonian, shift)
+        result = SUT(
+            request,
+            RetainedModelClassFitter(RetainedModelClassFitRequest(shift)),
+        ).execute()
 
         with pytest.raises(ValueError, match="matrix units must agree"):
             replace(
@@ -68,7 +94,11 @@ class TestKineticPotentialDecompositionAnalyzer:
         """Every decomposition matrix acts on the same finite space."""
         hamiltonian = MatrixQuantity(np.diag([1.0, 3.0]), Unitless())
         shift = MatrixQuantity(np.array([[0.5, 0.25], [0.25, -0.5]]), Unitless())
-        result = SUT().execute(hamiltonian, shift)
+        request = KineticPotentialDecompositionRequest(hamiltonian, shift)
+        result = SUT(
+            request,
+            RetainedModelClassFitter(RetainedModelClassFitRequest(shift)),
+        ).execute()
 
         with pytest.raises(ValueError, match="matrix shapes must agree"):
             replace(
@@ -80,7 +110,11 @@ class TestKineticPotentialDecompositionAnalyzer:
         """The retained model classes have one declared comparison order."""
         hamiltonian = MatrixQuantity(np.diag([1.0, 3.0]), Unitless())
         shift = MatrixQuantity(np.array([[0.5, 0.25], [0.25, -0.5]]), Unitless())
-        result = SUT().execute(hamiltonian, shift)
+        request = KineticPotentialDecompositionRequest(hamiltonian, shift)
+        result = SUT(
+            request,
+            RetainedModelClassFitter(RetainedModelClassFitRequest(shift)),
+        ).execute()
 
         with pytest.raises(ValueError, match="declared ordering"):
             replace(result, model_class_fits=tuple(reversed(result.model_class_fits)))

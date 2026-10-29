@@ -28,18 +28,21 @@ concrete collaborators. Its `execute()` method:
 4. passes calculation and verification to `o_visualizer.visualize(...)`; and
 5. returns one correlated `HamiltonianDecompositionResult`.
 
-The runner uses the established
-`analysis.operators.KineticPotentialDecompositionAnalyzer`. The verifier independently
+The runner constructs a complete
+`analysis.operators.KineticPotentialDecompositionRequest`, an explicit
+`RetainedModelClassFitter` bound to the exact admitted shift, and the established
+request-bound `KineticPotentialDecompositionAnalyzer`. The verifier independently
 reconstructs the reference and shifted decompositions and the four retained
-model-class fits; it does not call that analyzer. The visualizer renders the declared
+model-class fits; it does not call either production action. The visualizer renders the declared
 shift and unexplained fit norms to immutable PNG bytes and closes the Matplotlib figure.
 
 ## PIAB1D composition boundary
 
 The implemented Hamiltonian class is dimension-independent. Installed source contains
 no `Piab1dHamiltonianDecomposition` subtype or PIAB1D-specific decomposition runner.
-The PIAB1D successor obtains its retained matrix from `Piab1dAnalyzer` and passes that
-matrix and the declared shift directly to
+The PIAB1D successor obtains its retained matrix from `Piab1dAnalyzer`, binds that
+matrix and the declared shift in `KineticPotentialDecompositionRequest`, and supplies
+a separately request-bound `RetainedModelClassFitter` to
 `KineticPotentialDecompositionAnalyzer` during `run_01_calculation.py`.
 
 The typed `KineticPotentialDecompositionResult` is stored once inside

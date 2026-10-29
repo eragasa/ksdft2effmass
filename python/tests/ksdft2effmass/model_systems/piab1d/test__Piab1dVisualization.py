@@ -17,7 +17,12 @@ from ksdft2effmass.analysis import (
     RelativeErrorConvergenceResult,
     TailProbabilitySelection,
 )
-from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
+from ksdft2effmass.analysis.operators import (
+    KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionRequest,
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
+)
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dGridSweepAnalyzer,
     Piab1dGridSweepDefinition,
@@ -46,6 +51,23 @@ class TestPiab1dVisualization:
                 fixed_modes=(3,),
             )
         )
+        decomposition_shift = MatrixQuantity(
+            np.asarray(
+                [
+                    [0.5, 1.0, 0.4],
+                    [1.0, -0.25, -0.75],
+                    [0.4, -0.75, 0.75],
+                ]
+            ),
+            Unitless(),
+        )
+        decomposition = KineticPotentialDecompositionAnalyzer(
+            KineticPotentialDecompositionRequest(
+                MatrixQuantity(np.diag([1.0, 2.0, 3.0]), Unitless()),
+                decomposition_shift,
+            ),
+            RetainedModelClassFitter(RetainedModelClassFitRequest(decomposition_shift)),
+        ).execute()
         data = Piab1dVisualizationData(
             length=ScalarQuantity(1.0, Unitless()),
             retained_dimension=3,
@@ -71,19 +93,7 @@ class TestPiab1dVisualization:
             eigenpair_sweep=grid_sweep.eigenpairs,
             residual_norm_sweep=grid_sweep.residual_norms,
             finite_algebraic_diagnostics=grid_sweep.finite_algebraic_diagnostics,
-            kinetic_potential_decomposition=KineticPotentialDecompositionAnalyzer().execute(
-                MatrixQuantity(np.diag([1.0, 2.0, 3.0]), Unitless()),
-                MatrixQuantity(
-                    np.asarray(
-                        [
-                            [0.5, 1.0, 0.4],
-                            [1.0, -0.25, -0.75],
-                            [0.4, -0.75, 0.75],
-                        ]
-                    ),
-                    Unitless(),
-                ),
-            ),
+            kinetic_potential_decomposition=decomposition,
             convergence=RelativeErrorConvergenceResult(
                 spacings=VectorQuantity(
                     np.asarray([1.0 / 9.0, 0.1, 1.0 / 11.0]), Unitless()

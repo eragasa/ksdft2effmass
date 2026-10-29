@@ -159,43 +159,60 @@ class KineticPotentialDecompositionResult(BaseTypedRecord):
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class KineticPotentialDecompositionRequest:
+    """Bind one retained Hamiltonian and illustrative reassignment matrix."""
+
+    reduced_hamiltonian: MatrixQuantity
+    shift: MatrixQuantity
+
+    def __post_init__(self) -> None:
+        """Admit shape, square-space, and unit compatibility."""
+        if not isinstance(self.reduced_hamiltonian, MatrixQuantity):
+            raise TypeError("reduced_hamiltonian must be MatrixQuantity")
+        if not isinstance(self.shift, MatrixQuantity):
+            raise TypeError("shift must be MatrixQuantity")
+        hamiltonian_shape = self.reduced_hamiltonian.magnitude.shape
+        if hamiltonian_shape != self.shift.magnitude.shape:
+            raise ValueError("reduced_hamiltonian and shift dimensions must match")
+        dimension = hamiltonian_shape[0]
+        if hamiltonian_shape != (dimension, dimension):
+            raise ValueError("reduced_hamiltonian and shift must be square")
+        if self.reduced_hamiltonian.unit != self.shift.unit:
+            raise ValueError("reduced_hamiltonian and shift units must match")
+
+
 class KineticPotentialDecompositionAnalyzer:
-    """Compare exact decomposition freedom with restricted model-class fits."""
+    """Compare one constructor-bound decomposition and explicit model fitter."""
 
-    __slots__ = ("model_fitter",)
+    __slots__ = ("_model_fitter", "_request")
 
-    def __init__(self, model_fitter: RetainedModelClassFitter | None = None) -> None:
-        """Construct the decomposition action.
+    def __init__(
+        self,
+        request: KineticPotentialDecompositionRequest,
+        model_fitter: RetainedModelClassFitter,
+    ) -> None:
+        if type(request) is not KineticPotentialDecompositionRequest:
+            raise TypeError("request must be KineticPotentialDecompositionRequest")
+        if type(model_fitter) is not RetainedModelClassFitter:
+            raise TypeError("model_fitter must be RetainedModelClassFitter")
+        if model_fitter.request.target is not request.shift:
+            raise ValueError("model_fitter must bind the exact decomposition shift")
+        self._request = request
+        self._model_fitter = model_fitter
 
-        Parameters
-        ----------
-        model_fitter
-            Explicit retained-space fitter. ``None`` constructs the canonical four-
-            class fitter.
+    @property
+    def request(self) -> KineticPotentialDecompositionRequest:
+        """Return the complete immutable decomposition request."""
+        return self._request
 
-        Raises
-        ------
-        TypeError
-            ``model_fitter`` is neither ``None`` nor ``RetainedModelClassFitter``.
-        """
-        if model_fitter is not None and not isinstance(
-            model_fitter, RetainedModelClassFitter
-        ):
-            raise TypeError("model_fitter must be RetainedModelClassFitter or None")
-        self.model_fitter = model_fitter or RetainedModelClassFitter()
+    @property
+    def model_fitter(self) -> RetainedModelClassFitter:
+        """Return the explicit request-correlated retained-model fitter."""
+        return self._model_fitter
 
-    def execute(
-        self, reduced_hamiltonian: MatrixQuantity, shift: MatrixQuantity
-    ) -> KineticPotentialDecompositionResult:
+    def execute(self) -> KineticPotentialDecompositionResult:
         """Evaluate the declared physical and shifted decompositions.
-
-        Parameters
-        ----------
-        reduced_hamiltonian
-            Finite real matrix quantity acting in the retained coordinate space.
-            For PIAB1D this matrix is the declared physical kinetic operator.
-        shift
-            Shape- and unit-compatible real-symmetric illustrative reassignment.
 
         Returns
         -------
@@ -203,31 +220,15 @@ class KineticPotentialDecompositionAnalyzer:
             Exact component matrices, reconstruction errors, and least-Frobenius fits
             of the shift to the declared model classes.
 
-        Raises
-        ------
-        TypeError
-            Either input is not a ``MatrixQuantity``.
-        ValueError
-            Shapes or units differ, or a retained model-class invariant fails.
-
         Notes
         -----
         The shifted pair is algebraically exact and carries no physical assignment.
         The operation does not infer a potential from the Hamiltonian.
         """
-        if not isinstance(reduced_hamiltonian, MatrixQuantity):
-            raise TypeError("reduced_hamiltonian must be MatrixQuantity")
-        if not isinstance(shift, MatrixQuantity):
-            raise TypeError("shift must be MatrixQuantity")
+        reduced_hamiltonian = self.request.reduced_hamiltonian
+        shift = self.request.shift
         hamiltonian = reduced_hamiltonian.magnitude
         shift_matrix = shift.magnitude
-        if hamiltonian.shape != shift_matrix.shape:
-            raise ValueError("reduced_hamiltonian and shift dimensions must match")
-        dimension = hamiltonian.shape[0]
-        if hamiltonian.shape != (dimension, dimension):
-            raise ValueError("reduced_hamiltonian and shift must be square")
-        if reduced_hamiltonian.unit != shift.unit:
-            raise ValueError("reduced_hamiltonian and shift units must match")
         physical_kinetic = hamiltonian.copy()
         physical_potential = np.zeros_like(hamiltonian)
         alternative_kinetic = hamiltonian - shift_matrix
@@ -246,5 +247,5 @@ class KineticPotentialDecompositionAnalyzer:
             alternative_reconstruction_error=ScalarQuantity(
                 float(np.linalg.norm(alternative_residual, ord="fro")), unit
             ),
-            model_class_fits=self.model_fitter.execute(shift),
+            model_class_fits=self.model_fitter.execute(),
         )

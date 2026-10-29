@@ -13,7 +13,10 @@ from projectkoios.physkit.units import MatrixQuantity
 
 from ksdft2effmass.analysis.operators import (
     KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionRequest,
     KineticPotentialDecompositionResult,
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
 )
 
 from .records import ReducedHamiltonian
@@ -92,7 +95,11 @@ class HamiltonianDecompositionRunner:
     def run(self) -> KineticPotentialDecompositionResult:
         """Return the generic finite Hamiltonian decomposition calculation."""
         matrix = self._require_compatible_real_symmetric_inputs()
-        return KineticPotentialDecompositionAnalyzer().execute(matrix, self.shift)
+        request = KineticPotentialDecompositionRequest(matrix, self.shift)
+        model_fitter = RetainedModelClassFitter(
+            RetainedModelClassFitRequest(self.shift)
+        )
+        return KineticPotentialDecompositionAnalyzer(request, model_fitter).execute()
 
     def _require_compatible_real_symmetric_inputs(self) -> MatrixQuantity:
         dense_matrix = VerifiedMatrixUtils(

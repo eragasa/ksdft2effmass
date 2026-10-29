@@ -1283,7 +1283,13 @@ policy, or CLI behavior.
 .. autoclass:: RealSymmetricEigenpairDiagnosticAnalyzer
    :members:
 
+.. autoclass:: KineticPotentialDecompositionRequest
+   :members:
+
 .. autoclass:: KineticPotentialDecompositionAnalyzer
+   :members:
+
+.. autoclass:: RetainedModelClassFitRequest
    :members:
 
 .. autoclass:: RetainedModelClassFitter

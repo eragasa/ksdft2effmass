@@ -154,7 +154,11 @@ multiband predecessor now bind each target/candidate sample pair independently. 
 PIAB1D analysis slice then implements the `analysis/convergence.py` and
 `analysis/probability_selection.py` rows with complete immutable requests and
 zero-argument terminal operations. Its reusable observed-order child action is also
-request-bound so the convergence analyzer composes only complete child requests.
+request-bound so the convergence analyzer composes only complete child requests. The
+next bottom-up slice implements `analysis/operators/model_fitting.py` before its
+`analysis/operators/decomposition.py` consumer. The decomposition analyzer now requires
+its complete matrix request and an explicit fitter bound to the exact admitted shift;
+it no longer synthesizes a fitter from `None`.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

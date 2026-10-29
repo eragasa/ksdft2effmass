@@ -27,7 +27,12 @@ from ksdft2effmass.analysis import (
     TailProbabilitySelectionRequest,
     TailProbabilitySelector,
 )
-from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
+from ksdft2effmass.analysis.operators import (
+    KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionRequest,
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
+)
 from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dAnalyzer,
@@ -86,10 +91,14 @@ decomposition_shift = MatrixQuantity(
     ),
     reduced_hamiltonian.matrix.unit,
 )
-kinetic_potential_decomposition = KineticPotentialDecompositionAnalyzer().execute(
+kinetic_potential_decomposition_request = KineticPotentialDecompositionRequest(
     reduced_hamiltonian.matrix,
     decomposition_shift,
 )
+kinetic_potential_decomposition = KineticPotentialDecompositionAnalyzer(
+    kinetic_potential_decomposition_request,
+    RetainedModelClassFitter(RetainedModelClassFitRequest(decomposition_shift)),
+).execute()
 grid_sweep = Piab1dGridSweepAnalyzer().execute(
     Piab1dGridSweepDefinition(
         length=LENGTH,
