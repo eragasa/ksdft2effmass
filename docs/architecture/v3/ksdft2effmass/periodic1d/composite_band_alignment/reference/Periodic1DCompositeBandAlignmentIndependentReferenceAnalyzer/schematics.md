@@ -6,5 +6,5 @@ flowchart TD
     S[stored result arrays] --> K[named comparisons]
     R --> K
     P[stored projection arrays] --> K
-    K --> V[independent verification mapping]
+    K --> V[independent reference mapping]
 ```

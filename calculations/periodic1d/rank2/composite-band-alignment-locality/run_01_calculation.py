@@ -8,6 +8,10 @@ from datetime import UTC, datetime
 from importlib.metadata import version
 from pathlib import Path
 
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+
 from ksdft2effmass.periodic1d.composite_band_alignment import (
     Periodic1DCompositeBandAlignmentAnalyzer,
     Periodic1DCompositeBandAlignmentCalculationResult,
@@ -52,7 +56,10 @@ execution_directory = script_path.parent / "executions" / EXECUTION_ID
 temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete")
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a composite-alignment execution")
-result = Periodic1DCompositeBandAlignmentAnalyzer().execute(configuration)
+result = Periodic1DCompositeBandAlignmentAnalyzer(
+    configuration,
+    NumpyBatchedComplexUnitaryProcrustesSolver(),
+).execute()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
 if (

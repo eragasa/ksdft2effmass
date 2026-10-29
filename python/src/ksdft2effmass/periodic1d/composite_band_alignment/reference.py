@@ -20,7 +20,6 @@ from scipy.linalg import schur  # type: ignore[import-untyped]
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .configuration import Periodic1DCompositeBandAlignmentConfiguration
 from .result import Periodic1DCompositeBandAlignmentCalculationResult
 from .visualizations.data import (
     Periodic1DCompositeBandAlignmentVisualizationData,
@@ -28,7 +27,7 @@ from .visualizations.data import (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DCompositeBandAlignmentIndependentVerification:
+class Periodic1DCompositeBandAlignmentIndependentReference:
     """Retain collision-free independently reconstructed comparisons."""
 
     comparisons: Mapping[str, MaximumAbsoluteErrorComparison]
@@ -75,10 +74,29 @@ class _CompositeReferenceValues:
     closure_eigenphases: Float64Array
 
 
-class Periodic1DCompositeBandAlignmentIndependentVerifier:
-    """Reconstruct every stored numerical channel from direct NumPy formulas."""
+@dataclass(frozen=True, slots=True)
+class Periodic1DCompositeBandAlignmentIndependentReferenceRequest:
+    """Bind the admitted rank-two result and verifier-derived projection."""
 
-    __slots__ = ()
+    result: Periodic1DCompositeBandAlignmentCalculationResult
+    visualization_data: Periodic1DCompositeBandAlignmentVisualizationData
+
+    def __post_init__(self) -> None:
+        """Admit exact composite-alignment verification subject types."""
+        if type(self.result) is not Periodic1DCompositeBandAlignmentCalculationResult:
+            raise TypeError(
+                "result must be Periodic1DCompositeBandAlignmentCalculationResult"
+            )
+        if type(self.visualization_data) is not (
+            Periodic1DCompositeBandAlignmentVisualizationData
+        ):
+            raise TypeError("visualization_data has the wrong exact type")
+
+
+class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
+    """Reconstruct one bound rank-two result with direct NumPy formulas."""
+
+    __slots__ = ("_request",)
 
     DIAGNOSTIC_NAMES = (
         "minimum_sampled_gap",
@@ -97,22 +115,29 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
         "global_rank_cutoff",
     )
 
-    def execute(
-        self,
-        result: Periodic1DCompositeBandAlignmentCalculationResult,
-        visualization_data: Periodic1DCompositeBandAlignmentVisualizationData,
-    ) -> Periodic1DCompositeBandAlignmentIndependentVerification:
-        """Return independent comparisons for one admitted result and projection."""
-        if type(result) is not Periodic1DCompositeBandAlignmentCalculationResult:
-            raise TypeError(
-                "result must be Periodic1DCompositeBandAlignmentCalculationResult"
-            )
-        if type(visualization_data) is not (
-            Periodic1DCompositeBandAlignmentVisualizationData
+    def __init__(
+        self, request: Periodic1DCompositeBandAlignmentIndependentReferenceRequest
+    ) -> None:
+        if (
+            type(request)
+            is not Periodic1DCompositeBandAlignmentIndependentReferenceRequest
         ):
-            raise TypeError("visualization_data has the wrong exact type")
+            raise TypeError(
+                "request must be "
+                "Periodic1DCompositeBandAlignmentIndependentReferenceRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> Periodic1DCompositeBandAlignmentIndependentReferenceRequest:
+        """Return the complete immutable independent-reference request."""
+        return self._request
+
+    def execute(self) -> Periodic1DCompositeBandAlignmentIndependentReference:
+        """Return independent comparisons for the bound result and projection."""
+        result = self.request.result
         configuration = result.configuration
-        expected = self._reference(configuration)
+        expected = self._reference()
         unit = Unitless()
         comparisons: dict[str, MaximumAbsoluteErrorComparison] = {}
         self._add(
@@ -376,28 +401,23 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             VectorQuantity(expected.closure_eigenphases, unit),
             configuration.dimensionless_absolute_tolerance * 10.0,
         )
-        self._projection_comparisons(comparisons, result, visualization_data)
-        return Periodic1DCompositeBandAlignmentIndependentVerification(comparisons)
+        self._projection_comparisons(comparisons)
+        return Periodic1DCompositeBandAlignmentIndependentReference(comparisons)
 
-    @classmethod
-    def _reference(
-        cls,
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
-    ) -> _CompositeReferenceValues:
+    def _reference(self) -> _CompositeReferenceValues:
+        configuration = self.request.result.configuration
         construction_coordinates = np.asarray(
             configuration.construction_reduced_momenta(), dtype=np.float64
         )
         evaluation_coordinates = np.asarray(
             configuration.evaluation_reduced_momenta(), dtype=np.float64
         )
-        construction_spectrum, raw_frames, construction_parent = cls._parent_values(
-            configuration, construction_coordinates
+        construction_spectrum, raw_frames, construction_parent = self._parent_values(
+            construction_coordinates
         )
-        evaluation_spectrum, _, _ = cls._parent_values(
-            configuration, evaluation_coordinates
-        )
-        reference, minimum_overlap, closure_phases = cls._transport(raw_frames)
-        attacks = cls._attack_rotations(configuration, construction_coordinates)
+        evaluation_spectrum, _, _ = self._parent_values(evaluation_coordinates)
+        reference, minimum_overlap, closure_phases = self._transport(raw_frames)
+        attacks = self._attack_rotations(construction_coordinates)
         attacked = np.einsum("kai,kij->kaj", reference, attacks, optimize=True)
         cross = np.einsum("kai,kaj->kij", attacked.conj(), reference, optimize=True)
         left, pointwise_singular_values, right_h = np.linalg.svd(cross)
@@ -439,7 +459,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
                 :, np.newaxis, np.newaxis
             ]
             block_sets.append(np.asarray(blocks, dtype=np.complex128))
-            reconstructed = cls._interpolate(
+            reconstructed = self._interpolate(
                 representatives, blocks, construction_coordinates
             )
             reconstruction_errors.append(
@@ -473,7 +493,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
         ordinary_blocks = hopping_blocks[:, 1:, :, :]
         complete_evaluation = np.asarray(
             [
-                cls._interpolate(
+                self._interpolate(
                     ordinary_representatives,
                     blocks,
                     evaluation_coordinates,
@@ -482,8 +502,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             ],
             dtype=np.complex128,
         )
-        evaluation_attacks = cls._attack_rotations(
-            configuration,
+        evaluation_attacks = self._attack_rotations(
             evaluation_coordinates,
         )
         direct_attacked = np.einsum(
@@ -503,7 +522,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
         )
         interpolation_error_values = np.asarray(
             [
-                cls._maximum_error_channels(complete, direct)
+                self._maximum_error_channels(complete, direct)
                 for complete, direct in zip(
                     complete_evaluation,
                     direct_evaluation,
@@ -544,12 +563,12 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
                         )
                     )
                 )
-                construction_candidate = cls._interpolate(
+                construction_candidate = self._interpolate(
                     retained_representatives,
                     blocks[retained_indices],
                     construction_coordinates,
                 )
-                evaluation_candidate = cls._interpolate(
+                evaluation_candidate = self._interpolate(
                     retained_representatives,
                     blocks[retained_indices],
                     evaluation_coordinates,
@@ -562,11 +581,11 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
                         )
                     )
                 )
-                truncation_errors = cls._maximum_error_channels(
+                truncation_errors = self._maximum_error_channels(
                     evaluation_candidate,
                     complete_evaluation[channel_index],
                 )
-                total_errors = cls._maximum_error_channels(
+                total_errors = self._maximum_error_channels(
                     evaluation_candidate,
                     direct_evaluation[channel_index],
                 )
@@ -578,17 +597,17 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
                     truncation_errors[1],
                     total_errors[1],
                 )
-        attack_frame_defect = cls._maximum_defect(reference, attacked)
-        pointwise_frame_defect = cls._maximum_defect(reference, pointwise)
-        pointwise_projector_defect = cls._maximum_defect(
+        attack_frame_defect = self._maximum_defect(reference, attacked)
+        pointwise_frame_defect = self._maximum_defect(reference, pointwise)
+        pointwise_projector_defect = self._maximum_defect(
             np.einsum("kai,kbi->kab", reference, reference.conj(), optimize=True),
             np.einsum("kai,kbi->kab", attacked, attacked.conj(), optimize=True),
         )
-        recovery_defect = cls._maximum_defect(
+        recovery_defect = self._maximum_defect(
             pointwise_rotations,
             attacks.conj().transpose(0, 2, 1),
         )
-        global_frame_defect = cls._maximum_defect(reference, global_frames)
+        global_frame_defect = self._maximum_defect(reference, global_frames)
         gaps = np.concatenate(
             (
                 construction_spectrum[:, 2] - construction_spectrum[:, 1],
@@ -622,9 +641,9 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
                 pointwise_projector_defect,
                 recovery_defect,
                 global_frame_defect,
-                cls._maximum_defect(operators[0], operators[1]),
-                cls._maximum_defect(operators[0], operators[2]),
-                cls._maximum_defect(operators[0], operators[3]),
+                self._maximum_defect(operators[0], operators[1]),
+                self._maximum_defect(operators[0], operators[2]),
+                self._maximum_defect(operators[0], operators[3]),
                 float(np.min(pointwise_singular_values)),
                 float(np.min(global_singular_values)),
                 float(np.max(pointwise_cutoffs)),
@@ -656,11 +675,11 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             closure_eigenphases=closure_phases,
         )
 
-    @staticmethod
     def _parent_values(
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
+        self,
         coordinates: Float64Array,
     ) -> tuple[Float64Array, Complex128Array, Complex128Array]:
+        configuration = self.request.result.configuration
         denominator = float(configuration.coefficient_denominator)
         onsite = (
             np.asarray(configuration.onsite_numerators, dtype=np.complex128)
@@ -700,8 +719,8 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             np.asarray(represented_parents, dtype=np.complex128),
         )
 
-    @staticmethod
     def _transport(
+        self,
         raw: Complex128Array,
     ) -> tuple[Complex128Array, float, Float64Array]:
         transported: list[Complex128Array] = [raw[0].copy()]
@@ -735,11 +754,11 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             phases,
         )
 
-    @staticmethod
     def _attack_rotations(
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
+        self,
         coordinates: Float64Array,
     ) -> Complex128Array:
+        configuration = self.request.result.configuration
         angle = np.full(
             coordinates.shape,
             configuration.attack_constant_angle,
@@ -756,8 +775,8 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
         rotations[:, 1, 1] = np.cos(angle)
         return rotations
 
-    @staticmethod
     def _interpolate(
+        self,
         representatives: tuple[int, ...],
         blocks: Complex128Array,
         coordinates: Float64Array,
@@ -772,8 +791,8 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             dtype=np.complex128,
         )
 
-    @staticmethod
     def _maximum_error_channels(
+        self,
         candidate: Complex128Array,
         reference: Complex128Array,
     ) -> tuple[float, float]:
@@ -799,8 +818,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
         )
         return hamiltonian, spectral
 
-    @staticmethod
-    def _maximum_defect(left: Complex128Array, right: Complex128Array) -> float:
+    def _maximum_defect(self, left: Complex128Array, right: Complex128Array) -> float:
         return float(
             max(
                 np.linalg.norm(left_value - right_value)
@@ -808,8 +826,8 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             )
         )
 
-    @staticmethod
     def _complex_inventory(
+        self,
         values: tuple[ComplexMatrixQuantity, ...],
     ) -> ComplexVectorQuantity:
         return ComplexVectorQuantity(
@@ -820,8 +838,8 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             Unitless(),
         )
 
-    @staticmethod
     def _add(
+        self,
         comparisons: dict[str, MaximumAbsoluteErrorComparison],
         name: str,
         observed: ScalarQuantity
@@ -842,13 +860,12 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             ScalarQuantity(tolerance, observed.unit),
         )
 
-    @classmethod
     def _projection_comparisons(
-        cls,
+        self,
         comparisons: dict[str, MaximumAbsoluteErrorComparison],
-        result: Periodic1DCompositeBandAlignmentCalculationResult,
-        data: Periodic1DCompositeBandAlignmentVisualizationData,
     ) -> None:
+        result = self.request.result
+        data = self.request.visualization_data
         unit = Unitless()
         vector_fields = (
             (
@@ -921,14 +938,14 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             ),
         )
         for name, observed, reference in vector_fields:
-            cls._add(
+            self._add(
                 comparisons,
                 f"visualization_{name}",
                 observed,
                 reference,
                 0.0,
             )
-        cls._add(
+        self._add(
             comparisons,
             "visualization_evaluation_parent_spectrum",
             data.evaluation_parent_spectrum,
@@ -971,7 +988,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
                 ],
                 dtype=np.float64,
             )
-            cls._add(
+            self._add(
                 comparisons,
                 f"visualization_{name}",
                 range_observed,
@@ -988,7 +1005,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
             ],
             dtype=np.float64,
         )
-        cls._add(
+        self._add(
             comparisons,
             "visualization_hopping_block_frobenius_norms",
             data.hopping_block_frobenius_norms,
@@ -1010,7 +1027,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
                 "global operator",
             )
         )
-        cls._add(
+        self._add(
             comparisons,
             "visualization_metadata",
             ScalarQuantity(0.0 if metadata_matches else 1.0, unit),
@@ -1020,6 +1037,7 @@ class Periodic1DCompositeBandAlignmentIndependentVerifier:
 
 
 __all__ = [
-    "Periodic1DCompositeBandAlignmentIndependentVerification",
-    "Periodic1DCompositeBandAlignmentIndependentVerifier",
+    "Periodic1DCompositeBandAlignmentIndependentReference",
+    "Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer",
+    "Periodic1DCompositeBandAlignmentIndependentReferenceRequest",
 ]

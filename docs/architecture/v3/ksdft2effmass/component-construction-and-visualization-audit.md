@@ -130,9 +130,9 @@ families are construction-coherent with Phase 4.
 | `model_systems/qho1d/parameters.py` | `Qho1dNondimensionalizer` | Bind the exact positive finite normalized scalars before explicit Unitless adaptation. |
 | `model_systems/qho1d/verification.py` | `Qho1dIndependentReferenceAnalyzer` | Bind the admitted result subject. |
 | `periodic1d/fourier_locality/analysis.py` | `Periodic1DFourierLocalityAnalyzer` | Bind the Fourier-locality configuration. |
-| `periodic1d/fourier_locality/verification_values.py` | `Periodic1DFourierLocalityIndependentVerifier` | Bind the admitted result reconstructed from exact bytes. |
+| `periodic1d/fourier_locality/reference.py` | `Periodic1DFourierLocalityIndependentReferenceAnalyzer` | Bind the admitted result and verifier-derived projection reconstructed from exact bytes. |
 | `periodic1d/composite_band_alignment/analysis.py` | `Periodic1DCompositeBandAlignmentAnalyzer` | Bind the composite-alignment configuration. |
-| `periodic1d/composite_band_alignment/verification_values.py` | `Periodic1DCompositeBandAlignmentIndependentVerifier` | Bind the admitted result reconstructed from exact bytes. |
+| `periodic1d/composite_band_alignment/reference.py` | `Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer` | Bind the admitted result and verifier-derived projection reconstructed from exact bytes. |
 | `solidstate/band_frames.py` | `PolarBandFrameTransporter1D` | Bind the frame path and transport threshold. |
 | `solidstate/hopping_transforms.py` | `BandProjectedOperatorPathConstructor1D`; `BlockHoppingInterpolator1D`; `ReciprocalOperatorFourierTransformer1D`; `BlockHoppingTruncator1D` | Bind each complete represented-operator, mesh, interpolation, transform, or truncation request. |
 
@@ -212,16 +212,18 @@ result identity; `Mathieu1dAnalyzer` exposes only zero-argument `execute()` and 
 scientific operations are cohesive instance methods. The rank-one slice then binds the
 complete `Periodic1DFourierLocalityConfiguration` directly in its analyzer and binds
 the admitted result plus verifier-derived projection in
-`Periodic1DFourierLocalityIndependentVerificationRequest`; both actions expose
-zero-argument `execute()` and cohesive instance operations.
+`Periodic1DFourierLocalityIndependentReferenceRequest`; both actions expose
+zero-argument `execute()` and cohesive instance operations. The rank-two slice follows
+the same boundary: its analyzer binds the complete configuration and an explicit
+Optimization-owned Procrustes collaborator, while
+`Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer` binds the exact result
+and verifier-derived projection for independent reconstruction.
 
-Two current sources also construct empty third-party numerical actions:
+One current source also constructs an empty third-party numerical action:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in
-`model_systems/piab1d/analysis/core.py:243` and
-`NumpyBatchedComplexUnitaryProcrustesSolver()` in
-`periodic1d/composite_band_alignment/analysis.py:123`. Those external class contracts
-are outside the 78-class KSD inventory, but the selected collaborator must become an
-explicit required dependency at the KSD composition boundary rather than remain a
+`model_systems/piab1d/analysis/core.py:243`. That external class contract is outside
+the 78-class KSD inventory, but the selected collaborator must become an explicit
+required dependency at the KSD composition boundary rather than remain a
 hidden default.
 
 The remaining direct composition root exposes an empty top-level call at

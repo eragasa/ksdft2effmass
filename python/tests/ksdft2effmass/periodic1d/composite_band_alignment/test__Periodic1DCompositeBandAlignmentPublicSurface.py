@@ -1,6 +1,7 @@
 """Tests for direct composite-alignment public ownership and donor isolation."""
 
 import ast
+import importlib.util
 from pathlib import Path
 
 import pytest
@@ -17,6 +18,21 @@ class TestPeriodic1DCompositeBandAlignmentPublicSurface:
     def test__package__exports_every_declared_public_class(self) -> None:
         for name in composite_band_alignment.__all__:
             assert getattr(periodic1d, name) is getattr(composite_band_alignment, name)
+
+    def test__independent_reference__has_no_verification_values_facade(self) -> None:
+        former_names = {
+            "Periodic1DCompositeBandAlignmentIndependentVerification",
+            "Periodic1DCompositeBandAlignmentIndependentVerificationRequest",
+            "Periodic1DCompositeBandAlignmentIndependentVerifier",
+        }
+        assert former_names.isdisjoint(composite_band_alignment.__all__)
+        assert all(not hasattr(composite_band_alignment, name) for name in former_names)
+        assert (
+            importlib.util.find_spec(
+                "ksdft2effmass.periodic1d.composite_band_alignment.verification_values"
+            )
+            is None
+        )
 
     def test__source__does_not_import_predecessor_or_calculation_workflows(
         self,

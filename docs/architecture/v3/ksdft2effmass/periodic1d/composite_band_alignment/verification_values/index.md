@@ -1,3 +1,0 @@
-# `composite_band_alignment.verification_values`
-
-This module owns [`Periodic1DCompositeBandAlignmentIndependentVerifier`](Periodic1DCompositeBandAlignmentIndependentVerifier/index.md) and its immutable [`Periodic1DCompositeBandAlignmentIndependentVerification`](Periodic1DCompositeBandAlignmentIndependentVerification/index.md) comparison collection. It imports neither the production analyzer nor the Optimization Procrustes solver.

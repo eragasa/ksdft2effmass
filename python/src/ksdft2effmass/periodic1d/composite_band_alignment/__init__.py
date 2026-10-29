@@ -2,6 +2,11 @@
 
 from .analysis import Periodic1DCompositeBandAlignmentAnalyzer
 from .configuration import Periodic1DCompositeBandAlignmentConfiguration
+from .reference import (
+    Periodic1DCompositeBandAlignmentIndependentReference,
+    Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer,
+    Periodic1DCompositeBandAlignmentIndependentReferenceRequest,
+)
 from .result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
     Periodic1DCompositeBandAlignmentChannelRangeResult,
@@ -13,10 +18,6 @@ from .verification import (
     CompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerifier,
-)
-from .verification_values import (
-    Periodic1DCompositeBandAlignmentIndependentVerification,
-    Periodic1DCompositeBandAlignmentIndependentVerifier,
 )
 from .visualizations import (
     Periodic1DCompositeBandAlignmentVisualizationData,
@@ -31,8 +32,9 @@ __all__ = [
     "Periodic1DCompositeBandAlignmentChannelRangeResult",
     "Periodic1DCompositeBandAlignmentConfiguration",
     "Periodic1DCompositeBandAlignmentDiagnostics",
-    "Periodic1DCompositeBandAlignmentIndependentVerification",
-    "Periodic1DCompositeBandAlignmentIndependentVerifier",
+    "Periodic1DCompositeBandAlignmentIndependentReference",
+    "Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer",
+    "Periodic1DCompositeBandAlignmentIndependentReferenceRequest",
     "Periodic1DCompositeBandAlignmentRangeResult",
     "Periodic1DCompositeBandAlignmentTransformResult",
     "Periodic1DCompositeBandAlignmentVerification",

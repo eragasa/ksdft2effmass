@@ -1,0 +1,3 @@
+# Numerical contract
+
+The independent reference analyzer uses direct NumPy and SciPy formulas for exact-parent fibers, canonical eigenvector phases, frame transport, SVD-based right actions, represented operators, cyclic and ordinary Fourier sums, conversion power, direct evaluation fields, truncations, normalized Frobenius residuals, and spectra. It independently rejects covariance singular values at or below the configured maximum-rule cutoff.

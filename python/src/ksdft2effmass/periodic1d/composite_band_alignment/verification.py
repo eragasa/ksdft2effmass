@@ -18,10 +18,11 @@ from ksdft2effmass.model_systems.verification import (
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.verification import CompositeVerification
 
-from .result import Periodic1DCompositeBandAlignmentCalculationResult
-from .verification_values import (
-    Periodic1DCompositeBandAlignmentIndependentVerifier,
+from .reference import (
+    Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer,
+    Periodic1DCompositeBandAlignmentIndependentReferenceRequest,
 )
+from .result import Periodic1DCompositeBandAlignmentCalculationResult
 from .visualizations.data import (
     Periodic1DCompositeBandAlignmentVisualizationData,
 )
@@ -286,10 +287,12 @@ class Periodic1DCompositeBandAlignmentVerifier(
         self,
         visualization_data: Periodic1DCompositeBandAlignmentVisualizationData,
     ) -> tuple[CompositeVerification, ...]:
-        independent = Periodic1DCompositeBandAlignmentIndependentVerifier().execute(
-            self._result,
-            visualization_data,
-        )
+        independent = Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer(
+            Periodic1DCompositeBandAlignmentIndependentReferenceRequest(
+                self._result,
+                visualization_data,
+            )
+        ).execute()
         scientific = {
             name: comparison
             for name, comparison in independent.comparisons.items()

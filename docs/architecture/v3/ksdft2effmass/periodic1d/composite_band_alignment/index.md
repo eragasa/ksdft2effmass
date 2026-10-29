@@ -13,8 +13,8 @@ independent verification, and authenticated figures.
 - [`configuration`](configuration/index.md) owns genuine frozen scientific inputs.
 - [`result`](result/index.md) owns explicit immutable output sections and the root wire.
 - [`analysis`](analysis/index.md) owns the pure `execute()` producer.
-- [`verification_values`](verification_values/index.md) owns producer-independent
-  numerical reconstruction.
+- [`reference`](reference/index.md) owns request-bound producer-independent numerical
+  reconstruction.
 - [`verification`](verification/index.md) owns exact-byte admission and aggregate
   authentication.
 - [`visualizations`](visualizations/index.md) owns the authenticated projection and

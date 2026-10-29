@@ -1,4 +1,4 @@
-# `Periodic1DCompositeBandAlignmentIndependentVerification`
+# `Periodic1DCompositeBandAlignmentIndependentReference`
 
 An immutable read-only mapping from globally unique operation names to maximum-absolute-error comparisons. Construction requires a nonempty well-typed mapping and prevents later mutation of the comparison inventory.
 
