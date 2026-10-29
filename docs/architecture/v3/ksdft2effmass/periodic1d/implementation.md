@@ -13,17 +13,23 @@ visualization projection, and closed renderer. The former `isolated_band/` sourc
 Fourier toy-parent record, aggregate predecessor test, exports, and Sphinx page were removed
 after direct replacement and explicit authorization.
 
+Phase 3 now also has its first direct successor.
+[`periodic1d.composite_band_alignment`](composite_band_alignment/index.md) owns the
+rank-two typed lifecycle, while the M2 predecessor remains installed solely because M3
+still imports it.
+
 The installed package now has this mixed migration state:
 
 ```text
 periodic1d/
 ├── model.py
-├── fourier_locality/       # implemented direct lifecycle
-├── multiband_alignment/    # predecessor retained for Phase 3
-└── admissible_sets/         # predecessor retained for Phase 4
+├── fourier_locality/             # implemented direct lifecycle
+├── composite_band_alignment/     # implemented direct rank-two lifecycle
+├── multiband_alignment/          # predecessor blocked on M3 migration
+└── admissible_sets/               # predecessor retained for Phase 4
 ```
 
-The two remaining predecessor children have frozen definitions and results, a producer,
+The two predecessor children have frozen definitions and results, a producer,
 a serializer, and an independent numerical verifier. Those real supported contracts
 predate the direct architecture in four important respects:
 

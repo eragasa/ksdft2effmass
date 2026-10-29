@@ -1,0 +1,3 @@
+# Independent reconstruction meaning
+
+The reference route independently reconstructs the parent, canonical eigensystem phases, polar transport, attack, pointwise and global transformations, represented operators, Fourier blocks, cyclic conversion power, complete ordinary interpolants, separated interpolation/truncation/total Hamiltonian and spectral channels, gaps, overlaps, and every result diagnostic. It also correlates every visualization field with authoritative admitted result values.

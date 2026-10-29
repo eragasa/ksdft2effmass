@@ -1,0 +1,3 @@
+# Analysis numerical route
+
+Each four-by-four parent fiber is explicitly Hermitianized to an exactly Hermitian binary64 representation before PhysKit decomposition. The attack and Procrustes transformations act on frame columns from the right. Centered fast Fourier transforms retain all 64 cyclic representatives. The negative Nyquist class is then removed and reported separately before symmetric ordinary-lattice truncation. Complete ordinary interpolants are compared with direct fields on the disjoint evaluation mesh before truncation; evaluation points never influence transformation selection.

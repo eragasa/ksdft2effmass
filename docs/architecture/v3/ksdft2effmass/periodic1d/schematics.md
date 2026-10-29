@@ -25,23 +25,17 @@ registry, or publication lifecycle.
 
 ## Ownership layers
 
-```text
-PhysKit
-  quantities, lattice primitives, represented linear algebra, matrix norms
-                         │
-                         ▼
-model_systems.periodic_1d       solidstate              operators / analysis
-finite parent fibers            paths, frames,           represented values and
-and Fourier potentials          sewing, transforms       reusable diagnostics
-             └──────────────────────┬──────────────────────────┘
-                                    ▼
-                         periodic1d family analyzer
-                                    │
-                   concrete typed result and verification
-                                    │
-                                    ▼
-                  calculations/<periodic1d-family>/
-                 protocol, stages, provenance, rendering
+```mermaid
+flowchart TD
+    P[PhysKit quantities lattice primitives represented linear algebra and norms]
+    P --> M[model_systems.periodic_1d finite parent fibers and Fourier potentials]
+    P --> S[solidstate paths frames sewing and transforms]
+    P --> O[operators and analysis represented values and diagnostics]
+    M --> A[periodic1d family analyzer]
+    S --> A
+    O --> A
+    A --> R[concrete typed result and verification]
+    R --> C[calculation owner protocol stages provenance and rendering]
 ```
 
 ## Eight separate calculation studies
@@ -65,16 +59,14 @@ status, or claims. The eight studies need not create eight reusable source child
 
 ## Native and formal-certificate wires
 
-```text
-family analyzer ──> native typed binary64 result bytes ──> independent verifier
-                              │                                  │
-                              └── digest-bound outward export ──┘
-                                             │
-                                             ▼
-                              proposition-specific certificate
-                                             │
-                                             ▼
-                                 Formal checker result
+```mermaid
+flowchart LR
+    A[family analyzer] --> B[native typed binary64 result bytes]
+    B --> V[independent verifier]
+    B --> E[digest-bound outward export]
+    V --> E
+    E --> C[proposition-specific certificate]
+    C --> F[Formal checker result]
 ```
 
 Canonical native bytes remain numerical data. Only exact rational values or documented
@@ -82,10 +74,13 @@ outward rational intervals enter exact certificate fields.
 
 ## Common-coordinate rule
 
-```text
-parent space A ──map A──┐
-                        ├── declared common retained coordinates ── comparison
-parent space B ──map B──┘
+```mermaid
+flowchart LR
+    A[parent space A] --> MA[declared map A]
+    B[parent space B] --> MB[declared map B]
+    MA --> C[common retained coordinates]
+    MB --> C
+    C --> Q[comparison]
 ```
 
 Parent matrices are never subtracted directly when their finite spaces, bases, frames,

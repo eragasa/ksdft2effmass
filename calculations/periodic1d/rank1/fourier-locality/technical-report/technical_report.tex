@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{longtable}
@@ -9,142 +9,487 @@
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage[margin=0.85in]{geometry}
 
-\title{Technical Report: Periodic-1D Rank-One Single-Band Fourier Locality}
-\author{Project Koios}
-\date{Provisional non-retained development calculation, 29 October 2026}
+\newcommand{\eref}{E_{\mathrm{ref}}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\C}{\mathbb{C}}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\title{Scalar Fourier Locality as the Rank-One Control for Periodic Hamiltonian Reduction}
+\author{Eugene Joseph M. Ragasa\\De La Salle University, Manila\\\texttt{eugene.ragasa@dlsu.edu.ph}}
+\date{Provisional technical report --- \today}
 
 \begin{document}
 \maketitle
 
+\begin{abstract}
+A finite-range matrix-valued periodic Hamiltonian need not yield a finite-range scalar
+field after spectral reduction to one ordered band.  This report develops that mechanism
+as the rank-one control for the periodic-reduction program supporting the scientific
+lineage of Ragasa2026a.  The exact parent is a four-state nearest-cell Hermitian field;
+the retained scalar Hamiltonian is its lowest ordered eigenvalue.  Because scalar
+$U(1)$ conjugation is identically trivial, this family isolates interpolation,
+Fourier-tail truncation, direct Hermitian fitting, support/error selection, and numerical
+verification without the gauge-dependent represented-operator locality that appears at
+rank two.  Exact finite-transform identities, Hermitian coefficient symmetry, error
+channel separation, Parseval closure, and the equality of uniform transform and
+least-squares routes are stated before numerical evaluation.  Four construction meshes,
+a disjoint 1025-point evaluation inventory, sixteen symmetric supports, and two
+independent approximation routes provide multiple internal benchmarks.  The sampled
+first-to-second gap is $0.37249453282422684\eref$.  Complete-transform interpolation is
+near binary64 roundoff for construction sizes $N\ge64$.  Both approximation routes first
+satisfy the declared $10^{-8}\eref$ application threshold at range $R=11$ on every
+construction mesh, and the passage remains sustained through $R=15$.  At production
+size $N=256$, transform and direct-fit coefficient vectors agree within approximately
+$4.4\times10^{-16}$--$5.4\times10^{-16}\eref$ over the full range inventory.  An
+independent numerical implementation reconstructs the typed result and authenticated
+presentation: all 725 named comparisons pass.  These are provisional finite-control
+results, not continuum convergence, a global gap certificate, material validation,
+publication evidence, or a selected universal hopping range.
+\end{abstract}
+
+\noindent\textbf{Keywords:} Fourier locality; scalar band reduction; hopping truncation;
+periodic interpolation; Hermitian least squares; independent verification
+
 \section{Scientific question and evidence boundary}
 
-For the lowest ordered eigenvalue field of the exact controlled four-state periodic
-parent, how do finite interpolation, deliberate Fourier-support truncation, and direct
-Hermitian scalar fitting behave as the construction mesh and retained hopping range are
-increased?
+For the lowest ordered eigenvalue field of an exact finite-range periodic parent, how do
+finite interpolation, deliberate Fourier-support truncation, and direct Hermitian scalar
+fitting behave as construction resolution and retained hopping range are increased?
 
-This report records a local, non-retained development calculation using the frozen
-finite controls.  The calculation result was reconstructed by the independent verifier,
-all 725 named verification comparisons passed, and the authenticated two-figure
-renderer completed in memory.  No execution directory, sealed evidence package,
-release, publication artifact, continuum result, uncertainty estimate, or material
-validation was created.  The numerical statements below are therefore provisional
-finite-representation results rather than promoted project evidence.
+The question is deliberately narrower than a material tight-binding calculation.  The
+parent is synthetic, one-dimensional, and exactly specified.  The retained object is a
+scalar mathematical Hamiltonian on $\C$, not the four-state parent matrix on $\C^4$.
+The study compares scalar operators only after their state space, momentum convention,
+energy reference, and support convention have been aligned.  It does not invoke Quantum
+ESPRESSO, Wannier90, a material crystal, or a continuum differential operator.
 
-\section{Rank-one structural boundary}
+The present result was calculated once in memory, reconstructed by an independent
+software route, and rendered from a digest-authenticated projection.  No retained
+execution directory, sealed package, release, archival deposit, or publication evidence
+record was created.  Exact rational inputs and mathematical identities are distinguished
+below from sampled binary64 observations.  Passing software checks establish the
+implemented finite contract only.
 
-Let $H(q)\in\mathbb{C}$ be the scalar represented Hamiltonian and let
-$U(q)\in U(1)$.  Scalar multiplication commutes, so
+This report is intended to be an upstream technical record for the scalar-control
+argument in the Ragasa2026a scientific program.  A paper may distill its theory,
+benchmarks, and finite conclusions, but the paper is not the authority for the full
+calculation record.  This statement does not modify the repository's current publication
+allocation ledger or any exact evidence manifest; those remain separate reviewed
+surfaces.
+
+\section{Motivation and literature position}
+
+Localized representations connect reciprocal-space electronic structure to real-space
+Hamiltonians.  Maximally localized Wannier functions provide a systematic treatment for
+isolated and composite bands\cite{marzari1997,souza2001,marzari2012}, while Wannier
+interpolation uses localized real-space information to reconstruct spectral quantities
+on dense reciprocal meshes\cite{yates2007}.  The modern software ecosystem makes these
+ideas practical across a broad range of material calculations\cite{marrazzo2024}.
+Questions of exact compact support and the choice of reduced tight-binding
+representations remain distinct from ordinary interpolation
+accuracy\cite{sathe2024,ghosh2025}.
+
+This study does not reproduce a maximally localized Wannier function (MLWF) calculation
+and does not introduce a localization functional.  Instead, it isolates a smaller
+mathematical fact needed before rank-two gauge comparisons can be interpreted: even when
+the ambient parent has nearest-cell matrix support, a scalar eigenvalue branch obtained
+by diagonalization can have a nontrivial Fourier tail.  Consequently, ``finite-range
+parent'' and ``finite-range reduced scalar band'' are different statements.
+
+The numerical structure is also a controlled instance of trigonometric interpolation
+and spectral truncation\cite{trefethen2000}.  Complete discrete transforms, deliberately
+truncated series, and independently solved least-squares approximations answer different
+questions.  Their discrepancies must be separated rather than collapsed into one error
+number.  Because results near binary64 roundoff are sensitive to arithmetic and
+conditioning, numerical-accuracy claims are interpreted under standard floating-point
+cautions\cite{higham2002}.
+
+The rank-one family has a second role.  In a scalar retained space, internal $U(1)$
+conjugation cannot alter the represented Hamiltonian.  It is therefore a null control
+for the gauge-sensitive matrix locality studied at rank two.  Nontrivial Fourier decay
+in this report is caused by spectral reduction and finite approximation, not by an
+internal gauge attack.
+
+\section{Exact model and state spaces}
+
+\subsection{Ambient parent and scalar retained operator}
+
+Let the ambient finite representation act on the standard basis of $\C^4$:
 \begin{equation}
- U(q)^\dagger H(q)U(q)=H(q)U(q)^\dagger U(q)=H(q).
-\end{equation}
-An internal scalar phase therefore cannot redistribute the represented Hamiltonian
-among Fourier hopping coefficients.  This calculation tests scalar interpolation,
-truncation, and fit behavior.  It does not test the gauge-dependent represented-operator
-locality possible at rank two and above.
-
-\section{Exact parent and finite controls}
-
-The typed parent identity is
-\texttt{ksdft2effmass.periodic1d.controlled-four-state-parent.v1}.  It is bound in the
-configuration wire to
-\begin{equation}
- H(q)=\lambda_0(K(q)),\qquad
  K(q)=T_0+e^{2\pi iq}T_{+1}+e^{-2\pi iq}T_{+1}^{\dagger},
+ \qquad -\tfrac12\le q<\tfrac12.
+ \label{eq:parent}
 \end{equation}
-with
+The exact coefficient matrices, in units of the positive reference energy
+$\eref=1$, are
 \begin{equation}
 T_0=\begin{pmatrix}
--6/5&3/50&0&0\\3/50&-7/20&0&0\\
-0&0&1&1/25\\0&0&1/25&7/4
+-6/5&3/50&0&0\\
+3/50&-7/20&0&0\\
+0&0&1&1/25\\
+0&0&1/25&7/4
 \end{pmatrix},\qquad
 T_{+1}=\begin{pmatrix}
-3/20&0&3/25&0\\0&-1/10&0&1/10\\
-0&0&1/20&0\\0&0&0&-1/25
+3/20&0&3/25&0\\
+0&-1/10&0&1/10\\
+0&0&1/20&0\\
+0&0&0&-1/25
 \end{pmatrix}.
+\label{eq:parent-coefficients}
 \end{equation}
-The entries are exact rational multiples of $E_{\mathrm{ref}}=1$.  Construction sizes
-are $N\in\{32,64,128,256\}$, with $N=256$ designated production.  The evaluation
-inventory contains 1025 points
-\begin{equation}
- q_i=-\frac12+\frac{i+1/257}{1025},\qquad i=0,\ldots,1024,
-\end{equation}
-constructed as exact rationals before conversion to binary64.  Retained ordinary
-supports are $R=0,\ldots,15$.  The sampled-gap threshold is
-$0.25E_{\mathrm{ref}}$, the application error threshold is
-$10^{-8}E_{\mathrm{ref}}$, and the final adjacent-mesh refinement tolerance is
-$10^{-10}$ on the declared channel vector.
+Every entry is exact rational data.  Equation~\eqref{eq:parent} is Hermitian for every
+real $q$, and its ambient Fourier support is exactly contained in
+$\{-1,0,+1\}$.
 
-For each construction mesh, the complete cyclic interpolant $I_N$, transform-mediated
-truncation $T_{N,R}$, and direct Hermitian scalar fit $D_{N,R}$ are compared on the
-disjoint evaluation inventory.  The reported channels include
+Write the ordered eigenvalues as
+\begin{equation}
+ \lambda_0(q)\le\lambda_1(q)\le\lambda_2(q)\le\lambda_3(q).
+\end{equation}
+The retained scalar Hamiltonian is the mathematical field
+\begin{equation}
+ H(q)=\lambda_0(q)\in\mathbb{R},
+ \label{eq:scalar-band}
+\end{equation}
+acting on a one-dimensional retained state space.  It is not a $1\times1$ block copied
+from $K(q)$, and it is not assumed to inherit the ambient nearest-cell support.  The
+eigenvalue definition is backend-independent; a numerical eigensolver only evaluates it
+on declared finite point sets.
+
+The first-to-second sampled gap is
+\begin{equation}
+ \Delta(q)=\lambda_1(q)-\lambda_0(q).
+\end{equation}
+A positive minimum over the declared samples qualifies those samples.  It does not prove
+that $\Delta(q)>0$ for every continuum momentum.
+
+\subsection{Why spectral reduction can create a tail}
+
+The characteristic polynomial
+$\det(K(q)-\lambda I)=0$ has coefficients that are finite trigonometric polynomials in
+$q$, but an ordered root of that polynomial is generally not itself a finite
+trigonometric polynomial.  Thus exact finite matrix support before diagonalization does
+not imply exact finite scalar support after selecting one eigenvalue branch.  The present
+parent was chosen because it preserves compatibility with the rank-two controlled family
+while producing a nontrivial scalar tail.  A direct one-orbital nearest-neighbor scalar
+parent was rejected as the principal benchmark because every range $R\ge1$ would be
+exact and the support study would be nearly trivial.
+
+\subsection{Exact rank-one gauge boundary}
+
+\begin{proposition}[Scalar conjugation invariance]
+For any scalar Hermitian field $H(q)\in\mathbb{R}$ and any phase
+$U(q)\in U(1)$,
+\begin{equation}
+ U(q)^{\dagger}H(q)U(q)=H(q).
+ \label{eq:u1-invariance}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Scalar multiplication commutes and $U(q)^{\dagger}U(q)=1$, so
+$U(q)^{\dagger}H(q)U(q)=H(q)U(q)^{\dagger}U(q)=H(q)$.
+\end{proof}
+
+Equation~\eqref{eq:u1-invariance} excludes separate pointwise-phase, global-phase, and
+known-inverse-phase locality channels.  Emitting them as if they were distinct physical
+calculations would duplicate the same scalar field.  This exact null result is the
+structural bridge to the rank-two study: a momentum-dependent internal unitary can
+redistribute matrix-valued hopping blocks only when the retained rank exceeds one.
+
+\section{Fourier representation and exact finite identities}
+
+\subsection{Momentum and transform convention}
+
+For an even construction size $N$, use the centered half-open mesh
+\begin{equation}
+ q_j=-\frac12+\frac{j}{N},\qquad j=0,\ldots,N-1,
+\end{equation}
+and the centered cyclic representatives
+\begin{equation}
+ \mathcal C_N=\{-N/2,-N/2+1,\ldots,N/2-1\}.
+\end{equation}
+For samples $H_j=H(q_j)$, define
+\begin{equation}
+ t_r^{(N)}=\frac1N\sum_{j=0}^{N-1}H_j e^{-2\pi i q_jr},
+ \qquad r\in\mathcal C_N,
+ \label{eq:forward-transform}
+\end{equation}
+and the complete cyclic interpolant
+\begin{equation}
+ I_N(q)=\sum_{r\in\mathcal C_N}t_r^{(N)}e^{2\pi iqr}.
+ \label{eq:complete-interpolant}
+\end{equation}
+The forward transform carries $1/N$ and the inverse carries no additional factor.
+
+\begin{proposition}[Construction-point closure]
+The complete cyclic interpolant satisfies
+\begin{equation}
+ I_N(q_j)=H_j
+\end{equation}
+for every construction point, in exact arithmetic.
+\end{proposition}
+
+\begin{proof}
+Substituting Equation~\eqref{eq:forward-transform} into
+Equation~\eqref{eq:complete-interpolant} yields the discrete character sum
+\begin{equation*}
+ N^{-1}\sum_{r\in\mathcal C_N}e^{2\pi i(q_j-q_\ell)r},
+\end{equation*}
+which equals one when $j=\ell$ modulo $N$ and zero otherwise.
+\end{proof}
+
+\subsection{Hermitian scalar coefficients}
+
+Because every $H_j$ is real,
+\begin{equation}
+ t_{-r}^{(N)}=\overline{t_r^{(N)}}
+ \label{eq:hermitian-symmetry}
+\end{equation}
+for representatives paired away from the cyclic Nyquist class.  Ordinary symmetric
+supports are therefore
+\begin{equation}
+ \mathcal S_R=\{-R,\ldots,R\},
+\end{equation}
+with $2R+1<N$ in this protocol.  This strict inequality excludes the ambiguous negative
+Nyquist representative from every deliberately truncated model.
+
+The transform-mediated truncation is
+\begin{equation}
+ T_{N,R}(q)=\sum_{r=-R}^{R}t_r^{(N)}e^{2\pi iqr}.
+ \label{eq:truncated-interpolant}
+\end{equation}
+It is a finite-range scalar hopping model.  Its range is an ordinary lattice range, not
+a cyclic distance and not a material length.
+
+\subsection{Separated error channels}
+
+Let $\mathcal E_M$ be the disjoint evaluation inventory.  Define
 \begin{align}
- e_{\mathrm{int}}(N)&=\max_q |H(q)-I_N(q)|,\\
- e_{\mathrm{trunc}}(N,R)&=\max_q |I_N(q)-T_{N,R}(q)|,\\
- e_{\mathrm{med}}(N,R)&=\max_q |H(q)-T_{N,R}(q)|,\\
- e_{\mathrm{dir}}(N,R)&=\max_q |H(q)-D_{N,R}(q)|.
+ e_{\mathrm{int}}(N)&=\max_{q\in\mathcal E_M}|H(q)-I_N(q)|,\\
+ e_{\mathrm{trunc}}(N,R)&=\max_{q\in\mathcal E_M}|I_N(q)-T_{N,R}(q)|,\\
+ e_{\mathrm{med}}(N,R)&=\max_{q\in\mathcal E_M}|H(q)-T_{N,R}(q)|.
+ \label{eq:error-channels}
 \end{align}
-The producer calculates the result once.  Independent verification reconstructs the
-parent eigensystems, Fourier sums, direct least-squares systems, diagnostics, masks,
-threshold decisions, refinement inventory, sampled-gap minimizer, and visualization
-projection without invoking the production analyzer.
-
-\section{Finite numerical results}
-
-\subsection{Sampled gap and qualification disposition}
-
-The minimum sampled first-to-second parent eigenvalue gap was
+The pointwise residual telescopes exactly,
 \begin{equation}
- \Delta_{\min}=0.37249453282422684\,E_{\mathrm{ref}}.
+ H-T_{N,R}=(H-I_N)+(I_N-T_{N,R}),
 \end{equation}
-It occurred on the production construction mesh at index 128, $q=0$.  The value exceeds
-the declared sampled threshold $0.25E_{\mathrm{ref}}$.  This is a qualification over the
-finite sampled inventories only; it is not a global isolation certificate.
+but maxima do not add.  Only the bound
+\begin{equation}
+ e_{\mathrm{med}}(N,R)\le e_{\mathrm{int}}(N)+e_{\mathrm{trunc}}(N,R)
+ \label{eq:triangle}
+\end{equation}
+is implied.  Threshold decisions use the total mediated error, never the truncation
+channel alone.
 
-The first range at which both transform-mediated and direct-fit total maximum errors
-were at or below $10^{-8}E_{\mathrm{ref}}$ was $R=11$ for every construction mesh.
-Passage remained sustained through $R=15$.  The maximum final $N=128$ to $N=256$
-channel change was $6.2211547825082476\times10^{-15}$, below the declared
-$10^{-10}$ tolerance.  The resulting bounded finite qualification disposition was
-\emph{pass}.  That disposition does not imply continuum convergence or scientific
-validation.
+\subsection{Independent direct Hermitian fit}
 
-\subsection{Mesh-dependent interpolation and representation diagnostics}
+The second approximation route solves, with equal positive weights,
+\begin{equation}
+ \min_{a_0,\{a_r,b_r\}}
+ \sum_{j=0}^{N-1}
+ \left|H_j-a_0-
+ \sum_{r=1}^{R}\left(2a_r\cos 2\pi rq_j-2b_r\sin 2\pi rq_j\right)\right|^2.
+ \label{eq:direct-fit}
+\end{equation}
+The fitted coefficients are $d_0=a_0$,
+$d_{+r}=a_r+ib_r$, and $d_{-r}=\overline{d_{+r}}$.  The direct evaluation error is
+\begin{equation}
+ e_{\mathrm{dir}}(N,R)=
+ \max_{q\in\mathcal E_M}|H(q)-D_{N,R}(q)|.
+\end{equation}
+
+\begin{proposition}[Uniform-route equality]
+On the complete uniform construction mesh with equal weights and
+$2R+1<N$, the exact least-squares projection in Equation~\eqref{eq:direct-fit} selects
+the same retained Fourier coefficients as Equation~\eqref{eq:forward-transform} followed
+by symmetric truncation.
+\end{proposition}
+
+\begin{proof}
+The constant, cosine, and sine columns are mutually orthogonal discrete characters on
+the uniform mesh when their frequencies exclude the cyclic Nyquist class.  Orthogonal
+projection onto their span therefore returns the corresponding discrete Fourier
+coefficients.  The real Hermitian parameterization is precisely the conjugate-paired
+form of those coefficients.
+\end{proof}
+
+The implemented direct route nevertheless uses a separate least-squares owner and
+control flow.  Its agreement with transform-mediated truncation is therefore both an
+analytic expectation and a numerical cross-route benchmark.  For $R\ge1$, the exact
+design condition number under the chosen column scaling is $\sqrt2$; the onsite-only
+$R=0$ design has condition number one.
+
+\subsection{Parseval and finite perturbation controls}
+
+On the construction mesh, Parseval orthogonality gives
+\begin{equation}
+ \frac1N\sum_{j=0}^{N-1}|H_j-T_{N,R}(q_j)|^2
+ =\sum_{r\in\mathcal C_N\setminus\mathcal S_R}|t_r^{(N)}|^2.
+ \label{eq:parseval}
+\end{equation}
+The square root of the right-hand side is the omitted-coefficient $L^2$ norm retained by
+the result.  Equation~\eqref{eq:parseval} is a finite-transform identity, not a theorem
+about continuum exponential localization.  Scalar absolute error is also the rank-one
+operator norm error, so no separate matrix-to-band perturbation inequality is needed in
+this control.
+
+\section{Protocol and benchmark design}
+
+\subsection{Frozen finite inventories}
+
+The construction sizes are
+\begin{equation}
+ N\in\{32,64,128,256\},
+\end{equation}
+with $N=256$ designated production.  The evaluation inventory is
+\begin{equation}
+ \widetilde q_i=-\frac12+\frac{i+1/257}{1025},
+ \qquad i=0,\ldots,1024.
+ \label{eq:evaluation-mesh}
+\end{equation}
+All coordinates are formed as exact rational numbers before conversion to binary64.
+Exact rational set comparison establishes that Equation~\eqref{eq:evaluation-mesh} is
+disjoint from every construction mesh.
+
+Every integer range $R=0,\ldots,15$ is evaluated.  The constraint
+$2R+1<32$ ensures that every support is an ordinary conjugate-closed support for every
+construction mesh.  The sampled gap threshold is $0.25\eref$, the application threshold
+is $10^{-8}\eref$, and the final adjacent-mesh refinement tolerance is $10^{-10}$ on the
+declared ordered channel vector.
+
+\subsection{Five complementary benchmarks}
+
+The protocol is not a single threshold check.  It contains five complementary
+benchmarks:
+\begin{enumerate}
+\item \textbf{Structural null benchmark.}  Proposition 1 proves that scalar internal
+  phase rotations cannot alter the represented Hamiltonian.
+\item \textbf{Complete-transform closure benchmark.}  The full $N$-coefficient cyclic
+  transform must reconstruct construction samples and satisfy Hermitian pairing near
+  binary64 roundoff.
+\item \textbf{Mesh-refinement benchmark.}  Interpolation and every support-indexed
+  channel are compared across $32\to64\to128\to256$.
+\item \textbf{Independent-route benchmark.}  Transform-mediated truncation is compared
+  with an independently solved Hermitian least-squares model in coefficient and sampled
+  spaces.
+\item \textbf{Decision benchmark.}  The first jointly passing range, sustained passage,
+  support/error nondominance, and near-tie status are reconstructed independently.
+\end{enumerate}
+These benchmarks separate mathematical structure, transform correctness, discretization
+behavior, algorithmic route agreement, and decision policy.
+
+\subsection{Qualification and decision rules}
+
+The sampled gap gate passes only when the minimum across the production construction
+mesh and common evaluation inventory is strictly above $0.25\eref$.  The application
+decision at range $R$ passes only when both $e_{\mathrm{med}}$ and $e_{\mathrm{dir}}$ are
+at or below $10^{-8}\eref$.  The first passage must remain passing at every larger
+attained range.  The production range/error mask compares $(2R+1,e_{\mathrm{med}})$;
+other diagnostics are not silently substituted as objectives.
+
+No rule in this protocol selects a universal adequate range.  The first-passing result
+belongs to this parent, these meshes, this error metric, and this tolerance.
+
+\subsection{Calculation, verification, and rendering routes}
+
+The producer uses PhysKit complex-Hermitian eigensystems, KSD finite-periodic transform
+and interpolation owners, and the Project Koios Optimization least-squares owner.  It
+returns one immutable typed result containing the parent samples, transform coefficients,
+candidates, errors, norms, conditioning diagnostics, decisions, and refinement ledger.
+
+The independent verifier does not invoke the production analyzer.  It reconstructs the
+parent matrices and eigensystems, all transforms and fits, Parseval channels, sampled gap,
+refinement inventory, masks, passage decision, and visualization projection using direct
+NumPy and SciPy formulas.  The verifier owns the exact admitted result bytes and derives
+the subject Secure Hash Algorithm 256-bit (SHA-256) identity from those bytes.  The
+renderer accepts only passing verification and the exact authenticated projection; it
+calculates no new scientific values.
+
+\section{Finite results}
+
+\subsection{Sampled gap and retained-band qualification}
+
+The minimum sampled first-to-second gap is
+\begin{equation}
+ \Delta_{\min}=0.37249453282422684\eref.
+\end{equation}
+It occurs on the production construction inventory at index 128, $q=0$.  The value is
+above the declared $0.25\eref$ gate.  This establishes only sampled qualification.  It
+is not a global isolation certificate and carries no uncertainty interval between
+samples.
+
+\subsection{Complete-transform closure and interpolation}
 
 \begin{table}[htbp]
 \centering
-\caption{Finite construction-mesh diagnostics in units of $E_{\mathrm{ref}}$.}
-\begin{tabular}{rrrrrr}
+\caption{Complete-transform and interpolation benchmark.  Energy-valued columns use
+units of $\eref$.}
+\label{tab:mesh}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{rrrrrrr}
 \toprule
-$N$ & reconstruction max. & Hermiticity max. & interpolation max. & interpolation RMS & first pass \\
+$N$ & reconstruction max. & Hermiticity max. & interpolation max. & interpolation RMS & first pass & sustained \\
 \midrule
-32  & $4.441\times10^{-16}$ & $1.310\times10^{-18}$ & $2.234057\times10^{-11}$ & $1.077042\times10^{-11}$ & 11 \\
-64  & $4.449\times10^{-16}$ & $9.136\times10^{-18}$ & $8.882\times10^{-16}$ & $2.903\times10^{-16}$ & 11 \\
-128 & $4.458\times10^{-16}$ & $1.676\times10^{-17}$ & $1.110\times10^{-15}$ & $3.052\times10^{-16}$ & 11 \\
-256 & $6.670\times10^{-16}$ & $2.815\times10^{-17}$ & $8.882\times10^{-16}$ & $3.121\times10^{-16}$ & 11 \\
+32  & $4.441\times10^{-16}$ & $1.310\times10^{-18}$ & $2.234057\times10^{-11}$ & $1.077042\times10^{-11}$ & 11 & yes \\
+64  & $4.449\times10^{-16}$ & $9.136\times10^{-18}$ & $8.882\times10^{-16}$ & $2.903\times10^{-16}$ & 11 & yes \\
+128 & $4.458\times10^{-16}$ & $1.676\times10^{-17}$ & $1.110\times10^{-15}$ & $3.052\times10^{-16}$ & 11 & yes \\
+256 & $6.670\times10^{-16}$ & $2.815\times10^{-17}$ & $8.882\times10^{-16}$ & $3.121\times10^{-16}$ & 11 & yes \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The interpolation maximum fell from $2.234057\times10^{-11}$ at $N=32$ to values near
-binary64 roundoff for $N\ge64$.  The adjacent-mesh maximum channel changes for
-$32\rightarrow64$, $64\rightarrow128$, and $128\rightarrow256$ were respectively
+The $N=32$ complete interpolant differs from the exact parent evaluation by
+$2.2340573835322175\times10^{-11}\eref$.  For $N\ge64$, the interpolation maximum is
+near binary64 roundoff.  Complete construction reconstruction remains below
+$6.67\times10^{-16}\eref$ for all four meshes.  These two statements answer different
+questions: transform closure checks the finite discrete transform on its own nodes,
+whereas interpolation compares that transform with newly evaluated parent values on a
+disjoint mesh.
+
+The maximum changes in the full ordered refinement channel vector are
 $2.2339685656902475\times10^{-11}$, $4.17817502814292\times10^{-15}$, and
-$6.2211547825082476\times10^{-15}$.  These are finite adjacent-mesh diagnostics, not a
-continuum error estimate.
+$6.2211547825082476\times10^{-15}$ for the three adjacent mesh pairs.  The final value
+passes the $10^{-10}$ refinement gate.  The observed nonmonotone last digits are
+roundoff-scale behavior, not evidence of asymptotic order.
 
-Every attained production support was nondominated under the declared
-$(R,e_{\mathrm{med}})$ ordering because the mediated total maximum error decreased
-strictly over $R=0,\ldots,15$.  No production supports formed a near-tie under the
-mixed $10^{-12}$ comparison rule.
+\subsection{Threshold-adjacent route comparison}
 
-\subsection{Production support and error table}
+\begin{table}[htbp]
+\centering
+\caption{Joint first-passage values at $R=11$ for every construction mesh, in units of
+$\eref$.}
+\label{tab:first-pass}
+\begin{tabular}{rrrrr}
+\toprule
+$N$ & mediated total maximum & direct total maximum & coefficient defect & design condition \\
+\midrule
+32  & $9.1053783402\times10^{-9}$ & $9.1053777851\times10^{-9}$ & $7.975\times10^{-16}$ & $\sqrt2$ \\
+64  & $9.1054125351\times10^{-9}$ & $9.1054129792\times10^{-9}$ & $7.995\times10^{-16}$ & $\sqrt2$ \\
+128 & $9.1054123130\times10^{-9}$ & $9.1054127571\times10^{-9}$ & $2.912\times10^{-16}$ & $\sqrt2$ \\
+256 & $9.1054123130\times10^{-9}$ & $9.1054128681\times10^{-9}$ & $4.783\times10^{-16}$ & $\sqrt2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At $R=10$, the production mediated and direct maxima are respectively
+$3.164490658402741\times10^{-8}\eref$ and
+$3.164490702811662\times10^{-8}\eref$, so both fail.  At $R=11$, both pass as shown in
+Table~\ref{tab:first-pass}.  Every larger attained range passes.  The threshold crossing
+is therefore bracketed by an explicit failing predecessor and a passing selected range
+on every construction mesh.
+
+\subsection{Complete production range study}
 
 \begingroup
 \small
 \setlength{\tabcolsep}{4pt}
 \begin{longtable}{r@{\quad}rrrrr}
-\caption{Production $N=256$ range diagnostics in units of $E_{\mathrm{ref}}$.  Displayed values are rounded; typed result bytes retain binary64 values.}\\
+\caption{Production $N=256$ range diagnostics in units of $\eref$.  Displayed values are
+rounded; the typed result retains binary64 values.}
+\label{tab:range}\\
 \toprule
 $R$ & $e_{\mathrm{trunc}}$ & $e_{\mathrm{med}}$ & $e_{\mathrm{dir}}$ & omitted $L^2$ & coefficient defect $L^2$ \\
 \midrule
@@ -173,72 +518,183 @@ $R$ & $e_{\mathrm{trunc}}$ & $e_{\mathrm{med}}$ & $e_{\mathrm{dir}}$ & omitted $
 \end{longtable}
 \endgroup
 
-At $R=10$, both total maximum errors remained above the application threshold.  At
-$R=11$, the mediated and direct values were respectively
-$9.105412313026306\times10^{-9}$ and
-$9.105412868137819\times10^{-9}$, producing the first joint passage.  The direct and
-transform-mediated coefficient vectors agreed to approximately
-$4.4\times10^{-16}$--$5.4\times10^{-16}$ in $L^2$ over the production range inventory;
-the maximum sampled route defect was $1.5544\times10^{-15}E_{\mathrm{ref}}$.  This
-agreement is specific to the finite scalar control and the implemented binary64 routes.
+The range-zero approximation retains only the mean and has error
+$2.969489539542949\times10^{-1}\eref$.  Adding the first neighbor reduces the error by
+nearly two orders of magnitude.  Thereafter the tail decreases regularly over the
+attained inventory.  The final range-15 mediated error is
+$5.3227644514208805\times10^{-11}\eref$; it is not zero because the reduced scalar band
+is not a finite-range trigonometric polynomial on the evidence available here.
 
-The complete production coefficient magnitudes were symmetric to numerical precision.
-The dominant values were $|t_0|=1.2116915623409472E_{\mathrm{ref}}$ and
-$|t_{\pm1}|\approx0.1480688936028328E_{\mathrm{ref}}$.  Magnitudes then decreased from
-$5.295039809188736\times10^{-4}$ at $|R|=2$ to approximately
-$7.26\times10^{-11}$ at $|R|=15$.  The largest production Parseval absolute residual
-across the retained ranges was $1.3877787807814457\times10^{-17}E_{\mathrm{ref}}^2$.
+Every attained production support is nondominated under the declared
+$(2R+1,e_{\mathrm{med}})$ ordering because error decreases strictly as complexity
+increases.  No attained production supports form a near-tie under the mixed
+$10^{-12}$ rule.  This describes the finite inventory; it does not extrapolate the decay
+law beyond $R=15$.
 
-\section{Authenticated provisional figures}
+\section{Diagnostic interpretation}
 
-Figures~\ref{fig:locality} and~\ref{fig:routes} render only the authenticated projection
-from the passing in-memory verification.  They are retained here as provisional report
-illustrations, not as an execution package, sealed evidence, or publication figure set.
+\subsection{Coefficient decay, bandwidth, and curvature}
+
+The complete production coefficients are conjugate symmetric near numerical precision.
+The dominant magnitudes are
+$|t_0|=1.2116915623409472\eref$ and
+$|t_{\pm1}|\approx0.1480688936028328\eref$.  Magnitudes then fall from
+$5.295039809188736\times10^{-4}\eref$ at $|r|=2$ to approximately
+$7.26\times10^{-11}\eref$ at $|r|=15$.  This observed decay explains why the first
+neighbor captures most of the bandwidth while the $10^{-8}\eref$ criterion requires a
+substantially longer tail.
+
+At $R=15$, the production truncated scalar bandwidth is
+$0.5915561172409006\eref$, and the zone-center second derivative with respect to reduced
+momentum is $-11.291449177405108\eref$.  These are representation diagnostics of the
+finite scalar model.  They are not physical velocity, effective mass, or material
+curvature because no reciprocal-length or particle-mass convention is supplied.
+
+\subsection{Parseval and real-valued closure}
+
+The largest production Parseval absolute residual across all ranges is
+$1.3877787807814457\times10^{-17}\eref^2$.  The largest imaginary residual in the
+range-15 production interpolant is
+$8.414211492160626\times10^{-17}\eref$.  Together with the Hermiticity defects in
+Table~\ref{tab:mesh}, these checks show that the finite transform, conjugate pairing, and
+omitted-power accounting close at the expected floating-point scale.
+
+Parseval closure does not establish that the chosen support is scientifically adequate.
+It establishes that the omitted coefficient norm and construction-space residual are
+consistent under the declared finite transform.
+
+\subsection{Route agreement and what it rules out}
+
+Across the production range inventory, transform and direct-fit coefficient defects are
+approximately $4.4\times10^{-16}$--$5.4\times10^{-16}\eref$.  The maximum production
+construction-sample route defect remains below $1.56\times10^{-15}\eref$.  All direct
+designs are full rank; their condition numbers are one at $R=0$ and approximately
+$\sqrt2$ for $R\ge1$.
+
+This agreement rules out a gross implementation disagreement between the discrete
+transform truncation and the independent Hermitian regression parameterization.  It does
+not constitute independent experimental evidence: both routes use the same parent
+samples, binary64 arithmetic, and development environment.
+
+\section{Authenticated figures}
+
+Figures~\ref{fig:locality} and~\ref{fig:routes} are retained from the verifier-authenticated
+projection.  They summarize the numerical record but do not own values independently of
+the typed result and verification.
 
 \begin{figure}[p]
 \centering
 \includegraphics[width=\textwidth,height=0.90\textheight,keepaspectratio]{rank1-fourier-locality.png}
-\caption{Authenticated finite rank-one Fourier-locality projection.  The eight panels
-show the sampled parent bands; evaluation and production sampled gaps with their finite
-threshold; complete production coefficient decay; interpolation and adjacent-mesh
-refinement; production truncation, mediated-total, and direct-total errors; omitted
-coefficient norms; attained support/error masks; and first sustained threshold passage.
-All quantities are finite binary64 diagnostics.}
+\caption{Authenticated rank-one Fourier-locality benchmark.  The panels report the
+parent bands, sampled gap gates, complete coefficient decay, interpolation and
+adjacent-mesh refinement, production error channels, omitted norms, attained
+support/error decisions, and first sustained threshold passage.  Lines between sampled
+points guide the eye and are not continuous-domain certificates.}
 \label{fig:locality}
 \end{figure}
 
 \begin{figure}[p]
 \centering
 \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{rank1-fourier-route-agreement.png}
-\caption{Authenticated finite route-agreement projection.  The upper panels show the
-coefficient-vector and construction-sample defects between transform-mediated and direct
-Hermitian fits.  The lower panels show the two total-error routes and the declared
-$10^{-8}E_{\mathrm{ref}}$ application threshold.}
+\caption{Authenticated independent-route benchmark.  The upper panels show coefficient
+and construction-sample defects between transform-mediated truncation and the direct
+Hermitian fit.  The lower panels compare total evaluation errors with the declared
+$10^{-8}\eref$ threshold.}
 \label{fig:routes}
 \end{figure}
 \clearpage
 
 \section{Independent verification and authenticated presentation}
 
-The byte-owning verifier reconstructed the typed result from the same immutable bytes
-used for its subject SHA-256.  It independently regenerated the exact evaluation
-coordinates, bound parent identity, parent spectra, complete Fourier coefficients,
-truncated and direct candidates, error and norm diagnostics, design ranks and condition
-numbers, Pareto and near-tie masks, first and sustained passage, max/RMS triangle checks,
-refinement labels and values, sampled-gap minimizer and threshold side, finite
-qualification disposition, and every field of the visualization projection.
+The byte-owning verifier reconstructs the exact typed result from the same immutable
+bytes used for the subject digest.  It independently regenerates:
+\begin{itemize}
+\item exact-rational mesh inventories and their disjointness;
+\item bound parent coefficients, Hermitian fibers, ordered eigensystems, and both sampled
+  bands;
+\item complete transforms, coefficient pairing, construction reconstruction, and
+  disjoint-mesh interpolation;
+\item every truncated and directly fitted candidate on construction and evaluation
+  inventories;
+\item maximum and root-mean-square error channels, omitted norms, Parseval values,
+  bandwidths, curvatures, imaginary residuals, design ranks, and condition numbers;
+\item coefficient and sampled route defects;
+\item sampled-gap minimizer, adjacent-mesh refinement ledger, nondominated and near-tie
+  masks, first joint passage, and sustained-passage disposition; and
+\item every field in the authenticated visualization projection.
+\end{itemize}
 
-All 725 named observations passed.  The largest observed discrepancy was
-$9.672262990534364\times10^{-12}$; its comparison remained within the applicable mixed
-tolerance, and the largest tolerance in the aggregate was
-$1.2691051231735601\times10^{-11}$.  A passing software/numerical aggregate verifies the
-declared finite operations and correlations only.  It does not establish a Formal
-certificate or scientific validation.
+All 725 named observations passed.  The maximum observed discrepancy was
+$9.672262990534364\times10^{-12}$; it remained within its applicable mixed tolerance.
+The maximum tolerance in the aggregate was
+$1.2691051231735601\times10^{-11}$.  The result, verification aggregate, and
+visualization projection survive canonical byte-identical JavaScript Object Notation
+(JSON) round trips.
 
-The authenticated renderer produced the two PNG values embedded in
-Figures~\ref{fig:locality} and~\ref{fig:routes}.  Their exact bytes are retained only as
-technical-report review illustrations.  They were not copied into a retained execution,
-sealed evidence package, or publication asset inventory.
+The independent route does not call the production analyzer or deserialize a historical
+campaign result.  It shares binary64 arithmetic, NumPy/SciPy lineage, and the same local
+machine.  It is therefore producer-independent software reconstruction, not an
+independent physical experiment, alternative precision study, or different-hardware
+reproduction.
+
+\section{Relation to the rank-two program and Ragasa2026a}
+
+The scalar control supplies three pieces of upstream scientific support.
+
+First, it establishes the nontrivial baseline: spectral reduction of a nearest-cell
+four-state parent can produce a scalar Fourier tail even when internal gauge action is
+trivial.  A rank-two claim that a momentum-dependent frame redistributes represented
+matrix locality must therefore separate ordinary spectral-reduction tails from genuine
+frame dependence.
+
+Second, it qualifies the common numerical machinery---centered transforms, ordinary
+support conversion, disjoint evaluation, deliberate truncation, direct fitting,
+first-passage decisions, and independent reconstruction---without a non-Abelian
+alignment variable.  Failures at rank two can then be diagnosed against a scalar null
+control rather than attributed immediately to gauge structure.
+
+Third, it provides a complete error-versus-range record from which a paper can distill
+only the comparisons relevant to its argument.  The technical report intentionally
+contains more derivation, channel definition, benchmark detail, and provenance than a
+journal manuscript should carry.
+
+The present calculation is not automatically publication evidence for Ragasa2026a.
+Exact publication use requires the maintained allocation ledger and evidence manifests
+to bind the intended result bytes.  The retained Mathieu1D scalar precursor and this
+controlled-four-state scalar family remain scientifically distinct; neither identity is
+silently substituted for the other.
+
+\section{Discussion}
+
+\subsection{What the finite study demonstrates}
+
+Within the declared inventories, three conclusions are strongly supported.  The reduced
+scalar band has a rapidly decreasing but nonzero resolved Fourier tail.  Construction
+sizes $N\ge64$ agree on the disjoint evaluation inventory near binary64 roundoff.  Two
+mathematically equivalent but separately implemented approximation routes give the same
+first-passing support and agree in coefficients and samples near roundoff.
+
+The first-passing value $R=11$ should be read as a controlled decision, not an intrinsic
+localization length.  If the application threshold, parent, norm, mesh, or support rule
+changes, the selected range may change.  The table is more informative than the single
+selection because it preserves the complete finite tradeoff.
+
+\subsection{Why the rank-one result is scientifically useful}
+
+The exact $U(1)$ null result prevents a conceptual category error.  Scalar Fourier
+locality can be nontrivial without being gauge-sensitive.  At rank two, by contrast,
+pointwise unitary similarity preserves complete spectra while changing the matrix field
+whose Fourier coefficients are truncated.  The scalar study therefore identifies which
+parts of the later methodology are common numerical infrastructure and which require a
+higher-rank state-space action.
+
+\subsection{Why the evidence remains provisional}
+
+The evaluation mesh is dense relative to the construction meshes, but it is still
+finite.  No analytic strip, derivative bound, interval enclosure, or arbitrary-precision
+study converts sampled gap or error statements into continuum theorems.  The refinement
+ladder shows finite stability under its declared channels; it does not quantify model or
+roundoff uncertainty.  No external code or retained execution reproduces the result.
 
 \section{Provisional provenance}
 
@@ -246,10 +702,10 @@ The development calculation used branch
 \nolinkurl{work/periodic1d-rank1-control-v3} at base revision
 \nolinkurl{bc1601f3a50dda19b994eea474ca522f2d836c26} in a dirty worktree.  Runtime on the
 local development machine was approximately 1.12 seconds for calculation, 0.19 seconds
-for independent verification, and 0.88 seconds for rendering.  Timings are descriptive,
-not benchmarks.
+for independent verification, and 0.88 seconds for rendering.  These timings are
+descriptive, not benchmarks.
 
-Exact SHA-256 identities from this non-retained development calculation were:
+Exact SHA-256 identities from the non-retained development calculation were:
 \begin{itemize}
 \item configuration bytes: \nolinkurl{5c9beb47eefe9749a249a74545a25c7ef8d3dd6eafec658d23dfbee574ace173};
 \item result bytes: \nolinkurl{3f24fbf6bd6d85040e98481b0487407932f43a70dd04690417396a50797fad2b};
@@ -258,23 +714,96 @@ Exact SHA-256 identities from this non-retained development calculation were:
 \item locality report PNG: \nolinkurl{df7032249383521b91012d18ef83025a72e6333b387e6b97b9acc898b2fdff62};
 \item route-agreement report PNG: \nolinkurl{c95f9ab1289baefffba637197d40218324f46c9b2b18476a8bccf2067352cf07}.
 \end{itemize}
-These hashes identify the exact development bytes only.  They do not seal, promote, or
-publish them.  No retained result or verification file currently exists in the
-repository.
+SHA-256 establishes exact byte identity only.  It does not establish scientific
+validity, authorship, publication, archival retention, release, or sealing.  No retained
+result or verification file for this family exists in the repository.
 
-\section{Conclusions and limitations}
+\section{Limitations and nonclaims}
 
-Within the declared finite binary64 control, the lowest eigenvalue field has a rapidly
-decreasing scalar Fourier tail, construction meshes $N\ge64$ agree on the evaluation
-inventory near roundoff, and both retained approximation routes first satisfy the
-$10^{-8}E_{\mathrm{ref}}$ application threshold at $R=11$.  The sampled gap and final
-adjacent-mesh stability gates pass, and all attained production supports are
-nondominated because error decreases strictly with range.
+This report does not establish:
+\begin{itemize}
+\item a continuum limit or a globally certified isolated band;
+\item an exponential-decay rate or a compact-support theorem for the scalar band;
+\item uncertainty quantification or a forward-error bound for every reported digit;
+\item material applicability, physical hopping lengths, effective masses, or velocities;
+\item higher-rank gauge behavior, topology, or a Wannier-spread minimum;
+\item adequacy of range 11 for another parent, tolerance, norm, or observable;
+\item publication acceptance, retained evidence, release, or sealing; or
+\item a Project Koios--Formal certificate.
+\end{itemize}
+These exclusions are part of the scientific result boundary, not boilerplate.  Each
+would require additional definitions, controls, or protected actions.
 
-These conclusions are deliberately bounded.  They do not establish a continuum limit,
-a global isolated band, uncertainty quantification, higher-rank gauge behavior,
-material applicability, publication acceptance, evidence sealing, or a Project
-Koios--Formal proposition.  Retention or promotion requires a separately authorized
-direct execution and the repository's provenance and sealing gates.
+\section{Conclusions}
+
+The rank-one controlled-four-state study is a substantive scientific control rather than
+a trivial scalar example.  Its exact contribution is to separate three mechanisms:
+finite-range ambient matrix structure, spectral reduction to a scalar eigenvalue field,
+and finite approximation of that scalar field.  Internal scalar gauge action is exactly
+inert, but the reduced band develops a resolved Fourier tail.
+
+The finite calculation then exercises a complete methodology: four construction meshes,
+a disjoint evaluation inventory, sixteen ordinary supports, transform and direct-fit
+routes, gap and refinement gates, full error-channel accounting, decision reconstruction,
+and authenticated presentation.  The sampled gap passes, complete interpolation is
+roundoff-scale for $N\ge64$, both routes first pass at $R=11$, and 725 independent
+comparisons pass.
+
+This complete record is the level from which publication prose should be distilled.  A
+paper may emphasize the scalar null boundary and selected range comparisons, but it
+should not be the sole location of the supporting theory, benchmarks, diagnostics, and
+provenance.
+
+\appendix
+
+\section{Frozen control inventory}
+
+\begin{table}[htbp]
+\centering
+\caption{Declared controls for the provisional finite calculation.}
+\begin{tabular}{ll}
+\toprule
+Control & Value \\
+\midrule
+Parent identity & \code{controlled-four-state-parent.v1} \\
+Ambient / retained dimensions & $4/1$ \\
+Construction sizes & $32,64,128,256$ \\
+Production construction size & $256$ \\
+Evaluation size & $1025$ \\
+Evaluation shift & $1/257$ of one evaluation step \\
+Ranges & $0,1,\ldots,15$ \\
+Sampled gap threshold & $0.25\eref$ \\
+Application threshold & $10^{-8}\eref$ \\
+Energy absolute tolerance & $10^{-12}\eref$ \\
+Relative tolerance & $10^{-12}$ \\
+Squared-energy tolerance & $10^{-12}\eref^2$ \\
+Dimensionless tolerance & $10^{-12}$ \\
+Final refinement tolerance & $10^{-10}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Interpretation map}
+
+\begin{center}
+\begin{tabular}{p{0.25\textwidth}p{0.31\textwidth}p{0.34\textwidth}}
+\toprule
+Object & What it establishes & What it does not establish \\
+\midrule
+Exact parent coefficients & Finite matrix family and units & Material parametrization \\
+Scalar $U(1)$ proposition & No internal scalar gauge redistribution & Higher-rank gauge behavior \\
+Complete reconstruction & Discrete transform closure & Evaluation accuracy \\
+Disjoint interpolation & Sampled off-grid agreement & Continuum convergence \\
+Omitted $L^2$ norm / Parseval & Finite coefficient-power accounting & Application adequacy \\
+First joint passage & Decision under declared threshold & Universal hopping range \\
+Independent verification & Separate software reconstruction & Independent physical experiment \\
+SHA-256 digest & Exact byte identity & Scientific validity or sealing \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\footnotesize
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}

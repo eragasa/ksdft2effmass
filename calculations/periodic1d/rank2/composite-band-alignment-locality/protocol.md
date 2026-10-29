@@ -2,10 +2,11 @@
 
 ## Status
 
-This is the publication-independent prospective successor to the historical Conference
-Paper 1 `M2` protocol. It freezes the parity-preserving scientific and numerical meaning
-needed for migration, but it is not yet an immutable experiment version and records no
-new run or evidence.
+This is the publication-independent direct successor to the historical Conference Paper
+1 `M2` protocol. It freezes the parity-preserving scientific and numerical meaning
+implemented by the typed calculate → independently verify → authenticated render
+lifecycle. It is not an immutable experiment version and records no new retained run or
+evidence.
 
 The historical files and checksums under
 `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/` remain unchanged.
@@ -18,8 +19,11 @@ reciprocal point, the lowest two ordered eigenstates define the retained rank-tw
 spectral space. The protocol requires the retained/excluded finite-mesh gap to exceed
 the declared energy threshold.
 
-Every represented operator records its ambient basis, retained frame, right-action
-convention, energy unit, reciprocal coordinate, and energy reference. Operators are
+The ambient basis is the ordered four-state coefficient basis shown in the typed
+configuration. Retained frames contain the lowest two ordered eigenvectors as columns;
+unitaries act on their right. Energies and hopping blocks use the dimensionless reference
+energy `E_ref`, the energy zero is the exact parent onsite convention, and reduced
+momenta use reciprocal period one on the centered half-open interval. Operators are
 compared only after their state spaces are explicitly aligned.
 
 ## Sample roles
@@ -64,10 +68,12 @@ substituted.
 4. Select a distinct Procrustes transformation at every construction point.
 5. Separately select one unitary from the equal-weight ordered aggregate covariance.
 
-For both Procrustes families, the candidate acts on the right toward the reference. The
-owner or temporary local implementation must determine numerical rank from a disclosed
-cutoff and reject a rank-deficient covariance without returning a transformation. No
-null-space completion is part of this protocol.
+For both Procrustes families, the candidate acts on the right toward the reference.
+Optimization combines absolute cutoff `1e-14` and relative cutoff `1e-12` using the
+maximum rule. A covariance is full rank only when both singular values exceed the
+applied cutoff. A rank-deficient covariance is rejected without returning a
+transformation; no null-space completion is part of this protocol. Backend-validation
+absolute tolerance is `1e-12` and relative tolerance is zero.
 
 Pointwise and one-global-unitary alignment are different feasible families. Neither is
 presented as an approximation to the other.
@@ -80,16 +86,44 @@ pointwise-aligned represented paths using the declared finite positive-exponent
 convention. Retain complete block families and reconstruct each source path before
 truncation.
 
+Convert each even cyclic transform to an ordinary integer-lattice inventory before
+range truncation. Remove only the negative Nyquist representative `-32` and report its
+normalized conversion power
+
+\[
+P_{c,\mathrm{Nyq}}=\frac{\lVert t_{c,-32}\rVert_F^2}{2E_\mathrm{ref}^2}.
+\]
+
+This conversion power is not an off-node spectral error and is not silently pooled with
+ordinary support deletion. The complete ordinary inventory is `-31, …, 31`.
+
+On the disjoint evaluation mesh, let `h_c^ord` be the complete ordinary interpolant,
+`h_c^(R)` its symmetric range truncation, and `h_c^dir` the directly evaluated channel
+field. The reference and pointwise direct fields are the complete ordinary reference
+field. The attacked direct field is obtained by applying the declared analytic attack to
+that reference field at each evaluation point. Report separately:
+
+- interpolation: `h_c^ord - h_c^dir`;
+- deliberate truncation: `h_c^(R) - h_c^ord`; and
+- total consequence: `h_c^(R) - h_c^dir`.
+
+Each channel retains the maximum normalized Frobenius residual
+`||Δh||_F / (sqrt(2) E_ref)` and the maximum sorted two-band residual. These maxima are
+not added as independent scalar errors; only the corresponding pointwise triangle
+inequality is available.
+
 Apply symmetric hopping ranges `0, 1, 2, 3, 4, 6, 8`. For each range and channel,
-retain omitted complete-block norms and maximum construction/evaluation spectral errors.
-Locality and truncation are frame-dependent diagnostics, not invariant physical
-observables.
+retain the ordinary omitted-block L2 norm, construction total spectral error, and the
+disjoint-evaluation truncation and total Hamiltonian and spectral errors. Locality,
+conversion, interpolation, and truncation are frame-dependent diagnostics, not
+invariant physical observables.
 
 ## Independent verification
 
 The producer-independent verifier must reconstruct the parent samples, frame/projector
-diagnostics, attack, alignment objectives, represented operators, Fourier blocks,
-truncations, and evaluation errors without calling the producer Action or an owner
+diagnostics, attack, alignment objectives, represented operators, cyclic and ordinary Fourier blocks, conversion power,
+direct evaluation fields, truncations, and separated interpolation/truncation/total
+Hamiltonian and spectral errors without calling the producer Action or an owner
 alignment solver. It must independently establish that every accepted pointwise and
 aggregate covariance is numerically full rank under the retained cutoff.
 
@@ -99,16 +133,18 @@ material validity, uncertainty bounds, or scientific acceptance.
 
 ## Migration and evidence gates
 
+The source lifecycle now closes strict typed configuration, result, verification, and
+visualization field inventories; canonical typed JSON; owner dependencies; independent
+reconstruction; and direct effect adapters. It does not create a schema-v1 compatibility
+artifact or decode historical campaign bytes at runtime.
+
 Before assigning `.v1` or retaining a maintained run:
 
-1. close strict input, result, and verification schemas;
-2. freeze canonical serialization and method identities;
-3. bind exact owner and experiment dependencies;
-4. replace temporary numerical selection mechanisms where reviewed owner contracts fit,
-   without forwarding facades;
-5. migrate the historical 64/257 regression consumer to the maintained result contract;
-6. define evidence retention and failure policy; and
-7. obtain separate execution authorization.
+1. complete independent source and scientific-protocol review;
+2. define the retained execution and evidence-sealing policy;
+3. keep historical M2 and monograph publication references bound to their exact bytes;
+4. migrate M3 consumers separately before retiring the live M2 source package; and
+5. obtain explicit retained-execution authorization.
 
 Open owner replacements are tracked as
 [`TECH_DEBT`](../../../../docs/tasks/tech_debt/composite-band-alignment-and-locality/index.md).

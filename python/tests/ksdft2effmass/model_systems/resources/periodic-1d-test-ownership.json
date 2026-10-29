@@ -84,6 +84,41 @@
       "evidence_class": "numerical_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DFourierLocalityVerifier"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/composite_band_alignment/test__Periodic1DCompositeBandAlignmentAnalyzer.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeBandAlignmentAnalyzer"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/composite_band_alignment/test__Periodic1DCompositeBandAlignmentConfiguration.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeBandAlignmentConfiguration"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/composite_band_alignment/test__Periodic1DCompositeBandAlignmentDirectScripts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeBandAlignment direct scripts"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/composite_band_alignment/test__Periodic1DCompositeBandAlignmentPublicSurface.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DCompositeBandAlignment public surface"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/composite_band_alignment/test__Periodic1DCompositeBandAlignmentVerifier.py",
+      "mode": "class_owned",
+      "evidence_class": "numerical_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DCompositeBandAlignmentVerifier"
     }
   ]
 }

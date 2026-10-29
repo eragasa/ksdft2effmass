@@ -1,0 +1,46 @@
+"""Tests for direct composite-alignment public ownership and donor isolation."""
+
+import ast
+from pathlib import Path
+
+import pytest
+
+import ksdft2effmass.periodic1d as periodic1d
+from ksdft2effmass.periodic1d import composite_band_alignment
+
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
+
+
+class TestPeriodic1DCompositeBandAlignmentPublicSurface:
+    """Establish explicit exports and prohibit predecessor runtime dependencies."""
+
+    def test__package__exports_every_declared_public_class(self) -> None:
+        for name in composite_band_alignment.__all__:
+            assert getattr(periodic1d, name) is getattr(composite_band_alignment, name)
+
+    def test__source__does_not_import_predecessor_or_calculation_workflows(
+        self,
+    ) -> None:
+        package = Path(composite_band_alignment.__file__).resolve().parent
+        forbidden = (
+            "ksdft2effmass.periodic1d.multiband_alignment",
+            "ksdft2effmass.campaigns.periodic_1d",
+            "workflow",
+        )
+
+        for path in package.glob("*.py"):
+            source = path.read_text(encoding="utf-8")
+            tree = ast.parse(source, filename=str(path))
+            modules = {
+                node.module
+                for node in ast.walk(tree)
+                if isinstance(node, ast.ImportFrom) and node.module is not None
+            } | {
+                alias.name
+                for node in ast.walk(tree)
+                if isinstance(node, ast.Import)
+                for alias in node.names
+            }
+            assert all(
+                not any(token in module for token in forbidden) for module in modules
+            )

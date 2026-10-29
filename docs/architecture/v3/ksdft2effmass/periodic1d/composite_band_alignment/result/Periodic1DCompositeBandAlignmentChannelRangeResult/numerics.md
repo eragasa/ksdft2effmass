@@ -1,0 +1,3 @@
+# Numerical contract
+
+All six stored values are finite nonnegative scalar quantities. The ordinary omitted-block L2 norm and sorted-band errors use the model energy-reference scale. Hamiltonian errors are maximum Frobenius residuals normalized by square-root retained rank and reference energy. Truncation compares the finite-range ordinary model with its complete ordinary interpolant; total compares it with the direct channel field. These maxima are not added or interpreted as independent random errors.

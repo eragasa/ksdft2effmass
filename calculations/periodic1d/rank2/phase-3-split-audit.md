@@ -145,7 +145,7 @@ means exact historical bytes remain references but are not runtime inputs.
 | Reference, attacked, pointwise-aligned represented operators | Adopted with explicit state-space alignment and separate channels. | Reference/comparison channels adapted; pointwise-aligned output rejected. |
 | Complete Fourier block families and reconstruction | Adopted for reference, attacked, and pointwise channels. | Adapted for reference/comparison families with explicit cyclic/Nyquist handling. |
 | Ranges `0,1,2,3,4,6,8` and 64/257 construction/evaluation roles | Adopted exactly for composite parity. | Rejected as controls; the band-equivalence family owns dense cutoffs, refinement meshes, and its disjoint evaluation rule. |
-| Omitted-block norms and construction/evaluation spectral errors | Adopted with composite channel names. | Adapted into separately reported interpolation, truncation, cyclic conversion, Hamiltonian, and sorted-band consequences. |
+| Omitted-block norms and construction/evaluation spectral errors | Adapted into explicit cyclic-conversion power, ordinary omitted-block norms, and separately reported interpolation, truncation, and total Hamiltonian and sorted-band consequences. | Adapted independently into the band-equivalence family's corresponding channels and controls. |
 | Schema-v1 result and object-input verifier | Provenance-only; replaced by canonical typed bytes and a byte-owning verifier. | Provenance-only. |
 | Historical result, verification, CSV, and PNG | Provenance-only parity references. | Provenance-only donor references; never relabeled as band-equivalence results. |
 

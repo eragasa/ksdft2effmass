@@ -29,15 +29,45 @@ Baseline source revision:
 - [x] Classify the live and historical M2 fields and diagnostics as adopted, adapted,
   rejected, or provenance-only between the composite and band-equivalence successors in
   [`../phase-3-split-audit.md`](../phase-3-split-audit.md).
-- [ ] Record exact revisions, hashes, schemas, and consumers for the separate monograph
-  composite donor before implementation freeze.
-- [ ] Resolve eigensystem, Procrustes, and transport selection technical debt.
-- [ ] Freeze the model, meshes, frame convention, alignment families, supports, tolerances, and failure rules.
-- [ ] Move concrete composition from source owners only when consumers migrate directly.
-- [ ] Define typed constructor-owned configuration and result records.
-- [ ] Define canonical serialization and strict schemas.
-- [ ] Implement a byte-owning independent verifier that does not invoke the producer.
-- [ ] Implement authenticated rendering with a closed inventory.
-- [ ] Establish named parity against selected M2 and monograph channels.
-- [ ] Preserve all historical bytes and amendment/checksum chains.
-- [ ] Review the direct lifecycle before proposing any retained execution.
+- [x] Record exact revisions, blobs, SHA-256 identities, controls, schemas, and 19
+  literal consumers for the separate monograph composite donor in
+  [`monograph-donor-crosswalk.md`](monograph-donor-crosswalk.md).
+- [x] Resolve eigensystem, Procrustes, and transport selection ownership: PhysKit owns
+  dense complex-Hermitian eigensystems, Optimization owns batched unitary Procrustes,
+  and KSD owns frame transport and scientific composition.
+- [x] Freeze the exact parent coefficients, lowest rank-two space, 64/257 disjoint
+  meshes, right action, three transform channels, one global diagnostic channel,
+  ranges, units, tolerances, maximum rank-cutoff rule, and fail-closed rank policy.
+- [x] Consume reusable source owners directly without importing historical campaigns or
+  calculation-local workflow packages.
+- [x] Define immutable constructor-owned configuration, section, and root result
+  records with explicit mappings and concise aggregate correlation.
+- [x] Define canonical typed JSON and exact record-owned field inventories; no parallel
+  handwritten schema-v1 artifact is retained.
+- [x] Implement a byte-owning independent verifier that does not invoke the producer or
+  the Optimization alignment solver.
+- [x] Implement explicit negative-Nyquist conversion power and separate disjoint-mesh
+  interpolation, deliberate-truncation, and total channels in normalized Hamiltonian
+  and sorted-band metrics.
+- [x] Implement verifier-authenticated visualization data and the closed
+  `rank2-composite-alignment.png` / `rank2-composite-locality.png` /
+  `rank2-composite-error-channels.png` inventory using
+  `ModelAnalysisPngFigureRenderer`.
+- [x] Establish named finite M2 parity and explicit convention adaptations in
+  [`m2-parity.md`](m2-parity.md); classify monograph channels as adopted, adapted,
+  rejected, or provenance-only.
+- [x] Preserve historical bytes and checksum chains unchanged and keep historical
+  publication/evidence consumers bound to them.
+- [x] Author and build the comprehensive upstream provisional technical report with
+  literature positioning, exact analytic consequences, seven benchmarks, full finite
+  results, authenticated figures, independent verification, historical parity,
+  publication relationship, provenance, and explicit nonclaims.
+- [ ] Complete independent review of the direct lifecycle before proposing any retained
+  execution.
+
+## Deliberate non-removal
+
+The live `periodic1d.multiband_alignment` predecessor remains installed. Its six direct
+M3 admissible-set consumers still block removal, as recorded by the Phase 3 split audit.
+This successor does not wrap or facade that dependency. Phase 4 must migrate those
+consumers to authenticated upstream bytes and digests before predecessor retirement.

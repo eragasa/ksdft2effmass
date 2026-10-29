@@ -37,6 +37,9 @@ implied capabilities.
 - [x] Implement independent exact-formula verification without invoking the producer.
 - [x] Define the authenticated visualization-data projection and closed figure inventory.
 - [x] Implement direct calculate → verify → render composition scripts.
+- [x] Author the comprehensive upstream technical report with exact theory, literature
+  position, five benchmarks, full production range results, diagnostics, independent
+  verification, publication relationship, provenance, and explicit nonclaims.
 - [ ] Define sealing and read-only package verification before retaining an execution.
 - [x] Add focused software tests and documentation for basis, Fourier signs, units, overflow, malformed values, frozen production coordinates, parent binding, decision inventories, and authenticated rendering.
 - [x] Retire the installed legacy M1 source, Fourier toy-parent export, aggregate predecessor test, and obsolete Sphinx page without a compatibility facade; bind every removed byte and modified export module to [`legacy-retirement.md`](legacy-retirement.md).
