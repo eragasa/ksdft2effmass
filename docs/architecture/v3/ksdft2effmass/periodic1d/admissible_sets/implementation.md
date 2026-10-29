@@ -31,12 +31,14 @@ witnesses, separation bounds, evaluation losses, and locality diagnostics. It do
 invoke the production M3 analyzer or represented-operator production actions.
 
 `Periodic1DConstrainedAdmissibleSetVerifier` owns the exact M3 result bytes through
-`BaseModelAnalysisVerifier`. It independently verifies the embedded composite bytes,
-compares every M3 result field, derives and compares the complete visualization
-projection, and authenticates both result and projection SHA-256 values. The projection
-composes existing typed threshold and parameter-evaluation domain sections with only the
-case context and plotting axes needed by the two figures; it does not flatten a parallel
-row inventory or duplicate locality matrices.
+`BaseModelAnalysisVerifier`. It independently verifies the embedded composite bytes and
+uses a closed component-to-observation inventory for explicitly named quadratic,
+witness, certificate, locality, and visualization comparisons. Verification does not
+walk serialized fields recursively or admit comparisons by name prefix. It authenticates
+both result and projection SHA-256 values. The projection composes existing typed
+threshold and parameter-evaluation domain sections with only the case context and
+plotting axes needed by the two figures; it does not flatten a parallel row inventory or
+duplicate locality matrices.
 
 `Periodic1DConstrainedAdmissibleSetVisualizer` accepts only the passing typed
 verification and digest-bound projection. Its closed inventory is

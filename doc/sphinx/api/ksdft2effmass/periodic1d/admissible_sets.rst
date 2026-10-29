@@ -38,8 +38,14 @@ Independent reference analysis
 .. automodule:: ksdft2effmass.periodic1d.admissible_sets.reference
    :members:
 
-Verification
-------------
+Verification values
+-------------------
+
+.. automodule:: ksdft2effmass.periodic1d.admissible_sets.verification
+   :members:
+
+Verification action
+-------------------
 
 .. automodule:: ksdft2effmass.periodic1d.admissible_sets.verify
    :members:

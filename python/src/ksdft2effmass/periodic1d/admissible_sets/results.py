@@ -221,21 +221,22 @@ class Periodic1DAdmissibleSetLocalityResult(BaseTypedRecord):
         if set(values) != required:
             raise ValueError("locality-result fields do not match")
         maximum_range = values["maximum_range"]
-        if type(maximum_range) is not int:
-            raise TypeError("maximum_range must decode to int")
-
-        def decoded_float(name: str) -> float:
-            value = values[name]
-            if type(value) is not float:
-                raise TypeError(f"{name} must decode to float")
-            return value
-
-        reference_conversion = decoded_float("reference_cyclic_conversion_power")
-        attacked_conversion = decoded_float("attacked_cyclic_conversion_power")
-        candidate_conversion = decoded_float("candidate_cyclic_conversion_power")
-        reference_tail = decoded_float("reference_ordinary_omitted_block_l2_norm")
-        attacked_tail = decoded_float("attacked_ordinary_omitted_block_l2_norm")
-        candidate_tail = decoded_float("candidate_ordinary_omitted_block_l2_norm")
+        reference_conversion = values["reference_cyclic_conversion_power"]
+        attacked_conversion = values["attacked_cyclic_conversion_power"]
+        candidate_conversion = values["candidate_cyclic_conversion_power"]
+        reference_tail = values["reference_ordinary_omitted_block_l2_norm"]
+        attacked_tail = values["attacked_ordinary_omitted_block_l2_norm"]
+        candidate_tail = values["candidate_ordinary_omitted_block_l2_norm"]
+        if (
+            type(maximum_range) is not int
+            or type(reference_conversion) is not float
+            or type(attacked_conversion) is not float
+            or type(candidate_conversion) is not float
+            or type(reference_tail) is not float
+            or type(attacked_tail) is not float
+            or type(candidate_tail) is not float
+        ):
+            raise TypeError("locality-result fields decode to wrong types")
         return cls(
             maximum_range,
             reference_conversion,

@@ -1,19 +1,12 @@
 """Authenticated constrained-admissible-set visualization action."""
 
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
-
-from ksdft2effmass.verification import VisualizationVerification
 from ksdft2effmass.visualizations import (
     BaseVisualizer,
     PngFigureRenderer,
     PngVisualization,
 )
 
-if TYPE_CHECKING:
-    from ..verify import Periodic1DConstrainedAdmissibleSetVerification
-
+from ..verification import Periodic1DConstrainedAdmissibleSetVerification
 from .data import Periodic1DConstrainedAdmissibleSetVisualizationData
 from .figures import _AdmissibilityFigure, _LocalityChannelsFigure
 from .inventory import Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum
@@ -22,13 +15,13 @@ from .inventory import Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum
 class Periodic1DConstrainedAdmissibleSetVisualizer(
     BaseVisualizer[
         Periodic1DConstrainedAdmissibleSetVisualizationData,
-        VisualizationVerification,
+        Periodic1DConstrainedAdmissibleSetVerification,
         Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum,
     ]
 ):
-    """Authenticate one projection and render its closed two-figure inventory."""
+    """Render the closed authenticated constrained-admissible-set inventory."""
 
-    __slots__ = ("_dpi",)
+    __slots__ = ("_renderers",)
 
     def __init__(
         self,
@@ -41,8 +34,6 @@ class Periodic1DConstrainedAdmissibleSetVisualizer(
             raise TypeError(
                 "data must be Periodic1DConstrainedAdmissibleSetVisualizationData"
             )
-        from ..verify import Periodic1DConstrainedAdmissibleSetVerification
-
         if type(verification) is not Periodic1DConstrainedAdmissibleSetVerification:
             raise TypeError(
                 "verification must be Periodic1DConstrainedAdmissibleSetVerification"
@@ -51,38 +42,34 @@ class Periodic1DConstrainedAdmissibleSetVisualizer(
             raise TypeError("dpi must be a built-in int")
         if dpi <= 0:
             raise ValueError("dpi must be positive")
-        super().__init__(
-            data=data,
-            verification=verification,
-            plots=tuple(Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum),
+        plots = tuple(Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum)
+        super().__init__(data=data, verification=verification, plots=plots)
+        plot = Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum
+        self._renderers = frozenset(
+            {
+                PngFigureRenderer(
+                    plot=plot.ADMISSIBILITY,
+                    figure=_AdmissibilityFigure(data),
+                    dpi=dpi,
+                ),
+                PngFigureRenderer(
+                    plot=plot.LOCALITY_CHANNELS,
+                    figure=_LocalityChannelsFigure(data),
+                    dpi=dpi,
+                ),
+            }
         )
-        self._dpi = dpi
-
-    @property
-    def dpi(self) -> int:
-        """Return the constructor-bound PNG resolution."""
-        return self._dpi
+        if {renderer.plot for renderer in self._renderers} != set(self.plots):
+            raise RuntimeError(
+                "constrained-admissible-set renderers must cover the closed inventory"
+            )
 
     def _render(
         self,
     ) -> frozenset[
         PngVisualization[Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum]
     ]:
-        plot = Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum
-        return frozenset(
-            {
-                PngFigureRenderer(
-                    plot.ADMISSIBILITY,
-                    _AdmissibilityFigure(self.data),
-                    self.dpi,
-                ).visualize(),
-                PngFigureRenderer(
-                    plot.LOCALITY_CHANNELS,
-                    _LocalityChannelsFigure(self.data),
-                    self.dpi,
-                ).visualize(),
-            }
-        )
+        return frozenset(renderer.visualize() for renderer in self._renderers)
 
 
 __all__ = ["Periodic1DConstrainedAdmissibleSetVisualizer"]

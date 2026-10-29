@@ -19,12 +19,12 @@ from .results import (
     Periodic1DConstrainedAdmissibleSetCalculationResult,
     Periodic1DQuadraticLoss,
 )
-from .verify import (
+from .verification import (
     ConstrainedAdmissibleSetUpstreamVerification,
     ConstrainedAdmissibleSetVerification,
     Periodic1DConstrainedAdmissibleSetVerification,
-    Periodic1DConstrainedAdmissibleSetVerifier,
 )
+from .verify import Periodic1DConstrainedAdmissibleSetVerifier
 from .visualizations import (
     Periodic1DConstrainedAdmissibleSetVisualizationData,
     Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum,

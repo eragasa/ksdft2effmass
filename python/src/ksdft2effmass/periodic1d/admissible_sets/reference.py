@@ -15,7 +15,6 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from ..composite_band_alignment import (
@@ -98,9 +97,16 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
         return self._request
 
     def execute(self) -> Periodic1DConstrainedAdmissibleSetIndependentReference:
-        """Return complete field comparisons against direct NumPy reconstruction."""
+        """Return explicit domain comparisons against direct NumPy reconstruction."""
         expected = self._expected_result()
+        observed = self.request.result
         unit = Unitless()
+        zero = ScalarQuantity(0.0, unit)
+        exact_tolerance = ScalarQuantity(0.0, unit)
+        tolerance = ScalarQuantity(
+            observed.configuration.verification_absolute_tolerance,
+            unit,
+        )
         compatible, separated = expected.cases
         proof_points: list[Periodic1DAdmissibleSetProofPointVisualizationData] = []
         for case, evaluation in (
@@ -139,13 +145,792 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
             locality_channel_names=("reference", "attacked", "candidate"),
             proof_points=(proof_points[0], proof_points[1], proof_points[2]),
         )
-        comparisons: dict[str, MaximumAbsoluteErrorComparison] = {}
-        self._compare_values("result", self.request.result, expected, comparisons)
-        self._compare_values(
-            "visualization",
-            self.request.visualization_data,
-            expected_projection,
-            comparisons,
+
+        observed_spectral = observed.spectral_loss
+        expected_spectral = expected.spectral_loss
+        observed_operators = observed.operator_losses
+        expected_operators = expected.operator_losses
+        comparisons: dict[str, MaximumAbsoluteErrorComparison] = {
+            "result_spectral_channel_id_error": MaximumAbsoluteErrorComparison(
+                ScalarQuantity(
+                    float(observed_spectral.channel_id != expected_spectral.channel_id),
+                    unit,
+                ),
+                zero,
+                exact_tolerance,
+            ),
+            "result_spectral_alignment_identity_error": (
+                MaximumAbsoluteErrorComparison(
+                    ScalarQuantity(
+                        float(
+                            observed_spectral.alignment_angle
+                            is not expected_spectral.alignment_angle
+                        ),
+                        unit,
+                    ),
+                    zero,
+                    exact_tolerance,
+                )
+            ),
+            "result_spectral_center_maximum_absolute_error": (
+                MaximumAbsoluteErrorComparison(
+                    VectorQuantity(np.asarray(observed_spectral.center), unit),
+                    VectorQuantity(np.asarray(expected_spectral.center), unit),
+                    tolerance,
+                )
+            ),
+            "result_spectral_matrix_maximum_absolute_error": (
+                MaximumAbsoluteErrorComparison(
+                    MatrixQuantity(
+                        np.asarray(observed_spectral.quadratic_matrix), unit
+                    ),
+                    MatrixQuantity(
+                        np.asarray(expected_spectral.quadratic_matrix), unit
+                    ),
+                    tolerance,
+                )
+            ),
+            "result_spectral_minimum_squared_loss_absolute_error": (
+                MaximumAbsoluteErrorComparison(
+                    ScalarQuantity(observed_spectral.minimum_squared_loss, unit),
+                    ScalarQuantity(expected_spectral.minimum_squared_loss, unit),
+                    tolerance,
+                )
+            ),
+            "result_operator_count_error": MaximumAbsoluteErrorComparison(
+                ScalarQuantity(
+                    float(len(observed_operators) != len(expected_operators)), unit
+                ),
+                zero,
+                exact_tolerance,
+            ),
+            "result_operator_channel_id_error": MaximumAbsoluteErrorComparison(
+                ScalarQuantity(
+                    float(
+                        tuple(value.channel_id for value in observed_operators)
+                        != tuple(value.channel_id for value in expected_operators)
+                    ),
+                    unit,
+                ),
+                zero,
+                exact_tolerance,
+            ),
+            "result_operator_alignment_angle_maximum_absolute_error": (
+                MaximumAbsoluteErrorComparison(
+                    VectorQuantity(
+                        np.asarray(
+                            [self._angle(value) for value in observed_operators]
+                        ),
+                        unit,
+                    ),
+                    VectorQuantity(
+                        np.asarray(
+                            [self._angle(value) for value in expected_operators]
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            ),
+            "result_operator_center_maximum_absolute_error": (
+                MaximumAbsoluteErrorComparison(
+                    MatrixQuantity(
+                        np.asarray([value.center for value in observed_operators]),
+                        unit,
+                    ),
+                    MatrixQuantity(
+                        np.asarray([value.center for value in expected_operators]),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            ),
+            "result_operator_matrix_maximum_absolute_error": (
+                MaximumAbsoluteErrorComparison(
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                np.asarray(value.quadratic_matrix).reshape(-1)
+                                for value in observed_operators
+                            ]
+                        ),
+                        unit,
+                    ),
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                np.asarray(value.quadratic_matrix).reshape(-1)
+                                for value in expected_operators
+                            ]
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            ),
+            "result_operator_minimum_squared_loss_maximum_absolute_error": (
+                MaximumAbsoluteErrorComparison(
+                    VectorQuantity(
+                        np.asarray(
+                            [value.minimum_squared_loss for value in observed_operators]
+                        ),
+                        unit,
+                    ),
+                    VectorQuantity(
+                        np.asarray(
+                            [value.minimum_squared_loss for value in expected_operators]
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            ),
+        }
+
+        for prefix, observed_case, expected_case in (
+            ("result_compatible", observed.cases[0], expected.cases[0]),
+            ("result_separated", observed.cases[1], expected.cases[1]),
+        ):
+            observed_evaluations = (
+                (observed_case.common_witness,)
+                if observed_case.common_witness is not None
+                else ()
+            ) + (
+                observed_case.spectral_certificate_point,
+                observed_case.operator_certificate_point,
+            )
+            expected_evaluations = (
+                (expected_case.common_witness,)
+                if expected_case.common_witness is not None
+                else ()
+            ) + (
+                expected_case.spectral_certificate_point,
+                expected_case.operator_certificate_point,
+            )
+            comparisons[f"{prefix}_threshold_case_id_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    ScalarQuantity(
+                        float(
+                            observed_case.thresholds.case_id
+                            != expected_case.thresholds.case_id
+                        ),
+                        unit,
+                    ),
+                    zero,
+                    exact_tolerance,
+                )
+            )
+            comparisons[f"{prefix}_threshold_values_maximum_absolute_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    VectorQuantity(
+                        np.asarray(
+                            (
+                                observed_case.thresholds.spectral_rms_threshold,
+                                observed_case.thresholds.operator_rms_threshold,
+                            )
+                        ),
+                        unit,
+                    ),
+                    VectorQuantity(
+                        np.asarray(
+                            (
+                                expected_case.thresholds.spectral_rms_threshold,
+                                expected_case.thresholds.operator_rms_threshold,
+                            )
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            )
+            comparisons[f"{prefix}_disposition_error"] = MaximumAbsoluteErrorComparison(
+                ScalarQuantity(
+                    float(observed_case.disposition is not expected_case.disposition),
+                    unit,
+                ),
+                zero,
+                exact_tolerance,
+            )
+            observed_angles = observed_case.feasible_operator_component_angles
+            expected_angles = expected_case.feasible_operator_component_angles
+            comparisons[f"{prefix}_feasible_angle_count_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    ScalarQuantity(
+                        float(len(observed_angles) != len(expected_angles)), unit
+                    ),
+                    zero,
+                    exact_tolerance,
+                )
+            )
+            if len(observed_angles) == len(expected_angles):
+                comparisons[f"{prefix}_feasible_angles_maximum_absolute_error"] = (
+                    MaximumAbsoluteErrorComparison(
+                        VectorQuantity(np.asarray(observed_angles), unit),
+                        VectorQuantity(np.asarray(expected_angles), unit),
+                        tolerance,
+                    )
+                )
+            else:
+                comparisons[f"{prefix}_feasible_angles_maximum_absolute_error"] = (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(1.0, unit),
+                        zero,
+                        exact_tolerance,
+                    )
+                )
+            comparisons[f"{prefix}_common_witness_presence_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    ScalarQuantity(
+                        float(
+                            (observed_case.common_witness is None)
+                            != (expected_case.common_witness is None)
+                        ),
+                        unit,
+                    ),
+                    zero,
+                    exact_tolerance,
+                )
+            )
+            comparisons[f"{prefix}_separation_values_maximum_absolute_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    VectorQuantity(
+                        np.asarray(
+                            (
+                                observed_case.separation_lower_bound,
+                                observed_case.separation_upper_bound,
+                                observed_case.separation_resolution,
+                            )
+                        ),
+                        unit,
+                    ),
+                    VectorQuantity(
+                        np.asarray(
+                            (
+                                expected_case.separation_lower_bound,
+                                expected_case.separation_upper_bound,
+                                expected_case.separation_resolution,
+                            )
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            )
+            comparisons[f"{prefix}_evaluation_roles_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    ScalarQuantity(
+                        float(
+                            tuple(value.role for value in observed_evaluations)
+                            != tuple(value.role for value in expected_evaluations)
+                        ),
+                        unit,
+                    ),
+                    zero,
+                    exact_tolerance,
+                )
+            )
+            comparisons[f"{prefix}_evaluation_parameters_maximum_absolute_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    MatrixQuantity(
+                        np.asarray([value.parameter for value in observed_evaluations]),
+                        unit,
+                    ),
+                    MatrixQuantity(
+                        np.asarray([value.parameter for value in expected_evaluations]),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            )
+            comparisons[f"{prefix}_evaluation_angles_maximum_absolute_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    VectorQuantity(
+                        np.asarray(
+                            [
+                                value.selected_alignment_angle
+                                for value in observed_evaluations
+                            ]
+                        ),
+                        unit,
+                    ),
+                    VectorQuantity(
+                        np.asarray(
+                            [
+                                value.selected_alignment_angle
+                                for value in expected_evaluations
+                            ]
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            )
+            comparisons[f"{prefix}_evaluation_losses_maximum_absolute_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                (
+                                    value.training_spectral_rms_loss,
+                                    value.training_operator_rms_loss,
+                                    value.evaluation_spectral_rms_loss,
+                                    value.evaluation_operator_rms_loss,
+                                )
+                                for value in observed_evaluations
+                            ]
+                        ),
+                        unit,
+                    ),
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                (
+                                    value.training_spectral_rms_loss,
+                                    value.training_operator_rms_loss,
+                                    value.evaluation_spectral_rms_loss,
+                                    value.evaluation_operator_rms_loss,
+                                )
+                                for value in expected_evaluations
+                            ]
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            )
+            comparisons[f"{prefix}_locality_ranges_maximum_absolute_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                [item.maximum_range for item in value.locality]
+                                for value in observed_evaluations
+                            ],
+                            dtype=np.float64,
+                        ),
+                        unit,
+                    ),
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                [item.maximum_range for item in value.locality]
+                                for value in expected_evaluations
+                            ],
+                            dtype=np.float64,
+                        ),
+                        unit,
+                    ),
+                    exact_tolerance,
+                )
+            )
+            comparisons[f"{prefix}_cyclic_conversion_powers_maximum_absolute_error"] = (
+                MaximumAbsoluteErrorComparison(
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                (
+                                    item.reference_cyclic_conversion_power,
+                                    item.attacked_cyclic_conversion_power,
+                                    item.candidate_cyclic_conversion_power,
+                                )
+                                for value in observed_evaluations
+                                for item in value.locality
+                            ]
+                        ),
+                        unit,
+                    ),
+                    MatrixQuantity(
+                        np.asarray(
+                            [
+                                (
+                                    item.reference_cyclic_conversion_power,
+                                    item.attacked_cyclic_conversion_power,
+                                    item.candidate_cyclic_conversion_power,
+                                )
+                                for value in expected_evaluations
+                                for item in value.locality
+                            ]
+                        ),
+                        unit,
+                    ),
+                    tolerance,
+                )
+            )
+            comparisons[
+                f"{prefix}_ordinary_omitted_block_l2_norms_maximum_absolute_error"
+            ] = MaximumAbsoluteErrorComparison(
+                MatrixQuantity(
+                    np.asarray(
+                        [
+                            (
+                                item.reference_ordinary_omitted_block_l2_norm,
+                                item.attacked_ordinary_omitted_block_l2_norm,
+                                item.candidate_ordinary_omitted_block_l2_norm,
+                            )
+                            for value in observed_evaluations
+                            for item in value.locality
+                        ]
+                    ),
+                    unit,
+                ),
+                MatrixQuantity(
+                    np.asarray(
+                        [
+                            (
+                                item.reference_ordinary_omitted_block_l2_norm,
+                                item.attacked_ordinary_omitted_block_l2_norm,
+                                item.candidate_ordinary_omitted_block_l2_norm,
+                            )
+                            for value in expected_evaluations
+                            for item in value.locality
+                        ]
+                    ),
+                    unit,
+                ),
+                tolerance,
+            )
+
+        observed_projection = self.request.visualization_data
+        observed_points = observed_projection.proof_points
+        expected_points = expected_projection.proof_points
+        comparisons.update(
+            {
+                "visualization_parameter_names_error": (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(
+                            float(
+                                observed_projection.parameter_names
+                                != expected_projection.parameter_names
+                            ),
+                            unit,
+                        ),
+                        zero,
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_parameter_bounds_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        observed_projection.parameter_bounds,
+                        expected_projection.parameter_bounds,
+                        tolerance,
+                    )
+                ),
+                "visualization_loss_channel_names_error": (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(
+                            float(
+                                observed_projection.loss_channel_names
+                                != expected_projection.loss_channel_names
+                            ),
+                            unit,
+                        ),
+                        zero,
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_locality_channel_names_error": (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(
+                            float(
+                                observed_projection.locality_channel_names
+                                != expected_projection.locality_channel_names
+                            ),
+                            unit,
+                        ),
+                        zero,
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_proof_point_count_error": (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(
+                            float(len(observed_points) != len(expected_points)), unit
+                        ),
+                        zero,
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_threshold_case_ids_error": (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(
+                            float(
+                                tuple(
+                                    value.thresholds.case_id
+                                    for value in observed_points
+                                )
+                                != tuple(
+                                    value.thresholds.case_id
+                                    for value in expected_points
+                                )
+                            ),
+                            unit,
+                        ),
+                        zero,
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_threshold_values_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        value.thresholds.spectral_rms_threshold,
+                                        value.thresholds.operator_rms_threshold,
+                                    )
+                                    for value in observed_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        value.thresholds.spectral_rms_threshold,
+                                        value.thresholds.operator_rms_threshold,
+                                    )
+                                    for value in expected_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        tolerance,
+                    )
+                ),
+                "visualization_dispositions_error": (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(
+                            float(
+                                tuple(value.disposition for value in observed_points)
+                                != tuple(value.disposition for value in expected_points)
+                            ),
+                            unit,
+                        ),
+                        zero,
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_separation_bounds_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    value.separation_bounds.magnitude
+                                    for value in observed_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    value.separation_bounds.magnitude
+                                    for value in expected_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        tolerance,
+                    )
+                ),
+                "visualization_evaluation_roles_error": (
+                    MaximumAbsoluteErrorComparison(
+                        ScalarQuantity(
+                            float(
+                                tuple(
+                                    value.evaluation.role for value in observed_points
+                                )
+                                != tuple(
+                                    value.evaluation.role for value in expected_points
+                                )
+                            ),
+                            unit,
+                        ),
+                        zero,
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_evaluation_parameters_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    value.evaluation.parameter
+                                    for value in observed_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    value.evaluation.parameter
+                                    for value in expected_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        tolerance,
+                    )
+                ),
+                "visualization_evaluation_angles_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        VectorQuantity(
+                            np.asarray(
+                                [
+                                    value.evaluation.selected_alignment_angle
+                                    for value in observed_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        VectorQuantity(
+                            np.asarray(
+                                [
+                                    value.evaluation.selected_alignment_angle
+                                    for value in expected_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        tolerance,
+                    )
+                ),
+                "visualization_evaluation_losses_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        value.evaluation.training_spectral_rms_loss,
+                                        value.evaluation.training_operator_rms_loss,
+                                        value.evaluation.evaluation_spectral_rms_loss,
+                                        value.evaluation.evaluation_operator_rms_loss,
+                                    )
+                                    for value in observed_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        value.evaluation.training_spectral_rms_loss,
+                                        value.evaluation.training_operator_rms_loss,
+                                        value.evaluation.evaluation_spectral_rms_loss,
+                                        value.evaluation.evaluation_operator_rms_loss,
+                                    )
+                                    for value in expected_points
+                                ]
+                            ),
+                            unit,
+                        ),
+                        tolerance,
+                    )
+                ),
+                "visualization_locality_ranges_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    [
+                                        item.maximum_range
+                                        for item in value.evaluation.locality
+                                    ]
+                                    for value in observed_points
+                                ],
+                                dtype=np.float64,
+                            ),
+                            unit,
+                        ),
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    [
+                                        item.maximum_range
+                                        for item in value.evaluation.locality
+                                    ]
+                                    for value in expected_points
+                                ],
+                                dtype=np.float64,
+                            ),
+                            unit,
+                        ),
+                        exact_tolerance,
+                    )
+                ),
+                "visualization_cyclic_conversion_powers_maximum_absolute_error": (
+                    MaximumAbsoluteErrorComparison(
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        item.reference_cyclic_conversion_power,
+                                        item.attacked_cyclic_conversion_power,
+                                        item.candidate_cyclic_conversion_power,
+                                    )
+                                    for value in observed_points
+                                    for item in value.evaluation.locality
+                                ]
+                            ),
+                            unit,
+                        ),
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        item.reference_cyclic_conversion_power,
+                                        item.attacked_cyclic_conversion_power,
+                                        item.candidate_cyclic_conversion_power,
+                                    )
+                                    for value in expected_points
+                                    for item in value.evaluation.locality
+                                ]
+                            ),
+                            unit,
+                        ),
+                        tolerance,
+                    )
+                ),
+                (
+                    "visualization_ordinary_omitted_block_l2_norms_"
+                    "maximum_absolute_error"
+                ): (
+                    MaximumAbsoluteErrorComparison(
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        item.reference_ordinary_omitted_block_l2_norm,
+                                        item.attacked_ordinary_omitted_block_l2_norm,
+                                        item.candidate_ordinary_omitted_block_l2_norm,
+                                    )
+                                    for value in observed_points
+                                    for item in value.evaluation.locality
+                                ]
+                            ),
+                            unit,
+                        ),
+                        MatrixQuantity(
+                            np.asarray(
+                                [
+                                    (
+                                        item.reference_ordinary_omitted_block_l2_norm,
+                                        item.attacked_ordinary_omitted_block_l2_norm,
+                                        item.candidate_ordinary_omitted_block_l2_norm,
+                                    )
+                                    for value in expected_points
+                                    for item in value.evaluation.locality
+                                ]
+                            ),
+                            unit,
+                        ),
+                        tolerance,
+                    )
+                ),
+            }
         )
         return Periodic1DConstrainedAdmissibleSetIndependentReference(comparisons)
 
@@ -593,76 +1378,6 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
     def _matrices(self, matrices: tuple[ComplexMatrixQuantity, ...]) -> np.ndarray:
         return np.asarray(
             [matrix.magnitude for matrix in matrices], dtype=np.complex128
-        )
-
-    def _compare_values(
-        self,
-        name: str,
-        observed: SerializableValue,
-        expected: SerializableValue,
-        output: dict[str, MaximumAbsoluteErrorComparison],
-    ) -> None:
-        if isinstance(observed, BaseTypedRecord) and isinstance(
-            expected, BaseTypedRecord
-        ):
-            self._compare_values(name, observed.to_dict(), expected.to_dict(), output)
-            return
-        if isinstance(observed, Mapping) and isinstance(expected, Mapping):
-            for key in sorted(set(observed) | set(expected)):
-                child = f"{name}.{key}"
-                if key not in observed or key not in expected:
-                    output[child] = self._exact(False)
-                else:
-                    self._compare_values(child, observed[key], expected[key], output)
-            return
-        if isinstance(observed, tuple) and isinstance(expected, tuple):
-            output[f"{name}.length"] = self._exact(len(observed) == len(expected))
-            for index, (left, right) in enumerate(
-                zip(observed, expected, strict=False)
-            ):
-                self._compare_values(f"{name}[{index}]", left, right, output)
-            return
-        quantities = (
-            ScalarQuantity,
-            VectorQuantity,
-            MatrixQuantity,
-            ComplexMatrixQuantity,
-        )
-        if isinstance(observed, quantities) and isinstance(expected, quantities):
-            output[name] = MaximumAbsoluteErrorComparison(
-                observed,
-                expected,
-                ScalarQuantity(
-                    self.request.result.configuration.verification_absolute_tolerance,
-                    observed.unit,
-                ),
-            )
-            return
-        if observed is None and expected is None:
-            output[name] = self._exact(True)
-            return
-        if type(observed) is float and type(expected) is float:
-            unit = Unitless()
-            output[name] = MaximumAbsoluteErrorComparison(
-                ScalarQuantity(observed, unit),
-                ScalarQuantity(expected, unit),
-                ScalarQuantity(
-                    self.request.result.configuration.verification_absolute_tolerance,
-                    unit,
-                ),
-            )
-            return
-        if type(observed) in (bool, int, str) and type(expected) is type(observed):
-            output[name] = self._exact(observed == expected)
-            return
-        output[name] = self._exact(False)
-
-    def _exact(self, passes: bool) -> MaximumAbsoluteErrorComparison:
-        unit = Unitless()
-        return MaximumAbsoluteErrorComparison(
-            ScalarQuantity(0.0 if passes else 1.0, unit),
-            ScalarQuantity(0.0, unit),
-            ScalarQuantity(0.0, unit),
         )
 
 

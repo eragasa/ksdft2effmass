@@ -189,6 +189,29 @@ class TestPeriodic1DConstrainedAdmissibleSetAnalyzer:
             hashlib.sha256(verified.visualization_data.to_json()).hexdigest()
         )
 
+    def test__verifier__uses_one_closed_component_observation_inventory(
+        self,
+        admissible_result: Periodic1DConstrainedAdmissibleSetCalculationResult,
+    ) -> None:
+        verifier = Periodic1DConstrainedAdmissibleSetVerifier(
+            result_wire=admissible_result.to_json()
+        )
+
+        verified = verifier.result()
+
+        assert tuple(
+            type(component) for component in verified.verification.components
+        ) == tuple(
+            component_type for component_type, _ in verifier.verification_inventory
+        )
+        assert tuple(
+            frozenset(component.observations)
+            for component in verified.verification.components
+        ) == tuple(
+            observation_names
+            for _, observation_names in verifier.verification_inventory
+        )
+
     def test__visualizer__renders_only_authenticated_projection_values(
         self,
         admissible_result: Periodic1DConstrainedAdmissibleSetCalculationResult,
@@ -252,3 +275,7 @@ class TestPeriodic1DConstrainedAdmissibleSetAnalyzer:
         assert "Periodic1DMultibandAlignment" not in source
         assert "ConstrainedAdmissibleSetCalculator" not in source
         assert "ResultJsonSerializer" not in source
+        assert "_compare_values" not in source
+        assert '.startswith("result.")' not in source
+        assert '.startswith("visualization.")' not in source
+        assert "@staticmethod" not in source
