@@ -29,6 +29,7 @@ from ksdft2effmass.analysis.hopping_fits import (
 )
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
+    BandApproximationErrorRequest1D,
     BandSpectrumSamples1D,
 )
 from ksdft2effmass.model_systems.periodic_1d import (
@@ -393,17 +394,20 @@ class Mathieu1dAnalyzer:
                 truncation.truncated, evaluation_coordinates
             )
         ).execute()
-        error_analyzer = BandApproximationErrorAnalyzer1D()
-        training_error = error_analyzer.execute(
-            training_target,
-            training_candidate,
-            configuration.coordinate_absolute_tolerance,
-        )
-        evaluation_error = error_analyzer.execute(
-            evaluation_target,
-            evaluation_candidate,
-            configuration.coordinate_absolute_tolerance,
-        )
+        training_error = BandApproximationErrorAnalyzer1D(
+            BandApproximationErrorRequest1D(
+                training_target,
+                training_candidate,
+                configuration.coordinate_absolute_tolerance,
+            )
+        ).execute()
+        evaluation_error = BandApproximationErrorAnalyzer1D(
+            BandApproximationErrorRequest1D(
+                evaluation_target,
+                evaluation_candidate,
+                configuration.coordinate_absolute_tolerance,
+            )
+        ).execute()
         parseval = HoppingParsevalAnalyzer1D(
             HoppingParsevalRequest1D(
                 complete,

@@ -107,6 +107,9 @@ separate calls and results.
 .. autoclass:: BandGapAnalyzer1D
    :members:
 
+.. autoclass:: BandApproximationErrorRequest1D
+   :members:
+
 .. autoclass:: BandApproximationErrorResult1D
    :members:
 

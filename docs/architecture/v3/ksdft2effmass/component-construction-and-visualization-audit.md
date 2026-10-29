@@ -147,7 +147,10 @@ operation. The next two analysis slices implement the `analysis/hopping_diagnost
 and `analysis/hopping_fits.py` rows with six immutable request records, request-bound
 actions, and zero-argument `execute()` methods. Their direct-family and transitional
 predecessor consumers now provide complete requests, and no empty construction of
-those six actions remains.
+those six actions remains. The following slice implements the targeted
+`analysis/periodic_bands.py` row with an immutable band-approximation error request and
+a request-bound analyzer. Mathieu1D, composite alignment, and the transitional
+multiband predecessor now bind each target/candidate sample pair independently.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

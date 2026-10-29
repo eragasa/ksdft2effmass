@@ -19,6 +19,7 @@ from ksdft2effmass.analysis.hopping_diagnostics import (
 )
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
+    BandApproximationErrorRequest1D,
     BandApproximationErrorResult1D,
     BandSpectrumSamples1D,
 )
@@ -319,19 +320,20 @@ class Periodic1DMultibandAlignmentCalculator:
         aligned = BlockHoppingTruncator1D(
             BlockHoppingTruncationRequest1D(aligned_model, maximum_range)
         ).execute()
-        analyzer = BandApproximationErrorAnalyzer1D()
 
         def error(
             target: BandSpectrumSamples1D, model: BlockHoppingModel1D
         ) -> BandApproximationErrorResult1D:
             """Evaluate one truncated channel on one identified target mesh."""
-            return analyzer.execute(
-                target,
-                BlockHoppingInterpolator1D(
-                    BlockHoppingInterpolationRequest1D(model, target.coordinates)
-                ).execute(),
-                definition.coordinate_absolute_tolerance,
-            )
+            return BandApproximationErrorAnalyzer1D(
+                BandApproximationErrorRequest1D(
+                    target,
+                    BlockHoppingInterpolator1D(
+                        BlockHoppingInterpolationRequest1D(model, target.coordinates)
+                    ).execute(),
+                    definition.coordinate_absolute_tolerance,
+                )
+            ).execute()
 
         return Periodic1DMultibandAlignmentRangeResult(
             reference,

@@ -27,6 +27,7 @@ from ksdft2effmass.analysis.hopping_diagnostics import (
 )
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
+    BandApproximationErrorRequest1D,
     BandSpectrumSamples1D,
 )
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
@@ -615,7 +616,6 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         complete_evaluation: tuple[ReciprocalOperatorSamples1D, ...],
         direct_evaluation_targets: tuple[ReciprocalOperatorSamples1D, ...],
     ) -> Periodic1DCompositeBandAlignmentRangeResult:
-        analyzer = BandApproximationErrorAnalyzer1D()
         channels: list[Periodic1DCompositeBandAlignmentChannelRangeResult] = []
         for channel, model, complete, direct in zip(
             Periodic1DCompositeBandAlignmentTransformResult.CHANNELS,
@@ -639,6 +639,13 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ).execute()
             truncation_errors = cls._maximum_error_channels(evaluation, complete)
             total_errors = cls._maximum_error_channels(evaluation, direct)
+            construction_error = BandApproximationErrorAnalyzer1D(
+                BandApproximationErrorRequest1D(
+                    construction_target,
+                    construction,
+                    configuration.dimensionless_absolute_tolerance,
+                )
+            ).execute()
             channels.append(
                 Periodic1DCompositeBandAlignmentChannelRangeResult(
                     channel=channel,
@@ -646,11 +653,9 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                         truncation.omitted_block_l2_norm,
                         Unitless(),
                     ),
-                    construction_total_spectral_maximum_error=analyzer.execute(
-                        construction_target,
-                        construction,
-                        configuration.dimensionless_absolute_tolerance,
-                    ).maximum_absolute_error,
+                    construction_total_spectral_maximum_error=(
+                        construction_error.maximum_absolute_error
+                    ),
                     evaluation_truncation_hamiltonian_maximum_error=ScalarQuantity(
                         truncation_errors[0],
                         Unitless(),

@@ -209,50 +209,72 @@ class BandApproximationErrorResult1D:
             raise ValueError("maximum_absolute_error must use the target energy unit")
 
 
-class BandApproximationErrorAnalyzer1D:
-    """Compare represented Hermitian eigenvalues with sampled target bands."""
+@dataclass(frozen=True, slots=True, eq=False)
+class BandApproximationErrorRequest1D:
+    """Bind one target spectrum, candidate operator path, and coordinate tolerance."""
 
-    __slots__ = ()
+    target: BandSpectrumSamples1D
+    candidate: ReciprocalOperatorSamples1D
+    coordinate_absolute_tolerance: float
 
-    def execute(
-        self,
-        target: BandSpectrumSamples1D,
-        candidate: ReciprocalOperatorSamples1D,
-        coordinate_absolute_tolerance: float,
-    ) -> BandApproximationErrorResult1D:
-        """Return the maximum ordered eigenvalue error without pooling sample sets."""
-        if type(target) is not BandSpectrumSamples1D:
+    def __post_init__(self) -> None:
+        """Admit sample, dimension, coordinate, and energy-unit correlations."""
+        if type(self.target) is not BandSpectrumSamples1D:
             raise TypeError("target must be BandSpectrumSamples1D")
-        if type(candidate) is not ReciprocalOperatorSamples1D:
+        if type(self.candidate) is not ReciprocalOperatorSamples1D:
             raise TypeError("candidate must be ReciprocalOperatorSamples1D")
-        if type(coordinate_absolute_tolerance) is not float:
+        if type(self.coordinate_absolute_tolerance) is not float:
             raise TypeError("coordinate_absolute_tolerance must be a built-in float")
         if (
-            not np.isfinite(coordinate_absolute_tolerance)
-            or coordinate_absolute_tolerance < 0.0
+            not np.isfinite(self.coordinate_absolute_tolerance)
+            or self.coordinate_absolute_tolerance < 0.0
         ):
             raise ValueError(
                 "coordinate_absolute_tolerance must be finite and nonnegative"
             )
-        if candidate.matrix_dimension != target.band_count:
+        if self.candidate.matrix_dimension != self.target.band_count:
             raise ValueError("candidate dimension must equal target band count")
         coordinates = ModelSystemUnitConverter.convert_vector(
-            candidate.coordinates, target.reciprocal_period.unit
+            self.candidate.coordinates, self.target.reciprocal_period.unit
         )
-        if coordinates.magnitude.shape != target.coordinates.magnitude.shape:
+        if coordinates.magnitude.shape != self.target.coordinates.magnitude.shape:
             raise ValueError("candidate and target sample counts must agree")
         if (
-            float(np.max(np.abs(coordinates.magnitude - target.coordinates.magnitude)))
-            > coordinate_absolute_tolerance
+            float(
+                np.max(
+                    np.abs(coordinates.magnitude - self.target.coordinates.magnitude)
+                )
+            )
+            > self.coordinate_absolute_tolerance
         ):
             raise ValueError("candidate and target coordinates do not agree")
-        candidate_unit = candidate.matrices[0].unit
         if not ModelSystemUnitConverter.compatible(
-            candidate_unit, target.eigenvalues.unit
+            self.candidate.matrices[0].unit, self.target.eigenvalues.unit
         ):
             raise ValueError("candidate and target energy units must be compatible")
+
+
+class BandApproximationErrorAnalyzer1D:
+    """Compare one constructor-bound candidate path with sampled target bands."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: BandApproximationErrorRequest1D) -> None:
+        if type(request) is not BandApproximationErrorRequest1D:
+            raise TypeError("request must be BandApproximationErrorRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> BandApproximationErrorRequest1D:
+        """Return the complete immutable band-error request."""
+        return self._request
+
+    def execute(self) -> BandApproximationErrorResult1D:
+        """Return the maximum ordered eigenvalue error without pooling sample sets."""
+        target = self.request.target
+        candidate = self.request.candidate
         factor = ModelSystemUnitConverter.conversion_factor(
-            candidate_unit, target.eigenvalues.unit
+            candidate.matrices[0].unit, target.eigenvalues.unit
         )
         values = np.asarray(
             [
