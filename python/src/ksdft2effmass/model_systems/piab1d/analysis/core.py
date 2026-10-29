@@ -29,6 +29,7 @@ from ksdft2effmass.analysis.diagnostics import (
 )
 from ksdft2effmass.analysis.operators import (
     RealSymmetricEigenpairDiagnosticAnalyzer,
+    RealSymmetricEigenpairDiagnosticRequest,
     RealSymmetricEigenpairDiagnosticResult,
 )
 from ksdft2effmass.hamiltonian import (
@@ -136,7 +137,6 @@ class Piab1dAnalyzer:
 
     __slots__ = (
         "block_analyzer",
-        "eigenpair_analyzer",
         "subspace_selector",
     )
 
@@ -149,7 +149,6 @@ class Piab1dAnalyzer:
         action remains reusable across independently constructed PhysKit solutions.
         """
         self.block_analyzer = OrthogonalHamiltonianBlockAnalyzer()
-        self.eigenpair_analyzer = RealSymmetricEigenpairDiagnosticAnalyzer()
         self.subspace_selector = OrthogonalSpectralSubspaceSelector()
 
     def execute(
@@ -213,7 +212,9 @@ class Piab1dAnalyzer:
             hamiltonian_blocks.retained, MatrixQuantity
         ) or not isinstance(hamiltonian_blocks.discarded, MatrixQuantity):
             raise TypeError("PIAB1D Hamiltonian blocks must be real")
-        eigenpair_diagnostics = self.eigenpair_analyzer.execute(solution.eigensystem)
+        eigenpair_diagnostics = RealSymmetricEigenpairDiagnosticAnalyzer(
+            RealSymmetricEigenpairDiagnosticRequest(solution.eigensystem)
+        ).execute()
 
         hamiltonian = solution.hamiltonian.to_dense()
         hamiltonian_values = hamiltonian.magnitude

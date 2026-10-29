@@ -158,7 +158,10 @@ request-bound so the convergence analyzer composes only complete child requests.
 next bottom-up slice implements `analysis/operators/model_fitting.py` before its
 `analysis/operators/decomposition.py` consumer. The decomposition analyzer now requires
 its complete matrix request and an explicit fitter bound to the exact admitted shift;
-it no longer synthesizes a fitter from `None`.
+it no longer synthesizes a fitter from `None`. The subsequent leaf slice binds each
+real-symmetric eigensystem and optional reference-vector set in an immutable diagnostic
+request; PIAB1D core and grid-sweep composition now construct complete per-eigensystem
+diagnostic actions instead of retaining one empty reusable action.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

@@ -7,6 +7,7 @@ from .decomposition import (
 )
 from .eigenpair_diagnostics import (
     RealSymmetricEigenpairDiagnosticAnalyzer,
+    RealSymmetricEigenpairDiagnosticRequest,
     RealSymmetricEigenpairDiagnosticResult,
 )
 from .model_fitting import (
@@ -17,6 +18,7 @@ from .model_fitting import (
 
 __all__ = [
     "RealSymmetricEigenpairDiagnosticAnalyzer",
+    "RealSymmetricEigenpairDiagnosticRequest",
     "RealSymmetricEigenpairDiagnosticResult",
     "KineticPotentialDecompositionAnalyzer",
     "KineticPotentialDecompositionRequest",

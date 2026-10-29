@@ -1280,6 +1280,9 @@ policy, or CLI behavior.
 
 .. currentmodule:: ksdft2effmass.analysis.operators
 
+.. autoclass:: RealSymmetricEigenpairDiagnosticRequest
+   :members:
+
 .. autoclass:: RealSymmetricEigenpairDiagnosticAnalyzer
    :members:
 

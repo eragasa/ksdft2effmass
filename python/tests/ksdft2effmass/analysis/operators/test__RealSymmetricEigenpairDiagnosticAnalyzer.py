@@ -8,7 +8,10 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
+from ksdft2effmass.analysis.operators import (
+    RealSymmetricEigenpairDiagnosticAnalyzer,
+    RealSymmetricEigenpairDiagnosticRequest,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = RealSymmetricEigenpairDiagnosticAnalyzer
@@ -23,9 +26,22 @@ class TestRealSymmetricEigenpairDiagnosticAnalyzer:
         eigensystem = SpectralDecomposition(operator).eigensystem()
         reference = MatrixQuantity(np.eye(2), Unitless())
 
-        result = SUT().execute(eigensystem, reference)
+        request = RealSymmetricEigenpairDiagnosticRequest(eigensystem, reference)
+        analyzer = SUT(request)
 
+        result = analyzer.execute()
+
+        assert analyzer.request is request
         np.testing.assert_allclose(result.algebraic_residual.magnitude, 0.0)
         np.testing.assert_allclose(result.scaled_column_residuals.magnitude, 0.0)
         assert result.overlap_defects is not None
         np.testing.assert_allclose(result.overlap_defects.magnitude, 0.0)
+
+    def test_request__different_reference_shape__raises_value_error(self) -> None:
+        """Reference vectors must represent the same ordered eigenvector columns."""
+        operator = MatrixQuantity(np.diag([1.0, 3.0]), Unitless())
+        eigensystem = SpectralDecomposition(operator).eigensystem()
+        reference = MatrixQuantity(np.eye(3), Unitless())
+
+        with pytest.raises(ValueError, match="match eigenvector dimensions"):
+            RealSymmetricEigenpairDiagnosticRequest(eigensystem, reference)

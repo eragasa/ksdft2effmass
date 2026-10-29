@@ -18,7 +18,10 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.analysis import RelativeErrorConvergenceResult
-from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
+from ksdft2effmass.analysis.operators import (
+    RealSymmetricEigenpairDiagnosticAnalyzer,
+    RealSymmetricEigenpairDiagnosticRequest,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from .finite_algebraic_diagnostics import Piab1dFiniteAlgebraicDiagnostics
@@ -441,10 +444,7 @@ class Piab1dGridSweepAnalysis(BaseTypedRecord):
 class Piab1dGridSweepAnalyzer:
     """Solve each declared grid once and retain full-spectrum observations."""
 
-    __slots__ = ("eigenpair_analyzer",)
-
-    def __init__(self) -> None:
-        self.eigenpair_analyzer = RealSymmetricEigenpairDiagnosticAnalyzer()
+    __slots__ = ()
 
     def execute(self, definition: Piab1dGridSweepDefinition) -> Piab1dGridSweepAnalysis:
         """Solve every declared grid once and derive all sweep families.
@@ -508,7 +508,9 @@ class Piab1dGridSweepAnalyzer:
         spectral_leakage_norms: list[float] = []
         for dimension in definition.interior_points:
             solution = solver.solve(interior_points=dimension)
-            diagnostics = self.eigenpair_analyzer.execute(solution.eigensystem)
+            diagnostics = RealSymmetricEigenpairDiagnosticAnalyzer(
+                RealSymmetricEigenpairDiagnosticRequest(solution.eigensystem)
+            ).execute()
             computed = solution.energies.magnitude
             continuum_modes = np.arange(1, dimension + 1, dtype=np.float64)
             continuum = (
