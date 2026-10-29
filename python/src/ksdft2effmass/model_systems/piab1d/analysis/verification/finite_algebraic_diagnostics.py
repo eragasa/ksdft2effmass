@@ -28,20 +28,39 @@ class Piab1dFiniteAlgebraicDiagnosticsReference:
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dFiniteAlgebraicDiagnosticsReferenceRequest:
+    """Bind one admitted finite-algebraic diagnostic result for verification."""
+
+    result: Piab1dFiniteAlgebraicDiagnostics
+
+    def __post_init__(self) -> None:
+        """Admit the complete typed finite-algebraic reference request."""
+        if type(self.result) is not Piab1dFiniteAlgebraicDiagnostics:
+            raise TypeError("result must be Piab1dFiniteAlgebraicDiagnostics")
+
+
 class Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer:
-    """Apply independently derived floating-point bounds to algebraic discrepancies."""
+    """Apply independent bounds to one bound algebraic-diagnostic result."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self, result: Piab1dFiniteAlgebraicDiagnostics
-    ) -> Piab1dFiniteAlgebraicDiagnosticsReference:
+    def __init__(
+        self, request: Piab1dFiniteAlgebraicDiagnosticsReferenceRequest
+    ) -> None:
+        if type(request) is not Piab1dFiniteAlgebraicDiagnosticsReferenceRequest:
+            raise TypeError(
+                "request must be Piab1dFiniteAlgebraicDiagnosticsReferenceRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dFiniteAlgebraicDiagnosticsReferenceRequest:
+        """Return the complete immutable finite-algebraic reference request."""
+        return self._request
+
+    def execute(self) -> Piab1dFiniteAlgebraicDiagnosticsReference:
         """Evaluate independently derived floating-point diagnostic bounds.
-
-        Parameters
-        ----------
-        result
-            Grid-indexed finite algebraic discrepancies from the production sweep.
 
         Returns
         -------
@@ -50,8 +69,6 @@ class Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``result`` is not ``Piab1dFiniteAlgebraicDiagnostics``.
         ValueError
             Grid metadata or a diagnostic observation violates its typed contract.
 
@@ -60,8 +77,7 @@ class Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer:
         These bounds qualify finite floating-point identities. They do not measure
         continuum discretization error or scientific-model validity.
         """
-        if not isinstance(result, Piab1dFiniteAlgebraicDiagnostics):
-            raise TypeError("result must be Piab1dFiniteAlgebraicDiagnostics")
+        result = self.request.result
         definition = result.definition
         maximum_dimension = max(definition.interior_points)
         spacing = definition.length / (maximum_dimension + 1.0)

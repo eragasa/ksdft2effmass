@@ -12,6 +12,7 @@ from .eigenpair_convergence import (
 from .finite_algebraic_diagnostics import (
     Piab1dFiniteAlgebraicDiagnosticsReference,
     Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer,
+    Piab1dFiniteAlgebraicDiagnosticsReferenceRequest,
 )
 from .reference import (
     Piab1dIndependentReference,
@@ -31,6 +32,7 @@ __all__ = [
     "Piab1dEigenpairSweepReferenceRequest",
     "Piab1dFiniteAlgebraicDiagnosticsReference",
     "Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer",
+    "Piab1dFiniteAlgebraicDiagnosticsReferenceRequest",
     "Piab1dIndependentReference",
     "Piab1dIndependentReferenceAnalyzer",
     "Piab1dKineticPotentialDecompositionReference",

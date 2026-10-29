@@ -20,6 +20,7 @@ from .eigenpair_convergence import (
 )
 from .finite_algebraic_diagnostics import (
     Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer,
+    Piab1dFiniteAlgebraicDiagnosticsReferenceRequest,
 )
 from .residual_norms import (
     Piab1dResidualNormSweepReferenceAnalyzer,
@@ -46,15 +47,9 @@ class Piab1dIndependentReference:
 class Piab1dIndependentReferenceAnalyzer:
     """Compose independent operation-specific PIAB1D reference analyses."""
 
-    __slots__ = (
-        "finite_algebraic_diagnostics_analyzer",
-        "decomposition_analyzer",
-    )
+    __slots__ = ("decomposition_analyzer",)
 
     def __init__(self) -> None:
-        self.finite_algebraic_diagnostics_analyzer = (
-            Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer()
-        )
         self.decomposition_analyzer = (
             Piab1dKineticPotentialDecompositionReferenceAnalyzer()
         )
@@ -101,9 +96,11 @@ class Piab1dIndependentReferenceAnalyzer:
         residual_norms = Piab1dResidualNormSweepReferenceAnalyzer(
             Piab1dResidualNormSweepReferenceRequest(result.residual_norm_sweep)
         ).execute()
-        algebraic_diagnostics = self.finite_algebraic_diagnostics_analyzer.execute(
-            result.finite_algebraic_diagnostics
-        )
+        algebraic_diagnostics = Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer(
+            Piab1dFiniteAlgebraicDiagnosticsReferenceRequest(
+                result.finite_algebraic_diagnostics
+            )
+        ).execute()
         decomposition = self.decomposition_analyzer.execute(
             result.kinetic_potential_decomposition,
             result.hamiltonian.matrix("reduced_hamiltonian"),

@@ -22,6 +22,8 @@ from ksdft2effmass.model_systems.piab1d.analysis.grid_sweep import (
 from ksdft2effmass.model_systems.piab1d.analysis.verification import (
     Piab1dEigenpairSweepReferenceAnalyzer,
     Piab1dEigenpairSweepReferenceRequest,
+    Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer,
+    Piab1dFiniteAlgebraicDiagnosticsReferenceRequest,
     Piab1dResidualNormSweepReferenceAnalyzer,
     Piab1dResidualNormSweepReferenceRequest,
 )
@@ -71,6 +73,18 @@ class TestPiab1dGridSweepAnalyzer:
         assert all(
             comparison.result().passed
             for comparison in residual_reference.comparisons.values()
+        )
+        algebraic_request = Piab1dFiniteAlgebraicDiagnosticsReferenceRequest(
+            analysis.finite_algebraic_diagnostics
+        )
+        algebraic_analyzer = Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer(
+            algebraic_request
+        )
+        algebraic_reference = algebraic_analyzer.execute()
+        assert algebraic_analyzer.request is algebraic_request
+        assert all(
+            comparison.result().passed
+            for comparison in algebraic_reference.comparisons.values()
         )
         assert analysis.residual_norms.hamiltonian.magnitude.shape == (2, 3)
         assert np.all(analysis.residual_norms.consistent.magnitude == 0.0)

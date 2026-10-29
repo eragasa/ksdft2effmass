@@ -179,7 +179,9 @@ next verifier leaf binds the exact typed eigenpair-sweep result in
 `Piab1dEigenpairSweepReferenceRequest` before independent dispersion reconstruction.
 The following leaf likewise binds the exact residual-norm sweep in
 `Piab1dResidualNormSweepReferenceRequest` before independent operator reconstruction
-and norm comparison.
+and norm comparison. The finite-algebraic verifier leaf then binds its exact typed
+result in `Piab1dFiniteAlgebraicDiagnosticsReferenceRequest` before applying
+independently derived floating-point bounds.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in
