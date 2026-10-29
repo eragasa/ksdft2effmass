@@ -76,7 +76,7 @@ class TestQho1dComparisonResult:
             ),
             ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
         )
-        return Qho1dComparator().execute(request)
+        return Qho1dComparator(request).execute()
 
     def test_public_api__package__exports_supported_result_class(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-005
@@ -125,13 +125,13 @@ class TestQho1dComparisonResult:
                 ScalarQuantity(0.0, PhysicalUnit("meter ** -0.5"))
             ),
         )
-        result = Qho1dComparator().execute(
+        result = Qho1dComparator(
             Qho1dComparisonRequest(
                 analytical=analytical,
                 finite_difference=Qho1dFiniteDifference(analytical, interval),
                 ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
             )
-        )
+        ).execute()
 
         assert result.grid_spacing.unit == PhysicalUnit("meter")
         assert result.absolute_discrepancy.unit == PhysicalUnit("joule")

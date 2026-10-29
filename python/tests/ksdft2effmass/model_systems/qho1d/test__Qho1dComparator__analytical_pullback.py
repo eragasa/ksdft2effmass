@@ -101,7 +101,7 @@ class TestQho1dComparator:
             ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
         )
 
-        result = Qho1dComparator().execute(request)
+        result = Qho1dComparator(request).execute()
 
         coordinates = np.array([-0.5, 0.0, 0.5], dtype=np.float64)
         unnormalized = np.exp(-0.5 * np.square(coordinates))

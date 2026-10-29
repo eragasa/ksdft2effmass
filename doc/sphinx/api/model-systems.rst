@@ -153,6 +153,11 @@ physical quantities are intrinsically dimensionless.
 .. autoclass:: Qho1dComparator
    :members:
 
+``Qho1dComparator`` binds one complete immutable ``Qho1dComparisonRequest`` at
+construction and exposes a zero-argument ``execute()`` action. Sweep composition
+constructs each comparator only after its exact analytical, grid, and ladder models
+exist.
+
 The direct successor surface owns one Python-authored typed configuration, immutable
 calculation records, an independent reference route, operation-partitioned
 verification, and authenticated visualization. It uses the same shared typed JSON

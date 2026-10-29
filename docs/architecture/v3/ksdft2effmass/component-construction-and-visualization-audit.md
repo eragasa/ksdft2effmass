@@ -124,7 +124,7 @@ families are construction-coherent with Phase 4.
 | `model_systems/piab1d/analysis/verification/finite_algebraic_diagnostics.py` | `Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer` | Bind admitted finite-algebra inputs. |
 | `model_systems/piab1d/analysis/verification/reference.py` | `Piab1dIndependentReferenceAnalyzer` | Bind the complete independently admitted result subject; do not synthesize five empty reference actions. |
 | `model_systems/piab1d/analysis/verification/residual_norms.py` | `Piab1dResidualNormSweepReferenceAnalyzer` | Bind admitted residual-sweep inputs. |
-| `model_systems/qho1d/analysis.py` | `Qho1dAnalyzer` | Bind configuration and result identity; require the comparator rather than selecting it from `None`. |
+| `model_systems/qho1d/analysis.py` | `Qho1dAnalyzer` | Bind configuration and result identity; construct each request-bound comparator only after the exact case models exist. |
 | `model_systems/qho1d/comparison.py` | `Qho1dComparator` | Bind the common-coordinate comparison request. |
 | `model_systems/qho1d/cross_grid.py` | `Qho1dCrossGridAnalyzer`; `Qho1dCrossGridVerifier` | Bind the calculation, and bind the analysis as an additional verifier subject. |
 | `model_systems/qho1d/verification.py` | `Qho1dIndependentReferenceAnalyzer` | Bind the admitted result subject. |
@@ -187,7 +187,10 @@ decomposition result and authoritative reduced Hamiltonian in
 correlation, before independent projection reconstruction. The aggregate reference
 analyzer now binds the complete result and verifier-derived visualization projection
 in `Piab1dIndependentReferenceRequest`; its zero-argument `execute()` constructs each
-complete child request only from that admitted subject.
+complete child request only from that admitted subject. The QHO1D remediation begins
+at the common-coordinate leaf: `Qho1dComparator` now binds the existing complete
+`Qho1dComparisonRequest`, and the provisional sweep composition constructs each
+request-bound comparator only after the exact case models exist.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

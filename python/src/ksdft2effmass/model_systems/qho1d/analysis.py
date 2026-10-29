@@ -38,25 +38,7 @@ class Qho1dAnalyzer:
     comparator remain reusable domain owners.
     """
 
-    __slots__ = ("_comparator",)
-
-    def __init__(self, comparator: Qho1dComparator | None = None) -> None:
-        """Construct the analyzer with an explicit or default comparator.
-
-        Parameters
-        ----------
-        comparator
-            Stateless common-coordinate comparison action. ``None`` constructs the
-            supported default.
-
-        Raises
-        ------
-        TypeError
-            ``comparator`` is neither ``Qho1dComparator`` nor ``None``.
-        """
-        if comparator is not None and not isinstance(comparator, Qho1dComparator):
-            raise TypeError("comparator must be Qho1dComparator or None")
-        self._comparator = comparator or Qho1dComparator()
+    __slots__ = ()
 
     def execute(
         self,
@@ -107,9 +89,9 @@ class Qho1dAnalyzer:
             if not value:
                 raise ValueError(f"{name} must be nonempty")
         comparisons = tuple(
-            self._comparator.execute(
+            Qho1dComparator(
                 self._request(configuration, box, spacing, retained)
-            )
+            ).execute()
             for box in configuration.box_half_widths
             for spacing in configuration.grid_spacings
             for retained in configuration.retained_dimensions
