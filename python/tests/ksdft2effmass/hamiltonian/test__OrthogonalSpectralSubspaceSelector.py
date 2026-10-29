@@ -26,7 +26,10 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspaceSelector
+from ksdft2effmass.hamiltonian import (
+    OrthogonalSpectralSubspaceSelectionRequest,
+    OrthogonalSpectralSubspaceSelector,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = OrthogonalSpectralSubspaceSelector
@@ -47,10 +50,23 @@ class TestOrthogonalSpectralSubspaceSelector:
         eigensystem = SpectralDecomposition(
             MatrixQuantity(np.diag([1.0, 2.0, 3.0]), Unitless())
         ).eigensystem()
-        subspace = OrthogonalSpectralSubspaceSelector().execute(eigensystem, 2)
+        request = OrthogonalSpectralSubspaceSelectionRequest(eigensystem, 2)
+        selector = OrthogonalSpectralSubspaceSelector(request)
+
+        subspace = selector.execute()
         projector = subspace.projector.magnitude
         complement = subspace.complement_projector.magnitude
 
+        assert selector.request is request
         np.testing.assert_array_equal(subspace.eigenvalues.magnitude, [1.0, 2.0])
         np.testing.assert_allclose(projector @ projector, projector)
         np.testing.assert_allclose(projector + complement, np.eye(3))
+
+    def test_request__boolean_retained_dimension__raises_type_error(self) -> None:
+        """Boolean values do not satisfy the public retained-dimension contract."""
+        eigensystem = SpectralDecomposition(
+            MatrixQuantity(np.diag([1.0, 2.0]), Unitless())
+        ).eigensystem()
+
+        with pytest.raises(TypeError, match="built-in int"):
+            OrthogonalSpectralSubspaceSelectionRequest(eigensystem, True)

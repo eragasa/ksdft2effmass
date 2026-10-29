@@ -10,7 +10,8 @@ from projectkoios.physkit.units import Unitless, VectorQuantity
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityAnalyzer,
     Periodic1DFourierLocalityConfiguration,
-    Periodic1DFourierLocalityIndependentVerifier,
+    Periodic1DFourierLocalityIndependentReferenceAnalyzer,
+    Periodic1DFourierLocalityIndependentReferenceRequest,
     Periodic1DFourierLocalityVerification,
     Periodic1DFourierLocalityVerifier,
     Periodic1DFourierLocalityVisualizationPlotEnum,
@@ -58,7 +59,7 @@ class TestPeriodic1DFourierLocalityVerifier:
         )
 
     def test__result__authenticates_independently_reconstructed_values(self) -> None:
-        result = Periodic1DFourierLocalityAnalyzer().execute(self.configuration())
+        result = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
         wire = result.to_json()
 
         verified = Periodic1DFourierLocalityVerifier(result_wire=wire).result()
@@ -93,7 +94,7 @@ class TestPeriodic1DFourierLocalityVerifier:
         )
 
     def test__admit_stored__rejects_tampered_visualization_projection(self) -> None:
-        result = Periodic1DFourierLocalityAnalyzer().execute(self.configuration())
+        result = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
         verifier = Periodic1DFourierLocalityVerifier(result_wire=result.to_json())
         verified = verifier.result()
         values = verified.visualization_data.evaluation_lowest_energies.magnitude.copy()
@@ -110,7 +111,7 @@ class TestPeriodic1DFourierLocalityVerifier:
             )
 
     def test__independent_verifier__detects_mutated_decision_inventory(self) -> None:
-        result = Periodic1DFourierLocalityAnalyzer().execute(self.configuration())
+        result = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
         verified = Periodic1DFourierLocalityVerifier(
             result_wire=result.to_json()
         ).result()
@@ -118,14 +119,14 @@ class TestPeriodic1DFourierLocalityVerifier:
         mutated = (not mesh.near_tie_mask[0], *mesh.near_tie_mask[1:])
         object.__setattr__(mesh, "near_tie_mask", mutated)
 
-        comparisons = (
-            Periodic1DFourierLocalityIndependentVerifier()
-            .execute(
-                result,
-                verified.visualization_data,
-            )
-            .comparisons
+        request = Periodic1DFourierLocalityIndependentReferenceRequest(
+            result,
+            verified.visualization_data,
         )
+        independent = Periodic1DFourierLocalityIndependentReferenceAnalyzer(request)
+        comparisons = independent.execute().comparisons
+
+        assert independent.request is request
 
         assert not comparisons["mesh_8_near_tie_mask"].result().passed
 
@@ -133,7 +134,7 @@ class TestPeriodic1DFourierLocalityVerifier:
         self,
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
-        result = Periodic1DFourierLocalityAnalyzer().execute(self.configuration())
+        result = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
 
         def forbidden(*_args: object, **_kwargs: object) -> None:
             raise AssertionError("production analyzer must not run during verification")
@@ -147,7 +148,7 @@ class TestPeriodic1DFourierLocalityVerifier:
         assert np.isfinite(tuple(verified.verification.checks.values())).all()
 
     def test__visualize__returns_complete_authenticated_png_inventory(self) -> None:
-        result = Periodic1DFourierLocalityAnalyzer().execute(self.configuration())
+        result = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
         verified = Periodic1DFourierLocalityVerifier(
             result_wire=result.to_json()
         ).result()
@@ -166,7 +167,7 @@ class TestPeriodic1DFourierLocalityVerifier:
         )
 
     def test__visualize__rejects_unrelated_projection_digest(self) -> None:
-        result = Periodic1DFourierLocalityAnalyzer().execute(self.configuration())
+        result = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
         verified = Periodic1DFourierLocalityVerifier(
             result_wire=result.to_json()
         ).result()

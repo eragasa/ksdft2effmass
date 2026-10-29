@@ -1,6 +1,9 @@
 """Shared frozen rank-two composite-alignment test values."""
 
 import pytest
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
 
 from ksdft2effmass.periodic1d.composite_band_alignment import (
     Periodic1DCompositeBandAlignmentAnalyzer,
@@ -42,4 +45,9 @@ def composite_result(
     composite_configuration: Periodic1DCompositeBandAlignmentConfiguration,
 ) -> Periodic1DCompositeBandAlignmentCalculationResult:
     """Calculate the frozen finite control once for the bounded test session."""
-    return Periodic1DCompositeBandAlignmentAnalyzer().execute(composite_configuration)
+    analyzer = Periodic1DCompositeBandAlignmentAnalyzer(
+        composite_configuration,
+        NumpyBatchedComplexUnitaryProcrustesSolver(),
+    )
+    assert analyzer.request is composite_configuration
+    return analyzer.execute()

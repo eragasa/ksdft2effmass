@@ -143,7 +143,8 @@ Before assigning `.v1` or retaining a maintained run:
 1. complete independent source and scientific-protocol review;
 2. define the retained execution and evidence-sealing policy;
 3. keep historical M2 and monograph publication references bound to their exact bytes;
-4. migrate M3 consumers separately before retiring the live M2 source package; and
+4. preserve the completed M3 consumer migration and M2 source-retirement recovery
+   record; and
 5. obtain explicit retained-execution authorization.
 
 Open owner replacements are tracked as

@@ -7,11 +7,14 @@ from projectkoios.physkit.linalg.matrix.norm import FrobeniusMatrixNorm
 from projectkoios.physkit.units import MatrixQuantity, ScalarQuantity
 
 from ksdft2effmass.model_systems.qho1d import (
+    Qho1dAnalysisRequest,
     Qho1dAnalyzer,
     Qho1dCalculationResult,
     Qho1dConfiguration,
+    Qho1dCrossGridAnalysisRequest,
     Qho1dCrossGridAnalysisResult,
     Qho1dCrossGridAnalyzer,
+    Qho1dCrossGridVerificationRequest,
     Qho1dCrossGridVerifier,
 )
 
@@ -43,19 +46,24 @@ class TestQho1dCrossGridAnalyzer:
         grid_spacings: tuple[float, ...] = (0.2, 0.1, 0.05),
     ) -> Qho1dCalculationResult:
         """Return one direct calculation for the compact configuration."""
-        return Qho1dAnalyzer().execute(
-            cls.configuration(grid_spacings),
-            calculation_family="qho1d-spatial-truncation",
-            execution_id="cross-grid-test",
-            evidence_status="illustrative numerical experiment",
-            claim_boundary="test fixture; no continuum-convergence claim",
-        )
+        return Qho1dAnalyzer(
+            Qho1dAnalysisRequest(
+                configuration=cls.configuration(grid_spacings),
+                calculation_family="qho1d-spatial-truncation",
+                execution_id="cross-grid-test",
+                evidence_status="illustrative numerical experiment",
+                claim_boundary="test fixture; no continuum-convergence claim",
+            )
+        ).execute()
 
     def test_method__execute__calculates_ordered_adjacent_grid_norms(self) -> None:
         """Every fixed-box, fixed-dimension adjacent pair is compared once."""
         calculation = self.calculation()
-        analysis = Qho1dCrossGridAnalyzer().execute(calculation)
+        request = Qho1dCrossGridAnalysisRequest(calculation)
+        analyzer = Qho1dCrossGridAnalyzer(request)
+        analysis = analyzer.execute()
 
+        assert analyzer.request is request
         assert len(analysis.comparisons) == 4
         assert tuple(value.key for value in analysis.comparisons) == (
             (4.0, 2, 0.2, 0.1),
@@ -77,7 +85,9 @@ class TestQho1dCrossGridAnalyzer:
 
     def test_representation__typed_json__round_trips_exact_bytes(self) -> None:
         """The diagnostic aggregate uses the shared typed serialization boundary."""
-        analysis = Qho1dCrossGridAnalyzer().execute(self.calculation())
+        analysis = Qho1dCrossGridAnalyzer(
+            Qho1dCrossGridAnalysisRequest(self.calculation())
+        ).execute()
         wire = analysis.to_json()
 
         reconstructed = Qho1dCrossGridAnalysisResult.from_json(wire)
@@ -90,8 +100,13 @@ class TestQho1dCrossGridAnalyzer:
     def test_method__verifier__detects_changed_derived_norm(self) -> None:
         """Verification recomputes each norm from authoritative case matrices."""
         calculation = self.calculation()
-        analysis = Qho1dCrossGridAnalyzer().execute(calculation)
-        verification = Qho1dCrossGridVerifier().execute(calculation, analysis)
+        analysis = Qho1dCrossGridAnalyzer(
+            Qho1dCrossGridAnalysisRequest(calculation)
+        ).execute()
+        verification_request = Qho1dCrossGridVerificationRequest(calculation, analysis)
+        verifier = Qho1dCrossGridVerifier(verification_request)
+        verification = verifier.execute()
+        assert verifier.request is verification_request
         first = analysis.comparisons[0]
         changed_first = replace(
             first,
@@ -105,7 +120,9 @@ class TestQho1dCrossGridAnalyzer:
             comparisons=(changed_first, *analysis.comparisons[1:]),
         )
 
-        changed_verification = Qho1dCrossGridVerifier().execute(calculation, changed)
+        changed_verification = Qho1dCrossGridVerifier(
+            Qho1dCrossGridVerificationRequest(calculation, changed)
+        ).execute()
 
         assert verification.passed
         assert len(verification.observations) == 20
@@ -119,4 +136,4 @@ class TestQho1dCrossGridAnalyzer:
             ValueError,
             match="cross-grid analysis requires at least two grid spacings",
         ):
-            Qho1dCrossGridAnalyzer().execute(calculation)
+            Qho1dCrossGridAnalyzer(Qho1dCrossGridAnalysisRequest(calculation)).execute()

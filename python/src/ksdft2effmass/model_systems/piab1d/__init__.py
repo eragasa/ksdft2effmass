@@ -2,6 +2,7 @@
 
 from .analysis import (
     Piab1dAnalysis,
+    Piab1dAnalysisRequest,
     Piab1dAnalyzer,
     Piab1dEigenpairSweepResult,
     Piab1dFiniteAlgebraicDiagnostics,
@@ -10,6 +11,7 @@ from .analysis import (
     Piab1dGridSweepDefinition,
     Piab1dIndependentReference,
     Piab1dIndependentReferenceAnalyzer,
+    Piab1dIndependentReferenceRequest,
     Piab1dResidualNormSweepResult,
     Piab1dVerification,
     Piab1dVerifier,
@@ -31,7 +33,7 @@ from .result import (
     Piab1dConvergenceResult,
     Piab1dSelectionResult,
 )
-from .visualization import (
+from .visualizations import (
     Piab1dVisualizationData,
     Piab1dVisualizationPlotEnum,
     Piab1dVisualizer,
@@ -41,6 +43,7 @@ __all__ = [
     "DiagnosticMethodsEnum",
     "DiscreteSpectrumMaximumAbsoluteErrorAnalyzer",
     "Piab1dAnalysis",
+    "Piab1dAnalysisRequest",
     "Piab1dCalculationResult",
     "Piab1dConfiguration",
     "Piab1dConvergenceResult",
@@ -51,6 +54,7 @@ __all__ = [
     "Piab1dGridSweepDefinition",
     "Piab1dIndependentReference",
     "Piab1dIndependentReferenceAnalyzer",
+    "Piab1dIndependentReferenceRequest",
     "Piab1dAnalyzer",
     "Piab1dDiagnostics",
     "Piab1dResidualNormSweepResult",

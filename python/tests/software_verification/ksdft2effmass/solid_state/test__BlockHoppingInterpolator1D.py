@@ -26,7 +26,11 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.solidstate import BlockHoppingInterpolator1D, BlockHoppingModel1D
+from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
+    BlockHoppingInterpolator1D,
+    BlockHoppingModel1D,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = BlockHoppingInterpolator1D
@@ -53,7 +57,12 @@ class TestBlockHoppingInterpolator1D:
             np.asarray([-0.5, 0.0, 0.5], dtype=np.float64), Unitless()
         )
 
-        result = BlockHoppingInterpolator1D().execute(model, coordinates)
+        request = BlockHoppingInterpolationRequest1D(model, coordinates)
+        interpolator = BlockHoppingInterpolator1D(request)
+
+        result = interpolator.execute()
+
+        assert interpolator.request is request
 
         np.testing.assert_allclose(
             [matrix.magnitude[0, 0] for matrix in result.matrices],

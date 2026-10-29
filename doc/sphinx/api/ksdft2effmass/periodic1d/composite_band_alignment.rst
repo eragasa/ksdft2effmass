@@ -34,13 +34,16 @@ Result sections
 .. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentCalculationResult
    :members:
 
-Independent verification
-------------------------
+Independent reference
+---------------------
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentVerification
+.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentReferenceRequest
    :members:
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentVerifier
+.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentReference
+   :members:
+
+.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer
    :members:
 
 .. autoclass:: ksdft2effmass.periodic1d.CompositeBandAlignmentVerification

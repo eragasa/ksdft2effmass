@@ -25,6 +25,7 @@ explicitly labeled and do not claim implemented or supported source.
 | `workflows` | Calculator-independent task, workflow, gate, run-state, and execution-authority contracts | Scientific algorithms and native external-tool behavior |
 | `provenance` | Portable artifact, execution, lineage, and external-tool provenance records | Scientific validity or campaign-specific result meaning |
 | `serialization` | Shared typed JSON contracts, scientific-value normalization, mapping byte actions, and final typed-record boundaries | Domain schemas, filesystem persistence, provenance policy, or scientific interpretation |
+| `visualizations` | Domain-neutral visualization projection serialization, figure composition contracts, PNG admission, authentication mechanics, and closed-inventory enforcement | Family scientific projections, plot inventories, calculation paths, scientific interpretation, or publication policy |
 | `structures` | Atomic periodic-structure records | Finite represented matrices or lattice-model calculations |
 | `electronic_structure` | General electronic-structure sampling records | Calculator execution or campaign composition |
 

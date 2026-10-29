@@ -27,6 +27,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
+    BlockHoppingHermiticityRequest1D,
     BlockHoppingHermiticityResult1D,
 )
 from ksdft2effmass.solidstate import BlockHoppingModel1D
@@ -52,9 +53,11 @@ class TestBlockHoppingHermiticityResult1D:
         model = BlockHoppingModel1D(
             ScalarQuantity(1.0, Unitless()), (-1, 0), (block, block)
         )
-        valid = BlockHoppingHermiticityAnalyzer1D().execute(
-            model, ScalarQuantity(0.0, Unitless()), None
-        )
+        valid = BlockHoppingHermiticityAnalyzer1D(
+            BlockHoppingHermiticityRequest1D(
+                model, ScalarQuantity(0.0, Unitless()), None
+            )
+        ).execute()
 
         with pytest.raises(ValueError, match="must match coverage"):
             BlockHoppingHermiticityResult1D(

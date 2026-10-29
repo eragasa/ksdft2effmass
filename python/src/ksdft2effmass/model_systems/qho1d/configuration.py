@@ -10,7 +10,11 @@ import numpy as np
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from .parameters import Qho1dNondimensionalizer, Qho1dParameters
+from .parameters import (
+    Qho1dNondimensionalizationRequest,
+    Qho1dNondimensionalizer,
+    Qho1dParameters,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -97,7 +101,9 @@ class Qho1dConfiguration(BaseTypedRecord):
         Qho1dParameters
             Unitless parameter aggregate consumed by the three QHO1D model owners.
         """
-        return Qho1dNondimensionalizer().execute(self.hbar, self.mass, self.omega)
+        return Qho1dNondimensionalizer(
+            Qho1dNondimensionalizationRequest(self.hbar, self.mass, self.omega)
+        ).execute()
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {

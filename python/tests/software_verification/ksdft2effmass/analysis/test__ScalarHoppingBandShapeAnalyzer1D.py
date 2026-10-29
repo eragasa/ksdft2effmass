@@ -28,6 +28,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     ScalarHoppingBandShapeAnalyzer1D,
+    ScalarHoppingBandShapeRequest1D,
 )
 from ksdft2effmass.solidstate import BlockHoppingModel1D
 
@@ -56,11 +57,16 @@ class TestScalarHoppingBandShapeAnalyzer1D:
             ),
         )
 
-        result = ScalarHoppingBandShapeAnalyzer1D().execute(
+        request = ScalarHoppingBandShapeRequest1D(
             model,
             VectorQuantity(np.asarray([-0.5, 0.0, 0.5]), Unitless()),
             ScalarQuantity(1.0e-14, Unitless()),
         )
+        analyzer = ScalarHoppingBandShapeAnalyzer1D(request)
+
+        result = analyzer.execute()
+
+        assert analyzer.request is request
 
         np.testing.assert_allclose(result.bandwidth.magnitude, 2.0)
         np.testing.assert_allclose(

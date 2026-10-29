@@ -7,10 +7,13 @@ from collections.abc import Mapping
 from types import MappingProxyType
 from typing import final
 
-from ksdft2effmass.verification import BaseVerification, CompositeVerification
+from ksdft2effmass.verification import (
+    CompositeVerification,
+    VisualizationVerification,
+)
 
 
-class BaseModelAnalysisVerification(BaseVerification, ABC):
+class BaseModelAnalysisVerification(VisualizationVerification, ABC):
     """Own behavior common to authenticated model-analysis verification values."""
 
     __slots__ = ()

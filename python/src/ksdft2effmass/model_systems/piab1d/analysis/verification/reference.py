@@ -9,16 +9,24 @@ from types import MappingProxyType
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from ...result import Piab1dCalculationResult
-from ...visualization import Piab1dVisualizationData
-from .core import Piab1dCoreReferenceAnalyzer
+from ...visualizations.data import Piab1dVisualizationData
+from .core import Piab1dCoreReferenceAnalyzer, Piab1dCoreReferenceRequest
 from .decomposition import (
     Piab1dKineticPotentialDecompositionReferenceAnalyzer,
+    Piab1dKineticPotentialDecompositionReferenceRequest,
 )
-from .eigenpair_convergence import Piab1dEigenpairSweepReferenceAnalyzer
+from .eigenpair_convergence import (
+    Piab1dEigenpairSweepReferenceAnalyzer,
+    Piab1dEigenpairSweepReferenceRequest,
+)
 from .finite_algebraic_diagnostics import (
     Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer,
+    Piab1dFiniteAlgebraicDiagnosticsReferenceRequest,
 )
-from .residual_norms import Piab1dResidualNormSweepReferenceAnalyzer
+from .residual_norms import (
+    Piab1dResidualNormSweepReferenceAnalyzer,
+    Piab1dResidualNormSweepReferenceRequest,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -37,41 +45,38 @@ class Piab1dIndependentReference:
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dIndependentReferenceRequest:
+    """Bind one result and its verifier-derived visualization projection."""
+
+    result: Piab1dCalculationResult
+    visualization_data: Piab1dVisualizationData
+
+    def __post_init__(self) -> None:
+        """Admit the complete typed aggregate-reference request."""
+        if type(self.result) is not Piab1dCalculationResult:
+            raise TypeError("result must be Piab1dCalculationResult")
+        if type(self.visualization_data) is not Piab1dVisualizationData:
+            raise TypeError("visualization_data must be Piab1dVisualizationData")
+
+
 class Piab1dIndependentReferenceAnalyzer:
-    """Compose independent operation-specific PIAB1D reference analyses."""
+    """Compose independent analyses for one bound PIAB1D subject."""
 
-    __slots__ = (
-        "core_analyzer",
-        "eigenpair_sweep_analyzer",
-        "residual_norm_sweep_analyzer",
-        "finite_algebraic_diagnostics_analyzer",
-        "decomposition_analyzer",
-    )
+    __slots__ = ("_request",)
 
-    def __init__(self) -> None:
-        self.core_analyzer = Piab1dCoreReferenceAnalyzer()
-        self.eigenpair_sweep_analyzer = Piab1dEigenpairSweepReferenceAnalyzer()
-        self.residual_norm_sweep_analyzer = Piab1dResidualNormSweepReferenceAnalyzer()
-        self.finite_algebraic_diagnostics_analyzer = (
-            Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer()
-        )
-        self.decomposition_analyzer = (
-            Piab1dKineticPotentialDecompositionReferenceAnalyzer()
-        )
+    def __init__(self, request: Piab1dIndependentReferenceRequest) -> None:
+        if type(request) is not Piab1dIndependentReferenceRequest:
+            raise TypeError("request must be Piab1dIndependentReferenceRequest")
+        self._request = request
 
-    def execute(
-        self,
-        result: Piab1dCalculationResult,
-        visualization_data: Piab1dVisualizationData,
-    ) -> Piab1dIndependentReference:
+    @property
+    def request(self) -> Piab1dIndependentReferenceRequest:
+        """Return the complete immutable aggregate-reference request."""
+        return self._request
+
+    def execute(self) -> Piab1dIndependentReference:
         """Compose all independent PIAB1D reference comparisons.
-
-        Parameters
-        ----------
-        result
-            Typed production calculation aggregate.
-        visualization_data
-            Verifier-derived visualization projection reconstructed from ``result``.
 
         Returns
         -------
@@ -80,8 +85,6 @@ class Piab1dIndependentReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            A supplied aggregate has the wrong type.
         ValueError
             Independent comparison names collide or reconstructed values violate a
             scientific-operation contract.
@@ -92,18 +95,28 @@ class Piab1dIndependentReferenceAnalyzer:
         owner reconstructs its target directly from declared equations and typed
         source data.
         """
-        core = self.core_analyzer.execute(result, visualization_data)
-        eigenpair_sweep = self.eigenpair_sweep_analyzer.execute(result.eigenpair_sweep)
-        residual_norms = self.residual_norm_sweep_analyzer.execute(
-            result.residual_norm_sweep
-        )
-        algebraic_diagnostics = self.finite_algebraic_diagnostics_analyzer.execute(
-            result.finite_algebraic_diagnostics
-        )
-        decomposition = self.decomposition_analyzer.execute(
-            result.kinetic_potential_decomposition,
-            result.hamiltonian.matrix("reduced_hamiltonian"),
-        )
+        result = self.request.result
+        visualization_data = self.request.visualization_data
+        core = Piab1dCoreReferenceAnalyzer(
+            Piab1dCoreReferenceRequest(result, visualization_data)
+        ).execute()
+        eigenpair_sweep = Piab1dEigenpairSweepReferenceAnalyzer(
+            Piab1dEigenpairSweepReferenceRequest(result.eigenpair_sweep)
+        ).execute()
+        residual_norms = Piab1dResidualNormSweepReferenceAnalyzer(
+            Piab1dResidualNormSweepReferenceRequest(result.residual_norm_sweep)
+        ).execute()
+        algebraic_diagnostics = Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer(
+            Piab1dFiniteAlgebraicDiagnosticsReferenceRequest(
+                result.finite_algebraic_diagnostics
+            )
+        ).execute()
+        decomposition = Piab1dKineticPotentialDecompositionReferenceAnalyzer(
+            Piab1dKineticPotentialDecompositionReferenceRequest(
+                result.kinetic_potential_decomposition,
+                result.hamiltonian.matrix("reduced_hamiltonian"),
+            )
+        ).execute()
         inventories = (
             core.comparisons,
             eigenpair_sweep.comparisons,

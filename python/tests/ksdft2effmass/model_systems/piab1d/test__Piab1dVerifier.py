@@ -19,9 +19,15 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis import (
     RelativeErrorConvergenceResult,
+    TailProbabilitySelectionRequest,
     TailProbabilitySelector,
 )
-from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
+from ksdft2effmass.analysis.operators import (
+    KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionRequest,
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
+)
 from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
 from ksdft2effmass.model_systems import (
     BaseModelAnalysisVerifier,
@@ -29,15 +35,25 @@ from ksdft2effmass.model_systems import (
 )
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dAnalysis,
+    Piab1dAnalysisRequest,
     Piab1dAnalyzer,
     Piab1dCalculationResult,
     Piab1dGridSweepAnalyzer,
     Piab1dGridSweepDefinition,
     Piab1dIndependentReference,
     Piab1dIndependentReferenceAnalyzer,
+    Piab1dIndependentReferenceRequest,
     Piab1dVerification,
     Piab1dVerifier,
     Piab1dVisualizationData,
+)
+from ksdft2effmass.model_systems.piab1d.analysis.verification import (
+    Piab1dKineticPotentialDecompositionReferenceAnalyzer,
+    Piab1dKineticPotentialDecompositionReferenceRequest,
+)
+from ksdft2effmass.model_systems.piab1d.analysis.verification.core import (
+    Piab1dCoreReferenceAnalyzer,
+    Piab1dCoreReferenceRequest,
 )
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
@@ -60,10 +76,9 @@ class TestPiab1dVerifier:
                 unit_system=UnitSystem.NONDIMENSIONAL,
             )
         ).solve(interior_points=8)
-        analysis: Piab1dAnalysis = Piab1dAnalyzer().execute(
-            solution,
-            retained_dimension=3,
-        )
+        analysis: Piab1dAnalysis = Piab1dAnalyzer(
+            Piab1dAnalysisRequest(solution, 3)
+        ).execute()
         reduction = analysis.reduced_hamiltonian
         subspace = reduction.spectral_subspace
         assert isinstance(subspace, OrthogonalSpectralSubspace)
@@ -85,7 +100,9 @@ class TestPiab1dVerifier:
             np.asarray(boltzmann_factors, dtype=np.float64) / partition_function,
             Unitless(),
         )
-        selection = TailProbabilitySelector().execute(probabilities, 0.01)
+        selection = TailProbabilitySelector(
+            TailProbabilitySelectionRequest(probabilities, 0.01)
+        ).execute()
         continuum_coordinates = np.linspace(0.0, 1.0, 800)
         continuum_wavefunctions = np.column_stack(
             tuple(
@@ -107,7 +124,7 @@ class TestPiab1dVerifier:
         convergence_orders = np.log(
             convergence_errors[:-1, :3] / convergence_errors[1:, :3]
         ) / np.log(convergence_spacings[:-1, None] / convergence_spacings[1:, None])
-        grid_sweep = Piab1dGridSweepAnalyzer().execute(
+        grid_sweep = Piab1dGridSweepAnalyzer(
             Piab1dGridSweepDefinition(
                 length=1.0,
                 mass=1.0,
@@ -115,21 +132,45 @@ class TestPiab1dVerifier:
                 retained_dimension=3,
                 fixed_modes=(8,),
             )
-        )
+        ).execute()
         eigenpair_sweep = grid_sweep.eigenpairs
-        decomposition = KineticPotentialDecompositionAnalyzer().execute(
-            reduction.matrix,
-            MatrixQuantity(
-                np.asarray(
-                    [
-                        [0.5, 1.0, 0.4],
-                        [1.0, -0.25, -0.75],
-                        [0.4, -0.75, 0.75],
-                    ]
-                ),
-                reduction.matrix.unit,
+        decomposition_shift = MatrixQuantity(
+            np.asarray(
+                [
+                    [0.5, 1.0, 0.4],
+                    [1.0, -0.25, -0.75],
+                    [0.4, -0.75, 0.75],
+                ]
             ),
+            reduction.matrix.unit,
         )
+        decomposition = KineticPotentialDecompositionAnalyzer(
+            KineticPotentialDecompositionRequest(reduction.matrix, decomposition_shift),
+            RetainedModelClassFitter(RetainedModelClassFitRequest(decomposition_shift)),
+        ).execute()
+        decomposition_reference_request = (
+            Piab1dKineticPotentialDecompositionReferenceRequest(
+                decomposition, reduction.matrix
+            )
+        )
+        decomposition_reference_analyzer = (
+            Piab1dKineticPotentialDecompositionReferenceAnalyzer(
+                decomposition_reference_request
+            )
+        )
+        decomposition_reference = decomposition_reference_analyzer.execute()
+        assert (
+            decomposition_reference_analyzer.request is decomposition_reference_request
+        )
+        assert all(
+            comparison.result().passed
+            for comparison in decomposition_reference.comparisons.values()
+        )
+        with pytest.raises(ValueError, match="shape must match"):
+            Piab1dKineticPotentialDecompositionReferenceRequest(
+                decomposition,
+                MatrixQuantity(np.eye(2), reduction.matrix.unit),
+            )
         visualization_data = Piab1dVisualizationData(
             length=solution.model.length_quantity,
             retained_dimension=3,
@@ -248,10 +289,17 @@ class TestPiab1dVerifier:
         decoded_result = TypedJsonValueCodec().deserialize_bytes(result_wire)
         assert isinstance(decoded_result, dict)
         typed_result = Piab1dCalculationResult.from_dict(decoded_result)
-        reference = Piab1dIndependentReferenceAnalyzer().execute(
-            typed_result,
-            visualization_data,
+        core_request = Piab1dCoreReferenceRequest(typed_result, visualization_data)
+        core_analyzer = Piab1dCoreReferenceAnalyzer(core_request)
+        core_reference = core_analyzer.execute()
+        assert core_analyzer.request is core_request
+        assert core_reference.comparisons
+        reference_request = Piab1dIndependentReferenceRequest(
+            typed_result, visualization_data
         )
+        reference_analyzer = Piab1dIndependentReferenceAnalyzer(reference_request)
+        reference = reference_analyzer.execute()
+        assert reference_analyzer.request is reference_request
         assert isinstance(reference, Piab1dIndependentReference)
         assert len(reference.comparisons) == 79
         with pytest.raises(TypeError):

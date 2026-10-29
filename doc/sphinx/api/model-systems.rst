@@ -34,45 +34,11 @@ SHA-256 identity, reconstructs the typed result from those same bytes, and owns 
 final derive--digest--verify composition. Callers cannot pair a decoded result with an
 unrelated subject digest or supply a projection digest.
 
-Visualization separates four responsibilities. ``BaseModelAnalysisPlot`` draws one
-data relation on a caller-owned axis. ``BaseModelAnalysisSubplot`` composes plots and
-axis-local presentation. ``BaseModelAnalysisFigure`` chooses the subplot layout and
-figure-wide presentation. ``BaseModelAnalysisFigureRenderer`` encodes one composed
-figure as an immutable value. ``BaseModelAnalysisVisualizer`` owns the complete
-figure inventory. Generic PNG values require a cross-platform-safe basename ending
-exactly in ``.png`` and decode supplied bytes before admission.
-``BaseModelAnalysisVisualizationData`` and ``BaseModelAnalysisVerification``
-separately fix the dictionary and JSON boundaries for immutable verification values;
-concrete values implement only their typed mapping.
+Domain-neutral projection, figure, rendering, and PNG-admission contracts belong to
+:doc:`visualizations`; model-system packages own only their scientific projections and
+closed figure inventories.
 
 .. autoclass:: BaseModelAnalysisVerifier
-   :members:
-
-.. autoclass:: BaseModelAnalysisVisualizer
-   :members:
-
-.. autoclass:: BaseModelAnalysisPlot
-   :members:
-
-.. autoclass:: BaseModelAnalysisSubplot
-   :members:
-
-.. autoclass:: BaseModelAnalysisFigure
-   :members:
-
-.. autoclass:: BaseModelAnalysisFigureRenderer
-   :members:
-
-.. autoclass:: ModelAnalysisPngFigureRenderer
-   :members:
-
-.. autoclass:: BaseModelAnalysisVisualization
-   :members:
-
-.. autoclass:: BaseModelAnalysisVisualizationData
-   :members:
-
-.. autoclass:: ModelAnalysisPngVisualization
    :members:
 
 .. autoclass:: BaseVerification
@@ -163,6 +129,9 @@ physical quantities are intrinsically dimensionless.
 
 .. currentmodule:: ksdft2effmass.model_systems.qho1d
 
+.. autoclass:: Qho1dNondimensionalizationRequest
+   :members:
+
 .. autoclass:: Qho1dNondimensionalizer
    :members:
 
@@ -186,6 +155,11 @@ physical quantities are intrinsically dimensionless.
 
 .. autoclass:: Qho1dComparator
    :members:
+
+``Qho1dComparator`` binds one complete immutable ``Qho1dComparisonRequest`` at
+construction and exposes a zero-argument ``execute()`` action. Sweep composition
+constructs each comparator only after its exact analytical, grid, and ladder models
+exist.
 
 The direct successor surface owns one Python-authored typed configuration, immutable
 calculation records, an independent reference route, operation-partitioned
@@ -216,8 +190,15 @@ boundary as PIAB1D; historical ``study`` serialization is not involved.
 .. autoclass:: Qho1dCalculationResult
    :members:
 
+.. autoclass:: Qho1dAnalysisRequest
+   :members:
+
 .. autoclass:: Qho1dAnalyzer
    :members:
+
+``Qho1dAnalyzer`` binds one complete immutable ``Qho1dAnalysisRequest`` before
+execution. Its terminal action takes no scientific arguments and constructs each
+request-bound comparison child only after the exact case models exist.
 
 The adjacent-grid analyzer compares successive coarse/fine pulled-back Hamiltonians
 only after both act in the same retained number-state coordinates. Its Frobenius norm
@@ -229,13 +210,22 @@ is a finite-representation change diagnostic, not a continuum error estimate.
 .. autoclass:: Qho1dCrossGridAnalysisResult
    :members:
 
+.. autoclass:: Qho1dCrossGridAnalysisRequest
+   :members:
+
 .. autoclass:: Qho1dCrossGridAnalyzer
    :members:
 
 .. autoclass:: Qho1dCrossGridVerification
    :members:
 
+.. autoclass:: Qho1dCrossGridVerificationRequest
+   :members:
+
 .. autoclass:: Qho1dCrossGridVerifier
+   :members:
+
+.. autoclass:: Qho1dIndependentReferenceRequest
    :members:
 
 .. autoclass:: Qho1dIndependentReferenceAnalyzer
@@ -307,7 +297,49 @@ verification composed around that pinned implementation.
 .. autoclass:: Piab1dAnalysis
    :members:
 
+.. autoclass:: Piab1dAnalysisRequest
+   :members:
+
 .. autoclass:: Piab1dAnalyzer
+   :members:
+
+.. autoclass:: Piab1dGridSweepDefinition
+   :members:
+
+.. autoclass:: Piab1dGridSweepAnalyzer
+   :members:
+
+.. autoclass:: Piab1dGridSweepAnalysis
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dEigenpairSweepReferenceRequest
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dEigenpairSweepReferenceAnalyzer
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dResidualNormSweepReferenceRequest
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dResidualNormSweepReferenceAnalyzer
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dFiniteAlgebraicDiagnosticsReferenceRequest
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dKineticPotentialDecompositionReferenceRequest
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dKineticPotentialDecompositionReferenceAnalyzer
+   :members:
+
+.. autoclass:: Piab1dIndependentReferenceRequest
+   :members:
+
+.. autoclass:: Piab1dIndependentReferenceAnalyzer
    :members:
 
 .. autoclass:: Piab1dDiagnostics
@@ -328,9 +360,11 @@ verification composed around that pinned implementation.
 .. autoclass:: Piab1dVisualizer
    :members:
 
-``Piab1dAnalyzer`` constructs a set of cohesive diagnostic analyzers and iterates over
-that set to produce the complete immutable ``Piab1dDiagnostics`` inventory. There is
-no diagnostic facade or factory in this tranche.
+``Piab1dAnalyzer`` binds one complete immutable ``Piab1dAnalysisRequest`` before
+execution. It constructs complete finite-operator child requests and a set of cohesive
+diagnostic analyzers, then iterates over the latter to produce the complete immutable
+``Piab1dDiagnostics`` inventory. There is no diagnostic facade or factory in this
+tranche.
 
 The former historical retained-result wires and ``study`` package were removed after
 the direct replacement. Exact Git recovery identities and the maintained boundary are
@@ -379,10 +413,16 @@ belong to :doc:`solid-state`.
 .. autoclass:: PeriodicUniformGrid1D
    :members:
 
+.. autoclass:: PlaneWaveFiberHamiltonian1DRequest
+   :members:
+
 .. autoclass:: PlaneWaveFiberHamiltonian1DResult
    :members:
 
 .. autoclass:: PlaneWaveFiberHamiltonian1DConstructor
+   :members:
+
+.. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DRequest
    :members:
 
 .. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DResult

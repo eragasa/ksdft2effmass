@@ -6,7 +6,7 @@ The program asks how retained rank, spatial dimension, lattice geometry, interna
 
 ## Plain-language progression
 
-1. **One-dimensional rank-one null control.** Define a scalar specialization with the same momentum, harmonic, energy, Fourier, mesh, support, and error conventions as the rank-two and higher-rank controlled family. Scalar phase conjugation leaves its represented Hamiltonian unchanged, so it is a locality baseline rather than a nontrivial alignment experiment.
+1. **One-dimensional rank-one null control.** Use the implemented scalar specialization with the same momentum, harmonic, energy, Fourier, mesh, support, and error conventions as the rank-two and higher-rank controlled family. Scalar phase conjugation leaves its represented Hamiltonian unchanged, so it is a locality baseline rather than a nontrivial alignment experiment.
 2. **One-dimensional rank-two baseline.** Compare an unchanged retained spectrum with momentum-dependent rotations and measure the resulting hopping-locality cost.
 3. **Two- and three-dimensional rank-two controls.** Repeat the comparison on orthogonal and nonorthogonal lattices while keeping retained rank equal to two.
 4. **Synthetic geometry changes.** Separate geometry-only, frozen-response, and prescribed-response mechanisms along the two-dimensional rhombic and three-dimensional Bain paths.
@@ -19,7 +19,7 @@ The program asks how retained rank, spatial dimension, lattice geometry, interna
 
 ## Rank-one boundary
 
-The pre-execution rank-one owner is [`calculations/periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/). Its exact controlled four-state parent, lowest-ordered-eigenvalue scalar-field rule, Mathieu-compatible attained range/error--locality channels, separate interpolation/truncation/total-error semantics, exact finite meshes and supports, gates, tolerances, threshold, passage rules, and per-mesh attained error--complexity diagnostic are now frozen prospectively. Family-owned typed wires and implementation remain open. Its directory contains only the calculation boundary, donor crosswalk, scientific-control record, documentation surfaces, and a technical design note. No input, executable stage, result, or execution exists. The retained Mathieu1D package remains a separate periodic-potential benchmark and does not serve as this compatible specialization.
+The rank-one owner is [`calculations/periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/). Its exact controlled four-state parent, lowest-ordered-eigenvalue scalar-field rule, Mathieu-compatible attained range/error--locality channels, separate interpolation/truncation/total-error semantics, exact finite meshes and supports, gates, tolerances, threshold, passage rules, and per-mesh attained error--complexity diagnostic are frozen and implemented through family-owned typed configuration and result wires, an independent verifier, authenticated rendering, and three direct stage scripts. The provisional in-memory development control reports all 725 named comparisons passing. No retained input, result, verification, figure, or execution directory exists, and no evidence promotion has occurred. The retained Mathieu1D package remains a separate periodic-potential benchmark and does not serve as this compatible specialization.
 
 For a scalar represented Hamiltonian, global, pointwise, and known-inverse phase alignments are operator-identical. They must be marked inapplicable as distinct alignment channels rather than emitted as duplicated numerical results.
 

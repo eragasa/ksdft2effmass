@@ -96,21 +96,38 @@ class RetainedModelClassFitResult(BaseTypedRecord):
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class RetainedModelClassFitRequest:
+    """Bind one finite retained-basis matrix for declared model-class fitting."""
+
+    target: MatrixQuantity
+
+    def __post_init__(self) -> None:
+        """Admit one square real matrix quantity."""
+        if not isinstance(self.target, MatrixQuantity):
+            raise TypeError("target must be MatrixQuantity")
+        dimension = self.target.magnitude.shape[0]
+        if self.target.magnitude.shape != (dimension, dimension):
+            raise ValueError("target must be square")
+
+
 class RetainedModelClassFitter:
-    """Fit the four declared retained real-symmetric model classes."""
+    """Fit four model classes for one constructor-bound retained matrix."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self, target: MatrixQuantity
-    ) -> tuple[RetainedModelClassFitResult, ...]:
+    def __init__(self, request: RetainedModelClassFitRequest) -> None:
+        if type(request) is not RetainedModelClassFitRequest:
+            raise TypeError("request must be RetainedModelClassFitRequest")
+        self._request = request
+
+    @property
+    def request(self) -> RetainedModelClassFitRequest:
+        """Return the complete immutable retained-model fitting request."""
+        return self._request
+
+    def execute(self) -> tuple[RetainedModelClassFitResult, ...]:
         """Project a retained matrix onto the declared nested model classes.
-
-        Parameters
-        ----------
-        target
-            Finite square real-symmetric matrix quantity expressed in one declared
-            retained basis.
 
         Returns
         -------
@@ -119,24 +136,14 @@ class RetainedModelClassFitter:
             symmetric. Each result retains the projected matrix, unexplained residual,
             and canonical Frobenius norm.
 
-        Raises
-        ------
-        TypeError
-            ``target`` is not a ``MatrixQuantity``.
-        ValueError
-            ``target`` is nonsquare or not real symmetric.
-
         Notes
         -----
         The diagonal and tridiagonal classes depend on the supplied retained basis.
         The operation does not assign physical meaning to a fitted component.
         """
-        if not isinstance(target, MatrixQuantity):
-            raise TypeError("target must be MatrixQuantity")
+        target = self.request.target
         matrix = target.magnitude
         dimension = matrix.shape[0]
-        if matrix.shape != (dimension, dimension):
-            raise ValueError("target must be square")
         rows, columns = np.indices(matrix.shape)
         candidates = (
             (

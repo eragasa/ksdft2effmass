@@ -50,7 +50,7 @@ execution_directory = script_path.parent / "executions" / EXECUTION_ID
 temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete")
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a Fourier-locality execution")
-result = Periodic1DFourierLocalityAnalyzer().execute(configuration)
+result = Periodic1DFourierLocalityAnalyzer(configuration).execute()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
 if (

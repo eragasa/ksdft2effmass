@@ -23,11 +23,19 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis import (
     RelativeErrorConvergenceAnalyzer,
+    RelativeErrorConvergenceRequest,
+    TailProbabilitySelectionRequest,
     TailProbabilitySelector,
 )
-from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
+from ksdft2effmass.analysis.operators import (
+    KineticPotentialDecompositionAnalyzer,
+    KineticPotentialDecompositionRequest,
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
+)
 from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
 from ksdft2effmass.model_systems.piab1d import (
+    Piab1dAnalysisRequest,
     Piab1dAnalyzer,
     Piab1dCalculationResult,
     Piab1dGridSweepAnalyzer,
@@ -52,7 +60,7 @@ if execution_directory.exists():
 
 model = Piab1D(length=LENGTH, mass=MASS, unit_system=UnitSystem.NONDIMENSIONAL)
 solution = Piab1dTiseFdSolver(model=model).solve(interior_points=INTERIOR_POINTS)
-analysis = Piab1dAnalyzer().execute(solution, RETAINED_DIMENSION)
+analysis = Piab1dAnalyzer(Piab1dAnalysisRequest(solution, RETAINED_DIMENSION)).execute()
 reduced_hamiltonian = analysis.reduced_hamiltonian
 subspace = reduced_hamiltonian.spectral_subspace
 if not isinstance(subspace, OrthogonalSpectralSubspace):
@@ -84,29 +92,34 @@ decomposition_shift = MatrixQuantity(
     ),
     reduced_hamiltonian.matrix.unit,
 )
-kinetic_potential_decomposition = KineticPotentialDecompositionAnalyzer().execute(
+kinetic_potential_decomposition_request = KineticPotentialDecompositionRequest(
     reduced_hamiltonian.matrix,
     decomposition_shift,
 )
-grid_sweep = Piab1dGridSweepAnalyzer().execute(
-    Piab1dGridSweepDefinition(
-        length=LENGTH,
-        mass=MASS,
-        interior_points=tuple(range(8, 257)),
-        retained_dimension=3,
-        fixed_modes=(8, 16, 32),
-    )
+kinetic_potential_decomposition = KineticPotentialDecompositionAnalyzer(
+    kinetic_potential_decomposition_request,
+    RetainedModelClassFitter(RetainedModelClassFitRequest(decomposition_shift)),
+).execute()
+grid_sweep_definition = Piab1dGridSweepDefinition(
+    length=LENGTH,
+    mass=MASS,
+    interior_points=tuple(range(8, 257)),
+    retained_dimension=3,
+    fixed_modes=(8, 16, 32),
 )
+grid_sweep = Piab1dGridSweepAnalyzer(grid_sweep_definition).execute()
 canonical_probabilities = CanonicalLevelProbabilityModel(
     thermal_energy=ScalarQuantity(
         1.0 / THERMAL_BETA,
         solution.energies.unit,
     )
 ).evaluate(energies=solution.energies)
-selection = TailProbabilitySelector().execute(
-    canonical_probabilities.probabilities,
-    float(OMITTED_PROBABILITY_TOLERANCE),
-)
+selection = TailProbabilitySelector(
+    TailProbabilitySelectionRequest(
+        canonical_probabilities.probabilities,
+        float(OMITTED_PROBABILITY_TOLERANCE),
+    )
+).execute()
 analytical = Piab1DAnalyticalSolution(model=model).evaluate(count=INTERIOR_POINTS)
 continuum_coordinates = VectorQuantity(
     np.linspace(0.0, LENGTH, 800),
@@ -154,12 +167,14 @@ convergence_references = MatrixQuantity(
     ),
     analytical.energies.unit,
 )
-convergence = RelativeErrorConvergenceAnalyzer().execute(
-    spacings=convergence_spacings,
-    approximations=convergence_approximations,
-    references=convergence_references,
-    order_columns=(0, 1, 2),
-)
+convergence = RelativeErrorConvergenceAnalyzer(
+    RelativeErrorConvergenceRequest(
+        spacings=convergence_spacings,
+        approximations=convergence_approximations,
+        references=convergence_references,
+        order_columns=(0, 1, 2),
+    )
+).execute()
 result: dict[str, SerializableValue] = {
     "schema_version": 1,
     "calculation_family": "piab1d-spectral-reduction",

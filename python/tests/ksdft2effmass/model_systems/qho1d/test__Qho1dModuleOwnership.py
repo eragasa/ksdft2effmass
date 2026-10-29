@@ -13,6 +13,7 @@ from ksdft2effmass.model_systems.qho1d.comparison_records import (
 from ksdft2effmass.model_systems.qho1d.finite_difference import Qho1dFiniteDifference
 from ksdft2effmass.model_systems.qho1d.ladder_operators import Qho1dLadderOperators
 from ksdft2effmass.model_systems.qho1d.parameters import (
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -29,6 +30,7 @@ class TestQho1dModuleOwnership:
             "Qho1dComparisonResult": Qho1dComparisonResult,
             "Qho1dFiniteDifference": Qho1dFiniteDifference,
             "Qho1dLadderOperators": Qho1dLadderOperators,
+            "Qho1dNondimensionalizationRequest": Qho1dNondimensionalizationRequest,
             "Qho1dNondimensionalizer": Qho1dNondimensionalizer,
             "Qho1dParameters": Qho1dParameters,
         }

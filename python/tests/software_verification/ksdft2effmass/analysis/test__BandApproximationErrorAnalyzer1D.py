@@ -30,6 +30,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
+    BandApproximationErrorRequest1D,
     BandSpectrumSamples1D,
 )
 from ksdft2effmass.solidstate import ReciprocalOperatorSamples1D
@@ -70,7 +71,11 @@ class TestBandApproximationErrorAnalyzer1D:
             ),
         )
 
-        result = BandApproximationErrorAnalyzer1D().execute(target, candidate, 0.0)
+        request = BandApproximationErrorRequest1D(target, candidate, 0.0)
+        analyzer = BandApproximationErrorAnalyzer1D(request)
 
+        result = analyzer.execute()
+
+        assert analyzer.request is request
         np.testing.assert_allclose(result.maximum_absolute_error.magnitude, 0.1)
         assert result.maximum_absolute_error.unit == target.eigenvalues.unit

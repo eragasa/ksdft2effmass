@@ -27,8 +27,11 @@ from ksdft2effmass.verification import (
 )
 
 from ...result import Piab1dCalculationResult
-from ...visualization import Piab1dVisualizationData
-from .reference import Piab1dIndependentReferenceAnalyzer
+from ...visualizations.data import Piab1dVisualizationData
+from .reference import (
+    Piab1dIndependentReferenceAnalyzer,
+    Piab1dIndependentReferenceRequest,
+)
 from .values import Piab1dVerification
 
 
@@ -245,10 +248,9 @@ class Piab1dVerifier(
         visualization_data: Piab1dVisualizationData,
     ) -> tuple[CompositeVerification, ...]:
         """Compose reusable checks for the exact authenticated projection."""
-        reference = Piab1dIndependentReferenceAnalyzer().execute(
-            self._result,
-            visualization_data,
-        )
+        reference = Piab1dIndependentReferenceAnalyzer(
+            Piab1dIndependentReferenceRequest(self._result, visualization_data)
+        ).execute()
         return tuple(
             component_type.evaluate(
                 {name: reference.comparisons[name] for name in sorted(component_names)}

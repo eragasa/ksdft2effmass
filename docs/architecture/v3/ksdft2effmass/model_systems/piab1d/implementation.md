@@ -28,14 +28,18 @@ No verifier reparses raw JSON fields.
 ## Calculation composition
 
 `run_01_calculation.py` declares all scientific and algorithmic controls in Python. It
-constructs the PhysKit PIAB1D solution, executes the KSD reduction and diagnostics,
+constructs the PhysKit PIAB1D solution, binds that exact solution and retained dimension
+in `Piab1dAnalysisRequest`, executes the request-bound KSD reduction and diagnostics,
 forms the analytical comparison series, executes one shared grid sweep, evaluates the
-decomposition shift, and serializes one typed root result.
+decomposition shift, and serializes one typed root result. `Piab1dAnalyzer.execute()`
+accepts no scientific request arguments and constructs child actions only from complete
+immutable requests.
 
-`Piab1dGridSweepAnalyzer` solves each declared grid once. The resulting eigensolution
-feeds eigenpair convergence, residual norms, and finite algebraic diagnostics. This
-composition prevents three independent solver loops from producing divergent grid
-inventories.
+`Piab1dGridSweepAnalyzer` binds the complete immutable
+`Piab1dGridSweepDefinition` at construction and solves each declared grid once through
+a zero-argument `execute()`. The resulting eigensolution feeds eigenpair convergence,
+residual norms, and finite algebraic diagnostics. This composition prevents three
+independent solver loops from producing divergent grid inventories.
 
 ## Independent verification
 
@@ -46,7 +50,10 @@ derives `Piab1dVisualizationData`, computes its SHA-256 digest, and composes
 independent reference analyzers through the shared final verification sequence. The
 verifier does not accept a caller-authored projection digest.
 
-The independent route reconstructs:
+The independent route constructs operation-specific analyzers only from complete
+immutable requests. In particular, `Piab1dCoreReferenceRequest` binds the exact typed
+calculation result and verifier-derived visualization projection before the core
+reference analyzer executes. The route reconstructs:
 
 - the finite-difference Hamiltonian;
 - discrete and continuum spectra;
@@ -65,16 +72,17 @@ objects.
 ## Authenticated visualization
 
 `Piab1dVisualizer` accepts only a passing `Piab1dVerification` whose authenticated
-visualization-data digest matches the supplied typed projection. It constructs one
-model-specific figure action and one shared `ModelAnalysisPngFigureRenderer` per
-`Piab1dVisualizationPlotEnum` member, then checks exact equality between the renderer
+visualization-data digest matches the supplied typed projection. Its target
+`visualizations/` package constructs one model-specific figure action and one root
+`PngFigureRenderer` per `Piab1dVisualizationPlotEnum` member, then checks exact equality
+between the renderer
 inventory and the closed enum. All thirteen figures are separated from PNG encoding.
 The spectrum-and-states figure additionally composes separate plot and subplot actions;
 the remaining figure actions retain their specialized internal axis composition pending
 incremental plot/subplot extraction.
 
 The shared renderer owns the common in-memory PNG encoding and figure-closure path.
-Its `ModelAnalysisPngVisualization` value decodes image bytes before admission and stores an exact
+Its `PngVisualization` value decodes image bytes before admission and stores an exact
 cross-platform-safe filename. The rendering
 script writes through `.figures.incomplete`, publishes the completed directory
 atomically, and records result, verification, implementation, runtime, and figure

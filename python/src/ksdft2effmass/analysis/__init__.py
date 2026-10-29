@@ -10,8 +10,10 @@ development and are not exported here.
 from .convergence import (
     ObservedConvergenceOrder,
     ObservedConvergenceOrderEstimator,
+    ObservedConvergenceOrderRequest,
     ObservedConvergenceOrderResult,
     RelativeErrorConvergenceAnalyzer,
+    RelativeErrorConvergenceRequest,
     RelativeErrorConvergenceResult,
 )
 from .diagnostics import (
@@ -19,7 +21,11 @@ from .diagnostics import (
     DiagnosticObservation,
     MatrixNormDiagnosticOptions,
 )
-from .probability_selection import TailProbabilitySelection, TailProbabilitySelector
+from .probability_selection import (
+    TailProbabilitySelection,
+    TailProbabilitySelectionRequest,
+    TailProbabilitySelector,
+)
 from .qoi import (
     DftReferenceCalculationIdentity,
     DftReferenceCalculatorIdentity,
@@ -63,8 +69,10 @@ __all__ = [
     "NormalizedObservationRequirementIdentity",
     "ObservedConvergenceOrder",
     "ObservedConvergenceOrderEstimator",
+    "ObservedConvergenceOrderRequest",
     "ObservedConvergenceOrderResult",
     "RelativeErrorConvergenceAnalyzer",
+    "RelativeErrorConvergenceRequest",
     "RelativeErrorConvergenceResult",
     "RelativeErrorConvergenceVerification",
     "QuantityOfInterestCompleteness",
@@ -82,6 +90,7 @@ __all__ = [
     "ScalarQuantityOfInterestEvaluationResult",
     "ScalarQuantityOfInterestValue",
     "TailProbabilitySelection",
+    "TailProbabilitySelectionRequest",
     "TailProbabilitySelector",
     "TailProbabilitySelectionVerification",
 ]

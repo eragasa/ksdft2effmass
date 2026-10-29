@@ -1,25 +1,41 @@
-"""Calculation Action for constrained multiband admissible sets."""
+"""Request-bound analysis for constrained rank-two admissible sets."""
 
 from __future__ import annotations
 
 import numpy as np
-import numpy.typing as npt
-from projectkoios.physkit.units import ComplexMatrixQuantity, ModelSystemUnitConverter
-
-from ksdft2effmass.periodic1d.multiband_alignment import (
-    Periodic1DMultibandAlignmentCalculationResult,
-    Periodic1DMultibandAlignmentCalculator,
+from projectkoios.numerics.numpy.typing import Complex128Array as ComplexArray
+from projectkoios.numerics.numpy.typing import Float64Array as RealArray
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+    VectorQuantity,
 )
+
 from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
+    BlockHoppingModel1D,
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
+    CenteredEvenMeshCyclicToOrdinaryConverter1D,
+    CenteredEvenMeshCyclicToOrdinaryRequest1D,
+    CenteredEvenMeshCyclicToOrdinaryResult1D,
+    CenteredUniformReciprocalMesh1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
+from ..composite_band_alignment import (
+    Periodic1DCompositeBandAlignmentCalculationResult,
+    Periodic1DCompositeBandAlignmentTransformResult,
+    Periodic1DCompositeBandAlignmentVerifier,
+)
 from .definition import (
     Periodic1DAdmissibleSetThresholds,
-    Periodic1DConstrainedAdmissibleSetCalculationDefinition,
+    Periodic1DConstrainedAdmissibleSetAnalysisRequest,
+    Periodic1DConstrainedAdmissibleSetConfiguration,
 )
 from .results import (
     Periodic1DAdmissibleSetCaseResult,
@@ -31,380 +47,371 @@ from .results import (
 )
 
 
-class Periodic1DConstrainedAdmissibleSetCalculator:
-    """Compose M2 with continuous-parameter losses and finite-angle certificates.
+class Periodic1DConstrainedAdmissibleSetAnalyzer:
+    """Analyze one authenticated composite result under frozen M3 controls."""
 
-    This deterministic in-process Action invokes no external calculator. The v1
-    certificate compares unclipped positive-definite ellipses only along the splitting-
-    scale axis inside the frozen rectangle. It is not an arbitrary-direction or general
-    nonconvex alignment solver.
-    """
+    __slots__ = ("_request", "_upstream_verifier")
 
-    __slots__ = ()
+    def __init__(
+        self,
+        request: Periodic1DConstrainedAdmissibleSetAnalysisRequest,
+        upstream_verifier: Periodic1DCompositeBandAlignmentVerifier,
+    ) -> None:
+        if type(request) is not Periodic1DConstrainedAdmissibleSetAnalysisRequest:
+            raise TypeError("request has the wrong exact type")
+        if type(upstream_verifier) is not Periodic1DCompositeBandAlignmentVerifier:
+            raise TypeError("upstream_verifier has the wrong exact type")
+        self._request = request
+        self._upstream_verifier = upstream_verifier
 
-    def execute(
-        self, definition: Periodic1DConstrainedAdmissibleSetCalculationDefinition
-    ) -> Periodic1DConstrainedAdmissibleSetCalculationResult:
-        """Calculate the frozen M3 quadratics, witness, and separation case.
+    @property
+    def request(self) -> Periodic1DConstrainedAdmissibleSetAnalysisRequest:
+        """Return the complete immutable analysis request."""
+        return self._request
 
-        Parameters
-        ----------
-        definition
-            Exact M3 controls composing one rank-two M2 baseline, continuous parameter
-            rectangle, finite angle family, thresholds, and tolerances.
+    @property
+    def upstream_verifier(self) -> Periodic1DCompositeBandAlignmentVerifier:
+        """Return the explicitly supplied upstream authentication action."""
+        return self._upstream_verifier
 
-        Returns
-        -------
-        Periodic1DConstrainedAdmissibleSetCalculationResult
-            Correlated M2 baseline, analytic spectral/operator quadratics, compatible
-            witness case, and bounded separation case.
-
-        Raises
-        ------
-        TypeError
-            If ``definition`` is not the exact M3 definition type.
-        ValueError
-            If the prospective witness, ellipse geometry, units, or certificate
-            premises violate the frozen controls.
-        """
-        if type(definition) is not (
-            Periodic1DConstrainedAdmissibleSetCalculationDefinition
+    def execute(self) -> Periodic1DConstrainedAdmissibleSetCalculationResult:
+        """Return quadratics, witnesses, certificates, and locality diagnostics."""
+        authenticated = self.upstream_verifier.result()
+        configuration = self.request.configuration
+        if (
+            authenticated.verification.subject_sha256
+            != configuration.upstream_result_sha256
         ):
-            raise TypeError(
-                "definition must be "
-                "Periodic1DConstrainedAdmissibleSetCalculationDefinition"
-            )
-        baseline = Periodic1DMultibandAlignmentCalculator().execute(
-            definition.multiband_baseline
-        )
-        reference = self._matrices(baseline.reference_transform.source)
-        attacked = self._matrices(baseline.attacked_transform.source)
-        energy_unit = baseline.reference_transform.hopping_model.hopping_blocks[0].unit
-        energy_scale = ModelSystemUnitConverter.convert_scalar(
-            definition.loss_energy_scale, energy_unit
-        ).magnitude
+            raise ValueError("upstream verifier is bound to different result bytes")
+        if not authenticated.verification.passed:
+            raise ValueError("upstream composite-band result failed verification")
+        baseline = self.request.upstream_result
+        reference = self._matrices(baseline.reference_operators)
+        attacked = self._matrices(baseline.attacked_operators)
+        scale = configuration.loss_energy_scale.magnitude
         spectral = self._spectral_quadratic(
-            reference,
-            baseline.training_target.eigenvalues.magnitude,
-            energy_scale,
+            reference, baseline.construction_parent_spectrum.magnitude[:, :2], scale
         )
         operator = tuple(
-            self._operator_quadratic(reference, attacked, energy_scale, angle)
-            for angle in definition.alignment_angles
-        )
-        cases = (
-            self._compatible_case(definition, baseline, spectral, operator),
-            self._separated_case(definition, baseline, spectral, operator),
+            self._operator_quadratic(reference, attacked, scale, angle)
+            for angle in configuration.alignment_angles
         )
         return Periodic1DConstrainedAdmissibleSetCalculationResult(
-            definition,
+            configuration,
             baseline,
             spectral,
             operator,
-            cases,
+            (
+                self._compatible_case(configuration, baseline, spectral, operator),
+                self._separated_case(configuration, baseline, spectral, operator),
+            ),
         )
 
     def _compatible_case(
         self,
-        definition: Periodic1DConstrainedAdmissibleSetCalculationDefinition,
-        baseline: Periodic1DMultibandAlignmentCalculationResult,
+        configuration: Periodic1DConstrainedAdmissibleSetConfiguration,
+        baseline: Periodic1DCompositeBandAlignmentCalculationResult,
         spectral: Periodic1DQuadraticLoss,
         operator: tuple[Periodic1DQuadraticLoss, ...],
     ) -> Periodic1DAdmissibleSetCaseResult:
-        """Verify and retain the prospectively declared common witness."""
-        thresholds = definition.compatible_thresholds
-        witness = definition.compatible_witness
+        thresholds = configuration.compatible_thresholds
+        witness = configuration.compatible_witness
         selected = min(operator, key=lambda item: item.squared_loss(witness))
-        if spectral.rms_loss(witness) > thresholds.spectral_rms_threshold or (
-            selected.rms_loss(witness) > thresholds.operator_rms_threshold
+        if (
+            spectral.rms_loss(witness) > thresholds.spectral_rms_threshold
+            or selected.rms_loss(witness) > thresholds.operator_rms_threshold
         ):
-            raise ValueError("the frozen compatible witness is not threshold-feasible")
+            raise ValueError("the configured compatible witness is not feasible")
         evaluation = self._evaluate(
-            definition,
+            configuration,
             baseline,
             "compatible-common-witness",
             witness,
             self._angle(selected),
         )
-        feasible = self._feasible_angles(definition, operator, thresholds)
         return Periodic1DAdmissibleSetCaseResult(
             thresholds,
             Periodic1DAdmissibleSetDisposition.COMPATIBLE_WITNESS,
-            feasible,
+            self._feasible_angles(configuration, operator, thresholds),
             evaluation,
             evaluation,
             evaluation,
             0.0,
             0.0,
-            definition.separation_resolution,
+            configuration.separation_resolution,
         )
 
     def _separated_case(
         self,
-        definition: Periodic1DConstrainedAdmissibleSetCalculationDefinition,
-        baseline: Periodic1DMultibandAlignmentCalculationResult,
+        configuration: Periodic1DConstrainedAdmissibleSetConfiguration,
+        baseline: Periodic1DCompositeBandAlignmentCalculationResult,
         spectral: Periodic1DQuadraticLoss,
         operator: tuple[Periodic1DQuadraticLoss, ...],
     ) -> Periodic1DAdmissibleSetCaseResult:
-        """Construct axis-extreme points and a bounded separation certificate."""
-        thresholds = definition.separated_thresholds
+        thresholds = configuration.separated_thresholds
         spectral_point, spectral_lower = self._axis_extreme(
-            definition,
-            spectral,
-            thresholds.spectral_rms_threshold,
-            axis=1,
-            direction=-1.0,
+            configuration, spectral, thresholds.spectral_rms_threshold, 1, -1.0
         )
-        feasible_losses = tuple(
+        feasible = tuple(
             item
             for item in operator
-            if self._domain_minimum_squared_loss(definition, item)
+            if self._domain_minimum(configuration, item)
             <= thresholds.operator_rms_threshold**2
         )
-        if not feasible_losses:
-            raise ValueError("the frozen operator admissible set is empty")
-        operator_extrema = tuple(
+        if not feasible:
+            raise ValueError("the configured operator admissible set is empty")
+        extrema = tuple(
             (
                 item,
                 *self._axis_extreme(
-                    definition,
-                    item,
-                    thresholds.operator_rms_threshold,
-                    axis=1,
-                    direction=1.0,
+                    configuration, item, thresholds.operator_rms_threshold, 1, 1.0
                 ),
             )
-            for item in feasible_losses
+            for item in feasible
         )
         selected, operator_point, operator_upper = max(
-            operator_extrema, key=lambda item: item[2]
+            extrema, key=lambda item: item[2]
         )
-        lower_bound = max(0.0, spectral_lower - operator_upper)
-        upper_bound = float(
+        lower = max(0.0, spectral_lower - operator_upper)
+        upper = float(
             np.linalg.norm(np.asarray(spectral_point) - np.asarray(operator_point))
         )
-        tolerance = definition.quadratic_absolute_tolerance
-        if lower_bound > upper_bound + tolerance:
+        if lower > upper + configuration.quadratic_absolute_tolerance:
             raise ValueError("derived separation bounds are inconsistent")
         disposition = (
             Periodic1DAdmissibleSetDisposition.CERTIFIED_SEPARATED
-            if lower_bound > definition.separation_resolution
+            if lower > configuration.separation_resolution
             else Periodic1DAdmissibleSetDisposition.UNRESOLVED
-        )
-        spectral_evaluation = self._evaluate(
-            definition,
-            baseline,
-            "separated-spectral-boundary",
-            spectral_point,
-            self._best_angle(operator, spectral_point),
-        )
-        operator_evaluation = self._evaluate(
-            definition,
-            baseline,
-            "separated-operator-boundary",
-            operator_point,
-            self._angle(selected),
         )
         return Periodic1DAdmissibleSetCaseResult(
             thresholds,
             disposition,
-            tuple(self._angle(item) for item in feasible_losses),
+            tuple(self._angle(item) for item in feasible),
             None,
-            spectral_evaluation,
-            operator_evaluation,
-            lower_bound,
-            upper_bound,
-            definition.separation_resolution,
+            self._evaluate(
+                configuration,
+                baseline,
+                "separated-spectral-boundary",
+                spectral_point,
+                self._best_angle(operator, spectral_point),
+            ),
+            self._evaluate(
+                configuration,
+                baseline,
+                "separated-operator-boundary",
+                operator_point,
+                self._angle(selected),
+            ),
+            lower,
+            upper,
+            configuration.separation_resolution,
         )
 
     def _evaluate(
         self,
-        definition: Periodic1DConstrainedAdmissibleSetCalculationDefinition,
-        baseline: Periodic1DMultibandAlignmentCalculationResult,
+        configuration: Periodic1DConstrainedAdmissibleSetConfiguration,
+        baseline: Periodic1DCompositeBandAlignmentCalculationResult,
         role: str,
         parameter: tuple[float, float],
         selected_angle: float,
     ) -> Periodic1DAdmissibleSetParameterEvaluation:
-        """Evaluate one identified proof point on training and staggered meshes.
-
-        The selected angle and parameter are already frozen by training geometry.
-        Evaluation values cannot alter either or change a disposition.
-        """
-        energy_unit = baseline.reference_transform.hopping_model.hopping_blocks[0].unit
-        energy_scale = ModelSystemUnitConverter.convert_scalar(
-            definition.loss_energy_scale, energy_unit
-        ).magnitude
-        training_reference = self._matrices(baseline.reference_transform.source)
-        training_attacked = self._matrices(baseline.attacked_transform.source)
-        withheld_coordinates = baseline.withheld_target.coordinates
-        interpolator = BlockHoppingInterpolator1D()
-        withheld_reference = self._matrices(
-            interpolator.execute(
-                baseline.reference_transform.hopping_model, withheld_coordinates
+        unit = Unitless()
+        period = ScalarQuantity(1.0, unit)
+        construction_coordinates = VectorQuantity(
+            np.asarray(baseline.construction_reduced_momenta, dtype=np.float64), unit
+        )
+        evaluation_coordinates = VectorQuantity(
+            np.asarray(baseline.evaluation_reduced_momenta, dtype=np.float64), unit
+        )
+        reference_samples = ReciprocalOperatorSamples1D(
+            construction_coordinates, period, baseline.reference_operators
+        )
+        attacked_samples = ReciprocalOperatorSamples1D(
+            construction_coordinates, period, baseline.attacked_operators
+        )
+        transforms = {transform.channel: transform for transform in baseline.transforms}
+        reference_conversion = self._ordinary_conversion(
+            transforms["reference"], period
+        )
+        attacked_conversion = self._ordinary_conversion(transforms["attacked"], period)
+        evaluation_reference = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                reference_conversion.ordinary, evaluation_coordinates
             )
-        )
-        withheld_attacked = self._matrices(
-            interpolator.execute(
-                baseline.attacked_transform.hopping_model, withheld_coordinates
+        ).execute()
+        evaluation_attacked = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                attacked_conversion.ordinary, evaluation_coordinates
             )
+        ).execute()
+        scale = configuration.loss_energy_scale.magnitude
+        construction_candidate = self._candidate(
+            self._sample_matrices(reference_samples), parameter, scale
         )
-        training_candidate = self._candidate(
-            training_reference, parameter, energy_scale
-        )
-        withheld_candidate = self._candidate(
-            withheld_reference, parameter, energy_scale
+        evaluation_candidate = self._candidate(
+            self._sample_matrices(evaluation_reference), parameter, scale
         )
         rotation = self._rotation(selected_angle)
-        training_rotated = self._conjugate(training_candidate, rotation)
-        withheld_rotated = self._conjugate(withheld_candidate, rotation)
-        rank = definition.multiband_baseline.retained_rank
-        training_spectral = self._spectral_rms(
-            training_candidate,
-            baseline.training_target.eigenvalues.magnitude,
-            energy_scale,
-        )
-        withheld_spectral = self._spectral_rms(
-            withheld_candidate,
-            baseline.withheld_target.eigenvalues.magnitude,
-            energy_scale,
-        )
-        training_operator = self._operator_rms(
-            training_rotated, training_attacked, energy_scale, rank
-        )
-        withheld_operator = self._operator_rms(
-            withheld_rotated, withheld_attacked, energy_scale, rank
-        )
+        construction_rotated = self._conjugate(construction_candidate, rotation)
+        evaluation_rotated = self._conjugate(evaluation_candidate, rotation)
         candidate_samples = ReciprocalOperatorSamples1D(
-            baseline.reference_transform.source.coordinates,
-            baseline.reference_transform.source.reciprocal_period,
+            construction_coordinates,
+            period,
             tuple(
-                ComplexMatrixQuantity(matrix, energy_unit)
-                for matrix in training_rotated
+                ComplexMatrixQuantity(matrix, unit) for matrix in construction_rotated
             ),
         )
-        candidate_transform = ReciprocalOperatorFourierTransformer1D().execute(
-            candidate_samples,
-            baseline.reference_transform.mesh,
-            definition.multiband_baseline.coordinate_absolute_tolerance,
-            definition.multiband_baseline.reconstruction_absolute_tolerance,
-        )
-        truncator = BlockHoppingTruncator1D()
+        candidate_transform = ReciprocalOperatorFourierTransformer1D(
+            ReciprocalOperatorFourierTransformRequest1D(
+                candidate_samples,
+                CenteredUniformReciprocalMesh1D(
+                    period, baseline.configuration.construction_size
+                ),
+                baseline.configuration.dimensionless_absolute_tolerance,
+                baseline.configuration.energy_absolute_tolerance,
+            )
+        ).execute()
+        candidate_conversion = CenteredEvenMeshCyclicToOrdinaryConverter1D(
+            CenteredEvenMeshCyclicToOrdinaryRequest1D(candidate_transform.hopping_model)
+        ).execute()
         locality = tuple(
             Periodic1DAdmissibleSetLocalityResult(
                 maximum_range,
-                truncator.execute(
-                    baseline.reference_transform.hopping_model, maximum_range
-                ).omitted_block_l2_norm,
-                truncator.execute(
-                    baseline.attacked_transform.hopping_model, maximum_range
-                ).omitted_block_l2_norm,
-                truncator.execute(
-                    candidate_transform.hopping_model, maximum_range
-                ).omitted_block_l2_norm,
+                reference_conversion.conversion_power_per_matrix_dimension,
+                attacked_conversion.conversion_power_per_matrix_dimension,
+                candidate_conversion.conversion_power_per_matrix_dimension,
+                self._omitted_norm(reference_conversion.ordinary, maximum_range),
+                self._omitted_norm(attacked_conversion.ordinary, maximum_range),
+                self._omitted_norm(candidate_conversion.ordinary, maximum_range),
             )
-            for maximum_range in definition.locality_ranges
+            for maximum_range in configuration.locality_ranges
         )
         return Periodic1DAdmissibleSetParameterEvaluation(
             role,
             parameter,
             selected_angle,
-            training_spectral,
-            training_operator,
-            withheld_spectral,
-            withheld_operator,
+            self._spectral_rms(
+                construction_candidate,
+                baseline.construction_parent_spectrum.magnitude[:, :2],
+                scale,
+            ),
+            self._operator_rms(
+                construction_rotated, self._sample_matrices(attacked_samples), scale
+            ),
+            self._spectral_rms(
+                evaluation_candidate,
+                baseline.evaluation_parent_spectrum.magnitude[:, :2],
+                scale,
+            ),
+            self._operator_rms(
+                evaluation_rotated, self._sample_matrices(evaluation_attacked), scale
+            ),
             locality,
         )
 
-    @staticmethod
+    def _ordinary_conversion(
+        self,
+        transform: Periodic1DCompositeBandAlignmentTransformResult,
+        period: ScalarQuantity,
+    ) -> CenteredEvenMeshCyclicToOrdinaryResult1D:
+        conversion = CenteredEvenMeshCyclicToOrdinaryConverter1D(
+            CenteredEvenMeshCyclicToOrdinaryRequest1D(
+                BlockHoppingModel1D(
+                    period, transform.representatives, transform.hopping_blocks
+                )
+            )
+        ).execute()
+        if (
+            conversion.ordinary.representatives != transform.ordinary_representatives
+            or conversion.conversion_representative
+            != transform.cyclic_conversion_representative
+        ):
+            raise ValueError("upstream and reusable cyclic conversion supports differ")
+        if (
+            abs(
+                conversion.conversion_power_per_matrix_dimension
+                - transform.cyclic_conversion_power.magnitude
+            )
+            > self.request.configuration.quadratic_absolute_tolerance
+        ):
+            raise ValueError("upstream and reusable cyclic conversion powers differ")
+        return conversion
+
+    def _omitted_norm(self, model: BlockHoppingModel1D, maximum_range: int) -> float:
+        return (
+            BlockHoppingTruncator1D(
+                BlockHoppingTruncationRequest1D(model, maximum_range)
+            )
+            .execute()
+            .omitted_block_l2_norm
+        )
+
     def _spectral_quadratic(
-        reference: npt.NDArray[np.complex128],
-        target: npt.NDArray[np.float64],
-        energy_scale: float,
+        self, reference: ComplexArray, target: RealArray, scale: float
     ) -> Periodic1DQuadraticLoss:
-        """Derive the exact squared spectral-RMS quadratic over shift/splitting."""
         rank = reference.shape[1]
         mean = np.trace(reference, axis1=1, axis2=2).real / float(rank)
         values = np.linalg.eigvalsh(reference)
         base = np.repeat(mean[:, None], rank, axis=1)
-        features = np.stack(
-            (
-                np.full_like(values, energy_scale),
-                values - base,
-            ),
-            axis=-1,
-        )
-        return Periodic1DConstrainedAdmissibleSetCalculator._quadratic(
-            "spectral-training-rms-v1",
-            None,
-            features,
-            base - target,
-            energy_scale,
+        features = np.stack((np.full_like(values, scale), values - base), axis=-1)
+        return self._quadratic(
+            "spectral-training-rms-v1", None, features, base - target, scale
         )
 
-    @staticmethod
     def _operator_quadratic(
-        reference: npt.NDArray[np.complex128],
-        target: npt.NDArray[np.complex128],
-        energy_scale: float,
-        angle: float,
+        self, reference: ComplexArray, target: ComplexArray, scale: float, angle: float
     ) -> Periodic1DQuadraticLoss:
-        """Derive one angle-resolved represented-operator squared-loss quadratic."""
         rank = reference.shape[1]
         identity = np.eye(rank, dtype=np.complex128)
         mean = np.trace(reference, axis1=1, axis2=2) / float(rank)
         base = mean[:, None, None] * identity
-        traceless = reference - base
-        rotation = Periodic1DConstrainedAdmissibleSetCalculator._rotation(angle)
-        rotated = Periodic1DConstrainedAdmissibleSetCalculator._conjugate(
-            traceless, rotation
-        )
         features = np.stack(
             (
-                np.broadcast_to(energy_scale * identity, reference.shape),
-                rotated,
+                np.broadcast_to(scale * identity, reference.shape),
+                self._conjugate(reference - base, self._rotation(angle)),
             ),
             axis=-1,
         )
-        return Periodic1DConstrainedAdmissibleSetCalculator._quadratic(
+        return self._quadratic(
             f"operator-training-rms-angle-{angle:.17g}",
             angle,
             features,
             base - target,
-            energy_scale,
+            scale,
         )
 
-    @staticmethod
     def _quadratic(
+        self,
         channel_id: str,
         angle: float | None,
-        features: np.ndarray,
-        offset: np.ndarray,
-        energy_scale: float,
+        features: ComplexArray | RealArray,
+        offset: ComplexArray | RealArray,
+        scale: float,
     ) -> Periodic1DQuadraticLoss:
-        r"""Complete a two-feature least-squares loss to centered quadratic form.
-
-        The normalization is ``N * rank * energy_scale**2``.  For feature Gram matrix
-        ``Q`` and linear coefficient ``b``, the center is ``-Q^{-1} b`` and the retained
-        minimum is the completed-square constant.
-        """
-        sample_count = features.shape[0]
-        rank = features.shape[1]
-        normalization = float(sample_count * rank) * energy_scale**2
-        matrix = np.empty((2, 2), dtype=np.float64)
-        linear = np.empty(2, dtype=np.float64)
-        for row in range(2):
-            linear[row] = float(
-                np.vdot(features[..., row], offset).real / normalization
-            )
-            for column in range(2):
-                matrix[row, column] = float(
+        normalization = float(features.shape[0] * features.shape[1]) * scale**2
+        matrix = np.asarray(
+            [
+                [
                     np.vdot(features[..., row], features[..., column]).real
                     / normalization
-                )
+                    for column in range(2)
+                ]
+                for row in range(2)
+            ],
+            dtype=np.float64,
+        )
         matrix = 0.5 * (matrix + matrix.T)
+        linear = np.asarray(
+            [
+                np.vdot(features[..., row], offset).real / normalization
+                for row in range(2)
+            ],
+            dtype=np.float64,
+        )
         center = -np.linalg.solve(matrix, linear)
-        constant = float(np.vdot(offset, offset).real / normalization)
-        minimum = constant - float(linear @ np.linalg.solve(matrix, linear))
+        minimum = float(np.vdot(offset, offset).real / normalization) - float(
+            linear @ np.linalg.solve(matrix, linear)
+        )
         if minimum < 0.0 and abs(minimum) <= 1.0e-14:
             minimum = 0.0
         return Periodic1DQuadraticLoss(
@@ -418,68 +425,58 @@ class Periodic1DConstrainedAdmissibleSetCalculator:
             float(minimum),
         )
 
-    @staticmethod
     def _axis_extreme(
-        definition: Periodic1DConstrainedAdmissibleSetCalculationDefinition,
+        self,
+        configuration: Periodic1DConstrainedAdmissibleSetConfiguration,
         loss: Periodic1DQuadraticLoss,
         threshold: float,
         axis: int,
         direction: float,
     ) -> tuple[tuple[float, float], float]:
-        """Return one support point of an unclipped quadratic threshold ellipse."""
         budget = threshold**2 - loss.minimum_squared_loss
         if budget < 0.0:
             raise ValueError("requested admissible ellipsoid is empty")
-        matrix = np.asarray(loss.quadratic_matrix)
-        inverse = np.linalg.inv(matrix)
+        inverse = np.linalg.inv(np.asarray(loss.quadratic_matrix))
         unit = np.zeros(2, dtype=np.float64)
         unit[axis] = direction
-        denominator = float(unit @ inverse @ unit)
-        point = np.asarray(loss.center) + np.sqrt(budget / denominator) * (
-            inverse @ unit
-        )
+        point = np.asarray(loss.center) + np.sqrt(
+            budget / float(unit @ inverse @ unit)
+        ) * (inverse @ unit)
         parameter = (float(point[0]), float(point[1]))
-        if not definition.contains(parameter):
-            raise ValueError("v1 certificate requires an unclipped ellipsoid")
+        if not configuration.contains(parameter):
+            raise ValueError("certificate requires an unclipped ellipsoid")
         return parameter, float(point[axis])
 
-    @staticmethod
     def _feasible_angles(
-        definition: Periodic1DConstrainedAdmissibleSetCalculationDefinition,
+        self,
+        configuration: Periodic1DConstrainedAdmissibleSetConfiguration,
         losses: tuple[Periodic1DQuadraticLoss, ...],
         thresholds: Periodic1DAdmissibleSetThresholds,
     ) -> tuple[float, ...]:
-        """Return angles whose operator sublevel sets intersect the rectangle."""
-        feasible: list[float] = []
-        domain_minimum = (
-            Periodic1DConstrainedAdmissibleSetCalculator._domain_minimum_squared_loss
+        return tuple(
+            self._angle(loss)
+            for loss in losses
+            if self._domain_minimum(configuration, loss)
+            <= thresholds.operator_rms_threshold**2
         )
-        for loss in losses:
-            minimum = domain_minimum(definition, loss)
-            if minimum <= thresholds.operator_rms_threshold**2:
-                feasible.append(
-                    Periodic1DConstrainedAdmissibleSetCalculator._angle(loss)
-                )
-        return tuple(feasible)
 
-    @staticmethod
-    def _domain_minimum_squared_loss(
-        definition: Periodic1DConstrainedAdmissibleSetCalculationDefinition,
+    def _domain_minimum(
+        self,
+        configuration: Periodic1DConstrainedAdmissibleSetConfiguration,
         loss: Periodic1DQuadraticLoss,
     ) -> float:
-        """Minimize a positive quadratic exactly over the closed parameter box."""
         center = np.asarray(loss.center, dtype=np.float64)
         matrix = np.asarray(loss.quadratic_matrix, dtype=np.float64)
         lower = np.asarray(
             (
-                definition.energy_shift_ratio_bounds[0],
-                definition.splitting_scale_bounds[0],
+                configuration.energy_shift_ratio_bounds[0],
+                configuration.splitting_scale_bounds[0],
             )
         )
         upper = np.asarray(
             (
-                definition.energy_shift_ratio_bounds[1],
-                definition.splitting_scale_bounds[1],
+                configuration.energy_shift_ratio_bounds[1],
+                configuration.splitting_scale_bounds[1],
             )
         )
         candidates = [np.clip(center, lower, upper)]
@@ -488,9 +485,9 @@ class Periodic1DConstrainedAdmissibleSetCalculator:
             for bound in (lower[axis], upper[axis]):
                 point = center.copy()
                 point[axis] = bound
-                point[other] = center[other] - (
-                    matrix[other, axis] / matrix[other, other] * (bound - center[axis])
-                )
+                point[other] = center[other] - matrix[other, axis] / matrix[
+                    other, other
+                ] * (bound - center[axis])
                 point[other] = np.clip(point[other], lower[other], upper[other])
                 candidates.append(point)
         return min(
@@ -498,95 +495,74 @@ class Periodic1DConstrainedAdmissibleSetCalculator:
             for point in candidates
         )
 
-    @staticmethod
     def _best_angle(
+        self,
         losses: tuple[Periodic1DQuadraticLoss, ...],
         parameter: tuple[float, float],
     ) -> float:
-        """Return the frozen angle with least operator loss at one parameter."""
-        return Periodic1DConstrainedAdmissibleSetCalculator._angle(
-            min(losses, key=lambda item: item.squared_loss(parameter))
-        )
+        return self._angle(min(losses, key=lambda item: item.squared_loss(parameter)))
 
-    @staticmethod
-    def _angle(loss: Periodic1DQuadraticLoss) -> float:
-        """Return an operator quadratic's required alignment angle."""
+    def _angle(self, loss: Periodic1DQuadraticLoss) -> float:
         if loss.alignment_angle is None:
             raise ValueError("operator loss must retain an alignment angle")
         return loss.alignment_angle
 
-    @staticmethod
     def _candidate(
-        reference: np.ndarray,
-        parameter: tuple[float, float],
-        energy_scale: float,
-    ) -> np.ndarray:
-        """Build the affine trace/shift/traceless-splitting candidate matrices."""
+        self, reference: ComplexArray, parameter: tuple[float, float], scale: float
+    ) -> ComplexArray:
         rank = reference.shape[1]
         identity = np.eye(rank, dtype=np.complex128)
         mean = np.trace(reference, axis1=1, axis2=2) / float(rank)
         base = mean[:, None, None] * identity
-        shift, splitting = parameter
         return np.asarray(
-            base + shift * energy_scale * identity + splitting * (reference - base),
+            base + parameter[0] * scale * identity + parameter[1] * (reference - base),
             dtype=np.complex128,
         )
 
-    @staticmethod
-    def _rotation(angle: float) -> npt.NDArray[np.complex128]:
-        """Return the rank-two real unitary rotation at one radian angle."""
+    def _rotation(self, angle: float) -> ComplexArray:
         return np.asarray(
-            [
-                [np.cos(angle), -np.sin(angle)],
-                [np.sin(angle), np.cos(angle)],
-            ],
+            [[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]],
             dtype=np.complex128,
         )
 
-    @staticmethod
-    def _conjugate(matrices: np.ndarray, rotation: np.ndarray) -> np.ndarray:
-        """Conjugate each represented matrix by one global rotation."""
+    def _conjugate(
+        self, matrices: ComplexArray, rotation: ComplexArray
+    ) -> ComplexArray:
         return np.asarray(
             np.einsum(
-                "ab,kbc,cd->kad",
-                rotation.conj().T,
-                matrices,
-                rotation,
-                optimize=True,
+                "ab,kbc,cd->kad", rotation.conj().T, matrices, rotation, optimize=True
             ),
             dtype=np.complex128,
         )
 
-    @staticmethod
     def _spectral_rms(
-        candidate: np.ndarray,
-        target: np.ndarray,
-        energy_scale: float,
+        self, candidate: ComplexArray, target: RealArray, scale: float
     ) -> float:
-        """Return normalized RMS ordered-eigenvalue loss."""
-        values = np.linalg.eigvalsh(candidate)
-        return float(np.sqrt(np.mean(np.abs(values - target) ** 2)) / energy_scale)
+        return float(
+            np.sqrt(np.mean(np.abs(np.linalg.eigvalsh(candidate) - target) ** 2))
+            / scale
+        )
 
-    @staticmethod
     def _operator_rms(
-        candidate: np.ndarray,
-        target: np.ndarray,
-        energy_scale: float,
-        rank: int,
+        self, candidate: ComplexArray, target: ComplexArray, scale: float
     ) -> float:
-        """Return normalized RMS represented-operator Frobenius loss."""
         squared = sum(
             float(np.linalg.norm(left - right) ** 2)
             for left, right in zip(candidate, target, strict=True)
         )
-        return float(np.sqrt(squared / float(candidate.shape[0] * rank)) / energy_scale)
+        return float(
+            np.sqrt(squared / float(candidate.shape[0] * candidate.shape[1])) / scale
+        )
 
-    @staticmethod
-    def _matrices(samples: ReciprocalOperatorSamples1D) -> np.ndarray:
-        """Stack identified reciprocal operator matrices without changing units."""
+    def _matrices(self, matrices: tuple[ComplexMatrixQuantity, ...]) -> ComplexArray:
+        return np.asarray(
+            [matrix.magnitude for matrix in matrices], dtype=np.complex128
+        )
+
+    def _sample_matrices(self, samples: ReciprocalOperatorSamples1D) -> ComplexArray:
         return np.asarray(
             [matrix.magnitude for matrix in samples.matrices], dtype=np.complex128
         )
 
 
-__all__ = ["Periodic1DConstrainedAdmissibleSetCalculator"]
+__all__ = ["Periodic1DConstrainedAdmissibleSetAnalyzer"]

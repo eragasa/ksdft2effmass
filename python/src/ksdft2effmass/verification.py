@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from dataclasses import dataclass
 from types import MappingProxyType
@@ -23,6 +24,21 @@ class BaseVerification(BaseTypedRecord):
     """Identify a verification while inheriting final representation boundaries."""
 
     __slots__ = ()
+
+
+class VisualizationVerification(BaseVerification, ABC):
+    """Expose only the verification values required to authenticate rendering."""
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def passed(self) -> bool:
+        """Return whether the complete concrete verification passed."""
+
+    @abstractmethod
+    def authenticated_visualization_data_sha256(self) -> str:
+        """Return the digest of the authenticated canonical projection bytes."""
 
 
 @dataclass(frozen=True, slots=True)

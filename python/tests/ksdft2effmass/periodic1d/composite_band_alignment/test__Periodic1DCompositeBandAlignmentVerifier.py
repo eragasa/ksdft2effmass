@@ -10,7 +10,8 @@ from projectkoios.physkit.units import ComplexMatrixQuantity, MatrixQuantity, Un
 from ksdft2effmass.periodic1d.composite_band_alignment import (
     Periodic1DCompositeBandAlignmentAnalyzer,
     Periodic1DCompositeBandAlignmentCalculationResult,
-    Periodic1DCompositeBandAlignmentIndependentVerifier,
+    Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer,
+    Periodic1DCompositeBandAlignmentIndependentReferenceRequest,
     Periodic1DCompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerifier,
     Periodic1DCompositeBandAlignmentVisualizationPlotEnum,
@@ -92,14 +93,16 @@ class TestPeriodic1DCompositeBandAlignmentVerifier:
             transforms=(mutated_transform, *composite_result.transforms[1:]),
         )
 
-        comparisons = (
-            Periodic1DCompositeBandAlignmentIndependentVerifier()
-            .execute(
-                mutated,
-                verified.visualization_data,
-            )
-            .comparisons
+        request = Periodic1DCompositeBandAlignmentIndependentReferenceRequest(
+            mutated,
+            verified.visualization_data,
         )
+        independent = Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer(
+            request
+        )
+        comparisons = independent.execute().comparisons
+
+        assert independent.request is request
 
         assert not comparisons["transform_reference_hopping_blocks"].result().passed
 

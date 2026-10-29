@@ -27,24 +27,49 @@ class Piab1dKineticPotentialDecompositionReference:
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dKineticPotentialDecompositionReferenceRequest:
+    """Bind one admitted decomposition and its authoritative reduced Hamiltonian."""
+
+    result: KineticPotentialDecompositionResult
+    reduced_hamiltonian: MatrixQuantity
+
+    def __post_init__(self) -> None:
+        """Admit type, shape, and unit correlation for independent reconstruction."""
+        if type(self.result) is not KineticPotentialDecompositionResult:
+            raise TypeError("result must be KineticPotentialDecompositionResult")
+        if not isinstance(self.reduced_hamiltonian, MatrixQuantity):
+            raise TypeError("reduced_hamiltonian must be MatrixQuantity")
+        if (
+            self.reduced_hamiltonian.magnitude.shape
+            != self.result.physical_kinetic.magnitude.shape
+        ):
+            raise ValueError("reduced_hamiltonian shape must match the decomposition")
+        if self.reduced_hamiltonian.unit != self.result.physical_kinetic.unit:
+            raise ValueError("reduced_hamiltonian unit must match the decomposition")
+
+
 class Piab1dKineticPotentialDecompositionReferenceAnalyzer:
-    """Reconstruct decomposition matrices and model-class projections."""
+    """Reconstruct one bound decomposition and its model-class projections."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        result: KineticPotentialDecompositionResult,
-        reduced_hamiltonian: MatrixQuantity,
-    ) -> Piab1dKineticPotentialDecompositionReference:
+    def __init__(
+        self, request: Piab1dKineticPotentialDecompositionReferenceRequest
+    ) -> None:
+        if type(request) is not Piab1dKineticPotentialDecompositionReferenceRequest:
+            raise TypeError(
+                "request must be Piab1dKineticPotentialDecompositionReferenceRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dKineticPotentialDecompositionReferenceRequest:
+        """Return the complete immutable decomposition-reference request."""
+        return self._request
+
+    def execute(self) -> Piab1dKineticPotentialDecompositionReference:
         """Reconstruct decomposition and model-class projection identities.
-
-        Parameters
-        ----------
-        result
-            Production decomposition with physical and illustrative component pairs.
-        reduced_hamiltonian
-            Authoritative reduced Hamiltonian from the typed calculation result.
 
         Returns
         -------
@@ -54,8 +79,6 @@ class Piab1dKineticPotentialDecompositionReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            Either input has the wrong domain type.
         ValueError
             The fixed scalar-to-real-symmetric model-class order differs.
 
@@ -64,10 +87,8 @@ class Piab1dKineticPotentialDecompositionReferenceAnalyzer:
         Projection formulas are evaluated directly and do not call the production
         decomposition analyzer or model-class fitter.
         """
-        if not isinstance(result, KineticPotentialDecompositionResult):
-            raise TypeError("result must be KineticPotentialDecompositionResult")
-        if not isinstance(reduced_hamiltonian, MatrixQuantity):
-            raise TypeError("reduced_hamiltonian must be MatrixQuantity")
+        result = self.request.result
+        reduced_hamiltonian = self.request.reduced_hamiltonian
         hamiltonian = reduced_hamiltonian.magnitude
         shift = result.alternative_potential.magnitude
         rows, columns = np.indices(shift.shape)

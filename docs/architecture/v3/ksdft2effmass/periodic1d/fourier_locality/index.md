@@ -34,9 +34,13 @@ periodic1d/fourier_locality/
 ├── configuration.py
 ├── result.py
 ├── analysis.py
-├── verification_values.py
+├── reference.py
 ├── verification.py
-└── visualization.py
+└── visualizations/
+    ├── data.py
+    ├── figures.py
+    ├── inventory.py
+    └── visualizer.py
 ```
 
 Each source boundary has its own architecture quartet:
@@ -44,9 +48,9 @@ Each source boundary has its own architecture quartet:
 - [`configuration`](configuration/index.md)
 - [`result`](result/index.md)
 - [`analysis`](analysis/index.md)
-- [`verification_values`](verification_values/index.md)
+- [`reference`](reference/index.md)
 - [`verification`](verification/index.md)
-- [`visualization`](visualization/index.md)
+- [`visualizations`](visualizations/index.md)
 
 ## Public classes
 
@@ -56,12 +60,13 @@ Each source boundary has its own architecture quartet:
 - [`Periodic1DFourierLocalityMeshResult`](result/Periodic1DFourierLocalityMeshResult/index.md)
 - [`Periodic1DFourierLocalityCalculationResult`](result/Periodic1DFourierLocalityCalculationResult/index.md)
 - [`Periodic1DFourierLocalityAnalyzer`](analysis/Periodic1DFourierLocalityAnalyzer/index.md)
-- [`Periodic1DFourierLocalityIndependentVerification`](verification_values/Periodic1DFourierLocalityIndependentVerification/index.md)
+- [`Periodic1DFourierLocalityIndependentReference`](reference/Periodic1DFourierLocalityIndependentReference/index.md)
+- [`Periodic1DFourierLocalityIndependentReferenceAnalyzer`](reference/Periodic1DFourierLocalityIndependentReferenceAnalyzer/index.md)
 - [`Periodic1DFourierLocalityVerification`](verification/Periodic1DFourierLocalityVerification/index.md)
 - [`Periodic1DFourierLocalityVerifier`](verification/Periodic1DFourierLocalityVerifier/index.md)
-- [`Periodic1DFourierLocalityVisualizationData`](visualization/Periodic1DFourierLocalityVisualizationData/index.md)
-- [`Periodic1DFourierLocalityVisualizationPlotEnum`](visualization/Periodic1DFourierLocalityVisualizationPlotEnum/index.md)
-- [`Periodic1DFourierLocalityVisualizer`](visualization/Periodic1DFourierLocalityVisualizer/index.md)
+- [`Periodic1DFourierLocalityVisualizationData`](visualizations/Periodic1DFourierLocalityVisualizationData/index.md)
+- [`Periodic1DFourierLocalityVisualizationPlotEnum`](visualizations/Periodic1DFourierLocalityVisualizationPlotEnum/index.md)
+- [`Periodic1DFourierLocalityVisualizer`](visualizations/Periodic1DFourierLocalityVisualizer/index.md)
 
 ## Package contracts
 

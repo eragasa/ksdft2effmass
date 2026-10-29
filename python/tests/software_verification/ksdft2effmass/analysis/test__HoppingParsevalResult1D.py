@@ -27,12 +27,15 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     HoppingParsevalAnalyzer1D,
+    HoppingParsevalRequest1D,
     HoppingParsevalResult1D,
 )
 from ksdft2effmass.solidstate import (
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
@@ -55,13 +58,17 @@ class TestHoppingParsevalResult1D:
         source = ReciprocalOperatorSamples1D(
             mesh.coordinates, mesh.reciprocal_period, (block, block)
         )
-        transform = ReciprocalOperatorFourierTransformer1D().execute(
-            source, mesh, 0.0, 1.0e-14
-        )
-        truncation = BlockHoppingTruncator1D().execute(transform.hopping_model, 1)
-        valid = HoppingParsevalAnalyzer1D().execute(
-            transform, truncation, ScalarQuantity(1.0e-14, Unitless())
-        )
+        transform = ReciprocalOperatorFourierTransformer1D(
+            ReciprocalOperatorFourierTransformRequest1D(source, mesh, 0.0, 1.0e-14)
+        ).execute()
+        truncation = BlockHoppingTruncator1D(
+            BlockHoppingTruncationRequest1D(transform.hopping_model, 1)
+        ).execute()
+        valid = HoppingParsevalAnalyzer1D(
+            HoppingParsevalRequest1D(
+                transform, truncation, ScalarQuantity(1.0e-14, Unitless())
+            )
+        ).execute()
 
         with pytest.raises(ValueError, match="must match residual"):
             HoppingParsevalResult1D(

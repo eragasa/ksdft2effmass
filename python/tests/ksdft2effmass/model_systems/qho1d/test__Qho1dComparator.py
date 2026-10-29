@@ -41,6 +41,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dComparisonRequest,
     Qho1dFiniteDifference,
     Qho1dLadderOperators,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
 )
 from ksdft2effmass.operators import LadderOperator1D
@@ -58,7 +59,9 @@ class TestQho1dComparator:
     ) -> Qho1dComparisonRequest:
         """Return one dimensionless comparison request."""
         analytical = Qho1dAnalytical(
-            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+            Qho1dNondimensionalizer(
+                Qho1dNondimensionalizationRequest(1.0, 1.0, 1.0)
+            ).execute()
         )
         return Qho1dComparisonRequest(
             analytical=analytical,
@@ -95,15 +98,15 @@ class TestQho1dComparator:
     def test_method__execute__requires_bound_three_model_request(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-008
 
-        Requirement: execute accepts its exact three-model request type and rejects
-        values outside that public contract.
+        Requirement: construction binds the exact three-model request type and
+        rejects values outside that public contract.
 
         Acceptance: A Boolean request raises TypeError, while one admissible request
-        produces a result bound to the exact request.
+        is retained by identity and produces a result bound to that exact request.
         """
-        comparator = Qho1dComparator()
-
         with pytest.raises(TypeError, match="request must be"):
-            comparator.execute(True)  # type: ignore[arg-type]
+            Qho1dComparator(True)  # type: ignore[arg-type]
         request = self.request()
-        assert comparator.execute(request).request is request
+        comparator = Qho1dComparator(request)
+        assert comparator.request is request
+        assert comparator.execute().request is request

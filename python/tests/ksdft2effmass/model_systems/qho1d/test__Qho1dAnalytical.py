@@ -31,6 +31,7 @@ from projectkoios.physkit.units import (
 from ksdft2effmass import model_systems
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dAnalytical,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -46,7 +47,9 @@ class TestQho1dAnalytical:
     def model() -> Qho1dAnalytical:
         """Return the dimensionless exact oscillator model."""
         return Qho1dAnalytical(
-            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+            Qho1dNondimensionalizer(
+                Qho1dNondimensionalizationRequest(1.0, 1.0, 1.0)
+            ).execute()
         )
 
     def test_public_api__package__exports_supported_analytical_model(self) -> None:

@@ -7,7 +7,10 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.analysis.operators import RetainedModelClassFitter
+from ksdft2effmass.analysis.operators import (
+    RetainedModelClassFitRequest,
+    RetainedModelClassFitter,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = RetainedModelClassFitter
@@ -29,8 +32,12 @@ class TestRetainedModelClassFitter:
             Unitless(),
         )
 
-        results = SUT().execute(target)
+        request = RetainedModelClassFitRequest(target)
+        fitter = SUT(request)
 
+        results = fitter.execute()
+
+        assert fitter.request is request
         assert tuple(result.name for result in results) == (
             "scalar",
             "diagonal",
@@ -53,4 +60,4 @@ class TestRetainedModelClassFitter:
         target = MatrixQuantity(np.ones((2, 3)), Unitless())
 
         with pytest.raises(ValueError, match="target must be square"):
-            SUT().execute(target)
+            RetainedModelClassFitRequest(target)

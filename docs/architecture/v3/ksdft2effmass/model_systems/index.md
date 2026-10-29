@@ -4,8 +4,9 @@
 
 The shared model-system layer owns reusable lifecycle behavior without erasing the
 physical and numerical distinctions among model systems. PIAB1D, QHO1D, and Mathieu1D
-remain separate scientific owners; they share typed boundaries, verification sequencing,
-and presentation mechanics only where that behavior has the same meaning.
+remain separate scientific owners; they share typed boundaries and verification
+sequencing only where that behavior has the same meaning. Domain-neutral presentation
+mechanics belong to [`ksdft2effmass.visualizations`](../visualizations/index.md).
 
 ## Common typed lifecycle
 
@@ -40,34 +41,19 @@ The shared layer does not implement scientific references, comparison inventorie
 tolerances, acceptance policy, or a nominal analyzer type. PIAB1D, QHO1D, and Mathieu1D
 analyzers remain concrete because their executed operations have different signatures.
 
-## Flexible visualization composition
+## Authenticated visualization relationship
 
-Visualization is separated into independently replaceable responsibilities:
+Each model system owns its typed scientific projection, closed plot enumeration, figure
+actions, and aggregate visualizer under a plural `visualizations/` package:
 
-```text
-model-specific values
-        │
-        ▼
-BaseModelAnalysisPlot.draw(axis)
-        │  one data-to-mark relation
-        ▼
-BaseModelAnalysisSubplot.draw(axis)
-        │  plot composition and axis-local presentation
-        ▼
-BaseModelAnalysisFigure.draw()
-        │  subplot layout and figure-wide presentation
-        ▼
-BaseModelAnalysisFigureRenderer.visualize()
-        │  encoding into an immutable admitted visualization
-        ▼
-BaseModelAnalysisVisualizer.visualize()
-           complete authenticated figure inventory
-```
+- [`piab1d.visualizations`](piab1d/visualizations/index.md);
+- [`qho1d.visualizations`](qho1d/visualizations/index.md); and
+- [`mathieu1d.visualizations`](mathieu1d/visualizations/index.md).
 
-A concrete figure may choose any Matplotlib layout and may compose zero or more
-explicit subplot and plot actions. The common layer does not impose a universal grid,
-axis count, plot style, or scientific projection. PNG admission remains independent
-of plotting and validates the encoded image container only.
+The root visualization package owns shared plot/subplot/figure composition, PNG
+encoding and admission, projection authentication, and closed-inventory enforcement.
+No model-system package owns mechanics consumed by Periodic1D, and the root package
+imports no model-system type.
 
 ## Boundaries
 

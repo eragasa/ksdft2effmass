@@ -26,7 +26,10 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.analysis.hopping_fits import BlockHoppingLeastSquaresFitter1D
+from ksdft2effmass.analysis.hopping_fits import (
+    BlockHoppingLeastSquaresFitRequest1D,
+    BlockHoppingLeastSquaresFitter1D,
+)
 from ksdft2effmass.solidstate import (
     CenteredUniformReciprocalMesh1D,
     ReciprocalOperatorSamples1D,
@@ -60,11 +63,16 @@ class TestBlockHoppingLeastSquaresFitter1D:
             ),
         )
 
-        result = BlockHoppingLeastSquaresFitter1D().execute(
+        request = BlockHoppingLeastSquaresFitRequest1D(
             source,
             (-1, 0, 1),
             VectorQuantity(np.ones(4), Unitless()),
         )
+        fitter = BlockHoppingLeastSquaresFitter1D(request)
+
+        result = fitter.execute()
+
+        assert fitter.request is request
 
         np.testing.assert_allclose(
             np.asarray(
@@ -96,11 +104,13 @@ class TestBlockHoppingLeastSquaresFitter1D:
             ),
         )
 
-        result = BlockHoppingLeastSquaresFitter1D().execute(
-            source,
-            (0,),
-            VectorQuantity(np.ones(2), Unitless()),
-        )
+        result = BlockHoppingLeastSquaresFitter1D(
+            BlockHoppingLeastSquaresFitRequest1D(
+                source,
+                (0,),
+                VectorQuantity(np.ones(2), Unitless()),
+            )
+        ).execute()
 
         np.testing.assert_allclose(
             result.fitted_model.hopping_blocks[0].magnitude,
@@ -129,11 +139,13 @@ class TestBlockHoppingLeastSquaresFitter1D:
             ),
         )
 
-        result = BlockHoppingLeastSquaresFitter1D().execute(
-            source,
-            (0,),
-            VectorQuantity(np.asarray([1.0, 3.0]), Unitless()),
-        )
+        result = BlockHoppingLeastSquaresFitter1D(
+            BlockHoppingLeastSquaresFitRequest1D(
+                source,
+                (0,),
+                VectorQuantity(np.asarray([1.0, 3.0]), Unitless()),
+            )
+        ).execute()
 
         assert result.fitted_model.hopping_blocks[0].magnitude[0, 0] == (
             pytest.approx(1.5 + 0.0j, abs=1.0e-14)
@@ -160,9 +172,11 @@ class TestBlockHoppingLeastSquaresFitter1D:
             ),
         )
 
-        result = BlockHoppingLeastSquaresFitter1D().execute(
-            source, (0, 1), VectorQuantity(np.ones(1), Unitless())
-        )
+        result = BlockHoppingLeastSquaresFitter1D(
+            BlockHoppingLeastSquaresFitRequest1D(
+                source, (0, 1), VectorQuantity(np.ones(1), Unitless())
+            )
+        ).execute()
 
         assert result.design_rank == 1
         assert result.design_condition_number is None

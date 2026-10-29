@@ -29,13 +29,16 @@ from ksdft2effmass.analysis.diagnostics import (
 )
 from ksdft2effmass.analysis.operators import (
     RealSymmetricEigenpairDiagnosticAnalyzer,
+    RealSymmetricEigenpairDiagnosticRequest,
     RealSymmetricEigenpairDiagnosticResult,
 )
 from ksdft2effmass.hamiltonian import (
     HermitianHamiltonian,
     OrthogonalHamiltonianBlockAnalyzer,
+    OrthogonalHamiltonianBlockRequest,
     OrthogonalHamiltonianBlockResult,
     OrthogonalSpectralSubspace,
+    OrthogonalSpectralSubspaceSelectionRequest,
     OrthogonalSpectralSubspaceSelector,
     ReducedHamiltonian,
     SpectralReduction,
@@ -131,42 +134,43 @@ class Piab1dAnalysis:
             raise TypeError("diagnostics must be Piab1dDiagnostics")
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dAnalysisRequest:
+    """Bind one finite PhysKit PIAB1D solution and retained dimension."""
+
+    solution: Piab1dTiseFdSolution
+    retained_dimension: int
+
+    def __post_init__(self) -> None:
+        """Admit the complete PIAB1D analysis request."""
+        if not isinstance(self.solution, Piab1dTiseFdSolution):
+            raise TypeError("solution must be Piab1dTiseFdSolution")
+        if type(self.retained_dimension) is not int:
+            raise TypeError("retained_dimension must be a built-in int")
+        if (
+            self.retained_dimension <= 0
+            or self.retained_dimension > self.solution.interior_points
+        ):
+            raise ValueError("retained_dimension must select available eigenpairs")
+
+
 class Piab1dAnalyzer:
-    """Perform the complete KSD analysis of one PhysKit PIAB1D solution."""
+    """Perform the complete KSD analysis of one bound PhysKit PIAB1D solution."""
 
-    __slots__ = (
-        "block_analyzer",
-        "eigenpair_analyzer",
-        "subspace_selector",
-    )
+    __slots__ = ("_request",)
 
-    def __init__(self) -> None:
-        """Compose the reusable finite-operator diagnostic actions.
+    def __init__(self, request: Piab1dAnalysisRequest) -> None:
+        if type(request) is not Piab1dAnalysisRequest:
+            raise TypeError("request must be Piab1dAnalysisRequest")
+        self._request = request
 
-        Notes
-        -----
-        Construction allocates no represented model and executes no eigensolver. The
-        action remains reusable across independently constructed PhysKit solutions.
-        """
-        self.block_analyzer = OrthogonalHamiltonianBlockAnalyzer()
-        self.eigenpair_analyzer = RealSymmetricEigenpairDiagnosticAnalyzer()
-        self.subspace_selector = OrthogonalSpectralSubspaceSelector()
+    @property
+    def request(self) -> Piab1dAnalysisRequest:
+        """Return the complete immutable PIAB1D analysis request."""
+        return self._request
 
-    def execute(
-        self,
-        solution: Piab1dTiseFdSolution,
-        retained_dimension: int,
-    ) -> Piab1dAnalysis:
+    def execute(self) -> Piab1dAnalysis:
         """Analyze one finite PhysKit PIAB1D eigensolution.
-
-        Parameters
-        ----------
-        solution
-            Full-grid homogeneous-Dirichlet solution with represented Hamiltonian,
-            eigensystem, model, and grid spacing.
-        retained_dimension
-            Positive number of lowest-energy eigenvectors defining the orthogonal
-            retained subspace.
 
         Returns
         -------
@@ -176,11 +180,8 @@ class Piab1dAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``solution`` or ``retained_dimension`` has the wrong exact type.
         ValueError
-            The retained dimension is unavailable or the Hamiltonian and quadrature
-            grid conventions disagree.
+            The Hamiltonian and quadrature grid conventions disagree.
 
         Notes
         -----
@@ -188,17 +189,14 @@ class Piab1dAnalyzer:
         form, eigensolver residual, boundary realization, and reduction residual.
         These values represent different error sources.
         """
-        if not isinstance(solution, Piab1dTiseFdSolution):
-            raise TypeError("solution must be Piab1dTiseFdSolution")
-        if type(retained_dimension) is not int:
-            raise TypeError("retained_dimension must be a built-in int")
-        if retained_dimension <= 0 or retained_dimension > solution.interior_points:
-            raise ValueError("retained_dimension must select available eigenpairs")
-
+        solution = self.request.solution
+        retained_dimension = self.request.retained_dimension
         parent_hamiltonian = HermitianHamiltonian(matrix=solution.hamiltonian)
-        subspace = self.subspace_selector.execute(
-            solution.eigensystem, retained_dimension
-        )
+        subspace = OrthogonalSpectralSubspaceSelector(
+            OrthogonalSpectralSubspaceSelectionRequest(
+                solution.eigensystem, retained_dimension
+            )
+        ).execute()
         reduced_hamiltonian = SpectralReduction(
             hamiltonian=parent_hamiltonian,
             spectral_subspace=subspace,
@@ -208,12 +206,16 @@ class Piab1dAnalyzer:
         ):
             raise TypeError("PIAB1D reduced Hamiltonian matrices must be real")
 
-        hamiltonian_blocks = self.block_analyzer.execute(parent_hamiltonian, subspace)
+        hamiltonian_blocks = OrthogonalHamiltonianBlockAnalyzer(
+            OrthogonalHamiltonianBlockRequest(parent_hamiltonian, subspace)
+        ).execute()
         if not isinstance(
             hamiltonian_blocks.retained, MatrixQuantity
         ) or not isinstance(hamiltonian_blocks.discarded, MatrixQuantity):
             raise TypeError("PIAB1D Hamiltonian blocks must be real")
-        eigenpair_diagnostics = self.eigenpair_analyzer.execute(solution.eigensystem)
+        eigenpair_diagnostics = RealSymmetricEigenpairDiagnosticAnalyzer(
+            RealSymmetricEigenpairDiagnosticRequest(solution.eigensystem)
+        ).execute()
 
         hamiltonian = solution.hamiltonian.to_dense()
         hamiltonian_values = hamiltonian.magnitude

@@ -6,7 +6,9 @@ from pathlib import Path
 
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dCalculationResult,
+    Qho1dCrossGridAnalysisRequest,
     Qho1dCrossGridAnalyzer,
+    Qho1dCrossGridVerificationRequest,
     Qho1dCrossGridVerifier,
 )
 
@@ -93,8 +95,12 @@ class TestResearchMonographQho1dProjection:
         result_bytes = (self.execution_root / "results" / "result.json").read_bytes()
         result = Qho1dCalculationResult.from_json(result_bytes)
         assert result.to_json() == result_bytes
-        analysis = Qho1dCrossGridAnalyzer().execute(result)
-        verification = Qho1dCrossGridVerifier().execute(result, analysis)
+        analysis = Qho1dCrossGridAnalyzer(
+            Qho1dCrossGridAnalysisRequest(result)
+        ).execute()
+        verification = Qho1dCrossGridVerifier(
+            Qho1dCrossGridVerificationRequest(result, analysis)
+        ).execute()
 
         assert len(analysis.comparisons) == 18
         assert len(verification.observations) == 90

@@ -6,6 +6,7 @@ import pytest
 
 from ksdft2effmass.model_systems.analysis import ModelAnalysisVerificationResult
 from ksdft2effmass.model_systems.qho1d import (
+    Qho1dAnalysisRequest,
     Qho1dAnalyzer,
     Qho1dConfiguration,
     Qho1dVerification,
@@ -35,13 +36,15 @@ class TestQho1dVisualizer:
             selected_retained_dimension=6,
             displayed_states=4,
         )
-        result = Qho1dAnalyzer().execute(
-            configuration,
-            calculation_family="qho1d-spatial-truncation",
-            execution_id="test-direct",
-            evidence_status="illustrative numerical experiment",
-            claim_boundary="test fixture; no scientific-validation claim",
-        )
+        result = Qho1dAnalyzer(
+            Qho1dAnalysisRequest(
+                configuration=configuration,
+                calculation_family="qho1d-spatial-truncation",
+                execution_id="test-direct",
+                evidence_status="illustrative numerical experiment",
+                claim_boundary="test fixture; no scientific-validation claim",
+            )
+        ).execute()
         wire = result.to_json()
         return Qho1dVerifier(result_wire=wire).result()
 

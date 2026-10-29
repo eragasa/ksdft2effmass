@@ -2,7 +2,9 @@
 
 ```mermaid
 flowchart LR
-    C[configuration] --> E[parent eigensystems]
+    C[bound configuration] --> E[parent eigensystems]
+    S[bound Procrustes solver] --> P[pointwise alignment]
+    S --> G[global alignment diagnostic]
     E --> T[transported reference frame]
     T --> A[declared attack]
     A --> P[pointwise alignment]

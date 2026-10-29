@@ -83,6 +83,28 @@ class ReciprocalBandFramePath1D:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
+class PolarBandFrameTransportRequest1D:
+    """Bind one reciprocal frame path and polar-transport threshold."""
+
+    path: ReciprocalBandFramePath1D
+    overlap_singular_value_threshold: float
+
+    def __post_init__(self) -> None:
+        """Admit the complete frame path and nonnegative finite threshold."""
+        if type(self.path) is not ReciprocalBandFramePath1D:
+            raise TypeError("path must be ReciprocalBandFramePath1D")
+        if type(self.overlap_singular_value_threshold) is not float:
+            raise TypeError("overlap_singular_value_threshold must be a built-in float")
+        if (
+            not np.isfinite(self.overlap_singular_value_threshold)
+            or self.overlap_singular_value_threshold < 0.0
+        ):
+            raise ValueError(
+                "overlap_singular_value_threshold must be finite and nonnegative"
+            )
+
+
+@dataclass(frozen=True, slots=True, eq=False)
 class PolarBandFrameTransportResult1D:
     """Retain one polar-transported frame path and its overlap diagnostics."""
 
@@ -137,27 +159,24 @@ class PolarBandFrameTransportResult1D:
 
 
 class PolarBandFrameTransporter1D:
-    """Construct a closed smooth gauge by neighborwise unitary polar transport."""
+    """Construct a closed smooth gauge for one constructor-bound frame path."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        path: ReciprocalBandFramePath1D,
-        overlap_singular_value_threshold: float,
-    ) -> PolarBandFrameTransportResult1D:
+    def __init__(self, request: PolarBandFrameTransportRequest1D) -> None:
+        if type(request) is not PolarBandFrameTransportRequest1D:
+            raise TypeError("request must be PolarBandFrameTransportRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> PolarBandFrameTransportRequest1D:
+        """Return the complete immutable polar-transport request."""
+        return self._request
+
+    def execute(self) -> PolarBandFrameTransportResult1D:
         """Transport scalar or composite frames and distribute closure holonomy."""
-        if type(path) is not ReciprocalBandFramePath1D:
-            raise TypeError("path must be ReciprocalBandFramePath1D")
-        if type(overlap_singular_value_threshold) is not float:
-            raise TypeError("overlap_singular_value_threshold must be a built-in float")
-        if (
-            not np.isfinite(overlap_singular_value_threshold)
-            or overlap_singular_value_threshold < 0.0
-        ):
-            raise ValueError(
-                "overlap_singular_value_threshold must be finite and nonnegative"
-            )
+        path = self.request.path
+        threshold = self.request.overlap_singular_value_threshold
         raw = tuple(frame.magnitude for frame in path.frames)
         transported = [raw[0].copy()]
         singular_values: list[float] = []
@@ -172,7 +191,7 @@ class PolarBandFrameTransporter1D:
         left, values, right_h = np.linalg.svd(closure)
         singular_values.extend(float(value) for value in values)
         minimum = min(singular_values)
-        if minimum <= overlap_singular_value_threshold:
+        if minimum <= threshold:
             raise ValueError("neighbor or closure overlap does not pass threshold")
         unitary_closure = left @ right_h
         triangular, eigenvectors = schur(unitary_closure, output="complex")
@@ -199,6 +218,6 @@ class PolarBandFrameTransporter1D:
             path,
             transported_path,
             float(minimum),
-            overlap_singular_value_threshold,
+            threshold,
             tuple(float(phase) for phase in phases),
         )

@@ -13,12 +13,12 @@ independent verification, and authenticated figures.
 - [`configuration`](configuration/index.md) owns genuine frozen scientific inputs.
 - [`result`](result/index.md) owns explicit immutable output sections and the root wire.
 - [`analysis`](analysis/index.md) owns the pure `execute()` producer.
-- [`verification_values`](verification_values/index.md) owns producer-independent
-  numerical reconstruction.
+- [`reference`](reference/index.md) owns request-bound producer-independent numerical
+  reconstruction.
 - [`verification`](verification/index.md) owns exact-byte admission and aggregate
   authentication.
-- [`visualization`](visualization/index.md) owns the authenticated projection and closed
-  PNG inventory.
+- [`visualizations`](visualizations/index.md) owns the authenticated projection and
+  closed three-PNG inventory.
 
 The package imports no historical campaign, `multiband_alignment`, or calculation-local
 workflow code. It is distinct from band-equivalence/locality and from M3 admissible-set

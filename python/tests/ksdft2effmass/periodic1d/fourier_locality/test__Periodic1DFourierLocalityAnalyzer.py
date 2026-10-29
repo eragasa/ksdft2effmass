@@ -52,7 +52,11 @@ class TestPeriodic1DFourierLocalityAnalyzer:
         )
 
     def test__execute__returns_canonical_correlated_result(self) -> None:
-        result = Periodic1DFourierLocalityAnalyzer().execute(self.configuration())
+        request = self.configuration()
+        analyzer = Periodic1DFourierLocalityAnalyzer(request)
+        result = analyzer.execute()
+
+        assert analyzer.request is request
 
         reconstructed = Periodic1DFourierLocalityCalculationResult.from_json(
             result.to_json()
@@ -76,7 +80,7 @@ class TestPeriodic1DFourierLocalityAnalyzer:
             maximum_ranges=tuple(range(16)),
         )
 
-        result = Periodic1DFourierLocalityAnalyzer().execute(configuration)
+        result = Periodic1DFourierLocalityAnalyzer(configuration).execute()
 
         assert np.array_equal(
             result.evaluation.reduced_momenta.magnitude,
@@ -87,8 +91,8 @@ class TestPeriodic1DFourierLocalityAnalyzer:
             configuration.refinement_channel_names()
         )
 
-    def test__execute__rejects_wrong_configuration_type(self) -> None:
-        with pytest.raises(TypeError, match="configuration"):
-            Periodic1DFourierLocalityAnalyzer().execute(
+    def test__init__rejects_wrong_request_type(self) -> None:
+        with pytest.raises(TypeError, match="request"):
+            Periodic1DFourierLocalityAnalyzer(
                 "wrong"  # type: ignore[arg-type]
             )

@@ -42,7 +42,11 @@ model_systems/qho1d/
 ├── cross_grid.py
 ├── verification_values.py
 ├── verification.py
-└── visualization.py
+└── visualizations/
+    ├── data.py
+    ├── inventory.py
+    ├── visualizer.py
+    └── figures/
 ```
 
 The former neighboring `study/` package and its JSON-authored calculation contract
@@ -71,6 +75,7 @@ the authorized scope, recovery commit, and historical content identities.
 
 ## Detailed pages
 
+- [Visualization package](visualizations/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)

@@ -8,6 +8,11 @@ execution package.
 
 from .analysis import Periodic1DFourierLocalityAnalyzer
 from .configuration import Periodic1DFourierLocalityConfiguration
+from .reference import (
+    Periodic1DFourierLocalityIndependentReference,
+    Periodic1DFourierLocalityIndependentReferenceAnalyzer,
+    Periodic1DFourierLocalityIndependentReferenceRequest,
+)
 from .result import (
     Periodic1DFourierLocalityCalculationResult,
     Periodic1DFourierLocalityEvaluationResult,
@@ -19,11 +24,7 @@ from .verification import (
     Periodic1DFourierLocalityVerification,
     Periodic1DFourierLocalityVerifier,
 )
-from .verification_values import (
-    Periodic1DFourierLocalityIndependentVerification,
-    Periodic1DFourierLocalityIndependentVerifier,
-)
-from .visualization import (
+from .visualizations import (
     Periodic1DFourierLocalityVisualizationData,
     Periodic1DFourierLocalityVisualizationPlotEnum,
     Periodic1DFourierLocalityVisualizer,
@@ -36,8 +37,9 @@ __all__ = [
     "Periodic1DFourierLocalityEvaluationResult",
     "Periodic1DFourierLocalityMeshResult",
     "FourierLocalityVerification",
-    "Periodic1DFourierLocalityIndependentVerification",
-    "Periodic1DFourierLocalityIndependentVerifier",
+    "Periodic1DFourierLocalityIndependentReference",
+    "Periodic1DFourierLocalityIndependentReferenceAnalyzer",
+    "Periodic1DFourierLocalityIndependentReferenceRequest",
     "Periodic1DFourierLocalityRangeResult",
     "Periodic1DFourierLocalityVerification",
     "Periodic1DFourierLocalityVerifier",

@@ -26,28 +26,62 @@ class RealSymmetricEigenpairDiagnosticResult:
     overlap_defects: VectorQuantity | None
 
 
-class RealSymmetricEigenpairDiagnosticAnalyzer:
-    """Analyze eigensystem residuals separately from reference-vector agreement."""
+@dataclass(frozen=True, slots=True, eq=False)
+class RealSymmetricEigenpairDiagnosticRequest:
+    """Bind one represented real eigensystem and optional reference vectors."""
 
-    __slots__ = ()
+    eigensystem: Eigensystem
+    reference_vectors: MatrixQuantity | None = None
 
-    def execute(
-        self,
-        eigensystem: Eigensystem,
-        reference_vectors: MatrixQuantity | None = None,
-    ) -> RealSymmetricEigenpairDiagnosticResult:
-        """Return residual and overlap diagnostics for the represented eigensystem."""
-        if not isinstance(eigensystem, Eigensystem):
+    def __post_init__(self) -> None:
+        """Admit the complete residual and overlap diagnostic request."""
+        if not isinstance(self.eigensystem, Eigensystem):
             raise TypeError("eigensystem must be Eigensystem")
-        if not isinstance(eigensystem.matrix, MatrixQuantity | SparseMatrixQuantity):
-            raise TypeError("eigensystem matrix must be real")
-        if not isinstance(eigensystem.eigenvectors, MatrixQuantity):
+        _ = self.represented_matrix
+        if not isinstance(self.eigensystem.eigenvectors, MatrixQuantity):
             raise TypeError("eigensystem eigenvectors must be real")
-        if reference_vectors is not None and not isinstance(
-            reference_vectors, MatrixQuantity
+        if self.reference_vectors is not None and not isinstance(
+            self.reference_vectors, MatrixQuantity
         ):
             raise TypeError("reference_vectors must be MatrixQuantity or None")
-        operator = eigensystem.matrix
+        vectors = self.eigensystem.eigenvectors.magnitude
+        if (
+            self.reference_vectors is not None
+            and self.reference_vectors.magnitude.shape != vectors.shape
+        ):
+            raise ValueError("reference_vectors must match eigenvector dimensions")
+        if float(np.max(np.abs(self.eigensystem.eigenvalues.magnitude))) == 0.0:
+            raise ValueError("eigenvalue scale must be nonzero")
+
+    @property
+    def represented_matrix(self) -> MatrixQuantity | SparseMatrixQuantity:
+        """Return the admitted real represented operator matrix."""
+        matrix = self.eigensystem.matrix
+        if not isinstance(matrix, MatrixQuantity | SparseMatrixQuantity):
+            raise TypeError("eigensystem matrix must be real")
+        return matrix
+
+
+class RealSymmetricEigenpairDiagnosticAnalyzer:
+    """Analyze residuals and reference agreement for one bound eigensystem."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: RealSymmetricEigenpairDiagnosticRequest) -> None:
+        if type(request) is not RealSymmetricEigenpairDiagnosticRequest:
+            raise TypeError("request must be RealSymmetricEigenpairDiagnosticRequest")
+        self._request = request
+
+    @property
+    def request(self) -> RealSymmetricEigenpairDiagnosticRequest:
+        """Return the complete immutable eigenpair diagnostic request."""
+        return self._request
+
+    def execute(self) -> RealSymmetricEigenpairDiagnosticResult:
+        """Return residual and overlap diagnostics for the represented eigensystem."""
+        eigensystem = self.request.eigensystem
+        reference_vectors = self.request.reference_vectors
+        operator = self.request.represented_matrix
         represented = (
             operator.magnitude
             if isinstance(operator, MatrixQuantity)
@@ -57,14 +91,10 @@ class RealSymmetricEigenpairDiagnosticAnalyzer:
         vectors = eigensystem.eigenvectors.magnitude
         residual = represented @ vectors - vectors * values[np.newaxis, :]
         spectral_scale = float(np.max(np.abs(values)))
-        if spectral_scale == 0.0:
-            raise ValueError("eigenvalue scale must be nonzero")
         scaled = eigenpair_residual_norms(represented, values, vectors) / spectral_scale
         overlaps: VectorQuantity | None = None
         if reference_vectors is not None:
             reference = reference_vectors.magnitude
-            if reference.shape != vectors.shape:
-                raise ValueError("reference_vectors must match eigenvector dimensions")
             overlap_values = np.asarray(
                 [
                     max(

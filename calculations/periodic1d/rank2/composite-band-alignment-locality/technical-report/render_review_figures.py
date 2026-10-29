@@ -6,6 +6,10 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+
 from ksdft2effmass.periodic1d.composite_band_alignment import (
     Periodic1DCompositeBandAlignmentAnalyzer,
     Periodic1DCompositeBandAlignmentConfiguration,
@@ -46,7 +50,10 @@ def main() -> int:
     """Calculate, independently verify, and render all report figures in memory."""
     report_root = Path(__file__).resolve().parent
     request = configuration()
-    result = Periodic1DCompositeBandAlignmentAnalyzer().execute(request)
+    result = Periodic1DCompositeBandAlignmentAnalyzer(
+        request,
+        NumpyBatchedComplexUnitaryProcrustesSolver(),
+    ).execute()
     verified = Periodic1DCompositeBandAlignmentVerifier(
         result_wire=result.to_json()
     ).result()

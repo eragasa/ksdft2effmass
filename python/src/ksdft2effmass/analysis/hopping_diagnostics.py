@@ -14,6 +14,7 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.solidstate import (
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
     BlockHoppingTruncationResult1D,
@@ -147,29 +148,30 @@ class HoppingParsevalResult1D:
             raise ValueError("parseval_absolute_residual must match retained norms")
 
 
-class HoppingParsevalAnalyzer1D:
-    """Check complete uniform-mesh Parseval scaling after symmetric truncation."""
+@dataclass(frozen=True, slots=True, eq=False)
+class HoppingParsevalRequest1D:
+    """Bind one complete transform, truncation, and squared-norm tolerance."""
 
-    __slots__ = ()
+    transform: ReciprocalOperatorFourierTransformResult1D
+    truncation: BlockHoppingTruncationResult1D
+    absolute_tolerance: ScalarQuantity
 
-    def execute(
-        self,
-        transform: ReciprocalOperatorFourierTransformResult1D,
-        truncation: BlockHoppingTruncationResult1D,
-        absolute_tolerance: ScalarQuantity,
-    ) -> HoppingParsevalResult1D:
-        """Compare training residual squared with scaled omitted-block norm."""
-        if type(transform) is not ReciprocalOperatorFourierTransformResult1D:
+    def __post_init__(self) -> None:
+        """Admit exact transform, truncation, source, and tolerance correlations."""
+        if type(self.transform) is not ReciprocalOperatorFourierTransformResult1D:
             raise TypeError(
                 "transform must be ReciprocalOperatorFourierTransformResult1D"
             )
-        if type(truncation) is not BlockHoppingTruncationResult1D:
+        if type(self.truncation) is not BlockHoppingTruncationResult1D:
             raise TypeError("truncation must be BlockHoppingTruncationResult1D")
-        if transform.hopping_model.representatives != truncation.source.representatives:
+        if (
+            self.transform.hopping_model.representatives
+            != self.truncation.source.representatives
+        ):
             raise ValueError("truncation source must match transformed hopping model")
         for transformed, truncated_source in zip(
-            transform.hopping_model.hopping_blocks,
-            truncation.source.hopping_blocks,
+            self.transform.hopping_model.hopping_blocks,
+            self.truncation.source.hopping_blocks,
             strict=True,
         ):
             if transformed.unit != truncated_source.unit or not np.array_equal(
@@ -178,26 +180,55 @@ class HoppingParsevalAnalyzer1D:
                 raise ValueError(
                     "truncation source must match transformed hopping model"
                 )
+        if type(self.absolute_tolerance) is not ScalarQuantity:
+            raise TypeError("absolute_tolerance must be ScalarQuantity")
+        if self.absolute_tolerance.magnitude < 0.0:
+            raise ValueError("absolute_tolerance must be nonnegative")
+        block_unit = self.transform.hopping_model.hopping_blocks[0].unit
+        squared_unit = (
+            Unitless()
+            if isinstance(block_unit, Unitless)
+            else PhysicalUnit(f"({block_unit.expression}) ** 2")
+        )
+        if not ModelSystemUnitConverter.compatible(
+            self.absolute_tolerance.unit, squared_unit
+        ):
+            raise ValueError("tolerance must have squared hopping-block dimensions")
+
+
+class HoppingParsevalAnalyzer1D:
+    """Check Parseval scaling for one constructor-bound hopping truncation."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: HoppingParsevalRequest1D) -> None:
+        if type(request) is not HoppingParsevalRequest1D:
+            raise TypeError("request must be HoppingParsevalRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> HoppingParsevalRequest1D:
+        """Return the complete immutable Parseval-analysis request."""
+        return self._request
+
+    def execute(self) -> HoppingParsevalResult1D:
+        """Compare training residual squared with scaled omitted-block norm."""
+        transform = self.request.transform
+        truncation = self.request.truncation
         block_unit = transform.hopping_model.hopping_blocks[0].unit
         squared_unit = (
             Unitless()
             if isinstance(block_unit, Unitless)
             else PhysicalUnit(f"({block_unit.expression}) ** 2")
         )
-        if type(absolute_tolerance) is not ScalarQuantity:
-            raise TypeError("absolute_tolerance must be ScalarQuantity")
-        if absolute_tolerance.magnitude < 0.0:
-            raise ValueError("absolute_tolerance must be nonnegative")
-        if not ModelSystemUnitConverter.compatible(
-            absolute_tolerance.unit, squared_unit
-        ):
-            raise ValueError("tolerance must have squared hopping-block dimensions")
         tolerance = ModelSystemUnitConverter.convert_scalar(
-            absolute_tolerance, squared_unit
+            self.request.absolute_tolerance, squared_unit
         )
-        reconstructed = BlockHoppingInterpolator1D().execute(
-            truncation.truncated, transform.source.coordinates
-        )
+        reconstructed = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                truncation.truncated, transform.source.coordinates
+            )
+        ).execute()
         training_squared = float(
             sum(
                 np.linalg.norm(candidate.magnitude - reference.magnitude) ** 2
@@ -272,39 +303,61 @@ class ScalarHoppingBandShapeResult1D:
             raise ValueError("passes must match imaginary residual and tolerance")
 
 
-class ScalarHoppingBandShapeAnalyzer1D:
-    """Evaluate scalar hopping bandwidth and curvature in reduced momentum."""
+@dataclass(frozen=True, slots=True, eq=False)
+class ScalarHoppingBandShapeRequest1D:
+    """Bind one scalar hopping model, comparison inventory, and tolerance."""
 
-    __slots__ = ()
+    model: BlockHoppingModel1D
+    comparison_coordinates: VectorQuantity
+    imaginary_absolute_tolerance: ScalarQuantity
 
-    def execute(
-        self,
-        model: BlockHoppingModel1D,
-        comparison_coordinates: VectorQuantity,
-        imaginary_absolute_tolerance: ScalarQuantity,
-    ) -> ScalarHoppingBandShapeResult1D:
-        """Evaluate bandwidth and analytical second derivative at zone center."""
-        if type(model) is not BlockHoppingModel1D:
+    def __post_init__(self) -> None:
+        """Admit scalar rank, reciprocal coordinates, and energy tolerance."""
+        if type(self.model) is not BlockHoppingModel1D:
             raise TypeError("model must be BlockHoppingModel1D")
-        if model.matrix_dimension != 1:
+        if self.model.matrix_dimension != 1:
             raise ValueError("band-shape diagnostics require scalar hopping blocks")
-        if type(comparison_coordinates) is not VectorQuantity:
+        if type(self.comparison_coordinates) is not VectorQuantity:
             raise TypeError("comparison_coordinates must be VectorQuantity")
-        if comparison_coordinates.magnitude.size == 0:
+        if self.comparison_coordinates.magnitude.size == 0:
             raise ValueError("comparison_coordinates must be nonempty")
-        if type(imaginary_absolute_tolerance) is not ScalarQuantity:
+        if type(self.imaginary_absolute_tolerance) is not ScalarQuantity:
             raise TypeError("imaginary_absolute_tolerance must be ScalarQuantity")
-        if imaginary_absolute_tolerance.magnitude < 0.0:
+        if self.imaginary_absolute_tolerance.magnitude < 0.0:
             raise ValueError("imaginary_absolute_tolerance must be nonnegative")
-        unit = model.hopping_blocks[0].unit
         if not ModelSystemUnitConverter.compatible(
-            imaginary_absolute_tolerance.unit, unit
+            self.imaginary_absolute_tolerance.unit,
+            self.model.hopping_blocks[0].unit,
         ):
             raise ValueError("imaginary tolerance and hopping units must be compatible")
+
+
+class ScalarHoppingBandShapeAnalyzer1D:
+    """Evaluate one constructor-bound scalar hopping band shape."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: ScalarHoppingBandShapeRequest1D) -> None:
+        if type(request) is not ScalarHoppingBandShapeRequest1D:
+            raise TypeError("request must be ScalarHoppingBandShapeRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> ScalarHoppingBandShapeRequest1D:
+        """Return the complete immutable band-shape request."""
+        return self._request
+
+    def execute(self) -> ScalarHoppingBandShapeResult1D:
+        """Evaluate bandwidth and analytical second derivative at zone center."""
+        model = self.request.model
+        comparison_coordinates = self.request.comparison_coordinates
+        unit = model.hopping_blocks[0].unit
         tolerance = ModelSystemUnitConverter.convert_scalar(
-            imaginary_absolute_tolerance, unit
+            self.request.imaginary_absolute_tolerance, unit
         )
-        samples = BlockHoppingInterpolator1D().execute(model, comparison_coordinates)
+        samples = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(model, comparison_coordinates)
+        ).execute()
         values = np.asarray(
             [matrix.magnitude[0, 0] for matrix in samples.matrices],
             dtype=np.complex128,
@@ -330,44 +383,63 @@ class ScalarHoppingBandShapeAnalyzer1D:
         )
 
 
-class BlockHoppingHermiticityAnalyzer1D:
-    """Analyze block conjugacy with optional Born--von Karman representative modulus."""
+@dataclass(frozen=True, slots=True, eq=False)
+class BlockHoppingHermiticityRequest1D:
+    """Bind one hopping model, energy tolerance, and representative modulus."""
 
-    __slots__ = ()
+    model: BlockHoppingModel1D
+    absolute_tolerance: ScalarQuantity
+    representative_modulus: int | None
 
-    def execute(
-        self,
-        model: BlockHoppingModel1D,
-        absolute_tolerance: ScalarQuantity,
-        representative_modulus: int | None,
-    ) -> BlockHoppingHermiticityResult1D:
-        """Compare every represented block with its exact or modular opposite."""
-        if type(model) is not BlockHoppingModel1D:
+    def __post_init__(self) -> None:
+        """Admit model, tolerance, and optional modular representative inventory."""
+        if type(self.model) is not BlockHoppingModel1D:
             raise TypeError("model must be BlockHoppingModel1D")
-        if type(absolute_tolerance) is not ScalarQuantity:
+        if type(self.absolute_tolerance) is not ScalarQuantity:
             raise TypeError("absolute_tolerance must be ScalarQuantity")
-        if absolute_tolerance.magnitude < 0.0:
+        if self.absolute_tolerance.magnitude < 0.0:
             raise ValueError("absolute_tolerance must be nonnegative")
         if not ModelSystemUnitConverter.compatible(
-            absolute_tolerance.unit, model.hopping_blocks[0].unit
+            self.absolute_tolerance.unit, self.model.hopping_blocks[0].unit
         ):
             raise ValueError("tolerance and hopping-block units must be compatible")
-        tolerance = ModelSystemUnitConverter.convert_scalar(
-            absolute_tolerance, model.hopping_blocks[0].unit
-        )
-        if representative_modulus is not None:
-            if type(representative_modulus) is not int:
+        if self.representative_modulus is not None:
+            if type(self.representative_modulus) is not int:
                 raise TypeError("representative_modulus must be a built-in int or None")
-            if representative_modulus <= 0:
+            if self.representative_modulus <= 0:
                 raise ValueError("representative_modulus must be positive")
             residues = tuple(
-                representative % representative_modulus
-                for representative in model.representatives
+                representative % self.representative_modulus
+                for representative in self.model.representatives
             )
             if len(set(residues)) != len(residues):
                 raise ValueError(
                     "model representatives must be unique modulo the declared modulus"
                 )
+
+
+class BlockHoppingHermiticityAnalyzer1D:
+    """Analyze conjugacy for one constructor-bound block-hopping model."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: BlockHoppingHermiticityRequest1D) -> None:
+        if type(request) is not BlockHoppingHermiticityRequest1D:
+            raise TypeError("request must be BlockHoppingHermiticityRequest1D")
+        self._request = request
+
+    @property
+    def request(self) -> BlockHoppingHermiticityRequest1D:
+        """Return the complete immutable Hermiticity-analysis request."""
+        return self._request
+
+    def execute(self) -> BlockHoppingHermiticityResult1D:
+        """Compare every represented block with its exact or modular opposite."""
+        model = self.request.model
+        representative_modulus = self.request.representative_modulus
+        tolerance = ModelSystemUnitConverter.convert_scalar(
+            self.request.absolute_tolerance, model.hopping_blocks[0].unit
+        )
         lookup = {
             representative: index
             for index, representative in enumerate(model.representatives)

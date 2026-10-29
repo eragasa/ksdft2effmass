@@ -30,24 +30,23 @@ from .comparison_records import Qho1dComparisonRequest, Qho1dComparisonResult
 
 
 class Qho1dComparator:
-    """Compare analytical, Dirichlet-interval, and ladder-operator models.
+    """Compare one bound analytical, grid, and ladder-operator model triple."""
 
-    The ActionObject has no hidden mutable state. It performs one deterministic
-    binary64 comparison for each explicit request.
-    """
+    __slots__ = ("_request",)
 
-    __slots__ = ()
+    def __init__(self, request: Qho1dComparisonRequest) -> None:
+        """Bind one complete immutable common-coordinate comparison request."""
+        if type(request) is not Qho1dComparisonRequest:
+            raise TypeError("request must be Qho1dComparisonRequest")
+        self._request = request
 
-    def execute(
-        self,
-        request: Qho1dComparisonRequest,
-    ) -> Qho1dComparisonResult:
+    @property
+    def request(self) -> Qho1dComparisonRequest:
+        """Return the complete immutable comparison request."""
+        return self._request
+
+    def execute(self) -> Qho1dComparisonResult:
         """Execute one aligned three-model comparison.
-
-        Parameters
-        ----------
-        request
-            Bound analytical, Dirichlet-interval, and ladder-operator models.
 
         Returns
         -------
@@ -57,15 +56,11 @@ class Qho1dComparator:
 
         Raises
         ------
-        TypeError
-            If ``request`` is not ``Qho1dComparisonRequest``.
         ValueError
             If the sampled-state Gram matrix is not positive definite or the exact
             analytical energies and retained ladder Hamiltonian disagree.
         """
-        if not isinstance(request, Qho1dComparisonRequest):
-            raise TypeError("request must be Qho1dComparisonRequest")
-
+        request = self.request
         analytical = request.analytical
         finite_difference = request.finite_difference
         ladder = request.ladder_operators

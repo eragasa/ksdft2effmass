@@ -2,12 +2,13 @@
 
 ## Status and responsibility
 
-Implemented stateless action object in
+Implemented request-bound action object in
 `ksdft2effmass.periodic1d.fourier_locality.analysis`.
 
-Its public calculation method accepts one
-`Periodic1DFourierLocalityConfiguration` and returns one fully correlated
-`Periodic1DFourierLocalityCalculationResult`.
+Its constructor admits one complete immutable
+`Periodic1DFourierLocalityConfiguration`; its zero-argument `execute()` returns one
+fully correlated `Periodic1DFourierLocalityCalculationResult`. The analyzer's
+scientific operations are cohesive instance methods reading the bound request.
 
 ## Guarantees
 

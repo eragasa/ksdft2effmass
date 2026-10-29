@@ -23,9 +23,12 @@ from ksdft2effmass.model_systems.verification import (
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.verification import CompositeVerification
 
+from .reference import (
+    Periodic1DFourierLocalityIndependentReferenceAnalyzer,
+    Periodic1DFourierLocalityIndependentReferenceRequest,
+)
 from .result import Periodic1DFourierLocalityCalculationResult
-from .verification_values import Periodic1DFourierLocalityIndependentVerifier
-from .visualization import Periodic1DFourierLocalityVisualizationData
+from .visualizations.data import Periodic1DFourierLocalityVisualizationData
 
 
 class FourierLocalityVerification(CompositeVerification):
@@ -250,10 +253,12 @@ class Periodic1DFourierLocalityVerifier(
         self,
         visualization_data: Periodic1DFourierLocalityVisualizationData,
     ) -> tuple[CompositeVerification, ...]:
-        independent = Periodic1DFourierLocalityIndependentVerifier().execute(
-            self._result,
-            visualization_data,
-        )
+        independent = Periodic1DFourierLocalityIndependentReferenceAnalyzer(
+            Periodic1DFourierLocalityIndependentReferenceRequest(
+                self._result,
+                visualization_data,
+            )
+        ).execute()
         scientific = {
             name: comparison
             for name, comparison in independent.comparisons.items()

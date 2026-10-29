@@ -128,9 +128,12 @@ complete Architecture v3 coverage. The separate research-monograph donor and its
 literal consumers are crosswalked without runtime decoding. No retained execution has
 been created.
 
-The audit also establishes that M2 source removal remains blocked until Phase 4 migrates
-the admissible-set definition, producer, result, verifier, serializer composition, and
-tests. No compatibility facade is allowed.
+Phase 4 subsequently migrated the admissible-set definition, producer, result,
+verification, typed-wire composition, visualization, and tests to authenticated canonical
+composite-result bytes. After review and explicit authorization, the M2 source package,
+generic block-parent record, aggregate test, exports, and Sphinx pages were removed
+without a compatibility facade. Exact recovery is recorded in
+[`legacy-retirement.md`](../../../../../calculations/periodic1d/rank2/composite-band-alignment-locality/legacy-retirement.md).
 
 ## Phase 4 — constrained admissible sets and sensitivity
 
@@ -141,6 +144,14 @@ threshold comparisons, and separation certificates without invoking the producer
 
 **Gate:** upstream result digests are explicit dependencies; stored pass labels are not
 oracles; changing thresholds cannot mutate or masquerade as the confirmatory result.
+
+**Implementation status:** complete for the confirmatory M3 source lifecycle. The
+request-bound analyzer consumes exact canonical composite-result bytes, independent
+verification owns a closed scientific comparison inventory, visualization consumes only
+an authenticated typed projection, and the historical M2 runtime has been retired. The
+separate retained M3 package and threshold-sensitivity artifacts remain historical
+provenance; no successor retained execution, evidence seal, publication update, or
+scientific validation is claimed.
 
 ## Phase 5 — higher rank
 
@@ -173,7 +184,7 @@ checked conclusion remains separate from scientific acceptance or evidence promo
 ## Phase 7 — retire predecessor and temporary planning surfaces
 
 For each implemented study, migrate its section of
-[`visualization.md`](visualization.md) into concrete projection, plot, subplot, figure,
+[`visualizations.md`](visualizations.md) into concrete projection, plot, subplot, figure,
 renderer, and visualizer classes under the selected installed source owner. Add public API
 documentation and tests there. When all eight sections have moved, reduce the temporary
 page to source links or remove it so it cannot compete with the implementation.

@@ -46,7 +46,11 @@ model_systems/piab1d/
 ├── configuration.py
 ├── result.py
 ├── diagnostics.py
-├── visualization.py
+├── visualizations/
+│   ├── data.py
+│   ├── inventory.py
+│   ├── visualizer.py
+│   └── figures/
 └── analysis/
     ├── core.py
     ├── grid_sweep.py
@@ -85,6 +89,7 @@ recovery identities and the retained direct boundary.
 
 ## Detailed pages
 
+- [Visualization package](visualizations/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)

@@ -3,8 +3,10 @@
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 from ksdft2effmass.model_systems.qho1d import (
+    Qho1dAnalysisRequest,
     Qho1dAnalyzer,
     Qho1dCalculationResult,
     Qho1dConfiguration,
@@ -34,13 +36,29 @@ class TestQho1dAnalyzer:
     @classmethod
     def result(cls) -> Qho1dCalculationResult:
         """Return one complete maintained direct result."""
-        return Qho1dAnalyzer().execute(
-            cls.configuration(),
+        request = Qho1dAnalysisRequest(
+            configuration=cls.configuration(),
             calculation_family="qho1d-spatial-truncation",
             execution_id="test-direct",
             evidence_status="illustrative numerical experiment",
             claim_boundary="test fixture; no scientific-validation claim",
         )
+        analyzer = Qho1dAnalyzer(request)
+        assert analyzer.request is request
+        return analyzer.execute()
+
+    def test_constructor__binds_complete_analysis_request(self) -> None:
+        """Construction admits the complete request and rejects missing identity."""
+        with pytest.raises(ValueError, match="execution_id must be nonempty"):
+            Qho1dAnalysisRequest(
+                configuration=self.configuration(),
+                calculation_family="qho1d-spatial-truncation",
+                execution_id="",
+                evidence_status="illustrative numerical experiment",
+                claim_boundary="test fixture",
+            )
+        with pytest.raises(TypeError, match="request must be Qho1dAnalysisRequest"):
+            Qho1dAnalyzer(True)  # type: ignore[arg-type]
 
     def test_method__execute__composes_ordered_typed_sweep(self) -> None:
         """The analyzer retains all 27 cases and their common-space invariant."""
@@ -122,14 +140,20 @@ class TestQho1dAnalyzer:
     def test_source__successor_modules__contain_no_custom_json_transport(self) -> None:
         """Successor domain modules delegate array transport to shared serialization."""
         source_root = Path(__file__).resolve().parents[4] / "src" / "ksdft2effmass"
-        paths = (
+        paths = [
             source_root / "model_systems" / "qho1d" / "configuration.py",
             source_root / "model_systems" / "qho1d" / "case_sections.py",
             source_root / "model_systems" / "qho1d" / "result.py",
             source_root / "model_systems" / "qho1d" / "analysis.py",
             source_root / "model_systems" / "qho1d" / "cross_grid.py",
             source_root / "model_systems" / "qho1d" / "verification.py",
-            source_root / "model_systems" / "qho1d" / "visualization.py",
+        ]
+        paths.extend(
+            sorted(
+                (source_root / "model_systems" / "qho1d" / "visualizations").rglob(
+                    "*.py"
+                )
+            )
         )
         for path in paths:
             source = path.read_text(encoding="utf-8")

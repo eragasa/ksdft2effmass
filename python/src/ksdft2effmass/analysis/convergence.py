@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Self
 
 import numpy as np
+from projectkoios.numerics.numpy.typing import Float64Array
 from projectkoios.physkit.units import (
     MatrixQuantity,
     ScalarQuantity,
@@ -78,29 +79,50 @@ class ObservedConvergenceOrderResult:
         return (None, *(order.order.magnitude for order in self.orders))
 
 
-class ObservedConvergenceOrderEstimator:
-    """Estimate adjacent-level orders from positive errors and decreasing spacings."""
+@dataclass(frozen=True, slots=True, eq=False)
+class ObservedConvergenceOrderRequest:
+    """Bind one positive error sequence on strictly decreasing spacings."""
 
-    __slots__ = ()
+    spacings: VectorQuantity
+    errors: VectorQuantity
 
-    def execute(
-        self, spacings: VectorQuantity, errors: VectorQuantity
-    ) -> ObservedConvergenceOrderResult:
-        """Return ``log(e_i/e_j) / log(h_i/h_j)`` for adjacent levels."""
-        if not isinstance(spacings, VectorQuantity):
+    def __post_init__(self) -> None:
+        """Admit the complete spacing and error sequence."""
+        if not isinstance(self.spacings, VectorQuantity):
             raise TypeError("spacings must be VectorQuantity")
-        if not isinstance(errors, VectorQuantity):
+        if not isinstance(self.errors, VectorQuantity):
             raise TypeError("errors must be VectorQuantity")
-        if spacings.magnitude.shape != errors.magnitude.shape:
+        if self.spacings.magnitude.shape != self.errors.magnitude.shape:
             raise ValueError("spacings and errors must have equal lengths")
-        if spacings.magnitude.size < 2:
+        if self.spacings.magnitude.size < 2:
             raise ValueError("at least two levels are required")
-        if np.any(spacings.magnitude <= 0.0):
+        if np.any(self.spacings.magnitude <= 0.0):
             raise ValueError("spacings must be positive")
-        if np.any(errors.magnitude <= 0.0):
+        if np.any(self.errors.magnitude <= 0.0):
             raise ValueError("errors must be positive")
-        if np.any(spacings.magnitude[1:] >= spacings.magnitude[:-1]):
+        if np.any(self.spacings.magnitude[1:] >= self.spacings.magnitude[:-1]):
             raise ValueError("spacings must be strictly decreasing")
+
+
+class ObservedConvergenceOrderEstimator:
+    """Estimate adjacent-level orders for one constructor-bound sequence."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: ObservedConvergenceOrderRequest) -> None:
+        if type(request) is not ObservedConvergenceOrderRequest:
+            raise TypeError("request must be ObservedConvergenceOrderRequest")
+        self._request = request
+
+    @property
+    def request(self) -> ObservedConvergenceOrderRequest:
+        """Return the complete immutable observed-order request."""
+        return self._request
+
+    def execute(self) -> ObservedConvergenceOrderResult:
+        """Return ``log(e_i/e_j) / log(h_i/h_j)`` for adjacent levels."""
+        spacings = self.request.spacings
+        errors = self.request.errors
         orders = tuple(
             ObservedConvergenceOrder(
                 coarse_spacing=ScalarQuantity(float(coarse_h), spacings.unit),
@@ -227,69 +249,92 @@ class RelativeErrorConvergenceResult:
         return cls(spacings, relative_errors, order_columns, observed_orders)
 
 
-class RelativeErrorConvergenceAnalyzer:
-    """Analyze relative errors and adjacent-level orders for numeric series."""
+@dataclass(frozen=True, slots=True, eq=False)
+class RelativeErrorConvergenceRequest:
+    """Bind one multi-series approximation and reference convergence inventory."""
 
-    __slots__ = ("_order_estimator",)
+    spacings: VectorQuantity
+    approximations: MatrixQuantity
+    references: MatrixQuantity
+    order_columns: tuple[int, ...]
 
-    def __init__(self) -> None:
-        """Compose the reusable adjacent-level order estimator."""
-        self._order_estimator = ObservedConvergenceOrderEstimator()
-
-    def execute(
-        self,
-        *,
-        spacings: VectorQuantity,
-        approximations: MatrixQuantity,
-        references: MatrixQuantity,
-        order_columns: tuple[int, ...],
-    ) -> RelativeErrorConvergenceResult:
-        """Return unitless relative errors and selected observed orders."""
-        if not isinstance(spacings, VectorQuantity):
+    def __post_init__(self) -> None:
+        """Admit units, shapes, references, and selected series."""
+        if not isinstance(self.spacings, VectorQuantity):
             raise TypeError("spacings must be VectorQuantity")
-        if not isinstance(approximations, MatrixQuantity):
+        if not isinstance(self.approximations, MatrixQuantity):
             raise TypeError("approximations must be MatrixQuantity")
-        if not isinstance(references, MatrixQuantity):
+        if not isinstance(self.references, MatrixQuantity):
             raise TypeError("references must be MatrixQuantity")
-        if approximations.unit != references.unit:
+        if self.approximations.unit != self.references.unit:
             raise ValueError("approximation and reference units must agree")
-        if approximations.magnitude.shape != references.magnitude.shape:
+        if self.approximations.magnitude.shape != self.references.magnitude.shape:
             raise ValueError("approximation and reference shapes must agree")
-        if spacings.magnitude.shape != (approximations.magnitude.shape[0],):
+        if self.spacings.magnitude.shape != (self.approximations.magnitude.shape[0],):
             raise ValueError("spacings must cover every approximation level")
-        if np.any(references.magnitude == 0.0):
+        if self.spacings.magnitude.size < 2:
+            raise ValueError("at least two convergence levels are required")
+        if np.any(self.spacings.magnitude <= 0.0):
+            raise ValueError("spacings must be positive")
+        if np.any(self.spacings.magnitude[1:] >= self.spacings.magnitude[:-1]):
+            raise ValueError("spacings must be strictly decreasing")
+        if np.any(self.references.magnitude == 0.0):
             raise ValueError("references must be nonzero for relative errors")
-        if not isinstance(order_columns, tuple) or any(
-            type(column) is not int for column in order_columns
+        if not isinstance(self.order_columns, tuple) or any(
+            type(column) is not int for column in self.order_columns
         ):
             raise TypeError("order_columns must contain built-in integers")
-        series = approximations.magnitude.shape[1]
-        if not order_columns or len(set(order_columns)) != len(order_columns):
+        series = self.approximations.magnitude.shape[1]
+        if not self.order_columns or len(set(self.order_columns)) != len(
+            self.order_columns
+        ):
             raise ValueError("order_columns must be nonempty and unique")
-        if any(column < 0 or column >= series for column in order_columns):
+        if any(column < 0 or column >= series for column in self.order_columns):
             raise ValueError("order_columns must select available series")
+
+
+class RelativeErrorConvergenceAnalyzer:
+    """Analyze one constructor-bound relative-error convergence inventory."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: RelativeErrorConvergenceRequest) -> None:
+        if type(request) is not RelativeErrorConvergenceRequest:
+            raise TypeError("request must be RelativeErrorConvergenceRequest")
+        self._request = request
+
+    @property
+    def request(self) -> RelativeErrorConvergenceRequest:
+        """Return the complete immutable relative-error convergence request."""
+        return self._request
+
+    def execute(self) -> RelativeErrorConvergenceResult:
+        """Return unitless relative errors and selected observed orders."""
+        spacings = self.request.spacings
+        approximations = self.request.approximations
+        references = self.request.references
+        order_columns = self.request.order_columns
         relative_errors = MatrixQuantity(
             np.abs(approximations.magnitude - references.magnitude)
             / np.abs(references.magnitude),
             Unitless(),
         )
-        observed_columns = tuple(
-            np.asarray(
-                [
-                    order.order.magnitude
-                    for order in self._order_estimator.execute(
-                        spacings,
-                        VectorQuantity(
-                            relative_errors.magnitude[:, column], Unitless()
-                        ),
-                    ).orders
-                ],
-                dtype=np.float64,
+        observed_columns: list[Float64Array] = []
+        for column in order_columns:
+            observed_result = ObservedConvergenceOrderEstimator(
+                ObservedConvergenceOrderRequest(
+                    spacings,
+                    VectorQuantity(relative_errors.magnitude[:, column], Unitless()),
+                )
+            ).execute()
+            observed_columns.append(
+                np.asarray(
+                    [order.order.magnitude for order in observed_result.orders],
+                    dtype=np.float64,
+                )
             )
-            for column in order_columns
-        )
         observed_orders = MatrixQuantity(
-            np.column_stack(observed_columns),
+            np.column_stack(tuple(observed_columns)),
             Unitless(),
         )
         return RelativeErrorConvergenceResult(

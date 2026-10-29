@@ -47,7 +47,11 @@ model_systems/mathieu1d/
 ├── analysis.py
 ├── verification_values.py
 ├── verification.py
-└── visualization.py
+└── visualizations/
+    ├── data.py
+    ├── inventory.py
+    ├── visualizer.py
+    └── figures/
 ```
 
 The package root exposes only the direct typed lifecycle. The former installed `study/`
@@ -81,12 +85,13 @@ schemas are absent from the live tree.
 - [`Mathieu1dIndependentVerification`](Mathieu1dIndependentVerification/index.md)
 - [`Mathieu1dVerification`](Mathieu1dVerification/index.md)
 - [`Mathieu1dVerifier`](Mathieu1dVerifier/index.md)
-- [`Mathieu1dVisualizationData`](Mathieu1dVisualizationData/index.md)
-- [`Mathieu1dVisualizationPlotEnum`](Mathieu1dVisualizationPlotEnum/index.md)
-- [`Mathieu1dVisualizer`](Mathieu1dVisualizer/index.md)
+- [`Mathieu1dVisualizationData`](visualizations/Mathieu1dVisualizationData/index.md)
+- [`Mathieu1dVisualizationPlotEnum`](visualizations/Mathieu1dVisualizationPlotEnum/index.md)
+- [`Mathieu1dVisualizer`](visualizations/Mathieu1dVisualizer/index.md)
 
 ## Package pages
 
+- [Visualization package](visualizations/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)

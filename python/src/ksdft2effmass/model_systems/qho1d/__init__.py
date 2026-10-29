@@ -8,7 +8,7 @@ The comparison separates represented finite operators from the continuum differe
 operator and makes no semiconductor-validation claim.
 """
 
-from .analysis import Qho1dAnalyzer
+from .analysis import Qho1dAnalysisRequest, Qho1dAnalyzer
 from .analytical import Qho1dAnalytical
 from .case_sections import (
     Qho1dHamiltonianComparisonResult,
@@ -20,21 +20,31 @@ from .comparison import Qho1dComparator
 from .comparison_records import Qho1dComparisonRequest, Qho1dComparisonResult
 from .configuration import Qho1dConfiguration
 from .cross_grid import (
+    Qho1dCrossGridAnalysisRequest,
     Qho1dCrossGridAnalysisResult,
     Qho1dCrossGridAnalyzer,
     Qho1dCrossGridComparisonResult,
     Qho1dCrossGridVerification,
+    Qho1dCrossGridVerificationRequest,
     Qho1dCrossGridVerifier,
 )
 from .finite_difference import Qho1dFiniteDifference
 from .ladder_operators import Qho1dLadderOperators
-from .parameters import Qho1dNondimensionalizer, Qho1dParameters
+from .parameters import (
+    Qho1dNondimensionalizationRequest,
+    Qho1dNondimensionalizer,
+    Qho1dParameters,
+)
 from .result import (
     Qho1dCalculationResult,
     Qho1dCaseResult,
     Qho1dStateComparisonResult,
 )
-from .verification import Qho1dIndependentReferenceAnalyzer, Qho1dVerifier
+from .verification import (
+    Qho1dIndependentReferenceAnalyzer,
+    Qho1dIndependentReferenceRequest,
+    Qho1dVerifier,
+)
 from .verification_values import (
     Qho1dHamiltonianComparisonVerification,
     Qho1dResidualVerification,
@@ -44,7 +54,7 @@ from .verification_values import (
     Qho1dSweepVerification,
     Qho1dVerification,
 )
-from .visualization import (
+from .visualizations import (
     Qho1dVisualizationData,
     Qho1dVisualizationPlotEnum,
     Qho1dVisualizer,
@@ -52,6 +62,7 @@ from .visualization import (
 
 __all__ = [
     "Qho1dAnalytical",
+    "Qho1dAnalysisRequest",
     "Qho1dAnalyzer",
     "Qho1dCalculationResult",
     "Qho1dCaseResult",
@@ -59,16 +70,20 @@ __all__ = [
     "Qho1dComparisonRequest",
     "Qho1dComparisonResult",
     "Qho1dConfiguration",
+    "Qho1dCrossGridAnalysisRequest",
     "Qho1dCrossGridAnalysisResult",
     "Qho1dCrossGridAnalyzer",
     "Qho1dCrossGridComparisonResult",
     "Qho1dCrossGridVerification",
+    "Qho1dCrossGridVerificationRequest",
     "Qho1dCrossGridVerifier",
     "Qho1dFiniteDifference",
     "Qho1dHamiltonianComparisonResult",
     "Qho1dHamiltonianComparisonVerification",
     "Qho1dIndependentReferenceAnalyzer",
+    "Qho1dIndependentReferenceRequest",
     "Qho1dLadderOperators",
+    "Qho1dNondimensionalizationRequest",
     "Qho1dNondimensionalizer",
     "Qho1dParameters",
     "Qho1dResidualResult",

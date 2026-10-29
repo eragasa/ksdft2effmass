@@ -29,6 +29,7 @@ from projectkoios.physkit.units import (
 from ksdft2effmass.solidstate import (
     CenteredUniformReciprocalMesh1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
@@ -60,9 +61,14 @@ class TestReciprocalOperatorFourierTransformer1D:
             ),
         )
 
-        result = ReciprocalOperatorFourierTransformer1D().execute(
+        request = ReciprocalOperatorFourierTransformRequest1D(
             source, mesh, 0.0, 1.0e-14
         )
+        transformer = ReciprocalOperatorFourierTransformer1D(request)
+
+        result = transformer.execute()
+
+        assert transformer.request is request
 
         assert result.hopping_model.representatives == (-2, -1, 0, 1)
         np.testing.assert_allclose(
@@ -109,7 +115,11 @@ class TestReciprocalOperatorFourierTransformer1D:
             tuple(map(self.matrix_quantity, samples)),
         )
 
-        result = SUT().execute(source, mesh, 0.0, 1.0e-12)
+        request = ReciprocalOperatorFourierTransformRequest1D(
+            source, mesh, 0.0, 1.0e-12
+        )
+
+        result = SUT(request).execute()
 
         assert result.hopping_model.representatives == representatives
         recovered = np.asarray(

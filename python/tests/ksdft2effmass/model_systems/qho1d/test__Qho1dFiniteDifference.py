@@ -38,6 +38,7 @@ from ksdft2effmass.model_systems import (
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dAnalytical,
     Qho1dFiniteDifference,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -53,7 +54,9 @@ class TestQho1dFiniteDifference:
     def analytical() -> Qho1dAnalytical:
         """Return the shared dimensionless analytical model."""
         return Qho1dAnalytical(
-            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+            Qho1dNondimensionalizer(
+                Qho1dNondimensionalizationRequest(1.0, 1.0, 1.0)
+            ).execute()
         )
 
     def test_public_api__package__exports_supported_finite_difference_model(

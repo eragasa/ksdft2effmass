@@ -50,30 +50,50 @@ class OrthogonalHamiltonianBlockResult:
                 raise ValueError(f"{name} unit must match the Hamiltonian")
 
 
-class OrthogonalHamiltonianBlockAnalyzer:
-    r"""Construct $PHP$, $PHQ$, $QHP$, and $QHQ$ without interpreting them."""
+@dataclass(frozen=True, slots=True, eq=False)
+class OrthogonalHamiltonianBlockRequest:
+    """Bind one finite Hamiltonian and orthogonal parent-space subspace."""
 
-    __slots__ = ()
+    hamiltonian: Hamiltonian
+    spectral_subspace: OrthogonalSpectralSubspace
 
-    def execute(
-        self,
-        hamiltonian: Hamiltonian,
-        spectral_subspace: OrthogonalSpectralSubspace,
-    ) -> OrthogonalHamiltonianBlockResult:
-        """Return the four orthogonal parent-coordinate Hamiltonian blocks."""
-        if not isinstance(hamiltonian, Hamiltonian):
+    def __post_init__(self) -> None:
+        """Admit type and parent-dimension compatibility."""
+        if not isinstance(self.hamiltonian, Hamiltonian):
             raise TypeError("hamiltonian must be Hamiltonian")
-        if not isinstance(spectral_subspace, OrthogonalSpectralSubspace):
+        if not isinstance(self.spectral_subspace, OrthogonalSpectralSubspace):
             raise TypeError("spectral_subspace must be OrthogonalSpectralSubspace")
-        matrix = hamiltonian.matrix
+        matrix = self.hamiltonian.matrix
         shape = (
             matrix.magnitude.shape
             if isinstance(matrix, MatrixQuantity | ComplexMatrixQuantity)
             else matrix.shape
         )
-        full_dimension = spectral_subspace.full_dimension
+        full_dimension = self.spectral_subspace.full_dimension
         if shape != (full_dimension, full_dimension):
             raise ValueError("Hamiltonian and spectral subspace dimensions must agree")
+
+
+class OrthogonalHamiltonianBlockAnalyzer:
+    r"""Construct bound $PHP$, $PHQ$, $QHP$, and $QHQ$ blocks."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: OrthogonalHamiltonianBlockRequest) -> None:
+        if type(request) is not OrthogonalHamiltonianBlockRequest:
+            raise TypeError("request must be OrthogonalHamiltonianBlockRequest")
+        self._request = request
+
+    @property
+    def request(self) -> OrthogonalHamiltonianBlockRequest:
+        """Return the complete immutable Hamiltonian block request."""
+        return self._request
+
+    def execute(self) -> OrthogonalHamiltonianBlockResult:
+        """Return the four orthogonal parent-coordinate Hamiltonian blocks."""
+        hamiltonian = self.request.hamiltonian
+        spectral_subspace = self.request.spectral_subspace
+        matrix = hamiltonian.matrix
         represented = (
             matrix.magnitude
             if isinstance(matrix, MatrixQuantity | ComplexMatrixQuantity)

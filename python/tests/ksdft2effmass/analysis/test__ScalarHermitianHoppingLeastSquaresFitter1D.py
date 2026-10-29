@@ -10,6 +10,7 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.analysis.hopping_fits import (
+    ScalarHermitianHoppingLeastSquaresFitRequest1D,
     ScalarHermitianHoppingLeastSquaresFitter1D,
 )
 from ksdft2effmass.solidstate import (
@@ -44,11 +45,16 @@ class TestScalarHermitianHoppingLeastSquaresFitter1D:
             ),
         )
 
-        result = ScalarHermitianHoppingLeastSquaresFitter1D().execute(
+        request = ScalarHermitianHoppingLeastSquaresFitRequest1D(
             source,
             1,
             VectorQuantity(np.ones(8, dtype=np.float64), unit),
         )
+        fitter = ScalarHermitianHoppingLeastSquaresFitter1D(request)
+
+        result = fitter.execute()
+
+        assert fitter.request is request
 
         coefficients = tuple(
             block.magnitude[0, 0] for block in result.fitted_model.hopping_blocks
@@ -85,7 +91,7 @@ class TestScalarHermitianHoppingLeastSquaresFitter1D:
         )
 
         with pytest.raises(ValueError, match="exactly real"):
-            ScalarHermitianHoppingLeastSquaresFitter1D().execute(
+            ScalarHermitianHoppingLeastSquaresFitRequest1D(
                 source,
                 0,
                 VectorQuantity(np.ones(2, dtype=np.float64), unit),

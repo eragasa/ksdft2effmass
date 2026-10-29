@@ -43,6 +43,7 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dComparisonResult,
     Qho1dFiniteDifference,
     Qho1dLadderOperators,
+    Qho1dNondimensionalizationRequest,
     Qho1dNondimensionalizer,
     Qho1dParameters,
 )
@@ -59,7 +60,9 @@ class TestQho1dComparisonResult:
     def result() -> Qho1dComparisonResult:
         """Return one coherent comparator-produced result fixture."""
         analytical = Qho1dAnalytical(
-            Qho1dNondimensionalizer().execute(hbar=1.0, mass=1.0, omega=1.0)
+            Qho1dNondimensionalizer(
+                Qho1dNondimensionalizationRequest(1.0, 1.0, 1.0)
+            ).execute()
         )
         request = Qho1dComparisonRequest(
             analytical=analytical,
@@ -76,7 +79,7 @@ class TestQho1dComparisonResult:
             ),
             ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
         )
-        return Qho1dComparator().execute(request)
+        return Qho1dComparator(request).execute()
 
     def test_public_api__package__exports_supported_result_class(self) -> None:
         """Evidence ID: SV-MODEL-SYSTEM-HO-005
@@ -125,13 +128,13 @@ class TestQho1dComparisonResult:
                 ScalarQuantity(0.0, PhysicalUnit("meter ** -0.5"))
             ),
         )
-        result = Qho1dComparator().execute(
+        result = Qho1dComparator(
             Qho1dComparisonRequest(
                 analytical=analytical,
                 finite_difference=Qho1dFiniteDifference(analytical, interval),
                 ladder_operators=Qho1dLadderOperators(analytical, LadderOperator1D(1)),
             )
-        )
+        ).execute()
 
         assert result.grid_spacing.unit == PhysicalUnit("meter")
         assert result.absolute_discrepancy.unit == PhysicalUnit("joule")

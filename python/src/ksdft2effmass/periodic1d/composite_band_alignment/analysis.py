@@ -23,21 +23,30 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
+    BlockHoppingHermiticityRequest1D,
 )
 from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
+    BandApproximationErrorRequest1D,
     BandSpectrumSamples1D,
 )
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
 from ksdft2effmass.solidstate import (
     BandProjectedOperatorPathConstructor1D,
+    BandProjectedOperatorPathRequest1D,
+    BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
+    BlockHoppingTruncationRequest1D,
     BlockHoppingTruncator1D,
+    CenteredEvenMeshCyclicToOrdinaryConverter1D,
+    CenteredEvenMeshCyclicToOrdinaryRequest1D,
     CenteredUniformReciprocalMesh1D,
     PolarBandFrameTransporter1D,
+    PolarBandFrameTransportRequest1D,
     ReciprocalBandFramePath1D,
     ReciprocalOperatorFourierTransformer1D,
+    ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
 )
 
@@ -54,19 +63,39 @@ from .result import (
 class Periodic1DCompositeBandAlignmentAnalyzer:
     """Calculate one complete rank-two alignment and block-locality result."""
 
-    __slots__ = ()
+    __slots__ = ("_procrustes_solver", "_request")
 
-    def execute(
+    def __init__(
         self,
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
-    ) -> Periodic1DCompositeBandAlignmentCalculationResult:
-        """Construct the exact parent, align frames, and evaluate finite ranges."""
-        if type(configuration) is not Periodic1DCompositeBandAlignmentConfiguration:
+        request: Periodic1DCompositeBandAlignmentConfiguration,
+        procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver,
+    ) -> None:
+        if type(request) is not Periodic1DCompositeBandAlignmentConfiguration:
             raise TypeError(
-                "configuration must be Periodic1DCompositeBandAlignmentConfiguration"
+                "request must be Periodic1DCompositeBandAlignmentConfiguration"
             )
+        if type(procrustes_solver) is not NumpyBatchedComplexUnitaryProcrustesSolver:
+            raise TypeError(
+                "procrustes_solver must be NumpyBatchedComplexUnitaryProcrustesSolver"
+            )
+        self._request = request
+        self._procrustes_solver = procrustes_solver
+
+    @property
+    def request(self) -> Periodic1DCompositeBandAlignmentConfiguration:
+        """Return the complete immutable composite-alignment request."""
+        return self._request
+
+    @property
+    def procrustes_solver(self) -> NumpyBatchedComplexUnitaryProcrustesSolver:
+        """Return the explicitly selected right-action Procrustes collaborator."""
+        return self._procrustes_solver
+
+    def execute(self) -> Periodic1DCompositeBandAlignmentCalculationResult:
+        """Construct the exact parent, align frames, and evaluate finite ranges."""
+        configuration = self.request
         unit = Unitless()
-        parent = self._parent_model(configuration)
+        parent = self._parent_model()
         construction_coordinates = VectorQuantity(
             np.asarray(configuration.construction_reduced_momenta(), dtype=np.float64),
             unit,
@@ -75,19 +104,17 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             np.asarray(configuration.evaluation_reduced_momenta(), dtype=np.float64),
             unit,
         )
-        construction_parent = BlockHoppingInterpolator1D().execute(
-            parent, construction_coordinates
-        )
-        evaluation_parent = BlockHoppingInterpolator1D().execute(
-            parent, evaluation_coordinates
-        )
+        construction_parent = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(parent, construction_coordinates)
+        ).execute()
+        evaluation_parent = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(parent, evaluation_coordinates)
+        ).execute()
         construction_spectrum, raw_frames = self._spectrum_and_frames(
             construction_parent,
-            configuration,
         )
         evaluation_spectrum, _ = self._spectrum_and_frames(
             evaluation_parent,
-            configuration,
         )
         mesh = CenteredUniformReciprocalMesh1D(
             ScalarQuantity(1.0, unit), configuration.construction_size
@@ -100,12 +127,14 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 configuration.dimensionless_absolute_tolerance
             ),
         )
-        transport = PolarBandFrameTransporter1D().execute(
-            raw_path,
-            configuration.overlap_singular_value_threshold,
-        )
+        transport = PolarBandFrameTransporter1D(
+            PolarBandFrameTransportRequest1D(
+                raw_path,
+                configuration.overlap_singular_value_threshold,
+            )
+        ).execute()
         reference = transport.transported
-        attack_rotations = self._attack_rotations(configuration)
+        attack_rotations = self._attack_rotations()
         attacked = self._rotate_path(reference, attack_rotations)
         tolerance = ComplexUnitaryProcrustesTolerance(
             rank_absolute=configuration.procrustes_rank_absolute_tolerance,
@@ -120,8 +149,7 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         target = np.asarray(
             [frame.magnitude for frame in reference.frames], dtype=np.complex128
         )
-        solver = NumpyBatchedComplexUnitaryProcrustesSolver()
-        pointwise_selection = solver.solve(
+        pointwise_selection = self.procrustes_solver.solve(
             NumpyBatchedComplexUnitaryProcrustesDefinition.from_arrays(
                 source,
                 target,
@@ -135,7 +163,7 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             attacked,
             tuple(pointwise_rotation_values[index] for index in range(source.shape[0])),
         )
-        global_selection = solver.solve(
+        global_selection = self.procrustes_solver.solve(
             NumpyBatchedComplexUnitaryProcrustesDefinition.from_arrays(
                 source.reshape(1, -1, configuration.retained_rank),
                 target.reshape(1, -1, configuration.retained_rank),
@@ -152,35 +180,43 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ),
         )
 
-        projector = BandProjectedOperatorPathConstructor1D()
-        reference_operator = projector.execute(
-            construction_parent,
-            reference,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        attacked_operator = projector.execute(
-            construction_parent,
-            attacked,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        pointwise_operator = projector.execute(
-            construction_parent,
-            pointwise,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        global_operator = projector.execute(
-            construction_parent,
-            globally_aligned,
-            configuration.dimensionless_absolute_tolerance,
-        )
-        transformer = ReciprocalOperatorFourierTransformer1D()
-        transformed = tuple(
-            transformer.execute(
-                samples,
-                mesh,
+        reference_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                reference,
                 configuration.dimensionless_absolute_tolerance,
-                configuration.energy_absolute_tolerance,
             )
+        ).execute()
+        attacked_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                attacked,
+                configuration.dimensionless_absolute_tolerance,
+            )
+        ).execute()
+        pointwise_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                pointwise,
+                configuration.dimensionless_absolute_tolerance,
+            )
+        ).execute()
+        global_operator = BandProjectedOperatorPathConstructor1D(
+            BandProjectedOperatorPathRequest1D(
+                construction_parent,
+                globally_aligned,
+                configuration.dimensionless_absolute_tolerance,
+            )
+        ).execute()
+        transformed = tuple(
+            ReciprocalOperatorFourierTransformer1D(
+                ReciprocalOperatorFourierTransformRequest1D(
+                    samples,
+                    mesh,
+                    configuration.dimensionless_absolute_tolerance,
+                    configuration.energy_absolute_tolerance,
+                )
+            ).execute()
             for samples in (
                 reference_operator,
                 attacked_operator,
@@ -188,23 +224,33 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         )
         hermiticity = tuple(
-            BlockHoppingHermiticityAnalyzer1D().execute(
-                transform.hopping_model,
-                ScalarQuantity(configuration.energy_absolute_tolerance, unit),
-                configuration.construction_size,
-            )
+            BlockHoppingHermiticityAnalyzer1D(
+                BlockHoppingHermiticityRequest1D(
+                    transform.hopping_model,
+                    ScalarQuantity(configuration.energy_absolute_tolerance, unit),
+                    configuration.construction_size,
+                )
+            ).execute()
             for transform in transformed
         )
         cyclic_models = tuple(transform.hopping_model for transform in transformed)
-        ordinary_models = tuple(self._ordinary_model(model) for model in cyclic_models)
+        ordinary_conversions = tuple(
+            CenteredEvenMeshCyclicToOrdinaryConverter1D(
+                CenteredEvenMeshCyclicToOrdinaryRequest1D(model)
+            ).execute()
+            for model in cyclic_models
+        )
+        ordinary_models = tuple(
+            conversion.ordinary for conversion in ordinary_conversions
+        )
         direct_evaluation_targets = self._direct_evaluation_targets(
-            configuration,
             ordinary_models,
             evaluation_coordinates,
         )
-        interpolator = BlockHoppingInterpolator1D()
         complete_evaluation = tuple(
-            interpolator.execute(model, evaluation_coordinates)
+            BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(model, evaluation_coordinates)
+            ).execute()
             for model in ordinary_models
         )
         interpolation_errors = tuple(
@@ -220,15 +266,10 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 channel=channel,
                 representatives=transform.hopping_model.representatives,
                 hopping_blocks=transform.hopping_model.hopping_blocks,
-                ordinary_representatives=ordinary.representatives,
-                cyclic_conversion_representative=(
-                    transform.hopping_model.representatives[0]
-                ),
+                ordinary_representatives=conversion.ordinary.representatives,
+                cyclic_conversion_representative=(conversion.conversion_representative),
                 cyclic_conversion_power=ScalarQuantity(
-                    self._cyclic_conversion_power(
-                        transform.hopping_model,
-                        configuration.retained_rank,
-                    ),
+                    conversion.conversion_power_per_matrix_dimension,
                     unit,
                 ),
                 reconstruction_maximum_frobenius_error=ScalarQuantity(
@@ -247,10 +288,10 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                     unit,
                 ),
             )
-            for channel, transform, ordinary, diagnostic, interpolation_error in zip(
+            for channel, transform, conversion, diagnostic, interpolation_error in zip(
                 Periodic1DCompositeBandAlignmentTransformResult.CHANNELS,
                 transformed,
-                ordinary_models,
+                ordinary_conversions,
                 hermiticity,
                 interpolation_errors,
                 strict=True,
@@ -266,7 +307,6 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         )
         range_results = tuple(
             self._range_result(
-                configuration,
                 maximum_range,
                 construction_target,
                 ordinary_models,
@@ -370,10 +410,8 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ranges=range_results,
         )
 
-    @staticmethod
-    def _parent_model(
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
-    ) -> BlockHoppingModel1D:
+    def _parent_model(self) -> BlockHoppingModel1D:
+        configuration = self.request
         denominator = float(configuration.coefficient_denominator)
         onsite = (
             np.asarray(
@@ -400,11 +438,11 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ),
         )
 
-    @staticmethod
     def _spectrum_and_frames(
+        self,
         samples: ReciprocalOperatorSamples1D,
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
     ) -> tuple[MatrixQuantity, tuple[ComplexMatrixQuantity, ...]]:
+        configuration = self.request
         values: list[Float64Array] = []
         frames: list[ComplexMatrixQuantity] = []
         for matrix in samples.matrices:
@@ -433,21 +471,16 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             tuple(frames),
         )
 
-    @classmethod
-    def _attack_rotations(
-        cls,
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
-    ) -> tuple[Complex128Array, ...]:
-        return cls._attack_rotations_at(
-            configuration,
-            configuration.construction_reduced_momenta(),
+    def _attack_rotations(self) -> tuple[Complex128Array, ...]:
+        return self._attack_rotations_at(
+            self.request.construction_reduced_momenta(),
         )
 
-    @staticmethod
     def _attack_rotations_at(
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
+        self,
         reduced_momenta: tuple[float, ...],
     ) -> tuple[Complex128Array, ...]:
+        configuration = self.request
         rotations: list[Complex128Array] = []
         for momentum in reduced_momenta:
             angle = configuration.attack_constant_angle + sum(
@@ -467,8 +500,8 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         return tuple(rotations)
 
-    @staticmethod
     def _rotate_path(
+        self,
         source: ReciprocalBandFramePath1D,
         rotations: tuple[Complex128Array, ...],
     ) -> ReciprocalBandFramePath1D:
@@ -486,51 +519,18 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ),
         )
 
-    @staticmethod
-    def _ordinary_model(model: BlockHoppingModel1D) -> BlockHoppingModel1D:
-        conversion_representative = -len(model.representatives) // 2
-        retained = tuple(
-            (representative, block)
-            for representative, block in zip(
-                model.representatives,
-                model.hopping_blocks,
-                strict=True,
-            )
-            if representative != conversion_representative
-        )
-        if len(retained) != len(model.representatives) - 1:
-            raise ValueError("cyclic model does not contain one negative Nyquist class")
-        return BlockHoppingModel1D(
-            reciprocal_period=model.reciprocal_period,
-            representatives=tuple(item[0] for item in retained),
-            hopping_blocks=tuple(item[1] for item in retained),
-        )
-
-    @staticmethod
-    def _cyclic_conversion_power(
-        model: BlockHoppingModel1D,
-        retained_rank: int,
-    ) -> float:
-        conversion_representative = -len(model.representatives) // 2
-        block = model.hopping_blocks[
-            model.representatives.index(conversion_representative)
-        ]
-        return float(np.linalg.norm(block.magnitude) ** 2 / retained_rank)
-
-    @classmethod
     def _direct_evaluation_targets(
-        cls,
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
+        self,
         ordinary_models: tuple[BlockHoppingModel1D, ...],
         evaluation_coordinates: VectorQuantity,
     ) -> tuple[ReciprocalOperatorSamples1D, ...]:
-        reference = BlockHoppingInterpolator1D().execute(
-            ordinary_models[0],
-            evaluation_coordinates,
-        )
-        attacks = cls._attack_rotations_at(
-            configuration,
-            configuration.evaluation_reduced_momenta(),
+        reference = BlockHoppingInterpolator1D(
+            BlockHoppingInterpolationRequest1D(
+                ordinary_models[0], evaluation_coordinates
+            )
+        ).execute()
+        attacks = self._attack_rotations_at(
+            self.request.evaluation_reduced_momenta(),
         )
         attacked = ReciprocalOperatorSamples1D(
             coordinates=reference.coordinates,
@@ -545,8 +545,8 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         )
         return (reference, attacked, reference)
 
-    @staticmethod
     def _maximum_error_channels(
+        self,
         candidate: ReciprocalOperatorSamples1D,
         reference: ReciprocalOperatorSamples1D,
     ) -> tuple[float, float]:
@@ -585,19 +585,15 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         return max(hamiltonian_errors), max(spectral_errors)
 
-    @classmethod
     def _range_result(
-        cls,
-        configuration: Periodic1DCompositeBandAlignmentConfiguration,
+        self,
         maximum_range: int,
         construction_target: BandSpectrumSamples1D,
         ordinary_models: tuple[BlockHoppingModel1D, ...],
         complete_evaluation: tuple[ReciprocalOperatorSamples1D, ...],
         direct_evaluation_targets: tuple[ReciprocalOperatorSamples1D, ...],
     ) -> Periodic1DCompositeBandAlignmentRangeResult:
-        truncator = BlockHoppingTruncator1D()
-        interpolator = BlockHoppingInterpolator1D()
-        analyzer = BandApproximationErrorAnalyzer1D()
+        configuration = self.request
         channels: list[Periodic1DCompositeBandAlignmentChannelRangeResult] = []
         for channel, model, complete, direct in zip(
             Periodic1DCompositeBandAlignmentTransformResult.CHANNELS,
@@ -606,17 +602,28 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             direct_evaluation_targets,
             strict=True,
         ):
-            truncation = truncator.execute(model, maximum_range)
-            construction = interpolator.execute(
-                truncation.truncated,
-                construction_target.coordinates,
-            )
-            evaluation = interpolator.execute(
-                truncation.truncated,
-                direct.coordinates,
-            )
-            truncation_errors = cls._maximum_error_channels(evaluation, complete)
-            total_errors = cls._maximum_error_channels(evaluation, direct)
+            truncation = BlockHoppingTruncator1D(
+                BlockHoppingTruncationRequest1D(model, maximum_range)
+            ).execute()
+            construction = BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(
+                    truncation.truncated, construction_target.coordinates
+                )
+            ).execute()
+            evaluation = BlockHoppingInterpolator1D(
+                BlockHoppingInterpolationRequest1D(
+                    truncation.truncated, direct.coordinates
+                )
+            ).execute()
+            truncation_errors = self._maximum_error_channels(evaluation, complete)
+            total_errors = self._maximum_error_channels(evaluation, direct)
+            construction_error = BandApproximationErrorAnalyzer1D(
+                BandApproximationErrorRequest1D(
+                    construction_target,
+                    construction,
+                    configuration.dimensionless_absolute_tolerance,
+                )
+            ).execute()
             channels.append(
                 Periodic1DCompositeBandAlignmentChannelRangeResult(
                     channel=channel,
@@ -624,11 +631,9 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                         truncation.omitted_block_l2_norm,
                         Unitless(),
                     ),
-                    construction_total_spectral_maximum_error=analyzer.execute(
-                        construction_target,
-                        construction,
-                        configuration.dimensionless_absolute_tolerance,
-                    ).maximum_absolute_error,
+                    construction_total_spectral_maximum_error=(
+                        construction_error.maximum_absolute_error
+                    ),
                     evaluation_truncation_hamiltonian_maximum_error=ScalarQuantity(
                         truncation_errors[0],
                         Unitless(),
@@ -652,8 +657,8 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             channels=tuple(channels),
         )
 
-    @staticmethod
     def _maximum_matrix_defect(
+        self,
         reference: tuple[ComplexMatrixQuantity, ...],
         candidate: tuple[ComplexMatrixQuantity, ...],
     ) -> float:
@@ -664,8 +669,8 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         )
 
-    @staticmethod
     def _maximum_projector_defect(
+        self,
         reference: tuple[ComplexMatrixQuantity, ...],
         candidate: tuple[ComplexMatrixQuantity, ...],
     ) -> float:
@@ -679,8 +684,8 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         )
 
-    @staticmethod
     def _rotation_recovery_defect(
+        self,
         recovered: Complex128Array,
         attacks: tuple[Complex128Array, ...],
     ) -> float:

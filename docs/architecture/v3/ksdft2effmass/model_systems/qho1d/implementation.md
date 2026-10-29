@@ -3,11 +3,15 @@
 ## Typed result
 
 `Qho1dConfiguration` owns the nondimensional parameters, ordered sweep, and one
-state-resolved selection. `Qho1dAnalyzer` produces `Qho1dCalculationResult`, composed
-from ordered `Qho1dCaseResult` values and one `Qho1dStateComparisonResult`.
+state-resolved selection. `Qho1dAnalysisRequest` binds that configuration together
+with the complete immutable result identity. `Qho1dAnalyzer` admits the request at
+construction and its zero-argument `execute()` produces `Qho1dCalculationResult`,
+composed from ordered `Qho1dCaseResult` values and one
+`Qho1dStateComparisonResult`.
 
 The reusable model surface is partitioned by scientific responsibility:
-`parameters.py` owns unit-aware parameters and nondimensionalization,
+`parameters.py` owns unit-aware parameters and constructor-bound explicit
+nondimensionalization through `Qho1dNondimensionalizationRequest`,
 `analytical.py` owns the exact real-line solution, `finite_difference.py` owns the
 finite Dirichlet-grid representation, `ladder_operators.py` owns the retained
 number-state representation, and `comparison_records.py` owns the typed request and
@@ -40,30 +44,38 @@ The QHO1D successor has no custom NumPy transport or `.tolist()` serialization.
 
 ## Adjacent-grid diagnostic
 
-`Qho1dCrossGridAnalyzer` groups direct result cases at fixed box half-width and
-retained dimension, then compares each adjacent authored coarse/fine grid pair.
+`Qho1dCrossGridAnalysisRequest` binds one complete immutable direct result before
+`Qho1dCrossGridAnalyzer.execute()` groups cases at fixed box half-width and retained
+dimension, then compares each adjacent authored coarse/fine grid pair.
 `Qho1dCrossGridComparisonResult` retains both requested and realized spacings,
 represented dimensions, and the coarse-minus-fine Frobenius norm. The complete
 ordered inventory is a typed `Qho1dCrossGridAnalysisResult` and does not alter the
 wire contract of previously retained direct executions.
 
-`Qho1dCrossGridVerifier` recomputes each derived value directly from the authoritative
-pulled-back case matrices without invoking the production QHO1D analyzer, comparator,
-or cross-grid analyzer. It depends on `Qho1dVerifier` for independent reconstruction
+`Qho1dCrossGridVerificationRequest` binds the exact calculation and its correlated
+analysis before `Qho1dCrossGridVerifier.execute()` recomputes each derived value
+directly from the authoritative pulled-back case matrices without invoking the
+production QHO1D analyzer, comparator, or cross-grid analyzer. It depends on
+`Qho1dVerifier` for independent reconstruction
 of those authoritative matrices.
 
 ## Calculation
 
-`run_01_calculation.py` declares its controls in Python and invokes `Qho1dAnalyzer`.
-The analyzer composes reusable analytical, finite-difference, ladder-operator, and
-common-coordinate owners. It writes the typed configuration and result through
+`run_01_calculation.py` declares its controls in Python, constructs the complete
+`Qho1dAnalysisRequest`, and invokes `Qho1dAnalyzer.execute()` without scientific
+arguments. The analyzer composes reusable analytical, finite-difference,
+ladder-operator, and request-bound common-coordinate owners. It writes the typed
+configuration and result through
 incomplete-stage paths before exposing the execution directory.
 
 ## Independent verification
 
-`Qho1dIndependentReferenceAnalyzer` does not call `Qho1dAnalyzer` or
-`Qho1dComparator`. It evaluates Hermite polynomials with SciPy, forms the tridiagonal
-Hamiltonian directly in NumPy, reconstructs the Gram orthonormalization, and compares
+`Qho1dIndependentReferenceRequest` binds the exact result and verifier-derived
+visualization projection before the zero-argument
+`Qho1dIndependentReferenceAnalyzer.execute()` route. The analyzer does not call
+`Qho1dAnalyzer` or `Qho1dComparator`. It evaluates Hermite polynomials with SciPy,
+forms the tridiagonal Hamiltonian directly in NumPy, reconstructs the Gram
+orthonormalization, and compares
 every case and selected eigensolution through typed maximum-error comparisons.
 
 `Qho1dVerifier` gives the final `BaseModelAnalysisVerifier` subject constructor the
@@ -80,10 +92,9 @@ three-component verification remains decodable without changing its bytes.
 `Qho1dVisualizer` accepts only passing `Qho1dVerification` values whose projection
 digest matches the supplied typed data. QHO1D plot actions draw model-specific data
 relations on caller-owned axes; subplot actions own axis-local composition and
-presentation; figure actions own layout and figure-wide presentation; and the shared
-`ModelAnalysisPngFigureRenderer` owns PNG encoding and figure closure. The visualizer
-returns exactly one validated
-`ModelAnalysisPngVisualization` for each `Qho1dVisualizationPlotEnum` member.
+presentation; figure actions own layout and figure-wide presentation; and the root
+`PngFigureRenderer` owns PNG encoding and figure closure. The visualizer returns exactly
+one validated `PngVisualization` for each `Qho1dVisualizationPlotEnum` member.
 `run_03_render.py` publishes figures through an incomplete-stage directory and copies
 report source, bibliography, and authenticated figures into an execution-bound
 technical-report directory.

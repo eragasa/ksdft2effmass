@@ -27,6 +27,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.solidstate import (
     BandProjectedOperatorPathConstructor1D,
+    BandProjectedOperatorPathRequest1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalBandFramePath1D,
     ReciprocalOperatorSamples1D,
@@ -68,9 +69,12 @@ class TestBandProjectedOperatorPathConstructor1D:
             1.0e-14,
         )
 
-        projected = BandProjectedOperatorPathConstructor1D().execute(
-            parent, frames, 0.0
-        )
+        request = BandProjectedOperatorPathRequest1D(parent, frames, 0.0)
+        constructor = BandProjectedOperatorPathConstructor1D(request)
+
+        projected = constructor.execute()
+
+        assert constructor.request is request
 
         np.testing.assert_array_equal(
             projected.matrices[0].magnitude, np.diag([1.0, 3.0])

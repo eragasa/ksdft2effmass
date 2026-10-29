@@ -1196,15 +1196,6 @@ validation, topology or polarization evidence, UQ, or protected execution.
 .. autoclass:: Periodic1DStressVerifiedWorkflow
    :members:
 
-.. autoclass:: Periodic1DHoppingReductionRequest
-   :members:
-
-.. autoclass:: Periodic1DHoppingReductionResult
-   :members:
-
-.. autoclass:: Periodic1DHoppingReductionWorkflow
-   :members:
-
 QHO1D direct boundary
 ---------------------
 
@@ -1279,8 +1270,8 @@ recovery identities are recorded in
 ``docs/architecture/v3/ksdft2effmass/model_systems/piab1d/legacy-disposition.md``.
 
 The reusable contracts are :class:`Piab1dConfiguration`,
-:class:`Piab1dCalculationResult`, :class:`Piab1dAnalyzer`, and
-:class:`Piab1dVerifier`. Their complete API is documented under the model-system
+:class:`Piab1dCalculationResult`, :class:`Piab1dAnalysisRequest`,
+:class:`Piab1dAnalyzer`, and :class:`Piab1dVerifier`. Their complete API is documented under the model-system
 reference rather than duplicated on this campaign boundary.
 
 Reusable eigenpair diagnostics, kinetic-potential decomposition, and model-class
@@ -1289,10 +1280,19 @@ policy, or CLI behavior.
 
 .. currentmodule:: ksdft2effmass.analysis.operators
 
+.. autoclass:: RealSymmetricEigenpairDiagnosticRequest
+   :members:
+
 .. autoclass:: RealSymmetricEigenpairDiagnosticAnalyzer
    :members:
 
+.. autoclass:: KineticPotentialDecompositionRequest
+   :members:
+
 .. autoclass:: KineticPotentialDecompositionAnalyzer
+   :members:
+
+.. autoclass:: RetainedModelClassFitRequest
    :members:
 
 .. autoclass:: RetainedModelClassFitter

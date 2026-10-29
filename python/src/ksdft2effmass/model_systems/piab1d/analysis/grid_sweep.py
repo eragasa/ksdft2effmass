@@ -18,7 +18,10 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.analysis import RelativeErrorConvergenceResult
-from ksdft2effmass.analysis.operators import RealSymmetricEigenpairDiagnosticAnalyzer
+from ksdft2effmass.analysis.operators import (
+    RealSymmetricEigenpairDiagnosticAnalyzer,
+    RealSymmetricEigenpairDiagnosticRequest,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from .finite_algebraic_diagnostics import Piab1dFiniteAlgebraicDiagnostics
@@ -439,21 +442,22 @@ class Piab1dGridSweepAnalysis(BaseTypedRecord):
 
 
 class Piab1dGridSweepAnalyzer:
-    """Solve each declared grid once and retain full-spectrum observations."""
+    """Solve each grid from one constructor-bound immutable definition."""
 
-    __slots__ = ("eigenpair_analyzer",)
+    __slots__ = ("_request",)
 
-    def __init__(self) -> None:
-        self.eigenpair_analyzer = RealSymmetricEigenpairDiagnosticAnalyzer()
+    def __init__(self, request: Piab1dGridSweepDefinition) -> None:
+        if type(request) is not Piab1dGridSweepDefinition:
+            raise TypeError("request must be Piab1dGridSweepDefinition")
+        self._request = request
 
-    def execute(self, definition: Piab1dGridSweepDefinition) -> Piab1dGridSweepAnalysis:
+    @property
+    def request(self) -> Piab1dGridSweepDefinition:
+        """Return the complete immutable grid-sweep request."""
+        return self._request
+
+    def execute(self) -> Piab1dGridSweepAnalysis:
         """Solve every declared grid once and derive all sweep families.
-
-        Parameters
-        ----------
-        definition
-            Nondimensional box parameters, strictly increasing grid dimensions,
-            retained dimension, and fixed modes.
 
         Returns
         -------
@@ -463,8 +467,6 @@ class Piab1dGridSweepAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``definition`` is not a ``Piab1dGridSweepDefinition``.
         ValueError
             A generated quantity violates a typed result invariant.
 
@@ -474,8 +476,7 @@ class Piab1dGridSweepAnalyzer:
         method therefore prevents cross-family drift in represented dimensions,
         eigenvector gauges, and solver results.
         """
-        if not isinstance(definition, Piab1dGridSweepDefinition):
-            raise TypeError("definition must be Piab1dGridSweepDefinition")
+        definition = self.request
         solver = Piab1dTiseFdSolver(
             model=Piab1D(
                 length=definition.length,
@@ -508,7 +509,9 @@ class Piab1dGridSweepAnalyzer:
         spectral_leakage_norms: list[float] = []
         for dimension in definition.interior_points:
             solution = solver.solve(interior_points=dimension)
-            diagnostics = self.eigenpair_analyzer.execute(solution.eigensystem)
+            diagnostics = RealSymmetricEigenpairDiagnosticAnalyzer(
+                RealSymmetricEigenpairDiagnosticRequest(solution.eigensystem)
+            ).execute()
             computed = solution.energies.magnitude
             continuum_modes = np.arange(1, dimension + 1, dtype=np.float64)
             continuum = (

@@ -11,12 +11,8 @@ from matplotlib.figure import Figure
 
 import ksdft2effmass.model_systems as model_systems
 from ksdft2effmass.model_systems import (
-    BaseModelAnalysisFigure,
-    BaseModelAnalysisPlot,
-    BaseModelAnalysisSubplot,
     BaseModelAnalysisVerification,
     BaseModelAnalysisVerifier,
-    ModelAnalysisPngFigureRenderer,
 )
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dAnalyzer,
@@ -30,19 +26,25 @@ from ksdft2effmass.model_systems.qho1d import (
     Qho1dVerification,
     Qho1dVerifier,
 )
+from ksdft2effmass.visualizations import (
+    BaseFigure,
+    BasePlot,
+    BaseSubplot,
+    PngFigureRenderer,
+)
 
 
 class _Plot(Enum):
     line = "line.png"
 
 
-class _LinePlot(BaseModelAnalysisPlot):
+class _LinePlot(BasePlot):
     def draw(self, axis: Axes) -> None:
         axis.plot((0.0, 1.0), (0.0, 1.0), label="line")
 
 
-class _LineSubplot(BaseModelAnalysisSubplot):
-    def __init__(self, plot: BaseModelAnalysisPlot) -> None:
+class _LineSubplot(BaseSubplot):
+    def __init__(self, plot: BasePlot) -> None:
         self._plot = plot
 
     def draw(self, axis: Axes) -> None:
@@ -52,8 +54,8 @@ class _LineSubplot(BaseModelAnalysisSubplot):
         axis.legend()
 
 
-class _LineFigure(BaseModelAnalysisFigure):
-    def __init__(self, subplot: BaseModelAnalysisSubplot) -> None:
+class _LineFigure(BaseFigure):
+    def __init__(self, subplot: BaseSubplot) -> None:
         self._subplot = subplot
 
     def draw(self) -> Figure:
@@ -102,7 +104,7 @@ class TestModelAnalysisInfrastructure:
         self,
     ) -> None:
         """Common PNG encoding accepts an independently composed figure action."""
-        renderer = ModelAnalysisPngFigureRenderer(
+        renderer = PngFigureRenderer(
             plot=_Plot.line,
             figure=_LineFigure(_LineSubplot(_LinePlot())),
             dpi=100,
@@ -120,13 +122,13 @@ class TestModelAnalysisInfrastructure:
         """The shared encoder requires a positive built-in integer resolution."""
         figure = _LineFigure(_LineSubplot(_LinePlot()))
         with pytest.raises(TypeError, match="dpi must be a built-in int"):
-            ModelAnalysisPngFigureRenderer(
+            PngFigureRenderer(
                 plot=_Plot.line,
                 figure=figure,
                 dpi=True,
             )
         with pytest.raises(ValueError, match="dpi must be positive"):
-            ModelAnalysisPngFigureRenderer(
+            PngFigureRenderer(
                 plot=_Plot.line,
                 figure=figure,
                 dpi=0,

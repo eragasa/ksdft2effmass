@@ -131,30 +131,63 @@ class OrthogonalSpectralSubspace(SpectralSubspace):
         )
 
 
-class OrthogonalSpectralSubspaceSelector:
-    """Select the lowest ordered eigenpairs as one orthogonal spectral subspace."""
+@dataclass(frozen=True, slots=True, eq=False)
+class OrthogonalSpectralSubspaceSelectionRequest:
+    """Bind one ordered real eigensystem and retained dimension."""
 
-    __slots__ = ()
+    eigensystem: Eigensystem
+    retained_dimension: int
 
-    def execute(
-        self, eigensystem: Eigensystem, retained_dimension: int
-    ) -> OrthogonalSpectralSubspace:
-        """Return the first ``retained_dimension`` ordered real eigenpairs."""
-        if not isinstance(eigensystem, Eigensystem):
+    def __post_init__(self) -> None:
+        """Admit the complete orthogonal spectral-subspace selection request."""
+        if not isinstance(self.eigensystem, Eigensystem):
             raise TypeError("eigensystem must be Eigensystem")
-        if not isinstance(eigensystem.eigenvectors, MatrixQuantity):
-            raise TypeError("eigensystem eigenvectors must be real")
-        if type(retained_dimension) is not int:
+        _ = self.real_eigenvectors
+        if type(self.retained_dimension) is not int:
             raise TypeError("retained_dimension must be a built-in int")
-        available = eigensystem.n_rank
-        if retained_dimension <= 0 or retained_dimension > available:
+        if (
+            self.retained_dimension <= 0
+            or self.retained_dimension > self.eigensystem.n_rank
+        ):
             raise ValueError("retained_dimension must select available eigenpairs")
+
+    @property
+    def real_eigenvectors(self) -> MatrixQuantity:
+        """Return the admitted real eigenvector columns."""
+        eigenvectors = self.eigensystem.eigenvectors
+        if not isinstance(eigenvectors, MatrixQuantity):
+            raise TypeError("eigensystem eigenvectors must be real")
+        return eigenvectors
+
+
+class OrthogonalSpectralSubspaceSelector:
+    """Select one constructor-bound lowest ordered orthogonal spectral subspace."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: OrthogonalSpectralSubspaceSelectionRequest) -> None:
+        if type(request) is not OrthogonalSpectralSubspaceSelectionRequest:
+            raise TypeError(
+                "request must be OrthogonalSpectralSubspaceSelectionRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> OrthogonalSpectralSubspaceSelectionRequest:
+        """Return the complete immutable spectral-subspace selection request."""
+        return self._request
+
+    def execute(self) -> OrthogonalSpectralSubspace:
+        """Return the requested first ordered real eigenpairs."""
+        eigensystem = self.request.eigensystem
+        retained_dimension = self.request.retained_dimension
         return OrthogonalSpectralSubspace(
             eigenvalues=VectorQuantity(
                 eigensystem.eigenvalues.magnitude[:retained_dimension],
                 eigensystem.eigenvalues.unit,
             ),
             basis_vectors=MatrixQuantity(
-                eigensystem.eigenvectors.magnitude[:, :retained_dimension], Unitless()
+                self.request.real_eigenvectors.magnitude[:, :retained_dimension],
+                Unitless(),
             ),
         )

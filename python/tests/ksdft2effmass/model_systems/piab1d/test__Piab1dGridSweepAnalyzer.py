@@ -21,6 +21,11 @@ from ksdft2effmass.model_systems.piab1d.analysis.grid_sweep import (
 )
 from ksdft2effmass.model_systems.piab1d.analysis.verification import (
     Piab1dEigenpairSweepReferenceAnalyzer,
+    Piab1dEigenpairSweepReferenceRequest,
+    Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer,
+    Piab1dFiniteAlgebraicDiagnosticsReferenceRequest,
+    Piab1dResidualNormSweepReferenceAnalyzer,
+    Piab1dResidualNormSweepReferenceRequest,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -38,9 +43,11 @@ class TestPiab1dGridSweepAnalyzer:
             fixed_modes=(8,),
         )
 
-        analysis = Piab1dGridSweepAnalyzer().execute(definition)
+        analyzer = Piab1dGridSweepAnalyzer(definition)
+        analysis = analyzer.execute()
         result = analysis.eigenpairs
 
+        assert analyzer.request is definition
         assert result.grid_offsets == (0, 8, 17)
         assert result.mode_numbers == (*range(1, 9), *range(1, 10))
         np.testing.assert_allclose(result.spacings.magnitude, (1.0 / 9.0, 0.1))
@@ -50,9 +57,34 @@ class TestPiab1dGridSweepAnalyzer:
         convergence = result.fixed_mode_convergence(8)
         assert convergence.relative_errors.magnitude.shape == (2, 1)
         assert convergence.observed_orders.magnitude.shape == (1, 1)
-        reference = Piab1dEigenpairSweepReferenceAnalyzer().execute(result)
+        reference_request = Piab1dEigenpairSweepReferenceRequest(result)
+        reference_analyzer = Piab1dEigenpairSweepReferenceAnalyzer(reference_request)
+        reference = reference_analyzer.execute()
+        assert reference_analyzer.request is reference_request
         assert all(
             comparison.result().passed for comparison in reference.comparisons.values()
+        )
+        residual_request = Piab1dResidualNormSweepReferenceRequest(
+            analysis.residual_norms
+        )
+        residual_analyzer = Piab1dResidualNormSweepReferenceAnalyzer(residual_request)
+        residual_reference = residual_analyzer.execute()
+        assert residual_analyzer.request is residual_request
+        assert all(
+            comparison.result().passed
+            for comparison in residual_reference.comparisons.values()
+        )
+        algebraic_request = Piab1dFiniteAlgebraicDiagnosticsReferenceRequest(
+            analysis.finite_algebraic_diagnostics
+        )
+        algebraic_analyzer = Piab1dFiniteAlgebraicDiagnosticsReferenceAnalyzer(
+            algebraic_request
+        )
+        algebraic_reference = algebraic_analyzer.execute()
+        assert algebraic_analyzer.request is algebraic_request
+        assert all(
+            comparison.result().passed
+            for comparison in algebraic_reference.comparisons.values()
         )
         assert analysis.residual_norms.hamiltonian.magnitude.shape == (2, 3)
         assert np.all(analysis.residual_norms.consistent.magnitude == 0.0)
@@ -87,7 +119,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        result = Piab1dGridSweepAnalyzer().execute(definition).eigenpairs
+        result = Piab1dGridSweepAnalyzer(definition).execute().eigenpairs
 
         with pytest.raises(ValueError, match="nondimensional unit"):
             replace(
@@ -106,7 +138,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        result = Piab1dGridSweepAnalyzer().execute(definition).eigenpairs
+        result = Piab1dGridSweepAnalyzer(definition).execute().eigenpairs
 
         with pytest.raises(ValueError, match="declared represented grids"):
             replace(
@@ -122,7 +154,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        result = Piab1dGridSweepAnalyzer().execute(definition).residual_norms
+        result = Piab1dGridSweepAnalyzer(definition).execute().residual_norms
 
         with pytest.raises(ValueError, match="cover every grid and norm"):
             replace(
@@ -139,7 +171,7 @@ class TestPiab1dGridSweepAnalyzer:
             fixed_modes=(1,),
         )
         result = (
-            Piab1dGridSweepAnalyzer().execute(definition).finite_algebraic_diagnostics
+            Piab1dGridSweepAnalyzer(definition).execute().finite_algebraic_diagnostics
         )
 
         with pytest.raises(ValueError, match="nondimensional unit"):
@@ -159,7 +191,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        analysis = Piab1dGridSweepAnalyzer().execute(definition)
+        analysis = Piab1dGridSweepAnalyzer(definition).execute()
         other_definition = Piab1dGridSweepDefinition(
             length=2.0,
             mass=1.0,

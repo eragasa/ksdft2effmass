@@ -1,3 +1,0 @@
-# `composite_band_alignment.visualization`
-
-This module owns [`Periodic1DCompositeBandAlignmentVisualizationData`](Periodic1DCompositeBandAlignmentVisualizationData/index.md), the closed [`Periodic1DCompositeBandAlignmentVisualizationPlotEnum`](Periodic1DCompositeBandAlignmentVisualizationPlotEnum/index.md), and [`Periodic1DCompositeBandAlignmentVisualizer`](Periodic1DCompositeBandAlignmentVisualizer/index.md). The generic renderer owns PNG encoding only.

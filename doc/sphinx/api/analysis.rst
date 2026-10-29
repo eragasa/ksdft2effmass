@@ -56,10 +56,16 @@ themselves establish convergence or scientific acceptance.
 .. autoclass:: ObservedConvergenceOrder
    :members:
 
+.. autoclass:: ObservedConvergenceOrderRequest
+   :members:
+
 .. autoclass:: ObservedConvergenceOrderResult
    :members:
 
 .. autoclass:: ObservedConvergenceOrderEstimator
+   :members:
+
+.. autoclass:: RelativeErrorConvergenceRequest
    :members:
 
 .. autoclass:: RelativeErrorConvergenceResult
@@ -77,6 +83,9 @@ must be nonnegative and normalized. Result construction independently checks the
 cumulative tails and first-passing count using an absolute arithmetic tolerance of
 ``64 * eps(float64) * candidate_count``. They do not choose a physical ensemble or
 establish model adequacy.
+
+.. autoclass:: TailProbabilitySelectionRequest
+   :members:
 
 .. autoclass:: TailProbabilitySelection
    :members:
@@ -107,36 +116,13 @@ separate calls and results.
 .. autoclass:: BandGapAnalyzer1D
    :members:
 
+.. autoclass:: BandApproximationErrorRequest1D
+   :members:
+
 .. autoclass:: BandApproximationErrorResult1D
    :members:
 
 .. autoclass:: BandApproximationErrorAnalyzer1D
-   :members:
-
-Single-band hopping reduction
------------------------------
-
-The reusable single-band Workflow consumes an already identified rank-one training
-band and a separate evaluation band. It owns no parent model, band-selection policy,
-experiment identity, evidence schema, or scientific acceptance decision. Explicit
-positive fitting weights and unit-bearing numerical-consistency tolerances remain part
-of the request.
-
-.. currentmodule:: ksdft2effmass.analysis.single_band_reduction
-
-.. autoclass:: SingleBandHoppingReductionTolerances1D
-   :members:
-
-.. autoclass:: SingleBandHoppingReductionRequest1D
-   :members:
-
-.. autoclass:: SingleBandHoppingRangeReductionResult1D
-   :members:
-
-.. autoclass:: SingleBandHoppingReductionResult1D
-   :members:
-
-.. autoclass:: SingleBandHoppingReductionWorkflow1D
    :members:
 
 Hopping fitting and route comparison
@@ -152,10 +138,22 @@ reciprocal-operator Frobenius defects separately.
 
 .. currentmodule:: ksdft2effmass.analysis.hopping_fits
 
+.. autoclass:: BlockHoppingLeastSquaresFitRequest1D
+   :members:
+
 .. autoclass:: BlockHoppingLeastSquaresFitResult1D
    :members:
 
 .. autoclass:: BlockHoppingLeastSquaresFitter1D
+   :members:
+
+.. autoclass:: ScalarHermitianHoppingLeastSquaresFitRequest1D
+   :members:
+
+.. autoclass:: ScalarHermitianHoppingLeastSquaresFitter1D
+   :members:
+
+.. autoclass:: BlockHoppingModelComparisonRequest1D
    :members:
 
 .. autoclass:: BlockHoppingModelComparisonResult1D
@@ -173,6 +171,9 @@ centered even-mesh Nyquist representative is not silently treated as self-opposi
 
 .. currentmodule:: ksdft2effmass.analysis.hopping_diagnostics
 
+.. autoclass:: BlockHoppingHermiticityRequest1D
+   :members:
+
 .. autoclass:: BlockHoppingHermiticityResult1D
    :members:
 
@@ -181,6 +182,9 @@ centered even-mesh Nyquist representative is not silently treated as self-opposi
 
 Complete-mesh Parseval analysis keeps the reciprocal training residual and omitted
 block norm explicit and checks their discrete-Fourier scaling in squared energy units.
+
+.. autoclass:: HoppingParsevalRequest1D
+   :members:
 
 .. autoclass:: HoppingParsevalResult1D
    :members:
@@ -191,6 +195,9 @@ block norm explicit and checks their discrete-Fourier scaling in squared energy 
 For scalar hopping blocks, band-shape analysis reports sampled bandwidth, analytical
 zone-center curvature with respect to reduced reciprocal coordinate, and an independent
 imaginary residual.
+
+.. autoclass:: ScalarHoppingBandShapeRequest1D
+   :members:
 
 .. autoclass:: ScalarHoppingBandShapeResult1D
    :members:

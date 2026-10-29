@@ -37,7 +37,7 @@ from .verification_values import (
     Mathieu1dIndependentVerification,
     Mathieu1dVerification,
 )
-from .visualization import Mathieu1dVisualizationData
+from .visualizations.data import Mathieu1dVisualizationData
 
 
 class Mathieu1dVerifier(

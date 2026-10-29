@@ -386,8 +386,10 @@ class TestQoiReferenceTargetContract:
             "NormalizedObservationRequirementIdentity",
             "ObservedConvergenceOrder",
             "ObservedConvergenceOrderEstimator",
+            "ObservedConvergenceOrderRequest",
             "ObservedConvergenceOrderResult",
             "RelativeErrorConvergenceAnalyzer",
+            "RelativeErrorConvergenceRequest",
             "RelativeErrorConvergenceResult",
             "RelativeErrorConvergenceVerification",
             "QuantityOfInterestCompleteness",
@@ -405,6 +407,7 @@ class TestQoiReferenceTargetContract:
             "ScalarQuantityOfInterestEvaluationResult",
             "ScalarQuantityOfInterestValue",
             "TailProbabilitySelection",
+            "TailProbabilitySelectionRequest",
             "TailProbabilitySelector",
             "TailProbabilitySelectionVerification",
         ]

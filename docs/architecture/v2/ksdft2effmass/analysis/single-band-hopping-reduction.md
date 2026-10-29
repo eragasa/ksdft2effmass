@@ -2,13 +2,14 @@
 
 ## Status
 
-`ksdft2effmass.analysis.single_band_reduction` is the reusable scientific Workflow
-extracted for publication-independent single-band experiments. It consumes already
-identified training and evaluation band samples. It does not construct a parent,
-select a band, define an experiment, serialize evidence, or decide scientific
-adequacy.
+**Historical V2 design; retired from the installed V3 package.** The
+`ksdft2effmass.analysis.single_band_reduction` package and its Workflow, request, and
+result surfaces were removed without compatibility facades. The direct Mathieu1D and
+Periodic1D family analyzers own their distinct typed calculation lifecycles instead.
+The remainder of this page records the former design for architectural provenance and
+does not describe an importable public API.
 
-## Contract
+## Historical contract
 
 `SingleBandHoppingReductionRequest1D` supplies:
 
@@ -61,9 +62,9 @@ The live reviewed owner dependencies are pinned to Optimization commit
 revisions used by that execution independently of the advancing live lock. Owner
 qualification and adapter verification remain distinct from KSD scientific validation.
 
-## Experiment boundary
+## Historical experiment boundary
 
-The maintained calculation consumer is
+The former calculation consumer was
 
 ```text
 calculations/mathieu1d/
@@ -76,12 +77,11 @@ experiment.
 
 ## Evidence and limitations
 
-Direct software tests exercise two unrelated supplied scalar bands, uniform and
-nonuniform fitting weights, exact finite-range recovery, strict rank-one admission,
-and Boolean-control rejection. Experiment tests exercise parent refinement, explicit
-band selection, sampled external gaps, disjoint roles, and delegation to the reusable
-Workflow.
+The retired implementation had software tests for unrelated supplied scalar bands,
+uniform and nonuniform fitting weights, exact finite-range recovery, strict rank-one
+admission, and Boolean-control rejection. Those tests were removed with the obsolete
+Workflow rather than preserved as tests of an absent API.
 
-Passing these tests establishes software behavior only. It does not establish spectral
+The historical passing tests established software behavior only. It does not establish spectral
 isolation over a continuum, continuum convergence, a scientifically adequate hopping
 range, material transferability, uncertainty quantification, or publication evidence.
