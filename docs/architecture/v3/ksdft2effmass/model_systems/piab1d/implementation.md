@@ -28,9 +28,12 @@ No verifier reparses raw JSON fields.
 ## Calculation composition
 
 `run_01_calculation.py` declares all scientific and algorithmic controls in Python. It
-constructs the PhysKit PIAB1D solution, executes the KSD reduction and diagnostics,
+constructs the PhysKit PIAB1D solution, binds that exact solution and retained dimension
+in `Piab1dAnalysisRequest`, executes the request-bound KSD reduction and diagnostics,
 forms the analytical comparison series, executes one shared grid sweep, evaluates the
-decomposition shift, and serializes one typed root result.
+decomposition shift, and serializes one typed root result. `Piab1dAnalyzer.execute()`
+accepts no scientific request arguments and constructs child actions only from complete
+immutable requests.
 
 `Piab1dGridSweepAnalyzer` solves each declared grid once. The resulting eigensolution
 feeds eigenpair convergence, residual norms, and finite algebraic diagnostics. This

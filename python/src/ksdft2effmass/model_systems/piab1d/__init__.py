@@ -2,6 +2,7 @@
 
 from .analysis import (
     Piab1dAnalysis,
+    Piab1dAnalysisRequest,
     Piab1dAnalyzer,
     Piab1dEigenpairSweepResult,
     Piab1dFiniteAlgebraicDiagnostics,
@@ -41,6 +42,7 @@ __all__ = [
     "DiagnosticMethodsEnum",
     "DiscreteSpectrumMaximumAbsoluteErrorAnalyzer",
     "Piab1dAnalysis",
+    "Piab1dAnalysisRequest",
     "Piab1dCalculationResult",
     "Piab1dConfiguration",
     "Piab1dConvergenceResult",

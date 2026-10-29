@@ -134,26 +134,43 @@ class Piab1dAnalysis:
             raise TypeError("diagnostics must be Piab1dDiagnostics")
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dAnalysisRequest:
+    """Bind one finite PhysKit PIAB1D solution and retained dimension."""
+
+    solution: Piab1dTiseFdSolution
+    retained_dimension: int
+
+    def __post_init__(self) -> None:
+        """Admit the complete PIAB1D analysis request."""
+        if not isinstance(self.solution, Piab1dTiseFdSolution):
+            raise TypeError("solution must be Piab1dTiseFdSolution")
+        if type(self.retained_dimension) is not int:
+            raise TypeError("retained_dimension must be a built-in int")
+        if (
+            self.retained_dimension <= 0
+            or self.retained_dimension > self.solution.interior_points
+        ):
+            raise ValueError("retained_dimension must select available eigenpairs")
+
+
 class Piab1dAnalyzer:
-    """Perform the complete KSD analysis of one PhysKit PIAB1D solution."""
+    """Perform the complete KSD analysis of one bound PhysKit PIAB1D solution."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        solution: Piab1dTiseFdSolution,
-        retained_dimension: int,
-    ) -> Piab1dAnalysis:
+    def __init__(self, request: Piab1dAnalysisRequest) -> None:
+        if type(request) is not Piab1dAnalysisRequest:
+            raise TypeError("request must be Piab1dAnalysisRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dAnalysisRequest:
+        """Return the complete immutable PIAB1D analysis request."""
+        return self._request
+
+    def execute(self) -> Piab1dAnalysis:
         """Analyze one finite PhysKit PIAB1D eigensolution.
-
-        Parameters
-        ----------
-        solution
-            Full-grid homogeneous-Dirichlet solution with represented Hamiltonian,
-            eigensystem, model, and grid spacing.
-        retained_dimension
-            Positive number of lowest-energy eigenvectors defining the orthogonal
-            retained subspace.
 
         Returns
         -------
@@ -163,11 +180,8 @@ class Piab1dAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``solution`` or ``retained_dimension`` has the wrong exact type.
         ValueError
-            The retained dimension is unavailable or the Hamiltonian and quadrature
-            grid conventions disagree.
+            The Hamiltonian and quadrature grid conventions disagree.
 
         Notes
         -----
@@ -175,13 +189,8 @@ class Piab1dAnalyzer:
         form, eigensolver residual, boundary realization, and reduction residual.
         These values represent different error sources.
         """
-        if not isinstance(solution, Piab1dTiseFdSolution):
-            raise TypeError("solution must be Piab1dTiseFdSolution")
-        if type(retained_dimension) is not int:
-            raise TypeError("retained_dimension must be a built-in int")
-        if retained_dimension <= 0 or retained_dimension > solution.interior_points:
-            raise ValueError("retained_dimension must select available eigenpairs")
-
+        solution = self.request.solution
+        retained_dimension = self.request.retained_dimension
         parent_hamiltonian = HermitianHamiltonian(matrix=solution.hamiltonian)
         subspace = OrthogonalSpectralSubspaceSelector(
             OrthogonalSpectralSubspaceSelectionRequest(

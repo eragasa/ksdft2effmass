@@ -35,6 +35,7 @@ from ksdft2effmass.analysis.operators import (
 )
 from ksdft2effmass.hamiltonian import OrthogonalSpectralSubspace
 from ksdft2effmass.model_systems.piab1d import (
+    Piab1dAnalysisRequest,
     Piab1dAnalyzer,
     Piab1dCalculationResult,
     Piab1dGridSweepAnalyzer,
@@ -59,7 +60,7 @@ if execution_directory.exists():
 
 model = Piab1D(length=LENGTH, mass=MASS, unit_system=UnitSystem.NONDIMENSIONAL)
 solution = Piab1dTiseFdSolver(model=model).solve(interior_points=INTERIOR_POINTS)
-analysis = Piab1dAnalyzer().execute(solution, RETAINED_DIMENSION)
+analysis = Piab1dAnalyzer(Piab1dAnalysisRequest(solution, RETAINED_DIMENSION)).execute()
 reduced_hamiltonian = analysis.reduced_hamiltonian
 subspace = reduced_hamiltonian.spectral_subspace
 if not isinstance(subspace, OrthogonalSpectralSubspace):

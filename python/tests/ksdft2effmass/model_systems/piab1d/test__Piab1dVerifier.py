@@ -35,6 +35,7 @@ from ksdft2effmass.model_systems import (
 )
 from ksdft2effmass.model_systems.piab1d import (
     Piab1dAnalysis,
+    Piab1dAnalysisRequest,
     Piab1dAnalyzer,
     Piab1dCalculationResult,
     Piab1dGridSweepAnalyzer,
@@ -66,10 +67,9 @@ class TestPiab1dVerifier:
                 unit_system=UnitSystem.NONDIMENSIONAL,
             )
         ).solve(interior_points=8)
-        analysis: Piab1dAnalysis = Piab1dAnalyzer().execute(
-            solution,
-            retained_dimension=3,
-        )
+        analysis: Piab1dAnalysis = Piab1dAnalyzer(
+            Piab1dAnalysisRequest(solution, 3)
+        ).execute()
         reduction = analysis.reduced_hamiltonian
         subspace = reduction.spectral_subspace
         assert isinstance(subspace, OrthogonalSpectralSubspace)

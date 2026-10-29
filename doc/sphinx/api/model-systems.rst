@@ -273,6 +273,9 @@ verification composed around that pinned implementation.
 .. autoclass:: Piab1dAnalysis
    :members:
 
+.. autoclass:: Piab1dAnalysisRequest
+   :members:
+
 .. autoclass:: Piab1dAnalyzer
    :members:
 
@@ -294,9 +297,11 @@ verification composed around that pinned implementation.
 .. autoclass:: Piab1dVisualizer
    :members:
 
-``Piab1dAnalyzer`` constructs a set of cohesive diagnostic analyzers and iterates over
-that set to produce the complete immutable ``Piab1dDiagnostics`` inventory. There is
-no diagnostic facade or factory in this tranche.
+``Piab1dAnalyzer`` binds one complete immutable ``Piab1dAnalysisRequest`` before
+execution. It constructs complete finite-operator child requests and a set of cohesive
+diagnostic analyzers, then iterates over the latter to produce the complete immutable
+``Piab1dDiagnostics`` inventory. There is no diagnostic facade or factory in this
+tranche.
 
 The former historical retained-result wires and ``study`` package were removed after
 the direct replacement. Exact Git recovery identities and the maintained boundary are

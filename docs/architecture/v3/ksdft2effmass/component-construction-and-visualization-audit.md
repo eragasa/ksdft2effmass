@@ -167,6 +167,9 @@ immutable `OrthogonalSpectralSubspaceSelectionRequest`; PIAB1D constructs the co
 selector only after its eigensystem request exists. The next Hamiltonian leaf slice
 binds the finite Hamiltonian and exact orthogonal subspace in an immutable
 `OrthogonalHamiltonianBlockRequest`; PIAB1D no longer retains an empty block analyzer.
+With those leaf dependencies complete, the PIAB1D core slice binds the exact PhysKit
+solution and retained dimension in `Piab1dAnalysisRequest`; the top-level analyzer now
+has a zero-argument terminal operation.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

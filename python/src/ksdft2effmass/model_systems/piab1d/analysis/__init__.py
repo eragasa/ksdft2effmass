@@ -1,6 +1,6 @@
 """PIAB1D analysis values and actions."""
 
-from .core import Piab1dAnalysis, Piab1dAnalyzer
+from .core import Piab1dAnalysis, Piab1dAnalysisRequest, Piab1dAnalyzer
 from .finite_algebraic_diagnostics import Piab1dFiniteAlgebraicDiagnostics
 from .grid_sweep import (
     Piab1dEigenpairSweepResult,
@@ -18,6 +18,7 @@ from .verification import (
 
 __all__ = [
     "Piab1dAnalysis",
+    "Piab1dAnalysisRequest",
     "Piab1dAnalyzer",
     "Piab1dEigenpairSweepResult",
     "Piab1dFiniteAlgebraicDiagnostics",
