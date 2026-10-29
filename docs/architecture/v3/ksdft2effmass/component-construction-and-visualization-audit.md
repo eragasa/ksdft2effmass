@@ -150,7 +150,11 @@ predecessor consumers now provide complete requests, and no empty construction o
 those six actions remains. The following slice implements the targeted
 `analysis/periodic_bands.py` row with an immutable band-approximation error request and
 a request-bound analyzer. Mathieu1D, composite alignment, and the transitional
-multiband predecessor now bind each target/candidate sample pair independently.
+multiband predecessor now bind each target/candidate sample pair independently. The
+PIAB1D analysis slice then implements the `analysis/convergence.py` and
+`analysis/probability_selection.py` rows with complete immutable requests and
+zero-argument terminal operations. Its reusable observed-order child action is also
+request-bound so the convergence analyzer composes only complete child requests.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

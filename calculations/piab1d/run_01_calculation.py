@@ -23,6 +23,8 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis import (
     RelativeErrorConvergenceAnalyzer,
+    RelativeErrorConvergenceRequest,
+    TailProbabilitySelectionRequest,
     TailProbabilitySelector,
 )
 from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
@@ -103,10 +105,12 @@ canonical_probabilities = CanonicalLevelProbabilityModel(
         solution.energies.unit,
     )
 ).evaluate(energies=solution.energies)
-selection = TailProbabilitySelector().execute(
-    canonical_probabilities.probabilities,
-    float(OMITTED_PROBABILITY_TOLERANCE),
-)
+selection = TailProbabilitySelector(
+    TailProbabilitySelectionRequest(
+        canonical_probabilities.probabilities,
+        float(OMITTED_PROBABILITY_TOLERANCE),
+    )
+).execute()
 analytical = Piab1DAnalyticalSolution(model=model).evaluate(count=INTERIOR_POINTS)
 continuum_coordinates = VectorQuantity(
     np.linspace(0.0, LENGTH, 800),
@@ -154,12 +158,14 @@ convergence_references = MatrixQuantity(
     ),
     analytical.energies.unit,
 )
-convergence = RelativeErrorConvergenceAnalyzer().execute(
-    spacings=convergence_spacings,
-    approximations=convergence_approximations,
-    references=convergence_references,
-    order_columns=(0, 1, 2),
-)
+convergence = RelativeErrorConvergenceAnalyzer(
+    RelativeErrorConvergenceRequest(
+        spacings=convergence_spacings,
+        approximations=convergence_approximations,
+        references=convergence_references,
+        order_columns=(0, 1, 2),
+    )
+).execute()
 result: dict[str, SerializableValue] = {
     "schema_version": 1,
     "calculation_family": "piab1d-spectral-reduction",

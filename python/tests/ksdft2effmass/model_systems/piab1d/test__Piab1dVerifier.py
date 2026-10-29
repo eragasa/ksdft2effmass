@@ -19,6 +19,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.analysis import (
     RelativeErrorConvergenceResult,
+    TailProbabilitySelectionRequest,
     TailProbabilitySelector,
 )
 from ksdft2effmass.analysis.operators import KineticPotentialDecompositionAnalyzer
@@ -85,7 +86,9 @@ class TestPiab1dVerifier:
             np.asarray(boltzmann_factors, dtype=np.float64) / partition_function,
             Unitless(),
         )
-        selection = TailProbabilitySelector().execute(probabilities, 0.01)
+        selection = TailProbabilitySelector(
+            TailProbabilitySelectionRequest(probabilities, 0.01)
+        ).execute()
         continuum_coordinates = np.linspace(0.0, 1.0, 800)
         continuum_wavefunctions = np.column_stack(
             tuple(

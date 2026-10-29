@@ -56,10 +56,16 @@ themselves establish convergence or scientific acceptance.
 .. autoclass:: ObservedConvergenceOrder
    :members:
 
+.. autoclass:: ObservedConvergenceOrderRequest
+   :members:
+
 .. autoclass:: ObservedConvergenceOrderResult
    :members:
 
 .. autoclass:: ObservedConvergenceOrderEstimator
+   :members:
+
+.. autoclass:: RelativeErrorConvergenceRequest
    :members:
 
 .. autoclass:: RelativeErrorConvergenceResult
@@ -77,6 +83,9 @@ must be nonnegative and normalized. Result construction independently checks the
 cumulative tails and first-passing count using an absolute arithmetic tolerance of
 ``64 * eps(float64) * candidate_count``. They do not choose a physical ensemble or
 establish model adequacy.
+
+.. autoclass:: TailProbabilitySelectionRequest
+   :members:
 
 .. autoclass:: TailProbabilitySelection
    :members:

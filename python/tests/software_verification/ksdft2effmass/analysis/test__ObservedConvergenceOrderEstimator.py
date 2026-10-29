@@ -25,7 +25,10 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.analysis import ObservedConvergenceOrderEstimator
+from ksdft2effmass.analysis import (
+    ObservedConvergenceOrderEstimator,
+    ObservedConvergenceOrderRequest,
+)
 
 pytestmark = pytest.mark.software_verification
 SUT = ObservedConvergenceOrderEstimator
@@ -42,9 +45,13 @@ class TestObservedConvergenceOrderEstimator:
         Acceptance: Errors proportional to spacing squared produce two orders equal
         to two and the retained leading-None sequence.
         """
-        result = ObservedConvergenceOrderEstimator().execute(
+        request = ObservedConvergenceOrderRequest(
             VectorQuantity(np.array([0.5, 0.25, 0.125]), Unitless()),
             VectorQuantity(np.array([0.25, 0.0625, 0.015625]), Unitless()),
         )
+        estimator = ObservedConvergenceOrderEstimator(request)
 
+        result = estimator.execute()
+
+        assert estimator.request is request
         assert result.nullable_orders() == (None, 2.0, 2.0)

@@ -118,22 +118,20 @@ class TailProbabilitySelection:
         )
 
 
-class TailProbabilitySelector:
-    """Select the smallest retained prefix satisfying an omitted-probability bound."""
+@dataclass(frozen=True, slots=True, eq=False)
+class TailProbabilitySelectionRequest:
+    """Bind one normalized finite probability inventory and tail tolerance."""
 
-    __slots__ = ()
+    probabilities: VectorQuantity
+    tolerance: float
 
-    def execute(
-        self,
-        probabilities: VectorQuantity,
-        tolerance: float,
-    ) -> TailProbabilitySelection:
-        """Return cumulative tails and the first candidate within tolerance."""
-        if not isinstance(probabilities, VectorQuantity):
+    def __post_init__(self) -> None:
+        """Admit normalization, nonnegativity, and the strict tail tolerance."""
+        if not isinstance(self.probabilities, VectorQuantity):
             raise TypeError("probabilities must be VectorQuantity")
-        if not isinstance(probabilities.unit, Unitless):
+        if not isinstance(self.probabilities.unit, Unitless):
             raise ValueError("probabilities must be unitless")
-        values = probabilities.magnitude
+        values = self.probabilities.magnitude
         if values.size == 0:
             raise ValueError("probabilities must be nonempty")
         if np.any(values < 0.0):
@@ -146,10 +144,32 @@ class TailProbabilitySelector:
             atol=arithmetic_tolerance,
         ):
             raise ValueError("probabilities must sum to one")
-        if type(tolerance) is not float or not np.isfinite(tolerance):
+        if type(self.tolerance) is not float or not np.isfinite(self.tolerance):
             raise TypeError("tolerance must be a finite built-in float")
-        if not 0.0 < tolerance < 1.0:
+        if not 0.0 < self.tolerance < 1.0:
             raise ValueError("tolerance must lie strictly between zero and one")
+
+
+class TailProbabilitySelector:
+    """Select a prefix for one constructor-bound finite probability inventory."""
+
+    __slots__ = ("_request",)
+
+    def __init__(self, request: TailProbabilitySelectionRequest) -> None:
+        if type(request) is not TailProbabilitySelectionRequest:
+            raise TypeError("request must be TailProbabilitySelectionRequest")
+        self._request = request
+
+    @property
+    def request(self) -> TailProbabilitySelectionRequest:
+        """Return the complete immutable tail-selection request."""
+        return self._request
+
+    def execute(self) -> TailProbabilitySelection:
+        """Return cumulative tails and the first candidate within tolerance."""
+        probabilities = self.request.probabilities
+        tolerance = self.request.tolerance
+        values = probabilities.magnitude
         omitted = np.concatenate(
             (
                 np.cumsum(values[:0:-1], dtype=np.float64)[::-1],

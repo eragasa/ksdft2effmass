@@ -8,6 +8,7 @@ from projectkoios.physkit.units import MatrixQuantity, Unitless, VectorQuantity
 
 from ksdft2effmass.analysis import (
     RelativeErrorConvergenceAnalyzer,
+    RelativeErrorConvergenceRequest,
     RelativeErrorConvergenceResult,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
@@ -33,13 +34,17 @@ class TestRelativeErrorConvergenceAnalyzer:
             Unitless(),
         )
 
-        result = SUT().execute(
+        request = RelativeErrorConvergenceRequest(
             spacings=spacings,
             approximations=approximations,
             references=references,
             order_columns=(0, 1),
         )
+        analyzer = SUT(request)
 
+        result = analyzer.execute()
+
+        assert analyzer.request is request
         assert np.allclose(
             result.relative_errors.magnitude,
             approximations.magnitude - 1.0,

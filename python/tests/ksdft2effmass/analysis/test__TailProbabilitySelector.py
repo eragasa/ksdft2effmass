@@ -6,7 +6,11 @@ import numpy as np
 import pytest
 from projectkoios.physkit.units import Unitless, VectorQuantity
 
-from ksdft2effmass.analysis import TailProbabilitySelection, TailProbabilitySelector
+from ksdft2effmass.analysis import (
+    TailProbabilitySelection,
+    TailProbabilitySelectionRequest,
+    TailProbabilitySelector,
+)
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
 pytestmark = pytest.mark.software_verification
@@ -24,8 +28,12 @@ class TestTailProbabilitySelector:
             Unitless(),
         )
 
-        result = SUT().execute(probabilities, 0.1)
+        request = TailProbabilitySelectionRequest(probabilities, 0.1)
+        selector = SUT(request)
 
+        result = selector.execute()
+
+        assert selector.request is request
         assert result.selected_count == 2
         assert np.allclose(
             result.omitted_probabilities.magnitude,
@@ -43,16 +51,16 @@ class TestTailProbabilitySelector:
         probabilities = VectorQuantity(np.asarray([0.75, 0.25]), Unitless())
 
         with pytest.raises(TypeError, match="built-in float"):
-            SUT().execute(probabilities, True)
+            TailProbabilitySelectionRequest(probabilities, True)
 
     def test_execute__nonnormalized_or_negative_probabilities__rejects(self) -> None:
         with pytest.raises(ValueError, match="sum to one"):
-            SUT().execute(
+            TailProbabilitySelectionRequest(
                 VectorQuantity(np.asarray([0.5, 0.4]), Unitless()),
                 0.1,
             )
         with pytest.raises(ValueError, match="nonnegative"):
-            SUT().execute(
+            TailProbabilitySelectionRequest(
                 VectorQuantity(np.asarray([1.1, -0.1]), Unitless()),
                 0.1,
             )
