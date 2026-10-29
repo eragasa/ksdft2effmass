@@ -16,7 +16,6 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.model_systems import ModelAnalysisPngVisualization
 from ksdft2effmass.model_systems.mathieu1d.analysis import Mathieu1dAnalyzer
 from ksdft2effmass.model_systems.mathieu1d.configuration import (
     Mathieu1dConfiguration,
@@ -25,7 +24,8 @@ from ksdft2effmass.model_systems.mathieu1d.result import (
     Mathieu1dCalculationResult,
 )
 from ksdft2effmass.model_systems.mathieu1d.verification import Mathieu1dVerifier
-from ksdft2effmass.model_systems.mathieu1d.visualization import Mathieu1dVisualizer
+from ksdft2effmass.model_systems.mathieu1d.visualizations import Mathieu1dVisualizer
+from ksdft2effmass.visualizations import PngVisualization
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
@@ -43,16 +43,20 @@ class TestMathieu1dDirectAnalysis:
             / "src"
             / ("ksdft2effmass/model_systems/mathieu1d")
         )
-        for name in (
-            "__init__.py",
-            "analysis.py",
-            "configuration.py",
-            "result.py",
-            "verification.py",
-            "verification_values.py",
-            "visualization.py",
-        ):
-            tree = ast.parse((source_directory / name).read_text(encoding="utf-8"))
+        source_files = [
+            source_directory / name
+            for name in (
+                "__init__.py",
+                "analysis.py",
+                "configuration.py",
+                "result.py",
+                "verification.py",
+                "verification_values.py",
+            )
+        ]
+        source_files.extend(sorted((source_directory / "visualizations").rglob("*.py")))
+        for source_file in source_files:
+            tree = ast.parse(source_file.read_text(encoding="utf-8"))
             imported_modules = {
                 node.module
                 for node in ast.walk(tree)
@@ -159,9 +163,7 @@ class TestMathieu1dDirectAnalysis:
             "mathieu1d-finite-reduction.png",
             "mathieu1d-publication-summary.png",
         }
-        assert all(
-            type(value) is ModelAnalysisPngVisualization for value in visualizations
-        )
+        assert all(type(value) is PngVisualization for value in visualizations)
         assert all(
             image.png.startswith(b"\x89PNG\r\n\x1a\n") for image in visualizations
         )

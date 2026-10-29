@@ -9,7 +9,7 @@ from types import MappingProxyType
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from ...result import Piab1dCalculationResult
-from ...visualization import Piab1dVisualizationData
+from ...visualizations.data import Piab1dVisualizationData
 from .core import Piab1dCoreReferenceAnalyzer
 from .decomposition import (
     Piab1dKineticPotentialDecompositionReferenceAnalyzer,

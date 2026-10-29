@@ -2,12 +2,12 @@
 
 ## Purpose and status
 
-This target package owns the authenticated QHO1D spatial-truncation projection and
-closed three-PNG inventory. It replaces the current monolithic `qho1d.visualization`
+This implemented package owns the authenticated QHO1D spatial-truncation projection and
+closed three-PNG inventory. It replaces the removed monolithic `qho1d.visualization`
 module without changing projection bytes, plot names, numerical content, or rendering
 policy.
 
-## Target source map
+## Source map
 
 ```text
 model_systems/qho1d/visualizations/

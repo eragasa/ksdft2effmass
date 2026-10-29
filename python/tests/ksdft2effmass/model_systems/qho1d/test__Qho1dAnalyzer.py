@@ -122,14 +122,20 @@ class TestQho1dAnalyzer:
     def test_source__successor_modules__contain_no_custom_json_transport(self) -> None:
         """Successor domain modules delegate array transport to shared serialization."""
         source_root = Path(__file__).resolve().parents[4] / "src" / "ksdft2effmass"
-        paths = (
+        paths = [
             source_root / "model_systems" / "qho1d" / "configuration.py",
             source_root / "model_systems" / "qho1d" / "case_sections.py",
             source_root / "model_systems" / "qho1d" / "result.py",
             source_root / "model_systems" / "qho1d" / "analysis.py",
             source_root / "model_systems" / "qho1d" / "cross_grid.py",
             source_root / "model_systems" / "qho1d" / "verification.py",
-            source_root / "model_systems" / "qho1d" / "visualization.py",
+        ]
+        paths.extend(
+            sorted(
+                (source_root / "model_systems" / "qho1d" / "visualizations").rglob(
+                    "*.py"
+                )
+            )
         )
         for path in paths:
             source = path.read_text(encoding="utf-8")

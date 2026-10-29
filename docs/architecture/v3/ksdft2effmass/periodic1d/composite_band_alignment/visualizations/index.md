@@ -2,13 +2,13 @@
 
 ## Purpose and status
 
-This target package owns
+This implemented package owns
 [`Periodic1DCompositeBandAlignmentVisualizationData`](Periodic1DCompositeBandAlignmentVisualizationData/index.md),
 the closed
 [`Periodic1DCompositeBandAlignmentVisualizationPlotEnum`](Periodic1DCompositeBandAlignmentVisualizationPlotEnum/index.md),
 and
 [`Periodic1DCompositeBandAlignmentVisualizer`](Periodic1DCompositeBandAlignmentVisualizer/index.md).
-It replaces the current singular source module without changing projection bytes,
+It replaces the removed singular source module without changing projection bytes,
 filenames, scientific values, or rendering policy.
 
 ```text

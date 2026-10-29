@@ -1,131 +1,19 @@
-"""Authenticated visualization of direct QHO1D results."""
+"""QHO1D scientific figure composition."""
 
 from __future__ import annotations
-
-from collections.abc import Mapping
-from dataclasses import dataclass
-from enum import Enum
-from typing import Self
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from ksdft2effmass.model_systems.visualization import (
-    BaseModelAnalysisFigure,
-    BaseModelAnalysisPlot,
-    BaseModelAnalysisSubplot,
-    BaseModelAnalysisVisualizationData,
-    BaseModelAnalysisVisualizer,
-    ModelAnalysisPngFigureRenderer,
-    ModelAnalysisPngVisualization,
-)
-from ksdft2effmass.serialization import SerializableValue
+from ksdft2effmass.visualizations import BaseFigure, BasePlot, BaseSubplot
 
-from .configuration import Qho1dConfiguration
-from .result import Qho1dCaseResult, Qho1dStateComparisonResult
-from .verification_values import Qho1dVerification
+from ..result import Qho1dCaseResult, Qho1dStateComparisonResult
+from .data import Qho1dVisualizationData
 
 
-class Qho1dVisualizationPlotEnum(Enum):
-    """Enumerate the closed direct QHO1D figure inventory."""
-
-    eigenstates = "qho1d-eigenstates.png"
-    eigenstate_distortion = "qho1d-eigenstate-distortion.png"
-    diagnostics = "qho1d-diagnostics.png"
-
-
-@dataclass(frozen=True, slots=True, eq=False)
-class Qho1dVisualizationData(BaseModelAnalysisVisualizationData):
-    """Retain the verifier-derived QHO1D rendering projection.
-
-    Parameters
-    ----------
-    configuration
-        Exact sweep and selected-state configuration.
-    cases
-        Ordered typed cases supplying diagnostic curves.
-    selected_state_comparison
-        State-resolved selected-case values.
-
-    Raises
-    ------
-    TypeError
-        A field has the wrong domain type.
-    ValueError
-        Cases do not equal the configured sweep or selected values disagree.
-    """
-
-    configuration: Qho1dConfiguration
-    cases: tuple[Qho1dCaseResult, ...]
-    selected_state_comparison: Qho1dStateComparisonResult
-
-    def __post_init__(self) -> None:
-        if not isinstance(self.configuration, Qho1dConfiguration):
-            raise TypeError("configuration must be Qho1dConfiguration")
-        if not isinstance(self.cases, tuple) or any(
-            not isinstance(case, Qho1dCaseResult) for case in self.cases
-        ):
-            raise TypeError("cases must be a tuple of Qho1dCaseResult")
-        expected = tuple(
-            (box, spacing, retained)
-            for box in self.configuration.box_half_widths
-            for spacing in self.configuration.grid_spacings
-            for retained in self.configuration.retained_dimensions
-        )
-        if tuple(case.key for case in self.cases) != expected:
-            raise ValueError("visualization cases differ from the configured sweep")
-        if not isinstance(self.selected_state_comparison, Qho1dStateComparisonResult):
-            raise TypeError(
-                "selected_state_comparison must be Qho1dStateComparisonResult"
-            )
-        selected = self.selected_state_comparison
-        if (
-            selected.box_half_width.magnitude
-            != self.configuration.selected_box_half_width
-            or selected.retained_dimension
-            != self.configuration.selected_retained_dimension
-            or selected.displayed_states != self.configuration.displayed_states
-        ):
-            raise ValueError("selected visualization data differs from configuration")
-
-    def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {
-            "configuration": self.configuration,
-            "cases": self.cases,
-            "selected_state_comparison": self.selected_state_comparison,
-        }
-
-    @classmethod
-    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        if set(values) != {
-            "configuration",
-            "cases",
-            "selected_state_comparison",
-        }:
-            raise ValueError("QHO1D visualization fields do not match")
-        configuration_value = values["configuration"]
-        cases_value = values["cases"]
-        selected_value = values["selected_state_comparison"]
-        if not isinstance(configuration_value, Mapping):
-            raise TypeError("configuration must decode to a mapping")
-        if not isinstance(cases_value, tuple) or any(
-            not isinstance(case, Mapping) for case in cases_value
-        ):
-            raise TypeError("cases must decode to a tuple of mappings")
-        if not isinstance(selected_value, Mapping):
-            raise TypeError("selected_state_comparison must decode to a mapping")
-        return cls(
-            configuration=Qho1dConfiguration.from_dict(configuration_value),
-            cases=tuple(Qho1dCaseResult.from_dict(case) for case in cases_value),
-            selected_state_comparison=Qho1dStateComparisonResult.from_dict(
-                selected_value
-            ),
-        )
-
-
-class _Qho1dEigenstatePlot(BaseModelAnalysisPlot):
+class _Qho1dEigenstatePlot(BasePlot):
     """Draw exact, finite-grid, and boundary values for one selected state."""
 
     __slots__ = ("_state", "_index")
@@ -160,7 +48,7 @@ class _Qho1dEigenstatePlot(BaseModelAnalysisPlot):
         )
 
 
-class _Qho1dEigenstateSubplot(BaseModelAnalysisSubplot):
+class _Qho1dEigenstateSubplot(BaseSubplot):
     """Compose one state plot with state-specific axis presentation."""
 
     __slots__ = ("_index", "_plot")
@@ -176,7 +64,7 @@ class _Qho1dEigenstateSubplot(BaseModelAnalysisSubplot):
         axis.grid(alpha=0.25)
 
 
-class _Qho1dStateDistortionPlot(BaseModelAnalysisPlot):
+class _Qho1dStateDistortionPlot(BasePlot):
     """Draw pointwise finite-minus-analytical state differences."""
 
     __slots__ = ("_state",)
@@ -195,7 +83,7 @@ class _Qho1dStateDistortionPlot(BaseModelAnalysisPlot):
             )
 
 
-class _Qho1dStateDistortionSubplot(BaseModelAnalysisSubplot):
+class _Qho1dStateDistortionSubplot(BaseSubplot):
     """Compose pointwise state differences and local presentation."""
 
     __slots__ = ("_plot",)
@@ -213,7 +101,7 @@ class _Qho1dStateDistortionSubplot(BaseModelAnalysisSubplot):
         axis.grid(alpha=0.25)
 
 
-class _Qho1dEnergyDistortionPlot(BaseModelAnalysisPlot):
+class _Qho1dEnergyDistortionPlot(BasePlot):
     """Draw finite-minus-analytical retained-state energy differences."""
 
     __slots__ = ("_state",)
@@ -229,7 +117,7 @@ class _Qho1dEnergyDistortionPlot(BaseModelAnalysisPlot):
         )
 
 
-class _Qho1dEnergyDistortionSubplot(BaseModelAnalysisSubplot):
+class _Qho1dEnergyDistortionSubplot(BaseSubplot):
     """Compose retained-state energy differences and local presentation."""
 
     __slots__ = ("_plot",)
@@ -246,7 +134,7 @@ class _Qho1dEnergyDistortionSubplot(BaseModelAnalysisSubplot):
         axis.grid(axis="y", alpha=0.25)
 
 
-class _Qho1dSpatialRefinementPlot(BaseModelAnalysisPlot):
+class _Qho1dSpatialRefinementPlot(BasePlot):
     """Draw relative discrepancies across selected-box grid refinements."""
 
     __slots__ = ("_data",)
@@ -272,7 +160,7 @@ class _Qho1dSpatialRefinementPlot(BaseModelAnalysisPlot):
             )
 
 
-class _Qho1dSpatialRefinementSubplot(BaseModelAnalysisSubplot):
+class _Qho1dSpatialRefinementSubplot(BaseSubplot):
     """Compose spatial-refinement marks and local presentation."""
 
     __slots__ = ("_configuration", "_plot")
@@ -293,7 +181,7 @@ class _Qho1dSpatialRefinementSubplot(BaseModelAnalysisSubplot):
         axis.grid(alpha=0.25)
 
 
-class _Qho1dGramDefectPlot(BaseModelAnalysisPlot):
+class _Qho1dGramDefectPlot(BasePlot):
     """Draw sampled-state Gram defects across finite-domain widths."""
 
     __slots__ = ("_data",)
@@ -319,7 +207,7 @@ class _Qho1dGramDefectPlot(BaseModelAnalysisPlot):
             )
 
 
-class _Qho1dGramDefectSubplot(BaseModelAnalysisSubplot):
+class _Qho1dGramDefectSubplot(BaseSubplot):
     """Compose sampled-state Gram-defect marks and local presentation."""
 
     __slots__ = ("_configuration", "_plot")
@@ -338,7 +226,7 @@ class _Qho1dGramDefectSubplot(BaseModelAnalysisSubplot):
         axis.grid(alpha=0.25)
 
 
-class _Qho1dDiscrepancyComponentsPlot(BaseModelAnalysisPlot):
+class _Qho1dDiscrepancyComponentsPlot(BasePlot):
     """Draw diagonal and off-diagonal discrepancy components."""
 
     __slots__ = ("_data",)
@@ -373,7 +261,7 @@ class _Qho1dDiscrepancyComponentsPlot(BaseModelAnalysisPlot):
         )
 
 
-class _Qho1dDiscrepancyComponentsSubplot(BaseModelAnalysisSubplot):
+class _Qho1dDiscrepancyComponentsSubplot(BaseSubplot):
     """Compose discrepancy-component marks and local presentation."""
 
     __slots__ = ("_plot", "_retained_dimensions")
@@ -403,7 +291,7 @@ class _Qho1dDiscrepancyComponentsSubplot(BaseModelAnalysisSubplot):
         axis.grid(axis="y", alpha=0.25)
 
 
-class _Qho1dResidualDiagnosticPlot(BaseModelAnalysisPlot):
+class _Qho1dResidualDiagnosticPlot(BasePlot):
     """Draw full-space residuals against pulled-back discrepancies."""
 
     __slots__ = ("_cases",)
@@ -426,7 +314,7 @@ class _Qho1dResidualDiagnosticPlot(BaseModelAnalysisPlot):
         axis.loglog((lower, upper), (lower, upper), "--", label="equality")
 
 
-class _Qho1dResidualDiagnosticSubplot(BaseModelAnalysisSubplot):
+class _Qho1dResidualDiagnosticSubplot(BaseSubplot):
     """Compose residual-diagnostic marks and local presentation."""
 
     __slots__ = ("_plot",)
@@ -443,7 +331,7 @@ class _Qho1dResidualDiagnosticSubplot(BaseModelAnalysisSubplot):
         axis.grid(alpha=0.25)
 
 
-class _Qho1dFigure(BaseModelAnalysisFigure):
+class _Qho1dFigure(BaseFigure):
     __slots__ = ("data",)
 
     def __init__(self, data: Qho1dVisualizationData) -> None:
@@ -494,79 +382,3 @@ class _Qho1dDiagnosticFigure(_Qho1dFigure):
         _Qho1dResidualDiagnosticSubplot(self.data.cases).draw(residual_axis)
         figure.tight_layout()
         return figure
-
-
-class Qho1dVisualizer(BaseModelAnalysisVisualizer):
-    """Render the closed QHO1D figure inventory from authenticated data.
-
-    Parameters
-    ----------
-    data
-        Verifier-derived immutable visualization projection.
-    verification
-        Passing aggregate bound to the exact projection digest.
-
-    Raises
-    ------
-    TypeError
-        Either argument has the wrong domain type.
-    ValueError
-        Verification failed or authenticates different projection bytes.
-    """
-
-    __slots__ = ("data", "verification")
-
-    plots = tuple(Qho1dVisualizationPlotEnum)
-
-    def __init__(
-        self,
-        *,
-        data: Qho1dVisualizationData,
-        verification: Qho1dVerification,
-    ) -> None:
-        if not isinstance(data, Qho1dVisualizationData):
-            raise TypeError("data must be Qho1dVisualizationData")
-        if not isinstance(verification, Qho1dVerification):
-            raise TypeError("verification must be Qho1dVerification")
-        self._authenticate(data, verification)
-        self.data = data
-        self.verification = verification
-
-    def visualize(
-        self,
-    ) -> frozenset[ModelAnalysisPngVisualization[Qho1dVisualizationPlotEnum]]:
-        """Render every declared QHO1D plot exactly once.
-
-        Returns
-        -------
-        frozenset[ModelAnalysisPngVisualization[Qho1dVisualizationPlotEnum]]
-            Three validated PNG values indexed by the closed plot enum.
-
-        Raises
-        ------
-        RuntimeError
-            Concrete renderer ownership differs from the declared enum inventory.
-        """
-        renderers = (
-            ModelAnalysisPngFigureRenderer(
-                plot=Qho1dVisualizationPlotEnum.eigenstates,
-                figure=_Qho1dEigenstateFigure(self.data),
-                dpi=180,
-            ),
-            ModelAnalysisPngFigureRenderer(
-                plot=Qho1dVisualizationPlotEnum.eigenstate_distortion,
-                figure=_Qho1dEigenstateDistortionFigure(self.data),
-                dpi=180,
-            ),
-            ModelAnalysisPngFigureRenderer(
-                plot=Qho1dVisualizationPlotEnum.diagnostics,
-                figure=_Qho1dDiagnosticFigure(self.data),
-                dpi=180,
-            ),
-        )
-        visualizations = frozenset(renderer.visualize() for renderer in renderers)
-        self._require_complete_inventory(
-            visualizations,
-            frozenset(self.plots),
-        )
-        return visualizations

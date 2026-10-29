@@ -2,12 +2,12 @@
 
 ## Purpose and status
 
-This target package owns the authenticated Mathieu1D finite-reduction projection and
-closed two-PNG inventory. It replaces the current monolithic `mathieu1d.visualization`
-module without changing projection bytes, plot names, finite numerical values, or
-rendering policy.
+This implemented package owns the authenticated Mathieu1D finite-reduction projection
+and closed two-PNG inventory. It replaces the removed monolithic
+`mathieu1d.visualization` module without changing projection bytes, plot names, finite
+numerical values, or rendering policy.
 
-## Target source map
+## Source map
 
 ```text
 model_systems/mathieu1d/visualizations/

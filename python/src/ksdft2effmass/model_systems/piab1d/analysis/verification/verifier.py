@@ -27,7 +27,7 @@ from ksdft2effmass.verification import (
 )
 
 from ...result import Piab1dCalculationResult
-from ...visualization import Piab1dVisualizationData
+from ...visualizations.data import Piab1dVisualizationData
 from .reference import Piab1dIndependentReferenceAnalyzer
 from .values import Piab1dVerification
 

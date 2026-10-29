@@ -2,9 +2,9 @@
 
 ## Status and responsibility
 
-Target authenticated visualization package for the closed two-figure native inventory.
-It replaces the current singular source module without changing projection bytes,
-filenames, scientific values, or rendering policy.
+Implemented authenticated visualization package for the closed two-figure native
+inventory. It replaces the removed singular source module without changing projection
+bytes, filenames, scientific values, or rendering policy.
 
 ```text
 periodic1d/fourier_locality/visualizations/

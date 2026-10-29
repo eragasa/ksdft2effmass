@@ -19,14 +19,19 @@ visualization code:
 1. whether the complete concrete verification passed; and
 2. the SHA-256 digest of the authenticated canonical projection bytes.
 
-`BaseModelAnalysisVerification` implements that interface for the current families.
-`BaseVisualizer` accepts the root interface rather than importing a model-system type.
-This prevents the root visualization package from depending outward on
-`model_systems`.
+`VisualizationVerification` is a nominal abstract subtype of `BaseVerification`, and
+`BaseModelAnalysisVerification` implements it for the current families. `BaseVisualizer`
+binds that root interface rather than importing a model-system type. This prevents the
+root visualization package from depending outward on `model_systems` and rejects
+unrelated duck-typed objects.
 
-Authentication compares the digest of `data.to_json()` with the digest retained by the
-verification aggregate and fails closed before figure construction. It does not trust a
-caller-authored digest or a stored pass label.
+The `BaseVisualizer` constructor binds the complete immutable projection, concrete
+verification, and nonempty unique plot inventory. It compares the digest of
+`data.to_json()` with the digest retained by the verification aggregate and fails closed
+before figure construction. Its final `visualize()` method admits only a frozen set of
+PNG values whose identities exactly equal the constructor-bound inventory. Family
+visualizers implement only `_render()` and cannot bypass authentication or inventory
+closure.
 
 ## Figure composition
 
@@ -39,8 +44,9 @@ The composition layers remain separate:
 - `BaseVisualizer.visualize()` owns the complete authenticated family inventory.
 
 A family may use a direct figure action when decomposition into smaller plot/subplot
-actions would not create a cohesive reusable owner. Empty marker classes and generic
-helpers are not introduced merely to satisfy the layering vocabulary.
+actions would not create a cohesive reusable owner. Empty marker classes, dangling
+helper functions, utility containers, and static helper methods are not introduced
+merely to satisfy the layering vocabulary.
 
 ## Rendering and PNG admission
 
@@ -51,8 +57,8 @@ bytes in memory, closes the Matplotlib figure on both success and failure, and c
 
 `PngVisualization` requires:
 
-- an enum member with a safe nonempty `.png` basename;
-- immutable built-in `bytes`;
+- an enum member with a cross-platform-safe, non-reserved `.png` basename;
+- immutable built-in `bytes` with the PNG signature;
 - successful decoding as a nonempty PNG image; and
 - the fixed `image/png` media type.
 

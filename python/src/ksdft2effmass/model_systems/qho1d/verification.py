@@ -34,7 +34,7 @@ from .verification_values import (
     Qho1dStateComparisonVerification,
     Qho1dVerification,
 )
-from .visualization import Qho1dVisualizationData
+from .visualizations.data import Qho1dVisualizationData
 
 type ReferenceQuantity = ScalarQuantity | VectorQuantity | MatrixQuantity
 

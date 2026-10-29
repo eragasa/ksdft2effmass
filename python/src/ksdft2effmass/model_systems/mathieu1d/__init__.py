@@ -19,7 +19,7 @@ from .verification_values import (
     Mathieu1dIndependentVerification,
     Mathieu1dVerification,
 )
-from .visualization import (
+from .visualizations import (
     Mathieu1dVisualizationData,
     Mathieu1dVisualizationPlotEnum,
     Mathieu1dVisualizer,

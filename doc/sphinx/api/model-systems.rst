@@ -34,45 +34,11 @@ SHA-256 identity, reconstructs the typed result from those same bytes, and owns 
 final derive--digest--verify composition. Callers cannot pair a decoded result with an
 unrelated subject digest or supply a projection digest.
 
-Visualization separates four responsibilities. ``BaseModelAnalysisPlot`` draws one
-data relation on a caller-owned axis. ``BaseModelAnalysisSubplot`` composes plots and
-axis-local presentation. ``BaseModelAnalysisFigure`` chooses the subplot layout and
-figure-wide presentation. ``BaseModelAnalysisFigureRenderer`` encodes one composed
-figure as an immutable value. ``BaseModelAnalysisVisualizer`` owns the complete
-figure inventory. Generic PNG values require a cross-platform-safe basename ending
-exactly in ``.png`` and decode supplied bytes before admission.
-``BaseModelAnalysisVisualizationData`` and ``BaseModelAnalysisVerification``
-separately fix the dictionary and JSON boundaries for immutable verification values;
-concrete values implement only their typed mapping.
+Domain-neutral projection, figure, rendering, and PNG-admission contracts belong to
+:doc:`visualizations`; model-system packages own only their scientific projections and
+closed figure inventories.
 
 .. autoclass:: BaseModelAnalysisVerifier
-   :members:
-
-.. autoclass:: BaseModelAnalysisVisualizer
-   :members:
-
-.. autoclass:: BaseModelAnalysisPlot
-   :members:
-
-.. autoclass:: BaseModelAnalysisSubplot
-   :members:
-
-.. autoclass:: BaseModelAnalysisFigure
-   :members:
-
-.. autoclass:: BaseModelAnalysisFigureRenderer
-   :members:
-
-.. autoclass:: ModelAnalysisPngFigureRenderer
-   :members:
-
-.. autoclass:: BaseModelAnalysisVisualization
-   :members:
-
-.. autoclass:: BaseModelAnalysisVisualizationData
-   :members:
-
-.. autoclass:: ModelAnalysisPngVisualization
    :members:
 
 .. autoclass:: BaseVerification

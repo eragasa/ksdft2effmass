@@ -15,7 +15,7 @@ from ksdft2effmass.model_systems.mathieu1d.verification import Mathieu1dVerifier
 from ksdft2effmass.model_systems.mathieu1d.verification_values import (
     Mathieu1dVerification,
 )
-from ksdft2effmass.model_systems.mathieu1d.visualization import (
+from ksdft2effmass.model_systems.mathieu1d.visualizations import (
     Mathieu1dVisualizationData,
     Mathieu1dVisualizer,
 )

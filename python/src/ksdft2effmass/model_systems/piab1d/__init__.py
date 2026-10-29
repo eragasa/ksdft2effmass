@@ -31,7 +31,7 @@ from .result import (
     Piab1dConvergenceResult,
     Piab1dSelectionResult,
 )
-from .visualization import (
+from .visualizations import (
     Piab1dVisualizationData,
     Piab1dVisualizationPlotEnum,
     Piab1dVisualizer,

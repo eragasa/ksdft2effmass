@@ -2,15 +2,12 @@
 
 ## Purpose and status
 
-This target package owns the authenticated PIAB1D projection and closed thirteen-PNG
-presentation inventory. It replaces the current monolithic `piab1d.visualization`
-module without changing projection bytes, figure names, scientific values, or rendering
-policy.
+This implemented package owns the authenticated PIAB1D projection and closed
+thirteen-PNG presentation inventory. It replaces the removed monolithic
+`piab1d.visualization` module without changing projection bytes, figure names,
+scientific values, or rendering policy.
 
-The package is architecture-first: the current singular source module remains installed
-until the behavior-preserving migration lands.
-
-## Target source map
+## Source map
 
 ```text
 model_systems/piab1d/visualizations/

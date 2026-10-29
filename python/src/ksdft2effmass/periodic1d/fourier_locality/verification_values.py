@@ -19,7 +19,7 @@ from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from .configuration import Periodic1DFourierLocalityConfiguration
 from .result import Periodic1DFourierLocalityCalculationResult
-from .visualization import Periodic1DFourierLocalityVisualizationData
+from .visualizations.data import Periodic1DFourierLocalityVisualizationData
 
 
 @dataclass(frozen=True, slots=True)

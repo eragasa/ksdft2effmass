@@ -46,5 +46,5 @@ Independent verification
 Authenticated visualization data
 --------------------------------
 
-.. automodule:: ksdft2effmass.periodic1d.fourier_locality.visualization
+.. automodule:: ksdft2effmass.periodic1d.fourier_locality.visualizations
    :members:

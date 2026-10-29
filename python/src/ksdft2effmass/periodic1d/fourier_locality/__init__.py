@@ -23,7 +23,7 @@ from .verification_values import (
     Periodic1DFourierLocalityIndependentVerification,
     Periodic1DFourierLocalityIndependentVerifier,
 )
-from .visualization import (
+from .visualizations import (
     Periodic1DFourierLocalityVisualizationData,
     Periodic1DFourierLocalityVisualizationPlotEnum,
     Periodic1DFourierLocalityVisualizer,

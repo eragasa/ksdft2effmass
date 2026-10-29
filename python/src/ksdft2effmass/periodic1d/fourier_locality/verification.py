@@ -25,7 +25,7 @@ from ksdft2effmass.verification import CompositeVerification
 
 from .result import Periodic1DFourierLocalityCalculationResult
 from .verification_values import Periodic1DFourierLocalityIndependentVerifier
-from .visualization import Periodic1DFourierLocalityVisualizationData
+from .visualizations.data import Periodic1DFourierLocalityVisualizationData
 
 
 class FourierLocalityVerification(CompositeVerification):

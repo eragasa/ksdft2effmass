@@ -9,15 +9,15 @@ from typing import final
 
 from ksdft2effmass.serialization import BaseTypedRecord
 from ksdft2effmass.verification import CompositeVerification
+from ksdft2effmass.visualizations import BaseVisualizationData
 
 from .verification import BaseModelAnalysisVerification
-from .visualization import BaseModelAnalysisVisualizationData
 
 
 @dataclass(frozen=True, slots=True)
 class ModelAnalysisVerificationResult[
     VerificationT: BaseModelAnalysisVerification,
-    VisualizationDataT: BaseModelAnalysisVisualizationData,
+    VisualizationDataT: BaseVisualizationData,
 ]:
     """Retain one verification value and authenticated visualization data.
 
@@ -42,13 +42,8 @@ class ModelAnalysisVerificationResult[
     def __post_init__(self) -> None:
         if not isinstance(self.verification, BaseModelAnalysisVerification):
             raise TypeError("verification must be BaseModelAnalysisVerification")
-        if not isinstance(
-            self.visualization_data,
-            BaseModelAnalysisVisualizationData,
-        ):
-            raise TypeError(
-                "visualization_data must be BaseModelAnalysisVisualizationData"
-            )
+        if not isinstance(self.visualization_data, BaseVisualizationData):
+            raise TypeError("visualization_data must be BaseVisualizationData")
         calculated_digest = hashlib.sha256(
             self.visualization_data.to_json()
         ).hexdigest()
@@ -68,7 +63,7 @@ class ModelAnalysisVerificationResult[
 class BaseModelAnalysisVerifier[
     ResultT: BaseTypedRecord,
     VerificationT: BaseModelAnalysisVerification,
-    VisualizationDataT: BaseModelAnalysisVisualizationData,
+    VisualizationDataT: BaseVisualizationData,
 ](ABC):
     """Bind, verify, and authenticate one typed model-analysis result.
 
@@ -241,13 +236,8 @@ class BaseModelAnalysisVerifier[
         """
         if not isinstance(verification, BaseModelAnalysisVerification):
             raise TypeError("verification must be BaseModelAnalysisVerification")
-        if not isinstance(
-            visualization_data,
-            BaseModelAnalysisVisualizationData,
-        ):
-            raise TypeError(
-                "visualization_data must be BaseModelAnalysisVisualizationData"
-            )
+        if not isinstance(visualization_data, BaseVisualizationData):
+            raise TypeError("visualization_data must be BaseVisualizationData")
         expected = self.result()
         if type(verification) is not type(expected.verification):
             raise TypeError(

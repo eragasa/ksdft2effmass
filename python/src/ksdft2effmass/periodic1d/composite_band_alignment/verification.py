@@ -22,7 +22,9 @@ from .result import Periodic1DCompositeBandAlignmentCalculationResult
 from .verification_values import (
     Periodic1DCompositeBandAlignmentIndependentVerifier,
 )
-from .visualization import Periodic1DCompositeBandAlignmentVisualizationData
+from .visualizations.data import (
+    Periodic1DCompositeBandAlignmentVisualizationData,
+)
 
 
 class CompositeBandAlignmentVerification(CompositeVerification):

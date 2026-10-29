@@ -15,7 +15,7 @@ from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from ...diagnostics import diagnostic_method_names
 from ...result import Piab1dCalculationResult
-from ...visualization import Piab1dVisualizationData
+from ...visualizations.data import Piab1dVisualizationData
 
 
 @dataclass(frozen=True, slots=True)

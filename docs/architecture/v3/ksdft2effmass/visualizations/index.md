@@ -2,17 +2,13 @@
 
 ## Purpose and status
 
-This target Architecture v3 package owns domain-neutral authenticated visualization
+This implemented Architecture v3 package owns domain-neutral authenticated visualization
 mechanics shared by model-system and periodic calculation families. It replaces the
-misplaced shared module `ksdft2effmass.model_systems.visualization`; it does not own any
+removed `ksdft2effmass.model_systems.visualization` module; it does not own any
 scientific projection, plot inventory, threshold, acceptance decision, or calculation
 path.
 
-The architecture is approved before implementation. Until the corresponding source
-migration lands, the current singular modules remain the installed runtime and these
-pages describe the replacement contract rather than a supported import.
-
-## Target source map
+## Source map
 
 ```text
 python/src/ksdft2effmass/visualizations/
@@ -37,7 +33,7 @@ The modules own:
 
 ## Public contract
 
-The target public types are domain-neutral replacements for the current
+The public types are domain-neutral replacements for the removed
 `BaseModelAnalysis...` names:
 
 - `BaseVisualization`;
@@ -51,8 +47,8 @@ The target public types are domain-neutral replacements for the current
 - `BaseVisualizer`.
 
 Family source imports these types from `ksdft2effmass.visualizations`. The old
-`ksdft2effmass.model_systems.visualization` module is removed after all direct callers
-migrate. No compatibility shim or alias module remains.
+`ksdft2effmass.model_systems.visualization` module has been removed. No compatibility
+shim or alias module remains.
 
 ## Dependency direction
 

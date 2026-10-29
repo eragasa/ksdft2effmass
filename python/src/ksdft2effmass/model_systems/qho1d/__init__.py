@@ -44,7 +44,7 @@ from .verification_values import (
     Qho1dSweepVerification,
     Qho1dVerification,
 )
-from .visualization import (
+from .visualizations import (
     Qho1dVisualizationData,
     Qho1dVisualizationPlotEnum,
     Qho1dVisualizer,

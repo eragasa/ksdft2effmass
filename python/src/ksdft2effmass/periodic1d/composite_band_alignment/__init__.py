@@ -18,7 +18,7 @@ from .verification_values import (
     Periodic1DCompositeBandAlignmentIndependentVerification,
     Periodic1DCompositeBandAlignmentIndependentVerifier,
 )
-from .visualization import (
+from .visualizations import (
     Periodic1DCompositeBandAlignmentVisualizationData,
     Periodic1DCompositeBandAlignmentVisualizationPlotEnum,
     Periodic1DCompositeBandAlignmentVisualizer,

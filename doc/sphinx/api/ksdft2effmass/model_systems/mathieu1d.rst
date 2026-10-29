@@ -51,5 +51,5 @@ Independent verification
 Authenticated visualization
 ----------------------------
 
-.. automodule:: ksdft2effmass.model_systems.mathieu1d.visualization
+.. automodule:: ksdft2effmass.model_systems.mathieu1d.visualizations
    :members:

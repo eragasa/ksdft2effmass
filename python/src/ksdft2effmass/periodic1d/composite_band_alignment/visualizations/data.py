@@ -1,34 +1,20 @@
-"""Authenticated figures for rank-two composite-band alignment and locality."""
+"""Authenticated rank-two composite-alignment projection."""
 
 from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import Enum
-from typing import TYPE_CHECKING, Self
+from typing import Self
 
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.figure import Figure
 from projectkoios.physkit.units import MatrixQuantity, Unitless, VectorQuantity
 
-from ksdft2effmass.model_systems.visualization import (
-    BaseModelAnalysisFigure,
-    BaseModelAnalysisVisualizationData,
-    BaseModelAnalysisVisualizer,
-    ModelAnalysisPngFigureRenderer,
-    ModelAnalysisPngVisualization,
-)
 from ksdft2effmass.serialization import SerializableValue
-
-if TYPE_CHECKING:
-    from .verification import Periodic1DCompositeBandAlignmentVerification
+from ksdft2effmass.visualizations import BaseVisualizationData
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DCompositeBandAlignmentVisualizationData(
-    BaseModelAnalysisVisualizationData
-):
+class Periodic1DCompositeBandAlignmentVisualizationData(BaseVisualizationData):
     """Retain exactly the verifier-authenticated values drawn by all figures."""
 
     evaluation_reduced_momenta: VectorQuantity
@@ -293,14 +279,45 @@ class Periodic1DCompositeBandAlignmentVisualizationData(
             )
         if type(diagnostic_values) is not VectorQuantity:
             raise TypeError("diagnostic_values must decode to VectorQuantity")
-        ranges = cls._integer_tuple(values["maximum_ranges"], "maximum_ranges")
-        representatives = cls._integer_tuple(
-            values["transform_representatives"], "transform_representatives"
-        )
-        channels = cls._string_tuple(values["channel_names"], "channel_names")
-        diagnostic_names = cls._string_tuple(
-            values["diagnostic_names"], "diagnostic_names"
-        )
+        maximum_ranges_value = values["maximum_ranges"]
+        if not isinstance(maximum_ranges_value, tuple):
+            raise TypeError("maximum_ranges must decode to a tuple")
+        ranges_list: list[int] = []
+        for entry in maximum_ranges_value:
+            if type(entry) is not int:
+                raise TypeError("maximum_ranges must decode to integers")
+            ranges_list.append(entry)
+        ranges = tuple(ranges_list)
+
+        representatives_value = values["transform_representatives"]
+        if not isinstance(representatives_value, tuple):
+            raise TypeError("transform_representatives must decode to a tuple")
+        representatives_list: list[int] = []
+        for entry in representatives_value:
+            if type(entry) is not int:
+                raise TypeError("transform_representatives must decode to integers")
+            representatives_list.append(entry)
+        representatives = tuple(representatives_list)
+
+        channel_names_value = values["channel_names"]
+        if not isinstance(channel_names_value, tuple):
+            raise TypeError("channel_names must decode to a tuple")
+        channels_list: list[str] = []
+        for entry in channel_names_value:
+            if type(entry) is not str:
+                raise TypeError("channel_names must decode to strings")
+            channels_list.append(entry)
+        channels = tuple(channels_list)
+
+        diagnostic_names_value = values["diagnostic_names"]
+        if not isinstance(diagnostic_names_value, tuple):
+            raise TypeError("diagnostic_names must decode to a tuple")
+        diagnostic_names_list: list[str] = []
+        for entry in diagnostic_names_value:
+            if type(entry) is not str:
+                raise TypeError("diagnostic_names must decode to strings")
+            diagnostic_names_list.append(entry)
+        diagnostic_names = tuple(diagnostic_names_list)
         return cls(
             evaluation_reduced_momenta=coordinates,
             evaluation_parent_spectrum=spectrum,
@@ -322,226 +339,3 @@ class Periodic1DCompositeBandAlignmentVisualizationData(
             diagnostic_names=diagnostic_names,
             diagnostic_values=diagnostic_values,
         )
-
-    @staticmethod
-    def _integer_tuple(value: SerializableValue, name: str) -> tuple[int, ...]:
-        if not isinstance(value, tuple):
-            raise TypeError(f"{name} must decode to a tuple")
-        result: list[int] = []
-        for entry in value:
-            if type(entry) is not int:
-                raise TypeError(f"{name} must decode to integers")
-            result.append(entry)
-        return tuple(result)
-
-    @staticmethod
-    def _string_tuple(value: SerializableValue, name: str) -> tuple[str, ...]:
-        if not isinstance(value, tuple):
-            raise TypeError(f"{name} must decode to a tuple")
-        result: list[str] = []
-        for entry in value:
-            if type(entry) is not str:
-                raise TypeError(f"{name} must decode to strings")
-            result.append(entry)
-        return tuple(result)
-
-
-class Periodic1DCompositeBandAlignmentVisualizationPlotEnum(Enum):
-    """Declare the closed three-figure output inventory."""
-
-    ALIGNMENT = "rank2-composite-alignment.png"
-    LOCALITY = "rank2-composite-locality.png"
-    ERROR_CHANNELS = "rank2-composite-error-channels.png"
-
-
-@dataclass(frozen=True, slots=True)
-class _AlignmentFigure(BaseModelAnalysisFigure):
-    data: Periodic1DCompositeBandAlignmentVisualizationData
-
-    def draw(self) -> Figure:
-        figure, axes = plt.subplots(1, 2, figsize=(12.0, 4.6), constrained_layout=True)
-        coordinates = self.data.evaluation_reduced_momenta.magnitude
-        spectrum = self.data.evaluation_parent_spectrum.magnitude
-        axes[0].plot(coordinates, spectrum[:, 0], label="retained band 1")
-        axes[0].plot(coordinates, spectrum[:, 1], label="retained band 2")
-        axes[0].set_xlabel("reduced momentum")
-        axes[0].set_ylabel("energy / E_ref")
-        axes[0].set_title("Parent retained spectrum")
-        axes[0].legend()
-        positions = np.arange(len(self.data.diagnostic_names), dtype=np.float64)
-        axes[1].bar(positions, self.data.diagnostic_values.magnitude)
-        axes[1].set_xticks(
-            positions, self.data.diagnostic_names, rotation=25, ha="right"
-        )
-        axes[1].set_yscale("log")
-        axes[1].set_ylabel("dimensionless defect")
-        axes[1].set_title("Alignment diagnostics")
-        figure.suptitle("Rank-two composite-band alignment")
-        return figure
-
-
-@dataclass(frozen=True, slots=True)
-class _LocalityFigure(BaseModelAnalysisFigure):
-    data: Periodic1DCompositeBandAlignmentVisualizationData
-
-    def draw(self) -> Figure:
-        figure, axes = plt.subplots(1, 2, figsize=(12.0, 4.6), constrained_layout=True)
-        ranges = np.asarray(self.data.maximum_ranges, dtype=np.int64)
-        for index, channel in enumerate(self.data.channel_names):
-            axes[0].semilogy(
-                ranges,
-                self.data.evaluation_total_spectral_maximum_errors.magnitude[:, index],
-                marker="o",
-                label=channel,
-            )
-            axes[1].semilogy(
-                self.data.transform_representatives,
-                self.data.hopping_block_frobenius_norms.magnitude[index],
-                marker=".",
-                label=channel,
-            )
-        axes[0].set_xlabel("maximum hopping range")
-        axes[0].set_ylabel("evaluation spectral maximum error / E_ref")
-        axes[0].set_title("Finite-range spectral errors")
-        axes[0].legend()
-        axes[1].set_xlabel("lattice representative")
-        axes[1].set_ylabel("block Frobenius norm / E_ref")
-        axes[1].set_title("Complete block-hopping decay")
-        axes[1].legend()
-        figure.suptitle("Rank-two composite-band block locality")
-        return figure
-
-
-@dataclass(frozen=True, slots=True)
-class _ErrorChannelFigure(BaseModelAnalysisFigure):
-    data: Periodic1DCompositeBandAlignmentVisualizationData
-
-    def draw(self) -> Figure:
-        figure, axes = plt.subplots(1, 3, figsize=(15.0, 4.6), constrained_layout=True)
-        ranges = np.asarray(self.data.maximum_ranges, dtype=np.int64)
-        attacked_index = self.data.channel_names.index("attacked")
-        positions = np.arange(len(self.data.channel_names), dtype=np.float64)
-        axes[0].bar(positions, self.data.cyclic_conversion_powers.magnitude)
-        axes[0].set_xticks(positions, self.data.channel_names, rotation=20, ha="right")
-        axes[0].set_yscale("log")
-        axes[0].set_ylabel("conversion power / E_ref²")
-        axes[0].set_title("Cyclic Nyquist conversion")
-        interpolation_hamiltonian = (
-            self.data.evaluation_interpolation_hamiltonian_maximum_errors.magnitude[
-                attacked_index
-            ]
-        )
-        axes[1].semilogy(
-            ranges,
-            np.full(ranges.shape, interpolation_hamiltonian),
-            marker="o",
-            label="interpolation",
-        )
-        axes[1].semilogy(
-            ranges,
-            self.data.evaluation_truncation_hamiltonian_maximum_errors.magnitude[
-                :, attacked_index
-            ],
-            marker="o",
-            label="truncation",
-        )
-        axes[1].semilogy(
-            ranges,
-            self.data.evaluation_total_hamiltonian_maximum_errors.magnitude[
-                :, attacked_index
-            ],
-            marker="o",
-            label="total",
-        )
-        axes[1].set_xlabel("maximum hopping range")
-        axes[1].set_ylabel("normalized maximum Frobenius error")
-        axes[1].set_title("Attacked Hamiltonian channels")
-        axes[1].legend()
-        interpolation_spectral = (
-            self.data.evaluation_interpolation_spectral_maximum_errors.magnitude[
-                attacked_index
-            ]
-        )
-        axes[2].semilogy(
-            ranges,
-            np.full(ranges.shape, interpolation_spectral),
-            marker="o",
-            label="interpolation",
-        )
-        axes[2].semilogy(
-            ranges,
-            self.data.evaluation_truncation_spectral_maximum_errors.magnitude[
-                :, attacked_index
-            ],
-            marker="o",
-            label="truncation",
-        )
-        axes[2].semilogy(
-            ranges,
-            self.data.evaluation_total_spectral_maximum_errors.magnitude[
-                :, attacked_index
-            ],
-            marker="o",
-            label="total",
-        )
-        axes[2].set_xlabel("maximum hopping range")
-        axes[2].set_ylabel("maximum sorted-band error / E_ref")
-        axes[2].set_title("Attacked spectral channels")
-        axes[2].legend()
-        figure.suptitle("Rank-two composite-band error-channel decomposition")
-        return figure
-
-
-@dataclass(frozen=True, slots=True)
-class Periodic1DCompositeBandAlignmentVisualizer(BaseModelAnalysisVisualizer):
-    """Authenticate one projection and render the closed three-figure inventory."""
-
-    data: Periodic1DCompositeBandAlignmentVisualizationData
-    verification: Periodic1DCompositeBandAlignmentVerification
-    dpi: int = 180
-
-    def __post_init__(self) -> None:
-        self._authenticate(self.data, self.verification)
-        if type(self.dpi) is not int:
-            raise TypeError("dpi must be a built-in int")
-        if self.dpi <= 0:
-            raise ValueError("dpi must be positive")
-
-    def visualize(
-        self,
-    ) -> frozenset[
-        ModelAnalysisPngVisualization[
-            Periodic1DCompositeBandAlignmentVisualizationPlotEnum
-        ]
-    ]:
-        visualizations = frozenset(
-            {
-                ModelAnalysisPngFigureRenderer(
-                    Periodic1DCompositeBandAlignmentVisualizationPlotEnum.ALIGNMENT,
-                    _AlignmentFigure(self.data),
-                    self.dpi,
-                ).visualize(),
-                ModelAnalysisPngFigureRenderer(
-                    Periodic1DCompositeBandAlignmentVisualizationPlotEnum.LOCALITY,
-                    _LocalityFigure(self.data),
-                    self.dpi,
-                ).visualize(),
-                ModelAnalysisPngFigureRenderer(
-                    Periodic1DCompositeBandAlignmentVisualizationPlotEnum.ERROR_CHANNELS,
-                    _ErrorChannelFigure(self.data),
-                    self.dpi,
-                ).visualize(),
-            }
-        )
-        self._require_complete_inventory(
-            visualizations,
-            frozenset(Periodic1DCompositeBandAlignmentVisualizationPlotEnum),
-        )
-        return visualizations
-
-
-__all__ = [
-    "Periodic1DCompositeBandAlignmentVisualizationData",
-    "Periodic1DCompositeBandAlignmentVisualizationPlotEnum",
-    "Periodic1DCompositeBandAlignmentVisualizer",
-]

@@ -22,7 +22,9 @@ from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from .configuration import Periodic1DCompositeBandAlignmentConfiguration
 from .result import Periodic1DCompositeBandAlignmentCalculationResult
-from .visualization import Periodic1DCompositeBandAlignmentVisualizationData
+from .visualizations.data import (
+    Periodic1DCompositeBandAlignmentVisualizationData,
+)
 
 
 @dataclass(frozen=True, slots=True)

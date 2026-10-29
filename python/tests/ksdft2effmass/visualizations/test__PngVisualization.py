@@ -6,10 +6,10 @@ from enum import Enum
 
 import pytest
 
-from ksdft2effmass.model_systems import ModelAnalysisPngVisualization
+from ksdft2effmass.visualizations import PngVisualization
 
 pytestmark = pytest.mark.software_verification
-SUT = ModelAnalysisPngVisualization
+SUT = PngVisualization
 
 
 class _UnsafePlot(Enum):
@@ -20,9 +20,12 @@ class _UnsafePlot(Enum):
     nested = "nested/escape.png"
     wrong_suffix = "figure.pdf"
     empty_stem = ".png"
+    windows_reserved = "CON.png"
+    windows_reserved_with_space = "CON .png"
+    windows_forbidden_character = "bad:name.png"
 
 
-class TestModelAnalysisPngVisualization:
+class TestPngVisualization:
     """Own safe generic PNG basename admission."""
 
     @pytest.mark.parametrize("plot", tuple(_UnsafePlot))
