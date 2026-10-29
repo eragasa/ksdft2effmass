@@ -189,8 +189,10 @@ analyzer now binds the complete result and verifier-derived visualization projec
 in `Piab1dIndependentReferenceRequest`; its zero-argument `execute()` constructs each
 complete child request only from that admitted subject. The QHO1D remediation begins
 at the common-coordinate leaf: `Qho1dComparator` now binds the existing complete
-`Qho1dComparisonRequest`, and the provisional sweep composition constructs each
-request-bound comparator only after the exact case models exist.
+`Qho1dComparisonRequest`, and the sweep composition constructs each request-bound
+comparator only after the exact case models exist. `Qho1dAnalyzer` then binds the
+configuration and full result identity in `Qho1dAnalysisRequest`; its zero-argument
+`execute()` owns only deterministic calculation composition.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

@@ -187,8 +187,15 @@ boundary as PIAB1D; historical ``study`` serialization is not involved.
 .. autoclass:: Qho1dCalculationResult
    :members:
 
+.. autoclass:: Qho1dAnalysisRequest
+   :members:
+
 .. autoclass:: Qho1dAnalyzer
    :members:
+
+``Qho1dAnalyzer`` binds one complete immutable ``Qho1dAnalysisRequest`` before
+execution. Its terminal action takes no scientific arguments and constructs each
+request-bound comparison child only after the exact case models exist.
 
 The adjacent-grid analyzer compares successive coarse/fine pulled-back Hamiltonians
 only after both act in the same retained number-state coordinates. Its Frobenius norm

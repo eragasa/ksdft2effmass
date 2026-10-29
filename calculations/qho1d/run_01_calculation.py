@@ -11,7 +11,11 @@ from pathlib import Path
 
 import numpy as np
 
-from ksdft2effmass.model_systems.qho1d import Qho1dAnalyzer, Qho1dConfiguration
+from ksdft2effmass.model_systems.qho1d import (
+    Qho1dAnalysisRequest,
+    Qho1dAnalyzer,
+    Qho1dConfiguration,
+)
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
 # Authored scientific configuration. JSON is an output representation, not an input.
@@ -46,14 +50,16 @@ if execution_directory.exists():
 if temporary_directory.exists():
     raise FileExistsError(f"refusing to overwrite {temporary_directory}")
 
-analyzer = Qho1dAnalyzer()
-result = analyzer.execute(
-    configuration,
-    calculation_family=CALCULATION_FAMILY,
-    execution_id=EXECUTION_ID,
-    evidence_status=EVIDENCE_STATUS,
-    claim_boundary=CLAIM_BOUNDARY,
+analyzer = Qho1dAnalyzer(
+    Qho1dAnalysisRequest(
+        configuration=configuration,
+        calculation_family=CALCULATION_FAMILY,
+        execution_id=EXECUTION_ID,
+        evidence_status=EVIDENCE_STATUS,
+        claim_boundary=CLAIM_BOUNDARY,
+    )
 )
+result = analyzer.execute()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
 configuration_sha256 = hashlib.sha256(configuration_bytes).hexdigest()

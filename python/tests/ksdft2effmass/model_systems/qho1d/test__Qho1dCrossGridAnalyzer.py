@@ -7,6 +7,7 @@ from projectkoios.physkit.linalg.matrix.norm import FrobeniusMatrixNorm
 from projectkoios.physkit.units import MatrixQuantity, ScalarQuantity
 
 from ksdft2effmass.model_systems.qho1d import (
+    Qho1dAnalysisRequest,
     Qho1dAnalyzer,
     Qho1dCalculationResult,
     Qho1dConfiguration,
@@ -43,13 +44,15 @@ class TestQho1dCrossGridAnalyzer:
         grid_spacings: tuple[float, ...] = (0.2, 0.1, 0.05),
     ) -> Qho1dCalculationResult:
         """Return one direct calculation for the compact configuration."""
-        return Qho1dAnalyzer().execute(
-            cls.configuration(grid_spacings),
-            calculation_family="qho1d-spatial-truncation",
-            execution_id="cross-grid-test",
-            evidence_status="illustrative numerical experiment",
-            claim_boundary="test fixture; no continuum-convergence claim",
-        )
+        return Qho1dAnalyzer(
+            Qho1dAnalysisRequest(
+                configuration=cls.configuration(grid_spacings),
+                calculation_family="qho1d-spatial-truncation",
+                execution_id="cross-grid-test",
+                evidence_status="illustrative numerical experiment",
+                claim_boundary="test fixture; no continuum-convergence claim",
+            )
+        ).execute()
 
     def test_method__execute__calculates_ordered_adjacent_grid_norms(self) -> None:
         """Every fixed-box, fixed-dimension adjacent pair is compared once."""

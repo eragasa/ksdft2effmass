@@ -8,7 +8,7 @@ The comparison separates represented finite operators from the continuum differe
 operator and makes no semiconductor-validation claim.
 """
 
-from .analysis import Qho1dAnalyzer
+from .analysis import Qho1dAnalysisRequest, Qho1dAnalyzer
 from .analytical import Qho1dAnalytical
 from .case_sections import (
     Qho1dHamiltonianComparisonResult,
@@ -52,6 +52,7 @@ from .visualizations import (
 
 __all__ = [
     "Qho1dAnalytical",
+    "Qho1dAnalysisRequest",
     "Qho1dAnalyzer",
     "Qho1dCalculationResult",
     "Qho1dCaseResult",

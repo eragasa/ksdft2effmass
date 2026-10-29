@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import numpy as np
 from projectkoios.physkit.linalg.matrix.norm import FrobeniusMatrixNorm
 from projectkoios.physkit.units import (
@@ -30,6 +32,32 @@ from .result import (
 )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Qho1dAnalysisRequest:
+    """Bind one complete QHO1D calculation and result-identity request."""
+
+    configuration: Qho1dConfiguration
+    calculation_family: str
+    execution_id: str
+    evidence_status: str
+    claim_boundary: str
+
+    def __post_init__(self) -> None:
+        """Admit the typed configuration and nonempty result-identity metadata."""
+        if type(self.configuration) is not Qho1dConfiguration:
+            raise TypeError("configuration must be Qho1dConfiguration")
+        for name, value in (
+            ("calculation_family", self.calculation_family),
+            ("execution_id", self.execution_id),
+            ("evidence_status", self.evidence_status),
+            ("claim_boundary", self.claim_boundary),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in string")
+            if not value:
+                raise ValueError(f"{name} must be nonempty")
+
+
 class Qho1dAnalyzer:
     """Calculate an ordered QHO1D spatial-truncation sweep.
 
@@ -38,31 +66,20 @@ class Qho1dAnalyzer:
     comparator remain reusable domain owners.
     """
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        configuration: Qho1dConfiguration,
-        *,
-        calculation_family: str,
-        execution_id: str,
-        evidence_status: str,
-        claim_boundary: str,
-    ) -> Qho1dCalculationResult:
+    def __init__(self, request: Qho1dAnalysisRequest) -> None:
+        if type(request) is not Qho1dAnalysisRequest:
+            raise TypeError("request must be Qho1dAnalysisRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Qho1dAnalysisRequest:
+        """Return the complete immutable calculation request."""
+        return self._request
+
+    def execute(self) -> Qho1dCalculationResult:
         """Calculate one complete typed QHO1D result.
-
-        Parameters
-        ----------
-        configuration
-            Exact nondimensional sweep and state-visualization selection.
-        calculation_family
-            Stable family identifier without a publication revision suffix.
-        execution_id
-            Concrete execution identifier.
-        evidence_status
-            Explicit result classification.
-        claim_boundary
-            Human-readable limit on claims supported by this calculation.
 
         Returns
         -------
@@ -71,27 +88,13 @@ class Qho1dAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``configuration`` or a metadata value has the wrong type.
         ValueError
-            Metadata is empty or the selected case cannot be identified uniquely.
+            The selected case cannot be identified uniquely.
         """
-        if not isinstance(configuration, Qho1dConfiguration):
-            raise TypeError("configuration must be Qho1dConfiguration")
-        for name, value in (
-            ("calculation_family", calculation_family),
-            ("execution_id", execution_id),
-            ("evidence_status", evidence_status),
-            ("claim_boundary", claim_boundary),
-        ):
-            if type(value) is not str:
-                raise TypeError(f"{name} must be a built-in string")
-            if not value:
-                raise ValueError(f"{name} must be nonempty")
+        request = self.request
+        configuration = request.configuration
         comparisons = tuple(
-            Qho1dComparator(
-                self._request(configuration, box, spacing, retained)
-            ).execute()
+            Qho1dComparator(self._comparison_request(box, spacing, retained)).execute()
             for box in configuration.box_half_widths
             for spacing in configuration.grid_spacings
             for retained in configuration.retained_dimensions
@@ -111,26 +114,24 @@ class Qho1dAnalyzer:
         )
         if len(selected) != 1:
             raise ValueError("selected configuration must identify one comparison")
-        state_comparison = self._state_comparison(
-            selected[0], configuration.displayed_states
-        )
+        state_comparison = self._state_comparison(selected[0])
         return Qho1dCalculationResult(
-            calculation_family=calculation_family,
-            execution_id=execution_id,
-            evidence_status=evidence_status,
-            claim_boundary=claim_boundary,
+            calculation_family=request.calculation_family,
+            execution_id=request.execution_id,
+            evidence_status=request.evidence_status,
+            claim_boundary=request.claim_boundary,
             configuration=configuration,
             cases=cases,
             selected_state_comparison=state_comparison,
         )
 
-    @staticmethod
-    def _request(
-        configuration: Qho1dConfiguration,
+    def _comparison_request(
+        self,
         box_half_width: float,
         grid_spacing: float,
         retained_dimension: int,
     ) -> Qho1dComparisonRequest:
+        configuration = self.request.configuration
         analytical = Qho1dAnalytical(configuration.parameters)
         interval = DirichletInterval(
             grid=UniformCartesianGrid1D(
@@ -154,8 +155,7 @@ class Qho1dAnalyzer:
             ),
         )
 
-    @staticmethod
-    def _case(comparison: Qho1dComparisonResult) -> Qho1dCaseResult:
+    def _case(self, comparison: Qho1dComparisonResult) -> Qho1dCaseResult:
         request = comparison.request
         hamiltonian = request.finite_difference.hamiltonian().to_dense()
         residual = (
@@ -174,12 +174,12 @@ class Qho1dAnalyzer:
             ),
         )
 
-    @staticmethod
     def _state_comparison(
+        self,
         comparison: Qho1dComparisonResult,
-        displayed_states: int,
     ) -> Qho1dStateComparisonResult:
         request = comparison.request
+        displayed_states = self.request.configuration.displayed_states
         coordinates = comparison.grid_coordinates
         spacing = comparison.grid_spacing
         oscillator_length = request.parameters.oscillator_length.magnitude

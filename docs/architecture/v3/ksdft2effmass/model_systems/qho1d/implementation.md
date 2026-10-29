@@ -3,8 +3,11 @@
 ## Typed result
 
 `Qho1dConfiguration` owns the nondimensional parameters, ordered sweep, and one
-state-resolved selection. `Qho1dAnalyzer` produces `Qho1dCalculationResult`, composed
-from ordered `Qho1dCaseResult` values and one `Qho1dStateComparisonResult`.
+state-resolved selection. `Qho1dAnalysisRequest` binds that configuration together
+with the complete immutable result identity. `Qho1dAnalyzer` admits the request at
+construction and its zero-argument `execute()` produces `Qho1dCalculationResult`,
+composed from ordered `Qho1dCaseResult` values and one
+`Qho1dStateComparisonResult`.
 
 The reusable model surface is partitioned by scientific responsibility:
 `parameters.py` owns unit-aware parameters and nondimensionalization,
@@ -54,9 +57,11 @@ of those authoritative matrices.
 
 ## Calculation
 
-`run_01_calculation.py` declares its controls in Python and invokes `Qho1dAnalyzer`.
-The analyzer composes reusable analytical, finite-difference, ladder-operator, and
-common-coordinate owners. It writes the typed configuration and result through
+`run_01_calculation.py` declares its controls in Python, constructs the complete
+`Qho1dAnalysisRequest`, and invokes `Qho1dAnalyzer.execute()` without scientific
+arguments. The analyzer composes reusable analytical, finite-difference,
+ladder-operator, and request-bound common-coordinate owners. It writes the typed
+configuration and result through
 incomplete-stage paths before exposing the execution directory.
 
 ## Independent verification
