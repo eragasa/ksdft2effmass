@@ -42,6 +42,7 @@ from ksdft2effmass.model_systems.piab1d import (
     Piab1dGridSweepDefinition,
     Piab1dIndependentReference,
     Piab1dIndependentReferenceAnalyzer,
+    Piab1dIndependentReferenceRequest,
     Piab1dVerification,
     Piab1dVerifier,
     Piab1dVisualizationData,
@@ -293,10 +294,12 @@ class TestPiab1dVerifier:
         core_reference = core_analyzer.execute()
         assert core_analyzer.request is core_request
         assert core_reference.comparisons
-        reference = Piab1dIndependentReferenceAnalyzer().execute(
-            typed_result,
-            visualization_data,
+        reference_request = Piab1dIndependentReferenceRequest(
+            typed_result, visualization_data
         )
+        reference_analyzer = Piab1dIndependentReferenceAnalyzer(reference_request)
+        reference = reference_analyzer.execute()
+        assert reference_analyzer.request is reference_request
         assert isinstance(reference, Piab1dIndependentReference)
         assert len(reference.comparisons) == 79
         with pytest.raises(TypeError):

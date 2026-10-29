@@ -184,7 +184,10 @@ result in `Piab1dFiniteAlgebraicDiagnosticsReferenceRequest` before applying
 independently derived floating-point bounds. The final verifier leaf binds the exact
 decomposition result and authoritative reduced Hamiltonian in
 `Piab1dKineticPotentialDecompositionReferenceRequest`, including local shape and unit
-correlation, before independent projection reconstruction.
+correlation, before independent projection reconstruction. The aggregate reference
+analyzer now binds the complete result and verifier-derived visualization projection
+in `Piab1dIndependentReferenceRequest`; its zero-argument `execute()` constructs each
+complete child request only from that admitted subject.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

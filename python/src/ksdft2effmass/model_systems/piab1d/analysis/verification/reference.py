@@ -45,24 +45,38 @@ class Piab1dIndependentReference:
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dIndependentReferenceRequest:
+    """Bind one result and its verifier-derived visualization projection."""
+
+    result: Piab1dCalculationResult
+    visualization_data: Piab1dVisualizationData
+
+    def __post_init__(self) -> None:
+        """Admit the complete typed aggregate-reference request."""
+        if type(self.result) is not Piab1dCalculationResult:
+            raise TypeError("result must be Piab1dCalculationResult")
+        if type(self.visualization_data) is not Piab1dVisualizationData:
+            raise TypeError("visualization_data must be Piab1dVisualizationData")
+
+
 class Piab1dIndependentReferenceAnalyzer:
-    """Compose independent operation-specific PIAB1D reference analyses."""
+    """Compose independent analyses for one bound PIAB1D subject."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        result: Piab1dCalculationResult,
-        visualization_data: Piab1dVisualizationData,
-    ) -> Piab1dIndependentReference:
+    def __init__(self, request: Piab1dIndependentReferenceRequest) -> None:
+        if type(request) is not Piab1dIndependentReferenceRequest:
+            raise TypeError("request must be Piab1dIndependentReferenceRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dIndependentReferenceRequest:
+        """Return the complete immutable aggregate-reference request."""
+        return self._request
+
+    def execute(self) -> Piab1dIndependentReference:
         """Compose all independent PIAB1D reference comparisons.
-
-        Parameters
-        ----------
-        result
-            Typed production calculation aggregate.
-        visualization_data
-            Verifier-derived visualization projection reconstructed from ``result``.
 
         Returns
         -------
@@ -71,8 +85,6 @@ class Piab1dIndependentReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            A supplied aggregate has the wrong type.
         ValueError
             Independent comparison names collide or reconstructed values violate a
             scientific-operation contract.
@@ -83,6 +95,8 @@ class Piab1dIndependentReferenceAnalyzer:
         owner reconstructs its target directly from declared equations and typed
         source data.
         """
+        result = self.request.result
+        visualization_data = self.request.visualization_data
         core = Piab1dCoreReferenceAnalyzer(
             Piab1dCoreReferenceRequest(result, visualization_data)
         ).execute()

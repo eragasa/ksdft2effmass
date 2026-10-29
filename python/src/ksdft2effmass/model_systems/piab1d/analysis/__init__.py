@@ -12,6 +12,7 @@ from .residual_norms import Piab1dResidualNormSweepResult
 from .verification import (
     Piab1dIndependentReference,
     Piab1dIndependentReferenceAnalyzer,
+    Piab1dIndependentReferenceRequest,
     Piab1dVerification,
     Piab1dVerifier,
 )
@@ -28,6 +29,7 @@ __all__ = [
     "Piab1dIndependentReference",
     "Piab1dResidualNormSweepResult",
     "Piab1dIndependentReferenceAnalyzer",
+    "Piab1dIndependentReferenceRequest",
     "Piab1dVerification",
     "Piab1dVerifier",
 ]

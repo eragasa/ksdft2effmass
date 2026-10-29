@@ -18,6 +18,7 @@ from .finite_algebraic_diagnostics import (
 from .reference import (
     Piab1dIndependentReference,
     Piab1dIndependentReferenceAnalyzer,
+    Piab1dIndependentReferenceRequest,
 )
 from .residual_norms import (
     Piab1dResidualNormSweepReference,
@@ -36,6 +37,7 @@ __all__ = [
     "Piab1dFiniteAlgebraicDiagnosticsReferenceRequest",
     "Piab1dIndependentReference",
     "Piab1dIndependentReferenceAnalyzer",
+    "Piab1dIndependentReferenceRequest",
     "Piab1dKineticPotentialDecompositionReference",
     "Piab1dKineticPotentialDecompositionReferenceAnalyzer",
     "Piab1dKineticPotentialDecompositionReferenceRequest",

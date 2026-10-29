@@ -312,6 +312,12 @@ verification composed around that pinned implementation.
 .. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dKineticPotentialDecompositionReferenceAnalyzer
    :members:
 
+.. autoclass:: Piab1dIndependentReferenceRequest
+   :members:
+
+.. autoclass:: Piab1dIndependentReferenceAnalyzer
+   :members:
+
 .. autoclass:: Piab1dDiagnostics
    :members:
 
