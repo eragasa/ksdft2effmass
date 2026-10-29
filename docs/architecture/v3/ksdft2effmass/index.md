@@ -36,6 +36,7 @@ not an ownership reassignment.
 
 ## Package pages
 
+- [Component-construction and visualization audit](component-construction-and-visualization-audit.md)
 - [Schematics](schematics.md)
 - [Numerics](numerics.md)
 - [Scientific interpretation](scientifics.md)
