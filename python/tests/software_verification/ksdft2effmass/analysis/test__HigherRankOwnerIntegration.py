@@ -34,8 +34,8 @@ from ksdft2effmass.analysis.matrix_field import (
 
 pytestmark = pytest.mark.software_verification
 
-_OPTIMIZATION_REVISION = "2a18e485109e307b2f7928bd0418bcf796aeb0d5"
-_PHYSKIT_REVISION = "bf48374b34df80dfc154fb70ee0cd5922273e6f6"
+_OPTIMIZATION_REVISION = "ef608716ae9f515f56406dd517c1a8b7487d3391"
+_PHYSKIT_REVISION = "3371d8883c85fdd16754cffb29d3f4ec21dd7861"
 
 
 class TestHigherRankOwnerIntegration:

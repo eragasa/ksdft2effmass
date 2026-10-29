@@ -1,43 +1,431 @@
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{array,booktabs,longtable}
 \usepackage{microtype}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage[margin=1in]{geometry}
+\usepackage{xurl}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
 
 \title{Technical Report: Periodic-1D Higher-Rank Composite-Band Alignment and Locality}
 \author{Project Koios}
-\date{Schema-free development calculation}
+\date{Pre-execution architecture and mathematical contract}
 
 \begin{document}
 \maketitle
 
 \section{Scope and evidence boundary}
-This report covers the finite one-dimensional higher-rank controlled calculation used by the Paper C development program.  It is calculation-owned and publication-independent.  The current implementation and ignored summaries are replaceable development work, not a retained run, convergence result, or evidence package.
+
+This report documents the finite mathematics, numerical conventions, and software-owner
+boundary of the periodic one-dimensional higher-rank controlled calculation used by the
+Paper C development program.  It is calculation-owned and publication-independent.  The
+selected protocol remains the authority for coefficients, controls, tolerances, schemas,
+and future retained evidence.  This report explains that contract; it does not replace
+it.
+
+The calculation-local \path{workflow/} package and its ignored summaries are replaceable
+development material.  They are not a maintained runtime, retained run, convergence
+result, or evidence package.  No result reported below was obtained from a new execution.
+The labels D1, P0, and G0 are retained only where they identify the frozen protocol.  They
+are not proposed public software class names.
 
 \section{Finite model inventory}
-The selected ladder uses retained ranks $r\in\{3,4,8,16\}$, rotation depths $L\in\{1,2,4,8\}$, ambient dimension $2r$, construction meshes $513$, $1025$, and $2049$, an independent evaluation mesh of size $8191$, and hopping supports $0,1,2,4,8,16,32,64,128$.
 
-Four alignment controls remain separate: no alignment, one global unitary, pointwise complete unitaries, and the known generating inverse.  The known inverse is an oracle control and is not evidence of practical recoverability.
+The selected ladder uses retained ranks
+\[
+ r\in\{3,4,8,16\},
+ \qquad L\in\{1,2,4,8\},
+\]
+ambient dimension $2r$, construction meshes $M\in\{513,1025,2049\}$, an
+independent evaluation mesh of size $8191$, and hopping supports
+$S\in\{0,1,2,4,8,16,32,64,128\}$.  All construction meshes are odd.  Their complete
+centered translation inventories are therefore ordinary inversion-complete sets with no
+self-inverse Nyquist representative.
 
-\section{Analytic qualification}
-For the selected fixed-subspace real-rotation parent, the retained--exterior separation has the exact value
+Four alignment controls remain distinct: no alignment, one global unitary, pointwise
+complete unitaries, and the known generating inverse.  The known inverse is an oracle
+control and is not evidence of practical recoverability.  Transport of the analytic
+reference frame precedes these alignment controls and is shared by them.
+
+\section{State spaces and action conventions}
+
+At each reciprocal coordinate, an ambient frame is a matrix
+\[
+ F(k)\in\mathbb C^{2r\times r},
+ \qquad F(k)^\dagger F(k)=I_r.
+\]
+Its columns use one declared ambient basis and span a rank-$r$ retained space.  A retained
+coordinate transformation acts on the right,
+\[
+ F(k)\longmapsto F(k)U(k),
+ \qquad U(k)\in U(r),
+\]
+whereas the reciprocal-endpoint sewing map acts on the left in the ambient space,
+\[
+ F(-\pi)\longmapsto S_G F(-\pi),
+ \qquad S_G\in\mathbb C^{2r\times2r}.
+\]
+For the selected P0 construction, $S_G=I_{2r}$, but the route still records and verifies
+that declaration.  Identity sewing is not inferred from periodic eigenvalues or array
+shape.
+
+If $H_p(k)$ is the parent and $H_F(k)=F(k)^\dagger H_p(k)F(k)$ is its represented
+Hamiltonian, then a right frame action gives the covariant matrix transformation
+\[
+ H_{FU}(k)=U(k)^\dagger H_F(k)U(k).
+\]
+Transport, alignment, and Fourier transformation therefore have ordered and generally
+noncommuting roles.
+
+\section{Sequential polar transport}
+
+For one odd half-open mesh, let
+\[
+ k_n=-\pi+\frac{2\pi n}{M},
+ \qquad n=0,\ldots,M-1,
+\]
+and append the direct endpoint $k_M=+\pi$.  Write the analytically sampled frame as
+$Y_n=F(k_n)$, including $Y_M=F(+\pi)$.  Set $\widetilde F_0=Y_0$.  Given the transported
+frame at index $n$, form
 \begin{equation}
-  \Delta_{\mathrm{iso}}=2.10 E_{\mathrm{ref}}.
+ O_n=\widetilde F_n^\dagger Y_{n+1}
+    =L_n\Sigma_nR_n^\dagger,
+ \qquad
+ Q_n=R_nL_n^\dagger,
+ \qquad
+ \widetilde F_{n+1}=Y_{n+1}Q_n.
+ \label{eq:technical-sequential-transport}
 \end{equation}
-The calculation-owned finite-grid utility reproduces this value on a grid containing the attaining momentum.  Sampling is a sanity check; the protocol derivation is the analytic certificate.
+This is the right-unitary Procrustes transformation that aligns the next raw frame toward
+the already transported predecessor.  Indeed,
+\[
+ \widetilde F_n^\dagger\widetilde F_{n+1}
+ =L_n\Sigma_nL_n^\dagger,
+\]
+which is Hermitian positive semidefinite.
 
-\section{Development computation}
-The schema-free producer evaluates all sixteen rank/depth cases, the four alignment controls, transport and sewing diagnostics, Fourier support, interpolation and truncation errors, refinement records, and sampled support--error Pareto classifications.  It writes a compact replaceable summary rather than a retained package.
+The complete singular spectrum is retained for every attempted link.  With
+\[
+ \tau_{\mathrm{sv}}(O_n)
+ =\max\!\left(10^{-12},10^{-10}\sigma_{\max}(O_n)\right),
+\]
+the link qualifies only when
+$\sigma_{\min}(O_n)>\tau_{\mathrm{sv}}(O_n)$.  Equality is deficient.  If a neighbor
+link is deficient, no null-space completion is applied: that link is recorded as
+deficient and all links that depend on its transported output are recorded as
+unattempted.  A backend decomposition failure is separate from mathematical rank
+deficiency and carries a stable operation, reason, and link index.
 
-\section{Verification boundary}
-Software tests cover model construction, alignment selection and failure dispositions, transport, scalar ledgers, numerical exception handling, and one complete schema-free case.  The analytic-control checker is not a producer-independent reconstruction of the complete result.  Strict serializers, schemas, source binding, and a full independent verifier remain required.
+\section{Endpoint mismatch, holonomy, and distributed closure}
+
+After the endpoint step, define the protocol-oriented endpoint mismatch
+\begin{equation}
+ S=\widetilde F_0^\dagger\widetilde F_M.
+ \label{eq:technical-endpoint-mismatch}
+\end{equation}
+Let its admitted unitary polar factor be
+\begin{equation}
+ \mathcal H
+ =Z\operatorname{diag}(e^{i\gamma_1},\ldots,e^{i\gamma_r})Z^\dagger,
+ \qquad \gamma_a\in(-\pi,\pi].
+ \label{eq:technical-holonomy-spectrum}
+\end{equation}
+The branch is part of the method.  At eigenvalue $-1$, this convention chooses
+$\gamma=+\pi$, not $-\pi$.  Both signs exponentiate to the same endpoint eigenvalue, but
+they select different fractional matrix roots and therefore different intermediate
+gauges.  The branch cannot be chosen after observing a locality outcome.
+
+The periodically corrected frame is
+\begin{equation}
+ F_n^{\mathrm{pt}}
+ =\widetilde F_n
+ Z\operatorname{diag}\!\left(
+ e^{-i(n/M)\gamma_1},\ldots,e^{-i(n/M)\gamma_r}
+ \right)Z^\dagger,
+ \qquad n=0,\ldots,M.
+ \label{eq:technical-distributed-closure}
+\end{equation}
+The phases are stored deterministically for reproducibility, but their scientific meaning
+is an unordered multiset.  Sorting is a storage convention, not a band labeling through
+degeneracies.
+
+\begin{proposition}[Finite endpoint closure]
+If $\widetilde F_M=\widetilde F_0\mathcal H$ and
+Equations~\eqref{eq:technical-holonomy-spectrum}--\eqref{eq:technical-distributed-closure}
+hold, then $F_M^{\mathrm{pt}}=F_0^{\mathrm{pt}}$.
+\end{proposition}
+
+\begin{proof}
+At $n=M$, the correction is
+$Z\operatorname{diag}(e^{-i\gamma_a})Z^\dagger=\mathcal H^\dagger$.  Hence
+\[
+ F_M^{\mathrm{pt}}
+ =\widetilde F_M\mathcal H^\dagger
+ =\widetilde F_0\mathcal H\mathcal H^\dagger
+ =\widetilde F_0
+ =F_0^{\mathrm{pt}}.
+\]
+\end{proof}
+
+For the selected P0 family, the analytic endpoint obeys
+$Y_M=S_GY_0$ exactly.  In that setting the Optimization owner retains both orientations.
+Its closure right action $\mathcal A$ aligns the last primitive frame toward the sewn
+first frame,
+\[
+ \widetilde F_{M-1}\mathcal A\approx S_G\widetilde F_0,
+\]
+and its endpoint mismatch is $\mathcal E=\mathcal A^\dagger$, matching the protocol
+orientation of $\mathcal H$.  Schur phases are phases of $\mathcal E$, not $\mathcal A$.
+The owner correction step is
+\[
+ \mathcal W=Z\operatorname{diag}(e^{-i\gamma_a/M})Z^\dagger,
+ \qquad \mathcal W^M=\mathcal E^\dagger=\mathcal A,
+\]
+and sample $j$ receives the right action $\mathcal W^j$.  The explicit owner branch
+\texttt{negative\_pi\_open}, whose value is $(-\pi,\pi]$, therefore reproduces the
+protocol directly, including $\gamma=+\pi$ and
+$\mathcal W=e^{-i\pi/M}$ at eigenvalue $-1$.  An interface that stored phases of
+$\mathcal A$ instead would require the inverse branch $[-\pi,\pi)$ to reproduce the same
+path.
+
+\begin{remark}
+A Schur basis inside an exactly degenerate phase subspace need not be unique.  The matrix
+function is nevertheless invariant under basis changes that remain within a subspace
+assigned the same branch value.  Near degeneracy, backend-specific Schur vectors are
+numerical evidence, not canonical physical band labels.
+\end{remark}
+
+\section{Metric-explicit diagnostics}
+
+All scientific diagnostics name their norm and normalization.  For an $r$-column frame
+or an $r\times r$ unitary, the protocol-normalized Frobenius defect is
+\[
+ d_{F,\mathrm{norm}}(A,B)
+ =\frac{\lVert A-B\rVert_F}{\sqrt r},
+ \qquad
+ d_{U,\mathrm{norm}}(U)
+ =\frac{\lVert U^\dagger U-I_r\rVert_F}{\sqrt r}.
+\]
+The reciprocal endpoint checks are
+\[
+ d_{\mathrm{frame,endpoint}}
+ =\frac{\lVert F(+\pi)-F(-\pi)\rVert_F}{\sqrt r},
+\]
+\[
+ d_{\mathrm{projector,endpoint}}
+ =\frac{\lVert P(+\pi)-P(-\pi)\rVert_F}{\sqrt r},
+ \qquad P=FF^\dagger,
+\]
+and the primitive closure check is
+\[
+ d_{\mathrm{closure}}
+ =\frac{\lVert F_M^{\mathrm{pt}}-F_0^{\mathrm{pt}}\rVert_F}{\sqrt r}.
+\]
+The selected endpoint and primitive-closure tolerance is $10^{-11}$.  The P0 closure
+phase gate is
+\[
+ d_{\mathrm{phase}}=\max_a|\gamma_a|\leq10^{-10}\ \mathrm{radian}.
+\]
+This is a protocol integrity check for the exactly trivial control, not a generic demand
+that physical holonomy vanish.
+
+A reusable numerical owner may additionally retain a maximum-absolute-entry defect for
+self-validation.  Such a value is not interchangeable with a Frobenius defect and must
+carry a metric-explicit name.  KSD computes and retains the protocol diagnostics through
+the canonical norm owners rather than relabeling an owner-internal validation metric.
+
+Table~\ref{tab:technical-frozen-tolerances} is a calculation-facing crosswalk of the
+frozen gates.  The protocol remains authoritative if this explanatory table and the
+selected version ever differ.
+
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.54\textwidth}
+                         >{\raggedright\arraybackslash}p{0.23\textwidth}
+                         >{\raggedleft\arraybackslash}p{0.13\textwidth}@{}}
+\caption{Frozen P0 higher-rank numerical tolerances.}
+\label{tab:technical-frozen-tolerances}\\
+\toprule
+Diagnostic & Normalization & Tolerance \\
+\midrule
+\endfirsthead
+\toprule
+Diagnostic & Normalization & Tolerance \\
+\midrule
+\endhead
+momentum and endpoint coordinates & radian & $10^{-14}$ \\
+frame orthonormality, gauge/alignment unitarity, projector idempotency & raw Frobenius & $10^{-12}$ \\
+Procrustes stationarity, objective identity, and negative polar part & dimensionless & $10^{-12}$ \\
+smooth/attacked projector equality & raw Frobenius & $10^{-12}$ \\
+direct ordered-spectrum equivalence & $E_{\mathrm{ref}}$ & $10^{-11}$ \\
+A2/A3 frame recovery & $\sqrt r$ & $10^{-11}$ \\
+A2/A3 represented-operator recovery & $\sqrt rE_{\mathrm{ref}}$ & $10^{-11}$ \\
+endpoint sewing and primitive closure & normalized Frobenius & $10^{-11}$ \\
+maximum closure-phase magnitude & radian & $10^{-10}$ \\
+Fourier reconstruction and Hermitian pairing & $\sqrt rE_{\mathrm{ref}}$ & $2\times10^{-11}$ \\
+relative Parseval defect & dimensionless & $2\times10^{-11}$ \\
+error decomposition and support monotonicity & dimensionless & $2\times10^{-11}$ \\
+maximum perturbation-bound violation & $E_{\mathrm{ref}}$ & $10^{-11}$ \\
+final interpolant operator error & $\sqrt rE_{\mathrm{ref}}$ & $10^{-9}$ \\
+final interpolant ordered-spectrum maximum error & $E_{\mathrm{ref}}$ & $10^{-10}$ \\
+retained-block refinement, $|R|\leq128$ & $\sqrt rE_{\mathrm{ref}}$ per block & $10^{-10}$ \\
+\bottomrule
+\end{longtable}
+}
+
+\section{Alignment and represented operators}
+
+Transport chooses a coherent reference frame.  It does not by itself align an attacked
+candidate.  The four protocol channels are subsequently applied to the candidate from
+the right.  Pointwise and one-global Procrustes alignment solve different optimization
+problems; the known inverse is an oracle; identity alignment performs no fit.  A
+rank-deficient global aggregate makes only that restricted channel inapplicable.  A
+rank-deficient pointwise overlap invalidates the selected P0 case because the analytic
+construction predicts full rank.
+
+The KSD disposition inventory is closed:
+\begin{itemize}
+ \item \path{qualified} means every required rank, unitary, stationarity, objective,
+       positive-semidefinite, oracle, and independent-comparison gate passes;
+ \item \path{aggregate-rank-deficient} is a bounded A1 result: no A1 transformation or
+       downstream A1 locality value is emitted;
+ \item \path{pointwise-rank-deficient} invalidates the complete P0 case;
+ \item \path{alignment-numerically-unresolved} records nonfinite input or typed backend
+       failure without emitting a transformation;
+ \item \path{alignment-integrity-failed} records a nominally full-rank A1/A2 factor that
+       fails a required integrity or independent-comparison gate; and
+ \item \path{oracle-integrity-failed} records failure of A3 analytic unitarity, frame
+       recovery, operator recovery, or independent reconstruction.
+\end{itemize}
+Stable backend codes distinguish nonfinite arithmetic, nonconvergence, and validation
+failure; traceback text and host paths are not scientific fields.
+
+Every admitted action $U_A(k)$ transforms the represented Hamiltonian before Fourier
+conversion,
+\[
+ H_A(k)=U_A(k)^\dagger H_C(k)U_A(k).
+\]
+Aligning already truncated hopping blocks is a different operation and is not substituted
+for reciprocal-space alignment.
+
+\section{Odd-mesh Fourier representation and locality}
+
+For odd $M$, the complete ordinary translation set is
+\[
+ \mathcal R_M
+ =\left\{-\frac{M-1}{2},\ldots,\frac{M-1}{2}\right\}.
+\]
+For each applicable channel,
+\[
+ T_{A,M}(R)=\frac1M\sum_{n=0}^{M-1}e^{-ik_nR}H_A(k_n),
+ \qquad
+ H_{A,M}(k)=\sum_{R\in\mathcal R_M}e^{ikR}T_{A,M}(R).
+\]
+There is no Nyquist singleton and no cyclic-to-ordinary removal channel.  Support
+selection is a separate KSD policy:
+$\Omega_S=\{R:|R|\leq S\}$.  The complete transform, selected support, and deliberate
+truncation remain separate records.
+
+On the withheld mesh, the operator residuals are
+\[
+ e_{\mathrm{interp}}=H_{A,M}-H_A^{\mathrm{direct}},
+ \qquad
+ e_{\mathrm{trunc}}^{(S)}=H_{A,M}^{(S)}-H_{A,M},
+\]
+\[
+ e_{\mathrm{total}}^{(S)}
+ =H_{A,M}^{(S)}-H_A^{\mathrm{direct}}
+ =e_{\mathrm{interp}}+e_{\mathrm{trunc}}^{(S)}.
+\]
+Only the pointwise residuals telescope.  Their scalar maxima are not added, and a
+cancellation in the total channel is reported rather than called convergence.  For each
+channel $x\in\{\mathrm{interp},\mathrm{trunc},\mathrm{total}\}$, cross-rank operator
+summaries use, for example,
+\[
+ \epsilon_{F,\max}^{(x)}
+ =\max_k\frac{\lVert e_x(k)\rVert_F}{\sqrt rE_{\mathrm{ref}}},
+ \qquad
+ \epsilon_{F,\mathrm{RMS}}^{(x)}
+ =\left(\frac1{N_{\mathrm{eval}}}\sum_k
+ \frac{\lVert e_x(k)\rVert_F^2}{rE_{\mathrm{ref}}^2}\right)^{1/2}.
+\]
+Ordered-spectrum errors are normalized by $E_{\mathrm{ref}}$.  These are separate from
+spectral-norm perturbation evidence and from hopping-tail weights.
+
+\section{Software-owner boundary}
+
+The intended dependency direction is
+\[
+ \texttt{ksdft2effmass}
+ \longrightarrow \texttt{projectkoios.physkit}
+ \longrightarrow \texttt{projectkoios-optimization}.
+\]
+Optimization owns unit-free right-unitary Procrustes transport, numerical-rank evidence,
+closure decomposition, fractional-root construction, and typed backend failures.  Its
+current contract requires an explicit
+\texttt{ClosedLoopPolarFrameTransportPrincipalPhaseBranch}; KSD selects
+\texttt{negative\_pi\_open}.  The result separately retains
+\texttt{closure\_alignment\_right\_action},
+\texttt{closure\_endpoint\_mismatch},
+\texttt{distributed\_closure\_correction\_step}, and the deterministically stored
+endpoint-mismatch phase tuple.  Owner validation defects explicitly name their
+maximum-absolute-entry metric.
+
+PhysKit binds those arrays to the ordered reciprocal route or one-dimensional
+finite-periodic mesh, ambient-basis identity, retained-frame identity, and endpoint-sewing
+semantics.  KSD owns the synthetic parent, scientific tolerances, normalized Frobenius
+diagnostics, alignment-channel dispositions, Fourier support policy, result wire,
+independent verification, and claim resolution.
+
+The Optimization implementation is committed at
+\path{ef608716ae9f515f56406dd517c1a8b7487d3391} and published on its work branch.  The
+adapted PhysKit semantic wrapper is locally committed at
+\path{3371d8883c85fdd16754cffb29d3f4ec21dd7861} but has not been pushed.  Neither owner
+revision is yet integrated through KSD's declared dependencies.  This report therefore
+records the target boundary without claiming that the maintained KSD runtime already
+consumes it.  The calculation-local \path{workflow/}
+package must not be copied or imported into the runtime.
+
+\section{Independent verification boundary}
+
+The future producer uses canonical owner actions.  The independent reference analyzer
+must reconstruct the finite formulas without calling the producer analyzer.  At minimum
+it independently checks:
+
+\begin{enumerate}
+ \item ordered point and sewing identities;
+ \item every overlap spectrum, cutoff, strict margin, and rank disposition;
+ \item right-action orientation and transported-frame reconstruction;
+ \item endpoint mismatch or inverse-closure orientation;
+ \item Schur reconstruction, selected phase branch, fractional root, and root power;
+ \item endpoint and primitive-closure normalized Frobenius defects;
+ \item represented-operator covariance;
+ \item direct Fourier sums, Hermitian pairs, Parseval, support masks, and tail norms; and
+ \item interpolation, truncation, total-error, and perturbation-bound channels.
+\end{enumerate}
+
+One byte-owning verifier admits the exact immutable result bytes, composes this reference
+analysis, and reports a closed inventory of scientific comparisons.  Passing establishes
+bounded software and finite-protocol numerical behavior only.
 
 \section{Limitations and nonclaims}
-No two- or three-dimensional higher-rank calculation exists.  Moving retained subspaces, complex unitary transformations, and restricted-circuit fitting remain prospective.  The controlled family is topologically trivial and is not a material model.  Current work establishes neither continuum convergence nor scientific validation.
+
+The selected family is a topologically trivial synthetic control.  Closure phases are
+transport and sewing diagnostics, not a Chern, polarization, or Wannier-center result.
+The distributed closure is a smooth-gauge construction, not a localization optimum.  No
+two- or three-dimensional higher-rank calculation exists.  Moving retained subspaces,
+complex gauge phases, restricted-circuit fitting, patchwise frames, and material
+specialization remain prospective.  Current work establishes neither continuum
+convergence nor scientific validation.
 
 \section{Next gate}
-The next gate is a strict versioned input/result contract and a producer-independent direct-formula verifier.  Only after those pass may a separately authorized retained execution be considered.  Analysis and plots must consume verified output rather than rerun the producer implicitly.
+
+The next KSD gate is a stable typed request/result contract built on integrated owner
+dependencies, followed by a producer-independent direct-formula analyzer and authenticated
+rendering.  Only after implementation review, strict schema validation, complete tests,
+and an unreleased resource-measured dry run may a separately authorized retained
+execution be considered.
 
 \end{document}

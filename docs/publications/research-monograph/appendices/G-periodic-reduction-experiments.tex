@@ -1059,6 +1059,92 @@ certificate for another. It does not establish incompatibility for unrestricted
 unitary alignments, another candidate family, a material Hamiltonian, or the
 silicon reduction program.
 
+\section{Prospective higher-rank protocol crosswalk}
+\label{sec:appendix-g-higher-rank-crosswalk}
+
+A later controlled protocol extends the rank-two construction to retained ranks
+$r\in\{3,4,8,16\}$ and synthetic parent depths
+$L\in\{1,2,4,8\}$.  Its authoritative controls are maintained under
+\path{calculations/periodic1d/rankN/composite-band-alignment-locality/protocol/}.
+The protocol label D1 remains a frozen provenance identifier only; the proposed
+maintained public surface uses scientifically explicit higher-rank alignment names.
+This subsection is a mathematical and provenance crosswalk, not a report of an
+executed or retained calculation.
+
+The construction samples odd centered meshes
+$M\in\{513,1025,2049\}$ and reserves an independent $8191$-point mesh for
+withheld evaluation.  Odd size is methodologically useful here because the
+complete translation inventory
+\[
+  \left\{-(M-1)/2,\ldots,(M-1)/2\right\}
+\]
+has no self-inverse Nyquist representative.  Consequently, complete Fourier
+conversion needs no centered-even cyclic-to-ordinary removal step.  Deliberate
+support truncation at
+$S\in\{0,1,2,4,8,16,32,64,128\}$ remains a separate operation.
+
+For each ordered route, the protocol first performs the full-rank polar
+transport derived in
+Chapter~\ref{ch:training-composite-band-gauge-alignment}.  With an explicit duplicate
+endpoint it records
+\[
+  H_{\mathrm{end}}=F_0^\dagger F_M
+  =Z\operatorname{diag}(e^{i\gamma_a})Z^\dagger,
+  \qquad \gamma_a\in(-\pi,\pi],
+\]
+and applies the distributed right action
+\[
+  F_n^{\mathrm{closed}}
+  =F_n Z\operatorname{diag}(e^{-i(n/M)\gamma_a})Z^\dagger.
+\]
+Thus an exact $-1$ eigenvalue selects $+\pi$ in the endpoint-mismatch
+orientation.  The Optimization owner retains both the last-to-first closure
+right action $A$ and the endpoint mismatch $E=A^\dagger$; its Schur phases are
+phases of $E$.  Selecting its explicit \texttt{negative\_pi\_open} branch
+therefore reproduces the protocol $(-\pi,\pi]$ convention directly.  Its
+correction step $W$ satisfies $W^M=E^\dagger=A$, so point $j$ receives the right
+action $W^j$.  An interface that phased $A$ instead would require the paired
+inverse branch $[-\pi,\pi)$.  Orientation, phase interval, and fractional-power
+sign are one contract.
+
+The protocol diagnostics are normalized Frobenius quantities, including
+\[
+  \frac{\lVert F(+\pi)-F(-\pi)\rVert_F}{\sqrt r},
+  \qquad
+  \frac{\lVert P(+\pi)-P(-\pi)\rVert_F}{\sqrt r},
+  \qquad
+  \frac{\lVert U^\dagger U-I_r\rVert_F}{\sqrt r}.
+\]
+Maximum-entry defects may be retained as explicitly named numerical-owner
+validation evidence, but they are not substituted for these scientific
+diagnostics.  Every neighbor and closure link retains its complete singular
+spectrum, cutoff, strict margin, and disposition.  A deficient link stops the
+dependent progression; downstream links are unattempted rather than assigned
+fabricated zeros or ranks.
+
+Four post-transport alignment channels remain distinct: identity, one global
+unitary, pointwise complete unitaries, and the known generating inverse.  The
+known inverse is an oracle control.  Each applicable channel transforms the
+represented reciprocal Hamiltonian before Fourier conversion.  Interpolation,
+deliberate truncation, total consequence, and ordinary omitted-tail channels
+remain separate; only their pointwise residual matrices telescope.
+
+The intended owner split is also prospective.  Unit-free polar transport and
+backend failures belong to Project Koios Optimization; route, basis, retained
+frame, and sewing semantics belong to PhysKit; this repository owns the
+synthetic parent, qualification thresholds, alignment dispositions, locality
+policy, exact typed wire, independent verification, and claim boundary.  Those
+sibling-repository transport changes are not yet integrated through the
+declared dependencies.  The calculation-local \path{workflow/} directory is
+parity and provenance material and is not a runtime donor.
+
+No higher-rank result bytes, authenticated visualization, resource-compliance
+record, or retained execution are asserted here.  Promotion requires stable
+request and result wires, producer-independent reference reconstruction, one
+byte-owning verifier with a closed comparison inventory, and a separately
+authorized execution.  Until those gates close, the protocol is proposed work
+rather than numerical evidence.
+
 \section{Limitations and scope}
 
 The results establish numerical behavior only for the specified cosine parent.
