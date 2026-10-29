@@ -76,6 +76,8 @@ identities; this directory does not copy, rename, or upgrade them.
   derived channel to classes, schemas, effect adapters, and artifacts.
 - [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md)
   defines protocol authority and exact M2, monograph-composite, and regression boundaries.
+- [`../phase-3-split-audit.md`](../phase-3-split-audit.md) distinguishes the live M2
+  predecessor's composite successor from this family's adapted parent and locality donors.
 - [`experiment-removal-manifest.json`](experiment-removal-manifest.json) and
   [`experiment-removal-readiness.md`](experiment-removal-readiness.md) cover all 35
   remaining experiment files without authorizing deletion.
@@ -107,6 +109,7 @@ distributed checklist.
 | [`recovered-development-source-manifest.json`](recovered-development-source-manifest.json) | 55 exact-byte copies, 23 path/ownership/style adaptations, six explicit source-only dispositions, and bounded reproduction evidence. |
 | [`nested-channel-crosswalk.md`](nested-channel-crosswalk.md) | Flat, nonflat, parent-family, truncation, refinement, packaging, rendering, and protocol class/schema/artifact ownership. |
 | [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md) | Explicit protocol conflict rules and Git/digest dispositions for scientifically distinct historical donors. |
+| [`../phase-3-split-audit.md`](../phase-3-split-audit.md) | Exact live-M2 recovery/consumer inventory, two-family channel split, parity gaps, implementation order, and removal gates. |
 | [`experiment-removal-manifest.json`](experiment-removal-manifest.json) | Closed 35-file removal partition: 13 exact duplicates, 12 superseded predecessors, nine adapted predecessors, and one provenance-only file. |
 | Experiment migration source | The baseline 40-file partition and authorized dirty-source recovery have calculation-owned destinations or explicit dispositions. Exactly 35 remaining donor files were removed after separate authorization; no other periodic-1D family was removed. |
 | Historical M2 and monograph composite work | Gauge/alignment/hopping donors at the exact historical revision; not this family identity. |
