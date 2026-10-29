@@ -36,7 +36,11 @@ from .result import (
     Qho1dCaseResult,
     Qho1dStateComparisonResult,
 )
-from .verification import Qho1dIndependentReferenceAnalyzer, Qho1dVerifier
+from .verification import (
+    Qho1dIndependentReferenceAnalyzer,
+    Qho1dIndependentReferenceRequest,
+    Qho1dVerifier,
+)
 from .verification_values import (
     Qho1dHamiltonianComparisonVerification,
     Qho1dResidualVerification,
@@ -73,6 +77,7 @@ __all__ = [
     "Qho1dHamiltonianComparisonResult",
     "Qho1dHamiltonianComparisonVerification",
     "Qho1dIndependentReferenceAnalyzer",
+    "Qho1dIndependentReferenceRequest",
     "Qho1dLadderOperators",
     "Qho1dNondimensionalizer",
     "Qho1dParameters",

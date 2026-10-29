@@ -222,6 +222,9 @@ is a finite-representation change diagnostic, not a continuum error estimate.
 .. autoclass:: Qho1dCrossGridVerifier
    :members:
 
+.. autoclass:: Qho1dIndependentReferenceRequest
+   :members:
+
 .. autoclass:: Qho1dIndependentReferenceAnalyzer
    :members:
 

@@ -197,7 +197,10 @@ analysis then binds the complete calculated subject in
 `Qho1dCrossGridAnalysisRequest` before deriving its ordered finite-representation
 change diagnostics. `Qho1dCrossGridVerificationRequest` subsequently correlates that
 analysis with the exact calculated subject before direct recomputation. Both actions
-share a cohesive case inventory rather than a dangling lookup function.
+share a cohesive case inventory rather than a dangling lookup function. The QHO1D
+independent-reference route binds the result and verifier-derived projection in
+`Qho1dIndependentReferenceRequest`; its internal scientific operations are cohesive
+instance methods rather than static or class utility methods.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

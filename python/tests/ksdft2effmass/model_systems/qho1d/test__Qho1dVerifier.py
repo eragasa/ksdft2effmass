@@ -8,7 +8,10 @@ from projectkoios.physkit.units import ScalarQuantity, Unitless
 from ksdft2effmass.model_systems.qho1d import (
     Qho1dAnalysisRequest,
     Qho1dAnalyzer,
+    Qho1dCalculationResult,
     Qho1dConfiguration,
+    Qho1dIndependentReferenceAnalyzer,
+    Qho1dIndependentReferenceRequest,
     Qho1dVerifier,
 )
 from ksdft2effmass.serialization import (
@@ -53,7 +56,26 @@ class TestQho1dVerifier:
         wire, _ = self.decoded_result()
 
         verification_result = Qho1dVerifier(result_wire=wire).result()
+        reference_request = Qho1dIndependentReferenceRequest(
+            Qho1dCalculationResult.from_json(wire),
+            verification_result.visualization_data,
+        )
+        reference_analyzer = Qho1dIndependentReferenceAnalyzer(reference_request)
+        reference = reference_analyzer.execute()
 
+        assert reference_analyzer.request is reference_request
+        assert all(
+            comparison.result().passed
+            for partition in (
+                reference.spatial_representation,
+                reference.sampled_state_alignment,
+                reference.hamiltonian_comparison,
+                reference.residual,
+                reference.state_comparison,
+                reference.visualization_projection,
+            )
+            for comparison in partition.values()
+        )
         assert verification_result.verification.passed
         assert (
             verification_result.verification.subject_sha256

@@ -69,9 +69,12 @@ incomplete-stage paths before exposing the execution directory.
 
 ## Independent verification
 
-`Qho1dIndependentReferenceAnalyzer` does not call `Qho1dAnalyzer` or
-`Qho1dComparator`. It evaluates Hermite polynomials with SciPy, forms the tridiagonal
-Hamiltonian directly in NumPy, reconstructs the Gram orthonormalization, and compares
+`Qho1dIndependentReferenceRequest` binds the exact result and verifier-derived
+visualization projection before the zero-argument
+`Qho1dIndependentReferenceAnalyzer.execute()` route. The analyzer does not call
+`Qho1dAnalyzer` or `Qho1dComparator`. It evaluates Hermite polynomials with SciPy,
+forms the tridiagonal Hamiltonian directly in NumPy, reconstructs the Gram
+orthonormalization, and compares
 every case and selected eigensolution through typed maximum-error comparisons.
 
 `Qho1dVerifier` gives the final `BaseModelAnalysisVerifier` subject constructor the

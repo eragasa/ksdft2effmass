@@ -103,24 +103,38 @@ class Qho1dIndependentReferenceComparisons:
             object.__setattr__(self, field_name, MappingProxyType(copied))
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Qho1dIndependentReferenceRequest:
+    """Bind one result and its verifier-derived visualization projection."""
+
+    result: Qho1dCalculationResult
+    visualization_data: Qho1dVisualizationData
+
+    def __post_init__(self) -> None:
+        """Admit the complete typed independent-reference request."""
+        if type(self.result) is not Qho1dCalculationResult:
+            raise TypeError("result must be Qho1dCalculationResult")
+        if type(self.visualization_data) is not Qho1dVisualizationData:
+            raise TypeError("visualization_data must be Qho1dVisualizationData")
+
+
 class Qho1dIndependentReferenceAnalyzer:
-    """Reconstruct QHO1D references without production analyzers or comparators."""
+    """Reconstruct one bound QHO1D subject without production analyzers."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        result: Qho1dCalculationResult,
-        visualization_data: Qho1dVisualizationData,
-    ) -> Qho1dIndependentReferenceComparisons:
+    def __init__(self, request: Qho1dIndependentReferenceRequest) -> None:
+        if type(request) is not Qho1dIndependentReferenceRequest:
+            raise TypeError("request must be Qho1dIndependentReferenceRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Qho1dIndependentReferenceRequest:
+        """Return the complete immutable independent-reference request."""
+        return self._request
+
+    def execute(self) -> Qho1dIndependentReferenceComparisons:
         """Return independent comparisons for one decoded QHO1D result.
-
-        Parameters
-        ----------
-        result
-            Typed authoritative calculation result.
-        visualization_data
-            Verifier-derived projection to correlate with that result.
 
         Returns
         -------
@@ -129,23 +143,18 @@ class Qho1dIndependentReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            Either argument has the wrong domain type.
         ValueError
             An independent Gram matrix is not positive definite or the selected case
             is absent.
         """
-        if not isinstance(result, Qho1dCalculationResult):
-            raise TypeError("result must be Qho1dCalculationResult")
-        if not isinstance(visualization_data, Qho1dVisualizationData):
-            raise TypeError("visualization_data must be Qho1dVisualizationData")
+        result = self.request.result
         representation: dict[str, MaximumAbsoluteErrorComparison] = {}
         alignment: dict[str, MaximumAbsoluteErrorComparison] = {}
         hamiltonian: dict[str, MaximumAbsoluteErrorComparison] = {}
         residual: dict[str, MaximumAbsoluteErrorComparison] = {}
         references: dict[tuple[float, float, int], Mapping[str, ReferenceQuantity]] = {}
         for index, case in enumerate(result.cases):
-            reference = self._case_reference(result, case)
+            reference = self._case_reference(case)
             references[case.key] = reference
             prefix = f"case_{index:02d}"
             self._append_case_comparisons(
@@ -165,8 +174,8 @@ class Qho1dIndependentReferenceAnalyzer:
         selected_reference = references.get(selected_key)
         if selected_reference is None:
             raise ValueError("selected QHO1D reference case is absent")
-        state = self._state_comparisons(result, selected_reference)
-        projection = self._projection_comparisons(result, visualization_data)
+        state = self._state_comparisons(selected_reference)
+        projection = self._projection_comparisons()
         return Qho1dIndependentReferenceComparisons(
             spatial_representation=representation,
             sampled_state_alignment=alignment,
@@ -176,12 +185,11 @@ class Qho1dIndependentReferenceAnalyzer:
             visualization_projection=projection,
         )
 
-    @staticmethod
     def _case_reference(
-        result: Qho1dCalculationResult,
+        self,
         case: Qho1dCaseResult,
     ) -> Mapping[str, ReferenceQuantity]:
-        configuration = result.configuration
+        configuration = self.request.result.configuration
         box = case.box_half_width.magnitude
         requested_spacing = case.requested_grid_spacing.magnitude
         retained = case.retained_dimension
@@ -283,8 +291,8 @@ class Qho1dIndependentReferenceAnalyzer:
             }
         )
 
-    @staticmethod
     def _comparison(
+        self,
         observed: ReferenceQuantity,
         reference: ReferenceQuantity,
         tolerance: float,
@@ -295,9 +303,8 @@ class Qho1dIndependentReferenceAnalyzer:
             tolerance=ScalarQuantity(tolerance, Unitless()),
         )
 
-    @classmethod
     def _append_case_comparisons(
-        cls,
+        self,
         representation: dict[str, MaximumAbsoluteErrorComparison],
         alignment: dict[str, MaximumAbsoluteErrorComparison],
         hamiltonian: dict[str, MaximumAbsoluteErrorComparison],
@@ -347,18 +354,17 @@ class Qho1dIndependentReferenceAnalyzer:
                 destination = residual
             else:
                 destination = hamiltonian
-            destination[f"{prefix}_{name}_maximum_absolute_error"] = cls._comparison(
+            destination[f"{prefix}_{name}_maximum_absolute_error"] = self._comparison(
                 value,
                 reference[name],
                 2.0e-14 if name in representation_names else 5.0e-11,
             )
 
-    @classmethod
     def _state_comparisons(
-        cls,
-        result: Qho1dCalculationResult,
+        self,
         reference: Mapping[str, ReferenceQuantity],
     ) -> Mapping[str, MaximumAbsoluteErrorComparison]:
+        result = self.request.result
         state = result.selected_state_comparison
         hamiltonian = reference["hamiltonian"]
         analytical = reference["analytical_wavefunctions"]
@@ -383,27 +389,29 @@ class Qho1dIndependentReferenceAnalyzer:
         )
         return MappingProxyType(
             {
-                "state_coordinates_maximum_absolute_error": cls._comparison(
+                "state_coordinates_maximum_absolute_error": self._comparison(
                     state.coordinates,
                     reference["grid_coordinates"],
                     2.0e-14,
                 ),
-                "state_analytical_wavefunction_maximum_absolute_error": cls._comparison(
+                (
+                    "state_analytical_wavefunction_maximum_absolute_error"
+                ): self._comparison(
                     state.analytical_wavefunctions,
                     analytical,
                     2.0e-12,
                 ),
-                "state_finite_wavefunction_maximum_absolute_error": cls._comparison(
+                "state_finite_wavefunction_maximum_absolute_error": self._comparison(
                     state.finite_wavefunctions,
                     MatrixQuantity(finite, Unitless()),
                     2.0e-12,
                 ),
-                "state_analytical_energy_maximum_absolute_error": cls._comparison(
+                "state_analytical_energy_maximum_absolute_error": self._comparison(
                     state.analytical_energies,
                     VectorQuantity(analytical_energies, Unitless()),
                     2.0e-14,
                 ),
-                "state_finite_energy_maximum_absolute_error": cls._comparison(
+                "state_finite_energy_maximum_absolute_error": self._comparison(
                     state.finite_energies,
                     VectorQuantity(eigenvalues[: state.retained_dimension], Unitless()),
                     2.0e-12,
@@ -411,36 +419,35 @@ class Qho1dIndependentReferenceAnalyzer:
             }
         )
 
-    @classmethod
     def _projection_comparisons(
-        cls,
-        result: Qho1dCalculationResult,
-        data: Qho1dVisualizationData,
+        self,
     ) -> Mapping[str, MaximumAbsoluteErrorComparison]:
+        result = self.request.result
+        data = self.request.visualization_data
         first_result = result.cases[0]
         first_projection = data.cases[0]
         return MappingProxyType(
             {
-                "visualization_case_count_error": cls._comparison(
+                "visualization_case_count_error": self._comparison(
                     ScalarQuantity(float(len(data.cases)), Unitless()),
                     ScalarQuantity(float(len(result.cases)), Unitless()),
                     0.0,
                 ),
-                "visualization_first_relative_discrepancy_error": cls._comparison(
+                "visualization_first_relative_discrepancy_error": self._comparison(
                     first_projection.relative_discrepancy,
                     first_result.relative_discrepancy,
                     0.0,
                 ),
                 (
                     "visualization_selected_coordinate_maximum_absolute_error"
-                ): cls._comparison(
+                ): self._comparison(
                     data.selected_state_comparison.coordinates,
                     result.selected_state_comparison.coordinates,
                     0.0,
                 ),
                 (
                     "visualization_selected_finite_energy_maximum_absolute_error"
-                ): cls._comparison(
+                ): self._comparison(
                     data.selected_state_comparison.finite_energies,
                     result.selected_state_comparison.finite_energies,
                     0.0,
@@ -486,10 +493,9 @@ class Qho1dVerifier(
         self,
         visualization_data: Qho1dVisualizationData,
     ) -> tuple[CompositeVerification, ...]:
-        reference = Qho1dIndependentReferenceAnalyzer().execute(
-            self._result,
-            visualization_data,
-        )
+        reference = Qho1dIndependentReferenceAnalyzer(
+            Qho1dIndependentReferenceRequest(self._result, visualization_data)
+        ).execute()
         return (
             Qho1dSpatialRepresentationVerification.evaluate(
                 reference.spatial_representation
