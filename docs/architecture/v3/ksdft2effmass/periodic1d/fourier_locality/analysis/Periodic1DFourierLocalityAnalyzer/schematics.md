@@ -9,7 +9,8 @@ sequenceDiagram
     participant Owners as Canonical numerical owners
     participant Records as Typed result constructors
 
-    Caller->>Analyzer: calculate(configuration)
+    Caller->>Analyzer: construct(configuration)
+    Caller->>Analyzer: execute()
     Analyzer->>Owners: parent eigensystems
     Analyzer->>Owners: transforms, truncations, fits, diagnostics
     Owners-->>Analyzer: finite values

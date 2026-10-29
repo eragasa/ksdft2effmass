@@ -17,7 +17,6 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .configuration import Periodic1DFourierLocalityConfiguration
 from .result import Periodic1DFourierLocalityCalculationResult
 from .visualizations.data import Periodic1DFourierLocalityVisualizationData
 
@@ -45,26 +44,48 @@ class Periodic1DFourierLocalityIndependentVerification:
         )
 
 
-class Periodic1DFourierLocalityIndependentVerifier:
-    """Reconstruct every numerical result channel directly with NumPy formulas."""
+@dataclass(frozen=True, slots=True)
+class Periodic1DFourierLocalityIndependentVerificationRequest:
+    """Bind the admitted result and exact verifier-derived projection."""
 
-    __slots__ = ()
+    result: Periodic1DFourierLocalityCalculationResult
+    visualization_data: Periodic1DFourierLocalityVisualizationData
 
-    def execute(
-        self,
-        result: Periodic1DFourierLocalityCalculationResult,
-        visualization_data: Periodic1DFourierLocalityVisualizationData,
-    ) -> Periodic1DFourierLocalityIndependentVerification:
-        """Return independent comparisons for one admitted result and projection."""
-        if not isinstance(result, Periodic1DFourierLocalityCalculationResult):
+    def __post_init__(self) -> None:
+        """Admit exact rank-one verification subject types."""
+        if type(self.result) is not Periodic1DFourierLocalityCalculationResult:
             raise TypeError("result must be Periodic1DFourierLocalityCalculationResult")
-        if not isinstance(
-            visualization_data,
-            Periodic1DFourierLocalityVisualizationData,
+        if type(self.visualization_data) is not (
+            Periodic1DFourierLocalityVisualizationData
         ):
             raise TypeError(
                 "visualization_data must be Fourier-locality visualization data"
             )
+
+
+class Periodic1DFourierLocalityIndependentVerifier:
+    """Reconstruct one bound result and projection with direct NumPy formulas."""
+
+    __slots__ = ("_request",)
+
+    def __init__(
+        self, request: Periodic1DFourierLocalityIndependentVerificationRequest
+    ) -> None:
+        if type(request) is not Periodic1DFourierLocalityIndependentVerificationRequest:
+            raise TypeError(
+                "request must be "
+                "Periodic1DFourierLocalityIndependentVerificationRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> Periodic1DFourierLocalityIndependentVerificationRequest:
+        """Return the complete immutable verification request."""
+        return self._request
+
+    def execute(self) -> Periodic1DFourierLocalityIndependentVerification:
+        """Return independent comparisons for the bound result and projection."""
+        result = self.request.result
         configuration = result.configuration
         unit = Unitless()
         comparisons: dict[str, MaximumAbsoluteErrorComparison] = {}
@@ -98,7 +119,6 @@ class Periodic1DFourierLocalityIndependentVerifier:
             0.0,
         )
         evaluation_lowest, evaluation_adjacent = self._parent_bands(
-            configuration,
             result.evaluation.reduced_momenta.magnitude,
         )
         self._add(
@@ -137,7 +157,7 @@ class Periodic1DFourierLocalityIndependentVerifier:
         for mesh in result.meshes:
             prefix = f"mesh_{mesh.construction_size}"
             coordinates = mesh.construction_reduced_momenta.magnitude
-            lowest, adjacent = self._parent_bands(configuration, coordinates)
+            lowest, adjacent = self._parent_bands(coordinates)
             self._add(
                 comparisons,
                 f"{prefix}_lowest_energies",
@@ -702,7 +722,6 @@ class Periodic1DFourierLocalityIndependentVerifier:
         )
         production = result.meshes[-1]
         production_lowest, production_adjacent = self._parent_bands(
-            configuration,
             production.construction_reduced_momenta.magnitude,
         )
         production_gaps = production_adjacent - production_lowest
@@ -794,14 +813,14 @@ class Periodic1DFourierLocalityIndependentVerifier:
             0.0,
             0.0,
         )
-        self._projection_comparisons(comparisons, result, visualization_data)
+        self._projection_comparisons(comparisons)
         return Periodic1DFourierLocalityIndependentVerification(comparisons)
 
-    @staticmethod
     def _parent_bands(
-        configuration: Periodic1DFourierLocalityConfiguration,
+        self,
         coordinates: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
+        configuration = self.request.result.configuration
         denominator = float(configuration.coefficient_denominator)
         onsite = (
             np.asarray(configuration.onsite_numerators, dtype=np.float64) / denominator
@@ -818,8 +837,8 @@ class Periodic1DFourierLocalityIndependentVerifier:
         values = np.asarray(spectra, dtype=np.float64)
         return values[:, 0], values[:, 1]
 
-    @staticmethod
     def _add(
+        self,
         comparisons: dict[str, MaximumAbsoluteErrorComparison],
         name: str,
         observed: ScalarQuantity
@@ -843,13 +862,12 @@ class Periodic1DFourierLocalityIndependentVerifier:
             ScalarQuantity(tolerance, observed.unit),
         )
 
-    @classmethod
     def _projection_comparisons(
-        cls,
+        self,
         comparisons: dict[str, MaximumAbsoluteErrorComparison],
-        result: Periodic1DFourierLocalityCalculationResult,
-        data: Periodic1DFourierLocalityVisualizationData,
     ) -> None:
+        result = self.request.result
+        data = self.request.visualization_data
         unit = Unitless()
         production = result.meshes[-1]
         vector_comparisons = (
@@ -933,7 +951,7 @@ class Periodic1DFourierLocalityIndependentVerifier:
             ),
         )
         for name, vector_observed, vector_reference in vector_comparisons:
-            cls._add(
+            self._add(
                 comparisons,
                 f"visualization_{name}",
                 vector_observed,
@@ -1070,7 +1088,7 @@ class Periodic1DFourierLocalityIndependentVerifier:
             ),
         )
         for name, matrix_observed, matrix_reference in matrix_comparisons:
-            cls._add(
+            self._add(
                 comparisons,
                 f"visualization_{name}",
                 matrix_observed,
@@ -1078,7 +1096,7 @@ class Periodic1DFourierLocalityIndependentVerifier:
                 0.0,
                 0.0,
             )
-        cls._add(
+        self._add(
             comparisons,
             "visualization_first_joint_passes",
             VectorQuantity(
@@ -1104,7 +1122,7 @@ class Periodic1DFourierLocalityIndependentVerifier:
             0.0,
             0.0,
         )
-        cls._add(
+        self._add(
             comparisons,
             "visualization_sustained_after_first_passes",
             VectorQuantity(
@@ -1138,7 +1156,7 @@ class Periodic1DFourierLocalityIndependentVerifier:
             ),
         )
         for name, scalar_observed, scalar_reference in scalar_comparisons:
-            cls._add(
+            self._add(
                 comparisons,
                 f"visualization_{name}",
                 scalar_observed,

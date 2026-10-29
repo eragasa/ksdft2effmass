@@ -21,6 +21,7 @@ from .verification import (
 )
 from .verification_values import (
     Periodic1DFourierLocalityIndependentVerification,
+    Periodic1DFourierLocalityIndependentVerificationRequest,
     Periodic1DFourierLocalityIndependentVerifier,
 )
 from .visualizations import (
@@ -37,6 +38,7 @@ __all__ = [
     "Periodic1DFourierLocalityMeshResult",
     "FourierLocalityVerification",
     "Periodic1DFourierLocalityIndependentVerification",
+    "Periodic1DFourierLocalityIndependentVerificationRequest",
     "Periodic1DFourierLocalityIndependentVerifier",
     "Periodic1DFourierLocalityRangeResult",
     "Periodic1DFourierLocalityVerification",

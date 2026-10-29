@@ -2,10 +2,13 @@
 
 ## Responsibility
 
-Stateless direct reference action that accepts one constructor-validated
-`Periodic1DFourierLocalityCalculationResult` and the verifier-owned
-`Periodic1DFourierLocalityVisualizationData`. Its `execute()` method returns the immutable
-named comparison mapping in `Periodic1DFourierLocalityIndependentVerification`.
+Request-bound direct reference action whose
+`Periodic1DFourierLocalityIndependentVerificationRequest` admits one
+constructor-validated `Periodic1DFourierLocalityCalculationResult` and the
+verifier-owned `Periodic1DFourierLocalityVisualizationData`. Its zero-argument
+`execute()` returns the immutable named comparison mapping in
+`Periodic1DFourierLocalityIndependentVerification`. Its scientific operations are
+cohesive instance methods reading the bound request.
 
 The action independently recomputes declared scientific values with direct NumPy formulas
 and does not invoke `Periodic1DFourierLocalityAnalyzer`, production transform actions, or
@@ -16,6 +19,7 @@ with its admitted-result source; they do not claim a separately implemented proj
 
 ```python
 from ksdft2effmass.periodic1d.fourier_locality import (
+    Periodic1DFourierLocalityIndependentVerificationRequest,
     Periodic1DFourierLocalityIndependentVerifier,
 )
 ```

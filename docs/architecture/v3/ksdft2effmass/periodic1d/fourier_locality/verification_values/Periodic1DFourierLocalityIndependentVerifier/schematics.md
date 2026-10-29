@@ -6,7 +6,8 @@ sequenceDiagram
     participant I as Independent verifier
     participant N as Direct NumPy formulas
 
-    V->>I: execute(admitted result, projection)
+    V->>I: construct(request: admitted result + projection)
+    V->>I: execute()
     I->>N: reconstruct declared scientific channels
     N-->>I: reference values and decisions
     I->>I: compare scientific values

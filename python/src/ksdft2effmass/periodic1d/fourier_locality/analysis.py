@@ -44,17 +44,21 @@ from .result import (
 class Periodic1DFourierLocalityAnalyzer:
     """Calculate one finite rank-one Fourier-locality result without effects."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self,
-        configuration: Periodic1DFourierLocalityConfiguration,
-    ) -> Periodic1DFourierLocalityCalculationResult:
-        """Return the complete correlated result for ``configuration``."""
-        if not isinstance(configuration, Periodic1DFourierLocalityConfiguration):
-            raise TypeError(
-                "configuration must be Periodic1DFourierLocalityConfiguration"
-            )
+    def __init__(self, request: Periodic1DFourierLocalityConfiguration) -> None:
+        if type(request) is not Periodic1DFourierLocalityConfiguration:
+            raise TypeError("request must be Periodic1DFourierLocalityConfiguration")
+        self._request = request
+
+    @property
+    def request(self) -> Periodic1DFourierLocalityConfiguration:
+        """Return the complete immutable Fourier-locality request."""
+        return self._request
+
+    def execute(self) -> Periodic1DFourierLocalityCalculationResult:
+        """Return the complete correlated result for the bound configuration."""
+        configuration = self.request
         unit = Unitless()
         reciprocal_period = ScalarQuantity(1.0, unit)
         evaluation_coordinates = VectorQuantity(
@@ -65,7 +69,6 @@ class Periodic1DFourierLocalityAnalyzer:
             unit,
         )
         evaluation_lowest, evaluation_adjacent = self._parent_bands(
-            configuration,
             evaluation_coordinates,
         )
         evaluation = Periodic1DFourierLocalityEvaluationResult(
@@ -80,7 +83,6 @@ class Periodic1DFourierLocalityAnalyzer:
                 construction_size,
             )
             construction_lowest, construction_adjacent = self._parent_bands(
-                configuration,
                 mesh.coordinates,
             )
             source = self._scalar_samples(
@@ -453,11 +455,11 @@ class Periodic1DFourierLocalityAnalyzer:
             gap_minimizing_reduced_momentum=ScalarQuantity(gap_momentum, unit),
         )
 
-    @staticmethod
     def _parent_bands(
-        configuration: Periodic1DFourierLocalityConfiguration,
+        self,
         coordinates: VectorQuantity,
     ) -> tuple[VectorQuantity, VectorQuantity]:
+        configuration = self.request
         denominator = float(configuration.coefficient_denominator)
         onsite = (
             np.asarray(
@@ -496,8 +498,8 @@ class Periodic1DFourierLocalityAnalyzer:
             VectorQuantity(np.asarray(adjacent, dtype=np.float64), Unitless()),
         )
 
-    @staticmethod
     def _scalar_samples(
+        self,
         coordinates: VectorQuantity,
         reciprocal_period: ScalarQuantity,
         values: VectorQuantity,
@@ -514,8 +516,7 @@ class Periodic1DFourierLocalityAnalyzer:
             ),
         )
 
-    @staticmethod
-    def _scalar_vector(samples: ReciprocalOperatorSamples1D) -> VectorQuantity:
+    def _scalar_vector(self, samples: ReciprocalOperatorSamples1D) -> VectorQuantity:
         return VectorQuantity(
             np.asarray(
                 [float(matrix.magnitude[0, 0].real) for matrix in samples.matrices],
@@ -524,8 +525,7 @@ class Periodic1DFourierLocalityAnalyzer:
             samples.matrices[0].unit,
         )
 
-    @staticmethod
-    def _canonical_complex_values(values: Complex128Array) -> Complex128Array:
+    def _canonical_complex_values(self, values: Complex128Array) -> Complex128Array:
         canonical = np.asarray(
             np.where(values.real == 0.0, 0.0, values.real),
             dtype=np.complex128,
@@ -533,8 +533,8 @@ class Periodic1DFourierLocalityAnalyzer:
         canonical.imag = np.where(values.imag == 0.0, 0.0, values.imag)
         return canonical
 
-    @staticmethod
     def _complete_hermiticity_error(
+        self,
         representatives: tuple[int, ...],
         coefficients: Complex128Array,
         construction_size: int,
@@ -551,8 +551,8 @@ class Periodic1DFourierLocalityAnalyzer:
             )
         return maximum_error
 
-    @staticmethod
     def _nondominated_mask(
+        self,
         maximum_ranges: tuple[int, ...],
         errors: tuple[float, ...],
     ) -> tuple[bool, ...]:
@@ -571,8 +571,8 @@ class Periodic1DFourierLocalityAnalyzer:
             for candidate_index in range(len(maximum_ranges))
         )
 
-    @staticmethod
     def _near_tie_mask(
+        self,
         nondominated_mask: tuple[bool, ...],
         errors: tuple[float, ...],
         absolute_tolerance: float,

@@ -209,7 +209,11 @@ explicit Unitless adaptation. The next periodic-representation leaf slice binds
 `PeriodicFiniteDifferenceFiberHamiltonian1DRequest` before represented-matrix
 construction. `Mathieu1dAnalysisRequest` then binds the complete configuration and
 result identity; `Mathieu1dAnalyzer` exposes only zero-argument `execute()` and its
-scientific operations are cohesive instance methods.
+scientific operations are cohesive instance methods. The rank-one slice then binds the
+complete `Periodic1DFourierLocalityConfiguration` directly in its analyzer and binds
+the admitted result plus verifier-derived projection in
+`Periodic1DFourierLocalityIndependentVerificationRequest`; both actions expose
+zero-argument `execute()` and cohesive instance operations.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in
@@ -220,8 +224,7 @@ are outside the 78-class KSD inventory, but the selected collaborator must becom
 explicit required dependency at the KSD composition boundary rather than remain a
 hidden default.
 
-The remaining direct composition roots expose empty top-level calls at
-`calculations/periodic1d/rank1/fourier-locality/run_01_calculation.py:53` and
+The remaining direct composition root exposes an empty top-level call at
 `calculations/periodic1d/rank2/composite-band-alignment-locality/run_01_calculation.py:55`.
 The rank-two review renderer repeats the pattern at
 `calculations/periodic1d/rank2/composite-band-alignment-locality/technical-report/render_review_figures.py:49`.
