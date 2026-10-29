@@ -171,7 +171,10 @@ With those leaf dependencies complete, the PIAB1D core slice binds the exact Phy
 solution and retained dimension in `Piab1dAnalysisRequest`; the top-level analyzer now
 has a zero-argument terminal operation. The companion grid-sweep slice uses the
 existing immutable `Piab1dGridSweepDefinition` as its complete request and makes the
-analyzer constructor-bound with a zero-argument `execute()`.
+analyzer constructor-bound with a zero-argument `execute()`. Verification migration
+then proceeds leaf-first: `Piab1dCoreReferenceAnalyzer` binds the exact typed result and
+verifier-derived visualization projection in `Piab1dCoreReferenceRequest`, and the
+aggregate constructs that complete child action only after both subjects exist.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

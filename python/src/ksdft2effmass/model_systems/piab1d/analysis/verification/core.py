@@ -34,24 +34,38 @@ class Piab1dCoreReference:
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dCoreReferenceRequest:
+    """Bind admitted PIAB1D result data for independent core reconstruction."""
+
+    result: Piab1dCalculationResult
+    visualization_data: Piab1dVisualizationData
+
+    def __post_init__(self) -> None:
+        """Admit the complete typed core-reference request."""
+        if type(self.result) is not Piab1dCalculationResult:
+            raise TypeError("result must be Piab1dCalculationResult")
+        if type(self.visualization_data) is not Piab1dVisualizationData:
+            raise TypeError("visualization_data must be Piab1dVisualizationData")
+
+
 class Piab1dCoreReferenceAnalyzer:
-    """Derive PIAB1D references and comparisons independently of production analysis."""
+    """Derive core references from one constructor-bound admitted subject."""
 
-    def execute(
-        self,
-        result: Piab1dCalculationResult,
-        visualization_data: Piab1dVisualizationData,
-    ) -> Piab1dCoreReference:
+    __slots__ = ("_request",)
+
+    def __init__(self, request: Piab1dCoreReferenceRequest) -> None:
+        if type(request) is not Piab1dCoreReferenceRequest:
+            raise TypeError("request must be Piab1dCoreReferenceRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dCoreReferenceRequest:
+        """Return the complete immutable core-reference request."""
+        return self._request
+
+    def execute(self) -> Piab1dCoreReference:
         """Reconstruct and compare the core finite problem independently.
-
-        Parameters
-        ----------
-        result
-            Typed production calculation containing model, operator, eigensystem,
-            reduction, quadrature, convergence, and selection sections.
-        visualization_data
-            Verifier-derived projection whose fields must reproduce the authoritative
-            values in ``result``.
 
         Returns
         -------
@@ -61,8 +75,6 @@ class Piab1dCoreReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            Either input has the wrong typed aggregate.
         ValueError
             Configuration or reconstructed finite identities are inadmissible.
 
@@ -71,6 +83,8 @@ class Piab1dCoreReferenceAnalyzer:
         The method constructs the finite-difference matrix and analytical formulas
         directly. It does not invoke ``Piab1dAnalyzer``.
         """
+        result = self.request.result
+        visualization_data = self.request.visualization_data
         configuration = result.configuration
         hamiltonian_section = result.hamiltonian
         eigensystem_section = result.eigensystem

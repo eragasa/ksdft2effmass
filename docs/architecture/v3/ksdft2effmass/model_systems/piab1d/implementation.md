@@ -50,7 +50,10 @@ derives `Piab1dVisualizationData`, computes its SHA-256 digest, and composes
 independent reference analyzers through the shared final verification sequence. The
 verifier does not accept a caller-authored projection digest.
 
-The independent route reconstructs:
+The independent route constructs operation-specific analyzers only from complete
+immutable requests. In particular, `Piab1dCoreReferenceRequest` binds the exact typed
+calculation result and verifier-derived visualization projection before the core
+reference analyzer executes. The route reconstructs:
 
 - the finite-difference Hamiltonian;
 - discrete and continuum spectra;

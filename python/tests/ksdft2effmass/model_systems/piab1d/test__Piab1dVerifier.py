@@ -46,6 +46,10 @@ from ksdft2effmass.model_systems.piab1d import (
     Piab1dVerifier,
     Piab1dVisualizationData,
 )
+from ksdft2effmass.model_systems.piab1d.analysis.verification.core import (
+    Piab1dCoreReferenceAnalyzer,
+    Piab1dCoreReferenceRequest,
+)
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
@@ -257,6 +261,11 @@ class TestPiab1dVerifier:
         decoded_result = TypedJsonValueCodec().deserialize_bytes(result_wire)
         assert isinstance(decoded_result, dict)
         typed_result = Piab1dCalculationResult.from_dict(decoded_result)
+        core_request = Piab1dCoreReferenceRequest(typed_result, visualization_data)
+        core_analyzer = Piab1dCoreReferenceAnalyzer(core_request)
+        core_reference = core_analyzer.execute()
+        assert core_analyzer.request is core_request
+        assert core_reference.comparisons
         reference = Piab1dIndependentReferenceAnalyzer().execute(
             typed_result,
             visualization_data,

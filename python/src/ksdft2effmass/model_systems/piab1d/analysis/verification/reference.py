@@ -10,7 +10,7 @@ from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from ...result import Piab1dCalculationResult
 from ...visualizations.data import Piab1dVisualizationData
-from .core import Piab1dCoreReferenceAnalyzer
+from .core import Piab1dCoreReferenceAnalyzer, Piab1dCoreReferenceRequest
 from .decomposition import (
     Piab1dKineticPotentialDecompositionReferenceAnalyzer,
 )
@@ -41,7 +41,6 @@ class Piab1dIndependentReferenceAnalyzer:
     """Compose independent operation-specific PIAB1D reference analyses."""
 
     __slots__ = (
-        "core_analyzer",
         "eigenpair_sweep_analyzer",
         "residual_norm_sweep_analyzer",
         "finite_algebraic_diagnostics_analyzer",
@@ -49,7 +48,6 @@ class Piab1dIndependentReferenceAnalyzer:
     )
 
     def __init__(self) -> None:
-        self.core_analyzer = Piab1dCoreReferenceAnalyzer()
         self.eigenpair_sweep_analyzer = Piab1dEigenpairSweepReferenceAnalyzer()
         self.residual_norm_sweep_analyzer = Piab1dResidualNormSweepReferenceAnalyzer()
         self.finite_algebraic_diagnostics_analyzer = (
@@ -92,7 +90,9 @@ class Piab1dIndependentReferenceAnalyzer:
         owner reconstructs its target directly from declared equations and typed
         source data.
         """
-        core = self.core_analyzer.execute(result, visualization_data)
+        core = Piab1dCoreReferenceAnalyzer(
+            Piab1dCoreReferenceRequest(result, visualization_data)
+        ).execute()
         eigenpair_sweep = self.eigenpair_sweep_analyzer.execute(result.eigenpair_sweep)
         residual_norms = self.residual_norm_sweep_analyzer.execute(
             result.residual_norm_sweep
