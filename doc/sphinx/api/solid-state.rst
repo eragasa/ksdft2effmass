@@ -124,6 +124,9 @@ frames and reports the minimum overlap singular value and closure eigenphases.
 .. autoclass:: ReciprocalBandFramePath1D
    :members:
 
+.. autoclass:: PolarBandFrameTransportRequest1D
+   :members:
+
 .. autoclass:: PolarBandFrameTransportResult1D
    :members:
 

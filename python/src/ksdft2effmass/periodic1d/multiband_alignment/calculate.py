@@ -32,6 +32,7 @@ from ksdft2effmass.solidstate import (
     BlockHoppingTruncator1D,
     CenteredUniformReciprocalMesh1D,
     PolarBandFrameTransporter1D,
+    PolarBandFrameTransportRequest1D,
     ReciprocalBandFramePath1D,
     ReciprocalOperatorFourierTransformer1D,
     ReciprocalOperatorFourierTransformRequest1D,
@@ -106,9 +107,11 @@ class Periodic1DMultibandAlignmentCalculator:
             definition.retained_rank,
             definition.orthonormality_absolute_tolerance,
         )
-        transport = PolarBandFrameTransporter1D().execute(
-            raw_frames, definition.overlap_singular_value_threshold
-        )
+        transport = PolarBandFrameTransporter1D(
+            PolarBandFrameTransportRequest1D(
+                raw_frames, definition.overlap_singular_value_threshold
+            )
+        ).execute()
         reference = transport.transported
         attack_rotations = self._attack_rotations(definition, mesh.coordinates)
         attacked = self._rotate_path(reference, attack_rotations)

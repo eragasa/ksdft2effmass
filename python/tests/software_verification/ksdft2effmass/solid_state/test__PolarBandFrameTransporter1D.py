@@ -28,6 +28,7 @@ from projectkoios.physkit.units import (
 from ksdft2effmass.solidstate import (
     CenteredUniformReciprocalMesh1D,
     PolarBandFrameTransporter1D,
+    PolarBandFrameTransportRequest1D,
     ReciprocalBandFramePath1D,
 )
 
@@ -72,8 +73,12 @@ class TestPolarBandFrameTransporter1D:
             1.0e-14,
         )
 
-        result = PolarBandFrameTransporter1D().execute(path, 1.0e-12)
+        request = PolarBandFrameTransportRequest1D(path, 1.0e-12)
+        transporter = PolarBandFrameTransporter1D(request)
 
+        result = transporter.execute()
+
+        assert transporter.request is request
         reference = result.transported.frames[0].magnitude
         np.testing.assert_allclose(
             result.transported.frames[1].magnitude, reference, atol=1.0e-14
@@ -109,7 +114,9 @@ class TestPolarBandFrameTransporter1D:
             1.0e-14,
         )
 
-        result = PolarBandFrameTransporter1D().execute(path, 1.0e-12)
+        result = PolarBandFrameTransporter1D(
+            PolarBandFrameTransportRequest1D(path, 1.0e-12)
+        ).execute()
 
         np.testing.assert_allclose(
             result.transported.frames[1].magnitude,

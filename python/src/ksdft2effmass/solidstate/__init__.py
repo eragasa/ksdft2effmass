@@ -11,6 +11,7 @@ existing owners.
 
 from .band_frames import (
     PolarBandFrameTransporter1D,
+    PolarBandFrameTransportRequest1D,
     PolarBandFrameTransportResult1D,
     ReciprocalBandFramePath1D,
 )
@@ -204,6 +205,7 @@ __all__ = [
     "PlaneWaveReciprocalSewingConstructor",
     "PlaneWaveReciprocalSewingResult",
     "PolarBandFrameTransporter1D",
+    "PolarBandFrameTransportRequest1D",
     "PolarBandFrameTransportResult1D",
     "ReciprocalBandFramePath1D",
     "ReciprocalCoordinateInterval1D",

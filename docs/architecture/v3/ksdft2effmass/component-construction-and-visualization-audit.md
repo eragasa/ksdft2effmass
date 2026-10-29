@@ -139,7 +139,10 @@ row with four immutable request records, request-bound constructors, and zero-ar
 `execute()` methods. Direct family and transitional predecessor consumers now construct
 complete requests. The obsolete `analysis.single_band_reduction` package and the
 campaign-level `Periodic1DHoppingReductionWorkflow` surface were retired instead of
-being adapted to the new action API; no compatibility facade remains.
+being adapted to the new action API; no compatibility facade remains. The next
+bottom-up slice implements the `solidstate/band_frames.py` row with an immutable
+polar-transport request, a request-bound transporter, and a zero-argument terminal
+operation.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in
