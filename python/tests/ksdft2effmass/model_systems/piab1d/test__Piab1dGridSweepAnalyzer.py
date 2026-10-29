@@ -38,9 +38,11 @@ class TestPiab1dGridSweepAnalyzer:
             fixed_modes=(8,),
         )
 
-        analysis = Piab1dGridSweepAnalyzer().execute(definition)
+        analyzer = Piab1dGridSweepAnalyzer(definition)
+        analysis = analyzer.execute()
         result = analysis.eigenpairs
 
+        assert analyzer.request is definition
         assert result.grid_offsets == (0, 8, 17)
         assert result.mode_numbers == (*range(1, 9), *range(1, 10))
         np.testing.assert_allclose(result.spacings.magnitude, (1.0 / 9.0, 0.1))
@@ -87,7 +89,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        result = Piab1dGridSweepAnalyzer().execute(definition).eigenpairs
+        result = Piab1dGridSweepAnalyzer(definition).execute().eigenpairs
 
         with pytest.raises(ValueError, match="nondimensional unit"):
             replace(
@@ -106,7 +108,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        result = Piab1dGridSweepAnalyzer().execute(definition).eigenpairs
+        result = Piab1dGridSweepAnalyzer(definition).execute().eigenpairs
 
         with pytest.raises(ValueError, match="declared represented grids"):
             replace(
@@ -122,7 +124,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        result = Piab1dGridSweepAnalyzer().execute(definition).residual_norms
+        result = Piab1dGridSweepAnalyzer(definition).execute().residual_norms
 
         with pytest.raises(ValueError, match="cover every grid and norm"):
             replace(
@@ -139,7 +141,7 @@ class TestPiab1dGridSweepAnalyzer:
             fixed_modes=(1,),
         )
         result = (
-            Piab1dGridSweepAnalyzer().execute(definition).finite_algebraic_diagnostics
+            Piab1dGridSweepAnalyzer(definition).execute().finite_algebraic_diagnostics
         )
 
         with pytest.raises(ValueError, match="nondimensional unit"):
@@ -159,7 +161,7 @@ class TestPiab1dGridSweepAnalyzer:
             retained_dimension=3,
             fixed_modes=(1,),
         )
-        analysis = Piab1dGridSweepAnalyzer().execute(definition)
+        analysis = Piab1dGridSweepAnalyzer(definition).execute()
         other_definition = Piab1dGridSweepDefinition(
             length=2.0,
             mass=1.0,

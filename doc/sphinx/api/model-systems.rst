@@ -279,6 +279,15 @@ verification composed around that pinned implementation.
 .. autoclass:: Piab1dAnalyzer
    :members:
 
+.. autoclass:: Piab1dGridSweepDefinition
+   :members:
+
+.. autoclass:: Piab1dGridSweepAnalyzer
+   :members:
+
+.. autoclass:: Piab1dGridSweepAnalysis
+   :members:
+
 .. autoclass:: Piab1dDiagnostics
    :members:
 

@@ -35,10 +35,11 @@ decomposition shift, and serializes one typed root result. `Piab1dAnalyzer.execu
 accepts no scientific request arguments and constructs child actions only from complete
 immutable requests.
 
-`Piab1dGridSweepAnalyzer` solves each declared grid once. The resulting eigensolution
-feeds eigenpair convergence, residual norms, and finite algebraic diagnostics. This
-composition prevents three independent solver loops from producing divergent grid
-inventories.
+`Piab1dGridSweepAnalyzer` binds the complete immutable
+`Piab1dGridSweepDefinition` at construction and solves each declared grid once through
+a zero-argument `execute()`. The resulting eigensolution feeds eigenpair convergence,
+residual norms, and finite algebraic diagnostics. This composition prevents three
+independent solver loops from producing divergent grid inventories.
 
 ## Independent verification
 

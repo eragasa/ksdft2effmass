@@ -169,7 +169,9 @@ binds the finite Hamiltonian and exact orthogonal subspace in an immutable
 `OrthogonalHamiltonianBlockRequest`; PIAB1D no longer retains an empty block analyzer.
 With those leaf dependencies complete, the PIAB1D core slice binds the exact PhysKit
 solution and retained dimension in `Piab1dAnalysisRequest`; the top-level analyzer now
-has a zero-argument terminal operation.
+has a zero-argument terminal operation. The companion grid-sweep slice uses the
+existing immutable `Piab1dGridSweepDefinition` as its complete request and makes the
+analyzer constructor-bound with a zero-argument `execute()`.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

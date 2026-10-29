@@ -100,15 +100,14 @@ kinetic_potential_decomposition = KineticPotentialDecompositionAnalyzer(
     kinetic_potential_decomposition_request,
     RetainedModelClassFitter(RetainedModelClassFitRequest(decomposition_shift)),
 ).execute()
-grid_sweep = Piab1dGridSweepAnalyzer().execute(
-    Piab1dGridSweepDefinition(
-        length=LENGTH,
-        mass=MASS,
-        interior_points=tuple(range(8, 257)),
-        retained_dimension=3,
-        fixed_modes=(8, 16, 32),
-    )
+grid_sweep_definition = Piab1dGridSweepDefinition(
+    length=LENGTH,
+    mass=MASS,
+    interior_points=tuple(range(8, 257)),
+    retained_dimension=3,
+    fixed_modes=(8, 16, 32),
 )
+grid_sweep = Piab1dGridSweepAnalyzer(grid_sweep_definition).execute()
 canonical_probabilities = CanonicalLevelProbabilityModel(
     thermal_energy=ScalarQuantity(
         1.0 / THERMAL_BETA,

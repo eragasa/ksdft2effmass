@@ -115,7 +115,7 @@ class TestPiab1dVerifier:
         convergence_orders = np.log(
             convergence_errors[:-1, :3] / convergence_errors[1:, :3]
         ) / np.log(convergence_spacings[:-1, None] / convergence_spacings[1:, None])
-        grid_sweep = Piab1dGridSweepAnalyzer().execute(
+        grid_sweep = Piab1dGridSweepAnalyzer(
             Piab1dGridSweepDefinition(
                 length=1.0,
                 mass=1.0,
@@ -123,7 +123,7 @@ class TestPiab1dVerifier:
                 retained_dimension=3,
                 fixed_modes=(8,),
             )
-        )
+        ).execute()
         eigenpair_sweep = grid_sweep.eigenpairs
         decomposition_shift = MatrixQuantity(
             np.asarray(

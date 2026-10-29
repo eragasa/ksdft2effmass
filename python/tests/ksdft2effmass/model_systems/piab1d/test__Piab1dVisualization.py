@@ -42,7 +42,7 @@ class TestPiab1dVisualization:
     def test_visualizer__different_verified_digest__rejects_typed_immutable_data(
         self,
     ) -> None:
-        grid_sweep = Piab1dGridSweepAnalyzer().execute(
+        grid_sweep = Piab1dGridSweepAnalyzer(
             Piab1dGridSweepDefinition(
                 length=1.0,
                 mass=1.0,
@@ -50,7 +50,7 @@ class TestPiab1dVisualization:
                 retained_dimension=3,
                 fixed_modes=(3,),
             )
-        )
+        ).execute()
         decomposition_shift = MatrixQuantity(
             np.asarray(
                 [

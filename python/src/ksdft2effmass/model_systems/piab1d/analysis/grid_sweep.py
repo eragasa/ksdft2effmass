@@ -442,18 +442,22 @@ class Piab1dGridSweepAnalysis(BaseTypedRecord):
 
 
 class Piab1dGridSweepAnalyzer:
-    """Solve each declared grid once and retain full-spectrum observations."""
+    """Solve each grid from one constructor-bound immutable definition."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(self, definition: Piab1dGridSweepDefinition) -> Piab1dGridSweepAnalysis:
+    def __init__(self, request: Piab1dGridSweepDefinition) -> None:
+        if type(request) is not Piab1dGridSweepDefinition:
+            raise TypeError("request must be Piab1dGridSweepDefinition")
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dGridSweepDefinition:
+        """Return the complete immutable grid-sweep request."""
+        return self._request
+
+    def execute(self) -> Piab1dGridSweepAnalysis:
         """Solve every declared grid once and derive all sweep families.
-
-        Parameters
-        ----------
-        definition
-            Nondimensional box parameters, strictly increasing grid dimensions,
-            retained dimension, and fixed modes.
 
         Returns
         -------
@@ -463,8 +467,6 @@ class Piab1dGridSweepAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``definition`` is not a ``Piab1dGridSweepDefinition``.
         ValueError
             A generated quantity violates a typed result invariant.
 
@@ -474,8 +476,7 @@ class Piab1dGridSweepAnalyzer:
         method therefore prevents cross-family drift in represented dimensions,
         eigenvector gauges, and solver results.
         """
-        if not isinstance(definition, Piab1dGridSweepDefinition):
-            raise TypeError("definition must be Piab1dGridSweepDefinition")
+        definition = self.request
         solver = Piab1dTiseFdSolver(
             model=Piab1D(
                 length=definition.length,
