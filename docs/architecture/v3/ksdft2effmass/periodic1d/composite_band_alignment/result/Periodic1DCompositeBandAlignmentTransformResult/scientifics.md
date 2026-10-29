@@ -1,0 +1,3 @@
+# Scientific contract
+
+A transform records a complete finite cyclic Fourier representation before any range truncation, then identifies the one negative-Nyquist block removed to obtain an ordinary integer-lattice interpolant. Conversion power is not labeled an off-node spectral error. The complete ordinary interpolant is compared with a directly evaluated field on the disjoint mesh, so interpolation is separated from later deliberate truncation. Reference, attacked, and pointwise channels remain distinct because their gauges and locality consequences differ even when pointwise spectra agree.

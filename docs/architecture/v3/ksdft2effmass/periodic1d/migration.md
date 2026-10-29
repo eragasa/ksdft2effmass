@@ -119,9 +119,18 @@ calculation tree.
 package, and direct M3 consumers are crosswalked in
 [`calculations/periodic1d/rank2/phase-3-split-audit.md`](../../../../../calculations/periodic1d/rank2/phase-3-split-audit.md).
 The audit selects composite-band alignment/locality as the first direct implementation
-because it is the bounded scientific successor of M2. It also establishes that M2 source
-removal remains blocked until Phase 4 migrates the admissible-set definition, producer,
-result, verifier, serializer composition, and tests. No compatibility facade is allowed.
+because it is the bounded scientific successor of M2.
+
+**Implementation status:** `periodic1d.composite_band_alignment` now supplies immutable
+typed configuration and results, a pure producer, independent exact-byte verification,
+authenticated two-figure rendering, direct effect adapters, package-aligned tests, and
+complete Architecture v3 coverage. The separate research-monograph donor and its 19
+literal consumers are crosswalked without runtime decoding. No retained execution has
+been created.
+
+The audit also establishes that M2 source removal remains blocked until Phase 4 migrates
+the admissible-set definition, producer, result, verifier, serializer composition, and
+tests. No compatibility facade is allowed.
 
 ## Phase 4 — constrained admissible sets and sensitivity
 

@@ -1,0 +1,3 @@
+# Numerical contract
+
+Cyclic representatives are the complete centered 64-point integer inventory. The ordinary inventory removes exactly representative `-32`; the retained blocks remain available from the cyclic inventory without duplicating matrix bytes. Each block is an immutable complex two-by-two quantity in the model energy-reference unit. Conversion power is the removed-block squared Frobenius norm divided by retained rank and reference-energy squared. Interpolation Hamiltonian error is the maximum Frobenius residual divided by square-root rank and reference energy; interpolation spectral error is the maximum sorted-band residual. All diagnostics are finite and nonnegative.

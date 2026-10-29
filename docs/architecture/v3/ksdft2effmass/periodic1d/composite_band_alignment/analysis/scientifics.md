@@ -1,0 +1,3 @@
+# Analysis scientific composition
+
+The analyzer constructs one reference gauge, applies one declared attack, selects pointwise recovery transformations, and separately selects one aggregate global transformation. It represents the same parent operator in all four frames. Only reference, attacked, and pointwise paths enter locality transforms; the global path remains a distinct alignment diagnostic.

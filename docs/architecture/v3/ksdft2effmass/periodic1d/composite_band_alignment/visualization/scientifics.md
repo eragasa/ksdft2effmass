@@ -1,0 +1,3 @@
+# Visualization scientific boundary
+
+The alignment figure shows the two retained parent bands and selected frame/operator defects. The locality figure shows total evaluation spectral errors by range and complete hopping-block Frobenius norms by representative. The error-channel figure separately shows cyclic conversion power and the attacked channel's interpolation, deliberate-truncation, and total consequences in normalized Hamiltonian and sorted-band metrics. Rendering calculates no new scientific values and adds no evidence status.

@@ -8,11 +8,11 @@ This directory is the maintained calculation and protocol home for
 ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality
 ```
 
-The family is a prospective periodic-1D rank-two successor. Its three tracked protocol
-documents formerly lived under
+The family now has a direct, typed, publication-independent implementation. Its three
+tracked protocol documents formerly lived under
 `experiments/periodic-reduction/composite-band-alignment-and-locality/`. They are now
 assigned here, with predecessor identities and remaining work recorded in
-[`migration.md`](migration.md).
+[`migration.md`](migration.md). No retained execution has been created.
 
 This family is distinct from the existing rank-two
 [`band-equivalence-versus-hopping-locality`](../band-equivalence-versus-hopping-locality/README.md)
@@ -24,8 +24,15 @@ the two families.
 
 | Surface | Current disposition |
 |---|---|
-| [`protocol.md`](protocol.md) | Exact migrated prospective protocol; selected controls and outstanding freeze points. |
-| [`migration.md`](migration.md) | File-level predecessor crosswalk and actionable implementation/evidence ledger. |
+| [`protocol.md`](protocol.md) | Frozen direct scientific and numerical contract; not an immutable retained experiment version. |
+| [`migration.md`](migration.md) | File-level predecessor crosswalk and implementation/evidence ledger. |
+| [`monograph-donor-crosswalk.md`](monograph-donor-crosswalk.md) | Exact ten-file donor, 19-consumer, digest, and scientific-channel disposition audit. |
+| [`m2-parity.md`](m2-parity.md) | Named in-memory finite parity and explicit convention-adaptation record; not retained evidence. |
+| [`technical-report/`](technical-report/README.md) | Comprehensive upstream provisional report, three authenticated review figures, bibliography, compiled review snapshot, and reproducible figure adapter; not retained evidence. |
+| `run_01_calculation.py` | Direct calculate adapter; creates one new unsealed execution atomically and refuses overwrite. |
+| `run_02_verification.py` | Direct byte-owning verification adapter; independently reconstructs all numerical channels. |
+| `run_03_render.py` | Direct authenticated render adapter; publishes the closed three-PNG alignment, locality, and error-channel inventory atomically. |
+| `python/src/ksdft2effmass/periodic1d/composite_band_alignment/` | Typed configuration, result, pure analysis, independent verification, authenticated visualization, and public exports. |
 | [`../phase-3-split-audit.md`](../phase-3-split-audit.md) | Exact live-M2 recovery/consumer inventory, two-family channel split, parity gaps, implementation order, and removal gates. |
 | `python/src/ksdft2effmass/periodic1d/multiband_alignment/` | Six-file live predecessor package; direct scientific successor is this family, but removal is blocked by M3 consumers. |
 | `python/src/ksdft2effmass/periodic1d/admissible_sets/` | Direct M3 consumer of the M2 definition, producer, result, and verifier; migration belongs to Phase 4. |
@@ -45,14 +52,16 @@ protocol revision states otherwise:
   separation;
 - a declared inter-sample alignment objective and tie policy;
 - projectability, conditioning, energy-reference, gauge, and frame-transport conventions;
-- support-depth locality diagnostics and separately named spectral diagnostics;
+- explicit cyclic-conversion power and separately named interpolation, deliberate-truncation, and total Hamiltonian and spectral diagnostics;
 - independent reconstruction and verification of decisive quantities;
 - strict typed input/result/verification records and byte-owning provenance;
 - bounded interpretation that does not claim continuum convergence, material validity, or
   publication acceptance.
 
-The protocol remains prospective. It is not an immutable scientific version and does
-not authorize a retained calculation.
+The implementation is complete as a bounded software lifecycle, but the protocol is not
+an immutable scientific version and does not authorize a retained calculation. Passing
+software and numerical checks does not establish continuum convergence, material
+validity, uncertainty quantification, publication acceptance, release, or sealing.
 
 ## Ownership boundary
 

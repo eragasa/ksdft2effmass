@@ -1,0 +1,3 @@
+# Scientific contract
+
+The section answers how one named gauge channel responds to one symmetric ordinary-lattice range truncation. Construction total error checks the transform mesh. On the exact disjoint staggered mesh, truncation error isolates deliberate support deletion and total error includes interpolation plus truncation relative to the direct field. Neither is a continuum-convergence claim, and their maxima are not assumed additive.
