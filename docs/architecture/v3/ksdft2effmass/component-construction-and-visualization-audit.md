@@ -177,6 +177,9 @@ verifier-derived visualization projection in `Piab1dCoreReferenceRequest`, and t
 aggregate constructs that complete child action only after both subjects exist. The
 next verifier leaf binds the exact typed eigenpair-sweep result in
 `Piab1dEigenpairSweepReferenceRequest` before independent dispersion reconstruction.
+The following leaf likewise binds the exact residual-norm sweep in
+`Piab1dResidualNormSweepReferenceRequest` before independent operator reconstruction
+and norm comparison.
 
 Two current sources also construct empty third-party numerical actions:
 `NumpyUniformClosedIntervalTrapezoidalRule()` in

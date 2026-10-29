@@ -294,6 +294,12 @@ verification composed around that pinned implementation.
 .. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dEigenpairSweepReferenceAnalyzer
    :members:
 
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dResidualNormSweepReferenceRequest
+   :members:
+
+.. autoclass:: ksdft2effmass.model_systems.piab1d.analysis.verification.Piab1dResidualNormSweepReferenceAnalyzer
+   :members:
+
 .. autoclass:: Piab1dDiagnostics
    :members:
 

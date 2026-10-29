@@ -29,20 +29,35 @@ class Piab1dResidualNormSweepReference:
         )
 
 
+@dataclass(frozen=True, slots=True, eq=False)
+class Piab1dResidualNormSweepReferenceRequest:
+    """Bind one admitted residual-norm sweep for independent reconstruction."""
+
+    result: Piab1dResidualNormSweepResult
+
+    def __post_init__(self) -> None:
+        """Admit the complete typed residual-norm reference request."""
+        if type(self.result) is not Piab1dResidualNormSweepResult:
+            raise TypeError("result must be Piab1dResidualNormSweepResult")
+
+
 class Piab1dResidualNormSweepReferenceAnalyzer:
-    """Reconstruct PIAB1D operators and norm ratios analytically."""
+    """Reconstruct one bound PIAB1D operator-norm sweep analytically."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self, result: Piab1dResidualNormSweepResult
-    ) -> Piab1dResidualNormSweepReference:
+    def __init__(self, request: Piab1dResidualNormSweepReferenceRequest) -> None:
+        if type(request) is not Piab1dResidualNormSweepReferenceRequest:
+            raise TypeError("request must be Piab1dResidualNormSweepReferenceRequest")
+        self._request = request
+
+    @property
+    def request(self) -> Piab1dResidualNormSweepReferenceRequest:
+        """Return the complete immutable residual-norm reference request."""
+        return self._request
+
+    def execute(self) -> Piab1dResidualNormSweepReference:
         """Reconstruct grid-indexed operator and residual norms.
-
-        Parameters
-        ----------
-        result
-            Typed residual-norm observations sharing one PIAB1D grid definition.
 
         Returns
         -------
@@ -52,8 +67,6 @@ class Piab1dResidualNormSweepReferenceAnalyzer:
 
         Raises
         ------
-        TypeError
-            ``result`` is not a ``Piab1dResidualNormSweepResult``.
         ValueError
             A represented grid or comparison violates the residual-norm contract.
 
@@ -62,8 +75,7 @@ class Piab1dResidualNormSweepReferenceAnalyzer:
         The method reconstructs dense reference matrices analytically and evaluates
         norms through the canonical PhysKit matrix-norm owner.
         """
-        if not isinstance(result, Piab1dResidualNormSweepResult):
-            raise TypeError("result must be Piab1dResidualNormSweepResult")
+        result = self.request.result
         expected_hamiltonian: list[tuple[float, ...]] = []
         expected_boundary: list[tuple[float, ...]] = []
         expected_unmatched: list[tuple[float, ...]] = []

@@ -22,6 +22,8 @@ from ksdft2effmass.model_systems.piab1d.analysis.grid_sweep import (
 from ksdft2effmass.model_systems.piab1d.analysis.verification import (
     Piab1dEigenpairSweepReferenceAnalyzer,
     Piab1dEigenpairSweepReferenceRequest,
+    Piab1dResidualNormSweepReferenceAnalyzer,
+    Piab1dResidualNormSweepReferenceRequest,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -59,6 +61,16 @@ class TestPiab1dGridSweepAnalyzer:
         assert reference_analyzer.request is reference_request
         assert all(
             comparison.result().passed for comparison in reference.comparisons.values()
+        )
+        residual_request = Piab1dResidualNormSweepReferenceRequest(
+            analysis.residual_norms
+        )
+        residual_analyzer = Piab1dResidualNormSweepReferenceAnalyzer(residual_request)
+        residual_reference = residual_analyzer.execute()
+        assert residual_analyzer.request is residual_request
+        assert all(
+            comparison.result().passed
+            for comparison in residual_reference.comparisons.values()
         )
         assert analysis.residual_norms.hamiltonian.magnitude.shape == (2, 3)
         assert np.all(analysis.residual_norms.consistent.magnitude == 0.0)

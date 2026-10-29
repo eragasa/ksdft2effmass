@@ -20,6 +20,7 @@ from .reference import (
 from .residual_norms import (
     Piab1dResidualNormSweepReference,
     Piab1dResidualNormSweepReferenceAnalyzer,
+    Piab1dResidualNormSweepReferenceRequest,
 )
 from .values import Piab1dVerification
 from .verifier import Piab1dVerifier
@@ -36,6 +37,7 @@ __all__ = [
     "Piab1dKineticPotentialDecompositionReferenceAnalyzer",
     "Piab1dResidualNormSweepReference",
     "Piab1dResidualNormSweepReferenceAnalyzer",
+    "Piab1dResidualNormSweepReferenceRequest",
     "Piab1dVerification",
     "Piab1dVerifier",
 ]
