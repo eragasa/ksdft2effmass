@@ -40,6 +40,18 @@ from .composite_band_alignment import (
     Periodic1DCompositeBandAlignmentVisualizationPlotEnum,
     Periodic1DCompositeBandAlignmentVisualizer,
 )
+from .higher_rank_alignment import (
+    Periodic1DHigherRankAlignmentBackendExceptionCode,
+    Periodic1DHigherRankAlignmentChannel,
+    Periodic1DHigherRankAlignmentConfiguration,
+    Periodic1DHigherRankAlignmentStatus,
+    Periodic1DHigherRankAlignmentStatusResult,
+    Periodic1DHigherRankAlignmentTransportBackendFailureResult,
+    Periodic1DHigherRankAlignmentTransportLinkResult,
+    Periodic1DHigherRankAlignmentTransportOwnerResult,
+    Periodic1DHigherRankAlignmentTransportRequest,
+    Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
+)
 
 __all__ = [
     "ConstrainedAdmissibleSetUpstreamVerification",
@@ -77,5 +89,15 @@ __all__ = [
     "Periodic1DConstrainedAdmissibleSetVisualizationData",
     "Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum",
     "Periodic1DConstrainedAdmissibleSetVisualizer",
+    "Periodic1DHigherRankAlignmentBackendExceptionCode",
+    "Periodic1DHigherRankGlobalUnitaryDownstreamApplicability",
+    "Periodic1DHigherRankAlignmentChannel",
+    "Periodic1DHigherRankAlignmentConfiguration",
+    "Periodic1DHigherRankAlignmentStatus",
+    "Periodic1DHigherRankAlignmentStatusResult",
+    "Periodic1DHigherRankAlignmentTransportBackendFailureResult",
+    "Periodic1DHigherRankAlignmentTransportLinkResult",
+    "Periodic1DHigherRankAlignmentTransportOwnerResult",
+    "Periodic1DHigherRankAlignmentTransportRequest",
     "Periodic1DQuadraticLoss",
 ]

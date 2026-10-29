@@ -336,19 +336,19 @@ mesh points.
 \subsection{Sewing and closure holonomy}
 \index{reciprocal sewing}
 \index{holonomy!closure}
+\index{principal phase!branch convention}
+\index{matrix root!distributed closure}
 
-The first and last stored mesh points are not duplicate endpoints. To close the
-reciprocal loop, the first frame must be mapped across the zone boundary by a
-declared ambient sewing map $S_G$. After neighborwise transport, form
+The first and last stored points of a half-open reciprocal mesh are not duplicate
+endpoints.  Let the ordered mesh contain
+$\kappa_0,\ldots,\kappa_{N_k-1}$ and let $S_G$ be the declared ambient sewing map
+that represents the first frame at the terminal endpoint.  Periodicity means a
+relation between represented states,
 \begin{equation}
-  C=F_{N_k-1}^{\dagger}S_GF_0.
-  \label{eq:training-composite-closure-overlap}
+  F(\kappa_0+1)=S_GF(\kappa_0),
+  \label{eq:training-composite-sewing-relation}
 \end{equation}
-The unitary polar factor of $C$ is the discrete closure holonomy. If its
-eigenvalues are $e^{i\phi_1},\ldots,e^{i\phi_M}$, the phases are defined only
-modulo $2\pi$ and their ordering can change at degeneracies or branch cuts.
-They must therefore be treated as a phase set with an explicit branch
-convention~\cite{marzari2012}.
+not literal equality of two arrays in every basis.
 
 A periodic orbital-coordinate parent may use $S_G=I$ because its ambient basis
 is exactly periodic. Other representations can require a nontrivial sewing map.
@@ -356,11 +356,178 @@ For example, reciprocal-index plane-wave coordinates relabel across
 $k\mapsto k+G$. Identity sewing must never be assumed merely because the
 Hamiltonian spectrum is periodic.
 
-One can distribute a matrix root of the closure holonomy along the path to
-produce a closed smooth representative. This is a gauge construction. Its
-closure eigenphases are Wilson-loop-like data, but a single finite loop does not
-by itself establish a polarization, a topological invariant, or an
-infinite-mesh localization theorem.
+There are two useful, inverse orientations for recording closure.  After
+transporting the half-open path, form the last-to-first overlap
+\begin{equation}
+  C=F_{N_k-1}^{\dagger}S_GF_0.
+  \label{eq:training-composite-closure-overlap}
+\end{equation}
+If
+$C=L_C\Sigma_CV_C^{\dagger}$ is full rank, then
+\begin{equation}
+  Q_{\mathrm{cl}}=L_CV_C^{\dagger}
+  \label{eq:training-composite-closure-right-action}
+\end{equation}
+is the right-unitary Procrustes action that maps the last frame toward the sewn
+first frame.  A calculation that explicitly transports the direct endpoint
+instead records
+\begin{equation}
+  H_{\mathrm{end}}=(S_GF_0)^{\dagger}F_{N_k},
+  \label{eq:training-composite-endpoint-mismatch}
+\end{equation}
+where $F_{N_k}$ is the transported duplicate endpoint expressed in the
+terminal ambient coordinates.  In the exactly closed
+full-rank idealization,
+\begin{equation}
+  Q_{\mathrm{cl}}=H_{\mathrm{end}}^{\dagger}.
+  \label{eq:training-composite-closure-orientation-inverse}
+\end{equation}
+The two matrices therefore carry the same endpoint mismatch with opposite
+orientation.  A sign in a fractional power is meaningless until the chosen
+orientation has been stated.
+
+\subsection{Why a phase branch is part of the method}
+
+Suppose the endpoint-oriented mismatch has the unitary spectral representation
+\begin{equation}
+  H_{\mathrm{end}}
+  =Z\operatorname{diag}
+   \left(e^{i\gamma_1},\ldots,e^{i\gamma_M}\right)Z^{\dagger}.
+  \label{eq:training-composite-holonomy-spectrum}
+\end{equation}
+Every $\gamma_a$ is defined only modulo $2\pi$.  Selecting principal phases in
+\begin{equation}
+  \gamma_a\in(-\pi,\pi]
+  \label{eq:training-composite-positive-pi-branch}
+\end{equation}
+is therefore part of the numerical contract.  In particular, an eigenvalue
+$-1$ receives $\gamma=+\pi$.  The alternative representative $-\pi$ gives the
+same endpoint eigenvalue but the opposite fractional root.  At intermediate
+mesh points those two roots define different gauges even though both close at
+the endpoint.
+
+For the inverse last-to-first action $Q_{\mathrm{cl}}=H_{\mathrm{end}}^{\dagger}$,
+the matching phases are $-\gamma_a$.  Thus the convention
+$\gamma_a\in(-\pi,\pi]$ for $H_{\mathrm{end}}$ corresponds to
+$-\gamma_a\in[-\pi,\pi)$ for $Q_{\mathrm{cl}}$, including the boundary choice
+$+\pi\mapsto-\pi$.  This is why a reusable solver should expose both its closure
+orientation and its phase branch rather than advertising an unspecified
+``principal root.''
+
+Degenerate phase subspaces require another distinction.  Individual Schur or
+eigenvector columns within an exactly degenerate subspace need not be unique.
+The matrix function is nevertheless invariant under a basis change confined to
+a subspace assigned one common branch value.  Deterministic phase sorting is a
+storage convention; closure phases remain an unordered multiset for scientific
+comparison, and sorting does not create band labels through crossings.
+
+\subsection{Distributed closure and its proof}
+
+For the explicit-endpoint orientation, define
+\begin{equation}
+  D_n
+  =Z\operatorname{diag}\left(
+    e^{-i(n/N_k)\gamma_1},\ldots,
+    e^{-i(n/N_k)\gamma_M}
+  \right)Z^{\dagger},
+  \qquad n=0,\ldots,N_k,
+  \label{eq:training-composite-distributed-root}
+\end{equation}
+and correct the transported frames by
+\begin{equation}
+  F_n^{\mathrm{closed}}=F_nD_n.
+  \label{eq:training-composite-closed-frame}
+\end{equation}
+The correction acts on retained coordinates from the right.  It does not
+change the projector at any point because $D_n$ is unitary.
+
+\begin{proposition}[Endpoint closure under distributed holonomy]
+\label{prop:training-composite-distributed-closure}
+If $F_{N_k}=S_GF_0H_{\mathrm{end}}$ and
+Equations~\eqref{eq:training-composite-holonomy-spectrum}--\eqref{eq:training-composite-closed-frame}
+hold, then
+$F_{N_k}^{\mathrm{closed}}=S_GF_0^{\mathrm{closed}}$.
+\end{proposition}
+
+\begin{proof}
+At the initial point, $D_0=I_M$.  At the endpoint,
+\[
+  D_{N_k}
+  =Z\operatorname{diag}(e^{-i\gamma_1},\ldots,e^{-i\gamma_M})Z^{\dagger}
+  =H_{\mathrm{end}}^{\dagger}.
+\]
+Therefore
+\[
+  F_{N_k}^{\mathrm{closed}}
+  =S_GF_0H_{\mathrm{end}}H_{\mathrm{end}}^{\dagger}
+  =S_GF_0
+  =S_GF_0^{\mathrm{closed}}.
+\]
+\end{proof}
+
+The inverse closure-action orientation produces the same construction by using
+positive fractional powers of $Q_{\mathrm{cl}}$, provided the inverse branch is
+crossed consistently.  Away from the eigenvalue $-1$, writing
+$Q_{\mathrm{cl}}^{n/N_k}$ or $H_{\mathrm{end}}^{-n/N_k}$ is a transparent
+change of orientation.  At $-1$, equality requires the paired boundary choices
+described above; merely calling both powers principal is insufficient.
+
+\subsection{Rank deficiency and fail-closed progression}
+
+Every neighbor link and the closure link must pass a declared strict
+singular-value test.  If
+\begin{equation}
+  \sigma_{\min}(C)\leq\tau_{\mathrm{sv}}(C),
+  \label{eq:training-composite-closure-rank-gate}
+\end{equation}
+then the full polar factor is not admitted.  Equality is deficient.  A complete
+backend SVD can still print unitary matrices, but its null-space columns do not
+define a unique scientific identification.  The transport route therefore
+retains the deficient link and emits no holonomy or distributed root.
+
+The same rule is sequential.  If neighbor link $j$ is deficient, frame
+$F_{j+1}$ has not been selected uniquely.  Link $j+1$ consequently has no
+declared transported source.  It is \emph{unattempted}, not numerically full
+rank, numerically deficient, or zero.  A backend failure is a third state: it
+records the failed operation and location but does not manufacture a
+mathematical rank disposition from exception text.
+
+This distinction matters pedagogically.  ``Rank deficient'' is a calculated
+property of an attempted finite overlap under a declared cutoff.  ``Unattempted''
+is a dependency consequence.  ``Numerically unresolved'' means the requested
+backend evidence was not obtained.  None authorizes a silent null-space
+completion.
+
+\subsection{Metric-explicit closure diagnostics}
+
+For an $M$-column frame, a cross-rank normalized frame defect is
+\begin{equation}
+  d_{\mathrm{frame}}(A,B)
+  =\frac{\lVert A-B\rVert_{\mathrm F}}{\sqrt M}.
+  \label{eq:training-composite-normalized-frame-defect}
+\end{equation}
+The reciprocal endpoint check compares the terminal frame with the sewn
+initial frame, $F_{N_k}$ with $S_GF_0$; the primitive closure check uses the
+same normalized Frobenius metric.  A unitary diagnostic may similarly report
+\begin{equation}
+  d_{\mathrm{unitary}}(U)
+  =\frac{\lVert U^{\dagger}U-I_M\rVert_{\mathrm F}}{\sqrt M}.
+  \label{eq:training-composite-normalized-unitarity-defect}
+\end{equation}
+Raw and normalized values should both be retained when cross-rank comparison is
+part of the study.
+
+A numerical owner may use the maximum absolute matrix entry internally when
+validating a decomposition.  That value is useful, but it is not a Frobenius
+norm and must not be serialized under an unspecified name such as
+``closure defect.''  Metric, normalization, units, and compared objects are all
+part of the quantity definition.
+
+One can now interpret distributed closure correctly.  It is a finite gauge
+construction that removes one sampled endpoint mismatch.  Its closure
+phase multiset is Wilson-loop-like data, but a single finite loop does not by
+itself establish a polarization, a topological invariant, a Wannier center, or
+an infinite-mesh localization theorem~\cite{marzari2012}.
 
 \section{A controlled momentum-dependent gauge attack}
 \index{gauge attack!rank two}
@@ -808,6 +975,9 @@ neighbor_singular_values.extend(closure_singular_values)
 unitary_closure = left @ right_h
 triangular, eigenvectors = schur(unitary_closure, output="complex")
 closure_phases = np.angle(np.diag(triangular))
+# This inverse closure-action orientation uses [-pi, pi), paired with
+# the endpoint-mismatch convention (-pi, pi] in the derivation above.
+closure_phases = np.where(closure_phases >= np.pi, -np.pi, closure_phases)
 order = np.argsort(closure_phases)
 closure_phases = closure_phases[order]
 eigenvectors = eigenvectors[:, order]
@@ -983,6 +1153,10 @@ manuscript change.}
         basis.
   \item Comparing closure eigenphases as ordinary real numbers without branch
         and permutation handling.
+  \item Using the same named phase interval after inverting the closure
+        orientation and overlooking the $-1$ eigenvalue boundary.
+  \item Comparing a maximum-entry closure defect with a normalized Frobenius
+        closure defect as though they were the same quantity.
   \item Describing exact recovery of a constructed pointwise attack as a
         general alignment solution.
   \item Treating the complete-SVD product as a deterministic scientific map on
@@ -1021,6 +1195,17 @@ manuscript change.}
         isolated-band Hamiltonian but not from a general composite matrix.
   \item Derive the positive overlap in
         Equation~\eqref{eq:training-composite-positive-overlap}.
+  \item Prove Proposition~\ref{prop:training-composite-distributed-closure}
+        and show that every corrected projector equals its uncorrected
+        projector.
+  \item For a one-dimensional closure eigenspace with eigenvalue $-1$, compare
+        the two endpoint-oriented roots obtained from $+\pi$ and $-\pi$.
+        Then invert the closure orientation and identify the paired half-open
+        branch that reproduces each path.
+  \item Construct two rank-$M$ defect matrices having the same maximum
+        absolute entry but different normalized Frobenius norms. Explain why
+        a wire field must name the metric rather than only the word
+        ``defect.''
   \item Prove the pointwise Procrustes solution by maximizing
         $\operatorname{Re}\operatorname{tr}(U^{\dagger}F_{\mathrm c}^{\dagger}F_{\mathrm r})$
         and derive the minimum in

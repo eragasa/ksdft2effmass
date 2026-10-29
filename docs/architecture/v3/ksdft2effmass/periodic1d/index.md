@@ -11,10 +11,13 @@ This Architecture v3 surface is an **active family-by-family rewrite**. Phase 1
 Mathieu1D, Phase 2 compatible rank-one Fourier locality, the Phase 3 rank-two
 composite-alignment family, and the confirmatory Phase 4 constrained-admissible-set
 family are implemented with typed source records, direct calculation stages,
-byte-owning verification, and authenticated rendering. Mathieu1D has one retained
-unsealed execution; the locality and admissible-set successors have only provisional
-non-retained review results. The Mathieu1D, M1, and M2 predecessor runtimes are absent
-from the live tree. Four studies remain prospective, including the distinct rank-two
+byte-owning verification, and authenticated rendering. Phase 5 has begun with the
+fixed higher-rank study parameters, alignment outcomes, and periodic-frame transport
+results; its Hamiltonian calculation, independent recalculation, verification, and
+figures are not implemented. Mathieu1D has one
+retained unsealed execution; the locality and admissible-set successors have only
+provisional non-retained review results. The Mathieu1D, M1, and M2 predecessor runtimes
+are absent from the live tree. The remaining studies include the distinct rank-two
 band-equivalence family.
 
 The rewrite adopts the behavioral structure demonstrated by PIAB1D and QHO1D and now
@@ -55,7 +58,7 @@ Neighboring owners remain distinct:
 | [`ksdft2effmass.model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) | The concrete implemented Mathieu1D parent and its own direct vertical slice. |
 | `ksdft2effmass.solidstate` | Lattices, reciprocal paths, sewing, frames, gauge alignment, hopping transforms, and Wilson-loop behavior. |
 | `ksdft2effmass.operators` and `ksdft2effmass.analysis` | Representation-independent operator values and reusable analyses. |
-| `projectkoios.physkit` | Reusable lattice primitives, quantities, canonical represented linear algebra, and matrix norms. |
+| `projectkoios.physkit` | Reusable lattice primitives, quantities, canonical represented linear algebra, matrix norms, and semantic closed-loop electronic-frame transport. |
 | `calculations/periodic1d/` and `calculations/mathieu1d/` | Scientific family selection, protocol, thresholds, execution records, evidence policy, provenance, rendering inventory, and reports. |
 
 No installed package imports a calculation tree. Quantum ESPRESSO and Wannier90 retain
@@ -76,7 +79,7 @@ status, or conclusions:
 | 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Implemented authenticated source lifecycle at [`periodic1d.admissible_sets`](admissible_sets/index.md); no retained successor execution exists. |
 | 6. Minimal scalar/direct admissible-set demonstration | Can a bounded scalar construction exhibit the declared witness or separation property? | Separate analytical or numerical control; never a substitute for study 5. |
 | 7. Post-hoc threshold sensitivity | How do dispositions change across one complete declared finite threshold inventory? | Separate post-hoc analysis that cannot mutate study 5. |
-| 8. Higher-rank composite alignment | Which alignment and locality behavior persists at declared ranks greater than two? | Separate calculation family; reuse only behavior with unchanged meaning. |
+| 8. Higher-rank composite alignment | Which alignment and locality behavior persists at declared ranks greater than two? | Fixed study parameters, alignment outcomes, and periodic-frame transport results under [`periodic1d.higher_rank_alignment`](higher_rank_alignment/index.md); Hamiltonian production, independent recalculation, complete verification, figures, and retained execution remain absent. |
 
 The eight studies do not require eight reusable source children. In particular, one
 cohesive `periodic1d.admissible_sets` owner may supply behavior to studies 5--7 while
@@ -110,6 +113,7 @@ searchable provenance aliases; they are not names for new studies or a version c
 - [Compatible rank-one Fourier-locality architecture](fourier_locality/index.md)
 - [Rank-two composite-band alignment/locality architecture](composite_band_alignment/index.md)
 - [Constrained-admissible-set architecture](admissible_sets/index.md)
+- [Higher-rank alignment architecture](higher_rank_alignment/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)

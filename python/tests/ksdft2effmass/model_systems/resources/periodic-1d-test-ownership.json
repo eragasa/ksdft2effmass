@@ -119,6 +119,27 @@
       "evidence_class": "numerical_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DCompositeBandAlignmentVerifier"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/higher_rank_alignment/test__Periodic1DHigherRankAlignmentConfiguration.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DHigherRankAlignmentConfiguration"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/higher_rank_alignment/test__Periodic1DHigherRankAlignmentResult.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "claim_bearing",
+      "sut": "Periodic1DHigherRankAlignment result records"
+    },
+    {
+      "path": "python/tests/ksdft2effmass/periodic1d/higher_rank_alignment/test__Periodic1DHigherRankAlignmentPublicSurface.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "Periodic1DHigherRankAlignment public surface"
     }
   ]
 }
