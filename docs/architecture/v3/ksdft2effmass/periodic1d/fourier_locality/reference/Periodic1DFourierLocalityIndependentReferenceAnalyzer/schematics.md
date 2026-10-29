@@ -1,9 +1,9 @@
-# `Periodic1DFourierLocalityIndependentVerifier` schematics
+# `Periodic1DFourierLocalityIndependentReferenceAnalyzer` schematics
 
 ```mermaid
 sequenceDiagram
     participant V as Byte-owning verifier
-    participant I as Independent verifier
+    participant I as Independent reference analyzer
     participant N as Direct NumPy formulas
 
     V->>I: construct(request: admitted result + projection)
@@ -17,7 +17,7 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-    A[Production analyzer] -. not called .-> I[Independent verifier]
+    A[Production analyzer] -. not called .-> I[Independent reference analyzer]
     I --> P[Parent spectral formulas]
     I --> F[Fourier and direct-fit formulas]
     I --> D[Diagnostics and decisions]

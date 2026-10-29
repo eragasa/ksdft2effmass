@@ -23,11 +23,11 @@ from ksdft2effmass.model_systems.verification import (
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.verification import CompositeVerification
 
-from .result import Periodic1DFourierLocalityCalculationResult
-from .verification_values import (
-    Periodic1DFourierLocalityIndependentVerificationRequest,
-    Periodic1DFourierLocalityIndependentVerifier,
+from .reference import (
+    Periodic1DFourierLocalityIndependentReferenceAnalyzer,
+    Periodic1DFourierLocalityIndependentReferenceRequest,
 )
+from .result import Periodic1DFourierLocalityCalculationResult
 from .visualizations.data import Periodic1DFourierLocalityVisualizationData
 
 
@@ -253,8 +253,8 @@ class Periodic1DFourierLocalityVerifier(
         self,
         visualization_data: Periodic1DFourierLocalityVisualizationData,
     ) -> tuple[CompositeVerification, ...]:
-        independent = Periodic1DFourierLocalityIndependentVerifier(
-            Periodic1DFourierLocalityIndependentVerificationRequest(
+        independent = Periodic1DFourierLocalityIndependentReferenceAnalyzer(
+            Periodic1DFourierLocalityIndependentReferenceRequest(
                 self._result,
                 visualization_data,
             )

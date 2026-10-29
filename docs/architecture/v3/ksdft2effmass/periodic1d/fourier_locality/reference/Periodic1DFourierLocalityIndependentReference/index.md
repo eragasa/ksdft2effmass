@@ -1,9 +1,10 @@
-# `Periodic1DFourierLocalityIndependentVerification`
+# `Periodic1DFourierLocalityIndependentReference`
 
 ## Responsibility
 
 Immutable value containing the named comparisons produced by the direct reference
-verifier for one admitted calculation result and verifier-owned visualization projection.
+reference analyzer for one admitted calculation result and verifier-owned visualization
+projection.
 
 The class is an internal scientific value exposed deliberately for typed verification
 composition. It stores comparison values only; it is not a reconstructed result,
@@ -22,7 +23,7 @@ projection, aggregate verification, or evidence package.
 
 ```python
 from ksdft2effmass.periodic1d.fourier_locality import (
-    Periodic1DFourierLocalityIndependentVerification,
+    Periodic1DFourierLocalityIndependentReference,
 )
 ```
 

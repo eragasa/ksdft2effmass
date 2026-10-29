@@ -1,4 +1,4 @@
-# `Periodic1DFourierLocalityIndependentVerifier` scientific interpretation
+# `Periodic1DFourierLocalityIndependentReferenceAnalyzer` scientific interpretation
 
 A second implementation of the declared finite formulas tests numerical and semantic
 consistency without treating the production analyzer as its oracle. Agreement supports

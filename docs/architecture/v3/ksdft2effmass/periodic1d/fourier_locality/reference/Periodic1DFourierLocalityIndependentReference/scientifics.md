@@ -1,4 +1,4 @@
-# `Periodic1DFourierLocalityIndependentVerification` scientific interpretation
+# `Periodic1DFourierLocalityIndependentReference` scientific interpretation
 
 This value records comparison evidence for the same bounded finite calculation. It is not
 a third-party experimental observation, an external scientific reference, or an

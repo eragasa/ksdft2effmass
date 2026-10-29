@@ -23,11 +23,11 @@ flowchart LR
 ```mermaid
 classDiagram
     class Periodic1DFourierLocalityVerifier
-    class Periodic1DFourierLocalityIndependentVerification
+    class Periodic1DFourierLocalityIndependentReference
     class Periodic1DFourierLocalityVerification
     class Periodic1DFourierLocalityVisualizationData
 
-    Periodic1DFourierLocalityVerifier --> Periodic1DFourierLocalityIndependentVerification
+    Periodic1DFourierLocalityVerifier --> Periodic1DFourierLocalityIndependentReference
     Periodic1DFourierLocalityVerifier --> Periodic1DFourierLocalityVerification
     Periodic1DFourierLocalityVerifier --> Periodic1DFourierLocalityVisualizationData
 ```

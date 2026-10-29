@@ -22,7 +22,7 @@ from .visualizations.data import Periodic1DFourierLocalityVisualizationData
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DFourierLocalityIndependentVerification:
+class Periodic1DFourierLocalityIndependentReference:
     """Retain collision-free comparisons reconstructed without production actions."""
 
     comparisons: Mapping[str, MaximumAbsoluteErrorComparison]
@@ -45,7 +45,7 @@ class Periodic1DFourierLocalityIndependentVerification:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DFourierLocalityIndependentVerificationRequest:
+class Periodic1DFourierLocalityIndependentReferenceRequest:
     """Bind the admitted result and exact verifier-derived projection."""
 
     result: Periodic1DFourierLocalityCalculationResult
@@ -63,27 +63,26 @@ class Periodic1DFourierLocalityIndependentVerificationRequest:
             )
 
 
-class Periodic1DFourierLocalityIndependentVerifier:
+class Periodic1DFourierLocalityIndependentReferenceAnalyzer:
     """Reconstruct one bound result and projection with direct NumPy formulas."""
 
     __slots__ = ("_request",)
 
     def __init__(
-        self, request: Periodic1DFourierLocalityIndependentVerificationRequest
+        self, request: Periodic1DFourierLocalityIndependentReferenceRequest
     ) -> None:
-        if type(request) is not Periodic1DFourierLocalityIndependentVerificationRequest:
+        if type(request) is not Periodic1DFourierLocalityIndependentReferenceRequest:
             raise TypeError(
-                "request must be "
-                "Periodic1DFourierLocalityIndependentVerificationRequest"
+                "request must be Periodic1DFourierLocalityIndependentReferenceRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DFourierLocalityIndependentVerificationRequest:
-        """Return the complete immutable verification request."""
+    def request(self) -> Periodic1DFourierLocalityIndependentReferenceRequest:
+        """Return the complete immutable reference request."""
         return self._request
 
-    def execute(self) -> Periodic1DFourierLocalityIndependentVerification:
+    def execute(self) -> Periodic1DFourierLocalityIndependentReference:
         """Return independent comparisons for the bound result and projection."""
         result = self.request.result
         configuration = result.configuration
@@ -814,7 +813,7 @@ class Periodic1DFourierLocalityIndependentVerifier:
             0.0,
         )
         self._projection_comparisons(comparisons)
-        return Periodic1DFourierLocalityIndependentVerification(comparisons)
+        return Periodic1DFourierLocalityIndependentReference(comparisons)
 
     def _parent_bands(
         self,

@@ -10,8 +10,8 @@ from projectkoios.physkit.units import Unitless, VectorQuantity
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityAnalyzer,
     Periodic1DFourierLocalityConfiguration,
-    Periodic1DFourierLocalityIndependentVerificationRequest,
-    Periodic1DFourierLocalityIndependentVerifier,
+    Periodic1DFourierLocalityIndependentReferenceAnalyzer,
+    Periodic1DFourierLocalityIndependentReferenceRequest,
     Periodic1DFourierLocalityVerification,
     Periodic1DFourierLocalityVerifier,
     Periodic1DFourierLocalityVisualizationPlotEnum,
@@ -119,11 +119,11 @@ class TestPeriodic1DFourierLocalityVerifier:
         mutated = (not mesh.near_tie_mask[0], *mesh.near_tie_mask[1:])
         object.__setattr__(mesh, "near_tie_mask", mutated)
 
-        request = Periodic1DFourierLocalityIndependentVerificationRequest(
+        request = Periodic1DFourierLocalityIndependentReferenceRequest(
             result,
             verified.visualization_data,
         )
-        independent = Periodic1DFourierLocalityIndependentVerifier(request)
+        independent = Periodic1DFourierLocalityIndependentReferenceAnalyzer(request)
         comparisons = independent.execute().comparisons
 
         assert independent.request is request

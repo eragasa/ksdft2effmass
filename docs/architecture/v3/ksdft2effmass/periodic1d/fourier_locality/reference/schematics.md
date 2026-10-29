@@ -10,7 +10,7 @@ flowchart TB
     L --> D
     D --> R[Expected CalculationResult]
     R --> V[Expected VisualizationData]
-    R --> I[IndependentVerification]
+    R --> I[Independent reference]
     V --> I
 ```
 

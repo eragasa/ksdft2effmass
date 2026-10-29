@@ -1,4 +1,4 @@
-# `Periodic1DFourierLocalityIndependentVerifier` numerics
+# `Periodic1DFourierLocalityIndependentReferenceAnalyzer` numerics
 
 The action rebuilds evaluation coordinates from exact rational controls, materializes the
 exact bound parent independently, solves dense Hermitian fibers through direct NumPy

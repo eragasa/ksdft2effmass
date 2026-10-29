@@ -37,7 +37,7 @@ Result module
 Independent verification
 ------------------------
 
-.. automodule:: ksdft2effmass.periodic1d.fourier_locality.verification_values
+.. automodule:: ksdft2effmass.periodic1d.fourier_locality.reference
    :members:
 
 .. automodule:: ksdft2effmass.periodic1d.fourier_locality.verification

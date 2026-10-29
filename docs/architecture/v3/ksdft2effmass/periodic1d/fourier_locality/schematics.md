@@ -28,7 +28,7 @@ flowchart TB
     PKG --> CFG[configuration.py]
     PKG --> ANA[analysis.py]
     PKG --> RES[result.py]
-    PKG --> IV[verification_values.py]
+    PKG --> IV[reference.py]
     PKG --> VER[verification.py]
     PKG --> VIS[visualizations/]
 
