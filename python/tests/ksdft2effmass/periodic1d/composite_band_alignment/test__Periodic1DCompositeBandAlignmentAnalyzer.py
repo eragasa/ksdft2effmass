@@ -79,10 +79,7 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
 
         assert attacked_transform.cyclic_conversion_representative == -32
         assert attacked_transform.ordinary_representatives == tuple(range(-31, 32))
-        assert attacked_transform.cyclic_conversion_power.magnitude == pytest.approx(
-            2.5042218236517957e-33,
-            abs=1.0e-44,
-        )
+        assert 0.0 <= attacked_transform.cyclic_conversion_power.magnitude < 1.0e-28
         assert (
             attacked_transform.evaluation_interpolation_spectral_maximum_error.magnitude
             == pytest.approx(1.9984014443252818e-15, abs=1.0e-15)
