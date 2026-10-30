@@ -17,9 +17,8 @@ from ..gauge_alignment.results import Periodic1DHigherRankGaugeAlignmentMeshResu
 from ..result import Periodic1DHigherRankAlignmentStatusResult
 
 _GlobalApplicability = Periodic1DHigherRankGlobalUnitaryDownstreamApplicability
-_INAPPLICABLE_GLOBAL_RANK = (
-    _GlobalApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
-)
+_INAPPLICABLE_GLOBAL_RANK = _GlobalApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
+
 
 def _coordinates(mesh_size: int, offset: float) -> RealArray:
     values = np.asarray(

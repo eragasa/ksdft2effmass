@@ -37,8 +37,7 @@ class TestPeriodic1DHigherRankCoreInvariantReference:
         assert analyzer.request is request
         assert len(reference.comparisons) == 51
         assert all(
-            comparison.result().passed
-            for comparison in reference.comparisons.values()
+            comparison.result().passed for comparison in reference.comparisons.values()
         )
 
     def test__execute__detects_a_tampered_model_diagnostic(

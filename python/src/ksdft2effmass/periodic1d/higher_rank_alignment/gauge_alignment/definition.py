@@ -36,13 +36,13 @@ class GaugeAlignmentWireMapping:
             }
         )
     )
-    _FromWireMap: ClassVar[
-        Mapping[str, Periodic1DHigherRankGaugeAlignment]
-    ] = MappingProxyType(
-        {
-            wire_value: gauge_alignment
-            for gauge_alignment, wire_value in _ToWireMap.items()
-        }
+    _FromWireMap: ClassVar[Mapping[str, Periodic1DHigherRankGaugeAlignment]] = (
+        MappingProxyType(
+            {
+                wire_value: gauge_alignment
+                for gauge_alignment, wire_value in _ToWireMap.items()
+            }
+        )
     )
 
     @classmethod

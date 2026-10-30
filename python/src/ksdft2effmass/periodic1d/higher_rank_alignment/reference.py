@@ -98,8 +98,7 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
     ) -> None:
         if type(request) is not Periodic1DHigherRankCoreInvariantReferenceRequest:
             raise TypeError(
-                "request must be "
-                "Periodic1DHigherRankCoreInvariantReferenceRequest"
+                "request must be Periodic1DHigherRankCoreInvariantReferenceRequest"
             )
         self._request = request
 
@@ -229,9 +228,7 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
 
     def _sampled_isolation_gaps(self) -> np.ndarray:
         values = []
-        mesh_sizes = (
-            self.request.result.request.configuration.construction_mesh_sizes
-        )
+        mesh_sizes = self.request.result.request.configuration.construction_mesh_sizes
         for mesh_size in mesh_sizes:
             coordinates = self._coordinates(mesh_size)
             retained, exterior = self._energies(coordinates)
@@ -248,13 +245,13 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
             k = 2.0 * np.pi * coordinates
             maximum = 0.0
             for layer_index in range(1, request.circuit_depth + 1):
-                harmonic = 0.75 * np.sin(k) + 0.25 * (
-                    (-1.0) ** layer_index
-                ) * np.sin(2.0 * k)
+                harmonic = 0.75 * np.sin(k) + 0.25 * ((-1.0) ** layer_index) * np.sin(
+                    2.0 * k
+                )
                 for pair_index in range(1, request.retained_rank):
-                    normalized_pair = (
-                        2.0 * pair_index - request.retained_rank
-                    ) / (request.retained_rank - 1.0)
+                    normalized_pair = (2.0 * pair_index - request.retained_rank) / (
+                        request.retained_rank - 1.0
+                    )
                     angles = (
                         0.35
                         * (-1.0) ** (layer_index + pair_index)
@@ -279,13 +276,11 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
         retained, exterior = self._energies(coordinates)
         diagonal = np.concatenate((retained, exterior), axis=1)
         parent = np.asarray(
-            diagonal[:, :, None]
-            * np.eye(ambient, dtype=np.complex128)[None, :, :],
+            diagonal[:, :, None] * np.eye(ambient, dtype=np.complex128)[None, :, :],
             dtype=np.complex128,
         )
         exact = np.asarray(
-            retained[:, :, None]
-            * np.eye(rank, dtype=np.complex128)[None, :, :],
+            retained[:, :, None] * np.eye(rank, dtype=np.complex128)[None, :, :],
             dtype=np.complex128,
         )
         reference_seed = np.zeros((ambient, rank), dtype=np.complex128)
@@ -328,9 +323,7 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
         q = (math.sqrt(41.0) - 3.0) / 8.0
         harmonic_maximum = math.sqrt(1.0 - q**2) * (0.75 + 0.5 * q)
         exact_angle = (
-            0.35
-            * (1.0 + 0.15 * (rank - 2.0) / (rank - 1.0))
-            * harmonic_maximum
+            0.35 * (1.0 + 0.15 * (rank - 2.0) / (rank - 1.0)) * harmonic_maximum
         )
         return _ModelCoreInvariantValues(
             exact_analytic_isolation_gap=2.1,
@@ -411,15 +404,9 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
         normalized_orbital = (2.0 * orbital - rank + 1.0) / (rank - 1.0)
         retained = (
             0.4 * normalized_orbital[None, :]
-            + 0.25
-            * (1.0 + 0.2 * normalized_orbital[None, :])
-            * harmonic[:, None]
+            + 0.25 * (1.0 + 0.2 * normalized_orbital[None, :]) * harmonic[:, None]
         )
-        exterior = (
-            3.0
-            + 0.3 * normalized_orbital[None, :]
-            + 0.1 * harmonic[:, None]
-        )
+        exterior = 3.0 + 0.3 * normalized_orbital[None, :] + 0.1 * harmonic[:, None]
         return (
             np.asarray(retained, dtype=np.float64),
             np.asarray(exterior, dtype=np.float64),
@@ -434,9 +421,9 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
             (coordinates.size, rank, rank),
         ).copy()
         for layer_index in range(1, request.circuit_depth + 1):
-            harmonic = 0.75 * np.sin(k) + 0.25 * (
-                (-1.0) ** layer_index
-            ) * np.sin(2.0 * k)
+            harmonic = 0.75 * np.sin(k) + 0.25 * ((-1.0) ** layer_index) * np.sin(
+                2.0 * k
+            )
             layer = np.broadcast_to(
                 np.eye(rank, dtype=np.complex128),
                 (coordinates.size, rank, rank),
