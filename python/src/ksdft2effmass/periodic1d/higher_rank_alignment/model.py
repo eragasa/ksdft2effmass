@@ -6,10 +6,7 @@ from dataclasses import dataclass, field
 from typing import ClassVar, final
 
 import numpy as np
-from projectkoios.numerics.numpy.validation import (
-    immutable_complex128_array,
-    immutable_float64_array,
-)
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 
 from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
@@ -18,14 +15,14 @@ from .configuration import Periodic1DHigherRankAlignmentConfiguration
 
 
 def _finite_reduced_coordinates(value: RealArray, name: str) -> RealArray:
-    normalized = immutable_float64_array(value, name)
+    normalized = NumpyImmutableArrayConstructor(
+        value,
+        name,
+        np.dtype(np.float64),
+    ).execute()
     if normalized.ndim != 1 or normalized.size == 0:
         raise ValueError(f"{name} must be a nonempty one-dimensional array")
     return normalized
-
-
-def _immutable_complex(value: ComplexArray, name: str) -> ComplexArray:
-    return immutable_complex128_array(value, name)
 
 
 @final
@@ -64,8 +61,16 @@ class Periodic1DHigherRankAnalyticCase(Periodic1DModel):
             not in Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
         ):
             raise ValueError("circuit_depth is not in the frozen inventory")
-        reference = _immutable_complex(self.reference_frame, "reference_frame")
-        sewing = _immutable_complex(self.endpoint_sewing_map, "endpoint_sewing_map")
+        reference = NumpyImmutableArrayConstructor(
+            self.reference_frame,
+            "reference_frame",
+            np.dtype(np.complex128),
+        ).execute()
+        sewing = NumpyImmutableArrayConstructor(
+            self.endpoint_sewing_map,
+            "endpoint_sewing_map",
+            np.dtype(np.complex128),
+        ).execute()
         ambient = 2 * self.retained_rank
         if reference.shape != (ambient, self.retained_rank):
             raise ValueError("reference_frame must have shape (2r, r)")

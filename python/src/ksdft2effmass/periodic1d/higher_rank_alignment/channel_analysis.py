@@ -8,10 +8,7 @@ from typing import final
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
-from projectkoios.numerics.numpy.validation import (
-    validate_immutable_complex128_array,
-    validate_immutable_float64_array,
-)
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayValidator
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesResult,
 )
@@ -55,20 +52,6 @@ from .model import Periodic1DHigherRankAnalyticCase
 from .result import Periodic1DHigherRankAlignmentStatusResult
 
 
-def _immutable_float_array(value: RealArray, name: str) -> RealArray:
-    result = validate_immutable_float64_array(value, name)
-    if result.ndim != 1:
-        raise ValueError(f"{name} must be a one-dimensional array")
-    return result
-
-
-def _immutable_complex_array(value: ComplexArray, name: str) -> ComplexArray:
-    result = validate_immutable_complex128_array(value, name)
-    if result.ndim != 3:
-        raise ValueError(f"{name} must be a three-dimensional array")
-    return result
-
-
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankChannelAnalysisRequest:
     """Bind one qualified channel and all of its immutable scientific inputs."""
@@ -104,9 +87,27 @@ class Periodic1DHigherRankChannelAnalysisRequest:
             or self.model.circuit_depth != request.circuit_depth
         ):
             raise ValueError("model rank and depth must match the calculation request")
-        coordinates = _immutable_float_array(self.coordinates, "coordinates")
-        samples = _immutable_complex_array(self.aligned_samples, "aligned_samples")
-        frames = _immutable_complex_array(self.aligned_frames, "aligned_frames")
+        coordinates = NumpyImmutableArrayValidator(
+            self.coordinates,
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
+        samples = NumpyImmutableArrayValidator(
+            self.aligned_samples,
+            "aligned_samples",
+            np.dtype(np.complex128),
+        ).execute()
+        frames = NumpyImmutableArrayValidator(
+            self.aligned_frames,
+            "aligned_frames",
+            np.dtype(np.complex128),
+        ).execute()
+        if coordinates.ndim != 1:
+            raise ValueError("coordinates must be a one-dimensional array")
+        if samples.ndim != 3:
+            raise ValueError("aligned_samples must be a three-dimensional array")
+        if frames.ndim != 3:
+            raise ValueError("aligned_frames must be a three-dimensional array")
         if self.mesh.dimension != 1 or self.mesh.offsets != (0.0,):
             raise ValueError("channel analysis requires the unshifted periodic-1D mesh")
         expected_coordinates = np.asarray(
@@ -239,6 +240,11 @@ class Periodic1DHigherRankChannelAnalyzer:
         self._request = request
         self._fourier_transformer = fourier_transformer
         self._fourier_evaluator = fourier_evaluator
+
+    @property
+    def request(self) -> Periodic1DHigherRankChannelAnalysisRequest:
+        """Return the exact channel-analysis request bound to this action."""
+        return self._request
 
     def execute(self) -> Periodic1DHigherRankChannelMeshResult:
         """Return the complete typed result for the bound qualified channel."""

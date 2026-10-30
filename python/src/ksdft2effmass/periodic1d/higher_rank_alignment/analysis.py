@@ -8,10 +8,7 @@ from typing import final
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
-from projectkoios.numerics.numpy.validation import (
-    immutable_complex128_array,
-    immutable_float64_array,
-)
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
     NumpyBatchedComplexUnitaryProcrustesResult,
@@ -81,7 +78,11 @@ def _coordinates(mesh_size: int, offset: float) -> RealArray:
         -0.5 + (np.arange(mesh_size, dtype=np.float64) + offset) / mesh_size,
         dtype=np.float64,
     )
-    return immutable_float64_array(values, "coordinates")
+    return NumpyImmutableArrayConstructor(
+        values,
+        "coordinates",
+        np.dtype(np.float64),
+    ).execute()
 
 
 def _adjoint(value: ComplexArray) -> ComplexArray:
@@ -379,6 +380,11 @@ class Periodic1DHigherRankEvaluationIndependenceAnalyzer:
             )
         self._request = request
 
+    @property
+    def request(self) -> Periodic1DHigherRankAlignmentCalculationRequest:
+        """Return the exact calculation request bound to this action."""
+        return self._request
+
     def execute(self) -> Periodic1DHigherRankEvaluationIndependenceResult:
         """Return exact rational mesh and selection provenance."""
         configuration = self._request.configuration
@@ -472,6 +478,11 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         self._fourier_transformer = fourier_transformer
         self._fourier_evaluator = fourier_evaluator
         self._scalar_refinement_analyzer = scalar_refinement_analyzer
+
+    @property
+    def request(self) -> Periodic1DHigherRankAlignmentCalculationRequest:
+        """Return the exact calculation request bound to this action."""
+        return self._request
 
     def execute(self) -> Periodic1DHigherRankAlignmentCalculationResult:
         """Produce the complete typed calculation for the bound rank/depth case."""
@@ -912,12 +923,16 @@ class Periodic1DHigherRankAlignmentAnalyzer:
                 mesh=mesh,
                 coordinates=coordinates,
                 status=status,
-                aligned_samples=immutable_complex128_array(
-                    aligned_samples, "aligned_samples"
-                ),
-                aligned_frames=immutable_complex128_array(
-                    aligned_frames, "aligned_frames"
-                ),
+                aligned_samples=NumpyImmutableArrayConstructor(
+                    aligned_samples,
+                    "aligned_samples",
+                    np.dtype(np.complex128),
+                ).execute(),
+                aligned_frames=NumpyImmutableArrayConstructor(
+                    aligned_frames,
+                    "aligned_frames",
+                    np.dtype(np.complex128),
+                ).execute(),
                 global_selection=global_selection,
                 pointwise_alignment=(
                     pointwise_result

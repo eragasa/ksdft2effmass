@@ -19,10 +19,12 @@ from .definition import (
 )
 from .diagnostics import Periodic1DHigherRankProcrustesDiagnostics
 from .provenance import Periodic1DHigherRankEvaluationIndependenceResult
-from .refinement import Periodic1DHigherRankScalarDiagnosticInventoryExtractor
 from .refinement_results import (
     Periodic1DHigherRankBlockRefinementResult,
     Periodic1DHigherRankScalarRefinementResult,
+)
+from .scalar_diagnostics import (
+    Periodic1DHigherRankScalarDiagnosticInventoryExtractor,
 )
 
 

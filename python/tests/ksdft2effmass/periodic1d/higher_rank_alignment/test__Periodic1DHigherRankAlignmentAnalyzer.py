@@ -7,10 +7,7 @@ from dataclasses import replace
 import numpy as np
 import pytest
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
-from projectkoios.numerics.numpy.validation import (
-    immutable_complex128_array,
-    immutable_float64_array,
-)
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
     NumpyBatchedComplexUnitaryProcrustesSolver,
@@ -210,12 +207,16 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
     ) -> None:
         mesh = CenteredUniformMesh(1, 513, (0.0,))
         status = higher_rank_calculation_result.meshes[0].channels[0].status
-        samples = immutable_complex128_array(
-            np.zeros((513, 3, 3), dtype=np.complex128), "samples"
-        )
-        frames = immutable_complex128_array(
-            np.zeros((513, 6, 3), dtype=np.complex128), "frames"
-        )
+        samples = NumpyImmutableArrayConstructor(
+            np.zeros((513, 3, 3), dtype=np.complex128),
+            "samples",
+            np.dtype(np.complex128),
+        ).execute()
+        frames = NumpyImmutableArrayConstructor(
+            np.zeros((513, 6, 3), dtype=np.complex128),
+            "frames",
+            np.dtype(np.complex128),
+        ).execute()
         matching_model = Periodic1DHigherRankAnalyticCaseConstructor(
             retained_rank=3,
             circuit_depth=1,
@@ -224,10 +225,11 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             retained_rank=3,
             circuit_depth=2,
         ).execute()
-        coordinates = immutable_float64_array(
+        coordinates = NumpyImmutableArrayConstructor(
             -0.5 + np.arange(513, dtype=np.float64) / 513,
             "coordinates",
-        )
+            np.dtype(np.float64),
+        ).execute()
 
         with pytest.raises(ValueError, match="model rank and depth"):
             Periodic1DHigherRankChannelAnalysisRequest(
@@ -245,9 +247,11 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                 calculation_request=higher_rank_calculation_request,
                 model=matching_model,
                 mesh=mesh,
-                coordinates=immutable_float64_array(
-                    np.zeros(513, dtype=np.float64), "coordinates"
-                ),
+                coordinates=NumpyImmutableArrayConstructor(
+                    np.zeros(513, dtype=np.float64),
+                    "coordinates",
+                    np.dtype(np.float64),
+                ).execute(),
                 status=status,
                 aligned_samples=samples,
                 aligned_frames=frames,

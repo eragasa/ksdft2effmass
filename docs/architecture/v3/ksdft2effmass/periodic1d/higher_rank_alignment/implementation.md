@@ -14,6 +14,7 @@
 | `diagnostics.py` | Stores typed model, Procrustes, matrix, comparison, and frame diagnostics. |
 | `channel_results.py` | Stores typed support, channel, and construction-mesh results. |
 | `refinement_results.py` | Stores typed block and scalar refinement results. |
+| `scalar_diagnostics.py` | Owns the canonical scalar-diagnostic path/value inventory shared by refinement production and aggregate admission. |
 | `provenance.py` | Stores exact construction/evaluation mesh separation and selection-input provenance. |
 | `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
 | `channel_analysis.py` | Owns the request-bound transform, shifted evaluation, support, and locality analysis for one qualified channel. |
@@ -22,9 +23,12 @@
 | `__init__.py` | Defines the deliberately narrow supported public imports; internal purpose-specific actions remain module-local imports. |
 
 The records are immutable and serialize deterministically. Maintained arrays use shared
-Project Koios NumPy types and immutable byte-backed validation; physical array annotations
-use PhysKit aliases. This makes a saved result reconstructible without relying on mutable
-NumPy storage or a process-wide serializer registry.
+Project Koios NumPy types and the nominal `NumpyImmutableArrayConstructor` and
+`NumpyImmutableArrayValidator` owners; physical array annotations use PhysKit aliases.
+The constructor creates canonical immutable bytes-backed storage, while request admission
+uses the zero-copy validator and rejects noncanonical storage. This makes a saved result
+reconstructible without relying on mutable NumPy storage, a competing local
+immutable-storage implementation, or a process-wide serializer registry.
 
 ## Fixed parameter study
 
