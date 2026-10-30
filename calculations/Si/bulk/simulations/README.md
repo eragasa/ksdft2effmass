@@ -68,9 +68,9 @@ specifications or create a competing Si-VC campaign definition.
 | Planned first-party composition | Outward `projectkoios.adapters` mappings plus `tools/pw_dft_bulk_qualification` and `tools/pw_dft_wannierization` for provider selection, operational configuration, and route invocation |
 | Current status | Implementation baseline plus reviewed architecture pin only; all listed end-to-end, provider, adapter, and tool additions remain unimplemented and are not an accepted dependency |
 
-The architecture pin is a local documentation commit and has not been pushed. It adds
-no `src/` implementation and grants no acquisition or execution authority. Normative
-baseline links and the future dependency/conformance procedure are recorded
+The architecture pin is documentation-only. Publication or review does not add
+`src/` implementation or grant acquisition or execution authority. Normative baseline
+links and the future dependency/conformance procedure are recorded
 in [`architecture-plan.md`](architecture-plan.md). When an implemented upstream
 capability is reviewed and actually imported, this project must pin its exact revision
 through the declared dependency files. Adding or replacing that dependency requires

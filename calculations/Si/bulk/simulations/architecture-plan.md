@@ -23,8 +23,9 @@ The reviewed documentation-only architecture is pinned to ProjectKoios commit
 baseline and specifies bulk qualification, generic non-spin spectral Wannierization,
 provider boundaries, adapters, tools, compatibility, and migration treatment. It adds
 no implementation under `src/`, reserves no production API, and grants no acquisition
-or calculator authority. Publication of that local commit requires separate push
-authorization; the immutable hash remains the calculation's reviewed architecture pin.
+or calculator authority. Publication, review, or later merge status does not convert
+that documentation into implemented behavior; the immutable hash remains the
+calculation's reviewed architecture pin.
 
 Normative reusable behavior remains with these upstream authorities:
 
