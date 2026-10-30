@@ -77,9 +77,8 @@ class TestExperimentScriptConventions:
 
     def test_every_entrypoint_has_the_standard_process_contract(self) -> None:
         """Require documented integer roots that terminate through SystemExit."""
-        entrypoints = self._entrypoints()
-        assert entrypoints
-        for path, (module, main) in entrypoints.items():
+        assert self._EXPERIMENTS.is_dir()
+        for path, (module, main) in self._entrypoints().items():
             assert ast.get_docstring(module), path
             assert isinstance(main.returns, ast.Name), path
             assert main.returns.id == "int", path

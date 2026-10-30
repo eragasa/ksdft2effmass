@@ -12,13 +12,12 @@ It is a dimension-specific simple-cubic successor to the 1-D experiment and is
 sequenced after review of the square-lattice 2-D protocol. It is not a version, run,
 evidence package, or publication identity. A foundational shared KSD implementation now
 covers the dimension-general parent, sine rotation, analytic flat correlation, dense
-cubic-shell inventory, and a bounded development action. A resource-preflighted,
+cubic-shell inventory, and a bounded development action. Resource-preflighted,
 independently verified `8 x 8 x 8`, `16 x 16 x 16`, and `32 x 32 x 32`
-Monkhorst--Pack calculations exist under
-[`analysis/development/`](analysis/development/) and
-[`analysis/development-refinement/`](analysis/development-refinement/); they are neither
-convergence nor retained evidence. Family-owned vector PDF and 600-dpi PNG diagnostics
-are cataloged in [`analysis/README.md`](analysis/README.md).
+Monkhorst--Pack development composition and plots are maintained by the
+[calculation owner](../../../../calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/);
+they are neither convergence nor retained evidence. This experiment directory retains
+the prospective protocol and bibliography rather than a second executable composition.
 
 Its dimension-general equations reduce exactly to the maintained parent homotopy and
 sine rotation when `d = 1`. Matrices, parameter meanings, retained rank, alignment
@@ -94,8 +93,8 @@ first-passing-shell, convergence, resource, and verifier diagnostics.
 
 ## Current boundary
 
-The protocol remains pre-version despite the bounded three-level ladder under
-[`analysis/development-refinement/`](analysis/development-refinement/). The mesh points,
+The protocol remains pre-version despite the bounded three-level ladder owned by the
+calculation composition. The mesh points,
 shell cap, thresholds, and resource envelopes are development controls. Row-level Paper
 1 software parity is complete for every applicable or explicitly inapplicable catalog
 quantity, including independent finite-sum reconstruction; this does not establish a

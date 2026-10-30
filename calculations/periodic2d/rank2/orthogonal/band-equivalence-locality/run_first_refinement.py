@@ -12,8 +12,8 @@ REFINEMENT = replace(DEFINITION, construction_size=32, evaluation_size=65)
 
 def main() -> int:
     """Calculate and verify the selected first development refinement."""
-    result, verification = construct_artifacts(REFINEMENT)
-    if not verification.diagnostics.passes:
+    _, result, verification = construct_artifacts(REFINEMENT)
+    if not verification.passes:
         raise RuntimeError("independent refinement verification failed")
     development = Path(__file__).resolve().parent / "simulations" / "development"
     output = development / "results" / "refinement" / "N32"

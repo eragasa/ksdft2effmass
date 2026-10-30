@@ -4,6 +4,6 @@ from _publish import publish
 
 if __name__ == "__main__":
     publish(
-        generator="experiments/model-adequacy/band-equivalence-dimensional-comparison/plot_development.py",
-        generated_figure="experiments/model-adequacy/band-equivalence-dimensional-comparison/analysis/development/tolerance-requirement-map.pdf",
+        generator="calculations/band-equivalence-dimensional-comparison/plot_development.py",
+        generated_figure="calculations/band-equivalence-dimensional-comparison/analysis/development/generated/tolerance-requirement-map.pdf",
     )

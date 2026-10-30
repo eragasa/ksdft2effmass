@@ -11,11 +11,17 @@ from .diagnostics import (
     BandEquivalenceLocalityVerificationDiagnostics,
 )
 from .point import PointDiagnostic
+from .refinement import (
+    BandEquivalenceLocalityRefinementAssessmentRecord,
+    BandEquivalenceLocalityRefinementPairRecord,
+)
 from .shell import FirstPassingDecision, ShellDiagnostic
 
 __all__ = [
     "AmplitudeMidpointDiagnostic",
     "BandEquivalenceLocalityDiagnostics",
+    "BandEquivalenceLocalityRefinementAssessmentRecord",
+    "BandEquivalenceLocalityRefinementPairRecord",
     "BandEquivalenceLocalityVerificationDiagnostics",
     "CaseDiagnostic",
     "ErrorChannels",

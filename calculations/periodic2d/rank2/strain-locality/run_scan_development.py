@@ -116,7 +116,7 @@ def main() -> int:
         (output / "rhombic-2d-strain-transition-refinement.json", transitions),
     )
     for artifact_path, artifact in typed_artifacts:
-        artifact_path.write_text(artifact.to_json(), encoding="utf-8")
+        artifact_path.write_bytes(artifact.to_json())
     result = SyntheticStrainScanPlotWriter(
         request=SyntheticStrainScanPlotRequest(
             witness_results=witnesses,

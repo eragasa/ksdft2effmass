@@ -101,10 +101,8 @@ def main() -> int:
             (OUTPUT_DIRECTORY / f"{slug}-shell-scale-result.json", result),
         ):
             payload = record.to_json()
-            path.write_text(payload, encoding="utf-8")
-            artifacts.append(
-                (path, hashlib.sha256(payload.encode("utf-8")).hexdigest())
-            )
+            path.write_bytes(payload)
+            artifacts.append((path, hashlib.sha256(payload).hexdigest()))
     plots = ShellScaleDecisionLandscapePlotWriter(
         request=ShellScaleDecisionLandscapePlotRequest(
             family_results=results,

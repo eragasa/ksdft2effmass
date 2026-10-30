@@ -12,7 +12,10 @@ spatial/lattice promises, deliberate exclusions, and remaining qualification wor
 tracked in [`paper-1v3-successor-crosswalk.md`](paper-1v3-successor-crosswalk.md). The
 stronger quantity-by-quantity requirement is tracked against all 110 predecessor rows in
 [`paper-1v3-calculation-parity-audit.md`](paper-1v3-calculation-parity-audit.md). It is
-organized around the publication-independent experiment families:
+organized around the publication-independent experiment families. Experiment paths
+retain protocol identity; executable figure producers and replaceable development
+outputs are owned under `calculations/periodic2d/`, `calculations/periodic3d/`, and
+`calculations/band-equivalence-dimensional-comparison/`:
 
 - [`../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/)
 - [`../../../../../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/)

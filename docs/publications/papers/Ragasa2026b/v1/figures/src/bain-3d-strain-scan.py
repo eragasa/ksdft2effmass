@@ -4,6 +4,6 @@ from _publish import publish
 
 if __name__ == "__main__":
     publish(
-        generator="experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/scan_development.py",
-        generated_figure="experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/analysis/scan-development/strain-witness-locality-scan.pdf",
+        generator="calculations/periodic3d/rank2/strain-locality/run_scan_development.py",
+        generated_figure="calculations/periodic3d/rank2/strain-locality/analysis/development/scan/strain-witness-locality-scan.pdf",
     )

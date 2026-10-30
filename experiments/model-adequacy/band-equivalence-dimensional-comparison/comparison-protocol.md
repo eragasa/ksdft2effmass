@@ -38,7 +38,10 @@ Consequently, a candidate pair of family-specific acceptance limits would have t
 or above that diamond to accept the complete sampled family. The two coordinates of a
 diamond need not originate from the same sampled point.
 
-![Cross-family development tolerance-requirement map.](analysis/development/tolerance-requirement-map.png)
+The calculation-owned
+[`plot_development.py`](../../../calculations/band-equivalence-dimensional-comparison/plot_development.py)
+composition regenerates the replaceable cross-family development map under its
+calculation analysis tree.
 
 ## Companion shell--scale decision landscapes
 

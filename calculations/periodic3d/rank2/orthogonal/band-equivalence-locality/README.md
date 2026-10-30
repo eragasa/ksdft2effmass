@@ -53,3 +53,4 @@ distributed checklist.
 | Typed ownership | Shared immutable request, result, independent-reference, verification, and visualization owners live under `python/src/ksdft2effmass/analysis/model_adequacy/band_equivalence_locality/`. |
 | Plotting and technical report | Development products remain separate from authenticated direct rendering. |
 | Cross-dimensional comparison | Downstream consumer only; it cannot transfer identity, normalization, tolerance policy, or evidence status. |
+| Experiment migration source | Duplicate development/refinement/plot entrypoints and analysis-path contracts are retired. The experiment path retains only its identity README, prospective protocol, and bibliography. |

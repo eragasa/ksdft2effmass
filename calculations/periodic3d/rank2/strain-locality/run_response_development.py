@@ -47,9 +47,7 @@ def main() -> int:
     output = Path(__file__).resolve().parent / "analysis" / "development" / "response"
     output.mkdir(parents=True, exist_ok=True)
     for name, result in (("M1", frozen), ("M2", radial)):
-        (output / f"{name.lower()}-result.json").write_text(
-            result.to_json(), encoding="utf-8"
-        )
+        (output / f"{name.lower()}-result.json").write_bytes(result.to_json())
     for path in strain_response_plotting.write_strain_response_plots(
         frozen, radial, output, "3-D Bain path"
     ):
