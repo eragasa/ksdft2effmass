@@ -1,4 +1,4 @@
-"""Contracts for explicitly unverified higher-rank development figures."""
+"""Contracts for calculated, integrity-admitted, unsealed report figures."""
 
 from __future__ import annotations
 
@@ -13,12 +13,14 @@ from analysis.development import (
     HigherRankDevelopmentPlot,
 )
 from analysis.development.plots import (
-    _DEVELOPMENT_NOTICE,
     _PLOT_FLOOR,
+    _RESULT_STATUS_COLOR,
+    _RESULT_STATUS_LABEL,
     _claim_condition,
     _positive,
     _sampled_pareto_membership,
 )
+
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentConfiguration,
 )
@@ -27,7 +29,7 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestHigherRankDevelopmentFigureContract:
-    """Establish the closed inventory, disclaimers, and sampled Pareto rule."""
+    """Establish the closed inventory, status label, and sampled Pareto rule."""
 
     def test__plot_inventory__contains_every_predeclared_view(self) -> None:
         assert tuple(plot.value for plot in HigherRankDevelopmentPlot) == (
@@ -41,9 +43,8 @@ class TestHigherRankDevelopmentFigureContract:
             "development-recovery-controls.png",
             "development-support-error-pareto.png",
         )
-        assert _DEVELOPMENT_NOTICE == (
-            "DEVELOPMENT / UNVERIFIED — not publication evidence"
-        )
+        assert _RESULT_STATUS_LABEL == "CALCULATED RESULT — UNSEALED"
+        assert _RESULT_STATUS_COLOR == "#666666"
 
     def test__sampled_pareto_membership__uses_joint_three_objective_dominance(
         self,

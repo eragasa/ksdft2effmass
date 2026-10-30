@@ -1,4 +1,4 @@
-"""Refresh explicitly unverified development figure snapshots for report review."""
+"""Refresh calculated, integrity-admitted, unsealed figures for report review."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from analysis.development import (
 
 
 def main() -> int:
-    """Render repeatedly from one integrity-admitted development cache."""
+    """Render unsealed figures repeatedly from one integrity-admitted cache."""
     calculation_root = Path(__file__).resolve().parent
     cache = HigherRankDevelopmentAdmittedCacheReader(
         HigherRankDevelopmentCacheReadRequest(

@@ -29,7 +29,7 @@
 \title{\textbf{Gauge Alignment and Real-Space Locality in Higher-Rank\\Periodic One-Dimensional Hamiltonians}\\
 \large Analytic controls, numerical methodology, and evidence boundaries}
 \author{Project Koios}
-\date{Pre-execution technical report}
+\date{Calculated-result technical report (unsealed)}
 
 \begin{document}
 \maketitle
@@ -61,10 +61,12 @@ bounded direct-sum all-gauge Fourier controls, and independent global/pointwise
 Procrustes-selection and constant-frame-transport slices are implemented and
 software-tested. A complete 16-case producer calculation has also been run locally and
 saved as canonical reusable result bytes for the fixed nine-figure inventory. Those
-snapshots are visibly marked ``development/unverified'' and are discussed here as
-calculated observations pending scientific acceptance. Their cache integrity and
-calculation-infrastructure identity are recorded; exhaustive byte-owning recomputation
-and authenticated rendering are not ordinary-production requirements.
+snapshots are visibly marked ``CALCULATED RESULT---UNSEALED'' and are presented as
+calculated, integrity-admitted results available for scientific review. This status does
+not itself establish scientific validity, seal evidence, or confer publication
+acceptance. Their cache integrity and calculation-infrastructure identity are recorded;
+exhaustive byte-owning recomputation and authenticated rendering are not
+ordinary-production requirements.
 \end{abstract}
 
 \noindent\textbf{Keywords:} composite bands; gauge covariance; Procrustes alignment;
@@ -127,8 +129,8 @@ Section~\ref{sec:background} summarizes the scientific background. Sections
 \ref{sec:model}--\ref{sec:diagnostics} define the methodology. Section
 \ref{sec:results} states the analytic and implementation results currently established.
 Section~\ref{sec:discussion} discusses their interpretation and limitations. Section
-\ref{sec:conclusion} concludes. Detailed numerical controls and record ownership appear
-in the appendices.
+\ref{sec:conclusion} concludes. Detailed numerical controls, the Formal theorem
+crosswalk, and record ownership appear in the appendices.
 
 \subsection{Evidence status}
 
@@ -136,11 +138,14 @@ This is a pre-retention technical report. The authoritative protocol fixes the
 coefficients, meshes, tolerances, schemas, resource limits, and future evidence policy.
 The maintained direct runner is explicitly development-only and writes no retained
 scientific evidence. The numerical figures in Section~\ref{sec:development-snapshot}
-come from one replaceable full-grid producer execution and are retained only as report
-snapshots. They are not backed by admitted result bytes, an independent verification
-record, measured resource qualification, or digest-gated rendering. Their discussion is
-therefore descriptive and conditional; passing tests and producing plots establishes
-software behavior only, not physical validity or scientific validation.
+come from one replaceable full-grid producer execution and are retained as report
+snapshots. Their canonical result bytes have passed manifest, digest, typed-round-trip,
+and complete-inventory integrity admission, but they are not backed by exhaustive
+independent recomputation, measured resource qualification, digest-gated rendering, or
+an evidence seal. The calculated figures are scientifically reviewable while unsealed.
+Cache admission establishes byte and inventory integrity, not physical validity or
+scientific validation, and neither admission nor presentation automatically confers
+publication acceptance.
 
 \section{Background and scientific setting}
 \label{sec:background}
@@ -205,6 +210,56 @@ coefficients are a finite representation of sampled data and may contain aliasin
 unresolved continuum harmonics. Second, deliberately setting blocks outside a chosen
 support to zero is a model-reduction operation. The protocol keeps continuum behavior,
 finite-mesh interpolation, and deliberate truncation separate.
+
+\subsection{A gentle methods primer}
+\label{sec:methods-primer}
+
+A frame is a matrix whose columns are an orthonormal basis for the retained subspace.
+The subspace fixes the projector, but it does not fix those columns: if $A(k)$ is a frame
+and $Q(k)$ is unitary, then $A(k)Q(k)$ spans the same subspace. This is the frame, or
+gauge, ambiguity. The multiplication is on the right because $Q(k)$ mixes retained
+columns; left multiplication would instead act in the ambient state space. A represented
+operator consequently changes by unitary conjugation, even though its spectrum and
+ambient projector do not.
+
+To align a candidate frame $A(k)$ to a reference frame $B(k)$, the right-action
+Procrustes problem minimizes
+\begin{equation}
+ \|A(k)Q(k)-B(k)\|_\Frob^2
+ =\|A(k)\|_\Frob^2+\|B(k)\|_\Frob^2
+ -2\,\operatorname{Re}\Tr\!\left(Q(k)^*A(k)^*B(k)\right).
+ \label{eq:primer-procrustes}
+\end{equation}
+This expansion explains why the cross matrix is $A(k)^*B(k)$: it is the matrix paired
+with the right-acting $Q(k)^*$ in the trace. The reversed product corresponds to a
+different orientation, and products in the ambient space solve a different problem. In
+the notation used below, $A=C$ is the attacked candidate and $B=R$ is the reference.
+When $A(k)^*B(k)=Q(k)P(k)$ is an exact polar factorization with $P(k)$ positive
+semidefinite, $Q(k)$ minimizes the local objective; positive definiteness supplies the
+usual uniqueness condition.
+
+The four alignment fields differ by what may vary with $k$. Identity alignment fixes
+$Q(k)=I$. Global alignment permits one constant $Q$ for every point. Local, or
+pointwise, alignment permits a separately selected $Q(k)$ at each point. The known
+inverse is a special supplied local field satisfying $A(k)Q(k)=B(k)$ exactly in the
+analytic control; it is not information available in an ordinary inverse problem.
+These are nested information restrictions, not four error definitions.
+
+Fourier locality begins only after a represented field and a gauge have been fixed. On a
+finite periodic mesh the transform is exact finite algebra for the sampled field. A
+single constant unitary conjugation passes through coefficient extraction,
+reconstruction, and support truncation. A momentum-dependent unitary generally does not:
+it can preserve every pointwise eigenvalue and Frobenius norm while redistributing weight
+among Fourier modes. Thus finite-mesh coefficient identities do not by themselves prove
+continuum Fourier decay, absence of aliasing, or convergence as the mesh is refined.
+
+Finally, the report keeps the residual ledger explicit. Interpolation compares the full
+finite reconstruction with the direct field; deliberate truncation compares the
+support-truncated and full reconstructions; total error compares the truncated field with
+the direct field. Their fields add with a fixed sign convention, but their scalar maxima
+or RMS values need only satisfy norm inequalities. Gauge choice, finite Fourier
+representation, and these error channels are therefore related stages, not interchangeable
+notions of ``alignment error.''
 
 \section{Analytic model}
 \label{sec:model}
@@ -793,10 +848,10 @@ and 89 explicitly expensive deselections. Ruff, strict source mypy, strict Sphin
 establish current software behavior and document buildability only. They do not
 constitute independent numerical verification of a scientific result.
 
-\subsection{Development numerical snapshot: scope and admission boundary}
+\subsection{Calculated numerical snapshot: scope and admission boundary}
 \label{sec:development-snapshot}
 
-The fixed development renderer was exercised on all 16 rank/depth cases. It projects the
+The fixed report renderer was exercised on all 16 rank/depth cases. It projects the
 final producer objects into immutable plotting arrays and renders the nine views declared
 before this full-grid execution. The calculation completed all requested producer paths and wrote canonical typed case
 bytes to a reusable calculation cache. A separate integrity admission binds their
@@ -809,14 +864,14 @@ That infrastructure identity binds the explicitly selected scientific producer a
 numerical collaborator sources, not plotting or report sources. Presentation changes can
 therefore regenerate all nine views from the admitted result bytes without repeating the
 scientific calculation. Cache admission is not an independent scientific verification
-record. Every panel therefore carries the visible banner
-\emph{DEVELOPMENT / UNVERIFIED---not publication evidence}. Numerical values below are
-calculated development observations. They are neither illustrative synthetic data nor
-accepted findings, and a later scientifically reviewed calculation may differ at
-binary64 roundoff or may expose an unresolved verification failure. As discussed above, logarithmic panels
-use a display floor of $10^{-18}$ solely for axis placement; exact zeros remain distinct
-and are marked explicitly where they occur. The floor is neither an acceptance standard
-nor a claim of accuracy beyond binary64 computational precision.
+record. Every panel therefore carries the neutral status label
+\emph{CALCULATED RESULT---UNSEALED}. The numerical values below are calculated,
+integrity-admitted results available for scientific review. They are neither illustrative
+synthetic data nor automatically publication-accepted findings; the unsealed status and
+disclosed coverage boundaries remain part of their interpretation. As discussed above,
+logarithmic panels use a display floor of $10^{-18}$ solely for axis placement; exact
+zeros remain distinct and are marked explicitly where they occur. The floor is neither
+an acceptance standard nor a claim of accuracy beyond binary64 computational precision.
 
 \subsubsection{$S=2$ alignment--locality plane}
 
@@ -837,7 +892,7 @@ recovered the reference frame.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-alignment-locality-s2.png}
-\caption{Development-only $S=2$ alignment--locality plane for all 16 cases. Absolute
+\caption{Calculated, unsealed $S=2$ alignment--locality plane for all 16 cases. Absolute
 normalized operands are plotted separately; no unstable identity/oracle ratio is used.}
 \label{fig:development-alignment-locality}
 \end{figure}
@@ -858,7 +913,7 @@ tails are already about $2\times10^{-16}$ at $S=2$.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-support-locality-paths.png}
-\caption{Development-only complete support-path locality curves. Rows are ranks, columns
+\caption{Calculated, unsealed complete support-path locality curves. Rows are ranks, columns
 are gauge alignments, and line style/color identifies circuit depth.}
 \label{fig:development-support-paths}
 \end{figure}
@@ -872,7 +927,7 @@ floor is numerical and does not establish a continuum decay rate.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-fourier-block-locality.png}
-\caption{Development-only nonnegative Fourier-block norms at the fixed interior anchor.
+\caption{Calculated, unsealed nonnegative Fourier-block norms at the fixed interior anchor.
 The vertical line marks the exact reference support boundary $|R|=2$.}
 \label{fig:development-block-locality}
 \end{figure}
@@ -893,14 +948,14 @@ maximum error decreases from $3.19\times10^{-1}$ at $S=0$ to
 $2.31\times10^{-2}$ at $S=2$, $8.87\times10^{-6}$ at $S=8$, and
 $3.42\times10^{-11}$ at $S=16$. The pointwise and oracle values at $S=2$ are about
 $10^{-15}$. The bottom row confirms the residual-field decomposition numerically; over
-the complete development grid, the largest normalized decomposition defect is
+the complete calculated grid, the largest normalized decomposition defect is
 $3.96\times10^{-17}$. These curves are not stacked because the residual fields add
 pointwise but their separately maximized norms need not.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-error-channel-trajectories.png}
-\caption{Development-only non-stacked trajectories for interpolation, truncation, and
+\caption{Calculated, unsealed non-stacked trajectories for interpolation, truncation, and
 total error at $(r,L)=(8,4)$. Columns are gauge alignments; the first two rows contain all
 three channels for operator and ordered-spectrum error. The bottom row is the separate
 residual-field decomposition-identity diagnostic, not a fourth error channel.}
@@ -911,7 +966,7 @@ residual-field decomposition-identity diagnostic, not a fourth error channel.}
 
 Figure~\ref{fig:development-claim-resolution} reports the three absolute $S=2$
 locality-extension operands and one supporting global-frame diagnostic, preserving every
-rank/depth cell. In this development snapshot, all 16 cells satisfy each displayed
+rank/depth cell. In this calculated snapshot, all 16 cells satisfy each displayed
 inequality: identity tails are at least $10^{-6}$, oracle tails are at most $10^{-10}$,
 identity total ordered-spectrum errors are at least $10^{-6}$, and global frame residuals
 are at least $10^{-6}$. The identity $S=2$ total ordered-spectrum error ranges from
@@ -920,13 +975,13 @@ $2.30\times10^{-1}$ to $1.25$. All 16 cells satisfy each of the three available 
 claim operands. The global-frame panel exposes restricted-feasible-set behavior but is
 not the protocol's fourth frozen operand, the global represented-operator residual,
 which the current public result does not retain. The complete frozen locality-extension
-rule therefore remains unresolved. Neither the supporting panel nor the development
-image can assign a retained claim disposition.
+rule therefore remains unresolved. Neither the supporting panel nor the unsealed
+figure can assign a retained claim disposition.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-s2-claim-resolution.png}
-\caption{Development-only locality-extension operands and supporting global-frame
+\caption{Calculated, unsealed locality-extension operands and supporting global-frame
 matrix. Color encodes the logarithm of the absolute normalized operand; green and red
 cell borders denote whether the displayed condition is met. Missing, failed,
 aggregate-rank-deficient, and inapplicable states remain categorical rather than being
@@ -936,7 +991,7 @@ colored as numerical zero.}
 
 Figure~\ref{fig:development-refinement} keeps the $M=1025$ and $M=2049$ values paired and
 also shows each absolute change divided by its applied absolute--relative tolerance. The
-largest gate utilization in the development run is $5.55\times10^{-6}$, for an
+largest gate utilization in the calculated run is $5.55\times10^{-6}$, for an
 interpolation-spectrum diagnostic; every displayed utilization is far below one. This
 supports internal mesh stability of the producer output but does not replace independent
 recomputation of either side of the pair.
@@ -944,7 +999,7 @@ recomputation of either side of the pair.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-mesh-refinement.png}
-\caption{Development-only $1025\rightarrow2049$ refinement diagnostics. The dashed
+\caption{Calculated, unsealed $1025\rightarrow2049$ refinement diagnostics. The dashed
 line in the paired-value panel is equality; the dashed line in the utilization panel is
 the frozen pass boundary.}
 \label{fig:development-refinement}
@@ -966,7 +1021,7 @@ rank/depth effect ratios.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-rank-depth-scaling.png}
-\caption{Development-only rank/depth scaling at the prospectively fixed support
+\caption{Calculated, unsealed rank/depth scaling at the prospectively fixed support
 $S=2$. Rows are gauge alignments; columns distinguish total operator and total
 ordered-spectrum error. Numeric annotations retain the absolute normalized values.}
 \label{fig:development-rank-depth}
@@ -983,7 +1038,7 @@ alignment recovered $D_r$.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-recovery-controls.png}
-\caption{Development-only final-mesh gauge-recovery controls. The two rows answer
+\caption{Calculated, unsealed final-mesh gauge-recovery controls. The two rows answer
 different questions: reference-frame recovery above and direct represented-field
 construction integrity below. Exact zeros are marked ``0'' rather than being identified
 with the $10^{-18}$ logarithmic display floor.}
@@ -1005,7 +1060,7 @@ practical optimizer.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-support-error-pareto.png}
-\caption{Development-only sampled support--error Pareto diagnostics. Rows are gauge
+\caption{Calculated, unsealed sampled support--error Pareto diagnostics. Rows are gauge
 alignments; columns use total operator and ordered-spectrum error. Marked supports are
 nondominated only within their own case and gauge alignment.}
 \label{fig:development-pareto}
@@ -1018,8 +1073,10 @@ integrity checks. The implemented bounded references do not independently cover 
 support-truncated and total-error field or every refinement value, so cache admission is
 not itself scientific validation. The figures must distinguish calculated values from
 analytic certificates and preserve unresolved, failed, missing, and inapplicable
-states. Publication acceptance remains a separate human decision; it does not require a
-new calculation merely to change presentation.
+states. The calculated figures are scientifically reviewable, but remain unsealed.
+Publication acceptance remains a separate human decision and is not automatically
+conferred by cache admission, reviewability, or presentation; changing presentation does
+not require a new calculation.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -1124,27 +1181,212 @@ gauge-locality study without overstating its evidence status. The analytic
 family cleanly separates a physical retained operator from its finite matrix
 representation. A deterministic noncommuting gauge circuit can change matrix-valued
 hopping locality while preserving the retained projector and pointwise spectrum; the
-finite change shown here remains a calculated observation pending scientific acceptance. Four
-prospectively fixed gauge alignments probe different information constraints, and a
+finite change shown here is a calculated, integrity-admitted observation available for
+scientific review, while remaining unsealed and separate from publication acceptance.
+Four prospectively fixed gauge alignments probe different information constraints, and a
 common transport control prevents frame-sewing effects from being conflated with gauge
 selection.
 
 The exact construction already establishes a uniform isolation energy, covariant
 spectral equivalence, pointwise and oracle recovery, and finite reference support. The
 software producer implements the planned finite numerical analysis with typed immutable
-evidence and fail-closed outcomes. The replaceable full-grid development snapshot
+evidence and fail-closed outcomes. The replaceable full-grid calculated snapshot
 exhibits the expected contrast between long-tailed identity/global representations and
 finite-support pointwise/oracle controls, together with stable
 $1025\rightarrow2049$ producer diagnostics. It also shows finite rank/depth structure
-and sampled support--error tradeoffs. Those observations remain explicitly unverified;
-the implemented bounded controls and disclosed limitations define the present evidence
-boundary.
+and sampled support--error tradeoffs. Those observations are integrity-admitted and
+scientifically reviewable, but remain unsealed; the implemented bounded controls and
+disclosed limitations define the present evidence boundary, and no automatic publication
+acceptance follows.
 
 The saved canonical results now support fast presentation work without recalculation.
 Further scientific review may add targeted independent controls where they materially
 affect a claim, while publication acceptance remains a separate human decision.
 
 \appendix
+
+\section{Formal theorem crosswalk and proof sketches}
+\label{app:formal-crosswalk}
+
+\subsection{Pinned revision and reading rule}
+
+This appendix summarizes exact finite-dimensional results mechanized in the separate
+Project Koios--Formal repository. The metadata and declarations were inspected at the
+exact merged revision
+\begin{center}
+\path{4902864c19b412320e56c984fe9cc98a4ad3bd89}
+\end{center}
+(``Merge pull request \#42: Formalize finite-mesh unitary Procrustes hierarchy''). At
+that revision, the Formal theorem manifest records every identifier cited below as
+\emph{proved; no admissions}. The reported axiom sets contain only
+\path{propext}, \path{Classical.choice}, and \path{Quot.sound}. This is a revision-pinned
+cross-reference, not a claim that the present runtime produced or checked a Formal
+certificate.
+
+\subsection{Right-action alignment hierarchy}
+
+Let $K$ be a finite mesh, let $A_k,B_k\in\mathbb C^{m\times r}$, and define
+\begin{equation}
+ J_K(U)=\sum_{k\in K}\|A_kU_k-B_k\|_\Frob^2.
+ \label{eq:formal-mesh-objective}
+\end{equation}
+Suppose exact witnesses satisfy
+$A_k^*B_k=Q_kP_k$, with $Q_k$ unitary and $P_k\succeq0$.
+
+\begin{proposition}[Exact finite-mesh Procrustes hierarchy]
+The field $Q=(Q_k)$ globally minimizes Equation~\eqref{eq:formal-mesh-objective} among
+all pointwise unitary fields. It is no worse than any constant unitary field and no worse
+than identity. If every $P_k\succ0$, equality with the minimum forces equality with
+$Q$. An exact known-inverse field $O$ satisfying $A_kO_k=B_k$ has zero objective, is a
+global minimizer, and equals $Q$ under the same positive-definiteness hypothesis.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Equation~\eqref{eq:primer-procrustes} reduces minimization to maximizing a real trace.
+For the factorization $A_k^*B_k=Q_kP_k$, write any competitor relative to $Q_k$; a
+unitary cannot increase $\operatorname{Re}\Tr(WP_k)$ above $\Tr(P_k)$. Positive
+definiteness makes equality rigid. Summing the local inequalities proves the finite-mesh
+statement. A known inverse makes every squared norm vanish; nonnegativity and uniqueness
+then give the final assertions. These are precisely the roles of
+\path{BG-ALIGNMENT-THM-041}, \path{BG-ALIGNMENT-THM-044},
+\path{BG-ALIGNMENT-THM-045}, and
+\path{BG-ALIGNMENT-THM-052}--\path{BG-ALIGNMENT-THM-058}.
+\end{proof}
+
+\begin{center}\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.30\textwidth}
+                         >{\raggedright\arraybackslash}p{0.64\textwidth}@{}}
+\caption{Exact alignment results used in the proof sketch.}
+\label{tab:formal-alignment}\\
+\toprule
+Formal identifier & Mechanized result and boundary \\
+\midrule
+\endfirsthead
+\toprule
+Formal identifier & Mechanized result and boundary \\
+\midrule
+\endhead
+\texttt{BG-ALIGNMENT-THM-041} & Expands the right-action objective; the cross matrix is exactly $A^*B$. \\
+\texttt{BG-ALIGNMENT-THM-044} & A supplied positive-semidefinite polar witness gives a global local minimum. \\
+\texttt{BG-ALIGNMENT-THM-045} & A positive-definite polar factor makes that minimizer unique. \\
+\texttt{BG-ALIGNMENT-THM-052} & Pointwise polar minima jointly minimize the unweighted finite-mesh sum. \\
+\texttt{BG-ALIGNMENT-THM-053} & Equality with the summed minimum forces field equality when every positive factor is positive definite. \\
+\texttt{BG-ALIGNMENT-THM-054} & The pointwise polar field is no worse than any constant unitary field. \\
+\texttt{BG-ALIGNMENT-THM-055} & The pointwise polar field is no worse than identity. \\
+\texttt{BG-ALIGNMENT-THM-056} & A supplied exact known inverse has zero summed objective. \\
+\texttt{BG-ALIGNMENT-THM-057} & That zero-objective known inverse is a global minimizer. \\
+\texttt{BG-ALIGNMENT-THM-058} & Under pointwise positive definiteness, the known inverse equals the unique polar-minimizer field. \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{Fixed and pointwise gauges under finite Fourier analysis}
+
+\begin{proposition}[Finite Fourier equivariance and its boundary]
+On an exact finite abelian momentum group, conjugation by one fixed unitary commutes with
+Fourier coefficient extraction, full reconstruction, exact support truncation, truncated
+reconstruction, and the full-minus-truncated residual. A constant pointwise field reduces
+to this case. By contrast, if a varying pointwise unitary changes the matrix field at one
+momentum, at least one Fourier coefficient changes, even though weighted pointwise
+Frobenius power remains invariant.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Fixed conjugation is a complex-linear map, so it passes through finite sums and through
+the coefficient mask. The residual statement follows by subtraction. Exact finite
+Fourier inversion makes equality of all coefficients equivalent to equality of fields,
+which proves the varying-gauge contraposition. Frobenius invariance is pointwise unitary
+invariance summed with the caller's weights. The corresponding identifiers are
+\path{BG-FOURIER-THM-043}, \path{BG-FOURIER-THM-044},
+\path{BG-FOURIER-THM-045}, \path{BG-FOURIER-THM-046},
+\path{BG-FOURIER-THM-047}, \path{BG-FOURIER-THM-052},
+\path{BG-FOURIER-THM-053}, and \path{BG-FOURIER-THM-054}.
+\end{proof}
+
+\begin{center}\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.30\textwidth}
+                         >{\raggedright\arraybackslash}p{0.64\textwidth}@{}}
+\caption{Finite Fourier identities and truncation bounds.}
+\label{tab:formal-fourier}\\
+\toprule
+Formal identifier & Mechanized result and boundary \\
+\midrule
+\endfirsthead
+\toprule
+Formal identifier & Mechanized result and boundary \\
+\midrule
+\endhead
+\texttt{BG-FOURIER-THM-043} & Fixed-unitary conjugation commutes with coefficient extraction. \\
+\texttt{BG-FOURIER-THM-044} & Fixed-unitary conjugation commutes with full finite reconstruction. \\
+\texttt{BG-FOURIER-THM-045} & Fixed-unitary conjugation commutes with an exact coefficient mask. \\
+\texttt{BG-FOURIER-THM-046} & The same holds for support-truncated reconstruction. \\
+\texttt{BG-FOURIER-THM-047} & The same holds for the full-minus-truncated residual. \\
+\texttt{BG-FOURIER-THM-052} & A constant pointwise unitary field is the fixed-unitary case. \\
+\texttt{BG-FOURIER-THM-053} & A pointwise change of the field forces a change in at least one finite Fourier coefficient. \\
+\texttt{BG-FOURIER-THM-054} & Arbitrary pointwise unitary conjugation preserves weighted pointwise Frobenius power, not coefficient support. \\
+\texttt{BG-FOURIER-THM-027} & Matrix Frobenius power satisfies finite Parseval with the declared normalization. \\
+\texttt{BG-FOURIER-THM-028} & Full-minus-truncated matrix Frobenius power equals group cardinality times omitted coefficient power. \\
+\texttt{BG-FOURIER-THM-068} & The Hilbert-valued deliberate-truncation power has the same omitted-tail identity. \\
+\texttt{BG-FOURIER-THM-069} & Specializes that identity to entrywise matrix Frobenius power. \\
+\texttt{BG-FOURIER-THM-070} & Hilbert-valued truncation RMS equals the square root of omitted coefficient power on a nonempty group. \\
+\texttt{BG-FOURIER-THM-071} & Its squared RMS equals omitted coefficient power. \\
+\texttt{BG-FOURIER-THM-072} & Matrix Frobenius truncation RMS equals the square root of omitted matrix coefficient power. \\
+\texttt{BG-FOURIER-THM-073} & Its squared RMS equals omitted matrix coefficient power. \\
+\texttt{BG-FOURIER-THM-074} & Each pointwise truncation norm is bounded by the omitted coefficient one-norm tail. \\
+\texttt{BG-FOURIER-THM-075} & The finite maximum norm obeys the same one-norm-tail bound. \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+The Parseval and tail statements follow from finite-character orthogonality; the maximum
+bound is the triangle inequality with unit-modulus character phases. They are exact for
+the declared finite transform. They do not identify a coefficient index with a physical
+continuum range without a separate mesh and representation binding.
+
+\subsection{Residual-channel composition}
+
+Formal uses four fields---reference, interpolated, converted, and truncated---and three
+component residuals. Its exact identity and norm consequences are:
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.30\textwidth}Y}
+\toprule
+Formal identifier & Mechanized result \\
+\midrule
+\texttt{BG-HILBERT-THM-022} & Total residual equals interpolation plus conversion plus deliberate-truncation residual fields. \\
+\texttt{BG-HILBERT-THM-023} & The pointwise total norm is at most the sum of the three component norms. \\
+\texttt{BG-HILBERT-THM-024} & The finite maximum total norm is at most the sum of the three component maxima. \\
+\texttt{BG-HILBERT-THM-025} & The finite RMS total norm is at most the sum of the three component RMS values. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{proof}[Proof sketch]
+The field identity telescopes. The pointwise estimate is the triangle inequality; the
+maximum and RMS estimates are the corresponding norms on finite function spaces. For the
+three-field ledger in Equation~\eqref{eq:error-channels}, set Formal's converted field
+equal to its interpolated field, so the conversion channel is zero. Formal's
+reference-minus-approximation orientation is the negative of this report's
+approximation-minus-reference orientation; the exact field identity changes sign while
+all stated norm bounds are unchanged.
+\end{proof}
+
+\subsection{Mechanization status and exclusions}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.29\textwidth}YY}
+\toprule
+Item & Status at the pinned Formal revision & Consequence for this report \\
+\midrule
+Exact finite theorems above & Lean-accepted; manifest status \emph{proved; no admissions}. & Supports only the stated conditional algebraic implications. \\
+Runtime SVD and polar selection & \textbf{Excluded}: no floating-point SVD, rank cutoff, null-space completion, or optimizer branch is authenticated. & Producer integrity and rank gates remain numerical obligations. \\
+Mesh authentication & \textbf{Excluded}: no runtime coordinate array, mesh identity, weight, or source digest is bound. & The construction and shifted meshes remain report and runtime data. \\
+Continuum convergence & \textbf{Excluded}: no aliasing estimate, mesh-limit theorem, continuum Fourier-decay theorem, or physical-range identification is proved. & Refinement evidence cannot be promoted by the finite identities alone. \\
+Runtime certificates & \textbf{Excluded}: no request/result wire, parser, retained-byte binding, or checked certificate exists; the checked certificate count is zero. & This report and its cache contain no Formal certificate. \\
+Scientific acceptance & \textbf{Excluded}: kernel checking does not establish physical adequacy, numerical validation, novelty, publication acceptance, or release status. & Scientific review and any publication decision remain separate human actions. \\
+\bottomrule
+\end{tabularx}
+\end{center}
 
 \section{Frozen numerical inventory}
 \label{app:inventory}

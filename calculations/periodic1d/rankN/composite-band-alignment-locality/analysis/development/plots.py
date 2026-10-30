@@ -1,9 +1,10 @@
-"""Development-only projections and figures for the higher-rank D1 study.
+"""Calculated-result projections and figures for the higher-rank D1 study.
 
-The projection consumes complete in-memory producer results.  It is intentionally not an
-authenticated visualization projection: no verifier owns the source bytes yet.  Every
-rendered figure therefore carries a visible development/unverified notice and must not
-be used as publication evidence.
+The projection consumes complete in-memory producer results and does not itself
+authenticate their source bytes.  The report entrypoint supplies an integrity-admitted
+cache.  Every rendered figure carries a neutral unsealed-result label; cache integrity
+alone does not establish scientific validity, seal evidence, or confer publication
+acceptance.
 """
 
 from __future__ import annotations
@@ -15,6 +16,12 @@ from typing import Literal, final
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch, Rectangle
+from numpy.typing import NDArray
+
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentCalculationResult,
     Periodic1DHigherRankAlignmentConfiguration,
@@ -24,18 +31,14 @@ from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition i
     GaugeAlignmentWireMapping,
     Periodic1DHigherRankGaugeAlignment,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-from matplotlib.lines import Line2D
-from matplotlib.patches import Patch, Rectangle
-from numpy.typing import NDArray
 
 type FloatArray = NDArray[np.float64]
 type IntArray = NDArray[np.int64]
 type BoolArray = NDArray[np.bool_]
 type LineStyle = Literal["-", "--", "-.", ":"]
 
-_DEVELOPMENT_NOTICE = "DEVELOPMENT / UNVERIFIED — not publication evidence"
+_RESULT_STATUS_LABEL = "CALCULATED RESULT — UNSEALED"
+_RESULT_STATUS_COLOR = "#666666"
 _S2_INDEX = 2
 _S2_LOCALITY_EXTENSION_THRESHOLD = 1.0e-6
 _S2_ORACLE_TAIL_THRESHOLD = 1.0e-10
@@ -278,7 +281,7 @@ class HigherRankDevelopmentFigureDataProjector:
         return self._request
 
     def execute(self) -> HigherRankDevelopmentFigureData:
-        """Return the complete development-only numeric figure projection."""
+        """Return the complete calculated-result numeric figure projection."""
         results = self.request.calculation_results
         first = results[0]
         configuration = first.request.configuration
@@ -505,7 +508,7 @@ class HigherRankDevelopmentFigureRenderRequest:
 
 @final
 class HigherRankDevelopmentFigureRenderer:
-    """Render the closed unverified figure inventory without deriving science."""
+    """Render the closed unsealed figure inventory without deriving science."""
 
     __slots__ = ("_request",)
 
@@ -605,15 +608,20 @@ def _claim_condition(
 
 
 def _finalize(figure: Figure, title: str) -> Figure:
-    figure.suptitle(f"{title}\n{_DEVELOPMENT_NOTICE}", fontsize=14, fontweight="bold")
+    figure.suptitle(
+        f"{title}\n{_RESULT_STATUS_LABEL}",
+        fontsize=14,
+        fontweight="bold",
+        color=_RESULT_STATUS_COLOR,
+    )
     figure.text(
         0.995,
         0.003,
-        _DEVELOPMENT_NOTICE,
+        _RESULT_STATUS_LABEL,
         ha="right",
         va="bottom",
         fontsize=8,
-        color="#9C2F2F",
+        color=_RESULT_STATUS_COLOR,
         alpha=0.9,
     )
     return figure

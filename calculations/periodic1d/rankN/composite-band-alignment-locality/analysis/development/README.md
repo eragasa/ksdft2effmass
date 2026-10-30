@@ -11,7 +11,7 @@ not scientific validation:
 - cache admission explicitly records `scientific_evidence: false` and
   `independent_scientific_verification: false`;
 - it does not independently recompute complete scientific quantities; and
-- every image is labeled **DEVELOPMENT / UNVERIFIED — not publication evidence**.
+- every image is neutrally labeled **CALCULATED RESULT — UNSEALED**.
 
 The replaceable lifecycle is:
 
@@ -30,8 +30,10 @@ manifest digest. Rendering may then repeat without scientific recalculation; eve
 render still checks that the admission digest and cached case digests match. Plotting
 sources are not part of the calculation-infrastructure identity.
 
-Cache integrity does not establish scientific correctness. Scientific acceptance uses
-the declared analytic invariants, refinement checks, and bounded independent reference
+Cache integrity does not establish scientific correctness. The calculated figures are
+available for scientific review, but remain unsealed; neither integrity admission nor
+rendering automatically confers publication acceptance. Scientific acceptance uses the
+declared analytic invariants, refinement checks, and bounded independent reference
 controls and remains a separate human decision. No authenticated-rendering or exhaustive
 provenance package is required for repeated figure generation. The historical
 `workflow/` tree is not imported.
