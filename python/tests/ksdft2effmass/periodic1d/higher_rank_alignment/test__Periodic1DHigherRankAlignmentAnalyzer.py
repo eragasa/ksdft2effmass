@@ -1,9 +1,11 @@
 """Integration tests for the complete higher-rank calculation producer."""
 
 import json
+from dataclasses import replace
 
 import numpy as np
 import pytest
+from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
     NumpyBatchedComplexUnitaryProcrustesSolver,
@@ -20,6 +22,7 @@ from projectkoios.physkit.solidstate.tb import (
     FinitePeriodicMatrixFourierTransformer,
 )
 
+from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentAnalyzer,
     Periodic1DHigherRankAlignmentBackendExceptionCode,
@@ -27,6 +30,15 @@ from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentCalculationResult,
     Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentStatus,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.channel_analysis import (
+    Periodic1DHigherRankChannelAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.model import (
+    Periodic1DHigherRankAnalyticCaseConstructor,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.refinement import (
+    Periodic1DHigherRankRefinementAnalysisRequest,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -53,6 +65,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         assert len(result.global_selection.spectral_condition_numbers) == 1
         assert result.global_selection.spectral_condition_numbers[0] is not None
         assert result.global_selection.spectral_condition_numbers[0] >= 1.0
+        assert result.global_selection.maximum_objective_identity_defect is not None
         assert result.global_selection.maximum_objective_identity_defect < 1.0e-12
         assert len(result.meshes) == 3
         provenance = result.evaluation_independence
@@ -78,6 +91,9 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             )
             assert mesh.model_diagnostics.gauge_unitarity_defect < 1.0e-12
             assert mesh.model_diagnostics.attacked_projector_equality_defect < 1.0e-12
+            assert (
+                mesh.pointwise_selection.maximum_objective_identity_defect is not None
+            )
             assert mesh.pointwise_selection.maximum_objective_identity_defect < 1.0e-12
             assert mesh.pointwise_selection.rank_margins.shape == (
                 mesh.construction_mesh_size,
@@ -158,6 +174,98 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                 assert recovered.frame_recovery is not None
                 assert recovered.frame_recovery.normalized_frobenius_maximum < 1.0e-12
 
+    def test__result_arrays__are_immutable_and_refinement_is_correlated(
+        self,
+        higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
+    ) -> None:
+        block = higher_rank_calculation_result.block_refinements[0]
+
+        with pytest.raises(ValueError):
+            block.absolute_changes.setflags(write=True)
+        with pytest.raises(TypeError, match="exact dtype int64"):
+            replace(block, translations=block.translations.astype(np.float64))
+        decoded = dict(block.to_dict())
+        decoded["translations"] = block.translations.astype(np.float64)
+        with pytest.raises(TypeError, match="exact dtype int64"):
+            type(block).from_dict(decoded)
+        with pytest.raises(ValueError, match="arithmetic is inconsistent"):
+            replace(block, absolute_changes=np.full(block.absolute_changes.shape, -1.0))
+        with pytest.raises(ValueError, match="disjointness provenance"):
+            replace(
+                higher_rank_calculation_result.evaluation_independence,
+                construction_evaluation_disjoint=False,
+            )
+
+    def test__channel_request__rejects_mismatched_model_and_mesh_coordinates(
+        self,
+        higher_rank_calculation_request: (
+            Periodic1DHigherRankAlignmentCalculationRequest
+        ),
+        higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
+    ) -> None:
+        mesh = CenteredUniformMesh(1, 513, (0.0,))
+        status = higher_rank_calculation_result.meshes[0].channels[0].status
+        samples = np.zeros((513, 3, 3), dtype=np.complex128)
+        frames = np.zeros((513, 6, 3), dtype=np.complex128)
+        matching_model = Periodic1DHigherRankAnalyticCaseConstructor(
+            retained_rank=3,
+            circuit_depth=1,
+        ).execute()
+        mismatched_model = Periodic1DHigherRankAnalyticCaseConstructor(
+            retained_rank=3,
+            circuit_depth=2,
+        ).execute()
+        coordinates = -0.5 + np.arange(513, dtype=np.float64) / 513
+
+        with pytest.raises(ValueError, match="model rank and depth"):
+            Periodic1DHigherRankChannelAnalysisRequest(
+                calculation_request=higher_rank_calculation_request,
+                model=mismatched_model,
+                mesh=mesh,
+                coordinates=coordinates,
+                status=status,
+                aligned_samples=samples,
+                aligned_frames=frames,
+                global_selection=higher_rank_calculation_result.global_selection,
+            )
+        with pytest.raises(ValueError, match="declared construction mesh"):
+            Periodic1DHigherRankChannelAnalysisRequest(
+                calculation_request=higher_rank_calculation_request,
+                model=matching_model,
+                mesh=mesh,
+                coordinates=np.zeros(513, dtype=np.float64),
+                status=status,
+                aligned_samples=samples,
+                aligned_frames=frames,
+                global_selection=higher_rank_calculation_result.global_selection,
+            )
+
+    def test__refinement_request__rejects_mismatched_case_status(
+        self,
+        higher_rank_calculation_request: (
+            Periodic1DHigherRankAlignmentCalculationRequest
+        ),
+        higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
+    ) -> None:
+        first_mesh = higher_rank_calculation_result.meshes[0]
+        first_channel = first_mesh.channels[0]
+        mismatched_status = replace(
+            first_channel.status,
+            case_identity="r03-L02",
+            circuit_depth=2,
+        )
+        mismatched_channel = replace(first_channel, status=mismatched_status)
+        mismatched_mesh = replace(
+            first_mesh,
+            channels=(mismatched_channel,) + first_mesh.channels[1:],
+        )
+
+        with pytest.raises(ValueError, match="statuses must match"):
+            Periodic1DHigherRankRefinementAnalysisRequest(
+                calculation_request=higher_rank_calculation_request,
+                meshes=(mismatched_mesh,) + higher_rank_calculation_result.meshes[1:],
+            )
+
     def test__analyzer__retains_separate_interpolation_truncation_and_total_errors(
         self,
         higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
@@ -202,6 +310,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             transporter=ClosedLoopPolarFrameTransporter(),
             fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
             fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
+            scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
         ).execute()
 
         assert result.global_selection.status.status is (
@@ -256,6 +365,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             transporter=ClosedLoopPolarFrameTransporter(),
             fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
             fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
+            scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
         ).execute()
 
         assert result.block_refinements == ()

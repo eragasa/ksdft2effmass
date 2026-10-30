@@ -7,13 +7,13 @@ from fractions import Fraction
 from typing import final
 
 import numpy as np
-from numpy.typing import NDArray
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
     NumpyBatchedComplexUnitaryProcrustesResult,
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
+from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransportBackendFailure,
     ClosedLoopPolarFrameTransporter,
@@ -30,20 +30,18 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldHermiticityAnalyzer,
     MatrixFieldIsometryAnalyzer,
     MatrixProjectorFieldAnalyzer,
+    ScalarRefinementAnalyzer,
 )
 
-from .calculation import (
-    Periodic1DHigherRankAlignmentCalculationRequest,
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankChannelMeshResult,
-    Periodic1DHigherRankEvaluationIndependenceResult,
-    Periodic1DHigherRankMeshCalculationResult,
-    Periodic1DHigherRankModelDiagnostics,
-    Periodic1DHigherRankProcrustesDiagnostics,
-)
+from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
+from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
 from .channel_analysis import (
     Periodic1DHigherRankChannelAnalysisRequest,
     Periodic1DHigherRankChannelAnalyzer,
+)
+from .channel_results import (
+    Periodic1DHigherRankChannelMeshResult,
+    Periodic1DHigherRankMeshCalculationResult,
 )
 from .definition import (
     Periodic1DHigherRankAlignmentBackendExceptionCode,
@@ -51,10 +49,15 @@ from .definition import (
     Periodic1DHigherRankAlignmentStatus,
     Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
 )
+from .diagnostics import (
+    Periodic1DHigherRankModelDiagnostics,
+    Periodic1DHigherRankProcrustesDiagnostics,
+)
 from .model import (
     Periodic1DHigherRankAnalyticCase,
     Periodic1DHigherRankAnalyticCaseConstructor,
 )
+from .provenance import Periodic1DHigherRankEvaluationIndependenceResult
 from .refinement import (
     Periodic1DHigherRankRefinementAnalysisRequest,
     Periodic1DHigherRankRefinementAnalyzer,
@@ -65,14 +68,11 @@ from .result import (
     Periodic1DHigherRankAlignmentTransportOwnerResult,
 )
 
-ComplexArray = NDArray[np.complex128]
-FloatArray = NDArray[np.float64]
-
 _GlobalApplicability = Periodic1DHigherRankGlobalUnitaryDownstreamApplicability
 _INAPPLICABLE_GLOBAL_RANK = _GlobalApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
 
 
-def _coordinates(mesh_size: int, offset: float) -> FloatArray:
+def _coordinates(mesh_size: int, offset: float) -> RealArray:
     return np.asarray(
         -0.5 + (np.arange(mesh_size, dtype=np.float64) + offset) / mesh_size,
         dtype=np.float64,
@@ -167,7 +167,7 @@ def _procrustes_integrity(
     source: ComplexArray,
     target: ComplexArray,
     result: NumpyBatchedComplexUnitaryProcrustesResult,
-) -> tuple[FloatArray, float, float, float, float]:
+) -> tuple[RealArray, float, float, float, float]:
     rank = result.right_unitary_completions.shape[-1]
     right = result.right_unitary_completions
     residuals = np.asarray(
@@ -425,6 +425,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         "_transporter",
         "_fourier_transformer",
         "_fourier_evaluator",
+        "_scalar_refinement_analyzer",
     )
 
     def __init__(
@@ -435,6 +436,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         transporter: ClosedLoopPolarFrameTransporter,
         fourier_transformer: FinitePeriodicMatrixFourierTransformer,
         fourier_evaluator: FinitePeriodicMatrixFourierTensorEvaluator,
+        scalar_refinement_analyzer: ScalarRefinementAnalyzer,
     ) -> None:
         """Bind the exact request and canonical numerical owners."""
         if type(request) is not Periodic1DHigherRankAlignmentCalculationRequest:
@@ -455,11 +457,16 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             raise TypeError(
                 "fourier_evaluator must be the PhysKit finite-periodic evaluator"
             )
+        if type(scalar_refinement_analyzer) is not ScalarRefinementAnalyzer:
+            raise TypeError(
+                "scalar_refinement_analyzer must be the KSD refinement owner"
+            )
         self._request = request
         self._procrustes_solver = procrustes_solver
         self._transporter = transporter
         self._fourier_transformer = fourier_transformer
         self._fourier_evaluator = fourier_evaluator
+        self._scalar_refinement_analyzer = scalar_refinement_analyzer
 
     def execute(self) -> Periodic1DHigherRankAlignmentCalculationResult:
         """Produce the complete typed calculation for the bound rank/depth case."""
@@ -474,10 +481,11 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             for mesh_size in request.configuration.construction_mesh_sizes
         )
         refinement = Periodic1DHigherRankRefinementAnalyzer(
-            Periodic1DHigherRankRefinementAnalysisRequest(
+            request=Periodic1DHigherRankRefinementAnalysisRequest(
                 calculation_request=request,
                 meshes=meshes,
-            )
+            ),
+            scalar_refinement_analyzer=self._scalar_refinement_analyzer,
         ).execute()
         evaluation_independence = Periodic1DHigherRankEvaluationIndependenceAnalyzer(
             request
@@ -687,7 +695,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
     def _model_diagnostics(
         self,
         model: Periodic1DHigherRankAnalyticCase,
-        coordinates: FloatArray,
+        coordinates: RealArray,
         reference_frames: ComplexArray,
         attacked_frames: ComplexArray,
     ) -> Periodic1DHigherRankModelDiagnostics:
@@ -797,7 +805,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
     def _aligned_construction_fields(
         self,
         model: Periodic1DHigherRankAnalyticCase,
-        coordinates: FloatArray,
+        coordinates: RealArray,
         pointwise_result: NumpyBatchedComplexUnitaryProcrustesResult | None,
         pointwise_selection: Periodic1DHigherRankProcrustesDiagnostics,
         global_selection: Periodic1DHigherRankProcrustesDiagnostics,
@@ -876,7 +884,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         *,
         model: Periodic1DHigherRankAnalyticCase,
         mesh: CenteredUniformMesh,
-        coordinates: FloatArray,
+        coordinates: RealArray,
         channel: Periodic1DHigherRankAlignmentChannel,
         aligned_samples: ComplexArray | None,
         aligned_frames: ComplexArray | None,

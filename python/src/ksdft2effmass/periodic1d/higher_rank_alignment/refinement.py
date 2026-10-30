@@ -7,14 +7,21 @@ from typing import final
 
 import numpy as np
 
-from .calculation import (
-    Periodic1DHigherRankAlignmentCalculationRequest,
-    Periodic1DHigherRankBlockRefinementResult,
+from ksdft2effmass.analysis.matrix_field.diagnostics import (
+    ScalarRefinementAnalyzer,
+    ScalarRefinementDiagnostics,
+)
+
+from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
+from .channel_results import (
     Periodic1DHigherRankChannelMeshResult,
     Periodic1DHigherRankMeshCalculationResult,
-    Periodic1DHigherRankScalarRefinementResult,
 )
 from .definition import Periodic1DHigherRankAlignmentStatus
+from .refinement_results import (
+    Periodic1DHigherRankBlockRefinementResult,
+    Periodic1DHigherRankScalarRefinementResult,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -35,10 +42,55 @@ class Periodic1DHigherRankRefinementAnalysisRequest:
             for mesh in self.meshes
         ):
             raise TypeError("meshes must contain exact mesh calculation results")
+        request = self.calculation_request
         if tuple(mesh.construction_mesh_size for mesh in self.meshes) != (
-            self.calculation_request.configuration.construction_mesh_sizes
+            request.configuration.construction_mesh_sizes
         ):
             raise ValueError("refinement meshes must match the calculation request")
+        expected_case = (
+            request.case_identity,
+            request.retained_rank,
+            request.circuit_depth,
+        )
+        for mesh in self.meshes:
+            if mesh.model_diagnostics.retained_rank != request.retained_rank:
+                raise ValueError("mesh model diagnostics must match the request rank")
+            statuses = (mesh.pointwise_selection.status,) + tuple(
+                channel.status for channel in mesh.channels
+            )
+            if any(
+                (
+                    status.case_identity,
+                    status.retained_rank,
+                    status.circuit_depth,
+                )
+                != expected_case
+                or status.construction_mesh_size != mesh.construction_mesh_size
+                for status in statuses
+            ):
+                raise ValueError(
+                    "mesh statuses must match the calculation request and mesh"
+                )
+            if mesh.transport is not None:
+                transport_case = (
+                    mesh.transport.case_identity,
+                    mesh.transport.retained_rank,
+                    mesh.transport.circuit_depth,
+                )
+                if transport_case != expected_case:
+                    raise ValueError(
+                        "mesh transport must match the calculation request"
+                    )
+            if mesh.transport_backend_failure is not None:
+                failure_case = (
+                    mesh.transport_backend_failure.case_identity,
+                    mesh.transport_backend_failure.retained_rank,
+                    mesh.transport_backend_failure.circuit_depth,
+                )
+                if failure_case != expected_case:
+                    raise ValueError(
+                        "mesh transport failure must match the calculation request"
+                    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -65,15 +117,44 @@ class Periodic1DHigherRankRefinementAnalysis:
 class Periodic1DHigherRankRefinementAnalyzer:
     """Calculate adjacent block and final-pair scalar refinement evidence."""
 
-    __slots__ = ("_request",)
+    __slots__ = ("_request", "_scalar_refinement_analyzer")
 
-    def __init__(self, request: Periodic1DHigherRankRefinementAnalysisRequest) -> None:
-        """Bind the complete immutable refinement-analysis request."""
+    def __init__(
+        self,
+        *,
+        request: Periodic1DHigherRankRefinementAnalysisRequest,
+        scalar_refinement_analyzer: ScalarRefinementAnalyzer,
+    ) -> None:
+        """Bind the complete request and canonical scalar-refinement owner."""
         if type(request) is not Periodic1DHigherRankRefinementAnalysisRequest:
             raise TypeError(
                 "request must be Periodic1DHigherRankRefinementAnalysisRequest"
             )
+        if type(scalar_refinement_analyzer) is not ScalarRefinementAnalyzer:
+            raise TypeError(
+                "scalar_refinement_analyzer must be ScalarRefinementAnalyzer"
+            )
         self._request = request
+        self._scalar_refinement_analyzer = scalar_refinement_analyzer
+
+    def _diagnostic(
+        self,
+        *,
+        coarse_mesh_size: int,
+        fine_mesh_size: int,
+        coarse_value: float,
+        fine_value: float,
+    ) -> ScalarRefinementDiagnostics:
+        controls = self._request.calculation_request.controls
+        return self._scalar_refinement_analyzer.execute(
+            coarse_mesh_size=coarse_mesh_size,
+            fine_mesh_size=fine_mesh_size,
+            coarse_value=coarse_value,
+            fine_value=fine_value,
+            denominator_floor=controls.refinement_denominator_floor,
+            absolute_tolerance=controls.refinement_absolute_tolerance,
+            relative_tolerance=controls.refinement_relative_tolerance,
+        )
 
     def execute(self) -> Periodic1DHigherRankRefinementAnalysis:
         """Return complete block and scalar refinement inventories."""
@@ -86,7 +167,6 @@ class Periodic1DHigherRankRefinementAnalyzer:
         self,
     ) -> tuple[Periodic1DHigherRankBlockRefinementResult, ...]:
         calculation_request = self._request.calculation_request
-        controls = calculation_request.controls
         meshes = self._request.meshes
         results: list[Periodic1DHigherRankBlockRefinementResult] = []
         for channel in calculation_request.configuration.alignment_channels:
@@ -115,26 +195,35 @@ class Periodic1DHigherRankRefinementAnalyzer:
                     raise ValueError(
                         "adjacent block inventories must use identical translations"
                     )
-                absolute = np.abs(
-                    fine.block_normalized_frobenius_norms
-                    - coarse.block_normalized_frobenius_norms
-                )
-                scale = np.maximum(
-                    np.maximum(
-                        np.abs(coarse.block_normalized_frobenius_norms),
-                        np.abs(fine.block_normalized_frobenius_norms),
-                    ),
-                    controls.refinement_denominator_floor,
-                )
-                relative = absolute / scale
-                applied = controls.refinement_absolute_tolerance + (
-                    controls.refinement_relative_tolerance
-                    * np.maximum(
-                        np.abs(coarse.block_normalized_frobenius_norms),
-                        np.abs(fine.block_normalized_frobenius_norms),
+                diagnostics = tuple(
+                    self._diagnostic(
+                        coarse_mesh_size=coarse_mesh.construction_mesh_size,
+                        fine_mesh_size=fine_mesh.construction_mesh_size,
+                        coarse_value=float(coarse_value),
+                        fine_value=float(fine_value),
+                    )
+                    for coarse_value, fine_value in zip(
+                        coarse.block_normalized_frobenius_norms,
+                        fine.block_normalized_frobenius_norms,
+                        strict=True,
                     )
                 )
-                margins = applied - absolute
+                absolute = np.asarray(
+                    tuple(item.absolute_change for item in diagnostics),
+                    dtype=np.float64,
+                )
+                relative = np.asarray(
+                    tuple(item.relative_change for item in diagnostics),
+                    dtype=np.float64,
+                )
+                applied = np.asarray(
+                    tuple(item.applied_tolerance for item in diagnostics),
+                    dtype=np.float64,
+                )
+                margins = np.asarray(
+                    tuple(item.signed_margin for item in diagnostics),
+                    dtype=np.float64,
+                )
                 results.append(
                     Periodic1DHigherRankBlockRefinementResult(
                         channel=channel,
@@ -151,7 +240,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
                         relative_changes=np.asarray(relative, dtype=np.float64),
                         applied_tolerances=np.asarray(applied, dtype=np.float64),
                         signed_margins=np.asarray(margins, dtype=np.float64),
-                        all_pass=bool(np.all(margins >= 0.0)),
+                        all_pass=all(item.passes for item in diagnostics),
                     )
                 )
         return tuple(results)
@@ -229,7 +318,6 @@ class Periodic1DHigherRankRefinementAnalyzer:
         self,
     ) -> tuple[Periodic1DHigherRankScalarRefinementResult, ...]:
         calculation_request = self._request.calculation_request
-        controls = calculation_request.controls
         meshes = self._request.meshes
         construction_sizes = calculation_request.configuration.construction_mesh_sizes
         coarse_size, fine_size = construction_sizes[-2:]
@@ -265,17 +353,12 @@ class Periodic1DHigherRankRefinementAnalyzer:
                 fine_inventory,
                 strict=True,
             ):
-                change = abs(fine_value - coarse_value)
-                scale = max(
-                    abs(coarse_value),
-                    abs(fine_value),
-                    controls.refinement_denominator_floor,
+                diagnostic = self._diagnostic(
+                    coarse_mesh_size=coarse_mesh.construction_mesh_size,
+                    fine_mesh_size=fine_mesh.construction_mesh_size,
+                    coarse_value=coarse_value,
+                    fine_value=fine_value,
                 )
-                tolerance = controls.refinement_absolute_tolerance + (
-                    controls.refinement_relative_tolerance
-                    * max(abs(coarse_value), abs(fine_value))
-                )
-                margin = tolerance - change
                 results.append(
                     Periodic1DHigherRankScalarRefinementResult(
                         channel=channel,
@@ -284,11 +367,11 @@ class Periodic1DHigherRankRefinementAnalyzer:
                         fine_mesh_size=fine_mesh.construction_mesh_size,
                         coarse_value=coarse_value,
                         fine_value=fine_value,
-                        absolute_change=change,
-                        relative_change=change / scale,
-                        applied_tolerance=tolerance,
-                        signed_margin=margin,
-                        passes=margin >= 0.0,
+                        absolute_change=diagnostic.absolute_change,
+                        relative_change=diagnostic.relative_change,
+                        applied_tolerance=diagnostic.applied_tolerance,
+                        signed_margin=diagnostic.signed_margin,
+                        passes=diagnostic.passes,
                     )
                 )
         return tuple(results)

@@ -4,16 +4,11 @@ from .analysis import Periodic1DHigherRankAlignmentAnalyzer
 from .calculation import (
     Periodic1DHigherRankAlignmentCalculationControls,
     Periodic1DHigherRankAlignmentCalculationRequest,
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankBlockRefinementResult,
+)
+from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
+from .channel_results import (
     Periodic1DHigherRankChannelMeshResult,
-    Periodic1DHigherRankFrameErrorResult,
-    Periodic1DHigherRankMatrixComparisonResult,
-    Periodic1DHigherRankMatrixErrorResult,
     Periodic1DHigherRankMeshCalculationResult,
-    Periodic1DHigherRankModelDiagnostics,
-    Periodic1DHigherRankProcrustesDiagnostics,
-    Periodic1DHigherRankScalarRefinementResult,
     Periodic1DHigherRankSupportResult,
 )
 from .configuration import Periodic1DHigherRankAlignmentConfiguration
@@ -22,6 +17,17 @@ from .definition import (
     Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentStatus,
     Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
+)
+from .diagnostics import (
+    Periodic1DHigherRankFrameErrorResult,
+    Periodic1DHigherRankMatrixComparisonResult,
+    Periodic1DHigherRankMatrixErrorResult,
+    Periodic1DHigherRankModelDiagnostics,
+    Periodic1DHigherRankProcrustesDiagnostics,
+)
+from .refinement_results import (
+    Periodic1DHigherRankBlockRefinementResult,
+    Periodic1DHigherRankScalarRefinementResult,
 )
 from .request import Periodic1DHigherRankAlignmentTransportRequest
 from .result import (

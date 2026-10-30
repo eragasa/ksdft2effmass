@@ -18,6 +18,7 @@ from projectkoios.physkit.solidstate.tb import (
     FinitePeriodicMatrixFourierTransformer,
 )
 
+from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentAnalyzer,
     Periodic1DHigherRankAlignmentCalculationControls,
@@ -142,4 +143,5 @@ def higher_rank_calculation_result() -> Periodic1DHigherRankAlignmentCalculation
         transporter=ClosedLoopPolarFrameTransporter(),
         fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
         fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
+        scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
     ).execute()

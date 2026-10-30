@@ -3,42 +3,34 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import final
+from typing import ClassVar, final
 
 import numpy as np
-from numpy.typing import NDArray
+from projectkoios.numerics.numpy.validation import (
+    immutable_complex128_array,
+    immutable_float64_array,
+)
+from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
+
+from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
 
 from .configuration import Periodic1DHigherRankAlignmentConfiguration
 
-ComplexArray = NDArray[np.complex128]
-FloatArray = NDArray[np.float64]
 
-
-def _finite_reduced_coordinates(value: FloatArray, name: str) -> FloatArray:
-    if type(value) is not np.ndarray or value.dtype != np.dtype(np.float64):
-        raise TypeError(f"{name} must be an exact float64 numpy.ndarray")
-    if value.ndim != 1 or value.size == 0:
+def _finite_reduced_coordinates(value: RealArray, name: str) -> RealArray:
+    normalized = immutable_float64_array(value, name)
+    if normalized.ndim != 1 or normalized.size == 0:
         raise ValueError(f"{name} must be a nonempty one-dimensional array")
-    if not bool(np.isfinite(value).all()):
-        raise ValueError(f"{name} must be finite")
-    normalized = np.array(value, dtype=np.float64, copy=True)
-    normalized.flags.writeable = False
     return normalized
 
 
 def _immutable_complex(value: ComplexArray, name: str) -> ComplexArray:
-    if type(value) is not np.ndarray or value.dtype != np.dtype(np.complex128):
-        raise TypeError(f"{name} must be an exact complex128 numpy.ndarray")
-    if not bool(np.isfinite(value).all()):
-        raise ValueError(f"{name} must be finite")
-    normalized = np.array(value, dtype=np.complex128, copy=True)
-    normalized.flags.writeable = False
-    return normalized
+    return immutable_complex128_array(value, name)
 
 
 @final
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankAnalyticCase:
+class Periodic1DHigherRankAnalyticCase(Periodic1DModel):
     """Represent one exact analytic parent family and synthetic frame attack.
 
     Reduced coordinates lie in one reciprocal period. The ambient basis is the
@@ -46,6 +38,10 @@ class Periodic1DHigherRankAnalyticCase:
     number of exterior orbitals. Energies are dimensionless and use the fixed zero
     declared by the calculation request.
     """
+
+    MODEL_FAMILY_IDENTITY: ClassVar[str] = (
+        "ksdft2effmass.periodic1d.higher-rank-analytic-givens-family.v1"
+    )
 
     retained_rank: int
     circuit_depth: int
@@ -93,11 +89,24 @@ class Periodic1DHigherRankAnalyticCase:
         object.__setattr__(self, "endpoint_sewing_map", sewing)
 
     @property
+    def model_id(self) -> str:
+        """Return the stable analytic-family and rank/depth case identity."""
+        return (
+            f"{self.MODEL_FAMILY_IDENTITY}:"
+            f"r{self.retained_rank:02d}-L{self.circuit_depth:02d}"
+        )
+
+    @property
+    def model_role(self) -> PeriodicModelRole:
+        """Classify the analytic family as a controlled toy model."""
+        return PeriodicModelRole.TOY
+
+    @property
     def ambient_dimension(self) -> int:
         """Return the parent-space dimension ``2r``."""
         return 2 * self.retained_rank
 
-    def retained_energies(self, reduced_coordinates: FloatArray) -> FloatArray:
+    def retained_energies(self, reduced_coordinates: RealArray) -> RealArray:
         """Return the ordered retained energies on supplied reduced coordinates."""
         coordinates = _finite_reduced_coordinates(
             reduced_coordinates, "reduced_coordinates"
@@ -114,7 +123,7 @@ class Periodic1DHigherRankAnalyticCase:
         )
         return np.asarray(values, dtype=np.float64)
 
-    def exterior_energies(self, reduced_coordinates: FloatArray) -> FloatArray:
+    def exterior_energies(self, reduced_coordinates: RealArray) -> RealArray:
         """Return the ordered exterior energies on supplied reduced coordinates."""
         coordinates = _finite_reduced_coordinates(
             reduced_coordinates, "reduced_coordinates"
@@ -128,7 +137,7 @@ class Periodic1DHigherRankAnalyticCase:
         values = 3.0 + 0.3 * normalized_orbital[None, :] + 0.1 * c[:, None]
         return np.asarray(values, dtype=np.float64)
 
-    def parent_hamiltonians(self, reduced_coordinates: FloatArray) -> ComplexArray:
+    def parent_hamiltonians(self, reduced_coordinates: RealArray) -> ComplexArray:
         """Return parent Hamiltonian matrices in the ordered ambient basis."""
         retained = self.retained_energies(reduced_coordinates)
         exterior = self.exterior_energies(reduced_coordinates)
@@ -138,7 +147,7 @@ class Periodic1DHigherRankAnalyticCase:
             diagonal[:, :, None] * identity[None, :, :], dtype=np.complex128
         )
 
-    def reference_frames(self, reduced_coordinates: FloatArray) -> ComplexArray:
+    def reference_frames(self, reduced_coordinates: RealArray) -> ComplexArray:
         """Return the constant analytic retained frame on supplied coordinates."""
         coordinates = _finite_reduced_coordinates(
             reduced_coordinates, "reduced_coordinates"
@@ -153,7 +162,7 @@ class Periodic1DHigherRankAnalyticCase:
 
     def exact_reduced_hamiltonians(
         self,
-        reduced_coordinates: FloatArray,
+        reduced_coordinates: RealArray,
     ) -> ComplexArray:
         """Return the exact retained operator in the analytic reference frame."""
         energies = self.retained_energies(reduced_coordinates)
@@ -173,7 +182,7 @@ class Periodic1DHigherRankAnalyticCase:
             * harmonic_maximum
         )
 
-    def sampled_attack_angle_maximum(self, reduced_coordinates: FloatArray) -> float:
+    def sampled_attack_angle_maximum(self, reduced_coordinates: RealArray) -> float:
         """Return the sampled maximum absolute Givens angle on one mesh."""
         coordinates = _finite_reduced_coordinates(
             reduced_coordinates, "reduced_coordinates"
@@ -197,7 +206,7 @@ class Periodic1DHigherRankAnalyticCase:
                 maximum = max(maximum, float(np.max(np.abs(angles))))
         return maximum
 
-    def gauge_unitaries(self, reduced_coordinates: FloatArray) -> ComplexArray:
+    def gauge_unitaries(self, reduced_coordinates: RealArray) -> ComplexArray:
         """Return the frozen depth-``L`` nearest-neighbor gauge circuit."""
         coordinates = _finite_reduced_coordinates(
             reduced_coordinates, "reduced_coordinates"
@@ -235,7 +244,7 @@ class Periodic1DHigherRankAnalyticCase:
             gauges = gauges @ layer
         return np.asarray(gauges, dtype=np.complex128)
 
-    def attacked_frames(self, reduced_coordinates: FloatArray) -> ComplexArray:
+    def attacked_frames(self, reduced_coordinates: RealArray) -> ComplexArray:
         """Return analytic retained frames after the right-acting gauge attack."""
         return np.asarray(
             self.reference_frames(reduced_coordinates)
@@ -245,7 +254,7 @@ class Periodic1DHigherRankAnalyticCase:
 
     def attacked_reduced_hamiltonians(
         self,
-        reduced_coordinates: FloatArray,
+        reduced_coordinates: RealArray,
     ) -> ComplexArray:
         """Return reduced Hamiltonians represented in the attacked frame."""
         gauge = self.gauge_unitaries(reduced_coordinates)

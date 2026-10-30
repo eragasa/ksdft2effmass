@@ -226,3 +226,25 @@ $E_{\mathrm{total}}=E_{\mathrm{interp}}+E_{\mathrm{trunc}}$ but never replaces t
 three channels by a sum of their maxima. Ordinary omitted-tail weights and norms are
 computed from the complete matrix coefficients. Construction-mesh Parseval and
 successive-tail monotonicity are separate diagnostics.
+
+## Refinement rule
+
+Blockwise and final-ledger refinement use the shared KSD
+`ScalarRefinementAnalyzer`. For nonnegative coarse and fine values $q_c$ and $q_f$,
+
+$$
+\Delta=|q_f-q_c|,
+\qquad
+\Delta_{\mathrm{rel}}=
+\frac{\Delta}{\max(|q_c|,|q_f|,d_{\min})},
+$$
+
+and the inclusive threshold is
+
+$$
+\tau=\tau_{\mathrm{abs}}+	au_{\mathrm{rel}}
+\max(|q_c|,|q_f|).
+$$
+
+The signed margin is $\tau-\Delta$. Calculation records recompute these quantities from
+the retained coarse and fine values rather than trusting supplied changes or margins.

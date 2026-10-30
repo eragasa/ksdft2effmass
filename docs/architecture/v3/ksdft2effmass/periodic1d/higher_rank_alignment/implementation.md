@@ -7,17 +7,24 @@
 | `definition.py` | Names the four alignment families and the possible alignment and numerical outcomes. |
 | `configuration.py` | Stores the fixed ranks, depths, construction, global-unitary-selection and evaluation meshes, phase convention, and tolerances. |
 | `request.py` | Selects one rank/depth/construction-mesh transport and its ambient-basis, retained-frame, and endpoint-sewing identities. |
-| `result.py` | Stores link diagnostics, backend failures, channel outcomes, and request-bound periodic-frame transport results. |
-| `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and depth-dependent gauge circuit. |
-| `calculation.py` | Defines frozen calculation controls, the complete request, and typed model, alignment, Fourier, support, mesh, refinement, and case results with explicit canonical-wire mappings. |
+| `result.py` | Stores alignment statuses, link diagnostics, backend failures, and request-bound periodic-frame transport results. |
+| `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and depth-dependent gauge circuit as a nominal periodic-1D toy model. |
+| `_record_admission.py` | Centralizes exact-type, immutable-array, and nested-mapping admission shared by the typed evidence records. |
+| `calculation.py` | Defines the frozen calculation controls and complete calculation request. |
+| `diagnostics.py` | Stores typed model, Procrustes, matrix, comparison, and frame diagnostics. |
+| `channel_results.py` | Stores typed support, channel, and construction-mesh results. |
+| `refinement_results.py` | Stores typed block and scalar refinement results. |
+| `provenance.py` | Stores exact construction/evaluation mesh separation and selection-input provenance. |
+| `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
 | `channel_analysis.py` | Owns the request-bound transform, shifted evaluation, support, and locality analysis for one qualified channel. |
 | `refinement.py` | Owns request-bound block and scalar refinement analysis across the three construction meshes. |
 | `analysis.py` | Composes Optimization Procrustes, PhysKit transport and odd-mesh Fourier owners, and the purpose-specific channel and refinement actions into the calculation action. |
 | `__init__.py` | Defines the deliberately narrow supported public imports; internal purpose-specific actions remain module-local imports. |
 
-The records are immutable and serialize deterministically. This makes a saved result
-reconstructible without relying on mutable NumPy arrays or a process-wide serializer
-registry.
+The records are immutable and serialize deterministically. Maintained arrays use shared
+Project Koios NumPy types and immutable byte-backed validation; physical array annotations
+use PhysKit aliases. This makes a saved result reconstructible without relying on mutable
+NumPy storage or a process-wide serializer registry.
 
 ## Fixed parameter study
 
@@ -77,14 +84,18 @@ first deficient overlap and contains no closure matrices or Schur evidence.
 ## Calculation action and records
 
 `Periodic1DHigherRankAlignmentAnalyzer` receives the complete immutable calculation
-request and concrete Optimization and PhysKit owners in its constructor. Its
+request, concrete Optimization and PhysKit owners, and the KSD scalar-refinement owner
+in its constructor. Its
 zero-argument `execute()` method constructs one analytic case, selects the global
 unitary at $M=2049$, evaluates all three construction meshes, delegates each qualified
 channel to `Periodic1DHigherRankChannelAnalyzer`, delegates mesh-pair comparisons to
 `Periodic1DHigherRankRefinementAnalyzer`, and returns a
 `Periodic1DHigherRankAlignmentCalculationResult`. These purpose-specific actions bind
 complete immutable requests and are imported from their owning modules rather than
-re-exported from the package root.
+re-exported from the package root. Channel requests correlate the model rank and depth,
+status identity, global selection, and exact unshifted mesh coordinates before computing
+scientific values. Refinement requests similarly correlate every supplied mesh with the
+calculation case.
 
 The result retains the exact request and a closed hierarchy:
 
@@ -109,9 +120,11 @@ bounds, the explicit decomposition residual, and gate dispositions against the f
 request tolerances. Channel records similarly retain the complete odd-mesh Fourier
 representative count and canonical-index checks, the explicit no-Nyquist disposition,
 and dispositions for reconstruction, withheld interpolation, Parseval, ordinary and
-twisted Hermiticity, and tail monotonicity. The enclosing result confirms exact
-construction/evaluation coordinate disjointness and the evaluation mesh's exclusion
-from selection; refinement records retain signed margins and an aggregate pass flag.
+twisted Hermiticity, and tail monotonicity. The enclosing result recomputes exact
+rational construction/evaluation coordinate disjointness and the evaluation mesh's
+exclusion from selection during record admission. Refinement records use the shared KSD
+absolute-relative scalar diagnostic, retain signed margins and an aggregate pass flag,
+and recompute all blockwise refinement arithmetic during record admission.
 Coefficient arrays are not retained in
 the public wire; the complete bounded block-norm inventory $|R|\le128$ is retained.
 
@@ -123,10 +136,11 @@ transform or locality values. Rank-deficient global and pointwise selections lik
 emit no downstream values for the affected channel. Runtime exception messages and
 tracebacks are not serialized.
 
-All arrays are defensively copied by their records and serialized with explicit dtype
-and shape metadata, including empty multidimensional arrays used by bounded failure
-records. Calculation requests and complete results round-trip through the canonical
-typed JSON bytes.
+All maintained arrays are copied into immutable bytes-backed storage that prevents NumPy
+write re-enablement. Integer, real, and complex arrays retain exact dtype boundaries and
+serialize with explicit dtype and shape metadata, including empty multidimensional arrays
+used by bounded failure records. Calculation requests and complete results round-trip
+through the canonical typed JSON bytes.
 
 ## Work remaining
 

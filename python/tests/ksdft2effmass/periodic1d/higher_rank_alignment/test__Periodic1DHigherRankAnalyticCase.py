@@ -3,6 +3,11 @@
 import numpy as np
 import pytest
 
+from ksdft2effmass.periodic import (
+    Periodic1DModel,
+    PeriodicModelRole,
+    PeriodicToyModelCatalog,
+)
 from ksdft2effmass.periodic1d.higher_rank_alignment.model import (
     Periodic1DHigherRankAnalyticCaseConstructor,
 )
@@ -12,6 +17,23 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 class TestPeriodic1DHigherRankAnalyticCase:
     """Establish the exact parent spectrum, gauge action, and oracle recovery."""
+
+    def test__analytic_case__is_an_immutable_registered_periodic_toy_model(
+        self,
+    ) -> None:
+        model = Periodic1DHigherRankAnalyticCaseConstructor(
+            retained_rank=3,
+            circuit_depth=1,
+        ).execute()
+
+        assert isinstance(model, Periodic1DModel)
+        assert model.model_role is PeriodicModelRole.TOY
+        assert model.model_id.endswith(":r03-L01")
+        assert PeriodicToyModelCatalog((model,)).model_ids == (model.model_id,)
+        with pytest.raises(ValueError):
+            model.reference_frame.setflags(write=True)
+        with pytest.raises(ValueError):
+            model.endpoint_sewing_map.setflags(write=True)
 
     def test__analytic_case__recovers_the_reference_frame_and_operator(self) -> None:
         model = Periodic1DHigherRankAnalyticCaseConstructor(
