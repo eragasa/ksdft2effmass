@@ -538,7 +538,10 @@ class TypedJsonValueCodec:
                 imaginary_number = imaginary
             else:
                 raise TypeError("complex scalar imaginary part must be a JSON number")
-            represented: int | float | complex = real_number + 1.0j * imaginary_number
+            represented_array = np.empty((), dtype=dtype)
+            represented_array.real[...] = real_number
+            represented_array.imag[...] = imaginary_number
+            represented: int | float | complex = represented_array.item()
         else:
             if isinstance(data, int) and type(data) is int:
                 represented = data
@@ -575,7 +578,9 @@ class TypedJsonValueCodec:
                 imaginary = imaginary.reshape(shape)
             if real.shape != shape or imaginary.shape != shape:
                 raise ValueError("complex array component shapes must match metadata")
-            result = np.asarray(real + 1.0j * imaginary, dtype=dtype)
+            result = np.empty(shape, dtype=dtype)
+            result.real[...] = real
+            result.imag[...] = imaginary
         else:
             if dtype.kind in "iu":
                 self._validate_integer_array_data(data, dtype)

@@ -160,6 +160,44 @@ class TestTypedJsonValueCodec:
 
     @pytest.mark.parametrize(
         "dtype",
+        (np.dtype(np.complex64), np.dtype(np.complex128)),
+    )
+    def test_round_trip__complex_signed_zero_components__preserves_canonical_bytes(
+        self,
+        dtype: np.dtype[np.generic],
+    ) -> None:
+        scalar_array = np.empty((), dtype=dtype)
+        scalar_array.real[...] = -0.0
+        scalar_array.imag[...] = -0.0
+        values = np.empty(4, dtype=dtype)
+        values.real[...] = np.asarray([-0.0, -0.0, 0.0, 0.0])
+        values.imag[...] = np.asarray([0.0, -0.0, -0.0, 0.0])
+        codec = SUT()
+        wire = codec.serialize_bytes(
+            {"complex_scalar": scalar_array[()], "complex_array": values}
+        )
+
+        decoded = codec.deserialize_bytes(wire)
+
+        assert isinstance(decoded, dict)
+        decoded_scalar = decoded["complex_scalar"]
+        decoded_array = decoded["complex_array"]
+        assert isinstance(decoded_scalar, np.complexfloating)
+        assert isinstance(decoded_array, np.ndarray)
+        assert np.signbit(decoded_scalar.real)
+        assert np.signbit(decoded_scalar.imag)
+        np.testing.assert_array_equal(
+            np.signbit(decoded_array.real),
+            np.asarray([True, True, False, False]),
+        )
+        np.testing.assert_array_equal(
+            np.signbit(decoded_array.imag),
+            np.asarray([False, True, True, False]),
+        )
+        assert codec.serialize_bytes(decoded) == wire
+
+    @pytest.mark.parametrize(
+        "dtype",
         (np.dtype(np.float64), np.dtype(np.complex128)),
     )
     def test_round_trip__empty_multidimensional_array__preserves_shape(

@@ -123,13 +123,24 @@ implemented.
 The current producer constructs the declared analytic Hamiltonian, evaluates the four
 gauge alignments, transports the common reference frame, analyzes odd-mesh Fourier
 locality, and returns correlated typed calculation records. A bounded independent
-reference analyzer directly reconstructs the analytic-model and attack core invariants;
-it does not invoke the producer or its scientific actions.
+reference analyzer directly reconstructs the analytic-model and attack core invariants.
+A separate bounded direct-sum reference reconstructs all four Fourier controls on all
+three construction meshes, compares shifted interpolation and support tails for every
+alignment, and verifies the oracle's analytic
+$|R|\le2$ support within its declared tolerance. A third bounded reference reconstructs
+the global polar selection through an Hermitian eigendecomposition and the pointwise
+selections directly from the analytic attack, comparing rank, residual, integrity, and
+selected-unitary evidence. A fourth bounded reference directly reconstructs the exact
+constant-frame closed route, link ranks, zero closure phases, and identity closure
+actions on all construction meshes. None invokes the corresponding producer scientific
+actions. This is producer-path independence under shared NumPy/LAPACK arithmetic and
+shared typed quantity/comparison boundaries, not numerical-library independence.
 
-That bounded comparison is not the protocol's complete independent reference
-calculation and does not establish transport, Procrustes, Fourier, locality, refinement,
-or result-byte verification. No byte-owning verifier or retained higher-rank result has
-been admitted, and the complete 16-case runtime and 4 GiB memory ceilings remain
-unestablished. The analytic family does not establish material validity. No higher-rank
-result from this package is scientifically validated, formally checked, sealed,
-published, or released.
+Those bounded comparisons are not the protocol's complete independent reference
+calculation and do not establish support-truncated and total-error fields, error-channel
+decompositions, refinement, or
+result-byte verification. No byte-owning verifier or retained higher-rank
+result has been admitted, and the complete 16-case runtime and 4 GiB memory ceilings
+remain unestablished. The analytic family does not establish material validity. No
+higher-rank result from this package is scientifically validated, formally checked,
+sealed, published, or released.

@@ -227,6 +227,76 @@ three error channels by a sum of their maxima. Ordinary omitted-tail weights and
 computed from the complete matrix coefficients. Construction-mesh Parseval and
 successive-tail monotonicity are separate diagnostics.
 
+## Bounded independent transport reference
+
+For this P0 specialization the analytic retained frame is constant, the endpoint sewing
+map is the ambient identity, and every neighbor and closure overlap is $I_r$. The
+independent transport slice therefore reconstructs the exact closed route without
+calling the transporter. Each link has singular spectrum $(1,\ldots,1)$, cutoff
+$\max(10^{-12},10^{-10})$, rank $r$, and zero polar unitarity defect. The closure
+mismatch phases are zero and the primitive-to-sewn, sewn-to-primitive, and distributed
+closure-correction right actions are all $I_r$. Closure-alignment and normalized
+endpoint/primitive closure defects vanish in exact arithmetic. The reference compares
+these values on all three construction meshes with scalar tolerance $10^{-11}$ and array
+tolerance $10^{-10}$.
+
+## Bounded independent Procrustes reference
+
+The independent selection slice reconstructs the global cross matrix directly from the
+analytic attack at the one frozen selection mesh:
+
+$$
+C_{\mathrm{global}}=\frac{1}{2049}\sum_{j=0}^{2048}G(q_j)^\dagger.
+$$
+
+Instead of invoking the producer's batched SVD solver, it obtains the unique right polar
+factor by an Hermitian eigendecomposition of $C_{\mathrm{global}}^\dagger
+C_{\mathrm{global}}$:
+
+$$
+U_{\mathrm{global}}=C_{\mathrm{global}}
+\left(C_{\mathrm{global}}^\dagger C_{\mathrm{global}}\right)^{-1/2}.
+$$
+
+At every construction point, orthogonality of the real analytic circuit gives the direct
+pointwise result $U_j=G(q_j)^\dagger$. Cross singular values are independently recovered
+as the square roots of the cross-Gram eigenvalues. The reference then reapplies the frozen
+cutoff $\max(10^{-12},10^{-10}\sigma_{\max})$ and recomputes ranks, margins, condition
+numbers, normalized residuals, unitary and stationarity defects, objective-identity and
+positive-semidefinite defects, and deficient-point counts. It separately compares the
+selected global matrix. Scalar comparisons use absolute tolerance $10^{-11}$ and arrays
+use $10^{-10}$.
+
+## Bounded direct-sum Fourier reference
+
+For all four gauge controls, the independent Fourier slice reconstructs coefficients
+without calling the maintained transform. The global-unitary field uses the independently
+reconstructed polar factor at $M=2049$ and the pointwise-unitary field uses
+$G(q)^\dagger$ directly:
+
+$$
+C_R^{\mathrm{ref}}=\frac{1}{M}\sum_{j=0}^{M-1}
+H(q_j)e^{-2\pi i q_jR},
+\qquad q_j=-\frac12+\frac{j}{M}.
+$$
+
+It evaluates the reconstructed series with the separate positive-exponent sum
+$\sum_R C_R^{\mathrm{ref}}e^{2\pi i xR}$. Construction-mesh reconstruction,
+Parseval equality, and odd-mesh pairing
+$C_{-R}=C_R^\dagger$, shifted interpolation, and all six raw/normalized tail measures
+at each frozen support are recalculated directly for every alignment. For the oracle field,
+
+$$
+D_r(q)=A_0+A_1\cos(2\pi q)+A_2\cos(4\pi q),
+$$
+
+so the analytic coefficient inventory is
+$C_0=A_0$, $C_{\pm1}=A_1/2$, $C_{\pm2}=A_2/2$, and zero otherwise. The bounded
+reference additionally compares those five matrices and the largest directly summed
+coefficient outside $|R|\le2$. Scalar comparisons use absolute tolerance $10^{-11}$ and
+array or coefficient comparisons use $10^{-10}$. This does not cover support-truncated or
+total-error fields or their error-channel decompositions.
+
 ## Refinement rule
 
 Blockwise and final-ledger refinement use the shared KSD

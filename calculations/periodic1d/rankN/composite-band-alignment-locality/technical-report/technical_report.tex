@@ -55,9 +55,11 @@ an exact uniform exterior-isolation energy $2.10\Eref$; the gauge attack preserv
 retained projector and spectrum; pointwise-unitary and known-inverse-oracle alignment
 recover the diagonal reference representation in exact arithmetic; and that recovered
 field has Fourier support only for $|R|\leq2$. These are properties by construction, not
-new numerical findings. The maintained producer, typed evidence records, and a bounded
-producer-independent reference analysis of analytic-model and attack core invariants
-are implemented and software-tested. Complete protocol-wide reference analysis,
+new numerical findings. The maintained producer, typed evidence records, bounded
+producer-independent reference analysis of analytic-model and attack core invariants,
+bounded direct-sum all-gauge Fourier controls, and independent global/pointwise
+Procrustes-selection and constant-frame-transport slices are implemented and
+software-tested. Complete protocol-wide reference analysis,
 byte-owning verification,
 resource-qualified execution, and a retained scientific result do not exist.
 Accordingly, this report presents methodology, analytic results, and
@@ -386,7 +388,12 @@ recomputed from the original frames. It also evaluates
 \end{equation}
 plus the covariance-objective identity and the negative part of the Hermitian polar
 factor. These checks distinguish a nominally returned matrix from a scientifically
-admitted alignment.
+admitted alignment. The bounded independent selection reference reconstructs
+$X_{\mathrm{global}}=2049^{-1}\sum_jG(q_j)^\dagger$ and evaluates its right polar factor
+as $X_{\mathrm{global}}(X_{\mathrm{global}}^\dagger
+X_{\mathrm{global}})^{-1/2}$ through an Hermitian eigendecomposition rather than the
+producer SVD solver. It uses $U_j=G(q_j)^\dagger$ directly for the pointwise controls and
+recomputes the retained rank, residual, integrity, and selected-unitary evidence.
 
 \begin{proposition}[Pointwise and oracle recovery]
 For the P0 construction, pointwise-unitary and known-inverse-oracle alignment both
@@ -443,6 +450,10 @@ If $\widetilde F_M=\widetilde F_0\mathcal H$, then
 $F_M^{\mathrm{closed}}=F_0^{\mathrm{closed}}$. For the constant P0 reference frame and
 identity sewing, the exact model predicts trivial transport and zero endpoint phases;
 the numerical transport remains valuable as an action-orientation and closure control.
+The bounded independent transport reference instantiates that exact prediction directly:
+every overlap has singular spectrum $(1,\ldots,1)$, every closure phase is zero, and all
+three retained closure right actions are $I_r$. It compares the link and closure evidence
+without invoking the transporter.
 
 The phase tuple is an unordered multiset scientifically. Deterministic sorting is a wire
 convention, not a continuation of individual band labels through degeneracies.
@@ -731,13 +742,23 @@ The maintained Python producer implements the analytic family, global and pointw
 Procrustes selection, common PhysKit transport, odd-mesh finite-periodic transforms,
 shifted interpolation, support diagnostics, refinement, immutable typed records, and
 canonical serialization. The former monolithic gauge-alignment analysis has been split
-into cohesive request-bound scientific owners. Gauge-alignment wire values are
-descriptive and strictly mapped from a plain domain enum; obsolete opaque values and the
-former ambiguous key are rejected.
+into cohesive request-bound scientific owners. A separate bounded reference action now
+recomputes all four gauge-aligned Fourier blocks by direct sums on every construction
+mesh. It compares 930 reconstruction, Parseval, Hermitian-pairing, retained-block,
+shifted-interpolation, support-tail, and oracle exact-support quantities without invoking
+producer analysis actions. Here producer-independent means a direct-formula NumPy path that bypasses the
+corresponding scientific actions, not a separate numerical-library stack; NumPy/LAPACK
+and typed quantity/comparison boundaries remain shared. A third bounded action
+reconstructs the global and pointwise Procrustes selections without the producer model or SVD solver and compares 57 retained rank,
+residual, integrity, and selected-unitary quantities. A fourth bounded action directly
+reconstructs 45 link-rank and closure quantities for the constant-frame transport on all
+three meshes without calling the producer transporter. Gauge-alignment wire values are
+descriptive and strictly mapped from a plain domain enum; obsolete opaque
+values and the former ambiguous key are rejected.
 
-At the time of this report revision, the focused higher-rank package suite passes 64
+At the time of this report revision, the focused higher-rank package suite passes 78
 tests, the calculation-local structural suite passes 4 tests, and the complete bounded
-package suite passes 4701 tests with 23 environment- or historical-tree-dependent skips
+package suite passes 4715 tests with 23 environment- or historical-tree-dependent skips
 and 89 explicitly expensive deselections. Ruff, strict source mypy, strict Sphinx,
 \texttt{compileall}, LaTeX builds, and \texttt{git diff --check} also pass. These results
 establish current software behavior and document buildability only. They do not
@@ -746,9 +767,10 @@ constitute independent numerical verification of a scientific result.
 \subsection{Numerical results not yet available}
 
 No complete 16-case development execution was performed for this report revision. No
-retained result bytes have been admitted, and the bounded core-invariant reference does
-not cover the protocol's transport, Procrustes, Fourier, locality, or refinement values.
-The 4~GiB resource ceiling has not been demonstrated. Consequently this report does not
+retained result bytes have been admitted. The bounded references do not cover
+support-truncated and total-error fields, error-channel decompositions, or refinement.
+The 4~GiB resource
+ceiling has not been demonstrated. Consequently this report does not
 provide rank or depth trends, support Pareto fronts, global-unitary residuals,
 wall-time scaling, or retained figures. Empty result space is reported explicitly rather
 than populated with illustrative or synthetic values that could be mistaken for
@@ -837,8 +859,10 @@ The principal limitations are:
 \item the parent is synthetic, finite dimensional, and dimensionless;
 \item only the constant-projector real-gauge P0/G0 specialization is implemented;
 \item the oracle assumes knowledge unavailable in an ordinary material calculation;
-\item only a bounded core-invariant reference analyzer is implemented; complete
-protocol-wide independent analysis and byte-owning verification are absent;
+\item only bounded core-invariant, all-gauge Fourier, global/pointwise Procrustes, and
+constant-frame transport reference analyzers are implemented; they are producer-path
+independent under a shared NumPy/LAPACK stack, while complete protocol-wide independent
+analysis and byte-owning verification are absent;
 \item complete runtime and memory compliance are unestablished;
 \item the finite rank/depth ladder supports no asymptotic law;
 \item no 2-D, 3-D, nonorthonormal, moving-subspace, or topological result is available;
@@ -866,8 +890,8 @@ varies with rank and depth, how much a single global unitary can recover, and wh
 finite supports are adequate under withheld evaluation---remain unanswered until an
 authorized execution is independently verified.
 
-The next scientific gate is therefore not publication but completion of independent
-reference analysis and byte-owning verification. Only after those owners,
+The next scientific gate is therefore not publication but completion of the remaining
+independent reference analysis and byte-owning verification. Only after those owners,
 resource-qualified execution, and retained evidence review exist can numerical results
 be inserted into the report and considered for publication.
 

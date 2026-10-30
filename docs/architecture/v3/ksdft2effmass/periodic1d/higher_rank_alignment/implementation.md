@@ -23,6 +23,9 @@
 | `refinement.py` | Analyzes correlated evidence across construction meshes. |
 | `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
 | `reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
+| `fourier_reference.py` | Independently reconstructs all four bounded Fourier controls with direct NumPy sums. |
+| `procrustes_reference.py` | Independently reconstructs global and pointwise Procrustes selection evidence without the producer solver. |
+| `transport_reference.py` | Independently reconstructs the constant-frame closed route without the producer transporter. |
 | `analysis/calculation.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
 | `analysis/procrustes.py` | Builds bounded global and pointwise Procrustes selection evidence. |
 | `analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
@@ -167,10 +170,43 @@ directly import or invoke the producer, the producer-owned analytic model, or th
 reusable producer diagnostic actions. Scalar comparisons use the protocol's
 $10^{-11}$ tolerance and sampled diagnostic arrays use $10^{-10}$.
 
-This slice does not implement the protocol's complete direct-formula verifier. It does
-not independently reconstruct transport, Procrustes selection, Fourier blocks,
-interpolation, support locality, error channels, or refinement, and it does not own
-canonical result bytes.
+`Periodic1DHigherRankFourierReferenceAnalyzer` is a second bounded slice. It performs
+explicit negative-exponent, $1/M$-normalized Fourier sums for all four gauge-aligned
+fields on every construction mesh. The global field uses an independently reconstructed
+polar factor and the pointwise field uses the direct analytic inverse. It compares the
+retained block norms, construction-mesh reconstruction, Parseval defect, and odd-mesh
+Hermitian pairing. For every alignment it evaluates the complete series by direct
+positive-exponent sums on the shifted mesh and compares the six stored tail measures for
+every frozen support. For the oracle it also compares the five analytic coefficient matrices at
+$R=0,\pm1,\pm2$ and bounds every coefficient outside $|R|\le2$. The reference imports
+only calculation records, gauge identities, and quantity/comparison types; it does not
+invoke producer Fourier, interpolation, locality, model, or reusable diagnostic actions.
+
+`Periodic1DHigherRankProcrustesReferenceAnalyzer` is a third bounded slice. It constructs
+the global cross matrix directly at the frozen $M=2049$ selection mesh and obtains its
+unique right polar factor from an Hermitian eigendecomposition of the cross Gram matrix,
+not the producer SVD solver. At each construction mesh it reconstructs the pointwise
+right unitaries directly as the analytic attack adjoints. It compares singular spectra,
+strict numerical ranks and cutoffs, rank margins, condition numbers, normalized
+residuals, all retained integrity defects, deficient-point counts, and the selected
+global right unitary. It does not import Optimization or invoke the producer model,
+selection, or analysis actions.
+
+`Periodic1DHigherRankTransportReferenceAnalyzer` is a fourth bounded slice. Because the
+protocol reference frame and endpoint sewing map are constant identities, it constructs
+the closed route directly. On every construction mesh it compares complete link singular
+spectra, strict rank cutoffs and margins, ranks, unitary defects, closure phases, all three
+closure right actions, closure validation residuals, normalized endpoint/primitive
+closure defects, and deficient/unattempted counts. It does not import or invoke the
+PhysKit transporter or producer analysis actions.
+
+These slices do not implement the protocol's complete direct-formula verifier. They do
+not independently reconstruct support-truncated and total-error fields, error-channel
+decompositions, or refinement, and they do not own canonical result bytes.
+Producer-independent denotes a separate direct-formula action path, not a separate
+numerical-library stack: the references share NumPy/LAPACK and typed quantity/comparison
+infrastructure with maintained code. Shared value and comparison types provide units and
+admission but do not supply the reconstructed scientific values.
 
 ## Work remaining
 

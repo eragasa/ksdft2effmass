@@ -79,6 +79,9 @@ Workflow, or infer missing physical identities.
 flowchart LR
     C[Typed calculation bytes]
     B[Implemented bounded core-invariant reference]
+    F[Implemented bounded all-gauge Fourier reference]
+    P[Implemented bounded global and pointwise Procrustes reference]
+    T[Implemented bounded constant-frame transport reference]
     I[Future complete independent numerical recomputation]
     V[Future byte-owning verification]
     D[Future authenticated plotting data]
@@ -86,13 +89,18 @@ flowchart LR
 
     C --> V
     B -. incomplete reference coverage .-> I
+    F -. incomplete reference coverage .-> I
+    P -. incomplete reference coverage .-> I
+    T -. incomplete reference coverage .-> I
     I --> V
     V --> D --> G
 ```
 
-Only the bounded producer-independent core-invariant reference is implemented. The
-complete authenticated lifecycle is not. Complete recomputation must continue to bypass
-the production analyzer. Verification must own and hash the exact admitted calculation
+Only the bounded producer-independent core-invariant, all-gauge direct-sum Fourier,
+global/pointwise Procrustes, and constant-frame transport references
+are implemented. The complete authenticated lifecycle is not. Complete recomputation
+must continue to bypass the
+production analyzer. Verification must own and hash the exact admitted calculation
 bytes. Rendering must consume authenticated data and calculate no new scientific
 values.
 

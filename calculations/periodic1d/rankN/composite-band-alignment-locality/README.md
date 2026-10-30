@@ -29,12 +29,24 @@ are decomposed under its `gauge_alignment/` child.
 - [`workflow/`](workflow/) is read-only historical provenance. Maintained source, tests,
   and direct execution do not import, adapt, or execute it.
 
-Canonical typed calculation bytes and a bounded producer-independent reference for
-analytic-model and attack core invariants now exist. That reference does not reconstruct
-transport, Procrustes, Fourier, locality, or refinement evidence and does not own result
-bytes. Complete independent numerical recomputation, byte-owning verification, strict
-retained-artifact schemas, authenticated plotting data, direct calculate → verify →
-render composition, and a resource-qualified retained run remain separate work.
+Canonical typed calculation bytes and four bounded producer-independent references now
+exist. The core slice reconstructs analytic-model and attack invariants. The Fourier slice
+covers all four gauge controls on all three construction meshes and independently
+compares block norms, reconstruction, Parseval, Hermitian pairing, shifted interpolation,
+and support tails; for the oracle it also compares analytic $|R|\le2$
+coefficients. The Procrustes slice reconstructs the single global selection with an
+Hermitian-eigendecomposition polar factor and all three pointwise selections directly
+from the analytic attack, including rank, residual, integrity, and selected-unitary
+evidence. The transport slice directly reconstructs the exact constant-frame closed
+route on all three meshes, including link rank evidence and closure actions. These
+references do not reconstruct complete locality error channels or refinement evidence
+and do not own result bytes. Here producer-independent means direct NumPy reconstruction
+that bypasses the corresponding producer scientific actions. It does not mean an
+independent numerical-library stack: the references share NumPy/LAPACK and typed
+quantity/comparison infrastructure, as do the maintained PIAB1D and QHO1D reference
+routes. Complete independent numerical recomputation, byte-owning verification,
+strict retained-artifact schemas, authenticated plotting data, direct calculate → verify
+→ render composition, and a resource-qualified retained run remain separate work.
 Proposed two- and three-dimensional and nonorthonormal studies remain outside this
 periodic-1D orthonormal contract.
 
@@ -67,7 +79,7 @@ Migration records:
 | Gauge-alignment stages | Construction, recovery, Fourier transformation, shifted interpolation, locality analysis, and correlated assembly have typed request-bound owners. |
 | Failure semantics | Rank deficiency, transport or Procrustes backend failure, integrity failure, and downstream absence are distinct typed outcomes. |
 | Canonical calculation bytes | Implemented through `BaseTypedRecord`; SHA-256 establishes byte identity and provenance, not scientific validity. |
-| Independent reference and verification | A bounded direct-formula core-invariant reference is implemented; complete protocol-wide recomputation and byte-owning verification are not. |
+| Independent reference and verification | Bounded direct-formula core-invariant, all-gauge Fourier, global/pointwise Procrustes, and constant-frame transport references are implemented; complete protocol-wide recomputation and byte-owning verification are not. |
 | Authenticated figures and retained execution | Not implemented and separately authorization-gated. |
 | Historical Workflow source | Preserved as read-only provenance and excluded from maintained runtime and tests. |
 | Rank specializations | Rank one remains scalar Fourier locality; rank two remains a separate composite-alignment study. Neither is admitted by widening the D1-v1 inventory. |

@@ -33,8 +33,11 @@ current schema-free summary is replaceable development output only.
 - [x] Materialize strict typed calculation request and result inventories from the protocol candidate.
 - [x] Implement canonical typed-record serialization for calculation bytes.
 - [x] Materialize the first bounded producer-independent analytic-model and attack core-invariant reference slice.
+- [x] Materialize the bounded direct-sum all-gauge Fourier reference slice, including shifted interpolation and support tails for all four controls and exact support for the oracle.
+- [x] Materialize the bounded global/pointwise Procrustes reference slice using an independent polar construction and direct analytic pointwise inverses.
+- [x] Materialize the bounded constant-frame closed-loop transport reference slice.
 - [ ] Materialize the complete independent-reference, verification, retained-provenance, and retained-artifact schema inventories.
-- [ ] Implement a full independent verifier rather than relying on the bounded core-invariant reference or analytic-control sampling.
+- [ ] Implement a full independent verifier rather than relying on the bounded reference slices or analytic-control sampling.
 - [ ] Define authenticated derived projections and a closed figure/report inventory.
 - [ ] Implement direct calculate → verify → render scripts.
 - [x] Exercise rank-deficient and backend-unresolved failure dispositions in software tests.
