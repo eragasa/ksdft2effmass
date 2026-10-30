@@ -35,22 +35,26 @@ def _dominates(candidate: tuple[float, ...], point: tuple[float, ...]) -> bool:
 
 
 class SampledParetoClassifier:
-    """Classify a finite prespecified minimization set without tolerance or fitting."""
+    """Classify one constructor-bound finite prespecified minimization set."""
 
-    __slots__ = ()
+    __slots__ = ("_objectives",)
 
-    def execute(
-        self,
-        objectives: tuple[tuple[float, ...], ...],
-    ) -> tuple[bool, ...]:
-        """Return one nondominance flag per objective point in supplied order."""
-        objectives = _objective_rows(objectives)
+    def __init__(self, *, objectives: tuple[tuple[float, ...], ...]) -> None:
+        self._objectives = _objective_rows(objectives)
+
+    @property
+    def objectives(self) -> tuple[tuple[float, ...], ...]:
+        """Return the immutable objective inventory."""
+        return self._objectives
+
+    def result(self) -> tuple[bool, ...]:
+        """Return one nondominance flag per bound objective point."""
         return tuple(
             not any(
                 other_index != point_index and _dominates(other, point)
-                for other_index, other in enumerate(objectives)
+                for other_index, other in enumerate(self._objectives)
             )
-            for point_index, point in enumerate(objectives)
+            for point_index, point in enumerate(self._objectives)
         )
 
 

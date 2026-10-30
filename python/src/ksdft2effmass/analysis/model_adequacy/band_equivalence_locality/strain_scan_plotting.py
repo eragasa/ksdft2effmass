@@ -11,9 +11,9 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain impo
     SyntheticStrainResult,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
-    StrainResponseModel,
+    StrainResponseModelEnum,
     StrainResponsePointDiagnostic,
-    StrainWitnessControl,
+    StrainWitnessControlEnum,
     SyntheticStrainResponseResult,
     SyntheticStrainWitnessScanResult,
 )
@@ -37,9 +37,9 @@ _STYLE: dict[str, str | float | int | bool] = {
     "ps.fonttype": 42,
 }
 _CONTROL_PRESENTATION = {
-    StrainWitnessControl.GEOMETRY_ONLY: ("geometry-only", _BLUE),
-    StrainWitnessControl.FROZEN_PARENT: ("frozen-parent null", _GREEN),
-    StrainWitnessControl.RADIAL_RESPONSE: ("synthetic radial response", _VERMILION),
+    StrainWitnessControlEnum.GEOMETRY_ONLY: ("geometry-only", _BLUE),
+    StrainWitnessControlEnum.FROZEN_PARENT: ("frozen-parent null", _GREEN),
+    StrainWitnessControlEnum.RADIAL_RESPONSE: ("synthetic radial response", _VERMILION),
 }
 
 
@@ -55,7 +55,7 @@ class SyntheticStrainScanPlotRequest:
     title: str
 
     def __post_init__(self) -> None:
-        expected_controls = set(StrainWitnessControl)
+        expected_controls = set(StrainWitnessControlEnum)
         if type(self.witness_results) is not tuple or len(self.witness_results) != len(
             expected_controls
         ):
@@ -76,9 +76,9 @@ class SyntheticStrainScanPlotRequest:
             raise TypeError("frozen_response must be SyntheticStrainResponseResult")
         if type(self.radial_response) is not SyntheticStrainResponseResult:
             raise TypeError("radial_response must be SyntheticStrainResponseResult")
-        if self.frozen_response.model is not StrainResponseModel.M1_FROZEN:
+        if self.frozen_response.model is not StrainResponseModelEnum.M1_FROZEN:
             raise ValueError("frozen_response must use the frozen-parent model")
-        if self.radial_response.model is not StrainResponseModel.M2_RADIAL:
+        if self.radial_response.model is not StrainResponseModelEnum.M2_RADIAL:
             raise ValueError("radial_response must use the radial-response model")
         path = self.geometry_result.path
         if any(result.path is not path for result in self.witness_results) or (
@@ -270,16 +270,18 @@ def _render_strain_qualification_axes(
 
 
 class SyntheticStrainScanPlotWriter:
-    """Render witness, locality, and response scan channels without accepting them."""
+    """Own rendering of one sampled strain scan without accepting it."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self, request: SyntheticStrainScanPlotRequest
-    ) -> SyntheticStrainScanPlotResult:
-        """Write PDF and PNG views of one sampled strain scan."""
+    def __init__(self, *, request: SyntheticStrainScanPlotRequest) -> None:
         if type(request) is not SyntheticStrainScanPlotRequest:
             raise TypeError("request must be SyntheticStrainScanPlotRequest")
+        self._request = request
+
+    def execute(self) -> SyntheticStrainScanPlotResult:
+        """Write PDF and PNG views of the constructor-bound strain scan."""
+        request = self._request
         request.output_directory.mkdir(parents=True, exist_ok=True)
         fractions = tuple(
             point.strain_fraction for point in request.geometry_result.points
@@ -294,7 +296,7 @@ class SyntheticStrainScanPlotWriter:
                 figsize=(8.2, 9.2),
                 constrained_layout=True,
             )
-            for control in StrainWitnessControl:
+            for control in StrainWitnessControlEnum:
                 result = witness_by_control[control]
                 label, color = _CONTROL_PRESENTATION[control]
                 axes[0, 0].plot(

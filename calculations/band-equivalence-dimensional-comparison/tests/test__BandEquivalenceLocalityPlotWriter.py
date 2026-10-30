@@ -7,20 +7,19 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from band_equivalence_workflow.application import (
-    BandEquivalenceLocalityResultConstructor,
-)
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
-
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
     definitions,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.plotting import (  # noqa: E501
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalyzer,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.plotting import (
     BandEquivalenceLocalityPlotRequest,
     BandEquivalenceLocalityPlotWriter,
     BandEquivalenceToleranceMapRequest,
     BandEquivalenceToleranceMapWriter,
 )
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -34,8 +33,8 @@ class TestBandEquivalenceLocalityPlotWriter:
         case = definitions.BandEquivalenceLocalityCase(
             name="square-directed",
             dimension=2,
-            parent_kind=definitions.ParentKind.DIRECTED_AXIS,
-            gauge_normalization=definitions.GaugeNormalization.AXIS_MAXIMUM,
+            parent_kind=definitions.ParentEnum.DIRECTED_AXIS,
+            gauge_normalization=definitions.GaugeNormalizationEnum.AXIS_MAXIMUM,
             direct_metric=DirectLatticeMetric(
                 DirectLattice2D(
                     a1=np.array((1.0, 0.0), dtype=np.float64),
@@ -46,7 +45,8 @@ class TestBandEquivalenceLocalityPlotWriter:
             shell_metric_scale=1.0,
         )
         smoke_request = definitions.BandEquivalenceLocalityRequest(
-            family=definitions.BandEquivalenceLocalityFamily.SQUARE,
+            family=definitions.BandEquivalenceLocalityFamilyEnum.SQUARE,
+            synthetic_model=definitions.FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
             cases=(case,),
             construction_size=4,
             evaluation_size=5,
@@ -61,17 +61,16 @@ class TestBandEquivalenceLocalityPlotWriter:
             construction_size=6,
             evaluation_size=7,
         )
-        constructor = BandEquivalenceLocalityResultConstructor()
-        smoke = constructor.execute(smoke_request)
-        refined = constructor.execute(refined_request)
+        smoke = BandEquivalenceLocalityAnalyzer(request=smoke_request).execute()
+        refined = BandEquivalenceLocalityAnalyzer(request=refined_request).execute()
 
-        result = BandEquivalenceLocalityPlotWriter().execute(
-            BandEquivalenceLocalityPlotRequest(
-                mesh_results=(smoke.diagnostics, refined.diagnostics),
+        result = BandEquivalenceLocalityPlotWriter(
+            request=BandEquivalenceLocalityPlotRequest(
+                mesh_results=(smoke, refined),
                 output_directory=tmp_path,
                 title="Square-family development diagnostics",
             )
-        )
+        ).execute()
 
         assert len(result.paths) == 10
         assert all(path.is_file() and path.stat().st_size > 0 for path in result.paths)
@@ -83,8 +82,8 @@ class TestBandEquivalenceLocalityPlotWriter:
         case = definitions.BandEquivalenceLocalityCase(
             name="synthetic-directed-case",
             dimension=2,
-            parent_kind=definitions.ParentKind.DIRECTED_AXIS,
-            gauge_normalization=definitions.GaugeNormalization.AXIS_MAXIMUM,
+            parent_kind=definitions.ParentEnum.DIRECTED_AXIS,
+            gauge_normalization=definitions.GaugeNormalizationEnum.AXIS_MAXIMUM,
             direct_metric=DirectLatticeMetric(
                 DirectLattice2D(
                     a1=np.array((1.0, 0.0), dtype=np.float64),
@@ -95,7 +94,8 @@ class TestBandEquivalenceLocalityPlotWriter:
             shell_metric_scale=1.0,
         )
         first_request = definitions.BandEquivalenceLocalityRequest(
-            family=definitions.BandEquivalenceLocalityFamily.SQUARE,
+            family=definitions.BandEquivalenceLocalityFamilyEnum.SQUARE,
+            synthetic_model=definitions.FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
             cases=(case,),
             construction_size=4,
             evaluation_size=5,
@@ -107,21 +107,20 @@ class TestBandEquivalenceLocalityPlotWriter:
         )
         second_request = replace(
             first_request,
-            family=definitions.BandEquivalenceLocalityFamily.GRAPHENE_INSPIRED,
+            family=definitions.BandEquivalenceLocalityFamilyEnum.GRAPHENE_INSPIRED,
         )
-        constructor = BandEquivalenceLocalityResultConstructor()
         diagnostics = (
-            constructor.execute(first_request).diagnostics,
-            constructor.execute(second_request).diagnostics,
+            BandEquivalenceLocalityAnalyzer(request=first_request).execute(),
+            BandEquivalenceLocalityAnalyzer(request=second_request).execute(),
         )
 
-        result = BandEquivalenceToleranceMapWriter().execute(
-            BandEquivalenceToleranceMapRequest(
+        result = BandEquivalenceToleranceMapWriter(
+            request=BandEquivalenceToleranceMapRequest(
                 family_results=diagnostics,
                 output_directory=tmp_path,
                 title="Development tolerance requirements",
             )
-        )
+        ).execute()
 
         assert result.paths == (
             tmp_path / "tolerance-requirement-map.pdf",

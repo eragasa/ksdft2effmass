@@ -64,11 +64,11 @@ class TestMatrixFieldDiagnostics:
         reference = self.diagonal_field(((0.0, 0.0, 0.0), (0.0, 0.0, 0.0)))
         approximation = self.diagonal_field(((2.0, 0.0, 0.0), (0.0, 0.0, 0.0)))
 
-        result = MatrixFieldErrorAnalyzer().execute(
-            approximation,
-            reference,
+        result = MatrixFieldErrorAnalyzer(
+            approximation=approximation,
+            reference=reference,
             energy_reference=2.0,
-        )
+        ).result()
 
         assert result.rank == 3
         assert result.matrix_frobenius_maximum == 2.0
@@ -92,12 +92,12 @@ class TestMatrixFieldDiagnostics:
         approximation[0, 0, 1] = 1.0
         approximation[0, 1, 0] = 1.0
 
-        result = MatrixFieldComparisonAnalyzer().execute(
-            approximation,
-            reference,
+        result = MatrixFieldComparisonAnalyzer(
+            approximation=approximation,
+            reference=reference,
             energy_reference=1.0,
             saturation_denominator_floor=1.0e-30,
-        )
+        ).execute()
         bounds = result.perturbation_bounds
 
         assert bounds.maximum_ordered_spectrum_minus_spectral_norm == pytest.approx(
@@ -114,13 +114,13 @@ class TestMatrixFieldDiagnostics:
         )
 
         zero = (
-            MatrixFieldComparisonAnalyzer()
-            .execute(
-                reference,
-                reference,
+            MatrixFieldComparisonAnalyzer(
+                approximation=reference,
+                reference=reference,
                 energy_reference=1.0,
                 saturation_denominator_floor=1.0e-30,
             )
+            .execute()
             .perturbation_bounds
         )
         assert zero.band_over_spectral_eligible_count == 0
@@ -168,23 +168,23 @@ class TestMatrixFieldDiagnostics:
         truncation = self.diagonal_field(((-0.25, 0.0, 0.0),))
         total = interpolation + truncation
 
-        exact = MatrixErrorDecompositionAnalyzer().execute(
-            interpolation,
-            truncation,
-            total,
+        exact = MatrixErrorDecompositionAnalyzer(
+            interpolation_error=interpolation,
+            truncation_error=truncation,
+            total_error=total,
             energy_reference=2.0,
-        )
+        ).execute()
         assert exact.maximum_frobenius_defect == 0.0
         assert exact.normalized_maximum_frobenius_defect == 0.0
 
         perturbed = total.copy()
         perturbed[0, 1, 1] += 1.0e-3
-        observed = MatrixErrorDecompositionAnalyzer().execute(
-            interpolation,
-            truncation,
-            perturbed,
+        observed = MatrixErrorDecompositionAnalyzer(
+            interpolation_error=interpolation,
+            truncation_error=truncation,
+            total_error=perturbed,
             energy_reference=2.0,
-        )
+        ).execute()
         assert observed.maximum_frobenius_defect == pytest.approx(1.0e-3)
         assert observed.normalized_maximum_frobenius_defect == pytest.approx(
             1.0e-3 / (2.0 * math.sqrt(3.0))
@@ -267,23 +267,31 @@ class TestMatrixFieldDiagnostics:
         """Ambiguous scalars, arrays, and duplicate mode inventories fail."""
         field = self.diagonal_field(((0.0, 0.0, 0.0),))
         with pytest.raises(TypeError, match="energy_reference"):
-            MatrixFieldErrorAnalyzer().execute(field, field, True)
+            MatrixFieldErrorAnalyzer(
+                approximation=field,
+                reference=field,
+                energy_reference=True,  # type: ignore[arg-type]
+            )
         with pytest.raises(TypeError, match="energy_reference"):
-            MatrixFieldErrorAnalyzer().execute(
-                field,
-                field,
-                "1.0",  # type: ignore[arg-type]
+            MatrixFieldErrorAnalyzer(
+                approximation=field,
+                reference=field,
+                energy_reference="1.0",  # type: ignore[arg-type]
             )
         with pytest.raises(TypeError, match="complex128"):
-            MatrixFieldErrorAnalyzer().execute(
-                field.real,
-                field.real,
-                1.0,
+            MatrixFieldErrorAnalyzer(
+                approximation=field.real,  # type: ignore[arg-type]
+                reference=field.real,  # type: ignore[arg-type]
+                energy_reference=1.0,
             )
         nonfinite = field.copy()
         nonfinite[0, 0, 0] = np.nan
         with pytest.raises(ValueError, match="finite"):
-            MatrixFieldErrorAnalyzer().execute(nonfinite, field, 1.0)
+            MatrixFieldErrorAnalyzer(
+                approximation=nonfinite,
+                reference=field,
+                energy_reference=1.0,
+            )
 
         modes = np.asarray(((0,), (0,)), dtype=np.int64)
         coefficients = np.zeros((2, 2, 2), dtype=np.complex128)

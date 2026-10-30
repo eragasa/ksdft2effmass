@@ -3,26 +3,12 @@
 from __future__ import annotations
 
 import math
-import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     SyntheticStrainCalculator,
-    SyntheticStrainPath,
-)
-
-_WORKFLOW_ROOT = (
-    Path(__file__).resolve().parents[3] / "band-equivalence-dimensional-comparison"
-)
-sys.path.insert(0, str(_WORKFLOW_ROOT))
-
-from band_equivalence_workflow.strain_schemas import (
-    SyntheticStrainSchema,
-    SyntheticStrainSchemaKind,
-)
-from band_equivalence_workflow.strain_serialization import (
-    SyntheticStrainResultSerializer,
+    SyntheticStrainPathEnum,
 )
 
 FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
@@ -30,20 +16,16 @@ FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
 
 def main() -> int:
     """Write replaceable JSON plus 1-D-style PDF and PNG diagnostics."""
-    result = SyntheticStrainCalculator().execute(
-        SyntheticStrainPath.BAIN_3D,
-        24,
-        FRACTIONS,
-        math.pi / 4.0,
-        (1.0e-3, 1.0e-5),
-    )
+    result = SyntheticStrainCalculator(
+        path=SyntheticStrainPathEnum.BAIN_3D,
+        construction_size=24,
+        strain_fractions=FRACTIONS,
+        maximum_rotation_amplitude=math.pi / 4.0,
+        tail_tolerances=(1.0e-3, 1.0e-5),
+    ).execute()
     output = Path(__file__).resolve().parent / "analysis" / "development" / "results"
     output.mkdir(parents=True, exist_ok=True)
-    artifact = SyntheticStrainResultSerializer().execute(result)
-    schema = SyntheticStrainSchema(SyntheticStrainSchemaKind.M0_RESULT)
-    schema.validate(artifact.canonical_bytes())
-    artifact.write_to(output / "development-result.json")
-    schema.write_to(output)
+    (output / "development-result.json").write_text(result.to_json(), encoding="utf-8")
 
     with plt.rc_context(
         {

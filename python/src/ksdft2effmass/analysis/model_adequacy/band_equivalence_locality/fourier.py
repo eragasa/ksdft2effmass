@@ -22,7 +22,7 @@ from projectkoios.numerics.finite_periodic.numpy.tensor_product_evaluation impor
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldErrorAnalyzer
 
-from .records import ErrorChannels
+from .results import BandEquivalenceLocalityErrorChannels
 
 type ComplexArray = NDArray[np.complex128]
 type FloatArray = NDArray[np.float64]
@@ -37,7 +37,6 @@ def iter_complete_shell_fields(
     shells: tuple[int, ...],
 ) -> Iterator[ComplexArray]:
     """Evaluate cumulative KSD-selected complete physical-metric supports."""
-    evaluator = NumpyTensorProductFourierMatrixSeriesEvaluator()
     for shell in shells:
         selected = metric_indices <= shell
         shell_series = NumpyFiniteFourierMatrixSeries.from_arrays(
@@ -50,7 +49,11 @@ def iter_complete_shell_fields(
             shell_series,
             coordinate_axes,
         )
-        yield evaluator.evaluate(definition).matrix_values
+        yield (
+            NumpyTensorProductFourierMatrixSeriesEvaluator(definition=definition)
+            .result()
+            .matrix_values
+        )
 
 
 def maximum_matrix_defect(left: ComplexArray, right: ComplexArray) -> float:
@@ -58,14 +61,17 @@ def maximum_matrix_defect(left: ComplexArray, right: ComplexArray) -> float:
     return float(np.max(np.linalg.norm(left - right, axis=(-2, -1))))
 
 
-def error_channels(approximation: ComplexArray, direct: ComplexArray) -> ErrorChannels:
+def error_channels(
+    approximation: ComplexArray,
+    direct: ComplexArray,
+) -> BandEquivalenceLocalityErrorChannels:
     """Return legacy rank-normalized matrix and sorted-band error channels."""
-    summary = MatrixFieldErrorAnalyzer().execute(
-        approximation,
-        direct,
+    summary = MatrixFieldErrorAnalyzer(
+        approximation=approximation,
+        reference=direct,
         energy_reference=1.0,
-    )
-    return ErrorChannels(
+    ).result()
+    return BandEquivalenceLocalityErrorChannels(
         maximum_hamiltonian=summary.normalized_matrix_frobenius_maximum,
         rms_hamiltonian=summary.normalized_matrix_frobenius_rms,
         maximum_band=summary.normalized_ordered_spectrum_maximum,

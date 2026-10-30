@@ -1,0 +1,14 @@
+{
+  "calculation_family": "periodic2d-rank2-orthogonal-band-equivalence-locality",
+  "claim_boundary": "Presentation only from independently verified finite values; not new scientific evidence, publication acceptance, or evidence sealing.",
+  "execution_id": "direct-square-rank2-n16",
+  "figures": {
+    "band-equivalence-locality-requirements.png": "09891456706a053b6e6b5efaaa13839f527d4c46285d14092d4545e60ef2ea11"
+  },
+  "outcome": "completed",
+  "schema": "ksdft2effmass.periodic2d-rank2-orthogonal-band-equivalence-locality-rendering.direct.v1",
+  "schema_version": 1,
+  "script_sha256": "f3299287cde521c7297e53e6e483713148331375e4185245748585a1b2eeda46",
+  "study_family": "ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping-locality",
+  "verification_sha256": "fccb0bfbb46777b4ac24110bdb01ff32aca804a90535f630e5ecca59c79616b0"
+}

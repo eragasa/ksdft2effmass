@@ -5,13 +5,11 @@ from __future__ import annotations
 from dataclasses import replace
 from pathlib import Path
 
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.refinement import (
+    BandEquivalenceLocalityRefinementAnalyzer,
+)
 from run_development import DEFINITION, construct_artifacts, write_artifacts
 from run_first_refinement import REFINEMENT as FIRST_REFINEMENT
-
-from ksdft2effmass.application.band_equivalence_locality import (
-    BandEquivalenceLocalityRefinementAssessor,
-    BandEquivalenceLocalityRefinementRequest,
-)
 
 REFINEMENT = replace(DEFINITION, construction_size=32, evaluation_size=65)
 
@@ -22,7 +20,7 @@ def main() -> int:
     artifacts = tuple(construct_artifacts(request) for request in requests)
     results = tuple(result for result, _ in artifacts)
     verifications = tuple(verification for _, verification in artifacts)
-    if not all(item.diagnostics.passes for item in verifications):
+    if not all(item.passes for item in verifications):
         raise RuntimeError("independent refinement-ladder verification failed")
     experiment = Path(__file__).resolve().parent
     outputs = (
@@ -34,19 +32,19 @@ def main() -> int:
         outputs, results, verifications, strict=True
     ):
         write_artifacts(output, result, verification)
-    assessment = BandEquivalenceLocalityRefinementAssessor().execute(
-        BandEquivalenceLocalityRefinementRequest(results)
-    )
-    assessment.document.write_to(
+    assessment = BandEquivalenceLocalityRefinementAnalyzer(
+        results=tuple(result.diagnostics for result in results)
+    ).execute()
+    (
         experiment
         / "analysis"
         / "development-refinement"
         / "development-refinement-assessment.json"
-    )
+    ).write_text(assessment.to_json(), encoding="utf-8")
     print(
-        f"family={REFINEMENT.family.value} lifecycle=development "
+        f"family={REFINEMENT.family.to_wire()} lifecycle=development "
         "construction_sizes=8,16,32 verification=pass "
-        f"disposition={assessment.assessment.momentum_disposition}"
+        f"disposition={assessment.momentum_disposition}"
     )
     return 0
 

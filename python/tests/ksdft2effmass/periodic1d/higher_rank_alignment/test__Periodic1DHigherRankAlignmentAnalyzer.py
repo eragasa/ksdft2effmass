@@ -19,10 +19,6 @@ from projectkoios.physkit.solidstate.electronic import (
     ClosedLoopPolarFrameTransporter,
     FinitePeriodicMeshFrameInventory,
 )
-from projectkoios.physkit.solidstate.tb import (
-    FinitePeriodicMatrixFourierTensorEvaluator,
-    FinitePeriodicMatrixFourierTransformer,
-)
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
@@ -350,8 +346,6 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         )
         fourier = Periodic1DHigherRankFourierAnalyzer(
             request=Periodic1DHigherRankFourierAnalysisRequest(analysis_request),
-            fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
-            fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
         ).execute()
 
         assert fourier.analysis_request is analysis_request
@@ -369,7 +363,6 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                 analysis_request=analysis_request,
                 fourier_analysis=fourier,
             ),
-            fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
         ).execute()
 
         assert interpolation.analysis_request is analysis_request
@@ -521,8 +514,6 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             request=higher_rank_calculation_request,
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
             transporter=ClosedLoopPolarFrameTransporter(),
-            fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
-            fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
         ).execute()
 
@@ -576,8 +567,6 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             request=higher_rank_calculation_request,
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
             transporter=ClosedLoopPolarFrameTransporter(),
-            fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
-            fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
         ).execute()
 

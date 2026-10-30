@@ -22,23 +22,19 @@ and development-only band thresholds `1e-3` and `1e-5`.
 No dense global Hamiltonian was materialized. The calculation repeats all bounded
 parent/subspace, graph-frame, alignment, Fourier, twisted-Nyquist,
 ordinary-Hermiticity, interpolation, truncation, total-error, Parseval, basis-distance,
-metric-covariance, resource, and first-passing diagnostics. The independent development
-verifier reports `passes: true`; its maximum stored identity defect is about `4.5e-15`.
-The input, result, and verification documents validate against the immutable
-family-bound schemas packaged by
-the aggregation workflow under `calculations/band-equivalence-dimensional-comparison/band_equivalence_workflow/`; the verification
-document binds the canonical input and result bytes by SHA-256.
+metric-covariance, resource, and first-passing diagnostics. The historical development
+summary reported `passes: true` and a maximum stored identity defect of about `4.5e-15`.
+Its former custom aggregation workflow and duplicate schemas have been removed;
+historical SHA-256 bindings do not establish admission by the current typed lifecycle.
 
 Several sampled first-passing decisions remain unresolved at the declared shell cap. No
 threshold, shell cap, or model was changed in response. The inspired parent is a
 synthetic diamond-connectivity control, not an `sp3s*`, valley, effective-mass, or
 first-principles silicon model.
 
-Reproduce from the repository root with:
-
-```bash
-python/.venv/bin/python calculations/periodic3d/rank2/nonorthogonal/band-equivalence-locality/run_development.py
-```
+The maintained development runner emits replaceable typed records. A distinct nominal
+direct calculate → independently verify → authenticated render lifecycle is installed
+at the calculation root, but no periodic-3D execution is retained.
 
 These records do not establish mesh or shell convergence, certify the FCC triple-Bessel
 series tail, authorize the draft `16/32/64` ladder, or constitute publication evidence.

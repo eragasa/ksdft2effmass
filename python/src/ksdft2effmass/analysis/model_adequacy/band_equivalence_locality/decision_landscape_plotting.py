@@ -214,16 +214,23 @@ def render_shell_scale_decision_landscape(
 
 
 class ShellScaleDecisionLandscapePlotWriter:
-    """Write one plot per case and one four-case principal composite."""
+    """Write the decision-landscape plots for one bound request."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self, request: ShellScaleDecisionLandscapePlotRequest
-    ) -> ShellScaleDecisionLandscapePlotResult:
-        """Render deterministic PDF and PNG development figures."""
+    def __init__(self, *, request: ShellScaleDecisionLandscapePlotRequest) -> None:
         if type(request) is not ShellScaleDecisionLandscapePlotRequest:
             raise TypeError("request must be ShellScaleDecisionLandscapePlotRequest")
+        self._request = request
+
+    @property
+    def request(self) -> ShellScaleDecisionLandscapePlotRequest:
+        """Return the exact immutable plot request bound to this writer."""
+        return self._request
+
+    def execute(self) -> ShellScaleDecisionLandscapePlotResult:
+        """Render deterministic PDF and PNG development figures."""
+        request = self._request
         request.output_directory.mkdir(parents=True, exist_ok=True)
         cases = tuple(
             case for result in request.family_results for case in result.cases

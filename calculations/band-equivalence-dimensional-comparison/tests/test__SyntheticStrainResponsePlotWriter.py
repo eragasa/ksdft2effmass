@@ -5,20 +5,19 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pytest
-from matplotlib.axes import Axes
-
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
-    SyntheticStrainPath,
+    SyntheticStrainPathEnum,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
-    StrainResponseModel,
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+    StrainResponseModelEnum,
     SyntheticStrainResponseResult,
     calculate_synthetic_strain_response,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response_plotting import (  # noqa: E501
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response_plotting import (
     render_strain_response_axes,
     write_strain_response_plots,
 )
+from matplotlib.axes import Axes
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -33,7 +32,7 @@ class TestSyntheticStrainResponsePlotWriter:
     ]:
         """Return one bounded pair with the maintained two-tolerance inventory."""
         arguments = (
-            SyntheticStrainPath.RHOMBIC_2D,
+            SyntheticStrainPathEnum.RHOMBIC_2D,
             4,
             5,
             1.0 / 3.0,
@@ -42,14 +41,14 @@ class TestSyntheticStrainResponsePlotWriter:
         )
         frozen = calculate_synthetic_strain_response(
             arguments[0],
-            StrainResponseModel.M1_FROZEN,
+            StrainResponseModelEnum.M1_FROZEN,
             *arguments[1:],
             0.0,
             (1.0e-2, 1.0e-3),
         )
         radial = calculate_synthetic_strain_response(
             arguments[0],
-            StrainResponseModel.M2_RADIAL,
+            StrainResponseModelEnum.M2_RADIAL,
             *arguments[1:],
             1.0,
             (1.0e-2, 1.0e-3),

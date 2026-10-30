@@ -6,11 +6,11 @@ import importlib.util
 from pathlib import Path
 from typing import Protocol, cast
 
-from band_equivalence_workflow.application import (
-    BandEquivalenceLocalityResultConstructor,
-)
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
     BandEquivalenceLocalityRequest,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalyzer,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.plotting import (
     BandEquivalenceToleranceMapRequest,
@@ -78,12 +78,12 @@ def main() -> int:
         _load_definition(path, index)
         for index, path in enumerate(FAMILY_DEFINITION_PATHS)
     )
-    constructor = BandEquivalenceLocalityResultConstructor()
     diagnostics = tuple(
-        constructor.execute(definition).diagnostics for definition in definitions
+        BandEquivalenceLocalityAnalyzer(request=definition).execute()
+        for definition in definitions
     )
-    result = BandEquivalenceToleranceMapWriter().execute(
-        BandEquivalenceToleranceMapRequest(
+    result = BandEquivalenceToleranceMapWriter(
+        request=BandEquivalenceToleranceMapRequest(
             family_results=diagnostics,
             output_directory=OUTPUT_DIRECTORY,
             title=(
@@ -91,7 +91,7 @@ def main() -> int:
                 "scientific acceptance remains open"
             ),
         )
-    )
+    ).execute()
     for path in result.paths:
         print(f"output={path}")
     return 0

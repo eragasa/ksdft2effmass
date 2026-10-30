@@ -24,7 +24,7 @@ Hermiticity, interpolation, truncation, total-error, Parseval, basis-distance,
 metric-covariance, and first-passing diagnostics. The independent development verifier
 reports `passes: true`; its maximum stored identity defect is about `3.5e-15`. The input,
 result, and verification documents validate against the immutable family-bound schemas
-packaged by `ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality`; the
+packaged by `ksdft2effmass.analysis.model_adequacy.band_equivalence_locality`; the
 verification document binds the canonical input and result bytes by SHA-256.
 
 Some strict sampled decisions remain unresolved at the declared shell cap. No threshold,

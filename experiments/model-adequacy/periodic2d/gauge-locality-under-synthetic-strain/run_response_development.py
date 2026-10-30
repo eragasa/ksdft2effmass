@@ -5,22 +5,15 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
-    SyntheticStrainPath,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
-    StrainResponseModel,
-    calculate_synthetic_strain_response,
-)
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality import (
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
     strain_response_plotting,
 )
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_schemas import (  # noqa: E501
-    SyntheticStrainSchema,
-    SyntheticStrainSchemaKind,
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
+    SyntheticStrainPathEnum,
 )
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_serialization import (  # noqa: E501
-    SyntheticStrainResponseResultSerializer,
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+    StrainResponseModelEnum,
+    calculate_synthetic_strain_response,
 )
 
 FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
@@ -28,10 +21,10 @@ TOLERANCES = (1.0e-3, 1.0e-5)
 
 
 def main() -> int:
-    """Write replaceable M1/M2 JSON and publication-style development plots."""
+    """Write replaceable typed M1/M2 results and development plots."""
     frozen = calculate_synthetic_strain_response(
-        SyntheticStrainPath.RHOMBIC_2D,
-        StrainResponseModel.M1_FROZEN,
+        SyntheticStrainPathEnum.RHOMBIC_2D,
+        StrainResponseModelEnum.M1_FROZEN,
         16,
         33,
         1.0 / 3.0,
@@ -41,8 +34,8 @@ def main() -> int:
         TOLERANCES,
     )
     radial = calculate_synthetic_strain_response(
-        SyntheticStrainPath.RHOMBIC_2D,
-        StrainResponseModel.M2_RADIAL,
+        SyntheticStrainPathEnum.RHOMBIC_2D,
+        StrainResponseModelEnum.M2_RADIAL,
         16,
         33,
         1.0 / 3.0,
@@ -53,18 +46,14 @@ def main() -> int:
     )
     output = Path(__file__).resolve().parent / "analysis" / "response-development"
     output.mkdir(parents=True, exist_ok=True)
-    serializer = SyntheticStrainResponseResultSerializer()
-    for name, result, kind in (
-        ("M1", frozen, SyntheticStrainSchemaKind.M1_RESULT),
-        ("M2", radial, SyntheticStrainSchemaKind.M2_RESULT),
-    ):
-        artifact = serializer.execute(result)
-        schema = SyntheticStrainSchema(kind)
-        schema.validate(artifact.canonical_bytes())
-        artifact.write_to(output / f"{name.lower()}-result.json")
-        schema.write_to(output)
-    for path in strain_response_plotting.write_strain_response_plots(
-        frozen, radial, output, "2-D rhombic path"
+    typed_paths = (output / "m1-result.json", output / "m2-result.json")
+    for path, result in zip(typed_paths, (frozen, radial), strict=True):
+        path.write_bytes(result.to_json())
+    for path in (
+        *typed_paths,
+        *strain_response_plotting.write_strain_response_plots(
+            frozen, radial, output, "2-D rhombic path"
+        ),
     ):
         print(f"output={path}")
     return 0

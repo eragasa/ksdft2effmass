@@ -16,7 +16,10 @@ implementation and independently verified `8 x 8 x 8`, `16 x 16 x 16`, and
 replaceable development artifacts, not an immutable version, convergence result,
 retained run, evidence package, or qualified scientific result. Family-owned vector PDF
 and 600-dpi PNG diagnostics are cataloged in
-[`analysis/README.md`](analysis/README.md).
+[`analysis/README.md`](analysis/README.md). A nominal typed calculate → verify → render
+lifecycle is installed at the calculation owner with reserved identity
+`direct-fcc-diamond-rank2-n8`; no direct execution is retained, and refinement remains
+outside that lifecycle.
 
 ## Selected design
 

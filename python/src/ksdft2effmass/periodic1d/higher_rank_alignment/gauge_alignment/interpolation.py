@@ -112,24 +112,18 @@ class Periodic1DHigherRankInterpolationAnalysis:
 class Periodic1DHigherRankInterpolationAnalyzer:
     """Evaluate a Fourier series on the disjoint shifted mesh."""
 
-    __slots__ = ("_request", "_fourier_evaluator")
+    __slots__ = ("_request",)
 
     def __init__(
         self,
         *,
         request: Periodic1DHigherRankInterpolationAnalysisRequest,
-        fourier_evaluator: FinitePeriodicMatrixFourierTensorEvaluator,
     ) -> None:
         if type(request) is not Periodic1DHigherRankInterpolationAnalysisRequest:
             raise TypeError(
                 "request must be Periodic1DHigherRankInterpolationAnalysisRequest"
             )
-        if type(fourier_evaluator) is not FinitePeriodicMatrixFourierTensorEvaluator:
-            raise TypeError(
-                "fourier_evaluator must be the PhysKit finite-periodic evaluator"
-            )
         self._request = request
-        self._fourier_evaluator = fourier_evaluator
 
     @property
     def request(self) -> Periodic1DHigherRankInterpolationAnalysisRequest:
@@ -157,11 +151,15 @@ class Periodic1DHigherRankInterpolationAnalyzer:
             "evaluation_coordinates",
             np.dtype(np.float64),
         ).execute()
-        full_evaluation_values = self._fourier_evaluator.evaluate(
-            request.fourier_analysis.transform.series,
-            (evaluation_coordinates,),
-            controls.maximum_working_elements,
-        ).matrix_values
+        full_evaluation_values = (
+            FinitePeriodicMatrixFourierTensorEvaluator(
+                series=request.fourier_analysis.transform.series,
+                coordinate_axes=(evaluation_coordinates,),
+                maximum_working_elements=controls.maximum_working_elements,
+            )
+            .result()
+            .matrix_values
+        )
         full_evaluation = NumpyImmutableArrayConstructor(
             np.asarray(full_evaluation_values, dtype=np.complex128),
             "full_evaluation",
@@ -176,12 +174,12 @@ class Periodic1DHigherRankInterpolationAnalyzer:
                 global_selection=analysis_request.global_selection,
             )
         ).execute()
-        interpolation_diagnostics = MatrixFieldComparisonAnalyzer().execute(
-            full_evaluation,
-            direct_evaluation,
-            controls.energy_reference,
-            controls.saturation_denominator_floor,
-        )
+        interpolation_diagnostics = MatrixFieldComparisonAnalyzer(
+            approximation=full_evaluation,
+            reference=direct_evaluation,
+            energy_reference=controls.energy_reference,
+            saturation_denominator_floor=controls.saturation_denominator_floor,
+        ).execute()
         interpolation = Periodic1DHigherRankMatrixComparisonResult.from_diagnostics(
             interpolation_diagnostics,
             controls.perturbation_bound_tolerance,

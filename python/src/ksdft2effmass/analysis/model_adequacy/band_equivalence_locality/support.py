@@ -167,19 +167,30 @@ class SignedPermutationShellInventory:
 
 
 class SignedPermutationShellInventoryBuilder:
-    """Construct dense square or cubic orbit shells from a declared cap."""
+    """Construct dense square or cubic orbit shells from a bound definition."""
 
-    __slots__ = ()
+    __slots__ = ("_definition",)
 
-    def execute(
-        self, definition: SignedPermutationShellInventoryDefinition
-    ) -> SignedPermutationShellInventory:
-        """Return every attainable shell in canonical order."""
+    def __init__(
+        self,
+        *,
+        definition: SignedPermutationShellInventoryDefinition,
+    ) -> None:
         if type(definition) is not SignedPermutationShellInventoryDefinition:
             raise TypeError(
                 "definition must be SignedPermutationShellInventoryDefinition"
             )
-        representatives = self._representatives(definition)
+        self._definition = definition
+
+    @property
+    def definition(self) -> SignedPermutationShellInventoryDefinition:
+        """Return the exact shell-inventory definition bound to this builder."""
+        return self._definition
+
+    def execute(self) -> SignedPermutationShellInventory:
+        """Return every attainable shell in canonical order."""
+        definition = self._definition
+        representatives = self._representatives()
         by_radius: dict[int, list[SignedPermutationOrbit]] = {}
         for representative in representatives:
             orbit = self._orbit(representative)
@@ -212,10 +223,8 @@ class SignedPermutationShellInventoryBuilder:
             )
         return SignedPermutationShellInventory(definition, tuple(shells))
 
-    @staticmethod
-    def _representatives(
-        definition: SignedPermutationShellInventoryDefinition,
-    ) -> tuple[LatticeDisplacement, ...]:
+    def _representatives(self) -> tuple[LatticeDisplacement, ...]:
+        definition = self._definition
         limit = math.isqrt(definition.maximum_squared_radius)
         values: list[LatticeDisplacement] = []
         if definition.dimension is LatticeDimension.TWO:
@@ -243,8 +252,7 @@ class SignedPermutationShellInventoryBuilder:
             sorted(values, key=lambda item: (_squared_radius(item), item.components))
         )
 
-    @staticmethod
-    def _orbit(representative: LatticeDisplacement) -> SignedPermutationOrbit:
+    def _orbit(self, representative: LatticeDisplacement) -> SignedPermutationOrbit:
         dimension = representative.dimension
         member_components: set[LatticeIntegerComponents] = set()
         for permutation in set(itertools.permutations(representative.components)):

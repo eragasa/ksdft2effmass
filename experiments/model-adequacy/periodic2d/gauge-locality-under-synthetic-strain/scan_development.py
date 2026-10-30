@@ -7,31 +7,27 @@ from pathlib import Path
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     SyntheticStrainCalculator,
-    SyntheticStrainPath,
+    SyntheticStrainPathEnum,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (  # noqa: E501
-    StrainResponseModel,
-    StrainWitnessControl,
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+    StrainResponseModelEnum,
+    StrainWitnessControlEnum,
     calculate_strain_witness_scan,
     calculate_synthetic_strain_response,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan import (  # noqa: E501
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan import (
     SyntheticStrainScanAssessor,
     SyntheticStrainScanRequest,
     SyntheticStrainTransitionRefiner,
 )
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_scan_plotting import (  # noqa: E501
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan_plotting import (
     SyntheticStrainScanPlotRequest,
     SyntheticStrainScanPlotWriter,
-)
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_scan_serialization import (  # noqa: E501
-    SyntheticStrainScanArtifactWriter,
-    SyntheticStrainScanEnvironment,
 )
 
 FRACTIONS = tuple(float(index) / 200.0 for index in range(201))
 TOLERANCES = (1.0e-3, 1.0e-5)
-PATH = SyntheticStrainPath.RHOMBIC_2D
+PATH = SyntheticStrainPathEnum.RHOMBIC_2D
 
 
 def main() -> int:
@@ -57,21 +53,22 @@ def main() -> int:
             request.strain_fractions,
             request.maximum_rotation_amplitude,
         )
-        for control in StrainWitnessControl
+        for control in StrainWitnessControlEnum
     )
-    geometry = SyntheticStrainCalculator().execute(
-        request.path,
-        request.geometry_construction_size,
-        request.strain_fractions,
-        request.maximum_rotation_amplitude,
-        request.tail_tolerances,
-    )
-    transitions = SyntheticStrainTransitionRefiner().execute(
-        geometry, request.maximum_transition_refinement_depth
-    )
+    geometry = SyntheticStrainCalculator(
+        path=request.path,
+        construction_size=request.geometry_construction_size,
+        strain_fractions=request.strain_fractions,
+        maximum_rotation_amplitude=request.maximum_rotation_amplitude,
+        tail_tolerances=request.tail_tolerances,
+    ).execute()
+    transitions = SyntheticStrainTransitionRefiner(
+        base_result=geometry,
+        maximum_refinement_depth=request.maximum_transition_refinement_depth,
+    ).execute()
     frozen = calculate_synthetic_strain_response(
         request.path,
-        StrainResponseModel.M1_FROZEN,
+        StrainResponseModelEnum.M1_FROZEN,
         request.response_construction_size,
         request.response_evaluation_size,
         request.response_evaluation_shift,
@@ -82,7 +79,7 @@ def main() -> int:
     )
     radial = calculate_synthetic_strain_response(
         request.path,
-        StrainResponseModel.M2_RADIAL,
+        StrainResponseModelEnum.M2_RADIAL,
         request.response_construction_size,
         request.response_evaluation_size,
         request.response_evaluation_shift,
@@ -91,26 +88,41 @@ def main() -> int:
         request.radial_decay_beta,
         request.tail_tolerances,
     )
-    summary = SyntheticStrainScanAssessor().execute(
+    summary = SyntheticStrainScanAssessor(
+        geometry_result=geometry,
+        witness_results=witnesses,
+        frozen_response=frozen,
+        radial_response=radial,
+    ).execute()
+    output = Path(__file__).resolve().parent / "analysis" / "scan-development"
+    output.mkdir(parents=True, exist_ok=True)
+    slug = "rhombic-2d"
+    typed_paths = (
+        output / f"{slug}-strain-scan-request.json",
+        output / f"{slug}-geometry-source.json",
+        *(
+            output
+            / f"{slug}-{witness.control.name.lower().replace('_', '-')}-witness-source.json"
+            for witness in witnesses
+        ),
+        output / f"{slug}-frozen-response-source.json",
+        output / f"{slug}-radial-response-source.json",
+        output / f"{slug}-strain-scan-result.json",
+        output / f"{slug}-transition-refinement-result.json",
+    )
+    typed_records = (
+        request,
         geometry,
-        witnesses,
+        *witnesses,
         frozen,
         radial,
-    )
-    output = Path(__file__).resolve().parent / "analysis" / "scan-development"
-    artifacts = SyntheticStrainScanArtifactWriter().execute(
-        request,
         summary,
         transitions,
-        geometry,
-        witnesses,
-        frozen,
-        radial,
-        output,
-        SyntheticStrainScanEnvironment.capture(),
     )
-    result = SyntheticStrainScanPlotWriter().execute(
-        SyntheticStrainScanPlotRequest(
+    for path, record in zip(typed_paths, typed_records, strict=True):
+        path.write_bytes(record.to_json())
+    result = SyntheticStrainScanPlotWriter(
+        request=SyntheticStrainScanPlotRequest(
             witness_results=witnesses,
             geometry_result=geometry,
             frozen_response=frozen,
@@ -118,9 +130,9 @@ def main() -> int:
             output_directory=output,
             title="2-D rhombic synthetic-strain scan",
         )
-    )
+    ).execute()
     print(
-        f"lifecycle=development path={request.path.value} "
+        f"lifecycle=development path={request.path.to_wire()} "
         f"strain_samples={len(request.strain_fractions)}"
     )
     print(
@@ -133,7 +145,7 @@ def main() -> int:
     )
     for witness in summary.witness_requirements:
         print(
-            f"witness={witness.control.value} "
+            f"witness={witness.control.to_wire()} "
             f"optimized_maximum={witness.optimized_maximum:.17g} "
             f"optimized_strain_fraction={witness.optimized_maximum_strain_fraction:.17g}"
         )
@@ -145,7 +157,7 @@ def main() -> int:
         )
     for response in summary.responses:
         print(
-            f"response={response.control.value} "
+            f"response={response.control.to_wire()} "
             f"maximum_aligned_hamiltonian_defect="
             f"{response.maximum_aligned_hamiltonian_defect:.17g} "
             f"strain_fraction={response.maximum_strain_fraction:.17g}"
@@ -157,14 +169,8 @@ def main() -> int:
         f"shell_transitions={len(transitions.shell_transitions)} "
         f"bond_degeneracy_transitions={len(transitions.bond_degeneracy_transitions)}"
     )
-    for path in (*artifacts.paths.witness_paths, *result.paths):
+    for path in (*typed_paths, *result.paths):
         print(f"output={path}")
-    print(f"output={artifacts.paths.request_path}")
-    print(f"output={artifacts.paths.geometry_path}")
-    print(f"output={artifacts.paths.frozen_response_path}")
-    print(f"output={artifacts.paths.radial_response_path}")
-    print(f"output={artifacts.paths.result_path}")
-    print(f"output={artifacts.paths.verification_path}")
     return 0
 
 

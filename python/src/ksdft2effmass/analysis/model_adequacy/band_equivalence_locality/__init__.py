@@ -2,10 +2,10 @@
 
 from .definitions import (
     BandEquivalenceLocalityCase,
-    BandEquivalenceLocalityFamily,
+    BandEquivalenceLocalityFamilyEnum,
     BandEquivalenceLocalityRequest,
-    GaugeNormalization,
-    ParentKind,
+    GaugeNormalizationEnum,
+    ParentEnum,
 )
 from .records import (
     BandEquivalenceLocalityDiagnostics,
@@ -16,10 +16,10 @@ from .refinement_records import BandEquivalenceLocalityRefinementAssessment
 __all__ = [
     "BandEquivalenceLocalityCase",
     "BandEquivalenceLocalityDiagnostics",
-    "BandEquivalenceLocalityFamily",
+    "BandEquivalenceLocalityFamilyEnum",
     "BandEquivalenceLocalityRefinementAssessment",
     "BandEquivalenceLocalityRequest",
     "BandEquivalenceLocalityVerificationDiagnostics",
-    "GaugeNormalization",
-    "ParentKind",
+    "GaugeNormalizationEnum",
+    "ParentEnum",
 ]

@@ -129,30 +129,18 @@ class Periodic1DHigherRankFourierAnalysis:
 class Periodic1DHigherRankFourierAnalyzer:
     """Transform one represented-operator field and test Fourier identities."""
 
-    __slots__ = ("_request", "_fourier_transformer", "_fourier_evaluator")
+    __slots__ = ("_request",)
 
     def __init__(
         self,
         *,
         request: Periodic1DHigherRankFourierAnalysisRequest,
-        fourier_transformer: FinitePeriodicMatrixFourierTransformer,
-        fourier_evaluator: FinitePeriodicMatrixFourierTensorEvaluator,
     ) -> None:
         if type(request) is not Periodic1DHigherRankFourierAnalysisRequest:
             raise TypeError(
                 "request must be Periodic1DHigherRankFourierAnalysisRequest"
             )
-        if type(fourier_transformer) is not FinitePeriodicMatrixFourierTransformer:
-            raise TypeError(
-                "fourier_transformer must be the PhysKit finite-periodic owner"
-            )
-        if type(fourier_evaluator) is not FinitePeriodicMatrixFourierTensorEvaluator:
-            raise TypeError(
-                "fourier_evaluator must be the PhysKit finite-periodic evaluator"
-            )
         self._request = request
-        self._fourier_transformer = fourier_transformer
-        self._fourier_evaluator = fourier_evaluator
 
     @property
     def request(self) -> Periodic1DHigherRankFourierAnalysisRequest:
@@ -174,7 +162,7 @@ class Periodic1DHigherRankFourierAnalyzer:
             energy_reference=calculation_request.energy_reference_identifier,
             basis_identifier=calculation_request.represented_basis_identifier,
         )
-        transform = self._fourier_transformer.transform(source)
+        transform = FinitePeriodicMatrixFourierTransformer(source=source).result()
         integer_modes = np.asarray(transform.series.integer_modes[:, 0], dtype=np.int64)
         expected_modes = np.arange(
             -(analysis_request.mesh.size // 2),
@@ -190,26 +178,32 @@ class Periodic1DHigherRankFourierAnalyzer:
             np.unique(np.mod(integer_modes, analysis_request.mesh.size)).size
             == analysis_request.mesh.size
         )
-        reconstruction_values = self._fourier_evaluator.evaluate(
-            transform.series,
-            (coordinates,),
-            controls.maximum_working_elements,
-        ).matrix_values
-        reconstruction_diagnostics = MatrixFieldErrorAnalyzer().execute(
-            reconstruction_values,
-            represented_operators,
-            controls.energy_reference,
+        reconstruction_values = (
+            FinitePeriodicMatrixFourierTensorEvaluator(
+                series=transform.series,
+                coordinate_axes=(coordinates,),
+                maximum_working_elements=controls.maximum_working_elements,
+            )
+            .result()
+            .matrix_values
         )
+        reconstruction_diagnostics = MatrixFieldErrorAnalyzer(
+            approximation=reconstruction_values,
+            reference=represented_operators,
+            energy_reference=controls.energy_reference,
+        ).result()
         reconstruction = Periodic1DHigherRankMatrixErrorResult.from_diagnostics(
             reconstruction_diagnostics
         )
-        parseval = FinitePeriodicMatrixParsevalAnalyzer().analyze(transform)
+        parseval = FinitePeriodicMatrixParsevalAnalyzer(transform=transform).result()
         parseval_scale = max(
             parseval.sample_mean_squared_frobenius_norm.magnitude,
             controls.saturation_denominator_floor,
         )
         parseval_relative_defect = parseval.absolute_defect.magnitude / parseval_scale
-        hermiticity = FinitePeriodicMatrixHermiticityAnalyzer().analyze(transform)
+        hermiticity = FinitePeriodicMatrixHermiticityAnalyzer(
+            transform=transform
+        ).result()
         normalization = math.sqrt(model.retained_rank) * controls.energy_reference
         ordinary_hermiticity_defect = (
             hermiticity.ordinary_maximum_frobenius_defect.magnitude / normalization

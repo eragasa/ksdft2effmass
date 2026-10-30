@@ -3,14 +3,19 @@
 ## Purpose and status
 
 `ksdft2effmass.analysis` owns reusable interpretation of already represented numerical
-objects. It does not own physical model construction, experiment composition, files,
-JSON, plotting, or execution authority.
+objects. It does not own experiment composition, filesystem persistence, retained-
+evidence policy, or execution authority. Domain-neutral rendering mechanics remain
+under `ksdft2effmass.visualizations`; a cohesive analysis child may own its typed
+authenticated projection and family-specific figure composition.
 
 ## Child map
 
 - [`operators`](operators/index.md) — reusable represented-operator analyses.
 - [`subspaces`](subspaces/index.md) — reusable comparisons and analyses of typed
   subspaces.
+- [`model_adequacy`](model_adequacy/index.md) — finite represented-model adequacy
+  analyses, including the installed multidimensional rank-two
+  [band-equivalence/locality lifecycle](model_adequacy/band_equivalence_locality/index.md).
 
 ## Ownership boundary
 
@@ -26,5 +31,7 @@ dependency is forbidden. Calculation and experiment packages may consume `analys
 
 ## Evidence and limitations
 
-The proposed reduction leaves are documentation-first and have no implemented or
-exported source contracts yet.
+Implemented leaves have focused software-verification evidence only. Canonical bytes,
+digests, passing tests, independent finite comparisons, and authenticated rendering do
+not establish continuum convergence, uncertainty quantification, material validity,
+retained-evidence admission, or publication acceptance.

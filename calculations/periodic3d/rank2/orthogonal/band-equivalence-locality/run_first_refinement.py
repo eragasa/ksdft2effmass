@@ -19,7 +19,7 @@ def main() -> int:
     output = development / "results" / "refinement" / "N16"
     write_artifacts(output, result, verification)
     print(
-        f"family={REFINEMENT.family.value} lifecycle=development "
+        f"family={REFINEMENT.family.to_wire()} lifecycle=development "
         f"construction_size=16 verification=pass output={output}"
     )
     return 0

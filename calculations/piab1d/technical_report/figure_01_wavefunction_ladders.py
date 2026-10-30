@@ -65,9 +65,9 @@ def discrete_ladder(output: Path, result: Piab1dCalculationResult) -> None:
     plotted_coordinates = np.concatenate(
         ((0.0,), coordinates, (result.configuration.length,))
     )
-    nodal_amplitudes = result.eigensystem.matrix(
-        "quadrature_normalized"
-    ).magnitude[:, : result.configuration.retained_dimension]
+    nodal_amplitudes = result.eigensystem.matrix("quadrature_normalized").magnitude[
+        :, : result.configuration.retained_dimension
+    ]
     energies = result.eigensystem.vector("computed_discrete").magnitude
     colors = ("#0072B2", "#D55E00", "#009E73")
     figure, axis = plt.subplots(figsize=(5.2, 5.0), constrained_layout=True)

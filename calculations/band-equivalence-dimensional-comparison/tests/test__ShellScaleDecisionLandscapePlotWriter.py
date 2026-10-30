@@ -3,19 +3,18 @@
 from pathlib import Path
 
 import pytest
-
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (  # noqa: E501
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (
     ShellScaleCaseDecisionLandscape,
     ShellScaleDecisionLandscapeResult,
     ShellScaleDecisionPoint,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape_plotting import (  # noqa: E501
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape_plotting import (
     ShellScaleDecisionLandscapePlotRequest,
     ShellScaleDecisionLandscapePlotWriter,
     shell_scale_sampled_cell_triangles,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (  # noqa: E501
-    BandEquivalenceLocalityFamily,
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
+    BandEquivalenceLocalityFamilyEnum,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -44,19 +43,19 @@ class TestShellScaleDecisionLandscapePlotWriter:
             ),
         )
         family = ShellScaleDecisionLandscapeResult(
-            family=BandEquivalenceLocalityFamily.SQUARE,
+            family=BandEquivalenceLocalityFamilyEnum.SQUARE,
             construction_size=4,
             evaluation_size=5,
             scale_sample_count=2,
             cases=(case,),
         )
 
-        result = ShellScaleDecisionLandscapePlotWriter().execute(
-            ShellScaleDecisionLandscapePlotRequest(
+        result = ShellScaleDecisionLandscapePlotWriter(
+            request=ShellScaleDecisionLandscapePlotRequest(
                 family_results=(family,),
                 output_directory=tmp_path,
             )
-        )
+        ).execute()
 
         assert result.individual_paths == (
             tmp_path / "square-directed-parent-shell-scale-decision-landscape.pdf",
