@@ -4,161 +4,178 @@
 
 | Module | Scientific role |
 |---|---|
-| `definition.py` | Names the four alignment families and the possible alignment and numerical outcomes. |
-| `configuration.py` | Stores the fixed ranks, depths, construction, global-unitary-selection and evaluation meshes, phase convention, and tolerances. |
-| `request.py` | Selects one rank/depth/construction-mesh transport and its ambient-basis, retained-frame, and endpoint-sewing identities. |
-| `result.py` | Stores alignment statuses, link diagnostics, backend failures, and request-bound periodic-frame transport results. |
-| `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and depth-dependent gauge circuit as a nominal periodic-1D toy model. |
-| `_record_admission.py` | Centralizes exact-type, immutable-array, and nested-mapping admission shared by the typed evidence records. |
-| `calculation.py` | Defines the frozen calculation controls and complete calculation request. |
-| `diagnostics.py` | Stores typed model, Procrustes, matrix, comparison, and frame diagnostics. |
-| `channel_results.py` | Stores typed support, channel, and construction-mesh results. |
-| `refinement_results.py` | Stores typed block and scalar refinement results. |
-| `scalar_diagnostics.py` | Owns the canonical scalar-diagnostic path/value inventory shared by refinement production and aggregate admission. |
-| `provenance.py` | Stores exact construction/evaluation mesh separation and selection-input provenance. |
+| `definition.py` | Names calculation and transport outcomes. |
+| `configuration.py` | Stores the frozen ranks, depths, meshes, supports, phase convention, and tolerances. |
+| `request.py` | Selects one rank/depth/construction-mesh transport and its physical identities. |
+| `result/status.py` | Stores gauge-alignment status and bounded downstream applicability. |
+| `result/frame_transport.py` | Stores request-bound closed-loop frame-transport evidence and bounded failures. |
+| `result/__init__.py` | Exposes the deliberate status and transport result inventory. |
+| `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and gauge circuit. |
+| `_record_admission.py` | Centralizes exact-type, immutable-array, and nested-mapping admission. |
+| `calculation.py` | Defines the complete frozen calculation request. |
+| `diagnostics/model.py` | Stores analytic-model and Procrustes diagnostics. |
+| `diagnostics/matrix.py` | Stores matrix-field error and comparison diagnostics. |
+| `diagnostics/frame.py` | Stores frame-recovery diagnostics. |
+| `diagnostics/__init__.py` | Exposes the deliberate diagnostic-record inventory. |
+| `provenance.py` | Stores mesh-role separation and global-selection provenance. |
+| `refinement_results.py` | Stores block and scalar refinement results. |
+| `scalar_diagnostics.py` | Owns the canonical scalar-diagnostic inventory used by refinement and aggregate admission. |
+| `refinement.py` | Analyzes correlated evidence across construction meshes. |
 | `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
-| `channel_analysis.py` | Owns the request-bound transform, shifted evaluation, support, and locality analysis for one qualified channel. |
-| `refinement.py` | Owns request-bound block and scalar refinement analysis across the three construction meshes. |
-| `analysis.py` | Composes Optimization Procrustes, PhysKit transport and odd-mesh Fourier owners, and the purpose-specific channel and refinement actions into the calculation action. |
-| `__init__.py` | Defines the deliberately narrow supported public imports; internal purpose-specific actions remain module-local imports. |
+| `reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
+| `analysis/calculation.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
+| `analysis/procrustes.py` | Builds bounded global and pointwise Procrustes selection evidence. |
+| `analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
+| `analysis/evaluation.py` | Proves exact construction/evaluation mesh separation. |
+| `analysis/__init__.py` | Exposes the deliberate calculation-analysis action inventory. |
+| `gauge_alignment/definition.py` | Defines the four gauge-alignment domain identities and explicit wire map. |
+| `gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition and explicit wire mapping. |
+| `gauge_alignment/fields.py` | Constructs nominal immutable gauge-aligned operators and frames. |
+| `gauge_alignment/request.py` | Correlates one complete gauge-alignment analysis request. |
+| `gauge_alignment/recovery.py` | Evaluates frame and represented-operator recovery. |
+| `gauge_alignment/fourier.py` | Owns odd-mesh transforms and Fourier structural evidence. |
+| `gauge_alignment/interpolation.py` | Owns direct and complete-series shifted-mesh evaluation. |
+| `gauge_alignment/locality.py` | Owns support tails, truncation, and error decomposition. |
+| `gauge_alignment/assembly.py` | Correlates stage evidence and assembles one public mesh result. |
+| `gauge_alignment/analysis.py` | Executes the typed stages in scientific order. |
+| `gauge_alignment/results/support.py` | Stores symmetric-support locality and error-channel records. |
+| `gauge_alignment/results/alignment.py` | Stores transform, recovery, interpolation, and locality evidence for one alignment. |
+| `gauge_alignment/results/mesh.py` | Correlates model, common transport, selection, and alignment evidence for one mesh. |
+| `gauge_alignment/results/__init__.py` | Exposes the deliberate public gauge-alignment result inventory. |
+| `gauge_alignment/__init__.py` | Exposes definitions only; purpose-specific actions remain module-local. |
 
-The records are immutable and serialize deterministically. Maintained arrays use shared
-Project Koios NumPy types and the nominal `NumpyImmutableArrayConstructor` and
-`NumpyImmutableArrayValidator` owners; physical array annotations use PhysKit aliases.
-The constructor creates canonical immutable bytes-backed storage, while request admission
-uses the zero-copy validator and rejects noncanonical storage. This makes a saved result
-reconstructible without relying on mutable NumPy storage, a competing local
-immutable-storage implementation, or a process-wide serializer registry.
+The maintained records are immutable and serialize deterministically. Arrays use nominal
+Project Koios immutable NumPy construction and validation. Request admission is
+zero-copy and rejects noncanonical mutable or wrongly typed storage rather than coercing
+it. Generated equality is disabled for array-backed records; canonical typed JSON bytes
+define exact serialized identity.
 
 ## Fixed parameter study
 
-The first study uses
+The frozen study uses
 
 $$
-r\in\{3,4,8,16\},
-\qquad
-L\in\{1,2,4,8\},
+r\in\{3,4,8,16\},\qquad L\in\{1,2,4,8\},
 $$
 
-with construction-mesh sizes
+with construction meshes $M\in\{513,1025,2049\}$ and a shifted $8191$-point
+evaluation mesh. The global-unitary selection mesh is explicitly $M=2049$. Its selected
+unitary is reused on both coarser construction meshes and all direct-evaluation points;
+it is never refitted there.
+
+Frame transformations act from the right on the retained space. Endpoint sewing acts
+from the left on the ambient space. Principal phases lie in $(-\pi,\pi]$. The numerical
+rank threshold is
 
 $$
-M\in\{513,1025,2049\}.
+\tau_{\mathrm{rank}}=\max\!\left(10^{-12},10^{-10}\sigma_{\max}\right),
 $$
 
-The final construction mesh has $M=2049$ points. The explicit
-`global_unitary_selection_mesh_size` is also $2049$. The shifted direct-evaluation mesh
-has $8191$ points. The global-unitary alignment is selected once on the final
-construction mesh and then reused on the other construction meshes and at
-direct-evaluation points.
+with equality classified as deficient. Booleans, numeric strings, nonfinite tolerances,
+alternative cutoffs, and inventories outside the frozen study are rejected.
 
-Frame transformations act on the retained space from the right. Reciprocal-endpoint
-sewing acts on the ambient space from the left. Principal phases lie in $(-\pi,\pi]$.
-The numerical-rank threshold is
+## Transport boundary
 
-$$
-\tau_{\mathrm{rank}}
- = \max\!\left(10^{-12},10^{-10}\sigma_{\max}\right).
-$$
+`Periodic1DHigherRankAlignmentTransportOwnerResult.from_owner_outcome` converts one
+PhysKit closed-loop transport result into immutable KSD evidence. It validates the
+unshifted one-dimensional mesh, retained rank, ambient dimension, action conventions,
+phase branch, tolerance, ordered links, and exact basis, frame, and sewing identities.
+A deficient overlap stops transport and emits no fabricated later-link evidence.
 
-Boolean values, numeric strings, nonfinite tolerances, alternative rank-cutoff rules,
-and parameter inventories outside the frozen study are rejected.
+Transport is computed from the analytic reference frame once per construction mesh. It
+is neither fitted separately for each gauge alignment nor appended to pointwise-unitary
+selection. Its evidence is correlated into the aggregate calculation result as a common
+control.
 
-## Transport results
+## Gauge-alignment action decomposition
 
-`Periodic1DHigherRankAlignmentTransportOwnerResult.from_owner_outcome` converts a PhysKit
-frame-transport result into immutable KSD data. It requires a one-dimensional,
-unshifted `CenteredUniformMesh` and checks its size, retained rank, ambient dimension,
-left/right actions, phase branch, tolerance, ordered link progression, and exact basis,
-frame, and sewing identities against the immutable transport request.
+`Periodic1DHigherRankAlignmentAnalyzer` receives one complete immutable calculation
+request and explicit Optimization, PhysKit, and KSD collaborators. Its zero-argument
+`execute()` constructs an analytic case, performs the sole global selection at
+$M=2049$, evaluates all construction meshes, delegates each prescribed gauge alignment
+to `Periodic1DHigherRankGaugeAlignmentAnalyzer`, and delegates mesh-pair comparisons to
+`Periodic1DHigherRankRefinementAnalyzer`.
 
-A successful result contains:
+For one gauge alignment and mesh, the typed stages are:
 
-- singular values and rank evidence for every required link;
-- the principal phases of the endpoint mismatch;
-- the right-unitary mapping from the primitive transported endpoint to the sewn initial
-  frame;
-- its reverse-direction adjoint; and
-- the per-step right-unitary whose $M$-th power supplies periodic closure.
+1. `Periodic1DHigherRankGaugeAlignmentConstructor` constructs the represented operator
+   and aligned frame as one nominal immutable field record.
+2. `Periodic1DHigherRankGaugeAlignmentRecoveryAnalyzer` checks recovery against the
+   declared analytic or solver-owned construction.
+3. `Periodic1DHigherRankGaugeAlignmentFourierAnalyzer` applies the PhysKit odd-mesh
+   transform and evaluates coefficient-index, Parseval, and Hermiticity evidence.
+4. `Periodic1DHigherRankGaugeAlignmentInterpolationAnalyzer` evaluates the complete
+   Fourier series and direct analytic field on the shifted mesh.
+5. `Periodic1DHigherRankGaugeAlignmentLocalityAnalyzer` evaluates every frozen symmetric
+   support and keeps interpolation, truncation, and total error channels separate.
+6. `Periodic1DHigherRankGaugeAlignmentResultAssembler` admits only evidence derived from
+   the same exact analysis request and assembles the public mesh result without
+   recomputing scientific values.
 
-The final three quantities are stored as unitless complex matrices with descriptive field
-names; see the [numerical formulation](numerics.md). A rank-deficient result stops at the
-first deficient overlap and contains no closure matrices or Schur evidence.
+The stages retain their exact source request. Equal-looking replacement requests and
+same-shaped arrays are insufficient. Admission correlates case, rank, depth, gauge
+alignment, construction mesh, coordinates, selection provenance, statuses, immutable
+storage, and authoritative action results.
 
-## Calculation action and records
+## Result and failure semantics
 
-`Periodic1DHigherRankAlignmentAnalyzer` receives the complete immutable calculation
-request, concrete Optimization and PhysKit owners, and the KSD scalar-refinement owner
-in its constructor. Its
-zero-argument `execute()` method constructs one analytic case, selects the global
-unitary at $M=2049$, evaluates all three construction meshes, delegates each qualified
-channel to `Periodic1DHigherRankChannelAnalyzer`, delegates mesh-pair comparisons to
-`Periodic1DHigherRankRefinementAnalyzer`, and returns a
-`Periodic1DHigherRankAlignmentCalculationResult`. These purpose-specific actions bind
-complete immutable requests and are imported from their owning modules rather than
-re-exported from the package root. Channel requests require canonical immutable
-byte-backed arrays and correlate the model rank and depth, status identity, global
-selection, exact unshifted mesh coordinates, aligned operator samples, and aligned frames
-against the analytic channel definition or the exact pointwise solver result before
-computing scientific values. Refinement requests similarly correlate every supplied mesh
-with the calculation case.
+A complete result retains:
 
-The result retains the exact request and a closed hierarchy:
+- model-integrity evidence for every construction mesh;
+- one global-selection record with rank and residual evidence;
+- common closed-loop transport evidence for each construction mesh;
+- four gauge-alignment mesh results per construction mesh;
+- nine support results per qualified gauge alignment;
+- both adjacent block-refinement comparisons; and
+- the complete scalar-refinement inventory for $1025\rightarrow2049$.
 
-- one model-integrity record per mesh with repeated case, rank, depth, and construction
-  mesh identity, the exact $2.1E_{\mathrm{ref}}$ analytic isolation certificate,
-  sampled separation, the rank-dependent exact and sampled attack-angle maxima,
-  gauge-isometry evidence from the shared matrix-field diagnostic owner, and
-  attacked/reference projector equality;
-- one global-selection result with every singular value, applied cutoff, strict rank
-  margin, finite full-rank condition number, normalized residual, and unitarity,
-  stationarity, objective-identity, and positive-semidefinite defect;
-- three construction-mesh results;
-- four channel results per mesh, including aligned-frame and represented-operator
-  recovery diagnostics, with explicit known-recovery gates only for the pointwise and
-  analytic known-inverse channels;
-- nine support results per qualified channel; and
-- blockwise refinement arrays for both adjacent mesh pairs and the complete frozen
-  scalar diagnostic ledger for the mandatory $1025\rightarrow2049$ pair.
+Gauge-alignment mesh results retain the canonical odd-mesh disposition
+`absent-on-odd-mesh`, not a legacy Nyquist phrase. Support records keep interpolation,
+truncation, and total error channels distinct and retain ordinary omitted tails,
+Parseval defects, perturbation bounds, decomposition residuals, and gate dispositions.
+The public wire retains the bounded block-norm inventory for $|R|\le128$ rather than the
+full Fourier coefficient arrays.
 
-Each support record keeps interpolation, truncation, and total errors separate. It also
-records the ordinary omitted tail, the construction-mesh Parseval defect, perturbation
-bounds, the explicit decomposition residual, and gate dispositions against the frozen
-request tolerances. Channel records similarly retain the complete odd-mesh Fourier
-representative count and canonical-index checks, the explicit no-Nyquist disposition,
-and dispositions for reconstruction, withheld interpolation, Parseval, ordinary and
-twisted Hermiticity, and tail monotonicity. The enclosing result recomputes exact
-rational construction/evaluation coordinate disjointness and the evaluation mesh's
-exclusion from selection during record admission. Refinement records use the shared KSD
-absolute-relative scalar diagnostic, retain signed margins and an aggregate pass flag,
-and recompute all blockwise refinement arithmetic during record admission. Support
-records revalidate rank/energy normalization and tail square-root identities. Channel
-records revalidate nonnegative block norms and their rank/energy normalization. The
-aggregate result correlates both block and scalar refinement values with their retained
-source channels and correlates model and transport-failure evidence with the complete
-calculation request. Coefficient arrays are not retained in
-the public wire; the complete bounded block-norm inventory $|R|\le128$ is retained.
+Documented Procrustes or transport backend failures become typed numerically unresolved
+records with stable codes, absent downstream values, and no serialized exception
+messages or tracebacks. Rank deficiency and integrity failure remain distinct. A failed
+global-unitary selection suppresses only that gauge alignment; a failed common transport
+control is retained separately and fails closed according to the calculation contract.
 
-Documented Procrustes backend failures become numerically-unresolved selections with
-empty scientific arrays, one stable exception code, and no selected unitary or backend
-claim. Documented transport backend failures become typed transport-failure records;
-all four channel results on that mesh are numerically unresolved and contain no
-transform or locality values. Rank-deficient global and pointwise selections likewise
-emit no downstream values for the affected channel. Runtime exception messages and
-tracebacks are not serialized.
+## Extensibility boundary without speculative APIs
 
-All maintained arrays are copied into immutable bytes-backed storage that prevents NumPy
-write re-enablement. Integer, real, and complex arrays retain exact dtype boundaries and
-serialize with explicit dtype and shape metadata, including empty multidimensional arrays
-used by bounded failure records. Generated dataclass equality is disabled for
-array-backed and aggregate records; canonical typed JSON bytes establish their exact
-serialized identity. Calculation requests and complete results round-trip through those
-bytes.
+The fieldwise construction and recovery equations can later be reused conceptually in
+other dimensions because they act fiber by fiber. The present mesh, Fourier,
+interpolation, and locality stages are deliberately periodic-1D owners. Two- and
+three-dimensional studies require their own reviewed reciprocal meshes, multi-index
+Fourier representatives, inversion closure, and support geometries.
+
+Likewise, the present Procrustes and isometry contracts assume orthonormal frames and the
+Euclidean $U(r)$ metric. A nonorthonormal study must first define its fiber metric,
+metric adjoint, generalized isometry group, conditioning evidence, and objective. The
+package contains no speculative base class, metric parameter, or placeholder 2-D/3-D
+action.
+
+## Independent-reference boundary
+
+`Periodic1DHigherRankCoreInvariantReferenceAnalyzer` is the first bounded
+producer-independent slice. It admits one exact calculation result and reconstructs the
+analytic retained and exterior energies, constant frame, real Givens circuit, parent and
+represented operators, projectors, isolation certificate, attack-angle certificate, and
+all model-structure and recovery diagnostics with direct NumPy formulas. It does not
+directly import or invoke the producer, the producer-owned analytic model, or the
+reusable producer diagnostic actions. Scalar comparisons use the protocol's
+$10^{-11}$ tolerance and sampled diagnostic arrays use $10^{-10}$.
+
+This slice does not implement the protocol's complete direct-formula verifier. It does
+not independently reconstruct transport, Procrustes selection, Fourier blocks,
+interpolation, support locality, error channels, or refinement, and it does not own
+canonical result bytes.
 
 ## Work remaining
 
-The next separately authorized stages must add independent numerical recalculation,
-byte-owning complete result verification, authenticated scientific plotting data, and
-direct calculation scripts. Those stages will use explicit calculation inputs and will
-not reconstruct the historical Workflow implementation. Passing producer tests does not
-establish scientific validation.
+Separately authorized work must complete producer-independent numerical recomputation,
+add byte-owning complete-result verification, authenticated visualization data, and
+retained execution composition. The direct development runner is replaceable and
+explicitly emits no scientific evidence. Passing producer or bounded-reference tests
+does not establish scientific validation.

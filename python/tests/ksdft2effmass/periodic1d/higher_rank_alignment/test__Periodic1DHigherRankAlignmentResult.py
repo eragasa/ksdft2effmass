@@ -1,5 +1,6 @@
 """Tests for higher-rank alignment status and owner-transport records."""
 
+import json
 from dataclasses import replace
 
 import numpy as np
@@ -29,7 +30,6 @@ from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentBackendExceptionCode,
-    Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentConfiguration,
     Periodic1DHigherRankAlignmentStatus,
     Periodic1DHigherRankAlignmentStatusResult,
@@ -37,6 +37,7 @@ from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentTransportOwnerResult,
     Periodic1DHigherRankAlignmentTransportRequest,
     Periodic1DHigherRankBlockRefinementResult,
+    Periodic1DHigherRankGaugeAlignment,
     Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
 )
 
@@ -55,11 +56,11 @@ def _configuration() -> Periodic1DHigherRankAlignmentConfiguration:
         evaluation_mesh_size=8191,
         evaluation_shift_numerator=1,
         evaluation_shift_denominator=2,
-        alignment_channels=(
-            Periodic1DHigherRankAlignmentChannel.IDENTITY,
-            Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
-            Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
-            Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
+        gauge_alignments=(
+            Periodic1DHigherRankGaugeAlignment.IDENTITY,
+            Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
+            Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
+            Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
         ),
         frame_rotation_action=FrameRotationAction.RIGHT,
         endpoint_sewing_action=EndpointSewingAction.LEFT_AMBIENT,
@@ -170,7 +171,7 @@ class TestPeriodic1DHigherRankAlignmentResult:
         zeros = np.zeros(2, dtype=np.float64)
         tolerances = 1.0e-10 + 1.0e-6 * coarse
         result = Periodic1DHigherRankBlockRefinementResult(
-            channel=Periodic1DHigherRankAlignmentChannel.IDENTITY,
+            gauge_alignment=Periodic1DHigherRankGaugeAlignment.IDENTITY,
             coarse_mesh_size=513,
             fine_mesh_size=1025,
             translations=np.asarray([0, 1], dtype=np.int64),
@@ -197,7 +198,7 @@ class TestPeriodic1DHigherRankAlignmentResult:
             retained_rank=3,
             circuit_depth=1,
             construction_mesh_size=513,
-            channel=Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
+            gauge_alignment=Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
             status=Periodic1DHigherRankAlignmentStatus.QUALIFIED,
             global_unitary_downstream_applicability=(
                 Periodic1DHigherRankGlobalUnitaryDownstreamApplicability.APPLICABLE
@@ -212,13 +213,19 @@ class TestPeriodic1DHigherRankAlignmentResult:
         assert reconstructed == result
         assert reconstructed.to_json() == result.to_json()
 
+        old_key = json.loads(result.to_json())
+        old_key["channel"] = old_key.pop("gauge_alignment")
+        old_key_wire = (json.dumps(old_key, indent=2, sort_keys=True) + "\n").encode()
+        with pytest.raises(ValueError, match="status fields do not match"):
+            Periodic1DHigherRankAlignmentStatusResult.from_json(old_key_wire)
+
     def test__status_result__retains_failure_code_without_exception_text(self) -> None:
         result = Periodic1DHigherRankAlignmentStatusResult(
             case_identity="r04-L02",
             retained_rank=4,
             circuit_depth=2,
             construction_mesh_size=1025,
-            channel=Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
+            gauge_alignment=Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
             status=Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
             global_unitary_downstream_applicability=None,
             backend_exception_code=(
@@ -232,13 +239,15 @@ class TestPeriodic1DHigherRankAlignmentResult:
         assert b"backend-nonconvergence" in wire
         assert b"exception_text" not in wire
 
-    def test__status_result__rejects_channel_and_applicability_mismatch(self) -> None:
+    def test__status_result__rejects_gauge_alignment_and_applicability_mismatch(
+        self,
+    ) -> None:
         valid = Periodic1DHigherRankAlignmentStatusResult(
             case_identity="r03-L01",
             retained_rank=3,
             circuit_depth=1,
             construction_mesh_size=513,
-            channel=Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
+            gauge_alignment=Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
             status=Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT,
             global_unitary_downstream_applicability=(
                 Periodic1DHigherRankGlobalUnitaryDownstreamApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
@@ -256,7 +265,7 @@ class TestPeriodic1DHigherRankAlignmentResult:
         with pytest.raises(ValueError, match="not admissible"):
             replace(
                 valid,
-                channel=Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
+                gauge_alignment=Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
             )
         with pytest.raises(ValueError, match="not in the frozen inventory"):
             replace(valid, construction_mesh_size=512)

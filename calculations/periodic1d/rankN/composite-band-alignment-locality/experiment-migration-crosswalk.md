@@ -2,8 +2,8 @@
 
 ## Scope and baseline
 
-The old experiment folder contains five files. This record says where each file belongs
-now:
+The old experiment folder contained five files at the recorded source revision. This
+record says where each file was assigned during the experiment-tree migration:
 
 - the detailed calculation plan is copied exactly into this calculation folder;
 - the two old scripts have maintained calculation-side replacements;
@@ -21,7 +21,7 @@ scientific run and does not turn development output into retained evidence.
 | `.gitignore` | `a169f73e7e78f2837fcf552e0abfa6b0b162606ce488293e86481afff485921f` | Adapted policy. The source ignored `analysis/development/*.json`; the maintained producer writes `results/schema-free-development-summary.json`, and the calculation `.gitignore` ignores `results/` plus local Python caches. Repository-root policy covers the cache patterns. |
 | `experimental-protocol.tex` | `160b61b2c2dc87e7628524c710c779f8e3b2c547f0a2d228615300aa06bdce0b` | Exact-byte copy at `protocol/experimental-protocol.tex`; authority and the historical verifier-name mapping are documented in `protocol/README.md`. |
 | `README.md` | `5608ddd21db3f68110866ab63e25247e50b56765752e5f4c60e0b5ac97c00101` | Integrated into the calculation `README.md`, protocol README, this crosswalk, and the distributed `migration.md`; stale installed-package and dependency-pin claims are not repeated as current facts. |
-| `run_development.py` | `2c548efc6ca144fdbd0bc93b92d719855a40107d5a7300a193ba73b049c7e9ef` | Adapted counterpart `run_development.py`, SHA-256 `11b7d09f5760f74e5f37d2070f5663fe19105a61ec53a65513995bca32112bc8`. The only source differences are the import owner (`workflow` rather than the removed installed package) and output routing (`results/` rather than the experiment analysis directory). |
+| `run_development.py` | `2c548efc6ca144fdbd0bc93b92d719855a40107d5a7300a193ba73b049c7e9ef` | The first adapted counterpart had SHA-256 `11b7d09f5760f74e5f37d2070f5663fe19105a61ec53a65513995bca32112bc8` and used the calculation-local Workflow package. That migration-time script has been superseded by the direct maintained-owner composition, SHA-256 `d36995af843f8652f188b2352c69e2749617ba05aab0c5aacc341a2c3ad37cbd`; it does not import Workflow code. |
 | `verify_d1_p0_g0_controls.py` | `d4aa8c0893b73dadf9ac5994c8a4e7484edbd15d4f68f6d1e274adb9e04357ca` | Adapted counterpart `verify_analytic_controls.py`, SHA-256 `3d090ac885a9d1c1cab9dc06ea31f048696bd85dd70d23b3969b0ea24cc8d77d`. It is byte-identical after removing only the source shebang; its bounded sanity-check role is unchanged. |
 
 The partition is closed: one exact protocol copy, two adapted executable counterparts,
@@ -35,10 +35,12 @@ The experiment producer imported
 not present at the current revision. Its last complete tree is revision
 `25161d7f55c708a464c18ea8d5d0fd6152ff86a6`, Git tree
 `94f2f042322aa69969448ca77b8d47c163edef70`; deletion occurred in
-`c5d34a93b4710a4a430738c404c775865d418d42`. The calculation-local `workflow/` is the
-maintained successor, not a compatibility import facade.
+`c5d34a93b4710a4a430738c404c775865d418d42`. The calculation-local `workflow/` was the
+migration-time successor. It is now immutable historical provenance and is not a
+maintained import, test, or execution boundary. Maintained behavior belongs to
+`ksdft2effmass.periodic1d.higher_rank_alignment` and canonical upstream owners.
 
-| Module | Historical SHA-256 | Current workflow SHA-256 | Relation |
+| Module | Historical SHA-256 | Migration-time workflow SHA-256 | Relation |
 |---|---|---|---|
 | `__init__.py` | `f91cc130bf9a41fcc79bdd5bded66f062d66d2d5257b0be5cb1c84fb7295cb23` | `95498502180143ef254544648c27c01fc84acca7346b2f458ad484ef57c66ea0` | reviewed successor |
 | `_validation.py` | `ac2507ba0f2bbdad1d15c982eca91642d57e0ea64f3cf409dcd9919aafd68e7f` | `43db05ad01597cbf7625a8b72aab05215b709886896e2d98574e8921c4620d04` | reviewed successor |
@@ -52,22 +54,27 @@ maintained successor, not a compatibility import facade.
 | `records.py` | `fb3bc8bc13df34686875402ef36f05f5c2b8bb437cab869489d0706e2ebc2401` | `690a310b24293fc325fe626379c95344c1d6ed600498866023219663a9306b1d` | reviewed successor |
 | `transport.py` | `764feceddd9c2cfdb828c5a7998e8d36e4520f4da2938352a7e6efc12f189f97` | same | exact |
 
-“Reviewed successor” records a byte change after ownership consolidation; it does not by
-itself assert numerical parity. Current focused tests and explicit script-parity checks
-remain required before source removal.
+“Reviewed successor” records a migration-time byte change after ownership consolidation;
+it does not by itself assert numerical parity or current ownership. The table is retained
+as provenance for the already completed source removal.
 
 ## What the current calculation does
 
-The current code evaluates `3`, `4`, `8`, and `16` retained states; rotation depths `1`,
-`2`, `4`, and `8`; and four alignment choices. It constructs the model, chooses
-alignments, follows the basis around the momentum grid, computes real-space hopping
-matrices, measures truncation errors, and records failures explicitly. The development script writes only a replaceable summary.
-The formula-check script is not an independent check of the full result.
+The maintained package evaluates `3`, `4`, `8`, and `16` retained states; circuit depths
+`1`, `2`, `4`, and `8`; and identity, global-unitary, pointwise-unitary, and
+known-inverse-oracle gauge alignments. It constructs the analytic parent and attacked
+fields, applies common closed-loop transport, calculates finite-periodic hopping blocks,
+separates interpolation and truncation errors, evaluates refinement, and records bounded
+failures explicitly. The direct development script composes maintained KSD, PhysKit, and
+Optimization owners and writes only a replaceable non-evidence summary. The
+formula-check script is not an independent check of the full result.
 
-The exact protocol candidate selects future input, result, verification, and provenance
-wires, but those wires and strict schemas do not yet exist. The current workflow does not
-use the PIAB1D/QHO1D shared byte-owning verification and authenticated-rendering
-lifecycle. Migration of these five donor files does not close that implementation gap.
+Strict typed calculation requests and results, canonical record bytes, and a bounded
+producer-independent reference for analytic-model and attack core invariants now exist.
+Complete protocol-wide numerical recomputation, byte-owning verification,
+retained-artifact schemas, complete provenance, authenticated rendering, and retained
+execution do not. Migration of the five donor files therefore does not close the
+authenticated lifecycle.
 
 ## Consumer migration
 

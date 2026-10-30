@@ -1,252 +1,915 @@
 \documentclass[11pt]{article}
+
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{array,booktabs,longtable}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs,longtable,tabularx}
+\usepackage{enumitem}
+\usepackage{graphicx}
 \usepackage{microtype}
-\usepackage[colorlinks=true,allcolors=blue]{hyperref}
-\usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{xcolor}
 \usepackage{xurl}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage[margin=25mm]{geometry}
 
+\setlength{\emergencystretch}{3em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
 \newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\spec}{spec}
+\newcommand{\Torus}{\mathbb T}
+\newcommand{\Eref}{E_{\mathrm{ref}}}
+\newcommand{\Frob}{\mathrm F}
 
-\title{Technical Report: Periodic-1D Higher-Rank Composite-Band Alignment and Locality}
+\title{\textbf{Gauge Alignment and Real-Space Locality in Higher-Rank\\Periodic One-Dimensional Hamiltonians}\\
+\large Analytic controls, numerical methodology, and evidence boundaries}
 \author{Project Koios}
-\date{Pre-execution architecture and mathematical contract}
+\date{Pre-execution technical report}
 
 \begin{document}
 \maketitle
 
-\section{Scope and evidence boundary}
+\begin{abstract}
+Matrix-valued tight-binding representations of an isolated composite subspace are not
+unique: a momentum-dependent unitary change of retained basis preserves the represented
+spectrum while changing individual Fourier hopping blocks and, consequently, the error
+incurred by finite-range truncation. This report develops a controlled periodic
+one-dimensional study of that distinction for retained ranks
+$r\in\{3,4,8,16\}$ and noncommuting gauge-circuit depths
+$L\in\{1,2,4,8\}$. The parent Hamiltonian, isolated retained subspace, and gauge attack
+are analytic. Four prescribed retained-space gauge alignments---identity,
+global-unitary, pointwise-unitary, and known-inverse-oracle---are compared using a common
+closed-loop transport of the analytic reference frame. Odd construction meshes support
+finite-periodic matrix Fourier transforms, while a disjoint shifted mesh separates
+interpolation error from deliberate finite-support truncation error. The design retains
+rank-normalized block tails, Parseval and Hermiticity defects, operator and ordered-
+spectrum errors, perturbation bounds, and mandatory mesh-refinement evidence.
 
-This report documents the finite mathematics, numerical conventions, and software-owner
-boundary of the periodic one-dimensional higher-rank controlled calculation used by the
-Paper C development program.  It is calculation-owned and publication-independent.  The
-selected protocol remains the authority for coefficients, controls, tolerances, schemas,
-and future retained evidence.  This report explains that contract; it does not replace
-it.
+Several conclusions follow analytically from the construction: the retained subspace has
+an exact uniform exterior-isolation energy $2.10\Eref$; the gauge attack preserves the
+retained projector and spectrum; pointwise-unitary and known-inverse-oracle alignment
+recover the diagonal reference representation in exact arithmetic; and that recovered
+field has Fourier support only for $|R|\leq2$. These are properties by construction, not
+new numerical findings. The maintained producer, typed evidence records, and a bounded
+producer-independent reference analysis of analytic-model and attack core invariants
+are implemented and software-tested. Complete protocol-wide reference analysis,
+byte-owning verification,
+resource-qualified execution, and a retained scientific result do not exist.
+Accordingly, this report presents methodology, analytic results, and
+software-verification status without reporting unexecuted numerical trends.
+\end{abstract}
 
-The calculation-local \path{workflow/} package and its ignored summaries are replaceable
-development material.  They are not a maintained runtime, retained run, convergence
-result, or evidence package.  No result reported below was obtained from a new execution.
-The labels D1, P0, and G0 are retained only where they identify the frozen protocol.  They
-are not proposed public software class names.
+\noindent\textbf{Keywords:} composite bands; gauge covariance; Procrustes alignment;
+parallel transport; matrix Fourier transform; hopping locality; truncation error;
+scientific evidence
 
-\section{Finite model inventory}
+\section{Introduction}
 
-The selected ladder uses retained ranks
-\[
- r\in\{3,4,8,16\},
- \qquad L\in\{1,2,4,8\},
-\]
-ambient dimension $2r$, construction meshes $M\in\{513,1025,2049\}$, an
-independent evaluation mesh of size $8191$, and hopping supports
-$S\in\{0,1,2,4,8,16,32,64,128\}$.  All construction meshes are odd.  Their complete
-centered translation inventories are therefore ordinary inversion-complete sets with no
-self-inverse Nyquist representative.
+Localized real-space Hamiltonians are routinely obtained by Fourier transforming a
+matrix-valued reciprocal-space representation. For an isolated composite band subspace,
+the represented eigenvalues are invariant under momentum-dependent unitary rotations of
+the retained basis, but the matrix entries and their Fourier coefficients are not. This
+familiar gauge freedom underlies both the usefulness and the interpretive difficulty of
+Wannier and tight-binding representations
+\cite{marzari1997,souzaMarzariVanderbilt2001,marzariEtAl2012}. A short-ranged
+representation can be advantageous for interpolation and reduced modeling
+\cite{yates2007}, yet spectral equivalence of the untruncated field alone does not imply
+that two gauges respond equally to a common finite-range truncation.
 
-Four alignment controls remain distinct: no alignment, one global unitary, pointwise
-complete unitaries, and the known generating inverse.  The known inverse is an oracle
-control and is not evidence of practical recoverability.  Transport of the analytic
-reference frame precedes these alignment controls and is shared by them.
+The present study isolates this issue from material-specific electronic-structure
+uncertainties. It does not run Quantum ESPRESSO, Wannier90, or a spread minimization. It
+instead supplies an analytic, finite-dimensional parent Hamiltonian with an exactly
+isolated retained subspace and then applies a deterministic higher-rank gauge circuit.
+The attacked representation has the same pointwise spectrum and projector as the
+reference representation. Any difference in its hopping locality is therefore a
+representation effect rather than a change of the underlying retained operator.
 
-\section{State spaces and action conventions}
+The central scientific question is:
 
-At each reciprocal coordinate, an ambient frame is a matrix
-\[
- F(k)\in\mathbb C^{2r\times r},
- \qquad F(k)^\dagger F(k)=I_r.
-\]
-Its columns use one declared ambient basis and span a rank-$r$ retained space.  A retained
-coordinate transformation acts on the right,
-\[
- F(k)\longmapsto F(k)U(k),
- \qquad U(k)\in U(r),
-\]
-whereas the reciprocal-endpoint sewing map acts on the left in the ambient space,
-\[
- F(-\pi)\longmapsto S_G F(-\pi),
- \qquad S_G\in\mathbb C^{2r\times2r}.
-\]
-For the selected P0 construction, $S_G=I_{2r}$, but the route still records and verifies
-that declaration.  Identity sewing is not inferred from periodic eigenvalues or array
-shape.
+\begin{quote}
+For a fixed isolated retained operator, how do retained rank, noncommuting gauge-circuit
+depth, and a prospectively selected gauge-alignment family affect matrix-valued hopping
+locality and the error of deliberate finite-support truncation?
+\end{quote}
 
-If $H_p(k)$ is the parent and $H_F(k)=F(k)^\dagger H_p(k)F(k)$ is its represented
-Hamiltonian, then a right frame action gives the covariant matrix transformation
-\[
- H_{FU}(k)=U(k)^\dagger H_F(k)U(k).
-\]
-Transport, alignment, and Fourier transformation therefore have ordered and generally
-noncommuting roles.
+This question is intentionally narrower than the problem of finding optimally localized
+Wannier functions. The study compares four declared feasible alignment families rather
+than searching an unrestricted localization functional. In particular, the analytic
+known inverse is retained only as an oracle control. It cannot support a claim about
+practical recovery from unknown data.
 
-\section{Sequential polar transport}
+\subsection{Contributions and organization}
 
-For one odd half-open mesh, let
-\[
- k_n=-\pi+\frac{2\pi n}{M},
- \qquad n=0,\ldots,M-1,
-\]
-and append the direct endpoint $k_M=+\pi$.  Write the analytically sampled frame as
-$Y_n=F(k_n)$, including $Y_M=F(+\pi)$.  Set $\widetilde F_0=Y_0$.  Given the transported
-frame at index $n$, form
+The report makes five methodological contributions.
+
+\begin{enumerate}[label=(\roman*)]
+\item It defines a rank-generic analytic family with an exact, rank-independent exterior-
+isolation certificate and a connected noncommuting gauge attack.
+\item It distinguishes common reference-frame transport from retained-space gauge
+alignment and fixes the left/right action conventions needed to compare them.
+\item It separates identity, global-unitary, pointwise-unitary, and known-inverse-oracle
+gauge alignments from interpolation, truncation, and total \emph{error channels}.
+\item It defines an odd-mesh finite-periodic Fourier and support analysis with a disjoint
+shifted evaluation mesh and explicit mesh-refinement gates.
+\item It binds the scientific stages to immutable typed requests and fail-closed evidence
+records, while keeping independent recomputation and publication outside the producer.
+\end{enumerate}
+
+Section~\ref{sec:background} summarizes the scientific background. Sections
+\ref{sec:model}--\ref{sec:diagnostics} define the methodology. Section
+\ref{sec:results} states the analytic and implementation results currently established.
+Section~\ref{sec:discussion} discusses their interpretation and limitations. Section
+\ref{sec:conclusion} concludes. Detailed numerical controls and record ownership appear
+in the appendices.
+
+\subsection{Evidence status}
+
+This is a pre-execution technical report. The authoritative protocol fixes the
+coefficients, meshes, tolerances, schemas, resource limits, and future evidence policy.
+The maintained direct runner is explicitly development-only and writes no retained
+scientific evidence. No numerical trend across the 16 rank/depth cases is asserted here.
+Passing tests establishes software behavior only; it does not establish physical
+validity, independent numerical verification, resource compliance, or convergence of a
+retained calculation.
+
+\section{Background and scientific setting}
+\label{sec:background}
+
+\subsection{Represented operators and gauge covariance}
+
+Let $\mathcal H_{\mathrm{amb}}$ be a finite ambient state space and let
+$F(k):\mathbb C^r\rightarrow\mathcal H_{\mathrm{amb}}$ be an orthonormal frame for a
+rank-$r$ retained subspace at reciprocal coordinate $k$. For an ambient Hermitian
+operator $H_p(k)$, the represented retained operator is
 \begin{equation}
- O_n=\widetilde F_n^\dagger Y_{n+1}
-    =L_n\Sigma_nR_n^\dagger,
+ H_F(k)=F(k)^\dagger H_p(k)F(k).
+ \label{eq:represented-operator}
+\end{equation}
+A retained-coordinate gauge transformation acts from the right,
+$F(k)\mapsto F(k)U(k)$ with $U(k)\in U(r)$, and therefore
+\begin{equation}
+ H_F(k)\mapsto H_{FU}(k)=U(k)^\dagger H_F(k)U(k).
+ \label{eq:gauge-covariance}
+\end{equation}
+Equation~\eqref{eq:gauge-covariance} preserves the unordered pointwise spectrum and the
+ambient projector $P(k)=F(k)F(k)^\dagger$. It does not preserve individual matrix
+entries or Fourier coefficients.
+
+This distinction is fundamental. A physical model is identified by its state spaces,
+operator, geometry, units, and energy reference. A finite matrix is a representation of
+that operator in a declared basis. Comparing matrices without first aligning their state
+spaces and basis conventions can confound a change of representation with a change of
+model.
+
+\subsection{Alignment versus localization}
+
+The orthogonal or unitary Procrustes problem selects the unitary factor that best aligns
+two frame matrices in a Frobenius norm \cite{schoenemann1966}. Its polar factor can be
+computed from an SVD or polar decomposition
+\cite{higham1986,golubVanLoan2013}. Pointwise Procrustes alignment supplies one unitary
+per reciprocal point. A global-unitary restriction instead supplies one matrix for the
+entire reciprocal route. These are different feasible sets, not different numerical
+accuracies for the same optimization problem.
+
+Neither alignment is equivalent to minimizing a Wannier spread functional. The present
+protocol therefore does not claim to reproduce maximally localized Wannier functions.
+Its purpose is diagnostic: it asks how much locality is lost under a known gauge attack
+and how much is recovered under precisely declared alignment information.
+
+\subsection{Fourier locality and finite support}
+
+For a periodic represented field $H(k)$, continuum hopping blocks are
+\begin{equation}
+ T(R)=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-ikR}H(k)\,dk,
+ \qquad R\in\mathbb Z.
+ \label{eq:continuum-fourier}
+\end{equation}
+Rapid decay of $\|T(R)\|$ supports accurate finite-range approximation. Analytic
+periodicity often implies rapid Fourier decay, but a nonlinear momentum-dependent gauge
+rotation can generate an infinite harmonic inventory even when the reference field has
+finite support. Thus ``same bands'' and ``same truncation behavior'' are distinct
+statements.
+
+A sampled finite transform introduces two additional distinctions. First, discrete
+coefficients are a finite representation of sampled data and may contain aliasing from
+unresolved continuum harmonics. Second, deliberately setting blocks outside a chosen
+support to zero is a model-reduction operation. The protocol keeps continuum behavior,
+finite-mesh interpolation, and deliberate truncation separate.
+
+\section{Analytic model}
+\label{sec:model}
+
+\subsection{Geometry, state spaces, and units}
+
+The selected D1 specialization uses the dimensionless unit lattice and reduced
+Brillouin torus $\Torus=[-\pi,\pi)$. For retained rank $r\geq3$, the ambient state space
+is $\mathbb C^{2r}$ with the retained coordinates ordered before the exterior
+coordinates. The canonical embedding $E_r:\mathbb C^r\rightarrow\mathbb C^{2r}$ and
+projector are
+\begin{equation}
+ E_r=\begin{pmatrix}I_r\\0\end{pmatrix},
+ \qquad P_0=E_rE_r^\dagger.
+\end{equation}
+All energies are expressed in a declared dimensionless unit with positive reference
+scale $\Eref=1$ during numerical evaluation. Formulas retain $\Eref$ to expose the
+normalization.
+
+The P0 control uses the constant analytic frame $F_r(k)=E_r$ and identity ambient sewing.
+The state-space map is therefore known directly rather than inferred from eigenvectors.
+Internal crossings among retained energies are permitted because the complete retained
+projector, not a sequence of individually labeled bands, is the scientific object.
+
+\subsection{Rank-normalized parent spectrum}
+
+For retained coordinate $a\in\{1,\ldots,r\}$, define
+\begin{equation}
+ x_{r,a}=\frac{2a-r-1}{r-1}\in[-1,1],
+ \qquad
+ c(k)=\frac34\cos k+\frac14\cos 2k.
+\end{equation}
+The retained and exterior energies are
+\begin{align}
+ \frac{\epsilon_a(k)}{\Eref}
+ &=0.40x_{r,a}+0.25\left(1+0.20x_{r,a}\right)c(k),
+ \label{eq:retained-energy}\\
+ \frac{\epsilon_a^{\mathrm{ext}}(k)}{\Eref}
+ &=3.00+0.30x_{r,a}+0.10c(k).
+ \label{eq:exterior-energy}
+\end{align}
+Let $D_r(k)=\operatorname{diag}(\epsilon_1(k),\ldots,\epsilon_r(k))$ and define the
+ambient parent
+\begin{equation}
+ H_p^{(r)}(k)=
+ \begin{pmatrix}D_r(k)&0\\0&D_{\mathrm{ext}}(k)\end{pmatrix}.
+ \label{eq:parent-hamiltonian}
+\end{equation}
+The represented reference operator is exactly $F_r^\dagger H_p^{(r)}F_r=D_r$.
+
+\begin{proposition}[Exact exterior isolation]
+For every selected finite rank and every $k\in\Torus$, the exterior spectrum lies at
+least $2.10\Eref$ above the retained spectrum. The lower bound is attained at $k=0$.
+\end{proposition}
+
+\begin{proof}
+For fixed $k$, the retained maximum occurs at $x=1$ and the exterior minimum at $x=-1$.
+Using Equations~\eqref{eq:retained-energy}--\eqref{eq:exterior-energy}, their separation
+is $(2.30-0.20c(k))\Eref$. Since $|c(k)|\leq1$, the separation is at least
+$2.10\Eref$, and $c(0)=1$ gives equality.
+\end{proof}
+
+The proposition is an analytic property of the finite model. A sampled minimum is
+retained separately as a numerical reconstruction check and is never relabeled as the
+continuum certificate.
+
+\subsection{Deterministic noncommuting gauge attack}
+
+Adjacent retained coordinates are mixed by real Givens rotations. For layer $\ell$ and
+pair start $j$, define
+\begin{equation}
+ y_{r,j}=\frac{2j-r}{r-1},
+ \qquad
+ s_\ell(k)=\frac34\sin k+\frac14(-1)^\ell\sin 2k,
+\end{equation}
+\begin{equation}
+ \theta_{\ell j}(k)=0.35(-1)^{\ell+j}
+ \left(1+0.15y_{r,j}\right)s_\ell(k).
+ \label{eq:attack-angle}
+\end{equation}
+Layer $\ell$ acts on the disjoint adjacent pairs with $j\equiv\ell\pmod2$. Factors
+within one layer commute; neighboring layers generally do not. Increasing layer order is
+part of the definition. The depth-$L$ product is denoted $G_{r,L}(k)\in SO(r)$.
+
+The attacked frame and represented operator are
+\begin{equation}
+ F'_{r,L}(k)=F_r(k)G_{r,L}(k),
+ \qquad
+ H'_{r,L}(k)=G_{r,L}(k)^\dagger D_r(k)G_{r,L}(k).
+ \label{eq:attacked-fields}
+\end{equation}
+One layer is an incomplete-connectivity baseline; two or more alternating layers cover
+every adjacent edge and form a connected chain. Increasing depth changes the
+representation while leaving the retained operator and projector invariant.
+
+\begin{proposition}[Exact covariant equivalence]
+For every $r$, $L$, and $k$, the attacked frame is orthonormal, its ambient projector is
+$P_0$, and $H'_{r,L}(k)$ has the same unordered spectrum as $D_r(k)$.
+\end{proposition}
+
+\begin{proof}
+Each Givens factor is orthogonal, hence $G_{r,L}^\dagger G_{r,L}=I_r$. Substitution into
+Equation~\eqref{eq:attacked-fields} proves frame orthonormality and projector equality.
+The represented operators are related by a unitary similarity, which proves spectral
+equivalence.
+\end{proof}
+
+The nonlinear entries of $G_{r,L}$ generally contain harmonics beyond those present in
+the angle functions. Consequently the attacked represented field is analytic and
+periodic but is not assigned a finite Fourier support by construction.
+
+\section{Gauge-alignment methodology}
+\label{sec:alignment}
+
+\subsection{Canonical source and target orientation}
+
+Let $R(k)=F_r(k)$ be the reference, $C(k)=F'_{r,L}(k)$ the attacked candidate, and
+$H_C(k)=H'_{r,L}(k)$ the represented candidate operator. Every prescribed gauge
+alignment acts from the right:
+\begin{equation}
+ \widehat F_U(k)=C(k)U(k),
+ \qquad
+ \widehat H_U(k)=U(k)^\dagger H_C(k)U(k).
+ \label{eq:alignment-application}
+\end{equation}
+Returning $U^\dagger$ while retaining Equation~\eqref{eq:alignment-application} would be
+a convention error, not an equivalent implementation.
+
+For cross-covariance $X=C^\dagger R$ with complete SVD
+$X=L\Sigma V^\dagger$, the admitted unitary polar factor is
+\begin{equation}
+ \mathcal P(X)=LV^\dagger.
+ \label{eq:polar-factor}
+\end{equation}
+It is selected only when
+\begin{equation}
+ \sigma_{\min}(X)>	au_{\mathrm{sv}}(X),
+ \qquad
+ \tau_{\mathrm{sv}}(X)=\max(10^{-12},10^{-10}\sigma_{\max}(X)).
+ \label{eq:rank-gate}
+\end{equation}
+Equality is deficient. No arbitrary null-space completion is introduced.
+
+\subsection{Four prescribed gauge alignments}
+
+\paragraph{Identity, wire value \texttt{identity}.}
+$U_{\mathrm{id}}(k)=I_r$. This control measures the attacked representation as supplied.
+
+\paragraph{Global-unitary, wire value \texttt{global-unitary}.}
+One matrix minimizes the equal-weight objective
+\begin{equation}
+ J_{\mathcal S}(U)=\frac{1}{|\mathcal S|r}
+ \sum_{k\in\mathcal S}\|C(k)U-R(k)\|_\Frob^2.
+ \label{eq:global-objective}
+\end{equation}
+The selection sample is exactly the final construction mesh $\mathcal K_{2049}$. The
+selected unitary is reused on the coarser construction meshes and shifted evaluation
+mesh without refitting.
+
+\paragraph{Pointwise-unitary, wire value \texttt{pointwise-unitary}.}
+At every construction point,
+$U_{\mathrm{pt}}(k)=\mathcal P(C(k)^\dagger R(k))$. Selection is repeated separately on
+each construction mesh. Selected pointwise unitaries are not interpolated to the shifted
+evaluation mesh; the direct recovered reference there is the analytic $D_r(k)$.
+
+\paragraph{Known-inverse-oracle, wire value \texttt{known-inverse-oracle}.}
+$U_{\mathrm{oracle}}(k)=G_{r,L}(k)^{-1}=G_{r,L}(k)^\dagger$. This action performs no
+optimization. It checks construction, orientation, application, and Fourier conventions.
+It is not a practical estimator.
+
+The four names identify gauge alignments, not diagnostic channels. ``Error channel'' is
+reserved for the later interpolation, truncation, and total residual decomposition.
+
+\subsection{Alignment integrity evidence}
+
+For every selected Procrustes factor, the producer retains all singular values, the
+applied cutoff, strict rank margin, condition number when defined, and the objective
+recomputed from the original frames. It also evaluates
+\begin{equation}
+ \varepsilon_{\mathrm{unit}}=\|U^\dagger U-I_r\|_\Frob,
+ \qquad
+ \varepsilon_{\mathrm{stat}}
+ =\frac{\|U^\dagger X-X^\dagger U\|_\Frob}{\sqrt r},
+\end{equation}
+plus the covariance-objective identity and the negative part of the Hermitian polar
+factor. These checks distinguish a nominally returned matrix from a scientifically
+admitted alignment.
+
+\begin{proposition}[Pointwise and oracle recovery]
+For the P0 construction, pointwise-unitary and known-inverse-oracle alignment both
+recover $F_r(k)$ and $D_r(k)$ in exact arithmetic.
+\end{proposition}
+
+\begin{proof}
+Here $C(k)=F_rG_{r,L}$ and $R(k)=F_r$, so
+$C(k)^\dagger R(k)=G_{r,L}(k)^\dagger$. This matrix is unitary and has all singular
+values equal to one. Its unique full polar factor is itself, which equals the known
+inverse. Substitution into Equation~\eqref{eq:alignment-application} gives the claim.
+\end{proof}
+
+The two actions remain separate in software because one reconstructs a factor from
+sampled frames while the other receives the generating inverse. Their agreement tests an
+implementation contract; it is not an empirical discovery.
+
+\section{Common closed-loop frame transport}
+\label{sec:transport}
+
+Transport is applied to the analytic reference frame and is common to all four gauge
+alignments. It is not a fifth alignment and is not appended only to the pointwise case.
+This separation prevents transport defects from being misattributed to gauge-selection
+quality.
+
+On the ordered construction mesh, let $Y_n=F_r(k_n)$ and set
+$\widetilde F_0=Y_0$. At each neighbor link, form
+\begin{equation}
+ O_n=\widetilde F_n^\dagger Y_{n+1}=L_n\Sigma_nR_n^\dagger,
  \qquad
  Q_n=R_nL_n^\dagger,
  \qquad
  \widetilde F_{n+1}=Y_{n+1}Q_n.
- \label{eq:technical-sequential-transport}
+ \label{eq:parallel-transport}
 \end{equation}
-This is the right-unitary Procrustes transformation that aligns the next raw frame toward
-the already transported predecessor.  Indeed,
-\[
- \widetilde F_n^\dagger\widetilde F_{n+1}
- =L_n\Sigma_nL_n^\dagger,
-\]
-which is Hermitian positive semidefinite.
+Then $\widetilde F_n^\dagger\widetilde F_{n+1}$ is Hermitian positive semidefinite. The
+strict rank rule in Equation~\eqref{eq:rank-gate} applies to every link. A deficient link
+terminates dependent transport; later links are unattempted rather than fabricated.
 
-The complete singular spectrum is retained for every attempted link.  With
-\[
- \tau_{\mathrm{sv}}(O_n)
- =\max\!\left(10^{-12},10^{-10}\sigma_{\max}(O_n)\right),
-\]
-the link qualifies only when
-$\sigma_{\min}(O_n)>\tau_{\mathrm{sv}}(O_n)$.  Equality is deficient.  If a neighbor
-link is deficient, no null-space completion is applied: that link is recorded as
-deficient and all links that depend on its transported output are recorded as
-unattempted.  A backend decomposition failure is separate from mathematical rank
-deficiency and carries a stable operation, reason, and link index.
-
-\section{Endpoint mismatch, holonomy, and distributed closure}
-
-After the endpoint step, define the protocol-oriented endpoint mismatch
+After traversing the period, write the endpoint mismatch as
 \begin{equation}
- S=\widetilde F_0^\dagger\widetilde F_M.
- \label{eq:technical-endpoint-mismatch}
-\end{equation}
-Let its admitted unitary polar factor be
-\begin{equation}
- \mathcal H
- =Z\operatorname{diag}(e^{i\gamma_1},\ldots,e^{i\gamma_r})Z^\dagger,
+ \mathcal H=Z\operatorname{diag}(e^{i\gamma_1},\ldots,e^{i\gamma_r})Z^\dagger,
  \qquad \gamma_a\in(-\pi,\pi].
- \label{eq:technical-holonomy-spectrum}
+ \label{eq:holonomy}
 \end{equation}
-The branch is part of the method.  At eigenvalue $-1$, this convention chooses
-$\gamma=+\pi$, not $-\pi$.  Both signs exponentiate to the same endpoint eigenvalue, but
-they select different fractional matrix roots and therefore different intermediate
-gauges.  The branch cannot be chosen after observing a locality outcome.
-
-The periodically corrected frame is
+The branch choice is part of the method. It assigns $+\pi$ to eigenvalue $-1$ and thereby
+fixes the distributed root. Closed frames are
 \begin{equation}
- F_n^{\mathrm{pt}}
- =\widetilde F_n
- Z\operatorname{diag}\!\left(
- e^{-i(n/M)\gamma_1},\ldots,e^{-i(n/M)\gamma_r}
- \right)Z^\dagger,
- \qquad n=0,\ldots,M.
- \label{eq:technical-distributed-closure}
+ F_n^{\mathrm{closed}}=\widetilde F_n
+ Z\operatorname{diag}(e^{-in\gamma_1/M},\ldots,e^{-in\gamma_r/M})Z^\dagger.
+ \label{eq:distributed-closure}
 \end{equation}
-The phases are stored deterministically for reproducibility, but their scientific meaning
-is an unordered multiset.  Sorting is a storage convention, not a band labeling through
-degeneracies.
+If $\widetilde F_M=\widetilde F_0\mathcal H$, then
+$F_M^{\mathrm{closed}}=F_0^{\mathrm{closed}}$. For the constant P0 reference frame and
+identity sewing, the exact model predicts trivial transport and zero endpoint phases;
+the numerical transport remains valuable as an action-orientation and closure control.
 
-\begin{proposition}[Finite endpoint closure]
-If $\widetilde F_M=\widetilde F_0\mathcal H$ and
-Equations~\eqref{eq:technical-holonomy-spectrum}--\eqref{eq:technical-distributed-closure}
-hold, then $F_M^{\mathrm{pt}}=F_0^{\mathrm{pt}}$.
+The phase tuple is an unordered multiset scientifically. Deterministic sorting is a wire
+convention, not a continuation of individual band labels through degeneracies.
+
+\section{Finite-periodic Fourier and locality methodology}
+\label{sec:fourier}
+
+\subsection{Construction and evaluation meshes}
+
+The three construction meshes are
+\begin{equation}
+ \mathcal K_M=\left\{-\pi+\frac{2\pi n}{M}:n=0,\ldots,M-1\right\},
+ \qquad M\in\{513,1025,2049\}.
+ \label{eq:construction-mesh}
+\end{equation}
+All are odd, centered, and half open. The direct evaluation mesh is
+\begin{equation}
+ \mathcal K_{\mathrm{eval}}=
+ \left\{-\pi+\frac{2\pi(m+1/2)}{8191}:m=0,\ldots,8190\right\}.
+ \label{eq:evaluation-mesh}
+\end{equation}
+It is disjoint from every construction mesh and cannot influence a fit, support,
+tolerance, or reporting rule.
+
+For odd $M$, the canonical translation inventory is
+$\mathcal R_M=\{-(M-1)/2,\ldots,(M-1)/2\}$. There is no self-inverse Nyquist singleton;
+the canonical disposition is \texttt{absent-on-odd-mesh}.
+
+\subsection{Discrete transform and support policy}
+
+For one gauge alignment $a$, the finite-periodic transform is
+\begin{equation}
+ T_{a,M}(R)=\frac1M\sum_{k\in\mathcal K_M}e^{-ikR}H_a(k),
+ \qquad
+ H_{a,M}(k)=\sum_{R\in\mathcal R_M}e^{ikR}T_{a,M}(R).
+ \label{eq:discrete-transform}
+\end{equation}
+Only the forward transform carries $1/M$. The complete coefficient inventory is used for
+reconstruction and tail calculations. The public result retains the bounded norm
+inventory $|R|\leq128$ rather than serializing all dense coefficient arrays.
+
+The frozen supports are
+\begin{equation}
+ \Omega_S=\{R\in\mathbb Z:|R|\leq S\},
+ \qquad S\in\{0,1,2,4,8,16,32,64,128\}.
+ \label{eq:supports}
+\end{equation}
+Every support contains inversion pairs. All nine are evaluated; no first-passing or
+plot-selected support is promoted.
+
+For the reference diagonal field, Equations~\eqref{eq:retained-energy} and
+\eqref{eq:continuum-fourier} imply an exact support certificate.
+
+\begin{proposition}[Reference support]
+The continuum Fourier coefficients of $D_r(k)$ vanish for every $|R|>2$.
 \end{proposition}
 
 \begin{proof}
-At $n=M$, the correction is
-$Z\operatorname{diag}(e^{-i\gamma_a})Z^\dagger=\mathcal H^\dagger$.  Hence
-\[
- F_M^{\mathrm{pt}}
- =\widetilde F_M\mathcal H^\dagger
- =\widetilde F_0\mathcal H\mathcal H^\dagger
- =\widetilde F_0
- =F_0^{\mathrm{pt}}.
-\]
+Every diagonal entry of $D_r$ is a linear combination of $1$, $\cos k$, and
+$\cos2k$. These harmonics have Fourier indices only at $0$, $\pm1$, and $\pm2$.
 \end{proof}
 
-For the selected P0 family, the analytic endpoint obeys
-$Y_M=S_GY_0$ exactly.  In that setting the Optimization owner retains both orientations.
-Its closure right action $\mathcal A$ aligns the last primitive frame toward the sewn
-first frame,
-\[
- \widetilde F_{M-1}\mathcal A\approx S_G\widetilde F_0,
-\]
-and its endpoint mismatch is $\mathcal E=\mathcal A^\dagger$, matching the protocol
-orientation of $\mathcal H$.  Schur phases are phases of $\mathcal E$, not $\mathcal A$.
-The owner correction step is
-\[
- \mathcal W=Z\operatorname{diag}(e^{-i\gamma_a/M})Z^\dagger,
- \qquad \mathcal W^M=\mathcal E^\dagger=\mathcal A,
-\]
-and sample $j$ receives the right action $\mathcal W^j$.  The explicit owner branch
-\texttt{negative\_pi\_open}, whose value is $(-\pi,\pi]$, therefore reproduces the
-protocol directly, including $\gamma=+\pi$ and
-$\mathcal W=e^{-i\pi/M}$ at eigenvalue $-1$.  An interface that stored phases of
-$\mathcal A$ instead would require the inverse branch $[-\pi,\pi)$ to reproduce the same
-path.
+\begin{corollary}
+In exact arithmetic, pointwise-unitary and known-inverse-oracle alignment recover a
+represented field with continuum support $|R|\leq2$.
+\end{corollary}
 
-\begin{remark}
-A Schur basis inside an exactly degenerate phase subspace need not be unique.  The matrix
-function is nevertheless invariant under basis changes that remain within a subspace
-assigned the same branch value.  Near degeneracy, backend-specific Schur vectors are
-numerical evidence, not canonical physical band labels.
-\end{remark}
+This is an analytic certificate. Finite-transform reconstruction and binary64 residuals
+still require numerical checks.
 
-\section{Metric-explicit diagnostics}
+\subsection{Tail and error diagnostics}
 
-All scientific diagnostics name their norm and normalization.  For an $r$-column frame
-or an $r\times r$ unitary, the protocol-normalized Frobenius defect is
-\[
- d_{F,\mathrm{norm}}(A,B)
- =\frac{\lVert A-B\rVert_F}{\sqrt r},
- \qquad
- d_{U,\mathrm{norm}}(U)
- =\frac{\lVert U^\dagger U-I_r\rVert_F}{\sqrt r}.
-\]
-The reciprocal endpoint checks are
-\[
- d_{\mathrm{frame,endpoint}}
- =\frac{\lVert F(+\pi)-F(-\pi)\rVert_F}{\sqrt r},
-\]
-\[
- d_{\mathrm{projector,endpoint}}
- =\frac{\lVert P(+\pi)-P(-\pi)\rVert_F}{\sqrt r},
- \qquad P=FF^\dagger,
-\]
-and the primitive closure check is
-\[
- d_{\mathrm{closure}}
- =\frac{\lVert F_M^{\mathrm{pt}}-F_0^{\mathrm{pt}}\rVert_F}{\sqrt r}.
-\]
-The selected endpoint and primitive-closure tolerance is $10^{-11}$.  The P0 closure
-phase gate is
-\[
- d_{\mathrm{phase}}=\max_a|\gamma_a|\leq10^{-10}\ \mathrm{radian}.
-\]
-This is a protocol integrity check for the exactly trivial control, not a generic demand
-that physical holonomy vanish.
+For support $\Omega_S$, define the omitted quadratic weight, its square root, and the
+block-$\ell^1$ tail:
+\begin{align}
+ W_{a,M}(S)&=\sum_{R\notin\Omega_S}\|T_{a,M}(R)\|_\Frob^2,\\
+ N_{a,M}(S)&=\sqrt{W_{a,M}(S)},\\
+ L_{a,M}(S)&=\sum_{R\notin\Omega_S}\|T_{a,M}(R)\|_\Frob.
+\end{align}
+Cross-rank comparisons retain $W/(r\Eref^2)$ and $N/(\sqrt r\Eref)$ in addition to raw
+values. This prospective normalization prevents matrix dimension alone from determining
+a trend.
 
-A reusable numerical owner may additionally retain a maximum-absolute-entry defect for
-self-validation.  Such a value is not interchangeable with a Frobenius defect and must
-carry a metric-explicit name.  KSD computes and retains the protocol diagnostics through
-the canonical norm owners rather than relabeling an owner-internal validation metric.
+On the shifted mesh, the full interpolant, truncated interpolant, and direct analytic
+reference define
+\begin{align}
+ e_{\mathrm{interp}}(k)&=H_{a,M}(k)-H_a^{\mathrm{direct}}(k),\\
+ e_{\mathrm{trunc}}^{(S)}(k)&=H_{a,M}^{(S)}(k)-H_{a,M}(k),\\
+ e_{\mathrm{total}}^{(S)}(k)&=H_{a,M}^{(S)}(k)-H_a^{\mathrm{direct}}(k).
+ \label{eq:error-channels}
+\end{align}
+The pointwise identity
+$e_{\mathrm{total}}=e_{\mathrm{interp}}+e_{\mathrm{trunc}}$ is checked directly.
+Scalar maxima of the three error channels are not added: their maximizing points can
+differ, and cancellation in the total error is reported rather than called convergence.
 
-Table~\ref{tab:technical-frozen-tolerances} is a calculation-facing crosswalk of the
-frozen gates.  The protocol remains authoritative if this explanatory table and the
-selected version ever differ.
+For each residual, the study records maximum and RMS Frobenius operator error and maximum
+and RMS ordered-spectrum error. Ordered spectra are compared as sorted multisets rather
+than by tracking eigenvectors through crossings. At every point, the finite-dimensional
+bounds
+\begin{equation}
+ \max_i|\lambda_i(H_{\mathrm{approx}})-\lambda_i(H_{\mathrm{reference}})|
+ \leq\|e\|_2\leq\|e\|_\Frob
+ \label{eq:perturbation-bound}
+\end{equation}
+are checked \cite{hornJohnson2013}. Qualified saturation ratios are reported only when
+their denominators exceed the frozen floor.
+
+\section{Numerical study design}
+\label{sec:design}
+
+The complete matrix contains 16 rank/depth cases, three construction meshes, four gauge
+alignments, and nine supports. Before failure dispositions, this corresponds to 192
+mesh/alignment combinations and 1728 support rows. The global-unitary fit occurs once per
+case at $M=2049$ and is reused; it is not counted as a new fit on coarser or evaluation
+meshes.
+
+Figure~\ref{fig:scientific-flow} summarizes the scientific flow. Solid arrows denote
+fields used by later calculations. Dashed arrows denote common transport evidence that
+is correlated into the aggregate result but does not redefine a gauge alignment.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=5mm and 8mm,
+  box/.style={draw, rounded corners, align=center, font=\small,
+              inner sep=4pt, text width=43mm},
+  wide/.style={box, text width=103mm},
+  flow/.style={-{Latex[length=2mm]}, thick},
+  evidence/.style={flow, dashed}
+]
+\node[box] (parent) {Analytic parent and reference frame\\$D_r$, $F_r$, exact isolation};
+\node[box, right=of parent] (attack) {Gauge attack\\$G_{r,L}$, $F'$, $H'$};
+\node[wide, below=11mm of attack, xshift=-26mm] (alignments) {
+\textbf{Prescribed gauge alignments}\\
+identity \quad global-unitary at $M=2049$ and reused\\
+pointwise-unitary per mesh \quad known-inverse-oracle};
+\node[box, left=of alignments] (transport) {Common closed-loop transport\\analytic reference frame};
+\node[box, below=of alignments] (fields) {Gauge-aligned fields\\$F'U_a$, $U_a^\dagger H'U_a$};
+\node[box, below=of fields] (fourier) {Odd-mesh finite-periodic\\transform\\complete coefficient inventory};
+\node[box, below left=of fourier] (evaluation) {Shifted-mesh evaluation\\direct versus complete\\interpolant};
+\node[box, below right=of fourier] (supports) {Nine symmetric supports\\tail norms and truncation errors};
+\coordinate (branchbottom) at ($(evaluation.south)!0.5!(supports.south)$);
+\node[wide, below=8mm of branchbottom] (result) {Correlated typed evidence\\recovery, Parseval, Hermiticity, error decomposition, refinement};
+
+\draw[flow] (parent) -- (attack);
+\draw[flow] (attack) -- (alignments);
+\draw[flow] (alignments) -- (fields);
+\draw[flow] (fields) -- (fourier);
+\draw[flow] (fourier) -- (evaluation);
+\draw[flow] (fourier) -- (supports);
+\draw[flow] (evaluation) -- (result);
+\draw[flow] (supports) -- (result);
+\draw[evidence] (parent) -- (transport);
+\draw[evidence] (transport.south) |- (result.west);
+\end{tikzpicture}%
+}
+\caption{Scientific flow of one higher-rank case. Gauge alignment is performed before
+Fourier transformation and deliberate truncation.}
+\label{fig:scientific-flow}
+\end{figure}
+
+\subsection{Refinement and qualification}
+
+The smaller meshes are mandatory refinement controls. Blockwise comparisons cover both
+adjacent mesh pairs. The final scalar inventory uses the mandatory
+$1025\rightarrow2049$ pair and the absolute-relative rule
+\begin{equation}
+ |q_f-q_c|\leq\tau_{\mathrm{abs}}+\tau_{\mathrm{rel}}
+ \max(|q_c|,|q_f|),
+ \label{eq:refinement-rule}
+\end{equation}
+with a denominator floor for the separately reported relative change. The shared
+\path{ScalarRefinementAnalyzer} owns this arithmetic; the higher-rank diagnostic
+inventory owner defines which scientific quantities enter the ledger.
+
+A case is numerically qualified only if its mandatory construction, model, transport,
+alignment, Fourier, interpolation, and refinement gates pass. A global-unitary
+aggregate may instead carry the bounded disposition
+\texttt{aggregate-rank-deficient}; this makes only global-unitary downstream values
+inapplicable. Pointwise rank deficiency, documented backend failure, alignment integrity
+failure, or oracle integrity failure invalidates the complete case.
+
+\subsection{Claim-resolution rules}
+
+The protocol does not infer a locality effect from visual separation alone. For a
+qualified case, gauge-induced locality extension at $S=2$ is resolved only if the
+identity tail exceeds the frozen $10^{-6}$ scale, the oracle tail is below $10^{-10}$,
+and the identity ordered-spectrum truncation error also exceeds the effect-resolution
+floor. Rank or depth differences are descriptive unless their normalized difference
+exceeds both $10^{-6}$ and ten times the larger observed refinement change. These rules
+are fixed before execution and do not assert that an effect will be found.
+
+No monotonic trend with rank or depth is assumed. Noncommuting products can produce
+cancellation, and a finite ladder cannot establish an asymptotic law.
+
+\section{Diagnostic and evidence methodology}
+\label{sec:diagnostics}
+
+\subsection{Metric-explicit diagnostics}
+
+Every diagnostic names its norm and normalization. Frame and unitary residuals use
+$\|\cdot\|_\Frob/\sqrt r$ when rank-normalized; operator residuals use
+$\|\cdot\|_\Frob/(\sqrt r\Eref)$. Maximum-absolute-entry defects used internally by a
+backend are not relabeled as Frobenius diagnostics. Raw and normalized quantities remain
+available for different scientific questions.
+
+The transform checks include representative count, uniqueness, ordering, inversion
+closure, reconstruction, Hermitian pairing, Parseval equality, nested-support
+monotonicity, and the explicit odd-mesh Nyquist disposition. These are integrity checks,
+not alternative definitions of locality.
+
+\subsection{Fail-closed numerical outcomes}
+
+Rank deficiency, integrity failure, and backend failure have different meanings and
+remain distinct typed outcomes. Documented backend failures are converted into stable
+codes for nonfinite arithmetic, nonconvergence, or validation failure. Runtime exception
+messages, tracebacks, host paths, and fabricated numerical placeholders are excluded.
+Downstream values that were not scientifically established are absent, not zero.
+
+\subsection{Typed stage ownership}
+
+The maintained producer decomposes one gauge-alignment analysis into recovery, Fourier,
+interpolation, locality, and assembly stages. Each stage binds a complete immutable
+request and exposes a zero-argument execution. Stage evidence retains its exact source
+request. Assembly rejects same-shaped but uncorrelated arrays, a replacement request,
+wrong mesh coordinates, mismatched case identity, wrong gauge alignment, or inconsistent
+selection provenance.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.23\textwidth}YY}
+\toprule
+\textbf{Stage owner} & \textbf{Scientific responsibility} & \textbf{Evidence boundary} \\
+\midrule
+\path{fields.py} & Construct one immutable represented operator and frame field. & No parallel uncorrelated dictionaries. \\
+\path{recovery.py} & Compare fields with analytic or solver-owned references. & Frame and operator recovery remain separate. \\
+\path{fourier.py} & Apply the PhysKit odd-mesh transform and structural checks. & Coefficients are not silently normalized or reindexed. \\
+\path{interpolation.py} & Evaluate complete Fourier series and direct fields on the shifted mesh. & Evaluation coordinates are immutable and disjoint. \\
+\path{locality.py} & Evaluate every support and the three error channels. & No preferred support is selected. \\
+\path{assembly.py} & Correlate stages and construct the public mesh result. & No scientific recomputation during assembly. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Canonical typed JSON bytes and SHA-256 digests establish record identity and provenance.
+They do not establish scientific correctness. Independent recomputation must bypass the
+producer, and rendering must consume authenticated values without calculating new
+scientific quantities.
+
+\section{Results established before retained execution}
+\label{sec:results}
+
+\subsection{Analytic results}
+
+Table~\ref{tab:analytic-results} collects the results proved from the selected formulas.
+They require no numerical execution and must not be reported as empirical observations.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.28\textwidth}YY}
+\toprule
+\textbf{Result} & \textbf{Statement} & \textbf{Interpretive boundary} \\
+\midrule
+Exterior isolation & $\Delta_{\mathrm{iso}}=2.10\Eref$ for every selected rank. & Exact finite-model certificate; not a material band gap. \\
+Gauge covariance & Attack preserves projector and pointwise spectrum. & Does not preserve matrix entries or hopping locality. \\
+Pointwise recovery & Pointwise polar factor equals $G_{r,L}^\dagger$. & Exact P0 property; not evidence for noisy or unknown frames. \\
+Oracle recovery & Known inverse restores $F_r$ and $D_r$. & Construction control, not a fitted solution. \\
+Reference support & $T_{D_r}(R)=0$ for $|R|>2$. & Continuum statement; finite-transform defects remain numerical. \\
+Hermitian pairing & $T(-R)=T(R)^\dagger$. & Exact continuum identity tested separately on each finite mesh. \\
+\bottomrule
+\end{tabularx}
+\caption{Analytic results available before numerical execution.}
+\label{tab:analytic-results}
+\end{table}
+
+The exact results establish a controlled contrast. Identity and global-unitary alignment
+are not assigned finite support by construction, while pointwise-unitary and oracle
+alignment recover a field whose exact support is known. Whether the selected finite
+attack produces a \emph{resolved} tail or truncation effect at each $(r,L)$ remains a
+numerical question governed by the frozen thresholds.
+
+\subsection{Implementation and software-verification results}
+
+The maintained Python producer implements the analytic family, global and pointwise
+Procrustes selection, common PhysKit transport, odd-mesh finite-periodic transforms,
+shifted interpolation, support diagnostics, refinement, immutable typed records, and
+canonical serialization. The former monolithic gauge-alignment analysis has been split
+into cohesive request-bound scientific owners. Gauge-alignment wire values are
+descriptive and strictly mapped from a plain domain enum; obsolete opaque values and the
+former ambiguous key are rejected.
+
+At the time of this report revision, the focused higher-rank package suite passes 64
+tests, the calculation-local structural suite passes 4 tests, and the complete bounded
+package suite passes 4701 tests with 23 environment- or historical-tree-dependent skips
+and 89 explicitly expensive deselections. Ruff, strict source mypy, strict Sphinx,
+\texttt{compileall}, LaTeX builds, and \texttt{git diff --check} also pass. These results
+establish current software behavior and document buildability only. They do not
+constitute independent numerical verification of a scientific result.
+
+\subsection{Numerical results not yet available}
+
+No complete 16-case development execution was performed for this report revision. No
+retained result bytes have been admitted, and the bounded core-invariant reference does
+not cover the protocol's transport, Procrustes, Fourier, locality, or refinement values.
+The 4~GiB resource ceiling has not been demonstrated. Consequently this report does not
+provide rank or depth trends, support Pareto fronts, global-unitary residuals,
+wall-time scaling, or retained figures. Empty result space is reported explicitly rather
+than populated with illustrative or synthetic values that could be mistaken for
+calculated evidence.
+
+A later result section may be populated only from a separately authorized retained
+execution followed by independent recomputation and byte-owning verification. Its tables
+must distinguish calculated values from analytic certificates and must preserve
+unresolved or inapplicable dispositions.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{What the controlled comparison can establish}
+
+The construction isolates representation dependence. Since the parent, projector, and
+untruncated retained spectrum are held fixed, a resolved difference in finite-support
+error would demonstrate that short-range compressibility depends on retained-space gauge
+within this finite analytic family. It would not demonstrate that the parent model is
+physically realistic or that one gauge is universally optimal.
+
+Pointwise-unitary and oracle recovery form a strong implementation control because their
+exact target is known. Global-unitary alignment is scientifically different: one matrix
+cannot generally undo a momentum-dependent noncommuting attack. A nonzero qualified
+global residual would measure the limitation of that restricted feasible set, not solver
+failure. Conversely, a small residual at one finite case would not imply equivalence of
+global and pointwise alignment in general.
+
+\subsection{Interpreting rank and depth}
+
+Retained rank changes matrix dimension and the number of adjacent mixing edges. Circuit
+depth changes the ordered product of generally noncommuting rotations. The selected
+$\sqrt r$ and $r$ normalizations make cross-rank magnitudes interpretable without
+removing all rank dependence. Raw values remain necessary because normalization itself
+answers a different question.
+
+Depth is not a scalar attack amplitude. Additional layers can reinforce or cancel
+existing harmonics, so locality need not vary monotonically with $L$. The finite set
+$L\in\{1,2,4,8\}$ supports controlled comparisons only; it does not define a continuum
+or asymptotic-depth limit.
+
+\subsection{Transport and topological scope}
+
+The common closed-loop transport tests numerical continuity, endpoint sewing, and branch
+conventions. In P0 the exact reference projector is constant and topologically trivial.
+Closure phases are therefore transport diagnostics, not polarization, Wannier centers,
+or a topological invariant. The distributed closure is a smooth-gauge construction, not
+a localization optimum.
+
+A moving-projector or topologically nontrivial study would require patching, sewing, and
+obstruction contracts not present here. Such a study cannot be inferred by replacing the
+constant frame with backend eigenvectors while retaining the present evidence semantics.
+
+\subsection{Higher dimensions and nonorthonormal bases}
+
+Fiberwise equations such as $F'U$ and $U^\dagger H'U$ do not intrinsically select a
+spatial dimension. Meshes, Fourier indices, inversion closure, and support geometry do.
+The present Fourier and locality actions are therefore deliberately one-dimensional. A
+2-D or 3-D study must define reviewed tensor or nonorthogonal reciprocal meshes,
+multi-index representatives, complete point-group or inversion orbits, and a physical
+support metric. No placeholder implementation is supplied.
+
+Likewise, the current frames are orthonormal and their gauge group is $U(r)$. A
+nonorthonormal basis requires a positive-definite fiber metric, metric adjoint,
+generalized isometry group, conditioning evidence, and a metric-aware Procrustes
+objective. Treating that change as an optional parameter of the present action would
+hide a new mathematical contract.
+
+\subsection{Reproducibility and evidence lifecycle}
+
+The intended lifecycle is calculate $\rightarrow$ independently recompute
+$\rightarrow$ verify exact bytes $\rightarrow$ render authenticated values. The producer
+owns scientific calculation but not its independent reference. The verifier owns the
+admitted bytes and compares them with independently reconstructed formulas. The renderer
+owns presentation only.
+
+The calculation-local \path{workflow/} directory is historical provenance and remains
+outside the maintained runtime and tests. The direct development runner composes the
+maintained owners explicitly and labels its summary \texttt{scientific\_evidence: false}.
+No result is sealed, published, or released by executing that runner.
+
+\subsection{Limitations}
+
+The principal limitations are:
+\begin{enumerate}
+\item the parent is synthetic, finite dimensional, and dimensionless;
+\item only the constant-projector real-gauge P0/G0 specialization is implemented;
+\item the oracle assumes knowledge unavailable in an ordinary material calculation;
+\item only a bounded core-invariant reference analyzer is implemented; complete
+protocol-wide independent analysis and byte-owning verification are absent;
+\item complete runtime and memory compliance are unestablished;
+\item the finite rank/depth ladder supports no asymptotic law;
+\item no 2-D, 3-D, nonorthonormal, moving-subspace, or topological result is available;
+and
+\item passing tests does not establish scientific validation.
+\end{enumerate}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This report defines a publication-grade methodological account of a controlled
+higher-rank gauge-locality study without overstating its evidence status. The analytic
+family cleanly separates a physical retained operator from its finite matrix
+representation. A deterministic noncommuting gauge circuit changes matrix-valued
+hopping locality while preserving the retained projector and pointwise spectrum. Four
+prospectively fixed gauge alignments probe different information constraints, and a
+common transport control prevents frame-sewing effects from being conflated with gauge
+selection.
+
+The exact construction already establishes a uniform isolation energy, covariant
+spectral equivalence, pointwise and oracle recovery, and finite reference support. The
+software producer implements the planned finite numerical analysis with typed immutable
+evidence and fail-closed outcomes. The substantive numerical questions---how locality
+varies with rank and depth, how much a single global unitary can recover, and which
+finite supports are adequate under withheld evaluation---remain unanswered until an
+authorized execution is independently verified.
+
+The next scientific gate is therefore not publication but completion of independent
+reference analysis and byte-owning verification. Only after those owners,
+resource-qualified execution, and retained evidence review exist can numerical results
+be inserted into the report and considered for publication.
+
+\appendix
+
+\section{Frozen numerical inventory}
+\label{app:inventory}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{0.34\textwidth}Y}
+\toprule
+Quantity & Frozen value \\
+\midrule
+Retained ranks & $3,4,8,16$ \\
+Circuit depths & $1,2,4,8$ \\
+Ambient dimension & $2r$ \\
+Construction meshes & $513,1025,2049$ points \\
+Global-unitary selection mesh & $2049$ points only \\
+Shifted evaluation mesh & $8191$ points \\
+Gauge alignments & identity; global-unitary; pointwise-unitary; known-inverse-oracle \\
+Supports & $S=0,1,2,4,8,16,32,64,128$ with $|R|\leq S$ \\
+Singular-value cutoff & $\max(10^{-12},10^{-10}\sigma_{\max})$; equality deficient \\
+Principal phase branch & $(-\pi,\pi]$ \\
+Exact isolation certificate & $2.10\Eref$ \\
+Mandatory final refinement & $1025\rightarrow2049$ \\
+Arithmetic & binary64 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Frozen tolerance crosswalk}
+\label{app:tolerances}
+
+The authoritative protocol prevails if this explanatory table ever differs from the
+selected schema.
 
 {\small
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.54\textwidth}
-                         >{\raggedright\arraybackslash}p{0.23\textwidth}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.52\textwidth}
+                         >{\raggedright\arraybackslash}p{0.25\textwidth}
                          >{\raggedleft\arraybackslash}p{0.13\textwidth}@{}}
-\caption{Frozen P0 higher-rank numerical tolerances.}
-\label{tab:technical-frozen-tolerances}\\
+\caption{Frozen D1 P0/G0 numerical tolerances.}
+\label{tab:tolerances}\\
 \toprule
 Diagnostic & Normalization & Tolerance \\
 \midrule
@@ -259,173 +922,60 @@ momentum and endpoint coordinates & radian & $10^{-14}$ \\
 frame orthonormality, gauge/alignment unitarity, projector idempotency & raw Frobenius & $10^{-12}$ \\
 Procrustes stationarity, objective identity, and negative polar part & dimensionless & $10^{-12}$ \\
 smooth/attacked projector equality & raw Frobenius & $10^{-12}$ \\
-direct ordered-spectrum equivalence & $E_{\mathrm{ref}}$ & $10^{-11}$ \\
-A2/A3 frame recovery & $\sqrt r$ & $10^{-11}$ \\
-A2/A3 represented-operator recovery & $\sqrt rE_{\mathrm{ref}}$ & $10^{-11}$ \\
+direct ordered-spectrum equivalence & $\Eref$ & $10^{-11}$ \\
+pointwise/oracle frame recovery & $\sqrt r$ & $10^{-11}$ \\
+pointwise/oracle represented-operator recovery & $\sqrt r\Eref$ & $10^{-11}$ \\
 endpoint sewing and primitive closure & normalized Frobenius & $10^{-11}$ \\
 maximum closure-phase magnitude & radian & $10^{-10}$ \\
-Fourier reconstruction and Hermitian pairing & $\sqrt rE_{\mathrm{ref}}$ & $2\times10^{-11}$ \\
+Fourier reconstruction and Hermitian pairing & $\sqrt r\Eref$ & $2\times10^{-11}$ \\
 relative Parseval defect & dimensionless & $2\times10^{-11}$ \\
 error decomposition and support monotonicity & dimensionless & $2\times10^{-11}$ \\
-maximum perturbation-bound violation & $E_{\mathrm{ref}}$ & $10^{-11}$ \\
-final interpolant operator error & $\sqrt rE_{\mathrm{ref}}$ & $10^{-9}$ \\
-final interpolant ordered-spectrum maximum error & $E_{\mathrm{ref}}$ & $10^{-10}$ \\
-retained-block refinement, $|R|\leq128$ & $\sqrt rE_{\mathrm{ref}}$ per block & $10^{-10}$ \\
+maximum perturbation-bound violation & $\Eref$ & $10^{-11}$ \\
+final interpolant operator error & $\sqrt r\Eref$ & $10^{-9}$ \\
+final interpolant ordered-spectrum maximum error & $\Eref$ & $10^{-10}$ \\
+retained-block refinement, $|R|\leq128$ & $\sqrt r\Eref$ per block & $10^{-10}$ \\
 \bottomrule
 \end{longtable}
 }
 
-\section{Alignment and represented operators}
+\section{Result and failure semantics}
+\label{app:failures}
 
-Transport chooses a coherent reference frame.  It does not by itself align an attacked
-candidate.  The four protocol channels are subsequently applied to the candidate from
-the right.  Pointwise and one-global Procrustes alignment solve different optimization
-problems; the known inverse is an oracle; identity alignment performs no fit.  A
-rank-deficient global aggregate makes only that restricted channel inapplicable.  A
-rank-deficient pointwise overlap invalidates the selected P0 case because the analytic
-construction predicts full rank.
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.31\textwidth}YY}
+\toprule
+\textbf{Disposition} & \textbf{Meaning} & \textbf{Downstream consequence} \\
+\midrule
+\path{qualified} & Required scientific and integrity gates pass. & Declared downstream values are present. \\
+\path{aggregate-rank-deficient} & Global covariance fails the strict rank gate. & Only global-unitary downstream values are absent. \\
+\path{pointwise-rank-deficient} & At least one pointwise covariance fails the strict gate. & Complete P0 case is invalid. \\
+\path{alignment-numerically-unresolved} & Documented backend operation fails or becomes nonfinite. & No selected factor or locality values are fabricated. \\
+\path{alignment-integrity-failed} & Returned factor fails unitarity, stationarity, objective, or PSD checks. & Complete case is invalid. \\
+\path{oracle-integrity-failed} & Analytic inverse fails construction or recovery checks. & Complete case is invalid. \\
+\bottomrule
+\end{tabularx}
+\end{center}
 
-The KSD disposition inventory is closed:
-\begin{itemize}
- \item \path{qualified} means every required rank, unitary, stationarity, objective,
-       positive-semidefinite, oracle, and independent-comparison gate passes;
- \item \path{aggregate-rank-deficient} is a bounded A1 result: no A1 transformation or
-       downstream A1 locality value is emitted;
- \item \path{pointwise-rank-deficient} invalidates the complete P0 case;
- \item \path{alignment-numerically-unresolved} records nonfinite input or typed backend
-       failure without emitting a transformation;
- \item \path{alignment-integrity-failed} records a nominally full-rank A1/A2 factor that
-       fails a required integrity or independent-comparison gate; and
- \item \path{oracle-integrity-failed} records failure of A3 analytic unitarity, frame
-       recovery, operator recovery, or independent reconstruction.
-\end{itemize}
-Stable backend codes distinguish nonfinite arithmetic, nonconvergence, and validation
-failure; traceback text and host paths are not scientific fields.
+\section{Prospective retained-results presentation}
+\label{app:future-results}
 
-Every admitted action $U_A(k)$ transforms the represented Hamiltonian before Fourier
-conversion,
-\[
- H_A(k)=U_A(k)^\dagger H_C(k)U_A(k).
-\]
-Aligning already truncated hopping blocks is a different operation and is not substituted
-for reciprocal-space alignment.
-
-\section{Odd-mesh Fourier representation and locality}
-
-For odd $M$, the complete ordinary translation set is
-\[
- \mathcal R_M
- =\left\{-\frac{M-1}{2},\ldots,\frac{M-1}{2}\right\}.
-\]
-For each applicable channel,
-\[
- T_{A,M}(R)=\frac1M\sum_{n=0}^{M-1}e^{-ik_nR}H_A(k_n),
- \qquad
- H_{A,M}(k)=\sum_{R\in\mathcal R_M}e^{ikR}T_{A,M}(R).
-\]
-There is no Nyquist singleton and no cyclic-to-ordinary removal channel.  Support
-selection is a separate KSD policy:
-$\Omega_S=\{R:|R|\leq S\}$.  The complete transform, selected support, and deliberate
-truncation remain separate records.
-
-On the withheld mesh, the operator residuals are
-\[
- e_{\mathrm{interp}}=H_{A,M}-H_A^{\mathrm{direct}},
- \qquad
- e_{\mathrm{trunc}}^{(S)}=H_{A,M}^{(S)}-H_{A,M},
-\]
-\[
- e_{\mathrm{total}}^{(S)}
- =H_{A,M}^{(S)}-H_A^{\mathrm{direct}}
- =e_{\mathrm{interp}}+e_{\mathrm{trunc}}^{(S)}.
-\]
-Only the pointwise residuals telescope.  Their scalar maxima are not added, and a
-cancellation in the total channel is reported rather than called convergence.  For each
-channel $x\in\{\mathrm{interp},\mathrm{trunc},\mathrm{total}\}$, cross-rank operator
-summaries use, for example,
-\[
- \epsilon_{F,\max}^{(x)}
- =\max_k\frac{\lVert e_x(k)\rVert_F}{\sqrt rE_{\mathrm{ref}}},
- \qquad
- \epsilon_{F,\mathrm{RMS}}^{(x)}
- =\left(\frac1{N_{\mathrm{eval}}}\sum_k
- \frac{\lVert e_x(k)\rVert_F^2}{rE_{\mathrm{ref}}^2}\right)^{1/2}.
-\]
-Ordered-spectrum errors are normalized by $E_{\mathrm{ref}}$.  These are separate from
-spectral-norm perturbation evidence and from hopping-tail weights.
-
-\section{Software-owner boundary}
-
-The intended dependency direction is
-\[
- \texttt{ksdft2effmass}
- \longrightarrow \texttt{projectkoios.physkit}
- \longrightarrow \texttt{projectkoios-optimization}.
-\]
-Optimization owns unit-free right-unitary Procrustes transport, numerical-rank evidence,
-closure decomposition, fractional-root construction, and typed backend failures.  Its
-current contract requires an explicit
-\texttt{ClosedLoopPolarFrameTransportPrincipalPhaseBranch}; KSD selects
-\texttt{negative\_pi\_open}.  The result separately retains
-\texttt{closure\_alignment\_right\_action},
-\texttt{closure\_endpoint\_mismatch},
-\texttt{distributed\_closure\_correction\_step}, and the deterministically stored
-endpoint-mismatch phase tuple.  Owner validation defects explicitly name their
-maximum-absolute-entry metric.
-
-PhysKit binds those arrays to the ordered reciprocal route or one-dimensional
-finite-periodic mesh, ambient-basis identity, retained-frame identity, and endpoint-sewing
-semantics.  KSD owns the synthetic parent, scientific tolerances, normalized Frobenius
-diagnostics, alignment-channel dispositions, Fourier support policy, result wire,
-independent verification, and claim resolution.
-
-The Optimization implementation is committed at
-\path{ef608716ae9f515f56406dd517c1a8b7487d3391} and published on its work branch.  The
-adapted PhysKit semantic wrapper is locally committed at
-\path{3371d8883c85fdd16754cffb29d3f4ec21dd7861} but has not been pushed.  Neither owner
-revision is yet integrated through KSD's declared dependencies.  This report therefore
-records the target boundary without claiming that the maintained KSD runtime already
-consumes it.  The calculation-local \path{workflow/}
-package must not be copied or imported into the runtime.
-
-\section{Independent verification boundary}
-
-The future producer uses canonical owner actions.  The independent reference analyzer
-must reconstruct the finite formulas without calling the producer analyzer.  At minimum
-it independently checks:
-
+A later independently verified result package should populate, at minimum:
 \begin{enumerate}
- \item ordered point and sewing identities;
- \item every overlap spectrum, cutoff, strict margin, and rank disposition;
- \item right-action orientation and transported-frame reconstruction;
- \item endpoint mismatch or inverse-closure orientation;
- \item Schur reconstruction, selected phase branch, fractional root, and root power;
- \item endpoint and primitive-closure normalized Frobenius defects;
- \item represented-operator covariance;
- \item direct Fourier sums, Hermitian pairs, Parseval, support masks, and tail norms; and
- \item interpolation, truncation, total-error, and perturbation-bound channels.
+\item one qualification table for all 16 cases and four gauge alignments;
+\item global and pointwise rank-margin summaries;
+\item common transport and endpoint-closure diagnostics;
+\item normalized block-norm decay for every declared support;
+\item separate interpolation, truncation, and total operator and spectrum errors;
+\item the complete $1025\rightarrow2049$ scalar-refinement ledger;
+\item rank/depth comparisons with the frozen resolution rule;
+\item resource measurements for producer and independent verifier; and
+\item exact result, verification, provenance, and rendering byte identities.
 \end{enumerate}
+No table should replace inapplicable or unresolved entries with zero. No plot should
+select a preferred support unless a separately reviewed decision rule is added before
+execution.
 
-One byte-owning verifier admits the exact immutable result bytes, composes this reference
-analysis, and reports a closed inventory of scientific comparisons.  Passing establishes
-bounded software and finite-protocol numerical behavior only.
-
-\section{Limitations and nonclaims}
-
-The selected family is a topologically trivial synthetic control.  Closure phases are
-transport and sewing diagnostics, not a Chern, polarization, or Wannier-center result.
-The distributed closure is a smooth-gauge construction, not a localization optimum.  No
-two- or three-dimensional higher-rank calculation exists.  Moving retained subspaces,
-complex gauge phases, restricted-circuit fitting, patchwise frames, and material
-specialization remain prospective.  Current work establishes neither continuum
-convergence nor scientific validation.
-
-\section{Next gate}
-
-The next KSD gate is a stable typed request/result contract built on integrated owner
-dependencies, followed by a producer-independent direct-formula analyzer and authenticated
-rendering.  Only after implementation review, strict schema validation, complete tests,
-and an unreleased resource-measured dry run may a separately authorized retained
-execution be considered.
+\bibliographystyle{unsrt}
+\bibliography{references}
 
 \end{document}

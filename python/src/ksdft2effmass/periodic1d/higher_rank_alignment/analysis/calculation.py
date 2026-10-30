@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 import math
-from fractions import Fraction
 from typing import final
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
-from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
     NumpyBatchedComplexUnitaryProcrustesResult,
@@ -24,7 +22,6 @@ from projectkoios.physkit.solidstate.tb import (
     FinitePeriodicMatrixFourierTensorEvaluator,
     FinitePeriodicMatrixFourierTransformer,
 )
-from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldErrorAnalyzer,
@@ -34,55 +31,43 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     ScalarRefinementAnalyzer,
 )
 
-from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
-from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
-from .channel_analysis import (
-    Periodic1DHigherRankChannelAnalysisRequest,
-    Periodic1DHigherRankChannelAnalyzer,
-)
-from .channel_results import (
-    Periodic1DHigherRankChannelMeshResult,
-    Periodic1DHigherRankMeshCalculationResult,
-)
-from .definition import (
-    Periodic1DHigherRankAlignmentBackendExceptionCode,
-    Periodic1DHigherRankAlignmentChannel,
-    Periodic1DHigherRankAlignmentStatus,
-    Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
-)
-from .diagnostics import (
+from ..calculation import Periodic1DHigherRankAlignmentCalculationRequest
+from ..calculation_result import Periodic1DHigherRankAlignmentCalculationResult
+from ..definition import Periodic1DHigherRankAlignmentStatus
+from ..diagnostics import (
     Periodic1DHigherRankModelDiagnostics,
     Periodic1DHigherRankProcrustesDiagnostics,
 )
-from .model import (
+from ..gauge_alignment.analysis import (
+    Periodic1DHigherRankGaugeAlignmentAnalysisRequest,
+    Periodic1DHigherRankGaugeAlignmentAnalyzer,
+)
+from ..gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
+from ..gauge_alignment.fields import (
+    Periodic1DHigherRankGaugeAlignedFields,
+    Periodic1DHigherRankGaugeAlignmentConstructionRequest,
+    Periodic1DHigherRankGaugeAlignmentConstructor,
+)
+from ..gauge_alignment.results import (
+    Periodic1DHigherRankGaugeAlignmentMeshResult,
+    Periodic1DHigherRankMeshCalculationResult,
+)
+from ..model import (
     Periodic1DHigherRankAnalyticCase,
     Periodic1DHigherRankAnalyticCaseConstructor,
 )
-from .provenance import Periodic1DHigherRankEvaluationIndependenceResult
-from .refinement import (
+from ..refinement import (
     Periodic1DHigherRankRefinementAnalysisRequest,
     Periodic1DHigherRankRefinementAnalyzer,
 )
-from .result import (
+from ..result import (
     Periodic1DHigherRankAlignmentStatusResult,
     Periodic1DHigherRankAlignmentTransportBackendFailureResult,
     Periodic1DHigherRankAlignmentTransportOwnerResult,
 )
-
-_GlobalApplicability = Periodic1DHigherRankGlobalUnitaryDownstreamApplicability
-_INAPPLICABLE_GLOBAL_RANK = _GlobalApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
-
-
-def _coordinates(mesh_size: int, offset: float) -> RealArray:
-    values = np.asarray(
-        -0.5 + (np.arange(mesh_size, dtype=np.float64) + offset) / mesh_size,
-        dtype=np.float64,
-    )
-    return NumpyImmutableArrayConstructor(
-        values,
-        "coordinates",
-        np.dtype(np.float64),
-    ).execute()
+from .evaluation import Periodic1DHigherRankEvaluationIndependenceAnalyzer
+from .mesh import _coordinates, _status, _unavailable_gauge_alignment_result
+from .procrustes import _failed_procrustes_record, _procrustes_record
 
 
 def _adjoint(value: ComplexArray) -> ComplexArray:
@@ -97,328 +82,6 @@ def _apply_right_basis_change(
         _adjoint(right_unitaries) @ matrices @ right_unitaries,
         dtype=np.complex128,
     )
-
-
-def _status(
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
-    mesh_size: int,
-    channel: Periodic1DHigherRankAlignmentChannel,
-    status: Periodic1DHigherRankAlignmentStatus,
-    backend_exception_code: (
-        Periodic1DHigherRankAlignmentBackendExceptionCode | None
-    ) = None,
-) -> Periodic1DHigherRankAlignmentStatusResult:
-    applicability = None
-    if (
-        channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY
-        and status is Periodic1DHigherRankAlignmentStatus.QUALIFIED
-    ):
-        applicability = (
-            Periodic1DHigherRankGlobalUnitaryDownstreamApplicability.APPLICABLE
-        )
-    elif (
-        channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY
-        and status is Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT
-    ):
-        applicability = _INAPPLICABLE_GLOBAL_RANK
-    return Periodic1DHigherRankAlignmentStatusResult(
-        case_identity=request.case_identity,
-        retained_rank=request.retained_rank,
-        circuit_depth=request.circuit_depth,
-        construction_mesh_size=mesh_size,
-        channel=channel,
-        status=status,
-        global_unitary_downstream_applicability=applicability,
-        backend_exception_code=backend_exception_code,
-    )
-
-
-def _unavailable_channel_result(
-    status: Periodic1DHigherRankAlignmentStatusResult,
-) -> Periodic1DHigherRankChannelMeshResult:
-    return Periodic1DHigherRankChannelMeshResult(
-        status=status,
-        transform_backend_identifier=None,
-        transform_backend_version=None,
-        fourier_representative_count=None,
-        fourier_representative_inventory_ordered_unique=None,
-        fourier_inversion_closed=None,
-        fourier_index_bijection_pass=None,
-        no_nyquist_disposition=None,
-        coefficient_translations=np.empty(0, dtype=np.int64),
-        block_raw_frobenius_norms=np.empty(0, dtype=np.float64),
-        block_normalized_frobenius_norms=np.empty(0, dtype=np.float64),
-        frame_recovery=None,
-        known_frame_recovery_pass=None,
-        represented_operator_recovery=None,
-        known_operator_recovery_pass=None,
-        reconstruction=None,
-        reconstruction_pass=None,
-        interpolation=None,
-        final_interpolation_operator_pass=None,
-        final_interpolation_spectrum_pass=None,
-        parseval_relative_defect=None,
-        parseval_pass=None,
-        ordinary_hermiticity_defect=None,
-        ordinary_hermiticity_pass=None,
-        twisted_cyclic_hermiticity_defect=None,
-        twisted_cyclic_hermiticity_pass=None,
-        supports=(),
-        maximum_tail_increase=None,
-        all_tail_monotonicity_checks_pass=None,
-    )
-
-
-def _procrustes_integrity(
-    source: ComplexArray,
-    target: ComplexArray,
-    result: NumpyBatchedComplexUnitaryProcrustesResult,
-) -> tuple[RealArray, float, float, float, float]:
-    rank = result.right_unitary_completions.shape[-1]
-    right = result.right_unitary_completions
-    residuals = np.asarray(
-        result.optimal_residual_frobenius_norms / math.sqrt(rank),
-        dtype=np.float64,
-    )
-    identity = np.eye(rank, dtype=np.complex128)
-    unitary = float(
-        np.max(np.linalg.norm(_adjoint(right) @ right - identity, axis=(-2, -1)))
-    )
-    cross = _adjoint(source) @ target
-    stationary = _adjoint(right) @ cross
-    stationarity = float(
-        np.max(np.linalg.norm(stationary - _adjoint(stationary), axis=(-2, -1)))
-        / math.sqrt(rank)
-    )
-    direct_objectives = (
-        np.sum(
-            np.abs(source @ right - target) ** 2,
-            axis=(-2, -1),
-            dtype=np.float64,
-        )
-        / rank
-    )
-    covariance_objectives = 2.0 - (2.0 / rank) * np.real(
-        np.trace(_adjoint(cross) @ right, axis1=-2, axis2=-1)
-    )
-    objective_identity = float(
-        np.max(np.abs(direct_objectives - covariance_objectives))
-    )
-    hermitian_part = 0.5 * (stationary + _adjoint(stationary))
-    minimum_eigenvalues = np.linalg.eigvalsh(hermitian_part)[..., 0]
-    psd_defect = float(max(0.0, -float(np.min(minimum_eigenvalues))))
-    return residuals, unitary, stationarity, objective_identity, psd_defect
-
-
-def _procrustes_backend_exception_code(
-    exception: ArithmeticError | RuntimeError | ValueError,
-) -> Periodic1DHigherRankAlignmentBackendExceptionCode:
-    if isinstance(exception, FloatingPointError):
-        return Periodic1DHigherRankAlignmentBackendExceptionCode.ARITHMETIC_NONFINITE
-    if isinstance(exception, (np.linalg.LinAlgError, RuntimeError)):
-        return Periodic1DHigherRankAlignmentBackendExceptionCode.NONCONVERGENCE
-    return Periodic1DHigherRankAlignmentBackendExceptionCode.VALIDATION_FAILED
-
-
-def _failed_procrustes_record(
-    *,
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
-    channel: Periodic1DHigherRankAlignmentChannel,
-    selection_mesh_size: int,
-    exception: ArithmeticError | RuntimeError | ValueError,
-) -> Periodic1DHigherRankProcrustesDiagnostics:
-    status = Periodic1DHigherRankAlignmentStatusResult(
-        case_identity=request.case_identity,
-        retained_rank=request.retained_rank,
-        circuit_depth=request.circuit_depth,
-        construction_mesh_size=selection_mesh_size,
-        channel=channel,
-        status=Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
-        global_unitary_downstream_applicability=None,
-        backend_exception_code=_procrustes_backend_exception_code(exception),
-    )
-    return Periodic1DHigherRankProcrustesDiagnostics(
-        status=status,
-        selection_mesh_size=selection_mesh_size,
-        cross_singular_values=np.empty((0, request.retained_rank), dtype=np.float64),
-        numerical_ranks=np.empty(0, dtype=np.int64),
-        applied_rank_cutoffs=np.empty(0, dtype=np.float64),
-        rank_margins=np.empty(0, dtype=np.float64),
-        spectral_condition_numbers=(),
-        deficient_point_indices=(),
-        deficient_point_count=0,
-        normalized_optimal_residuals=np.empty(0, dtype=np.float64),
-        normalized_objective_maximum=None,
-        normalized_objective_rms=None,
-        minimum_rank_margin=None,
-        maximum_unitarity_defect=None,
-        maximum_stationarity_defect=None,
-        maximum_objective_identity_defect=None,
-        maximum_psd_defect=None,
-        selected_global_right_unitary=None,
-        backend_identifier=None,
-        backend_version=None,
-    )
-
-
-def _procrustes_record(
-    *,
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
-    channel: Periodic1DHigherRankAlignmentChannel,
-    selection_mesh_size: int,
-    source: ComplexArray,
-    target: ComplexArray,
-    result: NumpyBatchedComplexUnitaryProcrustesResult,
-) -> Periodic1DHigherRankProcrustesDiagnostics:
-    full_rank = bool(np.all(result.full_rank))
-    residuals, unitarity, stationarity, objective_identity, psd = _procrustes_integrity(
-        source, target, result
-    )
-    integrity_passes = (
-        max(
-            unitarity,
-            stationarity,
-            objective_identity,
-            psd,
-        )
-        <= request.controls.alignment_integrity_tolerance
-    )
-    if channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY:
-        outcome = (
-            Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT
-            if not full_rank
-            else (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED
-                if integrity_passes
-                else Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED
-            )
-        )
-    else:
-        outcome = (
-            Periodic1DHigherRankAlignmentStatus.POINTWISE_RANK_DEFICIENT
-            if not full_rank
-            else (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED
-                if integrity_passes
-                else Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED
-            )
-        )
-    selected = None
-    if (
-        channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY
-        and outcome is Periodic1DHigherRankAlignmentStatus.QUALIFIED
-    ):
-        selected = ComplexMatrixQuantity(
-            np.asarray(result.right_unitary_completions[0], dtype=np.complex128),
-            Unitless(),
-        )
-    if result.backend_identifier is None or result.backend_version is None:
-        raise ValueError("nonempty Procrustes selection requires backend evidence")
-    return Periodic1DHigherRankProcrustesDiagnostics(
-        status=_status(request, selection_mesh_size, channel, outcome),
-        selection_mesh_size=selection_mesh_size,
-        cross_singular_values=np.asarray(
-            result.cross_singular_values, dtype=np.float64
-        ),
-        numerical_ranks=np.asarray(result.numerical_ranks, dtype=np.int64),
-        applied_rank_cutoffs=np.asarray(result.applied_rank_cutoffs, dtype=np.float64),
-        rank_margins=np.asarray(
-            result.cross_singular_values[..., -1] - result.applied_rank_cutoffs,
-            dtype=np.float64,
-        ),
-        spectral_condition_numbers=tuple(
-            float(values[0] / values[-1])
-            if rank == request.retained_rank and values[-1] > cutoff
-            else None
-            for values, rank, cutoff in zip(
-                result.cross_singular_values,
-                result.numerical_ranks,
-                result.applied_rank_cutoffs,
-                strict=True,
-            )
-        ),
-        deficient_point_indices=(
-            tuple(int(index) for index in np.flatnonzero(~result.full_rank))
-            if channel is Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY
-            else ()
-        ),
-        deficient_point_count=(
-            int(np.count_nonzero(~result.full_rank))
-            if channel is Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY
-            else 0
-        ),
-        normalized_optimal_residuals=residuals,
-        normalized_objective_maximum=float(np.max(residuals)),
-        normalized_objective_rms=float(np.sqrt(np.mean(residuals**2))),
-        minimum_rank_margin=float(
-            np.min(result.cross_singular_values[..., -1] - result.applied_rank_cutoffs)
-        ),
-        maximum_unitarity_defect=unitarity,
-        maximum_stationarity_defect=stationarity,
-        maximum_objective_identity_defect=objective_identity,
-        maximum_psd_defect=psd,
-        selected_global_right_unitary=selected,
-        backend_identifier=result.backend_identifier,
-        backend_version=result.backend_version,
-    )
-
-
-@final
-class Periodic1DHigherRankEvaluationIndependenceAnalyzer:
-    """Derive exact mesh separation and selection-input provenance."""
-
-    __slots__ = ("_request",)
-
-    def __init__(
-        self,
-        request: Periodic1DHigherRankAlignmentCalculationRequest,
-    ) -> None:
-        """Bind one complete immutable higher-rank calculation request."""
-        if type(request) is not Periodic1DHigherRankAlignmentCalculationRequest:
-            raise TypeError(
-                "request must be Periodic1DHigherRankAlignmentCalculationRequest"
-            )
-        self._request = request
-
-    @property
-    def request(self) -> Periodic1DHigherRankAlignmentCalculationRequest:
-        """Return the exact calculation request bound to this action."""
-        return self._request
-
-    def execute(self) -> Periodic1DHigherRankEvaluationIndependenceResult:
-        """Return exact rational mesh and selection provenance."""
-        configuration = self._request.configuration
-        denominator = configuration.evaluation_shift_denominator
-        numerator = configuration.evaluation_shift_numerator
-        evaluation_size = configuration.evaluation_mesh_size
-        evaluation_coordinates = {
-            Fraction(index * denominator + numerator, evaluation_size * denominator)
-            for index in range(evaluation_size)
-        }
-        construction_evaluation_disjoint = all(
-            evaluation_coordinates.isdisjoint(
-                Fraction(index, mesh_size) for index in range(mesh_size)
-            )
-            for mesh_size in configuration.construction_mesh_sizes
-        )
-        evaluation_mesh_excluded_from_selection = (
-            evaluation_size != configuration.global_unitary_selection_mesh_size
-            and evaluation_size not in configuration.construction_mesh_sizes
-        )
-        return Periodic1DHigherRankEvaluationIndependenceResult(
-            construction_mesh_sizes=configuration.construction_mesh_sizes,
-            evaluation_mesh_size=evaluation_size,
-            evaluation_shift_numerator=numerator,
-            evaluation_shift_denominator=denominator,
-            global_selection_mesh_size=(
-                configuration.global_unitary_selection_mesh_size
-            ),
-            pointwise_selection_mesh_sizes=configuration.construction_mesh_sizes,
-            construction_evaluation_disjoint=construction_evaluation_disjoint,
-            evaluation_mesh_excluded_from_selection=(
-                evaluation_mesh_excluded_from_selection
-            ),
-        )
 
 
 @final
@@ -555,13 +218,13 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         except (ArithmeticError, RuntimeError, ValueError) as exception:
             return _failed_procrustes_record(
                 request=self._request,
-                channel=Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
+                gauge_alignment=Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
                 selection_mesh_size=mesh_size,
                 exception=exception,
             )
         return _procrustes_record(
             request=self._request,
-            channel=Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
+            gauge_alignment=Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
             selection_mesh_size=mesh_size,
             source=source,
             target=target,
@@ -584,14 +247,14 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         except (ArithmeticError, RuntimeError, ValueError) as exception:
             pointwise_selection = _failed_procrustes_record(
                 request=self._request,
-                channel=Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
+                gauge_alignment=Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
                 selection_mesh_size=mesh_size,
                 exception=exception,
             )
         else:
             pointwise_selection = _procrustes_record(
                 request=self._request,
-                channel=Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
+                gauge_alignment=Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
                 selection_mesh_size=mesh_size,
                 source=attacked_frames,
                 target=reference_frames,
@@ -626,17 +289,17 @@ class Periodic1DHigherRankAlignmentAnalyzer:
                 reference_frames,
                 attacked_frames,
             )
-            channels = tuple(
-                _unavailable_channel_result(
+            gauge_alignment_results = tuple(
+                _unavailable_gauge_alignment_result(
                     _status(
                         self._request,
                         mesh_size,
-                        channel,
+                        gauge_alignment,
                         Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
                         transport_failure.backend_exception_code,
                     )
                 )
-                for channel in self._request.configuration.alignment_channels
+                for gauge_alignment in self._request.configuration.gauge_alignments
             )
             return Periodic1DHigherRankMeshCalculationResult(
                 construction_mesh_size=mesh_size,
@@ -646,7 +309,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
                 endpoint_closure_defect=None,
                 primitive_closure_defect=None,
                 pointwise_selection=pointwise_selection,
-                channels=channels,
+                gauge_alignment_results=gauge_alignment_results,
             )
         transport = (
             Periodic1DHigherRankAlignmentTransportOwnerResult.from_owner_outcome(
@@ -684,19 +347,18 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             pointwise_selection,
             global_selection,
         )
-        channels = tuple(
-            self._channel_result(
+        gauge_alignment_results = tuple(
+            self._gauge_alignment_result(
                 model=model,
                 mesh=mesh,
                 coordinates=coordinates,
-                channel=channel,
-                aligned_samples=aligned[0].get(channel),
-                aligned_frames=aligned[1].get(channel),
+                gauge_alignment=gauge_alignment,
+                aligned_fields=aligned.get(gauge_alignment),
                 global_selection=global_selection,
                 pointwise_result=pointwise_result,
                 pointwise_selection=pointwise_selection,
             )
-            for channel in self._request.configuration.alignment_channels
+            for gauge_alignment in self._request.configuration.gauge_alignments
         )
         return Periodic1DHigherRankMeshCalculationResult(
             construction_mesh_size=mesh_size,
@@ -706,7 +368,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             endpoint_closure_defect=endpoint_defect,
             primitive_closure_defect=primitive_defect,
             pointwise_selection=pointwise_selection,
-            channels=channels,
+            gauge_alignment_results=gauge_alignment_results,
         )
 
     def _model_diagnostics(
@@ -821,122 +483,104 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         pointwise_result: NumpyBatchedComplexUnitaryProcrustesResult | None,
         pointwise_selection: Periodic1DHigherRankProcrustesDiagnostics,
         global_selection: Periodic1DHigherRankProcrustesDiagnostics,
-    ) -> tuple[
-        dict[Periodic1DHigherRankAlignmentChannel, ComplexArray],
-        dict[Periodic1DHigherRankAlignmentChannel, ComplexArray],
+    ) -> dict[
+        Periodic1DHigherRankGaugeAlignment,
+        Periodic1DHigherRankGaugeAlignedFields,
     ]:
-        attacked = model.attacked_reduced_hamiltonians(coordinates)
-        attacked_frames = model.attacked_frames(coordinates)
-        matrix_result: dict[Periodic1DHigherRankAlignmentChannel, ComplexArray] = {
-            Periodic1DHigherRankAlignmentChannel.IDENTITY: attacked,
-        }
-        frame_result: dict[Periodic1DHigherRankAlignmentChannel, ComplexArray] = {
-            Periodic1DHigherRankAlignmentChannel.IDENTITY: attacked_frames,
-        }
-        selected = global_selection.selected_global_right_unitary
-        if selected is not None:
-            right = np.broadcast_to(
-                selected.magnitude,
-                (coordinates.size, model.retained_rank, model.retained_rank),
-            )
-            matrix_result[Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY] = (
-                _apply_right_basis_change(attacked, right)
-            )
-            frame_result[Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY] = (
-                np.asarray(attacked_frames @ right, dtype=np.complex128)
-            )
-        if (
-            pointwise_selection.status.status
-            is Periodic1DHigherRankAlignmentStatus.QUALIFIED
-        ):
-            if pointwise_result is None:
-                raise ValueError("qualified pointwise selection requires a result")
-            pointwise_right = pointwise_result.right_unitary_completions
-            matrix_result[Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY] = (
-                _apply_right_basis_change(attacked, pointwise_right)
-            )
-            frame_result[Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY] = (
-                np.asarray(attacked_frames @ pointwise_right, dtype=np.complex128)
-            )
-        gauge_inverse = _adjoint(model.gauge_unitaries(coordinates))
-        matrix_result[Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE] = (
-            _apply_right_basis_change(attacked, gauge_inverse)
-        )
-        frame_result[Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE] = (
-            np.asarray(attacked_frames @ gauge_inverse, dtype=np.complex128)
-        )
-        return matrix_result, frame_result
+        alignments: dict[
+            Periodic1DHigherRankGaugeAlignment,
+            Periodic1DHigherRankGaugeAlignedFields,
+        ] = {}
+        for gauge_alignment in self._request.configuration.gauge_alignments:
+            if (
+                gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
+                and global_selection.status.status
+                is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+            ) or (
+                gauge_alignment is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY
+                and pointwise_selection.status.status
+                is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+            ):
+                continue
+            alignments[gauge_alignment] = Periodic1DHigherRankGaugeAlignmentConstructor(
+                Periodic1DHigherRankGaugeAlignmentConstructionRequest(
+                    calculation_request=self._request,
+                    model=model,
+                    gauge_alignment=gauge_alignment,
+                    coordinates=coordinates,
+                    global_selection=global_selection,
+                    pointwise_alignment=(
+                        pointwise_result
+                        if gauge_alignment
+                        is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY
+                        else None
+                    ),
+                )
+            ).execute()
+        return alignments
 
-    def _channel_status(
+    def _gauge_alignment_status(
         self,
         mesh_size: int,
-        channel: Periodic1DHigherRankAlignmentChannel,
+        gauge_alignment: Periodic1DHigherRankGaugeAlignment,
         global_selection: Periodic1DHigherRankProcrustesDiagnostics,
         pointwise_selection: Periodic1DHigherRankProcrustesDiagnostics,
     ) -> Periodic1DHigherRankAlignmentStatusResult:
-        if channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY:
+        if gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY:
             return _status(
                 self._request,
                 mesh_size,
-                channel,
+                gauge_alignment,
                 global_selection.status.status,
                 global_selection.status.backend_exception_code,
             )
-        if channel is Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY:
+        if gauge_alignment is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY:
             return pointwise_selection.status
         return _status(
             self._request,
             mesh_size,
-            channel,
+            gauge_alignment,
             Periodic1DHigherRankAlignmentStatus.QUALIFIED,
         )
 
-    def _channel_result(
+    def _gauge_alignment_result(
         self,
         *,
         model: Periodic1DHigherRankAnalyticCase,
         mesh: CenteredUniformMesh,
         coordinates: RealArray,
-        channel: Periodic1DHigherRankAlignmentChannel,
-        aligned_samples: ComplexArray | None,
-        aligned_frames: ComplexArray | None,
+        gauge_alignment: Periodic1DHigherRankGaugeAlignment,
+        aligned_fields: Periodic1DHigherRankGaugeAlignedFields | None,
         global_selection: Periodic1DHigherRankProcrustesDiagnostics,
         pointwise_result: NumpyBatchedComplexUnitaryProcrustesResult | None,
         pointwise_selection: Periodic1DHigherRankProcrustesDiagnostics,
-    ) -> Periodic1DHigherRankChannelMeshResult:
-        status = self._channel_status(
+    ) -> Periodic1DHigherRankGaugeAlignmentMeshResult:
+        status = self._gauge_alignment_status(
             mesh.size,
-            channel,
+            gauge_alignment,
             global_selection,
             pointwise_selection,
         )
-        if aligned_samples is None:
-            if aligned_frames is not None:
-                raise ValueError("unavailable channel fields must all be absent")
-            return _unavailable_channel_result(status)
-        if aligned_frames is None:
-            raise ValueError("qualified aligned samples require aligned frames")
-        return Periodic1DHigherRankChannelAnalyzer(
-            request=Periodic1DHigherRankChannelAnalysisRequest(
+        if aligned_fields is None:
+            return _unavailable_gauge_alignment_result(status)
+        if (
+            aligned_fields.case_identity != self._request.case_identity
+            or aligned_fields.gauge_alignment is not gauge_alignment
+            or not np.array_equal(aligned_fields.coordinates, coordinates)
+        ):
+            raise ValueError("gauge-aligned fields must match the calculation request")
+        return Periodic1DHigherRankGaugeAlignmentAnalyzer(
+            request=Periodic1DHigherRankGaugeAlignmentAnalysisRequest(
                 calculation_request=self._request,
                 model=model,
                 mesh=mesh,
-                coordinates=coordinates,
                 status=status,
-                aligned_samples=NumpyImmutableArrayConstructor(
-                    aligned_samples,
-                    "aligned_samples",
-                    np.dtype(np.complex128),
-                ).execute(),
-                aligned_frames=NumpyImmutableArrayConstructor(
-                    aligned_frames,
-                    "aligned_frames",
-                    np.dtype(np.complex128),
-                ).execute(),
+                aligned_fields=aligned_fields,
                 global_selection=global_selection,
                 pointwise_alignment=(
                     pointwise_result
-                    if channel is Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY
+                    if gauge_alignment
+                    is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY
                     else None
                 ),
             ),

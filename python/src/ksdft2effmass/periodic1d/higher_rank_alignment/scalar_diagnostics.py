@@ -4,34 +4,41 @@ from __future__ import annotations
 
 from typing import final
 
-from .channel_results import Periodic1DHigherRankChannelMeshResult
 from .definition import Periodic1DHigherRankAlignmentStatus
+from .gauge_alignment.results import Periodic1DHigherRankGaugeAlignmentMeshResult
 
 
 @final
 class Periodic1DHigherRankScalarDiagnosticInventoryExtractor:
-    """Extract the scalar diagnostics owned by one qualified channel result."""
+    """Extract scalar diagnostics from one qualified gauge-alignment result."""
 
-    __slots__ = ("_channel",)
+    __slots__ = ("_gauge_alignment_result",)
 
-    def __init__(self, channel: Periodic1DHigherRankChannelMeshResult) -> None:
-        if type(channel) is not Periodic1DHigherRankChannelMeshResult:
-            raise TypeError("channel must be the exact channel result record")
-        if channel.status.status is not Periodic1DHigherRankAlignmentStatus.QUALIFIED:
-            raise ValueError("scalar inventory requires a qualified channel")
-        self._channel = channel
+    def __init__(
+        self, gauge_alignment: Periodic1DHigherRankGaugeAlignmentMeshResult
+    ) -> None:
+        if type(gauge_alignment) is not Periodic1DHigherRankGaugeAlignmentMeshResult:
+            raise TypeError(
+                "gauge_alignment must be the exact gauge-alignment result record"
+            )
+        if (
+            gauge_alignment.status.status
+            is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+        ):
+            raise ValueError("scalar inventory requires a qualified gauge alignment")
+        self._gauge_alignment_result = gauge_alignment
 
     @property
-    def channel(self) -> Periodic1DHigherRankChannelMeshResult:
-        """Return the exact channel result bound to this inventory action."""
-        return self._channel
+    def gauge_alignment(self) -> Periodic1DHigherRankGaugeAlignmentMeshResult:
+        """Return the exact gauge-alignment result bound to this action."""
+        return self._gauge_alignment_result
 
     def execute(self) -> tuple[tuple[str, float], ...]:
         """Return the canonical path/value inventory for refinement."""
-        channel = self._channel
-        interpolation = channel.interpolation
+        gauge_alignment = self._gauge_alignment_result
+        interpolation = gauge_alignment.interpolation
         if interpolation is None:
-            raise ValueError("qualified channel requires interpolation diagnostics")
+            raise ValueError("qualified alignment requires interpolation diagnostics")
         values: list[tuple[str, float]] = [
             (
                 "/interpolation/normalized_operator_maximum",
@@ -45,12 +52,12 @@ class Periodic1DHigherRankScalarDiagnosticInventoryExtractor:
         values.extend(
             (f"/blocks/{int(translation):+d}", float(value))
             for translation, value in zip(
-                channel.coefficient_translations,
-                channel.block_normalized_frobenius_norms,
+                gauge_alignment.coefficient_translations,
+                gauge_alignment.block_normalized_frobenius_norms,
                 strict=True,
             )
         )
-        for support in channel.supports:
+        for support in gauge_alignment.supports:
             prefix = f"/supports/{support.maximum_range}"
             values.extend(
                 (

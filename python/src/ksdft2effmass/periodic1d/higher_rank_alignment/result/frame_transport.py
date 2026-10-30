@@ -1,4 +1,4 @@
-"""Typed status and owner-transport records for higher-rank alignment."""
+"""Typed closed-loop frame-transport evidence for the higher-rank study."""
 
 from __future__ import annotations
 
@@ -27,18 +27,10 @@ from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from .configuration import Periodic1DHigherRankAlignmentConfiguration
-from .definition import (
-    Periodic1DHigherRankAlignmentBackendExceptionCode,
-    Periodic1DHigherRankAlignmentChannel,
-    Periodic1DHigherRankAlignmentStatus,
-    Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
-)
-from .request import Periodic1DHigherRankAlignmentTransportRequest
-
-
-def _case_identity(retained_rank: int, circuit_depth: int) -> str:
-    return f"r{retained_rank:02d}-L{circuit_depth:02d}"
+from ..configuration import Periodic1DHigherRankAlignmentConfiguration
+from ..definition import Periodic1DHigherRankAlignmentBackendExceptionCode
+from ..request import Periodic1DHigherRankAlignmentTransportRequest
+from .status import _case_identity, _nonempty_text
 
 
 def _backend_exception_code(
@@ -55,13 +47,6 @@ def _backend_exception_code(
             Periodic1DHigherRankAlignmentBackendExceptionCode.VALIDATION_FAILED
         ),
     }[reason]
-
-
-def _nonempty_text(value: str, name: str) -> None:
-    if type(value) is not str:
-        raise TypeError(f"{name} must be a built-in string")
-    if not value:
-        raise ValueError(f"{name} must be nonempty")
 
 
 def _optional_nonnegative_float(value: float | None, name: str) -> None:
@@ -143,229 +128,6 @@ def _decoded_optional_float_tuple(
             raise TypeError(f"{name} must decode to built-in floats")
         decoded.append(entry)
     return tuple(decoded)
-
-
-@dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
-    """Record the outcome of one alignment family on one construction mesh.
-
-    Parameters
-    ----------
-    case_identity
-        Nonempty rank/depth identity ``rNN-LNN``.
-    retained_rank, circuit_depth
-        Built-in unitless integers selected from the frozen study inventories.
-    construction_mesh_size
-        Built-in integer number of construction-mesh points.
-    channel, status
-        Exact alignment-family and outcome enums.
-    global_unitary_downstream_applicability
-        Applicability of downstream global-unitary observables, or ``None`` for other
-        channels and unresolved failures.
-    backend_exception_code
-        Closed numerical-failure classification, present only for numerically unresolved
-        alignment.
-
-    Notes
-    -----
-    Python integers do not overflow; the frozen inventories bound their values. Boolean
-    values and numeric strings are rejected. No absent downstream quantity is
-    represented by a fabricated numeric zero.
-    """
-
-    case_identity: str
-    retained_rank: int
-    circuit_depth: int
-    construction_mesh_size: int
-    channel: Periodic1DHigherRankAlignmentChannel
-    status: Periodic1DHigherRankAlignmentStatus
-    global_unitary_downstream_applicability: (
-        Periodic1DHigherRankGlobalUnitaryDownstreamApplicability | None
-    )
-    backend_exception_code: Periodic1DHigherRankAlignmentBackendExceptionCode | None
-
-    def __post_init__(self) -> None:
-        """Validate the closed channel-specific disposition inventory."""
-        _nonempty_text(self.case_identity, "case_identity")
-        for value, name, allowed in (
-            (
-                self.retained_rank,
-                "retained_rank",
-                Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS,
-            ),
-            (
-                self.circuit_depth,
-                "circuit_depth",
-                Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS,
-            ),
-            (
-                self.construction_mesh_size,
-                "construction_mesh_size",
-                Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES,
-            ),
-        ):
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in integer")
-            if value not in allowed:
-                raise ValueError(f"{name} is not in the frozen inventory")
-        if self.case_identity != _case_identity(self.retained_rank, self.circuit_depth):
-            raise ValueError("case_identity is inconsistent with rank and depth")
-        if type(self.channel) is not Periodic1DHigherRankAlignmentChannel:
-            raise TypeError("channel must be the exact higher-rank channel enum")
-        if type(self.status) is not Periodic1DHigherRankAlignmentStatus:
-            raise TypeError("status must be the exact higher-rank status enum")
-        if (
-            self.global_unitary_downstream_applicability is not None
-            and type(self.global_unitary_downstream_applicability)
-            is not Periodic1DHigherRankGlobalUnitaryDownstreamApplicability
-        ):
-            raise TypeError(
-                "global_unitary_downstream_applicability must be its exact enum or None"
-            )
-        if (
-            self.backend_exception_code is not None
-            and type(self.backend_exception_code)
-            is not Periodic1DHigherRankAlignmentBackendExceptionCode
-        ):
-            raise TypeError("backend_exception_code must be its exact enum or None")
-
-        permitted = {
-            Periodic1DHigherRankAlignmentChannel.IDENTITY: (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED,
-                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
-            ),
-            Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY: (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED,
-                Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT,
-                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
-                Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED,
-            ),
-            Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY: (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED,
-                Periodic1DHigherRankAlignmentStatus.POINTWISE_RANK_DEFICIENT,
-                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
-                Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED,
-            ),
-            Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE: (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED,
-                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
-                Periodic1DHigherRankAlignmentStatus.ORACLE_INTEGRITY_FAILED,
-            ),
-        }
-        if self.status not in permitted[self.channel]:
-            raise ValueError("status is not admissible for the selected channel")
-
-        if self.channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY:
-            expected_applicability = {
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED: (
-                    Periodic1DHigherRankGlobalUnitaryDownstreamApplicability.APPLICABLE
-                ),
-                Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT: (
-                    Periodic1DHigherRankGlobalUnitaryDownstreamApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
-                ),
-                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED: None,
-                Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED: None,
-            }[self.status]
-            if (
-                self.global_unitary_downstream_applicability
-                is not expected_applicability
-            ):
-                raise ValueError(
-                    "global-unitary status and downstream applicability disagree"
-                )
-        elif self.global_unitary_downstream_applicability is not None:
-            raise ValueError(
-                "only the global-unitary channel may retain downstream applicability"
-            )
-
-        if self.status is Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED:
-            if self.backend_exception_code is None:
-                raise ValueError(
-                    "numerically unresolved alignment requires a backend exception code"
-                )
-        elif self.backend_exception_code is not None:
-            raise ValueError(
-                "backend exception codes are reserved for numerically unresolved status"
-            )
-
-    def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {
-            "case_identity": self.case_identity,
-            "retained_rank": self.retained_rank,
-            "circuit_depth": self.circuit_depth,
-            "construction_mesh_size": self.construction_mesh_size,
-            "channel": self.channel.value,
-            "status": self.status.value,
-            "global_unitary_downstream_applicability": (
-                None
-                if self.global_unitary_downstream_applicability is None
-                else self.global_unitary_downstream_applicability.value
-            ),
-            "backend_exception_code": (
-                None
-                if self.backend_exception_code is None
-                else self.backend_exception_code.value
-            ),
-        }
-
-    @classmethod
-    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = {
-            "case_identity",
-            "retained_rank",
-            "circuit_depth",
-            "construction_mesh_size",
-            "channel",
-            "status",
-            "global_unitary_downstream_applicability",
-            "backend_exception_code",
-        }
-        if set(values) != required:
-            raise ValueError("higher-rank alignment status fields do not match")
-        case_identity = values["case_identity"]
-        retained_rank = values["retained_rank"]
-        circuit_depth = values["circuit_depth"]
-        construction_mesh_size = values["construction_mesh_size"]
-        channel = values["channel"]
-        status = values["status"]
-        applicability = values["global_unitary_downstream_applicability"]
-        exception_code = values["backend_exception_code"]
-        if type(case_identity) is not str:
-            raise TypeError("case_identity must decode to a string")
-        if (
-            type(retained_rank) is not int
-            or type(circuit_depth) is not int
-            or type(construction_mesh_size) is not int
-        ):
-            raise TypeError("rank, depth, and mesh size must decode to integers")
-        if type(channel) is not str or type(status) is not str:
-            raise TypeError("channel and status must decode to strings")
-        if applicability is not None and type(applicability) is not str:
-            raise TypeError(
-                "global-unitary applicability must decode to a string or None"
-            )
-        if exception_code is not None and type(exception_code) is not str:
-            raise TypeError("backend exception code must decode to a string or None")
-        return cls(
-            case_identity=case_identity,
-            retained_rank=retained_rank,
-            circuit_depth=circuit_depth,
-            construction_mesh_size=construction_mesh_size,
-            channel=Periodic1DHigherRankAlignmentChannel(channel),
-            status=Periodic1DHigherRankAlignmentStatus(status),
-            global_unitary_downstream_applicability=(
-                None
-                if applicability is None
-                else Periodic1DHigherRankGlobalUnitaryDownstreamApplicability(
-                    applicability
-                )
-            ),
-            backend_exception_code=(
-                None
-                if exception_code is None
-                else Periodic1DHigherRankAlignmentBackendExceptionCode(exception_code)
-            ),
-        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -1339,7 +1101,6 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
 
 
 __all__ = [
-    "Periodic1DHigherRankAlignmentStatusResult",
     "Periodic1DHigherRankAlignmentTransportBackendFailureResult",
     "Periodic1DHigherRankAlignmentTransportLinkResult",
     "Periodic1DHigherRankAlignmentTransportOwnerResult",

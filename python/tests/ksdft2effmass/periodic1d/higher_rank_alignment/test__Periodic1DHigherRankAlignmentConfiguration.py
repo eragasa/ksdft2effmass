@@ -1,5 +1,6 @@
 """Tests for the frozen higher-rank alignment configuration section."""
 
+import json
 from dataclasses import replace
 
 import pytest
@@ -13,8 +14,8 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
-    Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentConfiguration,
+    Periodic1DHigherRankGaugeAlignment,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -32,11 +33,11 @@ def _configuration() -> Periodic1DHigherRankAlignmentConfiguration:
         evaluation_mesh_size=8191,
         evaluation_shift_numerator=1,
         evaluation_shift_denominator=2,
-        alignment_channels=(
-            Periodic1DHigherRankAlignmentChannel.IDENTITY,
-            Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
-            Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
-            Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
+        gauge_alignments=(
+            Periodic1DHigherRankGaugeAlignment.IDENTITY,
+            Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
+            Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
+            Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
         ),
         frame_rotation_action=FrameRotationAction.RIGHT,
         endpoint_sewing_action=EndpointSewingAction.LEFT_AMBIENT,
@@ -88,7 +89,33 @@ class TestPeriodic1DHigherRankAlignmentConfiguration:
         assert reconstructed.to_json() == wire
         assert b'"principal_phase_branch": "(-pi, pi]"' in wire
         assert b'"global_unitary_selection_mesh_size": 2049' in wire
-        assert b'"alignment_channels"' in wire
+        assert b'"gauge_alignments"' in wire
+        assert b'"identity"' in wire
+        assert b'"global-unitary"' in wire
+        assert b'"pointwise-unitary"' in wire
+        assert b'"known-inverse-oracle"' in wire
+        assert b'"channel"' not in wire
+        assert all(
+            old_value not in wire for old_value in (b'"A0"', b'"A1"', b'"A2"', b'"A3"')
+        )
+
+    def test__configuration_wire__rejects_old_keys_and_alignment_values(self) -> None:
+        decoded = json.loads(_configuration().to_json())
+        old_key = dict(decoded)
+        old_key["channels"] = old_key.pop("gauge_alignments")
+        old_key_wire = (json.dumps(old_key, indent=2, sort_keys=True) + "\n").encode()
+
+        with pytest.raises(ValueError, match="fields do not match"):
+            Periodic1DHigherRankAlignmentConfiguration.from_json(old_key_wire)
+
+        for old_value in ("A0", "A1", "A2", "A3"):
+            old_alignment = json.loads(_configuration().to_json())
+            old_alignment["gauge_alignments"]["items"][0] = old_value
+            old_alignment_wire = (
+                json.dumps(old_alignment, indent=2, sort_keys=True) + "\n"
+            ).encode()
+            with pytest.raises(ValueError, match="unsupported gauge alignment"):
+                Periodic1DHigherRankAlignmentConfiguration.from_json(old_alignment_wire)
 
     @pytest.mark.parametrize(
         ("field", "value", "error"),

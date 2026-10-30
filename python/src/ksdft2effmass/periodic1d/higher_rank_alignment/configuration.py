@@ -19,7 +19,10 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from .definition import Periodic1DHigherRankAlignmentChannel
+from .gauge_alignment.definition import (
+    GaugeAlignmentWireMapping,
+    Periodic1DHigherRankGaugeAlignment,
+)
 
 
 def _decoded_integer_tuple(
@@ -60,8 +63,8 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
         Built-in integer point count ``8191`` for shifted direct evaluation.
     evaluation_shift_numerator, evaluation_shift_denominator
         Built-in integers ``1`` and ``2`` defining the half-step evaluation shift.
-    alignment_channels
-        Exact ordered tuple of the four semantic alignment-family enums.
+    gauge_alignments
+        Exact ordered tuple of the four prescribed gauge alignments.
     frame_rotation_action
         Right action on retained-frame columns.
     endpoint_sewing_action
@@ -97,7 +100,7 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
     evaluation_mesh_size: int
     evaluation_shift_numerator: int
     evaluation_shift_denominator: int
-    alignment_channels: tuple[Periodic1DHigherRankAlignmentChannel, ...]
+    gauge_alignments: tuple[Periodic1DHigherRankGaugeAlignment, ...]
     frame_rotation_action: FrameRotationAction
     endpoint_sewing_action: EndpointSewingAction
     principal_phase_branch: ClosedLoopPolarFrameTransportPrincipalPhaseBranch
@@ -122,11 +125,11 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
     EVALUATION_MESH_SIZE: ClassVar[int] = 8191
     EVALUATION_SHIFT_NUMERATOR: ClassVar[int] = 1
     EVALUATION_SHIFT_DENOMINATOR: ClassVar[int] = 2
-    ALIGNMENT_CHANNELS: ClassVar[tuple[Periodic1DHigherRankAlignmentChannel, ...]] = (
-        Periodic1DHigherRankAlignmentChannel.IDENTITY,
-        Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
-        Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
-        Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
+    GAUGE_ALIGNMENTS: ClassVar[tuple[Periodic1DHigherRankGaugeAlignment, ...]] = (
+        Periodic1DHigherRankGaugeAlignment.IDENTITY,
+        Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
+        Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
+        Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
     )
     RANK_CUTOFF_RULE: ClassVar[ComplexUnitaryProcrustesRankCutoffRule] = (
         ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM
@@ -206,15 +209,13 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
         ):
             raise ValueError("evaluation shift must equal the frozen half step")
 
-        if type(self.alignment_channels) is not tuple or any(
-            type(channel) is not Periodic1DHigherRankAlignmentChannel
-            for channel in self.alignment_channels
+        if type(self.gauge_alignments) is not tuple or any(
+            type(gauge_alignment) is not Periodic1DHigherRankGaugeAlignment
+            for gauge_alignment in self.gauge_alignments
         ):
-            raise TypeError("alignment_channels must contain exact channel enums")
-        if self.alignment_channels != self.ALIGNMENT_CHANNELS:
-            raise ValueError(
-                "alignment_channels must match the frozen semantic channel order"
-            )
+            raise TypeError("gauge_alignments must contain exact gauge-alignment enums")
+        if self.gauge_alignments != self.GAUGE_ALIGNMENTS:
+            raise ValueError("gauge_alignments must match the frozen scientific order")
         if type(self.frame_rotation_action) is not FrameRotationAction:
             raise TypeError("frame_rotation_action must be FrameRotationAction")
         if self.frame_rotation_action is not FrameRotationAction.RIGHT:
@@ -322,8 +323,9 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
             "evaluation_mesh_size": self.evaluation_mesh_size,
             "evaluation_shift_numerator": self.evaluation_shift_numerator,
             "evaluation_shift_denominator": self.evaluation_shift_denominator,
-            "alignment_channels": tuple(
-                channel.value for channel in self.alignment_channels
+            "gauge_alignments": tuple(
+                GaugeAlignmentWireMapping.to_wire(gauge_alignment)
+                for gauge_alignment in self.gauge_alignments
             ),
             "frame_rotation_action": self.frame_rotation_action.value,
             "endpoint_sewing_action": self.endpoint_sewing_action.value,
@@ -356,7 +358,7 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
             "evaluation_mesh_size",
             "evaluation_shift_numerator",
             "evaluation_shift_denominator",
-            "alignment_channels",
+            "gauge_alignments",
             "frame_rotation_action",
             "endpoint_sewing_action",
             "principal_phase_branch",
@@ -385,15 +387,15 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
         construction_mesh_sizes = _decoded_integer_tuple(
             values["construction_mesh_sizes"], "construction_mesh_sizes"
         )
-        channel_values = values["alignment_channels"]
-        if not isinstance(channel_values, tuple):
-            raise TypeError("alignment_channels must decode to a tuple")
-        alignment_channels: list[Periodic1DHigherRankAlignmentChannel] = []
-        for channel_value in channel_values:
-            if type(channel_value) is not str:
-                raise TypeError("alignment channels must decode to strings")
-            alignment_channels.append(
-                Periodic1DHigherRankAlignmentChannel(channel_value)
+        gauge_alignment_values = values["gauge_alignments"]
+        if not isinstance(gauge_alignment_values, tuple):
+            raise TypeError("gauge_alignments must decode to a tuple")
+        gauge_alignments: list[Periodic1DHigherRankGaugeAlignment] = []
+        for gauge_alignment_value in gauge_alignment_values:
+            if type(gauge_alignment_value) is not str:
+                raise TypeError("gauge alignments must decode to strings")
+            gauge_alignments.append(
+                GaugeAlignmentWireMapping.from_wire(gauge_alignment_value)
             )
 
         integer_names = (
@@ -451,7 +453,7 @@ class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
             evaluation_mesh_size=integers["evaluation_mesh_size"],
             evaluation_shift_numerator=integers["evaluation_shift_numerator"],
             evaluation_shift_denominator=integers["evaluation_shift_denominator"],
-            alignment_channels=tuple(alignment_channels),
+            gauge_alignments=tuple(gauge_alignments),
             frame_rotation_action=FrameRotationAction(frame_rotation_action),
             endpoint_sewing_action=EndpointSewingAction(endpoint_sewing_action),
             principal_phase_branch=(

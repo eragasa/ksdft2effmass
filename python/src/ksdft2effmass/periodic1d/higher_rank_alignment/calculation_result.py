@@ -12,12 +12,12 @@ from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ._record_admission import _mapping_value, _tuple_of_mappings
 from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
-from .channel_results import Periodic1DHigherRankMeshCalculationResult
 from .definition import (
-    Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentStatus,
 )
 from .diagnostics import Periodic1DHigherRankProcrustesDiagnostics
+from .gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
+from .gauge_alignment.results import Periodic1DHigherRankMeshCalculationResult
 from .provenance import Periodic1DHigherRankEvaluationIndependenceResult
 from .refinement_results import (
     Periodic1DHigherRankBlockRefinementResult,
@@ -45,12 +45,10 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
         if type(self.global_selection) is not Periodic1DHigherRankProcrustesDiagnostics:
             raise TypeError("global_selection must be the exact Procrustes record")
         if (
-            self.global_selection.status.channel
-            is not Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY
+            self.global_selection.status.gauge_alignment
+            is not Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
         ):
-            raise ValueError(
-                "global_selection must describe the global-unitary channel"
-            )
+            raise ValueError("global_selection must describe global-unitary alignment")
         if (
             self.global_selection.selection_mesh_size
             != self.request.configuration.global_unitary_selection_mesh_size
@@ -99,7 +97,10 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 raise ValueError("model diagnostics must match the calculation request")
             statuses = (
                 mesh.pointwise_selection.status,
-                *(channel.status for channel in mesh.channels),
+                *(
+                    gauge_alignment.status
+                    for gauge_alignment in mesh.gauge_alignment_results
+                ),
             )
             if any(
                 status.case_identity != self.request.case_identity
@@ -137,14 +138,14 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
             )
         )
         expected_keys = tuple(
-            (channel, coarse, fine)
-            for channel in self.request.configuration.alignment_channels
+            (gauge_alignment, coarse, fine)
+            for gauge_alignment in self.request.configuration.gauge_alignments
             for coarse, fine in expected_pairs
             if all(
                 next(
                     result
-                    for result in mesh.channels
-                    if result.status.channel is channel
+                    for result in mesh.gauge_alignment_results
+                    if result.status.gauge_alignment is gauge_alignment
                 ).status.status
                 is Periodic1DHigherRankAlignmentStatus.QUALIFIED
                 for mesh in self.meshes
@@ -152,7 +153,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
             )
         )
         actual_keys = tuple(
-            (item.channel, item.coarse_mesh_size, item.fine_mesh_size)
+            (item.gauge_alignment, item.coarse_mesh_size, item.fine_mesh_size)
             for item in self.block_refinements
         )
         if actual_keys != expected_keys:
@@ -161,36 +162,40 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
             )
         meshes_by_size = {mesh.construction_mesh_size: mesh for mesh in self.meshes}
         for refinement in self.block_refinements:
-            coarse_channel = next(
+            coarse_gauge_alignment_result = next(
                 result
-                for result in meshes_by_size[refinement.coarse_mesh_size].channels
-                if result.status.channel is refinement.channel
+                for result in meshes_by_size[
+                    refinement.coarse_mesh_size
+                ].gauge_alignment_results
+                if result.status.gauge_alignment is refinement.gauge_alignment
             )
-            fine_channel = next(
+            fine_gauge_alignment_result = next(
                 result
-                for result in meshes_by_size[refinement.fine_mesh_size].channels
-                if result.status.channel is refinement.channel
+                for result in meshes_by_size[
+                    refinement.fine_mesh_size
+                ].gauge_alignment_results
+                if result.status.gauge_alignment is refinement.gauge_alignment
             )
             if (
                 not np.array_equal(
                     refinement.translations,
-                    coarse_channel.coefficient_translations,
+                    coarse_gauge_alignment_result.coefficient_translations,
                 )
                 or not np.array_equal(
                     refinement.translations,
-                    fine_channel.coefficient_translations,
+                    fine_gauge_alignment_result.coefficient_translations,
                 )
                 or not np.array_equal(
                     refinement.coarse_normalized_block_norms,
-                    coarse_channel.block_normalized_frobenius_norms,
+                    coarse_gauge_alignment_result.block_normalized_frobenius_norms,
                 )
                 or not np.array_equal(
                     refinement.fine_normalized_block_norms,
-                    fine_channel.block_normalized_frobenius_norms,
+                    fine_gauge_alignment_result.block_normalized_frobenius_norms,
                 )
             ):
                 raise ValueError(
-                    "block refinement values must match their source channels"
+                    "block refinement values must match their source alignments"
                 )
         if type(self.scalar_refinements) is not tuple or any(
             type(item) is not Periodic1DHigherRankScalarRefinementResult
@@ -200,72 +205,78 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 "scalar_refinements must contain exact scalar refinement records"
             )
         scalar_keys = tuple(
-            (item.channel, item.diagnostic_path) for item in self.scalar_refinements
+            (item.gauge_alignment, item.diagnostic_path)
+            for item in self.scalar_refinements
         )
         if len(set(scalar_keys)) != len(scalar_keys):
-            raise ValueError("scalar refinement channel/path keys must be unique")
+            raise ValueError("scalar refinement alignment/path keys must be unique")
         coarse_size, fine_size = self.request.configuration.construction_mesh_sizes[-2:]
         final_meshes = {
             mesh.construction_mesh_size: mesh
             for mesh in self.meshes
             if mesh.construction_mesh_size in (coarse_size, fine_size)
         }
-        expected_scalar_channels = tuple(
-            channel
-            for channel in self.request.configuration.alignment_channels
+        expected_scalar_gauge_alignments = tuple(
+            gauge_alignment
+            for gauge_alignment in self.request.configuration.gauge_alignments
             if all(
                 next(
                     result
-                    for result in final_meshes[size].channels
-                    if result.status.channel is channel
+                    for result in final_meshes[size].gauge_alignment_results
+                    if result.status.gauge_alignment is gauge_alignment
                 ).status.status
                 is Periodic1DHigherRankAlignmentStatus.QUALIFIED
                 for size in (coarse_size, fine_size)
             )
         )
-        if tuple(dict.fromkeys(item.channel for item in self.scalar_refinements)) != (
-            expected_scalar_channels
-        ):
+        if tuple(
+            dict.fromkeys(item.gauge_alignment for item in self.scalar_refinements)
+        ) != (expected_scalar_gauge_alignments):
             raise ValueError(
-                "scalar refinements must cover every qualified final-mesh channel"
+                "scalar refinements must cover every qualified final-mesh alignment"
             )
         expected_scalar_values: list[
-            tuple[Periodic1DHigherRankAlignmentChannel, str, float, float]
+            tuple[Periodic1DHigherRankGaugeAlignment, str, float, float]
         ] = []
-        for channel in expected_scalar_channels:
-            coarse_channel = next(
+        for gauge_alignment in expected_scalar_gauge_alignments:
+            coarse_gauge_alignment_result = next(
                 result
-                for result in final_meshes[coarse_size].channels
-                if result.status.channel is channel
+                for result in final_meshes[coarse_size].gauge_alignment_results
+                if result.status.gauge_alignment is gauge_alignment
             )
-            fine_channel = next(
+            fine_gauge_alignment_result = next(
                 result
-                for result in final_meshes[fine_size].channels
-                if result.status.channel is channel
+                for result in final_meshes[fine_size].gauge_alignment_results
+                if result.status.gauge_alignment is gauge_alignment
             )
             coarse_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
-                coarse_channel
+                coarse_gauge_alignment_result
             ).execute()
             fine_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
-                fine_channel
+                fine_gauge_alignment_result
             ).execute()
             if tuple(path for path, _ in coarse_inventory) != tuple(
                 path for path, _ in fine_inventory
             ):
                 raise ValueError("final scalar source inventories must agree")
             expected_scalar_values.extend(
-                (channel, coarse_item[0], coarse_item[1], fine_item[1])
+                (gauge_alignment, coarse_item[0], coarse_item[1], fine_item[1])
                 for coarse_item, fine_item in zip(
                     coarse_inventory, fine_inventory, strict=True
                 )
             )
         actual_scalar_values = [
-            (item.channel, item.diagnostic_path, item.coarse_value, item.fine_value)
+            (
+                item.gauge_alignment,
+                item.diagnostic_path,
+                item.coarse_value,
+                item.fine_value,
+            )
             for item in self.scalar_refinements
         ]
         if actual_scalar_values != expected_scalar_values:
             raise ValueError(
-                "scalar refinement values must match their source channels"
+                "scalar refinement values must match their source alignments"
             )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
