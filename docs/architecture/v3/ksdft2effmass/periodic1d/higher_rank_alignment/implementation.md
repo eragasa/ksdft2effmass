@@ -7,12 +7,24 @@
 | `definition.py` | Names the four alignment families and the possible alignment and numerical outcomes. |
 | `configuration.py` | Stores the fixed ranks, depths, construction, global-unitary-selection and evaluation meshes, phase convention, and tolerances. |
 | `request.py` | Selects one rank/depth/construction-mesh transport and its ambient-basis, retained-frame, and endpoint-sewing identities. |
-| `result.py` | Stores link diagnostics, backend failures, channel outcomes, and request-bound periodic-frame transport results. |
-| `__init__.py` | Defines the supported public imports. |
+| `result.py` | Stores alignment statuses, link diagnostics, backend failures, and request-bound periodic-frame transport results. |
+| `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and depth-dependent gauge circuit as a nominal periodic-1D toy model. |
+| `_record_admission.py` | Centralizes exact-type, immutable-array, and nested-mapping admission shared by the typed evidence records. |
+| `calculation.py` | Defines the frozen calculation controls and complete calculation request. |
+| `diagnostics.py` | Stores typed model, Procrustes, matrix, comparison, and frame diagnostics. |
+| `channel_results.py` | Stores typed support, channel, and construction-mesh results. |
+| `refinement_results.py` | Stores typed block and scalar refinement results. |
+| `provenance.py` | Stores exact construction/evaluation mesh separation and selection-input provenance. |
+| `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
+| `channel_analysis.py` | Owns the request-bound transform, shifted evaluation, support, and locality analysis for one qualified channel. |
+| `refinement.py` | Owns request-bound block and scalar refinement analysis across the three construction meshes. |
+| `analysis.py` | Composes Optimization Procrustes, PhysKit transport and odd-mesh Fourier owners, and the purpose-specific channel and refinement actions into the calculation action. |
+| `__init__.py` | Defines the deliberately narrow supported public imports; internal purpose-specific actions remain module-local imports. |
 
-The records are immutable and serialize deterministically. This makes a saved result
-reconstructible without relying on mutable NumPy arrays or a process-wide serializer
-registry.
+The records are immutable and serialize deterministically. Maintained arrays use shared
+Project Koios NumPy types and immutable byte-backed validation; physical array annotations
+use PhysKit aliases. This makes a saved result reconstructible without relying on mutable
+NumPy storage or a process-wide serializer registry.
 
 ## Fixed parameter study
 
@@ -69,10 +81,71 @@ The final three quantities are stored as unitless complex matrices with descript
 names; see the [numerical formulation](numerics.md). A rank-deficient result stops at the
 first deficient overlap and contains no closure matrices or Schur evidence.
 
+## Calculation action and records
+
+`Periodic1DHigherRankAlignmentAnalyzer` receives the complete immutable calculation
+request, concrete Optimization and PhysKit owners, and the KSD scalar-refinement owner
+in its constructor. Its
+zero-argument `execute()` method constructs one analytic case, selects the global
+unitary at $M=2049$, evaluates all three construction meshes, delegates each qualified
+channel to `Periodic1DHigherRankChannelAnalyzer`, delegates mesh-pair comparisons to
+`Periodic1DHigherRankRefinementAnalyzer`, and returns a
+`Periodic1DHigherRankAlignmentCalculationResult`. These purpose-specific actions bind
+complete immutable requests and are imported from their owning modules rather than
+re-exported from the package root. Channel requests correlate the model rank and depth,
+status identity, global selection, and exact unshifted mesh coordinates before computing
+scientific values. Refinement requests similarly correlate every supplied mesh with the
+calculation case.
+
+The result retains the exact request and a closed hierarchy:
+
+- one model-integrity record with the exact $2.1E_{\mathrm{ref}}$ analytic isolation
+  certificate, sampled separation, the rank-dependent exact and sampled attack-angle
+  maxima, gauge-unitarity evidence, and attacked/reference projector equality on every
+  construction mesh;
+- one global-selection result with every singular value, applied cutoff, strict rank
+  margin, finite full-rank condition number, normalized residual, and unitarity,
+  stationarity, objective-identity, and positive-semidefinite defect;
+- three construction-mesh results;
+- four channel results per mesh, including aligned-frame and represented-operator
+  recovery diagnostics, with explicit known-recovery gates only for the pointwise and
+  analytic known-inverse channels;
+- nine support results per qualified channel; and
+- blockwise refinement arrays for both adjacent mesh pairs and the complete frozen
+  scalar diagnostic ledger for the mandatory $1025\rightarrow2049$ pair.
+
+Each support record keeps interpolation, truncation, and total errors separate. It also
+records the ordinary omitted tail, the construction-mesh Parseval defect, perturbation
+bounds, the explicit decomposition residual, and gate dispositions against the frozen
+request tolerances. Channel records similarly retain the complete odd-mesh Fourier
+representative count and canonical-index checks, the explicit no-Nyquist disposition,
+and dispositions for reconstruction, withheld interpolation, Parseval, ordinary and
+twisted Hermiticity, and tail monotonicity. The enclosing result recomputes exact
+rational construction/evaluation coordinate disjointness and the evaluation mesh's
+exclusion from selection during record admission. Refinement records use the shared KSD
+absolute-relative scalar diagnostic, retain signed margins and an aggregate pass flag,
+and recompute all blockwise refinement arithmetic during record admission.
+Coefficient arrays are not retained in
+the public wire; the complete bounded block-norm inventory $|R|\le128$ is retained.
+
+Documented Procrustes backend failures become numerically-unresolved selections with
+empty scientific arrays, one stable exception code, and no selected unitary or backend
+claim. Documented transport backend failures become typed transport-failure records;
+all four channel results on that mesh are numerically unresolved and contain no
+transform or locality values. Rank-deficient global and pointwise selections likewise
+emit no downstream values for the affected channel. Runtime exception messages and
+tracebacks are not serialized.
+
+All maintained arrays are copied into immutable bytes-backed storage that prevents NumPy
+write re-enablement. Integer, real, and complex arrays retain exact dtype boundaries and
+serialize with explicit dtype and shape metadata, including empty multidimensional arrays
+used by bounded failure records. Calculation requests and complete results round-trip
+through the canonical typed JSON bytes.
+
 ## Work remaining
 
-The present code is a transport and status layer, not yet a complete higher-rank
-calculation. Later work must add the Hamiltonian producer, independent numerical
-recalculation, complete result verification, scientific plotting data, and direct
-calculation scripts. Those stages will use explicit calculation inputs and will not
-reconstruct the historical Workflow implementation.
+The next separately authorized stages must add independent numerical recalculation,
+byte-owning complete result verification, authenticated scientific plotting data, and
+direct calculation scripts. Those stages will use explicit calculation inputs and will
+not reconstruct the historical Workflow implementation. Passing producer tests does not
+establish scientific validation.

@@ -569,6 +569,10 @@ class TypedJsonValueCodec:
             self._validate_real_array_data(data["imaginary"])
             real = np.asarray(data["real"], dtype=np.float64)
             imaginary = np.asarray(data["imaginary"], dtype=np.float64)
+            if real.size == 0 and 0 in shape:
+                real = real.reshape(shape)
+            if imaginary.size == 0 and 0 in shape:
+                imaginary = imaginary.reshape(shape)
             if real.shape != shape or imaginary.shape != shape:
                 raise ValueError("complex array component shapes must match metadata")
             result = np.asarray(real + 1.0j * imaginary, dtype=dtype)
@@ -578,6 +582,8 @@ class TypedJsonValueCodec:
             else:
                 self._validate_real_array_data(data)
             result = np.asarray(data, dtype=dtype)
+            if result.size == 0 and 0 in shape:
+                result = result.reshape(shape)
             if result.shape != shape:
                 raise ValueError("array shape must match metadata")
         if dtype.kind in "fc" and not np.all(np.isfinite(result)):

@@ -8,7 +8,7 @@ from math import isfinite, pi
 from typing import Self
 
 import numpy as np
-from numpy.typing import NDArray
+from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexMatrix
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopFrameTransportOutcome,
     ClosedLoopPolarFrameTransportBackendFailure,
@@ -110,7 +110,7 @@ def _decoded_integer_tuple(
 
 
 def _canonical_unitless_complex_matrix(
-    value: NDArray[np.complex128],
+    value: ComplexMatrix,
 ) -> ComplexMatrixQuantity:
     normalized = np.array(value, dtype=np.complex128, copy=True)
     normalized.real[normalized.real == 0.0] = 0.0
@@ -232,6 +232,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
         permitted = {
             Periodic1DHigherRankAlignmentChannel.IDENTITY: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
+                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
             ),
             Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
@@ -247,6 +248,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
             ),
             Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
+                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
                 Periodic1DHigherRankAlignmentStatus.ORACLE_INTEGRITY_FAILED,
             ),
         }
@@ -728,7 +730,7 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
     Maximum-entry residuals are backend checks, not normalized-Frobenius scientific
     diagnostics. Python integers do not overflow and are bounded by frozen inventories.
     Nonfinite phases, residuals, and matrix entries are rejected. Matrix arrays are
-    defensively copied and read-only.
+    copied into immutable byte-backed PhysKit quantities.
     """
 
     request: Periodic1DHigherRankAlignmentTransportRequest

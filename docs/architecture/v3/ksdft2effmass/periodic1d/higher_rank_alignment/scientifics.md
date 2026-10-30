@@ -77,8 +77,13 @@ not be collapsed into one generic failure state.
 
 ## Present evidence level
 
-The current implementation establishes data structures and transport checks only. It has
-not produced a retained higher-rank calculation, established the stated runtime and
-memory ceilings, or demonstrated material-level validity. No higher-rank result from this
-package is presently scientifically validated, formally checked, sealed, published, or
-released.
+The current implementation constructs the declared synthetic analytic Hamiltonian,
+executes the four alignment families, transports the common reference frame, evaluates
+odd-mesh Fourier locality, and returns complete typed calculation records. Software tests
+exercise the smallest rank/depth case and establish behavior of this producer only.
+
+There is no independent reference calculation or byte-owning verifier yet. No retained
+higher-rank result has been admitted, and the complete 16-case runtime and 4 GiB memory
+ceilings remain unestablished. The analytic family does not demonstrate material-level
+validity. No higher-rank result from this package is presently scientifically validated,
+formally checked, sealed, published, or released.

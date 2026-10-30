@@ -158,6 +158,22 @@ class TestTypedJsonValueCodec:
         assert decoded.dtype == dtype
         np.testing.assert_array_equal(decoded, values)
 
+    @pytest.mark.parametrize(
+        "dtype",
+        (np.dtype(np.float64), np.dtype(np.complex128)),
+    )
+    def test_round_trip__empty_multidimensional_array__preserves_shape(
+        self,
+        dtype: np.dtype[np.generic],
+    ) -> None:
+        values = np.empty((0, 3), dtype=dtype)
+
+        decoded = SUT().deserialize(SUT().serialize(values))
+
+        assert isinstance(decoded, np.ndarray)
+        assert decoded.dtype == dtype
+        assert decoded.shape == (0, 3)
+
     def test_serialize__boolean_and_extended_numpy_dtypes__rejects(self) -> None:
         with pytest.raises(TypeError, match="fixed-width"):
             SUT().serialize(np.asarray([True], dtype=np.bool_))
