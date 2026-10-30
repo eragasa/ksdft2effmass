@@ -23,7 +23,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 class TestPeriodic1DHigherRankFourierReference:
     """Establish bounded coverage, request binding, and module independence."""
 
-    def test__execute__recomputes_identity_and_oracle_fourier_controls(
+    def test__execute__recomputes_all_fourier_controls(
         self,
         higher_rank_calculation_result: (
             Periodic1DHigherRankAlignmentCalculationResult
@@ -37,16 +37,16 @@ class TestPeriodic1DHigherRankFourierReference:
         reference = analyzer.execute()
 
         assert analyzer.request is request
-        assert len(reference.comparisons) == 474
+        assert len(reference.comparisons) == 930
         assert all(
             comparison.result().passed for comparison in reference.comparisons.values()
         )
-        assert all(
-            ".global-unitary." not in name and ".pointwise-unitary." not in name
-            for name in reference.comparisons
+        assert sum(".global-unitary." in name for name in reference.comparisons) == 228
+        assert (
+            sum(".pointwise-unitary." in name for name in reference.comparisons) == 228
         )
-        assert sum(".interpolation." in name for name in reference.comparisons) == 48
-        assert sum(".support[" in name for name in reference.comparisons) == 324
+        assert sum(".interpolation." in name for name in reference.comparisons) == 96
+        assert sum(".support[" in name for name in reference.comparisons) == 648
         assert (
             sum(".exact_coefficient[" in name for name in reference.comparisons) == 15
         )
@@ -88,6 +88,46 @@ class TestPeriodic1DHigherRankFourierReference:
 
         comparison = reference.comparisons[
             "mesh[513].identity.parseval_relative_defect"
+        ]
+        assert not comparison.result().passed
+
+    @pytest.mark.parametrize(
+        ("alignment_index", "wire_value"),
+        ((1, "global-unitary"), (2, "pointwise-unitary")),
+    )
+    def test__execute__detects_tampered_selected_alignment_fourier_evidence(
+        self,
+        higher_rank_calculation_result: (
+            Periodic1DHigherRankAlignmentCalculationResult
+        ),
+        alignment_index: int,
+        wire_value: str,
+    ) -> None:
+        first_mesh = higher_rank_calculation_result.meshes[0]
+        alignments = list(first_mesh.gauge_alignment_results)
+        selected = alignments[alignment_index]
+        alignments[alignment_index] = replace(
+            selected,
+            parseval_relative_defect=1.0e-4,
+            parseval_pass=False,
+        )
+        tampered_mesh = replace(
+            first_mesh,
+            gauge_alignment_results=tuple(alignments),
+        )
+        tampered_result = replace(
+            higher_rank_calculation_result,
+            meshes=(tampered_mesh, *higher_rank_calculation_result.meshes[1:]),
+        )
+
+        reference = Periodic1DHigherRankFourierReferenceAnalyzer(
+            Periodic1DHigherRankFourierReferenceRequest(
+                calculation_result=tampered_result
+            )
+        ).execute()
+
+        comparison = reference.comparisons[
+            f"mesh[513].{wire_value}.parseval_relative_defect"
         ]
         assert not comparison.result().passed
 

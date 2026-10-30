@@ -71,9 +71,9 @@ formula-check script is not an independent check of the full result.
 
 Strict typed calculation requests and results, canonical record bytes, and bounded
 producer-independent references for analytic-model and attack core invariants,
-identity/known-inverse-oracle direct-sum Fourier controls, global/pointwise Procrustes
-selection, and constant-frame closed-loop transport now exist. The Fourier slice also compares shifted interpolation and
-support tails for both controls and exact support for the oracle. The selection slice
+all four direct-sum Fourier controls, global/pointwise Procrustes selection, and
+constant-frame closed-loop transport now exist. The Fourier slice also compares shifted
+interpolation and support tails for every alignment and exact support for the oracle. The selection slice
 reconstructs rank, residual, integrity, and selected-global-unitary evidence without the
 producer solver. The transport slice independently reconstructs link rank evidence,
 closure phases, and closure actions without the producer transporter. Complete

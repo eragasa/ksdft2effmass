@@ -31,16 +31,16 @@ are decomposed under its `gauge_alignment/` child.
 
 Canonical typed calculation bytes and four bounded producer-independent references now
 exist. The core slice reconstructs analytic-model and attack invariants. The Fourier slice
-covers identity and known-inverse-oracle controls on all three construction meshes and
-independently compares block norms, reconstruction, Parseval, Hermitian pairing, shifted
-interpolation, and support tails; for the oracle it also compares analytic $|R|\le2$
+covers all four gauge controls on all three construction meshes and independently
+compares block norms, reconstruction, Parseval, Hermitian pairing, shifted interpolation,
+and support tails; for the oracle it also compares analytic $|R|\le2$
 coefficients. The Procrustes slice reconstructs the single global selection with an
 Hermitian-eigendecomposition polar factor and all three pointwise selections directly
 from the analytic attack, including rank, residual, integrity, and selected-unitary
 evidence. The transport slice directly reconstructs the exact constant-frame closed
 route on all three meshes, including link rank evidence and closure actions. These
-references do not reconstruct global- or pointwise-unitary Fourier values, complete
-locality error channels, or refinement evidence and do not own
+references do not reconstruct complete locality error channels or refinement evidence
+and do not own
 result bytes. Complete independent numerical recomputation, byte-owning verification,
 strict retained-artifact schemas, authenticated plotting data, direct calculate → verify
 → render composition, and a resource-qualified retained run remain separate work.
@@ -76,7 +76,7 @@ Migration records:
 | Gauge-alignment stages | Construction, recovery, Fourier transformation, shifted interpolation, locality analysis, and correlated assembly have typed request-bound owners. |
 | Failure semantics | Rank deficiency, transport or Procrustes backend failure, integrity failure, and downstream absence are distinct typed outcomes. |
 | Canonical calculation bytes | Implemented through `BaseTypedRecord`; SHA-256 establishes byte identity and provenance, not scientific validity. |
-| Independent reference and verification | Bounded direct-formula core-invariant, identity/oracle Fourier, global/pointwise Procrustes, and constant-frame transport references are implemented; complete protocol-wide recomputation and byte-owning verification are not. |
+| Independent reference and verification | Bounded direct-formula core-invariant, all-gauge Fourier, global/pointwise Procrustes, and constant-frame transport references are implemented; complete protocol-wide recomputation and byte-owning verification are not. |
 | Authenticated figures and retained execution | Not implemented and separately authorization-gated. |
 | Historical Workflow source | Preserved as read-only provenance and excluded from maintained runtime and tests. |
 | Rank specializations | Rank one remains scalar Fourier locality; rank two remains a separate composite-alignment study. Neither is admitted by widening the D1-v1 inventory. |

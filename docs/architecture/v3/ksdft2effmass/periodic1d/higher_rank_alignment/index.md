@@ -51,9 +51,9 @@ The maintained package provides:
   not scientific validity; and
 - a bounded producer-independent direct-formula reference for analytic-model and attack
   core invariants; and
-- a bounded direct-sum Fourier reference for identity and known-inverse-oracle controls,
-  including shifted interpolation and support-tail measures for both controls and exact
-  support for the oracle; and
+- a bounded direct-sum Fourier reference for all four gauge controls, including shifted
+  interpolation and support-tail measures for every alignment and exact support for the
+  oracle; and
 - a bounded global/pointwise Procrustes reference that uses an independent global polar
   construction and direct analytic pointwise inverses; and
 - a bounded constant-frame transport reference that reconstructs link rank and identity
@@ -61,8 +61,8 @@ The maintained package provides:
 
 A calculation-local direct development runner composes these maintained owners and writes
 only a replaceable non-evidence summary. The bounded references do not reconstruct
-global- or pointwise-unitary Fourier values, complete locality error channels, or
-refinement evidence. Complete independent recalculation, byte-owning
+complete locality error channels or refinement evidence. Complete independent
+recalculation, byte-owning
 result verification, authenticated rendering, and retained execution remain
 unimplemented and separately authorized. Software tests establish bounded software
 behavior only.

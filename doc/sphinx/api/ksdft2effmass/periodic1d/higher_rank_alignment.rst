@@ -22,16 +22,15 @@ dtypes as documented by their records.
 
 The calculation result is producer output, not independently verified scientific
 evidence.  One bounded reference analyzer directly reconstructs analytic-model and
-attack core invariants.  A second uses direct NumPy sums to reconstruct identity and
-known-inverse-oracle Fourier controls on all three construction meshes, including shifted
-interpolation and support tails for both controls and exact-support comparisons for the
-oracle.  A third reconstructs the global polar factor by Hermitian eigendecomposition and
+attack core invariants.  A second uses direct NumPy sums to reconstruct all four Fourier
+controls on all three construction meshes, including shifted interpolation and support
+tails for every alignment and exact-support comparisons for the oracle.  A third
+reconstructs the global polar factor by Hermitian eigendecomposition and
 all pointwise right unitaries directly from the analytic attack, then compares rank,
 residual, integrity, and selected-unitary evidence.  A fourth directly reconstructs the
 constant-frame closed route, link rank evidence, and identity closure actions on all
 three meshes.  These paths do not invoke the corresponding producer scientific actions
-or own the result bytes.  Global- and pointwise-unitary Fourier controls, complete
-locality error channels, refinement,
+or own the result bytes.  Complete locality error channels, refinement,
 complete independent recalculation, byte-owning verification, authenticated figures,
 retained execution, material validation, and publication remain unimplemented and are
 not implied by these software paths.

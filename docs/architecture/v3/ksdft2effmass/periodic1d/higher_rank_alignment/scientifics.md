@@ -124,9 +124,9 @@ The current producer constructs the declared analytic Hamiltonian, evaluates the
 gauge alignments, transports the common reference frame, analyzes odd-mesh Fourier
 locality, and returns correlated typed calculation records. A bounded independent
 reference analyzer directly reconstructs the analytic-model and attack core invariants.
-A separate bounded direct-sum reference reconstructs identity and
-known-inverse-oracle Fourier controls on all three construction meshes, compares shifted
-interpolation and support tails for both controls, and verifies the oracle's analytic
+A separate bounded direct-sum reference reconstructs all four Fourier controls on all
+three construction meshes, compares shifted interpolation and support tails for every
+alignment, and verifies the oracle's analytic
 $|R|\le2$ support within its declared tolerance. A third bounded reference reconstructs
 the global polar selection through an Hermitian eigendecomposition and the pointwise
 selections directly from the analytic attack, comparing rank, residual, integrity, and
@@ -136,8 +136,8 @@ actions on all construction meshes. None invokes the corresponding producer scie
 actions.
 
 Those bounded comparisons are not the protocol's complete independent reference
-calculation and do not establish global- or pointwise-unitary Fourier values, truncation
-and total-error fields, error-channel decompositions, refinement, or
+calculation and do not establish support-truncated and total-error fields, error-channel
+decompositions, refinement, or
 result-byte verification. No byte-owning verifier or retained higher-rank
 result has been admitted, and the complete 16-case runtime and 4 GiB memory ceilings
 remain unestablished. The analytic family does not establish material validity. No

@@ -269,8 +269,10 @@ use $10^{-10}$.
 
 ## Bounded direct-sum Fourier reference
 
-For the identity and known-inverse-oracle controls, the independent Fourier slice
-reconstructs coefficients without calling the maintained transform:
+For all four gauge controls, the independent Fourier slice reconstructs coefficients
+without calling the maintained transform. The global-unitary field uses the independently
+reconstructed polar factor at $M=2049$ and the pointwise-unitary field uses
+$G(q)^\dagger$ directly:
 
 $$
 C_R^{\mathrm{ref}}=\frac{1}{M}\sum_{j=0}^{M-1}
@@ -282,7 +284,7 @@ It evaluates the reconstructed series with the separate positive-exponent sum
 $\sum_R C_R^{\mathrm{ref}}e^{2\pi i xR}$. Construction-mesh reconstruction,
 Parseval equality, and odd-mesh pairing
 $C_{-R}=C_R^\dagger$, shifted interpolation, and all six raw/normalized tail measures
-at each frozen support are recalculated directly for both controls. For the oracle field,
+at each frozen support are recalculated directly for every alignment. For the oracle field,
 
 $$
 D_r(q)=A_0+A_1\cos(2\pi q)+A_2\cos(4\pi q),
@@ -291,10 +293,9 @@ $$
 so the analytic coefficient inventory is
 $C_0=A_0$, $C_{\pm1}=A_1/2$, $C_{\pm2}=A_2/2$, and zero otherwise. The bounded
 reference additionally compares those five matrices and the largest directly summed
-coefficient outside $|R|\le2$. Scalar comparisons use absolute tolerance $10^{-11}$ and array
-or coefficient comparisons use $10^{-10}$. This does not cover global- or
-pointwise-unitary Fourier values, truncation/total error fields, or error-channel
-decompositions.
+coefficient outside $|R|\le2$. Scalar comparisons use absolute tolerance $10^{-11}$ and
+array or coefficient comparisons use $10^{-10}$. This does not cover support-truncated or
+total-error fields or their error-channel decompositions.
 
 ## Refinement rule
 

@@ -79,7 +79,7 @@ Workflow, or infer missing physical identities.
 flowchart LR
     C[Typed calculation bytes]
     B[Implemented bounded core-invariant reference]
-    F[Implemented bounded identity and oracle Fourier reference]
+    F[Implemented bounded all-gauge Fourier reference]
     P[Implemented bounded global and pointwise Procrustes reference]
     T[Implemented bounded constant-frame transport reference]
     I[Future complete independent numerical recomputation]
@@ -96,8 +96,8 @@ flowchart LR
     V --> D --> G
 ```
 
-Only the bounded producer-independent core-invariant, identity/known-inverse-oracle
-direct-sum Fourier, global/pointwise Procrustes, and constant-frame transport references
+Only the bounded producer-independent core-invariant, all-gauge direct-sum Fourier,
+global/pointwise Procrustes, and constant-frame transport references
 are implemented. The complete authenticated lifecycle is not. Complete recomputation
 must continue to bypass the
 production analyzer. Verification must own and hash the exact admitted calculation

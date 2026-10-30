@@ -1,9 +1,9 @@
-"""Producer-independent Fourier reference analysis for bounded gauge controls.
+"""Producer-independent Fourier reference analysis for all gauge controls.
 
-This module deliberately recomputes direct finite Fourier sums with NumPy.  It does
-not invoke the maintained Fourier, interpolation, locality, or diagnostic actions.
-The scope is limited to the identity and known-inverse-oracle gauge alignments; it
-is evidence for those controls, not complete protocol verification.
+This module deliberately reconstructs every represented field and recomputes direct
+finite Fourier sums with NumPy.  It does not invoke the maintained model, Procrustes,
+Fourier, interpolation, locality, or diagnostic actions.  This bounded slice is not
+complete protocol verification.
 """
 
 from __future__ import annotations
@@ -65,7 +65,7 @@ class Periodic1DHigherRankFourierReferenceRequest:
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankFourierReference:
-    """Store immutable direct-sum comparisons for two bounded gauge controls."""
+    """Store immutable direct-sum comparisons for all four gauge controls."""
 
     comparisons: Mapping[str, MaximumAbsoluteErrorComparison]
 
@@ -113,6 +113,17 @@ class Periodic1DHigherRankFourierReferenceAnalyzer:
         energy_reference = controls.energy_reference
         matrix_scale = math.sqrt(rank) * energy_reference
         exact_offsets, exact_first, exact_second = _energy_parameters(rank)
+        selection_size = (
+            calculation_request.configuration.global_unitary_selection_mesh_size
+        )
+        selection_coordinates = _coordinates(selection_size)
+        selection_gauge = _gauge_unitaries(rank, depth, selection_coordinates)
+        selection_cross = np.mean(
+            np.swapaxes(selection_gauge.conjugate(), -1, -2),
+            axis=0,
+        )
+        global_right = _right_polar_factor(selection_cross)
+        global_right_adjoint = global_right.conjugate().T
         comparisons: dict[str, MaximumAbsoluteErrorComparison] = {}
 
         for mesh in calculation.meshes:
@@ -125,12 +136,18 @@ class Periodic1DHigherRankFourierReferenceAnalyzer:
                 gauge_adjoint @ exact_field @ gauge,
                 dtype=np.complex128,
             )
+            global_field = np.asarray(
+                global_right_adjoint @ identity_field @ global_right,
+                dtype=np.complex128,
+            )
             observed_by_gauge = {
                 result.status.gauge_alignment: result
                 for result in mesh.gauge_alignment_results
             }
             for gauge_alignment, field in (
                 (Periodic1DHigherRankGaugeAlignment.IDENTITY, identity_field),
+                (Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY, global_field),
+                (Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY, exact_field),
                 (
                     Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
                     exact_field,
@@ -231,6 +248,7 @@ class Periodic1DHigherRankFourierReferenceAnalyzer:
                     calculation_request.configuration.evaluation_shift_numerator,
                     calculation_request.configuration.evaluation_shift_denominator,
                     energy_reference,
+                    global_right,
                     _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE,
                 )
                 if (
@@ -318,6 +336,19 @@ def _gauge_unitaries(
             layer[:, left + 1, left + 1] = cosine
         gauges = gauges @ layer
     return np.asarray(gauges, dtype=np.complex128)
+
+
+def _right_polar_factor(cross: np.ndarray) -> np.ndarray:
+    gram = cross.conjugate().T @ cross
+    eigenvalues, eigenvectors = np.linalg.eigh(gram)
+    if bool((eigenvalues <= 0.0).any()):
+        raise ValueError(
+            "bounded Fourier reference requires positive global cross Gram"
+        )
+    inverse_square_root = (
+        eigenvectors * (1.0 / np.sqrt(eigenvalues))[None, :]
+    ) @ eigenvectors.conjugate().T
+    return np.asarray(cross @ inverse_square_root, dtype=np.complex128)
 
 
 def _comparison(
@@ -476,6 +507,7 @@ def _add_interpolation_and_tail_comparisons(
     shift_numerator: int,
     shift_denominator: int,
     energy_reference: float,
+    global_right: np.ndarray,
     scalar_tolerance: float,
 ) -> None:
     rank = observed.status.retained_rank
@@ -494,12 +526,22 @@ def _add_interpolation_and_tail_comparisons(
         evaluation_coordinates,
     )
     exact = _exact_field(rank, evaluation_coordinates)
-    if gauge_alignment is Periodic1DHigherRankGaugeAlignment.IDENTITY:
+    if gauge_alignment in (
+        Periodic1DHigherRankGaugeAlignment.IDENTITY,
+        Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
+    ):
         gauge = _gauge_unitaries(rank, depth, evaluation_coordinates)
-        direct = np.asarray(
+        attacked = np.asarray(
             np.swapaxes(gauge.conjugate(), -1, -2) @ exact @ gauge,
             dtype=np.complex128,
         )
+        if gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY:
+            direct = np.asarray(
+                global_right.conjugate().T @ attacked @ global_right,
+                dtype=np.complex128,
+            )
+        else:
+            direct = attacked
     else:
         direct = exact
     interpolation = observed.interpolation
