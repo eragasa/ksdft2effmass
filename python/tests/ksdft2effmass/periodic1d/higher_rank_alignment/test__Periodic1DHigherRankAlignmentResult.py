@@ -36,6 +36,7 @@ from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentTransportBackendFailureResult,
     Periodic1DHigherRankAlignmentTransportOwnerResult,
     Periodic1DHigherRankAlignmentTransportRequest,
+    Periodic1DHigherRankBlockRefinementResult,
     Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
 )
 
@@ -163,6 +164,32 @@ class TestPeriodic1DHigherRankAlignmentResult:
             replace(request, retained_rank=True)
         with pytest.raises(ValueError, match="must be nonempty"):
             replace(request, endpoint_sewing_identifier="")
+
+    def test__array_backed_records__do_not_generate_numpy_equality(self) -> None:
+        coarse = np.asarray([1.0, 2.0], dtype=np.float64)
+        zeros = np.zeros(2, dtype=np.float64)
+        tolerances = 1.0e-10 + 1.0e-6 * coarse
+        result = Periodic1DHigherRankBlockRefinementResult(
+            channel=Periodic1DHigherRankAlignmentChannel.IDENTITY,
+            coarse_mesh_size=513,
+            fine_mesh_size=1025,
+            translations=np.asarray([0, 1], dtype=np.int64),
+            coarse_normalized_block_norms=coarse,
+            fine_normalized_block_norms=coarse,
+            absolute_changes=zeros,
+            relative_changes=zeros,
+            applied_tolerances=tolerances,
+            signed_margins=tolerances,
+            all_pass=True,
+        )
+
+        reconstructed = Periodic1DHigherRankBlockRefinementResult.from_json(
+            result.to_json()
+        )
+
+        assert reconstructed is not result
+        assert (reconstructed == result) is False
+        assert reconstructed.to_json() == result.to_json()
 
     def test__status_result__round_trips_qualified_global_unitary(self) -> None:
         result = Periodic1DHigherRankAlignmentStatusResult(
@@ -358,12 +385,10 @@ class TestPeriodic1DHigherRankAlignmentResult:
         assert result.sewn_first_to_primitive_last_right_unitary is None
         assert result.distributed_closure_correction_right_unitary_step is None
         assert result.schur_backend_identifier is None
-        assert (
-            Periodic1DHigherRankAlignmentTransportOwnerResult.from_json(
-                result.to_json()
-            )
-            == result
+        reconstructed = Periodic1DHigherRankAlignmentTransportOwnerResult.from_json(
+            result.to_json()
         )
+        assert reconstructed.to_json() == result.to_json()
 
     def test__transport_owner_result__rejects_missing_qualified_action(self) -> None:
         result = Periodic1DHigherRankAlignmentTransportOwnerResult.from_owner_outcome(

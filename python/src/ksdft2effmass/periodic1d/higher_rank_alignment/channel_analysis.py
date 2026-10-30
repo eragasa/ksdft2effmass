@@ -8,9 +8,9 @@ from typing import final
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
-from projectkoios.numerics.numpy.validation import (
-    immutable_complex128_array,
-    immutable_float64_array,
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayValidator
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesResult,
 )
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 from projectkoios.physkit.solidstate.tb import (
@@ -27,6 +27,7 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixErrorDecompositionAnalyzer,
     MatrixFieldComparisonAnalyzer,
     MatrixFieldErrorAnalyzer,
+    MatrixFieldIsometryAnalyzer,
     SymmetricRangeTailAnalyzer1D,
     SymmetricRangeTailMonotonicityAnalyzer1D,
 )
@@ -51,21 +52,7 @@ from .model import Periodic1DHigherRankAnalyticCase
 from .result import Periodic1DHigherRankAlignmentStatusResult
 
 
-def _immutable_float_array(value: RealArray, name: str) -> RealArray:
-    result = immutable_float64_array(value, name)
-    if result.ndim != 1:
-        raise ValueError(f"{name} must be a one-dimensional array")
-    return result
-
-
-def _immutable_complex_array(value: ComplexArray, name: str) -> ComplexArray:
-    result = immutable_complex128_array(value, name)
-    if result.ndim != 3:
-        raise ValueError(f"{name} must be a three-dimensional array")
-    return result
-
-
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankChannelAnalysisRequest:
     """Bind one qualified channel and all of its immutable scientific inputs."""
 
@@ -77,6 +64,7 @@ class Periodic1DHigherRankChannelAnalysisRequest:
     aligned_samples: ComplexArray
     aligned_frames: ComplexArray
     global_selection: Periodic1DHigherRankProcrustesDiagnostics
+    pointwise_alignment: NumpyBatchedComplexUnitaryProcrustesResult | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -92,9 +80,6 @@ class Periodic1DHigherRankChannelAnalysisRequest:
             raise TypeError("status must be the exact alignment status record")
         if type(self.global_selection) is not Periodic1DHigherRankProcrustesDiagnostics:
             raise TypeError("global_selection must be the exact Procrustes record")
-        coordinates = _immutable_float_array(self.coordinates, "coordinates")
-        samples = _immutable_complex_array(self.aligned_samples, "aligned_samples")
-        frames = _immutable_complex_array(self.aligned_frames, "aligned_frames")
         request = self.calculation_request
         rank = self.model.retained_rank
         if (
@@ -102,6 +87,27 @@ class Periodic1DHigherRankChannelAnalysisRequest:
             or self.model.circuit_depth != request.circuit_depth
         ):
             raise ValueError("model rank and depth must match the calculation request")
+        coordinates = NumpyImmutableArrayValidator(
+            self.coordinates,
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
+        samples = NumpyImmutableArrayValidator(
+            self.aligned_samples,
+            "aligned_samples",
+            np.dtype(np.complex128),
+        ).execute()
+        frames = NumpyImmutableArrayValidator(
+            self.aligned_frames,
+            "aligned_frames",
+            np.dtype(np.complex128),
+        ).execute()
+        if coordinates.ndim != 1:
+            raise ValueError("coordinates must be a one-dimensional array")
+        if samples.ndim != 3:
+            raise ValueError("aligned_samples must be a three-dimensional array")
+        if frames.ndim != 3:
+            raise ValueError("aligned_frames must be a three-dimensional array")
         if self.mesh.dimension != 1 or self.mesh.offsets != (0.0,):
             raise ValueError("channel analysis requires the unshifted periodic-1D mesh")
         expected_coordinates = np.asarray(
@@ -129,6 +135,67 @@ class Periodic1DHigherRankChannelAnalysisRequest:
             raise ValueError("channel analysis requires a qualified status")
         if self.status.channel not in request.configuration.alignment_channels:
             raise ValueError("status channel must belong to the calculation request")
+        channel = self.status.channel
+        attacked = self.model.attacked_reduced_hamiltonians(coordinates)
+        attacked_frames = self.model.attacked_frames(coordinates)
+        if channel is Periodic1DHigherRankAlignmentChannel.IDENTITY:
+            right_action = np.broadcast_to(
+                np.eye(rank, dtype=np.complex128),
+                (self.mesh.size, rank, rank),
+            )
+        elif channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY:
+            selected = self.global_selection.selected_global_right_unitary
+            if selected is None:
+                raise ValueError("qualified global channel requires a selected unitary")
+            right_action = np.broadcast_to(
+                selected.magnitude,
+                (self.mesh.size, rank, rank),
+            )
+        elif channel is Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY:
+            if (
+                type(self.pointwise_alignment)
+                is not NumpyBatchedComplexUnitaryProcrustesResult
+            ):
+                raise TypeError(
+                    "qualified pointwise channel requires the exact solver result"
+                )
+            if (
+                self.pointwise_alignment.row_count != self.model.ambient_dimension
+                or not bool(self.pointwise_alignment.full_rank.all())
+            ):
+                raise ValueError(
+                    "pointwise solver result must be full rank in the ambient space"
+                )
+            right_action = self.pointwise_alignment.right_unitary_completions
+        else:
+            gauge = self.model.gauge_unitaries(coordinates)
+            right_action = np.swapaxes(gauge.conjugate(), -1, -2)
+        if right_action.shape != (self.mesh.size, rank, rank):
+            raise ValueError("channel right action must match the case and mesh")
+        if (
+            channel is not Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY
+            and self.pointwise_alignment is not None
+        ):
+            raise ValueError(
+                "pointwise_alignment is reserved for the pointwise channel"
+            )
+        right_isometry = MatrixFieldIsometryAnalyzer().execute(right_action)
+        if (
+            right_isometry.normalized_maximum_frobenius_defect
+            > request.controls.model_structure_tolerance
+        ):
+            raise ValueError("channel right action must remain unitary")
+        expected_samples = np.asarray(
+            np.swapaxes(right_action.conjugate(), -1, -2) @ attacked @ right_action,
+            dtype=np.complex128,
+        )
+        expected_frames = np.asarray(
+            attacked_frames @ right_action, dtype=np.complex128
+        )
+        if not np.array_equal(samples, expected_samples):
+            raise ValueError("aligned_samples do not match the declared channel")
+        if not np.array_equal(frames, expected_frames):
+            raise ValueError("aligned_frames do not match the declared channel")
         selection_status = self.global_selection.status
         if (
             selection_status.case_identity != request.case_identity
@@ -142,9 +209,6 @@ class Periodic1DHigherRankChannelAnalysisRequest:
             != request.configuration.global_unitary_selection_mesh_size
         ):
             raise ValueError("global selection must match the calculation request")
-        object.__setattr__(self, "coordinates", coordinates)
-        object.__setattr__(self, "aligned_samples", samples)
-        object.__setattr__(self, "aligned_frames", frames)
 
 
 @final
@@ -176,6 +240,11 @@ class Periodic1DHigherRankChannelAnalyzer:
         self._request = request
         self._fourier_transformer = fourier_transformer
         self._fourier_evaluator = fourier_evaluator
+
+    @property
+    def request(self) -> Periodic1DHigherRankChannelAnalysisRequest:
+        """Return the exact channel-analysis request bound to this action."""
+        return self._request
 
     def execute(self) -> Periodic1DHigherRankChannelMeshResult:
         """Return the complete typed result for the bound qualified channel."""
@@ -346,6 +415,8 @@ class Periodic1DHigherRankChannelAnalyzer:
             support_results.append(
                 Periodic1DHigherRankSupportResult(
                     maximum_range=tail.maximum_range,
+                    rank=model.retained_rank,
+                    energy_reference=controls.energy_reference,
                     retained_translations=tail.retained_translations,
                     omitted_squared_frobenius_weight=(
                         tail.omitted_squared_frobenius_weight

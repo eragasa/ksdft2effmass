@@ -23,7 +23,7 @@ from .calculation import Periodic1DHigherRankAlignmentCalculationControls
 from .definition import Periodic1DHigherRankAlignmentChannel
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
     """Retain all recorded block-norm changes for one channel and mesh pair."""
 

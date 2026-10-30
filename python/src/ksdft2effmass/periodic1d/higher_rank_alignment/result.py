@@ -681,7 +681,7 @@ class Periodic1DHigherRankAlignmentTransportLinkResult(BaseTypedRecord):
         )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
     """Record one request-matched closed-loop frame-transport calculation.
 

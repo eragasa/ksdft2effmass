@@ -35,11 +35,14 @@ from .definition import (
 from .result import Periodic1DHigherRankAlignmentStatusResult
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
     """Retain analytic-gap, sampled-gap, structure, and recovery diagnostics."""
 
+    case_identity: str
     retained_rank: int
+    circuit_depth: int
+    construction_mesh_size: int
     exact_analytic_isolation_gap: float
     sampled_isolation_gaps: Float64Array
     exact_analytic_attack_angle_maximum: float
@@ -59,12 +62,28 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
     oracle_operator_recovery_defect: float
 
     def __post_init__(self) -> None:
+        _nonempty(self.case_identity, "case_identity")
         if (
             type(self.retained_rank) is not int
             or self.retained_rank
             not in Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
         ):
             raise ValueError("retained_rank must be in the frozen inventory")
+        if (
+            type(self.circuit_depth) is not int
+            or self.circuit_depth
+            not in Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
+        ):
+            raise ValueError("circuit_depth must be in the frozen inventory")
+        if (
+            type(self.construction_mesh_size) is not int
+            or self.construction_mesh_size
+            not in Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES
+        ):
+            raise ValueError("construction_mesh_size must be in the frozen inventory")
+        expected_case_identity = f"r{self.retained_rank:02d}-L{self.circuit_depth:02d}"
+        if self.case_identity != expected_case_identity:
+            raise ValueError("case_identity is inconsistent with rank and depth")
         if self.exact_analytic_isolation_gap != 2.1:
             raise ValueError(
                 "exact_analytic_isolation_gap must equal the protocol value"
@@ -158,7 +177,10 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
+            "case_identity": self.case_identity,
             "retained_rank": self.retained_rank,
+            "circuit_depth": self.circuit_depth,
+            "construction_mesh_size": self.construction_mesh_size,
             "exact_analytic_isolation_gap": self.exact_analytic_isolation_gap,
             "sampled_isolation_gaps": self.sampled_isolation_gaps,
             "exact_analytic_attack_angle_maximum": (
@@ -197,7 +219,10 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
         if set(values) != {
+            "case_identity",
             "retained_rank",
+            "circuit_depth",
+            "construction_mesh_size",
             "exact_analytic_isolation_gap",
             "sampled_isolation_gaps",
             "exact_analytic_attack_angle_maximum",
@@ -219,15 +244,27 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
             raise ValueError("model diagnostic fields do not match")
         sampled = values["sampled_isolation_gaps"]
         sampled_angles = values["sampled_attack_angle_maxima"]
+        case_identity = values["case_identity"]
         rank = values["retained_rank"]
+        circuit_depth = values["circuit_depth"]
+        construction_mesh_size = values["construction_mesh_size"]
         if not isinstance(sampled, np.ndarray) or not isinstance(
             sampled_angles, np.ndarray
         ):
             raise TypeError("sampled diagnostics must decode to numpy.ndarray")
-        if type(rank) is not int:
-            raise TypeError("retained_rank must decode to a built-in integer")
+        if type(case_identity) is not str:
+            raise TypeError("case_identity must decode to a built-in string")
+        if (
+            type(rank) is not int
+            or type(circuit_depth) is not int
+            or type(construction_mesh_size) is not int
+        ):
+            raise TypeError("rank, depth, and mesh size must decode to integers")
         return cls(
+            case_identity=case_identity,
             retained_rank=rank,
+            circuit_depth=circuit_depth,
+            construction_mesh_size=construction_mesh_size,
             exact_analytic_isolation_gap=_decoded_float(
                 values["exact_analytic_isolation_gap"],
                 "exact_analytic_isolation_gap",
@@ -291,7 +328,7 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
         )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
     """Retain complete rank and integrity evidence for global or pointwise selection."""
 

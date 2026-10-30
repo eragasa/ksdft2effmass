@@ -13,18 +13,18 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
 )
 
 from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
-from .channel_results import (
-    Periodic1DHigherRankChannelMeshResult,
-    Periodic1DHigherRankMeshCalculationResult,
-)
+from .channel_results import Periodic1DHigherRankMeshCalculationResult
 from .definition import Periodic1DHigherRankAlignmentStatus
 from .refinement_results import (
     Periodic1DHigherRankBlockRefinementResult,
     Periodic1DHigherRankScalarRefinementResult,
 )
+from .scalar_diagnostics import (
+    Periodic1DHigherRankScalarDiagnosticInventoryExtractor,
+)
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankRefinementAnalysisRequest:
     """Bind one calculation request and its complete construction-mesh results."""
 
@@ -93,7 +93,7 @@ class Periodic1DHigherRankRefinementAnalysisRequest:
                     )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankRefinementAnalysis:
     """Retain block and scalar refinement records from one complete request."""
 
@@ -136,6 +136,11 @@ class Periodic1DHigherRankRefinementAnalyzer:
             )
         self._request = request
         self._scalar_refinement_analyzer = scalar_refinement_analyzer
+
+    @property
+    def request(self) -> Periodic1DHigherRankRefinementAnalysisRequest:
+        """Return the exact refinement request bound to this action."""
+        return self._request
 
     def _diagnostic(
         self,
@@ -245,75 +250,6 @@ class Periodic1DHigherRankRefinementAnalyzer:
                 )
         return tuple(results)
 
-    @staticmethod
-    def _scalar_inventory(
-        channel: Periodic1DHigherRankChannelMeshResult,
-    ) -> tuple[tuple[str, float], ...]:
-        interpolation = channel.interpolation
-        if interpolation is None:
-            raise ValueError("qualified channel requires interpolation diagnostics")
-        values: list[tuple[str, float]] = [
-            (
-                "/interpolation/normalized_operator_maximum",
-                interpolation.errors.normalized_matrix_frobenius_maximum,
-            ),
-            (
-                "/interpolation/normalized_spectrum_maximum",
-                interpolation.errors.normalized_ordered_spectrum_maximum,
-            ),
-        ]
-        values.extend(
-            (f"/blocks/{int(translation):+d}", float(value))
-            for translation, value in zip(
-                channel.coefficient_translations,
-                channel.block_normalized_frobenius_norms,
-                strict=True,
-            )
-        )
-        for support in channel.supports:
-            prefix = f"/supports/{support.maximum_range}"
-            values.extend(
-                (
-                    (
-                        f"{prefix}/tail_w",
-                        support.normalized_omitted_squared_frobenius_weight,
-                    ),
-                    (
-                        f"{prefix}/tail_n",
-                        support.normalized_omitted_frobenius_l2_norm,
-                    ),
-                    (
-                        f"{prefix}/tail_l",
-                        support.normalized_omitted_block_l1_norm,
-                    ),
-                    (
-                        f"{prefix}/truncation_operator_maximum",
-                        support.truncation.errors.normalized_matrix_frobenius_maximum,
-                    ),
-                    (
-                        f"{prefix}/truncation_spectrum_maximum",
-                        support.truncation.errors.normalized_ordered_spectrum_maximum,
-                    ),
-                    (
-                        f"{prefix}/total_operator_maximum",
-                        support.total.errors.normalized_matrix_frobenius_maximum,
-                    ),
-                    (
-                        f"{prefix}/total_spectrum_maximum",
-                        support.total.errors.normalized_ordered_spectrum_maximum,
-                    ),
-                    (
-                        f"{prefix}/parseval",
-                        support.construction_parseval_relative_defect,
-                    ),
-                    (
-                        f"{prefix}/decomposition",
-                        support.normalized_error_decomposition_defect,
-                    ),
-                )
-            )
-        return tuple(values)
-
     def _scalar_refinements(
         self,
     ) -> tuple[Periodic1DHigherRankScalarRefinementResult, ...]:
@@ -342,8 +278,12 @@ class Periodic1DHigherRankRefinementAnalyzer:
                 is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
             ):
                 continue
-            coarse_inventory = self._scalar_inventory(coarse)
-            fine_inventory = self._scalar_inventory(fine)
+            coarse_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+                coarse
+            ).execute()
+            fine_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+                fine
+            ).execute()
             if tuple(path for path, _ in coarse_inventory) != tuple(
                 path for path, _ in fine_inventory
             ):

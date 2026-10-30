@@ -5,11 +5,9 @@ from __future__ import annotations
 import math
 from collections.abc import Mapping
 
+import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
-from projectkoios.numerics.numpy.validation import (
-    immutable_float64_array,
-    immutable_int64_array,
-)
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 
 from ksdft2effmass.serialization import SerializableValue
 
@@ -36,13 +34,21 @@ def _float_array(
 ) -> Float64Array:
     if value.ndim != ndim:
         raise ValueError(f"{name} must have {ndim} dimensions")
-    return immutable_float64_array(value, name)
+    return NumpyImmutableArrayConstructor(
+        value,
+        name,
+        np.dtype(np.float64),
+    ).execute()
 
 
 def _int_array(value: Int64Array, name: str) -> Int64Array:
     if value.ndim != 1:
         raise ValueError(f"{name} must be one dimensional")
-    return immutable_int64_array(value, name)
+    return NumpyImmutableArrayConstructor(
+        value,
+        name,
+        np.dtype(np.int64),
+    ).execute()
 
 
 def _decoded_float(value: SerializableValue, name: str) -> float:
