@@ -20,14 +20,17 @@ from ._record_admission import (
     _nonempty,
 )
 from .calculation import Periodic1DHigherRankAlignmentCalculationControls
-from .definition import Periodic1DHigherRankAlignmentChannel
+from .gauge_alignment.definition import (
+    GaugeAlignmentWireMapping,
+    Periodic1DHigherRankGaugeAlignment,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
-    """Retain all recorded block-norm changes for one channel and mesh pair."""
+    """Retain block-norm changes for one gauge alignment and mesh pair."""
 
-    channel: Periodic1DHigherRankAlignmentChannel
+    gauge_alignment: Periodic1DHigherRankGaugeAlignment
     coarse_mesh_size: int
     fine_mesh_size: int
     translations: Int64Array
@@ -40,8 +43,8 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
     all_pass: bool
 
     def __post_init__(self) -> None:
-        if type(self.channel) is not Periodic1DHigherRankAlignmentChannel:
-            raise TypeError("channel must be the exact alignment enum")
+        if type(self.gauge_alignment) is not Periodic1DHigherRankGaugeAlignment:
+            raise TypeError("gauge_alignment must be the exact alignment enum")
         if (
             type(self.coarse_mesh_size) is not int
             or type(self.fine_mesh_size) is not int
@@ -115,7 +118,7 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
-            "channel": self.channel.value,
+            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(self.gauge_alignment),
             "coarse_mesh_size": self.coarse_mesh_size,
             "fine_mesh_size": self.fine_mesh_size,
             "translations": self.translations,
@@ -131,7 +134,7 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
         required = {
-            "channel",
+            "gauge_alignment",
             "coarse_mesh_size",
             "fine_mesh_size",
             "translations",
@@ -145,12 +148,12 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
         }
         if set(values) != required:
             raise ValueError("block refinement fields do not match")
-        channel = values["channel"]
+        gauge_alignment = values["gauge_alignment"]
         coarse = values["coarse_mesh_size"]
         fine = values["fine_mesh_size"]
         all_pass = values["all_pass"]
         if (
-            type(channel) is not str
+            type(gauge_alignment) is not str
             or type(coarse) is not int
             or type(fine) is not int
             or type(all_pass) is not bool
@@ -160,7 +163,7 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
             )
         arrays: dict[str, np.ndarray] = {}
         for name in required - {
-            "channel",
+            "gauge_alignment",
             "coarse_mesh_size",
             "fine_mesh_size",
             "all_pass",
@@ -170,7 +173,7 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
                 raise TypeError(f"{name} must decode to numpy.ndarray")
             arrays[name] = value
         return cls(
-            channel=Periodic1DHigherRankAlignmentChannel(channel),
+            gauge_alignment=GaugeAlignmentWireMapping.from_wire(gauge_alignment),
             coarse_mesh_size=coarse,
             fine_mesh_size=fine,
             all_pass=all_pass,
@@ -188,7 +191,7 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
 class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
     """Retain one final-mesh scalar refinement value and frozen gate."""
 
-    channel: Periodic1DHigherRankAlignmentChannel
+    gauge_alignment: Periodic1DHigherRankGaugeAlignment
     diagnostic_path: str
     coarse_mesh_size: int
     fine_mesh_size: int
@@ -201,8 +204,8 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
     passes: bool
 
     def __post_init__(self) -> None:
-        if type(self.channel) is not Periodic1DHigherRankAlignmentChannel:
-            raise TypeError("channel must be the exact alignment enum")
+        if type(self.gauge_alignment) is not Periodic1DHigherRankGaugeAlignment:
+            raise TypeError("gauge_alignment must be the exact alignment enum")
         _nonempty(self.diagnostic_path, "diagnostic_path")
         if (self.coarse_mesh_size, self.fine_mesh_size) != (1025, 2049):
             raise ValueError("scalar refinement must use the frozen final mesh pair")
@@ -243,7 +246,7 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
-            "channel": self.channel.value,
+            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(self.gauge_alignment),
             "diagnostic_path": self.diagnostic_path,
             "coarse_mesh_size": self.coarse_mesh_size,
             "fine_mesh_size": self.fine_mesh_size,
@@ -259,7 +262,7 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
         required = {
-            "channel",
+            "gauge_alignment",
             "diagnostic_path",
             "coarse_mesh_size",
             "fine_mesh_size",
@@ -273,12 +276,12 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
         }
         if set(values) != required:
             raise ValueError("scalar refinement fields do not match")
-        channel = values["channel"]
+        gauge_alignment = values["gauge_alignment"]
         path = values["diagnostic_path"]
         coarse = values["coarse_mesh_size"]
         fine = values["fine_mesh_size"]
         passes = values["passes"]
-        if type(channel) is not str or type(path) is not str:
+        if type(gauge_alignment) is not str or type(path) is not str:
             raise TypeError("scalar refinement identities must decode to strings")
         if type(coarse) is not int or type(fine) is not int:
             raise TypeError("scalar refinement mesh sizes must decode to integers")
@@ -286,7 +289,7 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
             raise TypeError("scalar refinement passes must decode to bool")
         floats: dict[str, float] = {}
         for name in required - {
-            "channel",
+            "gauge_alignment",
             "diagnostic_path",
             "coarse_mesh_size",
             "fine_mesh_size",
@@ -294,7 +297,7 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
         }:
             floats[name] = _decoded_float(values[name], name)
         return cls(
-            channel=Periodic1DHigherRankAlignmentChannel(channel),
+            gauge_alignment=GaugeAlignmentWireMapping.from_wire(gauge_alignment),
             diagnostic_path=path,
             coarse_mesh_size=coarse,
             fine_mesh_size=fine,

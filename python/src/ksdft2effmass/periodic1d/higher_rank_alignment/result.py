@@ -30,9 +30,12 @@ from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 from .configuration import Periodic1DHigherRankAlignmentConfiguration
 from .definition import (
     Periodic1DHigherRankAlignmentBackendExceptionCode,
-    Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentStatus,
     Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
+)
+from .gauge_alignment.definition import (
+    GaugeAlignmentWireMapping,
+    Periodic1DHigherRankGaugeAlignment,
 )
 from .request import Periodic1DHigherRankAlignmentTransportRequest
 
@@ -157,11 +160,11 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
         Built-in unitless integers selected from the frozen study inventories.
     construction_mesh_size
         Built-in integer number of construction-mesh points.
-    channel, status
+    gauge_alignment, status
         Exact alignment-family and outcome enums.
     global_unitary_downstream_applicability
         Applicability of downstream global-unitary observables, or ``None`` for other
-        channels and unresolved failures.
+        gauge alignments and unresolved failures.
     backend_exception_code
         Closed numerical-failure classification, present only for numerically unresolved
         alignment.
@@ -177,7 +180,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
     retained_rank: int
     circuit_depth: int
     construction_mesh_size: int
-    channel: Periodic1DHigherRankAlignmentChannel
+    gauge_alignment: Periodic1DHigherRankGaugeAlignment
     status: Periodic1DHigherRankAlignmentStatus
     global_unitary_downstream_applicability: (
         Periodic1DHigherRankGlobalUnitaryDownstreamApplicability | None
@@ -185,7 +188,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
     backend_exception_code: Periodic1DHigherRankAlignmentBackendExceptionCode | None
 
     def __post_init__(self) -> None:
-        """Validate the closed channel-specific disposition inventory."""
+        """Validate the closed gauge-alignment-specific disposition inventory."""
         _nonempty_text(self.case_identity, "case_identity")
         for value, name, allowed in (
             (
@@ -210,8 +213,10 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
                 raise ValueError(f"{name} is not in the frozen inventory")
         if self.case_identity != _case_identity(self.retained_rank, self.circuit_depth):
             raise ValueError("case_identity is inconsistent with rank and depth")
-        if type(self.channel) is not Periodic1DHigherRankAlignmentChannel:
-            raise TypeError("channel must be the exact higher-rank channel enum")
+        if type(self.gauge_alignment) is not Periodic1DHigherRankGaugeAlignment:
+            raise TypeError(
+                "gauge_alignment must be the exact higher-rank gauge-alignment enum"
+            )
         if type(self.status) is not Periodic1DHigherRankAlignmentStatus:
             raise TypeError("status must be the exact higher-rank status enum")
         if (
@@ -230,32 +235,34 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
             raise TypeError("backend_exception_code must be its exact enum or None")
 
         permitted = {
-            Periodic1DHigherRankAlignmentChannel.IDENTITY: (
+            Periodic1DHigherRankGaugeAlignment.IDENTITY: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
                 Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
             ),
-            Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY: (
+            Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
                 Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT,
                 Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
                 Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED,
             ),
-            Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY: (
+            Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
                 Periodic1DHigherRankAlignmentStatus.POINTWISE_RANK_DEFICIENT,
                 Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
                 Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED,
             ),
-            Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE: (
+            Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
                 Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
                 Periodic1DHigherRankAlignmentStatus.ORACLE_INTEGRITY_FAILED,
             ),
         }
-        if self.status not in permitted[self.channel]:
-            raise ValueError("status is not admissible for the selected channel")
+        if self.status not in permitted[self.gauge_alignment]:
+            raise ValueError(
+                "status is not admissible for the selected gauge alignment"
+            )
 
-        if self.channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY:
+        if self.gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY:
             expected_applicability = {
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED: (
                     Periodic1DHigherRankGlobalUnitaryDownstreamApplicability.APPLICABLE
@@ -275,7 +282,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
                 )
         elif self.global_unitary_downstream_applicability is not None:
             raise ValueError(
-                "only the global-unitary channel may retain downstream applicability"
+                "only global-unitary alignment may retain downstream applicability"
             )
 
         if self.status is Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED:
@@ -294,7 +301,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
             "retained_rank": self.retained_rank,
             "circuit_depth": self.circuit_depth,
             "construction_mesh_size": self.construction_mesh_size,
-            "channel": self.channel.value,
+            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(self.gauge_alignment),
             "status": self.status.value,
             "global_unitary_downstream_applicability": (
                 None
@@ -315,7 +322,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
             "retained_rank",
             "circuit_depth",
             "construction_mesh_size",
-            "channel",
+            "gauge_alignment",
             "status",
             "global_unitary_downstream_applicability",
             "backend_exception_code",
@@ -326,7 +333,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
         retained_rank = values["retained_rank"]
         circuit_depth = values["circuit_depth"]
         construction_mesh_size = values["construction_mesh_size"]
-        channel = values["channel"]
+        gauge_alignment = values["gauge_alignment"]
         status = values["status"]
         applicability = values["global_unitary_downstream_applicability"]
         exception_code = values["backend_exception_code"]
@@ -338,8 +345,8 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
             or type(construction_mesh_size) is not int
         ):
             raise TypeError("rank, depth, and mesh size must decode to integers")
-        if type(channel) is not str or type(status) is not str:
-            raise TypeError("channel and status must decode to strings")
+        if type(gauge_alignment) is not str or type(status) is not str:
+            raise TypeError("gauge_alignment and status must decode to strings")
         if applicability is not None and type(applicability) is not str:
             raise TypeError(
                 "global-unitary applicability must decode to a string or None"
@@ -351,7 +358,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
             retained_rank=retained_rank,
             circuit_depth=circuit_depth,
             construction_mesh_size=construction_mesh_size,
-            channel=Periodic1DHigherRankAlignmentChannel(channel),
+            gauge_alignment=GaugeAlignmentWireMapping.from_wire(gauge_alignment),
             status=Periodic1DHigherRankAlignmentStatus(status),
             global_unitary_downstream_applicability=(
                 None

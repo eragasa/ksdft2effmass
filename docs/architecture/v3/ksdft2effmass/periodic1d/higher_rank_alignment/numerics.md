@@ -47,7 +47,7 @@ H'_{r,L}(k)=G_{r,L}^{\dagger}(k)D_r(k)G_{r,L}(k),
 $$
 
 where $D_r(k)=\operatorname{diag}(\varepsilon_0(k),\ldots,
-\varepsilon_{r-1}(k))$. The known-inverse channel applies $G_{r,L}^{\dagger}(k)$
+\varepsilon_{r-1}(k))$. The known-inverse-oracle gauge alignment applies $G_{r,L}^{\dagger}(k)$
 on the right and therefore recovers $D_r(k)$ up to binary64 arithmetic.
 
 ## Global and pointwise Procrustes selection
@@ -192,7 +192,7 @@ telescope, but maxima over reciprocal space are not additive.
 
 ## Odd-mesh Fourier locality and shifted evaluation
 
-For every qualified channel and construction size $M$, PhysKit transforms the complete
+For every qualified gauge alignment and construction size $M$, PhysKit transforms the complete
 matrix field on the unshifted odd centered mesh. The represented translations are
 
 $$
@@ -223,7 +223,7 @@ $$
 
 The producer records the numerical defect in
 $E_{\mathrm{total}}=E_{\mathrm{interp}}+E_{\mathrm{trunc}}$ but never replaces the
-three channels by a sum of their maxima. Ordinary omitted-tail weights and norms are
+three error channels by a sum of their maxima. Ordinary omitted-tail weights and norms are
 computed from the complete matrix coefficients. Construction-mesh Parseval and
 successive-tail monotonicity are separate diagnostics.
 
@@ -242,9 +242,26 @@ $$
 and the inclusive threshold is
 
 $$
-\tau=\tau_{\mathrm{abs}}+	au_{\mathrm{rel}}
+\tau=\tau_{\mathrm{abs}}+\tau_{\mathrm{rel}}
 \max(|q_c|,|q_f|).
 $$
 
 The signed margin is $\tau-\Delta$. Calculation records recompute these quantities from
 the retained coarse and fine values rather than trusting supplied changes or margins.
+
+## Boundary of the one-dimensional orthonormal formulation
+
+The pointwise equations $F'(\mathbf{k})U(\mathbf{k})$ and
+$U^\dagger(\mathbf{k})H'(\mathbf{k})U(\mathbf{k})$ are fiberwise and do not by
+themselves select a spatial dimension. The present numerical owners nevertheless fix a
+one-dimensional odd centered mesh, scalar Fourier index $R\in\mathbb{Z}$, symmetric
+interval support $|R|\leq S$, and one-dimensional shifted evaluation coordinates.
+A 2-D or 3-D study must define multi-index representatives, inversion-complete support
+geometry, and mesh/evaluation topology before reusing the fiberwise equations.
+
+All current frames are orthonormal in the Euclidean inner product, so right actions lie
+in $U(r)$ and adjoints are ordinary conjugate transposes. Nonorthonormal retained bases
+would require an explicitly supplied positive-definite fiber metric and metric-aware
+adjoints, isometries, rank tests, and Procrustes objectives. Those equations and
+contracts are intentionally absent rather than approximated by an optional metric on
+the present actions.

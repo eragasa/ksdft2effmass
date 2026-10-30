@@ -29,9 +29,9 @@ from ._record_admission import (
 )
 from .configuration import Periodic1DHigherRankAlignmentConfiguration
 from .definition import (
-    Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentStatus,
 )
+from .gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
 from .result import Periodic1DHigherRankAlignmentStatusResult
 
 
@@ -356,9 +356,9 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
     def __post_init__(self) -> None:
         if type(self.status) is not Periodic1DHigherRankAlignmentStatusResult:
             raise TypeError("status must be the exact alignment status record")
-        if self.status.channel not in (
-            Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
-            Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
+        if self.status.gauge_alignment not in (
+            Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
+            Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
         ):
             raise ValueError(
                 "Procrustes diagnostics require global or pointwise alignment"
@@ -390,14 +390,14 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
             if unresolved
             else (
                 1
-                if self.status.channel
-                is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY
+                if self.status.gauge_alignment
+                is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
                 else self.selection_mesh_size
             )
         )
         if singular.shape != (expected_count, self.status.retained_rank):
             raise ValueError(
-                "cross_singular_values shape disagrees with channel and rank"
+                "cross_singular_values shape disagrees with gauge_alignment and rank"
             )
         if (
             ranks.shape != (expected_count,)
@@ -453,8 +453,8 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
                         (ranks < self.status.retained_rank) | (margins <= 0.0)
                     )
                 )
-                if self.status.channel
-                is Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY
+                if self.status.gauge_alignment
+                is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY
                 else ()
             )
             if (
@@ -509,8 +509,8 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
             ):
                 raise ValueError("minimum_rank_margin must be a finite built-in float")
             if (
-                self.status.channel
-                is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY
+                self.status.gauge_alignment
+                is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
                 and self.status.status is Periodic1DHigherRankAlignmentStatus.QUALIFIED
             ):
                 if type(

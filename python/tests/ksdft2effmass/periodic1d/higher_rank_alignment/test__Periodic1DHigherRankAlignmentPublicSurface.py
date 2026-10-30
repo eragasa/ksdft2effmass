@@ -8,6 +8,7 @@ import pytest
 
 import ksdft2effmass.periodic1d as periodic1d
 from ksdft2effmass.periodic1d import higher_rank_alignment
+from ksdft2effmass.periodic1d.higher_rank_alignment import gauge_alignment
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -20,10 +21,19 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
             assert getattr(periodic1d, name) is getattr(higher_rank_alignment, name)
             assert "D1" not in name
 
+    def test__gauge_alignment_package__exports_only_scientific_definitions(
+        self,
+    ) -> None:
+        assert gauge_alignment.__all__ == [
+            "NyquistModeDispositionEnum",
+            "NyquistModeDispositionWireMapping",
+            "Periodic1DHigherRankGaugeAlignment",
+        ]
+
     def test__package__does_not_reexport_internal_analysis_actions(self) -> None:
         internal_names = (
-            "Periodic1DHigherRankChannelAnalysisRequest",
-            "Periodic1DHigherRankChannelAnalyzer",
+            "Periodic1DHigherRankGaugeAlignmentAnalysisRequest",
+            "Periodic1DHigherRankGaugeAlignmentAnalyzer",
             "Periodic1DHigherRankEvaluationIndependenceAnalyzer",
             "Periodic1DHigherRankEvaluationIndependenceResult",
             "Periodic1DHigherRankRefinementAnalysis",
@@ -39,9 +49,9 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
             "Periodic1DHigherRankAlignmentCalculationControls": "calculation",
             "Periodic1DHigherRankAlignmentCalculationRequest": "calculation",
             "Periodic1DHigherRankAlignmentCalculationResult": "calculation_result",
-            "Periodic1DHigherRankChannelMeshResult": "channel_results",
-            "Periodic1DHigherRankMeshCalculationResult": "channel_results",
-            "Periodic1DHigherRankSupportResult": "channel_results",
+            "Periodic1DHigherRankGaugeAlignmentMeshResult": "results",
+            "Periodic1DHigherRankMeshCalculationResult": "results",
+            "Periodic1DHigherRankSupportResult": "results",
             "Periodic1DHigherRankFrameErrorResult": "diagnostics",
             "Periodic1DHigherRankMatrixComparisonResult": "diagnostics",
             "Periodic1DHigherRankMatrixErrorResult": "diagnostics",

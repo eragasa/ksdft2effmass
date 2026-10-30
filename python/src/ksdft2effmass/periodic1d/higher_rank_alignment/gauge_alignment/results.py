@@ -1,4 +1,4 @@
-"""Immutable channel, support, and mesh results for higher-rank alignment."""
+"""Immutable gauge-alignment, support, and mesh results."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from ._record_admission import (
+from .._record_admission import (
     _decoded_bool,
     _decoded_float,
     _decoded_optional_float,
@@ -23,31 +23,31 @@ from ._record_admission import (
     _nonempty,
     _tuple_of_mappings,
 )
-from .calculation import Periodic1DHigherRankAlignmentCalculationControls
-from .configuration import Periodic1DHigherRankAlignmentConfiguration
-from .definition import (
-    Periodic1DHigherRankAlignmentChannel,
-    Periodic1DHigherRankAlignmentStatus,
-)
-from .diagnostics import (
+from ..calculation import Periodic1DHigherRankAlignmentCalculationControls
+from ..configuration import Periodic1DHigherRankAlignmentConfiguration
+from ..definition import Periodic1DHigherRankAlignmentStatus
+from ..diagnostics import (
     Periodic1DHigherRankFrameErrorResult,
     Periodic1DHigherRankMatrixComparisonResult,
     Periodic1DHigherRankMatrixErrorResult,
     Periodic1DHigherRankModelDiagnostics,
     Periodic1DHigherRankProcrustesDiagnostics,
 )
-from .result import (
+from ..result import (
     Periodic1DHigherRankAlignmentStatusResult,
     Periodic1DHigherRankAlignmentTransportBackendFailureResult,
     Periodic1DHigherRankAlignmentTransportOwnerResult,
 )
-
-_ODD_CENTERED_NO_NYQUIST_DISPOSITION = "inapplicable-odd-centered-no-nyquist"
+from .definition import Periodic1DHigherRankGaugeAlignment
+from .nyquist import (
+    NyquistModeDispositionEnum,
+    NyquistModeDispositionWireMapping,
+)
 
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DHigherRankSupportResult(BaseTypedRecord):
-    """Retain one declared symmetric support and its separate error channels."""
+    """Retain one symmetric support and its separate error channels."""
 
     maximum_range: int
     rank: int
@@ -282,8 +282,8 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
-    """Retain one channel's transform, interpolation, locality, and gate evidence."""
+class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
+    """Retain transform, interpolation, and locality evidence for one alignment."""
 
     status: Periodic1DHigherRankAlignmentStatusResult
     transform_backend_identifier: str | None
@@ -292,7 +292,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
     fourier_representative_inventory_ordered_unique: bool | None
     fourier_inversion_closed: bool | None
     fourier_index_bijection_pass: bool | None
-    no_nyquist_disposition: str | None
+    nyquist_mode_disposition: NyquistModeDispositionEnum | None
     coefficient_translations: Int64Array
     block_raw_frobenius_norms: Float64Array
     block_normalized_frobenius_norms: Float64Array
@@ -340,7 +340,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
             self.fourier_representative_inventory_ordered_unique,
             self.fourier_inversion_closed,
             self.fourier_index_bijection_pass,
-            self.no_nyquist_disposition,
+            self.nyquist_mode_disposition,
             self.frame_recovery,
             self.represented_operator_recovery,
             self.reconstruction,
@@ -360,13 +360,13 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
         if qualified:
             if any(value is None for value in required_values):
                 raise ValueError(
-                    "qualified channel requires complete transform diagnostics"
+                    "qualified alignment requires complete transform diagnostics"
                 )
             if (
                 tuple(result.maximum_range for result in self.supports)
                 != Periodic1DHigherRankAlignmentCalculationControls.SUPPORT_RADII
             ):
-                raise ValueError("qualified channel must retain every frozen support")
+                raise ValueError("qualified alignment must retain every frozen support")
             expected_translations = np.arange(
                 -Periodic1DHigherRankAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE,
                 Periodic1DHigherRankAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE
@@ -391,7 +391,9 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 != Periodic1DHigherRankAlignmentCalculationControls.ENERGY_REFERENCE
                 for support in self.supports
             ):
-                raise ValueError("support normalization must match the channel status")
+                raise ValueError(
+                    "support normalization must match the alignment status"
+                )
             if self.fourier_representative_count != self.status.construction_mesh_size:
                 raise ValueError(
                     "Fourier representative count must equal the construction mesh size"
@@ -402,8 +404,11 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 or self.fourier_index_bijection_pass is not True
             ):
                 raise ValueError("qualified Fourier index identities must pass")
-            if self.no_nyquist_disposition != _ODD_CENTERED_NO_NYQUIST_DISPOSITION:
-                raise ValueError("odd-mesh no-Nyquist disposition is invalid")
+            if (
+                self.nyquist_mode_disposition
+                is not NyquistModeDispositionEnum.ABSENT_ON_ODD_MESH
+            ):
+                raise ValueError("odd mesh must have no self-inverse Nyquist mode")
         else:
             if (
                 any(value is not None for value in required_values)
@@ -415,7 +420,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 or normalized.size
             ):
                 raise ValueError(
-                    "unqualified channel must not claim downstream diagnostics"
+                    "unqualified alignment must not claim downstream diagnostics"
                 )
         for value, name in (
             (self.parseval_relative_defect, "parseval_relative_defect"),
@@ -467,12 +472,12 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 or self.ordinary_hermiticity_defect is None
                 or self.twisted_cyclic_hermiticity_defect is None
             ):
-                raise ValueError("qualified channel requires gate evidence")
+                raise ValueError("qualified alignment requires gate evidence")
             controls = Periodic1DHigherRankAlignmentCalculationControls
             tolerance = controls.FOURIER_CONSISTENCY_TOLERANCE
-            known_recovery_applicable = self.status.channel in (
-                Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
-                Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
+            known_recovery_applicable = self.status.gauge_alignment in (
+                Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
+                Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
             )
             if known_recovery_applicable:
                 if (
@@ -480,7 +485,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                     or self.represented_operator_recovery is None
                 ):
                     raise ValueError(
-                        "known-recovery channels require recovery evidence"
+                        "known-recovery alignments require recovery evidence"
                     )
                 if self.known_frame_recovery_pass is not (
                     self.frame_recovery.normalized_frobenius_maximum
@@ -498,9 +503,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 self.known_frame_recovery_pass is not None
                 or self.known_operator_recovery_pass is not None
             ):
-                raise ValueError(
-                    "unknown-recovery channels cannot claim known-recovery gates"
-                )
+                raise ValueError("other alignments cannot claim known-recovery gates")
             expected_gate_values = (
                 (
                     self.reconstruction_pass,
@@ -528,7 +531,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 ),
             )
             if any(actual is not expected for actual, expected in expected_gate_values):
-                raise ValueError("channel gate disposition is inconsistent")
+                raise ValueError("gauge-alignment gate disposition is inconsistent")
         for text_value, name in (
             (self.transform_backend_identifier, "transform_backend_identifier"),
             (self.transform_backend_version, "transform_backend_version"),
@@ -550,7 +553,13 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
             ),
             "fourier_inversion_closed": self.fourier_inversion_closed,
             "fourier_index_bijection_pass": self.fourier_index_bijection_pass,
-            "no_nyquist_disposition": self.no_nyquist_disposition,
+            "nyquist_mode_disposition": (
+                None
+                if self.nyquist_mode_disposition is None
+                else NyquistModeDispositionWireMapping.to_wire(
+                    self.nyquist_mode_disposition
+                )
+            ),
             "coefficient_translations": self.coefficient_translations,
             "block_raw_frobenius_norms": self.block_raw_frobenius_norms,
             "block_normalized_frobenius_norms": (self.block_normalized_frobenius_norms),
@@ -592,7 +601,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
             "fourier_representative_inventory_ordered_unique",
             "fourier_inversion_closed",
             "fourier_index_bijection_pass",
-            "no_nyquist_disposition",
+            "nyquist_mode_disposition",
             "coefficient_translations",
             "block_raw_frobenius_norms",
             "block_normalized_frobenius_norms",
@@ -615,7 +624,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
             "maximum_tail_increase",
             "all_tail_monotonicity_checks_pass",
         }:
-            raise ValueError("channel mesh fields do not match")
+            raise ValueError("gauge-alignment mesh fields do not match")
         arrays: dict[str, np.ndarray] = {}
         for name in (
             "coefficient_translations",
@@ -630,7 +639,6 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
         for name in (
             "transform_backend_identifier",
             "transform_backend_version",
-            "no_nyquist_disposition",
         ):
             value = values[name]
             if value is not None and type(value) is not str:
@@ -671,6 +679,17 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
             raise TypeError(
                 "fourier_representative_count must decode to built-in int or None"
             )
+        nyquist_mode_value = values["nyquist_mode_disposition"]
+        if nyquist_mode_value is None:
+            nyquist_mode_disposition = None
+        else:
+            if type(nyquist_mode_value) is not str:
+                raise TypeError(
+                    "nyquist_mode_disposition must decode to string or None"
+                )
+            nyquist_mode_disposition = NyquistModeDispositionWireMapping.from_wire(
+                nyquist_mode_value
+            )
         frame_recovery_value = values["frame_recovery"]
         represented_operator_recovery_value = values["represented_operator_recovery"]
         reconstruction_value = values["reconstruction"]
@@ -689,7 +708,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
             ],
             fourier_inversion_closed=optional_bools["fourier_inversion_closed"],
             fourier_index_bijection_pass=optional_bools["fourier_index_bijection_pass"],
-            no_nyquist_disposition=optional_strings["no_nyquist_disposition"],
+            nyquist_mode_disposition=nyquist_mode_disposition,
             coefficient_translations=_int_array(
                 arrays["coefficient_translations"], "coefficient_translations"
             ),
@@ -762,7 +781,7 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
     endpoint_closure_defect: float | None
     primitive_closure_defect: float | None
     pointwise_selection: Periodic1DHigherRankProcrustesDiagnostics
-    channels: tuple[Periodic1DHigherRankChannelMeshResult, ...]
+    gauge_alignment_results: tuple[Periodic1DHigherRankGaugeAlignmentMeshResult, ...]
 
     def __post_init__(self) -> None:
         if (
@@ -827,16 +846,22 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
         ):
             raise ValueError("pointwise selection must match this construction mesh")
         if (
-            type(self.channels) is not tuple
-            or tuple(item.status.channel for item in self.channels)
-            != Periodic1DHigherRankAlignmentConfiguration.ALIGNMENT_CHANNELS
+            type(self.gauge_alignment_results) is not tuple
+            or tuple(
+                item.status.gauge_alignment for item in self.gauge_alignment_results
+            )
+            != Periodic1DHigherRankAlignmentConfiguration.GAUGE_ALIGNMENTS
         ):
-            raise ValueError("channels must use the frozen semantic order")
+            raise ValueError(
+                "gauge_alignment_results must use the frozen scientific order"
+            )
         if any(
             item.status.construction_mesh_size != self.construction_mesh_size
-            for item in self.channels
+            for item in self.gauge_alignment_results
         ):
-            raise ValueError("every channel status must match the construction mesh")
+            raise ValueError(
+                "every gauge-alignment status must match the construction mesh"
+            )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
@@ -847,7 +872,7 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             "endpoint_closure_defect": self.endpoint_closure_defect,
             "primitive_closure_defect": self.primitive_closure_defect,
             "pointwise_selection": self.pointwise_selection,
-            "channels": self.channels,
+            "gauge_alignment_results": self.gauge_alignment_results,
         }
 
     @classmethod
@@ -860,7 +885,7 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             "endpoint_closure_defect",
             "primitive_closure_defect",
             "pointwise_selection",
-            "channels",
+            "gauge_alignment_results",
         }:
             raise ValueError("mesh calculation fields do not match")
         mesh = values["construction_mesh_size"]
@@ -900,8 +925,10 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             pointwise_selection=Periodic1DHigherRankProcrustesDiagnostics.from_dict(
                 _mapping_value(values["pointwise_selection"], "pointwise_selection")
             ),
-            channels=tuple(
-                Periodic1DHigherRankChannelMeshResult.from_dict(item)
-                for item in _tuple_of_mappings(values["channels"], "channels")
+            gauge_alignment_results=tuple(
+                Periodic1DHigherRankGaugeAlignmentMeshResult.from_dict(item)
+                for item in _tuple_of_mappings(
+                    values["gauge_alignment_results"], "gauge_alignment_results"
+                )
             ),
         )

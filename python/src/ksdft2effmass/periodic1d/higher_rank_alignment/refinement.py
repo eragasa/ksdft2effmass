@@ -13,8 +13,8 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
 )
 
 from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
-from .channel_results import Periodic1DHigherRankMeshCalculationResult
 from .definition import Periodic1DHigherRankAlignmentStatus
+from .gauge_alignment.results import Periodic1DHigherRankMeshCalculationResult
 from .refinement_results import (
     Periodic1DHigherRankBlockRefinementResult,
     Periodic1DHigherRankScalarRefinementResult,
@@ -56,7 +56,8 @@ class Periodic1DHigherRankRefinementAnalysisRequest:
             if mesh.model_diagnostics.retained_rank != request.retained_rank:
                 raise ValueError("mesh model diagnostics must match the request rank")
             statuses = (mesh.pointwise_selection.status,) + tuple(
-                channel.status for channel in mesh.channels
+                gauge_alignment.status
+                for gauge_alignment in mesh.gauge_alignment_results
             )
             if any(
                 (
@@ -174,17 +175,17 @@ class Periodic1DHigherRankRefinementAnalyzer:
         calculation_request = self._request.calculation_request
         meshes = self._request.meshes
         results: list[Periodic1DHigherRankBlockRefinementResult] = []
-        for channel in calculation_request.configuration.alignment_channels:
+        for gauge_alignment in calculation_request.configuration.gauge_alignments:
             for coarse_mesh, fine_mesh in zip(meshes[:-1], meshes[1:], strict=True):
                 coarse = next(
                     item
-                    for item in coarse_mesh.channels
-                    if item.status.channel is channel
+                    for item in coarse_mesh.gauge_alignment_results
+                    if item.status.gauge_alignment is gauge_alignment
                 )
                 fine = next(
                     item
-                    for item in fine_mesh.channels
-                    if item.status.channel is channel
+                    for item in fine_mesh.gauge_alignment_results
+                    if item.status.gauge_alignment is gauge_alignment
                 )
                 if (
                     coarse.status.status
@@ -231,7 +232,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
                 )
                 results.append(
                     Periodic1DHigherRankBlockRefinementResult(
-                        channel=channel,
+                        gauge_alignment=gauge_alignment,
                         coarse_mesh_size=coarse_mesh.construction_mesh_size,
                         fine_mesh_size=fine_mesh.construction_mesh_size,
                         translations=coarse.coefficient_translations,
@@ -264,12 +265,16 @@ class Periodic1DHigherRankRefinementAnalyzer:
             mesh for mesh in meshes if mesh.construction_mesh_size == fine_size
         )
         results: list[Periodic1DHigherRankScalarRefinementResult] = []
-        for channel in calculation_request.configuration.alignment_channels:
+        for gauge_alignment in calculation_request.configuration.gauge_alignments:
             coarse = next(
-                item for item in coarse_mesh.channels if item.status.channel is channel
+                item
+                for item in coarse_mesh.gauge_alignment_results
+                if item.status.gauge_alignment is gauge_alignment
             )
             fine = next(
-                item for item in fine_mesh.channels if item.status.channel is channel
+                item
+                for item in fine_mesh.gauge_alignment_results
+                if item.status.gauge_alignment is gauge_alignment
             )
             if (
                 coarse.status.status
@@ -301,7 +306,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
                 )
                 results.append(
                     Periodic1DHigherRankScalarRefinementResult(
-                        channel=channel,
+                        gauge_alignment=gauge_alignment,
                         diagnostic_path=path,
                         coarse_mesh_size=coarse_mesh.construction_mesh_size,
                         fine_mesh_size=fine_mesh.construction_mesh_size,

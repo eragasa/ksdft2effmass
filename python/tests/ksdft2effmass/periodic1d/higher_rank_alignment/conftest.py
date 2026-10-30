@@ -45,7 +45,7 @@ def higher_rank_configuration() -> Periodic1DHigherRankAlignmentConfiguration:
         evaluation_mesh_size=configuration_type.EVALUATION_MESH_SIZE,
         evaluation_shift_numerator=configuration_type.EVALUATION_SHIFT_NUMERATOR,
         evaluation_shift_denominator=configuration_type.EVALUATION_SHIFT_DENOMINATOR,
-        alignment_channels=configuration_type.ALIGNMENT_CHANNELS,
+        gauge_alignments=configuration_type.GAUGE_ALIGNMENTS,
         frame_rotation_action=FrameRotationAction.RIGHT,
         endpoint_sewing_action=EndpointSewingAction.LEFT_AMBIENT,
         principal_phase_branch=(
@@ -104,7 +104,7 @@ def higher_rank_calculation_result() -> Periodic1DHigherRankAlignmentCalculation
         evaluation_mesh_size=configuration_type.EVALUATION_MESH_SIZE,
         evaluation_shift_numerator=configuration_type.EVALUATION_SHIFT_NUMERATOR,
         evaluation_shift_denominator=configuration_type.EVALUATION_SHIFT_DENOMINATOR,
-        alignment_channels=configuration_type.ALIGNMENT_CHANNELS,
+        gauge_alignments=configuration_type.GAUGE_ALIGNMENTS,
         frame_rotation_action=FrameRotationAction.RIGHT,
         endpoint_sewing_action=EndpointSewingAction.LEFT_AMBIENT,
         principal_phase_branch=(

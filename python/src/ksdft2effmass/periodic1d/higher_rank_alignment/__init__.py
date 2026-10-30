@@ -6,15 +6,9 @@ from .calculation import (
     Periodic1DHigherRankAlignmentCalculationRequest,
 )
 from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
-from .channel_results import (
-    Periodic1DHigherRankChannelMeshResult,
-    Periodic1DHigherRankMeshCalculationResult,
-    Periodic1DHigherRankSupportResult,
-)
 from .configuration import Periodic1DHigherRankAlignmentConfiguration
 from .definition import (
     Periodic1DHigherRankAlignmentBackendExceptionCode,
-    Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentStatus,
     Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
 )
@@ -24,6 +18,12 @@ from .diagnostics import (
     Periodic1DHigherRankMatrixErrorResult,
     Periodic1DHigherRankModelDiagnostics,
     Periodic1DHigherRankProcrustesDiagnostics,
+)
+from .gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
+from .gauge_alignment.results import (
+    Periodic1DHigherRankGaugeAlignmentMeshResult,
+    Periodic1DHigherRankMeshCalculationResult,
+    Periodic1DHigherRankSupportResult,
 )
 from .refinement_results import (
     Periodic1DHigherRankBlockRefinementResult,
@@ -44,7 +44,7 @@ __all__ = [
     "Periodic1DHigherRankAlignmentCalculationControls",
     "Periodic1DHigherRankAlignmentCalculationRequest",
     "Periodic1DHigherRankAlignmentCalculationResult",
-    "Periodic1DHigherRankAlignmentChannel",
+    "Periodic1DHigherRankGaugeAlignment",
     "Periodic1DHigherRankAlignmentConfiguration",
     "Periodic1DHigherRankAlignmentStatus",
     "Periodic1DHigherRankAlignmentStatusResult",
@@ -53,7 +53,7 @@ __all__ = [
     "Periodic1DHigherRankAlignmentTransportOwnerResult",
     "Periodic1DHigherRankAlignmentTransportRequest",
     "Periodic1DHigherRankBlockRefinementResult",
-    "Periodic1DHigherRankChannelMeshResult",
+    "Periodic1DHigherRankGaugeAlignmentMeshResult",
     "Periodic1DHigherRankFrameErrorResult",
     "Periodic1DHigherRankMatrixComparisonResult",
     "Periodic1DHigherRankMatrixErrorResult",

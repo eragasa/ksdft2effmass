@@ -5,17 +5,8 @@ from __future__ import annotations
 from enum import StrEnum
 
 
-class Periodic1DHigherRankAlignmentChannel(StrEnum):
-    """Identify one frozen higher-rank alignment family."""
-
-    IDENTITY = "A0"
-    GLOBAL_UNITARY = "A1"
-    POINTWISE_UNITARY = "A2"
-    KNOWN_INVERSE_ORACLE = "A3"
-
-
 class Periodic1DHigherRankAlignmentStatus(StrEnum):
-    """Retain the exact disposition of one alignment channel."""
+    """Retain the exact disposition of one gauge alignment."""
 
     QUALIFIED = "qualified"
     AGGREGATE_RANK_DEFICIENT = "aggregate-rank-deficient"
@@ -26,7 +17,7 @@ class Periodic1DHigherRankAlignmentStatus(StrEnum):
 
 
 class Periodic1DHigherRankGlobalUnitaryDownstreamApplicability(StrEnum):
-    """State whether the global-unitary channel has downstream values."""
+    """State whether global-unitary alignment has downstream values."""
 
     APPLICABLE = "applicable"
     INAPPLICABLE_AGGREGATE_RANK_DEFICIENT = "inapplicable-aggregate-rank-deficient"
@@ -43,6 +34,5 @@ class Periodic1DHigherRankAlignmentBackendExceptionCode(StrEnum):
 __all__ = [
     "Periodic1DHigherRankGlobalUnitaryDownstreamApplicability",
     "Periodic1DHigherRankAlignmentBackendExceptionCode",
-    "Periodic1DHigherRankAlignmentChannel",
     "Periodic1DHigherRankAlignmentStatus",
 ]

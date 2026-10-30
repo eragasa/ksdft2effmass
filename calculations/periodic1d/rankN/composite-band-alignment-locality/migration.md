@@ -15,8 +15,8 @@ current schema-free summary is replaceable development output only.
 
 ## Inventory and reconciliation
 
-- [x] Inventory D1 P0/G0, rank/depth ladders, A0--A3, sewing, transport, ledger, and failure channels.
-- [x] Record P1, G1, A4, complex-unitary, moving-subspace, 2-D, and 3-D branches as absent.
+- [x] Inventory D1 P0/G0, rank/depth ladders, the identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge alignments, sewing, transport, ledger, and failure dispositions.
+- [x] Record P1, G1, restricted-circuit, complex-unitary, moving-subspace, 2-D, and 3-D branches as absent.
 - [x] Record the removed installed-package tree and its calculation-local `workflow/` successor by revision, tree identity, and file digest.
 - [x] Crosswalk the old and current development runners and formula checks.
 - [x] Record and redirect publication consumers without making a publication label part of the calculation identity.
@@ -24,7 +24,7 @@ current schema-free summary is replaceable development output only.
 ## Source ownership
 
 - [ ] Assign model, alignment, Procrustes, sewing, transport, Fourier, and ledger behavior to cohesive owners.
-- [ ] Keep the rank/depth ladder, channel semantics, qualification gates, and failure dispositions family-owned.
+- [ ] Keep the rank/depth ladder, gauge-alignment semantics, qualification gates, and failure dispositions family-owned.
 - [ ] Consume canonical PhysKit and Optimization capabilities directly where their reviewed contracts apply.
 - [ ] Eliminate no calculation-local implementation until import, numerical, and diagnostic parity pass.
 

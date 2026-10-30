@@ -30,11 +30,26 @@ from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentBackendExceptionCode,
     Periodic1DHigherRankAlignmentCalculationRequest,
     Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankAlignmentChannel,
     Periodic1DHigherRankAlignmentStatus,
+    Periodic1DHigherRankGaugeAlignment,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.channel_analysis import (
-    Periodic1DHigherRankChannelAnalysisRequest,
+from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment import (
+    NyquistModeDispositionEnum,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment import (
+    interpolation as gauge_interpolation,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.analysis import (
+    Periodic1DHigherRankGaugeAlignmentAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.fields import (
+    Periodic1DHigherRankGaugeAlignedFields,
+    Periodic1DHigherRankGaugeAlignmentConstructionRequest,
+    Periodic1DHigherRankGaugeAlignmentConstructor,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.fourier import (
+    Periodic1DHigherRankFourierAnalysisRequest,
+    Periodic1DHigherRankFourierAnalyzer,
 )
 from ksdft2effmass.periodic1d.higher_rank_alignment.model import (
     Periodic1DHigherRankAnalyticCaseConstructor,
@@ -49,7 +64,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 class TestPeriodic1DHigherRankAlignmentAnalyzer:
     """Establish owner composition, closed inventories, and request-bound bytes."""
 
-    def test__analyzer__produces_complete_mesh_channel_support_inventories(
+    def test__analyzer__produces_complete_mesh_gauge_alignment_support_inventories(
         self,
         higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
     ) -> None:
@@ -108,17 +123,22 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             )
             assert mesh.endpoint_closure_defect == pytest.approx(0.0, abs=1.0e-14)
             assert mesh.primitive_closure_defect == pytest.approx(0.0, abs=1.0e-14)
-            assert tuple(channel.status.channel for channel in mesh.channels) == (
-                Periodic1DHigherRankAlignmentChannel.IDENTITY,
-                Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY,
-                Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
-                Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
+            assert tuple(
+                gauge_alignment.status.gauge_alignment
+                for gauge_alignment in mesh.gauge_alignment_results
+            ) == (
+                Periodic1DHigherRankGaugeAlignment.IDENTITY,
+                Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
+                Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
+                Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
             )
-            for channel in mesh.channels:
-                assert channel.status.status is (
+            for gauge_alignment in mesh.gauge_alignment_results:
+                assert gauge_alignment.status.status is (
                     Periodic1DHigherRankAlignmentStatus.QUALIFIED
                 )
-                assert tuple(item.maximum_range for item in channel.supports) == (
+                assert tuple(
+                    item.maximum_range for item in gauge_alignment.supports
+                ) == (
                     0,
                     1,
                     2,
@@ -130,49 +150,61 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                     128,
                 )
                 np.testing.assert_array_equal(
-                    channel.coefficient_translations,
+                    gauge_alignment.coefficient_translations,
                     np.arange(-128, 129, dtype=np.int64),
                 )
                 assert (
-                    channel.fourier_representative_count == mesh.construction_mesh_size
+                    gauge_alignment.fourier_representative_count
+                    == mesh.construction_mesh_size
                 )
-                assert channel.fourier_representative_inventory_ordered_unique is True
-                assert channel.fourier_inversion_closed is True
-                assert channel.fourier_index_bijection_pass is True
                 assert (
-                    channel.no_nyquist_disposition
-                    == "inapplicable-odd-centered-no-nyquist"
+                    gauge_alignment.fourier_representative_inventory_ordered_unique
+                    is True
                 )
-                assert channel.frame_recovery is not None
-                assert channel.represented_operator_recovery is not None
-                if channel.status.channel in (
-                    Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
-                    Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
+                assert gauge_alignment.fourier_inversion_closed is True
+                assert gauge_alignment.fourier_index_bijection_pass is True
+                assert gauge_alignment.nyquist_mode_disposition is (
+                    NyquistModeDispositionEnum.ABSENT_ON_ODD_MESH
+                )
+                assert gauge_alignment.frame_recovery is not None
+                assert gauge_alignment.represented_operator_recovery is not None
+                if gauge_alignment.status.gauge_alignment in (
+                    Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
+                    Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
                 ):
-                    assert channel.known_frame_recovery_pass is True
-                    assert channel.known_operator_recovery_pass is True
+                    assert gauge_alignment.known_frame_recovery_pass is True
+                    assert gauge_alignment.known_operator_recovery_pass is True
                 else:
-                    assert channel.known_frame_recovery_pass is None
-                    assert channel.known_operator_recovery_pass is None
-                assert channel.reconstruction is not None
-                assert channel.reconstruction_pass is True
-                assert channel.interpolation is not None
-                assert channel.final_interpolation_operator_pass is True
-                assert channel.final_interpolation_spectrum_pass is True
-                assert channel.parseval_pass is True
-                assert channel.ordinary_hermiticity_pass is True
-                assert channel.twisted_cyclic_hermiticity_pass is True
-                assert channel.all_tail_monotonicity_checks_pass is True
-                assert all(item.construction_parseval_pass for item in channel.supports)
-                assert all(item.error_decomposition_pass for item in channel.supports)
+                    assert gauge_alignment.known_frame_recovery_pass is None
+                    assert gauge_alignment.known_operator_recovery_pass is None
+                assert gauge_alignment.reconstruction is not None
+                assert gauge_alignment.reconstruction_pass is True
+                assert gauge_alignment.interpolation is not None
+                assert gauge_alignment.final_interpolation_operator_pass is True
+                assert gauge_alignment.final_interpolation_spectrum_pass is True
+                assert gauge_alignment.parseval_pass is True
+                assert gauge_alignment.ordinary_hermiticity_pass is True
+                assert gauge_alignment.twisted_cyclic_hermiticity_pass is True
+                assert gauge_alignment.all_tail_monotonicity_checks_pass is True
+                assert all(
+                    item.construction_parseval_pass for item in gauge_alignment.supports
+                )
+                assert all(
+                    item.error_decomposition_pass for item in gauge_alignment.supports
+                )
                 assert all(
                     item.truncation.all_perturbation_bounds_pass
                     and item.total.all_perturbation_bounds_pass
-                    for item in channel.supports
+                    for item in gauge_alignment.supports
                 )
-            assert mesh.channels[0].frame_recovery is not None
-            assert mesh.channels[0].frame_recovery.normalized_frobenius_maximum > 0.0
-            for recovered in mesh.channels[2:]:
+            assert mesh.gauge_alignment_results[0].frame_recovery is not None
+            assert (
+                mesh.gauge_alignment_results[
+                    0
+                ].frame_recovery.normalized_frobenius_maximum
+                > 0.0
+            )
+            for recovered in mesh.gauge_alignment_results[2:]:
                 assert recovered.frame_recovery is not None
                 assert recovered.frame_recovery.normalized_frobenius_maximum < 1.0e-12
 
@@ -198,7 +230,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                 construction_evaluation_disjoint=False,
             )
 
-    def test__channel_request__rejects_mismatched_model_and_mesh_coordinates(
+    def test__gauge_alignment_request__rejects_mismatched_model_and_mesh_coordinates(
         self,
         higher_rank_calculation_request: (
             Periodic1DHigherRankAlignmentCalculationRequest
@@ -206,7 +238,9 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
     ) -> None:
         mesh = CenteredUniformMesh(1, 513, (0.0,))
-        status = higher_rank_calculation_result.meshes[0].channels[0].status
+        status = (
+            higher_rank_calculation_result.meshes[0].gauge_alignment_results[0].status
+        )
         samples = NumpyImmutableArrayConstructor(
             np.zeros((513, 3, 3), dtype=np.complex128),
             "samples",
@@ -231,45 +265,119 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             np.dtype(np.float64),
         ).execute()
 
+        aligned_fields = Periodic1DHigherRankGaugeAlignedFields(
+            case_identity=higher_rank_calculation_request.case_identity,
+            gauge_alignment=status.gauge_alignment,
+            coordinates=coordinates,
+            represented_operators=samples,
+            frames=frames,
+        )
         with pytest.raises(ValueError, match="model rank and depth"):
-            Periodic1DHigherRankChannelAnalysisRequest(
+            Periodic1DHigherRankGaugeAlignmentAnalysisRequest(
                 calculation_request=higher_rank_calculation_request,
                 model=mismatched_model,
                 mesh=mesh,
-                coordinates=coordinates,
                 status=status,
-                aligned_samples=samples,
-                aligned_frames=frames,
+                aligned_fields=aligned_fields,
                 global_selection=higher_rank_calculation_result.global_selection,
             )
+        mismatched_coordinates = NumpyImmutableArrayConstructor(
+            np.zeros(513, dtype=np.float64),
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
         with pytest.raises(ValueError, match="declared construction mesh"):
-            Periodic1DHigherRankChannelAnalysisRequest(
+            Periodic1DHigherRankGaugeAlignmentAnalysisRequest(
                 calculation_request=higher_rank_calculation_request,
                 model=matching_model,
                 mesh=mesh,
-                coordinates=NumpyImmutableArrayConstructor(
-                    np.zeros(513, dtype=np.float64),
-                    "coordinates",
-                    np.dtype(np.float64),
-                ).execute(),
                 status=status,
-                aligned_samples=samples,
-                aligned_frames=frames,
+                aligned_fields=Periodic1DHigherRankGaugeAlignedFields(
+                    case_identity=higher_rank_calculation_request.case_identity,
+                    gauge_alignment=status.gauge_alignment,
+                    coordinates=mismatched_coordinates,
+                    represented_operators=samples,
+                    frames=frames,
+                ),
                 global_selection=higher_rank_calculation_result.global_selection,
             )
-        with pytest.raises(ValueError, match="aligned_samples"):
-            Periodic1DHigherRankChannelAnalysisRequest(
+        with pytest.raises(ValueError, match="represented operators"):
+            Periodic1DHigherRankGaugeAlignmentAnalysisRequest(
                 calculation_request=higher_rank_calculation_request,
                 model=matching_model,
                 mesh=mesh,
-                coordinates=coordinates,
                 status=status,
-                aligned_samples=samples,
-                aligned_frames=frames,
+                aligned_fields=aligned_fields,
                 global_selection=higher_rank_calculation_result.global_selection,
             )
 
-    def test__result_admission__rejects_mismatched_model_and_channel_evidence(
+    def test__typed_stages__retain_immutable_arrays_and_exact_request_correlation(
+        self,
+        higher_rank_calculation_request: (
+            Periodic1DHigherRankAlignmentCalculationRequest
+        ),
+        higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
+    ) -> None:
+        mesh = CenteredUniformMesh(1, 513, (0.0,))
+        coordinates = NumpyImmutableArrayConstructor(
+            -0.5 + np.arange(mesh.size, dtype=np.float64) / mesh.size,
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
+        model = Periodic1DHigherRankAnalyticCaseConstructor(
+            retained_rank=3,
+            circuit_depth=1,
+        ).execute()
+        status = (
+            higher_rank_calculation_result.meshes[0].gauge_alignment_results[0].status
+        )
+        fields = Periodic1DHigherRankGaugeAlignmentConstructor(
+            Periodic1DHigherRankGaugeAlignmentConstructionRequest(
+                calculation_request=higher_rank_calculation_request,
+                model=model,
+                gauge_alignment=status.gauge_alignment,
+                coordinates=coordinates,
+                global_selection=higher_rank_calculation_result.global_selection,
+            )
+        ).execute()
+        analysis_request = Periodic1DHigherRankGaugeAlignmentAnalysisRequest(
+            calculation_request=higher_rank_calculation_request,
+            model=model,
+            mesh=mesh,
+            status=status,
+            aligned_fields=fields,
+            global_selection=higher_rank_calculation_result.global_selection,
+        )
+        fourier = Periodic1DHigherRankFourierAnalyzer(
+            request=Periodic1DHigherRankFourierAnalysisRequest(analysis_request),
+            fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
+            fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
+        ).execute()
+
+        assert fourier.analysis_request is analysis_request
+        assert not fourier.coefficient_translations.flags.writeable
+        assert not fourier.block_raw_frobenius_norms.flags.writeable
+        assert not fourier.block_normalized_frobenius_norms.flags.writeable
+        with pytest.raises(ValueError, match="derive from the bound request"):
+            gauge_interpolation.Periodic1DHigherRankInterpolationAnalysisRequest(
+                analysis_request=replace(analysis_request),
+                fourier_analysis=fourier,
+            )
+
+        interpolation = gauge_interpolation.Periodic1DHigherRankInterpolationAnalyzer(
+            request=gauge_interpolation.Periodic1DHigherRankInterpolationAnalysisRequest(
+                analysis_request=analysis_request,
+                fourier_analysis=fourier,
+            ),
+            fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
+        ).execute()
+
+        assert interpolation.analysis_request is analysis_request
+        assert not interpolation.evaluation_coordinates.flags.writeable
+        assert not interpolation.full_evaluation.flags.writeable
+        assert not interpolation.direct_evaluation.flags.writeable
+
+    def test__result_admission__rejects_mismatched_model_and_gauge_alignment_evidence(
         self,
         higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
     ) -> None:
@@ -294,7 +402,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                 meshes=(mismatched_mesh, *higher_rank_calculation_result.meshes[1:]),
             )
 
-        first_channel = first_mesh.channels[0]
+        first_channel = first_mesh.gauge_alignment_results[0]
         with pytest.raises(ValueError, match="block norm inventories"):
             replace(
                 first_channel,
@@ -310,7 +418,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             first_refinement,
             translations=translations,
         )
-        with pytest.raises(ValueError, match="source channels"):
+        with pytest.raises(ValueError, match="source alignments"):
             replace(
                 higher_rank_calculation_result,
                 block_refinements=(
@@ -338,7 +446,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         )
         scalar_refinements = list(higher_rank_calculation_result.scalar_refinements)
         scalar_refinements[scalar_index] = mismatched_scalar
-        with pytest.raises(ValueError, match="source channels"):
+        with pytest.raises(ValueError, match="source alignments"):
             replace(
                 higher_rank_calculation_result,
                 scalar_refinements=tuple(scalar_refinements),
@@ -352,7 +460,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
     ) -> None:
         first_mesh = higher_rank_calculation_result.meshes[0]
-        first_channel = first_mesh.channels[0]
+        first_channel = first_mesh.gauge_alignment_results[0]
         mismatched_status = replace(
             first_channel.status,
             case_identity="r03-L02",
@@ -361,7 +469,8 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         mismatched_channel = replace(first_channel, status=mismatched_status)
         mismatched_mesh = replace(
             first_mesh,
-            channels=(mismatched_channel,) + first_mesh.channels[1:],
+            gauge_alignment_results=(mismatched_channel,)
+            + first_mesh.gauge_alignment_results[1:],
         )
 
         with pytest.raises(ValueError, match="statuses must match"):
@@ -375,7 +484,7 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
     ) -> None:
         final_mesh = higher_rank_calculation_result.meshes[-1]
-        identity = final_mesh.channels[0]
+        identity = final_mesh.gauge_alignment_results[0]
         assert identity.interpolation is not None
         smallest_support = identity.supports[0]
 
@@ -429,8 +538,8 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             assert mesh.pointwise_selection.status.status is (
                 Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED
             )
-            assert mesh.channels[1].reconstruction is None
-            assert mesh.channels[2].reconstruction is None
+            assert mesh.gauge_alignment_results[1].reconstruction is None
+            assert mesh.gauge_alignment_results[2].reconstruction is None
         assert (
             Periodic1DHigherRankAlignmentCalculationResult.from_json(
                 result.to_json()
@@ -477,11 +586,14 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             assert mesh.transport is None
             assert mesh.transport_backend_failure is not None
             assert all(
-                channel.status.status
+                gauge_alignment.status.status
                 is Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED
-                for channel in mesh.channels
+                for gauge_alignment in mesh.gauge_alignment_results
             )
-            assert all(channel.reconstruction is None for channel in mesh.channels)
+            assert all(
+                gauge_alignment.reconstruction is None
+                for gauge_alignment in mesh.gauge_alignment_results
+            )
         assert (
             Periodic1DHigherRankAlignmentCalculationResult.from_json(
                 result.to_json()
@@ -510,14 +622,31 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         reconstructed = Periodic1DHigherRankAlignmentCalculationResult.from_json(wire)
 
         assert reconstructed.to_json() == wire
+        assert b'"nyquist_mode_disposition": "absent-on-odd-mesh"' in wire
         decoded = json.loads(wire)
+        first_alignment = decoded["meshes"]["items"][0]["gauge_alignment_results"][
+            "items"
+        ][0]
+        assert first_alignment["nyquist_mode_disposition"] == "absent-on-odd-mesh"
+        assert "no_nyquist_disposition" not in first_alignment
+
+        old_nyquist = json.loads(wire)
+        old_nyquist["meshes"]["items"][0]["gauge_alignment_results"]["items"][0][
+            "nyquist_mode_disposition"
+        ] = "inapplicable-odd-centered-no-nyquist"
+        old_nyquist_wire = (
+            json.dumps(old_nyquist, indent=2, sort_keys=True) + "\n"
+        ).encode()
+        with pytest.raises(ValueError, match="unsupported Nyquist-mode disposition"):
+            Periodic1DHigherRankAlignmentCalculationResult.from_json(old_nyquist_wire)
+
         decoded["request"]["retained_rank"] = 4
         tampered = (json.dumps(decoded, indent=2, sort_keys=True) + "\n").encode()
         with pytest.raises(ValueError, match="global selection"):
             Periodic1DHigherRankAlignmentCalculationResult.from_json(tampered)
 
         gate_tampering = json.loads(wire)
-        gate_tampering["meshes"]["items"][0]["channels"]["items"][0][
+        gate_tampering["meshes"]["items"][0]["gauge_alignment_results"]["items"][0][
             "parseval_pass"
         ] = False
         tampered_gate = (

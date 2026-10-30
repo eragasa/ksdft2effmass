@@ -7,6 +7,8 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{array,booktabs,tabularx}
 \usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
 \setlength{\emergencystretch}{3em}
@@ -29,7 +31,8 @@ projector remain exactly equivalent. The common analytic construction permits ar
 declared finite rank and finite circuit depth and is topologically trivial by
 construction. Its first bounded specialization, D1 P0/G0 v1, fixes a constant-projector
 real-gauge model, exact exterior-isolation and alignment certificates, four ranks, four
-depths, A0--A3 alignment channels, odd Fourier-refinement meshes, a disjoint evaluation
+depths, identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge
+alignments, odd Fourier-refinement meshes, a disjoint evaluation
 mesh, inversion-complete supports, numerical and convergence gates, claim-resolution
 thresholds, strict schema identities, an independent direct-formula verifier, resource
 ceilings, and retained-evidence policy. Reusable typed diagnostics are under software
@@ -68,6 +71,118 @@ the extracted fixed rank-three two-dimensional calculation. No rank-two toleranc
 gauge amplitude, truncation range, or evidence disposition transfers into this protocol.
 The 2-D, 3-D, P1, and G1 branches remain prospective and cannot inherit the D1 v1
 numerical controls without an explicit reviewed specialization.
+
+\section{Scientific and evidence-flow schematics}
+
+Figure~\ref{fig:scientific-flow} separates the analytic model, the common transport
+control, the four prescribed retained-space gauge alignments, and the dimension-specific
+Fourier and support analysis. The global-unitary selection is performed only on
+$\mathcal K_{2049}$ and then reused; it is not refitted on the other construction meshes
+or on the shifted evaluation mesh. Closed-loop transport acts on the analytic reference
+frame once per construction mesh and is common to every gauge alignment.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=6mm and 7mm,
+  box/.style={draw, rounded corners, align=center, inner sep=4pt,
+              font=\small, text width=31mm},
+  wide/.style={box, text width=44mm},
+  flow/.style={-{Latex[length=2mm]}, thick},
+  evidence/.style={flow, dashed}
+]
+\node[wide] (model) {Analytic case $(r,L)$\\$D_r(k)$, $F_r(k)$, $G_{r,L}(k)$};
+\node[wide, right=of model] (attack) {Gauge attack\\$H'=G^\dagger D_rG$, $F'=F_rG$};
+\node[wide, below=of model] (transport) {Common closed-loop transport\\analytic reference frame; once per mesh};
+\node[box, below=28mm of attack, xshift=-52mm] (identity) {Identity\\$U=I_r$};
+\node[box, right=of identity] (global) {Global-unitary\\select at $M=2049$; reuse};
+\node[box, right=of global] (pointwise) {Pointwise-unitary\\Procrustes at each mesh point};
+\node[box, right=of pointwise] (oracle) {Known-inverse-oracle\\$U=G^\dagger$};
+\node[wide, below=13mm of global, xshift=19mm] (represented) {Gauge-aligned fields\\$U^\dagger H'U$ and $F'U$};
+\node[wide, below=of represented] (fourier) {Odd-mesh finite-periodic Fourier transform\\complete block inventory $T(R)$};
+\node[wide, below left=of fourier] (evaluation) {Shifted-mesh interpolation\\compare with direct analytic evaluation};
+\node[wide, below right=of fourier] (locality) {Symmetric-support locality\\tails, truncation, total error};
+\node[wide, below=13mm of fourier] (evidenceout) {Typed mesh evidence\\recovery, Parseval, Hermiticity, refinement};
+
+\draw[flow] (model) -- (attack);
+\draw[evidence] (model) -- (transport);
+\draw[flow] (attack) -- (identity);
+\draw[flow] (attack) -- (global);
+\draw[flow] (attack) -- (pointwise);
+\draw[flow] (attack) -- (oracle);
+\draw[flow] (identity) -- (represented);
+\draw[flow] (global) -- (represented);
+\draw[flow] (pointwise) -- (represented);
+\draw[flow] (oracle) -- (represented);
+\draw[evidence] (transport) -- (evidenceout);
+\draw[flow] (represented) -- (fourier);
+\draw[flow] (fourier) -- (evaluation);
+\draw[flow] (fourier) -- (locality);
+\draw[flow] (evaluation) -- (evidenceout);
+\draw[flow] (locality) -- (evidenceout);
+\end{tikzpicture}
+\caption{Scientific flow for one case and one construction mesh. Solid arrows carry
+scientific fields; dashed arrows carry common transport evidence. The four middle boxes
+are distinct gauge alignments, not error channels.}
+\label{fig:scientific-flow}
+\end{figure}
+
+Figure~\ref{fig:typed-lifecycle} shows the maintained typed producer boundary. Each
+action binds a complete immutable request and exposes a zero-argument execution. Stage
+results retain their source request so assembly can reject same-shaped but uncorrelated
+evidence. A documented rank, integrity, or backend failure produces a bounded typed
+status and leaves all downstream scientific values absent. Canonical bytes establish
+record identity and provenance only; independent scientific recomputation remains a
+separate future lifecycle.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=7mm,
+  box/.style={draw, rounded corners, align=center, inner sep=4pt,
+              font=\small, text width=39mm},
+  flow/.style={-{Latex[length=2mm]}, thick},
+  failure/.style={draw, rounded corners, align=center, inner sep=4pt,
+                  font=\small, text width=42mm, dashed}
+]
+\node[box] (request) {Complete gauge-alignment analysis request\\case, mesh, status, fields, selection evidence};
+\node[box, below=of request] (recovery) {Recovery analysis\\frame and represented-operator recovery};
+\node[box, below=of recovery] (fourierstage) {Fourier analysis\\coefficients and structural identities};
+\node[box, below=of fourierstage] (interpolationstage) {Interpolation analysis\\immutable shifted coordinates and fields};
+\node[box, below=of interpolationstage] (localitystage) {Locality analysis\\support tails and three error channels};
+\node[box, below=of localitystage] (assembly) {Authenticated assembly\\public mesh result};
+\node[box, below=of assembly] (bytes) {Canonical typed bytes\\SHA-256 identity and provenance};
+\node[failure, right=18mm of fourierstage] (failure) {Rank deficiency, integrity failure, or backend failure\\typed unresolved status; downstream values absent};
+
+\draw[flow] (request) -- (recovery);
+\draw[flow] (recovery) -- (fourierstage);
+\draw[flow] (fourierstage) -- (interpolationstage);
+\draw[flow] (interpolationstage) -- (localitystage);
+\draw[flow] (localitystage) -- (assembly);
+\draw[flow] (assembly) -- (bytes);
+\draw[flow, dashed] (request.east) -- ++(7mm,0) |- (failure.west);
+\end{tikzpicture}
+\caption{Typed calculate lifecycle and fail-closed boundary. Rendering and independent
+reference analysis are intentionally outside this producer schematic.}
+\label{fig:typed-lifecycle}
+\end{figure}
+
+The corresponding maintained module ownership is:
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}YY}
+\toprule
+\textbf{Module} & \textbf{Scientific responsibility} & \textbf{Primary output} \\
+\midrule
+\path{gauge_alignment/fields.py} & Construct immutable represented operators and frames in one prescribed gauge alignment. & Correlated gauge-aligned fields. \\
+\path{gauge_alignment/recovery.py} & Compare aligned frames and represented operators with their declared direct constructions. & Separate frame and operator recovery evidence. \\
+\path{gauge_alignment/fourier.py} & Apply the PhysKit odd-mesh finite-periodic transform and structural diagnostics. & Fourier coefficients, Parseval, Hermiticity, and index evidence. \\
+\path{gauge_alignment/interpolation.py} & Evaluate the complete Fourier series on the disjoint shifted mesh. & Immutable direct and interpolated fields with comparison errors. \\
+\path{gauge_alignment/locality.py} & Evaluate every frozen symmetric support without selecting a preferred support. & Tail, truncation, total-error, and decomposition evidence. \\
+\path{gauge_alignment/assembly.py} & Correlate typed stage results and assemble the public record without recomputation. & One authenticated gauge-alignment mesh result. \\
+\bottomrule
+\end{tabularx}
+\end{center}
 
 \section{Scientific question}
 
@@ -234,7 +349,7 @@ higher-rank identity, and no predecessor mesh, tolerance, result, or evidence st
 transferred here.
 
 This section organizes analytic guarantees already inherent in the selected family. It
-does not change the D1 v1 identity, coefficients, meshes, tolerances, channels, schemas,
+does not change the D1 v1 identity, coefficients, meshes, tolerances, gauge alignments, schemas,
 resource gate, execution authority, or evidence status.
 
 \section{Periodic scalar fields}
@@ -511,38 +626,37 @@ nonunique, although the individual SVD factors may be nonunique.
 The selected diagnostic ladder is:
 
 \begin{enumerate}
-\item \textbf{A0, identity:}
-$U_{A0}(\mathbf k)=I_r$. No transformation is selected; the attacked representation is
+\item \textbf{Identity:}
+$U_{\mathrm{id}}(\mathbf k)=I_r$. No transformation is selected; the attacked representation is
 measured as supplied.
 
-\item \textbf{A1, one global unitary:}
-$U_{A1}=\mathcal P(B_{\mathcal S})$ minimizes
+\item \textbf{Global-unitary:}
+$U_{\mathrm{glob}}=\mathcal P(B_{\mathcal S})$ minimizes
 Equation~\eqref{eq:alignment-global-objective} over exactly one $U\in U(r)$. D1 v1 uses
 $\mathcal S=\mathcal K_{2049}$, evaluates the ordered sum in increasing mesh-index order,
-and reuses the selected $U_{A1}$ on every other construction and evaluation point. It
+and reuses the selected $U_{\mathrm{glob}}$ on every other construction and evaluation point. It
 is not refitted on another mesh.
 
-\item \textbf{A2, pointwise complete unitary:}
-$U_{A2}(\mathbf k)=\mathcal P(M(\mathbf k))$ independently minimizes
+\item \textbf{Pointwise-unitary:}
+$U_{\mathrm{pt}}(\mathbf k)=\mathcal P(M(\mathbf k))$ independently minimizes
 $\lVert C(\mathbf k)U-R(\mathbf k)\rVert_F^2/r$ at every construction point. D1 v1
-reconstructs A2 separately on each construction mesh. It does not interpolate selected
+reconstructs this alignment separately on each construction mesh. It does not interpolate selected
 unitaries onto the withheld mesh; the withheld direct reference for the recovered field
 is the analytic $D_r$ declared below.
 
-\item \textbf{A3, known inverse oracle:}
-$U_{A3}(\mathbf k)=G_{r,L}^{-1}(\mathbf k)=G_{r,L}^\dagger(\mathbf k)$. A3 performs no
+\item \textbf{Known-inverse-oracle:}
+$U_{\mathrm{oracle}}(\mathbf k)=G_{r,L}^{-1}(\mathbf k)=G_{r,L}^\dagger(\mathbf k)$. This alignment performs no
 SVD or optimization. It verifies construction, source/target orientation, application,
 and Fourier conventions only.
 
-\item \textbf{A4, restricted circuit:} a separately frozen depth- and harmonic-bounded
-Givens family, if a reviewed optimizer and certificate policy are later selected. A4 is
-not part of D1 v1.
 \end{enumerate}
 
-A1, A2, and A4 are different feasible sets. None is described as a numerical
-approximation to another. The oracle A3 is not an admissible fitted solution and cannot
+A restricted-circuit alignment is absent from D1 v1 because no optimizer or certificate
+policy has been selected. Global-unitary and pointwise-unitary are different feasible
+sets; neither is described as a numerical approximation to the other. The
+known-inverse-oracle is not an admissible fitted solution and cannot
 be used to claim practical recoverability. In the exact D1 P0 construction,
-$M(k)=G_{r,L}^\dagger(k)$, so A2 and A3 coincide analytically; their numerical separation
+$M(k)=G_{r,L}^\dagger(k)$, so pointwise-unitary and known-inverse-oracle coincide analytically; their numerical separation
 is retained solely as an implementation check.
 
 For every admitted Procrustes factor, the producer recomputes the objective from the
@@ -556,7 +670,7 @@ original $C$ and $R$ inputs rather than only from singular values. It also recor
  \label{eq:alignment-integrity-defects}
 \end{equation}
 
-For A1, the covariance expression for Equation~\eqref{eq:alignment-global-objective}
+For global-unitary, the covariance expression for Equation~\eqref{eq:alignment-global-objective}
 is
 
 \begin{equation}
@@ -565,9 +679,9 @@ is
  \label{eq:alignment-objective-covariance}
 \end{equation}
 
-with $X=B_{\mathcal S}$; the same expression with $X=M(\mathbf k)$ is the pointwise A2
-objective. Let $J_{\mathrm{direct}}$ denote the value recomputed from the original frame
-residuals in Equation~\eqref{eq:alignment-global-objective}, or its one-point A2 form.
+with $X=B_{\mathcal S}$; the same expression with $X=M(\mathbf k)$ is the
+pointwise-unitary objective. Let $J_{\mathrm{direct}}$ denote the value recomputed from the original frame
+residuals in Equation~\eqref{eq:alignment-global-objective}, or its one-point form.
 The remaining integrity diagnostics are
 
 \begin{equation}
@@ -581,7 +695,7 @@ The remaining integrity diagnostics are
  \label{eq:alignment-objective-psd-defects}
 \end{equation}
 
-An admitted A1 or A2 factor must satisfy the selected unitarity, stationarity, objective-
+An admitted global-unitary or pointwise-unitary factor must satisfy the selected unitarity, stationarity, objective-
 identity, and positive-semidefinite tolerances below. The independent verifier
 reconstructs the objective, singular values, rank decision, polar factor application,
 unitarity, stationarity, and positive-semidefinite disposition from the original frames.
@@ -596,18 +710,18 @@ dispositions are:
 \item \path{qualified}: the strict rank gate, unitary gate, stationarity gate,
       objective-identity gate, positive-semidefinite gate, and independent verification
       all pass;
-\item \path{aggregate-rank-deficient}: the A1 aggregate fails the strict rank gate; no A1
-      transformation or downstream A1 locality value is emitted, and those fields carry
+\item \path{aggregate-rank-deficient}: the global-unitary aggregate fails the strict rank gate; no global-unitary
+      transformation or downstream global-unitary locality value is emitted, and those fields carry
       \path{inapplicable-aggregate-rank-deficient};
-\item \path{pointwise-rank-deficient}: at least one A2 point fails the strict rank gate;
+\item \path{pointwise-rank-deficient}: at least one pointwise-unitary point fails the strict rank gate;
       no transformation is emitted at that point and the complete D1 case is invalid;
 \item \path{alignment-numerically-unresolved}: an input is nonfinite or the declared SVD
       backend fails or does not converge; no transformation is emitted and the complete
       case is invalid;
-\item \path{alignment-integrity-failed}: a nominally full-rank A1 or A2 factor fails its
+\item \path{alignment-integrity-failed}: a nominally full-rank global-unitary or pointwise-unitary factor fails its
       unitary, stationarity, objective, positive-semidefinite, or independent-verification
       gate; the complete case is invalid; and
-\item \path{oracle-integrity-failed}: A3 fails analytic unitarity, frame recovery,
+\item \path{oracle-integrity-failed}: known-inverse-oracle fails analytic unitarity, frame recovery,
       operator recovery, or independent reconstruction; the complete case is invalid.
 \end{itemize}
 
@@ -617,9 +731,9 @@ Every numerically unresolved alignment or transport record carries exactly one s
 the documented backend exception boundary; implementation-dependent exception text,
 tracebacks, and host paths are not scientific result fields.
 
-A0 is deterministic and carries \path{qualified} whenever the parent, frame, and
-represented-field integrity gates pass. A3 carries \path{qualified} only after its
-oracle gates pass. An A1 \path{aggregate-rank-deficient} disposition is a bounded result
+identity is deterministic and carries \path{qualified} whenever the parent, frame, and
+represented-field integrity gates pass. known-inverse-oracle carries \path{qualified} only after its
+oracle gates pass. A global-unitary \path{aggregate-rank-deficient} disposition is a bounded result
 for the deliberately restricted one-global-unitary family, not a failed search and not a
 claim that pointwise alignment is unavailable.
 
@@ -767,11 +881,11 @@ M(k)=F_{r,L}^{\prime\dagger}(k)F_r(k)=G_{r,L}^{\dagger}(k).
 
 Every singular value of $M(k)$ is exactly one. The unique complete-unitary pointwise
 polar factor is therefore $G_{r,L}^{\dagger}(k)=G_{r,L}^{-1}(k)$. In exact arithmetic,
-A2 and A3 both restore $D_r(k)$ before Fourier transformation and hence restore its
-$|R|\leq2$ support. They remain separate diagnostic channels: A2 must reconstruct the
-polar factor from the sampled frames, whereas A3 receives the generating inverse. A
+pointwise-unitary and known-inverse-oracle both restore $D_r(k)$ before Fourier transformation and hence restore its
+$|R|\leq2$ support. They remain separate diagnostic gauge alignments: pointwise-unitary must reconstruct the
+polar factor from the sampled frames, whereas known-inverse-oracle receives the generating inverse. A
 finite-grid agreement between them tests implementation and convention only; it is not
-new scientific evidence. No corresponding recovery statement applies to A1, whose
+new scientific evidence. No corresponding recovery statement applies to global-unitary, whose
 aggregate cross-covariance must independently pass its rank threshold.
 
 Every represented field is pointwise Hermitian and periodic, so its continuum Fourier
@@ -792,12 +906,12 @@ The shared cross-dimensional core for later 2-D and 3-D specializations is the s
 $r\in\{3,4,8\}$ and $L\in\{1,2,4\}$. Selecting that common subset now does not select
 2-D or 3-D harmonic coefficients, meshes, or evidence status.
 
-Every case evaluates A0 identity, A1 one-global-unitary, A2 pointwise-complete-unitary,
-and A3 known-inverse-oracle channels. Canonical case identifiers are
-\texttt{r\{rank:02d\}-L\{depth:02d\}} and channel identifiers are exactly \path{A0}, \path{A1}, \path{A2}, and
-\path{A3}; the schemas enumerate the resulting 16 case identifiers rather than accept an
-arbitrary string. A4 restricted-circuit fitting is excluded from this tranche because no
-optimizer or certificate policy has been selected. A3 remains a construction oracle and
+Every case evaluates the identity, global-unitary, pointwise-unitary, and
+known-inverse-oracle gauge alignments. Canonical case identifiers are
+\texttt{r\{rank:02d\}-L\{depth:02d\}} and gauge alignment identifiers are exactly \path{identity}, \path{global-unitary}, \path{pointwise-unitary}, and
+\path{known-inverse-oracle}; the schemas enumerate the resulting 16 case identifiers rather than accept an
+arbitrary string. Restricted-circuit fitting is excluded from this tranche because no
+optimizer or certificate policy has been selected. known-inverse-oracle remains a construction oracle and
 cannot be reported as a fitted recovery result.
 
 For cross-rank reporting, matrix Frobenius quantities must be retained both raw and
@@ -817,7 +931,7 @@ The three odd, centered, half-open construction meshes are
 \]
 
 The $M=2049$ mesh is the final construction mesh. The smaller meshes are mandatory
-refinement controls, not optional pilot runs. A1 is selected once from the normalized
+refinement controls, not optional pilot runs. global-unitary is selected once from the normalized
 aggregate cross-covariance on the final construction mesh,
 
 \[
@@ -826,7 +940,7 @@ F_{r,L}^{\prime\dagger}(k)F_r(k),
 \]
 
 and that one constant unitary is applied to every Fourier-refinement mesh and to direct
-evaluation. A2 is reconstructed independently at each construction point. A3 evaluates
+evaluation. pointwise-unitary is reconstructed independently at each construction point. known-inverse-oracle evaluates
 the analytic inverse and is never fitted.
 
 The withheld evaluation mesh is
@@ -849,7 +963,7 @@ $R=-(M-1)/2,\ldots,(M-1)/2$. The prospectively fixed truncation supports are
 \]
 
 Every support contains complete inversion pairs. No first-passing support is selected;
-all nine supports are reported for every applicable channel, rank, depth, and mesh.
+all nine supports are reported for every applicable gauge alignment, rank, depth, and mesh.
 
 A singular-value decision uses
 
@@ -859,9 +973,9 @@ A singular-value decision uses
 \]
 
 A cross-covariance is full rank only when
-$\sigma_{\min}(X)>\tau_{\mathrm{sv}}(X)$; equality is deficient. A deficient A1
-aggregate makes A1 downstream diagnostics inapplicable for that case but does not erase
-A0, A2, or A3. A deficient A2 point makes the complete case invalid because P0 supplies
+$\sigma_{\min}(X)>\tau_{\mathrm{sv}}(X)$; equality is deficient. A deficient global-unitary
+aggregate makes global-unitary downstream diagnostics inapplicable for that case but does not erase
+identity, pointwise-unitary, or known-inverse-oracle. A deficient pointwise-unitary point makes the complete case invalid because P0 supplies
 an analytically full-rank overlap.
 
 All pass comparisons are inclusive except the strict singular-value test above. Norms
@@ -883,8 +997,8 @@ Procrustes objective-identity defect $\varepsilon_{\mathrm{obj}}$ & dimensionles
 negative polar-factor part $\varepsilon_{\mathrm{psd}}$ & dimensionless & $10^{-12}$ \\
 smooth/attacked projector equality & raw Frobenius norm & $10^{-12}$ \\
 direct ordered-spectrum equivalence & $E_{\mathrm{ref}}$ & $10^{-11}$ \\
-A2 and A3 frame recovery & $\sqrt r$ & $10^{-11}$ \\
-A2 and A3 represented-operator recovery & $\sqrt rE_{\mathrm{ref}}$ & $10^{-11}$ \\
+pointwise-unitary and known-inverse-oracle frame recovery & $\sqrt r$ & $10^{-11}$ \\
+pointwise-unitary and known-inverse-oracle represented-operator recovery & $\sqrt rE_{\mathrm{ref}}$ & $10^{-11}$ \\
 reciprocal-endpoint sewing and primitive closure & normalized Frobenius norm & $10^{-11}$ \\
 maximum closure-eigenphase magnitude & radians & $10^{-10}$ \\
 Fourier reconstruction on a construction mesh & $\sqrt rE_{\mathrm{ref}}$ & $2\times10^{-11}$ \\
@@ -916,7 +1030,7 @@ $M=1025$ and $M=2049$ requires
 \]
 
 after the diagnostic's declared rank and energy normalization. All cases and applicable
-channels must satisfy the construction, equivalence, conversion, evaluation, and
+gauge alignments must satisfy the construction, equivalence, conversion, evaluation, and
 refinement gates. A failed gate invalidates scientific interpretation of that case; it
 is not repaired by relaxing a tolerance after inspection.
 
@@ -989,14 +1103,14 @@ in $(-\pi,\pi]$. The periodically closed frame is
 The ordered closure product therefore follows the same increasing-index traversal rather
 than an independently chosen link orientation. Endpoint frame and projector sewing are
 evaluated directly from $F_r(-\pi)$, $F_r(+\pi)$, $P_r(-\pi)$, and $P_r(+\pi)$.
-Transport acts on the analytic reference frame and is shared by A0--A3; attacked-frame
+Transport acts on the analytic reference frame and is shared by identity, global-unitary, pointwise-unitary, and known-inverse-oracle; attacked-frame
 behavior remains in the separate alignment and recovery diagnostics. For P0 the exact
 reference frame is constant, but the complete transport route is still executed rather
 than replaced by a fabricated zero.
 
 The one-dimensional case has one neighbor-link family, one primitive reciprocal closure,
 and hopping blocks indexed by $R\in\mathbb Z$. It is the primary rank/depth isolation
-case because it introduces no plaquette channel. Closure eigenphases are stored as an
+case because it introduces no plaquette contribution. Closure eigenphases are stored as an
 unordered rank-$r$ multiset.
 
 \subsection{Periodic 2-D}
@@ -1094,17 +1208,17 @@ endpoint is never inserted into a Fourier mesh.
 the first through the declared identity face sewing. Store the minimum threshold
 margin, maximum unitary defect, closure defect, and unordered closure eigenphases.
 \item Apply the exact source/target orientation, objective, SVD, strict rank gate, and
-right-action rules of the alignment contract. Select A1 once on $\mathcal K_{2049}$,
-construct A2 independently on every mesh, and evaluate A3 from the known inverse. Emit no
+right-action rules of the alignment contract. Select global-unitary once on $\mathcal K_{2049}$,
+construct pointwise-unitary independently on every mesh, and evaluate known-inverse-oracle from the known inverse. Emit no
 transformation when a rank gate fails. Apply the exact disposition and downstream
 inapplicability rules rather than inventing a null-space completion.
 \item Align matrices before Fourier transformation and compute complete discrete blocks for
-every applicable channel on every construction mesh.
+every applicable gauge alignment on every construction mesh.
 \item Evaluate all fixed supports without selecting a preferred support. Reconstruct the
 full and truncated interpolants on the withheld mesh.
 \item Compare the full interpolant with the applicable direct analytic evaluation field:
-$H'_{r,L}$ for A0, $U_{\mathrm{glob}}^\dagger H'_{r,L}U_{\mathrm{glob}}$ for a
-qualified A1, and $D_r$ for A2 and A3.
+$H'_{r,L}$ for identity, $U_{\mathrm{glob}}^\dagger H'_{r,L}U_{\mathrm{glob}}$ for a
+qualified global-unitary, and $D_r$ for pointwise-unitary and known-inverse-oracle.
 \item Apply every integrity, refinement, and claim-resolution rule without modifying any
 control.
 \end{enumerate}
@@ -1115,31 +1229,31 @@ supports, thresholds, output selection, or figure selection.
 
 \section{Diagnostic definitions and ledger}
 
-For a channel $A$ and construction mesh $M$, write $T_{A,M}(R)$ for the complete block
-and $H_{A,M}(k)$ for its full interpolant. For support $\Omega_S$, retain both
+For a gauge alignment $a$ and construction mesh $M$, write $T_{a,M}(R)$ for the complete block
+and $H_{a,M}(k)$ for its full interpolant. For support $\Omega_S$, retain both
 
 \[
-W_{A,M}(S)=\sum_{R\notin\Omega_S}\|T_{A,M}(R)\|_F^2,
+W_{a,M}(S)=\sum_{R\notin\Omega_S}\|T_{a,M}(R)\|_F^2,
 \qquad
-N_{A,M}(S)=\sqrt{W_{A,M}(S)},
+N_{a,M}(S)=\sqrt{W_{a,M}(S)},
 \]
 
 and the block-$\ell^1$ tail
 
 \[
-L_{A,M}(S)=\sum_{R\notin\Omega_S}\|T_{A,M}(R)\|_F.
+L_{a,M}(S)=\sum_{R\notin\Omega_S}\|T_{a,M}(R)\|_F.
 \]
 
 Report $W$ raw and divided by $rE_{\mathrm{ref}}^2$; report $N$ and $L$ raw and divided
 by $\sqrt rE_{\mathrm{ref}}$. These are complete-matrix quantities, not sums of selected
 orbital entries.
 
-For every construction mesh, channel, and support, the discrete Parseval identity is
+For every construction mesh, gauge alignment, and support, the discrete Parseval identity is
 
 \begin{equation}
  \frac1M\sum_{k\in\mathcal K_M}
- \left\lVert H_{A,M}^{(S)}(k)-H_{A,M}(k)\right\rVert_F^2
- =W_{A,M}(S).
+ \left\lVert H_{a,M}^{(S)}(k)-H_{a,M}(k)\right\rVert_F^2
+ =W_{a,M}(S).
  \label{eq:diagnostic-parseval}
 \end{equation}
 
@@ -1151,17 +1265,17 @@ $\sqrt rE_{\mathrm{ref}}$; each increase must pass the selected dimensionless
 support-monotonicity tolerance. A monotonicity failure is an integrity failure, not
 evidence for nonmonotone locality.
 
-On the withheld mesh, keep the following operator channels separate for every
+On the withheld mesh, keep the following operator-error contributions separate for every
 $M\in\{513,1025,2049\}$:
 
 \begin{equation}
 \begin{aligned}
 e_{\mathrm{interp},A,M}(k)
- &=H_{A,M}(k)-H_A^{\mathrm{direct}}(k),\\
+ &=H_{a,M}(k)-H_a^{\mathrm{direct}}(k),\\
 e_{\mathrm{trunc},A,M}^{(S)}(k)
- &=H_{A,M}^{(S)}(k)-H_{A,M}(k),\\
+ &=H_{a,M}^{(S)}(k)-H_{a,M}(k),\\
 e_{\mathrm{total},A,M}^{(S)}(k)
- &=H_{A,M}^{(S)}(k)-H_A^{\mathrm{direct}}(k).
+ &=H_{a,M}^{(S)}(k)-H_a^{\mathrm{direct}}(k).
 \end{aligned}
 \label{eq:diagnostic-error-channels}
 \end{equation}
@@ -1177,9 +1291,9 @@ The matrix identity
 is checked directly. Its retained defect is the maximum Frobenius norm of the difference
 between the two sides, divided by $\sqrt rE_{\mathrm{ref}}$. The three error channels are
 not treated as statistically independent and their scalar norms are not added; a
-cancellation in the total channel is reported rather than called convergence.
+cancellation in the total error channel is reported rather than called convergence.
 
-For each channel, report maximum and RMS Frobenius operator errors and maximum and RMS
+For each gauge alignment, report maximum and RMS Frobenius operator errors and maximum and RMS
 ordered-eigenvalue errors with the fixed cross-rank normalizations. Ordered spectra are
 compared as sorted multisets, without tracking eigenvector-selected band labels through
 degeneracies. At every evaluation point define
@@ -1205,8 +1319,8 @@ The odd centered translation inventory is already an ordinary inversion-complete
 inventory. D1 therefore has no Nyquist singleton and no separate cyclic-to-ordinary
 conversion power. Instead, every transform retains representative count, uniqueness,
 ordering, inversion-closure, and index-bijection checks, while the predecessor Nyquist
-conversion channel carries the exact disposition
-\path{inapplicable-odd-centered-no-nyquist}.
+conversion record carries the exact disposition
+\path{absent-on-odd-mesh}.
 
 Every case retains separate diagnostics for:
 
@@ -1215,10 +1329,10 @@ Every case retains separate diagnostics for:
 \item sampled retained/exterior separation on every mesh, labeled sampled;
 \item frame orthonormality, gauge unitarity, projector idempotency, and projector equality;
 \item direct ordered-spectrum equality before and after each applicable alignment;
-\item A1 objective from original frames, selected unitary when applicable, complete
+\item global-unitary objective from original frames, selected unitary when applicable, complete
 singular values, cutoff, threshold margin, condition number when defined, unitarity,
 stationarity, positive-semidefinite check, and exact disposition;
-\item for A2, pointwise-objective maximum and RMS values, singular-value extrema plus
+\item for pointwise-unitary, pointwise-objective maximum and RMS values, singular-value extrema plus
 per-point smallest singular values, cutoffs, margins, and rank dispositions,
 condition-number extrema where defined, unitarity, stationarity, objective-identity, and
 positive-semidefinite extrema, deficient-point count, exact deficient indices, and exact
@@ -1226,7 +1340,7 @@ disposition; pointwise unitary matrices are reconstructed runtime objects and ne
 serialized into the retained package;
 \item neighbor-link singular-value extrema and deficient-link indices;
 \item reciprocal-endpoint sewing, primitive closure, and unordered closure phases;
-\item A0--A3 frame and represented-operator residuals, with inapplicable distinguished from
+\item identity, global-unitary, pointwise-unitary, and known-inverse-oracle frame and represented-operator residuals, with inapplicable distinguished from
 numerical zero;
 \item Fourier reconstruction, Hermitian pairing, Parseval, support monotonicity,
 canonical-index checks, and the explicit no-Nyquist disposition;
@@ -1234,7 +1348,7 @@ canonical-index checks, and the explicit no-Nyquist disposition;
 \item withheld interpolation error on every construction-mesh interpolant;
 \item deliberate truncation error relative to the corresponding full interpolant;
 \item total error relative to the direct analytic evaluation field;
-\item the exact matrix error-decomposition defect for every mesh, channel, and support;
+\item the exact matrix error-decomposition defect for every mesh, gauge alignment, and support;
 \item spectral-norm and Frobenius perturbation-bound violations plus qualified saturation
 ratios for interpolation, truncation, and total errors;
 \item construction/evaluation coordinate disjointness and evaluation noninfluence checks;
@@ -1264,7 +1378,7 @@ applicable stage as follows:
       checked before any locality interpretation;
 \item the deterministic higher-rank attack and its analytic angle bound are reconstructed
       before comparing representations;
-\item A0--A3 objectives, ranks, transformations, application orientation, and residuals
+\item identity, global-unitary, pointwise-unitary, and known-inverse-oracle objectives, ranks, transformations, application orientation, and residuals
       are evaluated from the original frames and operators;
 \item construction, alignment, Fourier, Parseval, Hermiticity, perturbation-bound,
       interpolation, truncation, total-error, and refinement gates are applied without
@@ -1276,19 +1390,19 @@ data before withheld evaluation is inspected;
 \item the disjoint shifted evaluation mesh measures fixed full and truncated models and
 enters final claim resolution only through the prespecified rules; it cannot revise a
 control or a construction disposition;
-\item every applicable represented channel is transformed before truncation, every selected
+\item every applicable represented gauge alignment is transformed before truncation, every selected
       support is retained, and no preferred or first-passing support is selected; and
 \item canonical serialization, independent direct-formula reconstruction, schema and
       digest checks, resource checks, and no-overwrite evidence rules close the workflow.
 \end{enumerate}
 
-Several Paper 1 v3 channels are intentionally inapplicable rather than missing. D1 v1
+Several Paper 1 v3 gauge alignments are intentionally inapplicable rather than missing. D1 v1
 has no model-parameter admissible sets, common-witness search, rectangle containment
 problem, or positive set-separation certificate. It has no continuous attack-amplitude
 optimizer, parent homotopy, cyclic Nyquist singleton, or first-passing range decision.
 Those fields receive explicit out-of-scope or inapplicable dispositions and are not
 encoded as numerical zero. Conversely, D1 adds the rank/depth ladder, noncommuting
-higher-rank circuit, A1/A2/A3 separation, cross-rank normalization, and exact finite-rank
+higher-rank circuit, global-unitary/pointwise-unitary/known-inverse-oracle separation, cross-rank normalization, and exact finite-rank
 property-construction certificates that were outside Paper 1.
 
 This crosswalk requires the complete diagnostic ledger; it transfers no predecessor
@@ -1296,31 +1410,31 @@ mesh, coefficient, tolerance, threshold, calculated value, or evidence status.
 
 \section{Convergence and claim-resolution policy}
 
-A D1 v1 case is \textbf{numerically qualified} only if A0, A2, and A3 carry
+A D1 v1 case is \textbf{numerically qualified} only if identity, pointwise-unitary, and known-inverse-oracle carry
 \path{qualified}, every mandatory integrity gate passes, its final interpolation errors
 pass, and all retained blocks and locality diagnostics meet the frozen
-$1025\rightarrow2049$ refinement rules. A1 may carry either \path{qualified} or the
-explicit \path{aggregate-rank-deficient} disposition; the latter is a bounded A1 result,
+$1025\rightarrow2049$ refinement rules. global-unitary may carry either \path{qualified} or the
+explicit \path{aggregate-rank-deficient} disposition; the latter is a bounded global-unitary result,
 not a failed search and not permission to complete the map. Any
 \path{pointwise-rank-deficient}, \path{alignment-numerically-unresolved},
 \path{alignment-integrity-failed}, or \path{oracle-integrity-failed} disposition
 invalidates the complete case.
 
-The exact support and A2/A3 recovery statements are analytic certificates and never
+The exact support and pointwise-unitary/known-inverse-oracle recovery statements are analytic certificates and never
 become empirical findings. Numerical values only test their implementation.
 
 For a qualified case, define a \textbf{resolved gauge-induced locality extension at $S=2$}
 only when
 
 \[
-\frac{N_{A0,2049}(2)}{\sqrt rE_{\mathrm{ref}}}\geq10^{-6},
+\frac{N_{\mathrm{id},2049}(2)}{\sqrt rE_{\mathrm{ref}}}\geq10^{-6},
 \qquad
-\frac{N_{A3,2049}(2)}{\sqrt rE_{\mathrm{ref}}}\leq10^{-10},
+\frac{N_{\mathrm{oracle},2049}(2)}{\sqrt rE_{\mathrm{ref}}}\leq10^{-10},
 \]
 
-and the A0 total ordered-spectrum maximum error after $S=2$ truncation is at least
+and the identity total ordered-spectrum maximum error after $S=2$ truncation is at least
 $10^{-6}E_{\mathrm{ref}}$. Below-threshold behavior is reported as unresolved at v1
-resolution, not as proof of equal locality. A qualified A1 is classified as a
+resolution, not as proof of equal locality. A qualified global-unitary is classified as a
 \textbf{resolved global-alignment residual} only if its maximum normalized represented-
 operator residual is at least $10^{-6}$; otherwise it is unresolved at v1 resolution.
 No ratio with a roundoff-scale denominator is used.
@@ -1334,14 +1448,14 @@ negative theorem.
 \section{Support--error Pareto diagnostics}
 
 D1 adopts Part~2's sampled nondominance rule while keeping the higher-rank alignment
-families separate. For each technically qualified case, applicable channel $A$, and
+families separate. For each technically qualified case, applicable gauge alignment $a$, and
 final construction mesh $M=2049$, every declared support $S$ defines the three-objective
 point
 \[
- \mathcal J_{r,L,A}(S)=\left(
+ \mathcal J_{r,L,a}(S)=\left(
  |\Omega_S|,
- \varepsilon_{H,r,L,A}^{\mathrm{total}}(S),
- \varepsilon_{E,r,L,A}^{\mathrm{total}}(S)
+ \varepsilon_{H,r,L,a}^{\mathrm{total}}(S),
+ \varepsilon_{E,r,L,a}^{\mathrm{total}}(S)
  \right),
 \]
 where $|\Omega_S|=2S+1$, $\varepsilon_H^{\mathrm{total}}$ is the withheld-mesh maximum
@@ -1349,12 +1463,12 @@ total Frobenius error divided by $\sqrt rE_{\mathrm{ref}}$, and
 $\varepsilon_E^{\mathrm{total}}$ is the withheld-mesh maximum total ordered-spectrum
 error divided by $E_{\mathrm{ref}}$. Lower values of all three components are preferred.
 A sampled support is Pareto efficient exactly when no other declared support in the same
-case and channel weakly improves all three components and strictly improves at least one.
+case and gauge alignment weakly improves all three components and strictly improves at least one.
 
-Channels are never pooled into one Pareto set: A0, A1, A2, and A3 are distinct feasible
-alignment families rather than scale samples of one family. A1 has no Pareto record
-when its aggregate alignment is rank deficient. A2 and A3 Pareto records are explicitly
-control diagnostics; in particular, the known-inverse A3 oracle is not an attainable
+Gauge alignments are never pooled into one Pareto set: identity, global-unitary, pointwise-unitary, and known-inverse-oracle are distinct feasible
+alignment families rather than scale samples of one family. global-unitary has no Pareto record
+when its aggregate alignment is rank deficient. pointwise-unitary and known-inverse-oracle Pareto records are explicitly
+control diagnostics; in particular, the known-inverse-oracle is not an attainable
 fitted decision and cannot support a practical-selection claim. Pareto membership uses
 only technically qualified final-mesh values, selects no preferred support, applies no
 acceptance tolerance, and asserts neither interpolation between supports nor a continuum
@@ -1419,13 +1533,13 @@ The implementation must provide strict JSON Schemas with these immutable identif
 
 Every object rejects unknown properties. Numeric fields reject booleans, strings,
 nonfinite values, and implicit units. Enumerations bind the exact ranks, depths, meshes,
-supports, channels, conventions, status values, and method identities. The alignment
-status contract is channel-specific: A0 permits only \path{qualified}; A1 permits
+supports, gauge alignments, conventions, status values, and method identities. The alignment
+status contract is gauge-alignment-specific: identity permits only \path{qualified}; global-unitary permits
 \path{qualified}, \path{aggregate-rank-deficient},
-\path{alignment-numerically-unresolved}, or \path{alignment-integrity-failed}; A2 permits
+\path{alignment-numerically-unresolved}, or \path{alignment-integrity-failed}; pointwise-unitary permits
 \path{qualified}, \path{pointwise-rank-deficient},
-\path{alignment-numerically-unresolved}, or \path{alignment-integrity-failed}; and A3
-permits \path{qualified} or \path{oracle-integrity-failed}. A1 downstream records use
+\path{alignment-numerically-unresolved}, or \path{alignment-integrity-failed}; and known-inverse-oracle
+permits \path{qualified} or \path{oracle-integrity-failed}. global-unitary downstream records use
 exactly \path{applicable} or \path{inapplicable-aggregate-rank-deficient}. An inapplicable
 numeric payload is omitted rather than represented by zero, null, NaN, or infinity.
 Every document has the exact top-level envelope fields \path{schema}, \path{family_id},
@@ -1467,10 +1581,10 @@ coefficients, angle scale and rank factor, zero phase rules, exact attack-angle
 certificate identity, and the complete ordered rank and depth inventories.
 
 \item \textbf{\path{alignment}.}
-Ordered channel inventory, source/target orientation, right-action application rule,
-equal aggregate weights, A1 selection mesh, A2 per-mesh rule, A3 oracle rule, SVD order,
+Ordered gauge alignment inventory, source/target orientation, right-action application rule,
+equal aggregate weights, global-unitary selection mesh, pointwise-unitary per-mesh rule, known-inverse-oracle oracle rule, SVD order,
 singular-value cutoff formula, strict equality behavior, objective normalization,
-integrity formulas, and channel-specific status enums.
+integrity formulas, and gauge-alignment-specific status enums.
 
 \item \textbf{\path{sampling}.}
 Ordered construction meshes, final construction mesh, shifted evaluation mesh, endpoint
@@ -1532,7 +1646,7 @@ Scientific claim-resolution statuses are stored separately from technical qualif
 \item \textbf{\path{analytic_certificates}.}
 Exact isolation value and certificate identity, exact attack-angle expression identity
 and rank-specific evaluated bound, exact smooth-field support $|R|\leq2$, exact P0
-projector identity, and analytic A2/A3 equivalence expectation. Analytic entries are
+projector identity, and analytic pointwise-unitary/known-inverse-oracle equivalence expectation. Analytic entries are
 labeled \path{construction-guarantee}; sampled checks are never placed in this object.
 
 \item \textbf{\path{sampled_certificate_checks}.}
@@ -1548,19 +1662,19 @@ extrema, primitive closure
 defect, closure-unitarity defect, and unordered closure eigenphases.
 
 \item \textbf{\path{alignment_selection}.}
-A1's one final-mesh selection record and one A2 selection record per construction mesh.
-The A1 record contains status, selection mesh, objective values, complete singular
+global-unitary's one final-mesh selection record and one pointwise-unitary selection record per construction mesh.
+The global-unitary record contains status, selection mesh, objective values, complete singular
 values, cutoff, margin, condition number when defined, selected unitary when defined,
-and all integrity defects. Each A2 record contains status, mesh size, pointwise-objective
+and all integrity defects. Each pointwise-unitary record contains status, mesh size, pointwise-objective
 maximum and RMS, per-point smallest singular values, cutoffs, margins, and rank statuses,
 condition-number extrema when defined, integrity-defect extrema, deficient count, and
-exact deficient indices. A3 contains its oracle status and recovery defects. A0 contains
+exact deficient indices. known-inverse-oracle contains its oracle status and recovery defects. identity contains
 its deterministic status. Inapplicable payloads are omitted under the status rules above.
 
 \item \textbf{\path{meshes}.}
 Three records ordered as $513,1025,2049$. Each record contains coordinate-construction,
-parent, frame, projector, and direct-spectrum diagnostics followed by four channel
-records ordered A0--A3. Sewing and transport values are referenced from the matching
+parent, frame, projector, and direct-spectrum diagnostics followed by four gauge alignment
+records ordered identity, global-unitary, pointwise-unitary, and known-inverse-oracle. Sewing and transport values are referenced from the matching
 \path{endpoint_and_transport} record rather than duplicated.
 
 \item \textbf{\path{refinement}.}
@@ -1569,9 +1683,9 @@ absolute change, relative change under the frozen denominator, applied absolute 
 relative thresholds, signed margin, and pass/fail status.
 
 \item \textbf{\path{pareto_diagnostics}.}
-For each applicable channel, the final-mesh support order, retained-block counts,
+For each applicable gauge alignment, the final-mesh support order, retained-block counts,
 normalized total operator and ordered-spectrum objectives, Boolean sampled-Pareto
-membership, and nondominated count. Channel feasible sets remain separate, and A2/A3
+membership, and nondominated count. gauge alignment feasible sets remain separate, and pointwise-unitary/known-inverse-oracle
 records carry their control-only role.
 
 \item \textbf{\path{claim_resolution}.}
@@ -1589,10 +1703,10 @@ case. Producer and verifier wall time and peak resident memory are invocation-le
 measurements retained in provenance rather than attributed ambiguously to one case.
 \end{itemize}
 
-Every applicable mesh/channel record contains:
+Every applicable mesh/gauge alignment record contains:
 
 \begin{itemize}
-\item channel status and downstream applicability;
+\item gauge alignment status and downstream applicability;
 \item frame, projector, represented-operator, and ordered-spectrum residual summaries;
 \item Fourier representative count and canonical-index, reconstruction, Hermitian-pair,
       Parseval, error-decomposition, and no-Nyquist records;
@@ -1610,7 +1724,7 @@ Frobenius bound violations; qualified saturation ratios; and all applicability a
 pass/fail statuses. Interpolation, truncation, and total fields are never collapsed into
 one error.
 
-A selected complex matrix, presently only a qualified A1 unitary, is encoded as
+A selected complex matrix, presently only a qualified global-unitary unitary, is encoded as
 \path{shape}, row-major \path{real}, row-major \path{imaginary}, and \path{unit}. Every
 raw/normalized scalar record names \path{raw_value}, \path{raw_unit},
 \path{normalized_value}, and \path{normalization_id}. Arrays do not inherit an unstated
@@ -1649,9 +1763,9 @@ data, or host authentication material.
 
 \path{diagnostics.csv} is a derived, checksummed view of \path{result.json}, not a second
 source of scientific truth. It has exactly
-$16\times3\times4\times9=1728$ data rows in rank-major, depth-minor, mesh, channel, then
+$16\times3\times4\times9=1728$ data rows in rank-major, depth-minor, mesh, gauge alignment, then
 support order. Its leading key columns are \path{case_id}, \path{rank}, \path{depth},
-\path{mesh_size}, \path{channel}, and \path{support}. They are followed by technical
+\path{mesh_size}, \path{gauge_alignment}, and \path{support}. They are followed by technical
 qualification, alignment status, downstream applicability, raw and normalized $W/N/L$,
 interpolation/truncation/total operator and spectral summaries, Parseval and error-
 decomposition defects, perturbation-bound violations and ratios, final-mesh Pareto
@@ -1684,7 +1798,7 @@ retained package size, excluding generated figure images & 50 MiB total & includ
 \end{tabularx}
 \end{center}
 
-The implementation must stream across rank/depth/channel cases and must not retain a
+The implementation must stream across rank/depth/gauge alignment cases and must not retain a
 complete all-case mesh-by-matrix tensor solely for convenience. Exceeding a ceiling gives
 \path{resource-limit-exceeded}, retains no successful evidence package, and triggers protocol
 review rather than an unreviewed increase. Runtime, peak resident memory, thread
@@ -1705,7 +1819,7 @@ permission to replace an existing directory. A successful retained package conta
 \begin{itemize}
 \item canonical \path{input.json}, \path{result.json}, \path{verification.json}, and \path{provenance.json};
 \item the four exact schemas used for validation;
-\item \path{diagnostics.csv} with one explicitly keyed row per case, mesh, channel, and support;
+\item \path{diagnostics.csv} with one explicitly keyed row per case, mesh, gauge alignment, and support;
 \item \path{report.md} and publication-view figure data;
 \item \path{source.sha256}, \path{SHA256SUMS}, and \path{evidence-package-identity.txt}; and
 \item generated figures only as non-authoritative views of checksummed numerical records.
@@ -1719,7 +1833,7 @@ dependency revisions and lock digest, protocol and schema digests, run identity,
 method, runtime environment, and measured resources.
 
 A successful package requires all 16 cases, all three construction meshes, all nine
-supports, A0/A2/A3, every qualified A1 or exact A1 deficiency disposition, and complete
+supports, identity/pointwise-unitary/known-inverse-oracle, every qualified global-unitary or exact global-unitary deficiency disposition, and complete
 independent-verifier agreement. Partial rank/depth coverage, missing refinement levels,
 failed schemas, failed digests, failed numerical gates, or resource-limit failures cannot
 be promoted as successful evidence. Failed attempts may be kept only under a distinct
@@ -1745,14 +1859,14 @@ The following remain open for later, separately versioned protocols:
 \item P1 moving-projector coefficients and their certified exterior-gap method;
 \item every 2-D and 3-D coefficient table, mesh, support, and dimensional identity;
 \item G1 complex phases and diagonal-phase laws;
-\item A4 restricted-circuit optimizer, initialization, stopping rule, and certificate;
+\item restricted-circuit alignment restricted-circuit optimizer, initialization, stopping rule, and certificate;
 \item nonorthogonal metrics, point-group constraints, or material specializations; and
 \item any topologically obstructed or patchwise-frame family.
 \end{enumerate}
 
 None of these may be added to D1 v1 after observing its outcomes. The D1 identity,
 coefficients, exact certificates, rank/depth ladder, meshes, supports, tolerances,
-A0--A3 channels, decision rules, verifier method, resource gate, and evidence policy are
+identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge alignments, decision rules, verifier method, resource gate, and evidence policy are
 now selected. Until a reviewed calculator, independent verifier, retained composition,
 and schemas exist, the version remains unexecuted and cannot supply higher-rank numerical
 evidence. Reusable diagnostic software tests establish only the behavior of those

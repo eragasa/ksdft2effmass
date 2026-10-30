@@ -1,63 +1,84 @@
-# Higher-rank frame alignment in periodic one-dimensional models
+# Higher-rank gauge alignment in periodic one-dimensional models
 
-This package supports the rank-$r$ frame-alignment study for periodic one-dimensional
-Hamiltonians. The study compares four alignment strategies over retained subspaces with
-$r\in\{3,4,8,16\}$ and circuit depths $L\in\{1,2,4,8\}$.
+This package supports the rank-$r$ gauge-alignment study for periodic one-dimensional
+Hamiltonians. The frozen D1 specialization compares four prescribed retained-space
+gauge alignments for $r\in\{3,4,8,16\}$ and circuit depths
+$L\in\{1,2,4,8\}$:
+
+- `identity`;
+- `global-unitary`;
+- `pointwise-unitary`; and
+- `known-inverse-oracle`.
+
+These descriptive values are the only wire identities. They are not physical channels
+or diagnostic error channels, and the former opaque identifiers are not accepted.
 
 ## Physical and numerical scope
 
-The calculation separates three questions:
+The calculation separates four questions:
 
 1. Can neighboring retained frames be transported around the reciprocal-space period
    without a rank-deficient overlap?
-2. Can the endpoint mismatch be distributed smoothly so that the transported frame is
-   periodic?
-3. How do identity, global-unitary, pointwise-unitary, and known-inverse alignment
-   strategies affect operator locality and reconstruction error?
+2. Can the endpoint mismatch be distributed smoothly so that the transported analytic
+   reference frame is periodic?
+3. How do the four prescribed gauge alignments affect represented-operator locality?
+4. How do interpolation, truncation, and total error behave under frozen symmetric
+   supports and mesh refinement?
 
-The short labels `A0`--`A3` remain only as stable identifiers inherited from the frozen
-experimental protocol. Public Python names use the scientific descriptions of the
-channels and transformations.
+Closed-loop transport acts on the analytic reference frame and is common to every gauge
+alignment. The global-unitary selection occurs only on the $M=2049$ construction mesh
+and is reused without refitting. Pointwise-unitary selection is performed separately on
+each construction mesh. The known-inverse-oracle uses the analytic inverse and is a
+control, not an admissible fitted solution.
 
 ## Available implementation
 
-The current package provides:
+The maintained package provides:
 
-- the fixed rank, depth, construction-mesh, global-unitary-selection-mesh,
-  evaluation-mesh, channel, phase-branch, and tolerance choices;
-- explicit outcomes for successful alignment, rank deficiency, numerical failure, and
-  downstream inapplicability;
-- an immutable transport request that fixes one case, unshifted construction mesh,
-  ambient basis, retained frame, and endpoint sewing;
-- neighbor-link singular values, numerical-rank margins, and backend validation
-  residuals; and
-- immutable results for the three right-unitary transformations required to close a
-  transported frame around the reciprocal-space period;
+- immutable configuration, calculation, transport, provenance, and result records;
+- a plain domain enum separated from explicit immutable wire mappings;
 - an analytic parent Hamiltonian and depth-dependent nearest-neighbor gauge circuit;
-- one request-bound producer that evaluates the identity, global-unitary,
-  pointwise-unitary, and known-inverse channels;
-- odd-mesh finite-periodic Fourier transforms, direct shifted-mesh interpolation,
-  symmetric-support truncation, ordinary tails, Parseval relations, and block
-  refinement diagnostics; and
-- complete immutable calculation records that retain the request, all construction
-  meshes, all channels, and all declared supports.
+- Project Koios Optimization Procrustes selection, PhysKit closed-loop transport, and
+  PhysKit odd-mesh finite-periodic transforms;
+- nominal immutable gauge-aligned field construction;
+- request-bound recovery, Fourier, shifted-interpolation, locality, and result-assembly
+  actions under `higher_rank_alignment/gauge_alignment/`;
+- rank-deficiency, integrity-failure, backend-failure, and downstream-inapplicability
+  outcomes with fail-closed absence of downstream values;
+- Parseval, Hermiticity, support-tail, error-decomposition, recovery, and scalar- and
+  block-refinement diagnostics; and
+- canonical typed record bytes whose SHA-256 digest establishes identity and provenance,
+  not scientific validity.
 
-Independent recalculation, byte-owning result verification, authenticated figures, and
-calculation scripts have not yet been implemented. The producer has been exercised by
-software tests on synthetic analytic data, but no retained higher-rank execution or
-scientific validation has occurred.
+A calculation-local direct development runner composes these maintained owners and writes
+only a replaceable non-evidence summary. Independent recalculation, byte-owning complete
+result verification, authenticated rendering, and retained execution remain unimplemented
+and separately authorized. Software tests establish producer behavior only.
 
 ## Numerical responsibilities
 
-- Project Koios Optimization evaluates polar-Procrustes transport, numerical rank, and
-  the distributed matrix root.
-- PhysKit supplies the physical meaning of frames, ambient bases, reciprocal-space
-  routes, and endpoint sewing.
-- `ksdft2effmass` defines the study parameters, scientific diagnostics, alignment
-  outcomes, verification requirements, and eventual claims.
+- Project Koios Optimization owns unit-free numerical algorithms and nominal immutable
+  NumPy storage.
+- PhysKit owns physical frame, sewing, finite-periodic, mesh, and transport semantics.
+- `ksdft2effmass` owns the study inventory, scientific diagnostics, request correlation,
+  failure policy, schemas, and retained-evidence policy.
 
-The calculation-local `workflow/` directory under the historical rank-$N$ calculation is
-retained only for provenance. The maintained package neither imports nor adapts it.
+The calculation-local `workflow/` directory is immutable historical provenance. The
+maintained package, tests, and direct runner neither import nor adapt it.
+
+## Dimensional and metric boundary
+
+Only periodic-1D orthonormal science is implemented. Fiberwise right-unitary gauge
+alignment is mathematically independent of spatial dimension, but meshes, Fourier
+indices, inversion closure, support geometry, and interpolation domains are
+dimension-specific. A later 2-D or 3-D study must therefore provide reviewed
+dimension-specific mesh and support contracts rather than parameterizing the present
+1-D owners.
+
+The present actions assume orthonormal frames and $U(r)$ right actions. A future
+nonorthonormal study requires an explicit positive-definite fiber metric, metric-aware
+adjoints and isometries, and a separately reviewed alignment objective. No metric-aware,
+2-D, or 3-D implementation or placeholder API is provided here.
 
 ## Further details
 

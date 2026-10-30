@@ -1,9 +1,1 @@
-"""Expose the calculation-local workflow package during direct test collection."""
-
-from __future__ import annotations
-
-import sys
-from pathlib import Path
-
-CALCULATION_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(CALCULATION_ROOT))
+"""Calculation-local tests for the maintained direct producer boundary."""
