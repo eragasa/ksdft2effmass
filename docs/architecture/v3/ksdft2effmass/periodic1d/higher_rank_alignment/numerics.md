@@ -227,6 +227,19 @@ three error channels by a sum of their maxima. Ordinary omitted-tail weights and
 computed from the complete matrix coefficients. Construction-mesh Parseval and
 successive-tail monotonicity are separate diagnostics.
 
+## Bounded independent transport reference
+
+For this P0 specialization the analytic retained frame is constant, the endpoint sewing
+map is the ambient identity, and every neighbor and closure overlap is $I_r$. The
+independent transport slice therefore reconstructs the exact closed route without
+calling the transporter. Each link has singular spectrum $(1,\ldots,1)$, cutoff
+$\max(10^{-12},10^{-10})$, rank $r$, and zero polar unitarity defect. The closure
+mismatch phases are zero and the primitive-to-sewn, sewn-to-primitive, and distributed
+closure-correction right actions are all $I_r$. Closure-alignment and normalized
+endpoint/primitive closure defects vanish in exact arithmetic. The reference compares
+these values on all three construction meshes with scalar tolerance $10^{-11}$ and array
+tolerance $10^{-10}$.
+
 ## Bounded independent Procrustes reference
 
 The independent selection slice reconstructs the global cross matrix directly from the

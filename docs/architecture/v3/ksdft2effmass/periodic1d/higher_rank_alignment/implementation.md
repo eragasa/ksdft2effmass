@@ -25,6 +25,7 @@
 | `reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
 | `fourier_reference.py` | Independently reconstructs bounded identity and known-inverse-oracle Fourier controls with direct NumPy sums. |
 | `procrustes_reference.py` | Independently reconstructs global and pointwise Procrustes selection evidence without the producer solver. |
+| `transport_reference.py` | Independently reconstructs the constant-frame closed route without the producer transporter. |
 | `analysis/calculation.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
 | `analysis/procrustes.py` | Builds bounded global and pointwise Procrustes selection evidence. |
 | `analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
@@ -190,10 +191,18 @@ residuals, all retained integrity defects, deficient-point counts, and the selec
 global right unitary. It does not import Optimization or invoke the producer model,
 selection, or analysis actions.
 
+`Periodic1DHigherRankTransportReferenceAnalyzer` is a fourth bounded slice. Because the
+protocol reference frame and endpoint sewing map are constant identities, it constructs
+the closed route directly. On every construction mesh it compares complete link singular
+spectra, strict rank cutoffs and margins, ranks, unitary defects, closure phases, all three
+closure right actions, closure validation residuals, normalized endpoint/primitive
+closure defects, and deficient/unattempted counts. It does not import or invoke the
+PhysKit transporter or producer analysis actions.
+
 These slices do not implement the protocol's complete direct-formula verifier. They do
-not independently reconstruct transport, global- or pointwise-unitary Fourier controls,
-support truncation and total-error fields, error-channel decompositions, or refinement,
-and they do not own canonical result bytes.
+not independently reconstruct global- or pointwise-unitary Fourier controls, support
+truncation and total-error fields, error-channel decompositions, or refinement, and they
+do not own canonical result bytes.
 
 ## Work remaining
 

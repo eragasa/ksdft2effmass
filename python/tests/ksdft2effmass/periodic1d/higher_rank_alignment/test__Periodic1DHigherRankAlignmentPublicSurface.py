@@ -48,6 +48,9 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
             "Periodic1DHigherRankProcrustesReference",
             "Periodic1DHigherRankProcrustesReferenceAnalyzer",
             "Periodic1DHigherRankProcrustesReferenceRequest",
+            "Periodic1DHigherRankTransportReference",
+            "Periodic1DHigherRankTransportReferenceAnalyzer",
+            "Periodic1DHigherRankTransportReferenceRequest",
         )
 
         assert all(name not in higher_rank_alignment.__all__ for name in internal_names)

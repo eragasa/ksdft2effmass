@@ -130,11 +130,14 @@ interpolation and support tails for both controls, and verifies the oracle's ana
 $|R|\le2$ support within its declared tolerance. A third bounded reference reconstructs
 the global polar selection through an Hermitian eigendecomposition and the pointwise
 selections directly from the analytic attack, comparing rank, residual, integrity, and
-selected-unitary evidence. None invokes the corresponding producer scientific actions.
+selected-unitary evidence. A fourth bounded reference directly reconstructs the exact
+constant-frame closed route, link ranks, zero closure phases, and identity closure
+actions on all construction meshes. None invokes the corresponding producer scientific
+actions.
 
 Those bounded comparisons are not the protocol's complete independent reference
-calculation and do not establish transport, global- or pointwise-unitary Fourier values,
-truncation and total-error fields, error-channel decompositions, refinement, or
+calculation and do not establish global- or pointwise-unitary Fourier values, truncation
+and total-error fields, error-channel decompositions, refinement, or
 result-byte verification. No byte-owning verifier or retained higher-rank
 result has been admitted, and the complete 16-case runtime and 4 GiB memory ceilings
 remain unestablished. The analytic family does not establish material validity. No

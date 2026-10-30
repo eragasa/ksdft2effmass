@@ -81,6 +81,7 @@ flowchart LR
     B[Implemented bounded core-invariant reference]
     F[Implemented bounded identity and oracle Fourier reference]
     P[Implemented bounded global and pointwise Procrustes reference]
+    T[Implemented bounded constant-frame transport reference]
     I[Future complete independent numerical recomputation]
     V[Future byte-owning verification]
     D[Future authenticated plotting data]
@@ -90,13 +91,15 @@ flowchart LR
     B -. incomplete reference coverage .-> I
     F -. incomplete reference coverage .-> I
     P -. incomplete reference coverage .-> I
+    T -. incomplete reference coverage .-> I
     I --> V
     V --> D --> G
 ```
 
 Only the bounded producer-independent core-invariant, identity/known-inverse-oracle
-direct-sum Fourier, and global/pointwise Procrustes references are implemented. The
-complete authenticated lifecycle is not. Complete recomputation must continue to bypass the
+direct-sum Fourier, global/pointwise Procrustes, and constant-frame transport references
+are implemented. The complete authenticated lifecycle is not. Complete recomputation
+must continue to bypass the
 production analyzer. Verification must own and hash the exact admitted calculation
 bytes. Rendering must consume authenticated data and calculate no new scientific
 values.

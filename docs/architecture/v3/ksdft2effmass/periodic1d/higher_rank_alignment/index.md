@@ -55,12 +55,14 @@ The maintained package provides:
   including shifted interpolation and support-tail measures for both controls and exact
   support for the oracle; and
 - a bounded global/pointwise Procrustes reference that uses an independent global polar
-  construction and direct analytic pointwise inverses.
+  construction and direct analytic pointwise inverses; and
+- a bounded constant-frame transport reference that reconstructs link rank and identity
+  closure evidence without the producer transporter.
 
 A calculation-local direct development runner composes these maintained owners and writes
 only a replaceable non-evidence summary. The bounded references do not reconstruct
-transport, global- or pointwise-unitary Fourier values, complete locality error channels,
-or refinement evidence. Complete independent recalculation, byte-owning
+global- or pointwise-unitary Fourier values, complete locality error channels, or
+refinement evidence. Complete independent recalculation, byte-owning
 result verification, authenticated rendering, and retained execution remain
 unimplemented and separately authorized. Software tests establish bounded software
 behavior only.
