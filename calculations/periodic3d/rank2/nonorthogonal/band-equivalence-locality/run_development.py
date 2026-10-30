@@ -3,28 +3,30 @@
 from __future__ import annotations
 
 import math
-import sys
 from pathlib import Path
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
     BandEquivalenceLocalityCase,
-    BandEquivalenceLocalityFamily,
+    BandEquivalenceLocalityFamilyEnum,
     BandEquivalenceLocalityRequest,
-    GaugeNormalization,
-    ParentKind,
+    GaugeNormalizationEnum,
+    ParentEnum,
 )
-
-_WORKFLOW_ROOT = (
-    Path(__file__).resolve().parents[4] / "band-equivalence-dimensional-comparison"
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalyzer,
 )
-sys.path.insert(0, str(_WORKFLOW_ROOT))
-
-from band_equivalence_workflow.application import (
-    BandEquivalenceLocalityResult,
-    BandEquivalenceLocalityResultConstructor,
-    BandEquivalenceLocalityResultVerifier,
-    BandEquivalenceLocalityVerificationRequest,
-    BandEquivalenceLocalityVerificationResult,
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.calculation import (
+    BandEquivalenceLocalityVerifier,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
+    FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.records import (
+    BandEquivalenceLocalityVerificationDiagnostics,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
+    BandEquivalenceLocalityAnalysisRecorder,
+    BandEquivalenceLocalityCalculationResult,
 )
 from projectkoios.physkit.periodic.lattice import (
     BravaisLattice,
@@ -55,13 +57,14 @@ FCC_BONDS = (
 MAXIMUM_AMPLITUDE = math.pi / (4.0 * math.sqrt(12.0))
 
 DEFINITION = BandEquivalenceLocalityRequest(
-    family=BandEquivalenceLocalityFamily.SILICON_INSPIRED,
+    family=BandEquivalenceLocalityFamilyEnum.SILICON_INSPIRED,
+    synthetic_model=FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
     cases=(
         BandEquivalenceLocalityCase(
             name="matched-simple-cubic-bravais-control",
             dimension=3,
-            parent_kind=ParentKind.HERMITIAN_BRAVAIS,
-            gauge_normalization=GaugeNormalization.BOND_RMS,
+            parent_kind=ParentEnum.HERMITIAN_BRAVAIS,
+            gauge_normalization=GaugeNormalizationEnum.BOND_RMS,
             positive_bonds=SIMPLE_CUBIC_BONDS,
             direct_metric=SIMPLE_CUBIC_METRIC,
             shell_metric_scale=2.0,
@@ -69,8 +72,8 @@ DEFINITION = BandEquivalenceLocalityRequest(
         BandEquivalenceLocalityCase(
             name="fcc-bravais-control",
             dimension=3,
-            parent_kind=ParentKind.HERMITIAN_BRAVAIS,
-            gauge_normalization=GaugeNormalization.BOND_RMS,
+            parent_kind=ParentEnum.HERMITIAN_BRAVAIS,
+            gauge_normalization=GaugeNormalizationEnum.BOND_RMS,
             positive_bonds=FCC_BONDS,
             direct_metric=FCC_METRIC,
             shell_metric_scale=2.0,
@@ -78,8 +81,8 @@ DEFINITION = BandEquivalenceLocalityRequest(
         BandEquivalenceLocalityCase(
             name="silicon-inspired-diamond",
             dimension=3,
-            parent_kind=ParentKind.BIPARTITE_INSPIRED,
-            gauge_normalization=GaugeNormalization.BOND_RMS,
+            parent_kind=ParentEnum.BIPARTITE_INSPIRED,
+            gauge_normalization=GaugeNormalizationEnum.BOND_RMS,
             positive_bonds=FCC_BONDS,
             direct_metric=FCC_METRIC,
             shell_metric_scale=2.0,
@@ -102,33 +105,39 @@ DEFINITION = BandEquivalenceLocalityRequest(
 def construct_artifacts(
     request: BandEquivalenceLocalityRequest,
 ) -> tuple[
-    BandEquivalenceLocalityResult,
-    BandEquivalenceLocalityVerificationResult,
+    BandEquivalenceLocalityCalculationResult,
+    BandEquivalenceLocalityVerificationDiagnostics,
 ]:
-    """Construct one canonical result and its independent verification artifact."""
-    result = BandEquivalenceLocalityResultConstructor().execute(request)
-    verification = BandEquivalenceLocalityResultVerifier().execute(
-        BandEquivalenceLocalityVerificationRequest(request, result)
-    )
+    """Calculate and independently verify one typed result."""
+    analysis = BandEquivalenceLocalityAnalyzer(request=request).execute()
+    result = BandEquivalenceLocalityAnalysisRecorder(analysis).result()
+    verification = BandEquivalenceLocalityVerifier(
+        request=request,
+        result=result.diagnostics,
+    ).execute()
     return result, verification
 
 
 def write_artifacts(
     output: Path,
-    result: BandEquivalenceLocalityResult,
-    verification: BandEquivalenceLocalityVerificationResult,
+    result: BandEquivalenceLocalityCalculationResult,
+    verification: BandEquivalenceLocalityVerificationDiagnostics,
 ) -> None:
-    """Write the three canonical replaceable development documents."""
+    """Write canonical typed development records."""
     output.mkdir(parents=True, exist_ok=True)
-    result.request_document.write_to(output / "development-input.json")
-    result.document.write_to(output / "development-result.json")
-    verification.document.write_to(output / "development-verification.json")
+    (output / "development-input.json").write_text(
+        result.request.to_json(), encoding="utf-8"
+    )
+    (output / "development-result.json").write_text(result.to_json(), encoding="utf-8")
+    (output / "development-verification.json").write_text(
+        verification.to_json(), encoding="utf-8"
+    )
 
 
 def main() -> int:
     """Calculate, verify, and write replaceable development records."""
     result, verification = construct_artifacts(DEFINITION)
-    if not verification.diagnostics.passes:
+    if not verification.passes:
         raise RuntimeError("independent development verification failed")
     output = (
         Path(__file__).resolve().parent
@@ -139,7 +148,7 @@ def main() -> int:
     )
     write_artifacts(output, result, verification)
     print(
-        f"family={DEFINITION.family.value} lifecycle=development "
+        f"family={DEFINITION.family.to_wire()} lifecycle=development "
         f"verification=pass output={output}"
     )
     return 0

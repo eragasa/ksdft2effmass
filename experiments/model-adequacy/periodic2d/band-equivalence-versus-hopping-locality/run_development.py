@@ -6,24 +6,32 @@ import math
 from pathlib import Path
 
 import numpy as np
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+    BandEquivalenceLocalityCase,
+    BandEquivalenceLocalityFamilyEnum,
+    BandEquivalenceLocalityRequest,
+    GaugeNormalizationEnum,
+    ParentEnum,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalyzer,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.calculation import (
+    BandEquivalenceLocalityVerifier,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
+    FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.records import (
+    BandEquivalenceLocalityVerificationDiagnostics,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
+    BandEquivalenceLocalityAnalysisRecorder,
+    BandEquivalenceLocalityCalculationResult,
+)
 from projectkoios.physkit.periodic.lattice import (
     DirectLattice2D,
     DirectLatticeMetric,
-)
-
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
-    BandEquivalenceLocalityCase,
-    BandEquivalenceLocalityFamily,
-    BandEquivalenceLocalityRequest,
-    GaugeNormalization,
-    ParentKind,
-)
-from ksdft2effmass.application.band_equivalence_locality import (
-    BandEquivalenceLocalityResult,
-    BandEquivalenceLocalityResultConstructor,
-    BandEquivalenceLocalityResultVerifier,
-    BandEquivalenceLocalityVerificationRequest,
-    BandEquivalenceLocalityVerificationResult,
 )
 
 SQUARE_METRIC = DirectLatticeMetric(
@@ -34,13 +42,14 @@ SQUARE_METRIC = DirectLatticeMetric(
 )
 
 DEFINITION = BandEquivalenceLocalityRequest(
-    family=BandEquivalenceLocalityFamily.SQUARE,
+    family=BandEquivalenceLocalityFamilyEnum.SQUARE,
+    synthetic_model=FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
     cases=(
         BandEquivalenceLocalityCase(
             name="square-directed-parent",
             dimension=2,
-            parent_kind=ParentKind.DIRECTED_AXIS,
-            gauge_normalization=GaugeNormalization.AXIS_MAXIMUM,
+            parent_kind=ParentEnum.DIRECTED_AXIS,
+            gauge_normalization=GaugeNormalizationEnum.AXIS_MAXIMUM,
             positive_bonds=((1, 0), (0, 1)),
             direct_metric=SQUARE_METRIC,
             shell_metric_scale=1.0,
@@ -59,38 +68,44 @@ DEFINITION = BandEquivalenceLocalityRequest(
 def construct_artifacts(
     request: BandEquivalenceLocalityRequest,
 ) -> tuple[
-    BandEquivalenceLocalityResult,
-    BandEquivalenceLocalityVerificationResult,
+    BandEquivalenceLocalityCalculationResult,
+    BandEquivalenceLocalityVerificationDiagnostics,
 ]:
-    """Construct one canonical result and its independent verification artifact."""
-    result = BandEquivalenceLocalityResultConstructor().execute(request)
-    verification = BandEquivalenceLocalityResultVerifier().execute(
-        BandEquivalenceLocalityVerificationRequest(request, result)
-    )
+    """Calculate and independently verify one typed result."""
+    analysis = BandEquivalenceLocalityAnalyzer(request=request).execute()
+    result = BandEquivalenceLocalityAnalysisRecorder(analysis).result()
+    verification = BandEquivalenceLocalityVerifier(
+        request=request,
+        result=result.diagnostics,
+    ).execute()
     return result, verification
 
 
 def write_artifacts(
     output: Path,
-    result: BandEquivalenceLocalityResult,
-    verification: BandEquivalenceLocalityVerificationResult,
+    result: BandEquivalenceLocalityCalculationResult,
+    verification: BandEquivalenceLocalityVerificationDiagnostics,
 ) -> None:
-    """Write the three canonical replaceable development documents."""
+    """Write canonical typed development records."""
     output.mkdir(parents=True, exist_ok=True)
-    result.request_document.write_to(output / "development-input.json")
-    result.document.write_to(output / "development-result.json")
-    verification.document.write_to(output / "development-verification.json")
+    (output / "development-input.json").write_text(
+        result.request.to_json(), encoding="utf-8"
+    )
+    (output / "development-result.json").write_text(result.to_json(), encoding="utf-8")
+    (output / "development-verification.json").write_text(
+        verification.to_json(), encoding="utf-8"
+    )
 
 
 def main() -> int:
     """Calculate, verify, and write replaceable development records."""
     result, verification = construct_artifacts(DEFINITION)
-    if not verification.diagnostics.passes:
+    if not verification.passes:
         raise RuntimeError("independent development verification failed")
     output = Path(__file__).resolve().parent / "analysis" / "development"
     write_artifacts(output, result, verification)
     print(
-        f"family={DEFINITION.family.value} lifecycle=development "
+        f"family={DEFINITION.family.to_wire()} lifecycle=development "
         f"verification=pass output={output}"
     )
     return 0

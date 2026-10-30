@@ -9,16 +9,16 @@ from pathlib import Path
 import matplotlib
 import numpy as np
 
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalysis,
+)
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.constrained_bessel import (  # noqa: E501
-    ConstrainedBesselGeometry,
+    ConstrainedBesselGeometryEnum,
     ConstrainedBesselTailDiagnostic,
     ConstrainedBesselTailRequest,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (  # noqa: E501
-    BandEquivalenceLocalityFamily,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.records import (
-    BandEquivalenceLocalityDiagnostics,
+    BandEquivalenceLocalityFamilyEnum,
 )
 
 matplotlib.use("Agg")
@@ -29,14 +29,14 @@ _VERMILION = "#D55E00"
 _GREEN = "#009E73"
 _MAGENTA = "#CC79A7"
 _BLACK = "#202020"
-_FAMILY_PRESENTATION: dict[BandEquivalenceLocalityFamily, tuple[str, str]] = {
-    BandEquivalenceLocalityFamily.SQUARE: ("Square 2-D", _BLUE),
-    BandEquivalenceLocalityFamily.GRAPHENE_INSPIRED: (
+_FAMILY_PRESENTATION: dict[BandEquivalenceLocalityFamilyEnum, tuple[str, str]] = {
+    BandEquivalenceLocalityFamilyEnum.SQUARE: ("Square 2-D", _BLUE),
+    BandEquivalenceLocalityFamilyEnum.GRAPHENE_INSPIRED: (
         "Nonorthogonal 2-D",
         _VERMILION,
     ),
-    BandEquivalenceLocalityFamily.SIMPLE_CUBIC: ("Simple-cubic 3-D", _GREEN),
-    BandEquivalenceLocalityFamily.SILICON_INSPIRED: (
+    BandEquivalenceLocalityFamilyEnum.SIMPLE_CUBIC: ("Simple-cubic 3-D", _GREEN),
+    BandEquivalenceLocalityFamilyEnum.SILICON_INSPIRED: (
         "Nonorthogonal 3-D",
         _MAGENTA,
     ),
@@ -61,10 +61,10 @@ _STYLE: dict[str, str | float | int | bool] = {
 class BandEquivalenceLocalityPlotRequest:
     """Supply typed diagnostics and output policy for one plot set."""
 
-    mesh_results: tuple[BandEquivalenceLocalityDiagnostics, ...]
+    mesh_results: tuple[BandEquivalenceLocalityAnalysis, ...]
     output_directory: Path
     title: str
-    constrained_geometry: ConstrainedBesselGeometry | None = None
+    constrained_geometry: ConstrainedBesselGeometryEnum | None = None
     constrained_shell_cap: int | None = None
     constrained_kernel_cap: int | None = None
 
@@ -72,12 +72,10 @@ class BandEquivalenceLocalityPlotRequest:
         if type(self.mesh_results) is not tuple or len(self.mesh_results) < 2:
             raise ValueError("mesh_results must contain at least two diagnostics")
         if any(
-            type(result) is not BandEquivalenceLocalityDiagnostics
+            type(result) is not BandEquivalenceLocalityAnalysis
             for result in self.mesh_results
         ):
-            raise TypeError(
-                "mesh_results must contain BandEquivalenceLocalityDiagnostics"
-            )
+            raise TypeError("mesh_results must contain BandEquivalenceLocalityAnalysis")
         family = self.mesh_results[0].family
         if any(result.family is not family for result in self.mesh_results):
             raise ValueError("mesh_results must belong to one family")
@@ -120,9 +118,11 @@ class BandEquivalenceLocalityPlotRequest:
             raise ValueError("all constrained-tail controls must be supplied together")
         if (
             self.constrained_geometry is not None
-            and type(self.constrained_geometry) is not ConstrainedBesselGeometry
+            and type(self.constrained_geometry) is not ConstrainedBesselGeometryEnum
         ):
-            raise TypeError("constrained_geometry must be ConstrainedBesselGeometry")
+            raise TypeError(
+                "constrained_geometry must be ConstrainedBesselGeometryEnum"
+            )
         for name, value in (
             ("constrained_shell_cap", self.constrained_shell_cap),
             ("constrained_kernel_cap", self.constrained_kernel_cap),
@@ -142,7 +142,7 @@ class BandEquivalenceLocalityPlotResult:
 class BandEquivalenceToleranceMapRequest:
     """Supply one typed development result per independently interpreted family."""
 
-    family_results: tuple[BandEquivalenceLocalityDiagnostics, ...]
+    family_results: tuple[BandEquivalenceLocalityAnalysis, ...]
     output_directory: Path
     title: str
 
@@ -150,11 +150,11 @@ class BandEquivalenceToleranceMapRequest:
         if type(self.family_results) is not tuple or len(self.family_results) < 2:
             raise ValueError("family_results must contain at least two diagnostics")
         if any(
-            type(result) is not BandEquivalenceLocalityDiagnostics
+            type(result) is not BandEquivalenceLocalityAnalysis
             for result in self.family_results
         ):
             raise TypeError(
-                "family_results must contain BandEquivalenceLocalityDiagnostics"
+                "family_results must contain BandEquivalenceLocalityAnalysis"
             )
         families = tuple(result.family for result in self.family_results)
         if len(set(families)) != len(families):
@@ -176,15 +176,22 @@ class BandEquivalenceToleranceMapRequest:
 
 
 class BandEquivalenceLocalityPlotWriter:
-    """Write the maintained plot set from typed diagnostics."""
+    """Write the maintained plot set from one bound request."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self, request: BandEquivalenceLocalityPlotRequest
-    ) -> BandEquivalenceLocalityPlotResult:
+    def __init__(self, *, request: BandEquivalenceLocalityPlotRequest) -> None:
         if type(request) is not BandEquivalenceLocalityPlotRequest:
             raise TypeError("request must be BandEquivalenceLocalityPlotRequest")
+        self._request = request
+
+    @property
+    def request(self) -> BandEquivalenceLocalityPlotRequest:
+        """Return the exact immutable plot request bound to this writer."""
+        return self._request
+
+    def execute(self) -> BandEquivalenceLocalityPlotResult:
+        request = self._request
         request.output_directory.mkdir(parents=True, exist_ok=True)
         smoke = request.mesh_results[0]
         refined = request.mesh_results[-1]
@@ -208,8 +215,8 @@ class BandEquivalenceLocalityPlotWriter:
     def _write_scientific_story(
         self,
         request: BandEquivalenceLocalityPlotRequest,
-        smoke: BandEquivalenceLocalityDiagnostics,
-        refined: BandEquivalenceLocalityDiagnostics,
+        smoke: BandEquivalenceLocalityAnalysis,
+        refined: BandEquivalenceLocalityAnalysis,
     ) -> Path:
         figure, axes = plt.subplots(2, 2, figsize=(10.5, 7.0), constrained_layout=True)
         for case_index, (smoke_case, refined_case) in enumerate(
@@ -384,7 +391,7 @@ class BandEquivalenceLocalityPlotWriter:
     def _write_error_decomposition(
         self,
         request: BandEquivalenceLocalityPlotRequest,
-        refined: BandEquivalenceLocalityDiagnostics,
+        refined: BandEquivalenceLocalityAnalysis,
     ) -> Path:
         figure, axes = plt.subplots(
             len(refined.cases),
@@ -489,8 +496,8 @@ class BandEquivalenceLocalityPlotWriter:
     def _write_shell_profiles(
         self,
         request: BandEquivalenceLocalityPlotRequest,
-        smoke: BandEquivalenceLocalityDiagnostics,
-        refined: BandEquivalenceLocalityDiagnostics,
+        smoke: BandEquivalenceLocalityAnalysis,
+        refined: BandEquivalenceLocalityAnalysis,
     ) -> Path:
         figure, axes = plt.subplots(
             len(smoke.cases),
@@ -580,8 +587,8 @@ class BandEquivalenceLocalityPlotWriter:
     def _write_first_passing_stability(
         self,
         request: BandEquivalenceLocalityPlotRequest,
-        smoke: BandEquivalenceLocalityDiagnostics,
-        refined: BandEquivalenceLocalityDiagnostics,
+        smoke: BandEquivalenceLocalityAnalysis,
+        refined: BandEquivalenceLocalityAnalysis,
     ) -> Path:
         rows: list[list[float]] = []
         annotations: list[list[str]] = []
@@ -682,17 +689,18 @@ class BandEquivalenceLocalityPlotWriter:
         assert shell_cap is not None
         assert kernel_cap is not None
         shells = tuple(range(shell_cap + 1))
-        diagnostic = ConstrainedBesselTailDiagnostic()
         bounds = tuple(
-            diagnostic.execute(
-                ConstrainedBesselTailRequest(
+            ConstrainedBesselTailDiagnostic(
+                request=ConstrainedBesselTailRequest(
                     geometry=geometry,
                     maximum_rotation_amplitude=math.pi / 4.0,
                     shell_cap=shell,
                     kernel_cap=kernel_cap,
                     numerical_margin=1.0e-13,
                 )
-            ).tail_power_upper_bound
+            )
+            .result()
+            .tail_power_upper_bound
             for shell in shells
         )
         figure, axis = plt.subplots(figsize=(7.2, 4.4), constrained_layout=True)
@@ -722,15 +730,22 @@ class BandEquivalenceLocalityPlotWriter:
 
 
 class BandEquivalenceToleranceMapWriter:
-    """Plot required threshold pairs without assigning scientific acceptance."""
+    """Plot required threshold pairs from one bound request."""
 
-    __slots__ = ()
+    __slots__ = ("_request",)
 
-    def execute(
-        self, request: BandEquivalenceToleranceMapRequest
-    ) -> BandEquivalenceLocalityPlotResult:
+    def __init__(self, *, request: BandEquivalenceToleranceMapRequest) -> None:
         if type(request) is not BandEquivalenceToleranceMapRequest:
             raise TypeError("request must be BandEquivalenceToleranceMapRequest")
+        self._request = request
+
+    @property
+    def request(self) -> BandEquivalenceToleranceMapRequest:
+        """Return the exact immutable tolerance-map request bound to this writer."""
+        return self._request
+
+    def execute(self) -> BandEquivalenceLocalityPlotResult:
+        request = self._request
         request.output_directory.mkdir(parents=True, exist_ok=True)
         with matplotlib.rc_context(_STYLE):  # type: ignore[arg-type]
             figure, axis = plt.subplots(figsize=(8.8, 5.8))

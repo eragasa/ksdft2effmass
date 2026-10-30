@@ -121,11 +121,11 @@ class Periodic1DHigherRankRecoveryAnalyzer:
                 global_selection=analysis_request.global_selection,
             )
         ).execute()
-        represented_operator_diagnostics = MatrixFieldErrorAnalyzer().execute(
-            fields.represented_operators,
-            direct_construction,
-            controls.energy_reference,
-        )
+        represented_operator_diagnostics = MatrixFieldErrorAnalyzer(
+            approximation=fields.represented_operators,
+            reference=direct_construction,
+            energy_reference=controls.energy_reference,
+        ).result()
         represented_operator_recovery = (
             Periodic1DHigherRankMatrixErrorResult.from_diagnostics(
                 represented_operator_diagnostics

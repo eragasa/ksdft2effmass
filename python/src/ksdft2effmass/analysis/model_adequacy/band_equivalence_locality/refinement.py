@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import math
 
-from .records import BandEquivalenceLocalityDiagnostics, PointDiagnostic
+from .analysis import BandEquivalenceLocalityAnalysis
 from .refinement_records import (
     BandEquivalenceLocalityRefinementAssessment,
     BandEquivalenceLocalityRefinementPair,
 )
+from .results import BandEquivalenceLocalityPointAnalysis
 
 
 def _maximum_change(coarse: tuple[float, ...], fine: tuple[float, ...]) -> float:
@@ -24,7 +25,9 @@ def _periodic_angle_change(left: float, right: float) -> float:
     return abs((left - right + 0.5 * math.pi) % math.pi - 0.5 * math.pi)
 
 
-def _parent_diagnostics(point: PointDiagnostic) -> tuple[float, ...]:
+def _parent_diagnostics(
+    point: BandEquivalenceLocalityPointAnalysis,
+) -> tuple[float, ...]:
     return (
         point.minimum_sampled_external_gap,
         point.continuous_external_gap_lower_bound,
@@ -45,7 +48,9 @@ def _parent_diagnostics(point: PointDiagnostic) -> tuple[float, ...]:
     )
 
 
-def _invariant_diagnostics(point: PointDiagnostic) -> tuple[float, ...]:
+def _invariant_diagnostics(
+    point: BandEquivalenceLocalityPointAnalysis,
+) -> tuple[float, ...]:
     return (
         point.minimum_sampled_external_gap,
         point.continuous_external_gap_lower_bound,
@@ -53,7 +58,9 @@ def _invariant_diagnostics(point: PointDiagnostic) -> tuple[float, ...]:
     )
 
 
-def _reconstruction_diagnostics(point: PointDiagnostic) -> tuple[float, ...]:
+def _reconstruction_diagnostics(
+    point: BandEquivalenceLocalityPointAnalysis,
+) -> tuple[float, ...]:
     return (
         point.maximum_eigensystem_reconstruction_defect,
         point.maximum_projector_reconstruction_defect,
@@ -65,7 +72,8 @@ def _reconstruction_diagnostics(point: PointDiagnostic) -> tuple[float, ...]:
 
 
 def _topology_diagnostic_change(
-    coarse: PointDiagnostic, fine: PointDiagnostic
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
 ) -> tuple[bool, float]:
     stable = (
         coarse.transport_closure_and_plaquette_applicable
@@ -101,12 +109,18 @@ def _topology_diagnostic_change(
     )
 
 
-def _validate_point_pair(coarse: PointDiagnostic, fine: PointDiagnostic) -> None:
+def _validate_point_pair(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> None:
     if (coarse.parent_scale, coarse.amplitude) != (fine.parent_scale, fine.amplitude):
         raise ValueError("refinement point identities differ")
 
 
-def _parent_diagnostic_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _parent_diagnostic_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     _, topology_change = _topology_diagnostic_change(coarse, fine)
     return max(
         _maximum_change(_parent_diagnostics(coarse), _parent_diagnostics(fine)),
@@ -114,7 +128,10 @@ def _parent_diagnostic_change(coarse: PointDiagnostic, fine: PointDiagnostic) ->
     )
 
 
-def _correlation_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _correlation_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     if (
         coarse.finite_mesh_maximum_correlation is None
         or fine.finite_mesh_maximum_correlation is None
@@ -125,7 +142,10 @@ def _correlation_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float
     )
 
 
-def _threshold_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _threshold_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     return max(
         abs(coarse.minimum_operator_threshold - fine.minimum_operator_threshold),
         abs(
@@ -135,7 +155,10 @@ def _threshold_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
     )
 
 
-def _hopping_weight_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _hopping_weight_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     return max(
         abs(coarse.reference_nononsite_power - fine.reference_nononsite_power),
         abs(coarse.comparison_nononsite_power - fine.comparison_nononsite_power),
@@ -143,7 +166,8 @@ def _hopping_weight_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> fl
 
 
 def _hopping_block_power_change(
-    coarse: PointDiagnostic, fine: PointDiagnostic
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
 ) -> float:
     fine_shells = {shell.shell_index: shell for shell in fine.shell_diagnostics}
     changes: list[float] = []
@@ -165,7 +189,10 @@ def _hopping_block_power_change(
     return max(changes, default=0.0)
 
 
-def _angle_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _angle_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     if (
         coarse.restricted_global_rotation_angle is None
         or fine.restricted_global_rotation_angle is None
@@ -177,17 +204,26 @@ def _angle_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
     )
 
 
-def _band_defect_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _band_defect_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     return abs(coarse.maximum_direct_band_defect - fine.maximum_direct_band_defect)
 
 
-def _reconstruction_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _reconstruction_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     return _maximum_change(
         _reconstruction_diagnostics(coarse), _reconstruction_diagnostics(fine)
     )
 
 
-def _parseval_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
+def _parseval_change(
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
+) -> float:
     return max(
         abs(coarse.reference_parseval_defect - fine.reference_parseval_defect),
         abs(coarse.comparison_parseval_defect - fine.comparison_parseval_defect),
@@ -195,7 +231,8 @@ def _parseval_change(coarse: PointDiagnostic, fine: PointDiagnostic) -> float:
 
 
 def _decision_changes(
-    coarse: PointDiagnostic, fine: PointDiagnostic
+    coarse: BandEquivalenceLocalityPointAnalysis,
+    fine: BandEquivalenceLocalityPointAnalysis,
 ) -> tuple[bool, int | None]:
     if len(coarse.first_passing) != len(fine.first_passing):
         raise ValueError("refinement decision inventories differ")
@@ -217,22 +254,32 @@ def _decision_changes(
 
 
 class BandEquivalenceLocalityRefinementAnalyzer:
-    """Compare three mesh levels without inventing convergence tolerances."""
+    """Compare bound mesh levels without inventing convergence tolerances."""
 
-    __slots__ = ()
+    __slots__ = ("_results",)
 
-    def execute(
+    def __init__(
         self,
-        results: tuple[BandEquivalenceLocalityDiagnostics, ...],
-    ) -> BandEquivalenceLocalityRefinementAssessment:
+        *,
+        results: tuple[BandEquivalenceLocalityAnalysis, ...],
+    ) -> None:
         if type(results) is not tuple or len(results) < 3:
             raise ValueError("results must contain at least three mesh levels")
         if any(
-            type(result) is not BandEquivalenceLocalityDiagnostics for result in results
+            type(result) is not BandEquivalenceLocalityAnalysis for result in results
         ):
             raise TypeError(
-                "results must contain BandEquivalenceLocalityDiagnostics values"
+                "results must contain BandEquivalenceLocalityAnalysis values"
             )
+        self._results = results
+
+    @property
+    def results(self) -> tuple[BandEquivalenceLocalityAnalysis, ...]:
+        """Return the exact ordered diagnostics bound to this analyzer."""
+        return self._results
+
+    def execute(self) -> BandEquivalenceLocalityRefinementAssessment:
+        results = self._results
         family = results[0].family
         if any(result.family is not family for result in results):
             raise ValueError("all refinement results must belong to one family")
@@ -244,7 +291,12 @@ class BandEquivalenceLocalityRefinementAnalyzer:
             raise ValueError("construction sizes must form a doubling ladder")
         pairs: list[BandEquivalenceLocalityRefinementPair] = []
         for coarse_result, fine_result in zip(results[:-1], results[1:], strict=True):
-            point_pairs: list[tuple[PointDiagnostic, PointDiagnostic]] = []
+            point_pairs: list[
+                tuple[
+                    BandEquivalenceLocalityPointAnalysis,
+                    BandEquivalenceLocalityPointAnalysis,
+                ]
+            ] = []
             decision_stability: list[bool] = []
             transport_applicability_stability: list[bool] = []
             decision_changes: list[int] = []

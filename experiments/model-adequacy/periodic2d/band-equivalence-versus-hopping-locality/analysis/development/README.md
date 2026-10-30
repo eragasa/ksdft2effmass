@@ -23,7 +23,7 @@ spectral errors, Parseval checks, and sampled first-passing decisions. The indep
 development verifier reports `passes: true`; its maximum stored identity defect is about
 `4.1e-15`. The input, result, and verification documents validate against the immutable
 family-bound schemas packaged by
-`ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality`; the verification
+`ksdft2effmass.analysis.model_adequacy.band_equivalence_locality`; the verification
 document binds the canonical input and result bytes by SHA-256.
 
 Some strict sampled decisions remain unresolved at the declared shell cap. No threshold,

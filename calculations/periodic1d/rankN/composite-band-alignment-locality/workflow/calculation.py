@@ -8,18 +8,21 @@ from .records import HigherRankD1CalculationResult
 
 
 class HigherRankD1Calculator:
-    """Calculate the fixed case inventory and aggregate its qualification."""
+    """Calculate the bound fixed case inventory and aggregate its qualification."""
 
-    __slots__ = ()
+    __slots__ = ("_definition",)
 
-    def execute(
-        self, definition: HigherRankD1Definition
-    ) -> HigherRankD1CalculationResult:
-        """Calculate all sixteen cases in canonical rank-major order."""
+    def __init__(self, *, definition: HigherRankD1Definition) -> None:
         if type(definition) is not HigherRankD1Definition:
             raise TypeError("definition must be HigherRankD1Definition")
-        case_calculator = HigherRankD1CaseCalculator()
-        cases = tuple(case_calculator.execute(case) for case in definition.cases)
+        self._definition = definition
+
+    def execute(self) -> HigherRankD1CalculationResult:
+        """Calculate all sixteen bound cases in canonical rank-major order."""
+        cases = tuple(
+            HigherRankD1CaseCalculator(definition=case).execute()
+            for case in self._definition.cases
+        )
         return HigherRankD1CalculationResult.aggregate(cases)
 
 

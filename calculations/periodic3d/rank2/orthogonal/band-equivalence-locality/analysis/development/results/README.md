@@ -20,19 +20,18 @@ No dense global Hamiltonian was materialized. The calculation stores the full bo
 parent/subspace, frame, alignment, Fourier, twisted-Nyquist, ordinary-Hermiticity,
 interpolation, truncation, total-error, Parseval, resource-safe shell, and first-passing
 channels. The independent development verifier reports `passes: true`; its maximum
-stored identity defect is about `6.0e-15`. The input, result, and verification documents
-validate against the immutable family-bound schemas packaged by
-the aggregation workflow under `calculations/band-equivalence-dimensional-comparison/band_equivalence_workflow/`; the verification
-document binds the canonical input and result bytes by SHA-256.
+stored identity defect is about `6.0e-15`. The historical input, result, and verification documents were produced by the former
+custom aggregation workflow and remain development records. That workflow and its
+duplicate schemas have been removed; historical SHA-256 bindings do not establish
+admission by the current typed lifecycle.
 
 The rotated endpoint remains unresolved at the sampled shell cap. This is the required
 failure-safe outcome, not a negative scientific result.
 
-Reproduce from the repository root with:
-
-```bash
-python/.venv/bin/python calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/run_development.py
-```
+The maintained typed development runner remains replaceable. A distinct nominal direct
+calculate → independently verify → authenticated render lifecycle is now installed at
+the calculation root, but no periodic-3D direct execution is created or retained by the
+installation change.
 
 These records do not establish convergence, authorize the draft `16/32/64` ladder, or
 constitute publication evidence.

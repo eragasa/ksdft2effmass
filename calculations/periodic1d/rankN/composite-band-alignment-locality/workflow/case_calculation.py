@@ -83,17 +83,18 @@ from .transport import (
 
 
 class HigherRankD1CaseCalculator:
-    """Calculate one complete case while retaining diagnostics, not mesh tensors."""
+    """Calculate one bound case while retaining diagnostics, not mesh tensors."""
 
-    __slots__ = ()
+    __slots__ = ("_definition",)
 
-    def execute(
-        self,
-        definition: HigherRankD1CaseDefinition,
-    ) -> HigherRankD1CaseResult:
-        """Calculate one complete rank/depth case and every applicable diagnostic."""
+    def __init__(self, *, definition: HigherRankD1CaseDefinition) -> None:
         if type(definition) is not HigherRankD1CaseDefinition:
             raise TypeError("definition must be HigherRankD1CaseDefinition")
+        self._definition = definition
+
+    def execute(self) -> HigherRankD1CaseResult:
+        """Calculate the bound rank/depth case and every applicable diagnostic."""
+        definition = self._definition
         constructor = HigherRankD1ModelConstructor()
         selector = HigherRankD1AlignmentSelector()
         final_coordinates = constructor.construction_coordinates(
@@ -523,12 +524,12 @@ class HigherRankD1CaseCalculator:
             np.asarray(aligned_projector - reference_projector, dtype=np.complex128),
             math.sqrt(rank),
         )
-        represented = MatrixFieldComparisonAnalyzer().execute(
-            aligned_operators,
-            fields.reference_operators,
-            1.0,
-            1.0e-30,
-        )
+        represented = MatrixFieldComparisonAnalyzer(
+            approximation=aligned_operators,
+            reference=fields.reference_operators,
+            energy_reference=1.0,
+            saturation_denominator_floor=1.0e-30,
+        ).execute()
         represented_hermiticity = MatrixFieldHermiticityAnalyzer().execute(
             aligned_operators, 1.0
         )
@@ -539,17 +540,23 @@ class HigherRankD1CaseCalculator:
             energy_reference="D1-E-ref-zero",
             basis_identifier=definition.basis_identifier,
         )
-        transform = FinitePeriodicMatrixFourierTransformer().transform(samples)
-        evaluator = FinitePeriodicMatrixFourierTensorEvaluator()
-        reconstruction = evaluator.evaluate(
-            transform.series, (fields.reduced_coordinates,)
-        ).matrix_values
+        transform = FinitePeriodicMatrixFourierTransformer(source=samples).result()
+        reconstruction = (
+            FinitePeriodicMatrixFourierTensorEvaluator(
+                series=transform.series,
+                coordinate_axes=(fields.reduced_coordinates,),
+            )
+            .result()
+            .matrix_values
+        )
         reconstruction_defect = self._residual(
             np.asarray(reconstruction - aligned_operators, dtype=np.complex128),
             math.sqrt(rank),
         ).normalized_maximum
-        hermiticity = FinitePeriodicMatrixHermiticityAnalyzer().analyze(transform)
-        parseval = FinitePeriodicMatrixParsevalAnalyzer().analyze(transform)
+        hermiticity = FinitePeriodicMatrixHermiticityAnalyzer(
+            transform=transform
+        ).result()
+        parseval = FinitePeriodicMatrixParsevalAnalyzer(transform=transform).result()
         parseval_scale = max(
             parseval.sample_mean_squared_frobenius_norm.magnitude,
             parseval.coefficient_sum_squared_frobenius_norm.magnitude,
@@ -609,12 +616,20 @@ class HigherRankD1CaseCalculator:
             )
             for item in inventory.blocks
         )
-        full_evaluation = evaluator.evaluate(
-            transform.series, (evaluation_coordinates,)
-        ).matrix_values
-        interpolation = MatrixFieldComparisonAnalyzer().execute(
-            full_evaluation, direct_evaluation, 1.0, 1.0e-30
+        full_evaluation = (
+            FinitePeriodicMatrixFourierTensorEvaluator(
+                series=transform.series,
+                coordinate_axes=(evaluation_coordinates,),
+            )
+            .result()
+            .matrix_values
         )
+        interpolation = MatrixFieldComparisonAnalyzer(
+            approximation=full_evaluation,
+            reference=direct_evaluation,
+            energy_reference=1.0,
+            saturation_denominator_floor=1.0e-30,
+        ).execute()
         supports = self._supports(
             mesh_size,
             channel,
@@ -681,7 +696,7 @@ class HigherRankD1CaseCalculator:
                 )
                 for item in supports
             )
-            efficient = SampledParetoClassifier().execute(objectives)
+            efficient = SampledParetoClassifier(objectives=objectives).result()
             pareto_points = tuple(
                 HigherRankD1ParetoPoint(
                     support=item.support,
@@ -732,7 +747,6 @@ class HigherRankD1CaseCalculator:
         full_evaluation: Complex128Array,
         direct_evaluation: Complex128Array,
     ) -> tuple[HigherRankD1SupportDiagnostics, ...]:
-        evaluator = FinitePeriodicMatrixFourierTensorEvaluator()
         results: list[HigherRankD1SupportDiagnostics] = []
         previous_tail: HigherRankD1TailDiagnostics | None = None
         previous_support: int | None = None
@@ -748,12 +762,22 @@ class HigherRankD1CaseCalculator:
                 index for index in range(series.term_count) if index not in indices
             )
             omitted = series.take(omitted_indices)
-            omitted_construction = evaluator.evaluate(
-                omitted, (construction_coordinates,)
-            ).matrix_values
-            truncated_evaluation = evaluator.evaluate(
-                selected, (evaluation_coordinates,)
-            ).matrix_values
+            omitted_construction = (
+                FinitePeriodicMatrixFourierTensorEvaluator(
+                    series=omitted,
+                    coordinate_axes=(construction_coordinates,),
+                )
+                .result()
+                .matrix_values
+            )
+            truncated_evaluation = (
+                FinitePeriodicMatrixFourierTensorEvaluator(
+                    series=selected,
+                    coordinate_axes=(evaluation_coordinates,),
+                )
+                .result()
+                .matrix_values
+            )
             tail_source = SymmetricRangeTailAnalyzer1D().execute(series, support, 1.0)
             tail = HigherRankD1TailDiagnostics(
                 squared_weight=tail_source.omitted_squared_frobenius_weight,
@@ -774,12 +798,18 @@ class HigherRankD1CaseCalculator:
                 parseval_right,
                 series.matrix_size * 1.0e-30,
             )
-            truncation = MatrixFieldComparisonAnalyzer().execute(
-                truncated_evaluation, full_evaluation, 1.0, 1.0e-30
-            )
-            total = MatrixFieldComparisonAnalyzer().execute(
-                truncated_evaluation, direct_evaluation, 1.0, 1.0e-30
-            )
+            truncation = MatrixFieldComparisonAnalyzer(
+                approximation=truncated_evaluation,
+                reference=full_evaluation,
+                energy_reference=1.0,
+                saturation_denominator_floor=1.0e-30,
+            ).execute()
+            total = MatrixFieldComparisonAnalyzer(
+                approximation=truncated_evaluation,
+                reference=direct_evaluation,
+                energy_reference=1.0,
+                saturation_denominator_floor=1.0e-30,
+            ).execute()
             interpolation_error = np.asarray(
                 full_evaluation - direct_evaluation, dtype=np.complex128
             )
@@ -789,9 +819,12 @@ class HigherRankD1CaseCalculator:
             total_error = np.asarray(
                 truncated_evaluation - direct_evaluation, dtype=np.complex128
             )
-            decomposition = MatrixErrorDecompositionAnalyzer().execute(
-                interpolation_error, truncation_error, total_error, 1.0
-            )
+            decomposition = MatrixErrorDecompositionAnalyzer(
+                interpolation_error=interpolation_error,
+                truncation_error=truncation_error,
+                total_error=total_error,
+                energy_reference=1.0,
+            ).execute()
             monotonicity: tuple[HigherRankD1SupportMonotonicity, ...] = ()
             if previous_tail is not None and previous_support is not None:
                 increases = (

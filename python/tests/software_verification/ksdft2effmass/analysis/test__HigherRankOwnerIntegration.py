@@ -34,8 +34,8 @@ from ksdft2effmass.analysis.matrix_field import (
 
 pytestmark = pytest.mark.software_verification
 
-_OPTIMIZATION_REVISION = "e0749d1efeddbabfafa9edac76d0715912a6c1e3"
-_PHYSKIT_REVISION = "5fb93e9fde8e736a62d6be60b0f0567fd4ca7b04"
+_OPTIMIZATION_REVISION = "f0fa13693543c89b2c40f11583a1140df0cf7b0b"
+_PHYSKIT_REVISION = "3250679023cb131f98d50f8d3451335176c9effd"
 
 
 class TestHigherRankOwnerIntegration:
@@ -95,7 +95,7 @@ class TestHigherRankOwnerIntegration:
             basis_identifier="D1-rank-three-retained-basis",
         )
 
-        transform = FinitePeriodicMatrixFourierTransformer().transform(samples)
+        transform = FinitePeriodicMatrixFourierTransformer(source=samples).result()
         assert tuple(
             int(value) for value in transform.series.integer_modes[:, 0]
         ) == tuple(range(-256, 257))
@@ -103,8 +103,10 @@ class TestHigherRankOwnerIntegration:
         assert transform.series.energy_reference == "D1-E-ref-zero"
         assert transform.series.basis_identifier == "D1-rank-three-retained-basis"
 
-        parseval = FinitePeriodicMatrixParsevalAnalyzer().analyze(transform)
-        hermiticity = FinitePeriodicMatrixHermiticityAnalyzer().analyze(transform)
+        parseval = FinitePeriodicMatrixParsevalAnalyzer(transform=transform).result()
+        hermiticity = FinitePeriodicMatrixHermiticityAnalyzer(
+            transform=transform
+        ).result()
         assert parseval.absolute_defect.magnitude < 2.0e-15
         assert hermiticity.twisted_cyclic_maximum_frobenius_defect.magnitude < 2.0e-15
         assert hermiticity.ordinary_maximum_frobenius_defect.magnitude < 2.0e-15
@@ -117,18 +119,18 @@ class TestHigherRankOwnerIntegration:
         evaluation_axis = -0.5 + (
             np.arange(evaluation_size, dtype=np.float64) + 0.5
         ) / float(evaluation_size)
-        evaluation = FinitePeriodicMatrixFourierTensorEvaluator().evaluate(
-            selected,
-            (evaluation_axis,),
-        )
+        evaluation = FinitePeriodicMatrixFourierTensorEvaluator(
+            series=selected,
+            coordinate_axes=(evaluation_axis,),
+        ).result()
         assert evaluation.energy_unit == samples.energy_unit
         assert evaluation.energy_reference == samples.energy_reference
         assert evaluation.basis_identifier == samples.basis_identifier
-        error = MatrixFieldErrorAnalyzer().execute(
-            evaluation.matrix_values,
-            self._field(evaluation_axis),
+        error = MatrixFieldErrorAnalyzer(
+            approximation=evaluation.matrix_values,
+            reference=self._field(evaluation_axis),
             energy_reference=1.0,
-        )
+        ).result()
         assert error.matrix_frobenius_maximum < 3.0e-15
 
         tail = SymmetricRangeTailAnalyzer1D().execute(

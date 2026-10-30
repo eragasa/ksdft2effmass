@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
+from typing import Self
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
@@ -22,29 +24,52 @@ from projectkoios.numerics.finite_periodic.numpy.transforms import (
 from projectkoios.numerics.numpy.typing import BoolArray
 from projectkoios.numerics.numpy.typing import Complex128Array as ComplexArray
 from projectkoios.numerics.numpy.typing import Float64Array as FloatArray
-from projectkoios.numerics.numpy.typing import Int64Array as IntArray
+
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from .alignment import restricted_alignment
-from .strain import (
-    BAIN_DIAMOND_BASIS_OFFSETS,
-    SyntheticStrainPath,
-    _bonds,
-    _metric,
-    _path_parameter,
-)
+from .strain import SyntheticStrainPathEnum
 
 _SEED = np.eye(4, 2, dtype=np.complex128)
 
 
-class StrainResponseModel(StrEnum):
+class StrainResponseModelEnum(Enum):
     """Select a frozen or radial-response four-state strain control."""
+
+    def to_wire(self) -> str:
+        """Return the stable wire label."""
+        return str(self.value)
+
+    @classmethod
+    def from_wire(cls, wire: str) -> Self:
+        """Reconstruct a model from its stable wire label."""
+        if type(wire) is not str:
+            raise TypeError("wire must be a built-in string")
+        for member in cls:
+            if member.to_wire() == wire:
+                return member
+        raise ValueError(f"unsupported strain-response model wire label: {wire!r}")
 
     M1_FROZEN = "M1-frozen-four-state-bipartite"
     M2_RADIAL = "M2-fixed-radial-response"
 
 
-class StrainWitnessControl(StrEnum):
+class StrainWitnessControlEnum(Enum):
     """Select one independently interpreted strain witness control."""
+
+    def to_wire(self) -> str:
+        """Return the stable wire label."""
+        return str(self.value)
+
+    @classmethod
+    def from_wire(cls, wire: str) -> Self:
+        """Reconstruct a control from its stable wire label."""
+        if type(wire) is not str:
+            raise TypeError("wire must be a built-in string")
+        for member in cls:
+            if member.to_wire() == wire:
+                return member
+        raise ValueError(f"unsupported strain-witness control wire label: {wire!r}")
 
     GEOMETRY_ONLY = "geometry-only-control"
     FROZEN_PARENT = "frozen-parent-null-response-control"
@@ -52,7 +77,7 @@ class StrainWitnessControl(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
-class StrainErrorChannels:
+class StrainErrorChannels(BaseTypedRecord):
     """Retain normalized matrix and sorted-band discrepancies."""
 
     maximum_hamiltonian: float
@@ -60,9 +85,40 @@ class StrainErrorChannels:
     maximum_band: float
     rms_band: float
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "maximum_hamiltonian": self.maximum_hamiltonian,
+            "rms_hamiltonian": self.rms_hamiltonian,
+            "maximum_band": self.maximum_band,
+            "rms_band": self.rms_band,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "maximum_hamiltonian",
+            "rms_hamiltonian",
+            "maximum_band",
+            "rms_band",
+        }
+        if set(values) != required:
+            raise ValueError("strain-error channel fields do not match")
+        scalars: dict[str, float] = {}
+        for name in required:
+            value = values[name]
+            if type(value) is not float:
+                raise TypeError("strain-error channels must decode to floats")
+            scalars[name] = value
+        return cls(
+            maximum_hamiltonian=scalars["maximum_hamiltonian"],
+            rms_hamiltonian=scalars["rms_hamiltonian"],
+            maximum_band=scalars["maximum_band"],
+            rms_band=scalars["rms_band"],
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class StrainResponseCutoffDiagnostic:
+class StrainResponseCutoffDiagnostic(BaseTypedRecord):
     """Retain three-channel errors at one complete physical-radius support."""
 
     tail_tolerance: float
@@ -75,9 +131,73 @@ class StrainResponseCutoffDiagnostic:
     delta_truncation: StrainErrorChannels | None
     delta_total: StrainErrorChannels | None
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "tail_tolerance": self.tail_tolerance,
+            "physical_radius": self.physical_radius,
+            "retained_blocks": self.retained_blocks,
+            "omitted_power": self.omitted_power,
+            "truncation": self.truncation,
+            "total": self.total,
+            "delta_omitted_power": self.delta_omitted_power,
+            "delta_truncation": self.delta_truncation,
+            "delta_total": self.delta_total,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "tail_tolerance",
+            "physical_radius",
+            "retained_blocks",
+            "omitted_power",
+            "truncation",
+            "total",
+            "delta_omitted_power",
+            "delta_truncation",
+            "delta_total",
+        }
+        if set(values) != required:
+            raise ValueError("strain-response cutoff fields do not match")
+        tail = values["tail_tolerance"]
+        radius = values["physical_radius"]
+        blocks = values["retained_blocks"]
+        omitted = values["omitted_power"]
+        delta_omitted = values["delta_omitted_power"]
+        if (
+            type(tail) is not float
+            or type(omitted) is not float
+            or type(delta_omitted) is not float
+        ):
+            raise TypeError("cutoff powers and tolerance must decode to floats")
+        if radius is not None and type(radius) is not float:
+            raise TypeError("physical_radius must decode to a float or None")
+        if blocks is not None and type(blocks) is not int:
+            raise TypeError("retained_blocks must decode to an integer or None")
+        decoded: dict[str, StrainErrorChannels | None] = {}
+        for name in ("truncation", "total", "delta_truncation", "delta_total"):
+            value = values[name]
+            if value is None:
+                decoded[name] = None
+            elif isinstance(value, Mapping):
+                decoded[name] = StrainErrorChannels.from_dict(value)
+            else:
+                raise TypeError(f"{name} must decode to a mapping or None")
+        return cls(
+            tail_tolerance=tail,
+            physical_radius=radius,
+            retained_blocks=blocks,
+            omitted_power=omitted,
+            truncation=decoded["truncation"],
+            total=decoded["total"],
+            delta_omitted_power=delta_omitted,
+            delta_truncation=decoded["delta_truncation"],
+            delta_total=decoded["delta_total"],
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class StrainResponsePointDiagnostic:
+class StrainResponsePointDiagnostic(BaseTypedRecord):
     """Retain M1/M2 qualification and approximation channels at one strain."""
 
     strain_fraction: float
@@ -105,13 +225,151 @@ class StrainResponsePointDiagnostic:
     delta_nyquist_power: float
     cutoffs: tuple[StrainResponseCutoffDiagnostic, ...]
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "strain_fraction": self.strain_fraction,
+            "path_parameter": self.path_parameter,
+            "metric": self.metric,
+            "minimum_parent_bond_length": self.minimum_parent_bond_length,
+            "maximum_parent_bond_length": self.maximum_parent_bond_length,
+            "minimum_hopping_response": self.minimum_hopping_response,
+            "maximum_hopping_response": self.maximum_hopping_response,
+            "minimum_sampled_external_isolation_gap": (
+                self.minimum_sampled_external_isolation_gap
+            ),
+            "minimum_seed_overlap": self.minimum_seed_overlap,
+            "minimum_frame_overlap_singular_value": (
+                self.minimum_frame_overlap_singular_value
+            ),
+            "maximum_pointwise_frame_alignment_residual": (
+                self.maximum_pointwise_frame_alignment_residual
+            ),
+            "restricted_global_frame_alignment_residual": (
+                self.restricted_global_frame_alignment_residual
+            ),
+            "aligned_strain_perturbation": self.aligned_strain_perturbation,
+            "maximum_scalar_strain_component": self.maximum_scalar_strain_component,
+            "rms_scalar_strain_component": self.rms_scalar_strain_component,
+            "maximum_traceless_strain_component": (
+                self.maximum_traceless_strain_component
+            ),
+            "rms_traceless_strain_component": self.rms_traceless_strain_component,
+            "delta_onsite_power": self.delta_onsite_power,
+            "delta_offsite_power": self.delta_offsite_power,
+            "interpolation": self.interpolation,
+            "delta_interpolation": self.delta_interpolation,
+            "nyquist_power": self.nyquist_power,
+            "delta_nyquist_power": self.delta_nyquist_power,
+            "cutoffs": self.cutoffs,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        scalar_names = {
+            "strain_fraction",
+            "path_parameter",
+            "minimum_parent_bond_length",
+            "maximum_parent_bond_length",
+            "minimum_hopping_response",
+            "maximum_hopping_response",
+            "minimum_sampled_external_isolation_gap",
+            "minimum_seed_overlap",
+            "minimum_frame_overlap_singular_value",
+            "maximum_pointwise_frame_alignment_residual",
+            "restricted_global_frame_alignment_residual",
+            "maximum_scalar_strain_component",
+            "rms_scalar_strain_component",
+            "maximum_traceless_strain_component",
+            "rms_traceless_strain_component",
+            "delta_onsite_power",
+            "delta_offsite_power",
+            "nyquist_power",
+            "delta_nyquist_power",
+        }
+        required = scalar_names | {
+            "metric",
+            "aligned_strain_perturbation",
+            "interpolation",
+            "delta_interpolation",
+            "cutoffs",
+        }
+        if set(values) != required:
+            raise ValueError("strain-response point fields do not match")
+        scalars: dict[str, float] = {}
+        for name in scalar_names:
+            value = values[name]
+            if type(value) is not float:
+                raise TypeError("strain-response point scalars must decode to floats")
+            scalars[name] = value
+        metric = values["metric"]
+        if not isinstance(metric, tuple) or any(
+            not isinstance(row, tuple)
+            or any(type(component) is not float for component in row)
+            for row in metric
+        ):
+            raise TypeError("metric must decode to a tuple of float tuples")
+        channels: dict[str, StrainErrorChannels] = {}
+        for name in (
+            "aligned_strain_perturbation",
+            "interpolation",
+            "delta_interpolation",
+        ):
+            value = values[name]
+            if not isinstance(value, Mapping):
+                raise TypeError(f"{name} must decode to a mapping")
+            channels[name] = StrainErrorChannels.from_dict(value)
+        cutoff_values = values["cutoffs"]
+        if not isinstance(cutoff_values, tuple) or any(
+            not isinstance(value, Mapping) for value in cutoff_values
+        ):
+            raise TypeError("cutoffs must decode to a tuple of mappings")
+        return cls(
+            strain_fraction=scalars["strain_fraction"],
+            path_parameter=scalars["path_parameter"],
+            metric=metric,
+            minimum_parent_bond_length=scalars["minimum_parent_bond_length"],
+            maximum_parent_bond_length=scalars["maximum_parent_bond_length"],
+            minimum_hopping_response=scalars["minimum_hopping_response"],
+            maximum_hopping_response=scalars["maximum_hopping_response"],
+            minimum_sampled_external_isolation_gap=scalars[
+                "minimum_sampled_external_isolation_gap"
+            ],
+            minimum_seed_overlap=scalars["minimum_seed_overlap"],
+            minimum_frame_overlap_singular_value=scalars[
+                "minimum_frame_overlap_singular_value"
+            ],
+            maximum_pointwise_frame_alignment_residual=scalars[
+                "maximum_pointwise_frame_alignment_residual"
+            ],
+            restricted_global_frame_alignment_residual=scalars[
+                "restricted_global_frame_alignment_residual"
+            ],
+            aligned_strain_perturbation=channels["aligned_strain_perturbation"],
+            maximum_scalar_strain_component=scalars["maximum_scalar_strain_component"],
+            rms_scalar_strain_component=scalars["rms_scalar_strain_component"],
+            maximum_traceless_strain_component=scalars[
+                "maximum_traceless_strain_component"
+            ],
+            rms_traceless_strain_component=scalars["rms_traceless_strain_component"],
+            delta_onsite_power=scalars["delta_onsite_power"],
+            delta_offsite_power=scalars["delta_offsite_power"],
+            interpolation=channels["interpolation"],
+            delta_interpolation=channels["delta_interpolation"],
+            nyquist_power=scalars["nyquist_power"],
+            delta_nyquist_power=scalars["delta_nyquist_power"],
+            cutoffs=tuple(
+                StrainResponseCutoffDiagnostic.from_dict(value)
+                for value in cutoff_values
+            ),
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class SyntheticStrainResponseResult:
+class SyntheticStrainResponseResult(BaseTypedRecord):
     """Retain one bounded M1 or M2 strain-response sequence."""
 
-    path: SyntheticStrainPath
-    model: StrainResponseModel
+    path: SyntheticStrainPathEnum
+    model: StrainResponseModelEnum
     construction_size: int
     evaluation_size: int
     evaluation_shift: float
@@ -121,9 +379,83 @@ class SyntheticStrainResponseResult:
     points: tuple[StrainResponsePointDiagnostic, ...]
     status: str = "bounded-synthetic-strain-response-development-not-retained-evidence"
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "path": self.path.to_wire(),
+            "model": self.model.to_wire(),
+            "construction_size": self.construction_size,
+            "evaluation_size": self.evaluation_size,
+            "evaluation_shift": self.evaluation_shift,
+            "maximum_rotation_amplitude": self.maximum_rotation_amplitude,
+            "radial_decay_beta": self.radial_decay_beta,
+            "tail_tolerances": self.tail_tolerances,
+            "points": self.points,
+            "status": self.status,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "path",
+            "model",
+            "construction_size",
+            "evaluation_size",
+            "evaluation_shift",
+            "maximum_rotation_amplitude",
+            "radial_decay_beta",
+            "tail_tolerances",
+            "points",
+            "status",
+        }
+        if set(values) != required:
+            raise ValueError("synthetic-strain response fields do not match")
+        path = values["path"]
+        model = values["model"]
+        construction_size = values["construction_size"]
+        evaluation_size = values["evaluation_size"]
+        status = values["status"]
+        if type(path) is not str or type(model) is not str or type(status) is not str:
+            raise TypeError("response labels must decode to strings")
+        if type(construction_size) is not int or type(evaluation_size) is not int:
+            raise TypeError("response sizes must decode to integers")
+        scalars: dict[str, float] = {}
+        for name in (
+            "evaluation_shift",
+            "maximum_rotation_amplitude",
+            "radial_decay_beta",
+        ):
+            value = values[name]
+            if type(value) is not float:
+                raise TypeError("response controls must decode to floats")
+            scalars[name] = value
+        tolerances = values["tail_tolerances"]
+        points_value = values["points"]
+        if not isinstance(tolerances, tuple) or any(
+            type(value) is not float for value in tolerances
+        ):
+            raise TypeError("tail_tolerances must decode to a float tuple")
+        if not isinstance(points_value, tuple) or any(
+            not isinstance(value, Mapping) for value in points_value
+        ):
+            raise TypeError("response points must decode to a tuple of mappings")
+        return cls(
+            path=SyntheticStrainPathEnum.from_wire(path),
+            model=StrainResponseModelEnum.from_wire(model),
+            construction_size=construction_size,
+            evaluation_size=evaluation_size,
+            evaluation_shift=scalars["evaluation_shift"],
+            maximum_rotation_amplitude=scalars["maximum_rotation_amplitude"],
+            radial_decay_beta=scalars["radial_decay_beta"],
+            tail_tolerances=tolerances,
+            points=tuple(
+                StrainResponsePointDiagnostic.from_dict(value) for value in points_value
+            ),
+            status=status,
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class StrainWitnessPointDiagnostic:
+class StrainWitnessPointDiagnostic(BaseTypedRecord):
     """Retain sampled representation-witness requirements at one strain."""
 
     strain_fraction: float
@@ -137,13 +469,59 @@ class StrainWitnessPointDiagnostic:
     optimized_threshold_over_sqrt_splitting: float
     fixed_candidate_threshold_over_sqrt_splitting: float
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "strain_fraction": self.strain_fraction,
+            "path_parameter": self.path_parameter,
+            "volume_defect": self.volume_defect,
+            "maximum_direct_band_defect": self.maximum_direct_band_defect,
+            "splitting_scale": self.splitting_scale,
+            "finite_mesh_maximum_correlation": self.finite_mesh_maximum_correlation,
+            "pointwise_optimized_operator_threshold": (
+                self.pointwise_optimized_operator_threshold
+            ),
+            "fixed_candidate_operator_threshold": (
+                self.fixed_candidate_operator_threshold
+            ),
+            "optimized_threshold_over_sqrt_splitting": (
+                self.optimized_threshold_over_sqrt_splitting
+            ),
+            "fixed_candidate_threshold_over_sqrt_splitting": (
+                self.fixed_candidate_threshold_over_sqrt_splitting
+            ),
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "strain_fraction",
+            "path_parameter",
+            "volume_defect",
+            "maximum_direct_band_defect",
+            "splitting_scale",
+            "finite_mesh_maximum_correlation",
+            "pointwise_optimized_operator_threshold",
+            "fixed_candidate_operator_threshold",
+            "optimized_threshold_over_sqrt_splitting",
+            "fixed_candidate_threshold_over_sqrt_splitting",
+        }
+        if set(values) != required:
+            raise ValueError("strain-witness point fields do not match")
+        scalars: dict[str, float] = {}
+        for name in required:
+            value = values[name]
+            if type(value) is not float:
+                raise TypeError("strain-witness point values must decode to floats")
+            scalars[name] = value
+        return cls(**scalars)
+
 
 @dataclass(frozen=True, slots=True)
-class SyntheticStrainWitnessScanResult:
+class SyntheticStrainWitnessScanResult(BaseTypedRecord):
     """Retain one sampled strain-witness requirement envelope."""
 
-    path: SyntheticStrainPath
-    control: StrainWitnessControl
+    path: SyntheticStrainPathEnum
+    control: StrainWitnessControlEnum
     construction_size: int
     maximum_rotation_amplitude: float
     radial_decay_beta: float
@@ -152,9 +530,79 @@ class SyntheticStrainWitnessScanResult:
     sampled_maximum_fixed_candidate_operator_threshold: float
     status: str = "sampled-development-scan-not-continuum-certificate"
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "path": self.path.to_wire(),
+            "control": self.control.to_wire(),
+            "construction_size": self.construction_size,
+            "maximum_rotation_amplitude": self.maximum_rotation_amplitude,
+            "radial_decay_beta": self.radial_decay_beta,
+            "points": self.points,
+            "sampled_maximum_optimized_operator_threshold": (
+                self.sampled_maximum_optimized_operator_threshold
+            ),
+            "sampled_maximum_fixed_candidate_operator_threshold": (
+                self.sampled_maximum_fixed_candidate_operator_threshold
+            ),
+            "status": self.status,
+        }
 
-def _dimension(path: SyntheticStrainPath) -> int:
-    return 2 if path is SyntheticStrainPath.RHOMBIC_2D else 3
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "path",
+            "control",
+            "construction_size",
+            "maximum_rotation_amplitude",
+            "radial_decay_beta",
+            "points",
+            "sampled_maximum_optimized_operator_threshold",
+            "sampled_maximum_fixed_candidate_operator_threshold",
+            "status",
+        }
+        if set(values) != required:
+            raise ValueError("synthetic-strain witness fields do not match")
+        path = values["path"]
+        control = values["control"]
+        size = values["construction_size"]
+        status = values["status"]
+        if type(path) is not str or type(control) is not str or type(status) is not str:
+            raise TypeError("witness labels must decode to strings")
+        if type(size) is not int:
+            raise TypeError("construction_size must decode to an integer")
+        scalars: dict[str, float] = {}
+        for name in (
+            "maximum_rotation_amplitude",
+            "radial_decay_beta",
+            "sampled_maximum_optimized_operator_threshold",
+            "sampled_maximum_fixed_candidate_operator_threshold",
+        ):
+            value = values[name]
+            if type(value) is not float:
+                raise TypeError("witness scalars must decode to floats")
+            scalars[name] = value
+        points_value = values["points"]
+        if not isinstance(points_value, tuple) or any(
+            not isinstance(value, Mapping) for value in points_value
+        ):
+            raise TypeError("witness points must decode to a tuple of mappings")
+        return cls(
+            path=SyntheticStrainPathEnum.from_wire(path),
+            control=StrainWitnessControlEnum.from_wire(control),
+            construction_size=size,
+            maximum_rotation_amplitude=scalars["maximum_rotation_amplitude"],
+            radial_decay_beta=scalars["radial_decay_beta"],
+            points=tuple(
+                StrainWitnessPointDiagnostic.from_dict(value) for value in points_value
+            ),
+            sampled_maximum_optimized_operator_threshold=scalars[
+                "sampled_maximum_optimized_operator_threshold"
+            ],
+            sampled_maximum_fixed_candidate_operator_threshold=scalars[
+                "sampled_maximum_fixed_candidate_operator_threshold"
+            ],
+            status=status,
+        )
 
 
 def _coordinate_axis(size: int, offset: float) -> FloatArray:
@@ -169,45 +617,26 @@ def _coordinates(size: int, dimension: int, offset: float) -> FloatArray:
     return np.stack(np.meshgrid(*(axis,) * dimension, indexing="ij"), axis=-1)
 
 
-def _parent_translations(path: SyntheticStrainPath) -> IntArray:
-    if path is SyntheticStrainPath.RHOMBIC_2D:
-        return np.asarray(((0, 0), (1, 0), (0, 1)), dtype=np.int64)
-    return np.asarray(((0, 0, 0), (1, 0, 0), (0, 0, 1), (1, -1, 0)), dtype=np.int64)
-
-
-def _basis_offset(path: SyntheticStrainPath) -> FloatArray:
-    if path is SyntheticStrainPath.RHOMBIC_2D:
-        return np.asarray((1.0 / 3.0, 1.0 / 3.0), dtype=np.float64)
-    return np.asarray(BAIN_DIAMOND_BASIS_OFFSETS[1], dtype=np.float64)
-
-
-def _bond_lengths(path: SyntheticStrainPath, metric: FloatArray) -> FloatArray:
-    translations = _parent_translations(path).astype(np.float64)
-    vectors = _basis_offset(path)[None, :] - translations
-    squared = np.einsum("bi,ij,bj->b", vectors, metric, vectors)
-    return np.asarray(np.sqrt(squared), dtype=np.float64)
-
-
 def _hopping_responses(
-    path: SyntheticStrainPath,
-    model: StrainResponseModel,
+    path: SyntheticStrainPathEnum,
+    model: StrainResponseModelEnum,
     fraction: float,
     beta: float,
 ) -> FloatArray:
-    count = _dimension(path) + 1
-    if model is StrainResponseModel.M1_FROZEN:
+    count = path.spatial_dimension + 1
+    if model is StrainResponseModelEnum.M1_FROZEN:
         return np.ones(count, dtype=np.float64)
-    reference = _bond_lengths(path, _metric(path, 0.0))
-    strained = _bond_lengths(path, _metric(path, fraction))
+    reference = path.bond_lengths(path.metric(0.0))
+    strained = path.bond_lengths(path.metric(fraction))
     return np.exp(-beta * (strained / reference - 1.0))
 
 
 def _parent_field(
-    path: SyntheticStrainPath,
+    path: SyntheticStrainPathEnum,
     coordinates: FloatArray,
     responses: FloatArray,
 ) -> ComplexArray:
-    translations = _parent_translations(path).astype(np.float64)
+    translations = path.parent_translations().astype(np.float64)
     arguments = np.einsum("...d,bd->...b", coordinates, translations)
     gamma = np.sum(responses * np.exp(-2.0j * np.pi * arguments), axis=-1) / float(
         len(translations)
@@ -247,9 +676,9 @@ def _retained_field(frame: ComplexArray, parent: ComplexArray) -> ComplexArray:
 
 
 def _gauge_rotations(
-    path: SyntheticStrainPath, coordinates: FloatArray, amplitude: float
+    path: SyntheticStrainPathEnum, coordinates: FloatArray, amplitude: float
 ) -> ComplexArray:
-    bonds = _bonds(path).astype(np.float64)
+    bonds = path.rotation_bonds().astype(np.float64)
     arguments = np.einsum("...d,bd->...b", coordinates, bonds)
     angles = amplitude * np.mean(np.sin(2.0 * np.pi * arguments), axis=-1)
     result = np.empty((*angles.shape, 2, 2), dtype=np.complex128)
@@ -336,8 +765,8 @@ def _select_support(
 
 
 def _validate_definition(
-    path: SyntheticStrainPath,
-    model: StrainResponseModel,
+    path: SyntheticStrainPathEnum,
+    model: StrainResponseModelEnum,
     construction_size: int,
     evaluation_size: int,
     evaluation_shift: float,
@@ -346,10 +775,10 @@ def _validate_definition(
     beta: float,
     tail_tolerances: tuple[float, ...],
 ) -> None:
-    if type(path) is not SyntheticStrainPath:
-        raise TypeError("path must be SyntheticStrainPath")
-    if type(model) is not StrainResponseModel:
-        raise TypeError("model must be StrainResponseModel")
+    if type(path) is not SyntheticStrainPathEnum:
+        raise TypeError("path must be SyntheticStrainPathEnum")
+    if type(model) is not StrainResponseModelEnum:
+        raise TypeError("model must be StrainResponseModelEnum")
     if (
         type(construction_size) is not int
         or construction_size < 4
@@ -373,9 +802,9 @@ def _validate_definition(
         raise ValueError("amplitude must be a built-in float in [0, pi/4]")
     if type(beta) is not float or beta < 0.0:
         raise ValueError("beta must be a nonnegative built-in float")
-    if model is StrainResponseModel.M1_FROZEN and beta != 0.0:
+    if model is StrainResponseModelEnum.M1_FROZEN and beta != 0.0:
         raise ValueError("M1 requires beta=0")
-    if model is StrainResponseModel.M2_RADIAL and beta != 1.0:
+    if model is StrainResponseModelEnum.M2_RADIAL and beta != 1.0:
         raise ValueError("the frozen M2 development contract requires beta=1")
     if not tail_tolerances or any(
         type(value) is not float or value <= 0.0 for value in tail_tolerances
@@ -384,8 +813,8 @@ def _validate_definition(
 
 
 def calculate_synthetic_strain_response(
-    path: SyntheticStrainPath,
-    model: StrainResponseModel,
+    path: SyntheticStrainPathEnum,
+    model: StrainResponseModelEnum,
     construction_size: int,
     evaluation_size: int,
     evaluation_shift: float,
@@ -406,7 +835,7 @@ def calculate_synthetic_strain_response(
         radial_decay_beta,
         tail_tolerances,
     )
-    dimension = _dimension(path)
+    dimension = path.spatial_dimension
     construction = _coordinates(construction_size, dimension, 0.5)
     evaluation = _coordinates(evaluation_size, dimension, 0.5 + evaluation_shift)
     source_mesh = CenteredUniformMesh(
@@ -419,8 +848,6 @@ def calculate_synthetic_strain_response(
         0.5 + evaluation_shift,
     )
     evaluation_axes = (evaluation_axis,) * dimension
-    transformer = NumpyCenteredUniformMeshMatrixFourierTransformer()
-    tensor_evaluator = NumpyTensorProductFourierMatrixSeriesEvaluator()
     rotations = _gauge_rotations(path, construction, maximum_rotation_amplitude)
     rotations_eval = _gauge_rotations(path, evaluation, maximum_rotation_amplitude)
 
@@ -444,7 +871,7 @@ def calculate_synthetic_strain_response(
 
     points: list[StrainResponsePointDiagnostic] = []
     for fraction in strain_fractions:
-        metric = _metric(path, fraction)
+        metric = path.metric(fraction)
         responses = _hopping_responses(path, model, fraction, radial_decay_beta)
         parent = _parent_field(path, construction, responses)
         frame, eigenvalues, seed_values = _retained_frame(parent)
@@ -464,18 +891,18 @@ def calculate_synthetic_strain_response(
         delta = attacked - reference_attacked
         delta_eval = attacked_eval - reference_attacked_eval
 
-        attacked_transform = transformer.transform(
-            NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
+        attacked_transform = NumpyCenteredUniformMeshMatrixFourierTransformer(
+            definition=NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
                 source_mesh,
                 attacked,
             )
-        )
-        delta_transform = transformer.transform(
-            NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
+        ).result()
+        delta_transform = NumpyCenteredUniformMeshMatrixFourierTransformer(
+            definition=NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
                 source_mesh,
                 delta,
             )
-        )
+        ).result()
         displacements = attacked_transform.series.integer_modes
         blocks = attacked_transform.series.matrix_coefficients
         delta_displacements = delta_transform.series.integer_modes
@@ -501,20 +928,28 @@ def calculate_synthetic_strain_response(
             ordinary_displacements,
             ordinary_delta_blocks,
         )
-        full_eval = tensor_evaluator.evaluate(
-            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
-                source_mesh,
-                ordinary_series,
-                evaluation_axes,
+        full_eval = (
+            NumpyTensorProductFourierMatrixSeriesEvaluator(
+                definition=NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                    source_mesh,
+                    ordinary_series,
+                    evaluation_axes,
+                )
             )
-        ).matrix_values
-        full_delta_eval = tensor_evaluator.evaluate(
-            NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
-                source_mesh,
-                ordinary_delta_series,
-                evaluation_axes,
+            .result()
+            .matrix_values
+        )
+        full_delta_eval = (
+            NumpyTensorProductFourierMatrixSeriesEvaluator(
+                definition=NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                    source_mesh,
+                    ordinary_delta_series,
+                    evaluation_axes,
+                )
             )
-        ).matrix_values
+            .result()
+            .matrix_values
+        )
         interpolation = _errors(full_eval, attacked_eval)
         delta_interpolation = _errors(full_delta_eval, delta_eval)
         squared_radii = np.einsum(
@@ -552,20 +987,28 @@ def calculate_synthetic_strain_response(
                 ordinary_displacements[support],
                 ordinary_delta_blocks[support],
             )
-            truncated_eval = tensor_evaluator.evaluate(
-                NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
-                    source_mesh,
-                    truncated_series,
-                    evaluation_axes,
+            truncated_eval = (
+                NumpyTensorProductFourierMatrixSeriesEvaluator(
+                    definition=NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                        source_mesh,
+                        truncated_series,
+                        evaluation_axes,
+                    )
                 )
-            ).matrix_values
-            truncated_delta_eval = tensor_evaluator.evaluate(
-                NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
-                    source_mesh,
-                    truncated_delta_series,
-                    evaluation_axes,
+                .result()
+                .matrix_values
+            )
+            truncated_delta_eval = (
+                NumpyTensorProductFourierMatrixSeriesEvaluator(
+                    definition=NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
+                        source_mesh,
+                        truncated_delta_series,
+                        evaluation_axes,
+                    )
                 )
-            ).matrix_values
+                .result()
+                .matrix_values
+            )
             delta_omitted = float(np.sum(delta_power[~support])) + delta_nyquist_power
             cutoffs.append(
                 StrainResponseCutoffDiagnostic(
@@ -585,11 +1028,11 @@ def calculate_synthetic_strain_response(
         traceless = delta_eval - trace[..., None, None] * np.eye(2, dtype=np.complex128)
         scalar_magnitude = np.abs(trace)
         traceless_magnitude = np.linalg.norm(traceless, axis=(-2, -1)) / math.sqrt(2.0)
-        lengths = _bond_lengths(path, metric)
+        lengths = path.bond_lengths(metric)
         points.append(
             StrainResponsePointDiagnostic(
                 strain_fraction=fraction,
-                path_parameter=_path_parameter(path, fraction),
+                path_parameter=path.path_parameter(fraction),
                 metric=tuple(tuple(float(value) for value in row) for row in metric),
                 minimum_parent_bond_length=float(np.min(lengths)),
                 maximum_parent_bond_length=float(np.max(lengths)),
@@ -639,17 +1082,17 @@ def calculate_synthetic_strain_response(
 
 
 def calculate_strain_witness_scan(
-    path: SyntheticStrainPath,
-    control: StrainWitnessControl,
+    path: SyntheticStrainPathEnum,
+    control: StrainWitnessControlEnum,
     construction_size: int,
     strain_fractions: tuple[float, ...],
     maximum_rotation_amplitude: float,
 ) -> SyntheticStrainWitnessScanResult:
     """Scan sampled representation-witness requirements along one strain path."""
-    if type(path) is not SyntheticStrainPath:
-        raise TypeError("path must be SyntheticStrainPath")
-    if type(control) is not StrainWitnessControl:
-        raise TypeError("control must be StrainWitnessControl")
+    if type(path) is not SyntheticStrainPathEnum:
+        raise TypeError("path must be SyntheticStrainPathEnum")
+    if type(control) is not StrainWitnessControlEnum:
+        raise TypeError("control must be StrainWitnessControlEnum")
     if (
         type(construction_size) is not int
         or construction_size < 4
@@ -671,7 +1114,7 @@ def calculate_strain_witness_scan(
     ):
         raise ValueError("maximum_rotation_amplitude must be a float in [0, pi/4]")
 
-    dimension = _dimension(path)
+    dimension = path.spatial_dimension
     coordinates = _coordinates(construction_size, dimension, 0.5)
     rotations = _gauge_rotations(path, coordinates, maximum_rotation_amplitude)
     constant_parent = np.broadcast_to(
@@ -679,16 +1122,16 @@ def calculate_strain_witness_scan(
         (*coordinates.shape[:-1], 2, 2),
     ).copy()
     response_model = (
-        StrainResponseModel.M1_FROZEN
-        if control is StrainWitnessControl.FROZEN_PARENT
-        else StrainResponseModel.M2_RADIAL
+        StrainResponseModelEnum.M1_FROZEN
+        if control is StrainWitnessControlEnum.FROZEN_PARENT
+        else StrainResponseModelEnum.M2_RADIAL
     )
-    radial_beta = 1.0 if control is StrainWitnessControl.RADIAL_RESPONSE else 0.0
+    radial_beta = 1.0 if control is StrainWitnessControlEnum.RADIAL_RESPONSE else 0.0
 
     points: list[StrainWitnessPointDiagnostic] = []
     for fraction in strain_fractions:
-        metric = _metric(path, fraction)
-        if control is StrainWitnessControl.GEOMETRY_ONLY:
+        metric = path.metric(fraction)
+        if control is StrainWitnessControlEnum.GEOMETRY_ONLY:
             reference = constant_parent
         else:
             responses = _hopping_responses(
@@ -717,7 +1160,7 @@ def calculate_strain_witness_scan(
         points.append(
             StrainWitnessPointDiagnostic(
                 strain_fraction=fraction,
-                path_parameter=_path_parameter(path, fraction),
+                path_parameter=path.path_parameter(fraction),
                 volume_defect=abs(float(np.linalg.det(metric)) - 1.0),
                 maximum_direct_band_defect=float(
                     np.max(
@@ -759,9 +1202,9 @@ def calculate_strain_witness_scan(
 __all__ = [
     "StrainErrorChannels",
     "StrainResponseCutoffDiagnostic",
-    "StrainResponseModel",
+    "StrainResponseModelEnum",
     "StrainResponsePointDiagnostic",
-    "StrainWitnessControl",
+    "StrainWitnessControlEnum",
     "StrainWitnessPointDiagnostic",
     "SyntheticStrainResponseResult",
     "SyntheticStrainWitnessScanResult",

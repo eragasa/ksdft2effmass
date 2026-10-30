@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 from pathlib import Path
 from typing import Protocol, cast
 
-from band_equivalence_workflow.decision_landscape_serialization import (
-    DecisionLandscapeEnvironment,
-    ShellScaleDecisionLandscapeArtifactWriter,
-)
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
     BandEquivalenceLocalityRequest,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalyzer,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (
     ShellScaleDecisionLandscapeCalculator,
@@ -78,7 +78,6 @@ def _load_definition(path: Path, index: int) -> BandEquivalenceLocalityRequest:
 
 def main() -> int:
     """Calculate all family landscapes and render separate and composite views."""
-    calculator = ShellScaleDecisionLandscapeCalculator()
     requests = tuple(
         ShellScaleDecisionLandscapeRequest(
             locality_request=_load_definition(path, index),
@@ -86,19 +85,32 @@ def main() -> int:
         )
         for index, path in enumerate(FAMILY_DEFINITION_PATHS)
     )
-    results = tuple(calculator.execute(request) for request in requests)
-    environment = DecisionLandscapeEnvironment.capture()
-    artifact_writer = ShellScaleDecisionLandscapeArtifactWriter()
-    artifacts = tuple(
-        artifact_writer.execute(request, result, OUTPUT_DIRECTORY, environment)
-        for request, result in zip(requests, results, strict=True)
+    results = tuple(
+        ShellScaleDecisionLandscapeCalculator(
+            request=request,
+            analyzer=BandEquivalenceLocalityAnalyzer(request=request.locality_request),
+        ).execute()
+        for request in requests
     )
-    plots = ShellScaleDecisionLandscapePlotWriter().execute(
-        ShellScaleDecisionLandscapePlotRequest(
+    OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
+    artifacts: list[tuple[Path, str]] = []
+    for request, result in zip(requests, results, strict=True):
+        slug = result.family.to_wire().replace("_", "-")
+        for path, record in (
+            (OUTPUT_DIRECTORY / f"{slug}-shell-scale-request.json", request),
+            (OUTPUT_DIRECTORY / f"{slug}-shell-scale-result.json", result),
+        ):
+            payload = record.to_json()
+            path.write_text(payload, encoding="utf-8")
+            artifacts.append(
+                (path, hashlib.sha256(payload.encode("utf-8")).hexdigest())
+            )
+    plots = ShellScaleDecisionLandscapePlotWriter(
+        request=ShellScaleDecisionLandscapePlotRequest(
             family_results=results,
             output_directory=OUTPUT_DIRECTORY,
         )
-    )
+    ).execute()
     for result in results:
         for case in result.cases:
             print(
@@ -112,12 +124,8 @@ def main() -> int:
                 f"calculated={case.calculated_vertex_count}",
                 f"nondominated={case.pareto_efficient_vertex_count}",
             )
-    for artifact in artifacts:
-        print(
-            "decision-landscape-artifact",
-            artifact.decision_result_path,
-            artifact.decision_result_sha256,
-        )
+    for path, digest in artifacts:
+        print("decision-landscape-artifact", path, digest)
     for path in plots.paths:
         print(f"output={path}")
     return 0

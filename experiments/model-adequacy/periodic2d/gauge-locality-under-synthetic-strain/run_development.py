@@ -6,39 +6,27 @@ import math
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (  # noqa: E501
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     SyntheticStrainCalculator,
-    SyntheticStrainPath,
-)
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_schemas import (  # noqa: E501
-    SyntheticStrainSchema,
-    SyntheticStrainSchemaKind,
-)
-from ksdft2effmass.campaigns.model_adequacy.band_equivalence_locality.strain_serialization import (  # noqa: E501
-    SyntheticStrainResultSerializer,
+    SyntheticStrainPathEnum,
 )
 
 FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
 
 
 def main() -> int:
-    """Write replaceable JSON plus 1-D-style PDF and PNG diagnostics."""
-    result = SyntheticStrainCalculator().execute(
-        SyntheticStrainPath.RHOMBIC_2D,
-        64,
-        FRACTIONS,
-        math.pi / 4.0,
-        (1.0e-3, 1.0e-5),
-    )
+    """Write replaceable typed JSON, PDF, and PNG development diagnostics."""
+    result = SyntheticStrainCalculator(
+        path=SyntheticStrainPathEnum.RHOMBIC_2D,
+        construction_size=64,
+        strain_fractions=FRACTIONS,
+        maximum_rotation_amplitude=math.pi / 4.0,
+        tail_tolerances=(1.0e-3, 1.0e-5),
+    ).execute()
     output = Path(__file__).resolve().parent / "analysis" / "development"
     output.mkdir(parents=True, exist_ok=True)
-    artifact = SyntheticStrainResultSerializer().execute(result)
-    schema = SyntheticStrainSchema(SyntheticStrainSchemaKind.M0_RESULT)
-    schema.validate(artifact.canonical_bytes())
-    artifact.write_to(output / "development-result.json")
-    schema.write_to(output)
-
+    typed_result_path = output / "development-result.json"
+    typed_result_path.write_bytes(result.to_json())
     with plt.rc_context(
         {
             "font.family": "DejaVu Sans",
@@ -98,7 +86,9 @@ def main() -> int:
         figure.savefig(stem.with_suffix(".pdf"), bbox_inches="tight")
         figure.savefig(stem.with_suffix(".png"), dpi=600, bbox_inches="tight")
         plt.close(figure)
-    print(f"output={output / 'development-result.json'}")
+    print(f"output={typed_result_path}")
+    print(f"output={stem.with_suffix('.pdf')}")
+    print(f"output={stem.with_suffix('.png')}")
     return 0
 
 

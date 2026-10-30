@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .definitions import BandEquivalenceLocalityFamily
+from .definitions import BandEquivalenceLocalityFamilyEnum
 
 
 @dataclass(frozen=True, slots=True)
@@ -38,7 +38,7 @@ class BandEquivalenceLocalityRefinementPair:
 class BandEquivalenceLocalityRefinementAssessment:
     """Retain a conservative hash-free family refinement assessment."""
 
-    family: BandEquivalenceLocalityFamily
+    family: BandEquivalenceLocalityFamilyEnum
     refinements: tuple[BandEquivalenceLocalityRefinementPair, ...]
     required_stable_refinements: int
     momentum_disposition: str

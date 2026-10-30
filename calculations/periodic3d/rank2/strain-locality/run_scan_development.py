@@ -3,16 +3,15 @@
 from __future__ import annotations
 
 import math
-import sys
 from pathlib import Path
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
     SyntheticStrainCalculator,
-    SyntheticStrainPath,
+    SyntheticStrainPathEnum,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
-    StrainResponseModel,
-    StrainWitnessControl,
+    StrainResponseModelEnum,
+    StrainWitnessControlEnum,
     calculate_strain_witness_scan,
     calculate_synthetic_strain_response,
 )
@@ -26,19 +25,9 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan
     SyntheticStrainScanPlotWriter,
 )
 
-_WORKFLOW_ROOT = (
-    Path(__file__).resolve().parents[3] / "band-equivalence-dimensional-comparison"
-)
-sys.path.insert(0, str(_WORKFLOW_ROOT))
-
-from band_equivalence_workflow.strain_scan_serialization import (
-    SyntheticStrainScanArtifactWriter,
-    SyntheticStrainScanEnvironment,
-)
-
 FRACTIONS = tuple(float(index) / 200.0 for index in range(201))
 TOLERANCES = (1.0e-3, 1.0e-5)
-PATH = SyntheticStrainPath.BAIN_3D
+PATH = SyntheticStrainPathEnum.BAIN_3D
 
 
 def main() -> int:
@@ -64,21 +53,22 @@ def main() -> int:
             request.strain_fractions,
             request.maximum_rotation_amplitude,
         )
-        for control in StrainWitnessControl
+        for control in StrainWitnessControlEnum
     )
-    geometry = SyntheticStrainCalculator().execute(
-        request.path,
-        request.geometry_construction_size,
-        request.strain_fractions,
-        request.maximum_rotation_amplitude,
-        request.tail_tolerances,
-    )
-    transitions = SyntheticStrainTransitionRefiner().execute(
-        geometry, request.maximum_transition_refinement_depth
-    )
+    geometry = SyntheticStrainCalculator(
+        path=request.path,
+        construction_size=request.geometry_construction_size,
+        strain_fractions=request.strain_fractions,
+        maximum_rotation_amplitude=request.maximum_rotation_amplitude,
+        tail_tolerances=request.tail_tolerances,
+    ).execute()
+    transitions = SyntheticStrainTransitionRefiner(
+        base_result=geometry,
+        maximum_refinement_depth=request.maximum_transition_refinement_depth,
+    ).execute()
     frozen = calculate_synthetic_strain_response(
         request.path,
-        StrainResponseModel.M1_FROZEN,
+        StrainResponseModelEnum.M1_FROZEN,
         request.response_construction_size,
         request.response_evaluation_size,
         request.response_evaluation_shift,
@@ -89,7 +79,7 @@ def main() -> int:
     )
     radial = calculate_synthetic_strain_response(
         request.path,
-        StrainResponseModel.M2_RADIAL,
+        StrainResponseModelEnum.M2_RADIAL,
         request.response_construction_size,
         request.response_evaluation_size,
         request.response_evaluation_shift,
@@ -98,26 +88,37 @@ def main() -> int:
         request.radial_decay_beta,
         request.tail_tolerances,
     )
-    summary = SyntheticStrainScanAssessor().execute(
-        geometry,
-        witnesses,
-        frozen,
-        radial,
-    )
+    summary = SyntheticStrainScanAssessor(
+        geometry_result=geometry,
+        witness_results=witnesses,
+        frozen_response=frozen,
+        radial_response=radial,
+    ).execute()
     output = Path(__file__).resolve().parent / "analysis" / "development" / "scan"
-    artifacts = SyntheticStrainScanArtifactWriter().execute(
-        request,
-        summary,
-        transitions,
-        geometry,
-        witnesses,
-        frozen,
-        radial,
-        output,
-        SyntheticStrainScanEnvironment.capture(),
+    output.mkdir(parents=True, exist_ok=True)
+    typed_artifacts = (
+        (output / "bain-3d-strain-scan-request.json", request),
+        (output / "bain-3d-geometry-source.json", geometry),
+        *(
+            (
+                output
+                / (
+                    "bain-3d-"
+                    f"{witness.control.to_wire().replace('_', '-')}-witness-source.json"
+                ),
+                witness,
+            )
+            for witness in witnesses
+        ),
+        (output / "bain-3d-frozen-response-source.json", frozen),
+        (output / "bain-3d-radial-response-source.json", radial),
+        (output / "bain-3d-strain-scan-summary.json", summary),
+        (output / "bain-3d-strain-transition-refinement.json", transitions),
     )
-    result = SyntheticStrainScanPlotWriter().execute(
-        SyntheticStrainScanPlotRequest(
+    for artifact_path, artifact in typed_artifacts:
+        artifact_path.write_text(artifact.to_json(), encoding="utf-8")
+    result = SyntheticStrainScanPlotWriter(
+        request=SyntheticStrainScanPlotRequest(
             witness_results=witnesses,
             geometry_result=geometry,
             frozen_response=frozen,
@@ -125,9 +126,9 @@ def main() -> int:
             output_directory=output,
             title="3-D Bain synthetic-strain scan",
         )
-    )
+    ).execute()
     print(
-        f"lifecycle=development path={request.path.value} "
+        f"lifecycle=development path={request.path.to_wire()} "
         f"strain_samples={len(request.strain_fractions)}"
     )
     print(
@@ -140,7 +141,7 @@ def main() -> int:
     )
     for witness in summary.witness_requirements:
         print(
-            f"witness={witness.control.value} "
+            f"witness={witness.control.to_wire()} "
             f"optimized_maximum={witness.optimized_maximum:.17g} "
             f"optimized_strain_fraction={witness.optimized_maximum_strain_fraction:.17g}"
         )
@@ -152,7 +153,7 @@ def main() -> int:
         )
     for response in summary.responses:
         print(
-            f"response={response.control.value} "
+            f"response={response.control.to_wire()} "
             f"maximum_aligned_hamiltonian_defect="
             f"{response.maximum_aligned_hamiltonian_defect:.17g} "
             f"strain_fraction={response.maximum_strain_fraction:.17g}"
@@ -164,14 +165,10 @@ def main() -> int:
         f"shell_transitions={len(transitions.shell_transitions)} "
         f"bond_degeneracy_transitions={len(transitions.bond_degeneracy_transitions)}"
     )
-    for path in (*artifacts.paths.witness_paths, *result.paths):
+    for artifact_path, _ in typed_artifacts:
+        print(f"output={artifact_path}")
+    for path in result.paths:
         print(f"output={path}")
-    print(f"output={artifacts.paths.request_path}")
-    print(f"output={artifacts.paths.geometry_path}")
-    print(f"output={artifacts.paths.frozen_response_path}")
-    print(f"output={artifacts.paths.radial_response_path}")
-    print(f"output={artifacts.paths.result_path}")
-    print(f"output={artifacts.paths.verification_path}")
     return 0
 
 

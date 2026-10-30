@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Mapping
 from dataclasses import dataclass
+from typing import Self
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
@@ -12,32 +14,23 @@ from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
 )
 from projectkoios.numerics.finite_periodic.numpy.transforms import (
     NumpyCenteredUniformMeshMatrixFourierTransformDefinition,
-    NumpyCenteredUniformMeshMatrixFourierTransformer,
 )
 
 from ksdft2effmass.analysis.pareto import SampledParetoClassifier
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from .alignment import restricted_alignment
-from .calculation import (
-    _coordinate_axis,
-    _coordinates,
-    _gauge_angles,
-    _parent_field,
-    _retained_field,
-    _retained_frame,
-    _rotation_field,
-)
+from .analysis import BandEquivalenceLocalityAnalyzer
 from .definitions import (
     BandEquivalenceLocalityCase,
-    BandEquivalenceLocalityFamily,
+    BandEquivalenceLocalityFamilyEnum,
     BandEquivalenceLocalityRequest,
 )
-from .fourier import error_channels, iter_complete_shell_fields
 from .geometry import metric_indices
 
 
 @dataclass(frozen=True, slots=True)
-class ShellScaleDecisionLandscapeRequest:
+class ShellScaleDecisionLandscapeRequest(BaseTypedRecord):
     """Select one bounded shell--scale calculation."""
 
     locality_request: BandEquivalenceLocalityRequest
@@ -54,9 +47,30 @@ class ShellScaleDecisionLandscapeRequest:
                 "scale_sample_count must be a built-in integer in [2, 1001]"
             )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "locality_request": self.locality_request,
+            "scale_sample_count": self.scale_sample_count,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        if set(values) != {"locality_request", "scale_sample_count"}:
+            raise ValueError("decision-landscape request fields do not match")
+        locality = values["locality_request"]
+        count = values["scale_sample_count"]
+        if not isinstance(locality, Mapping):
+            raise TypeError("locality_request must decode to a mapping")
+        if type(count) is not int:
+            raise TypeError("scale_sample_count must decode to an integer")
+        return cls(
+            locality_request=BandEquivalenceLocalityRequest.from_dict(locality),
+            scale_sample_count=count,
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class ShellScaleDecisionPoint:
+class ShellScaleDecisionPoint(BaseTypedRecord):
     """Retain one calculated objective vector and its decision coordinates."""
 
     shell_index: int
@@ -91,9 +105,61 @@ class ShellScaleDecisionPoint:
         if type(self.pareto_efficient) is not bool:
             raise TypeError("pareto_efficient must be a built-in bool")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "shell_index": self.shell_index,
+            "retained_blocks": self.retained_blocks,
+            "scale_path_coordinate": self.scale_path_coordinate,
+            "comparison_scale": self.comparison_scale,
+            "maximum_hamiltonian_error": self.maximum_hamiltonian_error,
+            "maximum_sorted_band_error": self.maximum_sorted_band_error,
+            "pareto_efficient": self.pareto_efficient,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "shell_index",
+            "retained_blocks",
+            "scale_path_coordinate",
+            "comparison_scale",
+            "maximum_hamiltonian_error",
+            "maximum_sorted_band_error",
+            "pareto_efficient",
+        }
+        if set(values) != required:
+            raise ValueError("decision-point fields do not match")
+        shell = values["shell_index"]
+        blocks = values["retained_blocks"]
+        efficient = values["pareto_efficient"]
+        if type(shell) is not int or type(blocks) is not int:
+            raise TypeError("decision-point indices must decode to integers")
+        if type(efficient) is not bool:
+            raise TypeError("pareto_efficient must decode to a bool")
+        scalars: dict[str, float] = {}
+        for name in (
+            "scale_path_coordinate",
+            "comparison_scale",
+            "maximum_hamiltonian_error",
+            "maximum_sorted_band_error",
+        ):
+            value = values[name]
+            if type(value) is not float:
+                raise TypeError("decision-point scalars must decode to floats")
+            scalars[name] = value
+        return cls(
+            shell_index=shell,
+            retained_blocks=blocks,
+            scale_path_coordinate=scalars["scale_path_coordinate"],
+            comparison_scale=scalars["comparison_scale"],
+            maximum_hamiltonian_error=scalars["maximum_hamiltonian_error"],
+            maximum_sorted_band_error=scalars["maximum_sorted_band_error"],
+            pareto_efficient=efficient,
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class ShellScaleCaseDecisionLandscape:
+class ShellScaleCaseDecisionLandscape(BaseTypedRecord):
     """Retain one independently interpreted case landscape."""
 
     name: str
@@ -178,6 +244,82 @@ class ShellScaleCaseDecisionLandscape:
                         "points do not follow scale-major shell-minor order"
                     )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "name": self.name,
+            "parent_scale": self.parent_scale,
+            "gauge_amplitude": self.gauge_amplitude,
+            "optimized_comparison_scale": self.optimized_comparison_scale,
+            "shell_indices": self.shell_indices,
+            "retained_block_counts": self.retained_block_counts,
+            "scale_path_coordinates": self.scale_path_coordinates,
+            "comparison_scales": self.comparison_scales,
+            "points": self.points,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "name",
+            "parent_scale",
+            "gauge_amplitude",
+            "optimized_comparison_scale",
+            "shell_indices",
+            "retained_block_counts",
+            "scale_path_coordinates",
+            "comparison_scales",
+            "points",
+        }
+        if set(values) != required:
+            raise ValueError("case decision-landscape fields do not match")
+        name = values["name"]
+        if type(name) is not str:
+            raise TypeError("case name must decode to a string")
+        scalars: dict[str, float] = {}
+        for field in (
+            "parent_scale",
+            "gauge_amplitude",
+            "optimized_comparison_scale",
+        ):
+            value = values[field]
+            if type(value) is not float:
+                raise TypeError("case scale values must decode to floats")
+            scalars[field] = value
+        integer_tuples: dict[str, tuple[int, ...]] = {}
+        for field in ("shell_indices", "retained_block_counts"):
+            value = values[field]
+            if not isinstance(value, tuple) or any(
+                type(item) is not int for item in value
+            ):
+                raise TypeError(f"{field} must decode to an integer tuple")
+            integer_tuples[field] = value
+        float_tuples: dict[str, tuple[float, ...]] = {}
+        for field in ("scale_path_coordinates", "comparison_scales"):
+            value = values[field]
+            if not isinstance(value, tuple) or any(
+                type(item) is not float for item in value
+            ):
+                raise TypeError(f"{field} must decode to a float tuple")
+            float_tuples[field] = value
+        points_value = values["points"]
+        if not isinstance(points_value, tuple) or any(
+            not isinstance(value, Mapping) for value in points_value
+        ):
+            raise TypeError("points must decode to a tuple of mappings")
+        return cls(
+            name=name,
+            parent_scale=scalars["parent_scale"],
+            gauge_amplitude=scalars["gauge_amplitude"],
+            optimized_comparison_scale=scalars["optimized_comparison_scale"],
+            shell_indices=integer_tuples["shell_indices"],
+            retained_block_counts=integer_tuples["retained_block_counts"],
+            scale_path_coordinates=float_tuples["scale_path_coordinates"],
+            comparison_scales=float_tuples["comparison_scales"],
+            points=tuple(
+                ShellScaleDecisionPoint.from_dict(value) for value in points_value
+            ),
+        )
+
     @property
     def calculated_vertex_count(self) -> int:
         """Return the number of calculated decision vertices."""
@@ -190,10 +332,10 @@ class ShellScaleCaseDecisionLandscape:
 
 
 @dataclass(frozen=True, slots=True)
-class ShellScaleDecisionLandscapeResult:
+class ShellScaleDecisionLandscapeResult(BaseTypedRecord):
     """Retain all case landscapes for one family request."""
 
-    family: BandEquivalenceLocalityFamily
+    family: BandEquivalenceLocalityFamilyEnum
     construction_size: int
     evaluation_size: int
     scale_sample_count: int
@@ -201,8 +343,8 @@ class ShellScaleDecisionLandscapeResult:
     status: str = "sampled-development-landscape-not-continuum-or-acceptance-evidence"
 
     def __post_init__(self) -> None:
-        if type(self.family) is not BandEquivalenceLocalityFamily:
-            raise TypeError("family must be BandEquivalenceLocalityFamily")
+        if type(self.family) is not BandEquivalenceLocalityFamilyEnum:
+            raise TypeError("family must be BandEquivalenceLocalityFamilyEnum")
         for name, value in (
             ("construction_size", self.construction_size),
             ("evaluation_size", self.evaluation_size),
@@ -224,18 +366,84 @@ class ShellScaleDecisionLandscapeResult:
         if type(self.status) is not str or not self.status:
             raise ValueError("status must be a nonempty built-in str")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "family": self.family.to_wire(),
+            "construction_size": self.construction_size,
+            "evaluation_size": self.evaluation_size,
+            "scale_sample_count": self.scale_sample_count,
+            "cases": self.cases,
+            "status": self.status,
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "family",
+            "construction_size",
+            "evaluation_size",
+            "scale_sample_count",
+            "cases",
+            "status",
+        }
+        if set(values) != required:
+            raise ValueError("decision-landscape result fields do not match")
+        family = values["family"]
+        status = values["status"]
+        if type(family) is not str or type(status) is not str:
+            raise TypeError("result labels must decode to strings")
+        integers: dict[str, int] = {}
+        for name in ("construction_size", "evaluation_size", "scale_sample_count"):
+            value = values[name]
+            if type(value) is not int:
+                raise TypeError("result sizes must decode to integers")
+            integers[name] = value
+        cases_value = values["cases"]
+        if not isinstance(cases_value, tuple) or any(
+            not isinstance(value, Mapping) for value in cases_value
+        ):
+            raise TypeError("cases must decode to a tuple of mappings")
+        return cls(
+            family=BandEquivalenceLocalityFamilyEnum.from_wire(family),
+            construction_size=integers["construction_size"],
+            evaluation_size=integers["evaluation_size"],
+            scale_sample_count=integers["scale_sample_count"],
+            cases=tuple(
+                ShellScaleCaseDecisionLandscape.from_dict(value)
+                for value in cases_value
+            ),
+            status=status,
+        )
+
 
 class ShellScaleDecisionLandscapeCalculator:
-    """Calculate sampled rank-two shell--scale objective landscapes."""
+    """Calculate one bound rank-two shell--scale objective landscape."""
 
-    __slots__ = ()
+    __slots__ = ("_analyzer", "_request")
 
-    def execute(
-        self, request: ShellScaleDecisionLandscapeRequest
-    ) -> ShellScaleDecisionLandscapeResult:
-        """Calculate every case at maximum parent scale and gauge amplitude."""
+    def __init__(
+        self,
+        *,
+        request: ShellScaleDecisionLandscapeRequest,
+        analyzer: BandEquivalenceLocalityAnalyzer,
+    ) -> None:
         if type(request) is not ShellScaleDecisionLandscapeRequest:
             raise TypeError("request must be ShellScaleDecisionLandscapeRequest")
+        if type(analyzer) is not BandEquivalenceLocalityAnalyzer:
+            raise TypeError("analyzer must be BandEquivalenceLocalityAnalyzer")
+        if analyzer.request != request.locality_request:
+            raise ValueError("analyzer request must equal the locality request")
+        self._request = request
+        self._analyzer = analyzer
+
+    @property
+    def request(self) -> ShellScaleDecisionLandscapeRequest:
+        """Return the immutable decision-landscape request."""
+        return self._request
+
+    def execute(self) -> ShellScaleDecisionLandscapeResult:
+        """Calculate every case at maximum parent scale and gauge amplitude."""
+        request = self._request
         definition = request.locality_request
         return ShellScaleDecisionLandscapeResult(
             family=definition.family,
@@ -256,24 +464,45 @@ class ShellScaleDecisionLandscapeCalculator:
     ) -> ShellScaleCaseDecisionLandscape:
         parent_scale = max(definition.parent_scales)
         amplitude = max(definition.amplitudes)
-        construction = _coordinates(
+        construction = self._analyzer.coordinates(
             definition.construction_size,
             case.dimension,
             0.5,
         )
-        evaluation = _coordinates(
+        evaluation = self._analyzer.coordinates(
             definition.evaluation_size,
             case.dimension,
             0.5 + definition.evaluation_shift,
         )
-        parent = _parent_field(case, construction, parent_scale)
-        frame, _, _ = _retained_frame(parent)
-        reference = _retained_field(frame, parent)
-        rotation = _rotation_field(_gauge_angles(case, construction, amplitude))
+        parent = self._analyzer.parent_field(
+            definition.synthetic_model,
+            case,
+            construction,
+            parent_scale,
+        )
+        frame, _, _ = self._analyzer.retained_frame(
+            definition.synthetic_model,
+            parent,
+        )
+        reference = self._analyzer.retained_field(frame, parent)
+        rotation = self._analyzer.rotation_field(
+            self._analyzer.gauge_angles(case, construction, amplitude)
+        )
         comparison = np.swapaxes(rotation.conjugate(), -1, -2) @ reference @ rotation
-        direct_parent = _parent_field(case, evaluation, parent_scale)
-        direct_frame, _, _ = _retained_frame(direct_parent)
-        direct_reference = _retained_field(direct_frame, direct_parent)
+        direct_parent = self._analyzer.parent_field(
+            definition.synthetic_model,
+            case,
+            evaluation,
+            parent_scale,
+        )
+        direct_frame, _, _ = self._analyzer.retained_frame(
+            definition.synthetic_model,
+            direct_parent,
+        )
+        direct_reference = self._analyzer.retained_field(
+            direct_frame,
+            direct_parent,
+        )
         angle, _, _, correlation, _, _ = restricted_alignment(reference, comparison)
         if angle is None or correlation is None:
             raise ValueError(
@@ -294,7 +523,7 @@ class ShellScaleDecisionLandscapeCalculator:
             definition.construction_size,
             (0.5,) * case.dimension,
         )
-        transform = NumpyCenteredUniformMeshMatrixFourierTransformer().transform(
+        transform = self._analyzer.transform(
             NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
                 source_mesh,
                 comparison,
@@ -324,18 +553,16 @@ class ShellScaleDecisionLandscapeCalculator:
         retained_blocks = tuple(
             int(np.count_nonzero(indices <= shell)) for shell in shells
         )
-        evaluation_axis = _coordinate_axis(
+        evaluation_axis = self._analyzer.coordinate_axis(
             definition.evaluation_size,
             0.5 + definition.evaluation_shift,
         )
-        shell_fields = tuple(
-            iter_complete_shell_fields(
-                source_mesh,
-                ordinary_series,
-                (evaluation_axis,) * case.dimension,
-                indices,
-                shells,
-            )
+        shell_fields = self._analyzer.complete_shell_fields(
+            source_mesh,
+            ordinary_series,
+            (evaluation_axis,) * case.dimension,
+            indices,
+            shells,
         )
 
         cosine = np.cos(angle)
@@ -362,7 +589,7 @@ class ShellScaleDecisionLandscapeCalculator:
                 shell_fields,
                 strict=True,
             ):
-                channels = error_channels(shell_field, target)
+                channels = self._analyzer.error_channels(shell_field, target)
                 raw_points.append(
                     (
                         shell,
@@ -376,7 +603,7 @@ class ShellScaleDecisionLandscapeCalculator:
         objectives = tuple(
             (float(point[1]), point[4], point[5]) for point in raw_points
         )
-        efficient = SampledParetoClassifier().execute(objectives)
+        efficient = SampledParetoClassifier(objectives=objectives).result()
         points = tuple(
             ShellScaleDecisionPoint(
                 shell_index=point[0],

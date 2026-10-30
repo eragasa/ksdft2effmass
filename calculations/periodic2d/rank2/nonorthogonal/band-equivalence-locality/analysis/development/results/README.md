@@ -21,21 +21,18 @@ thresholds `1e-3` and `1e-5`.
 
 The calculation repeats all parent/subspace, frame, alignment, Fourier, Nyquist,
 Hermiticity, interpolation, truncation, total-error, Parseval, basis-distance,
-metric-covariance, and first-passing diagnostics. The independent development verifier
-reports `passes: true`; its maximum stored identity defect is about `3.5e-15`. The input,
-result, and verification documents validate against the immutable family-bound schemas
-owned by the aggregation workflow under `calculations/band-equivalence-dimensional-comparison/band_equivalence_workflow/`; the
-verification document binds the canonical input and result bytes by SHA-256.
+metric-covariance, and first-passing diagnostics. The historical development summary
+reported `passes: true` and a maximum stored identity defect of about `3.5e-15`. Its
+former custom aggregation workflow and duplicate schemas have been removed; historical
+SHA-256 bindings do not establish admission by the current typed lifecycle.
 
 Some strict sampled decisions remain unresolved at the declared shell cap. No threshold,
 shell cap, or model was changed in response. The inspired case is a synthetic honeycomb
 connectivity control, not a carbon or graphene Hamiltonian.
 
-Reproduce from the repository root with:
-
-```bash
-python/.venv/bin/python calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/run_development.py
-```
+The maintained development runner emits replaceable typed records. A distinct nominal
+direct calculate → independently verify → authenticated render lifecycle is installed
+at the calculation root, but no direct execution is retained.
 
 These records do not establish mesh or shell convergence, certified Bessel-series tails,
 an immutable experiment version, or publication evidence.

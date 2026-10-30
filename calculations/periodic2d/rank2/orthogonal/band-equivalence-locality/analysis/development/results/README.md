@@ -19,21 +19,19 @@ the orthogonal 2-D square family. It used:
 The calculation stores parent/subspace qualification, graph-frame closure, covariant and
 restricted alignment, exact mesh-origin-aware Fourier reconstruction, twisted Nyquist
 and ordinary Hermiticity checks, interpolation, deliberate truncation, total matrix and
-spectral errors, Parseval checks, and sampled first-passing decisions. The independent
-development verifier reports `passes: true`; its maximum stored identity defect is about
-`4.1e-15`. The input, result, and verification documents validate against the immutable
-family-bound schemas owned by the aggregation workflow under
-`calculations/band-equivalence-dimensional-comparison/band_equivalence_workflow/`; the verification
-document binds the canonical input and result bytes by SHA-256.
+spectral errors, Parseval checks, and sampled first-passing decisions. The historical
+development summary reported `passes: true` and a maximum stored identity defect of about
+`4.1e-15`. Its former custom aggregation workflow and duplicate schemas have been
+removed. The current typed direct execution is separately retained under
+`../../../executions/direct-square-rank2-n16/`; it does not turn this historical
+summary into admitted direct-lifecycle evidence.
 
 Some strict sampled decisions remain unresolved at the declared shell cap. No threshold,
 shell cap, or model was changed in response.
 
-Reproduce from the repository root with:
-
-```bash
-python/.venv/bin/python calculations/periodic2d/rank2/orthogonal/band-equivalence-locality/run_development.py
-```
+The maintained development runner emits replaceable typed records. The installed direct
+lifecycle is a separate successor composition, not a claim that it reproduces historical
+development bytes.
 
 These records do not establish convergence, a continuous-amplitude result, an immutable
 experiment version, or publication evidence.

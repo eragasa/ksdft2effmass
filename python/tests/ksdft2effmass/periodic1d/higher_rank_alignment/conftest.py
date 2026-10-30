@@ -13,10 +13,6 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     EndpointSewingAction,
     FrameRotationAction,
 )
-from projectkoios.physkit.solidstate.tb import (
-    FinitePeriodicMatrixFourierTensorEvaluator,
-    FinitePeriodicMatrixFourierTransformer,
-)
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
@@ -141,7 +137,5 @@ def higher_rank_calculation_result() -> Periodic1DHigherRankAlignmentCalculation
         request=request,
         procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
         transporter=ClosedLoopPolarFrameTransporter(),
-        fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
-        fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
         scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
     ).execute()

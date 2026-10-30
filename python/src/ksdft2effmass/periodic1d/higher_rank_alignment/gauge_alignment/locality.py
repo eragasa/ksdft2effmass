@@ -92,24 +92,18 @@ class Periodic1DHigherRankLocalityAnalysis:
 class Periodic1DHigherRankLocalityAnalyzer:
     """Analyze support truncation, tails, and error decomposition."""
 
-    __slots__ = ("_request", "_fourier_evaluator")
+    __slots__ = ("_request",)
 
     def __init__(
         self,
         *,
         request: Periodic1DHigherRankLocalityAnalysisRequest,
-        fourier_evaluator: FinitePeriodicMatrixFourierTensorEvaluator,
     ) -> None:
         if type(request) is not Periodic1DHigherRankLocalityAnalysisRequest:
             raise TypeError(
                 "request must be Periodic1DHigherRankLocalityAnalysisRequest"
             )
-        if type(fourier_evaluator) is not FinitePeriodicMatrixFourierTensorEvaluator:
-            raise TypeError(
-                "fourier_evaluator must be the PhysKit finite-periodic evaluator"
-            )
         self._request = request
-        self._fourier_evaluator = fourier_evaluator
 
     @property
     def request(self) -> Periodic1DHigherRankLocalityAnalysisRequest:
@@ -148,34 +142,42 @@ class Periodic1DHigherRankLocalityAnalyzer:
             )
             truncated_series = transform.series.take(indices)
             omitted_series = transform.series.take(omitted_indices)
-            truncated_evaluation = self._fourier_evaluator.evaluate(
-                truncated_series,
-                (evaluation_coordinates,),
-                controls.maximum_working_elements,
-            ).matrix_values
-            omitted_construction = self._fourier_evaluator.evaluate(
-                omitted_series,
-                (coordinates,),
-                controls.maximum_working_elements,
-            ).matrix_values
-            truncation_diagnostics = MatrixFieldComparisonAnalyzer().execute(
-                truncated_evaluation,
-                full_evaluation,
-                controls.energy_reference,
-                controls.saturation_denominator_floor,
+            truncated_evaluation = (
+                FinitePeriodicMatrixFourierTensorEvaluator(
+                    series=truncated_series,
+                    coordinate_axes=(evaluation_coordinates,),
+                    maximum_working_elements=controls.maximum_working_elements,
+                )
+                .result()
+                .matrix_values
             )
-            total_diagnostics = MatrixFieldComparisonAnalyzer().execute(
-                truncated_evaluation,
-                direct_evaluation,
-                controls.energy_reference,
-                controls.saturation_denominator_floor,
+            omitted_construction = (
+                FinitePeriodicMatrixFourierTensorEvaluator(
+                    series=omitted_series,
+                    coordinate_axes=(coordinates,),
+                    maximum_working_elements=controls.maximum_working_elements,
+                )
+                .result()
+                .matrix_values
             )
-            decomposition = MatrixErrorDecompositionAnalyzer().execute(
-                full_evaluation - direct_evaluation,
-                truncated_evaluation - full_evaluation,
-                truncated_evaluation - direct_evaluation,
-                controls.energy_reference,
-            )
+            truncation_diagnostics = MatrixFieldComparisonAnalyzer(
+                approximation=truncated_evaluation,
+                reference=full_evaluation,
+                energy_reference=controls.energy_reference,
+                saturation_denominator_floor=controls.saturation_denominator_floor,
+            ).execute()
+            total_diagnostics = MatrixFieldComparisonAnalyzer(
+                approximation=truncated_evaluation,
+                reference=direct_evaluation,
+                energy_reference=controls.energy_reference,
+                saturation_denominator_floor=controls.saturation_denominator_floor,
+            ).execute()
+            decomposition = MatrixErrorDecompositionAnalyzer(
+                interpolation_error=full_evaluation - direct_evaluation,
+                truncation_error=truncated_evaluation - full_evaluation,
+                total_error=truncated_evaluation - direct_evaluation,
+                energy_reference=controls.energy_reference,
+            ).execute()
             construction_weight = float(
                 np.mean(
                     np.linalg.norm(

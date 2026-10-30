@@ -26,27 +26,33 @@ class TestSampledParetoClassifier:
             (2.0, 3.0, 3.0),
         )
 
-        result = SampledParetoClassifier().execute(objectives)
+        result = SampledParetoClassifier(objectives=objectives).result()
 
         assert result == (True, True, True, False, True)
 
     def test_execute__supports_any_common_positive_objective_dimension(self) -> None:
         """Prespecified finite dimensions require no weighting."""
-        assert SampledParetoClassifier().execute(((0.0,), (1.0,))) == (True, False)
-        assert SampledParetoClassifier().execute(
-            ((0.0, 1.0, 2.0, 3.0), (1.0, 0.0, 2.0, 3.0))
-        ) == (True, True)
+        assert SampledParetoClassifier(objectives=((0.0,), (1.0,))).result() == (
+            True,
+            False,
+        )
+        assert SampledParetoClassifier(
+            objectives=((0.0, 1.0, 2.0, 3.0), (1.0, 0.0, 2.0, 3.0))
+        ).result() == (True, True)
 
     def test_execute__rejects_ambiguous_or_nonfinite_objectives(self) -> None:
         """Booleans, integers, ragged rows, and nonfinite values fail closed."""
-        classifier = SampledParetoClassifier()
         with pytest.raises(TypeError, match="nonempty tuple"):
-            classifier.execute(())
+            SampledParetoClassifier(objectives=())
         with pytest.raises(TypeError, match="built-in floats"):
-            classifier.execute(((True, 1.0),))
+            SampledParetoClassifier(
+                objectives=((True, 1.0),)  # type: ignore[arg-type]
+            )
         with pytest.raises(TypeError, match="built-in floats"):
-            classifier.execute(((1, 1.0),))
+            SampledParetoClassifier(
+                objectives=((1, 1.0),)  # type: ignore[arg-type]
+            )
         with pytest.raises(ValueError, match="common dimension"):
-            classifier.execute(((1.0,), (1.0, 2.0)))
+            SampledParetoClassifier(objectives=((1.0,), (1.0, 2.0)))
         with pytest.raises(ValueError, match="finite"):
-            classifier.execute(((math.inf,),))
+            SampledParetoClassifier(objectives=((math.inf,),))

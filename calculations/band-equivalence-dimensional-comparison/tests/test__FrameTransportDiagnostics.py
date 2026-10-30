@@ -7,8 +7,17 @@ from typing import ClassVar
 
 import numpy as np
 import pytest
-from band_equivalence_workflow import application, schemas
-from jsonschema import ValidationError  # type: ignore[import-untyped]
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+    alignment,
+    definitions,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalyzer,
+)
+from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
+    BandEquivalenceLocalityAnalysisRecorder,
+    BandEquivalenceLocalityCalculationResult,
+)
 from numpy.typing import NDArray
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
@@ -16,11 +25,6 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
 from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
-
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
-    alignment,
-    definitions,
-)
 
 type ComplexArray = NDArray[np.complex128]
 
@@ -125,13 +129,14 @@ class TestFrameTransportDiagnostics:
     def analysis_request() -> definitions.BandEquivalenceLocalityRequest:
         """Return one bounded square-family serialization fixture."""
         return definitions.BandEquivalenceLocalityRequest(
-            family=definitions.BandEquivalenceLocalityFamily.SQUARE,
+            family=definitions.BandEquivalenceLocalityFamilyEnum.SQUARE,
+            synthetic_model=definitions.FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
             cases=(
                 definitions.BandEquivalenceLocalityCase(
                     name="square-directed",
                     dimension=2,
-                    parent_kind=definitions.ParentKind.DIRECTED_AXIS,
-                    gauge_normalization=definitions.GaugeNormalization.AXIS_MAXIMUM,
+                    parent_kind=definitions.ParentEnum.DIRECTED_AXIS,
+                    gauge_normalization=definitions.GaugeNormalizationEnum.AXIS_MAXIMUM,
                     positive_bonds=((1, 0), (0, 1)),
                     direct_metric=DirectLatticeMetric(
                         DirectLattice2D(
@@ -273,29 +278,23 @@ class TestFrameTransportDiagnostics:
                 _full_rank_frame(2), 2, 1.0e-10, 1.0e-12
             )
 
-    def test_roundoff_cutoff_and_v1_schema_are_joint_evidence(self) -> None:
+    def test_roundoff_cutoff_survives_typed_result_round_trip(self) -> None:
         definition = self.analysis_request()
-        result = application.BandEquivalenceLocalityResultConstructor().execute(
-            definition
-        )
+        analysis = BandEquivalenceLocalityAnalyzer(request=definition).execute()
+        result = BandEquivalenceLocalityAnalysisRecorder(analysis).result()
         point = result.diagnostics.cases[0].points[0]
 
         assert point.maximum_transport_procrustes_residual == 0.0
         assert point.maximum_transport_squared_residual_roundoff_cutoff > 0.0
-        document = result.document
-        schemas.BandEquivalenceLocalitySchema(
-            result.diagnostics.family,
-            schemas.BandEquivalenceLocalitySchemaKind.ANALYSIS_RESULT,
-        ).validate(document.canonical_bytes())
-        assert b'"schema":"' in document.canonical_bytes()
-        assert b'.v1"' in document.canonical_bytes()
-
-    def test_record_and_schema_reject_zero_filled_inapplicable_topology(self) -> None:
-        definition = self.analysis_request()
-        result = application.BandEquivalenceLocalityResultConstructor().execute(
-            definition
+        reconstructed = BandEquivalenceLocalityCalculationResult.from_json(
+            result.to_json()
         )
-        point = result.diagnostics.cases[0].points[0]
+        assert reconstructed.to_json() == result.to_json()
+
+    def test_analysis_rejects_zero_filled_inapplicable_topology(self) -> None:
+        definition = self.analysis_request()
+        analysis = BandEquivalenceLocalityAnalyzer(request=definition).execute()
+        point = analysis.cases[0].points[0]
         with pytest.raises(ValueError, match="prohibits topology diagnostics"):
             replace(
                 point,
@@ -308,23 +307,3 @@ class TestFrameTransportDiagnostics:
                 maximum_closure_holonomy_unitarity_defect=0.0,
                 maximum_plaquette_holonomy_phase=0.0,
             )
-
-        document = result.document
-        malformed = document.canonical_bytes().replace(
-            b'"transport_rank_deficient_link_count":0',
-            b'"transport_rank_deficient_link_count":1',
-        )
-        malformed = malformed.replace(
-            b'"transport_closure_and_plaquette_applicable":true',
-            b'"transport_closure_and_plaquette_applicable":false',
-        )
-        malformed = malformed.replace(
-            b'"transport_closure_and_plaquette_inapplicable_reason":null',
-            b'"transport_closure_and_plaquette_inapplicable_reason":'
-            b'"rank-deficient neighbor overlap does not identify unique transport"',
-        )
-        with pytest.raises(ValidationError):
-            schemas.BandEquivalenceLocalitySchema(
-                result.diagnostics.family,
-                schemas.BandEquivalenceLocalitySchemaKind.ANALYSIS_RESULT,
-            ).validate(malformed)

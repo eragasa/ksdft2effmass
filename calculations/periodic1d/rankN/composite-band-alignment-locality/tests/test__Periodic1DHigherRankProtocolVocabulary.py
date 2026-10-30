@@ -34,9 +34,7 @@ class TestPeriodic1DHigherRankProtocolVocabulary:
             protocol,
             flags=re.IGNORECASE,
         )
-        remaining = re.search(
-            r"\bchannels?\b", without_error_channels, re.IGNORECASE
-        )
+        remaining = re.search(r"\bchannels?\b", without_error_channels, re.IGNORECASE)
         assert remaining is None
 
     def test__protocol__contains_scientific_and_typed_lifecycle_schematics(

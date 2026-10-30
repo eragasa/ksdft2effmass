@@ -18,10 +18,6 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
     FinitePeriodicMeshFrameInventory,
 )
-from projectkoios.physkit.solidstate.tb import (
-    FinitePeriodicMatrixFourierTensorEvaluator,
-    FinitePeriodicMatrixFourierTransformer,
-)
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldErrorAnalyzer,
@@ -97,8 +93,6 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         "_request",
         "_procrustes_solver",
         "_transporter",
-        "_fourier_transformer",
-        "_fourier_evaluator",
         "_scalar_refinement_analyzer",
     )
 
@@ -108,8 +102,6 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         request: Periodic1DHigherRankAlignmentCalculationRequest,
         procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver,
         transporter: ClosedLoopPolarFrameTransporter,
-        fourier_transformer: FinitePeriodicMatrixFourierTransformer,
-        fourier_evaluator: FinitePeriodicMatrixFourierTensorEvaluator,
         scalar_refinement_analyzer: ScalarRefinementAnalyzer,
     ) -> None:
         """Bind the exact request and canonical numerical owners."""
@@ -123,14 +115,6 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             )
         if type(transporter) is not ClosedLoopPolarFrameTransporter:
             raise TypeError("transporter must be ClosedLoopPolarFrameTransporter")
-        if type(fourier_transformer) is not FinitePeriodicMatrixFourierTransformer:
-            raise TypeError(
-                "fourier_transformer must be the PhysKit finite-periodic owner"
-            )
-        if type(fourier_evaluator) is not FinitePeriodicMatrixFourierTensorEvaluator:
-            raise TypeError(
-                "fourier_evaluator must be the PhysKit finite-periodic evaluator"
-            )
         if type(scalar_refinement_analyzer) is not ScalarRefinementAnalyzer:
             raise TypeError(
                 "scalar_refinement_analyzer must be the KSD refinement owner"
@@ -138,8 +122,6 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         self._request = request
         self._procrustes_solver = procrustes_solver
         self._transporter = transporter
-        self._fourier_transformer = fourier_transformer
-        self._fourier_evaluator = fourier_evaluator
         self._scalar_refinement_analyzer = scalar_refinement_analyzer
 
     @property
@@ -402,16 +384,26 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             )
         )
         projector = MatrixProjectorFieldAnalyzer().execute(projectors)
-        reference_error = MatrixFieldErrorAnalyzer().execute(
-            reference_recovered, exact, energy
-        )
-        attacked_error = MatrixFieldErrorAnalyzer().execute(
-            attacked_recovered, attacked, energy
-        )
-        attacked_spectrum = MatrixFieldErrorAnalyzer().execute(attacked, exact, energy)
-        oracle_error = MatrixFieldErrorAnalyzer().execute(
-            oracle_operator, exact, energy
-        )
+        reference_error = MatrixFieldErrorAnalyzer(
+            approximation=reference_recovered,
+            reference=exact,
+            energy_reference=energy,
+        ).result()
+        attacked_error = MatrixFieldErrorAnalyzer(
+            approximation=attacked_recovered,
+            reference=attacked,
+            energy_reference=energy,
+        ).result()
+        attacked_spectrum = MatrixFieldErrorAnalyzer(
+            approximation=attacked,
+            reference=exact,
+            energy_reference=energy,
+        ).result()
+        oracle_error = MatrixFieldErrorAnalyzer(
+            approximation=oracle_operator,
+            reference=exact,
+            energy_reference=energy,
+        ).result()
         oracle_frame = float(
             np.max(np.linalg.norm(oracle_frames - reference_frames, axis=(-2, -1)))
             / math.sqrt(model.retained_rank)
@@ -584,8 +576,6 @@ class Periodic1DHigherRankAlignmentAnalyzer:
                     else None
                 ),
             ),
-            fourier_transformer=self._fourier_transformer,
-            fourier_evaluator=self._fourier_evaluator,
         ).execute()
 
 

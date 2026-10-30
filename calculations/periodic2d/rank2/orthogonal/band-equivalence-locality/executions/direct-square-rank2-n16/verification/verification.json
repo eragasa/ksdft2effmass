@@ -1,0 +1,174 @@
+{
+  "calculation_family": "periodic2d-rank2-orthogonal-band-equivalence-locality",
+  "claim_boundary": "Independent finite numerical verification only; not continuum convergence, uncertainty quantification, material validation, publication acceptance, or evidence sealing.",
+  "comparison_count": 5,
+  "execution_id": "direct-square-rank2-n16",
+  "result_sha256": "4159c5e8dc60da2db81d7160fad27d98abc9c2564cafea6877530db0b6cffa1a",
+  "schema": "ksdft2effmass.periodic2d-rank2-orthogonal-band-equivalence-locality-verification.direct.v1",
+  "schema_version": 1,
+  "script_sha256": "997c89707333861c3172dff4f469b0762f2da1fd67942f424471d2a838a62ef6",
+  "study_family": "ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping-locality",
+  "verification": {
+    "components": {
+      "band_equivalence_locality": {
+        "observations": {
+          "independent_band_maximum_defect": {
+            "tolerance": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 5e-14,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            },
+            "value": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 1.1102230246251565e-16,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            }
+          },
+          "independent_parent_maximum_defect": {
+            "tolerance": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 5e-14,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            },
+            "value": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 2.482534153247273e-16,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            }
+          },
+          "independent_shell_power_maximum_defect": {
+            "tolerance": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 5e-11,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            },
+            "value": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 7.216449660063518e-15,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            }
+          },
+          "stored_identity_maximum_defect": {
+            "tolerance": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 5e-11,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            },
+            "value": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 7.551039300827543e-15,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            }
+          }
+        }
+      },
+      "visualization_projection": {
+        "observations": {
+          "projection_point_inventory_defect": {
+            "tolerance": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 0.0,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            },
+            "value": {
+              "__ksd_type__": "scalar_quantity",
+              "magnitude": 0.0,
+              "unit": {
+                "__ksd_type__": "unitless"
+              }
+            }
+          }
+        }
+      }
+    },
+    "subject_sha256": "4159c5e8dc60da2db81d7160fad27d98abc9c2564cafea6877530db0b6cffa1a",
+    "visualization_data_sha256": "1cc707f8cec2b9c24c0929e7b3c5a6c8deb9101fbdc6190bd874f1e6f9724fcb"
+  },
+  "visualization_data": {
+    "amplitudes": {
+      "__ksd_type__": "tuple",
+      "items": [
+        0.0,
+        0.39269908169872414,
+        0.7853981633974483,
+        0.0,
+        0.39269908169872414,
+        0.7853981633974483
+      ]
+    },
+    "family": "ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping-locality",
+    "joint_operator_thresholds": {
+      "__ksd_type__": "tuple",
+      "items": [
+        0.0,
+        0.16613240553235992,
+        0.31815361091380506,
+        0.0,
+        0.17160429890885764,
+        0.328854220307385
+      ]
+    },
+    "minimum_operator_thresholds": {
+      "__ksd_type__": "tuple",
+      "items": [
+        0.0,
+        0.16299153975724628,
+        0.2954957674786716,
+        0.0,
+        0.16841931156905704,
+        0.30584236422509253
+      ]
+    },
+    "normalized_excess_nonzero_hopping_weights": {
+      "__ksd_type__": "tuple",
+      "items": [
+        0.0,
+        0.144205412036574,
+        0.47397339447854003,
+        0.0,
+        0.13304298308776044,
+        0.43725293714536595
+      ]
+    },
+    "parent_scales": {
+      "__ksd_type__": "tuple",
+      "items": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "point_case_names": {
+      "__ksd_type__": "tuple",
+      "items": [
+        "square-directed-parent",
+        "square-directed-parent",
+        "square-directed-parent",
+        "square-directed-parent",
+        "square-directed-parent",
+        "square-directed-parent"
+      ]
+    }
+  }
+}

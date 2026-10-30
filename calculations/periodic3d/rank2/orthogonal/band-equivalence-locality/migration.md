@@ -13,13 +13,13 @@ This distributed checklist covers the local inventory in [`README.md`](README.md
 
 - [x] Inventory nominal, first-refinement, second-refinement, plotting, protocol, and comparison dependencies.
 - [ ] Crosswalk calculation-root and experiment-root scripts and replaceable outputs file by file.
-- [ ] Record exact simple-cubic mesh, units, Fourier conventions, support ordering, tolerances, and non-convergence disposition.
-- [ ] Assign reusable band-equivalence, alignment, Fourier, and support behavior to canonical source owners.
-- [ ] Keep simple-cubic geometry, retained rank two, and family thresholds in family-owned typed records.
-- [ ] Define canonical typed request, result, refinement, and verification records.
+- [x] Record the nominal simple-cubic mesh, units, Fourier conventions, support ordering, tolerances, and non-convergence disposition.
+- [x] Assign reusable band-equivalence, alignment, Fourier, and support behavior to canonical source owners.
+- [x] Keep simple-cubic geometry, retained rank two, and family thresholds in family-owned typed records.
+- [x] Define canonical typed nominal request, result, verification, independent-reference, and visualization records.
 - [ ] Replace comparison-local duplicates only after typed-wire consumer migration.
-- [ ] Implement producer-independent byte-owning verification for nominal and refinement channels.
-- [ ] Implement authenticated rendering and direct calculate → verify → render composition.
-- [ ] Establish numerical parity across all three meshes with named tolerances.
+- [x] Implement producer-independent byte-owning verification for nominal channels.
+- [x] Implement authenticated nominal rendering and direct calculate → verify → render composition.
+- [ ] Establish numerical parity across all three historical meshes with named tolerances.
 - [ ] Preserve bounded refinement as refinement, not convergence or uncertainty.
 - [ ] Define sealing and read-only package verification before retaining an execution.

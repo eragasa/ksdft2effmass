@@ -107,13 +107,15 @@ and twisted/ordinary Hermiticity diagnostics come directly from Numerics. KSD re
 shell scaling and complete physical-metric support selection, selected covariance
 probes, state-space meaning, positive splitting-scale policy, retained-rank and energy
 normalization, path/plaquette inventory, scientific thresholds, and evidence
-disposition. Immutable family controls and calculated diagnostics are owned by
-`definitions.py` and `records.py`; `fourier.py` retains only the KSD error channels and
-complete-shell composition over owner evaluation contracts. Application actions bind
-analysis diagnostics to exact canonical requests. Campaign-owned serializers, packaged
-schemas, and plotting consume those typed records without moving scientific
-calculations into wire or rendering code. Software-verification tests enforce these
-boundaries while the package root preserves only deliberate public imports.
+disposition. Immutable family controls are owned by `definitions.py`; plain calculated
+scientific values are owned by `analysis.py` and `results/`; and retained wire
+projections are owned by `result.py` and `records/`. `fourier.py` retains only the KSD
+error channels and complete-shell composition over owner evaluation contracts. The
+analysis recorder binds completed scientific results to exact canonical requests.
+Plotting consumes plain analysis values, while lifecycle verification and rendering
+consume retained typed records without moving scientific calculations into wire or
+rendering code. Software-verification tests enforce these boundaries while the package
+root preserves only deliberate public imports.
 
 All experiment packages retain separate definitions, controls, schemas, versions, runs,
 and evidence packages. Their required comparable software-test layers

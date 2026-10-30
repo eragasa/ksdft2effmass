@@ -1,0 +1,330 @@
+{
+  "amplitude_resolution_intervals": {
+    "__ksd_type__": "tuple",
+    "items": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096
+    ]
+  },
+  "amplitudes": {
+    "__ksd_type__": "tuple",
+    "items": [
+      0.0,
+      0.39269908169872414,
+      0.7853981633974483
+    ]
+  },
+  "band_tolerances": {
+    "__ksd_type__": "tuple",
+    "items": [
+      0.001,
+      1e-05
+    ]
+  },
+  "cases": {
+    "__ksd_type__": "tuple",
+    "items": [
+      {
+        "basis_offsets": {
+          "__ksd_type__": "tuple",
+          "items": []
+        },
+        "dimension": 2,
+        "direct_lattice_primitive_basis_rows": {
+          "__ksd_type__": "tuple",
+          "items": [
+            {
+              "__ksd_type__": "tuple",
+              "items": [
+                1.0,
+                0.0
+              ]
+            },
+            {
+              "__ksd_type__": "tuple",
+              "items": [
+                0.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        "direct_lattice_primitive_vector_axis": "columns",
+        "gauge_normalization": "axis-maximum",
+        "name": "square-directed-parent",
+        "parent_kind": "directed-axis",
+        "positive_bonds": {
+          "__ksd_type__": "tuple",
+          "items": [
+            {
+              "__ksd_type__": "tuple",
+              "items": [
+                1,
+                0
+              ]
+            },
+            {
+              "__ksd_type__": "tuple",
+              "items": [
+                0,
+                1
+              ]
+            }
+          ]
+        },
+        "shell_metric_scale": 1.0
+      }
+    ]
+  },
+  "construction_size": 16,
+  "evaluation_shift": 0.3333333333333333,
+  "evaluation_size": 33,
+  "family": "ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping-locality",
+  "parent_scales": {
+    "__ksd_type__": "tuple",
+    "items": [
+      0.0,
+      1.0
+    ]
+  },
+  "shell_cap": 25,
+  "synthetic_model": {
+    "bipartite_intersector_coupling": {
+      "__ksd_type__": "scalar_quantity",
+      "magnitude": 0.08,
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    },
+    "bipartite_lower_bond_scale": {
+      "__ksd_type__": "scalar_quantity",
+      "magnitude": 0.3,
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    },
+    "bipartite_lower_onsite": {
+      "__ksd_type__": "scalar_quantity",
+      "magnitude": -1.2,
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    },
+    "bipartite_upper_bond_scale": {
+      "__ksd_type__": "scalar_quantity",
+      "magnitude": 0.1,
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    },
+    "bipartite_upper_onsite": {
+      "__ksd_type__": "scalar_quantity",
+      "magnitude": 1.2,
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    },
+    "directed_hopping": {
+      "__ksd_type__": "complex_matrix_quantity",
+      "magnitude": {
+        "__ksd_type__": "numpy_array",
+        "data": {
+          "imaginary": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "real": [
+            [
+              0.15,
+              0.0,
+              0.12,
+              0.0
+            ],
+            [
+              0.0,
+              -0.1,
+              0.0,
+              0.1
+            ],
+            [
+              0.0,
+              0.0,
+              0.05,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              -0.04
+            ]
+          ]
+        },
+        "dtype": "<c16",
+        "shape": [
+          4,
+          4
+        ]
+      },
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    },
+    "energy_reference": "synthetic-dimensionless-zero-v1",
+    "identifier": "four-state-locality-development-model-v1",
+    "onsite": {
+      "__ksd_type__": "complex_matrix_quantity",
+      "magnitude": {
+        "__ksd_type__": "numpy_array",
+        "data": {
+          "imaginary": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "real": [
+            [
+              -1.2,
+              0.06,
+              0.0,
+              0.0
+            ],
+            [
+              0.06,
+              -0.35,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.04
+            ],
+            [
+              0.0,
+              0.0,
+              0.04,
+              1.75
+            ]
+          ]
+        },
+        "dtype": "<c16",
+        "shape": [
+          4,
+          4
+        ]
+      },
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    },
+    "parent_basis_identifier": "synthetic-four-state-parent-basis-v1",
+    "retained_basis_identifier": "projected-seed-rank-two-basis-v1",
+    "retained_seed": {
+      "__ksd_type__": "complex_matrix_quantity",
+      "magnitude": {
+        "__ksd_type__": "numpy_array",
+        "data": {
+          "imaginary": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ],
+          "real": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "dtype": "<c16",
+        "shape": [
+          4,
+          2
+        ]
+      },
+      "unit": {
+        "__ksd_type__": "unitless"
+      }
+    }
+  },
+  "transport_rank_absolute": 1e-10,
+  "transport_rank_relative": 1e-12
+}

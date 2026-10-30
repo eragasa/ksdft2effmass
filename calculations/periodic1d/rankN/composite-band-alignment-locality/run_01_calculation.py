@@ -111,8 +111,6 @@ def _calculate(
         request=request,
         procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
         transporter=ClosedLoopPolarFrameTransporter(),
-        fourier_transformer=FinitePeriodicMatrixFourierTransformer(),
-        fourier_evaluator=FinitePeriodicMatrixFourierTensorEvaluator(),
         scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
     ).execute()
 
