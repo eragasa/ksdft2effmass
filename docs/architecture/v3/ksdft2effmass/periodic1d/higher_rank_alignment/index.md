@@ -50,14 +50,18 @@ The maintained package provides:
 - canonical typed record bytes whose SHA-256 digest establishes identity and provenance,
   not scientific validity; and
 - a bounded producer-independent direct-formula reference for analytic-model and attack
-  core invariants.
+  core invariants; and
+- a bounded direct-sum Fourier reference for identity and known-inverse-oracle controls,
+  including shifted interpolation and support-tail measures for both controls and exact
+  support for the oracle.
 
 A calculation-local direct development runner composes these maintained owners and writes
-only a replaceable non-evidence summary. The bounded reference does not reconstruct
-transport, Procrustes, Fourier, locality, or refinement evidence. Complete independent
-recalculation, byte-owning result verification, authenticated rendering, and retained
-execution remain unimplemented and separately authorized. Software tests establish
-bounded software behavior only.
+only a replaceable non-evidence summary. The bounded references do not reconstruct
+transport, Procrustes, global- or pointwise-unitary Fourier values, complete locality
+error channels, or refinement evidence. Complete independent recalculation, byte-owning
+result verification, authenticated rendering, and retained execution remain
+unimplemented and separately authorized. Software tests establish bounded software
+behavior only.
 
 ## Numerical responsibilities
 

@@ -123,13 +123,18 @@ implemented.
 The current producer constructs the declared analytic Hamiltonian, evaluates the four
 gauge alignments, transports the common reference frame, analyzes odd-mesh Fourier
 locality, and returns correlated typed calculation records. A bounded independent
-reference analyzer directly reconstructs the analytic-model and attack core invariants;
-it does not invoke the producer or its scientific actions.
+reference analyzer directly reconstructs the analytic-model and attack core invariants.
+A separate bounded direct-sum reference reconstructs identity and
+known-inverse-oracle Fourier controls on all three construction meshes, compares shifted
+interpolation and support tails for both controls, and verifies the oracle's analytic
+$|R|\le2$ support within its declared tolerance. Neither invokes the producer's
+scientific actions.
 
-That bounded comparison is not the protocol's complete independent reference
-calculation and does not establish transport, Procrustes, Fourier, locality, refinement,
-or result-byte verification. No byte-owning verifier or retained higher-rank result has
-been admitted, and the complete 16-case runtime and 4 GiB memory ceilings remain
-unestablished. The analytic family does not establish material validity. No higher-rank
-result from this package is scientifically validated, formally checked, sealed,
-published, or released.
+Those bounded comparisons are not the protocol's complete independent reference
+calculation and do not establish transport, Procrustes, global- or pointwise-unitary
+Fourier values, truncation and total-error fields, error-channel decompositions,
+refinement, or result-byte verification. No byte-owning verifier or retained higher-rank
+result has been admitted, and the complete 16-case runtime and 4 GiB memory ceilings
+remain unestablished. The analytic family does not establish material validity. No
+higher-rank result from this package is scientifically validated, formally checked,
+sealed, published, or released.

@@ -69,12 +69,14 @@ failures explicitly. The direct development script composes maintained KSD, Phys
 Optimization owners and writes only a replaceable non-evidence summary. The
 formula-check script is not an independent check of the full result.
 
-Strict typed calculation requests and results, canonical record bytes, and a bounded
-producer-independent reference for analytic-model and attack core invariants now exist.
-Complete protocol-wide numerical recomputation, byte-owning verification,
-retained-artifact schemas, complete provenance, authenticated rendering, and retained
-execution do not. Migration of the five donor files therefore does not close the
-authenticated lifecycle.
+Strict typed calculation requests and results, canonical record bytes, a bounded
+producer-independent reference for analytic-model and attack core invariants, and a
+bounded direct-sum identity/known-inverse-oracle Fourier reference now exist. The latter
+also compares shifted interpolation and support tails for both controls and exact support
+for the oracle. Complete protocol-wide
+numerical recomputation, byte-owning verification, retained-artifact schemas, complete
+provenance, authenticated rendering, and retained execution do not. Migration of the
+five donor files therefore does not close the authenticated lifecycle.
 
 ## Consumer migration
 

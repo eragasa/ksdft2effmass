@@ -21,12 +21,16 @@ are rejected.  NumPy arrays require exact ``float64``, ``int64``, or ``complex12
 dtypes as documented by their records.
 
 The calculation result is producer output, not independently verified scientific
-evidence.  A bounded reference analyzer directly reconstructs analytic-model and
-attack core invariants without invoking the producer or its scientific actions.  It
-does not reconstruct transport, Procrustes, Fourier, locality, or refinement values
-and does not own the result bytes.  Complete independent recalculation, byte-owning
-verification, authenticated figures, retained execution, material validation, and
-publication remain unimplemented and are not implied by either software path.
+evidence.  One bounded reference analyzer directly reconstructs analytic-model and
+attack core invariants.  A second bounded analyzer uses direct NumPy sums to reconstruct
+identity and known-inverse-oracle Fourier controls on all three construction meshes,
+including shifted interpolation and support tails for both controls and exact-support
+comparisons for the oracle.  Neither path invokes the
+producer's scientific analysis actions or owns the result bytes.  Transport,
+Procrustes, global- and pointwise-unitary Fourier controls, complete locality error
+channels, refinement, complete independent recalculation, byte-owning verification,
+authenticated figures, retained execution, material validation, and publication remain
+unimplemented and are not implied by either software path.
 
 .. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment
    :members:
@@ -37,6 +41,11 @@ Purpose-specific independent reference analysis
 ------------------------------------------------
 
 .. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.reference
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.fourier_reference
    :members:
    :undoc-members:
    :show-inheritance:

@@ -23,6 +23,7 @@
 | `refinement.py` | Analyzes correlated evidence across construction meshes. |
 | `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
 | `reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
+| `fourier_reference.py` | Independently reconstructs bounded identity and known-inverse-oracle Fourier controls with direct NumPy sums. |
 | `analysis/calculation.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
 | `analysis/procrustes.py` | Builds bounded global and pointwise Procrustes selection evidence. |
 | `analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
@@ -167,10 +168,23 @@ directly import or invoke the producer, the producer-owned analytic model, or th
 reusable producer diagnostic actions. Scalar comparisons use the protocol's
 $10^{-11}$ tolerance and sampled diagnostic arrays use $10^{-10}$.
 
-This slice does not implement the protocol's complete direct-formula verifier. It does
-not independently reconstruct transport, Procrustes selection, Fourier blocks,
-interpolation, support locality, error channels, or refinement, and it does not own
-canonical result bytes.
+`Periodic1DHigherRankFourierReferenceAnalyzer` is a second bounded slice. It performs
+explicit negative-exponent, $1/M$-normalized Fourier sums for identity and
+known-inverse-oracle fields on every construction mesh. It compares the retained block
+norms, construction-mesh reconstruction, Parseval defect, and odd-mesh Hermitian pairing.
+For both controls it evaluates the complete series by direct positive-exponent sums on
+the shifted mesh and compares the six stored tail measures for every frozen support. For
+the oracle it also compares the five analytic coefficient matrices at
+$R=0,\pm1,\pm2$ and bounds every coefficient outside $|R|\le2$. The reference imports
+only calculation records,
+gauge identities, and quantity/comparison types; it does not invoke producer Fourier,
+interpolation, locality, model, or reusable diagnostic actions.
+
+These slices do not implement the protocol's complete direct-formula verifier. They do
+not independently reconstruct transport, Procrustes selection, global- or
+pointwise-unitary Fourier controls, support truncation and total-error fields,
+error-channel decompositions, or refinement, and they do not own canonical result
+bytes.
 
 ## Work remaining
 
