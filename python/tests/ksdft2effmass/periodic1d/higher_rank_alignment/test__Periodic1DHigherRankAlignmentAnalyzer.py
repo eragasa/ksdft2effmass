@@ -55,8 +55,11 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
         assert result.global_selection.spectral_condition_numbers[0] >= 1.0
         assert result.global_selection.maximum_objective_identity_defect < 1.0e-12
         assert len(result.meshes) == 3
-        assert result.construction_evaluation_disjoint is True
-        assert result.evaluation_noninfluence_confirmed is True
+        provenance = result.evaluation_independence
+        assert provenance.construction_evaluation_disjoint is True
+        assert provenance.evaluation_mesh_excluded_from_selection is True
+        assert provenance.global_selection_mesh_size == 2049
+        assert provenance.pointwise_selection_mesh_sizes == (513, 1025, 2049)
         assert len(result.block_refinements) == 8
         assert all(item.all_pass for item in result.block_refinements)
         assert len(result.scalar_refinements) == 1360

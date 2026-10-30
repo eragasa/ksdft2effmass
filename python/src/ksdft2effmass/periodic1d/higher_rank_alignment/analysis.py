@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from fractions import Fraction
 from typing import final
 
 import numpy as np
@@ -21,38 +22,28 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 from projectkoios.physkit.solidstate.tb import (
     FinitePeriodicMatrixFourierTensorEvaluator,
     FinitePeriodicMatrixFourierTransformer,
-    FinitePeriodicMatrixHermiticityAnalyzer,
-    FinitePeriodicMatrixParsevalAnalyzer,
-    FinitePeriodicMatrixSamples,
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import (
-    FourierMatrixBlockNormInventoryAnalyzer1D,
-    MatrixErrorDecompositionAnalyzer,
-    MatrixFieldComparisonAnalyzer,
     MatrixFieldErrorAnalyzer,
     MatrixFieldHermiticityAnalyzer,
     MatrixFieldIsometryAnalyzer,
     MatrixProjectorFieldAnalyzer,
-    SymmetricRangeTailAnalyzer1D,
-    SymmetricRangeTailMonotonicityAnalyzer1D,
 )
 
 from .calculation import (
-    _ODD_CENTERED_NO_NYQUIST_DISPOSITION,
     Periodic1DHigherRankAlignmentCalculationRequest,
     Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankBlockRefinementResult,
     Periodic1DHigherRankChannelMeshResult,
-    Periodic1DHigherRankFrameErrorResult,
-    Periodic1DHigherRankMatrixComparisonResult,
-    Periodic1DHigherRankMatrixErrorResult,
+    Periodic1DHigherRankEvaluationIndependenceResult,
     Periodic1DHigherRankMeshCalculationResult,
     Periodic1DHigherRankModelDiagnostics,
     Periodic1DHigherRankProcrustesDiagnostics,
-    Periodic1DHigherRankScalarRefinementResult,
-    Periodic1DHigherRankSupportResult,
+)
+from .channel_analysis import (
+    Periodic1DHigherRankChannelAnalysisRequest,
+    Periodic1DHigherRankChannelAnalyzer,
 )
 from .definition import (
     Periodic1DHigherRankAlignmentBackendExceptionCode,
@@ -63,6 +54,10 @@ from .definition import (
 from .model import (
     Periodic1DHigherRankAnalyticCase,
     Periodic1DHigherRankAnalyticCaseConstructor,
+)
+from .refinement import (
+    Periodic1DHigherRankRefinementAnalysisRequest,
+    Periodic1DHigherRankRefinementAnalyzer,
 )
 from .result import (
     Periodic1DHigherRankAlignmentStatusResult,
@@ -363,6 +358,59 @@ def _procrustes_record(
 
 
 @final
+class Periodic1DHigherRankEvaluationIndependenceAnalyzer:
+    """Derive exact mesh separation and selection-input provenance."""
+
+    __slots__ = ("_request",)
+
+    def __init__(
+        self,
+        request: Periodic1DHigherRankAlignmentCalculationRequest,
+    ) -> None:
+        """Bind one complete immutable higher-rank calculation request."""
+        if type(request) is not Periodic1DHigherRankAlignmentCalculationRequest:
+            raise TypeError(
+                "request must be Periodic1DHigherRankAlignmentCalculationRequest"
+            )
+        self._request = request
+
+    def execute(self) -> Periodic1DHigherRankEvaluationIndependenceResult:
+        """Return exact rational mesh and selection provenance."""
+        configuration = self._request.configuration
+        denominator = configuration.evaluation_shift_denominator
+        numerator = configuration.evaluation_shift_numerator
+        evaluation_size = configuration.evaluation_mesh_size
+        evaluation_coordinates = {
+            Fraction(index * denominator + numerator, evaluation_size * denominator)
+            for index in range(evaluation_size)
+        }
+        construction_evaluation_disjoint = all(
+            evaluation_coordinates.isdisjoint(
+                Fraction(index, mesh_size) for index in range(mesh_size)
+            )
+            for mesh_size in configuration.construction_mesh_sizes
+        )
+        evaluation_mesh_excluded_from_selection = (
+            evaluation_size != configuration.global_unitary_selection_mesh_size
+            and evaluation_size not in configuration.construction_mesh_sizes
+        )
+        return Periodic1DHigherRankEvaluationIndependenceResult(
+            construction_mesh_sizes=configuration.construction_mesh_sizes,
+            evaluation_mesh_size=evaluation_size,
+            evaluation_shift_numerator=numerator,
+            evaluation_shift_denominator=denominator,
+            global_selection_mesh_size=(
+                configuration.global_unitary_selection_mesh_size
+            ),
+            pointwise_selection_mesh_sizes=configuration.construction_mesh_sizes,
+            construction_evaluation_disjoint=construction_evaluation_disjoint,
+            evaluation_mesh_excluded_from_selection=(
+                evaluation_mesh_excluded_from_selection
+            ),
+        )
+
+
+@final
 class Periodic1DHigherRankAlignmentAnalyzer:
     """Calculate one complete rank/depth case using explicit upstream owners.
 
@@ -425,26 +473,22 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             self._mesh_result(model, mesh_size, global_selection)
             for mesh_size in request.configuration.construction_mesh_sizes
         )
-        refinements = self._block_refinements(meshes)
-        scalar_refinements = self._scalar_refinements(meshes)
-        evaluation_coordinates = _coordinates(
-            request.configuration.evaluation_mesh_size,
-            request.configuration.evaluation_shift_numerator
-            / request.configuration.evaluation_shift_denominator,
-        )
-        construction_evaluation_disjoint = all(
-            np.intersect1d(_coordinates(mesh_size, 0.0), evaluation_coordinates).size
-            == 0
-            for mesh_size in request.configuration.construction_mesh_sizes
-        )
+        refinement = Periodic1DHigherRankRefinementAnalyzer(
+            Periodic1DHigherRankRefinementAnalysisRequest(
+                calculation_request=request,
+                meshes=meshes,
+            )
+        ).execute()
+        evaluation_independence = Periodic1DHigherRankEvaluationIndependenceAnalyzer(
+            request
+        ).execute()
         return Periodic1DHigherRankAlignmentCalculationResult(
             request=request,
             global_selection=global_selection,
             meshes=meshes,
-            construction_evaluation_disjoint=construction_evaluation_disjoint,
-            evaluation_noninfluence_confirmed=True,
-            block_refinements=refinements,
-            scalar_refinements=scalar_refinements,
+            evaluation_independence=evaluation_independence,
+            block_refinements=refinement.blocks,
+            scalar_refinements=refinement.scalars,
         )
 
     def _solve(
@@ -827,29 +871,6 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             Periodic1DHigherRankAlignmentStatus.QUALIFIED,
         )
 
-    def _direct_evaluation_field(
-        self,
-        model: Periodic1DHigherRankAnalyticCase,
-        evaluation_coordinates: FloatArray,
-        channel: Periodic1DHigherRankAlignmentChannel,
-        global_selection: Periodic1DHigherRankProcrustesDiagnostics,
-    ) -> ComplexArray:
-        if channel is Periodic1DHigherRankAlignmentChannel.IDENTITY:
-            return model.attacked_reduced_hamiltonians(evaluation_coordinates)
-        if channel is Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY:
-            selected = global_selection.selected_global_right_unitary
-            if selected is None:
-                raise ValueError(
-                    "global direct evaluation requires an applicable unitary"
-                )
-            attacked = model.attacked_reduced_hamiltonians(evaluation_coordinates)
-            right = np.broadcast_to(
-                selected.magnitude,
-                (evaluation_coordinates.size, model.retained_rank, model.retained_rank),
-            )
-            return _apply_right_basis_change(attacked, right)
-        return model.exact_reduced_hamiltonians(evaluation_coordinates)
-
     def _channel_result(
         self,
         *,
@@ -872,488 +893,20 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             return _unavailable_channel_result(status)
         if aligned_frames is None:
             raise ValueError("qualified aligned samples require aligned frames")
-        controls = self._request.controls
-        reference_frames = model.reference_frames(coordinates)
-        frame_norms = np.linalg.norm(
-            aligned_frames - reference_frames,
-            axis=(-2, -1),
-        )
-        frame_scale = math.sqrt(model.retained_rank)
-        frame_recovery = Periodic1DHigherRankFrameErrorResult(
-            rank=model.retained_rank,
-            frobenius_maximum=float(np.max(frame_norms)),
-            frobenius_rms=float(np.sqrt(np.mean(frame_norms**2))),
-            normalized_frobenius_maximum=float(np.max(frame_norms) / frame_scale),
-            normalized_frobenius_rms=float(
-                np.sqrt(np.mean(frame_norms**2)) / frame_scale
+        return Periodic1DHigherRankChannelAnalyzer(
+            request=Periodic1DHigherRankChannelAnalysisRequest(
+                calculation_request=self._request,
+                model=model,
+                mesh=mesh,
+                coordinates=coordinates,
+                status=status,
+                aligned_samples=aligned_samples,
+                aligned_frames=aligned_frames,
+                global_selection=global_selection,
             ),
-        )
-        direct_construction = self._direct_evaluation_field(
-            model,
-            coordinates,
-            channel,
-            global_selection,
-        )
-        represented_operator_recovery = MatrixFieldErrorAnalyzer().execute(
-            aligned_samples,
-            direct_construction,
-            controls.energy_reference,
-        )
-        known_recovery_applicable = channel in (
-            Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY,
-            Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE,
-        )
-        source = FinitePeriodicMatrixSamples.from_array(
-            mesh=mesh,
-            matrix_samples=aligned_samples,
-            energy_unit=Unitless(),
-            energy_reference=self._request.energy_reference_identifier,
-            basis_identifier=self._request.represented_basis_identifier,
-        )
-        transform = self._fourier_transformer.transform(source)
-        integer_modes = np.asarray(transform.series.integer_modes[:, 0], dtype=np.int64)
-        expected_modes = np.arange(
-            -(mesh.size // 2), mesh.size // 2 + 1, dtype=np.int64
-        )
-        mode_inventory = {int(value) for value in integer_modes}
-        representative_inventory_ordered_unique = bool(
-            np.array_equal(integer_modes, expected_modes)
-        )
-        inversion_closed = mode_inventory == {-value for value in mode_inventory}
-        index_bijection_pass = (
-            np.unique(np.mod(integer_modes, mesh.size)).size == mesh.size
-        )
-        reconstruction_values = self._fourier_evaluator.evaluate(
-            transform.series,
-            (coordinates,),
-            controls.maximum_working_elements,
-        ).matrix_values
-        reconstruction = MatrixFieldErrorAnalyzer().execute(
-            reconstruction_values,
-            aligned_samples,
-            controls.energy_reference,
-        )
-        parseval = FinitePeriodicMatrixParsevalAnalyzer().analyze(transform)
-        parseval_scale = max(
-            parseval.sample_mean_squared_frobenius_norm.magnitude,
-            controls.saturation_denominator_floor,
-        )
-        parseval_relative = parseval.absolute_defect.magnitude / parseval_scale
-        hermiticity = FinitePeriodicMatrixHermiticityAnalyzer().analyze(transform)
-        normalization = math.sqrt(model.retained_rank) * controls.energy_reference
-        ordinary_hermiticity = (
-            hermiticity.ordinary_maximum_frobenius_defect.magnitude / normalization
-        )
-        twisted_hermiticity = (
-            hermiticity.twisted_cyclic_maximum_frobenius_defect.magnitude
-            / normalization
-        )
-        blocks = FourierMatrixBlockNormInventoryAnalyzer1D().execute(
-            transform.series,
-            controls.maximum_recorded_block_range,
-            controls.energy_reference,
-        )
-        evaluation_coordinates = _coordinates(
-            self._request.configuration.evaluation_mesh_size,
-            self._request.configuration.evaluation_shift_numerator
-            / self._request.configuration.evaluation_shift_denominator,
-        )
-        full_evaluation = self._fourier_evaluator.evaluate(
-            transform.series,
-            (evaluation_coordinates,),
-            controls.maximum_working_elements,
-        ).matrix_values
-        direct_evaluation = self._direct_evaluation_field(
-            model,
-            evaluation_coordinates,
-            channel,
-            global_selection,
-        )
-        interpolation = MatrixFieldComparisonAnalyzer().execute(
-            full_evaluation,
-            direct_evaluation,
-            controls.energy_reference,
-            controls.saturation_denominator_floor,
-        )
-        tail_analyzer = SymmetricRangeTailAnalyzer1D()
-        tails = tuple(
-            tail_analyzer.execute(transform.series, support, controls.energy_reference)
-            for support in controls.support_radii
-        )
-        support_results: list[Periodic1DHigherRankSupportResult] = []
-        for tail in tails:
-            indices = tuple(
-                index
-                for index, mode in enumerate(transform.series.integer_modes[:, 0])
-                if abs(int(mode)) <= tail.maximum_range
-            )
-            truncated_series = transform.series.take(indices)
-            omitted_indices = tuple(
-                index
-                for index in range(transform.series.term_count)
-                if index not in indices
-            )
-            omitted_series = transform.series.take(omitted_indices)
-            truncated_evaluation = self._fourier_evaluator.evaluate(
-                truncated_series,
-                (evaluation_coordinates,),
-                controls.maximum_working_elements,
-            ).matrix_values
-            omitted_construction = self._fourier_evaluator.evaluate(
-                omitted_series,
-                (coordinates,),
-                controls.maximum_working_elements,
-            ).matrix_values
-            truncation = MatrixFieldComparisonAnalyzer().execute(
-                truncated_evaluation,
-                full_evaluation,
-                controls.energy_reference,
-                controls.saturation_denominator_floor,
-            )
-            total = MatrixFieldComparisonAnalyzer().execute(
-                truncated_evaluation,
-                direct_evaluation,
-                controls.energy_reference,
-                controls.saturation_denominator_floor,
-            )
-            decomposition = MatrixErrorDecompositionAnalyzer().execute(
-                full_evaluation - direct_evaluation,
-                truncated_evaluation - full_evaluation,
-                truncated_evaluation - direct_evaluation,
-                controls.energy_reference,
-            )
-            construction_weight = float(
-                np.mean(
-                    np.linalg.norm(
-                        omitted_construction,
-                        axis=(-2, -1),
-                    )
-                    ** 2
-                )
-            )
-            parseval_denominator = max(
-                construction_weight,
-                tail.omitted_squared_frobenius_weight,
-                model.retained_rank * controls.saturation_denominator_floor,
-            )
-            support_results.append(
-                Periodic1DHigherRankSupportResult(
-                    maximum_range=tail.maximum_range,
-                    retained_translations=tail.retained_translations,
-                    omitted_squared_frobenius_weight=tail.omitted_squared_frobenius_weight,
-                    normalized_omitted_squared_frobenius_weight=tail.normalized_omitted_squared_frobenius_weight,
-                    omitted_frobenius_l2_norm=tail.omitted_frobenius_l2_norm,
-                    normalized_omitted_frobenius_l2_norm=tail.normalized_omitted_frobenius_l2_norm,
-                    omitted_block_l1_norm=tail.omitted_block_l1_norm,
-                    normalized_omitted_block_l1_norm=tail.normalized_omitted_block_l1_norm,
-                    construction_parseval_relative_defect=(
-                        abs(construction_weight - tail.omitted_squared_frobenius_weight)
-                        / parseval_denominator
-                    ),
-                    construction_parseval_pass=(
-                        abs(construction_weight - tail.omitted_squared_frobenius_weight)
-                        / parseval_denominator
-                        <= controls.fourier_consistency_tolerance
-                    ),
-                    truncation=Periodic1DHigherRankMatrixComparisonResult.from_diagnostics(
-                        truncation,
-                        controls.perturbation_bound_tolerance,
-                    ),
-                    total=Periodic1DHigherRankMatrixComparisonResult.from_diagnostics(
-                        total,
-                        controls.perturbation_bound_tolerance,
-                    ),
-                    error_decomposition_defect=decomposition.maximum_frobenius_defect,
-                    normalized_error_decomposition_defect=decomposition.normalized_maximum_frobenius_defect,
-                    error_decomposition_pass=(
-                        decomposition.normalized_maximum_frobenius_defect
-                        <= controls.error_decomposition_tolerance
-                    ),
-                )
-            )
-        monotonicity = SymmetricRangeTailMonotonicityAnalyzer1D().execute(
-            tails,
-            controls.tail_monotonicity_tolerance,
-        )
-        maximum_tail_increase = max(
-            max(
-                item.normalized_squared_weight_increase,
-                item.normalized_l2_norm_increase,
-                item.normalized_l1_norm_increase,
-            )
-            for item in monotonicity
-        )
-        return Periodic1DHigherRankChannelMeshResult(
-            status=status,
-            transform_backend_identifier=transform.backend_identifier,
-            transform_backend_version=transform.backend_version,
-            fourier_representative_count=transform.series.term_count,
-            fourier_representative_inventory_ordered_unique=(
-                representative_inventory_ordered_unique
-            ),
-            fourier_inversion_closed=inversion_closed,
-            fourier_index_bijection_pass=index_bijection_pass,
-            no_nyquist_disposition=_ODD_CENTERED_NO_NYQUIST_DISPOSITION,
-            coefficient_translations=np.asarray(
-                [block.translation for block in blocks.blocks],
-                dtype=np.int64,
-            ),
-            block_raw_frobenius_norms=np.asarray(
-                [block.raw_frobenius_norm for block in blocks.blocks],
-                dtype=np.float64,
-            ),
-            block_normalized_frobenius_norms=np.asarray(
-                [block.normalized_frobenius_norm for block in blocks.blocks],
-                dtype=np.float64,
-            ),
-            frame_recovery=frame_recovery,
-            known_frame_recovery_pass=(
-                frame_recovery.normalized_frobenius_maximum
-                <= controls.direct_recovery_tolerance
-                if known_recovery_applicable
-                else None
-            ),
-            represented_operator_recovery=Periodic1DHigherRankMatrixErrorResult.from_diagnostics(
-                represented_operator_recovery
-            ),
-            known_operator_recovery_pass=(
-                represented_operator_recovery.normalized_matrix_frobenius_maximum
-                <= controls.direct_recovery_tolerance
-                if known_recovery_applicable
-                else None
-            ),
-            reconstruction=Periodic1DHigherRankMatrixErrorResult.from_diagnostics(
-                reconstruction
-            ),
-            reconstruction_pass=(
-                reconstruction.normalized_matrix_frobenius_maximum
-                <= controls.fourier_consistency_tolerance
-            ),
-            interpolation=Periodic1DHigherRankMatrixComparisonResult.from_diagnostics(
-                interpolation,
-                controls.perturbation_bound_tolerance,
-            ),
-            final_interpolation_operator_pass=(
-                interpolation.errors.normalized_matrix_frobenius_maximum
-                <= controls.final_interpolation_operator_tolerance
-            ),
-            final_interpolation_spectrum_pass=(
-                interpolation.errors.normalized_ordered_spectrum_maximum
-                <= controls.final_interpolation_spectrum_tolerance
-            ),
-            parseval_relative_defect=parseval_relative,
-            parseval_pass=(parseval_relative <= controls.fourier_consistency_tolerance),
-            ordinary_hermiticity_defect=ordinary_hermiticity,
-            ordinary_hermiticity_pass=(
-                ordinary_hermiticity <= controls.fourier_consistency_tolerance
-            ),
-            twisted_cyclic_hermiticity_defect=twisted_hermiticity,
-            twisted_cyclic_hermiticity_pass=(
-                twisted_hermiticity <= controls.fourier_consistency_tolerance
-            ),
-            supports=tuple(support_results),
-            maximum_tail_increase=maximum_tail_increase,
-            all_tail_monotonicity_checks_pass=all(item.passes for item in monotonicity),
-        )
-
-    def _block_refinements(
-        self,
-        meshes: tuple[Periodic1DHigherRankMeshCalculationResult, ...],
-    ) -> tuple[Periodic1DHigherRankBlockRefinementResult, ...]:
-        controls = self._request.controls
-        results: list[Periodic1DHigherRankBlockRefinementResult] = []
-        for channel in self._request.configuration.alignment_channels:
-            for coarse_mesh, fine_mesh in zip(meshes[:-1], meshes[1:], strict=True):
-                coarse = next(
-                    item
-                    for item in coarse_mesh.channels
-                    if item.status.channel is channel
-                )
-                fine = next(
-                    item
-                    for item in fine_mesh.channels
-                    if item.status.channel is channel
-                )
-                if (
-                    coarse.status.status
-                    is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
-                    or fine.status.status
-                    is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
-                ):
-                    continue
-                if not np.array_equal(
-                    coarse.coefficient_translations, fine.coefficient_translations
-                ):
-                    raise ValueError(
-                        "adjacent block inventories must use identical translations"
-                    )
-                absolute = np.abs(
-                    fine.block_normalized_frobenius_norms
-                    - coarse.block_normalized_frobenius_norms
-                )
-                scale = np.maximum(
-                    np.maximum(
-                        np.abs(coarse.block_normalized_frobenius_norms),
-                        np.abs(fine.block_normalized_frobenius_norms),
-                    ),
-                    controls.refinement_denominator_floor,
-                )
-                relative = absolute / scale
-                applied = (
-                    controls.refinement_absolute_tolerance
-                    + controls.refinement_relative_tolerance
-                    * np.maximum(
-                        np.abs(coarse.block_normalized_frobenius_norms),
-                        np.abs(fine.block_normalized_frobenius_norms),
-                    )
-                )
-                margins = applied - absolute
-                results.append(
-                    Periodic1DHigherRankBlockRefinementResult(
-                        channel=channel,
-                        coarse_mesh_size=coarse_mesh.construction_mesh_size,
-                        fine_mesh_size=fine_mesh.construction_mesh_size,
-                        translations=coarse.coefficient_translations,
-                        coarse_normalized_block_norms=coarse.block_normalized_frobenius_norms,
-                        fine_normalized_block_norms=fine.block_normalized_frobenius_norms,
-                        absolute_changes=np.asarray(absolute, dtype=np.float64),
-                        relative_changes=np.asarray(relative, dtype=np.float64),
-                        applied_tolerances=np.asarray(applied, dtype=np.float64),
-                        signed_margins=np.asarray(margins, dtype=np.float64),
-                        all_pass=bool(np.all(margins >= 0.0)),
-                    )
-                )
-        return tuple(results)
-
-    @staticmethod
-    def _scalar_inventory(
-        channel: Periodic1DHigherRankChannelMeshResult,
-    ) -> tuple[tuple[str, float], ...]:
-        interpolation = channel.interpolation
-        if interpolation is None:
-            raise ValueError("qualified channel requires interpolation diagnostics")
-        values: list[tuple[str, float]] = [
-            (
-                "/interpolation/normalized_operator_maximum",
-                interpolation.errors.normalized_matrix_frobenius_maximum,
-            ),
-            (
-                "/interpolation/normalized_spectrum_maximum",
-                interpolation.errors.normalized_ordered_spectrum_maximum,
-            ),
-        ]
-        values.extend(
-            (f"/blocks/{int(translation):+d}", float(value))
-            for translation, value in zip(
-                channel.coefficient_translations,
-                channel.block_normalized_frobenius_norms,
-                strict=True,
-            )
-        )
-        for support in channel.supports:
-            prefix = f"/supports/{support.maximum_range}"
-            values.extend(
-                (
-                    (
-                        f"{prefix}/tail_w",
-                        support.normalized_omitted_squared_frobenius_weight,
-                    ),
-                    (
-                        f"{prefix}/tail_n",
-                        support.normalized_omitted_frobenius_l2_norm,
-                    ),
-                    (
-                        f"{prefix}/tail_l",
-                        support.normalized_omitted_block_l1_norm,
-                    ),
-                    (
-                        f"{prefix}/truncation_operator_maximum",
-                        support.truncation.errors.normalized_matrix_frobenius_maximum,
-                    ),
-                    (
-                        f"{prefix}/truncation_spectrum_maximum",
-                        support.truncation.errors.normalized_ordered_spectrum_maximum,
-                    ),
-                    (
-                        f"{prefix}/total_operator_maximum",
-                        support.total.errors.normalized_matrix_frobenius_maximum,
-                    ),
-                    (
-                        f"{prefix}/total_spectrum_maximum",
-                        support.total.errors.normalized_ordered_spectrum_maximum,
-                    ),
-                    (
-                        f"{prefix}/parseval",
-                        support.construction_parseval_relative_defect,
-                    ),
-                    (
-                        f"{prefix}/decomposition",
-                        support.normalized_error_decomposition_defect,
-                    ),
-                )
-            )
-        return tuple(values)
-
-    def _scalar_refinements(
-        self,
-        meshes: tuple[Periodic1DHigherRankMeshCalculationResult, ...],
-    ) -> tuple[Periodic1DHigherRankScalarRefinementResult, ...]:
-        controls = self._request.controls
-        coarse_mesh = next(
-            mesh for mesh in meshes if mesh.construction_mesh_size == 1025
-        )
-        fine_mesh = next(mesh for mesh in meshes if mesh.construction_mesh_size == 2049)
-        results: list[Periodic1DHigherRankScalarRefinementResult] = []
-        for channel in self._request.configuration.alignment_channels:
-            coarse = next(
-                item for item in coarse_mesh.channels if item.status.channel is channel
-            )
-            fine = next(
-                item for item in fine_mesh.channels if item.status.channel is channel
-            )
-            if (
-                coarse.status.status
-                is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
-                or fine.status.status
-                is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
-            ):
-                continue
-            coarse_inventory = self._scalar_inventory(coarse)
-            fine_inventory = self._scalar_inventory(fine)
-            if tuple(path for path, _ in coarse_inventory) != tuple(
-                path for path, _ in fine_inventory
-            ):
-                raise ValueError("final scalar refinement inventories must agree")
-            for (path, coarse_value), (_, fine_value) in zip(
-                coarse_inventory, fine_inventory, strict=True
-            ):
-                change = abs(fine_value - coarse_value)
-                scale = max(
-                    abs(coarse_value),
-                    abs(fine_value),
-                    controls.refinement_denominator_floor,
-                )
-                tolerance = controls.refinement_absolute_tolerance + (
-                    controls.refinement_relative_tolerance
-                    * max(abs(coarse_value), abs(fine_value))
-                )
-                margin = tolerance - change
-                results.append(
-                    Periodic1DHigherRankScalarRefinementResult(
-                        channel=channel,
-                        diagnostic_path=path,
-                        coarse_mesh_size=coarse_mesh.construction_mesh_size,
-                        fine_mesh_size=fine_mesh.construction_mesh_size,
-                        coarse_value=coarse_value,
-                        fine_value=fine_value,
-                        absolute_change=change,
-                        relative_change=change / scale,
-                        applied_tolerance=tolerance,
-                        signed_margin=margin,
-                        passes=margin >= 0.0,
-                    )
-                )
-        return tuple(results)
+            fourier_transformer=self._fourier_transformer,
+            fourier_evaluator=self._fourier_evaluator,
+        ).execute()
 
 
 __all__ = ["Periodic1DHigherRankAlignmentAnalyzer"]

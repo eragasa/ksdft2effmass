@@ -9,9 +9,11 @@
 | `request.py` | Selects one rank/depth/construction-mesh transport and its ambient-basis, retained-frame, and endpoint-sewing identities. |
 | `result.py` | Stores link diagnostics, backend failures, channel outcomes, and request-bound periodic-frame transport results. |
 | `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and depth-dependent gauge circuit. |
-| `calculation.py` | Defines frozen calculation controls, the complete request, and typed model, alignment, Fourier, support, mesh, refinement, and case results. |
-| `analysis.py` | Composes Optimization Procrustes, PhysKit transport and odd-mesh Fourier owners, and KSD matrix-field diagnostics into one zero-argument calculation action. |
-| `__init__.py` | Defines the supported public imports. |
+| `calculation.py` | Defines frozen calculation controls, the complete request, and typed model, alignment, Fourier, support, mesh, refinement, and case results with explicit canonical-wire mappings. |
+| `channel_analysis.py` | Owns the request-bound transform, shifted evaluation, support, and locality analysis for one qualified channel. |
+| `refinement.py` | Owns request-bound block and scalar refinement analysis across the three construction meshes. |
+| `analysis.py` | Composes Optimization Procrustes, PhysKit transport and odd-mesh Fourier owners, and the purpose-specific channel and refinement actions into the calculation action. |
+| `__init__.py` | Defines the deliberately narrow supported public imports; internal purpose-specific actions remain module-local imports. |
 
 The records are immutable and serialize deterministically. This makes a saved result
 reconstructible without relying on mutable NumPy arrays or a process-wide serializer
@@ -77,8 +79,12 @@ first deficient overlap and contains no closure matrices or Schur evidence.
 `Periodic1DHigherRankAlignmentAnalyzer` receives the complete immutable calculation
 request and concrete Optimization and PhysKit owners in its constructor. Its
 zero-argument `execute()` method constructs one analytic case, selects the global
-unitary at $M=2049$, evaluates all three construction meshes, and returns a
-`Periodic1DHigherRankAlignmentCalculationResult`.
+unitary at $M=2049$, evaluates all three construction meshes, delegates each qualified
+channel to `Periodic1DHigherRankChannelAnalyzer`, delegates mesh-pair comparisons to
+`Periodic1DHigherRankRefinementAnalyzer`, and returns a
+`Periodic1DHigherRankAlignmentCalculationResult`. These purpose-specific actions bind
+complete immutable requests and are imported from their owning modules rather than
+re-exported from the package root.
 
 The result retains the exact request and a closed hierarchy:
 

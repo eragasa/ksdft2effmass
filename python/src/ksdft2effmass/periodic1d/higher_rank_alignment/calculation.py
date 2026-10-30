@@ -89,6 +89,12 @@ def _decoded_bool(value: SerializableValue, name: str) -> bool:
     return value
 
 
+def _decoded_int(value: SerializableValue, name: str) -> int:
+    if type(value) is not int:
+        raise TypeError(f"{name} must decode to a built-in integer")
+    return value
+
+
 def _decoded_optional_float(
     value: SerializableValue,
     name: str,
@@ -271,8 +277,25 @@ class Periodic1DHigherRankAlignmentCalculationControls(BaseTypedRecord):
         return {
             "support_radii": self.support_radii,
             "maximum_recorded_block_range": self.maximum_recorded_block_range,
+            "energy_reference": self.energy_reference,
+            "saturation_denominator_floor": self.saturation_denominator_floor,
+            "refinement_denominator_floor": self.refinement_denominator_floor,
             "maximum_working_elements": self.maximum_working_elements,
-            **{name: getattr(self, name) for name in self._float_names()},
+            "model_structure_tolerance": self.model_structure_tolerance,
+            "alignment_integrity_tolerance": self.alignment_integrity_tolerance,
+            "direct_recovery_tolerance": self.direct_recovery_tolerance,
+            "fourier_consistency_tolerance": self.fourier_consistency_tolerance,
+            "error_decomposition_tolerance": self.error_decomposition_tolerance,
+            "tail_monotonicity_tolerance": self.tail_monotonicity_tolerance,
+            "perturbation_bound_tolerance": self.perturbation_bound_tolerance,
+            "final_interpolation_operator_tolerance": (
+                self.final_interpolation_operator_tolerance
+            ),
+            "final_interpolation_spectrum_tolerance": (
+                self.final_interpolation_spectrum_tolerance
+            ),
+            "refinement_absolute_tolerance": self.refinement_absolute_tolerance,
+            "refinement_relative_tolerance": self.refinement_relative_tolerance,
         }
 
     @classmethod
@@ -489,23 +512,120 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
             raise ValueError("sampled attack angles must cover every construction mesh")
         if bool((sampled_angles > self.exact_analytic_attack_angle_maximum).any()):
             raise ValueError("sampled attack angle exceeds the analytic certificate")
-        for name in self.__dataclass_fields__:
-            if name not in (
-                "retained_rank",
-                "sampled_isolation_gaps",
-                "sampled_attack_angle_maxima",
-            ):
-                _finite_nonnegative(getattr(self, name), name)
+        for value, name in (
+            (self.exact_analytic_isolation_gap, "exact_analytic_isolation_gap"),
+            (
+                self.exact_analytic_attack_angle_maximum,
+                "exact_analytic_attack_angle_maximum",
+            ),
+            (self.parent_hermiticity_defect, "parent_hermiticity_defect"),
+            (
+                self.reference_frame_isometry_defect,
+                "reference_frame_isometry_defect",
+            ),
+            (self.gauge_unitarity_defect, "gauge_unitarity_defect"),
+            (
+                self.attacked_frame_isometry_defect,
+                "attacked_frame_isometry_defect",
+            ),
+            (
+                self.attacked_projector_equality_defect,
+                "attacked_projector_equality_defect",
+            ),
+            (
+                self.reference_projector_hermiticity_defect,
+                "reference_projector_hermiticity_defect",
+            ),
+            (
+                self.reference_projector_idempotency_defect,
+                "reference_projector_idempotency_defect",
+            ),
+            (
+                self.reference_operator_recovery_defect,
+                "reference_operator_recovery_defect",
+            ),
+            (
+                self.reference_spectrum_recovery_defect,
+                "reference_spectrum_recovery_defect",
+            ),
+            (
+                self.attacked_operator_recovery_defect,
+                "attacked_operator_recovery_defect",
+            ),
+            (
+                self.attacked_spectrum_recovery_defect,
+                "attacked_spectrum_recovery_defect",
+            ),
+            (self.oracle_frame_recovery_defect, "oracle_frame_recovery_defect"),
+            (
+                self.oracle_operator_recovery_defect,
+                "oracle_operator_recovery_defect",
+            ),
+        ):
+            _finite_nonnegative(value, name)
         object.__setattr__(self, "sampled_isolation_gaps", sampled)
         object.__setattr__(self, "sampled_attack_angle_maxima", sampled_angles)
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        return {
+            "retained_rank": self.retained_rank,
+            "exact_analytic_isolation_gap": self.exact_analytic_isolation_gap,
+            "sampled_isolation_gaps": self.sampled_isolation_gaps,
+            "exact_analytic_attack_angle_maximum": (
+                self.exact_analytic_attack_angle_maximum
+            ),
+            "sampled_attack_angle_maxima": self.sampled_attack_angle_maxima,
+            "parent_hermiticity_defect": self.parent_hermiticity_defect,
+            "reference_frame_isometry_defect": self.reference_frame_isometry_defect,
+            "gauge_unitarity_defect": self.gauge_unitarity_defect,
+            "attacked_frame_isometry_defect": self.attacked_frame_isometry_defect,
+            "attacked_projector_equality_defect": (
+                self.attacked_projector_equality_defect
+            ),
+            "reference_projector_hermiticity_defect": (
+                self.reference_projector_hermiticity_defect
+            ),
+            "reference_projector_idempotency_defect": (
+                self.reference_projector_idempotency_defect
+            ),
+            "reference_operator_recovery_defect": (
+                self.reference_operator_recovery_defect
+            ),
+            "reference_spectrum_recovery_defect": (
+                self.reference_spectrum_recovery_defect
+            ),
+            "attacked_operator_recovery_defect": (
+                self.attacked_operator_recovery_defect
+            ),
+            "attacked_spectrum_recovery_defect": (
+                self.attacked_spectrum_recovery_defect
+            ),
+            "oracle_frame_recovery_defect": self.oracle_frame_recovery_defect,
+            "oracle_operator_recovery_defect": self.oracle_operator_recovery_defect,
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
-        if set(values) != required:
+        if set(values) != {
+            "retained_rank",
+            "exact_analytic_isolation_gap",
+            "sampled_isolation_gaps",
+            "exact_analytic_attack_angle_maximum",
+            "sampled_attack_angle_maxima",
+            "parent_hermiticity_defect",
+            "reference_frame_isometry_defect",
+            "gauge_unitarity_defect",
+            "attacked_frame_isometry_defect",
+            "attacked_projector_equality_defect",
+            "reference_projector_hermiticity_defect",
+            "reference_projector_idempotency_defect",
+            "reference_operator_recovery_defect",
+            "reference_spectrum_recovery_defect",
+            "attacked_operator_recovery_defect",
+            "attacked_spectrum_recovery_defect",
+            "oracle_frame_recovery_defect",
+            "oracle_operator_recovery_defect",
+        }:
             raise ValueError("model diagnostic fields do not match")
         sampled = values["sampled_isolation_gaps"]
         sampled_angles = values["sampled_attack_angle_maxima"]
@@ -516,21 +636,68 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
             raise TypeError("sampled diagnostics must decode to numpy.ndarray")
         if type(rank) is not int:
             raise TypeError("retained_rank must decode to a built-in integer")
-        decoded: dict[str, float] = {}
-        for name in required - {
-            "retained_rank",
-            "sampled_isolation_gaps",
-            "sampled_attack_angle_maxima",
-        }:
-            value = values[name]
-            if type(value) is not float:
-                raise TypeError(f"{name} must decode to a built-in float")
-            decoded[name] = value
         return cls(
             retained_rank=rank,
+            exact_analytic_isolation_gap=_decoded_float(
+                values["exact_analytic_isolation_gap"],
+                "exact_analytic_isolation_gap",
+            ),
             sampled_isolation_gaps=sampled,
+            exact_analytic_attack_angle_maximum=_decoded_float(
+                values["exact_analytic_attack_angle_maximum"],
+                "exact_analytic_attack_angle_maximum",
+            ),
             sampled_attack_angle_maxima=sampled_angles,
-            **decoded,
+            parent_hermiticity_defect=_decoded_float(
+                values["parent_hermiticity_defect"], "parent_hermiticity_defect"
+            ),
+            reference_frame_isometry_defect=_decoded_float(
+                values["reference_frame_isometry_defect"],
+                "reference_frame_isometry_defect",
+            ),
+            gauge_unitarity_defect=_decoded_float(
+                values["gauge_unitarity_defect"], "gauge_unitarity_defect"
+            ),
+            attacked_frame_isometry_defect=_decoded_float(
+                values["attacked_frame_isometry_defect"],
+                "attacked_frame_isometry_defect",
+            ),
+            attacked_projector_equality_defect=_decoded_float(
+                values["attacked_projector_equality_defect"],
+                "attacked_projector_equality_defect",
+            ),
+            reference_projector_hermiticity_defect=_decoded_float(
+                values["reference_projector_hermiticity_defect"],
+                "reference_projector_hermiticity_defect",
+            ),
+            reference_projector_idempotency_defect=_decoded_float(
+                values["reference_projector_idempotency_defect"],
+                "reference_projector_idempotency_defect",
+            ),
+            reference_operator_recovery_defect=_decoded_float(
+                values["reference_operator_recovery_defect"],
+                "reference_operator_recovery_defect",
+            ),
+            reference_spectrum_recovery_defect=_decoded_float(
+                values["reference_spectrum_recovery_defect"],
+                "reference_spectrum_recovery_defect",
+            ),
+            attacked_operator_recovery_defect=_decoded_float(
+                values["attacked_operator_recovery_defect"],
+                "attacked_operator_recovery_defect",
+            ),
+            attacked_spectrum_recovery_defect=_decoded_float(
+                values["attacked_spectrum_recovery_defect"],
+                "attacked_spectrum_recovery_defect",
+            ),
+            oracle_frame_recovery_defect=_decoded_float(
+                values["oracle_frame_recovery_defect"],
+                "oracle_frame_recovery_defect",
+            ),
+            oracle_operator_recovery_defect=_decoded_float(
+                values["oracle_operator_recovery_defect"],
+                "oracle_operator_recovery_defect",
+            ),
         )
 
 
@@ -896,7 +1063,22 @@ class Periodic1DHigherRankMatrixErrorResult(BaseTypedRecord):
 
     def __post_init__(self) -> None:
         MatrixFieldErrorSummary(
-            **{name: getattr(self, name) for name in self.__dataclass_fields__}
+            rank=self.rank,
+            energy_reference=self.energy_reference,
+            matrix_frobenius_maximum=self.matrix_frobenius_maximum,
+            matrix_frobenius_rms=self.matrix_frobenius_rms,
+            normalized_matrix_frobenius_maximum=(
+                self.normalized_matrix_frobenius_maximum
+            ),
+            normalized_matrix_frobenius_rms=self.normalized_matrix_frobenius_rms,
+            ordered_spectrum_maximum=self.ordered_spectrum_maximum,
+            ordered_spectrum_l2_rms=self.ordered_spectrum_l2_rms,
+            normalized_ordered_spectrum_maximum=(
+                self.normalized_ordered_spectrum_maximum
+            ),
+            normalized_ordered_spectrum_l2_rms=(
+                self.normalized_ordered_spectrum_l2_rms
+            ),
         )
 
     @classmethod
@@ -904,26 +1086,97 @@ class Periodic1DHigherRankMatrixErrorResult(BaseTypedRecord):
         """Copy one validated matrix-field diagnostic onto the calculation wire."""
         if type(value) is not MatrixFieldErrorSummary:
             raise TypeError("value must be MatrixFieldErrorSummary")
-        return cls(**{name: getattr(value, name) for name in cls.__dataclass_fields__})
+        return cls(
+            rank=value.rank,
+            energy_reference=value.energy_reference,
+            matrix_frobenius_maximum=value.matrix_frobenius_maximum,
+            matrix_frobenius_rms=value.matrix_frobenius_rms,
+            normalized_matrix_frobenius_maximum=(
+                value.normalized_matrix_frobenius_maximum
+            ),
+            normalized_matrix_frobenius_rms=value.normalized_matrix_frobenius_rms,
+            ordered_spectrum_maximum=value.ordered_spectrum_maximum,
+            ordered_spectrum_l2_rms=value.ordered_spectrum_l2_rms,
+            normalized_ordered_spectrum_maximum=(
+                value.normalized_ordered_spectrum_maximum
+            ),
+            normalized_ordered_spectrum_l2_rms=(
+                value.normalized_ordered_spectrum_l2_rms
+            ),
+        )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        return {
+            "rank": self.rank,
+            "energy_reference": self.energy_reference,
+            "matrix_frobenius_maximum": self.matrix_frobenius_maximum,
+            "matrix_frobenius_rms": self.matrix_frobenius_rms,
+            "normalized_matrix_frobenius_maximum": (
+                self.normalized_matrix_frobenius_maximum
+            ),
+            "normalized_matrix_frobenius_rms": (self.normalized_matrix_frobenius_rms),
+            "ordered_spectrum_maximum": self.ordered_spectrum_maximum,
+            "ordered_spectrum_l2_rms": self.ordered_spectrum_l2_rms,
+            "normalized_ordered_spectrum_maximum": (
+                self.normalized_ordered_spectrum_maximum
+            ),
+            "normalized_ordered_spectrum_l2_rms": (
+                self.normalized_ordered_spectrum_l2_rms
+            ),
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
-        if set(values) != required:
+        if set(values) != {
+            "rank",
+            "energy_reference",
+            "matrix_frobenius_maximum",
+            "matrix_frobenius_rms",
+            "normalized_matrix_frobenius_maximum",
+            "normalized_matrix_frobenius_rms",
+            "ordered_spectrum_maximum",
+            "ordered_spectrum_l2_rms",
+            "normalized_ordered_spectrum_maximum",
+            "normalized_ordered_spectrum_l2_rms",
+        }:
             raise ValueError("matrix error fields do not match")
         rank = values["rank"]
         if type(rank) is not int:
             raise TypeError("rank must decode to a built-in integer")
-        floats: dict[str, float] = {}
-        for name in required - {"rank"}:
-            value = values[name]
-            if type(value) is not float:
-                raise TypeError(f"{name} must decode to a built-in float")
-            floats[name] = value
-        return cls(rank=rank, **floats)
+        return cls(
+            rank=rank,
+            energy_reference=_decoded_float(
+                values["energy_reference"], "energy_reference"
+            ),
+            matrix_frobenius_maximum=_decoded_float(
+                values["matrix_frobenius_maximum"], "matrix_frobenius_maximum"
+            ),
+            matrix_frobenius_rms=_decoded_float(
+                values["matrix_frobenius_rms"], "matrix_frobenius_rms"
+            ),
+            normalized_matrix_frobenius_maximum=_decoded_float(
+                values["normalized_matrix_frobenius_maximum"],
+                "normalized_matrix_frobenius_maximum",
+            ),
+            normalized_matrix_frobenius_rms=_decoded_float(
+                values["normalized_matrix_frobenius_rms"],
+                "normalized_matrix_frobenius_rms",
+            ),
+            ordered_spectrum_maximum=_decoded_float(
+                values["ordered_spectrum_maximum"], "ordered_spectrum_maximum"
+            ),
+            ordered_spectrum_l2_rms=_decoded_float(
+                values["ordered_spectrum_l2_rms"], "ordered_spectrum_l2_rms"
+            ),
+            normalized_ordered_spectrum_maximum=_decoded_float(
+                values["normalized_ordered_spectrum_maximum"],
+                "normalized_ordered_spectrum_maximum",
+            ),
+            normalized_ordered_spectrum_l2_rms=_decoded_float(
+                values["normalized_ordered_spectrum_l2_rms"],
+                "normalized_ordered_spectrum_l2_rms",
+            ),
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -942,13 +1195,25 @@ class Periodic1DHigherRankMatrixComparisonResult(BaseTypedRecord):
     def __post_init__(self) -> None:
         if type(self.errors) is not Periodic1DHigherRankMatrixErrorResult:
             raise TypeError("errors must be the exact matrix error record")
-        for name in (
-            "maximum_ordered_spectrum_minus_spectral_norm",
-            "maximum_ordered_spectrum_minus_frobenius_norm",
-            "maximum_spectral_norm_minus_frobenius_norm",
-            "applied_perturbation_bound_tolerance",
+        for value, name in (
+            (
+                self.maximum_ordered_spectrum_minus_spectral_norm,
+                "maximum_ordered_spectrum_minus_spectral_norm",
+            ),
+            (
+                self.maximum_ordered_spectrum_minus_frobenius_norm,
+                "maximum_ordered_spectrum_minus_frobenius_norm",
+            ),
+            (
+                self.maximum_spectral_norm_minus_frobenius_norm,
+                "maximum_spectral_norm_minus_frobenius_norm",
+            ),
+            (
+                self.applied_perturbation_bound_tolerance,
+                "applied_perturbation_bound_tolerance",
+            ),
         ):
-            _finite_nonnegative(getattr(self, name), name)
+            _finite_nonnegative(value, name)
         if type(self.all_perturbation_bounds_pass) is not bool:
             raise TypeError("all_perturbation_bounds_pass must be a built-in bool")
         observed = max(
@@ -960,13 +1225,18 @@ class Periodic1DHigherRankMatrixComparisonResult(BaseTypedRecord):
             observed <= self.applied_perturbation_bound_tolerance
         ):
             raise ValueError("perturbation-bound disposition is inconsistent")
-        for name in (
-            "maximum_band_over_spectral_ratio",
-            "maximum_band_over_frobenius_ratio",
+        for optional_value, name in (
+            (
+                self.maximum_band_over_spectral_ratio,
+                "maximum_band_over_spectral_ratio",
+            ),
+            (
+                self.maximum_band_over_frobenius_ratio,
+                "maximum_band_over_frobenius_ratio",
+            ),
         ):
-            value = getattr(self, name)
-            if value is not None:
-                _finite_nonnegative(value, name)
+            if optional_value is not None:
+                _finite_nonnegative(optional_value, name)
 
     @classmethod
     def from_diagnostics(
@@ -996,12 +1266,39 @@ class Periodic1DHigherRankMatrixComparisonResult(BaseTypedRecord):
         )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        return {
+            "errors": self.errors,
+            "maximum_ordered_spectrum_minus_spectral_norm": (
+                self.maximum_ordered_spectrum_minus_spectral_norm
+            ),
+            "maximum_ordered_spectrum_minus_frobenius_norm": (
+                self.maximum_ordered_spectrum_minus_frobenius_norm
+            ),
+            "maximum_spectral_norm_minus_frobenius_norm": (
+                self.maximum_spectral_norm_minus_frobenius_norm
+            ),
+            "applied_perturbation_bound_tolerance": (
+                self.applied_perturbation_bound_tolerance
+            ),
+            "all_perturbation_bounds_pass": self.all_perturbation_bounds_pass,
+            "maximum_band_over_spectral_ratio": (self.maximum_band_over_spectral_ratio),
+            "maximum_band_over_frobenius_ratio": (
+                self.maximum_band_over_frobenius_ratio
+            ),
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
-        if set(values) != required:
+        if set(values) != {
+            "errors",
+            "maximum_ordered_spectrum_minus_spectral_norm",
+            "maximum_ordered_spectrum_minus_frobenius_norm",
+            "maximum_spectral_norm_minus_frobenius_norm",
+            "applied_perturbation_bound_tolerance",
+            "all_perturbation_bounds_pass",
+            "maximum_band_over_spectral_ratio",
+            "maximum_band_over_frobenius_ratio",
+        }:
             raise ValueError("matrix comparison fields do not match")
         return cls(
             errors=Periodic1DHigherRankMatrixErrorResult.from_dict(
@@ -1075,18 +1372,36 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
             raise ValueError(
                 "retained_translations must equal the declared symmetric support"
             )
-        for name in (
-            "omitted_squared_frobenius_weight",
-            "normalized_omitted_squared_frobenius_weight",
-            "omitted_frobenius_l2_norm",
-            "normalized_omitted_frobenius_l2_norm",
-            "omitted_block_l1_norm",
-            "normalized_omitted_block_l1_norm",
-            "construction_parseval_relative_defect",
-            "error_decomposition_defect",
-            "normalized_error_decomposition_defect",
+        for value, name in (
+            (
+                self.omitted_squared_frobenius_weight,
+                "omitted_squared_frobenius_weight",
+            ),
+            (
+                self.normalized_omitted_squared_frobenius_weight,
+                "normalized_omitted_squared_frobenius_weight",
+            ),
+            (self.omitted_frobenius_l2_norm, "omitted_frobenius_l2_norm"),
+            (
+                self.normalized_omitted_frobenius_l2_norm,
+                "normalized_omitted_frobenius_l2_norm",
+            ),
+            (self.omitted_block_l1_norm, "omitted_block_l1_norm"),
+            (
+                self.normalized_omitted_block_l1_norm,
+                "normalized_omitted_block_l1_norm",
+            ),
+            (
+                self.construction_parseval_relative_defect,
+                "construction_parseval_relative_defect",
+            ),
+            (self.error_decomposition_defect, "error_decomposition_defect"),
+            (
+                self.normalized_error_decomposition_defect,
+                "normalized_error_decomposition_defect",
+            ),
         ):
-            _finite_nonnegative(getattr(self, name), name)
+            _finite_nonnegative(value, name)
         if type(self.construction_parseval_pass) is not bool:
             raise TypeError("construction_parseval_pass must be a built-in bool")
         controls = Periodic1DHigherRankAlignmentCalculationControls
@@ -1109,12 +1424,51 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
             raise TypeError("truncation and total must be exact comparison records")
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        return {
+            "maximum_range": self.maximum_range,
+            "retained_translations": self.retained_translations,
+            "omitted_squared_frobenius_weight": (self.omitted_squared_frobenius_weight),
+            "normalized_omitted_squared_frobenius_weight": (
+                self.normalized_omitted_squared_frobenius_weight
+            ),
+            "omitted_frobenius_l2_norm": self.omitted_frobenius_l2_norm,
+            "normalized_omitted_frobenius_l2_norm": (
+                self.normalized_omitted_frobenius_l2_norm
+            ),
+            "omitted_block_l1_norm": self.omitted_block_l1_norm,
+            "normalized_omitted_block_l1_norm": (self.normalized_omitted_block_l1_norm),
+            "construction_parseval_relative_defect": (
+                self.construction_parseval_relative_defect
+            ),
+            "construction_parseval_pass": self.construction_parseval_pass,
+            "truncation": self.truncation,
+            "total": self.total,
+            "error_decomposition_defect": self.error_decomposition_defect,
+            "normalized_error_decomposition_defect": (
+                self.normalized_error_decomposition_defect
+            ),
+            "error_decomposition_pass": self.error_decomposition_pass,
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
-        if set(values) != required:
+        if set(values) != {
+            "maximum_range",
+            "retained_translations",
+            "omitted_squared_frobenius_weight",
+            "normalized_omitted_squared_frobenius_weight",
+            "omitted_frobenius_l2_norm",
+            "normalized_omitted_frobenius_l2_norm",
+            "omitted_block_l1_norm",
+            "normalized_omitted_block_l1_norm",
+            "construction_parseval_relative_defect",
+            "construction_parseval_pass",
+            "truncation",
+            "total",
+            "error_decomposition_defect",
+            "normalized_error_decomposition_defect",
+            "error_decomposition_pass",
+        }:
             raise ValueError("support result fields do not match")
         maximum_range = values["maximum_range"]
         translations = values["retained_translations"]
@@ -1124,22 +1478,35 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
             type(value) is not int for value in translations
         ):
             raise TypeError("retained_translations must decode to built-in integers")
-        floats: dict[str, float] = {}
-        for name in required - {
-            "maximum_range",
-            "retained_translations",
-            "construction_parseval_pass",
-            "truncation",
-            "total",
-            "error_decomposition_pass",
-        }:
-            value = values[name]
-            if type(value) is not float:
-                raise TypeError(f"{name} must decode to a built-in float")
-            floats[name] = value
         return cls(
             maximum_range=maximum_range,
             retained_translations=translations,
+            omitted_squared_frobenius_weight=_decoded_float(
+                values["omitted_squared_frobenius_weight"],
+                "omitted_squared_frobenius_weight",
+            ),
+            normalized_omitted_squared_frobenius_weight=_decoded_float(
+                values["normalized_omitted_squared_frobenius_weight"],
+                "normalized_omitted_squared_frobenius_weight",
+            ),
+            omitted_frobenius_l2_norm=_decoded_float(
+                values["omitted_frobenius_l2_norm"], "omitted_frobenius_l2_norm"
+            ),
+            normalized_omitted_frobenius_l2_norm=_decoded_float(
+                values["normalized_omitted_frobenius_l2_norm"],
+                "normalized_omitted_frobenius_l2_norm",
+            ),
+            omitted_block_l1_norm=_decoded_float(
+                values["omitted_block_l1_norm"], "omitted_block_l1_norm"
+            ),
+            normalized_omitted_block_l1_norm=_decoded_float(
+                values["normalized_omitted_block_l1_norm"],
+                "normalized_omitted_block_l1_norm",
+            ),
+            construction_parseval_relative_defect=_decoded_float(
+                values["construction_parseval_relative_defect"],
+                "construction_parseval_relative_defect",
+            ),
             construction_parseval_pass=_decoded_bool(
                 values["construction_parseval_pass"],
                 "construction_parseval_pass",
@@ -1150,11 +1517,18 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
             total=Periodic1DHigherRankMatrixComparisonResult.from_dict(
                 _mapping_value(values["total"], "total")
             ),
+            error_decomposition_defect=_decoded_float(
+                values["error_decomposition_defect"],
+                "error_decomposition_defect",
+            ),
+            normalized_error_decomposition_defect=_decoded_float(
+                values["normalized_error_decomposition_defect"],
+                "normalized_error_decomposition_defect",
+            ),
             error_decomposition_pass=_decoded_bool(
                 values["error_decomposition_pass"],
                 "error_decomposition_pass",
             ),
-            **floats,
         )
 
 
@@ -1171,9 +1545,13 @@ class Periodic1DHigherRankFrameErrorResult(BaseTypedRecord):
     def __post_init__(self) -> None:
         if type(self.rank) is not int or self.rank <= 0:
             raise ValueError("rank must be a positive built-in integer")
-        for name in self.__dataclass_fields__:
-            if name != "rank":
-                _finite_nonnegative(getattr(self, name), name)
+        for value, name in (
+            (self.frobenius_maximum, "frobenius_maximum"),
+            (self.frobenius_rms, "frobenius_rms"),
+            (self.normalized_frobenius_maximum, "normalized_frobenius_maximum"),
+            (self.normalized_frobenius_rms, "normalized_frobenius_rms"),
+        ):
+            _finite_nonnegative(value, name)
         scale = math.sqrt(self.rank)
         if not math.isclose(
             self.frobenius_maximum / scale,
@@ -1189,23 +1567,41 @@ class Periodic1DHigherRankFrameErrorResult(BaseTypedRecord):
             raise ValueError("normalized frame errors disagree with rank normalization")
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        return {
+            "rank": self.rank,
+            "frobenius_maximum": self.frobenius_maximum,
+            "frobenius_rms": self.frobenius_rms,
+            "normalized_frobenius_maximum": self.normalized_frobenius_maximum,
+            "normalized_frobenius_rms": self.normalized_frobenius_rms,
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
-        if set(values) != required:
+        if set(values) != {
+            "rank",
+            "frobenius_maximum",
+            "frobenius_rms",
+            "normalized_frobenius_maximum",
+            "normalized_frobenius_rms",
+        }:
             raise ValueError("frame error fields do not match")
         rank = values["rank"]
         if type(rank) is not int:
             raise TypeError("rank must decode to a built-in integer")
-        floats: dict[str, float] = {}
-        for name in required - {"rank"}:
-            value = values[name]
-            if type(value) is not float:
-                raise TypeError(f"{name} must decode to a built-in float")
-            floats[name] = value
-        return cls(rank=rank, **floats)
+        return cls(
+            rank=rank,
+            frobenius_maximum=_decoded_float(
+                values["frobenius_maximum"], "frobenius_maximum"
+            ),
+            frobenius_rms=_decoded_float(values["frobenius_rms"], "frobenius_rms"),
+            normalized_frobenius_maximum=_decoded_float(
+                values["normalized_frobenius_maximum"],
+                "normalized_frobenius_maximum",
+            ),
+            normalized_frobenius_rms=_decoded_float(
+                values["normalized_frobenius_rms"], "normalized_frobenius_rms"
+            ),
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -1329,13 +1725,15 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 raise ValueError(
                     "unqualified channel must not claim downstream diagnostics"
                 )
-        for name in (
-            "parseval_relative_defect",
-            "ordinary_hermiticity_defect",
-            "twisted_cyclic_hermiticity_defect",
-            "maximum_tail_increase",
+        for value, name in (
+            (self.parseval_relative_defect, "parseval_relative_defect"),
+            (self.ordinary_hermiticity_defect, "ordinary_hermiticity_defect"),
+            (
+                self.twisted_cyclic_hermiticity_defect,
+                "twisted_cyclic_hermiticity_defect",
+            ),
+            (self.maximum_tail_increase, "maximum_tail_increase"),
         ):
-            value = getattr(self, name)
             if value is not None:
                 _finite_nonnegative(value, name)
         for value, name in (
@@ -1439,23 +1837,92 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
             )
             if any(actual is not expected for actual, expected in expected_gate_values):
                 raise ValueError("channel gate disposition is inconsistent")
-        for value, name in (
+        for text_value, name in (
             (self.transform_backend_identifier, "transform_backend_identifier"),
             (self.transform_backend_version, "transform_backend_version"),
         ):
-            if value is not None:
-                _nonempty(value, name)
+            if text_value is not None:
+                _nonempty(text_value, name)
         object.__setattr__(self, "coefficient_translations", translations)
         object.__setattr__(self, "block_raw_frobenius_norms", raw)
         object.__setattr__(self, "block_normalized_frobenius_norms", normalized)
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        return {
+            "status": self.status,
+            "transform_backend_identifier": self.transform_backend_identifier,
+            "transform_backend_version": self.transform_backend_version,
+            "fourier_representative_count": self.fourier_representative_count,
+            "fourier_representative_inventory_ordered_unique": (
+                self.fourier_representative_inventory_ordered_unique
+            ),
+            "fourier_inversion_closed": self.fourier_inversion_closed,
+            "fourier_index_bijection_pass": self.fourier_index_bijection_pass,
+            "no_nyquist_disposition": self.no_nyquist_disposition,
+            "coefficient_translations": self.coefficient_translations,
+            "block_raw_frobenius_norms": self.block_raw_frobenius_norms,
+            "block_normalized_frobenius_norms": (self.block_normalized_frobenius_norms),
+            "frame_recovery": self.frame_recovery,
+            "known_frame_recovery_pass": self.known_frame_recovery_pass,
+            "represented_operator_recovery": self.represented_operator_recovery,
+            "known_operator_recovery_pass": self.known_operator_recovery_pass,
+            "reconstruction": self.reconstruction,
+            "reconstruction_pass": self.reconstruction_pass,
+            "interpolation": self.interpolation,
+            "final_interpolation_operator_pass": (
+                self.final_interpolation_operator_pass
+            ),
+            "final_interpolation_spectrum_pass": (
+                self.final_interpolation_spectrum_pass
+            ),
+            "parseval_relative_defect": self.parseval_relative_defect,
+            "parseval_pass": self.parseval_pass,
+            "ordinary_hermiticity_defect": self.ordinary_hermiticity_defect,
+            "ordinary_hermiticity_pass": self.ordinary_hermiticity_pass,
+            "twisted_cyclic_hermiticity_defect": (
+                self.twisted_cyclic_hermiticity_defect
+            ),
+            "twisted_cyclic_hermiticity_pass": (self.twisted_cyclic_hermiticity_pass),
+            "supports": self.supports,
+            "maximum_tail_increase": self.maximum_tail_increase,
+            "all_tail_monotonicity_checks_pass": (
+                self.all_tail_monotonicity_checks_pass
+            ),
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
-        if set(values) != required:
+        if set(values) != {
+            "status",
+            "transform_backend_identifier",
+            "transform_backend_version",
+            "fourier_representative_count",
+            "fourier_representative_inventory_ordered_unique",
+            "fourier_inversion_closed",
+            "fourier_index_bijection_pass",
+            "no_nyquist_disposition",
+            "coefficient_translations",
+            "block_raw_frobenius_norms",
+            "block_normalized_frobenius_norms",
+            "frame_recovery",
+            "known_frame_recovery_pass",
+            "represented_operator_recovery",
+            "known_operator_recovery_pass",
+            "reconstruction",
+            "reconstruction_pass",
+            "interpolation",
+            "final_interpolation_operator_pass",
+            "final_interpolation_spectrum_pass",
+            "parseval_relative_defect",
+            "parseval_pass",
+            "ordinary_hermiticity_defect",
+            "ordinary_hermiticity_pass",
+            "twisted_cyclic_hermiticity_defect",
+            "twisted_cyclic_hermiticity_pass",
+            "supports",
+            "maximum_tail_increase",
+            "all_tail_monotonicity_checks_pass",
+        }:
             raise ValueError("channel mesh fields do not match")
         arrays: dict[str, np.ndarray] = {}
         for name in (
@@ -1671,12 +2138,29 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             raise ValueError("every channel status must match the construction mesh")
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+        return {
+            "construction_mesh_size": self.construction_mesh_size,
+            "model_diagnostics": self.model_diagnostics,
+            "transport": self.transport,
+            "transport_backend_failure": self.transport_backend_failure,
+            "endpoint_closure_defect": self.endpoint_closure_defect,
+            "primitive_closure_defect": self.primitive_closure_defect,
+            "pointwise_selection": self.pointwise_selection,
+            "channels": self.channels,
+        }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
-        if set(values) != required:
+        if set(values) != {
+            "construction_mesh_size",
+            "model_diagnostics",
+            "transport",
+            "transport_backend_failure",
+            "endpoint_closure_defect",
+            "primitive_closure_defect",
+            "pointwise_selection",
+            "channels",
+        }:
             raise ValueError("mesh calculation fields do not match")
         mesh = values["construction_mesh_size"]
         if type(mesh) is not int:
@@ -1749,15 +2233,18 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
             raise ValueError("mesh sizes must be increasing built-in integers")
         translations = _int_array(self.translations, "translations")
         arrays = [
-            _float_array(getattr(self, name), name)
-            for name in (
+            _float_array(
+                self.coarse_normalized_block_norms,
                 "coarse_normalized_block_norms",
+            ),
+            _float_array(
+                self.fine_normalized_block_norms,
                 "fine_normalized_block_norms",
-                "absolute_changes",
-                "relative_changes",
-                "applied_tolerances",
-                "signed_margins",
-            )
+            ),
+            _float_array(self.absolute_changes, "absolute_changes"),
+            _float_array(self.relative_changes, "relative_changes"),
+            _float_array(self.applied_tolerances, "applied_tolerances"),
+            _float_array(self.signed_margins, "signed_margins"),
         ]
         if any(array.shape != translations.shape for array in arrays):
             raise ValueError("refinement arrays must share the translation shape")
@@ -1766,33 +2253,43 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
         if self.all_pass is not bool(np.all(arrays[-1] >= 0.0)):
             raise ValueError("all_pass must agree with signed margins")
         object.__setattr__(self, "translations", translations)
-        for name, array in zip(
-            (
-                "coarse_normalized_block_norms",
-                "fine_normalized_block_norms",
-                "absolute_changes",
-                "relative_changes",
-                "applied_tolerances",
-                "signed_margins",
-            ),
-            arrays,
-            strict=True,
-        ):
-            object.__setattr__(self, name, array)
+        object.__setattr__(self, "coarse_normalized_block_norms", arrays[0])
+        object.__setattr__(self, "fine_normalized_block_norms", arrays[1])
+        object.__setattr__(self, "absolute_changes", arrays[2])
+        object.__setattr__(self, "relative_changes", arrays[3])
+        object.__setattr__(self, "applied_tolerances", arrays[4])
+        object.__setattr__(self, "signed_margins", arrays[5])
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
             "channel": self.channel.value,
-            **{
-                name: getattr(self, name)
-                for name in self.__dataclass_fields__
-                if name != "channel"
-            },
+            "coarse_mesh_size": self.coarse_mesh_size,
+            "fine_mesh_size": self.fine_mesh_size,
+            "translations": self.translations,
+            "coarse_normalized_block_norms": self.coarse_normalized_block_norms,
+            "fine_normalized_block_norms": self.fine_normalized_block_norms,
+            "absolute_changes": self.absolute_changes,
+            "relative_changes": self.relative_changes,
+            "applied_tolerances": self.applied_tolerances,
+            "signed_margins": self.signed_margins,
+            "all_pass": self.all_pass,
         }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
+        required = {
+            "channel",
+            "coarse_mesh_size",
+            "fine_mesh_size",
+            "translations",
+            "coarse_normalized_block_norms",
+            "fine_normalized_block_norms",
+            "absolute_changes",
+            "relative_changes",
+            "applied_tolerances",
+            "signed_margins",
+            "all_pass",
+        }
         if set(values) != required:
             raise ValueError("block refinement fields do not match")
         channel = values["channel"]
@@ -1856,14 +2353,14 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
         _nonempty(self.diagnostic_path, "diagnostic_path")
         if (self.coarse_mesh_size, self.fine_mesh_size) != (1025, 2049):
             raise ValueError("scalar refinement must use the frozen final mesh pair")
-        for name in (
-            "coarse_value",
-            "fine_value",
-            "absolute_change",
-            "relative_change",
-            "applied_tolerance",
+        for value, name in (
+            (self.coarse_value, "coarse_value"),
+            (self.fine_value, "fine_value"),
+            (self.absolute_change, "absolute_change"),
+            (self.relative_change, "relative_change"),
+            (self.applied_tolerance, "applied_tolerance"),
         ):
-            _finite_nonnegative(getattr(self, name), name)
+            _finite_nonnegative(value, name)
         if type(self.signed_margin) is not float or not math.isfinite(
             self.signed_margin
         ):
@@ -1894,16 +2391,33 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
             "channel": self.channel.value,
-            **{
-                name: getattr(self, name)
-                for name in self.__dataclass_fields__
-                if name != "channel"
-            },
+            "diagnostic_path": self.diagnostic_path,
+            "coarse_mesh_size": self.coarse_mesh_size,
+            "fine_mesh_size": self.fine_mesh_size,
+            "coarse_value": self.coarse_value,
+            "fine_value": self.fine_value,
+            "absolute_change": self.absolute_change,
+            "relative_change": self.relative_change,
+            "applied_tolerance": self.applied_tolerance,
+            "signed_margin": self.signed_margin,
+            "passes": self.passes,
         }
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        required = set(cls.__dataclass_fields__)
+        required = {
+            "channel",
+            "diagnostic_path",
+            "coarse_mesh_size",
+            "fine_mesh_size",
+            "coarse_value",
+            "fine_value",
+            "absolute_change",
+            "relative_change",
+            "applied_tolerance",
+            "signed_margin",
+            "passes",
+        }
         if set(values) != required:
             raise ValueError("scalar refinement fields do not match")
         channel = values["channel"]
@@ -1937,14 +2451,128 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True)
+class Periodic1DHigherRankEvaluationIndependenceResult(BaseTypedRecord):
+    """Retain exact mesh separation and selection-input provenance."""
+
+    construction_mesh_sizes: tuple[int, ...]
+    evaluation_mesh_size: int
+    evaluation_shift_numerator: int
+    evaluation_shift_denominator: int
+    global_selection_mesh_size: int
+    pointwise_selection_mesh_sizes: tuple[int, ...]
+    construction_evaluation_disjoint: bool
+    evaluation_mesh_excluded_from_selection: bool
+
+    def __post_init__(self) -> None:
+        configuration = Periodic1DHigherRankAlignmentConfiguration
+        if self.construction_mesh_sizes != configuration.CONSTRUCTION_MESH_SIZES:
+            raise ValueError("construction mesh provenance must match the protocol")
+        if self.evaluation_mesh_size != configuration.EVALUATION_MESH_SIZE:
+            raise ValueError("evaluation mesh provenance must match the protocol")
+        if (
+            self.evaluation_shift_numerator != configuration.EVALUATION_SHIFT_NUMERATOR
+            or self.evaluation_shift_denominator
+            != configuration.EVALUATION_SHIFT_DENOMINATOR
+        ):
+            raise ValueError("evaluation shift provenance must match the protocol")
+        if (
+            self.global_selection_mesh_size
+            != configuration.GLOBAL_UNITARY_SELECTION_MESH_SIZE
+        ):
+            raise ValueError("global selection provenance must match the protocol")
+        if self.pointwise_selection_mesh_sizes != self.construction_mesh_sizes:
+            raise ValueError("pointwise selection must use every construction mesh")
+        if type(self.construction_evaluation_disjoint) is not bool:
+            raise TypeError("construction_evaluation_disjoint must be a built-in bool")
+        if self.construction_evaluation_disjoint is not True:
+            raise ValueError("construction and evaluation coordinates must be disjoint")
+        if type(self.evaluation_mesh_excluded_from_selection) is not bool:
+            raise TypeError(
+                "evaluation_mesh_excluded_from_selection must be a built-in bool"
+            )
+        expected_exclusion = (
+            self.evaluation_mesh_size != self.global_selection_mesh_size
+            and self.evaluation_mesh_size not in self.pointwise_selection_mesh_sizes
+        )
+        if self.evaluation_mesh_excluded_from_selection is not expected_exclusion:
+            raise ValueError("selection-input mesh provenance is inconsistent")
+        if self.evaluation_mesh_excluded_from_selection is not True:
+            raise ValueError("evaluation mesh must not be a selection input")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "construction_mesh_sizes": self.construction_mesh_sizes,
+            "evaluation_mesh_size": self.evaluation_mesh_size,
+            "evaluation_shift_numerator": self.evaluation_shift_numerator,
+            "evaluation_shift_denominator": self.evaluation_shift_denominator,
+            "global_selection_mesh_size": self.global_selection_mesh_size,
+            "pointwise_selection_mesh_sizes": self.pointwise_selection_mesh_sizes,
+            "construction_evaluation_disjoint": (self.construction_evaluation_disjoint),
+            "evaluation_mesh_excluded_from_selection": (
+                self.evaluation_mesh_excluded_from_selection
+            ),
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        if set(values) != {
+            "construction_mesh_sizes",
+            "evaluation_mesh_size",
+            "evaluation_shift_numerator",
+            "evaluation_shift_denominator",
+            "global_selection_mesh_size",
+            "pointwise_selection_mesh_sizes",
+            "construction_evaluation_disjoint",
+            "evaluation_mesh_excluded_from_selection",
+        }:
+            raise ValueError("evaluation-independence fields do not match")
+        construction_sizes = values["construction_mesh_sizes"]
+        pointwise_sizes = values["pointwise_selection_mesh_sizes"]
+        if not isinstance(construction_sizes, tuple) or any(
+            type(value) is not int for value in construction_sizes
+        ):
+            raise TypeError("construction mesh sizes must decode to integers")
+        if not isinstance(pointwise_sizes, tuple) or any(
+            type(value) is not int for value in pointwise_sizes
+        ):
+            raise TypeError("pointwise selection mesh sizes must decode to integers")
+        return cls(
+            construction_mesh_sizes=construction_sizes,
+            evaluation_mesh_size=_decoded_int(
+                values["evaluation_mesh_size"], "evaluation_mesh_size"
+            ),
+            evaluation_shift_numerator=_decoded_int(
+                values["evaluation_shift_numerator"],
+                "evaluation_shift_numerator",
+            ),
+            evaluation_shift_denominator=_decoded_int(
+                values["evaluation_shift_denominator"],
+                "evaluation_shift_denominator",
+            ),
+            global_selection_mesh_size=_decoded_int(
+                values["global_selection_mesh_size"],
+                "global_selection_mesh_size",
+            ),
+            pointwise_selection_mesh_sizes=pointwise_sizes,
+            construction_evaluation_disjoint=_decoded_bool(
+                values["construction_evaluation_disjoint"],
+                "construction_evaluation_disjoint",
+            ),
+            evaluation_mesh_excluded_from_selection=_decoded_bool(
+                values["evaluation_mesh_excluded_from_selection"],
+                "evaluation_mesh_excluded_from_selection",
+            ),
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
     """Retain one complete request-bound rank/depth calculation."""
 
     request: Periodic1DHigherRankAlignmentCalculationRequest
     global_selection: Periodic1DHigherRankProcrustesDiagnostics
     meshes: tuple[Periodic1DHigherRankMeshCalculationResult, ...]
-    construction_evaluation_disjoint: bool
-    evaluation_noninfluence_confirmed: bool
+    evaluation_independence: Periodic1DHigherRankEvaluationIndependenceResult
     block_refinements: tuple[Periodic1DHigherRankBlockRefinementResult, ...]
     scalar_refinements: tuple[Periodic1DHigherRankScalarRefinementResult, ...]
 
@@ -1996,20 +2624,22 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 for status in statuses
             ):
                 raise ValueError("mesh status must match the calculation request")
-        for value, name in (
-            (
-                self.construction_evaluation_disjoint,
-                "construction_evaluation_disjoint",
-            ),
-            (
-                self.evaluation_noninfluence_confirmed,
-                "evaluation_noninfluence_confirmed",
-            ),
+        if (
+            type(self.evaluation_independence)
+            is not Periodic1DHigherRankEvaluationIndependenceResult
         ):
-            if type(value) is not bool:
-                raise TypeError(f"{name} must be a built-in bool")
-            if value is not True:
-                raise ValueError(f"{name} must pass for a complete calculation")
+            raise TypeError(
+                "evaluation_independence must be the exact provenance record"
+            )
+        if (
+            self.evaluation_independence.construction_mesh_sizes
+            != self.request.configuration.construction_mesh_sizes
+            or self.evaluation_independence.evaluation_mesh_size
+            != self.request.configuration.evaluation_mesh_size
+        ):
+            raise ValueError(
+                "evaluation-independence provenance must match the request"
+            )
         if type(self.block_refinements) is not tuple or any(
             type(item) is not Periodic1DHigherRankBlockRefinementResult
             for item in self.block_refinements
@@ -2087,10 +2717,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
             "request": self.request,
             "global_selection": self.global_selection,
             "meshes": self.meshes,
-            "construction_evaluation_disjoint": (self.construction_evaluation_disjoint),
-            "evaluation_noninfluence_confirmed": (
-                self.evaluation_noninfluence_confirmed
-            ),
+            "evaluation_independence": self.evaluation_independence,
             "block_refinements": self.block_refinements,
             "scalar_refinements": self.scalar_refinements,
         }
@@ -2101,8 +2728,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
             "request",
             "global_selection",
             "meshes",
-            "construction_evaluation_disjoint",
-            "evaluation_noninfluence_confirmed",
+            "evaluation_independence",
             "block_refinements",
             "scalar_refinements",
         }:
@@ -2118,13 +2744,13 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 Periodic1DHigherRankMeshCalculationResult.from_dict(item)
                 for item in _tuple_of_mappings(values["meshes"], "meshes")
             ),
-            construction_evaluation_disjoint=_decoded_bool(
-                values["construction_evaluation_disjoint"],
-                "construction_evaluation_disjoint",
-            ),
-            evaluation_noninfluence_confirmed=_decoded_bool(
-                values["evaluation_noninfluence_confirmed"],
-                "evaluation_noninfluence_confirmed",
+            evaluation_independence=(
+                Periodic1DHigherRankEvaluationIndependenceResult.from_dict(
+                    _mapping_value(
+                        values["evaluation_independence"],
+                        "evaluation_independence",
+                    )
+                )
             ),
             block_refinements=tuple(
                 Periodic1DHigherRankBlockRefinementResult.from_dict(item)
@@ -2147,6 +2773,7 @@ __all__ = [
     "Periodic1DHigherRankAlignmentCalculationResult",
     "Periodic1DHigherRankBlockRefinementResult",
     "Periodic1DHigherRankChannelMeshResult",
+    "Periodic1DHigherRankEvaluationIndependenceResult",
     "Periodic1DHigherRankFrameErrorResult",
     "Periodic1DHigherRankMatrixComparisonResult",
     "Periodic1DHigherRankMatrixErrorResult",

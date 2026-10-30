@@ -19,6 +19,20 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
             assert getattr(periodic1d, name) is getattr(higher_rank_alignment, name)
             assert "D1" not in name
 
+    def test__package__does_not_reexport_internal_analysis_actions(self) -> None:
+        internal_names = (
+            "Periodic1DHigherRankChannelAnalysisRequest",
+            "Periodic1DHigherRankChannelAnalyzer",
+            "Periodic1DHigherRankEvaluationIndependenceAnalyzer",
+            "Periodic1DHigherRankEvaluationIndependenceResult",
+            "Periodic1DHigherRankRefinementAnalysis",
+            "Periodic1DHigherRankRefinementAnalysisRequest",
+            "Periodic1DHigherRankRefinementAnalyzer",
+        )
+
+        assert all(name not in higher_rank_alignment.__all__ for name in internal_names)
+        assert all(not hasattr(higher_rank_alignment, name) for name in internal_names)
+
     def test__source__does_not_import_calculation_workflow_material(self) -> None:
         package = Path(higher_rank_alignment.__file__).resolve().parent
 
