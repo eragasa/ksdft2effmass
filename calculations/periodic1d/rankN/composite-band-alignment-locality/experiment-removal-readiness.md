@@ -17,7 +17,7 @@ Exact paths and hashes are stored in
 | Old file | Current treatment |
 |---|---|
 | `experimental-protocol.tex` | Copied byte-for-byte to `protocol/experimental-protocol.tex`. |
-| `run_development.py` | Replaced by the calculation-side script of the same name. Only the code owner and output directory differ. |
+| `run_development.py` | Replaced by the calculation-side direct lifecycle beginning at `run_01_calculation.py`. The historical source path remains recorded in the removal manifest. |
 | `verify_d1_p0_g0_controls.py` | Replaced by `verify_analytic_controls.py`. The Python content is identical after removing the old shebang line. |
 | `README.md` | Incorporated into the plain-language calculation README, protocol README, and migration records. |
 | `.gitignore` | Replaced by rules for the calculation's current `results/` directory and standard Python caches. |

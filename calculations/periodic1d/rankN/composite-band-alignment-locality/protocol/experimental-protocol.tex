@@ -7,6 +7,7 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{array,booktabs,tabularx}
 \usepackage{enumitem}
+\usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,fit}
 \usepackage{xurl}
@@ -34,12 +35,12 @@ real-gauge model, exact exterior-isolation and alignment certificates, four rank
 depths, identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge
 alignments, odd Fourier-refinement meshes, a disjoint evaluation
 mesh, inversion-complete supports, numerical and convergence gates, claim-resolution
-thresholds, strict schema identities, an independent direct-formula verifier, resource
-ceilings, and retained-evidence policy. Reusable typed diagnostics are under software
-verification, but the experiment calculator, independent verifier, serializer, and
-retained composition remain unimplemented and unexecuted; this document reports no new
-higher-rank numerical result and makes no material,
-topological, or infinite-rank claim.
+thresholds, direct-formula reference controls, operational resource ceilings, and a
+calculate-once/render-many lifecycle. The maintained typed producer and fixed renderer
+are implemented, and one complete full-grid calculation cache is documented below. Its
+canonical case bytes are integrity-admitted and reusable for presentation changes. The
+current snapshot is explicitly unverified and supports no material, topological, or
+infinite-rank claim.
 \end{abstract}
 
 \noindent\textbf{Keywords:} composite bands; unitary gauge; operator alignment;
@@ -58,13 +59,12 @@ complete pre-execution protocol candidate with identity
 \end{quote}
 
 and short label \path{HR-CBAL-D1-P0-G0-v1}. Its model, cases, sample roles, tolerances,
-supports, decision rules, schemas, verifier method, resource gate, and evidence policy
-are selected below. The identity is reserved but is not promoted to an immutable
-executed version until experiment composition, schema, and independent-verifier review
-pass. Rank-generic structural, error-channel, perturbation-bound, decomposition,
-block-norm, tail, monotonicity, and refinement diagnostic primitives may be implemented
-and software-verified before that composition exists; they do not constitute an executed
-case. No run or result is reported by this document.
+supports, decision rules, bounded reference controls, resource gate, and evidence policy
+are selected below. Rank-generic structural, error-channel, perturbation-bound,
+decomposition, block-norm, tail, monotonicity, and refinement diagnostic primitives are
+implemented and software-tested. A complete calculation cache now supports the fixed
+presentation plan; scientific acceptance remains separate from its byte-integrity
+admission.
 
 The family is a successor to, not a replacement for, the retained rank-two controls and
 the extracted fixed rank-three two-dimensional calculation. No rank-two tolerance, mesh,
@@ -179,7 +179,7 @@ The corresponding maintained module ownership is:
 \path{gauge_alignment/fourier.py} & Apply the PhysKit odd-mesh finite-periodic transform and structural diagnostics. & Fourier coefficients, Parseval, Hermiticity, and index evidence. \\
 \path{gauge_alignment/interpolation.py} & Evaluate the complete Fourier series on the disjoint shifted mesh. & Immutable direct and interpolated fields with comparison errors. \\
 \path{gauge_alignment/locality.py} & Evaluate every frozen symmetric support without selecting a preferred support. & Tail, truncation, total-error, and decomposition evidence. \\
-\path{gauge_alignment/assembly.py} & Correlate typed stage results and assemble the public record without recomputation. & One authenticated gauge-alignment mesh result. \\
+\path{gauge_alignment/assembly.py} & Correlate typed stage results and assemble the public record without recomputation. & One correlated gauge-alignment mesh result. \\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -699,7 +699,7 @@ An admitted global-unitary or pointwise-unitary factor must satisfy the selected
 identity, and positive-semidefinite tolerances below. The independent verifier
 reconstructs the objective, singular values, rank decision, polar factor application,
 unitarity, stationarity, and positive-semidefinite disposition from the original frames.
-The producer and verifier must retain their SVD backend and version in provenance.
+The bounded reference reconstructs these quantities through its independent call site.
 
 Equality at the applied singular-value cutoff is deficient. A deficient covariance has
 unitary minimizers but does not have a unique full polar factor; D1 v1 therefore returns
@@ -1368,8 +1368,8 @@ as an evidence source or a license to copy rank-two controls. D1 v1 instantiates
 applicable stage as follows:
 
 \begin{enumerate}
-\item strict parsing, scalar-type rejection, schema validation, and immutable identity
-      checks precede calculation;
+\item strict parsing, scalar-type rejection, and immutable identity checks precede
+      calculation;
 \item canonical formulas are reconstructed on the complete mesh ladder rather than read
       from producer-derived arrays;
 \item parent Hermiticity, exact and sampled isolation, retained rank, frames, and
@@ -1392,8 +1392,8 @@ enters final claim resolution only through the prespecified rules; it cannot rev
 control or a construction disposition;
 \item every applicable represented gauge alignment is transformed before truncation, every selected
       support is retained, and no preferred or first-passing support is selected; and
-\item canonical serialization, independent direct-formula reconstruction, schema and
-      digest checks, resource checks, and no-overwrite evidence rules close the workflow.
+\item canonical serialization, bounded direct-formula reconstruction, digest checks,
+      and resource checks close the workflow.
 \end{enumerate}
 
 Several Paper 1 v3 gauge alignments are intentionally inapplicable rather than missing. D1 v1
@@ -1492,292 +1492,238 @@ Dense unitary factorization scales as $O(r^3)$ per sampled point. Actual peak me
 wall time, and processed mesh points are recorded per producer and verifier invocation.
 Resource failure is unresolved coverage, not a scientific failure of the model.
 
-\section{Independent verification}
+\section{Fixed visualization inventory and development snapshot}
+\label{sec:protocol-development-plots}
 
-The selected verifier method identity is
+The visualization inventory is fixed at nine views. It does not select a support, alter a
+gate, or add a scientific quantity to the result schema. The calculation stage writes
+canonical result bytes once; the rendering stage consumes those bytes and may be repeated
+without scientific recalculation. Plotting and report sources are excluded from the
+calculation-infrastructure identity, so presentation-only changes do not invalidate the
+calculation. Current unverified images must display
+\emph{DEVELOPMENT / UNVERIFIED---not publication evidence}; captions and surrounding
+text must repeat that boundary when a figure is reproduced outside its source directory.
 
-\begin{quote}\small
-\path{ksdft2effmass.verify.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality.direct-formula.v1}\par
-\end{quote}
+The present images came from one complete producer-only development calculation over the
+16 selected rank/depth cases. The standard direct entrypoints are
+\path{run_01_calculation.py}, \path{run_02_verification.py}, and
+\path{run_03_render.py}. The calculation wrote canonical typed case bytes and a SHA-256
+manifest into an ignored reusable cache. The manifest records the single required
+provenance value, \path{calculation_infrastructure_sha256}; its present value is
+\path{7cdd7788a2eda7cfdf0379ce1569fba10b56ea3ad9302ca234bad05b0787159b}.
+A separate integrity admission checked canonical round trips, case identities, digests,
+and complete inventory once for manifest SHA-256
+\path{64d9facd876183efa85b77d9351317a4a3adebd266bbb0ce9a25fae6fbbf02a7}.
+Subsequent renders reuse those exact admitted cache bytes without recalculating the grid.
+The cases exercise all meshes, gauge alignments, and supports, but the source values were
+not independently recomputed or admitted by the protocol's scientific verification
+record. The observations in this section are therefore protocol-review diagnostics.
+Their purpose is to check that the frozen presentation reveals rather than hides the
+required scientific distinctions. Logarithmic panels use a $10^{-18}$ display floor only
+for axis placement; exact zeros remain distinct and are marked where they occur.
 
-The verifier reconstructs all inputs from \path{input.json} and the canonical protocol; it
-does not trust producer-derived arrays. It independently composes scalar fields, Givens
-blocks, frames, parents, projectors, alignment objectives, neighbor links, closures,
-Fourier sums, supports, interpolants, and every error channel. It uses explicit direct
-Fourier sums for retained blocks and does not call the producer experiment action, its
-FFT wrapper, its serializer, or a reusable campaign workflow action.
+\subsection*{View 1: $S=2$ alignment--locality plane}
 
-Shared Python, NumPy, BLAS, and LAPACK lineage is permitted only when disclosed in
-provenance. The verifier uses its own polar/SVD call site and independently checks the
-objective value, singular values, threshold margin, and unitary defect. It never silently
-completes a deficient map. Producer and verifier results must agree within
-$10^{-11}$ for normalized scalar diagnostics and within
-$10^{-10}+10^{-9}\max(|x|,|y|)$ for normalized locality diagnostics. Every categorical
-disposition must agree exactly.
+Figure~\ref{fig:protocol-development-alignment-locality} is the headline mechanism view.
+Each gauge panel plots all 16 absolute normalized frame-recovery defects against absolute
+normalized omitted tails, with rank encoded by marker, depth by color, and paired
+$M=1025$ and $M=2049$ marks. In the current snapshot,
+identity and global-unitary occupy the large-residual, large-tail region, while pointwise
+and oracle lie near roundoff on both axes. Final identity/global tails range from
+$8.02\times10^{-4}$ to $9.52\times10^{-2}$; pointwise/oracle tails are approximately
+$1.4\times10^{-16}$ to $2.8\times10^{-16}$. The coincidence of identity and global tail
+values is required by constant-unitary Frobenius invariance and must not be presented as
+global recovery. The view uses no ratio with a roundoff-scale denominator.
 
-Passing software tests or independent reconstruction establishes bounded software and
-finite-protocol numerical behavior only. It does not establish material relevance,
-localization optimality, nontrivial topology, continuum behavior outside the selected
-analytic certificates, or validity at ranks and depths not executed.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-alignment-locality-s2.png}
+\caption{Unverified development snapshot of the frozen $S=2$ alignment--locality plane.}
+\label{fig:protocol-development-alignment-locality}
+\end{figure}
 
-\section{Schemas and canonical serialization}
+\subsection*{View 2: complete support-path locality curves}
 
-The implementation must provide strict JSON Schemas with these immutable identifiers:
+Figure~\ref{fig:protocol-development-support-paths} is the anti-selection view: every
+support in the declared order is visible for every rank, depth, and gauge alignment.
+Identity/global paths descend over multiple support scales, whereas pointwise/oracle
+reach the binary64 floor at $S=2$. At the fixed report anchor $(8,4)$, the identity tail
+moves from $1.52\times10^{-1}$ at $S=0$ through $1.21\times10^{-2}$ at $S=2$ and
+$6.64\times10^{-6}$ at $S=8$ before reaching the numerical floor near $S=32$. The
+protocol forbids cropping the path to make one cutoff appear preferable.
 
-\begin{quote}\small
-\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:input}\par
-\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:result}\par
-\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:verification}\par
-\path{urn:ksdft2effmass:campaign:periodic-reduction:periodic1d:higher-rank-composite-band-alignment-and-locality:v1:provenance}\par
-\end{quote}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-support-locality-paths.png}
+\caption{Unverified development snapshot of all frozen support paths.}
+\label{fig:protocol-development-support-paths}
+\end{figure}
 
-Every object rejects unknown properties. Numeric fields reject booleans, strings,
-nonfinite values, and implicit units. Enumerations bind the exact ranks, depths, meshes,
-supports, gauge alignments, conventions, status values, and method identities. The alignment
-status contract is gauge-alignment-specific: identity permits only \path{qualified}; global-unitary permits
-\path{qualified}, \path{aggregate-rank-deficient},
-\path{alignment-numerically-unresolved}, or \path{alignment-integrity-failed}; pointwise-unitary permits
-\path{qualified}, \path{pointwise-rank-deficient},
-\path{alignment-numerically-unresolved}, or \path{alignment-integrity-failed}; and known-inverse-oracle
-permits \path{qualified} or \path{oracle-integrity-failed}. global-unitary downstream records use
-exactly \path{applicable} or \path{inapplicable-aggregate-rank-deficient}. An inapplicable
-numeric payload is omitted rather than represented by zero, null, NaN, or infinity.
-Every document has the exact top-level envelope fields \path{schema}, \path{family_id},
-\path{version_id}, \path{run_id}, and \path{document_role}. The exact family identity is
-\path{ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality}
-and the version identity appends \path{.v1}. The \path{family_id}, \path{version_id}, and
-\path{run_id} must agree byte-for-byte across the package; \path{schema} names one of the
-four URNs above and \path{document_role} is exactly \path{input}, \path{result},
-\path{verification}, or \path{provenance} as applicable. The run identity is not inferred
-from a directory name. Result and provenance
-documents bind \path{input_sha256}; verification additionally binds
-\path{result_sha256}. Digest fields use lowercase 64-character hexadecimal SHA-256
-without a \path{sha256:} prefix.
+\subsection*{View 3: Fourier-block locality}
 
-\subsection{Input document}
+Figure~\ref{fig:protocol-development-block-locality} shows the nonnegative block norms
+for the prospectively fixed interior anchor $(r,L)=(8,4)$. Identity/global retain
+nonzero numerical blocks beyond $R=2$ and decay to the transform floor; pointwise/oracle
+show only the exact reference blocks $R=0,1,2$ above that floor. The view diagnoses the
+coefficient mechanism behind the cumulative tail but cannot establish a continuum decay
+exponent from one finite mesh.
 
-\path{input.json} contains the complete selected protocol inputs rather than only a path
-to this document. Its required payload groups are:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-fourier-block-locality.png}
+\caption{Unverified development snapshot of final-mesh Fourier-block norms at the fixed
+interior anchor.}
+\label{fig:protocol-development-block-locality}
+\end{figure}
 
-\begin{itemize}
-\item \textbf{\path{scope}.}
-Synthetic/nonmaterial role; no external calculator, Wannier90, GPU, network,
-uncertainty-quantification, material-validation, or scientific-acceptance claim; D1,
-P0, G0, and v1 identities.
+\subsection*{View 4: non-stacked error-channel trajectories}
 
-\item \textbf{\path{state_space}.}
-Spatial dimension, every selected retained rank, ambient-dimension rule, canonical basis
-ordering, retained embedding, right-action convention, lattice metric, reciprocal torus,
-coordinate unit, energy unit, and scalar energy reference.
+Figure~\ref{fig:protocol-development-error-channels} keeps interpolation, truncation, and
+total errors separate. At the $(8,4)$ anchor, complete-interpolant errors are near
+roundoff and independent of support. Truncation and total therefore nearly coincide over
+most of the path; distinct line widths, dash patterns, and markers keep both curves
+visible rather than allowing the total curve to hide truncation. Identity/global
+truncation and total errors decrease
+across the full support path; pointwise/oracle reach the floor at $S=2$. The identity
+total ordered-spectrum maximum is $2.31\times10^{-2}$ at $S=2$,
+$8.87\times10^{-6}$ at $S=8$, and $3.42\times10^{-11}$ at $S=16$. The largest
+normalized field-decomposition defect over the snapshot is $3.96\times10^{-17}$. Error
+norms are never stacked because the residual fields add pointwise while separately
+maximized norms generally do not.
 
-\item \textbf{\path{model}.}
-The exact $c(k)$ harmonic coefficients, rank-coordinate rule, retained-dispersion
-coefficients, exterior-dispersion coefficients, P0 projector rule, analytic-isolation
-certificate identity, exact $2.10E_{\mathrm{ref}}$ value, and formula version.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-error-channel-trajectories.png}
+\caption{Unverified development snapshot of the three error channels. The first two rows
+show interpolation, truncation, and total operator and ordered-spectrum errors; the
+bottom row is the separate residual-field decomposition-identity diagnostic.}
+\label{fig:protocol-development-error-channels}
+\end{figure}
 
-\item \textbf{\path{attack}.}
-Gauge class, exact layer ordering, pair-parity rule, $y_{r,j}$ rule, $s_\ell(k)$
-coefficients, angle scale and rank factor, zero phase rules, exact attack-angle
-certificate identity, and the complete ordered rank and depth inventories.
+\subsection*{View 5: claim-resolution matrices}
 
-\item \textbf{\path{alignment}.}
-Ordered gauge alignment inventory, source/target orientation, right-action application rule,
-equal aggregate weights, global-unitary selection mesh, pointwise-unitary per-mesh rule, known-inverse-oracle oracle rule, SVD order,
-singular-value cutoff formula, strict equality behavior, objective normalization,
-integrity formulas, and gauge-alignment-specific status enums.
+Figure~\ref{fig:protocol-development-claim-resolution} displays the three absolute
+$S=2$ locality-extension operands, one supporting global-frame diagnostic, and all 16
+rank/depth cells. Every cell in this snapshot satisfies its displayed inequality:
+identity tail and identity total spectrum error are at least $10^{-6}$, oracle tail is at
+most $10^{-10}$, and the global frame residual is at least $10^{-6}$. Identity $S=2$ total
+ordered-spectrum errors span $1.64\times10^{-3}$ to $2.03\times10^{-1}$. Only the first
+three panels are operands of the frozen locality-extension rule. The global-frame panel
+exposes the restricted feasible set but does not substitute for the frozen global
+represented-operator residual, which the current public result does not retain. These
+magnitudes and condition borders remain conditional diagnostics. Failed, missing,
+aggregate-rank-deficient, and inapplicable values must remain explicit and may not be
+mapped to the unresolved condition as though they were zero.
 
-\item \textbf{\path{sampling}.}
-Ordered construction meshes, final construction mesh, shifted evaluation mesh, endpoint
-sewing points, disjointness proof identity, and the declaration that evaluation is
-nonselective.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-s2-claim-resolution.png}
+\caption{Unverified development snapshot of three frozen $S=2$ locality-extension
+operands and one supporting global-frame diagnostic.}
+\label{fig:protocol-development-claim-resolution}
+\end{figure}
 
-\item \textbf{\path{fourier}.}
-Forward and inverse signs, normalization, centered representative rule, no-Nyquist
-disposition, complete representative counts, and Hermitian-pair convention.
+\subsection*{View 6: paired mesh-refinement diagnostics}
 
-\item \textbf{\path{supports}.}
-The ordered nine support radii and the explicit integer translation list for every
-support. A consumer does not reconstruct a mask from radius alone.
+Figure~\ref{fig:protocol-development-refinement} plots coarse versus final values and the
+absolute change divided by the applied refinement tolerance. The maximum development
+utilization is $5.55\times10^{-6}$, far below the unit pass boundary. The paired display
+is preferred to percentages near zero and preserves which two meshes were compared.
+This producer consistency view cannot substitute for the verifier's direct reconstruction
+of both mesh levels.
 
-\item \textbf{\path{tolerances}.}
-Every scalar tolerance and normalization in the frozen table, refinement formula,
-singular-value rule, producer/verifier comparison tolerances, and inclusive/strict
-comparison behavior.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-mesh-refinement.png}
+\caption{Unverified development snapshot of the mandatory
+$1025\rightarrow2049$ refinement ledger.}
+\label{fig:protocol-development-refinement}
+\end{figure}
 
-\item \textbf{\path{claim_resolution_rules}.}
-The $S=2$ locality-extension rule, global-alignment residual rule, rank/depth difference
-rule, denominator floors, and exact resolved/unresolved vocabulary.
+\subsection*{View 7: rank/depth scaling at fixed support}
 
-\item \textbf{\path{methods_and_resources}.}
-Producer method identity, verifier method identity, arithmetic type, process/thread
-rules, prohibited execution mechanisms, and producer/verifier time, memory, and package
-size ceilings.
-\end{itemize}
+Figure~\ref{fig:protocol-development-rank-depth} uses paired total-operator and
+total-spectrum heatmaps at the prospectively fixed support $S=2$. In the identity/global
+panels, the development snapshot shows increasing error with circuit depth and generally
+decreasing normalized error with rank, while pointwise/oracle panels are roundoff
+dominated. The complete support-path view retains the $S=0$ and $S=128$ controls and its
+visible nonmonotonic structure. The scaling view supports descriptive finite-grid
+comparison only: it cannot authorize an asymptotic or universal monotonicity claim, and
+differences near roundoff are not divided into ratios.
 
-Every coefficient appears as a JSON number even when it is also recoverable from a named
-formula. Every scientific array uses the order printed above; set-like reordering is
-forbidden.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-rank-depth-scaling.png}
+\caption{Unverified development snapshot of total-operator and total-spectrum
+rank/depth scaling at $S=2$.}
+\label{fig:protocol-development-rank-depth}
+\end{figure}
 
-\subsection{Result document}
+\subsection*{View 8: gauge-recovery controls}
 
-\path{result.json} contains \path{input_sha256}, \path{overall_qualification}, the exact
-\path{case_order}, \path{cases}, \path{cross_case_resolution}, and \path{scope}.
-\path{overall_qualification} is exactly one of \path{qualified},
-\path{invalid-mandatory-gate}, \path{numerically-unresolved}, or
-\path{incomplete-coverage}; \path{resource-limit-exceeded} belongs to failed-run provenance and its report because a
-resource-terminated calculation cannot fabricate a complete result.
-Case order is rank-major then depth-minor:
+Figure~\ref{fig:protocol-development-recovery} intentionally separates frame recovery
+from direct represented-field construction integrity. Identity/global frame residuals
+range from about $0.23$ to $1.26$, while pointwise/oracle frame residuals are at roundoff.
+All lower-row operator-construction checks are at or near roundoff because each aligned
+field agrees with its own declared direct construction. A lower-row identity/global zero
+is therefore an integrity pass, not recovery of the reference diagonal representation.
+Exact zeros are marked separately from the logarithmic display floor.
 
-\[
-(r,L)=(3,1),(3,2),(3,4),(3,8),(4,1),\ldots,(16,8).
-\]
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-recovery-controls.png}
+\caption{Unverified development snapshot of final-mesh frame-recovery and represented-
+field integrity controls.}
+\label{fig:protocol-development-recovery}
+\end{figure}
 
-Each of the 16 case records contains exactly:
+\subsection*{View 9: sampled support--error Pareto diagnostics}
 
-\begin{itemize}
-\item \textbf{\path{case_id}, \path{rank}, \path{depth}, and \path{qualification}.}
-The canonical identifier, integer controls, one technical qualification status from
-\path{qualified}, \path{invalid-mandatory-gate}, or
-\path{numerically-unresolved}, and an ordered \path{failed_gate_paths} array. Each gate
-entry is the JSON Pointer of a required \path{passes} field in that case whose value is
-false; free-text gate names are forbidden, and order follows the execution sequence.
-Scientific claim-resolution statuses are stored separately from technical qualification.
+Figure~\ref{fig:protocol-development-pareto} retains separate feasible sets for every
+gauge alignment. One joint nondominance mask is computed from
+$(2S+1,E_{\mathrm{operator}}^{\mathrm{total}},E_{\mathrm{spectrum}}^{\mathrm{total}})$
+and reused in both displayed error columns. Identity/global cases have seven to nine
+sampled nondominated supports;
+pointwise cases have three to five and oracle cases three to six. The latter counts are
+sensitive to tolerance-free ordering among roundoff-scale error values beyond $S=2$.
+Consequently Pareto membership is a descriptive sampled relation, not an acceptance gate,
+a continuum front, or a preferred-support selector. The known-inverse oracle remains a
+synthetic control and cannot be promoted as an attainable optimizer.
 
-\item \textbf{\path{analytic_certificates}.}
-Exact isolation value and certificate identity, exact attack-angle expression identity
-and rank-specific evaluated bound, exact smooth-field support $|R|\leq2$, exact P0
-projector identity, and analytic pointwise-unitary/known-inverse-oracle equivalence expectation. Analytic entries are
-labeled \path{construction-guarantee}; sampled checks are never placed in this object.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-support-error-pareto.png}
+\caption{Unverified development snapshot of within-gauge sampled Pareto membership.}
+\label{fig:protocol-development-pareto}
+\end{figure}
 
-\item \textbf{\path{sampled_certificate_checks}.}
-The sampled isolation and attack-angle values from every selected construction mesh,
-together with signed margins to the analytic bounds and an explicit
-\path{sampled-diagnostic-only} role.
+\subsection*{Rendering from admitted calculation results}
 
-\item \textbf{\path{endpoint_and_transport}.}
-Three mesh records ordered $513,1025,2049$, each containing endpoint
-frame/projector/sewing defects, neighbor and closure singular-value extrema, applied
-cutoffs and margins, deficient-link indices, unattempted-link indices, link-unitary
-extrema, primitive closure
-defect, closure-unitarity defect, and unordered closure eigenphases.
+The renderer reads the integrity-admitted canonical result cache, computes no scientific
+quantity, and preserves unresolved, failed, missing, exact-zero, roundoff-scale, and
+inapplicable states. Figure colors, labels, layouts, captions, and selections may change
+without recalculation. No rendering authentication or rendering digest is required.
 
-\item \textbf{\path{alignment_selection}.}
-global-unitary's one final-mesh selection record and one pointwise-unitary selection record per construction mesh.
-The global-unitary record contains status, selection mesh, objective values, complete singular
-values, cutoff, margin, condition number when defined, selected unitary when defined,
-and all integrity defects. Each pointwise-unitary record contains status, mesh size, pointwise-objective
-maximum and RMS, per-point smallest singular values, cutoffs, margins, and rank statuses,
-condition-number extrema when defined, integrity-defect extrema, deficient count, and
-exact deficient indices. known-inverse-oracle contains its oracle status and recovery defects. identity contains
-its deterministic status. Inapplicable payloads are omitted under the status rules above.
+\section{Verification and canonical result integrity}
 
-\item \textbf{\path{meshes}.}
-Three records ordered as $513,1025,2049$. Each record contains coordinate-construction,
-parent, frame, projector, and direct-spectrum diagnostics followed by four gauge alignment
-records ordered identity, global-unitary, pointwise-unitary, and known-inverse-oracle. Sewing and transport values are referenced from the matching
-\path{endpoint_and_transport} record rather than duplicated.
+The direct stage-two entrypoint, \path{run_02_verification.py}, verifies the canonical
+manifest bytes, every case-result SHA-256 and byte count, exact typed-record round trips,
+and the complete 16-case inventory. It does not claim that byte integrity establishes
+scientific validity.
 
-\item \textbf{\path{refinement}.}
-For every mandatory block or scalar diagnostic, the $M=1025$ value, $M=2049$ value,
-absolute change, relative change under the frozen denominator, applied absolute and
-relative thresholds, signed margin, and pass/fail status.
+Scientific review additionally uses the implemented bounded producer-independent
+controls: analytic-model and attack invariants; all-gauge direct Fourier sums;
+global/pointwise Procrustes reconstruction; and constant-frame transport reconstruction.
+These controls bypass their corresponding producer actions but share NumPy/LAPACK and
+typed comparison infrastructure. Exhaustive independent recomputation of every retained
+array is not required for ordinary production.
 
-\item \textbf{\path{pareto_diagnostics}.}
-For each applicable gauge alignment, the final-mesh support order, retained-block counts,
-normalized total operator and ordered-spectrum objectives, Boolean sampled-Pareto
-membership, and nondominated count. gauge alignment feasible sets remain separate, and pointwise-unitary/known-inverse-oracle
-records carry their control-only role.
-
-\item \textbf{\path{claim_resolution}.}
-The locality-extension-at-$S=2$ and global-alignment-residual operands, thresholds,
-margins, and exactly one of \path{resolved},
-\path{unresolved-at-v1-resolution}, \path{inapplicable-aggregate-rank-deficient}, or
-\path{invalid-technical-qualification}. Rank/depth comparisons name both case IDs, the exact metric path, both
-values, both refinement changes, the applied resolution, and exactly one of
-\path{resolved-difference}, \path{descriptive-unresolved}, or
-\path{invalid-technical-qualification}. No combined score is present.
-
-\item \textbf{\path{resources}.}
-Processed point, matrix, Fourier-block, evaluation, and support-record counts for the
-case. Producer and verifier wall time and peak resident memory are invocation-level
-measurements retained in provenance rather than attributed ambiguously to one case.
-\end{itemize}
-
-Every applicable mesh/gauge alignment record contains:
-
-\begin{itemize}
-\item gauge alignment status and downstream applicability;
-\item frame, projector, represented-operator, and ordered-spectrum residual summaries;
-\item Fourier representative count and canonical-index, reconstruction, Hermitian-pair,
-      Parseval, error-decomposition, and no-Nyquist records;
-\item the ordered $R=-128,\ldots,128$ block-norm inventory, with raw and rank-normalized
-      values but not the complete block matrices;
-\item the full-interpolant evaluation errors and perturbation-bound diagnostics; and
-\item nine support records ordered $S=0,1,2,4,8,16,32,64,128$.
-\end{itemize}
-
-Each support record contains the explicit translation list; raw and normalized $W$, $N$,
-and $L$ tails; support-monotonicity checks; Parseval values and defect; deliberate-
-truncation and total maximum/RMS operator errors; deliberate-truncation and total
-maximum/RMS ordered-spectrum errors; error-decomposition defect; spectral-norm and
-Frobenius bound violations; qualified saturation ratios; and all applicability and
-pass/fail statuses. Interpolation, truncation, and total fields are never collapsed into
-one error.
-
-A selected complex matrix, presently only a qualified global-unitary unitary, is encoded as
-\path{shape}, row-major \path{real}, row-major \path{imaginary}, and \path{unit}. Every
-raw/normalized scalar record names \path{raw_value}, \path{raw_unit},
-\path{normalized_value}, and \path{normalization_id}. Arrays do not inherit an unstated
-unit from surrounding prose.
-
-\subsection{Verification document}
-
-\path{verification.json} contains \path{input_sha256}, \path{result_sha256}, the verifier
-method identity, verifier qualification, and ordered case verifications. It does not copy
-the producer result as its alleged independent value. Scalar comparisons contain a JSON
-Pointer path, producer value, independently reconstructed value, absolute difference,
-applied tolerance, signed margin, and disposition. Categorical comparisons contain the
-path, both values, and exact-match disposition. Array comparisons contain the path,
-shape, producer and verifier digests of the arrays' canonical JSON bytes, maximum absolute difference,
-first maximum-difference index in row-major order, both values at that index, tolerance,
-and disposition. This rule applies to per-point singular-value and rank inventories as
-well as block-norm and support arrays.
-
-Each verification case separately reports reconstruction of parent formulas, analytic
-certificate expectations, alignment ranks/objectives, transport and closure, represented
-operators, direct Fourier blocks, support masks, tail norms, Parseval, interpolation,
-truncation, total errors, perturbation bounds, refinement, and claim-resolution operands.
-The overall verification is successful only when every required scalar, array,
-categorical, schema, identity, and digest comparison passes.
-
-\subsection{Provenance document and tabular view}
-
-\path{provenance.json} contains protocol and schema digests; Git base revision and branch;
-dirty-worktree status; \path{source.sha256} digest; dependency lock digest and exact
-dependency revisions; producer and verifier commands; authorization reference; UTC start
-and stop times; platform, architecture, Python, NumPy, BLAS/LAPACK, and floating-point
-identities; thread-environment values; prohibited-mechanism confirmations; producer and
-verifier wall times and peak resident memory; retained-file digests; and final resource
-and package dispositions. It contains no credentials, tokens, scheduler secrets, private
-data, or host authentication material.
-
-\path{diagnostics.csv} is a derived, checksummed view of \path{result.json}, not a second
-source of scientific truth. It has exactly
-$16\times3\times4\times9=1728$ data rows in rank-major, depth-minor, mesh, gauge alignment, then
-support order. Its leading key columns are \path{case_id}, \path{rank}, \path{depth},
-\path{mesh_size}, \path{gauge_alignment}, and \path{support}. They are followed by technical
-qualification, alignment status, downstream applicability, raw and normalized $W/N/L$,
-interpolation/truncation/total operator and spectral summaries, Parseval and error-
-decomposition defects, perturbation-bound violations and ratios, final-mesh Pareto
-membership when applicable, refinement status, and claim-resolution fields. Inapplicable numeric cells are empty; zero is reserved for an
-applicable calculated zero. Numeric text uses a round-trip-safe decimal representation,
-line endings are LF, and CSV values must reconstruct the corresponding JSON scalars
-exactly.
-
-Canonical JSON is UTF-8, key-sorted, compact, finite, and terminated by exactly one line
-feed. The implementation uses separators \path{(',', ':')}, preserves JSON array order where
-order is scientific, and forbids NaN and infinity. SHA-256 is computed over canonical
-bytes. Schema files themselves are checksummed and bound into provenance.
+The canonical case records and manifest use the maintained \path{BaseTypedRecord} wire
+contract. Numeric fields reject invalid scalar types and nonfinite values through their
+own typed owners. The manifest records result-file identities and
+\path{calculation_infrastructure_sha256}. No separate JSON Schema set, run envelope,
+input copy, verification package, provenance document, or authenticated plotting record
+is required.
 
 \section{Resource and execution gate}
 
@@ -1801,44 +1747,30 @@ retained package size, excluding generated figure images & 50 MiB total & includ
 The implementation must stream across rank/depth/gauge alignment cases and must not retain a
 complete all-case mesh-by-matrix tensor solely for convenience. Exceeding a ceiling gives
 \path{resource-limit-exceeded}, retains no successful evidence package, and triggers protocol
-review rather than an unreviewed increase. Runtime, peak resident memory, thread
-environment, platform, Python, NumPy, BLAS/LAPACK, and floating-point identifiers are
-recorded.
+review rather than an unreviewed increase. These ceilings govern the scientific
+calculation and verification stages only; figure regeneration from saved results has no
+scientific-calculation time requirement.
 
-Implementation review must pass unit tests, strict schema validation, type checking,
-linting, source-manifest reconstruction, and an unreleased end-to-end dry run before any
-retained execution is authorized. A dirty worktree is not represented as a clean Git
-revision; all in-scope dirty source bytes must be included in \path{source.sha256}.
+Implementation review must pass the affected unit tests, type checking, linting, cache
+integrity verification, and one complete end-to-end dry run. The calculation manifest's
+infrastructure SHA-256 is the required source identity.
 
 \section{Retained-evidence and failure policy}
 
-A run identity has the no-overwrite form
-\path{<version-id>.run-YYYYMMDDTHHMMSSZ} in UTC; a timestamp collision is an error rather than
-permission to replace an existing directory. A successful retained package contains:
+A completed calculation retains the canonical case-result files and their manifest. The
+manifest records every result-file SHA-256, the complete case inventory, and the single
+\path{calculation_infrastructure_sha256} provenance value. The integrity-admission record
+binds the manifest SHA-256. Figures and report files are replaceable derived views and may
+be regenerated from admitted result bytes without altering or repeating the calculation.
+No evidence-package seal or additional provenance bundle is required by this study.
 
-\begin{itemize}
-\item canonical \path{input.json}, \path{result.json}, \path{verification.json}, and \path{provenance.json};
-\item the four exact schemas used for validation;
-\item \path{diagnostics.csv} with one explicitly keyed row per case, mesh, gauge alignment, and support;
-\item \path{report.md} and publication-view figure data;
-\item \path{source.sha256}, \path{SHA256SUMS}, and \path{evidence-package-identity.txt}; and
-\item generated figures only as non-authoritative views of checksummed numerical records.
-\end{itemize}
-
-\path{SHA256SUMS} covers every retained file except itself and
-\path{evidence-package-identity.txt}. The evidence identity is
-\path{sha256:<SHA-256(SHA256SUMS bytes)>}. Consumers verify digests and schemas before reading
-scientific values. The package binds the exact Git base revision, dirty-source manifest,
-dependency revisions and lock digest, protocol and schema digests, run identity, verifier
-method, runtime environment, and measured resources.
-
-A successful package requires all 16 cases, all three construction meshes, all nine
-supports, identity/pointwise-unitary/known-inverse-oracle, every qualified global-unitary or exact global-unitary deficiency disposition, and complete
-independent-verifier agreement. Partial rank/depth coverage, missing refinement levels,
-failed schemas, failed digests, failed numerical gates, or resource-limit failures cannot
-be promoted as successful evidence. Failed attempts may be kept only under a distinct
-failed-run identity with incomplete outputs and the failure made explicit. They are not
-publication evidence and never replace a successful package.
+A complete calculation requires all 16 cases, all three construction meshes, all nine
+supports, identity, pointwise-unitary, known-inverse-oracle, and every qualified
+global-unitary or exact global-unitary deficiency disposition. Partial coverage, failed
+cache integrity, failed mandatory numerical gates, or resource-limit failures remain
+explicitly incomplete. Scientific review uses the declared analytic invariants,
+refinement checks, and bounded producer-independent reference controls; exhaustive
+byte-by-byte independent reconstruction is not a prerequisite.
 
 Retained evidence supports only the selected finite synthetic D1 cases and the declared
 resolution classifications. It does not validate a material, a global localization
@@ -1849,9 +1781,9 @@ remain separate human decisions.
 \section{Selections remaining outside D1 v1}
 
 No D1 v1 scientific or numerical control remains outcome-selectable. Implementation
-class names, file layout, and exact dependency revisions may be chosen during
-implementation review only when they preserve every contract above; the final revisions
-and bytes are then bound in provenance.
+class names, file layout, and dependency revisions may be chosen during implementation
+review only when they preserve every contract above; the selected scientific source
+bytes are then bound by \path{calculation_infrastructure_sha256}.
 
 The following remain open for later, separately versioned protocols:
 
@@ -1867,8 +1799,9 @@ The following remain open for later, separately versioned protocols:
 None of these may be added to D1 v1 after observing its outcomes. The D1 identity,
 coefficients, exact certificates, rank/depth ladder, meshes, supports, tolerances,
 identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge alignments, decision rules, verifier method, resource gate, and evidence policy are
-now selected. Until a reviewed calculator, independent verifier, retained composition,
-and schemas exist, the version remains unexecuted and cannot supply higher-rank numerical
-evidence. Reusable diagnostic software tests establish only the behavior of those
-primitives.
+now selected. The maintained calculator and development renderer do not change that
+inventory. The completed cache and its infrastructure identity support repeated
+scientific review and figure development without recalculation. Publication acceptance
+remains a separate human decision based on the stated finite synthetic scope, numerical
+gates, reference controls, and limitations.
 \end{document}

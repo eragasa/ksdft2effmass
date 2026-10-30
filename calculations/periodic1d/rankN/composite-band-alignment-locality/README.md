@@ -1,7 +1,7 @@
 # Higher-rank gauge alignment and hopping locality in one dimension
 
-**Status:** maintained typed development producer with no independently verified or
-checksum-bound retained execution.
+**Status:** maintained typed producer with an integrity-admitted reusable calculation
+cache; scientific acceptance and publication remain separate decisions.
 
 This synthetic calculation asks a concrete question: if a momentum-dependent change of
 retained basis preserves the represented energy bands, how much can it lengthen the
@@ -17,9 +17,18 @@ failure records together with the analytic producer. Gauge-alignment constructio
 recovery, Fourier transformation, interpolation, locality analysis, and result assembly
 are decomposed under its `gauge_alignment/` child.
 
-- [`run_development.py`](run_development.py) directly composes the maintained KSD,
-  PhysKit, and Optimization owners for one replaceable development case. Its JSON summary
-  declares `scientific_evidence: false`.
+- [`run_01_calculation.py`](run_01_calculation.py) directly composes the maintained KSD,
+  PhysKit, and Optimization owners for all 16 cases once, writes a
+  `scientific_evidence: false` summary, and stores one canonical typed result per case.
+  The cache manifest records one SHA-256 identity for the explicitly selected scientific
+  calculation infrastructure; plotting sources are excluded.
+- [`run_02_verification.py`](run_02_verification.py) performs canonical-byte, SHA-256,
+  exact-round-trip, and complete-inventory verification. It explicitly records
+  `independent_scientific_verification: false`.
+- [`run_03_render.py`](run_03_render.py) regenerates the fixed nine-figure
+  technical-report snapshot repeatedly from the integrity-admitted cache without
+  recalculating the scientific grid. Plot and report changes therefore do not require
+  the approximately 30-minute calculation stage.
 - [`verify_analytic_controls.py`](verify_analytic_controls.py) checks two formulas on a
   finite grid. It is a sanity check, not independent verification of the full result.
 - [`protocol/`](protocol/README.md) contains the authoritative detailed plan, frozen
@@ -43,10 +52,9 @@ references do not reconstruct complete locality error channels or refinement evi
 and do not own result bytes. Here producer-independent means direct NumPy reconstruction
 that bypasses the corresponding producer scientific actions. It does not mean an
 independent numerical-library stack: the references share NumPy/LAPACK and typed
-quantity/comparison infrastructure, as do the maintained PIAB1D and QHO1D reference
-routes. Complete independent numerical recomputation, byte-owning verification,
-strict retained-artifact schemas, authenticated plotting data, direct calculate → verify
-→ render composition, and a resource-qualified retained run remain separate work.
+quantity/comparison infrastructure. Exhaustive recomputation and authenticated rendering
+are not required by the study's direct calculate-once, integrity-check, render-many
+lifecycle.
 Proposed two- and three-dimensional and nonorthonormal studies remain outside this
 periodic-1D orthonormal contract.
 
@@ -73,14 +81,14 @@ Migration records:
 
 | Part | Current disposition |
 |---|---|
-| One-dimensional analytic parent and 16 rank/depth cases | Implemented by the maintained higher-rank package; development composition executes one selected case at a time. |
+| One-dimensional analytic parent and 16 rank/depth cases | Implemented by the maintained higher-rank package; one development calculation writes canonical replaceable cache bytes that subsequent renders reuse. |
 | Four gauge alignments | Identity, global-unitary, pointwise-unitary, and known-inverse-oracle are implemented with strict descriptive wire identities. |
 | Model and numerical operations | Family policy remains in KSD; canonical finite-periodic and transport operations come from PhysKit; unit-free Procrustes operations come from Optimization. |
 | Gauge-alignment stages | Construction, recovery, Fourier transformation, shifted interpolation, locality analysis, and correlated assembly have typed request-bound owners. |
 | Failure semantics | Rank deficiency, transport or Procrustes backend failure, integrity failure, and downstream absence are distinct typed outcomes. |
 | Canonical calculation bytes | Implemented through `BaseTypedRecord`; SHA-256 establishes byte identity and provenance, not scientific validity. |
-| Independent reference and verification | Bounded direct-formula core-invariant, all-gauge Fourier, global/pointwise Procrustes, and constant-frame transport references are implemented; complete protocol-wide recomputation and byte-owning verification are not. |
-| Authenticated figures and retained execution | Not implemented and separately authorization-gated. |
+| Independent reference and verification | Bounded direct-formula core-invariant, all-gauge Fourier, global/pointwise Procrustes, and constant-frame transport references are implemented; cache integrity verification is the direct stage-two lifecycle. |
+| Figures and execution | Nine views are regenerated from the admitted calculation cache without recalculation. Retained execution and publication remain separately authorization-gated. |
 | Historical Workflow source | Preserved as read-only provenance and excluded from maintained runtime and tests. |
 | Rank specializations | Rank one remains scalar Fourier locality; rank two remains a separate composite-alignment study. Neither is admitted by widening the D1-v1 inventory. |
 | Future variants | Moving-subspace, complex-rotation, restricted-optimizer, 2-D, 3-D, and nonorthonormal variants are absent and cannot inherit this result. |

@@ -59,11 +59,12 @@ new numerical findings. The maintained producer, typed evidence records, bounded
 producer-independent reference analysis of analytic-model and attack core invariants,
 bounded direct-sum all-gauge Fourier controls, and independent global/pointwise
 Procrustes-selection and constant-frame-transport slices are implemented and
-software-tested. Complete protocol-wide reference analysis,
-byte-owning verification,
-resource-qualified execution, and a retained scientific result do not exist.
-Accordingly, this report presents methodology, analytic results, and
-software-verification status without reporting unexecuted numerical trends.
+software-tested. A complete 16-case producer calculation has also been run locally and
+saved as canonical reusable result bytes for the fixed nine-figure inventory. Those
+snapshots are visibly marked ``development/unverified'' and are discussed here as
+calculated observations pending scientific acceptance. Their cache integrity and
+calculation-infrastructure identity are recorded; exhaustive byte-owning recomputation
+and authenticated rendering are not ordinary-production requirements.
 \end{abstract}
 
 \noindent\textbf{Keywords:} composite bands; gauge covariance; Procrustes alignment;
@@ -131,13 +132,15 @@ in the appendices.
 
 \subsection{Evidence status}
 
-This is a pre-execution technical report. The authoritative protocol fixes the
+This is a pre-retention technical report. The authoritative protocol fixes the
 coefficients, meshes, tolerances, schemas, resource limits, and future evidence policy.
 The maintained direct runner is explicitly development-only and writes no retained
-scientific evidence. No numerical trend across the 16 rank/depth cases is asserted here.
-Passing tests establishes software behavior only; it does not establish physical
-validity, independent numerical verification, resource compliance, or convergence of a
-retained calculation.
+scientific evidence. The numerical figures in Section~\ref{sec:development-snapshot}
+come from one replaceable full-grid producer execution and are retained only as report
+snapshots. They are not backed by admitted result bytes, an independent verification
+record, measured resource qualification, or digest-gated rendering. Their discussion is
+therefore descriptive and conditional; passing tests and producing plots establishes
+software behavior only, not physical validity or scientific validation.
 
 \section{Background and scientific setting}
 \label{sec:background}
@@ -208,7 +211,7 @@ finite-mesh interpolation, and deliberate truncation separate.
 
 \subsection{Geometry, state spaces, and units}
 
-The selected D1 specialization uses the dimensionless unit lattice and reduced
+The selected one-dimensional specialization uses the dimensionless unit lattice and reduced
 Brillouin torus $\Torus=[-\pi,\pi)$. For retained rank $r\geq3$, the ambient state space
 is $\mathbb C^{2r}$ with the retained coordinates ordered before the exterior
 coordinates. The canonical embedding $E_r:\mathbb C^r\rightarrow\mathbb C^{2r}$ and
@@ -221,7 +224,7 @@ All energies are expressed in a declared dimensionless unit with positive refere
 scale $\Eref=1$ during numerical evaluation. Formulas retain $\Eref$ to expose the
 normalization.
 
-The P0 control uses the constant analytic frame $F_r(k)=E_r$ and identity ambient sewing.
+The constant-projector control uses the analytic frame $F_r(k)=E_r$ and identity ambient sewing.
 The state-space map is therefore known directly rather than inferred from eigenvectors.
 Internal crossings among retained energies are permitted because the complete retained
 projector, not a sequence of individually labeled bands, is the scientific object.
@@ -338,7 +341,7 @@ $X=L\Sigma V^\dagger$, the admitted unitary polar factor is
 \end{equation}
 It is selected only when
 \begin{equation}
- \sigma_{\min}(X)>	au_{\mathrm{sv}}(X),
+ \sigma_{\min}(X)>\tau_{\mathrm{sv}}(X),
  \qquad
  \tau_{\mathrm{sv}}(X)=\max(10^{-12},10^{-10}\sigma_{\max}(X)).
  \label{eq:rank-gate}
@@ -396,7 +399,7 @@ producer SVD solver. It uses $U_j=G(q_j)^\dagger$ directly for the pointwise con
 recomputes the retained rank, residual, integrity, and selected-unitary evidence.
 
 \begin{proposition}[Pointwise and oracle recovery]
-For the P0 construction, pointwise-unitary and known-inverse-oracle alignment both
+For the constant-projector construction, pointwise-unitary and known-inverse-oracle alignment both
 recover $F_r(k)$ and $D_r(k)$ in exact arithmetic.
 \end{proposition}
 
@@ -447,7 +450,7 @@ fixes the distributed root. Closed frames are
  \label{eq:distributed-closure}
 \end{equation}
 If $\widetilde F_M=\widetilde F_0\mathcal H$, then
-$F_M^{\mathrm{closed}}=F_0^{\mathrm{closed}}$. For the constant P0 reference frame and
+$F_M^{\mathrm{closed}}=F_0^{\mathrm{closed}}$. For the constant reference frame and
 identity sewing, the exact model predicts trivial transport and zero endpoint phases;
 the numerical transport remains valuable as an action-orientation and closure control.
 The bounded independent transport reference instantiates that exact prediction directly:
@@ -638,13 +641,38 @@ aggregate may instead carry the bounded disposition
 inapplicable. Pointwise rank deficiency, documented backend failure, alignment integrity
 failure, or oracle integrity failure invalidates the complete case.
 
+\subsection{Reasonable accuracy scales and computational precision}
+
+A numerical tolerance is an acceptance standard, not a prediction that every residual
+will stop at that value. For normalized binary64 calculations near unit scale, machine
+epsilon is approximately $2.22\times10^{-16}$. Matrix products, Fourier sums over up to
+2049 points, eigensolvers, and repeated factorizations normally accumulate more error
+than one machine epsilon. Consequently, residuals of order $10^{-12}$ are a reasonable
+strict standard for structural identities in this calculation; $10^{-11}$ to $10^{-10}$
+are reasonable standards for Fourier, spectrum, transport, and recovery comparisons;
+and the complete-interpolant operator gate is deliberately looser at $10^{-9}$. The
+scientific effect-resolution scale is $10^{-6}$, several orders of magnitude above all
+of these numerical gates. Table~\ref{tab:tolerances} gives the diagnostic-specific
+values and normalizations.
+
+Some present controls nevertheless produce measured residuals of order $10^{-16}$, and
+one decomposition defect is smaller still. Those values arise where an analytic identity,
+finite support, or nearly exact cancellation is represented especially faithfully in
+binary64 arithmetic. They show that the measured residual reached the roundoff scale;
+they do not establish 16 or more reliable decimal digits, justify a $10^{-18}$ acceptance
+tolerance, or improve the scientific resolution below $10^{-6}$. Exact floating-point
+zero is reported separately because it is a representational outcome, not evidence of
+infinite accuracy. In logarithmic figures, $10^{-18}$ is only an axis-placement device
+that keeps exact zeros and exceptionally small positive residuals visible; all values at
+that scale are interpreted as computational-precision or roundoff-scale results.
+
 \subsection{Claim-resolution rules}
 
 The protocol does not infer a locality effect from visual separation alone. For a
 qualified case, gauge-induced locality extension at $S=2$ is resolved only if the
-identity tail exceeds the frozen $10^{-6}$ scale, the oracle tail is below $10^{-10}$,
-and the identity ordered-spectrum truncation error also exceeds the effect-resolution
-floor. Rank or depth differences are descriptive unless their normalized difference
+identity tail is at least the frozen $10^{-6}$ scale, the oracle tail is at most
+$10^{-10}$, and the identity total ordered-spectrum maximum error after $S=2$
+truncation is at least $10^{-6}E_{\mathrm{ref}}$. Rank or depth differences are descriptive unless their normalized difference
 exceeds both $10^{-6}$ and ten times the larger observed refinement change. These rules
 are fixed before execution and do not assert that an effect will be found.
 
@@ -699,10 +727,11 @@ selection provenance.
 \end{tabularx}
 \end{center}
 
-Canonical typed JSON bytes and SHA-256 digests establish record identity and provenance.
-They do not establish scientific correctness. Independent recomputation must bypass the
-producer, and rendering must consume authenticated values without calculating new
-scientific quantities.
+Canonical typed JSON bytes and SHA-256 digests establish record identity and integrity;
+one explicit SHA-256 identifies the selected scientific calculation infrastructure.
+They do not establish scientific correctness. The bounded references bypass the
+corresponding producer actions, while rendering consumes saved results without
+calculating new scientific quantities.
 
 \section{Results established before retained execution}
 \label{sec:results}
@@ -720,7 +749,7 @@ They require no numerical execution and must not be reported as empirical observ
 \midrule
 Exterior isolation & $\Delta_{\mathrm{iso}}=2.10\Eref$ for every selected rank. & Exact finite-model certificate; not a material band gap. \\
 Gauge covariance & Attack preserves projector and pointwise spectrum. & Does not preserve matrix entries or hopping locality. \\
-Pointwise recovery & Pointwise polar factor equals $G_{r,L}^\dagger$. & Exact P0 property; not evidence for noisy or unknown frames. \\
+Pointwise recovery & Pointwise polar factor equals $G_{r,L}^\dagger$. & Exact constant-projector property; not evidence for noisy or unknown frames. \\
 Oracle recovery & Known inverse restores $F_r$ and $D_r$. & Construction control, not a fitted solution. \\
 Reference support & $T_{D_r}(R)=0$ for $|R|>2$. & Continuum statement; finite-transform defects remain numerical. \\
 Hermitian pairing & $T(-R)=T(R)^\dagger$. & Exact continuum identity tested separately on each finite mesh. \\
@@ -764,22 +793,233 @@ and 89 explicitly expensive deselections. Ruff, strict source mypy, strict Sphin
 establish current software behavior and document buildability only. They do not
 constitute independent numerical verification of a scientific result.
 
-\subsection{Numerical results not yet available}
+\subsection{Development numerical snapshot: scope and admission boundary}
+\label{sec:development-snapshot}
 
-No complete 16-case development execution was performed for this report revision. No
-retained result bytes have been admitted. The bounded references do not cover
-support-truncated and total-error fields, error-channel decompositions, or refinement.
-The 4~GiB resource
-ceiling has not been demonstrated. Consequently this report does not
-provide rank or depth trends, support Pareto fronts, global-unitary residuals,
-wall-time scaling, or retained figures. Empty result space is reported explicitly rather
-than populated with illustrative or synthetic values that could be mistaken for
-calculated evidence.
+The fixed development renderer was exercised on all 16 rank/depth cases. It projects the
+final producer objects into immutable plotting arrays and renders the nine views declared
+before this full-grid execution. The calculation completed all requested producer paths and wrote canonical typed case
+bytes to a reusable calculation cache. A separate integrity admission binds their
+manifest digest and checks canonical round trips and complete inventory. The admitted
+manifest SHA-256 is
+\texttt{64d9facd876183efa85b77d9351317a4a3adebd266bbb0ce9a25fae6fbbf02a7};
+it records calculation-infrastructure SHA-256
+\texttt{7cdd7788a2eda7cfdf0379ce1569fba10b56ea3ad9302ca234bad05b0787159b}.
+That infrastructure identity binds the explicitly selected scientific producer and
+numerical collaborator sources, not plotting or report sources. Presentation changes can
+therefore regenerate all nine views from the admitted result bytes without repeating the
+scientific calculation. Cache admission is not an independent scientific verification
+record. Every panel therefore carries the visible banner
+\emph{DEVELOPMENT / UNVERIFIED---not publication evidence}. Numerical values below are
+calculated development observations. They are neither illustrative synthetic data nor
+accepted findings, and a later scientifically reviewed calculation may differ at
+binary64 roundoff or may expose an unresolved verification failure. As discussed above, logarithmic panels
+use a display floor of $10^{-18}$ solely for axis placement; exact zeros remain distinct
+and are marked explicitly where they occur. The floor is neither an acceptance standard
+nor a claim of accuracy beyond binary64 computational precision.
 
-A later result section may be populated only from a separately authorized retained
-execution followed by independent recomputation and byte-owning verification. Its tables
-must distinguish calculated values from analytic certificates and must preserve
-unresolved or inapplicable dispositions.
+\subsubsection{$S=2$ alignment--locality plane}
+
+Figure~\ref{fig:development-alignment-locality} places the final-mesh normalized frame-
+recovery defect on the horizontal axis and the normalized omitted Fourier tail at the
+frozen support $S=2$ on the vertical axis. Four gauge panels each retain all 16 cases;
+rank is encoded by marker, depth by color, and the paired $M=1025$ and $M=2049$ marks
+make mesh movement visible without converting it to a percentage near zero. Across the final
+mesh, identity and global-unitary tails span $8.02\times10^{-4}$ to
+$9.52\times10^{-2}$, while the pointwise and oracle tails span approximately
+$1.38\times10^{-16}$ to $2.80\times10^{-16}$. Identity and global frame defects remain
+between $2.30\times10^{-1}$ and $1.26$, whereas pointwise and oracle frame defects are at
+binary64 roundoff. The global and identity locality ordinates coincide to about
+$10^{-16}$ because a constant right unitary conjugates every Fourier block and preserves
+its Frobenius norm; this is a feasible-set invariant, not evidence that the global fit
+recovered the reference frame.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-alignment-locality-s2.png}
+\caption{Development-only $S=2$ alignment--locality plane for all 16 cases. Absolute
+normalized operands are plotted separately; no unstable identity/oracle ratio is used.}
+\label{fig:development-alignment-locality}
+\end{figure}
+
+\subsubsection{Complete support paths and Fourier-block locality}
+
+Figure~\ref{fig:development-support-paths} shows every frozen support for every case and
+gauge alignment. Identity and global-unitary paths decrease over several support scales
+before reaching the roundoff floor, whereas pointwise and oracle paths reach that floor
+at $S=2$, as predicted by the analytic support certificate. No support is removed because
+it appears visually redundant. At the prospectively fixed interior anchor $(r,L)=(8,4)$,
+the identity tail decreases from $1.52\times10^{-1}$ at $S=0$ to
+$1.21\times10^{-2}$ at $S=2$, $6.64\times10^{-6}$ at $S=8$, and
+$2.23\times10^{-11}$ at $S=16$ before reaching the numerical floor near $S=32$.
+The global-unitary values agree at the displayed precision. The pointwise and oracle
+tails are already about $2\times10^{-16}$ at $S=2$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-support-locality-paths.png}
+\caption{Development-only complete support-path locality curves. Rows are ranks, columns
+are gauge alignments, and line style/color identifies circuit depth.}
+\label{fig:development-support-paths}
+\end{figure}
+
+Figure~\ref{fig:development-block-locality} resolves the same mechanism coefficient by
+coefficient for the fixed $(8,4)$ anchor. Identity and global-unitary retain a decaying
+sequence beyond $|R|=2$; pointwise and oracle show only the $R=0,1,2$ analytic blocks
+above roundoff. The plot is a finite $M=2049$ coefficient inventory, so the apparent
+floor is numerical and does not establish a continuum decay rate.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-fourier-block-locality.png}
+\caption{Development-only nonnegative Fourier-block norms at the fixed interior anchor.
+The vertical line marks the exact reference support boundary $|R|=2$.}
+\label{fig:development-block-locality}
+\end{figure}
+
+\subsubsection{Interpolation, truncation, and total-error channels}
+
+Figure~\ref{fig:development-error-channels} displays the three error channels as
+separate, non-stacked curves. The complete-interpolant error is support independent and
+stays near binary64 roundoff at the anchor. It is therefore much smaller than truncation
+over most of the support path, so the truncation and total curves nearly coincide and one
+can obscure the other if drawn with identical markers. The revised figure draws total as
+a thin solid green curve and truncation as a thicker dashed orange curve with open square
+markers, making both visible where their numerical values overlap. For identity and
+global-unitary, truncation and total errors fall across the full support path; for
+pointwise and oracle they reach
+the numerical floor at $S=2$. At $(8,4)$, the identity normalized total ordered-spectrum
+maximum error decreases from $3.19\times10^{-1}$ at $S=0$ to
+$2.31\times10^{-2}$ at $S=2$, $8.87\times10^{-6}$ at $S=8$, and
+$3.42\times10^{-11}$ at $S=16$. The pointwise and oracle values at $S=2$ are about
+$10^{-15}$. The bottom row confirms the residual-field decomposition numerically; over
+the complete development grid, the largest normalized decomposition defect is
+$3.96\times10^{-17}$. These curves are not stacked because the residual fields add
+pointwise but their separately maximized norms need not.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-error-channel-trajectories.png}
+\caption{Development-only non-stacked trajectories for interpolation, truncation, and
+total error at $(r,L)=(8,4)$. Columns are gauge alignments; the first two rows contain all
+three channels for operator and ordered-spectrum error. The bottom row is the separate
+residual-field decomposition-identity diagnostic, not a fourth error channel.}
+\label{fig:development-error-channels}
+\end{figure}
+
+\subsubsection{Frozen claim operands and refinement}
+
+Figure~\ref{fig:development-claim-resolution} reports the three absolute $S=2$
+locality-extension operands and one supporting global-frame diagnostic, preserving every
+rank/depth cell. In this development snapshot, all 16 cells satisfy each displayed
+inequality: identity tails are at least $10^{-6}$, oracle tails are at most $10^{-10}$,
+identity total ordered-spectrum errors are at least $10^{-6}$, and global frame residuals
+are at least $10^{-6}$. The identity $S=2$ total ordered-spectrum error ranges from
+$1.64\times10^{-3}$ to $2.03\times10^{-1}$, and the global frame residual ranges from
+$2.30\times10^{-1}$ to $1.25$. All 16 cells satisfy each of the three available frozen
+claim operands. The global-frame panel exposes restricted-feasible-set behavior but is
+not the protocol's fourth frozen operand, the global represented-operator residual,
+which the current public result does not retain. The complete frozen locality-extension
+rule therefore remains unresolved. Neither the supporting panel nor the development
+image can assign a retained claim disposition.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-s2-claim-resolution.png}
+\caption{Development-only locality-extension operands and supporting global-frame
+matrix. Color encodes the logarithm of the absolute normalized operand; green and red
+cell borders denote whether the displayed condition is met. Missing, failed,
+aggregate-rank-deficient, and inapplicable states remain categorical rather than being
+colored as numerical zero.}
+\label{fig:development-claim-resolution}
+\end{figure}
+
+Figure~\ref{fig:development-refinement} keeps the $M=1025$ and $M=2049$ values paired and
+also shows each absolute change divided by its applied absolute--relative tolerance. The
+largest gate utilization in the development run is $5.55\times10^{-6}$, for an
+interpolation-spectrum diagnostic; every displayed utilization is far below one. This
+supports internal mesh stability of the producer output but does not replace independent
+recomputation of either side of the pair.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-mesh-refinement.png}
+\caption{Development-only $1025\rightarrow2049$ refinement diagnostics. The dashed
+line in the paired-value panel is equality; the dashed line in the utilization panel is
+the frozen pass boundary.}
+\label{fig:development-refinement}
+\end{figure}
+
+\subsubsection{Rank/depth scaling, recovery controls, and sampled Pareto sets}
+
+Figure~\ref{fig:development-rank-depth} compares ranks only at fixed depths and depths
+only at fixed ranks through paired $S=2$ total-operator and total-spectrum heatmaps. In
+the identity and global-unitary panels, this finite snapshot shows larger errors for
+deeper circuits and generally smaller normalized errors at larger rank. For example, the
+identity ordered-spectrum matrix decreases down each fixed-depth column as $r$ increases,
+while increasing across each fixed-rank row as $L$ increases. This is a description of
+the selected finite grid, not a monotonicity theorem: the complete support paths contain
+visible nonmonotonic structure, and additional ranks or depths could reverse a finite
+trend. Pointwise and oracle $S=2$ panels are dominated by roundoff and cannot support
+rank/depth effect ratios.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-rank-depth-scaling.png}
+\caption{Development-only rank/depth scaling at the prospectively fixed support
+$S=2$. Rows are gauge alignments; columns distinguish total operator and total
+ordered-spectrum error. Numeric annotations retain the absolute normalized values.}
+\label{fig:development-rank-depth}
+\end{figure}
+
+Figure~\ref{fig:development-recovery} separates frame recovery from represented-operator
+construction integrity. Identity and global-unitary do not recover the reference frame,
+while pointwise and oracle frame recovery is at roundoff. The lower-row
+represented-operator recovery values compare each aligned field with its separately
+declared direct construction; identity and global therefore also pass this integrity
+check at zero. Those lower panels must not be read as claiming that identity or global
+alignment recovered $D_r$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-recovery-controls.png}
+\caption{Development-only final-mesh gauge-recovery controls. The two rows answer
+different questions: reference-frame recovery above and direct represented-field
+construction integrity below. Exact zeros are marked ``0'' rather than being identified
+with the $10^{-18}$ logarithmic display floor.}
+\label{fig:development-recovery}
+\end{figure}
+
+Finally, Figure~\ref{fig:development-pareto} marks sampled nondominated supports within
+each case and gauge alignment. One joint mask is computed from the three-objective tuple
+$(2S+1,\ E_{\mathrm{operator}}^{\mathrm{total}},\
+E_{\mathrm{spectrum}}^{\mathrm{total}})$ and reused in both displayed error columns.
+Identity and global-unitary have seven to nine efficient supports per case because
+additional blocks trade higher support cost for lower error.
+Pointwise has three to five and the oracle three to six. Beyond $S=2$, the control errors
+are roundoff-scale, so exact floating-point differences can leave several supports
+nondominated under the tolerance-free rule. Pareto membership therefore selects no
+preferred support, does not pool gauge feasible sets, and does not turn the oracle into a
+practical optimizer.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{development-figures/development-support-error-pareto.png}
+\caption{Development-only sampled support--error Pareto diagnostics. Rows are gauge
+alignments; columns use total operator and ordered-spectrum error. Marked supports are
+nondominated only within their own case and gauge alignment.}
+\label{fig:development-pareto}
+\end{figure}
+
+\subsection{Current numerical-result boundary}
+
+Canonical result bytes for all 16 cases have been admitted by manifest and case-file
+integrity checks. The implemented bounded references do not independently cover every
+support-truncated and total-error field or every refinement value, so cache admission is
+not itself scientific validation. The figures must distinguish calculated values from
+analytic certificates and preserve unresolved, failed, missing, and inapplicable
+states. Publication acceptance remains a separate human decision; it does not require a
+new calculation merely to change presentation.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -795,9 +1035,12 @@ physically realistic or that one gauge is universally optimal.
 Pointwise-unitary and oracle recovery form a strong implementation control because their
 exact target is known. Global-unitary alignment is scientifically different: one matrix
 cannot generally undo a momentum-dependent noncommuting attack. A nonzero qualified
-global residual would measure the limitation of that restricted feasible set, not solver
-failure. Conversely, a small residual at one finite case would not imply equivalence of
-global and pointwise alignment in general.
+global-frame residual is a supporting measure of the limitation of that restricted
+feasible set, not solver failure. Only the separately frozen maximum normalized
+represented-operator residual resolves the protocol's global-alignment claim, and that
+operand is not retained by the current public result. Conversely, a small residual of
+either declared kind at one finite case would not imply equivalence of global and
+pointwise alignment in general.
 
 \subsection{Interpreting rank and depth}
 
@@ -815,7 +1058,7 @@ or asymptotic-depth limit.
 \subsection{Transport and topological scope}
 
 The common closed-loop transport tests numerical continuity, endpoint sewing, and branch
-conventions. In P0 the exact reference projector is constant and topologically trivial.
+conventions. In the implemented control the exact reference projector is constant and topologically trivial.
 Closure phases are therefore transport diagnostics, not polarization, Wannier centers,
 or a topological invariant. The distributed closure is a smooth-gauge construction, not
 a localization optimum.
@@ -841,29 +1084,32 @@ hide a new mathematical contract.
 
 \subsection{Reproducibility and evidence lifecycle}
 
-The intended lifecycle is calculate $\rightarrow$ independently recompute
-$\rightarrow$ verify exact bytes $\rightarrow$ render authenticated values. The producer
-owns scientific calculation but not its independent reference. The verifier owns the
-admitted bytes and compares them with independently reconstructed formulas. The renderer
-owns presentation only.
+The direct lifecycle is calculate once $\rightarrow$ verify cache integrity
+$\rightarrow$ render many times. The producer owns scientific calculation; bounded
+references provide independent controls for selected formulas and algorithms; and the
+renderer owns presentation only.
 
 The calculation-local \path{workflow/} directory is historical provenance and remains
-outside the maintained runtime and tests. The direct development runner composes the
-maintained owners explicitly and labels its summary \texttt{scientific\_evidence: false}.
-No result is sealed, published, or released by executing that runner.
+outside the maintained runtime and tests. \path{run_01_calculation.py} composes the
+maintained owners explicitly and writes one canonical cache record per case plus a
+manifest containing \path{calculation_infrastructure_sha256}.
+\path{run_02_verification.py} checks exact SHA-256 digests, canonical typed round trips,
+case identities, and the complete 16-case inventory. \path{run_03_render.py} renders the
+fixed views repeatedly from the matching admitted cache without recalculating the grid.
+Cache integrity does not establish scientific validity, and none of these entrypoints
+publishes or releases a result.
 
 \subsection{Limitations}
 
 The principal limitations are:
 \begin{enumerate}
 \item the parent is synthetic, finite dimensional, and dimensionless;
-\item only the constant-projector real-gauge P0/G0 specialization is implemented;
+\item only the one-dimensional constant-projector, real-orthogonal specialization is implemented;
 \item the oracle assumes knowledge unavailable in an ordinary material calculation;
-\item only bounded core-invariant, all-gauge Fourier, global/pointwise Procrustes, and
+\item bounded core-invariant, all-gauge Fourier, global/pointwise Procrustes, and
 constant-frame transport reference analyzers are implemented; they are producer-path
-independent under a shared NumPy/LAPACK stack, while complete protocol-wide independent
-analysis and byte-owning verification are absent;
-\item complete runtime and memory compliance are unestablished;
+independent under a shared NumPy/LAPACK stack but do not independently recompute every
+saved quantity;
 \item the finite rank/depth ladder supports no asymptotic law;
 \item no 2-D, 3-D, nonorthonormal, moving-subspace, or topological result is available;
 and
@@ -873,11 +1119,12 @@ and
 \section{Conclusion}
 \label{sec:conclusion}
 
-This report defines a publication-grade methodological account of a controlled
-higher-rank gauge-locality study without overstating its evidence status. The analytic
+This report defines a practical methodological account of a controlled higher-rank
+gauge-locality study without overstating its evidence status. The analytic
 family cleanly separates a physical retained operator from its finite matrix
-representation. A deterministic noncommuting gauge circuit changes matrix-valued
-hopping locality while preserving the retained projector and pointwise spectrum. Four
+representation. A deterministic noncommuting gauge circuit can change matrix-valued
+hopping locality while preserving the retained projector and pointwise spectrum; the
+finite change shown here remains a calculated observation pending scientific acceptance. Four
 prospectively fixed gauge alignments probe different information constraints, and a
 common transport control prevents frame-sewing effects from being conflated with gauge
 selection.
@@ -885,15 +1132,17 @@ selection.
 The exact construction already establishes a uniform isolation energy, covariant
 spectral equivalence, pointwise and oracle recovery, and finite reference support. The
 software producer implements the planned finite numerical analysis with typed immutable
-evidence and fail-closed outcomes. The substantive numerical questions---how locality
-varies with rank and depth, how much a single global unitary can recover, and which
-finite supports are adequate under withheld evaluation---remain unanswered until an
-authorized execution is independently verified.
+evidence and fail-closed outcomes. The replaceable full-grid development snapshot
+exhibits the expected contrast between long-tailed identity/global representations and
+finite-support pointwise/oracle controls, together with stable
+$1025\rightarrow2049$ producer diagnostics. It also shows finite rank/depth structure
+and sampled support--error tradeoffs. Those observations remain explicitly unverified;
+the implemented bounded controls and disclosed limitations define the present evidence
+boundary.
 
-The next scientific gate is therefore not publication but completion of the remaining
-independent reference analysis and byte-owning verification. Only after those owners,
-resource-qualified execution, and retained evidence review exist can numerical results
-be inserted into the report and considered for publication.
+The saved canonical results now support fast presentation work without recalculation.
+Further scientific review may add targeted independent controls where they materially
+affect a claim, while publication acceptance remains a separate human decision.
 
 \appendix
 
@@ -932,7 +1181,7 @@ selected schema.
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.52\textwidth}
                          >{\raggedright\arraybackslash}p{0.25\textwidth}
                          >{\raggedleft\arraybackslash}p{0.13\textwidth}@{}}
-\caption{Frozen D1 P0/G0 numerical tolerances.}
+\caption{Frozen one-dimensional constant-projector numerical tolerances.}
 \label{tab:tolerances}\\
 \toprule
 Diagnostic & Normalization & Tolerance \\
@@ -972,7 +1221,7 @@ retained-block refinement, $|R|\leq128$ & $\sqrt r\Eref$ per block & $10^{-10}$ 
 \midrule
 \path{qualified} & Required scientific and integrity gates pass. & Declared downstream values are present. \\
 \path{aggregate-rank-deficient} & Global covariance fails the strict rank gate. & Only global-unitary downstream values are absent. \\
-\path{pointwise-rank-deficient} & At least one pointwise covariance fails the strict gate. & Complete P0 case is invalid. \\
+\path{pointwise-rank-deficient} & At least one pointwise covariance fails the strict gate. & The complete constant-projector case is invalid. \\
 \path{alignment-numerically-unresolved} & Documented backend operation fails or becomes nonfinite. & No selected factor or locality values are fabricated. \\
 \path{alignment-integrity-failed} & Returned factor fails unitarity, stationarity, objective, or PSD checks. & Complete case is invalid. \\
 \path{oracle-integrity-failed} & Analytic inverse fails construction or recovery checks. & Complete case is invalid. \\
@@ -983,7 +1232,7 @@ retained-block refinement, $|R|\leq128$ & $\sqrt r\Eref$ per block & $10^{-10}$ 
 \section{Prospective retained-results presentation}
 \label{app:future-results}
 
-A later independently verified result package should populate, at minimum:
+A reviewed result presentation should preserve:
 \begin{enumerate}
 \item one qualification table for all 16 cases and four gauge alignments;
 \item global and pointwise rank-margin summaries;
@@ -992,8 +1241,8 @@ A later independently verified result package should populate, at minimum:
 \item separate interpolation, truncation, and total operator and spectrum errors;
 \item the complete $1025\rightarrow2049$ scalar-refinement ledger;
 \item rank/depth comparisons with the frozen resolution rule;
-\item resource measurements for producer and independent verifier; and
-\item exact result, verification, provenance, and rendering byte identities.
+\item the result-manifest SHA-256; and
+\item the single \path{calculation_infrastructure_sha256} provenance identity.
 \end{enumerate}
 No table should replace inapplicable or unresolved entries with zero. No plot should
 select a preferred support unless a separately reviewed decision rule is added before
