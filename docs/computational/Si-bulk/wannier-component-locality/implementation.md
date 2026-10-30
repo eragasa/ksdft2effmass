@@ -28,9 +28,12 @@ CPN and hierarchical binding profile](workflow-binding.md) and are aligned to
 merged owner contract `projectkoios.workflow.cpn-bindings@0.1.0`, exact SHA-256
 `e6428a8b0d8a47d4f9a6596300fe5ccc65bb16c12e1cc8ffe64884720bd513c2`.
 The retained [cross-repository exact-digest review](reviews/SI-VC-WORKFLOW-BINDING-001.md)
-reported `NO_BLOCKING_FINDINGS` for the bounded design-consistency scope. The
-contract remains unimplemented, and neither the review nor operator selection
-grants implementation, dependency, migration, or execution authority.
+reported `NO_BLOCKING_FINDINGS` for its former bounded design-consistency scope. The
+later decision to qualify cutoff/k-point settings before structural convergence changes
+the scientific dependency graph and invalidates the reviewed 56/55 topology as an
+implementation candidate. The contract and replacement topology remain unimplemented,
+and neither the historical review nor operator selection grants implementation,
+dependency, migration, or execution authority.
 
 ## Selected ownership boundary
 
@@ -48,9 +51,10 @@ The architecture decision fixes this boundary:
 The superseded provider draft's proposed
 `projectkoios.simulations.workflows.si_vc` semantic owner was rejected because
 it would have transferred material-campaign policy into the simulation-provider
-repository. The corrected architecture assigns scientific ownership to
-`ksdft2effmass`; the operator selected the authoritative path
-`python/src/ksdft2effmass/campaigns/si_vc/cpn/net.py`.
+repository. The ownership decision assigns scientific ownership to
+`ksdft2effmass`; the operator reserved the eventual authoritative path
+`python/src/ksdft2effmass/campaigns/si_vc/cpn/net.py`. No current topology at that path
+is implemented or authoritative.
 
 Current simulations policy permits `snakes` imports only under
 `pw_dft_scf.cpn`. Si-VC must not be hidden beneath that subtree or create a
@@ -117,18 +121,22 @@ architecture report was observed at SHA-256
 That digest binds the observed report bytes only; the report is not a retained
 repository artifact and does not establish acceptance or chronology. Its 56
 place rows and 55 transition rows were independently counted, were unique, and
-matched the inventories in [CPN schematics](schematics.md). The earlier digests
+matched the inventories in [CPN schematics](schematics.md). The later scientific
+ordering decision supersedes that topology, so this digest now authenticates only a
+historical design candidate. The earlier digests
 `c3429ee81b21b0bbeeef0e8edd3c34f031d0c749e903c5420954c32935437c54`,
 `2b472588a459f283eb9659094e036b33cfa83ffd68fca10501295d78d9226523`,
 `f049415a408197e538c23ff7a4e417ec09644be702581b94923878eb2fc56078`,
 and `4f92d3b0a9331580bb8ef1287f99e2dc17df0ea732f651a2ee1d23018867de1`
 are superseded; the last bound the obsolete 43-place/47-transition inventory.
 
-The requested PseudoDojo file was found at
+The earlier standard-table PseudoDojo comparator was found at
 `/Users/eugene/opt/pseudodojo/1.0/pbe/nc-sr-04-standard/Si/Si.upf`, 225602 bytes,
 SHA-256
 `39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282`.
-The observed executable candidates were:
+This observation does not satisfy the later accepted v0.5 PBE
+scalar-relativistic stringent UPF2 requirement; that exact artifact remains
+unacquired and unverified. The observed executable candidates were:
 
 | Role | Candidate SHA-256 | Bytes | Observed linkage |
 |---|---|---:|---|
@@ -152,7 +160,9 @@ stable topology from the two-token initial marking, defines exact candidate
 bounds and child-export correlation, selects a version-pinned closed-AST export
 route, and defines post-terminal QE saved-state companion evidence with truthful
 bounded cancellation. The exact owner/consumer/provider design review found no
-blocking compatibility inconsistency.
+blocking compatibility inconsistency within its former scope. The provider child design
+remains reusable, but the changed Si-VC child order requires a replacement consumer
+binding and renewed review.
 
 Nested implementation remains blocked by the immutable path-free artifact-set
 and success-projection contracts, actual canonical control-record and exporter
@@ -162,11 +172,15 @@ schemas are in [SCF saved-state lineage](scf-saved-state-lineage.md).
 
 ## Missing CPN/runtime contracts
 
-The corrected architecture inventory now declares explicit external-event
-places and a unique-finalization structure. Implementation review still needs:
+The superseded 56/55 inventory demonstrated explicit external-event places and a
+unique-finalization structure, but it is not an implementation target. Implementation
+review now needs:
 
-- an implementation conforming to all 56 places, 55 transitions, typed boundary
+- a complete replacement topology with reviewed places, transitions, typed boundary
   routes, active-latch arcs, guards, and token expressions;
+- hierarchical composition of the ProjectKoios bulk-qualification child, including
+  structure-scoped setting evidence, stable-pair feedback outcomes, and the accepted
+  \((S_*,Q_*)\) handoff before the five-occurrence Wannier child;
 - Workflow cancellation, delivery reconciliation, and quiescence evidence for
   the declared finalization invariant;
 - separately authorized implementation conforming to the selected and
@@ -202,8 +216,10 @@ Production readiness additionally requires:
   SCF→NSCF staging receipt;
 - maintained `wannier90.x -pp` and main/localization actionizers;
 - branch-aware closed manifests for `.win`, `.nnkp`, `.amn`, `.mmn`, `.eig`,
-  UNKs, `U`, conditionally required `U_dis`, HR, `.wout`, logs, executions,
-  checkpoints, centers, spreads, and external artifacts;
+  profile-declared UNKs when required, `U`, conditionally required `U_dis`, HR,
+  `.wout`, logs, executions, checkpoints, any explicitly requested native
+  center output, and external artifacts, plus authenticated center/spread
+  observations parsed from `.wout`;
 - explicit provider-frame qualification for QEXSD, UPF, k/G ordering, bands,
   spin/SOC branch, units, and indices;
 - represented \(H^W\), \(T^W\), and \(R^W\) reconstruction and independent
@@ -245,14 +261,17 @@ not provenance authentication, semantic validity, or scientific acceptance.
 
 Protected Si-VC execution remains blocked until all of the following exist:
 
-1. an implemented and tested Generic Workflow canonical CPN/binding contract
-   and Si-VC CPN conforming to the selected ownership, event-place, and terminal
-   invariant;
-2. implemented and tested SCF-child substitution,
+1. a complete replacement Si-VC topology that composes the ProjectKoios
+   bulk-qualification child in the required cutoff/k-point→structure→confirmation
+   order, preserves bounded re-relax/reconfirm feedback, and passes renewed review;
+2. an implemented and tested Generic Workflow canonical CPN/binding contract and
+   replacement Si-VC CPN conforming to the selected ownership, event-place, and
+   terminal invariant;
+3. implemented and tested bulk-qualification and SCF/Wannier child substitution,
    authority, cancellation, quiescence, and reconciliation contracts;
-3. human disposition of the unresolved QE/OpenBLAS warning;
-4. accepted cutoff/SCF-mesh coordinates and bounded interaction checks;
-5. an accepted zero-pressure PBE lattice record;
+4. human disposition of the unresolved QE/OpenBLAS warning;
+5. an accepted exact stable pair \((S_*,Q_*)\) with structure-scoped cutoff/k-point,
+   structural, final-confirmation, and feedback evidence;
 6. an authenticated production SCF parent and restart lineage;
 7. accepted validation-domain path, valley, and effective-mass records;
 8. frozen rank, bands, projections, windows, mesh sequence,

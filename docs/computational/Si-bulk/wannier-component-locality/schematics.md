@@ -1,12 +1,14 @@
 # Colored-Petri-net schematics
 
-## One authoritative scientific topology
+## One eventual authoritative scientific topology
 
-Si-VC has one authoritative flat parent colored Petri net (CPN) with typed
-runtime bindings to separately authoritative child CPN instances. A stage list,
+Si-VC requires one authoritative flat parent colored Petri net (CPN) with typed
+runtime bindings to separately authoritative child CPN instances. No current Si-VC
+net is authoritative: the earlier 56-place/55-transition draft is superseded by the
+cutoff/k-point→structure→final-confirmation ordering decision. A stage list,
 imperative sequencer, provider runner, workflow-name inventory, or copied child
-topology must not become a competing topology. The flat parent CPN owns the
-campaign's scientific places, transitions, arcs, guards, and token expressions.
+topology must not become a competing topology. The eventual reviewed parent CPN will
+own the campaign's scientific places, transitions, arcs, guards, and token expressions.
 
 Cross-repository ownership is:
 
@@ -27,15 +29,16 @@ projectkoios-workflow
   retry, reconciliation, persistence, replay, and runtime identities
 ```
 
-The corrected provider draft calls the net `si_vc_component_locality` and
-contains 56 unique places and 55 unique transitions. Independent recounting
-matched those totals. The former 43-place/47-transition inventory is
-superseded. The draft is an architecture definition only; no executable Si-VC
-net exists.
+The former corrected provider draft called the net `si_vc_component_locality` and
+contained 56 unique places and 55 unique transitions. Independent recounting matched
+those totals, but the draft put zero-pressure relaxation before numerical setting
+qualification and cannot represent the required re-relax/reconfirm feedback. The
+former 43-place/47-transition inventory and this later 56/55 draft are both
+superseded. Neither may be implemented.
 
-### Prospective place inventory
+### Superseded 56-place inventory
 
-The 56 place names are retained here so the reported count remains inspectable:
+The names are retained only so the historical design and digest remain inspectable:
 
 | Group | Places | Count |
 |---|---|---:|
@@ -117,12 +120,12 @@ reject_locality_assessment
 accept_campaign_finalization
 ```
 
-The architecture fixes these prospective names and counts while implementation
-remains absent. Generic Workflow owns the selected runtime-neutral CPN/binding
-contract and runtime mechanics; `ksdft2effmass` owns the scientific definition at
-the authoritative source path
-`python/src/ksdft2effmass/campaigns/si_vc/cpn/net.py`. The eventual reviewed
-source definition, not this rendering, becomes topology authority.
+These names and counts are not fixed requirements for the replacement topology.
+Generic Workflow owns the selected runtime-neutral CPN/binding contract and runtime
+mechanics; `ksdft2effmass` owns the eventual scientific definition at the reserved
+source path `python/src/ksdft2effmass/campaigns/si_vc/cpn/net.py`. Only a newly
+reviewed source definition implementing the revised order can become topology
+authority.
 
 ## Scientific flow
 
@@ -133,9 +136,14 @@ start
   -> execution-free preflight
   -> H1 prerequisite decisions
   -> frozen campaign
-  -> zero-pressure relaxation and qualification
-  -> cutoff/SCF-mesh convergence and interaction assessment
-  -> authenticated production SCF parent
+  -> joint coupled-cutoff/k-point qualification on exact seed S0
+  -> provisional setting Q0@S0
+  -> zero-pressure structural convergence under Q0
+  -> mechanically qualified structure S1
+  -> fresh joint setting confirmation Q1@S1
+  -> bounded re-relax/reconfirm feedback if the selected setting changes
+  -> accepted exact pair (S*,Q*)
+  -> new separately authorized production SCF parent
   -> H2 subspace/construction decisions
   -> semantically qualified uniform NSCF branches
   -> Wannier preprocessing
@@ -220,12 +228,14 @@ No transition manufactures both an action and evidence that the action
 succeeded. External observations enter as tokens in explicit places; they are
 not extra-procedural arguments injected directly into a transition.
 
-The corrected inventory applies this rule to zero-pressure, SCF-convergence,
+The superseded draft demonstrated this rule for zero-pressure, SCF-convergence,
 NSCF-semantic, provider-frame, reconstruction, verification, candidate, guard,
-direct-QE, and locality results. It also routes human scientific,
-subspace-construction, and confirmatory-policy decisions through declared
-boundary places. A complete token-color-to-boundary-place table forbids direct
-runtime injection into transitions.
+direct-QE, and locality results. The replacement topology must preserve that
+separation while adding the ordered bulk-qualification child and feedback outcomes. It
+must also route human scientific, subspace-construction, and confirmatory-policy
+decisions through declared boundary places. A complete
+token-color-to-boundary-place table must forbid direct runtime injection into
+transitions.
 
 ## Human gates
 
@@ -301,7 +311,8 @@ structure, pseudopotential, spin/SOC branch, units, and source ordering.
 
 ## Unique terminal-state invariant
 
-The corrected draft provides the following finalization structure:
+The superseded draft provided the following finalization structure, which remains a
+required invariant for the replacement topology:
 
 ```text
 one active/finalization token
@@ -326,18 +337,22 @@ marking.
 
 ## Topology review status
 
-- Finding disposition — campaign owner: `NO_ACTION_REQUIRED` after correction
-- Finding disposition — external-event places: `NO_ACTION_REQUIRED` after correction
-- Finding disposition — terminal uniqueness: `NO_ACTION_REQUIRED` after correction
-- Bounded re-review outcome: `NO_BLOCKING_FINDINGS`
-- Immediate operator request: `NONE`
+- Finding disposition — revised scientific ordering: `MUST_FIX`
+- Problem — the retained 56/55 topology puts structural convergence before numerical
+  setting qualification and has no stable-pair feedback loop.
+- Next action — produce a complete replacement topology that composes the
+  ProjectKoios bulk-qualification child before the five-occurrence Wannier child.
+- Current bounded review outcome: `CHANGES_REQUIRED`
+- Immediate operator request: `NONE`; the scientific ordering is now explicit.
 
 The operator selected Generic Workflow's runtime-neutral canonical CPN/binding
-contract and the authoritative `ksdft2effmass` path. The merged owner contract
+contract and reserved the `ksdft2effmass` owner path. The merged owner contract
 has SHA-256
 `e6428a8b0d8a47d4f9a6596300fe5ccc65bb16c12e1cc8ffe64884720bd513c2`.
 The retained [owner/consumer/provider exact-digest review](reviews/SI-VC-WORKFLOW-BINDING-001.md)
-reported `NO_BLOCKING_FINDINGS` for bounded design consistency. The contract and
-concrete APIs remain unimplemented and require separately authorized work. This
+reported `NO_BLOCKING_FINDINGS` for the former bounded design-consistency scope. The
+scientific-order change invalidates that outcome for implementation. The contract,
+replacement topology, and concrete APIs remain unimplemented and require separately
+authorized work. This
 architecture decision does not freeze H1--H3 or grant calculator, dependency,
 migration, publication, or release authority.

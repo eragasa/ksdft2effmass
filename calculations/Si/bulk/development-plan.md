@@ -43,31 +43,64 @@ analysis under the [provisional-use disposition](provisional-use-disposition.md)
 do block production-parent and publication-grade acceptance. The provisional selection
 is not an infinite-setting result.
 
-## Stage 1 — freeze the production parent contract
+## Stage 1 — freeze the seed-bound numerical-qualification contract
 
-Before execution, bind:
+Before the first successor execution, bind:
 
-- the accepted production lattice and physical branch;
+- the selected 680-byte `Si.PrimitiveUnitCell` seed \(S_0\), SHA-256
+  `6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc`, explicitly
+  labelled as a qualification geometry rather than an accepted production lattice;
+- the intended physical branch;
 - exact Quantum ESPRESSO executable and input identities;
 - exact pseudopotential content identity and redistribution boundary;
-- exchange--correlation approximation, occupations, cutoffs, meshes, and solver policy;
-- warning, retry, and stop policies;
-- expected compact and external native artifacts; and
-- explicit bounded execution authorization.
+- exchange--correlation approximation, occupations, solver policy, and warning policy;
+- a prospectively declared coupled wavefunction/charge-density cutoff inventory;
+- a prospectively declared k-point inventory, offset, symmetry policy, and mixed-corner
+  checks;
+- observables, selection rules, extension budget, retry/stop policy, and expected
+  compact and external native artifacts; and
+- separate bounded execution authorization for every admitted occurrence.
 
-A failed identity or authority gate stops the calculation.
+A failed identity or authority gate stops the calculation. No result on \(S_0\) is a
+transferable cutoff or k-point certificate for another structure.
 
-## Stage 2 — qualify numerical settings
+## Stage 2 — qualify settings, then structure, then confirm the pair
 
-Evaluate the prospectively declared cutoff, reciprocal-mesh, and required mixed-corner
-controls. Keep total-energy, stress, fixed-point band/gap, branch identity, and later
-curvature requirements separate. Finite adjacent-setting stability must not be reported
-as an infinite-basis bound.
+The execution order is fixed:
 
-Outputs must include an independent compact-result verifier and either an accepted
-finite-setting disposition or a bounded failure/inconclusive record.
+1. **Cutoff and k-point qualification on \(S_0\).** Evaluate the declared coupled
+   cutoff, reciprocal-sampling, and required mixed-corner controls with independent SCF
+   occurrences. Produce only a structure-scoped provisional setting
+   \(Q_0@S_0\).
+2. **Structural convergence.** Use \(Q_0@S_0\) for a separately authorized
+   zero-pressure structural route and assess final-cell validity, force criteria,
+   pressure residual, allowed cell-mode changes, and exact artifact lineage. A
+   provider-reported relaxation success is not by itself an accepted lattice. A
+   mechanically qualified result produces \(S_1\).
+3. **Final-setting confirmation on \(S_1\).** Repeat a prospectively declared joint
+   cutoff/k-point confirmation stencil, including sufficient stricter high-side
+   context, and produce \(Q_1@S_1\). A single SCF at the earlier candidate is not a
+   convergence confirmation.
+4. **Stable-pair decision.** Accept only an exact structure/settings pair
+   \((S_*,Q_*)\). If confirmation changes the selected setting, re-relax under the new
+   setting and reconfirm on the resulting structure. Continue only within a frozen
+   iteration budget; otherwise retain an inconclusive or budget-exhausted result.
+
+A changed lattice changes reciprocal vectors. Equal integer mesh tuples therefore do
+not prove equal sampling resolution; the confirmation must apply the declared
+reciprocal-space rule or explicitly reassess the retained tuple.
+
+Throughout this stage, keep total-energy, stress, fixed-point band/gap, branch identity,
+and later curvature requirements separate. Finite adjacent-setting stability must not
+be reported as an infinite-basis bound. Outputs must include an independent
+compact-result verifier and either an accepted \((S_*,Q_*)\) disposition or a bounded
+failure/inconclusive record.
 
 ## Stage 3 — characterize the retained band manifold
+
+Begin only from the accepted exact pair \((S_*,Q_*)\). The final parent SCF is a new,
+separately authorized route occurrence. A confirmation occurrence cannot double as the
+parent in this architecture; changing that boundary would require separate review.
 
 Locate and identity-track the conduction valley rather than assuming the nominal
 `Delta_0.85` probe is the minimum. Define disjoint construction and withheld momentum

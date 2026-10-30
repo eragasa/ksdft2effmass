@@ -19,14 +19,15 @@ because it omits the low conduction states.
 
 ## Physical branch
 
-The authoritative physical and numerical specifications fix the campaign parent
-to:
+The authoritative physical and numerical specifications together with the
+[pseudopotential-library decision](../../../../specification/dft-pseudopotential-library/v1/index.md)
+fix the campaign parent to:
 
 - pristine two-atom primitive diamond silicon;
 - PBE;
-- the scalar-relativistic PseudoDojo standard-table ONCV silicon
-  pseudopotential with decompressed SHA-256
-  `39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282`;
+- PseudoDojo ONCVPSP v0.5, PBE, scalar-relativistic, stringent-table silicon
+  in native UPF2 form, whose exact source entry, artifact bytes, and checksums
+  must be acquired and accepted before execution;
 - four valence electrons per silicon atom; and
 - non-spin-polarized, non-SOC calculations.
 
@@ -35,10 +36,13 @@ PBE-relaxed lattice accepted under Task `02.01.04` and mutually compatible,
 exactly identified `pw.x`, `pw2wannier90.x`, and `wannier90.x` builds and
 environments. Their values and identities are not selected by this page.
 
-The historical `Si.pbe-n-van.UPF`, 25-Ry, rank-four, \(4^3\)-Wannier tutorial
-branch is preliminary evidence only. It is neither an Si-VC parent nor a
-production convergence point. Physical valence-hole masses would require a
-separate SOC/spinor decision and are outside this branch.
+The earlier standard-table ONCV artifact with decompressed SHA-256
+`39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282`
+is a historical parent/comparator only and is not the v0.5/stringent production
+artifact. The historical `Si.pbe-n-van.UPF`, 25-Ry, rank-four,
+\(4^3\)-Wannier tutorial branch is preliminary evidence only. Neither is an
+Si-VC production parent or production convergence point. Physical valence-hole
+masses would require a separate SOC/spinor decision and are outside this branch.
 
 ## Preliminary motivation, not production evidence
 
@@ -140,8 +144,9 @@ disposition.
 The scientific topology stops at explicit human gates:
 
 - **H1 — prerequisite disposition:** numerical-warning disposition, exact
-  executable/build family, cutoff/SCF-mesh coordinate plan, and zero-pressure
-  acceptance policy.
+  executable/build family, exact provisional seed structure, coupled-cutoff/k-point
+  coordinate and selection plan, zero-pressure structural policy, fresh-confirmation
+  stencil, and bounded re-relax/reconfirm budget.
 - **H2 — subspace and construction freeze:** rank, parent bands, projections,
   windows and exclusions, uniform mesh sequence, gauge/initialization policy,
   random seeds, optimizer-basin rule, and candidate-selection thresholds.

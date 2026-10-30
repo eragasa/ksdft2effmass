@@ -8,9 +8,11 @@ operator selected this successor as the current conformance target and directed
 that Si-VC requirements lead the integration; Workflow is not a separate
 scientific-acceptance or veto authority. Exact owner, consumer, provider, and
 review-record identities are retained outside these content-derived documents so
-that reciprocal future digests cannot form a hash cycle. Reviews of superseded
-owner or consumer bytes remain historical and do not transfer to this profile.
-The contract remains unimplemented. This selection does not create an importable
+that reciprocal future digests cannot form a hash cycle. Reviews of superseded owner or consumer bytes remain historical and do not transfer
+to this profile. The generic binding selection remains current, but the later
+cutoff/k-point→structure→final-confirmation decision supersedes the 56/55 Si-VC
+consumer topology previously bound through this profile. A replacement topology and
+renewed exact-byte review are required. The contract remains unimplemented. This selection does not create an importable
 API, authorize a dependency change, implement a runtime, freeze H1--H3, or
 authorize calculator execution.
 
