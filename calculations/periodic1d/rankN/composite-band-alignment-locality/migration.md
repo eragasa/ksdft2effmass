@@ -34,6 +34,7 @@ current schema-free summary is replaceable development output only.
 - [x] Implement canonical typed-record serialization for calculation bytes.
 - [x] Materialize the first bounded producer-independent analytic-model and attack core-invariant reference slice.
 - [x] Materialize the bounded direct-sum identity/known-inverse-oracle Fourier reference slice, including shifted interpolation and support tails for both controls and exact support for the oracle.
+- [x] Materialize the bounded global/pointwise Procrustes reference slice using an independent polar construction and direct analytic pointwise inverses.
 - [ ] Materialize the complete independent-reference, verification, retained-provenance, and retained-artifact schema inventories.
 - [ ] Implement a full independent verifier rather than relying on the bounded reference slices or analytic-control sampling.
 - [ ] Define authenticated derived projections and a closed figure/report inventory.

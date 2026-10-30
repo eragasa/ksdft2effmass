@@ -24,6 +24,7 @@
 | `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
 | `reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
 | `fourier_reference.py` | Independently reconstructs bounded identity and known-inverse-oracle Fourier controls with direct NumPy sums. |
+| `procrustes_reference.py` | Independently reconstructs global and pointwise Procrustes selection evidence without the producer solver. |
 | `analysis/calculation.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
 | `analysis/procrustes.py` | Builds bounded global and pointwise Procrustes selection evidence. |
 | `analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
@@ -176,15 +177,23 @@ For both controls it evaluates the complete series by direct positive-exponent s
 the shifted mesh and compares the six stored tail measures for every frozen support. For
 the oracle it also compares the five analytic coefficient matrices at
 $R=0,\pm1,\pm2$ and bounds every coefficient outside $|R|\le2$. The reference imports
-only calculation records,
-gauge identities, and quantity/comparison types; it does not invoke producer Fourier,
-interpolation, locality, model, or reusable diagnostic actions.
+only calculation records, gauge identities, and quantity/comparison types; it does not
+invoke producer Fourier, interpolation, locality, model, or reusable diagnostic actions.
+
+`Periodic1DHigherRankProcrustesReferenceAnalyzer` is a third bounded slice. It constructs
+the global cross matrix directly at the frozen $M=2049$ selection mesh and obtains its
+unique right polar factor from an Hermitian eigendecomposition of the cross Gram matrix,
+not the producer SVD solver. At each construction mesh it reconstructs the pointwise
+right unitaries directly as the analytic attack adjoints. It compares singular spectra,
+strict numerical ranks and cutoffs, rank margins, condition numbers, normalized
+residuals, all retained integrity defects, deficient-point counts, and the selected
+global right unitary. It does not import Optimization or invoke the producer model,
+selection, or analysis actions.
 
 These slices do not implement the protocol's complete direct-formula verifier. They do
-not independently reconstruct transport, Procrustes selection, global- or
-pointwise-unitary Fourier controls, support truncation and total-error fields,
-error-channel decompositions, or refinement, and they do not own canonical result
-bytes.
+not independently reconstruct transport, global- or pointwise-unitary Fourier controls,
+support truncation and total-error fields, error-channel decompositions, or refinement,
+and they do not own canonical result bytes.
 
 ## Work remaining
 

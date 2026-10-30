@@ -53,12 +53,14 @@ The maintained package provides:
   core invariants; and
 - a bounded direct-sum Fourier reference for identity and known-inverse-oracle controls,
   including shifted interpolation and support-tail measures for both controls and exact
-  support for the oracle.
+  support for the oracle; and
+- a bounded global/pointwise Procrustes reference that uses an independent global polar
+  construction and direct analytic pointwise inverses.
 
 A calculation-local direct development runner composes these maintained owners and writes
 only a replaceable non-evidence summary. The bounded references do not reconstruct
-transport, Procrustes, global- or pointwise-unitary Fourier values, complete locality
-error channels, or refinement evidence. Complete independent recalculation, byte-owning
+transport, global- or pointwise-unitary Fourier values, complete locality error channels,
+or refinement evidence. Complete independent recalculation, byte-owning
 result verification, authenticated rendering, and retained execution remain
 unimplemented and separately authorized. Software tests establish bounded software
 behavior only.

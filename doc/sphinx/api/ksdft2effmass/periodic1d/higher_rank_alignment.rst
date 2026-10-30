@@ -22,15 +22,17 @@ dtypes as documented by their records.
 
 The calculation result is producer output, not independently verified scientific
 evidence.  One bounded reference analyzer directly reconstructs analytic-model and
-attack core invariants.  A second bounded analyzer uses direct NumPy sums to reconstruct
-identity and known-inverse-oracle Fourier controls on all three construction meshes,
-including shifted interpolation and support tails for both controls and exact-support
-comparisons for the oracle.  Neither path invokes the
-producer's scientific analysis actions or owns the result bytes.  Transport,
-Procrustes, global- and pointwise-unitary Fourier controls, complete locality error
-channels, refinement, complete independent recalculation, byte-owning verification,
-authenticated figures, retained execution, material validation, and publication remain
-unimplemented and are not implied by either software path.
+attack core invariants.  A second uses direct NumPy sums to reconstruct identity and
+known-inverse-oracle Fourier controls on all three construction meshes, including shifted
+interpolation and support tails for both controls and exact-support comparisons for the
+oracle.  A third reconstructs the global polar factor by Hermitian eigendecomposition and
+all pointwise right unitaries directly from the analytic attack, then compares rank,
+residual, integrity, and selected-unitary evidence.  These paths do not invoke the
+corresponding producer scientific actions or own the result bytes.  Transport, global-
+and pointwise-unitary Fourier controls, complete locality error channels, refinement,
+complete independent recalculation, byte-owning verification, authenticated figures,
+retained execution, material validation, and publication remain unimplemented and are
+not implied by these software paths.
 
 .. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment
    :members:
@@ -46,6 +48,11 @@ Purpose-specific independent reference analysis
    :show-inheritance:
 
 .. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.fourier_reference
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.procrustes_reference
    :members:
    :undoc-members:
    :show-inheritance:

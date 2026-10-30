@@ -227,6 +227,33 @@ three error channels by a sum of their maxima. Ordinary omitted-tail weights and
 computed from the complete matrix coefficients. Construction-mesh Parseval and
 successive-tail monotonicity are separate diagnostics.
 
+## Bounded independent Procrustes reference
+
+The independent selection slice reconstructs the global cross matrix directly from the
+analytic attack at the one frozen selection mesh:
+
+$$
+C_{\mathrm{global}}=\frac{1}{2049}\sum_{j=0}^{2048}G(q_j)^\dagger.
+$$
+
+Instead of invoking the producer's batched SVD solver, it obtains the unique right polar
+factor by an Hermitian eigendecomposition of $C_{\mathrm{global}}^\dagger
+C_{\mathrm{global}}$:
+
+$$
+U_{\mathrm{global}}=C_{\mathrm{global}}
+\left(C_{\mathrm{global}}^\dagger C_{\mathrm{global}}\right)^{-1/2}.
+$$
+
+At every construction point, orthogonality of the real analytic circuit gives the direct
+pointwise result $U_j=G(q_j)^\dagger$. Cross singular values are independently recovered
+as the square roots of the cross-Gram eigenvalues. The reference then reapplies the frozen
+cutoff $\max(10^{-12},10^{-10}\sigma_{\max})$ and recomputes ranks, margins, condition
+numbers, normalized residuals, unitary and stationarity defects, objective-identity and
+positive-semidefinite defects, and deficient-point counts. It separately compares the
+selected global matrix. Scalar comparisons use absolute tolerance $10^{-11}$ and arrays
+use $10^{-10}$.
+
 ## Bounded direct-sum Fourier reference
 
 For the identity and known-inverse-oracle controls, the independent Fourier slice
