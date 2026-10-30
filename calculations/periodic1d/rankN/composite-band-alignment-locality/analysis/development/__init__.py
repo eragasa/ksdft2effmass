@@ -1,4 +1,4 @@
-"""Explicitly unverified development analysis for higher-rank D1 results."""
+"""Integrity-admitted cache analysis and unsealed higher-rank D1 presentation."""
 
 from .cache import (
     HigherRankDevelopmentAdmittedCacheReader,
