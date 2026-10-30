@@ -20,12 +20,23 @@ built-in finite binary64 values; nonfinite values and alternative frozen toleran
 are rejected.  NumPy arrays require exact ``float64``, ``int64``, or ``complex128``
 dtypes as documented by their records.
 
-The calculation result is production evidence, not independent verification.
-Independent recalculation, byte-owning verification, authenticated figures, retained
-execution, material validation, and publication remain unimplemented and are not
-implied by a successful producer call.
+The calculation result is producer output, not independently verified scientific
+evidence.  A bounded reference analyzer directly reconstructs analytic-model and
+attack core invariants without invoking the producer or its scientific actions.  It
+does not reconstruct transport, Procrustes, Fourier, locality, or refinement values
+and does not own the result bytes.  Complete independent recalculation, byte-owning
+verification, authenticated figures, retained execution, material validation, and
+publication remain unimplemented and are not implied by either software path.
 
 .. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Purpose-specific independent reference analysis
+------------------------------------------------
+
+.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.reference
    :members:
    :undoc-members:
    :show-inheritance:

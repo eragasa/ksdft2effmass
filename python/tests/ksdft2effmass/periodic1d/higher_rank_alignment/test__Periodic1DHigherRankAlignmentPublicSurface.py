@@ -39,6 +39,9 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
             "Periodic1DHigherRankRefinementAnalysis",
             "Periodic1DHigherRankRefinementAnalysisRequest",
             "Periodic1DHigherRankRefinementAnalyzer",
+            "Periodic1DHigherRankCoreInvariantReference",
+            "Periodic1DHigherRankCoreInvariantReferenceAnalyzer",
+            "Periodic1DHigherRankCoreInvariantReferenceRequest",
         )
 
         assert all(name not in higher_rank_alignment.__all__ for name in internal_names)
@@ -49,14 +52,28 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
             "Periodic1DHigherRankAlignmentCalculationControls": "calculation",
             "Periodic1DHigherRankAlignmentCalculationRequest": "calculation",
             "Periodic1DHigherRankAlignmentCalculationResult": "calculation_result",
-            "Periodic1DHigherRankGaugeAlignmentMeshResult": "results",
-            "Periodic1DHigherRankMeshCalculationResult": "results",
-            "Periodic1DHigherRankSupportResult": "results",
-            "Periodic1DHigherRankFrameErrorResult": "diagnostics",
-            "Periodic1DHigherRankMatrixComparisonResult": "diagnostics",
-            "Periodic1DHigherRankMatrixErrorResult": "diagnostics",
-            "Periodic1DHigherRankModelDiagnostics": "diagnostics",
-            "Periodic1DHigherRankProcrustesDiagnostics": "diagnostics",
+            "Periodic1DHigherRankAlignmentStatusResult": "result.status",
+            "Periodic1DHigherRankAlignmentTransportBackendFailureResult": (
+                "result.frame_transport"
+            ),
+            "Periodic1DHigherRankAlignmentTransportLinkResult": (
+                "result.frame_transport"
+            ),
+            "Periodic1DHigherRankAlignmentTransportOwnerResult": (
+                "result.frame_transport"
+            ),
+            "Periodic1DHigherRankGaugeAlignmentMeshResult": (
+                "gauge_alignment.results.alignment"
+            ),
+            "Periodic1DHigherRankMeshCalculationResult": (
+                "gauge_alignment.results.mesh"
+            ),
+            "Periodic1DHigherRankSupportResult": "gauge_alignment.results.support",
+            "Periodic1DHigherRankFrameErrorResult": "diagnostics.frame",
+            "Periodic1DHigherRankMatrixComparisonResult": "diagnostics.matrix",
+            "Periodic1DHigherRankMatrixErrorResult": "diagnostics.matrix",
+            "Periodic1DHigherRankModelDiagnostics": "diagnostics.model",
+            "Periodic1DHigherRankProcrustesDiagnostics": "diagnostics.model",
             "Periodic1DHigherRankBlockRefinementResult": "refinement_results",
             "Periodic1DHigherRankScalarRefinementResult": "refinement_results",
         }
@@ -64,6 +81,11 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
         for name, module_suffix in expected_modules.items():
             record = getattr(higher_rank_alignment, name)
             assert record.__module__.endswith(f".{module_suffix}")
+
+        analyzer_module = (
+            higher_rank_alignment.Periodic1DHigherRankAlignmentAnalyzer.__module__
+        )
+        assert analyzer_module.endswith(".analysis.calculation")
 
         calculation_module = importlib.import_module(
             "ksdft2effmass.periodic1d.higher_rank_alignment.calculation"
@@ -77,7 +99,7 @@ class TestPeriodic1DHigherRankAlignmentPublicSurface:
     def test__source__does_not_import_calculation_workflow_material(self) -> None:
         package = Path(higher_rank_alignment.__file__).resolve().parent
 
-        for path in package.glob("*.py"):
+        for path in package.rglob("*.py"):
             source = path.read_text(encoding="utf-8")
             tree = ast.parse(source, filename=str(path))
             imported_modules = {

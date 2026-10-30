@@ -78,20 +78,23 @@ Workflow, or infer missing physical identities.
 ```mermaid
 flowchart LR
     C[Typed calculation bytes]
-    I[Independent numerical recomputation]
-    V[Byte-owning verification]
-    D[Authenticated plotting data]
-    G[Atomic figure publication]
+    B[Implemented bounded core-invariant reference]
+    I[Future complete independent numerical recomputation]
+    V[Future byte-owning verification]
+    D[Future authenticated plotting data]
+    G[Future atomic figure publication]
 
     C --> V
+    B -. incomplete reference coverage .-> I
     I --> V
     V --> D --> G
 ```
 
-This lifecycle is not implemented for the higher-rank family. Independent recomputation
-must bypass the production analyzer. Verification must own and hash the exact admitted
-calculation bytes. Rendering must consume authenticated data and calculate no new
-scientific values.
+Only the bounded producer-independent core-invariant reference is implemented. The
+complete authenticated lifecycle is not. Complete recomputation must continue to bypass
+the production analyzer. Verification must own and hash the exact admitted calculation
+bytes. Rendering must consume authenticated data and calculate no new scientific
+values.
 
 ## Future dimensional and metric separation
 

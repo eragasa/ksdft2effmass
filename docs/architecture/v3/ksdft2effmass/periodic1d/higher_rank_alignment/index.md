@@ -48,12 +48,16 @@ The maintained package provides:
 - Parseval, Hermiticity, support-tail, error-decomposition, recovery, and scalar- and
   block-refinement diagnostics; and
 - canonical typed record bytes whose SHA-256 digest establishes identity and provenance,
-  not scientific validity.
+  not scientific validity; and
+- a bounded producer-independent direct-formula reference for analytic-model and attack
+  core invariants.
 
 A calculation-local direct development runner composes these maintained owners and writes
-only a replaceable non-evidence summary. Independent recalculation, byte-owning complete
-result verification, authenticated rendering, and retained execution remain unimplemented
-and separately authorized. Software tests establish producer behavior only.
+only a replaceable non-evidence summary. The bounded reference does not reconstruct
+transport, Procrustes, Fourier, locality, or refinement evidence. Complete independent
+recalculation, byte-owning result verification, authenticated rendering, and retained
+execution remain unimplemented and separately authorized. Software tests establish
+bounded software behavior only.
 
 ## Numerical responsibilities
 
@@ -75,14 +79,23 @@ dimension-specific. A later 2-D or 3-D study must therefore provide reviewed
 dimension-specific mesh and support contracts rather than parameterizing the present
 1-D owners.
 
-The present actions assume orthonormal frames and $U(r)$ right actions. A future
-nonorthonormal study requires an explicit positive-definite fiber metric, metric-aware
-adjoints and isometries, and a separately reviewed alignment objective. No metric-aware,
-2-D, or 3-D implementation or placeholder API is provided here.
+The present actions assume orthonormal frames and $U(r)$ right actions. The underlying
+orthonormal matrix mechanisms are meaningful at rank two, but the maintained rank-two
+study has its own model, controls, verification, and evidence identity and is not
+implicitly admitted here. Rank one is a distinct scalar specialization: its represented
+Hamiltonian is invariant under $U(1)$ phase changes, and the D1 analytic formulas that
+normalize by $r-1$ are undefined. The frozen tuple `(3, 4, 8, 16)` is therefore an
+intentional D1-v1 protocol boundary rather than a claim about the capabilities of the
+shared numerical kernels.
+
+A future nonorthonormal study requires an explicit positive-definite fiber metric,
+metric-aware adjoints and isometries, and a separately reviewed alignment objective. No
+metric-aware, 2-D, or 3-D implementation or placeholder API is provided here.
 
 ## Further details
 
 - [Software realization](implementation.md)
 - [Numerical formulation](numerics.md)
 - [Physical interpretation](scientifics.md)
+- [Rank-specialization crosswalk](rank-specialization-crosswalk.md)
 - [Calculation flow](schematics.md)

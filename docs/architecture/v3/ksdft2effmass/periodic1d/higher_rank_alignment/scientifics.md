@@ -81,6 +81,29 @@ known-inverse-oracle control remain distinct typed outcomes. They are not collap
 a generic failure state, and exception messages or tracebacks are not scientific
 evidence.
 
+## Rank-specialization boundary
+
+The orthonormal Procrustes, transport, finite-periodic, interpolation, support-tail, and
+matrix-field mechanisms are rank-generic where their own contracts admit the operands.
+That numerical reuse does not merge the rank-specialized scientific studies.
+
+At rank one, the represented Hamiltonian is scalar and satisfies
+$U^\dagger H U=H$ for every $U\in U(1)$. Identity, global-unitary,
+pointwise-unitary, and known-inverse-oracle therefore do not define four distinct
+operator-locality cases. The D1 analytic orbital and attack coordinates also divide by
+$r-1$, so rank one is correctly owned by the separate scalar Fourier-locality study.
+
+At rank two, non-Abelian gauge alignment is meaningful and the generic orthonormal
+mechanisms can be reused. The retained rank-two study nevertheless owns a different
+analytic model, numerical controls, verification contract, and evidence identity. In
+addition, mechanically extending the D1 nearest-neighbor brickwork to rank two leaves
+alternating layers without a pair to rotate. Rank two must not be added to D1 v1 merely
+by widening an accepted-rank tuple.
+
+The D1 tuple $r\in\{3,4,8,16\}$ is an intentional protocol and evidence boundary. It is
+not a statement that the Optimization or PhysKit numerical kernels are incapable of
+rank two. See the [rank-specialization crosswalk](rank-specialization-crosswalk.md).
+
 ## Boundary of future studies
 
 The right action of a gauge alignment is fiberwise, whereas reciprocal meshes, Fourier
@@ -99,11 +122,14 @@ implemented.
 
 The current producer constructs the declared analytic Hamiltonian, evaluates the four
 gauge alignments, transports the common reference frame, analyzes odd-mesh Fourier
-locality, and returns correlated typed calculation records. Software tests exercise
-producer behavior only.
+locality, and returns correlated typed calculation records. A bounded independent
+reference analyzer directly reconstructs the analytic-model and attack core invariants;
+it does not invoke the producer or its scientific actions.
 
-There is no independent reference calculation or byte-owning verifier. No retained
-higher-rank result has been admitted, and the complete 16-case runtime and 4 GiB memory
-ceilings remain unestablished. The analytic family does not establish material validity.
-No higher-rank result from this package is scientifically validated, formally checked,
-sealed, published, or released.
+That bounded comparison is not the protocol's complete independent reference
+calculation and does not establish transport, Procrustes, Fourier, locality, refinement,
+or result-byte verification. No byte-owning verifier or retained higher-rank result has
+been admitted, and the complete 16-case runtime and 4 GiB memory ceilings remain
+unestablished. The analytic family does not establish material validity. No higher-rank
+result from this package is scientifically validated, formally checked, sealed,
+published, or released.

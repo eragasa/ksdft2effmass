@@ -7,17 +7,27 @@
 | `definition.py` | Names calculation and transport outcomes. |
 | `configuration.py` | Stores the frozen ranks, depths, meshes, supports, phase convention, and tolerances. |
 | `request.py` | Selects one rank/depth/construction-mesh transport and its physical identities. |
-| `result.py` | Stores request-bound closed-loop transport evidence and bounded failures. |
+| `result/status.py` | Stores gauge-alignment status and bounded downstream applicability. |
+| `result/frame_transport.py` | Stores request-bound closed-loop frame-transport evidence and bounded failures. |
+| `result/__init__.py` | Exposes the deliberate status and transport result inventory. |
 | `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and gauge circuit. |
 | `_record_admission.py` | Centralizes exact-type, immutable-array, and nested-mapping admission. |
 | `calculation.py` | Defines the complete frozen calculation request. |
-| `diagnostics.py` | Stores model, Procrustes, matrix, comparison, and frame diagnostics. |
+| `diagnostics/model.py` | Stores analytic-model and Procrustes diagnostics. |
+| `diagnostics/matrix.py` | Stores matrix-field error and comparison diagnostics. |
+| `diagnostics/frame.py` | Stores frame-recovery diagnostics. |
+| `diagnostics/__init__.py` | Exposes the deliberate diagnostic-record inventory. |
 | `provenance.py` | Stores mesh-role separation and global-selection provenance. |
 | `refinement_results.py` | Stores block and scalar refinement results. |
 | `scalar_diagnostics.py` | Owns the canonical scalar-diagnostic inventory used by refinement and aggregate admission. |
 | `refinement.py` | Analyzes correlated evidence across construction meshes. |
 | `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
-| `analysis.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
+| `reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
+| `analysis/calculation.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
+| `analysis/procrustes.py` | Builds bounded global and pointwise Procrustes selection evidence. |
+| `analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
+| `analysis/evaluation.py` | Proves exact construction/evaluation mesh separation. |
+| `analysis/__init__.py` | Exposes the deliberate calculation-analysis action inventory. |
 | `gauge_alignment/definition.py` | Defines the four gauge-alignment domain identities and explicit wire map. |
 | `gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition and explicit wire mapping. |
 | `gauge_alignment/fields.py` | Constructs nominal immutable gauge-aligned operators and frames. |
@@ -28,7 +38,10 @@
 | `gauge_alignment/locality.py` | Owns support tails, truncation, and error decomposition. |
 | `gauge_alignment/assembly.py` | Correlates stage evidence and assembles one public mesh result. |
 | `gauge_alignment/analysis.py` | Executes the typed stages in scientific order. |
-| `gauge_alignment/results.py` | Stores the public gauge-alignment mesh and support records. |
+| `gauge_alignment/results/support.py` | Stores symmetric-support locality and error-channel records. |
+| `gauge_alignment/results/alignment.py` | Stores transform, recovery, interpolation, and locality evidence for one alignment. |
+| `gauge_alignment/results/mesh.py` | Correlates model, common transport, selection, and alignment evidence for one mesh. |
+| `gauge_alignment/results/__init__.py` | Exposes the deliberate public gauge-alignment result inventory. |
 | `gauge_alignment/__init__.py` | Exposes definitions only; purpose-specific actions remain module-local. |
 
 The maintained records are immutable and serialize deterministically. Arrays use nominal
@@ -143,9 +156,26 @@ metric adjoint, generalized isometry group, conditioning evidence, and objective
 package contains no speculative base class, metric parameter, or placeholder 2-D/3-D
 action.
 
+## Independent-reference boundary
+
+`Periodic1DHigherRankCoreInvariantReferenceAnalyzer` is the first bounded
+producer-independent slice. It admits one exact calculation result and reconstructs the
+analytic retained and exterior energies, constant frame, real Givens circuit, parent and
+represented operators, projectors, isolation certificate, attack-angle certificate, and
+all model-structure and recovery diagnostics with direct NumPy formulas. It does not
+directly import or invoke the producer, the producer-owned analytic model, or the
+reusable producer diagnostic actions. Scalar comparisons use the protocol's
+$10^{-11}$ tolerance and sampled diagnostic arrays use $10^{-10}$.
+
+This slice does not implement the protocol's complete direct-formula verifier. It does
+not independently reconstruct transport, Procrustes selection, Fourier blocks,
+interpolation, support locality, error channels, or refinement, and it does not own
+canonical result bytes.
+
 ## Work remaining
 
-Separately authorized work must add independent numerical recomputation, byte-owning
-complete-result verification, authenticated visualization data, and retained execution
-composition. The direct development runner is replaceable and explicitly emits no
-scientific evidence. Passing producer tests does not establish scientific validation.
+Separately authorized work must complete producer-independent numerical recomputation,
+add byte-owning complete-result verification, authenticated visualization data, and
+retained execution composition. The direct development runner is replaceable and
+explicitly emits no scientific evidence. Passing producer or bounded-reference tests
+does not establish scientific validation.

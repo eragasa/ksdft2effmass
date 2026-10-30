@@ -26,10 +26,13 @@ The old development runner imported a package that no longer exists. The last co
 copy of that package is at revision
 `25161d7f55c708a464c18ea8d5d0fd6152ff86a6`, Git tree
 `94f2f042322aa69969448ca77b8d47c163edef70`. It was removed in
-`c5d34a93b4710a4a430738c404c775865d418d42`. The maintained successor is the calculation's
-`workflow/` directory. Four of its eleven Python files are still byte-identical to that
-historical package; the other seven are recorded as later successors in
-[`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md).
+`c5d34a93b4710a4a430738c404c775865d418d42`. At the time of this removal-readiness
+review, the calculation's `workflow/` directory was the migration successor. Four of its
+eleven Python files were byte-identical to that historical package; the other seven were
+recorded as later successors in
+[`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md). The directory
+is now read-only historical provenance; maintained behavior belongs to
+`ksdft2effmass.periodic1d.higher_rank_alignment` and canonical upstream owners.
 
 ## Documentation users
 
