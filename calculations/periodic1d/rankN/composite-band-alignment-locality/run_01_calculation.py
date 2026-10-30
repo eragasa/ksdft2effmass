@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+import hashlib
+import inspect
 import json
 from pathlib import Path
 
+from analysis.development import (
+    HigherRankDevelopmentCacheWriter,
+    HigherRankDevelopmentCacheWriteRequest,
+)
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
     Periodic1DHigherRankAlignmentAnalyzer,
@@ -152,19 +158,23 @@ def _case_summary(
     }
 
 
-def _summary() -> dict[str, JsonValue]:
-    """Calculate every frozen case and return a development-only shape summary."""
-    configuration = _configuration()
-    cases: list[JsonValue] = []
-    for retained_rank in configuration.retained_ranks:
-        for circuit_depth in configuration.circuit_depths:
-            cases.append(
-                _case_summary(
-                    _calculate(
-                        _request(configuration, retained_rank, circuit_depth)
-                    )
-                )
-            )
+def _calculation_results(
+    configuration: Periodic1DHigherRankAlignmentConfiguration,
+) -> tuple[Periodic1DHigherRankAlignmentCalculationResult, ...]:
+    """Calculate every frozen case for explicitly unverified development use."""
+    return tuple(
+        _calculate(_request(configuration, retained_rank, circuit_depth))
+        for retained_rank in configuration.retained_ranks
+        for circuit_depth in configuration.circuit_depths
+    )
+
+
+def _summary(
+    results: tuple[Periodic1DHigherRankAlignmentCalculationResult, ...],
+) -> dict[str, JsonValue]:
+    """Return a development-only shape summary for complete calculated results."""
+    configuration = results[0].request.configuration
+    cases: list[JsonValue] = [_case_summary(result) for result in results]
     return {
         "artifact_role": "replaceable-direct-development-summary",
         "scientific_evidence": False,
@@ -176,19 +186,60 @@ def _summary() -> dict[str, JsonValue]:
 
 
 def main() -> int:
-    """Write one replaceable local summary outside the retained runs tree."""
+    """Calculate once and write canonical reusable calculation-cache bytes."""
     output = Path(__file__).resolve().parent / "results"
     output.mkdir(parents=True, exist_ok=True)
     destination = output / "direct-development-summary.json"
-    payload = _summary()
+    cache_directory = output / "development-cache"
+    configuration = _configuration()
+    source_types = (
+        Periodic1DHigherRankAlignmentAnalyzer,
+        Periodic1DHigherRankAlignmentConfiguration,
+        Periodic1DHigherRankAlignmentCalculationResult,
+        ScalarRefinementAnalyzer,
+        NumpyBatchedComplexUnitaryProcrustesSolver,
+        ClosedLoopPolarFrameTransporter,
+        FinitePeriodicMatrixFourierTransformer,
+        FinitePeriodicMatrixFourierTensorEvaluator,
+    )
+    source_inventory = (
+        ("calculation-configuration.json", configuration.to_json()),
+    ) + tuple(
+        (
+            f"{source_type.__module__}.{source_type.__qualname__}",
+            Path(inspect.getfile(source_type)).read_bytes(),
+        )
+        for source_type in source_types
+    )
+    infrastructure_digest = hashlib.sha256(
+        b"ksdft2effmass.calculation-infrastructure.v1\x00"
+    )
+    for source_name, source_bytes in sorted(source_inventory):
+        encoded_name = source_name.encode("utf-8")
+        infrastructure_digest.update(len(encoded_name).to_bytes(8, "big"))
+        infrastructure_digest.update(encoded_name)
+        infrastructure_digest.update(len(source_bytes).to_bytes(8, "big"))
+        infrastructure_digest.update(source_bytes)
+    infrastructure_sha256 = infrastructure_digest.hexdigest()
+    results = _calculation_results(configuration)
+    payload = _summary(results)
     destination.write_text(
         json.dumps(payload, allow_nan=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
         newline="\n",
     )
+    manifest = HigherRankDevelopmentCacheWriter(
+        HigherRankDevelopmentCacheWriteRequest(
+            calculation_results=results,
+            cache_directory=cache_directory,
+            calculation_infrastructure_sha256=infrastructure_sha256,
+        )
+    ).execute()
     print(
-        "lifecycle=replaceable-direct-development "
-        f"case_count={payload['case_count']} output={destination}"
+        "lifecycle=replaceable-direct-development-cache "
+        f"scientific_evidence=false case_count={payload['case_count']} "
+        f"calculation_infrastructure_sha256={infrastructure_sha256} "
+        f"cache_entry_count={len(manifest.entries)} output={destination}"
     )
     return 0
 

@@ -14,7 +14,7 @@ class TestPeriodic1DHigherRankDirectDevelopmentRunner:
     """Establish direct owner composition and development-only output semantics."""
 
     def test__source__uses_direct_owners_without_workflow_imports(self) -> None:
-        runner = Path(__file__).resolve().parents[1] / "run_development.py"
+        runner = Path(__file__).resolve().parents[1] / "run_01_calculation.py"
         source = runner.read_text(encoding="utf-8")
         tree = ast.parse(source, filename=str(runner))
         imported_modules = {
@@ -35,11 +35,13 @@ class TestPeriodic1DHigherRankDirectDevelopmentRunner:
         assert "FinitePeriodicMatrixFourierTransformer" in source
         assert "FinitePeriodicMatrixFourierTensorEvaluator" in source
         assert "ScalarRefinementAnalyzer" in source
+        assert "calculation_infrastructure_sha256" in source
+        assert "analysis/development/plots.py" not in source
 
     def test__source__uses_gauge_alignment_vocabulary_and_disclaims_evidence(
         self,
     ) -> None:
-        runner = Path(__file__).resolve().parents[1] / "run_development.py"
+        runner = Path(__file__).resolve().parents[1] / "run_01_calculation.py"
         source = runner.read_text(encoding="utf-8")
 
         assert '"gauge_alignment"' in source
