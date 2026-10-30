@@ -746,8 +746,10 @@ into cohesive request-bound scientific owners. A separate bounded reference acti
 recomputes all four gauge-aligned Fourier blocks by direct sums on every construction
 mesh. It compares 930 reconstruction, Parseval, Hermitian-pairing, retained-block,
 shifted-interpolation, support-tail, and oracle exact-support quantities without invoking
-producer analysis actions. A third bounded action reconstructs the global and pointwise
-Procrustes selections without the producer model or SVD solver and compares 57 retained rank,
+producer analysis actions. Here producer-independent means a direct-formula NumPy path that bypasses the
+corresponding scientific actions, not a separate numerical-library stack; NumPy/LAPACK
+and typed quantity/comparison boundaries remain shared. A third bounded action
+reconstructs the global and pointwise Procrustes selections without the producer model or SVD solver and compares 57 retained rank,
 residual, integrity, and selected-unitary quantities. A fourth bounded action directly
 reconstructs 45 link-rank and closure quantities for the constant-frame transport on all
 three meshes without calling the producer transporter. Gauge-alignment wire values are
@@ -858,8 +860,9 @@ The principal limitations are:
 \item only the constant-projector real-gauge P0/G0 specialization is implemented;
 \item the oracle assumes knowledge unavailable in an ordinary material calculation;
 \item only bounded core-invariant, all-gauge Fourier, global/pointwise Procrustes, and
-constant-frame transport reference analyzers are implemented; complete protocol-wide
-independent analysis and byte-owning verification are absent;
+constant-frame transport reference analyzers are implemented; they are producer-path
+independent under a shared NumPy/LAPACK stack, while complete protocol-wide independent
+analysis and byte-owning verification are absent;
 \item complete runtime and memory compliance are unestablished;
 \item the finite rank/depth ladder supports no asymptotic law;
 \item no 2-D, 3-D, nonorthonormal, moving-subspace, or topological result is available;

@@ -203,6 +203,10 @@ PhysKit transporter or producer analysis actions.
 These slices do not implement the protocol's complete direct-formula verifier. They do
 not independently reconstruct support-truncated and total-error fields, error-channel
 decompositions, or refinement, and they do not own canonical result bytes.
+Producer-independent denotes a separate direct-formula action path, not a separate
+numerical-library stack: the references share NumPy/LAPACK and typed quantity/comparison
+infrastructure with maintained code. Shared value and comparison types provide units and
+admission but do not supply the reconstructed scientific values.
 
 ## Work remaining
 

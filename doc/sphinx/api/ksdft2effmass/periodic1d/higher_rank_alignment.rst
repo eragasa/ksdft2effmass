@@ -30,8 +30,10 @@ all pointwise right unitaries directly from the analytic attack, then compares r
 residual, integrity, and selected-unitary evidence.  A fourth directly reconstructs the
 constant-frame closed route, link rank evidence, and identity closure actions on all
 three meshes.  These paths do not invoke the corresponding producer scientific actions
-or own the result bytes.  Complete locality error channels, refinement,
-complete independent recalculation, byte-owning verification, authenticated figures,
+or own the result bytes.  ``Producer-independent`` means direct NumPy reconstruction,
+not a separate numerical-library stack: NumPy/LAPACK and typed quantity/comparison
+infrastructure remain shared.  Complete locality error channels, refinement, complete
+independent recalculation, byte-owning verification, authenticated figures,
 retained execution, material validation, and publication remain unimplemented and are
 not implied by these software paths.
 

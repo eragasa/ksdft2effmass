@@ -40,8 +40,11 @@ from the analytic attack, including rank, residual, integrity, and selected-unit
 evidence. The transport slice directly reconstructs the exact constant-frame closed
 route on all three meshes, including link rank evidence and closure actions. These
 references do not reconstruct complete locality error channels or refinement evidence
-and do not own
-result bytes. Complete independent numerical recomputation, byte-owning verification,
+and do not own result bytes. Here producer-independent means direct NumPy reconstruction
+that bypasses the corresponding producer scientific actions. It does not mean an
+independent numerical-library stack: the references share NumPy/LAPACK and typed
+quantity/comparison infrastructure, as do the maintained PIAB1D and QHO1D reference
+routes. Complete independent numerical recomputation, byte-owning verification,
 strict retained-artifact schemas, authenticated plotting data, direct calculate → verify
 → render composition, and a resource-qualified retained run remain separate work.
 Proposed two- and three-dimensional and nonorthonormal studies remain outside this

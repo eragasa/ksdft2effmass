@@ -133,7 +133,8 @@ selections directly from the analytic attack, comparing rank, residual, integrit
 selected-unitary evidence. A fourth bounded reference directly reconstructs the exact
 constant-frame closed route, link ranks, zero closure phases, and identity closure
 actions on all construction meshes. None invokes the corresponding producer scientific
-actions.
+actions. This is producer-path independence under shared NumPy/LAPACK arithmetic and
+shared typed quantity/comparison boundaries, not numerical-library independence.
 
 Those bounded comparisons are not the protocol's complete independent reference
 calculation and do not establish support-truncated and total-error fields, error-channel
