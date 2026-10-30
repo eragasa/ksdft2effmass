@@ -137,40 +137,48 @@ reconstruction, norm/tail calculations, pair-symmetric masks, verifiers, and
 tamper tests. Qualify the ONCV \(S=I\) route without importing the legacy
 ultrasoft convention as authority.
 
-### Stage 1 — Si-V control
+### Stage 1 — bulk parent qualification
+
+After separate authorization for each occurrence, qualify coupled cutoff and k-point
+settings on exact provisional seed \(S_0\), perform zero-pressure structural
+convergence under \(Q_0@S_0\), and repeat a joint confirmation stencil on the resulting
+structure. If the selected setting changes, re-relax and reconfirm within the frozen
+budget. Only an accepted exact pair \((S_*,Q_*)\) may enable the production parent.
+
+### Stage 2 — Si-V control
 
 After separate authorization, construct the occupied-valence control to qualify
 the QE--Wannier90 bridge and expose isolated-subspace, gauge, or Fourier defects.
 It cannot establish the Si-VC headline claim.
 
-### Stage 2 — Si-VC candidate selection
+### Stage 3 — Si-VC candidate selection
 
 Evaluate the prospectively frozen rank/projection/window candidates under Tasks
 `03.01.01`--`03.01.03`. Test rather than presume the rank-ten candidate.
 Compressibility outcomes remain unavailable to selection.
 
-### Stage 3 — Wannier-mesh convergence
+### Stage 4 — Wannier-mesh convergence
 
 Refine a prospectively frozen uniform sequence, potentially
 \(4^3,6^3,8^3,10^3\). The \(4^3\) point is a lower diagnostic and is not
 presumed adequate. The primary comparison uses only common, non-aliased physical
 radii.
 
-### Stage 4 — parent-representation guards
+### Stage 5 — parent-representation guards
 
-At the provisionally selected Wannier mesh, test lower/accepted/higher cutoff
-guards with `ecutrho = 4 * ecutwfc`. Test ratios 6 or 8 only if charge-density
-sensitivity controls an accepted observable. Retain bounded cutoff--SCF-mesh and
-cutoff--Wannier-mesh interaction checks.
+At the provisionally selected Wannier mesh, test lower/accepted/higher coupled-cutoff
+guards under the accepted cutoff policy. No charge-density ratio is inherited by
+convenience from a historical pseudopotential branch. Retain bounded
+cutoff--SCF-mesh and cutoff--Wannier-mesh interaction checks.
 
-### Stage 5 — gauge robustness
+### Stage 6 — gauge robustness
 
 Repeat the accepted construction from prospectively identified,
 symmetry-compatible initializations. Compare subspaces, interpolation,
 centers/spreads, and component-compression diagnostics without changing windows,
 thresholds, or optimizer policy.
 
-### Stage 6 — confirmatory locality evaluation
+### Stage 7 — confirmatory locality evaluation
 
 Freeze radii, tolerances, grids, normalization, comparison rules, and
 dispositions before opening component-tail results. Evaluate \(\epsilon_X\),
@@ -182,8 +190,8 @@ truncation is an evaluated approximation.
 
 No production result can be interpreted until the campaign has:
 
-- an accepted cutoff/SCF-mesh setting and bounded interaction check;
-- an accepted zero-pressure structure;
+- an accepted exact stable pair \((S_*,Q_*)\) from structure-scoped cutoff/k-point,
+  zero-pressure structural, fresh-confirmation, and feedback evidence;
 - a qualified production SCF parent and restart lineage;
 - semantically qualified NSCF outputs with exact requested k-point and band
   inventories;

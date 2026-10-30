@@ -32,8 +32,9 @@ historical records. Those remain at their provenance-bound locations:
 
 - [`calculations/bulk-silicon/`](../../bulk-silicon/) — reference snapshots, tutorial
   reproductions, smoke comparisons, and the provisional direct convergence bootstrap;
-- [`calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/`](../../ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/)
-  — tutorial-scale Wannier90 extraction, excluded from production admissible sets.
+- [`silicon-wannier-kinetic-preview` at exact historical revision `8d75f7ca`](https://github.com/eragasa/ksdft2effmass/tree/8d75f7ca6c590d9cd3c98fcbfc0a15579696b59b/calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview)
+  — tutorial-scale Wannier90 extraction, excluded from production admissible sets;
+  the superseded tree is absent from the current branch but remains revision-addressable.
 
 Reusable calculator, unit, operator, and analysis contracts remain with their installed
 library owners. Workflow integration is intentionally outside this extraction.
@@ -47,8 +48,9 @@ library owners. Workflow integration is intentionally outside this extraction.
   parent or authorizing new calculator execution.
 - [`evidence-crosswalk.md`](evidence-crosswalk.md) — exact predecessor locations,
   evidence classes, permitted uses, and non-transfer rules.
-- [`simulations/`](simulations/) — future simulation and experiment-verification
-  boundary; currently contains no runnable production stage.
+- [`simulations/`](simulations/) — documentation-first scientific, architecture,
+  execution, verification, and readiness contracts for future Project Koios-backed
+  simulation stages; currently contains no runnable production stage.
 - [`analysis/`](analysis/) — verified-input analysis boundary, current supportable
   conclusions, and the calculation-local
   [Vogl 1983 LCAO `sp3s*` control](analysis/controls/vogl-sp3s-star/).

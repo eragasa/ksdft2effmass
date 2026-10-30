@@ -1,8 +1,10 @@
 # Si-VC Wannier-component-locality campaign
 
-**Status:** proposed, unexecuted, and blocked. The exact-digest owner, consumer,
-lineage, and provider design review found no blocking architecture inconsistency;
-implementation and scientific readiness remain incomplete. No Quantum ESPRESSO,
+**Status:** proposed, unexecuted, and blocked. A later scientific sequencing decision
+requires cutoff/k-point qualification before structural convergence and invalidates the
+previous 56-place/55-transition Si-VC topology as an implementation candidate. The
+retained exact-digest review remains evidence about its former bounded scope only; a
+revised topology and review are required. No Quantum ESPRESSO,
 `pw2wannier90.x`, Wannier90, scheduler, remote, or production execution is
 authorized by this bundle.
 
@@ -65,25 +67,30 @@ Where this bundle and an authoritative specification differ, the specification
 wins. Ambiguity that changes the physical or numerical problem blocks execution
 rather than being resolved by preference.
 
-## Current architecture disposition
+## Historical topology and replacement requirement
 
-The corrected provider-side draft proposes a net named
-`si_vc_component_locality` and contains 56 unique places and 55 unique
-transitions. Independent recounting matched those totals. The former 43-place,
-47-transition inventory and report digest are superseded.
+The previously corrected provider-side draft proposed a net named
+`si_vc_component_locality` with 56 unique places and 55 unique transitions.
+Independent recounting matched those totals, but the draft orders zero-pressure
+relaxation before cutoff/SCF-mesh qualification. It is therefore superseded by the
+new seed-setting→structure→final-confirmation decision and must not be implemented.
+Its counts and digest remain historical design-correlation evidence only.
 
-The corrected architecture now:
+A replacement architecture must:
 
-1. assigns the material scientific CPN to the `ksdft2effmass` campaign owner;
-2. routes every external completion/evidence token through an explicit boundary
+1. assign the material scientific CPN to the `ksdft2effmass` campaign owner;
+2. consume the ProjectKoios bulk-qualification child as
+   \(S_0\to Q_0@S_0\to S_1\to Q_1@S_1\), including bounded re-relax/reconfirm
+   feedback, before admitting a production parent;
+3. route every external completion/evidence token through an explicit boundary
    place before an acceptance transition produces a retained record; and
-3. uses one consumable `campaign_active` latch, a `finalization_action`, a
-   Workflow quiescence event, and one `accept_campaign_finalization` transition
-   so only one terminal outcome can be emitted.
+4. preserve the consumable active latch, quiescent finalization, and exactly-one
+   terminal-outcome invariant.
 
-The architecture decision fixes the authoritative source path as
+The ownership decision reserves the eventual authoritative source path as
 `python/src/ksdft2effmass/campaigns/si_vc/cpn/net.py` and selects Generic
-Workflow's runtime-neutral canonical CPN/binding contract. The Si-VC consumer
+Workflow's runtime-neutral canonical CPN/binding contract, but no current topology is
+authoritative or ready to implement. The Si-VC consumer
 requirements for that contract are specified in the [workflow binding
 profile](workflow-binding.md): CPN tokens carry typed content-addressed JSON
 references, the authoritative simulations-owned SCF child is referenced without
@@ -103,9 +110,11 @@ merge commit `8e70e02cc0f723477bcac42b0f163097f628c88a`). It closes
 candidate bounds, exact child-export correlation, terminal-companion mapping,
 the version-pinned closed-AST export route, and truthful bounded cancellation at
 design level. The retained [exact-digest review](reviews/SI-VC-WORKFLOW-BINDING-001.md)
-reports `NO_BLOCKING_FINDINGS` for design consistency. A path-free immutable
-artifact-set/success projection and actual canonical exporter, profile, golden
-bytes, runtime segments, and fixtures remain implementation-readiness blockers.
+reported `NO_BLOCKING_FINDINGS` for the now-superseded bounded design. Under its own
+change-invalidation rule, that outcome does not review the new campaign order. A
+replacement topology, renewed cross-repository review, path-free immutable
+artifact-set/success projection, actual canonical exporter, profile, golden bytes,
+runtime segments, and fixtures remain implementation-readiness blockers.
 
 No second campaign SNAKES implementation may be added under simulations. The
 scientific freezes H1--H3 remain separate decisions. Protected execution
