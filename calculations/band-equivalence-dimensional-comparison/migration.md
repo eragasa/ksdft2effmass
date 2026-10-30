@@ -5,10 +5,10 @@ surface is a composition over four families, not another physical experiment fam
 
 ## Experiment-tree migration
 
-- [x] Assign all six tracked files under the dimensional-comparison experiment path to this calculation owner.
-- [ ] Crosswalk and migrate the README, protocol, two plotting scripts, analysis README, and ignore contract.
-- [ ] Update every maintained consumer and prove none depends on the experiment path.
-- [ ] Remove experiment files only after parity, predecessor recovery, and separate authorization.
+- [x] Classify all six predecessor files under the dimensional-comparison experiment path.
+- [x] Move the two plotting compositions and output-path contracts to the calculation owner while retaining the experiment README and comparison protocol.
+- [x] Update every maintained consumer so none depends on retired experiment entrypoints or output paths.
+- [x] Retire duplicate plotting scripts, analysis README, and ignore contract after the ownership crosswalk and calculation-writer runtime regression.
 
 ## Dependency admission
 
@@ -20,7 +20,7 @@ surface is a composition over four families, not another physical experiment fam
 
 ## Typed aggregate surfaces
 
-- [ ] Replace sixteen family schema duplicates with imports of canonical family-owned typed records.
+- [x] Replace sixteen family schema duplicates with imports of canonical family-owned typed records.
 - [ ] Define typed frame-transport diagnostic inputs/results.
 - [ ] Define typed tolerance-comparison results.
 - [ ] Define typed shell--scale request/result/verification records.
@@ -32,6 +32,6 @@ surface is a composition over four families, not another physical experiment fam
 - [ ] Implement independent verification of aggregate arithmetic without calling family producers.
 - [ ] Authenticate shell--scale, response, scan, and frame-transport projections separately.
 - [ ] Define a closed cross-family figure inventory.
-- [ ] Migrate parallel experiment plotting scripts after image/data parity is established.
+- [ ] Establish image/data parity for the migrated plotting compositions.
 - [ ] Implement direct verify → render composition; do not invent a calculation stage for the aggregate.
 - [ ] Define sealing and read-only package verification if an aggregate execution is retained.

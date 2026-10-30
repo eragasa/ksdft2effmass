@@ -11,12 +11,13 @@ ksdft2effmass.campaign.model-adequacy.periodic2d.band-equivalence-versus-hopping
 It is a dimension-specific successor to the maintained 1-D experiment. It is not a
 version, run, evidence package, or publication identity. A foundational shared KSD
 implementation now covers the dimension-general parent, sine rotation, analytic flat
-correlation, dense square-shell inventory, and a bounded development action. A verified
-three-level `16 x 16`, `32 x 32`, and `64 x 64` Monkhorst--Pack calculations exist under [`analysis/development/`](analysis/development/) and
-[`analysis/development-refinement/`](analysis/development-refinement/). They are
-replaceable development output, not a frozen run, convergence result, or scientific
-evidence. Family-owned vector PDF and 600-dpi PNG diagnostics are cataloged in
-[`analysis/README.md`](analysis/README.md).
+correlation, dense square-shell inventory, and a bounded development action. Verified
+three-level `16 x 16`, `32 x 32`, and `64 x 64` Monkhorst--Pack development composition
+and plots are maintained by the
+[calculation owner](../../../../calculations/periodic2d/rank2/orthogonal/band-equivalence-locality/).
+They remain replaceable development output, not a frozen run, convergence result, or
+scientific evidence. This experiment directory retains the prospective protocol and
+bibliography rather than a second executable composition.
 
 Its dimension-general equations reduce exactly to the maintained parent homotopy and
 sine rotation when `d = 1`. Matrices, parameter meanings, retained rank, alignment
@@ -84,7 +85,7 @@ first-passing-shell, convergence, and verifier diagnostics.
 ## Current boundary
 
 The protocol remains pre-version despite the bounded three-level development ladder
-under [`analysis/development-refinement/`](analysis/development-refinement/). The mesh
+owned by the calculation composition. The mesh
 points, shell cap, and thresholds are development controls rather than qualified
 scientific controls. Row-level Paper 1 software parity is complete for every applicable
 or explicitly inapplicable catalog quantity, including independent finite-sum

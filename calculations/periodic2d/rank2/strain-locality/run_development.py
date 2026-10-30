@@ -25,7 +25,7 @@ def main() -> int:
     ).execute()
     output = Path(__file__).resolve().parent / "analysis" / "development" / "results"
     output.mkdir(parents=True, exist_ok=True)
-    (output / "development-result.json").write_text(result.to_json(), encoding="utf-8")
+    (output / "development-result.json").write_bytes(result.to_json())
 
     with plt.rc_context(
         {

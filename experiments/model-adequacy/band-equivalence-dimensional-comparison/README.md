@@ -17,21 +17,11 @@ The authoritative shared diagnostic requirements remain in
 The exact comparison rules are stated in
 [`comparison-protocol.md`](comparison-protocol.md).
 
-Run the bounded local development composition from the repository root with:
-
-```console
-PYTHONPATH=python/src python/.venv/bin/python \
-  experiments/model-adequacy/band-equivalence-dimensional-comparison/plot_development.py
-```
-
-The sampled shell--scale decision landscapes use a separate composition entry point:
-
-```console
-PYTHONPATH=python/src python/.venv/bin/python \
-  experiments/model-adequacy/band-equivalence-dimensional-comparison/plot_shell_scale_decision_landscapes.py
-```
-
-Both commands write replaceable PNG and PDF outputs under `analysis/development/`.
+The experiment tree owns this comparison protocol. Executable composition moved to the
+[calculation owner](../../../calculations/band-equivalence-dimensional-comparison/),
+which provides `plot_development.py` and
+`plot_shell_scale_decision_landscapes.py`. Both commands write replaceable PNG and PDF
+outputs under the calculation-owned `analysis/development/generated/` directory.
 These outputs establish neither a continuum Pareto frontier, scientific acceptance, nor
 retained evidence. No production Quantum ESPRESSO or Wannier90 execution is involved.
 

@@ -28,5 +28,5 @@ distributed checklist.
 | First and second mesh refinements | Present as separate entry points and replaceable refinement outputs; no convergence claim. |
 | Independent verification and schemas | Domain-owned typed request, result, verification, projection, execution, and rendering records authenticate the nominal direct execution, including independent finite-sum shell-power checks. Refinement records remain separate. |
 | Plotting and technical report | The direct figure is authenticated from retained execution, result, verification, and projection bytes. Historical development rendering remains separate. |
-| Experiment migration source | 11 tracked files under the periodic-2D orthogonal experiment path: protocol, bibliography, development/refinement/plot scripts, analysis records, and ignore contract; all must move here or receive a provenance-only disposition. |
+| Experiment migration source | Duplicate development/refinement/plot entrypoints and analysis-path contracts are retired. The experiment path retains only its identity README, prospective protocol, and bibliography. |
 | Cross-dimensional comparison | Downstream consumer only; it must authenticate this family's own result and cannot own its tolerances. |

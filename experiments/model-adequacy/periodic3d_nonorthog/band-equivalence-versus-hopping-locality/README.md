@@ -8,15 +8,14 @@ This directory is the prospective experiment home for
 ksdft2effmass.campaign.model-adequacy.periodic3d-nonorthogonal.band-equivalence-versus-hopping-locality
 ```
 
-It is a separate family from the orthogonal periodic-3D experiment. A bounded
-implementation and independently verified `8 x 8 x 8`, `16 x 16 x 16`, and
-`32 x 32 x 32` Monkhorst--Pack calculations exist under
-[`analysis/development/`](analysis/development/) and
-[`analysis/development-refinement/`](analysis/development-refinement/). They are
-replaceable development artifacts, not an immutable version, convergence result,
-retained run, evidence package, or qualified scientific result. Family-owned vector PDF
-and 600-dpi PNG diagnostics are cataloged in
-[`analysis/README.md`](analysis/README.md). A nominal typed calculate → verify → render
+It is a separate family from the orthogonal periodic-3D experiment. Bounded,
+independently verified `8 x 8 x 8`, `16 x 16 x 16`, and `32 x 32 x 32` Monkhorst--Pack
+development composition and plots are maintained by the
+[calculation owner](../../../../calculations/periodic3d/rank2/nonorthogonal/band-equivalence-locality/).
+They remain replaceable development artifacts, not an immutable version, convergence
+result, retained run, evidence package, or qualified scientific result. This experiment
+directory retains the prospective protocol and bibliography rather than a second
+executable composition. A nominal typed calculate → verify → render
 lifecycle is installed at the calculation owner with reserved identity
 `direct-fcc-diamond-rank2-n8`; no direct execution is retained, and refinement remains
 outside that lifecycle.

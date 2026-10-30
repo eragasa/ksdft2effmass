@@ -14,6 +14,7 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
     ParentEnum,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
+    BandEquivalenceLocalityAnalysis,
     BandEquivalenceLocalityAnalyzer,
 )
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.calculation import (
@@ -68,6 +69,7 @@ DEFINITION = BandEquivalenceLocalityRequest(
 def construct_artifacts(
     request: BandEquivalenceLocalityRequest,
 ) -> tuple[
+    BandEquivalenceLocalityAnalysis,
     BandEquivalenceLocalityCalculationResult,
     BandEquivalenceLocalityVerificationDiagnostics,
 ]:
@@ -78,7 +80,7 @@ def construct_artifacts(
         request=request,
         result=result.diagnostics,
     ).execute()
-    return result, verification
+    return analysis, result, verification
 
 
 def write_artifacts(
@@ -88,18 +90,14 @@ def write_artifacts(
 ) -> None:
     """Write canonical typed development records."""
     output.mkdir(parents=True, exist_ok=True)
-    (output / "development-input.json").write_text(
-        result.request.to_json(), encoding="utf-8"
-    )
-    (output / "development-result.json").write_text(result.to_json(), encoding="utf-8")
-    (output / "development-verification.json").write_text(
-        verification.to_json(), encoding="utf-8"
-    )
+    (output / "development-input.json").write_bytes(result.request.to_json())
+    (output / "development-result.json").write_bytes(result.to_json())
+    (output / "development-verification.json").write_bytes(verification.to_json())
 
 
 def main() -> int:
     """Calculate, verify, and write replaceable development records."""
-    result, verification = construct_artifacts(DEFINITION)
+    _, result, verification = construct_artifacts(DEFINITION)
     if not verification.passes:
         raise RuntimeError("independent development verification failed")
     output = (

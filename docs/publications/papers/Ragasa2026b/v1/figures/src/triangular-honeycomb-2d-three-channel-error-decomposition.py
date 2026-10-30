@@ -4,6 +4,6 @@ from _publish import publish
 
 if __name__ == "__main__":
     publish(
-        generator="experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/plot_development.py",
-        generated_figure="experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/analysis/three-channel-error-decomposition.pdf",
+        generator="calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/plot_development.py",
+        generated_figure="calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/analysis/development/figures/three-channel-error-decomposition.pdf",
     )
