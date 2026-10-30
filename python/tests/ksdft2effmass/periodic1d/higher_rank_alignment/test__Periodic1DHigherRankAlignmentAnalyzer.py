@@ -1,11 +1,16 @@
 """Integration tests for the complete higher-rank calculation producer."""
 
 import json
+import math
 from dataclasses import replace
 
 import numpy as np
 import pytest
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
+from projectkoios.numerics.numpy.validation import (
+    immutable_complex128_array,
+    immutable_float64_array,
+)
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
     NumpyBatchedComplexUnitaryProcrustesSolver,
@@ -205,8 +210,12 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
     ) -> None:
         mesh = CenteredUniformMesh(1, 513, (0.0,))
         status = higher_rank_calculation_result.meshes[0].channels[0].status
-        samples = np.zeros((513, 3, 3), dtype=np.complex128)
-        frames = np.zeros((513, 6, 3), dtype=np.complex128)
+        samples = immutable_complex128_array(
+            np.zeros((513, 3, 3), dtype=np.complex128), "samples"
+        )
+        frames = immutable_complex128_array(
+            np.zeros((513, 6, 3), dtype=np.complex128), "frames"
+        )
         matching_model = Periodic1DHigherRankAnalyticCaseConstructor(
             retained_rank=3,
             circuit_depth=1,
@@ -215,7 +224,10 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             retained_rank=3,
             circuit_depth=2,
         ).execute()
-        coordinates = -0.5 + np.arange(513, dtype=np.float64) / 513
+        coordinates = immutable_float64_array(
+            -0.5 + np.arange(513, dtype=np.float64) / 513,
+            "coordinates",
+        )
 
         with pytest.raises(ValueError, match="model rank and depth"):
             Periodic1DHigherRankChannelAnalysisRequest(
@@ -233,11 +245,99 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                 calculation_request=higher_rank_calculation_request,
                 model=matching_model,
                 mesh=mesh,
-                coordinates=np.zeros(513, dtype=np.float64),
+                coordinates=immutable_float64_array(
+                    np.zeros(513, dtype=np.float64), "coordinates"
+                ),
                 status=status,
                 aligned_samples=samples,
                 aligned_frames=frames,
                 global_selection=higher_rank_calculation_result.global_selection,
+            )
+        with pytest.raises(ValueError, match="aligned_samples"):
+            Periodic1DHigherRankChannelAnalysisRequest(
+                calculation_request=higher_rank_calculation_request,
+                model=matching_model,
+                mesh=mesh,
+                coordinates=coordinates,
+                status=status,
+                aligned_samples=samples,
+                aligned_frames=frames,
+                global_selection=higher_rank_calculation_result.global_selection,
+            )
+
+    def test__result_admission__rejects_mismatched_model_and_channel_evidence(
+        self,
+        higher_rank_calculation_result: Periodic1DHigherRankAlignmentCalculationResult,
+    ) -> None:
+        first_mesh = higher_rank_calculation_result.meshes[0]
+        diagnostics = first_mesh.model_diagnostics
+        q = (math.sqrt(41.0) - 3.0) / 8.0
+        harmonic_maximum = math.sqrt(1.0 - q**2) * (0.75 + 0.5 * q)
+        rank_four_angle = 0.35 * (1.0 + 0.15 * 2.0 / 3.0) * harmonic_maximum
+        mismatched_diagnostics = replace(
+            diagnostics,
+            case_identity="r04-L01",
+            retained_rank=4,
+            exact_analytic_attack_angle_maximum=rank_four_angle,
+        )
+        mismatched_mesh = replace(
+            first_mesh,
+            model_diagnostics=mismatched_diagnostics,
+        )
+        with pytest.raises(ValueError, match="model diagnostics"):
+            replace(
+                higher_rank_calculation_result,
+                meshes=(mismatched_mesh, *higher_rank_calculation_result.meshes[1:]),
+            )
+
+        first_channel = first_mesh.channels[0]
+        with pytest.raises(ValueError, match="block norm inventories"):
+            replace(
+                first_channel,
+                block_normalized_frobenius_norms=-np.ones_like(
+                    first_channel.block_normalized_frobenius_norms
+                ),
+            )
+
+        first_refinement = higher_rank_calculation_result.block_refinements[0]
+        translations = np.asarray(first_refinement.translations).copy()
+        translations[0] += 1
+        mismatched_refinement = replace(
+            first_refinement,
+            translations=translations,
+        )
+        with pytest.raises(ValueError, match="source channels"):
+            replace(
+                higher_rank_calculation_result,
+                block_refinements=(
+                    mismatched_refinement,
+                    *higher_rank_calculation_result.block_refinements[1:],
+                ),
+            )
+
+        scalar_index, source_scalar = next(
+            (index, item)
+            for index, item in enumerate(
+                higher_rank_calculation_result.scalar_refinements
+            )
+            if item.coarse_value != 0.0 or item.fine_value != 0.0
+        )
+        mismatched_scalar = replace(
+            source_scalar,
+            coarse_value=0.0,
+            fine_value=0.0,
+            absolute_change=0.0,
+            relative_change=0.0,
+            applied_tolerance=1.0e-10,
+            signed_margin=1.0e-10,
+            passes=True,
+        )
+        scalar_refinements = list(higher_rank_calculation_result.scalar_refinements)
+        scalar_refinements[scalar_index] = mismatched_scalar
+        with pytest.raises(ValueError, match="source channels"):
+            replace(
+                higher_rank_calculation_result,
+                scalar_refinements=tuple(scalar_refinements),
             )
 
     def test__refinement_request__rejects_mismatched_case_status(
@@ -384,6 +484,19 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
             ).to_json()
             == result.to_json()
         )
+        first_failure = result.meshes[0].transport_backend_failure
+        assert first_failure is not None
+        mismatched_failure = replace(
+            first_failure,
+            case_identity="r03-L02",
+            circuit_depth=2,
+        )
+        mismatched_mesh = replace(
+            result.meshes[0],
+            transport_backend_failure=mismatched_failure,
+        )
+        with pytest.raises(ValueError, match="backend failure"):
+            replace(result, meshes=(mismatched_mesh, *result.meshes[1:]))
 
     def test__calculation_result__round_trips_exact_bytes_and_rejects_request_tampering(
         self,

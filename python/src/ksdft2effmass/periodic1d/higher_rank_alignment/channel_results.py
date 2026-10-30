@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
@@ -49,6 +50,8 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
     """Retain one declared symmetric support and its separate error channels."""
 
     maximum_range: int
+    rank: int
+    energy_reference: float
     retained_translations: tuple[int, ...]
     omitted_squared_frobenius_weight: float
     normalized_omitted_squared_frobenius_weight: float
@@ -71,6 +74,16 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
             not in Periodic1DHigherRankAlignmentCalculationControls.SUPPORT_RADII
         ):
             raise ValueError("maximum_range must be a frozen built-in support radius")
+        if (
+            type(self.rank) is not int
+            or self.rank
+            not in Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
+        ):
+            raise ValueError("rank must be in the frozen retained-rank inventory")
+        if self.energy_reference != (
+            Periodic1DHigherRankAlignmentCalculationControls.ENERGY_REFERENCE
+        ):
+            raise ValueError("energy_reference must equal the frozen normalization")
         if type(self.retained_translations) is not tuple or any(
             type(value) is not int for value in self.retained_translations
         ):
@@ -111,6 +124,24 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
             ),
         ):
             _finite_nonnegative(value, name)
+        if self.omitted_frobenius_l2_norm != math.sqrt(
+            self.omitted_squared_frobenius_weight
+        ):
+            raise ValueError("omitted l2 norm must be the square root of the weight")
+        squared_scale = self.rank * self.energy_reference**2
+        linear_scale = math.sqrt(self.rank) * self.energy_reference
+        normalized = (
+            self.normalized_omitted_squared_frobenius_weight,
+            self.normalized_omitted_frobenius_l2_norm,
+            self.normalized_omitted_block_l1_norm,
+        )
+        expected_normalized = (
+            self.omitted_squared_frobenius_weight / squared_scale,
+            self.omitted_frobenius_l2_norm / linear_scale,
+            self.omitted_block_l1_norm / linear_scale,
+        )
+        if normalized != expected_normalized:
+            raise ValueError("normalized tail fields are inconsistent")
         if type(self.construction_parseval_pass) is not bool:
             raise TypeError("construction_parseval_pass must be a built-in bool")
         controls = Periodic1DHigherRankAlignmentCalculationControls
@@ -135,6 +166,8 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
             "maximum_range": self.maximum_range,
+            "rank": self.rank,
+            "energy_reference": self.energy_reference,
             "retained_translations": self.retained_translations,
             "omitted_squared_frobenius_weight": (self.omitted_squared_frobenius_weight),
             "normalized_omitted_squared_frobenius_weight": (
@@ -163,6 +196,8 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
         if set(values) != {
             "maximum_range",
+            "rank",
+            "energy_reference",
             "retained_translations",
             "omitted_squared_frobenius_weight",
             "normalized_omitted_squared_frobenius_weight",
@@ -180,15 +215,20 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
         }:
             raise ValueError("support result fields do not match")
         maximum_range = values["maximum_range"]
+        rank = values["rank"]
         translations = values["retained_translations"]
-        if type(maximum_range) is not int:
-            raise TypeError("maximum_range must decode to a built-in integer")
+        if type(maximum_range) is not int or type(rank) is not int:
+            raise TypeError("maximum_range and rank must decode to integers")
         if not isinstance(translations, tuple) or any(
             type(value) is not int for value in translations
         ):
             raise TypeError("retained_translations must decode to built-in integers")
         return cls(
             maximum_range=maximum_range,
+            rank=rank,
+            energy_reference=_decoded_float(
+                values["energy_reference"], "energy_reference"
+            ),
             retained_translations=translations,
             omitted_squared_frobenius_weight=_decoded_float(
                 values["omitted_squared_frobenius_weight"],
@@ -241,7 +281,7 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
         )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
     """Retain one channel's transform, interpolation, locality, and gate evidence."""
 
@@ -337,6 +377,21 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
                 raise ValueError(
                     "qualified block inventory must cover the declared recorded range"
                 )
+            if bool((raw < 0.0).any()) or bool((normalized < 0.0).any()):
+                raise ValueError("block norm inventories must be nonnegative")
+            block_scale = (
+                math.sqrt(self.status.retained_rank)
+                * Periodic1DHigherRankAlignmentCalculationControls.ENERGY_REFERENCE
+            )
+            if not np.array_equal(normalized, raw / block_scale):
+                raise ValueError("normalized block norms are inconsistent")
+            if any(
+                support.rank != self.status.retained_rank
+                or support.energy_reference
+                != Periodic1DHigherRankAlignmentCalculationControls.ENERGY_REFERENCE
+                for support in self.supports
+            ):
+                raise ValueError("support normalization must match the channel status")
             if self.fourier_representative_count != self.status.construction_mesh_size:
                 raise ValueError(
                     "Fourier representative count must equal the construction mesh size"
@@ -694,7 +749,7 @@ class Periodic1DHigherRankChannelMeshResult(BaseTypedRecord):
         )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
     """Retain one construction-mesh calculation with common transport evidence."""
 
@@ -720,6 +775,8 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             raise TypeError(
                 "model_diagnostics must be the exact model diagnostic record"
             )
+        if self.model_diagnostics.construction_mesh_size != self.construction_mesh_size:
+            raise ValueError("model diagnostics must match the construction mesh")
         if (self.transport is None) == (self.transport_backend_failure is None):
             raise ValueError(
                 "exactly one transport outcome or backend failure is required"
@@ -744,6 +801,13 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
                 is not Periodic1DHigherRankAlignmentTransportBackendFailureResult
             ):
                 raise TypeError("transport_backend_failure must be its exact record")
+            if (
+                self.transport_backend_failure.construction_mesh_size
+                != self.construction_mesh_size
+            ):
+                raise ValueError(
+                    "transport backend failure must match the construction mesh"
+                )
             if (
                 self.endpoint_closure_defect is not None
                 or self.primitive_closure_defect is not None

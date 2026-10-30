@@ -8,6 +8,10 @@ from typing import final
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
+from projectkoios.numerics.numpy.validation import (
+    immutable_complex128_array,
+    immutable_float64_array,
+)
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
     NumpyBatchedComplexUnitaryProcrustesResult,
@@ -73,10 +77,11 @@ _INAPPLICABLE_GLOBAL_RANK = _GlobalApplicability.INAPPLICABLE_AGGREGATE_RANK_DEF
 
 
 def _coordinates(mesh_size: int, offset: float) -> RealArray:
-    return np.asarray(
+    values = np.asarray(
         -0.5 + (np.arange(mesh_size, dtype=np.float64) + offset) / mesh_size,
         dtype=np.float64,
     )
+    return immutable_float64_array(values, "coordinates")
 
 
 def _adjoint(value: ComplexArray) -> ComplexArray:
@@ -677,6 +682,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
                 aligned_samples=aligned[0].get(channel),
                 aligned_frames=aligned[1].get(channel),
                 global_selection=global_selection,
+                pointwise_result=pointwise_result,
                 pointwise_selection=pointwise_selection,
             )
             for channel in self._request.configuration.alignment_channels
@@ -711,15 +717,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         parent_hermiticity = MatrixFieldHermiticityAnalyzer().execute(parent, energy)
         reference_isometry = MatrixFieldIsometryAnalyzer().execute(reference_frames)
         attacked_isometry = MatrixFieldIsometryAnalyzer().execute(attacked_frames)
-        gauge_unitarity = float(
-            np.max(
-                np.linalg.norm(
-                    _adjoint(gauge) @ gauge
-                    - np.eye(model.retained_rank, dtype=np.complex128),
-                    axis=(-2, -1),
-                )
-            )
-        )
+        gauge_isometry = MatrixFieldIsometryAnalyzer().execute(gauge)
         projectors = reference_frames @ _adjoint(reference_frames)
         attacked_projectors = attacked_frames @ _adjoint(attacked_frames)
         attacked_projector_equality = float(
@@ -758,7 +756,10 @@ class Periodic1DHigherRankAlignmentAnalyzer:
                 model.sampled_attack_angle_maximum(mesh_coordinates)
             )
         diagnostics = Periodic1DHigherRankModelDiagnostics(
+            case_identity=self._request.case_identity,
             retained_rank=model.retained_rank,
+            circuit_depth=model.circuit_depth,
+            construction_mesh_size=coordinates.size,
             exact_analytic_isolation_gap=2.1,
             sampled_isolation_gaps=np.asarray(sampled_gaps, dtype=np.float64),
             exact_analytic_attack_angle_maximum=model.exact_attack_angle_maximum,
@@ -767,7 +768,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             ),
             parent_hermiticity_defect=parent_hermiticity.normalized_maximum_frobenius_defect,
             reference_frame_isometry_defect=reference_isometry.normalized_maximum_frobenius_defect,
-            gauge_unitarity_defect=gauge_unitarity,
+            gauge_unitarity_defect=(gauge_isometry.normalized_maximum_frobenius_defect),
             attacked_frame_isometry_defect=attacked_isometry.normalized_maximum_frobenius_defect,
             attacked_projector_equality_defect=attacked_projector_equality,
             reference_projector_hermiticity_defect=projector.normalized_maximum_hermiticity_frobenius_defect,
@@ -889,6 +890,7 @@ class Periodic1DHigherRankAlignmentAnalyzer:
         aligned_samples: ComplexArray | None,
         aligned_frames: ComplexArray | None,
         global_selection: Periodic1DHigherRankProcrustesDiagnostics,
+        pointwise_result: NumpyBatchedComplexUnitaryProcrustesResult | None,
         pointwise_selection: Periodic1DHigherRankProcrustesDiagnostics,
     ) -> Periodic1DHigherRankChannelMeshResult:
         status = self._channel_status(
@@ -898,6 +900,8 @@ class Periodic1DHigherRankAlignmentAnalyzer:
             pointwise_selection,
         )
         if aligned_samples is None:
+            if aligned_frames is not None:
+                raise ValueError("unavailable channel fields must all be absent")
             return _unavailable_channel_result(status)
         if aligned_frames is None:
             raise ValueError("qualified aligned samples require aligned frames")
@@ -908,9 +912,18 @@ class Periodic1DHigherRankAlignmentAnalyzer:
                 mesh=mesh,
                 coordinates=coordinates,
                 status=status,
-                aligned_samples=aligned_samples,
-                aligned_frames=aligned_frames,
+                aligned_samples=immutable_complex128_array(
+                    aligned_samples, "aligned_samples"
+                ),
+                aligned_frames=immutable_complex128_array(
+                    aligned_frames, "aligned_frames"
+                ),
                 global_selection=global_selection,
+                pointwise_alignment=(
+                    pointwise_result
+                    if channel is Periodic1DHigherRankAlignmentChannel.POINTWISE_UNITARY
+                    else None
+                ),
             ),
             fourier_transformer=self._fourier_transformer,
             fourier_evaluator=self._fourier_evaluator,

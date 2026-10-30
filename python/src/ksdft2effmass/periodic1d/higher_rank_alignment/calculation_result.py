@@ -6,6 +6,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+import numpy as np
+
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ._record_admission import _mapping_value, _tuple_of_mappings
@@ -17,13 +19,14 @@ from .definition import (
 )
 from .diagnostics import Periodic1DHigherRankProcrustesDiagnostics
 from .provenance import Periodic1DHigherRankEvaluationIndependenceResult
+from .refinement import Periodic1DHigherRankScalarDiagnosticInventoryExtractor
 from .refinement_results import (
     Periodic1DHigherRankBlockRefinementResult,
     Periodic1DHigherRankScalarRefinementResult,
 )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
     """Retain one complete request-bound rank/depth calculation."""
 
@@ -65,12 +68,33 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
         ):
             raise ValueError("meshes must match the complete construction inventory")
         for mesh in self.meshes:
+            expected_transport_request = self.request.transport_request(
+                mesh.construction_mesh_size
+            )
             if (
                 mesh.transport is not None
-                and mesh.transport.request
-                != self.request.transport_request(mesh.construction_mesh_size)
+                and mesh.transport.request != expected_transport_request
             ):
                 raise ValueError("mesh transport must match the calculation request")
+            failure = mesh.transport_backend_failure
+            if failure is not None and (
+                failure.case_identity != self.request.case_identity
+                or failure.retained_rank != self.request.retained_rank
+                or failure.circuit_depth != self.request.circuit_depth
+                or failure.construction_mesh_size != mesh.construction_mesh_size
+            ):
+                raise ValueError(
+                    "mesh transport backend failure must match the calculation request"
+                )
+            model_diagnostics = mesh.model_diagnostics
+            if (
+                model_diagnostics.case_identity != self.request.case_identity
+                or model_diagnostics.retained_rank != self.request.retained_rank
+                or model_diagnostics.circuit_depth != self.request.circuit_depth
+                or model_diagnostics.construction_mesh_size
+                != mesh.construction_mesh_size
+            ):
+                raise ValueError("model diagnostics must match the calculation request")
             statuses = (
                 mesh.pointwise_selection.status,
                 *(channel.status for channel in mesh.channels),
@@ -133,6 +157,39 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
             raise ValueError(
                 "block_refinements must match all qualified adjacent mesh pairs"
             )
+        meshes_by_size = {mesh.construction_mesh_size: mesh for mesh in self.meshes}
+        for refinement in self.block_refinements:
+            coarse_channel = next(
+                result
+                for result in meshes_by_size[refinement.coarse_mesh_size].channels
+                if result.status.channel is refinement.channel
+            )
+            fine_channel = next(
+                result
+                for result in meshes_by_size[refinement.fine_mesh_size].channels
+                if result.status.channel is refinement.channel
+            )
+            if (
+                not np.array_equal(
+                    refinement.translations,
+                    coarse_channel.coefficient_translations,
+                )
+                or not np.array_equal(
+                    refinement.translations,
+                    fine_channel.coefficient_translations,
+                )
+                or not np.array_equal(
+                    refinement.coarse_normalized_block_norms,
+                    coarse_channel.block_normalized_frobenius_norms,
+                )
+                or not np.array_equal(
+                    refinement.fine_normalized_block_norms,
+                    fine_channel.block_normalized_frobenius_norms,
+                )
+            ):
+                raise ValueError(
+                    "block refinement values must match their source channels"
+                )
         if type(self.scalar_refinements) is not tuple or any(
             type(item) is not Periodic1DHigherRankScalarRefinementResult
             for item in self.scalar_refinements
@@ -145,10 +202,11 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
         )
         if len(set(scalar_keys)) != len(scalar_keys):
             raise ValueError("scalar refinement channel/path keys must be unique")
+        coarse_size, fine_size = self.request.configuration.construction_mesh_sizes[-2:]
         final_meshes = {
             mesh.construction_mesh_size: mesh
             for mesh in self.meshes
-            if mesh.construction_mesh_size in (1025, 2049)
+            if mesh.construction_mesh_size in (coarse_size, fine_size)
         }
         expected_scalar_channels = tuple(
             channel
@@ -160,7 +218,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                     if result.status.channel is channel
                 ).status.status
                 is Periodic1DHigherRankAlignmentStatus.QUALIFIED
-                for size in (1025, 2049)
+                for size in (coarse_size, fine_size)
             )
         )
         if tuple(dict.fromkeys(item.channel for item in self.scalar_refinements)) != (
@@ -168,6 +226,44 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
         ):
             raise ValueError(
                 "scalar refinements must cover every qualified final-mesh channel"
+            )
+        expected_scalar_values: list[
+            tuple[Periodic1DHigherRankAlignmentChannel, str, float, float]
+        ] = []
+        for channel in expected_scalar_channels:
+            coarse_channel = next(
+                result
+                for result in final_meshes[coarse_size].channels
+                if result.status.channel is channel
+            )
+            fine_channel = next(
+                result
+                for result in final_meshes[fine_size].channels
+                if result.status.channel is channel
+            )
+            coarse_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+                coarse_channel
+            ).execute()
+            fine_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+                fine_channel
+            ).execute()
+            if tuple(path for path, _ in coarse_inventory) != tuple(
+                path for path, _ in fine_inventory
+            ):
+                raise ValueError("final scalar source inventories must agree")
+            expected_scalar_values.extend(
+                (channel, coarse_item[0], coarse_item[1], fine_item[1])
+                for coarse_item, fine_item in zip(
+                    coarse_inventory, fine_inventory, strict=True
+                )
+            )
+        actual_scalar_values = [
+            (item.channel, item.diagnostic_path, item.coarse_value, item.fine_value)
+            for item in self.scalar_refinements
+        ]
+        if actual_scalar_values != expected_scalar_values:
+            raise ValueError(
+                "scalar refinement values must match their source channels"
             )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:

@@ -92,17 +92,20 @@ channel to `Periodic1DHigherRankChannelAnalyzer`, delegates mesh-pair comparison
 `Periodic1DHigherRankRefinementAnalyzer`, and returns a
 `Periodic1DHigherRankAlignmentCalculationResult`. These purpose-specific actions bind
 complete immutable requests and are imported from their owning modules rather than
-re-exported from the package root. Channel requests correlate the model rank and depth,
-status identity, global selection, and exact unshifted mesh coordinates before computing
-scientific values. Refinement requests similarly correlate every supplied mesh with the
-calculation case.
+re-exported from the package root. Channel requests require canonical immutable
+byte-backed arrays and correlate the model rank and depth, status identity, global
+selection, exact unshifted mesh coordinates, aligned operator samples, and aligned frames
+against the analytic channel definition or the exact pointwise solver result before
+computing scientific values. Refinement requests similarly correlate every supplied mesh
+with the calculation case.
 
 The result retains the exact request and a closed hierarchy:
 
-- one model-integrity record with the exact $2.1E_{\mathrm{ref}}$ analytic isolation
-  certificate, sampled separation, the rank-dependent exact and sampled attack-angle
-  maxima, gauge-unitarity evidence, and attacked/reference projector equality on every
-  construction mesh;
+- one model-integrity record per mesh with repeated case, rank, depth, and construction
+  mesh identity, the exact $2.1E_{\mathrm{ref}}$ analytic isolation certificate,
+  sampled separation, the rank-dependent exact and sampled attack-angle maxima,
+  gauge-isometry evidence from the shared matrix-field diagnostic owner, and
+  attacked/reference projector equality;
 - one global-selection result with every singular value, applied cutoff, strict rank
   margin, finite full-rank condition number, normalized residual, and unitarity,
   stationarity, objective-identity, and positive-semidefinite defect;
@@ -124,8 +127,12 @@ twisted Hermiticity, and tail monotonicity. The enclosing result recomputes exac
 rational construction/evaluation coordinate disjointness and the evaluation mesh's
 exclusion from selection during record admission. Refinement records use the shared KSD
 absolute-relative scalar diagnostic, retain signed margins and an aggregate pass flag,
-and recompute all blockwise refinement arithmetic during record admission.
-Coefficient arrays are not retained in
+and recompute all blockwise refinement arithmetic during record admission. Support
+records revalidate rank/energy normalization and tail square-root identities. Channel
+records revalidate nonnegative block norms and their rank/energy normalization. The
+aggregate result correlates both block and scalar refinement values with their retained
+source channels and correlates model and transport-failure evidence with the complete
+calculation request. Coefficient arrays are not retained in
 the public wire; the complete bounded block-norm inventory $|R|\le128$ is retained.
 
 Documented Procrustes backend failures become numerically-unresolved selections with
@@ -139,8 +146,10 @@ tracebacks are not serialized.
 All maintained arrays are copied into immutable bytes-backed storage that prevents NumPy
 write re-enablement. Integer, real, and complex arrays retain exact dtype boundaries and
 serialize with explicit dtype and shape metadata, including empty multidimensional arrays
-used by bounded failure records. Calculation requests and complete results round-trip
-through the canonical typed JSON bytes.
+used by bounded failure records. Generated dataclass equality is disabled for
+array-backed and aggregate records; canonical typed JSON bytes establish their exact
+serialized identity. Calculation requests and complete results round-trip through those
+bytes.
 
 ## Work remaining
 
