@@ -232,6 +232,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
         permitted = {
             Periodic1DHigherRankAlignmentChannel.IDENTITY: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
+                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
             ),
             Periodic1DHigherRankAlignmentChannel.GLOBAL_UNITARY: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
@@ -247,6 +248,7 @@ class Periodic1DHigherRankAlignmentStatusResult(BaseTypedRecord):
             ),
             Periodic1DHigherRankAlignmentChannel.KNOWN_INVERSE_ORACLE: (
                 Periodic1DHigherRankAlignmentStatus.QUALIFIED,
+                Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
                 Periodic1DHigherRankAlignmentStatus.ORACLE_INTEGRITY_FAILED,
             ),
         }

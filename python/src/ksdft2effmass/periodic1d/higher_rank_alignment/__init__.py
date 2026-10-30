@@ -1,5 +1,21 @@
 """Periodic one-dimensional higher-rank alignment contracts."""
 
+from .analysis import Periodic1DHigherRankAlignmentAnalyzer
+from .calculation import (
+    Periodic1DHigherRankAlignmentCalculationControls,
+    Periodic1DHigherRankAlignmentCalculationRequest,
+    Periodic1DHigherRankAlignmentCalculationResult,
+    Periodic1DHigherRankBlockRefinementResult,
+    Periodic1DHigherRankChannelMeshResult,
+    Periodic1DHigherRankFrameErrorResult,
+    Periodic1DHigherRankMatrixComparisonResult,
+    Periodic1DHigherRankMatrixErrorResult,
+    Periodic1DHigherRankMeshCalculationResult,
+    Periodic1DHigherRankModelDiagnostics,
+    Periodic1DHigherRankProcrustesDiagnostics,
+    Periodic1DHigherRankScalarRefinementResult,
+    Periodic1DHigherRankSupportResult,
+)
 from .configuration import Periodic1DHigherRankAlignmentConfiguration
 from .definition import (
     Periodic1DHigherRankAlignmentBackendExceptionCode,
@@ -17,7 +33,11 @@ from .result import (
 
 __all__ = [
     "Periodic1DHigherRankGlobalUnitaryDownstreamApplicability",
+    "Periodic1DHigherRankAlignmentAnalyzer",
     "Periodic1DHigherRankAlignmentBackendExceptionCode",
+    "Periodic1DHigherRankAlignmentCalculationControls",
+    "Periodic1DHigherRankAlignmentCalculationRequest",
+    "Periodic1DHigherRankAlignmentCalculationResult",
     "Periodic1DHigherRankAlignmentChannel",
     "Periodic1DHigherRankAlignmentConfiguration",
     "Periodic1DHigherRankAlignmentStatus",
@@ -26,4 +46,14 @@ __all__ = [
     "Periodic1DHigherRankAlignmentTransportLinkResult",
     "Periodic1DHigherRankAlignmentTransportOwnerResult",
     "Periodic1DHigherRankAlignmentTransportRequest",
+    "Periodic1DHigherRankBlockRefinementResult",
+    "Periodic1DHigherRankChannelMeshResult",
+    "Periodic1DHigherRankFrameErrorResult",
+    "Periodic1DHigherRankMatrixComparisonResult",
+    "Periodic1DHigherRankMatrixErrorResult",
+    "Periodic1DHigherRankMeshCalculationResult",
+    "Periodic1DHigherRankModelDiagnostics",
+    "Periodic1DHigherRankProcrustesDiagnostics",
+    "Periodic1DHigherRankScalarRefinementResult",
+    "Periodic1DHigherRankSupportResult",
 ]

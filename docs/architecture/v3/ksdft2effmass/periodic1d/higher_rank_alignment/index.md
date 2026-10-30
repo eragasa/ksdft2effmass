@@ -32,11 +32,20 @@ The current package provides:
 - neighbor-link singular values, numerical-rank margins, and backend validation
   residuals; and
 - immutable results for the three right-unitary transformations required to close a
-  transported frame around the reciprocal-space period.
+  transported frame around the reciprocal-space period;
+- an analytic parent Hamiltonian and depth-dependent nearest-neighbor gauge circuit;
+- one request-bound producer that evaluates the identity, global-unitary,
+  pointwise-unitary, and known-inverse channels;
+- odd-mesh finite-periodic Fourier transforms, direct shifted-mesh interpolation,
+  symmetric-support truncation, ordinary tails, Parseval relations, and block
+  refinement diagnostics; and
+- complete immutable calculation records that retain the request, all construction
+  meshes, all channels, and all declared supports.
 
-The higher-rank Hamiltonian producer, independent recalculation, complete result
-verification, figures, and calculation scripts have not yet been implemented. No
-higher-rank case has been executed or scientifically validated through this package.
+Independent recalculation, byte-owning result verification, authenticated figures, and
+calculation scripts have not yet been implemented. The producer has been exercised by
+software tests on synthetic analytic data, but no retained higher-rank execution or
+scientific validation has occurred.
 
 ## Numerical responsibilities
 
