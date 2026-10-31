@@ -136,9 +136,27 @@ calculate/verify/render scripts retain the record, its stored verification, and 
 closed authenticated six-figure family, momentum-refinement, adaptive-amplitude, and
 truncation inventory. Rendering calls stored-verification admission and does not rerun
 the independent routes. Authenticated embedded, fully qualified parent-family, and
-cohesive calculation projections and their closed PNG inventories are installed. The
-read-only donor audit compares 18,513 mapped immutable scalars within `1.0e-13`, but it
-also records a non-equivalent momentum disposition, four missing retained truncation
-slices, missing five-scale refinement summaries, unactivated pandas diagnostics, and ten
-maintained donor consumers. Full parity therefore remains open. The calculation-local
-`workflow/` remains tracked pending a later reviewed retirement.
+cohesive calculation projections and their closed PNG inventories are installed.
+
+The separate complete-five-scale implementation composes typed parent,
+momentum-family, adaptive-amplitude, truncation-family, and three-mesh decision-stability
+values in `retention/complete_five_scale.py`. The family analysis records in
+`retention/records.py` delegate their scientific mapping to the established historical
+retention boundary while exposing typed aggregate composition. The complete aggregate,
+its independent verification, and its authenticated projection use the generic typed
+serializer/deserializer directly; they define no new wire discriminator, feature codec,
+or parallel schema layer. `truncation/mesh_stability.py` owns decision stability as a
+`NumericalConsistency` value rather than support-selection science. The downstream
+`visualizations/complete_five_scale.py` renderer consumes stored admitted projection
+values only. The three `run_complete_*` scripts coexist with the immutable direct-v2
+scripts because they target a new execution identity and complete scope. Synthetic tests
+cover round trips, independent verification, unresolved momentum and mesh-decision
+preservation, tamper rejection, and stage contracts; they do not execute scientific-scale
+controls or create retained authenticated results.
+
+The read-only donor audit compares 18,513 mapped immutable scalars within `1.0e-13`, but
+it also records a non-equivalent momentum disposition, four missing retained truncation
+slices, and missing five-scale refinement summaries. Maintained calculation Python no
+longer imports the donor, but full retained parity remains open. The calculation-local
+`workflow/` remains tracked pending complete authenticated evidence, semantic resolution,
+and a later reviewed retirement audit.

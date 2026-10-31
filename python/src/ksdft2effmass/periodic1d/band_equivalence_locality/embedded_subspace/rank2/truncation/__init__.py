@@ -10,6 +10,7 @@ from .family_verification import (
     EmbeddedSubspaceRank2TruncationFamilyVerification,
     Periodic1DRank2TruncationFamilyIndependentVerifier,
 )
+from .mesh_stability import Periodic1DRank2TruncationMeshStabilityAssessment
 from .reference import (
     Periodic1DRank2TruncationIndependentReferenceAnalyzer,
 )
@@ -45,6 +46,7 @@ __all__ = [
     "Periodic1DRank2TruncationFamilyRequest",
     "Periodic1DRank2TruncationIndependentReferenceAnalyzer",
     "Periodic1DRank2TruncationIndependentVerifier",
+    "Periodic1DRank2TruncationMeshStabilityAssessment",
     "Periodic1DRank2TruncationPoint",
     "Periodic1DRank2TruncationQualificationStopped",
     "Periodic1DRank2TruncationRange",

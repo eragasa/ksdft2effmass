@@ -1,6 +1,6 @@
 # Proposed complete five-scale direct execution
 
-**Status:** design only; execution not authorized
+**Status:** implementation installed and synthetically tested; execution not authorized
 **Proposed execution identity:** `direct-embedded-rank2-five-scale-complete-v1`
 
 ## Purpose and boundary
@@ -18,30 +18,32 @@ historical donor convergence.
 
 ## Required installed ownership before execution
 
-The current direct aggregate owns one five-member final-mesh parent family, one
-scale-one momentum refinement, one scale-one adaptive-amplitude refinement, and one
-scale-one truncation inventory. Two complete-scope prerequisites are now installed in
-memory. `ReciprocalMeshRefinementFamily` owns dimension- and rank-independent
-mesh/family alignment, while
-`Periodic1DRank2MomentumRefinementFamilyAnalysis` adapts the existing
+The current immutable direct-v2 execution owns one five-member final-mesh parent
+family, one scale-one momentum refinement, one scale-one adaptive-amplitude refinement,
+and one scale-one truncation inventory. The installed complete-scope implementation now
+adds only new prospective owners; it does not change those retained bytes.
+`ReciprocalMeshRefinementFamily` owns dimension- and rank-independent mesh/family
+alignment, while `Periodic1DRank2MomentumRefinementFamilyAnalysis` adapts the existing
 closed rank-two outcomes. `RealSpaceSupportTruncationFamily` owns dimension- and
 rank-independent family-coordinate/outcome alignment, while
 `Periodic1DRank2TruncationFamilyAnalysis` composes the existing truncation analyzer at
 every parent scale and derives canonical minimum tolerance-satisfying support outcomes.
 Their independent verifiers reconstruct each member in memory. The truncation-family
 verifier reconstructs each member once and independently scans rebuilt error channels
-for support decisions without calling either production selector. These installations
-create no retained bytes and do not execute this plan.
+for support decisions without calling either production selector.
 
-Before a complete-scope script can be reviewed, an installed owner must still add the
-cohesive immutable five-scale, three-construction-mesh threshold-adjacent truncation
-assessment. That later mesh-stability assessment belongs to `NumericalConsistency`,
-not to the generic support-truncation family.
+`Periodic1DRank2TruncationMeshStabilityAssessment` now owns the cohesive immutable
+three-construction-mesh comparison as a `NumericalConsistency` operation, separate from
+the generic support-truncation family. The complete aggregate, independent verifier,
+authenticated projection, downstream renderer, and three no-overwrite lifecycle scripts
+are installed and covered by synthetic tests. Installing them creates no retained
+complete-scope result and does not execute this plan.
 
-The remaining owner must compose existing rank-two analyzers and independent references.
-It must not duplicate PhysKit transport, Optimization alignment, Fourier transforms, or
-the existing single-analysis scientific implementations. New retained bytes require an
-explicit schema identity rather than adding fields to direct v2's schema.
+These owners compose existing rank-two analyzers and independent references. They do not
+duplicate PhysKit transport, Optimization alignment, Fourier transforms, or existing
+single-analysis scientific implementations. New retained values use the generic typed
+serializer/deserializer directly through immutable retention records. They do not add a
+new wire format, feature-specific codec, parallel schema layer, or fields to direct v2.
 
 ## Proposed calculation controls
 
@@ -72,13 +74,14 @@ Use three new module-scope, atomic, no-overwrite scripts:
    reconstructs every family member, momentum comparison, truncation channel, and
    minimum tolerance-satisfying support decision without calling the production
    owners, then writes canonical verification and its manifest atomically.
-3. `run_complete_03_render.py` admits stored passing verification and renders only the
-   closed authenticated figure/table inventory without rerunning calculation or
-   verification.
+3. `run_complete_03_render.py` admits stored passing verification, authenticates the
+   complete-scope summary projection, and renders a deterministic Markdown summary
+   without rerunning calculation or verification. Any later figure or table owner must consume only that
+   stored authenticated boundary or another separately authenticated projection.
 
-The execution manifest must bind the calculation family, new execution identity, exact
-result digest, producer-script digest, dependency versions, source manifest, evidence
-status, claim boundary, and `sealed: false`. Verification and rendering manifests must
+The execution metadata must bind the calculation family, new execution identity, exact
+result digest, producer-script digest, dependency versions, clean Git source revision,
+evidence status, claim boundary, and `sealed: false`. Verification and rendering manifests must
 bind their input bytes and script identities. Failure artifacts remain immutable and do
 not authorize an in-place retry.
 
@@ -87,11 +90,13 @@ not authorize an in-place retry.
 - one canonical complete-scope calculation record;
 - one canonical independent-verification record and manifest;
 - one execution manifest and explicit `UNSEALED.md` boundary;
-- authenticated five-scale parent, momentum, principal-truncation, and
-  threshold-refinement projections;
-- a closed figure/table inventory sufficient to rebuild the maintained Ragasa2026a v3
-  five-scale inputs; and
-- a source/dependency manifest and checksum inventory.
+- one authenticated summary projection covering five-scale momentum dispositions,
+  principal-truncation inventory counts, and adjacent-mesh decision-change counts, plus
+  its deterministic Markdown rendering;
+- separately reviewed authenticated value projections before any figure/table inventory
+  is claimed sufficient to rebuild the Ragasa2026a v3 five-scale inputs; and
+- execution metadata binding the clean source revision, dependency versions, and result
+  and producer-script digests.
 
 No development CSV, direct-v1/v2 artifact, publication PDF, or donor file may be
 rewritten by this lifecycle.

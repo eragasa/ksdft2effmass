@@ -41,6 +41,9 @@ class TestPeriodic1DRank2DirectScripts:
             "run_14_truncation_mesh_stability.py",
             "run_15_five_scale_evidence_assessment.py",
             "run_16_diagnostic_packaging.py",
+            "run_complete_01_calculation.py",
+            "run_complete_02_verification.py",
+            "run_complete_03_render.py",
         )
 
         assert tuple(path.name for path in sorted(calculation.glob("run_*.py"))) == (

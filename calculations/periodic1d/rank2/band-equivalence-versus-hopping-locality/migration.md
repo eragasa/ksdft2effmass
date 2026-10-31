@@ -135,12 +135,15 @@ neither execution is sealed or promoted.
     - [x] Bind adaptive-amplitude refinement into the canonical calculation artifact and authenticate it there.
     - [x] Add independent in-memory embedded rank-two truncation verification without production truncation, interpolation, Fourier, or parent actions.
     - [x] Bind embedded rank-two truncation into the canonical calculation artifact and authenticate it there.
+    - [x] Install complete-five-scale typed retention wrappers, aggregate byte admission, independent verification composition, authenticated projection, and stored-verification admission without executing the proposed calculation.
+    - [x] Install the separate three-construction-mesh truncation decision-stability assessment as a numerical-consistency value.
 - [x] Authenticate the exact projection consumed by every retained direct-lifecycle plot.
   - [x] Define and independently verify the canonical flat-parent visualization-data projection.
   - [x] Implement the closed flat-parent figure owners with digest admission before rendering.
   - [x] Add authenticated figures for the embedded-subspace/rank2 and bounded parent-family channels.
   - [x] Add authenticated figures for refinement and truncation through their shared aggregate authentication boundary.
 - [x] Implement direct calculate → verify → render scripts with no-overwrite retention.
+  - [x] Install a separate `run_complete_01` → `run_complete_02` → `run_complete_03` lifecycle for the proposed complete execution identity; synthetic and static tests do not execute its scientific-scale controls or create retained results.
 - [ ] Establish named numerical parity for flat, nonflat, parent-family, and truncation outputs.
   - [x] Bind immutable direct-v2 and donor-table identities and compare 18,513 overlapping scalars within `1.0e-13`.
   - [x] Record that the donor momentum result is converged while the installed broader diagnostic remains unresolved; do not claim disposition parity.
@@ -152,7 +155,8 @@ neither execution is sealed or promoted.
       - [x] Migrate the diagnostic-packaging entrypoint and test without rerunning historical artifacts.
       - [x] Reconcile Ragasa2026a v3 with the non-equivalent momentum dispositions and partial direct-v2 evidence boundary.
       - [x] Establish digest-bound source integrity, complete-grid table reproduction, and cutoff-decision consistency for maintained five-scale artifacts without rerunning a calculation.
-      - [x] Record the proposed complete-scope execution identity, installed-owner prerequisites, lifecycle, outputs, resource preflight, and authorization gate.
+      - [x] Record the proposed complete-scope execution identity, installed-but-unexecuted lifecycle, controls, outputs, resource preflight, and authorization gate.
+      - [x] Implement and synthetically test the immutable aggregate, generic typed serialization, independent verifier, authenticated projection, downstream renderer, and separate three-stage scripts without scientific execution.
       - [ ] Establish complete retained numerical parity through a separately authorized new execution.
       - [ ] Conduct a new donor-retirement review only after the retained numerical and momentum-semantic gaps are resolved.
 - [x] Close the amplitude/refinement disposition as an explicit level-cap-exhausted outcome; this does not claim convergence.
