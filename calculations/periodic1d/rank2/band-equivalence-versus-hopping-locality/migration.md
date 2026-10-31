@@ -38,6 +38,8 @@ and reproduction paths agree with the canonical owner.
 - [x] Resolve protocol authority and conflict rules in [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md).
 - [x] Crosswalk historical M2, monograph-composite, and finite-angle regression donors by exact revision, Git tree, selected digest, and restoration role.
 - [x] Audit the complete calculation-local `workflow/` donor tree against installed owners and immutable direct-v2 bytes in [`donor-parity-audit.md`](donor-parity-audit.md); retain the donor because full parity is not established.
+- [x] Trace unmatched five-scale donor surfaces into active scientific claims in [`scientific-claim-use-audit.md`](scientific-claim-use-audit.md).
+- [x] Record scientific authority's decision in [`five-scale-maintenance-disposition.md`](five-scale-maintenance-disposition.md) to retain those surfaces under this maintained calculation; keep donor retirement blocked until equivalent maintained successors and consumer migration exist.
 
 ## Source ownership
 
@@ -72,10 +74,19 @@ verification. The authorized unsealed `v1` execution preserves a failed independ
 verification, while the no-overwrite `v2` successor passed at the unchanged tolerance
 and rendered the closed inventory. The completed read-only donor audit establishes
 bounded agreement for 18,513 mapped scalars but identifies a non-equivalent momentum
-disposition, four missing retained
-truncation-family slices, missing five-scale refinement summaries, unactivated pandas
-diagnostics, and ten maintained donor consumers. Full donor parity and reviewed
-`workflow/` retirement therefore remain open; neither execution is sealed or promoted.
+disposition, four missing retained truncation-family slices, missing five-scale
+refinement summaries, unmigrated claimed diagnostic semantics, and ten maintained donor
+consumers at the audited revision. Subsequent source migration moved five scientific
+producer entrypoints and three producer-composition tests to a calculation-owned adapter
+over installed request, analyzer, canonical-record, and independent-verifier owners. It
+also moved diagnostic packaging and its test to immutable standard-library CSV
+projections, canonical typed catalog and range-decision records, and calculation-owned
+plotting that does not recompute analyses. No maintained Python consumer now imports
+`workflow/`, and no development or retained artifact was rerun or modified. The pandas
+implementation and dataframe API are not parity requirements. Complete-grid projection
+parity is now digest-bound across the five-scale tables, summaries, and cutoff decisions,
+but complete retained numerical parity and reviewed `workflow/` retirement remain open;
+neither execution is sealed or promoted.
 
 - [ ] Move reusable calculation behavior from `workflow/` to cohesive reviewed source owners.
   - [x] Install the flat-parent exact-band, restricted global-alignment, finite-cyclic Fourier/Nyquist, disjoint interpolation, deliberate truncation, and total-band consequence channels.
@@ -85,9 +96,14 @@ diagnostics, and ten maintained donor consumers. Full donor parity and reviewed
   - [x] Install the serialization-free nested momentum-refinement channel and independent in-memory comparison.
   - [x] Install adaptive-amplitude refinement without conflating qualification or declared-cap stops.
   - [x] Install embedded rank-two negative-Nyquist conversion, ordinary truncation consequences, and independent direct-formula comparison.
+  - [x] Migrate flat, nonflat, parent-family, truncation, and truncation-refinement development producers to `development_study.py` composition over installed owners.
+  - [x] Migrate the three scientific producer tests to installed-owner composition; installed package tests retain the detailed owner contracts.
+  - [x] Replace diagnostic loading, range-decision packaging, plotting entrypoint, and test with immutable typed boundaries without preserving pandas or dataframe APIs.
 - [ ] Obtain separate authorization before activating pandas as a direct project dependency; the recovered donor manifests are digest-bound but not activated.
 - [x] Keep the embedded-subspace/rank2 model, meshes, amplitudes, thresholds, and channel inventory family-owned.
-- [ ] Replace calculation-local serialization with canonical typed records without a compatibility facade.
+- [ ] Replace remaining calculation-local serialization with canonical typed records without a compatibility facade.
+  - [x] Use installed canonical records for mesh and parent-family byte admission; do not extract donor JSON schemas or introduce a parallel wire format.
+  - [x] Migrate the diagnostic package boundary through canonical typed records rather than a pandas dataframe or extracted schema.
 - [x] Record parity and predecessor dispositions for every parallel experiment script and development artifact; physical removal remains separately gated above.
 
 ## Direct lifecycle
@@ -127,6 +143,16 @@ diagnostics, and ten maintained donor consumers. Full donor parity and reviewed
 - [ ] Establish named numerical parity for flat, nonflat, parent-family, and truncation outputs.
   - [x] Bind immutable direct-v2 and donor-table identities and compare 18,513 overlapping scalars within `1.0e-13`.
   - [x] Record that the donor momentum result is converged while the installed broader diagnostic remains unresolved; do not claim disposition parity.
-  - [ ] Resolve the missing four parent-scale truncation slices, five-scale refinement summaries, flat retained comparison, and pandas diagnostic successor or historical disposition.
+  - [ ] Resolve the missing four parent-scale truncation slices, five-scale refinement summaries, flat retained comparison, and claimed diagnostic semantics as maintained successors; do not preserve pandas-specific interfaces merely for parity.
+    - [x] Establish that Ragasa2026a v3 actively consumes the five-scale parent-family, truncation, and refinement surfaces and that the monograph does not consume their numerical outcomes.
+    - [x] Obtain scientific authority's decision: maintain the unmatched five-scale capabilities and current calculation ownership without promoting their evidence status.
+    - [ ] Port the maintained capabilities and consumers to named installed successors before another donor-retirement review.
+      - [x] Migrate five scientific producer entrypoints and three producer tests without rerunning their historical outputs.
+      - [x] Migrate the diagnostic-packaging entrypoint and test without rerunning historical artifacts.
+      - [x] Reconcile Ragasa2026a v3 with the non-equivalent momentum dispositions and partial direct-v2 evidence boundary.
+      - [x] Establish digest-bound source integrity, complete-grid table reproduction, and cutoff-decision consistency for maintained five-scale artifacts without rerunning a calculation.
+      - [x] Record the proposed complete-scope execution identity, installed-owner prerequisites, lifecycle, outputs, resource preflight, and authorization gate.
+      - [ ] Establish complete retained numerical parity through a separately authorized new execution.
+      - [ ] Conduct a new donor-retirement review only after the retained numerical and momentum-semantic gaps are resolved.
 - [x] Close the amplitude/refinement disposition as an explicit level-cap-exhausted outcome; this does not claim convergence.
 - [ ] Define sealing and read-only package verification separately.

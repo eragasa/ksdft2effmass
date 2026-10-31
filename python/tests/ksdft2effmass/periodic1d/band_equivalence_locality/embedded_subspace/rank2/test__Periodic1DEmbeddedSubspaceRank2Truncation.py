@@ -14,11 +14,13 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 from ksdft2effmass.periodic1d import (
     Periodic1DEmbeddedSubspaceRank2ExternalGapFailure,
     Periodic1DEmbeddedSubspaceRank2Request,
+    Periodic1DEmbeddedSubspaceRank2TruncationAnalysis,
     Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer,
     Periodic1DEmbeddedSubspaceRank2TruncationCompleted,
     Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier,
     Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped,
     Periodic1DEmbeddedSubspaceRank2TruncationRequest,
+    Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector,
 )
 
 
@@ -49,7 +51,7 @@ def _request(
 
 def _analyze(
     request: Periodic1DEmbeddedSubspaceRank2TruncationRequest,
-):
+) -> Periodic1DEmbeddedSubspaceRank2TruncationAnalysis:
     return Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer(
         request=request,
         transporter=ClosedLoopPolarFrameTransporter(),
@@ -91,6 +93,11 @@ class TestPeriodic1DEmbeddedSubspaceRank2Truncation:
         for point in result.points:
             assert tuple(item.maximum_range for item in point.ranges) == (0, 1, 2, 3)
             full = point.ranges[-1]
+            assert full.support_policy.maximum_range == 3
+            assert tuple(
+                displacement.components
+                for displacement in full.support_policy.support.displacements
+            ) == ((-3,), (-2,), (-1,), (0,), (1,), (2,), (3,))
             assert full.reference_ordinary_omitted_power == 0.0
             assert full.comparison_ordinary_omitted_power == 0.0
             assert full.reference_total_omitted_power == pytest.approx(
@@ -122,6 +129,32 @@ class TestPeriodic1DEmbeddedSubspaceRank2Truncation:
         assert (
             final.comparison_interpolation_hamiltonian_maximum_error
             != final.comparison_interpolation_spectral_maximum_error
+        )
+
+    def test_tolerance_selector_adapts_symmetric_range_errors(self) -> None:
+        result = _analyze(_request())
+        assert type(result) is Periodic1DEmbeddedSubspaceRank2TruncationCompleted
+        point = result.points[-1]
+
+        selection = Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector(
+            point=point,
+            tolerance=1.0,
+        ).execute()
+
+        assert tuple(
+            comparison.support for comparison in selection.request.comparisons
+        ) == tuple(item.support_policy.support for item in point.ranges)
+        assert (
+            selection.request.comparisons[
+                1
+            ].reference_model_errors.matrix_frobenius.maximum_error
+            == point.ranges[1].reference_truncation_hamiltonian_maximum_error
+        )
+        assert (
+            selection.request.comparisons[
+                1
+            ].comparison_model_errors.ordered_eigenvalues.maximum_absolute_error
+            == point.ranges[1].comparison_total_spectral_maximum_error
         )
 
     def test_parent_qualification_stops_before_truncation(self) -> None:

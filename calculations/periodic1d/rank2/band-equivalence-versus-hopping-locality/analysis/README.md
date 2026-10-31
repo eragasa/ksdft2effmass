@@ -19,7 +19,7 @@ The maintained successor analysis must:
 
 1. read a verified versioned simulation result rather than rerun the simulation;
 2. retain sampled and analytic channels separately;
-3. verify first-passing cutoff decisions independently;
+3. verify minimum tolerance-satisfying support decisions independently;
 4. preserve interpolation, conversion, truncation, and total-error semantics;
 5. write machine-readable analysis before plotting; and
 6. label all outputs as development unless a later retained-evidence contract says

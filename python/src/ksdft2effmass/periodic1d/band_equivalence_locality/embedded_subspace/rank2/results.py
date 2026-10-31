@@ -14,6 +14,8 @@ from projectkoios.optimization.alignment.closed_loop_polar_transport import (
 )
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximum
 
+from ksdft2effmass.representation_equivalence import RepresentationEquivalence
+
 from .request import Periodic1DEmbeddedSubspaceRank2Request
 
 
@@ -178,7 +180,7 @@ class Periodic1DEmbeddedSubspaceRank2HoppingPower:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2PointAnalysis:
+class Periodic1DEmbeddedSubspaceRank2PointAnalysis(RepresentationEquivalence):
     """Retain nonflat band, restricted-alignment, and hopping channels."""
 
     amplitude: float

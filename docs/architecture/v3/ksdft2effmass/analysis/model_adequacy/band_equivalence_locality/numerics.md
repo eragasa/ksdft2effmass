@@ -66,7 +66,9 @@ $s$. The current synthetic models are explicitly unitless; scalar conversion rej
 physical-unit model rather than dropping squared-energy units. A shell result records the
 complete retained block count, reference and comparison shell power, omitted power, and
 both Hamiltonian and ordered-band consequences. Shells are compared only within one
-declared finite inventory; first-passing records make no unstated monotonicity assumption.
+declared finite inventory. The shared real-space-support selector returns the minimum
+admitted support satisfying each tolerance and makes no unstated monotonicity
+assumption. Historical records retain their existing first-passing field names.
 
 ## Separated error channels
 
@@ -78,18 +80,25 @@ For each reference/comparison route, the calculation distinguishes:
 4. deliberate metric-shell truncation; and
 5. total comparison with the direct represented field.
 
-`ErrorChannels` retains maximum and RMS represented-Hamiltonian defects separately from
-maximum and RMS sorted-band defects. A pointwise decomposition does not authorize adding
+`ErrorChannels` retains the rank-normalized matrix-Frobenius maximum error and
+rank-normalized matrix-Frobenius root-mean-square error separately from the ordered-
+eigenvalue maximum-absolute error and ordered-eigenvalue root-mean-square error. These
+functionals are evaluated independently for the reference and comparison model routes.
+The shared truncation API groups the first pair in
+`RankNormalizedMatrixFrobeniusErrors` and the second pair in
+`OrderedEigenvalueErrors`; `RealSpaceSupportTruncationErrors` composes the two values.
+A pointwise decomposition does not authorize adding
 separately maximized interpolation, truncation, and total norms. Parent, frame,
 transport, gauge-covariance, Parseval, and support diagnostics also remain distinct.
 
 ## Threshold and resolution semantics
 
-Band tolerances are a finite, unique, decreasing request inventory. A first-passing shell
-is the earliest sampled complete shell satisfying its channel's tolerance; absence of a
-passing shell remains unresolved. The amplitude-resolution ladder is a declared doubling
-inventory and reports direct midpoint interpolation defects. An unfrozen draft tolerance
-must not be presented as acceptance.
+Band tolerances are a finite, unique, decreasing request inventory. For each error
+functional and model role, the selected shell support is the minimum member of the
+strictly nested admitted sequence satisfying the declared tolerance. Absence of a
+satisfying support remains unresolved. The amplitude-resolution ladder is a declared
+doubling inventory and reports direct midpoint interpolation defects. An unfrozen draft
+tolerance must not be presented as acceptance.
 
 All four direct requests sample parent scales $0$ and $1$ and band tolerances $10^{-3}$
 and $10^{-5}$. The axis-maximum square and simple-cubic requests sample amplitudes $0$,

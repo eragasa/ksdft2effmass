@@ -182,6 +182,15 @@ class TestPeriodic1DHigherRankAlignmentAnalyzer:
                 assert gauge_alignment.ordinary_hermiticity_pass is True
                 assert gauge_alignment.twisted_cyclic_hermiticity_pass is True
                 assert gauge_alignment.all_tail_monotonicity_checks_pass is True
+                for item in gauge_alignment.supports:
+                    wire = item.to_json()
+                    assert tuple(
+                        displacement.components
+                        for displacement in item.support_policy.displacements
+                    ) == tuple(
+                        (translation,) for translation in item.retained_translations
+                    )
+                    assert item.to_json() == wire
                 assert all(
                     item.construction_parseval_pass for item in gauge_alignment.supports
                 )

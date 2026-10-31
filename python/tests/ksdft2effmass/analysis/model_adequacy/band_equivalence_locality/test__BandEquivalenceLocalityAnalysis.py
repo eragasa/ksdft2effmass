@@ -14,6 +14,7 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.results imp
     BandEquivalenceLocalityFirstPassingDecision,
     BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis,
     BandEquivalenceLocalityPointAnalysis,
+    BandEquivalenceLocalityRepresentationEquivalenceAnalysis,
     BandEquivalenceLocalityShellAnalysis,
 )
 from ksdft2effmass.serialization import BaseTypedRecord
@@ -33,6 +34,7 @@ class TestBandEquivalenceLocalityAnalysis:
             BandEquivalenceLocalityFirstPassingDecision,
             BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis,
             BandEquivalenceLocalityPointAnalysis,
+            BandEquivalenceLocalityRepresentationEquivalenceAnalysis,
             BandEquivalenceLocalityShellAnalysis,
         )
 

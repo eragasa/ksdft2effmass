@@ -6,15 +6,12 @@ import csv
 import math
 from pathlib import Path
 
-from workflow.nonflat import (
-    SmoothFourStateAdaptiveAmplitudeDefinition,
-    SmoothFourStateAdaptiveAmplitudeExperiment,
-    SmoothFourStateAmplitudeThresholds,
-    SmoothFourStateConvergenceDefinition,
-    SmoothFourStateConvergenceExperiment,
-    SmoothFourStateConvergenceThresholds,
-    SmoothFourStateDefinition,
-    SmoothFourStateVerifier,
+from development_study import (
+    adaptive_amplitude,
+    amplitude_refinement_levels,
+    analysis_verification_defect,
+    momentum_refinement,
+    qualified_parent,
 )
 
 RESULTS = Path(__file__).resolve().parent / "simulations" / "development" / "results"
@@ -25,7 +22,6 @@ AMPLITUDE_INTERVALS = (8, 16, 32, 64)
 TAIL_RANGES = (0, 1, 2, 3, 4, 6, 8)
 POWER_MAP_MAXIMUM_RANGE = 12
 DRAFT_TOLERANCE = 1.01e-8
-VERIFICATION_TOLERANCE = 1.0e-10
 
 
 def _number(value: float) -> str:
@@ -47,57 +43,18 @@ def _amplitudes(intervals: int) -> tuple[float, ...]:
     )
 
 
-def _definition(
-    mesh_size: int, amplitudes: tuple[float, ...]
-) -> SmoothFourStateDefinition:
-    return SmoothFourStateDefinition(
-        reciprocal_mesh_size=mesh_size,
-        amplitudes=amplitudes,
-        minimum_external_gap=1.0,
-        minimum_transport_singular_value=0.99,
-        frame_absolute_tolerance=1.0e-10,
-        harmonic_absolute_degeneracy_tolerance=1.0e-14,
-        harmonic_relative_degeneracy_tolerance=1.0e-13,
-        verification_absolute_tolerance=VERIFICATION_TOLERANCE,
-        parent_hopping_scale=1.0,
-    )
-
-
 def main() -> None:
     """Execute the pre-version non-flat analysis and write deterministic tables."""
     amplitudes = _amplitudes(MOMENTUM_AMPLITUDE_INTERVALS)
-    thresholds = SmoothFourStateConvergenceThresholds(
-        maximum_parent_diagnostic_change=DRAFT_TOLERANCE,
-        maximum_correlation_change=DRAFT_TOLERANCE,
-        maximum_threshold_change=DRAFT_TOLERANCE,
-        maximum_hopping_weight_change=DRAFT_TOLERANCE,
-        maximum_hopping_block_power_change=DRAFT_TOLERANCE,
-        maximum_angle_change=DRAFT_TOLERANCE,
-        maximum_band_defect=DRAFT_TOLERANCE,
-        maximum_reconstruction_defect=DRAFT_TOLERANCE,
-        maximum_parseval_defect=DRAFT_TOLERANCE,
+    convergence = momentum_refinement(
+        reciprocal_mesh_sizes=MOMENTUM_MESHES,
+        amplitudes=amplitudes,
+        parent_hopping_scale=1.0,
+        draft_tolerance=DRAFT_TOLERANCE,
     )
-    convergence = SmoothFourStateConvergenceExperiment().execute(
-        SmoothFourStateConvergenceDefinition(
-            reciprocal_mesh_sizes=MOMENTUM_MESHES,
-            amplitudes=amplitudes,
-            minimum_external_gap=1.0,
-            minimum_transport_singular_value=0.99,
-            frame_absolute_tolerance=1.0e-10,
-            harmonic_absolute_degeneracy_tolerance=1.0e-14,
-            harmonic_relative_degeneracy_tolerance=1.0e-13,
-            verification_absolute_tolerance=VERIFICATION_TOLERANCE,
-            parent_hopping_scale=1.0,
-            thresholds=thresholds,
-            required_stable_refinements=2,
-        )
-    )
-    verifier = SmoothFourStateVerifier()
     verification_defects = {
-        result.definition.reciprocal_mesh_size: verifier.execute(
-            result
-        ).maximum_absolute_defect
-        for result in convergence.mesh_results
+        result.request.reciprocal_mesh_size: analysis_verification_defect(result)
+        for result in convergence.mesh_analyses
     }
     refinement_rows = [
         {
@@ -110,7 +67,7 @@ def main() -> None:
                 item.maximum_shared_parent_eigenvalue_defect
             ),
             "maximum_shared_projector_defect": _number(
-                item.maximum_shared_projector_defect
+                item.maximum_shared_parent_projector_defect
             ),
             "maximum_correlation_change": _number(item.maximum_correlation_change),
             "maximum_threshold_change": _number(item.maximum_threshold_change),
@@ -118,7 +75,7 @@ def main() -> None:
                 item.maximum_hopping_weight_change
             ),
             "maximum_hopping_block_power_change": _number(
-                item.maximum_hopping_block_power_change
+                item.maximum_hopping_power_change
             ),
             "maximum_angle_change": _number(item.maximum_angle_change),
             "maximum_band_defect": _number(item.maximum_band_defect),
@@ -135,48 +92,40 @@ def main() -> None:
     ]
     _write_csv(RESULTS / "nonflat-momentum-refinement.csv", refinement_rows)
 
-    amplitude_thresholds = SmoothFourStateAmplitudeThresholds(
-        maximum_correlation_midpoint_defect=DRAFT_TOLERANCE,
-        maximum_operator_threshold_midpoint_defect=DRAFT_TOLERANCE,
-        maximum_joint_threshold_midpoint_defect=DRAFT_TOLERANCE,
-        maximum_hopping_weight_midpoint_defect=DRAFT_TOLERANCE,
-        maximum_hopping_block_power_midpoint_defect=DRAFT_TOLERANCE,
-    )
-    amplitude_refinement = SmoothFourStateAdaptiveAmplitudeExperiment().execute(
-        SmoothFourStateAdaptiveAmplitudeDefinition(
-            initial_definition=_definition(
-                AMPLITUDE_RESOLUTION_MESH, _amplitudes(min(AMPLITUDE_INTERVALS))
-            ),
-            thresholds=amplitude_thresholds,
-            maximum_refinement_levels=len(AMPLITUDE_INTERVALS),
-            maximum_evaluated_amplitudes=2 * max(AMPLITUDE_INTERVALS) + 1,
-        )
+    amplitude_refinement = adaptive_amplitude(
+        reciprocal_mesh_size=AMPLITUDE_RESOLUTION_MESH,
+        initial_amplitudes=_amplitudes(min(AMPLITUDE_INTERVALS)),
+        parent_hopping_scale=1.0,
+        draft_tolerance=DRAFT_TOLERANCE,
+        maximum_refinement_levels=len(AMPLITUDE_INTERVALS),
+        maximum_evaluated_amplitudes=2 * max(AMPLITUDE_INTERVALS) + 1,
     )
     resolution_rows = [
         {
             "amplitude_intervals": str(len(level.interpolation_nodes) - 1),
             "maximum_correlation_midpoint_defect": _number(
-                level.maximum_correlation_midpoint_defect
+                level.maximum_correlation_defect
             ),
             "maximum_operator_threshold_midpoint_defect": _number(
-                level.maximum_operator_threshold_midpoint_defect
+                level.maximum_operator_threshold_defect
             ),
             "maximum_joint_threshold_midpoint_defect": _number(
-                level.maximum_joint_threshold_midpoint_defect
+                level.maximum_joint_threshold_defect
             ),
             "maximum_nonzero_hopping_weight_midpoint_defect": _number(
-                level.maximum_hopping_weight_midpoint_defect
+                level.maximum_hopping_weight_defect
             ),
             "maximum_hopping_block_power_midpoint_defect": _number(
-                level.maximum_hopping_block_power_midpoint_defect
+                level.maximum_hopping_power_defect
             ),
             "passes_draft_tolerance": str(level.within_tolerances).lower(),
         }
-        for level in amplitude_refinement.levels
+        for level in amplitude_refinement_levels(amplitude_refinement)
     ]
     _write_csv(RESULTS / "nonflat-amplitude-resolution.csv", resolution_rows)
 
-    final = convergence.mesh_results[-1]
+    final = convergence.mesh_analyses[-1]
+    qualification = qualified_parent(final)
     continuum_rows = [
         {
             "amplitude": _number(point.amplitude),
@@ -202,7 +151,7 @@ def main() -> None:
         for absolute_displacement in range(POWER_MAP_MAXIMUM_RANGE + 1):
             matching = tuple(
                 block
-                for block in point.hopping_blocks
+                for block in point.hopping_powers
                 if abs(block.displacement) == absolute_displacement
             )
             power_map_rows.append(
@@ -232,12 +181,12 @@ def main() -> None:
         for maximum_range in TAIL_RANGES:
             reference_tail = math.fsum(
                 block.reference_normalized_squared_frobenius_norm
-                for block in point.hopping_blocks
+                for block in point.hopping_powers
                 if abs(block.displacement) > maximum_range
             )
             comparison_tail = math.fsum(
                 block.comparison_normalized_squared_frobenius_norm
-                for block in point.hopping_blocks
+                for block in point.hopping_powers
                 if abs(block.displacement) > maximum_range
             )
             tail_rows.append(
@@ -257,11 +206,11 @@ def main() -> None:
             )
     _write_csv(RESULTS / "nonflat-selected-hopping-tails.csv", tail_rows)
 
-    print(f"momentum_disposition={convergence.disposition.value}")
-    print(f"minimum_sampled_external_gap={final.minimum_external_gap:.17g}")
+    print(f"momentum_disposition={type(convergence).__name__}")
+    print(f"minimum_sampled_external_gap={qualification.minimum_external_gap:.17g}")
     print(
         "minimum_sampled_transport_singular_value="
-        f"{final.minimum_transport_singular_value:.17g}"
+        f"{qualification.minimum_transport_singular_value:.17g}"
     )
     print(f"maximum_verification_defect={max(verification_defects.values()):.17g}")
 

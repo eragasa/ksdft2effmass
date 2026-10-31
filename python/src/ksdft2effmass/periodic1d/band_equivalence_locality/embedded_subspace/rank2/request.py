@@ -12,6 +12,8 @@ from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesTolerance,
 )
 
+from ....geometry import Periodic1DReducedCoordinateConvention
+
 _AMBIENT_RANK = 4
 _RETAINED_RANK = 2
 _PARENT_MODEL_ID = "specified-finite-range-ambient-rank4-retained-rank2-parent.v1"
@@ -25,7 +27,7 @@ _VERIFICATION_ABSOLUTE_TOLERANCE = 1.0e-10
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2Request:
+class Periodic1DEmbeddedSubspaceRank2Request(Periodic1DReducedCoordinateConvention):
     """Bind mesh, gauge attack amplitudes, qualification gates, and tolerances."""
 
     reciprocal_mesh_size: int

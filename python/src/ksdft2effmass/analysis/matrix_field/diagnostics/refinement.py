@@ -5,11 +5,13 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from ksdft2effmass.numerical_consistency import NumericalConsistency
+
 from ._validation import nonnegative_float
 
 
 @dataclass(frozen=True, slots=True)
-class ScalarRefinementDiagnostics:
+class ScalarRefinementDiagnostics(NumericalConsistency):
     """Retain one nonnegative scalar comparison under an absolute-relative rule."""
 
     coarse_mesh_size: int

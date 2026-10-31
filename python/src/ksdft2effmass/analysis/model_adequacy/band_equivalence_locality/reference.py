@@ -1,9 +1,9 @@
 """Independent finite-sum shell-power reference for result verification.
 
 This module intentionally does not call the production analyzer, production Fourier
-transformer, or KSD metric-shell power analyzer. It shares only the declared request and
-the physical-metric shell owner with production, then evaluates the finite Fourier sums
-and normalized block powers through a separate numerical route.
+transformer, metric-shell classifier, or KSD metric-shell power analyzer. It shares
+only the declared request geometry with production, then evaluates metric values,
+finite Fourier sums, and normalized block powers through a separate numerical route.
 """
 
 from __future__ import annotations
@@ -21,11 +21,28 @@ from .definitions import (
     GaugeNormalizationEnum,
     ParentEnum,
 )
-from .geometry import metric_indices
 
 type ComplexArray = NDArray[np.complex128]
 type ReducedCoordinate = tuple[float, ...]
 type IntegerDisplacement = tuple[int, ...]
+
+
+def _independent_metric_indices(
+    case: BandEquivalenceLocalityCase,
+    displacements: NDArray[np.int64],
+) -> NDArray[np.int64]:
+    """Calculate shell values without calling the production classifier."""
+    metric = case.direct_metric.metric_tensor
+    values = case.shell_metric_scale * np.einsum(
+        "ri,ij,rj->r",
+        displacements,
+        metric,
+        displacements,
+    )
+    rounded = np.rint(values)
+    if float(np.max(np.abs(values - rounded))) > 1.0e-12:
+        raise ValueError("independent scaled metric values are not integral")
+    return np.asarray(rounded, dtype=np.int64)
 
 
 @dataclass(frozen=True, slots=True)
@@ -58,6 +75,11 @@ class BandEquivalenceLocalityIndependentShellPower:
                 raise TypeError(f"{name} must be a built-in float")
             if not math.isfinite(value) or value < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
+
+    @property
+    def metric_shell_value(self) -> int:
+        """Return the independently calculated scaled metric shell value."""
+        return self.shell_index
 
 
 @dataclass(frozen=True, slots=True)
@@ -335,7 +357,7 @@ class BandEquivalenceLocalityIndependentShellPowerAnalyzer:
     ) -> BandEquivalenceLocalityIndependentShellPowerPoint:
         """Aggregate one independent sampled-point shell inventory."""
         displacement_array = np.asarray(displacements, dtype=np.int64)
-        labels = metric_indices(case, displacement_array)
+        labels = _independent_metric_indices(case, displacement_array)
         nyquist = np.any(
             displacement_array == -self._request.construction_size // 2,
             axis=1,

@@ -83,8 +83,11 @@ class TestPeriodic1DHigherRankAlignmentConfiguration:
         configuration = _configuration()
 
         wire = configuration.to_json()
+        geometry = configuration.reduced_lattice_geometry
         reconstructed = Periodic1DHigherRankAlignmentConfiguration.from_json(wire)
 
+        assert geometry.lattice_period == 1.0
+        assert configuration.to_json() == wire
         assert reconstructed == configuration
         assert reconstructed.to_json() == wire
         assert b'"principal_phase_branch": "(-pi, pi]"' in wire

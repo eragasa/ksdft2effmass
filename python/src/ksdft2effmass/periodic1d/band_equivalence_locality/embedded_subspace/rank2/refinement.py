@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import math
-from abc import ABC
 from dataclasses import dataclass, replace
 from itertools import pairwise
 from typing import final
@@ -12,6 +11,8 @@ import numpy as np
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
+
+from ksdft2effmass.numerical_consistency import NumericalConsistency
 
 from .analysis import Periodic1DEmbeddedSubspaceRank2Analyzer
 from .parent import _Periodic1DEmbeddedSubspaceRank2ParentConstructor
@@ -166,7 +167,7 @@ class Periodic1DEmbeddedSubspaceRank2MomentumRefinementStep:
             raise TypeError("within_tolerances must be a built-in bool")
 
 
-class Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalysis(ABC):
+class Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalysis(NumericalConsistency):
     """Identify one closed nested-momentum outcome variant."""
 
     __slots__ = ()

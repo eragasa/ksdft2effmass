@@ -56,21 +56,30 @@ upgrade the manuscript's numerical evidence status.
 
 The analytic rank-two geometry, Bessel threshold law, and flat-parent locality identity
 are mathematical results. The current dispersive homotopy and truncation figures are
-development calculations on declared sample inventories. They are not a retained
-production run or evidence package. Supplemental Section S7 now records the separate
-retained unsealed `mathieu1d-finite-reduction` execution as a verified scalar precursor,
-bound by [`experiment-references.json`](experiment-references.json). Its status is not
-transferred to the active rank-two experiment; no predecessor run artifact remains in
-the live tree. The range-inflation
+development calculations on declared sample inventories. They are not projections of a
+complete retained production package. The active rank-two calculation now has a passing
+unsealed direct-v2 execution with byte-owning independent verification, but that
+aggregate authenticates only its declared final-mesh parent family, scale-one truncation
+slice, and refinement channels. It does not authenticate the other four truncation
+slices or five-scale adjacent-mesh summaries consumed by the development figures.
+Supplemental Section S7 records the separate retained unsealed
+`mathieu1d-finite-reduction` execution as a verified scalar precursor, bound by
+[`experiment-references.json`](experiment-references.json). Neither retained status is
+transferred to unmatched development claims; no predecessor scalar run artifact remains
+in the live tree. The range-inflation
 map now reports the first passing cutoff over every integer
 $R_c=0,\ldots,16$ on the sampled $(\rho,a)$ grid. The cap remains a development control,
 not a frozen universal range.
 
 The dense inventory, threshold-adjacent refinement through $N=512$, strict truncation
 serialization, and independent reconstruction of every first-passing decision are
-implemented for development. Before arXiv submission, the numerical headline still
-requires reviewed and frozen production controls, authorized retained execution and
-package verification, and a public archival record.
+implemented for development. The historical donor momentum summaries report convergence
+under a narrower diagnostic, whereas the installed owner includes the primitive-link
+Frobenius residual and retains an unresolved outcome; the manuscript now states both
+without weakening the installed diagnostic. Before arXiv submission, the full numerical
+headline still requires reviewed and frozen production controls, a newly authorized
+complete-scope retained execution and package verification, and a public archival
+record.
 
 Five PDFs referenced by the current main manuscript and supplement were absent from
 every Git ref and were found only in a separate dirty worktree. After operator
@@ -79,11 +88,10 @@ were recovered into the calculation owner. The
 [recovery audit and disposition](../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/publication-input-recovery-audit.md)
 records the exact identities, adaptations, and bounded reproduction checks. The
 manuscript and supplement now read those PDFs from the calculation owner, so this
-missing-input build blocker is resolved. Scratch `latexmk` builds completed for both
-21-page PDFs. The main source still reports undefined `Ragasa2026b`--`d` citations and
-the supplement reports two undefined Marzari citations; those pre-existing bibliography
-issues remain separate submission gates. The recovered figures remain development
-publication inputs, not retained evidence.
+missing-input build blocker is resolved. Fresh `latexmk` builds complete without
+undefined citations, references, or overfull boxes. The supplement explicitly widens
+its table-of-contents section-number field to accommodate Section S10. The recovered
+figures remain development publication inputs, not retained evidence.
 
 ## Submission-oriented structure
 
@@ -169,5 +177,5 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
 latexmk -pdf -interaction=nonstopmode -halt-on-error supplementary.tex
 ```
 
-No submission, publication, release, retained execution, or public deposit is authorized
-by this working directory.
+No submission, publication, release, new retained execution, sealing, promotion, or
+public deposit is authorized by this working directory.

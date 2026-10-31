@@ -26,6 +26,7 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     FourierMatrixBlockNormInventoryAnalyzer1D,
     MatrixFieldErrorAnalyzer,
 )
+from ksdft2effmass.numerical_consistency import NumericalConsistency
 
 from ..diagnostics import Periodic1DHigherRankMatrixErrorResult
 from .nyquist import NyquistModeDispositionEnum
@@ -49,7 +50,7 @@ class Periodic1DHigherRankFourierAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankFourierAnalysis:
+class Periodic1DHigherRankFourierAnalysis(NumericalConsistency):
     """Store Fourier coefficients and their structural diagnostics."""
 
     analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest

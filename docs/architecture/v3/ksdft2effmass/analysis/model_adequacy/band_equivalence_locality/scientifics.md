@@ -46,7 +46,7 @@ For one declared finite request, the result may report:
 - complete Fourier reconstruction, Parseval, Hermiticity, and Nyquist channels;
 - reference/comparison hopping power and excess nonzero-hopping weight;
 - complete-shell truncation and total finite-evaluation consequences;
-- first-passing sampled shell decisions; and
+- minimum tolerance-satisfying sampled shell-support decisions; and
 - amplitude midpoint and analytic flat-parent resolution diagnostics.
 
 These quantities have meaning only with their recorded basis, gauge normalization,

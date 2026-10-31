@@ -5,11 +5,14 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from ksdft2effmass.numerical_consistency import NumericalConsistency
+
+from ..geometry import BandEquivalenceLocalityMetricCovarianceDefectResult
 from .point import BandEquivalenceLocalityPointAnalysis
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis:
+class BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis(NumericalConsistency):
     """Represent analytic flat-parent midpoint interpolation defects."""
 
     amplitude_intervals: int
@@ -51,7 +54,7 @@ class BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis:
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityAmplitudeMidpointAnalysis:
+class BandEquivalenceLocalityAmplitudeMidpointAnalysis(NumericalConsistency):
     """Represent direct midpoint-versus-linear-interpolation defects."""
 
     amplitude_nodes: int
@@ -124,7 +127,7 @@ class BandEquivalenceLocalityCaseAnalysis:
     """Represent all points for one interpreted geometry and parent."""
 
     name: str
-    metric_covariance_defect: float
+    metric_covariance: BandEquivalenceLocalityMetricCovarianceDefectResult
     construction_evaluation_minimum_separation: float
     amplitude_midpoint: BandEquivalenceLocalityAmplitudeMidpointAnalysis
     flat_amplitude_resolution: tuple[
@@ -135,17 +138,21 @@ class BandEquivalenceLocalityCaseAnalysis:
     def __post_init__(self) -> None:
         if type(self.name) is not str or not self.name:
             raise TypeError("name must be a nonempty string")
-        for name, value in (
-            ("metric_covariance_defect", self.metric_covariance_defect),
-            (
-                "construction_evaluation_minimum_separation",
-                self.construction_evaluation_minimum_separation,
-            ),
+        if (
+            type(self.metric_covariance)
+            is not BandEquivalenceLocalityMetricCovarianceDefectResult
         ):
-            if type(value) is not float:
-                raise TypeError(f"{name} must be a built-in float")
-            if not math.isfinite(value) or value < 0.0:
-                raise ValueError(f"{name} must be finite and nonnegative")
+            raise TypeError("metric_covariance has the wrong scientific result type")
+        separation = self.construction_evaluation_minimum_separation
+        if type(separation) is not float:
+            raise TypeError(
+                "construction_evaluation_minimum_separation must be a built-in float"
+            )
+        if not math.isfinite(separation) or separation < 0.0:
+            raise ValueError(
+                "construction_evaluation_minimum_separation must be finite and "
+                "nonnegative"
+            )
         if (
             type(self.amplitude_midpoint)
             is not BandEquivalenceLocalityAmplitudeMidpointAnalysis
@@ -165,3 +172,8 @@ class BandEquivalenceLocalityCaseAnalysis:
             )
         ):
             raise TypeError("points must be a nonempty tuple of typed point results")
+
+    @property
+    def metric_covariance_defect(self) -> float:
+        """Project the typed covariance result into the historical scalar channel."""
+        return self.metric_covariance.maximum_absolute_defect

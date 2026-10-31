@@ -10,9 +10,14 @@ from typing import ClassVar, Self
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
+from ..geometry import Periodic1DReducedCoordinateConvention
+
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DFourierLocalityConfiguration(BaseTypedRecord):
+class Periodic1DFourierLocalityConfiguration(
+    BaseTypedRecord,
+    Periodic1DReducedCoordinateConvention,
+):
     """Declare the exact parent and finite controls for one calculation."""
 
     parent_identity: str

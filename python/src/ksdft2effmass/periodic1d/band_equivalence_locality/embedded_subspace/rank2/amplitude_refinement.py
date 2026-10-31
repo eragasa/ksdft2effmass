@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import math
-from abc import ABC
 from dataclasses import dataclass, replace
 from itertools import pairwise
 from typing import final
@@ -11,6 +10,8 @@ from typing import final
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
+
+from ksdft2effmass.numerical_consistency import NumericalConsistency
 
 from .analysis import (
     Periodic1DEmbeddedSubspaceRank2Analyzer,
@@ -166,7 +167,7 @@ class Periodic1DEmbeddedSubspaceRank2AmplitudeValidation:
         return len(self.failing_point_indices)
 
 
-class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalysis(ABC):
+class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalysis(NumericalConsistency):
     """Identify one closed adaptive-amplitude outcome variant."""
 
     __slots__ = ()

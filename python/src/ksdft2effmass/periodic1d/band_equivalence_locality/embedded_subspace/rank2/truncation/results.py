@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 import math
-from abc import ABC
 from dataclasses import dataclass
+
+from ksdft2effmass.real_space_support_truncation import (
+    RealSpaceSupportTruncation,
+    SymmetricRangeSupport1D,
+)
 
 from ..results import (
     Periodic1DEmbeddedSubspaceRank2BandTransportBackendFailure,
@@ -25,7 +29,7 @@ def _nonnegative(value: float, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2TruncationRange:
+class Periodic1DEmbeddedSubspaceRank2TruncationRange(RealSpaceSupportTruncation):
     """Retain consequences of one conjugate-closed ordinary cutoff."""
 
     maximum_range: int
@@ -76,6 +80,11 @@ class Periodic1DEmbeddedSubspaceRank2TruncationRange:
             raise ValueError(
                 "comparison total omitted power must include Nyquist power"
             )
+
+    @property
+    def support_policy(self) -> SymmetricRangeSupport1D:
+        """Return the typed ordinary-translation support policy."""
+        return SymmetricRangeSupport1D(self.maximum_range)
 
 
 @dataclass(frozen=True, slots=True)
@@ -132,7 +141,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationPoint:
             raise ValueError("comparison total power must equal ordinary plus Nyquist")
 
 
-class Periodic1DEmbeddedSubspaceRank2TruncationAnalysis(ABC):
+class Periodic1DEmbeddedSubspaceRank2TruncationAnalysis(RealSpaceSupportTruncation):
     """Identify one closed truncation outcome variant."""
 
     __slots__ = ()

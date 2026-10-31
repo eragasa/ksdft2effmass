@@ -5,11 +5,15 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from ksdft2effmass.real_space_support_truncation import (
+    RealSpaceSupportTruncation,
+)
+
 from .channels import BandEquivalenceLocalityErrorChannels
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityShellAnalysis:
+class BandEquivalenceLocalityShellAnalysis(RealSpaceSupportTruncation):
     """Represent all diagnostics at one complete metric-shell cutoff."""
 
     shell_index: int
@@ -60,6 +64,11 @@ class BandEquivalenceLocalityShellAnalysis:
                 raise TypeError(f"{name} must be a built-in float")
             if not math.isfinite(power) or power < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
+
+    @property
+    def metric_shell_value(self) -> int:
+        """Return the retained-schema shell label as a scaled metric value."""
+        return self.shell_index
 
 
 @dataclass(frozen=True, slots=True)

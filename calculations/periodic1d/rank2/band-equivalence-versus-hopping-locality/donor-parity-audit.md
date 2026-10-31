@@ -107,7 +107,8 @@ therefore do not have a one-to-one retained successor.
 
 ## Remaining live consumers
 
-The workflow tree is not dormant. Six maintained development entrypoints import it:
+At the audited revision, the workflow tree was not dormant. Six maintained development
+entrypoints imported it:
 
 - `run_flat_development.py`;
 - `run_nonflat_development.py`;
@@ -116,10 +117,32 @@ The workflow tree is not dormant. Six maintained development entrypoints import 
 - `run_truncation_refinement_development.py`; and
 - `run_diagnostic_packaging_development.py`.
 
-Four calculation-local test modules also import it. The diagnostic entrypoint and its
-test consume the pandas-dependent `analysis.py` and `analysis_plot.py` surfaces.
-Removing `workflow/` now would break these maintained routes even though the direct
-calculate, verify, and render scripts are independent of it.
+At the audited revision, four calculation-local test modules also imported it. The
+diagnostic entrypoint and its test consumed the pandas-dependent `analysis.py` and
+`analysis_plot.py` surfaces. Removing `workflow/` then would have broken these maintained
+routes even though the direct calculate, verify, and render scripts were independent of
+it.
+
+## Subsequent consumer-migration status
+
+After this immutable audit baseline, five scientific producer entrypoints and three
+producer-composition tests were migrated to `development_study.py` and installed
+`ksdft2effmass.periodic1d` request, analyzer, canonical-record, and independent-verifier
+owners. The diagnostic-packaging entrypoint and test were subsequently migrated to
+`development_diagnostics.py`, which validates immutable standard-library CSV projections,
+uses canonical typed records for the catalog and separate range-decision channels, and
+renders without recomputing scientific analyses. The migration preserved historical CSV
+column contracts but did not execute the full development producers or alter any
+development or retained artifact. No extracted JSON schema, pandas compatibility layer,
+or parallel wire format was introduced; installed canonical serialization continues to
+own byte representations.
+
+No maintained Python consumer now imports `workflow/`. A subsequent byte-bound
+[`five-scale-consistency.md`](five-scale-consistency.md) assessment covers
+the complete stored five-scale grids, summaries, and cutoff-decision projections without
+rerunning their scientific analyses. This progress does not amend the 18,513-value
+direct-v2 comparison, authenticate missing retained coverage, establish momentum
+semantic equivalence, or authorize donor retirement.
 
 ## Findings and retirement disposition
 
@@ -131,20 +154,24 @@ calculate, verify, and render scripts are independent of it.
 3. **Four truncation-family slices and five-scale refinement summaries lack retained
    direct successors.** Installed capability is not the same as an authenticated
    retained result.
-4. **Flat and pandas diagnostic surfaces do not have named immutable full-donor parity.**
-   The flat scientific core has an installed successor, but it is outside direct v2;
-   the diagnostic bundle remains calculation-local and was not activated here.
-5. **The donor still has maintained consumers.** Retirement would currently break six
-   development entrypoints and four tests.
+4. **Source successors do not create missing retained evidence.** The flat scientific
+   core has an installed successor, and the diagnostic bundle now has a typed
+   calculation-local successor, but neither fact adds authenticated direct-v2 family
+   coverage or amends this immutable audit baseline.
+5. **The donor still had maintained consumers at the audited revision.** Retirement
+   would have broken six development entrypoints and four tests.
 
 **Retirement disposition: not ready.** Keep `workflow/` tracked and unchanged. This
 conclusion does not identify a defect in the passing unsealed direct-v2 lifecycle
 evidence; it limits only the donor-retirement claim.
 
-Before another retirement review, scientific authority must choose whether the donor's
-five-scale convergence and truncation studies remain maintained capabilities or become
-Git-recoverable historical development surfaces. If they remain maintained, port their
-effect adapters and diagnostic packaging to installed owners and add named parity tests
-without changing direct v2. If they become historical, bind exact source and consumer
-recovery identities and separately authorize removal. In either case, do not describe
-the donor and installed momentum dispositions as equivalent.
+The read-only [`scientific-claim-use-audit.md`](scientific-claim-use-audit.md) traces
+those five-scale surfaces into the active Ragasa2026a v3 claim and figure graph.
+Scientific authority then selected maintenance in
+[`five-scale-maintenance-disposition.md`](five-scale-maintenance-disposition.md). The
+maintained source consumers now use installed scientific owners or the typed
+calculation-local diagnostic boundary, without changing direct v2. The donor's pandas
+implementation and dataframe API need no successor. Keep the donor tracked until named
+maintained-scope parity evidence and a new retirement review dispose the unresolved
+semantic and retained-evidence gaps. Do not describe the donor and installed momentum
+dispositions as equivalent.

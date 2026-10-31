@@ -8,6 +8,7 @@ of :class:`JsonCodec` does not acquire unrelated numerical runtime dependencies.
 from typing import TYPE_CHECKING, TypeAliasType
 
 from .contracts import JsonCodec, JsonDeserializer, JsonSerializer
+from .enums import StringWireEnum
 
 if TYPE_CHECKING:
     from .mapping_json import TypedJsonMappingDeserializer, TypedJsonMappingSerializer
@@ -27,6 +28,7 @@ __all__ = [
     "JsonSerializer",
     "JsonValue",
     "SerializableValue",
+    "StringWireEnum",
     "TypedJsonMappingDeserializer",
     "TypedJsonMappingSerializer",
     "TypedJsonValueCodec",

@@ -46,6 +46,10 @@ scientifically distinct periodic families.
 `ksdft2effmass.periodic1d` owns one-dimensional periodic reduction and model-adequacy
 behavior whose meaning is specific to the periodic program:
 
+- a nominal centered reduced-coordinate convention shared by maintained reciprocal-mesh
+  families;
+- immutable 1D lattice-period snapshots that reconstruct PhysKit `DirectLattice1D` and
+  `ReciprocalLattice1D` geometry without copying their lattice algorithms;
 - scalar Fourier reduction and hopping-locality analysis;
 - composite-band frame alignment and represented-operator locality;
 - band-equivalence and constrained-admissible-set composition;
@@ -96,6 +100,9 @@ searchable provenance aliases; they are not names for new studies or a version c
   units or shapes unless a narrower contract explicitly admits them.
 - Basis, state space, coordinate order, gauge, energy reference, units, reciprocal
   convention, and finite geometry are explicit before operators are compared.
+- Dimensionless reduced momentum $q$ remains distinct from Bloch wavenumber $k$ through
+  $q=k/G$ with $G=2\pi/a_0$; the shared $a_0=1$ object is named as reduced-unit
+  geometry and is not a physical-period claim.
 - Projection, alignment, basis transformation, truncation, and fitting remain different
   operations and different result sections.
 - Parent-model, finite-representation, reciprocal-sampling, eigensolver, alignment,

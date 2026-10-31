@@ -7,6 +7,15 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from projectkoios.physkit.periodic.lattice.finite_domain import (
+    LatticeDimension,
+    LatticeDisplacement,
+)
+
+from ksdft2effmass.real_space_support_truncation import (
+    ConjugateClosedSupport,
+    RealSpaceSupportTruncation,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ..._record_admission import (
@@ -21,7 +30,10 @@ from ...diagnostics import Periodic1DHigherRankMatrixComparisonResult
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankSupportResult(BaseTypedRecord):
+class Periodic1DHigherRankSupportResult(
+    BaseTypedRecord,
+    RealSpaceSupportTruncation,
+):
     """Retain one symmetric support and its separate error channels."""
 
     maximum_range: int
@@ -137,6 +149,16 @@ class Periodic1DHigherRankSupportResult(BaseTypedRecord):
             or type(self.total) is not Periodic1DHigherRankMatrixComparisonResult
         ):
             raise TypeError("truncation and total must be exact comparison records")
+
+    @property
+    def support_policy(self) -> ConjugateClosedSupport:
+        """Return the typed explicit symmetric support policy."""
+        return ConjugateClosedSupport(
+            tuple(
+                LatticeDisplacement(LatticeDimension.ONE, (translation,))
+                for translation in self.retained_translations
+            )
+        )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {

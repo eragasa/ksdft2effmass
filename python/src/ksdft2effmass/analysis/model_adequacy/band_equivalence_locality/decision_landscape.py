@@ -26,7 +26,7 @@ from .definitions import (
     BandEquivalenceLocalityFamilyEnum,
     BandEquivalenceLocalityRequest,
 )
-from .geometry import metric_indices
+from .geometry import metric_shell_classification
 
 
 @dataclass(frozen=True, slots=True)
@@ -104,6 +104,11 @@ class ShellScaleDecisionPoint(BaseTypedRecord):
             raise ValueError("scale and error values must be nonnegative")
         if type(self.pareto_efficient) is not bool:
             raise TypeError("pareto_efficient must be a built-in bool")
+
+    @property
+    def metric_shell_value(self) -> int:
+        """Return the retained-schema shell coordinate as a metric value."""
+        return self.shell_index
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
@@ -243,6 +248,11 @@ class ShellScaleCaseDecisionLandscape(BaseTypedRecord):
                     raise ValueError(
                         "points do not follow scale-major shell-minor order"
                     )
+
+    @property
+    def metric_shell_values(self) -> tuple[int, ...]:
+        """Return retained-schema shell coordinates as scaled metric values."""
+        return self.shell_indices
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
@@ -542,7 +552,14 @@ class ShellScaleDecisionLandscapeCalculator:
             ordinary_displacements,
             ordinary_blocks,
         )
-        indices = metric_indices(case, ordinary_displacements)
+        shell_classification = metric_shell_classification(
+            case,
+            ordinary_displacements,
+        )
+        indices = np.asarray(
+            shell_classification.metric_shell_values,
+            dtype=np.int64,
+        )
         shells = tuple(
             int(value)
             for value in sorted(set(indices.tolist()))

@@ -6,6 +6,8 @@ import math
 from dataclasses import dataclass
 from fractions import Fraction
 
+from ..geometry import Periodic1DReducedCoordinateConvention
+
 FLAT_PARENT_MODEL_IDENTIFIER = "flat-two-level-parent.v1"
 FLAT_REPRESENTED_BASIS_IDENTIFIER = "fixed-real-rank-two-basis.v1"
 FLAT_ENERGY_REFERENCE_IDENTIFIER = "positive-reference-energy-E_ref.v1"
@@ -14,7 +16,7 @@ FLAT_GAUGE_ATTACK_IDENTIFIER = "real-sinusoidal-rotation.v1"
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DBandEquivalenceLocalityRequest:
+class Periodic1DBandEquivalenceLocalityRequest(Periodic1DReducedCoordinateConvention):
     """Bind the finite flat-parent construction and evaluation controls.
 
     All reported values are dimensionless relative to the positive reference energy

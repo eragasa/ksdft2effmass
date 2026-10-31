@@ -61,6 +61,11 @@ class MetricShellHoppingPower:
                 "normalized_frobenius_power must be finite and nonnegative"
             )
 
+    @property
+    def metric_shell_value(self) -> int:
+        """Return the historical shell label as a scaled metric value."""
+        return self.shell_index
+
 
 @dataclass(frozen=True, slots=True)
 class MetricShellHoppingPowerResult:

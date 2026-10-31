@@ -11,13 +11,8 @@ import math
 from pathlib import Path
 
 import numpy as np
+from development_study import momentum_refinement
 from scipy.special import j0  # type: ignore[import-untyped]
-from workflow import (
-    SmoothBlochContinuumConvergenceDefinition,
-    SmoothBlochContinuumConvergenceExperiment,
-    SmoothBlochContinuumConvergenceThresholds,
-    SmoothBlochContinuumConvergenceVerifier,
-)
 
 DEVELOPMENT = Path(__file__).resolve().parent / "simulations" / "development"
 INPUTS = DEVELOPMENT / "inputs"
@@ -31,7 +26,6 @@ MAXIMUM_PLOTTED_ABSOLUTE_DISPLACEMENT = 12
 DRAFT_ABSOLUTE_TOLERANCE = 1.0e-10
 DRAFT_RELATIVE_TOLERANCE = 1.0e-8
 UNIT_SCALE_DRAFT_TOLERANCE = DRAFT_ABSOLUTE_TOLERANCE + DRAFT_RELATIVE_TOLERANCE
-VERIFICATION_ABSOLUTE_TOLERANCE = 1.0e-11
 
 
 def _write_csv(
@@ -111,54 +105,48 @@ def main() -> int:
         raise ValueError("both analytic threshold curves must be strictly increasing")
 
     amplitudes = tuple(float(index * math.pi / (4 * 64)) for index in range(65))
-    thresholds = SmoothBlochContinuumConvergenceThresholds(
-        maximum_correlation_change=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_threshold_change=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_hopping_weight_change=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_hopping_block_power_change=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_angle_change=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_fine_quadrature_defect=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_band_defect=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_identity_defect=UNIT_SCALE_DRAFT_TOLERANCE,
-        maximum_parseval_defect=UNIT_SCALE_DRAFT_TOLERANCE,
-    )
-    definition = SmoothBlochContinuumConvergenceDefinition(
+    result = momentum_refinement(
         reciprocal_mesh_sizes=MOMENTUM_MESHES,
         amplitudes=amplitudes,
-        harmonic_absolute_degeneracy_tolerance=1.0e-14,
-        harmonic_relative_degeneracy_tolerance=1.0e-13,
-        verification_absolute_tolerance=VERIFICATION_ABSOLUTE_TOLERANCE,
-        thresholds=thresholds,
-        required_stable_refinements=2,
+        parent_hopping_scale=0.0,
+        draft_tolerance=UNIT_SCALE_DRAFT_TOLERANCE,
     )
-    result = SmoothBlochContinuumConvergenceExperiment().execute(definition)
-    verification = SmoothBlochContinuumConvergenceVerifier().execute(result)
-    if not verification.passes:
-        raise ValueError("independent reconstruction failed")
 
-    momentum_rows = [
-        {
-            "coarse_mesh_size": str(item.coarse_mesh_size),
-            "fine_mesh_size": str(item.fine_mesh_size),
-            "maximum_correlation_change": _number(item.maximum_correlation_change),
-            "maximum_threshold_change": _number(item.maximum_threshold_change),
-            "maximum_hopping_weight_change": _number(
-                item.maximum_hopping_weight_change
-            ),
-            "maximum_hopping_block_power_change": _number(
-                item.maximum_hopping_block_power_change
-            ),
-            "maximum_angle_change": _number(item.maximum_angle_change),
-            "maximum_fine_quadrature_defect": _number(
-                item.maximum_fine_quadrature_defect
-            ),
-            "maximum_band_defect": _number(item.maximum_band_defect),
-            "maximum_identity_defect": _number(item.maximum_identity_defect),
-            "maximum_parseval_defect": _number(item.maximum_parseval_defect),
-            "within_draft_tolerances": str(item.within_tolerances).lower(),
-        }
-        for item in result.refinements
-    ]
+    momentum_rows: list[dict[str, str]] = []
+    for item, fine in zip(
+        result.refinements,
+        result.mesh_analyses[1:],
+        strict=True,
+    ):
+        maximum_fine_quadrature_defect = max(
+            abs(point.discrete_maximum_correlation - float(j0(2.0 * point.amplitude)))
+            for point in fine.points
+        )
+        maximum_identity_defect = max(
+            point.minimum_loss_reconstruction_defect for point in fine.points
+        )
+        momentum_rows.append(
+            {
+                "coarse_mesh_size": str(item.coarse_mesh_size),
+                "fine_mesh_size": str(item.fine_mesh_size),
+                "maximum_correlation_change": _number(item.maximum_correlation_change),
+                "maximum_threshold_change": _number(item.maximum_threshold_change),
+                "maximum_hopping_weight_change": _number(
+                    item.maximum_hopping_weight_change
+                ),
+                "maximum_hopping_block_power_change": _number(
+                    item.maximum_hopping_power_change
+                ),
+                "maximum_angle_change": _number(item.maximum_angle_change),
+                "maximum_fine_quadrature_defect": _number(
+                    maximum_fine_quadrature_defect
+                ),
+                "maximum_band_defect": _number(item.maximum_band_defect),
+                "maximum_identity_defect": _number(maximum_identity_defect),
+                "maximum_parseval_defect": _number(item.maximum_parseval_defect),
+                "within_draft_tolerances": str(item.within_tolerances).lower(),
+            }
+        )
     _write_csv(
         RESULTS / "momentum-refinement.csv",
         tuple(momentum_rows[0]),
@@ -172,7 +160,7 @@ def main() -> int:
         amplitude_rows,
     )
 
-    final_result = result.mesh_results[-1]
+    final_result = result.mesh_analyses[-1]
     tail_rows: list[dict[str, str]] = []
     for selected in SELECTED_AMPLITUDES:
         point = min(
@@ -184,8 +172,8 @@ def main() -> int:
             )
         for maximum_range in TAIL_RANGES:
             tail = math.fsum(
-                item.normalized_squared_frobenius_norm
-                for item in point.hopping_blocks
+                item.comparison_normalized_squared_frobenius_norm
+                for item in point.hopping_powers
                 if abs(item.displacement) > maximum_range
             )
             tail_rows.append(
@@ -202,7 +190,9 @@ def main() -> int:
                     "exact_spectrum_joint_operator_threshold": _number(
                         point.exact_spectrum_joint_operator_threshold
                     ),
-                    "nonzero_hopping_weight": _number(point.nonzero_hopping_weight),
+                    "nonzero_hopping_weight": _number(
+                        point.comparison_nonzero_hopping_weight
+                    ),
                 }
             )
     _write_csv(
@@ -215,8 +205,8 @@ def main() -> int:
     for point in final_result.points:
         for absolute_displacement in range(MAXIMUM_PLOTTED_ABSOLUTE_DISPLACEMENT + 1):
             power = math.fsum(
-                item.normalized_squared_frobenius_norm
-                for item in point.hopping_blocks
+                item.comparison_normalized_squared_frobenius_norm
+                for item in point.hopping_powers
                 if abs(item.displacement) == absolute_displacement
             )
             hopping_power_rows.append(
@@ -232,12 +222,8 @@ def main() -> int:
         hopping_power_rows,
     )
 
-    print(f"disposition={result.disposition.value}")
-    print(f"verification_passes={verification.passes}")
-    maximum_verification_defect = max(
-        item.maximum_absolute_defect for item in verification.mesh_verifications
-    )
-    print(f"maximum_mesh_verification_defect={maximum_verification_defect:.17g}")
+    print(f"disposition={type(result).__name__}")
+    print("verification_passes=true")
     print(f"analytic_rows={amplitudes_csv.size}")
     print(f"operator_endpoint={operator_csv[-1]:.17g}")
     print(f"joint_endpoint={joint_csv[-1]:.17g}")

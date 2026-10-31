@@ -12,6 +12,7 @@ Source:
 ```text
 python/src/ksdft2effmass/serialization/
 ├── contracts.py
+├── enums.py
 ├── mapping_json.py
 ├── records.py
 └── typed_values.py
@@ -42,7 +43,14 @@ from_json → TypedJsonMappingDeserializer.deserialize → from_dict
 ```
 
 Concrete records implement `_mapping` and `_from_mapping`. They do not override the
-final public conversion methods.
+final public conversion methods. `StringWireEnum` is a behavior-only ordinary `Enum`
+base, not a `StrEnum`: it rejects non-string members when a concrete enum is defined,
+concrete domain enums inherit stable `to_wire()` and `from_wire()` conversion, and
+records explicitly project members to built-in strings in
+`_mapping`, and `_from_mapping` validates an exact string before reconstruction. This
+keeps domain vocabulary out of the generic JSON codec and avoids implicit string
+admission. Domain enums whose internal values are not their wire labels retain a
+separate family-owned bidirectional mapping action instead of inheriting this base.
 
 ## Canonical wire behavior
 

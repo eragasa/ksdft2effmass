@@ -19,6 +19,7 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
+from ..geometry import Periodic1DReducedCoordinateConvention
 from .gauge_alignment.definition import (
     GaugeAlignmentWireMapping,
     Periodic1DHigherRankGaugeAlignment,
@@ -40,7 +41,10 @@ def _decoded_integer_tuple(
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentConfiguration(BaseTypedRecord):
+class Periodic1DHigherRankAlignmentConfiguration(
+    BaseTypedRecord,
+    Periodic1DReducedCoordinateConvention,
+):
     """Store the fixed numerical design of the higher-rank alignment study.
 
     Parameters

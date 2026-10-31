@@ -12,6 +12,9 @@ from .results import (
     Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped,
     Periodic1DEmbeddedSubspaceRank2TruncationRange,
 )
+from .tolerance_selection import (
+    Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector,
+)
 from .verification import (
     EmbeddedSubspaceRank2TruncationVerification,
     Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier,
@@ -28,4 +31,5 @@ __all__ = [
     "Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped",
     "Periodic1DEmbeddedSubspaceRank2TruncationRange",
     "Periodic1DEmbeddedSubspaceRank2TruncationRequest",
+    "Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector",
 ]

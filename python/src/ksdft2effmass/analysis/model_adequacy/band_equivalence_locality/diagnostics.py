@@ -2,38 +2,22 @@
 
 from __future__ import annotations
 
-from enum import Enum
-from typing import Self
-
 from projectkoios.physkit.units import ScalarQuantity, Unitless
 
 from ksdft2effmass.analysis.diagnostics import (
     BaseDiagnosticAnalyzer,
     DiagnosticObservation,
 )
+from ksdft2effmass.serialization import StringWireEnum
 
 
-class BandEquivalenceLocalityDiagnosticMethodEnum(Enum):
+class BandEquivalenceLocalityDiagnosticMethodEnum(StringWireEnum):
     """Identify each independently verified locality diagnostic."""
 
     storedIdentityMaximumDefect = "stored_identity_maximum_defect"
     independentParentMaximumDefect = "independent_parent_maximum_defect"
     independentBandMaximumDefect = "independent_band_maximum_defect"
     independentShellPowerDefect = "independent_shell_power_maximum_defect"
-
-    def to_wire(self) -> str:
-        """Return the stable wire identity."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, value: str) -> Self:
-        """Reconstruct one diagnostic identity from its wire value."""
-        if type(value) is not str:
-            raise TypeError("diagnostic method wire value must be a built-in string")
-        for method in cls:
-            if method.to_wire() == value:
-                return method
-        raise ValueError(f"unknown diagnostic method wire value: {value!r}")
 
 
 class StoredIdentityMaximumDefectAnalyzer(

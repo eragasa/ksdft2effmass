@@ -6,11 +6,11 @@ import csv
 import math
 from pathlib import Path
 
-from workflow.nonflat import (
-    SmoothFourStateConvergenceDefinition,
-    SmoothFourStateConvergenceExperiment,
-    SmoothFourStateConvergenceThresholds,
-    SmoothFourStateVerifier,
+from development_study import (
+    analysis_verification_defect,
+    momentum_refinement,
+    parent_family,
+    qualified_parent,
 )
 
 RESULTS = Path(__file__).resolve().parent / "simulations" / "development" / "results"
@@ -18,7 +18,6 @@ PARENT_HOPPING_SCALES = (0.0, 0.25, 0.5, 0.75, 1.0)
 MOMENTUM_MESHES = (32, 64, 128, 256)
 AMPLITUDE_INTERVALS = 32
 DRAFT_TOLERANCE = 1.01e-8
-VERIFICATION_TOLERANCE = 1.0e-10
 
 
 def _number(value: float) -> str:
@@ -43,39 +42,29 @@ def _amplitudes() -> tuple[float, ...]:
 
 def main() -> None:
     """Write finite-mesh family surfaces and momentum-control summaries."""
-    thresholds = SmoothFourStateConvergenceThresholds(
-        maximum_parent_diagnostic_change=DRAFT_TOLERANCE,
-        maximum_correlation_change=DRAFT_TOLERANCE,
-        maximum_threshold_change=DRAFT_TOLERANCE,
-        maximum_hopping_weight_change=DRAFT_TOLERANCE,
-        maximum_hopping_block_power_change=DRAFT_TOLERANCE,
-        maximum_angle_change=DRAFT_TOLERANCE,
-        maximum_band_defect=DRAFT_TOLERANCE,
-        maximum_reconstruction_defect=DRAFT_TOLERANCE,
-        maximum_parseval_defect=DRAFT_TOLERANCE,
+    family = parent_family(
+        reciprocal_mesh_size=MOMENTUM_MESHES[-1],
+        amplitudes=_amplitudes(),
+        parent_hopping_scales=PARENT_HOPPING_SCALES,
     )
-    experiment = SmoothFourStateConvergenceExperiment()
-    verifier = SmoothFourStateVerifier()
     surface_rows: list[dict[str, str]] = []
     summary_rows: list[dict[str, str]] = []
-    for parent_scale in PARENT_HOPPING_SCALES:
-        convergence = experiment.execute(
-            SmoothFourStateConvergenceDefinition(
-                reciprocal_mesh_sizes=MOMENTUM_MESHES,
-                amplitudes=_amplitudes(),
-                minimum_external_gap=1.0,
-                minimum_transport_singular_value=0.99,
-                frame_absolute_tolerance=1.0e-10,
-                harmonic_absolute_degeneracy_tolerance=1.0e-14,
-                harmonic_relative_degeneracy_tolerance=1.0e-13,
-                verification_absolute_tolerance=VERIFICATION_TOLERANCE,
-                parent_hopping_scale=parent_scale,
-                thresholds=thresholds,
-                required_stable_refinements=2,
-            )
+    for parent_scale, family_member in zip(
+        PARENT_HOPPING_SCALES,
+        family.members,
+        strict=True,
+    ):
+        convergence = momentum_refinement(
+            reciprocal_mesh_sizes=MOMENTUM_MESHES,
+            amplitudes=_amplitudes(),
+            parent_hopping_scale=parent_scale,
+            draft_tolerance=DRAFT_TOLERANCE,
         )
-        final = convergence.mesh_results[-1]
-        verification = verifier.execute(final)
+        final = convergence.mesh_analyses[-1]
+        if final != family_member:
+            raise ValueError("family and momentum routes disagree at the final mesh")
+        qualification = qualified_parent(final)
+        verification_defect = analysis_verification_defect(final)
         for point in final.points:
             root_scale = math.sqrt(point.splitting_scale)
             surface_rows.append(
@@ -126,31 +115,39 @@ def main() -> None:
         summary_rows.append(
             {
                 "parent_hopping_scale": _number(parent_scale),
-                "momentum_disposition": convergence.disposition.value,
-                "minimum_sampled_external_gap": _number(final.minimum_external_gap),
+                "momentum_disposition": type(convergence).__name__,
+                "minimum_sampled_external_gap": _number(
+                    qualification.minimum_external_gap
+                ),
                 "minimum_sampled_transport_singular_value": _number(
-                    final.minimum_transport_singular_value
+                    qualification.minimum_transport_singular_value
                 ),
                 "maximum_transport_procrustes_residual": _number(
-                    final.maximum_transport_procrustes_residual
+                    qualification.maximum_primitive_link_frobenius_residual
                 ),
                 "maximum_transport_unitarity_defect": _number(
-                    final.maximum_transport_unitarity_defect
+                    qualification.maximum_transport_unitarity_defect
                 ),
                 "maximum_transport_rank_cutoff": _number(
-                    final.maximum_transport_rank_cutoff
+                    qualification.maximum_transport_rank_cutoff
                 ),
-                "closure_holonomy_phase_0": _number(final.closure_holonomy_phases[0]),
-                "closure_holonomy_phase_1": _number(final.closure_holonomy_phases[1]),
+                "closure_holonomy_phase_0": _number(
+                    qualification.closure_holonomy_phases[0]
+                ),
+                "closure_holonomy_phase_1": _number(
+                    qualification.closure_holonomy_phases[1]
+                ),
                 "closure_holonomy_unitarity_defect": _number(
-                    final.closure_holonomy_unitarity_defect
+                    qualification.closure_alignment_unitarity_defect
                 ),
                 "maximum_frame_orthonormality_defect": _number(
-                    final.maximum_frame_orthonormality_defect
+                    qualification.maximum_frame_orthonormality_defect
                 ),
-                "periodic_closure_defect": _number(final.periodic_closure_defect),
+                "periodic_closure_defect": _number(
+                    qualification.closure_alignment_residual
+                ),
                 "maximum_reference_hermiticity_defect": _number(
-                    final.maximum_reference_hermiticity_defect
+                    qualification.maximum_reference_hermiticity_defect
                 ),
                 "maximum_final_parent_invariant_change": _number(
                     final_refinement.maximum_parent_diagnostic_change
@@ -160,10 +157,10 @@ def main() -> None:
                         final_refinement.maximum_correlation_change,
                         final_refinement.maximum_threshold_change,
                         final_refinement.maximum_hopping_weight_change,
-                        final_refinement.maximum_hopping_block_power_change,
+                        final_refinement.maximum_hopping_power_change,
                     )
                 ),
-                "verification_defect": _number(verification.maximum_absolute_defect),
+                "verification_defect": _number(verification_defect),
                 "endpoint_minimum_threshold_over_sqrt_kappa": _number(
                     endpoint.minimum_operator_threshold
                     / math.sqrt(endpoint.splitting_scale)

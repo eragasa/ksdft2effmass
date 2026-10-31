@@ -5,30 +5,14 @@ from __future__ import annotations
 import itertools
 import math
 from dataclasses import dataclass
-from enum import Enum
-from typing import Self
 
 from scipy.special import jv  # type: ignore[import-untyped]
 
+from ksdft2effmass.serialization import StringWireEnum
 
-class ConstrainedBesselGeometryEnum(Enum):
+
+class ConstrainedBesselGeometryEnum(StringWireEnum):
     """Name one selected dependent positive-bond inventory."""
-
-    def to_wire(self) -> str:
-        """Return the stable wire label."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, wire: str) -> Self:
-        """Reconstruct a geometry from its stable wire label."""
-        if type(wire) is not str:
-            raise TypeError("wire must be a built-in string")
-        for member in cls:
-            if member.to_wire() == wire:
-                return member
-        raise ValueError(
-            f"unsupported constrained-Bessel geometry wire label: {wire!r}"
-        )
 
     TRIANGULAR = "triangular-three-bond"
     FCC = "fcc-six-bond"

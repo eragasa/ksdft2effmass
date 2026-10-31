@@ -5,14 +5,17 @@ from __future__ import annotations
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import Enum
 from typing import Self
 
 import numpy as np
 import numpy.typing as npt
 from projectkoios.physkit.periodic.lattice import DirectLattice3D, DirectLatticeMetric
 
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.serialization import (
+    BaseTypedRecord,
+    SerializableValue,
+    StringWireEnum,
+)
 
 FloatArray = npt.NDArray[np.float64]
 ComplexArray = npt.NDArray[np.complex128]
@@ -32,22 +35,8 @@ BAIN_DIAMOND_BASIS_OFFSETS: tuple[tuple[float, float, float], ...] = (
 )
 
 
-class SyntheticStrainPathEnum(Enum):
+class SyntheticStrainPathEnum(StringWireEnum):
     """Name one volume-normalized homogeneous deformation path."""
-
-    def to_wire(self) -> str:
-        """Return the stable wire label."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, wire: str) -> Self:
-        """Reconstruct a path from its stable wire label."""
-        if type(wire) is not str:
-            raise TypeError("wire must be a built-in string")
-        for member in cls:
-            if member.to_wire() == wire:
-                return member
-        raise ValueError(f"unsupported synthetic-strain path wire label: {wire!r}")
 
     @property
     def spatial_dimension(self) -> int:

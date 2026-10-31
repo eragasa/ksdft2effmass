@@ -6,11 +6,10 @@ import csv
 import math
 from pathlib import Path
 
-from workflow.nonflat import SmoothFourStateDefinition
-from workflow.truncation import (
-    SmoothFourStateTruncationDefinition,
-    SmoothFourStateTruncationExperiment,
-    SmoothFourStateTruncationVerifier,
+from development_study import (
+    completed_truncation,
+    truncation_analysis,
+    truncation_verification_defect,
 )
 
 RESULTS = Path(__file__).resolve().parent / "simulations" / "development" / "results"
@@ -20,7 +19,6 @@ EVALUATION_MESH_SIZE = 4 * MOMENTUM_MESH_SIZE + 1
 AMPLITUDE_INTERVALS = 32
 MAXIMUM_RANGE = 16
 MAXIMUM_RANGES = tuple(range(MAXIMUM_RANGE + 1))
-DECISION_TOLERANCES = (1.0e-6, 1.0e-8, 1.0e-10, 1.0e-12)
 
 
 def _number(value: float) -> str:
@@ -47,34 +45,21 @@ def main() -> None:
     """Write pointwise Hamiltonian and band-error channels."""
     rows: list[dict[str, str]] = []
     summary_rows: list[dict[str, str]] = []
-    experiment = SmoothFourStateTruncationExperiment()
-    verifier = SmoothFourStateTruncationVerifier()
     maximum_verification_discrepancy = 0.0
     for parent_scale in PARENT_HOPPING_SCALES:
         print(f"parent_hopping_scale={parent_scale:g}: start", flush=True)
-        result = experiment.execute(
-            SmoothFourStateTruncationDefinition.every_integer_through(
-                model=SmoothFourStateDefinition(
-                    reciprocal_mesh_size=MOMENTUM_MESH_SIZE,
-                    amplitudes=_amplitudes(),
-                    minimum_external_gap=1.0,
-                    minimum_transport_singular_value=0.99,
-                    frame_absolute_tolerance=1.0e-10,
-                    harmonic_absolute_degeneracy_tolerance=1.0e-14,
-                    harmonic_relative_degeneracy_tolerance=1.0e-13,
-                    verification_absolute_tolerance=1.0e-10,
-                    parent_hopping_scale=parent_scale,
-                ),
-                maximum_range=MAXIMUM_RANGE,
+        result = completed_truncation(
+            truncation_analysis(
+                construction_mesh_size=MOMENTUM_MESH_SIZE,
                 evaluation_mesh_size=EVALUATION_MESH_SIZE,
+                amplitudes=_amplitudes(),
+                parent_hopping_scale=parent_scale,
+                maximum_range=MAXIMUM_RANGE,
             )
         )
-        verification = verifier.execute(result, DECISION_TOLERANCES)
-        if not verification.passes:
-            raise ValueError("independent truncation reconstruction failed")
         maximum_verification_discrepancy = max(
             maximum_verification_discrepancy,
-            verification.maximum_absolute_discrepancy,
+            truncation_verification_defect(result),
         )
         for point in result.points:
             for range_result in point.ranges:
@@ -90,19 +75,19 @@ def main() -> None:
                             point.comparison_nyquist_power
                         ),
                         "maximum_direct_band_defect": _number(
-                            point.maximum_direct_band_defect
+                            point.direct_spectral_maximum_defect
                         ),
                         "comparison_maximum_interpolation_hamiltonian_error": _number(
-                            point.comparison_maximum_interpolation_hamiltonian_error
+                            point.comparison_interpolation_hamiltonian_maximum_error
                         ),
                         "comparison_rms_interpolation_hamiltonian_error": _number(
-                            point.comparison_rms_interpolation_hamiltonian_error
+                            point.comparison_interpolation_hamiltonian_rms_error
                         ),
                         "comparison_maximum_interpolation_band_error": _number(
-                            point.comparison_maximum_interpolation_band_error
+                            point.comparison_interpolation_spectral_maximum_error
                         ),
                         "comparison_rms_interpolation_band_error": _number(
-                            point.comparison_rms_interpolation_band_error
+                            point.comparison_interpolation_spectral_rms_error
                         ),
                         "reference_ordinary_omitted_power": _number(
                             range_result.reference_ordinary_omitted_power
@@ -117,40 +102,40 @@ def main() -> None:
                             range_result.comparison_total_omitted_power
                         ),
                         "reference_maximum_truncation_hamiltonian_error": _number(
-                            range_result.reference_maximum_truncation_hamiltonian_error
+                            range_result.reference_truncation_hamiltonian_maximum_error
                         ),
                         "reference_rms_truncation_hamiltonian_error": _number(
-                            range_result.reference_rms_truncation_hamiltonian_error
+                            range_result.reference_truncation_hamiltonian_rms_error
                         ),
                         "reference_maximum_band_error": _number(
-                            range_result.reference_maximum_band_error
+                            range_result.reference_truncation_spectral_maximum_error
                         ),
                         "reference_rms_band_error": _number(
-                            range_result.reference_rms_band_error
+                            range_result.reference_truncation_spectral_rms_error
                         ),
                         "comparison_maximum_truncation_hamiltonian_error": _number(
-                            range_result.comparison_maximum_truncation_hamiltonian_error
+                            range_result.comparison_truncation_hamiltonian_maximum_error
                         ),
                         "comparison_rms_truncation_hamiltonian_error": _number(
-                            range_result.comparison_rms_truncation_hamiltonian_error
+                            range_result.comparison_truncation_hamiltonian_rms_error
                         ),
                         "comparison_maximum_truncation_band_error": _number(
-                            range_result.comparison_maximum_truncation_band_error
+                            range_result.comparison_truncation_spectral_maximum_error
                         ),
                         "comparison_rms_truncation_band_error": _number(
-                            range_result.comparison_rms_truncation_band_error
+                            range_result.comparison_truncation_spectral_rms_error
                         ),
                         "comparison_maximum_total_hamiltonian_error": _number(
-                            range_result.comparison_maximum_total_hamiltonian_error
+                            range_result.comparison_total_hamiltonian_maximum_error
                         ),
                         "comparison_rms_total_hamiltonian_error": _number(
-                            range_result.comparison_rms_total_hamiltonian_error
+                            range_result.comparison_total_hamiltonian_rms_error
                         ),
                         "comparison_maximum_total_band_error": _number(
-                            range_result.comparison_maximum_total_band_error
+                            range_result.comparison_total_spectral_maximum_error
                         ),
                         "comparison_rms_total_band_error": _number(
-                            range_result.comparison_rms_total_band_error
+                            range_result.comparison_total_spectral_rms_error
                         ),
                     }
                 )
@@ -165,41 +150,41 @@ def main() -> None:
                     result.minimum_construction_evaluation_separation
                 ),
                 "maximum_direct_band_defect": _number(
-                    max(point.maximum_direct_band_defect for point in result.points)
+                    max(point.direct_spectral_maximum_defect for point in result.points)
                 ),
                 "maximum_interpolation_hamiltonian_error": _number(
                     max(
-                        point.comparison_maximum_interpolation_hamiltonian_error
+                        point.comparison_interpolation_hamiltonian_maximum_error
                         for point in result.points
                     )
                 ),
                 "maximum_interpolation_band_error": _number(
                     max(
-                        point.comparison_maximum_interpolation_band_error
+                        point.comparison_interpolation_spectral_maximum_error
                         for point in result.points
                     )
                 ),
                 "endpoint_range_0_total_hamiltonian_error": _number(
-                    endpoint.ranges[0].comparison_maximum_total_hamiltonian_error
+                    endpoint.ranges[0].comparison_total_hamiltonian_maximum_error
                 ),
                 "endpoint_range_0_total_band_error": _number(
-                    endpoint.ranges[0].comparison_maximum_total_band_error
+                    endpoint.ranges[0].comparison_total_spectral_maximum_error
                 ),
                 "endpoint_range_8_total_hamiltonian_error": _number(
                     endpoint.ranges[
                         MAXIMUM_RANGES.index(8)
-                    ].comparison_maximum_total_hamiltonian_error
+                    ].comparison_total_hamiltonian_maximum_error
                 ),
                 "endpoint_range_8_total_band_error": _number(
                     endpoint.ranges[
                         MAXIMUM_RANGES.index(8)
-                    ].comparison_maximum_total_band_error
+                    ].comparison_total_spectral_maximum_error
                 ),
                 "endpoint_range_16_total_hamiltonian_error": _number(
-                    endpoint.ranges[-1].comparison_maximum_total_hamiltonian_error
+                    endpoint.ranges[-1].comparison_total_hamiltonian_maximum_error
                 ),
                 "endpoint_range_16_total_band_error": _number(
-                    endpoint.ranges[-1].comparison_maximum_total_band_error
+                    endpoint.ranges[-1].comparison_total_spectral_maximum_error
                 ),
             }
         )

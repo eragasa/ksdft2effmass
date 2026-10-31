@@ -28,6 +28,25 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\theequation}{S\arabic{equation}}
 
+% The article-class section-number box is too narrow once the supplement reaches S10.
+\makeatletter
+\renewcommand*\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{2.3em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil
+      \nobreak\hb@xt@\@pnumwidth{\hss #2\kern-\p@\kern\p@}\par
+    \endgroup
+  \fi}
+\makeatother
+
 \begin{document}
 
 \title{Supplemental Material for\\
@@ -290,14 +309,18 @@ $\mu_{N,\max}(a)$ and analytic $J_0(2a)$ remain separate. The analytic continuum
 in Fig.~\ref{fig:flat-parent-analysis}(a,b) is evaluated directly and is not an
 amplitude-interpolation disposition.
 
-The non-flat convergence implementation compares the sampled external isolation gap,
-shared-node parent eigenvalues and retained spectral projectors, frame orthonormality and
-closure, Hermiticity, harmonic maximum and maximizing-angle status, $\mu_{N,\max}$, the
-two thresholds, Fourier-block powers, non-onsite weight, band discrepancy, quadratic
-reconstruction, and Parseval consistency. The neighboring-frame transport singular
-value is a per-mesh rank-qualification lower bound, not a convergence observable. The
-study has no $J_0(2a)$ analytic comparator and does not assume the flat-parent three-way
-locality identity. Full parent eigenvalue and projector arrays, admissible-set
+The historical non-flat convergence implementation compares the sampled external
+isolation gap, shared-node parent eigenvalues and retained spectral projectors, frame
+orthonormality and closure, Hermiticity, harmonic maximum and maximizing-angle status,
+$\mu_{N,\max}$, the two thresholds, Fourier-block powers, non-onsite weight, band
+discrepancy, quadratic reconstruction, and Parseval consistency. The neighboring-frame
+transport singular value is a per-mesh rank-qualification lower bound, not a convergence
+observable. Under those channels the donor summary reports `converged'. The installed
+owner additionally includes the primitive-link Frobenius residual in its parent
+diagnostic; the final $256\rightarrow512$ change is $9.15\times10^{-4}$, above the
+declared tolerance, so its closed outcome is unresolved. These dispositions are not
+equivalent. The study has no $J_0(2a)$ analytic comparator and does not assume the
+flat-parent three-way locality identity. Full parent eigenvalue and projector arrays, admissible-set
 quadratics, rectangle minima, witness coordinates,
 support points, containment margins, separation bounds, and post-decision evaluation
 losses remain unimplemented. Current non-flat conclusions are pointwise at directly
@@ -320,13 +343,13 @@ physical error bars or probabilistic confidence limits.
 
 For the completed flat-parent momentum study, every implemented continuous channel must
 pass on two successive refinements and maximizing-angle status must remain unchanged on
-the corresponding three levels. For a final non-flat study, every continuous
-quantity must pass on two successive refinements, every discrete disposition must remain
-unchanged on three successive levels, and every decisive threshold or separation margin
-must be at least ten times larger than the corresponding observed refinement change. If
-the applicable momentum or amplitude cap is reached first, qualification fails. The
-largest attempted mesh is not called converged merely because no larger calculation was
-performed.
+the corresponding three levels. For a final non-flat study, every continuous quantity must pass on two successive
+refinements, every discrete disposition must remain unchanged on three successive
+levels, and every decisive threshold or separation margin must be at least ten times
+larger than the corresponding observed refinement change. If the applicable momentum or
+amplitude cap is reached first, the applicable closed outcome remains unresolved or
+exhausted rather than being relabeled as converged. The largest attempted mesh is not
+called converged merely because no larger calculation was performed.
 
 \subsection{Disjoint post-decision evaluation}
 
@@ -429,32 +452,33 @@ reconstruction and control flow, not independent hardware or an unrelated eigens
 
 \subsection{Serialization and calculation records}
 
-The implemented flat-parent, non-flat, and truncation input, result, and verification
-records use strict JSON schemas that reject unknown fields. The truncation records bind
-conversion, interpolation, deliberate-truncation, total-error, and separate
-range-decision channels; their scope fields expressly deny protocol freeze, provenance,
-retained execution, and material validation. Retained schemas and the additional fields
-needed by the future full admissible-set and separation-certificate workflow are deferred
-until those contracts are reviewed. Numeric strings and Boolean values presented as real
-numbers are rejected by the applicable public contracts.
-Floating-point values must be finite. Complex values are represented by explicit real
-and imaginary components, and arrays carry fixed dimensions wherever shape is part of
-the scientific contract.
+The historical development input, result, and verification records use strict JSON
+schemas that reject unknown fields. Installed scientific values are serialization-free;
+dedicated canonical typed records own retained bytes and reject unknown fields, numeric
+strings, Boolean values presented as real numbers, non-finite floats, and invalid closed
+variants. Truncation records keep conversion, interpolation, deliberate-truncation,
+total-error, and separate range-decision channels distinct. Additional fields needed by
+a future full admissible-set and separation-certificate workflow remain deferred until
+those contracts are reviewed.
 
-The active result records the SHA-256 digest of the exact canonical input bytes. The
-verification record binds both input and result digests. Family, schema, and method
-identities are checked against expected values rather than trusted from the payload, and
-the input scope explicitly states that the calculation is not retained. Any change to a
-nested value or immutable identity either changes the digest or fails schema validation.
-A retained schema must additionally bind immutable version and run identities; the
-development records carry no such inferred identity.
+The active calculation now preserves two immutable direct executions. Unsealed v1 failed
+independent verification and remains unchanged. The separately authorized unsealed v2
+binds canonical calculation bytes, passed byte-owning independent verification at the
+unchanged tolerance, and authenticated its closed rendering inventory. Its declared
+aggregate contains the five final-mesh parent-family members but only the scale-one
+truncation slice; it does not authenticate the other four truncation slices, the
+five-scale adjacent-mesh summaries, or these development figures. Family, schema,
+method, execution, and digest identities are checked rather than trusted from payload
+labels. SHA-256 establishes byte identity, not scientific validity.
 
-A retained run directory will be created by an exclusive no-overwrite operation. It will
-contain canonical input, result, and verification records; the complete convergence table;
-source and dependency provenance; platform and command information; authenticated
-schema identities; the exact source manifest; a checksum manifest; and a readable
-report separating controls, calculated quantities, and interpretation. Experiment
-version, run identity, and content-addressed evidence-package identity remain distinct.
+Any future publication-qualified package for the complete five-scale headline must use a
+new exclusive no-overwrite execution identity. It must contain canonical input, result,
+and verification records; the complete convergence table; source and dependency
+provenance; platform and command information; authenticated schema identities; the exact
+source manifest; a checksum manifest; and a readable report separating controls,
+calculated quantities, and interpretation. Experiment version, run identity, and
+content-addressed evidence-package identity remain distinct. Direct v1 and v2 must not
+be rerun, extended, relabeled, or promoted by implication.
 
 \subsection{Failure policy}
 
@@ -517,10 +541,10 @@ Separation resolution & Future certificate workflow & Not used by the present sa
 Locality ranges & Implemented development candidate & The dense inventory is every integer $R_c=0,\ldots,16$; review the final cap and expansion rule before freeze. \\
 Hamiltonian and spectral range rules & Specified working definitions & Keep the two normalized first-passing questions separate; freeze their targets independently. \\
 Numerical tolerances & Draft candidates & Replace the single draft pair with a reviewed channel-specific table. \\
-Independent truncation verification & Implemented and applied for development & The verifier reconstructs every declared cutoff without the producer; repeat it after any control change and for a later authorized retained execution. \\
-Serialization and provenance & Partly implemented; open for retained work & Strict flat-parent, non-flat, and truncation development schemas exist; add reviewed retained and future certificate schemas, immutable run identity, exact manifests, and checksums. \\
-Software revisions & Development revisions known & Resolve lockfiles and record exact retained revisions only at freeze. \\
-Confirmatory execution authorization & Not requested & Separate operator authorization is required after the protocol is ready to freeze. \\
+Independent truncation verification & Implemented for development and direct v2 & The verifier reconstructs every declared direct-v2 cutoff without the producer; repeat it for the complete five-scale scope after any control change. \\
+Serialization and provenance & Partial retained aggregate exists & Canonical direct-v2 records bind immutable run and digest identities for the declared aggregate; a complete-scope publication package and future certificate fields remain open. \\
+Software revisions & Development and direct-v2 revisions known & Resolve lockfiles and record the exact new complete-scope revisions at freeze. \\
+Confirmatory execution authorization & Not requested for complete scope & Separate operator authorization is required for a newly identified five-scale execution after the protocol is ready to freeze; direct v1/v2 remain unchanged. \\
 \bottomrule
 \end{longtable}
 \normalsize
@@ -638,9 +662,9 @@ The spectral loss and continuously aligned matrix loss have one common diagonal 
 For $U_a(q)=R(a\sin2\pi q)$, the minimum restricted-alignment and exact-spectrum joint thresholds obey the stated $J_0(2a)$ laws. & Eqs.~\eqref{main-eq:minimum-operator-threshold} and \eqref{main-eq:exact-spectrum-threshold-continuum}, derived from the exact harmonic correlation. & Analytic---proved for the smooth rank-two family.\\
 For a spectrally flat traceless parent, the squared irreducible matrix residual equals the induced normalized non-onsite Fourier power. & Theorem~\ref{main-thm:residual-locality-identity}, Parseval's identity, and Eq.~\eqref{main-eq:continuum-three-way-identity}. & Analytic---proved under the theorem's flat-parent assumptions.\\
 The flat-parent implementation reproduces band equivalence, the analytic thresholds, and the residual--locality identity to the reported numerical discrepancies. & Direct flat-parent calculation, direct $J_0(2a)$ evaluation, nested momentum study, independent reconstruction, and Fig.~\ref{fig:flat-parent-analysis}. & Analytic in amplitude for the threshold laws; sampled development calculation for finite-mesh hopping channels.\\
-The dispersive four-state realization is sampled-gapped and transport-qualified, preserves the constructed complete bands, and exhibits restricted matrix mismatch and hopping redistribution at the declared amplitude nodes. & Direct non-flat calculation, parent eigenvalue/projector checks, independent frame reconstruction, and Figs.~\ref{fig:nonflat-analysis} and \ref{fig:frame-sewing-diagnostics}. & Calculated---momentum study converged; pointwise in amplitude, with no continuous-amplitude reconstruction claimed.\\
+The dispersive four-state realization is sampled-gapped and transport-qualified, preserves the constructed complete bands, and exhibits restricted matrix mismatch and hopping redistribution at the declared amplitude nodes. & Direct non-flat calculation, parent eigenvalue/projector checks, independent frame reconstruction, and Figs.~\ref{fig:nonflat-analysis} and \ref{fig:frame-sewing-diagnostics}. & Calculated---historical donor diagnostic converged, installed broader diagnostic unresolved; pointwise in amplitude, with no continuous-amplitude reconstruction claimed.\\
 The restricted mismatch and excess non-onsite hopping persist through the five sampled parent scales and 33 sampled amplitudes while the exact flat identity deforms with dispersion. & Parent-family continuum and summary calculations and Fig.~\ref{main-fig:parent-family-analysis}. & Calculated---sampled robustness only; no continuous-$\rho$ or continuous-$a$ certificate.\\
-At fixed sampled band accuracy, the reference and rotated representations can require different first passing hopping cutoffs; at $(\rho,a)=(1,\pi/4)$ and $10^{-8}E_{\mathrm{ref}}$, the sampled cutoffs are 4 and 10. & Dense truncation calculation on $N=256$, disjoint $M=1025$ evaluation, $R_c=0,\ldots,16$; independent reconstruction; threshold-adjacent refinement at $N=128,256,512$; and Figs.~\ref{fig:truncation-consequences}, \ref{main-fig:range-inflation-preview}, and \ref{fig:sampled-range-decision-map}. & Calculated---sampled development result; no decision changes through $N=512$, but protocol freeze, provenance, and retained execution remain open.\\
+At fixed sampled band accuracy, the reference and rotated representations can require different first passing hopping cutoffs; at $(\rho,a)=(1,\pi/4)$ and $10^{-8}E_{\mathrm{ref}}$, the sampled cutoffs are 4 and 10. & Dense truncation calculation on $N=256$, disjoint $M=1025$ evaluation, $R_c=0,\ldots,16$; independent reconstruction; threshold-adjacent refinement at $N=128,256,512$; and Figs.~\ref{fig:truncation-consequences}, \ref{main-fig:range-inflation-preview}, and \ref{fig:sampled-range-decision-map}. & Calculated---sampled development result; no decision changes through $N=512$. Passing unsealed direct v2 covers only its scale-one truncation slice; complete-scope protocol freeze, provenance, and retained execution remain open.\\
 Cyclic conversion, finite interpolation, deliberate truncation, and total consequences are distinct error channels and are not added as independent scalar errors. & Definitions in Eqs.~\eqref{main-eq:nyquist-conversion-power}--\eqref{main-eq:truncation-error-channels}, direct channel calculations, and Figs.~\ref{main-fig:truncation-error-decomposition} and \ref{fig:hamiltonian-spectral-diagnostics}. & Defined and calculated on the sampled inventory.\\
 The paper does not establish material validity, physical effective masses, universal range bounds, higher-dimensional range growth, or physical inequivalence of the complete gauge-related Hamiltonians. & Explicit model scope and limitations in the main text; no material-derived calculation is used. & Outside scope---not claimed.\\
 \bottomrule
@@ -681,9 +705,10 @@ The paper does not establish material validity, physical effective masses, unive
   outcome channels lie below the draft target. \textbf{(f)}
   Midpoint amplitude-interpolation discrepancies, all above the draft target on the tested
   $N_a\le64$ ladder. No $J_0(2a)$ comparator or flat-parent residual--tail identity is
-  used. Momentum refinement is `converged'; panel (f) motivates restricting the
-  numerical conclusions to directly evaluated amplitudes rather than claiming a
-  continuous interpolation. The calculation is not a retained evidence run.}
+  used. The historical donor diagnostic reports `converged', while the installed
+  broader parent diagnostic remains unresolved; panel (f) separately motivates
+  restricting the numerical conclusions to directly evaluated amplitudes rather than
+  claiming a continuous interpolation. The figure is not retained evidence.}
   \label{fig:nonflat-analysis}
 \end{figure}
 

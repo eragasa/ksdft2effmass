@@ -204,3 +204,30 @@ class CompositeVerification(BaseVerification):
                 raise TypeError("decoded observations must map strings to mappings")
             observations[name] = VerificationObservation.from_dict(observation_value)
         return cls(observations=observations)
+
+
+@dataclass(frozen=True, slots=True)
+class MemberwiseCompositeVerificationComposer:
+    """Prefix and compose independently produced member verifications."""
+
+    member_verifications: tuple[CompositeVerification, ...]
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.member_verifications) is not tuple
+            or not self.member_verifications
+        ):
+            raise TypeError("member_verifications must be a nonempty tuple")
+        for verification in self.member_verifications:
+            if not isinstance(verification, CompositeVerification):
+                raise TypeError(
+                    "member_verifications must contain CompositeVerification values"
+                )
+
+    def result(self) -> CompositeVerification:
+        """Return observations prefixed by stable member indices."""
+        observations: dict[str, VerificationObservation] = {}
+        for index, verification in enumerate(self.member_verifications):
+            for name, observation in verification.observations.items():
+                observations[f"member_{index}_{name}"] = observation
+        return CompositeVerification(observations)

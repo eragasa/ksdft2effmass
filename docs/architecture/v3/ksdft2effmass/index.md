@@ -16,6 +16,12 @@ or supported import already exists.
 - [`spaces`](spaces/index.md): finite state-space and subspace contracts.
 - [`analysis`](analysis/index.md): reusable analyses over already typed numerical
   objects.
+- [`subspace_reduction`](scientific-operation-taxonomy.md#subspace-reduction),
+  [`representation_equivalence`](scientific-operation-taxonomy.md#representation-equivalence),
+  [`real_space_support_truncation`](scientific-operation-taxonomy.md#real-space-support-truncation),
+  and [`numerical_consistency`](scientific-operation-taxonomy.md#numerical-consistency):
+  nominal cross-dimensional scientific-operation ownership without merged family
+  records or evidence identities.
 - [`serialization`](serialization/index.md): typed scientific JSON normalization and
   final record boundaries.
 - [`visualizations`](visualizations/index.md): domain-neutral authenticated projection,
@@ -38,6 +44,7 @@ not an ownership reassignment.
 
 ## Package pages
 
+- [Cross-dimensional scientific-operation taxonomy](scientific-operation-taxonomy.md)
 - [Component-construction and visualization audit](component-construction-and-visualization-audit.md)
 - [Schematics](schematics.md)
 - [Numerics](numerics.md)

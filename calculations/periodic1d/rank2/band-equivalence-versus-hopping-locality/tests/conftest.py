@@ -1,4 +1,4 @@
-"""Expose the calculation-local workflow package during direct test collection."""
+"""Expose maintained calculation-local composition during direct test collection."""
 
 from __future__ import annotations
 

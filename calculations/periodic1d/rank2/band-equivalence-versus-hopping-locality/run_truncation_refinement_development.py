@@ -6,13 +6,17 @@ import csv
 import math
 from pathlib import Path
 
-from workflow.nonflat import SmoothFourStateDefinition
-from workflow.truncation import (
-    SmoothFourStateTruncationDefinition,
-    SmoothFourStateTruncationExperiment,
-    SmoothFourStateTruncationPointResult,
-    SmoothFourStateTruncationRangeDecision,
-    SmoothFourStateTruncationVerifier,
+from development_study import (
+    completed_truncation,
+    truncation_analysis,
+    truncation_verification_defect,
+)
+from ksdft2effmass.periodic1d import (
+    Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector,
+)
+from ksdft2effmass.real_space_support_truncation import (
+    MinimumToleranceSatisfyingSupport,
+    RealSpaceSupportTruncationToleranceSelection,
 )
 
 RESULTS = Path(__file__).resolve().parent / "simulations" / "development" / "results"
@@ -43,64 +47,44 @@ def _write_csv(path: Path, rows: list[dict[str, str]]) -> None:
         writer.writerows(rows)
 
 
-def _range_value(
-    point: SmoothFourStateTruncationPointResult,
-    maximum_range: int,
-    channel: str,
-) -> float:
-    item = point.ranges[maximum_range]
-    if item.maximum_range != maximum_range:
-        raise AssertionError("dense range results must be indexed by maximum range")
-    if channel == "reference_band":
-        return item.reference_maximum_band_error
-    if channel == "comparison_band":
-        return item.comparison_maximum_total_band_error
-    if channel == "reference_hamiltonian":
-        return item.reference_maximum_truncation_hamiltonian_error
-    if channel == "comparison_hamiltonian":
-        return item.comparison_maximum_total_hamiltonian_error
-    raise ValueError("unknown range-decision channel")
-
-
-def _decision_fields(
-    point: SmoothFourStateTruncationPointResult,
-    decision: SmoothFourStateTruncationRangeDecision,
+def _selection_fields(
+    selection: RealSpaceSupportTruncationToleranceSelection,
 ) -> dict[str, str]:
     output: dict[str, str] = {}
-    selections = (
-        ("reference_band", decision.reference_band_first_passing_range),
-        ("comparison_band", decision.comparison_band_first_passing_range),
+    # Prefixes below are immutable historical CSV labels only.
+    outcomes = (
+        (
+            "reference_band",
+            selection.reference_model.ordered_eigenvalue_maximum_absolute_error,
+        ),
+        (
+            "comparison_band",
+            selection.comparison_model.ordered_eigenvalue_maximum_absolute_error,
+        ),
         (
             "reference_hamiltonian",
-            decision.reference_hamiltonian_first_passing_range,
+            selection.reference_model.matrix_frobenius_maximum_error,
         ),
         (
             "comparison_hamiltonian",
-            decision.comparison_hamiltonian_first_passing_range,
+            selection.comparison_model.matrix_frobenius_maximum_error,
         ),
     )
-    for channel, maximum_range in selections:
-        if maximum_range is None:
+    for channel, outcome in outcomes:
+        if type(outcome) is not MinimumToleranceSatisfyingSupport:
             raise ValueError(f"{channel} does not pass within the dense cutoff cap")
-        passing_error = _range_value(point, maximum_range, channel)
-        if passing_error > DECISION_TOLERANCE:
-            raise AssertionError("selected range does not pass its declared tolerance")
-        output[f"{channel}_first_passing_range"] = str(maximum_range)
-        output[f"{channel}_passing_error"] = _number(passing_error)
-        if maximum_range == 0:
-            output[f"{channel}_preceding_error"] = "not-applicable"
-        else:
-            preceding_error = _range_value(point, maximum_range - 1, channel)
-            if preceding_error <= DECISION_TOLERANCE:
-                raise AssertionError("range before first passing range also passes")
-            output[f"{channel}_preceding_error"] = _number(preceding_error)
+        output[f"{channel}_first_passing_range"] = str(outcome.comparison_index)
+        output[f"{channel}_passing_error"] = _number(outcome.satisfying_error)
+        output[f"{channel}_preceding_error"] = (
+            "not-applicable"
+            if outcome.preceding_error is None
+            else _number(outcome.preceding_error)
+        )
     return output
 
 
 def main() -> None:
-    """Write independently verified, threshold-adjacent refinement decisions."""
-    experiment = SmoothFourStateTruncationExperiment()
-    verifier = SmoothFourStateTruncationVerifier()
+    """Write independently verified support-tolerance refinement decisions."""
     rows: list[dict[str, str]] = []
     for parent_scale in PARENT_HOPPING_SCALES:
         for mesh_size in MOMENTUM_MESHES:
@@ -108,43 +92,31 @@ def main() -> None:
                 f"parent_hopping_scale={parent_scale:g}, N={mesh_size}: start",
                 flush=True,
             )
-            definition = SmoothFourStateTruncationDefinition.every_integer_through(
-                model=SmoothFourStateDefinition(
-                    reciprocal_mesh_size=mesh_size,
+            evaluation_mesh_size = 4 * mesh_size + 1
+            result = completed_truncation(
+                truncation_analysis(
+                    construction_mesh_size=mesh_size,
+                    evaluation_mesh_size=evaluation_mesh_size,
                     amplitudes=_amplitudes(),
-                    minimum_external_gap=1.0,
-                    minimum_transport_singular_value=0.99,
-                    frame_absolute_tolerance=1.0e-10,
-                    harmonic_absolute_degeneracy_tolerance=1.0e-14,
-                    harmonic_relative_degeneracy_tolerance=1.0e-13,
-                    verification_absolute_tolerance=1.0e-10,
                     parent_hopping_scale=parent_scale,
-                ),
-                maximum_range=MAXIMUM_RANGE,
-                evaluation_mesh_size=4 * mesh_size + 1,
+                    maximum_range=MAXIMUM_RANGE,
+                )
             )
-            result = experiment.execute(definition)
-            verification = verifier.execute(result, (DECISION_TOLERANCE,))
-            if not verification.passes:
-                raise ValueError("independent truncation reconstruction failed")
-            if not verification.inventory_is_dense:
-                raise AssertionError("refinement study requires a dense inventory")
-            if len(verification.decisions) != len(result.points):
-                raise AssertionError("one range decision is required per amplitude")
-            for point, decision in zip(
-                result.points, verification.decisions, strict=True
-            ):
+            verification_discrepancy = truncation_verification_defect(result)
+            for point in result.points:
+                selection = Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector(
+                    point=point,
+                    tolerance=DECISION_TOLERANCE,
+                ).execute()
                 row = {
                     "parent_hopping_scale": _number(parent_scale),
                     "amplitude": _number(point.amplitude),
                     "construction_mesh_size": str(mesh_size),
-                    "evaluation_mesh_size": str(definition.evaluation_mesh_size),
+                    "evaluation_mesh_size": str(evaluation_mesh_size),
                     "decision_tolerance": _number(DECISION_TOLERANCE),
-                    "verification_discrepancy": _number(
-                        verification.maximum_absolute_discrepancy
-                    ),
+                    "verification_discrepancy": _number(verification_discrepancy),
                 }
-                row.update(_decision_fields(point, decision))
+                row.update(_selection_fields(selection))
                 rows.append(row)
             print(
                 f"parent_hopping_scale={parent_scale:g}, N={mesh_size}: complete",

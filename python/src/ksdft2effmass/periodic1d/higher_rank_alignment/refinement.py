@@ -11,6 +11,7 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     ScalarRefinementAnalyzer,
     ScalarRefinementDiagnostics,
 )
+from ksdft2effmass.numerical_consistency import NumericalConsistency
 
 from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
 from .definition import Periodic1DHigherRankAlignmentStatus
@@ -95,7 +96,7 @@ class Periodic1DHigherRankRefinementAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankRefinementAnalysis:
+class Periodic1DHigherRankRefinementAnalysis(NumericalConsistency):
     """Retain block and scalar refinement records from one complete request."""
 
     blocks: tuple[Periodic1DHigherRankBlockRefinementResult, ...]

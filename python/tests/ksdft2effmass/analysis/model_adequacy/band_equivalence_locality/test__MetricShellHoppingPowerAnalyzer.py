@@ -62,6 +62,7 @@ class TestMetricShellHoppingPowerAnalyzer:
         ).execute()
 
         assert result.retained_rank == 2
+        assert tuple(power.metric_shell_value for power in result.powers) == (1, 0, 1)
         assert result.normalized_total_power == pytest.approx(3.5)
         assert result.normalized_power_at_shell(0) == pytest.approx(1.0)
         assert result.normalized_power_at_shell(1) == pytest.approx(2.5)
