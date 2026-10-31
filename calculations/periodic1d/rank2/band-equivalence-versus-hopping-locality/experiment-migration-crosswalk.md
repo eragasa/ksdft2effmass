@@ -115,9 +115,11 @@ Before source-script removal:
    channels.
 
 Passing tests and matching development artifacts establish software parity only, not
-convergence or scientific validation. Reusable behavior still has to leave the
-calculation-local `workflow/` for reviewed source owners before a direct retained
-lifecycle can be proposed.
+convergence or scientific validation. Reusable behavior required by the retained
+lifecycle now resides in reviewed installed source owners, and the direct scripts do not
+import `workflow/`. The remaining calculation-local donor still owns development-only
+packaging and historical reproduction surfaces; its reviewed retirement is separate from
+the completed unsealed direct lifecycle.
 
 ### Documentation and protocol
 

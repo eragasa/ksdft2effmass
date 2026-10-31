@@ -181,7 +181,12 @@ class CompositeVerification(BaseVerification):
         return all(observation.passed for observation in self.observations.values())
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        return {"observations": self.observations}
+        return {
+            "observations": {
+                name: observation.to_dict()
+                for name, observation in self.observations.items()
+            }
+        }
 
     @classmethod
     def _from_mapping(

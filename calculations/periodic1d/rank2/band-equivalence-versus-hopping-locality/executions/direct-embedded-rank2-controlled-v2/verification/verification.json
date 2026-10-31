@@ -1,0 +1,4160 @@
+{
+  "components": {
+    "adaptive_amplitude": {
+      "observations": {
+        "all_evaluated_amplitude_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1449174941446927e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.6653345369377348e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.2212453270876722e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 7.632783294297951e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.661338147750939e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_0_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1449174941446927e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.6653345369377348e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.2212453270876722e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 7.632783294297951e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.661338147750939e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_1_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1449174941446927e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.6653345369377348e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.4432899320127035e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.0895425107146934e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.661338147750939e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_2_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1449174941446927e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.6653345369377348e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.4432899320127035e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.0895425107146934e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.661338147750939e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_3_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_count_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_0_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_0_maximum_correlation_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_0_maximum_hopping_power_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 4.440892098500626e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_0_maximum_hopping_weight_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.938893903907228e-18,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_0_maximum_joint_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_0_maximum_operator_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_1_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_1_maximum_correlation_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_1_maximum_hopping_power_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_1_maximum_hopping_weight_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 4.163336342344337e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_1_maximum_joint_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_1_maximum_operator_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_2_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_2_maximum_correlation_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_2_maximum_hopping_power_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 5.551115123125783e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_2_maximum_hopping_weight_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.938893903907228e-18,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_2_maximum_joint_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 5.551115123125783e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_2_maximum_operator_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_3_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_3_maximum_correlation_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_3_maximum_hopping_power_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_3_maximum_hopping_weight_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.469446951953614e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_3_maximum_joint_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.6653345369377348e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_3_maximum_operator_threshold_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 5.551115123125783e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "level_count_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "outcome_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "validation_count_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        }
+      }
+    },
+    "momentum_refinement": {
+      "observations": {
+        "mesh_0_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.608224830031759e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 7.771561172376096e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.081736255072798e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 8.881784197001252e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_0_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.1163626406917047e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 8.326672684688674e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.2212453270876722e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.5456386170953351e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.068322111967904e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_1_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1449174941446927e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.6653345369377348e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.4432899320127035e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.0895425107146934e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.661338147750939e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_2_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.2724877535296173e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.887379141862766e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.17214612752548e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 4.440892098500626e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_3_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.2786273695961654e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_harmonic_argument_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_harmonic_identity_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_harmonic_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 8.326672684688674e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_hopping_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_hopping_power_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.08607306376274e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.2378469608979187e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_4_qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "mesh_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "outcome_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_angle_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_angle_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_band_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_correlation_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_hopping_power_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.2212453270876722e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_hopping_weight_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.3877787807814457e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_parent_diagnostic_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.469446951953614e-18,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_parseval_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 6.661338147750939e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_reconstruction_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_shared_parent_eigenvalue_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_shared_parent_projector_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_maximum_threshold_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.7755575615628914e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_mesh_pair_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_0_threshold_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_angle_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_angle_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_band_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_correlation_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.3306690738754696e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_hopping_power_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.3306690738754696e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_hopping_weight_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 3.469446951953614e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_parent_diagnostic_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.168404344971009e-18,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_parseval_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 4.440892098500626e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_reconstruction_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 9.540979117872439e-18,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_shared_parent_eigenvalue_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_shared_parent_projector_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_maximum_threshold_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_mesh_pair_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_1_threshold_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_angle_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_angle_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_band_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_correlation_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.1102230246251565e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_hopping_power_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.2212453270876722e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_hopping_weight_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.3183898417423734e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_parent_diagnostic_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_parseval_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 8.881784197001252e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_reconstruction_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.5612511283791264e-17,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_shared_parent_eigenvalue_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_shared_parent_projector_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_maximum_threshold_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_mesh_pair_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_2_threshold_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_angle_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_angle_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_band_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_correlation_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.220446049250313e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_hopping_power_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.3322676295501878e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_hopping_weight_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.457167719820518e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_parent_diagnostic_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 4.336808689942018e-19,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_parseval_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.4432899320127035e-15,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_reconstruction_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.734723475976807e-18,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_shared_parent_eigenvalue_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_shared_parent_projector_defect_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_maximum_threshold_change_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.6653345369377348e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_mesh_pair_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_3_threshold_disposition_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "refinement_count_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        }
+      }
+    },
+    "parent_family": {
+      "components": {
+        "embedded_subspace_rank2_parent_family": {
+          "observations": {
+            "member_0_closure_phase_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_harmonic_argument_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_harmonic_identity_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_harmonic_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_hopping_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_hopping_power_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 4.3298697960381105e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_minimum_external_gap_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_point_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_point_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 4.3298697960381105e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_qualification_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 9.611202511496084e-18,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_0_qualification_variant_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_closure_phase_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.0679391398982219e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_harmonic_argument_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.220446049250313e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_harmonic_identity_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_harmonic_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.6653345369377348e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_hopping_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_hopping_power_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.4432899320127035e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_minimum_external_gap_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_point_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_point_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.3791051634015616e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_qualification_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 6.661338147750939e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_1_qualification_variant_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_closure_phase_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.1015494072452725e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_harmonic_argument_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.220446049250313e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_harmonic_identity_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_harmonic_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.3877787807814457e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_hopping_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_hopping_power_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.2212453270876722e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_minimum_external_gap_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_point_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_point_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.4259426972529354e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_qualification_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 5.551115123125783e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_2_qualification_variant_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_closure_phase_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.1275702593849246e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_harmonic_argument_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.220446049250313e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_harmonic_identity_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_harmonic_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 3.3306690738754696e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_hopping_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_hopping_power_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.7763568394002505e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_minimum_external_gap_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_point_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_point_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.9559688030644793e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_qualification_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 5.553207161906733e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_3_qualification_variant_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_closure_phase_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.2724877535296173e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_harmonic_argument_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.220446049250313e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_harmonic_identity_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_harmonic_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.220446049250313e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_hopping_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_hopping_power_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1.5543122344752192e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_minimum_external_gap_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_point_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_point_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.3071822230491534e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_qualification_scalar_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 4.440892098500626e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_4_qualification_variant_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "member_inventory_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            }
+          }
+        },
+        "visualization_projection": {
+          "observations": {
+            "family_visualization_matrix_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.9559688030644793e-15,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "family_visualization_source_identity_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 0.0,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            },
+            "family_visualization_vector_maximum_absolute_defect": {
+              "tolerance": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 1e-10,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              },
+              "value": {
+                "__ksd_type__": "scalar_quantity",
+                "magnitude": 2.220446049250313e-16,
+                "unit": {
+                  "__ksd_type__": "unitless"
+                }
+              }
+            }
+          }
+        }
+      },
+      "subject_sha256": "88257703306454965d590d0cc239900783ca58fa06df3be970f75c74b07508f1",
+      "visualization_data_sha256": "00daf3e407686c5854fff5fefe25628cadb78205e67c5b61954987d298238403"
+    },
+    "truncation": {
+      "observations": {
+        "closure_phase_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.2724877535296173e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "evaluation_coordinate_offset_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "minimum_external_gap_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "minimum_mesh_separation_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "outcome_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "point_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "point_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1.17293783415055e-14,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "qualification_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 4.440892098500626e-16,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "qualification_variant_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "range_inventory_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 0.0,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        },
+        "range_scalar_maximum_absolute_defect": {
+          "tolerance": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 1e-10,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          },
+          "value": {
+            "__ksd_type__": "scalar_quantity",
+            "magnitude": 2.8199664825478976e-14,
+            "unit": {
+              "__ksd_type__": "unitless"
+            }
+          }
+        }
+      }
+    }
+  },
+  "subject_sha256": "29c1a2bdd7ec85b721cb9c9248ba0961cd1472278cf79a33f641eaa9e657dd01",
+  "visualization_data_sha256": "6df508757714b2bd10e10d9210a843061106c72427538387b2df75d7fcfd40ac"
+}

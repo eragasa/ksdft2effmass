@@ -1,31 +1,138 @@
-\section{Provenance and reproduction}
+\section{Provenance, lifecycle, and reproduction}
 
-Calculation-specific workflow implementation and tests are owned under
-\begin{verbatim}
-calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/
-  workflow/
-  tests/
-\end{verbatim}
-Generic reusable numerical capabilities remain with their canonical library owners.
-The publication-independent experiment specification is under
-\begin{verbatim}
-experiments/model-adequacy/periodic1d/
-  band-equivalence-versus-hopping-locality/
-\end{verbatim}
-Calculation-specific development entrypoints are at the calculation root; their inputs
-and tables are under
-\begin{verbatim}
-calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/
-  simulations/development/
-\end{verbatim}
-and plot sources and figures are under the sibling \texttt{analysis/development/}
-subtree.  The working publication source is under
-\begin{verbatim}
-docs/publications/papers/Ragasa2026a/v3/
-\end{verbatim}
-Historical retained packages remain at their original calculation paths.
+\subsection{Direct stage sequence}
 
-A complete successor reproduction command cannot be stated until the versioned input,
-closed serializers, five-stage entry points, and retained-output policy are implemented.
-Development re-execution is replaceable workflow validation, not retained production
-evidence or scientific validation.
+The maintained lifecycle consists of three direct module-scope programs:
+\begin{enumerate}
+ \item \path{run_01_calculation.py} constructs the four-channel aggregate and writes
+       canonical calculation bytes plus execution metadata;
+ \item \path{run_02_verification.py} independently reconstructs all four channels,
+       writes canonical verification bytes and a manifest, and requires the aggregate
+       verification to pass; and
+ \item \path{run_03_render.py} admits the stored verification and emits the closed
+       six-figure inventory without rerunning scientific verification.
+\end{enumerate}
+The scripts contain direct composition rather than a generic workflow engine.  They do
+not define command-line parsers, custom JSON encoders, helper classes, or hidden
+scientific defaults.
+
+\subsection{No-overwrite and atomic publication}
+
+For each stage, a final path $D$ and incomplete path $D_{\mathrm{inc}}$ are declared in
+advance.  The stage refuses to begin if either exists.  Outputs are written under
+$D_{\mathrm{inc}}$ and renamed atomically to $D$ only after all stage checks complete.
+This design prevents an interrupted stage from masquerading as complete and prevents a
+rerun from silently rewriting retained bytes.
+
+The first candidate exposed a subtle stage-level limitation: verification bytes were
+published before the script raised on the aggregate passing condition.  Those bytes are
+useful failure diagnostics but cannot be treated as a passing verification directory.
+They must not be deleted or rewritten merely to make the lifecycle look successful.  A
+remediated calculation must use a distinct execution identity or an explicitly authorized
+migration.
+
+\subsection{Execution artifact inventories}
+
+The first unsealed directory,
+\begin{center}
+\path{executions/direct-embedded-rank2-controlled-v1/},
+\end{center}
+preserves the canonical calculation, the failing verification and manifest, execution
+metadata, and \path{UNSEALED.md}.  It has no \path{figures/} directory because rendering
+was not admitted.
+
+The authorized successor directory is
+\begin{center}
+\path{executions/direct-embedded-rank2-controlled-v2/}.
+\end{center}
+It contains:
+\begin{itemize}
+ \item \path{execution.json}, identifying the calculation family, execution identity,
+       result path, result digest, script digest, package versions, claim boundary, and
+       unsealed status;
+ \item \path{results/calculation.json}, the canonical aggregate whose SHA-256 is
+       \path{29c1a2bdd7ec85b721cb9c9248ba0961cd1472278cf79a33f641eaa9e657dd01};
+ \item \path{verification/verification.json}, the passing aggregate verification whose
+       SHA-256 is
+       \path{cf74d9fd35f3419bec4bd98ac5535396337f37df9fcc8de56a9ae5e369a92691};
+ \item \path{verification/manifest.json}, which binds the stage paths and digests;
+ \item \path{figures/rendering.json}, which binds the closed figure inventory to the
+       stored verification; six authenticated PNG files; and
+ \item \path{UNSEALED.md}, which explicitly denies sealed-evidence status.
+\end{itemize}
+The \texttt{v1} and \texttt{v2} calculation JSON files are byte-identical.  Their
+verification artifacts differ because \texttt{v2} incorporates the exact zero-amplitude
+identity remediation.  The current three direct scripts byte-match the producer digests
+recorded by \texttt{v2}.  The preserved \texttt{v1} metadata instead record historical
+calculation- and verification-script SHA-256 values
+\path{c19178d2cbfdc8af094f7628deef1b5c8237383a64ec572a2d301ad25ba1533c}
+and
+\path{58e2a9fcf8fea3b07252d91509ebcf2a6eb8e97c3fb8973698f8e7844b22ee01}.
+Those values necessarily differ from the successor scripts after the execution identity
+and independent exact-zero route changed.  The current checkout retains their digests,
+not separate byte copies of the two historical \texttt{v1} producer scripts.  This is a
+provenance limitation of the failed attempt; the immutable \texttt{v1} directory is not
+rewritten to disguise it.
+
+\subsection{Canonical identity checks}
+
+For any retained typed record $x$, the stage requires
+\begin{equation}
+ \operatorname{encode}(\operatorname{decode}(\operatorname{encode}(x)))
+ =\operatorname{encode}(x)
+ \label{eq:canonical-roundtrip}
+\end{equation}
+byte for byte.  The manifest then records SHA-256 of those exact canonical bytes.  On
+admission, both canonical equality and digest equality are checked.  These steps prevent
+an equivalent-but-differently-encoded JSON representation from acquiring the identity
+of the retained artifact.
+
+\subsection{Software environment}
+
+The execution metadata records installed versions of \texttt{ksdft2effmass}, NumPy,
+Project Koios Optimization, Project Koios PhysKit, and SciPy.  The script digest binds the
+exact direct calculation entry point.  The current report does not claim that package
+version strings or script hashes alone capture the complete machine environment,
+BLAS/LAPACK implementation, compiler options, operating system, or hardware.  A sealed
+reproduction package would require a separately reviewed environment and provenance
+policy.
+
+\subsection{Reproduction commands and authorization}
+
+From the repository root, the intended commands are
+\begin{verbatim}
+uv run --project python python \
+  calculations/periodic1d/rank2/\
+  band-equivalence-versus-hopping-locality/run_01_calculation.py
+uv run --project python python \
+  calculations/periodic1d/rank2/\
+  band-equivalence-versus-hopping-locality/run_02_verification.py
+uv run --project python python \
+  calculations/periodic1d/rank2/\
+  band-equivalence-versus-hopping-locality/run_03_render.py
+\end{verbatim}
+These commands are documentary, not blanket authorization.  A new production execution
+requires explicit human authorization and a new no-overwrite execution identity.  The
+existing \texttt{v1} and \texttt{v2} identities cannot be reused while their directories
+exist.
+
+\subsection{Report build}
+
+The technical report is built from this directory with a warnings-visible LaTeX toolchain
+such as
+\begin{verbatim}
+latexmk -pdf -interaction=nonstopmode -halt-on-error technical-report.tex
+\end{verbatim}
+The source checks for authenticated \texttt{v2} PNG paths.  Missing files produce
+explicit boxes rather than silently substituting development figures.  Building the PDF
+reads neither the calculation JSON nor the verification JSON and does not alter their
+status.
+
+\subsection{Separation from historical donors}
+
+Historical workflow modules and development figures may explain design history, but they
+are not inputs to the direct renderer and are not authenticated by this aggregate.
+Development plots under \path{analysis/development/figures/} must not be copied into the
+authenticated slots.  Migration crosswalks should identify their provenance and eventual
+retirement disposition without pretending that historical outputs were produced by the
+installed direct lifecycle.

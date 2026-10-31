@@ -149,6 +149,23 @@ Projectors remove scalar or composite right-unitary gauge choices. Pointwise ali
 uses unitary Procrustes rotations and retains frame and projector defects separately;
 it refuses to bridge different reciprocal sewing maps implicitly.
 
+Gauge rotations and represented-operator attacks
+-------------------------------------------------
+
+``GaugeRotation`` is an abstract, immutable definition of a matrix-valued right-acting
+basis rotation. Concrete rotations bind their rank and scientific parameters at
+construction; they evaluate matrices only when given an ordered coordinate inventory.
+``GaugeAttack`` validates coordinate, rank, dtype, finiteness, and unitarity contracts
+before returning the immutable represented operators ``U^dagger H U``. This operation
+preserves pointwise spectra but does not imply that Fourier locality or truncation is
+gauge invariant.
+
+.. autoclass:: GaugeRotation
+   :members:
+
+.. autoclass:: GaugeAttack
+   :members:
+
 Wilson-loop phase spectra
 --------------------------
 

@@ -1,0 +1,153 @@
+\section{Symbol glossary and installed control ledger}
+
+\subsection{Principal mathematical symbols}
+
+\begin{longtable}{@{}p{0.18\textwidth}p{0.76\textwidth}@{}}
+\toprule
+Symbol & Meaning\\
+\midrule
+\endhead
+$q$ & Dimensionless reduced crystal momentum in $[-1/2,1/2)$, periodic with period one.\\
+$k$ & Physical inverse-length wavevector, related to $q$ by Eq.~\eqref{eq:reduced-physical-relation}.\\
+$a_0$, $G$ & Physical lattice period and reciprocal-lattice period $G=2\pi/a_0$.\\
+$j$, $N$ & Momentum-sample index and construction-mesh size.\\
+$R$ & Integer ordinary cell displacement or a representative of a finite cyclic displacement class, as stated.\\
+$\rho$ & Homotopy parameter and parent non-onsite hopping scale in $[0,1]$.\\
+$\mathcal H$ & A continuous homotopy map satisfying the endpoint conditions in Eq.~\eqref{eq:homotopy-definition}.\\
+$a$ & Dimensionless gauge-attack amplitude in $[0,\pi/4]$.\\
+$K_\rho(q)$ & Hermitian $4\times4$ ambient parent Hamiltonian; as a joint function of $(q,\rho)$, it is the installed parent-hopping homotopy.\\
+$\lambda_n(q)$ & Ordered parent or retained eigenvalue, with the represented matrix stated by context.\\
+$V_j$ & Raw $4\times2$ retained eigenvector frame.\\
+$F_j$ & Closed-loop transported periodic $4\times2$ retained frame.\\
+$P_j$ & Rank-two spectral projector $F_jF_j^\dagger$.\\
+$H_j$ & Represented retained Hamiltonian $F_j^\dagger K_jF_j$.\\
+$m_j$, $X_j$ & Half trace of $H_j$ and its traceless part.\\
+$\kappa_N$ & Mean normalized squared Frobenius power of the traceless reference field.\\
+$\theta_a(q)$ & Sinusoidal gauge angle $a\sin(2\pi q)$.\\
+$\mathcal R(\theta)$ & Real rotation in $SO(2)$; calligraphic type distinguishes it from displacement $R$.\\
+$A_a(q)$, $Y_a(q)$ & Gauge-conjugated comparison Hamiltonian and its traceless part.\\
+$G(\phi)$ & One momentum-independent real rotation admitted by the restricted comparison.\\
+$c_{N,a}(\phi)$ & Normalized matrix inner-product correlation before maximizing over $\phi$.\\
+$\mu_{N,a}$ & Maximum restricted correlation divided by $\kappa_N$.\\
+$\tau_{\mathrm{op}}$ & Minimum operator threshold allowing a nonnegative global scale.\\
+$\tau_{\mathrm{joint}}$ & Exact-spectrum joint threshold with traceless scale fixed.\\
+$B_R$ & Matrix-valued Fourier hopping block at displacement $R$.\\
+$p_R[B]$ & Normalized block power $\norm{B_R}_F^2/2$.\\
+$W_{\ne0}[B]$ & Sum of all non-onsite cyclic block powers.\\
+$R_c$ & Symmetric ordinary-lattice truncation cutoff.\\
+$E_{H,*}$ & Normalized Frobenius represented-Hamiltonian error.\\
+$E_{\lambda,*}$ & Sorted-band spectral error.\\
+$\epsilon_{64}$ & Binary64 machine epsilon.\\
+$\varepsilon_{\mathrm{verify}}$ & Fixed independent-comparison tolerance $10^{-10}$.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Installed finite controls}
+
+\begin{longtable}{@{}p{0.35\textwidth}p{0.58\textwidth}@{}}
+\toprule
+Control & Installed value\\
+\midrule
+\endhead
+Execution identities & \texttt{direct-embedded-rank2-controlled-v1} for the preserved failed verification attempt and \texttt{direct-embedded-rank2-controlled-v2} for the passing unsealed successor.\\
+Ambient and retained ranks & 4 and 2.\\
+Parent family construction mesh & $N=256$.\\
+Parent-family amplitude inventory & 32 equal intervals, hence 33 points on $[0,\pi/4]$.\\
+Parent-hopping scales & $(0,0.25,0.5,0.75,1)$.\\
+Momentum ladder & $(32,64,128,256,512)$.\\
+Momentum amplitude inventory & 64 equal intervals, hence 65 points on $[0,\pi/4]$.\\
+Required final stable refinements & 2.\\
+Adaptive construction mesh & $N=128$.\\
+Adaptive initial amplitude inventory & 8 equal intervals, hence 9 nodes.\\
+Maximum adaptive levels & 4.\\
+Maximum unique evaluated amplitudes & 129.\\
+Truncation cutoff inventory & Every integer $R_c=0,1,\ldots,16$.\\
+Truncation evaluation mesh & $M=1025$ shifted points.\\
+External-gap gate & $\delta_{\mathrm{ext}}=1.0$ parent-energy unit.\\
+Minimum transport singular-value gate & Strictly greater than $0.99$.\\
+Frame absolute tolerance & $10^{-10}$.\\
+Transport rank-relative tolerance & $10^{-12}$.\\
+Transport validation-relative tolerance & $10^{-10}$.\\
+Harmonic absolute degeneracy tolerance & $10^{-14}$.\\
+Harmonic relative degeneracy tolerance & $10^{-13}$.\\
+Momentum and amplitude study thresholds & $1.01\times10^{-8}$ independently for every declared channel.\\
+Independent verification tolerance & $10^{-10}$, fixed in installed code rather than retained request bytes.\\
+Endpoint sewing & Identity in the fixed ambient basis.\\
+Closure phase branch & Principal phase branch.\\
+Energy convention & Arbitrary positive synthetic parent-energy unit; no physical-unit calibration.\\
+Reciprocal convention & Centered, half-open, period-one reduced coordinate.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Array shapes and finite inventories}
+
+At construction size $N$, the parent matrix field has shape $(N,4,4)$, ordered parent
+eigenvalues have shape $(N,4)$, raw and transported frames have shape $(N,4,2)$, and
+retained matrix fields have shape $(N,2,2)$.  These shapes are part of the operational
+contract.  Arrays retained by domain objects are copied to canonical numerical dtypes and
+made read-only.
+
+For one qualified amplitude point, the scalar record contains the amplitude, maximum
+band defect, splitting scale, harmonic maximum, normalized restricted correlation, two
+thresholds, loss-reconstruction defect, reference and comparison non-onsite weights,
+reference and comparison Parseval defects, and the paired reference/comparison hopping
+powers over the complete cyclic displacement inventory.
+
+For one completed truncation amplitude point, the record additionally contains reference
+and comparison Nyquist powers, ordinary Hermiticity defects, direct spectral-equivalence
+defect on the shifted mesh, four interpolation errors, and one range record for every
+cutoff.  Each range record retains reference and comparison omitted powers and separate
+reference truncation, comparison truncation, and total comparison matrix and spectral
+errors.
+
+\subsection{Closed scientific outcomes}
+
+\paragraph{Parent qualification.}
+Exactly one of external-gap failure, transport-backend failure, transport numerically
+unresolved, transport-threshold failure, or qualified parent is retained.  The variants
+carry different fields because the available scientific information differs.
+
+\paragraph{Momentum refinement.}
+Exactly one of qualification stopped, converged, or unresolved is retained.  Convergence
+requires the declared final stable-refinement count; exhaustion is not encoded as a
+successful result.
+
+\paragraph{Adaptive amplitude refinement.}
+Exactly one of qualification stopped, converged, levels exhausted, or evaluations
+exhausted is retained.  Convergence requires both midpoint acceptance and disjoint
+quarter-point validation.
+
+\paragraph{Truncation.}
+Exactly one of qualification stopped or completed is retained.  A stopped result cannot
+carry fabricated cutoff consequences.
+
+\paragraph{Aggregate verification.}
+The component inventory is exactly parent family, momentum refinement, adaptive
+amplitude, and truncation, plus the prescribed nested visualization-projection checks.
+A missing, reordered, substituted, or additional component is rejected.
+
+\subsection{Error-channel crosswalk}
+
+\begin{longtable}{@{}p{0.28\textwidth}p{0.30\textwidth}p{0.35\textwidth}@{}}
+\toprule
+Channel & Mathematical object & What it does not establish\\
+\midrule
+\endhead
+External-gap qualification & Sampled $\min(\lambda_3-\lambda_2)$ & Continuous isolation between samples.\\
+Transport singular value & Minimum singular value of neighbor overlaps & Momentum convergence of all observables.\\
+Band defect & Sorted eigenvalue difference under gauge conjugation & Matrix-field equality or locality equality.\\
+Restricted correlation & Global-$SO(2)$ matrix correlation & Optimality over momentum-dependent $U(2)$.\\
+Operator threshold & Scaled restricted matrix residual & Exact-spectrum matrix residual.\\
+Joint threshold & Fixed-scale restricted matrix residual & Hopping truncation error.\\
+Parseval defect & Finite Fourier normalization consistency & Continuum Fourier convergence.\\
+Non-onsite weight & Sum of finite cyclic powers for $R\ne0$ & A unique ordinary localization length.\\
+Momentum change & Difference between adjacent finite meshes & Parent-model uncertainty.\\
+Amplitude defect & Linear interpolation defect in $a$ & Global analytic regularity or all unsampled extrema.\\
+Nyquist power & Power removed during cyclic-to-ordinary conversion & Ordinary hopping at literal displacement $-N/2$.\\
+Ordinary omitted power & Sum of blocks beyond $R_c$ & Total represented-Hamiltonian error without interpolation/conversion context.\\
+Matrix truncation error & Frobenius difference of represented fields & Sorted-band error equality.\\
+Spectral truncation error & Difference of sorted retained eigenvalues & Equality of represented matrices.\\
+SHA-256 digest & Identity of canonical bytes & Numerical correctness or scientific validity.\\
+Independent verification & Agreement of two finite software routes & Material validity, publication acceptance, or evidence sealing.\\
+\bottomrule
+\end{longtable}

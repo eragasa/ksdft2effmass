@@ -1,15 +1,177 @@
-\section{Independent verification}
+\section{Independent verification and admission}
 
-The maintained verifier reconstructs harmonic maximization, frame alignment, raw block
-powers, and selected observables without trusting producer diagnostics.  Verification
-must check parent Hermiticity, retained-space isolation, frame orthonormality, reciprocal
-closure, projector reconstruction, pointwise spectral equivalence, Parseval identities,
-and range-selection decisions.
+\subsection{Independence requirement}
 
-For the flat family, finite-mesh correlation and the analytic $J_0(2a)$ comparator are
-distinct fields.  Agreement between them is a convergence diagnostic, not permission to
-replace finite data with the analytic value.  For the dispersive family, shared parent
-eigenvalues and projectors supply frame-invariant refinement channels.  Neighbor-overlap
-singular values are qualification gates rather than convergence observables.
+The verifier is intentionally more than a schema checker.  It reconstructs expected
+values through direct finite formulas and compares them with the canonical calculation
+record.  The independent route may use NumPy primitives and the declared mathematical
+model, but it must not call the production parent constructor, frame-transport owner,
+analysis owner, Fourier owner, request-mesh owner, parent-family owner, adaptive-refinement
+owner, interpolation owner, cyclic-to-ordinary conversion owner, truncation owner, or
+gauge-action owner.  Reusing those owners would test serialization around the same
+implementation rather than independently test the implementation.
 
-No independent verification result is presently owned by this successor directory.
+The verification tolerance is an installed policy of
+\begin{equation}
+ \varepsilon_{\mathrm{verify}}=10^{-10}.
+ \label{eq:verification-tolerance}
+\end{equation}
+It is not read from retained bytes and cannot be enlarged by an execution artifact.
+Scientific study thresholds, such as $1.01\times10^{-8}$ for refinement, have a
+different meaning and do not replace Eq.~\eqref{eq:verification-tolerance}.
+
+\subsection{Direct parent and spectral reference}
+
+The reference route evaluates Eq.~\eqref{eq:installed-parent} directly at every declared
+$q_j$ and uses an independent call to Hermitian diagonalization.  It reconstructs
+\begin{equation}
+ \Delta_{\mathrm{ext},N},\quad
+ \{\lambda_n(q_j)\}_{n=1}^4,
+ \quad
+ P_j=V_jV_j^\dagger,
+ \label{eq:reference-parent-quantities}
+\end{equation}
+and independently applies the external-gap disposition.  The comparison uses ordered
+eigenvalues and projectors where gauge invariance is required; it never demands equality
+of arbitrary raw eigenvector phases.
+
+\subsection{Direct Gram--polar transport reference}
+
+For each neighboring overlap matrix, the reference computes singular values and the
+unitary polar factor directly.  It carries the frame around the loop, diagonalizes the
+closure mismatch, applies the declared principal-phase branch, and distributes closure
+phases using Eq.~\eqref{eq:closure-distribution}.  It then reconstructs the transported
+frame, retained matrices, trace/traceless split, splitting scale, and every retained
+transport diagnostic.
+
+This route distinguishes:
+\begin{itemize}
+ \item external-gap failure before transport;
+ \item numerical rank failure indicated by the transport status;
+ \item backend failure with operation, reason, and link index;
+ \item policy threshold failure when a numerically resolved minimum singular value is
+       not greater than the installed bound; and
+ \item a fully qualified parent with all scalar and phase diagnostics.
+\end{itemize}
+The observed and reference outcomes must have the same exact variant type before
+variant-specific numerical fields are compared.
+
+\subsection{Direct alignment and Fourier reference}
+
+The verifier reconstructs the gauge rotation from elementary sine and cosine formulas,
+forms $A_a$ by direct conjugation, and evaluates pointwise eigenvalues.  It derives the
+second-harmonic coefficients in Eq.~\eqref{eq:correlation-harmonic} from residual
+matrices, solves the continuous harmonic maximum analytically, reconstructs both
+thresholds, and directly evaluates the matrix loss at the maximizing rotation.
+
+Fourier coefficients are reconstructed from Eq.~\eqref{eq:discrete-fourier-pair} by
+explicit finite sums.  Reference and comparison block powers, displacement inventories,
+non-onsite weights, and Parseval residuals are compared separately.  Agreement of total
+weight cannot hide a misplaced individual hopping block; both inventory equality and
+maximum individual power defect are checked.
+
+For every amplitude point, the verifier compares at least:
+\begin{align*}
+ &\text{maximum sorted-band defect},\quad
+ \kappa_N,\quad \mu_{N,a},\quad
+ \tau_{\mathrm{op},N}(a),\quad
+ \tau_{\mathrm{joint},N}(a),\\
+ &d_{\mathrm{recon}}(a),\quad
+ W_{\ne0}[H],\quad W_{\ne0}[A_a],\quad
+ d_{\mathrm{Parseval}}[H],\quad d_{\mathrm{Parseval}}[A_a],\\
+ &\text{harmonic coefficients, maximum, period, status, and maximizing argument},\\
+ &\text{every reference and comparison displacement power}.
+\end{align*}
+The identity of a harmonic outcome and its numerical coefficients are separate checks.
+
+\subsection{Family verification}
+
+The family verifier first compares the exact ordered $\rho$ inventory.  It then executes
+a complete independent analysis for each family member.  A passing member at one $\rho$
+does not compensate for a failure at another.  The family-level visualization projection
+is generated independently from the reference family, and the vector and matrix portions
+of that projection are compared under Eq.~\eqref{eq:verification-tolerance}.
+
+The canonical family bytes are separately hashed even though they are nested inside the
+aggregate.  This nested identity makes the family boundary explicit and prevents a
+renderer from accepting a family projection that was not derived from the authenticated
+family record.
+
+\subsection{Momentum-refinement verification}
+
+The reference route rebuilds every mesh analysis independently and re-evaluates every
+adjacent-mesh metric.  It checks exact mesh doubling, preservation of every non-mesh
+control, complete coverage of the declared mesh inventory, and equality of the retained
+step disposition with Eq.~\eqref{eq:momentum-pass}.  It also independently determines
+whether the required final number of stable refinements has passed and checks that the
+closed result variant is correspondingly \emph{converged}, \emph{unresolved}, or
+\emph{qualification stopped}.
+
+This distinction matters because the refinement result can be numerically unresolved
+even while band-equivalence, Fourier, and Parseval residuals are near binary64 roundoff.
+A separate parent-diagnostic change may still exceed its declared threshold.
+
+\subsection{Adaptive-amplitude verification}
+
+The adaptive verifier reconstructs the exact midpoint and quarter-point inventories from
+the retained nodes, independently evaluates every direct point, and recomputes every
+linear-interpolation defect.  It checks that only failed midpoint intervals or failed
+quarter points were promoted into the next node inventory.  It also checks the evaluation
+cap before adding new amplitudes.
+
+A converged variant is admitted only if the final midpoint level passes and a disjoint
+quarter-point validation on the same node inventory also passes.  If the level cap or
+sample cap is reached first, the corresponding exhaustion variant must be retained.
+This prevents a resource stop from being misreported as convergence.
+
+\subsection{Truncation verification}
+
+The independent truncation route evaluates finite Fourier sums directly, identifies the
+centered even-mesh Nyquist representative, removes it from the ordinary inventory,
+checks ordinary conjugate closure, and recomputes its separate power.  It constructs the
+shifted evaluation mesh, verifies nonoverlap with the construction mesh, performs direct
+finite interpolation, applies each symmetric cutoff, and recomputes every norm in
+Eq.~\eqref{eq:truncation-errors}.
+
+Reference truncation, comparison truncation, interpolation, and total comparison errors
+are verified as different channels.  The verifier also checks the closed truncation
+variant: qualification stop cannot carry completed ranges, while completion must carry
+the entire amplitude and cutoff inventories.
+
+\subsection{Canonical bytes and stored-verification admission}
+
+Let $b_C$ be canonical calculation bytes, $b_F$ canonical nested family bytes, and $b_V$
+canonical aggregate visualization-data bytes.  Verification retains
+\begin{equation}
+ h_C=\operatorname{SHA256}(b_C),\qquad
+ h_F=\operatorname{SHA256}(b_F),\qquad
+ h_V=\operatorname{SHA256}(b_V).
+ \label{eq:authenticated-digests}
+\end{equation}
+On readback, the admission path decodes each typed record, re-encodes it canonically, and
+requires exact byte equality before checking its digest.  Therefore a semantically
+similar but noncanonical JSON document is not silently normalized into an authenticated
+artifact.
+
+Stored admission then requires:
+\begin{enumerate}
+ \item exact canonical calculation bytes;
+ \item exact canonical verification bytes;
+ \item matching calculation and visualization digests;
+ \item the closed expected component inventory; and
+ \item a passing aggregate verification.
+\end{enumerate}
+Only after those conditions hold may rendering proceed.  Rendering consumes the stored
+verification result; it does not rerun the verifier and does not reinterpret a failed
+component.
+
+\subsection{Interpretation of failure}
+
+A failed independent comparison is evidence of a route disagreement under the installed
+policy.  It does not by itself identify whether the producer, the independent reference,
+the comparison convention, or the installed tolerance is at fault.  Diagnosis must name
+the exact observation and preserve the failing artifact.  The first candidate execution
+failed precisely in this sense, as detailed in Section~5.5.  No tolerance was widened and
+no failed observation was discarded.  After exact-identity remediation, a distinct
+no-overwrite successor passed all four aggregate components; that later pass does not
+rewrite or invalidate the diagnostic history of the first attempt.

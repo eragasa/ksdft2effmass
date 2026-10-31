@@ -1,16 +1,79 @@
-\section{Limitations and nonclaims}
+\section{Limitations, assumptions, and nonclaims}
 
-The model is synthetic and uses an arbitrary positive energy scale.  It supplies no
-material parametrization, uncertainty quantification, thermodynamic-limit result, or
-continuum certificate.  Finite momentum and amplitude samples do not establish extrema
-between samples.  A first-passing cutoff is conditional on the declared mesh, evaluation
-set, norm, tolerance, and maximum tested range.
+\subsection{Synthetic model limitation}
 
-The restricted global $SO(2)$ alignment is not maximally localized Wannier gauge
-optimization.  Pointwise unitary equivalence does not make two represented matrix fields
-identical under the declared restricted comparison.  Conversely, representation-induced
-hopping redistribution is not evidence of a changed physical band spectrum.
+The parent Hamiltonian is synthetic.  Its entries use an arbitrary positive energy
+scale, and no orbital labels, fitted parameters, crystal chemistry, pseudopotential,
+exchange--correlation approximation, or experimental uncertainty is attached to them.
+The model demonstrates representation and locality mechanisms in a controlled finite
+setting.  It does not predict any named semiconductor.
 
-Lean formalization of related finite identities does not certify NumPy execution,
-serialized JSON, plots, binary64 rounding, or the applicability of this model to a
-material system.
+\subsection{Sampled rather than continuous qualification}
+
+The external gap is minimized on a finite mesh.  A passing sampled gap does not prove a
+positive gap at every $q\in\Brillouin$.  The momentum ladder provides finite stability
+information, but its candidate outcome is unresolved and does not certify a continuum
+limit.  Likewise, finite amplitude inventories do not establish all extrema between
+samples.  Adaptive interpolation defects quantify a declared linear-interpolation
+question only.
+
+\subsection{Gauge and comparison restriction}
+
+The admitted recovery is one momentum-independent real rotation, optionally accompanied
+by a nonnegative scalar in the operator-threshold problem.  It is not the full group of
+momentum-dependent $U(2)$ gauge transformations, not a complex global-unitary search,
+not a disentanglement algorithm, and not maximally localized Wannier gauge optimization.
+A large restricted residual therefore means that the two matrix fields cannot be well
+identified by this restricted action; it does not mean their pointwise spectra differ.
+
+Conversely, exact pointwise spectral equivalence does not imply equality of represented
+matrix fields or Fourier coefficients.  Hopping redistribution under a gauge action is a
+representation effect inside the retained subspace.  It is not evidence that the parent
+physical bands changed.
+
+\subsection{Finite Fourier and truncation limitation}
+
+The hopping inventory first obtained from $N$ samples is cyclic.  Removal of the even-mesh
+Nyquist representative and conversion to an ordinary conjugate-closed inventory are
+finite-data operations.  A first-passing cutoff, if one were selected, would be
+conditional on the construction mesh, evaluation mesh, norm, gauge, amplitude, tolerance,
+and maximum tested range.  It would not prove compact support or an asymptotic decay law.
+
+Omitted block power, matrix interpolation error, truncation error, and sorted-band error
+are distinct.  None should be substituted for another without a proved relationship.
+The finite Frobenius bound checked by the implementation is a consistency constraint,
+not a model-adequacy theorem.
+
+\subsection{Floating-point limitation}
+
+All retained numerics are binary64.  Hermitian diagonalization, singular values, polar
+factors, Schur phases, Fourier summation, norms, and square roots are subject to rounding.
+The first candidate verification failure illustrates a particularly important numerical
+feature: an $O(\epsilon_{64})$ perturbation in a nonnegative squared quantity can become
+an $O(\sqrt{\epsilon_{64}})$ perturbation after a square root.  Exact invariants such as
+the identity gauge must therefore be encoded deliberately rather than inferred from a
+nearly exact floating-point cancellation.
+
+\subsection{No uncertainty or statistical inference}
+
+The study has no stochastic sampling, parameter posterior, confidence interval,
+uncertainty propagation, or model discrepancy distribution.  Its thresholds are declared
+numerical policies, not statistical significance levels.  A smooth trend across five
+$\rho$ values is not a regression result or a probability statement.
+
+\subsection{No formal-execution equivalence claim}
+
+Related Lean developments can formalize algebraic identities for finite periodic models.
+They do not certify NumPy execution, binary64 behavior, package versions, canonical JSON,
+SHA-256 manifests, or plot generation.  Conversely, passing Python tests does not prove
+the corresponding mathematical theorem.  Formal mathematics, numerical verification,
+and retained evidence remain complementary but distinct layers.
+
+\subsection{No evidence promotion}
+
+Nothing in this report seals, promotes, publishes, or releases either execution.  Both
+remain unsealed.  The failed \texttt{v1} verification still prevents rendering from that
+execution.  The authenticated plots in this report come only from the passing stored
+\texttt{v2} verification, but rendering does not itself seal or scientifically validate
+the calculation.  Rebuilding this PDF documents the present repository state; it does
+not change the evidence status of any calculation artifact.

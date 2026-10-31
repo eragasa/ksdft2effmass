@@ -59,6 +59,7 @@ from .gauge_bridges import (
     TwistGaugeEquivalenceIssueCode,
     TwistGaugeEquivalenceResult,
 )
+from .gauge_transformations import GaugeAttack, GaugeRotation
 from .geometry import (
     FiniteLatticeCoordinateResolver,
     FiniteLatticeIndexer,
@@ -184,6 +185,8 @@ __all__ = [
     "FiniteLatticeCoordinateResolver",
     "FiniteLatticeIndexer",
     "FiniteLatticeShape",
+    "GaugeAttack",
+    "GaugeRotation",
     "IntegralLatticeOperation",
     "Lattice1D",
     "Lattice2D",

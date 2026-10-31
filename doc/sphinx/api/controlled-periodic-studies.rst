@@ -3,9 +3,13 @@ Controlled periodic studies
 
 The maintained controlled-study API separates physical models, finite
 representations, calculations, result records, wire serializers, and independent
-verifiers. The direct rank-one Fourier-locality, rank-two composite-alignment, and
-constrained-admissible-set controls are deterministic local synthetic studies. The
-higher-rank alignment package currently exposes its fixed study parameters,
+verifiers. The direct rank-one Fourier-locality, rank-two band-equivalence,
+rank-two composite-alignment, and constrained-admissible-set controls are deterministic
+local synthetic studies. The rank-two band-equivalence package exposes flat and
+embedded-rank-two owners, closed family/refinement/truncation aggregation, canonical
+independent verification, and authenticated visualization data. Its retained local
+executions remain unsealed and do not establish convergence or material validation.
+The higher-rank alignment package currently exposes its fixed study parameters,
 alignment outcomes, and periodic-frame transport results. None of these APIs
 executes Quantum ESPRESSO or Wannier90 or establishes material validation.
 
@@ -19,6 +23,7 @@ only to the frozen two-parameter, nine-angle family.
    :maxdepth: 1
 
    ksdft2effmass/periodic1d/fourier_locality
+   ksdft2effmass/periodic1d/band_equivalence_locality
    ksdft2effmass/periodic1d/composite_band_alignment
    ksdft2effmass/periodic1d/admissible_sets
    ksdft2effmass/periodic1d/higher_rank_alignment

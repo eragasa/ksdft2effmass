@@ -1,13 +1,99 @@
-\section{Scope and evidence boundary}
+\section{Scope, questions, and evidence boundary}
 
-This report documents a controlled synthetic one-dimensional periodic calculation used
-to study the distinction between pointwise band equivalence and hopping locality.  The
-full parent has four states per cell; the isolated retained space has rank two.  The
-calculation is not a Mathieu equation, a material Hamiltonian, a density-functional
-calculation, or a scientific validation of a semiconductor model.
+\subsection{Scientific question}
 
-At this migration stage reusable numerical implementation remains with its Python owner,
-while calculation-specific development producers, tables, and figures have been
-extracted from the experiment into this calculation root.  This report does not promote
-those development outputs into retained evidence.  Historical scalar and M1--M3
-packages retain their original identities and evidence boundaries.
+The study asks a representation-sensitive question inside one fixed rank-two physical
+subspace.  Suppose two matrix fields are related pointwise by a unitary change of
+retained basis and therefore have identical ordered eigenvalues at every crystal
+momentum.  Must they have the same locality when each is Fourier transformed in its own
+declared retained frame?  The answer is no: pointwise spectral equivalence constrains
+eigenvalues but not the momentum dependence of the representing basis.  A smooth,
+momentum-dependent gauge action can preserve every band energy while redistributing
+matrix-valued hopping power over cell displacements.
+
+The numerical study makes that statement quantitative in four separate channels:
+\begin{enumerate}
+ \item a bounded parent-hopping family, which changes the ambient parent dispersion
+       while preserving all other controls;
+ \item nested momentum-mesh refinement, which measures finite-mesh stability and
+       residual consistency without changing the physical model;
+ \item deterministic adaptive amplitude refinement, which measures interpolation
+       defects in the gauge-attack parameter and requires disjoint validation before
+       convergence; and
+ \item ordinary-lattice truncation, which measures omitted hopping power, represented
+       Hamiltonian error, and sorted-band error on a mesh disjoint from the construction
+       mesh.
+\end{enumerate}
+These channels are retained together but are not collapsed into one error number.
+Parent-model variation, reciprocal discretization, parameter interpolation, and model
+reduction answer different questions.
+
+\subsection{What ``band equivalent'' means here}
+
+For the reference retained Hamiltonian $H(q)$ and comparison Hamiltonian $A_a(q)$,
+band equivalence means
+\begin{equation}
+ \operatorname{spec} A_a(q)=\operatorname{spec} H(q)
+ \quad\text{for every evaluated }q,
+ \label{eq:band-equivalence-definition}
+\end{equation}
+with eigenvalues compared in sorted order.  It does not mean $A_a(q)=H(q)$ as matrices,
+it does not identify their Fourier coefficients, and it does not permit an arbitrary
+momentum-dependent alignment during the comparison.  The scientific comparison is
+intentionally restricted to one momentum-independent real rotation, with a separately
+optimized nonnegative scalar where that scalar is part of the declared question.
+
+This restriction is substantive.  If the same momentum-dependent gauge transformation
+used to construct $A_a$ were admitted during alignment, the comparison would be
+trivial: the fields could be returned to pointwise equality by construction.  The
+restricted problem instead asks what can be represented by one global rank-two
+coordinate choice.
+
+\subsection{Finite-control status}
+
+Everything computed in this study is finite.  The parent is a synthetic $4\times4$
+Hermitian matrix field.  Its retained subspace has rank two.  Construction uses a finite
+centered uniform momentum mesh.  Fourier coefficients form a finite cyclic inventory
+before an explicit even-mesh cyclic-to-ordinary conversion.  Amplitude studies use a
+finite interval $0\le a\le\pi/4$, and truncation studies use finitely many integer
+cutoffs.  No thermodynamic limit, continuum limit, complete extremum certificate, or
+material calibration follows merely from these finite operations.
+
+Two unsealed execution directories are presently retained.  The first preserves a
+failed independent-verification attempt and has no figure inventory.  The authorized
+no-overwrite successor preserves the same canonical calculation bytes, passed aggregate
+independent verification at the unchanged installed tolerance, and produced the closed
+six-figure inventory through stored admission.  Neither directory is a reviewed release,
+a sealed evidence package, a publication result, or a material prediction.  Section~5
+keeps the failed verification history, the successful bounded route agreement, and the
+remaining unresolved scientific channels distinct.
+
+\subsection{Integrity, verification, and scientific validity}
+
+Three evidentiary notions are kept distinct:
+\begin{description}
+ \item[Canonical integrity.] Canonical typed JSON and SHA-256 identify exact bytes and
+ reject alteration or noncanonical re-encoding.  A digest says nothing by itself about
+ whether a formula is physically appropriate.
+ \item[Independent route agreement.] A verifier reconstructs the same finite observables
+ through direct formulas that avoid the production scientific owners.  Passing would
+ establish bounded numerical agreement under the installed comparison policy.
+ \item[Scientific validity.] Applicability of the model, adequacy of the controls,
+ convergence of relevant limits, interpretation of observables, and suitability for a
+ scientific claim require arguments beyond byte identity and software-route agreement.
+\end{description}
+The first candidate satisfies neither a passing aggregate-verification claim nor a
+rendered-artifact claim; its failure remains a diagnostic fact.  The successor satisfies
+the bounded independent-route and authenticated-rendering contracts, but that software
+agreement does not upgrade the finite calculation to scientific validation or sealed
+evidence.
+
+\subsection{Ownership boundary}
+
+Quantum ESPRESSO and Wannier90 are not used by this synthetic study.  The study does not
+replace either package.  Project Koios Optimization supplies unit-free numerical
+algorithms, PhysKit supplies physical and finite-periodic semantics, and
+\texttt{ksdft2effmass} owns the installed model, policy thresholds, closed outcome
+variants, aggregate retention, verification admission, and calculation-facing
+visualization semantics.  This division matters because independent verification must
+not call the same production owner whose result it is meant to check.

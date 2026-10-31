@@ -210,15 +210,14 @@ been written. No incomplete path remains after success.
 ## Study-specific class bindings
 
 Mathieu1D has finalized the first concrete binding; its source contract is documented at
-[`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md). Later implementation
-slices finalize the remaining prospective bindings. Those names may be refined before
-they become public, but no generic Periodic1D aggregate replaces them.
+[`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md). Implemented Periodic1D
+slices use their exact public owners rather than a generic Periodic1D aggregate.
 
 | Study | Configuration/analyzer/result prefix | Verification prefix | Visualization prefix |
 |---|---|---|---|
 | Mathieu1D | `Mathieu1d` | `Mathieu1d` | `Mathieu1d` |
 | Compatible rank-one control | `Periodic1DFourierLocality` | `Periodic1DFourierLocality` | `Periodic1DFourierLocality` |
-| Rank-two band equivalence | `Periodic1DBandEquivalenceLocality` | `Periodic1DBandEquivalenceLocality` | `Periodic1DBandEquivalenceLocality` |
+| Rank-two band equivalence | `Periodic1DEmbeddedSubspaceRank2` | `Periodic1DEmbeddedSubspaceRank2Calculation` | `Periodic1DEmbeddedSubspaceRank2ParentFamily` |
 | Rank-two composite alignment | `Periodic1DCompositeBandAlignment` | `Periodic1DCompositeBandAlignment` | `Periodic1DCompositeBandAlignment` |
 | Confirmatory admissible sets | `Periodic1DConfirmatoryAdmissibleSet` | `Periodic1DConfirmatoryAdmissibleSet` | `Periodic1DConfirmatoryAdmissibleSet` |
 | Scalar/direct demonstration | `Periodic1DScalarAdmissibleSet` | `Periodic1DScalarAdmissibleSet` | `Periodic1DScalarAdmissibleSet` |

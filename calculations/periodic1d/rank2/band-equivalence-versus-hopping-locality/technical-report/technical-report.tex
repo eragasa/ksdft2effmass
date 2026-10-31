@@ -1,17 +1,56 @@
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,array}
+\usepackage{graphicx}
 \usepackage{microtype}
+\usepackage{xurl}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage[margin=1in]{geometry}
 
 \title{Technical Report: Periodic-1D Rank-Two Band Equivalence versus Hopping Locality}
 \author{Project Koios}
-\date{Development migration draft}
+\date{Development migration draft; independently verified unsealed calculation discussed explicitly}
+
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\Reals}{\mathbb R}
+\newcommand{\Complex}{\mathbb C}
+\newcommand{\Brillouin}{\mathcal B}
+\newcommand{\authenticatedplot}[2]{%
+  \IfFileExists{#1}{%
+    \includegraphics[width=\textwidth]{#1}%
+  }{%
+    \fbox{\begin{minipage}[c][48mm][c]{0.94\textwidth}
+      \centering
+      \textbf{Authenticated plot unavailable}\\[4pt]
+      #2\\[4pt]
+      Expected artifact: \path{#1}
+    \end{minipage}}%
+  }%
+}
 
 \begin{document}
 \maketitle
+\begin{abstract}
+This report gives a deliberately exhaustive mathematical account of the finite,
+controlled periodic-one-dimensional rank-two study.  It defines the ambient parent
+Hamiltonian, retained spectral subspace, periodic frame construction, represented
+Hamiltonian, gauge action, restricted comparison problem, Fourier-locality measures,
+momentum and amplitude refinement rules, ordinary-lattice truncation experiment,
+closed failure outcomes, canonical aggregate record, and independent-verification
+boundary.  It records both the failed first verification attempt and its preserved
+artifacts, then the distinct authorized no-overwrite successor execution.  The successor
+passed stored independent verification at the unchanged installed tolerance and produced
+the authenticated six-figure inventory shown here.  This establishes bounded finite
+software-route agreement and artifact integrity, not scientific validation, evidence
+sealing, or publication acceptance.
+\end{abstract}
+
+\tableofcontents
+\clearpage
 
 \input{sections/01-scope-and-evidence-boundary}
 \input{sections/02-model-and-conventions}
@@ -20,5 +59,7 @@
 \input{sections/05-analysis-and-results}
 \input{sections/06-limitations-and-nonclaims}
 \input{sections/07-provenance-and-reproduction}
+\appendix
+\input{sections/08-symbol-glossary-and-control-ledger}
 
 \end{document}

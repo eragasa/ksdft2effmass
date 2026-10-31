@@ -7,17 +7,19 @@ competing versions of one frozen execution contract.
 
 | Surface | Authority | Non-authority |
 |---|---|---|
-| [`protocol.md`](protocol.md) | Current concise calculation boundary: scientific object, required channel separation, target direct lifecycle, and migration restrictions. | It is not a frozen versioned configuration, execution authorization, or assertion that the five target stages exist. |
+| [`protocol.md`](protocol.md) | Current concise calculation boundary: scientific object, required channel separation, installed direct lifecycle, and migration restrictions. | It is not a frozen versioned configuration, authorization to rerun an execution, sealing decision, or publication contract. |
 | [`protocol/experimental-protocol.tex`](protocol/experimental-protocol.tex), bibliography, and review PDF | Complete buildable prospective scientific-design snapshot migrated byte-exactly from baseline `c49aaf816702c321cdd649e2567af70da57246fe`. The tracked PDF is the selected review rendering of that snapshot. | The bundle does not override later development-only implementation or artifact dispositions and is not an immutable retained protocol. |
 | [`nested-channel-crosswalk.md`](nested-channel-crosswalk.md) and `workflow/` | Current implementation and artifact ownership inventory. | Implementation does not freeze scientific controls or authorize execution. |
-| [`technical-report/`](technical-report/README.md) | Calculation-facing explanatory migration report; selected PDF SHA-256 is `910a595daa12bc816873a505fe49a3ae8232421036892c09b90eec3a99cc68c1`. | It is not a protocol, evidence package, publication, or scientific validation. |
+| [`technical-report/`](technical-report/README.md) | Calculation-facing explanatory migration report with authenticated `v2` projections; selected PDF SHA-256 is `90eb122a7414b1baf672b58ff048f95caaf6a1dab2f03c201375e4ee065c5410`. | It is not a protocol, sealed evidence package, publication, or scientific validation. |
 | Ragasa2026a v3 manuscript and supplement | Publication consumers and scientific narrative. | They do not own calculation identity, protocol authority, execution, or evidence admission. |
 
 When the concise boundary and the migrated prospective bundle differ, the discrepancy is
-a pre-version design issue rather than an implicit amendment. Before any retained
-execution, one reviewed typed configuration and exact input wire must reconcile the
-scientific controls, channel inventory, schemas, tolerances, and artifact identities.
-Neither current document authorizes choosing values by preference.
+a pre-version design issue rather than an implicit amendment. The authorized unsealed
+`v1` and `v2` executions used the explicit controls embedded in their direct calculation
+script; they did not freeze a maintained protocol version. Before any later execution
+intended for sealing or promotion, one reviewed typed configuration and exact input wire
+must reconcile the scientific controls, channel inventory, schemas, tolerances, and
+artifact identities. Neither current document authorizes choosing values by preference.
 
 ## Historical donor boundaries
 

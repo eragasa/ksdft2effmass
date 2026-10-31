@@ -6,7 +6,7 @@ package exists at this location.
 
 This calculation is the publication-independent numerical owner intended for the active
 rank-two calculation used by `Ragasa2026a` version 3. It studies a synthetic
-one-dimensional four-state finite-range Bloch parent, its isolated two-band retained
+one-dimensional embedded-subspace/rank2 finite-range Bloch parent, its isolated two-band retained
 space, smooth momentum-dependent real rotations, and the resulting distinction between
 band equivalence and hopping locality.
 
@@ -43,13 +43,32 @@ created. Detailed values and limitations are maintained in
 
 ## Current ownership boundary
 
-Calculation-specific definitions, calculations, records, strict serialization, analysis
-admission, and independent reconstruction checks are owned under
-[`workflow/`](workflow/). The recovered implementation keeps the nonflat and truncation
-namespaces distinct. Generic matrix-field, Fourier, optimization, and physical record
-capabilities remain with their canonical reusable library owners. Reusable behavior
-still has to move from `workflow/` into cohesive reviewed source owners before a direct
-typed calculate → independently verify → render lifecycle can be proposed.
+The first reusable flat-parent control is now installed under
+`ksdft2effmass.periodic1d.band_equivalence_locality`. It owns immutable scientific
+requests/results, production finite-transform composition, dedicated retained record
+projection, an independent explicit finite-sum verifier, and a verifier-authenticated typed data
+projection consumed by a closed three-figure renderer. Scientific values remain
+serialization-free; only the retained `records` owner emits canonical bytes. This is an
+initial source-ownership tranche, not a completed family migration.
+
+The installed package now also owns the serialization-free embedded-subspace/rank2 parent request,
+external-gap and transport qualification gates, PhysKit closed-loop transport
+composition, restricted alignment, finite hopping-power analysis, canonical aggregate
+records, and independent verification. It also owns the bounded parent-hopping family
+request, correlated analysis, canonical aggregate, and independent per-member
+verification. It now also owns serialization-free momentum refinement, adaptive
+amplitude refinement, and ordinary-lattice truncation consequences with independent
+in-memory reconstruction. The installed verifier now authenticates single-parent, fully qualified parent-family,
+and cohesive calculation visualization projections. Closed inventories separately render
+the family and the momentum-refinement, adaptive-amplitude, and truncation channels. One
+cohesive calculation record now retains the parent family, momentum
+refinement, adaptive-amplitude refinement, and truncation through closed channel-specific
+variants. Its canonical bytes are authenticated by aggregate independent verification.
+The direct `run_01_calculation.py` → `run_02_verification.py` → `run_03_render.py`
+lifecycle refuses overwrite and rendering consumes stored verification rather than
+rerunning scientific routes. The recovered implementation keeps the nonflat and
+truncation namespaces distinct. Generic matrix-field, Fourier, optimization, and
+physical record capabilities remain with their canonical reusable library owners.
 
 The experiment-tree documentation and artifacts are being migrated into this calculation
 root according to [`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md).
@@ -60,8 +79,9 @@ identities; this directory does not copy, rename, or upgrade them.
 
 - [`protocol.md`](protocol.md) records the concise calculation boundary and migration rules.
 - [`protocol/`](protocol/) owns the exact buildable prospective protocol bundle.
-- [`workflow/`](workflow/) owns the calculation-specific implementation.
-- The root `run_*_development.py` files are thin workflow entrypoints.
+- `python/src/ksdft2effmass/periodic1d/band_equivalence_locality/` owns the installed flat-parent slice; the embedded-subspace/rank2 single-parent and bounded parent-family scientific, record, and independent-verification owners; and serialization-free momentum, adaptive-amplitude, and ordinary-truncation studies with independent in-memory comparison.
+- [`workflow/`](workflow/) remains a historical development donor pending reviewed retirement; aggregate retention, verification, and authenticated rendering have installed successors.
+- `run_01_calculation.py`, `run_02_verification.py`, and `run_03_render.py` own the direct no-overwrite lifecycle. The root `run_*_development.py` files remain development entrypoints.
 - [`tests/`](tests/) owns calculation-workflow software verification.
 - [`simulations/`](simulations/README.md) owns the current inputs and tabular development
   results; versioned stages remain open.
@@ -97,12 +117,18 @@ distributed checklist.
 | Surface | Current disposition |
 |---|---|
 | Flat-parent baseline | Development producer, result/verification records, refinement tables, and plots exist. |
-| Nonflat four-state realization | Separate development definition, producer, verifier, strict wire records, tables, and plots exist. |
+| Nonflat embedded-subspace/rank2 realization | Separate development definition, producer, verifier, strict wire records, tables, and plots exist. |
 | Parent-family robustness | Separate development composition and plots exist; it is explanatory, not a retained experiment. |
 | Truncation consequences | Dense-cutoff development definition, producer, strict wire records, independent verifier, refinement table, and plots exist. |
-| Momentum and amplitude refinement | Momentum diagnostics exist; the rejected amplitude interpolant is not used for the flat analytic continuum, while nonflat claims remain pointwise. |
+| Momentum and amplitude refinement | Installed owners provide exact nested-mesh momentum comparison and direct-sample adaptive amplitude interpolation diagnostics; neither substitutes an interpolant for pointwise scientific values. |
 | Diagnostic packaging | Fourteen source tables are schema-checked and packaged into a 110-row catalog, 660 sampled decisions, and three overview figure pairs without replacing producer-owned quantities. |
-| `workflow/` | Calculation-local definitions, producers, records, serialization, schemas, analysis admission, and verification to extract to reviewed source owners. |
+| Installed flat-parent owner | Immutable request/result values, finite cyclic and ordinary-lattice channels, canonical retained projection, independent finite-sum byte verification, authenticated visualization data, and a closed in-memory renderer are installed; no retained execution exists. |
+| Installed embedded-subspace/rank2 scientific core | Immutable request/result values, closed typed qualification outcomes, PhysKit transport, restricted alignment, cyclic hopping powers, canonical single-member and bounded parent-family aggregates, independent verification, authenticated visualization projections, and closed single, family, and aggregate PNG inventories are installed. A cohesive canonical calculation record retains the family, both refinements, and truncation. |
+| Installed nested momentum refinement | Exact doubling-mesh requests, closed qualification-stopped/converged/unresolved outcomes, separate adjacent-mesh channels, and an independent in-memory comparison are installed. No new refinement wire format or retained artifact is defined. |
+| Installed adaptive amplitude refinement | Direct midpoint samples, disjoint quarter-point validation, closed qualification/level-cap/sample-cap outcomes, and independent in-memory reconstruction are installed. Verification tolerance does not classify refinement. |
+| Installed embedded rank-two truncation | A dedicated `embedded_subspace/rank2/truncation/` owner removes only the negative-Nyquist class, evaluates declared ordinary cutoffs on a disjoint shifted mesh, retains separate omitted-power, interpolation, truncation-only, and total Hamiltonian/spectral channels, and verifies them through independent direct finite formulas. No custom wire format is defined. |
+| Direct lifecycle | Three no-overwrite scripts calculate the cohesive aggregate, retain independent verification, and render six authenticated family, refinement, and truncation figures from stored verification. The preserved unsealed `v1` attempt failed independent verification; the separately authorized unsealed `v2` execution passed at the unchanged tolerance and rendered the closed inventory. Neither execution is sealed, promoted, or publication evidence. |
+| `workflow/` | Historical development donor pending a separate reviewed retirement; its aggregate-retention, verification, and rendering roles have installed successors. |
 | [`protocol/`](protocol/) | Exact three-file buildable prospective protocol bundle migrated from the experiment tree. |
 | [`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md) | Closed 40-file source partition with SHA-256 identities, exact destinations or dispositions, consumer inventory, and parity/removal gates. |
 | [`adapted-script-parity.md`](adapted-script-parity.md) | Nine-pair AST, scratch-result, PNG, and normalized-PDF parity audit; software evidence only. |

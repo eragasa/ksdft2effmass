@@ -22,6 +22,18 @@
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\authenticatedplot}[2]{%
+  \IfFileExists{#1}{%
+    \includegraphics[width=\textwidth]{#1}%
+  }{%
+    \fbox{\begin{minipage}[c][48mm][c]{0.94\textwidth}
+      \centering
+      \textbf{Authenticated plot unavailable: no admitted rendered artifact}\\[4pt]
+      #2\\[4pt]
+      Expected artifact: \path{#1}
+    \end{minipage}}%
+  }%
+}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -54,8 +66,8 @@ verifies these flat-parent channels under nested momentum refinement and separat
 exposes unresolved amplitude interpolation. An initial non-flat four-state calculation
 using the same smooth family preserves roundoff-level band agreement while redistributing
 existing hopping weight. Its frame-invariant momentum controls converge, while amplitude
-interpolation remains unresolved. A bounded parent-hopping homotopy shows the mechanism
-throughout five sampled dispersion scales. An exploratory ordinary-lattice truncation
+interpolation remains unresolved. A bounded continuous interpolation of parent hopping
+(a homotopy) shows the mechanism throughout five sampled dispersion scales. An exploratory ordinary-lattice truncation
 layer then demonstrates on a disjoint mesh that the rotated representation requires
 substantially greater hopping range for comparable band accuracy.
 \end{abstract}
@@ -1322,16 +1334,26 @@ thresholds.
 
 \subsection{Bounded parent-family robustness study}
 
-To distinguish the representation orbit from dependence on one selected parent, define
+Two continuous maps $f_0,f_1:X\to Y$ are homotopic if a continuous map
+$\mathcal H:X\times[0,1]\to Y$ exists with
+$\mathcal H(x,0)=f_0(x)$ and $\mathcal H(x,1)=f_1(x)$.  The map $\mathcal H$ is the
+homotopy.  Here $X$ is the period-one Brillouin circle, $Y$ is the space of
+$4\times4$ Hermitian matrices, and $\rho$ is the homotopy parameter.  To distinguish
+the representation orbit from dependence on one selected parent, define the continuous
+parent-hopping homotopy
 \begin{equation}
  K_\rho(q)=T_0+\rho\left(e^{2\pi iq}T_{+1}+e^{-2\pi iq}T_{-1}\right),
  \qquad 0\leq\rho\leq1.
  \label{eq:parent-homotopy}
 \end{equation}
 Thus $\rho=0$ is the onsite four-state parent and $\rho=1$ is the full parent in
-Eq.~\eqref{eq:parent-bloch}. The onsite matrices, retained rank, frame protocol, and
-rotation family are unchanged. Every sampled $\rho$ must independently clear the gap,
-transport-rank, reconstruction, and momentum-refinement controls.
+Eq.~\eqref{eq:parent-bloch}; the two endpoint Hamiltonian fields are homotopic through
+$K_\rho$. The onsite matrices, retained rank, frame protocol, and rotation family are
+unchanged. Every sampled $\rho$ must independently clear the gap, transport-rank,
+reconstruction, and momentum-refinement controls.  This continuous interpolation alone
+does not prove a gap-preserving homotopy or topological equivalence, because the reported
+external-gap checks cover a finite $(q,\rho)$ inventory rather than every point of the
+continuous parameter domain.
 
 \begin{figure}[p]
   \centering
@@ -1827,6 +1849,49 @@ source and dependency provenance; platform and command information; authenticate
 schema identities; the exact source manifest; a checksum manifest; and a readable
 report separating controls, calculated quantities, and interpretation. Experiment
 version, run identity, and content-addressed evidence-package identity remain distinct.
+
+\subsection{Authenticated direct-lifecycle figure contract}
+
+The installed direct lifecycle binds the canonical visualization projection to the
+aggregate verification record before rendering. Figures~\ref{fig:direct-momentum-refinement}--
+\ref{fig:direct-truncation-consequences} are therefore protocol-owned presentation
+slots, not independently supplied illustrations. Each slot resolves only to the named
+PNG emitted by the no-overwrite render stage. If no authorized execution is present,
+the manuscript displays an explicit placeholder rather than substituting development
+figures or rerunning a scientific route.
+
+\begin{figure}[p]
+  \centering
+  \authenticatedplot{figures/embedded-rank2-momentum-refinement.png}%
+    {Nested momentum-refinement channels}
+  \caption{Authenticated momentum-refinement projection. Every parent, alignment,
+  hopping, band, reconstruction, and Parseval change remains a separate curve against
+  the fine reciprocal-mesh size. A highlighted mesh indicates a retained failing
+  adjacent refinement; it is not converted into a backend or qualification failure.}
+  \label{fig:direct-momentum-refinement}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \authenticatedplot{figures/embedded-rank2-adaptive-amplitude-refinement.png}%
+    {Adaptive midpoint and disjoint quarter-point channels}
+  \caption{Authenticated adaptive-amplitude projection. Midpoint interpolation defects
+  and disjoint quarter-point validation defects occupy separate panels and preserve all
+  five scientific channels. If no validation was retained before a declared stop, the
+  right panel states that absence instead of displaying a passing value.}
+  \label{fig:direct-adaptive-amplitude}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \authenticatedplot{figures/embedded-rank2-truncation-consequences.png}%
+    {Ordinary-lattice truncation consequence channels}
+  \caption{Authenticated truncation projection. Omitted hopping power, finite-range
+  Hamiltonian and spectral errors, total comparison errors, and interpolation controls
+  remain separate. Each displayed maximum over amplitudes is taken independently; the
+  figure does not imply one common maximizing amplitude.}
+  \label{fig:direct-truncation-consequences}
+\end{figure}
 
 \subsection{Failure policy}
 

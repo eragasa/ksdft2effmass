@@ -35,15 +35,21 @@ The maintained calculation must report these channels independently:
 
 The errors are not an automatically additive budget.
 
-## Five-stage contract
+## Direct lifecycle contract
 
-1. `simulations/run_01_experiment.py` produces a versioned simulation result.
-2. `simulations/run_02_experiment_verification.py` independently verifies that result.
-3. `analysis/run_03_analysis.py` consumes only verified simulation output.
-4. `analysis/run_04_analysis_verification.py` independently verifies the analysis.
-5. `analysis/run_05_plots.py` consumes verified analysis output.
+1. `run_01_calculation.py` composes simulation and analysis owners and retains one
+   canonical calculation record containing the parent family, momentum refinement,
+   adaptive-amplitude refinement, and truncation.
+2. `run_02_verification.py` admits the exact retained bytes and independently verifies
+   every aggregate channel before retaining canonical verification.
+3. `run_03_render.py` admits stored aggregate and parent-family authentication and renders
+   the closed six-figure family, momentum-refinement, adaptive-amplitude, and truncation
+   inventory without rerunning scientific verification.
 
-These paths are contractual targets, not assertions that the stages already exist.
+All three stages refuse overwrite. The controls embedded in the calculation script were
+recovered from development work. Their later local execution required and received
+separate authorization; this document by itself does not authorize a rerun, sealing,
+promotion, or publication.
 
 ## Migration boundary
 
@@ -56,5 +62,8 @@ Historical M2, monograph-composite, finite-angle regression, and retained artifa
 distinct and Git-recoverable; they are referenced rather than restored, merged, or
 rewritten.
 
-Production controls, a maintained version identifier, immutable run identity, retained
-execution, public archive, and scientific validation remain open.
+Two immutable no-overwrite local run identities now exist: `v1` preserves a failed
+independent-verification attempt, and `v2` preserves the byte-identical calculation with
+passing aggregate verification and six admitted figures. Both remain unsealed. A
+maintained protocol version, sealing disposition, public archive, and scientific
+validation remain open.

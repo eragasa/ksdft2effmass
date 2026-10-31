@@ -1,0 +1,16 @@
+{
+  "calculation_family": "periodic1d-rank2-band-equivalence-hopping-locality",
+  "claim_boundary": "Presentation from stored authenticated finite values only; no scientific verification rerun, evidence sealing, or publication.",
+  "execution_id": "direct-embedded-rank2-controlled-v2",
+  "figures": {
+    "embedded-rank2-adaptive-amplitude-refinement.png": "d63d23515b2bcb8f79a13dd98cec8141b8254ce93fc2f89d634084c45aba08ad",
+    "embedded-rank2-family-alignment-landscape.png": "37e3ed6f15e2e1d5fe61983de57b83cf855758add39e6cc1eab2cb4ca14eaf61",
+    "embedded-rank2-family-locality-landscape.png": "d4f461fb7221889db67162d17d103a909b265052754e7af4707b76ec6716bf97",
+    "embedded-rank2-family-qualification.png": "ec46e8ac87568aa3f1e17d460c433fa94238eac952047c33a108470bacef2e98",
+    "embedded-rank2-momentum-refinement.png": "5d3e5b24ce26fef40611095a90f6bffcc10a4dc2cca2236498c8d9b2a056424e",
+    "embedded-rank2-truncation-consequences.png": "05846f169e32a2664b35e1d31a3df78107d319434b40bb69c5e5dc112964e59e"
+  },
+  "schema_version": 1,
+  "script_sha256": "aa8d83c5e4fdaa3cd8f5e0782c20fdd9b2d190893bbc38f39847c1b32079b6b2",
+  "verification_sha256": "cf74d9fd35f3419bec4bd98ac5535396337f37df9fcc8de56a9ae5e369a92691"
+}

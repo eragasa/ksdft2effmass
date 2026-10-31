@@ -1,19 +1,398 @@
-\section{Simulation method}
+\section{Numerical method and mathematical observables}
 
-The development calculation has three related layers.  A flat traceless rank-two limit
-supports exact analytic correlation and residual identities.  A dispersive four-state
-finite-range parent supplies a momentum-dependent retained subspace and transported
-periodic frame.  A bounded parent homotopy separates representation-induced effects
-from pre-existing parent dispersion and hopping locality.
+\subsection{Overview of the calculation map}
 
-Momentum calculations assemble the same Bloch parent on nested meshes; refinement does
-not change the parent Hamiltonian.  Fourier blocks are evaluated with an explicit
-shifted-mesh convention.  Even finite-cyclic data are converted to an ordinary-lattice
-inventory by removing and separately reporting the centered Nyquist block.  Ordered
-symmetric cutoffs are then evaluated on a disjoint momentum mesh.  Cyclic conversion,
-finite interpolation, deliberate truncation, and total sorted-band effects remain
-separate channels.
+For one request $(N,\rho,\{a_r\},\text{gates},\text{tolerances})$, the production
+calculation performs the composition
+\begin{equation}
+ K_\rho(q_j)
+ \longrightarrow (\lambda_n(q_j),V_j)
+ \longrightarrow F_j
+ \longrightarrow H_j
+ \longrightarrow A_{a_r,j}
+ \longrightarrow
+ \begin{cases}
+  \text{restricted-alignment observables},\\
+  \text{cyclic Fourier powers},\\
+  \text{ordinary truncation consequences}.
+ \end{cases}
+ \label{eq:calculation-map}
+\end{equation}
+The parent is assembled explicitly, diagonalized by a Hermitian eigensolver, and then
+qualified before any gauge-amplitude point is evaluated.  Parent preparation is reused
+within an amplitude study so that changing $a$ cannot silently change the parent,
+transported frame, or reference Fourier field.
 
-The versioned five-stage calculation entry points have not yet been created.  Existing
-values remain development outputs of the maintained experiment rather than results
-produced from this successor directory.
+\subsection{Closed-loop polar frame transport}
+
+Let $V_j\in\Complex^{4\times2}$ be a raw orthonormal spectral frame.  Neighboring frames
+are related through overlap matrices
+\begin{equation}
+ M_j=F_{j-1}^\dagger V_j\in\Complex^{2\times2}.
+ \label{eq:neighbor-overlap}
+\end{equation}
+For a singular-value decomposition $M_j=L_j\Sigma_jR_j^\dagger$, the unitary polar
+factor is $Q_j=L_jR_j^\dagger$.  A right action based on $Q_j$ chooses the member of the
+same retained subspace that is closest to the preceding transported frame.  The minimum
+singular value over all links diagnoses whether this polar step is numerically resolved.
+The installed request uses a rank-relative tolerance to decide numerical rank and a
+separate validation-relative tolerance for backend residual checks.
+
+Transport around the periodic loop generally leaves an endpoint mismatch
+$W\in U(2)$.  With a Schur or spectral representation
+\begin{equation}
+ W=Z\diag(e^{i\varphi_1},e^{i\varphi_2})Z^\dagger,
+ \qquad -\pi<\varphi_n\le\pi,
+ \label{eq:closure-holonomy}
+\end{equation}
+principal-branch phases are distributed along the loop.  At mesh fraction $j/N$, the
+correction has the form
+\begin{equation}
+ C_j=Z\diag\!\left(e^{-ij\varphi_1/N},e^{-ij\varphi_2/N}\right)Z^\dagger.
+ \label{eq:closure-distribution}
+\end{equation}
+The resulting frame is periodic under the declared identity endpoint sewing.  This is a
+frame construction, not a change of spectral subspace.
+
+Qualification retains, rather than hides, the following diagnostics:
+\begin{align}
+ \sigma_{\min}&=\min_{j,n}\sigma_n(M_j),\\
+ d_{\mathrm{unitary}}&=\max_j\norm{Q_j^\dagger Q_j-I_2}_{\max},\\
+ d_{\mathrm{closure}}&=\norm{\text{computed closure}-\text{declared closure}}_{\max},\\
+ d_F&=\max_j\norm{F_j^\dagger F_j-I_2}_F,\\
+ d_H&=\max_j\norm{H_j-H_j^\dagger}_{\max}.
+ \label{eq:transport-diagnostics}
+\end{align}
+A backend exception, numerical rank failure, policy threshold failure, external-gap
+failure, and successful qualification are five different outcomes.  They are not
+encoded as a single boolean.
+
+\subsection{Restricted global alignment}
+
+The comparison does not admit the local gauge $\mathcal R(\theta_a(q))$ as a recovery
+map.  Instead it admits one global real rotation
+\begin{equation}
+ G(\phi)=\mathcal R(\phi),\qquad \phi\in[0,\pi),
+ \label{eq:global-rotation}
+\end{equation}
+where the interval has length $\pi$ because conjugation of a traceless rank-two matrix
+has a doubled-angle periodicity.
+
+For discrete traceless fields $X_j$ and $Y_{a,j}$, define
+\begin{equation}
+ c_{N,a}(\phi)
+ =\frac{1}{2N}\sum_{j=0}^{N-1}
+ \Re\tr\!\left[X_j^\dagger G(\phi)^\dagger
+                  Y_{a,j}G(\phi)\right].
+ \label{eq:operator-correlation}
+\end{equation}
+Rank-two real rotations imply an exact second-harmonic representation
+\begin{equation}
+ c_{N,a}(\phi)=c_0+c_c\cos(2\phi)+c_s\sin(2\phi).
+ \label{eq:correlation-harmonic}
+\end{equation}
+The coefficients are formed directly from the matrix fields, and a continuous harmonic
+maximizer returns
+\begin{equation}
+ c_{N,a}^{\max}=\max_\phi c_{N,a}(\phi),
+ \qquad
+ \phi_{N,a}^{\star}\in\operatorname*{arg\,max}_\phi c_{N,a}(\phi).
+ \label{eq:harmonic-maximum}
+\end{equation}
+The maximizing argument can be absent when the harmonic is degenerate under the declared
+absolute and relative degeneracy tolerances.  An absent argument is a scientific
+outcome, not the number zero.
+
+The normalized discrete maximum correlation is
+\begin{equation}
+ \mu_{N,a}=\frac{c_{N,a}^{\max}}{\kappa_N},
+ \qquad -1\le\mu_{N,a}\le1,
+ \label{eq:normalized-correlation}
+\end{equation}
+up to bounded binary64 roundoff.  Values just outside the interval by no more than
+$32\epsilon_{64}$ are clamped; a larger excursion is a floating-point failure.  The
+identity amplitude $a=0$ is installed as the exact invariant $\mu_{N,0}=1$ in the
+production route.
+
+\subsection{Two non-equivalent restricted thresholds}
+
+The first comparison allows a nonnegative scalar $s$ together with the global rotation.
+Its normalized mean squared loss is
+\begin{equation}
+ \mathcal L_N(s,\phi;a)
+ =\frac{1}{2N}\sum_j
+  \norm{Y_{a,j}-sG(\phi)X_jG(\phi)^\dagger}_F^2.
+ \label{eq:scaled-loss}
+\end{equation}
+Because $X$ and $Y_a$ have the same total traceless power $\kappa_N$, minimizing the
+quadratic in $s\ge0$ yields
+\begin{equation}
+ s_{N,a}^{\star}=\max(0,\mu_{N,a}),
+ \qquad
+ \mathcal L_{N,\min}(a)
+ =\kappa_N\left[1-\max(0,\mu_{N,a})^2\right].
+ \label{eq:scaled-minimum-loss}
+\end{equation}
+The retained operator threshold is therefore
+\begin{equation}
+ \tau_{\mathrm{op},N}(a)
+ =\sqrt{\mathcal L_{N,\min}(a)}.
+ \label{eq:operator-threshold}
+\end{equation}
+
+The second comparison fixes the traceless scale, as required by exact spectrum
+preservation, and minimizes only over the global rotation.  Its threshold is
+\begin{equation}
+ \tau_{\mathrm{joint},N}(a)
+ =\sqrt{2\kappa_N[1-\mu_{N,a}]}.
+ \label{eq:joint-threshold}
+\end{equation}
+Equations~\eqref{eq:operator-threshold} and \eqref{eq:joint-threshold} answer different
+questions.  The first asks for the best globally rotated and rescaled traceless operator;
+the second asks for the best globally rotated operator at the exact spectral scale.  The
+report never replaces one by the other.
+
+The production route explicitly reconstructs the matrix loss at
+$(s_{N,a}^{\star},\phi_{N,a}^{\star})$ and retains
+\begin{equation}
+ d_{\mathrm{recon}}(a)
+ =\abs{\mathcal L_N(s_{N,a}^{\star},\phi_{N,a}^{\star};a)
+       -\mathcal L_{N,\min}(a)}
+ \label{eq:loss-reconstruction-defect}
+\end{equation}
+as a residual channel.
+
+\subsection{Flat-parent analytic formulas}
+
+For the flat traceless control $D$, the gauge rotation changes its orientation through
+twice the angle $\theta_a(q)$.  Averaging the aligned correlation over the continuous
+Brillouin zone gives
+\begin{equation}
+ \frac{1}{1}\int_{-1/2}^{1/2}\cos[2a\sin(2\pi q)]\,dq
+ =J_0(2a),
+ \label{eq:bessel-correlation}
+\end{equation}
+where $J_0$ is the Bessel function of the first kind.  Consequently,
+\begin{align}
+ \mu_{\infty,a}^{\mathrm{flat}}&=J_0(2a),\\
+ \tau_{\mathrm{op},\infty}^{\mathrm{flat}}(a)
+ &=\sqrt{\kappa\,[1-J_0(2a)^2]},\\
+ \tau_{\mathrm{joint},\infty}^{\mathrm{flat}}(a)
+ &=\sqrt{2\kappa\,[1-J_0(2a)]}.
+ \label{eq:flat-thresholds}
+\end{align}
+These formulas are analytic comparators only for the flat control.  The dispersive
+embedded parent does not inherit them.
+
+\subsection{Finite cyclic Fourier representation}
+
+For a sampled matrix field $B_j=B(q_j)$ on Eq.~\eqref{eq:centered-mesh}, the declared
+discrete hopping blocks are
+\begin{equation}
+ B_R=\frac{1}{N}\sum_{j=0}^{N-1}e^{-2\pi iq_jR}B_j,
+ \qquad
+ B_j=\sum_{R\in\mathcal R_N}e^{2\pi iq_jR}B_R,
+ \label{eq:discrete-fourier-pair}
+\end{equation}
+with a centered cyclic representative inventory $\mathcal R_N$.  The normalized block
+power is
+\begin{equation}
+ p_R[B]=\frac{1}{2}\norm{B_R}_F^2,
+ \label{eq:block-power}
+\end{equation}
+and the non-onsite weight is
+\begin{equation}
+ W_{\ne0}[B]=\sum_{R\in\mathcal R_N\setminus\{0\}}p_R[B].
+ \label{eq:nonzero-weight}
+\end{equation}
+The reference and comparison weights are retained separately.  Their difference is not
+called an error unless a particular comparison explicitly defines one.
+
+The Parseval residual is computed from the same normalization:
+\begin{equation}
+ d_{\mathrm{Parseval}}[B]
+ =\abs{\frac{1}{2N}\sum_j\norm{B_j}_F^2
+       -\sum_{R\in\mathcal R_N}p_R[B]}.
+ \label{eq:parseval-defect}
+\end{equation}
+Small residuals establish consistency of the finite transform and normalization.  They
+do not establish continuum convergence.
+
+For even $N$, $R=-N/2$ is a centered Nyquist representative that is self-conjugate only
+modulo $N$.  Treating it as an ordinary integer displacement would impose the wrong
+Hermitian-pairing semantics.  The truncation channel therefore removes this cyclic
+Nyquist block, retains its power separately, and converts the remaining inventory to an
+ordinary conjugate-closed model satisfying
+\begin{equation}
+ B_{-R}=B_R^\dagger.
+ \label{eq:ordinary-hermiticity}
+\end{equation}
+
+\subsection{Parent-hopping family}
+
+The parent-family inventory is
+\begin{equation}
+ \rho\in\{0,0.25,0.5,0.75,1\}.
+ \label{eq:rho-inventory}
+\end{equation}
+For each $\rho$, the complete procedure---parent diagonalization, gap gate, frame
+transport, retained projection, gauge-amplitude sweep, restricted alignment, and Fourier
+analysis---is repeated.  It would be incorrect to reuse the $\rho=1$ frame or projected
+Hamiltonian at another family member.  The family therefore measures sensitivity to the
+ambient parent-hopping homotopy, not merely a scalar interpolation of final observables.
+
+\subsection{Nested momentum refinement}
+
+The production momentum ladder is
+\begin{equation}
+ N\in\{32,64,128,256,512\},
+ \label{eq:momentum-ladder}
+\end{equation}
+with exact doubling.  The fine mesh contains every coarse point.  At shared points, the
+study compares parent eigenvalues and spectral projectors rather than raw eigenvectors,
+because raw eigenvectors are gauge dependent.  The shared-point projector defect is
+schematically
+\begin{equation}
+ d_P(N,2N)=\max_{q\in\mathcal Q_N}
+ \norm{P_N(q)-P_{2N}(q)}_F.
+ \label{eq:projector-refinement}
+\end{equation}
+
+For each adjacent pair $(N,2N)$ the retained step contains separate maxima for parent
+qualification diagnostics, shared parent eigenvalues, shared projectors, correlation,
+operator thresholds, hopping weights, individual hopping powers, maximizing angles,
+band defects, loss-reconstruction defects, and Parseval residuals.  Angle changes are
+compared only when the maximizing-angle dispositions are compatible; degeneracy status
+is retained separately.
+
+Let $d_{r}(N,2N)$ denote any declared change metric and $\eta_r$ its threshold.  A step
+passes only if every change metric and every fine-mesh residual satisfies its own bound:
+\begin{equation}
+ \operatorname{pass}(N,2N)
+ =\bigwedge_r[d_r(N,2N)\le\eta_r].
+ \label{eq:momentum-pass}
+\end{equation}
+Convergence requires the declared number of final adjacent pairs to pass.  Earlier
+passing pairs cannot compensate for a failing final pair, and one small observable
+cannot compensate for another large one.
+
+\subsection{Adaptive amplitude refinement}
+
+The amplitude domain is $[0,\pi/4]$.  Starting from interpolation nodes
+$\{a_i\}$, every interval $[a_i,a_{i+1}]$ is first tested at its midpoint
+$m_i=(a_i+a_{i+1})/2$.  For a scalar observable $f$, the midpoint linear-interpolation
+defect is
+\begin{equation}
+ d_f^{(1/2)}(i)
+ =\abs{f(m_i)-\frac{f(a_i)+f(a_{i+1})}{2}}.
+ \label{eq:midpoint-defect}
+\end{equation}
+The same construction is applied separately to correlation, both thresholds,
+comparison non-onsite weight, and every comparison hopping power.  For the hopping-power
+channel, the maximum is taken over the full displacement inventory after verifying that
+the inventories agree.
+
+Only failing intervals are refined.  If all midpoint checks pass, the node inventory is
+frozen and validation moves to disjoint quarter points
+\begin{equation}
+ v_{i,1}=a_i+\frac14(a_{i+1}-a_i),
+ \qquad
+ v_{i,3}=a_i+\frac34(a_{i+1}-a_i).
+ \label{eq:quarter-points}
+\end{equation}
+For $\xi\in\{1/4,3/4\}$ the validation defect is
+\begin{equation}
+ d_f^{(\xi)}(i)
+ =\abs{f(a_i+\xi\Delta a_i)
+       -[(1-\xi)f(a_i)+\xi f(a_{i+1})]}.
+ \label{eq:quarter-defect}
+\end{equation}
+Convergence requires both a passing midpoint level and a passing disjoint quarter-point
+validation on that same frozen node inventory.  A midpoint pass alone is insufficient.
+The closed alternatives are qualification stop, converged, refinement-level exhaustion,
+and evaluated-amplitude-cap exhaustion.  No alternative is silently relabeled as
+convergence.
+
+\subsection{Ordinary-lattice truncation consequences}
+
+After Nyquist removal, let the ordinary hopping model be
+\begin{equation}
+ B^{\mathrm{ord}}(q)=\sum_{R\in\mathcal R_{\mathrm{ord}}}
+ e^{2\pi iqR}B_R,
+ \qquad B_{-R}=B_R^\dagger.
+ \label{eq:ordinary-model}
+\end{equation}
+For an integer cutoff $R_c$, the symmetric truncation is
+\begin{equation}
+ B^{(R_c)}(q)=\sum_{\abs{R}\le R_c}e^{2\pi iqR}B_R,
+ \label{eq:truncated-model}
+\end{equation}
+with ordinary omitted power
+\begin{equation}
+ P_{>R_c}^{\mathrm{ord}}[B]
+ =\sum_{\abs{R}>R_c}\frac12\norm{B_R}_F^2.
+ \label{eq:ordinary-omitted-power}
+\end{equation}
+The total omitted-power diagnostic adds the separately retained Nyquist conversion power,
+\begin{equation}
+ P_{>R_c}^{\mathrm{total}}[B]
+ =P_{>R_c}^{\mathrm{ord}}[B]+P_{\mathrm{Nyq}}[B].
+ \label{eq:total-omitted-power}
+\end{equation}
+This addition is a bookkeeping identity for the finite conversion; it is not an
+ordinary-lattice hopping coefficient at $R=-N/2$.
+
+Truncation is evaluated on a shifted mesh of size $M=1025$,
+\begin{equation}
+ \widetilde q_\ell=-\frac12+\frac{\ell+\omega}{M},
+ \qquad
+ \omega=\frac{1}{N+1},
+ \qquad \ell=0,\ldots,M-1,
+ \label{eq:shifted-evaluation-mesh}
+\end{equation}
+which is checked to be disjoint from the construction mesh.  At those points the study
+retains four norms for each relevant difference: maximum normalized Frobenius error,
+root-mean-square normalized Frobenius error, maximum sorted-band error, and
+root-mean-square sorted-band error.  For matrix fields $C_\ell$ and $D_\ell$,
+\begin{align}
+ E_{H,\max}(C,D)&=\max_\ell\frac{\norm{C_\ell-D_\ell}_F}{\sqrt2},\\
+ E_{H,\mathrm{rms}}(C,D)&=
+ \sqrt{\frac{1}{2M}\sum_\ell\norm{C_\ell-D_\ell}_F^2},\\
+ E_{\lambda,\max}(C,D)&=\max_{\ell,n}
+ \abs{\lambda_n(C_\ell)-\lambda_n(D_\ell)},\\
+ E_{\lambda,\mathrm{rms}}(C,D)&=
+ \sqrt{\frac{1}{M}\sum_\ell\sum_{n=1}^2
+ [\lambda_n(C_\ell)-\lambda_n(D_\ell)]^2}.
+ \label{eq:truncation-errors}
+\end{align}
+The implementation checks the finite-dimensional inequality that the maximum sorted-band
+error does not exceed the maximum Frobenius error beyond a binary64 roundoff allowance.
+
+Three matrix comparisons remain distinct.  The interpolation channel compares the full
+finite comparison Fourier interpolant with a direct gauge action on the interpolated
+reference.  The truncation channel compares truncated and complete comparison
+interpolants.  The total channel compares the truncated comparison with the direct gauge
+reference.  Their errors may be numerically similar in a well-resolved case, but they
+are not the same defined quantity.
+
+\subsection{Canonical aggregate and lifecycle}
+
+The calculation retains the parent family, momentum refinement, adaptive amplitude
+outcome, and truncation outcome in one immutable typed aggregate.  Channel variants are
+closed: no type registry, null padding, or untyped dictionary substitutes for a missing
+scientific outcome.  Canonical serialization follows
+\begin{equation}
+ \texttt{\_mapping}\longrightarrow\texttt{to\_dict}
+ \longrightarrow\texttt{to\_json},
+ \label{eq:serialization-forward}
+\end{equation}
+with the inverse path
+\begin{equation}
+ \texttt{\_from\_mapping}\longrightarrow\texttt{from\_dict}
+ \longrightarrow\texttt{from\_json}.
+ \label{eq:serialization-inverse}
+\end{equation}
+The calculation script checks byte-for-byte canonical round trip before atomic
+publication.  Verification authenticates those bytes and a canonical visualization
+projection.  Rendering admits stored verification and does not rerun scientific
+verification.

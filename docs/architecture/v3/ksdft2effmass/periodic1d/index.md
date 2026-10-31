@@ -21,7 +21,10 @@ are absent from the live tree. The remaining studies include the distinct rank-t
 band-equivalence family.
 
 The rewrite adopts the behavioral structure demonstrated by PIAB1D and QHO1D and now
-implemented directly by Mathieu1D:
+implemented directly by Mathieu1D. The distinct rank-two band-equivalence family has
+begun migration with an installed flat-parent scientific slice, retained record owner,
+and independent finite-sum byte verifier; its four-state and direct lifecycle remain
+open:
 
 ```text
 Python-authored typed configuration
@@ -74,7 +77,7 @@ status, or conclusions:
 |---|---|---|
 | 1. Mathieu1D single-band Fourier reduction | How do two finite parent representations support one scalar retained-band reduction? | Implemented [`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) vertical slice and `calculations/mathieu1d/`; not the rank-one specialization below. |
 | 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Implemented typed source under [`periodic1d.fourier_locality`](fourier_locality/index.md) with direct stages and provisional non-retained report material under `calculations/periodic1d/rank1/fourier-locality/`; the legacy M1 runtime is retired. |
-| 3. Rank-two band equivalence versus hopping locality | Can analytically or certifiably band-equivalent represented Hamiltonians have different finite-range locality? | Separate typed source child and calculation owner. |
+| 3. Rank-two band equivalence versus hopping locality | Can analytically or certifiably band-equivalent represented Hamiltonians have different finite-range locality? | Installed typed flat and embedded rank-two owners under [`periodic1d.band_equivalence_locality`](band_equivalence_locality/index.md), with closed family/refinement/truncation aggregation, independent verification, authenticated six-figure rendering, and preserved unsealed `v1`/`v2` executions. Named full donor parity, donor retirement, sealing, and scientific validation remain open. |
 | 4. Rank-two composite-band alignment and locality | How do declared pointwise or global alignment choices affect block hoppings and diagnostics? | Implemented direct typed lifecycle under [`periodic1d.composite_band_alignment`](composite_band_alignment/index.md) and `calculations/periodic1d/rank2/composite-band-alignment-locality/`; no retained execution exists. |
 | 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Implemented authenticated source lifecycle at [`periodic1d.admissible_sets`](admissible_sets/index.md); no retained successor execution exists. |
 | 6. Minimal scalar/direct admissible-set demonstration | Can a bounded scalar construction exhibit the declared witness or separation property? | Separate analytical or numerical control; never a substitute for study 5. |
@@ -111,6 +114,7 @@ searchable provenance aliases; they are not names for new studies or a version c
 ## Detailed plan
 
 - [Compatible rank-one Fourier-locality architecture](fourier_locality/index.md)
+- [Rank-two band-equivalence/locality architecture](band_equivalence_locality/index.md)
 - [Rank-two composite-band alignment/locality architecture](composite_band_alignment/index.md)
 - [Constrained-admissible-set architecture](admissible_sets/index.md)
 - [Higher-rank alignment architecture](higher_rank_alignment/index.md)
