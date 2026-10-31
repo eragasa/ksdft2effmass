@@ -2,15 +2,26 @@
 
 ## Scope
 
-This document assigns each maintained scientific or derived channel to its
-calculation-local path, typed classes, wire/schema surface, effect adapter, and current
-artifact inventory. It is an ownership crosswalk, not a claim that every channel already
-has a retained direct lifecycle.
+This document distinguishes the installed reusable scientific owners and retained direct
+lifecycle from the calculation-local development donors. It assigns each retained channel
+to source, verification, canonical-wire, effect-adapter, and artifact ownership. It does
+not promote development tables or figures into retained evidence.
 
-All paths are relative to this calculation owner. The implementation under `workflow/`
-is calculation-local and is not an installed public API.
+Installed source paths are relative to `python/src/ksdft2effmass/periodic1d/` unless
+otherwise stated. Paths under `workflow/` are immutable historical development donors,
+not installed public APIs and not dependencies of the direct lifecycle.
 
-## Channel inventory
+## Installed retained-lifecycle inventory
+
+| Channel | Production ownership | Independent-check ownership | Canonical retention | Direct artifact and current outcome |
+|---|---|---|---|---|
+| Parent qualification and bounded parent family | `band_equivalence_locality/embedded_subspace/rank2/{parent,transport,analysis,family}.py` | `embedded_subspace/rank2/{reference,verification}.py` independently reconstructs qualification, transport, point, harmonic, and hopping channels | `embedded_subspace/rank2/records.py` projects the exact family into the aggregate calculation record | Both executions retain the same calculation bytes. `v1` preserves the diagnosed zero-amplitude reference failure; `v2` passed after exact-identity remediation. Five sampled parent scales do not certify a continuous gap-preserving homotopy. |
+| Nested momentum refinement | `embedded_subspace/rank2/refinement.py` | `refinement_reference.py` and `refinement_verification.py` | The closed momentum variant is embedded directly by `records.py`; no separate refinement wire exists | `v2` independently verified the retained `Periodic1DEmbeddedSubspaceRank2MomentumRefinementUnresolved` outcome. This is not convergence. |
+| Adaptive-amplitude refinement | `embedded_subspace/rank2/amplitude_refinement.py` | `amplitude_refinement_reference.py` and `amplitude_refinement_verification.py` retain midpoint and disjoint-quarter-point logic separately | The closed adaptive variant is embedded directly by `records.py`; no separate refinement wire exists | `v2` independently verified `Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeLevelsExhausted`. No disjoint validation was admitted, so this is not convergence. |
+| Ordinary-lattice truncation consequences | `embedded_subspace/rank2/truncation/{request,analysis,results}.py` | `truncation/reference.py` and `truncation/verification.py` use direct finite formulas without production truncation, interpolation, Fourier, or parent actions | The closed truncation variant is embedded directly by `records.py`; no separate truncation wire exists | `v2` independently verified the completed truncation result on the declared shifted mesh. It does not establish continuum adequacy. |
+| Aggregate authentication and rendering | `embedded_subspace/rank2/records.py`, `calculation_verification.py`, and `visualizations/` | Aggregate verification authenticates canonical calculation bytes, nested family bytes, visualization bytes, and all four component checks; `admit_stored()` authenticates without rerunning verification | One canonical `Periodic1DEmbeddedSubspaceRank2CalculationRecord` and one canonical aggregate verification | The three root direct scripts own no-overwrite calculation, verification, and rendering. `v2` contains the closed six-PNG inventory and `rendering.json`; both executions remain unsealed. |
+
+## Historical development-donor inventory
 
 | Channel | Definition and producer ownership | Result and independent-check ownership | Wire and schema | Effect adapter and artifacts | Current limitation |
 |---|---|---|---|---|---|
@@ -23,7 +34,7 @@ is calculation-local and is not an installed public API.
 | Dense ordinary-lattice truncation | `workflow/truncation/definition.py`: `SmoothFourStateTruncationDefinition`; `workflow/truncation/experiment.py`: `SmoothFourStateTruncationExperiment` | Truncation result, point, and range records; `SmoothFourStateTruncationVerifier`, verification result, and range-decision records | Strict truncation input/result/verification serializers; `workflow/schema_documents/truncation-{input,result,verification}.schema.json` | `run_truncation_development.py`; `truncation-{consequences,summary}.csv`; truncation and error-channel figure pairs | Development cutoff cap and tolerances are not a frozen protocol or retained result. |
 | Threshold-adjacent truncation refinement | Reuses the nonflat definition and dense truncation definition/producer at three construction meshes | Reuses `SmoothFourStateTruncationVerifier` and independently checks each first-passing cutoff and its predecessor | No separate refinement aggregate wire/schema | `run_truncation_refinement_development.py`; `truncation-refinement.csv` | The CSV is a development diagnostic, not an uncertainty estimate or convergence rate. |
 | Diagnostic-table admission and sampled decisions | `workflow/analysis.py`: `DiagnosticTable`, `DiagnosticTableContract`, metric metadata, and `DiagnosticBundle` | Schema/product-grid/canonical-order checks and defensive table access; no production analyzer is invoked | CSV contracts are calculation-local; derived tables have no independent retained wire | `run_diagnostic_packaging_development.py`; `diagnostic-catalog.csv`, `sampled-range-decisions.csv` | This is analysis integrity, not a second provenance system. |
-| Overview figure composition | `workflow/analysis_plot.py` owns figure construction and saving for three diagnostic views; explicit development plot scripts own the remaining figures | Reproduction compares pixel arrays and rasterized PDFs against predecessor bytes | No authenticated verified-projection record | Ten figure pairs under `analysis/development/figures/` | Direct authenticated render admission remains open before retained use. |
+| Overview figure composition | `workflow/analysis_plot.py` owns figure construction and saving for three diagnostic views; explicit development plot scripts own the remaining figures | Reproduction compares pixel arrays and rasterized PDFs against predecessor bytes | No authenticated verified-projection record for these donor figures | Ten figure pairs under `analysis/development/figures/` | These remain replaceable development renderings. They are not substitutes for the separate authenticated six-PNG `v2` inventory. |
 | Prospective protocol and migration boundary | `protocol/experimental-protocol.tex` owns the complete buildable scientific design snapshot; `protocol.md` owns the concise current calculation/lifecycle boundary | Review snapshot is `protocol/experimental-protocol.pdf`; migration evidence is documentary | No immutable versioned configuration wire is frozen | Scratch build recipe in `protocol/README.md`; separate `technical-report/` summary | Authority and conflict rules are defined in `protocol-authority-and-historical-donors.md`; neither surface authorizes execution. |
 
 ## Artifact ownership rules
@@ -38,6 +49,9 @@ is calculation-local and is not an installed public API.
   `9e88e334...` is not promoted into this calculation owner.
 - Exact source/destination and supersession dispositions for the remaining experiment
   files are machine-readable in `experiment-removal-manifest.json`.
-- Passing checks establish software behavior and bounded reproduction only. They do not
-  establish retained evidence, continuum convergence, uncertainty quantification,
-  scientific validation, publication acceptance, sealing, or release.
+- The direct lifecycle does not import or execute `workflow/`; reviewed donor retirement
+  remains separate from the completed retained aggregate lifecycle.
+- Passing checks and the admitted `v2` rendering establish bounded software-route
+  agreement and exact projection identity only. They do not establish continuum
+  convergence, uncertainty quantification, scientific validation, publication acceptance,
+  sealing, or release.

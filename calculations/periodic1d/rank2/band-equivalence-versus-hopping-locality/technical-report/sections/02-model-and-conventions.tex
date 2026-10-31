@@ -1,26 +1,202 @@
-\section{Model and conventions}
+\section{Model, state spaces, and conventions}
 
-The parent is a one-dimensional finite-range Bloch Hamiltonian
-\begin{equation}
- K(q)=\sum_{R=-1}^{1} e^{2\pi i qR}T_R,
- \qquad -\tfrac12\le q<\tfrac12,
-\end{equation}
-with four orbitals per cell and Hermitian reverse hopping
-$T_{-1}=T_{+1}^{\dagger}$.  The two lowest eigenvectors are retained only when
-the second-to-third-band isolation gate passes.  A discrete parallel-transport and
-closure procedure supplies a periodic orthonormal frame $F(q)$, giving
-\begin{equation}
- H(q)=F(q)^{\dagger}K(q)F(q).
-\end{equation}
+\subsection{Reduced momentum and physical wavevector}
 
-The band-equivalent comparison field is
+The Brillouin coordinate used by every installed numerical owner is the dimensionless
+reduced crystal momentum
+\begin{equation}
+ q\in\Brillouin=[-\tfrac12,\tfrac12),\qquad q\sim q+1.
+\end{equation}
+If $a_0$ is a physical lattice period, $G=2\pi/a_0$ is the reciprocal-lattice period
+and $k$ is the inverse-length wavevector, then
+\begin{equation}
+ q=\frac{k}{G}=\frac{k a_0}{2\pi},\qquad k=qG.
+ \label{eq:reduced-physical-relation}
+\end{equation}
+Accordingly, all band functions in this report are written as $\lambda_n(q)$.
+The symbol $k$ is reserved for a physical wavevector and is never used as a finite-mesh
+index.  Integer mesh indices are denoted $j$, amplitude indices by $r$, and cell
+displacements by $R$.
+
+For even $N$, the centered half-open construction mesh is
+\begin{equation}
+ \mathcal Q_N=\left\{q_j=-\frac12+\frac{j}{N}:j=0,\ldots,N-1\right\}.
+ \label{eq:centered-mesh}
+\end{equation}
+The half-open convention avoids duplicating the periodically equivalent endpoints.
+All interval statements involving $q$ are understood modulo one.
+
+\subsection{Ambient and retained state spaces}
+
+The ambient cell space is $\Complex^4$ in a fixed ordered four-orbital basis.  The
+retained fiber at momentum $q$ is a two-dimensional spectral subspace
+$\mathcal S(q)\subset\Complex^4$.  A frame
+$F(q)\in\Complex^{4\times2}$ is an isometric coordinate map from the retained
+coordinate space $\Complex^2$ into $\mathcal S(q)$:
+\begin{equation}
+ F(q)^\dagger F(q)=I_2,
+ \qquad
+ P(q)=F(q)F(q)^\dagger.
+ \label{eq:frame-projector}
+\end{equation}
+The physical subspace is represented by the projector $P(q)$ and is unchanged by a
+right unitary action $F(q)\mapsto F(q)W(q)$.  The represented $2\times2$ Hamiltonian,
+however, changes by conjugation.  This distinction between subspace and representation
+is the central conceptual layer of the study.
+
+\subsection{Finite-range four-orbital parent}
+
+Two continuous maps $f_0,f_1:X\to Y$ are \emph{homotopic} when there exists a
+continuous map
+\begin{equation}
+ \mathcal H:X\times[0,1]\longrightarrow Y
+ \quad\text{such that}\quad
+ \mathcal H(x,0)=f_0(x),\qquad \mathcal H(x,1)=f_1(x).
+ \label{eq:homotopy-definition}
+\end{equation}
+The map $\mathcal H$ is called a \emph{homotopy} between $f_0$ and $f_1$.  In this
+study, $X=\Brillouin$ is the period-one Brillouin circle, $Y=\operatorname{Herm}(4)$ is
+the space of $4\times4$ Hermitian matrices, and the interpolation parameter is
+$\rho\in[0,1]$.  Consequently, if $(q,\rho)\mapsto K_\rho(q)$ is continuous, then the
+endpoint parent fields $K_0$ and $K_1$ are homotopic as Hermitian matrix-valued maps.
+This use of \emph{homotopy} means a continuous parent-model interpolation only.  It does
+not by itself establish a gap-preserving homotopy or topological equivalence: that would
+require the relevant spectral gap to remain open for every continuous pair
+$(q,\rho)$, whereas the calculation applies its external-gap gate only on finite sampled
+inventories.
+
+Let $z(q)=e^{2\pi iq}$.  The installed parent-hopping homotopy is the continuous map
+\begin{equation}
+ K_\rho(q)=
+ \begin{pmatrix}
+ L_0+\rho[z(q)L_1+\overline{z(q)}L_1^\dagger]&\rho z(q)C\\
+ \rho\overline{z(q)}C^\dagger&
+ U_0+\rho[z(q)U_1+\overline{z(q)}U_1^\dagger]
+ \end{pmatrix},
+ \qquad 0\le\rho\le1,
+ \label{eq:installed-parent}
+\end{equation}
+where
 \begin{align}
- \theta_a(q)&=a\sin(2\pi q),\\
- U_a(q)&=R(\theta_a(q)),\\
- A_a(q)&=U_a(q)^{\dagger}H(q)U_a(q),
- \qquad 0\le a\le\pi/4.
+ L_0&=\begin{pmatrix}-1.20&0.06\\0.06&-0.35\end{pmatrix},&
+ L_1&=\begin{pmatrix}0.15&0\\0&-0.10\end{pmatrix},\\
+ U_0&=\begin{pmatrix}1.00&0.04\\0.04&1.75\end{pmatrix},&
+ U_1&=\begin{pmatrix}0.05&0\\0&-0.04\end{pmatrix},\\
+ C&=\begin{pmatrix}0.12&0\\0&0.10\end{pmatrix}.
+ \label{eq:installed-blocks}
 \end{align}
-Thus $A_a(q)$ and $H(q)$ have identical ordered eigenvalues at every momentum, while
-their Fourier hopping blocks in the declared retained coordinates generally differ.
-The comparison admits one momentum-independent real rotation and deliberately excludes
-reuse of $U_a(q)$.
+All numerical entries use one arbitrary positive synthetic parent-energy unit.  There
+is no conversion to electronvolts and no material parametrization.  Equation
+\eqref{eq:installed-parent} is exactly Hermitian because its lower-left block is the
+adjoint of its upper-right block and the diagonal blocks include conjugate hopping
+terms.
+
+Equivalently,
+\begin{equation}
+ K_\rho(q)=\sum_{R=-1}^{1}e^{2\pi iqR}T_R(\rho),
+ \qquad T_{-R}(\rho)=T_R(\rho)^\dagger.
+ \label{eq:finite-parent-series}
+\end{equation}
+At $\rho=0$ the ambient parent is onsite and independent of $q$.  At $\rho=1$ it is the
+full installed finite-range parent.  Intermediate $\rho$ values vary only the non-onsite
+parent hopping; the onsite blocks, state spaces, gates, tolerances, and gauge-amplitude
+inventory remain unchanged.
+
+\subsection{Spectral retention and external-gap gate}
+
+Let
+\begin{equation}
+ \lambda_1(q)\le\lambda_2(q)\le\lambda_3(q)\le\lambda_4(q)
+\end{equation}
+be the ordered eigenvalues of $K_\rho(q)$.  The raw retained frame $V_j$ consists of the
+first two normalized eigenvectors returned at $q_j$.  The sampled external isolation
+gap is
+\begin{equation}
+ \Delta_{\mathrm{ext},N}(\rho)
+ =\min_{q_j\in\mathcal Q_N}\left[\lambda_3(q_j)-\lambda_2(q_j)\right].
+ \label{eq:external-gap}
+\end{equation}
+Retention is allowed to proceed only if
+$\Delta_{\mathrm{ext},N}(\rho)\ge\delta_{\mathrm{ext}}$.  Failure of this gate is a
+scientific qualification stop, not a numerical transport failure and not a failed
+comparison threshold.
+
+The raw eigenvectors are not presumed to define a smooth periodic gauge.  Arbitrary
+eigenvector phases and rotations inside the rank-two eigenspace must be resolved before
+Fourier locality is meaningful.  Section~3.2 specifies the closed-loop polar transport
+used for that purpose.
+
+\subsection{Represented retained Hamiltonian}
+
+Once a periodic transported frame $F_j=F(q_j)$ is available, the retained Hamiltonian is
+\begin{equation}
+ H_j=F_j^\dagger K_\rho(q_j)F_j\in\Complex^{2\times2}.
+ \label{eq:retained-hamiltonian}
+\end{equation}
+Its scalar and traceless parts are
+\begin{equation}
+ m_j=\frac12\tr H_j,
+ \qquad X_j=H_j-m_jI_2,
+ \qquad \tr X_j=0.
+ \label{eq:trace-traceless}
+\end{equation}
+The installed splitting scale is the discrete normalized traceless power
+\begin{equation}
+ \kappa_N=\frac{1}{2N}\sum_{j=0}^{N-1}\norm{X_j}_F^2>0.
+ \label{eq:splitting-scale}
+\end{equation}
+Division by two is division by retained rank.  Thus every squared Frobenius quantity in
+the main comparison has the dimensions of energy squared per retained state.
+
+\subsection{Gauge attack and exact pointwise band equivalence}
+
+The declared smooth gauge angle and real rank-two rotation are
+\begin{equation}
+ \theta_a(q)=a\sin(2\pi q),
+ \qquad
+ \mathcal R(\theta)=
+ \begin{pmatrix}\cos\theta&-\sin\theta\\
+                 \sin\theta& \cos\theta\end{pmatrix},
+ \qquad 0\le a\le\frac{\pi}{4}.
+ \label{eq:gauge-rotation}
+\end{equation}
+The comparison field is
+\begin{equation}
+ A_a(q)=\mathcal R(\theta_a(q))^\dagger
+        H(q)\mathcal R(\theta_a(q)).
+ \label{eq:comparison-field}
+\end{equation}
+Because $\mathcal R$ is orthogonal and hence unitary,
+\begin{equation}
+ \lambda_n[A_a(q)]=\lambda_n[H(q)],\qquad n=1,2,
+ \label{eq:exact-band-equivalence}
+\end{equation}
+mathematically in exact arithmetic.  The finite calculation nevertheless retains the
+maximum observed sorted-band defect as an implementation residual.
+
+The mean energy $m(q)$ is invariant under conjugation.  Defining
+$Y_a(q)=A_a(q)-m(q)I_2$, one has
+$Y_a=\mathcal R^\dagger X\mathcal R$ and
+$\norm{Y_a(q)}_F=\norm{X(q)}_F$ pointwise.  The transformation therefore redistributes
+matrix orientation but does not alter the local eigenvalue splitting.
+
+\subsection{Flat analytic control versus embedded dispersive control}
+
+The flat analytic control is a separate retained-space model
+\begin{equation}
+ H_{\mathrm{flat}}(q)=\bar E I_2+D,
+ \qquad D=D^T\in\Reals^{2\times2},
+ \quad\tr D=0,
+ \quad D\ne0.
+ \label{eq:flat-control}
+\end{equation}
+It has no parent dispersion and no non-onsite reference hopping.  Under the sinusoidal
+gauge attack, its continuum restricted correlation has a Bessel-function expression
+derived in Section~3.4.  The embedded control of
+Eqs.~\eqref{eq:installed-parent}--\eqref{eq:retained-hamiltonian} is different: its
+retained field is dispersive, its frame comes from an ambient spectral subspace, and its
+restricted correlation has no assumed $J_0$ identity.
+
+These layers must not be conflated.  The flat calculation is an analytic control; the
+$\rho$ family is a parent-model robustness channel; and mesh refinement is a numerical
+discretization channel.

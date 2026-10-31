@@ -121,8 +121,18 @@ package, and direct M3 consumers are crosswalked in
 The audit selects composite-band alignment/locality as the first direct implementation
 because it is the bounded scientific successor of M2.
 
-**Implementation status:** `periodic1d.composite_band_alignment` now supplies immutable
-typed configuration and results, a pure producer, independent exact-byte verification,
+**Band-equivalence/locality status:** `periodic1d.band_equivalence_locality` now supplies
+flat and embedded rank-two scientific owners, closed family/refinement/truncation
+aggregation, canonical byte-owning verification, authenticated visualization projection,
+and the direct no-overwrite lifecycle. The authorized `v1` execution preserves its
+failed independent verification; the distinct `v2` successor retains byte-identical
+calculation bytes, passes all four aggregate routes at the unchanged tolerance, and
+contains the closed six-figure inventory. Both are unsealed. Named full donor parity and
+reviewed retirement of the read-only calculation-local `workflow/` remain open, as do
+sealing, promotion, and scientific validation.
+
+**Composite-alignment implementation status:**
+`periodic1d.composite_band_alignment` now supplies immutable typed configuration and results, a pure producer, independent exact-byte verification,
 authenticated two-figure rendering, direct effect adapters, package-aligned tests, and
 complete Architecture v3 coverage. The separate research-monograph donor and its 19
 literal consumers are crosswalked without runtime decoding. No retained execution has

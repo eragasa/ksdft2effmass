@@ -1,17 +1,252 @@
-\section{Development analysis and results}
+\section{Verified unsealed calculation, numerical observations, and disposition}
 
-The existing development analysis reports three bounded observations.  First, the smooth
-momentum-dependent rotation preserves the complete retained spectrum pointwise while
-redistributing Fourier hopping power.  Second, the exact flat-parent residual--tail
-identity deforms systematically when non-onsite parent hopping is introduced.  Third,
-on the declared sampled truncation inventory, reference and rotated representations can
-reach the same sampled band-error target at different first-passing cutoffs.
+\subsection{Status statement}
 
-These observations remain development calculations.  The momentum study is reported as
-converged on its declared nested meshes, whereas the capped uniform amplitude
-interpolation study remains unresolved.  The range calculations are finite sampled
-decisions with a bounded cutoff inventory; they are not continuum extrema or universal
-range laws.
+The values and figures in this section come from the authorized unsealed successor
+execution \path{direct-embedded-rank2-controlled-v2}.  They are calculated finite
+numerical values, not placeholders and not literature values.  Its canonical calculation
+bytes are identical to those preserved by the failed \texttt{v1} attempt.  The
+\texttt{v2} aggregate independently verified at the unchanged installed tolerance, and
+the renderer admitted the stored verification before producing the six PNG artifacts.
+Accordingly, the plots are authenticated projections of bounded finite software results;
+they are not sealed evidence, material validation, continuum certificates, or publication
+acceptance.
 
-Numerical tables and figures will be incorporated only after the simulation and analysis
-wire contracts are migrated and independently verified from this calculation root.
+\subsection{Parent-family qualification and endpoint observations}
+
+Every sampled family member passed the production external-gap and transport gates.  At
+the largest gauge amplitude $a=\pi/4$, the candidate values were:
+\begin{center}
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+$\rho$ & $\Delta_{\mathrm{ext},256}$ & $\sigma_{\min}$ & $\mu_{256,\pi/4}$ &
+$\tau_{\mathrm{op}}$ & $W_{\ne0}[A_{\pi/4}]$\\
+\midrule
+0.00 & 1.343658302 & 1.000000000 & 0.472001216 & 0.378394511 & 0.143182406\\
+0.25 & 1.270016236 & 0.999999941 & 0.474619562 & 0.379835494 & 0.145249698\\
+0.50 & 1.197626387 & 0.999999754 & 0.482141898 & 0.384103485 & 0.151446266\\
+0.75 & 1.126501977 & 0.999999423 & 0.493670477 & 0.391045366 & 0.161756230\\
+1.00 & 1.056646121 & 0.999998929 & 0.507990809 & 0.400439426 & 0.176153250\\
+\bottomrule
+\end{tabular}
+\end{center}
+The external gap decreases across this finite $\rho$ inventory but remains above the
+declared gate $\delta_{\mathrm{ext}}=1$.  The minimum transport singular value also
+decreases while remaining well above $0.99$.  At $a=\pi/4$, the restricted correlation
+increases with $\rho$ in this candidate, while both the operator threshold and comparison
+non-onsite hopping weight also increase.  These are simultaneous observed trends, not a
+proof of monotonicity between sampled $\rho$ values and not a statement of causal
+identity between the threshold and hopping weight.
+
+The following three figures are the authenticated parent-family projections retained by
+the closed visualization inventory.
+
+\begin{figure}[htbp]
+ \centering
+ \authenticatedplot{../executions/direct-embedded-rank2-controlled-v2/figures/embedded-rank2-family-alignment-landscape.png}{%
+ No admitted parent-family alignment artifact is available.}
+ \caption{Authenticated parent-family alignment landscape.  It displays the finite
+ amplitude trajectories of restricted correlation and the two threshold definitions
+ across the five sampled parent-hopping scales.}
+\end{figure}
+
+\begin{figure}[htbp]
+ \centering
+ \authenticatedplot{../executions/direct-embedded-rank2-controlled-v2/figures/embedded-rank2-family-locality-landscape.png}{%
+ No admitted parent-family locality artifact is available.}
+ \caption{Authenticated parent-family locality landscape.  Reference and comparison
+ non-onsite hopping weights remain distinct from operator thresholds even when their
+ sampled trends are visually correlated.}
+\end{figure}
+
+\begin{figure}[htbp]
+ \centering
+ \authenticatedplot{../executions/direct-embedded-rank2-controlled-v2/figures/embedded-rank2-family-qualification.png}{%
+ No admitted parent-family qualification artifact is available.}
+ \caption{Authenticated parent-family qualification diagnostics.  External-gap and
+ transport controls are shown for the finite sampled $\rho$ inventory; they do not certify
+ the continuous domain between samples.}
+\end{figure}
+
+\subsection{Momentum refinement was unresolved}
+
+The momentum result has the exact closed outcome variant
+\texttt{MomentumRefinementUnresolved}.  The four adjacent
+mesh steps retained the following principal maxima:
+\begin{center}
+\small
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+$N\to2N$ & parent diagnostic & correlation & threshold & hopping weight &
+max residual\\
+\midrule
+$32\to64$   & $7.2983\!\times10^{-3}$ & $6.7028\!\times10^{-11}$ & $3.1413\!\times10^{-11}$ & $6.8701\!\times10^{-10}$ & $1.11\!\times10^{-15}$\\
+$64\to128$  & $3.6586\!\times10^{-3}$ & $1.6883\!\times10^{-11}$ & $7.9118\!\times10^{-12}$ & $1.7225\!\times10^{-10}$ & $9.99\!\times10^{-16}$\\
+$128\to256$ & $1.8305\!\times10^{-3}$ & $4.2286\!\times10^{-12}$ & $1.9821\!\times10^{-12}$ & $4.3095\!\times10^{-11}$ & $1.11\!\times10^{-15}$\\
+$256\to512$ & $9.1540\!\times10^{-4}$ & $1.0576\!\times10^{-12}$ & $4.9544\!\times10^{-13}$ & $1.0776\!\times10^{-11}$ & $1.33\!\times10^{-15}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Here ``max residual'' summarizes the largest displayed band-equivalence,
+loss-reconstruction, or Parseval-scale residual to order of magnitude; the typed record
+retains those channels separately.  Shared parent eigenvalue and projector defects at
+nested shared points were exactly zero in the retained binary64 values, and maximizing
+angle changes were at most $2.22\times10^{-16}$ after the first step.
+
+Despite the small correlation, threshold, hopping, band, reconstruction, and Parseval
+changes, every step failed the common draft threshold
+$1.01\times10^{-8}$ because the parent-diagnostic change remained much larger.  The last
+two steps therefore did not supply the required two final passing refinements.  Calling
+this channel converged would be false.  The sequence of parent-diagnostic changes is
+approximately halved under mesh doubling, which is useful diagnostic information but
+not a convergence pass under the declared absolute criterion.
+
+\begin{figure}[htbp]
+ \centering
+ \authenticatedplot{../executions/direct-embedded-rank2-controlled-v2/figures/embedded-rank2-momentum-refinement.png}{%
+ No admitted momentum-refinement artifact is available.}
+ \caption{Authenticated momentum-refinement diagnostics.  Independent verification of
+ the retained values does not change the scientific outcome
+ \texttt{MomentumRefinementUnresolved}.}
+\end{figure}
+
+\subsection{Adaptive amplitude refinement exhausted its level cap}
+
+The adaptive result has the exact closed outcome variant
+\texttt{AdaptiveAmplitudeLevelsExhausted}.  No disjoint
+quarter-point validation was reached because no midpoint level passed.  The retained
+level maxima were:
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}rrrrrrr@{}}
+\toprule
+level & nodes & $d_\mu$ & $d_{\tau_{\mathrm{op}}}$ & $d_{\tau_{\mathrm{joint}}}$ &
+$d_{W_{\ne0}}$ & $d_{p_R}$\\
+\midrule
+0 & 9  & $2.2268\!\times10^{-3}$ & $8.3265\!\times10^{-4}$ & $3.7493\!\times10^{-4}$ & $8.8021\!\times10^{-4}$ & $8.8021\!\times10^{-4}$\\
+1 & 17 & $5.5841\!\times10^{-4}$ & $2.0947\!\times10^{-4}$ & $9.6263\!\times10^{-5}$ & $2.2216\!\times10^{-4}$ & $2.2216\!\times10^{-4}$\\
+2 & 33 & $1.3971\!\times10^{-4}$ & $5.2475\!\times10^{-5}$ & $2.4376\!\times10^{-5}$ & $5.5671\!\times10^{-5}$ & $5.5671\!\times10^{-5}$\\
+3 & 65 & $3.4934\!\times10^{-5}$ & $1.3129\!\times10^{-5}$ & $6.1323\!\times10^{-6}$ & $1.3926\!\times10^{-5}$ & $1.3926\!\times10^{-5}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Each level directly evaluated the midpoint-augmented inventory, ending with 129 unique
+amplitudes at level three.  Every interval failed at every level under the
+$1.01\times10^{-8}$ per-channel thresholds.  The roughly factor-of-four reduction in
+linear interpolation defects after interval halving is consistent with smooth
+second-order interpolation behavior, but it remains far from the declared pass
+criterion.  Since midpoint acceptance was never achieved, the absence of quarter-point
+validation is correctly rendered as ``no disjoint validation retained,'' not as a zero
+defect or passing check.
+
+\begin{figure}[htbp]
+ \centering
+ \authenticatedplot{../executions/direct-embedded-rank2-controlled-v2/figures/embedded-rank2-adaptive-amplitude-refinement.png}{%
+ No admitted adaptive-amplitude artifact is available.}
+ \caption{Authenticated adaptive-amplitude diagnostics.  Midpoint and disjoint
+ validation channels remain logically separate, and level exhaustion is not convergence.}
+\end{figure}
+
+\subsection{Truncation channel completed}
+
+The truncation result has the exact closed outcome variant
+\texttt{TruncationCompleted}.  Its shifted evaluation
+mesh used
+\begin{equation}
+ M=1025,
+ \qquad \omega=\frac1{257}=0.00389105058\ldots,
+\end{equation}
+and the minimum periodic construction--evaluation separation was
+$1.48287\times10^{-8}$.  The small separation is positive, so the meshes are disjoint in
+binary64; it should not be interpreted as a generous separation margin.
+
+At $a=0$, comparison interpolation error is exactly zero in the retained candidate, as
+expected for the identity gauge.  At $a=\pi/4$, the maximum normalized Hamiltonian
+interpolation error is $8.59\times10^{-16}$ and the maximum sorted-band interpolation
+error is $1.33\times10^{-15}$.  The comparison Nyquist power is
+$2.16\times10^{-33}$ at that endpoint, while the reference Nyquist power is
+$1.61\times10^{-33}$.
+
+For the full parent and $a=\pi/4$, the cutoff-zero and cutoff-sixteen endpoint values are:
+\begin{center}
+\small
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$R_c$ & reference omitted power & comparison omitted power &
+$E_{H,\max}^{\mathrm{total}}$ & $E_{\lambda,\max}^{\mathrm{total}}$\\
+\midrule
+0  & 0.0323839143 & 0.1761532501 & 0.5590843271 & 0.5249763398\\
+16 & $3.15\times10^{-31}$ & $3.74\times10^{-31}$ &
+$1.84\times10^{-15}$ & $2.66\times10^{-15}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Thus the candidate calculation exhibits a large representation-dependent inflation of
+non-onsite power at $a=\pi/4$, while a sufficiently long retained range reconstructs the
+finite data to near binary64 precision.  This statement is restricted to the candidate
+finite model and does not imply a continuum or material result.
+
+\begin{figure}[htbp]
+ \centering
+ \authenticatedplot{../executions/direct-embedded-rank2-controlled-v2/figures/embedded-rank2-truncation-consequences.png}{%
+ No admitted truncation-consequence artifact is available.}
+ \caption{Authenticated truncation consequences on the disjoint shifted mesh.  Matrix,
+ spectral, interpolation, and omitted-power channels remain separately identified.}
+\end{figure}
+
+\subsection{Verification history and exact-identity remediation}
+
+The \texttt{v1} aggregate verification failed only in the parent-family component; the
+momentum, adaptive-amplitude, and truncation verification components passed their installed
+comparisons.  Within the family, members at $\rho=0.5$ and $\rho=0.75$ failed the point
+scalar comparison at the exact identity amplitude $a=0$:
+\begin{align}
+ d_{\rho=0.5}&=6.5330815607\times10^{-9},\\
+ d_{\rho=0.75}&=6.7004386123\times10^{-9},
+\end{align}
+against the installed tolerance
+\begin{equation}
+ \varepsilon_{\mathrm{verify}}=10^{-10}.
+\end{equation}
+The family visualization matrix comparison inherited the larger
+$6.7004386123\times10^{-9}$ defect.
+
+Diagnosis localized the disagreement to the two threshold scalars at $a=0$.  The
+production route enforces the exact mathematical identity $\mu_{N,0}=1$ and therefore
+retains
+\begin{equation}
+ \tau_{\mathrm{op},N}(0)=\tau_{\mathrm{joint},N}(0)=0.
+\end{equation}
+For those two family members, the independent route retained a correlation infinitesimally
+below one before applying square roots in Eqs.~\eqref{eq:operator-threshold} and
+\eqref{eq:joint-threshold}.  A perturbation of order machine epsilon in $1-\mu$ becomes
+a threshold of order $\sqrt{\epsilon_{64}}$, producing the observed $10^{-9}$ scale.
+This was the diagnosed numerical mechanism in \texttt{v1}.  No tolerance was enlarged,
+no failing bytes were rewritten, and rendering remained blocked for that execution.
+
+The independent reference was then corrected to encode the exact $a=0$ identity as an
+independently justified mathematical invariant, and a regression test was added for
+$\rho=0.5$ and $\rho=0.75$.  The distinct no-overwrite \texttt{v2} execution retained
+calculation SHA-256
+\begin{center}
+\path{29c1a2bdd7ec85b721cb9c9248ba0961cd1472278cf79a33f641eaa9e657dd01},
+\end{center}
+which is byte-identical to the \texttt{v1} calculation record.  All four aggregate
+verification components passed under $\varepsilon_{\mathrm{verify}}=10^{-10}$; the
+stored verification SHA-256 is
+\begin{center}
+\path{cf74d9fd35f3419bec4bd98ac5535396337f37df9fcc8de56a9ae5e369a92691}.
+\end{center}
+Thus the remediation changed independent handling of a known exact identity, not the
+calculated scientific values or the installed tolerance.  The failed \texttt{v1}
+artifacts remain distinguishable and preserved.
+
+\subsection{Overall technical outcome}
+
+The verified unsealed calculation supplies informative finite observations: all parent
+family members qualified; the momentum study was unresolved because of a slowly changing
+parent diagnostic; adaptive amplitude refinement exhausted its level cap; and the
+truncation channel completed.  The lifecycle outcome is therefore
+\textbf{bounded independent verification passed; stored rendering admitted; momentum
+and amplitude convergence not established}.  This is more precise than either ``the run
+failed'' or ``the science passed.''

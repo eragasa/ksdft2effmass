@@ -34,7 +34,7 @@ the original 40-file partition.
 - [`nested-channel-crosswalk.md`](nested-channel-crosswalk.md) separately identifies the
   flat, nonflat, parent-family, truncation, refinement, diagnostic-packaging, rendering,
   and protocol channels, including their classes, serializers, schemas, effect adapters,
-  artifacts, and retained-lifecycle gaps.
+  artifacts, historical donor limitations, and installed retained-lifecycle outcomes.
 - [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md)
   distinguishes the concise current boundary from the complete buildable prospective
   bundle and records conflict rules.
@@ -43,8 +43,9 @@ the original 40-file partition.
   artifact digests, plus the finite-angle regression revision. Those scientifically
   distinct donors are not merged into this family.
 
-Open direct-lifecycle and reusable-source work does not require keeping obsolete
-experiment-tree duplicates. It remains mandatory before proposing a retained execution.
+The then-open direct-lifecycle and reusable-source work did not require keeping obsolete
+experiment-tree duplicates. This removal audit was completed before the separately
+authorized unsealed executions and did not itself authorize them.
 
 ## Consumer independence
 

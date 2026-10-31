@@ -1,0 +1,9 @@
+{
+  "calculation_family": "periodic1d-rank2-band-equivalence-hopping-locality",
+  "claim_boundary": "Independent bounded finite-route software agreement only; not scientific validation, evidence sealing, or publication acceptance.",
+  "execution_id": "direct-embedded-rank2-controlled-v1",
+  "result_sha256": "29c1a2bdd7ec85b721cb9c9248ba0961cd1472278cf79a33f641eaa9e657dd01",
+  "schema_version": 1,
+  "script_sha256": "58e2a9fcf8fea3b07252d91509ebcf2a6eb8e97c3fb8973698f8e7844b22ee01",
+  "verification_sha256": "0f3768713c24a66d1f7d672eb258a120b7343830e35c499a549e5ca8b7ca7e51"
+}
