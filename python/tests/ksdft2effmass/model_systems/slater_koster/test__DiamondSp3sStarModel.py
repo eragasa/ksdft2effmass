@@ -82,16 +82,16 @@ class TestDiamondSp3sStarModel:
         site_phase = np.exp(2.0j * np.pi * reciprocal_shift @ np.full(3, 0.25))
         gauge = np.diag(np.asarray((1.0,) * 5 + (site_phase,) * 5))
 
+        np.testing.assert_allclose(
+            gauge.conjugate().T @ gauge,
+            np.eye(10),
+            rtol=0.0,
+            atol=np.finfo(np.float64).eps,
+        )
         shifted = self._matrix(model, k_point + reciprocal_shift)
         expected = gauge.conjugate().T @ self._matrix(model, k_point) @ gauge
 
         np.testing.assert_allclose(shifted, expected, rtol=0.0, atol=1.0e-14)
-        np.testing.assert_allclose(
-            np.linalg.eigvalsh(shifted),
-            np.linalg.eigvalsh(expected),
-            rtol=0.0,
-            atol=1.0e-14,
-        )
 
     def test_hamiltonian_at__cartesian_axis_permutation__preserves_spectrum(
         self,
