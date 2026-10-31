@@ -1,0 +1,22 @@
+{
+  "attempts": [
+    {
+      "calculator_invocations": 0,
+      "error_message": "QEXSD atomic coordinates do not round-trip to the source basis",
+      "error_type": "ValueError",
+      "method": "ad hoc xml.etree.ElementTree extraction",
+      "output_files_produced": 0,
+      "sequence_index": 1,
+      "status": "failed",
+      "superseded": true
+    },
+    {
+      "calculator_invocations": 0,
+      "method": "ksdft2effmass QuantumEspressoXsdDocumentParser followed by ProjectKoios QeVcRelaxDataExtractor and QeFccPrimitiveBravaisMapping.restore_source_basis",
+      "sequence_index": 2,
+      "status": "succeeded",
+      "superseded": false
+    }
+  ],
+  "schema_version": 1
+}

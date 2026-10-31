@@ -1,0 +1,33 @@
+{
+  "disentanglement": {
+    "converged": true,
+    "convergence_iteration": 3068,
+    "declared_fractional_tolerance": 1e-10,
+    "final_fractional_delta": -9.869e-11,
+    "reported_iteration_count": 3068
+  },
+  "interpretation": "disentanglement converged, but Wannierisation did not satisfy the six-step absolute spread-change gate by iteration 4000; isolated small changes and late excursions do not establish convergence or arithmetic instability",
+  "native_completion_observed": true,
+  "schema_version": 1,
+  "wannierisation": {
+    "convergence_phrase_observed": false,
+    "declared_absolute_spread_change_tolerance_angstrom_squared": 2e-09,
+    "declared_convergence_window": 6,
+    "final_absolute_spread_change_angstrom_squared": 1.26e-05,
+    "final_delta_to_tolerance_ratio": 6299.999999999999,
+    "final_gradient_norm": 0.0045510401,
+    "final_iteration": 4000,
+    "final_total_spread_angstrom_squared": 31.5768844505,
+    "large_late_excursions_observed": true,
+    "late_trajectory_is_monotonic": false,
+    "longest_consecutive_run_at_or_below_tolerance": 2,
+    "maximum_absolute_spread_change_after_iteration_3000_angstrom_squared": 0.823,
+    "points_individually_at_or_below_tolerance": 14,
+    "reported_iteration_count": 4001
+  },
+  "wout": {
+    "byte_size": 5133526,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis4000-v1/run/silicon.wout",
+    "sha256": "f2a00f76574fc5715d1f412f35e36df8654cb9a52ffec0b460ace0099e27181b"
+  }
+}

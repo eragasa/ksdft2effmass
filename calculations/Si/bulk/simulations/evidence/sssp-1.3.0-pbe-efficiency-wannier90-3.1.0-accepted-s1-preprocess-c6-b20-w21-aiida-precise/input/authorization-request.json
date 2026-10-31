@@ -1,0 +1,36 @@
+{
+  "authorization_granted": false,
+  "boundary": "the consumed C6-B20 pw.x authorization, outer-window decision, and AiiDA precise convergence adaptation do not authorize Wannier90 -pp",
+  "downstream_not_authorized": [
+    "pw2wannier90 conversion",
+    "Wannier90 localization",
+    "C6-B30",
+    "C8",
+    "C12",
+    "confirmation-parent execution",
+    "component-operator construction",
+    "Slater-Koster reduction",
+    "automatic retry"
+  ],
+  "requested_occurrence": {
+    "command": [
+      "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+      "-pp",
+      "silicon"
+    ],
+    "input": {
+      "byte_size": 10413,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise/silicon.win",
+      "sha256": "b48069e4f8ecd7209a318c47c77691de063bd0575658eb88a1e662a359d3dcc8"
+    },
+    "maximum_invocations": 1,
+    "maximum_retained_bytes": 33554432,
+    "processes": 1,
+    "proposed_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1",
+    "purpose": "C6-B20-W21 AiiDA-precise Wannier90 preprocessing",
+    "retries": 0,
+    "timeout_seconds": 120.0
+  },
+  "schema_version": 1,
+  "status": "authorization-required"
+}

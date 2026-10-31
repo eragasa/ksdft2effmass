@@ -1,0 +1,208 @@
+{
+  "external_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z",
+  "file_count": 40,
+  "files": [
+    {
+      "byte_size": 401,
+      "relative_path": "authorization.json",
+      "sha256": "7e4026f350492dc5b25d2f6bbec1247ec10f3c8cc2c41017c88c66523914419f"
+    },
+    {
+      "byte_size": 5357,
+      "relative_path": "campaign-preflight.json",
+      "sha256": "bda73a7c42d04e1f17e734a5a5bed9d04d446c6472c812f7f73c19db7d329ed2"
+    },
+    {
+      "byte_size": 2748,
+      "relative_path": "campaign-result.json",
+      "sha256": "2ff5edd02fb25fe0dc0dab8c8ebbd7b6ce15e6b7e7a519d67a14b1e04f894caa"
+    },
+    {
+      "byte_size": 1501,
+      "relative_path": "cg-reset-default-verification.json",
+      "sha256": "a7f833ef0899f137cff91dba682fd46ecffae72f40f0b47cbe6519f364920056"
+    },
+    {
+      "byte_size": 777,
+      "relative_path": "frozen-window-analysis.json",
+      "sha256": "0e3eb87ee74beb4dfdb5c2ce0779c32571106f51833ca5827d0704d555fe01d1"
+    },
+    {
+      "byte_size": 981,
+      "relative_path": "literature-protocol-observation.json",
+      "sha256": "4da41519808dbdbebe7cef809e115d38e8c352cbe63efcb95d624ab98cdf6f2a"
+    },
+    {
+      "byte_size": 1018,
+      "relative_path": "predecessor-trajectory-summary.json",
+      "sha256": "7d3366623c52aee3c72a8cb32336b3d8d9bdf07dc8f703676a8174d747a8f132"
+    },
+    {
+      "byte_size": 13714,
+      "relative_path": "prepare_campaign.py",
+      "sha256": "3b7d00558c1119d1f3f44034f3397d741415c48efbf831ed47730f07c0a21e7e"
+    },
+    {
+      "byte_size": 1407,
+      "relative_path": "prepared-input/localization-input-manifest.json",
+      "sha256": "ace89f66a93064af6c252249f95c554cf7a66f29cedce92365c1de722746b434"
+    },
+    {
+      "byte_size": 514659,
+      "relative_path": "prepared-input/silicon.amn",
+      "sha256": "1fbc2b98f9c7222c726d694afc2582b6e8fb28f6f9b4668357d80b322c938efc"
+    },
+    {
+      "byte_size": 29952,
+      "relative_path": "prepared-input/silicon.eig",
+      "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+    },
+    {
+      "byte_size": 2754147,
+      "relative_path": "prepared-input/silicon.mmn",
+      "sha256": "1b4ebf8e6cff7c3c5491513707d969ddc988ed21a2dd2788bfdd6003de138e6f"
+    },
+    {
+      "byte_size": 18824,
+      "relative_path": "prepared-input/silicon.nnkp",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    {
+      "byte_size": 3639,
+      "relative_path": "prepared-input/silicon.win",
+      "sha256": "8d166fcb819ea88c741fcd0dab4b7a611157707231841e634fa24a9a7a83c805"
+    },
+    {
+      "byte_size": 6882,
+      "relative_path": "retain_failure.py",
+      "sha256": "3dcb2d8484868d34d748c7ff983ae5ff5aeefa0b5650cecf4d0594e5a85dc96c"
+    },
+    {
+      "byte_size": 2232,
+      "relative_path": "run/artifact-manifest.json",
+      "sha256": "92445f71a22f372408aee03c3766bad9b5978969ec963665f7a2db86752691ab"
+    },
+    {
+      "byte_size": 572,
+      "relative_path": "run/execution.json",
+      "sha256": "b8815e22278828b8b0fa05bbcd5dbf55780db109336a07775c8fb24cf2b77ba5"
+    },
+    {
+      "byte_size": 1407,
+      "relative_path": "run/localization-input-manifest.json",
+      "sha256": "ace89f66a93064af6c252249f95c554cf7a66f29cedce92365c1de722746b434"
+    },
+    {
+      "byte_size": 262,
+      "relative_path": "run/provider-result.json",
+      "sha256": "b204cf9405d93c006bdbb0b953884e8955f40f67e6e2c7a949e6901dd77a85e5"
+    },
+    {
+      "byte_size": 514659,
+      "relative_path": "run/silicon.amn",
+      "sha256": "1fbc2b98f9c7222c726d694afc2582b6e8fb28f6f9b4668357d80b322c938efc"
+    },
+    {
+      "byte_size": 1050073,
+      "relative_path": "run/silicon.chk",
+      "sha256": "33f0d25bd106caef63b7891f93334120e4d727d8e55d37b84931e7a5567ddacd"
+    },
+    {
+      "byte_size": 29952,
+      "relative_path": "run/silicon.eig",
+      "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+    },
+    {
+      "byte_size": 2754147,
+      "relative_path": "run/silicon.mmn",
+      "sha256": "1b4ebf8e6cff7c3c5491513707d969ddc988ed21a2dd2788bfdd6003de138e6f"
+    },
+    {
+      "byte_size": 18824,
+      "relative_path": "run/silicon.nnkp",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    {
+      "byte_size": 3639,
+      "relative_path": "run/silicon.win",
+      "sha256": "8d166fcb819ea88c741fcd0dab4b7a611157707231841e634fa24a9a7a83c805"
+    },
+    {
+      "byte_size": 4930566,
+      "relative_path": "run/silicon.wout",
+      "sha256": "fd42ecad3b5394fc8d0acea8469fbb61754458a5326489a7f0c5e728e50461bc"
+    },
+    {
+      "byte_size": 465533,
+      "relative_path": "run/silicon_hr.dat",
+      "sha256": "b55603e19fb6fbba4f361fa84c84c83963c271c3d99e2e8c965bbb06f6e01e84"
+    },
+    {
+      "byte_size": 201480,
+      "relative_path": "run/silicon_u.mat",
+      "sha256": "ae22cfa1d994968441ae3a0bc725adbed739fc75faf559682b6bbfdca2c4ac5f"
+    },
+    {
+      "byte_size": 241160,
+      "relative_path": "run/silicon_u_dis.mat",
+      "sha256": "6c28b42017af6c4cf1dec6e2311cec02cdd2928ce200204464224b844ad37165"
+    },
+    {
+      "byte_size": 460865,
+      "relative_path": "run/silicon_wsvec.dat",
+      "sha256": "073dfc04f83d5432086a6e29db993d13f908f13b4546c52218690e969897e8c7"
+    },
+    {
+      "byte_size": 0,
+      "relative_path": "run/wannier90.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_size": 0,
+      "relative_path": "run/wannier90.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_size": 5913,
+      "relative_path": "run_campaign.py",
+      "sha256": "90329f94e692437d2efe56af62a868f3c3fdd4ce5067f106ca9b2cc55fb3e714"
+    },
+    {
+      "byte_size": 514659,
+      "relative_path": "source-input/silicon.amn",
+      "sha256": "1fbc2b98f9c7222c726d694afc2582b6e8fb28f6f9b4668357d80b322c938efc"
+    },
+    {
+      "byte_size": 29952,
+      "relative_path": "source-input/silicon.eig",
+      "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+    },
+    {
+      "byte_size": 2754147,
+      "relative_path": "source-input/silicon.mmn",
+      "sha256": "1b4ebf8e6cff7c3c5491513707d969ddc988ed21a2dd2788bfdd6003de138e6f"
+    },
+    {
+      "byte_size": 18824,
+      "relative_path": "source-input/silicon.nnkp",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    {
+      "byte_size": 3639,
+      "relative_path": "source-input/silicon.win",
+      "sha256": "8d166fcb819ea88c741fcd0dab4b7a611157707231841e634fa24a9a7a83c805"
+    },
+    {
+      "byte_size": 2803,
+      "relative_path": "trajectory-analysis.json",
+      "sha256": "deb34e2c9dc573b063e6e51213669217a7a8fe51801bcc0f622b8516cd05e629"
+    },
+    {
+      "byte_size": 864,
+      "relative_path": "win-transformation.json",
+      "sha256": "c5eb7f27f74a16915aa51abaa23e0ac7026308959ec9663604ae97841cae92e6"
+    }
+  ],
+  "schema_version": 1,
+  "total_bytes": 17362179
+}

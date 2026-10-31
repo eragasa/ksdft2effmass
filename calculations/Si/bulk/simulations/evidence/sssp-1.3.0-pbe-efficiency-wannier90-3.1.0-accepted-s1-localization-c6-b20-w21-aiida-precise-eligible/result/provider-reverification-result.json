@@ -1,0 +1,36 @@
+{
+  "calculator_invocations": 0,
+  "comparison_reference": "canonical-construction-input-kpoints",
+  "input_manifest_sha256": "523515dffc883abf1bc0ff3e1427eea13e85a12774a5ce2040e3dd43c396568e",
+  "observations": {
+    "band_count": 20,
+    "disentanglement_isometry_maximum_residual": 1.506470503898072e-10,
+    "disentanglement_kpoint_maximum_absolute_residual": 3.300004713935323e-11,
+    "gauge_kpoint_maximum_absolute_residual": 3.300004713935323e-11,
+    "gauge_unitarity_maximum_residual": 2.0480683815549128e-10,
+    "hamiltonian_hermiticity_maximum_residual": 0.0,
+    "hamiltonian_representative_count": 279,
+    "kpoint_count": 216,
+    "last_reported_wannierisation_iteration": 378,
+    "omega_total": 21.022751219,
+    "wannier_count": 10
+  },
+  "prior_false_negative_provider_result": {
+    "byte_size": 218,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/provider-result.json",
+    "sha256": "2c373ab63e23b3be86b1c66c9da809e596805eaccbd052e2db2e441926cb2b64"
+  },
+  "reference_correction": {
+    "correct_reference": "canonical WIN k-point block",
+    "incorrect_prior_reference": "lossy eight-decimal NNKP presentation"
+  },
+  "schema_version": 1,
+  "status": "succeeded",
+  "tolerance_changed": false,
+  "verification_kind": "no-calculator-retained-output-reverification",
+  "verifier_implementation": {
+    "byte_size": 33773,
+    "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/localization_execution.py",
+    "sha256": "9c24755c656a1ed2b7b31d5da432aa4358eb6f6735c98f7a856a519593fad680"
+  }
+}

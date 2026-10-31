@@ -1,0 +1,20 @@
+{
+  "declared_fractional_tolerance": 1e-10,
+  "extrapolation_is_not_completed_convergence": true,
+  "interpretation": "the smooth late trend supports one bounded 2000-step test while retaining the strict fractional criterion",
+  "iteration_801_absolute_fractional_delta": 1.905e-08,
+  "iterations_801_through_1000_monotonically_decreasing": true,
+  "last_absolute_fractional_delta": 2.091e-09,
+  "last_delta_to_threshold_ratio": 20.91,
+  "last_iteration": 1000,
+  "late_log_linear_extrapolated_crossing_range": [
+    1274,
+    1285
+  ],
+  "predecessor_wout": {
+    "byte_size": 424684,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/run/silicon.wout",
+    "sha256": "bda5ca58bd1b0d2989576864eaf21039e20a70c48c532f104e6a2e15579d5de1"
+  },
+  "schema_version": 1
+}

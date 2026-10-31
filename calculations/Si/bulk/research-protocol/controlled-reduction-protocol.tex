@@ -1,0 +1,466 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\title{Bulk-Silicon Wannier Construction and\\Controlled-Reduction Diagnosis Research Protocol}
+\author{Project Koios}
+\date{Calculation-owned protocol}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This protocol separates scientific target-space design, local numerical optimization,
+arithmetic or toolchain instability, controlled model reduction, and hidden-parent
+evaluation in the bulk-silicon Wannier route.  It prevents failed localization from
+being mislabeled as either proof of physical infeasibility or evidence of floating-point
+instability, and it prevents successful Wannier90 convergence from being promoted
+directly to physical validation.  The full untruncated Wannier operator is the available
+source for a controlled spatial and Slater--Koster reduction.  Direct Kohn--Sham parent
+values at withheld points are an evaluation oracle: they are available to this study but
+would be hidden in the intended computational setting.  The protocol therefore tests
+whether observable reduction diagnostics predict hidden error without using that error
+as an operational gate.  Exact thresholds and evidence dispositions remain
+calculation-owned.
+\end{abstract}
+
+\section{Scope and authority}
+
+The protocol applies after an authenticated plane-wave parent, ordered NSCF Bloch frame,
+Wannier90 neighbor topology, and AMN/MMN/EIG interface have been established.  Reusable
+software owns parsing, identity checks, bounded execution, matrix invariants, and lineage.
+The calculation owns rank, projections, windows, convergence coordinates, observable
+tolerances, candidate selection, and scientific acceptance.
+
+A trial projection initializes a Wannier gauge.  It does not impose a Slater--Koster
+Hamiltonian, hopping shell, or fitted parameter set.  Controlled Slater--Koster
+reduction begins only after the full untruncated Wannier operator has passed native
+convergence and structural-eligibility checks.  Agreement with withheld direct-parent
+values is not a prerequisite for using that operator as the fixed reduction source;
+such agreement controls only physical-fidelity claims about the source and its
+reductions.
+
+\section{Distinct failure classes}
+
+The following classes shall not be conflated.
+
+\subsection{Target-space or construction failure}
+
+Rank, parent-band inventory, outer and frozen windows, projections, reciprocal mesh, and
+neighbor topology define the represented state space and initialization.  Sensitivity to
+these coordinates is scientific-construction evidence.  A construction can create a
+poorly conditioned or strongly nonconvex optimization landscape without implying
+arithmetic failure.
+
+\subsection{Local-optimizer failure}
+
+Wannier90 uses a projection-initialized local optimization; it does not provide a
+certificate of the global minimum of the spread functional.  Iteration exhaustion,
+large late spread excursions, or materially different gauges from different optimizer
+coordinates establish nonstationarity or local-optimizer sensitivity.  They do not prove
+that no acceptable gauge exists.
+
+\subsection{Arithmetic or toolchain instability}
+
+Arithmetic or toolchain instability requires direct evidence such as non-finite values,
+corrupt or inconsistent artifacts, failed matrix identities beyond declared tolerances,
+same-input nondeterminism, or controlled sensitivity to arithmetic library or executable
+choice.  Optimizer excursions alone are insufficient for this diagnosis.
+
+\subsection{Hidden-parent discrepancy and physical inadequacy}
+
+A converged and structurally valid Wannier occurrence can still disagree materially
+with direct Kohn--Sham parent values.  Interpolation, valley identity and location, edge
+energy, derivatives, curvature or effective mass, and real-space locality are separate
+evaluation channels.  At withheld points these discrepancies are known only because the
+controlled study evaluates the parent model.  They are oracle labels, not diagnostics
+available to a deployed reduction, and shall not be used as convergence tests,
+truncation-selection rules, fitting objectives, or automatic successor triggers.
+Failure of a parent-fidelity target limits physical claims but does not invalidate a
+structurally eligible operator as the fixed source in a controlled reduction study.
+
+\section{Mandatory diagnostic procedure}
+
+For every localization occurrence:
+
+\begin{enumerate}
+  \item Require exact executable and input identities, a bounded authorization record,
+    a fresh or explicitly declared restart state, and no silent retry.
+  \item Assess disentanglement and Wannierisation separately using their native
+    convergence messages and criteria.  A zero return code is not a substitute.
+  \item Verify finite dimensions and k-point ordering, gauge unitarity,
+    disentanglement isometry when applicable, Hamiltonian representative pairing, and
+    Hermiticity.
+  \item Inspect convergence trajectories.  Distinguish smooth contraction toward a
+    declared threshold from intermittent plateaus, renewed excursions, and budget
+    exhaustion.
+  \item Hold authenticated interface artifacts fixed when diagnosing optimizer or
+    target-space changes.  Record every changed scientific and algorithmic coordinate.
+  \item Permit only a prospectively bounded optimizer study.  If the trajectory remains
+    irregular and observably gauge-sensitive, revise the scientific construction rather
+    than performing an open-ended optimizer search.
+  \item After native convergence, qualify the full operator using checks available
+    without withheld parent values.  Record direct-parent comparisons separately as
+    development-oracle or confirmation-oracle evidence.
+\end{enumerate}
+
+\section{Controlled-reduction and hidden-oracle policy}
+
+Let $H_{\mathrm{W}}$ denote the full untruncated Wannier operator,
+$H_{\mathrm{T}}$ a spatially truncated operator, $H_{\mathrm{SK}}$ a declared
+Slater--Koster parameterization, and $H_{\mathrm{KS}}$ the direct Kohn--Sham parent on
+an aligned comparison space.  The controlled reduction studies
+\begin{equation}
+  H_{\mathrm{W}}\longrightarrow H_{\mathrm{T}}
+  \longrightarrow H_{\mathrm{SK}}.
+\end{equation}
+The study shall keep at least the following channels separate:
+\begin{align}
+  \text{parent-to-source discrepancy} &: H_{\mathrm{KS}}-H_{\mathrm{W}},\\
+  \text{spatial-truncation error} &: H_{\mathrm{W}}-H_{\mathrm{T}},\\
+  \text{parameterization error} &: H_{\mathrm{T}}-H_{\mathrm{SK}},\\
+  \text{oracle end-to-end discrepancy} &: H_{\mathrm{KS}}-H_{\mathrm{SK}}.
+\end{align}
+These expressions are schematic until basis, gauge, state space, energy reference, and
+units have been aligned.  Observable comparisons may replace operator subtraction when
+no justified operator alignment exists.
+
+Operational diagnostics are quantities available without a new direct-parent
+calculation at the target point.  They include native convergence, finite dimensions,
+unitarity and isometry residuals, pair Hermiticity, authenticated source reconstruction,
+real-space shell and tail measures, full-to-truncated operator or spectral differences,
+stability across prospectively declared truncations and stencils, and fit residuals to
+the declared reduction source.  The hidden-parent errors are evaluation labels.  The
+methodological question is whether the operational diagnostics predict those labels;
+the labels themselves shall not be presented as deployable diagnostics.
+
+The revealed 408-point parent set is development-oracle evidence.  Any diagnostic rule,
+calibration, threshold, truncation choice, fit convention, or error prediction informed
+by it is a development choice and must be frozen before the 402-point parent values are
+observed.  The 402-point set is a prospective confirmation oracle.  It shall not enter
+model construction, diagnostic definition, truncation selection, fitting, retry
+selection, or threshold adjustment.  This separation is the controlled analogue of the
+real computational setting in which those parent values are hidden.
+
+\section{Global-minimum policy}
+
+Structural eligibility for controlled reduction does not require an unsupported claim
+that a global spread minimum was found.  A locally converged candidate may serve as the
+fixed reduction source only if it is structurally valid, reproducible under the declared
+protocol, and satisfies the declared operational eligibility checks.  This status does
+not establish physical fidelity to hidden parent values.  Competing-minimum studies
+become necessary when two
+or more converged initializations or constructions produce materially different target
+observables or locality conclusions.  Comparisons shall use gauge-invariant spectra and
+within-candidate locality metrics unless an explicit alignment map exists.
+
+The lowest final spread among different target spaces is not, by itself, a selection
+rule because changing the frozen manifold changes the represented optimization problem.
+
+\section{Prospective convergence policy}
+
+For prospective $C_{6\text{-}B20\text{-}W21}$ localization, the calculation adopts
+the convergence-derived tuple from the precise protocol in pinned
+\texttt{aiida-wannier90-workflows} 3.1.0.  Its builder multiplies the per-atom tolerance
+meta-parameters by the number of sites.  For the exact two-atom primitive cell this
+gives
+\begin{align}
+  \texttt{conv\_tol} &= 2.0\times10^{-9}\ \text{\AA}^{2}, &
+  \texttt{conv\_window} &= 6, \\
+  \texttt{dis\_conv\_tol} &= 2.0\times10^{-9}, &
+  \texttt{num\_cg\_steps} &= 200,
+\end{align}
+with \texttt{num\_iter}=40000 and \texttt{dis\_num\_iter}=40000.  The emitted
+\texttt{dis\_conv\_tol} remains dimensionless; ``per atom'' describes the workflow's
+scaling convention.  Both native convergence messages remain mandatory, and the
+40000-step values are fixed eligibility ceilings rather than evidence of a global
+minimum or scientific adequacy.
+
+This adaptation does not adopt the precise protocol's factor-three band count,
+automatic 0.1~\AA$^{-1}$ mesh rule, PBEsol pseudopotential family, projections, energy
+windows, MPI policy, or restart handlers.  Historical occurrences retain the exact
+policies under which they ran and are not reclassified retrospectively.  No automatic
+extension beyond the adopted ceilings is permitted.
+
+\section{Current silicon evidence}
+
+The all-conduction-frozen rank-10 construction froze eight conduction states and no
+valence states at every source k point.  Its localization trajectories remained
+nonstationary through as many as 4000 iterations, including 277 post-1000 spread changes
+larger than $0.05\ \text{\AA}^{2}$ and a final large excursion at iteration 3934.  A
+500/1000 diagnostic found close source-mesh conduction spectra but material dense-grid,
+valley, and curvature differences.  These observations support optimization-landscape
+and target-space sensitivity, not arithmetic instability.
+
+The successor retained the executable, rank, projections, mesh, and byte-identical
+AMN, MMN, EIG, and NNKP interface artifacts, but changed the frozen interval to
+$[-5.85,8.00]$~eV in the native QE energy reference.  This freezes all four valence
+states and zero to two sampled low-energy conduction states per k point.  With
+\texttt{dis\_num\_iter = 2000}, disentanglement converged at iteration 1290 and
+Wannierisation converged at iteration 189.  The final total spread was
+$19.532839107\ \text{\AA}^{2}$; retained gauge-unitarity and disentanglement-isometry
+residuals were approximately $1.58\times10^{-10}$ and $1.32\times10^{-10}$, and the
+maximum Hamiltonian Hermiticity residual was $0.0$~eV.
+
+Because the same authenticated interface and executable admit convergence after the
+target-space revision, the supported diagnosis is that the earlier obstruction arose
+primarily from construction-induced optimization geometry.  This is not a proof that
+the new occurrence is a global spread minimum or a scientifically accepted operator.
+
+The subsequent no-calculator characterization verified source reconstruction and
+recorded the candidate's interpolation, valley, curvature, and locality behavior without
+assigning pass/fail status to candidate-only observations.  A prospectively frozen
+408-point direct-parent NSCF then supplied development-oracle labels.  All six
+candidate-to-parent valley displacements, $0.02120$--$0.03086$~\AA$^{-1}$, met the
+$0.034465$~\AA$^{-1}$ target.  The candidate indirect gap was $0.52261$~eV versus the
+direct-parent $0.61125$~eV, a 14.50\% relative discrepancy against the 5\% evaluation
+target.  On the frozen candidate-centered primary stencils, all transverse-mass
+comparisons and two of six longitudinal-mass comparisons exceeded the 8\% evaluation
+target.  These values limit physical-fidelity claims and provide controlled labels for
+diagnostic development.  They are not operational rejection criteria for a reduction
+whose fixed source is the full Wannier operator.
+
+\section{Construction-mesh successor recommendation}
+
+The negative parent-fidelity result ends optimizer tuning intended to repair that
+candidate retrospectively.  It shall not be repaired by tolerance changes, additional
+localization iterations, or mixing optimizer changes with a scientific-construction
+revision.  It does not block controlled component-operator construction or
+Slater--Koster reduction from the already converged and structurally eligible full
+operator.  Such reductions inherit the source operator's physical-fidelity limitation,
+and their reduction diagnostics and reduction errors shall be reported separately from
+that limitation.
+
+The first successor shall isolate reciprocal construction-mesh density.  Candidate
+$C_6$ uses a Gamma-origin $6\times6\times6$ ordered mesh while holding fixed the accepted
+$S_1$ structure and parent, QE 42/336~Ry cutoffs, fixed occupations,
+\texttt{nosym} and \texttt{noinv} set true, \texttt{conv\_thr} set to
+$1.0\times10^{-12}$~Ry, full-accuracy Davidson diagonalization, 12 parent bands,
+rank 10, non-spinorial character, outer window
+$[-5.85,19.02]$~eV, frozen window $[-5.85,8.00]$~eV, and the two projection lines
+\texttt{Si:sp3} and \texttt{Si:l=0:r=2}.  The localization controls also remain
+\texttt{dis\_num\_iter} 2000, \texttt{dis\_conv\_tol} $1.0\times10^{-10}$,
+\texttt{dis\_conv\_window} 3, \texttt{dis\_mix\_ratio} 0.2,
+\texttt{num\_iter} 4000, \texttt{conv\_tol} $2.0\times10^{-9}$~\AA$^2$,
+\texttt{conv\_window} 6, enabled \texttt{precond}, \texttt{num\_cg\_steps} 200,
+native-default \texttt{trial\_step} 2.0, unset \texttt{fixed\_step}, and disabled
+\texttt{guiding\_centres}.
+
+The $C_6$ route consists of distinct NSCF, Wannier90 preprocessing,
+\texttt{pw2wannier90.x}, and localization occurrences.  Each calculator invocation
+requires its own exact preflight and bounded authorization.  No occurrence in this
+protocol is automatically authorized.
+
+The first exact $C_6$ localization occurrence retained
+\texttt{dis\_num\_iter}=2000 and completed natively, but exhausted that budget at an
+absolute fractional change of $4.679\times10^{-8}$ against the unchanged dimensionless
+$1.0\times10^{-10}$ criterion.  Wannierisation subsequently converged at iteration 316,
+but cannot repair the unconverged subspace.  This is an optimizer-budget failure and
+produces no provider-eligible operator.  The monotonically decreasing changes over
+iterations 1800--2000 support preparation of one fresh bounded eligibility test with
+\texttt{dis\_num\_iter}=4000.  Every target-space coordinate and all other optimizer
+controls remain fixed, and no failed checkpoint or output may be consumed.  This budget
+extension is an explicit optimizer-coordinate amendment, not evidence that the original
+occurrence converged or that either local optimization reaches a global minimum.  The
+fresh occurrence subsequently converged Disentanglement at iteration 3068, but
+Wannierisation did not meet its six-consecutive-step spread-change gate by iteration
+4000.  Its final absolute spread change was $1.26\times10^{-5}$~\AA$^2$ against the
+unchanged $2.0\times10^{-9}$~\AA$^2$ criterion, and the late trajectory remained
+nonmonotonic with large excursions.  The provider therefore rejected the output.  The
+prospective stop rule now applies: no further automatic budget extension follows and
+$C_8$ shall not be selected merely because $C_6$ lacks an eligible operator.
+
+\subsection{Target-space candidate \texorpdfstring{$C_{6\text{-}T1}$}{C6-T1}}
+
+The authenticated $C_6$ parent eigenvalues span
+$[-5.8341319732,20.8036050385]$~eV.  The inherited outer window
+$[-5.85,19.02]$~eV contains 12 parent states at 142 construction points, 11 at 62,
+and only the rank-minimum 10 at 12; 86 states across 74 points lie above its maximum.
+The fixed numerical window therefore does not define a mesh-stable parent-band
+inventory.  This observation does not prove the cause of either optimizer failure, but
+it ends pure mesh-only attribution and motivates a separate target-space candidate.
+
+Candidate $C_{6\text{-}T1}$ changes only the outer window to
+$[-6.0,21.0]$~eV.  On the authenticated 216-point interface this defines the outer
+subspace as the span of all 12 computed parent states at every construction point, with
+finite lower and upper margins of 0.1658680268 and 0.1963949615~eV.  The frozen window,
+rank, projections, mesh, source order, energy reference, interface bytes, and all
+optimizer controls remain fixed, including \texttt{dis\_num\_iter}=4000 and
+\texttt{num\_iter}=4000.  The occurrence shall start fresh and consume no checkpoint or
+failed localization output.  Because the window does not change NNKP topology or the
+QE-generated EIG, AMN, and MMN data, those authenticated interface artifacts may be
+reused without new preprocessing or conversion.
+
+$C_{6\text{-}T1}$ is not a continuation of the one-variable mesh test.  Its prepared
+localization request remains unexecuted and is not selected as the next occurrence after
+the parent-band review below.
+
+\subsection{AiiDA-moderate parent-band candidate
+\texorpdfstring{$C_{6\text{-}B20}$}{C6-B20}}
+
+The next selected target-space stage adopts the band-count heuristic, but not the
+complete protocol, from \texttt{aiida-wannier90-workflows} release 3.1.0 at pinned
+commit \texttt{1c0115cb7c77}.  The pinned moderate
+workflow sets \texttt{num\_bands\_factor}=2.0, and its estimator takes the maximum of
+the factor-scaled occupied-state and projection counts and the corresponding counts
+plus four.\footnote{\href{https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml\#L6-L25}{Pinned moderate-protocol source};
+\href{https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/utils/pseudo/__init__.py\#L292-L342}{pinned band-estimator implementation}.}
+For the non-spin-polarized two-atom cell, eight pseudopotential valence electrons, and
+ten declared trial projections, this gives
+\begin{equation}
+  N_{\mathrm{bands}}=\max(8,8,20,14)=20.
+\end{equation}
+For this parent-band decision, the calculation-owned adaptation cites the AiiDA
+workflow only for that factor-two inventory rule.  The separately declared precise
+convergence adaptation controls prospective localization and does not alter the band
+count.  Neither adaptation adopts the workflow's default PBEsol pseudopotential,
+derives projections through its pseudo machinery, or claims that AiiDA executed or
+validated this campaign.
+
+Candidate $C_{6\text{-}B20}$ changes only the NSCF parent-band count from 12 to 20.
+The accepted structure and parent, PBE pseudopotential, 42/336~Ry cutoffs, ordered
+Gamma-origin $6\times6\times6$ mesh, occupations, $10^{-12}$~Ry electronic threshold,
+full-accuracy Davidson solver, and symmetry controls remain fixed.  Rank 10 remains the
+prospective represented dimension; 20 calculated bands do not imply rank 20.
+
+One separately authorized $C_{6\text{-}B20}$ NSCF completed successfully.  Its QEXSD
+contains 216 points and 20 finite bands spanning $[-5.8341319732,30.2720123939]$~eV,
+and its saved state verifies.  The ordered points and weights match the earlier
+12-band $C_6$ occurrence exactly, while its first 12 eigenvalues agree within
+$4.14\times10^{-11}$~eV.  Under the inherited $[-5.85,19.02]$~eV window, the enlarged
+inventory contains 10--14 states per point with histogram
+$\{10\!:\!12,11\!:\!62,12\!:\!96,13\!:\!24,14\!:\!22\}$.  Under the prepared
+$[-6.0,21.0]$~eV window it contains 12--14 states with histogram
+$\{12\!:\!48,13\!:\!108,14\!:\!60\}$.  Bands 13 and 14 therefore enter both
+investigated windows; band 15 remains above 21~eV everywhere.
+
+These observations authenticate the broader parent inventory.  The subsequent
+calculation-owned target-space decision selects candidate
+$C_{6\text{-}B20\text{-}W21}$ with outer window $[-6.0,21.0]$~eV.  This places the
+upper boundary 0.1964~eV above the observed band-12 maximum and 0.2572~eV below the
+observed band-15 minimum, while admitting 12--14 states and therefore at least two
+outer-space dimensions beyond rank 10 at every point.  The frozen window, rank, and
+projection family remain unchanged.  This selection is an optimizer-eligibility
+target-space redesign, not evidence of convergence, a global minimum, or scientific
+adequacy.
+
+Bands 13--20 require new interface artifacts; the existing 12-band NNKP, EIG, AMN, and
+MMN data cannot be reused.  Fresh preprocessing, conversion, and localization remain
+distinct occurrences with separate authorization.  The AiiDA precise factor of 3.0
+would give 30 bands under the same adaptation, but $C_{6\text{-}B30}$ is a conditional
+upper diagnostic and does not follow automatically from failure of
+$C_{6\text{-}B20\text{-}W21}$.
+
+The separately authorized preprocessing, conversion, and localization occurrences later
+completed for $C_{6\text{-}B20\text{-}W21}$.  Native disentanglement and
+Wannierisation converged, and no-calculator characterization established a finite,
+Hermitian, source-reconstructing full untruncated operator.  It is therefore eligible as
+the fixed source for controlled reduction.  Its revealed 408-point comparison passed
+all six valley-position criteria but failed the gap criterion and 17 of 18
+principal-mass criteria.  Those failures are development-oracle labels: they limit
+physical-fidelity claims, but they neither revoke structural eligibility nor block the
+controlled reduction and diagnostic study.
+
+The revealed 408-point parent set may be used for development-oracle calibration and
+residual attribution, but it is no longer withheld for $C_6$ or any later candidate.
+The existing 5\% indirect-gap, 3\% Gamma--X valley-position, and 8\% per-mass targets
+remain unchanged oracle-evaluation criteria.  They are not operational diagnostics and
+do not gate controlled reduction.  The exact full operator, reduction declarations,
+diagnostic rules, calibration, fitting conventions, and predictions shall be frozen
+before any new parent values are observed.  Failure of a development-oracle criterion
+does not trigger an automatic $8\times8\times8$ successor.  A separately declared
+$C_8$ mesh study is appropriate only for a separately stated source-fidelity question;
+it is not a repair step required by the controlled-reduction protocol.  Rank, band
+inventory, windows, projections, and mesh remain separate scientific coordinates and
+shall not be changed together without an explicit new study.
+
+A $12\times12\times12$ construction, denoted $C_{12}$, is a bounded upper mesh
+diagnostic rather than an automatic successor.  The $C_4$, $C_6$, $C_8$, and $C_{12}$
+meshes contain 64, 216, 512, and 1728 points, respectively, so $C_{12}$ is 27 times the
+original source-point inventory.  It becomes scientifically eligible for a separate
+preflight only when a completed $C_8$ review still supports the mesh-density hypothesis
+and either the intended-use criteria remain unmet or material mesh sensitivity remains.
+No direct jump from $C_4$ to $C_{12}$ is part of this protocol.
+
+Passing the development and prospective confirmation criteria at $C_{12}$ would
+establish adequacy only for that finite represented operator and declared intended use.
+A stronger claim of construction-mesh convergence requires either comparison with a
+finer declared mesh or a prospective real-space tail/aliasing bound showing that omitted
+Fourier content cannot materially change the target observables.  Mesh size alone does
+not supply that bound, and $C_{12}$ cannot repair an inadequate band inventory, rank,
+window, or projection family.
+
+A future confirmation set shall remain disjoint from the $C_4$, $C_6$, possible $C_8$,
+and possible $C_{12}$ construction meshes and from the revealed 408-point set.  Its geometry is fixed
+prospectively as follows.  Six symmetry-projected centers lie on the signed Cartesian
+axes at the mean revealed parent-valley radius
+$0.9629174643168844$~\AA$^{-1}$, equal to $0.8381689694043609$ of Gamma--X.  Around each
+center, use the right-handed rotated Cartesian basis
+\begin{equation}
+ U=\begin{pmatrix}
+ 1/\sqrt{3} &  1/\sqrt{2} &  1/\sqrt{6} \\
+ 1/\sqrt{3} & -1/\sqrt{2} &  1/\sqrt{6} \\
+ 1/\sqrt{3} &  0           & -2/\sqrt{6}
+ \end{pmatrix}.
+\end{equation}
+For each center, include the center, all six axial and twelve mixed-sign quadratic
+points at each of $0.002$, $0.006$, and $0.012$~\AA$^{-1}$, and the twelve axial capture
+points at $0.024$ and $0.048$~\AA$^{-1}$.  After periodic de-duplication the intended
+inventory contains 402 points.  Exact fractional coordinates, construction-disjointness,
+and point roles must be generated and authenticated before use.
+
+This confirmation geometry is parent-informed because its centers use the already
+revealed parent minima; it shall not be described as blind to geometry.  Its direct
+parent eigenvalues nevertheless remain unobserved.  The reduction definitions,
+operational diagnostics, diagnostic-to-error predictions, fitting conventions, and
+oracle-evaluation criteria must be frozen before a separately authorized direct-parent
+occurrence reveals those values.
+
+\section{Controlled-reduction and confirmation sequence}
+
+For $C_6$ and any separately approved source operator:
+
+\begin{enumerate}
+  \item verify native convergence, exact source-mesh reconstruction, finite dimensions,
+    transformation identities, representative closure, and Hermiticity without using
+    withheld parent values as an eligibility gate;
+  \item freeze the full untruncated operator as $H_{\mathrm{W}}$ and declare its basis,
+    gauge, energy reference, geometry, units, and known source-fidelity limitations;
+  \item define spatial truncations and Slater--Koster parameterizations using only the
+    declared construction data and operational diagnostics;
+  \item retain separately the shell and tail diagnostics, full-to-truncated errors,
+    parameterization errors, spectral and observable stability, and all failed
+    reductions;
+  \item use the revealed 408-point parent values only as labeled development-oracle
+    evidence, explicitly recording every diagnostic rule or calibration informed by
+    those values;
+  \item freeze the reductions, diagnostic rules, fitting conventions, oracle-error
+    predictions, and evaluation criteria before observing confirmation parent values;
+    and
+  \item reveal the 402-point parent values only through a separately authorized
+    occurrence, then test prospectively whether the frozen operational diagnostics
+    predicted the hidden parent discrepancies without refitting.
+\end{enumerate}
+
+Failure in any channel shall be attributed to the applicable parent-model,
+discretization, subspace, gauge, interpolation, spatial-truncation, or parameterization
+error class.  A parent-fidelity failure limits physical claims but does not erase the
+controlled reduction.  Conversely, small internal reduction error does not repair or
+hide a large parent-to-source discrepancy.  Passing software checks or native
+convergence establishes operational eligibility only, not physical validation.
+
+\section{Nonclaims}
+
+This protocol does not certify a global minimum, physical accuracy, pseudopotential
+transferability, mesh convergence, effective masses, locality, or an accepted
+Slater--Koster model.  It does not claim that an oracle error is available during real
+computation or that an operational diagnostic equals the hidden error.  It defines a
+controlled test of whether prospectively frozen diagnostics are informative about that
+error.  It authorizes no calculator invocation, evidence publication, release, or
+retrospective acceptance.
+
+\end{document}

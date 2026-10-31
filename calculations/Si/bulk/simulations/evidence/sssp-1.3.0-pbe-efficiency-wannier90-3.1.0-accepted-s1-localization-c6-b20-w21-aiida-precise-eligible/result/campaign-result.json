@@ -1,0 +1,38 @@
+{
+  "artifact_manifest": {
+    "byte_size": 2238,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/artifact-manifest.json",
+    "sha256": "07824b94f83127379a455a4518d5d974af099b9362d1478e12bfbf2d4e30b67e"
+  },
+  "authorization": {
+    "byte_size": 1018,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/authorization.json",
+    "sha256": "a55301c171769bf17e90a1bea88c7909f93fb7b1ba0fc649f31fe031c299245c"
+  },
+  "execution_record": {
+    "byte_size": 550,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/execution.json",
+    "sha256": "bf0eb923835adfbad0e2e58900ffb890d9f6b7ec2118726a7b0dac98f1e656d0"
+  },
+  "failure_class": "provider-structural-output-failure",
+  "failure_summary": {
+    "byte_size": 918,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/failure-summary.json",
+    "sha256": "79fc6306e55581ae4b3fa90647d8f0c0b206f1339bdec332e064fd8c445dd135"
+  },
+  "invocation_count": 1,
+  "maximum_retained_bytes": 134217728,
+  "native_execution_status": "succeeded",
+  "native_return_code": 0,
+  "provider_result": {
+    "byte_size": 218,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/provider-result.json",
+    "sha256": "2c373ab63e23b3be86b1c66c9da809e596805eaccbd052e2db2e441926cb2b64"
+  },
+  "provider_status": "output-ineligible",
+  "retry_count": 0,
+  "schema_version": 1,
+  "scientific_disposition": "blocked C6-B20-W21 precise-profile localization occurrence; retained outputs are diagnostic only and cannot be consumed as operator inputs",
+  "total_occurrence_bytes": 66845630,
+  "within_retained_byte_bound": true
+}

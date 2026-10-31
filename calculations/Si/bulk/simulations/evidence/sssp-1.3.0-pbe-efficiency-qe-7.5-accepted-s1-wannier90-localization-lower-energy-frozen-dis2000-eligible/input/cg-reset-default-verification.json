@@ -1,0 +1,37 @@
+{
+  "previous_occurrence": {
+    "effective_value_reported_by_wout": 200,
+    "explicit_num_cg_steps": 200,
+    "win": {
+      "byte_size": 3638,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/prepared-input/silicon.win",
+      "sha256": "e7d62ca201849dcdff0d453383652f46ed85e75a06d70d1070c61d54b933d411"
+    },
+    "wout": {
+      "byte_size": 424684,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/run/silicon.wout",
+      "sha256": "bda5ca58bd1b0d2989576864eaf21039e20a70c48c532f104e6a2e15579d5de1"
+    }
+  },
+  "quantity": "Fletcher-Reeves conjugate-gradient updates before reset",
+  "schema_version": 1,
+  "source_default": {
+    "source": {
+      "byte_size": 289970,
+      "path": "/Users/eugene/projects/wannier90-3.1.0/src/parameters.F90",
+      "sha256": "19db3643a6bda79a656da56fc92c3065dd98b51c73bfdcd8b4325b5d892014a2"
+    },
+    "source_line": "num_cg_steps = 5",
+    "value": 5
+  },
+  "successor_occurrence": {
+    "explicit_num_cg_steps": 200,
+    "win": {
+      "byte_size": 3638,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-dis2000-20261031T100534Z/prepared-input/silicon.win",
+      "sha256": "33a73bc040883929657e20e6cb4ce2b3fd60ede9e185e276e595143bb9809d4d"
+    }
+  },
+  "unchanged_across_successor": true,
+  "wannier90_version": "3.1.0"
+}

@@ -1,0 +1,59 @@
+{
+  "authorization_granted": false,
+  "authorization_scope": "one fresh local C6-B20-W21 precise-profile localization invocation only; no retry, checkpoint use, failed-output use, further budget extension, C6-B30, C8, C12, confirmation, component operator, or Slater-Koster reduction",
+  "campaign_preflight": {
+    "byte_size": 6772,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise/campaign-preflight.json",
+    "sha256": "b7e6b150e28e4ae79eadffbc8799eb593554ccd4f9792347fbd6852ca9a1977d"
+  },
+  "requested_occurrence": {
+    "calculator": "Wannier90 3.1.0",
+    "checkpoint_consumed": false,
+    "command": [
+      "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+      "silicon"
+    ],
+    "executable_sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd",
+    "failed_outputs_consumed": false,
+    "input": {
+      "byte_size": 10475,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise/prepared/silicon.win",
+      "sha256": "6a6fe1b3193455038a0c4a14038f174f3c0e6244113ee9fb17ff1f42a145a2f3"
+    },
+    "input_manifest": {
+      "byte_size": 1413,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise/prepared/localization-input-manifest.json",
+      "sha256": "523515dffc883abf1bc0ff3e1427eea13e85a12774a5ce2040e3dd43c396568e"
+    },
+    "maximum_invocations": 1,
+    "maximum_retained_bytes": 134217728,
+    "processes": 1,
+    "retries": 0,
+    "source_artifacts": {
+      "silicon.amn": {
+        "byte_size": 2894499,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.amn",
+        "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+      },
+      "silicon.eig": {
+        "byte_size": 168480,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.eig",
+        "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2"
+      },
+      "silicon.mmn": {
+        "byte_size": 25662627,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.mmn",
+        "sha256": "f81833fe7476426c15b690774214b4d07acaa2ffa93b1facb8ceb78c44ab6074"
+      },
+      "silicon.nnkp": {
+        "byte_size": 59408,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.nnkp",
+        "sha256": "608b8e0aacb8adddcfc2b8e0090ce48f5b916aec0d321bb69aabf01af9462575"
+      }
+    },
+    "stop_on_failure": true,
+    "timeout_seconds": 14400.0
+  },
+  "schema_version": 1,
+  "status": "authorization-required"
+}

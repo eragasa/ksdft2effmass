@@ -1,0 +1,60 @@
+{
+  "authorization_granted": false,
+  "boundary": "continuing recommendation and preflight preparation does not itself authorize this exact pw.x invocation",
+  "downstream_not_authorized": [
+    "20-band target-window selection",
+    "Wannier90 preprocessing",
+    "pw2wannier90 conversion",
+    "Wannier90 localization",
+    "C8",
+    "C12",
+    "successor confirmation parent",
+    "automatic retry"
+  ],
+  "requested_filesystem_actions": {
+    "copy_pseudopotential": true,
+    "create_fresh_occurrence_root": true,
+    "mutate_parent_saved_state": false,
+    "verify_and_copy_parent_saved_state": true
+  },
+  "requested_occurrence": {
+    "band_count": 20,
+    "command": [
+      "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw.x",
+      "-in",
+      "pw.in"
+    ],
+    "executable": "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw.x",
+    "input": {
+      "byte_size": 13911,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20/pw.in",
+      "sha256": "20a6ee6e55d632bb66b1afcaac91592bf49c73a3e53e275659d1ccb03e47e1f9"
+    },
+    "kpoint_count": 216,
+    "maximum_invocations": 1,
+    "maximum_retained_bytes": 536870912,
+    "parent_manifest_sha256": "2b80acf2bc53dcbc5c667d50c4747036704a640c86cdf5902a98e998e21aefb9",
+    "processes": 1,
+    "proposed_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1",
+    "pseudopotential_sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b",
+    "purpose": "C6-B20 6x6x6 20-band Davidson parent-inventory NSCF",
+    "retries": 0,
+    "timeout_seconds": 600.0
+  },
+  "required_retained_outputs": [
+    "authorization.json",
+    "campaign-preflight.json",
+    "calculation.toml",
+    "pw.in",
+    "run/execution.json",
+    "run/pw.out",
+    "run/pw.err",
+    "run/tmp/system.save/data-file-schema.xml",
+    "run/nscf-saved-state-manifest.json",
+    "run/artifact-manifest.json",
+    "nscf-result.json",
+    "campaign-result.json"
+  ],
+  "schema_version": 1,
+  "status": "authorization-required"
+}

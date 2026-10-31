@@ -1,0 +1,13 @@
+{
+  "configuration_sha256": "783db021ba7743b785046f86583a2f1e9a5eb52910cc8346efa00404af4defd5",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 2147483648,
+  "operator_instruction": "Authorize exactly one accepted-S1 4x4x4 12-band Davidson NSCF invocation described in campaign-preflight.json, with zero retries and stop on failure.",
+  "preflight_sha256": "e8c124b41d6c5d86eb6388f059412b848baf3fc44f3c5104c3d5a5342a57e523",
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "stop_on_failure": true,
+  "timeout_seconds": 600.0
+}

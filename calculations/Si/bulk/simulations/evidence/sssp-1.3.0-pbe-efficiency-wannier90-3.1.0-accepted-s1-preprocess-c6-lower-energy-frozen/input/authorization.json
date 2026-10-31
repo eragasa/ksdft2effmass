@@ -1,0 +1,18 @@
+{
+  "authorization_request_sha256": "28599fee49e6b4b7050f2a9d714770bcaf6246be2aa99837a191352c5120a430",
+  "command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "-pp",
+    "silicon"
+  ],
+  "input_sha256": "2d5e4f0486e5062a8dd89a202845b8deac65efffea8acc0be05c192a4c12b604",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 33554432,
+  "operator_instruction": "Authorize exactly one local Wannier90 3.1.0 wannier90.x -pp silicon preprocessing invocation bound to authorization-request SHA-256 28599fee49e6b4b7050f2a9d714770bcaf6246be2aa99837a191352c5120a430, using input SHA-256 2d5e4f0486e5062a8dd89a202845b8deac65efffea8acc0be05c192a4c12b604, one process, 120-second timeout, 32 MiB ceiling, and zero retries.",
+  "processes": 1,
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "timeout_seconds": 120.0
+}

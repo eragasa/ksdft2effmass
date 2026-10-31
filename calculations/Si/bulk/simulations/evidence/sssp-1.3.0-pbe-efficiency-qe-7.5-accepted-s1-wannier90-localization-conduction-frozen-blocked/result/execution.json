@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "silicon"
+  ],
+  "error_message": null,
+  "error_type": null,
+  "required_input_filenames": [
+    "silicon.win",
+    "silicon.nnkp",
+    "silicon.eig",
+    "silicon.amn",
+    "silicon.mmn"
+  ],
+  "returncode": 0,
+  "schema_version": 1,
+  "status": "succeeded",
+  "stderr_filename": "wannier90.err",
+  "stdout_filename": "wannier90.out",
+  "working_directory": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-20261031T084540Z/run"
+}

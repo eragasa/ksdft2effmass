@@ -1,0 +1,238 @@
+{
+  "band_ranges": [
+    {
+      "band_index_one_based": 1,
+      "maximum_ev": -1.6542492575832457,
+      "minimum_ev": -5.834131973200366,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 2,
+      "maximum_ev": 5.983119128118839,
+      "minimum_ev": -1.7673618554047708,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 3,
+      "maximum_ev": 5.983119128118928,
+      "minimum_ev": 1.6699137178834458,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 4,
+      "maximum_ev": 5.983119128118928,
+      "minimum_ev": 2.420366663065104,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 5,
+      "maximum_ev": 9.352012662654378,
+      "minimum_ev": 6.736696896102431,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 6,
+      "maximum_ev": 11.766477218753318,
+      "minimum_ev": 6.736698818330573,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 7,
+      "maximum_ev": 15.905055700464784,
+      "minimum_ev": 8.537149638683328,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 8,
+      "maximum_ev": 15.90505570046481,
+      "minimum_ev": 9.101479814203689,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 9,
+      "maximum_ev": 16.90091511366482,
+      "minimum_ev": 12.115248836684612,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 10,
+      "maximum_ev": 16.97055992172033,
+      "minimum_ev": 13.077377810405512,
+      "points_at_or_below_19_02_ev": 216,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 11,
+      "maximum_ev": 20.226396355697617,
+      "minimum_ev": 13.863772291021828,
+      "points_at_or_below_19_02_ev": 204,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 12,
+      "maximum_ev": 20.803605038461093,
+      "minimum_ev": 16.570261064289237,
+      "points_at_or_below_19_02_ev": 142,
+      "points_at_or_below_21_ev": 216
+    },
+    {
+      "band_index_one_based": 13,
+      "maximum_ev": 22.281111657081805,
+      "minimum_ev": 17.171553892211172,
+      "points_at_or_below_19_02_ev": 46,
+      "points_at_or_below_21_ev": 168
+    },
+    {
+      "band_index_one_based": 14,
+      "maximum_ev": 22.608956733502914,
+      "minimum_ev": 17.171553892211218,
+      "points_at_or_below_19_02_ev": 22,
+      "points_at_or_below_21_ev": 60
+    },
+    {
+      "band_index_one_based": 15,
+      "maximum_ev": 25.078428940497535,
+      "minimum_ev": 21.257167314276458,
+      "points_at_or_below_19_02_ev": 0,
+      "points_at_or_below_21_ev": 0
+    },
+    {
+      "band_index_one_based": 16,
+      "maximum_ev": 28.749819003984772,
+      "minimum_ev": 22.24686107808373,
+      "points_at_or_below_19_02_ev": 0,
+      "points_at_or_below_21_ev": 0
+    },
+    {
+      "band_index_one_based": 17,
+      "maximum_ev": 28.749819003984882,
+      "minimum_ev": 22.24686107808377,
+      "points_at_or_below_19_02_ev": 0,
+      "points_at_or_below_21_ev": 0
+    },
+    {
+      "band_index_one_based": 18,
+      "maximum_ev": 28.749819003984882,
+      "minimum_ev": 24.62841739012882,
+      "points_at_or_below_19_02_ev": 0,
+      "points_at_or_below_21_ev": 0
+    },
+    {
+      "band_index_one_based": 19,
+      "maximum_ev": 29.781778698360338,
+      "minimum_ev": 26.01034530649364,
+      "points_at_or_below_19_02_ev": 0,
+      "points_at_or_below_21_ev": 0
+    },
+    {
+      "band_index_one_based": 20,
+      "maximum_ev": 30.272012393890613,
+      "minimum_ev": 26.010345306493758,
+      "points_at_or_below_19_02_ev": 0,
+      "points_at_or_below_21_ev": 0
+    }
+  ],
+  "current_eigenvalue_range_ev": [
+    -5.834131973200366,
+    30.272012393890613
+  ],
+  "current_qexsd": {
+    "byte_size": 371723,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/tmp/system.save/data-file-schema.xml",
+    "sha256": "2e1b5e157142d18210d18710fb9f5f3e813b17d8331acf96e11af9b9d4f7ef8c"
+  },
+  "dimensions": {
+    "current_band_count": 20,
+    "kpoint_count": 216,
+    "prior_band_count": 12,
+    "prospective_wannier_rank": 10
+  },
+  "interpretation": {
+    "parent_band_inventory": "The authenticated parent inventory is enlarged from 12 to 20 bands.",
+    "rank_nonclaim": "The prospective Wannier rank remains 10; 20 parent bands do not define a rank-20 represented operator.",
+    "window_nonclaim": "These counts characterize declared windows but do not select an outer window or authorize preprocessing, conversion, or localization."
+  },
+  "prior_interface_correlation": {
+    "maximum_first_12_eigenvalue_difference_ev": 4.132516551180743e-11,
+    "maximum_fractional_kpoint_difference": 0.0,
+    "maximum_kpoint_weight_difference": 0.0
+  },
+  "prior_qexsd": {
+    "byte_size": 287483,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/tmp/system.save/data-file-schema.xml",
+    "sha256": "865f8e749b2e2280a7ea093effc36b524f78f88ab9a9baf70e028ac7a8e42023"
+  },
+  "schema_version": 1,
+  "status": "authenticated-no-calculator-analysis",
+  "window_analysis": {
+    "inherited_outer": {
+      "additional_band_13_to_20_state_count_histogram": {
+        "0": 170,
+        "1": 24,
+        "2": 22
+      },
+      "bounds_ev": [
+        -5.85,
+        19.02
+      ],
+      "maximum_state_count": 14,
+      "minimum_state_count": 10,
+      "points_below_rank_10": 0,
+      "state_count_histogram": {
+        "10": 12,
+        "11": 62,
+        "12": 96,
+        "13": 24,
+        "14": 22
+      },
+      "total_additional_band_13_to_20_states": 68
+    },
+    "prepared_c6_t1_outer": {
+      "additional_band_13_to_20_state_count_histogram": {
+        "0": 48,
+        "1": 108,
+        "2": 60
+      },
+      "bounds_ev": [
+        -6.0,
+        21.0
+      ],
+      "maximum_state_count": 14,
+      "minimum_state_count": 12,
+      "points_below_rank_10": 0,
+      "state_count_histogram": {
+        "12": 48,
+        "13": 108,
+        "14": 60
+      },
+      "total_additional_band_13_to_20_states": 228
+    },
+    "retained_frozen": {
+      "additional_band_13_to_20_state_count_histogram": {
+        "0": 216
+      },
+      "bounds_ev": [
+        -5.85,
+        8.0
+      ],
+      "maximum_state_count": 6,
+      "minimum_state_count": 4,
+      "points_below_rank_10": 216,
+      "state_count_histogram": {
+        "4": 129,
+        "5": 84,
+        "6": 3
+      },
+      "total_additional_band_13_to_20_states": 0
+    }
+  }
+}

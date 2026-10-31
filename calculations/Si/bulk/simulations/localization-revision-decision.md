@@ -1,0 +1,46 @@
+# First localization convergence revision
+
+## Trigger
+
+The first rank-10 localization occurrence returned zero and native completion but was
+provider-ineligible. Disentanglement reached 200 iterations and explicitly reported
+nonconvergence. Its fractional delta fell from order `1e-1` to a minimum near
+`3.089e-5` around iterations 157–158, then rose to `1.191e-4` at iteration 200.
+Wannierisation reached 100 iterations without its convergence message; its final RMS
+gradient was `0.0018925740` and final spread change was approximately `-4.49e-6
+angstrom^2`.
+
+## Recommended revision
+
+The next candidate is a fresh occurrence changing only optimization controls:
+
+- enable Wannier spread preconditioning with `precond = .true.`;
+- increase `num_iter` from 100 to 500;
+- reduce `dis_mix_ratio` from 0.5 to 0.2 to damp the observed late-stage reversal; and
+- increase `dis_num_iter` from 200 to 1000.
+
+Keep the `1.0e-10 angstrom^2` Wannierisation absolute tolerance and the dimensionless
+`1.0e-10` disentanglement fractional tolerance, each with its three-iteration window,
+unchanged. See
+[`disentanglement-convergence-tolerance.md`](disentanglement-convergence-tolerance.md)
+for the native distinction. Keep the exact structure, mesh, 12-band outer space,
+rank-10 projections,
+energy window, absence of a frozen window, NNKP topology, and AMN/MMN/EIG bytes
+unchanged. Start fresh rather than consuming the blocked checkpoint.
+
+This is deliberately a convergence-control test, not acceptance of a different target
+subspace. The lower mixing ratio is preferred over 1.0 because the Wannier90 3.1.0 user
+guide states that no mixing can be faster but may be unstable, while the retained
+trajectory already shows a late-stage reversal. Preconditioning affects Wannier spread
+minimization only; it does not replace the separate disentanglement-control revision.
+
+## Eligibility and authority
+
+Eligibility remains unchanged: both native convergence messages, no maximum-iteration
+warning, finite bounded parsing, exact dimensions and k-point order, gauge/isometry
+residual at most `1.0e-8`, and Hamiltonian Hermiticity residual at most `1.0e-8 eV`.
+
+This decision authorized preparation of a new exact preflight. The subsequently
+authorized occurrence showed that conditioning achieved Wannierisation convergence at
+iteration 86, while damped disentanglement still exhausted 1000 iterations at a final
+fractional delta of `3.815e-6`. That occurrence is blocked and no retry is authorized.

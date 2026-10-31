@@ -1,0 +1,33 @@
+{
+  "authorization_granted": false,
+  "authorization_scope": "one local converter invocation only; no retry, localization, C6-B30, C8, C12, or confirmation-parent evaluation",
+  "campaign_preflight": {
+    "byte_size": 4742,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise/campaign-preflight.json",
+    "sha256": "fae31ab6e9f20c11b21211f50d661df33b699c508216b86518ed742e0d9ab3a7"
+  },
+  "requested_occurrence": {
+    "calculator": "Quantum ESPRESSO 7.5 pw2wannier90.x",
+    "command": [
+      "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+      "-in",
+      "pw2wannier90.in"
+    ],
+    "executable_sha256": "61c8255b0745df2a5dec3c55e600b1f8b87039b564004997ac45cfee42cf2c8c",
+    "input": {
+      "byte_size": 230,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise/rendered/pw2wannier90.in",
+      "sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67"
+    },
+    "maximum_invocations": 1,
+    "maximum_retained_bytes": 268435456,
+    "nnkp_sha256": "608b8e0aacb8adddcfc2b8e0090ce48f5b916aec0d321bb69aabf01af9462575",
+    "parent_nscf_manifest_sha256": "24ee9d483141ab54d099bc6e6403d0da46108cc7a30c5b019992da3a1d7ef3ac",
+    "processes": 1,
+    "retries": 0,
+    "stop_on_failure": true,
+    "timeout_seconds": 300.0
+  },
+  "schema_version": 1,
+  "status": "authorization-required"
+}

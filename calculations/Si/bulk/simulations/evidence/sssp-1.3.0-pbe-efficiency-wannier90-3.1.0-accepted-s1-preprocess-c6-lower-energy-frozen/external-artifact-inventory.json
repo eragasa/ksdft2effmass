@@ -1,0 +1,88 @@
+{
+  "external_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1",
+  "file_count": 16,
+  "files": [
+    {
+      "byte_size": 1109,
+      "relative_path": "authorization-request.json",
+      "sha256": "28599fee49e6b4b7050f2a9d714770bcaf6246be2aa99837a191352c5120a430"
+    },
+    {
+      "byte_size": 904,
+      "relative_path": "authorization.json",
+      "sha256": "a66b6d4fbd67cc8a59b66daec4f896c31766522981175df2b57c54a1a7731d04"
+    },
+    {
+      "byte_size": 4344,
+      "relative_path": "campaign-preflight.json",
+      "sha256": "88b3bf7988327461a19b14fe6f770bfbefdeab3e3d93e8c171d999ba481a0307"
+    },
+    {
+      "byte_size": 1620,
+      "relative_path": "campaign-result.json",
+      "sha256": "1ac21c19acf2475d27a67ecf2441a37d19c93accd9bfe6784b8fc378335c4efe"
+    },
+    {
+      "byte_size": 10417,
+      "relative_path": "input/silicon.win",
+      "sha256": "2d5e4f0486e5062a8dd89a202845b8deac65efffea8acc0be05c192a4c12b604"
+    },
+    {
+      "byte_size": 1080,
+      "relative_path": "prepared-input-record.json",
+      "sha256": "8f0443d37bc6b554a520c5415afa318e4964f33047062b202a2ce046b0d6163b"
+    },
+    {
+      "byte_size": 2526,
+      "relative_path": "preprocessing-result.json",
+      "sha256": "8306f8b7340e1673a79342a8725b4ad2bd63e96ea078929b423f6d72145538a4"
+    },
+    {
+      "byte_size": 2015,
+      "relative_path": "run/artifact-manifest.json",
+      "sha256": "343d90a276083a2dad6a3918b9b34cf4816b8ba5361404fc5b29fb69c4328578"
+    },
+    {
+      "byte_size": 486,
+      "relative_path": "run/execution.json",
+      "sha256": "ded7da5af6869ce8c4cc0f701adb4c87448404a8d401b8f63711ff6835d82e00"
+    },
+    {
+      "byte_size": 1080,
+      "relative_path": "run/prepared-input-record.json",
+      "sha256": "8f0443d37bc6b554a520c5415afa318e4964f33047062b202a2ce046b0d6163b"
+    },
+    {
+      "byte_size": 59408,
+      "relative_path": "run/silicon.nnkp",
+      "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+    },
+    {
+      "byte_size": 10417,
+      "relative_path": "run/silicon.win",
+      "sha256": "2d5e4f0486e5062a8dd89a202845b8deac65efffea8acc0be05c192a4c12b604"
+    },
+    {
+      "byte_size": 16267,
+      "relative_path": "run/silicon.wout",
+      "sha256": "972642f156f78b9c7d8eec3ef95816f19bc4970b363489295db7f3fefa602cc1"
+    },
+    {
+      "byte_size": 81,
+      "relative_path": "run/wannier90-pp.err",
+      "sha256": "400a35c0a4d0cfe789b3c30941e4ad4e1c4878a6962021d509ff5601350223eb"
+    },
+    {
+      "byte_size": 0,
+      "relative_path": "run/wannier90-pp.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_size": 15997,
+      "relative_path": "run_campaign.py",
+      "sha256": "ce83b7d37df60b0838d51cbaf9adefd150eb9e6e893a5cb54573e839feaf2673"
+    }
+  ],
+  "schema_version": 1,
+  "total_bytes": 127751
+}

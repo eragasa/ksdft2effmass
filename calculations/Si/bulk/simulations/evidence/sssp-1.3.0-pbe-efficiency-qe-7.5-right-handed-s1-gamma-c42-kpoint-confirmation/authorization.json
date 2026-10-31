@@ -1,0 +1,19 @@
+{
+  "authorized": true,
+  "authorized_at_utc": "2026-10-31T06:51:50.046406+00:00",
+  "authorized_bounds": {
+    "coordinates_in_order": [
+      "K6",
+      "K8",
+      "K10",
+      "K12"
+    ],
+    "maximum_invocations": 4,
+    "retries": 0,
+    "stop_on_first_failure": true
+  },
+  "campaign_preflight_sha256": "6271138f193ee0a4bcbcbfb20b7e8b0d4e620c34e804cb7f3d65ebd52f22ea21",
+  "operator_message": "Authorize exactly the four S1 K6, K8, K10, and K12 SCF invocations described in campaign-preflight.json, with zero retries and stop on first failure.",
+  "run_script_sha256": "1df414fb72a1a0ec2dc7a30667a284c160bd96a73b31fa662895ca835e9e3fe7",
+  "schema_version": 1
+}

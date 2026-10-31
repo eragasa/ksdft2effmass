@@ -1,0 +1,20 @@
+{
+  "aiida_moderate_two_atom_threshold_angstrom_squared": 2e-07,
+  "best_three_iteration_window": {
+    "maximum_absolute_spread_change_angstrom_squared": 5.02e-08,
+    "starting_iteration": 1413
+  },
+  "best_window_to_aiida_moderate_two_atom_threshold_ratio": 0.251,
+  "best_window_to_campaign_threshold_ratio": 502.0,
+  "historical_campaign_tolerance_angstrom_squared": 1e-10,
+  "interpretation": "intermittent near-plateaus and renewed excursions do not permit an iteration-count extrapolation; 4000 is a bounded protocol-matched test",
+  "last_100_median_absolute_spread_change_angstrom_squared": 0.00015250000000000002,
+  "last_absolute_spread_change_angstrom_squared": 2.48e-05,
+  "last_iteration": 4000,
+  "predecessor_wout": {
+    "byte_size": 4930566,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/run/silicon.wout",
+    "sha256": "fd42ecad3b5394fc8d0acea8469fbb61754458a5326489a7f0c5e728e50461bc"
+  },
+  "schema_version": 1
+}

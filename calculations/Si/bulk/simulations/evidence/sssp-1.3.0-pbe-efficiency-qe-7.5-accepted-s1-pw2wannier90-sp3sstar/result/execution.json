@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+    "-in",
+    "pw2wannier90.in"
+  ],
+  "error_message": null,
+  "error_type": null,
+  "required_input_filenames": [
+    "pw2wannier90.in",
+    "silicon.nnkp"
+  ],
+  "returncode": 0,
+  "schema_version": 1,
+  "status": "succeeded",
+  "stderr_filename": "pw2wannier90.err",
+  "stdout_filename": "pw2wannier90.out",
+  "working_directory": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run"
+}

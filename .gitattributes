@@ -1,0 +1,5 @@
+# Calculator-native evidence is retained byte-for-byte, including native whitespace.
+calculations/Si/bulk/simulations/evidence/**/*.wout -whitespace
+calculations/Si/bulk/simulations/evidence/**/*.nnkp -whitespace
+calculations/Si/bulk/simulations/evidence/**/*.stdout -whitespace
+calculations/Si/bulk/simulations/evidence/**/CRASH -whitespace

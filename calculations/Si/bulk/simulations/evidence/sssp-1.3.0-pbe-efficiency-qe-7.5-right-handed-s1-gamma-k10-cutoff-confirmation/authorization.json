@@ -1,0 +1,22 @@
+{
+  "authorized": true,
+  "authorized_at_utc": "2026-10-31T07:00:11.021906+00:00",
+  "authorized_bounds": {
+    "coordinates_in_order": [
+      "C30",
+      "C36",
+      "C48",
+      "C54",
+      "C60"
+    ],
+    "maximum_invocations": 5,
+    "retries": 0,
+    "stop_on_first_failure": true
+  },
+  "c42_reused_not_rerun": true,
+  "campaign_preflight_sha256": "1aca2a8f5d80d55d5b662bc96d97d857f37de5469547e652e3c65cbba9f36822",
+  "operator_message": "Authorize exactly the five S1 K10 cutoff SCF invocations C30, C36, C48, C54, and C60 described in campaign-preflight.json, with zero retries and stop on first failure.",
+  "operator_reuse_instruction": "just reuse",
+  "run_script_sha256": "d30f82018793075bb59dd4e99caff497f22522e6103c8ac831802d4a4603ca35",
+  "schema_version": 1
+}

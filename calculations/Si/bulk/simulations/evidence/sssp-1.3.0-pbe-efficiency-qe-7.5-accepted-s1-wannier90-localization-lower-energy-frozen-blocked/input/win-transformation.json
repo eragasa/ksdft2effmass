@@ -1,0 +1,39 @@
+{
+  "change_classes": [
+    "scientific-target revision",
+    "accepted prospective convergence-policy application"
+  ],
+  "checkpoint_consumed": false,
+  "fresh_occurrence": true,
+  "prospective_changes": {
+    "frozen_window_ev_after": [
+      -5.85,
+      8.0
+    ],
+    "frozen_window_ev_before": [
+      6.0,
+      19.02
+    ],
+    "localization_tolerance_angstrom_squared_after": 2e-09,
+    "localization_tolerance_angstrom_squared_before": 1e-10,
+    "localization_window_after": 6,
+    "localization_window_before": 3
+  },
+  "revised_win": {
+    "byte_size": 3638,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/prepared-input/silicon.win",
+    "sha256": "e7d62ca201849dcdff0d453383652f46ed85e75a06d70d1070c61d54b933d411"
+  },
+  "schema_version": 1,
+  "source_win": {
+    "byte_size": 3639,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/prepared-input/silicon.win",
+    "sha256": "8d166fcb819ea88c741fcd0dab4b7a611157707231841e634fa24a9a7a83c805"
+  },
+  "unchanged_interface_artifacts": [
+    "silicon.nnkp",
+    "silicon.eig",
+    "silicon.amn",
+    "silicon.mmn"
+  ]
+}

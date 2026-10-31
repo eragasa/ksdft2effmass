@@ -1,0 +1,36 @@
+{
+  "disentanglement": {
+    "convergence_phrase_observed": false,
+    "declared_fractional_tolerance": 1e-10,
+    "extrapolation_is_not_completed_convergence": true,
+    "final_absolute_fractional_delta": 4.679e-08,
+    "final_delta_to_tolerance_ratio": 467.9,
+    "final_iteration": 2000,
+    "iterations_1800_through_2000_monotonically_decreasing": true,
+    "late_log_linear_extrapolations": {
+      "100": {
+        "extrapolated_iteration_at_1e-10": 2757.151001364861,
+        "log_slope_per_iteration": -0.00811980205849318
+      },
+      "200": {
+        "extrapolated_iteration_at_1e-10": 2801.8037267143973,
+        "log_slope_per_iteration": -0.007696384425789057
+      }
+    },
+    "maximum_iteration_warning_observed": true,
+    "reported_iteration_count": 2000
+  },
+  "interpretation": "native execution and Wannierisation completed, but the declared disentanglement convergence gate failed at the fixed 2000-iteration budget; late extrapolations are diagnostic only",
+  "native_completion_observed": true,
+  "schema_version": 1,
+  "wannierisation": {
+    "convergence_iteration": 316,
+    "convergence_phrase_observed": true,
+    "reported_iteration_count": 317
+  },
+  "wout": {
+    "byte_size": 566747,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000-v1/run/silicon.wout",
+    "sha256": "dd8599308ae3bef123a15bbc980ece0c7d668ee92392f738aa8b4a9021413998"
+  }
+}

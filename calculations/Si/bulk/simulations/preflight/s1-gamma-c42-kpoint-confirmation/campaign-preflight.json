@@ -1,0 +1,166 @@
+{
+  "authorization_request": {
+    "coordinates_in_order": [
+      "K6",
+      "K8",
+      "K10",
+      "K12"
+    ],
+    "maximum_invocations": 4,
+    "retries": 0,
+    "stop_on_first_failure": true
+  },
+  "continuation_rule": "If K10 remains selected, separately preflight the cutoff axis at K10. If the selected mesh changes, stop and declare the successor cutoff/relaxation branch before further calculator execution.",
+  "executable": {
+    "byte_size": 9673048,
+    "path": "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw.x",
+    "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910"
+  },
+  "execution_performed": false,
+  "occurrences": [
+    {
+      "charge_density_cutoff_ry": 336.0,
+      "evaluation_id": "ksdft-si-s1-kpoint-confirmation-preflight-k6-e571p439",
+      "mesh": [
+        6,
+        6,
+        6
+      ],
+      "prepared_input_sha256": "db98bdb96092854d1e3454883a1c2eb93429e71a58208519309d073e5768ace4",
+      "pw_input": {
+        "byte_size": 603,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-s1-kpoint-confirmation-c42-gamma-20261031T064459Z/preflight/K6/pw.in",
+        "sha256": "1771f7e49ede8e826bcbfd5b30845bbfbfb271a4bb91c5f22f021cfd0b2268e2"
+      },
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "wavefunction_cutoff_ry": 42.0
+    },
+    {
+      "charge_density_cutoff_ry": 336.0,
+      "evaluation_id": "ksdft-si-s1-kpoint-confirmation-preflight-k8-e571p439",
+      "mesh": [
+        8,
+        8,
+        8
+      ],
+      "prepared_input_sha256": "25620c2d01583a715791f0a4db2bfeea6b551907b012a8a566255cbd0341167c",
+      "pw_input": {
+        "byte_size": 603,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-s1-kpoint-confirmation-c42-gamma-20261031T064459Z/preflight/K8/pw.in",
+        "sha256": "e54112138548a3037b5aee80d7dfc82ee2e3e5a0281efb4b91430e58e9292bd3"
+      },
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "wavefunction_cutoff_ry": 42.0
+    },
+    {
+      "charge_density_cutoff_ry": 336.0,
+      "evaluation_id": "ksdft-si-s1-kpoint-confirmation-preflight-k10-e571p439",
+      "mesh": [
+        10,
+        10,
+        10
+      ],
+      "prepared_input_sha256": "6003040976e75033cec4a6e185c340823d1146b89df6e47cccab4100374523a7",
+      "pw_input": {
+        "byte_size": 606,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-s1-kpoint-confirmation-c42-gamma-20261031T064459Z/preflight/K10/pw.in",
+        "sha256": "47138c7325cb854a6411fcb59babfda4bb102ed33aacd44ea62fb97d0c310bd6"
+      },
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "wavefunction_cutoff_ry": 42.0
+    },
+    {
+      "charge_density_cutoff_ry": 336.0,
+      "evaluation_id": "ksdft-si-s1-kpoint-confirmation-preflight-k12-e571p439",
+      "mesh": [
+        12,
+        12,
+        12
+      ],
+      "prepared_input_sha256": "44027ae27581bb48c7ad23d7e3a26383a251439785e79cb95ab2e4a631984b5f",
+      "pw_input": {
+        "byte_size": 606,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-s1-kpoint-confirmation-c42-gamma-20261031T064459Z/preflight/K12/pw.in",
+        "sha256": "e31d5671899b192411960aee4560c5f4f97cdbed813f600a233ba677f46dca5a"
+      },
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "wavefunction_cutoff_ry": 42.0
+    }
+  ],
+  "preparation_script": {
+    "byte_size": 12218,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-s1-kpoint-confirmation-c42-gamma-20261031T064459Z/prepare_campaign.py",
+    "sha256": "562139f352b48ae3e95d31760e13f951b0760c83458bc8b4cbdfe8393ae4db1f"
+  },
+  "projectkoios_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+  "pseudopotential": {
+    "byte_size": 1299382,
+    "collection": "SSSP 1.3.0 PBE efficiency",
+    "filename": "Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+    "root": "/Users/eugene/opt/pseudopotentials/quantum-espresso/sssp/1.3.0/sets/PBE/efficiency",
+    "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+  },
+  "purpose": "first stage of fresh setting confirmation on provisional S1; fixed-C42 Gamma-centered k-point axis",
+  "resource_bounds": {
+    "maximum_bytes_per_occurrence": 2147483648,
+    "processes_per_occurrence": 1,
+    "timeout_seconds_per_occurrence": 600.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "preflight only; no setting or stable structure/settings pair is accepted",
+  "settings": {
+    "calculation_owned_selection_rule": "select the smallest sampled mesh whose absolute total-energy difference from K12 is <= 1.0 meV/atom",
+    "charge_density_cutoff_ry": 336.0,
+    "electronic_tolerance_ry": 1e-06,
+    "maximum_electronic_iterations": 100,
+    "mesh_densities": [
+      6,
+      8,
+      10,
+      12
+    ],
+    "mesh_shift": [
+      0,
+      0,
+      0
+    ],
+    "occupation": "fixed",
+    "spatial_symmetry": true,
+    "time_reversal": true,
+    "wavefunction_cutoff_ry": 42.0
+  },
+  "status": "awaiting-explicit-bounded-authorization",
+  "structure": {
+    "byte_size": 758,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+    "relaxation_calculation": {
+      "byte_size": 2257,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/calculation.toml",
+      "sha256": "ce110125f22c12701444d8b9d9b4ce771501648f4c5b1bb5def1934fafd683cf"
+    },
+    "relaxation_evidence": {
+      "byte_size": 4165,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/result/relaxation-result.json",
+      "sha256": "ed139c5c1cfdc0a9cba1e1fabd7db4a8d6ca4b4dde0db0149cd909ff9a1ae235"
+    },
+    "role": "provisional S1",
+    "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03",
+    "structure_id": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1"
+  }
+}

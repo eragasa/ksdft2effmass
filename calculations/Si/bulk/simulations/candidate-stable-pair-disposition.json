@@ -1,0 +1,59 @@
+{
+  "candidate_pair_id": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1.SSSP130.PBE.GammaK10.C42Rho336",
+  "confirmation": {
+    "cutoff_difference_to_c60_mev_per_atom": 0.6180386100993474,
+    "cutoff_result": {
+      "byte_size": 11800,
+      "path": "evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-k10-cutoff-confirmation/result/campaign-result.json",
+      "sha256": "84e005a429df4a433d6eb93609840a14a72ab238c9e0463da83f3d01f9f70516"
+    },
+    "cutoff_tolerance_mev_per_atom": 1.0,
+    "kpoint_difference_to_k12_mev_per_atom": 0.29027746276710786,
+    "kpoint_result": {
+      "byte_size": 8288,
+      "path": "evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-c42-kpoint-confirmation/result/campaign-result.json",
+      "sha256": "b74916ed60a91d40ad288945ed90368dbefc39e4c70fc243e5f6acffba35538e"
+    },
+    "kpoint_tolerance_mev_per_atom": 1.0
+  },
+  "nonclaims": [
+    "This record does not itself accept the candidate pair.",
+    "ProjectKoios generic sustained-tail policy remains separate and unsatisfied.",
+    "No confirmation occurrence is a downstream parent SCF.",
+    "No downstream calculator occurrence is authorized."
+  ],
+  "pair_relationship": {
+    "fresh_confirmation_selected_same_setting_tuple": true,
+    "re_relaxation_triggered": false,
+    "relaxation_used_same_setting_tuple": true
+  },
+  "required_next_decision": "closed: candidate accepted under calculation-owned rules",
+  "schema_version": 1,
+  "scientific_disposition": {
+    "accepted_pair_record": "accepted-stable-pair.json",
+    "operator_message": "Accept the S1, Gamma-centered K10, 42/336 Ry candidate as the stable structure/settings pair under the declared calculation-owned rules.",
+    "recorded_at_utc": "2026-10-31T07:03:21Z"
+  },
+  "settings": {
+    "charge_density_cutoff_ry": 336,
+    "kpoint_mesh": [
+      10,
+      10,
+      10
+    ],
+    "kpoint_shift": [
+      0,
+      0,
+      0
+    ],
+    "pseudopotential_sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b",
+    "wavefunction_cutoff_ry": 42
+  },
+  "status": "accepted",
+  "structure": {
+    "byte_size": 758,
+    "path": "structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+    "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03",
+    "structure_id": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1"
+  }
+}

@@ -1,0 +1,6802 @@
+{
+  "calculator_invocations": 0,
+  "candidate": {
+    "S30_result": {
+      "byte_size": 56310,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "operator_kind": "full-untruncated",
+    "route": "C6-B20-W21-aiida-precise"
+  },
+  "confirmation_boundary": {
+    "confirmation_point_count": 402,
+    "parent_values_observed": false,
+    "prediction_freeze_performed": false
+  },
+  "criteria": {
+    "each_effective_mass_relative_maximum": 0.08,
+    "indirect_gap_relative_maximum": 0.05,
+    "role": "revealed-parent oracle-evaluation criteria, not operational reduction gates",
+    "valley_position_fraction_of_gamma_x_maximum": 0.03,
+    "valley_position_maximum_inverse_angstrom": 0.03446503626832577
+  },
+  "gate_summary": {
+    "all_development_targets_passed": false,
+    "all_effective_masses_passed": false,
+    "all_valley_locations_passed": true,
+    "controlled_reduction_source_eligibility_changed": false,
+    "development_disposition": "fails-parent-fidelity-development-criteria",
+    "indirect_gap_passed": false,
+    "operational_reduction_gate": false
+  },
+  "indirect_gap": {
+    "absolute_relative_error": 0.12760480833670154,
+    "candidate_indirect_gap_ev": 0.6892447449062074,
+    "candidate_vbm_ev_native_reference": 5.983131646580204,
+    "maximum": 0.05,
+    "parent_indirect_gap_ev": 0.6112467238614325,
+    "passed": false
+  },
+  "schema_version": 1,
+  "scientific_disposition": "revealed development-oracle comparison only; failure limits physical-fidelity claims but does not invalidate provider eligibility, structural reconstruction, or use of the full operator as the fixed source for a separately gated controlled reduction",
+  "sources": {
+    "source_0": {
+      "byte_size": 54245,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/run_analysis.py",
+      "sha256": "985dcc7e000fdd0aea76e046f8cfbf8cf12b73990decdc2808be517fd50a538e"
+    },
+    "source_1": {
+      "byte_size": 56310,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "source_2": {
+      "byte_size": 227328,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/validation-result.json",
+      "sha256": "46f3716e20037187989863fccad9181402a7dc4f4b89e3c143527b10353c7aa6"
+    },
+    "source_3": {
+      "byte_size": 511030,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "792898753c87d92328e6c511259c77c843c3ae59b212c1d8502b3e53563b8fb2"
+    },
+    "source_4": {
+      "byte_size": 208847,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/preflight-source/withheld-kpoint-manifest.json",
+      "sha256": "754bce5030ef0e34eb092406b27d9094287b4f749e358ef36404040f44b8d2b4"
+    },
+    "source_5": {
+      "byte_size": 4856,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/preflight-source/validation-criteria.json",
+      "sha256": "ab2a9f18876f773e8c6535e00a6ce65be5c65b32117b258d503423007389c5cb"
+    }
+  },
+  "spectral_residuals": {
+    "alignment": "gauge-invariant injective ordered-spectrum matching without fitted energy alignment",
+    "selected_parent_bands": [
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 0
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 1
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 2
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 3
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 4
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 5
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 6
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 7
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 8
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 9
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 10
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 11
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 12
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 13
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 14
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 15
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 16
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 17
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 18
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 19
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 20
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 21
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 22
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 23
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 24
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 25
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 26
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 27
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 28
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 29
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 30
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 31
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 32
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 33
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 34
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 35
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 36
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 37
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 38
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 39
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 40
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 41
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 42
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 43
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 44
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 45
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 46
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 47
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 48
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 49
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 50
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 51
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 52
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 53
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 54
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 55
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 56
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 57
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 58
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 59
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 60
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 61
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 62
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 63
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 64
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 65
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 66
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 67
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 68
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 69
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 70
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 71
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 72
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 73
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 74
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 75
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 76
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 77
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 78
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 79
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 80
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 81
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 82
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 83
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 84
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 85
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 86
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 87
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 88
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 89
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 90
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 91
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 92
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 93
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 94
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 95
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 96
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 97
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 98
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 99
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 100
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 101
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 102
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 103
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 104
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 105
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 106
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 107
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 108
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 109
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 110
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 111
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 112
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 113
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 114
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 115
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 116
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 117
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 118
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 119
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 120
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 121
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 122
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 123
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 124
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 125
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 126
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 127
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 128
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 129
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 130
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 131
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 132
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 133
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 134
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 135
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 136
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 137
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 138
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 139
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 140
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 141
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 142
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 143
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 144
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 145
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 146
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 147
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 148
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 149
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 150
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 151
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 152
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 153
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 154
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 155
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 156
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 157
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 158
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 159
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 160
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 161
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 162
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 163
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 164
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 165
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 166
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 167
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 168
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 169
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 170
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 171
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 172
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 173
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 174
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 175
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 176
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 177
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 178
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 179
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 180
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 181
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 182
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 183
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 184
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 185
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 186
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 187
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 188
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 189
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 190
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 191
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 192
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 193
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 194
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 195
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 196
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 197
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 198
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 199
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 200
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 201
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 202
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 203
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 204
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 205
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 206
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 207
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 208
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 209
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 210
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 211
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 212
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 213
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 214
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 215
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 216
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 217
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 218
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 219
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 220
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 221
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 222
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 223
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 224
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 225
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 226
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 227
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 228
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 229
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 230
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 231
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 232
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 233
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 234
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 235
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 236
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 237
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 238
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 239
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 240
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 241
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 242
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 243
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 244
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 245
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 246
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 247
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 248
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 249
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 250
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 251
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 252
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 253
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 254
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 255
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 256
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 257
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 258
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 259
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 260
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 261
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 262
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 263
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 264
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 265
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 266
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 267
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 268
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 269
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 270
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 271
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 272
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 273
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 274
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 275
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 276
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 277
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 278
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 279
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 280
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 281
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 282
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 283
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 284
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 285
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 286
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 287
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 288
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 289
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 290
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 291
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 292
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 293
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 294
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 295
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 296
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 297
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 298
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 299
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 300
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 301
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 302
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 303
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 304
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 305
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 306
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 307
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 308
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 309
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 310
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 311
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 312
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 313
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 314
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 315
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 316
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 317
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 318
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 319
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 320
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 321
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 322
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 323
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 324
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 325
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 326
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 327
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 328
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 329
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 330
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 331
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 332
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 333
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 334
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 335
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 336
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 337
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 338
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 339
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 340
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 341
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 342
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 343
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 344
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 345
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 346
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 347
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 348
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 349
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 350
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 351
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 352
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 353
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 354
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 355
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 356
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 357
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 358
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 359
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 360
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 361
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 362
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 363
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 364
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 365
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 366
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 367
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 368
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 369
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 370
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 371
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 372
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 373
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 374
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 375
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 376
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 377
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 378
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 379
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 380
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 381
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 382
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 383
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "point_index_zero_based": 384
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 385
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 386
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 387
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 388
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 389
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 390
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 391
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 392
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 393
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 394
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 395
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 396
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 397
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 398
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 399
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 400
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 401
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 402
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 403
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 404
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 405
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 406
+      },
+      {
+        "parent_band_indices_one_based": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11
+        ],
+        "point_index_zero_based": 407
+      }
+    ],
+    "statistics": {
+      "maximum_absolute_ev": 0.7372861608592203,
+      "percentile_95_absolute_ev": 0.5291538122595103,
+      "rms_ev": 0.24619599192256908
+    }
+  },
+  "status": "S40-revealed-408-development-complete",
+  "valleys": [
+    {
+      "candidate_minimum_fractional": [
+        0.5715640075165922,
+        0.5724571223485655,
+        0.998447825575952
+      ],
+      "candidate_to_parent_displacement_cartesian_inverse_angstrom": [
+        -0.018830361066190453,
+        -0.00041604409783705813,
+        -0.00350909810593609
+      ],
+      "candidate_to_parent_displacement_inverse_angstrom": 0.019159054258797083,
+      "label": "-x",
+      "location_maximum_inverse_angstrom": 0.03446503626832577,
+      "location_passed": true,
+      "parent_minimum_fractional": [
+        0.5812866692011196,
+        0.5808336136777138,
+        0.00015614041996410335
+      ],
+      "primary_mass_comparison": {
+        "candidate_principal_axes_cartesian_columns": [
+          [
+            0.9999916279930259,
+            -0.0040265708022680586,
+            -0.0007284719844469662
+          ],
+          [
+            0.0035332312071383,
+            0.7598626922155031,
+            0.6500739998309767
+          ],
+          [
+            -0.00206403030372758,
+            -0.6500711312668654,
+            0.7598705574453607
+          ]
+        ],
+        "candidate_principal_curvatures_ev_angstrom_squared": [
+          2.4667812746609807,
+          43.05203069654983,
+          45.92339305900134
+        ],
+        "comparisons": [
+          {
+            "absolute_relative_error": 2.1657322799171017,
+            "axis_absolute_overlap": 0.9998874716823001,
+            "candidate_mass_ratio_to_electron_mass": 3.089031159839824,
+            "candidate_principal_index": 0,
+            "maximum": 0.08,
+            "name": "longitudinal",
+            "parent_mass_ratio_to_electron_mass": 0.9757714445520687,
+            "parent_principal_index": 0,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.15058429170242527,
+            "axis_absolute_overlap": 0.9591509093335921,
+            "candidate_mass_ratio_to_electron_mass": 0.17699430430230156,
+            "candidate_principal_index": 1,
+            "maximum": 0.08,
+            "name": "transverse_1",
+            "parent_mass_ratio_to_electron_mass": 0.2083718285090807,
+            "parent_principal_index": 1,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.1470912253711437,
+            "axis_absolute_overlap": 0.9592393153724422,
+            "candidate_mass_ratio_to_electron_mass": 0.1659277269026531,
+            "candidate_principal_index": 2,
+            "maximum": 0.08,
+            "name": "transverse_2",
+            "parent_mass_ratio_to_electron_mass": 0.19454334606283846,
+            "parent_principal_index": 2,
+            "passed": false
+          }
+        ],
+        "coordinate_basis": "Cartesian reciprocal axes",
+        "parent_principal_axes_cartesian_columns": [
+          [
+            0.9999404817243099,
+            0.009672180189678897,
+            0.005047963879953605
+          ],
+          [
+            -0.00950512385898981,
+            0.5451716828976242,
+            0.8382705343664402
+          ],
+          [
+            0.005355896692449897,
+            -0.8382686234715877,
+            0.5452311704897927
+          ]
+        ],
+        "passed": false
+      }
+    },
+    {
+      "candidate_minimum_fractional": [
+        0.42843364156906927,
+        0.42754112564475366,
+        0.0015516304544999039
+      ],
+      "candidate_to_parent_displacement_cartesian_inverse_angstrom": [
+        0.01875560799700469,
+        0.0004811116504286002,
+        0.0033666686679835185
+      ],
+      "candidate_to_parent_displacement_inverse_angstrom": 0.01906144689359825,
+      "label": "+x",
+      "location_maximum_inverse_angstrom": 0.03446503626832577,
+      "location_passed": true,
+      "parent_minimum_fractional": [
+        0.41880550285505935,
+        0.4191688496818038,
+        0.9998769853351148
+      ],
+      "primary_mass_comparison": {
+        "candidate_principal_axes_cartesian_columns": [
+          [
+            0.9999915943406826,
+            -0.004031774951017469,
+            -0.0007456800411682265
+          ],
+          [
+            0.0035479187513778776,
+            0.7597191680496659,
+            0.6502416458290385
+          ],
+          [
+            -0.0020551205592543253,
+            -0.6502388257314904,
+            0.7597270865191126
+          ]
+        ],
+        "candidate_principal_curvatures_ev_angstrom_squared": [
+          2.4672003740859285,
+          43.05118658296549,
+          45.926047446069276
+        ],
+        "comparisons": [
+          {
+            "absolute_relative_error": 2.1665195449055905,
+            "axis_absolute_overlap": 0.9999047968474399,
+            "candidate_mass_ratio_to_electron_mass": 3.0885064310029073,
+            "candidate_principal_index": 0,
+            "maximum": 0.08,
+            "name": "longitudinal",
+            "parent_mass_ratio_to_electron_mass": 0.9753631352036991,
+            "parent_principal_index": 0,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.1403386088368419,
+            "axis_absolute_overlap": 0.9626077285536763,
+            "candidate_mass_ratio_to_electron_mass": 0.17699777466649988,
+            "candidate_principal_index": 1,
+            "maximum": 0.08,
+            "name": "transverse_1",
+            "parent_mass_ratio_to_electron_mass": 0.2058924321668261,
+            "parent_principal_index": 1,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.14230830941066766,
+            "axis_absolute_overlap": 0.9626871306538736,
+            "candidate_mass_ratio_to_electron_mass": 0.16591813678033698,
+            "candidate_principal_index": 2,
+            "maximum": 0.08,
+            "name": "transverse_2",
+            "parent_mass_ratio_to_electron_mass": 0.19344729417435796,
+            "parent_principal_index": 2,
+            "passed": false
+          }
+        ],
+        "coordinate_basis": "Cartesian reciprocal axes",
+        "parent_principal_axes_cartesian_columns": [
+          [
+            0.9999529460701829,
+            0.00886746991727479,
+            0.003933652606423023
+          ],
+          [
+            -0.00819634935665853,
+            0.5553951673730536,
+            0.8315461670381754
+          ],
+          [
+            0.005188978973304416,
+            -0.831539281114202,
+            0.555441714729179
+          ]
+        ],
+        "passed": false
+      }
+    },
+    {
+      "candidate_minimum_fractional": [
+        0.9999477395126232,
+        0.5721262588848615,
+        0.5713413008337228
+      ],
+      "candidate_to_parent_displacement_cartesian_inverse_angstrom": [
+        0.0008319176926409345,
+        -0.0209003498197492,
+        -0.0010275046238376472
+      ],
+      "candidate_to_parent_displacement_inverse_angstrom": 0.020942122036394194,
+      "label": "-y",
+      "location_maximum_inverse_angstrom": 0.03446503626832577,
+      "location_passed": true,
+      "parent_minimum_fractional": [
+        3.2863577055008975e-05,
+        0.5808605158159437,
+        0.580884822392587
+      ],
+      "primary_mass_comparison": {
+        "candidate_principal_axes_cartesian_columns": [
+          [
+            0.011463494322349539,
+            0.7537437709338052,
+            -0.6570684257186682
+          ],
+          [
+            0.9999333867223177,
+            -0.007756884482271058,
+            0.008547096651176922
+          ],
+          [
+            0.0013455169851465953,
+            -0.6571226358311029,
+            -0.7537824825919124
+          ]
+        ],
+        "candidate_principal_curvatures_ev_angstrom_squared": [
+          2.4893962304519435,
+          42.79021133581711,
+          45.801204097821376
+        ],
+        "comparisons": [
+          {
+            "absolute_relative_error": 2.1619044268386625,
+            "axis_absolute_overlap": 0.9999853317149111,
+            "candidate_mass_ratio_to_electron_mass": 3.060968811925044,
+            "candidate_principal_index": 0,
+            "maximum": 0.08,
+            "name": "longitudinal",
+            "parent_mass_ratio_to_electron_mass": 0.9680775882860774,
+            "parent_principal_index": 0,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.08774365966734338,
+            "axis_absolute_overlap": 0.9017318448848683,
+            "candidate_mass_ratio_to_electron_mass": 0.17807727477987367,
+            "candidate_principal_index": 1,
+            "maximum": 0.08,
+            "name": "transverse_1",
+            "parent_mass_ratio_to_electron_mass": 0.19520530239881626,
+            "parent_principal_index": 2,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.16324835443080293,
+            "axis_absolute_overlap": 0.901737742249958,
+            "candidate_mass_ratio_to_electron_mass": 0.16637039073607296,
+            "candidate_principal_index": 2,
+            "maximum": 0.08,
+            "name": "transverse_2",
+            "parent_mass_ratio_to_electron_mass": 0.19882887786004907,
+            "parent_principal_index": 1,
+            "passed": false
+          }
+        ],
+        "coordinate_basis": "Cartesian reciprocal axes",
+        "parent_principal_axes_cartesian_columns": [
+          [
+            -0.006066953193871108,
+            -0.26669705894810647,
+            -0.9637613142409138
+          ],
+          [
+            -0.9999812038191748,
+            0.0024714972840816267,
+            0.0056110346219056684
+          ],
+          [
+            -0.0008854870393308319,
+            -0.9637772410933994,
+            0.26670704052030225
+          ]
+        ],
+        "passed": false
+      }
+    },
+    {
+      "candidate_minimum_fractional": [
+        5.416088783419121e-05,
+        0.4278849229590166,
+        0.4286710447503732
+      ],
+      "candidate_to_parent_displacement_cartesian_inverse_angstrom": [
+        -0.0007620523523454013,
+        0.02100019263124072,
+        0.0007509427778389601
+      ],
+      "candidate_to_parent_displacement_inverse_angstrom": 0.021027428026092986,
+      "label": "+y",
+      "location_maximum_inverse_angstrom": 0.03446503626832577,
+      "location_passed": true,
+      "parent_minimum_fractional": [
+        5.899603776118433e-05,
+        0.41907680502117417,
+        0.4192044355004638
+      ],
+      "primary_mass_comparison": {
+        "candidate_principal_axes_cartesian_columns": [
+          [
+            0.011462758571635333,
+            0.753750865490769,
+            -0.6570603000774325
+          ],
+          [
+            0.9999333784237991,
+            -0.007748287510736737,
+            0.00855586083444718
+          ],
+          [
+            0.0013578953920919815,
+            -0.6571145994516999,
+            -0.7537894661691262
+          ]
+        ],
+        "candidate_principal_curvatures_ev_angstrom_squared": [
+          2.4902480229350505,
+          42.79188519623952,
+          45.79942809658994
+        ],
+        "comparisons": [
+          {
+            "absolute_relative_error": 2.182082056488451,
+            "axis_absolute_overlap": 0.9999841976009358,
+            "candidate_mass_ratio_to_electron_mass": 3.059921803674858,
+            "candidate_principal_index": 0,
+            "maximum": 0.08,
+            "name": "longitudinal",
+            "parent_mass_ratio_to_electron_mass": 0.9616099614513393,
+            "parent_principal_index": 0,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.11589298789167445,
+            "axis_absolute_overlap": 0.9178901652121927,
+            "candidate_mass_ratio_to_electron_mass": 0.1780703090549233,
+            "candidate_principal_index": 1,
+            "maximum": 0.08,
+            "name": "transverse_1",
+            "parent_mass_ratio_to_electron_mass": 0.20141261930530324,
+            "parent_principal_index": 1,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.14628685354112214,
+            "axis_absolute_overlap": 0.917874456885215,
+            "candidate_mass_ratio_to_electron_mass": 0.16637684221442328,
+            "candidate_principal_index": 2,
+            "maximum": 0.08,
+            "name": "transverse_2",
+            "parent_mass_ratio_to_electron_mass": 0.19488611942376527,
+            "parent_principal_index": 2,
+            "passed": false
+          }
+        ],
+        "coordinate_basis": "Cartesian reciprocal axes",
+        "parent_principal_axes_cartesian_columns": [
+          [
+            0.007178970137356627,
+            0.43110152155493375,
+            -0.9022748697047854
+          ],
+          [
+            0.9999716258840438,
+            -0.005154486823575995,
+            0.005493513666815077
+          ],
+          [
+            -0.00228250182669024,
+            -0.9022887062235714,
+            -0.4311262933373522
+          ]
+        ],
+        "passed": false
+      }
+    },
+    {
+      "candidate_minimum_fractional": [
+        0.5721041330433649,
+        0.9993921061987509,
+        0.5706621987351811
+      ],
+      "candidate_to_parent_displacement_cartesian_inverse_angstrom": [
+        0.0008482102572090366,
+        -0.0021060849210797405,
+        -0.0211526624253365
+      ],
+      "candidate_to_parent_displacement_inverse_angstrom": 0.02127416701108358,
+      "label": "-z",
+      "location_maximum_inverse_angstrom": 0.03446503626832577,
+      "location_passed": true,
+      "parent_minimum_fractional": [
+        0.5809411114858283,
+        0.9999395630420039,
+        0.580784956404143
+      ],
+      "primary_mass_comparison": {
+        "candidate_principal_axes_cartesian_columns": [
+          [
+            -0.0071846610435262635,
+            0.7532997369875097,
+            -0.6576381124146001
+          ],
+          [
+            -0.004662462821456566,
+            0.6576227023549301,
+            0.7533330224992381
+          ],
+          [
+            0.9999633203703665,
+            0.008478655668658124,
+            -0.0012125641938306436
+          ]
+        ],
+        "candidate_principal_curvatures_ev_angstrom_squared": [
+          2.6060240086530255,
+          42.584801696018786,
+          45.91160534059278
+        ],
+        "comparisons": [
+          {
+            "absolute_relative_error": 2.024387782791927,
+            "axis_absolute_overlap": 0.9998949185435427,
+            "candidate_mass_ratio_to_electron_mass": 2.923980821602521,
+            "candidate_principal_index": 0,
+            "maximum": 0.08,
+            "name": "longitudinal",
+            "parent_mass_ratio_to_electron_mass": 0.9668008971069455,
+            "parent_principal_index": 0,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.08225006324281428,
+            "axis_absolute_overlap": 0.967051191424362,
+            "candidate_mass_ratio_to_electron_mass": 0.17893623824599264,
+            "candidate_principal_index": 1,
+            "maximum": 0.08,
+            "name": "transverse_1",
+            "parent_mass_ratio_to_electron_mass": 0.19497276009438158,
+            "parent_principal_index": 2,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.17870971372395378,
+            "axis_absolute_overlap": 0.9671178697449017,
+            "candidate_mass_ratio_to_electron_mass": 0.1659703285347762,
+            "candidate_principal_index": 2,
+            "maximum": 0.08,
+            "name": "transverse_2",
+            "parent_mass_ratio_to_electron_mass": 0.20208485514583505,
+            "parent_principal_index": 1,
+            "passed": false
+          }
+        ],
+        "coordinate_basis": "Cartesian reciprocal axes",
+        "parent_principal_axes_cartesian_columns": [
+          [
+            0.0071549987533892495,
+            -0.4444895411696375,
+            -0.8957554653942359
+          ],
+          [
+            -0.002532437516740799,
+            0.8957674679786354,
+            -0.4445157253364263
+          ],
+          [
+            0.9999711959616953,
+            0.005448954207034013,
+            0.005283573126856895
+          ]
+        ],
+        "passed": false
+      }
+    },
+    {
+      "candidate_minimum_fractional": [
+        0.4279060210789995,
+        0.0006073841069428787,
+        0.4293481818240416
+      ],
+      "candidate_to_parent_displacement_cartesian_inverse_angstrom": [
+        -0.0006243401126923377,
+        0.0019135085659328318,
+        0.021242110729574624
+      ],
+      "candidate_to_parent_displacement_inverse_angstrom": 0.021337258114756084,
+      "label": "+z",
+      "location_maximum_inverse_angstrom": 0.03446503626832577,
+      "location_passed": true,
+      "parent_minimum_fractional": [
+        0.41893267902749387,
+        4.630746544289407e-05,
+        0.41927030792515874
+      ],
+      "primary_mass_comparison": {
+        "candidate_principal_axes_cartesian_columns": [
+          [
+            -0.007181277369043048,
+            0.753344045618697,
+            -0.657587392052344
+          ],
+          [
+            -0.0046746851827388185,
+            0.6575718720021191,
+            0.7533773161371862
+          ],
+          [
+            0.9999632876129959,
+            0.008484225508709356,
+            -0.0012005597553698016
+          ]
+        ],
+        "candidate_principal_curvatures_ev_angstrom_squared": [
+          2.606052031773275,
+          42.58604998605724,
+          45.9085720799577
+        ],
+        "comparisons": [
+          {
+            "absolute_relative_error": 2.0250789330344188,
+            "axis_absolute_overlap": 0.9999004366008476,
+            "candidate_mass_ratio_to_electron_mass": 2.9239493797643794,
+            "candidate_principal_index": 0,
+            "maximum": 0.08,
+            "name": "longitudinal",
+            "parent_mass_ratio_to_electron_mass": 0.9665696150385743,
+            "parent_principal_index": 0,
+            "passed": false
+          },
+          {
+            "absolute_relative_error": 0.07071792010349615,
+            "axis_absolute_overlap": 0.9999492446158036,
+            "candidate_mass_ratio_to_electron_mass": 0.17893099323445025,
+            "candidate_principal_index": 1,
+            "maximum": 0.08,
+            "name": "transverse_1",
+            "parent_mass_ratio_to_electron_mass": 0.19254755590937273,
+            "parent_principal_index": 2,
+            "passed": true
+          },
+          {
+            "absolute_relative_error": 0.18817778869533555,
+            "axis_absolute_overlap": 0.9999486362334651,
+            "candidate_mass_ratio_to_electron_mass": 0.16598129448822077,
+            "candidate_principal_index": 2,
+            "maximum": 0.08,
+            "name": "transverse_2",
+            "parent_mass_ratio_to_electron_mass": 0.204455226990495,
+            "parent_principal_index": 1,
+            "passed": false
+          }
+        ],
+        "coordinate_basis": "Cartesian reciprocal axes",
+        "parent_principal_axes_cartesian_columns": [
+          [
+            0.00689537595035292,
+            -0.6587923630895692,
+            -0.7522932115374729
+          ],
+          [
+            -0.005661913667534441,
+            0.7522733161809766,
+            -0.6588268365023525
+          ],
+          [
+            0.9999601974699416,
+            0.00880227794026283,
+            0.0014571818478424
+          ]
+        ],
+        "passed": false
+      }
+    }
+  ]
+}

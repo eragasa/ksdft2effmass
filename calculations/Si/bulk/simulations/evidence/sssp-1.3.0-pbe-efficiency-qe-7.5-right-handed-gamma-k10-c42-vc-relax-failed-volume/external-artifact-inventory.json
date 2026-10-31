@@ -1,0 +1,77 @@
+{
+  "artifact_count": 14,
+  "artifacts": [
+    {
+      "byte_size": 2156,
+      "path": "calculation.toml",
+      "sha256": "f870072a3aebe0f08d966048f9d85de0775fe4bc471a145c37ff710a3ee6cad1"
+    },
+    {
+      "byte_size": 421,
+      "path": "campaign-failure.json",
+      "sha256": "da9a9efe070ca156b6f579a33f5573586ec9f90f5eb45a6db5d18233a97da9ca"
+    },
+    {
+      "byte_size": 927,
+      "path": "campaign-manifest.json",
+      "sha256": "74878ae81095368e1e96bab7a4c81d61b147e587905edc3763984add9019b475"
+    },
+    {
+      "byte_size": 1740,
+      "path": "preflight/input-manifest.json",
+      "sha256": "84abe712fab51134a742fe3beb2d61913e51e71594b92fd0da34b1af402186cc"
+    },
+    {
+      "byte_size": 948,
+      "path": "preflight/pw.in",
+      "sha256": "10b410650314279296e60dc39ce25898cf46b1ba50a63e80bfb7f6c415572249"
+    },
+    {
+      "byte_size": 302,
+      "path": "run/CRASH",
+      "sha256": "96a8eea2309f396fb16d9afb9ebbb9e250e6856bd94af3d7375f935854041da7"
+    },
+    {
+      "byte_size": 1299382,
+      "path": "run/Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+      "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+    },
+    {
+      "byte_size": 476,
+      "path": "run/execution.json",
+      "sha256": "fd8426e22a8ba397c2c89d3055b09c4a60a2dfd2fcb09a6e38dd5bc670ccb1cb"
+    },
+    {
+      "byte_size": 1740,
+      "path": "run/input-manifest.json",
+      "sha256": "84abe712fab51134a742fe3beb2d61913e51e71594b92fd0da34b1af402186cc"
+    },
+    {
+      "byte_size": 0,
+      "path": "run/pw.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_size": 948,
+      "path": "run/pw.in",
+      "sha256": "10b410650314279296e60dc39ce25898cf46b1ba50a63e80bfb7f6c415572249"
+    },
+    {
+      "byte_size": 1511,
+      "path": "run/pw.out",
+      "sha256": "99d3f74a2fe3a8c1ef53a2dad947df3c860fc3a25a6b9e66aa1e4d6d4d3495e7"
+    },
+    {
+      "byte_size": 4334,
+      "path": "run_relaxation.py",
+      "sha256": "c6702d0f3cd66d6f0d5d3d2e1e5c8dec44fcf3bbc5ffb6536a86b23108bf8d31"
+    },
+    {
+      "byte_size": 692,
+      "path": "structure.json",
+      "sha256": "7bef37dfe20ce58a137de942ec1fa0aa50d6e7049b0265790f12171bc834529a"
+    }
+  ],
+  "evidence_root": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-gamma-k10-c42-20261031T055443Z",
+  "schema_version": 1
+}

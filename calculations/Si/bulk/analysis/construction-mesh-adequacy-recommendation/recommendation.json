@@ -1,0 +1,127 @@
+{
+  "conditional_C12": {
+    "automatic": false,
+    "decision": "bounded upper mesh diagnostic eligible for separate review only after C8 still supports the mesh-density hypothesis",
+    "finite_model_nonclaim": "passing at C12 establishes intended-use adequacy of the finite operator, not an infinite-mesh convergence result",
+    "grid": [
+      12,
+      12,
+      12
+    ],
+    "point_count": 1728,
+    "relative_to_C4_point_count": 27.0
+  },
+  "conditional_C8": {
+    "automatic": false,
+    "decision": "requires separate operator review after channel-resolved C4-to-C6 changes; stop mesh escalation if they do not support the mesh density hypothesis",
+    "grid": [
+      8,
+      8,
+      8
+    ]
+  },
+  "construction_mesh_manifest": {
+    "byte_size": 514520,
+    "path": "construction-mesh-candidates.json",
+    "sha256": "1e5ebb9dffa6a97a2f2445cfd6290aff4cd3d6c06c15e4e0e7d6bbde7826c803"
+  },
+  "development_evaluation": {
+    "criteria": {
+      "each_effective_mass_relative_maximum": 0.08,
+      "indirect_gap_relative_maximum": 0.05,
+      "valley_position_fraction_gamma_x_maximum": 0.03
+    },
+    "interpretation": "development/model-selection evidence for successors, not a new withheld confirmation",
+    "revealed_parent_set": "prior 408-point validation set"
+  },
+  "first_successor": {
+    "changed_scientific_coordinate": "Gamma-origin construction mesh from 4x4x4 to 6x6x6",
+    "held_fixed": {
+      "accepted_structure": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1",
+      "conv_thr_rydberg": 1e-12,
+      "conv_tol_angstrom_squared": 2e-09,
+      "conv_window": 6,
+      "diago_full_acc": true,
+      "diagonalization": "david",
+      "dis_conv_tol": 1e-10,
+      "dis_conv_window": 3,
+      "dis_mix_ratio": 0.2,
+      "dis_num_iter": 2000,
+      "fixed_step": null,
+      "frozen_window_ev": [
+        -5.85,
+        8.0
+      ],
+      "guiding_centres": false,
+      "noinv": true,
+      "nosym": true,
+      "nscf_band_count": 12,
+      "num_cg_steps": 200,
+      "num_iter": 4000,
+      "occupations": "fixed",
+      "outer_window_ev": [
+        -5.85,
+        19.02
+      ],
+      "parent": "accepted S1 Gamma-K10 42/336 Ry SCF",
+      "precond": true,
+      "projections": [
+        "Si:sp3",
+        "Si:l=0:r=2"
+      ],
+      "spinors": false,
+      "trial_step": 2.0,
+      "trial_step_source": "native-default",
+      "wannier_rank": 10
+    },
+    "label": "C6",
+    "required_distinct_occurrences": [
+      "QE NSCF",
+      "Wannier90 preprocessing",
+      "pw2wannier90 conversion",
+      "Wannier90 localization"
+    ]
+  },
+  "schema_version": 1,
+  "scientific_stop": "component-operator and Slater-Koster work remain blocked until a successor full Wannier operator passes development and confirmation",
+  "sources": {
+    "accepted_structure": {
+      "byte_size": 758,
+      "path": "simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+      "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+    },
+    "eligible_localization_input": {
+      "byte_size": 3638,
+      "path": "simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-wannier90-localization-lower-energy-frozen-dis2000-eligible/input/silicon.win",
+      "sha256": "33a73bc040883929657e20e6cb4ce2b3fd60ede9e185e276e595143bb9809d4d"
+    },
+    "failed_candidate_validation": {
+      "byte_size": 227328,
+      "path": "simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-withheld-parent-nscf-408-david/result/validation-result.json",
+      "sha256": "46f3716e20037187989863fccad9181402a7dc4f4b89e3c143527b10353c7aa6"
+    },
+    "research_protocol": {
+      "byte_size": 14928,
+      "path": "research-protocol/research-protocol.tex",
+      "sha256": "7822d6365e05e5bb479f318d5235717d60b29368f049078defe9d991cd6fac04"
+    },
+    "revealed_point_manifest": {
+      "byte_size": 208847,
+      "path": "analysis/withheld-parent-validation-preflight/withheld-kpoint-manifest.json",
+      "sha256": "754bce5030ef0e34eb092406b27d9094287b4f749e358ef36404040f44b8d2b4"
+    }
+  },
+  "status": "recommendation-prepared-no-calculator-authorized",
+  "successor_confirmation": {
+    "candidate_predictions_must_be_frozen_first": true,
+    "criteria_unchanged": true,
+    "direct_parent_values_observed": false,
+    "geometry_blind": false,
+    "geometry_description": "parent-informed symmetry-projected centers with rotated stencils",
+    "manifest": {
+      "byte_size": 207339,
+      "path": "successor-confirmation-holdout.json",
+      "sha256": "51427c7389ae293566d865d42a3a8a8217b0fed4607ac65c5a97199ce6a383c8"
+    }
+  }
+}

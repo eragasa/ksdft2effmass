@@ -1,0 +1,99 @@
+{
+  "expanded_projections": {
+    "centers_fractional": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ]
+    ],
+    "nodal_s_count": 2,
+    "nodeless_sp3_count": 8,
+    "rank_10_inventory_verified": true
+  },
+  "native_execution": {
+    "completion_line_observed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 81,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/wannier90-pp.err",
+      "sha256": "400a35c0a4d0cfe789b3c30941e4ad4e1c4878a6962021d509ff5601350223eb"
+    },
+    "stdout": {
+      "byte_size": 0,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/wannier90-pp.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wout": {
+      "byte_size": 16267,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/silicon.wout",
+      "sha256": "978acf2a78aa6251164c5266b84c1f498ab8a827bf82855ef5fcfe7e42d87c0b"
+    }
+  },
+  "nnkp": {
+    "bounded_parse_succeeded": true,
+    "byte_size": 18824,
+    "comparison_tolerances": {
+      "direct_lattice_angstrom": 1e-07,
+      "kpoint_fractional": 1e-08,
+      "reciprocal_lattice_per_angstrom": 1e-07
+    },
+    "excluded_bands": [],
+    "kpoint_count": 64,
+    "neighbor_count_per_kpoint": 8,
+    "neighbor_record_count": 512,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/silicon.nnkp",
+    "projection_count": 10,
+    "selected_projection_indices_verified": true,
+    "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014",
+    "source_lattice_kpoints_and_excluded_bands_verified": true
+  },
+  "schema_version": 1,
+  "scientific_disposition": "Eligible NNKP topology handoff for separately preflighted pw2wannier90 conversion. This does not establish grid, projection, window, localization, interpolation, or operator adequacy."
+}

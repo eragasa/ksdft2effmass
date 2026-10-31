@@ -47,8 +47,8 @@ is not an infinite-setting result.
 
 Before the first successor execution, bind:
 
-- the selected 680-byte `Si.PrimitiveUnitCell` seed \(S_0\), SHA-256
-  `6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc`, explicitly
+- the selected 692-byte `Si.PrimitiveUnitCell.RightHanded` seed \(S_0\), SHA-256
+  `7bef37dfe20ce58a137de942ec1fa0aa50d6e7049b0265790f12171bc834529a`, explicitly
   labelled as a qualification geometry rather than an accepted production lattice;
 - the intended physical branch;
 - exact Quantum ESPRESSO executable and input identities;
@@ -86,6 +86,123 @@ The execution order is fixed:
    setting and reconfirm on the resulting structure. Continue only within a frozen
    iteration budget; otherwise retain an inconclusive or budget-exhausted result.
 
+Steps 1 and 2 have now produced provisional Gamma-centered K10/42/336 Ry
+\(Q_0@S_0\) and provisional
+`Si.PrimitiveUnitCell.RightHanded.RelaxedS1`, respectively. The successful
+FCC-native relaxation does not transfer \(Q_0\) to \(S_1\). The authorized
+Gamma-centered K6/K8/K10/K12 stage at fixed 42/336 Ry has now repeated the declared
+K12-reference rule on the exact 758-byte \(S_1\), SHA-256
+`d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03`, and again
+selects K10. The separately authorized cutoff stage then reused C42 without rerunning
+it, evaluated C30/C36/C48/C54/C60, and again selected 42/336 Ry by the declared
+C60-reference rule. Step 3 is complete under the calculation-owned sampled-setting
+rules. The operator accepted the resulting exact pair under those rules. A new parent
+SCF, construction NSCF, Wannier preprocessing, converter, and provider-eligible
+localization occurrence subsequently completed with authenticated lineage. A separately
+authorized 408-point direct-parent NSCF then completed the prospective intended-use
+comparison. The rank-10 candidate met every valley-position target but did not meet the
+indirect-gap or effective-mass targets. The research protocol now selects a
+one-variable `C6` construction-mesh successor: Gamma-origin `6 x 6 x 6` with structure,
+parent, bands, rank, windows, projections, and optimizer controls held fixed. The prior
+408-point parent data become revealed development evidence; a separate 402-point
+parent-informed confirmation geometry is frozen with parent values still unobserved.
+`C8` is conditional rather than automatic, and `C12` is only a bounded upper diagnostic
+after a completed `C8` review; its size alone cannot establish mesh convergence. At
+that stage, component-operator and reduction work remained blocked pending a converged,
+structurally eligible full source. The exact `C6` NSCF preflight
+specified 216 points, 12 bands, one process, zero retries, a 600-second timeout, and a
+512 MiB retention ceiling. A later exact authorization permitted one successful
+invocation. Its verified saved state was an eligible preprocessing handoff. The fixed
+outer window selects 10--12 states per point rather than all 12 everywhere, an
+attributable consequence of the refined mesh. One separately authorized
+`wannier90.x -pp` occurrence then produced a source-correlated 216-point NNKP with eight
+neighbors per point and ten expanded projections. One separately authorized
+`pw2wannier90.x` occurrence then produced finite, shape-consistent AMN/MMN/EIG artifacts
+with exact NNKP and QEXSD correlations. One separately authorized exact `C6`
+localization occurrence then completed natively but did not meet the unchanged
+`dis_conv_tol = 1.0e-10` gate by the fixed 2000-iteration budget. Its final absolute
+fractional change was `4.679e-8`. The branch is an optimizer-convergence failure with no
+provider-eligible operator. One fresh 4000-step disentanglement-budget occurrence then
+changed no other coordinate and consumed no failed checkpoint. Disentanglement converged
+at iteration 3068, but Wannierisation did not meet its six-step gate by iteration 4000;
+the provider rejected the output. The prospective stop rule now forbids automatic
+budget extension or `C8` escalation. A separate target-space review identified that the
+inherited outer window selected only 10--12 parent states across `C6`. Candidate
+`C6-T1` was prepared with outer window `[-6.0, 21.0] eV`, selecting all 12 authenticated
+parent states at every construction point, but it remains unexecuted and is no longer
+the selected next occurrence. The selected broader-parent stage `C6-B20` changed only
+the NSCF parent-band count from 12 to 20, following the factor-two moderate
+band-inventory heuristic in pinned `aiida-wannier90-workflows` 3.1.0. One exact,
+separately authorized NSCF completed successfully. Its authenticated inventory shows
+10--14 states under `[-5.85, 19.02] eV` and 12--14 under `[-6.0, 21.0] eV`; bands 13
+and 14 enter both windows, while band 15 remains above `21.0 eV` everywhere. The
+separate target-space decision selects `C6-B20-W21` with outer window
+`[-6.0, 21.0] eV`, retaining rank 10, the frozen window, and the projection family.
+This provides at least two excess outer-space dimensions at every point but does not
+establish optimizer convergence or adequacy. The prospective route adopts the pinned
+AiiDA precise convergence-derived tuple for the two-atom cell: `conv_tol = 2.0e-9
+angstrom^2`, dimensionless `dis_conv_tol = 2.0e-9`, `conv_window = 6`,
+`num_cg_steps = 200`, and 40000-step ceilings for both optimizations. This supersedes
+the unexecuted hybrid 4000-step preprocessing request. One newly rendered 20-band
+preprocessing input was separately authorized and executed exactly once. Wannier90
+returned zero, emitted its native NNKP completion line, and the maintained verifier
+confirmed the 216 ordered points, lattices, excluded-band inventory, and rank-10
+projections. Its authorization is consumed. A deterministic no-execution conversion
+preflight now binds the authenticated 20-band saved state and eligible NNKP to fresh
+AMN/MMN/EIG output requirements, a 300-second timeout, and a 256 MiB retained-byte
+ceiling. One separately authorized conversion returned zero and produced finite,
+shape-correct 20-band interface artifacts with exact NNKP-neighbor correlation and
+EIG-to-QEXSD agreement within `5.37e-13 eV`. Its authorization is consumed.
+A fresh precise-profile localization preflight bound those artifacts with no checkpoint
+or failed-output consumption, one process, a 14,400-second timeout, a 128 MiB
+retained-byte ceiling, and zero retries. One separately authorized occurrence completed
+natively: disentanglement converged at iteration 1517 and Wannierisation at iteration
+378. The provider initially rejected the output because it compared matrix coordinates
+with the lossy eight-decimal NNKP representation. ProjectKoios corrected the reference
+space to the canonical WIN block. No-calculator reverification measured gauge and
+`u_dis` residuals of `3.300004713935323e-11`, passing the unchanged `1.0e-10` gate.
+The occurrence is provider-eligible; the original rejection remains false-negative
+audit evidence. Separately authorized S30 full untruncated characterization then
+verified source reconstruction, pair Hermiticity, valleys, curvature masses, and the
+complete locality curve without applying spatial truncation. The separately authorized
+no-calculator S40 comparison then applied the frozen targets to the revealed 408-point
+parent evidence. All six valley-position comparisons passed, but the indirect-gap error
+was `12.7605%` against `5%`, all six longitudinal masses failed, and 11 of 12 transverse
+masses failed the `8%` evaluation criterion. These discrepancies are revealed
+parent-oracle labels, not operational reduction diagnostics. They limit physical-fidelity
+claims but do not block controlled spatial truncation or Slater--Koster reduction from
+the structurally eligible S30 operator. The reductions, diagnostic rules, fits, and
+predicted hidden errors must be frozen before the 402-point confirmation parent values
+are observed. The S90-through-S110
+[controlled-reduction protocol](research-protocol/controlled-reduction-protocol.tex)
+formalized this hidden-oracle separation. Separately authorized S90 design then froze
+all 18 complete physical-radius shells and the operational tail, operator, spectral,
+valley, curvature, and mass diagnostics without selecting a radius or consuming
+402-point parent values. Separately authorized S100 then evaluated all 18 masks against
+the full source without accepting a radius. Every mask preserves pair closure and pair
+Hermiticity; the full-support control is exact; and the onsite-only valley/mass
+observables are explicitly undefined. The first three dispersive masks fail to preserve
+all declared Delta identities, while later direct and observable changes are retained as
+descriptive controlled-reduction evidence. Separately authorized S105 then retained the
+383-representative full-support shell: `H_T = H_W`, so the selected spatial-truncation
+error is identically zero. No post-observation threshold was created to accept a
+nontrivial shell, and the parent numerical-convergence tolerances were not repurposed as
+reduction criteria. Separately authorized S110 then stopped at the mandatory
+common-state-space gate: the TB-anchored ten-orbital `sp3s*` projection has resolved
+rank 9 at Gamma and one additional C6 point under the native-format singular-value
+bound. No fit ran, no parameter vector was produced, and S50 remains blocked. The
+default disposition is to retain no Slater--Koster reduction from this source. The
+current
+[post-S110 protocol](research-protocol/controlled-reduction-protocol-post-s110.tex)
+orders separately authorized continuation by increasing implementation difficulty:
+reusable foundations, spectral-only feasibility, global-unitary rank-10 fitting,
+rank-9 projection, and a new Wannier source. Level 1 reusable geometry, parameter,
+Hamiltonian, symmetry, and serialization foundations are now implemented with synthetic
+software verification only. They do not alter the S110 result or authorize Level 2.
+The 30-band factor-three adaptation
+remains a conditional source-fidelity diagnostic, not an automatic successor or a
+prerequisite for controlled reduction.
+
 A changed lattice changes reciprocal vectors. Equal integer mesh tuples therefore do
 not prove equal sampling resolution; the confirmation must apply the declared
 reciprocal-space rule or explicitly reassess the retained tuple.
@@ -119,7 +236,14 @@ energy reference. Compare direct-parent and Wannier bands, projectors, and repre
 operators on construction and withheld meshes.
 
 The tutorial-scale silicon Wannier preview is a software/integration precursor only and
-cannot fill this gate.
+cannot fill this gate. The first provider-eligible `4 x 4 x 4`, rank-10 lower-energy
+frozen-window candidate completed a prospectively frozen direct-parent comparison but
+was not adequate for the declared SSSP-pilot intended use. Optimizer changes cannot
+repair that scientific disposition. The protocol-first `C6` recommendation changes only
+the Gamma-origin construction mesh from `4 x 4 x 4` to `6 x 6 x 6`; all other scientific
+and optimizer coordinates remain fixed. Any later band, rank, window, projection,
+conditional `C8`, or bounded-diagnostic `C12` revision is a separate decision, and every
+calculator occurrence requires its own exact preflight and authorization.
 
 ## Stage 5 — freeze the local-model decision problem
 

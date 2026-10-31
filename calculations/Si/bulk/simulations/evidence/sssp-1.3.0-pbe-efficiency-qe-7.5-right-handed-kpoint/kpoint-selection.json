@@ -1,0 +1,46 @@
+{
+  "criterion": {
+    "comparison_reference": "densest sampled mesh K12",
+    "energy_normalization": "per atom",
+    "kpoints_convergence_atol": {
+      "unit": "millielectron_volt_per_atom",
+      "value": 1.0
+    },
+    "relative_tolerance": 0.0,
+    "selection_rule": "select the smallest sampled mesh whose absolute total-energy difference from the densest sampled mesh does not exceed kpoints_convergence_atol"
+  },
+  "evaluations": [
+    {
+      "absolute_difference_mev_per_atom": 0.04483075886696497,
+      "mesh_density": 6,
+      "passes": true,
+      "total_energy_ev_per_atom": -155.37559836358443
+    },
+    {
+      "absolute_difference_mev_per_atom": 0.001904797045426676,
+      "mesh_density": 8,
+      "passes": true,
+      "total_energy_ev_per_atom": -155.37564128954625
+    },
+    {
+      "absolute_difference_mev_per_atom": 0.0007483131128083187,
+      "mesh_density": 10,
+      "passes": true,
+      "total_energy_ev_per_atom": -155.37564244603018
+    },
+    {
+      "absolute_difference_mev_per_atom": 0.0,
+      "mesh_density": 12,
+      "passes": true,
+      "total_energy_ev_per_atom": -155.3756431943433
+    }
+  ],
+  "schema_version": 1,
+  "scientific_disposition": "finite sampled-grid selection only; does not resolve executable warnings or establish production acceptance",
+  "selected_mesh": [
+    6,
+    6,
+    6
+  ],
+  "selection_status": "selected"
+}

@@ -1,0 +1,73 @@
+{
+  "comparison_to_blocked_cg_occurrence": {
+    "interpretation": "mechanical comparison only; the CG occurrence remains blocked by its explicit unconverged-eigenvalue diagnostics",
+    "k_point_order_exactly_matches": true,
+    "maximum_absolute_eigenvalue_difference_ev": 4.3716777753378606e-05,
+    "maximum_absolute_eigenvalue_difference_hartree": 1.6065619501404171e-06,
+    "prior_qexsd": {
+      "byte_size": 109890,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "7c5394a73a565d9fa2a0580433af5656003d411fe0d255ac364ca12a871af96c"
+    },
+    "spectrum_shape": [
+      64,
+      12
+    ]
+  },
+  "consistency": {
+    "declared_band_count_matches": true,
+    "declared_kpoint_count_matches": true,
+    "stdout_kpoint_count_matches": true,
+    "terminal_status_matches": true
+  },
+  "diagonalization_diagnostics": {
+    "algorithm": "david",
+    "disposition": "NO_ACTION_REQUIRED",
+    "requested_conv_thr_ry": 1e-12,
+    "stdout_terminal_ethr_ry": 1e-13,
+    "total_reported_unconverged_eigenvalues": 0,
+    "warning_line_count": 0
+  },
+  "native_execution": {
+    "job_completed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "stdout": {
+      "byte_size": 44961,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/pw.out",
+      "sha256": "367b54c6dd9864bad55d39e821bcc11f21513b1f4462a0c9f749f6c2c79f0fd7"
+    }
+  },
+  "qexsd": {
+    "all_eigenvalues_finite": true,
+    "all_occupations_finite": true,
+    "band_count": 12,
+    "byte_size": 110462,
+    "declared_unit_system_label": "Hartree atomic units",
+    "exit_status": 0,
+    "k_point_weight_sum_native": 2.0,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/tmp/system.save/data-file-schema.xml",
+    "producing_application": "PWSCF",
+    "producing_application_version": "7.5",
+    "qexsd_version": "25.05.21",
+    "sampled_k_point_count": 64,
+    "sha256": "cc389a14d6b9f809eab69ba30b86129a01951788a3fdbc290589ef8f5f69adb0"
+  },
+  "saved_state": {
+    "file_count": 67,
+    "manifest": {
+      "byte_size": 14229,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/nscf-saved-state-manifest.json",
+      "sha256": "cab588c939b3b9bdea95496458be414f465f38fb036d1ade62405f8d602bf4ce"
+    },
+    "total_bytes": 18799008,
+    "verified": true
+  },
+  "schema_version": 1,
+  "scientific_disposition": "Eligible as the candidate NSCF handoff for separately preflighted Wannier90 preprocessing. This does not establish production grid, band, window, interpolation, or component-operator adequacy."
+}

@@ -1,0 +1,118 @@
+{
+  "external_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z",
+  "file_count": 22,
+  "files": [
+    {
+      "byte_size": 690,
+      "path": "authorization.json",
+      "sha256": "5f561048ae599b677cfdae37e547ef114025f6423d8bcf260c0197c61aa25fd8"
+    },
+    {
+      "byte_size": 4298,
+      "path": "campaign-preflight.json",
+      "sha256": "6630ad15aa5df18b0c9b543f34277133bf5cb787d14ff144946bf14e5c7d4bb5"
+    },
+    {
+      "byte_size": 1301,
+      "path": "campaign-result.json",
+      "sha256": "7fa12b5d0f6a157df76588958ace1161d690a3534a900a6021a3d4aff2607f08"
+    },
+    {
+      "byte_size": 3537,
+      "path": "input/silicon.win",
+      "sha256": "5095ff13afc5e1d067cc8ff1495709cb1aac70843e69154e0754049331b1c03e"
+    },
+    {
+      "byte_size": 480,
+      "path": "postprocessing-attempts.json",
+      "sha256": "808c5de48c70dff19ae1540fb0f6d966eab5aa307f1497b9e72fe306cdd85fd5"
+    },
+    {
+      "byte_size": 627,
+      "path": "preparation-attempts.json",
+      "sha256": "c20ec1fa8dbe38e73d4c80c25c124a92acd1b056db887d299163484d73a915db"
+    },
+    {
+      "byte_size": 11648,
+      "path": "prepare_campaign.py",
+      "sha256": "79409db97a4377554c0ce7e41af181cb4d0c6bac95f575bcb1d3f8299bd59557"
+    },
+    {
+      "byte_size": 1062,
+      "path": "prepared-input-record.json",
+      "sha256": "9acafe13d43548814c23b8e5f4eb5a03e20188722f114ff24333043b9b63307e"
+    },
+    {
+      "byte_size": 2584,
+      "path": "preprocessing-result.json",
+      "sha256": "d68e18bc9ee1138ca2e392198ab15b80e43ebf3ce319fb5ff0d7b772172191ee"
+    },
+    {
+      "byte_size": 8898,
+      "path": "retain_result.py",
+      "sha256": "b67ca9c203508beb4d2ceedc66ce2accc3f3546596496b27f9ec555961c59e29"
+    },
+    {
+      "byte_size": 2014,
+      "path": "run/artifact-manifest.json",
+      "sha256": "234cbf975ca045de35778bdb3323b4a788a5efdd74b524b6f024913ffef83d94"
+    },
+    {
+      "byte_size": 486,
+      "path": "run/execution.json",
+      "sha256": "ecd5a7f94d532e85e751f45d22ca8ec278746168193133e5756a357d72fe50e9"
+    },
+    {
+      "byte_size": 1062,
+      "path": "run/prepared-input-record.json",
+      "sha256": "9acafe13d43548814c23b8e5f4eb5a03e20188722f114ff24333043b9b63307e"
+    },
+    {
+      "byte_size": 18824,
+      "path": "run/silicon.nnkp",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    {
+      "byte_size": 3537,
+      "path": "run/silicon.win",
+      "sha256": "5095ff13afc5e1d067cc8ff1495709cb1aac70843e69154e0754049331b1c03e"
+    },
+    {
+      "byte_size": 16267,
+      "path": "run/silicon.wout",
+      "sha256": "978acf2a78aa6251164c5266b84c1f498ab8a827bf82855ef5fcfe7e42d87c0b"
+    },
+    {
+      "byte_size": 81,
+      "path": "run/wannier90-pp.err",
+      "sha256": "400a35c0a4d0cfe789b3c30941e4ad4e1c4878a6962021d509ff5601350223eb"
+    },
+    {
+      "byte_size": 0,
+      "path": "run/wannier90-pp.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_size": 6590,
+      "path": "run_campaign.py",
+      "sha256": "87b58bba54ee582099f8a79cba5c92afad1bda2cf3646dd4b8fd3831e47d53c6"
+    },
+    {
+      "byte_size": 4286,
+      "path": "superseded-compact-projection-preflight/campaign-preflight.json",
+      "sha256": "39e060c7237f1b8636be9873fe2acd2480f98932531feaaad488a144f4b8b8d1"
+    },
+    {
+      "byte_size": 3534,
+      "path": "superseded-compact-projection-preflight/input/silicon.win",
+      "sha256": "46bf2fbdd6084068fcdb246375471014906908b0681a8c4d1eb01fc3be6148ce"
+    },
+    {
+      "byte_size": 1062,
+      "path": "superseded-compact-projection-preflight/prepared-input-record.json",
+      "sha256": "aeb608eda64fb2ed02ce9a18db5607dba76c0978af3b94a0883b83a2a59b79b5"
+    }
+  ],
+  "schema_version": 1,
+  "total_bytes": 92868
+}

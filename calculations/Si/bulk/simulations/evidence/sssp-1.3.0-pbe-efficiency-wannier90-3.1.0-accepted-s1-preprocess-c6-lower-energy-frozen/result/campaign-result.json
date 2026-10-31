@@ -1,0 +1,34 @@
+{
+  "artifact_manifest": {
+    "byte_size": 2015,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1/run/artifact-manifest.json",
+    "sha256": "343d90a276083a2dad6a3918b9b34cf4816b8ba5361404fc5b29fb69c4328578"
+  },
+  "authorization": {
+    "byte_size": 904,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1/authorization.json",
+    "sha256": "a66b6d4fbd67cc8a59b66daec4f896c31766522981175df2b57c54a1a7731d04"
+  },
+  "execution_record": {
+    "byte_size": 486,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1/run/execution.json",
+    "sha256": "ded7da5af6869ce8c4cc0f701adb4c87448404a8d401b8f63711ff6835d82e00"
+  },
+  "execution_status": "succeeded",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 33554432,
+  "nnkp": {
+    "byte_size": 59408,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1/run/silicon.nnkp",
+    "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+  },
+  "retry_count": 0,
+  "return_code": 0,
+  "schema_version": 1,
+  "scientific_disposition": "eligible C6 NNKP topology handoff for separately authorized pw2wannier90 conversion; no localization or intended-use result",
+  "timed_out": false,
+  "total_occurrence_bytes_after_postprocessing": 127612,
+  "total_occurrence_bytes_at_runner_return": 123605,
+  "within_retained_byte_bound_after_postprocessing": true,
+  "within_retained_byte_bound_at_runner_return": true
+}

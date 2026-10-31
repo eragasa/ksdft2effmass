@@ -1,0 +1,15 @@
+{
+  "basis": {
+    "amn_mmn_eig_bounded_parsing_succeeded": true,
+    "finite_interface_norms": true,
+    "job_done_observed": true,
+    "nnkp_neighbor_correlation_verified": true,
+    "qexsd_eigenvalue_correlation_verified": true,
+    "return_code": 0
+  },
+  "diagnostic_line": "Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG IEEE_DIVIDE_BY_ZERO IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG",
+  "disposition": "diagnostic-nonblocking-for-interface-conversion",
+  "schema_version": 1,
+  "stderr_sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e",
+  "scope": "This disposition establishes converter-interface eligibility only and does not establish localization convergence, arithmetic stability of a later optimizer trajectory, or scientific adequacy."
+}

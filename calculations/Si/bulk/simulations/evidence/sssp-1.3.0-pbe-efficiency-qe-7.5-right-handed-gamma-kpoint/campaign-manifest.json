@@ -1,0 +1,111 @@
+{
+  "authorization": {
+    "maximum_invocations": 4,
+    "operator_message": "go",
+    "retries": 0
+  },
+  "executable": {
+    "byte_size": 9673048,
+    "path": "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw.x",
+    "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910"
+  },
+  "occurrences": [
+    {
+      "evaluation_id": "ksdft-si-kpoint-sssp-qe75-authorized-k6-e653p073",
+      "mesh_density": 6,
+      "prepared_input_sha256": "05e64890c419733234bcd79effdbd2955fc7447766b3a2833119d93a41ee0507",
+      "pw_input_sha256": "6fcb4bb6f5a56e0ffb315e17445328da8fb83a0c70287f937d5e186ba30e8c4f",
+      "task_id": "ksdft-si-gamma-kpoint-k6-attempt-1",
+      "working_directory": "/Users/eugene/projects/ksdft2effmass/si-kpoint-gamma-sssp-qe75-right-handed-20261031T054832Z/K6"
+    },
+    {
+      "evaluation_id": "ksdft-si-kpoint-sssp-qe75-authorized-k8-e653p073",
+      "mesh_density": 8,
+      "prepared_input_sha256": "3a343c58787be85cce664b0b485a4b0ecf6dc8b1444d1373cffd8bcd530d5a52",
+      "pw_input_sha256": "998b4924dfdae2bcc0e3de995bbf18f8d2067e932d07f778f3cdf0664ad98931",
+      "task_id": "ksdft-si-gamma-kpoint-k8-attempt-1",
+      "working_directory": "/Users/eugene/projects/ksdft2effmass/si-kpoint-gamma-sssp-qe75-right-handed-20261031T054832Z/K8"
+    },
+    {
+      "evaluation_id": "ksdft-si-kpoint-sssp-qe75-authorized-k10-e653p073",
+      "mesh_density": 10,
+      "prepared_input_sha256": "aee4288db99afa05c89a85d1f6da2875cb192b216043ecae49bd919a75b1cb64",
+      "pw_input_sha256": "9b5a337525ffe1f4ad0f82c24bc896fffb08ca512a5183841075982117a6108e",
+      "task_id": "ksdft-si-gamma-kpoint-k10-attempt-1",
+      "working_directory": "/Users/eugene/projects/ksdft2effmass/si-kpoint-gamma-sssp-qe75-right-handed-20261031T054832Z/K10"
+    },
+    {
+      "evaluation_id": "ksdft-si-kpoint-sssp-qe75-authorized-k12-e653p073",
+      "mesh_density": 12,
+      "prepared_input_sha256": "861c40cafc7ef5debd0ac80d5c33baecf6f8ca1dcfe686bb7d0e5471e793930f",
+      "pw_input_sha256": "815b484c49ac10d06d59d14e292132882b81cf87af565cac0a4207dbc9f42f20",
+      "task_id": "ksdft-si-gamma-kpoint-k12-attempt-1",
+      "working_directory": "/Users/eugene/projects/ksdft2effmass/si-kpoint-gamma-sssp-qe75-right-handed-20261031T054832Z/K12"
+    }
+  ],
+  "projectkoios_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+  "pseudopotential": {
+    "byte_size": 1299382,
+    "collection": "SSSP 1.3.0 PBE efficiency",
+    "filename": "Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+    "root": "/Users/eugene/opt/pseudopotentials/quantum-espresso/sssp/1.3.0/sets/PBE/efficiency",
+    "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+  },
+  "purpose": "right-handed Gamma-centered fixed-cutoff k-point convergence workflow",
+  "resource_bounds": {
+    "maximum_bytes_per_occurrence": 2147483648,
+    "processes_per_occurrence": 1,
+    "timeout_seconds_per_occurrence": 600.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "development calculation; completion is not scientific acceptance",
+  "settings": {
+    "charge_density_cutoff_ratio": 8.0,
+    "charge_density_cutoff_ry": 384.0,
+    "electronic_tolerance_ry": 1e-06,
+    "maximum_electronic_iterations": 100,
+    "mesh_densities": [
+      6,
+      8,
+      10,
+      12
+    ],
+    "mesh_shift": [
+      0,
+      0,
+      0
+    ],
+    "occupation": "fixed",
+    "spatial_symmetry": true,
+    "time_reversal": true,
+    "wavefunction_cutoff_ev": 653.0732699035447,
+    "wavefunction_cutoff_ry": 48.0
+  },
+  "source_structure": {
+    "byte_size": 692,
+    "direct_basis_transform": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "parent_sha256": "6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc",
+    "parent_structure_id": "Si.PrimitiveUnitCell",
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/structures/Si.PrimitiveUnitCell.RightHanded.json",
+    "role": "right-handed provisional S0",
+    "sha256": "7bef37dfe20ce58a137de942ec1fa0aa50d6e7049b0265790f12171bc834529a",
+    "structure_id": "Si.PrimitiveUnitCell.RightHanded"
+  },
+  "status": "completed"
+}

@@ -1,0 +1,58 @@
+{
+  "convergence": {
+    "disentanglement_converged": false,
+    "disentanglement_maximum_iteration_warning_observed": true,
+    "disentanglement_tolerance_fractional": 1e-10,
+    "last_disentanglement_delta_fractional": -2.091e-09,
+    "last_disentanglement_iteration": 1000,
+    "last_wannierisation_iteration": 265,
+    "wannierisation_converged": true,
+    "wannierisation_convergence_window": 6,
+    "wannierisation_tolerance_angstrom_squared": 2e-09
+  },
+  "invocation_count": 1,
+  "native_execution": {
+    "native_completion_observed": true,
+    "returncode": 0,
+    "status": "succeeded"
+  },
+  "parsed_outputs": {
+    "disentanglement": {
+      "band_count": 12,
+      "byte_size": 241160,
+      "kpoint_count": 64,
+      "maximum_isometry_residual": 1.5475254411256856e-10,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/run/silicon_u_dis.mat",
+      "sha256": "92ff4bbc90879142125067c2123069895d646cd50f440acbbf249325dfefb263",
+      "wannier_count": 10
+    },
+    "gauge": {
+      "byte_size": 201480,
+      "kpoint_count": 64,
+      "maximum_unitarity_residual": 1.8890222719392114e-10,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/run/silicon_u.mat",
+      "sha256": "d6cbcc4a29dc1e21b4e47d3357e05bf29ddea315a0a0c03212c2e126bc940c56",
+      "wannier_count": 10
+    },
+    "hamiltonian": {
+      "byte_size": 465533,
+      "maximum_hermiticity_residual_ev": 0.0,
+      "missing_negative_representative_count": 0,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/run/silicon_hr.dat",
+      "representative_count": 93,
+      "sha256": "94401cf47d599d8c3d1ce45e43c7e1f242c2cd42c6e8539e58b82e853085dcbe",
+      "wannier_count": 10
+    },
+    "wout": {
+      "byte_size": 424684,
+      "omega_total_angstrom_squared": 19.532779948,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/run/silicon.wout",
+      "sha256": "bda5ca58bd1b0d2989576864eaf21039e20a70c48c532f104e6a2e15579d5de1",
+      "wannier_count": 10
+    }
+  },
+  "provider_disposition": "blocked: lower-energy frozen-window disentanglement exhausted its 1000-iteration budget; Wannierisation satisfied the prospective precise operational convergence criterion",
+  "retry_count": 0,
+  "schema_version": 1,
+  "scientific_disposition": "ineligible localization occurrence because disentanglement did not converge; generated matrices and Hamiltonian remain retained diagnostic evidence and are not an accepted operator"
+}

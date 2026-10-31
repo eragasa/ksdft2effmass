@@ -1,0 +1,98 @@
+{
+  "acceptance": {
+    "required_mechanical_checks": [
+      "regular nonempty AMN/MMN/EIG artifacts",
+      "AMN rank and 216-point shape",
+      "MMN rank, 216-point shape, and NNKP neighbor correlation",
+      "EIG 12-band by 216-point shape",
+      "finite numeric payloads"
+    ],
+    "required_native_completion": "JOB DONE",
+    "required_outputs": [
+      "silicon.amn",
+      "silicon.mmn",
+      "silicon.eig"
+    ],
+    "required_return_code": 0
+  },
+  "candidate": {
+    "mode": "standalone",
+    "outdir": "./tmp/",
+    "prefix": "system",
+    "required_outputs": [
+      "silicon.amn",
+      "silicon.mmn",
+      "silicon.eig"
+    ],
+    "seedname": "silicon",
+    "spin_component": "none",
+    "write_amn": true,
+    "write_mmn": true,
+    "write_spn": false,
+    "write_unk": false
+  },
+  "decision": {
+    "byte_size": 9287,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/wannier-interface-decision.md",
+    "sha256": "d8e2730f5d857639a49dc2fd2eb3c2a9a291386f808e5525435a0602233fff56"
+  },
+  "executable": {
+    "byte_size": 8379632,
+    "path": "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+    "sha256": "61c8255b0745df2a5dec3c55e600b1f8b87039b564004997ac45cfee42cf2c8c"
+  },
+  "execution_performed": false,
+  "input": {
+    "byte_size": 230,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-pw2wannier90-c6-lower-energy-frozen/rendered/pw2wannier90.in",
+    "sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67"
+  },
+  "input_manifest": {
+    "byte_size": 568,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-pw2wannier90-c6-lower-energy-frozen/rendered/input-manifest.json",
+    "sha256": "f48d8082674b4f8c3ad5b101ac7fa07a3522be99b23eea447eb12d0fd9b8206c"
+  },
+  "parent_nscf": {
+    "manifest": {
+      "byte_size": 44898,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/nscf-saved-state-manifest.json",
+      "sha256": "28df04c1bf314371d6138bfe41b564147354253c6d609b465c7ebd4778c617b8"
+    },
+    "saved_state_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/tmp",
+    "verified_file_count": 219,
+    "verified_total_bytes": 58433245
+  },
+  "parent_preprocessing": {
+    "kpoint_count": 216,
+    "neighbor_count_per_kpoint": 8,
+    "neighbor_record_count": 1728,
+    "nnkp": {
+      "byte_size": 59408,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1/run/silicon.nnkp",
+      "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+    },
+    "projection_count": 10,
+    "result": {
+      "byte_size": 2526,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1/preprocessing-result.json",
+      "sha256": "8306f8b7340e1673a79342a8725b4ad2bd63e96ea078929b423f6d72145538a4"
+    }
+  },
+  "planned_command": [
+    "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+    "-in",
+    "pw2wannier90.in"
+  ],
+  "proposed_occurrence_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1",
+  "purpose": "C6 rank-10 AMN/MMN/EIG interface conversion with fixed spectral settings",
+  "resource_bounds": {
+    "maximum_invocations": 1,
+    "maximum_retained_bytes": 268435456,
+    "processes": 1,
+    "retries": 0,
+    "timeout_seconds": 300.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "preflight only; no converter, localization, interpolation, or operator-adequacy result",
+  "status": "authorization-required"
+}

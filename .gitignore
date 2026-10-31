@@ -284,6 +284,16 @@ htmlcov/
 /docs/publications/**/manuscript.pdf
 /calculations/*/development_report/*.pdf
 
+# Calculation-native Wannier interface and operator arrays remain external.
+# Retained inventories and checksums authenticate these files without committing them.
+/calculations/Si/bulk/simulations/evidence/**/result/silicon.amn
+/calculations/Si/bulk/simulations/evidence/**/result/silicon.mmn
+/calculations/Si/bulk/simulations/evidence/**/result/silicon.eig
+/calculations/Si/bulk/simulations/evidence/**/result/silicon_hr.dat
+/calculations/Si/bulk/simulations/evidence/**/result/silicon_u.mat
+/calculations/Si/bulk/simulations/evidence/**/result/silicon_u_dis.mat
+/calculations/Si/bulk/simulations/evidence/**/result/silicon_wsvec.dat
+
 # Editor and backup files
 *.bak
 *.swp

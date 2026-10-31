@@ -1,0 +1,22 @@
+{
+  "eigenvalue_artifact": {
+    "byte_size": 29952,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-20261031T084540Z/source-input/silicon.eig",
+    "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+  },
+  "energy_unit": "eV",
+  "exactly_eight_conduction_bands_frozen_at_every_kpoint": true,
+  "frozen_window_ev": [
+    6.0,
+    19.02
+  ],
+  "kpoint_count": 64,
+  "maximum_band_12_ev": 19.008744989627,
+  "maximum_band_4_ev": 5.983119128119,
+  "maximum_below_window_count_per_kpoint": 4,
+  "maximum_frozen_count_per_kpoint": 8,
+  "minimum_band_5_ev": 6.736696896102,
+  "minimum_below_window_count_per_kpoint": 4,
+  "minimum_frozen_count_per_kpoint": 8,
+  "schema_version": 1
+}

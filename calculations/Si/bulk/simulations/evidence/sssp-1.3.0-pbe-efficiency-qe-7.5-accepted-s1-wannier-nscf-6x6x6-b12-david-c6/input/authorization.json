@@ -1,0 +1,18 @@
+{
+  "authorization_request_sha256": "eefee784368f186246f13da0dd97591dd1f0ec1d09c564262f1a2f3699c41a28",
+  "execution_configuration_sha256": "f27668dd6f4fcf36ac3ba35abc4527e0089bad018fd5bbdef70822f19aed8e1a",
+  "input_sha256": "dc5b913b0133b53968c1858dc984b408fcdc163b1fa654511f73c7098baa9bf3",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 536870912,
+  "operator_instruction": "Authorize exactly one local QE 7.5 pw.x C6 NSCF invocation bound to authorization-request SHA-256 eefee784368f186246f13da0dd97591dd1f0ec1d09c564262f1a2f3699c41a28, with 216 k-points, 12 bands, one process, 600-second timeout, 512 MiB ceiling, and zero retries.",
+  "parent_saved_state_verification": {
+    "verified_file_count": 50,
+    "verified_total_bytes": 6720372
+  },
+  "processes": 1,
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "timeout_seconds": 600.0
+}

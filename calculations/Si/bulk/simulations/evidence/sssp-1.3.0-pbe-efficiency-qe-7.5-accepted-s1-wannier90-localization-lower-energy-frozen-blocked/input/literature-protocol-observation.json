@@ -1,0 +1,34 @@
+{
+  "adopted_parameters": {
+    "conv_tol_for_two_atom_cell_angstrom_squared": 2e-09,
+    "conv_window": 6,
+    "num_cg_steps": 200,
+    "num_iter": 4000
+  },
+  "commit": "1c0115cb7c77541a0bd549bc05005df435d651b6",
+  "git_blob": "08049bb780e0a9f63276cbcdfecca3c300fc05fb",
+  "interpretation": "fixed production-practice optimizer coordinates plus the separately accepted prospective precise Wannierisation policy, not wholesale protocol adoption",
+  "not_adopted": [
+    "40000-iteration budgets",
+    "precise dis_conv_tol per atom",
+    "other protocol settings"
+  ],
+  "observed_moderate_parameters": {
+    "conv_tol_per_atom_angstrom_squared": 1e-07,
+    "conv_window": 3,
+    "dis_num_iter": 4000,
+    "num_cg_steps": 200,
+    "num_iter": 4000
+  },
+  "observed_precise_overrides": {
+    "conv_tol_per_atom_angstrom_squared": 1e-09,
+    "conv_window": 6,
+    "dis_num_iter": 40000,
+    "num_iter": 40000
+  },
+  "path": "src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml",
+  "raw_url": "https://raw.githubusercontent.com/aiidateam/aiida-wannier90-workflows/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml",
+  "repository": "aiidateam/aiida-wannier90-workflows",
+  "schema_version": 1,
+  "source_kind": "current literature-associated high-throughput workflow protocol"
+}

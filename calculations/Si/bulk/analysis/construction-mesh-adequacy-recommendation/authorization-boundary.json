@@ -1,0 +1,26 @@
+{
+  "C12": {
+    "calculator_execution_authorized": false,
+    "scientifically_selected": false
+  },
+  "C6": {
+    "automatic_retries": 0,
+    "pw2wannier90_authorized": false,
+    "qe_nscf_authorized": false,
+    "wannier90_localization_authorized": false,
+    "wannier90_preprocessing_authorized": false
+  },
+  "C8": {
+    "calculator_execution_authorized": false,
+    "scientifically_selected": false
+  },
+  "artifact_acquisition_authorized": false,
+  "boundary": "the operator authorized writing and preparing this recommendation, not any QE or Wannier90 invocation",
+  "calculator_execution_authorized": false,
+  "recommendation_authorized": true,
+  "schema_version": 1,
+  "status": "no-calculator-authorized",
+  "successor_confirmation_parent": {
+    "calculator_execution_authorized": false
+  }
+}

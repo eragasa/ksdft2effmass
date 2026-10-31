@@ -1,0 +1,15 @@
+{
+  "attempts": [
+    {
+      "calculator_invocations": 0,
+      "input": {
+        "byte_size": 3534,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/superseded-compact-projection-preflight/input/silicon.win",
+        "sha256": "46bf2fbdd6084068fcdb246375471014906908b0681a8c4d1eb01fc3be6148ce"
+      },
+      "reason": "Wannier90 applies :r=2 to all angular states on one projection line; separate Si:sp3 and Si:l=0:r=2 lines are required for nodeless hybrids plus nodal s.",
+      "status": "superseded-before-execution"
+    }
+  ],
+  "schema_version": 1
+}

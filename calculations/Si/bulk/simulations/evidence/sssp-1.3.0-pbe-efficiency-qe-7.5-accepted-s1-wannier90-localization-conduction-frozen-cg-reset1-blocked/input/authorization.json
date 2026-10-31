@@ -1,0 +1,7 @@
+{
+  "authorization": "Authorize exactly one conduction-frozen Wannier90 localization invocation with num_cg_steps = 1 described in campaign-preflight.json, with zero retries and stop on failure.",
+  "campaign_preflight_sha256": "fccd4dc8e3dedc9ec0f45badd513e3056d8c6b670b2a1d239fe33fc0f83ba137",
+  "maximum_invocations": 1,
+  "retries_authorized": 0,
+  "stop_on_failure": true
+}

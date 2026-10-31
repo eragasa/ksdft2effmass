@@ -1,0 +1,390 @@
+{
+  "S100_evaluation_domains": {
+    "conduction_band_index_zero_based": 4,
+    "curvature_stencils": {
+      "coordinate_basis": "Cartesian reciprocal axes",
+      "primary_step_inverse_angstrom": 0.002,
+      "role": "within-source valley curvature and stencil-stability diagnostics",
+      "steps_inverse_angstrom": [
+        0.001,
+        0.002,
+        0.005,
+        0.01
+      ]
+    },
+    "dense_valley_grid": {
+      "kind": "Gamma-origin fractional primitive grid",
+      "point_count": 68921,
+      "points_per_axis": 41,
+      "role": "valley-family initialization and identity control"
+    },
+    "edge_window_ev": 0.5,
+    "source_mesh": {
+      "point_count": 216,
+      "role": "finite-transform reconstruction control"
+    },
+    "uniform_reciprocal_grid": {
+      "kind": "Gamma-origin fractional primitive grid",
+      "point_count": 9261,
+      "points_per_axis": 21,
+      "role": "primary direct finite-representation compression domain"
+    }
+  },
+  "authorization_scope": "prepare the controlled spatial-truncation design only; do not run S100, fit a Slater-Koster model, or observe 402-point parent values",
+  "bound_inputs": {
+    "S30_full_operator_characterization": {
+      "byte_size": 56310,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "S30_implementation": {
+      "byte_size": 54245,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/run_analysis.py",
+      "sha256": "985dcc7e000fdd0aea76e046f8cfbf8cf12b73990decdc2808be517fd50a538e"
+    },
+    "S40_corrected_development_result": {
+      "byte_size": 121156,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-revealed-408-development/development-result.json",
+      "sha256": "bb1a6d0fab5d08fecaa0d86cbfe00e8670e7f089e289c6fabc59c32c6f76991d"
+    },
+    "S40_hidden_oracle_role_correction": {
+      "byte_size": 1341,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-revealed-408-development/hidden-oracle-role-correction.md",
+      "sha256": "29e58f90c40ec428e12d087b4d6b6b70bfcd18d9c539bdcd9f17aa3dd36f333d"
+    },
+    "current_protocol": {
+      "byte_size": 28724,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/research-protocol/controlled-reduction-protocol.tex",
+      "sha256": "80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380"
+    }
+  },
+  "calculator_invocations": 0,
+  "fixed_reduction_source": {
+    "basis": "localized Wannier90 basis from the authenticated u and u_dis",
+    "direct_basis_columns_angstrom": [
+      [
+        2.7345910468201033,
+        2.7345910468201033,
+        0.0
+      ],
+      [
+        0.0,
+        2.7345910468201033,
+        2.7345910468201033
+      ],
+      [
+        2.7345910468201033,
+        0.0,
+        2.7345910468201033
+      ]
+    ],
+    "effective_representative_count": 383,
+    "energy_reference": "native Quantum ESPRESSO reference retained by EIG/HR",
+    "energy_unit": "electron_volt",
+    "operator": "full untruncated rank-10 Wannier Hamiltonian H_W",
+    "operator_artifacts": {
+      "eligible_hr": {
+        "byte_size": 1396475,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_hr.dat",
+        "sha256": "24a411c875b3e66bba37e28cc6bf2d95c38ef521c39f81fde40cd0bfa294ea55"
+      },
+      "eligible_u": {
+        "byte_size": 679824,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u.mat",
+        "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+      },
+      "eligible_u_dis": {
+        "byte_size": 1349424,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u_dis.mat",
+        "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+      },
+      "eligible_wsvec": {
+        "byte_size": 1365185,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_wsvec.dat",
+        "sha256": "f40fa7f81afaa9bcf9614c6e3c53c14db0db6b0b429b84bfd10f2e40474de1a0"
+      }
+    },
+    "physical_fidelity_disposition": "revealed parent discrepancies limit physical claims but do not change controlled-reduction source eligibility",
+    "reciprocal_basis_columns_inverse_angstrom": [
+      [
+        1.1488345422775257,
+        1.1488345422775257,
+        -1.1488345422775257
+      ],
+      [
+        -1.1488345422775257,
+        1.1488345422775257,
+        1.1488345422775257
+      ],
+      [
+        1.1488345422775257,
+        -1.1488345422775257,
+        1.1488345422775257
+      ]
+    ],
+    "route": "C6-B20-W21-aiida-precise",
+    "structural_eligibility": "native convergence, provider eligibility, pair closure, Hermiticity, and source reconstruction verified by S20/S30",
+    "wannier_rank": 10
+  },
+  "next_stage": "S100 may evaluate the complete frozen shell family in one separately authorized no-calculator analysis; it may not select or fit a model",
+  "nonclaims": [
+    "No spatial truncation was evaluated or accepted by S90.",
+    "No Slater-Koster basis, parameterization, fit, or validation was performed.",
+    "No direct-parent error is available as an operational diagnostic.",
+    "No physical fidelity, uncertainty bound, or material validation is established.",
+    "No calculator invocation or later-stage authorization is implied."
+  ],
+  "operational_diagnostics": {
+    "direct_full_to_truncated": {
+      "monotone_envelope_rule": "for every direct metric report the supremum over all retained larger-shell truncations; do not select an isolated favorable shell",
+      "operator_metrics": [
+        "maximum spectral norm on the 21^3 grid",
+        "RMS Frobenius norm on the 21^3 grid",
+        "95th-percentile spectral norm on the 21^3 grid"
+      ],
+      "ordered_spectrum_metrics": [
+        "maximum absolute error over all ten bands",
+        "RMS and 95th-percentile absolute error over all ten bands",
+        "lowest-conduction-band errors over the full grid",
+        "lowest-conduction-band errors within 0.5 eV of the full-source edge"
+      ]
+    },
+    "full_source_observable_changes": [
+      "indirect-gap change",
+      "six signed Delta-family valley identity and location changes",
+      "valley-energy splitting and spread changes",
+      "principal-curvature and direction-matched effective-mass changes",
+      "curvature-stencil stability across every declared step"
+    ],
+    "interpretation": "all differences are H_W-to-H_truncated controlled-reduction diagnostics; none is a direct-parent physical error",
+    "structural": [
+      "included and excluded representative counts",
+      "negative-representative closure",
+      "maximum pair-Hermiticity residual in electron_volt",
+      "full-support reconstruction equality"
+    ],
+    "tail": {
+      "frobenius_tail": "F_H(s) = square root of the sum of excluded squared block Frobenius norms; an RMS/Parseval measure, not a uniform bound",
+      "maximum_excluded_block_spectral_norm": true,
+      "spectral_triangle_bound": "B_H(s) = sum over excluded representatives of the block spectral norm; a uniform operator-error upper bound"
+    }
+  },
+  "oracle_boundary": {
+    "confirmation_402_geometry_known": true,
+    "confirmation_402_parent_values_observed": false,
+    "confirmation_402_values_consumed_by_S90": false,
+    "parent_fidelity_is_an_operational_truncation_gate": false,
+    "revealed_408_role": "development-oracle labels only; not consumed to define this shell family"
+  },
+  "schema_version": 1,
+  "selection_and_freeze_policy": {
+    "S100_may_refit_or_change_masks": false,
+    "S100_must_report_every_shell": true,
+    "S90_accepts_a_radius": false,
+    "before_402_parent_reveal": [
+      "selected truncation candidates",
+      "all operational diagnostic rules",
+      "any diagnostic-to-error calibration using revealed 408 development data",
+      "Slater-Koster basis, shells, parameter map, fit and validation roles",
+      "predicted hidden-parent errors and evaluation criteria"
+    ],
+    "future_radius_selection_requires_separate_record": true,
+    "future_selection_inputs": "only the frozen operational diagnostics and declared construction data; never 402-point parent values"
+  },
+  "stage_id": "S90-spatial-truncation-design",
+  "status": "complete-design-frozen-S100-ready",
+  "truncation_family": {
+    "complete_family_required": true,
+    "design_rationale": "retain all authenticated shells, including onsite-only and full-support controls, because S30 descriptive locality values were already observed and must not be used to prune the family",
+    "full_support_control_shell_index_zero_based": 17,
+    "mask_rule": "include every effective representative whose Cartesian physical radius belongs to a complete shell at or below the indexed shell",
+    "nested": true,
+    "operator_scope": "H_W only",
+    "outcome_selected_radius": false,
+    "pair_rule": "every mask must preserve complete R and -R representative pairs; a closure failure rejects that truncation occurrence",
+    "shell_count": 18,
+    "shell_grouping_rule": "reproduce the authenticated S30 rule: round Cartesian radii to nine decimal places in angstrom before grouping",
+    "shells": [
+      {
+        "display_radius_angstrom": 0.0,
+        "excluded_representative_count": 382,
+        "full_support_control": false,
+        "included_representative_count": 1,
+        "onsite_only_control": true,
+        "shell_id": "H-shell-00",
+        "shell_index_zero_based": 0,
+        "shell_representative_count": 1
+      },
+      {
+        "display_radius_angstrom": 3.867295746,
+        "excluded_representative_count": 370,
+        "full_support_control": false,
+        "included_representative_count": 13,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-01",
+        "shell_index_zero_based": 1,
+        "shell_representative_count": 12
+      },
+      {
+        "display_radius_angstrom": 5.469182094,
+        "excluded_representative_count": 364,
+        "full_support_control": false,
+        "included_representative_count": 19,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-02",
+        "shell_index_zero_based": 2,
+        "shell_representative_count": 6
+      },
+      {
+        "display_radius_angstrom": 6.69835272,
+        "excluded_representative_count": 340,
+        "full_support_control": false,
+        "included_representative_count": 43,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-03",
+        "shell_index_zero_based": 3,
+        "shell_representative_count": 24
+      },
+      {
+        "display_radius_angstrom": 7.734591492,
+        "excluded_representative_count": 328,
+        "full_support_control": false,
+        "included_representative_count": 55,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-04",
+        "shell_index_zero_based": 4,
+        "shell_representative_count": 12
+      },
+      {
+        "display_radius_angstrom": 8.647536177,
+        "excluded_representative_count": 304,
+        "full_support_control": false,
+        "included_representative_count": 79,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-05",
+        "shell_index_zero_based": 5,
+        "shell_representative_count": 24
+      },
+      {
+        "display_radius_angstrom": 9.472901262,
+        "excluded_representative_count": 296,
+        "full_support_control": false,
+        "included_representative_count": 87,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-06",
+        "shell_index_zero_based": 6,
+        "shell_representative_count": 8
+      },
+      {
+        "display_radius_angstrom": 10.23190279,
+        "excluded_representative_count": 248,
+        "full_support_control": false,
+        "included_representative_count": 135,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-07",
+        "shell_index_zero_based": 7,
+        "shell_representative_count": 48
+      },
+      {
+        "display_radius_angstrom": 10.938364187,
+        "excluded_representative_count": 242,
+        "full_support_control": false,
+        "included_representative_count": 141,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-08",
+        "shell_index_zero_based": 8,
+        "shell_representative_count": 6
+      },
+      {
+        "display_radius_angstrom": 11.601887238,
+        "excluded_representative_count": 206,
+        "full_support_control": false,
+        "included_representative_count": 177,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-09",
+        "shell_index_zero_based": 9,
+        "shell_representative_count": 36
+      },
+      {
+        "display_radius_angstrom": 12.229462943,
+        "excluded_representative_count": 182,
+        "full_support_control": false,
+        "included_representative_count": 201,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-10",
+        "shell_index_zero_based": 10,
+        "shell_representative_count": 24
+      },
+      {
+        "display_radius_angstrom": 12.826368943,
+        "excluded_representative_count": 158,
+        "full_support_control": false,
+        "included_representative_count": 225,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-11",
+        "shell_index_zero_based": 11,
+        "shell_representative_count": 24
+      },
+      {
+        "display_radius_angstrom": 13.39670544,
+        "excluded_representative_count": 134,
+        "full_support_control": false,
+        "included_representative_count": 249,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-12",
+        "shell_index_zero_based": 12,
+        "shell_representative_count": 24
+      },
+      {
+        "display_radius_angstrom": 13.943733109,
+        "excluded_representative_count": 70,
+        "full_support_control": false,
+        "included_representative_count": 313,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-13",
+        "shell_index_zero_based": 13,
+        "shell_representative_count": 64
+      },
+      {
+        "display_radius_angstrom": 14.977972019,
+        "excluded_representative_count": 30,
+        "full_support_control": false,
+        "included_representative_count": 353,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-14",
+        "shell_index_zero_based": 14,
+        "shell_representative_count": 40
+      },
+      {
+        "display_radius_angstrom": 15.945268846,
+        "excluded_representative_count": 18,
+        "full_support_control": false,
+        "included_representative_count": 365,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-15",
+        "shell_index_zero_based": 15,
+        "shell_representative_count": 12
+      },
+      {
+        "display_radius_angstrom": 16.407546281,
+        "excluded_representative_count": 12,
+        "full_support_control": false,
+        "included_representative_count": 371,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-16",
+        "shell_index_zero_based": 16,
+        "shell_representative_count": 6
+      },
+      {
+        "display_radius_angstrom": 16.857151341,
+        "excluded_representative_count": 0,
+        "full_support_control": true,
+        "included_representative_count": 383,
+        "onsite_only_control": false,
+        "shell_id": "H-shell-17",
+        "shell_index_zero_based": 17,
+        "shell_representative_count": 12
+      }
+    ]
+  }
+}

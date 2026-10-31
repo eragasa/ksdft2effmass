@@ -1,0 +1,43 @@
+{
+  "artifact_manifest": {
+    "byte_size": 1085,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/artifact-manifest.json",
+    "sha256": "1fd895476bb232013b0904cd782d8cb259757268636c786530b35c3d03f87665"
+  },
+  "authorization": {
+    "byte_size": 903,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/authorization.json",
+    "sha256": "6ed3170283e53ac9acc18b90be69520dc8c9afba1c1b16d3998c34ae4be0f68d"
+  },
+  "diagonalization_diagnostics": {
+    "algorithm": "david",
+    "disposition": "NO_ACTION_REQUIRED",
+    "requested_conv_thr_ry": 1e-12,
+    "total_reported_unconverged_eigenvalues": 0,
+    "warning_line_count": 0
+  },
+  "execution_record": {
+    "byte_size": 485,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/execution.json",
+    "sha256": "8368206f1f8840ec500ee2c8944d7ba0f2557fdf7b49bec2c584f520730737f1"
+  },
+  "execution_status": "succeeded",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 536870912,
+  "retry_count": 0,
+  "return_code": 0,
+  "saved_state_handoff": {
+    "manifest_byte_size": 44898,
+    "manifest_path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/nscf-saved-state-manifest.json",
+    "manifest_sha256": "24ee9d483141ab54d099bc6e6403d0da46108cc7a30c5b019992da3a1d7ef3ac",
+    "prefix": "system",
+    "source_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/tmp"
+  },
+  "schema_version": 1,
+  "scientific_disposition": "eligible C6-B20 NSCF for target-space eigenvalue inventory; no outer window, Wannier interface, interpolation, or intended-use result",
+  "timed_out": false,
+  "total_occurrence_bytes_after_postprocessing": 185678565,
+  "total_occurrence_bytes_at_runner_return": 185674588,
+  "within_retained_byte_bound_after_postprocessing": true,
+  "within_retained_byte_bound_at_runner_return": true
+}

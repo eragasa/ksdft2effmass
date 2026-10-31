@@ -1,0 +1,18 @@
+{
+  "authorization_request_sha256": "33a36570545ef5e7e5ffcc3a5d7b3aea5ca461359f4f80c24491e2811562633e",
+  "execution_configuration_sha256": "1693697e4621c8e597ed5a49c039d5365cd7d8de5237c2c680866af66371b116",
+  "input_sha256": "20a6ee6e55d632bb66b1afcaac91592bf49c73a3e53e275659d1ccb03e47e1f9",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 536870912,
+  "operator_instruction": "Authorize one local pw.x -in pw.in invocation for authorization request SHA-256 33a36570545ef5e7e5ffcc3a5d7b3aea5ca461359f4f80c24491e2811562633e, at the proposed C6-B20 root, one process, 600-second timeout, 512 MiB limit, zero retries.",
+  "parent_saved_state_verification": {
+    "verified_file_count": 50,
+    "verified_total_bytes": 6720372
+  },
+  "processes": 1,
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "timeout_seconds": 600.0
+}

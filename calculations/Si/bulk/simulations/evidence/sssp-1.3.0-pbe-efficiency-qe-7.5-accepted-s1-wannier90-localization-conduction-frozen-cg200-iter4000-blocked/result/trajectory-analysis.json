@@ -1,0 +1,71 @@
+{
+  "aiida_moderate_two_atom_threshold_angstrom_squared": 2e-07,
+  "aiida_precise_two_atom_threshold_angstrom_squared": 2e-09,
+  "best_three_iteration_window": {
+    "maximum": 5.02e-08,
+    "start": 1413,
+    "values": [
+      4.14e-08,
+      5.02e-08,
+      4.97e-08
+    ]
+  },
+  "best_to_aiida_precise_two_atom_ratio": 25.099999999999998,
+  "best_to_campaign_ratio": 502.0,
+  "campaign_tolerance_angstrom_squared": 1e-10,
+  "first_three_iteration_window_below_aiida_moderate_two_atom_threshold": {
+    "maximum": 1.2e-07,
+    "start": 1411,
+    "values": [
+      1.2e-07,
+      8.57e-08,
+      4.14e-08
+    ]
+  },
+  "interpretation": "The trajectory would have satisfied the comparison AiiDA moderate two-atom absolute threshold with a three-iteration window, but it never satisfied the campaign threshold or the comparison AiiDA precise two-atom threshold and later exhibited renewed large excursions. This comparison does not revise the declared campaign gate or establish operator acceptance.",
+  "iteration_count": 4000,
+  "last_such_late_excursion_iteration": 3934,
+  "late_excursion_count_after_iteration_1000_above_0_05_angstrom_squared": 277,
+  "schema_version": 1,
+  "thousand_iteration_blocks": [
+    {
+      "first_iteration": 1,
+      "last_iteration": 1000,
+      "maximum_absolute_delta_angstrom_squared": 8.79,
+      "median_absolute_delta_angstrom_squared": 0.0019450000000000001,
+      "net_spread_change_angstrom_squared": -60.17232965270001,
+      "positive_delta_count": 56
+    },
+    {
+      "first_iteration": 1001,
+      "last_iteration": 2000,
+      "maximum_absolute_delta_angstrom_squared": 0.918,
+      "median_absolute_delta_angstrom_squared": 0.0002465,
+      "net_spread_change_angstrom_squared": 0.008322654300002341,
+      "positive_delta_count": 73
+    },
+    {
+      "first_iteration": 2001,
+      "last_iteration": 3000,
+      "maximum_absolute_delta_angstrom_squared": 12.3,
+      "median_absolute_delta_angstrom_squared": 0.000932,
+      "net_spread_change_angstrom_squared": 0.008684960899998373,
+      "positive_delta_count": 79
+    },
+    {
+      "first_iteration": 3001,
+      "last_iteration": 4000,
+      "maximum_absolute_delta_angstrom_squared": 1.08,
+      "median_absolute_delta_angstrom_squared": 0.00063,
+      "net_spread_change_angstrom_squared": -0.011950544000001173,
+      "positive_delta_count": 88
+    }
+  ],
+  "three_iteration_window_count_below_aiida_moderate_two_atom_threshold": 5,
+  "three_iteration_window_count_below_aiida_precise_two_atom_threshold": 0,
+  "wout": {
+    "byte_size": 4930566,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/run/silicon.wout",
+    "sha256": "fd42ecad3b5394fc8d0acea8469fbb61754458a5326489a7f0c5e728e50461bc"
+  }
+}

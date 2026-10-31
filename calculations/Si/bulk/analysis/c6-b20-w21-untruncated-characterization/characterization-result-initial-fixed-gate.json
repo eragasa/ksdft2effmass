@@ -1,0 +1,1516 @@
+{
+  "calculator_invocations": 0,
+  "implementation_disposition": "calculation-local object-oriented prototype; migrate reusable domain objects before merge",
+  "lattice": {
+    "direct_basis_columns_angstrom": [
+      [
+        2.7345910468201033,
+        2.7345910468201033,
+        0.0
+      ],
+      [
+        0.0,
+        2.7345910468201033,
+        2.7345910468201033
+      ],
+      [
+        2.7345910468201033,
+        0.0,
+        2.7345910468201033
+      ]
+    ],
+    "lattice_parameter_angstrom": 5.469182093640207,
+    "reciprocal_basis_columns_inverse_angstrom": [
+      [
+        1.1488345422775257,
+        1.1488345422775257,
+        -1.1488345422775257
+      ],
+      [
+        -1.1488345422775257,
+        1.1488345422775257,
+        1.1488345422775257
+      ],
+      [
+        1.1488345422775257,
+        -1.1488345422775257,
+        1.1488345422775257
+      ]
+    ]
+  },
+  "nonclaims": [
+    "No Quantum ESPRESSO or Wannier90 process was invoked.",
+    "Dense-grid values are finite Wannier interpolation, not independent parent data.",
+    "Curvature-derived masses are descriptive candidate predictions, not validated silicon effective masses.",
+    "Structural reconstruction and descriptive self-consistency do not certify a global Wannier minimum.",
+    "No spatial truncation or Slater-Koster reduction was applied.",
+    "The frozen 402-point confirmation values remain unobserved."
+  ],
+  "operator_inventory": {
+    "construction_kpoint_count": 216,
+    "effective_ws_representative_count": 383,
+    "native_representative_count": 279,
+    "parent_band_count": 20,
+    "spatial_truncation_applied": false,
+    "wannier_rank": 10
+  },
+  "policy": {
+    "dense_grid_size": 41,
+    "edge_window_ev": 0.5,
+    "effective_mass_diagnostic": {
+      "primary_step_inverse_angstrom": 0.002,
+      "steps_inverse_angstrom": [
+        0.001,
+        0.002,
+        0.005,
+        0.01
+      ]
+    },
+    "locality_diagnostic": {
+      "reported_cutoff_lattice_parameters": 2.0
+    },
+    "locality_grid_size": 21,
+    "scope": "structural reconstruction verification and descriptive candidate characterization; no scientific pass/fail threshold is imposed",
+    "source_reconstruction_tolerances": {
+      "frozen_state_maximum_ev": 2e-05,
+      "matrix_element_maximum_ev": 2e-05,
+      "matrix_frobenius_maximum_ev": 5e-05,
+      "real_space_pair_hermiticity_maximum_ev": 1e-08,
+      "spectrum_maximum_ev": 2e-05
+    }
+  },
+  "results": {
+    "effective_mass_diagnostic": {
+      "all_principal_curvatures_positive": true,
+      "interpretation": "descriptive candidate predictions only; no withheld parent validation has been performed",
+      "maximum_relative_spread": 0.0017181905432130159,
+      "valleys": [
+        {
+          "maximum_principal_mass_relative_spread": 0.0017181905432130159,
+          "stencils": [
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.9999916282816272,
+                  -0.0040264417042468635,
+                  -0.000728789312481775
+                ],
+                [
+                  0.003533320394605104,
+                  0.7598567065872904,
+                  0.6500809958007583
+                ],
+                [
+                  -0.002063737785852085,
+                  -0.6500781285518832,
+                  0.7598645719895307
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4666525999870212,
+                43.052593146420996,
+                45.92463249914819
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.089192301330663,
+                0.17699199200433352,
+                0.16592324875062428
+              ],
+              "step_inverse_angstrom": 0.001
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.9999916279930259,
+                  -0.0040265708022680586,
+                  -0.0007284719844469662
+                ],
+                [
+                  0.0035332312071383,
+                  0.7598626922155031,
+                  0.6500739998309767
+                ],
+                [
+                  -0.00206403030372758,
+                  -0.6500711312668654,
+                  0.7598705574453607
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4667812746609807,
+                43.05203069654983,
+                45.92339305900134
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.089031159839824,
+                0.17699430430230156,
+                0.1659277269026531
+              ],
+              "step_inverse_angstrom": 0.002
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.9999916259795142,
+                  -0.004027472239316079,
+                  -0.000726249412474053
+                ],
+                [
+                  0.0035326060793221216,
+                  0.7599050817550987,
+                  0.6500244513993806
+                ],
+                [
+                  -0.002066074813726982,
+                  -0.6500215736343979,
+                  0.7599129457672933
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.467681985170019,
+                43.04810648473126,
+                45.91470779682326
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0879036552241015,
+                0.17701043888283205,
+                0.16595911392175686
+              ],
+              "step_inverse_angstrom": 0.005
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.9999916188867776,
+                  -0.004030660510609609,
+                  -0.0007182841011204159
+                ],
+                [
+                  0.00353035672378033,
+                  0.7600635062868344,
+                  0.6498392131845895
+                ],
+                [
+                  -0.002073339722421073,
+                  -0.6498363026076732,
+                  0.760071365777967
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.47089785185276,
+                43.03427290346255,
+                45.88355913403036
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0838847572041357,
+                0.1770673397696482,
+                0.16607177746779644
+              ],
+              "step_inverse_angstrom": 0.01
+            }
+          ],
+          "valley_label": "-x"
+        },
+        {
+          "maximum_principal_mass_relative_spread": 0.0017176329931556681,
+          "stencils": [
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.9999915946236184,
+                  -0.004031645946599873,
+                  -0.0007459980389535754
+                ],
+                [
+                  0.003548008636082543,
+                  0.7597131925376814,
+                  0.6502486268489321
+                ],
+                [
+                  -0.0020548276889173597,
+                  -0.6502458080719665,
+                  0.7597211111769926
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4670717230658736,
+                43.05174833808261,
+                45.927287690765034
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0886674881375984,
+                0.17699546513414693,
+                0.16591365623947732
+              ],
+              "step_inverse_angstrom": 0.001
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.9999915943406826,
+                  -0.004031774951017469,
+                  -0.0007456800411682265
+                ],
+                [
+                  0.0035479187513778776,
+                  0.7597191680496659,
+                  0.6502416458290385
+                ],
+                [
+                  -0.0020551205592543253,
+                  -0.6502388257314904,
+                  0.7597270865191126
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4672003740859285,
+                43.05118658296549,
+                45.926047446069276
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0885064310029073,
+                0.17699777466649988,
+                0.16591813678033698
+              ],
+              "step_inverse_angstrom": 0.002
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.999991592368049,
+                  -0.004032675570156801,
+                  -0.0007434520559141515
+                ],
+                [
+                  0.0035472881511558665,
+                  0.7597614900758051,
+                  0.6501921984648579
+                ],
+                [
+                  -0.002057167952854518,
+                  -0.6501893691268247,
+                  0.7597694073430936
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4681009456215715,
+                43.047267260663666,
+                45.91735654176761
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.08737948318323,
+                0.17701388977367782,
+                0.1659495405622023
+              ],
+              "step_inverse_angstrom": 0.005
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.9999915854211835,
+                  -0.004035861029476959,
+                  -0.0007354675918030661
+                ],
+                [
+                  0.0035450192804551413,
+                  0.7599196523301333,
+                  0.650007349835947
+                ],
+                [
+                  -0.0020644430554134278,
+                  -0.6500044875446636,
+                  0.7599275651314871
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4713163161631577,
+                43.03345117677063,
+                45.88618770818673
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0833625675921343,
+                0.17707072088260514,
+                0.166062264104317
+              ],
+              "step_inverse_angstrom": 0.01
+            }
+          ],
+          "valley_label": "+x"
+        },
+        {
+          "maximum_principal_mass_relative_spread": 0.0016972521171547826,
+          "stencils": [
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.011463926403624694,
+                  0.7537362128246855,
+                  -0.6570770882233777
+                ],
+                [
+                  0.9999333812566656,
+                  -0.00775686185654874,
+                  0.008547756591666861
+                ],
+                [
+                  0.0013458974790981739,
+                  -0.6571313054259695,
+                  -0.7537749239588281
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.489267978019914,
+                42.79072892840268,
+                45.80247601657606
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0611265196117867,
+                0.17807512077410204,
+                0.16636577068845534
+              ],
+              "step_inverse_angstrom": 0.001
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.011463494322349539,
+                  0.7537437709338052,
+                  -0.6570684257186682
+                ],
+                [
+                  0.9999333867223177,
+                  -0.007756884482271058,
+                  0.008547096651176922
+                ],
+                [
+                  0.0013455169851465953,
+                  -0.6571226358311029,
+                  -0.7537824825919124
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4893962304519435,
+                42.79021133581711,
+                45.801204097821376
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.060968811925044,
+                0.17807727477987367,
+                0.16637039073607296
+              ],
+              "step_inverse_angstrom": 0.002
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.011460469562537805,
+                  0.7537971272746883,
+                  -0.6570072667405086
+                ],
+                [
+                  0.9999334249687202,
+                  -0.007757045234882087,
+                  0.008542475024771587
+                ],
+                [
+                  0.0013428580457362682,
+                  -0.6570614272361844,
+                  -0.7538358425881708
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.490294106746,
+                42.786601058559604,
+                45.79229162500123
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0598651786932787,
+                0.1780923007066664,
+                0.1664027711113041
+              ],
+              "step_inverse_angstrom": 0.005
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.01144966026300759,
+                  0.7539940386753112,
+                  -0.656781466640126
+                ],
+                [
+                  0.9999335614175306,
+                  -0.007757648090496103,
+                  0.008525939652470808
+                ],
+                [
+                  0.0013334281815144662,
+                  -0.6568354501229341,
+                  -0.7540327668152674
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4934998578973158,
+                42.773887045812195,
+                45.7603331629603
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.055931283815202,
+                0.17814523645643765,
+                0.16651898478975632
+              ],
+              "step_inverse_angstrom": 0.01
+            }
+          ],
+          "valley_label": "-y"
+        },
+        {
+          "maximum_principal_mass_relative_spread": 0.00169634561139306,
+          "stencils": [
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.011463190539716134,
+                  0.7537433084954313,
+                  -0.65706896149568
+                ],
+                [
+                  0.9999333729538717,
+                  -0.007748264147120229,
+                  0.008556521244051115
+                ],
+                [
+                  0.0013582767551597852,
+                  -0.6571232679650507,
+                  -0.7537819086335178
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.490119776899428,
+                42.79240333564205,
+                45.800699436596126
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.060079395628577,
+                0.1780681529422409,
+                0.16637222391081194
+              ],
+              "step_inverse_angstrom": 0.001
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.011462758571635333,
+                  0.753750865490769,
+                  -0.6570603000774325
+                ],
+                [
+                  0.9999333784237991,
+                  -0.007748287510736737,
+                  0.00855586083444718
+                ],
+                [
+                  0.0013578953920919815,
+                  -0.6571145994516999,
+                  -0.7537894661691262
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.4902480229350505,
+                42.79188519623952,
+                45.79942809658994
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.059921803674858,
+                0.1780703090549233,
+                0.16637684221442328
+              ],
+              "step_inverse_angstrom": 0.002
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.011459734330005269,
+                  0.7538042095018925,
+                  -0.6569991539007582
+                ],
+                [
+                  0.9999334167033141,
+                  -0.007748453224834628,
+                  0.008551235738660016
+                ],
+                [
+                  0.0013552302834892009,
+                  -0.6570534036209302,
+                  -0.7538428139479934
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.491145719989544,
+                42.788271074083035,
+                45.790519641842074
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0588191452602587,
+                0.17808534980869092,
+                0.16640921049898422
+              ],
+              "step_inverse_angstrom": 0.005
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  0.01144892702314516,
+                  0.7540010811122497,
+                  -0.6567733945217158
+                ],
+                [
+                  0.9999335532676795,
+                  -0.007749074038439097,
+                  0.008534688103247506
+                ],
+                [
+                  0.0013457783961786205,
+                  -0.6568274670970342,
+                  -0.7540396987874067
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.494350840092269,
+                42.77554327931247,
+                45.75857557160101
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                3.0548887107057072,
+                0.17813833882087501,
+                0.16652538080023457
+              ],
+              "step_inverse_angstrom": 0.01
+            }
+          ],
+          "valley_label": "+y"
+        },
+        {
+          "maximum_principal_mass_relative_spread": 0.0015474522553850022,
+          "stencils": [
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.00718490629627313,
+                  0.7532943149297472,
+                  -0.6576443204468787
+                ],
+                [
+                  -0.004662298288076763,
+                  0.6576289123540585,
+                  0.7533276024484243
+                ],
+                [
+                  0.9999633193753593,
+                  0.00847872222337094,
+                  -0.00121291931806899
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.605901608718309,
+                42.58529942560316,
+                45.91289224307285
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.9241181618077228,
+                0.17893414687031386,
+                0.1659656765162042
+              ],
+              "step_inverse_angstrom": 0.001
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.0071846610435262635,
+                  0.7532997369875097,
+                  -0.6576381124146001
+                ],
+                [
+                  -0.004662462821456566,
+                  0.6576227023549301,
+                  0.7533330224992381
+                ],
+                [
+                  0.9999633203703665,
+                  0.008478655668658124,
+                  -0.0012125641938306436
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.6060240086530255,
+                42.584801696018786,
+                45.91160534059278
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.923980821602521,
+                0.17893623824599264,
+                0.1659703285347762
+              ],
+              "step_inverse_angstrom": 0.002
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.007182941947324503,
+                  0.7533381170833231,
+                  -0.6575941656480346
+                ],
+                [
+                  -0.004663610343546023,
+                  0.6575787418349059,
+                  0.7533713885099337
+                ],
+                [
+                  0.9999633273693316,
+                  0.008478185901213842,
+                  -0.0012100744933774947
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.6068808421694922,
+                42.58133179208313,
+                45.90258667597014
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.9230197631878334,
+                0.17895081955501213,
+                0.16600293738841074
+              ],
+              "step_inverse_angstrom": 0.005
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.007176772453465685,
+                  0.7534812127169086,
+                  -0.6574302670396363
+                ],
+                [
+                  -0.004667648830231168,
+                  0.6574147943187222,
+                  0.753514433349003
+                ],
+                [
+                  0.9999633528242668,
+                  0.008476455245454088,
+                  -0.0012011306852281493
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.609940176838692,
+                42.569138114103566,
+                45.87023010196529
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.9195934410906315,
+                0.17900207895946574,
+                0.16612003482430088
+              ],
+              "step_inverse_angstrom": 0.01
+            }
+          ],
+          "valley_label": "-z"
+        },
+        {
+          "maximum_principal_mass_relative_spread": 0.001547628741207922,
+          "stencils": [
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.007181522858076343,
+                  0.7533386129054876,
+                  -0.6575936131343393
+                ],
+                [
+                  -0.004674521428075606,
+                  0.65757809504305,
+                  0.7533718854383751
+                ],
+                [
+                  0.9999632866154924,
+                  0.008484292851469883,
+                  -0.0012009146318985274
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.6059296196423336,
+                42.58654798959254,
+                45.90985857324545
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.924086730701122,
+                0.17892890083035995,
+                0.16597664333424453
+              ],
+              "step_inverse_angstrom": 0.001
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.007181277369043048,
+                  0.753344045618697,
+                  -0.657587392052344
+                ],
+                [
+                  -0.0046746851827388185,
+                  0.6575718720021191,
+                  0.7533773161371862
+                ],
+                [
+                  0.9999632876129959,
+                  0.008484225508709356,
+                  -0.0012005597553698016
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.606052031773275,
+                42.58604998605724,
+                45.9085720799577
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.9239493797643794,
+                0.17893099323445025,
+                0.16598129448822077
+              ],
+              "step_inverse_angstrom": 0.002
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.007179557121899215,
+                  0.75338249785699,
+                  -0.6575433566558909
+                ],
+                [
+                  -0.004675827645498779,
+                  0.657527822905077,
+                  0.7534157542429946
+                ],
+                [
+                  0.9999632946240394,
+                  0.008483750849292006,
+                  -0.0011980718526704106
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.606908973358622,
+                42.58257817909055,
+                45.89955625493717
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.9229882208429996,
+                0.1789455816857708,
+                0.16601389738092578
+              ],
+              "step_inverse_angstrom": 0.005
+            },
+            {
+              "principal_axes_cartesian_columns": [
+                [
+                  -0.007173383480026847,
+                  0.7535258603097531,
+                  -0.6573791298892099
+                ],
+                [
+                  -0.004679848068591646,
+                  0.6573635474197367,
+                  0.7535590657312767
+                ],
+                [
+                  0.999963320123045,
+                  0.008482002604685688,
+                  -0.0011891342694281112
+                ]
+              ],
+              "principal_curvatures_ev_angstrom_squared": [
+                2.6099686924711984,
+                42.57037757054942,
+                45.8672099529501
+              ],
+              "principal_mass_ratios_to_electron_mass": [
+                2.9195615426031614,
+                0.17899686723024816,
+                0.16613097307975816
+              ],
+              "step_inverse_angstrom": 0.01
+            }
+          ],
+          "valley_label": "+z"
+        }
+      ]
+    },
+    "locality": {
+      "edge_point_count": 654,
+      "edge_window_ev": 0.5,
+      "effective_representative_count": 383,
+      "grid_size": 21,
+      "interpretation": "within-candidate truncation sensitivity only; no locality pass/fail threshold is applied",
+      "maximum_representative_radius_angstrom": 16.857151341411438,
+      "point_count": 9261,
+      "reported_cutoff_lattice_parameters": 2.0,
+      "reported_cutoff_radius_angstrom": 10.938364187,
+      "shells": [
+        {
+          "excluded_representative_count": 382,
+          "included_representative_count": 1,
+          "radius_angstrom": 0.0,
+          "shell_frobenius_power_ev_squared": 778.2162922770851,
+          "shell_representative_count": 1,
+          "tail_frobenius_norm_ev": 14.42178815804021,
+          "tail_spectral_triangle_bound_ev": 61.715080812826656,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 6.002363119023016,
+            "percentile_95_absolute_ev": 4.3150145478865305,
+            "rms_ev": 2.341999328986685
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 2.859504969766485,
+            "percentile_95_absolute_ev": 2.7833321599714544,
+            "rms_ev": 2.557954698526085
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 2.859504969766485,
+            "percentile_95_absolute_ev": 2.4356070630773985,
+            "rms_ev": 1.4394912377873506
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 370,
+          "included_representative_count": 13,
+          "radius_angstrom": 3.867295746,
+          "shell_frobenius_power_ev_squared": 201.367321223974,
+          "shell_representative_count": 12,
+          "tail_frobenius_norm_ev": 2.573062854151611,
+          "tail_spectral_triangle_bound_ev": 21.336407407235754,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 2.280138288172168,
+            "percentile_95_absolute_ev": 1.1603041283545492,
+            "rms_ev": 0.5196913112895114
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 1.1369781393347953,
+            "percentile_95_absolute_ev": 0.9335496968028155,
+            "rms_ev": 0.46351478994029277
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 1.2025837012155485,
+            "percentile_95_absolute_ev": 0.7307599591375684,
+            "rms_ev": 0.31513753803812955
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 364,
+          "included_representative_count": 19,
+          "radius_angstrom": 5.469182094,
+          "shell_frobenius_power_ev_squared": 0.826887194498,
+          "shell_representative_count": 6,
+          "tail_frobenius_norm_ev": 2.407024149633076,
+          "tail_spectral_triangle_bound_ev": 19.543674114449203,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 2.110315235984851,
+            "percentile_95_absolute_ev": 1.1150656663377088,
+            "rms_ev": 0.49588818450634065
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.9937231420292205,
+            "percentile_95_absolute_ev": 0.8402312995299808,
+            "rms_ev": 0.4458933203896472
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 1.1377416815670465,
+            "percentile_95_absolute_ev": 0.6921504785762753,
+            "rms_ev": 0.3094152965127721
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 340,
+          "included_representative_count": 43,
+          "radius_angstrom": 6.69835272,
+          "shell_frobenius_power_ev_squared": 3.7634930767999997,
+          "shell_representative_count": 24,
+          "tail_frobenius_norm_ev": 1.4248761981719091,
+          "tail_spectral_triangle_bound_ev": 11.722018766381373,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 1.3224350914321032,
+            "percentile_95_absolute_ev": 0.7050199615181465,
+            "rms_ev": 0.32039560422547136
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.37023220501653586,
+            "percentile_95_absolute_ev": 0.26696562377175553,
+            "rms_ev": 0.15407240786031587
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.4945763975181139,
+            "percentile_95_absolute_ev": 0.3207481657398059,
+            "rms_ev": 0.17876901598528047
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 328,
+          "included_representative_count": 55,
+          "radius_angstrom": 7.734591492,
+          "shell_frobenius_power_ev_squared": 1.443760198954,
+          "shell_representative_count": 12,
+          "tail_frobenius_norm_ev": 0.7658407022108666,
+          "tail_spectral_triangle_bound_ev": 7.885728202161107,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.7955409717622999,
+            "percentile_95_absolute_ev": 0.35779499049909275,
+            "rms_ev": 0.16232107624840048
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.40938700395129146,
+            "percentile_95_absolute_ev": 0.3302611812493801,
+            "rms_ev": 0.1654059916044499
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.4964442407957179,
+            "percentile_95_absolute_ev": 0.30309709956363484,
+            "rms_ev": 0.14603824235137758
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 304,
+          "included_representative_count": 79,
+          "radius_angstrom": 8.647536177,
+          "shell_frobenius_power_ev_squared": 0.11106730872599999,
+          "shell_representative_count": 24,
+          "tail_frobenius_norm_ev": 0.6895249614312983,
+          "tail_spectral_triangle_bound_ev": 6.6505682430629065,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.7305990122785175,
+            "percentile_95_absolute_ev": 0.3128521732352619,
+            "rms_ev": 0.14309517284917178
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.36715036399776135,
+            "percentile_95_absolute_ev": 0.29199658871996553,
+            "rms_ev": 0.13867106964885176
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.5182753126799735,
+            "percentile_95_absolute_ev": 0.3026304571937679,
+            "rms_ev": 0.14179973516056846
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 296,
+          "included_representative_count": 87,
+          "radius_angstrom": 9.472901262,
+          "shell_frobenius_power_ev_squared": 0.031336097990000006,
+          "shell_representative_count": 8,
+          "tail_frobenius_norm_ev": 0.6664147165593158,
+          "tail_spectral_triangle_bound_ev": 6.232506475236957,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.6331783854261381,
+            "percentile_95_absolute_ev": 0.2896041074506043,
+            "rms_ev": 0.13668320682302307
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.3325107970911034,
+            "percentile_95_absolute_ev": 0.2600458462873526,
+            "rms_ev": 0.11840104042159535
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.4614315851078725,
+            "percentile_95_absolute_ev": 0.2757935386693182,
+            "rms_ev": 0.13318235567270606
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 248,
+          "included_representative_count": 135,
+          "radius_angstrom": 10.23190279,
+          "shell_frobenius_power_ev_squared": 0.245736905352,
+          "shell_representative_count": 48,
+          "tail_frobenius_norm_ev": 0.44538934551113074,
+          "tail_spectral_triangle_bound_ev": 3.3503820736859264,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.36795582695991413,
+            "percentile_95_absolute_ev": 0.1671944032809777,
+            "rms_ev": 0.08246080305159413
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.1821442992026725,
+            "percentile_95_absolute_ev": 0.130654239276273,
+            "rms_ev": 0.06197656334847749
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.2092376096487687,
+            "percentile_95_absolute_ev": 0.1391722724772908,
+            "rms_ev": 0.07433304171286728
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 242,
+          "included_representative_count": 141,
+          "radius_angstrom": 10.938364187,
+          "shell_frobenius_power_ev_squared": 0.0021787874080000003,
+          "shell_representative_count": 6,
+          "tail_frobenius_norm_ev": 0.44293665651742276,
+          "tail_spectral_triangle_bound_ev": 3.270837180070062,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.35411996937914125,
+            "percentile_95_absolute_ev": 0.16553033122013752,
+            "rms_ev": 0.08175875957864687
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.189313939834296,
+            "percentile_95_absolute_ev": 0.13196079733537314,
+            "rms_ev": 0.06305730794503962
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.20864133605535962,
+            "percentile_95_absolute_ev": 0.14449215538861715,
+            "rms_ev": 0.07650466869422605
+          },
+          "within_reported_cutoff": true
+        },
+        {
+          "excluded_representative_count": 206,
+          "included_representative_count": 177,
+          "radius_angstrom": 11.601887238,
+          "shell_frobenius_power_ev_squared": 0.1665810644525,
+          "shell_representative_count": 36,
+          "tail_frobenius_norm_ev": 0.17208084505351937,
+          "tail_spectral_triangle_bound_ev": 1.6388038060750378,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.13650345435556055,
+            "percentile_95_absolute_ev": 0.050165375742074685,
+            "rms_ev": 0.023283372114796624
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.07790039697621243,
+            "percentile_95_absolute_ev": 0.061759930426415234,
+            "rms_ev": 0.031093000432691843
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.09579533192115264,
+            "percentile_95_absolute_ev": 0.044063842252000995,
+            "rms_ev": 0.021696788305245063
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 182,
+          "included_representative_count": 201,
+          "radius_angstrom": 12.229462943,
+          "shell_frobenius_power_ev_squared": 0.0076266068870000005,
+          "shell_representative_count": 24,
+          "tail_frobenius_norm_ev": 0.14827410545113173,
+          "tail_spectral_triangle_bound_ev": 1.300597536211963,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.11938357446659253,
+            "percentile_95_absolute_ev": 0.04310097995504903,
+            "rms_ev": 0.0199507900763297
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.0739969008042376,
+            "percentile_95_absolute_ev": 0.05694082536637821,
+            "rms_ev": 0.02798529924569335
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.08850874948035958,
+            "percentile_95_absolute_ev": 0.04409704570828943,
+            "rms_ev": 0.021078179336807203
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 158,
+          "included_representative_count": 225,
+          "radius_angstrom": 12.826368943,
+          "shell_frobenius_power_ev_squared": 0.006063493272,
+          "shell_representative_count": 24,
+          "tail_frobenius_norm_ev": 0.12618128654968347,
+          "tail_spectral_triangle_bound_ev": 0.9981432620428579,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.08238944387654179,
+            "percentile_95_absolute_ev": 0.03174812738628052,
+            "rms_ev": 0.015051706588559841
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.05718099666621779,
+            "percentile_95_absolute_ev": 0.03850063148783458,
+            "rms_ev": 0.01799194229456961
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.0803070083908235,
+            "percentile_95_absolute_ev": 0.03720380078981922,
+            "rms_ev": 0.017153656553419827
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 134,
+          "included_representative_count": 249,
+          "radius_angstrom": 13.39670544,
+          "shell_frobenius_power_ev_squared": 0.003822506151333333,
+          "shell_representative_count": 24,
+          "tail_frobenius_norm_ev": 0.10999641323243227,
+          "tail_spectral_triangle_bound_ev": 0.759463171244041,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.07218535002643023,
+            "percentile_95_absolute_ev": 0.026650547002809246,
+            "rms_ev": 0.012534034814354094
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.057180496405899284,
+            "percentile_95_absolute_ev": 0.04118826022285309,
+            "rms_ev": 0.01791957077362203
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.06901817140962407,
+            "percentile_95_absolute_ev": 0.03444170407167313,
+            "rms_ev": 0.015504692640566468
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 70,
+          "included_representative_count": 313,
+          "radius_angstrom": 13.943733109,
+          "shell_frobenius_power_ev_squared": 0.010981113041,
+          "shell_representative_count": 64,
+          "tail_frobenius_norm_ev": 0.03343797067706113,
+          "tail_spectral_triangle_bound_ev": 0.22222654010015883,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.026424231948237065,
+            "percentile_95_absolute_ev": 0.007716608691043536,
+            "rms_ev": 0.003837630335856926
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.01697123486017027,
+            "percentile_95_absolute_ev": 0.011124899341633031,
+            "rms_ev": 0.005369354596926946
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.023098116684062475,
+            "percentile_95_absolute_ev": 0.007983942292577595,
+            "rms_ev": 0.003962760626686565
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 30,
+          "included_representative_count": 353,
+          "radius_angstrom": 14.977972019,
+          "shell_frobenius_power_ev_squared": 0.0008581182980000001,
+          "shell_representative_count": 40,
+          "tail_frobenius_norm_ev": 0.01612388244189345,
+          "tail_spectral_triangle_bound_ev": 0.0676490569716958,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.011105227434274667,
+            "percentile_95_absolute_ev": 0.0048017814353288595,
+            "rms_ev": 0.002297370686578047
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.00840577551954258,
+            "percentile_95_absolute_ev": 0.004854479913286846,
+            "rms_ev": 0.002507580218977907
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.009830600026885072,
+            "percentile_95_absolute_ev": 0.005331798387445019,
+            "rms_ev": 0.002635994820483646
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 18,
+          "included_representative_count": 365,
+          "radius_angstrom": 15.945268846,
+          "shell_frobenius_power_ev_squared": 0.00015228715399999998,
+          "shell_representative_count": 12,
+          "tail_frobenius_norm_ev": 0.010377496374366989,
+          "tail_spectral_triangle_bound_ev": 0.030296031807556776,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.008043561449557757,
+            "percentile_95_absolute_ev": 0.003860830827689466,
+            "rms_ev": 0.0018659584827050517
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.004783315613777539,
+            "percentile_95_absolute_ev": 0.0034315675212804654,
+            "rms_ev": 0.0016341343431127613
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.00549641525257627,
+            "percentile_95_absolute_ev": 0.0033483337895248155,
+            "rms_ev": 0.001729817299864036
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 12,
+          "included_representative_count": 371,
+          "radius_angstrom": 16.407546281,
+          "shell_frobenius_power_ev_squared": 8.5655805e-05,
+          "shell_representative_count": 6,
+          "tail_frobenius_norm_ev": 0.0046943184808872955,
+          "tail_spectral_triangle_bound_ev": 0.014577018478712008,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 0.0020361865458262685,
+            "percentile_95_absolute_ev": 0.0009099713683503821,
+            "rms_ev": 0.0004428338779959142
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 0.0017370070181561559,
+            "percentile_95_absolute_ev": 0.0011918763717193581,
+            "rms_ev": 0.0005496900805125087
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 0.001953236805726455,
+            "percentile_95_absolute_ev": 0.0010343263020491378,
+            "rms_ev": 0.0004951061199998246
+          },
+          "within_reported_cutoff": false
+        },
+        {
+          "excluded_representative_count": 0,
+          "included_representative_count": 383,
+          "radius_angstrom": 16.857151341,
+          "shell_frobenius_power_ev_squared": 2.2036626000000003e-05,
+          "shell_representative_count": 12,
+          "tail_frobenius_norm_ev": 0.0,
+          "tail_spectral_triangle_bound_ev": 0.0,
+          "truncation_all_bands": {
+            "maximum_absolute_ev": 4.263256414560601e-14,
+            "percentile_95_absolute_ev": 1.0658141036401503e-14,
+            "rms_ev": 5.311163634423909e-15
+          },
+          "truncation_edge_lowest_conduction": {
+            "maximum_absolute_ev": 1.7763568394002505e-14,
+            "percentile_95_absolute_ev": 8.881784197001252e-15,
+            "rms_ev": 4.725904363248287e-15
+          },
+          "truncation_lowest_conduction": {
+            "maximum_absolute_ev": 2.4868995751603507e-14,
+            "percentile_95_absolute_ev": 8.881784197001252e-15,
+            "rms_ev": 4.7578637033270955e-15
+          },
+          "within_reported_cutoff": false
+        }
+      ]
+    },
+    "real_space_hermiticity": {
+      "effective_representative_count": 383,
+      "maximum_pair_hermiticity_residual_ev": 0.0,
+      "missing_negative_representative_count": 0,
+      "missing_negative_representatives": [],
+      "passed": true,
+      "tolerance_ev": 1e-08
+    },
+    "source_reconstruction": {
+      "frozen_state_matching": {
+        "frozen_window_maximum_ev": 8.0,
+        "matched_state_count": 954,
+        "maximum_absolute_ev": 1.2852634512228178e-09,
+        "maximum_frozen_state_count": 6,
+        "minimum_frozen_state_count": 4,
+        "rms_ev": 2.325825336333853e-10
+      },
+      "matrix_element_maximum_absolute_ev": 2.1558486139506847e-05,
+      "matrix_frobenius_maximum_ev": 7.384056886810813e-05,
+      "spectrum": {
+        "maximum_absolute_ev": 2.893173461693266e-05,
+        "percentile_95_absolute_ev": 1.2233660751248517e-05,
+        "rms_ev": 6.208221854112131e-06
+      },
+      "structural_tolerance_checks": {
+        "frozen_state_maximum": true,
+        "matrix_element_maximum": false,
+        "matrix_frobenius_maximum": false,
+        "spectrum_maximum": false
+      },
+      "structural_verification_passed": false
+    },
+    "valley_family": {
+      "all_declared_identities_preserved": true,
+      "all_optimizers_succeeded": true,
+      "energy_spread_ev": 0.00112372349392853,
+      "interpretation": "candidate predictions to compare with withheld parent data; the observed spreads are not assigned a pass/fail disposition",
+      "minimum_axis_cosine": 0.9999956072865228,
+      "opposite_pair_energy_splits_ev": [
+        7.137722942474056e-06,
+        3.1363354038305147e-06,
+        3.1119674099855388e-06
+      ],
+      "radius_spread_inverse_angstrom": 0.0025536185032685177,
+      "valleys": [
+        {
+          "cartesian_inverse_angstrom": [
+            -0.9815949018766091,
+            -0.0007571504247947248,
+            -0.002809232763177363
+          ],
+          "declared_axis_cosine": 0.9999956072865228,
+          "declared_identity_preserved": true,
+          "energy_ev_native_reference": 6.672756075606054,
+          "fraction_of_conventional_gamma_x_distance": 0.8544304489789428,
+          "fractional_reciprocal_coordinates": [
+            0.5715640075165922,
+            0.5724571223485655,
+            0.998447825575952
+          ],
+          "label": "-x",
+          "optimizer_iterations": 129,
+          "optimizer_success": true,
+          "radius_inverse_angstrom": 0.9815992137607046
+        },
+        {
+          "cartesian_inverse_angstrom": [
+            0.9815908132302246,
+            0.0007572135395927255,
+            0.002807919786365807
+          ],
+          "declared_axis_cosine": 0.9999956110274906,
+          "declared_identity_preserved": true,
+          "energy_ev_native_reference": 6.672748937883112,
+          "fraction_of_conventional_gamma_x_distance": 0.8544268868154405,
+          "fractional_reciprocal_coordinates": [
+            0.42843364156906927,
+            0.42754112564475366,
+            0.0015516304544999039
+          ],
+          "label": "+x",
+          "optimizer_iterations": 132,
+          "optimizer_success": true,
+          "radius_inverse_angstrom": 0.9815951214242279
+        },
+        {
+          "cartesian_inverse_angstrom": [
+            0.000841748270292179,
+            -0.9839540153234576,
+            -0.0009618255764816934
+          ],
+          "declared_axis_cosine": 0.9999991563185657,
+          "declared_identity_preserved": true,
+          "energy_ev_native_reference": 6.67350011498034,
+          "fraction_of_conventional_gamma_x_distance": 0.8564809023910751,
+          "fractional_reciprocal_coordinates": [
+            0.9999477395126232,
+            0.5721262588848615,
+            0.5713413008337228
+          ],
+          "label": "-y",
+          "optimizer_iterations": 118,
+          "optimizer_success": true,
+          "radius_inverse_angstrom": 0.9839548454678929
+        },
+        {
+          "cartesian_inverse_angstrom": [
+            -0.0008409019695632072,
+            0.9839788611997156,
+            0.0009653457671319146
+          ],
+          "declared_axis_cosine": 0.9999991535932058,
+          "declared_identity_preserved": true,
+          "energy_ev_native_reference": 6.673496978644936,
+          "fraction_of_conventional_gamma_x_distance": 0.8565025317711178,
+          "fractional_reciprocal_coordinates": [
+            5.416088783419121e-05,
+            0.4278849229590166,
+            0.4286710447503732
+          ],
+          "label": "+y",
+          "optimizer_iterations": 126,
+          "optimizer_success": true,
+          "radius_inverse_angstrom": 0.983979694046814
+        },
+        {
+          "cartesian_inverse_angstrom": [
+            0.0009581745440252455,
+            -0.0023549133378480947,
+            -0.9841212794591669
+          ],
+          "declared_axis_cosine": 0.9999966630261474,
+          "declared_identity_preserved": true,
+          "energy_ev_native_reference": 6.672376391486411,
+          "fraction_of_conventional_gamma_x_distance": 0.8566286329675543,
+          "fractional_reciprocal_coordinates": [
+            0.5721041330433649,
+            0.9993921061987509,
+            0.5706621987351811
+          ],
+          "label": "-z",
+          "optimizer_iterations": 122,
+          "optimizer_success": true,
+          "radius_inverse_angstrom": 0.9841245634571029
+        },
+        {
+          "cartesian_inverse_angstrom": [
+            -0.0009590202369346872,
+            0.002354587921907419,
+            0.984145455965114
+          ],
+          "declared_axis_cosine": 0.9999966631442493,
+          "declared_identity_preserved": true,
+          "energy_ev_native_reference": 6.672379503453821,
+          "fraction_of_conventional_gamma_x_distance": 0.8566496773125003,
+          "fractional_reciprocal_coordinates": [
+            0.4279060210789995,
+            0.0006073841069428787,
+            0.4293481818240416
+          ],
+          "label": "+z",
+          "optimizer_iterations": 127,
+          "optimizer_success": true,
+          "radius_inverse_angstrom": 0.9841487399274964
+        }
+      ]
+    }
+  },
+  "route": "C6-B20-W21-aiida-precise",
+  "schema_version": 1,
+  "scientific_disposition": "provider-eligible full untruncated operator characterized; S40 revealed-408 development comparison remains separate",
+  "scientific_qualification_status": "not-assessed",
+  "sources": {
+    "eig": {
+      "byte_size": 168480,
+      "path": "simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise/result/silicon.eig",
+      "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2"
+    },
+    "eligible_hr": {
+      "byte_size": 1396475,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_hr.dat",
+      "sha256": "24a411c875b3e66bba37e28cc6bf2d95c38ef521c39f81fde40cd0bfa294ea55"
+    },
+    "eligible_u": {
+      "byte_size": 679824,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u.mat",
+      "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+    },
+    "eligible_u_dis": {
+      "byte_size": 1349424,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u_dis.mat",
+      "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+    },
+    "eligible_wsvec": {
+      "byte_size": 1365185,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_wsvec.dat",
+      "sha256": "f40fa7f81afaa9bcf9614c6e3c53c14db0db6b0b429b84bfd10f2e40474de1a0"
+    },
+    "structure": {
+      "byte_size": 758,
+      "path": "simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+      "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+    }
+  },
+  "stage_id": "S30-untruncated-characterization",
+  "status": "S30-untruncated-characterization-complete",
+  "structural_reconstruction_verified": false
+}

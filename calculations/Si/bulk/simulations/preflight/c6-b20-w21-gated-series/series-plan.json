@@ -1,0 +1,443 @@
+{
+  "automation_policy": {
+    "automatic_execution": false,
+    "automatic_stage_advance": false,
+    "blanket_authorization": false,
+    "calculator_authorization_rule": "every calculator occurrence requires a new exact bounded human authorization after its artifact-bound request exists",
+    "failure_rule": "failure stops the dependent branch at an operational gate; no retry, budget extension, target-space change, mesh escalation, truncation, or reduction is automatic; parent-oracle criteria limit physical claims but do not gate controlled reduction"
+  },
+  "bound_inputs": {
+    "S100_complete_family_evaluation": {
+      "byte_size": 1322506,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-evaluation/truncation-evaluation.json",
+      "sha256": "1ac8bb59137e8dc7217df52f89c18a84e8599bcf82ec59f40a361929d4322a52"
+    },
+    "S100_diagnostic_completeness_correction": {
+      "byte_size": 1120,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-evaluation/diagnostic-completeness-correction.md",
+      "sha256": "ba371d967dcc623002657709f75280a46e86c51305fe3ecb8c7df00185c1c4dc"
+    },
+    "S100_evaluation_implementation": {
+      "byte_size": 34783,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-evaluation/run_evaluation.py",
+      "sha256": "5e2779945974c4c9cbdf702236d3686d937964be3bb4ff480fe7c476d582436f"
+    },
+    "S100_initial_incomplete_diagnostic_result": {
+      "byte_size": 1282403,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-evaluation/truncation-evaluation-initial-incomplete-diagnostics.json",
+      "sha256": "4a2e18d889ffc682acc2dc04cf37760aa1d662ac945d0ea8452eae814eb186de"
+    },
+    "S100_initial_launch_failure": {
+      "byte_size": 963,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-evaluation/initial-analysis-failure.md",
+      "sha256": "ba85289c91f189a3d1ebd6982029f1a951c70d410d3bbeea28cea896d8c5d65c"
+    },
+    "S105_disposition_implementation": {
+      "byte_size": 15596,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-disposition/prepare_disposition.py",
+      "sha256": "6613d234b7e084baede6d9cfef9d34be7e14360b23ccc296e6adacfe24f422e0"
+    },
+    "S105_spatial_truncation_disposition": {
+      "byte_size": 6187,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-disposition/spatial-truncation-disposition.json",
+      "sha256": "519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68"
+    },
+    "S110_blocked_alignment_result": {
+      "byte_size": 119010,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/slater-koster-definition-fit-result.json",
+      "sha256": "b9b8403dfc8b24df01e1671f582697440e1a211d60e0e70c9b0f621dfa086e98"
+    },
+    "S110_definition_fit_implementation": {
+      "byte_size": 21030,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/run_definition_fit.py",
+      "sha256": "64459edf6f03161d30c6b6beec3361fa5ad7085417ab2a038d4f6c7c632925b3"
+    },
+    "S30_characterization_result": {
+      "byte_size": 56310,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "S30_implementation": {
+      "byte_size": 54245,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/run_analysis.py",
+      "sha256": "985dcc7e000fdd0aea76e046f8cfbf8cf12b73990decdc2808be517fd50a538e"
+    },
+    "S30_initial_fixed_gate_result": {
+      "byte_size": 55067,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result-initial-fixed-gate.json",
+      "sha256": "f038459542ab2d7801ce83630274fd27db60275c6694b53fbcb904980a22ef89"
+    },
+    "S30_serialization_bound_correction": {
+      "byte_size": 2800,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/serialization-bound-correction.md",
+      "sha256": "680cf0aeaa25c85915e8315ce06d1a821c9172333b43e5046dc8f75ba06a3ef9"
+    },
+    "S40_corrected_development_result": {
+      "byte_size": 121156,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-revealed-408-development/development-result.json",
+      "sha256": "bb1a6d0fab5d08fecaa0d86cbfe00e8670e7f089e289c6fabc59c32c6f76991d"
+    },
+    "S40_corrected_implementation": {
+      "byte_size": 22600,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-revealed-408-development/run_analysis.py",
+      "sha256": "c555f690fb0d6a7517bd61bcc3abee5acc30fc337e0bd3add358593f9b8f2952"
+    },
+    "S40_hidden_oracle_role_correction": {
+      "byte_size": 1341,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-revealed-408-development/hidden-oracle-role-correction.md",
+      "sha256": "29e58f90c40ec428e12d087b4d6b6b70bfcd18d9c539bdcd9f17aa3dd36f333d"
+    },
+    "S40_initial_linear_gate_disposition": {
+      "byte_size": 120879,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-revealed-408-development/development-result-initial-linear-gate-disposition.json",
+      "sha256": "fbd9ab474328323f43d03754d01a0a9be115ea30739c1a4ac65ca47767d99459"
+    },
+    "S90_design_implementation": {
+      "byte_size": 17562,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-design/prepare_design.py",
+      "sha256": "687ed568e392ea1c3ac333c543313cc57206d5a92903b7e3e015b5103224cc1d"
+    },
+    "S90_frozen_truncation_design": {
+      "byte_size": 15981,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-design/truncation-design.json",
+      "sha256": "6b9863271ba8241881d62435a7c8307d3431ffe59bfdcce5d96525fe86fcb531"
+    },
+    "S90_through_S110_controlled_reduction_protocol": {
+      "byte_size": 28724,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/research-protocol/controlled-reduction-protocol.tex",
+      "sha256": "80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380"
+    },
+    "confirmation_402_geometry": {
+      "byte_size": 207339,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/construction-mesh-adequacy-recommendation/successor-confirmation-holdout.json",
+      "sha256": "51427c7389ae293566d865d42a3a8a8217b0fed4607ac65c5a97199ce6a383c8"
+    },
+    "convergence_adaptation_decision": {
+      "byte_size": 4044,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/aiida-precise-convergence-adaptation-decision.md",
+      "sha256": "9d2e8269d1f2351d1c3b3228c24f4b2baad6505c1c1039da8889412b3cba6238"
+    },
+    "converter_result": {
+      "byte_size": 2984,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/converter-result.json",
+      "sha256": "b8cc1b5df05fdda09fbbad13374635aed08aa630d11b16d554010f12ed8ed37a"
+    },
+    "current_post_S110_controlled_reduction_protocol": {
+      "byte_size": 37018,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/research-protocol/controlled-reduction-protocol-post-s110.tex",
+      "sha256": "3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653"
+    },
+    "localization_authorization_request": {
+      "byte_size": 3017,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise/authorization-request.json",
+      "sha256": "02375507dbe487f1ad5dee2569151faf04c2e5a5fa3aadd9b0007d977bc26aa7"
+    },
+    "localization_failure": {
+      "byte_size": 918,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/failure-summary.json",
+      "sha256": "79fc6306e55581ae4b3fa90647d8f0c0b206f1339bdec332e064fd8c445dd135"
+    },
+    "localization_preflight": {
+      "byte_size": 6772,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise/campaign-preflight.json",
+      "sha256": "b7e6b150e28e4ae79eadffbc8799eb593554ccd4f9792347fbd6852ca9a1977d"
+    },
+    "localization_provider_reverification": {
+      "byte_size": 1673,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/provider-reverification-result.json",
+      "sha256": "23a0a6fe182abd0b5d2f7dcd142f27f81d6d6cca4fe9852be1950b5b622548b6"
+    },
+    "localization_reconciled_eligibility": {
+      "byte_size": 1615,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/reconciled-eligibility-summary.json",
+      "sha256": "0b2a0e6bab52574c353d780f562afe11d07bb1400bf149fa1178ddb5e8504e4c"
+    },
+    "localization_result": {
+      "byte_size": 1883,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/campaign-result.json",
+      "sha256": "5727bb294590868e28a1fb57e0b847863c6b02b7ab669a8d71ac2a12bd5b9d3c"
+    },
+    "localization_structural_diagnostic": {
+      "byte_size": 1284,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/structural-diagnostic.json",
+      "sha256": "95553e74ffe50177f859b5ec56627ffafeadc0b5c02a8e1745e9852938030618"
+    },
+    "preprocessing_result": {
+      "byte_size": 2556,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/preprocessing-result.json",
+      "sha256": "ca73c8e0384e5f8b3bccffbe1ab1b2e58d636876f802b380a06eec74f8c50e93"
+    },
+    "revealed_408_parent_campaign": {
+      "byte_size": 1039,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/campaign-result.json",
+      "sha256": "babd24f429f4eb51082235c2d7f6afaeccf193160a139cd295f14916b1cbb7cd"
+    },
+    "revealed_408_parent_result": {
+      "byte_size": 2156,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/nscf-result.json",
+      "sha256": "29d3c50f70b9faa0eed24acf5f0673d43eb666d1216327fdf74e53cdd6176b51"
+    },
+    "target_space_decision": {
+      "byte_size": 4472,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/c6-b20-w21-outer-window-decision.md",
+      "sha256": "526b0a265b306c13f9ae54ce34c57030277f15704a4a571295da43330005db59"
+    }
+  },
+  "candidate_id": "C6-B20-W21",
+  "confirmation_blinding": {
+    "geometry_status": "coordinates-frozen-parent-values-unobserved",
+    "parent_values_present_in_plan": false,
+    "point_count": 402,
+    "unblinding_allowed_after_stage": "S50-prediction-freeze"
+  },
+  "current_next_action": "choose the default stop after the failed S110 common-space gate or separately authorize Level 1 reusable Slater-Koster foundations under the post-S110 protocol; spectral-only, global-unitary, rank-nine, and new-source levels each require a later separate decision",
+  "development_targets": {
+    "each_effective_mass_relative_maximum": 0.08,
+    "gamma_x_distance_inverse_angstrom": 1.1488345422775257,
+    "indirect_gap_relative_maximum": 0.05,
+    "role": "revealed-parent oracle-evaluation criteria, not operational reduction gates",
+    "valley_position_fraction_of_gamma_x_maximum": 0.03,
+    "valley_position_maximum_inverse_angstrom": 0.03446503626832577
+  },
+  "fixed_scientific_coordinates": {
+    "construction_mesh": "Gamma-origin 6x6x6 ordered mesh",
+    "conv_tol_angstrom_squared": 2e-09,
+    "conv_window": 6,
+    "dis_conv_tol_dimensionless": 2e-09,
+    "dis_num_iter": 40000,
+    "frozen_window_ev": [
+      -5.85,
+      8.0
+    ],
+    "num_cg_steps": 200,
+    "num_iter": 40000,
+    "outer_window_ev": [
+      -6.0,
+      21.0
+    ],
+    "parent": "accepted PBE SSSP 1.3.0 efficiency SCF",
+    "parent_band_count": 20,
+    "projections": [
+      "Si:sp3",
+      "Si:l=0:r=2"
+    ],
+    "structure": "accepted relaxed S1",
+    "wannier_rank": 10
+  },
+  "hidden_oracle_policy": {
+    "fixed_reduction_source": "S30 full untruncated Wannier operator",
+    "freeze_before_402_reveal": [
+      "spatial truncations",
+      "Slater-Koster parameterizations",
+      "diagnostic rules and calibration",
+      "fitting conventions",
+      "oracle-error predictions",
+      "evaluation criteria"
+    ],
+    "operational_diagnostics_exclude_withheld_parent_values": true,
+    "parent_fidelity_does_not_gate_controlled_reduction": true,
+    "revealed_408_role": "development-oracle labels and calibration only",
+    "unobserved_402_role": "prospective confirmation oracle"
+  },
+  "schema_version": 1,
+  "series_id": "Si-bulk-C6-B20-W21-full-operator-to-reduction-v1",
+  "stages": [
+    {
+      "entry_gate": "authenticated NNKP and finite shape-correct AMN/MMN/EIG",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "retained-evidence",
+      "on_failure": "closed; upstream reconstruction requires a new decision",
+      "on_success": "S10-localization",
+      "prerequisites": [],
+      "stage_id": "S00-interface",
+      "status": "complete",
+      "title": "Authenticated 20-band preprocessing and conversion"
+    },
+    {
+      "entry_gate": "exact authorization request 02375507...b26aa7",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "calculator",
+      "on_failure": "stop for target-space and trajectory review",
+      "on_success": "S20-provider-eligibility",
+      "prerequisites": [
+        "S00-interface"
+      ],
+      "stage_id": "S10-localization",
+      "status": "complete-native-convergence",
+      "title": "Fresh precise-profile localization"
+    },
+    {
+      "entry_gate": "passed without tolerance change: canonical-WIN gauge and disentanglement k-point residuals 3.300004713935323e-11 are below the declared 1e-10 fractional tolerance",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "no-calculator-verification",
+      "on_failure": "stop; failed outputs remain diagnostic only",
+      "on_success": "S30-untruncated-characterization",
+      "prerequisites": [
+        "S10-localization"
+      ],
+      "stage_id": "S20-provider-eligibility",
+      "status": "complete-provider-eligible-after-reference-correction",
+      "title": "Native and represented-operator eligibility"
+    },
+    {
+      "entry_gate": "bind exact eligible HR/u/u_dis identities; verify source-mesh reconstruction, spectra, valleys, curvatures, masses, and locality",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "no-calculator-analysis",
+      "on_failure": "stop; no spatial truncation or reduction",
+      "on_success": "S40-development-408",
+      "prerequisites": [
+        "S20-provider-eligibility"
+      ],
+      "stage_id": "S30-untruncated-characterization",
+      "status": "complete-structurally-verified-scientifically-unassessed",
+      "title": "Full untruncated Wannier-operator characterization"
+    },
+    {
+      "entry_gate": "apply the frozen 5%, 3%, and 8% oracle-evaluation criteria without treating them as deployable diagnostics",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "no-calculator-analysis",
+      "on_failure": "limit parent-fidelity claims without blocking controlled reduction",
+      "on_success": "S90-spatial-truncation-design",
+      "prerequisites": [
+        "S30-untruncated-characterization"
+      ],
+      "stage_id": "S40-development-408",
+      "status": "complete-development-oracle-labels-recorded",
+      "title": "Revealed 408-point direct-parent development comparison"
+    },
+    {
+      "entry_gate": "reductions, operational diagnostics, calibration, fitting conventions, oracle-error predictions, and criteria are immutable",
+      "exact_artifact_binding_available": false,
+      "execution_authorized": false,
+      "kind": "no-calculator-record",
+      "on_failure": "stop; no confirmation-parent calculation",
+      "on_success": "S60-confirmation-parent-402",
+      "prerequisites": [
+        "S110-slater-koster-definition-fit"
+      ],
+      "stage_id": "S50-prediction-freeze",
+      "status": "blocked-by-S110",
+      "title": "Freeze operator identity, predictions, fits, and conventions"
+    },
+    {
+      "entry_gate": "frozen prediction record plus separately rendered exact QE input and a new bounded human authorization",
+      "exact_artifact_binding_available": false,
+      "execution_authorized": false,
+      "kind": "calculator",
+      "on_failure": "stop; do not alter frozen predictions",
+      "on_success": "S70-confirmation-comparison",
+      "prerequisites": [
+        "S50-prediction-freeze"
+      ],
+      "stage_id": "S60-confirmation-parent-402",
+      "status": "blocked-by-S50",
+      "title": "Blinded 402-point direct-parent confirmation calculation"
+    },
+    {
+      "entry_gate": "test frozen diagnostic-to-hidden-error predictions without refitting",
+      "exact_artifact_binding_available": false,
+      "execution_authorized": false,
+      "kind": "no-calculator-analysis",
+      "on_failure": "record diagnostic non-prediction without erasing the controlled reduction",
+      "on_success": "S120-slater-koster-validation",
+      "prerequisites": [
+        "S60-confirmation-parent-402"
+      ],
+      "stage_id": "S70-confirmation-comparison",
+      "status": "blocked-by-S60",
+      "title": "Prospective 402-point confirmation comparison"
+    },
+    {
+      "entry_gate": "parent-oracle criteria control physical claims, not reduction eligibility",
+      "exact_artifact_binding_available": false,
+      "execution_authorized": false,
+      "kind": "scientific-disposition",
+      "on_failure": "retain source-fidelity limitations and continue controlled reduction",
+      "on_success": "physical-fidelity claim only; no effect on reduction eligibility",
+      "prerequisites": [
+        "S40-development-408"
+      ],
+      "stage_id": "S80-full-operator-acceptance",
+      "status": "not-required-for-controlled-reduction",
+      "title": "Optional physical-fidelity disposition for the full operator"
+    },
+    {
+      "entry_gate": "freeze the full operator as the reduction source and separately declare hopping geometry, retained shells or radii, operational tail diagnostics, tolerances, and state-space alignment",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "scientific-decision",
+      "on_failure": "retain the structurally eligible full operator without truncation claims",
+      "on_success": "S100-spatial-truncation-evaluation",
+      "prerequisites": [
+        "S30-untruncated-characterization",
+        "S40-development-408"
+      ],
+      "stage_id": "S90-spatial-truncation-design",
+      "status": "complete-design-frozen-S100-ready",
+      "title": "Declare spatial-truncation coordinates and tail criteria"
+    },
+    {
+      "entry_gate": "separate spectral, valley, curvature, mass, and locality errors",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "no-calculator-analysis",
+      "on_failure": "retain the full operator without accepting a truncation",
+      "on_success": "S105-spatial-truncation-disposition",
+      "prerequisites": [
+        "S90-spatial-truncation-design"
+      ],
+      "stage_id": "S100-spatial-truncation-evaluation",
+      "status": "complete-family-evaluated-no-radius-selected",
+      "title": "Evaluate each declared truncation against the full operator"
+    },
+    {
+      "entry_gate": "use only frozen construction requirements and S90/S100 operational diagnostics; do not use parent-oracle values",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "scientific-decision",
+      "on_failure": "retain the full untruncated operator as the only source",
+      "on_success": "S110-slater-koster-definition-fit",
+      "prerequisites": [
+        "S100-spatial-truncation-evaluation"
+      ],
+      "stage_id": "S105-spatial-truncation-disposition",
+      "status": "complete-full-support-retained-S110-definition-ready",
+      "title": "Accept one declared shell or retain full support"
+    },
+    {
+      "entry_gate": "explicit basis, gauge, energy reference, shells, parameter map, fit set, validation set, and optimizer declaration",
+      "exact_artifact_binding_available": true,
+      "execution_authorized": false,
+      "kind": "no-calculator-model-reduction",
+      "on_failure": "no Slater-Koster model is accepted",
+      "on_success": "S50-prediction-freeze",
+      "prerequisites": [
+        "S105-spatial-truncation-disposition"
+      ],
+      "stage_id": "S110-slater-koster-definition-fit",
+      "status": "blocked-orbital-alignment-rank-deficient-no-fit",
+      "title": "Declare and fit the Slater-Koster reduction"
+    },
+    {
+      "entry_gate": "disjoint hidden-parent confirmation data and separate parent-model, mesh, spectral-truncation, spatial-truncation, and parameterization errors",
+      "exact_artifact_binding_available": false,
+      "execution_authorized": false,
+      "kind": "no-calculator-analysis",
+      "on_failure": "reject the reduction without changing the accepted full operator",
+      "on_success": "final reviewed reduction disposition",
+      "prerequisites": [
+        "S110-slater-koster-definition-fit",
+        "S70-confirmation-comparison"
+      ],
+      "stage_id": "S120-slater-koster-validation",
+      "status": "blocked-by-S70",
+      "title": "Validate the reduction separately from parent and truncation errors"
+    }
+  ],
+  "status": "blocked-S110-orbital-alignment-rank-deficient-human-decision-required"
+}
