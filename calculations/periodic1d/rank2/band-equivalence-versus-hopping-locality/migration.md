@@ -37,6 +37,7 @@ and reproduction paths agree with the canonical owner.
 - [x] Create a path, class, schema, and artifact crosswalk for every nested channel in [`nested-channel-crosswalk.md`](nested-channel-crosswalk.md).
 - [x] Resolve protocol authority and conflict rules in [`protocol-authority-and-historical-donors.md`](protocol-authority-and-historical-donors.md).
 - [x] Crosswalk historical M2, monograph-composite, and finite-angle regression donors by exact revision, Git tree, selected digest, and restoration role.
+- [x] Audit the complete calculation-local `workflow/` donor tree against installed owners and immutable direct-v2 bytes in [`donor-parity-audit.md`](donor-parity-audit.md); retain the donor because full parity is not established.
 
 ## Source ownership
 
@@ -69,8 +70,12 @@ every channel, and the rendering projection. Three direct no-overwrite scripts c
 verify, and render six family, refinement, and truncation figures from stored
 verification. The authorized unsealed `v1` execution preserves a failed independent
 verification, while the no-overwrite `v2` successor passed at the unchanged tolerance
-and rendered the closed inventory. Named full donor parity and reviewed `workflow/`
-retirement remain open; neither execution is sealed or promoted.
+and rendered the closed inventory. The completed read-only donor audit establishes
+bounded agreement for 18,513 mapped scalars but identifies a non-equivalent momentum
+disposition, four missing retained
+truncation-family slices, missing five-scale refinement summaries, unactivated pandas
+diagnostics, and ten maintained donor consumers. Full donor parity and reviewed
+`workflow/` retirement therefore remain open; neither execution is sealed or promoted.
 
 - [ ] Move reusable calculation behavior from `workflow/` to cohesive reviewed source owners.
   - [x] Install the flat-parent exact-band, restricted global-alignment, finite-cyclic Fourier/Nyquist, disjoint interpolation, deliberate truncation, and total-band consequence channels.
@@ -120,5 +125,8 @@ retirement remain open; neither execution is sealed or promoted.
   - [x] Add authenticated figures for refinement and truncation through their shared aggregate authentication boundary.
 - [x] Implement direct calculate → verify → render scripts with no-overwrite retention.
 - [ ] Establish named numerical parity for flat, nonflat, parent-family, and truncation outputs.
+  - [x] Bind immutable direct-v2 and donor-table identities and compare 18,513 overlapping scalars within `1.0e-13`.
+  - [x] Record that the donor momentum result is converged while the installed broader diagnostic remains unresolved; do not claim disposition parity.
+  - [ ] Resolve the missing four parent-scale truncation slices, five-scale refinement summaries, flat retained comparison, and pandas diagnostic successor or historical disposition.
 - [x] Close the amplitude/refinement disposition as an explicit level-cap-exhausted outcome; this does not claim convergence.
 - [ ] Define sealing and read-only package verification separately.

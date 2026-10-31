@@ -3,11 +3,13 @@
 ## Status
 
 This source child owns the installed retained-lifecycle slice of the distinct rank-two
-band-equivalence-versus-hopping-locality family. Broader migration remains incomplete
-only for named full donor parity, reviewed retirement of the calculation-local
-`workflow/`, and any future sealing or promotion. The installed component owns the
-complete flat-parent
-tranche and the serialization-free scientific core of the embedded-subspace/rank2
+band-equivalence-versus-hopping-locality family. A read-only audit found strong bounded
+numerical overlap but did not establish full donor parity; the non-equivalent momentum
+disposition, incomplete retained family coverage, diagnostic ownership, and live donor
+consumers keep reviewed retirement of the calculation-local `workflow/` open. Future
+sealing or promotion also remains outside this installed slice. The installed component
+owns the complete flat-parent tranche and the serialization-free scientific core of the
+embedded-subspace/rank2
 parent. The latter includes external-gap qualification, PhysKit closed-loop frame
 transport with closed typed outcome variants, restricted alignment, cyclic hopping
 powers, canonical aggregate records, independent single-member verification, and a

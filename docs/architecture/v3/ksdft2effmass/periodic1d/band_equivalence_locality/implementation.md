@@ -127,6 +127,9 @@ calculate/verify/render scripts retain the record, its stored verification, and 
 closed authenticated six-figure family, momentum-refinement, adaptive-amplitude, and
 truncation inventory. Rendering calls stored-verification admission and does not rerun
 the independent routes. Authenticated embedded, fully qualified parent-family, and
-cohesive calculation projections and their closed PNG inventories are installed. Final
-parity checks remain open. The
-calculation-local `workflow/` remains a development donor pending reviewed retirement.
+cohesive calculation projections and their closed PNG inventories are installed. The
+read-only donor audit compares 18,513 mapped immutable scalars within `1.0e-13`, but it
+also records a non-equivalent momentum disposition, four missing retained truncation
+slices, missing five-scale refinement summaries, unactivated pandas diagnostics, and ten
+maintained donor consumers. Full parity therefore remains open. The calculation-local
+`workflow/` remains tracked pending a later reviewed retirement.

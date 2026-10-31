@@ -49,8 +49,10 @@ not installed public APIs and not dependencies of the direct lifecycle.
   `9e88e334...` is not promoted into this calculation owner.
 - Exact source/destination and supersession dispositions for the remaining experiment
   files are machine-readable in `experiment-removal-manifest.json`.
-- The direct lifecycle does not import or execute `workflow/`; reviewed donor retirement
-  remains separate from the completed retained aggregate lifecycle.
+- The direct lifecycle does not import or execute `workflow/`; the read-only
+  [`donor-parity-audit.md`](donor-parity-audit.md) records unresolved semantic,
+  retained-coverage, diagnostic, and live-consumer gaps, so donor retirement remains
+  separate from the completed retained aggregate lifecycle.
 - Passing checks and the admitted `v2` rendering establish bounded software-route
   agreement and exact projection identity only. They do not establish continuum
   convergence, uncertainty quantification, scientific validation, publication acceptance,

@@ -1,8 +1,9 @@
 # Periodic-1D rank-two band equivalence versus hopping locality
 
 **Status:** migration-in-progress development calculation with an operator-authorized
-recovery of the previously dirty source/data/figure graph; no retained run or evidence
-package exists at this location.
+recovery of the previously dirty source/data/figure graph, a preserved failed unsealed
+`v1` execution, and a passing unsealed `v2` execution. Neither execution is sealed,
+promoted, or scientific validation.
 
 This calculation is the publication-independent numerical owner intended for the active
 rank-two calculation used by `Ragasa2026a` version 3. It studies a synthetic
@@ -30,15 +31,17 @@ Neighbor-overlap singular values are qualification gates rather than convergence
 observables; interpolation, deliberate truncation, cyclic-Nyquist conversion, and total
 Hamiltonian and sorted-band consequences remain separately reported channels.
 
-The flat-parent momentum ladder and nonflat momentum study carry internal development
-`converged` dispositions under their declared controls. The flat analytic continuum is
-evaluated directly rather than inferred from the rejected amplitude interpolant, and the
-nonflat claims remain pointwise at sampled amplitudes. The dense truncation inventory
-covers every integer cutoff $R_c=0,\ldots,16$; independent reconstruction checks the
-Hamiltonian and spectral channels and the first-passing sampled decisions. These labels
-and checks establish neither continuum convergence nor scientific validation. No
-maintained version, retained run, evidence package, or retained publication evidence has been
-created. Detailed values and limitations are maintained in
+The historical flat-parent momentum ladder and nonflat donor study carry internal
+development `converged` dispositions under their declared controls. The installed
+momentum owner includes a broader parent diagnostic and retains an unresolved outcome;
+these dispositions are not equivalent. The flat analytic continuum is evaluated directly
+rather than inferred from the rejected amplitude interpolant, and the nonflat claims
+remain pointwise at sampled amplitudes. The dense truncation inventory covers every
+integer cutoff $R_c=0,\ldots,16$; independent reconstruction checks the Hamiltonian and
+spectral channels and the first-passing sampled decisions. These labels and checks
+establish neither continuum convergence nor scientific validation. The retained `v1`
+and `v2` executions remain unsealed; no sealed evidence package or retained publication
+evidence has been created. Detailed values and limitations are maintained in
 [`analysis/development/README.md`](analysis/development/README.md).
 
 ## Current ownership boundary
@@ -80,7 +83,8 @@ identities; this directory does not copy, rename, or upgrade them.
 - [`protocol.md`](protocol.md) records the concise calculation boundary and migration rules.
 - [`protocol/`](protocol/) owns the exact buildable prospective protocol bundle.
 - `python/src/ksdft2effmass/periodic1d/band_equivalence_locality/` owns the installed flat-parent slice; the embedded-subspace/rank2 single-parent and bounded parent-family scientific, record, and independent-verification owners; and serialization-free momentum, adaptive-amplitude, and ordinary-truncation studies with independent in-memory comparison.
-- [`workflow/`](workflow/) remains a historical development donor pending reviewed retirement; aggregate retention, verification, and authenticated rendering have installed successors.
+- [`workflow/`](workflow/) remains a historical development donor pending reviewed retirement; aggregate retention, verification, and authenticated rendering have installed successors, but full donor parity has not been established.
+- [`donor-parity-audit.md`](donor-parity-audit.md) compares immutable donor tables with direct-v2 typed bytes and records the semantic, retained-coverage, diagnostic, and live-consumer gaps that block retirement.
 - `run_01_calculation.py`, `run_02_verification.py`, and `run_03_render.py` own the direct no-overwrite lifecycle. The root `run_*_development.py` files remain development entrypoints.
 - [`tests/`](tests/) owns calculation-workflow software verification.
 - [`simulations/`](simulations/README.md) owns the current inputs and tabular development
@@ -105,9 +109,9 @@ identities; this directory does not copy, rename, or upgrade them.
 - [`technical-report/`](technical-report/README.md) owns the calculation-facing technical
   report split into reviewable sections.
 
-The recovered files remain development inputs and outputs. Their migration does not
-create a retained execution, evidence package, protocol freeze, scientific validation,
-or publication authorization.
+The recovered files remain development inputs and outputs. Their migration did not
+create the later `v1` or `v2` executions and does not create an evidence package,
+protocol freeze, scientific validation, or publication authorization.
 
 ## Migration inventory
 
@@ -128,7 +132,8 @@ distributed checklist.
 | Installed adaptive amplitude refinement | Direct midpoint samples, disjoint quarter-point validation, closed qualification/level-cap/sample-cap outcomes, and independent in-memory reconstruction are installed. Verification tolerance does not classify refinement. |
 | Installed embedded rank-two truncation | A dedicated `embedded_subspace/rank2/truncation/` owner removes only the negative-Nyquist class, evaluates declared ordinary cutoffs on a disjoint shifted mesh, retains separate omitted-power, interpolation, truncation-only, and total Hamiltonian/spectral channels, and verifies them through independent direct finite formulas. No custom wire format is defined. |
 | Direct lifecycle | Three no-overwrite scripts calculate the cohesive aggregate, retain independent verification, and render six authenticated family, refinement, and truncation figures from stored verification. The preserved unsealed `v1` attempt failed independent verification; the separately authorized unsealed `v2` execution passed at the unchanged tolerance and rendered the closed inventory. Neither execution is sealed, promoted, or publication evidence. |
-| `workflow/` | Historical development donor pending a separate reviewed retirement; its aggregate-retention, verification, and rendering roles have installed successors. |
+| `workflow/` | Historical development donor retained after the read-only parity audit found a non-equivalent momentum disposition, incomplete retained family coverage, unactivated pandas diagnostics, and ten maintained consumers. |
+| [`donor-parity-audit.md`](donor-parity-audit.md) | Digest-bound comparison of 18,513 mapped immutable scalars; bounded overlap agrees within `1.0e-13`, but full donor parity and retirement readiness are not established. |
 | [`protocol/`](protocol/) | Exact three-file buildable prospective protocol bundle migrated from the experiment tree. |
 | [`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md) | Closed 40-file source partition with SHA-256 identities, exact destinations or dispositions, consumer inventory, and parity/removal gates. |
 | [`adapted-script-parity.md`](adapted-script-parity.md) | Nine-pair AST, scratch-result, PNG, and normalized-PDF parity audit; software evidence only. |
