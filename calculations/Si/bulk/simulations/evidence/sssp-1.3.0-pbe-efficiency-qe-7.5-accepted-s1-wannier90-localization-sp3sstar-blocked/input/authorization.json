@@ -1,0 +1,7 @@
+{
+  "authorization": "Authorize exactly one Wannier90 localization invocation described in campaign-preflight.json, with zero retries and stop on failure.",
+  "campaign_preflight_sha256": "e2e47329bfb028cb930cc79c7a7227fdfd6475f7d21d2755e5ea97931c9a61d1",
+  "maximum_invocations": 1,
+  "retries_authorized": 0,
+  "stop_on_failure": true
+}

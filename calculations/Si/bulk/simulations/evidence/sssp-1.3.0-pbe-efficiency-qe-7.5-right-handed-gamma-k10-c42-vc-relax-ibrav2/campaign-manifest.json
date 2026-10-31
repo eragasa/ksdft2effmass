@@ -1,0 +1,36 @@
+{
+  "authorization": {
+    "maximum_invocations": 1,
+    "operator_message": "recommendation authorized",
+    "retries": 0
+  },
+  "configuration": {
+    "byte_size": 2257,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/calculation.toml",
+    "sha256": "ce110125f22c12701444d8b9d9b4ce771501648f4c5b1bb5def1934fafd683cf"
+  },
+  "execution_status": "succeeded",
+  "native_diagnostic_disposition": "QE IEEE flags are retained as native diagnostics and are not an automatic blocker absent non-finite results, failed convergence, or corrupted output",
+  "output_directory": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/run",
+  "postprocessing_note": "The authorized calculator invocation succeeded; run_relaxation.py initially raised KeyError after execution because it queried return_code instead of the retained execution.json field returncode. The manifest was repaired from retained evidence without another calculator invocation.",
+  "preflight_input": {
+    "byte_size": 821,
+    "sha256": "512d3a35f663db7cf74ef58119942ed0eb8c598fb8fc907b698ed82383c29329"
+  },
+  "projectkoios": {
+    "base_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+    "patch_byte_size": 38844,
+    "patch_sha256": "ff274e5c875329585a255e31d61aff3d59796b15b35848983acd67a5a8b9fbb2",
+    "worktree": "/Users/eugene/worktrees/projectkoios-simulations-qe-fcc-vc-relax"
+  },
+  "resources": {
+    "maximum_retained_bytes": 2147483648,
+    "processes": 1,
+    "timeout_seconds": 1800.0
+  },
+  "retained_bytes": 8174162,
+  "return_code": 0,
+  "schema_version": 1,
+  "scientific_disposition": "provisional bulk relaxation; completion is not scientific acceptance",
+  "status": "completed"
+}

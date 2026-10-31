@@ -1,0 +1,44 @@
+{
+  "artifacts": [
+    {
+      "byte_count": 10479,
+      "name": "silicon.win",
+      "role": "construction-input",
+      "sha256": "2ddfb1b51cfd476cc6444f8bfec8ae3ef229e882c2e6e5f1ee5bf94addd43e64"
+    },
+    {
+      "byte_count": 59408,
+      "name": "silicon.nnkp",
+      "role": "preprocessing-topology",
+      "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+    },
+    {
+      "byte_count": 101088,
+      "name": "silicon.eig",
+      "role": "interface-eigenvalues",
+      "sha256": "94d759c2906c041a14adc12bd6d740f1f5499c7c85aeea20b06752536f25c463"
+    },
+    {
+      "byte_count": 1736739,
+      "name": "silicon.amn",
+      "role": "interface-projections",
+      "sha256": "efda4f7d101eb5ed5c7d871c3b5a9c14a2343bc09e86188dbf48dca5731355eb"
+    },
+    {
+      "byte_count": 9295011,
+      "name": "silicon.mmn",
+      "role": "interface-neighbor-overlaps",
+      "sha256": "f2db3539f36fb2a5c8174c503326e56726553593ec0609f96e66186db488e1a1"
+    }
+  ],
+  "band_count": 12,
+  "kpoint_count": 216,
+  "neighbor_count": 8,
+  "parent_converter_sha256": "ebb9352aa1184be665ef8021bf26feea466ef1f0ce701d071546a19e934f7769",
+  "parent_preprocessing_sha256": "8306f8b7340e1673a79342a8725b4ad2bd63e96ea078929b423f6d72145538a4",
+  "route_kind": "first-rank-reducing-amn-mmn-non-spin",
+  "schema_version": 1,
+  "seedname": "silicon",
+  "total_byte_count": 11202725,
+  "wannier_count": 10
+}

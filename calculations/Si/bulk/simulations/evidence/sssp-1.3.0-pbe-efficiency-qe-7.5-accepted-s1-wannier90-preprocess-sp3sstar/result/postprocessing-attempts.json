@@ -1,0 +1,11 @@
+{
+  "attempts": [
+    {
+      "calculator_invocations": 0,
+      "error": "ValueError: NNKP real lattice disagrees with preprocessing input",
+      "reason": "The first comparison used 1.0e-10 angstrom and reciprocal tolerances, tighter than the generated NNKP's seven-decimal lattice serialization. The revised explicit 1.0e-7 tolerances remain below one unit in the last printed decimal place.",
+      "status": "superseded-comparison-policy"
+    }
+  ],
+  "schema_version": 1
+}

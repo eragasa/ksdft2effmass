@@ -1,0 +1,23 @@
+{
+  "convergence": {
+    "disentanglement_ceiling": 40000,
+    "disentanglement_converged": true,
+    "disentanglement_last_reported_iteration": 1517,
+    "disentanglement_tolerance_dimensionless": 2e-09,
+    "maximum_iteration_warning_observed": false,
+    "wannierisation_ceiling": 40000,
+    "wannierisation_converged": true,
+    "wannierisation_last_reported_iteration": 378,
+    "wannierisation_tolerance_angstrom_squared": 2e-09
+  },
+  "failure_class": "provider-structural-output-failure",
+  "native_execution": {
+    "completion_observed": true,
+    "returncode": 0,
+    "status": "succeeded"
+  },
+  "provider_error": "ValueError: gauge k-point order disagrees with input",
+  "provider_status": "output-ineligible",
+  "schema_version": 1,
+  "scientific_disposition": "blocked C6-B20-W21 precise-profile localization occurrence; retained outputs are diagnostic only and cannot be consumed as operator inputs"
+}

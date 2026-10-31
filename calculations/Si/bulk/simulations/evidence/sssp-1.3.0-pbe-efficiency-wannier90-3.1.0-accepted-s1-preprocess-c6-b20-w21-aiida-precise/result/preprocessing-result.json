@@ -1,0 +1,99 @@
+{
+  "expanded_projections": {
+    "centers_fractional": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.25,
+        0.25,
+        0.25
+      ]
+    ],
+    "nodal_s_count": 2,
+    "nodeless_sp3_count": 8,
+    "rank_10_inventory_verified": true
+  },
+  "native_execution": {
+    "completion_line_observed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 81,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/run/wannier90-pp.err",
+      "sha256": "400a35c0a4d0cfe789b3c30941e4ad4e1c4878a6962021d509ff5601350223eb"
+    },
+    "stdout": {
+      "byte_size": 0,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/run/wannier90-pp.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wout": {
+      "byte_size": 16267,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/run/silicon.wout",
+      "sha256": "7c7fffc718f6139b4daaf6dd54f9b78a2bc4c09b992830c3607eaca1476e583b"
+    }
+  },
+  "nnkp": {
+    "bounded_parse_succeeded": true,
+    "byte_size": 59408,
+    "comparison_tolerances": {
+      "direct_lattice_angstrom": 1e-07,
+      "kpoint_fractional": 1e-08,
+      "reciprocal_lattice_per_angstrom": 1e-07
+    },
+    "excluded_bands": [],
+    "kpoint_count": 216,
+    "neighbor_count_per_kpoint": 8,
+    "neighbor_record_count": 1728,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/run/silicon.nnkp",
+    "projection_count": 10,
+    "selected_projection_indices_verified": true,
+    "sha256": "608b8e0aacb8adddcfc2b8e0090ce48f5b916aec0d321bb69aabf01af9462575",
+    "source_lattice_kpoints_and_excluded_bands_verified": true
+  },
+  "schema_version": 1,
+  "scientific_disposition": "eligible C6-B20-W21 AiiDA-precise NNKP topology handoff for separately authorized pw2wannier90 conversion; no localization or intended-use result"
+}

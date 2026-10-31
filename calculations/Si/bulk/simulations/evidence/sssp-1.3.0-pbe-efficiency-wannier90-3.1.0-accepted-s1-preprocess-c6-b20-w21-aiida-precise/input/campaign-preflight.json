@@ -1,0 +1,153 @@
+{
+  "acceptance": {
+    "lattice_tolerances": {
+      "direct_angstrom": 1e-07,
+      "fractional_kpoint": 1e-08,
+      "reciprocal_inverse_angstrom": 1e-07
+    },
+    "required_output": "silicon.nnkp",
+    "required_return_code": 0,
+    "required_semantic_checks": [
+      "bounded NNKP parsing",
+      "source direct-lattice agreement",
+      "derived reciprocal-lattice agreement including 2 pi",
+      "source-ordered 216-point agreement",
+      "excluded-band agreement",
+      "projection inventory sufficient for rank 10"
+    ]
+  },
+  "candidate": {
+    "band_12_upper_clearance_ev": 0.1963949615389069,
+    "band_15_lower_clearance_ev": 0.2571673142764581,
+    "candidate_id": "C6-B20-W21",
+    "convergence_profile": "pinned-aiida-precise-two-atom-adaptation",
+    "disentanglement_convergence_window": 3,
+    "disentanglement_iterations": 40000,
+    "disentanglement_mix_ratio": 0.2,
+    "disentanglement_tolerance_fractional": 2e-09,
+    "frozen_count_histogram": {
+      "4": 129,
+      "5": 84,
+      "6": 3
+    },
+    "frozen_count_range": [
+      4,
+      6
+    ],
+    "frozen_window_ev": [
+      -5.85,
+      8.0
+    ],
+    "kpoint_count": 216,
+    "localization_convergence_window": 6,
+    "localization_iterations": 40000,
+    "localization_only_num_cg_steps": 200,
+    "localization_tolerance_angstrom_squared": 2e-09,
+    "mp_grid": [
+      6,
+      6,
+      6
+    ],
+    "num_bands": 20,
+    "num_wann": 10,
+    "outer_count_histogram": {
+      "12": 48,
+      "13": 108,
+      "14": 60
+    },
+    "outer_count_range": [
+      12,
+      14
+    ],
+    "outer_window_ev": [
+      -6.0,
+      21.0
+    ],
+    "projections": [
+      "Si:sp3",
+      "Si:l=0:r=2"
+    ]
+  },
+  "execution_performed": false,
+  "native_input": {
+    "byte_size": 10413,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise/silicon.win",
+    "sha256": "b48069e4f8ecd7209a318c47c77691de063bd0575658eb88a1e662a359d3dcc8"
+  },
+  "planned_command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "-pp",
+    "silicon"
+  ],
+  "prepared_input_record": {
+    "byte_size": 1086,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise/prepared-input-record.json",
+    "sha256": "589159914744789ead9bb665912a6d44283ddb0227d8dc6d12f8a03736edbe64"
+  },
+  "purpose": "C6-B20-W21 AiiDA-precise Wannier90 neighbor-topology preprocessing",
+  "resource_bounds": {
+    "maximum_retained_bytes": 33554432,
+    "processes": 1,
+    "retries": 0,
+    "timeout_seconds": 120.0
+  },
+  "saved_state_verification": {
+    "file_count": 219,
+    "total_bytes": 93658989
+  },
+  "schema_version": 1,
+  "scientific_disposition": "preflight only; no C6-B20-W21 AiiDA-precise NNKP topology, conversion, localization, represented operator, or intended-use result",
+  "sources": {
+    "aiida_convergence_reference": {
+      "byte_size": 1517,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise/aiida-convergence-reference.json",
+      "sha256": "a3486e60610ff7b1cdf4d7fdbdc5aad4195437657f0dd19a8e01cb4acb63d48d"
+    },
+    "convergence_adaptation_decision": {
+      "byte_size": 4044,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/aiida-precise-convergence-adaptation-decision.md",
+      "sha256": "9d2e8269d1f2351d1c3b3228c24f4b2baad6505c1c1039da8889412b3cba6238"
+    },
+    "nscf_input": {
+      "byte_size": 13911,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/pw.in",
+      "sha256": "20a6ee6e55d632bb66b1afcaac91592bf49c73a3e53e275659d1ccb03e47e1f9"
+    },
+    "nscf_qexsd": {
+      "byte_size": 371723,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "2e1b5e157142d18210d18710fb9f5f3e813b17d8331acf96e11af9b9d4f7ef8c"
+    },
+    "nscf_saved_state_manifest": {
+      "byte_size": 44898,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/nscf-saved-state-manifest.json",
+      "sha256": "24ee9d483141ab54d099bc6e6403d0da46108cc7a30c5b019992da3a1d7ef3ac"
+    },
+    "research_protocol": {
+      "byte_size": 22455,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/research-protocol/research-protocol.tex",
+      "sha256": "230aa0cebb37cf28a2e2e7cdcf1186d5ded98971217be3bbb8beadc2879d9dad"
+    },
+    "structure": {
+      "byte_size": 758,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+      "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+    },
+    "target_space_analysis": {
+      "byte_size": 6976,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/target-space-analysis.json",
+      "sha256": "976b605c1095e93fc99500ec93df0e7f495229afe83a2d185c666c6429daf444"
+    },
+    "target_space_decision": {
+      "byte_size": 4472,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/c6-b20-w21-outer-window-decision.md",
+      "sha256": "526b0a265b306c13f9ae54ce34c57030277f15704a4a571295da43330005db59"
+    },
+    "wannier90_executable": {
+      "byte_size": 891048,
+      "path": "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+      "sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+    }
+  },
+  "status": "authorization-required"
+}

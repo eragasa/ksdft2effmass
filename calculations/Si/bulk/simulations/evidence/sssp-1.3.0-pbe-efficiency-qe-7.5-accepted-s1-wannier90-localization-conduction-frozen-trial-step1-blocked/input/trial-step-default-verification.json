@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "wannier90_version": "3.1.0",
+  "quantity": "dimensionless algorithmic line-search trial step",
+  "source_default": {
+    "value": 2.0,
+    "source_path": "/Users/eugene/projects/wannier90-3.1.0/src/parameters.F90",
+    "source_line": "trial_step = 2.0_dp",
+    "source_sha256": "19db3643a6bda79a656da56fc92c3065dd98b51c73bfdcd8b4325b5d892014a2"
+  },
+  "previous_occurrence": {
+    "explicit_trial_step_present": false,
+    "explicit_fixed_step_present": false,
+    "effective_value_reported_by_wout": 2.0,
+    "win_sha256": "ae029dc89828e23c287060083e5f292825dff82ca984b178b221db5d5366e9cf",
+    "wout_sha256": "63cf0cc2377efd10b75d77669636be154b4196c74d8cff24fd011f5a2e83e924"
+  },
+  "successor_occurrence": {
+    "explicit_trial_step": 1.0,
+    "fixed_step_present": false,
+    "win_sha256": "9aad72666afa2d7f448c959d9e06af50e50f78888d46a3d64baf9e92786a460b"
+  },
+  "one_variable_interpretation": "The previous omitted value was the native 2.0 default; the successor explicitly halves it to 1.0."
+}

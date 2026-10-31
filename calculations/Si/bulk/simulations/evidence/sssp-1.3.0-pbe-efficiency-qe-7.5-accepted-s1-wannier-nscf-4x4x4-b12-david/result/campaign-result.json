@@ -1,0 +1,37 @@
+{
+  "artifact_manifest": {
+    "byte_size": 1083,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/artifact-manifest.json",
+    "sha256": "428f766a2eb46ed40a38b1dca7d7ea78e505f8cb1645739ea4d2b26799b473d7"
+  },
+  "diagonalization_diagnostics": {
+    "algorithm": "david",
+    "disposition": "NO_ACTION_REQUIRED",
+    "requested_conv_thr_ry": 1e-12,
+    "stdout_terminal_ethr_ry": 1e-13,
+    "total_reported_unconverged_eigenvalues": 0,
+    "warning_line_count": 0
+  },
+  "execution_record": {
+    "byte_size": 492,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/execution.json",
+    "sha256": "f146f37cabbedad2f28cacb21cff70ad94b741cf9340013c97db762e1495916b"
+  },
+  "execution_status": "succeeded",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 2147483648,
+  "retry_count": 0,
+  "return_code": 0,
+  "saved_state_handoff": {
+    "manifest_byte_size": 14229,
+    "manifest_path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/nscf-saved-state-manifest.json",
+    "manifest_sha256": "cab588c939b3b9bdea95496458be414f465f38fb036d1ade62405f8d602bf4ce",
+    "prefix": "system",
+    "source_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/tmp"
+  },
+  "schema_version": 1,
+  "scientific_disposition": "Eligible as the candidate NSCF handoff for separately preflighted Wannier90 preprocessing. This does not establish production grid, band, window, interpolation, or component-operator adequacy.",
+  "timed_out": false,
+  "total_occurrence_bytes_at_runner_return": 36091202,
+  "within_retained_byte_bound_at_runner_return": true
+}

@@ -1,0 +1,22 @@
+{
+  "change_class": "optimizer-eligibility iteration-budget extension",
+  "checkpoint_consumed": false,
+  "failed_outputs_consumed": false,
+  "fresh_occurrence": true,
+  "only_change": {
+    "after": 4000,
+    "before": 2000,
+    "parameter": "dis_num_iter"
+  },
+  "revised_input": {
+    "byte_size": 10479,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis4000/prepared/silicon.win",
+    "sha256": "2ddfb1b51cfd476cc6444f8bfec8ae3ef229e882c2e6e5f1ee5bf94addd43e64"
+  },
+  "schema_version": 1,
+  "source_input": {
+    "byte_size": 10479,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000-v1/prepared-input/silicon.win",
+    "sha256": "0d5b693972309245f0ce04fca42e8806a8c33017af7d0e184424dec0b429694c"
+  }
+}

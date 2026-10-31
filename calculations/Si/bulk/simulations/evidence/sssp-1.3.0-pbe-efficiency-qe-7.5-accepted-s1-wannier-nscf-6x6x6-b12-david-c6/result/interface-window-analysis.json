@@ -1,0 +1,61 @@
+{
+  "eigenvalue_range_ev": [
+    -5.834131973200428,
+    20.803605038465673
+  ],
+  "eligibility": {
+    "maximum_frozen_states_does_not_exceed_rank": true,
+    "minimum_outer_states_meets_rank": true,
+    "outer_window_contains_all_12_bands_at_every_kpoint": false
+  },
+  "frozen": {
+    "count_histogram": {
+      "4": 129,
+      "5": 84,
+      "6": 3
+    },
+    "count_per_kpoint_range": [
+      4,
+      6
+    ],
+    "total_selected_states": 954,
+    "window_ev": [
+      -5.85,
+      8.0
+    ]
+  },
+  "interpretation": "The numeric windows are unchanged. Mesh refinement samples high-energy states above the fixed outer maximum, so the effective outer inventory is 10--12 rather than all 12 bands at every point. This is a consequence of the one-variable mesh change and must be retained in attribution; changing the window would define another construction.",
+  "outer": {
+    "count_histogram": {
+      "10": 12,
+      "11": 62,
+      "12": 142
+    },
+    "count_per_kpoint_range": [
+      10,
+      12
+    ],
+    "total_selected_states": 2506,
+    "window_ev": [
+      -5.85,
+      19.02
+    ]
+  },
+  "outer_exclusion": {
+    "kpoints_with_one_or_more_excluded_states": 74,
+    "lower_threshold_clearance_ev": 0.015868026799571666,
+    "maximum_upper_threshold_excess_ev": 1.783605038465673,
+    "states_above_maximum": 86,
+    "states_below_minimum": 0
+  },
+  "parent_band_count": 12,
+  "sampled_kpoint_count": 216,
+  "schema_version": 1,
+  "source_qexsd": {
+    "byte_size": 287483,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/tmp/system.save/data-file-schema.xml",
+    "sha256": "865f8e749b2e2280a7ea093effc36b524f78f88ab9a9baf70e028ac7a8e42023"
+  },
+  "status": "fixed-window-inventory-characterized",
+  "wannier_rank": 10
+}

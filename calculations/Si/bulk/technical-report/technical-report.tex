@@ -14,21 +14,31 @@
 \maketitle
 
 \begin{abstract}
-This report defines the calculation boundary for a prospective
+This report defines the calculation boundary for a
 scalar-relativistic, non-spin-polarized, non-spin--orbit-coupled bulk-silicon
 parent, a compatible ten-spatial-orbital Wannier bridge, and a finite-support
-local-model hierarchy.  Existing evidence is limited to an audited provisional
-direct bootstrap.  No production parent, qualified Wannier representation,
-joint-fidelity result, or material-validation claim is established.
+local-model hierarchy.  Current calculation-owned evidence includes an accepted
+right-handed relaxed structure/settings pair for the retained SSSP comparison branch,
+an authenticated plane-wave-to-Wannier interface, one provider-eligible rank-10
+Wannier occurrence, and a prospectively frozen 408-point direct-parent comparison.
+The valley-position target was met, but the indirect-gap and effective-mass targets
+were not; the candidate is therefore not adequate for the declared SSSP-pilot intended
+use.  Component-operator, reduced-model, and material-validation claims remain pending.
 \end{abstract}
 
 \section{Evidence status}
 
-This is a publication-independent calculation report.  It describes a prospective
-material calculation with an audited provisional bootstrap.  It is not a completed
-production calculation, validated silicon Hamiltonian, qualified Wannier
-representation, model-selection result, or scientific validation.  No new scientific
-calculator was executed for this report.
+This is a publication-independent calculation report.  It distinguishes the historical
+provisional bootstrap from the current right-handed SSSP comparison branch and from any
+future primary pseudopotential branch.  The current branch has a provider-eligible
+Wannier occurrence whose source reconstruction, descriptive characterization, and
+withheld intended-use comparison are complete.  It is not an accepted Wannier operator:
+the frozen comparison found a 14.50\% indirect-gap relative error, two failed
+longitudinal-mass comparisons, and failed transverse-mass comparisons at every valley.
+The six valley-position comparisons met their target.  No completed component-operator
+construction, model-selection result, or broader scientific validation follows from
+this result.  Exact calculator occurrences and their authorizations are retained outside
+this report and referenced by calculation-owned evidence records.
 
 \section{Scientific objective}
 
@@ -99,6 +109,23 @@ locations catalogued in
 \path{calculations/Si/bulk/evidence-crosswalk.md}.  They are referenced rather than
 copied or relabelled.
 
+\subsection{Current right-handed SSSP comparison branch}
+
+The current branch retained the exact relaxed structure
+\path{Si.PrimitiveUnitCell.RightHanded.RelaxedS1}, a Gamma-centered K10 mesh, and
+42/336~Ry wavefunction/charge-density cutoffs under calculation-owned finite-setting
+rules.  Separate authenticated SCF, Davidson NSCF, Wannier90 preprocessing, converter,
+and localization occurrences preserve their own identities and dispositions.
+
+The accepted interface contains 64 ordered k points, 12 non-spin bands, a rank-10
+\(sp^3s^*\) projection inventory, and byte-authenticated NNKP, AMN, MMN, and EIG
+artifacts.  An initial construction that froze all eight conduction bands but no valence
+bands remained nonstationary.  A lower-energy frozen window
+$[-5.85,8.00]$~eV instead freezes all four valence states and zero to two sampled
+low-energy conduction states per k point.  With a fresh 2000-step disentanglement budget,
+that construction converged disentanglement at iteration 1290 and Wannierisation at
+iteration 189.  It is provider-eligible; no downstream scientific acceptance is implied.
+
 \section{Required parent qualification}
 
 The production parent must freeze the physical branch, lattice, PBE/ONCV approximation,
@@ -124,6 +151,39 @@ clusters or projectors rather than undocumented individual eigenvector labels.
 Wannier90 may produce a candidate witness.  Wannier90 convergence is not by itself a
 proof of the bridge contract.  The tutorial-scale silicon Wannier extraction remains an
 integration precursor and is excluded from the production admissible sets.
+
+\section{Optimization diagnosis and global-minimum nonclaim}
+
+Wannier construction, local optimization, arithmetic stability, and scientific
+adequacy are separate questions.  Rank, bands, projections, windows, reciprocal mesh,
+and neighbor topology define the represented target space and initial gauge.  Changing
+one of those coordinates creates a new scientific construction rather than a mere
+optimizer retry.
+
+Wannier90 performs projection-initialized local spread minimization; it does not certify
+a global minimum.  Iteration exhaustion or large late spread excursions establish
+nonstationarity or optimizer sensitivity, but do not prove that an acceptable gauge is
+absent.  Conversely, arithmetic or toolchain instability requires direct evidence such
+as non-finite data, corrupted identities, failed matrix invariants, same-input
+nondeterminism, or controlled sensitivity to the arithmetic implementation.  Optimizer
+excursions alone are insufficient.
+
+The all-conduction-frozen construction exhibited large late excursions through
+iteration 3934 and material between-mesh gauge sensitivity.  The lower-energy frozen
+construction converged using the same executable and byte-identical interface artifacts,
+with gauge-unitarity and disentanglement-isometry residuals of approximately
+$1.58\times10^{-10}$ and $1.32\times10^{-10}$ and a zero reported Hamiltonian
+Hermiticity residual.  The supported diagnosis is therefore construction-induced
+optimization-landscape sensitivity, not floating-point failure.  This diagnosis does
+not prove that the converged occurrence is a global spread minimum.
+
+A certified global minimum is not required for acceptance.  Instead, a locally
+converged occurrence must be structurally valid and must satisfy prospectively declared
+construction- and withheld-mesh spectral, valley, effective-mass, and locality tests.
+Competing-minimum studies become mandatory when distinct converged initializations
+produce materially different target observables or locality conclusions.  The detailed
+decision procedure is maintained in
+\path{calculations/Si/bulk/research-protocol/research-protocol.tex}.
 
 \section{Joint spectral/operator decision}
 
@@ -178,16 +238,123 @@ validation.
 
 \section{Current gate and next decision}
 
-The active successor disposition permits explicitly labelled downstream development
-and exploratory analysis using provisional C48/K8 evidence.  Production-parent and
-publication-grade acceptance remain pending an observable-level comparison through an
-independently identified established QE/toolchain path and the absent mixed
-cutoff--mesh interaction check.  Capturing and replaying the exact first
-$8\times8$ subspace Hamiltonian and overlap matrices remains an optional focused
-diagnosis rather than a prerequisite for all downstream work.  Every new QE invocation
-requires separate authorization.  The detailed gates are recorded in
-\path{calculations/Si/bulk/development-plan.md} and the active decision in
-\path{calculations/Si/bulk/provisional-use-disposition.md}.
+The lower-energy frozen-window occurrence remains provider-eligible and structurally
+valid, but its intended-use comparison is now complete and negative.  One authorized
+408-point Davidson NSCF completed without an unconverged-eigenvalue diagnostic.  All six
+candidate-to-parent valley displacements, ranging from $0.02120$ to
+$0.03086$~\AA$^{-1}$, met the frozen $0.034465$~\AA$^{-1}$ target.  The candidate
+indirect gap was $0.52261$~eV versus the direct-parent $0.61125$~eV, a 14.50\% relative
+error against the 5\% target.  On the prospectively frozen candidate-centered primary
+stencils, candidate transverse masses of approximately $0.262$--$0.304\,m_e$ disagreed
+with direct-parent local-curvature values of approximately $0.193$--$0.208\,m_e$ by
+32--56\%, and two longitudinal comparisons also exceeded the 8\% target.
+
+The research protocol now recommends a one-variable successor $C_6$: change only the
+Gamma-origin construction mesh from $4\times4\times4$ to $6\times6\times6$, while
+holding the accepted structure and parent, 12-band inventory, rank 10, windows,
+projections, and optimizer controls fixed.  The revealed 408-point parent set becomes
+development evidence for successors.  A separate 402-point parent-informed, rotated
+three-dimensional confirmation geometry is frozen with its direct-parent values still
+unobserved.  A $C_8$ mesh is conditional on review of the channel-resolved
+$C_4$-to-$C_6$ changes and is not automatic.  A $C_{12}$ construction with 1728 points
+is reserved as a bounded upper diagnostic only when a completed $C_8$ review continues
+to support the mesh-density hypothesis.  Passing at $C_{12}$ would establish adequacy
+of that finite operator for the declared use, not an infinite-mesh result.
+
+The exact $C_6$ NSCF input specified 216 points, 12 bands, one process, zero retries, a
+600-second timeout, and a 512~MiB retention ceiling.  A later exact authorization
+permitted one invocation.  QE completed in 28.04 seconds wall time with finite
+216-point/12-band QEXSD, no unconverged-eigenvalue warning, and a verified 219-file saved
+state.  Under the unchanged outer window, 142 points retain all 12 parent bands, 62
+retain 11, and 12 retain the rank-minimum 10; the frozen window contains four to six
+states per point.  This effective-inventory change is a consequence of refining the
+mesh while holding the numerical windows fixed, not an independently adjusted window.
+
+The NSCF is an eligible handoff, not a Wannier operator.  One later bounded
+\texttt{wannier90.x -pp} authorization produced a source-correlated 216-point NNKP with
+eight neighbors per point, 1728 ordered neighbor records, ten expanded projections, and
+no excluded bands.  One separately authorized \texttt{pw2wannier90.x} occurrence then
+produced finite AMN/MMN/EIG artifacts with the declared 216-point, 12-band, rank-10
+shapes, exact NNKP-neighbor correlation, and maximum EIG-to-QEXSD discrepancy
+$5.23\times10^{-13}$~eV.  One separately authorized exact localization occurrence then
+completed natively but failed provider eligibility: after the fixed 2000
+Disentanglement iterations, the absolute fractional change was $4.679\times10^{-8}$,
+467.9 times the unchanged dimensionless $10^{-10}$ tolerance.  Wannierisation later
+converged at iteration 316, but cannot repair the unconverged subspace.  Thus no
+provider-eligible $C_6$ operator exists.  A calculation-owned amendment then permitted
+one fresh occurrence changing only \texttt{dis\_num\_iter} from 2000 to 4000 and
+consuming no failed checkpoint.  Disentanglement converged at iteration 3068, but
+Wannierisation did not satisfy its six-consecutive-step gate by iteration 4000.  The
+final absolute spread change, $1.26\times10^{-5}$~\AA$^2$, was 6300 times the unchanged
+criterion, and large late excursions remained.  The provider rejected the output and
+the prospective stop rule forbids automatic budget extension or $C_8$ escalation.
+
+A subsequent parent-band review selected $C_{6\text{-}B20}$ as the next staged
+candidate.  It adopts only the moderate band-count heuristic from the pinned
+\texttt{aiida-wannier90-workflows} 3.1.0 implementation~\cite{AiiDAWannier90Workflows310}.
+That workflow uses \texttt{num\_bands\_factor}=2.0 and chooses the maximum of scaled
+occupied-state and projection counts and their plus-four safeguards.  For eight Si
+valence electrons, ten declared projections, and a non-spin-polarized calculation, the
+calculation-owned adaptation gives $\max(8,8,20,14)=20$ bands.  This citation does not
+adopt the workflow's default PBEsol pseudopotential or its complete automation
+protocol.  One separately authorized NSCF changed only the parent inventory from 12
+to 20 bands; rank 10 remained fixed.  It completed successfully with 216 points, finite
+values, and a verified saved state.  The inherited $[-5.85,19.02]$~eV window contains
+10--14 states per point, including 68 newly observed states from bands 13 and 14.  The
+prepared $[-6.0,21.0]$~eV window contains 12--14 states, including 228 states from
+bands 13 and 14; band 15 remains above 21~eV everywhere.  The subsequent target-space
+decision selects $C_{6\text{-}B20\text{-}W21}$ with outer window
+$[-6.0,21.0]$~eV.  Its upper boundary lies 0.1964~eV above the observed band-12
+maximum and 0.2572~eV below the band-15 minimum, providing at least two outer-space
+dimensions beyond rank 10 at every construction point.  This is an eligibility design,
+not evidence of optimizer convergence or scientific adequacy.
+
+The prospective route now also adopts the pinned AiiDA precise convergence-derived
+tuple for the exact two-atom cell: \texttt{conv\_tol} and dimensionless
+\texttt{dis\_conv\_tol} are each $2.0\times10^{-9}$ after site-count scaling,
+\texttt{conv\_window}=6, \texttt{num\_cg\_steps}=200, and both iteration ceilings are
+40000.  This coherent tuple supersedes the unexecuted hybrid 4000-step preflight.  It
+does not adopt the precise factor-three band count, automatic mesh rule, PBEsol
+pseudopotential, projections, energy windows, or workflow retry machinery.  One
+separately authorized fresh preprocessing occurrence returned zero and produced an
+eligible, authenticated 216-point NNKP with the declared rank-10 projection inventory.
+Its terminal \texttt{IEEE\_OVERFLOW\_FLAG} line is retained as a nonblocking diagnostic
+because native completion, bounded parsing, and every declared NNKP invariant passed;
+preprocessing does not exercise the localization optimizer.  The existing 12-band EIG,
+AMN, and MMN files still cannot represent bands 13--20.  One separately authorized
+conversion occurrence then returned zero and produced finite, shape-correct 20-band
+AMN/MMN/EIG artifacts.  The MMN neighbor inventory matches the NNKP exactly, and the
+maximum EIG-to-QEXSD discrepancy is $5.37\times10^{-13}$~eV.  The terminal QE IEEE
+flag line remains a nonblocking diagnostic under the same native-completion, finiteness,
+and correlation rule.  A fresh localization preflight bound the exact interface to the
+40000-step precise profile without any checkpoint or failed-output consumption.  One
+separately authorized occurrence converged natively at disentanglement iteration 1517
+and Wannierisation iteration 378, with total spread $21.022751219$~\AA$^2$.  An
+initial provider rejection was a false negative caused by comparing the ten-decimal
+matrix coordinates with the lossy eight-decimal NNKP presentation.  ProjectKoios was
+corrected to use the canonical WIN k-point block.  No-calculator reverification then
+measured gauge and disentanglement residuals of $3.30\times10^{-11}$, passing the
+unchanged $10^{-10}$ fractional gate.  The occurrence is provider-eligible.  A
+separately authorized no-calculator S30 analysis then characterized the full untruncated
+operator.  It verified all real-space pairs with zero Hermiticity residual, reproduced
+954 frozen states within $1.29\times10^{-9}$~eV, located all six declared Delta-family
+minima, found positive principal curvatures, and retained the complete 383-representative
+locality curve.  The initial fixed C4-era reconstruction gates were preserved as failed
+diagnostics and replaced for structural verification by conservative bounds derived
+from the authenticated six-decimal HR, ten-decimal transformation matrices, twelve-decimal
+EIG values, exact degeneracies, dimensions, and energy scale.  No spatial truncation was
+applied.  Revealed-408 development comparison is next; confirmation, spatial truncation,
+and Slater--Koster reduction remain blocked.  The factor-three 30-band adaptation
+remains a conditional upper diagnostic rather than an automatic successor.
+The prepared $C_{6\text{-}T1}$ localization was never executed and is not the selected
+next occurrence.
+
+Component-operator construction and a Slater--Koster reduction remain
+blocked until a full Wannier operator meets its
+prospectively declared direct-parent criteria.  The local projection inventory does not
+itself impose Slater--Koster shells or parameters.  Detailed current gates and evidence
+remain in \path{calculations/Si/bulk/simulations/} and
+\path{calculations/Si/bulk/development-plan.md}.
 
 \section{Nonclaims}
 

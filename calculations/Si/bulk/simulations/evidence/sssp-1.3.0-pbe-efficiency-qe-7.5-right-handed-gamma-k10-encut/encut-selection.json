@@ -1,0 +1,77 @@
+{
+  "charge_density_cutoff_ratio": 8.0,
+  "criterion": {
+    "comparison_reference": "densest sampled wavefunction cutoff 60 Ry",
+    "encut_convergence_atol": {
+      "unit": "millielectron_volt_per_atom",
+      "value": 1.0
+    },
+    "relative_tolerance": 0.0,
+    "selection_rule": "select the smallest sampled wavefunction cutoff whose absolute total-energy difference from the densest sampled cutoff does not exceed encut_convergence_atol"
+  },
+  "evaluations": [
+    {
+      "absolute_difference_mev_per_atom": 1.6292137230209391,
+      "passes": false,
+      "source": "new",
+      "total_energy_ev_per_atom": -155.37386942013083,
+      "wavefunction_cutoff_ry": 30
+    },
+    {
+      "absolute_difference_mev_per_atom": 1.031175481784885,
+      "passes": false,
+      "source": "new",
+      "total_energy_ev_per_atom": -155.37446745837207,
+      "wavefunction_cutoff_ry": 36
+    },
+    {
+      "absolute_difference_mev_per_atom": 0.632188530971689,
+      "passes": true,
+      "source": "new",
+      "total_energy_ev_per_atom": -155.37486644532288,
+      "wavefunction_cutoff_ry": 42
+    },
+    {
+      "absolute_difference_mev_per_atom": 0.22197688329583798,
+      "passes": true,
+      "source": "reused-from-gamma-kpoint-campaign",
+      "total_energy_ev_per_atom": -155.37527665697056,
+      "wavefunction_cutoff_ry": 48
+    },
+    {
+      "absolute_difference_mev_per_atom": 0.05571531332293489,
+      "passes": true,
+      "source": "new",
+      "total_energy_ev_per_atom": -155.37544291854053,
+      "wavefunction_cutoff_ry": 54
+    },
+    {
+      "absolute_difference_mev_per_atom": 0.0,
+      "passes": true,
+      "source": "new",
+      "total_energy_ev_per_atom": -155.37549863385385,
+      "wavefunction_cutoff_ry": 60
+    }
+  ],
+  "fixed_kpoint_mesh": [
+    10,
+    10,
+    10
+  ],
+  "fixed_kpoint_shift": [
+    0,
+    0,
+    0
+  ],
+  "schema_version": 1,
+  "scientific_disposition": "finite sampled-cutoff selection only; does not resolve executable warnings or establish production acceptance",
+  "selected_charge_density_cutoff": {
+    "unit": "rydberg",
+    "value": 336
+  },
+  "selected_wavefunction_cutoff": {
+    "unit": "rydberg",
+    "value": 42
+  },
+  "selection_status": "selected"
+}

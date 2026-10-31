@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "applies_to": "result/campaign-result.json",
+  "legacy_field": "convergence.disentanglement_tolerance_angstrom_squared",
+  "legacy_value": 1e-10,
+  "correct_interpretation": {
+    "native_parameter": "dis_conv_tol",
+    "quantity": "absolute value of fractional change Omega_I(i-1) / Omega_I(i) - 1",
+    "unit": "dimensionless",
+    "fractional_tolerance": 1e-10,
+    "final_omega_i_angstrom_squared": 15.09162945,
+    "local_equivalent_absolute_tolerance_angstrom_squared": 1.509162945e-9
+  },
+  "note": "The retained legacy field name is dimensionally incorrect; its exact bytes remain unchanged for provenance."
+}

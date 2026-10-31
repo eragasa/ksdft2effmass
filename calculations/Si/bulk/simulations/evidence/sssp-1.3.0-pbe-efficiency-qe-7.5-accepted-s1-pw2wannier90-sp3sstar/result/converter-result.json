@@ -1,0 +1,69 @@
+{
+  "amn": {
+    "band_count": 12,
+    "bounded_parse_succeeded": true,
+    "byte_size": 514659,
+    "kpoint_count": 64,
+    "maximum_frobenius_norm": 5.043775007369301,
+    "minimum_frobenius_norm": 2.2772835534971643,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run/silicon.amn",
+    "projection_count": 10,
+    "sha256": "1fbc2b98f9c7222c726d694afc2582b6e8fb28f6f9b4668357d80b322c938efc"
+  },
+  "eig": {
+    "band_count": 12,
+    "bounded_parse_succeeded": true,
+    "byte_size": 29952,
+    "kpoint_count": 64,
+    "maximum_absolute_qexsd_difference_ev": 5.258016244624741e-13,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run/silicon.eig",
+    "qexsd_shape_matches": true,
+    "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a",
+    "unit": "eV"
+  },
+  "lineage": {
+    "nnkp": {
+      "byte_size": 18824,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run/silicon.nnkp",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    "nnkp_neighbor_correlation_verified": true,
+    "nscf_qexsd": {
+      "byte_size": 110462,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "cc389a14d6b9f809eab69ba30b86129a01951788a3fdbc290589ef8f5f69adb0"
+    },
+    "qexsd_eigenvalue_correlation_verified": true
+  },
+  "mmn": {
+    "band_count": 12,
+    "bounded_parse_succeeded": true,
+    "byte_size": 2754147,
+    "kpoint_count": 64,
+    "maximum_frobenius_norm": 3.322669109428036,
+    "minimum_frobenius_norm": 3.1414699071554257,
+    "neighbor_count_per_kpoint": 8,
+    "neighbor_record_count": 512,
+    "nnkp_neighbor_inventory_exactly_matches": true,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run/silicon.mmn",
+    "sha256": "1b4ebf8e6cff7c3c5491513707d969ddc988ed21a2dd2788bfdd6003de138e6f"
+  },
+  "native_execution": {
+    "interface_messages_observed": true,
+    "job_done_observed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run/pw2wannier90.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "stdout": {
+      "byte_size": 5051,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run/pw2wannier90.out",
+      "sha256": "5d924cd9c9ee86b1e6c31d26294f500f866b4f7bfbaeecc48379a9d2b48ee197"
+    }
+  },
+  "schema_version": 1,
+  "scientific_disposition": "Eligible AMN/MMN/EIG interface handoff for separately preflighted Wannier90 localization. This does not establish localization, interpolation, effective-mass, or component-operator adequacy."
+}

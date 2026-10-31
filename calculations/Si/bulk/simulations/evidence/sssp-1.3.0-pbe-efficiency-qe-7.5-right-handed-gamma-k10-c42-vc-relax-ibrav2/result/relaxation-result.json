@@ -1,0 +1,142 @@
+{
+  "artifacts": {
+    "artifact-manifest.json": {
+      "byte_size": 937,
+      "sha256": "c00ebb433c4c0f301d52ec1bf26013d1884355f7ea31c57e3566b6cf5bd864ec"
+    },
+    "execution.json": {
+      "byte_size": 486,
+      "sha256": "a0edb7c8ef6b9bdfab06b4b49ba938bef43a92c7777d82001ccab70a15191f48"
+    },
+    "pw.err": {
+      "byte_size": 139,
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "pw.in": {
+      "byte_size": 821,
+      "sha256": "512d3a35f663db7cf74ef58119942ed0eb8c598fb8fc907b698ed82383c29329"
+    },
+    "pw.out": {
+      "byte_size": 60907,
+      "sha256": "a08c038390a0dacd461c27c56a8aec598385e92cd2b9f21003f75d440f2e5a2c"
+    },
+    "tmp/system.save/data-file-schema.xml": {
+      "byte_size": 80614,
+      "sha256": "3849bca4e6d09a7c6aea64823759920b7115db10f8425a6df232efcc76c1afac"
+    }
+  },
+  "execution": {
+    "bfgs_steps": 3,
+    "invocations": 1,
+    "job_completed": true,
+    "optimizer_converged": true,
+    "retries": 0,
+    "returncode": 0,
+    "scf_converged": true,
+    "trajectory_records": 5
+  },
+  "final_observations": {
+    "cell_pressure_tolerance_kbar": 0.5,
+    "conventional_lattice_parameter_angstrom": 5.469182093640207,
+    "final_scf_pressure_kbar": 0.09,
+    "final_scf_stress_ry_per_bohr_cubed": [
+      [
+        5.8e-07,
+        -0.0,
+        -0.0
+      ],
+      [
+        -0.0,
+        5.8e-07,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        5.8e-07
+      ]
+    ],
+    "final_scf_total_energy_ev_per_atom": -155.37760493120624,
+    "final_scf_total_energy_ry_per_cell": -22.84008665,
+    "force_tolerance_ry_per_bohr": 0.00038893807597,
+    "optimizer_terminal_maximum_force_ry_per_bohr": 0.0,
+    "optimizer_terminal_pressure_kbar": 0.01,
+    "optimizer_terminal_stress_ry_per_bohr_cubed": [
+      [
+        9e-08,
+        -0.0,
+        -0.0
+      ],
+      [
+        -0.0,
+        9e-08,
+        -0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        9e-08
+      ]
+    ],
+    "primitive_volume_angstrom_cubed": 40.898479123515415,
+    "stress_sign_convention": "compression-positive"
+  },
+  "geometry_verification": {
+    "qexsd_native_fractional_positions": [
+      [
+        9.241138766006861e-35,
+        -2.7723416298020586e-34,
+        9.241138766006858e-35
+      ],
+      [
+        0.7499999999999999,
+        0.7499999999999999,
+        0.7499999999999999
+      ]
+    ],
+    "restored_source_fractional_positions": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.2500000000000001,
+        0.2500000000000001,
+        0.24999999999999956
+      ]
+    ],
+    "source_basis_determinant_sign": "positive",
+    "source_basis_restoration": "projectkoios QeFccPrimitiveBravaisMapping.restore_source_basis"
+  },
+  "native_diagnostics": {
+    "disposition": "retained native QE diagnostics; not an automatic blocker because the run completed, converged, and produced finite retained results",
+    "ieee_flags": [
+      "IEEE_INVALID_FLAG",
+      "IEEE_DIVIDE_BY_ZERO",
+      "IEEE_OVERFLOW_FLAG",
+      "IEEE_UNDERFLOW_FLAG"
+    ]
+  },
+  "provisional_structure": {
+    "byte_size": 758,
+    "disposition": "provisional S1; fresh k-point and cutoff confirmation is required",
+    "path": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/result/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+    "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03",
+    "structure_id": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1"
+  },
+  "qexsd": {
+    "byte_size": 80614,
+    "declared_unit_system": "Hartree atomic units",
+    "exit_status": 0,
+    "parser": "ksdft2effmass.integration.quantum_espresso.qexsd.QuantumEspressoXsdDocumentParser",
+    "qexsd_version": "25.05.21",
+    "sha256": "3849bca4e6d09a7c6aea64823759920b7115db10f8425a6df232efcc76c1afac",
+    "source_path": "/external/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/tmp/system.save/data-file-schema.xml",
+    "stdout_atom_count_matches": true,
+    "stdout_terminal_status_matches": true
+  },
+  "schema_version": 1,
+  "scientific_acceptance": false,
+  "status": "completed-provisional-s1"
+}

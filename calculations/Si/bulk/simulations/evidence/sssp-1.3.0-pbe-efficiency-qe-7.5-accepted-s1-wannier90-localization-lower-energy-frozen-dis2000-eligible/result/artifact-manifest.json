@@ -1,0 +1,72 @@
+{
+  "artifacts": {
+    "execution.json": {
+      "byte_count": 567,
+      "sha256": "0a7c7f93e007ce7ce85d54597aac7bfd33173599f7c290c0777ed409b9703edc"
+    },
+    "localization-input-manifest.json": {
+      "byte_count": 1407,
+      "sha256": "e2bd22d1ac9a77541609a6c330677e0cbc4502c51a17528a50da04d2d3fbd0e0"
+    },
+    "silicon.amn": {
+      "byte_count": 514659,
+      "sha256": "1fbc2b98f9c7222c726d694afc2582b6e8fb28f6f9b4668357d80b322c938efc"
+    },
+    "silicon.chk": {
+      "byte_count": 1050073,
+      "sha256": "203061a3573b27dd0f9f3d7ccd48f928f5eaf894a469a195208adfc14865cd46"
+    },
+    "silicon.eig": {
+      "byte_count": 29952,
+      "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+    },
+    "silicon.mmn": {
+      "byte_count": 2754147,
+      "sha256": "1b4ebf8e6cff7c3c5491513707d969ddc988ed21a2dd2788bfdd6003de138e6f"
+    },
+    "silicon.nnkp": {
+      "byte_count": 18824,
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    "silicon.win": {
+      "byte_count": 3638,
+      "sha256": "33a73bc040883929657e20e6cb4ce2b3fd60ede9e185e276e595143bb9809d4d"
+    },
+    "silicon.wout": {
+      "byte_count": 355413,
+      "sha256": "b53a947a1be0e01de7c5d33da8ac11ed1062022035d12830b29970386cade38f"
+    },
+    "silicon_hr.dat": {
+      "byte_count": 465533,
+      "sha256": "2139eb7f73525853a7e45fe9b3fc54fecb150f526c1834e9db3749c64664db03"
+    },
+    "silicon_u.mat": {
+      "byte_count": 201480,
+      "sha256": "9da83870310adb82c6835f7b2b30cbb75f81896bf1b533e80e84e065fc36b66f"
+    },
+    "silicon_u_dis.mat": {
+      "byte_count": 241160,
+      "sha256": "93a37956f82fcf8d710e637125514b503b93f9999ccca3a41b52a507711c2697"
+    },
+    "silicon_wsvec.dat": {
+      "byte_count": 460865,
+      "sha256": "a4ab1fb63dda423206463839e05cfb88a510cb3cd1cbdb121ebf2d4b26ce8923"
+    },
+    "wannier90.err": {
+      "byte_count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wannier90.out": {
+      "byte_count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "execution_status": "succeeded",
+  "required_outputs": [
+    "silicon.wout",
+    "silicon_hr.dat",
+    "silicon_u.mat",
+    "silicon_u_dis.mat"
+  ],
+  "schema_version": 1
+}

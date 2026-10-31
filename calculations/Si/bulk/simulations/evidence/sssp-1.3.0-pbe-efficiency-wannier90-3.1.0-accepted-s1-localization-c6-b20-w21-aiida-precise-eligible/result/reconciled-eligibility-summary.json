@@ -1,0 +1,26 @@
+{
+  "comparison_reference": "canonical-construction-input-kpoints",
+  "disentanglement_isometry_maximum_residual": 1.506470503898072e-10,
+  "disentanglement_kpoint_maximum_absolute_residual_fractional": 3.300004713935323e-11,
+  "gauge_kpoint_maximum_absolute_residual_fractional": 3.300004713935323e-11,
+  "gauge_unitarity_maximum_residual": 2.0480683815549128e-10,
+  "hamiltonian_hermiticity_maximum_residual_ev": 0.0,
+  "kpoint_tolerance_fractional": 1e-10,
+  "localization_occurrence": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1",
+  "original_calculator_invocations": 1,
+  "prior_provider_result": {
+    "byte_size": 218,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/provider-result.json",
+    "sha256": "2c373ab63e23b3be86b1c66c9da809e596805eaccbd052e2db2e441926cb2b64"
+  },
+  "provider_reverification": {
+    "byte_size": 1673,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/provider-reverification-result.json",
+    "sha256": "23a0a6fe182abd0b5d2f7dcd142f27f81d6d6cca4fe9852be1950b5b622548b6"
+  },
+  "reverification_calculator_invocations": 0,
+  "schema_version": 1,
+  "scientific_disposition": "provider-eligible fresh C6-B20-W21 precise-profile localization occurrence after correction of a verifier reference-space defect; untruncated characterization and scientific acceptance remain separate",
+  "status": "provider-eligible-after-no-calculator-reference-correction",
+  "tolerance_changed": false
+}

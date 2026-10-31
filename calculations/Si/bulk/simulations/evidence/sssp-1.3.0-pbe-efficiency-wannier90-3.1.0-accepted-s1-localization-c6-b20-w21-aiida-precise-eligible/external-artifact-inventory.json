@@ -1,0 +1,178 @@
+{
+  "external_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1",
+  "file_count": 34,
+  "files": [
+    {
+      "byte_size": 5246,
+      "relative_path": "analyze_failure.py",
+      "sha256": "a8fa54c41c9827935ed9c111913197b159445ebb37063cd65d6cb0d0fd60009a"
+    },
+    {
+      "byte_size": 3017,
+      "relative_path": "authorization-request.json",
+      "sha256": "02375507dbe487f1ad5dee2569151faf04c2e5a5fa3aadd9b0007d977bc26aa7"
+    },
+    {
+      "byte_size": 1018,
+      "relative_path": "authorization.json",
+      "sha256": "a55301c171769bf17e90a1bea88c7909f93fb7b1ba0fc649f31fe031c299245c"
+    },
+    {
+      "byte_size": 6772,
+      "relative_path": "campaign-preflight.json",
+      "sha256": "b7e6b150e28e4ae79eadffbc8799eb593554ccd4f9792347fbd6852ca9a1977d"
+    },
+    {
+      "byte_size": 1883,
+      "relative_path": "campaign-result.json",
+      "sha256": "5727bb294590868e28a1fb57e0b847863c6b02b7ab669a8d71ac2a12bd5b9d3c"
+    },
+    {
+      "byte_size": 918,
+      "relative_path": "failure-summary.json",
+      "sha256": "79fc6306e55581ae4b3fa90647d8f0c0b206f1339bdec332e064fd8c445dd135"
+    },
+    {
+      "byte_size": 1413,
+      "relative_path": "prepared-input/localization-input-manifest.json",
+      "sha256": "523515dffc883abf1bc0ff3e1427eea13e85a12774a5ce2040e3dd43c396568e"
+    },
+    {
+      "byte_size": 2894499,
+      "relative_path": "prepared-input/silicon.amn",
+      "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+    },
+    {
+      "byte_size": 168480,
+      "relative_path": "prepared-input/silicon.eig",
+      "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2"
+    },
+    {
+      "byte_size": 25662627,
+      "relative_path": "prepared-input/silicon.mmn",
+      "sha256": "f81833fe7476426c15b690774214b4d07acaa2ffa93b1facb8ceb78c44ab6074"
+    },
+    {
+      "byte_size": 59408,
+      "relative_path": "prepared-input/silicon.nnkp",
+      "sha256": "608b8e0aacb8adddcfc2b8e0090ce48f5b916aec0d321bb69aabf01af9462575"
+    },
+    {
+      "byte_size": 10475,
+      "relative_path": "prepared-input/silicon.win",
+      "sha256": "6a6fe1b3193455038a0c4a14038f174f3c0e6244113ee9fb17ff1f42a145a2f3"
+    },
+    {
+      "byte_size": 1673,
+      "relative_path": "provider-reverification-result.json",
+      "sha256": "23a0a6fe182abd0b5d2f7dcd142f27f81d6d6cca4fe9852be1950b5b622548b6"
+    },
+    {
+      "byte_size": 1615,
+      "relative_path": "reconciled-eligibility-summary.json",
+      "sha256": "0b2a0e6bab52574c353d780f562afe11d07bb1400bf149fa1178ddb5e8504e4c"
+    },
+    {
+      "byte_size": 5169,
+      "relative_path": "reverify_provider.py",
+      "sha256": "ef45669bda03471148b3cd7144e97948ab9e9d88425522929f4137eb5ceacebf"
+    },
+    {
+      "byte_size": 2238,
+      "relative_path": "run/artifact-manifest.json",
+      "sha256": "07824b94f83127379a455a4518d5d974af099b9362d1478e12bfbf2d4e30b67e"
+    },
+    {
+      "byte_size": 550,
+      "relative_path": "run/execution.json",
+      "sha256": "bf0eb923835adfbad0e2e58900ffb890d9f6b7ec2118726a7b0dac98f1e656d0"
+    },
+    {
+      "byte_size": 1413,
+      "relative_path": "run/localization-input-manifest.json",
+      "sha256": "523515dffc883abf1bc0ff3e1427eea13e85a12774a5ce2040e3dd43c396568e"
+    },
+    {
+      "byte_size": 218,
+      "relative_path": "run/provider-result.json",
+      "sha256": "2c373ab63e23b3be86b1c66c9da809e596805eaccbd052e2db2e441926cb2b64"
+    },
+    {
+      "byte_size": 2894499,
+      "relative_path": "run/silicon.amn",
+      "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+    },
+    {
+      "byte_size": 3825657,
+      "relative_path": "run/silicon.chk",
+      "sha256": "c5cff9e72eae6734d01690707b76bfbcb781a6e3c69b7ee8cfc9bb874d6a1830"
+    },
+    {
+      "byte_size": 168480,
+      "relative_path": "run/silicon.eig",
+      "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2"
+    },
+    {
+      "byte_size": 25662627,
+      "relative_path": "run/silicon.mmn",
+      "sha256": "f81833fe7476426c15b690774214b4d07acaa2ffa93b1facb8ceb78c44ab6074"
+    },
+    {
+      "byte_size": 59408,
+      "relative_path": "run/silicon.nnkp",
+      "sha256": "608b8e0aacb8adddcfc2b8e0090ce48f5b916aec0d321bb69aabf01af9462575"
+    },
+    {
+      "byte_size": 10475,
+      "relative_path": "run/silicon.win",
+      "sha256": "6a6fe1b3193455038a0c4a14038f174f3c0e6244113ee9fb17ff1f42a145a2f3"
+    },
+    {
+      "byte_size": 603491,
+      "relative_path": "run/silicon.wout",
+      "sha256": "a909141e854129380aebd42acf58570d68df0451277c2bc0675a2c26ef3dd300"
+    },
+    {
+      "byte_size": 1396475,
+      "relative_path": "run/silicon_hr.dat",
+      "sha256": "24a411c875b3e66bba37e28cc6bf2d95c38ef521c39f81fde40cd0bfa294ea55"
+    },
+    {
+      "byte_size": 679824,
+      "relative_path": "run/silicon_u.mat",
+      "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+    },
+    {
+      "byte_size": 1349424,
+      "relative_path": "run/silicon_u_dis.mat",
+      "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+    },
+    {
+      "byte_size": 1365185,
+      "relative_path": "run/silicon_wsvec.dat",
+      "sha256": "f40fa7f81afaa9bcf9614c6e3c53c14db0db6b0b429b84bfd10f2e40474de1a0"
+    },
+    {
+      "byte_size": 0,
+      "relative_path": "run/wannier90.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_size": 0,
+      "relative_path": "run/wannier90.out",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_size": 17039,
+      "relative_path": "run_campaign.py",
+      "sha256": "9c1b251cc75ca5aa2f0526d2230d8daa954eec58028f5ca65627c132704e3c08"
+    },
+    {
+      "byte_size": 1284,
+      "relative_path": "structural-diagnostic.json",
+      "sha256": "95553e74ffe50177f859b5ec56627ffafeadc0b5c02a8e1745e9852938030618"
+    }
+  ],
+  "schema_version": 1,
+  "total_bytes": 66862500
+}

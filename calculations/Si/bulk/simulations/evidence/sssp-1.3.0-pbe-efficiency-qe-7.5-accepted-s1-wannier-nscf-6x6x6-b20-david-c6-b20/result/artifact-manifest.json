@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "Si.pbe-n-rrkjus_psl.1.0.0.UPF": {
+      "byte_size": 1299382,
+      "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+    },
+    "execution.json": {
+      "byte_size": 485,
+      "sha256": "8368206f1f8840ec500ee2c8944d7ba0f2557fdf7b49bec2c584f520730737f1"
+    },
+    "nscf-saved-state-manifest.json": {
+      "byte_size": 44898,
+      "sha256": "24ee9d483141ab54d099bc6e6403d0da46108cc7a30c5b019992da3a1d7ef3ac"
+    },
+    "parent-saved-state-manifest.json": {
+      "byte_size": 10763,
+      "sha256": "2b80acf2bc53dcbc5c667d50c4747036704a640c86cdf5902a98e998e21aefb9"
+    },
+    "pw.err": {
+      "byte_size": 139,
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "pw.in": {
+      "byte_size": 13911,
+      "sha256": "20a6ee6e55d632bb66b1afcaac91592bf49c73a3e53e275659d1ccb03e47e1f9"
+    },
+    "pw.out": {
+      "byte_size": 163089,
+      "sha256": "db88ef5281afb28f04dca277c438fdb4c817c577e75cbd2a58b9566f12bbbf3b"
+    }
+  },
+  "execution_status": "succeeded",
+  "schema_version": 1
+}

@@ -1,0 +1,57 @@
+{
+  "authorization_granted": false,
+  "authorization_scope": "one local localization invocation only; no retry, C8, C12, direct-parent confirmation, component operator, or Slater-Koster reduction",
+  "campaign_preflight": {
+    "byte_size": 5409,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000/campaign-preflight.json",
+    "sha256": "ab3025b9ec9a8a053b03f562a3b7134387b281517197884a45c1f3b2fac2ea4e"
+  },
+  "requested_occurrence": {
+    "calculator": "Wannier90 3.1.0",
+    "command": [
+      "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+      "silicon"
+    ],
+    "executable_sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd",
+    "input": {
+      "byte_size": 10479,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000/prepared/silicon.win",
+      "sha256": "0d5b693972309245f0ce04fca42e8806a8c33017af7d0e184424dec0b429694c"
+    },
+    "input_manifest": {
+      "byte_size": 1412,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000/prepared/localization-input-manifest.json",
+      "sha256": "2c7bc1b1cef5ae631f582849d5b18e12b79f6023b44d7c3fe759ce0c731099f7"
+    },
+    "maximum_invocations": 1,
+    "maximum_retained_bytes": 67108864,
+    "processes": 1,
+    "retries": 0,
+    "source_artifacts": {
+      "silicon.amn": {
+        "byte_size": 1736739,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.amn",
+        "sha256": "efda4f7d101eb5ed5c7d871c3b5a9c14a2343bc09e86188dbf48dca5731355eb"
+      },
+      "silicon.eig": {
+        "byte_size": 101088,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.eig",
+        "sha256": "94d759c2906c041a14adc12bd6d740f1f5499c7c85aeea20b06752536f25c463"
+      },
+      "silicon.mmn": {
+        "byte_size": 9295011,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.mmn",
+        "sha256": "f2db3539f36fb2a5c8174c503326e56726553593ec0609f96e66186db488e1a1"
+      },
+      "silicon.nnkp": {
+        "byte_size": 59408,
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.nnkp",
+        "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+      }
+    },
+    "stop_on_failure": true,
+    "timeout_seconds": 600.0
+  },
+  "schema_version": 1,
+  "status": "authorization-required"
+}

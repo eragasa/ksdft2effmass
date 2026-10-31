@@ -1,0 +1,41 @@
+{
+  "all_twelve_parent_bands_included_at_every_kpoint": true,
+  "eigenvalue_artifact": {
+    "byte_size": 101088,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.eig",
+    "sha256": "94d759c2906c041a14adc12bd6d740f1f5499c7c85aeea20b06752536f25c463"
+  },
+  "eigenvalue_range_ev": [
+    -5.8341319732,
+    20.803605038466
+  ],
+  "energy_unit": "eV",
+  "frozen_count_histogram": {
+    "4": 129,
+    "5": 84,
+    "6": 3
+  },
+  "frozen_window_ev": [
+    -5.85,
+    8.0
+  ],
+  "lower_guard_margin_ev": 0.16586802680000012,
+  "revised_outer_count_histogram": {
+    "12": 216
+  },
+  "revised_outer_window_ev": [
+    -6.0,
+    21.0
+  ],
+  "schema_version": 1,
+  "source_outer_count_histogram": {
+    "10": 12,
+    "11": 62,
+    "12": 142
+  },
+  "source_outer_window_ev": [
+    -5.85,
+    19.02
+  ],
+  "upper_guard_margin_ev": 0.1963949615340006
+}

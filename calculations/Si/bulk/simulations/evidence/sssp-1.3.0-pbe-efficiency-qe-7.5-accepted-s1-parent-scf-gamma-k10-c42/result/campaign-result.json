@@ -1,0 +1,90 @@
+{
+  "accepted_pair": {
+    "byte_size": 2770,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/accepted-stable-pair.json",
+    "sha256": "953ba609c2c8a4be4c6049fa882592b050b16ffcf9080098bd8bfa4b829fc84b"
+  },
+  "artifacts": {
+    "execution_record": {
+      "byte_size": 488,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/execution.json",
+      "sha256": "0b9d64c08a0171149233f387cb997e025ddf18a7abea5e9d7e5759f1c95e8a2c"
+    },
+    "pw_input": {
+      "byte_size": 606,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/pw.in",
+      "sha256": "47138c7325cb854a6411fcb59babfda4bb102ed33aacd44ea62fb97d0c310bd6"
+    },
+    "pw_output": {
+      "byte_size": 17371,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/pw.out",
+      "sha256": "11b4619a63e5d90b7b86069b96ccf8d053a6dd5178769ef61fd18dbfa310e84d"
+    },
+    "pw_stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "qexsd": {
+      "byte_size": 71910,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "3409a838a50e296d52b8ac70d74a1788b1ecf5fc3d4ccbccce17cfe6d3b83bd5"
+    },
+    "run_artifact_manifest": {
+      "byte_size": 9394,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run-artifact-manifest.json",
+      "sha256": "5b4dd16b8f8118dad5770c8190ef2182ed83a2d577d662ca61530e847dbb835f"
+    },
+    "saved_state_manifest": {
+      "byte_size": 7700,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/saved-state-manifest.json",
+      "sha256": "d1f77aaa972be63491b0dcbe451079e3da5303b260c2b6816e5902815480a97d"
+    }
+  },
+  "invocation_count": 1,
+  "observation": {
+    "atom_count": 2,
+    "completed": true,
+    "converged": true,
+    "diagnostics": [
+      {
+        "code": "ieee-invalid-flag",
+        "message": "Quantum ESPRESSO reported IEEE_INVALID_FLAG after a successful run.",
+        "severity": "warning"
+      },
+      {
+        "code": "ieee-divide-by-zero",
+        "message": "Quantum ESPRESSO reported IEEE_DIVIDE_BY_ZERO after a successful run.",
+        "severity": "warning"
+      },
+      {
+        "code": "ieee-overflow-flag",
+        "message": "Quantum ESPRESSO reported IEEE_OVERFLOW_FLAG after a successful run.",
+        "severity": "warning"
+      },
+      {
+        "code": "ieee-underflow-flag",
+        "message": "Quantum ESPRESSO reported IEEE_UNDERFLOW_FLAG after a successful run.",
+        "severity": "warning"
+      }
+    ],
+    "electronic_iteration_count": 5,
+    "evaluation_id": "ksdft-si-accepted-s1-parent-scf-preflight-k10-e571p439",
+    "fired_transitions": [
+      "accept_registration",
+      "accept_submission",
+      "accept_completion",
+      "accept_analysis"
+    ],
+    "irreducible_kpoint_count": 47,
+    "observed_wavefunction_cutoff_ev": 571.4391111656016,
+    "program_version": "7.5",
+    "task_id": "ksdft-si-accepted-s1-parent-scf-attempt-1",
+    "total_energy_ev": -310.7552016989966,
+    "total_energy_ev_per_atom": -155.3776008494983
+  },
+  "retained_bytes": 8110268,
+  "retries_performed": 0,
+  "scientific_disposition": "accepted-pair parent SCF process and saved-state evidence; downstream NSCF and Wannier stages remain separately authorized",
+  "status": "succeeded"
+}

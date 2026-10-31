@@ -1,0 +1,13 @@
+{
+  "basis": {
+    "bounded_nnkp_parse_succeeded": true,
+    "native_completion_line_observed": true,
+    "return_code": 0,
+    "source_lattices_kpoints_and_excluded_bands_verified": true
+  },
+  "diagnostic_line": "Note: The following floating-point exceptions are signalling: IEEE_OVERFLOW_FLAG",
+  "disposition": "diagnostic-nonblocking-for-preprocessing",
+  "schema_version": 1,
+  "stderr_sha256": "400a35c0a4d0cfe789b3c30941e4ad4e1c4878a6962021d509ff5601350223eb",
+  "scope": "This disposition establishes preprocessing eligibility only and does not establish localization convergence, arithmetic stability of a later optimizer trajectory, or scientific adequacy."
+}

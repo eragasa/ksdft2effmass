@@ -1,0 +1,156 @@
+# Wannier-interface decision after accepted parent SCF
+
+## Status
+
+**Recommended first qualification candidate approved; NSCF execution remains
+separately authorized.**
+
+The operator authorized the recommended full ten-spatial-orbital `sp3s*`
+component-operator route and subsequently authorized the stated first candidate
+specification. This closes the candidate grid, band-count, rank, projection, window,
+disentanglement, ordering, and evidence-profile declarations. It does not grant
+calculator-execution authority or claim production adequacy.
+
+The accepted parent is recorded in [`accepted-stable-pair.json`](accepted-stable-pair.json),
+and the separately executed parent SCF and saved state are retained under
+[`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-parent-scf-gamma-k10-c42/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-parent-scf-gamma-k10-c42/).
+
+## Authority and blocking requirement
+
+Task `03.01.03` requires the retained band count, trial projections, outer/frozen
+window policy, uniform grid, ordering, spin convention, and interface artifacts to be
+human-approved before its NSCF child executes. The production-program A9 contract also
+classifies the grid, band count, rank/subspace, retention, and need for disentanglement
+as human decisions.
+
+Those decisions are not currently frozen. Choosing them from the tutorial example
+would violate the non-transfer boundary.
+
+## Frozen parent facts
+
+- scalar-relativistic, non-SOC, non-spin-polarized PBE parent;
+- exact accepted S1 primitive structure, SHA-256
+  `d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03`;
+- accepted SCF setting: Gamma-centered K10, 42/336 Ry;
+- SSSP 1.3.0 PBE efficiency Si USPP, SHA-256
+  `ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b`;
+- parent QEXSD SHA-256
+  `3409a838a50e296d52b8ac70d74a1788b1ecf5fc3d4ccbccce17cfe6d3b83bd5`;
+- the physical specification requires valence and low conduction states sufficient
+  for the silicon `sp3s*` reduction; and
+- the retained technical route describes a ten-spatial-orbital bridge.
+
+## Tutorial evidence that cannot be promoted
+
+The Wannier90 3.1.0 example11-derived material uses a `4 x 4 x 4` full grid and 12
+bands. Its active example branch constructs four valence Wannier functions; its
+commented alternative constructs eight valence-plus-conduction functions. It uses a
+different lattice, cutoff, pseudopotential, and scientific target. It is interface and
+syntax precedent only, not authority for this production grid, rank, projections, or
+windows.
+
+## Decisions required before NSCF preflight
+
+1. **Target rank and subspace — closed.** Use the full ten-spatial-orbital `sp3s*`
+   component-operator bridge; do not substitute a smaller precursor under this route
+   identity.
+2. **Retained NSCF bands — candidate closed.** Retain 12 scalar non-spin bands. This
+   supplies two more Bloch bands than the target rank; adequacy remains a qualification
+   question rather than an accepted result.
+3. **Uniform grid and ordering — candidate closed.** Use the unreduced Gamma-origin
+   `4 x 4 x 4` mesh in lexicographic fractional order `(i/4,j/4,k/4)`, with `k`
+   varying fastest, equal weights, and spatial/time-reversal reduction disabled.
+4. **Trial projections — candidate closed.** Use separate `Si:sp3` and
+   `Si:l=0:r=2` declarations in the accepted right-handed source basis, yielding four
+   nodeless hybrids plus one nodal s-like projection on each of the two Si atoms.
+5. **Window policy — candidate closed.** Use all 12 retained bands as the initial outer
+   space and no frozen inner window. No plotting shift or tutorial energy threshold is
+   treated as an aligned physical zero.
+6. **Disentanglement — candidate closed.** Disentanglement is required because the
+   retained dimension 12 exceeds rank 10. Retain its matrices and treat convergence
+   and sensitivity as separate qualification gates.
+7. **Evidence profile — closed.** Use the component-operator profile, retaining the
+   spectral AMN/MMN/EIG evidence and separately authenticated coefficient evidence
+   needed for the common-frame operator construction.
+
+## Recommended first candidate specification
+
+The recommended next declaration is a separately labelled qualification candidate,
+not automatic production acceptance:
+
+- full unreduced Gamma-origin `4 x 4 x 4` mesh;
+- lexicographic fractional ordering `(i/4, j/4, k/4)` with `k` varying fastest,
+  followed by `j`, then `i`;
+- equal weight `1/64` at every point and no symmetry reduction;
+- 12 retained scalar, non-spin bands;
+- `num_wann = 10`;
+- two-Si atom-centred `Si:sp3` and `Si:l=0:r=2` trial projections, yielding four
+  nodeless `sp3` hybrids plus one nodal s-like projection per Si atom;
+- disentanglement required because 12 retained bands exceed rank 10;
+- initial outer space equal to all 12 retained bands and no frozen inner window,
+  avoiding an unsupported numerical energy threshold before the accepted-parent
+  eigenvalue inventory exists; and
+- component-operator evidence, retaining native QE coefficient identities in addition
+  to the spectral AMN/MMN/EIG interface.
+
+The `4 x 4 x 4` density and 12-band count are candidate starting coordinates informed
+by interface precedent, not production adequacy claims. Acceptance would require
+prospectively declared grid, band, window, interpolation, edge, derivative, and
+coefficient-transform sensitivity checks. A later changed grid, band inventory, or
+window creates a new candidate identity.
+
+## First preprocessing realization
+
+The recommended first preprocessing realization uses seed `silicon`, Wannier90 3.1.0,
+and separate `Si:sp3` and `Si:l=0:r=2` source projection declarations without an
+additional projection-selection map. This separation corrects the earlier compact
+spelling: Wannier90 applies a trailing `:r=2` to every angular state on the same line,
+which would incorrectly make the `sp3` hybrids nodal as well. No calculator consumed
+the superseded compact spelling. The current ProjectKoios renderer requires an
+explicit outer window when `num_wann < num_bands`; therefore the approved semantic
+choice “all 12 retained bands” is represented as `[-5.85, 19.02] eV`. This interval
+encloses the complete Davidson-QEXSD eigenvalue range
+`[-5.834131973200469, 19.008744989627342] eV`. Its zero is the native QE Kohn–Sham
+eigenvalue reference, not an aligned physical energy reference. No frozen window is
+used.
+
+Qualification controls are explicit rather than inferred from the tutorial:
+
+- localization: 100 iterations, `1.0e-10 angstrom^2` tolerance, three-iteration
+  convergence window;
+- disentanglement: 200 iterations, `1.0e-10 angstrom^2` tolerance,
+  three-iteration convergence window, and mixing ratio `0.5`; and
+- `write_hr = .true.` for the later separately authorized localization occurrence.
+
+These controls are first-candidate coordinates consistent with documented Wannier90
+3.1.0 defaults except that localization convergence is explicitly enabled. They do
+not establish scientific adequacy.
+
+## First converter realization
+
+The recommended `pw2wannier90.x` realization binds the verified `silicon.nnkp` to the
+authenticated Davidson NSCF saved state with prefix `system`, staged outdir `./tmp/`,
+seed `silicon`, scalar non-spin component `none`, and standalone mode. It requests
+AMN and MMN and requires AMN, MMN, and EIG outputs. UNK and SPN remain disabled because
+they are outside the maintained converter interface. The separately authenticated QE
+wavefunction inventory remains the coefficient evidence for the component-operator
+profile; disabling UNK does not discard or replace that inventory.
+
+Converter completion and parseable artifacts establish interface materialization only,
+not localization, interpolation, or operator adequacy.
+
+## Safe next action
+
+The authorized first NSCF occurrence used 12 bands, full diagonalization accuracy,
+`cg` diagonalization, and `1.0e-12 Ry` electronic tolerance. Native execution returned
+zero, but explicit `c_bands` diagnostics reported 44 unconverged eigenvalues across 41
+warning lines, so that saved state remains blocked. The separately authorized Davidson
+occurrence preserved all other declared coordinates, returned zero, produced finite
+consistent 64-point/12-band QEXSD data, and emitted no `c_bands` diagnostic. Its
+handoff was consumed by the one authorized Wannier90 preprocessing occurrence. The
+resulting NNKP topology has 64 ordered points, eight neighbors per point, no excluded
+bands, and the intended ten expanded projections. The separately authorized converter
+produced finite AMN/MMN/EIG artifacts with exact NNKP-neighbor and QEXSD-eigenvalue
+correlation. They are eligible for separately preflighted Wannier90 localization.
+Grid, band, window, interpolation, derivative, and coefficient-transform qualification
+remain open.

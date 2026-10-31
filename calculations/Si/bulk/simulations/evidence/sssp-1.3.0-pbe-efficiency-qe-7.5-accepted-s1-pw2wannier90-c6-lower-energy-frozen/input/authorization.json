@@ -1,0 +1,20 @@
+{
+  "authorization_request_sha256": "8cdd7bd14c95ebc516b844c7819f3b08af0b62f37b781f40a377c34c9b3b5e9f",
+  "command": [
+    "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+    "-in",
+    "pw2wannier90.in"
+  ],
+  "input_sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 268435456,
+  "nnkp_sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead",
+  "operator_instruction": "Authorize exactly one local QE 7.5 pw2wannier90.x -in pw2wannier90.in invocation bound to authorization-request SHA-256 8cdd7bd14c95ebc516b844c7819f3b08af0b62f37b781f40a377c34c9b3b5e9f, using input SHA-256 1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67, parent NSCF manifest SHA-256 28df04c1bf314371d6138bfe41b564147354253c6d609b465c7ebd4778c617b8, NNKP SHA-256 f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead, one process, 300-second timeout, 256 MiB ceiling, and zero retries.",
+  "parent_nscf_manifest_sha256": "28df04c1bf314371d6138bfe41b564147354253c6d609b465c7ebd4778c617b8",
+  "processes": 1,
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "timeout_seconds": 300.0
+}

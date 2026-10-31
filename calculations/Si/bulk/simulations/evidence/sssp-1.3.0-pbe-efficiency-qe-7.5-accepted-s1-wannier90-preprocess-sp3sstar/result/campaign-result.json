@@ -1,0 +1,27 @@
+{
+  "artifact_manifest": {
+    "byte_size": 2014,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/artifact-manifest.json",
+    "sha256": "234cbf975ca045de35778bdb3323b4a788a5efdd74b524b6f024913ffef83d94"
+  },
+  "execution_record": {
+    "byte_size": 486,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/execution.json",
+    "sha256": "ecd5a7f94d532e85e751f45d22ca8ec278746168193133e5756a357d72fe50e9"
+  },
+  "execution_status": "succeeded",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 16777216,
+  "nnkp": {
+    "byte_size": 18824,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/silicon.nnkp",
+    "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+  },
+  "retry_count": 0,
+  "return_code": 0,
+  "schema_version": 1,
+  "scientific_disposition": "Eligible NNKP topology handoff for separately preflighted pw2wannier90 conversion. This does not establish grid, projection, window, localization, interpolation, or operator adequacy.",
+  "timed_out": false,
+  "total_occurrence_bytes_at_runner_return": 79334,
+  "within_retained_byte_bound_at_runner_return": true
+}

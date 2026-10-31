@@ -1,0 +1,28 @@
+{
+  "added_localization_only_controls": {
+    "num_cg_steps": 200,
+    "precond": true,
+    "write_u_matrices": true
+  },
+  "checkpoint_consumed": false,
+  "failed_outputs_consumed": false,
+  "fresh_occurrence": true,
+  "prepared_localization_input": {
+    "byte_size": 10475,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise/prepared/silicon.win",
+    "sha256": "6a6fe1b3193455038a0c4a14038f174f3c0e6244113ee9fb17ff1f42a145a2f3"
+  },
+  "schema_version": 1,
+  "source_preprocessing_input": {
+    "byte_size": 10413,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/input/silicon.win",
+    "sha256": "b48069e4f8ecd7209a318c47c77691de063bd0575658eb88a1e662a359d3dcc8"
+  },
+  "unchanged_precise_convergence_controls": {
+    "conv_tol_angstrom_squared": 2e-09,
+    "conv_window": 6,
+    "dis_conv_tol_dimensionless": 2e-09,
+    "dis_num_iter": 40000,
+    "num_iter": 40000
+  }
+}

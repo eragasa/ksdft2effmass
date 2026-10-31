@@ -1,0 +1,28 @@
+{
+  "all_four_valence_bands_frozen_at_every_kpoint": true,
+  "bands_7_through_12_excluded_from_frozen_window": true,
+  "eigenvalue_artifact": {
+    "byte_size": 29952,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-dis2000-20261031T100534Z/source-input/silicon.eig",
+    "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+  },
+  "energy_unit": "eV",
+  "frozen_count_strictly_below_wannier_rank": true,
+  "frozen_state_count": 304,
+  "frozen_window_ev": [
+    -5.85,
+    8.0
+  ],
+  "kpoint_count": 64,
+  "kpoints_with_at_least_one_frozen_conduction_state": 45,
+  "kpoints_with_two_frozen_conduction_states": 3,
+  "maximum_band_4_ev": 5.983119128119,
+  "maximum_frozen_count_per_kpoint": 6,
+  "maximum_included_energy_ev": 7.937879250936,
+  "minimum_band_5_ev": 6.736696896102,
+  "minimum_band_7_ev": 8.537149638683,
+  "minimum_excluded_energy_above_threshold_ev": 8.420321216132,
+  "minimum_frozen_count_per_kpoint": 4,
+  "schema_version": 1,
+  "threshold_clearance_ev": 0.482441965196001
+}

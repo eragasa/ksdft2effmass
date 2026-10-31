@@ -1,0 +1,46 @@
+{
+  "adaptation_boundary": "Only the factor-two moderate band-count heuristic is adopted. The campaign retains its SSSP 1.3 PBE efficiency pseudopotential and declared projection family; it does not adopt or claim execution of the complete AiiDA workflow protocol.",
+  "campaign_application": {
+    "declared_projection_count": 10,
+    "estimator_terms": [
+      8,
+      8,
+      20,
+      14
+    ],
+    "nspin_multiplier": 1,
+    "selected_parent_band_count": 20,
+    "spin_character": "non-spin-polarized",
+    "valence_electron_count": 8
+  },
+  "commit": "1c0115cb7c77541a0bd549bc05005df435d651b6",
+  "commit_url": "https://github.com/aiidateam/aiida-wannier90-workflows/commit/1c0115cb7c77541a0bd549bc05005df435d651b6",
+  "moderate_num_bands_factor": 2.0,
+  "release": "3.1.0",
+  "retrieved_utc_date": "2026-10-31",
+  "schema_version": 1,
+  "software": "aiida-wannier90-workflows",
+  "sources": [
+    {
+      "byte_size": 1820,
+      "path": "src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml",
+      "role": "moderate protocol num_bands_factor authority",
+      "sha256": "f6b2bd7e95a4b8be387c12a35d9eef83a7e28a4f3c0128dbec8f8990f37890c7",
+      "url": "https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml#L6-L25"
+    },
+    {
+      "byte_size": 24840,
+      "path": "src/aiida_wannier90_workflows/utils/pseudo/__init__.py",
+      "role": "band-count estimator implementation authority",
+      "sha256": "53d9fdcef7afc5ad0f0e93bc9c567a78343b249737ab1d97514c20b0e564e609",
+      "url": "https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/utils/pseudo/__init__.py#L292-L342"
+    },
+    {
+      "byte_size": 3088,
+      "path": "README.md",
+      "role": "workflow software citation guidance",
+      "sha256": "8123884ae67330600a013c3263e2d9d9a43f87518340a7120678c604befa2ce1",
+      "url": "https://github.com/aiidateam/aiida-wannier90-workflows/tree/1c0115cb7c77541a0bd549bc05005df435d651b6#support-and-citations"
+    }
+  ]
+}

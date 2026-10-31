@@ -1,0 +1,38 @@
+{
+  "authorization_request": {
+    "byte_size": 2935,
+    "sha256": "9721b01ca70834a9ff6ae98da39442aba0fe7e207b7ed19b447ea641256c4c3a"
+  },
+  "band_count": 12,
+  "calculation_id": "si-accepted-s1-withheld-parent-nscf-v1",
+  "executable": {
+    "byte_size": 9673048,
+    "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910"
+  },
+  "kpoint_count": 408,
+  "parent_manifest": {
+    "byte_size": 10763,
+    "sha256": "2b80acf2bc53dcbc5c667d50c4747036704a640c86cdf5902a98e998e21aefb9"
+  },
+  "pseudopotential": {
+    "byte_size": 1299382,
+    "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+  },
+  "rendered_input": {
+    "byte_size": 29727,
+    "sha256": "3b13803d8ec296d02140f1e9c2521e2eb4d8620b380dd26ede880ae5230ac3f6"
+  },
+  "schema_version": 1,
+  "source_input": {
+    "byte_size": 29727,
+    "sha256": "3b13803d8ec296d02140f1e9c2521e2eb4d8620b380dd26ede880ae5230ac3f6"
+  },
+  "validation_criteria": {
+    "byte_size": 4856,
+    "sha256": "ab2a9f18876f773e8c6535e00a6ce65be5c65b32117b258d503423007389c5cb"
+  },
+  "withheld_kpoint_manifest": {
+    "byte_size": 208847,
+    "sha256": "754bce5030ef0e34eb092406b27d9094287b4f749e358ef36404040f44b8d2b4"
+  }
+}

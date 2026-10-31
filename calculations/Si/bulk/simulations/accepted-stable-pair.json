@@ -1,0 +1,65 @@
+{
+  "acceptance_basis": {
+    "c42_difference_to_c60_mev_per_atom": 0.6180386100993474,
+    "cutoff_tolerance_mev_per_atom": 1.0,
+    "k10_difference_to_k12_mev_per_atom": 0.29027746276710786,
+    "kpoint_tolerance_mev_per_atom": 1.0,
+    "re_relaxation_required": false,
+    "relaxation_setting_matches_confirmed_setting": true
+  },
+  "accepted_pair_id": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1.SSSP130.PBE.GammaK10.C42Rho336",
+  "accepted_under": "calculation-owned finite sampled-setting rules",
+  "boundaries": [
+    "Acceptance is under the calculation-owned sampled-setting rules, not the separate generic ProjectKoios sustained-tail policy.",
+    "This acceptance does not establish an infinite-basis error bound or independent toolchain validation.",
+    "No confirmation occurrence is reused as the downstream parent SCF.",
+    "Every downstream calculator occurrence requires separate bounded authorization."
+  ],
+  "evidence": {
+    "relaxation_result": {
+      "byte_size": 4165,
+      "path": "evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-gamma-k10-c42-vc-relax-ibrav2/result/relaxation-result.json",
+      "sha256": "ed139c5c1cfdc0a9cba1e1fabd7db4a8d6ca4b4dde0db0149cd909ff9a1ae235"
+    },
+    "s1_cutoff_confirmation_result": {
+      "byte_size": 11800,
+      "path": "evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-k10-cutoff-confirmation/result/campaign-result.json",
+      "sha256": "84e005a429df4a433d6eb93609840a14a72ab238c9e0463da83f3d01f9f70516"
+    },
+    "s1_kpoint_confirmation_result": {
+      "byte_size": 8288,
+      "path": "evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-c42-kpoint-confirmation/result/campaign-result.json",
+      "sha256": "b74916ed60a91d40ad288945ed90368dbefc39e4c70fc243e5f6acffba35538e"
+    }
+  },
+  "operator_disposition": {
+    "message": "Accept the S1, Gamma-centered K10, 42/336 Ry candidate as the stable structure/settings pair under the declared calculation-owned rules.",
+    "recorded_at_utc": "2026-10-31T07:03:21Z"
+  },
+  "schema_version": 1,
+  "settings": {
+    "charge_density_cutoff_ry": 336,
+    "exchange_correlation": "PBE",
+    "kpoint_mesh": [
+      10,
+      10,
+      10
+    ],
+    "kpoint_shift": [
+      0,
+      0,
+      0
+    ],
+    "occupation": "fixed",
+    "pseudopotential_collection": "SSSP 1.3.0 PBE efficiency",
+    "pseudopotential_sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b",
+    "wavefunction_cutoff_ry": 42
+  },
+  "status": "accepted",
+  "structure": {
+    "byte_size": 758,
+    "path": "structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+    "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03",
+    "structure_id": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1"
+  }
+}

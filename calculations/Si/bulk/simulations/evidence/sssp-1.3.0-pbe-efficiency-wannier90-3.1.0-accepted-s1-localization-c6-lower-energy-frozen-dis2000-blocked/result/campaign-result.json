@@ -1,0 +1,38 @@
+{
+  "artifact_manifest": {
+    "byte_size": 2236,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000-v1/run/artifact-manifest.json",
+    "sha256": "bd2149827c09c54062054296063b9482389c6b5b3f8cd1c55c8c878b17fc8196"
+  },
+  "authorization": {
+    "byte_size": 1085,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000-v1/authorization.json",
+    "sha256": "5a8dd877bc2a002afb9a1cfe710ffcf82fea3b9d7f10c00f80dafe4c82074f05"
+  },
+  "execution_record": {
+    "byte_size": 556,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000-v1/run/execution.json",
+    "sha256": "50190fc027a213dc69389f4384faddb18a5c5dd72bc50eda5982e3ef38abeebe"
+  },
+  "failure_class": "optimizer-disentanglement-convergence-failure",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 67108864,
+  "native_execution_status": "succeeded",
+  "native_return_code": 0,
+  "provider_result": {
+    "byte_size": 263,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000-v1/run/provider-result.json",
+    "sha256": "06c02ced0bf83c22c70e97dec7c3c2437f5cd3737063e44979086b4951b11ace"
+  },
+  "provider_status": "output-ineligible",
+  "retry_count": 0,
+  "schema_version": 1,
+  "scientific_disposition": "blocked C6 localization occurrence; no provider-eligible operator and no retry authorized",
+  "total_occurrence_bytes": 30801194,
+  "trajectory_analysis": {
+    "byte_size": 1447,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis2000-v1/trajectory-analysis.json",
+    "sha256": "971249965dc13b6c3aee779f7196068493ceedd46f45056ce43a998ed19fb4dd"
+  },
+  "within_retained_byte_bound": true
+}

@@ -1,0 +1,41 @@
+{
+  "closed_input_inventory": [
+    {
+      "byte_size": 3563,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/prepared-input/silicon.win",
+      "role": "construction-input",
+      "sha256": "4ba2e6642eb831eebd58d59e37b7d9c1035b246cd96e65593394014222b8395a"
+    },
+    {
+      "byte_size": 18824,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/prepared-input/silicon.nnkp",
+      "role": "preprocessing-topology",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    {
+      "byte_size": 29952,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/prepared-input/silicon.eig",
+      "role": "interface-eigenvalues",
+      "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+    },
+    {
+      "byte_size": 514659,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/prepared-input/silicon.amn",
+      "role": "interface-projections",
+      "sha256": "1fbc2b98f9c7222c726d694afc2582b6e8fb28f6f9b4668357d80b322c938efc"
+    },
+    {
+      "byte_size": 2754147,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/prepared-input/silicon.mmn",
+      "role": "interface-neighbor-overlaps",
+      "sha256": "1b4ebf8e6cff7c3c5491513707d969ddc988ed21a2dd2788bfdd6003de138e6f"
+    }
+  ],
+  "file_count": 5,
+  "route_kind": "ordinary-amn-mmn-non-spin",
+  "schema_version": 1,
+  "seedname": "silicon",
+  "spn_staged": false,
+  "total_bytes": 3321145,
+  "unk_staged": false
+}

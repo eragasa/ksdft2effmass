@@ -1,0 +1,26 @@
+{
+  "change_class": "disentanglement iteration-budget extension",
+  "checkpoint_consumed": false,
+  "fresh_occurrence": true,
+  "only_change": {
+    "dis_num_iter_after": 2000,
+    "dis_num_iter_before": 1000
+  },
+  "revised_win": {
+    "byte_size": 3638,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-dis2000-20261031T100534Z/prepared-input/silicon.win",
+    "sha256": "33a73bc040883929657e20e6cb4ce2b3fd60ede9e185e276e595143bb9809d4d"
+  },
+  "schema_version": 1,
+  "source_win": {
+    "byte_size": 3638,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-20261031T094734Z/prepared-input/silicon.win",
+    "sha256": "e7d62ca201849dcdff0d453383652f46ed85e75a06d70d1070c61d54b933d411"
+  },
+  "unchanged_interface_artifacts": [
+    "silicon.nnkp",
+    "silicon.eig",
+    "silicon.amn",
+    "silicon.mmn"
+  ]
+}

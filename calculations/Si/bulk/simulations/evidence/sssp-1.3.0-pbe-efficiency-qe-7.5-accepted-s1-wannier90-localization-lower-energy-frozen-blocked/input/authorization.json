@@ -1,0 +1,7 @@
+{
+  "authorization": "recommendation authorized",
+  "campaign_preflight_sha256": "d29d05f12798314ec5b2bf3ccdc41e3e424cf79043e4b6ffea2ec24bac081828",
+  "maximum_invocations": 1,
+  "retries_authorized": 0,
+  "stop_on_failure": true
+}

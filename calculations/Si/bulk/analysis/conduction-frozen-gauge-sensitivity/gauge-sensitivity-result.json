@@ -1,0 +1,367 @@
+{
+  "calculator_invocations": 0,
+  "candidates": [
+    {
+      "curvature_diagnostics": [
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.9158490022456371,
+            0.2228829129772807,
+            0.1512855286095977
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            8.320109759636383,
+            34.188193792647986,
+            50.36809727915873
+          ],
+          "step_inverse_angstrom": 0.001
+        },
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.9157825534653571,
+            0.22288402875142313,
+            0.1512888298147697
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            8.320713463150096,
+            34.188022643989086,
+            50.366998219674656
+          ],
+          "step_inverse_angstrom": 0.002
+        },
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.91531782324308,
+            0.22289184246528196,
+            0.15131194151194827
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            8.324938101760903,
+            34.186824145993896,
+            50.35930506076721
+          ],
+          "step_inverse_angstrom": 0.005
+        },
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.9136640087626793,
+            0.2229198054599275,
+            0.151394533598372
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            8.340006992566591,
+            34.1825357608566,
+            50.331831941514096
+          ],
+          "step_inverse_angstrom": 0.01
+        }
+      ],
+      "label": "num_iter_500",
+      "locality": {
+        "frobenius_squared_weighted_mean_radius_angstrom": 0.5481197953817277,
+        "maximum_representative_radius_angstrom": 10.938364187280413,
+        "shells": [
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 9.237281380520225,
+            "excluded_representative_count": 92,
+            "frobenius_tail_rms_ev": 14.355203343351839,
+            "radius_angstrom": 0.0,
+            "spectral_tail_bound_ev": 59.26659156774069
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 4.022372338734576,
+            "excluded_representative_count": 80,
+            "frobenius_tail_rms_ev": 5.014199344816063,
+            "radius_angstrom": 3.867295746,
+            "spectral_tail_bound_ev": 25.291134712885224
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 3.7302021871432554,
+            "excluded_representative_count": 74,
+            "frobenius_tail_rms_ev": 4.26021208631235,
+            "radius_angstrom": 5.469182094,
+            "spectral_tail_bound_ev": 20.060889437593026
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 1.9033489587940962,
+            "excluded_representative_count": 50,
+            "frobenius_tail_rms_ev": 1.761004480781305,
+            "radius_angstrom": 6.69835272,
+            "spectral_tail_bound_ev": 6.483258744659512
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 1.3362848271459546,
+            "excluded_representative_count": 38,
+            "frobenius_tail_rms_ev": 0.8223087878180759,
+            "radius_angstrom": 7.734591492,
+            "spectral_tail_bound_ev": 2.9357236970480294
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 0.41435204091219063,
+            "excluded_representative_count": 14,
+            "frobenius_tail_rms_ev": 0.2934329410475813,
+            "radius_angstrom": 8.647536177,
+            "spectral_tail_bound_ev": 0.6680106492035905
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 0.1968883628831936,
+            "excluded_representative_count": 6,
+            "frobenius_tail_rms_ev": 0.11671341237764121,
+            "radius_angstrom": 9.472901262,
+            "spectral_tail_bound_ev": 0.1968883628831936
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 0.0,
+            "excluded_representative_count": 0,
+            "frobenius_tail_rms_ev": 0.0,
+            "radius_angstrom": 10.938364187,
+            "spectral_tail_bound_ev": 0.0
+          }
+        ]
+      },
+      "optimized_lowest_conduction_minimum": {
+        "energy_ev_native_reference": 6.310402588077512,
+        "fractional_reciprocal_coordinates": [
+          0.5776430873971061,
+          0.5691238163949164,
+          0.08924277258522152
+        ],
+        "optimizer_iterations": 127,
+        "optimizer_success": true
+      }
+    },
+    {
+      "curvature_diagnostics": [
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.5578315172887486,
+            0.3081150287478207,
+            0.11906339406844214
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            13.65997435744182,
+            24.730907326736702,
+            63.99921891657922
+          ],
+          "step_inverse_angstrom": 0.001
+        },
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.5578375473652825,
+            0.3081064070623003,
+            0.11906630338053724
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            13.659826696727306,
+            24.731599367215956,
+            63.99765513491821
+          ],
+          "step_inverse_angstrom": 0.002
+        },
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.557879774223616,
+            0.30804592428408806,
+            0.11908669214909323
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            13.658792761472014,
+            24.73645525304804,
+            63.9866981307801
+          ],
+          "step_inverse_angstrom": 0.005
+        },
+        {
+          "curvature_derived_mass_ratios_to_electron_mass": [
+            0.5580308897022905,
+            0.307828057140302,
+            0.11915985042699863
+          ],
+          "principal_curvatures_ev_angstrom_squared": [
+            13.655093942922084,
+            24.75396262681845,
+            63.94741345035019
+          ],
+          "step_inverse_angstrom": 0.01
+        }
+      ],
+      "label": "num_iter_1000",
+      "locality": {
+        "frobenius_squared_weighted_mean_radius_angstrom": 0.6006066840579687,
+        "maximum_representative_radius_angstrom": 10.938364187280413,
+        "shells": [
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 9.56507160235713,
+            "excluded_representative_count": 92,
+            "frobenius_tail_rms_ev": 14.919092400144844,
+            "radius_angstrom": 0.0,
+            "spectral_tail_bound_ev": 63.2883870199516
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 4.9423832291469125,
+            "excluded_representative_count": 80,
+            "frobenius_tail_rms_ev": 5.597861543920648,
+            "radius_angstrom": 3.867295746,
+            "spectral_tail_bound_ev": 26.108194750949018
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 4.267947163775957,
+            "excluded_representative_count": 74,
+            "frobenius_tail_rms_ev": 5.160543424702642,
+            "radius_angstrom": 5.469182094,
+            "spectral_tail_bound_ev": 21.623389790468615
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 1.9350033063412635,
+            "excluded_representative_count": 50,
+            "frobenius_tail_rms_ev": 1.50312926613238,
+            "radius_angstrom": 6.69835272,
+            "spectral_tail_bound_ev": 5.55036741910548
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 1.1846606407525881,
+            "excluded_representative_count": 38,
+            "frobenius_tail_rms_ev": 0.7556649956459983,
+            "radius_angstrom": 7.734591492,
+            "spectral_tail_bound_ev": 2.7798003346783755
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 0.38687109559231997,
+            "excluded_representative_count": 14,
+            "frobenius_tail_rms_ev": 0.27094430702944594,
+            "radius_angstrom": 8.647536177,
+            "spectral_tail_bound_ev": 0.6563777360148448
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 0.1982708995202732,
+            "excluded_representative_count": 6,
+            "frobenius_tail_rms_ev": 0.10810070570845809,
+            "radius_angstrom": 9.472901262,
+            "spectral_tail_bound_ev": 0.19827089952027316
+          },
+          {
+            "dense_grid_maximum_direct_operator_error_ev": 0.0,
+            "excluded_representative_count": 0,
+            "frobenius_tail_rms_ev": 0.0,
+            "radius_angstrom": 10.938364187,
+            "spectral_tail_bound_ev": 0.0
+          }
+        ]
+      },
+      "optimized_lowest_conduction_minimum": {
+        "energy_ev_native_reference": 6.498616316208969,
+        "fractional_reciprocal_coordinates": [
+          0.4219403772936121,
+          0.9694074532112906,
+          0.4254892870605228
+        ],
+        "optimizer_iterations": 122,
+        "optimizer_success": true
+      }
+    }
+  ],
+  "comparison_contract": {
+    "conduction_candidate_band_indices_one_based": [
+      3,
+      10
+    ],
+    "dense_grid": "Gamma-origin 41 x 41 x 41",
+    "dense_grid_point_count": 68921,
+    "edge_union_window_ev": 0.5,
+    "operator_comparison": "spectral only; unaligned matrices not subtracted",
+    "optimization_start_count": 20,
+    "parent_conduction_band_indices_one_based": [
+      5,
+      12
+    ],
+    "primary_hessian_step_inverse_angstrom": 0.002,
+    "source_grid": "Gamma-origin 4 x 4 x 4"
+  },
+  "cross_evaluation_at_optimized_minima": {
+    "at_num_iter_1000_minimum": {
+      "num_iter_1000_ev": 6.498616316208969,
+      "num_iter_500_ev": 6.4791277033928445
+    },
+    "at_num_iter_500_minimum": {
+      "num_iter_1000_ev": 6.967705793597892,
+      "num_iter_500_ev": 6.310402588077512
+    }
+  },
+  "dense_finite_representation": {
+    "all_bands": {
+      "maximum_absolute_ev": 1.432509699055812,
+      "percentile_95_absolute_ev": 0.4576728222420997,
+      "rms_ev": 0.22433884993925562
+    },
+    "conduction_bands": {
+      "maximum_absolute_ev": 1.432509699055812,
+      "percentile_95_absolute_ev": 0.48739875750525313,
+      "rms_ev": 0.23978128635835794
+    },
+    "edge_union": {
+      "all_conduction_bands": {
+        "maximum_absolute_ev": 1.0034155204009334,
+        "percentile_95_absolute_ev": 0.42469662520803375,
+        "rms_ev": 0.21150163738931496
+      },
+      "lowest_conduction_band": {
+        "maximum_absolute_ev": 1.0034155204009334,
+        "percentile_95_absolute_ev": 0.5550964658253217,
+        "rms_ev": 0.25200598948894515
+      },
+      "point_count": 3112
+    },
+    "lowest_conduction_band": {
+      "maximum_absolute_ev": 1.0357075236190267,
+      "percentile_95_absolute_ev": 0.39930103980333076,
+      "rms_ev": 0.19492412442607984
+    }
+  },
+  "disposition": "diagnostic comparison only; neither blocked operator is accepted and curvature-derived masses are not validated material results",
+  "schema_version": 1,
+  "source_mesh": {
+    "num_iter_1000_vs_parent_conduction": {
+      "maximum_absolute_ev": 1.2155188436224762e-05,
+      "percentile_95_absolute_ev": 6.938497569475288e-06,
+      "rms_ev": 3.6166725796227456e-06
+    },
+    "num_iter_500_vs_1000_all_bands": {
+      "maximum_absolute_ev": 1.4289682715329377e-05,
+      "percentile_95_absolute_ev": 8.647104830483692e-06,
+      "rms_ev": 4.509795151800195e-06
+    },
+    "num_iter_500_vs_1000_conduction_bands": {
+      "maximum_absolute_ev": 1.4289682715329377e-05,
+      "percentile_95_absolute_ev": 8.820462461400778e-06,
+      "rms_ev": 4.490280598240249e-06
+    },
+    "num_iter_500_vs_parent_conduction": {
+      "maximum_absolute_ev": 1.1292428656162201e-05,
+      "percentile_95_absolute_ev": 7.150042610515326e-06,
+      "rms_ev": 3.5274916499490244e-06
+    }
+  },
+  "sources": {
+    "eig": {
+      "byte_size": 29952,
+      "path": "simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-pw2wannier90-sp3sstar/result/silicon.eig",
+      "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+    },
+    "hr_1000": {
+      "byte_size": 465533,
+      "path": "simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-wannier90-localization-conduction-frozen-iter1000-blocked/result/silicon_hr.dat",
+      "sha256": "9233921c5888ea731c00aa0f447f33a3e8001f4187863d18497c470de9b9b60d"
+    },
+    "hr_500": {
+      "byte_size": 465533,
+      "path": "simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-wannier90-localization-conduction-frozen-blocked/result/silicon_hr.dat",
+      "sha256": "f3988f96a8c12615c0fda9d2e259df869b76fbdac1d804b8e780b5f9453a1d2f"
+    },
+    "structure": {
+      "byte_size": 758,
+      "path": "simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+      "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+    }
+  },
+  "status": "exploratory-diagnostic-complete"
+}

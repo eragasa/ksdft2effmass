@@ -1,0 +1,37 @@
+{
+  "previous_occurrence": {
+    "effective_value_reported_by_wout": 200,
+    "explicit_num_cg_steps": 200,
+    "win": {
+      "byte_size": 3639,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-20261031T093233Z/prepared-input/silicon.win",
+      "sha256": "1e433dcd6557ec9c66b4e2cbc9364fa3c656df96929dbbb9d9694aa57c25abe7"
+    },
+    "wout": {
+      "byte_size": 1281156,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-20261031T093233Z/run/silicon.wout",
+      "sha256": "b65706d0cdda36f2f32634237bb3593eb80dc59fde5d8d1512ad9d24a6873f8c"
+    }
+  },
+  "quantity": "Fletcher-Reeves conjugate-gradient updates before reset",
+  "schema_version": 1,
+  "source_default": {
+    "source": {
+      "byte_size": 289970,
+      "path": "/Users/eugene/projects/wannier90-3.1.0/src/parameters.F90",
+      "sha256": "19db3643a6bda79a656da56fc92c3065dd98b51c73bfdcd8b4325b5d892014a2"
+    },
+    "source_line": "num_cg_steps = 5",
+    "value": 5
+  },
+  "successor_occurrence": {
+    "explicit_num_cg_steps": 200,
+    "win": {
+      "byte_size": 3639,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/prepared-input/silicon.win",
+      "sha256": "8d166fcb819ea88c741fcd0dab4b7a611157707231841e634fa24a9a7a83c805"
+    }
+  },
+  "unchanged_across_successor": true,
+  "wannier90_version": "3.1.0"
+}

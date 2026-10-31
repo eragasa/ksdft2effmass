@@ -1,0 +1,30 @@
+{
+  "artifact_manifest": {
+    "byte_size": 1083,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/artifact-manifest.json",
+    "sha256": "861ae7ac711708a7c6544c411de7111dc2786511e59f7d6a4e0afb384d54ba4e"
+  },
+  "execution_record": {
+    "byte_size": 486,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/execution.json",
+    "sha256": "76ea52f540d1bfd304770f68ac0b9b388ac24a7382c7561d00e2b064eafa2101"
+  },
+  "execution_status": "succeeded",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 2147483648,
+  "postprocessing_note": "run_campaign.py incorrectly expected status 'completed' and key 'return_code'; execution.json authoritatively records status 'succeeded' and returncode 0. No retry occurred.",
+  "retry_count": 0,
+  "return_code": 0,
+  "saved_state_handoff": {
+    "manifest_byte_size": 14229,
+    "manifest_path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/nscf-saved-state-manifest.json",
+    "manifest_sha256": "1b02e9c67140a085c473afb77016f2cae10fa4eea78e7a475e422f3cc560ad8f",
+    "prefix": "system",
+    "source_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/tmp"
+  },
+  "schema_version": 1,
+  "scientific_disposition": "Native occurrence retained as completed with diagnostics; it is not an accepted NSCF handoff for Wannier preprocessing. A revised occurrence requires a new preflight and new explicit authorization.",
+  "timed_out": false,
+  "total_occurrence_bytes": 36100867,
+  "within_retained_byte_bound": true
+}

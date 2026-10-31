@@ -1,0 +1,125 @@
+{
+  "authorization_request": {
+    "maximum_invocations": 1,
+    "retries": 0,
+    "stop_on_failure": true
+  },
+  "blocked_parent_result": {
+    "byte_size": 2705,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-iter1000-20261031T085113Z/campaign-result.json",
+    "sha256": "3e766ff2641648b186e4f1110c962013a70e2d1a84dea2c27b5e41cff63f3cf6"
+  },
+  "candidate": {
+    "band_count": 12,
+    "checkpoint_consumed": false,
+    "conv_tol_angstrom_squared": 1e-10,
+    "conv_window": 3,
+    "dis_conv_tol_fractional": 1e-10,
+    "dis_conv_window": 3,
+    "dis_mix_ratio": 0.2,
+    "dis_num_iter": 1000,
+    "fixed_step": null,
+    "fresh_occurrence": true,
+    "frozen_conduction_band_count_per_kpoint": 8,
+    "frozen_valence_band_count_per_kpoint": 0,
+    "frozen_window_ev": [
+      6.0,
+      19.02
+    ],
+    "guiding_centres": false,
+    "kpoint_count": 64,
+    "neighbor_count": 8,
+    "num_cg_steps": 200,
+    "num_iter": 1000,
+    "outer_window_ev": [
+      -5.85,
+      19.02
+    ],
+    "precond": true,
+    "seedname": "silicon",
+    "trial_step": 2.0,
+    "trial_step_source": "native-default",
+    "wannier_count": 10
+  },
+  "cg_reset_default_verification": {
+    "byte_size": 1468,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-20261031T093233Z/cg-reset-default-verification.json",
+    "sha256": "0cf9d7cf595c642197cf88ee1dc9be440d4a5ddc80b853c9981a458875f8ce5d"
+  },
+  "decision": {
+    "byte_size": 2394,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/conduction-frozen-cg200-decision.md",
+    "sha256": "80585f08e84ae74819338be61b03936295e307440f7035204ff22cddaa6c7dbd"
+  },
+  "eligibility_policy": {
+    "disentanglement_convergence_phrase_required": true,
+    "hamiltonian_hermiticity_tolerance_ev": 1e-08,
+    "kpoint_fractional_tolerance": 1e-10,
+    "maximum_iteration_warning_forbidden": true,
+    "native_completion_phrase_required": true,
+    "required_return_code": 0,
+    "unitary_isometry_tolerance": 1e-08,
+    "wannierisation_convergence_phrase_required": true
+  },
+  "executable": {
+    "byte_size": 891048,
+    "path": "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd",
+    "version": "3.1.0"
+  },
+  "execution_performed": false,
+  "frozen_window_analysis": {
+    "byte_size": 768,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-20261031T093233Z/frozen-window-analysis.json",
+    "sha256": "bf6dd2d156fdab3b5c72916db36ea29efdebbbf8839eb8c92fb04f4d80eb69d1"
+  },
+  "literature_protocol_observation": {
+    "byte_size": 980,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-20261031T093233Z/literature-protocol-observation.json",
+    "sha256": "c7bc7aed96b07af74b38754b7d603713e65e87ed9a8f800d955c93d57bd19bc5"
+  },
+  "planned_command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "silicon"
+  ],
+  "prepared_input_manifest": {
+    "byte_size": 1407,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-20261031T093233Z/prepared-input/localization-input-manifest.json",
+    "sha256": "1e426f00fa8d79a83a902bca12b5c3af931879e7684c276494b1f839453c6494"
+  },
+  "projectkoios_provider": {
+    "base_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+    "implementation": {
+      "byte_size": 29222,
+      "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/localization_execution.py",
+      "sha256": "3080b663b8801968ebaea75b9cc55ab9bfb7ea17150f3e35dc47387ee8dbaaaa"
+    }
+  },
+  "purpose": "conduction-frozen long-CG Wannierisation diagnostic",
+  "required_outputs": [
+    "silicon.wout",
+    "silicon_hr.dat",
+    "silicon_u.mat",
+    "silicon_u_dis.mat"
+  ],
+  "resource_bounds": {
+    "maximum_retained_bytes": 67108864,
+    "processes": 1,
+    "retries": 0,
+    "stop_on_failure": true,
+    "timeout_seconds": 300.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "preflight only; no long-CG localization or operator result",
+  "status": "awaiting-explicit-bounded-authorization",
+  "tolerance_interpretation": {
+    "byte_size": 2647,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/disentanglement-convergence-tolerance.md",
+    "sha256": "c50bb7c88145779d75ce11fd6f06153a659db828e628051fb8103d4bd001b5c3"
+  },
+  "win_transformation": {
+    "byte_size": 862,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-20261031T093233Z/win-transformation.json",
+    "sha256": "70c1e72f039b918f161f6842bda236c1bfb8fffc1f86f62e5f65e34a530e3afe"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "changes_structure_mesh_projections_windows_or_convergence_controls": false,
+  "only_change": "insert write_u_matrices = .true. after write_hr = .true.",
+  "prepared": {
+    "byte_size": 3563,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/prepared-input/silicon.win",
+    "sha256": "4ba2e6642eb831eebd58d59e37b7d9c1035b246cd96e65593394014222b8395a"
+  },
+  "reason": "retain both square gauge and rectangular disentanglement matrices required by the declared 12-band to rank-10 construction",
+  "requires_preprocessing_retry": false,
+  "schema_version": 1,
+  "source": {
+    "byte_size": 3537,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/input/silicon.win",
+    "sha256": "5095ff13afc5e1d067cc8ff1495709cb1aac70843e69154e0754049331b1c03e"
+  }
+}

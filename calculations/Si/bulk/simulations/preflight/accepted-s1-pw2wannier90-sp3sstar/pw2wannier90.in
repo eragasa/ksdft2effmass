@@ -1,0 +1,11 @@
+&INPUTPP
+    prefix = 'system'
+    outdir = './tmp/'
+    seedname = 'silicon'
+    spin_component = 'none'
+    wan_mode = 'standalone'
+    write_amn = .true.
+    write_mmn = .true.
+    write_unk = .false.
+    write_spn = .false.
+/

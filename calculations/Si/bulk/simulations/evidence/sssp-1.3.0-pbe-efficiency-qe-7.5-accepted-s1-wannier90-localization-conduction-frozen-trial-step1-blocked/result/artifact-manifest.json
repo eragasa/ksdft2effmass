@@ -1,0 +1,67 @@
+{
+  "artifacts": {
+    "execution.json": {
+      "byte_count": 569,
+      "sha256": "7bfeeb16a3321164257847065a540ef587711d3905304faa16dd589837c1a7e0"
+    },
+    "localization-input-manifest.json": {
+      "byte_count": 1407,
+      "sha256": "be1375b6a59675ffe6661035ae196bf2460f35fc7bef719f48d9455fa0889c0f"
+    },
+    "silicon.amn": {
+      "byte_count": 514659,
+      "sha256": "1fbc2b98f9c7222c726d694afc2582b6e8fb28f6f9b4668357d80b322c938efc"
+    },
+    "silicon.chk": {
+      "byte_count": 1050073,
+      "sha256": "9dcc2e4a49913a3327b7a393e2f93c740a0d7c1952dfc339a77aca70dbaae7bc"
+    },
+    "silicon.eig": {
+      "byte_count": 29952,
+      "sha256": "e2a86cbab7f14a607987fe5d965449541703ebece16db8500b2b1cb74ecb743a"
+    },
+    "silicon.mmn": {
+      "byte_count": 2754147,
+      "sha256": "1b4ebf8e6cff7c3c5491513707d969ddc988ed21a2dd2788bfdd6003de138e6f"
+    },
+    "silicon.nnkp": {
+      "byte_count": 18824,
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    "silicon.win": {
+      "byte_count": 3635,
+      "sha256": "9aad72666afa2d7f448c959d9e06af50e50f78888d46a3d64baf9e92786a460b"
+    },
+    "silicon.wout": {
+      "byte_count": 1281156,
+      "sha256": "b5b7c9d824ee12bb226da09c1d86c3841cd81006324fc4382909a08a8dea121b"
+    },
+    "silicon_hr.dat": {
+      "byte_count": 465533,
+      "sha256": "5e8d280ec5033ab233c77e2fcda73719e88abe3afbec09c507fc0c4ec514c25d"
+    },
+    "silicon_u.mat": {
+      "byte_count": 201480,
+      "sha256": "523ba00b0963eac66b183dd99be94194f9802444af744c01d6a20f467bbabc0a"
+    },
+    "silicon_u_dis.mat": {
+      "byte_count": 241160,
+      "sha256": "11e59ad432b5e2428cc2d4bc87a1a5d84ba63199132947badc8348de514cb4a1"
+    },
+    "silicon_wsvec.dat": {
+      "byte_count": 460865,
+      "sha256": "88090f3424cf0845348d1c3f7a96adaf109fccb4201766e113a465d5dcf4c0a1"
+    },
+    "wannier90.err": {
+      "byte_count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "wannier90.out": {
+      "byte_count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "execution_status": "output-ineligible",
+  "required_outputs": [],
+  "schema_version": 1
+}

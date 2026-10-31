@@ -1,0 +1,48 @@
+# Prospective Wannierisation convergence-policy decision
+
+## Accepted recommendation
+
+The scientific owner accepted the recommendation from
+[`localization-convergence-policy-review.md`](localization-convergence-policy-review.md).
+For a prospective successor using the exact two-atom primitive silicon cell, the active
+Wannierisation optimizer-eligibility coordinates are:
+
+```text
+conv_tol = 2.0e-9 angstrom^2
+conv_window = 6
+```
+
+The absolute tolerance is the AiiDA-precise-associated per-atom coordinate
+`1.0e-9 angstrom^2/atom` multiplied by the explicitly bound two-atom cell. This scaling
+convention must be recalculated and reviewed if the cell atom count changes.
+
+## Scope
+
+This decision:
+
+- applies prospectively to a newly declared target-space or projection construction;
+- requires the native Wannierisation convergence message;
+- forbids accepting an occurrence that exhausts its declared iteration budget;
+- treats the tolerance/window pair as an operational eligibility gate, not a physical
+  constant or scientific validation;
+- leaves the dimensionless disentanglement threshold `dis_conv_tol = 1.0e-10` unchanged;
+- does not adopt the AiiDA precise 40000-iteration budget, k-point spacing, band factor,
+  pseudopotential family, or other protocol settings; and
+- does not authorize any calculator invocation.
+
+## Historical disposition
+
+All retained occurrences keep their exact historical inputs and the
+`1.0e-10 angstrom^2`, window-3 policy under which they ran. None is retrospectively
+reclassified. The conduction-frozen 4000-iteration occurrence also fails the newly
+accepted precise operational gate and remains operator-ineligible.
+
+The moderate comparison `2.0e-7 angstrom^2`, window 3 remains an exploratory workflow
+reference only. It is not an accepted production gate for this route.
+
+## Independent scientific acceptance
+
+An eligible localized operator must still pass prospective construction- and
+withheld-mesh tests for spectra, valley identity and location, edge energies,
+derivatives, curvature/effective masses, and locality/tail sensitivity. Passing the
+optimizer gate alone does not accept a Wannier operator.

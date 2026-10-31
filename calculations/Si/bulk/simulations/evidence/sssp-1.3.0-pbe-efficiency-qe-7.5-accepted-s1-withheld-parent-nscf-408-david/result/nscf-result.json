@@ -1,0 +1,50 @@
+{
+  "diagonalization_diagnostics": {
+    "algorithm": "david",
+    "disposition": "NO_ACTION_REQUIRED",
+    "total_reported_unconverged_eigenvalues": 0,
+    "warning_line_count": 0
+  },
+  "native_execution": {
+    "all_eigenvalues_finite": true,
+    "all_occupations_finite": true,
+    "band_count": 12,
+    "declared_unit_system_label": "Hartree atomic units",
+    "exit_status": 0,
+    "ieee_flags_disposition": "diagnostic only: native convergence succeeded, all parsed values are finite, and no unconverged-eigenvalue warning was emitted",
+    "job_completed": true,
+    "maximum_manifest_to_qexsd_native_coordinate_error": 2.220446049250313e-16,
+    "native_weight_sum": 2.000000000000016,
+    "producing_application": "PWSCF",
+    "producing_application_version": "7.5",
+    "qexsd": {
+      "byte_size": 511030,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "792898753c87d92328e6c511259c77c843c3ae59b212c1d8502b3e53563b8fb2"
+    },
+    "qexsd_version": "25.05.21",
+    "sampled_k_point_count": 408,
+    "stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "stdout": {
+      "byte_size": 238977,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/run/pw.out",
+      "sha256": "1ad1d6a1b72743f4e34692eab4f66ea86bf6ec3fa8e1f2ae69a19947ac9bfdc0"
+    },
+    "total_reported_unconverged_eigenvalues": 0,
+    "warning_line_count": 0
+  },
+  "saved_state": {
+    "manifest": {
+      "byte_size": 83682,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/run/nscf-saved-state-manifest.json",
+      "sha256": "8de35151ad55bca4658c472ec51ddd1468902e7ba6e6529d42c6df463f726d20"
+    },
+    "verified": true
+  },
+  "schema_version": 1,
+  "scientific_disposition": "Eligible as the exact direct-parent handoff for the frozen withheld comparison; native success alone is not scientific acceptance."
+}

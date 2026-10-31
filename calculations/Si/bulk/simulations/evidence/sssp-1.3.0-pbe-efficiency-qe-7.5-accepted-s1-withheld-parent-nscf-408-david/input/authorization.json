@@ -1,0 +1,16 @@
+{
+  "criteria_sha256": "ab2a9f18876f773e8c6535e00a6ce65be5c65b32117b258d503423007389c5cb",
+  "input_sha256": "3b13803d8ec296d02140f1e9c2521e2eb4d8620b380dd26ede880ae5230ac3f6",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 2147483648,
+  "operator_instruction": "One local QE 7.5 pw.x NSCF invocation, exactly bound by authorization-request.json, using 408 k-points, 12 bands, the accepted parent saved state, no retries, and a 2 GiB retention limit.",
+  "preflight_sha256": "214029f533e815a8e539d669b048bc5dacd3a36cc0675feb6064353f4ad334f2",
+  "request_sha256": "9721b01ca70834a9ff6ae98da39442aba0fe7e207b7ed19b447ea641256c4c3a",
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "stop_on_failure": true,
+  "timeout_seconds": 3600.0,
+  "withheld_manifest_sha256": "754bce5030ef0e34eb092406b27d9094287b4f749e358ef36404040f44b8d2b4"
+}

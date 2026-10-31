@@ -1,0 +1,20 @@
+{
+  "authorization_request_sha256": "fbd250691cd7b5836ac3ad3ecda038efd906379ed3c1527569dfafb27c44da5f",
+  "command": [
+    "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+    "-in",
+    "pw2wannier90.in"
+  ],
+  "input_sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 268435456,
+  "nnkp_sha256": "608b8e0aacb8adddcfc2b8e0090ce48f5b916aec0d321bb69aabf01af9462575",
+  "operator_instruction": "Authorize one local pw2wannier90.x -in pw2wannier90.in invocation for authorization request SHA-256 fbd250691cd7b5836ac3ad3ecda038efd906379ed3c1527569dfafb27c44da5f, at /Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1, one process, 300-second timeout, 256 MiB limit, zero retries.",
+  "parent_nscf_manifest_sha256": "24ee9d483141ab54d099bc6e6403d0da46108cc7a30c5b019992da3a1d7ef3ac",
+  "processes": 1,
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "timeout_seconds": 300.0
+}

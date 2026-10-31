@@ -1,0 +1,24 @@
+{
+  "adopted_parameter": {
+    "num_cg_steps": 200
+  },
+  "commit": "1c0115cb7c77541a0bd549bc05005df435d651b6",
+  "git_blob": "08049bb780e0a9f63276cbcdfecca3c300fc05fb",
+  "interpretation": "one bounded literature-informed optimizer diagnostic, not a universal recommended value",
+  "not_adopted": [
+    "per-atom convergence tolerances",
+    "4000-iteration budgets",
+    "other protocol settings"
+  ],
+  "observed_common_parameters": {
+    "conv_window": 3,
+    "dis_num_iter": 4000,
+    "num_cg_steps": 200,
+    "num_iter": 4000
+  },
+  "path": "src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml",
+  "raw_url": "https://raw.githubusercontent.com/aiidateam/aiida-wannier90-workflows/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml",
+  "repository": "aiidateam/aiida-wannier90-workflows",
+  "schema_version": 1,
+  "source_kind": "current literature-associated high-throughput workflow protocol"
+}

@@ -1,0 +1,10 @@
+{
+  "replacement_policy": {
+    "decision_path": "calculations/Si/bulk/simulations/aiida-precise-convergence-adaptation-decision.md",
+    "decision_sha256": "9d2e8269d1f2351d1c3b3228c24f4b2baad6505c1c1039da8889412b3cba6238"
+  },
+  "schema_version": 1,
+  "status": "superseded-before-authorization",
+  "superseded_authorization_request_sha256": "f94dd22f911a83aa2779996bfccef211e32ebfbcba2c689fccab476e3c9ad033",
+  "supersession_reason": "The operator directed adoption of the pinned AiiDA precise convergence-derived values. The hybrid 4000-step input and its ungranted request must not be authorized or replayed."
+}

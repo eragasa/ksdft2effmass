@@ -1,0 +1,57 @@
+{
+  "convergence": {
+    "disentanglement_converged": true,
+    "disentanglement_convergence_message_observed": true,
+    "disentanglement_tolerance_fractional": 1e-10,
+    "last_disentanglement_delta_fractional": 9.017e-11,
+    "last_disentanglement_iteration": 531,
+    "last_wannierisation_iteration": 4000,
+    "wannierisation_converged": false,
+    "wannierisation_tolerance_angstrom_squared": 1e-10
+  },
+  "invocation_count": 1,
+  "native_execution": {
+    "native_completion_observed": true,
+    "returncode": 0,
+    "status": "succeeded"
+  },
+  "parsed_outputs": {
+    "disentanglement": {
+      "band_count": 12,
+      "byte_size": 241160,
+      "kpoint_count": 64,
+      "maximum_isometry_residual": 1.4772050249689528e-10,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/run/silicon_u_dis.mat",
+      "sha256": "6c28b42017af6c4cf1dec6e2311cec02cdd2928ce200204464224b844ad37165",
+      "wannier_count": 10
+    },
+    "gauge": {
+      "byte_size": 201480,
+      "kpoint_count": 64,
+      "maximum_unitarity_residual": 1.7662060702861027e-10,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/run/silicon_u.mat",
+      "sha256": "ae22cfa1d994968441ae3a0bc725adbed739fc75faf559682b6bbfdca2c4ac5f",
+      "wannier_count": 10
+    },
+    "hamiltonian": {
+      "byte_size": 465533,
+      "maximum_hermiticity_residual_ev": 0.0,
+      "missing_negative_representative_count": 0,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/run/silicon_hr.dat",
+      "representative_count": 93,
+      "sha256": "b55603e19fb6fbba4f361fa84c84c83963c271c3d99e2e8c965bbb06f6e01e84",
+      "wannier_count": 10
+    },
+    "wout": {
+      "byte_size": 4930566,
+      "omega_total_angstrom_squared": 36.557416368,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-cg200-iter4000-20261031T093641Z/run/silicon.wout",
+      "sha256": "fd42ecad3b5394fc8d0acea8469fbb61754458a5326489a7f0c5e728e50461bc",
+      "wannier_count": 10
+    }
+  },
+  "provider_disposition": "blocked: conduction-frozen disentanglement satisfied its fractional convergence criterion at iteration 531, but long-CG-200 Wannierisation exhausted its 4000-iteration budget without its strict convergence message",
+  "retry_count": 0,
+  "schema_version": 1,
+  "scientific_disposition": "ineligible localization occurrence because Wannierisation did not converge; generated matrices and Hamiltonian remain retained diagnostic evidence and are not an accepted operator"
+}
