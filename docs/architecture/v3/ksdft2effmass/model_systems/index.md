@@ -3,10 +3,10 @@
 ## Purpose
 
 The shared model-system layer owns reusable lifecycle behavior without erasing the
-physical and numerical distinctions among model systems. PIAB1D, QHO1D, and Mathieu1D
-remain separate scientific owners; they share typed boundaries and verification
-sequencing only where that behavior has the same meaning. Domain-neutral presentation
-mechanics belong to [`ksdft2effmass.visualizations`](../visualizations/index.md).
+physical and numerical distinctions among model systems. PIAB1D, QHO1D, Mathieu1D,
+and the diamond Slater--Koster foundation remain separate scientific owners; they share
+typed boundaries only where that behavior has the same meaning. Domain-neutral
+presentation mechanics belong to [`ksdft2effmass.visualizations`](../visualizations/index.md).
 
 ## Common typed lifecycle
 
@@ -83,3 +83,4 @@ universal periodic result record.
 - [PIAB1D](piab1d/index.md)
 - [QHO1D](qho1d/index.md)
 - [Mathieu1D](mathieu1d/index.md)
+- [diamond Slater--Koster $sp^3s^*$](slater_koster/index.md)

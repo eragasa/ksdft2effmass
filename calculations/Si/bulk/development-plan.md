@@ -196,7 +196,10 @@ current
 [post-S110 protocol](research-protocol/controlled-reduction-protocol-post-s110.tex)
 orders separately authorized continuation by increasing implementation difficulty:
 reusable foundations, spectral-only feasibility, global-unitary rank-10 fitting,
-rank-9 projection, and a new Wannier source. The 30-band factor-three adaptation
+rank-9 projection, and a new Wannier source. Level 1 reusable geometry, parameter,
+Hamiltonian, symmetry, and serialization foundations are now implemented with synthetic
+software verification only. They do not alter the S110 result or authorize Level 2.
+The 30-band factor-three adaptation
 remains a conditional source-fidelity diagnostic, not an automatic successor or a
 prerequisite for controlled reduction.
 

@@ -52,8 +52,11 @@ stop this branch. The current
 orders separately authorized continuations by increasing implementation difficulty:
 reusable Slater--Koster foundations, spectral-only feasibility, a global-unitary
 rank-10 operator study, a separately defined rank-9 source, and a new
-projection/target-space/localization route. None is an automatic retry, and the
-spectral-only study does not satisfy S110's aligned-operator contract.
+projection/target-space/localization route. Level 1 has since been implemented as a
+[software-verification-only reusable foundation](level-1-foundation-disposition.md).
+It did not alter this blocked result or produce a fitted reduction model. No later
+level is authorized,
+and a future spectral-only study would not satisfy S110's aligned-operator contract.
 
 No automatic retry, target-space change, mesh escalation, or calculator execution is
 authorized.

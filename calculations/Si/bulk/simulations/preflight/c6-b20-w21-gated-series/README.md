@@ -68,7 +68,9 @@ frame has resolved rank 9 at Gamma and one additional C6 point. No fit ran, no p
 vector exists, and S50 remains blocked. Stopping remains the default. The current
 [post-S110 protocol](../../../research-protocol/controlled-reduction-protocol-post-s110.tex)
 defines separately authorized foundation, spectral-only, global-unitary, rank-9, and
-new-source continuation levels; it authorizes no automatic progression. Reduction
+new-source continuation levels; it authorizes no automatic progression. Level 1 reusable
+foundations are now implemented with synthetic software verification only; no fit or
+series-stage prerequisite changed, and Level 2 remains unauthorized. Reduction
 choices, calibration, fits, and oracle-error predictions must be frozen before the 402-point
 parent values are observed. Any
 `C6-B30`, `C8`, or `C12` source-fidelity route remains a separate scientific decision

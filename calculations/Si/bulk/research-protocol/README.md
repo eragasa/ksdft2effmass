@@ -36,10 +36,13 @@ The current protocol requires:
   rank-10 operator study, a separately defined rank-9 projected source, and finally a
   new Slater--Koster-compatible Wannier source.
 
-Stopping the Slater--Koster branch remains the default under the failed TB-anchored
-alignment contract. The ladder is not an automatic workflow. Spectral-only work cannot
-claim an operator residual, rank-9 work introduces a distinct target-space error, a new
-Wannier source requires fresh bounded calculator authorizations, and singular-value
-regularization is limited to labeled sensitivity analysis.
+Stopping the Slater--Koster reduction branch remains the default under the failed
+TB-anchored alignment contract. Level 1 reusable foundations have been
+[implemented with synthetic software verification only](../analysis/c6-b20-w21-slater-koster-definition-fit/level-1-foundation-disposition.md);
+this does not activate Level 2 or produce a reduction. The ladder is not an automatic
+workflow. Spectral-only work cannot claim an operator residual, rank-9 work introduces
+a distinct target-space error, a new Wannier source requires fresh bounded calculator
+authorizations, and singular-value regularization is limited to labeled sensitivity
+analysis.
 
 No protocol file authorizes a calculator invocation.

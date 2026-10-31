@@ -28,6 +28,9 @@ or supported import already exists.
   truncation calculate, verify, and render vertical slice.
 - [`model_systems/mathieu1d`](model_systems/mathieu1d/index.md): the direct typed
   Mathieu1D finite-parent, Fourier-reduction, verification, and rendering vertical slice.
+- [`model_systems/slater_koster`](model_systems/slater_koster/index.md): the reusable
+  spinless homopolar diamond $sp^3s^*$ Level 1 foundation without fitting or adequacy
+  claims.
 - [`periodic1d`](periodic1d/index.md): the active family-by-family rewrite of
   one-dimensional periodic calculation, byte-owning verification, and authenticated
   rendering; Mathieu1D, compatible rank-one Fourier locality, and rank-two composite
