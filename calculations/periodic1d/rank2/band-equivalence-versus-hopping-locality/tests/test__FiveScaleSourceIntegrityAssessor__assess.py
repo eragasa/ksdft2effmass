@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 
 import pytest
-from five_scale_consistency import FiveScaleSourceIntegrityAssessor
+from five_scale_evidence_assessment import FiveScaleSourceIntegrityAssessor
 
 pytestmark = pytest.mark.software_verification
 

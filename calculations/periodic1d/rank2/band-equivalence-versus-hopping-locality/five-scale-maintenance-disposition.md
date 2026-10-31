@@ -66,7 +66,7 @@ Direct v1 and v2 must remain unchanged.
    dependency, dataframe interface, or donor implementation.
 3. Consumer migration is complete at the source-import boundary. Five scientific
    producer entrypoints and three producer tests compose installed routes through
-   `development_study.py`; diagnostic packaging and its test consume immutable CSV
+   `rank2_control_analysis.py`; diagnostic packaging and its test consume immutable CSV
    projections and canonical typed records. No maintained Python consumer imports
    `workflow/`. This source migration did not rerun or modify historical artifacts,
    extract donor schemas, or add a competing wire format.

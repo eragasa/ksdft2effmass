@@ -22,10 +22,10 @@ all maintained consumers have moved.
 | `README.md` | `c0dc29f595fa21c239d9b426c404756c71e0e08c621b4dc7ea5e22fb2d9fe265` | Integration completed in `README.md`, `migration.md`, and this crosswalk; predecessor digest retained here. |
 | `analysis/README.md` | `48be115415e029549ba2a4cdf7392858946444d0a054db04c4a60ec2eab9a9e8` | Path-adapted integration completed in `analysis/development/README.md`; predecessor digest retained here. |
 | `analysis/amplitude-resolution.csv` | `e3ca18e0e636aa5623365b7e8acaf3837bef0f4344c1355f4565c7ab1016c29b` | `simulations/development/results/amplitude-resolution.csv` (exact duplicate). |
-| `analysis/analyze.py` | `316537795cba86f638edc173e02062ba318392216862ae1c020365d2d0e954b1` | Adapted counterpart: `run_flat_development.py`. |
-| `analysis/analyze_nonflat.py` | `b32e43ba25a9cdcbde7656a4d0ab5de74a83e69a95ba241e8bcb375777df8434` | Adapted counterpart: `run_nonflat_development.py`. |
-| `analysis/analyze_parent_family.py` | `d523b7dbb49db7fc7d8d5963c34fbd8dccb764263da51ca3781a8fea3a62ce8c` | Adapted counterpart: `run_parent_family_development.py`. |
-| `analysis/analyze_truncation.py` | `728788701a0b8e8e02c22e2212ed8a2327b0c4f46bdf2e15d71bcce8d5f52091` | Adapted counterpart: `run_truncation_development.py`. |
+| `analysis/analyze.py` | `316537795cba86f638edc173e02062ba318392216862ae1c020365d2d0e954b1` | Current successor: `run_10_flat_control.py`. |
+| `analysis/analyze_nonflat.py` | `b32e43ba25a9cdcbde7656a4d0ab5de74a83e69a95ba241e8bcb375777df8434` | Current successor: `run_11_nonflat_control.py`. |
+| `analysis/analyze_parent_family.py` | `d523b7dbb49db7fc7d8d5963c34fbd8dccb764263da51ca3781a8fea3a62ce8c` | Current successor: `run_12_parent_family_control.py`. |
+| `analysis/analyze_truncation.py` | `728788701a0b8e8e02c22e2212ed8a2327b0c4f46bdf2e15d71bcce8d5f52091` | Current successor: `run_13_truncation_control.py`. |
 | `analysis/band-equivalence-locality-scientific-story.pdf` | `191d8fff0dbc777a6268c0e1e3dd481f8160da11bc9b5797510919ca9e57b2a8` | `analysis/development/figures/band-equivalence-locality-scientific-story.pdf` (exact duplicate). |
 | `analysis/band-equivalence-locality-scientific-story.png` | `b323ab00db328a3e0ad4304781d9ac79f68396861b15e1e24dc183793fea05ce` | `analysis/development/figures/band-equivalence-locality-scientific-story.png` (exact duplicate). |
 | `analysis/band-equivalence-versus-hopping-locality.pdf` | `0be6089cc08ee90cb67fddde3983c98bad2f481fffffa5f4833e1f933efe6053` | `analysis/development/figures/band-equivalence-versus-hopping-locality.pdf` (exact duplicate). |

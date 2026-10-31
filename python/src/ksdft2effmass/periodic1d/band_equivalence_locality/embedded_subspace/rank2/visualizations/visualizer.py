@@ -8,17 +8,17 @@ from ksdft2effmass.visualizations import (
     PngVisualization,
 )
 
-from ..calculation_verification import (
-    Periodic1DEmbeddedSubspaceRank2CalculationVerification,
+from ..retention.calculation_verification import (
+    Periodic1DRank2CalculationVerification,
 )
-from ..verification import (
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVerification,
-    Periodic1DEmbeddedSubspaceRank2Verification,
+from ..retention.verification import (
+    Periodic1DRank2ParentFamilyVerification,
+    Periodic1DRank2Verification,
 )
-from .data import (
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2VisualizationData,
+from ..retention.visualization_data import (
+    Periodic1DRank2CalculationVisualizationData,
+    Periodic1DRank2ParentFamilyVisualizationData,
+    Periodic1DRank2VisualizationData,
 )
 from .figures import (
     _AdaptiveAmplitudeRefinementFigure,
@@ -32,17 +32,17 @@ from .figures import (
     _TruncationConsequencesFigure,
 )
 from .inventory import (
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot,
-    Periodic1DEmbeddedSubspaceRank2VisualizationPlot,
+    Periodic1DRank2CalculationVisualizationPlot,
+    Periodic1DRank2ParentFamilyVisualizationPlot,
+    Periodic1DRank2VisualizationPlot,
 )
 
 
-class Periodic1DEmbeddedSubspaceRank2CalculationVisualizer(
+class Periodic1DRank2CalculationVisualizer(
     BaseVisualizer[
-        Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData,
-        Periodic1DEmbeddedSubspaceRank2CalculationVerification,
-        Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot,
+        Periodic1DRank2CalculationVisualizationData,
+        Periodic1DRank2CalculationVerification,
+        Periodic1DRank2CalculationVisualizationPlot,
     ]
 ):
     """Render aggregate refinement and truncation channels."""
@@ -52,17 +52,13 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizer(
     def __init__(
         self,
         *,
-        data: Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData,
-        verification: Periodic1DEmbeddedSubspaceRank2CalculationVerification,
+        data: Periodic1DRank2CalculationVisualizationData,
+        verification: Periodic1DRank2CalculationVerification,
         dpi: int = 180,
     ) -> None:
-        if type(data) is not (
-            Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData
-        ):
+        if type(data) is not (Periodic1DRank2CalculationVisualizationData):
             raise TypeError("data must be calculation visualization data")
-        if type(verification) is not (
-            Periodic1DEmbeddedSubspaceRank2CalculationVerification
-        ):
+        if type(verification) is not (Periodic1DRank2CalculationVerification):
             raise TypeError("verification must be calculation verification")
         if type(dpi) is not int:
             raise TypeError("dpi must be a built-in int")
@@ -80,16 +76,14 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizer(
         super().__init__(
             data=data,
             verification=verification,
-            plots=tuple(Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot),
+            plots=tuple(Periodic1DRank2CalculationVisualizationPlot),
         )
         self._dpi = dpi
 
     def _render(
         self,
-    ) -> frozenset[
-        PngVisualization[Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot]
-    ]:
-        plot = Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot
+    ) -> frozenset[PngVisualization[Periodic1DRank2CalculationVisualizationPlot]]:
+        plot = Periodic1DRank2CalculationVisualizationPlot
         return frozenset(
             {
                 PngFigureRenderer(
@@ -111,11 +105,11 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizer(
         )
 
 
-class Periodic1DEmbeddedSubspaceRank2Visualizer(
+class Periodic1DRank2Visualizer(
     BaseVisualizer[
-        Periodic1DEmbeddedSubspaceRank2VisualizationData,
-        Periodic1DEmbeddedSubspaceRank2Verification,
-        Periodic1DEmbeddedSubspaceRank2VisualizationPlot,
+        Periodic1DRank2VisualizationData,
+        Periodic1DRank2Verification,
+        Periodic1DRank2VisualizationPlot,
     ]
 ):
     """Render the closed single-parent inventory from authenticated data."""
@@ -125,8 +119,8 @@ class Periodic1DEmbeddedSubspaceRank2Visualizer(
     def __init__(
         self,
         *,
-        data: Periodic1DEmbeddedSubspaceRank2VisualizationData,
-        verification: Periodic1DEmbeddedSubspaceRank2Verification,
+        data: Periodic1DRank2VisualizationData,
+        verification: Periodic1DRank2Verification,
         dpi: int = 180,
     ) -> None:
         if type(dpi) is not int:
@@ -138,14 +132,14 @@ class Periodic1DEmbeddedSubspaceRank2Visualizer(
         super().__init__(
             data=data,
             verification=verification,
-            plots=tuple(Periodic1DEmbeddedSubspaceRank2VisualizationPlot),
+            plots=tuple(Periodic1DRank2VisualizationPlot),
         )
         self._dpi = dpi
 
     def _render(
         self,
-    ) -> frozenset[PngVisualization[Periodic1DEmbeddedSubspaceRank2VisualizationPlot]]:
-        plot = Periodic1DEmbeddedSubspaceRank2VisualizationPlot
+    ) -> frozenset[PngVisualization[Periodic1DRank2VisualizationPlot]]:
+        plot = Periodic1DRank2VisualizationPlot
         return frozenset(
             {
                 PngFigureRenderer(
@@ -167,11 +161,11 @@ class Periodic1DEmbeddedSubspaceRank2Visualizer(
         )
 
 
-class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer(
+class Periodic1DRank2ParentFamilyVisualizer(
     BaseVisualizer[
-        Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData,
-        Periodic1DEmbeddedSubspaceRank2ParentFamilyVerification,
-        Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot,
+        Periodic1DRank2ParentFamilyVisualizationData,
+        Periodic1DRank2ParentFamilyVerification,
+        Periodic1DRank2ParentFamilyVisualizationPlot,
     ]
 ):
     """Render the closed parent-family inventory from authenticated data."""
@@ -181,8 +175,8 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer(
     def __init__(
         self,
         *,
-        data: Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData,
-        verification: Periodic1DEmbeddedSubspaceRank2ParentFamilyVerification,
+        data: Periodic1DRank2ParentFamilyVisualizationData,
+        verification: Periodic1DRank2ParentFamilyVerification,
         dpi: int = 180,
     ) -> None:
         if type(dpi) is not int:
@@ -192,16 +186,14 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer(
         super().__init__(
             data=data,
             verification=verification,
-            plots=tuple(Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot),
+            plots=tuple(Periodic1DRank2ParentFamilyVisualizationPlot),
         )
         self._dpi = dpi
 
     def _render(
         self,
-    ) -> frozenset[
-        PngVisualization[Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot]
-    ]:
-        plot = Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot
+    ) -> frozenset[PngVisualization[Periodic1DRank2ParentFamilyVisualizationPlot]]:
+        plot = Periodic1DRank2ParentFamilyVisualizationPlot
         return frozenset(
             {
                 PngFigureRenderer(
@@ -224,7 +216,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer(
 
 
 __all__ = [
-    "Periodic1DEmbeddedSubspaceRank2CalculationVisualizer",
-    "Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer",
-    "Periodic1DEmbeddedSubspaceRank2Visualizer",
+    "Periodic1DRank2CalculationVisualizer",
+    "Periodic1DRank2ParentFamilyVisualizer",
+    "Periodic1DRank2Visualizer",
 ]

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -14,6 +15,7 @@ from projectkoios.physkit.units import (
     ComplexVectorQuantity,
     MatrixQuantity,
     ScalarQuantity,
+    Unitless,
     VectorQuantity,
 )
 
@@ -59,6 +61,23 @@ class VerificationObservation(BaseVerification):
             raise ValueError("verification value must be finite and nonnegative")
         if not np.isfinite(self.tolerance.magnitude) or self.tolerance.magnitude < 0.0:
             raise ValueError("verification tolerance must be finite and nonnegative")
+
+    @classmethod
+    def dimensionless(cls, value: float, tolerance: float) -> Self:
+        """Construct one observation from built-in dimensionless scalars."""
+        if type(value) is not float:
+            raise TypeError("value must be a built-in float")
+        if type(tolerance) is not float:
+            raise TypeError("tolerance must be a built-in float")
+        if not math.isfinite(value) or value < 0.0:
+            raise ValueError("verification value must be finite and nonnegative")
+        if not math.isfinite(tolerance) or tolerance < 0.0:
+            raise ValueError("verification tolerance must be finite and nonnegative")
+        unit = Unitless()
+        return cls(
+            value=ScalarQuantity(value, unit),
+            tolerance=ScalarQuantity(tolerance, unit),
+        )
 
     @property
     def passed(self) -> bool:

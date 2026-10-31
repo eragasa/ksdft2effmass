@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 from development_diagnostics import DiagnosticBundle, DiagnosticTable
-from five_scale_consistency import FiveScaleCutoffConsistencyAssessor
+from five_scale_evidence_assessment import FiveScaleCutoffConsistencyAssessor
 
 pytestmark = pytest.mark.software_verification
 

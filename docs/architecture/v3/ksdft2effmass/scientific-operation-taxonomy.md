@@ -70,7 +70,7 @@ fields, thresholds, and evidence policy.
 
 Current nominal assignments:
 
-- `Periodic1DEmbeddedSubspaceRank2PointAnalysis`, which compares the untruncated
+- `Periodic1DRank2PointAnalysis`, which compares the untruncated
   reference and gauge-rotated representations at one amplitude; and
 - `Periodic1DHigherRankRecoveryAnalysis`, which keeps frame recovery and represented-
   operator recovery distinct for one explicitly selected gauge alignment; and
@@ -142,15 +142,32 @@ shell label. Historical retained names such as `first_passing_range` and
 `reference_band_shell` remain compatibility fields, not the terminology of the shared
 scientific API.
 
+`RealSpaceSupportTruncationFamilyRequest` owns an ordered, unique family-coordinate
+inventory. `RealSpaceSupportTruncationFamilyMember` binds one coordinate to one outcome
+that nominally inherits `RealSpaceSupportTruncation`, and
+`RealSpaceSupportTruncationFamily` enforces complete order-preserving coverage. These
+generic values are dimension- and rank-independent and contain no parent-model,
+state-space, alignment, sampling, unit, threshold, or retained-wire policy. The
+`Periodic1DRank2TruncationFamilyAnalysis` adapter composes the existing rank-two
+truncation analyzer at every declared parent scale and derives each point's four support
+decisions from the canonical tolerance-selection request. Its independent verifier
+reconstructs every member once, delegates member comparison to the focused truncation
+verification assessor, and derives expected decision identities through
+`Periodic1DRank2TruncationToleranceSelectionIndependentReferenceAnalyzer` without
+calling either production selector. This adapter-specific verification does not assign
+a generic scientific tolerance or authenticity claim to the family base.
+
 These nominal analysis contracts and derived classifications do not become retained
 evidence identities. Hamiltonian and band errors after a cutoff are consequences of
 real-space support truncation; they are not spectral-subspace truncation errors.
 
 Current nominal assignments:
 
-- `Periodic1DEmbeddedSubspaceRank2TruncationAnalysis`,
-  `Periodic1DEmbeddedSubspaceRank2TruncationRange`, and the family adapter
-  `Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector`;
+- the dimension- and rank-independent `RealSpaceSupportTruncationFamily`;
+- `Periodic1DRank2TruncationAnalysis`,
+  `Periodic1DRank2TruncationRange`, the support adapter
+  `Periodic1DRank2TruncationToleranceSelector`, and the parent-family
+  adapter `Periodic1DRank2TruncationFamilyAnalysis`;
 - `Periodic1DHigherRankSupportResult` and the request-bound
   `Periodic1DHigherRankLocalityAnalysis`; and
 - `BandEquivalenceLocalityShellAnalysis` for complete metric shells in the maintained
@@ -196,9 +213,9 @@ Current nominal assignments:
   universal geometry invariant;
 - `ScalarRefinementDiagnostics`;
 - the dimension- and rank-independent `ReciprocalMeshRefinementFamily`;
-- `Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalysis`, its
-  `Periodic1DEmbeddedSubspaceRank2MomentumRefinementFamilyAnalysis` adapter, and
-  `Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalysis`;
+- `Periodic1DRank2MomentumRefinementAnalysis`, its
+  `Periodic1DRank2MomentumRefinementFamilyAnalysis` adapter, and
+  `Periodic1DRank2AdaptiveAmplitudeAnalysis`;
 - `Periodic1DHigherRankFourierAnalysis`,
   `Periodic1DHigherRankInterpolationAnalysis`, and
   `Periodic1DHigherRankRefinementAnalysis`; and
@@ -220,7 +237,7 @@ that evidence has been silently omitted.
 
 | Family | Subspace reduction | Representation equivalence | Real-space support truncation | Numerical consistency |
 |---|---|---|---|---|
-| rank-two 1D embedded subspace | shared `SpectralReduction` owner upstream; no family-local duplicate | untruncated point analysis | symmetric-range truncation range and aggregate | momentum and adaptive-amplitude refinement, with parent-family momentum refinement adapted to the generic reciprocal-mesh family |
+| rank-two 1D embedded subspace | shared `SpectralReduction` owner upstream; no family-local duplicate | untruncated point analysis | symmetric-range truncation range and aggregate, with parent-family truncation adapted to the generic truncation family | momentum and adaptive-amplitude refinement, with parent-family momentum refinement adapted to the generic reciprocal-mesh family |
 | rank-$N$ 1D alignment | —; retained rank is a model input, not proof of a reduction operation | request-bound frame and represented-operator recovery | symmetric-range support result and locality aggregate | Fourier reconstruction/Parseval/Hermiticity, shifted interpolation, and mesh refinement |
 | rank-two 2D/3D locality | —; the campaign starts from a finite represented parent | typed direct-band, covariance, restricted-alignment, correlation, and threshold result composed by the mixed point aggregate | complete metric-shell analysis | covariance-route defect, amplitude resolution, midpoint validation, and adjacent-mesh refinement |
 
@@ -230,7 +247,7 @@ algorithms in the nominal-root packages. Dependencies point from family owners t
 the interface-free KSD roots, PhysKit physical primitives, and Optimization numerical
 algorithms. None of the four roots imports a calculation family.
 
-The family aggregates `Periodic1DEmbeddedSubspaceRank2Analysis`,
+The family aggregates `Periodic1DRank2Analysis`,
 `Periodic1DHigherRankAlignmentCalculationResult`,
 `BandEquivalenceLocalityPointAnalysis`, `BandEquivalenceLocalityCaseAnalysis`, and
 `BandEquivalenceLocalityAnalysis` intentionally remain outside the four roots because
@@ -263,10 +280,10 @@ serialization, plotting, or workflow code.
 
 Nominal inheritance does not alter dataclass fields, `_mapping()` output, `to_dict()`,
 canonical `to_json()`, or any closed wire variant. Existing retained serializers remain
-the byte owners. The generic reciprocal-mesh family and the rank-two 1D adapter are
-in-memory scientific values and create no retained schema or canonical bytes. A future
-field or schema change requires an explicitly versioned record rather than
-reinterpretation of historical bytes.
+the byte owners. The generic reciprocal-mesh and real-space-support-truncation families
+and their rank-two 1D adapters are in-memory scientific values and create no retained
+schema or canonical bytes. A future field or schema change requires an explicitly
+versioned record rather than reinterpretation of historical bytes.
 
 Migration proceeds by extracting one scientifically cohesive owner at a time. A class
 that combines multiple domains is not assigned to whichever root is most convenient;

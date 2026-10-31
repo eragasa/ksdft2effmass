@@ -17,9 +17,9 @@ from projectkoios.physkit.periodic.lattice.finite_domain import (
 from ksdft2effmass.periodic1d import (
     Periodic1DBandEquivalenceLocalityRequest,
     Periodic1DCompositeBandAlignmentConfiguration,
-    Periodic1DEmbeddedSubspaceRank2Request,
     Periodic1DHigherRankAlignmentConfiguration,
     Periodic1DLatticeGeometry,
+    Periodic1DRank2Request,
     Periodic1DReducedCoordinateConvention,
 )
 from ksdft2effmass.periodic1d.fourier_locality import (
@@ -85,7 +85,7 @@ class TestPeriodic1DLatticeGeometry:
         """Maintained 1D reciprocal-mesh families no longer use structural typing."""
         for family_type in (
             Periodic1DBandEquivalenceLocalityRequest,
-            Periodic1DEmbeddedSubspaceRank2Request,
+            Periodic1DRank2Request,
             Periodic1DFourierLocalityConfiguration,
             Periodic1DCompositeBandAlignmentConfiguration,
             Periodic1DHigherRankAlignmentConfiguration,

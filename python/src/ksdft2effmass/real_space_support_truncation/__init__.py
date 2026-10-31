@@ -1,6 +1,11 @@
 """Irreversible truncation of represented real-space operator support."""
 
 from .base import RealSpaceSupportTruncation
+from .family import (
+    RealSpaceSupportTruncationFamily,
+    RealSpaceSupportTruncationFamilyMember,
+    RealSpaceSupportTruncationFamilyRequest,
+)
 from .geometry import BasisResolvedMetricGeometry, MetricGeometry
 from .metric_shells import (
     MetricShellClassification,
@@ -41,6 +46,9 @@ __all__ = [
     "RankNormalizedMatrixFrobeniusErrors",
     "RealSpaceSupportTruncation",
     "RealSpaceSupportTruncationComparison",
+    "RealSpaceSupportTruncationFamily",
+    "RealSpaceSupportTruncationFamilyMember",
+    "RealSpaceSupportTruncationFamilyRequest",
     "RealSpaceSupportTruncationErrors",
     "RealSpaceSupportTruncationModelToleranceSelection",
     "RealSpaceSupportTruncationToleranceSelection",

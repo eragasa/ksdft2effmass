@@ -7,7 +7,7 @@ from dataclasses import FrozenInstanceError
 from pathlib import Path
 
 import pytest
-from five_scale_consistency import (
+from five_scale_evidence_assessment import (
     FiveScaleConsistencyAssessor,
     FiveScaleCutoffDecisionConsistency,
     FiveScaleEvidenceCoverage,

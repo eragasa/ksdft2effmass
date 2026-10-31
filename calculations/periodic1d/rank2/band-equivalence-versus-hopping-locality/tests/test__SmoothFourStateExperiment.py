@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 import pytest
-from development_study import parent_family, qualified_parent
+from rank2_control_analysis import parent_family, qualified_parent
 
 pytestmark = pytest.mark.software_verification
 

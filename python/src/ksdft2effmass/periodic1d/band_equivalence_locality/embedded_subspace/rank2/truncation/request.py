@@ -4,14 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ..request import Periodic1DEmbeddedSubspaceRank2Request
+from ..parent_scale.request import Periodic1DRank2Request
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2TruncationRequest:
+class Periodic1DRank2TruncationRequest:
     """Bind one qualified parent to ordinary cutoffs and a disjoint mesh."""
 
-    template_request: Periodic1DEmbeddedSubspaceRank2Request
+    template_request: Periodic1DRank2Request
     maximum_ranges: tuple[int, ...]
     evaluation_mesh_size: int
 
@@ -19,10 +19,10 @@ class Periodic1DEmbeddedSubspaceRank2TruncationRequest:
     def every_integer_through(
         cls,
         *,
-        template_request: Periodic1DEmbeddedSubspaceRank2Request,
+        template_request: Periodic1DRank2Request,
         maximum_range: int,
         evaluation_mesh_size: int,
-    ) -> Periodic1DEmbeddedSubspaceRank2TruncationRequest:
+    ) -> Periodic1DRank2TruncationRequest:
         """Construct the candidate cutoff inventory ``0, ..., maximum_range``."""
         if type(maximum_range) is not int:
             raise TypeError("maximum_range must be a built-in int")
@@ -35,10 +35,8 @@ class Periodic1DEmbeddedSubspaceRank2TruncationRequest:
         )
 
     def __post_init__(self) -> None:
-        if type(self.template_request) is not Periodic1DEmbeddedSubspaceRank2Request:
-            raise TypeError(
-                "template_request must be Periodic1DEmbeddedSubspaceRank2Request"
-            )
+        if type(self.template_request) is not Periodic1DRank2Request:
+            raise TypeError("template_request must be Periodic1DRank2Request")
         if type(self.maximum_ranges) is not tuple or not self.maximum_ranges:
             raise TypeError("maximum_ranges must be a nonempty tuple")
         if any(type(value) is not int for value in self.maximum_ranges):
@@ -65,4 +63,4 @@ class Periodic1DEmbeddedSubspaceRank2TruncationRequest:
         return self.maximum_ranges == tuple(range(self.maximum_ranges[-1] + 1))
 
 
-__all__ = ["Periodic1DEmbeddedSubspaceRank2TruncationRequest"]
+__all__ = ["Periodic1DRank2TruncationRequest"]

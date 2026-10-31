@@ -16,20 +16,18 @@ from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationToleranceSelector,
 )
 
-from .results import Periodic1DEmbeddedSubspaceRank2TruncationPoint
+from .results import Periodic1DRank2TruncationPoint
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector(
-    RealSpaceSupportTruncation
-):
+class Periodic1DRank2TruncationToleranceSelector(RealSpaceSupportTruncation):
     """Adapt one dense symmetric-range inventory to the shared selector."""
 
-    point: Periodic1DEmbeddedSubspaceRank2TruncationPoint
+    point: Periodic1DRank2TruncationPoint
     tolerance: float
 
     def __post_init__(self) -> None:
-        if type(self.point) is not Periodic1DEmbeddedSubspaceRank2TruncationPoint:
+        if type(self.point) is not Periodic1DRank2TruncationPoint:
             raise TypeError("point must be an exact truncation point")
         if type(self.tolerance) is not float:
             raise TypeError("tolerance must be a built-in float")
@@ -91,4 +89,4 @@ class Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector(
         return RealSpaceSupportTruncationToleranceSelector().execute(request)
 
 
-__all__ = ["Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector"]
+__all__ = ["Periodic1DRank2TruncationToleranceSelector"]

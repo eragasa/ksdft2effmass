@@ -45,8 +45,8 @@ publication readiness.
 |---|---|---|---|
 | Five-scale `parent-family-continuum.csv` and `parent-family-summary.csv` | `plot_scientific_story.py`, `plot_parent_family.py`, the scientific-story figure, and the exploratory robustness figure | The Ragasa2026a v3 main parent-family figure and claim-ledger items N10, N11, and N22 report behavior across five parent scales and 33 amplitudes. The prospective protocol embeds the same scientific-story figure. | Direct v2 retains independently verified final-mesh family members for all five scales, but not the donor's five adjacent-mesh refinement summaries. |
 | Five-scale `truncation-consequences.csv` and `truncation-summary.csv` | `plot_truncation.py`, `plot_range_inflation_preview.py`, `plot_error_channel_decomposition.py`, and diagnostic packaging | Ragasa2026a v3 main range-inflation and error-channel figures, main numerical claims N12--N19, and supplemental truncation figures use the five-scale by 33-amplitude inventory. The prospective protocol also embeds the truncation-consequence figure. | Direct v2 authenticates 561 scale-one rows. It does not retain the other 2,244 rows at scales `0.0`, `0.25`, `0.5`, and `0.75`. |
-| `truncation-refinement.csv` | `run_truncation_refinement_development.py` and the donor diagnostic bundle | Ragasa2026a v3 claim N20 and the claim--evidence table state that first-passing decisions remain unchanged at construction meshes 128, 256, and 512. | No one-to-one retained direct-v2 successor covers the five-scale threshold-adjacent refinement table. |
-| Donor diagnostic implementation | `run_diagnostic_packaging_development.py`, `test__DiagnosticBundle.py`, and development-only diagnostic compositions | Publication text cites diagnostic-ledger quantities, while the calculation README keeps the bundle development-only. | Installed authenticated visualizers cover the closed direct-v2 inventory, not every development diagnostic composition. The donor's pandas and dataframe interfaces are implementation details, not scientific parity requirements. |
+| `truncation-refinement.csv` | `run_14_truncation_mesh_stability.py` and the donor diagnostic bundle | Ragasa2026a v3 claim N20 and the claim--evidence table state that minimum tolerance-satisfying support decisions remain unchanged at construction meshes 128, 256, and 512. | No one-to-one retained direct-v2 successor covers the five-scale threshold-adjacent refinement table. |
+| Donor diagnostic implementation | `run_16_diagnostic_packaging.py`, `test__DiagnosticBundle.py`, and development-only diagnostic compositions | Publication text cites diagnostic-ledger quantities, while the calculation README keeps the bundle development-only. | Installed authenticated visualizers cover the closed direct-v2 inventory, not every development diagnostic composition. The donor's pandas and dataframe interfaces are implementation details, not scientific parity requirements. |
 
 The main paper is not a dormant historical consumer. Its
 [README](../../../../docs/publications/papers/Ragasa2026a/v3/README.md) identifies this
@@ -95,7 +95,7 @@ pandas-specific interfaces did not require preservation. Deleting only `workflow
 would have left broken maintained files.
 
 Subsequent source migration moved five scientific producer entrypoints and three producer
-composition tests to installed owners through `development_study.py`, without executing
+composition tests to installed owners through `rank2_control_analysis.py`, without executing
 or modifying the audited artifacts. It also moved diagnostic packaging and its test to
 `development_diagnostics.py`: immutable standard-library CSV projections feed canonical
 typed catalog and separate spectral/Hamiltonian range-decision records, and plotting
@@ -113,7 +113,7 @@ converged, and the main parent-family caption says that all five momentum studie
 `N=256` are converged. Those statements follow the donor's narrower development
 refinement diagnostic. The installed owner includes the primitive-link Frobenius
 residual in the parent diagnostic and retains
-`Periodic1DEmbeddedSubspaceRank2MomentumRefinementUnresolved`.
+`Periodic1DRank2MomentumRefinementUnresolved`.
 
 These are different declared semantics. Ragasa2026a v3 now states both: it explicitly
 attributes the `converged` summaries to the historical donor's narrower development

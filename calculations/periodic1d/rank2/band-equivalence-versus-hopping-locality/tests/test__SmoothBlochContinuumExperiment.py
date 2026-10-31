@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 
 import pytest
-from development_study import momentum_refinement
+from rank2_control_analysis import momentum_refinement
 
 pytestmark = pytest.mark.software_verification
 

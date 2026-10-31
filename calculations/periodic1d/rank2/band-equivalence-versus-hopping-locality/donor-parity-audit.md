@@ -34,7 +34,7 @@ surface. A repository test admits the canonical direct-v2 typed calculation byte
 compares them with the immutable workflow-produced development CSVs using only Python's
 standard `csv` module:
 
-`python/tests/ksdft2effmass/periodic1d/band_equivalence_locality/embedded_subspace/rank2/test__Periodic1DEmbeddedSubspaceRank2DonorParity.py`
+`python/tests/ksdft2effmass/periodic1d/band_equivalence_locality/embedded_subspace/rank2/test__Periodic1DRank2DonorParity.py`
 
 The test binds all compared input digests, compares every mapped scalar, and records
 semantic differences rather than relaxing tolerances. Its comparison tolerance is
@@ -110,12 +110,13 @@ therefore do not have a one-to-one retained successor.
 At the audited revision, the workflow tree was not dormant. Six maintained development
 entrypoints imported it:
 
-- `run_flat_development.py`;
-- `run_nonflat_development.py`;
-- `run_parent_family_development.py`;
-- `run_truncation_development.py`;
-- `run_truncation_refinement_development.py`; and
-- `run_diagnostic_packaging_development.py`.
+- `run_10_flat_control.py`;
+- `run_11_nonflat_control.py`;
+- `run_12_parent_family_control.py`;
+- `run_13_truncation_control.py`;
+- `run_14_truncation_mesh_stability.py`;
+- `run_15_five_scale_evidence_assessment.py`; and
+- `run_16_diagnostic_packaging.py`.
 
 At the audited revision, four calculation-local test modules also imported it. The
 diagnostic entrypoint and its test consumed the pandas-dependent `analysis.py` and
@@ -126,7 +127,7 @@ it.
 ## Subsequent consumer-migration status
 
 After this immutable audit baseline, five scientific producer entrypoints and three
-producer-composition tests were migrated to `development_study.py` and installed
+producer-composition tests were migrated to `rank2_control_analysis.py` and installed
 `ksdft2effmass.periodic1d` request, analyzer, canonical-record, and independent-verifier
 owners. The diagnostic-packaging entrypoint and test were subsequently migrated to
 `development_diagnostics.py`, which validates immutable standard-library CSV projections,

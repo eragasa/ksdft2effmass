@@ -24,13 +24,15 @@ from ksdft2effmass.numerical_consistency import (
     ReciprocalMeshRefinementFamily,
 )
 from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
-    Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalysis,
-    Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalysis,
-    Periodic1DEmbeddedSubspaceRank2MomentumRefinementFamilyAnalysis,
-    Periodic1DEmbeddedSubspaceRank2PointAnalysis,
-    Periodic1DEmbeddedSubspaceRank2TruncationAnalysis,
-    Periodic1DEmbeddedSubspaceRank2TruncationRange,
-    Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector,
+    Periodic1DRank2AdaptiveAmplitudeAnalysis,
+    Periodic1DRank2MomentumRefinementAnalysis,
+    Periodic1DRank2MomentumRefinementFamilyAnalysis,
+    Periodic1DRank2PointAnalysis,
+    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2TruncationFamilyAnalysis,
+    Periodic1DRank2TruncationRange,
+    Periodic1DRank2TruncationToleranceSelectionIndependentReference,
+    Periodic1DRank2TruncationToleranceSelector,
 )
 from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.fourier import (
     Periodic1DHigherRankFourierAnalysis,
@@ -58,6 +60,7 @@ from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncation,
     RealSpaceSupportTruncationComparison,
     RealSpaceSupportTruncationErrors,
+    RealSpaceSupportTruncationFamily,
     RealSpaceSupportTruncationModelToleranceSelection,
     RealSpaceSupportTruncationToleranceSelection,
     RealSpaceSupportTruncationToleranceSelectionRequest,
@@ -80,7 +83,7 @@ class TestScientificOperationBases:
     def test_representation_equivalence__family_results__share_owner(self) -> None:
         """Rank-two and rank-N recovery results share equivalence ownership."""
         assert issubclass(
-            Periodic1DEmbeddedSubspaceRank2PointAnalysis,
+            Periodic1DRank2PointAnalysis,
             RepresentationEquivalence,
         )
         assert issubclass(
@@ -97,11 +100,11 @@ class TestScientificOperationBases:
     ) -> None:
         """Range, support, and metric-shell results share spatial ownership."""
         assert issubclass(
-            Periodic1DEmbeddedSubspaceRank2TruncationAnalysis,
+            Periodic1DRank2TruncationAnalysis,
             RealSpaceSupportTruncation,
         )
         assert issubclass(
-            Periodic1DEmbeddedSubspaceRank2TruncationRange,
+            Periodic1DRank2TruncationRange,
             RealSpaceSupportTruncation,
         )
         assert issubclass(
@@ -122,13 +125,16 @@ class TestScientificOperationBases:
             OrderedEigenvalueErrors,
             RealSpaceSupportTruncationErrors,
             RealSpaceSupportTruncationComparison,
+            RealSpaceSupportTruncationFamily,
+            Periodic1DRank2TruncationFamilyAnalysis,
+            Periodic1DRank2TruncationToleranceSelectionIndependentReference,
             MinimumToleranceSatisfyingSupport,
             SupportToleranceUnresolved,
             RealSpaceSupportTruncationModelToleranceSelection,
             RealSpaceSupportTruncationToleranceSelection,
             RealSpaceSupportTruncationToleranceSelectionRequest,
             RealSpaceSupportTruncationToleranceSelector,
-            Periodic1DEmbeddedSubspaceRank2TruncationToleranceSelector,
+            Periodic1DRank2TruncationToleranceSelector,
         )
         assert all(
             issubclass(result_type, RealSpaceSupportTruncation)
@@ -140,9 +146,9 @@ class TestScientificOperationBases:
         numerical_results = (
             ScalarRefinementDiagnostics,
             ReciprocalMeshRefinementFamily,
-            Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalysis,
-            Periodic1DEmbeddedSubspaceRank2MomentumRefinementFamilyAnalysis,
-            Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalysis,
+            Periodic1DRank2MomentumRefinementAnalysis,
+            Periodic1DRank2MomentumRefinementFamilyAnalysis,
+            Periodic1DRank2AdaptiveAmplitudeAnalysis,
             Periodic1DHigherRankFourierAnalysis,
             Periodic1DHigherRankInterpolationAnalysis,
             Periodic1DHigherRankRefinementAnalysis,

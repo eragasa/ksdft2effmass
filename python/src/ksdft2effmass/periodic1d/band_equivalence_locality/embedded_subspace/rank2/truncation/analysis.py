@@ -33,18 +33,20 @@ from ksdft2effmass.solidstate import (
 )
 
 from ....gauge import Periodic1DRank2SinusoidalGaugeRotation
-from ..analysis import (
-    Periodic1DEmbeddedSubspaceRank2Analyzer,
-    _Periodic1DEmbeddedSubspaceRank2PreparedAnalysis,
+from ..parent_scale.analysis import (
+    Periodic1DRank2Analyzer,
+    _Periodic1DRank2PreparedAnalysis,
 )
-from ..transport import _Periodic1DEmbeddedSubspaceRank2UnqualifiedPreparation
-from .request import Periodic1DEmbeddedSubspaceRank2TruncationRequest
+from ..parent_scale.frame_transport import (
+    _Periodic1DRank2UnqualifiedPreparation,
+)
+from .request import Periodic1DRank2TruncationRequest
 from .results import (
-    Periodic1DEmbeddedSubspaceRank2TruncationAnalysis,
-    Periodic1DEmbeddedSubspaceRank2TruncationCompleted,
-    Periodic1DEmbeddedSubspaceRank2TruncationPoint,
-    Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped,
-    Periodic1DEmbeddedSubspaceRank2TruncationRange,
+    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2TruncationCompleted,
+    Periodic1DRank2TruncationPoint,
+    Periodic1DRank2TruncationQualificationStopped,
+    Periodic1DRank2TruncationRange,
 )
 
 
@@ -70,7 +72,7 @@ class _OrdinaryField:
     maximum_hermiticity_defect: float
 
 
-class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
+class Periodic1DRank2TruncationAnalyzer:
     """Qualify one parent, remove Nyquist, and evaluate ordinary cutoffs."""
 
     __slots__ = ("_request", "_transporter")
@@ -78,10 +80,10 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
     def __init__(
         self,
         *,
-        request: Periodic1DEmbeddedSubspaceRank2TruncationRequest,
+        request: Periodic1DRank2TruncationRequest,
         transporter: ClosedLoopPolarFrameTransporter,
     ) -> None:
-        if type(request) is not Periodic1DEmbeddedSubspaceRank2TruncationRequest:
+        if type(request) is not Periodic1DRank2TruncationRequest:
             raise TypeError("request must be a truncation request")
         if type(transporter) is not ClosedLoopPolarFrameTransporter:
             raise TypeError("transporter must be ClosedLoopPolarFrameTransporter")
@@ -89,22 +91,22 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
         self._transporter = transporter
 
     @property
-    def request(self) -> Periodic1DEmbeddedSubspaceRank2TruncationRequest:
+    def request(self) -> Periodic1DRank2TruncationRequest:
         """Return the immutable constructor-bound request."""
         return self._request
 
-    def execute(self) -> Periodic1DEmbeddedSubspaceRank2TruncationAnalysis:
+    def execute(self) -> Periodic1DRank2TruncationAnalysis:
         """Return qualification stop or complete truncation consequences."""
-        preparation = Periodic1DEmbeddedSubspaceRank2Analyzer(
+        preparation = Periodic1DRank2Analyzer(
             request=self.request.template_request,
             transporter=self._transporter,
         )._prepare()
-        if type(preparation) is _Periodic1DEmbeddedSubspaceRank2UnqualifiedPreparation:
-            return Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped(
+        if type(preparation) is _Periodic1DRank2UnqualifiedPreparation:
+            return Periodic1DRank2TruncationQualificationStopped(
                 request=self.request,
                 qualification=preparation.qualification,
             )
-        if type(preparation) is not _Periodic1DEmbeddedSubspaceRank2PreparedAnalysis:
+        if type(preparation) is not _Periodic1DRank2PreparedAnalysis:
             raise TypeError("parent preparation returned an unknown variant")
 
         evaluation, offset = self._evaluation_coordinates()
@@ -142,7 +144,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
             )
             for amplitude in self.request.template_request.amplitudes
         )
-        return Periodic1DEmbeddedSubspaceRank2TruncationCompleted(
+        return Periodic1DRank2TruncationCompleted(
             request=self.request,
             qualification=preparation.qualification,
             evaluation_coordinate_offset=offset,
@@ -160,7 +162,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
         reference_eigenvalues: Float64Array,
         reference_ranges: tuple[_ReferenceRange, ...],
         amplitude: float,
-    ) -> Periodic1DEmbeddedSubspaceRank2TruncationPoint:
+    ) -> Periodic1DRank2TruncationPoint:
         gauge_attack = GaugeAttack(
             Periodic1DRank2SinusoidalGaugeRotation(amplitude),
             self.request.template_request.frame_absolute_tolerance,
@@ -199,7 +201,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
             )
             for reference_range in reference_ranges
         )
-        return Periodic1DEmbeddedSubspaceRank2TruncationPoint(
+        return Periodic1DRank2TruncationPoint(
             amplitude=amplitude,
             reference_nyquist_power=reference.nyquist_power,
             comparison_nyquist_power=comparison.nyquist_power,
@@ -260,7 +262,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
         reference: _ReferenceRange,
         reference_nyquist_power: float,
         comparison_nyquist_power: float,
-    ) -> Periodic1DEmbeddedSubspaceRank2TruncationRange:
+    ) -> Periodic1DRank2TruncationRange:
         truncation = BlockHoppingTruncator1D(
             BlockHoppingTruncationRequest1D(model, reference.maximum_range)
         ).execute()
@@ -279,7 +281,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
             direct_eigenvalues,
         )
         comparison_ordinary_power = float(truncation.omitted_block_l2_norm**2 / 2.0)
-        return Periodic1DEmbeddedSubspaceRank2TruncationRange(
+        return Periodic1DRank2TruncationRange(
             maximum_range=reference.maximum_range,
             reference_ordinary_omitted_power=reference.ordinary_omitted_power,
             comparison_ordinary_omitted_power=comparison_ordinary_power,
@@ -444,4 +446,4 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
         return float(np.min(wrapped))
 
 
-__all__ = ["Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer"]
+__all__ = ["Periodic1DRank2TruncationAnalyzer"]

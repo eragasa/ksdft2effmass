@@ -20,22 +20,27 @@ historical donor convergence.
 
 The current direct aggregate owns one five-member final-mesh parent family, one
 scale-one momentum refinement, one scale-one adaptive-amplitude refinement, and one
-scale-one truncation inventory. The first prerequisite is now installed in memory:
-`ReciprocalMeshRefinementFamily` owns the dimension- and rank-independent mesh/family
-alignment, while
-`Periodic1DEmbeddedSubspaceRank2MomentumRefinementFamilyAnalysis` adapts the existing
-closed rank-two outcomes and its independent verifier composes independently rebuilt
-members. This installation creates no retained bytes and does not execute this plan.
+scale-one truncation inventory. Two complete-scope prerequisites are now installed in
+memory. `ReciprocalMeshRefinementFamily` owns dimension- and rank-independent
+mesh/family alignment, while
+`Periodic1DRank2MomentumRefinementFamilyAnalysis` adapts the existing
+closed rank-two outcomes. `RealSpaceSupportTruncationFamily` owns dimension- and
+rank-independent family-coordinate/outcome alignment, while
+`Periodic1DRank2TruncationFamilyAnalysis` composes the existing truncation analyzer at
+every parent scale and derives canonical minimum tolerance-satisfying support outcomes.
+Their independent verifiers reconstruct each member in memory. The truncation-family
+verifier reconstructs each member once and independently scans rebuilt error channels
+for support decisions without calling either production selector. These installations
+create no retained bytes and do not execute this plan.
 
-Before a complete-scope script can be reviewed, installed owners must still add cohesive
-immutable aggregates for:
+Before a complete-scope script can be reviewed, an installed owner must still add the
+cohesive immutable five-scale, three-construction-mesh threshold-adjacent truncation
+assessment. That later mesh-stability assessment belongs to `NumericalConsistency`,
+not to the generic support-truncation family.
 
-1. the five truncation outcomes at the principal construction mesh; and
-2. the five-scale, three-construction-mesh threshold-adjacent truncation assessment.
-
-These owners must compose existing rank-two analyzers and independent references. They
-must not duplicate PhysKit transport, Optimization alignment, Fourier transforms, or the
-existing single-analysis scientific implementations. New retained bytes require an
+The remaining owner must compose existing rank-two analyzers and independent references.
+It must not duplicate PhysKit transport, Optimization alignment, Fourier transforms, or
+the existing single-analysis scientific implementations. New retained bytes require an
 explicit schema identity rather than adding fields to direct v2's schema.
 
 ## Proposed calculation controls

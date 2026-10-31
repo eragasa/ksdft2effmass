@@ -9,24 +9,25 @@ from datetime import UTC, datetime
 from importlib.metadata import version
 from pathlib import Path
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalyzer,
-    Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeRequest,
-    Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementThresholds,
-    Periodic1DEmbeddedSubspaceRank2CalculationRecord,
-    Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalyzer,
-    Periodic1DEmbeddedSubspaceRank2MomentumRefinementRequest,
-    Periodic1DEmbeddedSubspaceRank2MomentumRefinementThresholds,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalyzer,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest,
-    Periodic1DEmbeddedSubspaceRank2Request,
-    Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer,
-    Periodic1DEmbeddedSubspaceRank2TruncationRequest,
-)
-from ksdft2effmass.serialization import TypedJsonValueCodec
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
+
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
+    Periodic1DRank2AdaptiveAmplitudeAnalyzer,
+    Periodic1DRank2AdaptiveAmplitudeRequest,
+    Periodic1DRank2AmplitudeRefinementThresholds,
+    Periodic1DRank2CalculationRecord,
+    Periodic1DRank2MomentumRefinementAnalyzer,
+    Periodic1DRank2MomentumRefinementRequest,
+    Periodic1DRank2MomentumRefinementThresholds,
+    Periodic1DRank2ParentFamilyAnalyzer,
+    Periodic1DRank2ParentFamilyRequest,
+    Periodic1DRank2Request,
+    Periodic1DRank2TruncationAnalyzer,
+    Periodic1DRank2TruncationRequest,
+)
+from ksdft2effmass.serialization import TypedJsonValueCodec
 
 EXECUTION_ID = "direct-embedded-rank2-controlled-v2"
 CALCULATION_FAMILY = "periodic1d-rank2-band-equivalence-hopping-locality"
@@ -69,7 +70,7 @@ adaptive_amplitudes = tuple(
     float(index * math.pi / (4 * ADAPTIVE_INITIAL_AMPLITUDE_INTERVALS))
     for index in range(ADAPTIVE_INITIAL_AMPLITUDE_INTERVALS + 1)
 )
-family_template = Periodic1DEmbeddedSubspaceRank2Request(
+family_template = Periodic1DRank2Request(
     reciprocal_mesh_size=PARENT_FAMILY_MESH_SIZE,
     amplitudes=family_amplitudes,
     parent_hopping_scale=1.0,
@@ -81,7 +82,7 @@ family_template = Periodic1DEmbeddedSubspaceRank2Request(
     harmonic_absolute_degeneracy_tolerance=1.0e-14,
     harmonic_relative_degeneracy_tolerance=1.0e-13,
 )
-momentum_template = Periodic1DEmbeddedSubspaceRank2Request(
+momentum_template = Periodic1DRank2Request(
     reciprocal_mesh_size=MOMENTUM_MESH_SIZES[0],
     amplitudes=momentum_amplitudes,
     parent_hopping_scale=1.0,
@@ -93,7 +94,7 @@ momentum_template = Periodic1DEmbeddedSubspaceRank2Request(
     harmonic_absolute_degeneracy_tolerance=1.0e-14,
     harmonic_relative_degeneracy_tolerance=1.0e-13,
 )
-adaptive_template = Periodic1DEmbeddedSubspaceRank2Request(
+adaptive_template = Periodic1DRank2Request(
     reciprocal_mesh_size=ADAPTIVE_MESH_SIZE,
     amplitudes=adaptive_amplitudes,
     parent_hopping_scale=1.0,
@@ -106,28 +107,26 @@ adaptive_template = Periodic1DEmbeddedSubspaceRank2Request(
     harmonic_relative_degeneracy_tolerance=1.0e-13,
 )
 transporter = ClosedLoopPolarFrameTransporter()
-parent_family = Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalyzer(
-    request=Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest(
+parent_family = Periodic1DRank2ParentFamilyAnalyzer(
+    request=Periodic1DRank2ParentFamilyRequest(
         template_request=family_template,
         parent_hopping_scales=PARENT_HOPPING_SCALES,
     ),
     transporter=transporter,
 ).execute()
-momentum_thresholds = (
-    Periodic1DEmbeddedSubspaceRank2MomentumRefinementThresholds(
-        maximum_parent_diagnostic_change=DRAFT_TOLERANCE,
-        maximum_correlation_change=DRAFT_TOLERANCE,
-        maximum_threshold_change=DRAFT_TOLERANCE,
-        maximum_hopping_weight_change=DRAFT_TOLERANCE,
-        maximum_hopping_power_change=DRAFT_TOLERANCE,
-        maximum_angle_change=DRAFT_TOLERANCE,
-        maximum_band_defect=DRAFT_TOLERANCE,
-        maximum_reconstruction_defect=DRAFT_TOLERANCE,
-        maximum_parseval_defect=DRAFT_TOLERANCE,
-    )
+momentum_thresholds = Periodic1DRank2MomentumRefinementThresholds(
+    maximum_parent_diagnostic_change=DRAFT_TOLERANCE,
+    maximum_correlation_change=DRAFT_TOLERANCE,
+    maximum_threshold_change=DRAFT_TOLERANCE,
+    maximum_hopping_weight_change=DRAFT_TOLERANCE,
+    maximum_hopping_power_change=DRAFT_TOLERANCE,
+    maximum_angle_change=DRAFT_TOLERANCE,
+    maximum_band_defect=DRAFT_TOLERANCE,
+    maximum_reconstruction_defect=DRAFT_TOLERANCE,
+    maximum_parseval_defect=DRAFT_TOLERANCE,
 )
-momentum_refinement = Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalyzer(
-    request=Periodic1DEmbeddedSubspaceRank2MomentumRefinementRequest(
+momentum_refinement = Periodic1DRank2MomentumRefinementAnalyzer(
+    request=Periodic1DRank2MomentumRefinementRequest(
         template_request=momentum_template,
         reciprocal_mesh_sizes=MOMENTUM_MESH_SIZES,
         thresholds=momentum_thresholds,
@@ -135,17 +134,15 @@ momentum_refinement = Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalyzer(
     ),
     transporter=transporter,
 ).execute()
-amplitude_thresholds = (
-    Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementThresholds(
-        maximum_correlation_defect=DRAFT_TOLERANCE,
-        maximum_operator_threshold_defect=DRAFT_TOLERANCE,
-        maximum_joint_threshold_defect=DRAFT_TOLERANCE,
-        maximum_hopping_weight_defect=DRAFT_TOLERANCE,
-        maximum_hopping_power_defect=DRAFT_TOLERANCE,
-    )
+amplitude_thresholds = Periodic1DRank2AmplitudeRefinementThresholds(
+    maximum_correlation_defect=DRAFT_TOLERANCE,
+    maximum_operator_threshold_defect=DRAFT_TOLERANCE,
+    maximum_joint_threshold_defect=DRAFT_TOLERANCE,
+    maximum_hopping_weight_defect=DRAFT_TOLERANCE,
+    maximum_hopping_power_defect=DRAFT_TOLERANCE,
 )
-adaptive_amplitude = Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalyzer(
-    request=Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeRequest(
+adaptive_amplitude = Periodic1DRank2AdaptiveAmplitudeAnalyzer(
+    request=Periodic1DRank2AdaptiveAmplitudeRequest(
         template_request=adaptive_template,
         thresholds=amplitude_thresholds,
         maximum_refinement_levels=ADAPTIVE_MAXIMUM_REFINEMENT_LEVELS,
@@ -153,15 +150,15 @@ adaptive_amplitude = Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalyzer(
     ),
     transporter=transporter,
 ).execute()
-truncation = Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer(
-    request=Periodic1DEmbeddedSubspaceRank2TruncationRequest.every_integer_through(
+truncation = Periodic1DRank2TruncationAnalyzer(
+    request=Periodic1DRank2TruncationRequest.every_integer_through(
         template_request=family_template,
         maximum_range=TRUNCATION_MAXIMUM_RANGE,
         evaluation_mesh_size=TRUNCATION_EVALUATION_MESH_SIZE,
     ),
     transporter=transporter,
 ).execute()
-record = Periodic1DEmbeddedSubspaceRank2CalculationRecord(
+record = Periodic1DRank2CalculationRecord(
     parent_family=parent_family,
     momentum_refinement=momentum_refinement,
     adaptive_amplitude=adaptive_amplitude,

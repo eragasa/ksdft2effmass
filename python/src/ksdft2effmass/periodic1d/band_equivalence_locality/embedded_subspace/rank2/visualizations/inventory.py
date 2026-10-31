@@ -3,7 +3,7 @@
 from enum import Enum
 
 
-class Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot(Enum):
+class Periodic1DRank2CalculationVisualizationPlot(Enum):
     """Identify every required aggregate refinement and truncation figure."""
 
     MOMENTUM_REFINEMENT = "embedded-rank2-momentum-refinement.png"
@@ -11,7 +11,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot(Enum):
     TRUNCATION_CONSEQUENCES = "embedded-rank2-truncation-consequences.png"
 
 
-class Periodic1DEmbeddedSubspaceRank2VisualizationPlot(Enum):
+class Periodic1DRank2VisualizationPlot(Enum):
     """Identify every required single-parent embedded figure."""
 
     BAND_AND_ALIGNMENT = "embedded-rank2-band-and-alignment.png"
@@ -19,7 +19,7 @@ class Periodic1DEmbeddedSubspaceRank2VisualizationPlot(Enum):
     NUMERICAL_RESIDUALS = "embedded-rank2-numerical-residuals.png"
 
 
-class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot(Enum):
+class Periodic1DRank2ParentFamilyVisualizationPlot(Enum):
     """Identify every required parent-family figure."""
 
     ALIGNMENT_LANDSCAPE = "embedded-rank2-family-alignment-landscape.png"
@@ -28,7 +28,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot(Enum):
 
 
 __all__ = [
-    "Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot",
-    "Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot",
-    "Periodic1DEmbeddedSubspaceRank2VisualizationPlot",
+    "Periodic1DRank2CalculationVisualizationPlot",
+    "Periodic1DRank2ParentFamilyVisualizationPlot",
+    "Periodic1DRank2VisualizationPlot",
 ]

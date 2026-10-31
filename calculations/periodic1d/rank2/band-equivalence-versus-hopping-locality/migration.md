@@ -64,8 +64,9 @@ cap-stop outcomes, independent direct reconstruction, and in-memory comparison a
 installed. The embedded rank-two ordinary-truncation request, closed qualification
 stop, direct consequence values, producer, independent reconstruction, and in-memory
 comparison are installed under a dedicated `truncation/` child without a custom wire
-format. Authenticated single-parent, fully qualified parent-family, and cohesive calculation
-projections and closed PNG inventories are installed. One canonical calculation record
+format. Retention-owned authenticated single-parent, fully qualified parent-family, and cohesive
+calculation projections are installed separately from the strictly downstream closed PNG
+inventories and renderers. One canonical calculation record
 now retains the family, momentum refinement, adaptive-amplitude refinement, and
 truncation together; aggregate independent verification authenticates its exact bytes,
 every channel, and the rendering projection. Three direct no-overwrite scripts calculate,
@@ -96,7 +97,7 @@ neither execution is sealed or promoted.
   - [x] Install the serialization-free nested momentum-refinement channel and independent in-memory comparison.
   - [x] Install adaptive-amplitude refinement without conflating qualification or declared-cap stops.
   - [x] Install embedded rank-two negative-Nyquist conversion, ordinary truncation consequences, and independent direct-formula comparison.
-  - [x] Migrate flat, nonflat, parent-family, truncation, and truncation-refinement development producers to `development_study.py` composition over installed owners.
+  - [x] Migrate flat, nonflat, parent-family, truncation, and truncation-refinement development producers to `rank2_control_analysis.py` composition over installed owners.
   - [x] Migrate the three scientific producer tests to installed-owner composition; installed package tests retain the detailed owner contracts.
   - [x] Replace diagnostic loading, range-decision packaging, plotting entrypoint, and test with immutable typed boundaries without preserving pandas or dataframe APIs.
 - [ ] Obtain separate authorization before activating pandas as a direct project dependency; the recovered donor manifests are digest-bound but not activated.

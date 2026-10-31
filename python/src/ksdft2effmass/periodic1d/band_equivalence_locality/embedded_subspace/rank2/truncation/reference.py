@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import cast
 
 import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
@@ -12,7 +11,7 @@ from projectkoios.optimization.alignment.closed_loop_polar_transport import (
     ClosedLoopPolarFrameTransportStatus,
 )
 
-from ..reference import (
+from ..parent_scale.independent_reference import (
     _closed_loop_transport,
     _direct_fourier_blocks,
     _independent_gauge_attack,
@@ -21,20 +20,19 @@ from ..reference import (
     _parent_matrices,
     _representatives,
 )
-from ..results import (
-    Periodic1DEmbeddedSubspaceRank2BandTransportNumericallyUnresolved,
-    Periodic1DEmbeddedSubspaceRank2BandTransportThresholdFailure,
-    Periodic1DEmbeddedSubspaceRank2ExternalGapFailure,
-    Periodic1DEmbeddedSubspaceRank2Qualification,
-    Periodic1DEmbeddedSubspaceRank2QualifiedParent,
+from ..parent_scale.results import (
+    Periodic1DRank2BandTransportNumericallyUnresolved,
+    Periodic1DRank2BandTransportThresholdFailure,
+    Periodic1DRank2ExternalGapFailure,
+    Periodic1DRank2QualifiedParent,
 )
-from .request import Periodic1DEmbeddedSubspaceRank2TruncationRequest
+from .request import Periodic1DRank2TruncationRequest
 from .results import (
-    Periodic1DEmbeddedSubspaceRank2TruncationAnalysis,
-    Periodic1DEmbeddedSubspaceRank2TruncationCompleted,
-    Periodic1DEmbeddedSubspaceRank2TruncationPoint,
-    Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped,
-    Periodic1DEmbeddedSubspaceRank2TruncationRange,
+    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2TruncationCompleted,
+    Periodic1DRank2TruncationPoint,
+    Periodic1DRank2TruncationQualificationStopped,
+    Periodic1DRank2TruncationRange,
 )
 
 
@@ -42,7 +40,7 @@ from .results import (
 class _IndependentPreparation:
     coordinates: Float64Array
     retained_matrices: Complex128Array
-    qualification: Periodic1DEmbeddedSubspaceRank2QualifiedParent
+    qualification: Periodic1DRank2QualifiedParent
 
 
 @dataclass(frozen=True, slots=True)
@@ -68,29 +66,30 @@ class _IndependentReferenceRange:
     errors: _IndependentErrors
 
 
-class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
+class Periodic1DRank2TruncationIndependentReferenceAnalyzer:
     """Rebuild qualification and truncation without production scientific owners."""
 
     __slots__ = ("_request",)
 
-    def __init__(
-        self, request: Periodic1DEmbeddedSubspaceRank2TruncationRequest
-    ) -> None:
-        if type(request) is not Periodic1DEmbeddedSubspaceRank2TruncationRequest:
+    def __init__(self, request: Periodic1DRank2TruncationRequest) -> None:
+        if type(request) is not Periodic1DRank2TruncationRequest:
             raise TypeError("request must be a truncation request")
         self._request = request
 
-    def execute(self) -> Periodic1DEmbeddedSubspaceRank2TruncationAnalysis:
+    def execute(self) -> Periodic1DRank2TruncationAnalysis:
         """Return an independently reconstructed closed truncation outcome."""
         preparation = self._prepare()
-        if type(preparation) is not _IndependentPreparation:
-            qualification = cast(
-                Periodic1DEmbeddedSubspaceRank2Qualification, preparation
-            )
-            return Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped(
+        if (
+            type(preparation) is (Periodic1DRank2ExternalGapFailure)
+            or type(preparation) is (Periodic1DRank2BandTransportNumericallyUnresolved)
+            or type(preparation) is (Periodic1DRank2BandTransportThresholdFailure)
+        ):
+            return Periodic1DRank2TruncationQualificationStopped(
                 request=self._request,
-                qualification=qualification,
+                qualification=preparation,
             )
+        if type(preparation) is not _IndependentPreparation:
+            raise TypeError("independent preparation returned an unknown variant")
         evaluation, offset = self._evaluation_coordinates()
         separation = self._minimum_periodic_separation(
             preparation.coordinates, evaluation
@@ -123,7 +122,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
             )
             for amplitude in self._request.template_request.amplitudes
         )
-        return Periodic1DEmbeddedSubspaceRank2TruncationCompleted(
+        return Periodic1DRank2TruncationCompleted(
             request=self._request,
             qualification=preparation.qualification,
             evaluation_coordinate_offset=offset,
@@ -133,7 +132,12 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
 
     def _prepare(
         self,
-    ) -> _IndependentPreparation | Periodic1DEmbeddedSubspaceRank2Qualification:
+    ) -> (
+        _IndependentPreparation
+        | Periodic1DRank2ExternalGapFailure
+        | Periodic1DRank2BandTransportNumericallyUnresolved
+        | Periodic1DRank2BandTransportThresholdFailure
+    ):
         request = self._request.template_request
         size = request.reciprocal_mesh_size
         coordinates = np.asarray(
@@ -144,10 +148,10 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         eigenvalues, eigenvectors = np.linalg.eigh(parent)
         minimum_gap = float(np.min(eigenvalues[:, 2] - eigenvalues[:, 1]))
         if minimum_gap < request.minimum_external_gap:
-            return Periodic1DEmbeddedSubspaceRank2ExternalGapFailure(minimum_gap)
+            return Periodic1DRank2ExternalGapFailure(minimum_gap)
         transport = _closed_loop_transport(eigenvectors[:, :, :2], request)
         if type(transport) is _IndependentTransportFailure:
-            return Periodic1DEmbeddedSubspaceRank2BandTransportNumericallyUnresolved(
+            return Periodic1DRank2BandTransportNumericallyUnresolved(
                 minimum_external_gap=minimum_gap,
                 band_transport_status=(
                     ClosedLoopPolarFrameTransportStatus.RANK_DEFICIENT
@@ -157,7 +161,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         if type(transport) is not _IndependentTransport:
             raise TypeError("independent transport returned an unknown variant")
         if transport.minimum_singular_value <= request.minimum_transport_singular_value:
-            return Periodic1DEmbeddedSubspaceRank2BandTransportThresholdFailure(
+            return Periodic1DRank2BandTransportThresholdFailure(
                 minimum_external_gap=minimum_gap,
                 minimum_transport_singular_value=transport.minimum_singular_value,
             )
@@ -167,7 +171,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
             np.swapaxes(frames.conjugate(), -1, -2) @ parent @ frames,
             dtype=np.complex128,
         )
-        qualification = Periodic1DEmbeddedSubspaceRank2QualifiedParent(
+        qualification = Periodic1DRank2QualifiedParent(
             minimum_external_gap=minimum_gap,
             minimum_transport_singular_value=transport.minimum_singular_value,
             maximum_transport_rank_cutoff=transport.maximum_rank_cutoff,
@@ -206,7 +210,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         reference_eigenvalues: Float64Array,
         reference_ranges: tuple[_IndependentReferenceRange, ...],
         amplitude: float,
-    ) -> Periodic1DEmbeddedSubspaceRank2TruncationPoint:
+    ) -> Periodic1DRank2TruncationPoint:
         construction_comparison = _independent_gauge_attack(
             construction_coordinates, construction_reference, amplitude
         )
@@ -225,7 +229,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
             comparison_eigenvalues,
             direct_eigenvalues,
         )
-        return Periodic1DEmbeddedSubspaceRank2TruncationPoint(
+        return Periodic1DRank2TruncationPoint(
             amplitude=amplitude,
             reference_nyquist_power=reference.nyquist_power,
             comparison_nyquist_power=comparison.nyquist_power,
@@ -292,13 +296,13 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         reference: _IndependentReferenceRange,
         reference_nyquist_power: float,
         comparison_nyquist_power: float,
-    ) -> Periodic1DEmbeddedSubspaceRank2TruncationRange:
+    ) -> Periodic1DRank2TruncationRange:
         truncated, omitted_power = self._truncate(field, reference.maximum_range)
         matrices = self._evaluate(truncated, coordinates)
         eigenvalues = self._eigenvalues(matrices)
         truncation = self._errors(matrices, complete, eigenvalues, complete_eigenvalues)
         total = self._errors(matrices, direct, eigenvalues, direct_eigenvalues)
-        return Periodic1DEmbeddedSubspaceRank2TruncationRange(
+        return Periodic1DRank2TruncationRange(
             maximum_range=reference.maximum_range,
             reference_ordinary_omitted_power=reference.ordinary_omitted_power,
             comparison_ordinary_omitted_power=omitted_power,
@@ -465,4 +469,4 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         return float(np.min(np.minimum(differences, 1.0 - differences)))
 
 
-__all__ = ["Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer"]
+__all__ = ["Periodic1DRank2TruncationIndependentReferenceAnalyzer"]

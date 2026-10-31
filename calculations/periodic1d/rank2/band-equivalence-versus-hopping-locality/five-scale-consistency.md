@@ -7,9 +7,12 @@ rerunning a scientific calculation. It covers source-byte integrity, complete pr
 grids, internally reproduced summaries, minimum tolerance-satisfying support decisions,
 retained-evidence coverage, and the distinct donor and installed momentum dispositions.
 
-The executable owners are in
-[`five_scale_consistency.py`](five_scale_consistency.py). The aggregate
-`FiveScaleConsistencyAssessor` only composes five focused actions:
+The typed owners are in
+[`five_scale_evidence_assessment.py`](five_scale_evidence_assessment.py). The ordered
+read-only entrypoint is
+[`run_15_five_scale_evidence_assessment.py`](run_15_five_scale_evidence_assessment.py);
+it consumes the outputs of `run_10` through `run_14` and does not rerun their scientific
+owners. The aggregate `FiveScaleConsistencyAssessor` only composes five focused actions:
 
 1. `FiveScaleSourceIntegrityAssessor`;
 2. `FiveScaleTableConsistencyAssessor`;
@@ -84,7 +87,7 @@ The assessment deliberately preserves two gaps:
 
 1. All five historical summary rows say `converged` under the donor's narrower momentum
    diagnostic. Canonical direct v2 retains
-   `Periodic1DEmbeddedSubspaceRank2MomentumRefinementUnresolved` under the installed
+   `Periodic1DRank2MomentumRefinementUnresolved` under the installed
    broader diagnostic. The assessment therefore leaves
    `FiveScaleMomentumDisposition.semantic_equivalence_established` false.
 2. Direct v2 contains 561 scale-one truncation rows. The development table contains
