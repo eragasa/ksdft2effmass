@@ -6,7 +6,10 @@ from .case import (
     BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis,
 )
 from .channels import BandEquivalenceLocalityErrorChannels
-from .point import BandEquivalenceLocalityPointAnalysis
+from .point import (
+    BandEquivalenceLocalityPointAnalysis,
+    BandEquivalenceLocalityRepresentationEquivalenceAnalysis,
+)
 from .shell import (
     BandEquivalenceLocalityFirstPassingDecision,
     BandEquivalenceLocalityShellAnalysis,
@@ -19,5 +22,6 @@ __all__ = [
     "BandEquivalenceLocalityFirstPassingDecision",
     "BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis",
     "BandEquivalenceLocalityPointAnalysis",
+    "BandEquivalenceLocalityRepresentationEquivalenceAnalysis",
     "BandEquivalenceLocalityShellAnalysis",
 ]

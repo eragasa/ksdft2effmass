@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -14,6 +15,7 @@ from projectkoios.physkit.units import (
     ComplexVectorQuantity,
     MatrixQuantity,
     ScalarQuantity,
+    Unitless,
     VectorQuantity,
 )
 
@@ -59,6 +61,23 @@ class VerificationObservation(BaseVerification):
             raise ValueError("verification value must be finite and nonnegative")
         if not np.isfinite(self.tolerance.magnitude) or self.tolerance.magnitude < 0.0:
             raise ValueError("verification tolerance must be finite and nonnegative")
+
+    @classmethod
+    def dimensionless(cls, value: float, tolerance: float) -> Self:
+        """Construct one observation from built-in dimensionless scalars."""
+        if type(value) is not float:
+            raise TypeError("value must be a built-in float")
+        if type(tolerance) is not float:
+            raise TypeError("tolerance must be a built-in float")
+        if not math.isfinite(value) or value < 0.0:
+            raise ValueError("verification value must be finite and nonnegative")
+        if not math.isfinite(tolerance) or tolerance < 0.0:
+            raise ValueError("verification tolerance must be finite and nonnegative")
+        unit = Unitless()
+        return cls(
+            value=ScalarQuantity(value, unit),
+            tolerance=ScalarQuantity(tolerance, unit),
+        )
 
     @property
     def passed(self) -> bool:
@@ -204,3 +223,30 @@ class CompositeVerification(BaseVerification):
                 raise TypeError("decoded observations must map strings to mappings")
             observations[name] = VerificationObservation.from_dict(observation_value)
         return cls(observations=observations)
+
+
+@dataclass(frozen=True, slots=True)
+class MemberwiseCompositeVerificationComposer:
+    """Prefix and compose independently produced member verifications."""
+
+    member_verifications: tuple[CompositeVerification, ...]
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.member_verifications) is not tuple
+            or not self.member_verifications
+        ):
+            raise TypeError("member_verifications must be a nonempty tuple")
+        for verification in self.member_verifications:
+            if not isinstance(verification, CompositeVerification):
+                raise TypeError(
+                    "member_verifications must contain CompositeVerification values"
+                )
+
+    def result(self) -> CompositeVerification:
+        """Return observations prefixed by stable member indices."""
+        observations: dict[str, VerificationObservation] = {}
+        for index, verification in enumerate(self.member_verifications):
+            for name, observation in verification.observations.items():
+                observations[f"member_{index}_{name}"] = observation
+        return CompositeVerification(observations)

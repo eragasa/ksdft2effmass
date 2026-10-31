@@ -1,0 +1,30 @@
+{
+  "convergence": {
+    "disentanglement_converged": true,
+    "disentanglement_convergence_iteration": 1290,
+    "disentanglement_convergence_window": 3,
+    "disentanglement_final_fractional_delta": -9.691e-11,
+    "disentanglement_tolerance_fractional": 1e-10,
+    "wannierisation_converged": true,
+    "wannierisation_convergence_iteration": 189,
+    "wannierisation_convergence_window": 6,
+    "wannierisation_tolerance_angstrom_squared": 2e-9
+  },
+  "native_execution": {
+    "completion_observed": true,
+    "returncode": 0,
+    "status": "succeeded"
+  },
+  "provider_observations": {
+    "band_count": 12,
+    "disentanglement_isometry_maximum_residual": 1.32123580246505e-10,
+    "gauge_unitarity_maximum_residual": 1.5795521450794357e-10,
+    "hamiltonian_hermiticity_maximum_residual_ev": 0.0,
+    "hamiltonian_representative_count": 93,
+    "kpoint_count": 64,
+    "omega_total_angstrom_squared": 19.532839107,
+    "wannier_count": 10
+  },
+  "schema_version": 1,
+  "scientific_disposition": "provider-eligible localization occurrence only; interpolation, target-observable, locality, component-operator, and scientific acceptance tests remain pending"
+}

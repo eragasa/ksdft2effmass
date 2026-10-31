@@ -22,7 +22,8 @@ publication acceptance is created. Refinement remains outside these nominal life
 |---|---|
 | `definitions.py` | Immutable typed family, geometry, parent, gauge, mesh, amplitude, tolerance, and support requests. |
 | `analysis.py` | Immutable scientific analysis and request-bound production analyzer with zero-argument `execute()`. |
-| `results/` | Plain immutable scientific point, shell, decision, and case results with no serialization behavior. |
+| `geometry.py` | Family-owned metric adapters, the dimension-selected covariance-probe action and immutable result, and basis-pair distance diagnostics. |
+| `results/` | Plain immutable scientific representation-equivalence, point, shell, decision, and case results with no serialization behavior. |
 | `diagnostics.py` | Concrete constructor-bound diagnostic analyzers implementing `BaseDiagnosticAnalyzer`. |
 | `calculation/` | Independent finite diagnostic reconstruction used only by verification. |
 | `records/` | Retained point, shell, decision, case, and diagnostic `BaseTypedRecord` projections. |
@@ -32,8 +33,9 @@ publication acceptance is created. Refinement remains outside these nominal life
 | `lifecycle.py` | Domain-owned typed execution, execution-verification, and rendering records using the final `BaseTypedRecord` JSON boundary. |
 | `visualizations/` | Authenticated scalar projection, one closed plot name, figure composition, and visualizer. |
 
-These symbols remain available from their concrete owning modules. This stage does not
-add them to the package-root `__all__` inventory.
+Concrete actions remain available from their owning modules. The package root deliberately
+exports the stable typed values, including the named representation-equivalence result,
+but does not re-export the analyzer, recorder, verifier, or internal diagnostic actions.
 
 ## Dependency boundary
 

@@ -1,0 +1,61 @@
+{
+  "consistency": {
+    "declared_band_count_matches": true,
+    "declared_kpoint_count_matches": true,
+    "stdout_kpoint_count_matches": true,
+    "terminal_status_matches": true
+  },
+  "diagonalization_diagnostics": {
+    "algorithm": "david",
+    "disposition": "NO_ACTION_REQUIRED",
+    "requested_conv_thr_ry": 1e-12,
+    "total_reported_unconverged_eigenvalues": 0,
+    "warning_line_count": 0
+  },
+  "native_execution": {
+    "job_completed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "stdout": {
+      "byte_size": 163089,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/pw.out",
+      "sha256": "db88ef5281afb28f04dca277c438fdb4c817c577e75cbd2a58b9566f12bbbf3b"
+    }
+  },
+  "qexsd": {
+    "all_eigenvalues_finite": true,
+    "all_occupations_finite": true,
+    "band_count": 20,
+    "byte_size": 371723,
+    "declared_unit_system_label": "Hartree atomic units",
+    "eigenvalue_range_ev": [
+      -5.834131973200366,
+      30.272012393890613
+    ],
+    "exit_status": 0,
+    "k_point_weight_sum_native": 1.9999999999999942,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/tmp/system.save/data-file-schema.xml",
+    "producing_application": "PWSCF",
+    "producing_application_version": "7.5",
+    "qexsd_version": "25.05.21",
+    "sampled_k_point_count": 216,
+    "sha256": "2e1b5e157142d18210d18710fb9f5f3e813b17d8331acf96e11af9b9d4f7ef8c"
+  },
+  "saved_state": {
+    "file_count": 219,
+    "manifest": {
+      "byte_size": 44898,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/nscf-saved-state-manifest.json",
+      "sha256": "24ee9d483141ab54d099bc6e6403d0da46108cc7a30c5b019992da3a1d7ef3ac"
+    },
+    "total_bytes": 93658989,
+    "verified": true
+  },
+  "schema_version": 1,
+  "scientific_disposition": "eligible C6-B20 NSCF for target-space eigenvalue inventory; no outer window, Wannier interface, interpolation, or intended-use result"
+}

@@ -1,0 +1,18 @@
+{
+  "authorization_request_sha256": "31075266d039efc37c70d6d55afdf3f5a4fc0d09719c971c0c2086e2d5f82fbc",
+  "command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "silicon"
+  ],
+  "input_manifest_sha256": "d285df27cf085c61112bc9c0d79c4056b710708e379359ecb838b793272aee48",
+  "input_sha256": "2ddfb1b51cfd476cc6444f8bfec8ae3ef229e882c2e6e5f1ee5bf94addd43e64",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 67108864,
+  "operator_instruction": "Authorize exactly one fresh local Wannier90 3.1.0 wannier90.x silicon C6 localization invocation bound to authorization-request SHA-256 31075266d039efc37c70d6d55afdf3f5a4fc0d09719c971c0c2086e2d5f82fbc, using input SHA-256 2ddfb1b51cfd476cc6444f8bfec8ae3ef229e882c2e6e5f1ee5bf94addd43e64, localization-input-manifest SHA-256 d285df27cf085c61112bc9c0d79c4056b710708e379359ecb838b793272aee48, one process, 600-second timeout, 64 MiB ceiling, zero retries, and no checkpoint or failed-output consumption.",
+  "processes": 1,
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "timeout_seconds": 600.0
+}

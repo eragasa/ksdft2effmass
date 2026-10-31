@@ -1,0 +1,368 @@
+{
+  "external_root": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z",
+  "file_count": 72,
+  "files": [
+    {
+      "byte_size": 2257,
+      "path": "calculation.toml",
+      "sha256": "ce110125f22c12701444d8b9d9b4ce771501648f4c5b1bb5def1934fafd683cf"
+    },
+    {
+      "byte_size": 1771,
+      "path": "campaign-manifest.json",
+      "sha256": "0c9aeabb6db5996c408a53557e7e95134850e2ff63821a3944ec0e173a22cef8"
+    },
+    {
+      "byte_size": 1800,
+      "path": "preflight/input-manifest.json",
+      "sha256": "86ce47d07f217c98a31b54177e4c01527bc88163979b5c4d100f46ab3f0a8d19"
+    },
+    {
+      "byte_size": 821,
+      "path": "preflight/pw.in",
+      "sha256": "512d3a35f663db7cf74ef58119942ed0eb8c598fb8fc907b698ed82383c29329"
+    },
+    {
+      "byte_size": 41,
+      "path": "projectkoios-base-revision.txt",
+      "sha256": "41615882544953161183f7c11f2bc13209021d98dc36b95c476b39163bebe59d"
+    },
+    {
+      "byte_size": 38844,
+      "path": "projectkoios-fcc-vc-relax.patch",
+      "sha256": "ff274e5c875329585a255e31d61aff3d59796b15b35848983acd67a5a8b9fbb2"
+    },
+    {
+      "byte_size": 45295,
+      "path": "projectkoios-postprocessing.patch",
+      "sha256": "1ab3184bc3492ce6fdd100dc1c34f8d64d13def5839dab871259a13622f8ad88"
+    },
+    {
+      "byte_size": 758,
+      "path": "result/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+      "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+    },
+    {
+      "byte_size": 686,
+      "path": "result/postprocessing-attempts.json",
+      "sha256": "36f5a2d4738b801dc4a91510cb9aec961930558d3f7476c10c7a7e37e185af19"
+    },
+    {
+      "byte_size": 931,
+      "path": "result/postprocessing-provenance.json",
+      "sha256": "d1350e4710b83aebc37eb641ffd0d45ee4e3444ab593ab14c753e732de033722"
+    },
+    {
+      "byte_size": 4165,
+      "path": "result/relaxation-result.json",
+      "sha256": "ed139c5c1cfdc0a9cba1e1fabd7db4a8d6ca4b4dde0db0149cd909ff9a1ae235"
+    },
+    {
+      "byte_size": 8332,
+      "path": "retain_result.py",
+      "sha256": "f59e17c0d04e27bcf363441b29bf620588e2ed9178e10c161b7b52d16690797f"
+    },
+    {
+      "byte_size": 1299382,
+      "path": "run/Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+      "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+    },
+    {
+      "byte_size": 937,
+      "path": "run/artifact-manifest.json",
+      "sha256": "c00ebb433c4c0f301d52ec1bf26013d1884355f7ea31c57e3566b6cf5bd864ec"
+    },
+    {
+      "byte_size": 486,
+      "path": "run/execution.json",
+      "sha256": "a0edb7c8ef6b9bdfab06b4b49ba938bef43a92c7777d82001ccab70a15191f48"
+    },
+    {
+      "byte_size": 1800,
+      "path": "run/input-manifest.json",
+      "sha256": "86ce47d07f217c98a31b54177e4c01527bc88163979b5c4d100f46ab3f0a8d19"
+    },
+    {
+      "byte_size": 139,
+      "path": "run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    {
+      "byte_size": 821,
+      "path": "run/pw.in",
+      "sha256": "512d3a35f663db7cf74ef58119942ed0eb8c598fb8fc907b698ed82383c29329"
+    },
+    {
+      "byte_size": 60907,
+      "path": "run/pw.out",
+      "sha256": "a08c038390a0dacd461c27c56a8aec598385e92cd2b9f21003f75d440f2e5a2c"
+    },
+    {
+      "byte_size": 1299382,
+      "path": "run/tmp/system.save/Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+      "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+    },
+    {
+      "byte_size": 805480,
+      "path": "run/tmp/system.save/charge-density.dat",
+      "sha256": "c1fe6243dac6759358aefc6d0b67388b48c25cd18d67bf61c71b36a557890f4d"
+    },
+    {
+      "byte_size": 80614,
+      "path": "run/tmp/system.save/data-file-schema.xml",
+      "sha256": "3849bca4e6d09a7c6aea64823759920b7115db10f8425a6df232efcc76c1afac"
+    },
+    {
+      "byte_size": 94664,
+      "path": "run/tmp/system.save/wfc1.dat",
+      "sha256": "5ee926c7cfd2122b95f23e049a3d8d140d7de50e9346c279d38024b40f93817c"
+    },
+    {
+      "byte_size": 96716,
+      "path": "run/tmp/system.save/wfc10.dat",
+      "sha256": "a0fa7050df29553968d1444d5da7a9c7f87b227c065cfc810597121f39eaf18e"
+    },
+    {
+      "byte_size": 96108,
+      "path": "run/tmp/system.save/wfc11.dat",
+      "sha256": "1e0f14f85c94122bb13e152b377fdb498eeed5f5530a1520396580661c2e0866"
+    },
+    {
+      "byte_size": 96640,
+      "path": "run/tmp/system.save/wfc12.dat",
+      "sha256": "96117549f728770d994aeb72971f1647bd1fce8b6ad63026c6d7db9c63dd253a"
+    },
+    {
+      "byte_size": 97096,
+      "path": "run/tmp/system.save/wfc13.dat",
+      "sha256": "7ccbf9973fe5f0a5e9aff87f2efe88a4607cbe93b6dbd21095e7bec8e0010b0f"
+    },
+    {
+      "byte_size": 97552,
+      "path": "run/tmp/system.save/wfc14.dat",
+      "sha256": "07e74ca30f34ed21a7ca415d597596d1a0a9b8ac5daab5c4b141f2aca6761bc2"
+    },
+    {
+      "byte_size": 97552,
+      "path": "run/tmp/system.save/wfc15.dat",
+      "sha256": "f9d307b61627bd3622ea3501bea468767705f40a6088d36950e686faa30357ca"
+    },
+    {
+      "byte_size": 98616,
+      "path": "run/tmp/system.save/wfc16.dat",
+      "sha256": "972d9effdadd598e8b1f70e7fc0eb66833ce11a619f0b83996abdf8f25368877"
+    },
+    {
+      "byte_size": 97324,
+      "path": "run/tmp/system.save/wfc17.dat",
+      "sha256": "43674bb6e5a129818969e58671dbcc309a1c85fc5a752d5ac5d1a9708770b14a"
+    },
+    {
+      "byte_size": 96716,
+      "path": "run/tmp/system.save/wfc18.dat",
+      "sha256": "7f63f81701105fe3e2567e87e4338eed2301decbf83c234dea4efed9c2145eae"
+    },
+    {
+      "byte_size": 95956,
+      "path": "run/tmp/system.save/wfc19.dat",
+      "sha256": "a4c9f91500aed5ff556554eeeaceb8150c306205d95f43683da49da142e4dcae"
+    },
+    {
+      "byte_size": 96944,
+      "path": "run/tmp/system.save/wfc2.dat",
+      "sha256": "1763d362a757cbcea6e566efc1e5bcc62c6b13cefc72bd88d8a5a120b1f5f8ee"
+    },
+    {
+      "byte_size": 96488,
+      "path": "run/tmp/system.save/wfc20.dat",
+      "sha256": "64817fd3154bf976d0bba3bbe92bba65959620cdd757a3154642fd4d55e6683b"
+    },
+    {
+      "byte_size": 96716,
+      "path": "run/tmp/system.save/wfc21.dat",
+      "sha256": "b69dc4e13843eaaf67cd3c2d8d3e19e3b0b8711b40860b1e908e0976359f816a"
+    },
+    {
+      "byte_size": 96488,
+      "path": "run/tmp/system.save/wfc22.dat",
+      "sha256": "21f413e84abcc7d6488d9ec9df6e3e7044f98688b959c965dd271ea30d5dd1e3"
+    },
+    {
+      "byte_size": 97096,
+      "path": "run/tmp/system.save/wfc23.dat",
+      "sha256": "d1ec589717e46d59d6d9ea883e6568e06ad1641bd39b5b7818b1f3aedb5be3ce"
+    },
+    {
+      "byte_size": 96488,
+      "path": "run/tmp/system.save/wfc24.dat",
+      "sha256": "5906ef5c1168b65cd358a163cd0907431810e51f58c66a0b64b690045c1fb53b"
+    },
+    {
+      "byte_size": 96640,
+      "path": "run/tmp/system.save/wfc25.dat",
+      "sha256": "57d0d22772bb2ada334b8ec25ac514a89635c4b6799e28e6fb4fb16c8ec082d0"
+    },
+    {
+      "byte_size": 96564,
+      "path": "run/tmp/system.save/wfc26.dat",
+      "sha256": "b7c7b5341ca72b1ddfb6b96ad606b6e769c4186ea1f5f79938a03978859585f7"
+    },
+    {
+      "byte_size": 96868,
+      "path": "run/tmp/system.save/wfc27.dat",
+      "sha256": "a7bd83659248249c81ce3211b4647e3371de5a20acfe6558e14bc26d959714f5"
+    },
+    {
+      "byte_size": 96108,
+      "path": "run/tmp/system.save/wfc28.dat",
+      "sha256": "899c72fa716ca11892868929508b9787ef4d7f7999bb5cc9f3c5420e94f84209"
+    },
+    {
+      "byte_size": 96640,
+      "path": "run/tmp/system.save/wfc29.dat",
+      "sha256": "2a5fd39b11925aaca2f47e474ca23bbcb9b8977361a52dbb755d9f522847f232"
+    },
+    {
+      "byte_size": 96868,
+      "path": "run/tmp/system.save/wfc3.dat",
+      "sha256": "53f5ada5869f48ea71f73850c4c24c29f7c8f3c5c5a13d7bbe1a9de040ac6230"
+    },
+    {
+      "byte_size": 95956,
+      "path": "run/tmp/system.save/wfc30.dat",
+      "sha256": "d819742c88b1ccf90760c607a36c824bec33c91b9fc47c836360ce0684238f13"
+    },
+    {
+      "byte_size": 96412,
+      "path": "run/tmp/system.save/wfc31.dat",
+      "sha256": "f21083f72117c16545fa9fb4bd2aad726821c5f7c6ae94de814d47bb4015fa9e"
+    },
+    {
+      "byte_size": 97172,
+      "path": "run/tmp/system.save/wfc32.dat",
+      "sha256": "0210450d575e35332b28e72e1611f0d64b5a377e05dd068b6a3c9e2f749842c4"
+    },
+    {
+      "byte_size": 97324,
+      "path": "run/tmp/system.save/wfc33.dat",
+      "sha256": "b26f87a08d92de005d3295913921857ed3cf36e97fbc7d18db79f16f31aa64fa"
+    },
+    {
+      "byte_size": 96488,
+      "path": "run/tmp/system.save/wfc34.dat",
+      "sha256": "6a3d4546f8c80aa04c0ba4b932e8482b0ce5a5f7d2652bbb85d14ab9f4dca3f0"
+    },
+    {
+      "byte_size": 96260,
+      "path": "run/tmp/system.save/wfc35.dat",
+      "sha256": "4808b2bd0eaaf018d2502148b7d5184d274c40311f9d31545cb0942f31ee81f9"
+    },
+    {
+      "byte_size": 96868,
+      "path": "run/tmp/system.save/wfc36.dat",
+      "sha256": "868b19349e524a91b6ccc5954a61e9ceb2359ccc33ea5beec08da83b68eb88e6"
+    },
+    {
+      "byte_size": 96564,
+      "path": "run/tmp/system.save/wfc37.dat",
+      "sha256": "237ce3ba6f1447a209f91e4e58c0021ffab4d060e6df0369e6e733fc7116d8eb"
+    },
+    {
+      "byte_size": 96108,
+      "path": "run/tmp/system.save/wfc38.dat",
+      "sha256": "6d22e13e78dfeea1d85678b29720c8ebf649968a0f8bfff8c0fed2779056c605"
+    },
+    {
+      "byte_size": 96488,
+      "path": "run/tmp/system.save/wfc39.dat",
+      "sha256": "47a2afcb92494807e01ca5fbc6d44e430bba403d5f629bb16dca406423bc052a"
+    },
+    {
+      "byte_size": 96868,
+      "path": "run/tmp/system.save/wfc4.dat",
+      "sha256": "699c32969dcaef2f59e614d76567dd4b3248bd18553f880742b5e4173f19e929"
+    },
+    {
+      "byte_size": 97096,
+      "path": "run/tmp/system.save/wfc40.dat",
+      "sha256": "51633ff21abe58526616b5cc0d6f3a609c76ec65cdc518a05b98b5149947ca06"
+    },
+    {
+      "byte_size": 96640,
+      "path": "run/tmp/system.save/wfc41.dat",
+      "sha256": "87274131a340290928f2a862af1537f245f9691e06f7a599c8241fb4a4c8dee2"
+    },
+    {
+      "byte_size": 96108,
+      "path": "run/tmp/system.save/wfc42.dat",
+      "sha256": "fea4de3ca080ef01efcaf59c0e691b22c83b9b29424011c508f52a1690382033"
+    },
+    {
+      "byte_size": 96184,
+      "path": "run/tmp/system.save/wfc43.dat",
+      "sha256": "72b3856ba8700fd593e8d94107d79ede84fa1ff9462a23c77e96df97eabaa0e3"
+    },
+    {
+      "byte_size": 96868,
+      "path": "run/tmp/system.save/wfc44.dat",
+      "sha256": "7e9c3a3ff8ce3c50403704e201bbae82b66c223815bbe65da87d4443f3ded19d"
+    },
+    {
+      "byte_size": 97248,
+      "path": "run/tmp/system.save/wfc45.dat",
+      "sha256": "a30a7aeb086d521ef92fbc272f75dfb6bce50a1ac54a0a6692d869ffb3fd7b98"
+    },
+    {
+      "byte_size": 95652,
+      "path": "run/tmp/system.save/wfc46.dat",
+      "sha256": "5e76e3c7701b1222fe60972a3988f6db1f71074e6f2e499cf3e6f63f4e31712d"
+    },
+    {
+      "byte_size": 95804,
+      "path": "run/tmp/system.save/wfc47.dat",
+      "sha256": "f6f78b2070a0651ab8e0529af2571aae5797d180a39c3ab488b876c1d94dc1ad"
+    },
+    {
+      "byte_size": 96184,
+      "path": "run/tmp/system.save/wfc5.dat",
+      "sha256": "0611aaa65673c7072e0bdcdeb45e288e06e818984b126ea06b5b78ba86abb915"
+    },
+    {
+      "byte_size": 95956,
+      "path": "run/tmp/system.save/wfc6.dat",
+      "sha256": "b6ac2dab6b7325d3f52f111b95ef232a07762ca790cff0d9735f9b4bdfa18b58"
+    },
+    {
+      "byte_size": 97400,
+      "path": "run/tmp/system.save/wfc7.dat",
+      "sha256": "69332f158d6b088832b4d78a808ccba6c959af78d9bd5aa2ac53877e3ecd2e7f"
+    },
+    {
+      "byte_size": 97704,
+      "path": "run/tmp/system.save/wfc8.dat",
+      "sha256": "8386d55f351c0396b3be8152118a91e295cc267167992a5875f4a67e46de9594"
+    },
+    {
+      "byte_size": 97400,
+      "path": "run/tmp/system.save/wfc9.dat",
+      "sha256": "1797da2eb3112b1ad9b80c4c7fba4f2cf2f4b2feb6603d16ab35ecacc993d680"
+    },
+    {
+      "byte_size": 80614,
+      "path": "run/tmp/system.xml",
+      "sha256": "3849bca4e6d09a7c6aea64823759920b7115db10f8425a6df232efcc76c1afac"
+    },
+    {
+      "byte_size": 5456,
+      "path": "run_relaxation.py",
+      "sha256": "42efe2be51315f30ebd213e57aa78ea3d6f5bb1913ab2d69620bce6d21dd33b8"
+    },
+    {
+      "byte_size": 692,
+      "path": "structure.json",
+      "sha256": "7bef37dfe20ce58a137de942ec1fa0aa50d6e7049b0265790f12171bc834529a"
+    }
+  ],
+  "schema_version": 1,
+  "total_bytes": 8286011
+}

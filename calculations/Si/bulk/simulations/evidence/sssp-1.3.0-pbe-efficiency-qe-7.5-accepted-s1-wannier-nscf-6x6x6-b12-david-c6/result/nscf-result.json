@@ -1,0 +1,61 @@
+{
+  "consistency": {
+    "declared_band_count_matches": true,
+    "declared_kpoint_count_matches": true,
+    "stdout_kpoint_count_matches": true,
+    "terminal_status_matches": true
+  },
+  "diagonalization_diagnostics": {
+    "algorithm": "david",
+    "disposition": "NO_ACTION_REQUIRED",
+    "requested_conv_thr_ry": 1e-12,
+    "total_reported_unconverged_eigenvalues": 0,
+    "warning_line_count": 0
+  },
+  "native_execution": {
+    "job_completed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "stdout": {
+      "byte_size": 130689,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/pw.out",
+      "sha256": "0fe94e3e97739beb968162a1065cb4c166f7616f38752e22c05e8ce10614f228"
+    }
+  },
+  "qexsd": {
+    "all_eigenvalues_finite": true,
+    "all_occupations_finite": true,
+    "band_count": 12,
+    "byte_size": 287483,
+    "declared_unit_system_label": "Hartree atomic units",
+    "eigenvalue_range_ev": [
+      -5.834131973200428,
+      20.803605038465673
+    ],
+    "exit_status": 0,
+    "k_point_weight_sum_native": 1.9999999999999942,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/tmp/system.save/data-file-schema.xml",
+    "producing_application": "PWSCF",
+    "producing_application_version": "7.5",
+    "qexsd_version": "25.05.21",
+    "sampled_k_point_count": 216,
+    "sha256": "865f8e749b2e2280a7ea093effc36b524f78f88ab9a9baf70e028ac7a8e42023"
+  },
+  "saved_state": {
+    "file_count": 219,
+    "manifest": {
+      "byte_size": 44898,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/nscf-saved-state-manifest.json",
+      "sha256": "28df04c1bf314371d6138bfe41b564147354253c6d609b465c7ebd4778c617b8"
+    },
+    "total_bytes": 58433245,
+    "verified": true
+  },
+  "schema_version": 1,
+  "scientific_disposition": "eligible C6 NSCF handoff for a separately authorized Wannier90 preprocessing occurrence; no interpolation or intended-use result"
+}

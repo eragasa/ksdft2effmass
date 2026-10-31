@@ -16,6 +16,9 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailAnalyzer1D,
     SymmetricRangeTailMonotonicityAnalyzer1D,
 )
+from ksdft2effmass.real_space_support_truncation import (
+    RealSpaceSupportTruncation,
+)
 
 from ..diagnostics import Periodic1DHigherRankMatrixComparisonResult
 from .fourier import Periodic1DHigherRankFourierAnalysis
@@ -63,7 +66,7 @@ class Periodic1DHigherRankLocalityAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankLocalityAnalysis:
+class Periodic1DHigherRankLocalityAnalysis(RealSpaceSupportTruncation):
     """Store support diagnostics and tail-monotonicity evidence."""
 
     analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest

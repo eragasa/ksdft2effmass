@@ -217,7 +217,7 @@ slices use their exact public owners rather than a generic Periodic1D aggregate.
 |---|---|---|---|
 | Mathieu1D | `Mathieu1d` | `Mathieu1d` | `Mathieu1d` |
 | Compatible rank-one control | `Periodic1DFourierLocality` | `Periodic1DFourierLocality` | `Periodic1DFourierLocality` |
-| Rank-two band equivalence | `Periodic1DEmbeddedSubspaceRank2` | `Periodic1DEmbeddedSubspaceRank2Calculation` | `Periodic1DEmbeddedSubspaceRank2ParentFamily` |
+| Rank-two band equivalence | `Periodic1DRank2` | `Periodic1DRank2Calculation` | `Periodic1DRank2ParentFamily` |
 | Rank-two composite alignment | `Periodic1DCompositeBandAlignment` | `Periodic1DCompositeBandAlignment` | `Periodic1DCompositeBandAlignment` |
 | Confirmatory admissible sets | `Periodic1DConfirmatoryAdmissibleSet` | `Periodic1DConfirmatoryAdmissibleSet` | `Periodic1DConfirmatoryAdmissibleSet` |
 | Scalar/direct demonstration | `Periodic1DScalarAdmissibleSet` | `Periodic1DScalarAdmissibleSet` | `Periodic1DScalarAdmissibleSet` |

@@ -1,0 +1,75 @@
+schema_version = 1
+calculation_id = "si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20"
+phase = "nscf"
+integration_id = "quantum-espresso"
+
+[source_input]
+path = "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20/pw.in"
+byte_size = 13911
+sha256 = "20a6ee6e55d632bb66b1afcaac91592bf49c73a3e53e275659d1ccb03e47e1f9"
+
+[structure]
+path = "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json"
+structure_id = "Si.PrimitiveUnitCell.RightHanded.RelaxedS1"
+byte_size = 758
+sha256 = "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+
+[calculator]
+program = "pw.x"
+program_version = "7.5"
+path = "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw.x"
+byte_size = 9673048
+sha256 = "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910"
+
+[parent_scf]
+output_directory = "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z"
+saved_state_root = "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/tmp"
+manifest_path = "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/scf-saved-state-manifest.json"
+manifest_byte_size = 10763
+manifest_sha256 = "2b80acf2bc53dcbc5c667d50c4747036704a640c86cdf5902a98e998e21aefb9"
+calculation = "scf"
+prefix = "system"
+
+[pseudopotential]
+symbol = "Si"
+filename = "Si.pbe-n-rrkjus_psl.1.0.0.UPF"
+path = "/Users/eugene/opt/pseudopotentials/quantum-espresso/sssp/1.3.0/sets/PBE/efficiency/Si.pbe-n-rrkjus_psl.1.0.0.UPF"
+byte_size = 1299382
+sha256 = "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+mass_amu = 28.086
+
+[sampling]
+kpoint_grid = [6, 6, 6]
+kpoint_offset = [0, 0, 0]
+band_count = 20
+wavefunction_cutoff_ry = 42.0
+charge_density_cutoff_ry = 336.0
+electronic_tolerance_ry = 1.0e-12
+occupations = "fixed"
+
+[qe]
+prefix = "system"
+pseudo_dir = "./"
+outdir = "./tmp/"
+input_filename = "pw.in"
+verbosity = "high"
+iprint = 2
+diagonalization = "david"
+diago_full_acc = true
+disable_symmetry = true
+disable_time_reversal = true
+coordinate_precision = 8
+kpoint_precision = 12
+
+[output]
+directory = "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20/rendered"
+
+[qualification]
+statements = [
+  "C6-B20 changes only the parent-band count from 12 to 20 relative to C6.",
+  "The 216 points use the authenticated C6 ordering and unit total weight.",
+  "Structure, parent, pseudopotential, cutoffs, mesh, and NSCF controls stay fixed.",
+  "Factor-two band-count heuristic follows pinned AiiDA workflow 3.1.0.",
+  "Rank and outer-window selection remain separate downstream scientific decisions.",
+  "Dry-run rendering and saved-state verification grant no execution authority.",
+]

@@ -7,15 +7,15 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DEmbeddedSubspaceRank2CalculationVerification,
-    Periodic1DEmbeddedSubspaceRank2CalculationVerifier,
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizer,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVerification,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
+    Periodic1DRank2CalculationVerification,
+    Periodic1DRank2CalculationVerifier,
+    Periodic1DRank2CalculationVisualizationData,
+    Periodic1DRank2CalculationVisualizer,
+    Periodic1DRank2ParentFamilyAnalysisRecord,
+    Periodic1DRank2ParentFamilyVerification,
+    Periodic1DRank2ParentFamilyVisualizationData,
+    Periodic1DRank2ParentFamilyVisualizer,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
@@ -44,9 +44,7 @@ if not all(
 
 result_bytes = RESULT_PATH.read_bytes()
 verification_bytes = VERIFICATION_PATH.read_bytes()
-verification = Periodic1DEmbeddedSubspaceRank2CalculationVerification.from_json(
-    verification_bytes
-)
+verification = Periodic1DRank2CalculationVerification.from_json(verification_bytes)
 if verification.to_json() != verification_bytes:
     raise ValueError("verification artifact is not canonical typed JSON")
 codec = TypedJsonValueCodec()
@@ -62,24 +60,19 @@ if manifest.get("execution_id") != EXECUTION_ID:
     raise ValueError("verification execution identifier does not match")
 if manifest.get("result_sha256") != hashlib.sha256(result_bytes).hexdigest():
     raise ValueError("verification manifest authenticates different result bytes")
-if manifest.get("verification_sha256") != hashlib.sha256(
-    verification_bytes
-).hexdigest():
+if (
+    manifest.get("verification_sha256")
+    != hashlib.sha256(verification_bytes).hexdigest()
+):
     raise ValueError("verification manifest authenticates different verification")
 
-record = Periodic1DEmbeddedSubspaceRank2CalculationVerifier(
-    result_bytes
-).admit_stored(verification)
-family_bytes = Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord(
-    record.parent_family
-).to_json()
+record = Periodic1DRank2CalculationVerifier(result_bytes).admit_stored(verification)
+family_bytes = Periodic1DRank2ParentFamilyAnalysisRecord(record.parent_family).to_json()
 family_sha256 = hashlib.sha256(family_bytes).hexdigest()
 family_verification = verification.components[0]
-if type(family_verification) is not (
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVerification
-):
+if type(family_verification) is not (Periodic1DRank2ParentFamilyVerification):
     raise TypeError("stored family verification has the wrong type")
-data = Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData.from_analysis(
+data = Periodic1DRank2ParentFamilyVisualizationData.from_analysis(
     record.parent_family,
     source_sha256=family_sha256,
 )
@@ -87,24 +80,20 @@ if hashlib.sha256(data.to_json()).hexdigest() != (
     family_verification.visualization_data_sha256
 ):
     raise ValueError("stored verification authenticates different visualization data")
-family_visualizations = (
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer(
-        data=data,
-        verification=family_verification,
-        dpi=DPI,
-    ).visualize()
-)
-calculation_data = (
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData.from_record(
-        record,
-        source_sha256=verification.subject_sha256,
-    )
+family_visualizations = Periodic1DRank2ParentFamilyVisualizer(
+    data=data,
+    verification=family_verification,
+    dpi=DPI,
+).visualize()
+calculation_data = Periodic1DRank2CalculationVisualizationData.from_record(
+    record,
+    source_sha256=verification.subject_sha256,
 )
 if hashlib.sha256(calculation_data.to_json()).hexdigest() != (
     verification.visualization_data_sha256
 ):
     raise ValueError("stored verification authenticates different aggregate data")
-calculation_visualizations = Periodic1DEmbeddedSubspaceRank2CalculationVisualizer(
+calculation_visualizations = Periodic1DRank2CalculationVisualizer(
     data=calculation_data,
     verification=verification,
     dpi=DPI,
@@ -120,13 +109,9 @@ for visualization in visualizations:
             "schema_version": 1,
             "calculation_family": CALCULATION_FAMILY,
             "execution_id": EXECUTION_ID,
-            "verification_sha256": hashlib.sha256(
-                verification_bytes
-            ).hexdigest(),
+            "verification_sha256": hashlib.sha256(verification_bytes).hexdigest(),
             "figures": {
-                visualization.filename: hashlib.sha256(
-                    visualization.png
-                ).hexdigest()
+                visualization.filename: hashlib.sha256(visualization.png).hexdigest()
                 for visualization in visualizations
             },
             "script_sha256": hashlib.sha256(SCRIPT_PATH.read_bytes()).hexdigest(),

@@ -30,6 +30,16 @@ from projectkoios.numerics.finite_periodic.numpy.transforms import (
 from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
 from scipy.special import j0, jv  # type: ignore[import-untyped]
 
+from ksdft2effmass.real_space_support_truncation import (
+    MetricShellSupportInventory,
+    MinimumToleranceSatisfyingSupport,
+    RealSpaceSupportTruncationComparison,
+    RealSpaceSupportTruncationToleranceSelectionRequest,
+    RealSpaceSupportTruncationToleranceSelector,
+    SupportToleranceSelectionOutcome,
+    SupportToleranceUnresolved,
+)
+
 from .alignment import (
     FrameTransportDiagnostic,
     frame_transport_diagnostics,
@@ -54,8 +64,9 @@ from .fourier import (
     maximum_matrix_defect,
 )
 from .geometry import (
+    BandEquivalenceLocalityMetricCovarianceDefectAnalyzer,
     basis_distance_range,
-    metric_covariance_defect,
+    metric_shell_classification,
     minimum_mesh_separation,
 )
 from .geometry import (
@@ -68,6 +79,7 @@ from .results import (
     BandEquivalenceLocalityFirstPassingDecision,
     BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis,
     BandEquivalenceLocalityPointAnalysis,
+    BandEquivalenceLocalityRepresentationEquivalenceAnalysis,
     BandEquivalenceLocalityShellAnalysis,
 )
 from .shell_power import BandEquivalenceLocalityFourierShellPowerAnalyzer
@@ -590,47 +602,75 @@ class BandEquivalenceLocalityAnalyzer:
             maximum_hopping_block_power_midpoint_defect=max(hopping_block_powers),
         )
 
-    def _first_passing(
-        self, shells: tuple[BandEquivalenceLocalityShellAnalysis, ...], tolerance: float
-    ) -> BandEquivalenceLocalityFirstPassingDecision:
-        def select(
-            channel: str, quantity: str
-        ) -> tuple[int | None, float | None, float | None]:
-            previous: float | None = None
-            for shell in shells:
-                errors = (
-                    shell.reference_total
-                    if channel == "reference"
-                    else shell.comparison_total
-                )
-                value = (
-                    errors.maximum_band
-                    if quantity == "band"
-                    else errors.maximum_hamiltonian
-                )
-                if value <= tolerance:
-                    return shell.shell_index, value, previous
-                previous = value
+    @staticmethod
+    def _historical_decision_fields(
+        outcome: SupportToleranceSelectionOutcome,
+        shells: tuple[BandEquivalenceLocalityShellAnalysis, ...],
+    ) -> tuple[int | None, float | None, float | None]:
+        if type(outcome) is SupportToleranceUnresolved:
             return None, None, None
+        if type(outcome) is not MinimumToleranceSatisfyingSupport:
+            raise TypeError("support selection has an unknown outcome variant")
+        return (
+            shells[outcome.comparison_index].shell_index,
+            outcome.satisfying_error,
+            outcome.preceding_error,
+        )
 
-        reference_band = select("reference", "band")
-        comparison_band = select("comparison", "band")
-        reference_hamiltonian = select("reference", "hamiltonian")
-        comparison_hamiltonian = select("comparison", "hamiltonian")
+    def _tolerance_selection_record(
+        self,
+        shells: tuple[BandEquivalenceLocalityShellAnalysis, ...],
+        support_inventory: MetricShellSupportInventory,
+        tolerance: float,
+    ) -> BandEquivalenceLocalityFirstPassingDecision:
+        selection = RealSpaceSupportTruncationToleranceSelector().execute(
+            RealSpaceSupportTruncationToleranceSelectionRequest(
+                comparisons=tuple(
+                    RealSpaceSupportTruncationComparison(
+                        support=support_inventory.support_through(index),
+                        reference_model_errors=(
+                            shell.reference_total.support_truncation_errors
+                        ),
+                        comparison_model_errors=(
+                            shell.comparison_total.support_truncation_errors
+                        ),
+                    )
+                    for index, shell in enumerate(shells)
+                ),
+                tolerance=tolerance,
+            )
+        )
+
+        reference_eigenvalue = self._historical_decision_fields(
+            selection.reference_model.ordered_eigenvalue_maximum_absolute_error,
+            shells,
+        )
+        comparison_eigenvalue = self._historical_decision_fields(
+            selection.comparison_model.ordered_eigenvalue_maximum_absolute_error,
+            shells,
+        )
+        reference_matrix = self._historical_decision_fields(
+            selection.reference_model.matrix_frobenius_maximum_error,
+            shells,
+        )
+        comparison_matrix = self._historical_decision_fields(
+            selection.comparison_model.matrix_frobenius_maximum_error,
+            shells,
+        )
         return BandEquivalenceLocalityFirstPassingDecision(
             tolerance=tolerance,
-            reference_band_shell=reference_band[0],
-            comparison_band_shell=comparison_band[0],
-            reference_hamiltonian_shell=reference_hamiltonian[0],
-            comparison_hamiltonian_shell=comparison_hamiltonian[0],
-            reference_band_passing_error=reference_band[1],
-            reference_band_preceding_error=reference_band[2],
-            comparison_band_passing_error=comparison_band[1],
-            comparison_band_preceding_error=comparison_band[2],
-            reference_hamiltonian_passing_error=reference_hamiltonian[1],
-            reference_hamiltonian_preceding_error=reference_hamiltonian[2],
-            comparison_hamiltonian_passing_error=comparison_hamiltonian[1],
-            comparison_hamiltonian_preceding_error=comparison_hamiltonian[2],
+            reference_band_shell=reference_eigenvalue[0],
+            comparison_band_shell=comparison_eigenvalue[0],
+            reference_hamiltonian_shell=reference_matrix[0],
+            comparison_hamiltonian_shell=comparison_matrix[0],
+            reference_band_passing_error=reference_eigenvalue[1],
+            reference_band_preceding_error=reference_eigenvalue[2],
+            comparison_band_passing_error=comparison_eigenvalue[1],
+            comparison_band_preceding_error=comparison_eigenvalue[2],
+            reference_hamiltonian_passing_error=reference_matrix[1],
+            reference_hamiltonian_preceding_error=reference_matrix[2],
+            comparison_hamiltonian_passing_error=comparison_matrix[1],
+            comparison_hamiltonian_preceding_error=comparison_matrix[2],
         )
 
     def execute(self) -> BandEquivalenceLocalityAnalysis:
@@ -823,7 +863,9 @@ class BandEquivalenceLocalityAnalyzer:
         point_tuple = tuple(points)
         return BandEquivalenceLocalityCaseAnalysis(
             name=case.name,
-            metric_covariance_defect=metric_covariance_defect(case),
+            metric_covariance=(
+                BandEquivalenceLocalityMetricCovarianceDefectAnalyzer(case).execute()
+            ),
             construction_evaluation_minimum_separation=separation,
             amplitude_midpoint=self._amplitude_midpoint_diagnostic(
                 definition, point_tuple
@@ -1084,7 +1126,14 @@ class BandEquivalenceLocalityAnalyzer:
         comparison_interpolation = self.error_channels(
             full_comparison_eval, direct_comparison_eval
         )
-        metric_indices = physical_metric_indices(case, ordinary_displacements)
+        shell_classification = metric_shell_classification(
+            case,
+            ordinary_displacements,
+        )
+        metric_indices = np.asarray(
+            shell_classification.metric_shell_values,
+            dtype=np.int64,
+        )
         ordinary_reference_power = BandEquivalenceLocalityFourierShellPowerAnalyzer(
             identifier="band-equivalence-reference-ordinary",
             energy_reference=definition.synthetic_model.energy_reference,
@@ -1207,7 +1256,11 @@ class BandEquivalenceLocalityAnalyzer:
                 )
             )
         decisions = tuple(
-            self._first_passing(tuple(shell_results), tolerance)
+            self._tolerance_selection_record(
+                tuple(shell_results),
+                shell_classification.support_inventory,
+                tolerance,
+            )
             for tolerance in definition.band_tolerances
         )
         largest_mask = metric_indices <= shells[-1]
@@ -1260,31 +1313,38 @@ class BandEquivalenceLocalityAnalyzer:
                 transport.maximum_closure_unitarity_defect
             ),
             maximum_plaquette_holonomy_phase=transport.maximum_plaquette_phase,
-            maximum_direct_band_defect=direct_band_defect,
-            maximum_covariant_defect=covariant_defect,
-            alignment_applicable=correlation is not None,
-            alignment_inapplicable_reason=(
-                None
-                if correlation is not None
-                else "zero splitting scale: normalized correlation is undefined"
+            representation_equivalence=(
+                BandEquivalenceLocalityRepresentationEquivalenceAnalysis(
+                    spatial_dimension=case.dimension,
+                    retained_rank=definition.synthetic_model.retained_rank,
+                    maximum_direct_band_defect=direct_band_defect,
+                    maximum_covariant_defect=covariant_defect,
+                    alignment_applicable=correlation is not None,
+                    alignment_inapplicable_reason=(
+                        None
+                        if correlation is not None
+                        else (
+                            "zero splitting scale: normalized correlation is undefined"
+                        )
+                    ),
+                    restricted_global_rotation_angle=angle,
+                    restricted_global_rotation_degenerate=angle_degenerate,
+                    splitting_scale=splitting_scale,
+                    finite_mesh_maximum_correlation=correlation,
+                    analytic_flat_correlation=analytic_correlation,
+                    analytic_correlation_remainder_bound=analytic_remainder,
+                    correlation_quadrature_defect=correlation_defect,
+                    minimum_operator_threshold=minimum_threshold,
+                    exact_spectrum_joint_operator_threshold=(exact_spectrum_threshold),
+                    minimum_operator_threshold_over_sqrt_splitting=(
+                        normalized_operator_threshold
+                    ),
+                    exact_spectrum_joint_threshold_over_sqrt_splitting=(
+                        normalized_joint_threshold
+                    ),
+                    normalized_squared_operator_residual=(normalized_squared_residual),
+                )
             ),
-            restricted_global_rotation_angle=angle,
-            restricted_global_rotation_degenerate=angle_degenerate,
-            splitting_scale=splitting_scale,
-            finite_mesh_maximum_correlation=correlation,
-            analytic_flat_correlation=analytic_correlation,
-            analytic_correlation_remainder_bound=analytic_remainder,
-            correlation_quadrature_defect=correlation_defect,
-            minimum_operator_threshold=minimum_threshold,
-            exact_spectrum_joint_operator_threshold=exact_spectrum_threshold,
-            minimum_operator_threshold_over_sqrt_splitting=(
-                normalized_operator_threshold
-            ),
-            exact_spectrum_joint_threshold_over_sqrt_splitting=(
-                normalized_joint_threshold
-            ),
-            normalized_squared_operator_residual=normalized_squared_residual,
-            restricted_global_rotation_residual=minimum_threshold,
             reference_fourier_reconstruction_defect=self.matrix_defect(
                 reconstructed_reference, reference
             ),

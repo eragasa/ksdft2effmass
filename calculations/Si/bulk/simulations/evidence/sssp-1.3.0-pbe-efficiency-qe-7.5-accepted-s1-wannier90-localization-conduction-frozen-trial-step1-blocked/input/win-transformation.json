@@ -1,0 +1,25 @@
+{
+  "checkpoint_consumed": false,
+  "fresh_occurrence": true,
+  "only_change": {
+    "trial_step_after": 1.0,
+    "trial_step_before": 2.0
+  },
+  "revised_win": {
+    "byte_size": 3635,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-trial-step1-20261031T091249Z/prepared-input/silicon.win",
+    "sha256": "9aad72666afa2d7f448c959d9e06af50e50f78888d46a3d64baf9e92786a460b"
+  },
+  "schema_version": 1,
+  "source_win": {
+    "byte_size": 3620,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conduction-frozen-iter1000-20261031T085113Z/prepared-input/silicon.win",
+    "sha256": "ae029dc89828e23c287060083e5f292825dff82ca984b178b221db5d5366e9cf"
+  },
+  "unchanged_interface_artifacts": [
+    "silicon.nnkp",
+    "silicon.eig",
+    "silicon.amn",
+    "silicon.mmn"
+  ]
+}

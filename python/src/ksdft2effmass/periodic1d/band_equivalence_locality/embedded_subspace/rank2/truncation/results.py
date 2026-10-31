@@ -3,18 +3,22 @@
 from __future__ import annotations
 
 import math
-from abc import ABC
 from dataclasses import dataclass
 
-from ..results import (
-    Periodic1DEmbeddedSubspaceRank2BandTransportBackendFailure,
-    Periodic1DEmbeddedSubspaceRank2BandTransportNumericallyUnresolved,
-    Periodic1DEmbeddedSubspaceRank2BandTransportThresholdFailure,
-    Periodic1DEmbeddedSubspaceRank2ExternalGapFailure,
-    Periodic1DEmbeddedSubspaceRank2Qualification,
-    Periodic1DEmbeddedSubspaceRank2QualifiedParent,
+from ksdft2effmass.real_space_support_truncation import (
+    RealSpaceSupportTruncation,
+    SymmetricRangeSupport1D,
 )
-from .request import Periodic1DEmbeddedSubspaceRank2TruncationRequest
+
+from ..parent_scale.results import (
+    Periodic1DRank2BandTransportBackendFailure,
+    Periodic1DRank2BandTransportNumericallyUnresolved,
+    Periodic1DRank2BandTransportThresholdFailure,
+    Periodic1DRank2ExternalGapFailure,
+    Periodic1DRank2Qualification,
+    Periodic1DRank2QualifiedParent,
+)
+from .request import Periodic1DRank2TruncationRequest
 
 
 def _nonnegative(value: float, name: str) -> None:
@@ -25,7 +29,7 @@ def _nonnegative(value: float, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2TruncationRange:
+class Periodic1DRank2TruncationRange(RealSpaceSupportTruncation):
     """Retain consequences of one conjugate-closed ordinary cutoff."""
 
     maximum_range: int
@@ -77,9 +81,14 @@ class Periodic1DEmbeddedSubspaceRank2TruncationRange:
                 "comparison total omitted power must include Nyquist power"
             )
 
+    @property
+    def support_policy(self) -> SymmetricRangeSupport1D:
+        """Return the typed ordinary-translation support policy."""
+        return SymmetricRangeSupport1D(self.maximum_range)
+
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2TruncationPoint:
+class Periodic1DRank2TruncationPoint:
     """Retain conversion, interpolation, and truncation channels at one amplitude."""
 
     amplitude: float
@@ -92,7 +101,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationPoint:
     comparison_interpolation_hamiltonian_rms_error: float
     comparison_interpolation_spectral_maximum_error: float
     comparison_interpolation_spectral_rms_error: float
-    ranges: tuple[Periodic1DEmbeddedSubspaceRank2TruncationRange, ...]
+    ranges: tuple[Periodic1DRank2TruncationRange, ...]
 
     def __post_init__(self) -> None:
         for name in (
@@ -111,8 +120,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationPoint:
         if type(self.ranges) is not tuple or not self.ranges:
             raise TypeError("ranges must be a nonempty tuple")
         if any(
-            type(item) is not Periodic1DEmbeddedSubspaceRank2TruncationRange
-            for item in self.ranges
+            type(item) is not Periodic1DRank2TruncationRange for item in self.ranges
         ):
             raise TypeError("ranges must contain truncation range values")
         inventory = tuple(item.maximum_range for item in self.ranges)
@@ -132,49 +140,45 @@ class Periodic1DEmbeddedSubspaceRank2TruncationPoint:
             raise ValueError("comparison total power must equal ordinary plus Nyquist")
 
 
-class Periodic1DEmbeddedSubspaceRank2TruncationAnalysis(ABC):
+class Periodic1DRank2TruncationAnalysis(RealSpaceSupportTruncation):
     """Identify one closed truncation outcome variant."""
 
     __slots__ = ()
 
-    request: Periodic1DEmbeddedSubspaceRank2TruncationRequest
-    qualification: Periodic1DEmbeddedSubspaceRank2Qualification
+    request: Periodic1DRank2TruncationRequest
+    qualification: Periodic1DRank2Qualification
 
     @property
     def completed(self) -> bool:
         """Return whether qualification passed and consequences were evaluated."""
-        return type(self) is Periodic1DEmbeddedSubspaceRank2TruncationCompleted
+        return type(self) is Periodic1DRank2TruncationCompleted
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped(
-    Periodic1DEmbeddedSubspaceRank2TruncationAnalysis
-):
+class Periodic1DRank2TruncationQualificationStopped(Periodic1DRank2TruncationAnalysis):
     """Retain qualification evidence when truncation evaluation cannot begin."""
 
-    request: Periodic1DEmbeddedSubspaceRank2TruncationRequest
-    qualification: Periodic1DEmbeddedSubspaceRank2Qualification
+    request: Periodic1DRank2TruncationRequest
+    qualification: Periodic1DRank2Qualification
 
     def __post_init__(self) -> None:
-        if type(self.request) is not Periodic1DEmbeddedSubspaceRank2TruncationRequest:
+        if type(self.request) is not Periodic1DRank2TruncationRequest:
             raise TypeError("request must be a truncation request")
         if type(self.qualification) not in (
-            Periodic1DEmbeddedSubspaceRank2ExternalGapFailure,
-            Periodic1DEmbeddedSubspaceRank2BandTransportBackendFailure,
-            Periodic1DEmbeddedSubspaceRank2BandTransportNumericallyUnresolved,
-            Periodic1DEmbeddedSubspaceRank2BandTransportThresholdFailure,
+            Periodic1DRank2ExternalGapFailure,
+            Periodic1DRank2BandTransportBackendFailure,
+            Periodic1DRank2BandTransportNumericallyUnresolved,
+            Periodic1DRank2BandTransportThresholdFailure,
         ):
             raise TypeError("qualification must be one closed unqualified variant")
-        gap_failed = type(self.qualification) is (
-            Periodic1DEmbeddedSubspaceRank2ExternalGapFailure
-        )
+        gap_failed = type(self.qualification) is (Periodic1DRank2ExternalGapFailure)
         if gap_failed is not (
             self.qualification.minimum_external_gap
             < self.request.template_request.minimum_external_gap
         ):
             raise ValueError("external-gap disposition must match the request gate")
         if type(self.qualification) is (
-            Periodic1DEmbeddedSubspaceRank2BandTransportThresholdFailure
+            Periodic1DRank2BandTransportThresholdFailure
         ) and (
             self.qualification.minimum_transport_singular_value
             > self.request.template_request.minimum_transport_singular_value
@@ -183,23 +187,19 @@ class Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped(
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2TruncationCompleted(
-    Periodic1DEmbeddedSubspaceRank2TruncationAnalysis
-):
+class Periodic1DRank2TruncationCompleted(Periodic1DRank2TruncationAnalysis):
     """Retain one complete pointwise finite-range consequence study."""
 
-    request: Periodic1DEmbeddedSubspaceRank2TruncationRequest
-    qualification: Periodic1DEmbeddedSubspaceRank2QualifiedParent
+    request: Periodic1DRank2TruncationRequest
+    qualification: Periodic1DRank2QualifiedParent
     evaluation_coordinate_offset: float
     minimum_construction_evaluation_separation: float
-    points: tuple[Periodic1DEmbeddedSubspaceRank2TruncationPoint, ...]
+    points: tuple[Periodic1DRank2TruncationPoint, ...]
 
     def __post_init__(self) -> None:
-        if type(self.request) is not Periodic1DEmbeddedSubspaceRank2TruncationRequest:
+        if type(self.request) is not Periodic1DRank2TruncationRequest:
             raise TypeError("request must be a truncation request")
-        if type(self.qualification) is not (
-            Periodic1DEmbeddedSubspaceRank2QualifiedParent
-        ):
+        if type(self.qualification) is not (Periodic1DRank2QualifiedParent):
             raise TypeError("completed truncation requires a qualified parent")
         if (
             self.qualification.minimum_external_gap
@@ -224,8 +224,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationCompleted(
         if self.minimum_construction_evaluation_separation == 0.0:
             raise ValueError("construction and evaluation meshes must be disjoint")
         if type(self.points) is not tuple or any(
-            type(point) is not Periodic1DEmbeddedSubspaceRank2TruncationPoint
-            for point in self.points
+            type(point) is not Periodic1DRank2TruncationPoint for point in self.points
         ):
             raise TypeError("points must contain truncation point values")
         if tuple(point.amplitude for point in self.points) != (
@@ -271,9 +270,9 @@ class Periodic1DEmbeddedSubspaceRank2TruncationCompleted(
 
 
 __all__ = [
-    "Periodic1DEmbeddedSubspaceRank2TruncationAnalysis",
-    "Periodic1DEmbeddedSubspaceRank2TruncationCompleted",
-    "Periodic1DEmbeddedSubspaceRank2TruncationPoint",
-    "Periodic1DEmbeddedSubspaceRank2TruncationQualificationStopped",
-    "Periodic1DEmbeddedSubspaceRank2TruncationRange",
+    "Periodic1DRank2TruncationAnalysis",
+    "Periodic1DRank2TruncationCompleted",
+    "Periodic1DRank2TruncationPoint",
+    "Periodic1DRank2TruncationQualificationStopped",
+    "Periodic1DRank2TruncationRange",
 ]

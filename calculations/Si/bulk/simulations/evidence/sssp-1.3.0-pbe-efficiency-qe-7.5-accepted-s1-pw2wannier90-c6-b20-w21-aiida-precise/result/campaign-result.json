@@ -1,0 +1,46 @@
+{
+  "artifact_manifest": {
+    "byte_size": 1438,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/artifact-manifest.json",
+    "sha256": "4f50b7bd7195d6babb2b0312bb777b95bce1e05e95cac409488e53239364b9ac"
+  },
+  "authorization": {
+    "byte_size": 1081,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/authorization.json",
+    "sha256": "1fb9753041b5a5107a7e080be4fcc072580ec609eaa49c7150191aa2cf904243"
+  },
+  "execution_record": {
+    "byte_size": 520,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/execution.json",
+    "sha256": "5f8e6197de845f4beed67e8201ae851d7ca24874936f35e61d16e49c65007fb2"
+  },
+  "execution_status": "succeeded",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 268435456,
+  "required_outputs": {
+    "silicon.amn": {
+      "byte_size": 2894499,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.amn",
+      "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+    },
+    "silicon.eig": {
+      "byte_size": 168480,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.eig",
+      "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2"
+    },
+    "silicon.mmn": {
+      "byte_size": 25662627,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.mmn",
+      "sha256": "f81833fe7476426c15b690774214b4d07acaa2ffa93b1facb8ceb78c44ab6074"
+    }
+  },
+  "retry_count": 0,
+  "return_code": 0,
+  "schema_version": 1,
+  "scientific_disposition": "eligible C6-B20-W21 20-band AMN/MMN/EIG handoff for separately authorized Wannier90 localization; no localization or intended-use result",
+  "timed_out": false,
+  "total_occurrence_bytes_after_postprocessing": 122528717,
+  "total_occurrence_bytes_at_runner_return": 122523691,
+  "within_retained_byte_bound_after_postprocessing": true,
+  "within_retained_byte_bound_at_runner_return": true
+}

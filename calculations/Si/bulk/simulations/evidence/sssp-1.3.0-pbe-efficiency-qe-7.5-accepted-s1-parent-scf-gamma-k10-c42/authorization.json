@@ -1,0 +1,13 @@
+{
+  "authorized": true,
+  "authorized_at_utc": "2026-10-31T07:06:38.159654+00:00",
+  "authorized_bounds": {
+    "maximum_invocations": 1,
+    "retries": 0,
+    "stop_on_failure": true
+  },
+  "campaign_preflight_sha256": "4a42616e8b5a8c8da255b99fedf8eb56c1d13f3e830ead1db7731a181e6512df",
+  "operator_message": "Authorize exactly one accepted-S1 parent SCF invocation described in campaign-preflight.json, with zero retries and stop on failure.",
+  "run_script_sha256": "42d4fc3ca789331a077d174955e8deac8b93cc6b6da01732f27ea4733b3e5d74",
+  "schema_version": 1
+}

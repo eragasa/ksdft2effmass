@@ -5,7 +5,6 @@ from __future__ import annotations
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import Enum
 from typing import Self
 
 import numpy as np
@@ -25,7 +24,11 @@ from projectkoios.numerics.numpy.typing import BoolArray
 from projectkoios.numerics.numpy.typing import Complex128Array as ComplexArray
 from projectkoios.numerics.numpy.typing import Float64Array as FloatArray
 
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.serialization import (
+    BaseTypedRecord,
+    SerializableValue,
+    StringWireEnum,
+)
 
 from .alignment import restricted_alignment
 from .strain import SyntheticStrainPathEnum
@@ -33,43 +36,15 @@ from .strain import SyntheticStrainPathEnum
 _SEED = np.eye(4, 2, dtype=np.complex128)
 
 
-class StrainResponseModelEnum(Enum):
+class StrainResponseModelEnum(StringWireEnum):
     """Select a frozen or radial-response four-state strain control."""
-
-    def to_wire(self) -> str:
-        """Return the stable wire label."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, wire: str) -> Self:
-        """Reconstruct a model from its stable wire label."""
-        if type(wire) is not str:
-            raise TypeError("wire must be a built-in string")
-        for member in cls:
-            if member.to_wire() == wire:
-                return member
-        raise ValueError(f"unsupported strain-response model wire label: {wire!r}")
 
     M1_FROZEN = "M1-frozen-four-state-bipartite"
     M2_RADIAL = "M2-fixed-radial-response"
 
 
-class StrainWitnessControlEnum(Enum):
+class StrainWitnessControlEnum(StringWireEnum):
     """Select one independently interpreted strain witness control."""
-
-    def to_wire(self) -> str:
-        """Return the stable wire label."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, wire: str) -> Self:
-        """Reconstruct a control from its stable wire label."""
-        if type(wire) is not str:
-            raise TypeError("wire must be a built-in string")
-        for member in cls:
-            if member.to_wire() == wire:
-                return member
-        raise ValueError(f"unsupported strain-witness control wire label: {wire!r}")
 
     GEOMETRY_ONLY = "geometry-only-control"
     FROZEN_PARENT = "frozen-parent-null-response-control"

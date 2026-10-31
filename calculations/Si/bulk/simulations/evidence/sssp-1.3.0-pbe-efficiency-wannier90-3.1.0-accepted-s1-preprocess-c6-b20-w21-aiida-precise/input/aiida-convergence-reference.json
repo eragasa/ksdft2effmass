@@ -1,0 +1,35 @@
+{
+  "adaptation_boundary": "precise convergence-derived tuple only; no factor-three band count, automatic mesh, PBEsol pseudopotential, projection, energy-window, MPI, wall-clock, or restart-policy adoption",
+  "cell_atom_count": 2,
+  "commit": "1c0115cb7c77541a0bd549bc05005df435d651b6",
+  "derived_native_parameters": {
+    "conv_tol_angstrom_squared": 2e-09,
+    "conv_window": 6,
+    "dis_conv_tol_dimensionless": 2e-09,
+    "dis_num_iter": 40000,
+    "num_cg_steps": 200,
+    "num_iter": 40000
+  },
+  "per_atom_meta_parameters": {
+    "conv_tol_per_atom": 1e-09,
+    "dis_conv_tol_per_atom": 1e-09
+  },
+  "release": "3.1.0",
+  "schema_version": 1,
+  "selected_protocol": "precise",
+  "software": "aiida-wannier90-workflows",
+  "sources": [
+    {
+      "byte_size": 1820,
+      "path": "src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml",
+      "sha256": "f6b2bd7e95a4b8be387c12a35d9eef83a7e28a4f3c0128dbec8f8990f37890c7",
+      "url": "https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml"
+    },
+    {
+      "byte_size": 38232,
+      "path": "src/aiida_wannier90_workflows/workflows/base/wannier90.py",
+      "sha256": "59f7100fabe5a1a6443a115634a50bc5f060f13006eea6826593d4aad4c34f43",
+      "url": "https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/workflows/base/wannier90.py"
+    }
+  ]
+}

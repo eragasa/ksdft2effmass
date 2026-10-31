@@ -58,5 +58,8 @@ class TestBandEquivalenceLocalityDiagnosticAnalyzers:
 
         with pytest.raises(TypeError, match="built-in string"):
             BandEquivalenceLocalityDiagnosticMethodEnum.from_wire(1)  # type: ignore[arg-type]
-        with pytest.raises(ValueError, match="unknown diagnostic method"):
+        with pytest.raises(
+            ValueError,
+            match="BandEquivalenceLocalityDiagnosticMethodEnum",
+        ):
             BandEquivalenceLocalityDiagnosticMethodEnum.from_wire("unknown")

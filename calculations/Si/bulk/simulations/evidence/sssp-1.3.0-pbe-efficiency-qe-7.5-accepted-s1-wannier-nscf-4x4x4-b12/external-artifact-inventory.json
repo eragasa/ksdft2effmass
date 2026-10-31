@@ -1,0 +1,458 @@
+{
+  "external_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z",
+  "file_count": 90,
+  "files": [
+    {
+      "byte_size": 615,
+      "path": "authorization.json",
+      "sha256": "0d9f339fe067c132c90a1182a618a777751ebd951ec42d9ca018214947ccc049"
+    },
+    {
+      "byte_size": 2941,
+      "path": "calculation.execution.toml",
+      "sha256": "8a1f2ae52de18027b447c8c29d2c9cf3ab0c3aa7217fce9479b34bacda145347"
+    },
+    {
+      "byte_size": 2954,
+      "path": "calculation.toml",
+      "sha256": "166eb854f13a709a3c01043f6a23e2375713e8944406db068687aa2cb5a44b2e"
+    },
+    {
+      "byte_size": 3441,
+      "path": "campaign-preflight.json",
+      "sha256": "2004a756bfae9e0ff8f4cb50cddac125842e928379ff3a5c5b4644508527c053"
+    },
+    {
+      "byte_size": 1673,
+      "path": "campaign-result.json",
+      "sha256": "1292d0c330616be9fded08350c93eaa6e8c0f7e1926b1a07704553e600d8d72e"
+    },
+    {
+      "byte_size": 2428,
+      "path": "nscf-result.json",
+      "sha256": "f32ac8fe66c2352510f574399cf5f1763248ea2b3b7b1b1975a0e1ebb534f967"
+    },
+    {
+      "byte_size": 2242,
+      "path": "preflight-output/input-manifest.json",
+      "sha256": "abce04b8dd0056ab6cf16b56cda0983280f9d7742f987db04674e2a430b2aae5"
+    },
+    {
+      "byte_size": 4635,
+      "path": "preflight-output/pw.in",
+      "sha256": "e3dc6058b22cbe9e473b4abd24d971141a653eb49c1b1820d62236a8df3da13b"
+    },
+    {
+      "byte_size": 10699,
+      "path": "prepare_campaign.py",
+      "sha256": "8cf248ff6cedfc6e1a0a430e0283a61677f9585bf4b03d454f979780df8022dd"
+    },
+    {
+      "byte_size": 5884,
+      "path": "retain_result.py",
+      "sha256": "bb49f66bed82862dd0da3c069e57d87014bf6f60ec9af888a4e0ce4b4f1f7609"
+    },
+    {
+      "byte_size": 1299382,
+      "path": "run/Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+      "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+    },
+    {
+      "byte_size": 1083,
+      "path": "run/artifact-manifest.json",
+      "sha256": "861ae7ac711708a7c6544c411de7111dc2786511e59f7d6a4e0afb384d54ba4e"
+    },
+    {
+      "byte_size": 486,
+      "path": "run/execution.json",
+      "sha256": "76ea52f540d1bfd304770f68ac0b9b388ac24a7382c7561d00e2b064eafa2101"
+    },
+    {
+      "byte_size": 2242,
+      "path": "run/input-manifest.json",
+      "sha256": "58b5888d3f7c75121936ca0aa325c4fe52860fc2a07e5aa782b1d436099c5d0a"
+    },
+    {
+      "byte_size": 14229,
+      "path": "run/nscf-saved-state-manifest.json",
+      "sha256": "1b02e9c67140a085c473afb77016f2cae10fa4eea78e7a475e422f3cc560ad8f"
+    },
+    {
+      "byte_size": 10763,
+      "path": "run/parent-saved-state-manifest.json",
+      "sha256": "2b80acf2bc53dcbc5c667d50c4747036704a640c86cdf5902a98e998e21aefb9"
+    },
+    {
+      "byte_size": 139,
+      "path": "run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    {
+      "byte_size": 4635,
+      "path": "run/pw.in",
+      "sha256": "e3dc6058b22cbe9e473b4abd24d971141a653eb49c1b1820d62236a8df3da13b"
+    },
+    {
+      "byte_size": 46399,
+      "path": "run/pw.out",
+      "sha256": "c77f18cd3a3cd11c066ccecf1415fc46add2ba414049ce6db5b57f3a35a913ec"
+    },
+    {
+      "byte_size": 1299382,
+      "path": "run/tmp/system.save/Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+      "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+    },
+    {
+      "byte_size": 805480,
+      "path": "run/tmp/system.save/charge-density.dat",
+      "sha256": "962ae8a467fe8f0ca039490478d58d9ead520155d4c51b57b094bf20b2323bb8"
+    },
+    {
+      "byte_size": 109890,
+      "path": "run/tmp/system.save/data-file-schema.xml",
+      "sha256": "7c5394a73a565d9fa2a0580433af5656003d411fe0d255ac364ca12a871af96c"
+    },
+    {
+      "byte_size": 253832,
+      "path": "run/tmp/system.save/wfc1.dat",
+      "sha256": "2ae8af43c00382031b57dd14653cf1813ac78c000396c5951301cf7da05e65a7"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc10.dat",
+      "sha256": "8ea3e1e0137b0adc66a4e480cf8a06131e0713a7eb29983f373b313341325288"
+    },
+    {
+      "byte_size": 258524,
+      "path": "run/tmp/system.save/wfc11.dat",
+      "sha256": "49103579b9feb6c82bf7d40104c6233696977e8bcbbc55a96d5b723a6b5c7926"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc12.dat",
+      "sha256": "ac1a717701433f0edbac333b876582284dc23f58bf066134299ef70c3f08bf9d"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc13.dat",
+      "sha256": "ae2192462ad28204b0dd2963b77f443b3756ce5e2af2ef68888140270073f2cd"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc14.dat",
+      "sha256": "3e075bd5201b016669cc43fbd5869c49f820e08a3683f9e04b7f7bc73cb07f50"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc15.dat",
+      "sha256": "ee13d6ce1b1f5f432871846e0b8ba3feb4abd4887034318688bb2b081157bdca"
+    },
+    {
+      "byte_size": 261992,
+      "path": "run/tmp/system.save/wfc16.dat",
+      "sha256": "9ebe693e5188e53a875aa9b2c8ebeb13c337e029a1ebec64e8bd7e75e67fa26e"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc17.dat",
+      "sha256": "5febf66d2f85085687cf67432bd9a2f8e6258630fad5384651abbe3371132bc3"
+    },
+    {
+      "byte_size": 261992,
+      "path": "run/tmp/system.save/wfc18.dat",
+      "sha256": "4eb1f166e51ce09c2b3c5bcbe28922a4fb151bbbeef565f00a897d2719ebe7b6"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc19.dat",
+      "sha256": "df60ee3388ed79330d25f17b97988e2834abcbf301cb5b0fd06472bcf2ba99e4"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc2.dat",
+      "sha256": "f6301ce71ce9d83b2aae83ea87f0b57f88f3e4316f43870d3a7b1f8a8dc52a9e"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc20.dat",
+      "sha256": "d54b7b3d540d3766b4959ddafd41f518f24f6a372eff35b308546c5f032bee60"
+    },
+    {
+      "byte_size": 261992,
+      "path": "run/tmp/system.save/wfc21.dat",
+      "sha256": "9a46a9cb98fba8c0da96e90013306ab2791babe769acf7888b9b77a94611c25c"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc22.dat",
+      "sha256": "1299ea047110a792ef2e1c11075eeaf0e6d02d92989381fb56612db09a4e57a5"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc23.dat",
+      "sha256": "183897bcc5c6baf92d43c6db45b460f1817af560f3dd01f13b118225c52276ce"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc24.dat",
+      "sha256": "754498c1becd4a802a74c5283710648aa1c38e6fc740c471aba95ad9ed1e7a77"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc25.dat",
+      "sha256": "fa07b6a53597166829132600f99156d6316a9c01826cafbb75a27d9506ef22fa"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc26.dat",
+      "sha256": "62379d7dc69a7af8ce40cfd160de902dd7f7c3b260f79f88c465edbca431608d"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc27.dat",
+      "sha256": "9a62b9416440430a38b2674b343428ce84ab06abefacccd7ade647a205a1754d"
+    },
+    {
+      "byte_size": 256484,
+      "path": "run/tmp/system.save/wfc28.dat",
+      "sha256": "ba4a52b69f369635af3dac8a38b7ee31b647b0dd0db8eb2dd96095b103e29562"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc29.dat",
+      "sha256": "bd86a7eae15de54b37e5231629830ea326817f7d38b1dca5e01eb217d2c0f325"
+    },
+    {
+      "byte_size": 257300,
+      "path": "run/tmp/system.save/wfc3.dat",
+      "sha256": "89deab10c3690697f24faf6f27ff6a7c87d6c051555f13703ab8379260821f6e"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc30.dat",
+      "sha256": "4b7eebb23290ea1e50893dfba2f6df36dc1e54c619af59b9a7744abcc6e2f3b9"
+    },
+    {
+      "byte_size": 256484,
+      "path": "run/tmp/system.save/wfc31.dat",
+      "sha256": "d7743eaa958bdf0a32411c39f0bb490ab7c6e33b4ab9a47dec9e92e1120c9b5a"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc32.dat",
+      "sha256": "ee00a7bb46a385cf948e20f2fa2c721b51f8f52ea34160f45e8a64e910210d20"
+    },
+    {
+      "byte_size": 257300,
+      "path": "run/tmp/system.save/wfc33.dat",
+      "sha256": "10b4c6a57062539be9b5e09d107e9d0f93171a905b9f01406f3e33cc791407bc"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc34.dat",
+      "sha256": "1881936fd2cdde7d4a212217b9234088beb1154ff59595dcfe59fde8e637a1f3"
+    },
+    {
+      "byte_size": 258524,
+      "path": "run/tmp/system.save/wfc35.dat",
+      "sha256": "0e624904d8b7fce2764aed38c19551ede1c23040fd3c5e454f26e014dcee6ef5"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc36.dat",
+      "sha256": "083eb0fd6bb5602ad65245fa9330bf67574f08630d7972d39a66ba5ff15942b2"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc37.dat",
+      "sha256": "ea2cd38e4ec65f56803a64786b4a1edcc3056ef225b6f153285ee9afecb4008b"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc38.dat",
+      "sha256": "028896bef8ae492b8cdef527b788a7f0d6a67641a9e909b9a121bb80ddbbc509"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc39.dat",
+      "sha256": "897992d94008cbb4c433515b745874ac135836510ebc6993b07b22462520c680"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc4.dat",
+      "sha256": "f0cc674e37aaf3b3291cc0fd1693ae33198fa01a0d13eb39e8d20448cac9ef7f"
+    },
+    {
+      "byte_size": 256484,
+      "path": "run/tmp/system.save/wfc40.dat",
+      "sha256": "5fda1be52eb2d2e335a820ba4a8e0ef4d6deaecad320e1d3bbffa2b721020798"
+    },
+    {
+      "byte_size": 258524,
+      "path": "run/tmp/system.save/wfc41.dat",
+      "sha256": "44a3183d0657546b057aa231fd4cab6037261c73a6c29d2387ee99a436f343b9"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc42.dat",
+      "sha256": "764ce0ca11ae837e2ea173b2d5d792abfd840df0382afa158349fadbd6e42e37"
+    },
+    {
+      "byte_size": 257300,
+      "path": "run/tmp/system.save/wfc43.dat",
+      "sha256": "0ce3933bc9d1f449612ce53a3d0efaf8ab5504e13a06a18e7413cb1542d4f667"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc44.dat",
+      "sha256": "2c59dffde66168341a0526a303a005557b629a7ee55e37a089dc7aaa368683d5"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc45.dat",
+      "sha256": "881116d5eddb31d0e9f55ff3b1f3b221e8227e1d2d8b1d65e280095c6cec17ab"
+    },
+    {
+      "byte_size": 256484,
+      "path": "run/tmp/system.save/wfc46.dat",
+      "sha256": "c30295e904e549f1bad8e732b4233dfcde72cf6a1eef5848aa81732c51f1b4ae"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc47.dat",
+      "sha256": "479d2aee0c86ce20a27272a1ee930c313a500522a0c23d1ef9d62e068b39c615"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc48.dat",
+      "sha256": "164f5800fee5e08ee02d4ebef951ee86429d6e9ceefb24bc18682973e0a2ad09"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc49.dat",
+      "sha256": "76719d9c9d9c9ddd43b66156375062fa394854ce83337494a260924f028a064f"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc5.dat",
+      "sha256": "5a7c655ac624e49214d5e9f016e56838973537a6c6773d43a09f73646163fb05"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc50.dat",
+      "sha256": "f8ef9ccc185ed720614f6750d94f35ce014b36c5035d98b8f275874d4e123eef"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc51.dat",
+      "sha256": "ea4c45fdad47ab7af985f8b09412b54a8d2e4d541ce6953d9dc6c684672db3c2"
+    },
+    {
+      "byte_size": 261992,
+      "path": "run/tmp/system.save/wfc52.dat",
+      "sha256": "779e13d1ad817b3e3a2b3919ace9cc2d943192480aecd8a86019eae5580c4909"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc53.dat",
+      "sha256": "0f9d3e8925bb73f2ff8748a3d5cf36ae2da776fc94fefc45dabe05d4631b18b2"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc54.dat",
+      "sha256": "1f67fdc1f2c534f0e3991fe528a28da86013ee5eba6b025e6729f531a437e816"
+    },
+    {
+      "byte_size": 256484,
+      "path": "run/tmp/system.save/wfc55.dat",
+      "sha256": "d94f305f688a34d4324a8a8ae4aab37ff7a4e78a06f3bfffb19880a6b50bdb51"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc56.dat",
+      "sha256": "9068fb6c24490ffc2e1bd48f41542b3c7e31927dac119c56d28bbf6c0e841fac"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc57.dat",
+      "sha256": "72470ba769e0b2c68dbe7c3bdcdd3c81a9370b46ed9650bf19bf598fc0b29aba"
+    },
+    {
+      "byte_size": 256484,
+      "path": "run/tmp/system.save/wfc58.dat",
+      "sha256": "82a1baf9b068167cae9d4b9f696b37ee250ef3246e0eab29c765098b485ad0b3"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc59.dat",
+      "sha256": "768829949a9d13a9c6ad9de844c640a1ce78bea48e017b3fd0a0b0774289324d"
+    },
+    {
+      "byte_size": 261992,
+      "path": "run/tmp/system.save/wfc6.dat",
+      "sha256": "62d58c349015d0da6a1c0dc2185fa149bde3e3360146d240e2334e0d9081a29f"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc60.dat",
+      "sha256": "a1cd403f7b3b3feeac85cd516ceb9ceba81a29aebaaffda500f68a5b63ff0668"
+    },
+    {
+      "byte_size": 261992,
+      "path": "run/tmp/system.save/wfc61.dat",
+      "sha256": "a0d072855c126d3fd1fe60e92231de6902c8e78d4603bc19267a37c29752ef8e"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc62.dat",
+      "sha256": "2d6d13912e3aa550b40e26476f2be247b2bd2e85c91e42167c3342ea70c1beac"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc63.dat",
+      "sha256": "01900483c7d3fba930d5cbcb0f700f98ffc893fd145800801be57cfe80285368"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc64.dat",
+      "sha256": "0ee75874b4c1c25b5f0ab2e155041e0b4769c064cb3145ca4c2e5227b39c12de"
+    },
+    {
+      "byte_size": 258116,
+      "path": "run/tmp/system.save/wfc7.dat",
+      "sha256": "06b5e4fb807f54bc83b72ba0db615f55c8ec2e84b208072d038d8c9165cc6849"
+    },
+    {
+      "byte_size": 260972,
+      "path": "run/tmp/system.save/wfc8.dat",
+      "sha256": "e02ec28ca3bf89d902146383b3b0860fda3733414cb712aef531dfb5d3e265d7"
+    },
+    {
+      "byte_size": 257300,
+      "path": "run/tmp/system.save/wfc9.dat",
+      "sha256": "d3a1a7f3cb59a75eab61cb8c33ec4b696be52e92d8eaad4994065c445b52cb00"
+    },
+    {
+      "byte_size": 15765504,
+      "path": "run/tmp/system.wfc1",
+      "sha256": "0f68fd7801d611282c1cb8b2c5f1a61564cac793bda4486dab34696623f318df"
+    },
+    {
+      "byte_size": 109890,
+      "path": "run/tmp/system.xml",
+      "sha256": "7c5394a73a565d9fa2a0580433af5656003d411fe0d255ac364ca12a871af96c"
+    },
+    {
+      "byte_size": 5532,
+      "path": "run_campaign.py",
+      "sha256": "299e01c4b464da06755e53b4e3754f6dc57330e59dcab81a46de2949deeb267e"
+    },
+    {
+      "byte_size": 4635,
+      "path": "source-input/pw.in",
+      "sha256": "e3dc6058b22cbe9e473b4abd24d971141a653eb49c1b1820d62236a8df3da13b"
+    }
+  ],
+  "schema_version": 1,
+  "total_bytes": 36100867
+}

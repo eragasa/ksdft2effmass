@@ -1,0 +1,117 @@
+{
+  "authorization_request": {
+    "maximum_invocations": 1,
+    "retries": 0,
+    "stop_on_failure": true
+  },
+  "decision": {
+    "byte_size": 8851,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/wannier-interface-decision.md",
+    "sha256": "352c669b334de1bd61af580c7c605de3e96a7b28cab856ccd992b5d7dbaf6aa5"
+  },
+  "executable": {
+    "byte_size": 891048,
+    "path": "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd",
+    "version": "3.1.0"
+  },
+  "execution_performed": false,
+  "mechanical_eligibility_checks": {
+    "disentanglement_convergence_phrase_required": true,
+    "hamiltonian_hermiticity_tolerance_ev": 1e-08,
+    "hr_rank": 10,
+    "kpoint_fractional_tolerance": 1e-10,
+    "maximum_iteration_warning_forbidden": true,
+    "native_completion_phrase_required": true,
+    "ordered_kpoint_correlation_required": true,
+    "required_return_code": 0,
+    "u_dis_mat_shape": [
+      64,
+      12,
+      10
+    ],
+    "u_mat_shape": [
+      64,
+      10,
+      10
+    ],
+    "unitary_isometry_tolerance": 1e-08,
+    "wannierisation_convergence_phrase_required": true,
+    "wout_bounded_parse_and_finite_rank_10_final_state": true
+  },
+  "parent_conversion": {
+    "byte_size": 3029,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/converter-result.json",
+    "sha256": "3e68cd8fd3b9b5438772bc73fbcae9d835ffd819ca6155aa9989703a28def823"
+  },
+  "parent_preprocessing": {
+    "byte_size": 2584,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/preprocessing-result.json",
+    "sha256": "d68e18bc9ee1138ca2e392198ab15b80e43ebf3ce319fb5ff0d7b772172191ee"
+  },
+  "planned_command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "silicon"
+  ],
+  "prepared_input": {
+    "band_count": 12,
+    "directory": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T081246Z/prepared-input",
+    "file_count": 5,
+    "kpoint_count": 64,
+    "neighbor_count": 8,
+    "route_kind": "first-rank-reducing-amn-mmn-non-spin",
+    "spn_staged": false,
+    "total_byte_count": 3321145,
+    "unk_staged": false,
+    "wannier_count": 10
+  },
+  "prepared_input_manifest": {
+    "byte_size": 1407,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T081246Z/prepared-input/localization-input-manifest.json",
+    "sha256": "3066ec192ace13bd5daee88d3c14367eef5d1c2d27021ce7335332dd5776387a"
+  },
+  "projectkoios_provider": {
+    "base_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+    "implementation": {
+      "byte_size": 29222,
+      "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/localization_execution.py",
+      "sha256": "3080b663b8801968ebaea75b9cc55ab9bfb7ea17150f3e35dc47387ee8dbaaaa"
+    },
+    "public_api": {
+      "byte_size": 3801,
+      "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/__init__.py",
+      "sha256": "d360fac7b035a4343df7f274063a0cde5dcedece353a7720456d99ff6f5a2e7b"
+    },
+    "software_verification": {
+      "bounded_review_outcome": "NO_BLOCKING_FINDINGS",
+      "focused_localization_tests": "5 passed",
+      "focused_mypy": "passed",
+      "full_mypy": "blocked by two pre-existing preprocessing.py errors caused by the installed PhysKit export mismatch",
+      "full_test_result": "692 passed, 7 skipped, 202 subtests passed",
+      "ruff": "passed",
+      "wheel_build": "passed"
+    },
+    "tests": {
+      "byte_size": 9369,
+      "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/tests/projectkoios/integrations/wannier90/test__Wannier90LocalizationRunner.py",
+      "sha256": "1c27444f3980741bb4e02ddb83edf8b9535b576e6cd3f4cba14a2fd3750e131f"
+    }
+  },
+  "purpose": "first rank-10 Wannier90 localization and Hamiltonian occurrence",
+  "required_outputs": [
+    "silicon.wout",
+    "silicon_hr.dat",
+    "silicon_u.mat",
+    "silicon_u_dis.mat"
+  ],
+  "resource_bounds": {
+    "maximum_retained_bytes": 67108864,
+    "processes": 1,
+    "retries": 0,
+    "stop_on_failure": true,
+    "timeout_seconds": 300.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "preflight only; no localization, interpolation, component-operator, or Slater-Koster result",
+  "status": "awaiting-explicit-bounded-authorization"
+}

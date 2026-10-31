@@ -1,0 +1,101 @@
+{
+  "acceptance": {
+    "required_mechanical_checks": [
+      "regular nonempty AMN/MMN/EIG artifacts",
+      "AMN rank and 64-point shape",
+      "MMN rank, 64-point shape, and NNKP neighbor correlation",
+      "EIG 12-band by 64-point shape",
+      "finite numeric payloads"
+    ],
+    "required_native_completion": "JOB DONE",
+    "required_outputs": [
+      "silicon.amn",
+      "silicon.mmn",
+      "silicon.eig"
+    ],
+    "required_return_code": 0
+  },
+  "authorization_request": {
+    "maximum_invocations": 1,
+    "retries": 0,
+    "stop_on_failure": true
+  },
+  "candidate": {
+    "coefficient_evidence": "authenticated native QE wavefunction inventory retained in the Davidson NSCF saved state",
+    "mode": "standalone",
+    "outdir": "./tmp/",
+    "prefix": "system",
+    "required_outputs": [
+      "silicon.amn",
+      "silicon.mmn",
+      "silicon.eig"
+    ],
+    "seedname": "silicon",
+    "spin_component": "none",
+    "write_amn": true,
+    "write_mmn": true,
+    "write_spn": false,
+    "write_unk": false
+  },
+  "decision": {
+    "byte_size": 8722,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/wannier-interface-decision.md",
+    "sha256": "76b53356bb8aff1bfc7915900a7e8a3b4bab5bb724bb4a43bbb34e85dd01a152"
+  },
+  "executable": {
+    "byte_size": 8379632,
+    "path": "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+    "sha256": "61c8255b0745df2a5dec3c55e600b1f8b87039b564004997ac45cfee42cf2c8c"
+  },
+  "execution_performed": false,
+  "input": {
+    "byte_size": 230,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/preflight-output/pw2wannier90.in",
+    "sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67"
+  },
+  "input_manifest": {
+    "byte_size": 568,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/preflight-output/input-manifest.json",
+    "sha256": "d2d15276570d6d32caa5f6aae1ac863a2dd081cda7f51635f3531bf403302547"
+  },
+  "parent_nscf": {
+    "manifest": {
+      "byte_size": 14229,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/nscf-saved-state-manifest.json",
+      "sha256": "cab588c939b3b9bdea95496458be414f465f38fb036d1ade62405f8d602bf4ce"
+    },
+    "saved_state_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/tmp",
+    "verified_file_count": 67,
+    "verified_total_bytes": 18799008
+  },
+  "parent_preprocessing": {
+    "kpoint_count": 64,
+    "neighbor_count_per_kpoint": 8,
+    "nnkp": {
+      "byte_size": 18824,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/silicon.nnkp",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    "projection_count": 10,
+    "result": {
+      "byte_size": 2584,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/preprocessing-result.json",
+      "sha256": "d68e18bc9ee1138ca2e392198ab15b80e43ebf3ce319fb5ff0d7b772172191ee"
+    }
+  },
+  "planned_command": [
+    "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw2wannier90.x",
+    "-in",
+    "pw2wannier90.in"
+  ],
+  "projectkoios_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+  "purpose": "first rank-10 AMN/MMN/EIG interface conversion qualification",
+  "resource_bounds": {
+    "maximum_retained_bytes": 268435456,
+    "processes": 1,
+    "timeout_seconds": 300.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "preflight only; no converter, localization, interpolation, or operator-adequacy result",
+  "status": "awaiting-explicit-bounded-authorization"
+}

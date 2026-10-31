@@ -20,6 +20,9 @@ mean reviewed publication evidence.
   but not retained publication evidence.
 - **Retained precursor—delivered:** a distinct immutable experiment and verified evidence
   package exists, but it does not support the active rank-two headline.
+- **Retained partial execution—delivered:** an immutable active-family execution passed
+  its declared verification, but its aggregate does not cover the complete five-scale
+  development headline and is not sealed publication evidence.
 - **Contract—delivered:** a method, definition, boundary, or failure rule is explicit.
 - **Follow-up—active:** another maintained experiment now exercises the promised rung,
   but it is not evidence for Paper 1 v3.
@@ -88,7 +91,7 @@ mean reviewed publication evidence.
 | N06 | Dispersive endpoint is sampled-gapped and frame-qualified. | At `N=512`: sampled gap `1.0566461 E_ref`, overlap singular value `0.9999997323`. | **Development—delivered**. |
 | N07 | Dispersive complete bands agree to about `1.45e-15`; endpoint thresholds are `0.4004394264` and `0.4611609032`. | Directly sampled amplitudes only. | **Development—delivered**. |
 | N08 | Dispersive comparison non-onsite power rises from `0.0323839143` to `0.1761532501`. | Finite-mesh blocks and declared frame. | **Development—delivered**. |
-| N09 | Non-flat momentum study is converged under its declared refinement checks. | Momentum only; not continuous in amplitude and not retained evidence. | **Development—delivered**. |
+| N09 | Historical non-flat summaries report momentum convergence under their narrower diagnostic; the installed broader diagnostic remains unresolved. | The installed owner includes primitive-link Frobenius-residual change, which remains above the declared tolerance through `N=512`; no channel is omitted and no tolerance is widened. This is separate from amplitude resolution. | **Development—delivered with non-equivalent dispositions**. |
 | N10 | Restricted mismatch and excess non-onsite power persist across five sampled parent scales and 33 amplitudes. | Finite `rho` and amplitude inventory; no continuous-domain certificate. | **Development—delivered**. |
 | N11 | The flat residual–tail identity deforms systematically with parent dispersion. | Calculated relation and cross term; no non-flat equality theorem. | **Development—delivered**. |
 | N12 | Endpoint truncation at `R_c=3` gives reference/comparison band errors about `5.53e-8` and `1.86e-2 E_ref`; at `R_c=8`, about `4.22e-14` and `8.65e-7 E_ref`. | Sampled endpoint and disjoint evaluation mesh. | **Development—delivered**. |
@@ -103,6 +106,7 @@ mean reviewed publication evidence.
 | N21 | Independent truncation reconstruction differs by at most `4.61e-13`. | Same binary64 ecosystem, separate control flow rather than independent hardware. | **Development—delivered**. |
 | N22 | Frame and transform identities close near binary64 scale; closure phases remain non-topological diagnostics. | Five sampled parent scales. | **Development—delivered**. |
 | N23 | The separate scalar `mathieu1d-finite-reduction` execution has byte-owning independent verification, with complete transform reconstruction defect `4.17e-17 E_G` and range-eight disjoint-mesh error `9.47e-9 E_G`. | Distinct retained unsealed illustrative direct calculation and finite protocol; no predecessor dataset is a live input, and it is not evidence for the rank-two claim or a selected adequate range. | **Retained unsealed precursor—delivered**, Supplement S7 and `experiment-references.json`. |
+| N24 | Active-family direct v2 passed byte-owning independent verification at the installed `1.0e-10` tolerance and authenticated its closed rendering inventory. | The immutable unsealed aggregate covers all five final-mesh parent-family members but only the scale-one truncation slice; it does not authenticate the other 2,244 truncation rows or the five-scale adjacent-mesh summaries. Failed direct v1 remains a distinct immutable execution. | **Retained partial execution—delivered**; not sealed, promoted, or publication evidence. |
 
 ## 5. Software verification, serialization, and provenance sold by the paper
 
@@ -112,12 +116,13 @@ mean reviewed publication evidence.
 | V02 | Separate producer and verifier for the smooth four-state parent/frame/Fourier calculation. | **Development—delivered** for current pointwise scope. |
 | V03 | Separate producer and verifier for dense truncation and all first-passing decisions. | **Development—delivered**. |
 | V04 | Strict development schemas reject unknown fields and invalid scalar types. | **Development—delivered** for smooth, non-flat, and truncation records. |
-| V05 | Input/result digests bind applicable serialized records. | **Development—delivered**; no retained run identity is inferred. |
+| V05 | Input/result digests bind applicable serialized records. | **Development and retained partial execution—delivered**; development records do not infer retained identity, while direct v1/v2 bind distinct immutable execution identities. |
 | V06 | Exact Optimization and PhysKit revisions are disclosed. | **Development—delivered** in the supplement and experiment README. |
 | V07 | Analysis tables and figures are derived presentations, not independent provenance owners. | **Contract—delivered**. |
 | V08 | Independent means separate scientific reconstruction/control flow, not different hardware, arithmetic, or all numerical libraries. | **Contract—delivered**. |
-| V09 | A retained package for the active rank-two experiment would contain canonical records, convergence table, manifests, checksums, commands, platform, report, and distinct version/run/package identities. | **Open before submission** for the active experiment. |
+| V09 | A publication-qualified retained package for the complete active rank-two headline must contain canonical records, convergence table, manifests, checksums, commands, platform, report, and distinct version/run/package identities. | **Open before submission**; existing direct v2 is partial and unsealed. |
 | V10 | The separate scalar precursor binds exact configuration, result, verification, rendering, figure, and report bytes; typed constructors and a byte-owning independent verifier reject inconsistent data. The execution remains unsealed. | **Retained unsealed precursor—delivered**; status does not transfer to the active experiment. |
+| V11 | Active-family direct v1 and v2 preserve distinct canonical calculation and verification identities; v1 failed and v2 passed without relabeling either execution. | **Retained partial execution—delivered**; v2 does not authenticate unmatched five-scale development surfaces. |
 
 ## 6. Explicit nonclaims and exclusions
 
@@ -134,7 +139,7 @@ mean reviewed publication evidence.
 | X09 | An MLWF optimization or new Wannier-spread decomposition. | Preserve the explicit distinction in the related-work and covariance sections. |
 | X10 | Full non-flat admissible-set, witness, or separation-certificate evidence. | Do not imply that the 14-step future certificate workflow has been executed. |
 | X11 | Higher-dimensional, anisotropic, non-orthogonal, higher-rank, or complex-`U(N)` results **of Paper 1**. | Later experiment results may be cited as follow-up work only after separate review; they do not retroactively support Paper 1. |
-| X12 | Retained, archived, released, or publication-qualified numerical evidence for the active rank-two experiment. | Keep active-experiment development labels until the open readiness items are completed and separately authorized; identify the retained scalar precursor separately. |
+| X12 | Sealed, archived, released, complete-scope, or publication-qualified numerical evidence for the active rank-two headline. | Identify passing unsealed direct v2 as partial active-family evidence without transferring its status to the unmatched five-scale development figures; keep those claims development-labeled until open readiness items are completed and separately authorized. Identify the retained scalar precursor separately. |
 
 ## 7. Validation-ladder commitments
 
@@ -163,10 +168,10 @@ final publication evidence.
 | S04 | Freeze the cutoff cap and prospective expansion/failure rule. | `0,...,16` is dense but remains a development cap. |
 | S05 | Freeze construction/evaluation levels and coordinate-disjointness tolerance. | Current meshes are development choices. |
 | S06 | Freeze exact dependency revisions and resolved environments. | The manuscript snapshot revisions are disclosed historically; a separately authorized confirmatory run still requires newly frozen revisions and a resolved environment, while current live development pins may advance. |
-| S07 | Add retained schemas with immutable experiment-version and run identities. | Development schemas intentionally deny retained status. |
-| S08 | Record exact source/dependency manifests, commands, platform, and checksums. | No retained evidence package exists. |
-| S09 | Obtain separate authorization and execute the frozen local confirmatory calculation. | Protected retained-evidence execution has not been authorized merely by manuscript development. |
-| S10 | Run the independent retained verifier and reject any mismatch or failed gate. | Development verification cannot be relabeled as retained verification. |
+| S07 | Freeze the complete-scope retained schema and immutable experiment-version/run identities. | Direct v2 has canonical identity for its partial aggregate; it does not define the publication package for all five scales. |
+| S08 | Record exact complete-scope source/dependency manifests, commands, platform, and checksums. | Direct v2 records its own bounded provenance, not a complete five-scale publication package. |
+| S09 | Obtain separate authorization and execute a newly identified frozen local confirmatory calculation. | Protected complete-scope retained execution has not been authorized merely by manuscript development; direct v1/v2 must not be rerun, extended, or relabeled. |
+| S10 | Run the independent retained verifier for the new complete-scope package and reject any mismatch or failed gate. | Passing direct-v2 verification establishes only its declared partial aggregate and cannot be transferred to unmatched development surfaces. |
 | S11 | Produce the readable retained report and public archival record/identifier. | The Data and Code Availability section currently promises these before submission. |
 | S12 | Complete acknowledgments and final date/version metadata. | The manuscript still contains an author placeholder. |
 | S13 | Re-run the novelty/convention audit if a priority, material, higher-dimensional, or continuous-domain range claim is added. | Required by the existing audit boundary. |
@@ -191,14 +196,14 @@ The following become required only if the manuscript expands its current claim s
 ## 10. Audit conclusion
 
 Paper 1 v3 currently sells one complete rank-two analytic mechanism and one strongly
-checked but still development-status 1-D numerical consequence. It also records one
-separately retained scalar Fourier-reduction precursor without transferring that status
-to the active experiment. The mathematics,
-comparison contract, dense-cutoff result, diagnostic separation, and independent
-development reconstruction are present. The remaining blockers are evidence-lifecycle
-controls—freeze, retained identities and provenance, authorized confirmatory execution,
-independent retained verification, archival disclosure, and final editorial metadata—not
-an absent central analytic result.
+checked but still development-status 1-D numerical consequence. It also records one separately retained scalar Fourier-reduction precursor and one
+passing unsealed partial active-family execution without transferring either status to
+the unmatched five-scale development figures. The mathematics, comparison contract,
+dense-cutoff result, diagnostic separation, and independent development reconstruction
+are present. The remaining blockers are complete-scope evidence-lifecycle controls—
+freeze, retained identities and provenance, authorized confirmatory execution,
+independent retained verification, archival disclosure, and final editorial metadata—
+not an absent central analytic result.
 
 The dimensional and strain campaigns now satisfy part of the roadmap as independent
 bounded follow-up work. They must remain separately identified and must not be used to

@@ -70,7 +70,8 @@ proof, scientific acceptance, or additional evidence.
 - Captions say `declared finite inventory` where connected markers are used.
 - Outward interval whiskers are enclosure bounds, not statistical error bars.
 - Rejected, unresolved, failed, and unavailable cases remain visible.
-- Threshold lines, Pareto flags, first-passing markers, and witness selections are
+- Threshold lines, Pareto flags, minimum tolerance-satisfying support markers, and
+  witness selections are
   verifier or checker outputs rather than renderer decisions.
 - Each baseline or certificate item is one PNG. PDF and report derivatives remain
   report outputs unless a family explicitly admits them into a separate closed
@@ -239,7 +240,8 @@ certificate.
    selected common witness. Use points only, with no hull or interpolated front.
 
 For a one-dimensional sensitivity inventory, panel 1 instead uses the declared threshold
-index or value versus categorical disposition and actual first-passing support or cost.
+index or value versus categorical disposition and actual minimum tolerance-satisfying
+support or cost.
 Every earlier member is inspected; no monotonicity is inferred.
 
 ### Certificate supplement

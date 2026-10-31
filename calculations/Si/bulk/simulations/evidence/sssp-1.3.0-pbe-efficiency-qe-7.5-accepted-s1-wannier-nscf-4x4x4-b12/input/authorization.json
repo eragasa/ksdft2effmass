@@ -1,0 +1,13 @@
+{
+  "configuration_sha256": "8a1f2ae52de18027b447c8c29d2c9cf3ab0c3aa7217fce9479b34bacda145347",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 2147483648,
+  "operator_instruction": "Authorize exactly one accepted-S1 4x4x4 12-band Wannier-oriented NSCF invocation described in campaign-preflight.json, with zero retries and stop on failure.",
+  "preflight_sha256": "2004a756bfae9e0ff8f4cb50cddac125842e928379ff3a5c5b4644508527c053",
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "stop_on_failure": true,
+  "timeout_seconds": 600.0
+}

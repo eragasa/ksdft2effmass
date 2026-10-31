@@ -1,0 +1,125 @@
+{
+  "authorization_state": "not requested while the reviewed ProjectKoios localization runner is absent",
+  "candidate": {
+    "band_count": 12,
+    "disentanglement_convergence_window": 3,
+    "disentanglement_maximum_iterations": 200,
+    "disentanglement_mix_ratio": 0.5,
+    "disentanglement_tolerance_angstrom_squared": 1e-10,
+    "frozen_window": null,
+    "kpoint_count": 64,
+    "localization_convergence_window": 3,
+    "localization_maximum_iterations": 100,
+    "localization_tolerance_angstrom_squared": 1e-10,
+    "neighbor_count_per_kpoint": 8,
+    "outer_window_ev": [
+      -5.85,
+      19.02
+    ],
+    "route_kind": "ordinary-amn-mmn-non-spin",
+    "seedname": "silicon",
+    "wannier_count": 10,
+    "write_hr": true,
+    "write_u_matrices": true
+  },
+  "decision": {
+    "byte_size": 8851,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/wannier-interface-decision.md",
+    "sha256": "352c669b334de1bd61af580c7c605de3e96a7b28cab856ccd992b5d7dbaf6aa5"
+  },
+  "executable": {
+    "byte_size": 891048,
+    "path": "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+  },
+  "execution_performed": false,
+  "mechanical_eligibility_checks": {
+    "disentanglement_convergence_phrase_required": true,
+    "hamiltonian_hermiticity_tolerance_ev": 1e-08,
+    "hr_rank": 10,
+    "kpoint_fractional_tolerance": 1e-10,
+    "maximum_iteration_warning_forbidden": true,
+    "ordered_kpoint_correlation_required": true,
+    "required_return_code": 0,
+    "u_dis_mat_shape": [
+      64,
+      12,
+      10
+    ],
+    "u_mat_shape": [
+      64,
+      10,
+      10
+    ],
+    "unitary_isometry_tolerance": 1e-08,
+    "wannierisation_convergence_phrase_required": true,
+    "wout_bounded_parse_and_finite_rank_10_final_state": true
+  },
+  "parent_conversion": {
+    "artifact_manifest": {
+      "byte_size": 1435,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/run/artifact-manifest.json",
+      "sha256": "4ae4de82029f77a5488bb362fa9e68bdd2bd2b9b0c53d5fa88f5c87bbd59404f"
+    },
+    "campaign_result": {
+      "byte_size": 1857,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/campaign-result.json",
+      "sha256": "c9703b2430e3e371e16144350ed5244a4ae126c185d007f9f3ff5af159639bc9"
+    },
+    "converter_result": {
+      "byte_size": 3029,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-sp3sstar-20261031T074802Z/converter-result.json",
+      "sha256": "3e68cd8fd3b9b5438772bc73fbcae9d835ffd819ca6155aa9989703a28def823"
+    }
+  },
+  "parent_preprocessing": {
+    "nnkp": {
+      "byte_size": 18824,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/run/silicon.nnkp",
+      "sha256": "4dd17877e0f3bc0b19a0f74ce539a91bd8ceb1c66a18d3f733f08e5d8ce07014"
+    },
+    "result": {
+      "byte_size": 2584,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/preprocessing-result.json",
+      "sha256": "d68e18bc9ee1138ca2e392198ab15b80e43ebf3ce319fb5ff0d7b772172191ee"
+    }
+  },
+  "prepared_input_manifest": {
+    "byte_size": 1758,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/prepared-input-manifest.json",
+    "sha256": "eab350c7698786e597874a58ee326065e6693a6f3c2d747b23ac06fad4e68f3f"
+  },
+  "projectkoios_capability": {
+    "architecture": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-architecture/docs/architecture/projectkoios/integrations/wannier90/localization/index.md",
+    "available": "authenticated bounded input/output parsers and generic single-attempt execution substrate",
+    "execution_must_not_be_claimed_through_ad_hoc_substitution": true,
+    "missing": "reviewed production Wannier90 localization preparation and execution provider"
+  },
+  "projectkoios_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+  "prospective_command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "silicon"
+  ],
+  "prospective_resource_bounds": {
+    "maximum_retained_bytes": 67108864,
+    "processes": 1,
+    "retries": 0,
+    "stop_on_failure": true,
+    "timeout_seconds": 300.0
+  },
+  "purpose": "first rank-10 Wannier90 localization and Hamiltonian occurrence",
+  "required_outputs": [
+    "silicon.wout",
+    "silicon_hr.dat",
+    "silicon_u.mat",
+    "silicon_u_dis.mat"
+  ],
+  "schema_version": 1,
+  "scientific_disposition": "prepared-input evidence only; no localization, interpolation, component-operator, or Slater-Koster result",
+  "status": "blocked-missing-reviewed-projectkoios-localization-runner",
+  "win_transformation": {
+    "byte_size": 884,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T075500Z/win-transformation.json",
+    "sha256": "a3789adc38a0c40a153e033c650ca01ad4fcc9b09c82400847e33a6f21da8ce3"
+  }
+}

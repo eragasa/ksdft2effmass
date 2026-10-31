@@ -1,0 +1,69 @@
+{
+  "amn": {
+    "band_count": 12,
+    "bounded_parse_succeeded": true,
+    "byte_size": 1736739,
+    "kpoint_count": 216,
+    "maximum_frobenius_norm": 5.043775007371856,
+    "minimum_frobenius_norm": 2.2772835536957947,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.amn",
+    "projection_count": 10,
+    "sha256": "efda4f7d101eb5ed5c7d871c3b5a9c14a2343bc09e86188dbf48dca5731355eb"
+  },
+  "eig": {
+    "band_count": 12,
+    "bounded_parse_succeeded": true,
+    "byte_size": 101088,
+    "kpoint_count": 216,
+    "maximum_absolute_qexsd_difference_ev": 5.222489107836736e-13,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.eig",
+    "qexsd_shape_matches": true,
+    "sha256": "94d759c2906c041a14adc12bd6d740f1f5499c7c85aeea20b06752536f25c463",
+    "unit": "eV"
+  },
+  "lineage": {
+    "nnkp": {
+      "byte_size": 59408,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.nnkp",
+      "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+    },
+    "nnkp_neighbor_correlation_verified": true,
+    "nscf_qexsd": {
+      "byte_size": 287483,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b12-david-c6-v1/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "865f8e749b2e2280a7ea093effc36b524f78f88ab9a9baf70e028ac7a8e42023"
+    },
+    "qexsd_eigenvalue_correlation_verified": true
+  },
+  "mmn": {
+    "band_count": 12,
+    "bounded_parse_succeeded": true,
+    "byte_size": 9295011,
+    "kpoint_count": 216,
+    "maximum_frobenius_norm": 3.434300369018392,
+    "minimum_frobenius_norm": 3.1653918272122676,
+    "neighbor_count_per_kpoint": 8,
+    "neighbor_record_count": 1728,
+    "nnkp_neighbor_inventory_exactly_matches": true,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/silicon.mmn",
+    "sha256": "f2db3539f36fb2a5c8174c503326e56726553593ec0609f96e66186db488e1a1"
+  },
+  "native_execution": {
+    "interface_messages_observed": true,
+    "job_done_observed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/pw2wannier90.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "stdout": {
+      "byte_size": 7513,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-lower-energy-frozen-v1/run/pw2wannier90.out",
+      "sha256": "690460655939700b059c94fa963913ff4f3acfe1785e7f038201311a14c4dc97"
+    }
+  },
+  "schema_version": 1,
+  "scientific_disposition": "eligible C6 AMN/MMN/EIG handoff for separately authorized Wannier90 localization; no localization or intended-use result"
+}

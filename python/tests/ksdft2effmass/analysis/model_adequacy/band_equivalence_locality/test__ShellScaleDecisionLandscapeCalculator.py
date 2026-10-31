@@ -85,6 +85,13 @@ class TestShellScaleDecisionLandscapeCalculator:
         )
         assert case.comparison_scales[-1] == 1.0
         assert case.shell_indices == (0, 1, 2, 4, 5, 8, 9)
+        assert case.metric_shell_values == case.shell_indices
+        assert tuple(point.metric_shell_value for point in case.points) == tuple(
+            point.shell_index for point in case.points
+        )
+        assert result.to_json() == result_wire
+        assert b'"shell_indices"' in result_wire
+        assert b'"metric_shell_values"' not in result_wire
         assert case.retained_block_counts == (1, 5, 9, 13, 21, 25, 29)
         assert case.calculated_vertex_count == 5 * len(case.shell_indices)
         assert all(

@@ -1,0 +1,47 @@
+{
+  "artifacts": {
+    "execution.json": {
+      "byte_size": 518,
+      "sha256": "61498c03aff8884128f4210c7a2d3ca34968eefc6286e9820cd1418cd6e71d09"
+    },
+    "parent-saved-state-manifest.json": {
+      "byte_size": 44898,
+      "sha256": "28df04c1bf314371d6138bfe41b564147354253c6d609b465c7ebd4778c617b8"
+    },
+    "pw2wannier90.err": {
+      "byte_size": 139,
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "pw2wannier90.in": {
+      "byte_size": 230,
+      "sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67"
+    },
+    "pw2wannier90.out": {
+      "byte_size": 7513,
+      "sha256": "690460655939700b059c94fa963913ff4f3acfe1785e7f038201311a14c4dc97"
+    },
+    "silicon.amn": {
+      "byte_size": 1736739,
+      "sha256": "efda4f7d101eb5ed5c7d871c3b5a9c14a2343bc09e86188dbf48dca5731355eb"
+    },
+    "silicon.eig": {
+      "byte_size": 101088,
+      "sha256": "94d759c2906c041a14adc12bd6d740f1f5499c7c85aeea20b06752536f25c463"
+    },
+    "silicon.mmn": {
+      "byte_size": 9295011,
+      "sha256": "f2db3539f36fb2a5c8174c503326e56726553593ec0609f96e66186db488e1a1"
+    },
+    "silicon.nnkp": {
+      "byte_size": 59408,
+      "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+    }
+  },
+  "execution_status": "succeeded",
+  "required_outputs": [
+    "silicon.amn",
+    "silicon.mmn",
+    "silicon.eig"
+  ],
+  "schema_version": 1
+}

@@ -79,8 +79,9 @@ linked libraries is repeatability evidence, not an independent toolchain compari
 
 The setting-qualification branch begins only after exact v0.5/stringent Si UPF2
 identity, the exact provisional
-[`Si.PrimitiveUnitCell` \(S_0\)](seed-structure-decision.md), and frozen coordinates,
-observables, tolerances, and budgets. The gates then execute in this order:
+[`Si.PrimitiveUnitCell.RightHanded` \(S_0\)](seed-structure-decision.md), and frozen
+coordinates, observables, tolerances, and budgets. The gates then execute in this
+order:
 
 1. **Joint cutoff/k-point gate on \(S_0\).** Separately assess wavefunction and
    charge-density cutoff behavior, reciprocal-sampling behavior, their selected-corner
@@ -100,6 +101,16 @@ observables, tolerances, and budgets. The gates then execute in this order:
    authorized parent-SCF requirement; confirmation SCFs are not reused as the parent.
    Only from that parent assess valley identity and location and
    curvature/effective-mass sensitivity under their separate policies.
+
+The retained FCC-native relaxation completed structural gate execution under the
+provisional \(Q_0\): QEXSD exit status, stdout completion, electronic convergence,
+optimizer convergence, atom count, pressure, force, right-handed basis restoration,
+and exact artifact identities were checked separately. The result is provisional
+\(S_1\), not by itself a stable pair. Gate 3 has now completed on the exact
+`Si.PrimitiveUnitCell.RightHanded.RelaxedS1` bytes: the calculation-owned sampled
+rules again select Gamma-centered K10 and 42/336 Ry. The operator accepted this exact
+pair at gate 4 under those rules. Gate 5 remains unexecuted and requires a new parent
+SCF with separate bounded authorization.
 
 Adjacent finite-setting stability is evidence about those finite points, not an
 infinite-basis error bound. Changing pseudopotential resets the campaign. Changing

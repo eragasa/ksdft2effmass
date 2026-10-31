@@ -1,0 +1,30 @@
+{
+  "artifact_manifest": {
+    "byte_size": 1229,
+    "sha256": "205552569cfe95d4202cf3bd145f608a72880bc7f3e43d6a98abb7fe2c8cab3a"
+  },
+  "execution_record": {
+    "byte_size": 470,
+    "sha256": "a25e48e89e1a3b8c532df6f9fb9093b51e743433b88dda18109e965a07feb6a1"
+  },
+  "execution_status": "succeeded",
+  "invocation_count": 1,
+  "maximum_retained_bytes": 2147483648,
+  "retry_count": 0,
+  "return_code": 0,
+  "saved_state_handoff": {
+    "manifest": {
+      "byte_size": 83682,
+      "sha256": "8de35151ad55bca4658c472ec51ddd1468902e7ba6e6529d42c6df463f726d20"
+    },
+    "prefix": "system",
+    "source_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-withheld-parent-nscf-v1/run/tmp",
+    "verified_file_count": 411,
+    "verified_total_bytes": 108034728
+  },
+  "schema_version": 1,
+  "scientific_disposition": "native occurrence complete; QEXSD interpretation and frozen-criteria comparison remain separate postprocessing",
+  "timed_out": false,
+  "total_occurrence_bytes": 209905140,
+  "within_retained_byte_bound": true
+}

@@ -18,6 +18,7 @@ from projectkoios.physkit.solidstate.tb import (
 from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldComparisonAnalyzer,
 )
+from ksdft2effmass.numerical_consistency import NumericalConsistency
 
 from ..diagnostics import Periodic1DHigherRankMatrixComparisonResult
 from .fields import (
@@ -55,7 +56,7 @@ class Periodic1DHigherRankInterpolationAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankInterpolationAnalysis:
+class Periodic1DHigherRankInterpolationAnalysis(NumericalConsistency):
     """Store shifted coordinates, evaluated fields, and interpolation diagnostics."""
 
     analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest

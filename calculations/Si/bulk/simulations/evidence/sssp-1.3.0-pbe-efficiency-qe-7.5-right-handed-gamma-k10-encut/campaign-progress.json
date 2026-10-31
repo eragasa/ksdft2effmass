@@ -1,0 +1,225 @@
+{
+  "completed_occurrences": [
+    {
+      "atom_count": 2,
+      "completed": true,
+      "converged": true,
+      "diagnostics": [
+        {
+          "code": "ieee-invalid-flag",
+          "message": "Quantum ESPRESSO reported IEEE_INVALID_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-divide-by-zero",
+          "message": "Quantum ESPRESSO reported IEEE_DIVIDE_BY_ZERO after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-overflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_OVERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-underflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_UNDERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        }
+      ],
+      "electronic_iteration_count": 5,
+      "evaluation_id": "ksdft-si-encut-sssp-qe75-authorized-k10-e408p171",
+      "fired_transitions": [
+        "accept_registration",
+        "accept_submission",
+        "accept_completion",
+        "accept_analysis"
+      ],
+      "irreducible_kpoint_count": 47,
+      "observed_wavefunction_cutoff_ev": 408.1707936897154,
+      "program_version": "7.5",
+      "retained_bytes": 5919364,
+      "status": "succeeded",
+      "task_id": "ksdft-si-gamma-k10-encut-c30-attempt-1",
+      "total_energy_ev": -310.74773884026166,
+      "total_energy_ev_per_atom": -155.37386942013083,
+      "wavefunction_cutoff_ry": 30
+    },
+    {
+      "atom_count": 2,
+      "completed": true,
+      "converged": true,
+      "diagnostics": [
+        {
+          "code": "ieee-invalid-flag",
+          "message": "Quantum ESPRESSO reported IEEE_INVALID_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-divide-by-zero",
+          "message": "Quantum ESPRESSO reported IEEE_DIVIDE_BY_ZERO after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-overflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_OVERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-underflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_UNDERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        }
+      ],
+      "electronic_iteration_count": 5,
+      "evaluation_id": "ksdft-si-encut-sssp-qe75-authorized-k10-e489p805",
+      "fired_transitions": [
+        "accept_registration",
+        "accept_submission",
+        "accept_completion",
+        "accept_analysis"
+      ],
+      "irreducible_kpoint_count": 47,
+      "observed_wavefunction_cutoff_ev": 489.8049524276585,
+      "program_version": "7.5",
+      "retained_bytes": 6901940,
+      "status": "succeeded",
+      "task_id": "ksdft-si-gamma-k10-encut-c36-attempt-1",
+      "total_energy_ev": -310.74893491674413,
+      "total_energy_ev_per_atom": -155.37446745837207,
+      "wavefunction_cutoff_ry": 36
+    },
+    {
+      "atom_count": 2,
+      "completed": true,
+      "converged": true,
+      "diagnostics": [
+        {
+          "code": "ieee-invalid-flag",
+          "message": "Quantum ESPRESSO reported IEEE_INVALID_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-divide-by-zero",
+          "message": "Quantum ESPRESSO reported IEEE_DIVIDE_BY_ZERO after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-overflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_OVERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-underflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_UNDERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        }
+      ],
+      "electronic_iteration_count": 5,
+      "evaluation_id": "ksdft-si-encut-sssp-qe75-authorized-k10-e571p439",
+      "fired_transitions": [
+        "accept_registration",
+        "accept_submission",
+        "accept_completion",
+        "accept_analysis"
+      ],
+      "irreducible_kpoint_count": 47,
+      "observed_wavefunction_cutoff_ev": 571.4391111656016,
+      "program_version": "7.5",
+      "retained_bytes": 7990116,
+      "status": "succeeded",
+      "task_id": "ksdft-si-gamma-k10-encut-c42-attempt-1",
+      "total_energy_ev": -310.74973289064576,
+      "total_energy_ev_per_atom": -155.37486644532288,
+      "wavefunction_cutoff_ry": 42
+    },
+    {
+      "atom_count": 2,
+      "completed": true,
+      "converged": true,
+      "diagnostics": [
+        {
+          "code": "ieee-invalid-flag",
+          "message": "Quantum ESPRESSO reported IEEE_INVALID_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-divide-by-zero",
+          "message": "Quantum ESPRESSO reported IEEE_DIVIDE_BY_ZERO after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-overflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_OVERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-underflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_UNDERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        }
+      ],
+      "electronic_iteration_count": 5,
+      "evaluation_id": "ksdft-si-encut-sssp-qe75-authorized-k10-e734p707",
+      "fired_transitions": [
+        "accept_registration",
+        "accept_submission",
+        "accept_completion",
+        "accept_analysis"
+      ],
+      "irreducible_kpoint_count": 47,
+      "observed_wavefunction_cutoff_ev": 734.7074286414878,
+      "program_version": "7.5",
+      "retained_bytes": 10377630,
+      "status": "succeeded",
+      "task_id": "ksdft-si-gamma-k10-encut-c54-attempt-1",
+      "total_energy_ev": -310.75088583708106,
+      "total_energy_ev_per_atom": -155.37544291854053,
+      "wavefunction_cutoff_ry": 54
+    },
+    {
+      "atom_count": 2,
+      "completed": true,
+      "converged": true,
+      "diagnostics": [
+        {
+          "code": "ieee-invalid-flag",
+          "message": "Quantum ESPRESSO reported IEEE_INVALID_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-divide-by-zero",
+          "message": "Quantum ESPRESSO reported IEEE_DIVIDE_BY_ZERO after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-overflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_OVERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        },
+        {
+          "code": "ieee-underflow-flag",
+          "message": "Quantum ESPRESSO reported IEEE_UNDERFLOW_FLAG after a successful run.",
+          "severity": "warning"
+        }
+      ],
+      "electronic_iteration_count": 5,
+      "evaluation_id": "ksdft-si-encut-sssp-qe75-authorized-k10-e816p342",
+      "fired_transitions": [
+        "accept_registration",
+        "accept_submission",
+        "accept_completion",
+        "accept_analysis"
+      ],
+      "irreducible_kpoint_count": 47,
+      "observed_wavefunction_cutoff_ev": 816.3415873794308,
+      "program_version": "7.5",
+      "retained_bytes": 11674222,
+      "status": "succeeded",
+      "task_id": "ksdft-si-gamma-k10-encut-c60-attempt-1",
+      "total_energy_ev": -310.7509972677077,
+      "total_energy_ev_per_atom": -155.37549863385385,
+      "wavefunction_cutoff_ry": 60
+    }
+  ],
+  "status": "running"
+}

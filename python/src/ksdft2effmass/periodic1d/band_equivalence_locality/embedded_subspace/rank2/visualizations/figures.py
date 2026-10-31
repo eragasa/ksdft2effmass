@@ -10,16 +10,16 @@ from matplotlib.figure import Figure
 
 from ksdft2effmass.visualizations import BaseFigure
 
-from .data import (
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2VisualizationData,
+from ..retention.visualization_data import (
+    Periodic1DRank2CalculationVisualizationData,
+    Periodic1DRank2ParentFamilyVisualizationData,
+    Periodic1DRank2VisualizationData,
 )
 
 
 @dataclass(frozen=True, slots=True)
 class _MomentumRefinementFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData
+    data: Periodic1DRank2CalculationVisualizationData
 
     def draw(self) -> Figure:
         """Plot each independently retained mesh-refinement channel."""
@@ -55,7 +55,7 @@ class _MomentumRefinementFigure(BaseFigure):
 
 @dataclass(frozen=True, slots=True)
 class _AdaptiveAmplitudeRefinementFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData
+    data: Periodic1DRank2CalculationVisualizationData
 
     def draw(self) -> Figure:
         """Plot midpoint and disjoint quarter-point defects separately."""
@@ -110,7 +110,7 @@ class _AdaptiveAmplitudeRefinementFigure(BaseFigure):
 
 @dataclass(frozen=True, slots=True)
 class _TruncationConsequencesFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData
+    data: Periodic1DRank2CalculationVisualizationData
 
     def draw(self) -> Figure:
         """Plot omitted power, finite-range error, and interpolation channels."""
@@ -161,7 +161,7 @@ class _TruncationConsequencesFigure(BaseFigure):
 
 @dataclass(frozen=True, slots=True)
 class _BandAndAlignmentFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2VisualizationData
+    data: Periodic1DRank2VisualizationData
 
     def draw(self) -> Figure:
         """Plot the band-equivalence and restricted-alignment channels."""
@@ -205,7 +205,7 @@ class _BandAndAlignmentFigure(BaseFigure):
 
 @dataclass(frozen=True, slots=True)
 class _LocalityFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2VisualizationData
+    data: Periodic1DRank2VisualizationData
 
     def draw(self) -> Figure:
         """Plot reference and attacked ordinary-lattice hopping power."""
@@ -244,7 +244,7 @@ class _LocalityFigure(BaseFigure):
 
 @dataclass(frozen=True, slots=True)
 class _NumericalResidualFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2VisualizationData
+    data: Periodic1DRank2VisualizationData
 
     def draw(self) -> Figure:
         """Plot reconstruction and Parseval diagnostics separately."""
@@ -281,7 +281,7 @@ class _NumericalResidualFigure(BaseFigure):
 
 
 def _landscape(
-    data: Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData,
+    data: Periodic1DRank2ParentFamilyVisualizationData,
     values: tuple[tuple[float, ...], ...],
     *,
     title: str,
@@ -310,7 +310,7 @@ def _landscape(
 
 @dataclass(frozen=True, slots=True)
 class _FamilyAlignmentLandscapeFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData
+    data: Periodic1DRank2ParentFamilyVisualizationData
 
     def draw(self) -> Figure:
         """Plot restricted-alignment correlation over the bounded family."""
@@ -324,7 +324,7 @@ class _FamilyAlignmentLandscapeFigure(BaseFigure):
 
 @dataclass(frozen=True, slots=True)
 class _FamilyLocalityLandscapeFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData
+    data: Periodic1DRank2ParentFamilyVisualizationData
 
     def draw(self) -> Figure:
         """Plot attacked nonzero hopping weight over the bounded family."""
@@ -338,7 +338,7 @@ class _FamilyLocalityLandscapeFigure(BaseFigure):
 
 @dataclass(frozen=True, slots=True)
 class _FamilyQualificationFigure(BaseFigure):
-    data: Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData
+    data: Periodic1DRank2ParentFamilyVisualizationData
 
     def draw(self) -> Figure:
         """Plot the distinct external-gap and transport qualification channels."""

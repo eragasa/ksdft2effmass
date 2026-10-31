@@ -1,0 +1,13 @@
+{
+  "input_sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 268435456,
+  "operator_instruction": "Authorize exactly one pw2wannier90.x conversion invocation described in campaign-preflight.json, with zero retries and stop on failure.",
+  "preflight_sha256": "c022f614785f3e9ad7f00a2bb26551141ee9aa45db281d7e2db0aa7b40672673",
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "stop_on_failure": true,
+  "timeout_seconds": 300.0
+}

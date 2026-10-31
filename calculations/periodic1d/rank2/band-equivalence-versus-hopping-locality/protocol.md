@@ -42,11 +42,14 @@ The errors are not an automatically additive budget.
    adaptive-amplitude refinement, and truncation.
 2. `run_02_verification.py` admits the exact retained bytes and independently verifies
    every aggregate channel before retaining canonical verification.
-3. `run_03_render.py` admits stored aggregate and parent-family authentication and renders
-   the closed six-figure family, momentum-refinement, adaptive-amplitude, and truncation
-   inventory without rerunning scientific verification.
+3. `run_03_render.py` reconstructs the retention-owned canonical aggregate and
+   parent-family projections, admits their stored authentication, and passes them to the
+   strictly downstream renderers for the closed six-figure family, momentum-refinement,
+   adaptive-amplitude, and truncation inventory without rerunning scientific
+   verification.
 
-All three stages refuse overwrite. The controls embedded in the calculation script were
+Retention does not import the local visualization package. All three stages refuse
+overwrite. The controls embedded in the calculation script were
 recovered from development work. Their later local execution required and received
 separate authorization; this document by itself does not authorize a rerun, sealing,
 promotion, or publication.

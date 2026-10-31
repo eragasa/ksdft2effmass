@@ -1,0 +1,39 @@
+{
+  "changes": {
+    "dis_mix_ratio": [
+      0.5,
+      0.2
+    ],
+    "dis_num_iter": [
+      200,
+      1000
+    ],
+    "num_iter": [
+      100,
+      500
+    ],
+    "precond": [
+      false,
+      true
+    ]
+  },
+  "checkpoint_consumed": false,
+  "fresh_occurrence": true,
+  "revised_win": {
+    "byte_size": 3581,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-conditioned-damped-20261031T083023Z/prepared-input/silicon.win",
+    "sha256": "fa5d8400e84c1b2feb44314f9d3175d0ac47641b38161dacf3fc980fcb1c17de"
+  },
+  "schema_version": 1,
+  "source_win": {
+    "byte_size": 3563,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-sp3sstar-20261031T081246Z/prepared-input/silicon.win",
+    "sha256": "4ba2e6642eb831eebd58d59e37b7d9c1035b246cd96e65593394014222b8395a"
+  },
+  "unchanged_interface_artifacts": [
+    "silicon.nnkp",
+    "silicon.eig",
+    "silicon.amn",
+    "silicon.mmn"
+  ]
+}

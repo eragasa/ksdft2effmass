@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: gauge k-point order disagrees with input",
+  "maximum_retained_bytes": 134217728,
+  "retained_bytes_before_provider_result": 38019746,
+  "schema_version": 1,
+  "status": "output-ineligible"
+}

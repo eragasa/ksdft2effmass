@@ -1,0 +1,30 @@
+{
+  "comparison_role": "diagnostic basis-order comparison; not independent scientific validation",
+  "rows": [
+    {
+      "left_handed_energy_ev_per_atom": -155.37559802344214,
+      "mesh_density": 6,
+      "right_handed_energy_ev_per_atom": -155.37559836358443,
+      "right_minus_left_mev_per_atom": -0.00034014229299828
+    },
+    {
+      "left_handed_energy_ev_per_atom": -155.37564135757472,
+      "mesh_density": 8,
+      "right_handed_energy_ev_per_atom": -155.37564128954625,
+      "right_minus_left_mev_per_atom": 6.802846996833978e-05
+    },
+    {
+      "left_handed_energy_ev_per_atom": -155.37564271814404,
+      "mesh_density": 10,
+      "right_handed_energy_ev_per_atom": -155.37564244603018,
+      "right_minus_left_mev_per_atom": 0.0002721138514516497
+    },
+    {
+      "left_handed_energy_ev_per_atom": -155.37564271814404,
+      "mesh_density": 12,
+      "right_handed_energy_ev_per_atom": -155.3756431943433,
+      "right_minus_left_mev_per_atom": -0.000476199261356669
+    }
+  ],
+  "schema_version": 1
+}

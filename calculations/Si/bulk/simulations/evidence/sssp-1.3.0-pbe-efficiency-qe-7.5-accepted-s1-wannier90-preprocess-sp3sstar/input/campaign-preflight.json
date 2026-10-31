@@ -1,0 +1,111 @@
+{
+  "acceptance": {
+    "required_output": "silicon.nnkp",
+    "required_return_code": 0,
+    "required_semantic_checks": [
+      "bounded NNKP parsing",
+      "source direct-lattice agreement",
+      "derived reciprocal-lattice agreement including 2 pi",
+      "source-ordered 64-point agreement",
+      "excluded-band agreement",
+      "expanded projection inventory sufficient for rank 10"
+    ]
+  },
+  "authorization_request": {
+    "maximum_invocations": 1,
+    "retries": 0,
+    "stop_on_failure": true
+  },
+  "candidate": {
+    "disentanglement_convergence_window": 3,
+    "disentanglement_iterations": 200,
+    "disentanglement_mix_ratio": 0.5,
+    "disentanglement_tolerance_angstrom_squared": 1e-10,
+    "energy_reference": "native QE Kohn-Sham eigenvalue reference",
+    "frozen_window": null,
+    "kpoint_count": 64,
+    "localization_convergence_window": 3,
+    "localization_iterations": 100,
+    "localization_tolerance_angstrom_squared": 1e-10,
+    "mp_grid": [
+      4,
+      4,
+      4
+    ],
+    "num_bands": 12,
+    "num_wann": 10,
+    "outer_window_ev": [
+      -5.85,
+      19.02
+    ],
+    "projections": [
+      "Si:sp3",
+      "Si:l=0:r=2"
+    ],
+    "qexsd_eigenvalue_range_ev": [
+      -5.834131973200469,
+      19.008744989627342
+    ],
+    "seedname": "silicon",
+    "write_hr": true
+  },
+  "decision": {
+    "byte_size": 7761,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/wannier-interface-decision.md",
+    "sha256": "00ba0cb19789ff7349bf3b37784c4222eba758f90dd5be9d28c368763a892015"
+  },
+  "executable": {
+    "byte_size": 891048,
+    "path": "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "sha256": "c826f817f807cf069e16d6e529a52ddc15d2f677101065908bcb2030d7f7d1dd"
+  },
+  "execution_performed": false,
+  "expected_output": "silicon.nnkp",
+  "integration_gap": "the current tranche provides pure render/prepare and NNKP parsing but not the planned first-party preprocessing execution provider",
+  "native_input": {
+    "byte_size": 3537,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/input/silicon.win",
+    "sha256": "5095ff13afc5e1d067cc8ff1495709cb1aac70843e69154e0754049331b1c03e"
+  },
+  "parent_nscf": {
+    "manifest": {
+      "byte_size": 14229,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/nscf-saved-state-manifest.json",
+      "sha256": "cab588c939b3b9bdea95496458be414f465f38fb036d1ade62405f8d602bf4ce"
+    },
+    "qexsd": {
+      "byte_size": 110462,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/tmp/system.save/data-file-schema.xml",
+      "sha256": "cc389a14d6b9f809eab69ba30b86129a01951788a3fdbc290589ef8f5f69adb0"
+    },
+    "saved_state_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-david-20261031T072258Z/run/tmp",
+    "verified_file_count": 67
+  },
+  "planned_command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "-pp",
+    "silicon"
+  ],
+  "prepared_input_record": {
+    "byte_size": 1062,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-sp3sstar-20261031T073157Z/prepared-input-record.json",
+    "record_byte_size": 1062,
+    "record_sha256": "9acafe13d43548814c23b8e5f4eb5a03e20188722f114ff24333043b9b63307e",
+    "sha256": "9acafe13d43548814c23b8e5f4eb5a03e20188722f114ff24333043b9b63307e"
+  },
+  "projectkoios_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+  "purpose": "first sp3s-star Wannier90 neighbor-topology preprocessing qualification",
+  "resource_bounds": {
+    "maximum_retained_bytes": 16777216,
+    "processes": 1,
+    "timeout_seconds": 120.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "preflight only; no NNKP topology, interface, localization, or production-adequacy result",
+  "status": "awaiting-explicit-bounded-authorization",
+  "structure": {
+    "byte_size": 758,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+    "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "-pp",
+    "silicon"
+  ],
+  "input_sha256": "5095ff13afc5e1d067cc8ff1495709cb1aac70843e69154e0754049331b1c03e",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 16777216,
+  "operator_instruction": "Authorize exactly one Wannier90 3.1.0 preprocessing invocation described in campaign-preflight.json, with zero retries and stop on failure.",
+  "preflight_sha256": "6630ad15aa5df18b0c9b543f34277133bf5cb787d14ff144946bf14e5c7d4bb5",
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "stop_on_failure": true,
+  "timeout_seconds": 120.0
+}

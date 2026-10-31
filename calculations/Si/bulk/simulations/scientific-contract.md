@@ -116,14 +116,25 @@ must not be silently promoted.
 ## Numerical and structural qualification order
 
 Cutoff/k-point qualification precedes structural convergence, but its result is scoped
-to one exact seed structure. The selected \(S_0\) is the 680-byte
-[`Si.PrimitiveUnitCell`](seed-structure-decision.md) record at inspected ProjectKoios
-revision `bbb9f1d8110ed9fe3ea1873c2366073c98f48c71`, SHA-256
-`6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc`.
-It is explicitly provisional. Let \(Q_0@S_0\) denote the selected coupled-cutoff and
-reciprocal-sampling setting on that structure. The structural route consumes \(Q_0@S_0\) and may produce a mechanically
-qualified structure \(S_1\). A fresh joint confirmation study on \(S_1\) then produces
-\(Q_1@S_1\).
+to one exact seed structure. The selected \(S_0\) is the 692-byte
+[`Si.PrimitiveUnitCell.RightHanded`](seed-structure-decision.md) record, SHA-256
+`7bef37dfe20ce58a137de942ec1fa0aa50d6e7049b0265790f12171bc834529a`. It is derived
+from the inspected ProjectKoios left-handed parent by an exact first-two-vector basis
+swap and is explicitly provisional. Let \(Q_0@S_0\) denote the selected coupled-cutoff
+and reciprocal-sampling setting on that structure. The structural route consumes
+\(Q_0@S_0\) and may produce a mechanically
+qualified structure \(S_1\). The retained FCC-native occurrence produced provisional
+`Si.PrimitiveUnitCell.RightHanded.RelaxedS1`, with finite stress, pressure below the
+declared tolerance, zero reported optimizer-terminal maximum force, QEXSD exit status
+zero, and consistent stdout/QEXSD termination and atom count. These facts admit the
+structure to fresh setting confirmation; they do not accept a production lattice. The
+subsequent separately authorized S1 k-point and cutoff axes again selected
+Gamma-centered K10 and 42/336 Ry under the calculation-owned K12- and C60-reference
+rules. This produces candidate \(Q_1@S_1\), recorded in
+[`candidate-stable-pair-disposition.json`](candidate-stable-pair-disposition.json),
+and the operator subsequently accepted that exact pair under the declared
+calculation-owned rules in
+[`accepted-stable-pair.json`](accepted-stable-pair.json).
 
 The production parent requires a stable accepted pair \((S_*,Q_*)\), not two
 independently accepted labels. If confirmation changes the selected setting, the
@@ -259,6 +270,7 @@ A passed software test establishes software behavior only. A successful process 
 | Independent QE/toolchain comparator | This calculation's scientific owner | Historical C48/K8 acceptance review |
 | Valley search and mass-fit protocol | This calculation's scientific owner | Valley/mass execution |
 | Wannier rank, projections, and windows | This calculation's scientific owner | Wannier preprocessing |
+| Prospective Wannierisation optimizer eligibility | For the exact two-atom cell, `2.0e-9 angstrom^2` and window 6 are accepted in [`localization-convergence-policy-decision.md`](localization-convergence-policy-decision.md); this remains separate from observable acceptance | Successor localization preflight |
 | Parent-wavefunction evidence and any sample-to-coefficient transform for component operators | This calculation's scientific owner, constrained by verified provider routes | Component-route execution |
 | Construction and withheld sets | This calculation's scientific owner | Wannier qualification |
 | Warning disposition | This calculation's scientific owner, informed by toolchain evidence | Evidence promotion |

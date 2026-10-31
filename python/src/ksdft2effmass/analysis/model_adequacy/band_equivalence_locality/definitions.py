@@ -5,7 +5,6 @@ from __future__ import annotations
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import Enum
 from typing import Self
 
 import numpy as np
@@ -20,29 +19,20 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.real_space_support_truncation import BasisResolvedMetricGeometry
+from ksdft2effmass.serialization import (
+    BaseTypedRecord,
+    SerializableValue,
+    StringWireEnum,
+)
 
 TRANSPORT_RANK_DEFICIENT_REASON = (
     "rank-deficient neighbor overlap does not identify unique transport"
 )
 
 
-class BandEquivalenceLocalityFamilyEnum(Enum):
+class BandEquivalenceLocalityFamilyEnum(StringWireEnum):
     """Name one independently interpreted development replication."""
-
-    def to_wire(self) -> str:
-        """Return the stable wire label."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, wire: str) -> Self:
-        """Reconstruct a family from its stable wire label."""
-        if type(wire) is not str:
-            raise TypeError("wire must be a built-in string")
-        for member in cls:
-            if member.to_wire() == wire:
-                return member
-        raise ValueError(f"unsupported family wire label: {wire!r}")
 
     SQUARE = (
         "ksdft2effmass.campaign.model-adequacy.periodic2d."
@@ -62,44 +52,16 @@ class BandEquivalenceLocalityFamilyEnum(Enum):
     )
 
 
-class ParentEnum(Enum):
+class ParentEnum(StringWireEnum):
     """Select one exact four-state synthetic parent law."""
-
-    def to_wire(self) -> str:
-        """Return the stable wire label."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, wire: str) -> Self:
-        """Reconstruct a parent law from its stable wire label."""
-        if type(wire) is not str:
-            raise TypeError("wire must be a built-in string")
-        for member in cls:
-            if member.to_wire() == wire:
-                return member
-        raise ValueError(f"unsupported parent wire label: {wire!r}")
 
     DIRECTED_AXIS = "directed-axis"
     HERMITIAN_BRAVAIS = "hermitian-bravais"
     BIPARTITE_INSPIRED = "bipartite-inspired"
 
 
-class GaugeNormalizationEnum(Enum):
+class GaugeNormalizationEnum(StringWireEnum):
     """Select the declared interpretation of the gauge amplitude."""
-
-    def to_wire(self) -> str:
-        """Return the stable wire label."""
-        return str(self.value)
-
-    @classmethod
-    def from_wire(cls, wire: str) -> Self:
-        """Reconstruct a normalization from its stable wire label."""
-        if type(wire) is not str:
-            raise TypeError("wire must be a built-in string")
-        for member in cls:
-            if member.to_wire() == wire:
-                return member
-        raise ValueError(f"unsupported gauge-normalization wire label: {wire!r}")
 
     AXIS_MAXIMUM = "axis-maximum"
     BOND_RMS = "bond-rms"
@@ -298,7 +260,7 @@ FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1 = (
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityCase(BaseTypedRecord):
+class BandEquivalenceLocalityCase(BaseTypedRecord, BasisResolvedMetricGeometry):
     """Define one parent and geometry inside an experiment family."""
 
     name: str
@@ -330,31 +292,7 @@ class BandEquivalenceLocalityCase(BaseTypedRecord):
             raise TypeError(
                 "positive_bonds must contain built-in integer tuples matching dimension"
             )
-        if type(self.direct_metric) is not DirectLatticeMetric:
-            raise TypeError("direct_metric must be DirectLatticeMetric")
-        if self.direct_metric.dimension != self.dimension:
-            raise ValueError("direct metric dimension must match the case")
-        if type(self.shell_metric_scale) is not float:
-            raise TypeError("shell_metric_scale must be a built-in float")
-        if not math.isfinite(self.shell_metric_scale):
-            raise ValueError("shell_metric_scale must be finite")
-        if self.shell_metric_scale <= 0.0:
-            raise ValueError("shell_metric_scale must be positive")
-        if type(self.basis_offsets) is not tuple:
-            raise TypeError("basis_offsets must be a tuple")
-        if any(
-            type(offset) is not tuple
-            or len(offset) != self.dimension
-            or any(
-                type(component) is not float or not math.isfinite(component)
-                for component in offset
-            )
-            for offset in self.basis_offsets
-        ):
-            raise TypeError(
-                "basis_offsets must contain finite built-in float tuples matching "
-                "dimension"
-            )
+        self.validate_basis_resolved_metric_geometry()
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         primitive_basis = self.direct_metric.primitive_basis

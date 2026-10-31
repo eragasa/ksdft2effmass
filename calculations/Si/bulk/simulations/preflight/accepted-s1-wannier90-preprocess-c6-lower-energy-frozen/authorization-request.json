@@ -1,0 +1,32 @@
+{
+  "authorization_granted": false,
+  "boundary": "the consumed C6 pw.x authorization does not authorize Wannier90 -pp",
+  "downstream_not_authorized": [
+    "pw2wannier90 conversion",
+    "Wannier90 localization",
+    "C8",
+    "C12",
+    "automatic retry"
+  ],
+  "requested_occurrence": {
+    "command": [
+      "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+      "-pp",
+      "silicon"
+    ],
+    "input": {
+      "byte_size": 10417,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-preprocess-c6-lower-energy-frozen/silicon.win",
+      "sha256": "2d5e4f0486e5062a8dd89a202845b8deac65efffea8acc0be05c192a4c12b604"
+    },
+    "maximum_invocations": 1,
+    "maximum_retained_bytes": 33554432,
+    "processes": 1,
+    "proposed_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-lower-energy-frozen-v1",
+    "purpose": "C6 fixed-window Wannier90 preprocessing",
+    "retries": 0,
+    "timeout_seconds": 120.0
+  },
+  "schema_version": 1,
+  "status": "authorization-required"
+}

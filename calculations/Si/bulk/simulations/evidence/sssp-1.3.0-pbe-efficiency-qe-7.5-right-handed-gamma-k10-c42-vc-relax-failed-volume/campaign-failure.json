@@ -1,0 +1,10 @@
+{
+  "authorized_invocations_consumed": 1,
+  "calculator_returncode": 1,
+  "failure_class": "native-input-incompatibility",
+  "message": "QE 7.5 rejects cell_dofree='volume' when ibrav=0; no SCF or relaxation step started.",
+  "native_message": "Isotropic expansion is only allowed for ibrav=1; i.e. for simple cubic",
+  "retry_authorized": false,
+  "schema_version": 1,
+  "status": "failed-before-scientific-execution"
+}

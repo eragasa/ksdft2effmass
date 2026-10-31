@@ -1,0 +1,58 @@
+{
+  "consistency": {
+    "declared_band_count_matches": true,
+    "declared_kpoint_count_matches": true,
+    "stdout_kpoint_count_matches": true,
+    "terminal_status_matches": true
+  },
+  "diagonalization_diagnostics": {
+    "disposition": "BLOCK_DOWNSTREAM_QUALIFICATION: QE returned zero and finite QEXSD spectra, but c_bands reported unconverged eigenvalues.",
+    "maximum_reported_on_one_kpoint": 2,
+    "requested_conv_thr_ry": 1e-12,
+    "stdout_terminal_ethr_ry": 1e-13,
+    "total_reported_unconverged_eigenvalues": 44,
+    "warning_line_count": 41
+  },
+  "native_execution": {
+    "job_completed": true,
+    "returncode": 0,
+    "status": "succeeded",
+    "stderr": {
+      "byte_size": 139,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/pw.err",
+      "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+    },
+    "stdout": {
+      "byte_size": 46399,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/pw.out",
+      "sha256": "c77f18cd3a3cd11c066ccecf1415fc46add2ba414049ce6db5b57f3a35a913ec"
+    }
+  },
+  "qexsd": {
+    "all_eigenvalues_finite": true,
+    "all_occupations_finite": true,
+    "band_count": 12,
+    "byte_size": 109890,
+    "declared_unit_system_label": "Hartree atomic units",
+    "exit_status": 0,
+    "k_point_weight_sum_native": 2.0,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/tmp/system.save/data-file-schema.xml",
+    "producing_application": "PWSCF",
+    "producing_application_version": "7.5",
+    "qexsd_version": "25.05.21",
+    "sampled_k_point_count": 64,
+    "sha256": "7c5394a73a565d9fa2a0580433af5656003d411fe0d255ac364ca12a871af96c"
+  },
+  "saved_state": {
+    "file_count": 67,
+    "manifest": {
+      "byte_size": 14229,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-4x4x4-b12-20261031T071339Z/run/nscf-saved-state-manifest.json",
+      "sha256": "1b02e9c67140a085c473afb77016f2cae10fa4eea78e7a475e422f3cc560ad8f"
+    },
+    "total_bytes": 18798436,
+    "verified": true
+  },
+  "schema_version": 1,
+  "scientific_disposition": "Native occurrence retained as completed with diagnostics; it is not an accepted NSCF handoff for Wannier preprocessing. A revised occurrence requires a new preflight and new explicit authorization."
+}

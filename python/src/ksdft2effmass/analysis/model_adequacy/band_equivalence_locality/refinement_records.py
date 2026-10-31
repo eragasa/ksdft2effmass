@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ksdft2effmass.numerical_consistency import NumericalConsistency
+
 from .definitions import BandEquivalenceLocalityFamilyEnum
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityRefinementPair:
+class BandEquivalenceLocalityRefinementPair(NumericalConsistency):
     """Retain changes across one adjacent mesh-doubling pair."""
 
     coarse_construction_size: int
@@ -35,7 +37,7 @@ class BandEquivalenceLocalityRefinementPair:
 
 
 @dataclass(frozen=True, slots=True)
-class BandEquivalenceLocalityRefinementAssessment:
+class BandEquivalenceLocalityRefinementAssessment(NumericalConsistency):
     """Retain a conservative hash-free family refinement assessment."""
 
     family: BandEquivalenceLocalityFamilyEnum

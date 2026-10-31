@@ -1,0 +1,18 @@
+{
+  "authorization_request_sha256": "02375507dbe487f1ad5dee2569151faf04c2e5a5fa3aadd9b0007d977bc26aa7",
+  "command": [
+    "/Users/eugene/projects/wannier90-3.1.0/wannier90.x",
+    "silicon"
+  ],
+  "input_manifest_sha256": "523515dffc883abf1bc0ff3e1427eea13e85a12774a5ce2040e3dd43c396568e",
+  "input_sha256": "6a6fe1b3193455038a0c4a14038f174f3c0e6244113ee9fb17ff1f42a145a2f3",
+  "invocation_index": 1,
+  "maximum_invocations": 1,
+  "maximum_retained_bytes": 134217728,
+  "operator_instruction": "Authorize one fresh local wannier90.x silicon invocation for authorization request SHA-256 02375507dbe487f1ad5dee2569151faf04c2e5a5fa3aadd9b0007d977bc26aa7, at /Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1, one process, 14,400-second timeout, 128 MiB limit, zero retries, with no checkpoint or failed-output consumption.",
+  "processes": 1,
+  "retries_authorized": 0,
+  "schema_version": 1,
+  "status": "consumed-by-this-occurrence",
+  "timeout_seconds": 14400.0
+}

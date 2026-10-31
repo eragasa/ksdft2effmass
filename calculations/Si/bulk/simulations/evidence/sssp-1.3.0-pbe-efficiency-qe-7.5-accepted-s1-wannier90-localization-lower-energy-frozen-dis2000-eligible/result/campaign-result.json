@@ -1,0 +1,9 @@
+{
+  "artifact_manifest": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-dis2000-20261031T100534Z/run/artifact-manifest.json",
+  "execution_record": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-dis2000-20261031T100534Z/run/execution.json",
+  "invocation_count": 1,
+  "provider_result": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-lower-energy-frozen-dis2000-20261031T100534Z/run/provider-result.json",
+  "retry_count": 0,
+  "schema_version": 1,
+  "scientific_disposition": "provider-eligible lower-energy frozen-window extended-disentanglement localization output only; interpolation and operator acceptance remain separate"
+}

@@ -1,0 +1,19 @@
+{
+  "ksdft2effmass_revision": "0e1e9fa570bbf47de651d8e67130cc152fb0426f",
+  "projectkoios_postprocessing_patch": {
+    "byte_size": 45295,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/projectkoios-postprocessing.patch",
+    "sha256": "1ab3184bc3492ce6fdd100dc1c34f8d64d13def5839dab871259a13622f8ad88"
+  },
+  "qexsd_parser_source": {
+    "byte_size": 15045,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/python/src/ksdft2effmass/integration/quantum_espresso/qexsd/parsing.py",
+    "sha256": "37edec479235fcdd4cfe21c5788093e3309932af0dc186cf8fda647f3dd974ff"
+  },
+  "retention_script": {
+    "byte_size": 8332,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-ibrav2-gamma-k10-c42-20261031T061128Z/retain_result.py",
+    "sha256": "f59e17c0d04e27bcf363441b29bf620588e2ed9178e10c161b7b52d16690797f"
+  },
+  "schema_version": 1
+}

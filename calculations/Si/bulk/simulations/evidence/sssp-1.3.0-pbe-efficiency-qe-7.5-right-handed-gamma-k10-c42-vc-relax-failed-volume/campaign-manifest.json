@@ -1,0 +1,27 @@
+{
+  "authorization": {
+    "maximum_invocations": 1,
+    "operator_message": "go",
+    "retries": 0
+  },
+  "authorized_invocations_consumed": 1,
+  "configuration": {
+    "byte_size": 2156,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-bulk-vc-relax-gamma-k10-c42-20261031T055443Z/calculation.toml",
+    "sha256": "f870072a3aebe0f08d966048f9d85de0775fe4bc471a145c37ff710a3ee6cad1"
+  },
+  "failure_record": "campaign-failure.json",
+  "preflight_input": {
+    "byte_size": 948,
+    "sha256": "10b410650314279296e60dc39ce25898cf46b1ba50a63e80bfb7f6c415572249"
+  },
+  "projectkoios_revision": "e146f3722e87ca2de2243421a94448cfa6e27037",
+  "resources": {
+    "maximum_retained_bytes": 2147483648,
+    "processes": 1,
+    "timeout_seconds": 1800.0
+  },
+  "schema_version": 1,
+  "scientific_disposition": "provisional bulk relaxation; completion is not scientific acceptance",
+  "status": "failed-before-scientific-execution"
+}

@@ -5,6 +5,12 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from ksdft2effmass.real_space_support_truncation import (
+    OrderedEigenvalueErrors,
+    RankNormalizedMatrixFrobeniusErrors,
+    RealSpaceSupportTruncationErrors,
+)
+
 
 @dataclass(frozen=True, slots=True)
 class BandEquivalenceLocalityErrorChannels:
@@ -26,3 +32,17 @@ class BandEquivalenceLocalityErrorChannels:
                 raise TypeError(f"{name} must be a built-in float")
             if not math.isfinite(value) or value < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
+
+    @property
+    def support_truncation_errors(self) -> RealSpaceSupportTruncationErrors:
+        """Return these family channels under shared truncation terminology."""
+        return RealSpaceSupportTruncationErrors(
+            matrix_frobenius=RankNormalizedMatrixFrobeniusErrors(
+                maximum_error=self.maximum_hamiltonian,
+                root_mean_square_error=self.rms_hamiltonian,
+            ),
+            ordered_eigenvalues=OrderedEigenvalueErrors(
+                maximum_absolute_error=self.maximum_band,
+                root_mean_square_error=self.rms_band,
+            ),
+        )

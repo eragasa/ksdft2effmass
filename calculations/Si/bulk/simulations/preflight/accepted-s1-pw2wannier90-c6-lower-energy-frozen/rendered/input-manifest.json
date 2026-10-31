@@ -1,0 +1,21 @@
+{
+  "executable": null,
+  "input": {
+    "byte_size": 230,
+    "sha256": "1e920e99e272598fa2364d3ae9185c748e7e17e5dc826db69367de448ab11b67"
+  },
+  "nnkp": {
+    "byte_size": 59408,
+    "filename": "silicon.nnkp",
+    "sha256": "f367195dcc42a72244104e8149bbc75b4ce623c67a6acc1d169c68b33aeffead"
+  },
+  "parent_nscf_saved_state_manifest_sha256": "28df04c1bf314371d6138bfe41b564147354253c6d609b465c7ebd4778c617b8",
+  "prefix": "system",
+  "required_outputs": [
+    "silicon.amn",
+    "silicon.mmn",
+    "silicon.eig"
+  ],
+  "schema_version": 1,
+  "seedname": "silicon"
+}

@@ -1,0 +1,43 @@
+&CONTROL
+    calculation = 'vc-relax'
+    nstep = 200
+    etot_conv_thr = 7.3498644351e-06
+    forc_conv_thr = 3.8893807597e-04
+    tprnfor = .true.
+    tstress = .true.
+    prefix = 'system'
+    pseudo_dir = './'
+    outdir = './tmp/'
+/
+&SYSTEM
+    ibrav = 0
+    nat = 2
+    ntyp = 1
+    ecutwfc = 42.0000000000
+    ecutrho = 336.0000000000
+    occupations = 'fixed'
+/
+&ELECTRONS
+    conv_thr = 1.0000000000e-06
+    electron_maxstep = 100
+/
+&IONS
+    ion_dynamics = 'bfgs'
+/
+&CELL
+    cell_dynamics = 'bfgs'
+    press = 0.0000000000
+    press_conv_thr = 0.5000000000
+    cell_dofree = 'volume'
+/
+ATOMIC_SPECIES
+ Si 28.086 Si.pbe-n-rrkjus_psl.1.0.0.UPF
+CELL_PARAMETERS (angstrom)
+ 2.7150000000 0.0000000000 2.7150000000
+ 2.7150000000 2.7150000000 0.0000000000
+ 0.0000000000 2.7150000000 2.7150000000
+ATOMIC_POSITIONS (crystal)
+ Si 0.0000000000 0.0000000000 0.0000000000
+ Si 0.2500000000 0.2500000000 0.2500000000
+K_POINTS automatic
+ 10 10 10 0 0 0

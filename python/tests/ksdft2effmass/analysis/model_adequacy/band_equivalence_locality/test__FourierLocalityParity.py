@@ -718,6 +718,22 @@ class TestFourierLocalityParity:
                 compare(observed, expected)
 
         alignment = _restricted_alignment_summary(reference, comparison)
+        equivalence = point.representation_equivalence
+        assert equivalence.spatial_dimension == case.dimension
+        assert equivalence.retained_rank == 2
+        assert (
+            point.maximum_direct_band_defect == equivalence.maximum_direct_band_defect
+        )
+        assert point.maximum_covariant_defect == equivalence.maximum_covariant_defect
+        assert (
+            point.minimum_operator_threshold == equivalence.minimum_operator_threshold
+        )
+        retained_point_mapping = retained.diagnostics.cases[0].points[0].to_dict()
+        assert "representation_equivalence" not in retained_point_mapping
+        assert (
+            retained_point_mapping["maximum_direct_band_defect"]
+            == equivalence.maximum_direct_band_defect
+        )
         parent = _oracle_parent_field(case, construction, parent_scale)
         parent_eigenvalues = np.linalg.eigvalsh(parent)
         compare(
@@ -887,6 +903,10 @@ class TestFourierLocalityParity:
         )
         assert tuple(value.shell_index for value in point.shell_diagnostics) == (
             expected_shells
+        )
+        assert (
+            tuple(value.metric_shell_value for value in point.shell_diagnostics)
+            == expected_shells
         )
         expected_shell_errors: list[_ShellErrorSummary] = []
         for shell_index, shell_diagnostic in zip(

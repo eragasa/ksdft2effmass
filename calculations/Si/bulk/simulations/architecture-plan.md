@@ -104,7 +104,7 @@ This directory first owns the scientific instantiation of the bulk-qualification
 sequence:
 
 1. joint coupled-cutoff/k-point qualification on the selected exact provisional
-   [`Si.PrimitiveUnitCell` \(S_0\)](seed-structure-decision.md);
+   [`Si.PrimitiveUnitCell.RightHanded` \(S_0\)](seed-structure-decision.md);
 2. structural convergence under provisional \(Q_0@S_0\);
 3. fresh joint confirmation on the resulting structure; and
 4. bounded re-relax/reconfirm feedback until \((S_*,Q_*)\) is accepted or the route

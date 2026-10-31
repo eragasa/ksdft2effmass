@@ -11,13 +11,23 @@ from .typed_values import SerializableValue
 
 
 class BaseTypedRecord(ABC):
-    """Enforce final dictionary and JSON boundaries for one typed record."""
+    """Enforce final dictionary and JSON boundaries for one typed record.
+
+    Concrete records explicitly project a ``StringWireEnum`` through its
+    ``to_wire()`` method in ``_mapping`` and reconstruct it through ``from_wire()``
+    in ``_from_mapping``. Enum conversion remains domain-owned while this base owns
+    the final mapping and canonical-JSON pipeline.
+    """
 
     __slots__ = ()
 
     @abstractmethod
     def _mapping(self) -> Mapping[str, SerializableValue]:
-        """Return the concrete record's nested typed mapping."""
+        """Return the concrete record's nested typed mapping.
+
+        Ordinary string-mapped enums are represented by their exact built-in string
+        wire values, not by implicit string inheritance.
+        """
 
     @classmethod
     @abstractmethod
@@ -25,7 +35,11 @@ class BaseTypedRecord(ABC):
         cls,
         values: Mapping[str, SerializableValue],
     ) -> Self:
-        """Reconstruct the concrete record from its typed mapping."""
+        """Reconstruct the concrete record from its typed mapping.
+
+        Concrete owners validate exact string types before invoking a domain enum's
+        ``from_wire()`` method.
+        """
 
     @final
     def to_dict(self) -> Mapping[str, SerializableValue]:
@@ -38,8 +52,10 @@ class BaseTypedRecord(ABC):
 
         Notes
         -----
-        The returned values retain quantities, arrays, enums, tuples, and nested
-        records. This boundary does not produce JSON-native lists.
+        The returned values retain quantities, arrays, explicitly registered enums,
+        tuples, and nested records. Concrete records project ``StringWireEnum``
+        members to stable built-in strings before this boundary. This method does not
+        produce JSON-native lists.
         """
         return self._mapping()
 

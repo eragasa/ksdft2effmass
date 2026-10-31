@@ -1,0 +1,13 @@
+{
+  "calculation": "scf",
+  "manifest": {
+    "byte_size": 10763,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/scf-saved-state-manifest.json",
+    "sha256": "2b80acf2bc53dcbc5c667d50c4747036704a640c86cdf5902a98e998e21aefb9"
+  },
+  "prefix": "system",
+  "saved_state_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/tmp",
+  "schema_version": 1,
+  "source_role": "accepted-pair-parent-scf-for-separately-authorized-nscf",
+  "structure_sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+}

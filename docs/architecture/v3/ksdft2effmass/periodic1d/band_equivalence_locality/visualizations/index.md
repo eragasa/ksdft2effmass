@@ -1,18 +1,21 @@
 # Authenticated visualizations
 
-The visualization child projects already calculated embedded rank-two values into canonical typed plotting data. It owns separate single-parent, parent-family, and aggregate refinement/truncation inventories. It does not rerun scientific analysis or independent verification.
+The visualization child renders canonical typed plotting projections owned and authenticated by `embedded_subspace/rank2/retention/`. It owns the closed plot inventories and renderer actions, not projection retention. It does not rerun scientific analysis or independent verification.
 
 ## Class contracts
 
-- [`Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData`](Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot`](Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2CalculationVisualizer`](Periodic1DEmbeddedSubspaceRank2CalculationVisualizer/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2VisualizationData`](Periodic1DEmbeddedSubspaceRank2VisualizationData/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2VisualizationPlot`](Periodic1DEmbeddedSubspaceRank2VisualizationPlot/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2Visualizer`](Periodic1DEmbeddedSubspaceRank2Visualizer/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData`](Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot`](Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot/index.md)
-- [`Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer`](Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer/index.md)
+The three `...VisualizationData` contracts are retention-owned authenticated projection
+values documented here beside their downstream consumers.
+
+- [`Periodic1DRank2CalculationVisualizationData`](Periodic1DRank2CalculationVisualizationData/index.md)
+- [`Periodic1DRank2CalculationVisualizationPlot`](Periodic1DRank2CalculationVisualizationPlot/index.md)
+- [`Periodic1DRank2CalculationVisualizer`](Periodic1DRank2CalculationVisualizer/index.md)
+- [`Periodic1DRank2VisualizationData`](Periodic1DRank2VisualizationData/index.md)
+- [`Periodic1DRank2VisualizationPlot`](Periodic1DRank2VisualizationPlot/index.md)
+- [`Periodic1DRank2Visualizer`](Periodic1DRank2Visualizer/index.md)
+- [`Periodic1DRank2ParentFamilyVisualizationData`](Periodic1DRank2ParentFamilyVisualizationData/index.md)
+- [`Periodic1DRank2ParentFamilyVisualizationPlot`](Periodic1DRank2ParentFamilyVisualizationPlot/index.md)
+- [`Periodic1DRank2ParentFamilyVisualizer`](Periodic1DRank2ParentFamilyVisualizer/index.md)
 
 ## Related pages
 

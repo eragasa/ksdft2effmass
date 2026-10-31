@@ -1,0 +1,28 @@
+{
+  "change_class": "target-space outer-envelope redesign",
+  "checkpoint_consumed": false,
+  "failed_outputs_consumed": false,
+  "fresh_occurrence": true,
+  "only_change": {
+    "after": [
+      -6.0,
+      21.0
+    ],
+    "before": [
+      -5.85,
+      19.02
+    ],
+    "coordinate": "outer_window_ev"
+  },
+  "revised_input": {
+    "byte_size": 10477,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-t1-full-parent-outer-dis4000/prepared/silicon.win",
+    "sha256": "54924bd20f4257ae59bd3b8d059cc5c4b07122ecda0e58bc2fd09ef6fdf6b489"
+  },
+  "schema_version": 1,
+  "source_input": {
+    "byte_size": 10479,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/simulations/preflight/accepted-s1-wannier90-localization-c6-lower-energy-frozen-dis4000/prepared/silicon.win",
+    "sha256": "2ddfb1b51cfd476cc6444f8bfec8ae3ef229e882c2e6e5f1ee5bf94addd43e64"
+  }
+}

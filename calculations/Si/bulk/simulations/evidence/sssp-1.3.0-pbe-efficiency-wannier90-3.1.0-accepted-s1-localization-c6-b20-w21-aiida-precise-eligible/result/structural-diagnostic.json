@@ -1,0 +1,25 @@
+{
+  "both_kpoint_residuals_below_1e_minus_8": true,
+  "declared_provider_kpoint_tolerance_fractional": 1e-10,
+  "disentanglement_kpoint_maximum_absolute_residual_fractional": 3.3000000509986194e-09,
+  "disposition": "The occurrence remains provider-ineligible under its prospectively declared 1e-10 fractional k-point gate. The 1e-8 comparison is a diagnostic against the separately predeclared NNKP tolerance and does not retroactively change eligibility or authorize reuse of outputs.",
+  "gauge_kpoint_maximum_absolute_residual_fractional": 3.3000000509986194e-09,
+  "hamiltonian_representative_count": 279,
+  "native_convergence": {
+    "completion_phrase_observed": true,
+    "disentanglement_phrase_observed": true,
+    "last_reported_wannierisation_iteration": 378,
+    "maximum_iteration_warning_observed": false,
+    "omega_total_angstrom_squared": 21.022751219,
+    "wannierisation_phrase_observed": true
+  },
+  "predeclared_nnkp_comparison_tolerance_fractional": 1e-08,
+  "schema_version": 1,
+  "status": "diagnostic-only-provider-ineligible",
+  "structural_residuals": {
+    "declared_maximum": 1e-08,
+    "disentanglement_isometry_maximum": 1.506470503898072e-10,
+    "gauge_unitarity_maximum": 2.0480683815549128e-10,
+    "hamiltonian_hermiticity_maximum_ev": 0.0
+  }
+}

@@ -1,21 +1,21 @@
-"""Authenticated visualization values for embedded rank-two analyses."""
+"""Downstream renderers for authenticated embedded rank-two projections."""
 
-from .data import (
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData,
-    Periodic1DEmbeddedSubspaceRank2VisualizationData,
-)
 from .inventory import (
-    Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot,
-    Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot,
-    Periodic1DEmbeddedSubspaceRank2VisualizationPlot,
+    Periodic1DRank2CalculationVisualizationPlot,
+    Periodic1DRank2ParentFamilyVisualizationPlot,
+    Periodic1DRank2VisualizationPlot,
+)
+from .visualizer import (
+    Periodic1DRank2CalculationVisualizer,
+    Periodic1DRank2ParentFamilyVisualizer,
+    Periodic1DRank2Visualizer,
 )
 
 __all__ = [
-    "Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData",
-    "Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot",
-    "Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData",
-    "Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot",
-    "Periodic1DEmbeddedSubspaceRank2VisualizationData",
-    "Periodic1DEmbeddedSubspaceRank2VisualizationPlot",
+    "Periodic1DRank2CalculationVisualizationPlot",
+    "Periodic1DRank2CalculationVisualizer",
+    "Periodic1DRank2ParentFamilyVisualizationPlot",
+    "Periodic1DRank2ParentFamilyVisualizer",
+    "Periodic1DRank2VisualizationPlot",
+    "Periodic1DRank2Visualizer",
 ]

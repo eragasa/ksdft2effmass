@@ -2,64 +2,89 @@
 
 ## Status
 
-**Selected for numerical qualification only.** This record freezes the exact seed
-structure \(S_0\) for the first coupled-cutoff and k-point study. It does not accept a
-production lattice, authorize a calculator, or transfer numerical evidence from this
-structure to a later relaxed structure.
+**Selected for numerical qualification only.** This record freezes the right-handed
+exact seed structure \(S_0\) used by the retained fixed-cutoff k-point study. It does
+not accept a production lattice, authorize another calculator occurrence, or transfer
+numerical evidence from this structure to a later relaxed structure.
 
 ## Exact identity
 
 | Field | Value |
 | --- | --- |
-| Structure ID | `Si.PrimitiveUnitCell` |
-| Role | Provisional bulk-qualification seed \(S_0\) |
-| Upstream repository | `https://github.com/eragasa/projectkoios-simulations` |
-| Inspected revision | `bbb9f1d8110ed9fe3ea1873c2366073c98f48c71` |
-| Repository path | `examples/workflows/pw_dft_scf/structures/Si.PrimitiveUnitCell.json` |
-| Byte size | `680` |
-| SHA-256 | `6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc` |
+| Structure ID | `Si.PrimitiveUnitCell.RightHanded` |
+| Role | Provisional k-point-convergence seed \(S_0\) |
+| Owning repository path | [`structures/Si.PrimitiveUnitCell.RightHanded.json`](structures/Si.PrimitiveUnitCell.RightHanded.json) |
+| Byte size | `692` |
+| SHA-256 | `7bef37dfe20ce58a137de942ec1fa0aa50d6e7049b0265790f12171bc834529a` |
 | Schema version | `1` |
 | Representation | Primitive |
 | Vector axis | Columns |
 | Lattice parameter | `5.43 angstrom` |
+| Handedness | Right-handed; dimensionless determinant `+0.25` |
 
 The ordered direct vectors are
 
 \[
-\mathbf a_1=5.43\,\text{Å}(1/2,1/2,0),\qquad
-\mathbf a_2=5.43\,\text{Å}(1/2,0,1/2),\qquad
+\mathbf a_1=5.43\,\text{Å}(1/2,0,1/2),\qquad
+\mathbf a_2=5.43\,\text{Å}(1/2,1/2,0),\qquad
 \mathbf a_3=5.43\,\text{Å}(0,1/2,1/2).
 \]
 
 The ordered fractional sites are `Si: (0,0,0)` and
 `Si: (1/4,1/4,1/4)`.
 
+## Exact derivation
+
+The parent is the 680-byte ProjectKoios `Si.PrimitiveUnitCell` record with
+SHA-256 `6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc`.
+Its ordered basis is left-handed. The derived record swaps the first two direct
+vectors and applies the same permutation to fractional-coordinate components:
+
+\[
+H_{S_0}=H_{\mathrm{parent}}P,
+\qquad
+f_{S_0}=P^{\mathsf T}f_{\mathrm{parent}},
+\qquad
+P=\begin{pmatrix}0&1&0\\1&0&0\\0&0&1\end{pmatrix}.
+\]
+
+The two fractional sites are numerically unchanged because their first two
+components are equal. This operation preserves Cartesian geometry and volume
+magnitude while changing the direct-basis determinant from `-0.25` to `+0.25`.
+The complete derivation contract is retained in
+[`structures/README.md`](structures/README.md).
+
 ## Decision and rationale
 
-This exact structure is selected because it is already content-addressed by the
-ProjectKoios structure library, uses an explicit primitive-cell convention, and can be
-consumed without creating a duplicate silicon structure record. Its 5.43 Å lattice is
-not promoted as a calculated PBE equilibrium value. The subsequent zero-pressure
-structural stage and fresh setting confirmation exist specifically to prevent that
-promotion.
+The right-handed record replaces the left-handed parent for subsequent
+calculator inputs. It preserves the previously selected provisional 5.43 Å
+geometry while removing Quantum ESPRESSO's `axis vectors are left-handed`
+warning. Its 5.43 Å lattice is not promoted as a calculated PBE equilibrium
+value.
 
-The initial numerical result must therefore be labelled \(Q_0@S_0\). It is valid only
-for this exact structure and declared physical model. It cannot be relabelled as
-qualified on a mechanically relaxed \(S_1\), even if the same integer k-mesh or cutoff
-labels are later used.
+Any numerical result must remain bound to the exact structure bytes used. The
+completed left-handed SSSP/QE development run retains the parent structure identity
+and cannot be relabelled as evidence generated from this derived record. The separately
+authorized right-handed runs retain their exact inputs under [`evidence/`](evidence/).
+The shifted run is superseded for setting selection by the Gamma-centered k-point and
+cutoff campaigns, but remains immutable evidence.
+
+## Provisional relaxed successor
+
+The separately authorized FCC-native volume-only relaxation produced provisional
+`Si.PrimitiveUnitCell.RightHanded.RelaxedS1`, byte size `758`, SHA-256
+`d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03`, with
+conventional cubic lattice parameter `5.469182093640207 angstrom`. This does not
+change the identity or role of \(S_0\). The exact \(S_1\) bytes begin a new
+structure-scoped setting-confirmation branch; \(Q_0@S_0\) is not transferred.
 
 ## Nonclaims and remaining gates
 
 This decision does not:
 
 - accept the 5.43 Å lattice as the production structure;
-- select or acquire the required PseudoDojo v0.5 stringent Si UPF2 artifact;
-- freeze coupled-cutoff coordinates, reciprocal-sampling coordinates, observables,
-  tolerances, structural cell mode, force/pressure criteria, or feedback budget;
+- select the SSSP development branch as the eventual production parent model;
+- establish cutoff or k-point convergence from the basis transformation alone;
 - accept an executable or toolchain;
-- authorize any SCF, relaxation, or other calculator occurrence; or
-- make retained ProjectKoios SSSP/QE observations transferable to this calculation.
-
-Before any setting-qualification authorization packet can exist, the remaining
-scientific declaration and software-readiness gates in [`readiness.md`](readiness.md)
-and [`scientific-contract.md`](scientific-contract.md) must be closed.
+- authorize another SCF, relaxation, or other calculator occurrence; or
+- make left-handed-parent observations byte-identical to a right-handed run.

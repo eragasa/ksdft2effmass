@@ -10,9 +10,14 @@ from typing import ClassVar, Self
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
+from ..geometry import Periodic1DReducedCoordinateConvention
+
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DCompositeBandAlignmentConfiguration(BaseTypedRecord):
+class Periodic1DCompositeBandAlignmentConfiguration(
+    BaseTypedRecord,
+    Periodic1DReducedCoordinateConvention,
+):
     """Declare the exact parent and finite controls for the rank-two calculation."""
 
     parent_identity: str

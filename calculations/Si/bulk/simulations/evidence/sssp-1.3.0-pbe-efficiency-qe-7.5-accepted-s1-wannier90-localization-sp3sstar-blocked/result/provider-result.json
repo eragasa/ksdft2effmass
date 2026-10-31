@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: wout lacks native completion phrase: b'Disentanglement convergence criteria satisfied'",
+  "maximum_retained_bytes": 67108864,
+  "retained_bytes_before_provider_result": 5904269,
+  "schema_version": 1,
+  "status": "output-ineligible"
+}

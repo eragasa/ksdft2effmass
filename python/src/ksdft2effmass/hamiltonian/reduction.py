@@ -12,12 +12,14 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
+from ksdft2effmass.subspace_reduction import SubspaceReduction
+
 from .records import Hamiltonian, ReducedHamiltonian
 from .subspaces import SpectralSubspace
 
 
 @dataclass(frozen=True, slots=True, eq=False, kw_only=True)
-class SpectralReduction:
+class SpectralReduction(SubspaceReduction):
     """Eagerly reduce one Hamiltonian through one represented spectral subspace.
 
     Parameters

@@ -9,6 +9,7 @@ from typing import final
 import numpy as np
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldErrorAnalyzer
+from ksdft2effmass.representation_equivalence import RepresentationEquivalence
 
 from ..diagnostics import (
     Periodic1DHigherRankFrameErrorResult,
@@ -39,7 +40,7 @@ class Periodic1DHigherRankRecoveryAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankRecoveryAnalysis:
+class Periodic1DHigherRankRecoveryAnalysis(RepresentationEquivalence):
     """Store separate frame and represented-operator recovery diagnostics."""
 
     analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest

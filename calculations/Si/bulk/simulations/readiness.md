@@ -2,10 +2,12 @@
 
 ## Inspection boundary
 
-This record describes a read-only inspection of Project Koios commit
+This record began as a read-only inspection of Project Koios commit
 `bbb9f1d8110ed9fe3ea1873c2366073c98f48c71` and selected machine-local resources.
 Local paths and file observations are deployment facts, not portable requirements or
-scientific acceptance. No scientific executable was run.
+scientific acceptance. It now also records the separately authorized finite-setting
+campaigns and FCC-native volume-only relaxation retained under this calculation root;
+those occurrences do not establish production acceptance or authorize successors.
 
 ## Repository capability status
 
@@ -38,13 +40,15 @@ They differ in direct-vector ordering and stable identity:
   cyclic ordering and binds its band paths to that order.
 
 Both are explicit, useful examples. Neither record states that 5.43 Å is an accepted
-project PBE equilibrium lattice. This calculation has now selected
-`Si.PrimitiveUnitCell`, byte size `680`, SHA-256
-`6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc`, only as the
+project PBE equilibrium lattice. The ProjectKoios `Si.PrimitiveUnitCell` record is
+left-handed. This calculation has derived and selected the right-handed
+`Si.PrimitiveUnitCell.RightHanded`, byte size `692`, SHA-256
+`7bef37dfe20ce58a137de942ec1fa0aa50d6e7049b0265790f12171bc834529a`, only as the
 provisional \(S_0\) recorded in
-[`seed-structure-decision.md`](seed-structure-decision.md). This calculation's
-historical predecessor used a provisional 10.20-bohr geometry, also not accepted as a
-production PBE lattice.
+[`seed-structure-decision.md`](seed-structure-decision.md). The derivation swaps the
+first two direct vectors and corresponding fractional-coordinate components without
+changing Cartesian geometry. This calculation's historical predecessor used a
+provisional 10.20-bohr geometry, also not accepted as a production PBE lattice.
 
 ## Pseudopotential inventory
 
@@ -152,7 +156,7 @@ The closed manifest binds:
 
 - calculator: exact QE 7.5 `pw.x` above;
 - pseudopotential: exact SSSP USPP above;
-- structure: `Si.PrimitiveUnitCell`, SHA-256
+- structure: left-handed parent `Si.PrimitiveUnitCell`, SHA-256
   `6e048c7001f329459e85f321e7bd406f4dd871d6fabf8d12fa349a1623f87ccc`;
 - 30 initial-grid plus 6 adaptive-extension coordinates;
 - mesh densities 2 through 14 over the retained grid;
@@ -167,6 +171,61 @@ prototype source used to produce the grid lacks a committed identity.
 
 This evidence can exercise authentication, parsing, replay, and comparison software.
 It cannot be transferred into this calculation's production acceptance.
+
+## Retained right-handed finite-setting evidence
+
+This calculation retains compact records for the authorized Gamma-centered k-point
+campaign under
+[`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-gamma-kpoint/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-gamma-kpoint/).
+The calculation-owned `kpoints_convergence_atol = 1.0 meV/atom` rule compares with K12
+and selects K10 as the smallest passing sampled mesh.
+
+The authorized cutoff campaign at Gamma-centered K10 is retained under
+[`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-gamma-k10-encut/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-gamma-k10-encut/).
+Its `encut_convergence_atol = 1.0 meV/atom` rule compares with 60 Ry and selects
+42/336 Ry as the wavefunction/density cutoff pair. The earlier shifted campaign remains
+retained but is superseded for downstream setting selection.
+
+QE no longer reports a negative lattice determinant. The finite-setting occurrences
+used `ibrav=0` and retained its generic symmetry advisory. Every successful occurrence
+also retained invalid, divide-by-zero, overflow, and underflow IEEE flags. These flags
+are retained as native QE diagnostics rather than treated as automatic blockers when
+the occurrence completes, converges, and produces finite observations.
+
+## Retained FCC-native volume-only relaxation
+
+One separately authorized QE 7.5 occurrence used the exact right-handed seed,
+Gamma-centered K10, 42/336 Ry, `ibrav=2`, and `cell_dofree='ibrav'`. The native
+cubic-FCC representation preserves the declared scalar volume-only scope. The exact
+input, stdout, stderr, execution record, QEXSD, compact interpretation, and external
+artifact inventory are retained under
+[`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-gamma-k10-c42-vc-relax-ibrav2/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-gamma-k10-c42-vc-relax-ibrav2/).
+
+The occurrence returned zero, reached the QE terminal marker, and reported electronic
+and BFGS convergence. The existing KSD QEXSD parser read QEXSD version `25.05.21` with
+exit status zero; ProjectKoios confirmed stdout/QEXSD terminal and atom-count
+consistency. The provisional result has conventional lattice parameter
+`5.469182093640207 angstrom`, optimizer-terminal pressure `0.01 kbar`, final-SCF
+pressure `0.09 kbar`, and zero reported optimizer-terminal maximum force. It is
+retained as provisional \(S_1\), SHA-256
+`d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03`, pending fresh
+k-point and cutoff confirmation.
+
+The first confirmation stage has compact preflight under
+[`preflight/s1-gamma-c42-kpoint-confirmation/`](preflight/s1-gamma-c42-kpoint-confirmation/):
+Gamma-centered K6/K8/K10/K12 at fixed 42/336 Ry, with the existing `1.0 meV/atom`
+K12-reference rule. The exact four-invocation packet was authorized and completed with
+zero retries. All four SCFs returned zero and converged. The absolute K10–K12 energy
+difference is `0.29027746276710786 meV/atom`, so the calculation-owned rule again
+selects K10. Compact evidence is retained under
+[`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-c42-kpoint-confirmation/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-c42-kpoint-confirmation/).
+
+The separately authorized cutoff stage ran five new K10 occurrences and reused the
+exact C42 occurrence without rerunning it. All five new occurrences returned zero and
+converged, with no retries. The C42–C60 difference is
+`0.6180386100993474 meV/atom`, so the calculation-owned rule again selects 42/336 Ry.
+Evidence is retained under
+[`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-k10-cutoff-confirmation/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-right-handed-s1-gamma-k10-cutoff-confirmation/).
 
 ## Existing NSCF and Wannier examples
 
@@ -184,20 +243,34 @@ present.
 
 | Disposition | Problem | Smallest next action |
 | --- | --- | --- |
-| Must fix | Bulk-qualification policy beyond the selected \(S_0\) is not frozen | Declare cutoff/k-point coordinates and criteria, structural cell mode/criteria, and feedback budget |
-| Must fix | No stable accepted structure/settings pair exists | Implement the reusable ProjectKoios bulk-qualification route, then request separate authorization for the bounded campaign |
+| No action required | Fresh S1 confirmation selected the same K10/42/336 Ry tuple and the operator accepted the exact pair under the calculation-owned rules | Preserve `accepted-stable-pair.json`; do not transfer the separate generic ProjectKoios policy result |
+| No action required | The original `ibrav=0` volume-only occurrence failed before SCF | Preserve it as failed setup evidence; the separately authorized FCC-native route corrected the incompatibility without broadening the cell degrees of freedom |
+| No action required | The stable pair, separate parent SCF, and eligible Davidson NSCF handoff exist with authenticated saved-state lineage | Preserve every occurrence identity and require separate authority for each downstream calculator |
 | Must fix | Accepted v0.5/stringent Si UPF2 bytes are absent | Perform a separately bounded acquisition and verification operation |
 | Must fix | Local QE 7.5 does not provide the required independent comparator | Identify and bind a genuinely independent established QE/toolchain path |
 | Must fix | Project Koios examples do not encode historical C48/K8 or future production intent | Keep exact campaign data here and use Project Koios records/integrations to validate it |
-| Must fix | SCF-to-NSCF-to-Wannier artifact closure is incomplete | Complete the coordinated upstream spectral and component-operator route architecture and implementation without calculator execution |
-| Must fix | Numerical, valley/mass, and Wannier acceptance protocols are not frozen | Complete this calculation's scientific declarations and independent-verification contracts |
-| Must fix | Resource and warning policies are unbound | Measure or bound resources and prospectively classify warnings before authorization |
+| No action required | The revised Davidson NSCF returned zero with consistent finite 64-point/12-band QEXSD data and no `c_bands` diagnostics | Preserve it as the candidate handoff; do not relabel the blocked CG occurrence |
+| No action required | The authorized preprocessing occurrence produced a verified 64-point, rank-10 NNKP topology | Preserve its exact identity as the candidate converter input; do not infer downstream adequacy |
+| No action required | The authorized converter produced finite 64-point/12-band AMN/MMN/EIG artifacts with exact NNKP-neighbor and QEXSD-eigenvalue correlation | Preserve their identities as the candidate localization interface; do not infer localization adequacy |
+| Must fix | The retained ProjectKoios tranche lacks the planned first-party preprocessing execution provider and currently needs a PhysKit converter-name compatibility alias | Preserve the recorded gap; use the protected single-attempt executor for this qualification occurrence and repair the reusable boundary separately |
+| No action required | The first-candidate grid, bands, rank, projections, window policy, disentanglement, ordering, and evidence profile are approved | Preserve `wannier-interface-decision.md`; do not report the candidate as production-adequate |
+| No action required | QE emits four IEEE flag classes after otherwise successful occurrences | Retain the native diagnostics; revisit only if they accompany non-finite results, failed convergence, or corrupted output |
 | No action required | Exact candidate QE 7.5 and Wannier90 bytes were located | Retain these observations as deployment candidates only |
 
 ## Readiness conclusion
 
-The repository is suitable as the reusable software owner for future implementation,
-but the calculation is not ready for an execution authorization request. The next work
-is documentation review followed by software-only bulk-qualification and Wannier
-artifact-route closure. Scientific inputs, exact campaign declarations,
-independent-toolchain evidence, and authorization remain later gates.
+The right-handed Gamma-centered finite-setting campaigns and the FCC-native
+zero-pressure relaxation are complete and compactly retained. K10 and 42/336 Ry were
+selected on \(S_0\), and the relaxation produced provisional \(S_1\). The fresh
+k-point and cutoff axes on S1 again selected K10 and 42/336 Ry, respectively, and the
+operator accepted that exact structure/settings pair under the declared
+calculation-owned rules. A new separately authorized parent SCF completed and retained
+an authenticated saved state; confirmation SCFs were not reused. The immediate gate is
+a new calculation-owned disentanglement decision, if one is selected. The first
+rank-reducing ProjectKoios provider is implemented and verified. Its first occurrence
+failed both optimization gates; the separately authorized conditioned and damped
+revision fixed Wannierisation but still exhausted 1000 disentanglement iterations at a
+fractional delta of `3.815e-6`, above the declared `1.0e-10` tolerance. No retry
+authorization is in force. The blocked CG occurrence also remains retained under its
+original identity.
+The downstream artifact route and broader independent verification remain incomplete.

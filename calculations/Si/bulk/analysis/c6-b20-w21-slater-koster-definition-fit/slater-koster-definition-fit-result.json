@@ -1,0 +1,3501 @@
+{
+  "alignment_gate": {
+    "AMN_native_decimal_places": 12,
+    "all_kpoints_full_rank": false,
+    "deficient_kpoint_count": 2,
+    "deficient_kpoints": [
+      {
+        "condition_number": 8123818426588.67,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_singular_value": 4.355991753997849,
+        "minimum_singular_value": 5.362000386100462e-13,
+        "next_to_minimum_singular_value": 0.0004012285201800842,
+        "ordered_kpoint_index_zero_based": 0,
+        "resolved_rank_at_native_bound": 9
+      },
+      {
+        "condition_number": 8648498.165568516,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_singular_value": 1.7458344748654477,
+        "minimum_singular_value": 2.0186562353866025e-07,
+        "next_to_minimum_singular_value": 0.0008534562675450001,
+        "ordered_kpoint_index_zero_based": 12,
+        "resolved_rank_at_native_bound": 9
+      }
+    ],
+    "disentanglement_native_decimal_places": 10,
+    "formula": "B(k) = [U_dis(k) U(k)]^dagger A(k) T^dagger; a unitary TB-to-Wannier identification requires all ten singular values to be resolved",
+    "gamma_null_direction_atomic_orbital_weights": {
+      "A:px": 2.0143708970374325e-21,
+      "A:py": 2.0468705333994236e-21,
+      "A:pz": 2.0419381945914518e-21,
+      "A:s": 0.09746474789678251,
+      "A:s-star": 0.4025352606255531,
+      "B:px": 2.018930154162653e-21,
+      "B:py": 2.0111951031640742e-21,
+      "B:pz": 1.996097836796582e-21,
+      "B:s": 0.09746471137394387,
+      "B:s-star": 0.40253528010371975
+    },
+    "gate_passed": false,
+    "gauge_native_decimal_places": 10,
+    "kpoint_diagnostics": [
+      {
+        "condition_number": 8123818426588.67,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_singular_value": 4.355991753997849,
+        "minimum_singular_value": 5.362000386100462e-13,
+        "next_to_minimum_singular_value": 0.0004012285201800842,
+        "ordered_kpoint_index_zero_based": 0,
+        "resolved_rank_at_native_bound": 9
+      },
+      {
+        "condition_number": 53012.613397057095,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.4594808511082213,
+        "minimum_singular_value": 6.525769301726726e-05,
+        "next_to_minimum_singular_value": 0.05327973169779839,
+        "ordered_kpoint_index_zero_based": 1,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 288428.3878949614,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.7469858678964163,
+        "minimum_singular_value": 6.056913747798729e-06,
+        "next_to_minimum_singular_value": 0.15246771668194153,
+        "ordered_kpoint_index_zero_based": 2,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 33088.40060491141,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1175095871213252,
+        "minimum_singular_value": 3.377345434325556e-05,
+        "next_to_minimum_singular_value": 0.02124245645051585,
+        "ordered_kpoint_index_zero_based": 3,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 362070.58143290697,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.7469861273391036,
+        "minimum_singular_value": 4.824987770134058e-06,
+        "next_to_minimum_singular_value": 0.15248366843679412,
+        "ordered_kpoint_index_zero_based": 4,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 56814.61591082143,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.4594824114129072,
+        "minimum_singular_value": 6.089071194009397e-05,
+        "next_to_minimum_singular_value": 0.05331878512632034,
+        "ordered_kpoint_index_zero_based": 5,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 3230981.9498350997,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.457946603963526,
+        "minimum_singular_value": 1.0702463392406169e-06,
+        "next_to_minimum_singular_value": 0.0005949203371794167,
+        "ordered_kpoint_index_zero_based": 6,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10923.13084790906,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.212527592577144,
+        "minimum_singular_value": 0.0002941031868342121,
+        "next_to_minimum_singular_value": 0.020318411655293012,
+        "ordered_kpoint_index_zero_based": 7,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 170067.45185836378,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8681784467476612,
+        "minimum_singular_value": 1.0984926429682292e-05,
+        "next_to_minimum_singular_value": 0.09883873081026108,
+        "ordered_kpoint_index_zero_based": 8,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 187235.17411711882,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1231066769943607,
+        "minimum_singular_value": 5.998374409563869e-06,
+        "next_to_minimum_singular_value": 0.08515775664365531,
+        "ordered_kpoint_index_zero_based": 9,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68176.74277467886,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2216523662874856,
+        "minimum_singular_value": 1.791890190948243e-05,
+        "next_to_minimum_singular_value": 0.20100622725306028,
+        "ordered_kpoint_index_zero_based": 10,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 17674.031085662555,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.3379997651124356,
+        "minimum_singular_value": 0.0001322844660496867,
+        "next_to_minimum_singular_value": 0.12152897768079303,
+        "ordered_kpoint_index_zero_based": 11,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 8648498.165568516,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_singular_value": 1.7458344748654477,
+        "minimum_singular_value": 2.0186562353866025e-07,
+        "next_to_minimum_singular_value": 0.0008534562675450001,
+        "ordered_kpoint_index_zero_based": 12,
+        "resolved_rank_at_native_bound": 9
+      },
+      {
+        "condition_number": 37742.0577629144,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8678104509213922,
+        "minimum_singular_value": 4.9488834515979016e-05,
+        "next_to_minimum_singular_value": 0.07074139138435385,
+        "ordered_kpoint_index_zero_based": 13,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 5038.07460084006,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.350601567414867,
+        "minimum_singular_value": 0.00026807891395448267,
+        "next_to_minimum_singular_value": 0.046047909232231114,
+        "ordered_kpoint_index_zero_based": 14,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 23658.912508397712,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0883207142814149,
+        "minimum_singular_value": 4.6000453904849444e-05,
+        "next_to_minimum_singular_value": 0.0681338592624531,
+        "ordered_kpoint_index_zero_based": 15,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 153041.0362416008,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1132227817239373,
+        "minimum_singular_value": 7.2740149247717415e-06,
+        "next_to_minimum_singular_value": 0.07494766708082315,
+        "ordered_kpoint_index_zero_based": 16,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 16254.110719077218,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217278927205022,
+        "minimum_singular_value": 7.516424083949284e-05,
+        "next_to_minimum_singular_value": 0.16370211290749526,
+        "ordered_kpoint_index_zero_based": 17,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 198227.04091695845,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1171853690663653,
+        "minimum_singular_value": 5.635887837998743e-06,
+        "next_to_minimum_singular_value": 9.606745732829425e-05,
+        "ordered_kpoint_index_zero_based": 18,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 28484.617352757923,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1224012710670765,
+        "minimum_singular_value": 3.94037686084066e-05,
+        "next_to_minimum_singular_value": 0.07426515285188426,
+        "ordered_kpoint_index_zero_based": 19,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 9058.225440377315,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0882498897033897,
+        "minimum_singular_value": 0.00012013941327320943,
+        "next_to_minimum_singular_value": 0.06677244226336408,
+        "ordered_kpoint_index_zero_based": 20,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 40581.958257823004,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0869436538708583,
+        "minimum_singular_value": 2.6783913357885523e-05,
+        "next_to_minimum_singular_value": 0.011454874993030278,
+        "ordered_kpoint_index_zero_based": 21,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 8835.392876029977,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0882498129973435,
+        "minimum_singular_value": 0.00012316937438625012,
+        "next_to_minimum_singular_value": 0.06677273515213704,
+        "ordered_kpoint_index_zero_based": 22,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 27810.307696108215,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1224012142894007,
+        "minimum_singular_value": 4.0359180004558884e-05,
+        "next_to_minimum_singular_value": 0.07426767245732827,
+        "ordered_kpoint_index_zero_based": 23,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 2094283.1135903231,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.7458344859971495,
+        "minimum_singular_value": 8.336191390113381e-07,
+        "next_to_minimum_singular_value": 0.0008678648010770678,
+        "ordered_kpoint_index_zero_based": 24,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 15330.965111137626,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217278615206382,
+        "minimum_singular_value": 7.969021210759122e-05,
+        "next_to_minimum_singular_value": 0.1637001534679829,
+        "ordered_kpoint_index_zero_based": 25,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 151281.77301500115,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1132227888330417,
+        "minimum_singular_value": 7.3586048513766045e-06,
+        "next_to_minimum_singular_value": 0.07494776286121946,
+        "ordered_kpoint_index_zero_based": 26,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 23156.5689212071,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0883206554422844,
+        "minimum_singular_value": 4.699835537576491e-05,
+        "next_to_minimum_singular_value": 0.06813448600730133,
+        "ordered_kpoint_index_zero_based": 27,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 4551.685532682495,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.350601567451534,
+        "minimum_singular_value": 0.0002967255883021358,
+        "next_to_minimum_singular_value": 0.04608132583316432,
+        "ordered_kpoint_index_zero_based": 28,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35192.05212944149,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8678115363726315,
+        "minimum_singular_value": 5.3074811593894805e-05,
+        "next_to_minimum_singular_value": 0.07074253501295939,
+        "ordered_kpoint_index_zero_based": 29,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1379377.2413017005,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.4579466026312056,
+        "minimum_singular_value": 2.506889702898089e-06,
+        "next_to_minimum_singular_value": 0.0006157995105565332,
+        "ordered_kpoint_index_zero_based": 30,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 15845.548944089609,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.3379990729329583,
+        "minimum_singular_value": 0.00014754926327781355,
+        "next_to_minimum_singular_value": 0.12151307739934342,
+        "ordered_kpoint_index_zero_based": 31,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 56254.45141657528,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2216522857930407,
+        "minimum_singular_value": 2.171654429169463e-05,
+        "next_to_minimum_singular_value": 0.2010030270447717,
+        "ordered_kpoint_index_zero_based": 32,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 191519.79148671994,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1231069973688124,
+        "minimum_singular_value": 5.8641824359269366e-06,
+        "next_to_minimum_singular_value": 0.08516162513650918,
+        "ordered_kpoint_index_zero_based": 33,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 145510.86164076513,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8681796953487766,
+        "minimum_singular_value": 1.2838764572509428e-05,
+        "next_to_minimum_singular_value": 0.09885886732853329,
+        "ordered_kpoint_index_zero_based": 34,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 9510.752266537786,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.212529106861438,
+        "minimum_singular_value": 0.00033777865481411597,
+        "next_to_minimum_singular_value": 0.02042103787683474,
+        "ordered_kpoint_index_zero_based": 35,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 203883.54076157088,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.4594434040470174,
+        "minimum_singular_value": 1.696774242356631e-05,
+        "next_to_minimum_singular_value": 0.05357896830593563,
+        "ordered_kpoint_index_zero_based": 36,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 11983.935313397089,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.212527311833586,
+        "minimum_singular_value": 0.0002680694803352481,
+        "next_to_minimum_singular_value": 0.020284041261869227,
+        "ordered_kpoint_index_zero_based": 37,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.2051202175595,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685438206254017,
+        "minimum_singular_value": 0.004522073249338202,
+        "next_to_minimum_singular_value": 0.14792596079449566,
+        "ordered_kpoint_index_zero_based": 38,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.64504631896682,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1228056903844406,
+        "minimum_singular_value": 0.006429072647922573,
+        "next_to_minimum_singular_value": 0.10239229495936744,
+        "ordered_kpoint_index_zero_based": 39,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.9963730387992,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217092031979915,
+        "minimum_singular_value": 0.008254994214471083,
+        "next_to_minimum_singular_value": 0.18976735062265493,
+        "ordered_kpoint_index_zero_based": 40,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 342.2352238545637,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.339234472677048,
+        "minimum_singular_value": 0.006835165727041379,
+        "next_to_minimum_singular_value": 0.12333587649271811,
+        "ordered_kpoint_index_zero_based": 41,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 103853.61311274688,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.212529006888826,
+        "minimum_singular_value": 3.0933242576752715e-05,
+        "next_to_minimum_singular_value": 0.020534016889201045,
+        "ordered_kpoint_index_zero_based": 42,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 65842.71179100676,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.45948940164817,
+        "minimum_singular_value": 5.25417211342849e-05,
+        "next_to_minimum_singular_value": 0.0532326190334787,
+        "ordered_kpoint_index_zero_based": 43,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 337.73157316851774,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.33926195396488,
+        "minimum_singular_value": 0.006926394035412436,
+        "next_to_minimum_singular_value": 0.12298074499319189,
+        "ordered_kpoint_index_zero_based": 44,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.69709677346103,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217065835542436,
+        "minimum_singular_value": 0.008271703440644516,
+        "next_to_minimum_singular_value": 0.18968607306894467,
+        "ordered_kpoint_index_zero_based": 45,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.58306064996015,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1228085129108645,
+        "minimum_singular_value": 0.006431371455688366,
+        "next_to_minimum_singular_value": 0.10242281857688842,
+        "ordered_kpoint_index_zero_based": 46,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.47686070303433,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685485112669837,
+        "minimum_singular_value": 0.004530068688173659,
+        "next_to_minimum_singular_value": 0.1481925672053519,
+        "ordered_kpoint_index_zero_based": 47,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 310300.1926081849,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8677996618156782,
+        "minimum_singular_value": 6.0193313001714544e-06,
+        "next_to_minimum_singular_value": 0.07045866443663157,
+        "ordered_kpoint_index_zero_based": 48,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 20445.253745441518,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.33800497089823,
+        "minimum_singular_value": 0.00011435441203166836,
+        "next_to_minimum_singular_value": 0.12148188078958053,
+        "ordered_kpoint_index_zero_based": 49,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.0627906053135,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685493767717978,
+        "minimum_singular_value": 0.00452364487741337,
+        "next_to_minimum_singular_value": 0.1479477639791674,
+        "ordered_kpoint_index_zero_based": 50,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.80670003075537,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757322872390814,
+        "minimum_singular_value": 0.027466080926451978,
+        "next_to_minimum_singular_value": 0.1747570223738564,
+        "ordered_kpoint_index_zero_based": 51,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.88132300711978,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108070721895047,
+        "minimum_singular_value": 0.01545334762521664,
+        "next_to_minimum_singular_value": 0.04069009253268256,
+        "ordered_kpoint_index_zero_based": 52,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.306880443594125,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757529843340013,
+        "minimum_singular_value": 0.027791058381191218,
+        "next_to_minimum_singular_value": 0.17440445076920022,
+        "ordered_kpoint_index_zero_based": 53,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 184388.1218181141,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1223826883751435,
+        "minimum_singular_value": 6.0870661152582e-06,
+        "next_to_minimum_singular_value": 0.07426168341997103,
+        "ordered_kpoint_index_zero_based": 54,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 19271.710510368786,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217261925311487,
+        "minimum_singular_value": 6.339479787607963e-05,
+        "next_to_minimum_singular_value": 0.1636976677185153,
+        "ordered_kpoint_index_zero_based": 55,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.22751757680478,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.17575322586306,
+        "minimum_singular_value": 0.02784329492550828,
+        "next_to_minimum_singular_value": 0.1744057820012754,
+        "ordered_kpoint_index_zero_based": 56,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.97717258591444,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877537127291217,
+        "minimum_singular_value": 0.03023455248273157,
+        "next_to_minimum_singular_value": 0.06967999544919962,
+        "ordered_kpoint_index_zero_based": 57,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.91043292528143,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060760965902168,
+        "minimum_singular_value": 0.010249945872759849,
+        "next_to_minimum_singular_value": 0.01132756707816599,
+        "ordered_kpoint_index_zero_based": 58,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.37899815342868,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107633606421523,
+        "minimum_singular_value": 0.014354842879197112,
+        "next_to_minimum_singular_value": 0.041522013470638,
+        "ordered_kpoint_index_zero_based": 59,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71665.55884536555,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.22173591695641,
+        "minimum_singular_value": 1.7047741434523353e-05,
+        "next_to_minimum_singular_value": 0.16370107422917454,
+        "ordered_kpoint_index_zero_based": 60,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 34233.79005602234,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.12240520574399,
+        "minimum_singular_value": 3.278647219332756e-05,
+        "next_to_minimum_singular_value": 0.07426824345232746,
+        "ordered_kpoint_index_zero_based": 61,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.66884662636342,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.11076533310705,
+        "minimum_singular_value": 0.01430129815691146,
+        "next_to_minimum_singular_value": 0.041561994520823646,
+        "ordered_kpoint_index_zero_based": 62,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.28146047420795,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.106074141198457,
+        "minimum_singular_value": 0.010214806268353924,
+        "next_to_minimum_singular_value": 0.011366293680023154,
+        "ordered_kpoint_index_zero_based": 63,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.990237899166274,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877515565754379,
+        "minimum_singular_value": 0.030223516710919992,
+        "next_to_minimum_singular_value": 0.06963884468079903,
+        "ordered_kpoint_index_zero_based": 64,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.29432673143772,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757538224581672,
+        "minimum_singular_value": 0.027799327080532996,
+        "next_to_minimum_singular_value": 0.17438027312565033,
+        "ordered_kpoint_index_zero_based": 65,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 70034.37143900584,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.337971897046509,
+        "minimum_singular_value": 3.3383206688485665e-05,
+        "next_to_minimum_singular_value": 0.12168921248896897,
+        "ordered_kpoint_index_zero_based": 66,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 44287.66185848485,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8678128147091873,
+        "minimum_singular_value": 4.2174563666908565e-05,
+        "next_to_minimum_singular_value": 0.07079698398687485,
+        "ordered_kpoint_index_zero_based": 67,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.22775467314811,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757534105786065,
+        "minimum_singular_value": 0.027843142967917435,
+        "next_to_minimum_singular_value": 0.1743997366837489,
+        "ordered_kpoint_index_zero_based": 68,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.83631271599947,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108071085844258,
+        "minimum_singular_value": 0.015463030695575017,
+        "next_to_minimum_singular_value": 0.04068810162691468,
+        "ordered_kpoint_index_zero_based": 69,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.87136044104109,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757340966215817,
+        "minimum_singular_value": 0.02742469761925358,
+        "next_to_minimum_singular_value": 0.17476748409473264,
+        "ordered_kpoint_index_zero_based": 70,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.0098490270144,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685256260973375,
+        "minimum_singular_value": 0.0045241672335400406,
+        "next_to_minimum_singular_value": 0.1481398637438274,
+        "ordered_kpoint_index_zero_based": 71,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 2440510.5014538546,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.74696294367905,
+        "minimum_singular_value": 7.158186545963862e-07,
+        "next_to_minimum_singular_value": 0.152473875290329,
+        "ordered_kpoint_index_zero_based": 72,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.2066378289913,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685269025012994,
+        "minimum_singular_value": 0.004522015697324309,
+        "next_to_minimum_singular_value": 0.14809862070489682,
+        "ordered_kpoint_index_zero_based": 73,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 5269.480422730817,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.3506015675350331,
+        "minimum_singular_value": 0.0002563064019953427,
+        "next_to_minimum_singular_value": 0.04601182046886847,
+        "ordered_kpoint_index_zero_based": 74,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.9858192397672,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877528816950643,
+        "minimum_singular_value": 0.030227264646875415,
+        "next_to_minimum_singular_value": 0.06966983731988789,
+        "ordered_kpoint_index_zero_based": 75,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.22294177804474,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1131638009222913,
+        "minimum_singular_value": 0.0024453156876813164,
+        "next_to_minimum_singular_value": 0.07537636380413475,
+        "ordered_kpoint_index_zero_based": 76,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.71462882249185,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217068662034665,
+        "minimum_singular_value": 0.0082707235968591,
+        "next_to_minimum_singular_value": 0.18964862410277303,
+        "ordered_kpoint_index_zero_based": 77,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1071913.76882431,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8681702981937658,
+        "minimum_singular_value": 1.7428363666256485e-06,
+        "next_to_minimum_singular_value": 0.09898981409601003,
+        "ordered_kpoint_index_zero_based": 78,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 342.19070349936766,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.339239458942954,
+        "minimum_singular_value": 0.006836069580561462,
+        "next_to_minimum_singular_value": 0.12327815802576718,
+        "ordered_kpoint_index_zero_based": 79,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 152425.89718578875,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8681803098373517,
+        "minimum_singular_value": 1.2256318278778215e-05,
+        "next_to_minimum_singular_value": 0.09881673107813141,
+        "ordered_kpoint_index_zero_based": 80,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.81713285831661,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757321599483563,
+        "minimum_singular_value": 0.027459385565093655,
+        "next_to_minimum_singular_value": 0.17474698099777172,
+        "ordered_kpoint_index_zero_based": 81,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.29293832911682,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107461168418122,
+        "minimum_singular_value": 0.016264435884848192,
+        "next_to_minimum_singular_value": 0.03967592343663954,
+        "ordered_kpoint_index_zero_based": 82,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.83336599837197,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757345737920466,
+        "minimum_singular_value": 0.027449035264628385,
+        "next_to_minimum_singular_value": 0.1748057346349949,
+        "ordered_kpoint_index_zero_based": 83,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 33050.04231719451,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.3506015674977627,
+        "minimum_singular_value": 4.086535062604453e-05,
+        "next_to_minimum_singular_value": 0.046233763063173304,
+        "ordered_kpoint_index_zero_based": 84,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.4747237386497,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685513724878995,
+        "minimum_singular_value": 0.004530099094440129,
+        "next_to_minimum_singular_value": 0.14815122347358062,
+        "ordered_kpoint_index_zero_based": 85,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 554265.0509397443,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.7469908080272436,
+        "minimum_singular_value": 3.1519050408559204e-06,
+        "next_to_minimum_singular_value": 0.15247428739694974,
+        "ordered_kpoint_index_zero_based": 86,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.76342979800486,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.221707554891841,
+        "minimum_singular_value": 0.008267996733440312,
+        "next_to_minimum_singular_value": 0.18971170309979563,
+        "ordered_kpoint_index_zero_based": 87,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 454.1925373978686,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1131615056536757,
+        "minimum_singular_value": 0.002450858202186964,
+        "next_to_minimum_singular_value": 0.07538398472375218,
+        "ordered_kpoint_index_zero_based": 88,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.95627567856759,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877546800623128,
+        "minimum_singular_value": 0.030252150967645663,
+        "next_to_minimum_singular_value": 0.06967921540822138,
+        "ordered_kpoint_index_zero_based": 89,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 55853.06113119505,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0882470284218804,
+        "minimum_singular_value": 1.9484107162285375e-05,
+        "next_to_minimum_singular_value": 0.06675881946919772,
+        "ordered_kpoint_index_zero_based": 90,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.30095841124702,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757527594689072,
+        "minimum_singular_value": 0.02779494374662436,
+        "next_to_minimum_singular_value": 0.17440332348867618,
+        "ordered_kpoint_index_zero_based": 91,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 97203.28339914171,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2216536998503493,
+        "minimum_singular_value": 1.2568029156318977e-05,
+        "next_to_minimum_singular_value": 0.2010219775854446,
+        "ordered_kpoint_index_zero_based": 92,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.6097745419011,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1228115383487114,
+        "minimum_singular_value": 0.006430404834405593,
+        "next_to_minimum_singular_value": 0.10242475056749599,
+        "ordered_kpoint_index_zero_based": 93,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.3348374022961,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107456526356911,
+        "minimum_singular_value": 0.01625445665578432,
+        "next_to_minimum_singular_value": 0.0396826338109532,
+        "ordered_kpoint_index_zero_based": 94,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.85883072269793,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060763517116505,
+        "minimum_singular_value": 0.010254852053378385,
+        "next_to_minimum_singular_value": 0.011322279832716721,
+        "ordered_kpoint_index_zero_based": 95,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1076751.777624494,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.113223315577521,
+        "minimum_singular_value": 1.033871815873376e-06,
+        "next_to_minimum_singular_value": 0.07493788414480801,
+        "ordered_kpoint_index_zero_based": 96,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.4286567878168,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107637214631723,
+        "minimum_singular_value": 0.014345641104262936,
+        "next_to_minimum_singular_value": 0.04152890216793527,
+        "ordered_kpoint_index_zero_based": 97,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 170101.86173625704,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1132226328885335,
+        "minimum_singular_value": 6.544447083210561e-06,
+        "next_to_minimum_singular_value": 0.07494967880805542,
+        "ordered_kpoint_index_zero_based": 98,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.8603753735292,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108064916523266,
+        "minimum_singular_value": 0.015457844269228633,
+        "next_to_minimum_singular_value": 0.0406918933956135,
+        "ordered_kpoint_index_zero_based": 99,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.1143776433816,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.113163538014641,
+        "minimum_singular_value": 0.0024458984217960553,
+        "next_to_minimum_singular_value": 0.07537802069127851,
+        "ordered_kpoint_index_zero_based": 100,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.83161481288748,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108105818619072,
+        "minimum_singular_value": 0.015464090355694106,
+        "next_to_minimum_singular_value": 0.04068170475872598,
+        "ordered_kpoint_index_zero_based": 101,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 308609.5583421809,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2216458407627437,
+        "minimum_singular_value": 3.958548294243706e-06,
+        "next_to_minimum_singular_value": 0.20091219362837526,
+        "ordered_kpoint_index_zero_based": 102,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.2754589604988,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.175753929348645,
+        "minimum_singular_value": 0.027811736602250538,
+        "next_to_minimum_singular_value": 0.17438170187898583,
+        "ordered_kpoint_index_zero_based": 103,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10703.48906432508,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0882505650887428,
+        "minimum_singular_value": 0.00010167250683853188,
+        "next_to_minimum_singular_value": 0.06677589298789331,
+        "ordered_kpoint_index_zero_based": 104,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.31713698530805,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060739718731176,
+        "minimum_singular_value": 0.010211440245352345,
+        "next_to_minimum_singular_value": 0.011369743533948947,
+        "ordered_kpoint_index_zero_based": 105,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.09819414345107,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107484665785712,
+        "minimum_singular_value": 0.01631098270005139,
+        "next_to_minimum_singular_value": 0.039646901123165275,
+        "ordered_kpoint_index_zero_based": 106,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.6958424556711,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1227868582370546,
+        "minimum_singular_value": 0.006427095473219178,
+        "next_to_minimum_singular_value": 0.10228716975764691,
+        "ordered_kpoint_index_zero_based": 107,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 239710.10123212548,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1174777048570994,
+        "minimum_singular_value": 4.661788131218465e-06,
+        "next_to_minimum_singular_value": 0.021198301343047798,
+        "ordered_kpoint_index_zero_based": 108,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.7040457173947,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1227885059629843,
+        "minimum_singular_value": 0.006426803119254794,
+        "next_to_minimum_singular_value": 0.10229035483912055,
+        "ordered_kpoint_index_zero_based": 109,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.99588236198793,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877515382196046,
+        "minimum_singular_value": 0.03021877689455622,
+        "next_to_minimum_singular_value": 0.06964063937825715,
+        "ordered_kpoint_index_zero_based": 110,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 41714.745210045876,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.086942918181738,
+        "minimum_singular_value": 2.6056563757219763e-05,
+        "next_to_minimum_singular_value": 0.011451607444091252,
+        "ordered_kpoint_index_zero_based": 111,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.99439569519016,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.087751635124666,
+        "minimum_singular_value": 0.030220027704757933,
+        "next_to_minimum_singular_value": 0.06964070073828181,
+        "ordered_kpoint_index_zero_based": 112,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.69504476433778,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1227882599451648,
+        "minimum_singular_value": 0.006427132844321928,
+        "next_to_minimum_singular_value": 0.10229063718939051,
+        "ordered_kpoint_index_zero_based": 113,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 641555.9221236458,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1231030139496467,
+        "minimum_singular_value": 1.7505925441885227e-06,
+        "next_to_minimum_singular_value": 0.08511143636036832,
+        "ordered_kpoint_index_zero_based": 114,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.6956379479456,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.221707083370424,
+        "minimum_singular_value": 0.008271788526354495,
+        "next_to_minimum_singular_value": 0.18963931710597343,
+        "ordered_kpoint_index_zero_based": 115,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.866380564127425,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757338057446423,
+        "minimum_singular_value": 0.02742787681795908,
+        "next_to_minimum_singular_value": 0.17476166775728072,
+        "ordered_kpoint_index_zero_based": 116,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 25202.305070992992,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0883205018347302,
+        "minimum_singular_value": 4.318337147213374e-05,
+        "next_to_minimum_singular_value": 0.06813473214227947,
+        "ordered_kpoint_index_zero_based": 117,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.95503587560738,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.106075855930019,
+        "minimum_singular_value": 0.010245708752341202,
+        "next_to_minimum_singular_value": 0.011332072852932574,
+        "ordered_kpoint_index_zero_based": 118,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.84614371726556,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.110810702638612,
+        "minimum_singular_value": 0.015460964850249432,
+        "next_to_minimum_singular_value": 0.04068421444561202,
+        "ordered_kpoint_index_zero_based": 119,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107547.4678734942,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0883218005584832,
+        "minimum_singular_value": 1.0119455363083518e-05,
+        "next_to_minimum_singular_value": 0.068130925062555,
+        "ordered_kpoint_index_zero_based": 120,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.8248335231402,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757342923526688,
+        "minimum_singular_value": 0.027454497674050882,
+        "next_to_minimum_singular_value": 0.17480526332307722,
+        "ordered_kpoint_index_zero_based": 121,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.9837567931076,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217086284797085,
+        "minimum_singular_value": 0.008255694104237054,
+        "next_to_minimum_singular_value": 0.18978000931766797,
+        "ordered_kpoint_index_zero_based": 122,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 199968.31613957512,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1231073741479065,
+        "minimum_singular_value": 5.616426621125284e-06,
+        "next_to_minimum_singular_value": 0.08516908532803007,
+        "ordered_kpoint_index_zero_based": 123,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.8648585906428,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.110806224718793,
+        "minimum_singular_value": 0.015456876232738129,
+        "next_to_minimum_singular_value": 0.04068841017320158,
+        "ordered_kpoint_index_zero_based": 124,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.96467756920343,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060758110352569,
+        "minimum_singular_value": 0.010244793352217275,
+        "next_to_minimum_singular_value": 0.011332350941188727,
+        "ordered_kpoint_index_zero_based": 125,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 157043.57064712257,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0869470313504166,
+        "minimum_singular_value": 6.921308697143612e-06,
+        "next_to_minimum_singular_value": 0.011469854023744692,
+        "ordered_kpoint_index_zero_based": 126,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.95508703748209,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.08775480016626,
+        "minimum_singular_value": 0.030253154415460285,
+        "next_to_minimum_singular_value": 0.0696837167456755,
+        "ordered_kpoint_index_zero_based": 127,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.57802868890488,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1228109800749566,
+        "minimum_singular_value": 0.0064315709628946895,
+        "next_to_minimum_singular_value": 0.10244020315656541,
+        "ordered_kpoint_index_zero_based": 128,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 41211.238683163974,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1175163496478167,
+        "minimum_singular_value": 2.711678623007164e-05,
+        "next_to_minimum_singular_value": 0.02125183462326819,
+        "ordered_kpoint_index_zero_based": 129,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.57964828699966,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1228110148253274,
+        "minimum_singular_value": 0.00643151149542635,
+        "next_to_minimum_singular_value": 0.10244080681058051,
+        "ordered_kpoint_index_zero_based": 130,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.95519553811466,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877548293482524,
+        "minimum_singular_value": 0.030253063933282386,
+        "next_to_minimum_singular_value": 0.06968382107415204,
+        "ordered_kpoint_index_zero_based": 131,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 69948.91929914601,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0883218028738424,
+        "minimum_singular_value": 1.555880796698927e-05,
+        "next_to_minimum_singular_value": 0.06813092211846612,
+        "ordered_kpoint_index_zero_based": 132,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.9643426385955,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060758118099794,
+        "minimum_singular_value": 0.01024482514113484,
+        "next_to_minimum_singular_value": 0.011332319488194374,
+        "ordered_kpoint_index_zero_based": 133,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.86597214938583,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108061929047284,
+        "minimum_singular_value": 0.015456636286721705,
+        "next_to_minimum_singular_value": 0.04068791303259462,
+        "ordered_kpoint_index_zero_based": 134,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 182452.31614049544,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.123107679912719,
+        "minimum_singular_value": 6.155623034392625e-06,
+        "next_to_minimum_singular_value": 0.08517280135441138,
+        "ordered_kpoint_index_zero_based": 135,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.97093506049382,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217086140603992,
+        "minimum_singular_value": 0.008256409365534775,
+        "next_to_minimum_singular_value": 0.189782730446146,
+        "ordered_kpoint_index_zero_based": 136,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.825647095917795,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757343221308862,
+        "minimum_singular_value": 0.027453976807345407,
+        "next_to_minimum_singular_value": 0.17480710316335873,
+        "ordered_kpoint_index_zero_based": 137,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 330747.29587599327,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.123103012761253,
+        "minimum_singular_value": 3.395652895019697e-06,
+        "next_to_minimum_singular_value": 0.08511141155923883,
+        "ordered_kpoint_index_zero_based": 138,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.84674980240818,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.110810653493866,
+        "minimum_singular_value": 0.015460833740549157,
+        "next_to_minimum_singular_value": 0.04068408889457241,
+        "ordered_kpoint_index_zero_based": 139,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.95586482616426,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.106075846023095,
+        "minimum_singular_value": 0.010245629987811701,
+        "next_to_minimum_singular_value": 0.011332195586330448,
+        "ordered_kpoint_index_zero_based": 140,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 24108.243691097137,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0883204421864026,
+        "minimum_singular_value": 4.514308284465804e-05,
+        "next_to_minimum_singular_value": 0.06813533092074484,
+        "ordered_kpoint_index_zero_based": 141,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.86488422045511,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.175733807132162,
+        "minimum_singular_value": 0.02742883431307863,
+        "next_to_minimum_singular_value": 0.17476413711630512,
+        "ordered_kpoint_index_zero_based": 142,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.72047505893957,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217071195179563,
+        "minimum_singular_value": 0.008270397986673835,
+        "next_to_minimum_singular_value": 0.1896409219935665,
+        "ordered_kpoint_index_zero_based": 143,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 750996.9519770202,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.7469629567619591,
+        "minimum_singular_value": 2.326191806988072e-06,
+        "next_to_minimum_singular_value": 0.15247372742786094,
+        "ordered_kpoint_index_zero_based": 144,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.68917943391614,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217068309818204,
+        "minimum_singular_value": 0.008272148546457839,
+        "next_to_minimum_singular_value": 0.1896470002513271,
+        "ordered_kpoint_index_zero_based": 145,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.23695228426556,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1131637774015204,
+        "minimum_singular_value": 0.002445240378260029,
+        "next_to_minimum_singular_value": 0.07537631611003748,
+        "ordered_kpoint_index_zero_based": 146,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.98443934540526,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877530090567256,
+        "minimum_singular_value": 0.030228427310362346,
+        "next_to_minimum_singular_value": 0.06967001552062622,
+        "ordered_kpoint_index_zero_based": 147,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 4705.822112214323,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.3506015674374723,
+        "minimum_singular_value": 0.00028700650709509017,
+        "next_to_minimum_singular_value": 0.046044840371795355,
+        "ordered_kpoint_index_zero_based": 148,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.071933353618,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685261853803832,
+        "minimum_singular_value": 0.004523488609381737,
+        "next_to_minimum_singular_value": 0.1481134197179015,
+        "ordered_kpoint_index_zero_based": 149,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 188174.28081299237,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2216458402978976,
+        "minimum_singular_value": 6.4920978309037325e-06,
+        "next_to_minimum_singular_value": 0.2009121944081937,
+        "ordered_kpoint_index_zero_based": 150,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.7048819316146,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1227871112414405,
+        "minimum_singular_value": 0.006426764374454844,
+        "next_to_minimum_singular_value": 0.10228695536251926,
+        "ordered_kpoint_index_zero_based": 151,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.09910014614402,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107483483996619,
+        "minimum_singular_value": 0.016310763960403898,
+        "next_to_minimum_singular_value": 0.03964571874204589,
+        "ordered_kpoint_index_zero_based": 152,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.31672361314996,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060739813360592,
+        "minimum_singular_value": 0.010211479302922514,
+        "next_to_minimum_singular_value": 0.011369656498120854,
+        "ordered_kpoint_index_zero_based": 153,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10372.286749924846,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0882504897545782,
+        "minimum_singular_value": 0.00010491905169922758,
+        "next_to_minimum_singular_value": 0.0667761746052294,
+        "ordered_kpoint_index_zero_based": 154,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.27654072407802,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757539458887392,
+        "minimum_singular_value": 0.027811025352391352,
+        "next_to_minimum_singular_value": 0.1743837660546856,
+        "ordered_kpoint_index_zero_based": 155,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1123386.1238742042,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.113223316376099,
+        "minimum_singular_value": 9.909534154979082e-07,
+        "next_to_minimum_singular_value": 0.07493788671744908,
+        "ordered_kpoint_index_zero_based": 156,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.83228944247992,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.110810530915472,
+        "minimum_singular_value": 0.01546394441186452,
+        "next_to_minimum_singular_value": 0.04068156105476689,
+        "ordered_kpoint_index_zero_based": 157,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.1275665955933,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.113163515233789,
+        "minimum_singular_value": 0.0024458274930705265,
+        "next_to_minimum_singular_value": 0.0753779746310202,
+        "ordered_kpoint_index_zero_based": 158,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.85863485314766,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108065733708188,
+        "minimum_singular_value": 0.015458219817853407,
+        "next_to_minimum_singular_value": 0.04069252475700053,
+        "ordered_kpoint_index_zero_based": 159,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 172367.27740945152,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1132226251449415,
+        "minimum_singular_value": 6.458433653277043e-06,
+        "next_to_minimum_singular_value": 0.07494958385843173,
+        "ordered_kpoint_index_zero_based": 160,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.4305473438207,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107636879404268,
+        "minimum_singular_value": 0.014345290405971418,
+        "next_to_minimum_singular_value": 0.041528701636319866,
+        "ordered_kpoint_index_zero_based": 161,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42042.342183518245,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0882470298705667,
+        "minimum_singular_value": 2.5884548132934168e-05,
+        "next_to_minimum_singular_value": 0.06675881675251706,
+        "ordered_kpoint_index_zero_based": 162,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.8585137081329,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.106076352283175,
+        "minimum_singular_value": 0.010254882199436176,
+        "next_to_minimum_singular_value": 0.011322249694701431,
+        "ordered_kpoint_index_zero_based": 163,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.33433501969928,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107457116380794,
+        "minimum_singular_value": 0.016254577019266758,
+        "next_to_minimum_singular_value": 0.03968323232892401,
+        "ordered_kpoint_index_zero_based": 164,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.60241756876573,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.122811320342617,
+        "minimum_singular_value": 0.006430674534620387,
+        "next_to_minimum_singular_value": 0.10242560843051265,
+        "ordered_kpoint_index_zero_based": 165,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 118154.4979133629,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2216537777720726,
+        "minimum_singular_value": 1.0339460615945858e-05,
+        "next_to_minimum_singular_value": 0.20102504264237078,
+        "ordered_kpoint_index_zero_based": 166,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.30037741555307,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757528020828718,
+        "minimum_singular_value": 0.02779532651759672,
+        "next_to_minimum_singular_value": 0.17440348829442506,
+        "ordered_kpoint_index_zero_based": 167,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 13256.238842380377,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.3506015675378649,
+        "minimum_singular_value": 0.00010188422097676553,
+        "next_to_minimum_singular_value": 0.046233115997639976,
+        "ordered_kpoint_index_zero_based": 168,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.956242591439846,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877546456632186,
+        "minimum_singular_value": 0.03025217784914439,
+        "next_to_minimum_singular_value": 0.0696790899122162,
+        "ordered_kpoint_index_zero_based": 169,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 454.16148257862676,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1131615492589195,
+        "minimum_singular_value": 0.0024510258838742523,
+        "next_to_minimum_singular_value": 0.0753840781976414,
+        "ordered_kpoint_index_zero_based": 170,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.77595806440203,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217075755726012,
+        "minimum_singular_value": 0.00826729592265726,
+        "next_to_minimum_singular_value": 0.1897161151644873,
+        "ordered_kpoint_index_zero_based": 171,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 819660.3776518101,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.7469910321068831,
+        "minimum_singular_value": 2.1313596213003736e-06,
+        "next_to_minimum_singular_value": 0.15248982085367244,
+        "ordered_kpoint_index_zero_based": 172,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.50938490373363,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685515926789662,
+        "minimum_singular_value": 0.004529718985945073,
+        "next_to_minimum_singular_value": 0.14815863918848646,
+        "ordered_kpoint_index_zero_based": 173,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 254514.800238107,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8681702871512933,
+        "minimum_singular_value": 7.3401243676342526e-06,
+        "next_to_minimum_singular_value": 0.09898962137915597,
+        "ordered_kpoint_index_zero_based": 174,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.8325614021733,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757345438734332,
+        "minimum_singular_value": 0.02744955018762378,
+        "next_to_minimum_singular_value": 0.17480376744496026,
+        "ordered_kpoint_index_zero_based": 175,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.29246145490465,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.110746172761713,
+        "minimum_singular_value": 0.01626455027536485,
+        "next_to_minimum_singular_value": 0.03967648965866272,
+        "ordered_kpoint_index_zero_based": 176,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.81649938039828,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757321894973187,
+        "minimum_singular_value": 0.02745979252184213,
+        "next_to_minimum_singular_value": 0.17475142906744057,
+        "ordered_kpoint_index_zero_based": 177,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 125975.45263449542,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8681815157636417,
+        "minimum_singular_value": 1.4829726559379585e-05,
+        "next_to_minimum_singular_value": 0.0988364096679811,
+        "ordered_kpoint_index_zero_based": 178,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 341.2976416899088,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.339239920105808,
+        "minimum_singular_value": 0.006853958640098546,
+        "next_to_minimum_singular_value": 0.12328936297336872,
+        "ordered_kpoint_index_zero_based": 179,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 136174.6448680338,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.4594433894103847,
+        "minimum_singular_value": 2.5404460520259956e-05,
+        "next_to_minimum_singular_value": 0.05357841524519128,
+        "ordered_kpoint_index_zero_based": 180,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 343.18523594058655,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.339233991890783,
+        "minimum_singular_value": 0.006816243086563781,
+        "next_to_minimum_singular_value": 0.12332417753294933,
+        "ordered_kpoint_index_zero_based": 181,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 148.0090185373683,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217092159226317,
+        "minimum_singular_value": 0.008254289015599296,
+        "next_to_minimum_singular_value": 0.18976444164045336,
+        "ordered_kpoint_index_zero_based": 182,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.63777376720373,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1228054801644194,
+        "minimum_singular_value": 0.006429339174130481,
+        "next_to_minimum_singular_value": 0.10239324414197366,
+        "ordered_kpoint_index_zero_based": 183,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.1034999377419,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685433306123131,
+        "minimum_singular_value": 0.0045231844583595105,
+        "next_to_minimum_singular_value": 0.1479487087753358,
+        "ordered_kpoint_index_zero_based": 184,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10125.321706422958,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.212528815348851,
+        "minimum_singular_value": 0.0003172767155942311,
+        "next_to_minimum_singular_value": 0.020384837139583986,
+        "ordered_kpoint_index_zero_based": 185,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 145617.1478366959,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.3379718923256925,
+        "minimum_singular_value": 1.6055608333625923e-05,
+        "next_to_minimum_singular_value": 0.12168896496842958,
+        "ordered_kpoint_index_zero_based": 186,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.1454458862858,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685263744654639,
+        "minimum_singular_value": 0.004522684185607016,
+        "next_to_minimum_singular_value": 0.1481247359441668,
+        "ordered_kpoint_index_zero_based": 187,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.87289223683582,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757340945190684,
+        "minimum_singular_value": 0.027423717719442624,
+        "next_to_minimum_singular_value": 0.1747649248650358,
+        "ordered_kpoint_index_zero_based": 188,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.8345747492176,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108071903807475,
+        "minimum_singular_value": 0.015463405947048446,
+        "next_to_minimum_singular_value": 0.04068874235234942,
+        "ordered_kpoint_index_zero_based": 189,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.2281582576451,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757534712043518,
+        "minimum_singular_value": 0.027842878300085236,
+        "next_to_minimum_singular_value": 0.17440196781357017,
+        "ordered_kpoint_index_zero_based": 190,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 40620.790336605314,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8678138664573236,
+        "minimum_singular_value": 4.5981721452971046e-05,
+        "next_to_minimum_singular_value": 0.07079794552060749,
+        "ordered_kpoint_index_zero_based": 191,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 145407.79816572714,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217359162413186,
+        "minimum_singular_value": 8.402134766175723e-06,
+        "next_to_minimum_singular_value": 0.1637010329047117,
+        "ordered_kpoint_index_zero_based": 192,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.293254304006,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.175753805438861,
+        "minimum_singular_value": 0.02780003158393735,
+        "next_to_minimum_singular_value": 0.17437821194099695,
+        "ordered_kpoint_index_zero_based": 193,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.9917235798408,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.087751458873212,
+        "minimum_singular_value": 0.03022226641800696,
+        "next_to_minimum_singular_value": 0.06963879890460772,
+        "ordered_kpoint_index_zero_based": 194,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.28101489108506,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060741509498766,
+        "minimum_singular_value": 0.010214848392974762,
+        "next_to_minimum_singular_value": 0.011366201423461364,
+        "ordered_kpoint_index_zero_based": 195,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.67275819347238,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107652646199522,
+        "minimum_singular_value": 0.014300577067872182,
+        "next_to_minimum_singular_value": 0.041561592431498436,
+        "ordered_kpoint_index_zero_based": 196,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 33206.17195973399,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.122405146302245,
+        "minimum_singular_value": 3.3801100219058086e-05,
+        "next_to_minimum_singular_value": 0.07427068461952284,
+        "ordered_kpoint_index_zero_based": 197,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 139190.26825187932,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1223826909593442,
+        "minimum_singular_value": 8.063657790559578e-06,
+        "next_to_minimum_singular_value": 0.07426165675290787,
+        "ordered_kpoint_index_zero_based": 198,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.37699616146645,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1107633962850605,
+        "minimum_singular_value": 0.014355214745829301,
+        "next_to_minimum_singular_value": 0.04152222518048746,
+        "ordered_kpoint_index_zero_based": 199,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.91126171343164,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1060760864587749,
+        "minimum_singular_value": 0.010249867056471478,
+        "next_to_minimum_singular_value": 0.011327691934102359,
+        "ordered_kpoint_index_zero_based": 200,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.97579311446988,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.0877538400304454,
+        "minimum_singular_value": 0.03023571534807771,
+        "next_to_minimum_singular_value": 0.06968015500393304,
+        "ordered_kpoint_index_zero_based": 201,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.227933474890726,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757532853007249,
+        "minimum_singular_value": 0.027843022107625584,
+        "next_to_minimum_singular_value": 0.17440802133318578,
+        "ordered_kpoint_index_zero_based": 202,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 20818.353255624086,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.22172622378139,
+        "minimum_singular_value": 5.868505586297226e-05,
+        "next_to_minimum_singular_value": 0.16369963378950345,
+        "ordered_kpoint_index_zero_based": 203,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 138127.98015294364,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.867799649868576,
+        "minimum_singular_value": 1.352223964905905e-05,
+        "next_to_minimum_singular_value": 0.07045886542122802,
+        "ordered_kpoint_index_zero_based": 204,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.307446694731986,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757529396734747,
+        "minimum_singular_value": 0.027790685364613987,
+        "next_to_minimum_singular_value": 0.17440419176900102,
+        "ordered_kpoint_index_zero_based": 205,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.88246978001106,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1108070377436676,
+        "minimum_singular_value": 0.01545310061191802,
+        "next_to_minimum_singular_value": 0.04068957763455112,
+        "ordered_kpoint_index_zero_based": 206,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.805977618661565,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1757323162992566,
+        "minimum_singular_value": 0.027466545134731086,
+        "next_to_minimum_singular_value": 0.17476146231790632,
+        "ordered_kpoint_index_zero_based": 207,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.9586565251587,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.8685488462234674,
+        "minimum_singular_value": 0.00452478430152397,
+        "next_to_minimum_singular_value": 0.1479705051111988,
+        "ordered_kpoint_index_zero_based": 208,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 23524.202958146143,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.338005643648472,
+        "minimum_singular_value": 9.938724163399762e-05,
+        "next_to_minimum_singular_value": 0.12149761295551893,
+        "ordered_kpoint_index_zero_based": 209,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 25007.660202534986,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.212528982395948,
+        "minimum_singular_value": 0.0001284617975603451,
+        "next_to_minimum_singular_value": 0.02053253456205626,
+        "ordered_kpoint_index_zero_based": 210,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.4471909092853,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.868548293706775,
+        "minimum_singular_value": 0.004530394035627577,
+        "next_to_minimum_singular_value": 0.14818444328498154,
+        "ordered_kpoint_index_zero_based": 211,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.58180922892694,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.1228084842100967,
+        "minimum_singular_value": 0.006431417392047827,
+        "next_to_minimum_singular_value": 0.1024221105619565,
+        "ordered_kpoint_index_zero_based": 212,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.7084755632684,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 1.2217066042363576,
+        "minimum_singular_value": 0.0082710663662158,
+        "next_to_minimum_singular_value": 0.1896905960136538,
+        "ordered_kpoint_index_zero_based": 213,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 335.9463526886848,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 2.3392629094460684,
+        "minimum_singular_value": 0.006963203769662056,
+        "next_to_minimum_singular_value": 0.12300379506599894,
+        "ordered_kpoint_index_zero_based": 214,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 66510.36473170345,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_singular_value": 3.4594909309275663,
+        "minimum_singular_value": 5.2014313030500244e-05,
+        "next_to_minimum_singular_value": 0.053271190136612884,
+        "ordered_kpoint_index_zero_based": 215,
+        "resolved_rank_at_native_bound": 10
+      }
+    ],
+    "maximum_native_AMN_absolute_value": 2.944603369441934,
+    "required_rank": 10,
+    "singular_value_native_uncertainty_bound": 5.890206739032098e-07
+  },
+  "bound_inputs": {
+    "AMN": {
+      "byte_size": 2894499,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.amn",
+      "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+    },
+    "NNKP": {
+      "byte_size": 59408,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/run/silicon.nnkp",
+      "sha256": "608b8e0aacb8adddcfc2b8e0090ce48f5b916aec0d321bb69aabf01af9462575"
+    },
+    "ProjectKoios_parser_sources": [
+      {
+        "byte_size": 3885,
+        "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/__init__.py",
+        "sha256": "26f568e7446d2721983ec0e0a3e7131ba8c2e6442c88b91d92d81c4b296a36ad"
+      },
+      {
+        "byte_size": 3795,
+        "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/_parsing.py",
+        "sha256": "07de9ab225fbc7cfd5317f1592b5dcd0105d5eaec982d814980272cdd578439a"
+      },
+      {
+        "byte_size": 299,
+        "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/_matrix_conventions.py",
+        "sha256": "95d7d19b520548cc860d6c56d53b0cec477b078a307c3e4bcb2feddbc8f2ee65"
+      },
+      {
+        "byte_size": 15718,
+        "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/interface_data.py",
+        "sha256": "5b4033f5b99373eca5bd7ce1b492f52f3d16cad43945e0e2ddf845121193b078"
+      },
+      {
+        "byte_size": 6524,
+        "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/unitary_matrices.py",
+        "sha256": "33ebad1a82f887f0dd59787c066bded1989b6dd9b7220c3e551b0c5cb798e75f"
+      },
+      {
+        "byte_size": 7077,
+        "path": "/Users/eugene/worktrees/projectkoios-simulations-pw-dft-wannierization-tranche-1/src/python/projectkoios/integrations/wannier90/disentanglement_matrices.py",
+        "sha256": "64ede7d0e45b9d1b200026322f48d832fe7587b5b99c7eb292bfae2d7390fdd7"
+      }
+    ],
+    "S105_full_support_disposition": {
+      "byte_size": 6187,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-disposition/spatial-truncation-disposition.json",
+      "sha256": "519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68"
+    },
+    "Wannier90_projection_guide": {
+      "byte_size": 16306,
+      "path": "/Users/eugene/projects/wannier90-3.1.0/doc/user_guide/projections.tex",
+      "sha256": "c4b56f2d92bc98d0d86d629ad66ff3fe6433200c89ae4902728c552e3aded090"
+    },
+    "alignment_proof_material": {
+      "byte_size": 9571,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/docs/research/proofs/ksdft2effmass/operator-alignment/tb-anchored-identification.md",
+      "sha256": "42ae19c9ac076d8617da7cef35d4bd6b12a5d446f6620ffb0c863196abe6e59b"
+    },
+    "canonical_WIN": {
+      "byte_size": 10413,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-preprocess-c6-b20-w21-aiida-precise-v1/input/silicon.win",
+      "sha256": "b48069e4f8ecd7209a318c47c77691de063bd0575658eb88a1e662a359d3dcc8"
+    },
+    "converter_result": {
+      "byte_size": 2984,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/converter-result.json",
+      "sha256": "b8cc1b5df05fdda09fbbad13374635aed08aa630d11b16d554010f12ed8ed37a"
+    },
+    "current_protocol": {
+      "byte_size": 28724,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/calculations/Si/bulk/research-protocol/controlled-reduction-protocol.tex",
+      "sha256": "80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380"
+    },
+    "disentanglement": {
+      "byte_size": 1349424,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u_dis.mat",
+      "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+    },
+    "gauge": {
+      "byte_size": 679824,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u.mat",
+      "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+    },
+    "localization_eligibility": {
+      "byte_size": 1615,
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/reconciled-eligibility-summary.json",
+      "sha256": "0b2a0e6bab52574c353d780f562afe11d07bb1400bf149fa1178ddb5e8504e4c"
+    },
+    "reduction_specification": {
+      "byte_size": 35854,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-si-right-handed-kpoint/docs/research/ksdft2effmass.05.md",
+      "sha256": "694aeab14b067e54a26b8d746a4e5cf24fb55c0a43427b2acdfa8473b3725df2"
+    }
+  },
+  "calculator_invocations": 0,
+  "failure_disposition": {
+    "Slater_Koster_model_accepted": false,
+    "dependent_S50_prediction_freeze_ready": false,
+    "fit_started": false,
+    "parameter_vector_produced": false,
+    "reason": "the projected ten-orbital sp3s-star trial frame is not full rank inside the retained rank-10 Wannier subspace at every source k point; Lowdin orthonormalization and a unitary common-space operator residual are therefore undefined"
+  },
+  "fit_invocations": 0,
+  "fixed_source": {
+    "H_T_equals_H_W": true,
+    "basis_for_fit": "two Si sites, each ordered (s, px, py, pz, s-star), after TB-anchored projection and Lowdin orthonormalization",
+    "energy_reference": "unchanged native S30 Wannier reference in eV",
+    "rank": 10,
+    "spin_convention": "spinless scalar-relativistic non-SOC"
+  },
+  "frozen_fit_plan_not_executed": {
+    "acceptance_tolerances_defined": false,
+    "fit_indices_zero_based": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      11,
+      12,
+      14,
+      16,
+      19,
+      21,
+      23,
+      24,
+      26,
+      28,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      42,
+      44,
+      46,
+      49,
+      51,
+      53,
+      54,
+      56,
+      58,
+      61,
+      63,
+      65,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      79,
+      81,
+      83,
+      84,
+      86,
+      88,
+      91,
+      93,
+      95,
+      96,
+      98,
+      100,
+      103,
+      105,
+      107,
+      109,
+      111,
+      113,
+      114,
+      116,
+      118,
+      121,
+      123,
+      125,
+      126,
+      128,
+      130,
+      133,
+      135,
+      137,
+      138,
+      140,
+      142,
+      144,
+      146,
+      148,
+      151,
+      153,
+      155,
+      156,
+      158,
+      160,
+      163,
+      165,
+      167,
+      168,
+      170,
+      172,
+      175,
+      177,
+      179,
+      181,
+      183,
+      185,
+      186,
+      188,
+      190,
+      193,
+      195,
+      197,
+      198,
+      200,
+      202,
+      205,
+      207,
+      209,
+      210,
+      212,
+      214
+    ],
+    "fit_source_grid": "canonical Gamma-origin 6x6x6 C6 grid",
+    "interpretation": "even a successful future fit would be descriptive until separate operator and spectral acceptance tolerances are frozen",
+    "operator_objective": "uniform real-and-imaginary Frobenius least squares after TB-anchored unitary alignment",
+    "optimizer": "deterministic real linear SVD least squares with no random start",
+    "split_rule": "fit when (i+j+k) modulo 2 is zero; validate otherwise in lexicographic C6 order",
+    "validation": "disjoint operator and ordered-spectrum residuals; full-source valley, gap, curvature, and effective-mass changes",
+    "validation_indices_zero_based": [
+      1,
+      3,
+      5,
+      6,
+      8,
+      10,
+      13,
+      15,
+      17,
+      18,
+      20,
+      22,
+      25,
+      27,
+      29,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      48,
+      50,
+      52,
+      55,
+      57,
+      59,
+      60,
+      62,
+      64,
+      67,
+      69,
+      71,
+      73,
+      75,
+      77,
+      78,
+      80,
+      82,
+      85,
+      87,
+      89,
+      90,
+      92,
+      94,
+      97,
+      99,
+      101,
+      102,
+      104,
+      106,
+      108,
+      110,
+      112,
+      115,
+      117,
+      119,
+      120,
+      122,
+      124,
+      127,
+      129,
+      131,
+      132,
+      134,
+      136,
+      139,
+      141,
+      143,
+      145,
+      147,
+      149,
+      150,
+      152,
+      154,
+      157,
+      159,
+      161,
+      162,
+      164,
+      166,
+      169,
+      171,
+      173,
+      174,
+      176,
+      178,
+      180,
+      182,
+      184,
+      187,
+      189,
+      191,
+      192,
+      194,
+      196,
+      199,
+      201,
+      203,
+      204,
+      206,
+      208,
+      211,
+      213,
+      215
+    ]
+  },
+  "next_action": {
+    "automatic_retry_allowed": false,
+    "options_requiring_separate_authority": [
+      "retain no Slater-Koster reduction from this source and stop the branch",
+      "define a lower-rank or nonunitary common-space comparison, explicitly changing the operator question",
+      "authorize a new target-space/projection/localization route; this requires new calculator authorizations",
+      "authorize a spectral-only fit that cannot satisfy the S110 aligned-operator contract"
+    ],
+    "status": "human-scientific-decision-required"
+  },
+  "nonclaims": [
+    "No Slater-Koster parameters were fit.",
+    "No model-class adequacy or identifiability was established.",
+    "No spectral-only result is substituted for operator alignment.",
+    "No target space, projection, gauge, or source operator was changed.",
+    "No parent-oracle value was used.",
+    "No retry or later stage is authorized."
+  ],
+  "oracle_boundary": {
+    "confirmation_402_parent_values_consumed": false,
+    "confirmation_402_parent_values_observed": false,
+    "revealed_408_parent_values_consumed": false
+  },
+  "provisional_model_definition": {
+    "M1": {
+      "description": "orthogonal nearest-neighbor homopolar sp3s-star",
+      "real_parameters": [
+        "E_s",
+        "E_p",
+        "E_s_star",
+        "V1_ss_sigma",
+        "V1_sp_sigma",
+        "V1_pp_sigma",
+        "V1_pp_pi",
+        "V1_s_star_p_sigma"
+      ]
+    },
+    "M2": {
+      "additional_real_parameters": [
+        "V2_ss_sigma",
+        "V2_sp_sigma",
+        "V2_pp_sigma",
+        "V2_pp_pi",
+        "V2_s_star_p_sigma",
+        "V2_s_s_star_sigma",
+        "V2_s_star_s_star_sigma"
+      ],
+      "description": "M1 plus symmetry-shared second-neighbor two-center channels"
+    },
+    "activated_for_fit": false,
+    "first_neighbor_s_s_star_and_s_star_s_star": "fixed to zero in M1",
+    "orbital_order": [
+      "A:s",
+      "A:px",
+      "A:py",
+      "A:pz",
+      "A:s-star",
+      "B:s",
+      "B:px",
+      "B:py",
+      "B:pz",
+      "B:s-star"
+    ],
+    "parameter_domain": "real and unbounded for the direct linear fit",
+    "projection_file_order": [
+      "A:sp3-1",
+      "A:sp3-2",
+      "A:sp3-3",
+      "A:sp3-4",
+      "B:sp3-1",
+      "B:sp3-2",
+      "B:sp3-3",
+      "B:sp3-4",
+      "A:s-star",
+      "B:s-star"
+    ]
+  },
+  "schema_version": 1,
+  "stage_id": "S110-slater-koster-definition-fit",
+  "status": "blocked-orbital-alignment-rank-deficient-no-fit"
+}

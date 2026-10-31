@@ -7,9 +7,9 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DEmbeddedSubspaceRank2CalculationRecord,
-    Periodic1DEmbeddedSubspaceRank2CalculationVerifier,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
+    Periodic1DRank2CalculationRecord,
+    Periodic1DRank2CalculationVerifier,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
@@ -46,12 +46,10 @@ if execution.get("calculation_family") != CALCULATION_FAMILY:
 result_bytes = RESULT_PATH.read_bytes()
 if execution.get("result_sha256") != hashlib.sha256(result_bytes).hexdigest():
     raise ValueError("calculation bytes do not match execution.json")
-record = Periodic1DEmbeddedSubspaceRank2CalculationRecord.from_json(result_bytes)
+record = Periodic1DRank2CalculationRecord.from_json(result_bytes)
 if record.to_json() != result_bytes:
     raise ValueError("calculation artifact is not canonical typed JSON")
-verification = Periodic1DEmbeddedSubspaceRank2CalculationVerifier(
-    result_bytes
-).result()
+verification = Periodic1DRank2CalculationVerifier(result_bytes).result()
 verification_bytes = verification.to_json()
 if type(verification).from_json(verification_bytes).to_json() != verification_bytes:
     raise ValueError("verification failed canonical typed admission")

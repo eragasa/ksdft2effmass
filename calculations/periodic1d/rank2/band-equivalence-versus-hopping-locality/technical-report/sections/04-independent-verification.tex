@@ -141,7 +141,8 @@ the entire amplitude and cutoff inventories.
 \subsection{Canonical bytes and stored-verification admission}
 
 Let $b_C$ be canonical calculation bytes, $b_F$ canonical nested family bytes, and $b_V$
-canonical aggregate visualization-data bytes.  Verification retains
+canonical aggregate visualization-data bytes.  The retention package owns these canonical
+records, the visualization projection, and its authentication.  Verification retains
 \begin{equation}
  h_C=\operatorname{SHA256}(b_C),\qquad
  h_F=\operatorname{SHA256}(b_F),\qquad
@@ -161,8 +162,9 @@ Stored admission then requires:
  \item the closed expected component inventory; and
  \item a passing aggregate verification.
 \end{enumerate}
-Only after those conditions hold may rendering proceed.  Rendering consumes the stored
-verification result; it does not rerun the verifier and does not reinterpret a failed
+Only after those conditions hold may rendering proceed.  The local visualization package
+is strictly downstream of retention: it consumes the admitted projection and stored
+verification result, does not rerun the verifier, and does not reinterpret a failed
 component.
 
 \subsection{Interpretation of failure}
