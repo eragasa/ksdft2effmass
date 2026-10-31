@@ -4,7 +4,7 @@
 
 This document distinguishes the installed reusable scientific owners and retained direct
 lifecycle from the calculation-local development donors. It assigns each retained channel
-to source, verification, canonical-wire, effect-adapter, and artifact ownership. It does
+to source, verification, canonical-retention, effect-adapter, and artifact ownership. It does
 not promote development tables or figures into retained evidence.
 
 Installed source paths are relative to `python/src/ksdft2effmass/periodic1d/` unless
@@ -20,6 +20,7 @@ not installed public APIs and not dependencies of the direct lifecycle.
 | Adaptive-amplitude refinement | `embedded_subspace/rank2/amplitude_refinement/analysis.py` | `amplitude_refinement/independent_reference.py` and `verification.py` retain midpoint and disjoint-quarter-point logic separately | The closed adaptive variant is embedded directly by `retention/records.py`; no separate refinement wire exists | `v2` independently verified `Periodic1DRank2AdaptiveAmplitudeLevelsExhausted`. No disjoint validation was admitted, so this is not convergence. |
 | Ordinary-lattice truncation consequences | `embedded_subspace/rank2/truncation/{request,analysis,results}.py` | `truncation/reference.py` and `truncation/verification.py` use direct finite formulas without production truncation, interpolation, Fourier, or parent actions | The closed truncation variant is embedded directly by `retention/records.py`; no separate truncation wire exists | `v2` independently verified the completed truncation result on the declared shifted mesh. It does not establish continuum adequacy. |
 | Aggregate authentication and rendering | `embedded_subspace/rank2/retention/{records,visualization_data,calculation_verification,verification}.py` and strictly downstream `visualizations/` | Aggregate verification authenticates canonical calculation bytes, nested family bytes, visualization bytes, and all four component checks; `admit_stored()` authenticates without rerunning verification | One canonical `Periodic1DRank2CalculationRecord` and one canonical aggregate verification | The three root direct scripts own no-overwrite calculation, verification, and rendering. `v2` contains the closed six-PNG inventory and `rendering.json`; both executions remain unsealed. |
+| Prospective complete-five-scale aggregate | Parent, momentum-family, adaptive-amplitude, and truncation-family features remain scientific owners; `truncation/mesh_stability.py` owns the separate numerical-consistency assessment; `retention/complete_five_scale.py` composes them | `retention/complete_five_scale_verification.py` independently composes existing feature verifiers, readmits canonical subject bytes, and authenticates the stored projection without reusing production selectors | Generic typed record serialization of the complete aggregate, verification, and projection; no new wire format, feature codec, or schema layer | The `run_complete_01` → `run_complete_02` → `run_complete_03` scripts target only `direct-embedded-rank2-five-scale-complete-v1`. They are installed but unexecuted; no execution directory or authenticated complete-scope result exists. |
 
 ## Historical development-donor inventory
 

@@ -18,6 +18,14 @@ from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonicMaximumStatus,
 )
 
+from ksdft2effmass.numerical_consistency import (
+    ReciprocalMeshRefinementFamily,
+    ReciprocalMeshRefinementFamilyMember,
+)
+from ksdft2effmass.real_space_support_truncation import (
+    RealSpaceSupportTruncationFamily,
+    RealSpaceSupportTruncationFamilyMember,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ..amplitude_refinement.analysis import (
@@ -40,6 +48,10 @@ from ..momentum_refinement.analysis import (
     Periodic1DRank2MomentumRefinementThresholds,
     Periodic1DRank2MomentumRefinementUnresolved,
 )
+from ..momentum_refinement.family import (
+    Periodic1DRank2MomentumRefinementFamilyAnalysis,
+    Periodic1DRank2MomentumRefinementFamilyRequest,
+)
 from ..parent_family.analysis import (
     Periodic1DRank2ParentFamilyAnalysis,
     Periodic1DRank2ParentFamilyRequest,
@@ -55,6 +67,10 @@ from ..parent_scale.results import (
     Periodic1DRank2PointAnalysis,
     Periodic1DRank2Qualification,
     Periodic1DRank2QualifiedParent,
+)
+from ..truncation.family import (
+    Periodic1DRank2TruncationFamilyAnalysis,
+    Periodic1DRank2TruncationFamilyRequest,
 )
 
 if TYPE_CHECKING:
@@ -1651,6 +1667,177 @@ def _control_key(
 
 
 @dataclass(frozen=True, slots=True)
+class Periodic1DRank2AdaptiveAmplitudeAnalysisRecord(BaseTypedRecord):
+    """Retain one closed adaptive-amplitude outcome with generic typed JSON."""
+
+    analysis: Periodic1DRank2AdaptiveAmplitudeAnalysis
+
+    def __post_init__(self) -> None:
+        if type(self.analysis) not in (
+            Periodic1DRank2AdaptiveAmplitudeQualificationStopped,
+            Periodic1DRank2AdaptiveAmplitudeConverged,
+            Periodic1DRank2AdaptiveAmplitudeEvaluationsExhausted,
+            Periodic1DRank2AdaptiveAmplitudeLevelsExhausted,
+        ):
+            raise TypeError("analysis must be one closed adaptive outcome")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return _amplitude_mapping(self.analysis)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        return cls(_amplitude_from_mapping(values))
+
+
+@dataclass(frozen=True, slots=True)
+class Periodic1DRank2MomentumRefinementFamilyAnalysisRecord(BaseTypedRecord):
+    """Retain one complete parent-scale momentum-refinement family."""
+
+    analysis: Periodic1DRank2MomentumRefinementFamilyAnalysis
+
+    def __post_init__(self) -> None:
+        if type(self.analysis) is not Periodic1DRank2MomentumRefinementFamilyAnalysis:
+            raise TypeError("analysis must be a momentum-refinement family analysis")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "parent_hopping_scales": (
+                self.analysis.request.parent_family_request.parent_hopping_scales
+            ),
+            "members": tuple(
+                _momentum_mapping(member) for member in self.analysis.members
+            ),
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        _fields(
+            values,
+            {"parent_hopping_scales", "members"},
+            "momentum-refinement family record",
+        )
+        scales = _float_tuple(values, "parent_hopping_scales")
+        members = tuple(
+            _momentum_from_mapping(item) for item in _mapping_tuple(values, "members")
+        )
+        if len(scales) != len(members) or not members:
+            raise ValueError("momentum family scales and members must align")
+        if any(
+            type(member)
+            not in (
+                Periodic1DRank2MomentumRefinementQualificationStopped,
+                Periodic1DRank2MomentumRefinementConverged,
+                Periodic1DRank2MomentumRefinementUnresolved,
+            )
+            for member in members
+        ):
+            raise TypeError("members must contain closed momentum outcomes")
+        first_request = members[0].request
+        parent_request = Periodic1DRank2ParentFamilyRequest(
+            template_request=members[-1].request.template_request,
+            parent_hopping_scales=scales,
+        )
+        request = Periodic1DRank2MomentumRefinementFamilyRequest(
+            parent_family_request=parent_request,
+            reciprocal_mesh_sizes=first_request.reciprocal_mesh_sizes,
+            thresholds=first_request.thresholds,
+            required_stable_refinements=first_request.required_stable_refinements,
+        )
+        return cls(
+            Periodic1DRank2MomentumRefinementFamilyAnalysis(
+                request=request,
+                refinement_family=ReciprocalMeshRefinementFamily(
+                    request=request.refinement_family_request,
+                    members=tuple(
+                        ReciprocalMeshRefinementFamilyMember(
+                            family_coordinate=scale,
+                            outcome=member,
+                        )
+                        for scale, member in zip(scales, members, strict=True)
+                    ),
+                ),
+            )
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class Periodic1DRank2TruncationFamilyAnalysisRecord(BaseTypedRecord):
+    """Retain one complete parent-scale support-truncation family."""
+
+    analysis: Periodic1DRank2TruncationFamilyAnalysis
+
+    def __post_init__(self) -> None:
+        if type(self.analysis) is not Periodic1DRank2TruncationFamilyAnalysis:
+            raise TypeError("analysis must be a truncation-family analysis")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "parent_hopping_scales": (
+                self.analysis.request.parent_family_request.parent_hopping_scales
+            ),
+            "support_tolerance": self.analysis.request.support_tolerance,
+            "members": tuple(
+                _truncation_mapping(member) for member in self.analysis.members
+            ),
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ..truncation.results import (
+            Periodic1DRank2TruncationCompleted,
+            Periodic1DRank2TruncationQualificationStopped,
+        )
+
+        _fields(
+            values,
+            {"parent_hopping_scales", "support_tolerance", "members"},
+            "truncation family record",
+        )
+        scales = _float_tuple(values, "parent_hopping_scales")
+        support_tolerance = _floating(values, "support_tolerance")
+        members = tuple(
+            _truncation_from_mapping(item) for item in _mapping_tuple(values, "members")
+        )
+        if len(scales) != len(members) or not members:
+            raise ValueError("truncation family scales and members must align")
+        if any(
+            type(member)
+            not in (
+                Periodic1DRank2TruncationQualificationStopped,
+                Periodic1DRank2TruncationCompleted,
+            )
+            for member in members
+        ):
+            raise TypeError("members must contain closed truncation outcomes")
+        first_request = members[0].request
+        parent_request = Periodic1DRank2ParentFamilyRequest(
+            template_request=members[-1].request.template_request,
+            parent_hopping_scales=scales,
+        )
+        request = Periodic1DRank2TruncationFamilyRequest(
+            parent_family_request=parent_request,
+            maximum_ranges=first_request.maximum_ranges,
+            evaluation_mesh_size=first_request.evaluation_mesh_size,
+            support_tolerance=support_tolerance,
+        )
+        return cls(
+            Periodic1DRank2TruncationFamilyAnalysis(
+                request=request,
+                truncation_family=RealSpaceSupportTruncationFamily(
+                    request=request.truncation_family_request,
+                    members=tuple(
+                        RealSpaceSupportTruncationFamilyMember(
+                            family_coordinate=scale,
+                            outcome=member,
+                        )
+                        for scale, member in zip(scales, members, strict=True)
+                    ),
+                ),
+            )
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class Periodic1DRank2CalculationRecord(BaseTypedRecord):
     """Retain one cohesive family, refinement, and truncation calculation."""
 
@@ -1772,13 +1959,16 @@ class Periodic1DRank2AnalysisRecorder:
 
 __all__ = [
     "CalculationWireEnum",
+    "Periodic1DRank2AdaptiveAmplitudeAnalysisRecord",
     "Periodic1DRank2AnalysisRecord",
     "Periodic1DRank2CalculationRecord",
     "Periodic1DRank2AnalysisRecorder",
     "Periodic1DRank2HarmonicMaximumRecord",
     "Periodic1DRank2HoppingPowerRecord",
+    "Periodic1DRank2MomentumRefinementFamilyAnalysisRecord",
     "Periodic1DRank2ParentFamilyAnalysisRecord",
     "Periodic1DRank2ParentFamilyAnalysisRecorder",
     "Periodic1DRank2PointAnalysisRecord",
     "Periodic1DRank2QualificationRecord",
+    "Periodic1DRank2TruncationFamilyAnalysisRecord",
 ]
