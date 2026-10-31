@@ -76,11 +76,7 @@ class TestGaugeRotation:
             represented_matrices=matrices,
         )
         rotations = rotation.matrices(coordinates)
-        expected = (
-            np.swapaxes(rotations.conjugate(), -1, -2)
-            @ matrices
-            @ rotations
-        )
+        expected = np.swapaxes(rotations.conjugate(), -1, -2) @ matrices @ rotations
         assert not attacked.flags.writeable
         assert np.array_equal(attacked, expected)
 

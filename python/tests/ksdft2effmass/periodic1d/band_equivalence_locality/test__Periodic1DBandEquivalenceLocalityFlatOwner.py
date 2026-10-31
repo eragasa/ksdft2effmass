@@ -160,12 +160,13 @@ class TestPeriodic1DBandEquivalenceLocalityFlatOwner:
         result = Periodic1DBandEquivalenceLocalityVerifier(payload).result()
         verification = result.verification
         verified_result_bytes = result.to_json()
-        assert type(result).from_json(
-            verified_result_bytes
-        ).to_json() == verified_result_bytes
-        assert type(result).from_dict(
-            result.to_dict()
-        ).to_json() == verified_result_bytes
+        assert (
+            type(result).from_json(verified_result_bytes).to_json()
+            == verified_result_bytes
+        )
+        assert (
+            type(result).from_dict(result.to_dict()).to_json() == verified_result_bytes
+        )
         assert verification.passed
         assert (
             Periodic1DBandEquivalenceLocalityVerification.from_json(

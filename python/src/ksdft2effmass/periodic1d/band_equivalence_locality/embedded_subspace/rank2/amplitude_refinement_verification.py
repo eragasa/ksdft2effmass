@@ -53,11 +53,9 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentVerifier:
 
     def result(self) -> EmbeddedSubspaceRank2AdaptiveAmplitudeVerification:
         """Return independent discrepancies without defining retained bytes."""
-        reference = (
-            Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyzer(
-                self._observed.request
-            ).execute()
-        )
+        reference = Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyzer(  # noqa: E501
+            self._observed.request
+        ).execute()
         return EmbeddedSubspaceRank2AdaptiveAmplitudeVerification(
             _compare_adaptive_amplitude(self._observed, reference)
         )

@@ -50,11 +50,9 @@ class Periodic1DEmbeddedSubspaceRank2MomentumRefinementIndependentVerifier:
 
     def result(self) -> EmbeddedSubspaceRank2MomentumRefinementVerification:
         """Return independent discrepancies without defining artifact bytes."""
-        reference = (
-            Periodic1DEmbeddedSubspaceRank2MomentumRefinementIndependentReferenceAnalyzer(
-                self._observed.request
-            ).execute()
-        )
+        reference = Periodic1DEmbeddedSubspaceRank2MomentumRefinementIndependentReferenceAnalyzer(  # noqa: E501
+            self._observed.request
+        ).execute()
         return EmbeddedSubspaceRank2MomentumRefinementVerification(
             _compare_momentum_refinements(self._observed, reference)
         )
@@ -77,8 +75,7 @@ def _compare_momentum_refinements(
         "mesh_inventory_defect": _observation(
             float(
                 tuple(
-                    item.request.reciprocal_mesh_size
-                    for item in observed.mesh_analyses
+                    item.request.reciprocal_mesh_size for item in observed.mesh_analyses
                 )
                 != tuple(
                     item.request.reciprocal_mesh_size
@@ -135,32 +132,22 @@ def _compare_momentum_refinements(
             0.0,
         )
         for name in scalar_names:
-            observations[f"refinement_{index}_{name}_absolute_defect"] = (
-                _observation(
-                    abs(
-                        getattr(candidate_step, name)
-                        - getattr(expected_step, name)
-                    ),
-                    tolerance,
-                )
+            observations[f"refinement_{index}_{name}_absolute_defect"] = _observation(
+                abs(getattr(candidate_step, name) - getattr(expected_step, name)),
+                tolerance,
             )
-        observations[f"refinement_{index}_angle_disposition_defect"] = (
-            _observation(
-                float(
-                    candidate_step.maximizing_angle_dispositions_stable
-                    is not expected_step.maximizing_angle_dispositions_stable
-                ),
-                0.0,
-            )
+        observations[f"refinement_{index}_angle_disposition_defect"] = _observation(
+            float(
+                candidate_step.maximizing_angle_dispositions_stable
+                is not expected_step.maximizing_angle_dispositions_stable
+            ),
+            0.0,
         )
-        observations[f"refinement_{index}_threshold_disposition_defect"] = (
-            _observation(
-                float(
-                    candidate_step.within_tolerances
-                    is not expected_step.within_tolerances
-                ),
-                0.0,
-            )
+        observations[f"refinement_{index}_threshold_disposition_defect"] = _observation(
+            float(
+                candidate_step.within_tolerances is not expected_step.within_tolerances
+            ),
+            0.0,
         )
     return observations
 
@@ -170,15 +157,20 @@ def _variants_agree(
     reference: _IndependentMomentumReference,
 ) -> bool:
     return (
-        type(observed)
-        is Periodic1DEmbeddedSubspaceRank2MomentumRefinementQualificationStopped
-        and type(reference) is _IndependentMomentumQualificationStopped
-    ) or (
-        type(observed) is Periodic1DEmbeddedSubspaceRank2MomentumRefinementConverged
-        and type(reference) is _IndependentMomentumConverged
-    ) or (
-        type(observed) is Periodic1DEmbeddedSubspaceRank2MomentumRefinementUnresolved
-        and type(reference) is _IndependentMomentumUnresolved
+        (
+            type(observed)
+            is Periodic1DEmbeddedSubspaceRank2MomentumRefinementQualificationStopped
+            and type(reference) is _IndependentMomentumQualificationStopped
+        )
+        or (
+            type(observed) is Periodic1DEmbeddedSubspaceRank2MomentumRefinementConverged
+            and type(reference) is _IndependentMomentumConverged
+        )
+        or (
+            type(observed)
+            is Periodic1DEmbeddedSubspaceRank2MomentumRefinementUnresolved
+            and type(reference) is _IndependentMomentumUnresolved
+        )
     )
 
 

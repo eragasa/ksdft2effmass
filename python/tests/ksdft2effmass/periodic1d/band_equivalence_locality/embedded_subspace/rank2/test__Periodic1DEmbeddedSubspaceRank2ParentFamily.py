@@ -60,9 +60,11 @@ def _analyze() -> Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis:
 
 
 def _subject_bytes() -> bytes:
-    return Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecorder(
-        _analyze()
-    ).result().to_json()
+    return (
+        Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecorder(_analyze())
+        .result()
+        .to_json()
+    )
 
 
 class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
@@ -79,10 +81,8 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
 
     def test_record_round_trip_preserves_exact_canonical_bytes(self) -> None:
         subject = _subject_bytes()
-        admitted = (
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord.from_json(
-                subject
-            )
+        admitted = Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord.from_json(
+            subject
         )
 
         assert admitted.to_json() == subject
@@ -90,16 +90,14 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
 
     def test_canonical_family_passes_independent_verification(self) -> None:
         subject = _subject_bytes()
-        verification = (
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(subject).result()
-        )
+        verification = Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(
+            subject
+        ).result()
 
         assert verification.passed
         assert verification.subject_sha256 == hashlib.sha256(subject).hexdigest()
         assert "member_inventory_defect" in verification.checks
-        assert "member_2_hopping_power_maximum_absolute_defect" in (
-            verification.checks
-        )
+        assert "member_2_hopping_power_maximum_absolute_defect" in (verification.checks)
         retained = verification.to_json()
         assert (
             Periodic1DEmbeddedSubspaceRank2ParentFamilyVerification.from_json(
@@ -114,16 +112,18 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
         ).result_with_visualization()
 
         verified_result_bytes = result.to_json()
-        assert type(result).from_json(
-            verified_result_bytes
-        ).to_json() == verified_result_bytes
-        assert type(result).from_dict(
-            result.to_dict()
-        ).to_json() == verified_result_bytes
+        assert (
+            type(result).from_json(verified_result_bytes).to_json()
+            == verified_result_bytes
+        )
+        assert (
+            type(result).from_dict(result.to_dict()).to_json() == verified_result_bytes
+        )
         projection_bytes = result.visualization_data.to_json()
-        assert type(result.visualization_data).from_json(
-            projection_bytes
-        ).to_json() == projection_bytes
+        assert (
+            type(result.visualization_data).from_json(projection_bytes).to_json()
+            == projection_bytes
+        )
         visualizations = Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer(
             data=result.visualization_data,
             verification=result.verification,
@@ -134,8 +134,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
             Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot
         )
         assert all(
-            value.png.startswith(b"\x89PNG\r\n\x1a\n")
-            for value in visualizations
+            value.png.startswith(b"\x89PNG\r\n\x1a\n") for value in visualizations
         )
 
     def test_verifier_does_not_call_production_family_or_member_analyzers(
@@ -159,6 +158,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
             "execute",
             prohibited_member,
         )
+
         def prohibited_member_materialization(
             request: Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest,
             scale: float,
@@ -188,9 +188,9 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
             prohibited_coordinates,
         )
 
-        assert Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(
-            subject
-        ).result().passed
+        assert (
+            Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(subject).result().passed
+        )
 
     def test_member_tampering_fails_and_noncanonical_bytes_are_rejected(self) -> None:
         subject = _subject_bytes()
@@ -219,22 +219,24 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
         tampered_subject = (
             Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecorder(
                 tampered_analysis
-            ).result().to_json()
+            )
+            .result()
+            .to_json()
         )
 
         verification = Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(
             tampered_subject
         ).result()
         assert not verification.passed
-        assert not verification.components[0].observations[
-            "member_1_point_scalar_maximum_absolute_defect"
-        ].passed
+        assert (
+            not verification.components[0]
+            .observations["member_1_point_scalar_maximum_absolute_defect"]
+            .passed
+        )
 
         noncanonical = json.dumps(json.loads(subject), indent=2).encode("utf-8")
         with pytest.raises(ValueError, match="canonical"):
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(
-                noncanonical
-            ).result()
+            Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(noncanonical).result()
 
     def test_family_admission_rejects_joint_tolerance_and_value_tampering(
         self,
@@ -269,9 +271,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2ParentFamily:
         mapping["members"] = tuple(members)
 
         with pytest.raises(ValueError, match="installed policy"):
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord.from_dict(
-                mapping
-            )
+            Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord.from_dict(mapping)
 
     def test_request_rejects_boolean_scales_and_incomplete_endpoints(self) -> None:
         with pytest.raises(TypeError, match="built-in floats"):

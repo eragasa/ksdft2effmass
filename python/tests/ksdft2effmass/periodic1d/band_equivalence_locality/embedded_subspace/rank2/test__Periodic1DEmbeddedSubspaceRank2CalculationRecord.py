@@ -173,12 +173,16 @@ class TestPeriodic1DEmbeddedSubspaceRank2CalculationRecord:
             "adaptive_amplitude",
             "truncation",
         )
-        assert type(verification).from_dict(
-            verification.to_dict()
-        ).to_json() == verification.to_json()
-        assert Periodic1DEmbeddedSubspaceRank2CalculationVerification.from_json(
-            verification.to_json()
-        ).to_json() == verification.to_json()
+        assert (
+            type(verification).from_dict(verification.to_dict()).to_json()
+            == verification.to_json()
+        )
+        assert (
+            Periodic1DEmbeddedSubspaceRank2CalculationVerification.from_json(
+                verification.to_json()
+            ).to_json()
+            == verification.to_json()
+        )
         admitted = Periodic1DEmbeddedSubspaceRank2CalculationVerifier(
             subject
         ).admit_stored(verification)
@@ -192,19 +196,16 @@ class TestPeriodic1DEmbeddedSubspaceRank2CalculationRecord:
         assert hashlib.sha256(visualization_data.to_json()).hexdigest() == (
             verification.visualization_data_sha256
         )
-        assert type(visualization_data).from_json(
-            visualization_data.to_json()
-        ) == visualization_data
+        assert (
+            type(visualization_data).from_json(visualization_data.to_json())
+            == visualization_data
+        )
         with pytest.raises(ValueError, match="different visualization data"):
-            Periodic1DEmbeddedSubspaceRank2CalculationVerifier(
-                subject
-            ).admit_stored(
+            Periodic1DEmbeddedSubspaceRank2CalculationVerifier(subject).admit_stored(
                 replace(verification, visualization_data_sha256="0" * 64)
             )
         with pytest.raises(ValueError, match="different subject bytes"):
-            Periodic1DEmbeddedSubspaceRank2CalculationVerifier(
-                subject
-            ).admit_stored(
+            Periodic1DEmbeddedSubspaceRank2CalculationVerifier(subject).admit_stored(
                 replace(verification, subject_sha256="0" * 64)
             )
 
@@ -212,9 +213,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2CalculationRecord:
         subject = _record().to_json()
 
         with pytest.raises(ValueError, match="canonical retained representation"):
-            Periodic1DEmbeddedSubspaceRank2CalculationVerifier(
-                subject + b"\n"
-            ).result()
+            Periodic1DEmbeddedSubspaceRank2CalculationVerifier(subject + b"\n").result()
 
     def test_direct_scripts_use_stored_verification_and_refuse_overwrite(
         self,
@@ -258,9 +257,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2CalculationRecord:
             "MOMENTUM_MESH_SIZES = (32, 64, 128, 256, 512)": (
                 "MOMENTUM_MESH_SIZES = (8, 16)"
             ),
-            "MOMENTUM_AMPLITUDE_INTERVALS = 64": (
-                "MOMENTUM_AMPLITUDE_INTERVALS = 2"
-            ),
+            "MOMENTUM_AMPLITUDE_INTERVALS = 64": ("MOMENTUM_AMPLITUDE_INTERVALS = 2"),
             "MOMENTUM_REQUIRED_STABLE_REFINEMENTS = 2": (
                 "MOMENTUM_REQUIRED_STABLE_REFINEMENTS = 1"
             ),
@@ -297,12 +294,18 @@ class TestPeriodic1DEmbeddedSubspaceRank2CalculationRecord:
         retained_verification_bytes = (
             execution / "verification" / "verification.json"
         ).read_bytes()
-        assert Periodic1DEmbeddedSubspaceRank2CalculationRecord.from_json(
-            result_bytes
-        ).to_json() == result_bytes
-        assert Periodic1DEmbeddedSubspaceRank2CalculationVerification.from_json(
-            retained_verification_bytes
-        ).to_json() == retained_verification_bytes
+        assert (
+            Periodic1DEmbeddedSubspaceRank2CalculationRecord.from_json(
+                result_bytes
+            ).to_json()
+            == result_bytes
+        )
+        assert (
+            Periodic1DEmbeddedSubspaceRank2CalculationVerification.from_json(
+                retained_verification_bytes
+            ).to_json()
+            == retained_verification_bytes
+        )
 
         tampered_scripts = tmp_path / "tampered"
         tampered_scripts.mkdir()
@@ -340,8 +343,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2CalculationRecord:
             )
         }
         assert {
-            path.name
-            for path in (execution / "figures").glob("*.png")
+            path.name for path in (execution / "figures").glob("*.png")
         } == expected_filenames
         rendering_bytes = (execution / "figures" / "rendering.json").read_bytes()
         rendering = TypedJsonValueCodec().deserialize_bytes(rendering_bytes)

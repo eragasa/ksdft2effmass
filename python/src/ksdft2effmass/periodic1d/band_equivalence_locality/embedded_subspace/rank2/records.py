@@ -822,8 +822,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord(BaseTypedRecord)
             Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis
         ):
             raise TypeError(
-                "analysis must be "
-                "Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis"
+                "analysis must be Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis"
             )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
@@ -832,9 +831,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord(BaseTypedRecord)
                 "template_request": _request_mapping(
                     self.analysis.request.template_request
                 ),
-                "parent_hopping_scales": (
-                    self.analysis.request.parent_hopping_scales
-                ),
+                "parent_hopping_scales": (self.analysis.request.parent_hopping_scales),
             },
             "members": tuple(
                 Periodic1DEmbeddedSubspaceRank2AnalysisRecord(member).to_dict()
@@ -859,9 +856,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord(BaseTypedRecord)
             template_request=_request_from_mapping(
                 _mapping_value(request_values, "template_request")
             ),
-            parent_hopping_scales=_float_tuple(
-                request_values, "parent_hopping_scales"
-            ),
+            parent_hopping_scales=_float_tuple(request_values, "parent_hopping_scales"),
         )
         return cls(
             Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis(
@@ -947,9 +942,7 @@ def _momentum_request_from_mapping(
         thresholds=_momentum_thresholds_from_mapping(
             _mapping_value(values, "thresholds")
         ),
-        required_stable_refinements=_integer(
-            values, "required_stable_refinements"
-        ),
+        required_stable_refinements=_integer(values, "required_stable_refinements"),
     )
 
 
@@ -1010,16 +1003,12 @@ def _momentum_step_from_mapping(
         maximum_shared_parent_projector_defect=_floating(
             values, "maximum_shared_parent_projector_defect"
         ),
-        maximum_correlation_change=_floating(
-            values, "maximum_correlation_change"
-        ),
+        maximum_correlation_change=_floating(values, "maximum_correlation_change"),
         maximum_threshold_change=_floating(values, "maximum_threshold_change"),
         maximum_hopping_weight_change=_floating(
             values, "maximum_hopping_weight_change"
         ),
-        maximum_hopping_power_change=_floating(
-            values, "maximum_hopping_power_change"
-        ),
+        maximum_hopping_power_change=_floating(values, "maximum_hopping_power_change"),
         maximum_angle_change=_floating(values, "maximum_angle_change"),
         maximizing_angle_dispositions_stable=_boolean(
             values, "maximizing_angle_dispositions_stable"
@@ -1164,9 +1153,7 @@ def _amplitude_request_from_mapping(
             _mapping_value(values, "thresholds")
         ),
         maximum_refinement_levels=_integer(values, "maximum_refinement_levels"),
-        maximum_evaluated_amplitudes=_integer(
-            values, "maximum_evaluated_amplitudes"
-        ),
+        maximum_evaluated_amplitudes=_integer(values, "maximum_evaluated_amplitudes"),
     )
 
 
@@ -1179,9 +1166,7 @@ def _amplitude_check_mapping(
         "interpolation_nodes": value.interpolation_nodes,
         "evaluated_amplitudes": value.evaluated_amplitudes,
         "maximum_correlation_defect": value.maximum_correlation_defect,
-        "maximum_operator_threshold_defect": (
-            value.maximum_operator_threshold_defect
-        ),
+        "maximum_operator_threshold_defect": (value.maximum_operator_threshold_defect),
         "maximum_joint_threshold_defect": value.maximum_joint_threshold_defect,
         "maximum_hopping_weight_defect": value.maximum_hopping_weight_defect,
         "maximum_hopping_power_defect": value.maximum_hopping_power_defect,
@@ -1204,9 +1189,7 @@ def _amplitude_check_from_mapping(
     Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementLevel
     | Periodic1DEmbeddedSubspaceRank2AmplitudeValidation
 ):
-    index_name = (
-        "failing_point_indices" if validation else "failing_interval_indices"
-    )
+    index_name = "failing_point_indices" if validation else "failing_interval_indices"
     names = {
         "level_index",
         "interpolation_nodes",
@@ -1225,9 +1208,7 @@ def _amplitude_check_from_mapping(
             level_index=_integer(values, "level_index"),
             interpolation_nodes=_float_tuple(values, "interpolation_nodes"),
             evaluated_amplitudes=_float_tuple(values, "evaluated_amplitudes"),
-            maximum_correlation_defect=_floating(
-                values, "maximum_correlation_defect"
-            ),
+            maximum_correlation_defect=_floating(values, "maximum_correlation_defect"),
             maximum_operator_threshold_defect=_floating(
                 values, "maximum_operator_threshold_defect"
             ),
@@ -1247,9 +1228,7 @@ def _amplitude_check_from_mapping(
         level_index=_integer(values, "level_index"),
         interpolation_nodes=_float_tuple(values, "interpolation_nodes"),
         evaluated_amplitudes=_float_tuple(values, "evaluated_amplitudes"),
-        maximum_correlation_defect=_floating(
-            values, "maximum_correlation_defect"
-        ),
+        maximum_correlation_defect=_floating(values, "maximum_correlation_defect"),
         maximum_operator_threshold_defect=_floating(
             values, "maximum_operator_threshold_defect"
         ),
@@ -1259,9 +1238,7 @@ def _amplitude_check_from_mapping(
         maximum_hopping_weight_defect=_floating(
             values, "maximum_hopping_weight_defect"
         ),
-        maximum_hopping_power_defect=_floating(
-            values, "maximum_hopping_power_defect"
-        ),
+        maximum_hopping_power_defect=_floating(values, "maximum_hopping_power_defect"),
         failing_interval_indices=_integer_tuple(values, index_name),
         within_tolerances=_boolean(values, "within_tolerances"),
     )
@@ -1271,9 +1248,7 @@ def _amplitude_level_from_mapping(
     values: Mapping[str, SerializableValue],
 ) -> Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementLevel:
     result = _amplitude_check_from_mapping(values, validation=False)
-    if type(result) is not (
-        Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementLevel
-    ):
+    if type(result) is not (Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementLevel):
         raise TypeError("amplitude level decoded to the wrong type")
     return result
 
@@ -1311,9 +1286,7 @@ def _amplitude_mapping(
         ),
     ):
         raise TypeError("adaptive_amplitude must be one closed outcome variant")
-    mapping["levels"] = tuple(
-        _amplitude_check_mapping(item) for item in value.levels
-    )
+    mapping["levels"] = tuple(_amplitude_check_mapping(item) for item in value.levels)
     mapping["validations"] = tuple(
         _amplitude_check_mapping(item) for item in value.validations
     )
@@ -1359,8 +1332,7 @@ def _amplitude_from_mapping(
             evaluations=evaluations,
         )
     levels = tuple(
-        _amplitude_level_from_mapping(item)
-        for item in _mapping_tuple(values, "levels")
+        _amplitude_level_from_mapping(item) for item in _mapping_tuple(values, "levels")
     )
     validations = tuple(
         _amplitude_validation_from_mapping(item)
@@ -1686,9 +1658,7 @@ def _truncation_from_mapping(
     return Periodic1DEmbeddedSubspaceRank2TruncationCompleted(
         request=request,
         qualification=qualification,
-        evaluation_coordinate_offset=_floating(
-            values, "evaluation_coordinate_offset"
-        ),
+        evaluation_coordinate_offset=_floating(values, "evaluation_coordinate_offset"),
         minimum_construction_evaluation_separation=_floating(
             values, "minimum_construction_evaluation_separation"
         ),
@@ -1719,9 +1689,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationRecord(BaseTypedRecord):
     """Retain one cohesive family, refinement, and truncation calculation."""
 
     parent_family: Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis
-    momentum_refinement: (
-        Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalysis
-    )
+    momentum_refinement: Periodic1DEmbeddedSubspaceRank2MomentumRefinementAnalysis
     adaptive_amplitude: Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalysis
     truncation: Periodic1DEmbeddedSubspaceRank2TruncationAnalysis
 
@@ -1756,8 +1724,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationRecord(BaseTypedRecord):
             self.truncation.request.template_request,
         )
         if any(
-            _control_key(item) != _control_key(requests[0])
-            for item in requests[1:]
+            _control_key(item) != _control_key(requests[0]) for item in requests[1:]
         ):
             raise ValueError("aggregate components must share one scientific control")
         if requests[0].parent_hopping_scale != 1.0:
@@ -1802,9 +1769,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationRecord(BaseTypedRecord):
             adaptive_amplitude=_amplitude_from_mapping(
                 _mapping_value(values, "adaptive_amplitude")
             ),
-            truncation=_truncation_from_mapping(
-                _mapping_value(values, "truncation")
-            ),
+            truncation=_truncation_from_mapping(_mapping_value(values, "truncation")),
         )
 
 
@@ -1817,12 +1782,9 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecorder:
         self,
         analysis: Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis,
     ) -> None:
-        if type(analysis) is not (
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis
-        ):
+        if type(analysis) is not (Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis):
             raise TypeError(
-                "analysis must be "
-                "Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis"
+                "analysis must be Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis"
             )
         self._analysis = analysis
 
@@ -1830,9 +1792,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecorder:
         self,
     ) -> Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord:
         """Return the retained projection without rerunning its producer."""
-        return Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord(
-            self._analysis
-        )
+        return Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysisRecord(self._analysis)
 
 
 class Periodic1DEmbeddedSubspaceRank2AnalysisRecorder:

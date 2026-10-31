@@ -28,16 +28,15 @@ class TestPeriodic1DRank2SinusoidalGaugeRotation:
         rotations = rotation.matrices(coordinates)
         identity = np.eye(2, dtype=np.complex128)
         assert rotation.rank == 2
-        assert np.max(
-            np.abs(
-                np.swapaxes(rotations.conjugate(), -1, -2)
-                @ rotations
-                - identity
+        assert (
+            np.max(
+                np.abs(
+                    np.swapaxes(rotations.conjugate(), -1, -2) @ rotations - identity
+                )
             )
-        ) < 1.0e-15
-        assert np.allclose(
-            np.linalg.det(rotations), 1.0, rtol=0.0, atol=1.0e-15
+            < 1.0e-15
         )
+        assert np.allclose(np.linalg.det(rotations), 1.0, rtol=0.0, atol=1.0e-15)
 
     def test_zero_amplitude_is_the_identity_attack(self) -> None:
         coordinates = np.asarray((-0.5, 0.0, 0.25), dtype=np.float64)

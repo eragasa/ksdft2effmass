@@ -7,9 +7,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot(Enum):
     """Identify every required aggregate refinement and truncation figure."""
 
     MOMENTUM_REFINEMENT = "embedded-rank2-momentum-refinement.png"
-    ADAPTIVE_AMPLITUDE_REFINEMENT = (
-        "embedded-rank2-adaptive-amplitude-refinement.png"
-    )
+    ADAPTIVE_AMPLITUDE_REFINEMENT = "embedded-rank2-adaptive-amplitude-refinement.png"
     TRUNCATION_CONSEQUENCES = "embedded-rank2-truncation-consequences.png"
 
 

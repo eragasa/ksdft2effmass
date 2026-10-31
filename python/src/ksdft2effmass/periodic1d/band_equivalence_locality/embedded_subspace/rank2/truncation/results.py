@@ -72,10 +72,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationRange:
             _nonnegative(getattr(self, name), name)
         if self.reference_total_omitted_power < self.reference_ordinary_omitted_power:
             raise ValueError("reference total omitted power must include Nyquist power")
-        if (
-            self.comparison_total_omitted_power
-            < self.comparison_ordinary_omitted_power
-        ):
+        if self.comparison_total_omitted_power < self.comparison_ordinary_omitted_power:
             raise ValueError(
                 "comparison total omitted power must include Nyquist power"
             )
@@ -253,8 +250,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationCompleted(
             for item in self.points[0].ranges
         )
         if any(
-            point.reference_nyquist_power
-            != self.points[0].reference_nyquist_power
+            point.reference_nyquist_power != self.points[0].reference_nyquist_power
             or point.reference_ordinary_hermiticity_maximum_defect
             != self.points[0].reference_ordinary_hermiticity_maximum_defect
             or tuple(

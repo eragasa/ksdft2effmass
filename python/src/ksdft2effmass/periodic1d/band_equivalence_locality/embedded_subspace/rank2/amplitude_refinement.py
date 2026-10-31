@@ -365,9 +365,13 @@ def _validate_evaluations(
 ) -> None:
     if type(request) is not Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeRequest:
         raise TypeError("request must be an adaptive-amplitude request")
-    if type(evaluations) is not tuple or not evaluations or any(
-        type(item) is not Periodic1DEmbeddedSubspaceRank2Analysis
-        for item in evaluations
+    if (
+        type(evaluations) is not tuple
+        or not evaluations
+        or any(
+            type(item) is not Periodic1DEmbeddedSubspaceRank2Analysis
+            for item in evaluations
+        )
     ):
         raise TypeError("evaluations must be a nonempty typed tuple")
     template = request.template_request
@@ -380,9 +384,13 @@ def _validate_qualified_outcome(value: _QualifiedAdaptiveAmplitudeAnalysis) -> N
     _validate_evaluations(value.request, value.evaluations)
     if not all(item.qualification.qualified for item in value.evaluations):
         raise ValueError("qualified adaptive outcome requires qualified evaluations")
-    if type(value.levels) is not tuple or not value.levels or any(
-        type(item) is not Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementLevel
-        for item in value.levels
+    if (
+        type(value.levels) is not tuple
+        or not value.levels
+        or any(
+            type(item) is not Periodic1DEmbeddedSubspaceRank2AmplitudeRefinementLevel
+            for item in value.levels
+        )
     ):
         raise TypeError("levels must be a nonempty typed tuple")
     if len(value.levels) > value.request.maximum_refinement_levels:
@@ -408,9 +416,10 @@ def _validate_qualified_outcome(value: _QualifiedAdaptiveAmplitudeAnalysis) -> N
     for validation in value.validations:
         if validation.level_index >= len(value.levels):
             raise ValueError("validation level identity is out of range")
-        if validation.interpolation_nodes != value.levels[
-            validation.level_index
-        ].interpolation_nodes:
+        if (
+            validation.interpolation_nodes
+            != value.levels[validation.level_index].interpolation_nodes
+        ):
             raise ValueError("validation nodes must match their refinement level")
         expected = _within_thresholds(validation, value.request.thresholds)
         if validation.within_tolerances is not expected:
@@ -440,9 +449,7 @@ def _validate_qualified_outcome(value: _QualifiedAdaptiveAmplitudeAnalysis) -> N
         expected_evaluation_inventories
     ):
         raise ValueError("evaluations do not match the adaptive level inventories")
-    points_by_amplitude: dict[
-        float, Periodic1DEmbeddedSubspaceRank2PointAnalysis
-    ] = {}
+    points_by_amplitude: dict[float, Periodic1DEmbeddedSubspaceRank2PointAnalysis] = {}
     for analysis in value.evaluations:
         for point in analysis.points:
             previous = points_by_amplitude.get(point.amplitude)
@@ -460,9 +467,7 @@ def _refined_nodes(
     nodes = level.interpolation_nodes
     if validation is None:
         midpoints = tuple(0.5 * (left + right) for left, right in pairwise(nodes))
-        selected = {
-            midpoints[index] for index in level.failing_interval_indices
-        }
+        selected = {midpoints[index] for index in level.failing_interval_indices}
     else:
         selected = {
             validation.evaluated_amplitudes[index]
@@ -576,16 +581,12 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalyzer:
                     midpoint_inventory,
                 )
             if not midpoint_analysis.qualification.qualified:
-                return (
-                    Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(
-                        request=self._request,
-                        evaluations=tuple(evaluations),
-                    )
+                return Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(  # noqa: E501
+                    request=self._request,
+                    evaluations=tuple(evaluations),
                 )
             midpoint_defects = tuple(
-                _interpolation_defects(
-                    cache[left], cache[midpoint], cache[right], 0.5
-                )
+                _interpolation_defects(cache[left], cache[midpoint], cache[right], 0.5)
                 for left, midpoint, right in zip(
                     nodes[:-1], midpoints, nodes[1:], strict=True
                 )
@@ -599,11 +600,7 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalyzer:
                 nodes,
                 midpoint_inventory,
                 midpoint_defects,
-                tuple(
-                    index
-                    for index, failed in enumerate(midpoint_failing)
-                    if failed
-                ),
+                tuple(index for index, failed in enumerate(midpoint_failing) if failed),
             )
             levels.append(level)
             candidate_nodes = tuple(
@@ -627,9 +624,7 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalyzer:
                         left + 0.75 * (right - left),
                     )
                 )
-                validation_inventory = tuple(
-                    sorted(set(nodes) | set(quarter_samples))
-                )
+                validation_inventory = tuple(sorted(set(nodes) | set(quarter_samples)))
                 validation_analysis = evaluate(validation_inventory)
                 if validation_analysis is None:
                     return self._evaluations_exhausted(
@@ -640,11 +635,9 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeAnalyzer:
                         validation_inventory,
                     )
                 if not validation_analysis.qualification.qualified:
-                    return (
-                        Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(
-                            request=self._request,
-                            evaluations=tuple(evaluations),
-                        )
+                    return Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(  # noqa: E501
+                        request=self._request,
+                        evaluations=tuple(evaluations),
                     )
                 validation_defects = tuple(
                     _interpolation_defects(
@@ -803,9 +796,7 @@ def _interpolation_defects(
     hopping_power_defect = max(
         defect(
             left_item.comparison_normalized_squared_frobenius_norm,
-            sample_powers[
-                displacement
-            ].comparison_normalized_squared_frobenius_norm,
+            sample_powers[displacement].comparison_normalized_squared_frobenius_norm,
             right_powers[displacement].comparison_normalized_squared_frobenius_norm,
         )
         for displacement, left_item in left_powers.items()

@@ -53,9 +53,7 @@ class _Periodic1DEmbeddedSubspaceRank2PreparedAnalysis:
     reference_nonzero_hopping_weight: float
     reference_parseval_defect: float
 
-    def point(
-        self, amplitude: float
-    ) -> Periodic1DEmbeddedSubspaceRank2PointAnalysis:
+    def point(self, amplitude: float) -> Periodic1DEmbeddedSubspaceRank2PointAnalysis:
         """Evaluate one direct gauge-attack amplitude on the prepared parent."""
         return self.analyzer._point(
             coordinates=self.coordinates,
@@ -116,8 +114,7 @@ class Periodic1DEmbeddedSubspaceRank2Analyzer:
             request=self.request,
             qualification=preparation.qualification,
             points=tuple(
-                preparation.point(amplitude)
-                for amplitude in self.request.amplitudes
+                preparation.point(amplitude) for amplitude in self.request.amplitudes
             ),
         )
 

@@ -44,18 +44,14 @@ type CalculationComponentVerification = (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DEmbeddedSubspaceRank2CalculationVerification(
-    VisualizationVerification
-):
+class Periodic1DEmbeddedSubspaceRank2CalculationVerification(VisualizationVerification):
     """Authenticate aggregate bytes and retain independent component checks."""
 
     subject_sha256: str
     visualization_data_sha256: str
     components: tuple[CalculationComponentVerification, ...]
 
-    component_types: ClassVar[
-        Mapping[str, type[CalculationComponentVerification]]
-    ] = (
+    component_types: ClassVar[Mapping[str, type[CalculationComponentVerification]]] = (
         MappingProxyType(
             {
                 "parent_family": (
@@ -77,8 +73,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVerification(
             type(self.subject_sha256) is not str
             or len(self.subject_sha256) != 64
             or any(
-                character not in "0123456789abcdef"
-                for character in self.subject_sha256
+                character not in "0123456789abcdef" for character in self.subject_sha256
             )
         ):
             raise ValueError("subject_sha256 must be a lowercase SHA-256 digest")
@@ -201,9 +196,10 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVerifier:
             Periodic1DEmbeddedSubspaceRank2ParentFamilyVerification
         ):
             raise TypeError("stored family verification has the wrong type")
-        if family_verification.subject_sha256 != hashlib.sha256(
-            family_bytes
-        ).hexdigest():
+        if (
+            family_verification.subject_sha256
+            != hashlib.sha256(family_bytes).hexdigest()
+        ):
             raise ValueError("stored family verification authenticates different bytes")
         visualization_data = (
             Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData.from_record(
@@ -232,9 +228,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVerifier:
         ).to_json()
         subject_sha256 = hashlib.sha256(self._subject_bytes).hexdigest()
         components: tuple[CalculationComponentVerification, ...] = (
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(
-                family_bytes
-            ).result(),
+            Periodic1DEmbeddedSubspaceRank2ParentFamilyVerifier(family_bytes).result(),
             Periodic1DEmbeddedSubspaceRank2MomentumRefinementIndependentVerifier(
                 record.momentum_refinement
             ).result(),

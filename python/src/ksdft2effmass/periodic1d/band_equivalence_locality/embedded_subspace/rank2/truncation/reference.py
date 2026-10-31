@@ -187,12 +187,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
                 )
             ),
             maximum_reference_hermiticity_defect=float(
-                np.max(
-                    np.abs(
-                        retained
-                        - np.swapaxes(retained.conjugate(), -1, -2)
-                    )
-                )
+                np.max(np.abs(retained - np.swapaxes(retained.conjugate(), -1, -2)))
             ),
         )
         return _IndependentPreparation(
@@ -252,9 +247,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
             comparison_interpolation_spectral_maximum_error=(
                 interpolation.spectral_maximum
             ),
-            comparison_interpolation_spectral_rms_error=(
-                interpolation.spectral_rms
-            ),
+            comparison_interpolation_spectral_rms_error=(interpolation.spectral_rms),
             ranges=tuple(
                 self._range(
                     comparison,
@@ -285,9 +278,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         return _IndependentReferenceRange(
             maximum_range=maximum_range,
             ordinary_omitted_power=omitted_power,
-            errors=self._errors(
-                matrices, complete, eigenvalues, complete_eigenvalues
-            ),
+            errors=self._errors(matrices, complete, eigenvalues, complete_eigenvalues),
         )
 
     def _range(
@@ -305,9 +296,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         truncated, omitted_power = self._truncate(field, reference.maximum_range)
         matrices = self._evaluate(truncated, coordinates)
         eigenvalues = self._eigenvalues(matrices)
-        truncation = self._errors(
-            matrices, complete, eigenvalues, complete_eigenvalues
-        )
+        truncation = self._errors(matrices, complete, eigenvalues, complete_eigenvalues)
         total = self._errors(matrices, direct, eigenvalues, direct_eigenvalues)
         return Periodic1DEmbeddedSubspaceRank2TruncationRange(
             maximum_range=reference.maximum_range,
@@ -316,9 +305,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
             reference_total_omitted_power=(
                 reference.ordinary_omitted_power + reference_nyquist_power
             ),
-            comparison_total_omitted_power=(
-                omitted_power + comparison_nyquist_power
-            ),
+            comparison_total_omitted_power=(omitted_power + comparison_nyquist_power),
             reference_truncation_hamiltonian_maximum_error=(
                 reference.errors.hamiltonian_maximum
             ),
@@ -328,9 +315,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
             reference_truncation_spectral_maximum_error=(
                 reference.errors.spectral_maximum
             ),
-            reference_truncation_spectral_rms_error=(
-                reference.errors.spectral_rms
-            ),
+            reference_truncation_spectral_rms_error=(reference.errors.spectral_rms),
             comparison_truncation_hamiltonian_maximum_error=(
                 truncation.hamiltonian_maximum
             ),
@@ -370,8 +355,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         hermiticity = float(
             max(
                 np.linalg.norm(
-                    block
-                    - block_by_representative[-representative].conj().T
+                    block - block_by_representative[-representative].conj().T
                 )
                 for representative, block in block_by_representative.items()
             )
@@ -481,6 +465,4 @@ class Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer:
         return float(np.min(np.minimum(differences, 1.0 - differences)))
 
 
-__all__ = [
-    "Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer"
-]
+__all__ = ["Periodic1DEmbeddedSubspaceRank2TruncationIndependentReferenceAnalyzer"]

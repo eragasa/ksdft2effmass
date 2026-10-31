@@ -80,18 +80,14 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizer(
         super().__init__(
             data=data,
             verification=verification,
-            plots=tuple(
-                Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot
-            ),
+            plots=tuple(Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot),
         )
         self._dpi = dpi
 
     def _render(
         self,
     ) -> frozenset[
-        PngVisualization[
-            Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot
-        ]
+        PngVisualization[Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot]
     ]:
         plot = Periodic1DEmbeddedSubspaceRank2CalculationVisualizationPlot
         return frozenset(
@@ -148,9 +144,7 @@ class Periodic1DEmbeddedSubspaceRank2Visualizer(
 
     def _render(
         self,
-    ) -> frozenset[
-        PngVisualization[Periodic1DEmbeddedSubspaceRank2VisualizationPlot]
-    ]:
+    ) -> frozenset[PngVisualization[Periodic1DEmbeddedSubspaceRank2VisualizationPlot]]:
         plot = Periodic1DEmbeddedSubspaceRank2VisualizationPlot
         return frozenset(
             {
@@ -198,18 +192,14 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizer(
         super().__init__(
             data=data,
             verification=verification,
-            plots=tuple(
-                Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot
-            ),
+            plots=tuple(Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot),
         )
         self._dpi = dpi
 
     def _render(
         self,
     ) -> frozenset[
-        PngVisualization[
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot
-        ]
+        PngVisualization[Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot]
     ]:
         plot = Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationPlot
         return frozenset(

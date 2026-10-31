@@ -103,10 +103,7 @@ class Periodic1DEmbeddedSubspaceRank2IndependentReferenceAnalyzer:
             )
         if type(transport) is not _IndependentTransport:
             raise TypeError("independent transport returned an unknown variant")
-        if (
-            transport.minimum_singular_value
-            <= request.minimum_transport_singular_value
-        ):
+        if transport.minimum_singular_value <= request.minimum_transport_singular_value:
             return Periodic1DEmbeddedSubspaceRank2Analysis(
                 request=request,
                 qualification=(
@@ -157,9 +154,7 @@ class Periodic1DEmbeddedSubspaceRank2IndependentReferenceAnalyzer:
             minimum_external_gap=minimum_gap,
             minimum_transport_singular_value=transport.minimum_singular_value,
             maximum_transport_rank_cutoff=transport.maximum_rank_cutoff,
-            maximum_transport_unitarity_defect=(
-                transport.maximum_unitarity_defect
-            ),
+            maximum_transport_unitarity_defect=(transport.maximum_unitarity_defect),
             maximum_primitive_link_frobenius_residual=(
                 transport.maximum_primitive_link_frobenius_residual
             ),
@@ -208,12 +203,9 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyIndependentReferenceAnalyzer:
         self,
         request: Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest,
     ) -> None:
-        if type(request) is not (
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest
-        ):
+        if type(request) is not (Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest):
             raise TypeError(
-                "request must be "
-                "Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest"
+                "request must be Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest"
             )
         self._request = request
 
@@ -242,9 +234,7 @@ def _independent_member_request(
         minimum_external_gap=template.minimum_external_gap,
         minimum_transport_singular_value=template.minimum_transport_singular_value,
         frame_absolute_tolerance=template.frame_absolute_tolerance,
-        transport_rank_relative_tolerance=(
-            template.transport_rank_relative_tolerance
-        ),
+        transport_rank_relative_tolerance=(template.transport_rank_relative_tolerance),
         transport_validation_relative_tolerance=(
             template.transport_validation_relative_tolerance
         ),
@@ -452,10 +442,8 @@ def _point(
         [[math.cos(angle), -math.sin(angle)], [math.sin(angle), math.cos(angle)]],
         dtype=np.complex128,
     )
-    candidate = (
-        means[:, None, None] * np.eye(2)
-        + optimal_scale
-        * (global_rotation.conj().T @ traceless @ global_rotation)
+    candidate = means[:, None, None] * np.eye(2) + optimal_scale * (
+        global_rotation.conj().T @ traceless @ global_rotation
     )
     reconstructed_loss = float(
         np.mean(np.sum(np.abs(candidate - comparison) ** 2, axis=(1, 2))) / 2.0
@@ -480,9 +468,7 @@ def _point(
         amplitude=amplitude,
         maximum_band_defect=float(
             np.max(
-                np.abs(
-                    np.linalg.eigvalsh(comparison) - np.linalg.eigvalsh(retained)
-                )
+                np.abs(np.linalg.eigvalsh(comparison) - np.linalg.eigvalsh(retained))
             )
         ),
         splitting_scale=splitting_scale,
@@ -506,9 +492,7 @@ def _point(
             if displacement != 0
         ),
         reference_parseval_defect=reference_parseval,
-        comparison_parseval_defect=_parseval_defect(
-            comparison, comparison_powers
-        ),
+        comparison_parseval_defect=_parseval_defect(comparison, comparison_powers),
         hopping_powers=paired_powers,
     )
 
@@ -590,18 +574,14 @@ def _direct_fourier_blocks(
 
 
 def _normalized_powers(blocks: Complex128Array) -> tuple[float, ...]:
-    return tuple(
-        float(np.sum(np.abs(block) ** 2) / 2.0) for block in blocks
-    )
+    return tuple(float(np.sum(np.abs(block) ** 2) / 2.0) for block in blocks)
 
 
 def _parseval_defect(
     matrices: Complex128Array,
     powers: tuple[float, ...],
 ) -> float:
-    reciprocal_power = float(
-        np.mean(np.sum(np.abs(matrices) ** 2, axis=(1, 2))) / 2.0
-    )
+    reciprocal_power = float(np.mean(np.sum(np.abs(matrices) ** 2, axis=(1, 2))) / 2.0)
     return abs(reciprocal_power - math.fsum(powers))
 
 

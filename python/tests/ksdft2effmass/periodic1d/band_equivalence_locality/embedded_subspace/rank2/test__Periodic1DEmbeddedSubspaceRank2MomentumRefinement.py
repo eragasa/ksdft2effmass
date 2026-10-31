@@ -144,8 +144,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2MomentumRefinement:
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         module_root = (
-            "ksdft2effmass.periodic1d.band_equivalence_locality."
-            "embedded_subspace.rank2"
+            "ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2"
         )
         production_analysis = importlib.import_module(f"{module_root}.analysis")
         production_parent = importlib.import_module(f"{module_root}.parent")

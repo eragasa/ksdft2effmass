@@ -43,16 +43,12 @@ class GaugeAttack:
         if not isinstance(self.rotation, GaugeRotation):
             raise TypeError("rotation must implement GaugeRotation")
         if type(self.unitarity_absolute_tolerance) is not float:
-            raise TypeError(
-                "unitarity_absolute_tolerance must be a built-in float"
-            )
+            raise TypeError("unitarity_absolute_tolerance must be a built-in float")
         if (
             not math.isfinite(self.unitarity_absolute_tolerance)
             or self.unitarity_absolute_tolerance <= 0.0
         ):
-            raise ValueError(
-                "unitarity_absolute_tolerance must be finite and positive"
-            )
+            raise ValueError("unitarity_absolute_tolerance must be finite and positive")
 
     def apply(
         self,
@@ -131,9 +127,7 @@ class GaugeAttack:
         defect = float(
             np.max(
                 np.abs(
-                    np.swapaxes(rotations.conjugate(), -1, -2)
-                    @ rotations
-                    - identity
+                    np.swapaxes(rotations.conjugate(), -1, -2) @ rotations - identity
                 )
             )
         )

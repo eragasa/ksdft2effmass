@@ -135,11 +135,9 @@ class TestPeriodic1DEmbeddedSubspaceRank2Truncation:
             Periodic1DEmbeddedSubspaceRank2ExternalGapFailure
         )
         assert not hasattr(result, "points")
-        verification = (
-            Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(
-                result
-            ).result()
-        )
+        verification = Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(
+            result
+        ).result()
         assert verification.passed
 
     def test_independent_direct_reconstruction_passes_and_detects_tampering(
@@ -147,11 +145,9 @@ class TestPeriodic1DEmbeddedSubspaceRank2Truncation:
     ) -> None:
         result = _analyze(_request())
         assert type(result) is Periodic1DEmbeddedSubspaceRank2TruncationCompleted
-        verification = (
-            Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(
-                result
-            ).result()
-        )
+        verification = Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(
+            result
+        ).result()
         assert verification.passed
         first_point = result.points[0]
         first_range = first_point.ranges[0]
@@ -172,9 +168,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2Truncation:
             ),
         )
         assert not (
-            Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(
-                tampered
-            )
+            Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(tampered)
             .result()
             .passed
         )
@@ -184,8 +178,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2Truncation:
     ) -> None:
         result = _analyze(_request())
         root = (
-            "ksdft2effmass.periodic1d.band_equivalence_locality."
-            "embedded_subspace.rank2"
+            "ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2"
         )
         production_parent = importlib.import_module(f"{root}.parent")
         production_analysis = importlib.import_module(f"{root}.analysis")
@@ -218,9 +211,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2Truncation:
         ):
             monkeypatch.setattr(getattr(solidstate, name), "execute", forbidden)
         assert (
-            Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(
-                result
-            )
+            Periodic1DEmbeddedSubspaceRank2TruncationIndependentVerifier(result)
             .result()
             .passed
         )

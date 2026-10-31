@@ -47,10 +47,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationRequest:
             raise ValueError("maximum_ranges must be unique and strictly increasing")
         if self.maximum_ranges[0] < 0:
             raise ValueError("maximum_ranges must be nonnegative")
-        if (
-            self.maximum_ranges[-1]
-            >= self.template_request.reciprocal_mesh_size // 2
-        ):
+        if self.maximum_ranges[-1] >= self.template_request.reciprocal_mesh_size // 2:
             raise ValueError("maximum_ranges must exclude the cyclic Nyquist index")
         if type(self.evaluation_mesh_size) is not int:
             raise TypeError("evaluation_mesh_size must be a built-in int")

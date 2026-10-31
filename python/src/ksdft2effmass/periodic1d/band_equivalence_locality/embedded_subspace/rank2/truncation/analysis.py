@@ -221,9 +221,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
             comparison_interpolation_spectral_maximum_error=(
                 interpolation.spectral_maximum
             ),
-            comparison_interpolation_spectral_rms_error=(
-                interpolation.spectral_rms
-            ),
+            comparison_interpolation_spectral_rms_error=(interpolation.spectral_rms),
             ranges=ranges,
         )
 
@@ -280,9 +278,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
             truncated_eigenvalues,
             direct_eigenvalues,
         )
-        comparison_ordinary_power = float(
-            truncation.omitted_block_l2_norm**2 / 2.0
-        )
+        comparison_ordinary_power = float(truncation.omitted_block_l2_norm**2 / 2.0)
         return Periodic1DEmbeddedSubspaceRank2TruncationRange(
             maximum_range=reference.maximum_range,
             reference_ordinary_omitted_power=reference.ordinary_omitted_power,
@@ -302,9 +298,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
             reference_truncation_spectral_maximum_error=(
                 reference.errors.spectral_maximum
             ),
-            reference_truncation_spectral_rms_error=(
-                reference.errors.spectral_rms
-            ),
+            reference_truncation_spectral_rms_error=(reference.errors.spectral_rms),
             comparison_truncation_hamiltonian_maximum_error=(
                 truncation_errors.hamiltonian_maximum
             ),
@@ -314,9 +308,7 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
             comparison_truncation_spectral_maximum_error=(
                 truncation_errors.spectral_maximum
             ),
-            comparison_truncation_spectral_rms_error=(
-                truncation_errors.spectral_rms
-            ),
+            comparison_truncation_spectral_rms_error=(truncation_errors.spectral_rms),
             comparison_total_hamiltonian_maximum_error=(
                 total_errors.hamiltonian_maximum
             ),
@@ -415,8 +407,10 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
         matrix_norms = np.sqrt(matrix_powers)
         spectral_maximum = float(np.max(np.abs(spectral_difference)))
         frobenius_maximum = float(np.max(matrix_norms))
-        bound_tolerance = 32.0 * np.finfo(np.float64).eps * max(
-            1.0, spectral_maximum, frobenius_maximum
+        bound_tolerance = (
+            32.0
+            * np.finfo(np.float64).eps
+            * max(1.0, spectral_maximum, frobenius_maximum)
         )
         if spectral_maximum > frobenius_maximum + bound_tolerance:
             raise FloatingPointError("spectral error exceeds the Frobenius bound")
@@ -435,9 +429,9 @@ class Periodic1DEmbeddedSubspaceRank2TruncationAnalyzer:
         construction_size = self.request.template_request.reciprocal_mesh_size
         evaluation_size = self.request.evaluation_mesh_size
         offset = 1.0 / float(construction_size + 1)
-        values = -0.5 + (
-            np.arange(evaluation_size, dtype=np.float64) + offset
-        ) / float(evaluation_size)
+        values = -0.5 + (np.arange(evaluation_size, dtype=np.float64) + offset) / float(
+            evaluation_size
+        )
         values.setflags(write=False)
         return values, offset
 

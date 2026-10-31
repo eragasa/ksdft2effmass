@@ -50,9 +50,7 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyz
             if len(cache) + len(new) > self._request.maximum_evaluated_amplitudes:
                 return None
             direct_amplitudes = (
-                amplitudes
-                if not cache
-                else tuple(sorted({0.0} | set(new)))
+                amplitudes if not cache else tuple(sorted({0.0} | set(new)))
             )
             direct_analysis = (
                 Periodic1DEmbeddedSubspaceRank2IndependentReferenceAnalyzer(
@@ -74,9 +72,7 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyz
                 )
                 evaluations.append(analysis)
                 return analysis
-            cache.update(
-                {point.amplitude: point for point in direct_analysis.points}
-            )
+            cache.update({point.amplitude: point for point in direct_analysis.points})
             analysis = Periodic1DEmbeddedSubspaceRank2Analysis(
                 request=evaluation_request,
                 qualification=direct_analysis.qualification,
@@ -100,11 +96,9 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyz
                     midpoint_inventory,
                 )
             if not midpoint_analysis.qualification.qualified:
-                return (
-                    Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(
-                        request=self._request,
-                        evaluations=tuple(evaluations),
-                    )
+                return Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(  # noqa: E501
+                    request=self._request,
+                    evaluations=tuple(evaluations),
                 )
             midpoint_defects = tuple(
                 _reference_interpolation_defects(
@@ -124,9 +118,7 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyz
                 midpoint_inventory,
                 midpoint_defects,
                 tuple(
-                    index
-                    for index, failed in enumerate(midpoint_failures)
-                    if failed
+                    index for index, failed in enumerate(midpoint_failures) if failed
                 ),
             )
             levels.append(level)
@@ -151,9 +143,7 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyz
                         left + 0.75 * (right - left),
                     )
                 )
-                validation_inventory = tuple(
-                    sorted(set(nodes) | set(quarter_samples))
-                )
+                validation_inventory = tuple(sorted(set(nodes) | set(quarter_samples)))
                 validation_analysis = evaluate(validation_inventory)
                 if validation_analysis is None:
                     return _evaluation_cap_outcome(
@@ -165,11 +155,9 @@ class Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeIndependentReferenceAnalyz
                         validation_inventory,
                     )
                 if not validation_analysis.qualification.qualified:
-                    return (
-                        Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(
-                            request=self._request,
-                            evaluations=tuple(evaluations),
-                        )
+                    return Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeQualificationStopped(  # noqa: E501
+                        request=self._request,
+                        evaluations=tuple(evaluations),
                     )
                 validation_defects = tuple(
                     _reference_interpolation_defects(
@@ -282,10 +270,7 @@ def _reference_defects_within(
         thresholds.maximum_hopping_weight_defect,
         thresholds.maximum_hopping_power_defect,
     )
-    return all(
-        defect <= limit
-        for defect, limit in zip(defects, limits, strict=True)
-    )
+    return all(defect <= limit for defect, limit in zip(defects, limits, strict=True))
 
 
 def _reference_level(
@@ -352,9 +337,7 @@ def _reference_interpolation_defects(
     maximum_power_defect = max(
         absolute_linear_defect(
             value.comparison_normalized_squared_frobenius_norm,
-            sample_power[
-                displacement
-            ].comparison_normalized_squared_frobenius_norm,
+            sample_power[displacement].comparison_normalized_squared_frobenius_norm,
             right_power[displacement].comparison_normalized_squared_frobenius_norm,
         )
         for displacement, value in left_power.items()

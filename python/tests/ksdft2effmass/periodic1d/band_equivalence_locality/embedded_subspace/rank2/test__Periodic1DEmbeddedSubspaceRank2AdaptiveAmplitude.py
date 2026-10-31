@@ -127,9 +127,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2AdaptiveAmplitude:
         )
 
     def test_strict_thresholds_reach_the_level_cap_as_unresolved(self) -> None:
-        result = _analyze(
-            _request(threshold=1.0e-16, maximum_refinement_levels=1)
-        )
+        result = _analyze(_request(threshold=1.0e-16, maximum_refinement_levels=1))
         assert type(result) is (
             Periodic1DEmbeddedSubspaceRank2AdaptiveAmplitudeLevelsExhausted
         )
@@ -150,10 +148,13 @@ class TestPeriodic1DEmbeddedSubspaceRank2AdaptiveAmplitude:
         )
         assert not result.converged
         assert len(result.all_evaluated_points) == 5
-        assert len(
-            set(result.blocked_amplitudes)
-            - {point.amplitude for point in result.all_evaluated_points}
-        ) > 0
+        assert (
+            len(
+                set(result.blocked_amplitudes)
+                - {point.amplitude for point in result.all_evaluated_points}
+            )
+            > 0
+        )
 
     def test_parent_qualification_stops_before_interpolation_comparison(self) -> None:
         template = replace(_template(), minimum_external_gap=2.0)
@@ -182,8 +183,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2AdaptiveAmplitude:
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         root = (
-            "ksdft2effmass.periodic1d.band_equivalence_locality."
-            "embedded_subspace.rank2"
+            "ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2"
         )
         production_parent = importlib.import_module(f"{root}.parent")
         constructor = (
@@ -220,13 +220,10 @@ class TestPeriodic1DEmbeddedSubspaceRank2AdaptiveAmplitude:
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         root = (
-            "ksdft2effmass.periodic1d.band_equivalence_locality."
-            "embedded_subspace.rank2"
+            "ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2"
         )
         production_analysis = importlib.import_module(f"{root}.analysis")
-        production_adaptive = importlib.import_module(
-            f"{root}.amplitude_refinement"
-        )
+        production_adaptive = importlib.import_module(f"{root}.amplitude_refinement")
         result = _analyze(_request())
 
         def forbidden(*_args: object, **_kwargs: object) -> None:

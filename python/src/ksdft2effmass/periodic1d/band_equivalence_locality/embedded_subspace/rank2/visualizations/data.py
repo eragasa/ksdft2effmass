@@ -54,9 +54,7 @@ def _int_tuple(values: Mapping[str, SerializableValue], name: str) -> tuple[int,
     return value
 
 
-def _bool_tuple(
-    values: Mapping[str, SerializableValue], name: str
-) -> tuple[bool, ...]:
+def _bool_tuple(values: Mapping[str, SerializableValue], name: str) -> tuple[bool, ...]:
     value = values[name]
     if type(value) is not tuple or any(type(item) is not bool for item in value):
         raise TypeError(f"{name} must decode to a tuple of built-in booleans")
@@ -151,10 +149,13 @@ class Periodic1DEmbeddedSubspaceRank2VisualizationData(BaseVisualizationData):
             return
         _finite_tuple(self.amplitudes, "amplitudes")
         count = len(self.amplitudes)
-        if any(
-            type(value) is not float or not -1.0 <= value <= 1.0
-            for value in self.correlations
-        ) or len(self.correlations) != count:
+        if (
+            any(
+                type(value) is not float or not -1.0 <= value <= 1.0
+                for value in self.correlations
+            )
+            or len(self.correlations) != count
+        ):
             raise ValueError("correlations must match amplitudes and lie in [-1, 1]")
         for name in (
             "operator_thresholds",
@@ -243,9 +244,7 @@ class Periodic1DEmbeddedSubspaceRank2VisualizationData(BaseVisualizationData):
             comparison_nonzero_weights=tuple(
                 point.comparison_nonzero_hopping_weight for point in analysis.points
             ),
-            band_defects=tuple(
-                point.maximum_band_defect for point in analysis.points
-            ),
+            band_defects=tuple(point.maximum_band_defect for point in analysis.points),
             reconstruction_defects=tuple(
                 point.minimum_loss_reconstruction_defect for point in analysis.points
             ),
@@ -321,9 +320,7 @@ class Periodic1DEmbeddedSubspaceRank2VisualizationData(BaseVisualizationData):
             correlations=_float_tuple(values, "correlations"),
             operator_thresholds=_float_tuple(values, "operator_thresholds"),
             joint_thresholds=_float_tuple(values, "joint_thresholds"),
-            reference_nonzero_weights=_float_tuple(
-                values, "reference_nonzero_weights"
-            ),
+            reference_nonzero_weights=_float_tuple(values, "reference_nonzero_weights"),
             comparison_nonzero_weights=_float_tuple(
                 values, "comparison_nonzero_weights"
             ),
@@ -336,12 +333,8 @@ class Periodic1DEmbeddedSubspaceRank2VisualizationData(BaseVisualizationData):
                 values, "comparison_parseval_defects"
             ),
             hopping_displacements=_int_tuple(values, "hopping_displacements"),
-            reference_hopping_powers=_float_rows(
-                values, "reference_hopping_powers"
-            ),
-            comparison_hopping_powers=_float_rows(
-                values, "comparison_hopping_powers"
-            ),
+            reference_hopping_powers=_float_rows(values, "reference_hopping_powers"),
+            comparison_hopping_powers=_float_rows(values, "comparison_hopping_powers"),
         )
 
 
@@ -382,11 +375,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData(
             name="correlations",
             signed=True,
         )
-        if any(
-            not -1.0 <= value <= 1.0
-            for row in self.correlations
-            for value in row
-        ):
+        if any(not -1.0 <= value <= 1.0 for row in self.correlations for value in row):
             raise ValueError("correlations must lie in [-1, 1]")
         for name in (
             "operator_thresholds",
@@ -416,22 +405,18 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData(
             for member in analysis.members
         ):
             raise ValueError("visualization requires a fully qualified parent family")
-        qualifications = tuple(
-            member.qualification for member in analysis.members
-        )
+        qualifications = tuple(member.qualification for member in analysis.members)
         return cls(
             source_sha256=source_sha256,
             parent_hopping_scales=analysis.request.parent_hopping_scales,
             amplitudes=analysis.request.template_request.amplitudes,
             minimum_external_gaps=tuple(
-                qualification.minimum_external_gap
-                for qualification in qualifications
+                qualification.minimum_external_gap for qualification in qualifications
             ),
             minimum_transport_singular_values=tuple(
                 qualification.minimum_transport_singular_value
                 for qualification in qualifications
-                if type(qualification)
-                is Periodic1DEmbeddedSubspaceRank2QualifiedParent
+                if type(qualification) is Periodic1DEmbeddedSubspaceRank2QualifiedParent
             ),
             correlations=tuple(
                 tuple(point.discrete_maximum_correlation for point in member.points)
@@ -442,9 +427,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData(
                 for member in analysis.members
             ),
             reference_nonzero_weights=tuple(
-                tuple(
-                    point.reference_nonzero_hopping_weight for point in member.points
-                )
+                tuple(point.reference_nonzero_hopping_weight for point in member.points)
                 for member in analysis.members
             ),
             comparison_nonzero_weights=tuple(
@@ -498,9 +481,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyVisualizationData(
             ),
             correlations=_float_rows(values, "correlations"),
             operator_thresholds=_float_rows(values, "operator_thresholds"),
-            reference_nonzero_weights=_float_rows(
-                values, "reference_nonzero_weights"
-            ),
+            reference_nonzero_weights=_float_rows(values, "reference_nonzero_weights"),
             comparison_nonzero_weights=_float_rows(
                 values, "comparison_nonzero_weights"
             ),
@@ -692,10 +673,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData(
             points = truncation.points
             omitted_powers = tuple(
                 tuple(
-                    max(
-                        getattr(point.ranges[index], field)
-                        for point in points
-                    )
+                    max(getattr(point.ranges[index], field) for point in points)
                     for index in range(len(ranges))
                 )
                 for field in (
@@ -707,10 +685,7 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData(
             )
             maximum_errors = tuple(
                 tuple(
-                    max(
-                        getattr(point.ranges[index], field)
-                        for point in points
-                    )
+                    max(getattr(point.ranges[index], field) for point in points)
                     for index in range(len(ranges))
                 )
                 for field in (
@@ -756,7 +731,9 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData(
                     "maximum_reconstruction_defect",
                     "maximum_parseval_defect",
                 )
-            ) if momentum else (),
+            )
+            if momentum
+            else (),
             momentum_within_tolerances=tuple(
                 step.within_tolerances for step in momentum
             ),
@@ -845,32 +822,22 @@ class Periodic1DEmbeddedSubspaceRank2CalculationVisualizationData(
         return cls(
             source_sha256=source,
             parent_family_visualization_data_sha256=family,
-            momentum_fine_mesh_sizes=_int_tuple(
-                values, "momentum_fine_mesh_sizes"
-            ),
+            momentum_fine_mesh_sizes=_int_tuple(values, "momentum_fine_mesh_sizes"),
             momentum_defects=_float_rows(values, "momentum_defects"),
             momentum_within_tolerances=_bool_tuple(
                 values, "momentum_within_tolerances"
             ),
             adaptive_level_indices=_int_tuple(values, "adaptive_level_indices"),
-            adaptive_midpoint_defects=_float_rows(
-                values, "adaptive_midpoint_defects"
-            ),
+            adaptive_midpoint_defects=_float_rows(values, "adaptive_midpoint_defects"),
             adaptive_validation_level_indices=_int_tuple(
                 values, "adaptive_validation_level_indices"
             ),
             adaptive_validation_defects=_float_rows(
                 values, "adaptive_validation_defects"
             ),
-            truncation_maximum_ranges=_int_tuple(
-                values, "truncation_maximum_ranges"
-            ),
-            truncation_omitted_powers=_float_rows(
-                values, "truncation_omitted_powers"
-            ),
-            truncation_maximum_errors=_float_rows(
-                values, "truncation_maximum_errors"
-            ),
+            truncation_maximum_ranges=_int_tuple(values, "truncation_maximum_ranges"),
+            truncation_omitted_powers=_float_rows(values, "truncation_omitted_powers"),
+            truncation_maximum_errors=_float_rows(values, "truncation_maximum_errors"),
             truncation_amplitudes=_float_tuple(values, "truncation_amplitudes"),
             truncation_interpolation_maximum_errors=_float_rows(
                 values, "truncation_interpolation_maximum_errors"

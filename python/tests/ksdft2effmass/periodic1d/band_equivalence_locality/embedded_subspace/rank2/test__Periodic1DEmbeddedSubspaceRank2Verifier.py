@@ -54,9 +54,7 @@ def _analysis_bytes(
     request: Periodic1DEmbeddedSubspaceRank2Request | None = None,
 ) -> bytes:
     analysis = _analyze(request or _request())
-    return Periodic1DEmbeddedSubspaceRank2AnalysisRecorder(
-        analysis
-    ).result().to_json()
+    return Periodic1DEmbeddedSubspaceRank2AnalysisRecorder(analysis).result().to_json()
 
 
 class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
@@ -85,9 +83,10 @@ class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
             "visualization_inventory_defect",
         }
         retained = verification.to_json()
-        assert Periodic1DEmbeddedSubspaceRank2Verification.from_json(
-            retained
-        ).to_json() == retained
+        assert (
+            Periodic1DEmbeddedSubspaceRank2Verification.from_json(retained).to_json()
+            == retained
+        )
 
     def test_zero_amplitude_identity_passes_for_dispersive_family_members(
         self,
@@ -107,10 +106,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
 
             assert analysis.points[0].discrete_maximum_correlation == 1.0
             assert analysis.points[0].minimum_operator_threshold == 0.0
-            assert (
-                analysis.points[0].exact_spectrum_joint_operator_threshold
-                == 0.0
-            )
+            assert analysis.points[0].exact_spectrum_joint_operator_threshold == 0.0
             assert verification.passed
 
     def test_authenticated_projection_renders_the_closed_inventory(self) -> None:
@@ -119,16 +115,18 @@ class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
         ).result_with_visualization()
 
         verified_result_bytes = result.to_json()
-        assert type(result).from_json(
-            verified_result_bytes
-        ).to_json() == verified_result_bytes
-        assert type(result).from_dict(
-            result.to_dict()
-        ).to_json() == verified_result_bytes
+        assert (
+            type(result).from_json(verified_result_bytes).to_json()
+            == verified_result_bytes
+        )
+        assert (
+            type(result).from_dict(result.to_dict()).to_json() == verified_result_bytes
+        )
         projection_bytes = result.visualization_data.to_json()
-        assert type(result.visualization_data).from_json(
-            projection_bytes
-        ).to_json() == projection_bytes
+        assert (
+            type(result.visualization_data).from_json(projection_bytes).to_json()
+            == projection_bytes
+        )
         visualizations = Periodic1DEmbeddedSubspaceRank2Visualizer(
             data=result.visualization_data,
             verification=result.verification,
@@ -139,8 +137,7 @@ class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
             Periodic1DEmbeddedSubspaceRank2VisualizationPlot
         )
         assert all(
-            value.png.startswith(b"\x89PNG\r\n\x1a\n")
-            for value in visualizations
+            value.png.startswith(b"\x89PNG\r\n\x1a\n") for value in visualizations
         )
 
     def test_visualizer_rejects_a_tampered_projection(self) -> None:
@@ -194,12 +191,10 @@ class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
             replace(_request(), minimum_transport_singular_value=1.0)
         )
 
-        assert Periodic1DEmbeddedSubspaceRank2Verifier(
-            gap_subject
-        ).result().passed
-        assert Periodic1DEmbeddedSubspaceRank2Verifier(
-            threshold_subject
-        ).result().passed
+        assert Periodic1DEmbeddedSubspaceRank2Verifier(gap_subject).result().passed
+        assert (
+            Periodic1DEmbeddedSubspaceRank2Verifier(threshold_subject).result().passed
+        )
 
     def test_canonical_scientific_tampering_fails_the_reference_comparison(
         self,
@@ -214,15 +209,17 @@ class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
             ),
         )
         tampered = replace(analysis, points=(first, *analysis.points[1:]))
-        subject = Periodic1DEmbeddedSubspaceRank2AnalysisRecorder(
-            tampered
-        ).result().to_json()
+        subject = (
+            Periodic1DEmbeddedSubspaceRank2AnalysisRecorder(tampered).result().to_json()
+        )
 
         verification = Periodic1DEmbeddedSubspaceRank2Verifier(subject).result()
         assert not verification.passed
-        assert not verification.components[0].observations[
-            "point_scalar_maximum_absolute_defect"
-        ].passed
+        assert (
+            not verification.components[0]
+            .observations["point_scalar_maximum_absolute_defect"]
+            .passed
+        )
 
     def test_fixed_verification_policy_rejects_joint_tolerance_and_value_tampering(
         self,
@@ -272,6 +269,4 @@ class TestPeriodic1DEmbeddedSubspaceRank2Verifier:
         tampered_qualification["band_transport_status"] = "not-a-transport-status"
         threshold_mapping["qualification"] = tampered_qualification
         with pytest.raises(ValueError, match="typed band-transport status"):
-            Periodic1DEmbeddedSubspaceRank2AnalysisRecord.from_dict(
-                threshold_mapping
-            )
+            Periodic1DEmbeddedSubspaceRank2AnalysisRecord.from_dict(threshold_mapping)

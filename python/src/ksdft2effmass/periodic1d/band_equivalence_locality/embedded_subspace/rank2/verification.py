@@ -442,9 +442,7 @@ def _compare_analyses(
     )
     scalar_defect = max(
         abs(getattr(candidate, name) - getattr(expected, name))
-        for candidate, expected in zip(
-            observed.points, reference.points, strict=True
-        )
+        for candidate, expected in zip(observed.points, reference.points, strict=True)
         for name in scalar_names
     )
     harmonic_scalar_names = (
@@ -455,9 +453,7 @@ def _compare_analyses(
     )
     harmonic_defect = max(
         defect
-        for candidate, expected in zip(
-            observed.points, reference.points, strict=True
-        )
+        for candidate, expected in zip(observed.points, reference.points, strict=True)
         for defect in (
             *(
                 abs(
@@ -485,9 +481,7 @@ def _compare_analyses(
             candidate.harmonic_maximum.canonical_maximizing_argument,
             expected.harmonic_maximum.canonical_maximizing_argument,
         )
-        for candidate, expected in zip(
-            observed.points, reference.points, strict=True
-        )
+        for candidate, expected in zip(observed.points, reference.points, strict=True)
     )
     harmonic_identity_defect = float(
         any(
@@ -497,8 +491,7 @@ def _compare_analyses(
                 candidate.harmonic_maximum.harmonic.fundamental_interval_start
                 != expected.harmonic_maximum.harmonic.fundamental_interval_start
             )
-            or candidate.harmonic_maximum.status
-            is not expected.harmonic_maximum.status
+            or candidate.harmonic_maximum.status is not expected.harmonic_maximum.status
             for candidate, expected in zip(
                 observed.points, reference.points, strict=True
             )
@@ -523,9 +516,7 @@ def _compare_analyses(
             "harmonic_argument_maximum_absolute_defect": _observation(
                 harmonic_argument_defect, tolerance
             ),
-            "harmonic_identity_defect": _observation(
-                harmonic_identity_defect, 0.0
-            ),
+            "harmonic_identity_defect": _observation(harmonic_identity_defect, 0.0),
             "hopping_inventory_defect": _observation(
                 float(observed_hopping_inventory != reference_hopping_inventory),
                 0.0,
@@ -624,28 +615,24 @@ def _add_qualification_observations(
             ),
             0.0,
         )
-        observations["minimum_transport_singular_value_absolute_defect"] = (
-            _observation(
-                abs(
-                    observed.minimum_transport_singular_value
-                    - reference_unresolved.minimum_transport_singular_value
-                ),
-                tolerance,
-            )
+        observations["minimum_transport_singular_value_absolute_defect"] = _observation(
+            abs(
+                observed.minimum_transport_singular_value
+                - reference_unresolved.minimum_transport_singular_value
+            ),
+            tolerance,
         )
         return
     if type(observed) is Periodic1DEmbeddedSubspaceRank2BandTransportThresholdFailure:
         reference_threshold = reference
         if type(reference_threshold) is not type(observed):
             return
-        observations["minimum_transport_singular_value_absolute_defect"] = (
-            _observation(
-                abs(
-                    observed.minimum_transport_singular_value
-                    - reference_threshold.minimum_transport_singular_value
-                ),
-                tolerance,
-            )
+        observations["minimum_transport_singular_value_absolute_defect"] = _observation(
+            abs(
+                observed.minimum_transport_singular_value
+                - reference_threshold.minimum_transport_singular_value
+            ),
+            tolerance,
         )
         return
     if type(observed) is not Periodic1DEmbeddedSubspaceRank2QualifiedParent:

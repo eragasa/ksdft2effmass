@@ -90,8 +90,7 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalysis:
             Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest
         ):
             raise TypeError(
-                "request must be "
-                "Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest"
+                "request must be Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest"
             )
         if type(self.members) is not tuple or any(
             type(member) is not Periodic1DEmbeddedSubspaceRank2Analysis
@@ -121,12 +120,9 @@ class Periodic1DEmbeddedSubspaceRank2ParentFamilyAnalyzer:
         request: Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest,
         transporter: ClosedLoopPolarFrameTransporter,
     ) -> None:
-        if type(request) is not (
-            Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest
-        ):
+        if type(request) is not (Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest):
             raise TypeError(
-                "request must be "
-                "Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest"
+                "request must be Periodic1DEmbeddedSubspaceRank2ParentFamilyRequest"
             )
         if type(transporter) is not ClosedLoopPolarFrameTransporter:
             raise TypeError("transporter must be ClosedLoopPolarFrameTransporter")
