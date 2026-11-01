@@ -1,7 +1,7 @@
 Composite-band alignment and locality
 =====================================
 
-``ksdft2effmass.periodic1d.composite_band_alignment`` owns the direct rank-two
+``ksdft2effmass.periodic1d.rank2.band_alignment.composite`` owns the direct rank-two
 calculate, independently verify, and authenticated-render lifecycle for the exact
 four-state finite control. The API is publication independent and does not establish
 continuum convergence, uncertainty quantification, material validity, or evidence

@@ -32,7 +32,9 @@ the two families.
 | `run_01_calculation.py` | Direct calculate adapter; creates one new unsealed execution atomically and refuses overwrite. |
 | `run_02_verification.py` | Direct byte-owning verification adapter; independently reconstructs all numerical channels. |
 | `run_03_render.py` | Direct authenticated render adapter; publishes the closed three-PNG alignment, locality, and error-channel inventory atomically. |
-| `python/src/ksdft2effmass/periodic1d/composite_band_alignment/` | Typed configuration, result, pure analysis, independent verification, authenticated visualization, and public exports. |
+| `python/src/ksdft2effmass/periodic1d/rank2/band_alignment/configuration.py` | Frozen rank-two band-alignment study configuration. |
+| `python/src/ksdft2effmass/periodic1d/rank2/band_alignment/composite/` | Composite orchestration, aggregate results, independent verification, authenticated visualization, and public exports. |
+| `python/src/ksdft2effmass/periodic1d/rank2/gauge_alignment/` | Pointwise and one-global-unitary Procrustes capability consumed by the composite study. |
 | [`../phase-3-split-audit.md`](../phase-3-split-audit.md) | Exact pre-retirement M2 recovery/consumer inventory, two-family channel split, parity gaps, implementation order, and removal gates. |
 | [`legacy-retirement.md`](legacy-retirement.md) | Final pre-removal source/test/API inventory and exact Git recovery authority for the retired M2 runtime and generic block-parent record. |
 | `python/src/ksdft2effmass/periodic1d/admissible_sets/` | Migrated M3 lifecycle consuming authenticated canonical composite-result bytes and explicit verification dependencies. |

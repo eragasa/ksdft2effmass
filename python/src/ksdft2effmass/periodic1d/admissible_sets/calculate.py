@@ -27,7 +27,7 @@ from ksdft2effmass.solidstate import (
     ReciprocalOperatorSamples1D,
 )
 
-from ..composite_band_alignment import (
+from ..rank2.band_alignment.composite import (
     Periodic1DCompositeBandAlignmentCalculationResult,
     Periodic1DCompositeBandAlignmentTransformResult,
     Periodic1DCompositeBandAlignmentVerifier,

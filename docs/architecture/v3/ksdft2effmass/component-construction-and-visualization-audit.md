@@ -131,8 +131,8 @@ families are construction-coherent with Phase 4.
 | `model_systems/qho1d/verification.py` | `Qho1dIndependentReferenceAnalyzer` | Bind the admitted result subject. |
 | `periodic1d/fourier_locality/analysis.py` | `Periodic1DFourierLocalityAnalyzer` | Bind the Fourier-locality configuration. |
 | `periodic1d/fourier_locality/reference.py` | `Periodic1DFourierLocalityIndependentReferenceAnalyzer` | Bind the admitted result and verifier-derived projection reconstructed from exact bytes. |
-| `periodic1d/composite_band_alignment/analysis.py` | `Periodic1DCompositeBandAlignmentAnalyzer` | Bind the composite-alignment configuration. |
-| `periodic1d/composite_band_alignment/reference.py` | `Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer` | Bind the admitted result and verifier-derived projection reconstructed from exact bytes. |
+| `periodic1d/rank2/band_alignment/composite/analysis.py` | `Periodic1DCompositeBandAlignmentAnalyzer` | Bind the composite-alignment configuration. |
+| `periodic1d/rank2/band_alignment/composite/reference.py` | `Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer` | Bind the admitted result and verifier-derived projection reconstructed from exact bytes. |
 | `solidstate/band_frames.py` | `PolarBandFrameTransporter1D` | Bind the frame path and transport threshold. |
 | `solidstate/hopping_transforms.py` | `BandProjectedOperatorPathConstructor1D`; `BlockHoppingInterpolator1D`; `ReciprocalOperatorFourierTransformer1D`; `BlockHoppingTruncator1D` | Bind each complete represented-operator, mesh, interpolation, transform, or truncation request. |
 
@@ -312,7 +312,7 @@ visualization:
 | `model_systems/qho1d/visualization.py` | 572 | QHO1D family package. |
 | `model_systems/mathieu1d/visualization.py` | 668 | Mathieu1D family package. |
 | `periodic1d/fourier_locality/visualization.py` | 739 | Rank-one family package. |
-| `periodic1d/composite_band_alignment/visualization.py` | 547 | Rank-two family package. |
+| `periodic1d/rank2/band_alignment/composite/visualization.py` | 547 | Rank-two family package. |
 
 The shared module is under the wrong owner because Periodic1D imports presentation
 infrastructure from `ksdft2effmass.model_systems`. Shared domain-neutral mechanics must
@@ -340,7 +340,7 @@ model_systems/piab1d/visualizations/
 model_systems/qho1d/visualizations/
 model_systems/mathieu1d/visualizations/
 periodic1d/fourier_locality/visualizations/
-periodic1d/composite_band_alignment/visualizations/
+periodic1d/rank2/band_alignment/composite/visualizations/
 ```
 
 Each family package owns `data.py`, `inventory.py`, `visualizer.py`, and cohesive figure
@@ -362,7 +362,7 @@ The adopted target is documented before runtime migration in:
 - [`mathieu1d.visualizations`](model_systems/mathieu1d/visualizations/index.md);
 - [`fourier_locality.visualizations`](periodic1d/fourier_locality/visualizations/index.md);
   and
-- [`composite_band_alignment.visualizations`](periodic1d/composite_band_alignment/visualizations/index.md).
+- [`rank2.band_alignment.composite.visualizations`](periodic1d/rank2/band_alignment/composite/visualizations/index.md).
 
 ## Migration sequence and gates
 

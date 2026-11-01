@@ -17,9 +17,6 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 from projectkoios.physkit.units import PhysicalUnit
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
-from ksdft2effmass.periodic1d.composite_band_alignment import (
-    Periodic1DCompositeBandAlignmentConfiguration,
-)
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
@@ -35,6 +32,9 @@ from ksdft2effmass.periodic1d.gauge_alignment.factory import (
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rank1.alignment import (
     Periodic1DRank1AlignmentApplicabilityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+    Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentCalculationControls,

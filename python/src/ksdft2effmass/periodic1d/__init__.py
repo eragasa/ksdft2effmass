@@ -133,7 +133,11 @@ from .band_equivalence_locality import (
     Periodic1DRank2VisualizationPlot,
     Periodic1DRank2Visualizer,
 )
-from .composite_band_alignment import (
+from .geometry import (
+    Periodic1DLatticeGeometry,
+    Periodic1DReducedCoordinateConvention,
+)
+from .rank2.band_alignment.composite import (
     CompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentAnalyzer,
     Periodic1DCompositeBandAlignmentCalculationResult,
@@ -150,10 +154,6 @@ from .composite_band_alignment import (
     Periodic1DCompositeBandAlignmentVisualizationData,
     Periodic1DCompositeBandAlignmentVisualizationPlotEnum,
     Periodic1DCompositeBandAlignmentVisualizer,
-)
-from .geometry import (
-    Periodic1DLatticeGeometry,
-    Periodic1DReducedCoordinateConvention,
 )
 from .rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentAnalyzer,

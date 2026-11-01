@@ -15,17 +15,17 @@ import ksdft2effmass.visualizations as visualizations
 from ksdft2effmass.model_systems.mathieu1d import Mathieu1dVisualizer
 from ksdft2effmass.model_systems.piab1d import Piab1dVisualizer
 from ksdft2effmass.model_systems.qho1d import Qho1dVisualizer
-from ksdft2effmass.periodic1d.composite_band_alignment import (
-    Periodic1DCompositeBandAlignmentVisualizer,
-)
-from ksdft2effmass.periodic1d.composite_band_alignment import (
-    visualizations as composite_visualizations,
-)
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityVisualizer,
 )
 from ksdft2effmass.periodic1d.fourier_locality import (
     visualizations as fourier_visualizations,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+    Periodic1DCompositeBandAlignmentVisualizer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+    visualizations as composite_visualizations,
 )
 from ksdft2effmass.visualizations import (
     BaseFigure,
@@ -118,7 +118,7 @@ class TestVisualizationOwnership:
             "ksdft2effmass.model_systems.qho1d.visualization",
             "ksdft2effmass.model_systems.mathieu1d.visualization",
             "ksdft2effmass.periodic1d.fourier_locality.visualization",
-            "ksdft2effmass.periodic1d.composite_band_alignment.visualization",
+            "ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualization",
         ),
     )
     def test_import__singular_legacy_module__is_absent(self, module_name: str) -> None:

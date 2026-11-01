@@ -82,7 +82,7 @@ this root owner.
 - [`model_systems.qho1d.visualizations`](../model_systems/qho1d/visualizations/index.md)
 - [`model_systems.mathieu1d.visualizations`](../model_systems/mathieu1d/visualizations/index.md)
 - [`periodic1d.fourier_locality.visualizations`](../periodic1d/fourier_locality/visualizations/index.md)
-- [`periodic1d.composite_band_alignment.visualizations`](../periodic1d/composite_band_alignment/visualizations/index.md)
+- [`periodic1d.rank2.band_alignment.composite.visualizations`](../periodic1d/rank2/band_alignment/composite/visualizations/index.md)
 
 ## Detailed pages
 

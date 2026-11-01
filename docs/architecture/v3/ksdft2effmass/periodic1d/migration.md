@@ -132,7 +132,7 @@ reviewed retirement of the read-only calculation-local `workflow/` remain open, 
 sealing, promotion, and scientific validation.
 
 **Composite-alignment implementation status:**
-`periodic1d.composite_band_alignment` now supplies immutable typed configuration and results, a pure producer, independent exact-byte verification,
+`periodic1d.rank2.band_alignment.composite` now supplies immutable typed configuration and results, a pure producer, independent exact-byte verification,
 authenticated two-figure rendering, direct effect adapters, package-aligned tests, and
 complete Architecture v3 coverage. The separate research-monograph donor and its 19
 literal consumers are crosswalked without runtime decoding. No retained execution has

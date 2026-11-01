@@ -1,4 +1,4 @@
-"""Rank-two support-truncation result compatibility surface."""
+"""Rank-two support-truncation results."""
 
 from ...band_equivalence_locality.embedded_subspace.rank2.truncation import (
     Periodic1DRank2SupportTruncationAnalysis,

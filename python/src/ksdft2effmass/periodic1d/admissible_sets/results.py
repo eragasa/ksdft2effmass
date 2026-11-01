@@ -13,7 +13,7 @@ import numpy as np
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from ..composite_band_alignment import (
+from ..rank2.band_alignment.composite import (
     Periodic1DCompositeBandAlignmentCalculationResult,
 )
 from .definition import (

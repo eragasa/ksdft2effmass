@@ -10,7 +10,7 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
 
-from ksdft2effmass.periodic1d.composite_band_alignment import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
     Periodic1DCompositeBandAlignmentAnalyzer,
     Periodic1DCompositeBandAlignmentConfiguration,
     Periodic1DCompositeBandAlignmentVerifier,

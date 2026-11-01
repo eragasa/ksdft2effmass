@@ -9,7 +9,7 @@ distinct rank-specialized studies scientifically interchangeable.
 |---|---|---|---|
 | Retained gauge group | $U(1)$ phase | $U(2)$ | $U(r)$ for $r\in\{3,4,8,16\}$ |
 | Represented-operator effect | A scalar represented Hamiltonian satisfies $U^\dagger H U=H$; the four gauge alignments therefore collapse at the operator level. | Non-Abelian basis changes can alter block locality while preserving spectra. | Non-Abelian basis changes are the object of the frozen rank/depth comparison. |
-| Maintained scientific owner | `ksdft2effmass.periodic1d.fourier_locality` | `ksdft2effmass.periodic1d.composite_band_alignment` | `ksdft2effmass.periodic1d.rankN.band_alignment.composite` |
+| Maintained scientific owner | `ksdft2effmass.periodic1d.fourier_locality` | `ksdft2effmass.periodic1d.rank2.band_alignment.composite` | `ksdft2effmass.periodic1d.rankN.band_alignment.composite` |
 | Relationship to shared mechanisms | Uses the scalar Fourier-locality specialization rather than a degenerate matrix gauge-alignment inventory. | May reuse rank-generic orthonormal numerical mechanisms, but retains its own model, controls, tolerances, evidence identity, and verification contract. | Admits exactly ranks `3`, `4`, `8`, and `16` under the D1-v1 model and protocol. |
 | Present disposition | Not admitted to D1 v1. | Not admitted to D1 v1 and not replaced by it. | Implemented producer inventory; independent verification and retained execution remain absent. |
 

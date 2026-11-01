@@ -14,7 +14,7 @@ Fourier toy-parent record, aggregate predecessor test, exports, and Sphinx page 
 after direct replacement and explicit authorization.
 
 Phase 3 and the confirmatory portion of Phase 4 now have direct successors.
-[`periodic1d.composite_band_alignment`](composite_band_alignment/index.md) owns the
+[`periodic1d.rank2.band_alignment.composite`](rank2/band_alignment/composite/index.md) owns the
 rank-two typed lifecycle, and
 [`periodic1d.admissible_sets`](admissible_sets/index.md) consumes authenticated composite
 result bytes through its own request-bound lifecycle. The M2 predecessor, generic block
@@ -27,8 +27,10 @@ The installed package now contains only direct family owners:
 ```text
 periodic1d/
 ├── fourier_locality/             # implemented direct lifecycle
-├── composite_band_alignment/     # implemented direct rank-two lifecycle
-└── admissible_sets/               # implemented confirmatory M3 lifecycle
+├── rank2/
+│   └── band_alignment/
+│       └── composite/            # implemented direct rank-two lifecycle
+└── admissible_sets/              # implemented confirmatory M3 lifecycle
 ```
 
 No compatibility facade or runtime decoder preserves the former M1 or M2 contracts.
@@ -47,7 +49,9 @@ ksdft2effmass/
 │   └── mathieu1d/                   # concrete Mathieu1D vertical slice
 └── periodic1d/
     ├── fourier_locality/            # reusable scalar reduction/locality behavior
-    ├── composite_band_alignment/    # alignment and block-locality behavior
+    ├── rank2/                       # rank-two capability specializations
+    │   └── band_alignment/
+    │       └── composite/           # alignment study composition and lifecycle
     ├── band_equivalence_locality/   # equivalence/locality analysis
     └── admissible_sets/             # constrained-set composition
 ```
