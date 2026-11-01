@@ -25,29 +25,29 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
-from .result import Periodic1DHigherRankAlignmentTransportOwnerResult
+from .calculation_result import Periodic1DRankNAlignmentCalculationResult
+from .result import Periodic1DRankNAlignmentTransportOwnerResult
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
 _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankTransportReferenceRequest:
+class Periodic1DRankNTransportReferenceRequest:
     """Bind one exact producer result to the bounded transport reference action."""
 
-    calculation_result: Periodic1DHigherRankAlignmentCalculationResult
+    calculation_result: Periodic1DRankNAlignmentCalculationResult
 
     def __post_init__(self) -> None:
         if (
             type(self.calculation_result)
-            is not Periodic1DHigherRankAlignmentCalculationResult
+            is not Periodic1DRankNAlignmentCalculationResult
         ):
             raise TypeError("calculation_result must be the exact calculation result")
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankTransportReference:
+class Periodic1DRankNTransportReference:
     """Store immutable constant-frame closed-route comparisons."""
 
     comparisons: Mapping[str, MaximumAbsoluteErrorComparison]
@@ -70,22 +70,22 @@ class Periodic1DHigherRankTransportReference:
 
 
 @final
-class Periodic1DHigherRankTransportReferenceAnalyzer:
+class Periodic1DRankNTransportReferenceAnalyzer:
     """Reconstruct constant-frame transport without the producer transporter."""
 
     __slots__ = ("_request",)
 
-    def __init__(self, request: Periodic1DHigherRankTransportReferenceRequest) -> None:
-        if type(request) is not Periodic1DHigherRankTransportReferenceRequest:
+    def __init__(self, request: Periodic1DRankNTransportReferenceRequest) -> None:
+        if type(request) is not Periodic1DRankNTransportReferenceRequest:
             raise TypeError("request must be the exact transport reference request")
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankTransportReferenceRequest:
+    def request(self) -> Periodic1DRankNTransportReferenceRequest:
         """Return the exact immutable request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankTransportReference:
+    def execute(self) -> Periodic1DRankNTransportReference:
         """Return direct constant-frame transport comparisons on all meshes."""
         calculation = self._request.calculation_result
         configuration = calculation.request.configuration
@@ -100,7 +100,7 @@ class Periodic1DHigherRankTransportReferenceAnalyzer:
         for mesh in calculation.meshes:
             size = mesh.construction_mesh_size
             transport = mesh.transport
-            if type(transport) is not Periodic1DHigherRankAlignmentTransportOwnerResult:
+            if type(transport) is not Periodic1DRankNAlignmentTransportOwnerResult:
                 raise ValueError(
                     "bounded transport reference requires a completed transport result"
                 )
@@ -209,11 +209,11 @@ class Periodic1DHigherRankTransportReferenceAnalyzer:
                     _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE,
                 )
 
-        return Periodic1DHigherRankTransportReference(comparisons=comparisons)
+        return Periodic1DRankNTransportReference(comparisons=comparisons)
 
 
 def _link_arrays(
-    transport: Periodic1DHigherRankAlignmentTransportOwnerResult,
+    transport: Periodic1DRankNAlignmentTransportOwnerResult,
 ) -> tuple[RealArray, RealArray, RealArray, RealArray, RealArray]:
     singular_values: list[tuple[float, ...]] = []
     cutoffs: list[float] = []
@@ -260,7 +260,7 @@ def _comparison(
 
 
 __all__ = [
-    "Periodic1DHigherRankTransportReference",
-    "Periodic1DHigherRankTransportReferenceAnalyzer",
-    "Periodic1DHigherRankTransportReferenceRequest",
+    "Periodic1DRankNTransportReference",
+    "Periodic1DRankNTransportReferenceAnalyzer",
+    "Periodic1DRankNTransportReferenceRequest",
 ]

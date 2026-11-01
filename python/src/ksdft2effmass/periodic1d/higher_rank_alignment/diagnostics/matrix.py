@@ -22,7 +22,7 @@ from .._record_admission import (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankMatrixErrorResult(BaseTypedRecord):
+class Periodic1DRankNMatrixErrorResult(BaseTypedRecord):
     """Retain one raw and rank/energy-normalized matrix and spectrum error summary."""
 
     rank: int
@@ -39,7 +39,7 @@ class Periodic1DHigherRankMatrixErrorResult(BaseTypedRecord):
     def __post_init__(self) -> None:
         MatrixFieldErrorSummary(
             rank=self.rank,
-            energy_reference=self.energy_reference,
+            norm_energy_scale=self.energy_reference,
             matrix_frobenius_maximum=self.matrix_frobenius_maximum,
             matrix_frobenius_rms=self.matrix_frobenius_rms,
             normalized_matrix_frobenius_maximum=(
@@ -63,7 +63,7 @@ class Periodic1DHigherRankMatrixErrorResult(BaseTypedRecord):
             raise TypeError("value must be MatrixFieldErrorSummary")
         return cls(
             rank=value.rank,
-            energy_reference=value.energy_reference,
+            energy_reference=value.norm_energy_scale,
             matrix_frobenius_maximum=value.matrix_frobenius_maximum,
             matrix_frobenius_rms=value.matrix_frobenius_rms,
             normalized_matrix_frobenius_maximum=(
@@ -155,10 +155,10 @@ class Periodic1DHigherRankMatrixErrorResult(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankMatrixComparisonResult(BaseTypedRecord):
+class Periodic1DRankNMatrixComparisonResult(BaseTypedRecord):
     """Retain matrix/spectrum errors and pointwise perturbation-bound evidence."""
 
-    errors: Periodic1DHigherRankMatrixErrorResult
+    errors: Periodic1DRankNMatrixErrorResult
     maximum_ordered_spectrum_minus_spectral_norm: float
     maximum_ordered_spectrum_minus_frobenius_norm: float
     maximum_spectral_norm_minus_frobenius_norm: float
@@ -168,7 +168,7 @@ class Periodic1DHigherRankMatrixComparisonResult(BaseTypedRecord):
     maximum_band_over_frobenius_ratio: float | None
 
     def __post_init__(self) -> None:
-        if type(self.errors) is not Periodic1DHigherRankMatrixErrorResult:
+        if type(self.errors) is not Periodic1DRankNMatrixErrorResult:
             raise TypeError("errors must be the exact matrix error record")
         for value, name in (
             (
@@ -230,7 +230,7 @@ class Periodic1DHigherRankMatrixComparisonResult(BaseTypedRecord):
             bounds.maximum_spectral_norm_minus_frobenius_norm,
         )
         return cls(
-            errors=Periodic1DHigherRankMatrixErrorResult.from_diagnostics(value.errors),
+            errors=Periodic1DRankNMatrixErrorResult.from_diagnostics(value.errors),
             maximum_ordered_spectrum_minus_spectral_norm=bounds.maximum_ordered_spectrum_minus_spectral_norm,
             maximum_ordered_spectrum_minus_frobenius_norm=bounds.maximum_ordered_spectrum_minus_frobenius_norm,
             maximum_spectral_norm_minus_frobenius_norm=bounds.maximum_spectral_norm_minus_frobenius_norm,
@@ -276,7 +276,7 @@ class Periodic1DHigherRankMatrixComparisonResult(BaseTypedRecord):
         }:
             raise ValueError("matrix comparison fields do not match")
         return cls(
-            errors=Periodic1DHigherRankMatrixErrorResult.from_dict(
+            errors=Periodic1DRankNMatrixErrorResult.from_dict(
                 _mapping_value(values["errors"], "errors")
             ),
             maximum_ordered_spectrum_minus_spectral_norm=_decoded_float(

@@ -18,11 +18,11 @@ from projectkoios.physkit.units import ScalarQuantity, Unitless, VectorQuantity
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
+from .calculation_result import Periodic1DRankNAlignmentCalculationResult
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankCoreInvariantReference:
+class Periodic1DRankNCoreInvariantReference:
     """Retain independently reconstructed core-invariant comparisons.
 
     This record is intentionally narrower than the complete direct-formula verifier
@@ -50,17 +50,15 @@ class Periodic1DHigherRankCoreInvariantReference:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankCoreInvariantReferenceRequest:
+class Periodic1DRankNCoreInvariantReferenceRequest:
     """Bind one exact producer result as the reference-analysis subject."""
 
-    result: Periodic1DHigherRankAlignmentCalculationResult
+    result: Periodic1DRankNAlignmentCalculationResult
 
     def __post_init__(self) -> None:
         """Admit only the exact higher-rank calculation-result type."""
-        if type(self.result) is not Periodic1DHigherRankAlignmentCalculationResult:
-            raise TypeError(
-                "result must be Periodic1DHigherRankAlignmentCalculationResult"
-            )
+        if type(self.result) is not Periodic1DRankNAlignmentCalculationResult:
+            raise TypeError("result must be Periodic1DRankNAlignmentCalculationResult")
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,7 +82,7 @@ class _ModelCoreInvariantValues:
     oracle_operator_recovery_defect: float
 
 
-class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
+class Periodic1DRankNCoreInvariantReferenceAnalyzer:
     """Independently reconstruct the analytic model's core invariant diagnostics."""
 
     __slots__ = ("_request",)
@@ -94,20 +92,20 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
 
     def __init__(
         self,
-        request: Periodic1DHigherRankCoreInvariantReferenceRequest,
+        request: Periodic1DRankNCoreInvariantReferenceRequest,
     ) -> None:
-        if type(request) is not Periodic1DHigherRankCoreInvariantReferenceRequest:
+        if type(request) is not Periodic1DRankNCoreInvariantReferenceRequest:
             raise TypeError(
-                "request must be Periodic1DHigherRankCoreInvariantReferenceRequest"
+                "request must be Periodic1DRankNCoreInvariantReferenceRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankCoreInvariantReferenceRequest:
+    def request(self) -> Periodic1DRankNCoreInvariantReferenceRequest:
         """Return the complete immutable reference-analysis request."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankCoreInvariantReference:
+    def execute(self) -> Periodic1DRankNCoreInvariantReference:
         """Return direct-formula comparisons for every construction mesh."""
         result = self.request.result
         request = result.request
@@ -224,7 +222,7 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
             request.configuration.construction_mesh_sizes
         ):
             raise ValueError("result mesh inventory changed after result admission")
-        return Periodic1DHigherRankCoreInvariantReference(comparisons)
+        return Periodic1DRankNCoreInvariantReference(comparisons)
 
     def _sampled_isolation_gaps(self) -> np.ndarray:
         values = []
@@ -536,7 +534,7 @@ class Periodic1DHigherRankCoreInvariantReferenceAnalyzer:
 
 
 __all__ = [
-    "Periodic1DHigherRankCoreInvariantReference",
-    "Periodic1DHigherRankCoreInvariantReferenceAnalyzer",
-    "Periodic1DHigherRankCoreInvariantReferenceRequest",
+    "Periodic1DRankNCoreInvariantReference",
+    "Periodic1DRankNCoreInvariantReferenceAnalyzer",
+    "Periodic1DRankNCoreInvariantReferenceRequest",
 ]

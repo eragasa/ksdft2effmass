@@ -4,32 +4,32 @@ from __future__ import annotations
 
 from typing import final
 
-from .definition import Periodic1DHigherRankAlignmentStatus
-from .gauge_alignment.results import Periodic1DHigherRankGaugeAlignmentMeshResult
+from .definition import Periodic1DRankNAlignmentStatus
+from .gauge_alignment.results import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 @final
-class Periodic1DHigherRankScalarDiagnosticInventoryExtractor:
+class Periodic1DRankNScalarDiagnosticInventoryExtractor:
     """Extract scalar diagnostics from one qualified gauge-alignment result."""
 
     __slots__ = ("_gauge_alignment_result",)
 
     def __init__(
-        self, gauge_alignment: Periodic1DHigherRankGaugeAlignmentMeshResult
+        self, gauge_alignment: Periodic1DRankNGaugeAlignmentMeshResult
     ) -> None:
-        if type(gauge_alignment) is not Periodic1DHigherRankGaugeAlignmentMeshResult:
+        if type(gauge_alignment) is not Periodic1DRankNGaugeAlignmentMeshResult:
             raise TypeError(
                 "gauge_alignment must be the exact gauge-alignment result record"
             )
         if (
             gauge_alignment.status.status
-            is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+            is not Periodic1DRankNAlignmentStatus.QUALIFIED
         ):
             raise ValueError("scalar inventory requires a qualified gauge alignment")
         self._gauge_alignment_result = gauge_alignment
 
     @property
-    def gauge_alignment(self) -> Periodic1DHigherRankGaugeAlignmentMeshResult:
+    def gauge_alignment(self) -> Periodic1DRankNGaugeAlignmentMeshResult:
         """Return the exact gauge-alignment result bound to this action."""
         return self._gauge_alignment_result
 
@@ -102,4 +102,4 @@ class Periodic1DHigherRankScalarDiagnosticInventoryExtractor:
         return tuple(values)
 
 
-__all__ = ["Periodic1DHigherRankScalarDiagnosticInventoryExtractor"]
+__all__ = ["Periodic1DRankNScalarDiagnosticInventoryExtractor"]

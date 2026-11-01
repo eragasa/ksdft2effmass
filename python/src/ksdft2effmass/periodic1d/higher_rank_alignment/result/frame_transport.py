@@ -25,26 +25,29 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
+from ksdft2effmass.periodic1d.rankN.alignment.result.status import (
+    _case_identity,
+    _nonempty_text,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from ..configuration import Periodic1DHigherRankAlignmentConfiguration
-from ..definition import Periodic1DHigherRankAlignmentBackendExceptionCode
-from ..request import Periodic1DHigherRankAlignmentTransportRequest
-from .status import _case_identity, _nonempty_text
+from ..configuration import Periodic1DRankNAlignmentConfiguration
+from ..definition import Periodic1DRankNAlignmentBackendExceptionCode
+from ..request import Periodic1DRankNAlignmentTransportRequest
 
 
 def _backend_exception_code(
     reason: ClosedLoopPolarFrameTransportBackendFailureReason,
-) -> Periodic1DHigherRankAlignmentBackendExceptionCode:
+) -> Periodic1DRankNAlignmentBackendExceptionCode:
     return {
         ClosedLoopPolarFrameTransportBackendFailureReason.NONFINITE_OUTPUT: (
-            Periodic1DHigherRankAlignmentBackendExceptionCode.ARITHMETIC_NONFINITE
+            Periodic1DRankNAlignmentBackendExceptionCode.ARITHMETIC_NONFINITE
         ),
         ClosedLoopPolarFrameTransportBackendFailureReason.NONCONVERGENCE: (
-            Periodic1DHigherRankAlignmentBackendExceptionCode.NONCONVERGENCE
+            Periodic1DRankNAlignmentBackendExceptionCode.NONCONVERGENCE
         ),
         ClosedLoopPolarFrameTransportBackendFailureReason.INVALID_DECOMPOSITION: (
-            Periodic1DHigherRankAlignmentBackendExceptionCode.VALIDATION_FAILED
+            Periodic1DRankNAlignmentBackendExceptionCode.VALIDATION_FAILED
         ),
     }[reason]
 
@@ -131,7 +134,7 @@ def _decoded_optional_float_tuple(
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentTransportBackendFailureResult(BaseTypedRecord):
+class Periodic1DRankNAlignmentTransportBackendFailureResult(BaseTypedRecord):
     """Record one numerical transport failure without runtime exception text.
 
     Parameters
@@ -163,7 +166,7 @@ class Periodic1DHigherRankAlignmentTransportBackendFailureResult(BaseTypedRecord
     operation: ClosedLoopPolarFrameTransportBackendOperation
     reason: ClosedLoopPolarFrameTransportBackendFailureReason
     link_index: int
-    backend_exception_code: Periodic1DHigherRankAlignmentBackendExceptionCode
+    backend_exception_code: Periodic1DRankNAlignmentBackendExceptionCode
 
     def __post_init__(self) -> None:
         """Validate case, route index, and exact owner-to-KSD classification."""
@@ -172,17 +175,17 @@ class Periodic1DHigherRankAlignmentTransportBackendFailureResult(BaseTypedRecord
             (
                 self.retained_rank,
                 "retained_rank",
-                Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS,
+                Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS,
             ),
             (
                 self.circuit_depth,
                 "circuit_depth",
-                Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS,
+                Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS,
             ),
             (
                 self.construction_mesh_size,
                 "construction_mesh_size",
-                Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES,
+                Periodic1DRankNAlignmentConfiguration.CONSTRUCTION_MESH_SIZES,
             ),
         ):
             if type(value) is not int:
@@ -206,7 +209,7 @@ class Periodic1DHigherRankAlignmentTransportBackendFailureResult(BaseTypedRecord
         ):
             raise ValueError("closure Schur failures must identify the closure link")
         if type(self.backend_exception_code) is not (
-            Periodic1DHigherRankAlignmentBackendExceptionCode
+            Periodic1DRankNAlignmentBackendExceptionCode
         ):
             raise TypeError("backend_exception_code must be the exact KSD enum")
         expected_code = _backend_exception_code(self.reason)
@@ -299,13 +302,13 @@ class Periodic1DHigherRankAlignmentTransportBackendFailureResult(BaseTypedRecord
             reason=ClosedLoopPolarFrameTransportBackendFailureReason(reason),
             link_index=integers["link_index"],
             backend_exception_code=(
-                Periodic1DHigherRankAlignmentBackendExceptionCode(exception_code)
+                Periodic1DRankNAlignmentBackendExceptionCode(exception_code)
             ),
         )
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentTransportLinkResult(BaseTypedRecord):
+class Periodic1DRankNAlignmentTransportLinkResult(BaseTypedRecord):
     """Record numerical-rank evidence for one neighbor or closure link.
 
     Parameters
@@ -444,7 +447,7 @@ class Periodic1DHigherRankAlignmentTransportLinkResult(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
+class Periodic1DRankNAlignmentTransportOwnerResult(BaseTypedRecord):
     """Record one request-matched closed-loop frame-transport calculation.
 
     Parameters
@@ -495,7 +498,7 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
     copied into immutable byte-backed PhysKit quantities.
     """
 
-    request: Periodic1DHigherRankAlignmentTransportRequest
+    request: Periodic1DRankNAlignmentTransportRequest
     case_identity: str
     retained_rank: int
     circuit_depth: int
@@ -508,7 +511,7 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
     endpoint_sewing_action: EndpointSewingAction
     principal_phase_branch: ClosedLoopPolarFrameTransportPrincipalPhaseBranch
     status: ClosedLoopPolarFrameTransportStatus
-    link_results: tuple[Periodic1DHigherRankAlignmentTransportLinkResult, ...]
+    link_results: tuple[Periodic1DRankNAlignmentTransportLinkResult, ...]
     deficient_link_indices: tuple[int, ...]
     unattempted_link_indices: tuple[int, ...]
     ordered_closure_endpoint_mismatch_phases: tuple[float, ...] | None
@@ -524,26 +527,24 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
 
     def __post_init__(self) -> None:
         """Validate case, identity, progression, phase, and backend correlations."""
-        if type(self.request) is not Periodic1DHigherRankAlignmentTransportRequest:
-            raise TypeError(
-                "request must be Periodic1DHigherRankAlignmentTransportRequest"
-            )
+        if type(self.request) is not Periodic1DRankNAlignmentTransportRequest:
+            raise TypeError("request must be Periodic1DRankNAlignmentTransportRequest")
         _nonempty_text(self.case_identity, "case_identity")
         for integer_value, name, allowed in (
             (
                 self.retained_rank,
                 "retained_rank",
-                Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS,
+                Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS,
             ),
             (
                 self.circuit_depth,
                 "circuit_depth",
-                Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS,
+                Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS,
             ),
             (
                 self.construction_mesh_size,
                 "construction_mesh_size",
-                Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES,
+                Periodic1DRankNAlignmentConfiguration.CONSTRUCTION_MESH_SIZES,
             ),
         ):
             if type(integer_value) is not int:
@@ -605,7 +606,7 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
             raise TypeError("status must be the exact owner transport status enum")
 
         if type(self.link_results) is not tuple or any(
-            type(result) is not Periodic1DHigherRankAlignmentTransportLinkResult
+            type(result) is not Periodic1DRankNAlignmentTransportLinkResult
             for result in self.link_results
         ):
             raise TypeError("link_results must contain exact transport-link records")
@@ -694,10 +695,10 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
                 sewn_to_primitive.magnitude,
                 primitive_to_sewn.magnitude.conjugate().T,
                 rtol=(
-                    Periodic1DHigherRankAlignmentConfiguration.BACKEND_VALIDATION_RELATIVE_TOLERANCE
+                    Periodic1DRankNAlignmentConfiguration.BACKEND_VALIDATION_RELATIVE_TOLERANCE
                 ),
                 atol=(
-                    Periodic1DHigherRankAlignmentConfiguration.BACKEND_VALIDATION_ABSOLUTE_TOLERANCE
+                    Periodic1DRankNAlignmentConfiguration.BACKEND_VALIDATION_ABSOLUTE_TOLERANCE
                 ),
             ):
                 raise ValueError(
@@ -711,10 +712,10 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
                 ),
                 primitive_to_sewn.magnitude,
                 rtol=(
-                    Periodic1DHigherRankAlignmentConfiguration.BACKEND_VALIDATION_RELATIVE_TOLERANCE
+                    Periodic1DRankNAlignmentConfiguration.BACKEND_VALIDATION_RELATIVE_TOLERANCE
                 ),
                 atol=(
-                    Periodic1DHigherRankAlignmentConfiguration.BACKEND_VALIDATION_ABSOLUTE_TOLERANCE
+                    Periodic1DRankNAlignmentConfiguration.BACKEND_VALIDATION_ABSOLUTE_TOLERANCE
                 ),
             ):
                 raise ValueError(
@@ -791,14 +792,12 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
     def from_owner_outcome(
         cls,
         *,
-        request: Periodic1DHigherRankAlignmentTransportRequest,
+        request: Periodic1DRankNAlignmentTransportRequest,
         outcome: ClosedLoopFrameTransportOutcome,
     ) -> Self:
         """Record one request-matched PhysKit outcome without mutable aliases."""
-        if type(request) is not Periodic1DHigherRankAlignmentTransportRequest:
-            raise TypeError(
-                "request must be Periodic1DHigherRankAlignmentTransportRequest"
-            )
+        if type(request) is not Periodic1DRankNAlignmentTransportRequest:
+            raise TypeError("request must be Periodic1DRankNAlignmentTransportRequest")
         if type(outcome) is not ClosedLoopFrameTransportOutcome:
             raise TypeError("outcome must be ClosedLoopFrameTransportOutcome")
         source = outcome.source
@@ -846,7 +845,7 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
             principal_phase_branch=outcome.principal_phase_branch,
             status=outcome.status,
             link_results=tuple(
-                Periodic1DHigherRankAlignmentTransportLinkResult.from_owner_diagnostic(
+                Periodic1DRankNAlignmentTransportLinkResult.from_owner_diagnostic(
                     diagnostic
                 )
                 for diagnostic in outcome.link_diagnostics
@@ -967,7 +966,7 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
         request_value = values["request"]
         if not isinstance(request_value, Mapping):
             raise TypeError("request must decode to a mapping")
-        request = Periodic1DHigherRankAlignmentTransportRequest.from_dict(request_value)
+        request = Periodic1DRankNAlignmentTransportRequest.from_dict(request_value)
 
         string_names = (
             "case_identity",
@@ -1013,15 +1012,13 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
         )
         if not isinstance(link_results_value, tuple):
             raise TypeError("link_results must decode to a tuple")
-        decoded_links: list[Periodic1DHigherRankAlignmentTransportLinkResult] = []
+        decoded_links: list[Periodic1DRankNAlignmentTransportLinkResult] = []
         for link_value in link_results_value:
-            if type(link_value) is Periodic1DHigherRankAlignmentTransportLinkResult:
+            if type(link_value) is Periodic1DRankNAlignmentTransportLinkResult:
                 decoded_links.append(link_value)
             elif isinstance(link_value, Mapping):
                 decoded_links.append(
-                    Periodic1DHigherRankAlignmentTransportLinkResult.from_dict(
-                        link_value
-                    )
+                    Periodic1DRankNAlignmentTransportLinkResult.from_dict(link_value)
                 )
             else:
                 raise TypeError("link_results entries must decode to mappings")
@@ -1101,7 +1098,7 @@ class Periodic1DHigherRankAlignmentTransportOwnerResult(BaseTypedRecord):
 
 
 __all__ = [
-    "Periodic1DHigherRankAlignmentTransportBackendFailureResult",
-    "Periodic1DHigherRankAlignmentTransportLinkResult",
-    "Periodic1DHigherRankAlignmentTransportOwnerResult",
+    "Periodic1DRankNAlignmentTransportBackendFailureResult",
+    "Periodic1DRankNAlignmentTransportLinkResult",
+    "Periodic1DRankNAlignmentTransportOwnerResult",
 ]

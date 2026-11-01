@@ -9,12 +9,12 @@ from typing import ClassVar, Self
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ._record_admission import _finite_nonnegative, _mapping_value, _nonempty
-from .configuration import Periodic1DHigherRankAlignmentConfiguration
-from .request import Periodic1DHigherRankAlignmentTransportRequest
+from .configuration import Periodic1DRankNAlignmentConfiguration
+from .request import Periodic1DRankNAlignmentTransportRequest
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentCalculationControls(BaseTypedRecord):
+class Periodic1DRankNAlignmentCalculationControls(BaseTypedRecord):
     """Store frozen supports, normalizations, resource bounds, and tolerances."""
 
     support_radii: tuple[int, ...]
@@ -219,11 +219,11 @@ class Periodic1DHigherRankAlignmentCalculationControls(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentCalculationRequest(BaseTypedRecord):
+class Periodic1DRankNAlignmentCalculationRequest(BaseTypedRecord):
     """Bind one rank/depth calculation to exact controls and physical identities."""
 
-    configuration: Periodic1DHigherRankAlignmentConfiguration
-    controls: Periodic1DHigherRankAlignmentCalculationControls
+    configuration: Periodic1DRankNAlignmentConfiguration
+    controls: Periodic1DRankNAlignmentCalculationControls
     retained_rank: int
     circuit_depth: int
     ambient_basis_identifier: str
@@ -233,9 +233,9 @@ class Periodic1DHigherRankAlignmentCalculationRequest(BaseTypedRecord):
     energy_reference_identifier: str
 
     def __post_init__(self) -> None:
-        if type(self.configuration) is not Periodic1DHigherRankAlignmentConfiguration:
+        if type(self.configuration) is not Periodic1DRankNAlignmentConfiguration:
             raise TypeError("configuration must be the exact higher-rank configuration")
-        if type(self.controls) is not Periodic1DHigherRankAlignmentCalculationControls:
+        if type(self.controls) is not Periodic1DRankNAlignmentCalculationControls:
             raise TypeError("controls must be the exact calculation controls")
         if (
             type(self.retained_rank) is not int
@@ -262,9 +262,9 @@ class Periodic1DHigherRankAlignmentCalculationRequest(BaseTypedRecord):
 
     def transport_request(
         self, construction_mesh_size: int
-    ) -> Periodic1DHigherRankAlignmentTransportRequest:
+    ) -> Periodic1DRankNAlignmentTransportRequest:
         """Return the exact transport request for one configured construction mesh."""
-        return Periodic1DHigherRankAlignmentTransportRequest(
+        return Periodic1DRankNAlignmentTransportRequest(
             configuration=self.configuration,
             retained_rank=self.retained_rank,
             circuit_depth=self.circuit_depth,
@@ -318,10 +318,10 @@ class Periodic1DHigherRankAlignmentCalculationRequest(BaseTypedRecord):
                 raise TypeError(f"{name} must decode to a built-in string")
             strings[name] = value
         return cls(
-            configuration=Periodic1DHigherRankAlignmentConfiguration.from_dict(
+            configuration=Periodic1DRankNAlignmentConfiguration.from_dict(
                 _mapping_value(values["configuration"], "configuration")
             ),
-            controls=Periodic1DHigherRankAlignmentCalculationControls.from_dict(
+            controls=Periodic1DRankNAlignmentCalculationControls.from_dict(
                 _mapping_value(values["controls"], "controls")
             ),
             retained_rank=rank,

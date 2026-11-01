@@ -31,9 +31,9 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
-from .definition import Periodic1DHigherRankAlignmentStatus
-from .diagnostics import Periodic1DHigherRankProcrustesDiagnostics
+from .calculation_result import Periodic1DRankNAlignmentCalculationResult
+from .definition import Periodic1DRankNAlignmentStatus
+from .diagnostics import Periodic1DRankNProcrustesDiagnostics
 from .fourier_reference import _coordinates, _gauge_unitaries
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
@@ -41,21 +41,21 @@ _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankProcrustesReferenceRequest:
+class Periodic1DRankNProcrustesReferenceRequest:
     """Bind one exact producer result to the bounded Procrustes reference action."""
 
-    calculation_result: Periodic1DHigherRankAlignmentCalculationResult
+    calculation_result: Periodic1DRankNAlignmentCalculationResult
 
     def __post_init__(self) -> None:
         if (
             type(self.calculation_result)
-            is not Periodic1DHigherRankAlignmentCalculationResult
+            is not Periodic1DRankNAlignmentCalculationResult
         ):
             raise TypeError("calculation_result must be the exact calculation result")
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankProcrustesReference:
+class Periodic1DRankNProcrustesReference:
     """Store immutable independently reconstructed Procrustes comparisons."""
 
     comparisons: Mapping[str, MaximumAbsoluteErrorComparison]
@@ -96,25 +96,25 @@ class _ProcrustesValues:
 
 
 @final
-class Periodic1DHigherRankProcrustesReferenceAnalyzer:
+class Periodic1DRankNProcrustesReferenceAnalyzer:
     """Recompute global and pointwise selections without the producer solver."""
 
     __slots__ = ("_request",)
 
     def __init__(
         self,
-        request: Periodic1DHigherRankProcrustesReferenceRequest,
+        request: Periodic1DRankNProcrustesReferenceRequest,
     ) -> None:
-        if type(request) is not Periodic1DHigherRankProcrustesReferenceRequest:
+        if type(request) is not Periodic1DRankNProcrustesReferenceRequest:
             raise TypeError("request must be the exact Procrustes reference request")
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankProcrustesReferenceRequest:
+    def request(self) -> Periodic1DRankNProcrustesReferenceRequest:
         """Return the exact immutable request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankProcrustesReference:
+    def execute(self) -> Periodic1DRankNProcrustesReference:
         """Return bounded global and pointwise Procrustes comparisons."""
         calculation = self._request.calculation_result
         request = calculation.request
@@ -174,7 +174,7 @@ class Periodic1DHigherRankProcrustesReferenceAnalyzer:
                 mesh.pointwise_selection,
             )
 
-        return Periodic1DHigherRankProcrustesReference(comparisons=comparisons)
+        return Periodic1DRankNProcrustesReference(comparisons=comparisons)
 
 
 def _polar_factors(crosses: ComplexArray) -> ComplexArray:
@@ -281,11 +281,11 @@ def _add_selection_comparisons(
     comparisons: dict[str, MaximumAbsoluteErrorComparison],
     prefix: str,
     calculated: _ProcrustesValues,
-    observed: Periodic1DHigherRankProcrustesDiagnostics,
+    observed: Periodic1DRankNProcrustesDiagnostics,
 ) -> None:
-    if type(observed) is not Periodic1DHigherRankProcrustesDiagnostics:
+    if type(observed) is not Periodic1DRankNProcrustesDiagnostics:
         raise TypeError("observed selection must be exact Procrustes diagnostics")
-    if observed.status.status is not Periodic1DHigherRankAlignmentStatus.QUALIFIED:
+    if observed.status.status is not Periodic1DRankNAlignmentStatus.QUALIFIED:
         raise ValueError("bounded Procrustes reference requires qualified selections")
     if any(value is None for value in observed.spectral_condition_numbers):
         raise ValueError("qualified bounded selection must retain condition numbers")
@@ -419,7 +419,7 @@ def _comparison(
 
 
 __all__ = [
-    "Periodic1DHigherRankProcrustesReference",
-    "Periodic1DHigherRankProcrustesReferenceAnalyzer",
-    "Periodic1DHigherRankProcrustesReferenceRequest",
+    "Periodic1DRankNProcrustesReference",
+    "Periodic1DRankNProcrustesReferenceAnalyzer",
+    "Periodic1DRankNProcrustesReferenceRequest",
 ]

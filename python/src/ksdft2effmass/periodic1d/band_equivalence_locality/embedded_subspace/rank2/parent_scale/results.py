@@ -14,6 +14,7 @@ from projectkoios.optimization.alignment.closed_loop_polar_transport import (
 )
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximum
 
+from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
 from ksdft2effmass.representation_equivalence import RepresentationEquivalence
 
 from .request import Periodic1DRank2Request
@@ -149,7 +150,7 @@ class Periodic1DRank2QualifiedParent(Periodic1DRank2Qualification):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2HoppingPower:
+class Periodic1DRank2HoppingPower(Periodic1DHoppingLocality):
     """Retain reference and attacked block power at one cyclic representative."""
 
     displacement: int

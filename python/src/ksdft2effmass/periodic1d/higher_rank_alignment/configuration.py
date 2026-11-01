@@ -22,7 +22,7 @@ from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 from ..geometry import Periodic1DReducedCoordinateConvention
 from .gauge_alignment.definition import (
     GaugeAlignmentWireMapping,
-    Periodic1DHigherRankGaugeAlignment,
+    Periodic1DRankNGaugeAlignment,
 )
 
 
@@ -41,7 +41,7 @@ def _decoded_integer_tuple(
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentConfiguration(
+class Periodic1DRankNAlignmentConfiguration(
     BaseTypedRecord,
     Periodic1DReducedCoordinateConvention,
 ):
@@ -104,7 +104,7 @@ class Periodic1DHigherRankAlignmentConfiguration(
     evaluation_mesh_size: int
     evaluation_shift_numerator: int
     evaluation_shift_denominator: int
-    gauge_alignments: tuple[Periodic1DHigherRankGaugeAlignment, ...]
+    gauge_alignments: tuple[Periodic1DRankNGaugeAlignment, ...]
     frame_rotation_action: FrameRotationAction
     endpoint_sewing_action: EndpointSewingAction
     principal_phase_branch: ClosedLoopPolarFrameTransportPrincipalPhaseBranch
@@ -129,11 +129,11 @@ class Periodic1DHigherRankAlignmentConfiguration(
     EVALUATION_MESH_SIZE: ClassVar[int] = 8191
     EVALUATION_SHIFT_NUMERATOR: ClassVar[int] = 1
     EVALUATION_SHIFT_DENOMINATOR: ClassVar[int] = 2
-    GAUGE_ALIGNMENTS: ClassVar[tuple[Periodic1DHigherRankGaugeAlignment, ...]] = (
-        Periodic1DHigherRankGaugeAlignment.IDENTITY,
-        Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
-        Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
-        Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
+    GAUGE_ALIGNMENTS: ClassVar[tuple[Periodic1DRankNGaugeAlignment, ...]] = (
+        Periodic1DRankNGaugeAlignment.IDENTITY,
+        Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
+        Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
+        Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
     )
     RANK_CUTOFF_RULE: ClassVar[ComplexUnitaryProcrustesRankCutoffRule] = (
         ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM
@@ -214,7 +214,7 @@ class Periodic1DHigherRankAlignmentConfiguration(
             raise ValueError("evaluation shift must equal the frozen half step")
 
         if type(self.gauge_alignments) is not tuple or any(
-            type(gauge_alignment) is not Periodic1DHigherRankGaugeAlignment
+            type(gauge_alignment) is not Periodic1DRankNGaugeAlignment
             for gauge_alignment in self.gauge_alignments
         ):
             raise TypeError("gauge_alignments must contain exact gauge-alignment enums")
@@ -394,7 +394,7 @@ class Periodic1DHigherRankAlignmentConfiguration(
         gauge_alignment_values = values["gauge_alignments"]
         if not isinstance(gauge_alignment_values, tuple):
             raise TypeError("gauge_alignments must decode to a tuple")
-        gauge_alignments: list[Periodic1DHigherRankGaugeAlignment] = []
+        gauge_alignments: list[Periodic1DRankNGaugeAlignment] = []
         for gauge_alignment_value in gauge_alignment_values:
             if type(gauge_alignment_value) is not str:
                 raise TypeError("gauge alignments must decode to strings")
@@ -481,4 +481,4 @@ class Periodic1DHigherRankAlignmentConfiguration(
         )
 
 
-__all__ = ["Periodic1DHigherRankAlignmentConfiguration"]
+__all__ = ["Periodic1DRankNAlignmentConfiguration"]

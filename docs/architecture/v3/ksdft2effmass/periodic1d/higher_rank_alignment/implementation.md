@@ -38,14 +38,28 @@
 | `gauge_alignment/recovery.py` | Evaluates frame and represented-operator recovery. |
 | `gauge_alignment/fourier.py` | Owns odd-mesh transforms and Fourier structural evidence. |
 | `gauge_alignment/interpolation.py` | Owns direct and complete-series shifted-mesh evaluation. |
-| `gauge_alignment/locality.py` | Owns support tails, truncation, and error decomposition. |
+| `rankN/hopping_locality/analysis.py` | Measures coefficient tails and nested-range monotonicity without removing Fourier support. |
+| `rankN/hopping_locality/result.py` | Owns immutable hopping-tail values without inheriting support-truncation semantics. |
+| `rankN/support_truncation/analysis.py` | Constructs finite-support operators and owns the consequences of irreversible support removal under the installed `RealSpaceSupportTruncation` base. |
+| `rankN/support_truncation/result.py` | Preserves the historical combined wire record while the admitted mesh result exposes a non-serialized hopping-locality projection. |
+| `gauge_alignment/locality.py` | Preserves the historical import path as a same-type alias. |
 | `gauge_alignment/assembly.py` | Correlates stage evidence and assembles one public mesh result. |
 | `gauge_alignment/analysis.py` | Executes the typed stages in scientific order. |
-| `gauge_alignment/results/support.py` | Stores symmetric-support locality and error-channel records. |
+| `gauge_alignment/results/support.py` | Preserves the historical support-result import path as a same-type alias. |
 | `gauge_alignment/results/alignment.py` | Stores transform, recovery, interpolation, and locality evidence for one alignment. |
 | `gauge_alignment/results/mesh.py` | Correlates model, common transport, selection, and alignment evidence for one mesh. |
 | `gauge_alignment/results/__init__.py` | Exposes the deliberate public gauge-alignment result inventory. |
 | `gauge_alignment/__init__.py` | Exposes definitions only; purpose-specific actions remain module-local. |
+
+The rank-first migration uses the scientific bases installed directly under
+`ksdft2effmass`: representation equivalence, real-space support truncation, and
+subspace reduction. It does not introduce duplicate bases beneath `periodic1d`.
+The first migrated concrete slices are rank-N hopping locality and support
+truncation. Hopping locality characterizes the unchanged Fourier coefficient field;
+support truncation constructs a different finite-support representation and measures
+its errors. The public mesh wire remains unchanged. Historical
+`higher_rank_alignment.gauge_alignment` imports resolve to compatibility actions that
+compose the separated canonical owners.
 
 The maintained records are immutable and serialize deterministically. Arrays use nominal
 Project Koios immutable NumPy construction and validation. Request admission is
@@ -79,7 +93,7 @@ alternative cutoffs, and inventories outside the frozen study are rejected.
 
 ## Transport boundary
 
-`Periodic1DHigherRankAlignmentTransportOwnerResult.from_owner_outcome` converts one
+`Periodic1DRankNAlignmentTransportOwnerResult.from_owner_outcome` converts one
 PhysKit closed-loop transport result into immutable KSD evidence. It validates the
 unshifted one-dimensional mesh, retained rank, ambient dimension, action conventions,
 phase branch, tolerance, ordered links, and exact basis, frame, and sewing identities.
@@ -92,28 +106,31 @@ control.
 
 ## Gauge-alignment action decomposition
 
-`Periodic1DHigherRankAlignmentAnalyzer` receives one complete immutable calculation
+`Periodic1DRankNAlignmentAnalyzer` receives one complete immutable calculation
 request and explicit Optimization, PhysKit, and KSD collaborators. Its zero-argument
 `execute()` constructs an analytic case, performs the sole global selection at
 $M=2049$, evaluates all construction meshes, delegates each prescribed gauge alignment
-to `Periodic1DHigherRankGaugeAlignmentAnalyzer`, and delegates mesh-pair comparisons to
-`Periodic1DHigherRankRefinementAnalyzer`.
+to `Periodic1DRankNGaugeAlignmentAnalyzer`, and delegates mesh-pair comparisons to
+`Periodic1DRankNRefinementAnalyzer`.
 
 For one gauge alignment and mesh, the typed stages are:
 
-1. `Periodic1DHigherRankGaugeAlignmentConstructor` constructs the represented operator
+1. `Periodic1DRankNGaugeAlignmentConstructor` constructs the represented operator
    and aligned frame as one nominal immutable field record.
-2. `Periodic1DHigherRankGaugeAlignmentRecoveryAnalyzer` checks recovery against the
+2. `Periodic1DRankNGaugeAlignmentRecoveryAnalyzer` checks recovery against the
    declared analytic or solver-owned construction.
-3. `Periodic1DHigherRankGaugeAlignmentFourierAnalyzer` applies the PhysKit odd-mesh
+3. `Periodic1DRankNGaugeAlignmentFourierAnalyzer` applies the PhysKit odd-mesh
    transform and evaluates coefficient-index, Parseval, and Hermiticity evidence.
-4. `Periodic1DHigherRankGaugeAlignmentInterpolationAnalyzer` evaluates the complete
+4. `Periodic1DRankNGaugeAlignmentInterpolationAnalyzer` evaluates the complete
    Fourier series and direct analytic field on the shifted mesh.
-5. `Periodic1DHigherRankGaugeAlignmentLocalityAnalyzer` evaluates every frozen symmetric
-   support and keeps interpolation, truncation, and total error channels separate.
-6. `Periodic1DHigherRankGaugeAlignmentResultAssembler` admits only evidence derived from
-   the same exact analysis request and assembles the public mesh result without
-   recomputing scientific values.
+5. `Periodic1DRankNHoppingLocalityAnalyzer` measures every frozen symmetric-range
+   coefficient tail and its nested-range monotonicity without removing support.
+6. `Periodic1DRankNSupportTruncationAnalyzer` constructs every frozen finite-support
+   representation and keeps interpolation, truncation, and total error channels
+   separate.
+7. `Periodic1DRankNGaugeAlignmentResultAssembler` admits only evidence derived from
+   the same exact analysis request and assembles the unchanged public mesh wire
+   without recomputing scientific values.
 
 The stages retain their exact source request. Equal-looking replacement requests and
 same-shaped arrays are insufficient. Admission correlates case, rank, depth, gauge
@@ -136,6 +153,9 @@ Gauge-alignment mesh results retain the canonical odd-mesh disposition
 `absent-on-odd-mesh`, not a legacy Nyquist phrase. Support records keep interpolation,
 truncation, and total error channels distinct and retain ordinary omitted tails,
 Parseval defects, perturbation bounds, decomposition residuals, and gate dispositions.
+Those combined fields remain solely for historical wire stability. The
+`hopping_locality_tails` property projects admitted stored translations and tail values
+into the separate diagnostic owner without rerunning Fourier analysis or truncation.
 The public wire retains the bounded block-norm inventory for $|R|\le128$ rather than the
 full Fourier coefficient arrays.
 
@@ -161,7 +181,7 @@ action.
 
 ## Independent-reference boundary
 
-`Periodic1DHigherRankCoreInvariantReferenceAnalyzer` is the first bounded
+`Periodic1DRankNCoreInvariantReferenceAnalyzer` is the first bounded
 producer-independent slice. It admits one exact calculation result and reconstructs the
 analytic retained and exterior energies, constant frame, real Givens circuit, parent and
 represented operators, projectors, isolation certificate, attack-angle certificate, and
@@ -170,7 +190,7 @@ directly import or invoke the producer, the producer-owned analytic model, or th
 reusable producer diagnostic actions. Scalar comparisons use the protocol's
 $10^{-11}$ tolerance and sampled diagnostic arrays use $10^{-10}$.
 
-`Periodic1DHigherRankFourierReferenceAnalyzer` is a second bounded slice. It performs
+`Periodic1DRankNFourierReferenceAnalyzer` is a second bounded slice. It performs
 explicit negative-exponent, $1/M$-normalized Fourier sums for all four gauge-aligned
 fields on every construction mesh. The global field uses an independently reconstructed
 polar factor and the pointwise field uses the direct analytic inverse. It compares the
@@ -182,7 +202,7 @@ $R=0,\pm1,\pm2$ and bounds every coefficient outside $|R|\le2$. The reference im
 only calculation records, gauge identities, and quantity/comparison types; it does not
 invoke producer Fourier, interpolation, locality, model, or reusable diagnostic actions.
 
-`Periodic1DHigherRankProcrustesReferenceAnalyzer` is a third bounded slice. It constructs
+`Periodic1DRankNProcrustesReferenceAnalyzer` is a third bounded slice. It constructs
 the global cross matrix directly at the frozen $M=2049$ selection mesh and obtains its
 unique right polar factor from an Hermitian eigendecomposition of the cross Gram matrix,
 not the producer SVD solver. At each construction mesh it reconstructs the pointwise
@@ -192,7 +212,7 @@ residuals, all retained integrity defects, deficient-point counts, and the selec
 global right unitary. It does not import Optimization or invoke the producer model,
 selection, or analysis actions.
 
-`Periodic1DHigherRankTransportReferenceAnalyzer` is a fourth bounded slice. Because the
+`Periodic1DRankNTransportReferenceAnalyzer` is a fourth bounded slice. Because the
 protocol reference frame and endpoint sewing map are constant identities, it constructs
 the closed route directly. On every construction mesh it compares complete link singular
 spectra, strict rank cutoffs and margins, ranks, unitary defects, closure phases, all three

@@ -14,41 +14,41 @@ from ..._record_admission import (
     _mapping_value,
     _tuple_of_mappings,
 )
-from ...configuration import Periodic1DHigherRankAlignmentConfiguration
+from ...configuration import Periodic1DRankNAlignmentConfiguration
 from ...diagnostics import (
-    Periodic1DHigherRankModelDiagnostics,
-    Periodic1DHigherRankProcrustesDiagnostics,
+    Periodic1DRankNModelDiagnostics,
+    Periodic1DRankNProcrustesDiagnostics,
 )
 from ...result import (
-    Periodic1DHigherRankAlignmentTransportBackendFailureResult,
-    Periodic1DHigherRankAlignmentTransportOwnerResult,
+    Periodic1DRankNAlignmentTransportBackendFailureResult,
+    Periodic1DRankNAlignmentTransportOwnerResult,
 )
-from .alignment import Periodic1DHigherRankGaugeAlignmentMeshResult
+from .alignment import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
+class Periodic1DRankNMeshCalculationResult(BaseTypedRecord):
     """Retain one construction-mesh calculation with common transport evidence."""
 
     construction_mesh_size: int
-    model_diagnostics: Periodic1DHigherRankModelDiagnostics
-    transport: Periodic1DHigherRankAlignmentTransportOwnerResult | None
+    model_diagnostics: Periodic1DRankNModelDiagnostics
+    transport: Periodic1DRankNAlignmentTransportOwnerResult | None
     transport_backend_failure: (
-        Periodic1DHigherRankAlignmentTransportBackendFailureResult | None
+        Periodic1DRankNAlignmentTransportBackendFailureResult | None
     )
     endpoint_closure_defect: float | None
     primitive_closure_defect: float | None
-    pointwise_selection: Periodic1DHigherRankProcrustesDiagnostics
-    gauge_alignment_results: tuple[Periodic1DHigherRankGaugeAlignmentMeshResult, ...]
+    pointwise_selection: Periodic1DRankNProcrustesDiagnostics
+    gauge_alignment_results: tuple[Periodic1DRankNGaugeAlignmentMeshResult, ...]
 
     def __post_init__(self) -> None:
         if (
             type(self.construction_mesh_size) is not int
             or self.construction_mesh_size
-            not in Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES
+            not in Periodic1DRankNAlignmentConfiguration.CONSTRUCTION_MESH_SIZES
         ):
             raise ValueError("construction_mesh_size must be a frozen mesh size")
-        if type(self.model_diagnostics) is not Periodic1DHigherRankModelDiagnostics:
+        if type(self.model_diagnostics) is not Periodic1DRankNModelDiagnostics:
             raise TypeError(
                 "model_diagnostics must be the exact model diagnostic record"
             )
@@ -60,8 +60,7 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             )
         if self.transport is not None:
             if (
-                type(self.transport)
-                is not Periodic1DHigherRankAlignmentTransportOwnerResult
+                type(self.transport) is not Periodic1DRankNAlignmentTransportOwnerResult
                 or self.transport.construction_mesh_size != self.construction_mesh_size
             ):
                 raise ValueError("transport result must match the construction mesh")
@@ -75,7 +74,7 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
         else:
             if (
                 type(self.transport_backend_failure)
-                is not Periodic1DHigherRankAlignmentTransportBackendFailureResult
+                is not Periodic1DRankNAlignmentTransportBackendFailureResult
             ):
                 raise TypeError("transport_backend_failure must be its exact record")
             if (
@@ -97,8 +96,7 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             if value is not None:
                 _finite_nonnegative(value, name)
         if (
-            type(self.pointwise_selection)
-            is not Periodic1DHigherRankProcrustesDiagnostics
+            type(self.pointwise_selection) is not Periodic1DRankNProcrustesDiagnostics
             or self.pointwise_selection.selection_mesh_size
             != self.construction_mesh_size
         ):
@@ -108,7 +106,7 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             or tuple(
                 item.status.gauge_alignment for item in self.gauge_alignment_results
             )
-            != Periodic1DHigherRankAlignmentConfiguration.GAUGE_ALIGNMENTS
+            != Periodic1DRankNAlignmentConfiguration.GAUGE_ALIGNMENTS
         ):
             raise ValueError(
                 "gauge_alignment_results must use the frozen scientific order"
@@ -161,17 +159,17 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
                 raise TypeError(f"{name} must decode to float or None")
         return cls(
             construction_mesh_size=mesh,
-            model_diagnostics=Periodic1DHigherRankModelDiagnostics.from_dict(
+            model_diagnostics=Periodic1DRankNModelDiagnostics.from_dict(
                 _mapping_value(values["model_diagnostics"], "model_diagnostics")
             ),
             transport=None
             if transport_value is None
-            else Periodic1DHigherRankAlignmentTransportOwnerResult.from_dict(
+            else Periodic1DRankNAlignmentTransportOwnerResult.from_dict(
                 _mapping_value(transport_value, "transport")
             ),
             transport_backend_failure=None
             if failure_value is None
-            else Periodic1DHigherRankAlignmentTransportBackendFailureResult.from_dict(
+            else Periodic1DRankNAlignmentTransportBackendFailureResult.from_dict(
                 _mapping_value(failure_value, "transport_backend_failure")
             ),
             endpoint_closure_defect=_decoded_optional_float(
@@ -180,11 +178,11 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
             primitive_closure_defect=_decoded_optional_float(
                 primitive, "primitive_closure_defect"
             ),
-            pointwise_selection=Periodic1DHigherRankProcrustesDiagnostics.from_dict(
+            pointwise_selection=Periodic1DRankNProcrustesDiagnostics.from_dict(
                 _mapping_value(values["pointwise_selection"], "pointwise_selection")
             ),
             gauge_alignment_results=tuple(
-                Periodic1DHigherRankGaugeAlignmentMeshResult.from_dict(item)
+                Periodic1DRankNGaugeAlignmentMeshResult.from_dict(item)
                 for item in _tuple_of_mappings(
                     values["gauge_alignment_results"], "gauge_alignment_results"
                 )
@@ -192,4 +190,4 @@ class Periodic1DHigherRankMeshCalculationResult(BaseTypedRecord):
         )
 
 
-__all__ = ["Periodic1DHigherRankMeshCalculationResult"]
+__all__ = ["Periodic1DRankNMeshCalculationResult"]

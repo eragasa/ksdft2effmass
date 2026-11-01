@@ -4,32 +4,37 @@ from __future__ import annotations
 
 from typing import final
 
+from ksdft2effmass.periodic1d.rankN.hopping_locality import (
+    Periodic1DRankNHoppingLocalityAnalysisRequest,
+    Periodic1DRankNHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.support_truncation import (
+    Periodic1DRankNSupportTruncationAnalysisRequest,
+    Periodic1DRankNSupportTruncationAnalyzer,
+)
+
 from .assembly import (
-    Periodic1DHigherRankGaugeAlignmentAssemblyRequest,
-    Periodic1DHigherRankGaugeAlignmentResultAssembler,
+    Periodic1DRankNGaugeAlignmentAssemblyRequest,
+    Periodic1DRankNGaugeAlignmentResultAssembler,
 )
 from .fourier import (
-    Periodic1DHigherRankFourierAnalysisRequest,
-    Periodic1DHigherRankFourierAnalyzer,
+    Periodic1DRankNFourierAnalysisRequest,
+    Periodic1DRankNFourierAnalyzer,
 )
 from .interpolation import (
-    Periodic1DHigherRankInterpolationAnalysisRequest,
-    Periodic1DHigherRankInterpolationAnalyzer,
-)
-from .locality import (
-    Periodic1DHigherRankLocalityAnalysisRequest,
-    Periodic1DHigherRankLocalityAnalyzer,
+    Periodic1DRankNInterpolationAnalysisRequest,
+    Periodic1DRankNInterpolationAnalyzer,
 )
 from .recovery import (
-    Periodic1DHigherRankRecoveryAnalysisRequest,
-    Periodic1DHigherRankRecoveryAnalyzer,
+    Periodic1DRankNRecoveryAnalysisRequest,
+    Periodic1DRankNRecoveryAnalyzer,
 )
-from .request import Periodic1DHigherRankGaugeAlignmentAnalysisRequest
-from .results import Periodic1DHigherRankGaugeAlignmentMeshResult
+from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
+from .results import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 @final
-class Periodic1DHigherRankGaugeAlignmentAnalyzer:
+class Periodic1DRankNGaugeAlignmentAnalyzer:
     """Run the typed recovery, Fourier, interpolation, and locality lifecycle."""
 
     __slots__ = ("_request",)
@@ -37,53 +42,61 @@ class Periodic1DHigherRankGaugeAlignmentAnalyzer:
     def __init__(
         self,
         *,
-        request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest,
+        request: Periodic1DRankNGaugeAlignmentAnalysisRequest,
     ) -> None:
         """Bind one complete gauge-alignment analysis request."""
-        if type(request) is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest:
+        if type(request) is not Periodic1DRankNGaugeAlignmentAnalysisRequest:
             raise TypeError(
-                "request must be Periodic1DHigherRankGaugeAlignmentAnalysisRequest"
+                "request must be Periodic1DRankNGaugeAlignmentAnalysisRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankGaugeAlignmentAnalysisRequest:
+    def request(self) -> Periodic1DRankNGaugeAlignmentAnalysisRequest:
         """Return the exact immutable analysis request bound at construction."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankGaugeAlignmentMeshResult:
+    def execute(self) -> Periodic1DRankNGaugeAlignmentMeshResult:
         """Execute and assemble the ordered gauge-alignment analysis lifecycle."""
-        recovery = Periodic1DHigherRankRecoveryAnalyzer(
-            Periodic1DHigherRankRecoveryAnalysisRequest(self._request)
+        recovery = Periodic1DRankNRecoveryAnalyzer(
+            Periodic1DRankNRecoveryAnalysisRequest(self._request)
         ).execute()
-        fourier = Periodic1DHigherRankFourierAnalyzer(
-            request=Periodic1DHigherRankFourierAnalysisRequest(self._request),
+        fourier = Periodic1DRankNFourierAnalyzer(
+            request=Periodic1DRankNFourierAnalysisRequest(self._request),
         ).execute()
-        interpolation = Periodic1DHigherRankInterpolationAnalyzer(
-            request=Periodic1DHigherRankInterpolationAnalysisRequest(
+        interpolation = Periodic1DRankNInterpolationAnalyzer(
+            request=Periodic1DRankNInterpolationAnalysisRequest(
                 analysis_request=self._request,
                 fourier_analysis=fourier,
             ),
         ).execute()
-        locality = Periodic1DHigherRankLocalityAnalyzer(
-            request=Periodic1DHigherRankLocalityAnalysisRequest(
+        hopping_locality = Periodic1DRankNHoppingLocalityAnalyzer(
+            request=Periodic1DRankNHoppingLocalityAnalysisRequest(
+                analysis_request=self._request,
+                fourier_analysis=fourier,
+            ),
+        ).execute()
+        support_truncation = Periodic1DRankNSupportTruncationAnalyzer(
+            request=Periodic1DRankNSupportTruncationAnalysisRequest(
                 analysis_request=self._request,
                 fourier_analysis=fourier,
                 interpolation_analysis=interpolation,
+                hopping_locality_analysis=hopping_locality,
             ),
         ).execute()
-        return Periodic1DHigherRankGaugeAlignmentResultAssembler(
-            Periodic1DHigherRankGaugeAlignmentAssemblyRequest(
+        return Periodic1DRankNGaugeAlignmentResultAssembler(
+            Periodic1DRankNGaugeAlignmentAssemblyRequest(
                 analysis_request=self._request,
                 recovery_analysis=recovery,
                 fourier_analysis=fourier,
                 interpolation_analysis=interpolation,
-                locality_analysis=locality,
+                hopping_locality_analysis=hopping_locality,
+                support_truncation_analysis=support_truncation,
             )
         ).execute()
 
 
 __all__ = [
-    "Periodic1DHigherRankGaugeAlignmentAnalysisRequest",
-    "Periodic1DHigherRankGaugeAlignmentAnalyzer",
+    "Periodic1DRankNGaugeAlignmentAnalysisRequest",
+    "Periodic1DRankNGaugeAlignmentAnalyzer",
 ]

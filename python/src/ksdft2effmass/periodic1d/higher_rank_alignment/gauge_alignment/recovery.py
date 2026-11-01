@@ -12,27 +12,27 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldErrorAnal
 from ksdft2effmass.representation_equivalence import RepresentationEquivalence
 
 from ..diagnostics import (
-    Periodic1DHigherRankFrameErrorResult,
-    Periodic1DHigherRankMatrixErrorResult,
+    Periodic1DRankNFrameErrorResult,
+    Periodic1DRankNMatrixErrorResult,
 )
-from .definition import Periodic1DHigherRankGaugeAlignment
+from .definition import Periodic1DRankNGaugeAlignment
 from .fields import (
-    Periodic1DHigherRankGaugeAlignmentEvaluationRequest,
-    Periodic1DHigherRankGaugeAlignmentEvaluator,
+    Periodic1DRankNGaugeAlignmentEvaluationRequest,
+    Periodic1DRankNGaugeAlignmentEvaluator,
 )
-from .request import Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankRecoveryAnalysisRequest:
+class Periodic1DRankNRecoveryAnalysisRequest:
     """Bind one complete gauge-alignment request for recovery analysis."""
 
-    analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
 
     def __post_init__(self) -> None:
         if (
             type(self.analysis_request)
-            is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
         ):
             raise TypeError(
                 "analysis_request must be the exact gauge-alignment request"
@@ -40,26 +40,26 @@ class Periodic1DHigherRankRecoveryAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankRecoveryAnalysis(RepresentationEquivalence):
+class Periodic1DRankNRecoveryAnalysis(RepresentationEquivalence):
     """Store separate frame and represented-operator recovery diagnostics."""
 
-    analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest
-    frame_recovery: Periodic1DHigherRankFrameErrorResult
+    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
+    frame_recovery: Periodic1DRankNFrameErrorResult
     known_frame_recovery_pass: bool | None
-    represented_operator_recovery: Periodic1DHigherRankMatrixErrorResult
+    represented_operator_recovery: Periodic1DRankNMatrixErrorResult
     known_operator_recovery_pass: bool | None
 
     def __post_init__(self) -> None:
         if (
             type(self.analysis_request)
-            is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
         ):
             raise TypeError("analysis_request must be the exact analysis request")
-        if type(self.frame_recovery) is not Periodic1DHigherRankFrameErrorResult:
+        if type(self.frame_recovery) is not Periodic1DRankNFrameErrorResult:
             raise TypeError("frame_recovery must be the exact frame-error record")
         if (
             type(self.represented_operator_recovery)
-            is not Periodic1DHigherRankMatrixErrorResult
+            is not Periodic1DRankNMatrixErrorResult
         ):
             raise TypeError(
                 "represented_operator_recovery must be the exact matrix-error record"
@@ -73,24 +73,22 @@ class Periodic1DHigherRankRecoveryAnalysis(RepresentationEquivalence):
 
 
 @final
-class Periodic1DHigherRankRecoveryAnalyzer:
+class Periodic1DRankNRecoveryAnalyzer:
     """Evaluate frame and represented-operator recovery in the selected gauge."""
 
     __slots__ = ("_request",)
 
-    def __init__(self, request: Periodic1DHigherRankRecoveryAnalysisRequest) -> None:
-        if type(request) is not Periodic1DHigherRankRecoveryAnalysisRequest:
-            raise TypeError(
-                "request must be Periodic1DHigherRankRecoveryAnalysisRequest"
-            )
+    def __init__(self, request: Periodic1DRankNRecoveryAnalysisRequest) -> None:
+        if type(request) is not Periodic1DRankNRecoveryAnalysisRequest:
+            raise TypeError("request must be Periodic1DRankNRecoveryAnalysisRequest")
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankRecoveryAnalysisRequest:
+    def request(self) -> Periodic1DRankNRecoveryAnalysisRequest:
         """Return the exact recovery request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankRecoveryAnalysis:
+    def execute(self) -> Periodic1DRankNRecoveryAnalysis:
         """Return separate frame and represented-operator recovery diagnostics."""
         analysis_request = self._request.analysis_request
         calculation_request = analysis_request.calculation_request
@@ -104,7 +102,7 @@ class Periodic1DHigherRankRecoveryAnalyzer:
             axis=(-2, -1),
         )
         frame_scale = math.sqrt(model.retained_rank)
-        frame_recovery = Periodic1DHigherRankFrameErrorResult(
+        frame_recovery = Periodic1DRankNFrameErrorResult(
             rank=model.retained_rank,
             frobenius_maximum=float(np.max(frame_norms)),
             frobenius_rms=float(np.sqrt(np.mean(frame_norms**2))),
@@ -113,8 +111,8 @@ class Periodic1DHigherRankRecoveryAnalyzer:
                 np.sqrt(np.mean(frame_norms**2)) / frame_scale
             ),
         )
-        direct_construction = Periodic1DHigherRankGaugeAlignmentEvaluator(
-            Periodic1DHigherRankGaugeAlignmentEvaluationRequest(
+        direct_construction = Periodic1DRankNGaugeAlignmentEvaluator(
+            Periodic1DRankNGaugeAlignmentEvaluationRequest(
                 calculation_request=calculation_request,
                 model=model,
                 gauge_alignment=fields.gauge_alignment,
@@ -125,18 +123,18 @@ class Periodic1DHigherRankRecoveryAnalyzer:
         represented_operator_diagnostics = MatrixFieldErrorAnalyzer(
             approximation=fields.represented_operators,
             reference=direct_construction,
-            energy_reference=controls.energy_reference,
+            norm_energy_scale=controls.energy_reference,
         ).result()
         represented_operator_recovery = (
-            Periodic1DHigherRankMatrixErrorResult.from_diagnostics(
+            Periodic1DRankNMatrixErrorResult.from_diagnostics(
                 represented_operator_diagnostics
             )
         )
         known_recovery_applicable = fields.gauge_alignment in (
-            Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
-            Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
+            Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
+            Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
         )
-        return Periodic1DHigherRankRecoveryAnalysis(
+        return Periodic1DRankNRecoveryAnalysis(
             analysis_request=analysis_request,
             frame_recovery=frame_recovery,
             known_frame_recovery_pass=(
@@ -156,7 +154,7 @@ class Periodic1DHigherRankRecoveryAnalyzer:
 
 
 __all__ = [
-    "Periodic1DHigherRankRecoveryAnalysis",
-    "Periodic1DHigherRankRecoveryAnalysisRequest",
-    "Periodic1DHigherRankRecoveryAnalyzer",
+    "Periodic1DRankNRecoveryAnalysis",
+    "Periodic1DRankNRecoveryAnalysisRequest",
+    "Periodic1DRankNRecoveryAnalyzer",
 ]

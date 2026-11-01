@@ -7,16 +7,12 @@ from dataclasses import dataclass
 
 import numpy as np
 from numpy.typing import NDArray
+from projectkoios.numerics.validation import exact_nonnegative_float
+
+from ..normalization import positive_norm_energy_scale
+from ..validation import matrix_field
 
 type ComplexArray = NDArray[np.complex128]
-
-
-def _positive_float(name: str, value: float) -> float:
-    if type(value) is not float:
-        raise TypeError(f"{name} must be a built-in float")
-    if not math.isfinite(value) or value <= 0.0:
-        raise ValueError(f"{name} must be finite and positive")
-    return value
 
 
 def _complex_matrix_field(name: str, value: ComplexArray) -> ComplexArray:
@@ -33,10 +29,11 @@ def _complex_matrix_field(name: str, value: ComplexArray) -> ComplexArray:
 
 @dataclass(frozen=True, slots=True)
 class MatrixFieldHermiticityDiagnostics:
-    """Retain the maximum raw and normalized Hermiticity defect."""
+    """Retain exact identity and norm-based Hermiticity diagnostics."""
 
     matrix_size: int
-    energy_reference: float
+    norm_energy_scale: float
+    exactly_hermitian: bool
     maximum_frobenius_defect: float
     normalized_maximum_frobenius_defect: float
 
@@ -46,7 +43,9 @@ class MatrixFieldHermiticityDiagnostics:
             raise TypeError("matrix_size must be a built-in int")
         if self.matrix_size <= 0:
             raise ValueError("matrix_size must be positive")
-        energy_reference = _positive_float("energy_reference", self.energy_reference)
+        norm_energy_scale = positive_norm_energy_scale(self.norm_energy_scale)
+        if type(self.exactly_hermitian) is not bool:
+            raise TypeError("exactly_hermitian must be a built-in bool")
         for name, value in (
             ("maximum_frobenius_defect", self.maximum_frobenius_defect),
             (
@@ -54,41 +53,50 @@ class MatrixFieldHermiticityDiagnostics:
                 self.normalized_maximum_frobenius_defect,
             ),
         ):
-            if type(value) is not float:
-                raise TypeError(f"{name} must be a built-in float")
-            if not math.isfinite(value) or value < 0.0:
-                raise ValueError(f"{name} must be finite and nonnegative")
+            exact_nonnegative_float(value, name)
         expected = self.maximum_frobenius_defect / (
-            math.sqrt(self.matrix_size) * energy_reference
+            math.sqrt(self.matrix_size) * norm_energy_scale
         )
         if self.normalized_maximum_frobenius_defect != expected:
             raise ValueError("normalized Hermiticity defect is inconsistent")
+        if self.exactly_hermitian and self.maximum_frobenius_defect != 0.0:
+            raise ValueError("exact Hermiticity is inconsistent with the defect")
 
 
 class MatrixFieldHermiticityAnalyzer:
-    """Measure ``H-H^dagger`` without assigning a pass threshold."""
+    """Analyze one bound immutable field for Hermiticity."""
 
-    __slots__ = ()
+    __slots__ = ("_norm_energy_scale", "_matrices")
 
-    def execute(
+    def __init__(
         self,
         matrices: ComplexArray,
-        energy_reference: float,
-    ) -> MatrixFieldHermiticityDiagnostics:
-        """Return the maximum pointwise Frobenius Hermiticity defect."""
-        matrices = _complex_matrix_field("matrices", matrices)
-        if matrices.shape[-2] != matrices.shape[-1]:
-            raise ValueError("matrices must be square")
-        energy_reference = _positive_float("energy_reference", energy_reference)
-        matrix_size = int(matrices.shape[-1])
-        adjoints = np.swapaxes(matrices.conjugate(), -1, -2)
-        defect = float(np.max(np.linalg.norm(matrices - adjoints, axis=(-2, -1))))
+        norm_energy_scale: float,
+    ) -> None:
+        matrices = matrix_field("matrices", matrices)
+        matrix_copy = np.array(matrices, dtype=np.complex128, copy=True)
+        matrix_copy.setflags(write=False)
+        self._matrices = matrix_copy
+        self._norm_energy_scale = positive_norm_energy_scale(norm_energy_scale)
+
+    @property
+    def matrices(self) -> ComplexArray:
+        """Return the bound immutable matrix field."""
+        return self._matrices
+
+    def execute(self) -> MatrixFieldHermiticityDiagnostics:
+        """Return exact and norm-based Hermiticity diagnostics."""
+        matrix_size = int(self._matrices.shape[-1])
+        adjoints = np.swapaxes(self._matrices.conjugate(), -1, -2)
+        exactly_hermitian = bool(np.array_equal(self._matrices, adjoints))
+        defect = float(np.max(np.linalg.norm(self._matrices - adjoints, axis=(-2, -1))))
         return MatrixFieldHermiticityDiagnostics(
             matrix_size=matrix_size,
-            energy_reference=energy_reference,
+            norm_energy_scale=self._norm_energy_scale,
+            exactly_hermitian=exactly_hermitian,
             maximum_frobenius_defect=defect,
             normalized_maximum_frobenius_defect=(
-                defect / (math.sqrt(matrix_size) * energy_reference)
+                defect / (math.sqrt(matrix_size) * self._norm_energy_scale)
             ),
         )
 
@@ -115,10 +123,7 @@ class MatrixFieldIsometryDiagnostics:
                 self.normalized_maximum_frobenius_defect,
             ),
         ):
-            if type(value) is not float:
-                raise TypeError(f"{name} must be a built-in float")
-            if not math.isfinite(value) or value < 0.0:
-                raise ValueError(f"{name} must be finite and nonnegative")
+            exact_nonnegative_float(value, name)
         expected = self.maximum_frobenius_defect / math.sqrt(self.rank)
         if self.normalized_maximum_frobenius_defect != expected:
             raise ValueError("normalized isometry defect is inconsistent")
@@ -181,10 +186,7 @@ class MatrixProjectorFieldDiagnostics:
                 self.normalized_maximum_idempotency_frobenius_defect,
             ),
         ):
-            if type(value) is not float:
-                raise TypeError(f"{name} must be a built-in float")
-            if not math.isfinite(value) or value < 0.0:
-                raise ValueError(f"{name} must be finite and nonnegative")
+            exact_nonnegative_float(value, name)
         scale = math.sqrt(self.dimension)
         if self.normalized_maximum_hermiticity_frobenius_defect != (
             self.maximum_hermiticity_frobenius_defect / scale

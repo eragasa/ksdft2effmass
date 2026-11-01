@@ -9,8 +9,10 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
+from ksdft2effmass.periodic1d.support_truncation import (
+    Periodic1DSupportTruncation,
+)
 from ksdft2effmass.real_space_support_truncation import (
-    RealSpaceSupportTruncation,
     RealSpaceSupportTruncationFamily,
     RealSpaceSupportTruncationFamilyMember,
     RealSpaceSupportTruncationFamilyRequest,
@@ -99,7 +101,7 @@ class Periodic1DRank2TruncationFamilyRequest:
 
 
 @dataclass(frozen=True, slots=True, init=False)
-class Periodic1DRank2TruncationFamilyAnalysis(RealSpaceSupportTruncation):
+class Periodic1DRank2TruncationFamilyAnalysis(Periodic1DSupportTruncation):
     """Adapt aligned truncation outcomes and derive their support decisions."""
 
     request: Periodic1DRank2TruncationFamilyRequest

@@ -99,6 +99,23 @@ with direct finite formulas; it does not call the production parent, analysis, F
 conversion, interpolation, or truncation actions. `truncation/verification.py` compares
 that reconstruction in memory and intentionally defines no custom retained mapping.
 
+The rank-first capability migration now exposes the unchanged classes through
+`periodic1d/rank2/hopping_locality/` and
+`periodic1d/rank2/support_truncation/`. The former currently exposes only the immutable
+per-displacement hopping-power value because the existing parent-scale action still
+mixes representation-equivalence and hopping-locality channels. It does not falsely
+relabel that mixed action as a hopping-locality owner. The latter re-exports the already
+separate irreversible support-removal actions, values, references, and verifiers. The
+historical embedded-subspace modules remain the temporary class owners, so old and new
+imports resolve to identical classes and retained wire formats are unchanged. The
+rank-two hopping value inherits `Periodic1DHoppingLocality`. Canonical rank-two
+support request, analyzer, and analysis names use the
+`Periodic1DRank2SupportTruncation...` prefix, mirroring the rank-$N$ surface. The two
+analysis values inherit `Periodic1DSupportTruncation`, which in turn inherits
+`RealSpaceSupportTruncation`. Historical shorter rank-two request, analyzer, and
+analysis names remain identical class aliases. This legacy equivalence establishes
+import compatibility only, not scientific or numerical validation.
+
 The KSD transport diagnostic action explicitly labels its derived link quantity as the
 maximum primitive-link Frobenius residual. It does not present that derived value as a
 verbatim PhysKit or Optimization-owner diagnostic. Reference and attacked hopping powers

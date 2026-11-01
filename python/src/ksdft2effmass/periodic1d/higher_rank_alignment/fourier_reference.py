@@ -24,14 +24,14 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DHigherRankAlignmentCalculationResult
-from .definition import Periodic1DHigherRankAlignmentStatus
-from .diagnostics import Periodic1DHigherRankMatrixErrorResult
+from .calculation_result import Periodic1DRankNAlignmentCalculationResult
+from .definition import Periodic1DRankNAlignmentStatus
+from .diagnostics import Periodic1DRankNMatrixErrorResult
 from .gauge_alignment.definition import (
     GaugeAlignmentWireMapping,
-    Periodic1DHigherRankGaugeAlignment,
+    Periodic1DRankNGaugeAlignment,
 )
-from .gauge_alignment.results import Periodic1DHigherRankGaugeAlignmentMeshResult
+from .gauge_alignment.results import Periodic1DRankNGaugeAlignmentMeshResult
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
 _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
@@ -50,21 +50,21 @@ _ERROR_FIELDS = (
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankFourierReferenceRequest:
+class Periodic1DRankNFourierReferenceRequest:
     """Bind one exact producer result to the bounded Fourier reference action."""
 
-    calculation_result: Periodic1DHigherRankAlignmentCalculationResult
+    calculation_result: Periodic1DRankNAlignmentCalculationResult
 
     def __post_init__(self) -> None:
         if (
             type(self.calculation_result)
-            is not Periodic1DHigherRankAlignmentCalculationResult
+            is not Periodic1DRankNAlignmentCalculationResult
         ):
             raise TypeError("calculation_result must be the exact calculation result")
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankFourierReference:
+class Periodic1DRankNFourierReference:
     """Store immutable direct-sum comparisons for all four gauge controls."""
 
     comparisons: Mapping[str, MaximumAbsoluteErrorComparison]
@@ -87,22 +87,22 @@ class Periodic1DHigherRankFourierReference:
 
 
 @final
-class Periodic1DHigherRankFourierReferenceAnalyzer:
+class Periodic1DRankNFourierReferenceAnalyzer:
     """Recompute direct Fourier controls without producer analysis actions."""
 
     __slots__ = ("_request",)
 
-    def __init__(self, request: Periodic1DHigherRankFourierReferenceRequest) -> None:
-        if type(request) is not Periodic1DHigherRankFourierReferenceRequest:
+    def __init__(self, request: Periodic1DRankNFourierReferenceRequest) -> None:
+        if type(request) is not Periodic1DRankNFourierReferenceRequest:
             raise TypeError("request must be the exact Fourier reference request")
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankFourierReferenceRequest:
+    def request(self) -> Periodic1DRankNFourierReferenceRequest:
         """Return the exact immutable request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankFourierReference:
+    def execute(self) -> Periodic1DRankNFourierReference:
         """Return bounded direct-sum Fourier comparisons."""
         request = self._request
         calculation = request.calculation_result
@@ -145,18 +145,18 @@ class Periodic1DHigherRankFourierReferenceAnalyzer:
                 for result in mesh.gauge_alignment_results
             }
             for gauge_alignment, field in (
-                (Periodic1DHigherRankGaugeAlignment.IDENTITY, identity_field),
-                (Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY, global_field),
-                (Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY, exact_field),
+                (Periodic1DRankNGaugeAlignment.IDENTITY, identity_field),
+                (Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY, global_field),
+                (Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY, exact_field),
                 (
-                    Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
+                    Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
                     exact_field,
                 ),
             ):
                 observed = observed_by_gauge[gauge_alignment]
                 if (
                     observed.status.status
-                    is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                    is not Periodic1DRankNAlignmentStatus.QUALIFIED
                 ):
                     raise ValueError(
                         "bounded Fourier reference requires qualified control results"
@@ -253,7 +253,7 @@ class Periodic1DHigherRankFourierReferenceAnalyzer:
                 )
                 if (
                     gauge_alignment
-                    is Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE
+                    is Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE
                 ):
                     _add_oracle_exact_support_comparisons(
                         comparisons,
@@ -266,7 +266,7 @@ class Periodic1DHigherRankFourierReferenceAnalyzer:
                         _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
                     )
 
-        return Periodic1DHigherRankFourierReference(MappingProxyType(comparisons))
+        return Periodic1DRankNFourierReference(MappingProxyType(comparisons))
 
 
 def _energy_parameters(rank: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -466,7 +466,7 @@ def _add_error_comparisons(
     comparisons: dict[str, MaximumAbsoluteErrorComparison],
     prefix: str,
     calculated: Mapping[str, float],
-    observed: Periodic1DHigherRankMatrixErrorResult | None,
+    observed: Periodic1DRankNMatrixErrorResult | None,
     tolerance: float,
 ) -> None:
     if observed is None:
@@ -500,8 +500,8 @@ def _add_interpolation_and_tail_comparisons(
     prefix: str,
     modes: np.ndarray,
     coefficients: np.ndarray,
-    observed: Periodic1DHigherRankGaugeAlignmentMeshResult,
-    gauge_alignment: Periodic1DHigherRankGaugeAlignment,
+    observed: Periodic1DRankNGaugeAlignmentMeshResult,
+    gauge_alignment: Periodic1DRankNGaugeAlignment,
     depth: int,
     evaluation_size: int,
     shift_numerator: int,
@@ -527,15 +527,15 @@ def _add_interpolation_and_tail_comparisons(
     )
     exact = _exact_field(rank, evaluation_coordinates)
     if gauge_alignment in (
-        Periodic1DHigherRankGaugeAlignment.IDENTITY,
-        Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
+        Periodic1DRankNGaugeAlignment.IDENTITY,
+        Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
     ):
         gauge = _gauge_unitaries(rank, depth, evaluation_coordinates)
         attacked = np.asarray(
             np.swapaxes(gauge.conjugate(), -1, -2) @ exact @ gauge,
             dtype=np.complex128,
         )
-        if gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY:
+        if gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY:
             direct = np.asarray(
                 global_right.conjugate().T @ attacked @ global_right,
                 dtype=np.complex128,
@@ -640,7 +640,7 @@ def _add_oracle_exact_support_comparisons(
 
 
 __all__ = [
-    "Periodic1DHigherRankFourierReference",
-    "Periodic1DHigherRankFourierReferenceAnalyzer",
-    "Periodic1DHigherRankFourierReferenceRequest",
+    "Periodic1DRankNFourierReference",
+    "Periodic1DRankNFourierReferenceAnalyzer",
+    "Periodic1DRankNFourierReferenceRequest",
 ]

@@ -13,7 +13,7 @@ from .._record_admission import _decoded_float, _finite_nonnegative
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankFrameErrorResult(BaseTypedRecord):
+class Periodic1DRankNFrameErrorResult(BaseTypedRecord):
     """Retain raw and rank-normalized Frobenius errors for one frame field."""
 
     rank: int

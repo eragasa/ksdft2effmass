@@ -1,6 +1,9 @@
 """Ordinary-lattice truncation consequences for embedded rank-two fields."""
 
-from .analysis import Periodic1DRank2TruncationAnalyzer
+from .analysis import (
+    Periodic1DRank2SupportTruncationAnalyzer,
+    Periodic1DRank2TruncationAnalyzer,
+)
 from .family import (
     Periodic1DRank2TruncationFamilyAnalysis,
     Periodic1DRank2TruncationFamilyAnalyzer,
@@ -14,8 +17,12 @@ from .mesh_stability import Periodic1DRank2TruncationMeshStabilityAssessment
 from .reference import (
     Periodic1DRank2TruncationIndependentReferenceAnalyzer,
 )
-from .request import Periodic1DRank2TruncationRequest
+from .request import (
+    Periodic1DRank2SupportTruncationAnalysisRequest,
+    Periodic1DRank2TruncationRequest,
+)
 from .results import (
+    Periodic1DRank2SupportTruncationAnalysis,
     Periodic1DRank2TruncationAnalysis,
     Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationPoint,
@@ -37,6 +44,9 @@ from .verification import (
 __all__ = [
     "EmbeddedSubspaceRank2TruncationFamilyVerification",
     "EmbeddedSubspaceRank2TruncationVerification",
+    "Periodic1DRank2SupportTruncationAnalysis",
+    "Periodic1DRank2SupportTruncationAnalysisRequest",
+    "Periodic1DRank2SupportTruncationAnalyzer",
     "Periodic1DRank2TruncationAnalysis",
     "Periodic1DRank2TruncationAnalyzer",
     "Periodic1DRank2TruncationCompleted",

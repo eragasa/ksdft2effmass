@@ -13,33 +13,33 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
 
-from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
-from .definition import Periodic1DHigherRankAlignmentStatus
-from .gauge_alignment.results import Periodic1DHigherRankMeshCalculationResult
+from .calculation import Periodic1DRankNAlignmentCalculationRequest
+from .definition import Periodic1DRankNAlignmentStatus
+from .gauge_alignment.results import Periodic1DRankNMeshCalculationResult
 from .refinement_results import (
-    Periodic1DHigherRankBlockRefinementResult,
-    Periodic1DHigherRankScalarRefinementResult,
+    Periodic1DRankNBlockRefinementResult,
+    Periodic1DRankNScalarRefinementResult,
 )
 from .scalar_diagnostics import (
-    Periodic1DHigherRankScalarDiagnosticInventoryExtractor,
+    Periodic1DRankNScalarDiagnosticInventoryExtractor,
 )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankRefinementAnalysisRequest:
+class Periodic1DRankNRefinementAnalysisRequest:
     """Bind one calculation request and its complete construction-mesh results."""
 
-    calculation_request: Periodic1DHigherRankAlignmentCalculationRequest
-    meshes: tuple[Periodic1DHigherRankMeshCalculationResult, ...]
+    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    meshes: tuple[Periodic1DRankNMeshCalculationResult, ...]
 
     def __post_init__(self) -> None:
         if (
             type(self.calculation_request)
-            is not Periodic1DHigherRankAlignmentCalculationRequest
+            is not Periodic1DRankNAlignmentCalculationRequest
         ):
             raise TypeError("calculation_request must be the exact request record")
         if type(self.meshes) is not tuple or any(
-            type(mesh) is not Periodic1DHigherRankMeshCalculationResult
+            type(mesh) is not Periodic1DRankNMeshCalculationResult
             for mesh in self.meshes
         ):
             raise TypeError("meshes must contain exact mesh calculation results")
@@ -96,27 +96,27 @@ class Periodic1DHigherRankRefinementAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankRefinementAnalysis(NumericalConsistency):
+class Periodic1DRankNRefinementAnalysis(NumericalConsistency):
     """Retain block and scalar refinement records from one complete request."""
 
-    blocks: tuple[Periodic1DHigherRankBlockRefinementResult, ...]
-    scalars: tuple[Periodic1DHigherRankScalarRefinementResult, ...]
+    blocks: tuple[Periodic1DRankNBlockRefinementResult, ...]
+    scalars: tuple[Periodic1DRankNScalarRefinementResult, ...]
 
     def __post_init__(self) -> None:
         if type(self.blocks) is not tuple or any(
-            type(item) is not Periodic1DHigherRankBlockRefinementResult
+            type(item) is not Periodic1DRankNBlockRefinementResult
             for item in self.blocks
         ):
             raise TypeError("blocks must contain exact block refinement records")
         if type(self.scalars) is not tuple or any(
-            type(item) is not Periodic1DHigherRankScalarRefinementResult
+            type(item) is not Periodic1DRankNScalarRefinementResult
             for item in self.scalars
         ):
             raise TypeError("scalars must contain exact scalar refinement records")
 
 
 @final
-class Periodic1DHigherRankRefinementAnalyzer:
+class Periodic1DRankNRefinementAnalyzer:
     """Calculate adjacent block and final-pair scalar refinement evidence."""
 
     __slots__ = ("_request", "_scalar_refinement_analyzer")
@@ -124,14 +124,12 @@ class Periodic1DHigherRankRefinementAnalyzer:
     def __init__(
         self,
         *,
-        request: Periodic1DHigherRankRefinementAnalysisRequest,
+        request: Periodic1DRankNRefinementAnalysisRequest,
         scalar_refinement_analyzer: ScalarRefinementAnalyzer,
     ) -> None:
         """Bind the complete request and canonical scalar-refinement owner."""
-        if type(request) is not Periodic1DHigherRankRefinementAnalysisRequest:
-            raise TypeError(
-                "request must be Periodic1DHigherRankRefinementAnalysisRequest"
-            )
+        if type(request) is not Periodic1DRankNRefinementAnalysisRequest:
+            raise TypeError("request must be Periodic1DRankNRefinementAnalysisRequest")
         if type(scalar_refinement_analyzer) is not ScalarRefinementAnalyzer:
             raise TypeError(
                 "scalar_refinement_analyzer must be ScalarRefinementAnalyzer"
@@ -140,7 +138,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
         self._scalar_refinement_analyzer = scalar_refinement_analyzer
 
     @property
-    def request(self) -> Periodic1DHigherRankRefinementAnalysisRequest:
+    def request(self) -> Periodic1DRankNRefinementAnalysisRequest:
         """Return the exact refinement request bound to this action."""
         return self._request
 
@@ -163,19 +161,19 @@ class Periodic1DHigherRankRefinementAnalyzer:
             relative_tolerance=controls.refinement_relative_tolerance,
         )
 
-    def execute(self) -> Periodic1DHigherRankRefinementAnalysis:
+    def execute(self) -> Periodic1DRankNRefinementAnalysis:
         """Return complete block and scalar refinement inventories."""
-        return Periodic1DHigherRankRefinementAnalysis(
+        return Periodic1DRankNRefinementAnalysis(
             blocks=self._block_refinements(),
             scalars=self._scalar_refinements(),
         )
 
     def _block_refinements(
         self,
-    ) -> tuple[Periodic1DHigherRankBlockRefinementResult, ...]:
+    ) -> tuple[Periodic1DRankNBlockRefinementResult, ...]:
         calculation_request = self._request.calculation_request
         meshes = self._request.meshes
-        results: list[Periodic1DHigherRankBlockRefinementResult] = []
+        results: list[Periodic1DRankNBlockRefinementResult] = []
         for gauge_alignment in calculation_request.configuration.gauge_alignments:
             for coarse_mesh, fine_mesh in zip(meshes[:-1], meshes[1:], strict=True):
                 coarse = next(
@@ -189,10 +187,9 @@ class Periodic1DHigherRankRefinementAnalyzer:
                     if item.status.gauge_alignment is gauge_alignment
                 )
                 if (
-                    coarse.status.status
-                    is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                    coarse.status.status is not Periodic1DRankNAlignmentStatus.QUALIFIED
                     or fine.status.status
-                    is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                    is not Periodic1DRankNAlignmentStatus.QUALIFIED
                 ):
                     continue
                 if not np.array_equal(
@@ -232,7 +229,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
                     dtype=np.float64,
                 )
                 results.append(
-                    Periodic1DHigherRankBlockRefinementResult(
+                    Periodic1DRankNBlockRefinementResult(
                         gauge_alignment=gauge_alignment,
                         coarse_mesh_size=coarse_mesh.construction_mesh_size,
                         fine_mesh_size=fine_mesh.construction_mesh_size,
@@ -254,7 +251,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
 
     def _scalar_refinements(
         self,
-    ) -> tuple[Periodic1DHigherRankScalarRefinementResult, ...]:
+    ) -> tuple[Periodic1DRankNScalarRefinementResult, ...]:
         calculation_request = self._request.calculation_request
         meshes = self._request.meshes
         construction_sizes = calculation_request.configuration.construction_mesh_sizes
@@ -265,7 +262,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
         fine_mesh = next(
             mesh for mesh in meshes if mesh.construction_mesh_size == fine_size
         )
-        results: list[Periodic1DHigherRankScalarRefinementResult] = []
+        results: list[Periodic1DRankNScalarRefinementResult] = []
         for gauge_alignment in calculation_request.configuration.gauge_alignments:
             coarse = next(
                 item
@@ -278,16 +275,14 @@ class Periodic1DHigherRankRefinementAnalyzer:
                 if item.status.gauge_alignment is gauge_alignment
             )
             if (
-                coarse.status.status
-                is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
-                or fine.status.status
-                is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                coarse.status.status is not Periodic1DRankNAlignmentStatus.QUALIFIED
+                or fine.status.status is not Periodic1DRankNAlignmentStatus.QUALIFIED
             ):
                 continue
-            coarse_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+            coarse_inventory = Periodic1DRankNScalarDiagnosticInventoryExtractor(
                 coarse
             ).execute()
-            fine_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+            fine_inventory = Periodic1DRankNScalarDiagnosticInventoryExtractor(
                 fine
             ).execute()
             if tuple(path for path, _ in coarse_inventory) != tuple(
@@ -306,7 +301,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
                     fine_value=fine_value,
                 )
                 results.append(
-                    Periodic1DHigherRankScalarRefinementResult(
+                    Periodic1DRankNScalarRefinementResult(
                         gauge_alignment=gauge_alignment,
                         diagnostic_path=path,
                         coarse_mesh_size=coarse_mesh.construction_mesh_size,
@@ -324,7 +319,7 @@ class Periodic1DHigherRankRefinementAnalyzer:
 
 
 __all__ = [
-    "Periodic1DHigherRankRefinementAnalysis",
-    "Periodic1DHigherRankRefinementAnalysisRequest",
-    "Periodic1DHigherRankRefinementAnalyzer",
+    "Periodic1DRankNRefinementAnalysis",
+    "Periodic1DRankNRefinementAnalysisRequest",
+    "Periodic1DRankNRefinementAnalyzer",
 ]

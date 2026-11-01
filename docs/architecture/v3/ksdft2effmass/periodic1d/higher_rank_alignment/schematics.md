@@ -68,7 +68,7 @@ replacement request, unrelated same-shaped arrays, wrong gauge alignment, wrong 
 or inconsistent selection provenance. Serialization owns wire mechanics only and does
 not recompute scientific quantities.
 
-`Periodic1DHigherRankAlignmentAnalyzer` receives the complete request and concrete
+`Periodic1DRankNAlignmentAnalyzer` receives the complete request and concrete
 Optimization, PhysKit, and KSD owners in its constructor. Its `execute()` method has no
 arguments. It does not inspect registries, import the historical calculation-local
 Workflow, or infer missing physical identities.

@@ -14,8 +14,8 @@ from pathlib import Path
 from typing import Self, final
 
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankAlignmentConfiguration,
+    Periodic1DRankNAlignmentCalculationResult,
+    Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
@@ -94,12 +94,12 @@ class HigherRankDevelopmentCacheEntry(BaseTypedRecord):
             raise ValueError("case_identity must be a nonempty built-in string")
         if (
             self.retained_rank
-            not in Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
+            not in Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS
         ):
             raise ValueError("retained_rank is outside the frozen inventory")
         if (
             self.circuit_depth
-            not in Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
+            not in Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS
         ):
             raise ValueError("circuit_depth is outside the frozen inventory")
         expected_file_name = f"result-r{self.retained_rank}-l{self.circuit_depth}.json"
@@ -163,7 +163,7 @@ class HigherRankDevelopmentCacheManifest(BaseTypedRecord):
             raise ValueError("development cache cannot claim scientific evidence")
         if self.cache_format != _CACHE_FORMAT:
             raise ValueError("cache_format is unsupported")
-        configuration = Periodic1DHigherRankAlignmentConfiguration
+        configuration = Periodic1DRankNAlignmentConfiguration
         if self.family_identity != configuration.FAMILY_IDENTITY:
             raise ValueError("family_identity does not match the frozen family")
         if self.version_identity != configuration.VERSION_IDENTITY:
@@ -333,13 +333,13 @@ class HigherRankDevelopmentCacheAdmission(BaseTypedRecord):
 class HigherRankDevelopmentCacheWriteRequest:
     """Bind complete calculated results and one replaceable cache directory."""
 
-    calculation_results: tuple[Periodic1DHigherRankAlignmentCalculationResult, ...]
+    calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
     cache_directory: Path
     calculation_infrastructure_sha256: str
 
     def __post_init__(self) -> None:
         if type(self.calculation_results) is not tuple or any(
-            type(result) is not Periodic1DHigherRankAlignmentCalculationResult
+            type(result) is not Periodic1DRankNAlignmentCalculationResult
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
@@ -351,8 +351,8 @@ class HigherRankDevelopmentCacheWriteRequest:
         )
         expected = tuple(
             (rank, depth)
-            for rank in Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
-            for depth in Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
+            for rank in Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS
+            for depth in Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS
         )
         actual = tuple(
             (result.request.retained_rank, result.request.circuit_depth)
@@ -379,14 +379,14 @@ class HigherRankDevelopmentCacheReadResult:
 
     manifest: HigherRankDevelopmentCacheManifest
     manifest_sha256: str
-    calculation_results: tuple[Periodic1DHigherRankAlignmentCalculationResult, ...]
+    calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
 
     def __post_init__(self) -> None:
         if type(self.manifest) is not HigherRankDevelopmentCacheManifest:
             raise TypeError("manifest must be the exact cache-manifest record")
         _validate_digest(self.manifest_sha256, "manifest_sha256")
         if type(self.calculation_results) is not tuple or any(
-            type(result) is not Periodic1DHigherRankAlignmentCalculationResult
+            type(result) is not Periodic1DRankNAlignmentCalculationResult
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
@@ -464,14 +464,14 @@ class HigherRankDevelopmentCacheReader:
         manifest = HigherRankDevelopmentCacheManifest.from_json(manifest_wire)
         if manifest.to_json() != manifest_wire:
             raise ValueError("manifest bytes are not canonical")
-        results: list[Periodic1DHigherRankAlignmentCalculationResult] = []
+        results: list[Periodic1DRankNAlignmentCalculationResult] = []
         for entry in manifest.entries:
             wire = (directory / entry.file_name).read_bytes()
             if len(wire) != entry.byte_count:
                 raise ValueError(f"cached byte count changed for {entry.file_name}")
             if _sha256(wire) != entry.result_sha256:
                 raise ValueError(f"cached digest changed for {entry.file_name}")
-            result = Periodic1DHigherRankAlignmentCalculationResult.from_json(wire)
+            result = Periodic1DRankNAlignmentCalculationResult.from_json(wire)
             if result.to_json() != wire:
                 raise ValueError(f"cached result is not canonical: {entry.file_name}")
             if (

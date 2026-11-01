@@ -16,18 +16,18 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
-    Periodic1DHigherRankAlignmentAnalyzer,
-    Periodic1DHigherRankAlignmentCalculationControls,
-    Periodic1DHigherRankAlignmentCalculationRequest,
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankAlignmentConfiguration,
+    Periodic1DRankNAlignmentAnalyzer,
+    Periodic1DRankNAlignmentCalculationControls,
+    Periodic1DRankNAlignmentCalculationRequest,
+    Periodic1DRankNAlignmentCalculationResult,
+    Periodic1DRankNAlignmentConfiguration,
 )
 
 
 @pytest.fixture
-def higher_rank_configuration() -> Periodic1DHigherRankAlignmentConfiguration:
+def higher_rank_configuration() -> Periodic1DRankNAlignmentConfiguration:
     """Return the exact version-one higher-rank configuration."""
-    configuration_type = Periodic1DHigherRankAlignmentConfiguration
+    configuration_type = Periodic1DRankNAlignmentConfiguration
     return configuration_type(
         family_identity=configuration_type.FAMILY_IDENTITY,
         version_identity=configuration_type.VERSION_IDENTITY,
@@ -67,12 +67,12 @@ def higher_rank_configuration() -> Periodic1DHigherRankAlignmentConfiguration:
 
 @pytest.fixture
 def higher_rank_calculation_request(
-    higher_rank_configuration: Periodic1DHigherRankAlignmentConfiguration,
-) -> Periodic1DHigherRankAlignmentCalculationRequest:
+    higher_rank_configuration: Periodic1DRankNAlignmentConfiguration,
+) -> Periodic1DRankNAlignmentCalculationRequest:
     """Return the smallest-rank, shallowest-depth complete calculation request."""
-    return Periodic1DHigherRankAlignmentCalculationRequest(
+    return Periodic1DRankNAlignmentCalculationRequest(
         configuration=higher_rank_configuration,
-        controls=Periodic1DHigherRankAlignmentCalculationControls.frozen(),
+        controls=Periodic1DRankNAlignmentCalculationControls.frozen(),
         retained_rank=3,
         circuit_depth=1,
         ambient_basis_identifier="analytic-parent-ordered-retained-exterior-basis",
@@ -84,9 +84,9 @@ def higher_rank_calculation_request(
 
 
 @pytest.fixture(scope="session")
-def higher_rank_calculation_result() -> Periodic1DHigherRankAlignmentCalculationResult:
+def higher_rank_calculation_result() -> Periodic1DRankNAlignmentCalculationResult:
     """Execute one complete smallest case once for integration assertions."""
-    configuration_type = Periodic1DHigherRankAlignmentConfiguration
+    configuration_type = Periodic1DRankNAlignmentConfiguration
     configuration = configuration_type(
         family_identity=configuration_type.FAMILY_IDENTITY,
         version_identity=configuration_type.VERSION_IDENTITY,
@@ -122,9 +122,9 @@ def higher_rank_calculation_result() -> Periodic1DHigherRankAlignmentCalculation
             configuration_type.MAXIMUM_CLOSURE_PHASE_TOLERANCE
         ),
     )
-    request = Periodic1DHigherRankAlignmentCalculationRequest(
+    request = Periodic1DRankNAlignmentCalculationRequest(
         configuration=configuration,
-        controls=Periodic1DHigherRankAlignmentCalculationControls.frozen(),
+        controls=Periodic1DRankNAlignmentCalculationControls.frozen(),
         retained_rank=3,
         circuit_depth=1,
         ambient_basis_identifier="analytic-parent-ordered-retained-exterior-basis",
@@ -133,7 +133,7 @@ def higher_rank_calculation_result() -> Periodic1DHigherRankAlignmentCalculation
         represented_basis_identifier="aligned-retained-orbital-basis",
         energy_reference_identifier="analytic-dimensionless-zero",
     )
-    return Periodic1DHigherRankAlignmentAnalyzer(
+    return Periodic1DRankNAlignmentAnalyzer(
         request=request,
         procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
         transporter=ClosedLoopPolarFrameTransporter(),

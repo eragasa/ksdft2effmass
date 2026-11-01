@@ -5,10 +5,10 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ksdft2effmass.real_space_support_truncation import (
-    RealSpaceSupportTruncation,
-    SymmetricRangeSupport1D,
+from ksdft2effmass.periodic1d.support_truncation import (
+    Periodic1DSupportTruncation,
 )
+from ksdft2effmass.real_space_support_truncation import SymmetricRangeSupport1D
 
 from ..parent_scale.results import (
     Periodic1DRank2BandTransportBackendFailure,
@@ -29,7 +29,7 @@ def _nonnegative(value: float, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationRange(RealSpaceSupportTruncation):
+class Periodic1DRank2TruncationRange(Periodic1DSupportTruncation):
     """Retain consequences of one conjugate-closed ordinary cutoff."""
 
     maximum_range: int
@@ -140,8 +140,8 @@ class Periodic1DRank2TruncationPoint:
             raise ValueError("comparison total power must equal ordinary plus Nyquist")
 
 
-class Periodic1DRank2TruncationAnalysis(RealSpaceSupportTruncation):
-    """Identify one closed truncation outcome variant."""
+class Periodic1DRank2SupportTruncationAnalysis(Periodic1DSupportTruncation):
+    """Identify one closed support-truncation outcome variant."""
 
     __slots__ = ()
 
@@ -155,7 +155,9 @@ class Periodic1DRank2TruncationAnalysis(RealSpaceSupportTruncation):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationQualificationStopped(Periodic1DRank2TruncationAnalysis):
+class Periodic1DRank2TruncationQualificationStopped(
+    Periodic1DRank2SupportTruncationAnalysis
+):
     """Retain qualification evidence when truncation evaluation cannot begin."""
 
     request: Periodic1DRank2TruncationRequest
@@ -187,7 +189,7 @@ class Periodic1DRank2TruncationQualificationStopped(Periodic1DRank2TruncationAna
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationCompleted(Periodic1DRank2TruncationAnalysis):
+class Periodic1DRank2TruncationCompleted(Periodic1DRank2SupportTruncationAnalysis):
     """Retain one complete pointwise finite-range consequence study."""
 
     request: Periodic1DRank2TruncationRequest
@@ -269,7 +271,11 @@ class Periodic1DRank2TruncationCompleted(Periodic1DRank2TruncationAnalysis):
             raise ValueError("reference channels must be shared by every amplitude")
 
 
+Periodic1DRank2TruncationAnalysis = Periodic1DRank2SupportTruncationAnalysis
+
+
 __all__ = [
+    "Periodic1DRank2SupportTruncationAnalysis",
     "Periodic1DRank2TruncationAnalysis",
     "Periodic1DRank2TruncationCompleted",
     "Periodic1DRank2TruncationPoint",

@@ -21,14 +21,14 @@ from .._record_admission import (
     _mapping_value,
     _nonempty,
 )
-from ..configuration import Periodic1DHigherRankAlignmentConfiguration
-from ..definition import Periodic1DHigherRankAlignmentStatus
-from ..gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
-from ..result import Periodic1DHigherRankAlignmentStatusResult
+from ..configuration import Periodic1DRankNAlignmentConfiguration
+from ..definition import Periodic1DRankNAlignmentStatus
+from ..gauge_alignment.definition import Periodic1DRankNGaugeAlignment
+from ..result import Periodic1DRankNAlignmentStatusResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
+class Periodic1DRankNModelDiagnostics(BaseTypedRecord):
     """Retain analytic-gap, sampled-gap, structure, and recovery diagnostics."""
 
     case_identity: str
@@ -58,19 +58,19 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
         if (
             type(self.retained_rank) is not int
             or self.retained_rank
-            not in Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
+            not in Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS
         ):
             raise ValueError("retained_rank must be in the frozen inventory")
         if (
             type(self.circuit_depth) is not int
             or self.circuit_depth
-            not in Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
+            not in Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS
         ):
             raise ValueError("circuit_depth must be in the frozen inventory")
         if (
             type(self.construction_mesh_size) is not int
             or self.construction_mesh_size
-            not in Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES
+            not in Periodic1DRankNAlignmentConfiguration.CONSTRUCTION_MESH_SIZES
         ):
             raise ValueError("construction_mesh_size must be in the frozen inventory")
         expected_case_identity = f"r{self.retained_rank:02d}-L{self.circuit_depth:02d}"
@@ -85,7 +85,7 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
             "sampled_isolation_gaps",
         )
         if sampled.shape != (
-            len(Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES),
+            len(Periodic1DRankNAlignmentConfiguration.CONSTRUCTION_MESH_SIZES),
         ):
             raise ValueError(
                 "sampled_isolation_gaps must cover every construction mesh"
@@ -321,10 +321,10 @@ class Periodic1DHigherRankModelDiagnostics(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
+class Periodic1DRankNProcrustesDiagnostics(BaseTypedRecord):
     """Retain complete rank and integrity evidence for global or pointwise selection."""
 
-    status: Periodic1DHigherRankAlignmentStatusResult
+    status: Periodic1DRankNAlignmentStatusResult
     selection_mesh_size: int
     cross_singular_values: Float64Array
     numerical_ranks: Int64Array
@@ -346,11 +346,11 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
     backend_version: str | None
 
     def __post_init__(self) -> None:
-        if type(self.status) is not Periodic1DHigherRankAlignmentStatusResult:
+        if type(self.status) is not Periodic1DRankNAlignmentStatusResult:
             raise TypeError("status must be the exact alignment status record")
         if self.status.gauge_alignment not in (
-            Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY,
-            Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
+            Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
+            Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
         ):
             raise ValueError(
                 "Procrustes diagnostics require global or pointwise alignment"
@@ -359,7 +359,7 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
             raise TypeError("selection_mesh_size must be a built-in integer")
         if (
             self.selection_mesh_size
-            not in Periodic1DHigherRankAlignmentConfiguration.CONSTRUCTION_MESH_SIZES
+            not in Periodic1DRankNAlignmentConfiguration.CONSTRUCTION_MESH_SIZES
         ):
             raise ValueError("selection_mesh_size is not a construction mesh")
         if self.status.construction_mesh_size != self.selection_mesh_size:
@@ -374,8 +374,7 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
             self.normalized_optimal_residuals, "normalized_optimal_residuals"
         )
         unresolved = (
-            self.status.status
-            is Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED
+            self.status.status is Periodic1DRankNAlignmentStatus.NUMERICALLY_UNRESOLVED
         )
         expected_count = (
             0
@@ -383,7 +382,7 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
             else (
                 1
                 if self.status.gauge_alignment
-                is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
+                is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
                 else self.selection_mesh_size
             )
         )
@@ -446,7 +445,7 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
                     )
                 )
                 if self.status.gauge_alignment
-                is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY
+                is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY
                 else ()
             )
             if (
@@ -502,8 +501,8 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
                 raise ValueError("minimum_rank_margin must be a finite built-in float")
             if (
                 self.status.gauge_alignment
-                is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
-                and self.status.status is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+                and self.status.status is Periodic1DRankNAlignmentStatus.QUALIFIED
             ):
                 if type(
                     self.selected_global_right_unitary
@@ -648,7 +647,7 @@ class Periodic1DHigherRankProcrustesDiagnostics(BaseTypedRecord):
         if backend_version is not None and type(backend_version) is not str:
             raise TypeError("backend_version must decode to a string or None")
         return cls(
-            status=Periodic1DHigherRankAlignmentStatusResult.from_dict(
+            status=Periodic1DRankNAlignmentStatusResult.from_dict(
                 _mapping_value(values["status"], "status")
             ),
             selection_mesh_size=mesh,

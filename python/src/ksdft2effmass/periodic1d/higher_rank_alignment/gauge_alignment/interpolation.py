@@ -20,31 +20,31 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
 
-from ..diagnostics import Periodic1DHigherRankMatrixComparisonResult
+from ..diagnostics import Periodic1DRankNMatrixComparisonResult
 from .fields import (
-    Periodic1DHigherRankGaugeAlignmentEvaluationRequest,
-    Periodic1DHigherRankGaugeAlignmentEvaluator,
+    Periodic1DRankNGaugeAlignmentEvaluationRequest,
+    Periodic1DRankNGaugeAlignmentEvaluator,
 )
-from .fourier import Periodic1DHigherRankFourierAnalysis
-from .request import Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+from .fourier import Periodic1DRankNFourierAnalysis
+from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankInterpolationAnalysisRequest:
+class Periodic1DRankNInterpolationAnalysisRequest:
     """Bind Fourier evidence and the scientific request for shifted evaluation."""
 
-    analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest
-    fourier_analysis: Periodic1DHigherRankFourierAnalysis
+    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
+    fourier_analysis: Periodic1DRankNFourierAnalysis
 
     def __post_init__(self) -> None:
         if (
             type(self.analysis_request)
-            is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
         ):
             raise TypeError(
                 "analysis_request must be the exact gauge-alignment request"
             )
-        if type(self.fourier_analysis) is not Periodic1DHigherRankFourierAnalysis:
+        if type(self.fourier_analysis) is not Periodic1DRankNFourierAnalysis:
             raise TypeError("fourier_analysis must be the exact Fourier analysis")
         if self.fourier_analysis.analysis_request is not self.analysis_request:
             raise ValueError("Fourier analysis must derive from the bound request")
@@ -56,21 +56,21 @@ class Periodic1DHigherRankInterpolationAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankInterpolationAnalysis(NumericalConsistency):
+class Periodic1DRankNInterpolationAnalysis(NumericalConsistency):
     """Store shifted coordinates, evaluated fields, and interpolation diagnostics."""
 
-    analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
     evaluation_coordinates: RealArray
     full_evaluation: ComplexArray
     direct_evaluation: ComplexArray
-    interpolation: Periodic1DHigherRankMatrixComparisonResult
+    interpolation: Periodic1DRankNMatrixComparisonResult
     final_interpolation_operator_pass: bool
     final_interpolation_spectrum_pass: bool
 
     def __post_init__(self) -> None:
         if (
             type(self.analysis_request)
-            is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
         ):
             raise TypeError("analysis_request must be the exact analysis request")
         coordinates = NumpyImmutableArrayValidator(
@@ -101,7 +101,7 @@ class Periodic1DHigherRankInterpolationAnalysis(NumericalConsistency):
         )
         if coordinates.size != evaluation_mesh_size:
             raise ValueError("evaluation coordinates must match the declared mesh")
-        if type(self.interpolation) is not Periodic1DHigherRankMatrixComparisonResult:
+        if type(self.interpolation) is not Periodic1DRankNMatrixComparisonResult:
             raise TypeError("interpolation must be the exact comparison record")
         if type(self.final_interpolation_operator_pass) is not bool:
             raise TypeError("final_interpolation_operator_pass must be a built-in bool")
@@ -110,7 +110,7 @@ class Periodic1DHigherRankInterpolationAnalysis(NumericalConsistency):
 
 
 @final
-class Periodic1DHigherRankInterpolationAnalyzer:
+class Periodic1DRankNInterpolationAnalyzer:
     """Evaluate a Fourier series on the disjoint shifted mesh."""
 
     __slots__ = ("_request",)
@@ -118,20 +118,20 @@ class Periodic1DHigherRankInterpolationAnalyzer:
     def __init__(
         self,
         *,
-        request: Periodic1DHigherRankInterpolationAnalysisRequest,
+        request: Periodic1DRankNInterpolationAnalysisRequest,
     ) -> None:
-        if type(request) is not Periodic1DHigherRankInterpolationAnalysisRequest:
+        if type(request) is not Periodic1DRankNInterpolationAnalysisRequest:
             raise TypeError(
-                "request must be Periodic1DHigherRankInterpolationAnalysisRequest"
+                "request must be Periodic1DRankNInterpolationAnalysisRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankInterpolationAnalysisRequest:
+    def request(self) -> Periodic1DRankNInterpolationAnalysisRequest:
         """Return the exact interpolation request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankInterpolationAnalysis:
+    def execute(self) -> Periodic1DRankNInterpolationAnalysis:
         """Return shifted-mesh interpolation fields and diagnostics."""
         request = self._request
         analysis_request = request.analysis_request
@@ -166,8 +166,8 @@ class Periodic1DHigherRankInterpolationAnalyzer:
             "full_evaluation",
             np.dtype(np.complex128),
         ).execute()
-        direct_evaluation = Periodic1DHigherRankGaugeAlignmentEvaluator(
-            Periodic1DHigherRankGaugeAlignmentEvaluationRequest(
+        direct_evaluation = Periodic1DRankNGaugeAlignmentEvaluator(
+            Periodic1DRankNGaugeAlignmentEvaluationRequest(
                 calculation_request=calculation_request,
                 model=analysis_request.model,
                 gauge_alignment=analysis_request.status.gauge_alignment,
@@ -178,14 +178,14 @@ class Periodic1DHigherRankInterpolationAnalyzer:
         interpolation_diagnostics = MatrixFieldComparisonAnalyzer(
             approximation=full_evaluation,
             reference=direct_evaluation,
-            energy_reference=controls.energy_reference,
+            norm_energy_scale=controls.energy_reference,
             saturation_denominator_floor=controls.saturation_denominator_floor,
         ).execute()
-        interpolation = Periodic1DHigherRankMatrixComparisonResult.from_diagnostics(
+        interpolation = Periodic1DRankNMatrixComparisonResult.from_diagnostics(
             interpolation_diagnostics,
             controls.perturbation_bound_tolerance,
         )
-        return Periodic1DHigherRankInterpolationAnalysis(
+        return Periodic1DRankNInterpolationAnalysis(
             analysis_request=analysis_request,
             evaluation_coordinates=evaluation_coordinates,
             full_evaluation=full_evaluation,
@@ -203,7 +203,7 @@ class Periodic1DHigherRankInterpolationAnalyzer:
 
 
 __all__ = [
-    "Periodic1DHigherRankInterpolationAnalysis",
-    "Periodic1DHigherRankInterpolationAnalysisRequest",
-    "Periodic1DHigherRankInterpolationAnalyzer",
+    "Periodic1DRankNInterpolationAnalysis",
+    "Periodic1DRankNInterpolationAnalysisRequest",
+    "Periodic1DRankNInterpolationAnalyzer",
 ]

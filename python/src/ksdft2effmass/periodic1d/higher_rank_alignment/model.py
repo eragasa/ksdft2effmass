@@ -11,7 +11,7 @@ from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, Real
 
 from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
 
-from .configuration import Periodic1DHigherRankAlignmentConfiguration
+from .configuration import Periodic1DRankNAlignmentConfiguration
 
 
 def _finite_reduced_coordinates(value: RealArray, name: str) -> RealArray:
@@ -27,7 +27,7 @@ def _finite_reduced_coordinates(value: RealArray, name: str) -> RealArray:
 
 @final
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankAnalyticCase(Periodic1DModel):
+class Periodic1DRankNAnalyticCase(Periodic1DModel):
     """Represent one exact analytic parent family and synthetic frame attack.
 
     Reduced coordinates lie in one reciprocal period. The ambient basis is the
@@ -51,14 +51,14 @@ class Periodic1DHigherRankAnalyticCase(Periodic1DModel):
             raise TypeError("retained_rank must be a built-in integer")
         if (
             self.retained_rank
-            not in Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
+            not in Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS
         ):
             raise ValueError("retained_rank is not in the frozen inventory")
         if type(self.circuit_depth) is not int:
             raise TypeError("circuit_depth must be a built-in integer")
         if (
             self.circuit_depth
-            not in Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
+            not in Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS
         ):
             raise ValueError("circuit_depth is not in the frozen inventory")
         reference = NumpyImmutableArrayConstructor(
@@ -271,7 +271,7 @@ class Periodic1DHigherRankAnalyticCase(Periodic1DModel):
 
 
 @final
-class Periodic1DHigherRankAnalyticCaseConstructor:
+class Periodic1DRankNAnalyticCaseConstructor:
     """Construct one frozen analytic rank/depth case without hidden collaborators."""
 
     __slots__ = ("_retained_rank", "_circuit_depth")
@@ -281,7 +281,7 @@ class Periodic1DHigherRankAnalyticCaseConstructor:
         self._retained_rank = retained_rank
         self._circuit_depth = circuit_depth
 
-    def execute(self) -> Periodic1DHigherRankAnalyticCase:
+    def execute(self) -> Periodic1DRankNAnalyticCase:
         """Return the immutable analytic case definition."""
         rank = self._retained_rank
         if type(rank) is not int:
@@ -289,7 +289,7 @@ class Periodic1DHigherRankAnalyticCaseConstructor:
         ambient = 2 * rank
         frame = np.zeros((ambient, rank), dtype=np.complex128)
         frame[:rank] = np.eye(rank, dtype=np.complex128)
-        return Periodic1DHigherRankAnalyticCase(
+        return Periodic1DRankNAnalyticCase(
             retained_rank=rank,
             circuit_depth=self._circuit_depth,
             reference_frame=frame,
@@ -298,6 +298,6 @@ class Periodic1DHigherRankAnalyticCaseConstructor:
 
 
 __all__ = [
-    "Periodic1DHigherRankAnalyticCase",
-    "Periodic1DHigherRankAnalyticCaseConstructor",
+    "Periodic1DRankNAnalyticCase",
+    "Periodic1DRankNAnalyticCaseConstructor",
 ]

@@ -6,17 +6,17 @@ import numpy as np
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.physkit.numerics.typing.numpy.arrays import RealArray
 
-from ..calculation import Periodic1DHigherRankAlignmentCalculationRequest
+from ..calculation import Periodic1DRankNAlignmentCalculationRequest
 from ..definition import (
-    Periodic1DHigherRankAlignmentBackendExceptionCode,
-    Periodic1DHigherRankAlignmentStatus,
-    Periodic1DHigherRankGlobalUnitaryDownstreamApplicability,
+    Periodic1DRankNAlignmentBackendExceptionCode,
+    Periodic1DRankNAlignmentStatus,
+    Periodic1DRankNGlobalUnitaryDownstreamApplicability,
 )
-from ..gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
-from ..gauge_alignment.results import Periodic1DHigherRankGaugeAlignmentMeshResult
-from ..result import Periodic1DHigherRankAlignmentStatusResult
+from ..gauge_alignment.definition import Periodic1DRankNGaugeAlignment
+from ..gauge_alignment.results import Periodic1DRankNGaugeAlignmentMeshResult
+from ..result import Periodic1DRankNAlignmentStatusResult
 
-_GlobalApplicability = Periodic1DHigherRankGlobalUnitaryDownstreamApplicability
+_GlobalApplicability = Periodic1DRankNGlobalUnitaryDownstreamApplicability
 _INAPPLICABLE_GLOBAL_RANK = _GlobalApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
 
 
@@ -33,28 +33,26 @@ def _coordinates(mesh_size: int, offset: float) -> RealArray:
 
 
 def _status(
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
+    request: Periodic1DRankNAlignmentCalculationRequest,
     mesh_size: int,
-    gauge_alignment: Periodic1DHigherRankGaugeAlignment,
-    status: Periodic1DHigherRankAlignmentStatus,
+    gauge_alignment: Periodic1DRankNGaugeAlignment,
+    status: Periodic1DRankNAlignmentStatus,
     backend_exception_code: (
-        Periodic1DHigherRankAlignmentBackendExceptionCode | None
+        Periodic1DRankNAlignmentBackendExceptionCode | None
     ) = None,
-) -> Periodic1DHigherRankAlignmentStatusResult:
+) -> Periodic1DRankNAlignmentStatusResult:
     applicability = None
     if (
-        gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
-        and status is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+        and status is Periodic1DRankNAlignmentStatus.QUALIFIED
     ):
-        applicability = (
-            Periodic1DHigherRankGlobalUnitaryDownstreamApplicability.APPLICABLE
-        )
+        applicability = Periodic1DRankNGlobalUnitaryDownstreamApplicability.APPLICABLE
     elif (
-        gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
-        and status is Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT
+        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+        and status is Periodic1DRankNAlignmentStatus.AGGREGATE_RANK_DEFICIENT
     ):
         applicability = _INAPPLICABLE_GLOBAL_RANK
-    return Periodic1DHigherRankAlignmentStatusResult(
+    return Periodic1DRankNAlignmentStatusResult(
         case_identity=request.case_identity,
         retained_rank=request.retained_rank,
         circuit_depth=request.circuit_depth,
@@ -67,9 +65,9 @@ def _status(
 
 
 def _unavailable_gauge_alignment_result(
-    status: Periodic1DHigherRankAlignmentStatusResult,
-) -> Periodic1DHigherRankGaugeAlignmentMeshResult:
-    return Periodic1DHigherRankGaugeAlignmentMeshResult(
+    status: Periodic1DRankNAlignmentStatusResult,
+) -> Periodic1DRankNGaugeAlignmentMeshResult:
+    return Periodic1DRankNGaugeAlignmentMeshResult(
         status=status,
         transform_backend_identifier=None,
         transform_backend_version=None,

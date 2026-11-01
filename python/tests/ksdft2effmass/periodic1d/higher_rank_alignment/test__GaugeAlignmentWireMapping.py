@@ -8,10 +8,10 @@ import pytest
 
 from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition import (
     GaugeAlignmentWireMapping,
-    Periodic1DHigherRankGaugeAlignment,
+    Periodic1DRankNGaugeAlignment,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestGaugeAlignmentWireMapping:
@@ -19,10 +19,10 @@ class TestGaugeAlignmentWireMapping:
 
     def test__mapping__round_trips_the_descriptive_inventory(self) -> None:
         expected = {
-            Periodic1DHigherRankGaugeAlignment.IDENTITY: "identity",
-            Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY: "global-unitary",
-            Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY: "pointwise-unitary",
-            Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE: (
+            Periodic1DRankNGaugeAlignment.IDENTITY: "identity",
+            Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY: "global-unitary",
+            Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY: "pointwise-unitary",
+            Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE: (
                 "known-inverse-oracle"
             ),
         }
@@ -35,7 +35,7 @@ class TestGaugeAlignmentWireMapping:
         class OtherEnum(Enum):
             IDENTITY = auto()
 
-        with pytest.raises(TypeError, match="Periodic1DHigherRankGaugeAlignment"):
+        with pytest.raises(TypeError, match="Periodic1DRankNGaugeAlignment"):
             GaugeAlignmentWireMapping.to_wire(OtherEnum.IDENTITY)  # type: ignore[arg-type]
         with pytest.raises(TypeError, match="built-in string"):
             GaugeAlignmentWireMapping.from_wire(1)  # type: ignore[arg-type]

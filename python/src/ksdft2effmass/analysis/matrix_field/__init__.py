@@ -24,6 +24,8 @@ from .diagnostics import (
     SymmetricRangeTailMonotonicityAnalyzer1D,
     SymmetricRangeTailMonotonicityDiagnostics1D,
 )
+from .normalization import positive_norm_energy_scale
+from .validation import matrix_field
 
 __all__ = [
     "FourierMatrixBlockNorm1D",
@@ -48,4 +50,6 @@ __all__ = [
     "SymmetricRangeTailDiagnostics1D",
     "SymmetricRangeTailMonotonicityAnalyzer1D",
     "SymmetricRangeTailMonotonicityDiagnostics1D",
+    "matrix_field",
+    "positive_norm_energy_scale",
 ]

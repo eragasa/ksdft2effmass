@@ -9,7 +9,7 @@ from typing import ClassVar, final
 
 
 @unique
-class Periodic1DHigherRankGaugeAlignment(Enum):
+class Periodic1DRankNGaugeAlignment(Enum):
     """Identify one prescribed retained-space gauge alignment."""
 
     IDENTITY = auto()
@@ -22,21 +22,19 @@ class Periodic1DHigherRankGaugeAlignment(Enum):
 class GaugeAlignmentWireMapping:
     """Own the strict bidirectional mapping for gauge-alignment wire values."""
 
-    _ToWireMap: ClassVar[Mapping[Periodic1DHigherRankGaugeAlignment, str]] = (
+    _ToWireMap: ClassVar[Mapping[Periodic1DRankNGaugeAlignment, str]] = (
         MappingProxyType(
             {
-                Periodic1DHigherRankGaugeAlignment.IDENTITY: "identity",
-                Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY: "global-unitary",
-                Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY: (
-                    "pointwise-unitary"
-                ),
-                Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE: (
+                Periodic1DRankNGaugeAlignment.IDENTITY: "identity",
+                Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY: "global-unitary",
+                Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY: ("pointwise-unitary"),
+                Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE: (
                     "known-inverse-oracle"
                 ),
             }
         )
     )
-    _FromWireMap: ClassVar[Mapping[str, Periodic1DHigherRankGaugeAlignment]] = (
+    _FromWireMap: ClassVar[Mapping[str, Periodic1DRankNGaugeAlignment]] = (
         MappingProxyType(
             {
                 wire_value: gauge_alignment
@@ -46,14 +44,14 @@ class GaugeAlignmentWireMapping:
     )
 
     @classmethod
-    def to_wire(cls, value: Periodic1DHigherRankGaugeAlignment) -> str:
+    def to_wire(cls, value: Periodic1DRankNGaugeAlignment) -> str:
         """Return the canonical wire value for one exact domain enum."""
-        if type(value) is not Periodic1DHigherRankGaugeAlignment:
-            raise TypeError("value must be Periodic1DHigherRankGaugeAlignment")
+        if type(value) is not Periodic1DRankNGaugeAlignment:
+            raise TypeError("value must be Periodic1DRankNGaugeAlignment")
         return cls._ToWireMap[value]
 
     @classmethod
-    def from_wire(cls, value: str) -> Periodic1DHigherRankGaugeAlignment:
+    def from_wire(cls, value: str) -> Periodic1DRankNGaugeAlignment:
         """Return the domain enum for one supported canonical wire value."""
         if type(value) is not str:
             raise TypeError("value must be a built-in string")
@@ -64,5 +62,5 @@ class GaugeAlignmentWireMapping:
 
 __all__ = [
     "GaugeAlignmentWireMapping",
-    "Periodic1DHigherRankGaugeAlignment",
+    "Periodic1DRankNGaugeAlignment",
 ]

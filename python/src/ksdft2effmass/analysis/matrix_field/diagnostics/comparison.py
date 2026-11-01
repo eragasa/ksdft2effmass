@@ -6,13 +6,10 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.numerics.validation import exact_nonnegative_float
 
-from ._validation import (
-    ComplexArray,
-    matrix_field,
-    nonnegative_float,
-    positive_float,
-)
+from ..normalization import positive_norm_energy_scale
+from ..validation import ComplexArray, matrix_field
 
 
 @dataclass(frozen=True, slots=True)
@@ -20,13 +17,13 @@ class MatrixFieldErrorSummary:
     """Retain raw and rank/energy-normalized matrix and spectral errors.
 
     ``matrix_frobenius_rms`` and ``ordered_spectrum_l2_rms`` are root-mean-square
-    pointwise norms. Their normalized forms divide by ``sqrt(rank) * energy_reference``.
-    The ordered-spectrum maximum is a componentwise maximum and divides only by the
-    positive energy reference.
+    pointwise norms. Their normalized forms divide by
+    ``sqrt(rank) * norm_energy_scale``. The ordered-spectrum maximum is a
+    componentwise maximum and divides only by the positive normalization energy scale.
     """
 
     rank: int
-    energy_reference: float
+    norm_energy_scale: float
     matrix_frobenius_maximum: float
     matrix_frobenius_rms: float
     normalized_matrix_frobenius_maximum: float
@@ -42,7 +39,7 @@ class MatrixFieldErrorSummary:
             raise TypeError("rank must be a built-in int")
         if self.rank <= 0:
             raise ValueError("rank must be positive")
-        energy_reference = positive_float("energy_reference", self.energy_reference)
+        norm_energy_scale = positive_norm_energy_scale(self.norm_energy_scale)
         for name, value in (
             ("matrix_frobenius_maximum", self.matrix_frobenius_maximum),
             ("matrix_frobenius_rms", self.matrix_frobenius_rms),
@@ -65,12 +62,12 @@ class MatrixFieldErrorSummary:
                 self.normalized_ordered_spectrum_l2_rms,
             ),
         ):
-            nonnegative_float(name, value)
-        matrix_scale = math.sqrt(self.rank) * energy_reference
+            exact_nonnegative_float(value, name)
+        matrix_scale = math.sqrt(self.rank) * norm_energy_scale
         expected = (
             self.matrix_frobenius_maximum / matrix_scale,
             self.matrix_frobenius_rms / matrix_scale,
-            self.ordered_spectrum_maximum / energy_reference,
+            self.ordered_spectrum_maximum / norm_energy_scale,
             self.ordered_spectrum_l2_rms / matrix_scale,
         )
         observed = (
@@ -87,7 +84,7 @@ class MatrixFieldErrorSummary:
 class MatrixPerturbationBoundDiagnostics:
     """Retain finite-dimensional eigenvalue and matrix-norm bound diagnostics."""
 
-    energy_reference: float
+    norm_energy_scale: float
     maximum_ordered_spectrum_minus_spectral_norm: float
     maximum_ordered_spectrum_minus_frobenius_norm: float
     maximum_spectral_norm_minus_frobenius_norm: float
@@ -102,7 +99,7 @@ class MatrixPerturbationBoundDiagnostics:
 
     def __post_init__(self) -> None:
         """Validate bound violations, eligibility, ratios, and normalizations."""
-        energy_reference = positive_float("energy_reference", self.energy_reference)
+        norm_energy_scale = positive_norm_energy_scale(self.norm_energy_scale)
         for name, value in (
             (
                 "maximum_ordered_spectrum_minus_spectral_norm",
@@ -130,7 +127,7 @@ class MatrixPerturbationBoundDiagnostics:
             ),
             ("saturation_denominator_floor", self.saturation_denominator_floor),
         ):
-            nonnegative_float(name, value)
+            exact_nonnegative_float(value, name)
         raw = (
             self.maximum_ordered_spectrum_minus_spectral_norm,
             self.maximum_ordered_spectrum_minus_frobenius_norm,
@@ -141,7 +138,7 @@ class MatrixPerturbationBoundDiagnostics:
             self.normalized_maximum_ordered_spectrum_minus_frobenius_norm,
             self.normalized_maximum_spectral_norm_minus_frobenius_norm,
         )
-        if normalized != tuple(value / energy_reference for value in raw):
+        if normalized != tuple(value / norm_energy_scale for value in raw):
             raise ValueError("normalized perturbation-bound fields are inconsistent")
         for count_name, ratio_name in (
             (
@@ -169,7 +166,7 @@ class MatrixPerturbationBoundDiagnostics:
             else:
                 if ratio is None:
                     raise ValueError(f"{ratio_name} is required when eligible")
-                nonnegative_float(ratio_name, ratio)
+                exact_nonnegative_float(ratio, ratio_name)
 
 
 @dataclass(frozen=True, slots=True)
@@ -180,28 +177,30 @@ class MatrixFieldComparisonDiagnostics:
     perturbation_bounds: MatrixPerturbationBoundDiagnostics
 
     def __post_init__(self) -> None:
-        """Require exact records with one energy reference."""
+        """Require exact records with one normalization energy scale."""
         if type(self.errors) is not MatrixFieldErrorSummary:
             raise TypeError("errors must be MatrixFieldErrorSummary")
         if type(self.perturbation_bounds) is not MatrixPerturbationBoundDiagnostics:
             raise TypeError(
                 "perturbation_bounds must be MatrixPerturbationBoundDiagnostics"
             )
-        if self.errors.energy_reference != self.perturbation_bounds.energy_reference:
-            raise ValueError("comparison diagnostics must use one energy reference")
+        if self.errors.norm_energy_scale != self.perturbation_bounds.norm_energy_scale:
+            raise ValueError(
+                "comparison diagnostics must use one normalization energy scale"
+            )
 
 
 class MatrixFieldErrorAnalyzer:
     """Calculate errors for one immutable, constructor-bound matrix-field pair."""
 
-    __slots__ = ("_approximation", "_energy_reference", "_reference")
+    __slots__ = ("_approximation", "_norm_energy_scale", "_reference")
 
     def __init__(
         self,
         *,
         approximation: ComplexArray,
         reference: ComplexArray,
-        energy_reference: float,
+        norm_energy_scale: float,
     ) -> None:
         approximation_value = matrix_field("approximation", approximation)
         reference_value = matrix_field("reference", reference)
@@ -219,10 +218,7 @@ class MatrixFieldErrorAnalyzer:
             copy=True,
         )
         self._reference.flags.writeable = False
-        self._energy_reference = positive_float(
-            "energy_reference",
-            energy_reference,
-        )
+        self._norm_energy_scale = positive_norm_energy_scale(norm_energy_scale)
 
     def result(self) -> MatrixFieldErrorSummary:
         """Return raw and normalized errors on the bound common sample shape."""
@@ -246,14 +242,14 @@ class MatrixFieldErrorAnalyzer:
             np.linalg.norm(band_difference, axis=-1),
             dtype=np.float64,
         )
-        matrix_scale = math.sqrt(rank) * self._energy_reference
+        matrix_scale = math.sqrt(rank) * self._norm_energy_scale
         matrix_maximum = float(np.max(frobenius))
         matrix_rms = float(np.sqrt(np.mean(frobenius**2)))
         spectrum_maximum = float(np.max(band_difference))
         spectrum_l2_rms = float(np.sqrt(np.mean(band_l2**2)))
         return MatrixFieldErrorSummary(
             rank=rank,
-            energy_reference=self._energy_reference,
+            norm_energy_scale=self._norm_energy_scale,
             matrix_frobenius_maximum=matrix_maximum,
             matrix_frobenius_rms=matrix_rms,
             normalized_matrix_frobenius_maximum=matrix_maximum / matrix_scale,
@@ -261,7 +257,7 @@ class MatrixFieldErrorAnalyzer:
             ordered_spectrum_maximum=spectrum_maximum,
             ordered_spectrum_l2_rms=spectrum_l2_rms,
             normalized_ordered_spectrum_maximum=(
-                spectrum_maximum / self._energy_reference
+                spectrum_maximum / self._norm_energy_scale
             ),
             normalized_ordered_spectrum_l2_rms=spectrum_l2_rms / matrix_scale,
         )
@@ -272,7 +268,7 @@ class MatrixFieldComparisonAnalyzer:
 
     __slots__ = (
         "_approximation",
-        "_energy_reference",
+        "_norm_energy_scale",
         "_reference",
         "_saturation_denominator_floor",
     )
@@ -282,7 +278,7 @@ class MatrixFieldComparisonAnalyzer:
         *,
         approximation: ComplexArray,
         reference: ComplexArray,
-        energy_reference: float,
+        norm_energy_scale: float,
         saturation_denominator_floor: float,
     ) -> None:
         approximation_value = matrix_field("approximation", approximation)
@@ -297,13 +293,10 @@ class MatrixFieldComparisonAnalyzer:
         self._approximation.flags.writeable = False
         self._reference = np.array(reference_value, dtype=np.complex128, copy=True)
         self._reference.flags.writeable = False
-        self._energy_reference = positive_float(
-            "energy_reference",
-            energy_reference,
-        )
-        self._saturation_denominator_floor = nonnegative_float(
-            "saturation_denominator_floor",
+        self._norm_energy_scale = positive_norm_energy_scale(norm_energy_scale)
+        self._saturation_denominator_floor = exact_nonnegative_float(
             saturation_denominator_floor,
+            "saturation_denominator_floor",
         )
 
     def execute(self) -> MatrixFieldComparisonDiagnostics:
@@ -336,7 +329,7 @@ class MatrixFieldComparisonAnalyzer:
         errors = MatrixFieldErrorAnalyzer(
             approximation=self._approximation,
             reference=self._reference,
-            energy_reference=self._energy_reference,
+            norm_energy_scale=self._norm_energy_scale,
         ).result()
         spectral = np.asarray(
             np.linalg.norm(difference, ord=2, axis=(-2, -1)),
@@ -365,18 +358,18 @@ class MatrixFieldComparisonAnalyzer:
             float(np.max(violation_spectral_frobenius)),
         )
         bounds = MatrixPerturbationBoundDiagnostics(
-            energy_reference=self._energy_reference,
+            norm_energy_scale=self._norm_energy_scale,
             maximum_ordered_spectrum_minus_spectral_norm=raw_violations[0],
             maximum_ordered_spectrum_minus_frobenius_norm=raw_violations[1],
             maximum_spectral_norm_minus_frobenius_norm=raw_violations[2],
             normalized_maximum_ordered_spectrum_minus_spectral_norm=(
-                raw_violations[0] / self._energy_reference
+                raw_violations[0] / self._norm_energy_scale
             ),
             normalized_maximum_ordered_spectrum_minus_frobenius_norm=(
-                raw_violations[1] / self._energy_reference
+                raw_violations[1] / self._norm_energy_scale
             ),
             normalized_maximum_spectral_norm_minus_frobenius_norm=(
-                raw_violations[2] / self._energy_reference
+                raw_violations[2] / self._norm_energy_scale
             ),
             saturation_denominator_floor=self._saturation_denominator_floor,
             band_over_spectral_eligible_count=int(np.count_nonzero(spectral_eligible)),
@@ -394,7 +387,7 @@ class MatrixErrorDecompositionDiagnostics:
     """Retain the maximum defect in ``total = interpolation + truncation``."""
 
     rank: int
-    energy_reference: float
+    norm_energy_scale: float
     maximum_frobenius_defect: float
     normalized_maximum_frobenius_defect: float
 
@@ -404,15 +397,15 @@ class MatrixErrorDecompositionDiagnostics:
             raise TypeError("rank must be a built-in int")
         if self.rank <= 0:
             raise ValueError("rank must be positive")
-        energy_reference = positive_float("energy_reference", self.energy_reference)
-        defect = nonnegative_float(
-            "maximum_frobenius_defect", self.maximum_frobenius_defect
+        norm_energy_scale = positive_norm_energy_scale(self.norm_energy_scale)
+        defect = exact_nonnegative_float(
+            self.maximum_frobenius_defect, "maximum_frobenius_defect"
         )
-        normalized = nonnegative_float(
-            "normalized_maximum_frobenius_defect",
+        normalized = exact_nonnegative_float(
             self.normalized_maximum_frobenius_defect,
+            "normalized_maximum_frobenius_defect",
         )
-        expected = defect / (math.sqrt(self.rank) * energy_reference)
+        expected = defect / (math.sqrt(self.rank) * norm_energy_scale)
         if normalized != expected:
             raise ValueError("normalized decomposition defect is inconsistent")
 
@@ -421,7 +414,7 @@ class MatrixErrorDecompositionAnalyzer:
     """Check one bound interpolation/truncation/total error decomposition."""
 
     __slots__ = (
-        "_energy_reference",
+        "_norm_energy_scale",
         "_interpolation_error",
         "_total_error",
         "_truncation_error",
@@ -433,7 +426,7 @@ class MatrixErrorDecompositionAnalyzer:
         interpolation_error: ComplexArray,
         truncation_error: ComplexArray,
         total_error: ComplexArray,
-        energy_reference: float,
+        norm_energy_scale: float,
     ) -> None:
         interpolation_value = matrix_field(
             "interpolation_error",
@@ -459,10 +452,7 @@ class MatrixErrorDecompositionAnalyzer:
         self._truncation_error.flags.writeable = False
         self._total_error = np.array(total_value, dtype=np.complex128, copy=True)
         self._total_error.flags.writeable = False
-        self._energy_reference = positive_float(
-            "energy_reference",
-            energy_reference,
-        )
+        self._norm_energy_scale = positive_norm_energy_scale(norm_energy_scale)
 
     def execute(self) -> MatrixErrorDecompositionDiagnostics:
         """Return the maximum pointwise Frobenius identity defect."""
@@ -473,10 +463,10 @@ class MatrixErrorDecompositionAnalyzer:
         defect = float(np.max(np.linalg.norm(residual, axis=(-2, -1))))
         return MatrixErrorDecompositionDiagnostics(
             rank=rank,
-            energy_reference=self._energy_reference,
+            norm_energy_scale=self._norm_energy_scale,
             maximum_frobenius_defect=defect,
             normalized_maximum_frobenius_defect=(
-                defect / (math.sqrt(rank) * self._energy_reference)
+                defect / (math.sqrt(rank) * self._norm_energy_scale)
             ),
         )
 

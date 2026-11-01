@@ -40,9 +40,9 @@ from ..parent_scale.analysis import (
 from ..parent_scale.frame_transport import (
     _Periodic1DRank2UnqualifiedPreparation,
 )
-from .request import Periodic1DRank2TruncationRequest
+from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 from .results import (
-    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2SupportTruncationAnalysis,
     Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationPoint,
     Periodic1DRank2TruncationQualificationStopped,
@@ -72,7 +72,7 @@ class _OrdinaryField:
     maximum_hermiticity_defect: float
 
 
-class Periodic1DRank2TruncationAnalyzer:
+class Periodic1DRank2SupportTruncationAnalyzer:
     """Qualify one parent, remove Nyquist, and evaluate ordinary cutoffs."""
 
     __slots__ = ("_request", "_transporter")
@@ -80,10 +80,10 @@ class Periodic1DRank2TruncationAnalyzer:
     def __init__(
         self,
         *,
-        request: Periodic1DRank2TruncationRequest,
+        request: Periodic1DRank2SupportTruncationAnalysisRequest,
         transporter: ClosedLoopPolarFrameTransporter,
     ) -> None:
-        if type(request) is not Periodic1DRank2TruncationRequest:
+        if type(request) is not Periodic1DRank2SupportTruncationAnalysisRequest:
             raise TypeError("request must be a truncation request")
         if type(transporter) is not ClosedLoopPolarFrameTransporter:
             raise TypeError("transporter must be ClosedLoopPolarFrameTransporter")
@@ -91,11 +91,11 @@ class Periodic1DRank2TruncationAnalyzer:
         self._transporter = transporter
 
     @property
-    def request(self) -> Periodic1DRank2TruncationRequest:
+    def request(self) -> Periodic1DRank2SupportTruncationAnalysisRequest:
         """Return the immutable constructor-bound request."""
         return self._request
 
-    def execute(self) -> Periodic1DRank2TruncationAnalysis:
+    def execute(self) -> Periodic1DRank2SupportTruncationAnalysis:
         """Return qualification stop or complete truncation consequences."""
         preparation = Periodic1DRank2Analyzer(
             request=self.request.template_request,
@@ -446,4 +446,10 @@ class Periodic1DRank2TruncationAnalyzer:
         return float(np.min(wrapped))
 
 
-__all__ = ["Periodic1DRank2TruncationAnalyzer"]
+Periodic1DRank2TruncationAnalyzer = Periodic1DRank2SupportTruncationAnalyzer
+
+
+__all__ = [
+    "Periodic1DRank2SupportTruncationAnalyzer",
+    "Periodic1DRank2TruncationAnalyzer",
+]

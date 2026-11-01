@@ -16,21 +16,20 @@ from typing import Literal, final
 
 import matplotlib.pyplot as plt
 import numpy as np
+from ksdft2effmass.periodic1d.higher_rank_alignment import (
+    Periodic1DRankNAlignmentCalculationResult,
+    Periodic1DRankNAlignmentConfiguration,
+    Periodic1DRankNAlignmentStatus,
+)
+from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition import (
+    GaugeAlignmentWireMapping,
+    Periodic1DRankNGaugeAlignment,
+)
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch, Rectangle
 from numpy.typing import NDArray
-
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankAlignmentConfiguration,
-    Periodic1DHigherRankAlignmentStatus,
-)
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
-    Periodic1DHigherRankGaugeAlignment,
-)
 
 type FloatArray = NDArray[np.float64]
 type IntArray = NDArray[np.int64]
@@ -69,7 +68,7 @@ _GAUGE_MARKERS = ("o", "s", "^", "D")
 _DEPTH_COLORS = ("#4C78A8", "#F58518", "#54A24B", "#E45756")
 _DEPTH_LINESTYLES: tuple[LineStyle, ...] = ("-", "--", "-.", ":")
 _RANK_MARKERS = ("o", "s", "^", "D")
-_STATUS_VALUES = tuple(Periodic1DHigherRankAlignmentStatus)
+_STATUS_VALUES = tuple(Periodic1DRankNAlignmentStatus)
 _STATUS_SHORT_LABELS = (
     "qualified",
     "aggregate\nrank deficient",
@@ -106,15 +105,15 @@ class HigherRankDevelopmentPlot(Enum):
 class HigherRankDevelopmentFigureProjectionRequest:
     """Bind the complete ordered producer-result inventory to one projection."""
 
-    calculation_results: tuple[Periodic1DHigherRankAlignmentCalculationResult, ...]
+    calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
 
     def __post_init__(self) -> None:
         if type(self.calculation_results) is not tuple or any(
-            type(result) is not Periodic1DHigherRankAlignmentCalculationResult
+            type(result) is not Periodic1DRankNAlignmentCalculationResult
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
-        configuration = Periodic1DHigherRankAlignmentConfiguration
+        configuration = Periodic1DRankNAlignmentConfiguration
         expected = tuple(
             (rank, depth)
             for rank in configuration.RETAINED_RANKS
@@ -165,8 +164,8 @@ class HigherRankDevelopmentFigureData:
     pareto_efficient: BoolArray
 
     def __post_init__(self) -> None:
-        expected_ranks = Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
-        expected_depths = Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
+        expected_ranks = Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS
+        expected_depths = Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS
         if self.retained_ranks != expected_ranks:
             raise ValueError("retained_ranks must match the frozen inventory")
         if self.circuit_depths != expected_depths:
@@ -175,7 +174,7 @@ class HigherRankDevelopmentFigureData:
             raise ValueError("support_radii must match the frozen inventory")
         expected_gauges = tuple(
             GaugeAlignmentWireMapping.to_wire(value)
-            for value in Periodic1DHigherRankAlignmentConfiguration.GAUGE_ALIGNMENTS
+            for value in Periodic1DRankNAlignmentConfiguration.GAUGE_ALIGNMENTS
         )
         if self.gauge_alignment_names != expected_gauges:
             raise ValueError("gauge_alignment_names must match the frozen order")
@@ -323,7 +322,7 @@ class HigherRankDevelopmentFigureDataProjector:
                 for gauge_index, alignment in enumerate(mesh.gauge_alignment_results):
                     is_qualified = (
                         alignment.status.status
-                        is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                        is Periodic1DRankNAlignmentStatus.QUALIFIED
                     )
                     qualified[rank_index, depth_index, mesh_index, gauge_index] = (
                         is_qualified
@@ -359,7 +358,7 @@ class HigherRankDevelopmentFigureDataProjector:
             for gauge_index, alignment in enumerate(final_mesh.gauge_alignment_results):
                 if (
                     alignment.status.status
-                    is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                    is not Periodic1DRankNAlignmentStatus.QUALIFIED
                 ):
                     continue
                 interpolation = alignment.interpolation
@@ -408,7 +407,7 @@ class HigherRankDevelopmentFigureDataProjector:
                 )
 
             refinement_by_gauge: dict[
-                Periodic1DHigherRankGaugeAlignment,
+                Periodic1DRankNGaugeAlignment,
                 dict[str, tuple[float, float, float, float]],
             ] = {gauge: {} for gauge in gauges}
             for refinement in result.scalar_refinements:
@@ -935,7 +934,7 @@ def _claim_resolution_figure(data: HigherRankDevelopmentFigureData) -> Figure:
             True,
         ),
     )
-    qualified_code = _STATUS_VALUES.index(Periodic1DHigherRankAlignmentStatus.QUALIFIED)
+    qualified_code = _STATUS_VALUES.index(Periodic1DRankNAlignmentStatus.QUALIFIED)
     for axis, (
         values,
         status_codes,
@@ -1035,7 +1034,7 @@ def _claim_resolution_figure(data: HigherRankDevelopmentFigureData) -> Figure:
                 label=status.value,
             )
             for index, status in enumerate(_STATUS_VALUES)
-            if status is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+            if status is not Periodic1DRankNAlignmentStatus.QUALIFIED
         ),
     )
     figure.legend(handles=status_handles, loc="outside lower center", ncol=4)

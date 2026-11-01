@@ -8,7 +8,7 @@ from typing import Self
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from .configuration import Periodic1DHigherRankAlignmentConfiguration
+from .configuration import Periodic1DRankNAlignmentConfiguration
 
 
 def _nonempty_identifier(value: str, name: str) -> None:
@@ -19,7 +19,7 @@ def _nonempty_identifier(value: str, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankAlignmentTransportRequest(BaseTypedRecord):
+class Periodic1DRankNAlignmentTransportRequest(BaseTypedRecord):
     """Select one frame-transport calculation and its physical identities.
 
     Parameters
@@ -49,7 +49,7 @@ class Periodic1DHigherRankAlignmentTransportRequest(BaseTypedRecord):
     field. Boolean values are rejected even though ``bool`` is an ``int`` subclass.
     """
 
-    configuration: Periodic1DHigherRankAlignmentConfiguration
+    configuration: Periodic1DRankNAlignmentConfiguration
     retained_rank: int
     circuit_depth: int
     construction_mesh_size: int
@@ -59,9 +59,9 @@ class Periodic1DHigherRankAlignmentTransportRequest(BaseTypedRecord):
 
     def __post_init__(self) -> None:
         """Validate the selected case, mesh, and semantic identities."""
-        if type(self.configuration) is not Periodic1DHigherRankAlignmentConfiguration:
+        if type(self.configuration) is not Periodic1DRankNAlignmentConfiguration:
             raise TypeError(
-                "configuration must be Periodic1DHigherRankAlignmentConfiguration"
+                "configuration must be Periodic1DRankNAlignmentConfiguration"
             )
         for value, name, allowed in (
             (self.retained_rank, "retained_rank", self.configuration.retained_ranks),
@@ -126,7 +126,7 @@ class Periodic1DHigherRankAlignmentTransportRequest(BaseTypedRecord):
         configuration_value = values["configuration"]
         if not isinstance(configuration_value, Mapping):
             raise TypeError("configuration must decode to a mapping")
-        configuration = Periodic1DHigherRankAlignmentConfiguration.from_dict(
+        configuration = Periodic1DRankNAlignmentConfiguration.from_dict(
             configuration_value
         )
         retained_rank = values["retained_rank"]
@@ -158,4 +158,4 @@ class Periodic1DHigherRankAlignmentTransportRequest(BaseTypedRecord):
         )
 
 
-__all__ = ["Periodic1DHigherRankAlignmentTransportRequest"]
+__all__ = ["Periodic1DRankNAlignmentTransportRequest"]

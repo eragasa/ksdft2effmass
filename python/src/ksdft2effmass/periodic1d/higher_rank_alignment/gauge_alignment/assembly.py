@@ -5,50 +5,62 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import final
 
-from .fourier import Periodic1DHigherRankFourierAnalysis
-from .interpolation import Periodic1DHigherRankInterpolationAnalysis
-from .locality import Periodic1DHigherRankLocalityAnalysis
-from .recovery import Periodic1DHigherRankRecoveryAnalysis
-from .request import Periodic1DHigherRankGaugeAlignmentAnalysisRequest
-from .results import Periodic1DHigherRankGaugeAlignmentMeshResult
+from ksdft2effmass.periodic1d.rankN.hopping_locality import (
+    Periodic1DRankNHoppingLocalityAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.support_truncation import (
+    Periodic1DRankNSupportTruncationAnalysis,
+)
+
+from .fourier import Periodic1DRankNFourierAnalysis
+from .interpolation import Periodic1DRankNInterpolationAnalysis
+from .recovery import Periodic1DRankNRecoveryAnalysis
+from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
+from .results import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankGaugeAlignmentAssemblyRequest:
+class Periodic1DRankNGaugeAlignmentAssemblyRequest:
     """Bind one correlated set of typed gauge-alignment analyses."""
 
-    analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest
-    recovery_analysis: Periodic1DHigherRankRecoveryAnalysis
-    fourier_analysis: Periodic1DHigherRankFourierAnalysis
-    interpolation_analysis: Periodic1DHigherRankInterpolationAnalysis
-    locality_analysis: Periodic1DHigherRankLocalityAnalysis
+    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
+    recovery_analysis: Periodic1DRankNRecoveryAnalysis
+    fourier_analysis: Periodic1DRankNFourierAnalysis
+    interpolation_analysis: Periodic1DRankNInterpolationAnalysis
+    hopping_locality_analysis: Periodic1DRankNHoppingLocalityAnalysis
+    support_truncation_analysis: Periodic1DRankNSupportTruncationAnalysis
 
     def __post_init__(self) -> None:
         if (
             type(self.analysis_request)
-            is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
         ):
             raise TypeError("analysis_request must be the exact analysis request")
         for analysis, expected_type, name in (
             (
                 self.recovery_analysis,
-                Periodic1DHigherRankRecoveryAnalysis,
+                Periodic1DRankNRecoveryAnalysis,
                 "recovery_analysis",
             ),
             (
                 self.fourier_analysis,
-                Periodic1DHigherRankFourierAnalysis,
+                Periodic1DRankNFourierAnalysis,
                 "fourier_analysis",
             ),
             (
                 self.interpolation_analysis,
-                Periodic1DHigherRankInterpolationAnalysis,
+                Periodic1DRankNInterpolationAnalysis,
                 "interpolation_analysis",
             ),
             (
-                self.locality_analysis,
-                Periodic1DHigherRankLocalityAnalysis,
-                "locality_analysis",
+                self.hopping_locality_analysis,
+                Periodic1DRankNHoppingLocalityAnalysis,
+                "hopping_locality_analysis",
+            ),
+            (
+                self.support_truncation_analysis,
+                Periodic1DRankNSupportTruncationAnalysis,
+                "support_truncation_analysis",
             ),
         ):
             if type(analysis) is not expected_type:
@@ -58,34 +70,33 @@ class Periodic1DHigherRankGaugeAlignmentAssemblyRequest:
 
 
 @final
-class Periodic1DHigherRankGaugeAlignmentResultAssembler:
+class Periodic1DRankNGaugeAlignmentResultAssembler:
     """Assemble one public mesh result without recomputing scientific values."""
 
     __slots__ = ("_request",)
 
-    def __init__(
-        self, request: Periodic1DHigherRankGaugeAlignmentAssemblyRequest
-    ) -> None:
-        if type(request) is not Periodic1DHigherRankGaugeAlignmentAssemblyRequest:
+    def __init__(self, request: Periodic1DRankNGaugeAlignmentAssemblyRequest) -> None:
+        if type(request) is not Periodic1DRankNGaugeAlignmentAssemblyRequest:
             raise TypeError(
-                "request must be Periodic1DHigherRankGaugeAlignmentAssemblyRequest"
+                "request must be Periodic1DRankNGaugeAlignmentAssemblyRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankGaugeAlignmentAssemblyRequest:
+    def request(self) -> Periodic1DRankNGaugeAlignmentAssemblyRequest:
         """Return the exact assembly request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankGaugeAlignmentMeshResult:
+    def execute(self) -> Periodic1DRankNGaugeAlignmentMeshResult:
         """Return the public result assembled from correlated stage evidence."""
         request = self._request
         analysis_request = request.analysis_request
         recovery = request.recovery_analysis
         fourier = request.fourier_analysis
         interpolation = request.interpolation_analysis
-        locality = request.locality_analysis
-        return Periodic1DHigherRankGaugeAlignmentMeshResult(
+        hopping_locality = request.hopping_locality_analysis
+        support_truncation = request.support_truncation_analysis
+        return Periodic1DRankNGaugeAlignmentMeshResult(
             status=analysis_request.status,
             transform_backend_identifier=fourier.transform.backend_identifier,
             transform_backend_version=fourier.transform.backend_version,
@@ -120,15 +131,15 @@ class Periodic1DHigherRankGaugeAlignmentResultAssembler:
                 fourier.twisted_cyclic_hermiticity_defect
             ),
             twisted_cyclic_hermiticity_pass=(fourier.twisted_cyclic_hermiticity_pass),
-            supports=locality.supports,
-            maximum_tail_increase=locality.maximum_tail_increase,
+            supports=support_truncation.supports,
+            maximum_tail_increase=hopping_locality.maximum_tail_increase,
             all_tail_monotonicity_checks_pass=(
-                locality.all_tail_monotonicity_checks_pass
+                hopping_locality.all_tail_monotonicity_checks_pass
             ),
         )
 
 
 __all__ = [
-    "Periodic1DHigherRankGaugeAlignmentAssemblyRequest",
-    "Periodic1DHigherRankGaugeAlignmentResultAssembler",
+    "Periodic1DRankNGaugeAlignmentAssemblyRequest",
+    "Periodic1DRankNGaugeAlignmentResultAssembler",
 ]

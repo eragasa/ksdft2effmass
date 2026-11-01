@@ -19,18 +19,18 @@ from ._record_admission import (
     _int_array,
     _nonempty,
 )
-from .calculation import Periodic1DHigherRankAlignmentCalculationControls
+from .calculation import Periodic1DRankNAlignmentCalculationControls
 from .gauge_alignment.definition import (
     GaugeAlignmentWireMapping,
-    Periodic1DHigherRankGaugeAlignment,
+    Periodic1DRankNGaugeAlignment,
 )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
+class Periodic1DRankNBlockRefinementResult(BaseTypedRecord):
     """Retain block-norm changes for one gauge alignment and mesh pair."""
 
-    gauge_alignment: Periodic1DHigherRankGaugeAlignment
+    gauge_alignment: Periodic1DRankNGaugeAlignment
     coarse_mesh_size: int
     fine_mesh_size: int
     translations: Int64Array
@@ -43,7 +43,7 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
     all_pass: bool
 
     def __post_init__(self) -> None:
-        if type(self.gauge_alignment) is not Periodic1DHigherRankGaugeAlignment:
+        if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
             raise TypeError("gauge_alignment must be the exact alignment enum")
         if (
             type(self.coarse_mesh_size) is not int
@@ -71,7 +71,7 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
         coarse, fine, absolute, relative, applied, margins = arrays
         if bool((coarse < 0.0).any()) or bool((fine < 0.0).any()):
             raise ValueError("normalized block norms must be nonnegative")
-        controls = Periodic1DHigherRankAlignmentCalculationControls
+        controls = Periodic1DRankNAlignmentCalculationControls
         expected = tuple(
             (
                 abs(float(fine_value) - float(coarse_value)),
@@ -188,10 +188,10 @@ class Periodic1DHigherRankBlockRefinementResult(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
+class Periodic1DRankNScalarRefinementResult(BaseTypedRecord):
     """Retain one final-mesh scalar refinement value and frozen gate."""
 
-    gauge_alignment: Periodic1DHigherRankGaugeAlignment
+    gauge_alignment: Periodic1DRankNGaugeAlignment
     diagnostic_path: str
     coarse_mesh_size: int
     fine_mesh_size: int
@@ -204,7 +204,7 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
     passes: bool
 
     def __post_init__(self) -> None:
-        if type(self.gauge_alignment) is not Periodic1DHigherRankGaugeAlignment:
+        if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
             raise TypeError("gauge_alignment must be the exact alignment enum")
         _nonempty(self.diagnostic_path, "diagnostic_path")
         if (self.coarse_mesh_size, self.fine_mesh_size) != (1025, 2049):
@@ -225,9 +225,9 @@ class Periodic1DHigherRankScalarRefinementResult(BaseTypedRecord):
         expected_relative = expected_change / max(
             abs(self.coarse_value),
             abs(self.fine_value),
-            Periodic1DHigherRankAlignmentCalculationControls.REFINEMENT_DENOMINATOR_FLOOR,
+            Periodic1DRankNAlignmentCalculationControls.REFINEMENT_DENOMINATOR_FLOOR,
         )
-        controls = Periodic1DHigherRankAlignmentCalculationControls
+        controls = Periodic1DRankNAlignmentCalculationControls
         expected_tolerance = controls.REFINEMENT_ABSOLUTE_TOLERANCE + (
             controls.REFINEMENT_RELATIVE_TOLERANCE
             * max(abs(self.coarse_value), abs(self.fine_value))

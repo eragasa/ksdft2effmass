@@ -13,11 +13,11 @@ from analysis.development import (
 )
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.higher_rank_alignment import (
-    Periodic1DHigherRankAlignmentAnalyzer,
-    Periodic1DHigherRankAlignmentCalculationControls,
-    Periodic1DHigherRankAlignmentCalculationRequest,
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankAlignmentConfiguration,
+    Periodic1DRankNAlignmentAnalyzer,
+    Periodic1DRankNAlignmentCalculationControls,
+    Periodic1DRankNAlignmentCalculationRequest,
+    Periodic1DRankNAlignmentCalculationResult,
+    Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition import (
     GaugeAlignmentWireMapping,
@@ -44,9 +44,9 @@ type JsonValue = (
 )
 
 
-def _configuration() -> Periodic1DHigherRankAlignmentConfiguration:
+def _configuration() -> Periodic1DRankNAlignmentConfiguration:
     """Return the complete frozen version-one configuration."""
-    configuration_type = Periodic1DHigherRankAlignmentConfiguration
+    configuration_type = Periodic1DRankNAlignmentConfiguration
     return configuration_type(
         family_identity=configuration_type.FAMILY_IDENTITY,
         version_identity=configuration_type.VERSION_IDENTITY,
@@ -85,14 +85,14 @@ def _configuration() -> Periodic1DHigherRankAlignmentConfiguration:
 
 
 def _request(
-    configuration: Periodic1DHigherRankAlignmentConfiguration,
+    configuration: Periodic1DRankNAlignmentConfiguration,
     retained_rank: int,
     circuit_depth: int,
-) -> Periodic1DHigherRankAlignmentCalculationRequest:
+) -> Periodic1DRankNAlignmentCalculationRequest:
     """Return one complete immutable calculation request."""
-    return Periodic1DHigherRankAlignmentCalculationRequest(
+    return Periodic1DRankNAlignmentCalculationRequest(
         configuration=configuration,
-        controls=Periodic1DHigherRankAlignmentCalculationControls.frozen(),
+        controls=Periodic1DRankNAlignmentCalculationControls.frozen(),
         retained_rank=retained_rank,
         circuit_depth=circuit_depth,
         ambient_basis_identifier="analytic-parent-ordered-retained-exterior-basis",
@@ -104,10 +104,10 @@ def _request(
 
 
 def _calculate(
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
-) -> Periodic1DHigherRankAlignmentCalculationResult:
+    request: Periodic1DRankNAlignmentCalculationRequest,
+) -> Periodic1DRankNAlignmentCalculationResult:
     """Execute one direct case with explicit reviewed collaborators."""
-    return Periodic1DHigherRankAlignmentAnalyzer(
+    return Periodic1DRankNAlignmentAnalyzer(
         request=request,
         procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
         transporter=ClosedLoopPolarFrameTransporter(),
@@ -116,7 +116,7 @@ def _calculate(
 
 
 def _case_summary(
-    result: Periodic1DHigherRankAlignmentCalculationResult,
+    result: Periodic1DRankNAlignmentCalculationResult,
 ) -> dict[str, JsonValue]:
     """Return a bounded development summary without claiming retained evidence."""
     final_gauge_alignments: list[JsonValue] = []
@@ -157,8 +157,8 @@ def _case_summary(
 
 
 def _calculation_results(
-    configuration: Periodic1DHigherRankAlignmentConfiguration,
-) -> tuple[Periodic1DHigherRankAlignmentCalculationResult, ...]:
+    configuration: Periodic1DRankNAlignmentConfiguration,
+) -> tuple[Periodic1DRankNAlignmentCalculationResult, ...]:
     """Calculate every frozen case for explicitly unverified development use."""
     return tuple(
         _calculate(_request(configuration, retained_rank, circuit_depth))
@@ -168,7 +168,7 @@ def _calculation_results(
 
 
 def _summary(
-    results: tuple[Periodic1DHigherRankAlignmentCalculationResult, ...],
+    results: tuple[Periodic1DRankNAlignmentCalculationResult, ...],
 ) -> dict[str, JsonValue]:
     """Return a development-only shape summary for complete calculated results."""
     configuration = results[0].request.configuration
@@ -191,9 +191,9 @@ def main() -> int:
     cache_directory = output / "development-cache"
     configuration = _configuration()
     source_types = (
-        Periodic1DHigherRankAlignmentAnalyzer,
-        Periodic1DHigherRankAlignmentConfiguration,
-        Periodic1DHigherRankAlignmentCalculationResult,
+        Periodic1DRankNAlignmentAnalyzer,
+        Periodic1DRankNAlignmentConfiguration,
+        Periodic1DRankNAlignmentCalculationResult,
         ScalarRefinementAnalyzer,
         NumpyBatchedComplexUnitaryProcrustesSolver,
         ClosedLoopPolarFrameTransporter,

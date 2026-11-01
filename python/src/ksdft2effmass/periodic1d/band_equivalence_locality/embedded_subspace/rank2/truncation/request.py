@@ -8,8 +8,8 @@ from ..parent_scale.request import Periodic1DRank2Request
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationRequest:
-    """Bind one qualified parent to ordinary cutoffs and a disjoint mesh."""
+class Periodic1DRank2SupportTruncationAnalysisRequest:
+    """Bind one qualified parent to support cutoffs and a disjoint mesh."""
 
     template_request: Periodic1DRank2Request
     maximum_ranges: tuple[int, ...]
@@ -22,7 +22,7 @@ class Periodic1DRank2TruncationRequest:
         template_request: Periodic1DRank2Request,
         maximum_range: int,
         evaluation_mesh_size: int,
-    ) -> Periodic1DRank2TruncationRequest:
+    ) -> Periodic1DRank2SupportTruncationAnalysisRequest:
         """Construct the candidate cutoff inventory ``0, ..., maximum_range``."""
         if type(maximum_range) is not int:
             raise TypeError("maximum_range must be a built-in int")
@@ -63,4 +63,10 @@ class Periodic1DRank2TruncationRequest:
         return self.maximum_ranges == tuple(range(self.maximum_ranges[-1] + 1))
 
 
-__all__ = ["Periodic1DRank2TruncationRequest"]
+Periodic1DRank2TruncationRequest = Periodic1DRank2SupportTruncationAnalysisRequest
+
+
+__all__ = [
+    "Periodic1DRank2SupportTruncationAnalysisRequest",
+    "Periodic1DRank2TruncationRequest",
+]

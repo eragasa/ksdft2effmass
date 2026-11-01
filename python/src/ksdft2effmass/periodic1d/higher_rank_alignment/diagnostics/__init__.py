@@ -1,19 +1,19 @@
 """Immutable scientific diagnostics for higher-rank alignment calculations."""
 
-from .frame import Periodic1DHigherRankFrameErrorResult
+from .frame import Periodic1DRankNFrameErrorResult
 from .matrix import (
-    Periodic1DHigherRankMatrixComparisonResult,
-    Periodic1DHigherRankMatrixErrorResult,
+    Periodic1DRankNMatrixComparisonResult,
+    Periodic1DRankNMatrixErrorResult,
 )
 from .model import (
-    Periodic1DHigherRankModelDiagnostics,
-    Periodic1DHigherRankProcrustesDiagnostics,
+    Periodic1DRankNModelDiagnostics,
+    Periodic1DRankNProcrustesDiagnostics,
 )
 
 __all__ = [
-    "Periodic1DHigherRankFrameErrorResult",
-    "Periodic1DHigherRankMatrixComparisonResult",
-    "Periodic1DHigherRankMatrixErrorResult",
-    "Periodic1DHigherRankModelDiagnostics",
-    "Periodic1DHigherRankProcrustesDiagnostics",
+    "Periodic1DRankNFrameErrorResult",
+    "Periodic1DRankNMatrixComparisonResult",
+    "Periodic1DRankNMatrixErrorResult",
+    "Periodic1DRankNModelDiagnostics",
+    "Periodic1DRankNProcrustesDiagnostics",
 ]

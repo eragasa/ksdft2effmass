@@ -10,11 +10,11 @@ from typing import Self
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ._record_admission import _decoded_bool, _decoded_int
-from .configuration import Periodic1DHigherRankAlignmentConfiguration
+from .configuration import Periodic1DRankNAlignmentConfiguration
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DHigherRankEvaluationIndependenceResult(BaseTypedRecord):
+class Periodic1DRankNEvaluationIndependenceResult(BaseTypedRecord):
     """Retain exact mesh separation and selection-input provenance."""
 
     construction_mesh_sizes: tuple[int, ...]
@@ -27,7 +27,7 @@ class Periodic1DHigherRankEvaluationIndependenceResult(BaseTypedRecord):
     evaluation_mesh_excluded_from_selection: bool
 
     def __post_init__(self) -> None:
-        configuration = Periodic1DHigherRankAlignmentConfiguration
+        configuration = Periodic1DRankNAlignmentConfiguration
         if self.construction_mesh_sizes != configuration.CONSTRUCTION_MESH_SIZES:
             raise ValueError("construction mesh provenance must match the protocol")
         if self.evaluation_mesh_size != configuration.EVALUATION_MESH_SIZE:

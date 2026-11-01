@@ -48,8 +48,11 @@ behavior whose meaning is specific to the periodic program:
 
 - a nominal centered reduced-coordinate convention shared by maintained reciprocal-mesh
   families;
-- immutable 1D lattice-period snapshots that reconstruct PhysKit `DirectLattice1D` and
-  `ReciprocalLattice1D` geometry without copying their lattice algorithms;
+- immutable 1D lattice-period snapshots that reconstruct caller-selected PhysKit
+  `DirectLattice1D` and `ReciprocalLattice1D` geometry without copying their lattice
+  algorithms or imposing `a_0 = 1` as a universal contract;
+- rank-first alignment study specifications whose unit-aware lattice geometry is
+  explicit, including magnitude-one choices such as `a_0 = 1 bohr`;
 - scalar Fourier reduction and hopping-locality analysis;
 - composite-band frame alignment and represented-operator locality;
 - band-equivalence and constrained-admissible-set composition;

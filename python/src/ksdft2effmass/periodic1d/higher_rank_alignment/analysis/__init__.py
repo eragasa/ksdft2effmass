@@ -1,9 +1,9 @@
 """Higher-rank periodic-1D calculation analysis."""
 
-from .calculation import Periodic1DHigherRankAlignmentAnalyzer
-from .evaluation import Periodic1DHigherRankEvaluationIndependenceAnalyzer
+from .calculation import Periodic1DRankNAlignmentAnalyzer
+from .evaluation import Periodic1DRankNEvaluationIndependenceAnalyzer
 
 __all__ = [
-    "Periodic1DHigherRankAlignmentAnalyzer",
-    "Periodic1DHigherRankEvaluationIndependenceAnalyzer",
+    "Periodic1DRankNAlignmentAnalyzer",
+    "Periodic1DRankNEvaluationIndependenceAnalyzer",
 ]

@@ -28,21 +28,21 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
 
-from ..diagnostics import Periodic1DHigherRankMatrixErrorResult
+from ..diagnostics import Periodic1DRankNMatrixErrorResult
 from .nyquist import NyquistModeDispositionEnum
-from .request import Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankFourierAnalysisRequest:
+class Periodic1DRankNFourierAnalysisRequest:
     """Bind one complete gauge-alignment request for Fourier analysis."""
 
-    analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
 
     def __post_init__(self) -> None:
         if (
             type(self.analysis_request)
-            is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
         ):
             raise TypeError(
                 "analysis_request must be the exact gauge-alignment request"
@@ -50,10 +50,10 @@ class Periodic1DHigherRankFourierAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankFourierAnalysis(NumericalConsistency):
+class Periodic1DRankNFourierAnalysis(NumericalConsistency):
     """Store Fourier coefficients and their structural diagnostics."""
 
-    analysis_request: Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
     transform: FinitePeriodicMatrixFourierTransformResult
     representative_count: int
     representative_inventory_ordered_unique: bool
@@ -63,7 +63,7 @@ class Periodic1DHigherRankFourierAnalysis(NumericalConsistency):
     coefficient_translations: Int64Array
     block_raw_frobenius_norms: Float64Array
     block_normalized_frobenius_norms: Float64Array
-    reconstruction: Periodic1DHigherRankMatrixErrorResult
+    reconstruction: Periodic1DRankNMatrixErrorResult
     reconstruction_pass: bool
     parseval_relative_defect: float
     parseval_pass: bool
@@ -75,7 +75,7 @@ class Periodic1DHigherRankFourierAnalysis(NumericalConsistency):
     def __post_init__(self) -> None:
         if (
             type(self.analysis_request)
-            is not Periodic1DHigherRankGaugeAlignmentAnalysisRequest
+            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
         ):
             raise TypeError("analysis_request must be the exact analysis request")
         if type(self.transform) is not FinitePeriodicMatrixFourierTransformResult:
@@ -122,12 +122,12 @@ class Periodic1DHigherRankFourierAnalysis(NumericalConsistency):
             or normalized_norms.shape != translations.shape
         ):
             raise ValueError("Fourier block inventories must have one vector shape")
-        if type(self.reconstruction) is not Periodic1DHigherRankMatrixErrorResult:
+        if type(self.reconstruction) is not Periodic1DRankNMatrixErrorResult:
             raise TypeError("reconstruction must be the exact matrix-error record")
 
 
 @final
-class Periodic1DHigherRankFourierAnalyzer:
+class Periodic1DRankNFourierAnalyzer:
     """Transform one represented-operator field and test Fourier identities."""
 
     __slots__ = ("_request",)
@@ -135,20 +135,18 @@ class Periodic1DHigherRankFourierAnalyzer:
     def __init__(
         self,
         *,
-        request: Periodic1DHigherRankFourierAnalysisRequest,
+        request: Periodic1DRankNFourierAnalysisRequest,
     ) -> None:
-        if type(request) is not Periodic1DHigherRankFourierAnalysisRequest:
-            raise TypeError(
-                "request must be Periodic1DHigherRankFourierAnalysisRequest"
-            )
+        if type(request) is not Periodic1DRankNFourierAnalysisRequest:
+            raise TypeError("request must be Periodic1DRankNFourierAnalysisRequest")
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankFourierAnalysisRequest:
+    def request(self) -> Periodic1DRankNFourierAnalysisRequest:
         """Return the exact Fourier-analysis request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankFourierAnalysis:
+    def execute(self) -> Periodic1DRankNFourierAnalysis:
         """Return Fourier coefficients and structural diagnostics."""
         analysis_request = self._request.analysis_request
         calculation_request = analysis_request.calculation_request
@@ -191,9 +189,9 @@ class Periodic1DHigherRankFourierAnalyzer:
         reconstruction_diagnostics = MatrixFieldErrorAnalyzer(
             approximation=reconstruction_values,
             reference=represented_operators,
-            energy_reference=controls.energy_reference,
+            norm_energy_scale=controls.energy_reference,
         ).result()
-        reconstruction = Periodic1DHigherRankMatrixErrorResult.from_diagnostics(
+        reconstruction = Periodic1DRankNMatrixErrorResult.from_diagnostics(
             reconstruction_diagnostics
         )
         parseval = FinitePeriodicMatrixParsevalAnalyzer(transform=transform).result()
@@ -218,7 +216,7 @@ class Periodic1DHigherRankFourierAnalyzer:
             controls.maximum_recorded_block_range,
             controls.energy_reference,
         )
-        return Periodic1DHigherRankFourierAnalysis(
+        return Periodic1DRankNFourierAnalysis(
             analysis_request=analysis_request,
             transform=transform,
             representative_count=transform.series.term_count,
@@ -274,7 +272,7 @@ class Periodic1DHigherRankFourierAnalyzer:
 
 
 __all__ = [
-    "Periodic1DHigherRankFourierAnalysis",
-    "Periodic1DHigherRankFourierAnalysisRequest",
-    "Periodic1DHigherRankFourierAnalyzer",
+    "Periodic1DRankNFourierAnalysis",
+    "Periodic1DRankNFourierAnalysisRequest",
+    "Periodic1DRankNFourierAnalyzer",
 ]

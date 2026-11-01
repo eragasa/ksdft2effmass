@@ -5,12 +5,17 @@ from __future__ import annotations
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Self
+from typing import TYPE_CHECKING, Self
 
 import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+
+if TYPE_CHECKING:
+    from ksdft2effmass.periodic1d.rankN.hopping_locality.result import (
+        Periodic1DRankNHoppingTailResult,
+    )
 
 from ..._record_admission import (
     _finite_nonnegative,
@@ -20,27 +25,27 @@ from ..._record_admission import (
     _nonempty,
     _tuple_of_mappings,
 )
-from ...calculation import Periodic1DHigherRankAlignmentCalculationControls
-from ...definition import Periodic1DHigherRankAlignmentStatus
+from ...calculation import Periodic1DRankNAlignmentCalculationControls
+from ...definition import Periodic1DRankNAlignmentStatus
 from ...diagnostics import (
-    Periodic1DHigherRankFrameErrorResult,
-    Periodic1DHigherRankMatrixComparisonResult,
-    Periodic1DHigherRankMatrixErrorResult,
+    Periodic1DRankNFrameErrorResult,
+    Periodic1DRankNMatrixComparisonResult,
+    Periodic1DRankNMatrixErrorResult,
 )
-from ...result import Periodic1DHigherRankAlignmentStatusResult
-from ..definition import Periodic1DHigherRankGaugeAlignment
+from ...result import Periodic1DRankNAlignmentStatusResult
+from ..definition import Periodic1DRankNGaugeAlignment
 from ..nyquist import (
     NyquistModeDispositionEnum,
     NyquistModeDispositionWireMapping,
 )
-from .support import Periodic1DHigherRankSupportResult
+from .support import Periodic1DRankNSupportResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
+class Periodic1DRankNGaugeAlignmentMeshResult(BaseTypedRecord):
     """Retain transform, interpolation, and locality evidence for one alignment."""
 
-    status: Periodic1DHigherRankAlignmentStatusResult
+    status: Periodic1DRankNAlignmentStatusResult
     transform_backend_identifier: str | None
     transform_backend_version: str | None
     fourier_representative_count: int | None
@@ -51,13 +56,13 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
     coefficient_translations: Int64Array
     block_raw_frobenius_norms: Float64Array
     block_normalized_frobenius_norms: Float64Array
-    frame_recovery: Periodic1DHigherRankFrameErrorResult | None
+    frame_recovery: Periodic1DRankNFrameErrorResult | None
     known_frame_recovery_pass: bool | None
-    represented_operator_recovery: Periodic1DHigherRankMatrixErrorResult | None
+    represented_operator_recovery: Periodic1DRankNMatrixErrorResult | None
     known_operator_recovery_pass: bool | None
-    reconstruction: Periodic1DHigherRankMatrixErrorResult | None
+    reconstruction: Periodic1DRankNMatrixErrorResult | None
     reconstruction_pass: bool | None
-    interpolation: Periodic1DHigherRankMatrixComparisonResult | None
+    interpolation: Periodic1DRankNMatrixComparisonResult | None
     final_interpolation_operator_pass: bool | None
     final_interpolation_spectrum_pass: bool | None
     parseval_relative_defect: float | None
@@ -66,12 +71,12 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
     ordinary_hermiticity_pass: bool | None
     twisted_cyclic_hermiticity_defect: float | None
     twisted_cyclic_hermiticity_pass: bool | None
-    supports: tuple[Periodic1DHigherRankSupportResult, ...]
+    supports: tuple[Periodic1DRankNSupportResult, ...]
     maximum_tail_increase: float | None
     all_tail_monotonicity_checks_pass: bool | None
 
     def __post_init__(self) -> None:
-        if type(self.status) is not Periodic1DHigherRankAlignmentStatusResult:
+        if type(self.status) is not Periodic1DRankNAlignmentStatusResult:
             raise TypeError("status must be the exact alignment status record")
         translations = _int_array(
             self.coefficient_translations, "coefficient_translations"
@@ -83,11 +88,10 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
         if translations.shape != raw.shape or raw.shape != normalized.shape:
             raise ValueError("block inventories must have one common shape")
         if type(self.supports) is not tuple or any(
-            type(value) is not Periodic1DHigherRankSupportResult
-            for value in self.supports
+            type(value) is not Periodic1DRankNSupportResult for value in self.supports
         ):
             raise TypeError("supports must contain exact support result records")
-        qualified = self.status.status is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+        qualified = self.status.status is Periodic1DRankNAlignmentStatus.QUALIFIED
         required_values = (
             self.transform_backend_identifier,
             self.transform_backend_version,
@@ -119,12 +123,12 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
                 )
             if (
                 tuple(result.maximum_range for result in self.supports)
-                != Periodic1DHigherRankAlignmentCalculationControls.SUPPORT_RADII
+                != Periodic1DRankNAlignmentCalculationControls.SUPPORT_RADII
             ):
                 raise ValueError("qualified alignment must retain every frozen support")
             expected_translations = np.arange(
-                -Periodic1DHigherRankAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE,
-                Periodic1DHigherRankAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE
+                -Periodic1DRankNAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE,
+                Periodic1DRankNAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE
                 + 1,
                 dtype=np.int64,
             )
@@ -136,14 +140,14 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
                 raise ValueError("block norm inventories must be nonnegative")
             block_scale = (
                 math.sqrt(self.status.retained_rank)
-                * Periodic1DHigherRankAlignmentCalculationControls.ENERGY_REFERENCE
+                * Periodic1DRankNAlignmentCalculationControls.ENERGY_REFERENCE
             )
             if not np.array_equal(normalized, raw / block_scale):
                 raise ValueError("normalized block norms are inconsistent")
             if any(
                 support.rank != self.status.retained_rank
                 or support.energy_reference
-                != Periodic1DHigherRankAlignmentCalculationControls.ENERGY_REFERENCE
+                != Periodic1DRankNAlignmentCalculationControls.ENERGY_REFERENCE
                 for support in self.supports
             ):
                 raise ValueError(
@@ -228,11 +232,11 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
                 or self.twisted_cyclic_hermiticity_defect is None
             ):
                 raise ValueError("qualified alignment requires gate evidence")
-            controls = Periodic1DHigherRankAlignmentCalculationControls
+            controls = Periodic1DRankNAlignmentCalculationControls
             tolerance = controls.FOURIER_CONSISTENCY_TOLERANCE
             known_recovery_applicable = self.status.gauge_alignment in (
-                Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY,
-                Periodic1DHigherRankGaugeAlignment.KNOWN_INVERSE_ORACLE,
+                Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
+                Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
             )
             if known_recovery_applicable:
                 if (
@@ -296,6 +300,45 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
         object.__setattr__(self, "coefficient_translations", translations)
         object.__setattr__(self, "block_raw_frobenius_norms", raw)
         object.__setattr__(self, "block_normalized_frobenius_norms", normalized)
+
+    @property
+    def hopping_locality_tails(
+        self,
+    ) -> tuple[Periodic1DRankNHoppingTailResult, ...]:
+        """Project stored combined bytes into hopping-locality diagnostic values."""
+        from ksdft2effmass.periodic1d.rankN.hopping_locality.result import (
+            Periodic1DRankNHoppingTailResult,
+        )
+
+        translations = tuple(int(value) for value in self.coefficient_translations)
+        return tuple(
+            Periodic1DRankNHoppingTailResult(
+                maximum_range=support.maximum_range,
+                rank=support.rank,
+                norm_energy_scale=support.energy_reference,
+                retained_translations=support.retained_translations,
+                omitted_translations=tuple(
+                    value
+                    for value in translations
+                    if abs(value) > support.maximum_range
+                ),
+                omitted_squared_frobenius_weight=(
+                    support.omitted_squared_frobenius_weight
+                ),
+                normalized_omitted_squared_frobenius_weight=(
+                    support.normalized_omitted_squared_frobenius_weight
+                ),
+                omitted_frobenius_l2_norm=support.omitted_frobenius_l2_norm,
+                normalized_omitted_frobenius_l2_norm=(
+                    support.normalized_omitted_frobenius_l2_norm
+                ),
+                omitted_block_l1_norm=support.omitted_block_l1_norm,
+                normalized_omitted_block_l1_norm=(
+                    support.normalized_omitted_block_l1_norm
+                ),
+            )
+            for support in self.supports
+        )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
@@ -450,11 +493,11 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
         reconstruction_value = values["reconstruction"]
         interpolation_value = values["interpolation"]
         supports = tuple(
-            Periodic1DHigherRankSupportResult.from_dict(item)
+            Periodic1DRankNSupportResult.from_dict(item)
             for item in _tuple_of_mappings(values["supports"], "supports")
         )
         return cls(
-            status=Periodic1DHigherRankAlignmentStatusResult.from_dict(
+            status=Periodic1DRankNAlignmentStatusResult.from_dict(
                 _mapping_value(values["status"], "status")
             ),
             fourier_representative_count=representative_count,
@@ -471,13 +514,13 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
             block_normalized_frobenius_norms=arrays["block_normalized_frobenius_norms"],
             frame_recovery=None
             if frame_recovery_value is None
-            else Periodic1DHigherRankFrameErrorResult.from_dict(
+            else Periodic1DRankNFrameErrorResult.from_dict(
                 _mapping_value(frame_recovery_value, "frame_recovery")
             ),
             known_frame_recovery_pass=optional_bools["known_frame_recovery_pass"],
             represented_operator_recovery=None
             if represented_operator_recovery_value is None
-            else Periodic1DHigherRankMatrixErrorResult.from_dict(
+            else Periodic1DRankNMatrixErrorResult.from_dict(
                 _mapping_value(
                     represented_operator_recovery_value,
                     "represented_operator_recovery",
@@ -486,12 +529,12 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
             known_operator_recovery_pass=optional_bools["known_operator_recovery_pass"],
             reconstruction=None
             if reconstruction_value is None
-            else Periodic1DHigherRankMatrixErrorResult.from_dict(
+            else Periodic1DRankNMatrixErrorResult.from_dict(
                 _mapping_value(reconstruction_value, "reconstruction")
             ),
             interpolation=None
             if interpolation_value is None
-            else Periodic1DHigherRankMatrixComparisonResult.from_dict(
+            else Periodic1DRankNMatrixComparisonResult.from_dict(
                 _mapping_value(interpolation_value, "interpolation")
             ),
             supports=supports,
@@ -523,4 +566,4 @@ class Periodic1DHigherRankGaugeAlignmentMeshResult(BaseTypedRecord):
         )
 
 
-__all__ = ["Periodic1DHigherRankGaugeAlignmentMeshResult"]
+__all__ = ["Periodic1DRankNGaugeAlignmentMeshResult"]

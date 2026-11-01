@@ -11,42 +11,42 @@ import numpy as np
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ._record_admission import _mapping_value, _tuple_of_mappings
-from .calculation import Periodic1DHigherRankAlignmentCalculationRequest
+from .calculation import Periodic1DRankNAlignmentCalculationRequest
 from .definition import (
-    Periodic1DHigherRankAlignmentStatus,
+    Periodic1DRankNAlignmentStatus,
 )
-from .diagnostics import Periodic1DHigherRankProcrustesDiagnostics
-from .gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
-from .gauge_alignment.results import Periodic1DHigherRankMeshCalculationResult
-from .provenance import Periodic1DHigherRankEvaluationIndependenceResult
+from .diagnostics import Periodic1DRankNProcrustesDiagnostics
+from .gauge_alignment.definition import Periodic1DRankNGaugeAlignment
+from .gauge_alignment.results import Periodic1DRankNMeshCalculationResult
+from .provenance import Periodic1DRankNEvaluationIndependenceResult
 from .refinement_results import (
-    Periodic1DHigherRankBlockRefinementResult,
-    Periodic1DHigherRankScalarRefinementResult,
+    Periodic1DRankNBlockRefinementResult,
+    Periodic1DRankNScalarRefinementResult,
 )
 from .scalar_diagnostics import (
-    Periodic1DHigherRankScalarDiagnosticInventoryExtractor,
+    Periodic1DRankNScalarDiagnosticInventoryExtractor,
 )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
+class Periodic1DRankNAlignmentCalculationResult(BaseTypedRecord):
     """Retain one complete request-bound rank/depth calculation."""
 
-    request: Periodic1DHigherRankAlignmentCalculationRequest
-    global_selection: Periodic1DHigherRankProcrustesDiagnostics
-    meshes: tuple[Periodic1DHigherRankMeshCalculationResult, ...]
-    evaluation_independence: Periodic1DHigherRankEvaluationIndependenceResult
-    block_refinements: tuple[Periodic1DHigherRankBlockRefinementResult, ...]
-    scalar_refinements: tuple[Periodic1DHigherRankScalarRefinementResult, ...]
+    request: Periodic1DRankNAlignmentCalculationRequest
+    global_selection: Periodic1DRankNProcrustesDiagnostics
+    meshes: tuple[Periodic1DRankNMeshCalculationResult, ...]
+    evaluation_independence: Periodic1DRankNEvaluationIndependenceResult
+    block_refinements: tuple[Periodic1DRankNBlockRefinementResult, ...]
+    scalar_refinements: tuple[Periodic1DRankNScalarRefinementResult, ...]
 
     def __post_init__(self) -> None:
-        if type(self.request) is not Periodic1DHigherRankAlignmentCalculationRequest:
+        if type(self.request) is not Periodic1DRankNAlignmentCalculationRequest:
             raise TypeError("request must be the exact calculation request")
-        if type(self.global_selection) is not Periodic1DHigherRankProcrustesDiagnostics:
+        if type(self.global_selection) is not Periodic1DRankNProcrustesDiagnostics:
             raise TypeError("global_selection must be the exact Procrustes record")
         if (
             self.global_selection.status.gauge_alignment
-            is not Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
+            is not Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
         ):
             raise ValueError("global_selection must describe global-unitary alignment")
         if (
@@ -111,7 +111,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 raise ValueError("mesh status must match the calculation request")
         if (
             type(self.evaluation_independence)
-            is not Periodic1DHigherRankEvaluationIndependenceResult
+            is not Periodic1DRankNEvaluationIndependenceResult
         ):
             raise TypeError(
                 "evaluation_independence must be the exact provenance record"
@@ -126,7 +126,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 "evaluation-independence provenance must match the request"
             )
         if type(self.block_refinements) is not tuple or any(
-            type(item) is not Periodic1DHigherRankBlockRefinementResult
+            type(item) is not Periodic1DRankNBlockRefinementResult
             for item in self.block_refinements
         ):
             raise TypeError("block_refinements must contain exact refinement records")
@@ -147,7 +147,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                     for result in mesh.gauge_alignment_results
                     if result.status.gauge_alignment is gauge_alignment
                 ).status.status
-                is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                is Periodic1DRankNAlignmentStatus.QUALIFIED
                 for mesh in self.meshes
                 if mesh.construction_mesh_size in (coarse, fine)
             )
@@ -198,7 +198,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                     "block refinement values must match their source alignments"
                 )
         if type(self.scalar_refinements) is not tuple or any(
-            type(item) is not Periodic1DHigherRankScalarRefinementResult
+            type(item) is not Periodic1DRankNScalarRefinementResult
             for item in self.scalar_refinements
         ):
             raise TypeError(
@@ -225,7 +225,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                     for result in final_meshes[size].gauge_alignment_results
                     if result.status.gauge_alignment is gauge_alignment
                 ).status.status
-                is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                is Periodic1DRankNAlignmentStatus.QUALIFIED
                 for size in (coarse_size, fine_size)
             )
         )
@@ -236,7 +236,7 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 "scalar refinements must cover every qualified final-mesh alignment"
             )
         expected_scalar_values: list[
-            tuple[Periodic1DHigherRankGaugeAlignment, str, float, float]
+            tuple[Periodic1DRankNGaugeAlignment, str, float, float]
         ] = []
         for gauge_alignment in expected_scalar_gauge_alignments:
             coarse_gauge_alignment_result = next(
@@ -249,10 +249,10 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 for result in final_meshes[fine_size].gauge_alignment_results
                 if result.status.gauge_alignment is gauge_alignment
             )
-            coarse_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+            coarse_inventory = Periodic1DRankNScalarDiagnosticInventoryExtractor(
                 coarse_gauge_alignment_result
             ).execute()
-            fine_inventory = Periodic1DHigherRankScalarDiagnosticInventoryExtractor(
+            fine_inventory = Periodic1DRankNScalarDiagnosticInventoryExtractor(
                 fine_gauge_alignment_result
             ).execute()
             if tuple(path for path, _ in coarse_inventory) != tuple(
@@ -301,18 +301,18 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
         }:
             raise ValueError("calculation result fields do not match")
         return cls(
-            request=Periodic1DHigherRankAlignmentCalculationRequest.from_dict(
+            request=Periodic1DRankNAlignmentCalculationRequest.from_dict(
                 _mapping_value(values["request"], "request")
             ),
-            global_selection=Periodic1DHigherRankProcrustesDiagnostics.from_dict(
+            global_selection=Periodic1DRankNProcrustesDiagnostics.from_dict(
                 _mapping_value(values["global_selection"], "global_selection")
             ),
             meshes=tuple(
-                Periodic1DHigherRankMeshCalculationResult.from_dict(item)
+                Periodic1DRankNMeshCalculationResult.from_dict(item)
                 for item in _tuple_of_mappings(values["meshes"], "meshes")
             ),
             evaluation_independence=(
-                Periodic1DHigherRankEvaluationIndependenceResult.from_dict(
+                Periodic1DRankNEvaluationIndependenceResult.from_dict(
                     _mapping_value(
                         values["evaluation_independence"],
                         "evaluation_independence",
@@ -320,13 +320,13 @@ class Periodic1DHigherRankAlignmentCalculationResult(BaseTypedRecord):
                 )
             ),
             block_refinements=tuple(
-                Periodic1DHigherRankBlockRefinementResult.from_dict(item)
+                Periodic1DRankNBlockRefinementResult.from_dict(item)
                 for item in _tuple_of_mappings(
                     values["block_refinements"], "block_refinements"
                 )
             ),
             scalar_refinements=tuple(
-                Periodic1DHigherRankScalarRefinementResult.from_dict(item)
+                Periodic1DRankNScalarRefinementResult.from_dict(item)
                 for item in _tuple_of_mappings(
                     values["scalar_refinements"], "scalar_refinements"
                 )

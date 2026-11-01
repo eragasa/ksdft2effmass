@@ -5,9 +5,11 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from ksdft2effmass.periodic1d.support_truncation import (
+    Periodic1DSupportTruncation,
+)
 from ksdft2effmass.real_space_support_truncation import (
     MinimumToleranceSatisfyingSupport,
-    RealSpaceSupportTruncation,
     SupportToleranceSelectionOutcome,
     SupportToleranceUnresolved,
 )
@@ -17,7 +19,7 @@ from .results import Periodic1DRank2TruncationPoint
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2TruncationToleranceSelectionIndependentReference(
-    RealSpaceSupportTruncation
+    Periodic1DSupportTruncation
 ):
     """Retain four independently reconstructed support-decision outcomes."""
 

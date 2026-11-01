@@ -255,9 +255,9 @@ class HigherRankD1CaseCalculator:
     ) -> HigherRankD1MeshDiagnostics:
         mesh_size = int(fields.reduced_coordinates.size)
         rank = definition.rank
-        parent_hermiticity = MatrixFieldHermiticityAnalyzer().execute(
+        parent_hermiticity = MatrixFieldHermiticityAnalyzer(
             fields.parent_operators, 1.0
-        )
+        ).execute()
         reference_isometry = MatrixFieldIsometryAnalyzer().execute(
             fields.reference_frames
         )
@@ -527,12 +527,12 @@ class HigherRankD1CaseCalculator:
         represented = MatrixFieldComparisonAnalyzer(
             approximation=aligned_operators,
             reference=fields.reference_operators,
-            energy_reference=1.0,
+            norm_energy_scale=1.0,
             saturation_denominator_floor=1.0e-30,
         ).execute()
-        represented_hermiticity = MatrixFieldHermiticityAnalyzer().execute(
+        represented_hermiticity = MatrixFieldHermiticityAnalyzer(
             aligned_operators, 1.0
-        )
+        ).execute()
         samples = FinitePeriodicMatrixSamples.from_array(
             mesh=CenteredUniformMesh(1, mesh_size, (0.0,)),
             matrix_samples=aligned_operators,
@@ -627,7 +627,7 @@ class HigherRankD1CaseCalculator:
         interpolation = MatrixFieldComparisonAnalyzer(
             approximation=full_evaluation,
             reference=direct_evaluation,
-            energy_reference=1.0,
+            norm_energy_scale=1.0,
             saturation_denominator_floor=1.0e-30,
         ).execute()
         supports = self._supports(
@@ -801,13 +801,13 @@ class HigherRankD1CaseCalculator:
             truncation = MatrixFieldComparisonAnalyzer(
                 approximation=truncated_evaluation,
                 reference=full_evaluation,
-                energy_reference=1.0,
+                norm_energy_scale=1.0,
                 saturation_denominator_floor=1.0e-30,
             ).execute()
             total = MatrixFieldComparisonAnalyzer(
                 approximation=truncated_evaluation,
                 reference=direct_evaluation,
-                energy_reference=1.0,
+                norm_energy_scale=1.0,
                 saturation_denominator_floor=1.0e-30,
             ).execute()
             interpolation_error = np.asarray(
@@ -823,7 +823,7 @@ class HigherRankD1CaseCalculator:
                 interpolation_error=interpolation_error,
                 truncation_error=truncation_error,
                 total_error=total_error,
-                energy_reference=1.0,
+                norm_energy_scale=1.0,
             ).execute()
             monotonicity: tuple[HigherRankD1SupportMonotonicity, ...] = ()
             if previous_tail is not None and previous_support is not None:

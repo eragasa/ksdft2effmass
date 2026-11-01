@@ -5,33 +5,33 @@ from __future__ import annotations
 from fractions import Fraction
 from typing import final
 
-from ..calculation import Periodic1DHigherRankAlignmentCalculationRequest
-from ..provenance import Periodic1DHigherRankEvaluationIndependenceResult
+from ..calculation import Periodic1DRankNAlignmentCalculationRequest
+from ..provenance import Periodic1DRankNEvaluationIndependenceResult
 
 
 @final
-class Periodic1DHigherRankEvaluationIndependenceAnalyzer:
+class Periodic1DRankNEvaluationIndependenceAnalyzer:
     """Derive exact mesh separation and selection-input provenance."""
 
     __slots__ = ("_request",)
 
     def __init__(
         self,
-        request: Periodic1DHigherRankAlignmentCalculationRequest,
+        request: Periodic1DRankNAlignmentCalculationRequest,
     ) -> None:
         """Bind one complete immutable higher-rank calculation request."""
-        if type(request) is not Periodic1DHigherRankAlignmentCalculationRequest:
+        if type(request) is not Periodic1DRankNAlignmentCalculationRequest:
             raise TypeError(
-                "request must be Periodic1DHigherRankAlignmentCalculationRequest"
+                "request must be Periodic1DRankNAlignmentCalculationRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DHigherRankAlignmentCalculationRequest:
+    def request(self) -> Periodic1DRankNAlignmentCalculationRequest:
         """Return the exact calculation request bound to this action."""
         return self._request
 
-    def execute(self) -> Periodic1DHigherRankEvaluationIndependenceResult:
+    def execute(self) -> Periodic1DRankNEvaluationIndependenceResult:
         """Return exact rational mesh and selection provenance."""
         configuration = self._request.configuration
         denominator = configuration.evaluation_shift_denominator
@@ -51,7 +51,7 @@ class Periodic1DHigherRankEvaluationIndependenceAnalyzer:
             evaluation_size != configuration.global_unitary_selection_mesh_size
             and evaluation_size not in configuration.construction_mesh_sizes
         )
-        return Periodic1DHigherRankEvaluationIndependenceResult(
+        return Periodic1DRankNEvaluationIndependenceResult(
             construction_mesh_sizes=configuration.construction_mesh_sizes,
             evaluation_mesh_size=evaluation_size,
             evaluation_shift_numerator=numerator,

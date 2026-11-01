@@ -5,10 +5,12 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from ksdft2effmass.periodic1d.support_truncation import (
+    Periodic1DSupportTruncation,
+)
 from ksdft2effmass.real_space_support_truncation import (
     OrderedEigenvalueErrors,
     RankNormalizedMatrixFrobeniusErrors,
-    RealSpaceSupportTruncation,
     RealSpaceSupportTruncationComparison,
     RealSpaceSupportTruncationErrors,
     RealSpaceSupportTruncationToleranceSelection,
@@ -20,7 +22,7 @@ from .results import Periodic1DRank2TruncationPoint
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationToleranceSelector(RealSpaceSupportTruncation):
+class Periodic1DRank2TruncationToleranceSelector(Periodic1DSupportTruncation):
     """Adapt one dense symmetric-range inventory to the shared selector."""
 
     point: Periodic1DRank2TruncationPoint

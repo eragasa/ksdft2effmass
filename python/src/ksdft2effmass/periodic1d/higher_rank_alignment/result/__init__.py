@@ -1,15 +1,15 @@
 """Higher-rank gauge-alignment status and transport result records."""
 
 from .frame_transport import (
-    Periodic1DHigherRankAlignmentTransportBackendFailureResult,
-    Periodic1DHigherRankAlignmentTransportLinkResult,
-    Periodic1DHigherRankAlignmentTransportOwnerResult,
+    Periodic1DRankNAlignmentTransportBackendFailureResult,
+    Periodic1DRankNAlignmentTransportLinkResult,
+    Periodic1DRankNAlignmentTransportOwnerResult,
 )
-from .status import Periodic1DHigherRankAlignmentStatusResult
+from .status import Periodic1DRankNAlignmentStatusResult
 
 __all__ = [
-    "Periodic1DHigherRankAlignmentStatusResult",
-    "Periodic1DHigherRankAlignmentTransportBackendFailureResult",
-    "Periodic1DHigherRankAlignmentTransportLinkResult",
-    "Periodic1DHigherRankAlignmentTransportOwnerResult",
+    "Periodic1DRankNAlignmentStatusResult",
+    "Periodic1DRankNAlignmentTransportBackendFailureResult",
+    "Periodic1DRankNAlignmentTransportLinkResult",
+    "Periodic1DRankNAlignmentTransportOwnerResult",
 ]

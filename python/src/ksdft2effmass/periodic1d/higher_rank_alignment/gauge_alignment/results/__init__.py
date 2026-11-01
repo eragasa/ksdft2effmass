@@ -1,11 +1,14 @@
 """Public higher-rank gauge-alignment result records."""
 
-from .alignment import Periodic1DHigherRankGaugeAlignmentMeshResult
-from .mesh import Periodic1DHigherRankMeshCalculationResult
-from .support import Periodic1DHigherRankSupportResult
+from ksdft2effmass.periodic1d.rankN.support_truncation import (
+    Periodic1DRankNSupportResult,
+)
+
+from .alignment import Periodic1DRankNGaugeAlignmentMeshResult
+from .mesh import Periodic1DRankNMeshCalculationResult
 
 __all__ = [
-    "Periodic1DHigherRankGaugeAlignmentMeshResult",
-    "Periodic1DHigherRankMeshCalculationResult",
-    "Periodic1DHigherRankSupportResult",
+    "Periodic1DRankNGaugeAlignmentMeshResult",
+    "Periodic1DRankNMeshCalculationResult",
+    "Periodic1DRankNSupportResult",
 ]

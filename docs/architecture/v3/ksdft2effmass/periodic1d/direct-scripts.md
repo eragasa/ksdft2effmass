@@ -222,7 +222,7 @@ slices use their exact public owners rather than a generic Periodic1D aggregate.
 | Confirmatory admissible sets | `Periodic1DConfirmatoryAdmissibleSet` | `Periodic1DConfirmatoryAdmissibleSet` | `Periodic1DConfirmatoryAdmissibleSet` |
 | Scalar/direct demonstration | `Periodic1DScalarAdmissibleSet` | `Periodic1DScalarAdmissibleSet` | `Periodic1DScalarAdmissibleSet` |
 | Threshold sensitivity | `Periodic1DThresholdSensitivity` | `Periodic1DThresholdSensitivity` | `Periodic1DThresholdSensitivity` |
-| Higher-rank alignment | `Periodic1DHigherRankAlignment` | `Periodic1DHigherRankAlignment` | `Periodic1DHigherRankAlignment` |
+| Higher-rank alignment | `Periodic1DRankNAlignment` | `Periodic1DRankNAlignment` | `Periodic1DRankNAlignment` |
 
 Each prefix expands only into classes the study needs, such as `Configuration`,
 `Analyzer`, `CalculationResult`, `Verifier`, `Verification`, `VisualizationData`,

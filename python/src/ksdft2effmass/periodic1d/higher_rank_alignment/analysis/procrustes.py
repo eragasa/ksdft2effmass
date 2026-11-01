@@ -11,14 +11,14 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
-from ..calculation import Periodic1DHigherRankAlignmentCalculationRequest
+from ..calculation import Periodic1DRankNAlignmentCalculationRequest
 from ..definition import (
-    Periodic1DHigherRankAlignmentBackendExceptionCode,
-    Periodic1DHigherRankAlignmentStatus,
+    Periodic1DRankNAlignmentBackendExceptionCode,
+    Periodic1DRankNAlignmentStatus,
 )
-from ..diagnostics import Periodic1DHigherRankProcrustesDiagnostics
-from ..gauge_alignment.definition import Periodic1DHigherRankGaugeAlignment
-from ..result import Periodic1DHigherRankAlignmentStatusResult
+from ..diagnostics import Periodic1DRankNProcrustesDiagnostics
+from ..gauge_alignment.definition import Periodic1DRankNGaugeAlignment
+from ..result import Periodic1DRankNAlignmentStatusResult
 from .mesh import _status
 
 
@@ -69,32 +69,32 @@ def _procrustes_integrity(
 
 def _procrustes_backend_exception_code(
     exception: ArithmeticError | RuntimeError | ValueError,
-) -> Periodic1DHigherRankAlignmentBackendExceptionCode:
+) -> Periodic1DRankNAlignmentBackendExceptionCode:
     if isinstance(exception, FloatingPointError):
-        return Periodic1DHigherRankAlignmentBackendExceptionCode.ARITHMETIC_NONFINITE
+        return Periodic1DRankNAlignmentBackendExceptionCode.ARITHMETIC_NONFINITE
     if isinstance(exception, (np.linalg.LinAlgError, RuntimeError)):
-        return Periodic1DHigherRankAlignmentBackendExceptionCode.NONCONVERGENCE
-    return Periodic1DHigherRankAlignmentBackendExceptionCode.VALIDATION_FAILED
+        return Periodic1DRankNAlignmentBackendExceptionCode.NONCONVERGENCE
+    return Periodic1DRankNAlignmentBackendExceptionCode.VALIDATION_FAILED
 
 
 def _failed_procrustes_record(
     *,
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
-    gauge_alignment: Periodic1DHigherRankGaugeAlignment,
+    request: Periodic1DRankNAlignmentCalculationRequest,
+    gauge_alignment: Periodic1DRankNGaugeAlignment,
     selection_mesh_size: int,
     exception: ArithmeticError | RuntimeError | ValueError,
-) -> Periodic1DHigherRankProcrustesDiagnostics:
-    status = Periodic1DHigherRankAlignmentStatusResult(
+) -> Periodic1DRankNProcrustesDiagnostics:
+    status = Periodic1DRankNAlignmentStatusResult(
         case_identity=request.case_identity,
         retained_rank=request.retained_rank,
         circuit_depth=request.circuit_depth,
         construction_mesh_size=selection_mesh_size,
         gauge_alignment=gauge_alignment,
-        status=Periodic1DHigherRankAlignmentStatus.NUMERICALLY_UNRESOLVED,
+        status=Periodic1DRankNAlignmentStatus.NUMERICALLY_UNRESOLVED,
         global_unitary_downstream_applicability=None,
         backend_exception_code=_procrustes_backend_exception_code(exception),
     )
-    return Periodic1DHigherRankProcrustesDiagnostics(
+    return Periodic1DRankNProcrustesDiagnostics(
         status=status,
         selection_mesh_size=selection_mesh_size,
         cross_singular_values=np.empty((0, request.retained_rank), dtype=np.float64),
@@ -120,13 +120,13 @@ def _failed_procrustes_record(
 
 def _procrustes_record(
     *,
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
-    gauge_alignment: Periodic1DHigherRankGaugeAlignment,
+    request: Periodic1DRankNAlignmentCalculationRequest,
+    gauge_alignment: Periodic1DRankNGaugeAlignment,
     selection_mesh_size: int,
     source: ComplexArray,
     target: ComplexArray,
     result: NumpyBatchedComplexUnitaryProcrustesResult,
-) -> Periodic1DHigherRankProcrustesDiagnostics:
+) -> Periodic1DRankNProcrustesDiagnostics:
     full_rank = bool(np.all(result.full_rank))
     residuals, unitarity, stationarity, objective_identity, psd = _procrustes_integrity(
         source, target, result
@@ -140,30 +140,30 @@ def _procrustes_record(
         )
         <= request.controls.alignment_integrity_tolerance
     )
-    if gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY:
+    if gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY:
         outcome = (
-            Periodic1DHigherRankAlignmentStatus.AGGREGATE_RANK_DEFICIENT
+            Periodic1DRankNAlignmentStatus.AGGREGATE_RANK_DEFICIENT
             if not full_rank
             else (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                Periodic1DRankNAlignmentStatus.QUALIFIED
                 if integrity_passes
-                else Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED
+                else Periodic1DRankNAlignmentStatus.INTEGRITY_FAILED
             )
         )
     else:
         outcome = (
-            Periodic1DHigherRankAlignmentStatus.POINTWISE_RANK_DEFICIENT
+            Periodic1DRankNAlignmentStatus.POINTWISE_RANK_DEFICIENT
             if not full_rank
             else (
-                Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                Periodic1DRankNAlignmentStatus.QUALIFIED
                 if integrity_passes
-                else Periodic1DHigherRankAlignmentStatus.INTEGRITY_FAILED
+                else Periodic1DRankNAlignmentStatus.INTEGRITY_FAILED
             )
         )
     selected = None
     if (
-        gauge_alignment is Periodic1DHigherRankGaugeAlignment.GLOBAL_UNITARY
-        and outcome is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+        and outcome is Periodic1DRankNAlignmentStatus.QUALIFIED
     ):
         selected = ComplexMatrixQuantity(
             np.asarray(result.right_unitary_completions[0], dtype=np.complex128),
@@ -171,7 +171,7 @@ def _procrustes_record(
         )
     if result.backend_identifier is None or result.backend_version is None:
         raise ValueError("nonempty Procrustes selection requires backend evidence")
-    return Periodic1DHigherRankProcrustesDiagnostics(
+    return Periodic1DRankNProcrustesDiagnostics(
         status=_status(request, selection_mesh_size, gauge_alignment, outcome),
         selection_mesh_size=selection_mesh_size,
         cross_singular_values=np.asarray(
@@ -196,12 +196,12 @@ def _procrustes_record(
         ),
         deficient_point_indices=(
             tuple(int(index) for index in np.flatnonzero(~result.full_rank))
-            if gauge_alignment is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY
+            if gauge_alignment is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY
             else ()
         ),
         deficient_point_count=(
             int(np.count_nonzero(~result.full_rank))
-            if gauge_alignment is Periodic1DHigherRankGaugeAlignment.POINTWISE_UNITARY
+            if gauge_alignment is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY
             else 0
         ),
         normalized_optimal_residuals=residuals,
