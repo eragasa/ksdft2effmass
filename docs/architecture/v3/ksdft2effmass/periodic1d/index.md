@@ -89,7 +89,7 @@ status, or conclusions:
 | 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Implemented authenticated source lifecycle at [`periodic1d.admissible_sets`](admissible_sets/index.md); no retained successor execution exists. |
 | 6. Minimal scalar/direct admissible-set demonstration | Can a bounded scalar construction exhibit the declared witness or separation property? | Separate analytical or numerical control; never a substitute for study 5. |
 | 7. Post-hoc threshold sensitivity | How do dispositions change across one complete declared finite threshold inventory? | Separate post-hoc analysis that cannot mutate study 5. |
-| 8. Higher-rank composite alignment | Which alignment and locality behavior persists at declared ranks greater than two? | Implemented typed analytic-Hamiltonian producer, gauge-alignment stages, locality diagnostics, refinement, and periodic-frame transport under [`periodic1d.higher_rank_alignment`](higher_rank_alignment/index.md); independent recalculation, byte-owning verification, authenticated figures, and retained execution remain absent. |
+| 8. Higher-rank composite alignment | Which alignment and locality behavior persists at declared ranks greater than two? | Implemented typed analytic-Hamiltonian producer, gauge-alignment stages, locality diagnostics, refinement, and periodic-frame transport under [`periodic1d.rankN.band_alignment.composite`](rankN/band_alignment/composite/index.md); independent recalculation, byte-owning verification, authenticated figures, and retained execution remain absent. |
 
 The eight studies do not require eight reusable source children. In particular, one
 cohesive `periodic1d.admissible_sets` owner may supply behavior to studies 5--7 while
@@ -127,7 +127,7 @@ searchable provenance aliases; they are not names for new studies or a version c
 - [Rank-two band-equivalence/locality architecture](band_equivalence_locality/index.md)
 - [Rank-two composite-band alignment/locality architecture](composite_band_alignment/index.md)
 - [Constrained-admissible-set architecture](admissible_sets/index.md)
-- [Higher-rank alignment architecture](higher_rank_alignment/index.md)
+- [Rank-N composite-band alignment architecture](rankN/band_alignment/composite/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)

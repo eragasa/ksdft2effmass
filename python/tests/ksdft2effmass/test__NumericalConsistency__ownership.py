@@ -25,14 +25,14 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 
     Periodic1DRank2MomentumRefinementAnalysis,
     Periodic1DRank2MomentumRefinementFamilyAnalysis,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.fourier import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.refinement import (
+    Periodic1DRankNRefinementAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
     Periodic1DRankNFourierAnalysis,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.interpolation import (  # noqa: E501
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (  # noqa: E501
     Periodic1DRankNInterpolationAnalysis,
-)
-from ksdft2effmass.periodic1d.higher_rank_alignment.refinement import (
-    Periodic1DRankNRefinementAnalysis,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]

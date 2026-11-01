@@ -14,16 +14,16 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixErrorDecompositionAnalyzer,
     MatrixFieldComparisonAnalyzer,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.diagnostics import (
     Periodic1DRankNMatrixComparisonResult,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.fourier import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
     Periodic1DRankNFourierAnalysis,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.interpolation import (  # noqa: E501
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (  # noqa: E501
     Periodic1DRankNInterpolationAnalysis,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.request import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
 from ksdft2effmass.periodic1d.rankN.hopping_locality import (

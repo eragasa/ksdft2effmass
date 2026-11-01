@@ -33,13 +33,13 @@ from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DRankNAlignmentStudySpecification,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
+from ksdft2effmass.periodic1d.rank1.alignment import (
+    Periodic1DRank1AlignmentApplicabilityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentCalculationControls,
     Periodic1DRankNAlignmentCalculationRequest,
     Periodic1DRankNAlignmentConfiguration,
-)
-from ksdft2effmass.periodic1d.rank1.alignment import (
-    Periodic1DRank1AlignmentApplicabilityAnalyzer,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]

@@ -12,19 +12,19 @@ from projectkoios.physkit.periodic.lattice.finite_domain import (
     LatticeDisplacement,
 )
 
-from ksdft2effmass.periodic1d.higher_rank_alignment._record_admission import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite._record_admission import (
     _decoded_bool,
     _decoded_float,
     _finite_nonnegative,
     _mapping_value,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.calculation import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.configuration import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.diagnostics import (
     Periodic1DRankNMatrixComparisonResult,
 )
 from ksdft2effmass.periodic1d.support_truncation import (

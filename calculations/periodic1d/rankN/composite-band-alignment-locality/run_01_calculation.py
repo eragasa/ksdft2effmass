@@ -12,14 +12,14 @@ from analysis.development import (
     HigherRankDevelopmentCacheWriteRequest,
 )
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentAnalyzer,
     Periodic1DRankNAlignmentCalculationControls,
     Periodic1DRankNAlignmentCalculationRequest,
     Periodic1DRankNAlignmentCalculationResult,
     Periodic1DRankNAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     GaugeAlignmentWireMapping,
 )
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (

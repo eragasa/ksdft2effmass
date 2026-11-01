@@ -121,21 +121,21 @@
       "sut": "Periodic1DCompositeBandAlignmentVerifier"
     },
     {
-      "path": "python/tests/ksdft2effmass/periodic1d/higher_rank_alignment/test__Periodic1DRankNAlignmentConfiguration.py",
+      "path": "python/tests/ksdft2effmass/periodic1d/rankN/band_alignment/composite/test__Periodic1DRankNAlignmentConfiguration.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DRankNAlignmentConfiguration"
     },
     {
-      "path": "python/tests/ksdft2effmass/periodic1d/higher_rank_alignment/test__Periodic1DRankNAlignmentTransportOwnerResult__records.py",
+      "path": "python/tests/ksdft2effmass/periodic1d/rankN/band_alignment/composite/test__Periodic1DRankNAlignmentTransportOwnerResult__records.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DRankNAlignmentTransportOwnerResult"
     },
     {
-      "path": "python/tests/ksdft2effmass/periodic1d/higher_rank_alignment/test__Periodic1DRankNAlignmentStatusResult__public_surface.py",
+      "path": "python/tests/ksdft2effmass/periodic1d/rankN/band_alignment/composite/test__Periodic1DRankNAlignmentStatusResult__public_surface.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",

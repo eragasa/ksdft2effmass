@@ -11,13 +11,13 @@ from projectkoios.numerics.validation import exact_nonnegative_float
 from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailDiagnostics1D,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.calculation import (
+from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.configuration import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
 
 
 @dataclass(frozen=True, slots=True)

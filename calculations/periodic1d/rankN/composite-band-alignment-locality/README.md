@@ -11,7 +11,7 @@ recover? It compares retained ranks `3`, `4`, `8`, and `16`; circuit depths `1`,
 unitaries, and the known inverse oracle.
 
 Maintained behavior belongs to
-`ksdft2effmass.periodic1d.higher_rank_alignment`. The source package owns immutable
+`ksdft2effmass.periodic1d.rankN.band_alignment.composite`. The source package owns immutable
 configuration, request, transport, provenance, calculation-result, refinement, and
 failure records together with the analytic producer. Gauge-alignment construction,
 recovery, Fourier transformation, interpolation, locality analysis, and result assembly
@@ -63,7 +63,7 @@ the separate scalar Fourier-locality specialization because $U(1)$ phases do not
 a scalar represented Hamiltonian. Rank two can reuse orthonormal matrix mechanisms but
 retains its own model, controls, verification, and evidence identity; this higher-rank
 family is not its replacement. The Architecture v3
-[rank-specialization crosswalk](../../../../docs/architecture/v3/ksdft2effmass/periodic1d/higher_rank_alignment/rank-specialization-crosswalk.md)
+[rank-specialization crosswalk](../../../../docs/architecture/v3/ksdft2effmass/periodic1d/rankN/band_alignment/composite/rank-specialization-crosswalk.md)
 records the boundary.
 
 Migration records:

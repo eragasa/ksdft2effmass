@@ -155,7 +155,7 @@ from .geometry import (
     Periodic1DLatticeGeometry,
     Periodic1DReducedCoordinateConvention,
 )
-from .higher_rank_alignment import (
+from .rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentAnalyzer,
     Periodic1DRankNAlignmentBackendExceptionCode,
     Periodic1DRankNAlignmentCalculationControls,

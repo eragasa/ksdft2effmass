@@ -2,16 +2,16 @@
 
 import pytest
 
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.locality import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.locality import (  # noqa: E501
     Periodic1DRankNLocalityAnalysis as LegacyEquivalenceLocalityAnalysis,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.locality import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.locality import (  # noqa: E501
     Periodic1DRankNLocalityAnalysisRequest as LegacyEquivalenceLocalityAnalysisRequest,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.locality import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.locality import (  # noqa: E501
     Periodic1DRankNLocalityAnalyzer as LegacyEquivalenceLocalityAnalyzer,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.results.support import (  # noqa: E501
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.results.support import (  # noqa: E501
     Periodic1DRankNSupportResult as LegacyEquivalenceSupportResult,
 )
 from ksdft2effmass.periodic1d.rankN.support_truncation import (

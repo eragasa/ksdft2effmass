@@ -23,13 +23,13 @@ from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
+from ksdft2effmass.periodic1d.rank1.alignment import (
+    Periodic1DRank1AlignmentApplicabilityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentAnalyzer,
     Periodic1DRankNAlignmentCalculationRequest,
     Periodic1DRankNAlignmentCalculationResult,
-)
-from ksdft2effmass.periodic1d.rank1.alignment import (
-    Periodic1DRank1AlignmentApplicabilityAnalyzer,
 )
 
 from .base import Periodic1DGaugeAlignment

@@ -20,7 +20,7 @@ from analysis.development.plots import (
     _positive,
     _sampled_pareto_membership,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentConfiguration,
 )
 

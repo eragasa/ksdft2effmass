@@ -10,13 +10,13 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailMonotonicityAnalyzer1D,
     SymmetricRangeTailMonotonicityDiagnostics1D,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.fourier import (
+from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
     Periodic1DRankNFourierAnalysis,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.request import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
-from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
 
 from .result import Periodic1DRankNHoppingTailResult
 

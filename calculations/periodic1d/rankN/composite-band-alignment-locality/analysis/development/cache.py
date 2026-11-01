@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Self, final
 
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentCalculationResult,
     Periodic1DRankNAlignmentConfiguration,
 )

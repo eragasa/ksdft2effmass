@@ -172,7 +172,7 @@ parity reference and is not imported or copied. Do not infer higher-rank validat
 rank-two tests.
 
 **Implementation status:** partial. The maintained
-[`periodic1d.higher_rank_alignment`](higher_rank_alignment/index.md) child now freezes
+[`periodic1d.rankN.band_alignment.composite`](rankN/band_alignment/composite/index.md) child now freezes
 the alignment configuration, closed dispositions, and typed adaptation of exact PhysKit
 transport outcomes. This is native Architecture v3 composition, not Workflow migration.
 It consumes the upstream branch/action/rank-progression contract and does not import,
