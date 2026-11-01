@@ -1,4 +1,4 @@
-"""Rank-two pointwise and global gauge-alignment capability values."""
+"""Rank-two pointwise and global gauge-alignment analysis value."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2GaugeAlignmentResult:
+class Periodic1DRank2GaugeAlignmentAnalysis:
     """Retain selected right actions and their aligned frame paths."""
 
     pointwise_aligned: ReciprocalBandFramePath1D
@@ -64,4 +64,4 @@ class Periodic1DRank2GaugeAlignmentResult:
                 raise ValueError(f"{name} must be nonnegative")
 
 
-__all__ = ["Periodic1DRank2GaugeAlignmentResult"]
+__all__ = ["Periodic1DRank2GaugeAlignmentAnalysis"]

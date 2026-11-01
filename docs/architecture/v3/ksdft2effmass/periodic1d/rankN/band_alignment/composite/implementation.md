@@ -113,11 +113,11 @@ For one gauge alignment and mesh, the typed stages are:
 
 1. `Periodic1DRankNGaugeAlignmentConstructor` constructs the represented operator
    and aligned frame as one nominal immutable field record.
-2. `Periodic1DRankNGaugeAlignmentRecoveryAnalyzer` checks recovery against the
+2. `Periodic1DRankNRecoveryAnalyzer` checks recovery against the
    declared analytic or solver-owned construction.
-3. `Periodic1DRankNGaugeAlignmentFourierAnalyzer` applies the PhysKit odd-mesh
+3. `Periodic1DRankNFourierAnalyzer` applies the PhysKit odd-mesh
    transform and evaluates coefficient-index, Parseval, and Hermiticity evidence.
-4. `Periodic1DRankNGaugeAlignmentInterpolationAnalyzer` evaluates the complete
+4. `Periodic1DRankNInterpolationAnalyzer` evaluates the complete
    Fourier series and direct analytic field on the shifted mesh.
 5. `Periodic1DRankNHoppingLocalityAnalyzer` measures every frozen symmetric-range
    coefficient tail and its nested-range monotonicity without removing support.

@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from enum import StrEnum
+from ksdft2effmass.serialization import StringWireEnum
 
 
-class Periodic1DRank1AlignmentApplicability(StrEnum):
+class Periodic1DRank1AlignmentApplicability(StringWireEnum):
     """State why nontrivial internal alignment is absent at rank one."""
 
     OPERATOR_TRIVIAL = "operator-trivial"

@@ -91,7 +91,7 @@ class Periodic1DRank1AlignmentApplicabilityResult(
             "lattice_unit": self.lattice_geometry.lattice_unit,
             "retained_rank": self.retained_rank,
             "gauge_group": self.gauge_group,
-            "applicability": self.applicability.value,
+            "applicability": self.applicability.to_wire(),
             "inapplicable_alignment_controls": self.inapplicable_alignment_controls,
         }
 
@@ -140,7 +140,7 @@ class Periodic1DRank1AlignmentApplicabilityResult(
             ),
             retained_rank=retained_rank,
             gauge_group=gauge_group,
-            applicability=Periodic1DRank1AlignmentApplicability(applicability),
+            applicability=Periodic1DRank1AlignmentApplicability.from_wire(applicability),
             inapplicable_alignment_controls=tuple(controls),
         )
 

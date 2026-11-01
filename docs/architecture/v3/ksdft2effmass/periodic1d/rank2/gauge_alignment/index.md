@@ -6,6 +6,14 @@ and attacked orthonormal frame paths, selects pointwise and one aggregate Procru
 right actions, and returns the aligned paths, selected matrices, singular-value evidence,
 and applied rank cutoffs.
 
+The capability uses the standard action triad:
+
+- `Periodic1DRank2GaugeAlignmentAnalysisRequest` binds the two frame paths and
+  Procrustes tolerances;
+- `Periodic1DRank2GaugeAlignmentAnalyzer` selects the right actions; and
+- `Periodic1DRank2GaugeAlignmentAnalysis` retains the aligned paths, transformations,
+  and selection diagnostics.
+
 The capability does not own the four-state parent, attack construction, hopping
 transforms, support truncation, aggregate result wire, verification, or rendering. The
 rank-two composite band-alignment study consumes it from

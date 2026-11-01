@@ -19,11 +19,11 @@ from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
-from .result import Periodic1DRank2GaugeAlignmentResult
+from .result import Periodic1DRank2GaugeAlignmentAnalysis
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2GaugeAlignmentRequest:
+class Periodic1DRank2GaugeAlignmentAnalysisRequest:
     """Bind two rank-two frame paths and the declared Procrustes tolerances."""
 
     reference: ReciprocalBandFramePath1D
@@ -55,11 +55,13 @@ class Periodic1DRank2GaugeAlignmentAnalyzer:
 
     def __init__(
         self,
-        request: Periodic1DRank2GaugeAlignmentRequest,
+        request: Periodic1DRank2GaugeAlignmentAnalysisRequest,
         solver: NumpyBatchedComplexUnitaryProcrustesSolver,
     ) -> None:
-        if type(request) is not Periodic1DRank2GaugeAlignmentRequest:
-            raise TypeError("request must be Periodic1DRank2GaugeAlignmentRequest")
+        if type(request) is not Periodic1DRank2GaugeAlignmentAnalysisRequest:
+            raise TypeError(
+                "request must be Periodic1DRank2GaugeAlignmentAnalysisRequest"
+            )
         if type(solver) is not NumpyBatchedComplexUnitaryProcrustesSolver:
             raise TypeError(
                 "solver must be NumpyBatchedComplexUnitaryProcrustesSolver"
@@ -68,7 +70,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer:
         self._solver = solver
 
     @property
-    def request(self) -> Periodic1DRank2GaugeAlignmentRequest:
+    def request(self) -> Periodic1DRank2GaugeAlignmentAnalysisRequest:
         """Return the complete immutable alignment request."""
         return self._request
 
@@ -77,7 +79,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer:
         """Return the explicitly selected Procrustes collaborator."""
         return self._solver
 
-    def execute(self) -> Periodic1DRank2GaugeAlignmentResult:
+    def execute(self) -> Periodic1DRank2GaugeAlignmentAnalysis:
         """Return pointwise and one-global-unitary aligned frame paths."""
         request = self.request
         tolerance = ComplexUnitaryProcrustesTolerance(
@@ -124,7 +126,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer:
             tuple(global_value for _ in range(request.attacked.mesh.point_count)),
         )
         unit = Unitless()
-        return Periodic1DRank2GaugeAlignmentResult(
+        return Periodic1DRank2GaugeAlignmentAnalysis(
             pointwise_aligned=pointwise_aligned,
             globally_aligned=globally_aligned,
             pointwise_rotations=tuple(
@@ -163,5 +165,5 @@ def _rotate_path(
 
 __all__ = [
     "Periodic1DRank2GaugeAlignmentAnalyzer",
-    "Periodic1DRank2GaugeAlignmentRequest",
+    "Periodic1DRank2GaugeAlignmentAnalysisRequest",
 ]

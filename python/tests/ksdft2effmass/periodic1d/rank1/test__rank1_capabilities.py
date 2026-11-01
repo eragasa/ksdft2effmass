@@ -33,6 +33,7 @@ from ksdft2effmass.periodic1d.rank1.support_truncation import (
 from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncation,
 )
+from ksdft2effmass.serialization import StringWireEnum
 from ksdft2effmass.support_truncation import SupportTruncation
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -105,6 +106,20 @@ class TestPeriodic1DRank1Capabilities:
         )
         assert not hasattr(result, "channels")
         assert reconstructed.to_json() == result.to_json()
+
+    def test__alignment_applicability__uses_strict_string_wire_enum(self) -> None:
+        applicability = Periodic1DRank1AlignmentApplicability.OPERATOR_TRIVIAL
+
+        assert isinstance(applicability, StringWireEnum)
+        assert applicability.to_wire() == "operator-trivial"
+        assert (
+            Periodic1DRank1AlignmentApplicability.from_wire("operator-trivial")
+            is applicability
+        )
+        with pytest.raises(TypeError, match="wire must be a built-in string"):
+            Periodic1DRank1AlignmentApplicability.from_wire(True)  # type: ignore[arg-type]
+        with pytest.raises(ValueError, match="unsupported"):
+            Periodic1DRank1AlignmentApplicability.from_wire("unknown")
 
     def test__alignment__rejects_tampered_retained_rank_wire(self) -> None:
         result = Periodic1DRank1AlignmentApplicabilityAnalyzer(

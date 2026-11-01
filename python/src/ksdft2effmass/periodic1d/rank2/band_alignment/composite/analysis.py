@@ -27,8 +27,8 @@ from ksdft2effmass.analysis.periodic_bands import (
 )
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
+    Periodic1DRank2GaugeAlignmentAnalysisRequest,
     Periodic1DRank2GaugeAlignmentAnalyzer,
-    Periodic1DRank2GaugeAlignmentRequest,
 )
 from ksdft2effmass.solidstate import (
     BandProjectedOperatorPathConstructor1D,
@@ -136,7 +136,7 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         attack_rotations = self._attack_rotations()
         attacked = self._rotate_path(reference, attack_rotations)
         alignment = Periodic1DRank2GaugeAlignmentAnalyzer(
-            Periodic1DRank2GaugeAlignmentRequest(
+            Periodic1DRank2GaugeAlignmentAnalysisRequest(
                 reference=reference,
                 attacked=attacked,
                 rank_absolute_tolerance=(

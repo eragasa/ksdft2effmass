@@ -11,9 +11,14 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
     Periodic1DCompositeBandAlignmentCalculationResult,
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.periodic1d.rank2.gauge_alignment import analysis as analysis_module
+from ksdft2effmass.periodic1d.rank2.gauge_alignment import result as result_module
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
+    Periodic1DRank2GaugeAlignmentAnalysisRequest,
     Periodic1DRank2GaugeAlignmentAnalyzer,
-    Periodic1DRank2GaugeAlignmentRequest,
+)
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.result import (
+    Periodic1DRank2GaugeAlignmentAnalysis,
 )
 from ksdft2effmass.solidstate import (
     CenteredUniformReciprocalMesh1D,
@@ -25,6 +30,15 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
     """Preserve the maintained composite producer's alignment values exactly."""
+
+    def test__public_class_names__use_the_analysis_capability_triad(self) -> None:
+        assert analysis_module.__all__ == [
+            "Periodic1DRank2GaugeAlignmentAnalyzer",
+            "Periodic1DRank2GaugeAlignmentAnalysisRequest",
+        ]
+        assert result_module.__all__ == ["Periodic1DRank2GaugeAlignmentAnalysis"]
+        assert not hasattr(analysis_module, "Periodic1DRank2GaugeAlignmentRequest")
+        assert not hasattr(result_module, "Periodic1DRank2GaugeAlignmentResult")
 
     def test__execute__matches_the_aggregate_result_values(
         self,
@@ -58,7 +72,7 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         )
 
         result = Periodic1DRank2GaugeAlignmentAnalyzer(
-            Periodic1DRank2GaugeAlignmentRequest(
+            Periodic1DRank2GaugeAlignmentAnalysisRequest(
                 reference=reference,
                 attacked=attacked,
                 rank_absolute_tolerance=(
@@ -74,6 +88,7 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
             NumpyBatchedComplexUnitaryProcrustesSolver(),
         ).execute()
 
+        assert type(result) is Periodic1DRank2GaugeAlignmentAnalysis
         for observed, expected in (
             (
                 result.pointwise_aligned.frames,
