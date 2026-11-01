@@ -46,9 +46,8 @@ alignment or an exact applicability boundary. The narrower
 ordered alignment-sample count, action side, and inner-product convention shared by the
 narrower `GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
 `GaugeAlignmentAnalyzer` role bases. The analyzer delegates that identity from its bound
-request, owns zero-argument execution, and rejects an analysis whose identity drifts from
-the request. These bases do not merge family-specific fields, solvers, tolerances,
-outcomes, or wires. The corresponding
+request and requires the concrete zero-argument `execute()` action. These bases do not
+merge family-specific fields, solvers, tolerances, outcomes, or wires. The corresponding
 `Periodic1DGaugeAlignmentAnalysisRequest`, `Periodic1DGaugeAlignmentAnalysis`, and
 `Periodic1DGaugeAlignmentAnalyzer` bases add dimensional ownership without selecting a
 default lattice, solver, tolerance, or wire.

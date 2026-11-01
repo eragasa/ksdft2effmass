@@ -132,19 +132,9 @@ class GaugeAlignmentAnalyzer[
         """Return the scientific identity delegated by the bound request."""
         return self.request.analysis_identity
 
-    @final
-    def execute(self) -> GaugeAlignmentAnalysisT:
-        """Execute and require the result to preserve the request identity."""
-        analysis = self._execute()
-        if not isinstance(analysis, GaugeAlignmentAnalysis):
-            raise TypeError("_execute must return GaugeAlignmentAnalysis")
-        if analysis.analysis_identity != self.analysis_identity:
-            raise ValueError("analysis identity must match the bound request")
-        return analysis
-
     @abstractmethod
-    def _execute(self) -> GaugeAlignmentAnalysisT:
-        """Calculate one analysis before shared identity admission."""
+    def execute(self) -> GaugeAlignmentAnalysisT:
+        """Execute the bound gauge-alignment analysis without external effects."""
 
 
 __all__ = [

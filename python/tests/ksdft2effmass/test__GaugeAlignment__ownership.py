@@ -58,7 +58,7 @@ class TestGaugeAlignment:
             "analysis_identity"
         }
         assert GaugeAlignmentAnalysis.__abstractmethods__ == {"analysis_identity"}
-        assert GaugeAlignmentAnalyzer.__abstractmethods__ == {"_execute", "request"}
+        assert GaugeAlignmentAnalyzer.__abstractmethods__ == {"execute", "request"}
 
     def test__analysis_identity__validates_exact_common_values(self) -> None:
         identity = GaugeAlignmentAnalysisIdentity(
@@ -108,52 +108,6 @@ class TestGaugeAlignment:
                 GaugeAlignmentActionConvention.RIGHT,
                 GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
             )
-
-    def test__analyzer__rejects_analysis_identity_drift(self) -> None:
-        request_identity = GaugeAlignmentAnalysisIdentity(
-            2,
-            "U(2)",
-            8,
-            GaugeAlignmentActionConvention.RIGHT,
-            GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
-        )
-        result_identity = GaugeAlignmentAnalysisIdentity(
-            2,
-            "U(2)",
-            16,
-            GaugeAlignmentActionConvention.RIGHT,
-            GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
-        )
-
-        class Request(GaugeAlignmentAnalysisRequest):
-            __slots__ = ()
-
-            @property
-            def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
-                return request_identity
-
-        class Analysis(GaugeAlignmentAnalysis):
-            __slots__ = ()
-
-            @property
-            def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
-                return result_identity
-
-        class Analyzer(GaugeAlignmentAnalyzer[Request, Analysis]):
-            __slots__ = ("_request",)
-
-            def __init__(self, request: Request) -> None:
-                self._request = request
-
-            @property
-            def request(self) -> Request:
-                return self._request
-
-            def _execute(self) -> Analysis:
-                return Analysis()
-
-        with pytest.raises(ValueError, match="identity must match"):
-            Analyzer(Request()).execute()
 
     def test__periodic_role_bases__specialize_every_shared_role(self) -> None:
         assert issubclass(

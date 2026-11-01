@@ -108,7 +108,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
         """Return the explicitly selected Procrustes collaborator."""
         return self._solver
 
-    def _execute(self) -> Periodic1DRank2GaugeAlignmentAnalysis:
+    def execute(self) -> Periodic1DRank2GaugeAlignmentAnalysis:
         """Return pointwise and one-global-unitary aligned frame paths."""
         request = self.request
         tolerance = ComplexUnitaryProcrustesTolerance(

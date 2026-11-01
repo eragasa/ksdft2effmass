@@ -66,7 +66,7 @@ class Periodic1DRankNGaugeAlignmentAnalyzer(
         """Return the exact immutable analysis request bound at construction."""
         return self._request
 
-    def _execute(self) -> Periodic1DRankNGaugeAlignmentMeshResult:
+    def execute(self) -> Periodic1DRankNGaugeAlignmentMeshResult:
         """Execute and assemble the ordered gauge-alignment analysis lifecycle."""
         recovery = Periodic1DRankNRecoveryAnalyzer(
             Periodic1DRankNRecoveryAnalysisRequest(self._request)
