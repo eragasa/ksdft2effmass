@@ -1,7 +1,9 @@
 """Static contract tests for direct composite-alignment effect adapters."""
 
 import ast
+import gzip
 import hashlib
+import json
 import runpy
 import shutil
 import subprocess
@@ -14,6 +16,61 @@ from projectkoios.physkit.units import PhysicalUnit
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
+
+
+def _first_json_differences(
+    expected: object,
+    actual: object,
+    *,
+    path: str = "$",
+    limit: int = 16,
+) -> tuple[str, ...]:
+    if type(expected) is not type(actual):
+        expected_type = type(expected).__name__
+        actual_type = type(actual).__name__
+        return (f"{path}: expected type {expected_type}, actual {actual_type}",)
+    if isinstance(expected, dict) and isinstance(actual, dict):
+        differences: list[str] = []
+        for key in sorted(expected.keys() | actual.keys()):
+            if key not in expected:
+                differences.append(f"{path}.{key}: unexpected key")
+            elif key not in actual:
+                differences.append(f"{path}.{key}: missing key")
+            else:
+                differences.extend(
+                    _first_json_differences(
+                        expected[key],
+                        actual[key],
+                        path=f"{path}.{key}",
+                        limit=limit - len(differences),
+                    )
+                )
+            if len(differences) >= limit:
+                break
+        return tuple(differences[:limit])
+    if isinstance(expected, list) and isinstance(actual, list):
+        differences = []
+        if len(expected) != len(actual):
+            differences.append(
+                f"{path}: expected length {len(expected)}, actual {len(actual)}"
+            )
+        for index, (expected_value, actual_value) in enumerate(
+            zip(expected, actual, strict=False)
+        ):
+            differences.extend(
+                _first_json_differences(
+                    expected_value,
+                    actual_value,
+                    path=f"{path}[{index}]",
+                    limit=limit - len(differences),
+                )
+            )
+            if len(differences) >= limit:
+                break
+        return tuple(differences[:limit])
+    if expected != actual:
+        return (f"{path}: expected {expected!r}, actual {actual!r}",)
+    return ()
 
 
 class TestPeriodic1DCompositeBandAlignmentDirectScripts:
@@ -158,10 +215,26 @@ class TestPeriodic1DCompositeBandAlignmentDirectScripts:
         assert (execution / "verification" / "verification.json").is_file()
         assert (execution / "figures" / "rendering.json").is_file()
         result_bytes = (execution / "results" / "result.json").read_bytes()
-        assert len(result_bytes) == 961263
-        assert hashlib.sha256(result_bytes).hexdigest() == (
-            "7c8a65f14f480c22e4eeeeae26f56ef7f0116accec0a16f80bb7c0cf7931f0f7"
+        canonical_bytes = gzip.decompress(
+            (
+                Path(__file__).parent
+                / "resources"
+                / "canonical-direct-controlled-rank2-n64-result.json.gz"
+            ).read_bytes()
         )
+        if result_bytes != canonical_bytes:
+            differences = _first_json_differences(
+                json.loads(canonical_bytes),
+                json.loads(result_bytes),
+            )
+            pytest.fail(
+                "canonical rank-two bytes changed: "
+                f"expected {len(canonical_bytes)} bytes and "
+                f"{hashlib.sha256(canonical_bytes).hexdigest()}, "
+                f"actual {len(result_bytes)} bytes and "
+                f"{hashlib.sha256(result_bytes).hexdigest()}; "
+                "first JSON differences:\n" + "\n".join(differences)
+            )
         codec = TypedJsonValueCodec()
         for document_path in (
             execution / "execution.json",
