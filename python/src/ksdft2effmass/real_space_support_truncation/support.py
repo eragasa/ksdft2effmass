@@ -81,12 +81,17 @@ class SymmetricRangeSupport1D(RealSpaceSupportTruncation):
             raise ValueError("maximum_range must be nonnegative")
 
     @property
+    def translations(self) -> tuple[int, ...]:
+        """Return the complete symmetric ordinary-translation inventory."""
+        return tuple(range(-self.maximum_range, self.maximum_range + 1))
+
+    @property
     def support(self) -> ConjugateClosedSupport:
         """Return the explicit conjugate-closed displacement inventory."""
         return ConjugateClosedSupport(
             tuple(
                 LatticeDisplacement(LatticeDimension.ONE, (translation,))
-                for translation in range(-self.maximum_range, self.maximum_range + 1)
+                for translation in self.translations
             )
         )
 

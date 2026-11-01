@@ -27,7 +27,13 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldErrorAnalyzer,
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
-from ksdft2effmass.periodic1d.rankN.diagnostics import Periodic1DRankNMatrixErrorResult
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
+    Periodic1DRankNMatrixErrorResult,
+)
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DCyclicRepresentativeInventory,
+    Periodic1DOrdinaryTranslationInventory,
+)
 
 from .nyquist import NyquistModeDispositionEnum
 from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -122,8 +128,36 @@ class Periodic1DRankNFourierAnalysis(NumericalConsistency):
             or normalized_norms.shape != translations.shape
         ):
             raise ValueError("Fourier block inventories must have one vector shape")
+        recorded_inventory = Periodic1DOrdinaryTranslationInventory(
+            tuple(int(value) for value in translations)
+        )
+        cyclic_inventory = self.cyclic_representative_inventory
+        if self.representative_count != cyclic_inventory.point_count:
+            raise ValueError("representative_count must match the cyclic inventory")
+        if not set(recorded_inventory.translations).issubset(
+            cyclic_inventory.ordinary_translation_inventory.translations
+        ):
+            raise ValueError(
+                "recorded translations must belong to the ordinary Fourier inventory"
+            )
         if type(self.reconstruction) is not Periodic1DRankNMatrixErrorResult:
             raise TypeError("reconstruction must be the exact matrix-error record")
+
+    @property
+    def cyclic_representative_inventory(
+        self,
+    ) -> Periodic1DCyclicRepresentativeInventory:
+        """Return the typed finite cyclic Fourier representative inventory."""
+        return Periodic1DCyclicRepresentativeInventory(
+            tuple(int(value) for value in self.transform.series.integer_modes[:, 0])
+        )
+
+    @property
+    def recorded_translation_inventory(self) -> Periodic1DOrdinaryTranslationInventory:
+        """Return the compact ordinary-translation inventory retained in diagnostics."""
+        return Periodic1DOrdinaryTranslationInventory(
+            tuple(int(value) for value in self.coefficient_translations)
+        )
 
 
 @final

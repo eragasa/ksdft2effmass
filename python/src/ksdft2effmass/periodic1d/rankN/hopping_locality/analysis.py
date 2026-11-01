@@ -46,42 +46,58 @@ class Periodic1DRankNHoppingLocalityAnalysisRequest(
             raise TypeError("fourier_analysis must be the exact Fourier analysis")
         if self.fourier_analysis.analysis_request is not self.analysis_request:
             raise ValueError("Fourier analysis must derive from the bound request")
+        if self.fourier_analysis.cyclic_representative_inventory.has_nyquist_class:
+            raise ValueError(
+                "ordinary hopping locality requires an odd cyclic Fourier inventory"
+            )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNHoppingLocalityAnalysis(
-    Periodic1DHoppingLocalityAnalysis
-):
+class Periodic1DRankNHoppingLocalityAnalysis(Periodic1DHoppingLocalityAnalysis):
     """Retain coefficient tails without removing real-space support."""
 
-    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
+    request: Periodic1DRankNHoppingLocalityAnalysisRequest
     tails: tuple[Periodic1DRankNHoppingTailResult, ...]
     monotonicity: tuple[SymmetricRangeTailMonotonicityDiagnostics1D, ...]
     maximum_tail_increase: float
     all_tail_monotonicity_checks_pass: bool
 
     def __post_init__(self) -> None:
-        if (
-            type(self.analysis_request)
-            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
-        ):
-            raise TypeError("analysis_request must be the exact analysis request")
+        if type(self.request) is not Periodic1DRankNHoppingLocalityAnalysisRequest:
+            raise TypeError("request must be the exact hopping-locality request")
         if type(self.tails) is not tuple or not all(
             type(item) is Periodic1DRankNHoppingTailResult for item in self.tails
         ):
             raise TypeError("tails must contain exact hopping-tail results")
-        expected_ranges = (
-            self.analysis_request.calculation_request.controls.support_radii
-        )
-        if tuple(item.maximum_range for item in self.tails) != expected_ranges:
+        controls = self.request.analysis_request.calculation_request.controls
+        expected_ranges = controls.hopping_diagnostic_range_inventory
+        if (
+            tuple(item.diagnostic_range for item in self.tails)
+            != expected_ranges.ranges
+        ):
             raise ValueError("tails must follow the frozen diagnostic-range inventory")
+        cyclic_inventory = self.request.fourier_analysis.cyclic_representative_inventory
+        expected_translations = (
+            cyclic_inventory.ordinary_translation_inventory.translations
+        )
+        if any(
+            item.complete_translation_inventory.translations != expected_translations
+            for item in self.tails
+        ):
+            raise ValueError(
+                "every tail must derive from the bound Fourier translation inventory"
+            )
         if type(self.monotonicity) is not tuple or not all(
             type(item) is SymmetricRangeTailMonotonicityDiagnostics1D
             for item in self.monotonicity
         ):
             raise TypeError("monotonicity must contain exact generic diagnostics")
         expected_pairs = tuple(
-            zip(expected_ranges[:-1], expected_ranges[1:], strict=True)
+            zip(
+                expected_ranges.maximum_ranges[:-1],
+                expected_ranges.maximum_ranges[1:],
+                strict=True,
+            )
         )
         actual_pairs = tuple(
             (item.coarse_maximum_range, item.fine_maximum_range)
@@ -144,10 +160,10 @@ class Periodic1DRankNHoppingLocalityAnalyzer(
         generic_tails = tuple(
             SymmetricRangeTailAnalyzer1D().execute(
                 series,
-                maximum_range,
+                diagnostic_range.maximum_range,
                 controls.energy_reference,
             )
-            for maximum_range in controls.support_radii
+            for diagnostic_range in controls.hopping_diagnostic_range_inventory.ranges
         )
         monotonicity = SymmetricRangeTailMonotonicityAnalyzer1D().execute(
             generic_tails,
@@ -162,7 +178,7 @@ class Periodic1DRankNHoppingLocalityAnalyzer(
             for item in monotonicity
         )
         return Periodic1DRankNHoppingLocalityAnalysis(
-            analysis_request=analysis_request,
+            request=self._request,
             tails=tuple(
                 Periodic1DRankNHoppingTailResult.from_diagnostics(item)
                 for item in generic_tails

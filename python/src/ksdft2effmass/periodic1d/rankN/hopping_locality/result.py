@@ -18,6 +18,10 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DOrdinaryTranslationInventory,
+    Periodic1DSymmetricTranslationRange,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,9 +73,8 @@ class Periodic1DRankNHoppingTailResult(Periodic1DHoppingLocality):
                 raise TypeError(f"{name} must be a tuple of built-in integers")
             if translations != tuple(sorted(set(translations))):
                 raise ValueError(f"{name} must be unique and increasing")
-        if self.retained_translations != tuple(
-            range(-self.maximum_range, self.maximum_range + 1)
-        ):
+        diagnostic_range = Periodic1DSymmetricTranslationRange(self.maximum_range)
+        if self.retained_translations != diagnostic_range.translations:
             raise ValueError("retained translations must equal the diagnostic range")
         if set(self.retained_translations) & set(self.omitted_translations):
             raise ValueError("retained and omitted translations must be disjoint")
@@ -84,9 +87,7 @@ class Periodic1DRankNHoppingTailResult(Periodic1DHoppingLocality):
         complete_inventory = tuple(
             sorted(self.retained_translations + self.omitted_translations)
         )
-        complete_inventory_set = set(complete_inventory)
-        if not all(-value in complete_inventory_set for value in complete_inventory):
-            raise ValueError("the diagnostic translation inventory must be symmetric")
+        Periodic1DOrdinaryTranslationInventory(complete_inventory)
         for name, value in (
             (
                 "omitted_squared_frobenius_weight",
@@ -126,6 +127,20 @@ class Periodic1DRankNHoppingTailResult(Periodic1DHoppingLocality):
         )
         if normalized != expected:
             raise ValueError("normalized hopping-tail fields are inconsistent")
+
+    @property
+    def diagnostic_range(self) -> Periodic1DSymmetricTranslationRange:
+        """Return the neutral symmetric range used by this tail diagnostic."""
+        return Periodic1DSymmetricTranslationRange(self.maximum_range)
+
+    @property
+    def complete_translation_inventory(
+        self,
+    ) -> Periodic1DOrdinaryTranslationInventory:
+        """Return the typed complete ordinary translation inventory."""
+        return Periodic1DOrdinaryTranslationInventory(
+            tuple(sorted(self.retained_translations + self.omitted_translations))
+        )
 
     @classmethod
     def from_diagnostics(

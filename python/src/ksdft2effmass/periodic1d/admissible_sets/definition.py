@@ -12,7 +12,7 @@ from projectkoios.physkit.units import ScalarQuantity, Unitless
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from ..rank2.band_alignment.composite import (
+from ..rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
 )
 

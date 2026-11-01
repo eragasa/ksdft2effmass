@@ -29,6 +29,11 @@ class TestPeriodic1DRankNAlignmentCalculationRequest:
         assert reconstructed.to_json() == wire
         assert reconstructed.case_identity == "r03-L01"
         assert reconstructed.controls.support_radii == (0, 1, 2, 4, 8, 16, 32, 64, 128)
+        diagnostics = reconstructed.controls.hopping_diagnostic_range_inventory
+        supports = reconstructed.controls.support_range_inventory
+        assert diagnostics.maximum_ranges == reconstructed.controls.support_radii
+        assert supports.maximum_ranges == diagnostics.maximum_ranges
+        assert supports.ranges == diagnostics.ranges
         assert reconstructed.transport_request(1025).construction_mesh_size == 1025
 
     def test__calculation_controls__reject_tampered_support_or_tolerance(self) -> None:

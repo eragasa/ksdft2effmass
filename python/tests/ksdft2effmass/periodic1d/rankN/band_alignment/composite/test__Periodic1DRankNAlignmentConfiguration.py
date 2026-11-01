@@ -9,55 +9,33 @@ from projectkoios.optimization.alignment.procrustes import (
 )
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransportPrincipalPhaseBranch,
-    EndpointSewingAction,
-    FrameRotationAction,
 )
 
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    Periodic1DRankNGaugeAlignment,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 def _configuration() -> Periodic1DRankNAlignmentConfiguration:
-    return Periodic1DRankNAlignmentConfiguration(
-        family_identity=Periodic1DRankNAlignmentConfiguration.FAMILY_IDENTITY,
-        version_identity=Periodic1DRankNAlignmentConfiguration.VERSION_IDENTITY,
-        retained_ranks=(3, 4, 8, 16),
-        circuit_depths=(1, 2, 4, 8),
-        construction_mesh_sizes=(513, 1025, 2049),
-        final_construction_mesh_size=2049,
-        global_unitary_selection_mesh_size=2049,
-        evaluation_mesh_size=8191,
-        evaluation_shift_numerator=1,
-        evaluation_shift_denominator=2,
-        gauge_alignments=(
-            Periodic1DRankNGaugeAlignment.IDENTITY,
-            Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
-            Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
-            Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
-        ),
-        frame_rotation_action=FrameRotationAction.RIGHT,
-        endpoint_sewing_action=EndpointSewingAction.LEFT_AMBIENT,
-        principal_phase_branch=(
-            ClosedLoopPolarFrameTransportPrincipalPhaseBranch.negative_pi_open
-        ),
-        rank_cutoff_rule=ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM,
-        rank_absolute_tolerance=1.0e-12,
-        rank_relative_tolerance=1.0e-10,
-        backend_validation_absolute_tolerance=1.0e-12,
-        backend_validation_relative_tolerance=1.0e-10,
-        endpoint_and_primitive_closure_tolerance=1.0e-11,
-        maximum_closure_phase_tolerance=1.0e-10,
-    )
+    return Periodic1DRankNAlignmentConfiguration.frozen()
 
 
 class TestPeriodic1DRankNAlignmentConfiguration:
     """Establish exact controls, typed-wire behavior, and fail-closed validation."""
+
+    def test__frozen__returns_the_complete_authoritative_configuration(self) -> None:
+        configuration = Periodic1DRankNAlignmentConfiguration.frozen()
+
+        assert configuration.retained_ranks == configuration.RETAINED_RANKS
+        assert (
+            configuration.frame_rotation_action is configuration.FRAME_ROTATION_ACTION
+        )
+        assert (
+            configuration.principal_phase_branch is configuration.PRINCIPAL_PHASE_BRANCH
+        )
+        assert configuration.to_json() == _configuration().to_json()
 
     def test__configuration__exposes_case_order_and_owner_tolerance(self) -> None:
         configuration = _configuration()

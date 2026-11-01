@@ -17,10 +17,10 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.recovery import (
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
-from ksdft2effmass.periodic1d.rankN.hopping_locality import (
+from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
 )
-from ksdft2effmass.periodic1d.rankN.support_truncation import (
+from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysis,
 )
 
@@ -60,21 +60,46 @@ class Periodic1DRankNGaugeAlignmentAssemblyRequest:
                 Periodic1DRankNInterpolationAnalysis,
                 "interpolation_analysis",
             ),
-            (
-                self.hopping_locality_analysis,
-                Periodic1DRankNHoppingLocalityAnalysis,
-                "hopping_locality_analysis",
-            ),
-            (
-                self.support_truncation_analysis,
-                Periodic1DRankNSupportTruncationAnalysis,
-                "support_truncation_analysis",
-            ),
         ):
             if type(analysis) is not expected_type:
                 raise TypeError(f"{name} must have its exact analysis type")
             if analysis.analysis_request is not self.analysis_request:
                 raise ValueError(f"{name} must derive from the bound request")
+        if (
+            type(self.hopping_locality_analysis)
+            is not Periodic1DRankNHoppingLocalityAnalysis
+        ):
+            raise TypeError(
+                "hopping_locality_analysis must have its exact analysis type"
+            )
+        if (
+            self.hopping_locality_analysis.request.analysis_request
+            is not self.analysis_request
+        ):
+            raise ValueError(
+                "hopping_locality_analysis must derive from the bound request"
+            )
+        if (
+            type(self.support_truncation_analysis)
+            is not Periodic1DRankNSupportTruncationAnalysis
+        ):
+            raise TypeError(
+                "support_truncation_analysis must have its exact analysis type"
+            )
+        if (
+            self.support_truncation_analysis.request.analysis_request
+            is not self.analysis_request
+        ):
+            raise ValueError(
+                "support_truncation_analysis must derive from the bound request"
+            )
+        if (
+            self.support_truncation_analysis.request.hopping_locality_analysis
+            is not self.hopping_locality_analysis
+        ):
+            raise ValueError(
+                "support truncation must derive from the bound hopping locality"
+            )
 
 
 @final

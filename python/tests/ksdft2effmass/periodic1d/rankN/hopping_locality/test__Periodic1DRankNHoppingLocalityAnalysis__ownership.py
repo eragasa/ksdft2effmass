@@ -3,10 +3,15 @@
 import pytest
 
 from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
-from ksdft2effmass.periodic1d.rankN.hopping_locality import (
+from ksdft2effmass.periodic1d.rankN import (
+    hopping_locality as hopping_locality_namespace,
+)
+from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
     Periodic1DRankNHoppingLocalityAnalysisRequest,
     Periodic1DRankNHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.hopping_locality.result import (
     Periodic1DRankNHoppingTailResult,
 )
 from ksdft2effmass.real_space_support_truncation import RealSpaceSupportTruncation
@@ -38,6 +43,12 @@ class TestPeriodic1DRankNHoppingLocalityAnalysis:
         assert issubclass(
             Periodic1DRankNHoppingTailResult,
             Periodic1DHoppingLocality,
+        )
+
+    def test_namespace_is_inert(self) -> None:
+        assert not hasattr(hopping_locality_namespace, "__all__")
+        assert not any(
+            name.startswith("Periodic1D") for name in vars(hopping_locality_namespace)
         )
 
     def test_hopping_locality_does_not_claim_support_truncation(self) -> None:

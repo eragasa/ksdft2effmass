@@ -4,8 +4,12 @@ from dataclasses import replace
 
 import pytest
 
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DCyclicRepresentativeInventory,
+    Periodic1DOrdinaryTranslationInventory,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -38,6 +42,25 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
             4,
             6,
             8,
+        )
+
+    def test__execute__retains_distinct_cyclic_and_ordinary_inventories(
+        self,
+        composite_result: Periodic1DCompositeBandAlignmentCalculationResult,
+    ) -> None:
+        transform = composite_result.transforms[0]
+
+        assert type(transform.cyclic_representative_inventory) is (
+            Periodic1DCyclicRepresentativeInventory
+        )
+        assert transform.cyclic_representative_inventory.representatives == tuple(
+            range(-32, 32)
+        )
+        assert type(transform.ordinary_translation_inventory) is (
+            Periodic1DOrdinaryTranslationInventory
+        )
+        assert transform.ordinary_translation_inventory.translations == tuple(
+            range(-31, 32)
         )
 
     def test__execute__reproduces_named_finite_m2_channels(

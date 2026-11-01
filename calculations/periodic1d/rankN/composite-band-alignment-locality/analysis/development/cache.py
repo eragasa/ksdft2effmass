@@ -13,8 +13,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Self, final
 
-from projectkoios.physkit.units import PhysicalUnit
-
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
@@ -23,6 +21,7 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from projectkoios.physkit.units import PhysicalUnit
 
 _CACHE_FORMAT = "ksdft2effmass.higher-rank-development-result-cache.v2"
 _CACHE_ROLE = "replaceable-development-result-cache"

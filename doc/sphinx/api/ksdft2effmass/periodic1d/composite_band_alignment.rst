@@ -15,6 +15,63 @@ Configuration and calculation
    :undoc-members:
    :show-inheritance:
 
+Frame transport
+---------------
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.analysis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Hopping locality
+----------------
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.hopping_locality.request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.hopping_locality.analysis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.hopping_locality.result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Support truncation
+------------------
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.analysis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Composite orchestration
+-----------------------
+
 .. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis
    :members:
    :undoc-members:

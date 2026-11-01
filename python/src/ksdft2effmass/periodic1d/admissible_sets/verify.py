@@ -19,7 +19,9 @@ from ksdft2effmass.verification import (
     MaximumAbsoluteErrorComparison,
 )
 
-from ..rank2.band_alignment.composite import Periodic1DCompositeBandAlignmentVerifier
+from ..rank2.band_alignment.composite.verification import (
+    Periodic1DCompositeBandAlignmentVerifier,
+)
 from .reference import (
     Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer,
     Periodic1DConstrainedAdmissibleSetIndependentReferenceRequest,

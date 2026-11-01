@@ -7,21 +7,29 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
-from projectkoios.physkit.units import PhysicalUnit
-
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import (
     Periodic1DCompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerifier,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.data import (
     Periodic1DCompositeBandAlignmentVisualizationData,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visualizer import (
     Periodic1DCompositeBandAlignmentVisualizer,
 )
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
+    Periodic1DCompositeBandAlignmentConfiguration,
+)
 from ksdft2effmass.serialization import TypedJsonValueCodec
+from projectkoios.physkit.units import PhysicalUnit
 
 EXECUTION_ID = "direct-controlled-rank2-n64"
 CALCULATION_FAMILY = "periodic1d-rank2-composite-band-alignment-locality"
-PARENT_IDENTITY = "ksdft2effmass.periodic1d.controlled-four-state-parent.v1"
+PARENT_IDENTITY = Periodic1DCompositeBandAlignmentConfiguration.PARENT_IDENTITY
 script_path = Path(__file__).resolve()
 execution_directory = script_path.parent / "executions" / EXECUTION_ID
 result_path = execution_directory / "results" / "result.json"

@@ -7,27 +7,10 @@ import inspect
 import json
 from pathlib import Path
 
-from analysis.development import (
+from analysis.development.cache import (
     HigherRankDevelopmentCacheWriter,
     HigherRankDevelopmentCacheWriteRequest,
 )
-from projectkoios.optimization.alignment.numpy.batched_procrustes import (
-    NumpyBatchedComplexUnitaryProcrustesSolver,
-)
-from projectkoios.optimization.alignment.procrustes import (
-    ComplexUnitaryProcrustesRankCutoffRule,
-)
-from projectkoios.physkit.solidstate.electronic import (
-    ClosedLoopPolarFrameTransporter,
-    ClosedLoopPolarFrameTransportPrincipalPhaseBranch,
-    EndpointSewingAction,
-    FrameRotationAction,
-)
-from projectkoios.physkit.solidstate.tb import (
-    FinitePeriodicMatrixFourierTensorEvaluator,
-    FinitePeriodicMatrixFourierTransformer,
-)
-
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DAlignmentStudyFactory,
@@ -49,6 +32,16 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+from projectkoios.physkit.solidstate.electronic import (
+    ClosedLoopPolarFrameTransporter,
+)
+from projectkoios.physkit.solidstate.tb import (
+    FinitePeriodicMatrixFourierTensorEvaluator,
+    FinitePeriodicMatrixFourierTransformer,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -57,42 +50,7 @@ type JsonValue = (
 
 def _configuration() -> Periodic1DRankNAlignmentConfiguration:
     """Return the complete frozen version-one configuration."""
-    configuration_type = Periodic1DRankNAlignmentConfiguration
-    return configuration_type(
-        family_identity=configuration_type.FAMILY_IDENTITY,
-        version_identity=configuration_type.VERSION_IDENTITY,
-        retained_ranks=configuration_type.RETAINED_RANKS,
-        circuit_depths=configuration_type.CIRCUIT_DEPTHS,
-        construction_mesh_sizes=configuration_type.CONSTRUCTION_MESH_SIZES,
-        final_construction_mesh_size=configuration_type.FINAL_CONSTRUCTION_MESH_SIZE,
-        global_unitary_selection_mesh_size=(
-            configuration_type.GLOBAL_UNITARY_SELECTION_MESH_SIZE
-        ),
-        evaluation_mesh_size=configuration_type.EVALUATION_MESH_SIZE,
-        evaluation_shift_numerator=configuration_type.EVALUATION_SHIFT_NUMERATOR,
-        evaluation_shift_denominator=configuration_type.EVALUATION_SHIFT_DENOMINATOR,
-        gauge_alignments=configuration_type.GAUGE_ALIGNMENTS,
-        frame_rotation_action=FrameRotationAction.RIGHT,
-        endpoint_sewing_action=EndpointSewingAction.LEFT_AMBIENT,
-        principal_phase_branch=(
-            ClosedLoopPolarFrameTransportPrincipalPhaseBranch.negative_pi_open
-        ),
-        rank_cutoff_rule=ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM,
-        rank_absolute_tolerance=configuration_type.RANK_ABSOLUTE_TOLERANCE,
-        rank_relative_tolerance=configuration_type.RANK_RELATIVE_TOLERANCE,
-        backend_validation_absolute_tolerance=(
-            configuration_type.BACKEND_VALIDATION_ABSOLUTE_TOLERANCE
-        ),
-        backend_validation_relative_tolerance=(
-            configuration_type.BACKEND_VALIDATION_RELATIVE_TOLERANCE
-        ),
-        endpoint_and_primitive_closure_tolerance=(
-            configuration_type.ENDPOINT_AND_PRIMITIVE_CLOSURE_TOLERANCE
-        ),
-        maximum_closure_phase_tolerance=(
-            configuration_type.MAXIMUM_CLOSURE_PHASE_TOLERANCE
-        ),
-    )
+    return Periodic1DRankNAlignmentConfiguration.frozen()
 
 
 def _request(

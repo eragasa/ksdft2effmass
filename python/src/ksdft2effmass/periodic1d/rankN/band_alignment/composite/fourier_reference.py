@@ -25,7 +25,7 @@ from projectkoios.physkit.units import (
 from ksdft2effmass.periodic1d.rankN.band_alignment.gauge_case_result import (
     Periodic1DRankNGaugeAlignmentMeshResult,
 )
-from ksdft2effmass.periodic1d.rankN.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixErrorResult,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (

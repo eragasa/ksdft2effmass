@@ -17,6 +17,29 @@ Family classes continue to own their exact scientific fields and validation rule
 
 ### Periodic-1D coordinate geometry
 
+`ksdft2effmass.periodic1d.base.Periodic1DCapability` is the shared dimensional
+contract for periodic-1D scientific capabilities. Its final `lattice_dimension`
+property returns PhysKit `LatticeDimension.ONE`. It deliberately owns no lattice
+period, physical unit, reciprocal convention, mesh, basis, gauge, translation
+inventory, support policy, numerical algorithm, or wire format.
+
+`Periodic1DCyclicRepresentativeInventory` and
+`Periodic1DOrdinaryTranslationInventory` keep finite cyclic equivalence-class
+representatives distinct from ordinary cell translations. A centered even cyclic
+inventory contains one unpaired negative-Nyquist representative; converting it to an
+ordinary inventory removes that class. A centered odd cyclic inventory has no Nyquist
+class, so every representative maps to a distinct ordinary translation. Ordinary
+inventories remain sorted, zero-containing, and conjugate-closed.
+`Periodic1DSymmetricTranslationRange` provides the neutral integer interval underlying
+both roles. `Periodic1DHoppingDiagnosticRangeInventory` states that an ordered range
+inventory partitions unchanged coefficients for tail measurement only.
+`Periodic1DSymmetricSupportInventory` separately stores candidate irreversible support
+policies, each represented by `SymmetricRangeSupport1D` for retention of every
+translation from $-R$ through $R$. The diagnostic and support inventories may contain
+the same integer ranges but are not interchangeable types. None of these integer-index
+values supplies a physical distance without explicit
+`Periodic1DLatticeGeometry`.
+
 `ksdft2effmass.periodic1d.Periodic1DLatticeGeometry` is an immutable scalar
 snapshot of the one-dimensional lattice period. It reconstructs PhysKit
 `DirectLattice1D` and `ReciprocalLattice1D` values and uses the latter for the
@@ -59,8 +82,10 @@ be exchanged positionally. The analyzer delegates that identity from its bound r
 and requires the concrete zero-argument `execute()` action. These bases do not
 merge family-specific fields, solvers, tolerances, outcomes, or wires. The corresponding
 `Periodic1DGaugeAlignmentAnalysisRequest`, `Periodic1DGaugeAlignmentAnalysis`, and
-`Periodic1DGaugeAlignmentAnalyzer` bases add dimensional ownership without selecting a
-default lattice, solver, tolerance, or wire.
+`Periodic1DGaugeAlignmentAnalyzer` bases inherit `Periodic1DCapability` and therefore
+add only the exact one-dimensional lattice identity without selecting a default lattice,
+solver, tolerance, or wire. The hopping-locality and support-truncation Periodic1D
+bases inherit the same dimensional contract.
 
 For the implemented column-frame convention $F\in\mathbb{C}^{d\times r}$, a
 retained-space gauge acts from the right as $F\mapsto FU$. The generic `LEFT` vocabulary
@@ -238,13 +263,12 @@ real-space support truncation; they are not spectral-subspace truncation errors.
 Current nominal assignments:
 
 - the dimension- and rank-independent `RealSpaceSupportTruncationFamily`;
-- `Periodic1DRank2SupportTruncationAnalysis` (also available through the historical
-  identical alias `Periodic1DRank2TruncationAnalysis`),
+- `Periodic1DRank2SupportTruncationAnalysis`,
   `Periodic1DRank2TruncationRange`, the support adapter
   `Periodic1DRank2TruncationToleranceSelector`, and the parent-family
   adapter `Periodic1DRank2TruncationFamilyAnalysis`;
 - `Periodic1DRankNSupportResult` and the request-bound
-  `Periodic1DRankNLocalityAnalysis`; and
+  `Periodic1DRankNSupportTruncationAnalysis`; and
 - `BandEquivalenceLocalityShellAnalysis` for complete metric shells in the maintained
   2D/3D owner; and
 - `RealSpaceSupportTruncationToleranceSelector` and its immutable support-selection

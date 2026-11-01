@@ -7,17 +7,19 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, ScalarQuantity, Unitless
 
+import ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis as analysis_module
+import ksdft2effmass.periodic1d.rank2.gauge_alignment.result as result_module
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
     GaugeAlignmentGroupFamily,
     GaugeAlignmentInnerProductConvention,
 )
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.rank2.gauge_alignment import analysis as analysis_module
-from ksdft2effmass.periodic1d.rank2.gauge_alignment import result as result_module
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
     Periodic1DRank2GaugeAlignmentAnalysisRequest,
     Periodic1DRank2GaugeAlignmentAnalyzer,

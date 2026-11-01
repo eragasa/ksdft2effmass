@@ -1538,31 +1538,35 @@ global recovery. The view uses no ratio with a roundoff-scale denominator.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{../technical-report/development-figures/development-alignment-locality-s2.png}
-\caption{Unverified development snapshot of the frozen $S=2$ alignment--locality plane.}
+\caption{Unverified development snapshot of the alignment--locality plane at
+hopping-diagnostic cutoff $S=2$.}
 \label{fig:protocol-development-alignment-locality}
 \end{figure}
 
-\subsection*{View 2: complete support-path locality curves}
+\subsection*{View 2: hopping-tail diagnostic curves}
 
 Figure~\ref{fig:protocol-development-support-paths} is the anti-selection view: every
-support in the declared order is visible for every rank, depth, and gauge alignment.
-Identity/global paths descend over multiple support scales, whereas pointwise/oracle
-reach the binary64 floor at $S=2$. At the fixed report anchor $(8,4)$, the identity tail
-moves from $1.52\times10^{-1}$ at $S=0$ through $1.21\times10^{-2}$ at $S=2$ and
+hopping-diagnostic cutoff in the declared order is visible for every rank, depth, and
+gauge alignment. The coefficients are measured without truncation. Identity/global
+tails descend across multiple cutoffs, whereas pointwise/oracle tails reach the binary64
+floor at $S=2$. At the fixed report anchor $(8,4)$, the identity tail moves from
+$1.52\times10^{-1}$ at $S=0$ through $1.21\times10^{-2}$ at $S=2$ and
 $6.64\times10^{-6}$ at $S=8$ before reaching the numerical floor near $S=32$. The
-protocol forbids cropping the path to make one cutoff appear preferable.
+protocol forbids cropping the inventory to make one cutoff appear preferable.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{../technical-report/development-figures/development-support-locality-paths.png}
-\caption{Unverified development snapshot of all frozen support paths.}
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-hopping-diagnostic-paths.png}
+\caption{Unverified development snapshot of the complete hopping-diagnostic cutoff
+inventory. The plotted ordinate measures unchanged coefficients and is not a truncation
+error.}
 \label{fig:protocol-development-support-paths}
 \end{figure}
 
 \subsection*{View 3: Fourier-block locality}
 
 Figure~\ref{fig:protocol-development-block-locality} shows the nonnegative block norms
-for the prospectively fixed interior anchor $(r,L)=(8,4)$. Identity/global retain
+for the predeclared interior anchor $(r,L)=(8,4)$. Identity/global retain
 nonzero numerical blocks beyond $R=2$ and decay to the transform floor; pointwise/oracle
 show only the exact reference blocks $R=0,1,2$ above that floor. The view diagnoses the
 coefficient mechanism behind the cumulative tail but cannot establish a continuum decay
@@ -1643,10 +1647,10 @@ $1025\rightarrow2049$ refinement ledger.}
 \subsection*{View 7: rank/depth scaling at fixed support}
 
 Figure~\ref{fig:protocol-development-rank-depth} uses paired total-operator and
-total-spectrum heatmaps at the prospectively fixed support $S=2$. In the identity/global
+total-spectrum heatmaps at the predeclared retained support $S=2$. In the identity/global
 panels, the development snapshot shows increasing error with circuit depth and generally
 decreasing normalized error with rank, while pointwise/oracle panels are roundoff
-dominated. The complete support-path view retains the $S=0$ and $S=128$ controls and its
+dominated. The complete hopping-diagnostic view retains the $S=0$ and $S=128$ controls and its
 visible nonmonotonic structure. The scaling view supports descriptive finite-grid
 comparison only: it cannot authorize an asymptotic or universal monotonicity claim, and
 differences near roundoff are not divided into ratios.

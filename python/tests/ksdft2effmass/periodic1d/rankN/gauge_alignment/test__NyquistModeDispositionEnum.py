@@ -4,7 +4,7 @@ from enum import Enum
 
 import pytest
 
-from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.nyquist import (
     NyquistModeDispositionEnum,
 )
 from ksdft2effmass.serialization import StringWireEnum
@@ -32,6 +32,4 @@ class TestNyquistModeDispositionEnum:
         with pytest.raises(TypeError, match="built-in string"):
             NyquistModeDispositionEnum.from_wire(1)  # type: ignore[arg-type]
         with pytest.raises(ValueError, match="unsupported"):
-            NyquistModeDispositionEnum.from_wire(
-                "inapplicable-odd-centered-no-nyquist"
-            )
+            NyquistModeDispositionEnum.from_wire("inapplicable-odd-centered-no-nyquist")

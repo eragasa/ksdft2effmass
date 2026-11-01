@@ -8,11 +8,7 @@ does not define a competing scientific implementation or a retained execution id
 
 from __future__ import annotations
 
-from projectkoios.physkit.solidstate.electronic.frame_transport import (
-    ClosedLoopPolarFrameTransporter,
-)
-
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (
     Periodic1DRank2AdaptiveAmplitudeAnalysis,
     Periodic1DRank2AdaptiveAmplitudeAnalyzer,
     Periodic1DRank2AdaptiveAmplitudeConverged,
@@ -23,52 +19,55 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.
     Periodic1DRank2AmplitudeRefinementLevel,
     Periodic1DRank2AmplitudeRefinementThresholds,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.verification import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.verification import (
     Periodic1DRank2AdaptiveAmplitudeIndependentVerifier,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (
     Periodic1DRank2MomentumRefinementAnalysis,
     Periodic1DRank2MomentumRefinementAnalyzer,
     Periodic1DRank2MomentumRefinementRequest,
     Periodic1DRank2MomentumRefinementThresholds,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.verification import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.verification import (
     Periodic1DRank2MomentumRefinementIndependentVerifier,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (
     Periodic1DRank2ParentFamilyAnalysis,
     Periodic1DRank2ParentFamilyAnalyzer,
     Periodic1DRank2ParentFamilyRequest,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (
     Periodic1DRank2Request,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (
     Periodic1DRank2Analysis,
     Periodic1DRank2QualifiedParent,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (
     Periodic1DRank2AnalysisRecord,
     Periodic1DRank2ParentFamilyAnalysisRecord,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.verification import (  # noqa: E501
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.verification import (
     Periodic1DRank2ParentFamilyVerifier,
     Periodic1DRank2Verifier,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
-    Periodic1DRank2TruncationAnalyzer,
+    Periodic1DRank2SupportTruncationAnalyzer,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
-    Periodic1DRank2TruncationRequest,
+    Periodic1DRank2SupportTruncationAnalysisRequest,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
-    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2SupportTruncationAnalysis,
     Periodic1DRank2TruncationCompleted,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.verification import (
     Periodic1DRank2TruncationIndependentVerifier,
 )
 from ksdft2effmass.verification import CompositeVerification
+from projectkoios.physkit.solidstate.electronic.frame_transport import (
+    ClosedLoopPolarFrameTransporter,
+)
 
 
 def embedded_rank2_request(
@@ -243,7 +242,7 @@ def parent_family(
 
 
 def completed_truncation(
-    analysis: Periodic1DRank2TruncationAnalysis,
+    analysis: Periodic1DRank2SupportTruncationAnalysis,
 ) -> Periodic1DRank2TruncationCompleted:
     """Require and return the installed completed-truncation outcome."""
     if type(analysis) is not Periodic1DRank2TruncationCompleted:
@@ -252,7 +251,7 @@ def completed_truncation(
 
 
 def truncation_verification_defect(
-    analysis: Periodic1DRank2TruncationAnalysis,
+    analysis: Periodic1DRank2SupportTruncationAnalysis,
 ) -> float:
     """Return the largest installed independent truncation discrepancy."""
     verification = Periodic1DRank2TruncationIndependentVerifier(analysis).result()
@@ -268,15 +267,15 @@ def truncation_analysis(
     amplitudes: tuple[float, ...],
     parent_hopping_scale: float,
     maximum_range: int,
-) -> Periodic1DRank2TruncationAnalysis:
+) -> Periodic1DRank2SupportTruncationAnalysis:
     """Calculate and independently verify one dense installed truncation inventory."""
     template = embedded_rank2_request(
         reciprocal_mesh_size=construction_mesh_size,
         amplitudes=amplitudes,
         parent_hopping_scale=parent_hopping_scale,
     )
-    analysis = Periodic1DRank2TruncationAnalyzer(
-        request=Periodic1DRank2TruncationRequest.every_integer_through(
+    analysis = Periodic1DRank2SupportTruncationAnalyzer(
+        request=Periodic1DRank2SupportTruncationAnalysisRequest.every_integer_through(
             template_request=template,
             maximum_range=maximum_range,
             evaluation_mesh_size=evaluation_mesh_size,

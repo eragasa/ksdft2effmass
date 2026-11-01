@@ -1,4 +1,4 @@
-"""Authenticated rank-two composite-alignment visualization action."""
+"""Verified rank-two composite-alignment visualization action."""
 
 from __future__ import annotations
 
@@ -15,7 +15,14 @@ if TYPE_CHECKING:
     from ..verification import Periodic1DCompositeBandAlignmentVerification
 
 from .data import Periodic1DCompositeBandAlignmentVisualizationData
-from .figures import _AlignmentFigure, _ErrorChannelFigure, _LocalityFigure
+from .figures import (
+    _AlignmentFigure,
+    _ErrorChannelFigure,
+    _ErrorTrajectoryFigure,
+    _HoppingDiagnosticFigure,
+    _LocalityFigure,
+    _RecoveryControlFigure,
+)
 from .inventory import Periodic1DCompositeBandAlignmentVisualizationPlotEnum
 
 
@@ -26,7 +33,7 @@ class Periodic1DCompositeBandAlignmentVisualizer(
         Periodic1DCompositeBandAlignmentVisualizationPlotEnum,
     ]
 ):
-    """Authenticate one projection and render the closed three-figure inventory."""
+    """Admit verified visualization data and render the closed figure inventory."""
 
     __slots__ = ("_dpi",)
 
@@ -76,6 +83,16 @@ class Periodic1DCompositeBandAlignmentVisualizer(
                     self.dpi,
                 ).visualize(),
                 PngFigureRenderer(
+                    Periodic1DCompositeBandAlignmentVisualizationPlotEnum.RECOVERY_CONTROLS,
+                    _RecoveryControlFigure(self.data),
+                    self.dpi,
+                ).visualize(),
+                PngFigureRenderer(
+                    Periodic1DCompositeBandAlignmentVisualizationPlotEnum.HOPPING_DIAGNOSTICS,
+                    _HoppingDiagnosticFigure(self.data),
+                    self.dpi,
+                ).visualize(),
+                PngFigureRenderer(
                     Periodic1DCompositeBandAlignmentVisualizationPlotEnum.LOCALITY,
                     _LocalityFigure(self.data),
                     self.dpi,
@@ -83,6 +100,11 @@ class Periodic1DCompositeBandAlignmentVisualizer(
                 PngFigureRenderer(
                     Periodic1DCompositeBandAlignmentVisualizationPlotEnum.ERROR_CHANNELS,
                     _ErrorChannelFigure(self.data),
+                    self.dpi,
+                ).visualize(),
+                PngFigureRenderer(
+                    Periodic1DCompositeBandAlignmentVisualizationPlotEnum.ERROR_TRAJECTORIES,
+                    _ErrorTrajectoryFigure(self.data),
                     self.dpi,
                 ).visualize(),
             }

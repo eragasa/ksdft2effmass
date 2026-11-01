@@ -10,6 +10,9 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.
 from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncationAnalysisRequest,
 )
+from ksdft2effmass.periodic1d.support_truncation.inventory import (
+    Periodic1DSymmetricSupportInventory,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,15 +47,17 @@ class Periodic1DRank2SupportTruncationAnalysisRequest(
     def __post_init__(self) -> None:
         if type(self.template_request) is not Periodic1DRank2Request:
             raise TypeError("template_request must be Periodic1DRank2Request")
-        if type(self.maximum_ranges) is not tuple or not self.maximum_ranges:
-            raise TypeError("maximum_ranges must be a nonempty tuple")
-        if any(type(value) is not int for value in self.maximum_ranges):
+        if type(self.maximum_ranges) is not tuple or any(
+            type(value) is not int for value in self.maximum_ranges
+        ):
             raise TypeError("maximum_ranges must contain built-in ints")
-        if tuple(sorted(set(self.maximum_ranges))) != self.maximum_ranges:
-            raise ValueError("maximum_ranges must be unique and strictly increasing")
-        if self.maximum_ranges[0] < 0:
-            raise ValueError("maximum_ranges must be nonnegative")
-        if self.maximum_ranges[-1] >= self.template_request.reciprocal_mesh_size // 2:
+        support_inventory = Periodic1DSymmetricSupportInventory.from_maximum_ranges(
+            self.maximum_ranges
+        )
+        if (
+            support_inventory.maximum_ranges[-1]
+            >= self.template_request.reciprocal_mesh_size // 2
+        ):
             raise ValueError("maximum_ranges must exclude the cyclic Nyquist index")
         if type(self.evaluation_mesh_size) is not int:
             raise TypeError("evaluation_mesh_size must be a built-in int")
@@ -65,15 +70,16 @@ class Periodic1DRank2SupportTruncationAnalysisRequest(
             )
 
     @property
+    def support_inventory(self) -> Periodic1DSymmetricSupportInventory:
+        """Return the typed candidate retained-support inventory."""
+        return Periodic1DSymmetricSupportInventory.from_maximum_ranges(
+            self.maximum_ranges
+        )
+
+    @property
     def has_dense_integer_inventory(self) -> bool:
         """Return whether every integer cutoff through the cap is present."""
         return self.maximum_ranges == tuple(range(self.maximum_ranges[-1] + 1))
 
 
-Periodic1DRank2TruncationRequest = Periodic1DRank2SupportTruncationAnalysisRequest
-
-
-__all__ = [
-    "Periodic1DRank2SupportTruncationAnalysisRequest",
-    "Periodic1DRank2TruncationRequest",
-]
+__all__ = ["Periodic1DRank2SupportTruncationAnalysisRequest"]

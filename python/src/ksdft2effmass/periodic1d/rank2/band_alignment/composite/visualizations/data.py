@@ -1,4 +1,4 @@
-"""Authenticated rank-two composite-alignment projection."""
+"""Verified rank-two composite-alignment visualization data."""
 
 from __future__ import annotations
 
@@ -9,13 +9,22 @@ from typing import Self
 import numpy as np
 from projectkoios.physkit.units import MatrixQuantity, Unitless, VectorQuantity
 
+from ksdft2effmass.periodic1d.hopping_locality.inventory import (
+    Periodic1DHoppingDiagnosticRangeInventory,
+)
+from ksdft2effmass.periodic1d.support_truncation.inventory import (
+    Periodic1DSymmetricSupportInventory,
+)
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DCyclicRepresentativeInventory,
+)
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.visualizations import BaseVisualizationData
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DCompositeBandAlignmentVisualizationData(BaseVisualizationData):
-    """Retain exactly the verifier-authenticated values drawn by all figures."""
+    """Retain exactly the verifier-correlated values drawn by all figures."""
 
     evaluation_reduced_momenta: VectorQuantity
     evaluation_parent_spectrum: MatrixQuantity
@@ -49,14 +58,10 @@ class Periodic1DCompositeBandAlignmentVisualizationData(BaseVisualizationData):
             raise ValueError(
                 "evaluation spectrum must align with the coordinate vector"
             )
-        if not (
-            isinstance(self.maximum_ranges, tuple)
-            and self.maximum_ranges
-            and all(type(value) is int for value in self.maximum_ranges)
-        ):
-            raise TypeError("maximum_ranges must contain built-in integers")
-        if self.maximum_ranges != tuple(sorted(set(self.maximum_ranges))):
-            raise ValueError("maximum_ranges must be strictly increasing")
+        Periodic1DHoppingDiagnosticRangeInventory.from_maximum_ranges(
+            self.maximum_ranges
+        )
+        Periodic1DSymmetricSupportInventory.from_maximum_ranges(self.maximum_ranges)
         if self.channel_names != ("reference", "attacked", "pointwise"):
             raise ValueError("channel_names must match the closed channel inventory")
         channel_shape = (len(self.channel_names),)
@@ -116,16 +121,7 @@ class Periodic1DCompositeBandAlignmentVisualizationData(BaseVisualizationData):
                 raise ValueError(f"{name} must be a unitless range-by-channel matrix")
             if np.any(matrix.magnitude < 0.0):
                 raise ValueError(f"{name} must be nonnegative")
-        if not (
-            isinstance(self.transform_representatives, tuple)
-            and self.transform_representatives
-            and all(type(value) is int for value in self.transform_representatives)
-        ):
-            raise TypeError("transform_representatives must contain integers")
-        if self.transform_representatives != tuple(
-            sorted(set(self.transform_representatives))
-        ):
-            raise ValueError("transform_representatives must be sorted and unique")
+        Periodic1DCyclicRepresentativeInventory(self.transform_representatives)
         if type(self.hopping_block_frobenius_norms) is not MatrixQuantity:
             raise TypeError("hopping_block_frobenius_norms must be MatrixQuantity")
         if not isinstance(self.hopping_block_frobenius_norms.unit, Unitless) or (
@@ -151,6 +147,29 @@ class Periodic1DCompositeBandAlignmentVisualizationData(BaseVisualizationData):
             raise ValueError("diagnostic values must align with their names")
         if np.any(self.diagnostic_values.magnitude < 0.0):
             raise ValueError("diagnostic values must be nonnegative")
+
+    @property
+    def hopping_diagnostic_range_inventory(
+        self,
+    ) -> Periodic1DHoppingDiagnosticRangeInventory:
+        """Return the ranges used to measure unchanged hopping coefficients."""
+        return Periodic1DHoppingDiagnosticRangeInventory.from_maximum_ranges(
+            self.maximum_ranges
+        )
+
+    @property
+    def support_range_inventory(self) -> Periodic1DSymmetricSupportInventory:
+        """Return the retained supports used for irreversible truncation."""
+        return Periodic1DSymmetricSupportInventory.from_maximum_ranges(
+            self.maximum_ranges
+        )
+
+    @property
+    def cyclic_representative_inventory(
+        self,
+    ) -> Periodic1DCyclicRepresentativeInventory:
+        """Return the typed cyclic inventory represented by the plotted columns."""
+        return Periodic1DCyclicRepresentativeInventory(self.transform_representatives)
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {

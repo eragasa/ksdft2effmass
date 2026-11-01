@@ -22,10 +22,10 @@ from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationToleranceSelection,
 )
 
-from .analysis import Periodic1DRank2TruncationAnalyzer
-from .request import Periodic1DRank2TruncationRequest
+from .analysis import Periodic1DRank2SupportTruncationAnalyzer
+from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 from .results import (
-    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2SupportTruncationAnalysis,
     Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationQualificationStopped,
 )
@@ -46,7 +46,7 @@ class Periodic1DRank2TruncationFamilyRequest:
     def __post_init__(self) -> None:
         if type(self.parent_family_request) is not (Periodic1DRank2ParentFamilyRequest):
             raise TypeError("parent_family_request must be a parent-family request")
-        Periodic1DRank2TruncationRequest(
+        Periodic1DRank2SupportTruncationAnalysisRequest(
             template_request=self.parent_family_request.template_request,
             maximum_ranges=self.maximum_ranges,
             evaluation_mesh_size=self.evaluation_mesh_size,
@@ -89,9 +89,9 @@ class Periodic1DRank2TruncationFamilyRequest:
     def request_at(
         self,
         parent_hopping_scale: float,
-    ) -> Periodic1DRank2TruncationRequest:
+    ) -> Periodic1DRank2SupportTruncationAnalysisRequest:
         """Return one scale-specific truncation request with common controls."""
-        return Periodic1DRank2TruncationRequest(
+        return Periodic1DRank2SupportTruncationAnalysisRequest(
             template_request=self.parent_family_request.request_at(
                 parent_hopping_scale
             ),
@@ -107,7 +107,7 @@ class Periodic1DRank2TruncationFamilyAnalysis(Periodic1DSupportTruncation):
     request: Periodic1DRank2TruncationFamilyRequest
     truncation_family: RealSpaceSupportTruncationFamily[
         float,
-        Periodic1DRank2TruncationAnalysis,
+        Periodic1DRank2SupportTruncationAnalysis,
     ]
     support_tolerance_selections_by_member: tuple[
         tuple[RealSpaceSupportTruncationToleranceSelection, ...],
@@ -119,7 +119,7 @@ class Periodic1DRank2TruncationFamilyAnalysis(Periodic1DSupportTruncation):
         request: Periodic1DRank2TruncationFamilyRequest,
         truncation_family: RealSpaceSupportTruncationFamily[
             float,
-            Periodic1DRank2TruncationAnalysis,
+            Periodic1DRank2SupportTruncationAnalysis,
         ],
     ) -> None:
         if type(request) is not (Periodic1DRank2TruncationFamilyRequest):
@@ -160,7 +160,7 @@ class Periodic1DRank2TruncationFamilyAnalysis(Periodic1DSupportTruncation):
     @property
     def members(
         self,
-    ) -> tuple[Periodic1DRank2TruncationAnalysis, ...]:
+    ) -> tuple[Periodic1DRank2SupportTruncationAnalysis, ...]:
         """Project the family-specific ordered truncation outcomes."""
         return tuple(member.outcome for member in self.truncation_family.members)
 
@@ -195,7 +195,7 @@ class Periodic1DRank2TruncationFamilyAnalyzer:
             members=tuple(
                 RealSpaceSupportTruncationFamilyMember(
                     family_coordinate=scale,
-                    outcome=Periodic1DRank2TruncationAnalyzer(
+                    outcome=Periodic1DRank2SupportTruncationAnalyzer(
                         request=self.request.request_at(scale),
                         transporter=self._transporter,
                     ).execute(),

@@ -60,7 +60,7 @@ range despite having the same exact pointwise spectra before truncation.  Cyclic
 negative-Nyquist conversion power, complete-interpolant error, deliberate-truncation
 error, and total consequence are reported separately in both normalized Hamiltonian and
 sorted-band metrics.  An independent numerical route reconstructs every authoritative
-value and the authenticated plotting projection; all 56 comparisons pass with maximum
+value and the digest-bound visualization data; all 56 comparisons pass with maximum
 discrepancy $1.42\times10^{-14}$.  These are provisional finite-control results.  They do not
 establish continuum convergence, material validity, uncertainty quantification,
 publication acceptance, release, or evidence sealing.
@@ -84,7 +84,7 @@ complete block Fourier coefficients.  Operators are compared only after their st
 spaces and right actions have been declared.
 
 The result was produced once in memory, admitted from its exact typed bytes,
-independently reconstructed, and rendered from a digest-authenticated projection.  No
+independently reconstructed, and rendered from digest-bound visualization data.  No
 execution directory, sealed evidence package, publication asset inventory, release,
 continuum result, uncertainty estimate, or material calculation was created.  The
 figures and hashes below identify provisional review bytes only.
@@ -127,8 +127,8 @@ The numerical design draws on classical polar decomposition and orthogonal Procr
 analysis\cite{higham1986,schoenemann1966,golubVanLoan2013}, finite trigonometric
 transforms\cite{trefethen2000}, and standard floating-point caution
 \cite{higham2002}.  Its contribution is not any one of these tools.  The contribution is
-their explicit composition into a typed calculate--independently verify--authenticated
-render lifecycle that keeps subspace, gauge, transform, and truncation errors separate.
+their explicit composition into a typed calculation, independent-verification, and
+rendering lifecycle that keeps subspace, gauge, transform, and truncation errors separate.
 
 The calculation isolates this mechanism without density-functional theory,
 \textsc{Wannier90}, experimental data, or external simulation.  It uses an exact
@@ -487,8 +487,8 @@ The calculation executes the following ordered stages:
  \item evaluate interpolation, deliberate-truncation, and total errors in normalized
        Hamiltonian and sorted-band metrics, while retaining construction total errors;
        and
- \item independently reconstruct every authoritative field and derive the authenticated
-       visualization projection.
+ \item independently reconstruct every authoritative field and derive the
+       visualization data used by the report figures.
 \end{enumerate}
 A failed gate terminates the scientific route; downstream values are not interpreted
 when their prerequisites fail.
@@ -617,11 +617,28 @@ scale.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{rank2-composite-alignment.png}
-\caption{Authenticated finite alignment projection.  The left panel shows the two
-retained parent eigenvalues on the disjoint evaluation mesh.  The right panel separates
-attack, pointwise, and one-global-unitary frame and represented-operator defects.  The
-logarithmic scale does not merge their mathematical meanings.}
+\caption{Finite-mesh alignment diagnostics. The left panel shows the two retained
+parent eigenvalues on the disjoint evaluation mesh. The right panel reports frame and
+represented-operator defects for the attacked, pointwise-aligned, and globally aligned
+channels. The common logarithmic scale preserves the distinction between these
+quantities; it does not identify them.}
 \label{fig:alignment}
+\end{figure}
+
+Figure~\ref{fig:recovery-controls} reorganizes the same six defects by operation. The
+attacked and globally aligned channels retain order-one frame and represented-operator
+defects, while the pointwise channel reaches binary64-scale residuals in both measures.
+Pairing the two diagnostics prevents a small operator residual from being read as frame
+recovery, or conversely.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{rank2-composite-recovery-controls.png}
+\caption{Frame and represented-operator controls for the three non-reference channels.
+Each alignment family is shown with separate maximum frame and operator defects. The
+paired bars answer different questions and are not combined into a single alignment
+score.}
+\label{fig:recovery-controls}
 \end{figure}
 
 The complete range inventory is reported in Table~\ref{tab:range-study}.  Reference and
@@ -660,6 +677,23 @@ $R$ & $d_{\mathrm R}$ & $d_{\mathrm A}$ & $d_{\mathrm P}$
 }
 \end{table}
 
+Figure~\ref{fig:hopping-diagnostics} presents the omitted-block norms as a diagnostic
+cutoff sweep. The coefficients are measured without modification: selecting a point on
+this curve does not yet truncate the represented field. Reference and pointwise values
+remain visually coincident and decay to approximately $1.6\times10^{-14}\eref$ at
+$S=8$, whereas the attacked tail remains $5.65\times10^{-5}\eref$. The common integer
+ranges are also used by the retained-support analysis, but the diagnostic and
+model-reduction operations remain distinct.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{rank2-composite-hopping-diagnostics.png}
+\caption{Hopping-tail diagnostics computed from unchanged ordinary Fourier
+coefficients. The abscissa is a diagnostic cutoff, and the ordinate is the omitted-block
+$L^2$ norm. The curves measure locality; they do not apply a support-truncation policy.}
+\label{fig:hopping-diagnostics}
+\end{figure}
+
 Figure~\ref{fig:locality} shows both the spectral consequence and the underlying
 complete-block decay.  The reference and pointwise curves are visually coincident
 because pointwise alignment recovers the reference represented operator.  The attacked
@@ -670,11 +704,12 @@ locality.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{rank2-composite-locality.png}
-\caption{Authenticated finite block-locality projection.  The left panel shows maximum
-total ordered spectral error on the disjoint evaluation inventory for all seven ranges.  The
-right panel shows the Frobenius norms of all 64 complete hopping blocks.  Coincidence of
-reference and pointwise curves records recovery; the attacked tail records the declared
-frame dependence.}
+\caption{Finite-support error and complete hopping-block locality. The left panel
+reports the maximum total ordered-spectrum error on the disjoint evaluation inventory
+for each retained support. The right panel reports the Frobenius norm of every block in
+the complete 64-point ordinary-translation inventory. Coincident reference and
+pointwise curves reflect represented-operator recovery, whereas the extended attacked
+tail exhibits the frame dependence of the block distribution.}
 \label{fig:locality}
 \end{figure}
 
@@ -705,12 +740,32 @@ that maxima add.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{rank2-composite-error-channels.png}
-\caption{Authenticated error-channel decomposition.  The left panel reports normalized
-negative-Nyquist conversion power separately from off-node errors.  The center and
-right panels show the attacked channel's interpolation, deliberate-truncation, and total
-maximum residuals in normalized Hamiltonian and sorted-band metrics.  Lines connect the
-seven declared ranges as guides to the eye; the channels are not stacked or summed.}
+\caption{Separated error-channel accounting. The left panel reports normalized
+negative-Nyquist conversion power independently of off-node errors. The center and
+right panels show interpolation, deliberate-truncation, and total maximum residuals for
+the attacked channel in normalized Hamiltonian and ordered-spectrum metrics. Lines
+connect the seven retained supports only as visual guides; the channels are neither
+stacked nor summed.}
 \label{fig:error-channels}
+\end{figure}
+
+Figure~\ref{fig:error-trajectories} extends the decomposition to every locality channel.
+For each retained support, interpolation compares the complete interpolant with the
+direct target, truncation compares the retained-support field with the complete
+interpolant, and total error compares the retained-support field with the direct target.
+Reference and pointwise errors decay rapidly with support, whereas the attacked channel
+retains substantially larger truncation and total errors. Values equal to zero are
+placed at $10^{-18}$ for logarithmic display only; the retained numerical values are not
+altered.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{rank2-composite-error-trajectories.png}
+\caption{Non-stacked support-truncation error trajectories for the reference, attacked,
+and pointwise channels. The upper row reports normalized operator error and the lower
+row ordered-spectrum error. Interpolation, deliberate truncation, and total error remain
+separate channels even where their plotted curves coincide.}
+\label{fig:error-trajectories}
 \end{figure}
 
 No application-error threshold or preferred hopping range is declared by this protocol.
@@ -718,7 +773,7 @@ Consequently the calculation supports a comparison of channels, not a range-sele
 or admissibility claim.
 
 \FloatBarrier
-\section{Independent verification and authenticated presentation}
+\section{Independent verification and figure provenance}
 
 The producer uses PhysKit dense complex-Hermitian eigensystems, the
 \code{ksdft2effmass} (KSD) polar frame-transport and represented-operator owners, and
@@ -728,7 +783,7 @@ or that Procrustes solver.  It reconstructs the exact parent, canonical eigensys
 phases, frame transport, attacks, singular-value right actions, represented operators,
 complete cyclic and ordinary Fourier sums, negative-Nyquist conversion power, direct
 evaluation targets, block truncations, separated Hamiltonian and ordered-spectrum error
-channels, diagnostics, and every field of the visualization projection using direct
+channels, diagnostics, and every field of the visualization data using direct
 NumPy and SciPy formulas.
 
 The verifier independently applies Equation~\eqref{eq:rank-cutoff} and rejects any
@@ -738,15 +793,15 @@ independent software route rather than an independent physical experiment.
 
 All 56 named comparisons passed.  The maximum observed discrepancy was
 $1.4210854715202004\times10^{-14}$, below the applicable stored tolerances.  The result,
-verification aggregate, and visualization projection each survive canonical byte-identical JavaScript Object Notation (JSON)
-round trips.  Rendering admits exact stored bytes only after
-recomputing and exact-comparing both verification and projection values.
+verification aggregate, and visualization data each survive canonical byte-identical
+JavaScript Object Notation (JSON) round trips. Rendering admits exact stored bytes only
+after recomputing and exactly comparing both verification and visualization values.
 
-The three Portable Network Graphics (PNG) files embedded in
-Figures~\ref{fig:alignment}, \ref{fig:locality}, and~\ref{fig:error-channels} were
-produced from the authenticated projection at 160 dots per inch.  They contain no newly
-calculated scientific value and are report-local review illustrations rather than
-retained execution artifacts.
+The six Portable Network Graphics (PNG) files embedded in
+Figures~\ref{fig:alignment}--\ref{fig:error-trajectories} were produced from the
+verified, digest-bound visualization data at 160 dots per inch. They contain no newly
+calculated scientific value and are report-local review figures rather than retained
+execution artifacts.
 
 \section{Historical parity and convention boundary}
 
@@ -783,9 +838,12 @@ bytes are:
  \item result bytes: \nolinkurl{7c8a65f14f480c22e4eeeeae26f56ef7f0116accec0a16f80bb7c0cf7931f0f7};
  \item verification bytes: \nolinkurl{72d65f4c67ec0a76b23b333317afbc16736980e877ba0f6f0dffcbf0e56d5102};
  \item visualization-data bytes: \nolinkurl{578d8270188d25087091862bdb276ff818975f18df051b5a9615ff6f6a5fb1fa};
- \item alignment report PNG: \nolinkurl{56efc40bf7a2772aa8bcd1736531fe74c24282c7f187229606edb05864c46107};
- \item locality report PNG: \nolinkurl{52292ea400ea10cc5efe6bf2845c3e52b50e47b423cc22b99a6743392813d9ee};
- \item error-channel report PNG: \nolinkurl{0616267e2999429310667a52c91cdfc5badc399154ea98f1e0ee502220c2f10d}.
+ \item alignment report PNG: \nolinkurl{b276f31a8a316102652c496cd06cb5d7ab1f8e51a661eff4f06ad8ed47610368};
+ \item recovery-control report PNG: \nolinkurl{5bd798e781667f602a499a869208ac6ad33c2008bd25f0318fbfbdbd3dfd7451};
+ \item hopping-diagnostic report PNG: \nolinkurl{ac05b560b71bb2433764d02a909a03c47c0d597ccd97f2234c7290ddbe4bdada};
+ \item locality report PNG: \nolinkurl{bb1a8f1ce2fa78674363bde92af6a0b949e62fbbb27d73791bff08298352eb12};
+ \item error-channel report PNG: \nolinkurl{f17402c56310b1982c61ed292bb822bc6057e23f683e2d293e61ed24fc11c2e4}; and
+ \item error-trajectory report PNG: \nolinkurl{b94cb9424585729c3fae45aa2c7c87dbf225a7c9373903999ccfc38ca0cbec70}.
 \end{itemize}
 The canonical result, verification, and visualization documents contained 961263,
 25618, and 45390 bytes respectively.  SHA-256 establishes byte identity only; it does
@@ -875,7 +933,7 @@ The one-global-unitary residual is diagnostic of the declared restricted family 
 It is not a distance between physical systems.  The attacked and reference complete
 fields remain pointwise unitarily equivalent.
 
-The M3 admissible-set consumers now admit authenticated canonical composite-result
+The M3 admissible-set consumers now admit digest-bound canonical composite-result
 bytes and explicit verification dependencies.  After that migration passed review, the
 live M2 runtime was retired without a compatibility facade.  Its final source bytes and
 historical calculation artifacts remain recoverable provenance; they are not successor

@@ -13,10 +13,10 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.
     Periodic1DRank2Request,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
-    Periodic1DRank2TruncationAnalyzer,
+    Periodic1DRank2SupportTruncationAnalyzer,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
-    Periodic1DRank2TruncationRequest,
+    Periodic1DRank2SupportTruncationAnalysisRequest,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2TruncationCompleted,
@@ -46,8 +46,8 @@ def _point() -> Periodic1DRank2TruncationPoint:
         harmonic_absolute_degeneracy_tolerance=1.0e-14,
         harmonic_relative_degeneracy_tolerance=1.0e-12,
     )
-    outcome = Periodic1DRank2TruncationAnalyzer(
-        request=Periodic1DRank2TruncationRequest(
+    outcome = Periodic1DRank2SupportTruncationAnalyzer(
+        request=Periodic1DRank2SupportTruncationAnalysisRequest(
             template_request=template,
             maximum_ranges=(0, 1, 2, 3),
             evaluation_mesh_size=17,

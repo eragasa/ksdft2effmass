@@ -5,9 +5,13 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
 
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis import (
     Periodic1DCompositeBandAlignmentAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 

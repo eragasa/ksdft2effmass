@@ -10,6 +10,12 @@ import ksdft2effmass.periodic1d as periodic1d
 from ksdft2effmass.periodic1d.rank2.band_alignment import (
     composite as composite_band_alignment,
 )
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis import (
+    Periodic1DCompositeBandAlignmentAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
+    Periodic1DCompositeBandAlignmentConfiguration,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -17,20 +23,22 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 class TestPeriodic1DCompositeBandAlignmentPublicSurface:
     """Establish explicit exports and prohibit predecessor runtime dependencies."""
 
-    def test__periodic_root__is_a_non_eager_namespace(self) -> None:
+    def test__periodic_root__and_composite_package__are_non_eager_namespaces(
+        self,
+    ) -> None:
         assert not hasattr(periodic1d, "__all__")
-        assert all(
-            not hasattr(periodic1d, name) for name in composite_band_alignment.__all__
+        assert not hasattr(composite_band_alignment, "__all__")
+        assert not any(
+            name.startswith("Periodic1DCompositeBandAlignment")
+            for name in vars(composite_band_alignment)
         )
 
-    def test__package__uses_the_rank_first_owner_modules(self) -> None:
-        assert (
-            composite_band_alignment.Periodic1DCompositeBandAlignmentConfiguration.__module__
-            == "ksdft2effmass.periodic1d.rank2.band_alignment.configuration"
+    def test__defining_modules__use_the_rank_first_owners(self) -> None:
+        assert Periodic1DCompositeBandAlignmentConfiguration.__module__ == (
+            "ksdft2effmass.periodic1d.rank2.band_alignment.configuration"
         )
-        assert (
-            composite_band_alignment.Periodic1DCompositeBandAlignmentAnalyzer.__module__
-            == "ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis"
+        assert Periodic1DCompositeBandAlignmentAnalyzer.__module__ == (
+            "ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis"
         )
         assert (
             importlib.util.find_spec(
@@ -64,7 +72,6 @@ class TestPeriodic1DCompositeBandAlignmentPublicSurface:
             "Periodic1DCompositeBandAlignmentIndependentVerificationRequest",
             "Periodic1DCompositeBandAlignmentIndependentVerifier",
         }
-        assert former_names.isdisjoint(composite_band_alignment.__all__)
         assert all(not hasattr(composite_band_alignment, name) for name in former_names)
         assert (
             importlib.util.find_spec(

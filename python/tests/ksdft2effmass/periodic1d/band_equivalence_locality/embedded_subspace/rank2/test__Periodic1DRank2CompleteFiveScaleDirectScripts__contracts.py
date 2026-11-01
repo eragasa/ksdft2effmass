@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic1DRank2CompleteFiveScaleDirectScripts:
@@ -44,7 +44,9 @@ class TestPeriodic1DRank2CompleteFiveScaleDirectScripts:
             "run_complete_03_render.py": (
                 "verification.json",
                 "Periodic1DRank2CompleteFiveScaleSummaryRenderer",
+                "Periodic1DRank2CompleteFiveScaleFigureRenderer",
                 "complete-five-scale-summary.md",
+                "figure_sha256",
             ),
         }
 

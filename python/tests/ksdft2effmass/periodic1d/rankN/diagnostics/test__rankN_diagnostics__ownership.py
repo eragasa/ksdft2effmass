@@ -4,6 +4,13 @@ import pytest
 
 from ksdft2effmass.periodic1d.rankN import diagnostics
 from ksdft2effmass.periodic1d.rankN.band_alignment import composite
+from ksdft2effmass.periodic1d.rankN.diagnostics.frame import (
+    Periodic1DRankNFrameErrorResult,
+)
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
+    Periodic1DRankNMatrixComparisonResult,
+    Periodic1DRankNMatrixErrorResult,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -13,16 +20,15 @@ class TestRankNDiagnosticsOwnership:
 
     def test__records__belong_to_the_shared_rankN_owner(self) -> None:
         expected_modules = {
-            "Periodic1DRankNFrameErrorResult": "diagnostics.frame",
-            "Periodic1DRankNMatrixComparisonResult": "diagnostics.matrix",
-            "Periodic1DRankNMatrixErrorResult": "diagnostics.matrix",
+            Periodic1DRankNFrameErrorResult: "diagnostics.frame",
+            Periodic1DRankNMatrixComparisonResult: "diagnostics.matrix",
+            Periodic1DRankNMatrixErrorResult: "diagnostics.matrix",
         }
 
-        for name, module_suffix in expected_modules.items():
-            record = getattr(diagnostics, name)
+        for record, module_suffix in expected_modules.items():
             assert record.__module__.endswith(module_suffix)
 
-    def test__composite_package__does_not_reexport_shared_diagnostics(self) -> None:
-        assert not hasattr(composite, "__all__")
-        for name in diagnostics.__all__:
-            assert not hasattr(composite, name)
+    def test__capability_packages__are_inert_namespaces(self) -> None:
+        for package in (diagnostics, composite):
+            assert not hasattr(package, "__all__")
+            assert not any(name.startswith("Periodic1DRankN") for name in vars(package))

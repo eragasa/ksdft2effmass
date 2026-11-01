@@ -137,9 +137,9 @@ class Periodic1DRank2SupportTruncationAnalyzer(
                 evaluation,
                 reference_full,
                 reference_eigenvalues,
-                maximum_range,
+                retained_range.maximum_range,
             )
-            for maximum_range in self.request.maximum_ranges
+            for retained_range in self.request.support_inventory.ranges
         )
         points = tuple(
             self._point(
@@ -458,10 +458,4 @@ class Periodic1DRank2SupportTruncationAnalyzer(
         return float(np.min(wrapped))
 
 
-Periodic1DRank2TruncationAnalyzer = Periodic1DRank2SupportTruncationAnalyzer
-
-
-__all__ = [
-    "Periodic1DRank2SupportTruncationAnalyzer",
-    "Periodic1DRank2TruncationAnalyzer",
-]
+__all__ = ["Periodic1DRank2SupportTruncationAnalyzer"]

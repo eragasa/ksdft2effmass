@@ -47,9 +47,6 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
     Periodic1DRankNAnalyticCaseConstructor,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
-    NyquistModeDispositionEnum,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
     interpolation as gauge_interpolation,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
@@ -64,12 +61,23 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E5
     Periodic1DRankNFourierAnalysisRequest,
     Periodic1DRankNFourierAnalyzer,
 )
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.nyquist import (
+    NyquistModeDispositionEnum,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentBackendExceptionCode,
     Periodic1DRankNAlignmentStatus,
+)
+from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
+    Periodic1DRankNHoppingLocalityAnalysisRequest,
+    Periodic1DRankNHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
+    Periodic1DRankNSupportTruncationAnalysisRequest,
+    Periodic1DRankNSupportTruncationAnalyzer,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -410,6 +418,11 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
             is GaugeAlignmentInnerProductConvention.EUCLIDEAN
         )
         assert fourier.analysis_request is analysis_request
+        assert not fourier.cyclic_representative_inventory.has_nyquist_class
+        assert fourier.cyclic_representative_inventory.point_count == mesh.size
+        assert fourier.recorded_translation_inventory.translations == tuple(
+            range(-128, 129)
+        )
         assert not fourier.coefficient_translations.flags.writeable
         assert not fourier.block_raw_frobenius_norms.flags.writeable
         assert not fourier.block_normalized_frobenius_norms.flags.writeable
@@ -430,6 +443,33 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         assert not interpolation.evaluation_coordinates.flags.writeable
         assert not interpolation.full_evaluation.flags.writeable
         assert not interpolation.direct_evaluation.flags.writeable
+
+        locality_request = Periodic1DRankNHoppingLocalityAnalysisRequest(
+            analysis_request=analysis_request,
+            fourier_analysis=fourier,
+        )
+        locality = Periodic1DRankNHoppingLocalityAnalyzer(
+            request=locality_request
+        ).execute()
+        support_request = Periodic1DRankNSupportTruncationAnalysisRequest(
+            analysis_request=analysis_request,
+            fourier_analysis=fourier,
+            interpolation_analysis=interpolation,
+            hopping_locality_analysis=locality,
+        )
+        support = Periodic1DRankNSupportTruncationAnalyzer(
+            request=support_request
+        ).execute()
+
+        assert locality.request is locality_request
+        assert support.request is support_request
+        assert support.request.hopping_locality_analysis is locality
+        assert tuple(item.diagnostic_range for item in locality.tails) == (
+            higher_rank_calculation_request.controls.hopping_diagnostic_range_inventory.ranges
+        )
+        assert tuple(item.retained_range for item in support.supports) == tuple(
+            item.diagnostic_range for item in locality.tails
+        )
 
     def test__result_admission__rejects_mismatched_model_and_gauge_alignment_evidence(
         self,

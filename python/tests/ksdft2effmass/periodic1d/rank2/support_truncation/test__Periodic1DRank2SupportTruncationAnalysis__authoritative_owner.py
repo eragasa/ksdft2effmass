@@ -12,15 +12,12 @@ from ksdft2effmass.periodic1d.rank2 import (
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
     Periodic1DRank2SupportTruncationAnalyzer,
-    Periodic1DRank2TruncationAnalyzer,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
     Periodic1DRank2SupportTruncationAnalysisRequest,
-    Periodic1DRank2TruncationRequest,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2SupportTruncationAnalysis,
-    Periodic1DRank2TruncationAnalysis,
 )
 
 pytestmark = [pytest.mark.software_verification, pytest.mark.unit]
@@ -80,16 +77,18 @@ class TestPeriodic1DRank2SupportTruncationAnalysis:
             is None
         )
 
-    def test__established_short_names__retain_exact_type_identity(self) -> None:
-        assert (
-            Periodic1DRank2TruncationAnalysis
-            is Periodic1DRank2SupportTruncationAnalysis
+    def test__obsolete_short_names__are_absent_from_defining_modules(self) -> None:
+        from ksdft2effmass.periodic1d.rank2.support_truncation import (
+            analysis,
+            request,
+            results,
         )
-        assert (
-            Periodic1DRank2TruncationAnalyzer
-            is Periodic1DRank2SupportTruncationAnalyzer
-        )
-        assert (
-            Periodic1DRank2TruncationRequest
-            is Periodic1DRank2SupportTruncationAnalysisRequest
+
+        assert not hasattr(results, "Periodic1DRank2TruncationAnalysis")
+        assert not hasattr(analysis, "Periodic1DRank2TruncationAnalyzer")
+        assert not hasattr(request, "Periodic1DRank2TruncationRequest")
+        assert Periodic1DRank2SupportTruncationAnalysis.__module__.endswith(".results")
+        assert Periodic1DRank2SupportTruncationAnalyzer.__module__.endswith(".analysis")
+        assert Periodic1DRank2SupportTruncationAnalysisRequest.__module__.endswith(
+            ".request"
         )

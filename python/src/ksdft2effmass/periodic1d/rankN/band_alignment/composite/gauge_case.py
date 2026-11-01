@@ -22,11 +22,11 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.recovery import (
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
-from ksdft2effmass.periodic1d.rankN.hopping_locality import (
+from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysisRequest,
     Periodic1DRankNHoppingLocalityAnalyzer,
 )
-from ksdft2effmass.periodic1d.rankN.support_truncation import (
+from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysisRequest,
     Periodic1DRankNSupportTruncationAnalyzer,
 )

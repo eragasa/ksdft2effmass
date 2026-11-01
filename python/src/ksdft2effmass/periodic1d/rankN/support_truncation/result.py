@@ -7,11 +7,6 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
-from projectkoios.physkit.periodic.lattice.finite_domain import (
-    LatticeDimension,
-    LatticeDisplacement,
-)
-
 from ksdft2effmass.periodic1d.rankN._record_admission import (
     _decoded_bool,
     _decoded_float,
@@ -24,13 +19,19 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.rankN.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixComparisonResult,
 )
 from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncation,
 )
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DSymmetricTranslationRange,
+)
 from ksdft2effmass.real_space_support_truncation import ConjugateClosedSupport
+from ksdft2effmass.real_space_support_truncation.support import (
+    SymmetricRangeSupport1D,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 
@@ -79,9 +80,8 @@ class Periodic1DRankNSupportResult(
             type(value) is not int for value in self.retained_translations
         ):
             raise TypeError("retained_translations must be an exact integer tuple")
-        if self.retained_translations != tuple(
-            range(-self.maximum_range, self.maximum_range + 1)
-        ):
+        support_policy = SymmetricRangeSupport1D(self.maximum_range)
+        if self.retained_translations != support_policy.translations:
             raise ValueError(
                 "retained_translations must equal the declared symmetric support"
             )
@@ -155,14 +155,14 @@ class Periodic1DRankNSupportResult(
             raise TypeError("truncation and total must be exact comparison records")
 
     @property
+    def retained_range(self) -> Periodic1DSymmetricTranslationRange:
+        """Return the neutral range underlying this retained-support policy."""
+        return Periodic1DSymmetricTranslationRange(self.maximum_range)
+
+    @property
     def support_policy(self) -> ConjugateClosedSupport:
         """Return the typed explicit symmetric support policy."""
-        return ConjugateClosedSupport(
-            tuple(
-                LatticeDisplacement(LatticeDimension.ONE, (translation,))
-                for translation in self.retained_translations
-            )
-        )
+        return SymmetricRangeSupport1D(self.maximum_range).support
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {

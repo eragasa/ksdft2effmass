@@ -19,7 +19,7 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldComparisonAnalyzer,
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
-from ksdft2effmass.periodic1d.rankN.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixComparisonResult,
 )
 

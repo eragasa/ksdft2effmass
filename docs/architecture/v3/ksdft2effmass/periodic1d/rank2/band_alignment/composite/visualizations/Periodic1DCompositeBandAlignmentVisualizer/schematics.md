@@ -2,14 +2,20 @@
 
 ```mermaid
 flowchart TD
-    P[authenticated projection] --> V[visualizer]
+    P[verified visualization data] --> V[visualizer]
     Q[passing verification aggregate] --> V
     E[closed plot enum] --> V
-    V --> A[alignment figure composition]
-    V --> L[locality figure composition]
-    V --> C[error-channel figure composition]
+    V --> A[alignment figure]
+    V --> X[recovery controls]
+    V --> H[hopping diagnostics]
+    V --> L[locality figure]
+    V --> C[error-channel figure]
+    V --> T[error trajectories]
     A --> R[generic PNG renderer]
+    X --> R
+    H --> R
     L --> R
     C --> R
-    R --> I[immutable three-PNG inventory]
+    T --> R
+    R --> I[immutable six-PNG inventory]
 ```

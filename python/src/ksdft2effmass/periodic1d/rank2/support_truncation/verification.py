@@ -11,7 +11,7 @@ from .reference import (
     Periodic1DRank2TruncationIndependentReferenceAnalyzer,
 )
 from .results import (
-    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2SupportTruncationAnalysis,
     Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationQualificationStopped,
 )
@@ -26,7 +26,10 @@ class Periodic1DRank2TruncationIndependentVerifier:
 
     __slots__ = ("_observed",)
 
-    def __init__(self, observed: Periodic1DRank2TruncationAnalysis) -> None:
+    def __init__(
+        self,
+        observed: Periodic1DRank2SupportTruncationAnalysis,
+    ) -> None:
         if type(observed) not in (
             Periodic1DRank2TruncationQualificationStopped,
             Periodic1DRank2TruncationCompleted,
@@ -53,8 +56,8 @@ class Periodic1DRank2TruncationVerificationAssessor:
     def __init__(
         self,
         *,
-        observed: Periodic1DRank2TruncationAnalysis,
-        reference: Periodic1DRank2TruncationAnalysis,
+        observed: Periodic1DRank2SupportTruncationAnalysis,
+        reference: Periodic1DRank2SupportTruncationAnalysis,
     ) -> None:
         for name, outcome in (("observed", observed), ("reference", reference)):
             if type(outcome) not in (

@@ -27,9 +27,9 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.
     Periodic1DRank2QualifiedParent,
 )
 
-from .request import Periodic1DRank2TruncationRequest
+from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 from .results import (
-    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2SupportTruncationAnalysis,
     Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationPoint,
     Periodic1DRank2TruncationQualificationStopped,
@@ -72,12 +72,15 @@ class Periodic1DRank2TruncationIndependentReferenceAnalyzer:
 
     __slots__ = ("_request",)
 
-    def __init__(self, request: Periodic1DRank2TruncationRequest) -> None:
-        if type(request) is not Periodic1DRank2TruncationRequest:
+    def __init__(
+        self,
+        request: Periodic1DRank2SupportTruncationAnalysisRequest,
+    ) -> None:
+        if type(request) is not Periodic1DRank2SupportTruncationAnalysisRequest:
             raise TypeError("request must be a truncation request")
         self._request = request
 
-    def execute(self) -> Periodic1DRank2TruncationAnalysis:
+    def execute(self) -> Periodic1DRank2SupportTruncationAnalysis:
         """Return an independently reconstructed closed truncation outcome."""
         preparation = self._prepare()
         if (

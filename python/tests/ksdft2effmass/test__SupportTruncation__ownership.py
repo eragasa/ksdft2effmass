@@ -24,7 +24,6 @@ from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2SupportTruncationAnalysis,
-    Periodic1DRank2TruncationAnalysis,
     Periodic1DRank2TruncationRange,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection import (
@@ -33,12 +32,13 @@ from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection impor
 from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection_reference import (  # noqa: E501
     Periodic1DRank2TruncationToleranceSelectionIndependentReference,
 )
-from ksdft2effmass.periodic1d.rankN.support_truncation import (
-    Periodic1DRankNLocalityAnalysis,
-    Periodic1DRankNSupportResult,
+from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysis,
     Periodic1DRankNSupportTruncationAnalysisRequest,
     Periodic1DRankNSupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.support_truncation.result import (
+    Periodic1DRankNSupportResult,
 )
 from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncation,
@@ -118,14 +118,6 @@ class TestSupportTruncation:
             "Periodic1DRankNSupportTruncationAnalyzer"
         )
 
-    @pytest.mark.legacy_equivalence
-    def test__historical_rank2_name__is_identical_class_alias(self) -> None:
-        """The shorter historical name preserves exact class identity."""
-        assert (
-            Periodic1DRank2TruncationAnalysis
-            is Periodic1DRank2SupportTruncationAnalysis
-        )
-
     @pytest.mark.parametrize(
         "subject_type",
         [
@@ -136,10 +128,6 @@ class TestSupportTruncation:
             pytest.param(
                 Periodic1DRankNSupportResult,
                 id="Periodic1DRankNSupportResult",
-            ),
-            pytest.param(
-                Periodic1DRankNLocalityAnalysis,
-                id="Periodic1DRankNLocalityAnalysis",
             ),
             pytest.param(
                 BandEquivalenceLocalityShellAnalysis,

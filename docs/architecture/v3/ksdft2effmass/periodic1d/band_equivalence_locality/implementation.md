@@ -46,10 +46,11 @@ verification remain in `parent_scale/qualification_verification.py` and
 scientific verification. It composes the existing single-member analyzer without
 changing any other control and retains every member as one correlated,
 serialization-free family value. `parent_family/independent_reference.py` rebuilds every
-family member through the independent direct-formula route. `momentum_refinement/`,
-`amplitude_refinement/`, and `truncation/` likewise own their scientific requests,
-analyses, independent references, and in-memory verification. None of these scientific
-feature packages imports retention or visualization ownership.
+family member through the independent direct-formula route. `momentum_refinement/` and
+`amplitude_refinement/` own their scientific requests, analyses, independent references,
+and in-memory verification; rank-first `periodic1d/rank2/support_truncation/` owns the
+corresponding support-removal capability. None of these scientific feature packages
+imports retention or visualization ownership.
 
 `retention/records.py` alone projects the scientific values and closed refinement and
 truncation variants to canonical wire values. `retention/visualization_data.py` owns the
@@ -117,9 +118,8 @@ package re-export hub. These ownership changes do not alter retained wire format
 support request, analyzer, and analysis names use the
 `Periodic1DRank2SupportTruncation...` prefix, mirroring the rank-$N$ surface. The two
 analysis values inherit `Periodic1DSupportTruncation`, which in turn inherits
-`RealSpaceSupportTruncation`. Historical shorter rank-two request, analyzer, and
-analysis names remain identical class names for the established public wire model; they
-do not establish scientific or numerical validation.
+`RealSpaceSupportTruncation`. The former shorter rank-two request, analyzer, and analysis
+aliases are not retained; canonical result bytes do not depend on those Python names.
 
 The KSD transport diagnostic action explicitly labels its derived link quantity as the
 maximum primitive-link Frobenius residual. It does not present that derived value as a
@@ -169,12 +169,17 @@ its independent verification, and its authenticated projection use the generic t
 serializer/deserializer directly; they define no new wire discriminator, feature codec,
 or parallel schema layer. `truncation/mesh_stability.py` owns decision stability as a
 `NumericalConsistency` value rather than support-selection science. The downstream
-`visualizations/complete_five_scale.py` renderer consumes stored admitted projection
-values only. The three `run_complete_*` scripts coexist with the immutable direct-v2
-scripts because they target a new execution identity and complete scope. Synthetic tests
-cover round trips, independent verification, unresolved momentum and mesh-decision
-preservation, tamper rejection, and stage contracts; they do not execute scientific-scale
-controls or create retained authenticated results.
+`visualizations/complete_five_scale.py` summary renderer consumes stored admitted
+projection values only. The separate
+`visualizations/complete_five_scale_figures.py` action admits a fully qualified complete
+aggregate and renders the closed scientific-story, sampled range-inflation, and separated
+error-channel PNG inventory without reading development CSV tables. The rendering
+manifest binds each PNG digest to the stored verification and source result. The three
+`run_complete_*` scripts coexist with the immutable direct-v2 scripts because they target
+a new execution identity and complete scope. Synthetic tests cover round trips,
+independent verification, unresolved momentum and mesh-decision preservation, tamper
+rejection, the closed figure inventory, and stage contracts; they do not execute
+scientific-scale controls or create retained authenticated results.
 
 The read-only donor audit compares 18,513 mapped immutable scalars within `1.0e-13`, but
 it also records a non-equivalent momentum disposition, four missing retained truncation

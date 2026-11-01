@@ -19,6 +19,29 @@ rather than retained as compatibility surfaces. Pointwise alignment and
 one-global-unitary alignment are different feasible families. M3 dispositions apply
 only to the frozen two-parameter, nine-angle family.
 
+Periodic one-dimensional capability identity
+--------------------------------------------
+
+.. automodule:: ksdft2effmass.periodic1d.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.translations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.hopping_locality.inventory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.support_truncation.inventory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 .. toctree::
    :maxdepth: 1
 

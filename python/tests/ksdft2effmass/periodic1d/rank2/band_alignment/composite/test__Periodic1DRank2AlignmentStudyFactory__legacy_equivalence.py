@@ -14,8 +14,10 @@ from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DRank2AlignmentStudySpecification,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 

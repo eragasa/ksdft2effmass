@@ -49,10 +49,9 @@ Baseline source revision:
 - [x] Implement explicit negative-Nyquist conversion power and separate disjoint-mesh
   interpolation, deliberate-truncation, and total channels in normalized Hamiltonian
   and sorted-band metrics.
-- [x] Implement verifier-authenticated visualization data and the closed
-  `rank2-composite-alignment.png` / `rank2-composite-locality.png` /
-  `rank2-composite-error-channels.png` inventory using
-  `ModelAnalysisPngFigureRenderer`.
+- [x] Implement verifier-admitted visualization data and a closed six-figure inventory
+  covering alignment, recovery controls, hopping diagnostics, complete block locality,
+  separated error channels, and all-channel support-truncation trajectories.
 - [x] Establish named finite M2 parity and explicit convention adaptations in
   [`m2-parity.md`](m2-parity.md); classify monograph channels as adopted, adapted,
   rejected, or provenance-only.

@@ -20,15 +20,38 @@ from ksdft2effmass.analysis.hopping_diagnostics import (
     BlockHoppingHermiticityAnalyzer1D,
     BlockHoppingHermiticityRequest1D,
 )
-from ksdft2effmass.analysis.periodic_bands import (
-    BandApproximationErrorAnalyzer1D,
-    BandApproximationErrorRequest1D,
-    BandSpectrumSamples1D,
-)
+from ksdft2effmass.analysis.periodic_bands import BandSpectrumSamples1D
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
+from ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.analysis import (
+    Periodic1DRank2TransportAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.request import (
+    Periodic1DRank2TransportAnalysisRequest,
+)
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
     Periodic1DRank2GaugeAlignmentAnalysisRequest,
     Periodic1DRank2GaugeAlignmentAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.hopping_locality.analysis import (
+    Periodic1DRank2HoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.hopping_locality.request import (
+    Periodic1DRank2HoppingLocalityAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rank2.hopping_locality.result import (
+    Periodic1DRank2HoppingLocalityAnalysis,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.analysis import (
+    Periodic1DRank2SupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.request import (
+    Periodic1DRank2SupportTruncationAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.result import (
+    Periodic1DRank2SupportTruncationAnalysis,
+)
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DSymmetricTranslationRange,
 )
 from ksdft2effmass.solidstate import (
     BandProjectedOperatorPathConstructor1D,
@@ -36,13 +59,9 @@ from ksdft2effmass.solidstate import (
     BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
     BlockHoppingModel1D,
-    BlockHoppingTruncationRequest1D,
-    BlockHoppingTruncator1D,
     CenteredEvenMeshCyclicToOrdinaryConverter1D,
     CenteredEvenMeshCyclicToOrdinaryRequest1D,
     CenteredUniformReciprocalMesh1D,
-    PolarBandFrameTransporter1D,
-    PolarBandFrameTransportRequest1D,
     ReciprocalBandFramePath1D,
     ReciprocalOperatorFourierTransformer1D,
     ReciprocalOperatorFourierTransformRequest1D,
@@ -126,10 +145,10 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 configuration.dimensionless_absolute_tolerance
             ),
         )
-        transport = PolarBandFrameTransporter1D(
-            PolarBandFrameTransportRequest1D(
-                raw_path,
-                configuration.overlap_singular_value_threshold,
+        transport = Periodic1DRank2TransportAnalyzer(
+            Periodic1DRank2TransportAnalysisRequest(
+                configuration=configuration,
+                source=raw_path,
             )
         ).execute()
         reference = transport.transported
@@ -221,6 +240,20 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         ordinary_models = tuple(
             conversion.ordinary for conversion in ordinary_conversions
         )
+        hopping_locality_analyses = tuple(
+            Periodic1DRank2HoppingLocalityAnalyzer(
+                request=Periodic1DRank2HoppingLocalityAnalysisRequest(
+                    configuration=configuration,
+                    channel=channel,
+                    ordinary_model=model,
+                )
+            ).execute()
+            for channel, model in zip(
+                configuration.HOPPING_LOCALITY_CHANNELS,
+                ordinary_models,
+                strict=True,
+            )
+        )
         direct_evaluation_targets = self._direct_evaluation_targets(
             ordinary_models,
             evaluation_coordinates,
@@ -283,15 +316,31 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 unit,
             ),
         )
-        range_results = tuple(
-            self._range_result(
-                maximum_range,
-                construction_target,
-                ordinary_models,
+        support_truncation_analyses = tuple(
+            Periodic1DRank2SupportTruncationAnalyzer(
+                request=Periodic1DRank2SupportTruncationAnalysisRequest(
+                    configuration=configuration,
+                    hopping_locality_analysis=hopping_locality,
+                    construction_target=construction_target,
+                    complete_evaluation=complete,
+                    direct_evaluation=direct,
+                )
+            ).execute()
+            for hopping_locality, complete, direct in zip(
+                hopping_locality_analyses,
                 complete_evaluation,
                 direct_evaluation_targets,
+                strict=True,
             )
-            for maximum_range in configuration.hopping_ranges
+        )
+        diagnostic_ranges = configuration.hopping_diagnostic_range_inventory.ranges
+        range_results = tuple(
+            self._range_result(
+                diagnostic_range,
+                hopping_locality_analyses,
+                support_truncation_analyses,
+            )
+            for diagnostic_range in diagnostic_ranges
         )
         gaps = np.concatenate(
             (
@@ -559,75 +608,51 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         return max(hamiltonian_errors), max(spectral_errors)
 
+    @staticmethod
     def _range_result(
-        self,
-        maximum_range: int,
-        construction_target: BandSpectrumSamples1D,
-        ordinary_models: tuple[BlockHoppingModel1D, ...],
-        complete_evaluation: tuple[ReciprocalOperatorSamples1D, ...],
-        direct_evaluation_targets: tuple[ReciprocalOperatorSamples1D, ...],
+        diagnostic_range: Periodic1DSymmetricTranslationRange,
+        locality_analyses: tuple[Periodic1DRank2HoppingLocalityAnalysis, ...],
+        truncation_analyses: tuple[
+            Periodic1DRank2SupportTruncationAnalysis,
+            ...,
+        ],
     ) -> Periodic1DCompositeBandAlignmentRangeResult:
-        configuration = self.request
-        channels: list[Periodic1DCompositeBandAlignmentChannelRangeResult] = []
-        for channel, model, complete, direct in zip(
-            Periodic1DCompositeBandAlignmentTransformResult.CHANNELS,
-            ordinary_models,
-            complete_evaluation,
-            direct_evaluation_targets,
+        channels = []
+        for locality, truncation in zip(
+            locality_analyses,
+            truncation_analyses,
             strict=True,
         ):
-            truncation = BlockHoppingTruncator1D(
-                BlockHoppingTruncationRequest1D(model, maximum_range)
-            ).execute()
-            construction = BlockHoppingInterpolator1D(
-                BlockHoppingInterpolationRequest1D(
-                    truncation.truncated, construction_target.coordinates
-                )
-            ).execute()
-            evaluation = BlockHoppingInterpolator1D(
-                BlockHoppingInterpolationRequest1D(
-                    truncation.truncated, direct.coordinates
-                )
-            ).execute()
-            truncation_errors = self._maximum_error_channels(evaluation, complete)
-            total_errors = self._maximum_error_channels(evaluation, direct)
-            construction_error = BandApproximationErrorAnalyzer1D(
-                BandApproximationErrorRequest1D(
-                    construction_target,
-                    construction,
-                    configuration.dimensionless_absolute_tolerance,
-                )
-            ).execute()
+            tail = locality.tail_at_range(diagnostic_range.maximum_range)
+            support = truncation.support_at_range(diagnostic_range.maximum_range)
+            if locality.request.channel != truncation.request.channel:
+                raise ValueError("locality and support-truncation channels must agree")
             channels.append(
                 Periodic1DCompositeBandAlignmentChannelRangeResult(
-                    channel=channel,
+                    channel=locality.request.channel,
                     ordinary_omitted_block_l2_norm=ScalarQuantity(
-                        truncation.omitted_block_l2_norm,
+                        tail.ordinary_omitted_block_l2_norm,
                         Unitless(),
                     ),
                     construction_total_spectral_maximum_error=(
-                        construction_error.maximum_absolute_error
+                        support.construction_total_spectral_maximum_error
                     ),
-                    evaluation_truncation_hamiltonian_maximum_error=ScalarQuantity(
-                        truncation_errors[0],
-                        Unitless(),
+                    evaluation_truncation_hamiltonian_maximum_error=(
+                        support.evaluation_truncation_hamiltonian_maximum_error
                     ),
-                    evaluation_total_hamiltonian_maximum_error=ScalarQuantity(
-                        total_errors[0],
-                        Unitless(),
+                    evaluation_total_hamiltonian_maximum_error=(
+                        support.evaluation_total_hamiltonian_maximum_error
                     ),
-                    evaluation_truncation_spectral_maximum_error=ScalarQuantity(
-                        truncation_errors[1],
-                        Unitless(),
+                    evaluation_truncation_spectral_maximum_error=(
+                        support.evaluation_truncation_spectral_maximum_error
                     ),
-                    evaluation_total_spectral_maximum_error=ScalarQuantity(
-                        total_errors[1],
-                        Unitless(),
+                    evaluation_total_spectral_maximum_error=(
+                        support.evaluation_total_spectral_maximum_error
                     ),
                 )
             )
         return Periodic1DCompositeBandAlignmentRangeResult(
-            maximum_range=maximum_range,
+            maximum_range=diagnostic_range.maximum_range,
             channels=tuple(channels),
         )
 

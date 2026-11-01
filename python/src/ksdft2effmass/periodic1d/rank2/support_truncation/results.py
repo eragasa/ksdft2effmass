@@ -17,9 +17,13 @@ from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncation,
     Periodic1DSupportTruncationAnalysis,
 )
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DSymmetricTranslationRange,
+    Periodic1DSymmetricTranslationRangeInventory,
+)
 from ksdft2effmass.real_space_support_truncation import SymmetricRangeSupport1D
 
-from .request import Periodic1DRank2TruncationRequest
+from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 
 
 def _require_nonnegative(value: float, name: str) -> None:
@@ -84,6 +88,11 @@ class Periodic1DRank2TruncationRange(Periodic1DSupportTruncation):
             )
 
     @property
+    def retained_range(self) -> Periodic1DSymmetricTranslationRange:
+        """Return the neutral range underlying this retained-support policy."""
+        return Periodic1DSymmetricTranslationRange(self.maximum_range)
+
+    @property
     def support_policy(self) -> SymmetricRangeSupport1D:
         """Return the typed ordinary-translation support policy."""
         return SymmetricRangeSupport1D(self.maximum_range)
@@ -125,9 +134,9 @@ class Periodic1DRank2TruncationPoint:
             type(item) is not Periodic1DRank2TruncationRange for item in self.ranges
         ):
             raise TypeError("ranges must contain truncation range values")
-        inventory = tuple(item.maximum_range for item in self.ranges)
-        if inventory != tuple(sorted(set(inventory))):
-            raise ValueError("range results must be unique and strictly increasing")
+        Periodic1DSymmetricTranslationRangeInventory(
+            tuple(item.retained_range for item in self.ranges)
+        )
         if any(
             item.reference_total_omitted_power
             != item.reference_ordinary_omitted_power + self.reference_nyquist_power
@@ -149,7 +158,7 @@ class Periodic1DRank2SupportTruncationAnalysis(
 
     __slots__ = ()
 
-    request: Periodic1DRank2TruncationRequest
+    request: Periodic1DRank2SupportTruncationAnalysisRequest
     qualification: Periodic1DRank2Qualification
 
     @property
@@ -164,11 +173,11 @@ class Periodic1DRank2TruncationQualificationStopped(
 ):
     """Retain qualification evidence when truncation evaluation cannot begin."""
 
-    request: Periodic1DRank2TruncationRequest
+    request: Periodic1DRank2SupportTruncationAnalysisRequest
     qualification: Periodic1DRank2Qualification
 
     def __post_init__(self) -> None:
-        if type(self.request) is not Periodic1DRank2TruncationRequest:
+        if type(self.request) is not Periodic1DRank2SupportTruncationAnalysisRequest:
             raise TypeError("request must be a truncation request")
         if type(self.qualification) not in (
             Periodic1DRank2ExternalGapFailure,
@@ -196,14 +205,14 @@ class Periodic1DRank2TruncationQualificationStopped(
 class Periodic1DRank2TruncationCompleted(Periodic1DRank2SupportTruncationAnalysis):
     """Retain one complete pointwise finite-range consequence study."""
 
-    request: Periodic1DRank2TruncationRequest
+    request: Periodic1DRank2SupportTruncationAnalysisRequest
     qualification: Periodic1DRank2QualifiedParent
     evaluation_coordinate_offset: float
     minimum_construction_evaluation_separation: float
     points: tuple[Periodic1DRank2TruncationPoint, ...]
 
     def __post_init__(self) -> None:
-        if type(self.request) is not Periodic1DRank2TruncationRequest:
+        if type(self.request) is not Periodic1DRank2SupportTruncationAnalysisRequest:
             raise TypeError("request must be a truncation request")
         if type(self.qualification) is not (Periodic1DRank2QualifiedParent):
             raise TypeError("completed truncation requires a qualified parent")
@@ -240,9 +249,9 @@ class Periodic1DRank2TruncationCompleted(Periodic1DRank2SupportTruncationAnalysi
             self.request.template_request.amplitudes
         ):
             raise ValueError("point amplitudes must match the template request")
-        expected_ranges = self.request.maximum_ranges
+        expected_ranges = self.request.support_inventory.ranges
         if any(
-            tuple(item.maximum_range for item in point.ranges) != expected_ranges
+            tuple(item.retained_range for item in point.ranges) != expected_ranges
             for point in self.points
         ):
             raise ValueError("every point must report every requested cutoff")
@@ -278,12 +287,8 @@ class Periodic1DRank2TruncationCompleted(Periodic1DRank2SupportTruncationAnalysi
             raise ValueError("reference channels must be shared by every amplitude")
 
 
-Periodic1DRank2TruncationAnalysis = Periodic1DRank2SupportTruncationAnalysis
-
-
 __all__ = [
     "Periodic1DRank2SupportTruncationAnalysis",
-    "Periodic1DRank2TruncationAnalysis",
     "Periodic1DRank2TruncationCompleted",
     "Periodic1DRank2TruncationPoint",
     "Periodic1DRank2TruncationQualificationStopped",

@@ -5,6 +5,8 @@ from pathlib import Path
 
 import pytest
 
+from ksdft2effmass.periodic1d.rankN import gauge_alignment
+from ksdft2effmass.periodic1d.rankN.gauge_alignment import procrustes
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
@@ -48,6 +50,11 @@ class TestGaugeAlignmentOwnership:
             Periodic1DRankNAlignmentStatusResult,
         ):
             assert ".rankN.gauge_alignment" in value.__module__
+
+    def test__capability_packages__are_inert_namespaces(self) -> None:
+        for package in (gauge_alignment, procrustes):
+            assert not hasattr(package, "__all__")
+            assert not any(name.startswith("Periodic1DRankN") for name in vars(package))
 
     def test__source__does_not_import_composite_orchestration(self) -> None:
         package = Path(__file__).parents[5] / "src" / "ksdft2effmass" / "periodic1d"

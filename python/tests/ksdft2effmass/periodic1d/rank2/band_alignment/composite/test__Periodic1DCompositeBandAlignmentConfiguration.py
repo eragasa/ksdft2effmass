@@ -4,7 +4,7 @@ from dataclasses import replace
 
 import pytest
 
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 
@@ -24,6 +24,27 @@ class TestPeriodic1DCompositeBandAlignmentConfiguration:
 
         assert reconstructed == composite_configuration
         assert reconstructed.to_json() == wire
+
+    def test__frozen__returns_the_authoritative_configuration(
+        self,
+        composite_configuration: Periodic1DCompositeBandAlignmentConfiguration,
+    ) -> None:
+        assert Periodic1DCompositeBandAlignmentConfiguration.frozen() == (
+            composite_configuration
+        )
+
+    def test__hopping_ranges__have_one_typed_neutral_inventory(
+        self,
+        composite_configuration: Periodic1DCompositeBandAlignmentConfiguration,
+    ) -> None:
+        diagnostics = composite_configuration.hopping_diagnostic_range_inventory
+        supports = composite_configuration.support_range_inventory
+
+        assert diagnostics.maximum_ranges == composite_configuration.hopping_ranges
+        assert diagnostics.ranges[-1].translations == tuple(range(-8, 9))
+        assert supports.maximum_ranges == diagnostics.maximum_ranges
+        assert supports.ranges == diagnostics.ranges
+        assert diagnostics.__class__.__module__ != supports.__class__.__module__
 
     def test__init__rejects_unbound_parent_identity(
         self,

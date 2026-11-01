@@ -7,26 +7,25 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from analysis.development import (
+from analysis.development.cache import (
     HigherRankDevelopmentCacheAdmission,
     HigherRankDevelopmentCacheEntry,
     HigherRankDevelopmentCacheManifest,
-    HigherRankDevelopmentPlot,
 )
 from analysis.development.plots import (
     _PLOT_FLOOR,
     _RESULT_STATUS_COLOR,
     _RESULT_STATUS_LABEL,
+    HigherRankDevelopmentPlot,
     _claim_condition,
     _positive,
     _sampled_pareto_membership,
 )
-from projectkoios.physkit.units import PhysicalUnit
-
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
+from projectkoios.physkit.units import PhysicalUnit
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
@@ -37,7 +36,7 @@ class TestHigherRankDevelopmentPlot:
     def test__plot_inventory__contains_every_predeclared_view(self) -> None:
         assert tuple(plot.value for plot in HigherRankDevelopmentPlot) == (
             "development-alignment-locality-s2.png",
-            "development-support-locality-paths.png",
+            "development-hopping-diagnostic-paths.png",
             "development-fourier-block-locality.png",
             "development-error-channel-trajectories.png",
             "development-s2-claim-resolution.png",
@@ -45,6 +44,10 @@ class TestHigherRankDevelopmentPlot:
             "development-rank-depth-scaling.png",
             "development-recovery-controls.png",
             "development-support-error-pareto.png",
+        )
+        assert (
+            HigherRankDevelopmentPlot.HOPPING_DIAGNOSTIC.value
+            == "development-hopping-diagnostic-paths.png"
         )
         assert _RESULT_STATUS_LABEL == "CALCULATED RESULT — UNSEALED"
         assert _RESULT_STATUS_COLOR == "#666666"
@@ -110,6 +113,9 @@ class TestHigherRankDevelopmentPlot:
 
         for shorthand in ("D1", "P0", "P1", "G0", "G1", "A0", "A1", "A2", "A3"):
             assert shorthand not in report
+        assert "hopping-diagnostic cutoff" in report
+        assert "retained-support inventory" in report
+        assert "complete support-path locality curves" not in report
 
     def test__render_entrypoint__declares_non_evidence_lifecycle(self) -> None:
         entrypoint = Path(__file__).resolve().parents[1] / "run_03_render.py"
@@ -117,10 +123,23 @@ class TestHigherRankDevelopmentPlot:
 
         assert "scientific_evidence=false" in source
         assert "HigherRankDevelopmentAdmittedCacheReader" in source
-        assert "HigherRankDevelopmentFigureDataProjector" in source
+        assert "HigherRankDevelopmentFigureDataConstructor" in source
+        assert "HigherRankDevelopmentFigureDataProjector" not in source
         assert "HigherRankDevelopmentFigureRenderer" in source
         assert "_calculation_results" not in source
         assert "workflow" not in source
+
+    def test__development_namespace__is_inert(self) -> None:
+        initializer = (
+            Path(__file__).resolve().parents[1]
+            / "analysis"
+            / "development"
+            / "__init__.py"
+        )
+        source = initializer.read_text(encoding="utf-8")
+
+        assert "from ." not in source
+        assert "__all__" not in source
 
     def test__cache_manifest__is_canonical_and_explicitly_not_evidence(self) -> None:
         configuration = Periodic1DRankNAlignmentConfiguration

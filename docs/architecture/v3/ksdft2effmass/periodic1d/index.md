@@ -46,6 +46,11 @@ scientifically distinct periodic families.
 `ksdft2effmass.periodic1d` owns one-dimensional periodic reduction and model-adequacy
 behavior whose meaning is specific to the periodic program:
 
+- a shared `Periodic1DCapability` contract that fixes only the PhysKit lattice
+  dimension to one, without fabricating geometry, units, meshes, or support;
+- distinct typed inventories for centered cyclic representatives, conjugate-closed
+  ordinary translations, and neutral symmetric translation ranges, while irreversible
+  retained support remains a separate support-truncation policy;
 - a nominal centered reduced-coordinate convention shared by maintained reciprocal-mesh
   families;
 - immutable 1D lattice-period snapshots that reconstruct caller-selected PhysKit

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from analysis.development import (
+from analysis.development.cache import (
     HigherRankDevelopmentCacheIntegrityVerifier,
     HigherRankDevelopmentCacheReadRequest,
 )

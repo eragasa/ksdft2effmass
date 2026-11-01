@@ -120,10 +120,29 @@ class TestPeriodic1DCompositeBandAlignmentDirectScripts:
             "periodic1d-rank2-composite-band-alignment-locality" in source
             for source in sources
         )
+        assert "Periodic1DCompositeBandAlignmentConfiguration.frozen()" in (
+            calculation_source
+        )
         assert all(
-            "ksdft2effmass.periodic1d.controlled-four-state-parent.v1" in source
+            "ksdft2effmass.periodic1d.controlled-four-state-parent.v1" not in source
             for source in sources
         )
+        assert all(
+            "Periodic1DCompositeBandAlignmentConfiguration" in source
+            for source in sources
+        )
+
+    def test__technical_report__uses_publication_appropriate_capability_terms(
+        self,
+    ) -> None:
+        report = (
+            self.scripts()[0].parent / "technical-report" / "technical_report.tex"
+        ).read_text(encoding="utf-8")
+
+        assert "visualization projection" not in report
+        assert "Authenticated" not in report
+        assert "Finite-support error and complete hopping-block locality" in report
+        assert "retained support" in report
 
     def test__scripts__execute_closed_lifecycle_in_temporary_repository(
         self, tmp_path: Path
@@ -157,8 +176,11 @@ class TestPeriodic1DCompositeBandAlignmentDirectScripts:
             assert geometry["lattice_unit"] == PhysicalUnit("bohr")
         assert {path.name for path in (execution / "figures").glob("*.png")} == {
             "rank2-composite-alignment.png",
+            "rank2-composite-recovery-controls.png",
+            "rank2-composite-hopping-diagnostics.png",
             "rank2-composite-locality.png",
             "rank2-composite-error-channels.png",
+            "rank2-composite-error-trajectories.png",
         }
 
         for script in copied_scripts:

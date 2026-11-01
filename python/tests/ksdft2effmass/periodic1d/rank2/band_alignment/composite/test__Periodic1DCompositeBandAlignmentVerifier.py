@@ -7,15 +7,31 @@ import numpy as np
 import pytest
 from projectkoios.physkit.units import ComplexMatrixQuantity, MatrixQuantity, Unitless
 
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+from ksdft2effmass.periodic1d.hopping_locality.inventory import (
+    Periodic1DHoppingDiagnosticRangeInventory,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis import (
     Periodic1DCompositeBandAlignmentAnalyzer,
-    Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.reference import (
     Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer,
     Periodic1DCompositeBandAlignmentIndependentReferenceRequest,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
+    Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import (
     Periodic1DCompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerifier,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.inventory import (  # noqa: E501
     Periodic1DCompositeBandAlignmentVisualizationPlotEnum,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visualizer import (  # noqa: E501
     Periodic1DCompositeBandAlignmentVisualizer,
+)
+from ksdft2effmass.periodic1d.support_truncation.inventory import (
+    Periodic1DSymmetricSupportInventory,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
@@ -145,6 +161,14 @@ class TestPeriodic1DCompositeBandAlignmentVerifier:
         )
         assert all(
             value.png.startswith(b"\x89PNG\r\n\x1a\n") for value in visualizations
+        )
+        assert isinstance(
+            verified.visualization_data.hopping_diagnostic_range_inventory,
+            Periodic1DHoppingDiagnosticRangeInventory,
+        )
+        assert isinstance(
+            verified.visualization_data.support_range_inventory,
+            Periodic1DSymmetricSupportInventory,
         )
 
     def test__visualize__rejects_unrelated_projection_digest(

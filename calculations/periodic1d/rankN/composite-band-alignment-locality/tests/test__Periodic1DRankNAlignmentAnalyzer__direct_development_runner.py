@@ -32,6 +32,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         assert "Periodic1DAlignmentStudyFactory(" in source
         assert ").create()" in source
         assert "Periodic1DRankNAlignmentStudySpecification" in source
+        assert "Periodic1DRankNAlignmentConfiguration.frozen()" in source
         assert "return Periodic1DRankNAlignmentAnalyzer(" not in source
         assert "Periodic1DRankNAlignmentAnalyzer" in source
         assert "NumpyBatchedComplexUnitaryProcrustesSolver" in source

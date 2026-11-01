@@ -10,11 +10,13 @@ from ksdft2effmass.periodic1d.rank1.hopping_locality import (
     Periodic1DRank1HoppingLocalityAnalysis,
     Periodic1DRank1HoppingTailResult,
 )
-from ksdft2effmass.periodic1d.rank2.hopping_locality import (
+from ksdft2effmass.periodic1d.rank2.hopping_locality.result import (
     Periodic1DRank2HoppingPower,
 )
-from ksdft2effmass.periodic1d.rankN.hopping_locality import (
+from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.hopping_locality.result import (
     Periodic1DRankNHoppingTailResult,
 )
 from ksdft2effmass.support_truncation import SupportTruncation

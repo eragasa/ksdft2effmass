@@ -4,20 +4,25 @@ from __future__ import annotations
 
 from abc import ABC
 
-from ksdft2effmass.hopping_locality import (
+from ksdft2effmass.hopping_locality.base import (
     HoppingLocality,
     HoppingLocalityAnalysis,
     HoppingLocalityAnalysisRequest,
     HoppingLocalityAnalyzer,
 )
+from ksdft2effmass.periodic1d.base import Periodic1DCapability
 
 
-class Periodic1DHoppingLocality(HoppingLocality):  # noqa: B024 - intentionally nominal marker
+class Periodic1DHoppingLocality(
+    HoppingLocality,
+    Periodic1DCapability,
+):  # noqa: B024 - intentionally nominal marker
     """Identify unchanged hopping coefficients indexed by 1D translations.
 
     Concrete subclasses must state the integer-translation inventory, range convention,
-    conjugate relation, basis and gauge, and normalization. The specialization does not
-    imply support removal and owns no Fourier algorithm, tolerance, or wire format.
+    conjugate relation, basis and gauge, and normalization. :attr:`lattice_dimension`
+    fixes only the PhysKit one-dimensional identity. The specialization does not imply
+    support removal and owns no Fourier algorithm, tolerance, or wire format.
     """
 
     __slots__ = ()

@@ -11,6 +11,10 @@ from typing import ClassVar, Self
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ...geometry import Periodic1DReducedCoordinateConvention
+from ...hopping_locality.inventory import (
+    Periodic1DHoppingDiagnosticRangeInventory,
+)
+from ...support_truncation.inventory import Periodic1DSymmetricSupportInventory
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,7 +59,25 @@ class Periodic1DCompositeBandAlignmentConfiguration(
         (0, 0, 0, -4),
     )
     PARENT_COEFFICIENT_DENOMINATOR: ClassVar[int] = 100
+    RETAINED_RANK: ClassVar[int] = 2
+    CONSTRUCTION_SIZE: ClassVar[int] = 64
+    EVALUATION_SIZE: ClassVar[int] = 257
+    EVALUATION_SHIFT_NUMERATOR: ClassVar[int] = 1
+    EVALUATION_SHIFT_DENOMINATOR: ClassVar[int] = 65
     HOPPING_RANGES: ClassVar[tuple[int, ...]] = (0, 1, 2, 3, 4, 6, 8)
+    ATTACK_CONSTANT_ANGLE: ClassVar[float] = 0.30
+    ATTACK_SINE_COEFFICIENTS: ClassVar[tuple[float, ...]] = (0.65, 0.30)
+    SAMPLED_GAP_THRESHOLD: ClassVar[float] = 0.5
+    OVERLAP_SINGULAR_VALUE_THRESHOLD: ClassVar[float] = 0.8
+    PROCRUSTES_RANK_ABSOLUTE_TOLERANCE: ClassVar[float] = 1.0e-14
+    PROCRUSTES_RANK_RELATIVE_TOLERANCE: ClassVar[float] = 1.0e-12
+    ENERGY_ABSOLUTE_TOLERANCE: ClassVar[float] = 1.0e-11
+    DIMENSIONLESS_ABSOLUTE_TOLERANCE: ClassVar[float] = 1.0e-12
+    HOPPING_LOCALITY_CHANNELS: ClassVar[tuple[str, ...]] = (
+        "reference",
+        "attacked",
+        "pointwise",
+    )
 
     def __post_init__(self) -> None:
         """Reject alternate parents, sample sets, attacks, and numerical controls."""
@@ -96,22 +118,24 @@ class Periodic1DCompositeBandAlignmentConfiguration(
             raise ValueError(
                 "parent identity must bind the exact four-state coefficients"
             )
-        if self.retained_rank != 2:
+        if self.retained_rank != self.RETAINED_RANK:
             raise ValueError("retained_rank must equal two")
-        if self.construction_size != 64 or self.construction_size % 2 != 0:
+        if (
+            self.construction_size != self.CONSTRUCTION_SIZE
+            or self.construction_size % 2 != 0
+        ):
             raise ValueError("construction_size must equal the frozen even extent 64")
-        if self.evaluation_size != 257:
+        if self.evaluation_size != self.EVALUATION_SIZE:
             raise ValueError("evaluation_size must equal the frozen extent 257")
         if (
-            self.evaluation_shift_numerator != 1
-            or self.evaluation_shift_denominator != 65
+            self.evaluation_shift_numerator != self.EVALUATION_SHIFT_NUMERATOR
+            or self.evaluation_shift_denominator != self.EVALUATION_SHIFT_DENOMINATOR
         ):
             raise ValueError("evaluation shift must equal the frozen rational 1/65")
-        if not isinstance(self.hopping_ranges, tuple) or any(
-            type(value) is not int for value in self.hopping_ranges
-        ):
-            raise TypeError("hopping_ranges must be a tuple of built-in integers")
-        if self.hopping_ranges != self.HOPPING_RANGES:
+        range_inventory = Periodic1DHoppingDiagnosticRangeInventory.from_maximum_ranges(
+            self.hopping_ranges
+        )
+        if range_inventory.maximum_ranges != self.HOPPING_RANGES:
             raise ValueError("hopping_ranges must match the frozen range inventory")
         if 2 * self.hopping_ranges[-1] + 1 >= self.construction_size:
             raise ValueError("hopping ranges must exclude the cyclic Nyquist point")
@@ -146,26 +170,38 @@ class Periodic1DCompositeBandAlignmentConfiguration(
                 raise ValueError(f"{name} must be nonnegative")
         if any(not isfinite(value) for value in self.attack_sine_coefficients):
             raise ValueError("attack_sine_coefficients must be finite")
-        if self.attack_constant_angle != 0.30 or self.attack_sine_coefficients != (
-            0.65,
-            0.30,
+        if (
+            self.attack_constant_angle != self.ATTACK_CONSTANT_ANGLE
+            or self.attack_sine_coefficients != self.ATTACK_SINE_COEFFICIENTS
         ):
             raise ValueError(
                 "attack coefficients must match the frozen rank-two attack"
             )
-        if self.sampled_gap_threshold != 0.5:
+        if self.sampled_gap_threshold != self.SAMPLED_GAP_THRESHOLD:
             raise ValueError("sampled_gap_threshold must equal 0.5")
-        if self.overlap_singular_value_threshold != 0.8:
+        if (
+            self.overlap_singular_value_threshold
+            != self.OVERLAP_SINGULAR_VALUE_THRESHOLD
+        ):
             raise ValueError("overlap_singular_value_threshold must equal 0.8")
         if self.overlap_singular_value_threshold >= 1.0:
             raise ValueError("overlap_singular_value_threshold must be below one")
-        if self.procrustes_rank_absolute_tolerance != 1.0e-14:
+        if (
+            self.procrustes_rank_absolute_tolerance
+            != self.PROCRUSTES_RANK_ABSOLUTE_TOLERANCE
+        ):
             raise ValueError("absolute rank cutoff must equal 1e-14")
-        if self.procrustes_rank_relative_tolerance != 1.0e-12:
+        if (
+            self.procrustes_rank_relative_tolerance
+            != self.PROCRUSTES_RANK_RELATIVE_TOLERANCE
+        ):
             raise ValueError("relative rank cutoff must equal 1e-12")
-        if self.energy_absolute_tolerance != 1.0e-11:
+        if self.energy_absolute_tolerance != self.ENERGY_ABSOLUTE_TOLERANCE:
             raise ValueError("energy_absolute_tolerance must equal 1e-11")
-        if self.dimensionless_absolute_tolerance != 1.0e-12:
+        if (
+            self.dimensionless_absolute_tolerance
+            != self.DIMENSIONLESS_ABSOLUTE_TOLERANCE
+        ):
             raise ValueError("dimensionless_absolute_tolerance must equal 1e-12")
         evaluation = set(self.evaluation_reduced_momenta_fractional())
         construction = {
@@ -174,6 +210,46 @@ class Periodic1DCompositeBandAlignmentConfiguration(
         }
         if not construction.isdisjoint(evaluation):
             raise ValueError("construction and evaluation coordinates must be disjoint")
+
+    @classmethod
+    def frozen(cls) -> Self:
+        """Return the complete authoritative frozen rank-two configuration."""
+        return cls(
+            parent_identity=cls.PARENT_IDENTITY,
+            onsite_numerators=cls.PARENT_ONSITE_NUMERATORS,
+            positive_hopping_numerators=cls.PARENT_POSITIVE_HOPPING_NUMERATORS,
+            coefficient_denominator=cls.PARENT_COEFFICIENT_DENOMINATOR,
+            retained_rank=cls.RETAINED_RANK,
+            construction_size=cls.CONSTRUCTION_SIZE,
+            evaluation_size=cls.EVALUATION_SIZE,
+            evaluation_shift_numerator=cls.EVALUATION_SHIFT_NUMERATOR,
+            evaluation_shift_denominator=cls.EVALUATION_SHIFT_DENOMINATOR,
+            hopping_ranges=cls.HOPPING_RANGES,
+            attack_constant_angle=cls.ATTACK_CONSTANT_ANGLE,
+            attack_sine_coefficients=cls.ATTACK_SINE_COEFFICIENTS,
+            sampled_gap_threshold=cls.SAMPLED_GAP_THRESHOLD,
+            overlap_singular_value_threshold=cls.OVERLAP_SINGULAR_VALUE_THRESHOLD,
+            procrustes_rank_absolute_tolerance=(cls.PROCRUSTES_RANK_ABSOLUTE_TOLERANCE),
+            procrustes_rank_relative_tolerance=(cls.PROCRUSTES_RANK_RELATIVE_TOLERANCE),
+            energy_absolute_tolerance=cls.ENERGY_ABSOLUTE_TOLERANCE,
+            dimensionless_absolute_tolerance=cls.DIMENSIONLESS_ABSOLUTE_TOLERANCE,
+        )
+
+    @property
+    def hopping_diagnostic_range_inventory(
+        self,
+    ) -> Periodic1DHoppingDiagnosticRangeInventory:
+        """Return the typed unchanged-coefficient diagnostic inventory."""
+        return Periodic1DHoppingDiagnosticRangeInventory.from_maximum_ranges(
+            self.hopping_ranges
+        )
+
+    @property
+    def support_range_inventory(self) -> Periodic1DSymmetricSupportInventory:
+        """Return the distinct candidate retained-support inventory."""
+        return Periodic1DSymmetricSupportInventory.from_maximum_ranges(
+            self.hopping_ranges
+        )
 
     def construction_reduced_momenta(self) -> tuple[float, ...]:
         """Return the frozen centered half-open construction coordinates."""

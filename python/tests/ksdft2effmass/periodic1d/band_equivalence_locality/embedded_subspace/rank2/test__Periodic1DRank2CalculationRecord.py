@@ -49,10 +49,10 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.
     Periodic1DRank2ParentFamilyVisualizationPlot,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
-    Periodic1DRank2TruncationAnalyzer,
+    Periodic1DRank2SupportTruncationAnalyzer,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
-    Periodic1DRank2TruncationRequest,
+    Periodic1DRank2SupportTruncationAnalysisRequest,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
@@ -133,8 +133,8 @@ def _record() -> Periodic1DRank2CalculationRecord:
         ),
         transporter=transporter,
     ).execute()
-    truncation = Periodic1DRank2TruncationAnalyzer(
-        request=Periodic1DRank2TruncationRequest.every_integer_through(
+    truncation = Periodic1DRank2SupportTruncationAnalyzer(
+        request=Periodic1DRank2SupportTruncationAnalysisRequest.every_integer_through(
             template_request=template,
             maximum_range=3,
             evaluation_mesh_size=17,

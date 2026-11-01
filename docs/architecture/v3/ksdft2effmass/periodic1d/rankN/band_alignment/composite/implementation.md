@@ -29,7 +29,7 @@
 | `rankN/hopping_locality/analysis.py` | Measures coefficient tails and nested-range monotonicity without removing Fourier support. |
 | `rankN/hopping_locality/result.py` | Owns immutable hopping-tail values without inheriting support-truncation semantics. |
 | `rankN/support_truncation/analysis.py` | Constructs finite-support operators and owns the consequences of irreversible support removal. |
-| `rankN/support_truncation/result.py` | Preserves the historical combined wire record while exposing admitted hopping-locality values without recomputation. |
+| `rankN/support_truncation/result.py` | Preserves the established support-result wire while exposing admitted hopping-locality values without recomputation. |
 | `rankN/band_alignment/composite/gauge_case.py` | Executes one gauge-alignment case in scientific order as composite orchestration. |
 | `rankN/band_alignment/composite/assembly.py` | Correlates stage evidence and assembles one aggregate alignment result. |
 | `rankN/band_alignment/gauge_case_result.py` | Stores aggregate transform, recovery, interpolation, locality, and truncation evidence for one alignment case. |
@@ -57,10 +57,13 @@ support truncation constructs a different finite-support representation and meas
 its errors. Gauge identities, status, Procrustes selection, and fieldwise actions
 reside under `periodic1d.rankN.gauge_alignment`; shared rank-$N$ diagnostics reside
 under `periodic1d.rankN.diagnostics`; study-bound frame-transport requests, analysis,
-and evidence reside under `periodic1d.rankN.band_alignment.frame_transport`; composite
-orchestration and aggregate records reside under
-`periodic1d.rankN.band_alignment.composite`. The public calculation bytes
-remain unchanged, and obsolete source paths are removed rather than retained as aliases.
+and evidence reside under `periodic1d.rankN.band_alignment.frame_transport`; retained
+aggregate records reside directly under `periodic1d.rankN.band_alignment`, while thin
+orchestration actions reside under `periodic1d.rankN.band_alignment.composite`. All
+rank-two and rank-$N$ package initializers are inert namespaces, so consumers import
+values and actions from their authoritative defining modules. The public calculation
+bytes remain unchanged, and obsolete source paths and combined-locality adapters are
+removed rather than retained as aliases.
 
 The maintained records are immutable and serialize deterministically. Arrays use nominal
 Project Koios immutable NumPy construction and validation. Request admission is
@@ -126,17 +129,22 @@ For one gauge alignment and mesh, the typed stages are:
    transform and evaluates coefficient-index, Parseval, and Hermiticity evidence.
 4. `Periodic1DRankNInterpolationAnalyzer` evaluates the complete
    Fourier series and direct analytic field on the shifted mesh.
-5. `Periodic1DRankNHoppingLocalityAnalyzer` measures every frozen symmetric-range
-   coefficient tail and its nested-range monotonicity without removing support.
-6. `Periodic1DRankNSupportTruncationAnalyzer` constructs every frozen finite-support
+5. `Periodic1DRankNHoppingLocalityAnalyzer` consumes the typed diagnostic-range
+   inventory and measures every frozen coefficient tail plus nested-range monotonicity
+   without removing support.
+6. `Periodic1DRankNSupportTruncationAnalyzer` consumes the distinct typed support
+   inventory and constructs every frozen finite-support
    representation and keeps interpolation, truncation, and total error channels
    separate.
 7. The composite-owned `Periodic1DRankNGaugeAlignmentResultAssembler` admits only
    evidence derived from the same exact analysis request and assembles the unchanged public mesh wire
    without recomputing scientific values.
 
-The stages retain their exact source request. Equal-looking replacement requests and
-same-shaped arrays are insufficient. Admission correlates case, rank, depth, gauge
+The hopping-locality and support-truncation analyses retain their exact capability
+requests rather than only the enclosing gauge-alignment request. Support truncation
+must bind the exact locality analysis and Fourier analysis it consumes. Equal-looking
+replacement requests and same-shaped arrays are insufficient. Admission correlates
+case, rank, depth, gauge
 alignment, construction mesh, coordinates, selection provenance, statuses, immutable
 storage, and authoritative action results.
 
@@ -157,8 +165,9 @@ Gauge-alignment mesh results retain the canonical odd-mesh disposition
 truncation, and total error channels distinct and retain ordinary omitted tails,
 Parseval defects, perturbation bounds, decomposition residuals, and gate dispositions.
 Those combined fields remain solely for historical wire stability. The
-`hopping_locality_tails` property projects admitted stored translations and tail values
-into the separate diagnostic owner without rerunning Fourier analysis or truncation.
+`hopping_locality_tails` property reconstructs the separate typed diagnostic view from
+admitted stored translations and tail values without rerunning Fourier analysis or
+truncation.
 The public wire retains the bounded block-norm inventory for $|R|\le128$ rather than the
 full Fourier coefficient arrays.
 

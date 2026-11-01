@@ -4,21 +4,26 @@ from __future__ import annotations
 
 from abc import ABC
 
-from ksdft2effmass.gauge_alignment import (
+from ksdft2effmass.gauge_alignment.base import (
     GaugeAlignment,
     GaugeAlignmentAnalysis,
     GaugeAlignmentAnalysisRequest,
     GaugeAlignmentAnalyzer,
 )
+from ksdft2effmass.periodic1d.base import Periodic1DCapability
 
 
-class Periodic1DGaugeAlignment(GaugeAlignment):  # noqa: B024 - nominal owner
+class Periodic1DGaugeAlignment(
+    GaugeAlignment,
+    Periodic1DCapability,
+):  # noqa: B024 - nominal owner
     """Identify a periodic-1D retained-space gauge-alignment capability.
 
     Concrete subclasses must declare the retained rank, gauge group, right- or
     left-action convention, reciprocal-coordinate domain, and applicability. The
-    specialization owns no mesh, transport route, alignment algorithm, threshold,
-    locality policy, or serialization format.
+    :attr:`lattice_dimension` is fixed to the PhysKit one-dimensional identity; it does
+    not select a lattice period or unit. The specialization owns no mesh, transport
+    route, alignment algorithm, threshold, locality policy, or serialization format.
     """
 
     __slots__ = ()

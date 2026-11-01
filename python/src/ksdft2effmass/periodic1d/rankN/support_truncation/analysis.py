@@ -14,7 +14,7 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixErrorDecompositionAnalyzer,
     MatrixFieldComparisonAnalyzer,
 )
-from ksdft2effmass.periodic1d.rankN.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixComparisonResult,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
@@ -26,13 +26,10 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (  # no
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
-from ksdft2effmass.periodic1d.rankN.hopping_locality import (
+from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
-    Periodic1DRankNHoppingLocalityAnalysisRequest,
-    Periodic1DRankNHoppingLocalityAnalyzer,
 )
 from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncation,
     Periodic1DSupportTruncationAnalysis,
     Periodic1DSupportTruncationAnalysisRequest,
     Periodic1DSupportTruncationAnalyzer,
@@ -82,8 +79,29 @@ class Periodic1DRankNSupportTruncationAnalysisRequest(
             raise ValueError(
                 "interpolation analysis must derive from the bound request"
             )
-        if self.hopping_locality_analysis.analysis_request is not self.analysis_request:
+        if (
+            self.hopping_locality_analysis.request.analysis_request
+            is not self.analysis_request
+        ):
             raise ValueError("locality analysis must derive from the bound request")
+        if (
+            self.hopping_locality_analysis.request.fourier_analysis
+            is not self.fourier_analysis
+        ):
+            raise ValueError(
+                "locality analysis must derive from the bound Fourier analysis"
+            )
+        controls = self.analysis_request.calculation_request.controls
+        support_ranges = controls.support_range_inventory.ranges
+        if (
+            tuple(
+                item.diagnostic_range for item in self.hopping_locality_analysis.tails
+            )
+            != support_ranges
+        ):
+            raise ValueError(
+                "hopping diagnostics must cover every candidate support range"
+            )
         expected_size = (
             self.analysis_request.calculation_request.configuration.evaluation_mesh_size
         )
@@ -92,29 +110,29 @@ class Periodic1DRankNSupportTruncationAnalysisRequest(
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNSupportTruncationAnalysis(
-    Periodic1DSupportTruncationAnalysis
-):
+class Periodic1DRankNSupportTruncationAnalysis(Periodic1DSupportTruncationAnalysis):
     """Retain consequences of irreversible symmetric-support removal."""
 
-    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
+    request: Periodic1DRankNSupportTruncationAnalysisRequest
     supports: tuple[Periodic1DRankNSupportResult, ...]
 
     def __post_init__(self) -> None:
-        if (
-            type(self.analysis_request)
-            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
-        ):
-            raise TypeError("analysis_request must be the exact analysis request")
+        if type(self.request) is not Periodic1DRankNSupportTruncationAnalysisRequest:
+            raise TypeError("request must be the exact support-truncation request")
         if type(self.supports) is not tuple or not all(
             type(item) is Periodic1DRankNSupportResult for item in self.supports
         ):
             raise TypeError("supports must contain exact support-result records")
-        expected_ranges = (
-            self.analysis_request.calculation_request.controls.support_radii
-        )
-        if tuple(item.maximum_range for item in self.supports) != expected_ranges:
-            raise ValueError("supports must follow the frozen support inventory")
+        expected_tails = self.request.hopping_locality_analysis.tails
+        if tuple(item.retained_range for item in self.supports) != tuple(
+            item.diagnostic_range for item in expected_tails
+        ):
+            raise ValueError("supports must follow the bound locality inventory")
+        if any(
+            support.retained_translations != tail.retained_translations
+            for support, tail in zip(self.supports, expected_tails, strict=True)
+        ):
+            raise ValueError("supports must retain the diagnosed translation ranges")
 
 
 @final
@@ -266,120 +284,12 @@ class Periodic1DRankNSupportTruncationAnalyzer(
                 )
             )
         return Periodic1DRankNSupportTruncationAnalysis(
-            analysis_request=analysis_request,
+            request=request,
             supports=tuple(support_results),
         )
 
 
-@dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNLocalityAnalysisRequest:
-    """Historical request adapter for the former combined locality action."""
-
-    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
-    fourier_analysis: Periodic1DRankNFourierAnalysis
-    interpolation_analysis: Periodic1DRankNInterpolationAnalysis
-
-    def __post_init__(self) -> None:
-        if (
-            type(self.analysis_request)
-            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
-        ):
-            raise TypeError(
-                "analysis_request must be the exact gauge-alignment request"
-            )
-        if type(self.fourier_analysis) is not Periodic1DRankNFourierAnalysis:
-            raise TypeError("fourier_analysis must be the exact Fourier analysis")
-        if (
-            type(self.interpolation_analysis)
-            is not Periodic1DRankNInterpolationAnalysis
-        ):
-            raise TypeError(
-                "interpolation_analysis must be the exact interpolation analysis"
-            )
-        if self.fourier_analysis.analysis_request is not self.analysis_request:
-            raise ValueError("Fourier analysis must derive from the bound request")
-        if self.interpolation_analysis.analysis_request is not self.analysis_request:
-            raise ValueError(
-                "interpolation analysis must derive from the bound request"
-            )
-
-
-@dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNLocalityAnalysis(Periodic1DSupportTruncation):
-    """Historical combined view retained while consumers migrate by capability."""
-
-    analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
-    supports: tuple[Periodic1DRankNSupportResult, ...]
-    maximum_tail_increase: float
-    all_tail_monotonicity_checks_pass: bool
-
-    def __post_init__(self) -> None:
-        if (
-            type(self.analysis_request)
-            is not Periodic1DRankNGaugeAlignmentAnalysisRequest
-        ):
-            raise TypeError("analysis_request must be the exact analysis request")
-        if type(self.supports) is not tuple or not all(
-            type(item) is Periodic1DRankNSupportResult for item in self.supports
-        ):
-            raise TypeError("supports must contain exact support-result records")
-        if type(self.maximum_tail_increase) is not float:
-            raise TypeError("maximum_tail_increase must be a built-in float")
-        if type(self.all_tail_monotonicity_checks_pass) is not bool:
-            raise TypeError("all_tail_monotonicity_checks_pass must be a built-in bool")
-
-
-@final
-class Periodic1DRankNLocalityAnalyzer:
-    """Compatibility action composing the separated locality and truncation owners."""
-
-    __slots__ = ("_request",)
-
-    def __init__(
-        self,
-        *,
-        request: Periodic1DRankNLocalityAnalysisRequest,
-    ) -> None:
-        if type(request) is not Periodic1DRankNLocalityAnalysisRequest:
-            raise TypeError("request must be Periodic1DRankNLocalityAnalysisRequest")
-        self._request = request
-
-    @property
-    def request(self) -> Periodic1DRankNLocalityAnalysisRequest:
-        """Return the exact historical request bound to this adapter."""
-        return self._request
-
-    def execute(self) -> Periodic1DRankNLocalityAnalysis:
-        """Compose the separated channels into the historical combined view."""
-        request = self._request
-        hopping_locality = Periodic1DRankNHoppingLocalityAnalyzer(
-            request=Periodic1DRankNHoppingLocalityAnalysisRequest(
-                analysis_request=request.analysis_request,
-                fourier_analysis=request.fourier_analysis,
-            )
-        ).execute()
-        support_truncation = Periodic1DRankNSupportTruncationAnalyzer(
-            request=Periodic1DRankNSupportTruncationAnalysisRequest(
-                analysis_request=request.analysis_request,
-                fourier_analysis=request.fourier_analysis,
-                interpolation_analysis=request.interpolation_analysis,
-                hopping_locality_analysis=hopping_locality,
-            )
-        ).execute()
-        return Periodic1DRankNLocalityAnalysis(
-            analysis_request=request.analysis_request,
-            supports=support_truncation.supports,
-            maximum_tail_increase=hopping_locality.maximum_tail_increase,
-            all_tail_monotonicity_checks_pass=(
-                hopping_locality.all_tail_monotonicity_checks_pass
-            ),
-        )
-
-
 __all__ = [
-    "Periodic1DRankNLocalityAnalysis",
-    "Periodic1DRankNLocalityAnalysisRequest",
-    "Periodic1DRankNLocalityAnalyzer",
     "Periodic1DRankNSupportTruncationAnalysis",
     "Periodic1DRankNSupportTruncationAnalysisRequest",
     "Periodic1DRankNSupportTruncationAnalyzer",

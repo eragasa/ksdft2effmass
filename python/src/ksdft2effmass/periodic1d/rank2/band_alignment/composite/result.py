@@ -14,6 +14,11 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DCyclicRepresentativeInventory,
+    Periodic1DOrdinaryTranslationInventory,
+    Periodic1DSymmetricTranslationRange,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ..configuration import Periodic1DCompositeBandAlignmentConfiguration
@@ -249,30 +254,26 @@ class Periodic1DCompositeBandAlignmentTransformResult(BaseTypedRecord):
     evaluation_interpolation_hamiltonian_maximum_error: ScalarQuantity
     evaluation_interpolation_spectral_maximum_error: ScalarQuantity
 
-    CHANNELS: ClassVar[tuple[str, ...]] = ("reference", "attacked", "pointwise")
+    CHANNELS: ClassVar[tuple[str, ...]] = (
+        Periodic1DCompositeBandAlignmentConfiguration.HOPPING_LOCALITY_CHANNELS
+    )
 
     def __post_init__(self) -> None:
         if self.channel not in self.CHANNELS:
             raise ValueError("transform channel is unsupported")
-        if (
-            not isinstance(self.representatives, tuple)
-            or not self.representatives
-            or any(type(value) is not int for value in self.representatives)
-            or self.representatives != tuple(sorted(set(self.representatives)))
-        ):
-            raise ValueError("representatives must be a sorted unique integer tuple")
-        if len(self.representatives) % 2 != 0:
-            raise ValueError("the cyclic representative inventory must have even size")
+        cyclic_inventory = Periodic1DCyclicRepresentativeInventory(self.representatives)
         if type(self.cyclic_conversion_representative) is not int:
             raise TypeError("cyclic_conversion_representative must be a built-in int")
-        if self.cyclic_conversion_representative != -len(self.representatives) // 2:
+        if (
+            self.cyclic_conversion_representative
+            != cyclic_inventory.negative_nyquist_representative
+        ):
             raise ValueError("cyclic conversion must remove the negative Nyquist class")
-        expected_ordinary = tuple(
-            representative
-            for representative in self.representatives
-            if representative != self.cyclic_conversion_representative
+        expected_ordinary = cyclic_inventory.ordinary_translation_inventory
+        ordinary_inventory = Periodic1DOrdinaryTranslationInventory(
+            self.ordinary_representatives
         )
-        if self.ordinary_representatives != expected_ordinary:
+        if ordinary_inventory != expected_ordinary:
             raise ValueError(
                 "ordinary_representatives must remove only the cyclic Nyquist class"
             )
@@ -312,6 +313,20 @@ class Periodic1DCompositeBandAlignmentTransformResult(BaseTypedRecord):
                 raise TypeError(f"{name} must be a unitless ScalarQuantity")
             if not isfinite(value.magnitude) or value.magnitude < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
+
+    @property
+    def cyclic_representative_inventory(
+        self,
+    ) -> Periodic1DCyclicRepresentativeInventory:
+        """Return the typed finite cyclic representative inventory."""
+        return Periodic1DCyclicRepresentativeInventory(self.representatives)
+
+    @property
+    def ordinary_translation_inventory(
+        self,
+    ) -> Periodic1DOrdinaryTranslationInventory:
+        """Return the typed ordinary translation inventory after conversion."""
+        return Periodic1DOrdinaryTranslationInventory(self.ordinary_representatives)
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
@@ -535,6 +550,11 @@ class Periodic1DCompositeBandAlignmentRangeResult(BaseTypedRecord):
         ):
             raise ValueError("range channels must match the declared channel order")
 
+    @property
+    def diagnostic_range(self) -> Periodic1DSymmetricTranslationRange:
+        """Return the neutral symmetric range shared by all channel results."""
+        return Periodic1DSymmetricTranslationRange(self.maximum_range)
+
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {"maximum_range": self.maximum_range, "channels": self.channels}
 
@@ -674,8 +694,8 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
             raise ValueError("transforms must match the declared channel order")
         if (
             not isinstance(self.ranges, tuple)
-            or tuple(result.maximum_range for result in self.ranges)
-            != self.configuration.hopping_ranges
+            or tuple(result.diagnostic_range for result in self.ranges)
+            != self.configuration.hopping_diagnostic_range_inventory.ranges
         ):
             raise ValueError("ranges must match the configuration inventory")
 

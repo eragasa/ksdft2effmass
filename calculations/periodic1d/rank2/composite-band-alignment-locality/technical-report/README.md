@@ -19,13 +19,17 @@ to Ragasa2026c rather than the active Ragasa2026a evidence graph. Changing that
 allocation or binding these bytes into a publication manifest remains a separate
 reviewed action.
 
-The report embeds the authenticated review illustrations
-[`rank2-composite-alignment.png`](rank2-composite-alignment.png) and
-[`rank2-composite-locality.png`](rank2-composite-locality.png), and
-[`rank2-composite-error-channels.png`](rank2-composite-error-channels.png).
+The report embeds the verified, digest-bound six-figure inventory:
+
+- [`rank2-composite-alignment.png`](rank2-composite-alignment.png);
+- [`rank2-composite-recovery-controls.png`](rank2-composite-recovery-controls.png);
+- [`rank2-composite-hopping-diagnostics.png`](rank2-composite-hopping-diagnostics.png);
+- [`rank2-composite-locality.png`](rank2-composite-locality.png);
+- [`rank2-composite-error-channels.png`](rank2-composite-error-channels.png); and
+- [`rank2-composite-error-trajectories.png`](rank2-composite-error-trajectories.png).
 [`render_review_figures.py`](render_review_figures.py) reproduces them by calculating the
 frozen request in memory, independently verifying its exact typed result bytes, and
-rendering only the authenticated projection. The script does not create an execution
+rendering only the verified visualization data. The script does not create an execution
 directory or retained result.
 
 ## Regenerate review figures

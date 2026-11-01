@@ -129,7 +129,7 @@ class TestPeriodic1DRank2TruncationFamilyIndependentVerifier:
             forbidden,
         )
         monkeypatch.setattr(
-            truncation_module.Periodic1DRank2TruncationAnalyzer,
+            truncation_module.Periodic1DRank2SupportTruncationAnalyzer,
             "execute",
             forbidden,
         )

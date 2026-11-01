@@ -4,19 +4,26 @@ from __future__ import annotations
 
 from abc import ABC
 
-from ksdft2effmass.real_space_support_truncation import RealSpaceSupportTruncation
-from ksdft2effmass.support_truncation import (
+from ksdft2effmass.periodic1d.base import Periodic1DCapability
+from ksdft2effmass.real_space_support_truncation.base import (
+    RealSpaceSupportTruncation,
+)
+from ksdft2effmass.support_truncation.base import (
     SupportTruncationAnalysis,
     SupportTruncationAnalysisRequest,
     SupportTruncationAnalyzer,
 )
 
 
-class Periodic1DSupportTruncation(RealSpaceSupportTruncation):  # noqa: B024 - intentionally nominal marker
+class Periodic1DSupportTruncation(
+    RealSpaceSupportTruncation,
+    Periodic1DCapability,
+):  # noqa: B024 - intentionally nominal marker
     """Identify irreversible removal of periodic 1D translation support.
 
     Concrete subclasses must state the integer-translation support, conjugate-closure
-    rule, basis and gauge, and normalization used to assess removal consequences. The
+    rule, basis and gauge, and normalization used to assess removal consequences.
+    :attr:`lattice_dimension` fixes only the PhysKit one-dimensional identity. The
     specialization owns no cutoff inventory, transform backend, tolerance, selection
     policy, or wire format.
     """
@@ -45,10 +52,13 @@ class Periodic1DSupportTruncationAnalysis(
 
 
 class Periodic1DSupportTruncationAnalyzer[
-    RequestT: Periodic1DSupportTruncationAnalysisRequest,
-    AnalysisT: Periodic1DSupportTruncationAnalysis,
+    SupportTruncationRequestT: Periodic1DSupportTruncationAnalysisRequest,
+    SupportTruncationAnalysisT: Periodic1DSupportTruncationAnalysis,
 ](
-    SupportTruncationAnalyzer[RequestT, AnalysisT],
+    SupportTruncationAnalyzer[
+        SupportTruncationRequestT,
+        SupportTruncationAnalysisT,
+    ],
     Periodic1DSupportTruncation,
     ABC,
 ):

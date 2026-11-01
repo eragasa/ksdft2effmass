@@ -32,13 +32,11 @@ class TestPeriodic1DRankNAlignmentStatusResult:
             "ksdft2effmass.periodic1d.rankN.gauge_alignment.status"
         )
 
-    def test__gauge_alignment_package__exports_only_scientific_definitions(
-        self,
-    ) -> None:
-        assert gauge_alignment.__all__ == [
-            "NyquistModeDispositionEnum",
-            "Periodic1DRankNGaugeAlignment",
-        ]
+    def test__gauge_alignment_package__is_a_non_eager_namespace(self) -> None:
+        assert not hasattr(gauge_alignment, "__all__")
+        assert not any(
+            name.startswith("Periodic1DRankN") for name in vars(gauge_alignment)
+        )
 
     def test__package__does_not_reexport_internal_analysis_actions(self) -> None:
         internal_names = (

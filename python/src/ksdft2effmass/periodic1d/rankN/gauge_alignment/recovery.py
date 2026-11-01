@@ -9,8 +9,10 @@ from typing import final
 import numpy as np
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldErrorAnalyzer
-from ksdft2effmass.periodic1d.rankN.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics.frame import (
     Periodic1DRankNFrameErrorResult,
+)
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixErrorResult,
 )
 from ksdft2effmass.representation_equivalence import RepresentationEquivalence

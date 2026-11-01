@@ -6,10 +6,16 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import ClassVar, Self
 
+from ksdft2effmass.periodic1d.hopping_locality.inventory import (
+    Periodic1DHoppingDiagnosticRangeInventory,
+)
 from ksdft2effmass.periodic1d.rankN._record_admission import (
     _finite_nonnegative,
     _mapping_value,
     _nonempty,
+)
+from ksdft2effmass.periodic1d.support_truncation.inventory import (
+    Periodic1DSymmetricSupportInventory,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
@@ -59,11 +65,10 @@ class Periodic1DRankNAlignmentCalculationControls(BaseTypedRecord):
 
     def __post_init__(self) -> None:
         """Reject any control that differs from the version-one protocol."""
-        if type(self.support_radii) is not tuple or any(
-            type(value) is not int for value in self.support_radii
-        ):
-            raise TypeError("support_radii must be an exact integer tuple")
-        if self.support_radii != self.SUPPORT_RADII:
+        range_inventory = Periodic1DHoppingDiagnosticRangeInventory.from_maximum_ranges(
+            self.support_radii
+        )
+        if range_inventory.maximum_ranges != self.SUPPORT_RADII:
             raise ValueError("support_radii must match the frozen support inventory")
         for value, expected, name in (
             (
@@ -119,6 +124,22 @@ class Periodic1DRankNAlignmentCalculationControls(BaseTypedRecord):
             _finite_nonnegative(tolerance_value, tolerance_name)
         if actual_tolerances != expected_tolerances:
             raise ValueError("calculation controls must match the frozen protocol")
+
+    @property
+    def hopping_diagnostic_range_inventory(
+        self,
+    ) -> Periodic1DHoppingDiagnosticRangeInventory:
+        """Return the typed unchanged-coefficient diagnostic inventory."""
+        return Periodic1DHoppingDiagnosticRangeInventory.from_maximum_ranges(
+            self.support_radii
+        )
+
+    @property
+    def support_range_inventory(self) -> Periodic1DSymmetricSupportInventory:
+        """Return the distinct candidate retained-support inventory."""
+        return Periodic1DSymmetricSupportInventory.from_maximum_ranges(
+            self.support_radii
+        )
 
     @classmethod
     def frozen(cls) -> Self:

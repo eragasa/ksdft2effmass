@@ -134,6 +134,13 @@ class Periodic1DRankNAlignmentConfiguration(
         Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
         Periodic1DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
     )
+    FRAME_ROTATION_ACTION: ClassVar[FrameRotationAction] = FrameRotationAction.RIGHT
+    ENDPOINT_SEWING_ACTION: ClassVar[EndpointSewingAction] = (
+        EndpointSewingAction.LEFT_AMBIENT
+    )
+    PRINCIPAL_PHASE_BRANCH: ClassVar[
+        ClosedLoopPolarFrameTransportPrincipalPhaseBranch
+    ] = ClosedLoopPolarFrameTransportPrincipalPhaseBranch.negative_pi_open
     RANK_CUTOFF_RULE: ClassVar[ComplexUnitaryProcrustesRankCutoffRule] = (
         ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM
     )
@@ -221,11 +228,11 @@ class Periodic1DRankNAlignmentConfiguration(
             raise ValueError("gauge_alignments must match the frozen scientific order")
         if type(self.frame_rotation_action) is not FrameRotationAction:
             raise TypeError("frame_rotation_action must be FrameRotationAction")
-        if self.frame_rotation_action is not FrameRotationAction.RIGHT:
+        if self.frame_rotation_action is not self.FRAME_ROTATION_ACTION:
             raise ValueError("higher-rank frame rotations must act on the right")
         if type(self.endpoint_sewing_action) is not EndpointSewingAction:
             raise TypeError("endpoint_sewing_action must be EndpointSewingAction")
-        if self.endpoint_sewing_action is not EndpointSewingAction.LEFT_AMBIENT:
+        if self.endpoint_sewing_action is not self.ENDPOINT_SEWING_ACTION:
             raise ValueError("endpoint sewing must act on the left ambient space")
         if type(self.principal_phase_branch) is not (
             ClosedLoopPolarFrameTransportPrincipalPhaseBranch
@@ -233,9 +240,7 @@ class Periodic1DRankNAlignmentConfiguration(
             raise TypeError(
                 "principal_phase_branch must be the PhysKit transport branch enum"
             )
-        if self.principal_phase_branch is not (
-            ClosedLoopPolarFrameTransportPrincipalPhaseBranch.negative_pi_open
-        ):
+        if self.principal_phase_branch is not self.PRINCIPAL_PHASE_BRANCH:
             raise ValueError("higher-rank closure phases must use the (-pi, pi] branch")
         if type(self.rank_cutoff_rule) is not ComplexUnitaryProcrustesRankCutoffRule:
             raise TypeError("rank_cutoff_rule must be the exact Optimization enum")
@@ -284,6 +289,39 @@ class Periodic1DRankNAlignmentConfiguration(
         )
         if actual_tolerances != expected_tolerances:
             raise ValueError("alignment tolerances must match the frozen protocol")
+
+    @classmethod
+    def frozen(cls) -> Self:
+        """Return the complete authoritative frozen rank-N configuration."""
+        return cls(
+            family_identity=cls.FAMILY_IDENTITY,
+            version_identity=cls.VERSION_IDENTITY,
+            retained_ranks=cls.RETAINED_RANKS,
+            circuit_depths=cls.CIRCUIT_DEPTHS,
+            construction_mesh_sizes=cls.CONSTRUCTION_MESH_SIZES,
+            final_construction_mesh_size=cls.FINAL_CONSTRUCTION_MESH_SIZE,
+            global_unitary_selection_mesh_size=(cls.GLOBAL_UNITARY_SELECTION_MESH_SIZE),
+            evaluation_mesh_size=cls.EVALUATION_MESH_SIZE,
+            evaluation_shift_numerator=cls.EVALUATION_SHIFT_NUMERATOR,
+            evaluation_shift_denominator=cls.EVALUATION_SHIFT_DENOMINATOR,
+            gauge_alignments=cls.GAUGE_ALIGNMENTS,
+            frame_rotation_action=cls.FRAME_ROTATION_ACTION,
+            endpoint_sewing_action=cls.ENDPOINT_SEWING_ACTION,
+            principal_phase_branch=cls.PRINCIPAL_PHASE_BRANCH,
+            rank_cutoff_rule=cls.RANK_CUTOFF_RULE,
+            rank_absolute_tolerance=cls.RANK_ABSOLUTE_TOLERANCE,
+            rank_relative_tolerance=cls.RANK_RELATIVE_TOLERANCE,
+            backend_validation_absolute_tolerance=(
+                cls.BACKEND_VALIDATION_ABSOLUTE_TOLERANCE
+            ),
+            backend_validation_relative_tolerance=(
+                cls.BACKEND_VALIDATION_RELATIVE_TOLERANCE
+            ),
+            endpoint_and_primitive_closure_tolerance=(
+                cls.ENDPOINT_AND_PRIMITIVE_CLOSURE_TOLERANCE
+            ),
+            maximum_closure_phase_tolerance=(cls.MAXIMUM_CLOSURE_PHASE_TOLERANCE),
+        )
 
     @property
     def case_order(self) -> tuple[str, ...]:

@@ -10,14 +10,15 @@ recover? It compares retained ranks `3`, `4`, `8`, and `16`; circuit depths `1`,
 `4`, and `8`; and four gauge alignments: identity, one global unitary, pointwise complete
 unitaries, and the known inverse oracle.
 
-Maintained behavior belongs to
-`ksdft2effmass.periodic1d.rankN.band_alignment.composite`. The source package owns immutable
-configuration, request, transport, provenance, calculation-result, refinement, and
-failure records together with the analytic producer. Gauge-alignment construction,
-recovery, Fourier transformation, interpolation, locality analysis, and result assembly
-are decomposed under its `gauge_alignment/` child.
+Composite sequencing belongs to
+`ksdft2effmass.periodic1d.rankN.band_alignment.composite`. Immutable configuration,
+request, transport, provenance, calculation-result, refinement, and failure records live
+under `rankN.band_alignment`; reusable gauge stages live under `rankN.gauge_alignment`;
+hopping locality and support truncation retain their own rank-first capability owners.
+Package initializers are inert, so calculation adapters import from defining modules.
 
-- [`run_01_calculation.py`](run_01_calculation.py) constructs every case through the
+- [`run_01_calculation.py`](run_01_calculation.py) obtains the complete protocol from
+  `Periodic1DRankNAlignmentConfiguration.frozen()` and constructs every case through the
   exact rank-$N$ `Periodic1DAlignmentStudyFactory` specification, with the maintained
   KSD, PhysKit, and Optimization collaborators and the explicit reduced-convention
   lattice geometry, writes a
@@ -28,8 +29,9 @@ are decomposed under its `gauge_alignment/` child.
 - [`run_02_verification.py`](run_02_verification.py) performs canonical-byte, SHA-256,
   exact-round-trip, and complete-inventory verification. It explicitly records
   `independent_scientific_verification: false`.
-- [`run_03_render.py`](run_03_render.py) regenerates the fixed nine-figure
-  technical-report snapshot repeatedly from the integrity-admitted cache without
+- [`run_03_render.py`](run_03_render.py) uses the calculation-local typed figure-data
+  constructor and renderer directly, regenerating the fixed nine-figure technical-report
+  snapshot repeatedly from the integrity-admitted cache without
   recalculating the scientific grid. Plot and report changes therefore do not require
   the approximately 30-minute calculation stage.
 - [`verify_analytic_controls.py`](verify_analytic_controls.py) checks two formulas on a

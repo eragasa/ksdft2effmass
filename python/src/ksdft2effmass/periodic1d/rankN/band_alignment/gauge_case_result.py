@@ -37,8 +37,10 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
 from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
 )
-from ksdft2effmass.periodic1d.rankN.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics.frame import (
     Periodic1DRankNFrameErrorResult,
+)
+from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixComparisonResult,
     Periodic1DRankNMatrixErrorResult,
 )

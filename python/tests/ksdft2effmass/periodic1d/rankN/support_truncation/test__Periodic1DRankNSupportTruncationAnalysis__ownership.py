@@ -2,14 +2,16 @@
 
 import pytest
 
-from ksdft2effmass.periodic1d.rankN.support_truncation import (
-    Periodic1DRankNLocalityAnalysis,
-    Periodic1DRankNLocalityAnalysisRequest,
-    Periodic1DRankNLocalityAnalyzer,
-    Periodic1DRankNSupportResult,
+from ksdft2effmass.periodic1d.rankN import (
+    support_truncation as support_truncation_namespace,
+)
+from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysis,
     Periodic1DRankNSupportTruncationAnalysisRequest,
     Periodic1DRankNSupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.support_truncation.result import (
+    Periodic1DRankNSupportResult,
 )
 from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncation,
@@ -23,15 +25,6 @@ class TestPeriodic1DRankNSupportTruncationAnalysis:
     """Establish canonical support-truncation ownership."""
 
     def test_canonical_types_have_support_truncation_module_identity(self) -> None:
-        assert Periodic1DRankNLocalityAnalysis.__module__ == (
-            "ksdft2effmass.periodic1d.rankN.support_truncation.analysis"
-        )
-        assert Periodic1DRankNLocalityAnalysisRequest.__module__ == (
-            "ksdft2effmass.periodic1d.rankN.support_truncation.analysis"
-        )
-        assert Periodic1DRankNLocalityAnalyzer.__module__ == (
-            "ksdft2effmass.periodic1d.rankN.support_truncation.analysis"
-        )
         assert Periodic1DRankNSupportResult.__module__ == (
             "ksdft2effmass.periodic1d.rankN.support_truncation.result"
         )
@@ -46,10 +39,6 @@ class TestPeriodic1DRankNSupportTruncationAnalysis:
 
     def test_values_keep_the_installed_scientific_base(self) -> None:
         assert issubclass(
-            Periodic1DRankNLocalityAnalysis,
-            RealSpaceSupportTruncation,
-        )
-        assert issubclass(
             Periodic1DRankNSupportResult,
             RealSpaceSupportTruncation,
         )
@@ -57,3 +46,15 @@ class TestPeriodic1DRankNSupportTruncationAnalysis:
             Periodic1DRankNSupportTruncationAnalysis,
             Periodic1DSupportTruncation,
         )
+
+    def test_namespace_is_inert_and_historical_combined_view_is_absent(self) -> None:
+        assert not hasattr(support_truncation_namespace, "__all__")
+        assert not any(
+            name.startswith("Periodic1D") for name in vars(support_truncation_namespace)
+        )
+        for name in (
+            "Periodic1DRankNLocalityAnalysis",
+            "Periodic1DRankNLocalityAnalysisRequest",
+            "Periodic1DRankNLocalityAnalyzer",
+        ):
+            assert not hasattr(support_truncation_namespace, name)
