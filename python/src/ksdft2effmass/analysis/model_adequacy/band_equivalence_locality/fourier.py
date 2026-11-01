@@ -69,7 +69,7 @@ def error_channels(
     summary = MatrixFieldErrorAnalyzer(
         approximation=approximation,
         reference=direct,
-        energy_reference=1.0,
+        norm_energy_scale=1.0,
     ).result()
     return BandEquivalenceLocalityErrorChannels(
         maximum_hamiltonian=summary.normalized_matrix_frobenius_maximum,
