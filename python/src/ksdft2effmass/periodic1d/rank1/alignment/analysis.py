@@ -58,8 +58,9 @@ class Periodic1DRank1AlignmentApplicabilityAnalyzer(Periodic1DGaugeAlignment):
         return Periodic1DRank1AlignmentApplicabilityResult(
             configuration=self._request,
             lattice_geometry=self._lattice_geometry,
-            retained_rank=Periodic1DRank1AlignmentApplicabilityResult.RETAINED_RANK,
-            gauge_group=Periodic1DRank1AlignmentApplicabilityResult.GAUGE_GROUP,
+            gauge_group_identity=(
+                Periodic1DRank1AlignmentApplicabilityResult.GAUGE_GROUP_IDENTITY
+            ),
             applicability=(
                 Periodic1DRank1AlignmentApplicability.OPERATOR_TRIVIAL
             ),

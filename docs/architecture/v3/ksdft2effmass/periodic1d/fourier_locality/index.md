@@ -73,7 +73,8 @@ Each source boundary has its own architecture quartet:
 `periodic1d.rank1` retains the established calculation as its canonical numerical
 owner and exposes separate scientific capabilities:
 
-- `rank1.alignment` records the operator-trivial $U(1)$ applicability boundary;
+- `rank1.alignment` records the operator-trivial applicability boundary with the shared
+  typed unitary-group identity in represented dimension one, labelled $U(1)$;
 - `rank1.hopping_locality` diagnoses unchanged complete Fourier coefficients; and
 - `rank1.support_truncation` exposes only the transform-mediated consequences of
   deliberate support removal.

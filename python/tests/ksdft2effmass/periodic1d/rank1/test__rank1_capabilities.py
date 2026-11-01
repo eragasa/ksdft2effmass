@@ -6,7 +6,10 @@ import pytest
 from projectkoios.physkit.periodic.lattice import DirectLattice1D
 from projectkoios.physkit.units import PhysicalUnit
 
-from ksdft2effmass.gauge_alignment import GaugeAlignment
+from ksdft2effmass.gauge_alignment import (
+    GaugeAlignment,
+    GaugeAlignmentGroupFamily,
+)
 from ksdft2effmass.hopping_locality import HoppingLocality
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityAnalyzer,
@@ -95,6 +98,10 @@ class TestPeriodic1DRank1Capabilities:
         assert isinstance(result, GaugeAlignment)
         assert result.direct_lattice.lattice_constant == 2.0
         assert result.lattice_geometry.lattice_unit == PhysicalUnit("angstrom")
+        assert result.retained_rank == 1
+        assert result.gauge_group == "U(1)"
+        assert result.gauge_group_identity.family is GaugeAlignmentGroupFamily.UNITARY
+        assert result.gauge_group_identity.represented_dimension == 1
         assert result.applicability is (
             Periodic1DRank1AlignmentApplicability.OPERATOR_TRIVIAL
         )
@@ -133,6 +140,22 @@ class TestPeriodic1DRank1Capabilities:
         decoded["retained_rank"] = 2
 
         with pytest.raises(ValueError, match="must equal one"):
+            Periodic1DRank1AlignmentApplicabilityResult.from_json(
+                json.dumps(decoded).encode("utf-8")
+            )
+
+    def test__alignment__rejects_tampered_gauge_group_wire(self) -> None:
+        result = Periodic1DRank1AlignmentApplicabilityAnalyzer(
+            request=self.configuration(),
+            lattice_geometry=Periodic1DLatticeGeometry(
+                1.0,
+                PhysicalUnit("bohr"),
+            ),
+        ).execute()
+        decoded = json.loads(result.to_json())
+        decoded["gauge_group"] = "U(2)"
+
+        with pytest.raises(ValueError, match="must use U\\(1\\)"):
             Periodic1DRank1AlignmentApplicabilityResult.from_json(
                 json.dumps(decoded).encode("utf-8")
             )

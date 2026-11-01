@@ -9,6 +9,7 @@ from typing import ClassVar, Self
 from projectkoios.physkit.periodic.lattice import DirectLattice1D
 from projectkoios.physkit.units import PhysicalUnit
 
+from ksdft2effmass.gauge_alignment import GaugeAlignmentGroupIdentity
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
@@ -28,13 +29,13 @@ class Periodic1DRank1AlignmentApplicabilityResult(
 
     configuration: Periodic1DFourierLocalityConfiguration
     lattice_geometry: Periodic1DLatticeGeometry
-    retained_rank: int
-    gauge_group: str
+    gauge_group_identity: GaugeAlignmentGroupIdentity
     applicability: Periodic1DRank1AlignmentApplicability
     inapplicable_alignment_controls: tuple[str, ...]
 
-    RETAINED_RANK: ClassVar[int] = 1
-    GAUGE_GROUP: ClassVar[str] = "U(1)"
+    GAUGE_GROUP_IDENTITY: ClassVar[GaugeAlignmentGroupIdentity] = (
+        GaugeAlignmentGroupIdentity.unitary(represented_dimension=1)
+    )
     INAPPLICABLE_ALIGNMENT_CONTROLS: ClassVar[tuple[str, ...]] = (
         "global-unitary",
         "pointwise-unitary",
@@ -50,14 +51,12 @@ class Periodic1DRank1AlignmentApplicabilityResult(
             )
         if type(self.lattice_geometry) is not Periodic1DLatticeGeometry:
             raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
-        if type(self.retained_rank) is not int:
-            raise TypeError("retained_rank must be a built-in integer")
-        if self.retained_rank != self.RETAINED_RANK:
-            raise ValueError("retained_rank must equal one")
-        if type(self.gauge_group) is not str:
-            raise TypeError("gauge_group must be a built-in string")
-        if self.gauge_group != self.GAUGE_GROUP:
-            raise ValueError("rank-one alignment must use U(1)")
+        if type(self.gauge_group_identity) is not GaugeAlignmentGroupIdentity:
+            raise TypeError(
+                "gauge_group_identity must be GaugeAlignmentGroupIdentity"
+            )
+        if self.gauge_group_identity != self.GAUGE_GROUP_IDENTITY:
+            raise ValueError("rank-one alignment must use the unitary group U(1)")
         if type(self.applicability) is not Periodic1DRank1AlignmentApplicability:
             raise TypeError("applicability must be the exact rank-one enum")
         if (
@@ -78,6 +77,16 @@ class Periodic1DRank1AlignmentApplicabilityResult(
             raise ValueError(
                 "inapplicable alignment controls must match the scalar boundary"
             )
+
+    @property
+    def retained_rank(self) -> int:
+        """Return the represented scalar retained-space dimension."""
+        return self.gauge_group_identity.represented_dimension
+
+    @property
+    def gauge_group(self) -> str:
+        """Return the conventional rank-one unitary-group label."""
+        return self.gauge_group_identity.mathematical_label
 
     @property
     def direct_lattice(self) -> DirectLattice1D:
@@ -130,6 +139,10 @@ class Periodic1DRank1AlignmentApplicabilityResult(
             type(value) is not str for value in controls
         ):
             raise TypeError("alignment controls must decode to a tuple of strings")
+        if retained_rank != 1:
+            raise ValueError("retained_rank must equal one")
+        if gauge_group != "U(1)":
+            raise ValueError("rank-one alignment must use U(1)")
         return cls(
             configuration=Periodic1DFourierLocalityConfiguration.from_dict(
                 configuration
@@ -138,8 +151,7 @@ class Periodic1DRank1AlignmentApplicabilityResult(
                 lattice_period,
                 lattice_unit,
             ),
-            retained_rank=retained_rank,
-            gauge_group=gauge_group,
+            gauge_group_identity=cls.GAUGE_GROUP_IDENTITY,
             applicability=Periodic1DRank1AlignmentApplicability.from_wire(applicability),
             inapplicable_alignment_controls=tuple(controls),
         )

@@ -63,8 +63,9 @@ default lattice, solver, tolerance, or wire.
 The rank-first Periodic1D alignment factory dispatches only on exact typed study
 specifications. Every specification binds explicit `Periodic1DLatticeGeometry`:
 
-- rank one returns an operator-trivial $U(1)$ applicability action and emits no
-  duplicate numerical alignment channels;
+- rank one returns an operator-trivial applicability action using the same typed
+  unitary-group identity at represented dimension one and emits no duplicate numerical
+  alignment channels;
 - rank two delegates to the bounded composite-band $U(2)$ implementation; and
 - rank $N$ delegates to the D1-v1 four-alignment implementation with all numerical
   collaborators supplied explicitly.

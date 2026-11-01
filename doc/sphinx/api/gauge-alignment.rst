@@ -46,3 +46,19 @@ Periodic one-dimensional roles
    :members:
 .. autoclass:: Periodic1DGaugeAlignmentAnalyzer
    :members:
+
+Rank-one applicability
+----------------------
+
+Rank one retains the same typed unitary-group identity at represented dimension one,
+but scalar operator conjugation is trivial.  The capability therefore reports an
+applicability boundary rather than manufacturing numerical alignment channels.
+
+.. currentmodule:: ksdft2effmass.periodic1d.rank1.alignment
+
+.. autoclass:: Periodic1DRank1AlignmentApplicability
+   :members:
+.. autoclass:: Periodic1DRank1AlignmentApplicabilityAnalyzer
+   :members:
+.. autoclass:: Periodic1DRank1AlignmentApplicabilityResult
+   :members:
