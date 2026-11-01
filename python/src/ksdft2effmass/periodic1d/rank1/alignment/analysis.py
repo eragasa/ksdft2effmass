@@ -30,9 +30,7 @@ class Periodic1DRank1AlignmentApplicabilityAnalyzer(Periodic1DGaugeAlignment):
     ) -> None:
         """Bind the scalar configuration and explicit lattice geometry."""
         if type(request) is not Periodic1DFourierLocalityConfiguration:
-            raise TypeError(
-                "request must be Periodic1DFourierLocalityConfiguration"
-            )
+            raise TypeError("request must be Periodic1DFourierLocalityConfiguration")
         if type(lattice_geometry) is not Periodic1DLatticeGeometry:
             raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
         self._request = request
@@ -61,9 +59,7 @@ class Periodic1DRank1AlignmentApplicabilityAnalyzer(Periodic1DGaugeAlignment):
             gauge_group_identity=(
                 Periodic1DRank1AlignmentApplicabilityResult.GAUGE_GROUP_IDENTITY
             ),
-            applicability=(
-                Periodic1DRank1AlignmentApplicability.OPERATOR_TRIVIAL
-            ),
+            applicability=(Periodic1DRank1AlignmentApplicability.OPERATOR_TRIVIAL),
             inapplicable_alignment_controls=(
                 Periodic1DRank1AlignmentApplicabilityResult.INAPPLICABLE_ALIGNMENT_CONTROLS
             ),

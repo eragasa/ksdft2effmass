@@ -54,8 +54,7 @@ class Periodic1DRank2CompleteFiveScaleFigureData:
             type(self.source_sha256) is not str
             or len(self.source_sha256) != 64
             or any(
-                character not in "0123456789abcdef"
-                for character in self.source_sha256
+                character not in "0123456789abcdef" for character in self.source_sha256
             )
         ):
             raise ValueError("source_sha256 must be a lowercase SHA-256 digest")
@@ -139,8 +138,7 @@ class _ScientificStoryFigure(BaseFigure):
                     label=label,
                 )
                 thresholds = tuple(
-                    point.minimum_operator_threshold
-                    / math.sqrt(point.splitting_scale)
+                    point.minimum_operator_threshold / math.sqrt(point.splitting_scale)
                     for point in member.points
                 )
                 excess = tuple(
@@ -388,13 +386,9 @@ class _RangeInflationFigure(BaseFigure):
         scales = family.request.parent_family_request.parent_hopping_scales
         amplitudes = family.request.parent_family_request.template_request.amplitudes
         grids = tuple(self._grid(target) for target in _RANGE_TARGETS)
-        finite_values = np.concatenate(
-            tuple(grid[np.isfinite(grid)] for grid in grids)
-        )
+        finite_values = np.concatenate(tuple(grid[np.isfinite(grid)] for grid in grids))
         maximum = (
-            int(max(0.0, float(np.max(finite_values))))
-            if finite_values.size
-            else 0
+            int(max(0.0, float(np.max(finite_values)))) if finite_values.size else 0
         )
         boundaries = np.arange(-0.5, maximum + 1.5, 1.0)
         normalization = BoundaryNorm(boundaries, ncolors=256)
@@ -469,9 +463,7 @@ class _ErrorChannelDecompositionFigure(BaseFigure):
         family = self.data.record.principal_truncation_family
         scales = family.request.parent_family_request.parent_hopping_scales
         colors = plt.get_cmap("viridis")(np.linspace(0.05, 0.95, len(scales)))
-        figure, axes = plt.subplots(
-            2, 2, figsize=(11.2, 8.0), constrained_layout=True
-        )
+        figure, axes = plt.subplots(2, 2, figsize=(11.2, 8.0), constrained_layout=True)
         reference_powers: list[float] = []
         for color, scale, member in zip(colors, scales, family.members, strict=True):
             if type(member) is not Periodic1DRank2TruncationCompleted:

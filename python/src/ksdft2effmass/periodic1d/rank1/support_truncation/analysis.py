@@ -42,18 +42,14 @@ class Periodic1DRank1SupportTruncationAnalysisRequest(
             raise TypeError(
                 "source_mesh must be the exact Fourier-locality mesh result"
             )
-        if not any(
-            mesh is self.source_mesh for mesh in self.source_calculation.meshes
-        ):
+        if not any(mesh is self.source_mesh for mesh in self.source_calculation.meshes):
             raise ValueError(
                 "source_mesh must belong to source_calculation by identity"
             )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank1SupportTruncationAnalysis(
-    Periodic1DSupportTruncationAnalysis
-):
+class Periodic1DRank1SupportTruncationAnalysis(Periodic1DSupportTruncationAnalysis):
     """Retain transform-mediated support-removal capability values."""
 
     lattice_geometry: Periodic1DLatticeGeometry

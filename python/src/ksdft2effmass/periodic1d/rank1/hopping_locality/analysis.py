@@ -42,18 +42,14 @@ class Periodic1DRank1HoppingLocalityAnalysisRequest(
             raise TypeError(
                 "source_mesh must be the exact Fourier-locality mesh result"
             )
-        if not any(
-            mesh is self.source_mesh for mesh in self.source_calculation.meshes
-        ):
+        if not any(mesh is self.source_mesh for mesh in self.source_calculation.meshes):
             raise ValueError(
                 "source_mesh must belong to source_calculation by identity"
             )
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank1HoppingLocalityAnalysis(
-    Periodic1DHoppingLocalityAnalysis
-):
+class Periodic1DRank1HoppingLocalityAnalysis(Periodic1DHoppingLocalityAnalysis):
     """Retain scalar coefficient-tail capability values without support removal."""
 
     lattice_geometry: Periodic1DLatticeGeometry

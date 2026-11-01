@@ -52,9 +52,7 @@ class Periodic1DRank1AlignmentApplicabilityResult(
         if type(self.lattice_geometry) is not Periodic1DLatticeGeometry:
             raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
         if type(self.gauge_group_identity) is not GaugeAlignmentGroupIdentity:
-            raise TypeError(
-                "gauge_group_identity must be GaugeAlignmentGroupIdentity"
-            )
+            raise TypeError("gauge_group_identity must be GaugeAlignmentGroupIdentity")
         if self.gauge_group_identity != self.GAUGE_GROUP_IDENTITY:
             raise ValueError("rank-one alignment must use the unitary group U(1)")
         if type(self.applicability) is not Periodic1DRank1AlignmentApplicability:
@@ -70,10 +68,7 @@ class Periodic1DRank1AlignmentApplicabilityResult(
             raise TypeError(
                 "inapplicable_alignment_controls must be a tuple of built-in strings"
             )
-        if (
-            self.inapplicable_alignment_controls
-            != self.INAPPLICABLE_ALIGNMENT_CONTROLS
-        ):
+        if self.inapplicable_alignment_controls != self.INAPPLICABLE_ALIGNMENT_CONTROLS:
             raise ValueError(
                 "inapplicable alignment controls must match the scalar boundary"
             )
@@ -152,7 +147,9 @@ class Periodic1DRank1AlignmentApplicabilityResult(
                 lattice_unit,
             ),
             gauge_group_identity=cls.GAUGE_GROUP_IDENTITY,
-            applicability=Periodic1DRank1AlignmentApplicability.from_wire(applicability),
+            applicability=Periodic1DRank1AlignmentApplicability.from_wire(
+                applicability
+            ),
             inapplicable_alignment_controls=tuple(controls),
         )
 

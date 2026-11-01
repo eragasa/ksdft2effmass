@@ -39,9 +39,7 @@ class Periodic1DRank1HoppingTailResult(Periodic1DHoppingLocality):
             raise TypeError(
                 "source_mesh must be the exact Fourier-locality mesh result"
             )
-        if not any(
-            mesh is self.source_mesh for mesh in self.source_calculation.meshes
-        ):
+        if not any(mesh is self.source_mesh for mesh in self.source_calculation.meshes):
             raise ValueError(
                 "source_mesh must belong to source_calculation by identity"
             )

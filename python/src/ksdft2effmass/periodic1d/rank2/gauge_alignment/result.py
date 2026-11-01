@@ -21,9 +21,7 @@ from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2GaugeAlignmentAnalysis(
-    Periodic1DGaugeAlignmentAnalysis
-):
+class Periodic1DRank2GaugeAlignmentAnalysis(Periodic1DGaugeAlignmentAnalysis):
     """Retain selected right actions and their aligned frame paths."""
 
     pointwise_aligned: ReciprocalBandFramePath1D
@@ -102,9 +100,7 @@ class Periodic1DRank2GaugeAlignmentAnalysis(
             ),
             alignment_sample_count=self.pointwise_aligned.mesh.point_count,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
-            inner_product_convention=(
-                GaugeAlignmentInnerProductConvention.EUCLIDEAN
-            ),
+            inner_product_convention=(GaugeAlignmentInnerProductConvention.EUCLIDEAN),
         )
 
 

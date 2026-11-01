@@ -163,9 +163,7 @@ class TestPeriodic1DRank1Capabilities:
     def test__locality_and_truncation__inherit_distinct_bases_without_rewriting_source(
         self,
     ) -> None:
-        calculation = Periodic1DFourierLocalityAnalyzer(
-            self.configuration()
-        ).execute()
+        calculation = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
         source_bytes = calculation.to_json()
         source_mesh = calculation.meshes[-1]
         geometry = Periodic1DLatticeGeometry.from_direct_lattice(
@@ -193,9 +191,7 @@ class TestPeriodic1DRank1Capabilities:
         assert isinstance(truncation, Periodic1DSupportTruncation)
         assert isinstance(truncation, SupportTruncation)
         assert locality.tails[-1].direct_lattice.lattice_constant == 3.0
-        assert locality.tails[-1].lattice_geometry.lattice_unit == PhysicalUnit(
-            "bohr"
-        )
+        assert locality.tails[-1].lattice_geometry.lattice_unit == PhysicalUnit("bohr")
         assert truncation.supports[-1].direct_lattice.lattice_constant == 3.0
         assert tuple(item.source_range for item in locality.tails) == source_mesh.ranges
         assert (
@@ -217,9 +213,7 @@ class TestPeriodic1DRank1Capabilities:
         assert calculation.to_json() == source_bytes
 
     def test__capability_values__reject_foreign_source_identities(self) -> None:
-        calculation = Periodic1DFourierLocalityAnalyzer(
-            self.configuration()
-        ).execute()
+        calculation = Periodic1DFourierLocalityAnalyzer(self.configuration()).execute()
         foreign_calculation = Periodic1DFourierLocalityAnalyzer(
             self.configuration()
         ).execute()

@@ -90,24 +90,19 @@ class GaugeAlignmentAnalysisIdentity:
 
     def __post_init__(self) -> None:
         if type(self.gauge_group_identity) is not GaugeAlignmentGroupIdentity:
-            raise TypeError(
-                "gauge_group_identity must be GaugeAlignmentGroupIdentity"
-            )
+            raise TypeError("gauge_group_identity must be GaugeAlignmentGroupIdentity")
         if type(self.alignment_sample_count) is not int:
             raise TypeError("alignment_sample_count must be a built-in integer")
         if self.alignment_sample_count <= 0:
             raise ValueError("alignment_sample_count must be positive")
         if type(self.action_convention) is not GaugeAlignmentActionConvention:
-            raise TypeError(
-                "action_convention must be GaugeAlignmentActionConvention"
-            )
+            raise TypeError("action_convention must be GaugeAlignmentActionConvention")
         if (
             type(self.inner_product_convention)
             is not GaugeAlignmentInnerProductConvention
         ):
             raise TypeError(
-                "inner_product_convention must be "
-                "GaugeAlignmentInnerProductConvention"
+                "inner_product_convention must be GaugeAlignmentInnerProductConvention"
             )
 
     @property
