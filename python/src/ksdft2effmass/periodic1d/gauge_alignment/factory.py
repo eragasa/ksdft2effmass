@@ -112,6 +112,8 @@ Periodic1DAlignmentStudySpecification = (
     | Periodic1DRank2AlignmentStudySpecification
     | Periodic1DRankNAlignmentStudySpecification
 )
+
+
 @final
 class Periodic1DRank2AlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
     """Bind explicit lattice geometry to the maintained rank-two action."""
@@ -133,14 +135,19 @@ class Periodic1DRank2AlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
         )
 
     @property
+    def specification(self) -> Periodic1DRank2AlignmentStudySpecification:
+        """Return the complete exact rank-two study specification."""
+        return self._specification
+
+    @property
     def lattice_geometry(self) -> Periodic1DLatticeGeometry:
         """Return the explicit caller-selected lattice geometry."""
-        return self._specification.lattice_geometry
+        return self.specification.lattice_geometry
 
     @property
     def direct_lattice(self) -> DirectLattice1D:
         """Return the caller-selected PhysKit direct lattice."""
-        return self._specification.lattice_geometry.direct_lattice
+        return self.specification.lattice_geometry.direct_lattice
 
     @property
     def delegate(self) -> Periodic1DCompositeBandAlignmentAnalyzer:
@@ -175,14 +182,19 @@ class Periodic1DRankNAlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
         )
 
     @property
+    def specification(self) -> Periodic1DRankNAlignmentStudySpecification:
+        """Return the complete exact higher-rank study specification."""
+        return self._specification
+
+    @property
     def lattice_geometry(self) -> Periodic1DLatticeGeometry:
         """Return the explicit caller-selected lattice geometry."""
-        return self._specification.lattice_geometry
+        return self.specification.lattice_geometry
 
     @property
     def direct_lattice(self) -> DirectLattice1D:
         """Return the caller-selected PhysKit direct lattice."""
-        return self._specification.lattice_geometry.direct_lattice
+        return self.specification.lattice_geometry.direct_lattice
 
     @property
     def delegate(self) -> Periodic1DRankNAlignmentAnalyzer:

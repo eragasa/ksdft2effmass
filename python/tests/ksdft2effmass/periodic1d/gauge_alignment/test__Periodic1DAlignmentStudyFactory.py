@@ -180,22 +180,20 @@ class TestPeriodic1DAlignmentStudyFactory:
                 configuration=self.rank1_configuration(),
             )
         )
-        rank2 = Periodic1DAlignmentStudyFactory.create(
-            Periodic1DRank2AlignmentStudySpecification(
-                lattice_geometry=rank2_geometry,
-                configuration=self.rank2_configuration(),
-                procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
-            )
+        rank2_specification = Periodic1DRank2AlignmentStudySpecification(
+            lattice_geometry=rank2_geometry,
+            configuration=self.rank2_configuration(),
+            procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
         )
-        rankn = Periodic1DAlignmentStudyFactory.create(
-            Periodic1DRankNAlignmentStudySpecification(
-                lattice_geometry=rankn_geometry,
-                request=self.rankn_request(),
-                procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
-                transporter=ClosedLoopPolarFrameTransporter(),
-                scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
-            )
+        rank2 = Periodic1DAlignmentStudyFactory.create(rank2_specification)
+        rankn_specification = Periodic1DRankNAlignmentStudySpecification(
+            lattice_geometry=rankn_geometry,
+            request=self.rankn_request(),
+            procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+            transporter=ClosedLoopPolarFrameTransporter(),
+            scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
         )
+        rankn = Periodic1DAlignmentStudyFactory.create(rankn_specification)
 
         assert type(rank1) is Periodic1DRank1AlignmentApplicabilityAnalyzer
         assert type(rank2) is Periodic1DRank2AlignmentStudyAnalyzer
@@ -206,8 +204,10 @@ class TestPeriodic1DAlignmentStudyFactory:
         )
         assert rank1.direct_lattice.lattice_constant == 2.0
         assert rank1.lattice_geometry.lattice_unit == PhysicalUnit("angstrom")
+        assert rank2.specification is rank2_specification
         assert rank2.direct_lattice.lattice_constant == 3.0
         assert rank2.lattice_geometry.lattice_unit == PhysicalUnit("bohr")
+        assert rankn.specification is rankn_specification
         assert rankn.direct_lattice.lattice_constant == 4.0
         assert rankn.lattice_geometry.lattice_unit == PhysicalUnit("nanometer")
 

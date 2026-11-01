@@ -48,6 +48,24 @@ Periodic one-dimensional roles
 .. autoclass:: Periodic1DGaugeAlignmentAnalyzer
    :members:
 
+Rank-first Periodic1D study dispatch
+------------------------------------
+
+.. currentmodule:: ksdft2effmass.periodic1d.gauge_alignment.factory
+
+.. autoclass:: Periodic1DRank1AlignmentStudySpecification
+   :members:
+.. autoclass:: Periodic1DRank2AlignmentStudySpecification
+   :members:
+.. autoclass:: Periodic1DRankNAlignmentStudySpecification
+   :members:
+.. autoclass:: Periodic1DAlignmentStudyFactory
+   :members:
+.. autoclass:: Periodic1DRank2AlignmentStudyAnalyzer
+   :members:
+.. autoclass:: Periodic1DRankNAlignmentStudyAnalyzer
+   :members:
+
 Rank-one applicability
 ----------------------
 
