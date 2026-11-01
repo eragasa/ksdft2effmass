@@ -7,7 +7,11 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
+from projectkoios.physkit.units import PhysicalUnit
+
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+    Periodic1DCompositeBandAlignmentCalculationResult,
     Periodic1DCompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerifier,
     Periodic1DCompositeBandAlignmentVisualizationData,
@@ -42,8 +46,25 @@ if document.get("calculation_family") != CALCULATION_FAMILY:
     raise ValueError("verification calculation family does not match")
 if document.get("parent_identity") != PARENT_IDENTITY:
     raise ValueError("verification parent identity does not match")
+lattice_geometry_mapping = document.get("lattice_geometry")
+if not isinstance(lattice_geometry_mapping, Mapping):
+    raise TypeError("verification lattice geometry must decode to a mapping")
+lattice_period = lattice_geometry_mapping.get("lattice_period")
+lattice_unit = lattice_geometry_mapping.get("lattice_unit")
+if type(lattice_period) is not float:
+    raise TypeError("verification lattice period must decode to a built-in float")
+if type(lattice_unit) is not PhysicalUnit:
+    raise TypeError("verification lattice unit must decode to PhysicalUnit")
+lattice_geometry = Periodic1DLatticeGeometry(lattice_period, lattice_unit)
 if document.get("result_sha256") != hashlib.sha256(result_bytes).hexdigest():
     raise ValueError("verification authenticates different result bytes")
+result = Periodic1DCompositeBandAlignmentCalculationResult.from_json(result_bytes)
+if result.to_json() != result_bytes:
+    raise ValueError("result document is not canonical typed JSON")
+if lattice_geometry != result.configuration.reduced_lattice_geometry:
+    raise ValueError(
+        "verification lattice geometry does not match the result convention"
+    )
 verification_mapping = document.get("verification")
 visualization_mapping = document.get("visualization_data")
 if not isinstance(verification_mapping, Mapping):
@@ -80,6 +101,10 @@ for visualization in visualizations:
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": document["parent_identity"],
             "execution_id": EXECUTION_ID,
+            "lattice_geometry": {
+                "lattice_period": lattice_geometry.lattice_period,
+                "lattice_unit": lattice_geometry.lattice_unit,
+            },
             "outcome": "completed",
             "verification_sha256": hashlib.sha256(verification_bytes).hexdigest(),
             "figures": {

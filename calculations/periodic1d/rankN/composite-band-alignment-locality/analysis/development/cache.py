@@ -13,18 +13,25 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Self, final
 
+from projectkoios.physkit.units import PhysicalUnit
+
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentCalculationResult,
     Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-_CACHE_FORMAT = "ksdft2effmass.higher-rank-development-result-cache.v1"
+_CACHE_FORMAT = "ksdft2effmass.higher-rank-development-result-cache.v2"
 _CACHE_ROLE = "replaceable-development-result-cache"
 _ADMISSION_ROLE = "replaceable-development-cache-integrity-admission"
 _ADMISSION_METHOD = "canonical-typed-byte-integrity-and-inventory.v1"
 _MANIFEST_FILE_NAME = "manifest.json"
 _ADMISSION_FILE_NAME = "admission.json"
+_REDUCED_LATTICE_GEOMETRY = Periodic1DLatticeGeometry(
+    lattice_period=1.0,
+    lattice_unit=PhysicalUnit("bohr"),
+)
 
 
 def _sha256(wire: bytes) -> str:
@@ -153,6 +160,7 @@ class HigherRankDevelopmentCacheManifest(BaseTypedRecord):
     cache_format: str
     family_identity: str
     version_identity: str
+    lattice_geometry: Periodic1DLatticeGeometry
     calculation_infrastructure_sha256: str
     entries: tuple[HigherRankDevelopmentCacheEntry, ...]
 
@@ -168,6 +176,10 @@ class HigherRankDevelopmentCacheManifest(BaseTypedRecord):
             raise ValueError("family_identity does not match the frozen family")
         if self.version_identity != configuration.VERSION_IDENTITY:
             raise ValueError("version_identity does not match the frozen version")
+        if type(self.lattice_geometry) is not Periodic1DLatticeGeometry:
+            raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
+        if self.lattice_geometry != _REDUCED_LATTICE_GEOMETRY:
+            raise ValueError("lattice_geometry must match the reduced convention")
         _validate_digest(
             self.calculation_infrastructure_sha256,
             "calculation_infrastructure_sha256",
@@ -194,6 +206,10 @@ class HigherRankDevelopmentCacheManifest(BaseTypedRecord):
             "cache_format": self.cache_format,
             "family_identity": self.family_identity,
             "version_identity": self.version_identity,
+            "lattice_geometry": {
+                "lattice_period": self.lattice_geometry.lattice_period,
+                "lattice_unit": self.lattice_geometry.lattice_unit,
+            },
             "calculation_infrastructure_sha256": (
                 self.calculation_infrastructure_sha256
             ),
@@ -211,11 +227,25 @@ class HigherRankDevelopmentCacheManifest(BaseTypedRecord):
                     "cache_format",
                     "family_identity",
                     "version_identity",
+                    "lattice_geometry",
                     "calculation_infrastructure_sha256",
                     "entries",
                 }
             ),
         )
+        lattice_geometry_value = _mapping(
+            values["lattice_geometry"], "lattice_geometry"
+        )
+        _exact_fields(
+            lattice_geometry_value,
+            frozenset({"lattice_period", "lattice_unit"}),
+        )
+        lattice_period = lattice_geometry_value["lattice_period"]
+        lattice_unit = lattice_geometry_value["lattice_unit"]
+        if type(lattice_period) is not float:
+            raise TypeError("lattice_period must be a built-in float")
+        if type(lattice_unit) is not PhysicalUnit:
+            raise TypeError("lattice_unit must be PhysicalUnit")
         entries_value = values["entries"]
         if type(entries_value) is not tuple:
             raise TypeError("entries must decode as a tuple")
@@ -231,6 +261,10 @@ class HigherRankDevelopmentCacheManifest(BaseTypedRecord):
             cache_format=_string(values, "cache_format"),
             family_identity=_string(values, "family_identity"),
             version_identity=_string(values, "version_identity"),
+            lattice_geometry=Periodic1DLatticeGeometry(
+                lattice_period=lattice_period,
+                lattice_unit=lattice_unit,
+            ),
             calculation_infrastructure_sha256=_string(
                 values, "calculation_infrastructure_sha256"
             ),
@@ -334,6 +368,7 @@ class HigherRankDevelopmentCacheWriteRequest:
     """Bind complete calculated results and one replaceable cache directory."""
 
     calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
+    lattice_geometry: Periodic1DLatticeGeometry
     cache_directory: Path
     calculation_infrastructure_sha256: str
 
@@ -343,6 +378,18 @@ class HigherRankDevelopmentCacheWriteRequest:
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
+        if type(self.lattice_geometry) is not Periodic1DLatticeGeometry:
+            raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
+        if self.lattice_geometry != _REDUCED_LATTICE_GEOMETRY:
+            raise ValueError("lattice_geometry must match the reduced convention")
+        if any(
+            result.request.configuration.reduced_lattice_geometry
+            != self.lattice_geometry
+            for result in self.calculation_results
+        ):
+            raise ValueError(
+                "calculation result geometry must match the cache geometry"
+            )
         if not isinstance(self.cache_directory, Path):
             raise TypeError("cache_directory must be pathlib.Path")
         _validate_digest(
@@ -434,6 +481,7 @@ class HigherRankDevelopmentCacheWriter:
             cache_format=_CACHE_FORMAT,
             family_identity=configuration.family_identity,
             version_identity=configuration.version_identity,
+            lattice_geometry=self.request.lattice_geometry,
             calculation_infrastructure_sha256=(
                 self.request.calculation_infrastructure_sha256
             ),
@@ -480,6 +528,11 @@ class HigherRankDevelopmentCacheReader:
                 or result.request.circuit_depth != entry.circuit_depth
             ):
                 raise ValueError(f"cached result identity changed: {entry.file_name}")
+            if (
+                result.request.configuration.reduced_lattice_geometry
+                != manifest.lattice_geometry
+            ):
+                raise ValueError(f"cached result geometry changed: {entry.file_name}")
             results.append(result)
         return HigherRankDevelopmentCacheReadResult(
             manifest=manifest,

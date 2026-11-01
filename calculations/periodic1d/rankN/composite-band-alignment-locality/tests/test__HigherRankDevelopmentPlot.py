@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -20,6 +21,9 @@ from analysis.development.plots import (
     _positive,
     _sampled_pareto_membership,
 )
+from projectkoios.physkit.units import PhysicalUnit
+
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentConfiguration,
 )
@@ -135,9 +139,13 @@ class TestHigherRankDevelopmentPlot:
         manifest = HigherRankDevelopmentCacheManifest(
             artifact_role="replaceable-development-result-cache",
             scientific_evidence=False,
-            cache_format=("ksdft2effmass.higher-rank-development-result-cache.v1"),
+            cache_format=("ksdft2effmass.higher-rank-development-result-cache.v2"),
             family_identity=configuration.FAMILY_IDENTITY,
             version_identity=configuration.VERSION_IDENTITY,
+            lattice_geometry=Periodic1DLatticeGeometry(
+                lattice_period=1.0,
+                lattice_unit=PhysicalUnit("bohr"),
+            ),
             calculation_infrastructure_sha256="1" * 64,
             entries=entries,
         )
@@ -146,7 +154,19 @@ class TestHigherRankDevelopmentPlot:
 
         assert HigherRankDevelopmentCacheManifest.from_json(wire).to_json() == wire
         assert manifest.scientific_evidence is False
+        assert manifest.lattice_geometry == Periodic1DLatticeGeometry(
+            lattice_period=1.0,
+            lattice_unit=PhysicalUnit("bohr"),
+        )
         assert manifest.calculation_infrastructure_sha256 == "1" * 64
+        with pytest.raises(ValueError, match="reduced convention"):
+            replace(
+                manifest,
+                lattice_geometry=Periodic1DLatticeGeometry(
+                    lattice_period=2.0,
+                    lattice_unit=PhysicalUnit("bohr"),
+                ),
+            )
 
     def test__cache_admission__cannot_claim_scientific_verification(self) -> None:
         with pytest.raises(
@@ -157,7 +177,7 @@ class TestHigherRankDevelopmentPlot:
                 artifact_role=("replaceable-development-cache-integrity-admission"),
                 scientific_evidence=False,
                 independent_scientific_verification=True,
-                cache_format=("ksdft2effmass.higher-rank-development-result-cache.v1"),
+                cache_format=("ksdft2effmass.higher-rank-development-result-cache.v2"),
                 admission_method=("canonical-typed-byte-integrity-and-inventory.v1"),
                 manifest_sha256="0" * 64,
                 canonical_manifest_pass=True,

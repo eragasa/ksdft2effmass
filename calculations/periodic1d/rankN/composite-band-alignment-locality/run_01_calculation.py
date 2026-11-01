@@ -11,14 +11,6 @@ from analysis.development import (
     HigherRankDevelopmentCacheWriter,
     HigherRankDevelopmentCacheWriteRequest,
 )
-from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
-    Periodic1DRankNAlignmentAnalyzer,
-    Periodic1DRankNAlignmentCalculationControls,
-    Periodic1DRankNAlignmentCalculationRequest,
-    Periodic1DRankNAlignmentCalculationResult,
-    Periodic1DRankNAlignmentConfiguration,
-)
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
@@ -35,6 +27,22 @@ from projectkoios.physkit.solidstate.tb import (
     FinitePeriodicMatrixFourierTensorEvaluator,
     FinitePeriodicMatrixFourierTransformer,
 )
+
+from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
+from ksdft2effmass.periodic1d.gauge_alignment.factory import (
+    Periodic1DAlignmentStudyFactory,
+    Periodic1DRankNAlignmentStudyAnalyzer,
+    Periodic1DRankNAlignmentStudySpecification,
+)
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+    Periodic1DRankNAlignmentAnalyzer,
+    Periodic1DRankNAlignmentCalculationControls,
+    Periodic1DRankNAlignmentCalculationRequest,
+    Periodic1DRankNAlignmentCalculationResult,
+    Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.serialization import TypedJsonValueCodec
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -102,14 +110,19 @@ def _request(
 
 def _calculate(
     request: Periodic1DRankNAlignmentCalculationRequest,
+    lattice_geometry: Periodic1DLatticeGeometry,
 ) -> Periodic1DRankNAlignmentCalculationResult:
-    """Execute one direct case with explicit reviewed collaborators."""
-    return Periodic1DRankNAlignmentAnalyzer(
-        request=request,
-        procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
-        transporter=ClosedLoopPolarFrameTransporter(),
-        scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
-    ).execute()
+    """Execute one rank-first case with explicit reviewed collaborators."""
+    study = Periodic1DAlignmentStudyFactory.create(
+        Periodic1DRankNAlignmentStudySpecification(
+            lattice_geometry=lattice_geometry,
+            request=request,
+            procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+            transporter=ClosedLoopPolarFrameTransporter(),
+            scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
+        )
+    )
+    return study.execute()
 
 
 def _case_summary(
@@ -153,10 +166,14 @@ def _case_summary(
 
 def _calculation_results(
     configuration: Periodic1DRankNAlignmentConfiguration,
+    lattice_geometry: Periodic1DLatticeGeometry,
 ) -> tuple[Periodic1DRankNAlignmentCalculationResult, ...]:
     """Calculate every frozen case for explicitly unverified development use."""
     return tuple(
-        _calculate(_request(configuration, retained_rank, circuit_depth))
+        _calculate(
+            _request(configuration, retained_rank, circuit_depth),
+            lattice_geometry,
+        )
         for retained_rank in configuration.retained_ranks
         for circuit_depth in configuration.circuit_depths
     )
@@ -164,6 +181,7 @@ def _calculation_results(
 
 def _summary(
     results: tuple[Periodic1DRankNAlignmentCalculationResult, ...],
+    lattice_geometry: Periodic1DLatticeGeometry,
 ) -> dict[str, JsonValue]:
     """Return a development-only shape summary for complete calculated results."""
     configuration = results[0].request.configuration
@@ -173,6 +191,10 @@ def _summary(
         "scientific_evidence": False,
         "family_identity": configuration.family_identity,
         "version_identity": configuration.version_identity,
+        "lattice_geometry": {
+            "lattice_period": lattice_geometry.lattice_period,
+            "lattice_unit": lattice_geometry.lattice_unit.expression,
+        },
         "case_count": len(cases),
         "cases": cases,
     }
@@ -185,7 +207,10 @@ def main() -> int:
     destination = output / "direct-development-summary.json"
     cache_directory = output / "development-cache"
     configuration = _configuration()
+    lattice_geometry = configuration.reduced_lattice_geometry
     source_types = (
+        Periodic1DAlignmentStudyFactory,
+        Periodic1DRankNAlignmentStudyAnalyzer,
         Periodic1DRankNAlignmentAnalyzer,
         Periodic1DRankNAlignmentConfiguration,
         Periodic1DRankNAlignmentCalculationResult,
@@ -197,6 +222,15 @@ def main() -> int:
     )
     source_inventory = (
         ("calculation-configuration.json", configuration.to_json()),
+        (
+            "lattice-geometry.json",
+            TypedJsonValueCodec().serialize_bytes(
+                {
+                    "lattice_period": lattice_geometry.lattice_period,
+                    "lattice_unit": lattice_geometry.lattice_unit,
+                }
+            ),
+        ),
     ) + tuple(
         (
             f"{source_type.__module__}.{source_type.__qualname__}",
@@ -214,8 +248,8 @@ def main() -> int:
         infrastructure_digest.update(len(source_bytes).to_bytes(8, "big"))
         infrastructure_digest.update(source_bytes)
     infrastructure_sha256 = infrastructure_digest.hexdigest()
-    results = _calculation_results(configuration)
-    payload = _summary(results)
+    results = _calculation_results(configuration, lattice_geometry)
+    payload = _summary(results, lattice_geometry)
     destination.write_text(
         json.dumps(payload, allow_nan=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -224,6 +258,7 @@ def main() -> int:
     manifest = HigherRankDevelopmentCacheWriter(
         HigherRankDevelopmentCacheWriteRequest(
             calculation_results=results,
+            lattice_geometry=lattice_geometry,
             cache_directory=cache_directory,
             calculation_infrastructure_sha256=infrastructure_sha256,
         )

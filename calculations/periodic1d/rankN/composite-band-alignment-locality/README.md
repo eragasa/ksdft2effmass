@@ -17,11 +17,14 @@ failure records together with the analytic producer. Gauge-alignment constructio
 recovery, Fourier transformation, interpolation, locality analysis, and result assembly
 are decomposed under its `gauge_alignment/` child.
 
-- [`run_01_calculation.py`](run_01_calculation.py) directly composes the maintained KSD,
-  PhysKit, and Optimization owners for all 16 cases once, writes a
+- [`run_01_calculation.py`](run_01_calculation.py) constructs every case through the
+  exact rank-$N$ `Periodic1DAlignmentStudyFactory` specification, with the maintained
+  KSD, PhysKit, and Optimization collaborators and the explicit reduced-convention
+  lattice geometry, writes a
   `scientific_evidence: false` summary, and stores one canonical typed result per case.
   The cache manifest records one SHA-256 identity for the explicitly selected scientific
-  calculation infrastructure; plotting sources are excluded.
+  calculation infrastructure; plotting sources are excluded. Cache format v2 also binds
+  $a_0=1\,\mathrm{bohr}$ explicitly and rejects result/configuration geometry drift.
 - [`run_02_verification.py`](run_02_verification.py) performs canonical-byte, SHA-256,
   exact-round-trip, and complete-inventory verification. It explicitly records
   `independent_scientific_verification: false`.
@@ -54,7 +57,9 @@ that bypasses the corresponding producer scientific actions. It does not mean an
 independent numerical-library stack: the references share NumPy/LAPACK and typed
 quantity/comparison infrastructure. Exhaustive recomputation and authenticated rendering
 are not required by the study's direct calculate-once, integrity-check, render-many
-lifecycle.
+lifecycle. The rank-first factory and geometry binding generalize the already exercised
+rank-two direct lifecycle; they do not merge the two studies' models, case inventories,
+result schemas, or verification policies.
 Proposed two- and three-dimensional and nonorthonormal studies remain outside this
 periodic-1D orthonormal contract.
 

@@ -23,8 +23,11 @@ The ambient basis is the ordered four-state coefficient basis shown in the typed
 configuration. Retained frames contain the lowest two ordered eigenvectors as columns;
 unitaries act on their right. Energies and hopping blocks use the dimensionless reference
 energy `E_ref`, the energy zero is the exact parent onsite convention, and reduced
-momenta use reciprocal period one on the centered half-open interval. Operators are
-compared only after their state spaces are explicitly aligned.
+momenta use reciprocal period one on the centered half-open interval. The direct
+rank-first study context realizes this reduced convention with the explicit lattice
+geometry $a_0=1\,\mathrm{bohr}$; this geometry supplies units and does not alter the
+legacy dimensionless result wire. Operators are compared only after their state spaces
+are explicitly aligned.
 
 ## Sample roles
 

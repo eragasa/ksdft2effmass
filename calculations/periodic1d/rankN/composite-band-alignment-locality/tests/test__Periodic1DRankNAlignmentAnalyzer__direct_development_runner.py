@@ -29,6 +29,9 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         }
 
         assert all("workflow" not in module for module in imported_modules)
+        assert "Periodic1DAlignmentStudyFactory.create" in source
+        assert "Periodic1DRankNAlignmentStudySpecification" in source
+        assert "return Periodic1DRankNAlignmentAnalyzer(" not in source
         assert "Periodic1DRankNAlignmentAnalyzer" in source
         assert "NumpyBatchedComplexUnitaryProcrustesSolver" in source
         assert "ClosedLoopPolarFrameTransporter" in source
@@ -36,6 +39,8 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         assert "FinitePeriodicMatrixFourierTensorEvaluator" in source
         assert "ScalarRefinementAnalyzer" in source
         assert "calculation_infrastructure_sha256" in source
+        assert '"lattice-geometry.json"' in source
+        assert '"lattice_geometry"' in source
         assert "analysis/development/plots.py" not in source
 
     def test__source__uses_gauge_alignment_vocabulary_and_disclaims_evidence(

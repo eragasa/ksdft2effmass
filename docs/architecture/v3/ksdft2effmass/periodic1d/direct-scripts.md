@@ -224,6 +224,17 @@ slices use their exact public owners rather than a generic Periodic1D aggregate.
 | Threshold sensitivity | `Periodic1DThresholdSensitivity` | `Periodic1DThresholdSensitivity` | `Periodic1DThresholdSensitivity` |
 | Higher-rank alignment | `Periodic1DRankNAlignment` | `Periodic1DRankNAlignment` | `Periodic1DRankNAlignment` |
 
+The rank-two composite calculation enters through
+`Periodic1DAlignmentStudyFactory.create(Periodic1DRank2AlignmentStudySpecification(...))`
+with `configuration.reduced_lattice_geometry`. Its execution, verification, and rendering
+documents retain that explicit geometry while the canonical composite result wire remains
+unchanged. The higher-rank development runner uses the corresponding
+`Periodic1DRankNAlignmentStudySpecification` and binds the same explicit reduced
+geometry into development-cache format v2. Its calculate-once cache lifecycle remains
+distinct because of its bounded 16-case protocol and cost. This cross-rank consistency
+does not require rank one to manufacture a numerical alignment calculation where scalar
+conjugation is operator-trivial.
+
 Each prefix expands only into classes the study needs, such as `Configuration`,
 `Analyzer`, `CalculationResult`, `Verifier`, `Verification`, `VisualizationData`,
 `VisualizationPlotEnum`, and `Visualizer`. Plot, subplot, figure, and renderer class names

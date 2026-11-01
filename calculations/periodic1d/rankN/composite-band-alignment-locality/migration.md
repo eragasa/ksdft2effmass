@@ -1,7 +1,7 @@
 # Periodic-1D higher-rank alignment/locality migration
 
 This checklist belongs to the distributed inventory in [`README.md`](README.md). The
-current schema-free summary is replaceable development output only.
+current canonical cache and summary are replaceable development output only.
 
 ## Experiment-tree migration
 
@@ -32,6 +32,8 @@ current schema-free summary is replaceable development output only.
 
 - [x] Materialize strict typed calculation request and result inventories from the protocol candidate.
 - [x] Implement canonical typed-record serialization for calculation bytes.
+- [x] Route development calculation through the rank-first rank-$N$ study specification
+  and bind the explicit reduced-convention lattice geometry in cache format v2.
 - [x] Materialize the first bounded producer-independent analytic-model and attack core-invariant reference slice.
 - [x] Materialize the bounded direct-sum all-gauge Fourier reference slice, including shifted interpolation and support tails for all four controls and exact support for the oracle.
 - [x] Materialize the bounded global/pointwise Procrustes reference slice using an independent polar construction and direct analytic pointwise inverses.

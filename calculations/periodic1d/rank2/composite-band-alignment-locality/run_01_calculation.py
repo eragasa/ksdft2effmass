@@ -12,8 +12,11 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
 
+from ksdft2effmass.periodic1d.gauge_alignment.factory import (
+    Periodic1DAlignmentStudyFactory,
+    Periodic1DRank2AlignmentStudySpecification,
+)
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
-    Periodic1DCompositeBandAlignmentAnalyzer,
     Periodic1DCompositeBandAlignmentCalculationResult,
     Periodic1DCompositeBandAlignmentConfiguration,
 )
@@ -56,10 +59,15 @@ execution_directory = script_path.parent / "executions" / EXECUTION_ID
 temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete")
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a composite-alignment execution")
-result = Periodic1DCompositeBandAlignmentAnalyzer(
-    configuration,
-    NumpyBatchedComplexUnitaryProcrustesSolver(),
-).execute()
+lattice_geometry = configuration.reduced_lattice_geometry
+study = Periodic1DAlignmentStudyFactory.create(
+    Periodic1DRank2AlignmentStudySpecification(
+        lattice_geometry=lattice_geometry,
+        configuration=configuration,
+        procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+    )
+)
+result = study.execute()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
 if (
@@ -85,6 +93,10 @@ if (
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": configuration.parent_identity,
             "execution_id": EXECUTION_ID,
+            "lattice_geometry": {
+                "lattice_period": lattice_geometry.lattice_period,
+                "lattice_unit": lattice_geometry.lattice_unit,
+            },
             "created_utc": datetime.now(UTC).isoformat(),
             "outcome": "completed",
             "evidence_status": "illustrative finite numerical control",

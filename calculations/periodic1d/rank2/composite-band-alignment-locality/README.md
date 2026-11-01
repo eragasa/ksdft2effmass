@@ -29,7 +29,7 @@ the two families.
 | [`monograph-donor-crosswalk.md`](monograph-donor-crosswalk.md) | Exact ten-file donor, 19-consumer, digest, and scientific-channel disposition audit. |
 | [`m2-parity.md`](m2-parity.md) | Named in-memory finite parity and explicit convention-adaptation record; not retained evidence. |
 | [`technical-report/`](technical-report/README.md) | Comprehensive upstream provisional report, three authenticated review figures, bibliography, compiled review snapshot, and reproducible figure adapter; not retained evidence. |
-| `run_01_calculation.py` | Direct calculate adapter; creates one new unsealed execution atomically and refuses overwrite. |
+| `run_01_calculation.py` | Direct calculate adapter through the exact rank-two `Periodic1DAlignmentStudyFactory` specification; binds the explicit reduced-convention lattice geometry, creates one new unsealed execution atomically, and refuses overwrite. |
 | `run_02_verification.py` | Direct byte-owning verification adapter; independently reconstructs all numerical channels. |
 | `run_03_render.py` | Direct authenticated render adapter; publishes the closed three-PNG alignment, locality, and error-channel inventory atomically. |
 | `python/src/ksdft2effmass/periodic1d/rank2/band_alignment/configuration.py` | Frozen rank-two band-alignment study configuration. |
@@ -59,6 +59,13 @@ protocol revision states otherwise:
 - strict typed input/result/verification records and byte-owning provenance;
 - bounded interpretation that does not claim continuum convergence, material validity, or
   publication acceptance.
+
+The direct lifecycle now enters through the rank-first alignment-study specification
+rather than constructing the composite analyzer directly. It records the configuration's
+explicit reduced-convention geometry, $a_0=1\,\mathrm{bohr}$, in execution,
+verification, and rendering documents while preserving the canonical composite result
+bytes exactly. This is the rank-two execution pattern to reconcile before adapting the
+higher-rank development lifecycle.
 
 The implementation is complete as a bounded software lifecycle, but the protocol is not
 an immutable scientific version and does not authorize a retained calculation. Passing

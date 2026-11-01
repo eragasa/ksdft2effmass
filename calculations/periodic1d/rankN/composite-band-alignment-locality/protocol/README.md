@@ -11,8 +11,11 @@ The protocol's short labels mean:
 - **P0:** the retained subspace is fixed rather than moving with momentum; and
 - **G0:** the basis rotations are real orthogonal rotations.
 
-The direct typed producer, canonical calculation cache, integrity verification, and fixed
-nine-view renderer are implemented. The figures remain visibly labeled
+The direct typed producer now enters through the rank-$N$ rank-first alignment-study
+specification and binds the explicit reduced-convention geometry
+$a_0=1\,\mathrm{bohr}$. Development-cache format v2 retains that geometry independently
+of the unchanged case-result wires. Canonical calculation caching, integrity verification,
+and the fixed nine-view renderer are implemented. The figures remain visibly labeled
 `development/unverified` pending scientific acceptance, but presentation changes can be
 rendered repeatedly from the admitted saved results without recalculation.
 
