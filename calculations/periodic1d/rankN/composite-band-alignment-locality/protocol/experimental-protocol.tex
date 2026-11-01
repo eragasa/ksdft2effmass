@@ -1500,9 +1500,10 @@ gate, or add a scientific quantity to the result schema. The calculation stage w
 canonical result bytes once; the rendering stage consumes those bytes and may be repeated
 without scientific recalculation. Plotting and report sources are excluded from the
 calculation-infrastructure identity, so presentation-only changes do not invalidate the
-calculation. Current unverified images must display
-\emph{DEVELOPMENT / UNVERIFIED---not publication evidence}; captions and surrounding
-text must repeat that boundary when a figure is reproduced outside its source directory.
+calculation. Current calculated images must display
+\emph{CALCULATED RESULT---UNSEALED}; captions and surrounding text must repeat that
+boundary when a figure is reproduced outside its source directory. Integrity admission
+and reviewable presentation do not by themselves assign publication acceptance.
 
 The present images came from one complete producer-only development calculation over the
 16 selected rank/depth cases. The standard direct entrypoints are
@@ -1510,10 +1511,10 @@ The present images came from one complete producer-only development calculation 
 \path{run_03_render.py}. The calculation wrote canonical typed case bytes and a SHA-256
 manifest into an ignored reusable cache. The manifest records the single required
 provenance value, \path{calculation_infrastructure_sha256}; its present value is
-\path{7cdd7788a2eda7cfdf0379ce1569fba10b56ea3ad9302ca234bad05b0787159b}.
+\path{4db05dadca1818469484b132ba0a7776c0a9281ee956e6cf94490104de0a70dd}.
 A separate integrity admission checked canonical round trips, case identities, digests,
 and complete inventory once for manifest SHA-256
-\path{64d9facd876183efa85b77d9351317a4a3adebd266bbb0ce9a25fae6fbbf02a7}.
+\path{2bba6a5a208945018dc462a142412e0d6cfaba436a58fec03a1cd33cc48d4673}.
 Subsequent renders reuse those exact admitted cache bytes without recalculating the grid.
 The cases exercise all meshes, gauge alignments, and supports, but the source values were
 not independently recomputed or admitted by the protocol's scientific verification
@@ -1701,12 +1702,125 @@ synthetic control and cannot be promoted as an attainable optimizer.
 \label{fig:protocol-development-pareto}
 \end{figure}
 
+\subsection*{Publication-oriented six-figure storyboard}
+
+The fixed nine-view inventory above remains the detailed diagnostic record. A second,
+closed six-figure storyboard selects a more compact publication narrative from the same
+integrity-admitted cache. It introduces no new scientific calculation and does not replace
+any diagnostic view. The storyboard is a presentation prototype for review: every panel
+contains calculated values, but the figures remain unsealed and not independently
+verified in full. The rank-two study's amplitude/scale narrative is not copied here;
+rank and circuit depth are the scientifically relevant rank-$N$ axes.
+
+Figure~\ref{fig:storyboard-alignment-information} opens with the information hierarchy.
+Identity and global-unitary alignment retain large reference-frame residuals, hopping
+tails, and $S=2$ spectral consequences. Pointwise and oracle alignment place those
+quantities near roundoff. The represented-field integrity panel asks a different
+question: whether each aligned field agrees with its own declared direct construction.
+Exact zeros are marked with crosses at the display floor rather than being relabelled as
+$10^{-18}$ results.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/01-alignment-information-hierarchy.pdf}
+\caption{Calculated, integrity-admitted, unsealed alignment-information hierarchy over
+all 16 rank/depth cases. Rank uses marker shape and depth uses color. Reference-frame
+recovery and direct represented-field integrity are deliberately separate controls.}
+\label{fig:storyboard-alignment-information}
+\end{figure}
+
+Figure~\ref{fig:storyboard-rank-depth} then exposes the finite rank/depth structure. The
+identity panels show the attacked representation's $S=2$ hopping tail and total spectral
+consequence, the global panel shows the restricted feasible set's frame residual, and the
+pointwise panel supplies a roundoff-scale control. These finite heatmaps support no
+asymptotic monotonicity theorem and no ratios are formed from roundoff-scale controls.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/02-rank-depth-scaling.pdf}
+\caption{Calculated, integrity-admitted, unsealed rank/depth storyboard. Each cell is an
+absolute normalized value on the selected finite grid.}
+\label{fig:storyboard-rank-depth}
+\end{figure}
+
+Figure~\ref{fig:storyboard-locality-support} resolves the mechanism at the predeclared
+interior anchor $(r,L)=(8,4)$. The upper row diagnoses unchanged Fourier coefficients;
+the lower row applies retained-support truncation and measures its total operator and
+spectral consequences. Equal cutoff integers do not make the hopping-diagnostic and
+retained-support inventories interchangeable. Lines connect the declared sampled
+cutoffs as guides to the eye and are not continuum support interpolants.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/03-locality-and-support-consequences.pdf}
+\caption{Calculated, integrity-admitted, unsealed locality and retained-support
+consequences at $(r,L)=(8,4)$. Constant-unitary Frobenius invariance makes the identity
+and global hopping diagnostics coincide; this is not evidence of global frame recovery.}
+\label{fig:storyboard-locality-support}
+\end{figure}
+
+Figure~\ref{fig:storyboard-error-channels} keeps interpolation, deliberate truncation,
+and total spectral consequence visible as separate non-stacked trajectories. The
+truncation and total curves nearly coincide where interpolation is roundoff-scale, but
+their different line and marker encodings preserve both. The curves are not an additive
+scalar budget: the residual fields add pointwise, whereas separately maximized norms
+need not.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/04-separated-error-channels.pdf}
+\caption{Calculated, integrity-admitted, unsealed separated spectral-error channels at
+the fixed interior anchor. Each column of the scientific comparison is a distinct gauge
+feasible set.}
+\label{fig:storyboard-error-channels}
+\end{figure}
+
+Figure~\ref{fig:storyboard-claim-operands} makes the claim boundary explicit. Green cell
+borders indicate that the displayed frozen inequality is met in the calculated snapshot.
+The fourth panel is supporting evidence only. Because the current public result does not
+retain the frozen global represented-operator residual, the complete locality-extension
+claim remains unresolved even when all displayed cells meet their individual conditions.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/05-claim-operands-and-unresolved-boundary.pdf}
+\caption{Calculated, integrity-admitted, unsealed frozen operands and unresolved claim
+boundary. Condition borders apply only to displayed values and do not assign the missing
+complete claim disposition.}
+\label{fig:storyboard-claim-operands}
+\end{figure}
+
+Finally, Figure~\ref{fig:storyboard-controls} collects numerical controls rather than
+headline outcomes. It displays paired mesh values, maximum refinement-gate utilization,
+qualified-case counts, residual-field decomposition defects, within-gauge sampled Pareto
+counts, and pointwise/oracle agreement. Pareto membership remains tolerance-free,
+case-local, gauge-local, and descriptive; it selects no preferred support. Exact zero
+differences are again marked separately from the logarithmic display floor.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/06-numerical-controls.pdf}
+\caption{Calculated, integrity-admitted, unsealed numerical-control summary. Passing
+software and convergence controls establishes current bounded behavior, not independent
+scientific verification or publication acceptance.}
+\label{fig:storyboard-controls}
+\end{figure}
+
+The storyboard's design contract, encoding rules, intended main-text/supplement placement,
+and reproduction command are recorded in
+\path{publication-figure-storyboard.md}. PDF files are vector publication masters and PNG
+files are 600-dpi review renderings. Any future publication renderer must preserve the
+same admitted-cache provenance, exact-zero semantics, missing-operand disclosure, and
+scientific separation between hopping diagnostics and retained-support consequences.
+
 \subsection*{Rendering from admitted calculation results}
 
-The renderer reads the integrity-admitted canonical result cache, computes no scientific
-quantity, and preserves unresolved, failed, missing, exact-zero, roundoff-scale, and
+Both renderers read the integrity-admitted canonical result cache, compute no scientific
+quantity, and preserve unresolved, failed, missing, exact-zero, roundoff-scale, and
 inapplicable states. Figure colors, labels, layouts, captions, and selections may change
-without recalculation. No rendering authentication or rendering digest is required.
+without recalculation. The fixed nine-view renderer and six-figure storyboard remain
+presentation layers; neither rendering authentication nor a rendering digest is required
+by the current development protocol.
 
 \section{Verification and canonical result integrity}
 
