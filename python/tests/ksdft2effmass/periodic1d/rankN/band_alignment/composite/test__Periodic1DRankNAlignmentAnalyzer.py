@@ -395,7 +395,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         )
         assert (
             analysis_request.inner_product_convention
-            is GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            is GaugeAlignmentInnerProductConvention.EUCLIDEAN
         )
         assert fourier.analysis_request is analysis_request
         assert not fourier.coefficient_translations.flags.writeable

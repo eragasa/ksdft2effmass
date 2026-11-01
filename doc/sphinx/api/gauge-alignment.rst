@@ -5,7 +5,8 @@ The gauge-alignment API identifies retained-space transformation groups, action 
 inner-product conventions, and the common request--analysis--analyzer roles.  Group
 family and inner-product convention are separate: a future metric-unitary formulation
 would remain unitary while supplying a different metric contract and numerical
-objective.
+objective. Frame orthonormality is validated by concrete frame and request types; it is
+not encoded into the Euclidean inner-product label.
 
 Shared scientific identities
 ----------------------------

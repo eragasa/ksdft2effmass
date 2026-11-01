@@ -47,6 +47,8 @@ represented dimension. The current vocabulary contains the unitary family; its l
 computed as $U(r)$ rather than accepted as an unrelated free-form string. Group family
 does not encode the inner product: Euclidean-unitary and future metric-unitary actions
 share the unitary family but require different metric contracts and numerical objectives.
+The current inner-product vocabulary declares `EUCLIDEAN`; orthonormality remains owned
+by concrete frame and request contracts rather than being folded into that label.
 
 `GaugeAlignmentAnalysisIdentity` validates that typed gauge-group identity, the ordered
 alignment-sample count, action side, and inner-product convention shared by the narrower
@@ -59,6 +61,11 @@ merge family-specific fields, solvers, tolerances, outcomes, or wires. The corre
 `Periodic1DGaugeAlignmentAnalysisRequest`, `Periodic1DGaugeAlignmentAnalysis`, and
 `Periodic1DGaugeAlignmentAnalyzer` bases add dimensional ownership without selecting a
 default lattice, solver, tolerance, or wire.
+
+For the implemented column-frame convention $F\in\mathbb{C}^{d\times r}$, a
+retained-space gauge acts from the right as $F\mapsto FU$. The generic `LEFT` vocabulary
+does not assign $F\mapsto UF$ to that same type; a future left action must declare a
+separately typed row-frame convention or an ambient-space action.
 
 The rank-first Periodic1D alignment factory dispatches only on exact typed study
 specifications. Every specification binds explicit `Periodic1DLatticeGeometry`:

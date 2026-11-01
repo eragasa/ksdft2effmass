@@ -176,7 +176,7 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         assert request.action_convention is GaugeAlignmentActionConvention.RIGHT
         assert (
             request.inner_product_convention
-            is GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            is GaugeAlignmentInnerProductConvention.EUCLIDEAN
         )
         assert type(result) is Periodic1DRank2GaugeAlignmentAnalysis
         assert analyzer.analysis_identity == request.analysis_identity

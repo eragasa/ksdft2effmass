@@ -93,8 +93,9 @@ dimension-specific mesh and support contracts rather than parameterizing the pre
 
 The present actions expose a typed unitary group identity in represented dimension $r$
 and assume orthonormal frames and $U(r)$ right actions. The group family does not stand
-in for a metric: the Euclidean-orthonormal convention remains separately declared. The
-underlying orthonormal matrix mechanisms are meaningful at rank two, but the maintained
+in for a metric: the Euclidean inner-product convention remains separately declared,
+while concrete frame and request contracts own orthonormality. The underlying
+orthonormal matrix mechanisms are meaningful at rank two, but the maintained
 rank-two study has its own model, controls, verification, and evidence identity and is not
 implicitly admitted here. Rank one is a distinct scalar specialization: its represented
 Hamiltonian is invariant under $U(1)$ phase changes, and the D1 analytic formulas that

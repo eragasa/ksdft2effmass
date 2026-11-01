@@ -80,7 +80,7 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
             alignment_sample_count=self.reference.mesh.point_count,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
             inner_product_convention=(
-                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN
             ),
         )
 

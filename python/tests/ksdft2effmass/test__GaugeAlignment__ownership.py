@@ -100,9 +100,7 @@ class TestGaugeAlignment:
             gauge_group_identity=group,
             alignment_sample_count=8,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
-            inner_product_convention=(
-                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
-            ),
+            inner_product_convention=GaugeAlignmentInnerProductConvention.EUCLIDEAN,
         )
 
         assert identity.gauge_group_identity is group
@@ -110,23 +108,21 @@ class TestGaugeAlignment:
         assert identity.gauge_group == "U(2)"
         assert identity.alignment_sample_count == 8
         assert identity.action_convention.to_wire() == "right"
-        assert identity.inner_product_convention.to_wire() == "euclidean-orthonormal"
+        assert identity.inner_product_convention.to_wire() == "euclidean"
         assert (
             GaugeAlignmentActionConvention.from_wire("right")
             is GaugeAlignmentActionConvention.RIGHT
         )
         assert (
-            GaugeAlignmentInnerProductConvention.from_wire(
-                "euclidean-orthonormal"
-            )
-            is GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            GaugeAlignmentInnerProductConvention.from_wire("euclidean")
+            is GaugeAlignmentInnerProductConvention.EUCLIDEAN
         )
         with pytest.raises(TypeError, match="positional"):
             GaugeAlignmentAnalysisIdentity(  # type: ignore[misc]
                 group,
                 8,
                 GaugeAlignmentActionConvention.RIGHT,
-                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN,
             )
         with pytest.raises(TypeError, match="gauge_group_identity"):
             GaugeAlignmentAnalysisIdentity(
@@ -134,7 +130,7 @@ class TestGaugeAlignment:
                 alignment_sample_count=8,
                 action_convention=GaugeAlignmentActionConvention.RIGHT,
                 inner_product_convention=(
-                    GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+                    GaugeAlignmentInnerProductConvention.EUCLIDEAN
                 ),
             )
         with pytest.raises(TypeError, match="alignment_sample_count"):
@@ -143,7 +139,7 @@ class TestGaugeAlignment:
                 alignment_sample_count=True,  # type: ignore[arg-type]
                 action_convention=GaugeAlignmentActionConvention.RIGHT,
                 inner_product_convention=(
-                    GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+                    GaugeAlignmentInnerProductConvention.EUCLIDEAN
                 ),
             )
         with pytest.raises(TypeError, match="action_convention"):
@@ -152,7 +148,7 @@ class TestGaugeAlignment:
                 alignment_sample_count=8,
                 action_convention="right",  # type: ignore[arg-type]
                 inner_product_convention=(
-                    GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+                    GaugeAlignmentInnerProductConvention.EUCLIDEAN
                 ),
             )
         with pytest.raises(TypeError, match="inner_product_convention"):
@@ -160,9 +156,7 @@ class TestGaugeAlignment:
                 gauge_group_identity=group,
                 alignment_sample_count=8,
                 action_convention=GaugeAlignmentActionConvention.RIGHT,
-                inner_product_convention=(
-                    "euclidean-orthonormal"  # type: ignore[arg-type]
-                ),
+                inner_product_convention="euclidean",  # type: ignore[arg-type]
             )
 
     def test__periodic_role_bases__specialize_every_shared_role(self) -> None:

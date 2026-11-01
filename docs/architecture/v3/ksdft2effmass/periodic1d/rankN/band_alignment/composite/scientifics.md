@@ -114,9 +114,11 @@ inherit the 1-D interval support or odd-mesh Nyquist disposition.
 The current reference and attacked frames are orthonormal, so their gauge group is
 $U(r)$. A nonorthonormal retained basis requires a positive-definite fiber metric and a
 separate metric-aware definition of adjoint, isometry, Procrustes alignment, conditioning,
-and recovery. Treating that problem as an optional parameter of the present orthonormal
-actions would obscure a scientific change of contract; no such generalization is
-implemented.
+and recovery. It must also distinguish the coordinate-endomorphism basis-change law
+$U^{-1}HU$ from the compressed sesquilinear-form law $U^\dagger HU$; ordinary unitarity
+makes those coincide here, but metric isometry alone does not make them interchangeable.
+Treating that problem as an optional parameter of the present orthonormal actions would
+obscure a scientific change of contract; no such generalization is implemented.
 
 ## Present evidence level
 

@@ -32,7 +32,7 @@ class GaugeAlignmentActionConvention(StringWireEnum):
 class GaugeAlignmentInnerProductConvention(StringWireEnum):
     """Identify the inner-product convention used by the alignment objective."""
 
-    EUCLIDEAN_ORTHONORMAL = "euclidean-orthonormal"
+    EUCLIDEAN = "euclidean"
 
 
 class GaugeAlignmentGroupFamily(StringWireEnum):
