@@ -9,6 +9,7 @@ from projectkoios.physkit.units import ComplexMatrixQuantity, ScalarQuantity, Un
 
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
+    GaugeAlignmentGroupFamily,
     GaugeAlignmentInnerProductConvention,
 )
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
@@ -169,6 +170,8 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
 
         assert request.retained_rank == 2
         assert request.gauge_group == "U(2)"
+        assert request.gauge_group_identity.family is GaugeAlignmentGroupFamily.UNITARY
+        assert request.gauge_group_identity.represented_dimension == 2
         assert request.alignment_sample_count == mesh.point_count
         assert request.action_convention is GaugeAlignmentActionConvention.RIGHT
         assert (

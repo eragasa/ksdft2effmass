@@ -7,6 +7,8 @@ from .base import (
     GaugeAlignmentAnalysisIdentity,
     GaugeAlignmentAnalysisRequest,
     GaugeAlignmentAnalyzer,
+    GaugeAlignmentGroupFamily,
+    GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
 
@@ -17,5 +19,7 @@ __all__ = [
     "GaugeAlignmentAnalysisIdentity",
     "GaugeAlignmentAnalysisRequest",
     "GaugeAlignmentAnalyzer",
+    "GaugeAlignmentGroupFamily",
+    "GaugeAlignmentGroupIdentity",
     "GaugeAlignmentInnerProductConvention",
 ]

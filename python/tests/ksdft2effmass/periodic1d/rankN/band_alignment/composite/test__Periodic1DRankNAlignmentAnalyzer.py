@@ -23,6 +23,7 @@ from projectkoios.physkit.solidstate.electronic import (
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
+    GaugeAlignmentGroupFamily,
     GaugeAlignmentInnerProductConvention,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
@@ -380,6 +381,14 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         assert analysis_request.retained_rank == model.retained_rank
         assert analysis_request.gauge_group == "U(3)"
         assert analysis_request.alignment_sample_count == mesh.size
+        assert (
+            analysis_request.gauge_group_identity.family
+            is GaugeAlignmentGroupFamily.UNITARY
+        )
+        assert (
+            analysis_request.gauge_group_identity.represented_dimension
+            == analysis_request.model.retained_rank
+        )
         assert (
             analysis_request.action_convention
             is GaugeAlignmentActionConvention.RIGHT

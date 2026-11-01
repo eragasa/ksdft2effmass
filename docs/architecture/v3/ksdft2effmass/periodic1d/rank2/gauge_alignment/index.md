@@ -9,8 +9,9 @@ and applied rank cutoffs.
 The capability implements the periodic-1D specializations of the shared
 `GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
 `GaugeAlignmentAnalyzer` role contracts. Every role exposes the same validated
-`GaugeAlignmentAnalysisIdentity` with rank two, `U(2)`, right action, and the
-Euclidean-orthonormal inner product through the standard action triad:
+`GaugeAlignmentAnalysisIdentity` with a typed unitary group identity in represented
+dimension two (labelled `U(2)`), right action, and the Euclidean-orthonormal inner
+product through the standard action triad:
 
 - `Periodic1DRank2GaugeAlignmentAnalysisRequest` binds two rank-two frame paths on
   one reciprocal mesh and ambient state-space dimension, together with the Procrustes

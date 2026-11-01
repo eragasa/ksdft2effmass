@@ -20,6 +20,7 @@ from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
     GaugeAlignmentAnalysisIdentity,
+    GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
 from ksdft2effmass.periodic1d.gauge_alignment import (
@@ -73,8 +74,9 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
     def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
         """Return the finite rank-two alignment identity."""
         return GaugeAlignmentAnalysisIdentity(
-            retained_rank=2,
-            gauge_group="U(2)",
+            gauge_group_identity=GaugeAlignmentGroupIdentity.unitary(
+                represented_dimension=2
+            ),
             alignment_sample_count=self.reference.mesh.point_count,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
             inner_product_convention=(

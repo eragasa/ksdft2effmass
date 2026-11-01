@@ -11,6 +11,8 @@ from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentAnalysisIdentity,
     GaugeAlignmentAnalysisRequest,
     GaugeAlignmentAnalyzer,
+    GaugeAlignmentGroupFamily,
+    GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
 from ksdft2effmass.periodic1d.gauge_alignment import (
@@ -60,10 +62,42 @@ class TestGaugeAlignment:
         assert GaugeAlignmentAnalysis.__abstractmethods__ == {"analysis_identity"}
         assert GaugeAlignmentAnalyzer.__abstractmethods__ == {"execute", "request"}
 
+    def test__group_identity__binds_family_dimension_and_label(self) -> None:
+        group = GaugeAlignmentGroupIdentity.unitary(represented_dimension=2)
+
+        assert group.family is GaugeAlignmentGroupFamily.UNITARY
+        assert group.represented_dimension == 2
+        assert group.mathematical_label == "U(2)"
+        assert group.family.to_wire() == "unitary"
+        assert (
+            GaugeAlignmentGroupFamily.from_wire("unitary")
+            is GaugeAlignmentGroupFamily.UNITARY
+        )
+        with pytest.raises(ValueError, match="unsupported"):
+            GaugeAlignmentGroupFamily.from_wire("orthogonal")
+        with pytest.raises(TypeError, match="wire"):
+            GaugeAlignmentGroupFamily.from_wire(1)  # type: ignore[arg-type]
+        with pytest.raises(TypeError, match="positional"):
+            GaugeAlignmentGroupIdentity(  # type: ignore[misc]
+                GaugeAlignmentGroupFamily.UNITARY,
+                2,
+            )
+        with pytest.raises(TypeError, match="family"):
+            GaugeAlignmentGroupIdentity(
+                family="unitary",  # type: ignore[arg-type]
+                represented_dimension=2,
+            )
+        with pytest.raises(TypeError, match="represented_dimension"):
+            GaugeAlignmentGroupIdentity.unitary(
+                represented_dimension=True,  # type: ignore[arg-type]
+            )
+        with pytest.raises(ValueError, match="represented_dimension"):
+            GaugeAlignmentGroupIdentity.unitary(represented_dimension=0)
+
     def test__analysis_identity__validates_exact_common_values(self) -> None:
+        group = GaugeAlignmentGroupIdentity.unitary(represented_dimension=2)
         identity = GaugeAlignmentAnalysisIdentity(
-            retained_rank=2,
-            gauge_group="U(2)",
+            gauge_group_identity=group,
             alignment_sample_count=8,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
             inner_product_convention=(
@@ -71,6 +105,7 @@ class TestGaugeAlignment:
             ),
         )
 
+        assert identity.gauge_group_identity is group
         assert identity.retained_rank == 2
         assert identity.gauge_group == "U(2)"
         assert identity.alignment_sample_count == 8
@@ -88,36 +123,14 @@ class TestGaugeAlignment:
         )
         with pytest.raises(TypeError, match="positional"):
             GaugeAlignmentAnalysisIdentity(  # type: ignore[misc]
-                2,
-                "U(2)",
+                group,
                 8,
                 GaugeAlignmentActionConvention.RIGHT,
                 GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
             )
-        with pytest.raises(TypeError, match="retained_rank"):
+        with pytest.raises(TypeError, match="gauge_group_identity"):
             GaugeAlignmentAnalysisIdentity(
-                retained_rank=True,  # type: ignore[arg-type]
-                gauge_group="U(2)",
-                alignment_sample_count=8,
-                action_convention=GaugeAlignmentActionConvention.RIGHT,
-                inner_product_convention=(
-                    GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
-                ),
-            )
-        with pytest.raises(ValueError, match="retained_rank"):
-            GaugeAlignmentAnalysisIdentity(
-                retained_rank=0,
-                gauge_group="U(0)",
-                alignment_sample_count=8,
-                action_convention=GaugeAlignmentActionConvention.RIGHT,
-                inner_product_convention=(
-                    GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
-                ),
-            )
-        with pytest.raises(ValueError, match="gauge_group"):
-            GaugeAlignmentAnalysisIdentity(
-                retained_rank=2,
-                gauge_group="",
+                gauge_group_identity="U(2)",  # type: ignore[arg-type]
                 alignment_sample_count=8,
                 action_convention=GaugeAlignmentActionConvention.RIGHT,
                 inner_product_convention=(
@@ -126,8 +139,7 @@ class TestGaugeAlignment:
             )
         with pytest.raises(TypeError, match="alignment_sample_count"):
             GaugeAlignmentAnalysisIdentity(
-                retained_rank=2,
-                gauge_group="U(2)",
+                gauge_group_identity=group,
                 alignment_sample_count=True,  # type: ignore[arg-type]
                 action_convention=GaugeAlignmentActionConvention.RIGHT,
                 inner_product_convention=(
@@ -136,8 +148,7 @@ class TestGaugeAlignment:
             )
         with pytest.raises(TypeError, match="action_convention"):
             GaugeAlignmentAnalysisIdentity(
-                retained_rank=2,
-                gauge_group="U(2)",
+                gauge_group_identity=group,
                 alignment_sample_count=8,
                 action_convention="right",  # type: ignore[arg-type]
                 inner_product_convention=(
@@ -146,8 +157,7 @@ class TestGaugeAlignment:
             )
         with pytest.raises(TypeError, match="inner_product_convention"):
             GaugeAlignmentAnalysisIdentity(
-                retained_rank=2,
-                gauge_group="U(2)",
+                gauge_group_identity=group,
                 alignment_sample_count=8,
                 action_convention=GaugeAlignmentActionConvention.RIGHT,
                 inner_product_convention=(

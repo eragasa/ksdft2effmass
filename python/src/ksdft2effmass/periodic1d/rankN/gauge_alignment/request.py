@@ -13,6 +13,7 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
     GaugeAlignmentAnalysisIdentity,
+    GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
 from ksdft2effmass.periodic1d.gauge_alignment import (
@@ -168,8 +169,9 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
         """Return the finite higher-rank alignment identity."""
         rank = self.model.retained_rank
         return GaugeAlignmentAnalysisIdentity(
-            retained_rank=rank,
-            gauge_group=f"U({rank})",
+            gauge_group_identity=GaugeAlignmentGroupIdentity.unitary(
+                represented_dimension=rank
+            ),
             alignment_sample_count=self.mesh.size,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
             inner_product_convention=(

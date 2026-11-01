@@ -42,9 +42,15 @@ into historical retained wires.
 
 `ksdft2effmass.gauge_alignment.GaugeAlignment` identifies retained-space gauge
 alignment or an exact applicability boundary. The narrower
-`GaugeAlignmentAnalysisIdentity` validates the exact retained rank, gauge group,
-ordered alignment-sample count, action side, and inner-product convention shared by the
-narrower `GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
+`GaugeAlignmentGroupIdentity` binds a closed transformation-group family to its finite
+represented dimension. The current vocabulary contains the unitary family; its label is
+computed as $U(r)$ rather than accepted as an unrelated free-form string. Group family
+does not encode the inner product: Euclidean-unitary and future metric-unitary actions
+share the unitary family but require different metric contracts and numerical objectives.
+
+`GaugeAlignmentAnalysisIdentity` validates that typed gauge-group identity, the ordered
+alignment-sample count, action side, and inner-product convention shared by the narrower
+`GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
 `GaugeAlignmentAnalyzer` role bases. Each role exposes final accessors for every identity
 component; the identity itself is keyword-only so action and metric conventions cannot
 be exchanged positionally. The analyzer delegates that identity from its bound request

@@ -35,25 +35,64 @@ class GaugeAlignmentInnerProductConvention(StringWireEnum):
     EUCLIDEAN_ORTHONORMAL = "euclidean-orthonormal"
 
 
+class GaugeAlignmentGroupFamily(StringWireEnum):
+    """Classify the transformation constraint defining a gauge group.
+
+    Group family does not encode the represented inner product. For example,
+    metric-unitary and Euclidean-unitary actions share the unitary family but require
+    different inner-product conventions and numerical objectives.
+    """
+
+    UNITARY = "unitary"
+
+
+@final
+@dataclass(frozen=True, slots=True, kw_only=True)
+class GaugeAlignmentGroupIdentity:
+    """Bind one gauge-group family to its finite represented dimension."""
+
+    family: GaugeAlignmentGroupFamily
+    represented_dimension: int
+
+    def __post_init__(self) -> None:
+        if type(self.family) is not GaugeAlignmentGroupFamily:
+            raise TypeError("family must be GaugeAlignmentGroupFamily")
+        if type(self.represented_dimension) is not int:
+            raise TypeError("represented_dimension must be a built-in integer")
+        if self.represented_dimension <= 0:
+            raise ValueError("represented_dimension must be positive")
+
+    @classmethod
+    def unitary(cls, *, represented_dimension: int) -> GaugeAlignmentGroupIdentity:
+        """Return the unitary family in one finite represented dimension."""
+        return cls(
+            family=GaugeAlignmentGroupFamily.UNITARY,
+            represented_dimension=represented_dimension,
+        )
+
+    @property
+    def mathematical_label(self) -> str:
+        """Return the conventional finite-dimensional group label."""
+        if self.family is GaugeAlignmentGroupFamily.UNITARY:
+            return f"U({self.represented_dimension})"
+        raise RuntimeError("unsupported gauge-alignment group family")
+
+
+@final
 @dataclass(frozen=True, slots=True, kw_only=True)
 class GaugeAlignmentAnalysisIdentity:
     """Retain the common finite scientific identity of one alignment analysis."""
 
-    retained_rank: int
-    gauge_group: str
+    gauge_group_identity: GaugeAlignmentGroupIdentity
     alignment_sample_count: int
     action_convention: GaugeAlignmentActionConvention
     inner_product_convention: GaugeAlignmentInnerProductConvention
 
     def __post_init__(self) -> None:
-        if type(self.retained_rank) is not int:
-            raise TypeError("retained_rank must be a built-in integer")
-        if self.retained_rank <= 0:
-            raise ValueError("retained_rank must be positive")
-        if type(self.gauge_group) is not str:
-            raise TypeError("gauge_group must be a built-in string")
-        if not self.gauge_group:
-            raise ValueError("gauge_group must not be empty")
+        if type(self.gauge_group_identity) is not GaugeAlignmentGroupIdentity:
+            raise TypeError(
+                "gauge_group_identity must be GaugeAlignmentGroupIdentity"
+            )
         if type(self.alignment_sample_count) is not int:
             raise TypeError("alignment_sample_count must be a built-in integer")
         if self.alignment_sample_count <= 0:
@@ -70,6 +109,16 @@ class GaugeAlignmentAnalysisIdentity:
                 "inner_product_convention must be "
                 "GaugeAlignmentInnerProductConvention"
             )
+
+    @property
+    def retained_rank(self) -> int:
+        """Return the dimension on which the retained gauge group acts."""
+        return self.gauge_group_identity.represented_dimension
+
+    @property
+    def gauge_group(self) -> str:
+        """Return the conventional finite-dimensional gauge-group label."""
+        return self.gauge_group_identity.mathematical_label
 
 
 class _GaugeAlignmentAnalysisIdentityOwner(GaugeAlignment, ABC):
@@ -91,8 +140,14 @@ class _GaugeAlignmentAnalysisIdentityOwner(GaugeAlignment, ABC):
     @property
     @final
     def gauge_group(self) -> str:
-        """Return the explicitly declared retained-space gauge group."""
+        """Return the explicitly declared retained-space gauge-group label."""
         return self.analysis_identity.gauge_group
+
+    @property
+    @final
+    def gauge_group_identity(self) -> GaugeAlignmentGroupIdentity:
+        """Return the typed family and represented dimension of the gauge group."""
+        return self.analysis_identity.gauge_group_identity
 
     @property
     @final
@@ -156,5 +211,7 @@ __all__ = [
     "GaugeAlignmentAnalysisIdentity",
     "GaugeAlignmentAnalysisRequest",
     "GaugeAlignmentAnalyzer",
+    "GaugeAlignmentGroupFamily",
+    "GaugeAlignmentGroupIdentity",
     "GaugeAlignmentInnerProductConvention",
 ]

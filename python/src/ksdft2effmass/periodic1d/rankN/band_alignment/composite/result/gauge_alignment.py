@@ -13,6 +13,7 @@ from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
     GaugeAlignmentAnalysisIdentity,
+    GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
 from ksdft2effmass.periodic1d.gauge_alignment import (
@@ -370,8 +371,9 @@ class Periodic1DRankNGaugeAlignmentMeshResult(
         """Return the finite higher-rank alignment identity."""
         rank = self.status.retained_rank
         return GaugeAlignmentAnalysisIdentity(
-            retained_rank=rank,
-            gauge_group=f"U({rank})",
+            gauge_group_identity=GaugeAlignmentGroupIdentity.unitary(
+                represented_dimension=rank
+            ),
             alignment_sample_count=self.status.construction_mesh_size,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
             inner_product_convention=(
