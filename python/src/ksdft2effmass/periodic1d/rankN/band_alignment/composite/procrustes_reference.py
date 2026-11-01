@@ -29,11 +29,15 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.result import (
+    Periodic1DRankNProcrustesDiagnostics,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
+)
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from .calculation_result import Periodic1DRankNAlignmentCalculationResult
-from .definition import Periodic1DRankNAlignmentStatus
-from .diagnostics import Periodic1DRankNProcrustesDiagnostics
 from .fourier_reference import _coordinates, _gauge_unitaries
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11

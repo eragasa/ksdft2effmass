@@ -11,7 +11,7 @@ from ksdft2effmass.periodic1d.rankN import gauge_alignment
 from ksdft2effmass.periodic1d.rankN.band_alignment import (
     composite as rankn_composite_band_alignment,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.result import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentStatusResult,
 )
 
@@ -35,7 +35,7 @@ class TestPeriodic1DRankNAlignmentStatusResult:
             is Periodic1DRankNAlignmentStatusResult
         )
         assert Periodic1DRankNAlignmentStatusResult.__module__ == (
-            "ksdft2effmass.periodic1d.rankN.band_alignment.composite.result.status"
+            "ksdft2effmass.periodic1d.rankN.gauge_alignment.status"
         )
 
     def test__gauge_alignment_package__exports_only_scientific_definitions(
@@ -43,7 +43,6 @@ class TestPeriodic1DRankNAlignmentStatusResult:
     ) -> None:
         assert gauge_alignment.__all__ == [
             "NyquistModeDispositionEnum",
-            "NyquistModeDispositionWireMapping",
             "Periodic1DRankNGaugeAlignment",
         ]
 
@@ -84,22 +83,23 @@ class TestPeriodic1DRankNAlignmentStatusResult:
             "Periodic1DRankNAlignmentCalculationControls": "calculation",
             "Periodic1DRankNAlignmentCalculationRequest": "calculation",
             "Periodic1DRankNAlignmentCalculationResult": "calculation_result",
-            "Periodic1DRankNAlignmentStatusResult": "result.status",
+            "Periodic1DRankNAlignmentStatusResult": "gauge_alignment.status",
             "Periodic1DRankNAlignmentTransportBackendFailureResult": (
                 "result.frame_transport"
             ),
             "Periodic1DRankNAlignmentTransportLinkResult": ("result.frame_transport"),
             "Periodic1DRankNAlignmentTransportOwnerResult": ("result.frame_transport"),
             "Periodic1DRankNGaugeAlignmentMeshResult": (
-                "gauge_alignment.results.alignment"
+                "band_alignment.composite.result.gauge_alignment"
             ),
-            "Periodic1DRankNMeshCalculationResult": ("gauge_alignment.results.mesh"),
+            "Periodic1DRankNMeshCalculationResult": (
+                "band_alignment.composite.result.mesh"
+            ),
             "Periodic1DRankNSupportResult": "rankN.support_truncation.result",
-            "Periodic1DRankNFrameErrorResult": "diagnostics.frame",
-            "Periodic1DRankNMatrixComparisonResult": "diagnostics.matrix",
-            "Periodic1DRankNMatrixErrorResult": "diagnostics.matrix",
-            "Periodic1DRankNModelDiagnostics": "diagnostics.model",
-            "Periodic1DRankNProcrustesDiagnostics": "diagnostics.model",
+            "Periodic1DRankNModelDiagnostics": "result.model",
+            "Periodic1DRankNProcrustesDiagnostics": (
+                "gauge_alignment.procrustes.result"
+            ),
             "Periodic1DRankNBlockRefinementResult": "refinement_results",
             "Periodic1DRankNScalarRefinementResult": "refinement_results",
         }
@@ -114,7 +114,7 @@ class TestPeriodic1DRankNAlignmentStatusResult:
         assert analyzer_module.endswith(".analysis.calculation")
 
         calculation_module = importlib.import_module(
-            "ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation"
+            "ksdft2effmass.periodic1d.rankN.band_alignment.calculation"
         )
         moved_names = expected_modules.keys() - {
             "Periodic1DRankNAlignmentCalculationControls",

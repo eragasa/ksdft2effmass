@@ -17,7 +17,7 @@ if TYPE_CHECKING:
         Periodic1DRankNHoppingTailResult,
     )
 
-from ...band_alignment.composite._record_admission import (
+from ksdft2effmass.periodic1d.rankN._record_admission import (
     _finite_nonnegative,
     _float_array,
     _int_array,
@@ -25,22 +25,27 @@ from ...band_alignment.composite._record_admission import (
     _nonempty,
     _tuple_of_mappings,
 )
-from ...band_alignment.composite.calculation import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
 )
-from ...band_alignment.composite.definition import Periodic1DRankNAlignmentStatus
-from ...band_alignment.composite.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics import (
     Periodic1DRankNFrameErrorResult,
     Periodic1DRankNMatrixComparisonResult,
     Periodic1DRankNMatrixErrorResult,
 )
-from ...band_alignment.composite.result import Periodic1DRankNAlignmentStatusResult
-from ..definition import Periodic1DRankNGaugeAlignment
-from ..nyquist import (
-    NyquistModeDispositionEnum,
-    NyquistModeDispositionWireMapping,
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
+    Periodic1DRankNGaugeAlignment,
 )
-from .support import Periodic1DRankNSupportResult
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.nyquist import (
+    NyquistModeDispositionEnum,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
+    Periodic1DRankNAlignmentStatusResult,
+)
+from ksdft2effmass.periodic1d.rankN.support_truncation.result import (
+    Periodic1DRankNSupportResult,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -93,6 +98,13 @@ class Periodic1DRankNGaugeAlignmentMeshResult(BaseTypedRecord):
             type(value) is not Periodic1DRankNSupportResult for value in self.supports
         ):
             raise TypeError("supports must contain exact support result records")
+        if (
+            self.fourier_representative_count is not None
+            and type(self.fourier_representative_count) is not int
+        ):
+            raise TypeError(
+                "fourier_representative_count must be a built-in integer or None"
+            )
         qualified = self.status.status is Periodic1DRankNAlignmentStatus.QUALIFIED
         required_values = (
             self.transform_backend_identifier,
@@ -356,9 +368,7 @@ class Periodic1DRankNGaugeAlignmentMeshResult(BaseTypedRecord):
             "nyquist_mode_disposition": (
                 None
                 if self.nyquist_mode_disposition is None
-                else NyquistModeDispositionWireMapping.to_wire(
-                    self.nyquist_mode_disposition
-                )
+                else self.nyquist_mode_disposition.to_wire()
             ),
             "coefficient_translations": self.coefficient_translations,
             "block_raw_frobenius_norms": self.block_raw_frobenius_norms,
@@ -487,7 +497,7 @@ class Periodic1DRankNGaugeAlignmentMeshResult(BaseTypedRecord):
                 raise TypeError(
                     "nyquist_mode_disposition must decode to string or None"
                 )
-            nyquist_mode_disposition = NyquistModeDispositionWireMapping.from_wire(
+            nyquist_mode_disposition = NyquistModeDispositionEnum.from_wire(
                 nyquist_mode_value
             )
         frame_recovery_value = values["frame_recovery"]

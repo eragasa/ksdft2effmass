@@ -2,18 +2,6 @@
 
 import pytest
 
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.locality import (  # noqa: E501
-    Periodic1DRankNLocalityAnalysis as LegacyEquivalenceLocalityAnalysis,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.locality import (  # noqa: E501
-    Periodic1DRankNLocalityAnalysisRequest as LegacyEquivalenceLocalityAnalysisRequest,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.locality import (  # noqa: E501
-    Periodic1DRankNLocalityAnalyzer as LegacyEquivalenceLocalityAnalyzer,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.results.support import (  # noqa: E501
-    Periodic1DRankNSupportResult as LegacyEquivalenceSupportResult,
-)
 from ksdft2effmass.periodic1d.rankN.support_truncation import (
     Periodic1DRankNLocalityAnalysis,
     Periodic1DRankNLocalityAnalysisRequest,
@@ -32,7 +20,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic1DRankNSupportTruncationAnalysis:
-    """Establish canonical ownership without breaking historical imports."""
+    """Establish canonical support-truncation ownership."""
 
     def test_canonical_types_have_support_truncation_module_identity(self) -> None:
         assert Periodic1DRankNLocalityAnalysis.__module__ == (
@@ -55,16 +43,6 @@ class TestPeriodic1DRankNSupportTruncationAnalysis:
             assert value.__module__ == (
                 "ksdft2effmass.periodic1d.rankN.support_truncation.analysis"
             )
-
-    @pytest.mark.legacy_equivalence
-    def test__legacy_equivalence__paths_reexport_canonical_types(self) -> None:
-        assert LegacyEquivalenceLocalityAnalysis is Periodic1DRankNLocalityAnalysis
-        assert (
-            LegacyEquivalenceLocalityAnalysisRequest
-            is Periodic1DRankNLocalityAnalysisRequest
-        )
-        assert LegacyEquivalenceLocalityAnalyzer is Periodic1DRankNLocalityAnalyzer
-        assert LegacyEquivalenceSupportResult is Periodic1DRankNSupportResult
 
     def test_values_keep_the_installed_scientific_base(self) -> None:
         assert issubclass(

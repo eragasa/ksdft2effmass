@@ -19,8 +19,10 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldComparisonAnalyzer,
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
+from ksdft2effmass.periodic1d.rankN.diagnostics import (
+    Periodic1DRankNMatrixComparisonResult,
+)
 
-from ..band_alignment.composite.diagnostics import Periodic1DRankNMatrixComparisonResult
 from .fields import (
     Periodic1DRankNGaugeAlignmentEvaluationRequest,
     Periodic1DRankNGaugeAlignmentEvaluator,

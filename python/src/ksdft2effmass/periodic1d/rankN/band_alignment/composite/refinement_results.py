@@ -10,20 +10,20 @@ from typing import Self
 import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
 
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
-    Periodic1DRankNGaugeAlignment,
-)
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-
-from ._record_admission import (
+from ksdft2effmass.periodic1d.rankN._record_admission import (
     _decoded_float,
     _finite_nonnegative,
     _float_array,
     _int_array,
     _nonempty,
 )
-from .calculation import Periodic1DRankNAlignmentCalculationControls
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationControls,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
+    Periodic1DRankNGaugeAlignment,
+)
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -118,7 +118,7 @@ class Periodic1DRankNBlockRefinementResult(BaseTypedRecord):
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
-            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(self.gauge_alignment),
+            "gauge_alignment": self.gauge_alignment.to_wire(),
             "coarse_mesh_size": self.coarse_mesh_size,
             "fine_mesh_size": self.fine_mesh_size,
             "translations": self.translations,
@@ -173,7 +173,7 @@ class Periodic1DRankNBlockRefinementResult(BaseTypedRecord):
                 raise TypeError(f"{name} must decode to numpy.ndarray")
             arrays[name] = value
         return cls(
-            gauge_alignment=GaugeAlignmentWireMapping.from_wire(gauge_alignment),
+            gauge_alignment=Periodic1DRankNGaugeAlignment.from_wire(gauge_alignment),
             coarse_mesh_size=coarse,
             fine_mesh_size=fine,
             all_pass=all_pass,
@@ -246,7 +246,7 @@ class Periodic1DRankNScalarRefinementResult(BaseTypedRecord):
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
-            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(self.gauge_alignment),
+            "gauge_alignment": self.gauge_alignment.to_wire(),
             "diagnostic_path": self.diagnostic_path,
             "coarse_mesh_size": self.coarse_mesh_size,
             "fine_mesh_size": self.fine_mesh_size,
@@ -297,7 +297,7 @@ class Periodic1DRankNScalarRefinementResult(BaseTypedRecord):
         }:
             floats[name] = _decoded_float(values[name], name)
         return cls(
-            gauge_alignment=GaugeAlignmentWireMapping.from_wire(gauge_alignment),
+            gauge_alignment=Periodic1DRankNGaugeAlignment.from_wire(gauge_alignment),
             diagnostic_path=path,
             coarse_mesh_size=coarse,
             fine_mesh_size=fine,

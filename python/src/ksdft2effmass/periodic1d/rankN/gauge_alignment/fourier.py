@@ -27,8 +27,8 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldErrorAnalyzer,
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
+from ksdft2effmass.periodic1d.rankN.diagnostics import Periodic1DRankNMatrixErrorResult
 
-from ..band_alignment.composite.diagnostics import Periodic1DRankNMatrixErrorResult
 from .nyquist import NyquistModeDispositionEnum
 from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
 

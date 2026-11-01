@@ -12,10 +12,10 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailDiagnostics1D,
 )
 from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.configuration import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
 

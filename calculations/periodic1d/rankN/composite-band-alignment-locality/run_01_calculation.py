@@ -19,9 +19,6 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentCalculationResult,
     Periodic1DRankNAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
-)
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
@@ -122,14 +119,12 @@ def _case_summary(
     final_gauge_alignments: list[JsonValue] = []
     for alignment in result.meshes[-1].gauge_alignment_results:
         summary: dict[str, JsonValue] = {
-            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(
-                alignment.status.gauge_alignment
-            ),
-            "alignment_status": alignment.status.status.value,
+            "gauge_alignment": alignment.status.gauge_alignment.to_wire(),
+            "alignment_status": alignment.status.status.to_wire(),
             "downstream_applicability": (
                 None
                 if alignment.status.global_unitary_downstream_applicability is None
-                else alignment.status.global_unitary_downstream_applicability.value
+                else alignment.status.global_unitary_downstream_applicability.to_wire()
             ),
             "support_count": len(alignment.supports),
         }

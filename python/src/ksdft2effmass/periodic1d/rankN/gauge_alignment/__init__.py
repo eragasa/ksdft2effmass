@@ -1,13 +1,9 @@
-"""Periodic-1D higher-rank gauge-alignment scientific definitions."""
+"""Periodic-1D rank-N gauge-alignment scientific definitions."""
 
 from .definition import Periodic1DRankNGaugeAlignment
-from .nyquist import (
-    NyquistModeDispositionEnum,
-    NyquistModeDispositionWireMapping,
-)
+from .nyquist import NyquistModeDispositionEnum
 
 __all__ = [
     "NyquistModeDispositionEnum",
-    "NyquistModeDispositionWireMapping",
     "Periodic1DRankNGaugeAlignment",
 ]

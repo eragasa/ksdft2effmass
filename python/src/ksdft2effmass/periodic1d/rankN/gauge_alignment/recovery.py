@@ -9,12 +9,12 @@ from typing import final
 import numpy as np
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldErrorAnalyzer
-from ksdft2effmass.representation_equivalence import RepresentationEquivalence
-
-from ..band_alignment.composite.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics import (
     Periodic1DRankNFrameErrorResult,
     Periodic1DRankNMatrixErrorResult,
 )
+from ksdft2effmass.representation_equivalence import RepresentationEquivalence
+
 from .definition import Periodic1DRankNGaugeAlignment
 from .fields import (
     Periodic1DRankNGaugeAlignmentEvaluationRequest,

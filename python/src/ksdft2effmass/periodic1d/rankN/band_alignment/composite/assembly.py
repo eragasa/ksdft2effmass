@@ -5,6 +5,18 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import final
 
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (
+    Periodic1DRankNFourierAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (
+    Periodic1DRankNInterpolationAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.recovery import (
+    Periodic1DRankNRecoveryAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
+    Periodic1DRankNGaugeAlignmentAnalysisRequest,
+)
 from ksdft2effmass.periodic1d.rankN.hopping_locality import (
     Periodic1DRankNHoppingLocalityAnalysis,
 )
@@ -12,11 +24,7 @@ from ksdft2effmass.periodic1d.rankN.support_truncation import (
     Periodic1DRankNSupportTruncationAnalysis,
 )
 
-from .fourier import Periodic1DRankNFourierAnalysis
-from .interpolation import Periodic1DRankNInterpolationAnalysis
-from .recovery import Periodic1DRankNRecoveryAnalysis
-from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
-from .results import Periodic1DRankNGaugeAlignmentMeshResult
+from .result.gauge_alignment import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)

@@ -10,15 +10,14 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixFieldComparisonDiagnostics,
     MatrixFieldErrorSummary,
 )
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-
-from .._record_admission import (
+from ksdft2effmass.periodic1d.rankN._record_admission import (
     _decoded_bool,
     _decoded_float,
     _decoded_optional_float,
     _finite_nonnegative,
     _mapping_value,
 )
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 
 @dataclass(frozen=True, slots=True)

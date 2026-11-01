@@ -7,9 +7,11 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from ksdft2effmass.periodic1d.rankN._record_admission import (
+    _decoded_float,
+    _finite_nonnegative,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-
-from .._record_admission import _decoded_float, _finite_nonnegative
 
 
 @dataclass(frozen=True, slots=True)

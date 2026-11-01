@@ -4,6 +4,21 @@ from __future__ import annotations
 
 from typing import final
 
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (
+    Periodic1DRankNFourierAnalysisRequest,
+    Periodic1DRankNFourierAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (
+    Periodic1DRankNInterpolationAnalysisRequest,
+    Periodic1DRankNInterpolationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.recovery import (
+    Periodic1DRankNRecoveryAnalysisRequest,
+    Periodic1DRankNRecoveryAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
+    Periodic1DRankNGaugeAlignmentAnalysisRequest,
+)
 from ksdft2effmass.periodic1d.rankN.hopping_locality import (
     Periodic1DRankNHoppingLocalityAnalysisRequest,
     Periodic1DRankNHoppingLocalityAnalyzer,
@@ -13,24 +28,11 @@ from ksdft2effmass.periodic1d.rankN.support_truncation import (
     Periodic1DRankNSupportTruncationAnalyzer,
 )
 
-from .assembly import (
+from ..assembly import (
     Periodic1DRankNGaugeAlignmentAssemblyRequest,
     Periodic1DRankNGaugeAlignmentResultAssembler,
 )
-from .fourier import (
-    Periodic1DRankNFourierAnalysisRequest,
-    Periodic1DRankNFourierAnalyzer,
-)
-from .interpolation import (
-    Periodic1DRankNInterpolationAnalysisRequest,
-    Periodic1DRankNInterpolationAnalyzer,
-)
-from .recovery import (
-    Periodic1DRankNRecoveryAnalysisRequest,
-    Periodic1DRankNRecoveryAnalyzer,
-)
-from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
-from .results import Periodic1DRankNGaugeAlignmentMeshResult
+from ..result.gauge_alignment import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 @final

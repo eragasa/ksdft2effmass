@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from typing import final
 
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.results import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.result import (
     Periodic1DRankNGaugeAlignmentMeshResult,
 )
-
-from .definition import Periodic1DRankNAlignmentStatus
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
+)
 
 
 @final

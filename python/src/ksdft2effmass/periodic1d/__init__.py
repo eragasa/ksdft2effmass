@@ -169,17 +169,19 @@ from .rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentTransportOwnerResult,
     Periodic1DRankNAlignmentTransportRequest,
     Periodic1DRankNBlockRefinementResult,
-    Periodic1DRankNFrameErrorResult,
     Periodic1DRankNGaugeAlignment,
     Periodic1DRankNGaugeAlignmentMeshResult,
     Periodic1DRankNGlobalUnitaryDownstreamApplicability,
-    Periodic1DRankNMatrixComparisonResult,
-    Periodic1DRankNMatrixErrorResult,
     Periodic1DRankNMeshCalculationResult,
     Periodic1DRankNModelDiagnostics,
     Periodic1DRankNProcrustesDiagnostics,
     Periodic1DRankNScalarRefinementResult,
     Periodic1DRankNSupportResult,
+)
+from .rankN.diagnostics import (
+    Periodic1DRankNFrameErrorResult,
+    Periodic1DRankNMatrixComparisonResult,
+    Periodic1DRankNMatrixErrorResult,
 )
 
 __all__ = [

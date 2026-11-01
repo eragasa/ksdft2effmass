@@ -12,12 +12,16 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     ScalarRefinementDiagnostics,
 )
 from ksdft2effmass.numerical_consistency import NumericalConsistency
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.results import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.result import (
     Periodic1DRankNMeshCalculationResult,
 )
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
+)
 
-from .calculation import Periodic1DRankNAlignmentCalculationRequest
-from .definition import Periodic1DRankNAlignmentStatus
 from .refinement_results import (
     Periodic1DRankNBlockRefinementResult,
     Periodic1DRankNScalarRefinementResult,

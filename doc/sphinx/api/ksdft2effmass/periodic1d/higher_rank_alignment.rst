@@ -1,4 +1,4 @@
-Higher-rank periodic-1D alignment
+Rank-N periodic-1D band alignment
 =================================
 
 This API defines the analytic parent Hamiltonians, synthetic frame attacks, ranks,
@@ -37,7 +37,7 @@ independent recalculation, byte-owning verification, authenticated figures,
 retained execution, material validation, and publication remain unimplemented and are
 not implied by these software paths.
 
-.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite
    :members:
    :undoc-members:
    :show-inheritance:
@@ -45,22 +45,22 @@ not implied by these software paths.
 Purpose-specific independent reference analysis
 ------------------------------------------------
 
-.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.reference
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.fourier_reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.fourier_reference
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.procrustes_reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.procrustes_reference
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.higher_rank_alignment.transport_reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.transport_reference
    :members:
    :undoc-members:
    :show-inheritance:

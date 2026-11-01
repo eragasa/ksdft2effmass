@@ -6,23 +6,20 @@ import numpy as np
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.physkit.numerics.typing.numpy.arrays import RealArray
 
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationRequest,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.results import (
-    Periodic1DRankNGaugeAlignmentMeshResult,
-)
-
-from ..calculation import Periodic1DRankNAlignmentCalculationRequest
-from ..definition import (
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentBackendExceptionCode,
     Periodic1DRankNAlignmentStatus,
-    Periodic1DRankNGlobalUnitaryDownstreamApplicability,
+    Periodic1DRankNAlignmentStatusResult,
+    _alignment_status_result,
 )
-from ..result import Periodic1DRankNAlignmentStatusResult
 
-_GlobalApplicability = Periodic1DRankNGlobalUnitaryDownstreamApplicability
-_INAPPLICABLE_GLOBAL_RANK = _GlobalApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
+from ..result import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 def _coordinates(mesh_size: int, offset: float) -> RealArray:
@@ -46,25 +43,13 @@ def _status(
         Periodic1DRankNAlignmentBackendExceptionCode | None
     ) = None,
 ) -> Periodic1DRankNAlignmentStatusResult:
-    applicability = None
-    if (
-        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
-        and status is Periodic1DRankNAlignmentStatus.QUALIFIED
-    ):
-        applicability = Periodic1DRankNGlobalUnitaryDownstreamApplicability.APPLICABLE
-    elif (
-        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
-        and status is Periodic1DRankNAlignmentStatus.AGGREGATE_RANK_DEFICIENT
-    ):
-        applicability = _INAPPLICABLE_GLOBAL_RANK
-    return Periodic1DRankNAlignmentStatusResult(
+    return _alignment_status_result(
         case_identity=request.case_identity,
         retained_rank=request.retained_rank,
         circuit_depth=request.circuit_depth,
         construction_mesh_size=mesh_size,
         gauge_alignment=gauge_alignment,
         status=status,
-        global_unitary_downstream_applicability=applicability,
         backend_exception_code=backend_exception_code,
     )
 

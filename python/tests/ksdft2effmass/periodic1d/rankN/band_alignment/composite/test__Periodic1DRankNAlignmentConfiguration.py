@@ -117,7 +117,10 @@ class TestPeriodic1DRankNAlignmentConfiguration:
             old_alignment_wire = (
                 json.dumps(old_alignment, indent=2, sort_keys=True) + "\n"
             ).encode()
-            with pytest.raises(ValueError, match="unsupported gauge alignment"):
+            with pytest.raises(
+                ValueError,
+                match="unsupported Periodic1DRankNGaugeAlignment",
+            ):
                 Periodic1DRankNAlignmentConfiguration.from_json(old_alignment_wire)
 
     @pytest.mark.parametrize(

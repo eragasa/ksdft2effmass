@@ -1,15 +1,19 @@
-"""Higher-rank gauge-alignment status and transport result records."""
+"""Composite-band alignment transport and aggregate result records."""
 
 from .frame_transport import (
     Periodic1DRankNAlignmentTransportBackendFailureResult,
     Periodic1DRankNAlignmentTransportLinkResult,
     Periodic1DRankNAlignmentTransportOwnerResult,
 )
-from .status import Periodic1DRankNAlignmentStatusResult
+from .gauge_alignment import Periodic1DRankNGaugeAlignmentMeshResult
+from .mesh import Periodic1DRankNMeshCalculationResult
+from .model import Periodic1DRankNModelDiagnostics
 
 __all__ = [
-    "Periodic1DRankNAlignmentStatusResult",
     "Periodic1DRankNAlignmentTransportBackendFailureResult",
     "Periodic1DRankNAlignmentTransportLinkResult",
     "Periodic1DRankNAlignmentTransportOwnerResult",
+    "Periodic1DRankNGaugeAlignmentMeshResult",
+    "Periodic1DRankNMeshCalculationResult",
+    "Periodic1DRankNModelDiagnostics",
 ]

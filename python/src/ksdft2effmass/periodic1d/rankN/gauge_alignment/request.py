@@ -10,18 +10,20 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesResult,
 )
 
-from ..band_alignment.composite.calculation import (
+from ..band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
 )
-from ..band_alignment.composite.definition import Periodic1DRankNAlignmentStatus
-from ..band_alignment.composite.diagnostics import Periodic1DRankNProcrustesDiagnostics
-from ..band_alignment.composite.model import Periodic1DRankNAnalyticCase
-from ..band_alignment.composite.result import Periodic1DRankNAlignmentStatusResult
+from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from .definition import Periodic1DRankNGaugeAlignment
 from .fields import (
     Periodic1DRankNGaugeAlignedFields,
     Periodic1DRankNGaugeAlignmentConstructionRequest,
     Periodic1DRankNGaugeAlignmentConstructor,
+)
+from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
+from .status import (
+    Periodic1DRankNAlignmentStatus,
+    Periodic1DRankNAlignmentStatusResult,
 )
 
 

@@ -6,26 +6,26 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-
-from ...band_alignment.composite._record_admission import (
+from ksdft2effmass.periodic1d.rankN._record_admission import (
     _decoded_optional_float,
     _finite_nonnegative,
     _mapping_value,
     _tuple_of_mappings,
 )
-from ...band_alignment.composite.configuration import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
-from ...band_alignment.composite.diagnostics import (
-    Periodic1DRankNModelDiagnostics,
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.result import (
     Periodic1DRankNProcrustesDiagnostics,
 )
-from ...band_alignment.composite.result import (
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+
+from .frame_transport import (
     Periodic1DRankNAlignmentTransportBackendFailureResult,
     Periodic1DRankNAlignmentTransportOwnerResult,
 )
-from .alignment import Periodic1DRankNGaugeAlignmentMeshResult
+from .gauge_alignment import Periodic1DRankNGaugeAlignmentMeshResult
+from .model import Periodic1DRankNModelDiagnostics
 
 
 @dataclass(frozen=True, slots=True, eq=False)

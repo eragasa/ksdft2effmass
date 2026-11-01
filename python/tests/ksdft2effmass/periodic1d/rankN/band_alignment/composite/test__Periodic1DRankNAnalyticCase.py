@@ -8,7 +8,7 @@ from ksdft2effmass.periodic import (
     PeriodicModelRole,
     PeriodicToyModelCatalog,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.model import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
     Periodic1DRankNAnalyticCaseConstructor,
 )
 

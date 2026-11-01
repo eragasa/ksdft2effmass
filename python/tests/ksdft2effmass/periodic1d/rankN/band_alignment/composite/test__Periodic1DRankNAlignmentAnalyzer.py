@@ -29,20 +29,17 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentStatus,
     Periodic1DRankNGaugeAlignment,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.model import (
-    Periodic1DRankNAnalyticCaseConstructor,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite.refinement import (
     Periodic1DRankNRefinementAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
+    Periodic1DRankNAnalyticCaseConstructor,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
     NyquistModeDispositionEnum,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
     interpolation as gauge_interpolation,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.analysis import (  # noqa: E501
-    Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (  # noqa: E501
     Periodic1DRankNGaugeAlignedFields,
@@ -52,6 +49,9 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (  # noqa: E50
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
     Periodic1DRankNFourierAnalysisRequest,
     Periodic1DRankNFourierAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501
+    Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -645,7 +645,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         old_nyquist_wire = (
             json.dumps(old_nyquist, indent=2, sort_keys=True) + "\n"
         ).encode()
-        with pytest.raises(ValueError, match="unsupported Nyquist-mode disposition"):
+        with pytest.raises(ValueError, match="unsupported NyquistModeDispositionEnum"):
             Periodic1DRankNAlignmentCalculationResult.from_json(old_nyquist_wire)
 
         decoded["request"]["retained_rank"] = 4

@@ -14,7 +14,7 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixErrorDecompositionAnalyzer,
     MatrixFieldComparisonAnalyzer,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.diagnostics import (
+from ksdft2effmass.periodic1d.rankN.diagnostics import (
     Periodic1DRankNMatrixComparisonResult,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501

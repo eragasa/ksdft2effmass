@@ -22,18 +22,21 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.result import (
+    Periodic1DRankNGaugeAlignmentMeshResult,
+)
+from ksdft2effmass.periodic1d.rankN.diagnostics import (
+    Periodic1DRankNMatrixErrorResult,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
     Periodic1DRankNGaugeAlignment,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.results import (
-    Periodic1DRankNGaugeAlignmentMeshResult,
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
 )
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from .calculation_result import Periodic1DRankNAlignmentCalculationResult
-from .definition import Periodic1DRankNAlignmentStatus
-from .diagnostics import Periodic1DRankNMatrixErrorResult
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
 _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
@@ -163,7 +166,7 @@ class Periodic1DRankNFourierReferenceAnalyzer:
                     raise ValueError(
                         "bounded Fourier reference requires qualified control results"
                     )
-                gauge_wire = GaugeAlignmentWireMapping.to_wire(gauge_alignment)
+                gauge_wire = gauge_alignment.to_wire()
                 prefix = f"mesh[{size}].{gauge_wire}"
                 modes, coefficients = _direct_fourier_transform(coordinates, field)
                 reconstruction = _direct_fourier_evaluation(

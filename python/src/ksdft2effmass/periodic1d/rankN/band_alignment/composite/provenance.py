@@ -7,10 +7,11 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import Self
 
+from ksdft2effmass.periodic1d.rankN._record_admission import _decoded_bool, _decoded_int
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-
-from ._record_admission import _decoded_bool, _decoded_int
-from .configuration import Periodic1DRankNAlignmentConfiguration
 
 
 @dataclass(frozen=True, slots=True)

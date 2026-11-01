@@ -17,13 +17,21 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FrameRotationAction,
 )
 
+from ksdft2effmass.periodic1d.rankN.band_alignment.protocol import (
+    CIRCUIT_DEPTHS as PROTOCOL_CIRCUIT_DEPTHS,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.protocol import (
+    CONSTRUCTION_MESH_SIZES as PROTOCOL_CONSTRUCTION_MESH_SIZES,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.protocol import (
+    RETAINED_RANKS as PROTOCOL_RETAINED_RANKS,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
     Periodic1DRankNGaugeAlignment,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from ....geometry import Periodic1DReducedCoordinateConvention
+from ...geometry import Periodic1DReducedCoordinateConvention
 
 
 def _decoded_integer_tuple(
@@ -121,9 +129,11 @@ class Periodic1DRankNAlignmentConfiguration(
         "higher-rank-composite-band-alignment-and-locality"
     )
     VERSION_IDENTITY: ClassVar[str] = f"{FAMILY_IDENTITY}.v1"
-    RETAINED_RANKS: ClassVar[tuple[int, ...]] = (3, 4, 8, 16)
-    CIRCUIT_DEPTHS: ClassVar[tuple[int, ...]] = (1, 2, 4, 8)
-    CONSTRUCTION_MESH_SIZES: ClassVar[tuple[int, ...]] = (513, 1025, 2049)
+    RETAINED_RANKS: ClassVar[tuple[int, ...]] = PROTOCOL_RETAINED_RANKS
+    CIRCUIT_DEPTHS: ClassVar[tuple[int, ...]] = PROTOCOL_CIRCUIT_DEPTHS
+    CONSTRUCTION_MESH_SIZES: ClassVar[tuple[int, ...]] = (
+        PROTOCOL_CONSTRUCTION_MESH_SIZES
+    )
     FINAL_CONSTRUCTION_MESH_SIZE: ClassVar[int] = 2049
     GLOBAL_UNITARY_SELECTION_MESH_SIZE: ClassVar[int] = 2049
     EVALUATION_MESH_SIZE: ClassVar[int] = 8191
@@ -328,7 +338,7 @@ class Periodic1DRankNAlignmentConfiguration(
             "evaluation_shift_numerator": self.evaluation_shift_numerator,
             "evaluation_shift_denominator": self.evaluation_shift_denominator,
             "gauge_alignments": tuple(
-                GaugeAlignmentWireMapping.to_wire(gauge_alignment)
+                gauge_alignment.to_wire()
                 for gauge_alignment in self.gauge_alignments
             ),
             "frame_rotation_action": self.frame_rotation_action.value,
@@ -399,7 +409,7 @@ class Periodic1DRankNAlignmentConfiguration(
             if type(gauge_alignment_value) is not str:
                 raise TypeError("gauge alignments must decode to strings")
             gauge_alignments.append(
-                GaugeAlignmentWireMapping.from_wire(gauge_alignment_value)
+                Periodic1DRankNGaugeAlignment.from_wire(gauge_alignment_value)
             )
 
         integer_names = (

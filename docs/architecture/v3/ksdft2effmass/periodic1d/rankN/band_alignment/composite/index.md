@@ -36,13 +36,17 @@ control, not an admissible fitted solution.
 The maintained package provides:
 
 - immutable configuration, calculation, transport, provenance, and result records;
-- a plain domain enum separated from explicit immutable wire mappings;
+- strict domain enums implemented through `StringWireEnum`;
 - an analytic parent Hamiltonian and depth-dependent nearest-neighbor gauge circuit;
 - Project Koios Optimization Procrustes selection, PhysKit closed-loop transport, and
   PhysKit odd-mesh finite-periodic transforms;
 - nominal immutable gauge-aligned field construction;
-- request-bound recovery, Fourier, shifted-interpolation, locality, and result-assembly
-  actions under `rankN/gauge_alignment/`;
+- request-bound recovery, Fourier, and shifted-interpolation actions under
+  `rankN/gauge_alignment/`;
+- scientifically distinct hopping-locality and support-truncation actions under their
+  rank-first capability namespaces;
+- composite-owned orchestration and aggregate-result assembly under
+  `rankN/band_alignment/composite/`;
 - rank-deficiency, integrity-failure, backend-failure, and downstream-inapplicability
   outcomes with fail-closed absence of downstream values;
 - Parseval, Hermiticity, support-tail, error-decomposition, recovery, and scalar- and

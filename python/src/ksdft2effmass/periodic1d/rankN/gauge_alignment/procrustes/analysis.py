@@ -11,18 +11,13 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    Periodic1DRankNGaugeAlignment,
-)
-
-from ..calculation import Periodic1DRankNAlignmentCalculationRequest
-from ..definition import (
+from ..definition import Periodic1DRankNGaugeAlignment
+from ..status import (
     Periodic1DRankNAlignmentBackendExceptionCode,
     Periodic1DRankNAlignmentStatus,
+    _alignment_status_result,
 )
-from ..diagnostics import Periodic1DRankNProcrustesDiagnostics
-from ..result import Periodic1DRankNAlignmentStatusResult
-from .mesh import _status
+from .result import Periodic1DRankNProcrustesDiagnostics
 
 
 def _adjoint(value: ComplexArray) -> ComplexArray:
@@ -82,25 +77,26 @@ def _procrustes_backend_exception_code(
 
 def _failed_procrustes_record(
     *,
-    request: Periodic1DRankNAlignmentCalculationRequest,
+    case_identity: str,
+    retained_rank: int,
+    circuit_depth: int,
     gauge_alignment: Periodic1DRankNGaugeAlignment,
     selection_mesh_size: int,
     exception: ArithmeticError | RuntimeError | ValueError,
 ) -> Periodic1DRankNProcrustesDiagnostics:
-    status = Periodic1DRankNAlignmentStatusResult(
-        case_identity=request.case_identity,
-        retained_rank=request.retained_rank,
-        circuit_depth=request.circuit_depth,
+    status = _alignment_status_result(
+        case_identity=case_identity,
+        retained_rank=retained_rank,
+        circuit_depth=circuit_depth,
         construction_mesh_size=selection_mesh_size,
         gauge_alignment=gauge_alignment,
         status=Periodic1DRankNAlignmentStatus.NUMERICALLY_UNRESOLVED,
-        global_unitary_downstream_applicability=None,
         backend_exception_code=_procrustes_backend_exception_code(exception),
     )
     return Periodic1DRankNProcrustesDiagnostics(
         status=status,
         selection_mesh_size=selection_mesh_size,
-        cross_singular_values=np.empty((0, request.retained_rank), dtype=np.float64),
+        cross_singular_values=np.empty((0, retained_rank), dtype=np.float64),
         numerical_ranks=np.empty(0, dtype=np.int64),
         applied_rank_cutoffs=np.empty(0, dtype=np.float64),
         rank_margins=np.empty(0, dtype=np.float64),
@@ -123,7 +119,10 @@ def _failed_procrustes_record(
 
 def _procrustes_record(
     *,
-    request: Periodic1DRankNAlignmentCalculationRequest,
+    case_identity: str,
+    retained_rank: int,
+    circuit_depth: int,
+    alignment_integrity_tolerance: float,
     gauge_alignment: Periodic1DRankNGaugeAlignment,
     selection_mesh_size: int,
     source: ComplexArray,
@@ -141,7 +140,7 @@ def _procrustes_record(
             objective_identity,
             psd,
         )
-        <= request.controls.alignment_integrity_tolerance
+        <= alignment_integrity_tolerance
     )
     if gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY:
         outcome = (
@@ -175,7 +174,14 @@ def _procrustes_record(
     if result.backend_identifier is None or result.backend_version is None:
         raise ValueError("nonempty Procrustes selection requires backend evidence")
     return Periodic1DRankNProcrustesDiagnostics(
-        status=_status(request, selection_mesh_size, gauge_alignment, outcome),
+        status=_alignment_status_result(
+            case_identity=case_identity,
+            retained_rank=retained_rank,
+            circuit_depth=circuit_depth,
+            construction_mesh_size=selection_mesh_size,
+            gauge_alignment=gauge_alignment,
+            status=outcome,
+        ),
         selection_mesh_size=selection_mesh_size,
         cross_singular_values=np.asarray(
             result.cross_singular_values, dtype=np.float64
@@ -188,7 +194,7 @@ def _procrustes_record(
         ),
         spectral_condition_numbers=tuple(
             float(values[0] / values[-1])
-            if rank == request.retained_rank and values[-1] > cutoff
+            if rank == retained_rank and values[-1] > cutoff
             else None
             for values, rank, cutoff in zip(
                 result.cross_singular_values,

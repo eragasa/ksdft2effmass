@@ -25,15 +25,18 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.result.status import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.request import (
+    Periodic1DRankNAlignmentTransportRequest,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentBackendExceptionCode,
     _case_identity,
     _nonempty_text,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-
-from ..configuration import Periodic1DRankNAlignmentConfiguration
-from ..definition import Periodic1DRankNAlignmentBackendExceptionCode
-from ..request import Periodic1DRankNAlignmentTransportRequest
 
 
 def _backend_exception_code(

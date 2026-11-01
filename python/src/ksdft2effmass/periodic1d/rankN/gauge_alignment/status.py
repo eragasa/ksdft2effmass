@@ -6,19 +6,81 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.configuration import (
-    Periodic1DRankNAlignmentConfiguration,
+from ksdft2effmass.periodic1d.rankN.band_alignment.protocol import (
+    CIRCUIT_DEPTHS,
+    CONSTRUCTION_MESH_SIZES,
+    RETAINED_RANKS,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.definition import (
-    Periodic1DRankNAlignmentBackendExceptionCode,
-    Periodic1DRankNAlignmentStatus,
-    Periodic1DRankNGlobalUnitaryDownstreamApplicability,
+from ksdft2effmass.serialization import (
+    BaseTypedRecord,
+    SerializableValue,
+    StringWireEnum,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (  # noqa: E501
-    GaugeAlignmentWireMapping,
-    Periodic1DRankNGaugeAlignment,
-)
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+
+from .definition import Periodic1DRankNGaugeAlignment
+
+
+class Periodic1DRankNAlignmentStatus(StringWireEnum):
+    """Retain the exact disposition of one gauge alignment."""
+
+    QUALIFIED = "qualified"
+    AGGREGATE_RANK_DEFICIENT = "aggregate-rank-deficient"
+    POINTWISE_RANK_DEFICIENT = "pointwise-rank-deficient"
+    NUMERICALLY_UNRESOLVED = "alignment-numerically-unresolved"
+    INTEGRITY_FAILED = "alignment-integrity-failed"
+    ORACLE_INTEGRITY_FAILED = "oracle-integrity-failed"
+
+
+class Periodic1DRankNGlobalUnitaryDownstreamApplicability(StringWireEnum):
+    """State whether global-unitary alignment has downstream values."""
+
+    APPLICABLE = "applicable"
+    INAPPLICABLE_AGGREGATE_RANK_DEFICIENT = "inapplicable-aggregate-rank-deficient"
+
+
+class Periodic1DRankNAlignmentBackendExceptionCode(StringWireEnum):
+    """Classify an alignment backend failure without retaining exception text."""
+
+    ARITHMETIC_NONFINITE = "backend-arithmetic-nonfinite"
+    NONCONVERGENCE = "backend-nonconvergence"
+    VALIDATION_FAILED = "backend-validation-failed"
+
+
+def _alignment_status_result(
+    *,
+    case_identity: str,
+    retained_rank: int,
+    circuit_depth: int,
+    construction_mesh_size: int,
+    gauge_alignment: Periodic1DRankNGaugeAlignment,
+    status: Periodic1DRankNAlignmentStatus,
+    backend_exception_code: Periodic1DRankNAlignmentBackendExceptionCode | None = None,
+) -> Periodic1DRankNAlignmentStatusResult:
+    applicability = None
+    if (
+        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+        and status is Periodic1DRankNAlignmentStatus.QUALIFIED
+    ):
+        applicability = (
+            Periodic1DRankNGlobalUnitaryDownstreamApplicability.APPLICABLE
+        )
+    elif (
+        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+        and status is Periodic1DRankNAlignmentStatus.AGGREGATE_RANK_DEFICIENT
+    ):
+        applicability = (
+            Periodic1DRankNGlobalUnitaryDownstreamApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
+        )
+    return Periodic1DRankNAlignmentStatusResult(
+        case_identity=case_identity,
+        retained_rank=retained_rank,
+        circuit_depth=circuit_depth,
+        construction_mesh_size=construction_mesh_size,
+        gauge_alignment=gauge_alignment,
+        status=status,
+        global_unitary_downstream_applicability=applicability,
+        backend_exception_code=backend_exception_code,
+    )
 
 
 def _case_identity(retained_rank: int, circuit_depth: int) -> str:
@@ -41,7 +103,7 @@ class Periodic1DRankNAlignmentStatusResult(BaseTypedRecord):
     case_identity
         Nonempty rank/depth identity ``rNN-LNN``.
     retained_rank, circuit_depth
-        Built-in unitless integers selected from the frozen study inventories.
+        Built-in unitless integers selected from the band-alignment protocol.
     construction_mesh_size
         Built-in integer number of construction-mesh points.
     gauge_alignment, status
@@ -55,8 +117,8 @@ class Periodic1DRankNAlignmentStatusResult(BaseTypedRecord):
 
     Notes
     -----
-    Python integers do not overflow; the frozen inventories bound their values. Boolean
-    values and numeric strings are rejected. No absent downstream quantity is
+    Python integers do not overflow; the protocol inventories bound their values.
+    Boolean values and numeric strings are rejected. No absent downstream quantity is
     represented by a fabricated numeric zero.
     """
 
@@ -75,20 +137,12 @@ class Periodic1DRankNAlignmentStatusResult(BaseTypedRecord):
         """Validate the closed gauge-alignment-specific disposition inventory."""
         _nonempty_text(self.case_identity, "case_identity")
         for value, name, allowed in (
-            (
-                self.retained_rank,
-                "retained_rank",
-                Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS,
-            ),
-            (
-                self.circuit_depth,
-                "circuit_depth",
-                Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS,
-            ),
+            (self.retained_rank, "retained_rank", RETAINED_RANKS),
+            (self.circuit_depth, "circuit_depth", CIRCUIT_DEPTHS),
             (
                 self.construction_mesh_size,
                 "construction_mesh_size",
-                Periodic1DRankNAlignmentConfiguration.CONSTRUCTION_MESH_SIZES,
+                CONSTRUCTION_MESH_SIZES,
             ),
         ):
             if type(value) is not int:
@@ -185,17 +239,17 @@ class Periodic1DRankNAlignmentStatusResult(BaseTypedRecord):
             "retained_rank": self.retained_rank,
             "circuit_depth": self.circuit_depth,
             "construction_mesh_size": self.construction_mesh_size,
-            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(self.gauge_alignment),
-            "status": self.status.value,
+            "gauge_alignment": self.gauge_alignment.to_wire(),
+            "status": self.status.to_wire(),
             "global_unitary_downstream_applicability": (
                 None
                 if self.global_unitary_downstream_applicability is None
-                else self.global_unitary_downstream_applicability.value
+                else self.global_unitary_downstream_applicability.to_wire()
             ),
             "backend_exception_code": (
                 None
                 if self.backend_exception_code is None
-                else self.backend_exception_code.value
+                else self.backend_exception_code.to_wire()
             ),
         }
 
@@ -242,19 +296,28 @@ class Periodic1DRankNAlignmentStatusResult(BaseTypedRecord):
             retained_rank=retained_rank,
             circuit_depth=circuit_depth,
             construction_mesh_size=construction_mesh_size,
-            gauge_alignment=GaugeAlignmentWireMapping.from_wire(gauge_alignment),
-            status=Periodic1DRankNAlignmentStatus(status),
+            gauge_alignment=Periodic1DRankNGaugeAlignment.from_wire(gauge_alignment),
+            status=Periodic1DRankNAlignmentStatus.from_wire(status),
             global_unitary_downstream_applicability=(
                 None
                 if applicability is None
-                else Periodic1DRankNGlobalUnitaryDownstreamApplicability(applicability)
+                else Periodic1DRankNGlobalUnitaryDownstreamApplicability.from_wire(
+                    applicability
+                )
             ),
             backend_exception_code=(
                 None
                 if exception_code is None
-                else Periodic1DRankNAlignmentBackendExceptionCode(exception_code)
+                else Periodic1DRankNAlignmentBackendExceptionCode.from_wire(
+                    exception_code
+                )
             ),
         )
 
 
-__all__ = ["Periodic1DRankNAlignmentStatusResult"]
+__all__ = [
+    "Periodic1DRankNAlignmentBackendExceptionCode",
+    "Periodic1DRankNAlignmentStatus",
+    "Periodic1DRankNAlignmentStatusResult",
+    "Periodic1DRankNGlobalUnitaryDownstreamApplicability",
+]

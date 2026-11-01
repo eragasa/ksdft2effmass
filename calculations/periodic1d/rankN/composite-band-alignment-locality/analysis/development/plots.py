@@ -22,7 +22,6 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     Periodic1DRankNAlignmentStatus,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
     Periodic1DRankNGaugeAlignment,
 )
 from matplotlib.axes import Axes
@@ -173,7 +172,7 @@ class HigherRankDevelopmentFigureData:
         if self.support_radii != (0, 1, 2, 4, 8, 16, 32, 64, 128):
             raise ValueError("support_radii must match the frozen inventory")
         expected_gauges = tuple(
-            GaugeAlignmentWireMapping.to_wire(value)
+            value.to_wire()
             for value in Periodic1DRankNAlignmentConfiguration.GAUGE_ALIGNMENTS
         )
         if self.gauge_alignment_names != expected_gauges:
@@ -462,7 +461,7 @@ class HigherRankDevelopmentFigureDataProjector:
             circuit_depths=depths,
             support_radii=supports,
             gauge_alignment_names=tuple(
-                GaugeAlignmentWireMapping.to_wire(value) for value in gauges
+                value.to_wire() for value in gauges
             ),
             refinement_labels=_REFINEMENT_LABELS,
             block_translations=translations,

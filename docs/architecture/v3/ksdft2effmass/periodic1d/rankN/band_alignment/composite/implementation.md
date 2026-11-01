@@ -4,52 +4,46 @@
 
 | Module | Scientific role |
 |---|---|
-| `definition.py` | Names calculation and transport outcomes. |
-| `configuration.py` | Stores the frozen ranks, depths, meshes, supports, phase convention, and tolerances. |
-| `request.py` | Selects one rank/depth/construction-mesh transport and its physical identities. |
-| `result/status.py` | Stores gauge-alignment status and bounded downstream applicability. |
-| `result/frame_transport.py` | Stores request-bound closed-loop frame-transport evidence and bounded failures. |
-| `result/__init__.py` | Exposes the deliberate status and transport result inventory. |
-| `model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and gauge circuit. |
-| `_record_admission.py` | Centralizes exact-type, immutable-array, and nested-mapping admission. |
-| `calculation.py` | Defines the complete frozen calculation request. |
-| `diagnostics/model.py` | Stores analytic-model and Procrustes diagnostics. |
-| `diagnostics/matrix.py` | Stores matrix-field error and comparison diagnostics. |
-| `diagnostics/frame.py` | Stores frame-recovery diagnostics. |
-| `diagnostics/__init__.py` | Exposes the deliberate diagnostic-record inventory. |
-| `provenance.py` | Stores mesh-role separation and global-selection provenance. |
-| `refinement_results.py` | Stores block and scalar refinement results. |
-| `scalar_diagnostics.py` | Owns the canonical scalar-diagnostic inventory used by refinement and aggregate admission. |
-| `refinement.py` | Analyzes correlated evidence across construction meshes. |
-| `calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
-| `reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
-| `fourier_reference.py` | Independently reconstructs all four bounded Fourier controls with direct NumPy sums. |
-| `procrustes_reference.py` | Independently reconstructs global and pointwise Procrustes selection evidence without the producer solver. |
-| `transport_reference.py` | Independently reconstructs the constant-frame closed route without the producer transporter. |
-| `analysis/calculation.py` | Composes Optimization, PhysKit, gauge-alignment, transport, and refinement owners. |
-| `analysis/procrustes.py` | Builds bounded global and pointwise Procrustes selection evidence. |
-| `analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
-| `analysis/evaluation.py` | Proves exact construction/evaluation mesh separation. |
-| `analysis/__init__.py` | Exposes the deliberate calculation-analysis action inventory. |
-| `rankN/gauge_alignment/definition.py` | Defines the four gauge-alignment domain identities and explicit wire map. |
-| `rankN/gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition and explicit wire mapping. |
+| `rankN/_record_admission.py` | Centralizes exact-type, immutable-array, and nested-mapping admission shared by rank-$N$ records. |
+| `rankN/diagnostics/frame.py` | Stores shared frame-recovery diagnostics. |
+| `rankN/diagnostics/matrix.py` | Stores shared matrix-field error and comparison diagnostics. |
+| `rankN/band_alignment/protocol.py` | Owns the shared frozen rank, depth, and construction-mesh inventories. |
+| `rankN/band_alignment/configuration.py` | Stores the complete frozen study configuration, supports, phase convention, and tolerances. |
+| `rankN/band_alignment/request.py` | Selects one rank/depth/construction-mesh transport and its physical identities. |
+| `rankN/band_alignment/calculation.py` | Defines calculation controls and the complete frozen calculation request. |
+| `rankN/band_alignment/model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and gauge circuit. |
+| `rankN/gauge_alignment/definition.py` | Defines the four gauge-alignment identities as strict `StringWireEnum` values. |
+| `rankN/gauge_alignment/status.py` | Stores gauge-alignment outcomes, backend codes, and bounded downstream applicability. |
+| `rankN/gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition as a strict `StringWireEnum` value. |
+| `rankN/gauge_alignment/procrustes/analysis.py` | Builds bounded global and pointwise Procrustes selection evidence. |
+| `rankN/gauge_alignment/procrustes/result.py` | Stores complete Procrustes rank and integrity evidence. |
 | `rankN/gauge_alignment/fields.py` | Constructs nominal immutable gauge-aligned operators and frames. |
-| `rankN/gauge_alignment/request.py` | Correlates one complete gauge-alignment analysis request. |
+| `rankN/gauge_alignment/request.py` | Correlates one complete gauge-alignment construction and analysis request. |
 | `rankN/gauge_alignment/recovery.py` | Evaluates frame and represented-operator recovery. |
 | `rankN/gauge_alignment/fourier.py` | Owns odd-mesh transforms and Fourier structural evidence. |
 | `rankN/gauge_alignment/interpolation.py` | Owns direct and complete-series shifted-mesh evaluation. |
 | `rankN/hopping_locality/analysis.py` | Measures coefficient tails and nested-range monotonicity without removing Fourier support. |
 | `rankN/hopping_locality/result.py` | Owns immutable hopping-tail values without inheriting support-truncation semantics. |
-| `rankN/support_truncation/analysis.py` | Constructs finite-support operators and owns the consequences of irreversible support removal under the installed `RealSpaceSupportTruncation` base. |
-| `rankN/support_truncation/result.py` | Preserves the historical combined wire record while the admitted mesh result exposes a non-serialized hopping-locality projection. |
-| `rankN/gauge_alignment/locality.py` | Preserves the historical import path as a same-type alias. |
-| `rankN/gauge_alignment/assembly.py` | Correlates stage evidence and assembles one public mesh result. |
-| `rankN/gauge_alignment/analysis.py` | Executes the typed stages in scientific order. |
-| `rankN/gauge_alignment/results/support.py` | Preserves the historical support-result import path as a same-type alias. |
-| `rankN/gauge_alignment/results/alignment.py` | Stores transform, recovery, interpolation, and locality evidence for one alignment. |
-| `rankN/gauge_alignment/results/mesh.py` | Correlates model, common transport, selection, and alignment evidence for one mesh. |
-| `rankN/gauge_alignment/results/__init__.py` | Exposes the deliberate public gauge-alignment result inventory. |
-| `rankN/gauge_alignment/__init__.py` | Exposes definitions only; purpose-specific actions remain module-local. |
+| `rankN/support_truncation/analysis.py` | Constructs finite-support operators and owns the consequences of irreversible support removal. |
+| `rankN/support_truncation/result.py` | Preserves the historical combined wire record while exposing admitted hopping-locality values without recomputation. |
+| `rankN/band_alignment/composite/analysis/gauge_alignment.py` | Executes the gauge-alignment stages in scientific order as composite orchestration. |
+| `rankN/band_alignment/composite/assembly.py` | Correlates stage evidence and assembles one aggregate alignment result. |
+| `rankN/band_alignment/composite/result/frame_transport.py` | Stores request-bound closed-loop frame-transport evidence and bounded failures. |
+| `rankN/band_alignment/composite/result/gauge_alignment.py` | Stores aggregate transform, recovery, interpolation, locality, and truncation evidence for one alignment. |
+| `rankN/band_alignment/composite/result/mesh.py` | Correlates common transport, Procrustes selection, and alignment evidence for one mesh. |
+| `rankN/band_alignment/composite/result/model.py` | Stores analytic-model integrity evidence owned by the composite result. |
+| `rankN/band_alignment/composite/provenance.py` | Stores mesh-role separation and global-selection provenance. |
+| `rankN/band_alignment/composite/refinement_results.py` | Stores block and scalar refinement results. |
+| `rankN/band_alignment/composite/scalar_diagnostics.py` | Owns the scalar-diagnostic inventory used by refinement and aggregate admission. |
+| `rankN/band_alignment/composite/refinement.py` | Analyzes correlated evidence across construction meshes. |
+| `rankN/band_alignment/composite/calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
+| `rankN/band_alignment/composite/reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
+| `rankN/band_alignment/composite/fourier_reference.py` | Independently reconstructs all four bounded Fourier controls with direct NumPy sums. |
+| `rankN/band_alignment/composite/procrustes_reference.py` | Verifies aggregate Procrustes evidence with a producer-independent construction. |
+| `rankN/band_alignment/composite/transport_reference.py` | Independently reconstructs the constant-frame closed route without the producer transporter. |
+| `rankN/band_alignment/composite/analysis/calculation.py` | Composes Optimization, PhysKit, gauge alignment, transport, locality, truncation, and refinement owners. |
+| `rankN/band_alignment/composite/analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
+| `rankN/band_alignment/composite/analysis/evaluation.py` | Proves exact construction/evaluation mesh separation. |
 
 The rank-first migration uses the scientific bases installed directly under
 `ksdft2effmass`: representation equivalence, real-space support truncation, and
@@ -57,8 +51,11 @@ subspace reduction. It does not introduce duplicate bases beneath `periodic1d`.
 The first migrated concrete slices are rank-N hopping locality and support
 truncation. Hopping locality characterizes the unchanged Fourier coefficient field;
 support truncation constructs a different finite-support representation and measures
-its errors. The public mesh wire remains unchanged. Canonical alignment implementation and imports
-reside under `periodic1d.rankN.band_alignment.composite`; the former unranked source path is removed.
+its errors. Gauge identities, status, Procrustes selection, and fieldwise actions
+reside under `periodic1d.rankN.gauge_alignment`; shared rank-$N$ diagnostics reside
+under `periodic1d.rankN.diagnostics`; composite orchestration and aggregate records
+reside under `periodic1d.rankN.band_alignment.composite`. The public calculation bytes
+remain unchanged, and obsolete source paths are removed rather than retained as aliases.
 
 The maintained records are immutable and serialize deterministically. Arrays use nominal
 Project Koios immutable NumPy construction and validation. Request admission is
@@ -109,8 +106,8 @@ control.
 request and explicit Optimization, PhysKit, and KSD collaborators. Its zero-argument
 `execute()` constructs an analytic case, performs the sole global selection at
 $M=2049$, evaluates all construction meshes, delegates each prescribed gauge alignment
-to `Periodic1DRankNGaugeAlignmentAnalyzer`, and delegates mesh-pair comparisons to
-`Periodic1DRankNRefinementAnalyzer`.
+to the composite-owned `Periodic1DRankNGaugeAlignmentAnalyzer`, and delegates
+mesh-pair comparisons to `Periodic1DRankNRefinementAnalyzer`.
 
 For one gauge alignment and mesh, the typed stages are:
 
@@ -127,8 +124,8 @@ For one gauge alignment and mesh, the typed stages are:
 6. `Periodic1DRankNSupportTruncationAnalyzer` constructs every frozen finite-support
    representation and keeps interpolation, truncation, and total error channels
    separate.
-7. `Periodic1DRankNGaugeAlignmentResultAssembler` admits only evidence derived from
-   the same exact analysis request and assembles the unchanged public mesh wire
+7. The composite-owned `Periodic1DRankNGaugeAlignmentResultAssembler` admits only
+   evidence derived from the same exact analysis request and assembles the unchanged public mesh wire
    without recomputing scientific values.
 
 The stages retain their exact source request. Equal-looking replacement requests and

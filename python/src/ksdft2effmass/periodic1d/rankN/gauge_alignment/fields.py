@@ -17,12 +17,12 @@ from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, Real
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldIsometryAnalyzer
 
-from ..band_alignment.composite.calculation import (
+from ..band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
 )
-from ..band_alignment.composite.diagnostics import Periodic1DRankNProcrustesDiagnostics
-from ..band_alignment.composite.model import Periodic1DRankNAnalyticCase
+from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from .definition import Periodic1DRankNGaugeAlignment
+from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
 
 
 @dataclass(frozen=True, slots=True, eq=False)

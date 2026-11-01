@@ -26,9 +26,12 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     MatrixProjectorFieldAnalyzer,
     ScalarRefinementAnalyzer,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.analysis import (
-    Periodic1DRankNGaugeAlignmentAnalysisRequest,
-    Periodic1DRankNGaugeAlignmentAnalyzer,
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
+    Periodic1DRankNAnalyticCase,
+    Periodic1DRankNAnalyticCaseConstructor,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
@@ -38,34 +41,36 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (
     Periodic1DRankNGaugeAlignmentConstructionRequest,
     Periodic1DRankNGaugeAlignmentConstructor,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.results import (
-    Periodic1DRankNGaugeAlignmentMeshResult,
-    Periodic1DRankNMeshCalculationResult,
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.analysis import (
+    _failed_procrustes_record,
+    _procrustes_record,
 )
-
-from ..calculation import Periodic1DRankNAlignmentCalculationRequest
-from ..calculation_result import Periodic1DRankNAlignmentCalculationResult
-from ..definition import Periodic1DRankNAlignmentStatus
-from ..diagnostics import (
-    Periodic1DRankNModelDiagnostics,
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.result import (
     Periodic1DRankNProcrustesDiagnostics,
 )
-from ..model import (
-    Periodic1DRankNAnalyticCase,
-    Periodic1DRankNAnalyticCaseConstructor,
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
+    Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
+    Periodic1DRankNAlignmentStatusResult,
+)
+
+from ..calculation_result import Periodic1DRankNAlignmentCalculationResult
 from ..refinement import (
     Periodic1DRankNRefinementAnalysisRequest,
     Periodic1DRankNRefinementAnalyzer,
 )
 from ..result import (
-    Periodic1DRankNAlignmentStatusResult,
     Periodic1DRankNAlignmentTransportBackendFailureResult,
     Periodic1DRankNAlignmentTransportOwnerResult,
+    Periodic1DRankNGaugeAlignmentMeshResult,
+    Periodic1DRankNMeshCalculationResult,
 )
+from ..result.model import Periodic1DRankNModelDiagnostics
 from .evaluation import Periodic1DRankNEvaluationIndependenceAnalyzer
+from .gauge_alignment import Periodic1DRankNGaugeAlignmentAnalyzer
 from .mesh import _coordinates, _status, _unavailable_gauge_alignment_result
-from .procrustes import _failed_procrustes_record, _procrustes_record
 
 
 def _adjoint(value: ComplexArray) -> ComplexArray:
@@ -201,13 +206,20 @@ class Periodic1DRankNAlignmentAnalyzer:
             result = self._solve(source, target)
         except (ArithmeticError, RuntimeError, ValueError) as exception:
             return _failed_procrustes_record(
-                request=self._request,
+                case_identity=self._request.case_identity,
+                retained_rank=self._request.retained_rank,
+                circuit_depth=self._request.circuit_depth,
                 gauge_alignment=Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
                 selection_mesh_size=mesh_size,
                 exception=exception,
             )
         return _procrustes_record(
-            request=self._request,
+            case_identity=self._request.case_identity,
+            retained_rank=self._request.retained_rank,
+            circuit_depth=self._request.circuit_depth,
+            alignment_integrity_tolerance=(
+                self._request.controls.alignment_integrity_tolerance
+            ),
             gauge_alignment=Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
             selection_mesh_size=mesh_size,
             source=source,
@@ -230,14 +242,21 @@ class Periodic1DRankNAlignmentAnalyzer:
             pointwise_result = self._solve(attacked_frames, reference_frames)
         except (ArithmeticError, RuntimeError, ValueError) as exception:
             pointwise_selection = _failed_procrustes_record(
-                request=self._request,
+                case_identity=self._request.case_identity,
+                retained_rank=self._request.retained_rank,
+                circuit_depth=self._request.circuit_depth,
                 gauge_alignment=Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
                 selection_mesh_size=mesh_size,
                 exception=exception,
             )
         else:
             pointwise_selection = _procrustes_record(
-                request=self._request,
+                case_identity=self._request.case_identity,
+                retained_rank=self._request.retained_rank,
+                circuit_depth=self._request.circuit_depth,
+                alignment_integrity_tolerance=(
+                    self._request.controls.alignment_integrity_tolerance
+                ),
                 gauge_alignment=Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
                 selection_mesh_size=mesh_size,
                 source=attacked_frames,

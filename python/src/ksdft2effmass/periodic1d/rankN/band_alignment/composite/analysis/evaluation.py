@@ -5,7 +5,10 @@ from __future__ import annotations
 from fractions import Fraction
 from typing import final
 
-from ..calculation import Periodic1DRankNAlignmentCalculationRequest
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationRequest,
+)
+
 from ..provenance import Periodic1DRankNEvaluationIndependenceResult
 
 

@@ -8,25 +8,30 @@ from typing import Self
 
 import numpy as np
 
+from ksdft2effmass.periodic1d.rankN._record_admission import (
+    _mapping_value,
+    _tuple_of_mappings,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationRequest,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.results import (
-    Periodic1DRankNMeshCalculationResult,
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.result import (
+    Periodic1DRankNProcrustesDiagnostics,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
-from ._record_admission import _mapping_value, _tuple_of_mappings
-from .calculation import Periodic1DRankNAlignmentCalculationRequest
-from .definition import (
-    Periodic1DRankNAlignmentStatus,
-)
-from .diagnostics import Periodic1DRankNProcrustesDiagnostics
 from .provenance import Periodic1DRankNEvaluationIndependenceResult
 from .refinement_results import (
     Periodic1DRankNBlockRefinementResult,
     Periodic1DRankNScalarRefinementResult,
 )
+from .result import Periodic1DRankNMeshCalculationResult
 from .scalar_diagnostics import (
     Periodic1DRankNScalarDiagnosticInventoryExtractor,
 )
