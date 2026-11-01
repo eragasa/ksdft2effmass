@@ -3,10 +3,12 @@
 ## Status
 
 This is the publication-independent direct successor to the historical Conference Paper
-1 `M2` protocol. It freezes the parity-preserving scientific and numerical meaning
-implemented by the typed calculate → independently verify → authenticated render
-lifecycle. It is not an immutable experiment version and records no new retained run or
-evidence.
+1 `M2` protocol. It fixes the finite parent, retained state spaces, gauge action,
+alignment objectives, Fourier convention, locality diagnostics, and numerical
+qualification criteria. The result identity
+`ksdft2effmass.periodic1d-rank2-composite-band-alignment-result.v2` distinguishes this
+scientific record from the retired historical-byte contract. This protocol records no
+new retained run or accepted scientific evidence.
 
 The historical files and checksums under
 `calculations/ICMSEP2026/conference/paper_1/multiband-alignment/` remain unchanged.
@@ -26,7 +28,7 @@ energy `E_ref`, the energy zero is the exact parent onsite convention, and reduc
 momenta use reciprocal period one on the centered half-open interval. The direct
 rank-first study context realizes this reduced convention with the explicit lattice
 geometry $a_0=1\,\mathrm{bohr}$; this geometry supplies units and does not alter the
-legacy dimensionless result wire. Operators are compared only after their state spaces
+dimensionless scientific model. Operators are compared only after their state spaces
 are explicitly aligned.
 
 ## Sample roles
@@ -81,6 +83,65 @@ absolute tolerance is `1e-12` and relative tolerance is zero.
 Pointwise and one-global-unitary alignment are different feasible families. Neither is
 presented as an approximation to the other.
 
+Let $R_j,C_j\in\mathbb C^{4\times2}$ denote the transported reference and attacked
+frames at construction point $j$, and define the cross covariance
+
+\[
+X_j=C_j^\dagger R_j.
+\]
+
+The pointwise problem is
+
+\[
+U_j=\arg\min_{U\in U(2)}\frac{1}{2}\lVert C_jU-R_j\rVert_F^2,
+\]
+
+while the global problem constrains all points to one unitary,
+
+\[
+U_{\mathrm g}=\arg\min_{U\in U(2)}
+\frac{1}{2}\sum_{j=1}^{64}\lVert C_jU-R_j\rVert_F^2,
+\qquad
+X_{\mathrm g}=\sum_{j=1}^{64}X_j.
+\]
+
+For a full-rank covariance $X$, the unique minimizer is its right polar factor
+
+\[
+\mathcal P(X)=X(X^\dagger X)^{-1/2}.
+\]
+
+A complete complex SVD may be used to evaluate this polar factor, but its individual
+left and right singular-vector bases are nonunique when singular values repeat. Those
+bases are therefore neither physical quantities nor reproducibility targets. The
+scientific evidence consists of the selected polar factor together with the singular
+values $\sigma_1\geq\sigma_2$, numerical rank, cutoff $\tau$, strict margin
+$\sigma_2-\tau$, condition number $\sigma_1/\sigma_2$, and the normalized objective.
+
+For every admitted selection, also evaluate
+
+\[
+\varepsilon_{\mathrm{unit}}=\lVert U^\dagger U-I_2\rVert_F,
+\qquad
+\varepsilon_{\mathrm{stat}}=
+\frac{\lVert U^\dagger X-X^\dagger U\rVert_F}{\sqrt2},
+\]
+
+\[
+\varepsilon_{\mathrm{obj}}=
+\left|J_{\mathrm{direct}}-J_{\mathrm{cov}}\right|,
+\qquad
+\varepsilon_{\mathrm{psd}}=
+\max\!\left\{0,-\lambda_{\min}\!\left(
+\frac{U^\dagger X+X^\dagger U}{2}
+\right)\right\}.
+\]
+
+The pointwise family retains the maximum and root-mean-square normalized objectives over
+all 64 points; the global family retains the corresponding one-selection values.
+Backend identity is retained only to disclose the numerical realization of these
+finite-dimensional quantities.
+
 ## Represented operators and locality
 
 Represent the parent Hamiltonian in transported-reference, attacked, pointwise-aligned,
@@ -123,32 +184,38 @@ invariant physical observables.
 
 ## Independent verification
 
-The producer-independent verifier must reconstruct the parent samples, frame/projector
-diagnostics, attack, alignment objectives, represented operators, cyclic and ordinary Fourier blocks, conversion power,
-direct evaluation fields, truncations, and separated interpolation/truncation/total
-Hamiltonian and spectral errors without calling the producer Action or an owner
-alignment solver. It must independently establish that every accepted pointwise and
-aggregate covariance is numerically full rank under the retained cutoff.
+The independent reference reconstructs the parent Hamiltonians, transported frames,
+analytic attack, alignment covariances, represented operators, Fourier blocks,
+cyclic-to-ordinary conversion, evaluation fields, and every truncation channel from the
+fixed mathematical definitions above.
 
-Shared BLAS/LAPACK and array-library lineage must be disclosed. Numerical agreement
-establishes bounded software behavior only; it does not establish continuum convergence,
-material validity, uncertainty bounds, or scientific acceptance.
+For pointwise alignment, the analytic relation $C_j=R_jA_j$ gives
+$X_j=A_j^\dagger$ up to floating-point roundoff, so the reference uses the cross
+covariance directly rather than an SVD. For global alignment, it constructs
 
-## Migration and evidence gates
+\[
+\mathcal P(X_{\mathrm g})=
+X_{\mathrm g}(X_{\mathrm g}^\dagger X_{\mathrm g})^{-1/2}
+\]
 
-The source lifecycle now closes strict typed configuration, result, verification, and
-visualization field inventories; canonical typed JSON; owner dependencies; independent
-reconstruction; and direct effect adapters. It does not create a schema-v1 compatibility
-artifact or decode historical campaign bytes at runtime.
+from an Hermitian eigendecomposition of $X_{\mathrm g}^\dagger X_{\mathrm g}$. It then
+recomputes the singular values, rank decisions, margins, condition numbers, normalized
+objectives, and all four integrity defects from the original frames. Array-valued
+comparisons use absolute tolerance $10^{-10}$ and scalar summaries use $10^{-11}$.
 
-Before assigning `.v1` or retaining a maintained run:
+These tolerances define numerical reproducibility. Exact serialized bytes serve only to
+identify one admitted artifact; they are not a claim that separate BLAS/LAPACK
+executions must follow identical rounding paths. A fresh calculation is scientifically
+admissible only when the full-rank conditions, integrity defects, independent alignment
+references, Fourier reconstruction, and separated error-channel checks pass.
 
-1. complete independent source and scientific-protocol review;
-2. define the retained execution and evidence-sealing policy;
-3. keep historical M2 and monograph publication references bound to their exact bytes;
-4. preserve the completed M3 consumer migration and M2 source-retirement recovery
-   record; and
-5. obtain explicit retained-execution authorization.
+## Evidence status and claim boundary
 
-Open owner replacements are tracked as
-[`TECH_DEBT`](../../../../docs/tasks/tech_debt/composite-band-alignment-and-locality/index.md).
+The v2 identity does not reinterpret or replace historical M2 or monograph artifacts;
+those remain bound to their own archived bytes and conventions. No retained v2 execution
+is authorized by this protocol alone. Retention requires separate review of the finite
+numerical results and explicit execution authorization.
+
+Passing the declared checks establishes consistency for this finite four-state,
+rank-two, sampled model. It does not establish continuum convergence, material validity,
+uncertainty bounds, a preferred physical gauge, or publication acceptance.

@@ -8,6 +8,10 @@ from datetime import UTC, datetime
 from importlib.metadata import version
 from pathlib import Path
 
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+
 from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DAlignmentStudyFactory,
     Periodic1DRank2AlignmentStudySpecification,
@@ -19,12 +23,12 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
-from projectkoios.optimization.alignment.numpy.batched_procrustes import (
-    NumpyBatchedComplexUnitaryProcrustesSolver,
-)
 
-EXECUTION_ID = "direct-controlled-rank2-n64"
-CALCULATION_FAMILY = "periodic1d-rank2-composite-band-alignment-locality"
+EXECUTION_ID = "direct-controlled-rank2-n64-v2"
+CALCULATION_FAMILY = (
+    Periodic1DCompositeBandAlignmentCalculationResult.CALCULATION_FAMILY
+)
+RESULT_SCHEMA = Periodic1DCompositeBandAlignmentCalculationResult.RESULT_SCHEMA
 configuration = Periodic1DCompositeBandAlignmentConfiguration.frozen()
 script_path = Path(__file__).resolve()
 execution_directory = script_path.parent / "executions" / EXECUTION_ID
@@ -61,7 +65,8 @@ if (
 (temporary_directory / "execution.json").write_bytes(
     TypedJsonValueCodec().serialize_bytes(
         {
-            "schema_version": 1,
+            "schema_version": 2,
+            "result_schema": RESULT_SCHEMA,
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": configuration.parent_identity,
             "execution_id": EXECUTION_ID,

@@ -621,7 +621,10 @@ implementation records every singular value, the applied cutoff, the strict marg
 $\sigma_r-\tau_{\mathrm{sv}}(X)$, and
 $\kappa_2(X)=\sigma_1/\sigma_r$. No finite condition number is reported when the strict
 rank gate fails. Repeated positive singular values do not make the polar factor
-nonunique, although the individual SVD factors may be nonunique.
+nonunique, although the individual SVD factors may be nonunique. The singular-vector
+bases themselves are therefore neither physical observables nor canonical evidence. The
+invariant object is the polar factor together with the singular spectrum, rank margin,
+objective value, and integrity defects.
 
 The selected diagnostic ladder is:
 
@@ -696,10 +699,21 @@ The remaining integrity diagnostics are
 \end{equation}
 
 An admitted global-unitary or pointwise-unitary factor must satisfy the selected unitarity, stationarity, objective-
-identity, and positive-semidefinite tolerances below. The independent verifier
-reconstructs the objective, singular values, rank decision, polar factor application,
-unitarity, stationarity, and positive-semidefinite disposition from the original frames.
-The bounded reference reconstructs these quantities through its independent call site.
+identity, and positive-semidefinite tolerances below. The independent construction returns to the original frames and recomputes the
+objective, singular spectrum, rank decision, polar action, unitarity, stationarity, and
+positive-semidefinite disposition. Pointwise, the analytic D1 relation gives
+$M(k)=G_{r,L}^\dagger(k)$, so that cross matrix is itself the exact polar factor. Globally,
+the independent polar factor is
+
+\begin{equation}
+ \mathcal P(X)=X(X^\dagger X)^{-1/2},
+ \label{eq:independent-global-polar}
+\end{equation}
+
+with $(X^\dagger X)^{-1/2}$ obtained from its Hermitian eigendecomposition. Array-valued
+comparisons use absolute tolerance $10^{-10}$ and scalar summaries use $10^{-11}$.
+These tolerances define finite-precision Procrustes agreement; equality of floating-point
+bytes from separate numerical executions is not a scientific requirement.
 
 Equality at the applied singular-value cutoff is deficient. A deficient covariance has
 unitary minimizers but does not have a unique full polar factor; D1 v1 therefore returns
@@ -1824,17 +1838,18 @@ by the current development protocol.
 
 \section{Verification and canonical result integrity}
 
-The direct stage-two entrypoint, \path{run_02_verification.py}, verifies the canonical
-manifest bytes, every case-result SHA-256 and byte count, exact typed-record round trips,
-and the complete 16-case inventory. It does not claim that byte integrity establishes
-scientific validity.
+Verification has two distinct meanings. Artifact integrity establishes that one admitted
+16-case inventory is complete and unchanged. Scientific numerical qualification tests
+the analytic-model and attack invariants, direct Fourier sums for every gauge family,
+constant-frame transport, and the independent Procrustes construction in
+Equation~\eqref{eq:independent-global-polar}.
 
-Scientific review additionally uses the implemented bounded producer-independent
-controls: analytic-model and attack invariants; all-gauge direct Fourier sums;
-global/pointwise Procrustes reconstruction; and constant-frame transport reconstruction.
-These controls bypass their corresponding producer actions but share NumPy/LAPACK and
-typed comparison infrastructure. Exhaustive independent recomputation of every retained
-array is not required for ordinary production.
+For each global or pointwise selection, the numerical comparison includes the complete
+singular spectrum, numerical rank, cutoff, strict margin, condition number, normalized
+objective, unitarity defect, stationarity defect, direct-versus-covariance objective
+defect, positive-semidefinite defect, and, for the qualified global case, the selected
+right unitary. Thus cache-byte integrity and finite-precision mathematical agreement are
+separate claims. Neither establishes continuum convergence or scientific acceptance.
 
 The canonical case records and manifest use the maintained \path{BaseTypedRecord} wire
 contract. Numeric fields reject invalid scalar types and nonfinite values through their
@@ -1886,9 +1901,10 @@ A complete calculation requires all 16 cases, all three construction meshes, all
 supports, identity, pointwise-unitary, known-inverse-oracle, and every qualified
 global-unitary or exact global-unitary deficiency disposition. Partial coverage, failed
 cache integrity, failed mandatory numerical gates, or resource-limit failures remain
-explicitly incomplete. Scientific review uses the declared analytic invariants,
-refinement checks, and bounded producer-independent reference controls; exhaustive
-byte-by-byte independent reconstruction is not a prerequisite.
+explicitly incomplete. Scientific review uses the declared analytic invariants, refinement checks, and
+independent reference quantities. A fresh execution is qualified by those mathematical
+controls and may then be admitted as a distinct artifact; byte-for-byte identity with an
+existing cache is neither a prerequisite nor a reproducibility claim.
 
 Retained evidence supports only the selected finite synthetic D1 cases and the declared
 resolution classifications. It does not validate a material, a global localization

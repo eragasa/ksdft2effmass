@@ -14,6 +14,10 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.procrustes.result import (
+    Periodic1DRank2ProcrustesDiagnostics,
+    Periodic1DRank2ProcrustesSelectionScope,
+)
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DCyclicRepresentativeInventory,
     Periodic1DOrdinaryTranslationInventory,
@@ -39,10 +43,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
     attacked_operator_maximum_frobenius_defect: ScalarQuantity
     pointwise_operator_maximum_frobenius_defect: ScalarQuantity
     global_operator_maximum_frobenius_defect: ScalarQuantity
-    pointwise_minimum_cross_singular_value: float
-    global_minimum_cross_singular_value: float
-    pointwise_maximum_rank_cutoff: float
-    global_rank_cutoff: float
+    pointwise_procrustes: Periodic1DRank2ProcrustesDiagnostics
+    global_procrustes: Periodic1DRank2ProcrustesDiagnostics
 
     def __post_init__(self) -> None:
         """Validate scalar types, units, and nonnegative finite diagnostics."""
@@ -94,16 +96,6 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
                 self.global_frame_maximum_frobenius_defect,
                 "global_frame_maximum_frobenius_defect",
             ),
-            (
-                self.pointwise_minimum_cross_singular_value,
-                "pointwise_minimum_cross_singular_value",
-            ),
-            (
-                self.global_minimum_cross_singular_value,
-                "global_minimum_cross_singular_value",
-            ),
-            (self.pointwise_maximum_rank_cutoff, "pointwise_maximum_rank_cutoff"),
-            (self.global_rank_cutoff, "global_rank_cutoff"),
         )
         for scalar, name in numerical:
             if type(scalar) is not float or not isfinite(scalar):
@@ -115,6 +107,20 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             for value in self.closure_eigenphases
         ):
             raise TypeError("closure_eigenphases must contain finite built-in floats")
+        if type(self.pointwise_procrustes) is not Periodic1DRank2ProcrustesDiagnostics:
+            raise TypeError("pointwise_procrustes has the wrong exact type")
+        if type(self.global_procrustes) is not Periodic1DRank2ProcrustesDiagnostics:
+            raise TypeError("global_procrustes has the wrong exact type")
+        if (
+            self.pointwise_procrustes.scope
+            is not Periodic1DRank2ProcrustesSelectionScope.POINTWISE
+        ):
+            raise ValueError("pointwise_procrustes has the wrong selection scope")
+        if (
+            self.global_procrustes.scope
+            is not Periodic1DRank2ProcrustesSelectionScope.GLOBAL
+        ):
+            raise ValueError("global_procrustes has the wrong selection scope")
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
@@ -145,14 +151,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             "global_operator_maximum_frobenius_defect": (
                 self.global_operator_maximum_frobenius_defect
             ),
-            "pointwise_minimum_cross_singular_value": (
-                self.pointwise_minimum_cross_singular_value
-            ),
-            "global_minimum_cross_singular_value": (
-                self.global_minimum_cross_singular_value
-            ),
-            "pointwise_maximum_rank_cutoff": self.pointwise_maximum_rank_cutoff,
-            "global_rank_cutoff": self.global_rank_cutoff,
+            "pointwise_procrustes": self.pointwise_procrustes,
+            "global_procrustes": self.global_procrustes,
         }
 
     @classmethod
@@ -169,10 +169,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             "attacked_operator_maximum_frobenius_defect",
             "pointwise_operator_maximum_frobenius_defect",
             "global_operator_maximum_frobenius_defect",
-            "pointwise_minimum_cross_singular_value",
-            "global_minimum_cross_singular_value",
-            "pointwise_maximum_rank_cutoff",
-            "global_rank_cutoff",
+            "pointwise_procrustes",
+            "global_procrustes",
         }
         if set(values) != required:
             raise ValueError("composite-band diagnostic fields do not match")
@@ -189,10 +187,19 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
                 raise TypeError(f"{name} must decode to ScalarQuantity")
             scalars[name] = value
         phases = values["closure_eigenphases"]
+        pointwise_procrustes = values["pointwise_procrustes"]
+        global_procrustes = values["global_procrustes"]
         if not isinstance(phases, tuple):
             raise TypeError("closure_eigenphases must decode to a tuple")
+        if not isinstance(pointwise_procrustes, Mapping) or not isinstance(
+            global_procrustes, Mapping
+        ):
+            raise TypeError("Procrustes diagnostics must decode to mappings")
+        procrustes_names = {"pointwise_procrustes", "global_procrustes"}
         float_names = tuple(
-            required.difference(scalar_names).difference({"closure_eigenphases"})
+            required.difference(scalar_names)
+            .difference({"closure_eigenphases"})
+            .difference(procrustes_names)
         )
         floats: dict[str, float] = {}
         for name in float_names:
@@ -228,14 +235,12 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             global_operator_maximum_frobenius_defect=scalars[
                 "global_operator_maximum_frobenius_defect"
             ],
-            pointwise_minimum_cross_singular_value=floats[
-                "pointwise_minimum_cross_singular_value"
-            ],
-            global_minimum_cross_singular_value=floats[
-                "global_minimum_cross_singular_value"
-            ],
-            pointwise_maximum_rank_cutoff=floats["pointwise_maximum_rank_cutoff"],
-            global_rank_cutoff=floats["global_rank_cutoff"],
+            pointwise_procrustes=Periodic1DRank2ProcrustesDiagnostics.from_dict(
+                pointwise_procrustes
+            ),
+            global_procrustes=Periodic1DRank2ProcrustesDiagnostics.from_dict(
+                global_procrustes
+            ),
         )
 
 
@@ -580,6 +585,7 @@ class Periodic1DCompositeBandAlignmentRangeResult(BaseTypedRecord):
 class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
     """Compose authoritative rank-two samples, frames, operators, and locality."""
 
+    result_schema: str
     calculation_family: str
     configuration: Periodic1DCompositeBandAlignmentConfiguration
     construction_reduced_momenta: tuple[float, ...]
@@ -600,12 +606,17 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
     transforms: tuple[Periodic1DCompositeBandAlignmentTransformResult, ...]
     ranges: tuple[Periodic1DCompositeBandAlignmentRangeResult, ...]
 
+    RESULT_SCHEMA: ClassVar[str] = (
+        "ksdft2effmass.periodic1d-rank2-composite-band-alignment-result.v2"
+    )
     CALCULATION_FAMILY: ClassVar[str] = (
         "periodic1d-rank2-composite-band-alignment-locality"
     )
 
     def __post_init__(self) -> None:
         """Validate section identities and concise cross-section correlations."""
+        if self.result_schema != self.RESULT_SCHEMA:
+            raise ValueError("result_schema does not identify the rank-two v2 wire")
         if self.calculation_family != self.CALCULATION_FAMILY:
             raise ValueError("calculation_family does not identify the rank-two family")
         if (
@@ -687,6 +698,13 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
         if type(self.diagnostics) is not Periodic1DCompositeBandAlignmentDiagnostics:
             raise TypeError("diagnostics has the wrong exact type")
         if (
+            self.diagnostics.pointwise_procrustes.selection_count != construction_size
+            or self.diagnostics.global_procrustes.selection_count != 1
+        ):
+            raise ValueError(
+                "Procrustes diagnostics do not match the construction mesh"
+            )
+        if (
             not isinstance(self.transforms, tuple)
             or tuple(transform.channel for transform in self.transforms)
             != Periodic1DCompositeBandAlignmentTransformResult.CHANNELS
@@ -718,6 +736,7 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
+            "result_schema": self.result_schema,
             "calculation_family": self.calculation_family,
             "configuration": self.configuration,
             "sample_coordinates": {
@@ -752,6 +771,7 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
         required = {
+            "result_schema",
             "calculation_family",
             "configuration",
             "sample_coordinates",
@@ -772,9 +792,10 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
                 raise TypeError(f"{name} must decode to a mapping")
             return value
 
+        result_schema = values["result_schema"]
         family = values["calculation_family"]
-        if type(family) is not str:
-            raise TypeError("calculation_family must decode to a string")
+        if type(result_schema) is not str or type(family) is not str:
+            raise TypeError("result identities must decode to strings")
         coordinates = mapping("sample_coordinates")
         spectra = mapping("parent_spectra")
         frames = mapping("frames")
@@ -834,6 +855,7 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
                 Periodic1DCompositeBandAlignmentRangeResult.from_dict(range_value)
             )
         return cls(
+            result_schema=result_schema,
             calculation_family=family,
             configuration=Periodic1DCompositeBandAlignmentConfiguration.from_dict(
                 configuration_value

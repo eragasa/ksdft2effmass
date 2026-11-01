@@ -24,7 +24,7 @@ recalculation.
 
 | File | SHA-256 |
 |---|---|
-| [`experimental-protocol.tex`](experimental-protocol.tex) | `fdcf55b1de0b5d1a018fc7c725e746012b0ed326d58584c5d2c727769585f139` |
+| [`experimental-protocol.tex`](experimental-protocol.tex) | `2c1a5e7e2ee476ff27151f3ed6d9c02abc25ca7a577b30a40a4ce45199231a8e` |
 
 The TeX file originated from
 `experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/experimental-protocol.tex`
@@ -32,7 +32,7 @@ at predecessor revision `81f7c09a5edc50be698bd3a5f047438cd61d4eca`. The maintain
 calculation-owned protocol now uses descriptive gauge-alignment identities and includes
 scientific-flow and typed-lifecycle schematics; it is no longer byte-identical to that
 historical donor. Its current SHA-256 is
-`fdcf55b1de0b5d1a018fc7c725e746012b0ed326d58584c5d2c727769585f139`.
+`2c1a5e7e2ee476ff27151f3ed6d9c02abc25ca7a577b30a40a4ce45199231a8e`.
 
 The plan specifies the one-dimensional cases, numerical controls, resource limits, and
 scientific interpretation. Storyboard rationale, evidence boundaries, encoding rules,

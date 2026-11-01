@@ -400,16 +400,13 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 ),
                 unit,
             ),
-            pointwise_minimum_cross_singular_value=(
-                alignment.pointwise_minimum_cross_singular_value
-            ),
-            global_minimum_cross_singular_value=(
-                alignment.global_minimum_cross_singular_value
-            ),
-            pointwise_maximum_rank_cutoff=alignment.pointwise_maximum_rank_cutoff,
-            global_rank_cutoff=alignment.global_rank_cutoff,
+            pointwise_procrustes=alignment.pointwise_procrustes,
+            global_procrustes=alignment.global_procrustes,
         )
         return Periodic1DCompositeBandAlignmentCalculationResult(
+            result_schema=(
+                Periodic1DCompositeBandAlignmentCalculationResult.RESULT_SCHEMA
+            ),
             calculation_family=(
                 Periodic1DCompositeBandAlignmentCalculationResult.CALCULATION_FAMILY
             ),

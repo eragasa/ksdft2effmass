@@ -22,6 +22,9 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
         self,
         composite_result: Periodic1DCompositeBandAlignmentCalculationResult,
     ) -> None:
+        assert composite_result.result_schema == (
+            "ksdft2effmass.periodic1d-rank2-composite-band-alignment-result.v2"
+        )
         assert composite_result.calculation_family == (
             "periodic1d-rank2-composite-band-alignment-locality"
         )
@@ -29,6 +32,8 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
         assert composite_result.evaluation_parent_spectrum.magnitude.shape == (257, 4)
         assert len(composite_result.reference_frames) == 64
         assert len(composite_result.pointwise_rotations) == 64
+        assert composite_result.diagnostics.pointwise_procrustes.selection_count == 64
+        assert composite_result.diagnostics.global_procrustes.selection_count == 1
         assert tuple(item.channel for item in composite_result.transforms) == (
             "reference",
             "attacked",
@@ -133,6 +138,18 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
         )
 
         assert reconstructed.to_json() == wire
+
+    def test__init__rejects_obsolete_result_identity(
+        self,
+        composite_result: Periodic1DCompositeBandAlignmentCalculationResult,
+    ) -> None:
+        with pytest.raises(ValueError, match="rank-two v2 wire"):
+            replace(
+                composite_result,
+                result_schema=(
+                    "ksdft2effmass.periodic1d-rank2-composite-band-alignment-result.v1"
+                ),
+            )
 
     def test__init__rejects_reordered_transform_inventory(
         self,

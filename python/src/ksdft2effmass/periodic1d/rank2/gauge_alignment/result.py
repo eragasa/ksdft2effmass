@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import isfinite
 
 import numpy as np
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
@@ -19,6 +18,11 @@ from ksdft2effmass.periodic1d.gauge_alignment import (
 )
 from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
+from .procrustes.result import (
+    Periodic1DRank2ProcrustesDiagnostics,
+    Periodic1DRank2ProcrustesSelectionScope,
+)
+
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2GaugeAlignmentAnalysis(Periodic1DGaugeAlignmentAnalysis):
@@ -28,10 +32,8 @@ class Periodic1DRank2GaugeAlignmentAnalysis(Periodic1DGaugeAlignmentAnalysis):
     globally_aligned: ReciprocalBandFramePath1D
     pointwise_rotations: tuple[ComplexMatrixQuantity, ...]
     global_rotation: ComplexMatrixQuantity
-    pointwise_minimum_cross_singular_value: float
-    global_minimum_cross_singular_value: float
-    pointwise_maximum_rank_cutoff: float
-    global_rank_cutoff: float
+    pointwise_procrustes: Periodic1DRank2ProcrustesDiagnostics
+    global_procrustes: Periodic1DRank2ProcrustesDiagnostics
 
     def __post_init__(self) -> None:
         if type(self.pointwise_aligned) is not ReciprocalBandFramePath1D:
@@ -71,25 +73,23 @@ class Periodic1DRank2GaugeAlignmentAnalysis(Periodic1DGaugeAlignmentAnalysis):
             or not isinstance(self.global_rotation.unit, Unitless)
         ):
             raise TypeError("global_rotation must be a unitless two-by-two matrix")
-        for value, name in (
-            (
-                self.pointwise_minimum_cross_singular_value,
-                "pointwise_minimum_cross_singular_value",
-            ),
-            (
-                self.global_minimum_cross_singular_value,
-                "global_minimum_cross_singular_value",
-            ),
-            (
-                self.pointwise_maximum_rank_cutoff,
-                "pointwise_maximum_rank_cutoff",
-            ),
-            (self.global_rank_cutoff, "global_rank_cutoff"),
+        if type(self.pointwise_procrustes) is not Periodic1DRank2ProcrustesDiagnostics:
+            raise TypeError("pointwise_procrustes has the wrong exact type")
+        if type(self.global_procrustes) is not Periodic1DRank2ProcrustesDiagnostics:
+            raise TypeError("global_procrustes has the wrong exact type")
+        if (
+            self.pointwise_procrustes.scope
+            is not Periodic1DRank2ProcrustesSelectionScope.POINTWISE
+            or self.pointwise_procrustes.selection_count
+            != self.pointwise_aligned.mesh.point_count
         ):
-            if type(value) is not float or not isfinite(value):
-                raise TypeError(f"{name} must be a finite built-in float")
-            if value < 0.0:
-                raise ValueError(f"{name} must be nonnegative")
+            raise ValueError("pointwise Procrustes evidence does not match the path")
+        if (
+            self.global_procrustes.scope
+            is not Periodic1DRank2ProcrustesSelectionScope.GLOBAL
+            or self.global_procrustes.selection_count != 1
+        ):
+            raise ValueError("global Procrustes evidence does not match the selection")
 
     @property
     def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:

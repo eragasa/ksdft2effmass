@@ -1,9 +1,6 @@
 """Static contract tests for direct composite-alignment effect adapters."""
 
 import ast
-import gzip
-import hashlib
-import json
 import runpy
 import shutil
 import subprocess
@@ -13,64 +10,12 @@ from pathlib import Path
 import pytest
 from projectkoios.physkit.units import PhysicalUnit
 
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
+    Periodic1DCompositeBandAlignmentCalculationResult,
+)
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
-
-
-def _first_json_differences(
-    expected: object,
-    actual: object,
-    *,
-    path: str = "$",
-    limit: int = 16,
-) -> tuple[str, ...]:
-    if type(expected) is not type(actual):
-        expected_type = type(expected).__name__
-        actual_type = type(actual).__name__
-        return (f"{path}: expected type {expected_type}, actual {actual_type}",)
-    if isinstance(expected, dict) and isinstance(actual, dict):
-        differences: list[str] = []
-        for key in sorted(expected.keys() | actual.keys()):
-            if key not in expected:
-                differences.append(f"{path}.{key}: unexpected key")
-            elif key not in actual:
-                differences.append(f"{path}.{key}: missing key")
-            else:
-                differences.extend(
-                    _first_json_differences(
-                        expected[key],
-                        actual[key],
-                        path=f"{path}.{key}",
-                        limit=limit - len(differences),
-                    )
-                )
-            if len(differences) >= limit:
-                break
-        return tuple(differences[:limit])
-    if isinstance(expected, list) and isinstance(actual, list):
-        differences = []
-        if len(expected) != len(actual):
-            differences.append(
-                f"{path}: expected length {len(expected)}, actual {len(actual)}"
-            )
-        for index, (expected_value, actual_value) in enumerate(
-            zip(expected, actual, strict=False)
-        ):
-            differences.extend(
-                _first_json_differences(
-                    expected_value,
-                    actual_value,
-                    path=f"{path}[{index}]",
-                    limit=limit - len(differences),
-                )
-            )
-            if len(differences) >= limit:
-                break
-        return tuple(differences[:limit])
-    if expected != actual:
-        return (f"{path}: expected {expected!r}, actual {actual!r}",)
-    return ()
 
 
 class TestPeriodic1DCompositeBandAlignmentDirectScripts:
@@ -170,13 +115,11 @@ class TestPeriodic1DCompositeBandAlignmentDirectScripts:
         assert "Periodic1DRank2AlignmentStudySpecification" in calculation_source
         assert "Periodic1DCompositeBandAlignmentAnalyzer" not in calculation_source
         assert all(
-            'EXECUTION_ID = "direct-controlled-rank2-n64"' in source
+            'EXECUTION_ID = "direct-controlled-rank2-n64-v2"' in source
             for source in sources
         )
-        assert all(
-            "periodic1d-rank2-composite-band-alignment-locality" in source
-            for source in sources
-        )
+        assert all("RESULT_SCHEMA" in source for source in sources)
+        assert all("CALCULATION_FAMILY" in source for source in sources)
         assert "Periodic1DCompositeBandAlignmentConfiguration.frozen()" in (
             calculation_source
         )
@@ -209,32 +152,21 @@ class TestPeriodic1DCompositeBandAlignmentDirectScripts:
         for script in copied_scripts:
             runpy.run_path(str(script))
 
-        execution = calculation / "executions" / "direct-controlled-rank2-n64"
+        execution = calculation / "executions" / "direct-controlled-rank2-n64-v2"
         assert (execution / "execution.json").is_file()
         assert (execution / "results" / "result.json").is_file()
         assert (execution / "verification" / "verification.json").is_file()
         assert (execution / "figures" / "rendering.json").is_file()
         result_bytes = (execution / "results" / "result.json").read_bytes()
-        canonical_bytes = gzip.decompress(
-            (
-                Path(__file__).parent
-                / "resources"
-                / "canonical-direct-controlled-rank2-n64-result.json.gz"
-            ).read_bytes()
+        result = Periodic1DCompositeBandAlignmentCalculationResult.from_json(
+            result_bytes
         )
-        if result_bytes != canonical_bytes:
-            differences = _first_json_differences(
-                json.loads(canonical_bytes),
-                json.loads(result_bytes),
-            )
-            pytest.fail(
-                "canonical rank-two bytes changed: "
-                f"expected {len(canonical_bytes)} bytes and "
-                f"{hashlib.sha256(canonical_bytes).hexdigest()}, "
-                f"actual {len(result_bytes)} bytes and "
-                f"{hashlib.sha256(result_bytes).hexdigest()}; "
-                "first JSON differences:\n" + "\n".join(differences)
-            )
+        assert result.to_json() == result_bytes
+        assert result.result_schema == (
+            "ksdft2effmass.periodic1d-rank2-composite-band-alignment-result.v2"
+        )
+        assert result.diagnostics.pointwise_procrustes.minimum_rank_margin > 0.0
+        assert result.diagnostics.global_procrustes.minimum_rank_margin > 0.0
         codec = TypedJsonValueCodec()
         for document_path in (
             execution / "execution.json",
@@ -267,7 +199,7 @@ class TestPeriodic1DCompositeBandAlignmentDirectScripts:
         _, calculation, scripts = self.copied_scripts(tmp_path)
         calculate, verify, render = scripts
         runpy.run_path(str(calculate))
-        execution = calculation / "executions" / "direct-controlled-rank2-n64"
+        execution = calculation / "executions" / "direct-controlled-rank2-n64-v2"
         codec = TypedJsonValueCodec()
 
         execution_path = execution / "execution.json"

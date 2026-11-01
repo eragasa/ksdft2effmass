@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
+import math
 from collections.abc import Mapping
 from dataclasses import dataclass
 from types import MappingProxyType
 
 import numpy as np
-from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
+from projectkoios.numerics.numpy.typing import (
+    Complex128Array,
+    Float64Array,
+    Int64Array,
+)
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ComplexVectorQuantity,
@@ -18,6 +23,9 @@ from projectkoios.physkit.units import (
 )
 from scipy.linalg import schur  # type: ignore[import-untyped]
 
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.procrustes.result import (
+    Periodic1DRank2ProcrustesDiagnostics,
+)
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
 from .result import Periodic1DCompositeBandAlignmentCalculationResult
@@ -59,6 +67,8 @@ class _CompositeReferenceValues:
     global_frames: Complex128Array
     pointwise_rotations: Complex128Array
     global_rotation: Complex128Array
+    pointwise_procrustes: _ProcrustesReferenceValues
+    global_procrustes: _ProcrustesReferenceValues
     reference_operators: Complex128Array
     attacked_operators: Complex128Array
     pointwise_operators: Complex128Array
@@ -72,6 +82,23 @@ class _CompositeReferenceValues:
     range_values: Float64Array
     diagnostic_values: Float64Array
     closure_eigenphases: Float64Array
+
+
+@dataclass(frozen=True, slots=True)
+class _ProcrustesReferenceValues:
+    singular_values: Float64Array
+    numerical_ranks: Int64Array
+    cutoffs: Float64Array
+    margins: Float64Array
+    condition_numbers: Float64Array
+    residuals: Float64Array
+    objective_maximum: float
+    objective_rms: float
+    minimum_rank_margin: float
+    unitarity_defect: float
+    stationarity_defect: float
+    objective_identity_defect: float
+    psd_defect: float
 
 
 @dataclass(frozen=True, slots=True)
@@ -98,6 +125,9 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
 
     __slots__ = ("_request",)
 
+    PROCRUSTES_REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
+    PROCRUSTES_REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
+
     DIAGNOSTIC_NAMES = (
         "minimum_sampled_gap",
         "minimum_overlap_singular_value",
@@ -109,10 +139,6 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
         "attacked_operator_maximum_frobenius_defect",
         "pointwise_operator_maximum_frobenius_defect",
         "global_operator_maximum_frobenius_defect",
-        "pointwise_minimum_cross_singular_value",
-        "global_minimum_cross_singular_value",
-        "pointwise_maximum_rank_cutoff",
-        "global_rank_cutoff",
     )
 
     def __init__(
@@ -217,6 +243,18 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             result.global_rotation,
             ComplexMatrixQuantity(expected.global_rotation, unit),
             configuration.dimensionless_absolute_tolerance * 10.0,
+        )
+        self._add_procrustes_comparisons(
+            comparisons,
+            "pointwise_procrustes",
+            result.diagnostics.pointwise_procrustes,
+            expected.pointwise_procrustes,
+        )
+        self._add_procrustes_comparisons(
+            comparisons,
+            "global_procrustes",
+            result.diagnostics.global_procrustes,
+            expected.global_procrustes,
         )
         operator_fields = (
             (
@@ -377,10 +415,6 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
                 result.diagnostics.attacked_operator_maximum_frobenius_defect.magnitude,
                 result.diagnostics.pointwise_operator_maximum_frobenius_defect.magnitude,
                 result.diagnostics.global_operator_maximum_frobenius_defect.magnitude,
-                result.diagnostics.pointwise_minimum_cross_singular_value,
-                result.diagnostics.global_minimum_cross_singular_value,
-                result.diagnostics.pointwise_maximum_rank_cutoff,
-                result.diagnostics.global_rank_cutoff,
             ],
             dtype=np.float64,
         )
@@ -404,6 +438,198 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
         self._projection_comparisons(comparisons)
         return Periodic1DCompositeBandAlignmentIndependentReference(comparisons)
 
+    def _add_procrustes_comparisons(
+        self,
+        comparisons: dict[str, MaximumAbsoluteErrorComparison],
+        prefix: str,
+        observed: Periodic1DRank2ProcrustesDiagnostics,
+        reference: _ProcrustesReferenceValues,
+    ) -> None:
+        unit = Unitless()
+        for name, observed_values, reference_values in (
+            (
+                "cross_singular_values",
+                observed.cross_singular_values,
+                reference.singular_values,
+            ),
+            (
+                "applied_rank_cutoffs",
+                observed.applied_rank_cutoffs,
+                reference.cutoffs,
+            ),
+            ("rank_margins", observed.rank_margins, reference.margins),
+            (
+                "spectral_condition_numbers",
+                np.asarray(observed.spectral_condition_numbers, dtype=np.float64),
+                reference.condition_numbers,
+            ),
+            (
+                "normalized_optimal_residuals",
+                observed.normalized_optimal_residuals,
+                reference.residuals,
+            ),
+        ):
+            self._add(
+                comparisons,
+                f"{prefix}_{name}",
+                VectorQuantity(np.asarray(observed_values).reshape(-1), unit),
+                VectorQuantity(np.asarray(reference_values).reshape(-1), unit),
+                self.PROCRUSTES_REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
+            )
+        self._add(
+            comparisons,
+            f"{prefix}_numerical_ranks",
+            VectorQuantity(
+                np.asarray(observed.numerical_ranks, dtype=np.float64), unit
+            ),
+            VectorQuantity(
+                np.asarray(reference.numerical_ranks, dtype=np.float64), unit
+            ),
+            0.0,
+        )
+        for name, observed_value, reference_value in (
+            (
+                "normalized_objective_maximum",
+                observed.normalized_objective_maximum,
+                reference.objective_maximum,
+            ),
+            (
+                "normalized_objective_rms",
+                observed.normalized_objective_rms,
+                reference.objective_rms,
+            ),
+            (
+                "minimum_rank_margin",
+                observed.minimum_rank_margin,
+                reference.minimum_rank_margin,
+            ),
+            (
+                "maximum_unitarity_defect",
+                observed.maximum_unitarity_defect,
+                reference.unitarity_defect,
+            ),
+            (
+                "maximum_stationarity_defect",
+                observed.maximum_stationarity_defect,
+                reference.stationarity_defect,
+            ),
+            (
+                "maximum_objective_identity_defect",
+                observed.maximum_objective_identity_defect,
+                reference.objective_identity_defect,
+            ),
+            (
+                "maximum_psd_defect",
+                observed.maximum_psd_defect,
+                reference.psd_defect,
+            ),
+        ):
+            self._add(
+                comparisons,
+                f"{prefix}_{name}",
+                ScalarQuantity(observed_value, unit),
+                ScalarQuantity(reference_value, unit),
+                self.PROCRUSTES_REFERENCE_SCALAR_ABSOLUTE_TOLERANCE,
+            )
+
+    def _polar_factors(self, crosses: Complex128Array) -> Complex128Array:
+        gram = crosses.conj().transpose(0, 2, 1) @ crosses
+        eigenvalues, eigenvectors = np.linalg.eigh(gram)
+        if bool((eigenvalues <= 0.0).any()):
+            raise ValueError("independent polar reference requires positive cross Gram")
+        inverse_roots = 1.0 / np.sqrt(eigenvalues)
+        inverse_square_roots = (
+            eigenvectors * inverse_roots[..., np.newaxis, :]
+        ) @ eigenvectors.conj().transpose(0, 2, 1)
+        return np.asarray(crosses @ inverse_square_roots, dtype=np.complex128)
+
+    def _procrustes_values(
+        self,
+        *,
+        source: Complex128Array,
+        target: Complex128Array,
+        crosses: Complex128Array,
+        right_unitaries: Complex128Array,
+    ) -> _ProcrustesReferenceValues:
+        configuration = self.request.result.configuration
+        rank = configuration.retained_rank
+        gram = crosses.conj().transpose(0, 2, 1) @ crosses
+        eigenvalues = np.linalg.eigvalsh(gram)
+        singular_values = np.sqrt(np.maximum(eigenvalues, 0.0))[..., ::-1]
+        cutoffs = np.maximum(
+            configuration.procrustes_rank_absolute_tolerance,
+            configuration.procrustes_rank_relative_tolerance * singular_values[..., 0],
+        )
+        numerical_ranks = np.sum(
+            singular_values > cutoffs[..., np.newaxis],
+            axis=-1,
+            dtype=np.int64,
+        )
+        margins = singular_values[..., -1] - cutoffs
+        if bool((numerical_ranks != rank).any()) or bool((margins <= 0.0).any()):
+            raise ValueError("independent Procrustes reference is rank deficient")
+        condition_numbers = singular_values[..., 0] / singular_values[..., -1]
+        differences = source @ right_unitaries - target
+        direct_objectives = (
+            np.sum(np.abs(differences) ** 2, axis=(-2, -1), dtype=np.float64) / rank
+        )
+        residuals = np.sqrt(direct_objectives)
+        adjoint_right = right_unitaries.conj().transpose(0, 2, 1)
+        stationary = adjoint_right @ crosses
+        adjoint_stationary = stationary.conj().transpose(0, 2, 1)
+        identity = np.eye(rank, dtype=np.complex128)
+        unitarity = float(
+            np.max(
+                np.linalg.norm(
+                    adjoint_right @ right_unitaries - identity,
+                    axis=(-2, -1),
+                )
+            )
+        )
+        stationarity = float(
+            np.max(
+                np.linalg.norm(
+                    stationary - adjoint_stationary,
+                    axis=(-2, -1),
+                )
+            )
+            / math.sqrt(rank)
+        )
+        covariance_objectives = (
+            np.sum(np.abs(source) ** 2, axis=(-2, -1), dtype=np.float64)
+            + np.sum(np.abs(target) ** 2, axis=(-2, -1), dtype=np.float64)
+            - 2.0
+            * np.real(
+                np.trace(
+                    crosses.conj().transpose(0, 2, 1) @ right_unitaries,
+                    axis1=-2,
+                    axis2=-1,
+                )
+            )
+        ) / rank
+        objective_identity = float(
+            np.max(np.abs(direct_objectives - covariance_objectives))
+        )
+        hermitian_part = 0.5 * (stationary + adjoint_stationary)
+        psd_defect = float(
+            max(0.0, -float(np.min(np.linalg.eigvalsh(hermitian_part)[..., 0])))
+        )
+        return _ProcrustesReferenceValues(
+            singular_values=np.asarray(singular_values, dtype=np.float64),
+            numerical_ranks=np.asarray(numerical_ranks, dtype=np.int64),
+            cutoffs=np.asarray(cutoffs, dtype=np.float64),
+            margins=np.asarray(margins, dtype=np.float64),
+            condition_numbers=np.asarray(condition_numbers, dtype=np.float64),
+            residuals=np.asarray(residuals, dtype=np.float64),
+            objective_maximum=float(np.max(residuals)),
+            objective_rms=float(np.sqrt(np.mean(residuals**2))),
+            minimum_rank_margin=float(np.min(margins)),
+            unitarity_defect=unitarity,
+            stationarity_defect=stationarity,
+            objective_identity_defect=objective_identity,
+            psd_defect=psd_defect,
+        )
+
     def _reference(self) -> _CompositeReferenceValues:
         configuration = self.request.result.configuration
         construction_coordinates = np.asarray(
@@ -420,18 +646,26 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
         attacks = self._attack_rotations(construction_coordinates)
         attacked = np.einsum("kai,kij->kaj", reference, attacks, optimize=True)
         cross = np.einsum("kai,kaj->kij", attacked.conj(), reference, optimize=True)
-        left, pointwise_singular_values, right_h = np.linalg.svd(cross)
-        pointwise_rotations = np.einsum("kij,kjl->kil", left, right_h, optimize=True)
+        pointwise_rotations = np.asarray(cross, dtype=np.complex128)
+        pointwise_procrustes = self._procrustes_values(
+            source=attacked,
+            target=reference,
+            crosses=cross,
+            right_unitaries=pointwise_rotations,
+        )
         pointwise = np.einsum(
             "kai,kij->kaj", attacked, pointwise_rotations, optimize=True
         )
         stacked_attacked = attacked.reshape(-1, configuration.retained_rank)
         stacked_reference = reference.reshape(-1, configuration.retained_rank)
-        global_cross = stacked_attacked.conj().T @ stacked_reference
-        global_left, global_singular_values, global_right_h = np.linalg.svd(
-            global_cross
+        global_cross = (stacked_attacked.conj().T @ stacked_reference)[None, ...]
+        global_rotation = self._polar_factors(global_cross)[0]
+        global_procrustes = self._procrustes_values(
+            source=stacked_attacked[None, ...],
+            target=stacked_reference[None, ...],
+            crosses=global_cross,
+            right_unitaries=global_rotation[None, ...],
         )
-        global_rotation = global_left @ global_right_h
         global_frames = np.einsum(
             "kai,ij->kaj", attacked, global_rotation, optimize=True
         )
@@ -614,24 +848,6 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
                 evaluation_spectrum[:, 2] - evaluation_spectrum[:, 1],
             )
         )
-        pointwise_cutoffs = np.maximum(
-            configuration.procrustes_rank_absolute_tolerance,
-            configuration.procrustes_rank_relative_tolerance
-            * pointwise_singular_values[:, 0],
-        )
-        global_cutoff = max(
-            configuration.procrustes_rank_absolute_tolerance,
-            configuration.procrustes_rank_relative_tolerance
-            * float(global_singular_values[0]),
-        )
-        if np.any(pointwise_singular_values[:, -1] <= pointwise_cutoffs):
-            raise ValueError(
-                "independent pointwise covariance reconstruction is rank deficient"
-            )
-        if float(global_singular_values[-1]) <= global_cutoff:
-            raise ValueError(
-                "independent global covariance reconstruction is rank deficient"
-            )
         diagnostics = np.asarray(
             [
                 float(np.min(gaps)),
@@ -644,10 +860,6 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
                 self._maximum_defect(operators[0], operators[1]),
                 self._maximum_defect(operators[0], operators[2]),
                 self._maximum_defect(operators[0], operators[3]),
-                float(np.min(pointwise_singular_values)),
-                float(np.min(global_singular_values)),
-                float(np.max(pointwise_cutoffs)),
-                float(global_cutoff),
             ],
             dtype=np.float64,
         )
@@ -660,6 +872,8 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             global_frames=global_frames,
             pointwise_rotations=pointwise_rotations,
             global_rotation=global_rotation,
+            pointwise_procrustes=pointwise_procrustes,
+            global_procrustes=global_procrustes,
             reference_operators=operators[0],
             attacked_operators=operators[1],
             pointwise_operators=operators[2],

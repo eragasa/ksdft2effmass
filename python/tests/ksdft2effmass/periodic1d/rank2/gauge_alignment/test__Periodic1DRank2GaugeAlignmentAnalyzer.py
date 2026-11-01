@@ -24,6 +24,10 @@ from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
     Periodic1DRank2GaugeAlignmentAnalysisRequest,
     Periodic1DRank2GaugeAlignmentAnalyzer,
 )
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.procrustes.result import (
+    Periodic1DRank2ProcrustesDiagnostics,
+    Periodic1DRank2ProcrustesSelectionScope,
+)
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.result import (
     Periodic1DRank2GaugeAlignmentAnalysis,
 )
@@ -202,18 +206,18 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
             result.global_rotation.magnitude,
             composite_result.global_rotation.magnitude,
         )
-        assert result.pointwise_minimum_cross_singular_value == (
-            composite_result.diagnostics.pointwise_minimum_cross_singular_value
+        assert result.pointwise_procrustes.to_json() == (
+            composite_result.diagnostics.pointwise_procrustes.to_json()
         )
-        assert result.global_minimum_cross_singular_value == (
-            composite_result.diagnostics.global_minimum_cross_singular_value
+        assert result.global_procrustes.to_json() == (
+            composite_result.diagnostics.global_procrustes.to_json()
         )
-        assert result.pointwise_maximum_rank_cutoff == (
-            composite_result.diagnostics.pointwise_maximum_rank_cutoff
-        )
-        assert result.global_rank_cutoff == (
-            composite_result.diagnostics.global_rank_cutoff
-        )
+        assert result.pointwise_procrustes.selection_count == mesh.point_count
+        assert np.all(result.pointwise_procrustes.numerical_ranks == 2)
+        assert result.global_procrustes.selection_count == 1
+        assert result.global_procrustes.minimum_rank_margin > 0.0
+        assert result.pointwise_procrustes.backend_identifier
+        assert result.global_procrustes.backend_version
 
     @staticmethod
     def _path(
@@ -270,8 +274,39 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
                 rotation for _ in range(pointwise_rotation_count)
             ),
             global_rotation=rotation,
-            pointwise_minimum_cross_singular_value=1.0,
-            global_minimum_cross_singular_value=1.0,
-            pointwise_maximum_rank_cutoff=0.0,
-            global_rank_cutoff=0.0,
+            pointwise_procrustes=TestPeriodic1DRank2GaugeAlignmentAnalyzer._procrustes(
+                Periodic1DRank2ProcrustesSelectionScope.POINTWISE,
+                pointwise_rotation_count,
+            ),
+            global_procrustes=TestPeriodic1DRank2GaugeAlignmentAnalyzer._procrustes(
+                Periodic1DRank2ProcrustesSelectionScope.GLOBAL,
+                1,
+            ),
+        )
+
+    @staticmethod
+    def _procrustes(
+        scope: Periodic1DRank2ProcrustesSelectionScope,
+        selection_count: int,
+    ) -> Periodic1DRank2ProcrustesDiagnostics:
+        singular = np.ones((selection_count, 2), dtype=np.float64)
+        zeros = np.zeros(selection_count, dtype=np.float64)
+        return Periodic1DRank2ProcrustesDiagnostics(
+            scope=scope,
+            selection_count=selection_count,
+            cross_singular_values=singular,
+            numerical_ranks=np.full(selection_count, 2, dtype=np.int64),
+            applied_rank_cutoffs=zeros,
+            rank_margins=np.ones(selection_count, dtype=np.float64),
+            spectral_condition_numbers=tuple(1.0 for _ in range(selection_count)),
+            normalized_optimal_residuals=zeros,
+            normalized_objective_maximum=0.0,
+            normalized_objective_rms=0.0,
+            minimum_rank_margin=1.0,
+            maximum_unitarity_defect=0.0,
+            maximum_stationarity_defect=0.0,
+            maximum_objective_identity_defect=0.0,
+            maximum_psd_defect=0.0,
+            backend_identifier="test-backend",
+            backend_version="1",
         )

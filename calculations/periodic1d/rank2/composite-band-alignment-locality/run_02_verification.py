@@ -7,6 +7,8 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
+from projectkoios.physkit.units import PhysicalUnit
+
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
@@ -18,10 +20,12 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
-from projectkoios.physkit.units import PhysicalUnit
 
-EXECUTION_ID = "direct-controlled-rank2-n64"
-CALCULATION_FAMILY = "periodic1d-rank2-composite-band-alignment-locality"
+EXECUTION_ID = "direct-controlled-rank2-n64-v2"
+CALCULATION_FAMILY = (
+    Periodic1DCompositeBandAlignmentCalculationResult.CALCULATION_FAMILY
+)
+RESULT_SCHEMA = Periodic1DCompositeBandAlignmentCalculationResult.RESULT_SCHEMA
 PARENT_IDENTITY = Periodic1DCompositeBandAlignmentConfiguration.PARENT_IDENTITY
 script_path = Path(__file__).resolve()
 execution_directory = script_path.parent / "executions" / EXECUTION_ID
@@ -42,6 +46,8 @@ if not isinstance(execution, Mapping):
     raise TypeError("execution document must decode to a mapping")
 if execution.get("execution_id") != EXECUTION_ID:
     raise ValueError("execution identifier does not match")
+if execution.get("result_schema") != RESULT_SCHEMA:
+    raise ValueError("result schema does not match")
 if execution.get("calculation_family") != CALCULATION_FAMILY:
     raise ValueError("calculation family does not match")
 if execution.get("parent_identity") != PARENT_IDENTITY:
@@ -82,11 +88,12 @@ temporary_directory.mkdir()
 (temporary_directory / "verification.json").write_bytes(
     codec.serialize_bytes(
         {
-            "schema_version": 1,
+            "schema_version": 2,
             "schema": (
                 "ksdft2effmass.periodic1d-composite-band-alignment-verification."
-                "direct.v1"
+                "direct.v2"
             ),
+            "result_schema": RESULT_SCHEMA,
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": result.configuration.parent_identity,
             "execution_id": EXECUTION_ID,

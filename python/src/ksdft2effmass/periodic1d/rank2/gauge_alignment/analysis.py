@@ -29,6 +29,8 @@ from ksdft2effmass.periodic1d.gauge_alignment import (
 )
 from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
+from .procrustes.analysis import Periodic1DRank2ProcrustesDiagnosticsAnalyzer
+from .procrustes.result import Periodic1DRank2ProcrustesSelectionScope
 from .result import Periodic1DRank2GaugeAlignmentAnalysis
 
 
@@ -171,16 +173,18 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
                 ComplexMatrixQuantity(value, unit) for value in pointwise_values
             ),
             global_rotation=ComplexMatrixQuantity(global_value, unit),
-            pointwise_minimum_cross_singular_value=float(
-                np.min(pointwise_selection.cross_singular_values)
-            ),
-            global_minimum_cross_singular_value=float(
-                np.min(global_selection.cross_singular_values)
-            ),
-            pointwise_maximum_rank_cutoff=float(
-                np.max(pointwise_selection.applied_rank_cutoffs)
-            ),
-            global_rank_cutoff=float(global_selection.applied_rank_cutoffs[0]),
+            pointwise_procrustes=Periodic1DRank2ProcrustesDiagnosticsAnalyzer(
+                scope=Periodic1DRank2ProcrustesSelectionScope.POINTWISE,
+                source=source,
+                target=target,
+                result=pointwise_selection,
+            ).execute(),
+            global_procrustes=Periodic1DRank2ProcrustesDiagnosticsAnalyzer(
+                scope=Periodic1DRank2ProcrustesSelectionScope.GLOBAL,
+                source=source.reshape(1, -1, source.shape[-1]),
+                target=target.reshape(1, -1, target.shape[-1]),
+                result=global_selection,
+            ).execute(),
         )
 
     @staticmethod

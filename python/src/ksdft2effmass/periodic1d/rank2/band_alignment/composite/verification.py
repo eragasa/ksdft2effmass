@@ -1,4 +1,4 @@
-"""Exact-byte independent verification for composite-band alignment."""
+"""Canonical artifact admission and independent numerical qualification."""
 
 from __future__ import annotations
 
@@ -107,7 +107,7 @@ class Periodic1DCompositeBandAlignmentVerifier(
         Periodic1DCompositeBandAlignmentVisualizationData,
     ]
 ):
-    """Own exact result-byte admission and independent projection verification."""
+    """Own canonical result admission and independent numerical verification."""
 
     __slots__ = ()
 

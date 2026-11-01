@@ -1,4 +1,4 @@
-"""Tests for independent exact-byte composite-alignment verification."""
+"""Tests for canonical admission and independent numerical qualification."""
 
 import hashlib
 from dataclasses import replace
@@ -54,6 +54,10 @@ class TestPeriodic1DCompositeBandAlignmentVerifier:
             "reference_frames",
             "pointwise_rotations",
             "global_rotation",
+            "pointwise_procrustes_cross_singular_values",
+            "pointwise_procrustes_maximum_stationarity_defect",
+            "global_procrustes_cross_singular_values",
+            "global_procrustes_maximum_objective_identity_defect",
             "transform_attacked_hopping_blocks",
             "transform_attacked_cyclic_conversion_power",
             "transform_attacked_evaluation_interpolation_errors",

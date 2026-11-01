@@ -7,6 +7,8 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
+from projectkoios.physkit.units import PhysicalUnit
+
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
@@ -15,20 +17,22 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import
     Periodic1DCompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerifier,
 )
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.data import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.data import (  # noqa: E501
     Periodic1DCompositeBandAlignmentVisualizationData,
 )
-from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visualizer import (
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visualizer import (  # noqa: E501
     Periodic1DCompositeBandAlignmentVisualizer,
 )
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
-from projectkoios.physkit.units import PhysicalUnit
 
-EXECUTION_ID = "direct-controlled-rank2-n64"
-CALCULATION_FAMILY = "periodic1d-rank2-composite-band-alignment-locality"
+EXECUTION_ID = "direct-controlled-rank2-n64-v2"
+CALCULATION_FAMILY = (
+    Periodic1DCompositeBandAlignmentCalculationResult.CALCULATION_FAMILY
+)
+RESULT_SCHEMA = Periodic1DCompositeBandAlignmentCalculationResult.RESULT_SCHEMA
 PARENT_IDENTITY = Periodic1DCompositeBandAlignmentConfiguration.PARENT_IDENTITY
 script_path = Path(__file__).resolve()
 execution_directory = script_path.parent / "executions" / EXECUTION_ID
@@ -50,6 +54,8 @@ if codec.serialize_bytes(document) != verification_bytes:
     raise ValueError("verification document is not canonical typed JSON")
 if document.get("execution_id") != EXECUTION_ID:
     raise ValueError("verification execution identifier does not match")
+if document.get("result_schema") != RESULT_SCHEMA:
+    raise ValueError("verification result schema does not match")
 if document.get("calculation_family") != CALCULATION_FAMILY:
     raise ValueError("verification calculation family does not match")
 if document.get("parent_identity") != PARENT_IDENTITY:
@@ -102,10 +108,11 @@ for visualization in visualizations:
 (temporary_directory / "rendering.json").write_bytes(
     codec.serialize_bytes(
         {
-            "schema_version": 1,
+            "schema_version": 2,
             "schema": (
-                "ksdft2effmass.periodic1d-composite-band-alignment-rendering.direct.v1"
+                "ksdft2effmass.periodic1d-composite-band-alignment-rendering.direct.v2"
             ),
+            "result_schema": RESULT_SCHEMA,
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": document["parent_identity"],
             "execution_id": EXECUTION_ID,
