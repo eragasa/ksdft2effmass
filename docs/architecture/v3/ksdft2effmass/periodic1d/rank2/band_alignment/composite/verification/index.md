@@ -1,0 +1,3 @@
+# `rank2.band_alignment.composite.verification`
+
+This module owns [`CompositeBandAlignmentVerification`](CompositeBandAlignmentVerification/index.md), [`Periodic1DCompositeBandAlignmentVerification`](Periodic1DCompositeBandAlignmentVerification/index.md), and [`Periodic1DCompositeBandAlignmentVerifier`](Periodic1DCompositeBandAlignmentVerifier/index.md). Together they bind exact result bytes, scientific comparisons, projection comparisons, and canonical SHA-256 identities.

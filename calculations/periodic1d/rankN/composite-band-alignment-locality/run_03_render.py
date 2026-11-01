@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from analysis.development import (
+from analysis.development.cache import (
     HigherRankDevelopmentAdmittedCacheReader,
     HigherRankDevelopmentCacheReadRequest,
-    HigherRankDevelopmentFigureDataProjector,
-    HigherRankDevelopmentFigureProjectionRequest,
+)
+from analysis.development.plots import (
+    HigherRankDevelopmentFigureDataConstructor,
+    HigherRankDevelopmentFigureDataRequest,
     HigherRankDevelopmentFigureRenderer,
     HigherRankDevelopmentFigureRenderRequest,
 )
@@ -22,8 +24,8 @@ def main() -> int:
             cache_directory=calculation_root / "results" / "development-cache"
         )
     ).execute()
-    data = HigherRankDevelopmentFigureDataProjector(
-        HigherRankDevelopmentFigureProjectionRequest(cache.calculation_results)
+    data = HigherRankDevelopmentFigureDataConstructor(
+        HigherRankDevelopmentFigureDataRequest(cache.calculation_results)
     ).execute()
     output = calculation_root / "technical-report" / "development-figures"
     figures = HigherRankDevelopmentFigureRenderer(

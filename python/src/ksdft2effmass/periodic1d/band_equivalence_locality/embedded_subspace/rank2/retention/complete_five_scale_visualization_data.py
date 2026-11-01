@@ -6,6 +6,9 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+    Periodic1DRank2TruncationCompleted,
+)
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.visualizations import BaseVisualizationData
 
@@ -20,7 +23,6 @@ from ..momentum_refinement.analysis import (
     Periodic1DRank2MomentumRefinementQualificationStopped,
     Periodic1DRank2MomentumRefinementUnresolved,
 )
-from ..truncation.results import Periodic1DRank2TruncationCompleted
 from .complete_five_scale import Periodic1DRank2CompleteFiveScaleCalculationRecord
 
 

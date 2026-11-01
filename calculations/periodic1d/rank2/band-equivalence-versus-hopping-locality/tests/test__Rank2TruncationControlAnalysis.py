@@ -11,7 +11,7 @@ from rank2_control_analysis import (
     truncation_verification_defect,
 )
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection import (
     Periodic1DRank2TruncationToleranceSelector,
 )
 from ksdft2effmass.real_space_support_truncation import (

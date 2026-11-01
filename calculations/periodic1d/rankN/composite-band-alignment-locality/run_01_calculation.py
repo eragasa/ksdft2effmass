@@ -7,32 +7,36 @@ import inspect
 import json
 from pathlib import Path
 
-from analysis.development import (
+from analysis.development.cache import (
     HigherRankDevelopmentCacheWriter,
     HigherRankDevelopmentCacheWriteRequest,
 )
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
-    Periodic1DHigherRankAlignmentAnalyzer,
-    Periodic1DHigherRankAlignmentCalculationControls,
-    Periodic1DHigherRankAlignmentCalculationRequest,
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankAlignmentConfiguration,
+from ksdft2effmass.periodic1d.gauge_alignment.factory import (
+    Periodic1DAlignmentStudyFactory,
+    Periodic1DRankNAlignmentStudyAnalyzer,
+    Periodic1DRankNAlignmentStudySpecification,
 )
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationControls,
+    Periodic1DRankNAlignmentCalculationRequest,
 )
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
+    Periodic1DRankNAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
+    Periodic1DRankNAlignmentAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.serialization import TypedJsonValueCodec
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
-from projectkoios.optimization.alignment.procrustes import (
-    ComplexUnitaryProcrustesRankCutoffRule,
-)
 from projectkoios.physkit.solidstate.electronic import (
     ClosedLoopPolarFrameTransporter,
-    ClosedLoopPolarFrameTransportPrincipalPhaseBranch,
-    EndpointSewingAction,
-    FrameRotationAction,
 )
 from projectkoios.physkit.solidstate.tb import (
     FinitePeriodicMatrixFourierTensorEvaluator,
@@ -44,55 +48,20 @@ type JsonValue = (
 )
 
 
-def _configuration() -> Periodic1DHigherRankAlignmentConfiguration:
+def _configuration() -> Periodic1DRankNAlignmentConfiguration:
     """Return the complete frozen version-one configuration."""
-    configuration_type = Periodic1DHigherRankAlignmentConfiguration
-    return configuration_type(
-        family_identity=configuration_type.FAMILY_IDENTITY,
-        version_identity=configuration_type.VERSION_IDENTITY,
-        retained_ranks=configuration_type.RETAINED_RANKS,
-        circuit_depths=configuration_type.CIRCUIT_DEPTHS,
-        construction_mesh_sizes=configuration_type.CONSTRUCTION_MESH_SIZES,
-        final_construction_mesh_size=configuration_type.FINAL_CONSTRUCTION_MESH_SIZE,
-        global_unitary_selection_mesh_size=(
-            configuration_type.GLOBAL_UNITARY_SELECTION_MESH_SIZE
-        ),
-        evaluation_mesh_size=configuration_type.EVALUATION_MESH_SIZE,
-        evaluation_shift_numerator=configuration_type.EVALUATION_SHIFT_NUMERATOR,
-        evaluation_shift_denominator=configuration_type.EVALUATION_SHIFT_DENOMINATOR,
-        gauge_alignments=configuration_type.GAUGE_ALIGNMENTS,
-        frame_rotation_action=FrameRotationAction.RIGHT,
-        endpoint_sewing_action=EndpointSewingAction.LEFT_AMBIENT,
-        principal_phase_branch=(
-            ClosedLoopPolarFrameTransportPrincipalPhaseBranch.negative_pi_open
-        ),
-        rank_cutoff_rule=ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM,
-        rank_absolute_tolerance=configuration_type.RANK_ABSOLUTE_TOLERANCE,
-        rank_relative_tolerance=configuration_type.RANK_RELATIVE_TOLERANCE,
-        backend_validation_absolute_tolerance=(
-            configuration_type.BACKEND_VALIDATION_ABSOLUTE_TOLERANCE
-        ),
-        backend_validation_relative_tolerance=(
-            configuration_type.BACKEND_VALIDATION_RELATIVE_TOLERANCE
-        ),
-        endpoint_and_primitive_closure_tolerance=(
-            configuration_type.ENDPOINT_AND_PRIMITIVE_CLOSURE_TOLERANCE
-        ),
-        maximum_closure_phase_tolerance=(
-            configuration_type.MAXIMUM_CLOSURE_PHASE_TOLERANCE
-        ),
-    )
+    return Periodic1DRankNAlignmentConfiguration.frozen()
 
 
 def _request(
-    configuration: Periodic1DHigherRankAlignmentConfiguration,
+    configuration: Periodic1DRankNAlignmentConfiguration,
     retained_rank: int,
     circuit_depth: int,
-) -> Periodic1DHigherRankAlignmentCalculationRequest:
+) -> Periodic1DRankNAlignmentCalculationRequest:
     """Return one complete immutable calculation request."""
-    return Periodic1DHigherRankAlignmentCalculationRequest(
+    return Periodic1DRankNAlignmentCalculationRequest(
         configuration=configuration,
-        controls=Periodic1DHigherRankAlignmentCalculationControls.frozen(),
+        controls=Periodic1DRankNAlignmentCalculationControls.frozen(),
         retained_rank=retained_rank,
         circuit_depth=circuit_depth,
         ambient_basis_identifier="analytic-parent-ordered-retained-exterior-basis",
@@ -104,32 +73,35 @@ def _request(
 
 
 def _calculate(
-    request: Periodic1DHigherRankAlignmentCalculationRequest,
-) -> Periodic1DHigherRankAlignmentCalculationResult:
-    """Execute one direct case with explicit reviewed collaborators."""
-    return Periodic1DHigherRankAlignmentAnalyzer(
-        request=request,
-        procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
-        transporter=ClosedLoopPolarFrameTransporter(),
-        scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
-    ).execute()
+    request: Periodic1DRankNAlignmentCalculationRequest,
+    lattice_geometry: Periodic1DLatticeGeometry,
+) -> Periodic1DRankNAlignmentCalculationResult:
+    """Execute one rank-first case with explicit reviewed collaborators."""
+    study = Periodic1DAlignmentStudyFactory(
+        Periodic1DRankNAlignmentStudySpecification(
+            lattice_geometry=lattice_geometry,
+            request=request,
+            procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+            transporter=ClosedLoopPolarFrameTransporter(),
+            scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
+        )
+    ).create()
+    return study.execute()
 
 
 def _case_summary(
-    result: Periodic1DHigherRankAlignmentCalculationResult,
+    result: Periodic1DRankNAlignmentCalculationResult,
 ) -> dict[str, JsonValue]:
     """Return a bounded development summary without claiming retained evidence."""
     final_gauge_alignments: list[JsonValue] = []
     for alignment in result.meshes[-1].gauge_alignment_results:
         summary: dict[str, JsonValue] = {
-            "gauge_alignment": GaugeAlignmentWireMapping.to_wire(
-                alignment.status.gauge_alignment
-            ),
-            "alignment_status": alignment.status.status.value,
+            "gauge_alignment": alignment.status.gauge_alignment.to_wire(),
+            "alignment_status": alignment.status.status.to_wire(),
             "downstream_applicability": (
                 None
                 if alignment.status.global_unitary_downstream_applicability is None
-                else alignment.status.global_unitary_downstream_applicability.value
+                else alignment.status.global_unitary_downstream_applicability.to_wire()
             ),
             "support_count": len(alignment.supports),
         }
@@ -157,18 +129,23 @@ def _case_summary(
 
 
 def _calculation_results(
-    configuration: Periodic1DHigherRankAlignmentConfiguration,
-) -> tuple[Periodic1DHigherRankAlignmentCalculationResult, ...]:
+    configuration: Periodic1DRankNAlignmentConfiguration,
+    lattice_geometry: Periodic1DLatticeGeometry,
+) -> tuple[Periodic1DRankNAlignmentCalculationResult, ...]:
     """Calculate every frozen case for explicitly unverified development use."""
     return tuple(
-        _calculate(_request(configuration, retained_rank, circuit_depth))
+        _calculate(
+            _request(configuration, retained_rank, circuit_depth),
+            lattice_geometry,
+        )
         for retained_rank in configuration.retained_ranks
         for circuit_depth in configuration.circuit_depths
     )
 
 
 def _summary(
-    results: tuple[Periodic1DHigherRankAlignmentCalculationResult, ...],
+    results: tuple[Periodic1DRankNAlignmentCalculationResult, ...],
+    lattice_geometry: Periodic1DLatticeGeometry,
 ) -> dict[str, JsonValue]:
     """Return a development-only shape summary for complete calculated results."""
     configuration = results[0].request.configuration
@@ -178,6 +155,10 @@ def _summary(
         "scientific_evidence": False,
         "family_identity": configuration.family_identity,
         "version_identity": configuration.version_identity,
+        "lattice_geometry": {
+            "lattice_period": lattice_geometry.lattice_period,
+            "lattice_unit": lattice_geometry.lattice_unit.expression,
+        },
         "case_count": len(cases),
         "cases": cases,
     }
@@ -190,10 +171,13 @@ def main() -> int:
     destination = output / "direct-development-summary.json"
     cache_directory = output / "development-cache"
     configuration = _configuration()
+    lattice_geometry = configuration.reduced_lattice_geometry
     source_types = (
-        Periodic1DHigherRankAlignmentAnalyzer,
-        Periodic1DHigherRankAlignmentConfiguration,
-        Periodic1DHigherRankAlignmentCalculationResult,
+        Periodic1DAlignmentStudyFactory,
+        Periodic1DRankNAlignmentStudyAnalyzer,
+        Periodic1DRankNAlignmentAnalyzer,
+        Periodic1DRankNAlignmentConfiguration,
+        Periodic1DRankNAlignmentCalculationResult,
         ScalarRefinementAnalyzer,
         NumpyBatchedComplexUnitaryProcrustesSolver,
         ClosedLoopPolarFrameTransporter,
@@ -202,6 +186,15 @@ def main() -> int:
     )
     source_inventory = (
         ("calculation-configuration.json", configuration.to_json()),
+        (
+            "lattice-geometry.json",
+            TypedJsonValueCodec().serialize_bytes(
+                {
+                    "lattice_period": lattice_geometry.lattice_period,
+                    "lattice_unit": lattice_geometry.lattice_unit,
+                }
+            ),
+        ),
     ) + tuple(
         (
             f"{source_type.__module__}.{source_type.__qualname__}",
@@ -219,8 +212,8 @@ def main() -> int:
         infrastructure_digest.update(len(source_bytes).to_bytes(8, "big"))
         infrastructure_digest.update(source_bytes)
     infrastructure_sha256 = infrastructure_digest.hexdigest()
-    results = _calculation_results(configuration)
-    payload = _summary(results)
+    results = _calculation_results(configuration, lattice_geometry)
+    payload = _summary(results, lattice_geometry)
     destination.write_text(
         json.dumps(payload, allow_nan=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -229,6 +222,7 @@ def main() -> int:
     manifest = HigherRankDevelopmentCacheWriter(
         HigherRankDevelopmentCacheWriteRequest(
             calculation_results=results,
+            lattice_geometry=lattice_geometry,
             cache_directory=cache_directory,
             calculation_infrastructure_sha256=infrastructure_sha256,
         )

@@ -13,17 +13,31 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.analysis import (  # noqa: E501
+    Periodic1DRank2Analyzer,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
+    Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
     Periodic1DRank2Analysis,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
     Periodic1DRank2AnalysisRecord,
     Periodic1DRank2AnalysisRecorder,
-    Periodic1DRank2Analyzer,
-    Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.verification import (  # noqa: E501
     Periodic1DRank2Verification,
     Periodic1DRank2Verifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.inventory import (  # noqa: E501
     Periodic1DRank2VisualizationPlot,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.visualizer import (  # noqa: E501
     Periodic1DRank2Visualizer,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _request() -> Periodic1DRank2Request:

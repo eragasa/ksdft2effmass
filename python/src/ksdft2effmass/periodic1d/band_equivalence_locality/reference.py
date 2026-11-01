@@ -176,8 +176,10 @@ def _direct_fourier_blocks(
     representatives: np.ndarray[tuple[int], np.dtype[np.int64]],
 ) -> np.ndarray[tuple[int, int, int], np.dtype[np.complex128]]:
     phases = np.exp(-2.0j * np.pi * np.outer(coordinates, representatives))
-    return np.einsum("kr,kij->rij", phases, matrices, optimize=True) / float(
-        coordinates.size
+    return np.asarray(
+        np.einsum("kr,kij->rij", phases, matrices, optimize=True)
+        / float(coordinates.size),
+        dtype=np.complex128,
     )
 
 
@@ -187,7 +189,10 @@ def _evaluate_blocks(
     blocks: np.ndarray[tuple[int, int, int], np.dtype[np.complex128]],
 ) -> np.ndarray[tuple[int, int, int], np.dtype[np.complex128]]:
     phases = np.exp(2.0j * np.pi * np.outer(coordinates, representatives))
-    return np.einsum("kr,rij->kij", phases, blocks, optimize=True)
+    return np.asarray(
+        np.einsum("kr,rij->kij", phases, blocks, optimize=True),
+        dtype=np.complex128,
+    )
 
 
 def _errors(

@@ -17,7 +17,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from ..composite_band_alignment import (
+from ..rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentTransformResult,
 )
 from .definition import (

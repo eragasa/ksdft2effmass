@@ -11,14 +11,20 @@ The protocol's short labels mean:
 - **P0:** the retained subspace is fixed rather than moving with momentum; and
 - **G0:** the basis rotations are real orthogonal rotations.
 
-The direct typed producer, canonical calculation cache, integrity verification, and fixed
-nine-view renderer are implemented. The figures remain visibly labeled
-`development/unverified` pending scientific acceptance, but presentation changes can be
-rendered repeatedly from the admitted saved results without recalculation.
+The direct typed producer now enters through the rank-$N$ rank-first alignment-study
+specification and binds the explicit reduced-convention geometry
+$a_0=1\,\mathrm{bohr}$. Development-cache format v2 retains that geometry independently
+of the unchanged case-result wires. Canonical calculation caching, integrity verification,
+and the fixed nine-view renderer are implemented. A publication-oriented six-figure
+storyboard now selects a compact narrative from the same admitted cache without changing
+the scientific producer or replacing the detailed nine-view diagnostic inventory. The
+figures remain calculated, integrity-admitted, unsealed results pending independent
+scientific acceptance, but presentation changes can be rendered repeatedly without
+recalculation.
 
 | File | SHA-256 |
 |---|---|
-| [`experimental-protocol.tex`](experimental-protocol.tex) | `dbfd87cba323aa947c41d181bc166908b25126565fefb0eadbbbf160b9c6f8c5` |
+| [`experimental-protocol.tex`](experimental-protocol.tex) | `2c1a5e7e2ee476ff27151f3ed6d9c02abc25ca7a577b30a40a4ce45199231a8e` |
 
 The TeX file originated from
 `experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/experimental-protocol.tex`
@@ -26,10 +32,22 @@ at predecessor revision `81f7c09a5edc50be698bd3a5f047438cd61d4eca`. The maintain
 calculation-owned protocol now uses descriptive gauge-alignment identities and includes
 scientific-flow and typed-lifecycle schematics; it is no longer byte-identical to that
 historical donor. Its current SHA-256 is
-`dbfd87cba323aa947c41d181bc166908b25126565fefb0eadbbbf160b9c6f8c5`.
+`2c1a5e7e2ee476ff27151f3ed6d9c02abc25ca7a577b30a40a4ce45199231a8e`.
 
 The plan specifies the one-dimensional cases, numerical controls, resource limits, and
-scientific interpretation. Its references to `verify_d1_p0_g0_controls.py` name the old
+scientific interpretation. Storyboard rationale, evidence boundaries, encoding rules,
+and intended placement are recorded in
+[`publication-figure-storyboard.md`](publication-figure-storyboard.md). Regenerate the
+vector PDFs and 600-dpi PNG review files from `python/` with:
+
+```console
+uv run python \
+  ../calculations/periodic1d/rankN/composite-band-alignment-locality/protocol/render_publication_storyboard.py
+```
+
+The renderer reads only the integrity-admitted `results/development-cache/` inventory and
+writes the closed figure set under `figures/storyboard/`. Its references to
+`verify_d1_p0_g0_controls.py` name the old
 finite-grid formula-check script; the maintained replacement is
 [`../verify_analytic_controls.py`](../verify_analytic_controls.py). The direct lifecycle
 uses `run_01_calculation.py`, `run_02_verification.py`, and `run_03_render.py`. The cache

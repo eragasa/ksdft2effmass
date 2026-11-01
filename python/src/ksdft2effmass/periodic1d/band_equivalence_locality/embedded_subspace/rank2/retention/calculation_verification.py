@@ -8,6 +8,10 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import ClassVar, Self
 
+from ksdft2effmass.periodic1d.rank2.support_truncation.verification import (
+    EmbeddedSubspaceRank2TruncationVerification,
+    Periodic1DRank2TruncationIndependentVerifier,
+)
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.verification import VisualizationVerification
 
@@ -18,10 +22,6 @@ from ..amplitude_refinement.verification import (
 from ..momentum_refinement.verification import (
     EmbeddedSubspaceRank2MomentumRefinementVerification,
     Periodic1DRank2MomentumRefinementIndependentVerifier,
-)
-from ..truncation.verification import (
-    EmbeddedSubspaceRank2TruncationVerification,
-    Periodic1DRank2TruncationIndependentVerifier,
 )
 from .records import (
     Periodic1DRank2CalculationRecord,

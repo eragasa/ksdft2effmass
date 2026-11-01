@@ -11,17 +11,31 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DRank2ExternalGapFailure,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
-    Periodic1DRank2TruncationAnalysis,
-    Periodic1DRank2TruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
+    Periodic1DRank2ExternalGapFailure,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
+    Periodic1DRank2SupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
+    Periodic1DRank2SupportTruncationAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+    Periodic1DRank2SupportTruncationAnalysis,
     Periodic1DRank2TruncationCompleted,
-    Periodic1DRank2TruncationIndependentVerifier,
     Periodic1DRank2TruncationQualificationStopped,
-    Periodic1DRank2TruncationRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection import (
     Periodic1DRank2TruncationToleranceSelector,
 )
+from ksdft2effmass.periodic1d.rank2.support_truncation.verification import (
+    Periodic1DRank2TruncationIndependentVerifier,
+)
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _template() -> Periodic1DRank2Request:
@@ -41,8 +55,8 @@ def _template() -> Periodic1DRank2Request:
 
 def _request(
     template: Periodic1DRank2Request | None = None,
-) -> Periodic1DRank2TruncationRequest:
-    return Periodic1DRank2TruncationRequest.every_integer_through(
+) -> Periodic1DRank2SupportTruncationAnalysisRequest:
+    return Periodic1DRank2SupportTruncationAnalysisRequest.every_integer_through(
         template_request=_template() if template is None else template,
         maximum_range=3,
         evaluation_mesh_size=17,
@@ -50,9 +64,9 @@ def _request(
 
 
 def _analyze(
-    request: Periodic1DRank2TruncationRequest,
-) -> Periodic1DRank2TruncationAnalysis:
-    return Periodic1DRank2TruncationAnalyzer(
+    request: Periodic1DRank2SupportTruncationAnalysisRequest,
+) -> Periodic1DRank2SupportTruncationAnalysis:
+    return Periodic1DRank2SupportTruncationAnalyzer(
         request=request,
         transporter=ClosedLoopPolarFrameTransporter(),
     ).execute()
@@ -66,7 +80,7 @@ class TestPeriodic1DRank2Truncation:
         assert request.maximum_ranges == (0, 1, 2, 3)
         assert request.has_dense_integer_inventory
         with pytest.raises(TypeError, match="built-in int"):
-            Periodic1DRank2TruncationRequest.every_integer_through(
+            Periodic1DRank2SupportTruncationAnalysisRequest.every_integer_through(
                 template_request=_template(),
                 maximum_range=True,
                 evaluation_mesh_size=17,
@@ -207,7 +221,9 @@ class TestPeriodic1DRank2Truncation:
             f"{root}.parent_scale.parent_hamiltonian"
         )
         production_analysis = importlib.import_module(f"{root}.parent_scale.analysis")
-        production_truncation = importlib.import_module(f"{root}.truncation.analysis")
+        production_truncation = importlib.import_module(
+            "ksdft2effmass.periodic1d.rank2.support_truncation.analysis"
+        )
         solidstate = importlib.import_module("ksdft2effmass.solidstate")
 
         def forbidden(*args: object, **kwargs: object) -> None:
@@ -224,7 +240,7 @@ class TestPeriodic1DRank2Truncation:
             forbidden,
         )
         monkeypatch.setattr(
-            production_truncation.Periodic1DRank2TruncationAnalyzer,
+            production_truncation.Periodic1DRank2SupportTruncationAnalyzer,
             "execute",
             forbidden,
         )

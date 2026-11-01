@@ -38,7 +38,7 @@ not present at the current revision. Its last complete tree is revision
 `c5d34a93b4710a4a430738c404c775865d418d42`. The calculation-local `workflow/` was the
 migration-time successor. It is now immutable historical provenance and is not a
 maintained import, test, or execution boundary. Maintained behavior belongs to
-`ksdft2effmass.periodic1d.higher_rank_alignment` and canonical upstream owners.
+`ksdft2effmass.periodic1d.rankN.band_alignment.composite` and canonical upstream owners.
 
 | Module | Historical SHA-256 | Migration-time workflow SHA-256 | Relation |
 |---|---|---|---|

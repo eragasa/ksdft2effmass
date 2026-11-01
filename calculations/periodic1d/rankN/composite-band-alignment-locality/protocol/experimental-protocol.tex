@@ -621,7 +621,10 @@ implementation records every singular value, the applied cutoff, the strict marg
 $\sigma_r-\tau_{\mathrm{sv}}(X)$, and
 $\kappa_2(X)=\sigma_1/\sigma_r$. No finite condition number is reported when the strict
 rank gate fails. Repeated positive singular values do not make the polar factor
-nonunique, although the individual SVD factors may be nonunique.
+nonunique, although the individual SVD factors may be nonunique. The singular-vector
+bases themselves are therefore neither physical observables nor canonical evidence. The
+invariant object is the polar factor together with the singular spectrum, rank margin,
+objective value, and integrity defects.
 
 The selected diagnostic ladder is:
 
@@ -696,10 +699,21 @@ The remaining integrity diagnostics are
 \end{equation}
 
 An admitted global-unitary or pointwise-unitary factor must satisfy the selected unitarity, stationarity, objective-
-identity, and positive-semidefinite tolerances below. The independent verifier
-reconstructs the objective, singular values, rank decision, polar factor application,
-unitarity, stationarity, and positive-semidefinite disposition from the original frames.
-The bounded reference reconstructs these quantities through its independent call site.
+identity, and positive-semidefinite tolerances below. The independent construction returns to the original frames and recomputes the
+objective, singular spectrum, rank decision, polar action, unitarity, stationarity, and
+positive-semidefinite disposition. Pointwise, the analytic D1 relation gives
+$M(k)=G_{r,L}^\dagger(k)$, so that cross matrix is itself the exact polar factor. Globally,
+the independent polar factor is
+
+\begin{equation}
+ \mathcal P(X)=X(X^\dagger X)^{-1/2},
+ \label{eq:independent-global-polar}
+\end{equation}
+
+with $(X^\dagger X)^{-1/2}$ obtained from its Hermitian eigendecomposition. Array-valued
+comparisons use absolute tolerance $10^{-10}$ and scalar summaries use $10^{-11}$.
+These tolerances define finite-precision Procrustes agreement; equality of floating-point
+bytes from separate numerical executions is not a scientific requirement.
 
 Equality at the applied singular-value cutoff is deficient. A deficient covariance has
 unitary minimizers but does not have a unique full polar factor; D1 v1 therefore returns
@@ -1500,9 +1514,10 @@ gate, or add a scientific quantity to the result schema. The calculation stage w
 canonical result bytes once; the rendering stage consumes those bytes and may be repeated
 without scientific recalculation. Plotting and report sources are excluded from the
 calculation-infrastructure identity, so presentation-only changes do not invalidate the
-calculation. Current unverified images must display
-\emph{DEVELOPMENT / UNVERIFIED---not publication evidence}; captions and surrounding
-text must repeat that boundary when a figure is reproduced outside its source directory.
+calculation. Current calculated images must display
+\emph{CALCULATED RESULT---UNSEALED}; captions and surrounding text must repeat that
+boundary when a figure is reproduced outside its source directory. Integrity admission
+and reviewable presentation do not by themselves assign publication acceptance.
 
 The present images came from one complete producer-only development calculation over the
 16 selected rank/depth cases. The standard direct entrypoints are
@@ -1510,10 +1525,10 @@ The present images came from one complete producer-only development calculation 
 \path{run_03_render.py}. The calculation wrote canonical typed case bytes and a SHA-256
 manifest into an ignored reusable cache. The manifest records the single required
 provenance value, \path{calculation_infrastructure_sha256}; its present value is
-\path{7cdd7788a2eda7cfdf0379ce1569fba10b56ea3ad9302ca234bad05b0787159b}.
+\path{4db05dadca1818469484b132ba0a7776c0a9281ee956e6cf94490104de0a70dd}.
 A separate integrity admission checked canonical round trips, case identities, digests,
 and complete inventory once for manifest SHA-256
-\path{64d9facd876183efa85b77d9351317a4a3adebd266bbb0ce9a25fae6fbbf02a7}.
+\path{2bba6a5a208945018dc462a142412e0d6cfaba436a58fec03a1cd33cc48d4673}.
 Subsequent renders reuse those exact admitted cache bytes without recalculating the grid.
 The cases exercise all meshes, gauge alignments, and supports, but the source values were
 not independently recomputed or admitted by the protocol's scientific verification
@@ -1538,31 +1553,35 @@ global recovery. The view uses no ratio with a roundoff-scale denominator.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{../technical-report/development-figures/development-alignment-locality-s2.png}
-\caption{Unverified development snapshot of the frozen $S=2$ alignment--locality plane.}
+\caption{Unverified development snapshot of the alignment--locality plane at
+hopping-diagnostic cutoff $S=2$.}
 \label{fig:protocol-development-alignment-locality}
 \end{figure}
 
-\subsection*{View 2: complete support-path locality curves}
+\subsection*{View 2: hopping-tail diagnostic curves}
 
 Figure~\ref{fig:protocol-development-support-paths} is the anti-selection view: every
-support in the declared order is visible for every rank, depth, and gauge alignment.
-Identity/global paths descend over multiple support scales, whereas pointwise/oracle
-reach the binary64 floor at $S=2$. At the fixed report anchor $(8,4)$, the identity tail
-moves from $1.52\times10^{-1}$ at $S=0$ through $1.21\times10^{-2}$ at $S=2$ and
+hopping-diagnostic cutoff in the declared order is visible for every rank, depth, and
+gauge alignment. The coefficients are measured without truncation. Identity/global
+tails descend across multiple cutoffs, whereas pointwise/oracle tails reach the binary64
+floor at $S=2$. At the fixed report anchor $(8,4)$, the identity tail moves from
+$1.52\times10^{-1}$ at $S=0$ through $1.21\times10^{-2}$ at $S=2$ and
 $6.64\times10^{-6}$ at $S=8$ before reaching the numerical floor near $S=32$. The
-protocol forbids cropping the path to make one cutoff appear preferable.
+protocol forbids cropping the inventory to make one cutoff appear preferable.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{../technical-report/development-figures/development-support-locality-paths.png}
-\caption{Unverified development snapshot of all frozen support paths.}
+\includegraphics[width=\textwidth]{../technical-report/development-figures/development-hopping-diagnostic-paths.png}
+\caption{Unverified development snapshot of the complete hopping-diagnostic cutoff
+inventory. The plotted ordinate measures unchanged coefficients and is not a truncation
+error.}
 \label{fig:protocol-development-support-paths}
 \end{figure}
 
 \subsection*{View 3: Fourier-block locality}
 
 Figure~\ref{fig:protocol-development-block-locality} shows the nonnegative block norms
-for the prospectively fixed interior anchor $(r,L)=(8,4)$. Identity/global retain
+for the predeclared interior anchor $(r,L)=(8,4)$. Identity/global retain
 nonzero numerical blocks beyond $R=2$ and decay to the transform floor; pointwise/oracle
 show only the exact reference blocks $R=0,1,2$ above that floor. The view diagnoses the
 coefficient mechanism behind the cumulative tail but cannot establish a continuum decay
@@ -1643,10 +1662,10 @@ $1025\rightarrow2049$ refinement ledger.}
 \subsection*{View 7: rank/depth scaling at fixed support}
 
 Figure~\ref{fig:protocol-development-rank-depth} uses paired total-operator and
-total-spectrum heatmaps at the prospectively fixed support $S=2$. In the identity/global
+total-spectrum heatmaps at the predeclared retained support $S=2$. In the identity/global
 panels, the development snapshot shows increasing error with circuit depth and generally
 decreasing normalized error with rank, while pointwise/oracle panels are roundoff
-dominated. The complete support-path view retains the $S=0$ and $S=128$ controls and its
+dominated. The complete hopping-diagnostic view retains the $S=0$ and $S=128$ controls and its
 visible nonmonotonic structure. The scaling view supports descriptive finite-grid
 comparison only: it cannot authorize an asymptotic or universal monotonicity claim, and
 differences near roundoff are not divided into ratios.
@@ -1697,26 +1716,140 @@ synthetic control and cannot be promoted as an attainable optimizer.
 \label{fig:protocol-development-pareto}
 \end{figure}
 
+\subsection*{Publication-oriented six-figure storyboard}
+
+The fixed nine-view inventory above remains the detailed diagnostic record. A second,
+closed six-figure storyboard selects a more compact publication narrative from the same
+integrity-admitted cache. It introduces no new scientific calculation and does not replace
+any diagnostic view. The storyboard is a presentation prototype for review: every panel
+contains calculated values, but the figures remain unsealed and not independently
+verified in full. The rank-two study's amplitude/scale narrative is not copied here;
+rank and circuit depth are the scientifically relevant rank-$N$ axes.
+
+Figure~\ref{fig:storyboard-alignment-information} opens with the information hierarchy.
+Identity and global-unitary alignment retain large reference-frame residuals, hopping
+tails, and $S=2$ spectral consequences. Pointwise and oracle alignment place those
+quantities near roundoff. The represented-field integrity panel asks a different
+question: whether each aligned field agrees with its own declared direct construction.
+Exact zeros are marked with crosses at the display floor rather than being relabelled as
+$10^{-18}$ results.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/01-alignment-information-hierarchy.pdf}
+\caption{Calculated, integrity-admitted, unsealed alignment-information hierarchy over
+all 16 rank/depth cases. Rank uses marker shape and depth uses color. Reference-frame
+recovery and direct represented-field integrity are deliberately separate controls.}
+\label{fig:storyboard-alignment-information}
+\end{figure}
+
+Figure~\ref{fig:storyboard-rank-depth} then exposes the finite rank/depth structure. The
+identity panels show the attacked representation's $S=2$ hopping tail and total spectral
+consequence, the global panel shows the restricted feasible set's frame residual, and the
+pointwise panel supplies a roundoff-scale control. These finite heatmaps support no
+asymptotic monotonicity theorem and no ratios are formed from roundoff-scale controls.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/02-rank-depth-scaling.pdf}
+\caption{Calculated, integrity-admitted, unsealed rank/depth storyboard. Each cell is an
+absolute normalized value on the selected finite grid.}
+\label{fig:storyboard-rank-depth}
+\end{figure}
+
+Figure~\ref{fig:storyboard-locality-support} resolves the mechanism at the predeclared
+interior anchor $(r,L)=(8,4)$. The upper row diagnoses unchanged Fourier coefficients;
+the lower row applies retained-support truncation and measures its total operator and
+spectral consequences. Equal cutoff integers do not make the hopping-diagnostic and
+retained-support inventories interchangeable. Lines connect the declared sampled
+cutoffs as guides to the eye and are not continuum support interpolants.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/03-locality-and-support-consequences.pdf}
+\caption{Calculated, integrity-admitted, unsealed locality and retained-support
+consequences at $(r,L)=(8,4)$. Constant-unitary Frobenius invariance makes the identity
+and global hopping diagnostics coincide; this is not evidence of global frame recovery.}
+\label{fig:storyboard-locality-support}
+\end{figure}
+
+Figure~\ref{fig:storyboard-error-channels} keeps interpolation, deliberate truncation,
+and total spectral consequence visible as separate non-stacked trajectories. The
+truncation and total curves nearly coincide where interpolation is roundoff-scale, but
+their different line and marker encodings preserve both. The curves are not an additive
+scalar budget: the residual fields add pointwise, whereas separately maximized norms
+need not.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/04-separated-error-channels.pdf}
+\caption{Calculated, integrity-admitted, unsealed separated spectral-error channels at
+the fixed interior anchor. Each column of the scientific comparison is a distinct gauge
+feasible set.}
+\label{fig:storyboard-error-channels}
+\end{figure}
+
+Figure~\ref{fig:storyboard-claim-operands} makes the claim boundary explicit. Green cell
+borders indicate that the displayed frozen inequality is met in the calculated snapshot.
+The fourth panel is supporting evidence only. Because the current public result does not
+retain the frozen global represented-operator residual, the complete locality-extension
+claim remains unresolved even when all displayed cells meet their individual conditions.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/05-claim-operands-and-unresolved-boundary.pdf}
+\caption{Calculated, integrity-admitted, unsealed frozen operands and unresolved claim
+boundary. Condition borders apply only to displayed values and do not assign the missing
+complete claim disposition.}
+\label{fig:storyboard-claim-operands}
+\end{figure}
+
+Finally, Figure~\ref{fig:storyboard-controls} collects numerical controls rather than
+headline outcomes. It displays paired mesh values, maximum refinement-gate utilization,
+qualified-case counts, residual-field decomposition defects, within-gauge sampled Pareto
+counts, and pointwise/oracle agreement. Pareto membership remains tolerance-free,
+case-local, gauge-local, and descriptive; it selects no preferred support. Exact zero
+differences are again marked separately from the logarithmic display floor.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/storyboard/06-numerical-controls.pdf}
+\caption{Calculated, integrity-admitted, unsealed numerical-control summary. Passing
+software and convergence controls establishes current bounded behavior, not independent
+scientific verification or publication acceptance.}
+\label{fig:storyboard-controls}
+\end{figure}
+
+The storyboard's design contract, encoding rules, intended main-text/supplement placement,
+and reproduction command are recorded in
+\path{publication-figure-storyboard.md}. PDF files are vector publication masters and PNG
+files are 600-dpi review renderings. Any future publication renderer must preserve the
+same admitted-cache provenance, exact-zero semantics, missing-operand disclosure, and
+scientific separation between hopping diagnostics and retained-support consequences.
+
 \subsection*{Rendering from admitted calculation results}
 
-The renderer reads the integrity-admitted canonical result cache, computes no scientific
-quantity, and preserves unresolved, failed, missing, exact-zero, roundoff-scale, and
+Both renderers read the integrity-admitted canonical result cache, compute no scientific
+quantity, and preserve unresolved, failed, missing, exact-zero, roundoff-scale, and
 inapplicable states. Figure colors, labels, layouts, captions, and selections may change
-without recalculation. No rendering authentication or rendering digest is required.
+without recalculation. The fixed nine-view renderer and six-figure storyboard remain
+presentation layers; neither rendering authentication nor a rendering digest is required
+by the current development protocol.
 
 \section{Verification and canonical result integrity}
 
-The direct stage-two entrypoint, \path{run_02_verification.py}, verifies the canonical
-manifest bytes, every case-result SHA-256 and byte count, exact typed-record round trips,
-and the complete 16-case inventory. It does not claim that byte integrity establishes
-scientific validity.
+Verification has two distinct meanings. Artifact integrity establishes that one admitted
+16-case inventory is complete and unchanged. Scientific numerical qualification tests
+the analytic-model and attack invariants, direct Fourier sums for every gauge family,
+constant-frame transport, and the independent Procrustes construction in
+Equation~\eqref{eq:independent-global-polar}.
 
-Scientific review additionally uses the implemented bounded producer-independent
-controls: analytic-model and attack invariants; all-gauge direct Fourier sums;
-global/pointwise Procrustes reconstruction; and constant-frame transport reconstruction.
-These controls bypass their corresponding producer actions but share NumPy/LAPACK and
-typed comparison infrastructure. Exhaustive independent recomputation of every retained
-array is not required for ordinary production.
+For each global or pointwise selection, the numerical comparison includes the complete
+singular spectrum, numerical rank, cutoff, strict margin, condition number, normalized
+objective, unitarity defect, stationarity defect, direct-versus-covariance objective
+defect, positive-semidefinite defect, and, for the qualified global case, the selected
+right unitary. Thus cache-byte integrity and finite-precision mathematical agreement are
+separate claims. Neither establishes continuum convergence or scientific acceptance.
 
 The canonical case records and manifest use the maintained \path{BaseTypedRecord} wire
 contract. Numeric fields reject invalid scalar types and nonfinite values through their
@@ -1768,9 +1901,10 @@ A complete calculation requires all 16 cases, all three construction meshes, all
 supports, identity, pointwise-unitary, known-inverse-oracle, and every qualified
 global-unitary or exact global-unitary deficiency disposition. Partial coverage, failed
 cache integrity, failed mandatory numerical gates, or resource-limit failures remain
-explicitly incomplete. Scientific review uses the declared analytic invariants,
-refinement checks, and bounded producer-independent reference controls; exhaustive
-byte-by-byte independent reconstruction is not a prerequisite.
+explicitly incomplete. Scientific review uses the declared analytic invariants, refinement checks, and
+independent reference quantities. A fresh execution is qualified by those mathematical
+controls and may then be admitted as a distinct artifact; byte-for-byte identity with an
+existing cache is neither a prerequisite nor a reproducibility claim.
 
 Retained evidence supports only the selected finite synthetic D1 cases and the declared
 resolution classifications. It does not validate a material, a global localization

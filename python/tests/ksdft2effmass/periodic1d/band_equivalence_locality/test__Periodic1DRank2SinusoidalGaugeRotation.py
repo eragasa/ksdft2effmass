@@ -7,8 +7,12 @@ import math
 import numpy as np
 import pytest
 
-from ksdft2effmass.periodic1d import Periodic1DRank2SinusoidalGaugeRotation
+from ksdft2effmass.periodic1d.band_equivalence_locality.gauge import (
+    Periodic1DRank2SinusoidalGaugeRotation,
+)
 from ksdft2effmass.solidstate import GaugeAttack
+
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic1DRank2SinusoidalGaugeRotation:
@@ -18,7 +22,7 @@ class TestPeriodic1DRank2SinusoidalGaugeRotation:
         with pytest.raises(TypeError, match="required positional argument"):
             Periodic1DRank2SinusoidalGaugeRotation()  # type: ignore[call-arg]
         with pytest.raises(TypeError, match="built-in float"):
-            Periodic1DRank2SinusoidalGaugeRotation(True)  # type: ignore[arg-type]
+            Periodic1DRank2SinusoidalGaugeRotation(True)
         with pytest.raises(ValueError, match="finite"):
             Periodic1DRank2SinusoidalGaugeRotation(math.inf)
 

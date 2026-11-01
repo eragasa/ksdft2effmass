@@ -14,6 +14,7 @@ public compatibility contract.
    model-systems
    visualizations
    controlled-periodic-studies
+   gauge-alignment
    research-monograph-campaigns
    serialization
    application

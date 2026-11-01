@@ -10,23 +10,28 @@ recover? It compares retained ranks `3`, `4`, `8`, and `16`; circuit depths `1`,
 `4`, and `8`; and four gauge alignments: identity, one global unitary, pointwise complete
 unitaries, and the known inverse oracle.
 
-Maintained behavior belongs to
-`ksdft2effmass.periodic1d.higher_rank_alignment`. The source package owns immutable
-configuration, request, transport, provenance, calculation-result, refinement, and
-failure records together with the analytic producer. Gauge-alignment construction,
-recovery, Fourier transformation, interpolation, locality analysis, and result assembly
-are decomposed under its `gauge_alignment/` child.
+Composite sequencing belongs to
+`ksdft2effmass.periodic1d.rankN.band_alignment.composite`. Immutable configuration,
+request, transport, provenance, calculation-result, refinement, and failure records live
+under `rankN.band_alignment`; reusable gauge stages live under `rankN.gauge_alignment`;
+hopping locality and support truncation retain their own rank-first capability owners.
+Package initializers are inert, so calculation adapters import from defining modules.
 
-- [`run_01_calculation.py`](run_01_calculation.py) directly composes the maintained KSD,
-  PhysKit, and Optimization owners for all 16 cases once, writes a
+- [`run_01_calculation.py`](run_01_calculation.py) obtains the complete protocol from
+  `Periodic1DRankNAlignmentConfiguration.frozen()` and constructs every case through the
+  exact rank-$N$ `Periodic1DAlignmentStudyFactory` specification, with the maintained
+  KSD, PhysKit, and Optimization collaborators and the explicit reduced-convention
+  lattice geometry, writes a
   `scientific_evidence: false` summary, and stores one canonical typed result per case.
   The cache manifest records one SHA-256 identity for the explicitly selected scientific
-  calculation infrastructure; plotting sources are excluded.
+  calculation infrastructure; plotting sources are excluded. Cache format v2 also binds
+  $a_0=1\,\mathrm{bohr}$ explicitly and rejects result/configuration geometry drift.
 - [`run_02_verification.py`](run_02_verification.py) performs canonical-byte, SHA-256,
   exact-round-trip, and complete-inventory verification. It explicitly records
   `independent_scientific_verification: false`.
-- [`run_03_render.py`](run_03_render.py) regenerates the fixed nine-figure
-  technical-report snapshot repeatedly from the integrity-admitted cache without
+- [`run_03_render.py`](run_03_render.py) uses the calculation-local typed figure-data
+  constructor and renderer directly, regenerating the fixed nine-figure technical-report
+  snapshot repeatedly from the integrity-admitted cache without
   recalculating the scientific grid. Plot and report changes therefore do not require
   the approximately 30-minute calculation stage.
 - [`verify_analytic_controls.py`](verify_analytic_controls.py) checks two formulas on a
@@ -54,7 +59,9 @@ that bypasses the corresponding producer scientific actions. It does not mean an
 independent numerical-library stack: the references share NumPy/LAPACK and typed
 quantity/comparison infrastructure. Exhaustive recomputation and authenticated rendering
 are not required by the study's direct calculate-once, integrity-check, render-many
-lifecycle.
+lifecycle. The rank-first factory and geometry binding generalize the already exercised
+rank-two direct lifecycle; they do not merge the two studies' models, case inventories,
+result schemas, or verification policies.
 Proposed two- and three-dimensional and nonorthonormal studies remain outside this
 periodic-1D orthonormal contract.
 
@@ -63,7 +70,7 @@ the separate scalar Fourier-locality specialization because $U(1)$ phases do not
 a scalar represented Hamiltonian. Rank two can reuse orthonormal matrix mechanisms but
 retains its own model, controls, verification, and evidence identity; this higher-rank
 family is not its replacement. The Architecture v3
-[rank-specialization crosswalk](../../../../docs/architecture/v3/ksdft2effmass/periodic1d/higher_rank_alignment/rank-specialization-crosswalk.md)
+[rank-specialization crosswalk](../../../../docs/architecture/v3/ksdft2effmass/periodic1d/rankN/band_alignment/composite/rank-specialization-crosswalk.md)
 records the boundary.
 
 Migration records:

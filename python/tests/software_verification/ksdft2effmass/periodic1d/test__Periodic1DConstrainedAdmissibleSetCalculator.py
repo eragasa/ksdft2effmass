@@ -12,20 +12,38 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 )
 from projectkoios.physkit.units import ScalarQuantity, Unitless
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DAdmissibleSetDisposition,
-    Periodic1DAdmissibleSetThresholds,
-    Periodic1DCompositeBandAlignmentAnalyzer,
-    Periodic1DCompositeBandAlignmentConfiguration,
-    Periodic1DCompositeBandAlignmentVerifier,
-    Periodic1DConstrainedAdmissibleSetAnalysisRequest,
+from ksdft2effmass.periodic1d.admissible_sets.calculate import (
     Periodic1DConstrainedAdmissibleSetAnalyzer,
-    Periodic1DConstrainedAdmissibleSetCalculationResult,
+)
+from ksdft2effmass.periodic1d.admissible_sets.definition import (
+    Periodic1DAdmissibleSetThresholds,
+    Periodic1DConstrainedAdmissibleSetAnalysisRequest,
     Periodic1DConstrainedAdmissibleSetConfiguration,
+)
+from ksdft2effmass.periodic1d.admissible_sets.results import (
+    Periodic1DAdmissibleSetDisposition,
+    Periodic1DConstrainedAdmissibleSetCalculationResult,
+)
+from ksdft2effmass.periodic1d.admissible_sets.verify import (
     Periodic1DConstrainedAdmissibleSetVerifier,
+)
+from ksdft2effmass.periodic1d.admissible_sets.visualizations.data import (
     Periodic1DConstrainedAdmissibleSetVisualizationData,
+)
+from ksdft2effmass.periodic1d.admissible_sets.visualizations.inventory import (
     Periodic1DConstrainedAdmissibleSetVisualizationPlotEnum,
+)
+from ksdft2effmass.periodic1d.admissible_sets.visualizations.visualizer import (
     Periodic1DConstrainedAdmissibleSetVisualizer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis import (
+    Periodic1DCompositeBandAlignmentAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import (
+    Periodic1DCompositeBandAlignmentVerifier,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
+    Periodic1DCompositeBandAlignmentConfiguration,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]

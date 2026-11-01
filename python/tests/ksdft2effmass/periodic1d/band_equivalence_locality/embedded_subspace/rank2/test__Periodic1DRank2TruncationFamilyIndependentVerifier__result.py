@@ -11,19 +11,29 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
-    Periodic1DRank2TruncationCompleted,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
     Periodic1DRank2TruncationFamilyAnalysis,
     Periodic1DRank2TruncationFamilyAnalyzer,
-    Periodic1DRank2TruncationFamilyIndependentVerifier,
     Periodic1DRank2TruncationFamilyRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.family_verification import (
+    Periodic1DRank2TruncationFamilyIndependentVerifier,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+    Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationRange,
 )
 from ksdft2effmass.real_space_support_truncation import (
     MinimumToleranceSatisfyingSupport,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
 
 def _analyze() -> Periodic1DRank2TruncationFamilyAnalysis:
@@ -102,16 +112,10 @@ class TestPeriodic1DRank2TruncationFamilyIndependentVerifier:
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         observed = _analyze()
-        module_root = (
-            "ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2"
-        )
-        family_module = importlib.import_module(f"{module_root}.truncation.family")
-        truncation_module = importlib.import_module(
-            f"{module_root}.truncation.analysis"
-        )
-        tolerance_module = importlib.import_module(
-            f"{module_root}.truncation.tolerance_selection"
-        )
+        module_root = "ksdft2effmass.periodic1d.rank2.support_truncation"
+        family_module = importlib.import_module(f"{module_root}.family")
+        truncation_module = importlib.import_module(f"{module_root}.analysis")
+        tolerance_module = importlib.import_module(f"{module_root}.tolerance_selection")
         generic_tolerance_module = importlib.import_module(
             "ksdft2effmass.real_space_support_truncation.tolerance_selection"
         )
@@ -125,7 +129,7 @@ class TestPeriodic1DRank2TruncationFamilyIndependentVerifier:
             forbidden,
         )
         monkeypatch.setattr(
-            truncation_module.Periodic1DRank2TruncationAnalyzer,
+            truncation_module.Periodic1DRank2SupportTruncationAnalyzer,
             "execute",
             forbidden,
         )

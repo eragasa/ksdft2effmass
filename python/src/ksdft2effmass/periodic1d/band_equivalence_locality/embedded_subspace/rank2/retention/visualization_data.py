@@ -650,7 +650,7 @@ class Periodic1DRank2CalculationVisualizationData(BaseVisualizationData):
         else:
             levels = ()
             validations = ()
-        from ..truncation.results import (
+        from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
             Periodic1DRank2TruncationCompleted,
         )
 

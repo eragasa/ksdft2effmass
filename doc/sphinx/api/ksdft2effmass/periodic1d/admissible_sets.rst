@@ -2,7 +2,7 @@ M3 constrained admissible sets
 ==============================
 
 M3 consumes exact canonical
-:class:`~ksdft2effmass.periodic1d.composite_band_alignment.Periodic1DCompositeBandAlignmentCalculationResult`
+:class:`~ksdft2effmass.periodic1d.rank2.band_alignment.composite.Periodic1DCompositeBandAlignmentCalculationResult`
 bytes and authenticates them through the explicit upstream verifier. It derives
 angle-resolved quadratics over a continuous normalized rectangle using a frozen family
 of nine global rotations. A compatible disposition requires the prospective common

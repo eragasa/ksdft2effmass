@@ -68,6 +68,23 @@ Each source boundary has its own architecture quartet:
 - [`Periodic1DFourierLocalityVisualizationPlotEnum`](visualizations/Periodic1DFourierLocalityVisualizationPlotEnum/index.md)
 - [`Periodic1DFourierLocalityVisualizer`](visualizations/Periodic1DFourierLocalityVisualizer/index.md)
 
+## Rank-first capabilities
+
+`periodic1d.rank1` retains the established calculation as its canonical numerical
+owner and exposes separate scientific capabilities:
+
+- `rank1.alignment` records the operator-trivial applicability boundary with the shared
+  typed unitary-group identity in represented dimension one, labelled $U(1)$;
+- `rank1.hopping_locality` diagnoses unchanged complete Fourier coefficients; and
+- `rank1.support_truncation` exposes only the transform-mediated consequences of
+  deliberate support removal.
+
+Each capability inherits its scientific-operation base. It binds an explicit
+`Periodic1DLatticeGeometry` snapshotted from a caller-selected PhysKit
+`DirectLattice1D`; no capability infers a physical period or requires the caller to
+select the historical reduced-unit lattice. Capability values retain their canonical
+source objects by identity and do not rewrite the established calculation bytes.
+
 ## Package contracts
 
 - Configuration reproduces the exact parent and frozen finite controls without reading a

@@ -26,7 +26,7 @@ The expected destinations are:
 | Mathieu1D | Target `ksdft2effmass.model_systems.mathieu1d.visualizations` |
 | Compatible rank-one control | Target `ksdft2effmass.periodic1d.fourier_locality.visualizations` |
 | Rank-two band equivalence | Prospective `ksdft2effmass.periodic1d.band_equivalence_locality.visualizations` |
-| Rank-two composite alignment | Target `ksdft2effmass.periodic1d.composite_band_alignment.visualizations` |
+| Rank-two composite alignment | Target `ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations` |
 | Confirmatory admissible sets | Prospective confirmatory modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |
 | Scalar/direct demonstration | Prospective scalar-control modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |
 | Threshold sensitivity | Prospective sensitivity modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |
@@ -50,7 +50,7 @@ baseline PNG per study. Current native inventories are:
 
 - Mathieu1D: two PNGs;
 - compatible rank-one Fourier locality: two PNGs; and
-- rank-two composite alignment: three PNGs.
+- rank-two composite alignment: six PNGs.
 
 Every figure consumes only the authenticated typed projection derived during independent
 KSD verification. A prospective study must freeze its own inventory before rendering.
@@ -153,14 +153,21 @@ pointwise spectral equivalence ensures finite-range adequacy.
 
 ## 4. Rank-two composite-band alignment and locality — implemented
 
-The closed native inventory contains three authenticated figures:
+The closed native inventory contains six verified figures:
 
 1. `rank2-composite-alignment.png` presents retained parent bands and declared frame,
    sewing, and represented-operator alignment diagnostics;
-2. `rank2-composite-locality.png` presents complete block-hopping norms and finite-range
-   Hamiltonian and sorted-band consequences by channel; and
-3. `rank2-composite-error-channels.png` keeps centered-Nyquist conversion power,
-   interpolation, deliberate truncation, and total consequences separate.
+2. `rank2-composite-recovery-controls.png` pairs frame and represented-operator defects
+   without reducing them to one score;
+3. `rank2-composite-hopping-diagnostics.png` measures omitted weight from unchanged
+   ordinary Fourier coefficients across the declared diagnostic cutoffs;
+4. `rank2-composite-locality.png` presents complete hopping-block norms and
+   retained-support ordered-spectrum consequences by channel;
+5. `rank2-composite-error-channels.png` keeps centered-Nyquist conversion power and the
+   attacked channel's interpolation, deliberate-truncation, and total consequences
+   separate; and
+6. `rank2-composite-error-trajectories.png` compares those three error channels for the
+   reference, attacked, and pointwise represented operators.
 
 No certificate supplement is admitted. The pointwise channel remains an oracle control,
 the fixed global unitary remains diagnostic-only for locality, and neither is presented

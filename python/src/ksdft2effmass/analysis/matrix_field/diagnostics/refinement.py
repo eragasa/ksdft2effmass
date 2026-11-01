@@ -5,9 +5,9 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ksdft2effmass.numerical_consistency import NumericalConsistency
+from projectkoios.numerics.validation import exact_nonnegative_float
 
-from ._validation import nonnegative_float
+from ksdft2effmass.numerical_consistency import NumericalConsistency
 
 
 @dataclass(frozen=True, slots=True)
@@ -46,7 +46,7 @@ class ScalarRefinementDiagnostics(NumericalConsistency):
             ("relative_tolerance", self.relative_tolerance),
             ("applied_tolerance", self.applied_tolerance),
         ):
-            nonnegative_float(name, value)
+            exact_nonnegative_float(value, name)
         if type(self.signed_margin) is not float:
             raise TypeError("signed_margin must be a built-in float")
         if not math.isfinite(self.signed_margin):
@@ -97,11 +97,20 @@ class ScalarRefinementAnalyzer:
             raise TypeError("mesh sizes must be built-in integers")
         if coarse_mesh_size <= 0 or fine_mesh_size <= coarse_mesh_size:
             raise ValueError("mesh sizes must be positive and increasing")
-        coarse_value = nonnegative_float("coarse_value", coarse_value)
-        fine_value = nonnegative_float("fine_value", fine_value)
-        denominator_floor = nonnegative_float("denominator_floor", denominator_floor)
-        absolute_tolerance = nonnegative_float("absolute_tolerance", absolute_tolerance)
-        relative_tolerance = nonnegative_float("relative_tolerance", relative_tolerance)
+        coarse_value = exact_nonnegative_float(coarse_value, "coarse_value")
+        fine_value = exact_nonnegative_float(fine_value, "fine_value")
+        denominator_floor = exact_nonnegative_float(
+            denominator_floor,
+            "denominator_floor",
+        )
+        absolute_tolerance = exact_nonnegative_float(
+            absolute_tolerance,
+            "absolute_tolerance",
+        )
+        relative_tolerance = exact_nonnegative_float(
+            relative_tolerance,
+            "relative_tolerance",
+        )
         change = abs(fine_value - coarse_value)
         scale = max(abs(coarse_value), abs(fine_value), denominator_floor)
         relative_change = 0.0 if scale == 0.0 else change / scale

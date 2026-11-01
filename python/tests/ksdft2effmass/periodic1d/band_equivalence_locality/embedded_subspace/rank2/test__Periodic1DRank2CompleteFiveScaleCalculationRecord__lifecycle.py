@@ -11,24 +11,51 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (  # noqa: E501
     Periodic1DRank2AdaptiveAmplitudeAnalyzer,
     Periodic1DRank2AdaptiveAmplitudeRequest,
     Periodic1DRank2AmplitudeRefinementThresholds,
-    Periodic1DRank2CompleteFiveScaleCalculationRecord,
-    Periodic1DRank2CompleteFiveScaleSummaryRenderer,
-    Periodic1DRank2CompleteFiveScaleVerifier,
-    Periodic1DRank2CompleteFiveScaleVisualizationData,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
+    Periodic1DRank2MomentumRefinementThresholds,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.family import (  # noqa: E501
     Periodic1DRank2MomentumRefinementFamilyAnalyzer,
     Periodic1DRank2MomentumRefinementFamilyRequest,
-    Periodic1DRank2MomentumRefinementThresholds,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyAnalyzer,
     Periodic1DRank2ParentFamilyRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleCalculationRecord,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale_verification import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale_visualization_data import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleVisualizationData,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.complete_five_scale import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleSummaryRenderer,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.complete_five_scale_figures import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleFigureData,
+    Periodic1DRank2CompleteFiveScaleFigureEnum,
+    Periodic1DRank2CompleteFiveScaleFigureRenderer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
     Periodic1DRank2TruncationFamilyAnalyzer,
     Periodic1DRank2TruncationFamilyRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.mesh_stability import (
     Periodic1DRank2TruncationMeshStabilityAssessment,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 class TestPeriodic1DRank2CompleteFiveScaleCalculationRecordLifecycle:
@@ -189,6 +216,27 @@ class TestPeriodic1DRank2CompleteFiveScaleCalculationRecordLifecycle:
         assert summary.startswith(b"# Complete five-scale finite-control summary\n")
         assert b"| 0 | unresolved |" in summary
         assert b"does not establish continuum convergence" in summary
+
+    def test_admitted_record_renders_the_closed_publication_figure_inventory(
+        self,
+        record: Periodic1DRank2CompleteFiveScaleCalculationRecord,
+    ) -> None:
+        source_sha256 = hashlib.sha256(record.to_json()).hexdigest()
+        data = Periodic1DRank2CompleteFiveScaleFigureData.from_record(
+            record,
+            source_sha256=source_sha256,
+        )
+
+        visualizations = Periodic1DRank2CompleteFiveScaleFigureRenderer(
+            data,
+            dpi=40,
+        ).execute()
+
+        assert data.source_sha256 == source_sha256
+        assert tuple(item.plot for item in visualizations) == tuple(
+            Periodic1DRank2CompleteFiveScaleFigureEnum
+        )
+        assert all(item.png.startswith(b"\x89PNG\r\n\x1a\n") for item in visualizations)
 
     def test_tampered_subject_bytes_are_rejected_before_re_admission(
         self,

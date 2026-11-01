@@ -4,22 +4,33 @@ from __future__ import annotations
 
 import math
 
+import pytest
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
-    Periodic1DRank2TruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
+    Periodic1DRank2SupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
+    Periodic1DRank2SupportTruncationAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationPoint,
-    Periodic1DRank2TruncationRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection_reference import (  # noqa: E501
     Periodic1DRank2TruncationToleranceSelectionIndependentReferenceAnalyzer,
 )
 from ksdft2effmass.real_space_support_truncation import (
     MinimumToleranceSatisfyingSupport,
     SupportToleranceUnresolved,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
 
 def _point() -> Periodic1DRank2TruncationPoint:
@@ -35,8 +46,8 @@ def _point() -> Periodic1DRank2TruncationPoint:
         harmonic_absolute_degeneracy_tolerance=1.0e-14,
         harmonic_relative_degeneracy_tolerance=1.0e-12,
     )
-    outcome = Periodic1DRank2TruncationAnalyzer(
-        request=Periodic1DRank2TruncationRequest(
+    outcome = Periodic1DRank2SupportTruncationAnalyzer(
+        request=Periodic1DRank2SupportTruncationAnalysisRequest(
             template_request=template,
             maximum_ranges=(0, 1, 2, 3),
             evaluation_mesh_size=17,

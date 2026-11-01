@@ -32,7 +32,7 @@ eleven Python files were byte-identical to that historical package; the other se
 recorded as later successors in
 [`experiment-migration-crosswalk.md`](experiment-migration-crosswalk.md). The directory
 is now read-only historical provenance; maintained behavior belongs to
-`ksdft2effmass.periodic1d.higher_rank_alignment` and canonical upstream owners.
+`ksdft2effmass.periodic1d.rankN.band_alignment.composite` and canonical upstream owners.
 
 ## Documentation users
 

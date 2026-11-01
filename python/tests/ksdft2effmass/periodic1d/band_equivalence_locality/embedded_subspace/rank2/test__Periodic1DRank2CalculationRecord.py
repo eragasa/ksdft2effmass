@@ -16,27 +16,47 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
-    CalculationWireEnum,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (  # noqa: E501
     Periodic1DRank2AdaptiveAmplitudeAnalyzer,
     Periodic1DRank2AdaptiveAmplitudeRequest,
     Periodic1DRank2AmplitudeRefinementThresholds,
-    Periodic1DRank2CalculationRecord,
-    Periodic1DRank2CalculationVerification,
-    Periodic1DRank2CalculationVerifier,
-    Periodic1DRank2CalculationVisualizationData,
-    Periodic1DRank2CalculationVisualizationPlot,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementAnalyzer,
     Periodic1DRank2MomentumRefinementRequest,
     Periodic1DRank2MomentumRefinementThresholds,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyAnalyzer,
     Periodic1DRank2ParentFamilyRequest,
-    Periodic1DRank2ParentFamilyVisualizationPlot,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
-    Periodic1DRank2TruncationAnalyzer,
-    Periodic1DRank2TruncationRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.calculation_verification import (  # noqa: E501
+    Periodic1DRank2CalculationVerification,
+    Periodic1DRank2CalculationVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+    CalculationWireEnum,
+    Periodic1DRank2CalculationRecord,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.visualization_data import (  # noqa: E501
+    Periodic1DRank2CalculationVisualizationData,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.inventory import (  # noqa: E501
+    Periodic1DRank2CalculationVisualizationPlot,
+    Periodic1DRank2ParentFamilyVisualizationPlot,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
+    Periodic1DRank2SupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
+    Periodic1DRank2SupportTruncationAnalysisRequest,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _script_directory() -> Path:
@@ -113,8 +133,8 @@ def _record() -> Periodic1DRank2CalculationRecord:
         ),
         transporter=transporter,
     ).execute()
-    truncation = Periodic1DRank2TruncationAnalyzer(
-        request=Periodic1DRank2TruncationRequest.every_integer_through(
+    truncation = Periodic1DRank2SupportTruncationAnalyzer(
+        request=Periodic1DRank2SupportTruncationAnalysisRequest.every_integer_through(
             template_request=template,
             maximum_range=3,
             evaluation_mesh_size=17,

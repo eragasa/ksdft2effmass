@@ -6,8 +6,8 @@ import importlib.util
 
 import pytest
 
+import ksdft2effmass.periodic1d.fourier_locality as fourier_locality
 from ksdft2effmass import periodic1d
-from ksdft2effmass.periodic1d import fourier_locality
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -31,8 +31,8 @@ class TestPeriodic1DFourierLocalityLegacySurfaceRemoval:
     )
 
     def test__public_api__former_exports_are_absent(self) -> None:
-        """Removed M1 names are absent from the supported periodic root."""
-        assert self.former_exports.isdisjoint(periodic1d.__all__)
+        """Removed M1 names are absent from the inert periodic namespace."""
+        assert not hasattr(periodic1d, "__all__")
         assert all(not hasattr(periodic1d, name) for name in self.former_exports)
 
     def test__model__legacy_toy_parent_module_is_absent(self) -> None:

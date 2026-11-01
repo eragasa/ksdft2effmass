@@ -113,6 +113,7 @@ markers = [
     "unit: isolated software-verification test without retained artifact or file integration",
     "integration: artifact, file, or cross-owner integration test",
     "expensive: resource-intensive integration test omitted from bounded CI",
+    "legacy_equivalence: compatibility-only equivalence with a historical software surface",
     "software_verification: implementation satisfies documented software contract",
     "numerical_verification: numerical algorithm implements stated mathematics",
     "scientific_validation: physical model adequacy for a declared intended use",

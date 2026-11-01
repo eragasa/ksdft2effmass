@@ -16,21 +16,27 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DRank2Analysis,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.analysis import (  # noqa: E501
     Periodic1DRank2Analyzer,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
+    Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
+    Periodic1DRank2Analysis,
     Periodic1DRank2BandTransportBackendFailure,
     Periodic1DRank2BandTransportNumericallyUnresolved,
     Periodic1DRank2BandTransportThresholdFailure,
     Periodic1DRank2ExternalGapFailure,
     Periodic1DRank2QualifiedParent,
-    Periodic1DRank2Request,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
     Periodic1DRank2AnalysisRecord,
     Periodic1DRank2AnalysisRecorder,
     Periodic1DRank2QualificationRecord,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _request() -> Periodic1DRank2Request:

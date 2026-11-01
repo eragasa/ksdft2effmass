@@ -25,6 +25,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Install uv and Python
@@ -51,6 +52,80 @@ jobs:
           --config-file python/pyproject.toml
           python/src
 
+      - name: Select changed Python test modules
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          base_sha="${PR_BASE_SHA:-${PUSH_BEFORE_SHA:-}}"
+          if [[ -z "${base_sha}" || "${base_sha}" =~ ^0+$ ]] || \
+             ! git rev-parse --verify "${base_sha}^{commit}" >/dev/null 2>&1; then
+            base_sha="$(git rev-parse HEAD^)"
+          fi
+          git diff --name-only --diff-filter=ACMR \
+            "${base_sha}" HEAD -- ':(glob)python/tests/**/test*.py' \
+            > /tmp/changed-python-test-modules.txt
+
+      - name: Type check changed Python test modules
+        run: |
+          while IFS= read -r test_module; do
+            [[ -z "${test_module}" ]] && continue
+            python/.venv/bin/python -m mypy --strict \
+              --config-file python/pyproject.toml "${test_module}"
+          done < /tmp/changed-python-test-modules.txt
+
+      - name: Enforce changed-test marker policy
+        run: |
+          python/.venv/bin/python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          boundary_markers = {"unit", "integration"}
+          evidence_markers = {
+              "software_verification",
+              "numerical_verification",
+              "scientific_validation",
+              "uncertainty_quantification",
+          }
+          failures: list[str] = []
+          changed = Path("/tmp/changed-python-test-modules.txt")
+          for raw_path in changed.read_text(encoding="utf-8").splitlines():
+              path = Path(raw_path)
+              tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+              marker_declarations = (
+                  node.value
+                  for node in tree.body
+                  if isinstance(node, ast.Assign)
+                  and any(
+                      isinstance(target, ast.Name) and target.id == "pytestmark"
+                      for target in node.targets
+                  )
+              )
+              declared_markers = {
+                  marker.attr
+                  for declaration in marker_declarations
+                  for marker in ast.walk(declaration)
+                  if isinstance(marker, ast.Attribute)
+                  and isinstance(marker.value, ast.Attribute)
+                  and marker.value.attr == "mark"
+                  and isinstance(marker.value.value, ast.Name)
+                  and marker.value.value.id == "pytest"
+              }
+              boundaries = declared_markers & boundary_markers
+              evidence = declared_markers & evidence_markers
+              if len(boundaries) != 1:
+                  failures.append(
+                      f"{path}: expected exactly one unit/integration marker; "
+                      f"found {sorted(boundaries)}"
+                  )
+              if not evidence:
+                  failures.append(
+                      f"{path}: expected at least one evidence-claim marker"
+                  )
+          if failures:
+              raise SystemExit("\n".join(failures))
+          PY
+
       - name: Build documentation
         env:
           PYTHONPATH: python/src
@@ -67,3 +142,13 @@ jobs:
           --with setuptools==84.0.0
           --with wheel==0.48.0
           python -m pytest -m "not expensive" tests
+
+      - name: Run bounded rank-N calculation-local tests
+        working-directory: python
+        run: >-
+          uv run --locked --extra dev --extra docs
+          --with pip==26.2.1
+          --with setuptools==84.0.0
+          --with wheel==0.48.0
+          python -m pytest -c pyproject.toml -m "not expensive"
+          ../calculations/periodic1d/rankN/composite-band-alignment-locality/tests

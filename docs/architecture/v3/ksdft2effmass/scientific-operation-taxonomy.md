@@ -7,13 +7,38 @@ operations shared by rank-two 1D, rank-$N$ 1D, and rank-two 2D/3D studies. It do
 merge their requests, outcomes, retained records, verification scopes, or evidence
 identities.
 
-The nominal roots are intentionally interface-free abstract marker classes. They admit
-implementations through inheritance, not through structural attribute matching. Family
-classes continue to own their exact scientific fields and validation rules.
+The broad scientific-operation roots remain intentionally interface-free abstract
+marker classes. They admit implementations through inheritance, not through structural
+attribute matching. Narrow action-role bases may additionally require only the common
+scientific identity and execution surface shared by every admitted implementation.
+Family classes continue to own their exact scientific fields and validation rules.
 
 ## Vocabulary and ownership
 
 ### Periodic-1D coordinate geometry
+
+`ksdft2effmass.periodic1d.base.Periodic1DCapability` is the shared dimensional
+contract for periodic-1D scientific capabilities. Its final `lattice_dimension`
+property returns PhysKit `LatticeDimension.ONE`. It deliberately owns no lattice
+period, physical unit, reciprocal convention, mesh, basis, gauge, translation
+inventory, support policy, numerical algorithm, or wire format.
+
+`Periodic1DCyclicRepresentativeInventory` and
+`Periodic1DOrdinaryTranslationInventory` keep finite cyclic equivalence-class
+representatives distinct from ordinary cell translations. A centered even cyclic
+inventory contains one unpaired negative-Nyquist representative; converting it to an
+ordinary inventory removes that class. A centered odd cyclic inventory has no Nyquist
+class, so every representative maps to a distinct ordinary translation. Ordinary
+inventories remain sorted, zero-containing, and conjugate-closed.
+`Periodic1DSymmetricTranslationRange` provides the neutral integer interval underlying
+both roles. `Periodic1DHoppingDiagnosticRangeInventory` states that an ordered range
+inventory partitions unchanged coefficients for tail measurement only.
+`Periodic1DSymmetricSupportInventory` separately stores candidate irreversible support
+policies, each represented by `SymmetricRangeSupport1D` for retention of every
+translation from $-R$ through $R$. The diagnostic and support inventories may contain
+the same integer ranges but are not interchangeable types. None of these integer-index
+values supplies a physical distance without explicit
+`Periodic1DLatticeGeometry`.
 
 `ksdft2effmass.periodic1d.Periodic1DLatticeGeometry` is an immutable scalar
 snapshot of the one-dimensional lattice period. It reconstructs PhysKit
@@ -25,11 +50,61 @@ q = k/G, \qquad G = 2\pi/a_0.
 \]
 
 `Periodic1DReducedCoordinateConvention` nominally identifies the maintained 1D
-families that calculate on the centered, half-open dimensionless coordinate
-$q$. Its `a_0 = 1` geometry is explicitly a reduced-unit normalization, not a
-claim about the physical lattice period. A declared physical or other unitful
-period requires a separate `Periodic1DLatticeGeometry` value. Neither geometry
-object is inserted into historical retained wires.
+families that calculate on the centered, half-open reduced coordinate $q$. The
+coordinate is dimensionless, but the periodic model is not thereby required to use a
+dimensionless direct lattice, energy unit, or operator unit. Its historical `a_0 = 1`
+geometry is one explicit reduced-unit selection. New rank-first study specifications
+must bind a separate `Periodic1DLatticeGeometry`, normally snapshotted from a caller-
+selected PhysKit `DirectLattice1D`. The geometry always requires an explicit PhysKit
+`PhysicalUnit` with length dimensionality. A magnitude-one atomic-unit choice is
+represented as `a_0 = 1 bohr`, not as a unitless lattice. Action and mass scales remain
+with the parent physical model rather than the geometry owner. Geometry is not inserted
+into historical retained wires.
+
+### Gauge alignment
+
+`ksdft2effmass.gauge_alignment.GaugeAlignment` identifies retained-space gauge
+alignment or an exact applicability boundary. The narrower
+`GaugeAlignmentGroupIdentity` binds a closed transformation-group family to its finite
+represented dimension. The current vocabulary contains the unitary family; its label is
+computed as $U(r)$ rather than accepted as an unrelated free-form string. Group family
+does not encode the inner product: Euclidean-unitary and future metric-unitary actions
+share the unitary family but require different metric contracts and numerical objectives.
+The current inner-product vocabulary declares `EUCLIDEAN`; orthonormality remains owned
+by concrete frame and request contracts rather than being folded into that label.
+
+`GaugeAlignmentAnalysisIdentity` validates that typed gauge-group identity, the ordered
+alignment-sample count, action side, and inner-product convention shared by the narrower
+`GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
+`GaugeAlignmentAnalyzer` role bases. Each role exposes final accessors for every identity
+component; the identity itself is keyword-only so action and metric conventions cannot
+be exchanged positionally. The analyzer delegates that identity from its bound request
+and requires the concrete zero-argument `execute()` action. These bases do not
+merge family-specific fields, solvers, tolerances, outcomes, or wires. The corresponding
+`Periodic1DGaugeAlignmentAnalysisRequest`, `Periodic1DGaugeAlignmentAnalysis`, and
+`Periodic1DGaugeAlignmentAnalyzer` bases inherit `Periodic1DCapability` and therefore
+add only the exact one-dimensional lattice identity without selecting a default lattice,
+solver, tolerance, or wire. The hopping-locality and support-truncation Periodic1D
+bases inherit the same dimensional contract.
+
+For the implemented column-frame convention $F\in\mathbb{C}^{d\times r}$, a
+retained-space gauge acts from the right as $F\mapsto FU$. The generic `LEFT` vocabulary
+does not assign $F\mapsto UF$ to that same type; a future left action must declare a
+separately typed row-frame convention or an ambient-space action.
+
+The rank-first Periodic1D alignment factory dispatches only on exact typed study
+specifications. Every specification binds explicit `Periodic1DLatticeGeometry`:
+
+- rank one returns an operator-trivial applicability action using the same typed
+  unitary-group identity at represented dimension one and emits no duplicate numerical
+  alignment channels;
+- rank two delegates to the bounded composite-band $U(2)$ implementation; and
+- rank $N$ delegates to the D1-v1 four-alignment implementation with all numerical
+  collaborators supplied explicitly.
+
+The rank-two and rank-$N$ adapters preserve their historical calculation-result bytes.
+The selected direct lattice remains study context rather than being injected into those
+historical wires.
 
 ### Subspace reduction
 
@@ -72,7 +147,7 @@ Current nominal assignments:
 
 - `Periodic1DRank2PointAnalysis`, which compares the untruncated
   reference and gauge-rotated representations at one amplitude; and
-- `Periodic1DHigherRankRecoveryAnalysis`, which keeps frame recovery and represented-
+- `Periodic1DRankNRecoveryAnalysis`, which keeps frame recovery and represented-
   operator recovery distinct for one explicitly selected gauge alignment; and
 - `BandEquivalenceLocalityRepresentationEquivalenceAnalysis`, which retains the
   family-specific state-space identity, direct-band, covariance, restricted-rotation,
@@ -84,11 +159,35 @@ the typed representation-equivalence result while projecting the historical scal
 attributes used by the unchanged retained record. This decomposition does not label the
 mixed point aggregate as one universal analysis result.
 
+### Hopping locality
+
+`ksdft2effmass.hopping_locality.HoppingLocality` identifies diagnostics on an
+unchanged hopping-coefficient representation. It requires concrete owners to declare
+the coefficient index space, support geometry, basis, gauge, normalization, and
+range inventory. It does not imply coefficient removal or construction of a
+finite-support operator.
+
+`ksdft2effmass.periodic1d.hopping_locality.Periodic1DHoppingLocality` specializes
+that ownership for coefficients indexed by one-dimensional integer translations.
+`Periodic1DRank2HoppingPower`, `Periodic1DRankNHoppingTailResult`, and
+`Periodic1DRankNHoppingLocalityAnalysis` adopt this specialization. The rank-two
+point analysis remains a mixed representation-equivalence and locality owner and is
+not relabeled as a standalone hopping-locality analysis.
+
 ### Real-space support truncation
 
-`ksdft2effmass.real_space_support_truncation.RealSpaceSupportTruncation` identifies the
-irreversible removal of represented real-space operator support after the basis and
+`ksdft2effmass.support_truncation.SupportTruncation` identifies irreversible removal
+from an explicitly declared representation support without selecting a physical
+domain. `ksdft2effmass.real_space_support_truncation.RealSpaceSupportTruncation`
+specializes that root to represented real-space operator support after the basis and
 gauge have been fixed.
+
+`ksdft2effmass.periodic1d.support_truncation.Periodic1DSupportTruncation` further
+specializes the hierarchy to periodic one-dimensional integer translations. The
+mirrored concrete names use `Periodic1DRank2SupportTruncation...` and
+`Periodic1DRankNSupportTruncation...` for their request, analyzer, and analysis
+surfaces. Historical shorter rank-two request, analyzer, and analysis names remain
+identical class aliases.
 
 Admitted geometry-specific policies are:
 
@@ -164,12 +263,12 @@ real-space support truncation; they are not spectral-subspace truncation errors.
 Current nominal assignments:
 
 - the dimension- and rank-independent `RealSpaceSupportTruncationFamily`;
-- `Periodic1DRank2TruncationAnalysis`,
+- `Periodic1DRank2SupportTruncationAnalysis`,
   `Periodic1DRank2TruncationRange`, the support adapter
   `Periodic1DRank2TruncationToleranceSelector`, and the parent-family
   adapter `Periodic1DRank2TruncationFamilyAnalysis`;
-- `Periodic1DHigherRankSupportResult` and the request-bound
-  `Periodic1DHigherRankLocalityAnalysis`; and
+- `Periodic1DRankNSupportResult` and the request-bound
+  `Periodic1DRankNSupportTruncationAnalysis`; and
 - `BandEquivalenceLocalityShellAnalysis` for complete metric shells in the maintained
   2D/3D owner; and
 - `RealSpaceSupportTruncationToleranceSelector` and its immutable support-selection
@@ -216,9 +315,9 @@ Current nominal assignments:
 - `Periodic1DRank2MomentumRefinementAnalysis`, its
   `Periodic1DRank2MomentumRefinementFamilyAnalysis` adapter, and
   `Periodic1DRank2AdaptiveAmplitudeAnalysis`;
-- `Periodic1DHigherRankFourierAnalysis`,
-  `Periodic1DHigherRankInterpolationAnalysis`, and
-  `Periodic1DHigherRankRefinementAnalysis`; and
+- `Periodic1DRankNFourierAnalysis`,
+  `Periodic1DRankNInterpolationAnalysis`, and
+  `Periodic1DRankNRefinementAnalysis`; and
 - `BandEquivalenceLocalityRefinementPair`,
   `BandEquivalenceLocalityRefinementAssessment`,
   `BandEquivalenceLocalityAmplitudeMidpointAnalysis`, and
@@ -235,22 +334,22 @@ The current rank-two 1D, rank-$N$ 1D, and rank-two 2D/3D owners crosswalk as fol
 A dash means that the family does not perform a cohesive operation in that domain, not
 that evidence has been silently omitted.
 
-| Family | Subspace reduction | Representation equivalence | Real-space support truncation | Numerical consistency |
-|---|---|---|---|---|
-| rank-two 1D embedded subspace | shared `SpectralReduction` owner upstream; no family-local duplicate | untruncated point analysis | symmetric-range truncation range and aggregate, with parent-family truncation adapted to the generic truncation family | momentum and adaptive-amplitude refinement, with parent-family momentum refinement adapted to the generic reciprocal-mesh family |
-| rank-$N$ 1D alignment | —; retained rank is a model input, not proof of a reduction operation | request-bound frame and represented-operator recovery | symmetric-range support result and locality aggregate | Fourier reconstruction/Parseval/Hermiticity, shifted interpolation, and mesh refinement |
-| rank-two 2D/3D locality | —; the campaign starts from a finite represented parent | typed direct-band, covariance, restricted-alignment, correlation, and threshold result composed by the mixed point aggregate | complete metric-shell analysis | covariance-route defect, amplitude resolution, midpoint validation, and adjacent-mesh refinement |
+| Family | Subspace reduction | Representation equivalence | Hopping locality | Real-space support truncation | Numerical consistency |
+|---|---|---|---|---|---|
+| rank-two 1D embedded subspace | shared `SpectralReduction` owner upstream; no family-local duplicate | untruncated point analysis | hopping-power values on unchanged coefficients | symmetric-range truncation range and aggregate, with parent-family truncation adapted to the generic truncation family | momentum and adaptive-amplitude refinement, with parent-family momentum refinement adapted to the generic reciprocal-mesh family |
+| rank-$N$ 1D alignment | —; retained rank is a model input, not proof of a reduction operation | request-bound frame and represented-operator recovery | symmetric-range coefficient tails and monotonicity on the unchanged Fourier series | symmetric-range support result and locality compatibility aggregate | Fourier reconstruction/Parseval/Hermiticity, shifted interpolation, and mesh refinement |
+| rank-two 2D/3D locality | —; the campaign starts from a finite represented parent | typed direct-band, covariance, restricted-alignment, correlation, and threshold result composed by the mixed point aggregate | family-owned shell-power diagnostics | complete metric-shell analysis | covariance-route defect, amplitude resolution, midpoint validation, and adjacent-mesh refinement |
 
 The audit found no competing implementation of Hamiltonian compression, PhysKit
 lattice geometry or frame transport, or Project Koios Optimization alignment
 algorithms in the nominal-root packages. Dependencies point from family owners toward
 the interface-free KSD roots, PhysKit physical primitives, and Optimization numerical
-algorithms. None of the four roots imports a calculation family.
+algorithms. None of the six generic roots imports a calculation family.
 
 The family aggregates `Periodic1DRank2Analysis`,
-`Periodic1DHigherRankAlignmentCalculationResult`,
+`Periodic1DRankNAlignmentCalculationResult`,
 `BandEquivalenceLocalityPointAnalysis`, `BandEquivalenceLocalityCaseAnalysis`, and
-`BandEquivalenceLocalityAnalysis` intentionally remain outside the four roots because
+`BandEquivalenceLocalityAnalysis` intentionally remain outside these roots because
 they combine several scientific operations or evidence channels. Assigning one of
 these aggregates to a single root would erase distinctions rather than clarify
 ownership.
@@ -273,7 +372,7 @@ The intended dependency direction is:
 4. calculation-family packages compose these domains into requests, aggregate records,
    verification, and evidence identities.
 
-The four nominal roots have no dependency on periodic calculation families,
+The six generic nominal roots have no dependency on periodic calculation families,
 serialization, plotting, or workflow code.
 
 ## Retained-byte and migration rule

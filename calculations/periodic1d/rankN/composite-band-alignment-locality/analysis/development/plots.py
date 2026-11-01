@@ -1,6 +1,6 @@
-"""Calculated-result projections and figures for the higher-rank D1 study.
+"""Calculated-result visualization data and figures for the higher-rank D1 study.
 
-The projection consumes complete in-memory producer results and does not itself
+The data constructor consumes complete in-memory producer results and does not itself
 authenticate their source bytes.  The report entrypoint supplies an integrity-admitted
 cache.  Every rendered figure carries a neutral unsealed-result label; cache integrity
 alone does not establish scientific validity, seal evidence, or confer publication
@@ -16,21 +16,35 @@ from typing import Literal, final
 
 import matplotlib.pyplot as plt
 import numpy as np
+from ksdft2effmass.periodic1d.hopping_locality.inventory import (
+    Periodic1DHoppingDiagnosticRangeInventory,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationControls,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
+    Periodic1DRankNAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
+    Periodic1DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
+)
+from ksdft2effmass.periodic1d.support_truncation.inventory import (
+    Periodic1DSymmetricSupportInventory,
+)
+from ksdft2effmass.periodic1d.translations import (
+    Periodic1DSymmetricTranslationRange,
+)
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch, Rectangle
 from numpy.typing import NDArray
-
-from ksdft2effmass.periodic1d.higher_rank_alignment import (
-    Periodic1DHigherRankAlignmentCalculationResult,
-    Periodic1DHigherRankAlignmentConfiguration,
-    Periodic1DHigherRankAlignmentStatus,
-)
-from ksdft2effmass.periodic1d.higher_rank_alignment.gauge_alignment.definition import (
-    GaugeAlignmentWireMapping,
-    Periodic1DHigherRankGaugeAlignment,
-)
 
 type FloatArray = NDArray[np.float64]
 type IntArray = NDArray[np.int64]
@@ -69,7 +83,7 @@ _GAUGE_MARKERS = ("o", "s", "^", "D")
 _DEPTH_COLORS = ("#4C78A8", "#F58518", "#54A24B", "#E45756")
 _DEPTH_LINESTYLES: tuple[LineStyle, ...] = ("-", "--", "-.", ":")
 _RANK_MARKERS = ("o", "s", "^", "D")
-_STATUS_VALUES = tuple(Periodic1DHigherRankAlignmentStatus)
+_STATUS_VALUES = tuple(Periodic1DRankNAlignmentStatus)
 _STATUS_SHORT_LABELS = (
     "qualified",
     "aggregate\nrank deficient",
@@ -92,7 +106,7 @@ class HigherRankDevelopmentPlot(Enum):
     """Closed filename inventory for the development figure suite."""
 
     ALIGNMENT_LOCALITY = "development-alignment-locality-s2.png"
-    SUPPORT_LOCALITY = "development-support-locality-paths.png"
+    HOPPING_DIAGNOSTIC = "development-hopping-diagnostic-paths.png"
     BLOCK_LOCALITY = "development-fourier-block-locality.png"
     ERROR_CHANNELS = "development-error-channel-trajectories.png"
     CLAIM_RESOLUTION = "development-s2-claim-resolution.png"
@@ -103,18 +117,18 @@ class HigherRankDevelopmentPlot(Enum):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class HigherRankDevelopmentFigureProjectionRequest:
-    """Bind the complete ordered producer-result inventory to one projection."""
+class HigherRankDevelopmentFigureDataRequest:
+    """Bind the complete ordered producer-result inventory to visualization data."""
 
-    calculation_results: tuple[Periodic1DHigherRankAlignmentCalculationResult, ...]
+    calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
 
     def __post_init__(self) -> None:
         if type(self.calculation_results) is not tuple or any(
-            type(result) is not Periodic1DHigherRankAlignmentCalculationResult
+            type(result) is not Periodic1DRankNAlignmentCalculationResult
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
-        configuration = Periodic1DHigherRankAlignmentConfiguration
+        configuration = Periodic1DRankNAlignmentConfiguration
         expected = tuple(
             (rank, depth)
             for rank in configuration.RETAINED_RANKS
@@ -136,7 +150,7 @@ class HigherRankDevelopmentFigureProjectionRequest:
 
 @dataclass(frozen=True, slots=True, eq=False)
 class HigherRankDevelopmentFigureData:
-    """Own the immutable numeric projection drawn by development figures."""
+    """Own the immutable numeric data drawn by development figures."""
 
     retained_ranks: tuple[int, ...]
     circuit_depths: tuple[int, ...]
@@ -165,30 +179,39 @@ class HigherRankDevelopmentFigureData:
     pareto_efficient: BoolArray
 
     def __post_init__(self) -> None:
-        expected_ranks = Periodic1DHigherRankAlignmentConfiguration.RETAINED_RANKS
-        expected_depths = Periodic1DHigherRankAlignmentConfiguration.CIRCUIT_DEPTHS
+        expected_ranks = Periodic1DRankNAlignmentConfiguration.RETAINED_RANKS
+        expected_depths = Periodic1DRankNAlignmentConfiguration.CIRCUIT_DEPTHS
         if self.retained_ranks != expected_ranks:
             raise ValueError("retained_ranks must match the frozen inventory")
         if self.circuit_depths != expected_depths:
             raise ValueError("circuit_depths must match the frozen inventory")
-        if self.support_radii != (0, 1, 2, 4, 8, 16, 32, 64, 128):
+        if (
+            self.support_range_inventory.maximum_ranges
+            != Periodic1DRankNAlignmentCalculationControls.SUPPORT_RADII
+        ):
             raise ValueError("support_radii must match the frozen inventory")
         expected_gauges = tuple(
-            GaugeAlignmentWireMapping.to_wire(value)
-            for value in Periodic1DHigherRankAlignmentConfiguration.GAUGE_ALIGNMENTS
+            value.to_wire()
+            for value in Periodic1DRankNAlignmentConfiguration.GAUGE_ALIGNMENTS
         )
         if self.gauge_alignment_names != expected_gauges:
             raise ValueError("gauge_alignment_names must match the frozen order")
         if self.refinement_labels != _REFINEMENT_LABELS:
-            raise ValueError("refinement_labels must match the fixed projection")
+            raise ValueError(
+                "refinement_labels must match the fixed figure-data inventory"
+            )
         nr = len(self.retained_ranks)
         nd = len(self.circuit_depths)
         ng = len(self.gauge_alignment_names)
         ns = len(self.support_radii)
         nm = 2
         npth = len(self.refinement_labels)
+        recorded_block_count = (
+            2 * Periodic1DRankNAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE
+            + 1
+        )
         shapes = {
-            "block_translations": (257,),
+            "block_translations": (recorded_block_count,),
             "qualified": (nr, nd, nm, ng),
             "alignment_status_codes": (nr, nd, nm, ng),
             "frame_recovery": (nr, nd, nm, ng),
@@ -203,7 +226,7 @@ class HigherRankDevelopmentFigureData:
             "total_operator": (nr, nd, ng, ns),
             "total_spectrum": (nr, nd, ng, ns),
             "decomposition_defect": (nr, nd, ng, ns),
-            "block_norms": (nr, nd, ng, 257),
+            "block_norms": (nr, nd, ng, recorded_block_count),
             "refinement_coarse": (nr, nd, ng, npth),
             "refinement_fine": (nr, nd, ng, npth),
             "refinement_change_over_tolerance": (nr, nd, ng, npth),
@@ -214,7 +237,7 @@ class HigherRankDevelopmentFigureData:
             ("pareto_efficient", self.pareto_efficient),
         )
         if self.alignment_status_codes.shape != shapes["alignment_status_codes"]:
-            raise ValueError("alignment_status_codes has the wrong projection shape")
+            raise ValueError("alignment_status_codes has the wrong figure-data shape")
         if self.alignment_status_codes.dtype != np.dtype(np.int64):
             raise TypeError("alignment_status_codes must use int64 dtype")
         if self.alignment_status_codes.flags.writeable:
@@ -250,38 +273,54 @@ class HigherRankDevelopmentFigureData:
         )
         for boolean_name, boolean_value in boolean_arrays:
             if boolean_value.shape != shapes[boolean_name]:
-                raise ValueError(f"{boolean_name} has the wrong projection shape")
+                raise ValueError(f"{boolean_name} has the wrong figure-data shape")
             if boolean_value.dtype != np.dtype(np.bool_):
                 raise TypeError(f"{boolean_name} must use bool dtype")
             if boolean_value.flags.writeable:
                 raise ValueError(f"{boolean_name} must be immutable")
         for float_name, float_value in float_arrays:
             if float_value.shape != shapes[float_name]:
-                raise ValueError(f"{float_name} has the wrong projection shape")
+                raise ValueError(f"{float_name} has the wrong figure-data shape")
             if float_value.dtype != np.dtype(np.float64):
                 raise TypeError(f"{float_name} must use float64 dtype")
             if float_value.flags.writeable:
                 raise ValueError(f"{float_name} must be immutable")
 
+    @property
+    def hopping_diagnostic_range_inventory(
+        self,
+    ) -> Periodic1DHoppingDiagnosticRangeInventory:
+        """Return the typed range inventory for unchanged-tail figure channels."""
+        return Periodic1DHoppingDiagnosticRangeInventory.from_maximum_ranges(
+            self.support_radii
+        )
+
+    @property
+    def support_range_inventory(self) -> Periodic1DSymmetricSupportInventory:
+        """Return the typed retained-support inventory for truncation channels."""
+        return Periodic1DSymmetricSupportInventory.from_maximum_ranges(
+            self.support_radii
+        )
+
 
 @final
-class HigherRankDevelopmentFigureDataProjector:
-    """Project complete producer results without authenticating their bytes."""
+class HigherRankDevelopmentFigureDataConstructor:
+    """Construct figure data from complete producer results without authentication."""
 
     __slots__ = ("_request",)
 
-    def __init__(self, request: HigherRankDevelopmentFigureProjectionRequest) -> None:
-        if type(request) is not HigherRankDevelopmentFigureProjectionRequest:
-            raise TypeError("request must be the exact projection request")
+    def __init__(self, request: HigherRankDevelopmentFigureDataRequest) -> None:
+        if type(request) is not HigherRankDevelopmentFigureDataRequest:
+            raise TypeError("request must be the exact figure-data request")
         self._request = request
 
     @property
-    def request(self) -> HigherRankDevelopmentFigureProjectionRequest:
+    def request(self) -> HigherRankDevelopmentFigureDataRequest:
         """Return the exact immutable request bound to this action."""
         return self._request
 
     def execute(self) -> HigherRankDevelopmentFigureData:
-        """Return the complete calculated-result numeric figure projection."""
+        """Return the complete calculated-result numeric figure data."""
         results = self.request.calculation_results
         first = results[0]
         configuration = first.request.configuration
@@ -289,7 +328,7 @@ class HigherRankDevelopmentFigureDataProjector:
         ranks = configuration.retained_ranks
         depths = configuration.circuit_depths
         gauges = configuration.gauge_alignments
-        supports = controls.support_radii
+        supports = controls.support_range_inventory.maximum_ranges
         shape_mesh = (len(ranks), len(depths), 2, len(gauges))
         shape_support = (len(ranks), len(depths), len(gauges), len(supports))
         shape_scalar = (len(ranks), len(depths), len(gauges))
@@ -308,12 +347,20 @@ class HigherRankDevelopmentFigureDataProjector:
         total_operator = np.full(shape_support, np.nan, dtype=np.float64)
         total_spectrum = np.full(shape_support, np.nan, dtype=np.float64)
         decomposition_defect = np.full(shape_support, np.nan, dtype=np.float64)
-        block_norms = np.full((*shape_scalar, 257), np.nan, dtype=np.float64)
+        recorded_range = Periodic1DSymmetricTranslationRange(
+            controls.maximum_recorded_block_range
+        )
+        recorded_translations = recorded_range.translations
+        block_norms = np.full(
+            (*shape_scalar, len(recorded_translations)),
+            np.nan,
+            dtype=np.float64,
+        )
         refinement_coarse = np.full(shape_refinement, np.nan, dtype=np.float64)
         refinement_fine = np.full(shape_refinement, np.nan, dtype=np.float64)
         refinement_ratio = np.full(shape_refinement, np.nan, dtype=np.float64)
         pareto = np.zeros(shape_support, dtype=np.bool_)
-        expected_translations = np.arange(-128, 129, dtype=np.int64)
+        expected_translations = np.asarray(recorded_translations, dtype=np.int64)
 
         for result in results:
             rank_index = ranks.index(result.request.retained_rank)
@@ -323,7 +370,7 @@ class HigherRankDevelopmentFigureDataProjector:
                 for gauge_index, alignment in enumerate(mesh.gauge_alignment_results):
                     is_qualified = (
                         alignment.status.status
-                        is Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                        is Periodic1DRankNAlignmentStatus.QUALIFIED
                     )
                     qualified[rank_index, depth_index, mesh_index, gauge_index] = (
                         is_qualified
@@ -359,7 +406,7 @@ class HigherRankDevelopmentFigureDataProjector:
             for gauge_index, alignment in enumerate(final_mesh.gauge_alignment_results):
                 if (
                     alignment.status.status
-                    is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+                    is not Periodic1DRankNAlignmentStatus.QUALIFIED
                 ):
                     continue
                 interpolation = alignment.interpolation
@@ -408,7 +455,7 @@ class HigherRankDevelopmentFigureDataProjector:
                 )
 
             refinement_by_gauge: dict[
-                Periodic1DHigherRankGaugeAlignment,
+                Periodic1DRankNGaugeAlignment,
                 dict[str, tuple[float, float, float, float]],
             ] = {gauge: {} for gauge in gauges}
             for refinement in result.scalar_refinements:
@@ -462,9 +509,7 @@ class HigherRankDevelopmentFigureDataProjector:
             retained_ranks=ranks,
             circuit_depths=depths,
             support_radii=supports,
-            gauge_alignment_names=tuple(
-                GaugeAlignmentWireMapping.to_wire(value) for value in gauges
-            ),
+            gauge_alignment_names=tuple(value.to_wire() for value in gauges),
             refinement_labels=_REFINEMENT_LABELS,
             block_translations=translations,
             qualified=qualified,
@@ -491,7 +536,7 @@ class HigherRankDevelopmentFigureDataProjector:
 
 @dataclass(frozen=True, slots=True, eq=False)
 class HigherRankDevelopmentFigureRenderRequest:
-    """Bind one development projection and destination to the renderer."""
+    """Bind one development figure-data value and destination to the renderer."""
 
     data: HigherRankDevelopmentFigureData
     output_directory: Path
@@ -499,7 +544,7 @@ class HigherRankDevelopmentFigureRenderRequest:
 
     def __post_init__(self) -> None:
         if type(self.data) is not HigherRankDevelopmentFigureData:
-            raise TypeError("data must be the exact development projection")
+            raise TypeError("data must be the exact development figure data")
         if not isinstance(self.output_directory, Path):
             raise TypeError("output_directory must be pathlib.Path")
         if type(self.dpi) is not int or self.dpi <= 0:
@@ -528,7 +573,10 @@ class HigherRankDevelopmentFigureRenderer:
         output.mkdir(parents=True, exist_ok=True)
         figures = (
             (HigherRankDevelopmentPlot.ALIGNMENT_LOCALITY, _alignment_locality_figure),
-            (HigherRankDevelopmentPlot.SUPPORT_LOCALITY, _support_locality_figure),
+            (
+                HigherRankDevelopmentPlot.HOPPING_DIAGNOSTIC,
+                _hopping_diagnostic_figure,
+            ),
             (HigherRankDevelopmentPlot.BLOCK_LOCALITY, _block_locality_figure),
             (HigherRankDevelopmentPlot.ERROR_CHANNELS, _error_channel_figure),
             (HigherRankDevelopmentPlot.CLAIM_RESOLUTION, _claim_resolution_figure),
@@ -737,9 +785,10 @@ def _alignment_locality_figure(data: HigherRankDevelopmentFigureData) -> Figure:
     return _finalize(figure, "S=2 alignment–locality plane")
 
 
-def _support_locality_figure(data: HigherRankDevelopmentFigureData) -> Figure:
+def _hopping_diagnostic_figure(data: HigherRankDevelopmentFigureData) -> Figure:
     figure, axes = _figure_grid(4, 4, width=16.5, height=14.5)
-    x = np.arange(len(data.support_radii), dtype=np.float64)
+    diagnostic_ranges = data.hopping_diagnostic_range_inventory.maximum_ranges
+    x = np.arange(len(diagnostic_ranges), dtype=np.float64)
     for rank_index, rank in enumerate(data.retained_ranks):
         for gauge_index, gauge in enumerate(data.gauge_alignment_names):
             axis = axes[rank_index][gauge_index]
@@ -755,11 +804,11 @@ def _support_locality_figure(data: HigherRankDevelopmentFigureData) -> Figure:
                 )
             axis.axvline(_S2_INDEX, color="#666666", linestyle=":", linewidth=0.8)
             axis.set_title(f"r={rank}; {gauge}")
-            axis.set_xticks(x, tuple(str(value) for value in data.support_radii))
+            axis.set_xticks(x, tuple(str(value) for value in diagnostic_ranges))
             if rank_index == 3:
-                axis.set_xlabel("support radius S")
+                axis.set_xlabel("hopping-diagnostic cutoff S")
             if gauge_index == 0:
-                axis.set_ylabel("normalized omitted L2 tail")
+                axis.set_ylabel("normalized omitted-block L2 norm")
             axis.grid(True, which="both", alpha=0.18)
     handles = tuple(
         Line2D(
@@ -773,7 +822,7 @@ def _support_locality_figure(data: HigherRankDevelopmentFigureData) -> Figure:
         for index, depth in enumerate(data.circuit_depths)
     )
     figure.legend(handles=handles, loc="outside lower center", ncol=4)
-    return _finalize(figure, "Complete support-path locality curves")
+    return _finalize(figure, "Hopping-tail diagnostics across declared ranges")
 
 
 def _block_locality_figure(data: HigherRankDevelopmentFigureData) -> Figure:
@@ -935,7 +984,7 @@ def _claim_resolution_figure(data: HigherRankDevelopmentFigureData) -> Figure:
             True,
         ),
     )
-    qualified_code = _STATUS_VALUES.index(Periodic1DHigherRankAlignmentStatus.QUALIFIED)
+    qualified_code = _STATUS_VALUES.index(Periodic1DRankNAlignmentStatus.QUALIFIED)
     for axis, (
         values,
         status_codes,
@@ -1035,7 +1084,7 @@ def _claim_resolution_figure(data: HigherRankDevelopmentFigureData) -> Figure:
                 label=status.value,
             )
             for index, status in enumerate(_STATUS_VALUES)
-            if status is not Periodic1DHigherRankAlignmentStatus.QUALIFIED
+            if status is not Periodic1DRankNAlignmentStatus.QUALIFIED
         ),
     )
     figure.legend(handles=status_handles, loc="outside lower center", ncol=4)
@@ -1317,8 +1366,8 @@ def _pareto_figure(data: HigherRankDevelopmentFigureData) -> Figure:
 
 __all__ = [
     "HigherRankDevelopmentFigureData",
-    "HigherRankDevelopmentFigureDataProjector",
-    "HigherRankDevelopmentFigureProjectionRequest",
+    "HigherRankDevelopmentFigureDataConstructor",
+    "HigherRankDevelopmentFigureDataRequest",
     "HigherRankDevelopmentFigureRenderRequest",
     "HigherRankDevelopmentFigureRenderer",
     "HigherRankDevelopmentPlot",

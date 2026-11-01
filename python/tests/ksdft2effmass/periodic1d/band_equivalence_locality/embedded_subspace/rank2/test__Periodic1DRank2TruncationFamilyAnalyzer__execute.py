@@ -5,20 +5,31 @@ from __future__ import annotations
 import math
 from dataclasses import replace
 
+import pytest
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
-    Periodic1DRank2TruncationCompleted,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
     Periodic1DRank2TruncationFamilyAnalysis,
     Periodic1DRank2TruncationFamilyAnalyzer,
     Periodic1DRank2TruncationFamilyRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+    Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationQualificationStopped,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection import (
     Periodic1DRank2TruncationToleranceSelector,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
 
 def _request() -> Periodic1DRank2TruncationFamilyRequest:

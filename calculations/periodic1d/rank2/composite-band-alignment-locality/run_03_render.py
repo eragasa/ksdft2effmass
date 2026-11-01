@@ -7,17 +7,33 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
-from ksdft2effmass.periodic1d.composite_band_alignment import (
+from projectkoios.physkit.units import PhysicalUnit
+
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
+    Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import (
     Periodic1DCompositeBandAlignmentVerification,
     Periodic1DCompositeBandAlignmentVerifier,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.data import (  # noqa: E501
     Periodic1DCompositeBandAlignmentVisualizationData,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visualizer import (  # noqa: E501
     Periodic1DCompositeBandAlignmentVisualizer,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
+    Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
-EXECUTION_ID = "direct-controlled-rank2-n64"
-CALCULATION_FAMILY = "periodic1d-rank2-composite-band-alignment-locality"
-PARENT_IDENTITY = "ksdft2effmass.periodic1d.controlled-four-state-parent.v1"
+EXECUTION_ID = "direct-controlled-rank2-n64-v2"
+CALCULATION_FAMILY = (
+    Periodic1DCompositeBandAlignmentCalculationResult.CALCULATION_FAMILY
+)
+RESULT_SCHEMA = Periodic1DCompositeBandAlignmentCalculationResult.RESULT_SCHEMA
+PARENT_IDENTITY = Periodic1DCompositeBandAlignmentConfiguration.PARENT_IDENTITY
 script_path = Path(__file__).resolve()
 execution_directory = script_path.parent / "executions" / EXECUTION_ID
 result_path = execution_directory / "results" / "result.json"
@@ -38,12 +54,31 @@ if codec.serialize_bytes(document) != verification_bytes:
     raise ValueError("verification document is not canonical typed JSON")
 if document.get("execution_id") != EXECUTION_ID:
     raise ValueError("verification execution identifier does not match")
+if document.get("result_schema") != RESULT_SCHEMA:
+    raise ValueError("verification result schema does not match")
 if document.get("calculation_family") != CALCULATION_FAMILY:
     raise ValueError("verification calculation family does not match")
 if document.get("parent_identity") != PARENT_IDENTITY:
     raise ValueError("verification parent identity does not match")
+lattice_geometry_mapping = document.get("lattice_geometry")
+if not isinstance(lattice_geometry_mapping, Mapping):
+    raise TypeError("verification lattice geometry must decode to a mapping")
+lattice_period = lattice_geometry_mapping.get("lattice_period")
+lattice_unit = lattice_geometry_mapping.get("lattice_unit")
+if type(lattice_period) is not float:
+    raise TypeError("verification lattice period must decode to a built-in float")
+if type(lattice_unit) is not PhysicalUnit:
+    raise TypeError("verification lattice unit must decode to PhysicalUnit")
+lattice_geometry = Periodic1DLatticeGeometry(lattice_period, lattice_unit)
 if document.get("result_sha256") != hashlib.sha256(result_bytes).hexdigest():
     raise ValueError("verification authenticates different result bytes")
+result = Periodic1DCompositeBandAlignmentCalculationResult.from_json(result_bytes)
+if result.to_json() != result_bytes:
+    raise ValueError("result document is not canonical typed JSON")
+if lattice_geometry != result.configuration.reduced_lattice_geometry:
+    raise ValueError(
+        "verification lattice geometry does not match the result convention"
+    )
 verification_mapping = document.get("verification")
 visualization_mapping = document.get("visualization_data")
 if not isinstance(verification_mapping, Mapping):
@@ -73,13 +108,18 @@ for visualization in visualizations:
 (temporary_directory / "rendering.json").write_bytes(
     codec.serialize_bytes(
         {
-            "schema_version": 1,
+            "schema_version": 2,
             "schema": (
-                "ksdft2effmass.periodic1d-composite-band-alignment-rendering.direct.v1"
+                "ksdft2effmass.periodic1d-composite-band-alignment-rendering.direct.v2"
             ),
+            "result_schema": RESULT_SCHEMA,
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": document["parent_identity"],
             "execution_id": EXECUTION_ID,
+            "lattice_geometry": {
+                "lattice_period": lattice_geometry.lattice_period,
+                "lattice_unit": lattice_geometry.lattice_unit,
+            },
             "outcome": "completed",
             "verification_sha256": hashlib.sha256(verification_bytes).hexdigest(),
             "figures": {

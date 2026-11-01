@@ -12,54 +12,38 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
 
-from ksdft2effmass.periodic1d.composite_band_alignment import (
-    Periodic1DCompositeBandAlignmentAnalyzer,
+from ksdft2effmass.periodic1d.gauge_alignment.factory import (
+    Periodic1DAlignmentStudyFactory,
+    Periodic1DRank2AlignmentStudySpecification,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
     Periodic1DCompositeBandAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 
-EXECUTION_ID = "direct-controlled-rank2-n64"
-CALCULATION_FAMILY = "periodic1d-rank2-composite-band-alignment-locality"
-configuration = Periodic1DCompositeBandAlignmentConfiguration(
-    parent_identity="ksdft2effmass.periodic1d.controlled-four-state-parent.v1",
-    onsite_numerators=(
-        (-120, 6, 0, 0),
-        (6, -35, 0, 0),
-        (0, 0, 100, 4),
-        (0, 0, 4, 175),
-    ),
-    positive_hopping_numerators=(
-        (15, 0, 12, 0),
-        (0, -10, 0, 10),
-        (0, 0, 5, 0),
-        (0, 0, 0, -4),
-    ),
-    coefficient_denominator=100,
-    retained_rank=2,
-    construction_size=64,
-    evaluation_size=257,
-    evaluation_shift_numerator=1,
-    evaluation_shift_denominator=65,
-    hopping_ranges=(0, 1, 2, 3, 4, 6, 8),
-    attack_constant_angle=0.30,
-    attack_sine_coefficients=(0.65, 0.30),
-    sampled_gap_threshold=0.5,
-    overlap_singular_value_threshold=0.8,
-    procrustes_rank_absolute_tolerance=1.0e-14,
-    procrustes_rank_relative_tolerance=1.0e-12,
-    energy_absolute_tolerance=1.0e-11,
-    dimensionless_absolute_tolerance=1.0e-12,
+EXECUTION_ID = "direct-controlled-rank2-n64-v2"
+CALCULATION_FAMILY = (
+    Periodic1DCompositeBandAlignmentCalculationResult.CALCULATION_FAMILY
 )
+RESULT_SCHEMA = Periodic1DCompositeBandAlignmentCalculationResult.RESULT_SCHEMA
+configuration = Periodic1DCompositeBandAlignmentConfiguration.frozen()
 script_path = Path(__file__).resolve()
 execution_directory = script_path.parent / "executions" / EXECUTION_ID
 temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete")
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a composite-alignment execution")
-result = Periodic1DCompositeBandAlignmentAnalyzer(
-    configuration,
-    NumpyBatchedComplexUnitaryProcrustesSolver(),
-).execute()
+lattice_geometry = configuration.reduced_lattice_geometry
+study = Periodic1DAlignmentStudyFactory(
+    Periodic1DRank2AlignmentStudySpecification(
+        lattice_geometry=lattice_geometry,
+        configuration=configuration,
+        procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+    )
+).create()
+result = study.execute()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
 if (
@@ -81,10 +65,15 @@ if (
 (temporary_directory / "execution.json").write_bytes(
     TypedJsonValueCodec().serialize_bytes(
         {
-            "schema_version": 1,
+            "schema_version": 2,
+            "result_schema": RESULT_SCHEMA,
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": configuration.parent_identity,
             "execution_id": EXECUTION_ID,
+            "lattice_geometry": {
+                "lattice_period": lattice_geometry.lattice_period,
+                "lattice_unit": lattice_geometry.lattice_unit,
+            },
             "created_utc": datetime.now(UTC).isoformat(),
             "outcome": "completed",
             "evidence_status": "illustrative finite numerical control",

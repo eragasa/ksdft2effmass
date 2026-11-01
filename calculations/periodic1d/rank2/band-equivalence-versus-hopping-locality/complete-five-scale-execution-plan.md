@@ -1,6 +1,6 @@
 # Proposed complete five-scale direct execution
 
-**Status:** implementation installed and synthetically tested; execution not authorized
+**Status:** implementation and closed figure inventory synthetically tested; operator authorization received, but execution remains blocked until a clean source revision and resource preflight are available
 **Proposed execution identity:** `direct-embedded-rank2-five-scale-complete-v1`
 
 ## Purpose and boundary
@@ -75,9 +75,11 @@ Use three new module-scope, atomic, no-overwrite scripts:
    minimum tolerance-satisfying support decision without calling the production
    owners, then writes canonical verification and its manifest atomically.
 3. `run_complete_03_render.py` admits stored passing verification, authenticates the
-   complete-scope summary projection, and renders a deterministic Markdown summary
-   without rerunning calculation or verification. Any later figure or table owner must consume only that
-   stored authenticated boundary or another separately authenticated projection.
+   complete-scope summary projection, and renders a deterministic Markdown summary plus
+   the closed scientific-story, sampled range-inflation, and separated error-channel PNG
+   inventory without rerunning calculation or verification. The figures consume the
+   admitted aggregate directly, read no development CSV, and are digest-bound by the
+   rendering manifest.
 
 The execution metadata must bind the calculation family, new execution identity, exact
 result digest, producer-script digest, dependency versions, clean Git source revision,
@@ -93,8 +95,8 @@ not authorize an in-place retry.
 - one authenticated summary projection covering five-scale momentum dispositions,
   principal-truncation inventory counts, and adjacent-mesh decision-change counts, plus
   its deterministic Markdown rendering;
-- separately reviewed authenticated value projections before any figure/table inventory
-  is claimed sufficient to rebuild the Ragasa2026a v3 five-scale inputs; and
+- three digest-bound PNGs derived from the admitted result: the scientific-story,
+  sampled range-inflation, and separated error-channel figures; and
 - execution metadata binding the clean source revision, dependency versions, and result
   and producer-script digests.
 

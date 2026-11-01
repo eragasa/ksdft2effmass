@@ -32,7 +32,7 @@ update below; the M2 and M3 rows remain live until their own replacement gates p
 | `periodic1d.isolated_band.results` | `Periodic1DPlaneWaveConvergenceObservation`, `Periodic1DFiniteDifferenceConvergenceObservation`, `Periodic1DIsolatedBandRangeResult`, `Periodic1DIsolatedBandCalculationResult` | Replace with immutable Phase 2 result sections. |
 | `periodic1d.isolated_band.serialization` | `Periodic1DIsolatedBandResultJsonSerializer`, qualified `SCHEMA_ID` | Replace with model-owned canonical `to_json()`/`from_json()` bytes; no schema-v1 decoder is required. |
 | `periodic1d.isolated_band.verify` | `Periodic1DIsolatedBandResultVerifier`, `Periodic1DIsolatedBandVerificationResult` | Replace with a byte-owning Phase 2 verifier and typed verification aggregate. |
-| `periodic1d.multiband_alignment.definition` | `Periodic1DMultibandAlignmentCalculationDefinition` | Replace in `periodic1d.composite_band_alignment` during Phase 3. |
+| `periodic1d.multiband_alignment.definition` | `Periodic1DMultibandAlignmentCalculationDefinition` | Replace in `periodic1d.rank2.band_alignment.composite` during Phase 3. |
 | `periodic1d.multiband_alignment.calculate` | `Periodic1DMultibandAlignmentCalculator` | Replace with the rank-two composite analyzer; do not preserve the Action signature. |
 | `periodic1d.multiband_alignment.results` | `Periodic1DMultibandAlignmentDiagnostics`, `Periodic1DMultibandAlignmentRangeResult`, `Periodic1DMultibandAlignmentCalculationResult` | Replace with rank-two composite result sections. |
 | `periodic1d.multiband_alignment.serialization` | `Periodic1DMultibandAlignmentResultJsonSerializer`, qualified `SCHEMA_ID` | Replace with the rank-two composite typed wire; no schema-v1 decoder is required. |

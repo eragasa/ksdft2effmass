@@ -1,0 +1,349 @@
+"""Gauge-aligned represented-operator and frame fields."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import final
+
+import numpy as np
+from projectkoios.numerics.numpy.validation import (
+    NumpyImmutableArrayConstructor,
+    NumpyImmutableArrayValidator,
+)
+from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
+
+from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldIsometryAnalyzer
+
+from ..band_alignment.calculation import (
+    Periodic1DRankNAlignmentCalculationRequest,
+)
+from ..band_alignment.model import Periodic1DRankNAnalyticCase
+from .definition import Periodic1DRankNGaugeAlignment
+from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
+from .procrustes.selection import Periodic1DRankNResolvedProcrustesSelection
+from .status import Periodic1DRankNAlignmentStatus
+
+
+@dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DRankNGaugeAlignedFields:
+    """Store immutable represented operators and frames for one gauge alignment."""
+
+    case_identity: str
+    gauge_alignment: Periodic1DRankNGaugeAlignment
+    coordinates: RealArray
+    represented_operators: ComplexArray
+    frames: ComplexArray
+
+    def __post_init__(self) -> None:
+        if type(self.case_identity) is not str or not self.case_identity:
+            raise ValueError("case_identity must be a nonempty built-in string")
+        if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
+            raise TypeError("gauge_alignment must be the exact gauge-alignment enum")
+        coordinates = NumpyImmutableArrayValidator(
+            self.coordinates,
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
+        represented_operators = NumpyImmutableArrayValidator(
+            self.represented_operators,
+            "represented_operators",
+            np.dtype(np.complex128),
+        ).execute()
+        frames = NumpyImmutableArrayValidator(
+            self.frames,
+            "frames",
+            np.dtype(np.complex128),
+        ).execute()
+        if coordinates.ndim != 1:
+            raise ValueError("coordinates must be one-dimensional")
+        if represented_operators.ndim != 3 or frames.ndim != 3:
+            raise ValueError(
+                "represented operators and frames must be rank-three arrays"
+            )
+        if represented_operators.shape[0] != coordinates.size:
+            raise ValueError("represented operators must match the coordinate count")
+        if frames.shape[0] != coordinates.size:
+            raise ValueError("frames must match the coordinate count")
+        rank = represented_operators.shape[-1]
+        if represented_operators.shape[1:] != (rank, rank):
+            raise ValueError("represented operators must be square")
+        if frames.shape[-1] != rank:
+            raise ValueError("frame rank must match the represented-operator rank")
+
+
+@dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DRankNGaugeAlignmentConstructionRequest:
+    """Bind the scientific inputs for constructing one gauge-aligned field pair."""
+
+    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    model: Periodic1DRankNAnalyticCase
+    gauge_alignment: Periodic1DRankNGaugeAlignment
+    coordinates: RealArray
+    global_selection: Periodic1DRankNProcrustesDiagnostics
+    pointwise_selection: Periodic1DRankNResolvedProcrustesSelection | None = None
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.calculation_request)
+            is not Periodic1DRankNAlignmentCalculationRequest
+        ):
+            raise TypeError("calculation_request must be the exact request record")
+        if type(self.model) is not Periodic1DRankNAnalyticCase:
+            raise TypeError("model must be Periodic1DRankNAnalyticCase")
+        if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
+            raise TypeError("gauge_alignment must be the exact gauge-alignment enum")
+        if type(self.global_selection) is not Periodic1DRankNProcrustesDiagnostics:
+            raise TypeError("global_selection must be the exact Procrustes record")
+        coordinates = NumpyImmutableArrayValidator(
+            self.coordinates,
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
+        if coordinates.ndim != 1:
+            raise ValueError("coordinates must be one-dimensional")
+        request = self.calculation_request
+        if (
+            self.model.retained_rank != request.retained_rank
+            or self.model.circuit_depth != request.circuit_depth
+        ):
+            raise ValueError("model rank and depth must match the calculation request")
+        if self.gauge_alignment not in request.configuration.gauge_alignments:
+            raise ValueError("gauge alignment must belong to the calculation request")
+        selection_status = self.global_selection.status
+        if (
+            selection_status.case_identity != request.case_identity
+            or selection_status.retained_rank != request.retained_rank
+            or selection_status.circuit_depth != request.circuit_depth
+            or selection_status.gauge_alignment
+            is not Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+            or selection_status.construction_mesh_size
+            != request.configuration.global_unitary_selection_mesh_size
+            or self.global_selection.selection_mesh_size
+            != request.configuration.global_unitary_selection_mesh_size
+        ):
+            raise ValueError("global selection must match the calculation request")
+        if self.gauge_alignment is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY:
+            if (
+                type(self.pointwise_selection)
+                is not Periodic1DRankNResolvedProcrustesSelection
+            ):
+                raise TypeError(
+                    "pointwise alignment requires a resolved Procrustes selection"
+                )
+            pointwise_status = self.pointwise_selection.diagnostics.status
+            if (
+                pointwise_status.case_identity != request.case_identity
+                or pointwise_status.retained_rank != request.retained_rank
+                or pointwise_status.circuit_depth != request.circuit_depth
+                or pointwise_status.construction_mesh_size != coordinates.size
+                or pointwise_status.gauge_alignment
+                is not Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY
+                or pointwise_status.status
+                is not Periodic1DRankNAlignmentStatus.QUALIFIED
+            ):
+                raise ValueError(
+                    "pointwise selection must be qualified and match the coordinates"
+                )
+        elif self.pointwise_selection is not None:
+            raise ValueError(
+                "pointwise_selection is reserved for pointwise-unitary alignment"
+            )
+
+
+@final
+class Periodic1DRankNGaugeAlignmentConstructor:
+    """Construct represented operators and frames in one prescribed gauge alignment."""
+
+    __slots__ = ("_request",)
+
+    def __init__(
+        self,
+        request: Periodic1DRankNGaugeAlignmentConstructionRequest,
+    ) -> None:
+        if type(request) is not Periodic1DRankNGaugeAlignmentConstructionRequest:
+            raise TypeError(
+                "request must be Periodic1DRankNGaugeAlignmentConstructionRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> Periodic1DRankNGaugeAlignmentConstructionRequest:
+        """Return the exact request bound to this constructor."""
+        return self._request
+
+    def execute(self) -> Periodic1DRankNGaugeAlignedFields:
+        """Return immutable represented operators and frames in the selected gauge."""
+        request = self._request
+        model = request.model
+        coordinates = request.coordinates
+        rank = model.retained_rank
+        attacked = model.attacked_reduced_hamiltonians(coordinates)
+        attacked_frames = model.attacked_frames(coordinates)
+        gauge_alignment = request.gauge_alignment
+        if gauge_alignment is Periodic1DRankNGaugeAlignment.IDENTITY:
+            right_action = np.broadcast_to(
+                np.eye(rank, dtype=np.complex128),
+                (coordinates.size, rank, rank),
+            )
+        elif gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY:
+            selected = request.global_selection.selected_global_right_unitary
+            if selected is None:
+                raise ValueError(
+                    "global-unitary alignment requires a selected right unitary"
+                )
+            right_action = np.broadcast_to(
+                selected.magnitude,
+                (coordinates.size, rank, rank),
+            )
+        elif gauge_alignment is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY:
+            pointwise_selection = request.pointwise_selection
+            if pointwise_selection is None:
+                raise ValueError("pointwise alignment requires a resolved selection")
+            right_action = pointwise_selection.right_unitaries
+        else:
+            gauge = model.gauge_unitaries(coordinates)
+            right_action = np.swapaxes(gauge.conjugate(), -1, -2)
+        if right_action.shape != (coordinates.size, rank, rank):
+            raise ValueError("gauge right action must match the case and coordinates")
+        right_isometry = MatrixFieldIsometryAnalyzer().execute(right_action)
+        if (
+            right_isometry.normalized_maximum_frobenius_defect
+            > request.calculation_request.controls.model_structure_tolerance
+        ):
+            raise ValueError("gauge right action must remain unitary")
+        right_adjoint = np.swapaxes(right_action.conjugate(), -1, -2)
+        represented_operators = np.asarray(
+            right_adjoint @ attacked @ right_action,
+            dtype=np.complex128,
+        )
+        frames = np.asarray(attacked_frames @ right_action, dtype=np.complex128)
+        return Periodic1DRankNGaugeAlignedFields(
+            case_identity=request.calculation_request.case_identity,
+            gauge_alignment=gauge_alignment,
+            coordinates=coordinates,
+            represented_operators=NumpyImmutableArrayConstructor(
+                represented_operators,
+                "represented_operators",
+                np.dtype(np.complex128),
+            ).execute(),
+            frames=NumpyImmutableArrayConstructor(
+                frames,
+                "frames",
+                np.dtype(np.complex128),
+            ).execute(),
+        )
+
+
+@dataclass(frozen=True, slots=True, eq=False)
+class Periodic1DRankNGaugeAlignmentEvaluationRequest:
+    """Bind one direct represented-operator evaluation in a prescribed gauge."""
+
+    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    model: Periodic1DRankNAnalyticCase
+    gauge_alignment: Periodic1DRankNGaugeAlignment
+    coordinates: RealArray
+    global_selection: Periodic1DRankNProcrustesDiagnostics
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.calculation_request)
+            is not Periodic1DRankNAlignmentCalculationRequest
+        ):
+            raise TypeError("calculation_request must be the exact request record")
+        if type(self.model) is not Periodic1DRankNAnalyticCase:
+            raise TypeError("model must be Periodic1DRankNAnalyticCase")
+        if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
+            raise TypeError("gauge_alignment must be the exact gauge-alignment enum")
+        if type(self.global_selection) is not Periodic1DRankNProcrustesDiagnostics:
+            raise TypeError("global_selection must be the exact Procrustes record")
+        coordinates = NumpyImmutableArrayValidator(
+            self.coordinates,
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
+        if coordinates.ndim != 1:
+            raise ValueError("coordinates must be one-dimensional")
+        calculation_request = self.calculation_request
+        if (
+            self.model.retained_rank != calculation_request.retained_rank
+            or self.model.circuit_depth != calculation_request.circuit_depth
+        ):
+            raise ValueError("model rank and depth must match the calculation request")
+        if (
+            self.gauge_alignment
+            not in calculation_request.configuration.gauge_alignments
+        ):
+            raise ValueError("gauge alignment must belong to the calculation request")
+        selection_status = self.global_selection.status
+        if (
+            selection_status.case_identity != calculation_request.case_identity
+            or selection_status.retained_rank != calculation_request.retained_rank
+            or selection_status.circuit_depth != calculation_request.circuit_depth
+            or selection_status.gauge_alignment
+            is not Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+            or selection_status.construction_mesh_size
+            != calculation_request.configuration.global_unitary_selection_mesh_size
+            or self.global_selection.selection_mesh_size
+            != calculation_request.configuration.global_unitary_selection_mesh_size
+        ):
+            raise ValueError("global selection must match the calculation request")
+
+
+@final
+class Periodic1DRankNGaugeAlignmentEvaluator:
+    """Evaluate the analytic represented operator in one prescribed gauge."""
+
+    __slots__ = ("_request",)
+
+    def __init__(
+        self,
+        request: Periodic1DRankNGaugeAlignmentEvaluationRequest,
+    ) -> None:
+        if type(request) is not Periodic1DRankNGaugeAlignmentEvaluationRequest:
+            raise TypeError(
+                "request must be Periodic1DRankNGaugeAlignmentEvaluationRequest"
+            )
+        self._request = request
+
+    @property
+    def request(self) -> Periodic1DRankNGaugeAlignmentEvaluationRequest:
+        """Return the exact direct-evaluation request bound to this action."""
+        return self._request
+
+    def execute(self) -> ComplexArray:
+        """Return the immutable direct represented-operator field."""
+        request = self._request
+        model = request.model
+        coordinates = request.coordinates
+        gauge_alignment = request.gauge_alignment
+        if gauge_alignment is Periodic1DRankNGaugeAlignment.IDENTITY:
+            values = model.attacked_reduced_hamiltonians(coordinates)
+        elif gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY:
+            selected = request.global_selection.selected_global_right_unitary
+            if selected is None:
+                raise ValueError(
+                    "global-unitary direct evaluation requires a selected unitary"
+                )
+            attacked = model.attacked_reduced_hamiltonians(coordinates)
+            right = np.broadcast_to(
+                selected.magnitude,
+                (coordinates.size, model.retained_rank, model.retained_rank),
+            )
+            adjoint = np.swapaxes(right.conjugate(), -1, -2)
+            values = np.asarray(adjoint @ attacked @ right, dtype=np.complex128)
+        else:
+            values = model.exact_reduced_hamiltonians(coordinates)
+        return NumpyImmutableArrayConstructor(
+            values,
+            "direct_represented_operators",
+            np.dtype(np.complex128),
+        ).execute()
+
+
+__all__ = [
+    "Periodic1DRankNGaugeAlignedFields",
+    "Periodic1DRankNGaugeAlignmentConstructionRequest",
+    "Periodic1DRankNGaugeAlignmentConstructor",
+    "Periodic1DRankNGaugeAlignmentEvaluationRequest",
+    "Periodic1DRankNGaugeAlignmentEvaluator",
+]

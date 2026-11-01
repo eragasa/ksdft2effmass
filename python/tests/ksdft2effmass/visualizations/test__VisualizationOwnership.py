@@ -15,17 +15,17 @@ import ksdft2effmass.visualizations as visualizations
 from ksdft2effmass.model_systems.mathieu1d import Mathieu1dVisualizer
 from ksdft2effmass.model_systems.piab1d import Piab1dVisualizer
 from ksdft2effmass.model_systems.qho1d import Qho1dVisualizer
-from ksdft2effmass.periodic1d.composite_band_alignment import (
-    Periodic1DCompositeBandAlignmentVisualizer,
-)
-from ksdft2effmass.periodic1d.composite_band_alignment import (
-    visualizations as composite_visualizations,
-)
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityVisualizer,
 )
 from ksdft2effmass.periodic1d.fourier_locality import (
     visualizations as fourier_visualizations,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
+    visualizations as composite_visualizations,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visualizer import (  # noqa: E501
+    Periodic1DCompositeBandAlignmentVisualizer,
 )
 from ksdft2effmass.visualizations import (
     BaseFigure,
@@ -39,7 +39,7 @@ from ksdft2effmass.visualizations import (
     PngVisualization,
 )
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestVisualizationOwnership:
@@ -67,7 +67,6 @@ class TestVisualizationOwnership:
             (qho_visualizations, "Qho1d"),
             (mathieu_visualizations, "Mathieu1d"),
             (fourier_visualizations, "Periodic1DFourierLocality"),
-            (composite_visualizations, "Periodic1DCompositeBandAlignment"),
         )
         for package, prefix in packages_and_prefixes:
             assert set(package.__all__) == {
@@ -75,6 +74,11 @@ class TestVisualizationOwnership:
                 f"{prefix}VisualizationPlotEnum",
                 f"{prefix}Visualizer",
             }
+        assert not hasattr(composite_visualizations, "__all__")
+        assert not any(
+            name.startswith("Periodic1DCompositeBandAlignment")
+            for name in vars(composite_visualizations)
+        )
 
     def test_family_visualizers__use_final_aggregate_action(self) -> None:
         family_visualizers = (
@@ -118,7 +122,7 @@ class TestVisualizationOwnership:
             "ksdft2effmass.model_systems.qho1d.visualization",
             "ksdft2effmass.model_systems.mathieu1d.visualization",
             "ksdft2effmass.periodic1d.fourier_locality.visualization",
-            "ksdft2effmass.periodic1d.composite_band_alignment.visualization",
+            "ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualization",
         ),
     )
     def test_import__singular_legacy_module__is_absent(self, module_name: str) -> None:

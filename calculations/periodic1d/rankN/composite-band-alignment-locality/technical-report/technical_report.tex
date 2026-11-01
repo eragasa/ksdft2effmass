@@ -65,8 +65,8 @@ snapshots are visibly marked ``CALCULATED RESULT---UNSEALED'' and are presented 
 calculated, integrity-admitted results available for scientific review. This status does
 not itself establish scientific validity, seal evidence, or confer publication
 acceptance. Their cache integrity and calculation-infrastructure identity are recorded;
-exhaustive byte-owning recomputation and authenticated rendering are not
-ordinary-production requirements.
+full independent recomputation of every serialized byte is not an ordinary production
+requirement.
 \end{abstract}
 
 \noindent\textbf{Keywords:} composite bands; gauge covariance; Procrustes alignment;
@@ -98,7 +98,7 @@ The central scientific question is:
 
 \begin{quote}
 For a fixed isolated retained operator, how do retained rank, noncommuting gauge-circuit
-depth, and a prospectively selected gauge-alignment family affect matrix-valued hopping
+depth, and a predeclared gauge-alignment family affect matrix-valued hopping
 locality and the error of deliberate finite-support truncation?
 \end{quote}
 
@@ -540,7 +540,7 @@ For odd $M$, the canonical translation inventory is
 $\mathcal R_M=\{-(M-1)/2,\ldots,(M-1)/2\}$. There is no self-inverse Nyquist singleton;
 the canonical disposition is \texttt{absent-on-odd-mesh}.
 
-\subsection{Discrete transform and support policy}
+\subsection{Discrete transform, diagnostic ranges, and support policy}
 
 For one gauge alignment $a$, the finite-periodic transform is
 \begin{equation}
@@ -553,14 +553,21 @@ Only the forward transform carries $1/M$. The complete coefficient inventory is 
 reconstruction and tail calculations. The public result retains the bounded norm
 inventory $|R|\leq128$ rather than serializing all dense coefficient arrays.
 
-The frozen supports are
+The declared integer ranges serve two scientifically distinct roles. In the
+hopping-diagnostic inventory, a range partitions the unchanged coefficient field into
+included and omitted blocks for measurement only. In the retained-support inventory,
+the same integer interval defines a new field by setting exterior coefficients to zero.
+Numerically identical ranges therefore remain non-interchangeable: the first operation
+is diagnostic, whereas the second is an irreversible model-reduction action.
+
+The declared maximum ranges are
 \begin{equation}
  \Omega_S=\{R\in\mathbb Z:|R|\leq S\},
  \qquad S\in\{0,1,2,4,8,16,32,64,128\}.
  \label{eq:supports}
 \end{equation}
-Every support contains inversion pairs. All nine are evaluated; no first-passing or
-plot-selected support is promoted.
+Every range contains inversion pairs. All nine ranges are evaluated in both typed
+inventories; no first-passing or plot-selected range is promoted.
 
 For the reference diagonal field, Equations~\eqref{eq:retained-energy} and
 \eqref{eq:continuum-fourier} imply an exact support certificate.
@@ -584,19 +591,19 @@ still require numerical checks.
 
 \subsection{Tail and error diagnostics}
 
-For support $\Omega_S$, define the omitted quadratic weight, its square root, and the
-block-$\ell^1$ tail:
+For hopping-diagnostic cutoff $S$, define the omitted quadratic weight, its square root,
+and the block-$\ell^1$ tail from the unchanged coefficients:
 \begin{align}
  W_{a,M}(S)&=\sum_{R\notin\Omega_S}\|T_{a,M}(R)\|_\Frob^2,\\
  N_{a,M}(S)&=\sqrt{W_{a,M}(S)},\\
  L_{a,M}(S)&=\sum_{R\notin\Omega_S}\|T_{a,M}(R)\|_\Frob.
 \end{align}
 Cross-rank comparisons retain $W/(r\Eref^2)$ and $N/(\sqrt r\Eref)$ in addition to raw
-values. This prospective normalization prevents matrix dimension alone from determining
+values. This predeclared normalization prevents matrix dimension alone from determining
 a trend.
 
-On the shifted mesh, the full interpolant, truncated interpolant, and direct analytic
-reference define
+For retained support $\Omega_S$, the shifted-mesh full interpolant, truncated
+interpolant, and direct analytic reference define
 \begin{align}
  e_{\mathrm{interp}}(k)&=H_{a,M}(k)-H_a^{\mathrm{direct}}(k),\\
  e_{\mathrm{trunc}}^{(S)}(k)&=H_{a,M}^{(S)}(k)-H_{a,M}(k),\\
@@ -851,15 +858,16 @@ constitute independent numerical verification of a scientific result.
 \subsection{Calculated numerical snapshot: scope and admission boundary}
 \label{sec:development-snapshot}
 
-The fixed report renderer was exercised on all 16 rank/depth cases. It projects the
-final producer objects into immutable plotting arrays and renders the nine views declared
-before this full-grid execution. The calculation completed all requested producer paths and wrote canonical typed case
+The fixed report renderer was exercised on all 16 rank/depth cases. It assembles
+immutable plotting arrays from the final producer objects and renders the nine views
+declared before this full-grid execution. The calculation completed all requested
+producer paths and wrote canonical typed case
 bytes to a reusable calculation cache. A separate integrity admission binds their
 manifest digest and checks canonical round trips and complete inventory. The admitted
 manifest SHA-256 is
-\texttt{64d9facd876183efa85b77d9351317a4a3adebd266bbb0ce9a25fae6fbbf02a7};
+\nolinkurl{2bba6a5a208945018dc462a142412e0d6cfaba436a58fec03a1cd33cc48d4673};
 it records calculation-infrastructure SHA-256
-\texttt{7cdd7788a2eda7cfdf0379ce1569fba10b56ea3ad9302ca234bad05b0787159b}.
+\nolinkurl{4db05dadca1818469484b132ba0a7776c0a9281ee956e6cf94490104de0a70dd}.
 That infrastructure identity binds the explicitly selected scientific producer and
 numerical collaborator sources, not plotting or report sources. Presentation changes can
 therefore regenerate all nine views from the admitted result bytes without repeating the
@@ -875,9 +883,10 @@ an acceptance standard nor a claim of accuracy beyond binary64 computational pre
 
 \subsubsection{$S=2$ alignment--locality plane}
 
-Figure~\ref{fig:development-alignment-locality} places the final-mesh normalized frame-
-recovery defect on the horizontal axis and the normalized omitted Fourier tail at the
-frozen support $S=2$ on the vertical axis. Four gauge panels each retain all 16 cases;
+Figure~\ref{fig:development-alignment-locality} places the final-mesh normalized
+frame-recovery defect on the horizontal axis and the normalized omitted-block norm
+beyond the hopping-diagnostic cutoff $S=2$ on the vertical axis. Four gauge panels each
+retain all 16 cases;
 rank is encoded by marker, depth by color, and the paired $M=1025$ and $M=2049$ marks
 make mesh movement visible without converting it to a percentage near zero. Across the final
 mesh, identity and global-unitary tails span $8.02\times10^{-4}$ to
@@ -892,29 +901,33 @@ recovered the reference frame.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-alignment-locality-s2.png}
-\caption{Calculated, unsealed $S=2$ alignment--locality plane for all 16 cases. Absolute
-normalized operands are plotted separately; no unstable identity/oracle ratio is used.}
+\caption{Calculated, unsealed alignment--locality plane for all 16 cases at
+hopping-diagnostic cutoff $S=2$. The axes report absolute normalized operands; no
+identity-to-oracle ratio is formed from roundoff-scale denominators.}
 \label{fig:development-alignment-locality}
 \end{figure}
 
-\subsubsection{Complete support paths and Fourier-block locality}
+\subsubsection{Hopping diagnostics and Fourier-block locality}
 
-Figure~\ref{fig:development-support-paths} shows every frozen support for every case and
-gauge alignment. Identity and global-unitary paths decrease over several support scales
-before reaching the roundoff floor, whereas pointwise and oracle paths reach that floor
-at $S=2$, as predicted by the analytic support certificate. No support is removed because
-it appears visually redundant. At the prospectively fixed interior anchor $(r,L)=(8,4)$,
-the identity tail decreases from $1.52\times10^{-1}$ at $S=0$ to
-$1.21\times10^{-2}$ at $S=2$, $6.64\times10^{-6}$ at $S=8$, and
-$2.23\times10^{-11}$ at $S=16$ before reaching the numerical floor near $S=32$.
-The global-unitary values agree at the displayed precision. The pointwise and oracle
-tails are already about $2\times10^{-16}$ at $S=2$.
+Figure~\ref{fig:development-support-paths} evaluates the unchanged Fourier coefficients
+against every declared hopping-diagnostic cutoff. These inventories diagnose omitted
+block weight; they do not themselves apply a support-truncation policy. Identity and
+global-unitary tails decrease across several cutoffs before reaching the roundoff floor,
+whereas the pointwise and oracle tails reach that floor at $S=2$, consistently with the
+analytic support certificate. No cutoff is omitted because its curve appears visually
+redundant. At the fixed interior anchor $(r,L)=(8,4)$, the identity tail decreases from
+$1.52\times10^{-1}$ at $S=0$ to $1.21\times10^{-2}$ at $S=2$,
+$6.64\times10^{-6}$ at $S=8$, and $2.23\times10^{-11}$ at $S=16$ before reaching the
+numerical floor near $S=32$. The global-unitary values agree at the displayed precision.
+The pointwise and oracle tails are already about $2\times10^{-16}$ at $S=2$.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{development-figures/development-support-locality-paths.png}
-\caption{Calculated, unsealed complete support-path locality curves. Rows are ranks, columns
-are gauge alignments, and line style/color identifies circuit depth.}
+\includegraphics[width=\textwidth]{development-figures/development-hopping-diagnostic-paths.png}
+\caption{Calculated, unsealed hopping-tail diagnostics across the declared cutoff
+inventory. Rows denote retained rank, columns denote gauge alignment, and line style
+and color denote circuit depth. The ordinate is computed from unchanged coefficients;
+it is not a truncation error.}
 \label{fig:development-support-paths}
 \end{figure}
 
@@ -934,8 +947,9 @@ The vertical line marks the exact reference support boundary $|R|=2$.}
 
 \subsubsection{Interpolation, truncation, and total-error channels}
 
-Figure~\ref{fig:development-error-channels} displays the three error channels as
-separate, non-stacked curves. The complete-interpolant error is support independent and
+Figure~\ref{fig:development-error-channels} applies each declared retained-support
+policy and displays the resulting three error channels as separate, non-stacked curves.
+The complete-interpolant error is support independent and
 stays near binary64 roundoff at the anchor. It is therefore much smaller than truncation
 over most of the support path, so the truncation and total curves nearly coincide and one
 can obscure the other if drawn with identical markers. The revised figure draws total as
@@ -964,9 +978,12 @@ residual-field decomposition-identity diagnostic, not a fourth error channel.}
 
 \subsubsection{Frozen claim operands and refinement}
 
-Figure~\ref{fig:development-claim-resolution} reports the three absolute $S=2$
+Figure~\ref{fig:development-claim-resolution} reports three absolute $S=2$
 locality-extension operands and one supporting global-frame diagnostic, preserving every
-rank/depth cell. In this calculated snapshot, all 16 cells satisfy each displayed
+rank/depth cell. The tail operands use the hopping-diagnostic inventory, whereas the
+total ordered-spectrum operand uses the retained-support analysis at the same integer
+range. Equal numerical cutoffs therefore do not make the two inventories
+interchangeable. In this calculated snapshot, all 16 cells satisfy each displayed
 inequality: identity tails are at least $10^{-6}$, oracle tails are at most $10^{-10}$,
 identity total ordered-spectrum errors are at least $10^{-6}$, and global frame residuals
 are at least $10^{-6}$. The identity $S=2$ total ordered-spectrum error ranges from
@@ -982,8 +999,10 @@ figure can assign a retained claim disposition.
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-s2-claim-resolution.png}
 \caption{Calculated, unsealed locality-extension operands and supporting global-frame
-matrix. Color encodes the logarithm of the absolute normalized operand; green and red
-cell borders denote whether the displayed condition is met. Missing, failed,
+matrix. Tail panels report hopping diagnostics; the ordered-spectrum panel reports a
+retained-support consequence. Color encodes the logarithm of the absolute normalized
+operand, and green or red cell borders denote whether the displayed condition is met.
+Missing, failed,
 aggregate-rank-deficient, and inapplicable states remain categorical rather than being
 colored as numerical zero.}
 \label{fig:development-claim-resolution}
@@ -1021,7 +1040,7 @@ rank/depth effect ratios.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{development-figures/development-rank-depth-scaling.png}
-\caption{Calculated, unsealed rank/depth scaling at the prospectively fixed support
+\caption{Calculated, unsealed rank/depth scaling at the predeclared retained support
 $S=2$. Rows are gauge alignments; columns distinguish total operator and total
 ordered-spectrum error. Numeric annotations retain the absolute normalized values.}
 \label{fig:development-rank-depth}
@@ -1183,7 +1202,7 @@ representation. A deterministic noncommuting gauge circuit can change matrix-val
 hopping locality while preserving the retained projector and pointwise spectrum; the
 finite change shown here is a calculated, integrity-admitted observation available for
 scientific review, while remaining unsealed and separate from publication acceptance.
-Four prospectively fixed gauge alignments probe different information constraints, and a
+Four predeclared gauge alignments probe different information constraints, and a
 common transport control prevents frame-sewing effects from being conflated with gauge
 selection.
 

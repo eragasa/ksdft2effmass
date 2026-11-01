@@ -22,6 +22,10 @@ from ksdft2effmass.numerical_consistency import (
     ReciprocalMeshRefinementFamily,
     ReciprocalMeshRefinementFamilyMember,
 )
+from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
+    Periodic1DRank2TruncationFamilyAnalysis,
+    Periodic1DRank2TruncationFamilyRequest,
+)
 from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationFamily,
     RealSpaceSupportTruncationFamilyMember,
@@ -68,17 +72,13 @@ from ..parent_scale.results import (
     Periodic1DRank2Qualification,
     Periodic1DRank2QualifiedParent,
 )
-from ..truncation.family import (
-    Periodic1DRank2TruncationFamilyAnalysis,
-    Periodic1DRank2TruncationFamilyRequest,
-)
 
 if TYPE_CHECKING:
-    from ..truncation.request import (
-        Periodic1DRank2TruncationRequest,
+    from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
+        Periodic1DRank2SupportTruncationAnalysisRequest,
     )
-    from ..truncation.results import (
-        Periodic1DRank2TruncationAnalysis,
+    from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+        Periodic1DRank2SupportTruncationAnalysis,
         Periodic1DRank2TruncationPoint,
         Periodic1DRank2TruncationRange,
     )
@@ -1346,7 +1346,7 @@ def _amplitude_from_mapping(
 
 
 def _truncation_request_mapping(
-    value: Periodic1DRank2TruncationRequest,
+    value: Periodic1DRank2SupportTruncationAnalysisRequest,
 ) -> Mapping[str, SerializableValue]:
     return {
         "template_request": _request_mapping(value.template_request),
@@ -1357,9 +1357,9 @@ def _truncation_request_mapping(
 
 def _truncation_request_from_mapping(
     values: Mapping[str, SerializableValue],
-) -> Periodic1DRank2TruncationRequest:
-    from ..truncation.request import (
-        Periodic1DRank2TruncationRequest,
+) -> Periodic1DRank2SupportTruncationAnalysisRequest:
+    from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
+        Periodic1DRank2SupportTruncationAnalysisRequest,
     )
 
     _fields(
@@ -1367,7 +1367,7 @@ def _truncation_request_from_mapping(
         {"template_request", "maximum_ranges", "evaluation_mesh_size"},
         "truncation request",
     )
-    return Periodic1DRank2TruncationRequest(
+    return Periodic1DRank2SupportTruncationAnalysisRequest(
         template_request=_request_from_mapping(
             _mapping_value(values, "template_request")
         ),
@@ -1406,7 +1406,7 @@ def _truncation_range_mapping(
 def _truncation_range_from_mapping(
     values: Mapping[str, SerializableValue],
 ) -> Periodic1DRank2TruncationRange:
-    from ..truncation.results import (
+    from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
         Periodic1DRank2TruncationRange,
     )
 
@@ -1515,7 +1515,7 @@ def _truncation_point_mapping(
 def _truncation_point_from_mapping(
     values: Mapping[str, SerializableValue],
 ) -> Periodic1DRank2TruncationPoint:
-    from ..truncation.results import (
+    from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
         Periodic1DRank2TruncationPoint,
     )
 
@@ -1565,9 +1565,9 @@ def _truncation_point_from_mapping(
 
 
 def _truncation_mapping(
-    value: Periodic1DRank2TruncationAnalysis,
+    value: Periodic1DRank2SupportTruncationAnalysis,
 ) -> Mapping[str, SerializableValue]:
-    from ..truncation.results import (
+    from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
         Periodic1DRank2TruncationCompleted,
         Periodic1DRank2TruncationQualificationStopped,
     )
@@ -1600,8 +1600,8 @@ def _truncation_mapping(
 
 def _truncation_from_mapping(
     values: Mapping[str, SerializableValue],
-) -> Periodic1DRank2TruncationAnalysis:
-    from ..truncation.results import (
+) -> Periodic1DRank2SupportTruncationAnalysis:
+    from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
         Periodic1DRank2TruncationCompleted,
         Periodic1DRank2TruncationQualificationStopped,
     )
@@ -1783,7 +1783,7 @@ class Periodic1DRank2TruncationFamilyAnalysisRecord(BaseTypedRecord):
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
-        from ..truncation.results import (
+        from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
             Periodic1DRank2TruncationCompleted,
             Periodic1DRank2TruncationQualificationStopped,
         )
@@ -1844,11 +1844,11 @@ class Periodic1DRank2CalculationRecord(BaseTypedRecord):
     parent_family: Periodic1DRank2ParentFamilyAnalysis
     momentum_refinement: Periodic1DRank2MomentumRefinementAnalysis
     adaptive_amplitude: Periodic1DRank2AdaptiveAmplitudeAnalysis
-    truncation: Periodic1DRank2TruncationAnalysis
+    truncation: Periodic1DRank2SupportTruncationAnalysis
 
     def __post_init__(self) -> None:
-        from ..truncation.results import (
-            Periodic1DRank2TruncationAnalysis,
+        from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+            Periodic1DRank2SupportTruncationAnalysis,
         )
 
         if type(self.parent_family) is not (Periodic1DRank2ParentFamilyAnalysis):
@@ -1865,7 +1865,7 @@ class Periodic1DRank2CalculationRecord(BaseTypedRecord):
             raise TypeError("adaptive_amplitude must be a closed analysis outcome")
         if not isinstance(
             self.truncation,
-            Periodic1DRank2TruncationAnalysis,
+            Periodic1DRank2SupportTruncationAnalysis,
         ):
             raise TypeError("truncation must be a closed analysis outcome")
         requests = (

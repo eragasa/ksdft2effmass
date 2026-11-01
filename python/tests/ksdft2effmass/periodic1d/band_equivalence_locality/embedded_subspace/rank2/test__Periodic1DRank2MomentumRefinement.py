@@ -11,17 +11,23 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementAnalysis,
     Periodic1DRank2MomentumRefinementAnalyzer,
     Periodic1DRank2MomentumRefinementConverged,
-    Periodic1DRank2MomentumRefinementIndependentVerifier,
     Periodic1DRank2MomentumRefinementQualificationStopped,
     Periodic1DRank2MomentumRefinementRequest,
     Periodic1DRank2MomentumRefinementThresholds,
     Periodic1DRank2MomentumRefinementUnresolved,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.verification import (  # noqa: E501
+    Periodic1DRank2MomentumRefinementIndependentVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
 
 def _template() -> Periodic1DRank2Request:

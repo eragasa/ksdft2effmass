@@ -6,9 +6,10 @@ import math
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.numerics.validation import exact_nonnegative_float
 from projectkoios.physkit.solidstate.tb import FinitePeriodicMatrixFourierSeries
 
-from ._validation import nonnegative_float, positive_float
+from ..normalization import positive_norm_energy_scale
 
 
 @dataclass(frozen=True, slots=True)
@@ -23,8 +24,11 @@ class FourierMatrixBlockNorm1D:
         """Validate exact translation and finite nonnegative norms."""
         if type(self.translation) is not int:
             raise TypeError("translation must be a built-in int")
-        nonnegative_float("raw_frobenius_norm", self.raw_frobenius_norm)
-        nonnegative_float("normalized_frobenius_norm", self.normalized_frobenius_norm)
+        exact_nonnegative_float(self.raw_frobenius_norm, "raw_frobenius_norm")
+        exact_nonnegative_float(
+            self.normalized_frobenius_norm,
+            "normalized_frobenius_norm",
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,7 +38,7 @@ class FourierMatrixBlockNormInventory1D:
     series: FinitePeriodicMatrixFourierSeries
     maximum_range: int
     rank: int
-    energy_reference: float
+    norm_energy_scale: float
     blocks: tuple[FourierMatrixBlockNorm1D, ...]
 
     def __post_init__(self) -> None:
@@ -51,7 +55,7 @@ class FourierMatrixBlockNormInventory1D:
             raise TypeError("rank must be a built-in int")
         if self.rank != self.series.matrix_size:
             raise ValueError("rank must equal the source-series matrix size")
-        energy_reference = positive_float("energy_reference", self.energy_reference)
+        norm_energy_scale = positive_norm_energy_scale(self.norm_energy_scale)
         if type(self.blocks) is not tuple or any(
             type(block) is not FourierMatrixBlockNorm1D for block in self.blocks
         ):
@@ -75,7 +79,7 @@ class FourierMatrixBlockNormInventory1D:
                 strict=True,
             )
         }
-        scale = math.sqrt(self.rank) * energy_reference
+        scale = math.sqrt(self.rank) * norm_energy_scale
         for block in self.blocks:
             expected_raw = float(np.linalg.norm(source_lookup[block.translation]))
             if block.raw_frobenius_norm != expected_raw:
@@ -93,7 +97,7 @@ class FourierMatrixBlockNormInventoryAnalyzer1D:
         self,
         series: FinitePeriodicMatrixFourierSeries,
         maximum_range: int,
-        energy_reference: float,
+        norm_energy_scale: float,
     ) -> FourierMatrixBlockNormInventory1D:
         """Return every represented block with ``abs(R) <= maximum_range``."""
         if type(series) is not FinitePeriodicMatrixFourierSeries:
@@ -104,12 +108,12 @@ class FourierMatrixBlockNormInventoryAnalyzer1D:
             raise TypeError("maximum_range must be a built-in int")
         if maximum_range < 0:
             raise ValueError("maximum_range must be nonnegative")
-        energy_reference = positive_float("energy_reference", energy_reference)
+        norm_energy_scale = positive_norm_energy_scale(norm_energy_scale)
         translations = tuple(int(value) for value in series.integer_modes[:, 0])
         if translations != tuple(sorted(set(translations))):
             raise ValueError("series translations must be unique and increasing")
         rank = series.matrix_size
-        scale = math.sqrt(rank) * energy_reference
+        scale = math.sqrt(rank) * norm_energy_scale
         blocks = tuple(
             FourierMatrixBlockNorm1D(
                 translation=translation,
@@ -128,7 +132,7 @@ class FourierMatrixBlockNormInventoryAnalyzer1D:
             series=series,
             maximum_range=maximum_range,
             rank=rank,
-            energy_reference=energy_reference,
+            norm_energy_scale=norm_energy_scale,
             blocks=blocks,
         )
 
@@ -142,7 +146,7 @@ class SymmetricRangeTailDiagnostics1D:
     retained_translations: tuple[int, ...]
     omitted_translations: tuple[int, ...]
     rank: int
-    energy_reference: float
+    norm_energy_scale: float
     omitted_squared_frobenius_weight: float
     omitted_frobenius_l2_norm: float
     omitted_block_l1_norm: float
@@ -213,7 +217,7 @@ class SymmetricRangeTailDiagnostics1D:
             raise ValueError("rank must be positive")
         if self.rank != self.series.matrix_size:
             raise ValueError("rank must equal the source-series matrix size")
-        energy_reference = positive_float("energy_reference", self.energy_reference)
+        norm_energy_scale = positive_norm_energy_scale(self.norm_energy_scale)
         for name, value in (
             (
                 "omitted_squared_frobenius_weight",
@@ -234,13 +238,13 @@ class SymmetricRangeTailDiagnostics1D:
                 self.normalized_omitted_block_l1_norm,
             ),
         ):
-            nonnegative_float(name, value)
+            exact_nonnegative_float(value, name)
         if self.omitted_frobenius_l2_norm != math.sqrt(
             self.omitted_squared_frobenius_weight
         ):
             raise ValueError("omitted l2 norm must be the square root of the weight")
-        squared_scale = self.rank * energy_reference**2
-        linear_scale = math.sqrt(self.rank) * energy_reference
+        squared_scale = self.rank * norm_energy_scale**2
+        linear_scale = math.sqrt(self.rank) * norm_energy_scale
         normalized = (
             self.normalized_omitted_squared_frobenius_weight,
             self.normalized_omitted_frobenius_l2_norm,
@@ -264,7 +268,7 @@ class SymmetricRangeTailAnalyzer1D:
         self,
         series: FinitePeriodicMatrixFourierSeries,
         maximum_range: int,
-        energy_reference: float,
+        norm_energy_scale: float,
     ) -> SymmetricRangeTailDiagnostics1D:
         """Return raw and normalized ``W``, ``N``, and block-``l1`` tails."""
         if type(series) is not FinitePeriodicMatrixFourierSeries:
@@ -275,7 +279,7 @@ class SymmetricRangeTailAnalyzer1D:
             raise TypeError("maximum_range must be a built-in int")
         if maximum_range < 0:
             raise ValueError("maximum_range must be nonnegative")
-        energy_reference = positive_float("energy_reference", energy_reference)
+        norm_energy_scale = positive_norm_energy_scale(norm_energy_scale)
         translations = series.integer_modes[:, 0]
         translation_inventory = tuple(int(value) for value in translations)
         if translation_inventory != tuple(sorted(set(translation_inventory))):
@@ -289,8 +293,8 @@ class SymmetricRangeTailAnalyzer1D:
         l2_norm = math.sqrt(weight)
         l1_norm = float(np.sum(block_norms))
         rank = series.matrix_size
-        squared_scale = rank * energy_reference**2
-        linear_scale = math.sqrt(rank) * energy_reference
+        squared_scale = rank * norm_energy_scale**2
+        linear_scale = math.sqrt(rank) * norm_energy_scale
         return SymmetricRangeTailDiagnostics1D(
             series=series,
             maximum_range=maximum_range,
@@ -301,7 +305,7 @@ class SymmetricRangeTailAnalyzer1D:
                 int(value) for value in translations[~retained_mask]
             ),
             rank=rank,
-            energy_reference=energy_reference,
+            norm_energy_scale=norm_energy_scale,
             omitted_squared_frobenius_weight=weight,
             omitted_frobenius_l2_norm=l2_norm,
             omitted_block_l1_norm=l1_norm,
@@ -341,7 +345,7 @@ class SymmetricRangeTailMonotonicityDiagnostics1D:
             ("normalized_l1_norm_increase", self.normalized_l1_norm_increase),
             ("tolerance", self.tolerance),
         ):
-            nonnegative_float(name, value)
+            exact_nonnegative_float(value, name)
         if type(self.passes) is not bool:
             raise TypeError("passes must be a built-in bool")
         expected = (
@@ -371,7 +375,7 @@ class SymmetricRangeTailMonotonicityAnalyzer1D:
             raise TypeError("tails must be a nonempty tuple")
         if any(type(item) is not SymmetricRangeTailDiagnostics1D for item in tails):
             raise TypeError("tails must contain SymmetricRangeTailDiagnostics1D")
-        tolerance = nonnegative_float("tolerance", tolerance)
+        tolerance = exact_nonnegative_float(tolerance, "tolerance")
         ranges = tuple(item.maximum_range for item in tails)
         if ranges != tuple(sorted(set(ranges))):
             raise ValueError("tail ranges must be unique and increasing")
@@ -379,7 +383,7 @@ class SymmetricRangeTailMonotonicityAnalyzer1D:
         if any(
             item.series is not first.series
             or item.rank != first.rank
-            or item.energy_reference != first.energy_reference
+            or item.norm_energy_scale != first.norm_energy_scale
             for item in tails[1:]
         ):
             raise ValueError("tails must describe one series and normalization")
