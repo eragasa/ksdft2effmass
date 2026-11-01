@@ -10,7 +10,10 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesResult,
 )
 
-from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisRequest
+from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
+from ksdft2effmass.periodic1d.gauge_alignment import (
+    Periodic1DGaugeAlignmentAnalysisRequest,
+)
 
 from ..band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
@@ -30,7 +33,9 @@ from .status import (
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNGaugeAlignmentAnalysisRequest(GaugeAlignmentAnalysisRequest):
+class Periodic1DRankNGaugeAlignmentAnalysisRequest(
+    Periodic1DGaugeAlignmentAnalysisRequest
+):
     """Bind one qualified gauge alignment and its immutable scientific inputs."""
 
     calculation_request: Periodic1DRankNAlignmentCalculationRequest
@@ -155,19 +160,14 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(GaugeAlignmentAnalysisRequest
             raise ValueError("global selection must match the calculation request")
 
     @property
-    def retained_rank(self) -> int:
-        """Return the retained rank declared by the bound analytic case."""
-        return self.model.retained_rank
-
-    @property
-    def gauge_group(self) -> str:
-        """Return the unitary group acting within the retained state space."""
-        return f"U({self.retained_rank})"
-
-    @property
-    def alignment_sample_count(self) -> int:
-        """Return the construction-mesh sample count covered by the analysis."""
-        return self.mesh.size
+    def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
+        """Return the finite higher-rank alignment identity."""
+        rank = self.model.retained_rank
+        return GaugeAlignmentAnalysisIdentity(
+            retained_rank=rank,
+            gauge_group=f"U({rank})",
+            alignment_sample_count=self.mesh.size,
+        )
 
 
 __all__ = ["Periodic1DRankNGaugeAlignmentAnalysisRequest"]

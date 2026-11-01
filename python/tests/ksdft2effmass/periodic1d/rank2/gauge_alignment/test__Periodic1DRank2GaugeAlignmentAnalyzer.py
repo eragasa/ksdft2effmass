@@ -84,15 +84,18 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
                 composite_configuration.dimensionless_absolute_tolerance
             ),
         )
-        result = Periodic1DRank2GaugeAlignmentAnalyzer(
+        analyzer = Periodic1DRank2GaugeAlignmentAnalyzer(
             request,
             NumpyBatchedComplexUnitaryProcrustesSolver(),
-        ).execute()
+        )
+        result = analyzer.execute()
 
         assert request.retained_rank == 2
         assert request.gauge_group == "U(2)"
         assert request.alignment_sample_count == mesh.point_count
         assert type(result) is Periodic1DRank2GaugeAlignmentAnalysis
+        assert analyzer.analysis_identity == request.analysis_identity
+        assert result.analysis_identity == request.analysis_identity
         assert result.retained_rank == request.retained_rank
         assert result.gauge_group == request.gauge_group
         assert result.alignment_sample_count == request.alignment_sample_count

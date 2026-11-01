@@ -6,9 +6,10 @@ and attacked orthonormal frame paths, selects pointwise and one aggregate Procru
 right actions, and returns the aligned paths, selected matrices, singular-value evidence,
 and applied rank cutoffs.
 
-The capability implements the shared `GaugeAlignmentAnalysisRequest`,
-`GaugeAlignmentAnalysis`, and `GaugeAlignmentAnalyzer` role contracts through the
-standard action triad:
+The capability implements the periodic-1D specializations of the shared
+`GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
+`GaugeAlignmentAnalyzer` role contracts. Every role exposes the same validated
+`GaugeAlignmentAnalysisIdentity` through the standard action triad:
 
 - `Periodic1DRank2GaugeAlignmentAnalysisRequest` binds the two frame paths and
   Procrustes tolerances;

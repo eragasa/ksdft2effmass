@@ -7,10 +7,16 @@ import pytest
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignment,
     GaugeAlignmentAnalysis,
+    GaugeAlignmentAnalysisIdentity,
     GaugeAlignmentAnalysisRequest,
     GaugeAlignmentAnalyzer,
 )
-from ksdft2effmass.periodic1d.gauge_alignment import Periodic1DGaugeAlignment
+from ksdft2effmass.periodic1d.gauge_alignment import (
+    Periodic1DGaugeAlignment,
+    Periodic1DGaugeAlignmentAnalysis,
+    Periodic1DGaugeAlignmentAnalysisRequest,
+    Periodic1DGaugeAlignmentAnalyzer,
+)
 from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DRank2AlignmentStudyAnalyzer,
     Periodic1DRankNAlignmentStudyAnalyzer,
@@ -47,41 +53,74 @@ class TestGaugeAlignment:
         self,
     ) -> None:
         assert GaugeAlignmentAnalysisRequest.__abstractmethods__ == {
-            "alignment_sample_count",
-            "gauge_group",
-            "retained_rank",
+            "analysis_identity"
         }
-        assert GaugeAlignmentAnalysis.__abstractmethods__ == {
-            "alignment_sample_count",
-            "gauge_group",
-            "retained_rank",
-        }
+        assert GaugeAlignmentAnalysis.__abstractmethods__ == {"analysis_identity"}
         assert GaugeAlignmentAnalyzer.__abstractmethods__ == {"execute", "request"}
+
+    def test__analysis_identity__validates_exact_common_values(self) -> None:
+        identity = GaugeAlignmentAnalysisIdentity(
+            retained_rank=2,
+            gauge_group="U(2)",
+            alignment_sample_count=8,
+        )
+
+        assert identity.retained_rank == 2
+        assert identity.gauge_group == "U(2)"
+        assert identity.alignment_sample_count == 8
+        with pytest.raises(TypeError, match="retained_rank"):
+            GaugeAlignmentAnalysisIdentity(True, "U(2)", 8)  # type: ignore[arg-type]
+        with pytest.raises(ValueError, match="retained_rank"):
+            GaugeAlignmentAnalysisIdentity(0, "U(0)", 8)
+        with pytest.raises(ValueError, match="gauge_group"):
+            GaugeAlignmentAnalysisIdentity(2, "", 8)
+        with pytest.raises(TypeError, match="alignment_sample_count"):
+            GaugeAlignmentAnalysisIdentity(2, "U(2)", True)  # type: ignore[arg-type]
+
+    def test__periodic_role_bases__specialize_every_shared_role(self) -> None:
+        assert issubclass(
+            Periodic1DGaugeAlignmentAnalysisRequest,
+            GaugeAlignmentAnalysisRequest,
+        )
+        assert issubclass(
+            Periodic1DGaugeAlignmentAnalysis,
+            GaugeAlignmentAnalysis,
+        )
+        assert issubclass(
+            Periodic1DGaugeAlignmentAnalyzer,
+            GaugeAlignmentAnalyzer,
+        )
+        for value in (
+            Periodic1DGaugeAlignmentAnalysisRequest,
+            Periodic1DGaugeAlignmentAnalysis,
+            Periodic1DGaugeAlignmentAnalyzer,
+        ):
+            assert issubclass(value, Periodic1DGaugeAlignment)
 
     def test__rank2_and_rankN_classes__implement_every_analysis_role(self) -> None:
         assert issubclass(
             Periodic1DRank2GaugeAlignmentAnalysisRequest,
-            GaugeAlignmentAnalysisRequest,
+            Periodic1DGaugeAlignmentAnalysisRequest,
         )
         assert issubclass(
             Periodic1DRankNGaugeAlignmentAnalysisRequest,
-            GaugeAlignmentAnalysisRequest,
+            Periodic1DGaugeAlignmentAnalysisRequest,
         )
         assert issubclass(
             Periodic1DRank2GaugeAlignmentAnalysis,
-            GaugeAlignmentAnalysis,
+            Periodic1DGaugeAlignmentAnalysis,
         )
         assert issubclass(
             Periodic1DRankNGaugeAlignmentMeshResult,
-            GaugeAlignmentAnalysis,
+            Periodic1DGaugeAlignmentAnalysis,
         )
         assert issubclass(
             Periodic1DRank2GaugeAlignmentAnalyzer,
-            GaugeAlignmentAnalyzer,
+            Periodic1DGaugeAlignmentAnalyzer,
         )
         assert issubclass(
             rankN_gauge_alignment_analysis.Periodic1DRankNGaugeAlignmentAnalyzer,
-            GaugeAlignmentAnalyzer,
+            Periodic1DGaugeAlignmentAnalyzer,
         )
 
     def test__periodic_rank_actions__share_nominal_owner(self) -> None:

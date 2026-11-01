@@ -42,12 +42,15 @@ into historical retained wires.
 
 `ksdft2effmass.gauge_alignment.GaugeAlignment` identifies retained-space gauge
 alignment or an exact applicability boundary. The narrower
+`GaugeAlignmentAnalysisIdentity` validates the exact retained rank, gauge group, and
+ordered alignment-sample count shared by the narrower
 `GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
-`GaugeAlignmentAnalyzer` role bases require explicit retained rank, gauge group,
-ordered alignment-sample count, request ownership, and zero-argument execution. They do
-not merge family-specific fields, solvers, tolerances, outcomes, or wires. The periodic
-specialization `Periodic1DGaugeAlignment` does not own a default lattice, gauge group,
-solver, tolerance, or wire.
+`GaugeAlignmentAnalyzer` role bases. The analyzer delegates that identity from its bound
+request and adds request ownership plus zero-argument execution. These bases do not merge
+family-specific fields, solvers, tolerances, outcomes, or wires. The corresponding
+`Periodic1DGaugeAlignmentAnalysisRequest`, `Periodic1DGaugeAlignmentAnalysis`, and
+`Periodic1DGaugeAlignmentAnalyzer` bases add dimensional ownership without selecting a
+default lattice, solver, tolerance, or wire.
 
 The rank-first Periodic1D alignment factory dispatches only on exact typed study
 specifications. Every specification binds explicit `Periodic1DLatticeGeometry`:

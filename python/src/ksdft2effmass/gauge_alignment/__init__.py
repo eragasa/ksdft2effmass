@@ -3,6 +3,7 @@
 from .base import (
     GaugeAlignment,
     GaugeAlignmentAnalysis,
+    GaugeAlignmentAnalysisIdentity,
     GaugeAlignmentAnalysisRequest,
     GaugeAlignmentAnalyzer,
 )
@@ -10,6 +11,7 @@ from .base import (
 __all__ = [
     "GaugeAlignment",
     "GaugeAlignmentAnalysis",
+    "GaugeAlignmentAnalysisIdentity",
     "GaugeAlignmentAnalysisRequest",
     "GaugeAlignmentAnalyzer",
 ]

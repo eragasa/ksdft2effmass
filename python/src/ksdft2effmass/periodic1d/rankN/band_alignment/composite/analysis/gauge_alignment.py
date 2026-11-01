@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from typing import final
 
-from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalyzer
+from ksdft2effmass.periodic1d.gauge_alignment import (
+    Periodic1DGaugeAlignmentAnalyzer,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (
     Periodic1DRankNFourierAnalysisRequest,
     Periodic1DRankNFourierAnalyzer,
@@ -38,7 +40,7 @@ from ..result.gauge_alignment import Periodic1DRankNGaugeAlignmentMeshResult
 
 @final
 class Periodic1DRankNGaugeAlignmentAnalyzer(
-    GaugeAlignmentAnalyzer[
+    Periodic1DGaugeAlignmentAnalyzer[
         Periodic1DRankNGaugeAlignmentAnalysisRequest,
         Periodic1DRankNGaugeAlignmentMeshResult,
     ]
