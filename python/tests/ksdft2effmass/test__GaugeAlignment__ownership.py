@@ -6,10 +6,12 @@ import pytest
 
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignment,
+    GaugeAlignmentActionConvention,
     GaugeAlignmentAnalysis,
     GaugeAlignmentAnalysisIdentity,
     GaugeAlignmentAnalysisRequest,
     GaugeAlignmentAnalyzer,
+    GaugeAlignmentInnerProductConvention,
 )
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignment,
@@ -56,26 +58,102 @@ class TestGaugeAlignment:
             "analysis_identity"
         }
         assert GaugeAlignmentAnalysis.__abstractmethods__ == {"analysis_identity"}
-        assert GaugeAlignmentAnalyzer.__abstractmethods__ == {"execute", "request"}
+        assert GaugeAlignmentAnalyzer.__abstractmethods__ == {"_execute", "request"}
 
     def test__analysis_identity__validates_exact_common_values(self) -> None:
         identity = GaugeAlignmentAnalysisIdentity(
             retained_rank=2,
             gauge_group="U(2)",
             alignment_sample_count=8,
+            action_convention=GaugeAlignmentActionConvention.RIGHT,
+            inner_product_convention=(
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            ),
         )
 
         assert identity.retained_rank == 2
         assert identity.gauge_group == "U(2)"
         assert identity.alignment_sample_count == 8
+        assert identity.action_convention.to_wire() == "right"
+        assert identity.inner_product_convention.to_wire() == "euclidean-orthonormal"
         with pytest.raises(TypeError, match="retained_rank"):
-            GaugeAlignmentAnalysisIdentity(True, "U(2)", 8)  # type: ignore[arg-type]
+            GaugeAlignmentAnalysisIdentity(
+                True,  # type: ignore[arg-type]
+                "U(2)",
+                8,
+                GaugeAlignmentActionConvention.RIGHT,
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
+            )
         with pytest.raises(ValueError, match="retained_rank"):
-            GaugeAlignmentAnalysisIdentity(0, "U(0)", 8)
+            GaugeAlignmentAnalysisIdentity(
+                0,
+                "U(0)",
+                8,
+                GaugeAlignmentActionConvention.RIGHT,
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
+            )
         with pytest.raises(ValueError, match="gauge_group"):
-            GaugeAlignmentAnalysisIdentity(2, "", 8)
+            GaugeAlignmentAnalysisIdentity(
+                2,
+                "",
+                8,
+                GaugeAlignmentActionConvention.RIGHT,
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
+            )
         with pytest.raises(TypeError, match="alignment_sample_count"):
-            GaugeAlignmentAnalysisIdentity(2, "U(2)", True)  # type: ignore[arg-type]
+            GaugeAlignmentAnalysisIdentity(
+                2,
+                "U(2)",
+                True,  # type: ignore[arg-type]
+                GaugeAlignmentActionConvention.RIGHT,
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
+            )
+
+    def test__analyzer__rejects_analysis_identity_drift(self) -> None:
+        request_identity = GaugeAlignmentAnalysisIdentity(
+            2,
+            "U(2)",
+            8,
+            GaugeAlignmentActionConvention.RIGHT,
+            GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
+        )
+        result_identity = GaugeAlignmentAnalysisIdentity(
+            2,
+            "U(2)",
+            16,
+            GaugeAlignmentActionConvention.RIGHT,
+            GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL,
+        )
+
+        class Request(GaugeAlignmentAnalysisRequest):
+            __slots__ = ()
+
+            @property
+            def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
+                return request_identity
+
+        class Analysis(GaugeAlignmentAnalysis):
+            __slots__ = ()
+
+            @property
+            def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
+                return result_identity
+
+        class Analyzer(GaugeAlignmentAnalyzer[Request, Analysis]):
+            __slots__ = ("_request",)
+
+            def __init__(self, request: Request) -> None:
+                self._request = request
+
+            @property
+            def request(self) -> Request:
+                return self._request
+
+            def _execute(self) -> Analysis:
+                return Analysis()
+
+        with pytest.raises(ValueError, match="identity must match"):
+            Analyzer(Request()).execute()
 
     def test__periodic_role_bases__specialize_every_shared_role(self) -> None:
         assert issubclass(

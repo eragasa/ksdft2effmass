@@ -6,6 +6,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import final
 
+from ksdft2effmass.serialization import StringWireEnum
+
 
 class GaugeAlignment(ABC):  # noqa: B024 - intentionally nominal marker
     """Identify a gauge-alignment capability or its exact applicability boundary.
@@ -20,6 +22,19 @@ class GaugeAlignment(ABC):  # noqa: B024 - intentionally nominal marker
     __slots__ = ()
 
 
+class GaugeAlignmentActionConvention(StringWireEnum):
+    """Identify which side of a represented frame receives the gauge action."""
+
+    LEFT = "left"
+    RIGHT = "right"
+
+
+class GaugeAlignmentInnerProductConvention(StringWireEnum):
+    """Identify the inner-product convention used by the alignment objective."""
+
+    EUCLIDEAN_ORTHONORMAL = "euclidean-orthonormal"
+
+
 @dataclass(frozen=True, slots=True)
 class GaugeAlignmentAnalysisIdentity:
     """Retain the common finite scientific identity of one alignment analysis."""
@@ -27,6 +42,8 @@ class GaugeAlignmentAnalysisIdentity:
     retained_rank: int
     gauge_group: str
     alignment_sample_count: int
+    action_convention: GaugeAlignmentActionConvention
+    inner_product_convention: GaugeAlignmentInnerProductConvention
 
     def __post_init__(self) -> None:
         if type(self.retained_rank) is not int:
@@ -41,6 +58,18 @@ class GaugeAlignmentAnalysisIdentity:
             raise TypeError("alignment_sample_count must be a built-in integer")
         if self.alignment_sample_count <= 0:
             raise ValueError("alignment_sample_count must be positive")
+        if type(self.action_convention) is not GaugeAlignmentActionConvention:
+            raise TypeError(
+                "action_convention must be GaugeAlignmentActionConvention"
+            )
+        if (
+            type(self.inner_product_convention)
+            is not GaugeAlignmentInnerProductConvention
+        ):
+            raise TypeError(
+                "inner_product_convention must be "
+                "GaugeAlignmentInnerProductConvention"
+            )
 
 
 class _GaugeAlignmentAnalysisIdentityOwner(GaugeAlignment, ABC):
@@ -103,15 +132,27 @@ class GaugeAlignmentAnalyzer[
         """Return the scientific identity delegated by the bound request."""
         return self.request.analysis_identity
 
-    @abstractmethod
+    @final
     def execute(self) -> GaugeAlignmentAnalysisT:
-        """Execute the bound gauge-alignment analysis without external effects."""
+        """Execute and require the result to preserve the request identity."""
+        analysis = self._execute()
+        if not isinstance(analysis, GaugeAlignmentAnalysis):
+            raise TypeError("_execute must return GaugeAlignmentAnalysis")
+        if analysis.analysis_identity != self.analysis_identity:
+            raise ValueError("analysis identity must match the bound request")
+        return analysis
+
+    @abstractmethod
+    def _execute(self) -> GaugeAlignmentAnalysisT:
+        """Calculate one analysis before shared identity admission."""
 
 
 __all__ = [
     "GaugeAlignment",
+    "GaugeAlignmentActionConvention",
     "GaugeAlignmentAnalysis",
     "GaugeAlignmentAnalysisIdentity",
     "GaugeAlignmentAnalysisRequest",
     "GaugeAlignmentAnalyzer",
+    "GaugeAlignmentInnerProductConvention",
 ]

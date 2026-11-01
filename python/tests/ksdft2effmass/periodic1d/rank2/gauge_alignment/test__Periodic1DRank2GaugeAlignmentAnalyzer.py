@@ -7,6 +7,10 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, ScalarQuantity, Unitless
 
+from ksdft2effmass.gauge_alignment import (
+    GaugeAlignmentActionConvention,
+    GaugeAlignmentInnerProductConvention,
+)
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
     Periodic1DCompositeBandAlignmentCalculationResult,
     Periodic1DCompositeBandAlignmentConfiguration,
@@ -93,6 +97,14 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         assert request.retained_rank == 2
         assert request.gauge_group == "U(2)"
         assert request.alignment_sample_count == mesh.point_count
+        assert (
+            request.analysis_identity.action_convention
+            is GaugeAlignmentActionConvention.RIGHT
+        )
+        assert (
+            request.analysis_identity.inner_product_convention
+            is GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+        )
         assert type(result) is Periodic1DRank2GaugeAlignmentAnalysis
         assert analyzer.analysis_identity == request.analysis_identity
         assert result.analysis_identity == request.analysis_identity

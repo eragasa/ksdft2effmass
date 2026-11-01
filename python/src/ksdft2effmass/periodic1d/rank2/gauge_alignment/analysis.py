@@ -17,7 +17,11 @@ from projectkoios.optimization.alignment.procrustes import (
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
-from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
+from ksdft2effmass.gauge_alignment import (
+    GaugeAlignmentActionConvention,
+    GaugeAlignmentAnalysisIdentity,
+    GaugeAlignmentInnerProductConvention,
+)
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysisRequest,
     Periodic1DGaugeAlignmentAnalyzer,
@@ -61,6 +65,10 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
             retained_rank=2,
             gauge_group="U(2)",
             alignment_sample_count=self.reference.mesh.point_count,
+            action_convention=GaugeAlignmentActionConvention.RIGHT,
+            inner_product_convention=(
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            ),
         )
 
 
@@ -100,7 +108,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
         """Return the explicitly selected Procrustes collaborator."""
         return self._solver
 
-    def execute(self) -> Periodic1DRank2GaugeAlignmentAnalysis:
+    def _execute(self) -> Periodic1DRank2GaugeAlignmentAnalysis:
         """Return pointwise and one-global-unitary aligned frame paths."""
         request = self.request
         tolerance = ComplexUnitaryProcrustesTolerance(

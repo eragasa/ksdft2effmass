@@ -10,7 +10,11 @@ from typing import TYPE_CHECKING, Self
 import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
 
-from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
+from ksdft2effmass.gauge_alignment import (
+    GaugeAlignmentActionConvention,
+    GaugeAlignmentAnalysisIdentity,
+    GaugeAlignmentInnerProductConvention,
+)
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysis,
 )
@@ -369,6 +373,10 @@ class Periodic1DRankNGaugeAlignmentMeshResult(
             retained_rank=rank,
             gauge_group=f"U({rank})",
             alignment_sample_count=self.status.construction_mesh_size,
+            action_convention=GaugeAlignmentActionConvention.RIGHT,
+            inner_product_convention=(
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            ),
         )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:

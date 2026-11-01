@@ -9,7 +9,8 @@ and applied rank cutoffs.
 The capability implements the periodic-1D specializations of the shared
 `GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
 `GaugeAlignmentAnalyzer` role contracts. Every role exposes the same validated
-`GaugeAlignmentAnalysisIdentity` through the standard action triad:
+`GaugeAlignmentAnalysisIdentity` with rank two, `U(2)`, right action, and the
+Euclidean-orthonormal inner product through the standard action triad:
 
 - `Periodic1DRank2GaugeAlignmentAnalysisRequest` binds the two frame paths and
   Procrustes tolerances;

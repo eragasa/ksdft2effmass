@@ -10,7 +10,11 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesResult,
 )
 
-from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
+from ksdft2effmass.gauge_alignment import (
+    GaugeAlignmentActionConvention,
+    GaugeAlignmentAnalysisIdentity,
+    GaugeAlignmentInnerProductConvention,
+)
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysisRequest,
 )
@@ -167,6 +171,10 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
             retained_rank=rank,
             gauge_group=f"U({rank})",
             alignment_sample_count=self.mesh.size,
+            action_convention=GaugeAlignmentActionConvention.RIGHT,
+            inner_product_convention=(
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            ),
         )
 
 

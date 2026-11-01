@@ -7,7 +7,11 @@ from math import isfinite
 
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
-from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
+from ksdft2effmass.gauge_alignment import (
+    GaugeAlignmentActionConvention,
+    GaugeAlignmentAnalysisIdentity,
+    GaugeAlignmentInnerProductConvention,
+)
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysis,
 )
@@ -76,6 +80,10 @@ class Periodic1DRank2GaugeAlignmentAnalysis(
             retained_rank=2,
             gauge_group="U(2)",
             alignment_sample_count=self.pointwise_aligned.mesh.point_count,
+            action_convention=GaugeAlignmentActionConvention.RIGHT,
+            inner_product_convention=(
+                GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
+            ),
         )
 
 
