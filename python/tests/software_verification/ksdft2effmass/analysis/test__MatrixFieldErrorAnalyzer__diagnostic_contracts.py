@@ -238,10 +238,14 @@ class TestMatrixFieldErrorAnalyzer:
             norm_energy_scale=2.0,
         )
         assert tuple(block.translation for block in inventory.blocks) == (-1, 0, 1)
-        assert tuple(block.raw_frobenius_norm for block in inventory.blocks) == (
-            pytest.approx(2.0),
-            pytest.approx(3.0),
-            pytest.approx(2.0),
+        np.testing.assert_allclose(
+            np.asarray(
+                tuple(block.raw_frobenius_norm for block in inventory.blocks),
+                dtype=np.float64,
+            ),
+            np.asarray((2.0, 3.0, 2.0), dtype=np.float64),
+            rtol=1.0e-15,
+            atol=0.0,
         )
         assert inventory.blocks[1].normalized_frobenius_norm == pytest.approx(
             3.0 / (2.0 * math.sqrt(3.0))
