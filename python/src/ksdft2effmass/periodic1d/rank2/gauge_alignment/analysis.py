@@ -17,13 +17,19 @@ from projectkoios.optimization.alignment.procrustes import (
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
+from ksdft2effmass.gauge_alignment import (
+    GaugeAlignmentAnalysisRequest,
+    GaugeAlignmentAnalyzer,
+)
 from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
 from .result import Periodic1DRank2GaugeAlignmentAnalysis
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2GaugeAlignmentAnalysisRequest:
+class Periodic1DRank2GaugeAlignmentAnalysisRequest(
+    GaugeAlignmentAnalysisRequest
+):
     """Bind two rank-two frame paths and the declared Procrustes tolerances."""
 
     reference: ReciprocalBandFramePath1D
@@ -47,8 +53,28 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest:
             if value < 0.0:
                 raise ValueError(f"{name} must be nonnegative")
 
+    @property
+    def retained_rank(self) -> int:
+        """Return the fixed retained rank of the two frame paths."""
+        return 2
 
-class Periodic1DRank2GaugeAlignmentAnalyzer:
+    @property
+    def gauge_group(self) -> str:
+        """Return the declared unitary gauge group."""
+        return "U(2)"
+
+    @property
+    def alignment_sample_count(self) -> int:
+        """Return the number of ordered reciprocal samples being aligned."""
+        return self.reference.mesh.point_count
+
+
+class Periodic1DRank2GaugeAlignmentAnalyzer(
+    GaugeAlignmentAnalyzer[
+        Periodic1DRank2GaugeAlignmentAnalysisRequest,
+        Periodic1DRank2GaugeAlignmentAnalysis,
+    ]
+):
     """Select pointwise and aggregate right-unitary transformations."""
 
     __slots__ = ("_request", "_solver")

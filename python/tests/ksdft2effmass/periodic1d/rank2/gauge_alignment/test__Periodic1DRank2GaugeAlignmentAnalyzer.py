@@ -71,24 +71,31 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
             ),
         )
 
-        result = Periodic1DRank2GaugeAlignmentAnalyzer(
-            Periodic1DRank2GaugeAlignmentAnalysisRequest(
-                reference=reference,
-                attacked=attacked,
-                rank_absolute_tolerance=(
-                    composite_configuration.procrustes_rank_absolute_tolerance
-                ),
-                rank_relative_tolerance=(
-                    composite_configuration.procrustes_rank_relative_tolerance
-                ),
-                validation_absolute_tolerance=(
-                    composite_configuration.dimensionless_absolute_tolerance
-                ),
+        request = Periodic1DRank2GaugeAlignmentAnalysisRequest(
+            reference=reference,
+            attacked=attacked,
+            rank_absolute_tolerance=(
+                composite_configuration.procrustes_rank_absolute_tolerance
             ),
+            rank_relative_tolerance=(
+                composite_configuration.procrustes_rank_relative_tolerance
+            ),
+            validation_absolute_tolerance=(
+                composite_configuration.dimensionless_absolute_tolerance
+            ),
+        )
+        result = Periodic1DRank2GaugeAlignmentAnalyzer(
+            request,
             NumpyBatchedComplexUnitaryProcrustesSolver(),
         ).execute()
 
+        assert request.retained_rank == 2
+        assert request.gauge_group == "U(2)"
+        assert request.alignment_sample_count == mesh.point_count
         assert type(result) is Periodic1DRank2GaugeAlignmentAnalysis
+        assert result.retained_rank == request.retained_rank
+        assert result.gauge_group == request.gauge_group
+        assert result.alignment_sample_count == request.alignment_sample_count
         for observed, expected in (
             (
                 result.pointwise_aligned.frames,

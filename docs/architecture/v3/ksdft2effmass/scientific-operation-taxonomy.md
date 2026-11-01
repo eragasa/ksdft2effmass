@@ -7,9 +7,11 @@ operations shared by rank-two 1D, rank-$N$ 1D, and rank-two 2D/3D studies. It do
 merge their requests, outcomes, retained records, verification scopes, or evidence
 identities.
 
-The nominal roots are intentionally interface-free abstract marker classes. They admit
-implementations through inheritance, not through structural attribute matching. Family
-classes continue to own their exact scientific fields and validation rules.
+The broad scientific-operation roots remain intentionally interface-free abstract
+marker classes. They admit implementations through inheritance, not through structural
+attribute matching. Narrow action-role bases may additionally require only the common
+scientific identity and execution surface shared by every admitted implementation.
+Family classes continue to own their exact scientific fields and validation rules.
 
 ## Vocabulary and ownership
 
@@ -39,9 +41,13 @@ into historical retained wires.
 ### Gauge alignment
 
 `ksdft2effmass.gauge_alignment.GaugeAlignment` identifies retained-space gauge
-alignment or an exact applicability boundary. The periodic specialization
-`Periodic1DGaugeAlignment` does not own a default lattice, gauge group, solver,
-tolerance, or wire.
+alignment or an exact applicability boundary. The narrower
+`GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
+`GaugeAlignmentAnalyzer` role bases require explicit retained rank, gauge group,
+ordered alignment-sample count, request ownership, and zero-argument execution. They do
+not merge family-specific fields, solvers, tolerances, outcomes, or wires. The periodic
+specialization `Periodic1DGaugeAlignment` does not own a default lattice, gauge group,
+solver, tolerance, or wire.
 
 The rank-first Periodic1D alignment factory dispatches only on exact typed study
 specifications. Every specification binds explicit `Periodic1DLatticeGeometry`:

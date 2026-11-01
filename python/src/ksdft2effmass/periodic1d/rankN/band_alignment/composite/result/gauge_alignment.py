@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING, Self
 import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
 
+from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysis
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 if TYPE_CHECKING:
@@ -49,7 +50,10 @@ from ksdft2effmass.periodic1d.rankN.support_truncation.result import (
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNGaugeAlignmentMeshResult(BaseTypedRecord):
+class Periodic1DRankNGaugeAlignmentMeshResult(
+    BaseTypedRecord,
+    GaugeAlignmentAnalysis,
+):
     """Retain transform, interpolation, and locality evidence for one alignment."""
 
     status: Periodic1DRankNAlignmentStatusResult
@@ -353,6 +357,21 @@ class Periodic1DRankNGaugeAlignmentMeshResult(BaseTypedRecord):
             )
             for support in self.supports
         )
+
+    @property
+    def retained_rank(self) -> int:
+        """Return the retained rank declared by the alignment status."""
+        return self.status.retained_rank
+
+    @property
+    def gauge_group(self) -> str:
+        """Return the unitary group acting within the retained state space."""
+        return f"U({self.retained_rank})"
+
+    @property
+    def alignment_sample_count(self) -> int:
+        """Return the construction-mesh sample count covered by the result."""
+        return self.status.construction_mesh_size
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {

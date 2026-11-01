@@ -373,6 +373,9 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
             request=Periodic1DRankNFourierAnalysisRequest(analysis_request),
         ).execute()
 
+        assert analysis_request.retained_rank == model.retained_rank
+        assert analysis_request.gauge_group == "U(3)"
+        assert analysis_request.alignment_sample_count == mesh.size
         assert fourier.analysis_request is analysis_request
         assert not fourier.coefficient_translations.flags.writeable
         assert not fourier.block_raw_frobenius_norms.flags.writeable
@@ -501,6 +504,12 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
     ) -> None:
         final_mesh = higher_rank_calculation_result.meshes[-1]
         identity = final_mesh.gauge_alignment_results[0]
+        assert identity.retained_rank == identity.status.retained_rank
+        assert identity.gauge_group == f"U({identity.status.retained_rank})"
+        assert (
+            identity.alignment_sample_count
+            == identity.status.construction_mesh_size
+        )
         assert identity.interpolation is not None
         smallest_support = identity.supports[0]
 

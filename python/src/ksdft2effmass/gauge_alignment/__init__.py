@@ -1,5 +1,15 @@
 """Scientific ownership for retained-space gauge alignment."""
 
-from .base import GaugeAlignment
+from .base import (
+    GaugeAlignment,
+    GaugeAlignmentAnalysis,
+    GaugeAlignmentAnalysisRequest,
+    GaugeAlignmentAnalyzer,
+)
 
-__all__ = ["GaugeAlignment"]
+__all__ = [
+    "GaugeAlignment",
+    "GaugeAlignmentAnalysis",
+    "GaugeAlignmentAnalysisRequest",
+    "GaugeAlignmentAnalyzer",
+]

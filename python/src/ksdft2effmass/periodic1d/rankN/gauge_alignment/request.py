@@ -10,6 +10,8 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesResult,
 )
 
+from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisRequest
+
 from ..band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
 )
@@ -28,7 +30,7 @@ from .status import (
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNGaugeAlignmentAnalysisRequest:
+class Periodic1DRankNGaugeAlignmentAnalysisRequest(GaugeAlignmentAnalysisRequest):
     """Bind one qualified gauge alignment and its immutable scientific inputs."""
 
     calculation_request: Periodic1DRankNAlignmentCalculationRequest
@@ -151,6 +153,21 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest:
             != calculation_request.configuration.global_unitary_selection_mesh_size
         ):
             raise ValueError("global selection must match the calculation request")
+
+    @property
+    def retained_rank(self) -> int:
+        """Return the retained rank declared by the bound analytic case."""
+        return self.model.retained_rank
+
+    @property
+    def gauge_group(self) -> str:
+        """Return the unitary group acting within the retained state space."""
+        return f"U({self.retained_rank})"
+
+    @property
+    def alignment_sample_count(self) -> int:
+        """Return the construction-mesh sample count covered by the analysis."""
+        return self.mesh.size
 
 
 __all__ = ["Periodic1DRankNGaugeAlignmentAnalysisRequest"]
