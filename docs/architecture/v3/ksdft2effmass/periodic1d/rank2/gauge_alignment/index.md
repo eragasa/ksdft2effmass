@@ -12,11 +12,13 @@ The capability implements the periodic-1D specializations of the shared
 `GaugeAlignmentAnalysisIdentity` with rank two, `U(2)`, right action, and the
 Euclidean-orthonormal inner product through the standard action triad:
 
-- `Periodic1DRank2GaugeAlignmentAnalysisRequest` binds the two frame paths and
-  Procrustes tolerances;
+- `Periodic1DRank2GaugeAlignmentAnalysisRequest` binds two rank-two frame paths on
+  one reciprocal mesh and ambient state-space dimension, together with the Procrustes
+  tolerances;
 - `Periodic1DRank2GaugeAlignmentAnalyzer` selects the right actions; and
-- `Periodic1DRank2GaugeAlignmentAnalysis` retains the aligned paths, transformations,
-  and selection diagnostics.
+- `Periodic1DRank2GaugeAlignmentAnalysis` retains correlated rank-two aligned paths,
+  one pointwise transformation per reciprocal sample, the global transformation, and
+  selection diagnostics.
 
 The capability does not own the four-state parent, attack construction, hopping
 transforms, support truncation, aggregate result wire, verification, or rendering. The

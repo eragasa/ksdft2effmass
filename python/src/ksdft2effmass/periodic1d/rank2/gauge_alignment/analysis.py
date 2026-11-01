@@ -48,6 +48,17 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
             raise TypeError("reference must be ReciprocalBandFramePath1D")
         if type(self.attacked) is not ReciprocalBandFramePath1D:
             raise TypeError("attacked must be ReciprocalBandFramePath1D")
+        if self.reference.rank != 2 or self.attacked.rank != 2:
+            raise ValueError("reference and attacked paths must both have rank two")
+        if self.attacked.mesh != self.reference.mesh:
+            raise ValueError("reference and attacked meshes must agree")
+        if self.attacked.ambient_dimension != self.reference.ambient_dimension:
+            raise ValueError("reference and attacked ambient dimensions must agree")
+        if not np.array_equal(
+            self.attacked.sewing_map.magnitude,
+            self.reference.sewing_map.magnitude,
+        ):
+            raise ValueError("reference and attacked sewing maps must agree")
         for value, name in (
             (self.rank_absolute_tolerance, "rank_absolute_tolerance"),
             (self.rank_relative_tolerance, "rank_relative_tolerance"),

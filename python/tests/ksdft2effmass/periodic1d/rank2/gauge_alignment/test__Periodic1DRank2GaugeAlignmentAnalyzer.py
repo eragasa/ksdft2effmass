@@ -44,6 +44,79 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         assert not hasattr(analysis_module, "Periodic1DRank2GaugeAlignmentRequest")
         assert not hasattr(result_module, "Periodic1DRank2GaugeAlignmentResult")
 
+    def test__request__requires_rank_two_paths(self) -> None:
+        with pytest.raises(ValueError, match="both have rank two"):
+            self._request(
+                reference=self._path(point_count=2, ambient_dimension=3, rank=1),
+                attacked=self._path(point_count=2, ambient_dimension=3, rank=2),
+            )
+
+    def test__request__requires_one_reciprocal_mesh(self) -> None:
+        with pytest.raises(ValueError, match="meshes must agree"):
+            self._request(
+                reference=self._path(point_count=2, ambient_dimension=3, rank=2),
+                attacked=self._path(point_count=4, ambient_dimension=3, rank=2),
+            )
+
+    def test__request__requires_one_ambient_state_space_dimension(self) -> None:
+        with pytest.raises(ValueError, match="ambient dimensions must agree"):
+            self._request(
+                reference=self._path(point_count=2, ambient_dimension=3, rank=2),
+                attacked=self._path(point_count=2, ambient_dimension=4, rank=2),
+            )
+
+    def test__request__requires_one_endpoint_sewing_convention(self) -> None:
+        with pytest.raises(ValueError, match="sewing maps must agree"):
+            self._request(
+                reference=self._path(point_count=2, ambient_dimension=3, rank=2),
+                attacked=self._path(
+                    point_count=2,
+                    ambient_dimension=3,
+                    rank=2,
+                    sewing_sign=-1.0,
+                ),
+            )
+
+    def test__analysis__requires_rank_two_paths(self) -> None:
+        rank_one_path = self._path(point_count=2, ambient_dimension=3, rank=1)
+        with pytest.raises(ValueError, match="both have rank two"):
+            self._analysis(
+                rank_one_path,
+                rank_one_path,
+                pointwise_rotation_count=2,
+            )
+
+    def test__analysis__requires_one_rotation_per_sample(self) -> None:
+        path = self._path(point_count=2, ambient_dimension=3, rank=2)
+        with pytest.raises(ValueError, match="rotation count"):
+            self._analysis(path, path, pointwise_rotation_count=1)
+
+    def test__analysis__requires_correlated_aligned_paths(self) -> None:
+        pointwise = self._path(point_count=2, ambient_dimension=3, rank=2)
+        with pytest.raises(ValueError, match="aligned path meshes must agree"):
+            self._analysis(
+                pointwise,
+                self._path(point_count=4, ambient_dimension=3, rank=2),
+                pointwise_rotation_count=2,
+            )
+        with pytest.raises(ValueError, match="ambient dimensions must agree"):
+            self._analysis(
+                pointwise,
+                self._path(point_count=2, ambient_dimension=4, rank=2),
+                pointwise_rotation_count=2,
+            )
+        with pytest.raises(ValueError, match="aligned path sewing maps must agree"):
+            self._analysis(
+                pointwise,
+                self._path(
+                    point_count=2,
+                    ambient_dimension=3,
+                    rank=2,
+                    sewing_sign=-1.0,
+                ),
+                pointwise_rotation_count=2,
+            )
+
     def test__execute__matches_the_aggregate_result_values(
         self,
         composite_configuration: Periodic1DCompositeBandAlignmentConfiguration,
@@ -97,12 +170,9 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         assert request.retained_rank == 2
         assert request.gauge_group == "U(2)"
         assert request.alignment_sample_count == mesh.point_count
+        assert request.action_convention is GaugeAlignmentActionConvention.RIGHT
         assert (
-            request.analysis_identity.action_convention
-            is GaugeAlignmentActionConvention.RIGHT
-        )
-        assert (
-            request.analysis_identity.inner_product_convention
+            request.inner_product_convention
             is GaugeAlignmentInnerProductConvention.EUCLIDEAN_ORTHONORMAL
         )
         assert type(result) is Periodic1DRank2GaugeAlignmentAnalysis
@@ -138,4 +208,65 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         )
         assert result.global_rank_cutoff == (
             composite_result.diagnostics.global_rank_cutoff
+        )
+
+    @staticmethod
+    def _path(
+        *,
+        point_count: int,
+        ambient_dimension: int,
+        rank: int,
+        sewing_sign: float = 1.0,
+    ) -> ReciprocalBandFramePath1D:
+        unit = Unitless()
+        frame = np.eye(ambient_dimension, rank, dtype=np.complex128)
+        return ReciprocalBandFramePath1D(
+            mesh=CenteredUniformReciprocalMesh1D(
+                reciprocal_period=ScalarQuantity(1.0, unit),
+                point_count=point_count,
+            ),
+            frames=tuple(
+                ComplexMatrixQuantity(frame, unit) for _ in range(point_count)
+            ),
+            sewing_map=ComplexMatrixQuantity(
+                sewing_sign * np.eye(ambient_dimension, dtype=np.complex128),
+                unit,
+            ),
+            orthonormality_absolute_tolerance=0.0,
+        )
+
+    @staticmethod
+    def _request(
+        *,
+        reference: ReciprocalBandFramePath1D,
+        attacked: ReciprocalBandFramePath1D,
+    ) -> Periodic1DRank2GaugeAlignmentAnalysisRequest:
+        return Periodic1DRank2GaugeAlignmentAnalysisRequest(
+            reference=reference,
+            attacked=attacked,
+            rank_absolute_tolerance=0.0,
+            rank_relative_tolerance=0.0,
+            validation_absolute_tolerance=0.0,
+        )
+
+    @staticmethod
+    def _analysis(
+        pointwise_aligned: ReciprocalBandFramePath1D,
+        globally_aligned: ReciprocalBandFramePath1D,
+        *,
+        pointwise_rotation_count: int,
+    ) -> Periodic1DRank2GaugeAlignmentAnalysis:
+        unit = Unitless()
+        rotation = ComplexMatrixQuantity(np.eye(2, dtype=np.complex128), unit)
+        return Periodic1DRank2GaugeAlignmentAnalysis(
+            pointwise_aligned=pointwise_aligned,
+            globally_aligned=globally_aligned,
+            pointwise_rotations=tuple(
+                rotation for _ in range(pointwise_rotation_count)
+            ),
+            global_rotation=rotation,
+            pointwise_minimum_cross_singular_value=1.0,
+            global_minimum_cross_singular_value=1.0,
+            pointwise_maximum_rank_cutoff=0.0,
+            global_rank_cutoff=0.0,
         )

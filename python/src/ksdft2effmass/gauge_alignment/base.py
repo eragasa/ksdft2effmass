@@ -35,7 +35,7 @@ class GaugeAlignmentInnerProductConvention(StringWireEnum):
     EUCLIDEAN_ORTHONORMAL = "euclidean-orthonormal"
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, kw_only=True)
 class GaugeAlignmentAnalysisIdentity:
     """Retain the common finite scientific identity of one alignment analysis."""
 
@@ -99,6 +99,18 @@ class _GaugeAlignmentAnalysisIdentityOwner(GaugeAlignment, ABC):
     def alignment_sample_count(self) -> int:
         """Return the number of ordered samples covered by the analysis."""
         return self.analysis_identity.alignment_sample_count
+
+    @property
+    @final
+    def action_convention(self) -> GaugeAlignmentActionConvention:
+        """Return the side on which the represented gauge transformation acts."""
+        return self.analysis_identity.action_convention
+
+    @property
+    @final
+    def inner_product_convention(self) -> GaugeAlignmentInnerProductConvention:
+        """Return the inner-product convention used by the alignment objective."""
+        return self.analysis_identity.inner_product_convention
 
 
 class GaugeAlignmentAnalysisRequest(_GaugeAlignmentAnalysisIdentityOwner, ABC):

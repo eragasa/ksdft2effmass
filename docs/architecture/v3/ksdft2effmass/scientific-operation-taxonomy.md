@@ -45,8 +45,10 @@ alignment or an exact applicability boundary. The narrower
 `GaugeAlignmentAnalysisIdentity` validates the exact retained rank, gauge group,
 ordered alignment-sample count, action side, and inner-product convention shared by the
 narrower `GaugeAlignmentAnalysisRequest`, `GaugeAlignmentAnalysis`, and
-`GaugeAlignmentAnalyzer` role bases. The analyzer delegates that identity from its bound
-request and requires the concrete zero-argument `execute()` action. These bases do not
+`GaugeAlignmentAnalyzer` role bases. Each role exposes final accessors for every identity
+component; the identity itself is keyword-only so action and metric conventions cannot
+be exchanged positionally. The analyzer delegates that identity from its bound request
+and requires the concrete zero-argument `execute()` action. These bases do not
 merge family-specific fields, solvers, tolerances, outcomes, or wires. The corresponding
 `Periodic1DGaugeAlignmentAnalysisRequest`, `Periodic1DGaugeAlignmentAnalysis`, and
 `Periodic1DGaugeAlignmentAnalyzer` bases add dimensional ownership without selecting a
