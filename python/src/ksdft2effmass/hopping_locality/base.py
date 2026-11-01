@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class HoppingLocality(ABC):  # noqa: B024 - intentionally nominal marker
@@ -18,4 +18,39 @@ class HoppingLocality(ABC):  # noqa: B024 - intentionally nominal marker
     __slots__ = ()
 
 
-__all__ = ["HoppingLocality"]
+class HoppingLocalityAnalysisRequest(HoppingLocality, ABC):
+    """Bind one exact analysis of unchanged hopping coefficients."""
+
+    __slots__ = ()
+
+
+class HoppingLocalityAnalysis(HoppingLocality, ABC):
+    """Retain one exact analysis of unchanged hopping coefficients."""
+
+    __slots__ = ()
+
+
+class HoppingLocalityAnalyzer[
+    HoppingLocalityAnalysisRequestT: HoppingLocalityAnalysisRequest,
+    HoppingLocalityAnalysisT: HoppingLocalityAnalysis,
+](HoppingLocality, ABC):
+    """Execute one bound hopping-locality analysis request."""
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def request(self) -> HoppingLocalityAnalysisRequestT:
+        """Return the complete immutable request bound to this action."""
+
+    @abstractmethod
+    def execute(self) -> HoppingLocalityAnalysisT:
+        """Execute the bound analysis without changing coefficient support."""
+
+
+__all__ = [
+    "HoppingLocality",
+    "HoppingLocalityAnalysis",
+    "HoppingLocalityAnalysisRequest",
+    "HoppingLocalityAnalyzer",
+]

@@ -8,8 +8,11 @@ import numpy as np
 import pytest
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+    analytic_reference as analytic_reference_module,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     procrustes_reference as reference_module,
@@ -98,19 +101,25 @@ class TestPeriodic1DRankNProcrustesReference:
             )
 
     def test__module__does_not_import_producer_selection_actions(self) -> None:
-        module_path = Path(reference_module.__file__).resolve()
-        tree = ast.parse(module_path.read_text(encoding="utf-8"), filename=module_path)
-        imported_modules = {
-            node.module
-            for node in ast.walk(tree)
-            if isinstance(node, ast.ImportFrom) and node.module is not None
-        }
+        for module in (reference_module, analytic_reference_module):
+            module_file = module.__file__
+            assert module_file is not None
+            module_path = Path(module_file).resolve()
+            tree = ast.parse(
+                module_path.read_text(encoding="utf-8"),
+                filename=module_path,
+            )
+            imported_modules = {
+                node.module
+                for node in ast.walk(tree)
+                if isinstance(node, ast.ImportFrom) and node.module is not None
+            }
 
-        assert "calculation" not in imported_modules
-        assert "model" not in imported_modules
-        assert "analysis" not in imported_modules
-        assert "analysis.procrustes" not in imported_modules
-        assert all(
-            not module.startswith("projectkoios.optimization")
-            for module in imported_modules
-        )
+            assert "calculation" not in imported_modules
+            assert "model" not in imported_modules
+            assert "analysis" not in imported_modules
+            assert "analysis.procrustes" not in imported_modules
+            assert all(
+                not imported_module.startswith("projectkoios.optimization")
+                for imported_module in imported_modules
+            )

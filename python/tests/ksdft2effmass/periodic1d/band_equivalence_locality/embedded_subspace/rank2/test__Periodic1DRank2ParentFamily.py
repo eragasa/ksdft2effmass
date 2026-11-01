@@ -13,20 +13,36 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DRank2Analysis,
-    Periodic1DRank2Analyzer,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyAnalysis,
-    Periodic1DRank2ParentFamilyAnalysisRecord,
-    Periodic1DRank2ParentFamilyAnalysisRecorder,
     Periodic1DRank2ParentFamilyAnalyzer,
     Periodic1DRank2ParentFamilyRequest,
-    Periodic1DRank2ParentFamilyVerification,
-    Periodic1DRank2ParentFamilyVerifier,
-    Periodic1DRank2ParentFamilyVisualizationPlot,
-    Periodic1DRank2ParentFamilyVisualizer,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.analysis import (  # noqa: E501
+    Periodic1DRank2Analyzer,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
 )
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
+    Periodic1DRank2Analysis,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+    Periodic1DRank2ParentFamilyAnalysisRecord,
+    Periodic1DRank2ParentFamilyAnalysisRecorder,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.verification import (  # noqa: E501
+    Periodic1DRank2ParentFamilyVerification,
+    Periodic1DRank2ParentFamilyVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.inventory import (  # noqa: E501
+    Periodic1DRank2ParentFamilyVisualizationPlot,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.visualizer import (  # noqa: E501
+    Periodic1DRank2ParentFamilyVisualizer,
+)
+
+pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
 
 def _template() -> Periodic1DRank2Request:

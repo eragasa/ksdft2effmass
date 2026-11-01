@@ -39,12 +39,14 @@ class TestPeriodic1DRankFirstCalculationEntrypoints:
         assert "Periodic1DAlignmentStudyFactory" not in rank1
         assert "AlignmentStudySpecification" not in rank1
 
-        assert "Periodic1DAlignmentStudyFactory.create" in rank2
+        assert "Periodic1DAlignmentStudyFactory(" in rank2
+        assert ").create()" in rank2
         assert "Periodic1DRank2AlignmentStudySpecification" in rank2
         assert "configuration.reduced_lattice_geometry" in rank2
         assert "Periodic1DCompositeBandAlignmentAnalyzer" not in rank2
 
-        assert "Periodic1DAlignmentStudyFactory.create" in rankn
+        assert "Periodic1DAlignmentStudyFactory(" in rankn
+        assert ").create()" in rankn
         assert "Periodic1DRankNAlignmentStudySpecification" in rankn
         assert "configuration.reduced_lattice_geometry" in rankn
         assert "return Periodic1DRankNAlignmentAnalyzer(" not in rankn

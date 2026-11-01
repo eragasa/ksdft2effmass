@@ -1,8 +1,8 @@
 """Tests for the frozen higher-rank alignment configuration section."""
 
-import json
 from dataclasses import replace
 
+import numpy as np
 import pytest
 from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesRankCutoffRule,
@@ -13,8 +13,10 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FrameRotationAction,
 )
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
 
@@ -79,6 +81,25 @@ class TestPeriodic1DRankNAlignmentConfiguration:
             ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM
         )
 
+    def test__configuration__owns_declared_construction_coordinates(self) -> None:
+        configuration = _configuration()
+
+        construction = configuration.construction_coordinates(513)
+        selection = configuration.global_unitary_selection_coordinates()
+
+        assert construction.shape == (513,)
+        assert construction[0] == -0.5
+        assert construction[-1] == pytest.approx(0.5 - 1.0 / 513.0)
+        assert not construction.flags.writeable
+        assert np.array_equal(
+            selection,
+            configuration.construction_coordinates(2049),
+        )
+        with pytest.raises(TypeError, match="built-in integer"):
+            configuration.construction_coordinates(True)
+        with pytest.raises(ValueError, match="construction-mesh inventory"):
+            configuration.construction_coordinates(511)
+
     def test__configuration__round_trips_through_the_canonical_typed_wire(self) -> None:
         configuration = _configuration()
 
@@ -103,25 +124,25 @@ class TestPeriodic1DRankNAlignmentConfiguration:
         )
 
     def test__configuration_wire__rejects_old_keys_and_alignment_values(self) -> None:
-        decoded = json.loads(_configuration().to_json())
-        old_key = dict(decoded)
+        old_key = dict(_configuration().to_dict())
         old_key["channels"] = old_key.pop("gauge_alignments")
-        old_key_wire = (json.dumps(old_key, indent=2, sort_keys=True) + "\n").encode()
 
         with pytest.raises(ValueError, match="fields do not match"):
-            Periodic1DRankNAlignmentConfiguration.from_json(old_key_wire)
+            Periodic1DRankNAlignmentConfiguration.from_dict(old_key)
 
         for old_value in ("A0", "A1", "A2", "A3"):
-            old_alignment = json.loads(_configuration().to_json())
-            old_alignment["gauge_alignments"]["items"][0] = old_value
-            old_alignment_wire = (
-                json.dumps(old_alignment, indent=2, sort_keys=True) + "\n"
-            ).encode()
+            old_alignment = dict(_configuration().to_dict())
+            gauge_alignments = old_alignment["gauge_alignments"]
+            assert isinstance(gauge_alignments, tuple)
+            old_alignment["gauge_alignments"] = (
+                old_value,
+                *gauge_alignments[1:],
+            )
             with pytest.raises(
                 ValueError,
                 match="unsupported Periodic1DRankNGaugeAlignment",
             ):
-                Periodic1DRankNAlignmentConfiguration.from_json(old_alignment_wire)
+                Periodic1DRankNAlignmentConfiguration.from_dict(old_alignment)
 
     @pytest.mark.parametrize(
         ("field", "value", "error"),

@@ -85,9 +85,10 @@ intentionally defines no new retained mapping, decoder, wire discriminator, or
 refinement record. The enclosing calculation record owns its retained representation
 and aggregate authentication.
 
-`embedded_subspace/rank2/truncation/` owns the separate ordinary-lattice consequence
-study. Its request binds an unchanged embedded template to explicit ordinary cutoffs and
-a deterministically shifted disjoint evaluation mesh. Its analyzer reuses one qualified
+`periodic1d/rank2/support_truncation/` owns the separate ordinary-lattice consequence
+capability consumed by this study. Its request binds an unchanged embedded template to
+explicit ordinary cutoffs and a deterministically shifted disjoint evaluation mesh. Its
+analyzer reuses one qualified
 parent preparation, composes the installed Fourier, negative-Nyquist conversion,
 ordinary interpolation, and conjugate-closed truncation owners, and returns either a
 closed qualification-stopped outcome or a completed point/range inventory. Scientific
@@ -96,25 +97,29 @@ truncation-only error, and total error as separate Hamiltonian and sorted-spectr
 channels. The independent reference reconstructs the parent through the existing
 Gram-polar direct route and evaluates Fourier blocks, interpolation, cutoffs, and spectra
 with direct finite formulas; it does not call the production parent, analysis, Fourier,
-conversion, interpolation, or truncation actions. `truncation/verification.py` compares
-that reconstruction in memory and intentionally defines no custom retained mapping.
+conversion, interpolation, or truncation actions. The rank-first
+`support_truncation/verification.py` compares that reconstruction in memory and
+intentionally defines no custom retained mapping.
 
-The rank-first capability migration now exposes the unchanged classes through
-`periodic1d/rank2/hopping_locality/` and
-`periodic1d/rank2/support_truncation/`. The former currently exposes only the immutable
-per-displacement hopping-power value because the existing parent-scale action still
-mixes representation-equivalence and hopping-locality channels. It does not falsely
-relabel that mixed action as a hopping-locality owner. The latter re-exports the already
-separate irreversible support-removal actions, values, references, and verifiers. The
-historical embedded-subspace modules remain the temporary class owners, so old and new
-imports resolve to identical classes and retained wire formats are unchanged. The
-rank-two hopping value inherits `Periodic1DHoppingLocality`. Canonical rank-two
+The rank-first capability locations are authoritative. The immutable
+per-displacement hopping-power value is defined under
+`periodic1d/rank2/hopping_locality/`; the parent-scale band-equivalence study consumes
+that value while retaining its separate mixed representation-equivalence action. The
+support-removal requests, actions, values, references, and verifiers are defined under
+`periodic1d/rank2/support_truncation/`; the band-equivalence study imports those owners
+and retains only its calculation orchestration and record policy. The obsolete
+`embedded_subspace/rank2/truncation/` package is removed. The authoritative
+`band_equivalence_locality/`, `embedded_subspace/rank2/`, and
+`rank2/support_truncation/` initializers are non-eager; callers import each request,
+action, value, reference, or verifier from its defining module rather than through a
+package re-export hub. These ownership changes do not alter retained wire formats. The rank-two hopping value inherits
+`Periodic1DHoppingLocality`. Canonical rank-two
 support request, analyzer, and analysis names use the
 `Periodic1DRank2SupportTruncation...` prefix, mirroring the rank-$N$ surface. The two
 analysis values inherit `Periodic1DSupportTruncation`, which in turn inherits
 `RealSpaceSupportTruncation`. Historical shorter rank-two request, analyzer, and
-analysis names remain identical class aliases. This legacy equivalence establishes
-import compatibility only, not scientific or numerical validation.
+analysis names remain identical class names for the established public wire model; they
+do not establish scientific or numerical validation.
 
 The KSD transport diagnostic action explicitly labels its derived link quantity as the
 maximum primitive-link Frobenius residual. It does not present that derived value as a

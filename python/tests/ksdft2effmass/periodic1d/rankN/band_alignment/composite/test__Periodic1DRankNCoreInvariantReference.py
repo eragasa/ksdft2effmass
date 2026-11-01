@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (

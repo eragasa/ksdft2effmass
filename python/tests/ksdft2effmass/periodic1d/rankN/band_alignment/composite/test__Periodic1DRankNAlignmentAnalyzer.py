@@ -1,6 +1,5 @@
 """Integration tests for the complete higher-rank calculation producer."""
 
-import json
 import math
 from dataclasses import replace
 
@@ -26,16 +25,23 @@ from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentGroupFamily,
     GaugeAlignmentInnerProductConvention,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
-    Periodic1DRankNAlignmentAnalyzer,
-    Periodic1DRankNAlignmentBackendExceptionCode,
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
-    Periodic1DRankNAlignmentStatus,
-    Periodic1DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
+    Periodic1DRankNAlignmentAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite.refinement import (
     Periodic1DRankNRefinementAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.failure import (
+    Periodic1DRankNTransportBackendExceptionCode,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.gauge_case_result import (
+    Periodic1DRankNGaugeAlignmentMeshResult,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
     Periodic1DRankNAnalyticCaseConstructor,
@@ -45,6 +51,9 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
     interpolation as gauge_interpolation,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
+    Periodic1DRankNGaugeAlignment,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (  # noqa: E501
     Periodic1DRankNGaugeAlignedFields,
@@ -57,6 +66,10 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E5
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentBackendExceptionCode,
+    Periodic1DRankNAlignmentStatus,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -390,8 +403,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
             == analysis_request.model.retained_rank
         )
         assert (
-            analysis_request.action_convention
-            is GaugeAlignmentActionConvention.RIGHT
+            analysis_request.action_convention is GaugeAlignmentActionConvention.RIGHT
         )
         assert (
             analysis_request.inner_product_convention
@@ -527,10 +539,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         identity = final_mesh.gauge_alignment_results[0]
         assert identity.retained_rank == identity.status.retained_rank
         assert identity.gauge_group == f"U({identity.status.retained_rank})"
-        assert (
-            identity.alignment_sample_count
-            == identity.status.construction_mesh_size
-        )
+        assert identity.alignment_sample_count == identity.status.construction_mesh_size
         assert identity.interpolation is not None
         smallest_support = identity.supports[0]
 
@@ -623,9 +632,17 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         for mesh in result.meshes:
             assert mesh.transport is None
             assert mesh.transport_backend_failure is not None
+            assert mesh.transport_backend_failure.backend_exception_code is (
+                Periodic1DRankNTransportBackendExceptionCode.NONCONVERGENCE
+            )
             assert all(
                 gauge_alignment.status.status
                 is Periodic1DRankNAlignmentStatus.NUMERICALLY_UNRESOLVED
+                for gauge_alignment in mesh.gauge_alignment_results
+            )
+            assert all(
+                gauge_alignment.status.backend_exception_code
+                is Periodic1DRankNAlignmentBackendExceptionCode.NONCONVERGENCE
                 for gauge_alignment in mesh.gauge_alignment_results
             )
             assert all(
@@ -656,39 +673,26 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         self,
         higher_rank_calculation_result: Periodic1DRankNAlignmentCalculationResult,
     ) -> None:
-        wire = higher_rank_calculation_result.to_json()
+        result = higher_rank_calculation_result
+        wire = result.to_json()
         reconstructed = Periodic1DRankNAlignmentCalculationResult.from_json(wire)
 
         assert reconstructed.to_json() == wire
         assert b'"nyquist_mode_disposition": "absent-on-odd-mesh"' in wire
-        decoded = json.loads(wire)
-        first_alignment = decoded["meshes"]["items"][0]["gauge_alignment_results"][
-            "items"
-        ][0]
-        assert first_alignment["nyquist_mode_disposition"] == "absent-on-odd-mesh"
-        assert "no_nyquist_disposition" not in first_alignment
+        first_alignment = result.meshes[0].gauge_alignment_results[0]
+        assert first_alignment.nyquist_mode_disposition is (
+            NyquistModeDispositionEnum.ABSENT_ON_ODD_MESH
+        )
+        assert "no_nyquist_disposition" not in first_alignment.to_dict()
 
-        old_nyquist = json.loads(wire)
-        old_nyquist["meshes"]["items"][0]["gauge_alignment_results"]["items"][0][
-            "nyquist_mode_disposition"
-        ] = "inapplicable-odd-centered-no-nyquist"
-        old_nyquist_wire = (
-            json.dumps(old_nyquist, indent=2, sort_keys=True) + "\n"
-        ).encode()
+        old_nyquist = dict(first_alignment.to_dict())
+        old_nyquist["nyquist_mode_disposition"] = "inapplicable-odd-centered-no-nyquist"
         with pytest.raises(ValueError, match="unsupported NyquistModeDispositionEnum"):
-            Periodic1DRankNAlignmentCalculationResult.from_json(old_nyquist_wire)
+            Periodic1DRankNGaugeAlignmentMeshResult.from_dict(old_nyquist)
 
-        decoded["request"]["retained_rank"] = 4
-        tampered = (json.dumps(decoded, indent=2, sort_keys=True) + "\n").encode()
+        tampered_request = replace(result.request, retained_rank=4)
         with pytest.raises(ValueError, match="global selection"):
-            Periodic1DRankNAlignmentCalculationResult.from_json(tampered)
+            replace(result, request=tampered_request)
 
-        gate_tampering = json.loads(wire)
-        gate_tampering["meshes"]["items"][0]["gauge_alignment_results"]["items"][0][
-            "parseval_pass"
-        ] = False
-        tampered_gate = (
-            json.dumps(gate_tampering, indent=2, sort_keys=True) + "\n"
-        ).encode()
         with pytest.raises(ValueError, match="gate disposition"):
-            Periodic1DRankNAlignmentCalculationResult.from_json(tampered_gate)
+            replace(first_alignment, parseval_pass=False)

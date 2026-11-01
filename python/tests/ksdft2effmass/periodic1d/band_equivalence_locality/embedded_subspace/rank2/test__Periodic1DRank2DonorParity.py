@@ -8,12 +8,26 @@ import math
 from collections.abc import Mapping
 from pathlib import Path
 
-from ksdft2effmass.periodic1d import (
+import pytest
+
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (  # noqa: E501
     Periodic1DRank2AdaptiveAmplitudeLevelsExhausted,
-    Periodic1DRank2CalculationRecord,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementUnresolved,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+    Periodic1DRank2CalculationRecord,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2TruncationCompleted,
 )
+
+pytestmark = [
+    pytest.mark.integration,
+    pytest.mark.software_verification,
+    pytest.mark.legacy_equivalence,
+]
 
 
 def _calculation_root() -> Path:

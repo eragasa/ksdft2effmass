@@ -20,9 +20,13 @@ from ksdft2effmass.numerical_consistency import (
     NumericalConsistency,
     ReciprocalMeshRefinementFamily,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (  # noqa: E501
     Periodic1DRank2AdaptiveAmplitudeAnalysis,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementAnalysis,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.family import (  # noqa: E501
     Periodic1DRank2MomentumRefinementFamilyAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite.refinement import (

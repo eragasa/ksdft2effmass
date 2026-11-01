@@ -14,6 +14,7 @@ from types import MappingProxyType
 from typing import final
 
 import numpy as np
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.physkit.numerics.typing.numpy.arrays import RealArray
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
@@ -25,11 +26,17 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DRankNAlignmentCalculationResult
-from .result import Periodic1DRankNAlignmentTransportOwnerResult
+from ..calculation_result import Periodic1DRankNAlignmentCalculationResult
+from ..frame_transport.result import (
+    Periodic1DRankNAlignmentTransportOwnerResult,
+)
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
 _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
+
+type _ReferenceQuantity = (
+    ScalarQuantity | VectorQuantity | MatrixQuantity | ComplexMatrixQuantity
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -70,6 +77,129 @@ class Periodic1DRankNTransportReference:
 
 
 @final
+class Periodic1DRankNQualifiedTransportLinkArrays:
+    """Own immutable arrays decoded from qualified transport-link evidence."""
+
+    __slots__ = (
+        "_cutoffs",
+        "_margins",
+        "_numerical_ranks",
+        "_singular_values",
+        "_unitarity_defects",
+    )
+
+    def __init__(
+        self,
+        transport: Periodic1DRankNAlignmentTransportOwnerResult,
+    ) -> None:
+        if type(transport) is not Periodic1DRankNAlignmentTransportOwnerResult:
+            raise TypeError("transport must be the exact transport owner result")
+        singular_values: list[tuple[float, ...]] = []
+        cutoffs: list[float] = []
+        margins: list[float] = []
+        numerical_ranks: list[float] = []
+        unitarity_defects: list[float] = []
+        for link in transport.link_results:
+            if (
+                link.singular_values is None
+                or link.applied_rank_cutoff is None
+                or link.rank_margin is None
+                or link.numerical_rank is None
+                or link.maximum_absolute_entry_unitarity_defect is None
+            ):
+                raise ValueError(
+                    "qualified transport link arrays require qualified link diagnostics"
+                )
+            singular_values.append(link.singular_values)
+            cutoffs.append(link.applied_rank_cutoff)
+            margins.append(link.rank_margin)
+            numerical_ranks.append(float(link.numerical_rank))
+            unitarity_defects.append(link.maximum_absolute_entry_unitarity_defect)
+        self._singular_values = NumpyImmutableArrayConstructor(
+            np.asarray(singular_values, dtype=np.float64),
+            "singular_values",
+            np.dtype(np.float64),
+        ).execute()
+        self._cutoffs = NumpyImmutableArrayConstructor(
+            np.asarray(cutoffs, dtype=np.float64),
+            "cutoffs",
+            np.dtype(np.float64),
+        ).execute()
+        self._margins = NumpyImmutableArrayConstructor(
+            np.asarray(margins, dtype=np.float64),
+            "margins",
+            np.dtype(np.float64),
+        ).execute()
+        self._numerical_ranks = NumpyImmutableArrayConstructor(
+            np.asarray(numerical_ranks, dtype=np.float64),
+            "numerical_ranks",
+            np.dtype(np.float64),
+        ).execute()
+        self._unitarity_defects = NumpyImmutableArrayConstructor(
+            np.asarray(unitarity_defects, dtype=np.float64),
+            "unitarity_defects",
+            np.dtype(np.float64),
+        ).execute()
+
+    @property
+    def singular_values(self) -> RealArray:
+        """Return immutable ordered link singular values."""
+        return self._singular_values
+
+    @property
+    def cutoffs(self) -> RealArray:
+        """Return immutable applied link rank cutoffs."""
+        return self._cutoffs
+
+    @property
+    def margins(self) -> RealArray:
+        """Return immutable link rank margins."""
+        return self._margins
+
+    @property
+    def numerical_ranks(self) -> RealArray:
+        """Return immutable link numerical ranks as comparison scalars."""
+        return self._numerical_ranks
+
+    @property
+    def unitarity_defects(self) -> RealArray:
+        """Return immutable link-unitarity defects."""
+        return self._unitarity_defects
+
+
+@final
+class Periodic1DRankNTransportReferenceComparisonConstructor:
+    """Construct one unit-aware transport-reference comparison."""
+
+    __slots__ = ("_absolute_tolerance", "_observed", "_reference")
+
+    def __init__(
+        self,
+        observed: _ReferenceQuantity,
+        reference: _ReferenceQuantity,
+        absolute_tolerance: float,
+    ) -> None:
+        if type(absolute_tolerance) is not float:
+            raise TypeError("absolute_tolerance must be a built-in float")
+        if not np.isfinite(absolute_tolerance) or absolute_tolerance < 0.0:
+            raise ValueError("absolute_tolerance must be finite and nonnegative")
+        self._observed = observed
+        self._reference = reference
+        self._absolute_tolerance = absolute_tolerance
+
+    def execute(self) -> MaximumAbsoluteErrorComparison:
+        """Return the comparison bound to this constructor."""
+        return MaximumAbsoluteErrorComparison(
+            observed=self._observed,
+            reference=self._reference,
+            tolerance=ScalarQuantity(
+                self._absolute_tolerance,
+                self._observed.unit,
+            ),
+        )
+
+
+@final
 class Periodic1DRankNTransportReferenceAnalyzer:
     """Reconstruct constant-frame transport without the producer transporter."""
 
@@ -105,42 +235,42 @@ class Periodic1DRankNTransportReferenceAnalyzer:
                     "bounded transport reference requires a completed transport result"
                 )
             prefix = f"mesh[{size}].transport"
-            singular_values, cutoffs, margins, ranks, unitary_defects = _link_arrays(
-                transport
-            )
+            link_arrays = Periodic1DRankNQualifiedTransportLinkArrays(transport)
             for name, reference_array, observed_array in (
                 (
                     "link_singular_values",
                     MatrixQuantity(np.ones((size, rank), dtype=np.float64), Unitless()),
-                    MatrixQuantity(singular_values, Unitless()),
+                    MatrixQuantity(link_arrays.singular_values, Unitless()),
                 ),
                 (
                     "link_rank_cutoffs",
                     VectorQuantity(np.full(size, cutoff, dtype=np.float64), Unitless()),
-                    VectorQuantity(cutoffs, Unitless()),
+                    VectorQuantity(link_arrays.cutoffs, Unitless()),
                 ),
                 (
                     "link_rank_margins",
                     VectorQuantity(
                         np.full(size, 1.0 - cutoff, dtype=np.float64), Unitless()
                     ),
-                    VectorQuantity(margins, Unitless()),
+                    VectorQuantity(link_arrays.margins, Unitless()),
                 ),
                 (
                     "link_numerical_ranks",
                     VectorQuantity(np.full(size, rank, dtype=np.float64), Unitless()),
-                    VectorQuantity(ranks, Unitless()),
+                    VectorQuantity(link_arrays.numerical_ranks, Unitless()),
                 ),
                 (
                     "link_unitarity_defects",
                     VectorQuantity(np.zeros(size, dtype=np.float64), Unitless()),
-                    VectorQuantity(unitary_defects, Unitless()),
+                    VectorQuantity(link_arrays.unitarity_defects, Unitless()),
                 ),
             ):
-                comparisons[f"{prefix}.{name}"] = _comparison(
-                    observed_array,
-                    reference_array,
-                    _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
+                comparisons[f"{prefix}.{name}"] = (
+                    Periodic1DRankNTransportReferenceComparisonConstructor(
+                        observed=observed_array,
+                        reference=reference_array,
+                        absolute_tolerance=_REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
+                    ).execute()
                 )
 
             phases = transport.ordered_closure_endpoint_mismatch_phases
@@ -158,20 +288,28 @@ class Periodic1DRankNTransportReferenceAnalyzer:
                 raise ValueError(
                     "bounded transport reference requires complete closure evidence"
                 )
-            comparisons[f"{prefix}.closure_phases"] = _comparison(
-                VectorQuantity(np.asarray(phases, dtype=np.float64), Unitless()),
-                VectorQuantity(np.zeros(rank, dtype=np.float64), Unitless()),
-                _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
+            comparisons[f"{prefix}.closure_phases"] = (
+                Periodic1DRankNTransportReferenceComparisonConstructor(
+                    observed=VectorQuantity(
+                        np.asarray(phases, dtype=np.float64), Unitless()
+                    ),
+                    reference=VectorQuantity(
+                        np.zeros(rank, dtype=np.float64), Unitless()
+                    ),
+                    absolute_tolerance=_REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
+                ).execute()
             )
             for name, observed_matrix in (
                 ("primitive_last_to_sewn_first", primitive_to_sewn),
                 ("sewn_first_to_primitive_last", sewn_to_primitive),
                 ("distributed_correction_step", correction_step),
             ):
-                comparisons[f"{prefix}.{name}"] = _comparison(
-                    observed_matrix,
-                    ComplexMatrixQuantity(identity, Unitless()),
-                    _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
+                comparisons[f"{prefix}.{name}"] = (
+                    Periodic1DRankNTransportReferenceComparisonConstructor(
+                        observed=observed_matrix,
+                        reference=ComplexMatrixQuantity(identity, Unitless()),
+                        absolute_tolerance=_REFERENCE_ARRAY_ABSOLUTE_TOLERANCE,
+                    ).execute()
                 )
 
             closure_residual = (
@@ -203,64 +341,21 @@ class Periodic1DRankNTransportReferenceAnalyzer:
                     float(len(transport.unattempted_link_indices)),
                 ),
             ):
-                comparisons[f"{prefix}.{name}"] = _comparison(
-                    ScalarQuantity(observed_scalar, Unitless()),
-                    ScalarQuantity(0.0, Unitless()),
-                    _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE,
+                comparisons[f"{prefix}.{name}"] = (
+                    Periodic1DRankNTransportReferenceComparisonConstructor(
+                        observed=ScalarQuantity(observed_scalar, Unitless()),
+                        reference=ScalarQuantity(0.0, Unitless()),
+                        absolute_tolerance=_REFERENCE_SCALAR_ABSOLUTE_TOLERANCE,
+                    ).execute()
                 )
 
         return Periodic1DRankNTransportReference(comparisons=comparisons)
 
 
-def _link_arrays(
-    transport: Periodic1DRankNAlignmentTransportOwnerResult,
-) -> tuple[RealArray, RealArray, RealArray, RealArray, RealArray]:
-    singular_values: list[tuple[float, ...]] = []
-    cutoffs: list[float] = []
-    margins: list[float] = []
-    ranks: list[float] = []
-    unitary_defects: list[float] = []
-    for link in transport.link_results:
-        if (
-            link.singular_values is None
-            or link.applied_rank_cutoff is None
-            or link.rank_margin is None
-            or link.numerical_rank is None
-            or link.maximum_absolute_entry_unitarity_defect is None
-        ):
-            raise ValueError(
-                "bounded transport reference requires qualified link diagnostics"
-            )
-        singular_values.append(link.singular_values)
-        cutoffs.append(link.applied_rank_cutoff)
-        margins.append(link.rank_margin)
-        ranks.append(float(link.numerical_rank))
-        unitary_defects.append(link.maximum_absolute_entry_unitarity_defect)
-    return (
-        np.asarray(singular_values, dtype=np.float64),
-        np.asarray(cutoffs, dtype=np.float64),
-        np.asarray(margins, dtype=np.float64),
-        np.asarray(ranks, dtype=np.float64),
-        np.asarray(unitary_defects, dtype=np.float64),
-    )
-
-
-def _comparison(
-    observed: (
-        ScalarQuantity | VectorQuantity | MatrixQuantity | ComplexMatrixQuantity
-    ),
-    reference: ScalarQuantity | VectorQuantity | MatrixQuantity | ComplexMatrixQuantity,
-    tolerance: float,
-) -> MaximumAbsoluteErrorComparison:
-    return MaximumAbsoluteErrorComparison(
-        observed=observed,
-        reference=reference,
-        tolerance=ScalarQuantity(tolerance, observed.unit),
-    )
-
-
 __all__ = [
+    "Periodic1DRankNQualifiedTransportLinkArrays",
     "Periodic1DRankNTransportReference",
     "Periodic1DRankNTransportReferenceAnalyzer",
+    "Periodic1DRankNTransportReferenceComparisonConstructor",
     "Periodic1DRankNTransportReferenceRequest",
 ]

@@ -14,7 +14,9 @@ from projectkoios.optimization.alignment.closed_loop_polar_transport import (
 )
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximum
 
-from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
+from ksdft2effmass.periodic1d.rank2.hopping_locality.result import (
+    Periodic1DRank2HoppingPower,
+)
 from ksdft2effmass.representation_equivalence import RepresentationEquivalence
 
 from .request import Periodic1DRank2Request
@@ -147,27 +149,6 @@ class Periodic1DRank2QualifiedParent(Periodic1DRank2Qualification):
                 raise ValueError("closure phases must lie in [-pi, pi]")
         if self.closure_holonomy_phases != tuple(sorted(self.closure_holonomy_phases)):
             raise ValueError("closure phases must be ordered")
-
-
-@dataclass(frozen=True, slots=True)
-class Periodic1DRank2HoppingPower(Periodic1DHoppingLocality):
-    """Retain reference and attacked block power at one cyclic representative."""
-
-    displacement: int
-    reference_normalized_squared_frobenius_norm: float
-    comparison_normalized_squared_frobenius_norm: float
-
-    def __post_init__(self) -> None:
-        if type(self.displacement) is not int:
-            raise TypeError("displacement must be a built-in int")
-        _nonnegative_float(
-            self.reference_normalized_squared_frobenius_norm,
-            "reference_normalized_squared_frobenius_norm",
-        )
-        _nonnegative_float(
-            self.comparison_normalized_squared_frobenius_norm,
-            "comparison_normalized_squared_frobenius_norm",
-        )
 
 
 @dataclass(frozen=True, slots=True)

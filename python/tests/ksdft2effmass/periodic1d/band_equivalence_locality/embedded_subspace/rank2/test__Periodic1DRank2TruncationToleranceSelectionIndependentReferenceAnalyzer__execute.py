@@ -4,22 +4,33 @@ from __future__ import annotations
 
 import math
 
+import pytest
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
     Periodic1DRank2TruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
+    Periodic1DRank2TruncationRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2TruncationCompleted,
     Periodic1DRank2TruncationPoint,
-    Periodic1DRank2TruncationRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection_reference import (  # noqa: E501
     Periodic1DRank2TruncationToleranceSelectionIndependentReferenceAnalyzer,
 )
 from ksdft2effmass.real_space_support_truncation import (
     MinimumToleranceSatisfyingSupport,
     SupportToleranceUnresolved,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
 
 def _point() -> Periodic1DRank2TruncationPoint:

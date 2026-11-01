@@ -29,7 +29,8 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         }
 
         assert all("workflow" not in module for module in imported_modules)
-        assert "Periodic1DAlignmentStudyFactory.create" in source
+        assert "Periodic1DAlignmentStudyFactory(" in source
+        assert ").create()" in source
         assert "Periodic1DRankNAlignmentStudySpecification" in source
         assert "return Periodic1DRankNAlignmentAnalyzer(" not in source
         assert "Periodic1DRankNAlignmentAnalyzer" in source

@@ -10,7 +10,11 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailMonotonicityAnalyzer1D,
     SymmetricRangeTailMonotonicityDiagnostics1D,
 )
-from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
+from ksdft2effmass.periodic1d.hopping_locality import (
+    Periodic1DHoppingLocalityAnalysis,
+    Periodic1DHoppingLocalityAnalysisRequest,
+    Periodic1DHoppingLocalityAnalyzer,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
     Periodic1DRankNFourierAnalysis,
 )
@@ -22,7 +26,9 @@ from .result import Periodic1DRankNHoppingTailResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNHoppingLocalityAnalysisRequest:
+class Periodic1DRankNHoppingLocalityAnalysisRequest(
+    Periodic1DHoppingLocalityAnalysisRequest
+):
     """Bind an unchanged Fourier series for hopping-locality diagnostics."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -43,7 +49,9 @@ class Periodic1DRankNHoppingLocalityAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNHoppingLocalityAnalysis(Periodic1DHoppingLocality):
+class Periodic1DRankNHoppingLocalityAnalysis(
+    Periodic1DHoppingLocalityAnalysis
+):
     """Retain coefficient tails without removing real-space support."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -102,7 +110,12 @@ class Periodic1DRankNHoppingLocalityAnalysis(Periodic1DHoppingLocality):
 
 
 @final
-class Periodic1DRankNHoppingLocalityAnalyzer:
+class Periodic1DRankNHoppingLocalityAnalyzer(
+    Periodic1DHoppingLocalityAnalyzer[
+        Periodic1DRankNHoppingLocalityAnalysisRequest,
+        Periodic1DRankNHoppingLocalityAnalysis,
+    ]
+):
     """Measure coefficient tails without constructing truncated operators."""
 
     __slots__ = ("_request",)

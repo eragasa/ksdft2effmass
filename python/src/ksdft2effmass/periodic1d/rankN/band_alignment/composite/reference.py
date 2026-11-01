@@ -18,7 +18,7 @@ from projectkoios.physkit.units import ScalarQuantity, Unitless, VectorQuantity
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DRankNAlignmentCalculationResult
+from ..calculation_result import Periodic1DRankNAlignmentCalculationResult
 
 
 @dataclass(frozen=True, slots=True)
@@ -445,17 +445,19 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer:
             gauges = gauges @ layer
         return np.asarray(gauges, dtype=np.complex128)
 
-    def _coordinates(self, mesh_size: int) -> np.ndarray:
+    @staticmethod
+    def _coordinates(mesh_size: int) -> np.ndarray:
         return np.asarray(
             -0.5 + np.arange(mesh_size, dtype=np.float64) / mesh_size,
             dtype=np.float64,
         )
 
-    def _adjoint(self, values: np.ndarray) -> np.ndarray:
+    @staticmethod
+    def _adjoint(values: np.ndarray) -> np.ndarray:
         return np.swapaxes(values.conjugate(), -1, -2)
 
+    @staticmethod
     def _maximum_frobenius_defect(
-        self,
         left: np.ndarray,
         right: np.ndarray,
     ) -> float:
@@ -493,8 +495,8 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer:
             reference,
         ) / (math.sqrt(rank) * energy_reference)
 
+    @staticmethod
     def _normalized_spectrum_defect(
-        self,
         approximation: np.ndarray,
         reference: np.ndarray,
         energy_reference: float,

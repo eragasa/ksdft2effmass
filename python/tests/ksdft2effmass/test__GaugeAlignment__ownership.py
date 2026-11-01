@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from importlib.util import find_spec
+
 import pytest
 
 from ksdft2effmass.gauge_alignment import (
@@ -37,10 +39,10 @@ from ksdft2effmass.periodic1d.rank2.gauge_alignment.result import (
     Periodic1DRank2GaugeAlignmentAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
-    Periodic1DRankNGaugeAlignmentMeshResult,
+    gauge_case as rankN_composite_gauge_case,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.analysis import (
-    gauge_alignment as rankN_gauge_alignment_analysis,
+from ksdft2effmass.periodic1d.rankN.band_alignment.gauge_case_result import (
+    Periodic1DRankNGaugeAlignmentMeshResult,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
@@ -78,7 +80,7 @@ class TestGaugeAlignment:
         with pytest.raises(TypeError, match="wire"):
             GaugeAlignmentGroupFamily.from_wire(1)  # type: ignore[arg-type]
         with pytest.raises(TypeError, match="positional"):
-            GaugeAlignmentGroupIdentity(  # type: ignore[misc]
+            GaugeAlignmentGroupIdentity(  # type: ignore[call-arg]
                 GaugeAlignmentGroupFamily.UNITARY,
                 2,
             )
@@ -89,7 +91,7 @@ class TestGaugeAlignment:
             )
         with pytest.raises(TypeError, match="represented_dimension"):
             GaugeAlignmentGroupIdentity.unitary(
-                represented_dimension=True,  # type: ignore[arg-type]
+                represented_dimension=True,
             )
         with pytest.raises(ValueError, match="represented_dimension"):
             GaugeAlignmentGroupIdentity.unitary(represented_dimension=0)
@@ -118,7 +120,7 @@ class TestGaugeAlignment:
             is GaugeAlignmentInnerProductConvention.EUCLIDEAN
         )
         with pytest.raises(TypeError, match="positional"):
-            GaugeAlignmentAnalysisIdentity(  # type: ignore[misc]
+            GaugeAlignmentAnalysisIdentity(  # type: ignore[call-arg]
                 group,
                 8,
                 GaugeAlignmentActionConvention.RIGHT,
@@ -136,7 +138,7 @@ class TestGaugeAlignment:
         with pytest.raises(TypeError, match="alignment_sample_count"):
             GaugeAlignmentAnalysisIdentity(
                 gauge_group_identity=group,
-                alignment_sample_count=True,  # type: ignore[arg-type]
+                alignment_sample_count=True,
                 action_convention=GaugeAlignmentActionConvention.RIGHT,
                 inner_product_convention=(
                     GaugeAlignmentInnerProductConvention.EUCLIDEAN
@@ -201,8 +203,24 @@ class TestGaugeAlignment:
             Periodic1DGaugeAlignmentAnalyzer,
         )
         assert issubclass(
-            rankN_gauge_alignment_analysis.Periodic1DRankNGaugeAlignmentAnalyzer,
+            rankN_composite_gauge_case.Periodic1DRankNCompositeGaugeCaseAnalyzer,
             Periodic1DGaugeAlignmentAnalyzer,
+        )
+
+    def test__rankN_composite_action__is_named_as_orchestration(self) -> None:
+        assert not hasattr(
+            rankN_composite_gauge_case,
+            "Periodic1DRankNGaugeAlignmentAnalyzer",
+        )
+        assert (
+            find_spec(
+                "ksdft2effmass.periodic1d.rankN.band_alignment.composite.analysis"
+            )
+            is None
+        )
+        assert (
+            rankN_composite_gauge_case.Periodic1DRankNCompositeGaugeCaseAnalyzer.__module__
+            == ("ksdft2effmass.periodic1d.rankN.band_alignment.composite.gauge_case")
         )
 
     def test__periodic_rank_actions__share_nominal_owner(self) -> None:

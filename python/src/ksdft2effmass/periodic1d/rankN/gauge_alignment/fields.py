@@ -10,9 +10,6 @@ from projectkoios.numerics.numpy.validation import (
     NumpyImmutableArrayConstructor,
     NumpyImmutableArrayValidator,
 )
-from projectkoios.optimization.alignment.numpy.batched_procrustes import (
-    NumpyBatchedComplexUnitaryProcrustesResult,
-)
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldIsometryAnalyzer
@@ -23,6 +20,8 @@ from ..band_alignment.calculation import (
 from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from .definition import Periodic1DRankNGaugeAlignment
 from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
+from .procrustes.selection import Periodic1DRankNResolvedProcrustesSelection
+from .status import Periodic1DRankNAlignmentStatus
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -81,7 +80,7 @@ class Periodic1DRankNGaugeAlignmentConstructionRequest:
     gauge_alignment: Periodic1DRankNGaugeAlignment
     coordinates: RealArray
     global_selection: Periodic1DRankNProcrustesDiagnostics
-    pointwise_alignment: NumpyBatchedComplexUnitaryProcrustesResult | None = None
+    pointwise_selection: Periodic1DRankNResolvedProcrustesSelection | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -125,23 +124,29 @@ class Periodic1DRankNGaugeAlignmentConstructionRequest:
             raise ValueError("global selection must match the calculation request")
         if self.gauge_alignment is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY:
             if (
-                type(self.pointwise_alignment)
-                is not NumpyBatchedComplexUnitaryProcrustesResult
+                type(self.pointwise_selection)
+                is not Periodic1DRankNResolvedProcrustesSelection
             ):
                 raise TypeError(
-                    "pointwise alignment requires the exact Procrustes result"
+                    "pointwise alignment requires a resolved Procrustes selection"
                 )
+            pointwise_status = self.pointwise_selection.diagnostics.status
             if (
-                self.pointwise_alignment.row_count != self.model.ambient_dimension
-                or self.pointwise_alignment.batch_shape != (coordinates.size,)
-                or not bool(self.pointwise_alignment.full_rank.all())
+                pointwise_status.case_identity != request.case_identity
+                or pointwise_status.retained_rank != request.retained_rank
+                or pointwise_status.circuit_depth != request.circuit_depth
+                or pointwise_status.construction_mesh_size != coordinates.size
+                or pointwise_status.gauge_alignment
+                is not Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY
+                or pointwise_status.status
+                is not Periodic1DRankNAlignmentStatus.QUALIFIED
             ):
                 raise ValueError(
-                    "pointwise alignment must be full rank and match the coordinates"
+                    "pointwise selection must be qualified and match the coordinates"
                 )
-        elif self.pointwise_alignment is not None:
+        elif self.pointwise_selection is not None:
             raise ValueError(
-                "pointwise_alignment is reserved for pointwise-unitary alignment"
+                "pointwise_selection is reserved for pointwise-unitary alignment"
             )
 
 
@@ -191,10 +196,10 @@ class Periodic1DRankNGaugeAlignmentConstructor:
                 (coordinates.size, rank, rank),
             )
         elif gauge_alignment is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY:
-            pointwise_alignment = request.pointwise_alignment
-            if pointwise_alignment is None:
-                raise ValueError("pointwise alignment requires a Procrustes result")
-            right_action = pointwise_alignment.right_unitary_completions
+            pointwise_selection = request.pointwise_selection
+            if pointwise_selection is None:
+                raise ValueError("pointwise alignment requires a resolved selection")
+            right_action = pointwise_selection.right_unitaries
         else:
             gauge = model.gauge_unitaries(coordinates)
             right_action = np.swapaxes(gauge.conjugate(), -1, -2)

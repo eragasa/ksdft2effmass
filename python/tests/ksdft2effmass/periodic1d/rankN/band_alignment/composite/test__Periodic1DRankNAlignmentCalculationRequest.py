@@ -4,7 +4,7 @@ from dataclasses import replace
 
 import pytest
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
     Periodic1DRankNAlignmentCalculationRequest,
 )

@@ -225,7 +225,7 @@ slices use their exact public owners rather than a generic Periodic1D aggregate.
 | Higher-rank alignment | `Periodic1DRankNAlignment` | `Periodic1DRankNAlignment` | `Periodic1DRankNAlignment` |
 
 The rank-two composite calculation enters through
-`Periodic1DAlignmentStudyFactory.create(Periodic1DRank2AlignmentStudySpecification(...))`
+`Periodic1DAlignmentStudyFactory(Periodic1DRank2AlignmentStudySpecification(...)).create()`
 with `configuration.reduced_lattice_geometry`. Its execution, verification, and rendering
 documents retain that explicit geometry while the canonical composite result wire remains
 unchanged. The higher-rank development runner uses the corresponding

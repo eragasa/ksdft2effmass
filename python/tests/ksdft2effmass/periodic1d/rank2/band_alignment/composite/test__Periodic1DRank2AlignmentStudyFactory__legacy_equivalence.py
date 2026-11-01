@@ -34,7 +34,7 @@ class TestPeriodic1DAlignmentStudyFactoryRank2LegacyEquivalence:
         composite_configuration: Periodic1DCompositeBandAlignmentConfiguration,
         composite_result: Periodic1DCompositeBandAlignmentCalculationResult,
     ) -> None:
-        action = Periodic1DAlignmentStudyFactory.create(
+        action = Periodic1DAlignmentStudyFactory(
             Periodic1DRank2AlignmentStudySpecification(
                 lattice_geometry=Periodic1DLatticeGeometry.from_direct_lattice(
                     DirectLattice1D(1.0),
@@ -43,7 +43,7 @@ class TestPeriodic1DAlignmentStudyFactoryRank2LegacyEquivalence:
                 configuration=composite_configuration,
                 procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
             )
-        )
+        ).create()
 
         direct_bytes = composite_result.to_json()
 

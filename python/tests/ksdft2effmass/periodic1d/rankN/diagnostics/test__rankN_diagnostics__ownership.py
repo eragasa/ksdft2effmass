@@ -23,6 +23,6 @@ class TestRankNDiagnosticsOwnership:
             assert record.__module__.endswith(module_suffix)
 
     def test__composite_package__does_not_reexport_shared_diagnostics(self) -> None:
+        assert not hasattr(composite, "__all__")
         for name in diagnostics.__all__:
-            assert name not in composite.__all__
             assert not hasattr(composite, name)

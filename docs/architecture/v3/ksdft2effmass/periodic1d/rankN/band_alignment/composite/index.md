@@ -45,7 +45,8 @@ The maintained package provides:
   `rankN/gauge_alignment/`;
 - scientifically distinct hopping-locality and support-truncation actions under their
   rank-first capability namespaces;
-- composite-owned orchestration and aggregate-result assembly under
+- retained aggregate records under `rankN/band_alignment/`, with composite-owned
+  sequencing and aggregate-result assembly actions confined to
   `rankN/band_alignment/composite/`;
 - rank-deficiency, integrity-failure, backend-failure, and downstream-inapplicability
   outcomes with fail-closed absence of downstream values;

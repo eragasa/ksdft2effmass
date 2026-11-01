@@ -7,9 +7,11 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
-    Periodic1DRank2CalculationRecord,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.calculation_verification import (  # noqa: E501
     Periodic1DRank2CalculationVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+    Periodic1DRank2CalculationRecord,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 

@@ -6,9 +6,6 @@ from dataclasses import dataclass
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
-from projectkoios.optimization.alignment.numpy.batched_procrustes import (
-    NumpyBatchedComplexUnitaryProcrustesResult,
-)
 
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
@@ -31,6 +28,7 @@ from .fields import (
     Periodic1DRankNGaugeAlignmentConstructor,
 )
 from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
+from .procrustes.selection import Periodic1DRankNResolvedProcrustesSelection
 from .status import (
     Periodic1DRankNAlignmentStatus,
     Periodic1DRankNAlignmentStatusResult,
@@ -49,7 +47,7 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
     status: Periodic1DRankNAlignmentStatusResult
     aligned_fields: Periodic1DRankNGaugeAlignedFields
     global_selection: Periodic1DRankNProcrustesDiagnostics
-    pointwise_alignment: NumpyBatchedComplexUnitaryProcrustesResult | None = None
+    pointwise_selection: Periodic1DRankNResolvedProcrustesSelection | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -123,13 +121,15 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
             is Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY
         ):
             if (
-                type(self.pointwise_alignment)
-                is not NumpyBatchedComplexUnitaryProcrustesResult
+                type(self.pointwise_selection)
+                is not Periodic1DRankNResolvedProcrustesSelection
             ):
-                raise TypeError("pointwise alignment requires the exact solver result")
-        elif self.pointwise_alignment is not None:
+                raise TypeError(
+                    "pointwise alignment requires a resolved Procrustes selection"
+                )
+        elif self.pointwise_selection is not None:
             raise ValueError(
-                "pointwise_alignment is reserved for pointwise-unitary alignment"
+                "pointwise_selection is reserved for pointwise-unitary alignment"
             )
         expected_fields = Periodic1DRankNGaugeAlignmentConstructor(
             Periodic1DRankNGaugeAlignmentConstructionRequest(
@@ -138,7 +138,7 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
                 gauge_alignment=self.status.gauge_alignment,
                 coordinates=coordinates,
                 global_selection=self.global_selection,
-                pointwise_alignment=self.pointwise_alignment,
+                pointwise_selection=self.pointwise_selection,
             )
         ).execute()
         if not np.array_equal(
@@ -174,9 +174,7 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
             ),
             alignment_sample_count=self.mesh.size,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
-            inner_product_convention=(
-                GaugeAlignmentInnerProductConvention.EUCLIDEAN
-            ),
+            inner_product_convention=(GaugeAlignmentInnerProductConvention.EUCLIDEAN),
         )
 
 

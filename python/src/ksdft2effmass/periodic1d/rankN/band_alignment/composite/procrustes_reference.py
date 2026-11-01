@@ -37,8 +37,11 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
 )
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DRankNAlignmentCalculationResult
-from .fourier_reference import _coordinates, _gauge_unitaries
+from ..calculation_result import Periodic1DRankNAlignmentCalculationResult
+from .analytic_reference import (
+    _Periodic1DRankNAnalyticReferenceModel,
+    _reduced_coordinates,
+)
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
 _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
@@ -125,11 +128,12 @@ class Periodic1DRankNProcrustesReferenceAnalyzer:
         rank = request.retained_rank
         depth = request.circuit_depth
         configuration = request.configuration
+        reference_model = _Periodic1DRankNAnalyticReferenceModel(rank, depth)
         comparisons: dict[str, MaximumAbsoluteErrorComparison] = {}
 
         global_size = configuration.global_unitary_selection_mesh_size
-        global_coordinates = _coordinates(global_size)
-        global_gauge = _gauge_unitaries(rank, depth, global_coordinates)
+        global_coordinates = _reduced_coordinates(global_size)
+        global_gauge = reference_model.gauge_unitaries(global_coordinates)
         global_cross = np.mean(
             np.swapaxes(global_gauge.conjugate(), -1, -2),
             axis=0,
@@ -160,8 +164,8 @@ class Periodic1DRankNProcrustesReferenceAnalyzer:
 
         for mesh in calculation.meshes:
             size = mesh.construction_mesh_size
-            coordinates = _coordinates(size)
-            gauge = _gauge_unitaries(rank, depth, coordinates)
+            coordinates = _reduced_coordinates(size)
+            gauge = reference_model.gauge_unitaries(coordinates)
             cross = np.swapaxes(gauge.conjugate(), -1, -2)
             pointwise_values = _values(
                 crosses=cross,

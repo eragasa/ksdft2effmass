@@ -5,13 +5,13 @@ from __future__ import annotations
 import pytest
 
 from ksdft2effmass.hopping_locality import HoppingLocality
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
-    Periodic1DRank2HoppingPower,
-)
 from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
 from ksdft2effmass.periodic1d.rank1.hopping_locality import (
     Periodic1DRank1HoppingLocalityAnalysis,
     Periodic1DRank1HoppingTailResult,
+)
+from ksdft2effmass.periodic1d.rank2.hopping_locality import (
+    Periodic1DRank2HoppingPower,
 )
 from ksdft2effmass.periodic1d.rankN.hopping_locality import (
     Periodic1DRankNHoppingLocalityAnalysis,

@@ -116,7 +116,7 @@ class Periodic1DBandEquivalenceLocalityAnalyzer:
             operator_squared_loss = max(0.0, 1.0 - optimal_scale**2)
             operator_threshold = math.sqrt(operator_squared_loss)
             joint_threshold = math.sqrt(max(0.0, 2.0 * (1.0 - correlation)))
-            analytic_correlation = _bessel_j0(2.0 * amplitude)
+            analytic_correlation = self._bessel_j0(2.0 * amplitude)
 
             samples = ReciprocalOperatorSamples1D(
                 coordinates=mesh.coordinates,
@@ -244,9 +244,8 @@ class Periodic1DBandEquivalenceLocalityAnalyzer:
         )
         return matrix_error, spectral_error
 
-    @classmethod
     def _range_analysis(
-        cls,
+        self,
         ordinary_model: BlockHoppingModel1D,
         maximum_range: int,
         evaluation_coordinates: VectorQuantity,
@@ -268,11 +267,11 @@ class Periodic1DBandEquivalenceLocalityAnalyzer:
             [matrix.magnitude for matrix in evaluated.matrices],
             dtype=np.complex128,
         )
-        truncation_matrix, truncation_spectral = cls._errors(
+        truncation_matrix, truncation_spectral = self._errors(
             truncated_values,
             complete_values,
         )
-        total_matrix, total_spectral = cls._errors(
+        total_matrix, total_spectral = self._errors(
             truncated_values,
             direct_values,
         )
@@ -287,23 +286,23 @@ class Periodic1DBandEquivalenceLocalityAnalyzer:
             total_spectral_maximum_error=total_spectral,
         )
 
-
-def _bessel_j0(argument: float) -> float:
-    """Evaluate ``J_0`` on the protocol interval by an alternating series."""
-    if type(argument) is not float or not math.isfinite(argument):
-        raise TypeError("argument must be a finite built-in float")
-    if abs(argument) > math.pi / 2.0:
-        raise ValueError("argument lies outside the protocol interval")
-    total = 1.0
-    term = 1.0
-    quarter_square = argument * argument / 4.0
-    for order in range(1, 65):
-        term *= -quarter_square / float(order * order)
-        updated = total + term
-        if abs(term) <= math.ulp(1.0) * max(1.0, abs(updated)):
-            return updated
-        total = updated
-    raise FloatingPointError("Bessel series did not converge")
+    @staticmethod
+    def _bessel_j0(argument: float) -> float:
+        """Evaluate ``J_0`` on the protocol interval by an alternating series."""
+        if type(argument) is not float or not math.isfinite(argument):
+            raise TypeError("argument must be a finite built-in float")
+        if abs(argument) > math.pi / 2.0:
+            raise ValueError("argument lies outside the protocol interval")
+        total = 1.0
+        term = 1.0
+        quarter_square = argument * argument / 4.0
+        for order in range(1, 65):
+            term *= -quarter_square / float(order * order)
+            updated = total + term
+            if abs(term) <= math.ulp(1.0) * max(1.0, abs(updated)):
+                return updated
+            total = updated
+        raise FloatingPointError("Bessel series did not converge")
 
 
 __all__ = ["Periodic1DBandEquivalenceLocalityAnalyzer"]

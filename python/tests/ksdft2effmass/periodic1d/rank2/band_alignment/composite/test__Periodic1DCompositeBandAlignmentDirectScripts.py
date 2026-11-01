@@ -108,7 +108,8 @@ class TestPeriodic1DCompositeBandAlignmentDirectScripts:
         sources = [path.read_text(encoding="utf-8") for path in self.scripts()]
         calculation_source = sources[0]
 
-        assert "Periodic1DAlignmentStudyFactory.create" in calculation_source
+        assert "Periodic1DAlignmentStudyFactory(" in calculation_source
+        assert ").create()" in calculation_source
         assert "Periodic1DRank2AlignmentStudySpecification" in calculation_source
         assert "Periodic1DCompositeBandAlignmentAnalyzer" not in calculation_source
         assert all(

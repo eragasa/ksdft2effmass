@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import final, overload
+from typing import cast, final, overload
 
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
@@ -26,10 +26,14 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
     Periodic1DCompositeBandAlignmentCalculationResult,
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
-    Periodic1DRankNAlignmentAnalyzer,
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
+    Periodic1DRankNAlignmentAnalyzer,
 )
 
 from .base import Periodic1DGaugeAlignment
@@ -213,44 +217,67 @@ Periodic1DAlignmentAnalyzer = (
 )
 
 
-class Periodic1DAlignmentStudyFactory:
-    """Construct but never execute one exact family-specific alignment action."""
+class Periodic1DAlignmentStudyFactory[
+    SpecificationT: Periodic1DAlignmentStudySpecification,
+]:
+    """Construct one exact family-specific action from a bound specification."""
 
-    __slots__ = ()
+    __slots__ = ("_specification",)
 
-    @staticmethod
+    def __init__(self, specification: SpecificationT) -> None:
+        if type(specification) not in (
+            Periodic1DRank1AlignmentStudySpecification,
+            Periodic1DRank2AlignmentStudySpecification,
+            Periodic1DRankNAlignmentStudySpecification,
+        ):
+            raise TypeError(
+                "specification must be an exact periodic-1D alignment study "
+                "specification"
+            )
+        self._specification = specification
+
+    @property
+    def specification(self) -> SpecificationT:
+        """Return the exact immutable study specification."""
+        return self._specification
+
     @overload
     def create(
-        specification: Periodic1DRank1AlignmentStudySpecification,
+        self: Periodic1DAlignmentStudyFactory[
+            Periodic1DRank1AlignmentStudySpecification
+        ],
     ) -> Periodic1DRank1AlignmentApplicabilityAnalyzer: ...
 
-    @staticmethod
     @overload
     def create(
-        specification: Periodic1DRank2AlignmentStudySpecification,
+        self: Periodic1DAlignmentStudyFactory[
+            Periodic1DRank2AlignmentStudySpecification
+        ],
     ) -> Periodic1DRank2AlignmentStudyAnalyzer: ...
 
-    @staticmethod
     @overload
     def create(
-        specification: Periodic1DRankNAlignmentStudySpecification,
+        self: Periodic1DAlignmentStudyFactory[
+            Periodic1DRankNAlignmentStudySpecification
+        ],
     ) -> Periodic1DRankNAlignmentStudyAnalyzer: ...
 
-    @staticmethod
-    def create(
-        specification: Periodic1DAlignmentStudySpecification,
-    ) -> Periodic1DAlignmentAnalyzer:
-        """Dispatch on exact typed specifications, never on a bare rank integer."""
+    def create(self) -> Periodic1DAlignmentAnalyzer:
+        """Dispatch on the bound typed specification, never on a bare rank."""
+        specification = self.specification
         if type(specification) is Periodic1DRank1AlignmentStudySpecification:
+            rank1 = cast(Periodic1DRank1AlignmentStudySpecification, specification)
             return Periodic1DRank1AlignmentApplicabilityAnalyzer(
-                request=specification.configuration,
-                lattice_geometry=specification.lattice_geometry,
+                request=rank1.configuration,
+                lattice_geometry=rank1.lattice_geometry,
             )
         if type(specification) is Periodic1DRank2AlignmentStudySpecification:
-            return Periodic1DRank2AlignmentStudyAnalyzer(specification)
+            rank2 = cast(Periodic1DRank2AlignmentStudySpecification, specification)
+            return Periodic1DRank2AlignmentStudyAnalyzer(rank2)
         if type(specification) is Periodic1DRankNAlignmentStudySpecification:
-            return Periodic1DRankNAlignmentStudyAnalyzer(specification)
-        raise TypeError("unsupported periodic-1D alignment study specification")
+            rankn = cast(Periodic1DRankNAlignmentStudySpecification, specification)
+            return Periodic1DRankNAlignmentStudyAnalyzer(rankn)
+        raise AssertionError("validated study specification became unsupported")
 
 
 __all__ = [

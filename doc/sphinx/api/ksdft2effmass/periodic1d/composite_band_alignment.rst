@@ -10,59 +10,51 @@ sealing.
 Configuration and calculation
 -----------------------------
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentConfiguration
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.configuration
    :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentAnalyzer
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis
    :members:
+   :undoc-members:
+   :show-inheritance:
 
 Result sections
 ---------------
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentDiagnostics
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.result
    :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentTransformResult
-   :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentChannelRangeResult
-   :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentRangeResult
-   :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentCalculationResult
-   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Independent reference
 ---------------------
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentReferenceRequest
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.reference
    :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentReference
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification
    :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer
-   :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.CompositeBandAlignmentVerification
-   :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentVerification
-   :members:
-
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentVerifier
-   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Authenticated visualization
 ----------------------------
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentVisualizationData
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.data
    :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentVisualizationPlotEnum
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.inventory
    :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. autoclass:: ksdft2effmass.periodic1d.Periodic1DCompositeBandAlignmentVisualizer
+.. automodule:: ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visualizer
    :members:
+   :undoc-members:
+   :show-inheritance:

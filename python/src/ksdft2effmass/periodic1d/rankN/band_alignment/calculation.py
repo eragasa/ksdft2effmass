@@ -14,7 +14,7 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from .configuration import Periodic1DRankNAlignmentConfiguration
-from .request import Periodic1DRankNAlignmentTransportRequest
+from .frame_transport.request import Periodic1DRankNAlignmentTransportRequest
 
 
 @dataclass(frozen=True, slots=True)
@@ -143,8 +143,8 @@ class Periodic1DRankNAlignmentCalculationControls(BaseTypedRecord):
             refinement_relative_tolerance=cls.REFINEMENT_RELATIVE_TOLERANCE,
         )
 
-    @classmethod
-    def _float_names(cls) -> tuple[str, ...]:
+    @staticmethod
+    def _float_names() -> tuple[str, ...]:
         return (
             "energy_reference",
             "saturation_denominator_floor",

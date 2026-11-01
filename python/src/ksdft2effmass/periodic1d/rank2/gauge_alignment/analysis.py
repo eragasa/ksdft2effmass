@@ -79,9 +79,7 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
             ),
             alignment_sample_count=self.reference.mesh.point_count,
             action_convention=GaugeAlignmentActionConvention.RIGHT,
-            inner_product_convention=(
-                GaugeAlignmentInnerProductConvention.EUCLIDEAN
-            ),
+            inner_product_convention=(GaugeAlignmentInnerProductConvention.EUCLIDEAN),
         )
 
 
@@ -105,9 +103,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
                 "request must be Periodic1DRank2GaugeAlignmentAnalysisRequest"
             )
         if type(solver) is not NumpyBatchedComplexUnitaryProcrustesSolver:
-            raise TypeError(
-                "solver must be NumpyBatchedComplexUnitaryProcrustesSolver"
-            )
+            raise TypeError("solver must be NumpyBatchedComplexUnitaryProcrustesSolver")
         self._request = request
         self._solver = solver
 
@@ -149,7 +145,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
         pointwise_values = (
             pointwise_selection.require_unique_right_unitary_transformations()
         )
-        pointwise_aligned = _rotate_path(
+        pointwise_aligned = self._rotate_path(
             request.attacked,
             tuple(pointwise_values[index] for index in range(source.shape[0])),
         )
@@ -160,10 +156,10 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
                 tolerance,
             )
         )
-        global_value = (
-            global_selection.require_unique_right_unitary_transformations()[0]
-        )
-        globally_aligned = _rotate_path(
+        global_value = global_selection.require_unique_right_unitary_transformations()[
+            0
+        ]
+        globally_aligned = self._rotate_path(
             request.attacked,
             tuple(global_value for _ in range(request.attacked.mesh.point_count)),
         )
@@ -187,22 +183,24 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
             global_rank_cutoff=float(global_selection.applied_rank_cutoffs[0]),
         )
 
-
-def _rotate_path(
-    source: ReciprocalBandFramePath1D,
-    rotations: tuple[Complex128Array, ...],
-) -> ReciprocalBandFramePath1D:
-    if len(rotations) != source.mesh.point_count:
-        raise ValueError("one rotation is required per reciprocal point")
-    return ReciprocalBandFramePath1D(
-        mesh=source.mesh,
-        frames=tuple(
-            ComplexMatrixQuantity(frame.magnitude @ rotation, Unitless())
-            for frame, rotation in zip(source.frames, rotations, strict=True)
-        ),
-        sewing_map=source.sewing_map,
-        orthonormality_absolute_tolerance=source.orthonormality_absolute_tolerance,
-    )
+    @staticmethod
+    def _rotate_path(
+        source: ReciprocalBandFramePath1D,
+        rotations: tuple[Complex128Array, ...],
+    ) -> ReciprocalBandFramePath1D:
+        if len(rotations) != source.mesh.point_count:
+            raise ValueError("one rotation is required per reciprocal point")
+        return ReciprocalBandFramePath1D(
+            mesh=source.mesh,
+            frames=tuple(
+                ComplexMatrixQuantity(frame.magnitude @ rotation, Unitless())
+                for frame, rotation in zip(source.frames, rotations, strict=True)
+            ),
+            sewing_map=source.sewing_map,
+            orthonormality_absolute_tolerance=(
+                source.orthonormality_absolute_tolerance
+            ),
+        )
 
 
 __all__ = [

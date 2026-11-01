@@ -24,7 +24,7 @@ from ksdft2effmass.periodic1d.rankN.support_truncation import (
     Periodic1DRankNSupportTruncationAnalysis,
 )
 
-from .result.gauge_alignment import Periodic1DRankNGaugeAlignmentMeshResult
+from ..gauge_case_result import Periodic1DRankNGaugeAlignmentMeshResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)

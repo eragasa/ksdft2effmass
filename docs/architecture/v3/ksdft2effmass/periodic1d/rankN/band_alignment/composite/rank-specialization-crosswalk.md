@@ -16,6 +16,14 @@ distinct rank-specialized studies scientifically interchangeable.
 | Relationship to shared mechanisms | Uses the scalar Fourier-locality specialization rather than a degenerate matrix gauge-alignment inventory. | May reuse rank-generic orthonormal numerical mechanisms, but retains its own model, controls, tolerances, evidence identity, and verification contract. | Admits exactly ranks `3`, `4`, `8`, and `16` under the D1-v1 model and protocol. |
 | Present disposition | Not admitted to D1 v1. | Rank-first direct lifecycle exercised in temporary software tests; no retained execution exists. | Rank-first development producer and geometry-bound cache implemented; full independent verification and retained execution remain absent. |
 
+Rank-specific capability locations are authoritative. Scientific studies import
+hopping-locality, support-truncation, and gauge-alignment definitions from the
+applicable `rank1/`, `rank2/`, or `rankN/` sibling package. A
+`band_alignment/composite/` package may coordinate those capabilities and retain an
+aggregate result, but it does not become their reusable owner. Rank one remains an
+intentional operator-trivial specialization rather than a synthetic copy of the
+non-Abelian pipelines.
+
 ## Why rank one remains separate
 
 The D1 analytic model normalizes orbital and attack coordinates by $r-1$ and constructs

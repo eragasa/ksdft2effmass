@@ -6,11 +6,9 @@ from dataclasses import replace
 
 import pytest
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
-    parent_scale,
-)
+import ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale as parent_scale  # noqa: E501
 
-pytestmark = pytest.mark.software_verification
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 QualificationVerificationAssessor = (
     parent_scale.Periodic1DRank2QualificationVerificationAssessor
 )

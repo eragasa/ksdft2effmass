@@ -37,7 +37,91 @@ independent recalculation, byte-owning verification, authenticated figures,
 retained execution, material validation, and publication remain unimplemented and are
 not implied by these software paths.
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite
+Frame-transport capability
+--------------------------
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.analysis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.failure
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.link
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Band-alignment calculation records
+----------------------------------
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.calculation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.gauge_case_result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.construction_mesh_result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.evaluation_result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.refinement_result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Composite calculation actions
+-----------------------------
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.construction_mesh
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.gauge_case
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.evaluation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.refinement
    :members:
    :undoc-members:
    :show-inheritance:

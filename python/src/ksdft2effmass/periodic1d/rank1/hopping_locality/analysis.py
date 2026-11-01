@@ -10,13 +10,19 @@ from ksdft2effmass.periodic1d.fourier_locality.result import (
     Periodic1DFourierLocalityMeshResult,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
+from ksdft2effmass.periodic1d.hopping_locality import (
+    Periodic1DHoppingLocalityAnalysis,
+    Periodic1DHoppingLocalityAnalysisRequest,
+    Periodic1DHoppingLocalityAnalyzer,
+)
 
 from .result import Periodic1DRank1HoppingTailResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank1HoppingLocalityAnalysisRequest:
+class Periodic1DRank1HoppingLocalityAnalysisRequest(
+    Periodic1DHoppingLocalityAnalysisRequest
+):
     """Bind one unchanged rank-one complete Fourier representation."""
 
     lattice_geometry: Periodic1DLatticeGeometry
@@ -45,7 +51,9 @@ class Periodic1DRank1HoppingLocalityAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank1HoppingLocalityAnalysis(Periodic1DHoppingLocality):
+class Periodic1DRank1HoppingLocalityAnalysis(
+    Periodic1DHoppingLocalityAnalysis
+):
     """Retain scalar coefficient-tail capability values without support removal."""
 
     lattice_geometry: Periodic1DLatticeGeometry
@@ -84,7 +92,12 @@ class Periodic1DRank1HoppingLocalityAnalysis(Periodic1DHoppingLocality):
 
 
 @final
-class Periodic1DRank1HoppingLocalityAnalyzer:
+class Periodic1DRank1HoppingLocalityAnalyzer(
+    Periodic1DHoppingLocalityAnalyzer[
+        Periodic1DRank1HoppingLocalityAnalysisRequest,
+        Periodic1DRank1HoppingLocalityAnalysis,
+    ]
+):
     """Construct hopping-locality values from stored scalar tail diagnostics."""
 
     __slots__ = ("_request",)

@@ -10,13 +10,19 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (
     Periodic1DRankNGaugeAlignedFields,
+    Periodic1DRankNGaugeAlignmentConstructionRequest,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.result import (
     Periodic1DRankNProcrustesDiagnostics,
 )
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.selection import (
+    Periodic1DRankNProcrustesSelectionAnalyzer,
+    Periodic1DRankNProcrustesSelectionRequest,
+    Periodic1DRankNResolvedProcrustesSelection,
+    Periodic1DRankNUnresolvedProcrustesSelection,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
-    Periodic1DRankNGaugeAlignmentConstructionRequest,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentStatusResult,
@@ -35,6 +41,10 @@ class TestGaugeAlignmentOwnership:
             Periodic1DRankNGaugeAlignmentAnalysisRequest,
             Periodic1DRankNGaugeAlignmentConstructionRequest,
             Periodic1DRankNProcrustesDiagnostics,
+            Periodic1DRankNProcrustesSelectionAnalyzer,
+            Periodic1DRankNProcrustesSelectionRequest,
+            Periodic1DRankNResolvedProcrustesSelection,
+            Periodic1DRankNUnresolvedProcrustesSelection,
             Periodic1DRankNAlignmentStatusResult,
         ):
             assert ".rankN.gauge_alignment" in value.__module__
@@ -56,6 +66,9 @@ class TestGaugeAlignmentOwnership:
                 for alias in node.names
             }
             assert all(
-                "band_alignment.composite" not in value
+                "band_alignment.composite" not in value for value in imported_modules
+            )
+            assert all(
+                "solidstate.electronic.frame_transport" not in value
                 for value in imported_modules
             )

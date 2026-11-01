@@ -36,9 +36,11 @@ from ksdft2effmass.periodic1d.rank1.alignment import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
     Periodic1DRankNAlignmentCalculationRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
 
@@ -57,9 +59,7 @@ class TestPeriodic1DAlignmentStudyFactory:
             positive_hopping_numerators=(
                 configuration_type.PARENT_POSITIVE_HOPPING_NUMERATORS
             ),
-            coefficient_denominator=(
-                configuration_type.PARENT_COEFFICIENT_DENOMINATOR
-            ),
+            coefficient_denominator=(configuration_type.PARENT_COEFFICIENT_DENOMINATOR),
             construction_mesh_sizes=(4, 8),
             production_construction_size=8,
             evaluation_size=3,
@@ -84,9 +84,7 @@ class TestPeriodic1DAlignmentStudyFactory:
             positive_hopping_numerators=(
                 configuration_type.PARENT_POSITIVE_HOPPING_NUMERATORS
             ),
-            coefficient_denominator=(
-                configuration_type.PARENT_COEFFICIENT_DENOMINATOR
-            ),
+            coefficient_denominator=(configuration_type.PARENT_COEFFICIENT_DENOMINATOR),
             retained_rank=2,
             construction_size=64,
             evaluation_size=257,
@@ -119,9 +117,7 @@ class TestPeriodic1DAlignmentStudyFactory:
                 configuration_type.GLOBAL_UNITARY_SELECTION_MESH_SIZE
             ),
             evaluation_mesh_size=configuration_type.EVALUATION_MESH_SIZE,
-            evaluation_shift_numerator=(
-                configuration_type.EVALUATION_SHIFT_NUMERATOR
-            ),
+            evaluation_shift_numerator=(configuration_type.EVALUATION_SHIFT_NUMERATOR),
             evaluation_shift_denominator=(
                 configuration_type.EVALUATION_SHIFT_DENOMINATOR
             ),
@@ -174,18 +170,19 @@ class TestPeriodic1DAlignmentStudyFactory:
             DirectLattice1D(4.0),
             PhysicalUnit("nanometer"),
         )
-        rank1 = Periodic1DAlignmentStudyFactory.create(
+        rank1 = Periodic1DAlignmentStudyFactory(
             Periodic1DRank1AlignmentStudySpecification(
                 lattice_geometry=rank1_geometry,
                 configuration=self.rank1_configuration(),
             )
-        )
+        ).create()
         rank2_specification = Periodic1DRank2AlignmentStudySpecification(
             lattice_geometry=rank2_geometry,
             configuration=self.rank2_configuration(),
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
         )
-        rank2 = Periodic1DAlignmentStudyFactory.create(rank2_specification)
+        rank2_factory = Periodic1DAlignmentStudyFactory(rank2_specification)
+        rank2 = rank2_factory.create()
         rankn_specification = Periodic1DRankNAlignmentStudySpecification(
             lattice_geometry=rankn_geometry,
             request=self.rankn_request(),
@@ -193,7 +190,8 @@ class TestPeriodic1DAlignmentStudyFactory:
             transporter=ClosedLoopPolarFrameTransporter(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
         )
-        rankn = Periodic1DAlignmentStudyFactory.create(rankn_specification)
+        rankn_factory = Periodic1DAlignmentStudyFactory(rankn_specification)
+        rankn = rankn_factory.create()
 
         assert type(rank1) is Periodic1DRank1AlignmentApplicabilityAnalyzer
         assert type(rank2) is Periodic1DRank2AlignmentStudyAnalyzer
@@ -204,9 +202,11 @@ class TestPeriodic1DAlignmentStudyFactory:
         )
         assert rank1.direct_lattice.lattice_constant == 2.0
         assert rank1.lattice_geometry.lattice_unit == PhysicalUnit("angstrom")
+        assert rank2_factory.specification is rank2_specification
         assert rank2.specification is rank2_specification
         assert rank2.direct_lattice.lattice_constant == 3.0
         assert rank2.lattice_geometry.lattice_unit == PhysicalUnit("bohr")
+        assert rankn_factory.specification is rankn_specification
         assert rankn.specification is rankn_specification
         assert rankn.direct_lattice.lattice_constant == 4.0
         assert rankn.lattice_geometry.lattice_unit == PhysicalUnit("nanometer")
@@ -233,5 +233,5 @@ class TestPeriodic1DAlignmentStudyFactory:
             )
 
     def test__create__rejects_untyped_rank_dispatch(self) -> None:
-        with pytest.raises(TypeError, match="unsupported"):
-            Periodic1DAlignmentStudyFactory.create(1)  # type: ignore[call-overload]
+        with pytest.raises(TypeError, match="exact periodic-1D"):
+            Periodic1DAlignmentStudyFactory(1)  # type: ignore[type-var]

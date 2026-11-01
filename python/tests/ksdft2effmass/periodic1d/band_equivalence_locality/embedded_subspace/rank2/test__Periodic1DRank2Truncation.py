@@ -11,17 +11,31 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DRank2ExternalGapFailure,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
-    Periodic1DRank2TruncationAnalysis,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
+    Periodic1DRank2ExternalGapFailure,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
     Periodic1DRank2TruncationAnalyzer,
-    Periodic1DRank2TruncationCompleted,
-    Periodic1DRank2TruncationIndependentVerifier,
-    Periodic1DRank2TruncationQualificationStopped,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
     Periodic1DRank2TruncationRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2TruncationCompleted,
+    Periodic1DRank2TruncationQualificationStopped,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection import (
     Periodic1DRank2TruncationToleranceSelector,
 )
+from ksdft2effmass.periodic1d.rank2.support_truncation.verification import (
+    Periodic1DRank2TruncationIndependentVerifier,
+)
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _template() -> Periodic1DRank2Request:
@@ -207,7 +221,9 @@ class TestPeriodic1DRank2Truncation:
             f"{root}.parent_scale.parent_hamiltonian"
         )
         production_analysis = importlib.import_module(f"{root}.parent_scale.analysis")
-        production_truncation = importlib.import_module(f"{root}.truncation.analysis")
+        production_truncation = importlib.import_module(
+            "ksdft2effmass.periodic1d.rank2.support_truncation.analysis"
+        )
         solidstate = importlib.import_module("ksdft2effmass.solidstate")
 
         def forbidden(*args: object, **kwargs: object) -> None:

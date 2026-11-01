@@ -25,6 +25,7 @@ from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ..definition import Periodic1DRankNGaugeAlignment
 from ..status import (
+    Periodic1DRankNAlignmentBackendExceptionCode,
     Periodic1DRankNAlignmentStatus,
     Periodic1DRankNAlignmentStatusResult,
 )
@@ -54,6 +55,49 @@ class Periodic1DRankNProcrustesDiagnostics(BaseTypedRecord):
     selected_global_right_unitary: ComplexMatrixQuantity | None
     backend_identifier: str | None
     backend_version: str | None
+
+    @classmethod
+    def numerically_unresolved(
+        cls,
+        *,
+        case_identity: str,
+        retained_rank: int,
+        circuit_depth: int,
+        gauge_alignment: Periodic1DRankNGaugeAlignment,
+        selection_mesh_size: int,
+        backend_exception_code: Periodic1DRankNAlignmentBackendExceptionCode,
+    ) -> Self:
+        """Construct diagnostics for one admitted numerical backend failure."""
+        return cls(
+            status=Periodic1DRankNAlignmentStatusResult.from_disposition(
+                case_identity=case_identity,
+                retained_rank=retained_rank,
+                circuit_depth=circuit_depth,
+                construction_mesh_size=selection_mesh_size,
+                gauge_alignment=gauge_alignment,
+                status=Periodic1DRankNAlignmentStatus.NUMERICALLY_UNRESOLVED,
+                backend_exception_code=backend_exception_code,
+            ),
+            selection_mesh_size=selection_mesh_size,
+            cross_singular_values=np.empty((0, retained_rank), dtype=np.float64),
+            numerical_ranks=np.empty(0, dtype=np.int64),
+            applied_rank_cutoffs=np.empty(0, dtype=np.float64),
+            rank_margins=np.empty(0, dtype=np.float64),
+            spectral_condition_numbers=(),
+            deficient_point_indices=(),
+            deficient_point_count=0,
+            normalized_optimal_residuals=np.empty(0, dtype=np.float64),
+            normalized_objective_maximum=None,
+            normalized_objective_rms=None,
+            minimum_rank_margin=None,
+            maximum_unitarity_defect=None,
+            maximum_stationarity_defect=None,
+            maximum_objective_identity_defect=None,
+            maximum_psd_defect=None,
+            selected_global_right_unitary=None,
+            backend_identifier=None,
+            backend_version=None,
+        )
 
     def __post_init__(self) -> None:
         if type(self.status) is not Periodic1DRankNAlignmentStatusResult:

@@ -15,18 +15,18 @@ from ksdft2effmass.numerical_consistency import NumericalConsistency
 from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.result import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.construction_mesh_result import (  # noqa: E501
     Periodic1DRankNMeshCalculationResult,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentStatus,
 )
 
-from .refinement_results import (
+from ..refinement_result import (
     Periodic1DRankNBlockRefinementResult,
     Periodic1DRankNScalarRefinementResult,
 )
-from .scalar_diagnostics import (
+from ..scalar_diagnostics import (
     Periodic1DRankNScalarDiagnosticInventoryExtractor,
 )
 

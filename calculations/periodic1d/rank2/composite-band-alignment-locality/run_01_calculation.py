@@ -60,13 +60,13 @@ temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a composite-alignment execution")
 lattice_geometry = configuration.reduced_lattice_geometry
-study = Periodic1DAlignmentStudyFactory.create(
+study = Periodic1DAlignmentStudyFactory(
     Periodic1DRank2AlignmentStudySpecification(
         lattice_geometry=lattice_geometry,
         configuration=configuration,
         procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
     )
-)
+).create()
 result = study.execute()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()

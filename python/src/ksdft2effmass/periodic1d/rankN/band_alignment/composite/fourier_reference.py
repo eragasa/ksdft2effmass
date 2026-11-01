@@ -22,7 +22,7 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.result import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.gauge_case_result import (
     Periodic1DRankNGaugeAlignmentMeshResult,
 )
 from ksdft2effmass.periodic1d.rankN.diagnostics import (
@@ -36,7 +36,11 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
 )
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .calculation_result import Periodic1DRankNAlignmentCalculationResult
+from ..calculation_result import Periodic1DRankNAlignmentCalculationResult
+from .analytic_reference import (
+    _Periodic1DRankNAnalyticReferenceModel,
+    _reduced_coordinates,
+)
 
 _REFERENCE_SCALAR_ABSOLUTE_TOLERANCE = 1.0e-11
 _REFERENCE_ARRAY_ABSOLUTE_TOLERANCE = 1.0e-10
@@ -115,14 +119,15 @@ class Periodic1DRankNFourierReferenceAnalyzer:
         controls = calculation_request.controls
         rank = calculation_request.retained_rank
         depth = calculation_request.circuit_depth
+        reference_model = _Periodic1DRankNAnalyticReferenceModel(rank, depth)
         energy_reference = controls.energy_reference
         matrix_scale = math.sqrt(rank) * energy_reference
-        exact_offsets, exact_first, exact_second = _energy_parameters(rank)
+        exact_offsets, exact_first, exact_second = reference_model.energy_parameters()
         selection_size = (
             calculation_request.configuration.global_unitary_selection_mesh_size
         )
-        selection_coordinates = _coordinates(selection_size)
-        selection_gauge = _gauge_unitaries(rank, depth, selection_coordinates)
+        selection_coordinates = _reduced_coordinates(selection_size)
+        selection_gauge = reference_model.gauge_unitaries(selection_coordinates)
         selection_cross = np.mean(
             np.swapaxes(selection_gauge.conjugate(), -1, -2),
             axis=0,
@@ -133,9 +138,9 @@ class Periodic1DRankNFourierReferenceAnalyzer:
 
         for mesh in calculation.meshes:
             size = mesh.construction_mesh_size
-            coordinates = _coordinates(size)
-            exact_field = _exact_field(rank, coordinates)
-            gauge = _gauge_unitaries(rank, depth, coordinates)
+            coordinates = _reduced_coordinates(size)
+            exact_field = reference_model.exact_field(coordinates)
+            gauge = reference_model.gauge_unitaries(coordinates)
             gauge_adjoint = np.swapaxes(gauge.conjugate(), -1, -2)
             identity_field = np.asarray(
                 gauge_adjoint @ exact_field @ gauge,
@@ -272,75 +277,6 @@ class Periodic1DRankNFourierReferenceAnalyzer:
                     )
 
         return Periodic1DRankNFourierReference(MappingProxyType(comparisons))
-
-
-def _energy_parameters(rank: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    orbital = np.arange(rank, dtype=np.float64)
-    normalized = (2.0 * orbital - rank + 1.0) / (rank - 1.0)
-    amplitude = 0.25 * (1.0 + 0.2 * normalized)
-    return (
-        np.asarray(0.4 * normalized, dtype=np.float64),
-        np.asarray(0.75 * amplitude, dtype=np.float64),
-        np.asarray(0.25 * amplitude, dtype=np.float64),
-    )
-
-
-def _coordinates(mesh_size: int) -> np.ndarray:
-    return np.asarray(
-        -0.5 + np.arange(mesh_size, dtype=np.float64) / mesh_size,
-        dtype=np.float64,
-    )
-
-
-def _exact_field(rank: int, coordinates: np.ndarray) -> np.ndarray:
-    offsets, first, second = _energy_parameters(rank)
-    k = 2.0 * np.pi * coordinates
-    energies = (
-        offsets[None, :]
-        + first[None, :] * np.cos(k)[:, None]
-        + second[None, :] * np.cos(2.0 * k)[:, None]
-    )
-    identity = np.eye(rank, dtype=np.complex128)
-    return np.asarray(
-        np.einsum("qi,ij->qij", energies, identity, optimize=True),
-        dtype=np.complex128,
-    )
-
-
-def _gauge_unitaries(
-    rank: int,
-    depth: int,
-    coordinates: np.ndarray,
-) -> np.ndarray:
-    k = 2.0 * np.pi * coordinates
-    gauges = np.broadcast_to(
-        np.eye(rank, dtype=np.complex128),
-        (coordinates.size, rank, rank),
-    ).copy()
-    for layer_index in range(1, depth + 1):
-        harmonic = 0.75 * np.sin(k) + 0.25 * ((-1.0) ** layer_index) * np.sin(2.0 * k)
-        layer = np.broadcast_to(
-            np.eye(rank, dtype=np.complex128),
-            (coordinates.size, rank, rank),
-        ).copy()
-        first_index = 0 if layer_index % 2 == 1 else 1
-        for left in range(first_index, rank - 1, 2):
-            pair_index = left + 1
-            normalized_pair = (2.0 * pair_index - rank) / (rank - 1.0)
-            angle = (
-                0.35
-                * (-1.0) ** (layer_index + pair_index)
-                * (1.0 + 0.15 * normalized_pair)
-                * harmonic
-            )
-            cosine = np.cos(angle)
-            sine = np.sin(angle)
-            layer[:, left, left] = cosine
-            layer[:, left, left + 1] = -sine
-            layer[:, left + 1, left] = sine
-            layer[:, left + 1, left + 1] = cosine
-        gauges = gauges @ layer
-    return np.asarray(gauges, dtype=np.complex128)
 
 
 def _right_polar_factor(cross: np.ndarray) -> np.ndarray:
@@ -516,6 +452,7 @@ def _add_interpolation_and_tail_comparisons(
     scalar_tolerance: float,
 ) -> None:
     rank = observed.status.retained_rank
+    reference_model = _Periodic1DRankNAnalyticReferenceModel(rank, depth)
     evaluation_coordinates = np.asarray(
         -0.5
         + (
@@ -530,12 +467,12 @@ def _add_interpolation_and_tail_comparisons(
         coefficients,
         evaluation_coordinates,
     )
-    exact = _exact_field(rank, evaluation_coordinates)
+    exact = reference_model.exact_field(evaluation_coordinates)
     if gauge_alignment in (
         Periodic1DRankNGaugeAlignment.IDENTITY,
         Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
     ):
-        gauge = _gauge_unitaries(rank, depth, evaluation_coordinates)
+        gauge = reference_model.gauge_unitaries(evaluation_coordinates)
         attacked = np.asarray(
             np.swapaxes(gauge.conjugate(), -1, -2) @ exact @ gauge,
             dtype=np.complex128,

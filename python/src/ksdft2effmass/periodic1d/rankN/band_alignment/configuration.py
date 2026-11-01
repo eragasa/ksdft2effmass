@@ -7,10 +7,13 @@ from dataclasses import dataclass
 from math import isfinite
 from typing import ClassVar, Self
 
+import numpy as np
+from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesRankCutoffRule,
     ComplexUnitaryProcrustesTolerance,
 )
+from projectkoios.physkit.numerics.typing.numpy.arrays import RealArray
 from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransportPrincipalPhaseBranch,
     EndpointSewingAction,
@@ -32,20 +35,6 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ...geometry import Periodic1DReducedCoordinateConvention
-
-
-def _decoded_integer_tuple(
-    value: SerializableValue,
-    name: str,
-) -> tuple[int, ...]:
-    if not isinstance(value, tuple):
-        raise TypeError(f"{name} must decode to a tuple")
-    decoded: list[int] = []
-    for entry in value:
-        if type(entry) is not int:
-            raise TypeError(f"{name} must decode to built-in integers")
-        decoded.append(entry)
-    return tuple(decoded)
 
 
 @dataclass(frozen=True, slots=True)
@@ -323,6 +312,26 @@ class Periodic1DRankNAlignmentConfiguration(
             rank_cutoff_rule=self.rank_cutoff_rule,
         )
 
+    def construction_coordinates(self, mesh_size: int) -> RealArray:
+        """Return the unshifted coordinates for one declared construction mesh."""
+        if type(mesh_size) is not int:
+            raise TypeError("mesh_size must be a built-in integer")
+        if mesh_size not in self.construction_mesh_sizes:
+            raise ValueError("mesh_size is not in the construction-mesh inventory")
+        values = np.asarray(
+            -0.5 + np.arange(mesh_size, dtype=np.float64) / mesh_size,
+            dtype=np.float64,
+        )
+        return NumpyImmutableArrayConstructor(
+            values,
+            "coordinates",
+            np.dtype(np.float64),
+        ).execute()
+
+    def global_unitary_selection_coordinates(self) -> RealArray:
+        """Return the declared global-unitary selection coordinates."""
+        return self.construction_coordinates(self.global_unitary_selection_mesh_size)
+
     def _mapping(self) -> Mapping[str, SerializableValue]:
         return {
             "family_identity": self.family_identity,
@@ -338,8 +347,7 @@ class Periodic1DRankNAlignmentConfiguration(
             "evaluation_shift_numerator": self.evaluation_shift_numerator,
             "evaluation_shift_denominator": self.evaluation_shift_denominator,
             "gauge_alignments": tuple(
-                gauge_alignment.to_wire()
-                for gauge_alignment in self.gauge_alignments
+                gauge_alignment.to_wire() for gauge_alignment in self.gauge_alignments
             ),
             "frame_rotation_action": self.frame_rotation_action.value,
             "endpoint_sewing_action": self.endpoint_sewing_action.value,
@@ -358,6 +366,20 @@ class Periodic1DRankNAlignmentConfiguration(
             ),
             "maximum_closure_phase_tolerance": (self.maximum_closure_phase_tolerance),
         }
+
+    @staticmethod
+    def _decoded_integer_tuple(
+        value: SerializableValue,
+        name: str,
+    ) -> tuple[int, ...]:
+        if not isinstance(value, tuple):
+            raise TypeError(f"{name} must decode to a tuple")
+        decoded: list[int] = []
+        for entry in value:
+            if type(entry) is not int:
+                raise TypeError(f"{name} must decode to built-in integers")
+            decoded.append(entry)
+        return tuple(decoded)
 
     @classmethod
     def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
@@ -392,13 +414,13 @@ class Periodic1DRankNAlignmentConfiguration(
         if type(family_identity) is not str or type(version_identity) is not str:
             raise TypeError("family and version identities must decode to strings")
 
-        retained_ranks = _decoded_integer_tuple(
+        retained_ranks = cls._decoded_integer_tuple(
             values["retained_ranks"], "retained_ranks"
         )
-        circuit_depths = _decoded_integer_tuple(
+        circuit_depths = cls._decoded_integer_tuple(
             values["circuit_depths"], "circuit_depths"
         )
-        construction_mesh_sizes = _decoded_integer_tuple(
+        construction_mesh_sizes = cls._decoded_integer_tuple(
             values["construction_mesh_sizes"], "construction_mesh_sizes"
         )
         gauge_alignment_values = values["gauge_alignments"]

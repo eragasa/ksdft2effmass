@@ -14,17 +14,6 @@ from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
 from .configuration import Periodic1DRankNAlignmentConfiguration
 
 
-def _finite_reduced_coordinates(value: RealArray, name: str) -> RealArray:
-    normalized = NumpyImmutableArrayConstructor(
-        value,
-        name,
-        np.dtype(np.float64),
-    ).execute()
-    if normalized.ndim != 1 or normalized.size == 0:
-        raise ValueError(f"{name} must be a nonempty one-dimensional array")
-    return normalized
-
-
 @final
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRankNAnalyticCase(Periodic1DModel):
@@ -114,7 +103,8 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
     def retained_energies(self, reduced_coordinates: RealArray) -> RealArray:
         """Return the ordered retained energies on supplied reduced coordinates."""
         coordinates = _finite_reduced_coordinates(
-            reduced_coordinates, "reduced_coordinates"
+            reduced_coordinates,
+            "reduced_coordinates",
         )
         k = 2.0 * np.pi * coordinates
         c = 0.75 * np.cos(k) + 0.25 * np.cos(2.0 * k)
@@ -131,7 +121,8 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
     def exterior_energies(self, reduced_coordinates: RealArray) -> RealArray:
         """Return the ordered exterior energies on supplied reduced coordinates."""
         coordinates = _finite_reduced_coordinates(
-            reduced_coordinates, "reduced_coordinates"
+            reduced_coordinates,
+            "reduced_coordinates",
         )
         k = 2.0 * np.pi * coordinates
         c = 0.75 * np.cos(k) + 0.25 * np.cos(2.0 * k)
@@ -155,7 +146,8 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
     def reference_frames(self, reduced_coordinates: RealArray) -> ComplexArray:
         """Return the constant analytic retained frame on supplied coordinates."""
         coordinates = _finite_reduced_coordinates(
-            reduced_coordinates, "reduced_coordinates"
+            reduced_coordinates,
+            "reduced_coordinates",
         )
         return np.asarray(
             np.broadcast_to(
@@ -190,7 +182,8 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
     def sampled_attack_angle_maximum(self, reduced_coordinates: RealArray) -> float:
         """Return the sampled maximum absolute Givens angle on one mesh."""
         coordinates = _finite_reduced_coordinates(
-            reduced_coordinates, "reduced_coordinates"
+            reduced_coordinates,
+            "reduced_coordinates",
         )
         k = 2.0 * np.pi * coordinates
         maximum = 0.0
@@ -214,7 +207,8 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
     def gauge_unitaries(self, reduced_coordinates: RealArray) -> ComplexArray:
         """Return the frozen depth-``L`` nearest-neighbor gauge circuit."""
         coordinates = _finite_reduced_coordinates(
-            reduced_coordinates, "reduced_coordinates"
+            reduced_coordinates,
+            "reduced_coordinates",
         )
         k = 2.0 * np.pi * coordinates
         rank = self.retained_rank
@@ -268,6 +262,18 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
             np.swapaxes(gauge.conjugate(), -1, -2) @ exact @ gauge,
             dtype=np.complex128,
         )
+
+
+def _finite_reduced_coordinates(value: RealArray, name: str) -> RealArray:
+    """Return one finite immutable reduced-coordinate vector."""
+    normalized = NumpyImmutableArrayConstructor(
+        value,
+        name,
+        np.dtype(np.float64),
+    ).execute()
+    if normalized.ndim != 1 or normalized.size == 0:
+        raise ValueError(f"{name} must be a nonempty one-dimensional array")
+    return normalized
 
 
 @final

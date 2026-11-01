@@ -7,21 +7,31 @@ import pytest
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.results import (
     BandEquivalenceLocalityShellAnalysis,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
-    Periodic1DRank2SupportTruncationAnalysis,
-    Periodic1DRank2SupportTruncationAnalysisRequest,
-    Periodic1DRank2SupportTruncationAnalyzer,
-    Periodic1DRank2TruncationAnalysis,
-    Periodic1DRank2TruncationFamilyAnalysis,
-    Periodic1DRank2TruncationRange,
-    Periodic1DRank2TruncationToleranceSelectionIndependentReference,
-    Periodic1DRank2TruncationToleranceSelector,
-)
 from ksdft2effmass.periodic1d.rank1.support_truncation import (
     Periodic1DRank1SupportResult,
     Periodic1DRank1SupportTruncationAnalysis,
     Periodic1DRank1SupportTruncationAnalysisRequest,
     Periodic1DRank1SupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
+    Periodic1DRank2SupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
+    Periodic1DRank2TruncationFamilyAnalysis,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.request import (
+    Periodic1DRank2SupportTruncationAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
+    Periodic1DRank2SupportTruncationAnalysis,
+    Periodic1DRank2TruncationAnalysis,
+    Periodic1DRank2TruncationRange,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection import (
+    Periodic1DRank2TruncationToleranceSelector,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.tolerance_selection_reference import (  # noqa: E501
+    Periodic1DRank2TruncationToleranceSelectionIndependentReference,
 )
 from ksdft2effmass.periodic1d.rankN.support_truncation import (
     Periodic1DRankNLocalityAnalysis,

@@ -7,6 +7,9 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from ksdft2effmass.periodic1d.rank2.support_truncation.family_verification import (
+    Periodic1DRank2TruncationFamilyIndependentVerifier,
+)
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.verification import (
     CompositeVerification,
@@ -19,9 +22,6 @@ from ..amplitude_refinement.verification import (
 )
 from ..momentum_refinement.family_verification import (
     Periodic1DRank2MomentumRefinementFamilyIndependentVerifier,
-)
-from ..truncation.family_verification import (
-    Periodic1DRank2TruncationFamilyIndependentVerifier,
 )
 from .complete_five_scale import Periodic1DRank2CompleteFiveScaleCalculationRecord
 from .complete_five_scale_visualization_data import (

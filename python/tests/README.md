@@ -4,7 +4,9 @@ Markers describe independent properties of a test. Directory names do not assign
 markers. Every newly added or substantively modified test module declares exactly one
 boundary marker (`unit` or `integration`) and at least one evidence-claim marker.
 Historical modules that predate this policy are classified incrementally when their
-tests next change; their directory does not supply an implicit classification.
+tests next change; their directory does not supply an implicit classification. CI
+checks every changed `python/tests/**/test*.py` module with strict mypy and enforces
+this boundary/evidence marker rule.
 
 - `unit` identifies an isolated software boundary without repository artifacts,
   subprocesses, complete calculation composition, or external executables.
@@ -49,13 +51,16 @@ changes:
 uv run pytest -m "legacy_equivalence and expensive" tests
 ```
 
-The calculation-local higher-rank full-case test is outside the package test tree. Run
-it only when that numerical calculation changes:
+The maintained rank-N calculation-local structural and plotting tests are outside the
+package test tree. Run their bounded subset with:
 
 ```console
-uv run pytest -c pyproject.toml -m expensive \
+uv run pytest -c pyproject.toml -m "not expensive" \
   ../calculations/periodic1d/rankN/composite-band-alignment-locality/tests
 ```
+
+If that calculation later adds an expensive full-case test, run it explicitly with the
+same path and `-m expensive` only when the numerical calculation changes.
 
 Passing tests establishes only their stated software or numerical behavior. It does
 not establish scientific validation, convergence, uncertainty quantification,

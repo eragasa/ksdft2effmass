@@ -6,6 +6,12 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
+    Periodic1DRank2TruncationFamilyAnalysis,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.mesh_stability import (
+    Periodic1DRank2TruncationMeshStabilityAssessment,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ..amplitude_refinement.analysis import (
@@ -19,10 +25,6 @@ from ..momentum_refinement.family import (
     Periodic1DRank2MomentumRefinementFamilyAnalysis,
 )
 from ..parent_family.analysis import Periodic1DRank2ParentFamilyAnalysis
-from ..truncation.family import Periodic1DRank2TruncationFamilyAnalysis
-from ..truncation.mesh_stability import (
-    Periodic1DRank2TruncationMeshStabilityAssessment,
-)
 from .records import (
     Periodic1DRank2AdaptiveAmplitudeAnalysisRecord,
     Periodic1DRank2MomentumRefinementFamilyAnalysisRecord,

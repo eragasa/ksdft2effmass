@@ -6,6 +6,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from numpy.linalg import LinAlgError
+
 from ksdft2effmass.periodic1d.rankN.band_alignment.protocol import (
     CIRCUIT_DEPTHS,
     CONSTRUCTION_MESH_SIZES,
@@ -45,53 +47,19 @@ class Periodic1DRankNAlignmentBackendExceptionCode(StringWireEnum):
     NONCONVERGENCE = "backend-nonconvergence"
     VALIDATION_FAILED = "backend-validation-failed"
 
-
-def _alignment_status_result(
-    *,
-    case_identity: str,
-    retained_rank: int,
-    circuit_depth: int,
-    construction_mesh_size: int,
-    gauge_alignment: Periodic1DRankNGaugeAlignment,
-    status: Periodic1DRankNAlignmentStatus,
-    backend_exception_code: Periodic1DRankNAlignmentBackendExceptionCode | None = None,
-) -> Periodic1DRankNAlignmentStatusResult:
-    applicability = None
-    if (
-        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
-        and status is Periodic1DRankNAlignmentStatus.QUALIFIED
-    ):
-        applicability = (
-            Periodic1DRankNGlobalUnitaryDownstreamApplicability.APPLICABLE
-        )
-    elif (
-        gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
-        and status is Periodic1DRankNAlignmentStatus.AGGREGATE_RANK_DEFICIENT
-    ):
-        applicability = (
-            Periodic1DRankNGlobalUnitaryDownstreamApplicability.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
-        )
-    return Periodic1DRankNAlignmentStatusResult(
-        case_identity=case_identity,
-        retained_rank=retained_rank,
-        circuit_depth=circuit_depth,
-        construction_mesh_size=construction_mesh_size,
-        gauge_alignment=gauge_alignment,
-        status=status,
-        global_unitary_downstream_applicability=applicability,
-        backend_exception_code=backend_exception_code,
-    )
-
-
-def _case_identity(retained_rank: int, circuit_depth: int) -> str:
-    return f"r{retained_rank:02d}-L{circuit_depth:02d}"
-
-
-def _nonempty_text(value: str, name: str) -> None:
-    if type(value) is not str:
-        raise TypeError(f"{name} must be a built-in string")
-    if not value:
-        raise ValueError(f"{name} must be nonempty")
+    @classmethod
+    def from_procrustes_exception(
+        cls,
+        exception: ArithmeticError | RuntimeError | ValueError,
+    ) -> Self:
+        """Classify one admitted Procrustes failure without retaining its message."""
+        if not isinstance(exception, (ArithmeticError, RuntimeError, ValueError)):
+            raise TypeError("exception must be an admitted Procrustes failure")
+        if isinstance(exception, FloatingPointError):
+            return cls.ARITHMETIC_NONFINITE
+        if isinstance(exception, (LinAlgError, RuntimeError)):
+            return cls.NONCONVERGENCE
+        return cls.VALIDATION_FAILED
 
 
 @dataclass(frozen=True, slots=True)
@@ -133,9 +101,52 @@ class Periodic1DRankNAlignmentStatusResult(BaseTypedRecord):
     )
     backend_exception_code: Periodic1DRankNAlignmentBackendExceptionCode | None
 
+    @classmethod
+    def from_disposition(
+        cls,
+        *,
+        case_identity: str,
+        retained_rank: int,
+        circuit_depth: int,
+        construction_mesh_size: int,
+        gauge_alignment: Periodic1DRankNGaugeAlignment,
+        status: Periodic1DRankNAlignmentStatus,
+        backend_exception_code: (
+            Periodic1DRankNAlignmentBackendExceptionCode | None
+        ) = None,
+    ) -> Periodic1DRankNAlignmentStatusResult:
+        """Construct one status with derived downstream applicability."""
+        global_applicability_type = Periodic1DRankNGlobalUnitaryDownstreamApplicability
+        applicability = None
+        if (
+            gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+            and status is Periodic1DRankNAlignmentStatus.QUALIFIED
+        ):
+            applicability = global_applicability_type.APPLICABLE
+        elif (
+            gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY
+            and status is Periodic1DRankNAlignmentStatus.AGGREGATE_RANK_DEFICIENT
+        ):
+            applicability = (
+                global_applicability_type.INAPPLICABLE_AGGREGATE_RANK_DEFICIENT
+            )
+        return cls(
+            case_identity=case_identity,
+            retained_rank=retained_rank,
+            circuit_depth=circuit_depth,
+            construction_mesh_size=construction_mesh_size,
+            gauge_alignment=gauge_alignment,
+            status=status,
+            global_unitary_downstream_applicability=applicability,
+            backend_exception_code=backend_exception_code,
+        )
+
     def __post_init__(self) -> None:
         """Validate the closed gauge-alignment-specific disposition inventory."""
-        _nonempty_text(self.case_identity, "case_identity")
+        if type(self.case_identity) is not str:
+            raise TypeError("case_identity must be a built-in string")
+        if not self.case_identity:
+            raise ValueError("case_identity must be nonempty")
         for value, name, allowed in (
             (self.retained_rank, "retained_rank", RETAINED_RANKS),
             (self.circuit_depth, "circuit_depth", CIRCUIT_DEPTHS),
@@ -149,7 +160,8 @@ class Periodic1DRankNAlignmentStatusResult(BaseTypedRecord):
                 raise TypeError(f"{name} must be a built-in integer")
             if value not in allowed:
                 raise ValueError(f"{name} is not in the frozen inventory")
-        if self.case_identity != _case_identity(self.retained_rank, self.circuit_depth):
+        expected_case_identity = f"r{self.retained_rank:02d}-L{self.circuit_depth:02d}"
+        if self.case_identity != expected_case_identity:
             raise ValueError("case_identity is inconsistent with rank and depth")
         if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
             raise TypeError(

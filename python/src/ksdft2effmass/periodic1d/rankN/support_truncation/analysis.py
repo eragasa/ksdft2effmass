@@ -33,13 +33,18 @@ from ksdft2effmass.periodic1d.rankN.hopping_locality import (
 )
 from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncation,
+    Periodic1DSupportTruncationAnalysis,
+    Periodic1DSupportTruncationAnalysisRequest,
+    Periodic1DSupportTruncationAnalyzer,
 )
 
 from .result import Periodic1DRankNSupportResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNSupportTruncationAnalysisRequest:
+class Periodic1DRankNSupportTruncationAnalysisRequest(
+    Periodic1DSupportTruncationAnalysisRequest
+):
     """Bind locality, Fourier, and interpolation evidence for support removal."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -87,7 +92,9 @@ class Periodic1DRankNSupportTruncationAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNSupportTruncationAnalysis(Periodic1DSupportTruncation):
+class Periodic1DRankNSupportTruncationAnalysis(
+    Periodic1DSupportTruncationAnalysis
+):
     """Retain consequences of irreversible symmetric-support removal."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -111,7 +118,12 @@ class Periodic1DRankNSupportTruncationAnalysis(Periodic1DSupportTruncation):
 
 
 @final
-class Periodic1DRankNSupportTruncationAnalyzer:
+class Periodic1DRankNSupportTruncationAnalyzer(
+    Periodic1DSupportTruncationAnalyzer[
+        Periodic1DRankNSupportTruncationAnalysisRequest,
+        Periodic1DRankNSupportTruncationAnalysis,
+    ]
+):
     """Construct truncated operators and retain their distinct error channels."""
 
     __slots__ = ("_request",)

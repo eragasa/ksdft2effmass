@@ -17,9 +17,11 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 class TestPeriodic1DCompositeBandAlignmentPublicSurface:
     """Establish explicit exports and prohibit predecessor runtime dependencies."""
 
-    def test__package__exports_every_declared_public_class(self) -> None:
-        for name in composite_band_alignment.__all__:
-            assert getattr(periodic1d, name) is getattr(composite_band_alignment, name)
+    def test__periodic_root__is_a_non_eager_namespace(self) -> None:
+        assert not hasattr(periodic1d, "__all__")
+        assert all(
+            not hasattr(periodic1d, name) for name in composite_band_alignment.__all__
+        )
 
     def test__package__uses_the_rank_first_owner_modules(self) -> None:
         assert (
@@ -49,7 +51,6 @@ class TestPeriodic1DCompositeBandAlignmentPublicSurface:
             "Periodic1DMultibandAlignmentResultVerifier",
             "Periodic1DMultibandAlignmentVerificationResult",
         }
-        assert former_names.isdisjoint(periodic1d.__all__)
         assert all(not hasattr(periodic1d, name) for name in former_names)
         assert (
             importlib.util.find_spec("ksdft2effmass.periodic1d.multiband_alignment")

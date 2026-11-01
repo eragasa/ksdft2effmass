@@ -11,24 +11,46 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (  # noqa: E501
     Periodic1DRank2AdaptiveAmplitudeAnalyzer,
     Periodic1DRank2AdaptiveAmplitudeRequest,
     Periodic1DRank2AmplitudeRefinementThresholds,
-    Periodic1DRank2CompleteFiveScaleCalculationRecord,
-    Periodic1DRank2CompleteFiveScaleSummaryRenderer,
-    Periodic1DRank2CompleteFiveScaleVerifier,
-    Periodic1DRank2CompleteFiveScaleVisualizationData,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
+    Periodic1DRank2MomentumRefinementThresholds,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.family import (  # noqa: E501
     Periodic1DRank2MomentumRefinementFamilyAnalyzer,
     Periodic1DRank2MomentumRefinementFamilyRequest,
-    Periodic1DRank2MomentumRefinementThresholds,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyAnalyzer,
     Periodic1DRank2ParentFamilyRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleCalculationRecord,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale_verification import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale_visualization_data import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleVisualizationData,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.complete_five_scale import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleSummaryRenderer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
     Periodic1DRank2TruncationFamilyAnalyzer,
     Periodic1DRank2TruncationFamilyRequest,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.mesh_stability import (
     Periodic1DRank2TruncationMeshStabilityAssessment,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 class TestPeriodic1DRank2CompleteFiveScaleCalculationRecordLifecycle:

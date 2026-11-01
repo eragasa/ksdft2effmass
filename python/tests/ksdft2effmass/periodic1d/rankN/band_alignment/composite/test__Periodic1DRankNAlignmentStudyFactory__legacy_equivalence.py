@@ -16,8 +16,10 @@ from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DRankNAlignmentStudySpecification,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
 )
 
@@ -37,7 +39,7 @@ class TestPeriodic1DAlignmentStudyFactoryRankNLegacyEquivalence:
         higher_rank_calculation_request: Periodic1DRankNAlignmentCalculationRequest,
         higher_rank_calculation_result: Periodic1DRankNAlignmentCalculationResult,
     ) -> None:
-        action = Periodic1DAlignmentStudyFactory.create(
+        action = Periodic1DAlignmentStudyFactory(
             Periodic1DRankNAlignmentStudySpecification(
                 lattice_geometry=Periodic1DLatticeGeometry.from_direct_lattice(
                     DirectLattice1D(1.0),
@@ -48,6 +50,6 @@ class TestPeriodic1DAlignmentStudyFactoryRankNLegacyEquivalence:
                 transporter=ClosedLoopPolarFrameTransporter(),
                 scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
             )
-        )
+        ).create()
 
         assert action.execute().to_json() == higher_rank_calculation_result.to_json()

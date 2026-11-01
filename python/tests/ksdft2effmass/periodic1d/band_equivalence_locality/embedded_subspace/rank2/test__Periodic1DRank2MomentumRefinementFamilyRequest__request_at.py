@@ -7,12 +7,20 @@ from dataclasses import replace
 
 import pytest
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DRank2MomentumRefinementFamilyRequest,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementThresholds,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.family import (  # noqa: E501
+    Periodic1DRank2MomentumRefinementFamilyRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
 )
+
+pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 def _template() -> Periodic1DRank2Request:

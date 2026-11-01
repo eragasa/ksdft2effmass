@@ -20,16 +20,24 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DBandEquivalenceLocalityRequest,
-    Periodic1DCompositeBandAlignmentConfiguration,
-    Periodic1DLatticeGeometry,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
-    Periodic1DRankNAlignmentConfiguration,
-    Periodic1DReducedCoordinateConvention,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.request import (
+    Periodic1DBandEquivalenceLocalityRequest,
 )
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
+)
+from ksdft2effmass.periodic1d.geometry import (
+    Periodic1DLatticeGeometry,
+    Periodic1DReducedCoordinateConvention,
+)
+from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
+    Periodic1DCompositeBandAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.real_space_support_truncation import SymmetricRangeSupport1D
 

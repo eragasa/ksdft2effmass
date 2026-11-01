@@ -9,7 +9,11 @@
 | `rankN/diagnostics/matrix.py` | Stores shared matrix-field error and comparison diagnostics. |
 | `rankN/band_alignment/protocol.py` | Owns the shared frozen rank, depth, and construction-mesh inventories. |
 | `rankN/band_alignment/configuration.py` | Stores the complete frozen study configuration, supports, phase convention, and tolerances. |
-| `rankN/band_alignment/request.py` | Selects one rank/depth/construction-mesh transport and its physical identities. |
+| `rankN/band_alignment/frame_transport/request.py` | Selects one rank/depth/construction-mesh transport and its physical identities. |
+| `rankN/band_alignment/frame_transport/analysis.py` | Adapts one PhysKit closed-loop transport into typed study evidence without owning the reusable numerical kernel. |
+| `rankN/band_alignment/frame_transport/failure.py` | Owns transport-specific backend classification and bounded failure evidence. |
+| `rankN/band_alignment/frame_transport/link.py` | Stores one typed neighbor- or closure-link diagnostic. |
+| `rankN/band_alignment/frame_transport/result.py` | Stores the request-bound aggregate closed-loop frame-transport result. |
 | `rankN/band_alignment/calculation.py` | Defines calculation controls and the complete frozen calculation request. |
 | `rankN/band_alignment/model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and gauge circuit. |
 | `rankN/gauge_alignment/definition.py` | Defines the four gauge-alignment identities as strict `StringWireEnum` values. |
@@ -26,24 +30,23 @@
 | `rankN/hopping_locality/result.py` | Owns immutable hopping-tail values without inheriting support-truncation semantics. |
 | `rankN/support_truncation/analysis.py` | Constructs finite-support operators and owns the consequences of irreversible support removal. |
 | `rankN/support_truncation/result.py` | Preserves the historical combined wire record while exposing admitted hopping-locality values without recomputation. |
-| `rankN/band_alignment/composite/analysis/gauge_alignment.py` | Executes the gauge-alignment stages in scientific order as composite orchestration. |
+| `rankN/band_alignment/composite/gauge_case.py` | Executes one gauge-alignment case in scientific order as composite orchestration. |
 | `rankN/band_alignment/composite/assembly.py` | Correlates stage evidence and assembles one aggregate alignment result. |
-| `rankN/band_alignment/composite/result/frame_transport.py` | Stores request-bound closed-loop frame-transport evidence and bounded failures. |
-| `rankN/band_alignment/composite/result/gauge_alignment.py` | Stores aggregate transform, recovery, interpolation, locality, and truncation evidence for one alignment. |
-| `rankN/band_alignment/composite/result/mesh.py` | Correlates common transport, Procrustes selection, and alignment evidence for one mesh. |
-| `rankN/band_alignment/composite/result/model.py` | Stores analytic-model integrity evidence owned by the composite result. |
-| `rankN/band_alignment/composite/provenance.py` | Stores mesh-role separation and global-selection provenance. |
-| `rankN/band_alignment/composite/refinement_results.py` | Stores block and scalar refinement results. |
-| `rankN/band_alignment/composite/scalar_diagnostics.py` | Owns the scalar-diagnostic inventory used by refinement and aggregate admission. |
+| `rankN/band_alignment/gauge_case_result.py` | Stores aggregate transform, recovery, interpolation, locality, and truncation evidence for one alignment case. |
+| `rankN/band_alignment/construction_mesh_result.py` | Correlates common transport, Procrustes selection, and alignment evidence for one construction mesh. |
+| `rankN/band_alignment/model_diagnostics.py` | Owns analytic-model integrity evidence and its thresholded analysis. |
+| `rankN/band_alignment/evaluation_result.py` | Stores mesh-role separation and global-selection provenance. |
+| `rankN/band_alignment/refinement_result.py` | Stores block and scalar refinement results. |
+| `rankN/band_alignment/scalar_diagnostics.py` | Owns the scalar-diagnostic inventory used by refinement and aggregate admission. |
 | `rankN/band_alignment/composite/refinement.py` | Analyzes correlated evidence across construction meshes. |
-| `rankN/band_alignment/composite/calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
+| `rankN/band_alignment/calculation_result.py` | Stores and correlates the aggregate request-bound calculation result. |
 | `rankN/band_alignment/composite/reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
 | `rankN/band_alignment/composite/fourier_reference.py` | Independently reconstructs all four bounded Fourier controls with direct NumPy sums. |
 | `rankN/band_alignment/composite/procrustes_reference.py` | Verifies aggregate Procrustes evidence with a producer-independent construction. |
 | `rankN/band_alignment/composite/transport_reference.py` | Independently reconstructs the constant-frame closed route without the producer transporter. |
-| `rankN/band_alignment/composite/analysis/calculation.py` | Composes Optimization, PhysKit, gauge alignment, transport, locality, truncation, and refinement owners. |
-| `rankN/band_alignment/composite/analysis/mesh.py` | Owns construction coordinates and typed mesh/alignment dispositions. |
-| `rankN/band_alignment/composite/analysis/evaluation.py` | Proves exact construction/evaluation mesh separation. |
+| `rankN/band_alignment/composite/calculation.py` | Sequences case construction, global selection, construction-mesh analyses, refinement, and evaluation independence. |
+| `rankN/band_alignment/composite/construction_mesh.py` | Composes pointwise selection, transport, diagnostics, and gauge cases for one immutable mesh sample. |
+| `rankN/band_alignment/composite/evaluation.py` | Proves exact construction/evaluation mesh separation. |
 
 The rank-first migration uses the scientific bases installed directly under
 `ksdft2effmass`: representation equivalence, real-space support truncation, and
@@ -53,8 +56,10 @@ truncation. Hopping locality characterizes the unchanged Fourier coefficient fie
 support truncation constructs a different finite-support representation and measures
 its errors. Gauge identities, status, Procrustes selection, and fieldwise actions
 reside under `periodic1d.rankN.gauge_alignment`; shared rank-$N$ diagnostics reside
-under `periodic1d.rankN.diagnostics`; composite orchestration and aggregate records
-reside under `periodic1d.rankN.band_alignment.composite`. The public calculation bytes
+under `periodic1d.rankN.diagnostics`; study-bound frame-transport requests, analysis,
+and evidence reside under `periodic1d.rankN.band_alignment.frame_transport`; composite
+orchestration and aggregate records reside under
+`periodic1d.rankN.band_alignment.composite`. The public calculation bytes
 remain unchanged, and obsolete source paths are removed rather than retained as aliases.
 
 The maintained records are immutable and serialize deterministically. Arrays use nominal
@@ -105,9 +110,11 @@ control.
 `Periodic1DRankNAlignmentAnalyzer` receives one complete immutable calculation
 request and explicit Optimization, PhysKit, and KSD collaborators. Its zero-argument
 `execute()` constructs an analytic case, performs the sole global selection at
-$M=2049$, evaluates all construction meshes, delegates each prescribed gauge alignment
-to the composite-owned `Periodic1DRankNGaugeAlignmentAnalyzer`, and delegates
-mesh-pair comparisons to `Periodic1DRankNRefinementAnalyzer`.
+$M=2049$, evaluates all construction meshes, delegates each prescribed composite
+case to `Periodic1DRankNCompositeGaugeCaseAnalyzer`, and delegates mesh-pair
+comparisons to `Periodic1DRankNRefinementAnalyzer`. Reusable gauge construction,
+recovery, Fourier, and Procrustes actions remain authoritative under
+`periodic1d.rankN.gauge_alignment`; the composite action owns orchestration only.
 
 For one gauge alignment and mesh, the typed stages are:
 
@@ -157,7 +164,10 @@ full Fourier coefficient arrays.
 
 Documented Procrustes or transport backend failures become typed numerically unresolved
 records with stable codes, absent downstream values, and no serialized exception
-messages or tracebacks. Rank deficiency and integrity failure remain distinct. A failed
+messages or tracebacks. Procrustes and transport exception codes are distinct enum types
+even where their canonical wire strings coincide; composite orchestration maps a common
+transport failure into unavailable gauge-case statuses explicitly. Rank deficiency and
+integrity failure remain distinct. A failed
 global-unitary selection suppresses only that gauge alignment; a failed common transport
 control is retained separately and fails closed according to the calculation contract.
 

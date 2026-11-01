@@ -35,11 +35,17 @@ from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DRankNAlignmentStudySpecification,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
-    Periodic1DRankNAlignmentAnalyzer,
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
     Periodic1DRankNAlignmentCalculationControls,
     Periodic1DRankNAlignmentCalculationRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
+    Periodic1DRankNAlignmentAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
@@ -113,7 +119,7 @@ def _calculate(
     lattice_geometry: Periodic1DLatticeGeometry,
 ) -> Periodic1DRankNAlignmentCalculationResult:
     """Execute one rank-first case with explicit reviewed collaborators."""
-    study = Periodic1DAlignmentStudyFactory.create(
+    study = Periodic1DAlignmentStudyFactory(
         Periodic1DRankNAlignmentStudySpecification(
             lattice_geometry=lattice_geometry,
             request=request,
@@ -121,7 +127,7 @@ def _calculate(
             transporter=ClosedLoopPolarFrameTransporter(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
         )
-    )
+    ).create()
     return study.execute()
 
 

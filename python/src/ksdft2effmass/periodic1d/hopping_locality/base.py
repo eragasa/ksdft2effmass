@@ -2,7 +2,14 @@
 
 from __future__ import annotations
 
-from ksdft2effmass.hopping_locality import HoppingLocality
+from abc import ABC
+
+from ksdft2effmass.hopping_locality import (
+    HoppingLocality,
+    HoppingLocalityAnalysis,
+    HoppingLocalityAnalysisRequest,
+    HoppingLocalityAnalyzer,
+)
 
 
 class Periodic1DHoppingLocality(HoppingLocality):  # noqa: B024 - intentionally nominal marker
@@ -16,4 +23,45 @@ class Periodic1DHoppingLocality(HoppingLocality):  # noqa: B024 - intentionally 
     __slots__ = ()
 
 
-__all__ = ["Periodic1DHoppingLocality"]
+class Periodic1DHoppingLocalityAnalysisRequest(
+    HoppingLocalityAnalysisRequest,
+    Periodic1DHoppingLocality,
+    ABC,
+):
+    """Bind one periodic-1D hopping-locality analysis request."""
+
+    __slots__ = ()
+
+
+class Periodic1DHoppingLocalityAnalysis(
+    HoppingLocalityAnalysis,
+    Periodic1DHoppingLocality,
+    ABC,
+):
+    """Retain one periodic-1D hopping-locality analysis."""
+
+    __slots__ = ()
+
+
+class Periodic1DHoppingLocalityAnalyzer[
+    Periodic1DHoppingLocalityAnalysisRequestT: Periodic1DHoppingLocalityAnalysisRequest,
+    Periodic1DHoppingLocalityAnalysisT: Periodic1DHoppingLocalityAnalysis,
+](
+    HoppingLocalityAnalyzer[
+        Periodic1DHoppingLocalityAnalysisRequestT,
+        Periodic1DHoppingLocalityAnalysisT,
+    ],
+    Periodic1DHoppingLocality,
+    ABC,
+):
+    """Execute one periodic-1D hopping-locality analysis request."""
+
+    __slots__ = ()
+
+
+__all__ = [
+    "Periodic1DHoppingLocality",
+    "Periodic1DHoppingLocalityAnalysis",
+    "Periodic1DHoppingLocalityAnalysisRequest",
+    "Periodic1DHoppingLocalityAnalyzer",
+]

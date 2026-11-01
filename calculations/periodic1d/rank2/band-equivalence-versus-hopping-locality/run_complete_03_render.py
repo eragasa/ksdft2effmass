@@ -7,11 +7,15 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
-from ksdft2effmass.periodic1d import (
-    Periodic1DRank2CompleteFiveScaleSummaryRenderer,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale_verification import (  # noqa: E501
     Periodic1DRank2CompleteFiveScaleVerification,
     Periodic1DRank2CompleteFiveScaleVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.complete_five_scale_visualization_data import (  # noqa: E501
     Periodic1DRank2CompleteFiveScaleVisualizationData,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.complete_five_scale import (  # noqa: E501
+    Periodic1DRank2CompleteFiveScaleSummaryRenderer,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 

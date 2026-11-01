@@ -16,19 +16,24 @@ from typing import Literal, final
 
 import matplotlib.pyplot as plt
 import numpy as np
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
-    Periodic1DRankNAlignmentCalculationResult,
-    Periodic1DRankNAlignmentConfiguration,
-    Periodic1DRankNAlignmentStatus,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
-    Periodic1DRankNGaugeAlignment,
-)
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch, Rectangle
 from numpy.typing import NDArray
+
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
+    Periodic1DRankNAlignmentCalculationResult,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
+    Periodic1DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
+    Periodic1DRankNAlignmentStatus,
+)
 
 type FloatArray = NDArray[np.float64]
 type IntArray = NDArray[np.int64]
@@ -460,9 +465,7 @@ class HigherRankDevelopmentFigureDataProjector:
             retained_ranks=ranks,
             circuit_depths=depths,
             support_radii=supports,
-            gauge_alignment_names=tuple(
-                value.to_wire() for value in gauges
-            ),
+            gauge_alignment_names=tuple(value.to_wire() for value in gauges),
             refinement_labels=_REFINEMENT_LABELS,
             block_translations=translations,
             qualified=qualified,

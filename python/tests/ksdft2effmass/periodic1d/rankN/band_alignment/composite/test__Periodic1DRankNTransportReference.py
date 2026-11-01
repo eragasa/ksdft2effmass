@@ -6,17 +6,26 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
     Periodic1DRankNAlignmentCalculationResult,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
     transport_reference as reference_module,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.composite.transport_reference import (  # noqa: E501
+    Periodic1DRankNQualifiedTransportLinkArrays,
     Periodic1DRankNTransportReferenceAnalyzer,
+    Periodic1DRankNTransportReferenceComparisonConstructor,
     Periodic1DRankNTransportReferenceRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.result import (
+    Periodic1DRankNAlignmentTransportOwnerResult,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -94,13 +103,55 @@ class TestPeriodic1DRankNTransportReference:
         ]
         assert not comparison.result().passed
 
+    def test__qualified_link_arrays__own_immutable_transport_evidence(
+        self,
+        higher_rank_calculation_result: Periodic1DRankNAlignmentCalculationResult,
+    ) -> None:
+        transport = higher_rank_calculation_result.meshes[0].transport
+        assert type(transport) is Periodic1DRankNAlignmentTransportOwnerResult
+
+        arrays = Periodic1DRankNQualifiedTransportLinkArrays(transport)
+
+        assert arrays.singular_values.shape == (513, transport.retained_rank)
+        assert arrays.cutoffs.shape == (513,)
+        assert arrays.margins.shape == (513,)
+        assert arrays.numerical_ranks.shape == (513,)
+        assert arrays.unitarity_defects.shape == (513,)
+        assert not arrays.singular_values.flags.writeable
+        assert not arrays.cutoffs.flags.writeable
+        assert not arrays.margins.flags.writeable
+        assert not arrays.numerical_ranks.flags.writeable
+        assert not arrays.unitarity_defects.flags.writeable
+
+    def test__comparison_constructor__binds_unit_aware_tolerance(self) -> None:
+        constructor = Periodic1DRankNTransportReferenceComparisonConstructor(
+            observed=ScalarQuantity(1.0, Unitless()),
+            reference=ScalarQuantity(1.0, Unitless()),
+            absolute_tolerance=1.0e-12,
+        )
+
+        comparison = constructor.execute()
+
+        assert comparison.result().passed
+        assert comparison.tolerance == ScalarQuantity(1.0e-12, Unitless())
+
+    def test__comparison_constructor__rejects_boolean_tolerance(self) -> None:
+        with pytest.raises(TypeError, match="built-in float"):
+            Periodic1DRankNTransportReferenceComparisonConstructor(
+                observed=ScalarQuantity(1.0, Unitless()),
+                reference=ScalarQuantity(1.0, Unitless()),
+                absolute_tolerance=True,
+            )
+
     def test__request__rejects_non_result_subject(self) -> None:
         with pytest.raises(TypeError, match="exact calculation result"):
             Periodic1DRankNTransportReferenceRequest(
                 calculation_result="not-a-result"  # type: ignore[arg-type]
             )
 
-    def test__module__does_not_import_transport_or_producer_actions(self) -> None:
+    def test__module__does_not_import_transport_backend_or_producer_actions(
+        self,
+    ) -> None:
         module_path = Path(reference_module.__file__).resolve()
         tree = ast.parse(module_path.read_text(encoding="utf-8"), filename=module_path)
         imported_modules = {
@@ -113,4 +164,13 @@ class TestPeriodic1DRankNTransportReference:
         assert "model" not in imported_modules
         assert "analysis" not in imported_modules
         assert "analysis.calculation" not in imported_modules
-        assert all("frame_transport" not in module for module in imported_modules)
+        assert all(
+            not module.startswith(
+                "projectkoios.physkit.solidstate.electronic.frame_transport"
+            )
+            for module in imported_modules
+        )
+        assert all(
+            not module.endswith("frame_transport.analysis")
+            for module in imported_modules
+        )

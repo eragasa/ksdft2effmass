@@ -7,7 +7,7 @@ import pytest
 from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.results import (
     BandEquivalenceLocalityRepresentationEquivalenceAnalysis,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
     Periodic1DRank2PointAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.recovery import (  # noqa: E501

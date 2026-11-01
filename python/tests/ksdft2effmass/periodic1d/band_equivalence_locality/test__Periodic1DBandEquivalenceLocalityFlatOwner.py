@@ -8,20 +8,35 @@ from dataclasses import replace
 import pytest
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximizer
 
-from ksdft2effmass.periodic1d.band_equivalence_locality import (
+import ksdft2effmass.periodic1d.band_equivalence_locality as band_equivalence_locality
+from ksdft2effmass.periodic1d.band_equivalence_locality.analysis import (
+    Periodic1DBandEquivalenceLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.records import (
     Periodic1DBandEquivalenceLocalityAnalysisRecord,
     Periodic1DBandEquivalenceLocalityAnalysisRecorder,
-    Periodic1DBandEquivalenceLocalityAnalyzer,
-    Periodic1DBandEquivalenceLocalityRequest,
-    Periodic1DBandEquivalenceLocalityVerification,
-    Periodic1DBandEquivalenceLocalityVerifier,
-    Periodic1DBandEquivalenceLocalityVisualizationData,
-    Periodic1DBandEquivalenceLocalityVisualizationPlotEnum,
-    Periodic1DBandEquivalenceLocalityVisualizer,
 )
 from ksdft2effmass.periodic1d.band_equivalence_locality.reference import (
     Periodic1DBandEquivalenceLocalityIndependentReferenceAnalyzer,
 )
+from ksdft2effmass.periodic1d.band_equivalence_locality.request import (
+    Periodic1DBandEquivalenceLocalityRequest,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.verification import (
+    Periodic1DBandEquivalenceLocalityVerification,
+    Periodic1DBandEquivalenceLocalityVerifier,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.visualizations.data import (
+    Periodic1DBandEquivalenceLocalityVisualizationData,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.visualizations.inventory import (  # noqa: E501
+    Periodic1DBandEquivalenceLocalityVisualizationPlotEnum,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.visualizations.visualizer import (  # noqa: E501
+    Periodic1DBandEquivalenceLocalityVisualizer,
+)
+
+pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _request() -> Periodic1DBandEquivalenceLocalityRequest:
@@ -63,6 +78,12 @@ def _analysis_bytes() -> bytes:
 
 class TestPeriodic1DBandEquivalenceLocalityFlatOwner:
     """Establish one cohesive native flat-parent lifecycle slice."""
+
+    def test__package__is_a_non_eager_namespace(self) -> None:
+        assert not hasattr(band_equivalence_locality, "__all__")
+        assert not any(
+            name.startswith("Periodic1D") for name in vars(band_equivalence_locality)
+        )
 
     def test_request_rejects_boolean_mesh_size(self) -> None:
         values = _request()

@@ -24,7 +24,7 @@ from analysis.development.plots import (
 from projectkoios.physkit.units import PhysicalUnit
 
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
 

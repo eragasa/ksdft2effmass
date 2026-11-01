@@ -22,9 +22,13 @@ from development_diagnostics import (
     DiagnosticTableData,
 )
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2 import (
-    Periodic1DRank2CalculationRecord,
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementUnresolved,
+)
+from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+    Periodic1DRank2CalculationRecord,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2TruncationCompleted,
 )
 from ksdft2effmass.real_space_support_truncation import (

@@ -58,7 +58,8 @@ behavior whose meaning is specific to the periodic program:
 - band-equivalence and constrained-admissible-set composition;
 - family-specific typed configurations, results, verification values, and visualization
   projections; and
-- deliberate public imports for those maintained families.
+- direct imports from authoritative capability modules beneath a non-eager root package
+  initializer.
 
 Neighboring owners remain distinct:
 
