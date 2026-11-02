@@ -4,6 +4,6 @@ from _publish import publish
 
 if __name__ == "__main__":
     publish(
-        generator="calculations/periodic2d/rank2/strain-locality/run_scan_development.py",
-        generated_figure="calculations/periodic2d/rank2/strain-locality/analysis/development/scan/strain-witness-locality-scan.pdf",
+        generator="calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/run_path_scan.py",
+        generated_figure="calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/analysis/replaceable/scan/strain-witness-locality-scan.pdf",
     )

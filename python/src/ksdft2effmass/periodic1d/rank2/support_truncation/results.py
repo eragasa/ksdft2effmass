@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.results import (  # noqa: E501
     Periodic1DRank2BandTransportBackendFailure,
     Periodic1DRank2BandTransportNumericallyUnresolved,
     Periodic1DRank2BandTransportThresholdFailure,

@@ -30,14 +30,14 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationRequest,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
-    Periodic1DRankNAlignmentCalculationResult,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
-    Periodic1DRankNAlignmentAnalyzer,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,
 )
 
 from .base import Periodic1DGaugeAlignment
@@ -89,7 +89,7 @@ class Periodic1DRankNAlignmentStudySpecification:
     """Bind one D1-v1 higher-rank case and every numerical collaborator."""
 
     lattice_geometry: Periodic1DLatticeGeometry
-    request: Periodic1DRankNAlignmentCalculationRequest
+    request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver
     transporter: ClosedLoopPolarFrameTransporter
     scalar_refinement_analyzer: ScalarRefinementAnalyzer
@@ -97,9 +97,9 @@ class Periodic1DRankNAlignmentStudySpecification:
     def __post_init__(self) -> None:
         if type(self.lattice_geometry) is not Periodic1DLatticeGeometry:
             raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
-        if type(self.request) is not Periodic1DRankNAlignmentCalculationRequest:
+        if type(self.request) is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError(
-                "request must be Periodic1DRankNAlignmentCalculationRequest"
+                "request must be Periodic1DRankNBandEquivalenceHoppingLocalityRequest"
             )
         if type(self.procrustes_solver) is not (
             NumpyBatchedComplexUnitaryProcrustesSolver
@@ -182,7 +182,7 @@ class Periodic1DRankNAlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
                 "specification must be Periodic1DRankNAlignmentStudySpecification"
             )
         self._specification = specification
-        self._delegate = Periodic1DRankNAlignmentAnalyzer(
+        self._delegate = Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
             request=specification.request,
             procrustes_solver=specification.procrustes_solver,
             transporter=specification.transporter,
@@ -205,11 +205,11 @@ class Periodic1DRankNAlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
         return self.specification.lattice_geometry.direct_lattice
 
     @property
-    def delegate(self) -> Periodic1DRankNAlignmentAnalyzer:
+    def delegate(self) -> Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         """Return the maintained higher-rank numerical action."""
         return self._delegate
 
-    def execute(self) -> Periodic1DRankNAlignmentCalculationResult:
+    def execute(self) -> Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis:
         """Execute the maintained rank-N action without changing its result wire."""
         return self._delegate.execute()
 

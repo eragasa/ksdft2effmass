@@ -10,7 +10,7 @@ import pytest
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
-class TestPeriodic1DRankNAlignmentAnalyzer:
+class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
     """Establish direct owner composition and development-only output semantics."""
 
     def test__source__uses_direct_owners_without_workflow_imports(self) -> None:
@@ -33,8 +33,8 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         assert ").create()" in source
         assert "Periodic1DRankNAlignmentStudySpecification" in source
         assert "Periodic1DRankNAlignmentConfiguration.frozen()" in source
-        assert "return Periodic1DRankNAlignmentAnalyzer(" not in source
-        assert "Periodic1DRankNAlignmentAnalyzer" in source
+        assert "return Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(" not in source
+        assert "Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer" in source
         assert "NumpyBatchedComplexUnitaryProcrustesSolver" in source
         assert "ClosedLoopPolarFrameTransporter" in source
         assert "FinitePeriodicMatrixFourierTransformer" in source

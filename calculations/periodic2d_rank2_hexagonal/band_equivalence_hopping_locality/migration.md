@@ -1,0 +1,25 @@
+# Periodic-2D nonorthogonal band-equivalence/locality migration
+
+This distributed checklist covers the local inventory in [`README.md`](README.md).
+
+## Experiment-tree migration
+
+- [x] Classify all 12 predecessor files under the periodic-2D nonorthogonal experiment/container path.
+- [x] Move executable composition, the family protocol, and its bibliography to the calculation owner; retain the legacy experiment path as a forward pointer only.
+- [x] Update every maintained consumer so none depends on retired experiment entrypoints or output paths.
+- [x] Retire duplicate scripts, analysis READMEs, and ignore contracts after the ownership crosswalk and calculation-writer runtime regression.
+
+## Canonical calculation actions
+
+- [x] Inventory nominal, first-refinement, second-refinement, geometry/basis, plotting, protocol, and comparison surfaces.
+- [x] Record the changed first-refinement pointwise shell decision as an outcome to preserve.
+- [x] Crosswalk calculation-root and experiment-root scripts and replaceable outputs file by file.
+- [x] Record triangular-Bravais, basis, reciprocal, frame, unit, support, and normalization conventions explicitly.
+- [x] Assign nominal reusable behavior to canonical source owners while keeping family geometry and thresholds concrete.
+- [x] Use canonical typed request, result, and verification records for the nominal calculation action; refinement assessment remains separate.
+- [x] Remove comparison-local duplicate schemas after consumer migration.
+- [x] Independently verify nominal parent, band, Nyquist, shell, omitted, and total-omitted power channels from exact result bytes; refinement verification remains separate.
+- [x] Implement nominal calculation with independent typed verification and a separate replaceable analysis-rendering action without retaining an execution.
+- [ ] Establish numerical parity across all three meshes with named tolerances; the recorded shell-decision change remains an outcome to preserve.
+- [x] Retain the non-graphene, non-material claim boundary in every result and report.
+- [ ] Define sealing and read-only package verification before retaining an execution.

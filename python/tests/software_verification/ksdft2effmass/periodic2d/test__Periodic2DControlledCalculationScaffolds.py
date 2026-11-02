@@ -11,7 +11,7 @@ from ksdft2effmass.periodic import (
     Periodic2DModel,
     PeriodicModelRole,
 )
-from ksdft2effmass.periodic2d import (
+from ksdft2effmass.periodic2d.studies import (
     Periodic2DRepresentedParentCalculationScaffold,
     Periodic2DShellGaugeLocalityCalculationScaffold,
 )

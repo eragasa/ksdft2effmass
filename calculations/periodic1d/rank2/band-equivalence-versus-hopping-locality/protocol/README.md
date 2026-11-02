@@ -32,15 +32,17 @@ dependencies are:
 | `figures/embedded-rank2-momentum-refinement.png` | Authorized direct execution, when present |
 | `figures/embedded-rank2-adaptive-amplitude-refinement.png` | Authorized direct execution, when present |
 | `figures/embedded-rank2-truncation-consequences.png` | Authorized direct execution, when present |
+| `figures/storyboard/*.pdf` | Development-value publication-design prototypes rendered by [`render_publication_storyboard.py`](render_publication_storyboard.py) |
 
 Build in scratch so the selected tracked PDF is not overwritten:
 
 ```console
 build_dir="$(mktemp -d /tmp/ksd-band-protocol.XXXXXX)"
-mkdir -p "${build_dir}/analysis" "${build_dir}/figures"
+mkdir -p "${build_dir}/analysis" "${build_dir}/figures/storyboard"
 cp experimental-protocol.tex experimental-protocol.bib "${build_dir}/"
 cp ../simulations/development/inputs/smooth-threshold-continuum.csv "${build_dir}/"
 cp ../analysis/development/figures/{band-equivalence-versus-hopping-locality,nonflat-four-state-exploratory,band-equivalence-locality-scientific-story,truncation-band-consequences}.pdf "${build_dir}/analysis/"
+cp figures/storyboard/*.pdf "${build_dir}/figures/storyboard/"
 figure_root="../executions/direct-embedded-rank2-controlled-v2/figures"
 for figure in embedded-rank2-{momentum-refinement,adaptive-amplitude-refinement,truncation-consequences}.png; do
   if test -f "${figure_root}/${figure}"; then
@@ -54,10 +56,15 @@ done
 ```
 
 The baseline recipe produced a 31-page PDF whose Ghostscript 72-dpi page renderings were
-byte-exact against the baseline tracked snapshot. The maintained source now stages the three authenticated aggregate plots from the
-passing unsealed `v2` execution. It displays explicit placeholders when those
-artifacts are absent and never substitutes development figures for authenticated slots. Raw PDF bytes are not treated
-as scientific identities.
+byte-exact against the baseline tracked snapshot. The current storyboard-enabled scratch
+build produces a 37-page review PDF. The maintained source now stages the
+three authenticated aggregate plots from the passing unsealed `v2` execution and a
+separate six-figure publication storyboard. The storyboard uses development values only
+to make visual design choices inspectable and is governed by
+[`publication-figure-storyboard.md`](publication-figure-storyboard.md); it is not a
+substitute for the verified complete-five-scale renderer. The protocol displays explicit
+placeholders when named artifacts are absent and never substitutes development figures
+for authenticated slots. Raw PDF bytes are not treated as scientific identities.
 
 [`../protocol.md`](../protocol.md) records the concise calculation boundary and migration
 targets. Authority and conflict rules are explicit in

@@ -18,12 +18,12 @@ from projectkoios.physkit.units import (
     ScalarQuantity,
 )
 
-from ksdft2effmass.periodic2d import (
+from ksdft2effmass.periodic2d.defects.base import (
     Periodic2DDefect,
-    Periodic2DDefectLocalityResult,
     Periodic2DDefectModel,
     Periodic2DDefectRepresentationResult,
 )
+from ksdft2effmass.periodic2d.defects.locality import Periodic2DDefectLocalityResult
 from ksdft2effmass.solidstate import (
     BoundaryTwistLift,
     FiniteLatticeShape,

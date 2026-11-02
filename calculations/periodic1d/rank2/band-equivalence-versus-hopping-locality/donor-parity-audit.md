@@ -4,7 +4,7 @@
 
 This read-only audit compares the calculation-local historical `workflow/` donors with
 installed owners under
-`ksdft2effmass.periodic1d.band_equivalence_locality` and with the immutable unsealed
+`ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality` and with the immutable unsealed
 `direct-embedded-rank2-controlled-v2` calculation record. It asks only whether the
 tracked donor tree is ready for reviewed retirement.
 
@@ -34,7 +34,7 @@ surface. A repository test admits the canonical direct-v2 typed calculation byte
 compares them with the immutable workflow-produced development CSVs using only Python's
 standard `csv` module:
 
-`python/tests/ksdft2effmass/periodic1d/band_equivalence_locality/embedded_subspace/rank2/test__Periodic1DRank2DonorParity.py`
+`python/tests/ksdft2effmass/periodic1d/rank2/band_equivalence_hopping_locality/embedded_subspace/test__Periodic1DRank2DonorParity.py`
 
 The test binds all compared input digests, compares every mapped scalar, and records
 semantic differences rather than relaxing tolerances. Its comparison tolerance is

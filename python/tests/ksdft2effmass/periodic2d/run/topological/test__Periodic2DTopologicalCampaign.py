@@ -6,13 +6,13 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DTopologicalCampaign,
+from ksdft2effmass.periodic2d.model.retained.topological import (
     Periodic2DTopologicalCampaignModel,
 )
 from ksdft2effmass.periodic2d.run.topological import (
     verify as verification_module,
 )
+from ksdft2effmass.periodic2d.run.topological.data import Periodic2DTopologicalCampaign
 
 Periodic2DTopologicalCampaignVerifier = (
     verification_module.Periodic2DTopologicalCampaignVerifier

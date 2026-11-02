@@ -17,8 +17,8 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
     _int_array,
     _nonempty,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
@@ -71,7 +71,7 @@ class Periodic1DRankNBlockRefinementResult(BaseTypedRecord):
         coarse, fine, absolute, relative, applied, margins = arrays
         if bool((coarse < 0.0).any()) or bool((fine < 0.0).any()):
             raise ValueError("normalized block norms must be nonnegative")
-        controls = Periodic1DRankNAlignmentCalculationControls
+        controls = Periodic1DRankNBandEquivalenceHoppingLocalityControls
         expected = tuple(
             (
                 abs(float(fine_value) - float(coarse_value)),
@@ -225,9 +225,9 @@ class Periodic1DRankNScalarRefinementResult(BaseTypedRecord):
         expected_relative = expected_change / max(
             abs(self.coarse_value),
             abs(self.fine_value),
-            Periodic1DRankNAlignmentCalculationControls.REFINEMENT_DENOMINATOR_FLOOR,
+            Periodic1DRankNBandEquivalenceHoppingLocalityControls.REFINEMENT_DENOMINATOR_FLOOR,
         )
-        controls = Periodic1DRankNAlignmentCalculationControls
+        controls = Periodic1DRankNBandEquivalenceHoppingLocalityControls
         expected_tolerance = controls.REFINEMENT_ABSOLUTE_TOLERANCE + (
             controls.REFINEMENT_RELATIVE_TOLERANCE
             * max(abs(self.coarse_value), abs(self.fine_value))

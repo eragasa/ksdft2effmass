@@ -82,6 +82,7 @@ class TestPeriodic1DRank1Capabilities:
     def test__alignment__inherits_base_and_encodes_one_applicability(self) -> None:
         configuration = self.configuration()
 
+        assert configuration.band_subspace_rank == 1
         geometry = Periodic1DLatticeGeometry.from_direct_lattice(
             DirectLattice1D(2.0),
             PhysicalUnit("angstrom"),

@@ -12,8 +12,8 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailDiagnostics1D,
 )
 from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -50,7 +50,7 @@ class Periodic1DRankNHoppingTailResult(Periodic1DHoppingLocality):
             raise TypeError("maximum_range must be a built-in int")
         if (
             self.maximum_range
-            not in Periodic1DRankNAlignmentCalculationControls.SUPPORT_RADII
+            not in Periodic1DRankNBandEquivalenceHoppingLocalityControls.SUPPORT_RADII
         ):
             raise ValueError("maximum_range must be in the frozen diagnostic inventory")
         if type(self.rank) is not int:
@@ -60,7 +60,7 @@ class Periodic1DRankNHoppingTailResult(Periodic1DHoppingLocality):
         if type(self.norm_energy_scale) is not float:
             raise TypeError("norm_energy_scale must be a built-in float")
         if self.norm_energy_scale != (
-            Periodic1DRankNAlignmentCalculationControls.ENERGY_REFERENCE
+            Periodic1DRankNBandEquivalenceHoppingLocalityControls.ENERGY_REFERENCE
         ):
             raise ValueError("norm_energy_scale must equal the frozen normalization")
         for name, translations in (

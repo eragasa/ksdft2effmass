@@ -1,0 +1,317 @@
+"""Typed periodic-3D rank-N aggregate verification orchestration.
+
+Verification composes the independently reconstructed parent/alignment/transport and
+direct-sum Fourier/shell/support routes. Passing this software verification does not
+establish convergence, material realism, scientific validation, or retained evidence.
+"""
+
+from __future__ import annotations
+
+import hashlib
+from collections.abc import Mapping
+from dataclasses import dataclass
+from typing import ClassVar, Self, final
+
+from ksdft2effmass.periodic3d.base import Periodic3DCapability
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.verification import CompositeVerification
+
+from .fourier_reference import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer,
+    Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest,
+)
+from .reference import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer,
+    Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest,
+)
+from .request import Periodic3DRankNBandEquivalenceHoppingLocalityRequest
+from .result import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis,
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis,
+)
+
+
+def _sha256(value: str, name: str) -> str:
+    if type(value) is not str:
+        raise TypeError(f"{name} must be a built-in string")
+    if len(value) != 64 or value.lower() != value:
+        raise ValueError(f"{name} must be one lowercase SHA-256 hexadecimal digest")
+    try:
+        bytes.fromhex(value)
+    except ValueError as error:
+        raise ValueError(
+            f"{name} must be one lowercase SHA-256 hexadecimal digest"
+        ) from error
+    return value
+
+
+@dataclass(frozen=True, slots=True)
+class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest:
+    """Bind one aggregate case to its exact typed study request."""
+
+    study_request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest
+    case_analysis: Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.study_request)
+            is not Periodic3DRankNBandEquivalenceHoppingLocalityRequest
+        ):
+            raise TypeError("study_request must be the exact periodic-3D request")
+        if (
+            type(self.case_analysis)
+            is not Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis
+        ):
+            raise TypeError("case_analysis must be the exact periodic-3D case analysis")
+        case = self.case_analysis
+        if (
+            case.case_identifier
+            not in tuple(item.identifier for item in self.study_request.cases)
+            or case.retained_rank not in self.study_request.retained_ranks
+            or case.circuit_depth not in self.study_request.circuit_depths
+            or case.parent_scale not in self.study_request.parent_scales
+            or case.attack_coefficient not in self.study_request.attack_coefficients
+        ):
+            raise ValueError("case_analysis must identify one exact request expansion")
+
+
+@dataclass(frozen=True, slots=True)
+class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification(BaseTypedRecord):
+    """Retain both independent verification routes for one aggregate case."""
+
+    WIRE_IDENTITY: ClassVar[str] = (
+        "ksdft2effmass.periodic3d-rankN-band-equivalence-hopping-locality-case-verification.v1"
+    )
+
+    model_identity: str
+    parent_alignment_transport: CompositeVerification
+    fourier_shell_support: CompositeVerification
+
+    def __post_init__(self) -> None:
+        if type(self.model_identity) is not str or not self.model_identity:
+            raise TypeError("model_identity must be a nonempty built-in string")
+        if type(self.parent_alignment_transport) is not CompositeVerification:
+            raise TypeError("parent_alignment_transport must be CompositeVerification")
+        if type(self.fourier_shell_support) is not CompositeVerification:
+            raise TypeError("fourier_shell_support must be CompositeVerification")
+
+    @property
+    def passed(self) -> bool:
+        """Return whether both independent case routes passed."""
+        return (
+            self.parent_alignment_transport.passed and self.fourier_shell_support.passed
+        )
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "wire_identity": self.WIRE_IDENTITY,
+            "model_identity": self.model_identity,
+            "parent_alignment_transport": self.parent_alignment_transport.to_dict(),
+            "fourier_shell_support": self.fourier_shell_support.to_dict(),
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "wire_identity",
+            "model_identity",
+            "parent_alignment_transport",
+            "fourier_shell_support",
+        }
+        if set(values) != required:
+            raise ValueError("periodic-3D case-verification fields do not match")
+        if values["wire_identity"] != cls.WIRE_IDENTITY:
+            raise ValueError("case-verification wire identity does not match")
+        model_identity = values["model_identity"]
+        parent = values["parent_alignment_transport"]
+        fourier = values["fourier_shell_support"]
+        if type(model_identity) is not str:
+            raise TypeError("model_identity must decode to a built-in string")
+        if not isinstance(parent, Mapping) or not isinstance(fourier, Mapping):
+            raise TypeError("case-verification routes must decode to mappings")
+        return cls(
+            model_identity=model_identity,
+            parent_alignment_transport=CompositeVerification.from_dict(parent),
+            fourier_shell_support=CompositeVerification.from_dict(fourier),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class Periodic3DRankNBandEquivalenceHoppingLocalityVerification(
+    BaseTypedRecord,
+    Periodic3DCapability,
+):
+    """Retain authenticated aggregate software-verification observations."""
+
+    WIRE_IDENTITY: ClassVar[str] = (
+        "ksdft2effmass.periodic3d-rankN-band-equivalence-hopping-locality-verification.v1"
+    )
+
+    request_sha256: str
+    analysis_sha256: str
+    cases: tuple[Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification, ...]
+
+    def __post_init__(self) -> None:
+        _sha256(self.request_sha256, "request_sha256")
+        _sha256(self.analysis_sha256, "analysis_sha256")
+        if (
+            type(self.cases) is not tuple
+            or not self.cases
+            or any(
+                type(case)
+                is not Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification
+                for case in self.cases
+            )
+        ):
+            raise TypeError("cases must contain exact periodic-3D case verifications")
+        identities = tuple(case.model_identity for case in self.cases)
+        if len(set(identities)) != len(identities):
+            raise ValueError("case-verification model identities must be unique")
+
+    @property
+    def passed(self) -> bool:
+        """Return whether every case passed every independent route."""
+        return all(case.passed for case in self.cases)
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        return {
+            "wire_identity": self.WIRE_IDENTITY,
+            "request_sha256": self.request_sha256,
+            "analysis_sha256": self.analysis_sha256,
+            "cases": tuple(case.to_dict() for case in self.cases),
+        }
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        required = {
+            "wire_identity",
+            "request_sha256",
+            "analysis_sha256",
+            "cases",
+        }
+        if set(values) != required:
+            raise ValueError("periodic-3D aggregate-verification fields do not match")
+        if values["wire_identity"] != cls.WIRE_IDENTITY:
+            raise ValueError("aggregate-verification wire identity does not match")
+        request_sha256 = values["request_sha256"]
+        analysis_sha256 = values["analysis_sha256"]
+        cases = values["cases"]
+        if type(request_sha256) is not str or type(analysis_sha256) is not str:
+            raise TypeError("verification identity fields must decode to strings")
+        if type(cases) is not tuple or any(
+            not isinstance(case, Mapping) for case in cases
+        ):
+            raise TypeError("verification cases must decode to mappings")
+        return cls(
+            request_sha256=request_sha256,
+            analysis_sha256=analysis_sha256,
+            cases=tuple(
+                Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification.from_dict(
+                    case
+                )
+                for case in cases
+            ),
+        )
+
+
+@final
+class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier(Periodic3DCapability):
+    """Execute both independent routes for one constructor-bound case."""
+
+    __slots__ = ("_request",)
+
+    def __init__(
+        self,
+        *,
+        request: Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest,
+    ) -> None:
+        if (
+            type(request)
+            is not Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest
+        ):
+            raise TypeError("request must be the exact periodic-3D case verification")
+        self._request = request
+
+    @property
+    def request(
+        self,
+    ) -> Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest:
+        """Return the immutable case-verification request."""
+        return self._request
+
+    def execute(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification:
+        """Return typed observations from both independent reference routes."""
+        request = self._request
+        parent_reference = (
+            Periodic3DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer(
+                request=Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest(
+                    study_request=request.study_request,
+                    case_analysis=request.case_analysis,
+                )
+            ).execute()
+        )
+        fourier_reference = Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(  # noqa: E501
+            request=Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest(
+                study_request=request.study_request,
+                case_analysis=request.case_analysis,
+            )
+        ).execute()
+        return Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification(
+            model_identity=request.case_analysis.model_identity,
+            parent_alignment_transport=CompositeVerification.evaluate(
+                parent_reference.comparisons
+            ),
+            fourier_shell_support=CompositeVerification.evaluate(
+                fourier_reference.comparisons
+            ),
+        )
+
+
+@final
+class Periodic3DRankNBandEquivalenceHoppingLocalityVerifier(Periodic3DCapability):
+    """Sequence per-case verification for one complete immutable analysis."""
+
+    __slots__ = ("_analysis",)
+
+    def __init__(
+        self,
+        *,
+        analysis: Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis,
+    ) -> None:
+        if type(analysis) is not Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis:
+            raise TypeError("analysis must be the exact periodic-3D rank-N analysis")
+        self._analysis = analysis
+
+    @property
+    def analysis(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis:
+        """Return the immutable aggregate analysis bound to this verifier."""
+        return self._analysis
+
+    def execute(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityVerification:
+        """Verify every aggregate case without retained side effects."""
+        analysis = self._analysis
+        cases = tuple(
+            Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier(
+                request=Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest(
+                    study_request=analysis.request,
+                    case_analysis=case,
+                )
+            ).execute()
+            for case in analysis.cases
+        )
+        request_sha256 = hashlib.sha256(analysis.request.to_json()).hexdigest()
+        analysis_sha256 = hashlib.sha256(analysis.to_json()).hexdigest()
+        return Periodic3DRankNBandEquivalenceHoppingLocalityVerification(
+            request_sha256=request_sha256,
+            analysis_sha256=analysis_sha256,
+            cases=cases,
+        )
+
+
+__all__ = [
+    "Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification",
+    "Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest",
+    "Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier",
+    "Periodic3DRankNBandEquivalenceHoppingLocalityVerification",
+    "Periodic3DRankNBandEquivalenceHoppingLocalityVerifier",
+]

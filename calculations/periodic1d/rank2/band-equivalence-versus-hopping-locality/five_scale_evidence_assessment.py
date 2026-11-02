@@ -22,10 +22,10 @@ from development_diagnostics import (
     DiagnosticTableData,
 )
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementUnresolved,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.retention.records import (  # noqa: E501
     Periodic1DRank2CalculationRecord,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.results import (

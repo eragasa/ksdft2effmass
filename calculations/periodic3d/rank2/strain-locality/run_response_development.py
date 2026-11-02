@@ -5,19 +5,21 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+from ksdft2effmass.band_equivalence_hopping_locality import (
     strain_response_plotting,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain import (
     SyntheticStrainPathEnum,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_response import (
     StrainResponseModelEnum,
     calculate_synthetic_strain_response,
 )
 
 FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
 TOLERANCES = (1.0e-3, 1.0e-5)
+CONSTRUCTION_SIZE = 8
+EVALUATION_SIZE = 17
 
 
 def main() -> int:
@@ -25,8 +27,8 @@ def main() -> int:
     frozen = calculate_synthetic_strain_response(
         SyntheticStrainPathEnum.BAIN_3D,
         StrainResponseModelEnum.M1_FROZEN,
-        8,
-        17,
+        CONSTRUCTION_SIZE,
+        EVALUATION_SIZE,
         1.0 / 3.0,
         FRACTIONS,
         math.pi / 4.0,
@@ -36,8 +38,8 @@ def main() -> int:
     radial = calculate_synthetic_strain_response(
         SyntheticStrainPathEnum.BAIN_3D,
         StrainResponseModelEnum.M2_RADIAL,
-        8,
-        17,
+        CONSTRUCTION_SIZE,
+        EVALUATION_SIZE,
         1.0 / 3.0,
         FRACTIONS,
         math.pi / 4.0,

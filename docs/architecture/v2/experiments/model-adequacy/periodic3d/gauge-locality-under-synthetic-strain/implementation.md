@@ -1,10 +1,10 @@
 # Implementation
 
 Reusable metric, Fourier-power, complete-radius, and M0 diagnostic behavior lives in
-`python/src/ksdft2effmass/analysis/model_adequacy/band_equivalence_locality/strain.py`.
+`python/src/ksdft2effmass/band_equivalence_hopping_locality/strain.py`.
 M1/M2 parent, frame alignment, strain-difference, and three-channel behavior lives in
 analysis-owned `strain_response.py`. Campaign-owned presentation lives in
-`python/src/ksdft2effmass/campaigns/model_adequacy/band_equivalence_locality/strain_response_plotting.py`, including a public caller-supplied-axes renderer.
+`python/src/ksdft2effmass/campaigns/band_equivalence_hopping_locality/strain_response_plotting.py`, including a public caller-supplied-axes renderer.
 The family action and presentation remain owned by
 `experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/`.
 

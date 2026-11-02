@@ -5,31 +5,31 @@ from __future__ import annotations
 import pytest
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementDiagnostics
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.geometry import (
-    BandEquivalenceLocalityMetricCovarianceDefectResult,
+from ksdft2effmass.band_equivalence_hopping_locality.geometry import (
+    BandEquivalenceHoppingLocalityMetricCovarianceDefectResult,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.refinement_records import (  # noqa: E501
-    BandEquivalenceLocalityRefinementAssessment,
-    BandEquivalenceLocalityRefinementPair,
+from ksdft2effmass.band_equivalence_hopping_locality.refinement_records import (  # noqa: E501
+    BandEquivalenceHoppingLocalityRefinementAssessment,
+    BandEquivalenceHoppingLocalityRefinementPair,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.results import (
-    BandEquivalenceLocalityAmplitudeMidpointAnalysis,
-    BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis,
+from ksdft2effmass.band_equivalence_hopping_locality.results import (
+    BandEquivalenceHoppingLocalityAmplitudeMidpointAnalysis,
+    BandEquivalenceHoppingLocalityFlatAmplitudeResolutionAnalysis,
 )
 from ksdft2effmass.numerical_consistency import (
     NumericalConsistency,
     ReciprocalMeshRefinementFamily,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.amplitude_refinement.analysis import (  # noqa: E501
     Periodic1DRank2AdaptiveAmplitudeAnalysis,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.momentum_refinement.analysis import (  # noqa: E501
     Periodic1DRank2MomentumRefinementAnalysis,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.family import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.momentum_refinement.family import (  # noqa: E501
     Periodic1DRank2MomentumRefinementFamilyAnalysis,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.refinement import (
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.refinement import (
     Periodic1DRankNRefinementAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
@@ -63,23 +63,23 @@ class TestNumericalConsistency:
         assert issubclass(Periodic1DRankNInterpolationAnalysis, NumericalConsistency)
         assert issubclass(Periodic1DRankNRefinementAnalysis, NumericalConsistency)
         assert issubclass(
-            BandEquivalenceLocalityMetricCovarianceDefectResult,
+            BandEquivalenceHoppingLocalityMetricCovarianceDefectResult,
             NumericalConsistency,
         )
         assert issubclass(
-            BandEquivalenceLocalityRefinementPair,
+            BandEquivalenceHoppingLocalityRefinementPair,
             NumericalConsistency,
         )
         assert issubclass(
-            BandEquivalenceLocalityRefinementAssessment,
+            BandEquivalenceHoppingLocalityRefinementAssessment,
             NumericalConsistency,
         )
         assert issubclass(
-            BandEquivalenceLocalityAmplitudeMidpointAnalysis,
+            BandEquivalenceHoppingLocalityAmplitudeMidpointAnalysis,
             NumericalConsistency,
         )
         assert issubclass(
-            BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis,
+            BandEquivalenceHoppingLocalityFlatAmplitudeResolutionAnalysis,
             NumericalConsistency,
         )
 

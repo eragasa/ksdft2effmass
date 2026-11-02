@@ -7,16 +7,16 @@ from typing import ClassVar
 
 import numpy as np
 import pytest
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+from ksdft2effmass.band_equivalence_hopping_locality import (
     alignment,
     definitions,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
-    BandEquivalenceLocalityAnalyzer,
+from ksdft2effmass.band_equivalence_hopping_locality.analysis import (
+    Rank2BandEquivalenceHoppingLocalityAnalyzer,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
-    BandEquivalenceLocalityAnalysisRecorder,
-    BandEquivalenceLocalityCalculationResult,
+from ksdft2effmass.band_equivalence_hopping_locality.result import (
+    BandEquivalenceHoppingLocalityAnalysisRecorder,
+    BandEquivalenceHoppingLocalityCalculationResult,
 )
 from numpy.typing import NDArray
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
@@ -126,13 +126,13 @@ class TestFrameTransportDiagnostics:
     dimensions: ClassVar[tuple[int, ...]] = (2, 3)
 
     @staticmethod
-    def analysis_request() -> definitions.BandEquivalenceLocalityRequest:
+    def analysis_request() -> definitions.BandEquivalenceHoppingLocalityRequest:
         """Return one bounded square-family serialization fixture."""
-        return definitions.BandEquivalenceLocalityRequest(
-            family=definitions.BandEquivalenceLocalityFamilyEnum.SQUARE,
+        return definitions.BandEquivalenceHoppingLocalityRequest(
+            family=definitions.BandEquivalenceHoppingLocalityFamilyEnum.SQUARE,
             synthetic_model=definitions.FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
             cases=(
-                definitions.BandEquivalenceLocalityCase(
+                definitions.BandEquivalenceHoppingLocalityCase(
                     name="square-directed",
                     dimension=2,
                     parent_kind=definitions.ParentEnum.DIRECTED_AXIS,
@@ -204,7 +204,7 @@ class TestFrameTransportDiagnostics:
                 return result
 
         monkeypatch.setattr(
-            "ksdft2effmass.analysis.model_adequacy.band_equivalence_locality."
+            "ksdft2effmass.band_equivalence_hopping_locality."
             "alignment.NumpyBatchedComplexUnitaryProcrustesSolver",
             CapturingSolver,
         )
@@ -244,7 +244,7 @@ class TestFrameTransportDiagnostics:
             raise AssertionError("topology must not use deficient completions")
 
         monkeypatch.setattr(
-            "ksdft2effmass.analysis.model_adequacy.band_equivalence_locality."
+            "ksdft2effmass.band_equivalence_hopping_locality."
             "alignment.np.linalg.eigvals",
             prohibited_eigenvalues,
         )
@@ -269,7 +269,7 @@ class TestFrameTransportDiagnostics:
                 raise np.linalg.LinAlgError("synthetic owner failure")
 
         monkeypatch.setattr(
-            "ksdft2effmass.analysis.model_adequacy.band_equivalence_locality."
+            "ksdft2effmass.band_equivalence_hopping_locality."
             "alignment.NumpyBatchedComplexUnitaryProcrustesSolver",
             FailingSolver,
         )
@@ -280,20 +280,24 @@ class TestFrameTransportDiagnostics:
 
     def test_roundoff_cutoff_survives_typed_result_round_trip(self) -> None:
         definition = self.analysis_request()
-        analysis = BandEquivalenceLocalityAnalyzer(request=definition).execute()
-        result = BandEquivalenceLocalityAnalysisRecorder(analysis).result()
+        analysis = Rank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=definition
+        ).execute()
+        result = BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
         point = result.diagnostics.cases[0].points[0]
 
         assert point.maximum_transport_procrustes_residual == 0.0
         assert point.maximum_transport_squared_residual_roundoff_cutoff > 0.0
-        reconstructed = BandEquivalenceLocalityCalculationResult.from_json(
+        reconstructed = BandEquivalenceHoppingLocalityCalculationResult.from_json(
             result.to_json()
         )
         assert reconstructed.to_json() == result.to_json()
 
     def test_analysis_rejects_zero_filled_inapplicable_topology(self) -> None:
         definition = self.analysis_request()
-        analysis = BandEquivalenceLocalityAnalyzer(request=definition).execute()
+        analysis = Rank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=definition
+        ).execute()
         point = analysis.cases[0].points[0]
         with pytest.raises(ValueError, match="prohibits topology diagnostics"):
             replace(

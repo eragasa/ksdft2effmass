@@ -17,14 +17,14 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.analysis import (  # noqa: E501
     Periodic1DRank2Analyzer,
     _Periodic1DRank2PreparedAnalysis,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.frame_transport import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.frame_transport import (  # noqa: E501
     _Periodic1DRank2UnqualifiedPreparation,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.gauge import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.gauge import (
     Periodic1DRank2SinusoidalGaugeRotation,
 )
 from ksdft2effmass.periodic1d.support_truncation import (

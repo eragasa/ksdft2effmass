@@ -7,21 +7,21 @@ import hashlib
 from collections.abc import Mapping
 from pathlib import Path
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.calculation_verification import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.retention.calculation_verification import (  # noqa: E501
     Periodic1DRank2CalculationVerification,
     Periodic1DRank2CalculationVerifier,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.retention.records import (  # noqa: E501
     Periodic1DRank2ParentFamilyAnalysisRecord,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.verification import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.retention.verification import (  # noqa: E501
     Periodic1DRank2ParentFamilyVerification,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.visualization_data import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.retention.visualization_data import (  # noqa: E501
     Periodic1DRank2CalculationVisualizationData,
     Periodic1DRank2ParentFamilyVisualizationData,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.visualizations.visualizer import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.visualizations.visualizer import (  # noqa: E501
     Periodic1DRank2CalculationVisualizer,
     Periodic1DRank2ParentFamilyVisualizer,
 )

@@ -2,7 +2,7 @@
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
+from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
 )
 from ksdft2effmass.periodic2d.model.toy_models import (

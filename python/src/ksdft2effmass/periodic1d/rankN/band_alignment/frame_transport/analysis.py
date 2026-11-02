@@ -13,8 +13,8 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FinitePeriodicMeshFrameInventory,
 )
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationRequest,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
     Periodic1DRankNAnalyticMeshSample,
@@ -28,13 +28,13 @@ from .result import Periodic1DRankNAlignmentTransportOwnerResult
 class Periodic1DRankNTransportAnalysisRequest:
     """Bind one calculation request to one immutable construction-mesh sample."""
 
-    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     sample: Periodic1DRankNAnalyticMeshSample
 
     def __post_init__(self) -> None:
         if (
             type(self.calculation_request)
-            is not Periodic1DRankNAlignmentCalculationRequest
+            is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact rank-N request")
         if type(self.sample) is not Periodic1DRankNAnalyticMeshSample:

@@ -6,29 +6,32 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.calculation import (
-    BandEquivalenceLocalityVerifier,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.lifecycle import (
-    BandEquivalenceLocalityExecution,
-    BandEquivalenceLocalityExecutionVerification,
-    BandEquivalenceLocalityRendering,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.reference import (
-    BandEquivalenceLocalityIndependentShellPowerAnalyzer,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
-    BandEquivalenceLocalityCalculationResult,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.verification import (
-    BandEquivalenceLocalityResultVerifier,
-    BandEquivalenceLocalityVerificationThresholds,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.visualizations import (
-    BandEquivalenceLocalityVisualizationPlotEnum,
-    BandEquivalenceLocalityVisualizer,
-)
 from projectkoios.physkit.units import ScalarQuantity, Unitless
+
+from ksdft2effmass.band_equivalence_hopping_locality.verification import (
+    BandEquivalenceHoppingLocalityVerificationThresholds,
+)
+from ksdft2effmass.band_equivalence_hopping_locality.visualizations import (  # noqa: E501
+    BandEquivalenceHoppingLocalityVisualizationPlotEnum,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.lifecycle import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityExecution,
+    Periodic2DRank2BandEquivalenceHoppingLocalityExecutionVerification,
+    Periodic2DRank2BandEquivalenceHoppingLocalityRendering,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.reference import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.verification import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityDiagnosticVerifier,
+    Periodic2DRank2BandEquivalenceHoppingLocalityResultVerifier,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.visualizations.visualizer import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityVisualizer,
+)
 
 EXECUTION_ID = "direct-square-rank2-n16"
 CALCULATION_FAMILY = "periodic2d-rank2-orthogonal-band-equivalence-locality"
@@ -61,7 +64,7 @@ if not all(
 execution_bytes = execution_path.read_bytes()
 result_bytes = result_path.read_bytes()
 verification_bytes = verification_path.read_bytes()
-execution = BandEquivalenceLocalityExecution.from_json(execution_bytes)
+execution = Periodic2DRank2BandEquivalenceHoppingLocalityExecution.from_json(execution_bytes)
 if execution.to_json() != execution_bytes:
     raise ValueError("execution document is not canonical typed JSON")
 if execution.execution_id != EXECUTION_ID:
@@ -79,8 +82,10 @@ if (
     != hashlib.sha256(calculation_script_path.read_bytes()).hexdigest()
 ):
     raise ValueError("calculation script bytes do not match execution.json")
-verification_record = BandEquivalenceLocalityExecutionVerification.from_json(
-    verification_bytes
+verification_record = (
+    Periodic2DRank2BandEquivalenceHoppingLocalityExecutionVerification.from_json(
+        verification_bytes
+    )
 )
 if verification_record.to_json() != verification_bytes:
     raise ValueError("verification document is not canonical typed JSON")
@@ -99,19 +104,19 @@ if (
     raise ValueError("verification script bytes do not match verification.json")
 verification = verification_record.verification
 data = verification_record.visualization_data
-result = BandEquivalenceLocalityCalculationResult.from_json(result_bytes)
+result = Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(result_bytes)
 if result.to_json() != result_bytes:
     raise ValueError("result document is not canonical typed JSON")
-admitted = BandEquivalenceLocalityResultVerifier(
+admitted = Periodic2DRank2BandEquivalenceHoppingLocalityResultVerifier(
     result_wire=result_bytes,
-    diagnostic_verifier=BandEquivalenceLocalityVerifier(
+    diagnostic_verifier=Periodic2DRank2BandEquivalenceHoppingLocalityDiagnosticVerifier(
         request=result.request,
         result=result.diagnostics,
     ),
-    shell_power_analyzer=BandEquivalenceLocalityIndependentShellPowerAnalyzer(
+    shell_power_analyzer=Periodic2DRank2BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer(
         request=result.request
     ),
-    thresholds=BandEquivalenceLocalityVerificationThresholds(
+    thresholds=BandEquivalenceHoppingLocalityVerificationThresholds(
         stored_identity_maximum_defect=ScalarQuantity(5.0e-11, Unitless()),
         independent_parent_maximum_defect=ScalarQuantity(5.0e-14, Unitless()),
         independent_band_maximum_defect=ScalarQuantity(5.0e-14, Unitless()),
@@ -124,17 +129,17 @@ admitted = BandEquivalenceLocalityResultVerifier(
     verification=verification,
     visualization_data=data,
 )
-visualizations = BandEquivalenceLocalityVisualizer(
+visualizations = Periodic2DRank2BandEquivalenceHoppingLocalityVisualizer(
     data=admitted.visualization_data,
     verification=admitted.verification,
 ).visualize()
-expected_plots = frozenset(BandEquivalenceLocalityVisualizationPlotEnum)
+expected_plots = frozenset(BandEquivalenceHoppingLocalityVisualizationPlotEnum)
 if {visualization.plot for visualization in visualizations} != expected_plots:
     raise ValueError("rendered plot inventory differs from the declared inventory")
 temporary_directory.mkdir()
 for visualization in visualizations:
     (temporary_directory / visualization.filename).write_bytes(visualization.png)
-rendering = BandEquivalenceLocalityRendering(
+rendering = Periodic2DRank2BandEquivalenceHoppingLocalityRendering(
     schema_version=1,
     schema=(
         "ksdft2effmass.periodic2d-rank2-orthogonal-"

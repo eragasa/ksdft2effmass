@@ -9,8 +9,8 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FinitePeriodicMeshFrameInventory,
 )
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationRequest,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.analysis import (
     Periodic1DRankNFailedTransportAnalysis,
@@ -29,7 +29,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _sample(
-    request: Periodic1DRankNAlignmentCalculationRequest,
+    request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 ) -> Periodic1DRankNAnalyticMeshSample:
     model = Periodic1DRankNAnalyticCaseConstructor(
         retained_rank=request.retained_rank,
@@ -43,7 +43,7 @@ class TestPeriodic1DRankNTransportAnalyzer:
 
     def test__execute__returns_resolved_transport_and_closure_defects(
         self,
-        higher_rank_calculation_request: Periodic1DRankNAlignmentCalculationRequest,
+        higher_rank_calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
     ) -> None:
         analysis = Periodic1DRankNTransportAnalyzer(
             Periodic1DRankNTransportAnalysisRequest(
@@ -60,7 +60,7 @@ class TestPeriodic1DRankNTransportAnalyzer:
 
     def test__execute__returns_typed_backend_failure(
         self,
-        higher_rank_calculation_request: Periodic1DRankNAlignmentCalculationRequest,
+        higher_rank_calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         def fail_transport(

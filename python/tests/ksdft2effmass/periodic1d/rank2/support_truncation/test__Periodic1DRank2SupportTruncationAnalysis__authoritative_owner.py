@@ -4,9 +4,7 @@ from importlib.util import find_spec
 
 import pytest
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace import (
-    rank2 as BandEquivalenceRank2,
-)
+import ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace as BandEquivalenceRank2  # noqa: E501
 from ksdft2effmass.periodic1d.rank2 import (
     support_truncation as RankFirstSupportTruncation,
 )
@@ -71,8 +69,8 @@ class TestPeriodic1DRank2SupportTruncationAnalysis:
     def test__obsolete_study_owned_package__is_removed(self) -> None:
         assert (
             find_spec(
-                "ksdft2effmass.periodic1d.band_equivalence_locality."
-                "embedded_subspace.rank2.truncation"
+                "ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality."
+                "embedded_subspace.rank2"
             )
             is None
         )

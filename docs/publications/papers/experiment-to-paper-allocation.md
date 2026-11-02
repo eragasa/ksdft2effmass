@@ -1,9 +1,9 @@
 # Experiment-to-paper allocation
 
-This ledger maps maintained work under `experiments/` to the seven-paper sequence. It
-assigns publication use without changing experiment identity or evidence status.
-Protocols, development calculations, immutable versions, retained runs, and historical
-calculations remain distinct.
+This ledger maps calculation owners and remaining legacy experiment pointers to the
+seven-paper sequence. It assigns publication use without changing calculation identity
+or evidence status. Protocols, development calculations, immutable versions, retained
+runs, and historical calculations remain distinct.
 
 | Experiment surface | Paper | Permitted publication role | Current boundary |
 |---|---|---|---|
@@ -12,11 +12,11 @@ calculations remain distinct.
 | `calculations/periodic1d/rank2/composite-band-alignment-locality/` | Paper 3 (`Ragasa2026c`) | Publication-independent rank-two successor to historical M2/M3 alignment controls | Protocol migrated to the calculation owner; no immutable version or maintained run |
 | `calculations/periodic1d/rankN/composite-band-alignment-locality/` | Paper 3 | Planned one-dimensional study of how retained-state count and basis-rotation depth affect hopping range | Development code and a complete calculation plan exist; no stable result format, independent full-result check, retained run, or evidence package exists |
 | `model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/` | Paper 2 (`Ragasa2026b`) | Orthogonal square-lattice bounded dimensional control | Verified three-mesh development ladder; replaceable, not retained evidence |
-| `model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/` | Paper 2 | Triangular/honeycomb-inspired non-orthogonal bounded control | Verified three-mesh development ladder; not graphene validation or retained evidence |
+| `calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/` | Paper 2 | Triangular/honeycomb-inspired non-orthogonal bounded control | Verified three-mesh development ladder; not graphene validation or retained evidence |
 | `model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/` | Paper 2 | Orthogonal simple-cubic bounded dimensional control | Verified three-mesh development ladder; replaceable, not retained evidence |
 | `model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/` | Paper 2 | FCC/diamond-inspired non-orthogonal bounded control | Verified three-mesh development ladder; not silicon validation or retained evidence |
 | `model-adequacy/band-equivalence-dimensional-comparison/` | Paper 2 | Thin cross-family composition of identically defined diagnostics | Development composition only; it owns no transferred tolerances, convergence, or evidence identity |
-| `model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/` | Paper 2 | Rhombic M0/M1/M2 mechanism-separation control | Bounded development diagnostics; no converged or material-strain result |
+| `calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/` | Paper 2 | Rhombic M0/M1/M2 mechanism-separation control | Bounded development diagnostics; no converged or material-strain result |
 | `model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/` | Paper 2 | Bain-path M0/M1/M2 mechanism-separation control | Bounded development diagnostics; no converged transition or silicon result |
 | `calculations/periodic2d/rank1/hopping-shell-hierarchy/` | Paper 2 successor discussion | Prospective isotropic support-hierarchy design | Protocol design only; unimplemented and unexecuted |
 | Intended periodic-3D isotropic and periodic-2D anisotropic support hierarchies | Paper 2 successor discussion | Architecture roadmap | Architecture only; no source experiment or result |

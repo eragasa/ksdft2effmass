@@ -14,8 +14,8 @@ from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, Real
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldIsometryAnalyzer
 
-from ..band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationRequest,
+from ..band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from .definition import Periodic1DRankNGaugeAlignment
@@ -75,7 +75,7 @@ class Periodic1DRankNGaugeAlignedFields:
 class Periodic1DRankNGaugeAlignmentConstructionRequest:
     """Bind the scientific inputs for constructing one gauge-aligned field pair."""
 
-    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     model: Periodic1DRankNAnalyticCase
     gauge_alignment: Periodic1DRankNGaugeAlignment
     coordinates: RealArray
@@ -85,7 +85,7 @@ class Periodic1DRankNGaugeAlignmentConstructionRequest:
     def __post_init__(self) -> None:
         if (
             type(self.calculation_request)
-            is not Periodic1DRankNAlignmentCalculationRequest
+            is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact request record")
         if type(self.model) is not Periodic1DRankNAnalyticCase:
@@ -238,7 +238,7 @@ class Periodic1DRankNGaugeAlignmentConstructor:
 class Periodic1DRankNGaugeAlignmentEvaluationRequest:
     """Bind one direct represented-operator evaluation in a prescribed gauge."""
 
-    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     model: Periodic1DRankNAnalyticCase
     gauge_alignment: Periodic1DRankNGaugeAlignment
     coordinates: RealArray
@@ -247,7 +247,7 @@ class Periodic1DRankNGaugeAlignmentEvaluationRequest:
     def __post_init__(self) -> None:
         if (
             type(self.calculation_request)
-            is not Periodic1DRankNAlignmentCalculationRequest
+            is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact request record")
         if type(self.model) is not Periodic1DRankNAnalyticCase:

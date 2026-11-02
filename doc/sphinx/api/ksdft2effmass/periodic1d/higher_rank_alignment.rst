@@ -68,12 +68,12 @@ Frame-transport capability
 Band-alignment calculation records
 ----------------------------------
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.calculation
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result
    :members:
    :undoc-members:
    :show-inheritance:
@@ -101,27 +101,27 @@ Band-alignment calculation records
 Composite calculation actions
 -----------------------------
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.construction_mesh
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.construction_mesh
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.gauge_case
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.gauge_case
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.evaluation
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.evaluation
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.refinement
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.refinement
    :members:
    :undoc-members:
    :show-inheritance:
@@ -129,22 +129,22 @@ Composite calculation actions
 Purpose-specific independent reference analysis
 ------------------------------------------------
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.reference
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.fourier_reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.fourier_reference
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.procrustes_reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.procrustes_reference
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: ksdft2effmass.periodic1d.rankN.band_alignment.composite.transport_reference
+.. automodule:: ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.transport_reference
    :members:
    :undoc-members:
    :show-inheritance:

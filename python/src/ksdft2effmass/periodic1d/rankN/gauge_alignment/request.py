@@ -17,8 +17,8 @@ from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysisRequest,
 )
 
-from ..band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationRequest,
+from ..band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from .definition import Periodic1DRankNGaugeAlignment
@@ -41,7 +41,7 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
 ):
     """Bind one qualified gauge alignment and its immutable scientific inputs."""
 
-    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     model: Periodic1DRankNAnalyticCase
     mesh: CenteredUniformMesh
     status: Periodic1DRankNAlignmentStatusResult
@@ -52,7 +52,7 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
     def __post_init__(self) -> None:
         if (
             type(self.calculation_request)
-            is not Periodic1DRankNAlignmentCalculationRequest
+            is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact request record")
         if type(self.model) is not Periodic1DRankNAnalyticCase:

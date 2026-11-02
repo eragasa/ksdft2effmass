@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pytest
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.results import (
-    BandEquivalenceLocalityShellAnalysis,
+from ksdft2effmass.band_equivalence_hopping_locality.results import (
+    BandEquivalenceHoppingLocalityShellAnalysis,
 )
 from ksdft2effmass.periodic1d.rank1.support_truncation import (
     Periodic1DRank1SupportResult,
@@ -130,8 +130,8 @@ class TestSupportTruncation:
                 id="Periodic1DRankNSupportResult",
             ),
             pytest.param(
-                BandEquivalenceLocalityShellAnalysis,
-                id="BandEquivalenceLocalityShellAnalysis",
+                BandEquivalenceHoppingLocalityShellAnalysis,
+                id="BandEquivalenceHoppingLocalityShellAnalysis",
             ),
             pytest.param(
                 MetricShellSupportInventory,

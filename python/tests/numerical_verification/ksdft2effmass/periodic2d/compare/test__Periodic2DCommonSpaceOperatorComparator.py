@@ -4,7 +4,7 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
-from ksdft2effmass.periodic2d import (
+from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
     Periodic2DCommonSpaceOperatorComparator,
 )

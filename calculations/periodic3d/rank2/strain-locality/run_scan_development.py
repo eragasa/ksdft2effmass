@@ -5,22 +5,22 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain import (
     SyntheticStrainCalculator,
     SyntheticStrainPathEnum,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_response import (
     StrainResponseModelEnum,
     StrainWitnessControlEnum,
     calculate_strain_witness_scan,
     calculate_synthetic_strain_response,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_scan import (
     SyntheticStrainScanAssessor,
     SyntheticStrainScanRequest,
     SyntheticStrainTransitionRefiner,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan_plotting import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_scan_plotting import (
     SyntheticStrainScanPlotRequest,
     SyntheticStrainScanPlotWriter,
 )
@@ -28,6 +28,11 @@ from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan
 FRACTIONS = tuple(float(index) / 200.0 for index in range(201))
 TOLERANCES = (1.0e-3, 1.0e-5)
 PATH = SyntheticStrainPathEnum.BAIN_3D
+GEOMETRY_CONSTRUCTION_SIZE = 24
+WITNESS_CONSTRUCTION_SIZE = 8
+RESPONSE_CONSTRUCTION_SIZE = 8
+RESPONSE_EVALUATION_SIZE = 17
+MAXIMUM_TRANSITION_REFINEMENT_DEPTH = 5
 
 
 def main() -> int:
@@ -35,15 +40,15 @@ def main() -> int:
     request = SyntheticStrainScanRequest(
         path=PATH,
         strain_fractions=FRACTIONS,
-        geometry_construction_size=24,
-        witness_construction_size=8,
-        response_construction_size=8,
-        response_evaluation_size=17,
+        geometry_construction_size=GEOMETRY_CONSTRUCTION_SIZE,
+        witness_construction_size=WITNESS_CONSTRUCTION_SIZE,
+        response_construction_size=RESPONSE_CONSTRUCTION_SIZE,
+        response_evaluation_size=RESPONSE_EVALUATION_SIZE,
         response_evaluation_shift=1.0 / 3.0,
         maximum_rotation_amplitude=math.pi / 4.0,
         radial_decay_beta=1.0,
         tail_tolerances=TOLERANCES,
-        maximum_transition_refinement_depth=5,
+        maximum_transition_refinement_depth=MAXIMUM_TRANSITION_REFINEMENT_DEPTH,
     )
     witnesses = tuple(
         calculate_strain_witness_scan(

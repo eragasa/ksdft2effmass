@@ -5,7 +5,7 @@
 The first implementation slice is maintained under:
 
 ```text
-python/src/ksdft2effmass/analysis/model_adequacy/band_equivalence_locality/
+python/src/ksdft2effmass/band_equivalence_hopping_locality/
 ```
 
 It provides:

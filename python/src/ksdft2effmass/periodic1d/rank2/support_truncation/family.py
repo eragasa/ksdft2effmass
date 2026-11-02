@@ -9,7 +9,7 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyRequest,
 )
 from ksdft2effmass.periodic1d.support_truncation import (

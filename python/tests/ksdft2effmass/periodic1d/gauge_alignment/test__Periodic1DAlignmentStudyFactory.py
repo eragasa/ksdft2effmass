@@ -36,9 +36,9 @@ from ksdft2effmass.periodic1d.rank1.alignment import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
-    Periodic1DRankNAlignmentCalculationRequest,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -102,7 +102,7 @@ class TestPeriodic1DAlignmentStudyFactory:
         )
 
     @staticmethod
-    def rankn_request() -> Periodic1DRankNAlignmentCalculationRequest:
+    def rankn_request() -> Periodic1DRankNBandEquivalenceHoppingLocalityRequest:
         configuration_type = Periodic1DRankNAlignmentConfiguration
         configuration = configuration_type(
             family_identity=configuration_type.FAMILY_IDENTITY,
@@ -143,9 +143,9 @@ class TestPeriodic1DAlignmentStudyFactory:
                 configuration_type.MAXIMUM_CLOSURE_PHASE_TOLERANCE
             ),
         )
-        return Periodic1DRankNAlignmentCalculationRequest(
+        return Periodic1DRankNBandEquivalenceHoppingLocalityRequest(
             configuration=configuration,
-            controls=Periodic1DRankNAlignmentCalculationControls.frozen(),
+            controls=Periodic1DRankNBandEquivalenceHoppingLocalityControls.frozen(),
             retained_rank=3,
             circuit_depth=1,
             ambient_basis_identifier=(

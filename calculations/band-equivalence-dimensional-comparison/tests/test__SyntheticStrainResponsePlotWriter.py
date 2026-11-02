@@ -5,15 +5,15 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pytest
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain import (
     SyntheticStrainPathEnum,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_response import (
     StrainResponseModelEnum,
     SyntheticStrainResponseResult,
     calculate_synthetic_strain_response,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response_plotting import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_response_plotting import (
     render_strain_response_axes,
     write_strain_response_plots,
 )

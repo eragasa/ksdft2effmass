@@ -23,8 +23,8 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
     _float_array,
     _nonempty,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationRequest,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -335,13 +335,13 @@ class Periodic1DRankNModelDiagnostics(BaseTypedRecord):
 class Periodic1DRankNModelDiagnosticsRequest:
     """Bind one calculation request to one consistent analytic mesh sample."""
 
-    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     sample: Periodic1DRankNAnalyticMeshSample
 
     def __post_init__(self) -> None:
         if (
             type(self.calculation_request)
-            is not Periodic1DRankNAlignmentCalculationRequest
+            is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact rank-N request")
         if type(self.sample) is not Periodic1DRankNAnalyticMeshSample:

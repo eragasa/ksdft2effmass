@@ -16,6 +16,9 @@ or supported import already exists.
 - [`spaces`](spaces/index.md): finite state-space and subspace contracts.
 - [`analysis`](analysis/index.md): reusable analyses over already typed numerical
   objects.
+- [`band_equivalence_hopping_locality`](band_equivalence_hopping_locality/index.md):
+  the cross-dimensional aggregate study comparing band equivalence with hopping
+  locality while leaving support truncation separate.
 - [`subspace_reduction`](scientific-operation-taxonomy.md#subspace-reduction),
   [`representation_equivalence`](scientific-operation-taxonomy.md#representation-equivalence),
   [`real_space_support_truncation`](scientific-operation-taxonomy.md#real-space-support-truncation),

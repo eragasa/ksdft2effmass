@@ -2,8 +2,10 @@
 
 import pytest
 
+from ksdft2effmass.periodic1d.rankN import (
+    band_equivalence_hopping_locality as aggregate,
+)
 from ksdft2effmass.periodic1d.rankN import diagnostics
-from ksdft2effmass.periodic1d.rankN.band_alignment import composite
 from ksdft2effmass.periodic1d.rankN.diagnostics.frame import (
     Periodic1DRankNFrameErrorResult,
 )
@@ -16,7 +18,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestRankNDiagnosticsOwnership:
-    """Keep shared diagnostics outside the composite study namespace."""
+    """Keep shared diagnostics outside the aggregate study namespace."""
 
     def test__records__belong_to_the_shared_rankN_owner(self) -> None:
         expected_modules = {
@@ -29,6 +31,6 @@ class TestRankNDiagnosticsOwnership:
             assert record.__module__.endswith(module_suffix)
 
     def test__capability_packages__are_inert_namespaces(self) -> None:
-        for package in (diagnostics, composite):
+        for package in (diagnostics, aggregate):
             assert not hasattr(package, "__all__")
             assert not any(name.startswith("Periodic1DRankN") for name in vars(package))
