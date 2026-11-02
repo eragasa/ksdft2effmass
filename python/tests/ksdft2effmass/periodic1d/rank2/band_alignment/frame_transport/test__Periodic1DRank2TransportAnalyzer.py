@@ -22,6 +22,11 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.analysis import (
     Periodic1DRank2TransportAnalyzer,
 )
+from ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.base import (
+    Periodic1DRank2FrameTransportAnalysis,
+    Periodic1DRank2FrameTransportAnalysisRequest,
+    Periodic1DRank2FrameTransportAnalyzer,
+)
 from ksdft2effmass.periodic1d.rank2.band_alignment.frame_transport.request import (
     Periodic1DRank2TransportAnalysisRequest,
 )
@@ -71,6 +76,12 @@ class TestPeriodic1DRank2TransportAnalyzer:
         analysis = analyzer.execute()
 
         assert analyzer.request is request
+        assert isinstance(request, Periodic1DRank2FrameTransportAnalysisRequest)
+        assert isinstance(analysis, Periodic1DRank2FrameTransportAnalysis)
+        assert isinstance(analyzer, Periodic1DRank2FrameTransportAnalyzer)
+        assert request.band_subspace_rank == 2
+        assert analysis.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert type(analysis) is Periodic1DRank2ResolvedTransportAnalysis
         assert analysis.request is request
         assert analysis.transported.rank == 2

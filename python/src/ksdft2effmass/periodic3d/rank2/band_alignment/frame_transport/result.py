@@ -7,15 +7,15 @@ from dataclasses import dataclass
 from ksdft2effmass.band_equivalence_hopping_locality.alignment import (
     FrameTransportDiagnostic,
 )
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
 
+from .base import Periodic3DRank2FrameTransportAnalysis
 from .request import Periodic3DRank2TransportAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic3DRank2TransportDiagnosticAnalysis(
     FrameTransportDiagnostic,
-    Periodic3DCapability,
+    Periodic3DRank2FrameTransportAnalysis,
 ):
     """Retain neighbor-link, closure, and plaquette transport diagnostics."""
 

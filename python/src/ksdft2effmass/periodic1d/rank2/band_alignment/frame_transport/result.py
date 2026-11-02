@@ -9,11 +9,14 @@ from ksdft2effmass.solidstate.band_frames import (
     ReciprocalBandFramePath1D,
 )
 
+from .base import Periodic1DRank2FrameTransportAnalysis
 from .request import Periodic1DRank2TransportAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank2ResolvedTransportAnalysis:
+class Periodic1DRank2ResolvedTransportAnalysis(
+    Periodic1DRank2FrameTransportAnalysis
+):
     """Correlate one rank-two transport request with its owner result."""
 
     request: Periodic1DRank2TransportAnalysisRequest
