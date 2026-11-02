@@ -171,9 +171,10 @@ was `12.7605%` against `5%`, all six longitudinal masses failed, and 11 of 12 tr
 masses failed the `8%` evaluation criterion. These discrepancies are revealed
 parent-oracle labels, not operational reduction diagnostics. They limit physical-fidelity
 claims but do not block controlled spatial truncation or Slater--Koster reduction from
-the structurally eligible S30 operator. The reductions, diagnostic rules, fits, and
-predicted hidden errors must be frozen before the 402-point confirmation parent values
-are observed. The S90-through-S110
+the structurally eligible S30 operator. Parent comparisons remain evaluation overlays;
+they do not calibrate operational diagnostics or select a reduction. The reductions,
+diagnostic rules, fits, and evaluation definitions must be frozen before the 402-point
+confirmation parent values are observed. The S90-through-S110
 [controlled-reduction protocol](research-protocol/controlled-reduction-protocol.tex)
 formalized this hidden-oracle separation. Separately authorized S90 design then froze
 all 18 complete physical-radius shells and the operational tail, operator, spectral,
@@ -193,12 +194,17 @@ rank 9 at Gamma and one additional C6 point under the native-format singular-val
 bound. No fit ran, no parameter vector was produced, and S50 remains blocked. The
 default disposition is to retain no Slater--Koster reduction from this source. The
 current
-[post-S110 protocol](research-protocol/controlled-reduction-protocol-post-s110.tex)
-orders separately authorized continuation by increasing implementation difficulty:
-reusable foundations, spectral-only feasibility, global-unitary rank-10 fitting,
-rank-9 projection, and a new Wannier source. Level 1 reusable geometry, parameter,
-Hamiltonian, symmetry, and serialization foundations are now implemented with synthetic
-software verification only. They do not alter the S110 result or authorize Level 2.
+[hopping-first post-S110 protocol](research-protocol/controlled-reduction-protocol-hopping-first.tex)
+preserves that stop and every earlier result. Before any future fit it requires a bound
+synthesis of the complete hopping representation and separate channel-specific Pareto
+frontiers on the 408-point development inventory while preserving the full-support
+consequence. Parent comparisons remain overlays and no new support is selected. Only
+then may separately authorized spectral-only feasibility, global-unitary rank-10
+fitting, rank-9 projection, or new-source studies proceed. Level 1 reusable geometry,
+parameter, Hamiltonian,
+symmetry, and serialization foundations are already implemented with synthetic software
+verification only. They do not close the hopping-first gates, alter the S110 result, or
+authorize Level 2.
 The 30-band factor-three adaptation
 remains a conditional source-fidelity diagnostic, not an automatic successor or a
 prerequisite for controlled reduction.
@@ -234,6 +240,50 @@ Subject to separate Wannier90 authorization, freeze projections, windows, meshes
 centers, spreads, convergence status, symmetry conventions, reciprocal sewing, and
 energy reference. Compare direct-parent and Wannier bands, projectors, and represented
 operators on construction and withheld meshes.
+
+### Separated reconstruction, development, and confirmation inventories
+
+Use four reciprocal-space roles without transferring one role into another:
+
+1. the SCF mesh qualifies the self-consistent density under Stage 2;
+2. the Gamma-origin `6 x 6 x 6` C6 construction mesh supplies wavefunctions and overlaps
+   and establishes finite-transform reconstruction of the frozen Wannier source;
+3. the revealed 408-point geometry is the development evaluation inventory for
+   full-source-relative hopping characterization and a separate direct-parent evaluation
+   overlay; and
+4. the frozen 402-point geometry is confirmation-only, while the balanced 108/108 split
+   is reserved for a future separately authorized Slater--Koster study.
+
+Freeze every point set in reduced reciprocal coordinates, including its origin, weights,
+reciprocal-cell convention, periodic canonicalization, ordering, and any symmetry
+reduction or unfolding. The frozen
+[402-point confirmation geometry](analysis/construction-mesh-adequacy-recommendation/successor-confirmation-holdout.json)
+records its identity and separation checks, but neither its geometry nor any future
+parent values may define diagnostics, candidates, Pareto frontiers, truncation selection,
+fitting, thresholds, or numerical comparison policy.
+
+The [hopping-first Pareto synthesis contract](analysis/c6-b20-w21-hopping-pareto-synthesis/)
+binds the exact S30, S90, S100, and S105 records. For each of the existing 18 complete
+shells, it requires separate descriptive frontiers for retained support cost versus
+operator error, ordered-spectrum error, gap change, valley measures, and each named
+curvature/mass measure, all relative to full $H_W$ on the 408-point development
+inventory. It forbids scalarization and does not select a compromise shell. Tail norms
+and bounds remain diagnostics, not substitutes for measured channel errors.
+
+Revealed 408-point direct-parent comparisons may be displayed only as evaluation
+overlays. Preserve interpolation, truncation-only, and total parent-facing channels
+separately, but do not use any parent comparison to calibrate a diagnostic, classify an
+internal frontier, select support, fit a model, or set a threshold. The current S105
+disposition remains the only selected support: $H_T=H_W$, 383 representatives, and zero
+selected spatial-truncation error. The other 17 shells remain descriptive dominated,
+nondominated, dominated, interval-overlap-unresolved, or inapplicable evidence under the
+selected conservative interval policy; none may be retroactively accepted.
+
+Direct operator differences require an explicitly identified common retained space,
+basis or alignment, units, and energy reference. Without that bridge, report matched
+spectral and projector diagnostics rather than subtracting plane-wave and Wannier matrix
+representations. A finite development or confirmation inventory does not certify a
+continuum supremum, eliminate aliasing, or prove Wannier convergence.
 
 The tutorial-scale silicon Wannier preview is a software/integration precursor only and
 cannot fill this gate. The first provider-eligible `4 x 4 x 4`, rank-10 lower-energy
