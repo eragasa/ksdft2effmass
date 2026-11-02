@@ -2,19 +2,16 @@
 
 import inspect
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence.base import (
-    BandEquivalenceAnalysis,
-    BandEquivalenceAnalyzer,
-    BandEquivalenceRequest,
-)
 from ksdft2effmass.periodic1d.rank2.band_equivalence.base import (
     Periodic1DRank2BandEquivalence,
-    Periodic1DRank2BandEquivalenceAnalysis,
-    Periodic1DRank2BandEquivalenceAnalyzer,
-    Periodic1DRank2BandEquivalenceRequest,
 )
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.analysis import (
     Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
 )
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.request import (
     Periodic1DRank2BandEquivalenceHoppingLocalityRequest,
@@ -25,32 +22,22 @@ from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.result imp
 
 
 class TestPeriodic1DRank2BandEquivalence:
-    """Keep aggregate band equivalence founded but separately specialized."""
+    """Keep the aggregate implementation under its exact rank-two owners."""
 
-    def test__aggregate_roles__retain_band_equivalence_without_sibling_identity(
-        self,
-    ) -> None:
+    def test__aggregate_roles__inherit_exact_rank_ownership(self) -> None:
         assert inspect.isabstract(Periodic1DRank2BandEquivalence)
-        role_pairs = (
-            (
-                Periodic1DRank2BandEquivalenceHoppingLocalityRequest,
-                BandEquivalenceRequest,
-                Periodic1DRank2BandEquivalenceRequest,
-            ),
-            (
-                Periodic1DRank2BandEquivalenceHoppingLocalityAnalysis,
-                BandEquivalenceAnalysis,
-                Periodic1DRank2BandEquivalenceAnalysis,
-            ),
-            (
-                Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer,
-                BandEquivalenceAnalyzer,
-                Periodic1DRank2BandEquivalenceAnalyzer,
-            ),
+        assert issubclass(
+            Periodic1DRank2BandEquivalenceHoppingLocalityRequest,
+            Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
         )
-        for aggregate_role, foundational_role, sibling_role in role_pairs:
-            assert issubclass(aggregate_role, foundational_role)
-            assert not issubclass(aggregate_role, sibling_role)
+        assert issubclass(
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalysis,
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+        )
+        assert issubclass(
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer,
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+        )
         assert not inspect.isabstract(
             Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer
         )

@@ -197,11 +197,8 @@ def assert_calculation_writer_serialization(
         main = cast(Callable[[], int], namespace["main"])
         script_globals = main.__globals__
 
-        if (
-            not _is_strain_context(relative_path)
-            and not relative_path.startswith(
-                "band-equivalence-dimensional-comparison/"
-            )
+        if not _is_strain_context(relative_path) and not relative_path.startswith(
+            "band-equivalence-dimensional-comparison/"
         ):
             nominal = cast(
                 BandEquivalenceHoppingLocalityRequest,

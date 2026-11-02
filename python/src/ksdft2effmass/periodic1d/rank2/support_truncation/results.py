@@ -35,9 +35,7 @@ def _require_nonnegative(value: float, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationRange(
-    Periodic1DRank2SupportTruncationValue
-):
+class Periodic1DRank2TruncationRange(Periodic1DRank2SupportTruncationValue):
     """Retain consequences of one conjugate-closed ordinary cutoff."""
 
     maximum_range: int

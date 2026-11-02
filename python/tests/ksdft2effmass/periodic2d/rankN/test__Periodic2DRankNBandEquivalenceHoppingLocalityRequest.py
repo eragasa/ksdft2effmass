@@ -150,7 +150,10 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
         "family, expected_count",
         (
             (Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum.ORTHOGONAL, 54),
-            (Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum.NONORTHOGONAL, 162),  # noqa: E501
+            (
+                Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum.NONORTHOGONAL,
+                162,
+            ),  # noqa: E501
         ),
     )
     def test_round_trips_and_expands_the_complete_inventory(
@@ -161,7 +164,9 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
         request = self._request(family)
         encoded = request.to_json()
 
-        decoded = Periodic2DRankNBandEquivalenceHoppingLocalityRequest.from_json(encoded)  # noqa: E501
+        decoded = Periodic2DRankNBandEquivalenceHoppingLocalityRequest.from_json(
+            encoded
+        )  # noqa: E501
         expanded = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
             request=decoded
         ).execute()
@@ -257,7 +262,9 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
             )
         with pytest.raises(ValueError, match="geometry inventory"):
             Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
-                family=(Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum.NONORTHOGONAL),
+                family=(
+                    Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum.NONORTHOGONAL
+                ),
                 cases=request.cases,
                 retained_ranks=request.retained_ranks,
                 circuit_depths=request.circuit_depths,

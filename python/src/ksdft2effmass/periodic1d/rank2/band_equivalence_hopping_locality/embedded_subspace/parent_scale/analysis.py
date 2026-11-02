@@ -74,9 +74,7 @@ class _Periodic1DRank2PreparedAnalysis:
 
 
 class Periodic1DRank2Analyzer(
-    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole[
-        Periodic1DRank2Request
-    ],
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole[Periodic1DRank2Request],
 ):
     """Analyze gauge-locality effects after explicit parent qualification."""
 

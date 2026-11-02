@@ -38,7 +38,8 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
         "ksdft2effmass.periodic2d-rankN-orthogonal-band-equivalence-hopping-locality.v1"
     )
     NONORTHOGONAL = (
-        "ksdft2effmass.periodic2d-rankN-nonorthogonal-band-equivalence-hopping-locality.v1"
+        "ksdft2effmass.periodic2d-rankN-nonorthogonal-"
+        "band-equivalence-hopping-locality.v1"
     )
 
 

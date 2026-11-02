@@ -22,9 +22,7 @@ from ksdft2effmass.periodic2d.rankN.gauge_alignment.base import (
 _Periodic2DRankNRequestBase = Periodic2DRankNGaugeAlignmentAnalysisRequest
 
 
-class Periodic2DRankNGlobalGaugeAlignmentAnalysisRequest(
-    _Periodic2DRankNRequestBase
-):
+class Periodic2DRankNGlobalGaugeAlignmentAnalysisRequest(_Periodic2DRankNRequestBase):
     """Bind one constant right-unitary selection over a periodic-2D frame field."""
 
     __slots__ = ("_analysis_identity", "_source", "_target", "_tolerance")

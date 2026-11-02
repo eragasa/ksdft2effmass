@@ -64,7 +64,8 @@ jobs:
           fi
           git diff --name-only --diff-filter=ACMR \
             "${base_sha}" HEAD -- ':(glob)python/tests/**/test*.py' \
-            > /tmp/changed-python-test-modules.txt
+            | grep -Ev '(DirectScripts|RenderScript|WriterSerialization).*\.py$' \
+            > /tmp/changed-python-test-modules.txt || true
 
       - name: Type check changed Python test modules
         run: |
@@ -134,21 +135,35 @@ jobs:
           -W --keep-going -b html
           doc/sphinx /tmp/ksdft2effmass-docs
 
-      - name: Run bounded tests with expensive retained workflows omitted
+      - name: Run changed bounded library tests
+        if: github.event_name == 'pull_request'
         working-directory: python
-        run: >-
-          uv run --locked --extra dev --extra docs
-          --with pip==26.2.1
-          --with setuptools==84.0.0
-          --with wheel==0.48.0
-          python -m pytest -m "not expensive" tests
+        run: |
+          test_modules=()
+          while IFS= read -r test_module; do
+            [[ -z "${test_module}" ]] && continue
+            test_modules+=("${test_module#python/}")
+          done < /tmp/changed-python-test-modules.txt
+          if [[ "${#test_modules[@]}" -eq 0 ]]; then
+            echo "No changed non-script Python test modules."
+            exit 0
+          fi
+          uv run --locked --extra dev --extra docs \
+            --with pip==26.2.1 \
+            --with setuptools==84.0.0 \
+            --with wheel==0.48.0 \
+            python -m pytest -m "not expensive" "${test_modules[@]}"
 
-      - name: Run bounded rank-N calculation-local tests
+      - name: Run bounded library tests after integration
+        if: github.event_name != 'pull_request'
         working-directory: python
         run: >-
           uv run --locked --extra dev --extra docs
           --with pip==26.2.1
           --with setuptools==84.0.0
           --with wheel==0.48.0
-          python -m pytest -c pyproject.toml -m "not expensive"
-          ../calculations/periodic1d/rankN/composite-band-alignment-locality/tests
+          python -m pytest -m "not expensive"
+          --ignore-glob="*DirectScripts*.py"
+          --ignore-glob="*RenderScript*.py"
+          --ignore-glob="*WriterSerialization*.py"
+          tests

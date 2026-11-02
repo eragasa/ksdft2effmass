@@ -25,9 +25,7 @@ class TestPeriodic2DRankNRepresentationEquivalenceOwnerBoundary:
     def test_declares_common_scientific_base_ownership(
         self, repository_root: Path
     ) -> None:
-        readme = (self._root(repository_root) / "README.md").read_text(
-            encoding="utf-8"
-        )
+        readme = (self._root(repository_root) / "README.md").read_text(encoding="utf-8")
 
         for base_name in (
             "SubspaceReduction",

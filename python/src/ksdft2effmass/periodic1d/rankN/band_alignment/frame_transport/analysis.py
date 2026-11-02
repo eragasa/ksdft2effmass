@@ -64,9 +64,7 @@ class Periodic1DRankNTransportAnalysisRequest(
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRankNResolvedTransportAnalysis(
-    Periodic1DRankNFrameTransportAnalysis
-):
+class Periodic1DRankNResolvedTransportAnalysis(Periodic1DRankNFrameTransportAnalysis):
     """Retain successful owner transport evidence and closure defects."""
 
     transport: Periodic1DRankNAlignmentTransportOwnerResult
@@ -93,9 +91,7 @@ class Periodic1DRankNResolvedTransportAnalysis(
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRankNFailedTransportAnalysis(
-    Periodic1DRankNFrameTransportAnalysis
-):
+class Periodic1DRankNFailedTransportAnalysis(Periodic1DRankNFrameTransportAnalysis):
     """Retain one bounded backend failure without fabricated closure values."""
 
     failure: Periodic1DRankNAlignmentTransportBackendFailureResult

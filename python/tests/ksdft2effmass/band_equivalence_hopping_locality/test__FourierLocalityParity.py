@@ -941,9 +941,7 @@ class TestFourierLocalityParity:
                 ordinary_comparison[retained_mask],
                 evaluation,
             )
-            reference_omitted = float(
-                np.sum(ordinary_reference_powers[~retained_mask])
-            )
+            reference_omitted = float(np.sum(ordinary_reference_powers[~retained_mask]))
             comparison_omitted = float(
                 np.sum(ordinary_comparison_powers[~retained_mask])
             )

@@ -655,9 +655,7 @@ class Periodic1DFourierLocalityMeshResult(BaseTypedRecord):
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DFourierLocalityCalculationResult(
     BaseTypedRecord,
-    Periodic1DRank1BandEquivalenceAnalysis[
-        Periodic1DFourierLocalityConfiguration
-    ],
+    Periodic1DRank1BandEquivalenceAnalysis[Periodic1DFourierLocalityConfiguration],
 ):
     """Compose one complete finite compatible rank-one calculation subject."""
 

@@ -14,9 +14,7 @@ from .request import Periodic1DRank2TransportAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank2ResolvedTransportAnalysis(
-    Periodic1DRank2FrameTransportAnalysis
-):
+class Periodic1DRank2ResolvedTransportAnalysis(Periodic1DRank2FrameTransportAnalysis):
     """Correlate one rank-two transport request with its owner result."""
 
     request: Periodic1DRank2TransportAnalysisRequest
