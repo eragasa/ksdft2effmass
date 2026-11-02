@@ -29,6 +29,6 @@ distributed checklist.
 | Four family dependencies | Periodic 2-D/3-D orthogonal/nonorthogonal results and refinements; each remains independently owned and authenticated. |
 | Former family schemas and serializers | Removed; canonical typed records own current wire bytes. |
 | Shell--scale decision landscape | Historical development output only; its custom workflow surface was removed. |
-| Synthetic strain studies | Experiment identities remain under `experiments/model-adequacy/`; executable composition is calculation-owned under `periodic2d_rank2_rhombic_path/` and `periodic3d/rank2/strain-locality/`. They remain outside this nominal lifecycle. |
+| Synthetic strain studies | Context identities, protocols, and executable composition are calculation-owned under `periodic2d_rank2_rhombic_path/` and `periodic3d_rank2_bain_path/`; legacy experiment paths are forward pointers. They remain outside this nominal lifecycle. |
 | Frame-transport diagnostics | Reusable behavior remains with the installed analysis owner. |
 | Experiment migration source | Duplicate plotting entrypoints and analysis-path contracts are retired. The experiment path retains its identity README and comparison protocol. |

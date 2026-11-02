@@ -57,8 +57,14 @@ _LOCALITY_DEFINITION_SCRIPTS = (
         "periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/"
         "run_nominal_calculation.py"
     ),
-    "periodic3d/rank2/orthogonal/band-equivalence-locality/run_development.py",
-    "periodic3d/rank2/nonorthogonal/band-equivalence-locality/run_development.py",
+    (
+        "periodic3d_rank2_simple_cubic/band_equivalence_hopping_locality/"
+        "run_nominal_calculation.py"
+    ),
+    (
+        "periodic3d_rank2_fcc_diamond/band_equivalence_hopping_locality/"
+        "run_nominal_calculation.py"
+    ),
 )
 _LEGACY_REFINEMENT_SCRIPTS = (
     "run_first_refinement.py",
@@ -102,7 +108,10 @@ def _is_periodic2d(relative_path: str) -> bool:
 
 def _is_strain_context(relative_path: str) -> bool:
     return "strain-locality" in relative_path or relative_path.startswith(
-        "periodic2d_rank2_rhombic_path/"
+        (
+            "periodic2d_rank2_rhombic_path/",
+            "periodic3d_rank2_bain_path/",
+        )
     )
 
 
@@ -197,11 +206,8 @@ def assert_calculation_writer_serialization(
         main = cast(Callable[[], int], namespace["main"])
         script_globals = main.__globals__
 
-        if (
-            not _is_strain_context(relative_path)
-            and not relative_path.startswith(
-                "band-equivalence-dimensional-comparison/"
-            )
+        if not _is_strain_context(relative_path) and not relative_path.startswith(
+            "band-equivalence-dimensional-comparison/"
         ):
             nominal = cast(
                 BandEquivalenceHoppingLocalityRequest,

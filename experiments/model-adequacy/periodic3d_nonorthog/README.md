@@ -1,21 +1,14 @@
-# Non-orthogonal periodic 3-D model-adequacy experiments
+# Legacy nonorthogonal periodic-3D model-adequacy index
 
-> **Migration status:** this container and family tree are assigned to
-> [`calculations/periodic3d/rank2/nonorthogonal/band-equivalence-locality/`](../../../calculations/periodic3d/rank2/nonorthogonal/band-equivalence-locality/);
-> the authoritative checklist is maintained there in `migration.md`.
+This container preserves the legacy nonorthogonal periodic-3D taxonomy. It is not current
+protocol, calculation, result, or evidence authority.
 
-This subtree contains three-dimensional experiment families whose primitive direct-
-lattice basis is non-orthogonal. It is separate from `periodic3d/` so orthogonal and
-non-orthogonal geometry do not become implicit cases of one version contract.
+The current family is
+[`calculations/periodic3d_rank2_fcc_diamond/`](../../../calculations/periodic3d_rank2_fcc_diamond/),
+with the detailed owner at
+[`band_equivalence_hopping_locality/`](../../../calculations/periodic3d_rank2_fcc_diamond/band_equivalence_hopping_locality/).
+The legacy family identity pointer remains at
+[`band-equivalence-versus-hopping-locality/`](band-equivalence-versus-hopping-locality/).
 
-Current family:
-
-- [`band-equivalence-versus-hopping-locality/`](band-equivalence-versus-hopping-locality/)
-  — silicon-inspired diamond-basis rank-two representation cost, with separate
-  FCC/simple-cubic Bravais controls.
-
-PhysKit owns reusable lattice, reciprocal, metric, and finite-domain primitives. These
-experiments own their physical bond orbits, metric-shell acceptance, parameter grids,
-thresholds, verification, evidence, resource policy, and interpretation. No general
-Bravais-lattice API, immutable experiment version, retained run, or material claim is
-established here.
+The synthetic diamond-basis control is not a silicon parameterization, bulk-silicon
+calculation, material validation, or effective-mass result.

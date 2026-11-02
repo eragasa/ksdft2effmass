@@ -13,25 +13,25 @@ pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 _PERIODIC3D_WRITER_PATHS = (
     *(
-        f"{family}/run_development.py"
+        f"{family}/band_equivalence_hopping_locality/run_nominal_calculation.py"
         for family in (
-            "periodic3d/rank2/orthogonal/band-equivalence-locality",
-            "periodic3d/rank2/nonorthogonal/band-equivalence-locality",
+            "periodic3d_rank2_simple_cubic",
+            "periodic3d_rank2_fcc_diamond",
         )
     ),
     *(
-        f"periodic3d/rank2/strain-locality/{script}"
+        f"periodic3d_rank2_bain_path/band_equivalence_hopping_locality/{script}"
         for script in (
-            "run_development.py",
-            "run_response_development.py",
-            "run_scan_development.py",
+            "run_geometry_control.py",
+            "run_response_controls.py",
+            "run_path_scan.py",
         )
     ),
 )
 
 
 class TestPeriodic3DCalculationWriterSerialization:
-    """Prevent byte and text regressions in periodic-3D development writers."""
+    """Prevent byte and text regressions in bounded periodic-3D writers."""
 
     @pytest.mark.parametrize("relative_path", _PERIODIC3D_WRITER_PATHS)
     def test_writer_executes_and_emits_canonical_json_bytes(

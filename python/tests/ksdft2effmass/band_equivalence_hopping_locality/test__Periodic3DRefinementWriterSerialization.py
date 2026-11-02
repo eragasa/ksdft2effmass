@@ -16,17 +16,17 @@ pytestmark = [
 ]
 
 _PERIODIC3D_REFINEMENT_WRITER_PATHS = tuple(
-    f"{family}/{script}"
+    f"{family}/band_equivalence_hopping_locality/{script}"
     for family in (
-        "periodic3d/rank2/orthogonal/band-equivalence-locality",
-        "periodic3d/rank2/nonorthogonal/band-equivalence-locality",
+        "periodic3d_rank2_simple_cubic",
+        "periodic3d_rank2_fcc_diamond",
     )
-    for script in ("run_first_refinement.py", "run_second_refinement.py")
+    for script in ("run_refinement_01.py", "run_refinement_02.py")
 )
 
 
 class TestPeriodic3DRefinementWriterSerialization:
-    """Exercise complete refinement writers outside the bounded development gate."""
+    """Exercise complete refinement writers outside the bounded routine gate."""
 
     @pytest.mark.parametrize("relative_path", _PERIODIC3D_REFINEMENT_WRITER_PATHS)
     def test_writer_executes_and_emits_canonical_json_bytes(
