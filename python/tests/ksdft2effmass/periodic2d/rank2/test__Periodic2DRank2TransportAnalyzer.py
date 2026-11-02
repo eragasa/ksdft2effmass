@@ -9,6 +9,11 @@ from projectkoios.numerics.numpy.typing import Complex128Array
 from ksdft2effmass.periodic2d.rank2.band_alignment.frame_transport.analysis import (
     Periodic2DRank2TransportAnalyzer,
 )
+from ksdft2effmass.periodic2d.rank2.band_alignment.frame_transport.base import (
+    Periodic2DRank2FrameTransportAnalysis,
+    Periodic2DRank2FrameTransportAnalysisRequest,
+    Periodic2DRank2FrameTransportAnalyzer,
+)
 from ksdft2effmass.periodic2d.rank2.band_alignment.frame_transport.request import (
     Periodic2DRank2TransportAnalysisRequest,
 )
@@ -38,8 +43,15 @@ class TestPeriodic2DRank2TransportAnalyzer:
         )
         frame[...] = 0.0
 
-        result = Periodic2DRank2TransportAnalyzer(request=request).execute()
+        analyzer = Periodic2DRank2TransportAnalyzer(request=request)
+        result = analyzer.execute()
 
+        assert isinstance(request, Periodic2DRank2FrameTransportAnalysisRequest)
+        assert isinstance(result, Periodic2DRank2FrameTransportAnalysis)
+        assert isinstance(analyzer, Periodic2DRank2FrameTransportAnalyzer)
+        assert request.band_subspace_rank == 2
+        assert result.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert type(result) is Periodic2DRank2TransportDiagnosticAnalysis
         assert result.request is request
         assert result.minimum_singular_value == pytest.approx(1.0)
