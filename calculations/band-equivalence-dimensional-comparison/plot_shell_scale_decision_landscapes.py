@@ -14,7 +14,7 @@ from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape import (
     ShellScaleDecisionLandscapeCalculator,
     ShellScaleDecisionLandscapeRequest,
 )
-from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape_plotting import (
+from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape_plotting import (  # noqa: E501
     ShellScaleDecisionLandscapePlotRequest,
     ShellScaleDecisionLandscapePlotWriter,
 )
