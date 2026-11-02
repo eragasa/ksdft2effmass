@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import final
 
 import numpy as np
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
@@ -16,6 +17,9 @@ from ksdft2effmass.gauge_alignment import (
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysis,
 )
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.base import (
+    Periodic1DRank2GaugeAlignment,
+)
 from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
 from .procrustes.result import (
@@ -25,7 +29,10 @@ from .procrustes.result import (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2GaugeAlignmentAnalysis(Periodic1DGaugeAlignmentAnalysis):
+class Periodic1DRank2GaugeAlignmentAnalysis(
+    Periodic1DGaugeAlignmentAnalysis,
+    Periodic1DRank2GaugeAlignment,
+):
     """Retain selected right actions and their aligned frame paths."""
 
     pointwise_aligned: ReciprocalBandFramePath1D
@@ -90,6 +97,12 @@ class Periodic1DRank2GaugeAlignmentAnalysis(Periodic1DGaugeAlignmentAnalysis):
             or self.global_procrustes.selection_count != 1
         ):
             raise ValueError("global Procrustes evidence does not match the selection")
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return 2
 
     @property
     def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:

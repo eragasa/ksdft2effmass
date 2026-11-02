@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import final
 
 import numpy as np
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
@@ -17,10 +18,11 @@ from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysisRequest,
 )
 
+from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from ..band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
-from ..band_alignment.model import Periodic1DRankNAnalyticCase
+from .base import Periodic1DRankNGaugeAlignmentCapability
 from .definition import Periodic1DRankNGaugeAlignment
 from .fields import (
     Periodic1DRankNGaugeAlignedFields,
@@ -37,7 +39,8 @@ from .status import (
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRankNGaugeAlignmentAnalysisRequest(
-    Periodic1DGaugeAlignmentAnalysisRequest
+    Periodic1DGaugeAlignmentAnalysisRequest,
+    Periodic1DRankNGaugeAlignmentCapability,
 ):
     """Bind one qualified gauge alignment and its immutable scientific inputs."""
 
@@ -163,6 +166,12 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
             != calculation_request.configuration.global_unitary_selection_mesh_size
         ):
             raise ValueError("global selection must match the calculation request")
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank for this alignment."""
+        return self.analysis_identity.gauge_group_identity.represented_dimension
 
     @property
     def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:

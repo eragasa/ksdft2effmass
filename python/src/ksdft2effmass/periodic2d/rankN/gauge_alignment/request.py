@@ -15,14 +15,16 @@ from ksdft2effmass.gauge_alignment.base import (
     GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
-from ksdft2effmass.periodic2d.gauge_alignment.base import (
-    Periodic2DGaugeAlignmentAnalysisRequest,
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.base import (
+    Periodic2DRankNGaugeAlignmentAnalysisRequest,
 )
 
-_Periodic2DRequestBase = Periodic2DGaugeAlignmentAnalysisRequest
+_Periodic2DRankNRequestBase = Periodic2DRankNGaugeAlignmentAnalysisRequest
 
 
-class Periodic2DRankNGlobalGaugeAlignmentAnalysisRequest(_Periodic2DRequestBase):
+class Periodic2DRankNGlobalGaugeAlignmentAnalysisRequest(
+    _Periodic2DRankNRequestBase
+):
     """Bind one constant right-unitary selection over a periodic-2D frame field."""
 
     __slots__ = ("_analysis_identity", "_source", "_target", "_tolerance")

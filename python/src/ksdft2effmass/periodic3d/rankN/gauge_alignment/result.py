@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import cast
+from typing import cast, final
 
 import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array
@@ -14,19 +14,28 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 )
 
 from ksdft2effmass.gauge_alignment.base import GaugeAlignmentAnalysisIdentity
-from ksdft2effmass.periodic3d.gauge_alignment.base import (
-    Periodic3DGaugeAlignmentAnalysis,
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.base import (
+    Periodic3DRankNGaugeAlignmentAnalysis,
+    Periodic3DRankNGaugeAlignmentCapability,
 )
 
 from .request import Periodic3DRankNGlobalGaugeAlignmentAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic3DRankNGlobalGaugeAlignmentSelected:
+class Periodic3DRankNGlobalGaugeAlignmentSelected(
+    Periodic3DRankNGaugeAlignmentCapability
+):
     """Retain one uniquely selected full-rank right unitary."""
 
     retained_rank: int
     right_unitary: Complex128Array
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return self.retained_rank
 
     def __post_init__(self) -> None:
         if type(self.retained_rank) is not int:
@@ -44,7 +53,9 @@ class Periodic3DRankNGlobalGaugeAlignmentSelected:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNGlobalGaugeAlignmentRankDeficient:
+class Periodic3DRankNGlobalGaugeAlignmentRankDeficient(
+    Periodic3DRankNGaugeAlignmentCapability
+):
     """Retain aggregate rank-deficiency evidence without selecting a completion."""
 
     retained_rank: int
@@ -52,6 +63,12 @@ class Periodic3DRankNGlobalGaugeAlignmentRankDeficient:
     applied_rank_cutoff: float
     cross_singular_values: tuple[float, ...]
     optimal_residual_frobenius_norm: float
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return self.retained_rank
 
     def __post_init__(self) -> None:
         for value, name in (
@@ -103,7 +120,9 @@ class Periodic3DRankNGlobalGaugeAlignmentRankDeficient:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic3DRankNGlobalGaugeAlignmentAnalysis(Periodic3DGaugeAlignmentAnalysis):
+class Periodic3DRankNGlobalGaugeAlignmentAnalysis(
+    Periodic3DRankNGaugeAlignmentAnalysis
+):
     """Retain one aggregate polar selection and complete invariant evidence."""
 
     request: Periodic3DRankNGlobalGaugeAlignmentAnalysisRequest

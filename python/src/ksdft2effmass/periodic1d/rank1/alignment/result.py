@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import ClassVar, Self
+from typing import ClassVar, Self, final
 
 from projectkoios.physkit.periodic.lattice import DirectLattice1D
 from projectkoios.physkit.units import PhysicalUnit
@@ -13,8 +13,10 @@ from ksdft2effmass.gauge_alignment import GaugeAlignmentGroupIdentity
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
-from ksdft2effmass.periodic1d.gauge_alignment import Periodic1DGaugeAlignment
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
+from ksdft2effmass.periodic1d.rank1.gauge_alignment.base import (
+    Periodic1DRank1GaugeAlignment,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from .definition import Periodic1DRank1AlignmentApplicability
@@ -23,7 +25,7 @@ from .definition import Periodic1DRank1AlignmentApplicability
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank1AlignmentApplicabilityResult(
     BaseTypedRecord,
-    Periodic1DGaugeAlignment,
+    Periodic1DRank1GaugeAlignment,
 ):
     """Retain the exact scalar boundary without duplicate alignment channels."""
 
@@ -72,6 +74,12 @@ class Periodic1DRank1AlignmentApplicabilityResult(
             raise ValueError(
                 "inapplicable alignment controls must match the scalar boundary"
             )
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the scalar band-subspace rank."""
+        return 1
 
     @property
     def retained_rank(self) -> int:

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from typing import final
 
 import numpy as np
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
@@ -10,16 +11,28 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 )
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.base import (
+    Periodic1DRank2GaugeAlignment,
+)
+
 from .result import (
     Periodic1DRank2ProcrustesDiagnostics,
     Periodic1DRank2ProcrustesSelectionScope,
 )
 
 
-class Periodic1DRank2ProcrustesDiagnosticsAnalyzer:
+class Periodic1DRank2ProcrustesDiagnosticsAnalyzer(
+    Periodic1DRank2GaugeAlignment
+):
     """Construct complete diagnostics from one successful rank-two selection."""
 
     __slots__ = ("_scope", "_source", "_target", "_result")
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return 2
 
     def __init__(
         self,

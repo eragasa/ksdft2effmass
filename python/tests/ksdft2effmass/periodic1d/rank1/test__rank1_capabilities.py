@@ -23,6 +23,9 @@ from ksdft2effmass.periodic1d.rank1.alignment import (
     Periodic1DRank1AlignmentApplicabilityAnalyzer,
     Periodic1DRank1AlignmentApplicabilityResult,
 )
+from ksdft2effmass.periodic1d.rank1.gauge_alignment.base import (
+    Periodic1DRank1GaugeAlignment,
+)
 from ksdft2effmass.periodic1d.rank1.hopping_locality import (
     Periodic1DRank1HoppingLocalityAnalysisRequest,
     Periodic1DRank1HoppingLocalityAnalyzer,
@@ -87,14 +90,19 @@ class TestPeriodic1DRank1Capabilities:
             DirectLattice1D(2.0),
             PhysicalUnit("angstrom"),
         )
-        result = Periodic1DRank1AlignmentApplicabilityAnalyzer(
+        analyzer = Periodic1DRank1AlignmentApplicabilityAnalyzer(
             request=configuration,
             lattice_geometry=geometry,
-        ).execute()
+        )
+        result = analyzer.execute()
         reconstructed = Periodic1DRank1AlignmentApplicabilityResult.from_json(
             result.to_json()
         )
 
+        assert isinstance(analyzer, Periodic1DRank1GaugeAlignment)
+        assert isinstance(result, Periodic1DRank1GaugeAlignment)
+        assert analyzer.band_subspace_rank == 1
+        assert result.band_subspace_rank == 1
         assert isinstance(result, Periodic1DGaugeAlignment)
         assert isinstance(result, GaugeAlignment)
         assert result.direct_lattice.lattice_constant == 2.0

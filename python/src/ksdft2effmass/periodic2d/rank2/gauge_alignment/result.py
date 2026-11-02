@@ -8,8 +8,8 @@ from ksdft2effmass.band_equivalence_hopping_locality.alignment import (
     RestrictedAlignmentDiagnostic,
 )
 from ksdft2effmass.gauge_alignment.base import GaugeAlignmentAnalysisIdentity
-from ksdft2effmass.periodic2d.gauge_alignment.base import (
-    Periodic2DGaugeAlignmentAnalysis,
+from ksdft2effmass.periodic2d.rank2.gauge_alignment.base import (
+    Periodic2DRank2GaugeAlignmentAnalysis,
 )
 
 from .request import Periodic2DRank2RestrictedGaugeAlignmentAnalysisRequest
@@ -18,7 +18,7 @@ from .request import Periodic2DRank2RestrictedGaugeAlignmentAnalysisRequest
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic2DRank2RestrictedGaugeAlignmentAnalysis(
     RestrictedAlignmentDiagnostic,
-    Periodic2DGaugeAlignmentAnalysis,
+    Periodic2DRank2GaugeAlignmentAnalysis,
 ):
     """Retain one restricted global rank-two alignment diagnostic."""
 

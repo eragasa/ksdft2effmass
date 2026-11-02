@@ -15,14 +15,14 @@ from ksdft2effmass.gauge_alignment.base import (
     GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
-from ksdft2effmass.periodic3d.gauge_alignment.base import (
-    Periodic3DGaugeAlignmentAnalysisRequest,
+from ksdft2effmass.periodic3d.rank2.gauge_alignment.base import (
+    Periodic3DRank2GaugeAlignmentAnalysisRequest,
 )
 
-_Periodic3DRequestBase = Periodic3DGaugeAlignmentAnalysisRequest
+_Periodic3DRank2RequestBase = Periodic3DRank2GaugeAlignmentAnalysisRequest
 
 
-class Periodic3DRank2ProcrustesAnalysisRequest(_Periodic3DRequestBase):
+class Periodic3DRank2ProcrustesAnalysisRequest(_Periodic3DRank2RequestBase):
     """Bind correlated rank-two source and target frames on one periodic-3D mesh."""
 
     __slots__ = ("_analysis_identity", "_source", "_target", "_tolerance")
