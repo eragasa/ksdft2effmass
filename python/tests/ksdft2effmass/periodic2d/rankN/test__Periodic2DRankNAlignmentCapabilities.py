@@ -14,6 +14,11 @@ from projectkoios.optimization.alignment.procrustes import (
 from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.analysis import (
     Periodic2DRankNTransportAnalyzer,
 )
+from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.base import (
+    Periodic2DRankNFrameTransportAnalysis,
+    Periodic2DRankNFrameTransportAnalysisRequest,
+    Periodic2DRankNFrameTransportAnalyzer,
+)
 from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.request import (
     Periodic2DRankNTransportAnalysisRequest,
 )
@@ -175,8 +180,15 @@ class TestPeriodic2DRankNAlignmentCapabilities:
         )
         frame[...] = 0.0
 
-        result = Periodic2DRankNTransportAnalyzer(request=request).execute()
+        analyzer = Periodic2DRankNTransportAnalyzer(request=request)
+        result = analyzer.execute()
 
+        assert isinstance(request, Periodic2DRankNFrameTransportAnalysisRequest)
+        assert isinstance(result, Periodic2DRankNFrameTransportAnalysis)
+        assert isinstance(analyzer, Periodic2DRankNFrameTransportAnalyzer)
+        assert request.band_subspace_rank == 4
+        assert result.band_subspace_rank == 4
+        assert analyzer.band_subspace_rank == 4
         assert type(result) is Periodic2DRankNTransportDiagnosticAnalysis
         assert result.request is request
         assert result.minimum_singular_value == pytest.approx(1.0)

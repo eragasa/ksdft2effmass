@@ -92,11 +92,15 @@ class TestPeriodic2DRankNLocalityCapabilities:
             shell_indices=(1, 0, 1),
         )
 
-        result = Periodic2DRankNHoppingLocalityAnalyzer(
+        analyzer = Periodic2DRankNHoppingLocalityAnalyzer(
             request=request,
             power_analyzer=BlockHoppingPowerAnalyzer(),
-        ).execute()
+        )
+        result = analyzer.execute()
 
+        assert request.band_subspace_rank == 3
+        assert result.band_subspace_rank == 3
+        assert analyzer.band_subspace_rank == 3
         assert type(result) is Periodic2DRankNHoppingLocalityAnalysis
         assert result.retained_rank == 3
         assert result.normalized_power_at_shell(0) == pytest.approx(4.0)
@@ -115,8 +119,12 @@ class TestPeriodic2DRankNLocalityCapabilities:
             tolerance=0.15,
         )
 
-        result = Periodic2DRankNSupportTruncationAnalyzer(request=request).execute()
+        analyzer = Periodic2DRankNSupportTruncationAnalyzer(request=request)
+        result = analyzer.execute()
 
+        assert request.band_subspace_rank == 4
+        assert result.band_subspace_rank == 4
+        assert analyzer.band_subspace_rank == 4
         assert type(result) is Periodic2DRankNSupportTruncationAnalysis
         matrix = result.matrix_frobenius_maximum_error
         bands = result.ordered_eigenvalue_maximum_absolute_error

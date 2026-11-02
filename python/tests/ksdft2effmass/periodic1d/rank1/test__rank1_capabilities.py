@@ -180,23 +180,35 @@ class TestPeriodic1DRank1Capabilities:
             PhysicalUnit("bohr"),
         )
 
-        locality = Periodic1DRank1HoppingLocalityAnalyzer(
-            request=Periodic1DRank1HoppingLocalityAnalysisRequest(
-                lattice_geometry=geometry,
-                source_calculation=calculation,
-                source_mesh=source_mesh,
-            )
-        ).execute()
-        truncation = Periodic1DRank1SupportTruncationAnalyzer(
-            request=Periodic1DRank1SupportTruncationAnalysisRequest(
-                lattice_geometry=geometry,
-                source_calculation=calculation,
-                source_mesh=source_mesh,
-            )
-        ).execute()
+        locality_request = Periodic1DRank1HoppingLocalityAnalysisRequest(
+            lattice_geometry=geometry,
+            source_calculation=calculation,
+            source_mesh=source_mesh,
+        )
+        locality_analyzer = Periodic1DRank1HoppingLocalityAnalyzer(
+            request=locality_request
+        )
+        locality = locality_analyzer.execute()
+        truncation_request = Periodic1DRank1SupportTruncationAnalysisRequest(
+            lattice_geometry=geometry,
+            source_calculation=calculation,
+            source_mesh=source_mesh,
+        )
+        truncation_analyzer = Periodic1DRank1SupportTruncationAnalyzer(
+            request=truncation_request
+        )
+        truncation = truncation_analyzer.execute()
 
+        assert locality_request.band_subspace_rank == 1
+        assert locality_analyzer.band_subspace_rank == 1
+        assert locality.band_subspace_rank == 1
+        assert all(tail.band_subspace_rank == 1 for tail in locality.tails)
         assert isinstance(locality, Periodic1DHoppingLocality)
         assert isinstance(locality, HoppingLocality)
+        assert truncation_request.band_subspace_rank == 1
+        assert truncation_analyzer.band_subspace_rank == 1
+        assert truncation.band_subspace_rank == 1
+        assert all(support.band_subspace_rank == 1 for support in truncation.supports)
         assert isinstance(truncation, Periodic1DSupportTruncation)
         assert isinstance(truncation, SupportTruncation)
         assert locality.tails[-1].direct_lattice.lattice_constant == 3.0
