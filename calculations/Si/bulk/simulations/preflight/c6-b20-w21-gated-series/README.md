@@ -1,8 +1,9 @@
 # `C6-B20-W21` gated full-operator-to-reduction series
 
-This directory defines the branched series from the authenticated 20-band interface
-through structural qualification of the fixed full source, controlled spatial and
-Slater--Koster reduction, diagnostic prediction freeze, and hidden-parent confirmation.
+This directory retains the historical branched series from the authenticated 20-band
+interface through structural qualification, controlled spatial and Slater--Koster
+reduction, the formerly proposed diagnostic-prediction stages, and parent confirmation.
+The current hopping-first protocol does not adopt a hidden-error-prediction claim.
 [`series-plan.json`](series-plan.json) is generated
 deterministically by [`prepare_series.py`](prepare_series.py).
 
@@ -27,18 +28,27 @@ operational gates for the controlled-reduction branch.
 | S100 | complete-family spatial-truncation evaluation | complete; every shell reported without selection | exact full-support control; no parent-oracle values consumed |
 | S105 | spatial-truncation disposition | complete; full support retained | `H_T = H_W`; no nontrivial radius or post-observation threshold accepted |
 | S110 | Slater--Koster definition and fit | blocked at common-space gate; no fit | projected ten-orbital `sp3s*` frame is rank deficient at two C6 points |
-| S50 | reduction and diagnostic prediction freeze | blocked by S110 | no Slater--Koster parameter vector exists to freeze |
+| S50 | retained historical reduction/prediction-freeze template | blocked by S110 | no Slater--Koster parameter vector exists to freeze; prediction role is superseded prospectively |
 | S60 | hidden 402-point parent calculation | blocked by S50 | confirmation values remain unobserved |
-| S70 | prospective hidden-oracle comparison | blocked by S60 | tests frozen diagnostic predictions without refitting |
+| S70 | retained historical hidden-oracle comparison template | blocked by S60 | current protocol permits a confirmation overlay only, not a diagnostic-prediction test |
 | S120 | Slater--Koster diagnostic validation | blocked by S70 | separates parent, truncation, and parameterization error channels |
 | S80 | optional full-operator physical-fidelity disposition | not required for controlled reduction | parent agreement limits physical claims only |
 
+This table and `series-plan.json` retain the historical stage graph and are not
+rewritten. The current hopping-first protocol adds prospective HF0--HF4 analysis gates
+before any future Slater--Koster fit. Those gates define characterization-only,
+channel-specific support/error Pareto frontiers on the 408-point development inventory,
+preserve S105 full support, and treat parent comparisons only as evaluation overlays.
+They do not relabel a completed S stage or activate S50.
+
 Exact downstream artifact bindings cannot be generated before their upstream outputs
 exist. Those stages are therefore conditional templates rather than misleading runnable
-preflights. Parent-fidelity errors are controlled-study oracle labels, not operational
-reduction diagnostics. The 402-point confirmation geometry remains frozen at SHA-256
+preflights. Parent-fidelity errors are evaluation overlays, not operational reduction
+diagnostics or prediction targets. The 402-point confirmation geometry remains frozen
+at SHA-256
 `51427c7389ae293566d865d42a3a8a8217b0fed4607ac65c5a97199ce6a383c8`; its direct-parent
-values are not present in this plan and remain unobserved.
+values are not present and neither its geometry nor future values may define diagnostics,
+candidates, frontiers, truncation, fitting, thresholds, or numerical policy.
 
 ## Current actionable stage
 
@@ -65,14 +75,22 @@ zero selected spatial-truncation error. It does not create a post-observation th
 or repurpose parent numerical-convergence tolerances. The separately authorized S110
 attempt stopped at the mandatory common-space gate: the projected ten-orbital `sp3s*`
 frame has resolved rank 9 at Gamma and one additional C6 point. No fit ran, no parameter
-vector exists, and S50 remains blocked. Stopping remains the default. The current
+vector exists, and S50 remains blocked. Stopping remains the default. The retained first
 [post-S110 protocol](../../../research-protocol/controlled-reduction-protocol-post-s110.tex)
-defines separately authorized foundation, spectral-only, global-unitary, rank-9, and
-new-source continuation levels; it authorizes no automatic progression. Level 1 reusable
-foundations are now implemented with synthetic software verification only; no fit or
-series-stage prerequisite changed, and Level 2 remains unauthorized. Reduction
-choices, calibration, fits, and oracle-error predictions must be frozen before the 402-point
-parent values are observed. Any
+defined separately authorized foundation, spectral-only, global-unitary, rank-9, and
+new-source continuation levels. The current
+[hopping-first protocol](../../../research-protocol/controlled-reduction-protocol-hopping-first.tex)
+preserves those options but places HF0--HF4 before any future fit. Level 1 reusable
+foundations are implemented with synthetic software verification only; no fit or
+series-stage prerequisite changed, and Level 2 remains unauthorized. The protocol-only
+[hopping Pareto synthesis contract](../../../analysis/c6-b20-w21-hopping-pareto-synthesis/)
+has an installed conservative interval classifier. The original no-calculator
+identity/gap run is preserved, and one authorized portable v2 rerun retained
+`UNRESOLVED_DEVELOPMENT_EVALUATION`; required 408-point per-shell intervals remain
+unavailable.
+The 108/108 split remains reserved for future fitting. Hopping results, reduction
+choices, fits, and evaluation definitions must be frozen before any 402-point comparison.
+Any
 `C6-B30`, `C8`, or `C12` source-fidelity route remains a separate scientific decision
 and authorization sequence, not a prerequisite for controlled reduction.
 
@@ -81,7 +99,8 @@ and authorization sequence, not a prerequisite for controlled reduction.
 | Artifact | SHA-256 |
 |---|---|
 | S90-through-S110 controlled-reduction protocol | `80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380` |
-| current post-S110 controlled-reduction protocol | `3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653` |
+| retained first post-S110 controlled-reduction protocol | `3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653` |
+| current hopping-first protocol (not rebound into retained `series-plan.json`) | `d28146dc2c481d4793b7e8294c4bc43196eba387bce3052b24d8bde269859f79` |
 | series plan | `6dca2bfcbb0b00259a2ddf7d8630b82ee693f325ade0aedaabc70d4dcbc67eb7` |
 | localization campaign preflight | `b7e6b150e28e4ae79eadffbc8799eb593554ccd4f9792347fbd6852ca9a1977d` |
 | localization authorization request | `02375507dbe487f1ad5dee2569151faf04c2e5a5fa3aadd9b0007d977bc26aa7` |

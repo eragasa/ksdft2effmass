@@ -105,6 +105,18 @@ vocabulary and software composition, but they do not select a rank-N parent, gau
 circuit, tolerance, or claim. Lower-dimensional outcomes do not establish three-
 dimensional refinement or resource feasibility.
 
+## Continuous-path exclusion
+
+This selected protocol covers the fixed simple-cubic and FCC/basis-metric case inventory.
+It does not itself select homogeneous strain, a continuous Bain metric, a common-cell
+path map, or M0/M1N/M2 response channels. The separate calculation-owned context is
+[`calculations/periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/README.md).
+That context now selects its exact Bain geometry/common-state-space, M0 shared-`2r` flat
+`lambda=0` geometry control, and M1N frozen `2r`-state analytic-parent semantics. Its
+candidate ranks and depths, M2 parent/response, remaining response laws, meshes,
+tolerances, resources, visualization, and lifecycle still require path-specific review;
+this fixed-geometry record transfers no outcomes or evidence.
+
 ## Implementation gate
 
 The package currently installs the analytic parent/gauge model, global and pointwise

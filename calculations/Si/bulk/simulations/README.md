@@ -384,9 +384,13 @@ creating a post-observation threshold. The separately authorized no-calculator
 stopped at the mandatory common-space gate: the projected ten-orbital `sp3s*` frame is
 rank deficient at two C6 points under the native-format bound. No fit ran and S50
 remains blocked pending a separate scientific decision. The current
-[post-S110 protocol](../research-protocol/controlled-reduction-protocol-post-s110.tex)
-orders the separately authorized continuation levels. The 402-point parent values remain
-unobserved.
+[hopping-first post-S110 protocol](../research-protocol/controlled-reduction-protocol-hopping-first.tex)
+preserves every completed and blocked stage, then requires characterization-only,
+channel-specific support/error Pareto frontiers on the 408-point development inventory
+before any future Slater--Koster fit. The S105 full-support selection remains unchanged;
+revealed parent comparisons are evaluation overlays, the 108/108 split remains reserved
+for future fitting, and the 402-point geometry remains confirmation-only with parent
+values unobserved.
 
 ## Documentation set
 

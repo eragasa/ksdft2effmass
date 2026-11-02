@@ -27,6 +27,21 @@ scientific family identity, a metric, a bond inventory, a shell cap, or a conclu
 The strain calculation is a separate family and must not be inferred from or merged into
 either nominal band-equivalence execution.
 
+## Analysis order
+
+The child families follow the shared
+[periodic analysis order](../../periodic/multiband/analysis-order.md). Analyze the
+orthogonal square control first, then the nonorthogonal/basis-aware static control, then
+the rhombic path's separate M0/M1/M2 and scan channels. Only independently admitted
+family results may enter a cross-family comparison. This owner boundary does not combine
+child executions or transfer meshes, tolerances, shell indices, or conclusions.
+
+Within a static child, the order is qualification, transport, alignment/equivalence,
+Fourier and withheld interpolation, descriptive locality, complete-shell truncation,
+separate error consequences, independent verification, refinement, and authenticated
+rendering. Within the path child, geometry qualification precedes M0, M1, M2, witnesses,
+scan analysis, verification, and rendering.
+
 ## Shared rank-two conventions
 
 For the nominal band-equivalence calculations, the donor's ordered scientific

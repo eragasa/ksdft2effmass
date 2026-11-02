@@ -25,4 +25,6 @@ This disposition does not revise the failed S110 alignment result. It produced n
 parameter vector, Slater--Koster reduction, prediction freeze, or model-adequacy claim.
 It consumed no 408-point or 402-point parent values and invoked no calculator. Level 2
 spectral-only feasibility and every later continuation level remain unauthorized by
-this disposition. S50 remains blocked.
+this disposition. Under the current
+[hopping-first protocol](../../research-protocol/controlled-reduction-protocol-hopping-first.tex),
+this synthetic foundation also does not close HF0--HF4. S50 remains blocked.

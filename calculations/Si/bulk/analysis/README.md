@@ -56,8 +56,8 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
   valley positions pass, but the indirect gap, all six longitudinal masses, and eleven
   of twelve transverse masses fail. These revealed-parent values are development-oracle
   labels that limit physical-fidelity claims; they do not block controlled reduction
-  from the structurally eligible S30 operator. Reduction and diagnostic predictions
-  must be frozen before the 402-point confirmation oracle is revealed.
+  from the structurally eligible S30 operator. They remain a separate evaluation overlay
+  and may not calibrate diagnostics, select support, define frontiers, or tune fits.
 - The authorized no-calculator
   [`C6-B20-W21` spatial-truncation design](c6-b20-w21-spatial-truncation-design/)
   freezes all 18 complete physical-radius shells from the onsite-only control through
@@ -78,6 +78,16 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
   spatial-truncation error is identically zero. No post-observation numeric threshold is
   created to accept a nontrivial shell, and parent numerical-convergence tolerances are
   not repurposed as reduction tolerances.
+- The protocol-only
+  [`C6-B20-W21` hopping-first Pareto synthesis contract](c6-b20-w21-hopping-pareto-synthesis/)
+  binds S30/S90/S100/S105 and defines separate retained-cost frontiers for operator,
+  ordered-spectrum, gap, valley, curvature, and mass metrics on the 408-point development
+  inventory. Its calculation-owned action installs conservative interval classification
+  and exact identity inspection. The original authorized identity/gap run is preserved,
+  and one authorized portable v2 rerun retained
+  `UNRESOLVED_DEVELOPMENT_EVALUATION`. It selects no support, preserves
+  `H_T = H_W`, consumed no 402-point parent values, and reserves 108/108 for future
+  Slater--Koster work. Required 408-point per-shell intervals remain unavailable.
 - The separately authorized no-calculator
   [`C6-B20-W21` Slater--Koster definition and fit](c6-b20-w21-slater-koster-definition-fit/)
   stopped at its mandatory common-space gate. The projected ten-orbital `sp3s*` frame
@@ -85,9 +95,9 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
   singular-value bound. No fit ran and no parameter vector or Slater--Koster model was
   produced. S50 remains blocked pending a separate scientific decision. Stopping is the
   default; the current
-  [post-S110 protocol](../research-protocol/controlled-reduction-protocol-post-s110.tex)
-  orders separately authorized continuation levels by increasing implementation
-  difficulty.
+  [hopping-first post-S110 protocol](../research-protocol/controlled-reduction-protocol-hopping-first.tex)
+  preserves the blocked result and requires the characterization-only Pareto synthesis
+  before any separately authorized continuation fit.
 - The
   [withheld-parent validation package](withheld-parent-validation-preflight/)
   froze 408 candidate-conditioned, construction-disjoint QE coordinates and exact
@@ -127,10 +137,19 @@ After verified successors exist, analysis may perform:
 1. finite-setting selection and mixed-corner interaction assessment;
 2. valley identity and projector/cluster tracking;
 3. effective-mass stencil or fit analysis with conditioning diagnostics;
-4. direct-parent/Wannier interpolation and operator comparison;
-5. support-tail and locality analysis;
-6. joint spectral/operator admissibility and minimum-cost selection; and
-7. withheld and sensitivity analysis.
+4. direct-parent/Wannier interpolation and aligned operator comparison where a common
+   state space exists;
+5. complete Fourier/hopping reconstruction before support removal, using C6 only for
+   source reconstruction;
+6. channel-specific descriptive Pareto analysis on the 408-point development inventory
+   without scalarization or support selection;
+7. complete-shell support-removal consequences while preserving S105's selected
+   full-support disposition;
+8. separate 408-parent evaluation overlays that cannot define or tune the internal
+   analysis;
+9. only then, a separately admitted Slater--Koster parameterization using its reserved
+   108/108 split; and
+10. confirmation-only 402-point comparison without frontier revision or refitting.
 
 Each derived result requires its own schema, source bindings, verification, and
 nonclaim statement before plotting or publication use.

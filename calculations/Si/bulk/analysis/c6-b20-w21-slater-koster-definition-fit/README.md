@@ -42,21 +42,28 @@ Status: `blocked-orbital-alignment-rank-deficient-no-fit`.
 
 The provisional nearest- and second-neighbor orthogonal `sp3s*` parameter inventories
 and the balanced 108/108 fit/validation split are retained, but they were not activated.
-No least-squares solve ran, no parameter vector exists, and no Slater--Koster model was
-accepted. A spectral-only fit is not substituted for the failed operator alignment.
-S50 prediction freeze remains blocked.
+That split remains reserved exclusively for a future separately authorized
+Slater--Koster study and is not part of hopping Pareto characterization. No least-squares
+solve ran, no parameter vector exists, and no Slater--Koster model was accepted. A
+spectral-only fit is not substituted for the failed operator alignment. S50 remains
+blocked.
 
 The default disposition is to retain no Slater--Koster reduction from this source and
 stop this branch. The current
-[post-S110 protocol](../../research-protocol/controlled-reduction-protocol-post-s110.tex)
-orders separately authorized continuations by increasing implementation difficulty:
-reusable Slater--Koster foundations, spectral-only feasibility, a global-unitary
-rank-10 operator study, a separately defined rank-9 source, and a new
-projection/target-space/localization route. Level 1 has since been implemented as a
+[hopping-first post-S110 protocol](../../research-protocol/controlled-reduction-protocol-hopping-first.tex)
+preserves the earlier continuation options but requires the protocol-only HF0--HF4
+[channel-specific Pareto synthesis](../c6-b20-w21-hopping-pareto-synthesis/) before any
+future fit. Its original no-calculator identity/gap run is preserved, and one authorized
+portable v2 rerun retained `UNRESOLVED_DEVELOPMENT_EVALUATION`; the required 408-point
+per-shell intervals remain unavailable, and S105 full support is preserved.
+Reusable Slater--Koster foundations, spectral-only feasibility, a global-unitary rank-10
+operator study, a separately defined rank-9 source, and a new
+projection/target-space/localization route remain scientifically distinct. Level 1 has
+since been implemented as a
 [software-verification-only reusable foundation](level-1-foundation-disposition.md).
-It did not alter this blocked result or produce a fitted reduction model. No later
-level is authorized,
-and a future spectral-only study would not satisfy S110's aligned-operator contract.
+It did not close the hopping-first gates, alter this blocked result, or produce a fitted
+reduction model. No later level is authorized, and a future spectral-only study would
+not satisfy S110's aligned-operator contract.
 
 No automatic retry, target-space change, mesh escalation, or calculator execution is
 authorized.

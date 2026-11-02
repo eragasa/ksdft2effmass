@@ -10,6 +10,28 @@ recover? It compares retained ranks `3`, `4`, `8`, and `16`; circuit depths `1`,
 `4`, and `8`; and four gauge alignments: identity, one global unitary, pointwise complete
 unitaries, and the known inverse oracle.
 
+## Analysis order
+
+This family is the one-dimensional higher-rank prerequisite in the shared
+[periodic analysis order](../../../periodic/multiband/analysis-order.md). For every
+admitted rank/depth case, analyze:
+
+1. analytic parent, retained/exterior isolation, geometry, and attack invariants;
+2. constant-frame transport and closure diagnostics;
+3. identity, global-unitary, pointwise-unitary, and known-inverse controls as separately
+   labelled alignments;
+4. represented-operator recovery and ordered spectra;
+5. complete Fourier coefficients, Hermitian/Parseval identities, and shifted interpolation;
+6. descriptive locality before support selection;
+7. support tails and separately named interpolation/truncation/total consequences;
+8. correlated case assembly and cross-rank normalized reporting;
+9. bounded producer-independent references plus the explicitly integrity-only cache
+   admission; and
+10. render-many presentation from the admitted cache without scientific recalculation.
+
+This calculation precedes interpretation of multidimensional rank-N studies, but its
+coefficients, ranks, depths, meshes, thresholds, and results do not transfer to them.
+
 Composite sequencing belongs to
 `ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality`. Immutable configuration,
 request, transport, provenance, calculation-result, refinement, and failure records live

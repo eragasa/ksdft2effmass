@@ -1,0 +1,1172 @@
+"""Compose authenticated interval-valued hopping Pareto characterization records.
+
+The production route authenticates retained S30/S90/S100/S105 and inventory records.
+It invokes no electronic-structure calculator and does not reconstruct or optimize a
+Wannier representation.  The software-test route consumes synthetic fixtures only.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+from dataclasses import dataclass
+from enum import StrEnum
+from itertools import pairwise
+from pathlib import Path
+from typing import cast
+
+type JsonScalar = None | bool | int | float | str
+type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
+
+DEVELOPMENT_INVENTORY_SHA256 = (
+    "754bce5030ef0e34eb092406b27d9094287b4f749e358ef36404040f44b8d2b4"
+)
+CONFIRMATION_INVENTORY_SHA256 = (
+    "51427c7389ae293566d865d42a3a8a8217b0fed4607ac65c5a97199ce6a383c8"
+)
+EXPECTED_SHELL_IDS = tuple(f"H-shell-{index:02d}" for index in range(18))
+
+OBJECTIVE_IDS = (
+    "operator.maximum_spectral_ev",
+    "operator.weighted_rms_frobenius_ev",
+    "ordered_spectrum.maximum_absolute_ev",
+    "ordered_spectrum.weighted_rms_ev",
+    "gap.absolute_change_ev",
+    "valley.maximum_displacement_inverse_angstrom",
+    "valley.maximum_energy_change_ev",
+    "curvature.maximum_primary_absolute_relative_change",
+    "mass.maximum_primary_absolute_relative_change",
+    "mass.maximum_stencil_relative_spread",
+)
+
+
+@dataclass(frozen=True)
+class EvidenceBinding:
+    """One exact calculation-owned retained input."""
+
+    identity: str
+    relative_path: str
+    sha256: str
+
+
+BOUND_INPUTS = (
+    EvidenceBinding(
+        identity="S30_full_operator_characterization",
+        relative_path=(
+            "analysis/c6-b20-w21-untruncated-characterization/"
+            "characterization-result.json"
+        ),
+        sha256="37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18",
+    ),
+    EvidenceBinding(
+        identity="S90_complete_shell_design",
+        relative_path=(
+            "analysis/c6-b20-w21-spatial-truncation-design/truncation-design.json"
+        ),
+        sha256="6b9863271ba8241881d62435a7c8307d3431ffe59bfdcce5d96525fe86fcb531",
+    ),
+    EvidenceBinding(
+        identity="S100_complete_family_evaluation",
+        relative_path=(
+            "analysis/c6-b20-w21-spatial-truncation-evaluation/"
+            "truncation-evaluation.json"
+        ),
+        sha256="1ac8bb59137e8dc7217df52f89c18a84e8599bcf82ec59f40a361929d4322a52",
+    ),
+    EvidenceBinding(
+        identity="S105_full_support_disposition",
+        relative_path=(
+            "analysis/c6-b20-w21-spatial-truncation-disposition/"
+            "spatial-truncation-disposition.json"
+        ),
+        sha256="519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68",
+    ),
+    EvidenceBinding(
+        identity="C6_construction_mesh",
+        relative_path=(
+            "analysis/construction-mesh-adequacy-recommendation/"
+            "construction-mesh-candidates.json"
+        ),
+        sha256="1e5ebb9dffa6a97a2f2445cfd6290aff4cd3d6c06c15e4e0e7d6bbde7826c803",
+    ),
+    EvidenceBinding(
+        identity="development_408_inventory",
+        relative_path=(
+            "analysis/withheld-parent-validation-preflight/withheld-kpoint-manifest.json"
+        ),
+        sha256=DEVELOPMENT_INVENTORY_SHA256,
+    ),
+    EvidenceBinding(
+        identity="development_408_parent_overlay",
+        relative_path=(
+            "analysis/c6-b20-w21-revealed-408-development/development-result.json"
+        ),
+        sha256="bb1a6d0fab5d08fecaa0d86cbfe00e8670e7f089e289c6fabc59c32c6f76991d",
+    ),
+    EvidenceBinding(
+        identity="confirmation_402_geometry",
+        relative_path=(
+            "analysis/construction-mesh-adequacy-recommendation/"
+            "successor-confirmation-holdout.json"
+        ),
+        sha256=CONFIRMATION_INVENTORY_SHA256,
+    ),
+)
+
+METRICS_SOURCE_BINDINGS = tuple(BOUND_INPUTS[index] for index in (0, 1, 2, 3, 4, 5))
+
+
+class ObjectiveDisposition(StrEnum):
+    """Availability of one candidate's scalar objective interval."""
+
+    INTERVAL = "INTERVAL"
+    INAPPLICABLE = "INAPPLICABLE_OBSERVABLE_IDENTITY"
+    UNRESOLVED = "UNRESOLVED_CHANNEL_METRIC"
+
+
+class FrontierDisposition(StrEnum):
+    """Conservative interval-Pareto disposition for one candidate and objective."""
+
+    NONDOMINATED = "NONDOMINATED"
+    DOMINATED = "DOMINATED"
+    UNRESOLVED_OVERLAP = "UNRESOLVED_INTERVAL_OVERLAP"
+    INAPPLICABLE = "INAPPLICABLE_OBSERVABLE_IDENTITY"
+    UNRESOLVED_METRIC = "UNRESOLVED_CHANNEL_METRIC"
+
+
+@dataclass(frozen=True)
+class Interval:
+    """Closed finite uncertainty interval for a nonnegative numerical objective."""
+
+    lower: float
+    upper: float
+
+    def __post_init__(self) -> None:
+        if type(self.lower) is not float or type(self.upper) is not float:
+            raise TypeError("interval endpoints must be float values")
+        if not math.isfinite(self.lower) or not math.isfinite(self.upper):
+            raise ValueError("interval endpoints must be finite")
+        if self.lower < 0.0:
+            raise ValueError("objective intervals must be nonnegative")
+        if self.lower > self.upper:
+            raise ValueError("interval lower endpoint exceeds upper endpoint")
+
+
+@dataclass(frozen=True)
+class ObjectiveValue:
+    """One interval-valued, unresolved, or inapplicable objective."""
+
+    objective_id: str
+    disposition: ObjectiveDisposition
+    interval: Interval | None
+    reason: str | None
+
+    def __post_init__(self) -> None:
+        if self.objective_id not in OBJECTIVE_IDS:
+            raise ValueError(f"unsupported objective: {self.objective_id}")
+        if self.disposition is ObjectiveDisposition.INTERVAL:
+            if self.interval is None or self.reason is not None:
+                raise ValueError(
+                    "interval objectives require an interval and no reason"
+                )
+        elif self.interval is not None or not self.reason:
+            raise ValueError("non-interval objectives require a reason and no interval")
+
+
+@dataclass(frozen=True)
+class CandidateMetrics:
+    """Exact integer support cost and channel-specific objective records."""
+
+    shell_id: str
+    support_cost: int
+    objectives: tuple[ObjectiveValue, ...]
+
+    def __post_init__(self) -> None:
+        if not self.shell_id:
+            raise ValueError("shell_id must be nonempty")
+        if type(self.support_cost) is not int:
+            raise TypeError("support_cost must have exact type int")
+        if self.support_cost < 1:
+            raise ValueError("support_cost must be positive")
+        objective_ids = tuple(value.objective_id for value in self.objectives)
+        if len(set(objective_ids)) != len(objective_ids):
+            raise ValueError("candidate contains duplicate objective ids")
+
+    def objective(self, objective_id: str) -> ObjectiveValue:
+        """Return the named objective or an explicit unresolved record."""
+
+        for value in self.objectives:
+            if value.objective_id == objective_id:
+                return value
+        return ObjectiveValue(
+            objective_id=objective_id,
+            disposition=ObjectiveDisposition.UNRESOLVED,
+            interval=None,
+            reason="objective absent from candidate metrics",
+        )
+
+
+@dataclass(frozen=True)
+class RetainedCandidate:
+    """S90 candidate identity joined to authenticated S100 diagnostics."""
+
+    shell_id: str
+    shell_index: int
+    radius_angstrom: float
+    included_count: int
+    excluded_count: int
+    shell_count: int
+    onsite_only_control: bool
+    full_support_control: bool
+    structural: dict[str, JsonValue]
+    tail: dict[str, JsonValue]
+    larger_shell_envelope: dict[str, JsonValue]
+
+
+@dataclass(frozen=True)
+class MetricsProvenance:
+    """Authenticated identities for a prospective interval bundle."""
+
+    producer_identity: str
+    producer_sha256: str
+    policy_identity: str
+    policy_sha256: str
+    source_bindings: tuple[EvidenceBinding, ...]
+
+
+@dataclass(frozen=True)
+class FrontierMembership:
+    """One candidate's disposition on one scalar channel-specific frontier."""
+
+    shell_id: str
+    objective_id: str
+    disposition: FrontierDisposition
+    dominator_shell_ids: tuple[str, ...]
+    overlap_shell_ids: tuple[str, ...]
+    reason: str | None
+
+
+def robustly_dominates(
+    candidate_a: CandidateMetrics,
+    value_a: ObjectiveValue,
+    candidate_b: CandidateMetrics,
+    value_b: ObjectiveValue,
+) -> bool:
+    """Return whether A conservatively dominates B for one objective frontier."""
+
+    if value_a.interval is None or value_b.interval is None:
+        return False
+    no_greater_cost = candidate_a.support_cost <= candidate_b.support_cost
+    no_worse_objective = value_a.interval.upper <= value_b.interval.lower
+    strict_coordinate = (
+        candidate_a.support_cost < candidate_b.support_cost
+        or value_a.interval.upper < value_b.interval.lower
+    )
+    return no_greater_cost and no_worse_objective and strict_coordinate
+
+
+def intervals_overlap(interval_a: Interval, interval_b: Interval) -> bool:
+    """Return whether intervals overlap with positive interior."""
+
+    return interval_a.lower < interval_b.upper and interval_b.lower < interval_a.upper
+
+
+def classify_frontier(
+    candidates: tuple[CandidateMetrics, ...],
+    objective_id: str,
+) -> tuple[FrontierMembership, ...]:
+    """Classify one channel-specific frontier without scalarizing across channels."""
+
+    if objective_id not in OBJECTIVE_IDS:
+        raise ValueError(f"unsupported objective: {objective_id}")
+    memberships: list[FrontierMembership] = []
+    for candidate in candidates:
+        value = candidate.objective(objective_id)
+        if value.disposition is ObjectiveDisposition.INAPPLICABLE:
+            memberships.append(
+                FrontierMembership(
+                    shell_id=candidate.shell_id,
+                    objective_id=objective_id,
+                    disposition=FrontierDisposition.INAPPLICABLE,
+                    dominator_shell_ids=(),
+                    overlap_shell_ids=(),
+                    reason=value.reason,
+                )
+            )
+            continue
+        if value.disposition is ObjectiveDisposition.UNRESOLVED:
+            memberships.append(
+                FrontierMembership(
+                    shell_id=candidate.shell_id,
+                    objective_id=objective_id,
+                    disposition=FrontierDisposition.UNRESOLVED_METRIC,
+                    dominator_shell_ids=(),
+                    overlap_shell_ids=(),
+                    reason=value.reason,
+                )
+            )
+            continue
+
+        dominators: list[str] = []
+        overlaps: list[str] = []
+        for other in candidates:
+            if other.shell_id == candidate.shell_id:
+                continue
+            other_value = other.objective(objective_id)
+            if other_value.disposition is not ObjectiveDisposition.INTERVAL:
+                continue
+            if robustly_dominates(other, other_value, candidate, value):
+                dominators.append(other.shell_id)
+                continue
+            if (
+                other.support_cost <= candidate.support_cost
+                and other_value.interval is not None
+                and value.interval is not None
+                and intervals_overlap(other_value.interval, value.interval)
+            ):
+                overlaps.append(other.shell_id)
+
+        if dominators:
+            disposition = FrontierDisposition.DOMINATED
+            reason = None
+        elif overlaps:
+            disposition = FrontierDisposition.UNRESOLVED_OVERLAP
+            reason = "lower-or-equal-cost objective intervals overlap"
+        else:
+            disposition = FrontierDisposition.NONDOMINATED
+            reason = None
+        memberships.append(
+            FrontierMembership(
+                shell_id=candidate.shell_id,
+                objective_id=objective_id,
+                disposition=disposition,
+                dominator_shell_ids=tuple(sorted(dominators)),
+                overlap_shell_ids=tuple(sorted(overlaps)),
+                reason=reason,
+            )
+        )
+    return tuple(memberships)
+
+
+def _load_json(path: Path) -> JsonValue:
+    return cast(JsonValue, json.loads(path.read_text(encoding="utf-8")))
+
+
+def _mapping(value: JsonValue, context: str) -> dict[str, JsonValue]:
+    if not isinstance(value, dict):
+        raise TypeError(f"{context} must be a JSON object")
+    return value
+
+
+def _sequence(value: JsonValue, context: str) -> list[JsonValue]:
+    if not isinstance(value, list):
+        raise TypeError(f"{context} must be a JSON array")
+    return value
+
+
+def _string(mapping: dict[str, JsonValue], key: str, context: str) -> str:
+    value = mapping.get(key)
+    if not isinstance(value, str):
+        raise TypeError(f"{context}.{key} must be a string")
+    return value
+
+
+def _integer(mapping: dict[str, JsonValue], key: str, context: str) -> int:
+    value = mapping.get(key)
+    if type(value) is not int:
+        raise TypeError(f"{context}.{key} must have exact type int")
+    return value
+
+
+def _real(mapping: dict[str, JsonValue], key: str, context: str) -> float:
+    value = mapping.get(key)
+    if isinstance(value, bool) or not isinstance(value, int | float):
+        raise TypeError(f"{context}.{key} must be a real scalar")
+    result = float(value)
+    if not math.isfinite(result):
+        raise ValueError(f"{context}.{key} must be finite")
+    return result
+
+
+def _boolean(mapping: dict[str, JsonValue], key: str, context: str) -> bool:
+    value = mapping.get(key)
+    if type(value) is not bool:
+        raise TypeError(f"{context}.{key} must have exact type bool")
+    return value
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _parse_declared_identity(
+    root: dict[str, JsonValue],
+    key: str,
+    context: str,
+    authenticated_path: Path,
+) -> tuple[str, str]:
+    record = _mapping(root.get(key), f"{context}.{key}")
+    identity = _string(record, "identity", f"{context}.{key}")
+    declared_sha256 = _string(record, "sha256", f"{context}.{key}")
+    actual_sha256 = _sha256(authenticated_path)
+    if declared_sha256 != actual_sha256:
+        raise ValueError(
+            f"{key} identity mismatch: expected {declared_sha256}, "
+            f"observed {actual_sha256}"
+        )
+    return identity, actual_sha256
+
+
+def _parse_source_bindings(
+    root: dict[str, JsonValue],
+    *,
+    synthetic: bool,
+) -> tuple[EvidenceBinding, ...]:
+    values = _sequence(root.get("source_bindings"), "metrics.source_bindings")
+    observed: list[EvidenceBinding] = []
+    for index, value in enumerate(values):
+        context = f"metrics.source_bindings[{index}]"
+        record = _mapping(value, context)
+        observed.append(
+            EvidenceBinding(
+                identity=_string(record, "identity", context),
+                relative_path=_string(record, "relative_path", context),
+                sha256=_string(record, "sha256", context),
+            )
+        )
+    result = tuple(observed)
+    if synthetic:
+        if result:
+            raise ValueError(
+                "synthetic metrics must declare an empty source binding list"
+            )
+    elif result != METRICS_SOURCE_BINDINGS:
+        raise ValueError("metrics source bindings do not exactly match required order")
+    return result
+
+
+def parse_candidate_metrics(
+    path: Path,
+    *,
+    producer_path: Path,
+    interval_policy_path: Path,
+    synthetic: bool,
+) -> tuple[str, tuple[CandidateMetrics, ...], MetricsProvenance]:
+    """Parse an interval bundle and authenticate producer/policy provenance."""
+
+    root = _mapping(_load_json(path), "metrics")
+    inventory_sha256 = _string(root, "evaluation_inventory_sha256", "metrics")
+    if synthetic:
+        if not inventory_sha256.startswith("synthetic-"):
+            raise ValueError(
+                "synthetic inventory identity must start with 'synthetic-'"
+            )
+    elif inventory_sha256 != DEVELOPMENT_INVENTORY_SHA256:
+        raise ValueError(
+            "metrics do not bind the exact 408-point development inventory"
+        )
+
+    producer_identity, producer_sha256 = _parse_declared_identity(
+        root, "producer", "metrics", producer_path
+    )
+    policy_identity, policy_sha256 = _parse_declared_identity(
+        root, "interval_policy", "metrics", interval_policy_path
+    )
+    source_bindings = _parse_source_bindings(root, synthetic=synthetic)
+
+    candidate_values = _sequence(root.get("candidates"), "metrics.candidates")
+    candidates: list[CandidateMetrics] = []
+    for index, candidate_value in enumerate(candidate_values):
+        context = f"metrics.candidates[{index}]"
+        candidate_mapping = _mapping(candidate_value, context)
+        shell_id = _string(candidate_mapping, "shell_id", context)
+        support_cost = _integer(candidate_mapping, "support_cost", context)
+        objective_mapping = _mapping(
+            candidate_mapping.get("objectives"), f"{context}.objectives"
+        )
+        objectives: list[ObjectiveValue] = []
+        for objective_id in OBJECTIVE_IDS:
+            raw_objective = objective_mapping.get(objective_id)
+            if raw_objective is None:
+                objectives.append(
+                    ObjectiveValue(
+                        objective_id=objective_id,
+                        disposition=ObjectiveDisposition.UNRESOLVED,
+                        interval=None,
+                        reason="objective absent from candidate metrics",
+                    )
+                )
+                continue
+            objective_context = f"{context}.objectives.{objective_id}"
+            record = _mapping(raw_objective, objective_context)
+            disposition = ObjectiveDisposition(
+                _string(record, "disposition", objective_context)
+            )
+            if disposition is ObjectiveDisposition.INTERVAL:
+                interval = Interval(
+                    lower=_real(record, "lower", objective_context),
+                    upper=_real(record, "upper", objective_context),
+                )
+                reason = None
+            else:
+                interval = None
+                reason = _string(record, "reason", objective_context)
+            objectives.append(
+                ObjectiveValue(
+                    objective_id=objective_id,
+                    disposition=disposition,
+                    interval=interval,
+                    reason=reason,
+                )
+            )
+        candidates.append(
+            CandidateMetrics(
+                shell_id=shell_id,
+                support_cost=support_cost,
+                objectives=tuple(objectives),
+            )
+        )
+
+    result = tuple(candidates)
+    _validate_candidate_order(result)
+    provenance = MetricsProvenance(
+        producer_identity=producer_identity,
+        producer_sha256=producer_sha256,
+        policy_identity=policy_identity,
+        policy_sha256=policy_sha256,
+        source_bindings=source_bindings,
+    )
+    return inventory_sha256, result, provenance
+
+
+def _validate_candidate_order(candidates: tuple[CandidateMetrics, ...]) -> None:
+    shell_ids = tuple(candidate.shell_id for candidate in candidates)
+    if shell_ids != EXPECTED_SHELL_IDS:
+        raise ValueError(
+            "candidate order must be exactly H-shell-00 through H-shell-17"
+        )
+    costs = tuple(candidate.support_cost for candidate in candidates)
+    if any(cost_a >= cost_b for cost_a, cost_b in pairwise(costs)):
+        raise ValueError("candidate support costs must be strictly increasing")
+
+
+def authenticate_bound_inputs(bulk_root: Path) -> tuple[dict[str, JsonValue], ...]:
+    """Authenticate all exact calculation-owned retained inputs."""
+
+    records: list[dict[str, JsonValue]] = []
+    for binding in BOUND_INPUTS:
+        path = bulk_root / binding.relative_path
+        actual_sha256 = _sha256(path)
+        if actual_sha256 != binding.sha256:
+            raise ValueError(
+                f"identity mismatch for {binding.identity}: "
+                f"expected {binding.sha256}, observed {actual_sha256}"
+            )
+        records.append(
+            {
+                "identity": binding.identity,
+                "path": binding.relative_path,
+                "sha256": actual_sha256,
+                "byte_size": path.stat().st_size,
+            }
+        )
+    return tuple(records)
+
+
+def _validate_retained_semantics(bulk_root: Path) -> None:
+    s30 = _mapping(_load_json(bulk_root / BOUND_INPUTS[0].relative_path), "S30")
+    s30_inventory = _mapping(s30.get("operator_inventory"), "S30.operator_inventory")
+    if (
+        _integer(
+            s30_inventory,
+            "effective_ws_representative_count",
+            "S30.operator_inventory",
+        )
+        != 383
+        or _integer(
+            s30_inventory,
+            "construction_kpoint_count",
+            "S30.operator_inventory",
+        )
+        != 216
+    ):
+        raise ValueError("S30 does not retain the expected 216/383 inventory")
+
+    s100 = _mapping(_load_json(bulk_root / BOUND_INPUTS[2].relative_path), "S100")
+    s100_evaluation = _mapping(s100.get("evaluation"), "S100.evaluation")
+    if _integer(s100_evaluation, "shell_count", "S100.evaluation") != 18:
+        raise ValueError("S100 does not contain the frozen 18-shell evaluation")
+
+    s105 = _mapping(_load_json(bulk_root / BOUND_INPUTS[3].relative_path), "S105")
+    s105_disposition = _mapping(s105.get("disposition"), "S105.disposition")
+    if (
+        s105_disposition.get("H_T_equals_H_W") is not True
+        or _string(s105_disposition, "selected_shell_id", "S105.disposition")
+        != "H-shell-17"
+        or _integer(
+            s105_disposition,
+            "selected_representative_count",
+            "S105.disposition",
+        )
+        != 383
+    ):
+        raise ValueError("S105 does not select full support H_T = H_W")
+
+    development = _mapping(
+        _load_json(bulk_root / BOUND_INPUTS[5].relative_path),
+        "development inventory",
+    )
+    development_design = _mapping(
+        development.get("design"), "development inventory.design"
+    )
+    if (
+        _integer(
+            development_design,
+            "unique_point_count",
+            "development inventory.design",
+        )
+        != 408
+    ):
+        raise ValueError("development inventory does not contain exactly 408 points")
+
+    confirmation = _mapping(
+        _load_json(bulk_root / BOUND_INPUTS[7].relative_path),
+        "confirmation inventory",
+    )
+    if (
+        _integer(confirmation, "unique_point_count", "confirmation inventory") != 402
+        or _string(confirmation, "status", "confirmation inventory")
+        != "coordinates-frozen-parent-values-unobserved"
+    ):
+        raise ValueError("confirmation inventory is not frozen and parent-unobserved")
+
+
+def _retained_candidate_inventory(
+    bulk_root: Path,
+) -> tuple[RetainedCandidate, ...]:
+    design = _mapping(
+        _load_json(bulk_root / BOUND_INPUTS[1].relative_path),
+        "S90",
+    )
+    family = _mapping(design.get("truncation_family"), "S90.truncation_family")
+    design_shells = _sequence(family.get("shells"), "S90.truncation_family.shells")
+
+    evaluation = _mapping(
+        _load_json(bulk_root / BOUND_INPUTS[2].relative_path),
+        "S100",
+    )
+    evaluation_root = _mapping(evaluation.get("evaluation"), "S100.evaluation")
+    evaluation_shells = _sequence(
+        evaluation_root.get("shells"), "S100.evaluation.shells"
+    )
+    if len(design_shells) != 18 or len(evaluation_shells) != 18:
+        raise ValueError("S90/S100 must each contain exactly 18 candidates")
+
+    candidates: list[RetainedCandidate] = []
+    for index, (design_value, evaluation_value) in enumerate(
+        zip(design_shells, evaluation_shells, strict=True)
+    ):
+        design_context = f"S90.truncation_family.shells[{index}]"
+        evaluation_context = f"S100.evaluation.shells[{index}]"
+        design_shell = _mapping(design_value, design_context)
+        evaluation_shell = _mapping(evaluation_value, evaluation_context)
+        expected_id = EXPECTED_SHELL_IDS[index]
+        if (
+            _string(design_shell, "shell_id", design_context) != expected_id
+            or _string(evaluation_shell, "shell_id", evaluation_context) != expected_id
+            or _integer(design_shell, "shell_index_zero_based", design_context) != index
+            or _integer(evaluation_shell, "shell_index_zero_based", evaluation_context)
+            != index
+        ):
+            raise ValueError("S90/S100 candidate identities or order differ")
+        included_count = _integer(
+            design_shell, "included_representative_count", design_context
+        )
+        if (
+            _integer(
+                evaluation_shell,
+                "included_representative_count",
+                evaluation_context,
+            )
+            != included_count
+            or _integer(
+                evaluation_shell,
+                "excluded_representative_count",
+                evaluation_context,
+            )
+            != _integer(
+                design_shell,
+                "excluded_representative_count",
+                design_context,
+            )
+            or _real(evaluation_shell, "radius_angstrom", evaluation_context)
+            != _real(design_shell, "display_radius_angstrom", design_context)
+        ):
+            raise ValueError("S90/S100 candidate support descriptors differ")
+        candidates.append(
+            RetainedCandidate(
+                shell_id=expected_id,
+                shell_index=index,
+                radius_angstrom=_real(
+                    design_shell, "display_radius_angstrom", design_context
+                ),
+                included_count=included_count,
+                excluded_count=_integer(
+                    design_shell, "excluded_representative_count", design_context
+                ),
+                shell_count=_integer(
+                    design_shell, "shell_representative_count", design_context
+                ),
+                onsite_only_control=_boolean(
+                    design_shell, "onsite_only_control", design_context
+                ),
+                full_support_control=_boolean(
+                    design_shell, "full_support_control", design_context
+                ),
+                structural=_mapping(
+                    evaluation_shell.get("structural"),
+                    f"{evaluation_context}.structural",
+                ),
+                tail=_mapping(
+                    evaluation_shell.get("tail"), f"{evaluation_context}.tail"
+                ),
+                larger_shell_envelope=_mapping(
+                    evaluation_shell.get("monotone_larger_shell_envelope"),
+                    f"{evaluation_context}.monotone_larger_shell_envelope",
+                ),
+            )
+        )
+    costs = tuple(candidate.included_count for candidate in candidates)
+    if any(cost_a >= cost_b for cost_a, cost_b in pairwise(costs)):
+        raise ValueError("retained candidate costs are not strictly increasing")
+    if candidates[-1].included_count != 383:
+        raise ValueError("full support does not contain 383 representatives")
+    return tuple(candidates)
+
+
+def _unresolved_metrics(reason: str) -> tuple[CandidateMetrics, ...]:
+    retained_costs = (
+        1,
+        13,
+        19,
+        43,
+        55,
+        79,
+        87,
+        135,
+        141,
+        177,
+        201,
+        225,
+        249,
+        313,
+        353,
+        365,
+        371,
+        383,
+    )
+    return tuple(
+        CandidateMetrics(
+            shell_id=shell_id,
+            support_cost=support_cost,
+            objectives=tuple(
+                ObjectiveValue(
+                    objective_id=objective_id,
+                    disposition=ObjectiveDisposition.UNRESOLVED,
+                    interval=None,
+                    reason=reason,
+                )
+                for objective_id in OBJECTIVE_IDS
+            ),
+        )
+        for shell_id, support_cost in zip(
+            EXPECTED_SHELL_IDS, retained_costs, strict=True
+        )
+    )
+
+
+def _membership_json(membership: FrontierMembership) -> dict[str, JsonValue]:
+    return {
+        "shell_id": membership.shell_id,
+        "objective_id": membership.objective_id,
+        "disposition": membership.disposition.value,
+        "dominator_shell_ids": list(membership.dominator_shell_ids),
+        "overlap_shell_ids": list(membership.overlap_shell_ids),
+        "reason": membership.reason,
+    }
+
+
+def _objective_json(value: ObjectiveValue) -> dict[str, JsonValue]:
+    if value.interval is not None:
+        return {
+            "disposition": value.disposition.value,
+            "lower": value.interval.lower,
+            "upper": value.interval.upper,
+            "reason": None,
+        }
+    return {
+        "disposition": value.disposition.value,
+        "lower": None,
+        "upper": None,
+        "reason": value.reason,
+    }
+
+
+def _frontiers(
+    candidates: tuple[CandidateMetrics, ...],
+) -> dict[str, JsonValue]:
+    return {
+        objective_id: [
+            _membership_json(membership)
+            for membership in classify_frontier(candidates, objective_id)
+        ]
+        for objective_id in OBJECTIVE_IDS
+    }
+
+
+def _candidate_records(
+    retained_candidates: tuple[RetainedCandidate, ...],
+    metrics: tuple[CandidateMetrics, ...],
+    frontiers: dict[str, JsonValue],
+) -> list[JsonValue]:
+    records: list[JsonValue] = []
+    for retained, measured in zip(retained_candidates, metrics, strict=True):
+        if (
+            retained.shell_id != measured.shell_id
+            or retained.included_count != measured.support_cost
+        ):
+            raise ValueError(
+                "metrics candidate order or exact support cost differs from S90"
+            )
+        memberships: dict[str, JsonValue] = {}
+        for objective_id in OBJECTIVE_IDS:
+            frontier_values = _sequence(frontiers[objective_id], objective_id)
+            membership = _mapping(
+                frontier_values[retained.shell_index],
+                f"{objective_id}[{retained.shell_index}]",
+            )
+            if membership.get("shell_id") != retained.shell_id:
+                raise ValueError("frontier membership order differs from S90")
+            memberships[objective_id] = membership
+        records.append(
+            {
+                "shell_id": retained.shell_id,
+                "shell_index_zero_based": retained.shell_index,
+                "radius_angstrom": retained.radius_angstrom,
+                "included_representative_count": retained.included_count,
+                "excluded_representative_count": retained.excluded_count,
+                "shell_representative_count": retained.shell_count,
+                "onsite_only_control": retained.onsite_only_control,
+                "full_support_control": retained.full_support_control,
+                "structural": retained.structural,
+                "full_support_equality": {
+                    "applicable": retained.full_support_control,
+                    "H_T_equals_H_W": retained.full_support_control,
+                    "matrix_maximum_absolute_residual_ev": retained.structural.get(
+                        "full_support_matrix_maximum_absolute_residual_ev"
+                    ),
+                },
+                "objective_intervals_408": {
+                    value.objective_id: _objective_json(value)
+                    for value in measured.objectives
+                },
+                "frontier_memberships": memberships,
+                "S100_tail_diagnostics": retained.tail,
+                "S100_larger_shell_envelope": retained.larger_shell_envelope,
+            }
+        )
+    return records
+
+
+def _parent_overlay(bulk_root: Path) -> dict[str, JsonValue]:
+    root = _mapping(
+        _load_json(bulk_root / BOUND_INPUTS[6].relative_path),
+        "development parent overlay",
+    )
+    spectral = _mapping(
+        root.get("spectral_residuals"),
+        "development parent overlay.spectral_residuals",
+    )
+    return {
+        "identity": BOUND_INPUTS[6].identity,
+        "sha256": BOUND_INPUTS[6].sha256,
+        "role": "revealed-parent evaluation overlay only; never a frontier input",
+        "consumed_for_frontier_membership": False,
+        "criteria": root.get("criteria"),
+        "gate_summary": root.get("gate_summary"),
+        "indirect_gap": root.get("indirect_gap"),
+        "spectral_residual_statistics": spectral.get("statistics"),
+        "valleys": root.get("valleys"),
+        "scientific_disposition": root.get("scientific_disposition"),
+    }
+
+
+def _implementation_identity() -> dict[str, JsonValue]:
+    path = Path(__file__).resolve()
+    return {
+        "path": str(path),
+        "sha256": _sha256(path),
+    }
+
+
+def _provenance_json(provenance: MetricsProvenance) -> dict[str, JsonValue]:
+    return {
+        "producer": {
+            "identity": provenance.producer_identity,
+            "sha256": provenance.producer_sha256,
+        },
+        "interval_policy": {
+            "identity": provenance.policy_identity,
+            "sha256": provenance.policy_sha256,
+        },
+        "source_bindings": [
+            {
+                "identity": binding.identity,
+                "relative_path": binding.relative_path,
+                "sha256": binding.sha256,
+            }
+            for binding in provenance.source_bindings
+        ],
+    }
+
+
+def _compose_result(
+    *,
+    disposition: str,
+    retained_candidates: tuple[RetainedCandidate, ...],
+    metrics: tuple[CandidateMetrics, ...],
+    authenticated_inputs: tuple[dict[str, JsonValue], ...],
+    metrics_provenance: MetricsProvenance | None,
+    metrics_path: Path | None,
+    bulk_root: Path,
+) -> dict[str, JsonValue]:
+    frontiers = _frontiers(metrics)
+    return {
+        "schema_version": 1,
+        "disposition": disposition,
+        "calculator_invocations": 0,
+        "implementation": _implementation_identity(),
+        "authenticated_inputs": list(authenticated_inputs),
+        "metrics_input": (
+            None
+            if metrics_path is None
+            else {
+                "path": str(metrics_path),
+                "sha256": _sha256(metrics_path),
+                "provenance": (
+                    None
+                    if metrics_provenance is None
+                    else _provenance_json(metrics_provenance)
+                ),
+            }
+        ),
+        "pareto_policy": {
+            "support_cost": "exact included effective-representative count",
+            "objective_values": "closed conservative uncertainty intervals",
+            "dominance": (
+                "no greater exact cost and upper objective bound no greater than "
+                "the other lower bound, with at least one strict coordinate"
+            ),
+            "positive_interval_overlap": "unresolved/incomparable",
+            "touching_interval_boundary": "conservatively ordered",
+            "scalarization": False,
+        },
+        "candidate_records": _candidate_records(
+            retained_candidates, metrics, frontiers
+        ),
+        "frontiers": frontiers,
+        "development_408_parent_overlay": _parent_overlay(bulk_root),
+        "confirmation_402_boundary": {
+            "identity": BOUND_INPUTS[7].identity,
+            "sha256": BOUND_INPUTS[7].sha256,
+            "point_count": 402,
+            "parent_values_consumed": False,
+        },
+        "slater_koster_108_108_boundary": {
+            "role": "reserved for a future separately authorized study",
+            "consumed": False,
+        },
+        "selected_support": {
+            "shell_id": "H-shell-17",
+            "included_representative_count": 383,
+            "H_T_equals_H_W": True,
+            "selected_spatial_truncation_error": 0.0,
+            "new_support_selected": False,
+        },
+    }
+
+
+def inspect_retained_evidence(
+    bulk_root: Path,
+    metrics_path: Path | None,
+    producer_path: Path | None,
+    interval_policy_path: Path | None,
+) -> dict[str, JsonValue]:
+    """Authenticate retained inputs and compose a complete typed record."""
+
+    authenticated_inputs = authenticate_bound_inputs(bulk_root)
+    _validate_retained_semantics(bulk_root)
+    retained_candidates = _retained_candidate_inventory(bulk_root)
+    if metrics_path is None:
+        metrics = _unresolved_metrics(
+            "408-point per-shell interval metrics bundle is unavailable"
+        )
+        return _compose_result(
+            disposition="UNRESOLVED_DEVELOPMENT_EVALUATION",
+            retained_candidates=retained_candidates,
+            metrics=metrics,
+            authenticated_inputs=authenticated_inputs,
+            metrics_provenance=None,
+            metrics_path=None,
+            bulk_root=bulk_root,
+        )
+    if producer_path is None or interval_policy_path is None:
+        raise ValueError("--metrics requires --metrics-producer and --interval-policy")
+    _, metrics, provenance = parse_candidate_metrics(
+        metrics_path,
+        producer_path=producer_path,
+        interval_policy_path=interval_policy_path,
+        synthetic=False,
+    )
+    expected = tuple(
+        (candidate.shell_id, candidate.included_count)
+        for candidate in retained_candidates
+    )
+    observed = tuple(
+        (candidate.shell_id, candidate.support_cost) for candidate in metrics
+    )
+    if observed != expected:
+        raise ValueError(
+            "metrics candidate order or exact support costs differ from S90"
+        )
+    has_unresolved = any(
+        value.disposition is ObjectiveDisposition.UNRESOLVED
+        for candidate in metrics
+        for value in candidate.objectives
+    )
+    disposition = (
+        "UNRESOLVED_CHANNEL_METRIC"
+        if has_unresolved
+        else "COMPLETED_CHARACTERIZATION_ONLY"
+    )
+    return _compose_result(
+        disposition=disposition,
+        retained_candidates=retained_candidates,
+        metrics=metrics,
+        authenticated_inputs=authenticated_inputs,
+        metrics_provenance=provenance,
+        metrics_path=metrics_path,
+        bulk_root=bulk_root,
+    )
+
+
+def classify_synthetic_fixture(
+    metrics_path: Path,
+    producer_path: Path,
+    interval_policy_path: Path,
+) -> dict[str, JsonValue]:
+    """Classify an explicitly synthetic bundle without reading silicon evidence."""
+
+    inventory_sha256, metrics, provenance = parse_candidate_metrics(
+        metrics_path,
+        producer_path=producer_path,
+        interval_policy_path=interval_policy_path,
+        synthetic=True,
+    )
+    return {
+        "schema_version": 1,
+        "disposition": "SYNTHETIC_SOFTWARE_TEST_ONLY",
+        "calculator_invocations": 0,
+        "implementation": _implementation_identity(),
+        "evaluation_inventory_sha256": inventory_sha256,
+        "metrics_provenance": _provenance_json(provenance),
+        "pareto_policy": {
+            "scalarization": False,
+            "touching_interval_boundary": "conservatively ordered",
+            "positive_interval_overlap": "unresolved/incomparable",
+        },
+        "frontiers": _frontiers(metrics),
+        "selected_support": {
+            "disposition": "SYNTHETIC_NOT_APPLICABLE",
+            "new_support_selected": False,
+        },
+        "confirmation_402_parent_values_consumed": False,
+        "slater_koster_108_108_split_consumed": False,
+    }
+
+
+def write_no_overwrite(path: Path, result: dict[str, JsonValue]) -> None:
+    """Write deterministic JSON without replacing an existing path."""
+
+    if path.exists():
+        raise FileExistsError(f"refusing to overwrite existing output: {path}")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(result, indent=2, sort_keys=True, ensure_ascii=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--bulk-root",
+        type=Path,
+        default=Path(__file__).resolve().parents[2],
+        help="calculation-owned calculations/Si/bulk root",
+    )
+    parser.add_argument(
+        "--metrics",
+        type=Path,
+        help="separately authorized interval metrics on the exact 408-point inventory",
+    )
+    parser.add_argument(
+        "--software-test-input",
+        type=Path,
+        help="explicitly synthetic metrics; bypasses all retained silicon inputs",
+    )
+    parser.add_argument(
+        "--metrics-producer",
+        type=Path,
+        help="producer action whose SHA-256 is declared by the metrics bundle",
+    )
+    parser.add_argument(
+        "--interval-policy",
+        type=Path,
+        help="interval construction/propagation authority declared by the bundle",
+    )
+    parser.add_argument("--output", type=Path, required=True)
+    return parser
+
+
+def main() -> int:
+    """Run retained-input composition or explicit synthetic classification."""
+
+    arguments = _parser().parse_args()
+    if arguments.metrics is not None and arguments.software_test_input is not None:
+        raise ValueError("--metrics and --software-test-input are mutually exclusive")
+    if arguments.software_test_input is not None:
+        if arguments.metrics_producer is None or arguments.interval_policy is None:
+            raise ValueError(
+                "--software-test-input requires --metrics-producer and --interval-policy"
+            )
+        result = classify_synthetic_fixture(
+            arguments.software_test_input,
+            arguments.metrics_producer,
+            arguments.interval_policy,
+        )
+    else:
+        result = inspect_retained_evidence(
+            arguments.bulk_root,
+            arguments.metrics,
+            arguments.metrics_producer,
+            arguments.interval_policy,
+        )
+    write_no_overwrite(arguments.output, result)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

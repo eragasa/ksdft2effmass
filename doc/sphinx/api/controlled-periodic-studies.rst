@@ -19,6 +19,20 @@ rather than retained as compatibility surfaces. Pointwise alignment and
 one-global-unitary alignment are different feasible families. M3 dispositions apply
 only to the frozen two-parameter, nine-angle family.
 
+Periodic three-dimensional Bain quotient admission
+---------------------------------------------------
+
+The finite-quotient predicate mirrors the exact arithmetic criterion reviewed in
+``projectkoios-formal`` PR 58. It establishes applicability of the fixed Bain/FCC
+integer map only; it does not authenticate a mesh, authorize execution, establish
+convergence, or admit scientific evidence. Import this API from its owning submodule;
+the ``periodic3d.rankN`` package initializer remains inert.
+
+.. automodule:: ksdft2effmass.periodic3d.rankN.bain_quotient_admission
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Periodic one-dimensional capability identity
 --------------------------------------------
 

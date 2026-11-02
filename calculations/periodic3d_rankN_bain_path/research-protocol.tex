@@ -1,0 +1,546 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,booktabs,tabularx}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\emergencystretch}{3em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\BB}{\mathcal B_B}
+\newcommand{\BF}{\mathcal B_F}
+
+\title{\textbf{Research protocol:\\
+Periodic-3D rank-N synthetic Bain geometry, M0, and M1N controls}}
+\author{KSD reduced-Hamiltonian research program}
+\date{Calculation-owned partial protocol; no execution authority}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This calculation-owned protocol fixes the continuous unit-primitive-volume synthetic
+Bain geometry, its direct and reciprocal coordinate conventions, the FCC endpoint
+common-cell map, the common rank-N state space, the M0 geometry-only flat-parent
+control, and the M1N frozen analytic-parent response control.  M0 and M1N act on the
+same ordered retained/exterior parent space and have exact zero common-coordinate path
+response.  Physical lengths, basis-aware distances, metric shells, and physical radii
+may nevertheless change because the direct metric changes.  The document deliberately
+does not select M2, rank/depth/attack inventories, reciprocal meshes, fitted alignments,
+Fourier discretization, support thresholds, tolerances, resources, visualization,
+lifecycle, execution identity, or retained evidence.  It is a synthetic geometry and
+representation protocol, not a material-strain, elasticity, phase-stability,
+martensitic, silicon, or material-validation protocol.
+\end{abstract}
+
+\section{Status, authority, and claim boundary}
+
+The selected scientific content is owned by this calculation context and its Markdown
+authorities:
+\begin{itemize}[leftmargin=*]
+  \item \path{geometry-common-state-space.md};
+  \item \path{m0-geometry-only-control.md}; and
+  \item \path{protocol-selection.md}, including the selected M1N boundary.
+\end{itemize}
+The fixed-geometry rank-N analytic family in
+\path{../periodic3d/rankN/recommended-baseline.md} supplies the reviewed parent and gauge
+formulas.  The rank-two Bain context is a vocabulary and composition donor only.  Its
+matrix sizes, parameters, meshes, thresholds, outcomes, and evidence do not transfer.
+
+This document is a partial research protocol.  It authorizes neither a software request
+nor a calculation.  In particular, it installs no runner, schema, lifecycle, output
+directory, visualization owner, execution identity, or evidence status.
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.31\textwidth}Y}
+\toprule
+\textbf{Selected} & \textbf{Unselected} \\
+\midrule
+Closed continuous Bain geometry; unit and orientation; direct/reciprocal convention;
+volume and endpoint certificates; common-cell and common-state map; basis offsets;
+oriented bonds; M0 parent/gauge/zero response; M1N frozen-parent semantics; independent
+analytic obligations; typed scientific failure distinctions.
+& M2; study identity and case inventory; admitted ranks, depths, parent scales, and
+attack coefficients; path sampling and meshes; fitted alignments and transport policy;
+finite Fourier convention; support ladder; tolerances and gates; resources;
+visualization; lifecycle; authentication; execution identity; execution and evidence.
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Dimensions and ranks}
+
+The following quantities are distinct throughout:
+\begin{itemize}[leftmargin=*]
+  \item lattice dimension: three primitive periodic directions;
+  \item band-subspace rank: a later admitted finite integer $r>1$;
+  \item ambient M0/M1N parent dimension: $2r$;
+  \item circuit depth: a later admitted layer count $L$, not a rank;
+  \item numerical rank: a tolerance-dependent overlap or link-matrix property; and
+  \item model-reduction retained rank: absent unless a later protocol introduces an
+    actual parent-to-reduced approximation.
+\end{itemize}
+The exact invariant retained sector used below is not evidence of a genuine
+model-reduction error.  No value of $r$ or $L$ is admitted by this document.
+
+\section{Direct Bain path and units}
+
+The direct-length unit identity is
+\path{synthetic-bain-direct-length-v1}, denoted $\ell_0$.  Direct vectors carry units
+$\ell_0$, the direct metric carries $\ell_0^2$, primitive volume carries $\ell_0^3$,
+and reciprocal vectors carry $\ell_0^{-1}$.  Unit primitive volume means
+$V/\ell_0^3=1$; it is not one cubic metre, one cubic \AA, or a material lattice
+constant.  A future typed geometry record must bind the unit identity to the numerical
+components supplied to \texttt{DirectLattice3D}.
+
+Let
+\begin{equation}
+ s\in[0,1],\qquad
+ \gamma(s)=\frac ca=\sqrt2+s(1-\sqrt2),
+\end{equation}
+with both endpoints included.  Define the positive scales
+\begin{equation}
+ t(s)=\left(\frac{2}{\gamma(s)}\right)^{1/3},
+ \qquad
+ l(s)=\gamma(s)t(s)=\frac{2}{t(s)^2}.
+\end{equation}
+The required floating-point evaluation form is
+\texttt{l = 2 / t**2}.  In fixed orthogonal Cartesian axes, the direct primitive
+vectors are the columns
+\begin{align}
+ \mathbf a_1(s)&=\frac{\ell_0}{2}(t,t,l)^{\mathsf T},\\
+ \mathbf a_2(s)&=\frac{\ell_0}{2}(-t,t,l)^{\mathsf T},\\
+ \mathbf a_3(s)&=\frac{\ell_0}{2}(t,-t,l)^{\mathsf T},
+\end{align}
+and
+\begin{equation}
+ A_B(s)=[\mathbf a_1(s)\ \mathbf a_2(s)\ \mathbf a_3(s)].
+\end{equation}
+The primitive lattice basis is nonorthogonal.  Numerical Cartesian components are not
+physical distances without the declared unit and metric.
+
+The direct metric and reciprocal primitive matrix are
+\begin{equation}
+ G_B(s)=A_B(s)^{\mathsf T}A_B(s),
+ \qquad
+ K_B(s)=2\pi A_B(s)^{-\mathsf T},
+ \qquad
+ A_B(s)^{\mathsf T}K_B(s)=2\pi I_3.
+\end{equation}
+Reduced coordinates are dimensionless columns:
+\begin{equation}
+ \mathbf x=A_B(s)\mathbf n_B,
+ \quad \mathbf n_B\in\ZZ^3,
+ \qquad
+ \mathbf k=K_B(s)\mathbf q_B,
+ \quad \mathbf q_B\in[0,1)^3.
+\end{equation}
+A fixed $\mathbf q_B$ denotes one fixed point of the abstract reduced reciprocal torus,
+not one fixed Cartesian wave vector as $s$ changes.
+
+\subsection{Volume and endpoints}
+
+The orientation has positive determinant and the exact certificates
+\begin{equation}
+ \det A_B(s)=\ell_0^3\frac{t(s)^2l(s)}2=\ell_0^3,
+ \qquad
+ \det G_B(s)=\ell_0^6.
+\end{equation}
+At $s=0$,
+\begin{equation}
+ \gamma=\sqrt2,\qquad t=2^{1/6},\qquad l=2^{2/3},
+\end{equation}
+and the metric is an FCC primitive metric with conventional cubic side
+$2^{2/3}\ell_0$.  At $s=1$,
+\begin{equation}
+ \gamma=1,\qquad t=l=2^{1/3},
+\end{equation}
+and the displayed vectors are a BCC primitive basis with conventional cubic side
+$2^{1/3}\ell_0$.  FCC and BCC identify endpoint geometries only, not material phases.
+
+\section{FCC endpoint and common-cell map}
+
+The exact integer bridge is
+\begin{equation}
+ U=\begin{pmatrix}
+ 1&1&0\\0&0&1\\0&-1&0
+ \end{pmatrix},
+ \qquad
+ U^{-1}=\begin{pmatrix}
+ 1&0&1\\0&0&-1\\0&1&0
+ \end{pmatrix},
+ \qquad \det U=1.
+\end{equation}
+The cell and reciprocal coordinates satisfy
+\begin{equation}
+ \mathbf n_F=U\mathbf n_B,
+ \qquad
+ \mathbf q_B=U^{\mathsf T}\mathbf q_F.
+\end{equation}
+The selected FCC endpoint orientation is
+\begin{equation}
+ A_F=A_B(0)U^{-1},
+\end{equation}
+so
+\begin{equation}
+ A_B(0)=A_FU,
+ \qquad
+ G_B(0)=U^{\mathsf T}G_FU,
+ \qquad
+ G_F=A_F^{\mathsf T}A_F,
+\end{equation}
+and
+\begin{equation}
+ \frac{G_F}{\ell_0^2}=2^{4/3}
+ \begin{pmatrix}
+ 1/2&1/4&1/4\\
+ 1/4&1/2&1/4\\
+ 1/4&1/4&1/2
+ \end{pmatrix}.
+\end{equation}
+
+The map is a bijection of $\ZZ^3$.  Its exact finite-quotient applicability is bound to
+projectkoios-formal PR~58, merged as commit
+\path{b98d23fe23bb5bc940c6be4cfcbc79c3569c45e7}.  The reviewed results
+\path{bainMixedModuliAdmissionCertificate_iff} and
+\path{bain_integerDiagonalLattice_quotientMap_bijective} imply that a positive runtime
+period triple $(N_1,N_2,N_3)$ is admitted exactly when
+\begin{equation}
+ N_2=N_3,\qquad N_1\mid N_2.
+\end{equation}
+Thus every positive cubic quotient is admitted, $(2,6,6)$ is an admitted mixed example,
+and $(4,6,6)$ and $(2,6,8)$ are rejected.  The KSD runtime mirror is the deliberately
+imported submodule
+\path{ksdft2effmass.periodic3d.rankN.bain_quotient_admission}.  This binding selects
+applicability only: it does not select or authenticate a mesh, authorize execution,
+establish correctness or convergence, validate scientific adequacy, or admit evidence.
+
+\section{Basis offsets and oriented bonds}
+
+The selected two-basis metric offsets in FCC coordinates are
+\begin{equation}
+ \tau_F^A=(0,0,0)^{\mathsf T},
+ \qquad
+ \tau_F^B=(1/4,1/4,1/4)^{\mathsf T}.
+\end{equation}
+Their fixed Bain-coordinate representatives are
+\begin{equation}
+ \tau_B^A=(0,0,0)^{\mathsf T},
+ \qquad
+ \tau_B^B=(1/2,-1/4,1/4)^{\mathsf T},
+ \qquad
+ U\tau_B^\alpha=\tau_F^\alpha.
+\end{equation}
+These offsets are geometry metadata; they do not add a hidden sublattice tensor factor
+to the $2r$ parent.
+
+The fixed-geometry oriented positive bonds are
+\begin{equation}
+ \BF=((1,0,0),(0,1,0),(0,0,1),(-1,1,0),(-1,0,1),(0,-1,1)).
+\end{equation}
+The exact oriented common-coordinate inventory is
+\begin{equation}
+ \BB=U^{-1}\BF
+ =((1,0,0),(0,0,1),(1,-1,0),(-1,0,1),(0,-1,0),(1,-1,-1)).
+\end{equation}
+No sign canonicalization is permitted: the gauge contains sine harmonics, so changing a
+bond orientation changes the selected field.  The un-attacked analytic parent uses
+translation labels $\BB$ and $2\BB$ together with their Hermitian conjugates.  This fact
+does not select a support ladder.
+
+For a displacement $R\in\ZZ^3$ from offset $\alpha$ to offset $\beta$, the physical
+vector is
+\begin{equation}
+ \mathbf d_{R,\alpha\beta}(s)
+ =A_B(s)(R+\tau_B^\beta-\tau_B^\alpha),
+\end{equation}
+with length $\lVert\mathbf d_{R,\alpha\beta}(s)\rVert$ in $\ell_0$.  Translation-index
+distance is not a substitute for this basis-aware physical distance.
+
+\section{Common state space}
+
+For a later admitted $r$, M0 and M1N use the ordered internal fiber
+\begin{equation}
+ \mathcal H_{\mathrm{int},r}
+ =\CC^r_{\mathrm{ret}}\oplus\CC^r_{\mathrm{ext}}
+ =\CC^{2r},
+ \qquad
+ F_0=\begin{bmatrix}I_r\\0\end{bmatrix}.
+\end{equation}
+The infinite common-cell space is
+\begin{equation}
+ \mathcal H_{B,r}=\ell^2(\ZZ^3)\otimes\CC^{2r}.
+\end{equation}
+At the FCC endpoint, the unitary cell permutation is
+\begin{equation}
+ P_U:\lvert\mathbf n_B,\alpha\rangle_B
+ \longmapsto\lvert U\mathbf n_B,\alpha\rangle_F,
+\end{equation}
+with the internal label unchanged.  After this pullback, every path point uses the same
+$\mathbf n_B$ labels and the identity on $\CC^{2r}$.  Operators may be subtracted only
+after this cell/state identification and after their retained basis, gauge, energy unit,
+energy zero, geometry, and reciprocal label have been identified.
+
+\section{Selected M0 geometry-only control}
+
+\subsection{Flat shared parent}
+
+The operator-selected M0 choice is the shared-$2r$ flat specialization, not a distinct
+retained-only parent.  For $j=0,\ldots,r-1$, define
+\begin{equation}
+ \xi_j=\frac{2j-r+1}{r-1},
+\end{equation}
+\begin{equation}
+ D^-_{r,0}=\operatorname{diag}(0.4\xi_0,\ldots,0.4\xi_{r-1}),
+ \qquad
+ D^+_{r,0}=\operatorname{diag}(3.0+0.3\xi_0,\ldots,3.0+0.3\xi_{r-1}),
+\end{equation}
+and
+\begin{equation}
+ H_r^{\mathrm{M0}}=\operatorname{diag}(D^-_{r,0},D^+_{r,0}).
+\end{equation}
+This is the parameter-free $\lambda=0$ specialization of the fixed analytic family.  M0
+has no residual $\lambda$ input or inventory.  The parent is independent of $q$, $s$,
+and the metric.
+
+The energy unit is dimensionless, the energy zero is fixed, and
+\texttt{norm\_energy\_scale} is one.  The retained energies are simple and strictly
+ordered from $-0.4$ to $0.4$; the exterior energies are simple and strictly ordered
+from $2.7$ to $3.3$.  Therefore the exact analytic isolation certificate is
+\begin{equation}
+ \min_j(D^+_{r,0})_{jj}-\max_k(D^-_{r,0})_{kk}=2.7-0.4=2.3.
+\end{equation}
+The number $2.3$ is not a calculated result, material gap, convergence statement, or
+transferable M1N outcome.
+
+\subsection{Frozen gauge action}
+
+For the six selected bonds, the bond-RMS normalization is
+\begin{equation}
+ N_{\BB}=\sqrt{\frac{2}{|\BB|}}=\frac1{\sqrt3}.
+\end{equation}
+For a later admitted circuit depth $L$ and attack coefficient $A$, layer
+$\ell=1,\ldots,L$ uses
+\begin{equation}
+ s_{\BB,\ell}(q)=N_{\BB}\sum_{b\in\BB}
+ \left[\frac34\sin(2\pi q\cdot b)
+ +\frac14(-1)^\ell\sin(4\pi q\cdot b)\right].
+\end{equation}
+For adjacent-pair index $p=1,\ldots,r-1$,
+\begin{equation}
+ w_{r,p}=\frac{1+0.15(2p-r)/(r-1)}{1.15},
+ \qquad
+ \theta_{\ell,p}(q)=A(-1)^{\ell+p}w_{r,p}s_{\BB,\ell}(q).
+\end{equation}
+Odd layers act on zero-based pairs $(0,1),(2,3),\ldots$; even layers act on
+$(1,2),(3,4),\ldots$.  Each active block is
+\begin{equation}
+ \begin{pmatrix}\cos\theta&-\sin\theta\\
+                 \sin\theta& \cos\theta\end{pmatrix}.
+\end{equation}
+The ordered right-acting product is $G_{r,L,\BB}(q;A)\in SO(r)$, with exact inverse
+$G^\dagger$.  Its ambient extension is
+\begin{equation}
+ W_{r,L}(q;A)=G_{r,L,\BB}(q;A)\oplus I_r.
+\end{equation}
+The formula and normalization are selected, but no values or inventories for $r$, $L$,
+or $A$ are selected.  Once admitted, they remain fixed for every $s\in[0,1]$.
+
+\subsection{Represented operators and exact response}
+
+The attacked retained frame, retained operator, and full represented parent are
+\begin{align}
+ F^{\mathrm{M0}}_{r,L}(q,s;A)
+ &=F_0G_{r,L,\BB}(q;A),\\
+ \widetilde D^{\mathrm{M0}}_{r,L}(q,s;A)
+ &=G_{r,L,\BB}(q;A)^\dagger D^-_{r,0}G_{r,L,\BB}(q;A),\\
+ \widetilde H^{\mathrm{M0}}_{r,L}(q,s;A)
+ &=W_{r,L}(q;A)^\dagger H_r^{\mathrm{M0}}W_{r,L}(q;A).
+\end{align}
+None of the right-hand sides depends on $s$.  At one strain point, the exact
+same-strain representation identity is
+\begin{equation}
+ G\widetilde D^{\mathrm{M0}}G^\dagger=D^-_{r,0},
+\end{equation}
+and the ordered spectra agree exactly.  This does not select a fitted alignment.
+
+For any $s_0,s_1\in[0,1]$, after the common-cell/state pullback and at fixed reduced
+$q_B$,
+\begin{align}
+ H_r^{\mathrm{M0}}(s_1)-H_r^{\mathrm{M0}}(s_0)&=0,\\
+ \widetilde D^{\mathrm{M0}}(q_B,s_1)-
+ \widetilde D^{\mathrm{M0}}(q_B,s_0)&=0,\\
+ \widetilde H^{\mathrm{M0}}(q_B,s_1)-
+ \widetilde H^{\mathrm{M0}}(q_B,s_0)&=0.
+\end{align}
+A nonzero common-coordinate M0 path response is a numerical or state-identification
+failure, not physical response.
+
+\section{Selected M1N frozen-parent control}
+
+M1N uses the same ordered $\CC^r_{\mathrm{ret}}\oplus\CC^r_{\mathrm{ext}}$ state space,
+seed, common Bain cell labels, reduced basis offsets, oriented bonds, dimensionless
+energy unit, fixed zero, and unit normalization scale.  For each later admitted case,
+its reviewed fixed-geometry analytic parent and right-acting gauge circuit are frozen in
+common reduced coordinates:
+\begin{equation}
+ H^{\mathrm{M1N}}_{r,\BB}(q,s;\lambda)
+ =H_{r,\BB}(q;\lambda),
+ \qquad
+ G^{\mathrm{M1N}}_{r,L,\BB}(q,s;A)
+ =G_{r,L,\BB}(q;A).
+\end{equation}
+The attacked retained operator is
+\begin{equation}
+ \widetilde D^{\mathrm{M1N}}_{r,L,\BB}(q,s)
+ =G_{r,L,\BB}(q)^\dagger
+ D_{r,\BB}(q)G_{r,L,\BB}(q).
+\end{equation}
+The parent coefficients, retained/exterior basis, seed, circuit order and depth, known
+inverse, energy zero, and normalization do not depend on $s$.  The reviewed analytic
+family retains its external-gap lower bound $1.9$ for every later admitted M1N case;
+that bound is an analytic property, not a measured result.
+
+Consequently, after the selected common-state map,
+\begin{equation}
+ \widetilde D^{\mathrm{M1N}}(q_B,s_1)-
+ \widetilde D^{\mathrm{M1N}}(q_B,s_0)=0.
+\end{equation}
+A nonzero aligned M1N path response is a numerical or state-identification diagnostic.
+M1N does not acquire a material response merely because physical distances change.
+
+M0 and M1N are separate scientific channels.  M0 fixes the parameter-free flat
+$\lambda=0$ parent as the geometry-only control.  M1N retains a later admitted case of
+the reviewed fixed analytic parent family.  Their results may not be merged or averaged.
+Rank-two M1 remains a distinct four-state donor control and is not an M1N case.
+
+\section{Frozen and metric-varying quantities}
+
+For an admitted M0 or M1N case, the following are frozen along the path:
+\begin{itemize}[leftmargin=*]
+  \item the ordered retained/exterior basis, seed, parent coefficients, energy unit,
+    energy zero, normalization scale, and applicable analytic gap;
+  \item the oriented bonds and reduced basis offsets;
+  \item the admitted rank, depth, parent parameter when applicable, and attack
+    coefficient;
+  \item the right-acting gauge circuit, layer order, known inverse, and represented
+    retained field; and
+  \item every exact reduced-coordinate Fourier coefficient and translation label.
+\end{itemize}
+Only geometry-derived quantities may vary with $s$:
+\begin{itemize}[leftmargin=*]
+  \item $A_B(s)$, $G_B(s)$, $K_B(s)$, and the Cartesian wave vector associated with a
+    fixed reduced coordinate;
+  \item physical bond and basis-aware displacement vectors and lengths;
+  \item equality, ordering, and multiplicity of complete physical-metric shells; and
+  \item physical radii, shell multiplicities, and block-count descriptions after a
+    separate support/reporting policy is selected.
+\end{itemize}
+A changed physical-radius or shell description is a metric effect, not operator,
+parent-model, model-reduction, or material response.  No shell index transfers between
+metrics as though it were a fixed physical radius.
+
+\section{Same-strain, cross-strain, and error boundaries}
+
+Same-strain representation equivalence and cross-strain response use different operands.
+The former compares one operator in two declared bases at one $s$; the latter subtracts
+operators at two path points only after the common cell, state space, basis, gauge,
+energy unit, energy zero, and reduced reciprocal label have been identified.
+
+Withheld interpolation, truncation-only consequence, and total consequence remain
+unselected and distinct.  A future protocol must not add separately maximized channels.
+Parent-model, finite-sampling, numerical, and genuine model-reduction errors remain
+separate unless a reviewed relation is supplied.
+
+\section{Independent analytic reference obligations}
+
+A producer-independent reference must be defined before a producer is admitted.  It
+must reconstruct the formulas in this document without calling the eventual producer
+and establish:
+\begin{enumerate}[leftmargin=*]
+  \item the closed domain, positive path scales, unit-bearing column basis, determinant,
+    reciprocal duality, and FCC/BCC endpoint identities;
+  \item integer $U$ and $U^{-1}$, determinant one, endpoint basis/metric identities,
+    reciprocal-coordinate relation, and the applicable infinite/finite-cell bijection;
+  \item basis-offset and oriented-bond mappings without sign canonicalization;
+  \item unitarity of $P_U$ and the unchanged $\CC^{2r}$ internal labels;
+  \item the M0 simple spectra, energy conventions, exact $2.3$ isolation certificate,
+    and absence of $q$, $s$, and metric dependence in the unrepresented parent;
+  \item the M0 bond-RMS gauge harmonic, pair ordering, Givens sign convention, right
+    action, $SO(r)$ property, and known inverse;
+  \item M0 Hermiticity, exact spectrum equivalence, same-strain recovery, cross-strain
+    equality, and equality of all reduced-coordinate Fourier coefficients;
+  \item the corresponding M1N common-state and exact path-invariance identities; and
+  \item confinement of all permitted path dependence to metric-derived geometry.
+\end{enumerate}
+A future finite Fourier reference may assess discretized transform mechanics only after
+a mesh and convention are selected.  It cannot replace the analytic continuum
+invariance identities.
+
+\section{Typed unresolved and inapplicable boundary}
+
+Future typed qualification must fail closed.  The geometry layer must distinguish at
+least
+\begin{itemize}[leftmargin=*,before=\raggedright]
+  \item \path{PATH_PARAMETER_OUT_OF_DOMAIN},
+  \path{DIRECT_LENGTH_UNIT_UNDECLARED}, and
+  \path{NONFINITE_OR_NONPOSITIVE_PATH_SCALE};
+  \item \path{UNIT_VOLUME_CERTIFICATE_FAILED} and
+  \path{RECIPROCAL_DUALITY_FAILED};
+  \item \path{FCC_ENDPOINT_IDENTITY_FAILED},
+  \path{BCC_ENDPOINT_IDENTITY_FAILED}, and
+  \path{COMMON_CELL_MAP_FAILED};
+  \item \path{FINITE_QUOTIENT_INCOMPATIBLE},
+  \path{BASIS_OFFSET_MAP_FAILED}, and
+  \path{ORIENTED_BOND_MAP_FAILED}; and
+  \item \path{COMMON_STATE_SPACE_IDENTITY_FAILED}.
+\end{itemize}
+The M0 layer must additionally distinguish
+\begin{itemize}[leftmargin=*,before=\raggedright]
+  \item \path{M0_PARENT_RANK_INVALID},
+  \path{M0_PARENT_MULTIPLICITY_FAILED}, and
+  \path{M0_ENERGY_CONVENTION_MISMATCH};
+  \item \path{M0_EXTERNAL_GAP_CERTIFICATE_FAILED} and
+  \path{M0_GAUGE_ACTION_UNRESOLVED};
+  \item \path{M0_COMMON_STATE_SPACE_MISMATCH} and
+  \path{M0_SAME_STRAIN_EQUIVALENCE_FAILED}; and
+  \item \path{M0_FROZEN_OPERATOR_IDENTITY_FAILED},
+  \path{M0_FOURIER_INVARIANCE_FAILED}, and
+  \path{M0_METRIC_ONLY_BOUNDARY_VIOLATED}.
+\end{itemize}
+These labels select scientific distinctions, not a source enum or wire schema.  Before
+a rank/depth/attack case is admitted, its result is
+\path{INAPPLICABLE_NO_ADMITTED_M0_CASE}.  Before a fitted alignment, mesh/Fourier
+transform, or support/reporting policy is selected, the corresponding derived diagnostic
+is \path{INAPPLICABLE_POLICY_NOT_SELECTED}; it must not be reported as zero.  A failed
+common-cell or quotient qualification makes the dependent operator comparison
+unresolved.
+
+\section{Remaining admission gates}
+
+No calculation software, schema, output, or execution may be added until a reviewed
+calculation-owned protocol also:
+\begin{enumerate}[leftmargin=*]
+  \item selects M2 or explicitly removes it from the study claim;
+  \item admits exact rank, depth, parent, and attack case inventories;
+  \item selects same-strain and cross-strain fitted-alignment applicability;
+  \item selects path samples, construction and withheld meshes, frame transport,
+    Fourier convention, and support policy;
+  \item fixes tolerances, strict/inclusive gates, independent implementations, and
+    bounded resource preflight before observing outcomes;
+  \item selects visualization, authentication, lifecycle, and no-overwrite identity;
+    and
+  \item obtains separate authorization for any execution or retained output.
+\end{enumerate}
+Passing documentation or software tests establishes document and software behavior only;
+it does not establish scientific validation, convergence, or evidence.
+
+\end{document}

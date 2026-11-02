@@ -20,6 +20,25 @@ model-adequacy calculation. Shared reusable operations do not collapse the scien
 identities, inputs, thresholds, schemas, verification routes, or evidence policies of
 the two families.
 
+## Analysis order
+
+This family occupies the one-dimensional rank-two alignment stage of the shared
+[periodic analysis order](../../../periodic/multiband/analysis-order.md). Analyze:
+
+1. exact parent, retained state space, units, geometry, sampling, and qualification;
+2. reference and attacked frames plus transport diagnostics;
+3. pointwise and one-global-unitary alignment selection with their declared objectives;
+4. aligned represented operators and ordered spectra;
+5. complete Fourier conversion and descriptive hopping locality;
+6. withheld interpolation before complete-support truncation;
+7. separate interpolation, truncation-only, and total consequences;
+8. producer-independent reconstruction and byte-owning verification; and
+9. authenticated rendering from admitted verification bytes.
+
+The direct operational order remains `run_01_calculation.py` then
+`run_02_verification.py` then `run_03_render.py`. This local order does not merge this
+family with the neighboring rank-two model-adequacy calculation.
+
 ## Complete local inventory
 
 | Surface | Current disposition |

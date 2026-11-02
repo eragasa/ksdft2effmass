@@ -2,6 +2,27 @@
 
 This calculation owns the square-lattice controlled-model execution used by the Paper B development study. The retained subspace has rank two; the spatial dimension is two. Its relationship to the periodic-1D rank-two lifecycle donor and the other periodic-2D children is fixed by the parent [`scientific-controls.md`](../../scientific-controls.md) crosswalk; the complete retained diagnostic inventory is mapped in [`diagnostic-parity.md`](../../diagnostic-parity.md).
 
+## Analysis order
+
+This square-lattice family is the orthogonal periodic-2D rank-two stage in the shared
+[periodic analysis order](../../../../periodic/multiband/analysis-order.md). Analyze:
+
+1. direct lattice, parent, retained state space, units, meshes, and qualification;
+2. gauge construction and frame transport;
+3. same-space band equivalence and ordered spectra;
+4. complete Fourier conversion and withheld interpolation;
+5. descriptive hopping locality before complete-shell support removal;
+6. separate interpolation, truncation-only, and total consequences;
+7. nominal independent verification;
+8. each refinement as a distinct admitted calculation and only then adjacent-mesh
+   assessment; and
+9. authenticated nominal rendering, followed later by cross-family comparison.
+
+The retained nominal result remains unsealed. Refinement is not convergence evidence,
+and this order does not authorize rerunning any producer.
+
+## Calculation surfaces
+
 - `run_01_calculation.py`, `run_02_verification.py`, and `run_03_render.py`
   own the nominal typed direct lifecycle.
 - `executions/direct-square-rank2-n16/` is the retained **CALCULATED RESULT —

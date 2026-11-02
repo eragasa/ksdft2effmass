@@ -45,6 +45,28 @@ and `v2` executions remain unsealed; no sealed evidence package or retained publ
 evidence has been created. Detailed values and limitations are maintained in
 [`analysis/development/README.md`](analysis/development/README.md).
 
+## Analysis order
+
+This family occupies the one-dimensional rank-two stage of the shared
+[periodic analysis order](../../../periodic/multiband/analysis-order.md). Analyze:
+
+1. parent and retained-space qualification, external gap, energy reference, and sample
+   identity;
+2. frame transport and sewing qualification;
+3. prescribed gauge and restricted/common-space alignment operands;
+4. flat, nonflat, and parent-family band-equivalence channels without merging them;
+5. complete Fourier conversion and descriptive hopping power;
+6. withheld interpolation before ordinary-support truncation;
+7. separate truncation-only and total Hamiltonian/spectral consequences;
+8. momentum refinement, amplitude refinement, and construction-mesh stability as
+   distinct prospective diagnostics;
+9. independent reconstruction and retained-byte admission; and
+10. authenticated rendering only from admitted stored data.
+
+The exact optional diagnostic script order remains `run_10_flat_control.py` through
+`run_16_diagnostic_packaging.py`. Refinement dispositions are not continuum-convergence
+claims, and this section does not authorize the proposed complete-five-scale execution.
+
 ## Current ownership boundary
 
 The first reusable flat-parent control is now installed under

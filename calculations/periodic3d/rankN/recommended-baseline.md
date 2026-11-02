@@ -149,6 +149,19 @@ scientific evidence. These controls are not established rank-N convergence toler
 Three-dimensional resource scaling must be benchmarked before a retained calculation,
 and a separately frozen refinement tranche must qualify the selected meshes.
 
+## Continuous-strain ownership boundary
+
+This baseline selects fixed lattice cases only. It does not itself select a continuous
+unit-volume Bain path, path-dependent metric/common-cell map, or M0/M1N/M2 response
+family, path samples, strain-direction transport, transition refinement, or cross-path
+evidence. The separate
+[`calculations/periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/README.md)
+context now selects its exact geometry/common-state-space, M0's shared-`2r` flat
+`lambda=0` specialization, and M1N's frozen use of this analytic parent and gauge
+circuit. M2, rank/depth/attack inventories, meshes, tolerances, and the remaining
+protocol are still open there. Every numerical control in this fixed-geometry file
+remains a candidate—not automatic parameter authority—for the continuous path.
+
 Public ownership should mirror the periodic-3D rank-two role inventory with
 `Periodic3DRankN...` class names, explicit retained-rank fields, and no inheritance from
 rank-two classes. No direct execution should be created until aggregate verification is

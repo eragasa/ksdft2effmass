@@ -44,6 +44,24 @@ The calculation therefore cannot exhibit gauge-induced represented-operator loca
 
 The three direct stage scripts exist. No retained input, result, verification, figure, or execution directory has been produced.
 
+## Analysis order
+
+This family occupies the structural/scalar-control stage of the shared
+[periodic analysis order](../../../periodic/multiband/analysis-order.md). Interpret its
+channels in this order:
+
+1. exact parent, scalar retained field, units, sample roles, and support inventory;
+2. complete Fourier reconstruction, Hermitian/Parseval checks, and withheld interpolation;
+3. descriptive hopping locality before support removal;
+4. complete-support truncation;
+5. separate interpolation, truncation-only, and total consequences;
+6. byte-owning independent verification; and
+7. authenticated rendering from admitted verification data.
+
+The scalar phase identity is the null control; it must be established before using
+matrix-valued gauge-locality results. The operational scripts remain calculate, verify,
+then render. No step authorizes a retained execution.
+
 ## Relationship to Mathieu1D
 
 The retained [`calculations/mathieu1d/`](../../../mathieu1d/) package remains a separate periodic-potential and single-band Fourier-reduction benchmark. It is not renamed, replaced, or treated as the rank-one specialization of this controlled model family.

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "execution_identity": "identity-gap-v2",
+  "execution_timestamp_utc": "2026-11-02T12:45:20Z",
+  "authorization_text": "Operator authorized the recommended provenance-preserving migration and one corrected rerun.",
+  "command": "PYTHONDONTWRITEBYTECODE=1 python/.venv/bin/python calculations/Si/bulk/analysis/c6-b20-w21-hopping-pareto-synthesis/run_analysis.py --bulk-root calculations/Si/bulk --output calculations/Si/bulk/analysis/c6-b20-w21-hopping-pareto-synthesis/executions/identity-gap-v2/hopping-pareto-synthesis-result.json",
+  "disposition": "UNRESOLVED_DEVELOPMENT_EVALUATION",
+  "supersedes_execution": "identity-gap-v1",
+  "supersession_scope": "portable implementation identity and code-maintenance corrections only",
+  "scientific_disposition_changed": false,
+  "paths": {
+    "producer": "calculations/Si/bulk/analysis/c6-b20-w21-hopping-pareto-synthesis/executions/identity-gap-v2/producer-source.py.txt",
+    "result": "calculations/Si/bulk/analysis/c6-b20-w21-hopping-pareto-synthesis/executions/identity-gap-v2/hopping-pareto-synthesis-result.json"
+  },
+  "sha256": {
+    "producer": "c156d413ef11cc37aae5b93f2f239b9d23344d8f6ad194f2bef781188065aeb1",
+    "result": "1af973546b6e1a9687a51433b0ba61227b9f2d13b711d89e789a3ba7c29e6b50"
+  },
+  "byte_size": {
+    "producer": 42062,
+    "result": 230821
+  },
+  "measured_resources": {
+    "wall_seconds": 0.06,
+    "user_seconds": 0.05,
+    "system_seconds": 0.01,
+    "maximum_resident_set_bytes": 31588352
+  },
+  "boundaries": {
+    "calculator_invocations": 0,
+    "metrics_bundle_supplied": false,
+    "network_used": false,
+    "quantum_espresso_or_wannier90_invoked": false,
+    "confirmation_402_parent_values_consumed": false,
+    "invented_intervals_supplied": false
+  },
+  "corrections": {
+    "implementation_path": "repository-relative",
+    "unresolved_support_cost_source": "authenticated retained candidate inventory",
+    "independent_ruff_E501": "resolved"
+  },
+  "equivalence": "The v1 and v2 scientific payloads are byte-for-byte JSON-value equivalent after normalizing the implementation identity object; both retain UNRESOLVED_DEVELOPMENT_EVALUATION."
+}

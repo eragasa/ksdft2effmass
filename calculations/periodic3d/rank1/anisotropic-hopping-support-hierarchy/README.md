@@ -17,6 +17,24 @@ The three tracked source files formerly under
 assigned here. [`migration.md`](migration.md) records predecessor identities, the move,
 and remaining scientific and implementation gates.
 
+## Analysis order
+
+This family is the fourth stage of the separate support-hierarchy branch in the shared
+[periodic analysis order](../../../periodic/multiband/analysis-order.md). The prerequisite
+order is exactly isotropic 2-D, isotropic 3-D, anisotropic 2-D, then this anisotropic 3-D
+family. Within this family, after those prerequisites close, analyze:
+
+1. orthorhombic parent, units, metric, and anisotropy-isolating controls;
+2. exact support classes and nesting;
+3. objective/evaluation sample roles and coefficient domain;
+4. witness and conservative certificate premises;
+5. exploratory thresholds followed by a separate prospective threshold freeze;
+6. strict schemas, independent exact-rational route, and tests; and only then
+7. separately authorized calculation, verification, and evidence retention.
+
+The current proposal remains blocked before implementation. No earlier family result or
+exploratory threshold may be copied into a missing stage.
+
 ## Complete local inventory
 
 | Surface | Current disposition |

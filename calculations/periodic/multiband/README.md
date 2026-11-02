@@ -15,13 +15,14 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 | 2-D | 2 | [`periodic2d_rank2_hexagonal/`](../../periodic2d_rank2_hexagonal/) | Bounded hexagonal-metric development calculation |
 | 2-D | 1 | [`periodic2d/rank1/hopping-shell-hierarchy/`](../../periodic2d/rank1/hopping-shell-hierarchy/) | Seven-file experiment design migrated; prospective and unimplemented |
 | 2-D | 2 | [`periodic2d_rank2_rhombic_path/`](../../periodic2d_rank2_rhombic_path/) | Bounded rhombic-path development controls |
-| 3-D | 2 | [`periodic3d/rank2/orthogonal/band-equivalence-locality/`](../../periodic3d/rank2/orthogonal/band-equivalence-locality/) | Bounded orthogonal development calculation |
-| 3-D | 2 | [`periodic3d/rank2/nonorthogonal/band-equivalence-locality/`](../../periodic3d/rank2/nonorthogonal/band-equivalence-locality/) | Bounded nonorthogonal development calculation |
+| 3-D | 2 | [`periodic3d_rank2_simple_cubic/`](../../periodic3d_rank2_simple_cubic/) | Bounded simple-cubic calculation context |
+| 3-D | 2 | [`periodic3d_rank2_fcc_diamond/`](../../periodic3d_rank2_fcc_diamond/) | Bounded FCC/diamond calculation context; not silicon validation |
 | 3-D | 1 | [`periodic3d/rank1/anisotropic-hopping-support-hierarchy/`](../../periodic3d/rank1/anisotropic-hopping-support-hierarchy/) | Three-file proposal migrated; sequence-gated and unimplemented |
-| 3-D | 2 | [`periodic3d/rank2/strain-locality/`](../../periodic3d/rank2/strain-locality/) | Bounded synthetic-strain development controls |
+| 3-D | 2 | [`periodic3d_rank2_bain_path/`](../../periodic3d_rank2_bain_path/) | Separate bounded M0, M1, M2, and Bain-path scan controls |
 | 1-D | 3, 4, 8, 16 | [`periodic1d/rankN/composite-band-alignment-locality/`](../../periodic1d/rankN/composite-band-alignment-locality/) | Schema-free development calculation; no retained run |
 | 2-D | greater than 2 | None | Prospective |
-| 3-D | greater than 2 | None | Prospective |
+| 3-D | 3, 4, 8 | [`periodic3d/rankN/`](../../periodic3d/rankN/) | Fixed-geometry analytic software baseline and aggregate verification installed; no visualization, lifecycle, execution, or evidence |
+| 3-D | candidate 3, 4, 8 | [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) | Exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics selected; M2 and the remaining contracts stay open |
 
 The current cross-family rank-two comparison is owned by [`band-equivalence-dimensional-comparison/`](../../band-equivalence-dimensional-comparison/). This planning layer may summarize that output but does not replace it.
 
@@ -49,14 +50,14 @@ The levels below describe increasing model, geometry, alignment, verification, a
 ### Level 3 --- multidimensional rank-two orthogonal controls
 
 - [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](../../periodic2d/rank2/orthogonal/band-equivalence-locality/) --- bounded square-lattice three-mesh development calculation.
-- [`periodic3d/rank2/orthogonal/band-equivalence-locality/`](../../periodic3d/rank2/orthogonal/band-equivalence-locality/) --- bounded simple-cubic three-mesh development calculation; retained rank remains two.
+- [`periodic3d_rank2_simple_cubic/`](../../periodic3d_rank2_simple_cubic/) --- bounded simple-cubic three-mesh calculation; retained rank remains two.
 
 ### Level 4 --- basis-aware, strain, and cross-family rank-two analysis
 
 - [`periodic2d_rank2_hexagonal/`](../../periodic2d_rank2_hexagonal/) --- triangular-Bravais/two-basis-metric controlled development calculation.
-- [`periodic3d/rank2/nonorthogonal/band-equivalence-locality/`](../../periodic3d/rank2/nonorthogonal/band-equivalence-locality/) --- FCC-Bravais/diamond-basis controlled development calculation.
+- [`periodic3d_rank2_fcc_diamond/`](../../periodic3d_rank2_fcc_diamond/) --- FCC-Bravais/diamond-basis controlled calculation; not silicon validation.
 - [`periodic2d_rank2_rhombic_path/`](../../periodic2d_rank2_rhombic_path/) --- two-dimensional rhombic geometry, frozen-response, prescribed-response, and scan controls.
-- [`periodic3d/rank2/strain-locality/`](../../periodic3d/rank2/strain-locality/) --- three-dimensional Bain-path geometry, response, and scan controls.
+- [`periodic3d_rank2_bain_path/`](../../periodic3d_rank2_bain_path/) --- three-dimensional Bain-path geometry, response, and scan controls.
 - [`band-equivalence-dimensional-comparison/`](../../band-equivalence-dimensional-comparison/) --- aggregation of compatible rank-two family definitions into tolerance and shell--scale comparisons.
 
 ### Level 5 --- one-dimensional higher-rank non-Abelian controls
@@ -66,7 +67,8 @@ The levels below describe increasing model, geometry, alignment, verification, a
 ### Level 6 --- higher-rank multidimensional controls
 
 - **Periodic 2-D higher rank** --- prospective; no calculation root, implementation, or result.
-- **Periodic 3-D higher rank** --- prospective; no calculation root, implementation, or result.
+- [`periodic3d/rankN/`](../../periodic3d/rankN/) --- selected fixed-geometry analytic software baseline with aggregate verification; no visualization, lifecycle, execution, or result evidence.
+- [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) --- documentation-only continuous Bain-path context with selected exact geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics; M2, admitted inventories, resources, visualization, and authentication remain open.
 
 ### Level 7 --- external-code and material-facing reductions
 
@@ -75,6 +77,9 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ## Contents
 
+- [`analysis-order.md`](analysis-order.md) defines the program dependency graph and the
+  fixed-geometry, continuous-path, higher-rank, verification, and rendering order. Each
+  family protocol remains authoritative for local scientific choices.
 - [`development-plan.md`](development-plan.md) gives the staged multiband program in plain language.
 - [`analysis/README.md`](analysis/README.md) defines the aggregation boundary.
 - [`analysis/salient-results.md`](analysis/salient-results.md) records the currently supportable cross-project summary and its evidence classifications.
@@ -98,8 +103,8 @@ shared files:
 |---|---|
 | `experiments/README.md` | Integrate repository-wide ownership and lifecycle rules into `calculations/README.md` and the Architecture v3 calculation contract. |
 | `experiments/script-conventions.md` | Integrate still-applicable effect-adapter mechanics into the calculation contract; do not preserve an experiment-only runner convention. |
-| `experiments/model-adequacy/band-equivalence-test-and-diagnostic-parity.md` | Move the cross-family parity contract to this periodic calculation-program surface while leaving family thresholds local. |
-| `experiments/model-adequacy/gauge-locality-under-synthetic-strain.md` | Move the shared strain protocol to this periodic calculation-program surface while leaving 2-D and 3-D configurations local. |
+| `experiments/model-adequacy/band-equivalence-test-and-diagnostic-parity.md` | Moved to [`band-equivalence-test-and-diagnostic-parity.md`](band-equivalence-test-and-diagnostic-parity.md); family thresholds remain local. |
+| `experiments/model-adequacy/gauge-locality-under-synthetic-strain.md` | Moved to [`gauge-locality-under-synthetic-strain.md`](gauge-locality-under-synthetic-strain.md); dimension-specific protocols remain local. |
 
 Every other tracked file under `experiments/` maps to a family-local calculation README
 and checklist. At migration baseline
