@@ -3,11 +3,12 @@
 ## Identity
 
 - Family: `ksdft2effmass.campaign.model-adequacy.periodic3d.gauge-locality-under-synthetic-strain`.
-- Source: `experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/`.
-- Shared protocol: `experiments/model-adequacy/gauge-locality-under-synthetic-strain.md`.
-- Status: protocol plus bounded M0 and separately labeled M1/M2 smoke actions; no
-  convergence, strict retained schemas, independent artifact verifier, immutable
-  version, or retained evidence.
+- Source: `calculations/periodic3d_rank2_bain_path/band_equivalence_hopping_locality/`.
+- Context protocol: `calculations/periodic3d_rank2_bain_path/band_equivalence_hopping_locality/protocol.md`.
+- Shared donor protocol: `calculations/periodic/multiband/gauge-locality-under-synthetic-strain.md`.
+- Status: bounded M0, separately labeled M1/M2, and sampled scan actions with strict
+  replaceable records; no convergence, immutable version, accepted common path witness,
+  or retained evidence.
 
 ## Scientific role
 

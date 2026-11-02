@@ -9,8 +9,8 @@ calculation surface.
 - [ ] Create a file-by-file manifest for all 197 tracked files at the baseline revision.
 - [ ] Integrate applicable ownership/lifecycle content from `experiments/README.md` into `calculations/README.md` and Architecture v3.
 - [ ] Integrate applicable script mechanics from `experiments/script-conventions.md` into the calculation contract.
-- [ ] Move the band-equivalence parity contract to this calculation-program surface.
-- [ ] Move the shared synthetic-strain protocol to this calculation-program surface.
+- [x] Move the band-equivalence parity contract to this calculation-program surface.
+- [x] Move the shared synthetic-strain protocol to this calculation-program surface.
 - [ ] Update every family protocol and calculation README to the new shared-document paths.
 - [ ] Prove every experiment file has exactly one destination or an explicit provenance-only disposition.
 - [ ] Prove installed source, tests, docs, publications, and builds no longer depend on live `experiments/` paths.

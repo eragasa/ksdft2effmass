@@ -8,10 +8,10 @@ calculation compositions were installed by merge commit
 scientific calculation, retained execution, convergence claim, sealing action, or
 evidence promotion.
 
-The `experiments/` tree continues to own prospective scientific protocols and experiment
-identity. The `calculations/` tree owns executable calculation composition, replaceable
-development output locations, retained execution packages, and calculation-facing
-reports.
+The `calculations/` tree owns scientific protocols, executable composition, replaceable
+output locations, retained execution packages when separately admitted, and
+calculation-facing reports. Scoped `experiments/` locations now preserve legacy identity
+and forward pointers only.
 
 ## Admission findings
 
@@ -23,10 +23,10 @@ calculation-owned successors:
 | Cross-dimensional comparison | 2 | `calculations/band-equivalence-dimensional-comparison/` |
 | Periodic-2D orthogonal locality | 4 | `calculations/periodic2d/rank2/orthogonal/band-equivalence-locality/` |
 | Periodic-2D hexagonal-metric locality | 4 | `calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/` |
-| Periodic-3D orthogonal locality | 4 | `calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/` |
-| Periodic-3D nonorthogonal locality | 4 | `calculations/periodic3d/rank2/nonorthogonal/band-equivalence-locality/` |
+| Periodic-3D simple-cubic locality | 4 | `calculations/periodic3d_rank2_simple_cubic/band_equivalence_hopping_locality/` |
+| Periodic-3D FCC/diamond locality | 4 | `calculations/periodic3d_rank2_fcc_diamond/band_equivalence_hopping_locality/` |
 | Periodic-2D synthetic strain | 3 | `calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/` |
-| Periodic-3D synthetic strain | 3 | `calculations/periodic3d/rank2/strain-locality/` |
+| Periodic-3D Bain path | 3 | `calculations/periodic3d_rank2_bain_path/band_equivalence_hopping_locality/` |
 
 For the four locality families, the scientific code differs only in calculation-owned
 output placement. For the dimensional comparison, the calculation successor reads the
@@ -39,18 +39,13 @@ The 28 experiment-side analysis README and ignore files describe the retired out
 locations or invocation paths. Their calculation-owned counterparts document the current
 output locations. They therefore retire with the duplicate entrypoints.
 
-## Preserved experiment authority
+## Preserved legacy identity
 
-The following are retained under `experiments/`:
-
-- all four locality-family `experimental-protocol.tex` files and bibliographies;
-- each experiment identity and boundary README;
-- the two nonorthogonal family-container READMEs;
-- the cross-dimensional `comparison-protocol.md`; and
-- both synthetic-strain identity and interpretation READMEs.
-
-These are protocol or experiment-definition surfaces, not duplicate calculation
-entrypoints.
+Scoped `experiments/` READMEs preserve campaign identities and point to calculation
+owners. The periodic-2D/3D rank-two protocols and applicable bibliographies are
+calculation-owned. Shared periodic multiband parity and synthetic-strain donor protocols
+are maintained under `calculations/periodic/multiband/`. Legacy files are not duplicate
+protocol authority.
 
 ## Deletion inventory
 
@@ -90,13 +85,15 @@ The closure is complete only if:
 1. no maintained consumer names a retired experiment-side executable or output path;
 2. publication figure provenance points to the calculation-owned generator and output;
 3. calculation and experiment READMEs state the split ownership consistently;
-4. migration checklists record protocol retention as an explicit disposition rather than
-   another pending move; and
+4. migration checklists identify calculation-owned protocol authority and legacy forward
+   pointers explicitly; and
 5. focused script, documentation-link, formatting, and source-consumer checks pass.
 
 ## Closure validation
 
-The bounded closure checks produced the following software evidence:
+At the earlier executable-retirement baseline, the bounded closure checks produced the
+following software evidence; the later context-first protocol migration requires its own
+focused checks:
 
 - 122 focused band-equivalence/locality and dimensional-comparison tests passed,
   including all 19 JSON-producing calculation-writer cases and strict retained-refinement
@@ -108,7 +105,7 @@ The bounded closure checks produced the following software evidence:
 - the retired-path consumer search returned no maintained references to experiment-owned
   executables or output paths;
 - the staged retirement inventory contained exactly the documented 52 deletions while
-  the required experiment identity, protocol, and bibliography surfaces remained; and
+  the then-required experiment identity, protocol, and bibliography surfaces remained; and
 - lock validation, bytecode compilation, and Git whitespace validation passed.
 
 These checks establish the stated software migration behavior only. They do not establish

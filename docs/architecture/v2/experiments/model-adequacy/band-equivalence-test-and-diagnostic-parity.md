@@ -1,7 +1,7 @@
 # Band-equivalence test and diagnostic parity
 
 The operational parity contract is maintained at
-[`experiments/model-adequacy/band-equivalence-test-and-diagnostic-parity.md`](../../../../../experiments/model-adequacy/band-equivalence-test-and-diagnostic-parity.md).
+[`calculations/periodic/multiband/band-equivalence-test-and-diagnostic-parity.md`](../../../../../calculations/periodic/multiband/band-equivalence-test-and-diagnostic-parity.md).
 
 ## Architecture rule
 

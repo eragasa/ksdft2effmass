@@ -4,6 +4,6 @@ from _publish import publish
 
 if __name__ == "__main__":
     publish(
-        generator="calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/plot_development.py",
-        generated_figure="calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf",
+        generator="calculations/periodic3d_rank2_simple_cubic/band_equivalence_hopping_locality/render_nominal_analysis.py",
+        generated_figure="calculations/periodic3d_rank2_simple_cubic/band_equivalence_hopping_locality/analysis/replaceable/figures/band-equivalence-locality-scientific-story.pdf",
     )

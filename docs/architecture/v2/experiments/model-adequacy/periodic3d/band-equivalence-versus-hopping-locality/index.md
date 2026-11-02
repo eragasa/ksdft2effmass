@@ -3,7 +3,7 @@
 ## Identity
 
 - Family: `ksdft2effmass.campaign.model-adequacy.periodic3d.band-equivalence-versus-hopping-locality`.
-- Source: `experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/`.
+- Source: `calculations/periodic3d_rank2_simple_cubic/band_equivalence_hopping_locality/`.
 - Status: substantive protocol with bounded `8 x 8 x 8`, `16 x 16 x 16`, and
   `32 x 32 x 32` Monkhorst--Pack local actions and independently verified replaceable
   records; no immutable version, qualified convergence disposition, or retained evidence.

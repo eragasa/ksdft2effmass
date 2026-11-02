@@ -38,17 +38,13 @@ FAMILY_DEFINITION_PATHS = (
     / "band_equivalence_hopping_locality"
     / "run_nominal_calculation.py",
     CALCULATIONS_DIRECTORY
-    / "periodic3d"
-    / "rank2"
-    / "orthogonal"
-    / "band-equivalence-locality"
-    / "run_development.py",
+    / "periodic3d_rank2_simple_cubic"
+    / "band_equivalence_hopping_locality"
+    / "run_nominal_calculation.py",
     CALCULATIONS_DIRECTORY
-    / "periodic3d"
-    / "rank2"
-    / "nonorthogonal"
-    / "band-equivalence-locality"
-    / "run_development.py",
+    / "periodic3d_rank2_fcc_diamond"
+    / "band_equivalence_hopping_locality"
+    / "run_nominal_calculation.py",
 )
 OUTPUT_DIRECTORY = CALCULATION_DIRECTORY / "analysis" / "development" / "generated"
 
@@ -67,8 +63,7 @@ def _load_definition(path: Path, index: int) -> BandEquivalenceHoppingLocalityRe
     definition = typed_module.DEFINITION
     if type(definition) is not BandEquivalenceHoppingLocalityRequest:
         raise TypeError(
-            "DEFINITION is not a BandEquivalenceHoppingLocalityRequest: "
-            f"{path}"
+            f"DEFINITION is not a BandEquivalenceHoppingLocalityRequest: {path}"
         )
     return definition
 

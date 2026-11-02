@@ -5,8 +5,8 @@ Reusable metric, Fourier-power, complete-radius, and M0 diagnostic behavior live
 M1/M2 parent, frame alignment, strain-difference, and three-channel behavior lives in
 analysis-owned `strain_response.py`. Campaign-owned presentation lives in
 `python/src/ksdft2effmass/campaigns/band_equivalence_hopping_locality/strain_response_plotting.py`, including a public caller-supplied-axes renderer.
-The family action and presentation remain owned by
-`experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/`.
+The family actions, protocol, replaceable output contract, and report are owned by
+`calculations/periodic3d_rank2_bain_path/band_equivalence_hopping_locality/`.
 
 Campaign-owned typed serializers now map M0, M1, and M2 records explicitly to canonical
 JSON and validate them against three immutable packaged strict result schemas. The

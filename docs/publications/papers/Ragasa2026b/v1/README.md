@@ -15,12 +15,12 @@ stronger quantity-by-quantity requirement is tracked against all 110 predecessor
 organized around publication-independent calculation families. Migrated calculation
 paths retain protocol identity and own executable figure producers and replaceable
 development outputs. Legacy experiment paths remain only where their calculation-side
-migration is not part of the present two-context reorganization:
+migration is outside the present context-first reorganization:
 
 - [`../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/)
 - [`../../../../../calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/`](../../../../../calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/)
-- [`../../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/)
-- [`../../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/)
+- [`../../../../../calculations/periodic3d_rank2_simple_cubic/band_equivalence_hopping_locality/`](../../../../../calculations/periodic3d_rank2_simple_cubic/band_equivalence_hopping_locality/)
+- [`../../../../../calculations/periodic3d_rank2_fcc_diamond/band_equivalence_hopping_locality/`](../../../../../calculations/periodic3d_rank2_fcc_diamond/band_equivalence_hopping_locality/)
 
 The four independent protocol outputs are composed without transferring their identities
 under [`band-equivalence-dimensional-comparison/`](../../../../../experiments/model-adequacy/band-equivalence-dimensional-comparison/).
@@ -28,7 +28,7 @@ under [`band-equivalence-dimensional-comparison/`](../../../../../experiments/mo
 A prospective geometry-stress extension is owned separately by:
 
 - [`../../../../../calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/`](../../../../../calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/)
-- [`../../../../../experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/`](../../../../../experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/)
+- [`../../../../../calculations/periodic3d_rank2_bain_path/band_equivalence_hopping_locality/`](../../../../../calculations/periodic3d_rank2_bain_path/band_equivalence_hopping_locality/)
 
 The paper will compare complete cell--orbital, Bloch, spectral-eigensystem, retained-frame,
 and Wannier/tight-binding representations. It will permit Hamiltonian subtraction only
@@ -50,7 +50,7 @@ its scope is changed explicitly.
    Bravais controls.
 3. Cross-dimensional comparison only after each experiment has its own convergence,
    verification, and evidence qualification, while satisfying the shared
-   [`test and diagnostic parity contract`](../../../../../experiments/model-adequacy/band-equivalence-test-and-diagnostic-parity.md).
+   [`test and diagnostic parity contract`](../../../../../calculations/periodic/multiband/band-equivalence-test-and-diagnostic-parity.md).
 
 The separate non-orthogonal families now select the primitive metrics,
 two-site honeycomb/diamond bases, inspired bipartite parents, matched Bravais-control
