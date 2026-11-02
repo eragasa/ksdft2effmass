@@ -5,16 +5,34 @@ from __future__ import annotations
 import pytest
 
 from ksdft2effmass.hopping_locality import HoppingLocality
+from ksdft2effmass.hopping_locality.base import (
+    HoppingLocalityAnalysis,
+    HoppingLocalityAnalysisRequest,
+    HoppingLocalityAnalyzer,
+    PeriodicHoppingLocality,
+    PeriodicHoppingLocalityAnalysis,
+    PeriodicHoppingLocalityAnalysisRequest,
+    PeriodicHoppingLocalityAnalyzer,
+)
 from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
 from ksdft2effmass.periodic1d.rank1.hopping_locality import (
     Periodic1DRank1HoppingLocalityAnalysis,
     Periodic1DRank1HoppingTailResult,
+)
+from ksdft2effmass.periodic1d.rank1.hopping_locality.base import (
+    Periodic1DRank1HoppingLocalityCapability,
+)
+from ksdft2effmass.periodic1d.rank2.hopping_locality.base import (
+    Periodic1DRank2HoppingLocalityCapability,
 )
 from ksdft2effmass.periodic1d.rank2.hopping_locality.result import (
     Periodic1DRank2HoppingPower,
 )
 from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.hopping_locality.base import (
+    Periodic1DRankNHoppingLocalityCapability,
 )
 from ksdft2effmass.periodic1d.rankN.hopping_locality.result import (
     Periodic1DRankNHoppingTailResult,
@@ -25,6 +43,33 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestHoppingLocality:
+    def test__analysis_roles__follow_domain_and_periodic_ownership(self) -> None:
+        assert HoppingLocalityAnalyzer.__abstractmethods__ == {"execute", "request"}
+        assert issubclass(PeriodicHoppingLocality, HoppingLocality)
+        assert issubclass(
+            PeriodicHoppingLocalityAnalysisRequest,
+            HoppingLocalityAnalysisRequest,
+        )
+        assert issubclass(PeriodicHoppingLocalityAnalysis, HoppingLocalityAnalysis)
+        assert issubclass(PeriodicHoppingLocalityAnalyzer, HoppingLocalityAnalyzer)
+        assert issubclass(Periodic1DHoppingLocality, PeriodicHoppingLocality)
+
+    def test__rank_capabilities_are_meaningfully_abstract_siblings(self) -> None:
+        for capability in (
+            Periodic1DRank1HoppingLocalityCapability,
+            Periodic1DRank2HoppingLocalityCapability,
+            Periodic1DRankNHoppingLocalityCapability,
+        ):
+            assert capability.__abstractmethods__ == {"band_subspace_rank"}
+        assert not issubclass(
+            Periodic1DRank2HoppingLocalityCapability,
+            Periodic1DRankNHoppingLocalityCapability,
+        )
+        assert not issubclass(
+            Periodic1DRankNHoppingLocalityCapability,
+            Periodic1DRank2HoppingLocalityCapability,
+        )
+
     def test__periodic_rank_slices__share_nominal_owner(self) -> None:
         """Rank-one, rank-two, and rank-N values diagnose unchanged coefficients."""
         assert issubclass(Periodic1DHoppingLocality, HoppingLocality)

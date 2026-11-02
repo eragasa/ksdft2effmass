@@ -5,19 +5,19 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ksdft2effmass.periodic1d.hopping_locality.base import (
-    Periodic1DHoppingLocality,
-    Periodic1DHoppingLocalityAnalysis,
-)
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DSymmetricTranslationRange,
 )
 
+from .base import (
+    Periodic1DRank2HoppingLocalityAnalysisRole,
+    Periodic1DRank2HoppingLocalityValue,
+)
 from .request import Periodic1DRank2HoppingLocalityAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2HoppingPower(Periodic1DHoppingLocality):
+class Periodic1DRank2HoppingPower(Periodic1DRank2HoppingLocalityValue):
     """Retain reference and comparison block power at one displacement."""
 
     displacement: int
@@ -38,7 +38,7 @@ class Periodic1DRank2HoppingPower(Periodic1DHoppingLocality):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2HoppingTailResult(Periodic1DHoppingLocality):
+class Periodic1DRank2HoppingTailResult(Periodic1DRank2HoppingLocalityValue):
     """Retain one channel's unchanged omitted-block norm at one range."""
 
     maximum_range: int
@@ -61,7 +61,9 @@ class Periodic1DRank2HoppingTailResult(Periodic1DHoppingLocality):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank2HoppingLocalityAnalysis(Periodic1DHoppingLocalityAnalysis):
+class Periodic1DRank2HoppingLocalityAnalysis(
+    Periodic1DRank2HoppingLocalityAnalysisRole
+):
     """Retain unchanged hopping-tail diagnostics for one frozen channel."""
 
     request: Periodic1DRank2HoppingLocalityAnalysisRequest

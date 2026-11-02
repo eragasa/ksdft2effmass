@@ -3,27 +3,32 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import final
 
 from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
 
 from ksdft2effmass.band_equivalence_hopping_locality.shell_power import (  # noqa: E501
     MetricShellHoppingPowerResult,
 )
-from ksdft2effmass.periodic2d.hopping_locality.base import (
-    Periodic2DHoppingLocalityAnalysis,
-)
 
+from .base import Periodic2DRankNHoppingLocalityAnalysisRole
 from .request import Periodic2DRankNHoppingLocalityAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic2DRankNHoppingLocalityAnalysis(
     MetricShellHoppingPowerResult,
-    Periodic2DHoppingLocalityAnalysis,
+    Periodic2DRankNHoppingLocalityAnalysisRole,
 ):
     """Retain one channel's unchanged arbitrary-rank hopping powers by metric shell."""
 
     request: Periodic2DRankNHoppingLocalityAnalysisRequest
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the unchanged hopping-block rank."""
+        return self.retained_rank
 
     def __post_init__(self) -> None:
         MetricShellHoppingPowerResult.__post_init__(self)

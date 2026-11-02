@@ -6,9 +6,6 @@ from dataclasses import dataclass
 
 from projectkoios.physkit.units import Unitless
 
-from ksdft2effmass.periodic1d.hopping_locality.base import (
-    Periodic1DHoppingLocalityAnalysisRequest,
-)
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
@@ -17,10 +14,12 @@ from ksdft2effmass.periodic1d.translations import (
 )
 from ksdft2effmass.solidstate.hopping_transforms import BlockHoppingModel1D
 
+from .base import Periodic1DRank2HoppingLocalityAnalysisRequestRole
+
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRank2HoppingLocalityAnalysisRequest(
-    Periodic1DHoppingLocalityAnalysisRequest
+    Periodic1DRank2HoppingLocalityAnalysisRequestRole
 ):
     """Bind one frozen rank-two channel to its unchanged ordinary hoppings."""
 

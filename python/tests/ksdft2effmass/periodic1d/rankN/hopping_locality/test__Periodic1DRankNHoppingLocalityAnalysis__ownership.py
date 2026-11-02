@@ -11,6 +11,12 @@ from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysisRequest,
     Periodic1DRankNHoppingLocalityAnalyzer,
 )
+from ksdft2effmass.periodic1d.rankN.hopping_locality.base import (
+    Periodic1DRankNHoppingLocalityAnalysisRequestRole,
+    Periodic1DRankNHoppingLocalityAnalysisRole,
+    Periodic1DRankNHoppingLocalityAnalyzerRole,
+    Periodic1DRankNHoppingLocalityValue,
+)
 from ksdft2effmass.periodic1d.rankN.hopping_locality.result import (
     Periodic1DRankNHoppingTailResult,
 )
@@ -36,6 +42,22 @@ class TestPeriodic1DRankNHoppingLocalityAnalysis:
         )
 
     def test_hopping_locality_uses_the_periodic1d_base(self) -> None:
+        assert issubclass(
+            Periodic1DRankNHoppingLocalityAnalysisRequest,
+            Periodic1DRankNHoppingLocalityAnalysisRequestRole,
+        )
+        assert issubclass(
+            Periodic1DRankNHoppingLocalityAnalysis,
+            Periodic1DRankNHoppingLocalityAnalysisRole,
+        )
+        assert issubclass(
+            Periodic1DRankNHoppingLocalityAnalyzer,
+            Periodic1DRankNHoppingLocalityAnalyzerRole,
+        )
+        assert issubclass(
+            Periodic1DRankNHoppingTailResult,
+            Periodic1DRankNHoppingLocalityValue,
+        )
         assert issubclass(
             Periodic1DRankNHoppingLocalityAnalysis,
             Periodic1DHoppingLocality,

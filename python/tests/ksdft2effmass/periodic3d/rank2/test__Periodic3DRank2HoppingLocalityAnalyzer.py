@@ -47,11 +47,15 @@ class TestPeriodic3DRank2HoppingLocalityAnalyzer:
             shell_indices=(1, 0, 1),
         )
 
-        result = Periodic3DRank2HoppingLocalityAnalyzer(
+        analyzer = Periodic3DRank2HoppingLocalityAnalyzer(
             request=request,
             power_analyzer=BlockHoppingPowerAnalyzer(),
-        ).execute()
+        )
+        result = analyzer.execute()
 
+        assert request.band_subspace_rank == 2
+        assert result.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert type(result) is Periodic3DRank2HoppingLocalityAnalysis
         assert result.request is request
         assert result.retained_rank == 2

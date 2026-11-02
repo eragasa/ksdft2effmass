@@ -9,17 +9,15 @@ from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
 from ksdft2effmass.band_equivalence_hopping_locality.shell_power import (  # noqa: E501
     MetricShellHoppingPowerResult,
 )
-from ksdft2effmass.periodic3d.hopping_locality.base import (
-    Periodic3DHoppingLocalityAnalysis,
-)
 
+from .base import Periodic3DRank2HoppingLocalityAnalysisRole
 from .request import Periodic3DRank2HoppingLocalityAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic3DRank2HoppingLocalityAnalysis(
     MetricShellHoppingPowerResult,
-    Periodic3DHoppingLocalityAnalysis,
+    Periodic3DRank2HoppingLocalityAnalysisRole,
 ):
     """Retain one channel's unchanged rank-two hopping powers by metric shell."""
 

@@ -66,8 +66,12 @@ class TestPeriodic1DRank2HoppingLocalityAnalyzer:
             ordinary_model=model,
         )
 
-        analysis = Periodic1DRank2HoppingLocalityAnalyzer(request=request).execute()
+        analyzer = Periodic1DRank2HoppingLocalityAnalyzer(request=request)
+        analysis = analyzer.execute()
 
+        assert request.band_subspace_rank == 2
+        assert analysis.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert type(analysis) is Periodic1DRank2HoppingLocalityAnalysis
         assert analysis.request is request
         assert type(request.ordinary_translation_inventory) is (
@@ -85,6 +89,7 @@ class TestPeriodic1DRank2HoppingLocalityAnalyzer:
             "Periodic1DRank2HoppingTailResult",
         ]
         for tail in analysis.tails:
+            assert tail.band_subspace_rank == 2
             owner = BlockHoppingTruncator1D(
                 BlockHoppingTruncationRequest1D(
                     model,

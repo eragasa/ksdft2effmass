@@ -4,28 +4,29 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Self
+from typing import Self, final
 
 from projectkoios.numerics.validation import exact_nonnegative_float
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailDiagnostics1D,
 )
-from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
 )
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DOrdinaryTranslationInventory,
     Periodic1DSymmetricTranslationRange,
 )
 
+from .base import Periodic1DRankNHoppingLocalityValue
+
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRankNHoppingTailResult(Periodic1DHoppingLocality):
+class Periodic1DRankNHoppingTailResult(Periodic1DRankNHoppingLocalityValue):
     """Describe coefficient weight outside one diagnostic symmetric range.
 
     This value characterizes the distribution of an unchanged Fourier series. It does
@@ -43,6 +44,12 @@ class Periodic1DRankNHoppingTailResult(Periodic1DHoppingLocality):
     normalized_omitted_frobenius_l2_norm: float
     omitted_block_l1_norm: float
     normalized_omitted_block_l1_norm: float
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the unchanged hopping-block rank."""
+        return self.rank
 
     def __post_init__(self) -> None:
         """Validate exact inventories and rank-energy normalization identities."""
