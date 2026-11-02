@@ -19,9 +19,7 @@ from .result import Periodic1DRank1AlignmentApplicabilityResult
 
 
 @final
-class Periodic1DRank1AlignmentApplicabilityAnalyzer(
-    Periodic1DRank1GaugeAlignment
-):
+class Periodic1DRank1AlignmentApplicabilityAnalyzer(Periodic1DRank1GaugeAlignment):
     """Return the exact operator-trivial alignment disposition for one scalar family."""
 
     __slots__ = ("_lattice_geometry", "_request")

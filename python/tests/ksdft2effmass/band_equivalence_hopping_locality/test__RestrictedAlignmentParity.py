@@ -44,7 +44,10 @@ def _traceless_fields() -> tuple[ComplexArray, ComplexArray]:
 def _traceless(matrices: ComplexArray) -> ComplexArray:
     identity = np.eye(2, dtype=np.complex128)
     means = np.trace(matrices, axis1=-2, axis2=-1).real / 2.0
-    return matrices - means[:, None, None] * identity
+    return np.asarray(
+        matrices - means[:, None, None] * identity,
+        dtype=np.complex128,
+    )
 
 
 def _correlation_numerator(

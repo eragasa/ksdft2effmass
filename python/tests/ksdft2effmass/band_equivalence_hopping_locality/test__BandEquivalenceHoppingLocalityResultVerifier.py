@@ -423,9 +423,7 @@ class TestBandEquivalenceHoppingLocalityResultVerifier:
         calculation = scripts[0].parent
         execution_directory = calculation / "executions" / "direct-square-rank2-n16"
         producer_directory = execution_directory / "producers"
-        producer_scripts = tuple(
-            producer_directory / script.name for script in scripts
-        )
+        producer_scripts = tuple(producer_directory / script.name for script in scripts)
         execution_bytes = (execution_directory / "execution.json").read_bytes()
         verification_bytes = (
             execution_directory / "verification" / "verification.json"

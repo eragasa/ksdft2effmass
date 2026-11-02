@@ -106,7 +106,7 @@ class TestPeriodic2DLatticeGeometry:
     def test__rejects_wrong_lattice_type_units_and_scalar_contracts(self) -> None:
         with pytest.raises(TypeError, match="DirectLattice2D"):
             Periodic2DLatticeGeometry.from_direct_lattice(
-                DirectLattice3D(
+                DirectLattice3D(  # type: ignore[arg-type]
                     a1=np.array((1.0, 0.0, 0.0)),
                     a2=np.array((0.0, 1.0, 0.0)),
                     a3=np.array((0.0, 0.0, 1.0)),
@@ -125,11 +125,11 @@ class TestPeriodic2DLatticeGeometry:
             )
         with pytest.raises(TypeError, match="built-in floats"):
             Periodic2DLatticeGeometry(
-                primitive_basis_rows=((1.0, 0.0), (0.0, True)),  # type: ignore[arg-type]
+                primitive_basis_rows=((1.0, 0.0), (0.0, True)),
                 lattice_unit=PhysicalUnit("bohr"),
             )
         with pytest.raises(TypeError, match="built-in floats"):
-            self._geometry().bloch_wavevector((0.0, 1))  # type: ignore[arg-type]
+            self._geometry().bloch_wavevector((0.0, 1))
         with pytest.raises(TypeError, match="must use PhysicalUnit"):
             self._geometry().reduced_coordinates(
                 VectorQuantity(np.array((0.0, 0.0)), Unitless())

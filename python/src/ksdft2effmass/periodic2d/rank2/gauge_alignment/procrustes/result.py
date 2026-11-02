@@ -17,9 +17,7 @@ from .request import Periodic2DRank2ProcrustesAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic2DRank2ProcrustesAnalysis(
-    Periodic2DRank2GaugeAlignmentAnalysis
-):
+class Periodic2DRank2ProcrustesAnalysis(Periodic2DRank2GaugeAlignmentAnalysis):
     """Correlate one pointwise request with complete Project Koios evidence."""
 
     request: Periodic2DRank2ProcrustesAnalysisRequest

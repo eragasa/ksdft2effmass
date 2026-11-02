@@ -57,8 +57,8 @@ class TestBandEquivalenceAnalysis:
             assert issubclass(analysis_base, PeriodicBandEquivalenceAnalysis)
 
     def test_request_bounds_narrow_at_each_inheritance_level(self) -> None:
-        domain_request, = BandEquivalenceAnalysis.__type_params__
-        periodic_request, = PeriodicBandEquivalenceAnalysis.__type_params__
+        (domain_request,) = BandEquivalenceAnalysis.__type_params__
+        (periodic_request,) = PeriodicBandEquivalenceAnalysis.__type_params__
         assert domain_request.__bound__ is BandEquivalenceRequest
         assert periodic_request.__bound__ is PeriodicBandEquivalenceRequest
 
@@ -76,7 +76,7 @@ class TestBandEquivalenceAnalysis:
                 Periodic3DBandEquivalenceAnalysis,
             ),
         ):
-            request_type, = analysis_base.__type_params__
+            (request_type,) = analysis_base.__type_params__
             assert request_type.__bound__ is request_base
 
     def test_rank_two_and_rank_n_analyses_are_dimensional_siblings(self) -> None:

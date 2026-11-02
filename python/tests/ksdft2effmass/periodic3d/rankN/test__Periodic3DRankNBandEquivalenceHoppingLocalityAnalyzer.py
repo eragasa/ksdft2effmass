@@ -236,8 +236,10 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             )
         ).execute()
 
-        decoded_case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification.from_json(  # noqa: E501
-            verification.to_json()
+        decoded_case = (
+            Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification.from_json(  # noqa: E501
+                verification.to_json()
+            )
         )
         aggregate = Periodic3DRankNBandEquivalenceHoppingLocalityVerification(
             request_sha256="0" * 64,

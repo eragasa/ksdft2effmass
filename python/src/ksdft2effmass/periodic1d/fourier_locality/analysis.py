@@ -45,9 +45,7 @@ from .result import (
 
 
 class Periodic1DFourierLocalityAnalyzer(
-    Periodic1DRank1BandEquivalenceAnalyzer[
-        Periodic1DFourierLocalityConfiguration
-    ]
+    Periodic1DRank1BandEquivalenceAnalyzer[Periodic1DFourierLocalityConfiguration]
 ):
     """Calculate one finite rank-one Fourier-locality result without effects."""
 

@@ -67,8 +67,7 @@ class TestPeriodic1DRankNTransportAnalyzer:
         assert isinstance(analysis, Periodic1DRankNFrameTransportAnalysis)
         assert isinstance(analyzer, Periodic1DRankNFrameTransportAnalyzer)
         assert (
-            request.band_subspace_rank
-            == higher_rank_calculation_request.retained_rank
+            request.band_subspace_rank == higher_rank_calculation_request.retained_rank
         )
         assert analysis.band_subspace_rank == request.band_subspace_rank
         assert analyzer.band_subspace_rank == request.band_subspace_rank

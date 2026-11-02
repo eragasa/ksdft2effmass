@@ -221,9 +221,7 @@ class Periodic1DRank2PointAnalysis(
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2Analysis(
-    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole[
-        Periodic1DRank2Request
-    ],
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole[Periodic1DRank2Request],
 ):
     """Retain one qualified or explicitly stopped calculation."""
 

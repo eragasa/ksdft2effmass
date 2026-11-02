@@ -21,9 +21,7 @@ from .result import (
 )
 
 
-class Periodic1DRank2ProcrustesDiagnosticsAnalyzer(
-    Periodic1DRank2GaugeAlignment
-):
+class Periodic1DRank2ProcrustesDiagnosticsAnalyzer(Periodic1DRank2GaugeAlignment):
     """Construct complete diagnostics from one successful rank-two selection."""
 
     __slots__ = ("_scope", "_source", "_target", "_result")

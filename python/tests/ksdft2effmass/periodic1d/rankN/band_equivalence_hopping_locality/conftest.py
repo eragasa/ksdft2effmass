@@ -1,6 +1,7 @@
 """Shared fixtures for higher-rank aggregate-study tests."""
 
 import hashlib
+import os
 from dataclasses import replace
 from pathlib import Path
 
@@ -23,16 +24,13 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result imp
 @pytest.fixture(scope="session")
 def higher_rank_calculation_result(repository_root: Path) -> StudyAnalysis:
     """Read integrity-admitted cache bytes as test data, not scientific evidence."""
-    result_path = (
-        repository_root
-        / "calculations"
-        / "periodic1d"
-        / "rankN"
-        / "composite-band-alignment-locality"
-        / "results"
-        / "development-cache"
-        / "result-r3-l1.json"
-    )
+    environment_variable = "KSDFT2EFFMASS_PERIODIC1D_RANKN_DEVELOPMENT_CACHE_PATH"
+    configured_path = os.environ.get(environment_variable)
+    if configured_path is None:
+        pytest.skip(
+            f"set {environment_variable} to run external-cache software evidence"
+        )
+    result_path = Path(configured_path)
     result_bytes = result_path.read_bytes()
     assert len(result_bytes) == 4_895_370
     assert hashlib.sha256(result_bytes).hexdigest() == (
