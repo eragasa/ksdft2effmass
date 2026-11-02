@@ -7,8 +7,8 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
 
-from ksdft2effmass.periodic2d.gauge_alignment.base import (
-    Periodic2DGaugeAlignmentAnalyzer,
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.base import (
+    Periodic2DRankNGaugeAlignmentAnalyzer,
 )
 
 from .request import Periodic2DRankNProcrustesAnalysisRequest
@@ -16,7 +16,7 @@ from .result import Periodic2DRankNProcrustesAnalysis
 
 
 class Periodic2DRankNProcrustesAnalyzer(
-    Periodic2DGaugeAlignmentAnalyzer[
+    Periodic2DRankNGaugeAlignmentAnalyzer[
         Periodic2DRankNProcrustesAnalysisRequest,
         Periodic2DRankNProcrustesAnalysis,
     ]

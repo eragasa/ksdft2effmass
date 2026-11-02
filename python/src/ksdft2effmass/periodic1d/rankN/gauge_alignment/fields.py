@@ -14,10 +14,10 @@ from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, Real
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldIsometryAnalyzer
 
+from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from ..band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
-from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from .definition import Periodic1DRankNGaugeAlignment
 from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
 from .procrustes.selection import Periodic1DRankNResolvedProcrustesSelection

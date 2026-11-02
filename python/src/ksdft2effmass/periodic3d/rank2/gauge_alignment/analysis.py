@@ -5,8 +5,8 @@ from __future__ import annotations
 from ksdft2effmass.band_equivalence_hopping_locality.alignment import (
     restricted_alignment_diagnostic,
 )
-from ksdft2effmass.periodic3d.gauge_alignment.base import (
-    Periodic3DGaugeAlignmentAnalyzer,
+from ksdft2effmass.periodic3d.rank2.gauge_alignment.base import (
+    Periodic3DRank2GaugeAlignmentAnalyzer,
 )
 
 from .request import Periodic3DRank2RestrictedGaugeAlignmentAnalysisRequest
@@ -14,7 +14,7 @@ from .result import Periodic3DRank2RestrictedGaugeAlignmentAnalysis
 
 
 class Periodic3DRank2RestrictedGaugeAlignmentAnalyzer(
-    Periodic3DGaugeAlignmentAnalyzer[
+    Periodic3DRank2GaugeAlignmentAnalyzer[
         Periodic3DRank2RestrictedGaugeAlignmentAnalysisRequest,
         Periodic3DRank2RestrictedGaugeAlignmentAnalysis,
     ]

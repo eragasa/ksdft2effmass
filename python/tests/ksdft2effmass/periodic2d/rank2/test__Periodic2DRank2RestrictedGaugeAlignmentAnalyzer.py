@@ -11,6 +11,11 @@ from projectkoios.numerics.numpy.typing import Complex128Array
 from ksdft2effmass.periodic2d.rank2.gauge_alignment.analysis import (
     Periodic2DRank2RestrictedGaugeAlignmentAnalyzer,
 )
+from ksdft2effmass.periodic2d.rank2.gauge_alignment.base import (
+    Periodic2DRank2GaugeAlignmentAnalysis,
+    Periodic2DRank2GaugeAlignmentAnalysisRequest,
+    Periodic2DRank2GaugeAlignmentAnalyzer,
+)
 from ksdft2effmass.periodic2d.rank2.gauge_alignment.request import (
     Periodic2DRank2RestrictedGaugeAlignmentAnalysisRequest,
 )
@@ -51,10 +56,15 @@ class TestPeriodic2DRank2RestrictedGaugeAlignmentAnalyzer:
         )
         reference[...] = 0.0
 
-        result = Periodic2DRank2RestrictedGaugeAlignmentAnalyzer(
-            request=request
-        ).execute()
+        analyzer = Periodic2DRank2RestrictedGaugeAlignmentAnalyzer(request=request)
+        result = analyzer.execute()
 
+        assert isinstance(request, Periodic2DRank2GaugeAlignmentAnalysisRequest)
+        assert isinstance(result, Periodic2DRank2GaugeAlignmentAnalysis)
+        assert isinstance(analyzer, Periodic2DRank2GaugeAlignmentAnalyzer)
+        assert request.band_subspace_rank == 2
+        assert result.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert type(result) is Periodic2DRank2RestrictedGaugeAlignmentAnalysis
         assert result.request is request
         assert result.gauge_group == "U(2)"

@@ -9,15 +9,15 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 )
 
 from ksdft2effmass.gauge_alignment.base import GaugeAlignmentAnalysisIdentity
-from ksdft2effmass.periodic3d.gauge_alignment.base import (
-    Periodic3DGaugeAlignmentAnalysis,
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.base import (
+    Periodic3DRankNGaugeAlignmentAnalysis,
 )
 
 from .request import Periodic3DRankNProcrustesAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic3DRankNProcrustesAnalysis(Periodic3DGaugeAlignmentAnalysis):
+class Periodic3DRankNProcrustesAnalysis(Periodic3DRankNGaugeAlignmentAnalysis):
     """Correlate one finite-rank request with complete Project Koios evidence."""
 
     request: Periodic3DRankNProcrustesAnalysisRequest

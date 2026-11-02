@@ -23,6 +23,12 @@ from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.result import
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.analysis import (
     Periodic2DRankNGlobalGaugeAlignmentAnalyzer,
 )
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.base import (
+    Periodic2DRankNGaugeAlignmentAnalysis,
+    Periodic2DRankNGaugeAlignmentAnalysisRequest,
+    Periodic2DRankNGaugeAlignmentAnalyzer,
+    Periodic2DRankNGaugeAlignmentCapability,
+)
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.procrustes.analysis import (
     Periodic2DRankNProcrustesAnalyzer,
 )
@@ -79,8 +85,15 @@ class TestPeriodic2DRankNAlignmentCapabilities:
         )
         source[...] = 0.0
 
-        result = Periodic2DRankNProcrustesAnalyzer(request=request).execute()
+        analyzer = Periodic2DRankNProcrustesAnalyzer(request=request)
+        result = analyzer.execute()
 
+        assert isinstance(request, Periodic2DRankNGaugeAlignmentAnalysisRequest)
+        assert isinstance(result, Periodic2DRankNGaugeAlignmentAnalysis)
+        assert isinstance(analyzer, Periodic2DRankNGaugeAlignmentAnalyzer)
+        assert request.band_subspace_rank == 3
+        assert result.band_subspace_rank == 3
+        assert analyzer.band_subspace_rank == 3
         assert type(result) is Periodic2DRankNProcrustesAnalysis
         assert request.retained_rank == 3
         assert result.gauge_group == "U(3)"
@@ -106,14 +119,23 @@ class TestPeriodic2DRankNAlignmentCapabilities:
             ),
         )
 
-        result = Periodic2DRankNGlobalGaugeAlignmentAnalyzer(request=request).execute()
+        analyzer = Periodic2DRankNGlobalGaugeAlignmentAnalyzer(request=request)
+        result = analyzer.execute()
 
+        assert isinstance(request, Periodic2DRankNGaugeAlignmentAnalysisRequest)
+        assert isinstance(result, Periodic2DRankNGaugeAlignmentAnalysis)
+        assert isinstance(analyzer, Periodic2DRankNGaugeAlignmentAnalyzer)
+        assert request.band_subspace_rank == 3
+        assert result.band_subspace_rank == 3
+        assert analyzer.band_subspace_rank == 3
         assert type(result) is Periodic2DRankNGlobalGaugeAlignmentAnalysis
         assert result.gauge_group == "U(3)"
         assert result.alignment_sample_count == 6
         assert result.owner_result.rank_deficient_count == 0
         outcome = result.selection_outcome
         assert type(outcome) is Periodic2DRankNGlobalGaugeAlignmentSelected
+        assert isinstance(outcome, Periodic2DRankNGaugeAlignmentCapability)
+        assert outcome.band_subspace_rank == 3
         assert outcome.right_unitary == pytest.approx(target[0, 0], abs=2.0e-15)
         assert not outcome.right_unitary.flags.writeable
 
@@ -136,6 +158,8 @@ class TestPeriodic2DRankNAlignmentCapabilities:
         assert result.owner_result.rank_deficient_count == 1
         outcome = result.selection_outcome
         assert type(outcome) is Periodic2DRankNGlobalGaugeAlignmentRankDeficient
+        assert isinstance(outcome, Periodic2DRankNGaugeAlignmentCapability)
+        assert outcome.band_subspace_rank == 3
         assert outcome.retained_rank == 3
         assert outcome.numerical_rank == 2
         assert len(outcome.cross_singular_values) == 3

@@ -7,6 +7,9 @@ import pytest
 
 from ksdft2effmass.periodic1d.rankN import gauge_alignment
 from ksdft2effmass.periodic1d.rankN.gauge_alignment import procrustes
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.base import (
+    Periodic1DRankNGaugeAlignmentCapability,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
@@ -38,6 +41,7 @@ class TestGaugeAlignmentOwnership:
 
     def test__types__belong_to_gauge_alignment_modules(self) -> None:
         for value in (
+            Periodic1DRankNGaugeAlignmentCapability,
             Periodic1DRankNGaugeAlignment,
             Periodic1DRankNGaugeAlignedFields,
             Periodic1DRankNGaugeAlignmentAnalysisRequest,
@@ -50,6 +54,16 @@ class TestGaugeAlignmentOwnership:
             Periodic1DRankNAlignmentStatusResult,
         ):
             assert ".rankN.gauge_alignment" in value.__module__
+
+    def test__rankN_values__inherit_the_gauge_alignment_capability(self) -> None:
+        assert issubclass(
+            Periodic1DRankNGaugeAlignmentAnalysisRequest,
+            Periodic1DRankNGaugeAlignmentCapability,
+        )
+        assert issubclass(
+            Periodic1DRankNProcrustesDiagnostics,
+            Periodic1DRankNGaugeAlignmentCapability,
+        )
 
     def test__capability_packages__are_inert_namespaces(self) -> None:
         for package in (gauge_alignment, procrustes):

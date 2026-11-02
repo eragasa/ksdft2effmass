@@ -12,13 +12,13 @@ from ksdft2effmass.gauge_alignment.base import (
     GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
-from ksdft2effmass.periodic2d.gauge_alignment.base import (
-    Periodic2DGaugeAlignmentAnalysisRequest,
+from ksdft2effmass.periodic2d.rank2.gauge_alignment.base import (
+    Periodic2DRank2GaugeAlignmentAnalysisRequest,
 )
 
 
 class Periodic2DRank2RestrictedGaugeAlignmentAnalysisRequest(
-    Periodic2DGaugeAlignmentAnalysisRequest
+    Periodic2DRank2GaugeAlignmentAnalysisRequest
 ):
     """Bind two represented rank-two matrix fields on one periodic-2D mesh."""
 

@@ -106,6 +106,17 @@ The rank-two and rank-$N$ adapters preserve their historical calculation-result 
 The selected direct lattice remains study context rather than being injected into those
 historical wires.
 
+Rank ownership is extracted from the maintained concrete gauge-alignment leaves rather
+than imposed from a speculative generic hierarchy. Periodic-2D and Periodic-3D rank-two
+and rank-$N$ requests, analyses, and analyzers now inherit their dimension-specific rank
+owners and expose `band_subspace_rank`. The maintained Periodic-1D rank-two triad and the
+rank-one applicability action/result inherit their corresponding rank capabilities
+directly. The Periodic-1D rank-$N$ analysis request inherits
+`Periodic1DRankNGaugeAlignmentCapability`; the longer name remains necessary because
+`Periodic1DRankNGaugeAlignment` already owns the alignment-route vocabulary. Rank-one
+remains the operator-trivial $U(1)$ boundary and does not acquire fabricated numerical
+alignment channels.
+
 ### Subspace reduction
 
 `ksdft2effmass.subspace_reduction.SubspaceReduction` identifies an explicit map from a

@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Self
+from typing import Self, final
 
 import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
@@ -23,6 +23,7 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.protocol import (
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
+from ..base import Periodic1DRankNGaugeAlignmentCapability
 from ..definition import Periodic1DRankNGaugeAlignment
 from ..status import (
     Periodic1DRankNAlignmentBackendExceptionCode,
@@ -32,7 +33,10 @@ from ..status import (
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNProcrustesDiagnostics(BaseTypedRecord):
+class Periodic1DRankNProcrustesDiagnostics(
+    BaseTypedRecord,
+    Periodic1DRankNGaugeAlignmentCapability,
+):
     """Retain complete rank and integrity evidence for global or pointwise selection."""
 
     status: Periodic1DRankNAlignmentStatusResult
@@ -55,6 +59,12 @@ class Periodic1DRankNProcrustesDiagnostics(BaseTypedRecord):
     selected_global_right_unitary: ComplexMatrixQuantity | None
     backend_identifier: str | None
     backend_version: str | None
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return self.status.retained_rank
 
     @classmethod
     def numerically_unresolved(

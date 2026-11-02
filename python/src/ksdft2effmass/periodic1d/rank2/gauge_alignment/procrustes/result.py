@@ -5,12 +5,15 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass
 from math import isfinite
-from typing import Self
+from typing import Self, final
 
 import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array, Int64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.base import (
+    Periodic1DRank2GaugeAlignment,
+)
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
@@ -26,7 +29,10 @@ class Periodic1DRank2ProcrustesSelectionScope(StringWireEnum):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank2ProcrustesDiagnostics(BaseTypedRecord):
+class Periodic1DRank2ProcrustesDiagnostics(
+    BaseTypedRecord,
+    Periodic1DRank2GaugeAlignment,
+):
     """Retain rank, objective, integrity, and backend evidence for one selection."""
 
     scope: Periodic1DRank2ProcrustesSelectionScope
@@ -48,6 +54,12 @@ class Periodic1DRank2ProcrustesDiagnostics(BaseTypedRecord):
     backend_version: str
 
     RETAINED_RANK = 2
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return 2
 
     def __post_init__(self) -> None:
         """Admit a complete resolved rank-two selection inventory."""

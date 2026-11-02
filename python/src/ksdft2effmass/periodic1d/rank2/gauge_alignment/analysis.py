@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import isfinite
+from typing import final
 
 import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array
@@ -27,6 +28,9 @@ from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysisRequest,
     Periodic1DGaugeAlignmentAnalyzer,
 )
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.base import (
+    Periodic1DRank2GaugeAlignment,
+)
 from ksdft2effmass.solidstate import ReciprocalBandFramePath1D
 
 from .procrustes.analysis import Periodic1DRank2ProcrustesDiagnosticsAnalyzer
@@ -36,7 +40,8 @@ from .result import Periodic1DRank2GaugeAlignmentAnalysis
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2GaugeAlignmentAnalysisRequest(
-    Periodic1DGaugeAlignmentAnalysisRequest
+    Periodic1DGaugeAlignmentAnalysisRequest,
+    Periodic1DRank2GaugeAlignment,
 ):
     """Bind two rank-two frame paths and the declared Procrustes tolerances."""
 
@@ -73,6 +78,12 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
                 raise ValueError(f"{name} must be nonnegative")
 
     @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return 2
+
+    @property
     def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
         """Return the finite rank-two alignment identity."""
         return GaugeAlignmentAnalysisIdentity(
@@ -89,7 +100,8 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
     Periodic1DGaugeAlignmentAnalyzer[
         Periodic1DRank2GaugeAlignmentAnalysisRequest,
         Periodic1DRank2GaugeAlignmentAnalysis,
-    ]
+    ],
+    Periodic1DRank2GaugeAlignment,
 ):
     """Select pointwise and aggregate right-unitary transformations."""
 
@@ -108,6 +120,12 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
             raise TypeError("solver must be NumpyBatchedComplexUnitaryProcrustesSolver")
         self._request = request
         self._solver = solver
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return 2
 
     @property
     def request(self) -> Periodic1DRank2GaugeAlignmentAnalysisRequest:
