@@ -4,17 +4,17 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from typing import final
 
 from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
 
 from ksdft2effmass.band_equivalence_hopping_locality.results import (
     BandEquivalenceHoppingLocalityErrorChannels,
 )
-from ksdft2effmass.periodic3d.support_truncation.base import (
-    Periodic3DSupportTruncationAnalysisRequest,
-)
 from ksdft2effmass.real_space_support_truncation import MetricShellSupportInventory
 from ksdft2effmass.serialization.enums import StringWireEnum
+
+from .base import Periodic3DRankNSupportTruncationAnalysisRequestRole
 
 
 class Periodic3DRankNSupportTruncationChannelEnum(StringWireEnum):
@@ -26,7 +26,7 @@ class Periodic3DRankNSupportTruncationChannelEnum(StringWireEnum):
 
 @dataclass(frozen=True, slots=True)
 class Periodic3DRankNSupportTruncationAnalysisRequest(
-    Periodic3DSupportTruncationAnalysisRequest
+    Periodic3DRankNSupportTruncationAnalysisRequestRole
 ):
     """Bind one error channel to nested metric-shell supports and a tolerance."""
 
@@ -35,6 +35,12 @@ class Periodic3DRankNSupportTruncationAnalysisRequest(
     support_inventory: MetricShellSupportInventory
     total_errors: tuple[BandEquivalenceHoppingLocalityErrorChannels, ...]
     tolerance: float
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the support-truncated operator blocks."""
+        return self.retained_rank
 
     def __post_init__(self) -> None:
         if type(self.retained_rank) is not int:

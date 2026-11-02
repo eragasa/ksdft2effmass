@@ -14,15 +14,14 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
 from ksdft2effmass.periodic1d.rank2.hopping_locality.result import (
     Periodic1DRank2HoppingLocalityAnalysis,
 )
-from ksdft2effmass.periodic1d.support_truncation.base import (
-    Periodic1DSupportTruncationAnalysisRequest,
-)
 from ksdft2effmass.solidstate.hopping_transforms import ReciprocalOperatorSamples1D
+
+from ..base import Periodic1DRank2SupportTruncationAnalysisRequestRole
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRank2SupportTruncationAnalysisRequest(
-    Periodic1DSupportTruncationAnalysisRequest
+    Periodic1DRank2SupportTruncationAnalysisRequestRole
 ):
     """Bind one channel's locality evidence to support-removal evaluation fields."""
 

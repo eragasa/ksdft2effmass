@@ -112,8 +112,12 @@ class TestPeriodic1DRank2SupportTruncationAnalyzer:
             direct_evaluation=complete,
         )
 
-        analysis = Periodic1DRank2SupportTruncationAnalyzer(request=request).execute()
+        analyzer = Periodic1DRank2SupportTruncationAnalyzer(request=request)
+        analysis = analyzer.execute()
 
+        assert request.band_subspace_rank == 2
+        assert analysis.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert type(analysis) is Periodic1DRank2SupportTruncationAnalysis
         assert analysis.request is request
         assert request.channel == "reference"
@@ -121,6 +125,7 @@ class TestPeriodic1DRank2SupportTruncationAnalyzer:
             composite_configuration.hopping_ranges
         )
         for support in analysis.supports:
+            assert support.band_subspace_rank == 2
             assert support.support_policy.translations == tuple(
                 range(-support.maximum_range, support.maximum_range + 1)
             )

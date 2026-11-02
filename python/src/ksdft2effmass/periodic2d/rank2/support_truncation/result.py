@@ -4,20 +4,18 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ksdft2effmass.periodic2d.support_truncation.base import (
-    Periodic2DSupportTruncationAnalysis,
-)
 from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationModelToleranceSelection,
 )
 
+from .base import Periodic2DRank2SupportTruncationAnalysisRole
 from .request import Periodic2DRank2SupportTruncationAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic2DRank2SupportTruncationAnalysis(
     RealSpaceSupportTruncationModelToleranceSelection,
-    Periodic2DSupportTruncationAnalysis,
+    Periodic2DRank2SupportTruncationAnalysisRole,
 ):
     """Retain one channel's minimum-support outcomes for two error functionals."""
 

@@ -64,8 +64,12 @@ class TestPeriodic2DRank2SupportTruncationAnalyzer:
             tolerance=0.15,
         )
 
-        result = Periodic2DRank2SupportTruncationAnalyzer(request=request).execute()
+        analyzer = Periodic2DRank2SupportTruncationAnalyzer(request=request)
+        result = analyzer.execute()
 
+        assert request.band_subspace_rank == 2
+        assert result.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert type(result) is Periodic2DRank2SupportTruncationAnalysis
         assert result.request is request
         matrix = result.matrix_frobenius_maximum_error

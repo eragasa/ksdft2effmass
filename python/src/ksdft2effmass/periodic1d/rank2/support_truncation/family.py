@@ -12,9 +12,6 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyRequest,
 )
-from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncation,
-)
 from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationFamily,
     RealSpaceSupportTruncationFamilyMember,
@@ -23,6 +20,11 @@ from ksdft2effmass.real_space_support_truncation import (
 )
 
 from .analysis import Periodic1DRank2SupportTruncationAnalyzer
+from .base import (
+    Periodic1DRank2SupportTruncationAnalysisRequestRole,
+    Periodic1DRank2SupportTruncationAnalysisRole,
+    Periodic1DRank2SupportTruncationAnalyzerRole,
+)
 from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 from .results import (
     Periodic1DRank2SupportTruncationAnalysis,
@@ -35,7 +37,9 @@ from .tolerance_selection import (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationFamilyRequest:
+class Periodic1DRank2TruncationFamilyRequest(
+    Periodic1DRank2SupportTruncationAnalysisRequestRole
+):
     """Bind one support inventory and tolerance to a parent-hopping family."""
 
     parent_family_request: Periodic1DRank2ParentFamilyRequest
@@ -101,7 +105,9 @@ class Periodic1DRank2TruncationFamilyRequest:
 
 
 @dataclass(frozen=True, slots=True, init=False)
-class Periodic1DRank2TruncationFamilyAnalysis(Periodic1DSupportTruncation):
+class Periodic1DRank2TruncationFamilyAnalysis(
+    Periodic1DRank2SupportTruncationAnalysisRole
+):
     """Adapt aligned truncation outcomes and derive their support decisions."""
 
     request: Periodic1DRank2TruncationFamilyRequest
@@ -165,7 +171,12 @@ class Periodic1DRank2TruncationFamilyAnalysis(Periodic1DSupportTruncation):
         return tuple(member.outcome for member in self.truncation_family.members)
 
 
-class Periodic1DRank2TruncationFamilyAnalyzer:
+class Periodic1DRank2TruncationFamilyAnalyzer(
+    Periodic1DRank2SupportTruncationAnalyzerRole[
+        Periodic1DRank2TruncationFamilyRequest,
+        Periodic1DRank2TruncationFamilyAnalysis,
+    ]
+):
     """Evaluate one common support policy for every declared parent scale."""
 
     __slots__ = ("_request", "_transporter")

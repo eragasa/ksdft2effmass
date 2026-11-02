@@ -6,17 +6,15 @@ from abc import ABC
 
 from ksdft2effmass.periodic2d.base import Periodic2DCapability
 from ksdft2effmass.real_space_support_truncation.base import (
-    RealSpaceSupportTruncation,
-)
-from ksdft2effmass.support_truncation.base import (
-    SupportTruncationAnalysis,
-    SupportTruncationAnalysisRequest,
-    SupportTruncationAnalyzer,
+    PeriodicRealSpaceSupportTruncation,
+    PeriodicRealSpaceSupportTruncationAnalysis,
+    PeriodicRealSpaceSupportTruncationAnalysisRequest,
+    PeriodicRealSpaceSupportTruncationAnalyzer,
 )
 
 
 class Periodic2DSupportTruncation(
-    RealSpaceSupportTruncation,
+    PeriodicRealSpaceSupportTruncation,
     Periodic2DCapability,
 ):  # noqa: B024 - intentionally nominal marker
     """Identify irreversible removal of periodic 2D translation support.
@@ -31,7 +29,7 @@ class Periodic2DSupportTruncation(
 
 
 class Periodic2DSupportTruncationAnalysisRequest(
-    SupportTruncationAnalysisRequest,
+    PeriodicRealSpaceSupportTruncationAnalysisRequest,
     Periodic2DSupportTruncation,
     ABC,
 ):
@@ -41,7 +39,7 @@ class Periodic2DSupportTruncationAnalysisRequest(
 
 
 class Periodic2DSupportTruncationAnalysis(
-    SupportTruncationAnalysis,
+    PeriodicRealSpaceSupportTruncationAnalysis,
     Periodic2DSupportTruncation,
     ABC,
 ):
@@ -51,13 +49,10 @@ class Periodic2DSupportTruncationAnalysis(
 
 
 class Periodic2DSupportTruncationAnalyzer[
-    Periodic2DSupportTruncationRequestT: Periodic2DSupportTruncationAnalysisRequest,
-    Periodic2DSupportTruncationAnalysisT: Periodic2DSupportTruncationAnalysis,
+    RequestT: Periodic2DSupportTruncationAnalysisRequest,
+    AnalysisT: Periodic2DSupportTruncationAnalysis,
 ](
-    SupportTruncationAnalyzer[
-        Periodic2DSupportTruncationRequestT,
-        Periodic2DSupportTruncationAnalysisT,
-    ],
+    PeriodicRealSpaceSupportTruncationAnalyzer[RequestT, AnalysisT],
     Periodic2DSupportTruncation,
     ABC,
 ):

@@ -6,17 +6,15 @@ from abc import ABC
 
 from ksdft2effmass.periodic3d.base import Periodic3DCapability
 from ksdft2effmass.real_space_support_truncation.base import (
-    RealSpaceSupportTruncation,
-)
-from ksdft2effmass.support_truncation.base import (
-    SupportTruncationAnalysis,
-    SupportTruncationAnalysisRequest,
-    SupportTruncationAnalyzer,
+    PeriodicRealSpaceSupportTruncation,
+    PeriodicRealSpaceSupportTruncationAnalysis,
+    PeriodicRealSpaceSupportTruncationAnalysisRequest,
+    PeriodicRealSpaceSupportTruncationAnalyzer,
 )
 
 
 class Periodic3DSupportTruncation(
-    RealSpaceSupportTruncation,
+    PeriodicRealSpaceSupportTruncation,
     Periodic3DCapability,
 ):  # noqa: B024 - intentionally nominal marker
     """Identify irreversible removal of periodic 3D translation support.
@@ -31,7 +29,7 @@ class Periodic3DSupportTruncation(
 
 
 class Periodic3DSupportTruncationAnalysisRequest(
-    SupportTruncationAnalysisRequest,
+    PeriodicRealSpaceSupportTruncationAnalysisRequest,
     Periodic3DSupportTruncation,
     ABC,
 ):
@@ -41,7 +39,7 @@ class Periodic3DSupportTruncationAnalysisRequest(
 
 
 class Periodic3DSupportTruncationAnalysis(
-    SupportTruncationAnalysis,
+    PeriodicRealSpaceSupportTruncationAnalysis,
     Periodic3DSupportTruncation,
     ABC,
 ):
@@ -51,13 +49,10 @@ class Periodic3DSupportTruncationAnalysis(
 
 
 class Periodic3DSupportTruncationAnalyzer[
-    Periodic3DSupportTruncationRequestT: Periodic3DSupportTruncationAnalysisRequest,
-    Periodic3DSupportTruncationAnalysisT: Periodic3DSupportTruncationAnalysis,
+    RequestT: Periodic3DSupportTruncationAnalysisRequest,
+    AnalysisT: Periodic3DSupportTruncationAnalysis,
 ](
-    SupportTruncationAnalyzer[
-        Periodic3DSupportTruncationRequestT,
-        Periodic3DSupportTruncationAnalysisT,
-    ],
+    PeriodicRealSpaceSupportTruncationAnalyzer[RequestT, AnalysisT],
     Periodic3DSupportTruncation,
     ABC,
 ):

@@ -2,21 +2,19 @@
 
 from __future__ import annotations
 
-from ksdft2effmass.periodic3d.support_truncation.base import (
-    Periodic3DSupportTruncationAnalyzer,
-)
 from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationErrorToleranceSelectionRequest,
     RealSpaceSupportTruncationErrorToleranceSelector,
     SupportToleranceSelectionOutcome,
 )
 
+from .base import Periodic3DRankNSupportTruncationAnalyzerRole
 from .request import Periodic3DRankNSupportTruncationAnalysisRequest
 from .result import Periodic3DRankNSupportTruncationAnalysis
 
 
 class Periodic3DRankNSupportTruncationAnalyzer(
-    Periodic3DSupportTruncationAnalyzer[
+    Periodic3DRankNSupportTruncationAnalyzerRole[
         Periodic3DRankNSupportTruncationAnalysisRequest,
         Periodic3DRankNSupportTruncationAnalysis,
     ]

@@ -29,18 +29,18 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E5
 from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
 )
-from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncationAnalysis,
-    Periodic1DSupportTruncationAnalysisRequest,
-    Periodic1DSupportTruncationAnalyzer,
-)
 
+from .base import (
+    Periodic1DRankNSupportTruncationAnalysisRequestRole,
+    Periodic1DRankNSupportTruncationAnalysisRole,
+    Periodic1DRankNSupportTruncationAnalyzerRole,
+)
 from .result import Periodic1DRankNSupportResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRankNSupportTruncationAnalysisRequest(
-    Periodic1DSupportTruncationAnalysisRequest
+    Periodic1DRankNSupportTruncationAnalysisRequestRole
 ):
     """Bind locality, Fourier, and interpolation evidence for support removal."""
 
@@ -48,6 +48,12 @@ class Periodic1DRankNSupportTruncationAnalysisRequest(
     fourier_analysis: Periodic1DRankNFourierAnalysis
     interpolation_analysis: Periodic1DRankNInterpolationAnalysis
     hopping_locality_analysis: Periodic1DRankNHoppingLocalityAnalysis
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the support-truncated operator blocks."""
+        return self.analysis_request.calculation_request.retained_rank
 
     def __post_init__(self) -> None:
         if (
@@ -110,11 +116,19 @@ class Periodic1DRankNSupportTruncationAnalysisRequest(
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNSupportTruncationAnalysis(Periodic1DSupportTruncationAnalysis):
+class Periodic1DRankNSupportTruncationAnalysis(
+    Periodic1DRankNSupportTruncationAnalysisRole
+):
     """Retain consequences of irreversible symmetric-support removal."""
 
     request: Periodic1DRankNSupportTruncationAnalysisRequest
     supports: tuple[Periodic1DRankNSupportResult, ...]
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the support-truncated operator blocks."""
+        return self.request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if type(self.request) is not Periodic1DRankNSupportTruncationAnalysisRequest:
@@ -137,7 +151,7 @@ class Periodic1DRankNSupportTruncationAnalysis(Periodic1DSupportTruncationAnalys
 
 @final
 class Periodic1DRankNSupportTruncationAnalyzer(
-    Periodic1DSupportTruncationAnalyzer[
+    Periodic1DRankNSupportTruncationAnalyzerRole[
         Periodic1DRankNSupportTruncationAnalysisRequest,
         Periodic1DRankNSupportTruncationAnalysis,
     ]

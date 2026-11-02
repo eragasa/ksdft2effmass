@@ -7,10 +7,6 @@ from dataclasses import dataclass
 
 from projectkoios.physkit.units import ScalarQuantity, Unitless
 
-from ksdft2effmass.periodic1d.support_truncation.base import (
-    Periodic1DSupportTruncation,
-    Periodic1DSupportTruncationAnalysis,
-)
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DSymmetricTranslationRange,
 )
@@ -18,11 +14,15 @@ from ksdft2effmass.real_space_support_truncation.support import (
     SymmetricRangeSupport1D,
 )
 
+from ..base import (
+    Periodic1DRank2SupportTruncationAnalysisRole,
+    Periodic1DRank2SupportTruncationValue,
+)
 from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2SupportResult(Periodic1DSupportTruncation):
+class Periodic1DRank2SupportResult(Periodic1DRank2SupportTruncationValue):
     """Retain one channel's consequences of one symmetric support removal."""
 
     maximum_range: int
@@ -73,7 +73,9 @@ class Periodic1DRank2SupportResult(Periodic1DSupportTruncation):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank2SupportTruncationAnalysis(Periodic1DSupportTruncationAnalysis):
+class Periodic1DRank2SupportTruncationAnalysis(
+    Periodic1DRank2SupportTruncationAnalysisRole
+):
     """Retain support-removal consequences for one frozen rank-two channel."""
 
     request: Periodic1DRank2SupportTruncationAnalysisRequest
