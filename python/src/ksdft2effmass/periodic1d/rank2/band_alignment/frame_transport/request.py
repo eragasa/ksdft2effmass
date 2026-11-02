@@ -9,10 +9,13 @@ from projectkoios.physkit.units import Unitless
 from ksdft2effmass.solidstate.band_frames import ReciprocalBandFramePath1D
 
 from ..configuration import Periodic1DCompositeBandAlignmentConfiguration
+from .base import Periodic1DRank2FrameTransportAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank2TransportAnalysisRequest:
+class Periodic1DRank2TransportAnalysisRequest(
+    Periodic1DRank2FrameTransportAnalysisRequest
+):
     """Bind the frozen rank-two study configuration to one raw frame path."""
 
     configuration: Periodic1DCompositeBandAlignmentConfiguration

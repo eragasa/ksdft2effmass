@@ -9,10 +9,12 @@ from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesTolerance,
 )
 
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
+from .base import Periodic3DRank2FrameTransportAnalysisRequest
 
 
-class Periodic3DRank2TransportAnalysisRequest(Periodic3DCapability):
+class Periodic3DRank2TransportAnalysisRequest(
+    Periodic3DRank2FrameTransportAnalysisRequest
+):
     """Bind one immutable rank-two frame field and numerical-rank policy."""
 
     __slots__ = ("_frame", "_rank_absolute", "_rank_relative")

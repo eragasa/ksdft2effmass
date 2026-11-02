@@ -13,7 +13,6 @@ from projectkoios.optimization.alignment.procrustes import (
 from ksdft2effmass.band_equivalence_hopping_locality.alignment import (
     frame_transport_diagnostics,
 )
-from ksdft2effmass.periodic2d.base import Periodic2DCapability
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.procrustes.analysis import (
     Periodic2DRankNProcrustesAnalyzer,
 )
@@ -21,11 +20,17 @@ from ksdft2effmass.periodic2d.rankN.gauge_alignment.procrustes.request import (
     Periodic2DRankNProcrustesAnalysisRequest,
 )
 
+from .base import Periodic2DRankNFrameTransportAnalyzer
 from .request import Periodic2DRankNTransportAnalysisRequest
 from .result import Periodic2DRankNTransportDiagnosticAnalysis
 
 
-class Periodic2DRankNTransportAnalyzer(Periodic2DCapability):
+class Periodic2DRankNTransportAnalyzer(
+    Periodic2DRankNFrameTransportAnalyzer[
+        Periodic2DRankNTransportAnalysisRequest,
+        Periodic2DRankNTransportDiagnosticAnalysis,
+    ]
+):
     """Measure finite-rank neighbor transport on a periodic-2D tensor mesh."""
 
     __slots__ = ("_request",)

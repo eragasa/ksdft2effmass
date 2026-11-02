@@ -9,20 +9,25 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FinitePeriodicMeshFrameInventory,
 )
 
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.analysis import (
     Periodic1DRankNFailedTransportAnalysis,
     Periodic1DRankNResolvedTransportAnalysis,
     Periodic1DRankNTransportAnalysisRequest,
     Periodic1DRankNTransportAnalyzer,
 )
+from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.base import (
+    Periodic1DRankNFrameTransportAnalysis,
+    Periodic1DRankNFrameTransportAnalysisRequest,
+    Periodic1DRankNFrameTransportAnalyzer,
+)
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
     Periodic1DRankNAnalyticMeshSample,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
     Periodic1DRankNAnalyticCaseConstructor,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -43,16 +48,30 @@ class TestPeriodic1DRankNTransportAnalyzer:
 
     def test__execute__returns_resolved_transport_and_closure_defects(
         self,
-        higher_rank_calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
+        higher_rank_calculation_request: (
+            Periodic1DRankNBandEquivalenceHoppingLocalityRequest
+        ),
     ) -> None:
-        analysis = Periodic1DRankNTransportAnalyzer(
-            Periodic1DRankNTransportAnalysisRequest(
-                calculation_request=higher_rank_calculation_request,
-                sample=_sample(higher_rank_calculation_request),
-            ),
+        request = Periodic1DRankNTransportAnalysisRequest(
+            calculation_request=higher_rank_calculation_request,
+            sample=_sample(higher_rank_calculation_request),
+        )
+        analyzer = Periodic1DRankNTransportAnalyzer(
+            request,
             ClosedLoopPolarFrameTransporter(),
-        ).execute()
+        )
 
+        analysis = analyzer.execute()
+
+        assert isinstance(request, Periodic1DRankNFrameTransportAnalysisRequest)
+        assert isinstance(analysis, Periodic1DRankNFrameTransportAnalysis)
+        assert isinstance(analyzer, Periodic1DRankNFrameTransportAnalyzer)
+        assert (
+            request.band_subspace_rank
+            == higher_rank_calculation_request.retained_rank
+        )
+        assert analysis.band_subspace_rank == request.band_subspace_rank
+        assert analyzer.band_subspace_rank == request.band_subspace_rank
         assert type(analysis) is Periodic1DRankNResolvedTransportAnalysis
         assert analysis.transport.construction_mesh_size == 513
         assert analysis.endpoint_closure_defect < 1.0e-12
@@ -60,7 +79,9 @@ class TestPeriodic1DRankNTransportAnalyzer:
 
     def test__execute__returns_typed_backend_failure(
         self,
-        higher_rank_calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
+        higher_rank_calculation_request: (
+            Periodic1DRankNBandEquivalenceHoppingLocalityRequest
+        ),
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         def fail_transport(
