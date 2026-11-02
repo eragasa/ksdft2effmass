@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from importlib.util import find_spec
-
 import pytest
 
 from ksdft2effmass.gauge_alignment import (
@@ -38,11 +36,14 @@ from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.result import (
     Periodic1DRank2GaugeAlignmentAnalysis,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite import (
-    gauge_case as rankN_composite_gauge_case,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.gauge_case_result import (
     Periodic1DRankNGaugeAlignmentMeshResult,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality import (
+    analysis as rankN_aggregate_analysis,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality import (
+    gauge_case as rankN_composite_gauge_case,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
@@ -212,15 +213,20 @@ class TestGaugeAlignment:
             rankN_composite_gauge_case,
             "Periodic1DRankNGaugeAlignmentAnalyzer",
         )
-        assert (
-            find_spec(
-                "ksdft2effmass.periodic1d.rankN.band_alignment.composite.analysis"
-            )
-            is None
+        assert not hasattr(
+            rankN_aggregate_analysis,
+            "Periodic1DRankNGaugeAlignmentAnalyzer",
+        )
+        assert hasattr(
+            rankN_aggregate_analysis,
+            "Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer",
         )
         assert (
             rankN_composite_gauge_case.Periodic1DRankNCompositeGaugeCaseAnalyzer.__module__
-            == ("ksdft2effmass.periodic1d.rankN.band_alignment.composite.gauge_case")
+            == (
+                "ksdft2effmass.periodic1d.rankN."
+                "band_equivalence_hopping_locality.gauge_case"
+            )
         )
 
     def test__periodic_rank_actions__share_nominal_owner(self) -> None:

@@ -14,7 +14,7 @@ an evidence claim, or authorization for a production or retained calculation.
 
 - **Disposition:** deferred.
 - **Current owner:**
-  `python/src/ksdft2effmass/analysis/model_adequacy/band_equivalence_locality/alignment.py`,
+  `python/src/ksdft2effmass/band_equivalence_hopping_locality/alignment.py`,
   `restricted_alignment`.
 - **Current mechanism:** after calculating the normalized restricted-alignment
   correlation, values within
@@ -62,7 +62,7 @@ an evidence claim, or authorization for a production or retained calculation.
   inapplicable. KSD records the deficient-link count and stable reason rather than
   constructing zero-valued topology. Owner failures propagate; KSD does not substitute a
   local SVD or plausible default.
-- **Geometry boundary:** `BandEquivalenceLocalityCase` requires an already validated
+- **Geometry boundary:** `BandEquivalenceHoppingLocalityCase` requires an already validated
   PhysKit
   `DirectLatticeMetric`. KSD retains only campaign shell scaling and scientific
   aggregation. The v1 input document serializes the primitive-basis matrix by rows and

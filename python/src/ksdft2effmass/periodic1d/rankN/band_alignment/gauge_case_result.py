@@ -34,8 +34,8 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
     _nonempty,
     _tuple_of_mappings,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
 )
 from ksdft2effmass.periodic1d.rankN.diagnostics.frame import (
     Periodic1DRankNFrameErrorResult,
@@ -189,12 +189,12 @@ class Periodic1DRankNGaugeAlignmentMeshResult(
                 )
             if (
                 tuple(result.maximum_range for result in self.supports)
-                != Periodic1DRankNAlignmentCalculationControls.SUPPORT_RADII
+                != Periodic1DRankNBandEquivalenceHoppingLocalityControls.SUPPORT_RADII
             ):
                 raise ValueError("qualified alignment must retain every frozen support")
             expected_translations = np.arange(
-                -Periodic1DRankNAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE,
-                Periodic1DRankNAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE
+                -Periodic1DRankNBandEquivalenceHoppingLocalityControls.MAXIMUM_RECORDED_BLOCK_RANGE,
+                Periodic1DRankNBandEquivalenceHoppingLocalityControls.MAXIMUM_RECORDED_BLOCK_RANGE
                 + 1,
                 dtype=np.int64,
             )
@@ -206,14 +206,14 @@ class Periodic1DRankNGaugeAlignmentMeshResult(
                 raise ValueError("block norm inventories must be nonnegative")
             block_scale = (
                 math.sqrt(self.status.retained_rank)
-                * Periodic1DRankNAlignmentCalculationControls.ENERGY_REFERENCE
+                * Periodic1DRankNBandEquivalenceHoppingLocalityControls.ENERGY_REFERENCE
             )
             if not np.array_equal(normalized, raw / block_scale):
                 raise ValueError("normalized block norms are inconsistent")
             if any(
                 support.rank != self.status.retained_rank
                 or support.energy_reference
-                != Periodic1DRankNAlignmentCalculationControls.ENERGY_REFERENCE
+                != Periodic1DRankNBandEquivalenceHoppingLocalityControls.ENERGY_REFERENCE
                 for support in self.supports
             ):
                 raise ValueError(
@@ -298,7 +298,7 @@ class Periodic1DRankNGaugeAlignmentMeshResult(
                 or self.twisted_cyclic_hermiticity_defect is None
             ):
                 raise ValueError("qualified alignment requires gate evidence")
-            controls = Periodic1DRankNAlignmentCalculationControls
+            controls = Periodic1DRankNBandEquivalenceHoppingLocalityControls
             tolerance = controls.FOURIER_CONSISTENCY_TOLERANCE
             known_recovery_applicable = self.status.gauge_alignment in (
                 Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,

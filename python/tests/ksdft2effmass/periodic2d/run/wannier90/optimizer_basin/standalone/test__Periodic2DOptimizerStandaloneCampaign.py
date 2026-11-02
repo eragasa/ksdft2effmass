@@ -6,9 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DOptimizerStandaloneCampaign,
+from ksdft2effmass.periodic2d.model.retained.optimizer_standalone import (
     Periodic2DOptimizerStandaloneCampaignModel,
+)
+from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.standalone.data import (
+    Periodic2DOptimizerStandaloneCampaign,
 )
 from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.standalone.verify import (  # noqa: E501
     Periodic2DOptimizerStandaloneCampaignVerifier as Verifier,

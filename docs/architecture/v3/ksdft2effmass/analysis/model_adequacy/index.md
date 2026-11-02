@@ -7,10 +7,10 @@ declared finite approximation or support restriction. It does not decide experim
 identity, retained-evidence status, sealing, publication acceptance, or execution
 policy.
 
-## Implemented child
+## Related aggregate capability
 
-- [`band_equivalence_locality`](band_equivalence_locality/index.md) owns the typed
-  multidimensional rank-two band-equivalence and hopping-locality calculation,
+- [`band_equivalence_hopping_locality`](../../band_equivalence_hopping_locality/index.md)
+  owns the typed multidimensional band-equivalence/hopping-locality aggregate study,
   exact-byte verification, and authenticated visualization projection.
 
 ## Boundary

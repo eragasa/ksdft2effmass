@@ -55,8 +55,8 @@ Compatibility and serialization
 The base is a source-level nominal type in the alpha API. It has no wire format and
 adds no serialized field to concrete campaigns. The removed
 ``ksdft2effmass.campaigns.periodic2d`` namespace has no compatibility façade; callers
-use ``ksdft2effmass.periodic2d`` or
-``ksdft2effmass.periodic2d.campaign``.
+import the authoritative class from
+``ksdft2effmass.periodic2d.campaign.base``.
 
 Implementation and evidence mapping
 -----------------------------------
@@ -90,7 +90,7 @@ differences.
 Public API
 ----------
 
-.. currentmodule:: ksdft2effmass.periodic2d.campaign
+.. currentmodule:: ksdft2effmass.periodic2d.campaign.base
 
 .. autoclass:: Periodic2DCampaign
    :members:

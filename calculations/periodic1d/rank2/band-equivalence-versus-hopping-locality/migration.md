@@ -44,7 +44,7 @@ and reproduction paths agree with the canonical owner.
 ## Source ownership
 
 The first installed-source tranche now owns the flat-parent control under
-`ksdft2effmass.periodic1d.band_equivalence_locality`. It binds an immutable scientific
+`ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality`. It binds an immutable scientific
 request before zero-argument analysis, keeps scientific results serialization-free,
 projects those results through dedicated retained records, verifies canonical result
 bytes against an independent explicit finite-sum reference, and authenticates the exact

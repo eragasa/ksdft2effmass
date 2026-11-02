@@ -226,6 +226,87 @@ class SupportToleranceUnresolved(SupportToleranceSelectionOutcome):
 
 
 @dataclass(frozen=True, slots=True)
+class RealSpaceSupportTruncationErrorToleranceSelectionRequest(
+    RealSpaceSupportTruncation
+):
+    """Bind one nested support inventory and one scalar error channel."""
+
+    supports: tuple[ConjugateClosedSupport, ...]
+    errors: tuple[float, ...]
+    tolerance: float
+
+    def __post_init__(self) -> None:
+        if type(self.supports) is not tuple or not self.supports:
+            raise TypeError("supports must be a nonempty tuple")
+        if any(
+            type(support) is not ConjugateClosedSupport for support in self.supports
+        ):
+            raise TypeError("supports must contain exact ConjugateClosedSupport values")
+        if type(self.errors) is not tuple or len(self.errors) != len(self.supports):
+            raise TypeError("errors must be a tuple aligned with supports")
+        if any(type(error) is not float for error in self.errors):
+            raise TypeError("errors must contain built-in floats")
+        if any(not math.isfinite(error) or error < 0.0 for error in self.errors):
+            raise ValueError("errors must be finite and nonnegative")
+        if type(self.tolerance) is not float:
+            raise TypeError("tolerance must be a built-in float")
+        if not math.isfinite(self.tolerance) or self.tolerance < 0.0:
+            raise ValueError("tolerance must be finite and nonnegative")
+        dimension = self.supports[0].dimension
+        previous_components: set[LatticeIntegerComponents] | None = None
+        for support in self.supports:
+            if support.dimension is not dimension:
+                raise ValueError("supports must have one lattice dimension")
+            components = {
+                displacement.components for displacement in support.displacements
+            }
+            if previous_components is not None and not previous_components < components:
+                raise ValueError("supports must form a strictly nested sequence")
+            previous_components = components
+
+
+class RealSpaceSupportTruncationErrorToleranceSelector(RealSpaceSupportTruncation):
+    """Select one minimum tolerance-satisfying support for one error channel."""
+
+    __slots__ = ("_request",)
+
+    def __init__(
+        self,
+        *,
+        request: RealSpaceSupportTruncationErrorToleranceSelectionRequest,
+    ) -> None:
+        if (
+            type(request)
+            is not RealSpaceSupportTruncationErrorToleranceSelectionRequest
+        ):
+            raise TypeError("request must be the exact single-error request")
+        self._request = request
+
+    @property
+    def request(self) -> RealSpaceSupportTruncationErrorToleranceSelectionRequest:
+        """Return the exact immutable request bound to this action."""
+        return self._request
+
+    def execute(self) -> SupportToleranceSelectionOutcome:
+        """Return the first passing support or an explicit unresolved outcome."""
+        for index, error in enumerate(self._request.errors):
+            if error <= self._request.tolerance:
+                return MinimumToleranceSatisfyingSupport(
+                    comparison_index=index,
+                    support=self._request.supports[index],
+                    satisfying_error=error,
+                    preceding_error=(
+                        None if index == 0 else self._request.errors[index - 1]
+                    ),
+                )
+        return SupportToleranceUnresolved(
+            comparison_count=len(self._request.errors),
+            minimum_observed_error=min(self._request.errors),
+            largest_support_error=self._request.errors[-1],
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class RealSpaceSupportTruncationModelToleranceSelection(RealSpaceSupportTruncation):
     """Retain support selections for two explicitly named error functionals."""
 
@@ -264,32 +345,21 @@ class RealSpaceSupportTruncationToleranceSelection(RealSpaceSupportTruncation):
         if type(request) is not RealSpaceSupportTruncationToleranceSelectionRequest:
             raise TypeError("request must be an exact tolerance-selection request")
         supports = request.supports
-        outcomes: list[SupportToleranceSelectionOutcome] = []
-        for errors in (
-            request.reference_matrix_frobenius_maximum_errors,
-            request.reference_ordered_eigenvalue_maximum_absolute_errors,
-            request.comparison_matrix_frobenius_maximum_errors,
-            request.comparison_ordered_eigenvalue_maximum_absolute_errors,
-        ):
-            for index, error in enumerate(errors):
-                if error <= request.tolerance:
-                    outcomes.append(
-                        MinimumToleranceSatisfyingSupport(
-                            comparison_index=index,
-                            support=supports[index],
-                            satisfying_error=error,
-                            preceding_error=(None if index == 0 else errors[index - 1]),
-                        )
-                    )
-                    break
-            else:
-                outcomes.append(
-                    SupportToleranceUnresolved(
-                        comparison_count=len(errors),
-                        minimum_observed_error=min(errors),
-                        largest_support_error=errors[-1],
-                    )
+        outcomes = tuple(
+            RealSpaceSupportTruncationErrorToleranceSelector(
+                request=RealSpaceSupportTruncationErrorToleranceSelectionRequest(
+                    supports=supports,
+                    errors=errors,
+                    tolerance=request.tolerance,
                 )
+            ).execute()
+            for errors in (
+                request.reference_matrix_frobenius_maximum_errors,
+                request.reference_ordered_eigenvalue_maximum_absolute_errors,
+                request.comparison_matrix_frobenius_maximum_errors,
+                request.comparison_ordered_eigenvalue_maximum_absolute_errors,
+            )
+        )
         object.__setattr__(self, "request", request)
         object.__setattr__(
             self,
@@ -325,6 +395,8 @@ __all__ = [
     "MinimumToleranceSatisfyingSupport",
     "OrderedEigenvalueErrors",
     "RankNormalizedMatrixFrobeniusErrors",
+    "RealSpaceSupportTruncationErrorToleranceSelectionRequest",
+    "RealSpaceSupportTruncationErrorToleranceSelector",
     "RealSpaceSupportTruncationErrors",
     "RealSpaceSupportTruncationModelToleranceSelection",
     "RealSpaceSupportTruncationComparison",

@@ -6,19 +6,21 @@ import math
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
+
+from ksdft2effmass.band_equivalence_hopping_locality.strain import (
     SyntheticStrainCalculator,
     SyntheticStrainPathEnum,
 )
 
 FRACTIONS = tuple(float(index) / 8.0 for index in range(9))
+CONSTRUCTION_SIZE = 24
 
 
 def main() -> int:
     """Write replaceable JSON plus 1-D-style PDF and PNG diagnostics."""
     result = SyntheticStrainCalculator(
         path=SyntheticStrainPathEnum.BAIN_3D,
-        construction_size=24,
+        construction_size=CONSTRUCTION_SIZE,
         strain_fractions=FRACTIONS,
         maximum_rotation_amplitude=math.pi / 4.0,
         tail_tolerances=(1.0e-3, 1.0e-5),

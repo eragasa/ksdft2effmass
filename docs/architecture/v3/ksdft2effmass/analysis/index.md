@@ -15,7 +15,7 @@ authenticated projection and family-specific figure composition.
   subspaces.
 - [`model_adequacy`](model_adequacy/index.md) — finite represented-model adequacy
   analyses, including the installed multidimensional rank-two
-  [band-equivalence/locality lifecycle](model_adequacy/band_equivalence_locality/index.md).
+  [band-equivalence/locality lifecycle](band_equivalence_hopping_locality/index.md).
 
 ## Ownership boundary
 

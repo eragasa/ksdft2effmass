@@ -1,20 +1,14 @@
-# Non-orthogonal periodic 2-D model-adequacy experiments
+# Legacy forward-pointer container: non-orthogonal periodic 2-D
 
-> **Migration status:** this container and family tree are assigned to
-> [`calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/`](../../../calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/);
-> the authoritative checklist is maintained there in `migration.md`.
+This `experiments/` container is a legacy taxonomy and migration surface. It is not a
+current protocol, calculation, result, verification, or evidence owner.
 
-This subtree contains two-dimensional experiment families whose primitive direct-lattice
-basis is non-orthogonal. It is separate from `periodic2d/` so orthogonal and
-non-orthogonal geometry do not become implicit cases of one version contract.
+The migrated periodic-2D rank-two hexagonal-metric context is
+[`calculations/periodic2d_rank2_hexagonal/`](../../../calculations/periodic2d_rank2_hexagonal/).
+Its aggregate [migration ledger](../../../calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/migration.md)
+records the ownership transfer. The nested
+[`band-equivalence-versus-hopping-locality/`](band-equivalence-versus-hopping-locality/)
+path remains only as an identity-preserving forward pointer.
 
-Current family:
-
-- [`band-equivalence-versus-hopping-locality/`](band-equivalence-versus-hopping-locality/)
-  — graphene-inspired honeycomb-basis rank-two representation cost, with separate
-  triangular/square Bravais controls.
-
-PhysKit owns reusable lattice, reciprocal, metric, and finite-domain primitives. These
-experiments own their physical bond orbits, metric-shell acceptance, parameter grids,
-thresholds, verification, evidence, and interpretation. No arbitrary-lattice API,
-immutable experiment version, retained run, or material claim is established here.
+The migrated synthetic two-basis control is not a graphene or material model. No
+retained run, convergence result, or evidence promotion is established here.

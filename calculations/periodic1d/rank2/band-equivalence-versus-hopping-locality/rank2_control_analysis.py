@@ -8,7 +8,7 @@ does not define a competing scientific implementation or a retained execution id
 
 from __future__ import annotations
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.analysis import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.amplitude_refinement.analysis import (
     Periodic1DRank2AdaptiveAmplitudeAnalysis,
     Periodic1DRank2AdaptiveAmplitudeAnalyzer,
     Periodic1DRank2AdaptiveAmplitudeConverged,
@@ -19,35 +19,35 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.
     Periodic1DRank2AmplitudeRefinementLevel,
     Periodic1DRank2AmplitudeRefinementThresholds,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.amplitude_refinement.verification import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.amplitude_refinement.verification import (
     Periodic1DRank2AdaptiveAmplitudeIndependentVerifier,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.analysis import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.momentum_refinement.analysis import (
     Periodic1DRank2MomentumRefinementAnalysis,
     Periodic1DRank2MomentumRefinementAnalyzer,
     Periodic1DRank2MomentumRefinementRequest,
     Periodic1DRank2MomentumRefinementThresholds,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.momentum_refinement.verification import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.momentum_refinement.verification import (
     Periodic1DRank2MomentumRefinementIndependentVerifier,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_family.analysis import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_family.analysis import (
     Periodic1DRank2ParentFamilyAnalysis,
     Periodic1DRank2ParentFamilyAnalyzer,
     Periodic1DRank2ParentFamilyRequest,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.request import (
     Periodic1DRank2Request,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.results import (
     Periodic1DRank2Analysis,
     Periodic1DRank2QualifiedParent,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.records import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.retention.records import (
     Periodic1DRank2AnalysisRecord,
     Periodic1DRank2ParentFamilyAnalysisRecord,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.retention.verification import (
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.retention.verification import (
     Periodic1DRank2ParentFamilyVerifier,
     Periodic1DRank2Verifier,
 )

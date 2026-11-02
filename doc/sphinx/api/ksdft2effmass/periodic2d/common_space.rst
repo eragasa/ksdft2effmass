@@ -146,7 +146,7 @@ construct Wilson loops, serialize results, or establish convergence.
 Public API
 ----------
 
-.. currentmodule:: ksdft2effmass.periodic2d
+.. currentmodule:: ksdft2effmass.periodic2d.compare.common_space
 
 .. autoclass:: Periodic2DCommonSpaceComparisonRequest
    :members:

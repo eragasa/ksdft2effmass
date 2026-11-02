@@ -149,7 +149,7 @@ Current nominal assignments:
   reference and gauge-rotated representations at one amplitude; and
 - `Periodic1DRankNRecoveryAnalysis`, which keeps frame recovery and represented-
   operator recovery distinct for one explicitly selected gauge alignment; and
-- `BandEquivalenceLocalityRepresentationEquivalenceAnalysis`, which retains the
+- `BandEquivalenceHoppingLocalityRepresentationEquivalenceAnalysis`, which retains the
   family-specific state-space identity, direct-band, covariance, restricted-rotation,
   correlation, and operator-threshold diagnostics for the rank-two 2D/3D family.
 
@@ -201,7 +201,7 @@ immutable admission policies `SymmetricRangeSupport1D`,
 support sets are admitted, which cutoffs are evaluated or selected, and how unresolved
 threshold outcomes are retained. The `real_space_support_truncation` domain admits
 2D/3D geometry nominally through `MetricGeometry` and basis-resolved geometry through
-`BasisResolvedMetricGeometry`. `BandEquivalenceLocalityCase` inherits the latter and
+`BasisResolvedMetricGeometry`. `BandEquivalenceHoppingLocalityCase` inherits the latter and
 keeps its family-specific serialization. `MetricShellValueAnalyzer` calculates scaled
 integer metric values and an explicit rounding defect for any finite periodic
 inventory, including a cyclic inventory with unpaired Nyquist representatives.
@@ -269,7 +269,7 @@ Current nominal assignments:
   adapter `Periodic1DRank2TruncationFamilyAnalysis`;
 - `Periodic1DRankNSupportResult` and the request-bound
   `Periodic1DRankNSupportTruncationAnalysis`; and
-- `BandEquivalenceLocalityShellAnalysis` for complete metric shells in the maintained
+- `BandEquivalenceHoppingLocalityShellAnalysis` for complete metric shells in the maintained
   2D/3D owner; and
 - `RealSpaceSupportTruncationToleranceSelector` and its immutable support-selection
   values, shared by 1D, 2D, and 3D family adapters.
@@ -306,7 +306,7 @@ Current nominal assignments:
 
 - `PeriodicTensorGridSeparationAnalyzer`, which measures reduced-coordinate torus
   separation without folding that sampling diagnostic into a model error;
-- `BandEquivalenceLocalityMetricCovarianceDefectResult`, which retains the
+- `BandEquivalenceHoppingLocalityMetricCovarianceDefectResult`, which retains the
   family-selected 2D or 3D primitive-basis probe identity separately from its maximum
   binary64 squared-length defect; the probe remains campaign-specific rather than a
   universal geometry invariant;
@@ -318,10 +318,10 @@ Current nominal assignments:
 - `Periodic1DRankNFourierAnalysis`,
   `Periodic1DRankNInterpolationAnalysis`, and
   `Periodic1DRankNRefinementAnalysis`; and
-- `BandEquivalenceLocalityRefinementPair`,
-  `BandEquivalenceLocalityRefinementAssessment`,
-  `BandEquivalenceLocalityAmplitudeMidpointAnalysis`, and
-  `BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis`.
+- `BandEquivalenceHoppingLocalityRefinementPair`,
+  `BandEquivalenceHoppingLocalityRefinementAssessment`,
+  `BandEquivalenceHoppingLocalityAmplitudeMidpointAnalysis`, and
+  `BandEquivalenceHoppingLocalityFlatAmplitudeResolutionAnalysis`.
 
 The momentum and amplitude outcome unions remain closed, family-specific variants.
 Their exact-type admission and existing convergence or exhaustion semantics are
@@ -347,15 +347,15 @@ the interface-free KSD roots, PhysKit physical primitives, and Optimization nume
 algorithms. None of the six generic roots imports a calculation family.
 
 The family aggregates `Periodic1DRank2Analysis`,
-`Periodic1DRankNAlignmentCalculationResult`,
-`BandEquivalenceLocalityPointAnalysis`, `BandEquivalenceLocalityCaseAnalysis`, and
-`BandEquivalenceLocalityAnalysis` intentionally remain outside these roots because
+`Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis`,
+`BandEquivalenceHoppingLocalityPointAnalysis`, `BandEquivalenceHoppingLocalityCaseAnalysis`, and
+`BandEquivalenceHoppingLocalityAnalysis` intentionally remain outside these roots because
 they combine several scientific operations or evidence channels. Assigning one of
 these aggregates to a single root would erase distinctions rather than clarify
 ownership.
 
 The former 2D/3D representation-equivalence gap is resolved by an immutable plain
-scientific result composed inside `BandEquivalenceLocalityPointAnalysis`. The retained
+scientific result composed inside `BandEquivalenceHoppingLocalityPointAnalysis`. The retained
 `PointDiagnostic` continues to project its historical scalar fields, so no field named
 `representation_equivalence` enters canonical bytes. No universal cross-family
 analysis aggregate is recommended.

@@ -13,8 +13,8 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
     _finite_nonnegative,
     _mapping_value,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -64,7 +64,7 @@ class Periodic1DRankNSupportResult(
         if (
             type(self.maximum_range) is not int
             or self.maximum_range
-            not in Periodic1DRankNAlignmentCalculationControls.SUPPORT_RADII
+            not in Periodic1DRankNBandEquivalenceHoppingLocalityControls.SUPPORT_RADII
         ):
             raise ValueError("maximum_range must be a frozen built-in support radius")
         if (
@@ -73,7 +73,7 @@ class Periodic1DRankNSupportResult(
         ):
             raise ValueError("rank must be in the frozen retained-rank inventory")
         if self.energy_reference != (
-            Periodic1DRankNAlignmentCalculationControls.ENERGY_REFERENCE
+            Periodic1DRankNBandEquivalenceHoppingLocalityControls.ENERGY_REFERENCE
         ):
             raise ValueError("energy_reference must equal the frozen normalization")
         if type(self.retained_translations) is not tuple or any(
@@ -135,7 +135,7 @@ class Periodic1DRankNSupportResult(
             raise ValueError("normalized tail fields are inconsistent")
         if type(self.construction_parseval_pass) is not bool:
             raise TypeError("construction_parseval_pass must be a built-in bool")
-        controls = Periodic1DRankNAlignmentCalculationControls
+        controls = Periodic1DRankNBandEquivalenceHoppingLocalityControls
         fourier_tolerance = controls.FOURIER_CONSISTENCY_TOLERANCE
         if self.construction_parseval_pass is not (
             self.construction_parseval_relative_defect <= fourier_tolerance

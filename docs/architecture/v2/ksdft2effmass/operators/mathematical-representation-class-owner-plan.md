@@ -493,7 +493,7 @@ scientific correction.
 
 | Current object | Proposed target | Compatibility rule |
 |---|---|---|
-| `BandEquivalenceLocalityCase` | thin composition of geometry, parent-law, gauge, normalization, and sample-role specifications | do not turn a campaign configuration into a representation |
+| `BandEquivalenceHoppingLocalityCase` | thin composition of geometry, parent-law, gauge, normalization, and sample-role specifications | do not turn a campaign configuration into a representation |
 | `MetricGeometry` | retain existing narrow `Protocol` | no nominal superclass required |
 | `SignedPermutationShellInventoryDefinition` | paper-owned support-ladder configuration | PhysKit remains lattice owner |
 | `SignedPermutationShell` | adapter to `CompleteMetricShellSupport` | preserve complete equal-radius ties and deterministic ordering |
@@ -506,7 +506,7 @@ scientific correction.
 | `ErrorChannels` and `FirstPassingDecision` consumers | legacy adapters followed by new-version results | semantic correction cannot use an old schema identity |
 
 Existing Paper B schema documents under
-`campaigns/model_adequacy/band_equivalence_locality/schema_documents/` remain unchanged
+`campaigns/band_equivalence_hopping_locality/schema_documents/` remain unchanged
 through the representation migration.  A corrected first-pass or error meaning requires
 new schema identities and an explicit old-to-new crosswalk.
 

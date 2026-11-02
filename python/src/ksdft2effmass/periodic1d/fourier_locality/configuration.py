@@ -8,6 +8,9 @@ from fractions import Fraction
 from math import isfinite
 from typing import ClassVar, Self
 
+from ksdft2effmass.periodic1d.rank1.band_equivalence.base import (
+    Periodic1DRank1BandEquivalenceRequest,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from ..geometry import Periodic1DReducedCoordinateConvention
@@ -16,6 +19,7 @@ from ..geometry import Periodic1DReducedCoordinateConvention
 @dataclass(frozen=True, slots=True)
 class Periodic1DFourierLocalityConfiguration(
     BaseTypedRecord,
+    Periodic1DRank1BandEquivalenceRequest,
     Periodic1DReducedCoordinateConvention,
 ):
     """Declare the exact parent and finite controls for one calculation."""

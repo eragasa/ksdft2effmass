@@ -34,6 +34,18 @@
     \end{minipage}}%
   }%
 }
+\newcommand{\storyboardplot}[2]{%
+  \IfFileExists{#1}{%
+    \includegraphics[width=\textwidth]{#1}%
+  }{%
+    \fbox{\begin{minipage}[c][48mm][c]{0.94\textwidth}
+      \centering
+      \textbf{Publication storyboard prototype unavailable}\\[4pt]
+      #2\\[4pt]
+      Expected design artifact: \path{#1}
+    \end{minipage}}%
+  }%
+}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -1893,6 +1905,87 @@ figures or rerunning a scientific route.
   remain separate. Each displayed maximum over amplitudes is taken independently; the
   figure does not imply one common maximizing amplitude.}
   \label{fig:direct-truncation-consequences}
+\end{figure}
+
+\subsection{Publication figure storyboard (design-only)}
+\label{sec:publication-storyboard}
+
+Figures~\ref{fig:storyboard-analytic}--\ref{fig:storyboard-controls} define the
+current publication-figure design sequence. They use maintained development tables to
+make layout, visual hierarchy, notation, and narrative order inspectable before the
+complete-five-scale execution exists. They are not authenticated complete-scope
+figures, retained evidence, or scientific validation. The final renderer must recreate
+the accepted design from the admitted complete-five-scale record, must not read the
+development CSV files, and must bind every rendered digest to stored passing
+verification. The detailed panel contract and iteration rules are maintained in
+\path{publication-figure-storyboard.md}.
+
+\begin{figure}[p]
+  \centering
+  \storyboardplot{figures/storyboard/01-analytic-benchmark.pdf}%
+    {Exact analytic benchmark and residual--locality identity}
+  \caption{Publication storyboard Figure 1: exact flat-parent benchmark.
+  \textbf{(a)} Analytic correlation and normalized restricted-alignment thresholds.
+  \textbf{(b)} Exact equality between squared restricted residual and induced
+  non-onsite hopping weight. This design panel contains analytic evaluations, not a
+  fitted numerical relation.}
+  \label{fig:storyboard-analytic}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \storyboardplot{figures/storyboard/02-five-scale-core-result.pdf}%
+    {Five-scale core scientific result}
+  \caption{Publication storyboard Figure 2: central analytic-to-dispersive result.
+  The complete fields remain band-equivalent while restricted representation mismatch,
+  excess non-onsite hopping weight, and departure from the flat residual--locality
+  identity vary across the five sampled parent scales. Connecting lines remain guides
+  to the eye.}
+  \label{fig:storyboard-five-scale}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \storyboardplot{figures/storyboard/03-hopping-locality-profiles.pdf}%
+    {Hopping-locality profiles}
+  \caption{Publication storyboard Figure 3: real-space hopping redistribution before
+  irreversible truncation. The panels separate family-wide non-onsite weight,
+  cumulative tails, and the endpoint block-power profile.}
+  \label{fig:storyboard-locality}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \storyboardplot{figures/storyboard/04-equal-accuracy-range-inflation.pdf}%
+    {Equal-accuracy retained-range requirement}
+  \caption{Publication storyboard Figure 4: sampled equal-accuracy range inflation.
+  Reference and comparison first-passing cutoffs are shown separately before their
+  difference is reported. The endpoint tolerance trajectory exposes dependence on the
+  declared sampled target. A cutoff not attained within the tested inventory must be
+  displayed as unresolved rather than clipped.}
+  \label{fig:storyboard-range}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \storyboardplot{figures/storyboard/05-separated-error-channels.pdf}%
+    {Separated conversion, interpolation, truncation, and total channels}
+  \caption{Publication storyboard Figure 5: channel-resolved finite-range
+  consequences. Cyclic conversion, finite interpolation, deliberate truncation, and
+  total spectral error remain separate; the panels do not assert an additive scalar
+  error budget.}
+  \label{fig:storyboard-errors}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \storyboardplot{figures/storyboard/06-numerical-controls.pdf}%
+    {Qualification, refinement, stability, and independent reconstruction controls}
+  \caption{Publication storyboard Figure 6: numerical controls supporting and limiting
+  interpretation of the scientific figures. The unresolved amplitude-interpolation
+  outcome remains visible alongside qualification, momentum refinement, support-decision
+  stability, and independent truncation reconstruction.}
+  \label{fig:storyboard-controls}
 \end{figure}
 
 \subsection{Failure policy}

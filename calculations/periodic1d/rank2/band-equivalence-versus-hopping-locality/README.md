@@ -48,7 +48,7 @@ evidence has been created. Detailed values and limitations are maintained in
 ## Current ownership boundary
 
 The first reusable flat-parent control is now installed under
-`ksdft2effmass.periodic1d.band_equivalence_locality`. It owns immutable scientific
+`ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality`. It owns immutable scientific
 requests/results, production finite-transform composition, dedicated retained record
 projection, an independent explicit finite-sum verifier, and a verifier-authenticated typed data
 projection consumed by a closed three-figure renderer. Scientific values remain
@@ -86,7 +86,7 @@ identities; this directory does not copy, rename, or upgrade them.
 
 - [`protocol.md`](protocol.md) records the concise calculation boundary and migration rules.
 - [`protocol/`](protocol/) owns the exact buildable prospective protocol bundle.
-- `python/src/ksdft2effmass/periodic1d/band_equivalence_locality/` owns the installed flat-parent slice; the embedded-subspace/rank2 single-parent and bounded parent-family scientific and independent-verification owners; serialization-free momentum and adaptive-amplitude studies; retention-owned canonical records and authenticated rendering projections; and strictly downstream visualization inventories and renderers. The authoritative ordinary-truncation capability lives under `python/src/ksdft2effmass/periodic1d/rank2/support_truncation/` and is consumed here.
+- `python/src/ksdft2effmass/periodic1d/rank2/band_equivalence_hopping_locality/` owns the installed flat-parent slice; the embedded-subspace/rank2 single-parent and bounded parent-family scientific and independent-verification owners; serialization-free momentum and adaptive-amplitude studies; retention-owned canonical records and authenticated rendering projections; and strictly downstream visualization inventories and renderers. The authoritative ordinary-truncation capability lives under `python/src/ksdft2effmass/periodic1d/rank2/support_truncation/` and is consumed here.
 - [`workflow/`](workflow/) remains a historical development donor pending reviewed retirement; aggregate retention, verification, and authenticated rendering have installed successors, but full donor parity has not been established.
 - [`donor-parity-audit.md`](donor-parity-audit.md) compares immutable donor tables with direct-v2 typed bytes and records the semantic, retained-coverage, diagnostic, and live-consumer gaps that block retirement.
 - [`scientific-claim-use-audit.md`](scientific-claim-use-audit.md) traces those unmatched surfaces into the active Ragasa2026a v3 claim graph.

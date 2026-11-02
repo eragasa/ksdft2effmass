@@ -18,15 +18,15 @@ from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DRankNAlignmentStudySpecification,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
-    Periodic1DRankNAlignmentCalculationRequest,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
-    Periodic1DRankNAlignmentCalculationResult,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.composite.calculation import (
-    Periodic1DRankNAlignmentAnalyzer,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -57,11 +57,11 @@ def _request(
     configuration: Periodic1DRankNAlignmentConfiguration,
     retained_rank: int,
     circuit_depth: int,
-) -> Periodic1DRankNAlignmentCalculationRequest:
+) -> Periodic1DRankNBandEquivalenceHoppingLocalityRequest:
     """Return one complete immutable calculation request."""
-    return Periodic1DRankNAlignmentCalculationRequest(
+    return Periodic1DRankNBandEquivalenceHoppingLocalityRequest(
         configuration=configuration,
-        controls=Periodic1DRankNAlignmentCalculationControls.frozen(),
+        controls=Periodic1DRankNBandEquivalenceHoppingLocalityControls.frozen(),
         retained_rank=retained_rank,
         circuit_depth=circuit_depth,
         ambient_basis_identifier="analytic-parent-ordered-retained-exterior-basis",
@@ -73,9 +73,9 @@ def _request(
 
 
 def _calculate(
-    request: Periodic1DRankNAlignmentCalculationRequest,
+    request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
     lattice_geometry: Periodic1DLatticeGeometry,
-) -> Periodic1DRankNAlignmentCalculationResult:
+) -> Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis:
     """Execute one rank-first case with explicit reviewed collaborators."""
     study = Periodic1DAlignmentStudyFactory(
         Periodic1DRankNAlignmentStudySpecification(
@@ -90,7 +90,7 @@ def _calculate(
 
 
 def _case_summary(
-    result: Periodic1DRankNAlignmentCalculationResult,
+    result: Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 ) -> dict[str, JsonValue]:
     """Return a bounded development summary without claiming retained evidence."""
     final_gauge_alignments: list[JsonValue] = []
@@ -131,7 +131,7 @@ def _case_summary(
 def _calculation_results(
     configuration: Periodic1DRankNAlignmentConfiguration,
     lattice_geometry: Periodic1DLatticeGeometry,
-) -> tuple[Periodic1DRankNAlignmentCalculationResult, ...]:
+) -> tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...]:
     """Calculate every frozen case for explicitly unverified development use."""
     return tuple(
         _calculate(
@@ -144,7 +144,7 @@ def _calculation_results(
 
 
 def _summary(
-    results: tuple[Periodic1DRankNAlignmentCalculationResult, ...],
+    results: tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...],
     lattice_geometry: Periodic1DLatticeGeometry,
 ) -> dict[str, JsonValue]:
     """Return a development-only shape summary for complete calculated results."""
@@ -175,9 +175,9 @@ def main() -> int:
     source_types = (
         Periodic1DAlignmentStudyFactory,
         Periodic1DRankNAlignmentStudyAnalyzer,
-        Periodic1DRankNAlignmentAnalyzer,
+        Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,
         Periodic1DRankNAlignmentConfiguration,
-        Periodic1DRankNAlignmentCalculationResult,
+        Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
         ScalarRefinementAnalyzer,
         NumpyBatchedComplexUnitaryProcrustesSolver,
         ClosedLoopPolarFrameTransporter,

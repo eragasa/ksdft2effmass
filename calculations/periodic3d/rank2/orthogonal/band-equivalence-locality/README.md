@@ -50,7 +50,7 @@ distributed checklist.
 |---|---|
 | Simple-cubic nominal calculation | Typed direct calculate → independently verify → authenticated render composition installed; no execution retained. |
 | Mesh refinement | Outside the direct lifecycle; development records do not establish convergence. |
-| Typed ownership | Shared immutable request, result, independent-reference, verification, and visualization owners live under `python/src/ksdft2effmass/analysis/model_adequacy/band_equivalence_locality/`. |
+| Typed ownership | Periodic-3D rank-two request, analysis, result, independent-reference action, verification actions, authenticated visualization data, visualizer, execution, execution-verification, and rendering records live under `python/src/ksdft2effmass/periodic3d/rank2/band_equivalence_hopping_locality/`. Dimension-independent thresholds, plot inventory, and wire-schema mechanics remain shared internally. |
 | Plotting and technical report | Development products remain separate from authenticated direct rendering. |
 | Cross-dimensional comparison | Downstream consumer only; it cannot transfer identity, normalization, tolerance policy, or evidence status. |
 | Experiment migration source | Duplicate development/refinement/plot entrypoints and analysis-path contracts are retired. The experiment path retains only its identity README, prospective protocol, and bibliography. |

@@ -6,11 +6,13 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DWannier90StudyCampaign,
+from ksdft2effmass.periodic2d.model.retained.wannier90_study import (
     Periodic2DWannier90StudyCampaignModel,
 )
 from ksdft2effmass.periodic2d.run import wannier90
+from ksdft2effmass.periodic2d.run.wannier90.study.data import (
+    Periodic2DWannier90StudyCampaign,
+)
 
 Verifier = wannier90.study.verify.Periodic2DWannier90StudyCampaignVerifier
 pytestmark = [

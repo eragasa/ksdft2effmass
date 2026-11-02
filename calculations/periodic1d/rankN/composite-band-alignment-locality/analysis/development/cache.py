@@ -14,8 +14,8 @@ from pathlib import Path
 from typing import Self, final
 
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
-    Periodic1DRankNAlignmentCalculationResult,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -368,14 +368,14 @@ class HigherRankDevelopmentCacheAdmission(BaseTypedRecord):
 class HigherRankDevelopmentCacheWriteRequest:
     """Bind complete calculated results and one replaceable cache directory."""
 
-    calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
+    calculation_results: tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...]
     lattice_geometry: Periodic1DLatticeGeometry
     cache_directory: Path
     calculation_infrastructure_sha256: str
 
     def __post_init__(self) -> None:
         if type(self.calculation_results) is not tuple or any(
-            type(result) is not Periodic1DRankNAlignmentCalculationResult
+            type(result) is not Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
@@ -427,14 +427,14 @@ class HigherRankDevelopmentCacheReadResult:
 
     manifest: HigherRankDevelopmentCacheManifest
     manifest_sha256: str
-    calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
+    calculation_results: tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...]
 
     def __post_init__(self) -> None:
         if type(self.manifest) is not HigherRankDevelopmentCacheManifest:
             raise TypeError("manifest must be the exact cache-manifest record")
         _validate_digest(self.manifest_sha256, "manifest_sha256")
         if type(self.calculation_results) is not tuple or any(
-            type(result) is not Periodic1DRankNAlignmentCalculationResult
+            type(result) is not Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
@@ -513,14 +513,14 @@ class HigherRankDevelopmentCacheReader:
         manifest = HigherRankDevelopmentCacheManifest.from_json(manifest_wire)
         if manifest.to_json() != manifest_wire:
             raise ValueError("manifest bytes are not canonical")
-        results: list[Periodic1DRankNAlignmentCalculationResult] = []
+        results: list[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis] = []
         for entry in manifest.entries:
             wire = (directory / entry.file_name).read_bytes()
             if len(wire) != entry.byte_count:
                 raise ValueError(f"cached byte count changed for {entry.file_name}")
             if _sha256(wire) != entry.result_sha256:
                 raise ValueError(f"cached digest changed for {entry.file_name}")
-            result = Periodic1DRankNAlignmentCalculationResult.from_json(wire)
+            result = Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis.from_json(wire)
             if result.to_json() != wire:
                 raise ValueError(f"cached result is not canonical: {entry.file_name}")
             if (

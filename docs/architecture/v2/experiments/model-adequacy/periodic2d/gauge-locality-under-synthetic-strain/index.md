@@ -3,8 +3,9 @@
 ## Identity
 
 - Family: `ksdft2effmass.campaign.model-adequacy.periodic2d.gauge-locality-under-synthetic-strain`.
-- Source: `experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/`.
-- Shared protocol: `experiments/model-adequacy/gauge-locality-under-synthetic-strain.md`.
+- Calculation owner: `calculations/periodic2d_rank2_rhombic_path/`.
+- Research protocol: `calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/protocol.md`.
+- Legacy pointer: `experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/`.
 - Status: protocol plus bounded M0 and separately labeled M1/M2 smoke actions; no
   convergence, strict retained schemas, independent artifact verifier, immutable
   version, or retained evidence.

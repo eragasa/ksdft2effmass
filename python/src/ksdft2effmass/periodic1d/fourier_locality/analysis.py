@@ -21,6 +21,9 @@ from ksdft2effmass.analysis.hopping_fits import (
     ScalarHermitianHoppingLeastSquaresFitter1D,
 )
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
+from ksdft2effmass.periodic1d.rank1.band_equivalence.base import (
+    Periodic1DRank1BandEquivalenceAnalyzer,
+)
 from ksdft2effmass.solidstate import (
     BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
@@ -41,7 +44,11 @@ from .result import (
 )
 
 
-class Periodic1DFourierLocalityAnalyzer:
+class Periodic1DFourierLocalityAnalyzer(
+    Periodic1DRank1BandEquivalenceAnalyzer[
+        Periodic1DFourierLocalityConfiguration
+    ]
+):
     """Calculate one finite rank-one Fourier-locality result without effects."""
 
     __slots__ = ("_request",)

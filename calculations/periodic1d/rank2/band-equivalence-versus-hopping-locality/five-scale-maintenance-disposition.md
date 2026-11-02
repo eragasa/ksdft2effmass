@@ -30,7 +30,7 @@ upgrade them.
 
 The calculation root remains the maintained composition owner. Reusable scientific
 behavior should migrate to cohesive installed owners under
-`python/src/ksdft2effmass/periodic1d/band_equivalence_locality/`; calculation-local
+`python/src/ksdft2effmass/periodic1d/rank2/band_equivalence_hopping_locality/`; calculation-local
 scripts should retain only composition, effect adapters, and presentation wiring.
 
 The existing `workflow/` tree remains a tracked donor while its still-maintained

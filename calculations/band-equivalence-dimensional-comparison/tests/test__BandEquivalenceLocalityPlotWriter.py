@@ -7,15 +7,15 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
+from ksdft2effmass.band_equivalence_hopping_locality import (
     definitions,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
-    BandEquivalenceLocalityAnalyzer,
+from ksdft2effmass.band_equivalence_hopping_locality.analysis import (
+    Rank2BandEquivalenceHoppingLocalityAnalyzer,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.plotting import (
-    BandEquivalenceLocalityPlotRequest,
-    BandEquivalenceLocalityPlotWriter,
+from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
+    BandEquivalenceHoppingLocalityPlotRequest,
+    BandEquivalenceHoppingLocalityPlotWriter,
     BandEquivalenceToleranceMapRequest,
     BandEquivalenceToleranceMapWriter,
 )
@@ -24,13 +24,13 @@ from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLattice
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
-class TestBandEquivalenceLocalityPlotWriter:
+class TestBandEquivalenceHoppingLocalityPlotWriter:
     """Establish the typed plotting boundary and written artifact set."""
 
     def test_execute__writes_plots_from_domain_diagnostics(
         self, tmp_path: Path
     ) -> None:
-        case = definitions.BandEquivalenceLocalityCase(
+        case = definitions.BandEquivalenceHoppingLocalityCase(
             name="square-directed",
             dimension=2,
             parent_kind=definitions.ParentEnum.DIRECTED_AXIS,
@@ -44,8 +44,8 @@ class TestBandEquivalenceLocalityPlotWriter:
             positive_bonds=((1, 0), (0, 1)),
             shell_metric_scale=1.0,
         )
-        smoke_request = definitions.BandEquivalenceLocalityRequest(
-            family=definitions.BandEquivalenceLocalityFamilyEnum.SQUARE,
+        smoke_request = definitions.BandEquivalenceHoppingLocalityRequest(
+            family=definitions.BandEquivalenceHoppingLocalityFamilyEnum.SQUARE,
             synthetic_model=definitions.FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
             cases=(case,),
             construction_size=4,
@@ -61,11 +61,11 @@ class TestBandEquivalenceLocalityPlotWriter:
             construction_size=6,
             evaluation_size=7,
         )
-        smoke = BandEquivalenceLocalityAnalyzer(request=smoke_request).execute()
-        refined = BandEquivalenceLocalityAnalyzer(request=refined_request).execute()
+        smoke = Rank2BandEquivalenceHoppingLocalityAnalyzer(request=smoke_request).execute()
+        refined = Rank2BandEquivalenceHoppingLocalityAnalyzer(request=refined_request).execute()
 
-        result = BandEquivalenceLocalityPlotWriter(
-            request=BandEquivalenceLocalityPlotRequest(
+        result = BandEquivalenceHoppingLocalityPlotWriter(
+            request=BandEquivalenceHoppingLocalityPlotRequest(
                 mesh_results=(smoke, refined),
                 output_directory=tmp_path,
                 title="Square-family development diagnostics",
@@ -79,7 +79,7 @@ class TestBandEquivalenceLocalityPlotWriter:
     def test_tolerance_map__writes_cross_family_requirements_without_limits(
         self, tmp_path: Path
     ) -> None:
-        case = definitions.BandEquivalenceLocalityCase(
+        case = definitions.BandEquivalenceHoppingLocalityCase(
             name="synthetic-directed-case",
             dimension=2,
             parent_kind=definitions.ParentEnum.DIRECTED_AXIS,
@@ -93,8 +93,8 @@ class TestBandEquivalenceLocalityPlotWriter:
             positive_bonds=((1, 0), (0, 1)),
             shell_metric_scale=1.0,
         )
-        first_request = definitions.BandEquivalenceLocalityRequest(
-            family=definitions.BandEquivalenceLocalityFamilyEnum.SQUARE,
+        first_request = definitions.BandEquivalenceHoppingLocalityRequest(
+            family=definitions.BandEquivalenceHoppingLocalityFamilyEnum.SQUARE,
             synthetic_model=definitions.FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
             cases=(case,),
             construction_size=4,
@@ -107,11 +107,11 @@ class TestBandEquivalenceLocalityPlotWriter:
         )
         second_request = replace(
             first_request,
-            family=definitions.BandEquivalenceLocalityFamilyEnum.GRAPHENE_INSPIRED,
+            family=definitions.BandEquivalenceHoppingLocalityFamilyEnum.GRAPHENE_INSPIRED,
         )
         diagnostics = (
-            BandEquivalenceLocalityAnalyzer(request=first_request).execute(),
-            BandEquivalenceLocalityAnalyzer(request=second_request).execute(),
+            Rank2BandEquivalenceHoppingLocalityAnalyzer(request=first_request).execute(),
+            Rank2BandEquivalenceHoppingLocalityAnalyzer(request=second_request).execute(),
         )
 
         result = BandEquivalenceToleranceMapWriter(

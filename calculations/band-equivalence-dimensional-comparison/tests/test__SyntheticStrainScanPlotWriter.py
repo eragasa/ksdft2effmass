@@ -4,17 +4,17 @@ import math
 from pathlib import Path
 
 import pytest
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain import (
     SyntheticStrainCalculator,
     SyntheticStrainPathEnum,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_response import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_response import (
     StrainResponseModelEnum,
     StrainWitnessControlEnum,
     calculate_strain_witness_scan,
     calculate_synthetic_strain_response,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.strain_scan_plotting import (
+from ksdft2effmass.band_equivalence_hopping_locality.strain_scan_plotting import (
     SyntheticStrainScanPlotRequest,
     SyntheticStrainScanPlotWriter,
 )

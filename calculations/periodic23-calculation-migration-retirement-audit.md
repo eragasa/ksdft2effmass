@@ -22,10 +22,10 @@ calculation-owned successors:
 |---|---:|---|
 | Cross-dimensional comparison | 2 | `calculations/band-equivalence-dimensional-comparison/` |
 | Periodic-2D orthogonal locality | 4 | `calculations/periodic2d/rank2/orthogonal/band-equivalence-locality/` |
-| Periodic-2D nonorthogonal locality | 4 | `calculations/periodic2d/rank2/nonorthogonal/band-equivalence-locality/` |
+| Periodic-2D hexagonal-metric locality | 4 | `calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/` |
 | Periodic-3D orthogonal locality | 4 | `calculations/periodic3d/rank2/orthogonal/band-equivalence-locality/` |
 | Periodic-3D nonorthogonal locality | 4 | `calculations/periodic3d/rank2/nonorthogonal/band-equivalence-locality/` |
-| Periodic-2D synthetic strain | 3 | `calculations/periodic2d/rank2/strain-locality/` |
+| Periodic-2D synthetic strain | 3 | `calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/` |
 | Periodic-3D synthetic strain | 3 | `calculations/periodic3d/rank2/strain-locality/` |
 
 For the four locality families, the scientific code differs only in calculation-owned
