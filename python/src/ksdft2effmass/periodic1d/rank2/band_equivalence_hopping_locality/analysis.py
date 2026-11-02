@@ -16,9 +16,6 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.periodic1d.rank2.band_equivalence.base import (
-    Periodic1DRank2BandEquivalenceAnalyzer,
-)
 from ksdft2effmass.solidstate import (
     BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
@@ -34,6 +31,7 @@ from ksdft2effmass.solidstate import (
     ReciprocalOperatorSamples1D,
 )
 
+from .base import Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole
 from .gauge import (
     Periodic1DRank2SinusoidalGaugeRotation,
 )
@@ -47,7 +45,7 @@ from .result import (
 
 
 class Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer(
-    Periodic1DRank2BandEquivalenceAnalyzer[
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole[
         Periodic1DRank2BandEquivalenceHoppingLocalityRequest
     ]
 ):

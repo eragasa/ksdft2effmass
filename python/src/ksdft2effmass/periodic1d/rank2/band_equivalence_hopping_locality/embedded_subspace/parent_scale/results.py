@@ -14,6 +14,10 @@ from projectkoios.optimization.alignment.closed_loop_polar_transport import (
 )
 from projectkoios.optimization.selection.harmonic import PeriodicHarmonicMaximum
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic1d.rank2.hopping_locality.result import (
     Periodic1DRank2HoppingPower,
 )
@@ -29,7 +33,10 @@ def _nonnegative_float(value: float, name: str) -> None:
         raise ValueError(f"{name} must be finite and nonnegative")
 
 
-class Periodic1DRank2Qualification(ABC):
+class Periodic1DRank2Qualification(
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+    ABC,
+):
     """Identify one closed qualification outcome variant."""
 
     __slots__ = ()
@@ -152,7 +159,10 @@ class Periodic1DRank2QualifiedParent(Periodic1DRank2Qualification):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2PointAnalysis(RepresentationEquivalence):
+class Periodic1DRank2PointAnalysis(
+    RepresentationEquivalence,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Retain nonflat band, restricted-alignment, and hopping channels."""
 
     amplitude: float
@@ -210,7 +220,11 @@ class Periodic1DRank2PointAnalysis(RepresentationEquivalence):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2Analysis:
+class Periodic1DRank2Analysis(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole[
+        Periodic1DRank2Request
+    ],
+):
     """Retain one qualified or explicitly stopped calculation."""
 
     request: Periodic1DRank2Request

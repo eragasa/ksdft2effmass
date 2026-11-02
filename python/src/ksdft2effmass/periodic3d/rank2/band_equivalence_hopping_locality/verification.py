@@ -19,8 +19,8 @@ from ksdft2effmass.band_equivalence_hopping_locality.visualizations.data import 
     BandEquivalenceHoppingLocalityVisualizationData,
 )
 from ksdft2effmass.model_systems.analysis import ModelAnalysisVerificationResult
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
 
+from .base import Periodic3DRank2BandEquivalenceHoppingLocalityAction
 from .reference import (
     Periodic3DRank2BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer,
 )
@@ -33,7 +33,7 @@ from .visualizations.data import (
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityDiagnosticVerifier(
     BandEquivalenceHoppingLocalityVerifier,
-    Periodic3DCapability,
+    Periodic3DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Independently reconstruct diagnostics for one periodic-3D result."""
 
@@ -62,7 +62,7 @@ type _ShellPowerAnalyzer = (
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityResultVerifier(
     BandEquivalenceHoppingLocalityResultVerifier,
-    Periodic3DCapability,
+    Periodic3DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Authenticate periodic-3D result bytes through qualified independent routes."""
 

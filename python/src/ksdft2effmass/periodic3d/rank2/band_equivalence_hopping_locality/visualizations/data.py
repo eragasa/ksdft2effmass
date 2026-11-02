@@ -10,13 +10,14 @@ from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
 from ksdft2effmass.band_equivalence_hopping_locality.visualizations.data import (
     BandEquivalenceHoppingLocalityVisualizationData,
 )
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
+
+from ..base import Periodic3DRank2BandEquivalenceHoppingLocalityValue
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic3DRank2BandEquivalenceHoppingLocalityVisualizationData(
     BandEquivalenceHoppingLocalityVisualizationData,
-    Periodic3DCapability,
+    Periodic3DRank2BandEquivalenceHoppingLocalityValue,
 ):
     """Retain authenticated scalar projection data for a periodic-3D family."""
 

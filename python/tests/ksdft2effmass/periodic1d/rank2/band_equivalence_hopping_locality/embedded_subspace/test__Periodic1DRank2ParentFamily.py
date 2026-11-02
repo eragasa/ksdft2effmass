@@ -13,6 +13,11 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+)
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_family.analysis import (  # noqa: E501
     Periodic1DRank2ParentFamilyAnalysis,
     Periodic1DRank2ParentFamilyAnalyzer,
@@ -81,6 +86,30 @@ def _subject_bytes() -> bytes:
 
 class TestPeriodic1DRank2ParentFamily:
     """Establish family correlation, retention, and independent verification."""
+
+    def test_family_specializes_through_the_rank_two_aggregate_roles(self) -> None:
+        request = _request()
+        analyzer = Periodic1DRank2ParentFamilyAnalyzer(
+            request=request,
+            transporter=ClosedLoopPolarFrameTransporter(),
+        )
+        analysis = analyzer.execute()
+
+        assert isinstance(
+            request,
+            Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+        )
+        assert isinstance(
+            analyzer,
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+        )
+        assert isinstance(
+            analysis,
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+        )
+        assert request.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
+        assert analysis.band_subspace_rank == 2
 
     def test_analyzer_preserves_the_complete_declared_homotopy(self) -> None:
         analysis = _analyze()

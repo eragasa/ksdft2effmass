@@ -13,6 +13,10 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 
 from ksdft2effmass.numerical_consistency import NumericalConsistency
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 
 from ..parent_scale.analysis import Periodic1DRank2Analyzer
 from ..parent_scale.parent_hamiltonian import (
@@ -70,7 +74,9 @@ class Periodic1DRank2MomentumRefinementThresholds:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2MomentumRefinementRequest:
+class Periodic1DRank2MomentumRefinementRequest(
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Bind nested doubling meshes to one unchanged scientific template."""
 
     template_request: Periodic1DRank2Request
@@ -163,7 +169,10 @@ class Periodic1DRank2MomentumRefinementStep:
             raise TypeError("within_tolerances must be a built-in bool")
 
 
-class Periodic1DRank2MomentumRefinementAnalysis(NumericalConsistency):
+class Periodic1DRank2MomentumRefinementAnalysis(
+    NumericalConsistency,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Identify one closed nested-momentum outcome variant."""
 
     __slots__ = ()
@@ -308,7 +317,9 @@ def _within_thresholds(
     )
 
 
-class Periodic1DRank2MomentumRefinementAnalyzer:
+class Periodic1DRank2MomentumRefinementAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Compose exact single-mesh owners and compare nested finite calculations."""
 
     __slots__ = ("_request", "_transporter")

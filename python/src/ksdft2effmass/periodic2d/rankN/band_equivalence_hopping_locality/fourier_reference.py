@@ -17,7 +17,11 @@ import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array, Int64Array
 from projectkoios.physkit.units import ScalarQuantity, Unitless
 
-from ksdft2effmass.periodic2d.base import Periodic2DCapability
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseRequest,
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
+)
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
     Periodic2DRankNGaugeAlignment,
 )
@@ -41,11 +45,18 @@ _REFERENCE_ABSOLUTE_TOLERANCE = 2.0e-10
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest:
+class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest(
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseRequest
+):
     """Bind one analyzed case to the typed study geometry and mesh controls."""
 
     study_request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest
     case_analysis: Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the bound case's represented band-subspace rank."""
+        return self.case_analysis.retained_rank
 
     def __post_init__(self) -> None:
         if (
@@ -71,7 +82,9 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReference:
+class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReference(
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue
+):
     """Retain immutable direct-sum Fourier and support comparisons."""
 
     request: Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest
@@ -95,6 +108,11 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReference:
         object.__setattr__(
             self, "comparisons", MappingProxyType(dict(self.comparisons))
         )
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.band_subspace_rank
 
     @property
     def passed(self) -> bool:
@@ -263,7 +281,7 @@ class _DirectFiniteFourierGrid:
 
 @final
 class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(
-    Periodic2DCapability
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction
 ):
     """Compare aggregate Fourier/locality evidence with explicit finite sums."""
 
@@ -287,6 +305,11 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(
     ) -> Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest:
         """Return the immutable Fourier-reference request."""
         return self._request
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.band_subspace_rank
 
     @staticmethod
     def _comparison(

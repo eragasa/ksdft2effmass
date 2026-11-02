@@ -8,6 +8,7 @@ from typing import Self
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
+from .base import Periodic1DRank2BandEquivalenceHoppingLocalityAction
 from .request import Periodic1DRank2BandEquivalenceHoppingLocalityRequest
 from .result import (
     Periodic1DBandEquivalenceHoppingPower,
@@ -395,7 +396,9 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRecord(BaseTypedRecor
         )
 
 
-class Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRecorder:
+class Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction
+):
     """Project one bound scientific analysis into its retained wire owner."""
 
     __slots__ = ("_analysis",)

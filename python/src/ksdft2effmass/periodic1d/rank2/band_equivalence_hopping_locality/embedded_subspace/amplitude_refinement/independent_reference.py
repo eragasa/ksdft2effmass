@@ -4,6 +4,10 @@ from __future__ import annotations
 
 from itertools import pairwise
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
+
 from ..parent_scale.independent_reference import (
     Periodic1DRank2IndependentReferenceAnalyzer,
 )
@@ -25,7 +29,9 @@ from .analysis import (
 )
 
 
-class Periodic1DRank2AdaptiveAmplitudeIndependentReferenceAnalyzer:
+class Periodic1DRank2AdaptiveAmplitudeIndependentReferenceAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Rebuild adaptive decisions from direct independent member analyses."""
 
     __slots__ = ("_request",)

@@ -2,12 +2,18 @@
 
 from __future__ import annotations
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
+
 from ..retention.complete_five_scale_visualization_data import (
     Periodic1DRank2CompleteFiveScaleVisualizationData,
 )
 
 
-class Periodic1DRank2CompleteFiveScaleSummaryRenderer:
+class Periodic1DRank2CompleteFiveScaleSummaryRenderer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Render one admitted summary projection without scientific recomputation."""
 
     __slots__ = ("_data",)

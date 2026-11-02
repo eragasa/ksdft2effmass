@@ -31,9 +31,9 @@ from projectkoios.numerics.finite_periodic.numpy.transforms import (
 from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
 from scipy.special import j0, jv  # type: ignore[import-untyped]
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence.base import (
-    BandEquivalenceAnalyzer,
-    PeriodicBandEquivalenceAnalysis,
+from ksdft2effmass.band_equivalence_hopping_locality.base import (
+    PeriodicBandEquivalenceHoppingLocalityAnalysis,
+    PeriodicBandEquivalenceHoppingLocalityAnalyzer,
 )
 from ksdft2effmass.real_space_support_truncation import (
     MetricShellSupportInventory,
@@ -100,7 +100,9 @@ IntArray = NDArray[np.int64]
 
 @dataclass(frozen=True, slots=True, eq=False)
 class BandEquivalenceHoppingLocalityAnalysis(
-    PeriodicBandEquivalenceAnalysis[BandEquivalenceHoppingLocalityRequest]
+    PeriodicBandEquivalenceHoppingLocalityAnalysis[
+        BandEquivalenceHoppingLocalityRequest
+    ]
 ):
     """Represent the complete correlated analysis of one locality request."""
 
@@ -146,7 +148,9 @@ class BandEquivalenceHoppingLocalityAnalysis(
 
 
 class Rank2BandEquivalenceHoppingLocalityAnalyzer(
-    BandEquivalenceAnalyzer[BandEquivalenceHoppingLocalityRequest]
+    PeriodicBandEquivalenceHoppingLocalityAnalyzer[
+        BandEquivalenceHoppingLocalityRequest
+    ]
 ):
     """Perform the complete shared rank-two locality analysis of one bound request."""
 

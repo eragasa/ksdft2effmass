@@ -8,14 +8,14 @@ from ksdft2effmass.band_equivalence_hopping_locality.verification import (
 from ksdft2effmass.band_equivalence_hopping_locality.visualizations.visualizer import (
     BandEquivalenceHoppingLocalityVisualizer,
 )
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
 
+from ..base import Periodic3DRank2BandEquivalenceHoppingLocalityAction
 from .data import Periodic3DRank2BandEquivalenceHoppingLocalityVisualizationData
 
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityVisualizer(
     BandEquivalenceHoppingLocalityVisualizer,
-    Periodic3DCapability,
+    Periodic3DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Render one authenticated periodic-3D rank-two projection."""
 

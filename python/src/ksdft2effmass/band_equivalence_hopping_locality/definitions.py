@@ -19,8 +19,8 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence.base import (
-    PeriodicBandEquivalenceRequest,
+from ksdft2effmass.band_equivalence_hopping_locality.base import (
+    PeriodicBandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.real_space_support_truncation import BasisResolvedMetricGeometry
 from ksdft2effmass.serialization import (
@@ -394,7 +394,7 @@ class BandEquivalenceHoppingLocalityCase(BaseTypedRecord, BasisResolvedMetricGeo
 @dataclass(frozen=True, slots=True)
 class BandEquivalenceHoppingLocalityRequest(
     BaseTypedRecord,
-    PeriodicBandEquivalenceRequest,
+    PeriodicBandEquivalenceHoppingLocalityRequest,
 ):
     """Freeze one bounded, non-evidentiary experiment execution."""
 

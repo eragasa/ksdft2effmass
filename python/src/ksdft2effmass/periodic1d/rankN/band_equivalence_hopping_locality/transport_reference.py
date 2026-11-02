@@ -29,6 +29,7 @@ from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 from ..band_alignment.frame_transport.result import (
     Periodic1DRankNAlignmentTransportOwnerResult,
 )
+from .base import Periodic1DRankNBandEquivalenceHoppingLocalityAction
 from .result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
@@ -202,7 +203,9 @@ class Periodic1DRankNTransportReferenceComparisonConstructor:
 
 
 @final
-class Periodic1DRankNTransportReferenceAnalyzer:
+class Periodic1DRankNTransportReferenceAnalyzer(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction
+):
     """Reconstruct constant-frame transport without the producer transporter."""
 
     __slots__ = ("_request",)
@@ -216,6 +219,11 @@ class Periodic1DRankNTransportReferenceAnalyzer:
     def request(self) -> Periodic1DRankNTransportReferenceRequest:
         """Return the exact immutable request bound to this action."""
         return self._request
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.calculation_result.band_subspace_rank
 
     def execute(self) -> Periodic1DRankNTransportReference:
         """Return direct constant-frame transport comparisons on all meshes."""

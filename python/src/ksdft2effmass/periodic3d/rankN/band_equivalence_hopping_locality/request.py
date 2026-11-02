@@ -19,9 +19,8 @@ from projectkoios.physkit.periodic.lattice import (
     DirectLatticeMetric,
 )
 
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
-from ksdft2effmass.periodic3d.rankN.band_equivalence.base import (
-    Periodic3DRankNBandEquivalenceRequest,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityRequestRole,
 )
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
@@ -50,7 +49,6 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
 @dataclass(frozen=True, slots=True)
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
     BaseTypedRecord,
-    Periodic3DCapability,
     BasisResolvedMetricGeometry,
 ):
     """Bind one reviewed lattice geometry and gauge-normalization convention."""
@@ -167,7 +165,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
 @dataclass(frozen=True, slots=True)
 class Periodic3DRankNBandEquivalenceHoppingLocalityRequest(
     BaseTypedRecord,
-    Periodic3DRankNBandEquivalenceRequest,
+    Periodic3DRankNBandEquivalenceHoppingLocalityRequestRole,
 ):
     """Freeze one exact periodic-3D rank-N software study definition."""
 

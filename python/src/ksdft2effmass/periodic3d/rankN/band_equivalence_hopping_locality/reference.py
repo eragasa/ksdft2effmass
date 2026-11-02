@@ -17,7 +17,11 @@ from typing import final
 import numpy as np
 from projectkoios.physkit.units import ScalarQuantity, Unitless
 
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction,
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseRequest,
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
+)
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
 )
@@ -38,11 +42,18 @@ _REFERENCE_ABSOLUTE_TOLERANCE = 1.0e-10
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest:
+class Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest(
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseRequest
+):
     """Bind one exact analyzed case to its complete typed study definition."""
 
     study_request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest
     case_analysis: Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the bound case's represented band-subspace rank."""
+        return self.case_analysis.retained_rank
 
     def __post_init__(self) -> None:
         if (
@@ -68,7 +79,9 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic3DRankNBandEquivalenceHoppingLocalityReference:
+class Periodic3DRankNBandEquivalenceHoppingLocalityReference(
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue
+):
     """Retain immutable producer-independent scalar comparisons."""
 
     request: Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest
@@ -92,6 +105,11 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityReference:
         object.__setattr__(
             self, "comparisons", MappingProxyType(dict(self.comparisons))
         )
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.band_subspace_rank
 
     @property
     def passed(self) -> bool:
@@ -359,7 +377,7 @@ class _IndependentPeriodic3DRankNCase:
 
 @final
 class Periodic3DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer(
-    Periodic3DCapability
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction
 ):
     """Compare one analyzed case with independent parent and alignment formulas."""
 
@@ -381,6 +399,11 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer(
     def request(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest:
         """Return the immutable reference request bound to this action."""
         return self._request
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.band_subspace_rank
 
     @staticmethod
     def _comparison(

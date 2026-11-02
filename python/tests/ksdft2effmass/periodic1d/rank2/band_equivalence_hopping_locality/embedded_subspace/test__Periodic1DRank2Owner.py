@@ -16,6 +16,11 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+)
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.analysis import (  # noqa: E501
     Periodic1DRank2Analyzer,
 )
@@ -65,6 +70,30 @@ def _analyze(
 
 class TestPeriodic1DRank2Owner:
     """Establish qualification, separated channels, and explicit stop states."""
+
+    def test_owner_specializes_through_the_rank_two_aggregate_roles(self) -> None:
+        request = _request()
+        analyzer = Periodic1DRank2Analyzer(
+            request=request,
+            transporter=ClosedLoopPolarFrameTransporter(),
+        )
+        analysis = analyzer.execute()
+
+        assert isinstance(
+            request,
+            Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+        )
+        assert isinstance(
+            analyzer,
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+        )
+        assert isinstance(
+            analysis,
+            Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+        )
+        assert request.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
+        assert analysis.band_subspace_rank == 2
 
     def test_qualified_parent_preserves_transport_and_representation_channels(
         self,

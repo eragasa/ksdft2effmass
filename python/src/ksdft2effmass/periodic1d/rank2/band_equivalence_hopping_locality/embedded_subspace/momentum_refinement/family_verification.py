@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.verification import (
     CompositeVerification,
     MemberwiseCompositeVerificationComposer,
@@ -20,7 +23,9 @@ class EmbeddedSubspaceRank2MomentumRefinementFamilyVerification(CompositeVerific
     """Group independent comparisons across all declared parent scales."""
 
 
-class Periodic1DRank2MomentumRefinementFamilyIndependentVerifier:
+class Periodic1DRank2MomentumRefinementFamilyIndependentVerifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Independently reconstruct every member of one refinement family."""
 
     __slots__ = ("_observed",)

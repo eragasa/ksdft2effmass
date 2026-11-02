@@ -18,6 +18,7 @@ from projectkoios.physkit.units import ScalarQuantity, Unitless, VectorQuantity
 
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
+from .base import Periodic1DRankNBandEquivalenceHoppingLocalityAction
 from .result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
@@ -89,7 +90,9 @@ class _ModelCoreInvariantValues:
     oracle_operator_recovery_defect: float
 
 
-class Periodic1DRankNCoreInvariantReferenceAnalyzer:
+class Periodic1DRankNCoreInvariantReferenceAnalyzer(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction
+):
     """Independently reconstruct the analytic model's core invariant diagnostics."""
 
     __slots__ = ("_request",)
@@ -111,6 +114,11 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer:
     def request(self) -> Periodic1DRankNCoreInvariantReferenceRequest:
         """Return the complete immutable reference-analysis request."""
         return self._request
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.result.band_subspace_rank
 
     def execute(self) -> Periodic1DRankNCoreInvariantReference:
         """Return direct-formula comparisons for every construction mesh."""

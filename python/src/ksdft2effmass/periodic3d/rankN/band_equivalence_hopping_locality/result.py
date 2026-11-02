@@ -16,9 +16,9 @@ from ksdft2effmass.gauge_alignment import (
 from ksdft2effmass.periodic3d.gauge_alignment.base import (
     Periodic3DGaugeAlignmentAnalysis,
 )
-from ksdft2effmass.periodic3d.rankN.band_equivalence.base import (
-    Periodic3DRankNBandEquivalence,
-    Periodic3DRankNBandEquivalenceAnalysis,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
@@ -446,14 +446,14 @@ type Periodic3DRankNBandEquivalenceHoppingLocalityAlignmentAnalysis = (
 
 @dataclass(frozen=True, slots=True)
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
-    Periodic3DRankNBandEquivalence
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue
 ):
     """Retain all alignment routes for one analytic model case."""
 
     @property
-    def band_subspace_ranks(self) -> tuple[int, ...]:
+    def band_subspace_rank(self) -> int:
         """Return the exact case's represented band-subspace rank."""
-        return (self.retained_rank,)
+        return self.retained_rank
 
     model_identity: str
     case_identifier: str
@@ -517,7 +517,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityAnalysisStatusEnum(StringWire
 @dataclass(frozen=True, slots=True)
 class Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis(
     BaseTypedRecord,
-    Periodic3DRankNBandEquivalenceAnalysis[
+    Periodic3DRankNBandEquivalenceHoppingLocalityAnalysisRole[
         Periodic3DRankNBandEquivalenceHoppingLocalityRequest
     ],
 ):

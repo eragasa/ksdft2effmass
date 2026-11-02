@@ -8,6 +8,9 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import ClassVar, Self
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.visualizations import BaseVisualizationData
 
@@ -109,7 +112,10 @@ def _rows(
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2VisualizationData(BaseVisualizationData):
+class Periodic1DRank2VisualizationData(
+    BaseVisualizationData,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Project one qualified embedded analysis for authenticated rendering."""
 
     source_sha256: str
@@ -339,7 +345,10 @@ class Periodic1DRank2VisualizationData(BaseVisualizationData):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2ParentFamilyVisualizationData(BaseVisualizationData):
+class Periodic1DRank2ParentFamilyVisualizationData(
+    BaseVisualizationData,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Project one fully qualified parent family for authenticated rendering."""
 
     source_sha256: str
@@ -486,7 +495,10 @@ class Periodic1DRank2ParentFamilyVisualizationData(BaseVisualizationData):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2CalculationVisualizationData(BaseVisualizationData):
+class Periodic1DRank2CalculationVisualizationData(
+    BaseVisualizationData,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Project the cohesive aggregate into separate renderable channels."""
 
     MOMENTUM_CHANNELS: ClassVar[tuple[str, ...]] = (

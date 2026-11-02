@@ -13,17 +13,20 @@ from ksdft2effmass.band_equivalence_hopping_locality.result import (
     BandEquivalenceHoppingLocalityAnalysisRecorder,
     BandEquivalenceHoppingLocalityCalculationResult,
 )
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
 from ksdft2effmass.serialization import SerializableValue
 
 from .analysis import Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis
+from .base import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic3DRank2BandEquivalenceHoppingLocalityValue,
+)
 from .request import Periodic3DRank2BandEquivalenceHoppingLocalityRequest
 
 
 @dataclass(frozen=True, slots=True)
 class Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult(
     BandEquivalenceHoppingLocalityCalculationResult,
-    Periodic3DCapability,
+    Periodic3DRank2BandEquivalenceHoppingLocalityValue,
 ):
     """Retain a periodic-3D rank-two calculation with its exact typed request."""
 
@@ -58,7 +61,7 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult(
 
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
-    Periodic3DCapability
+    Periodic3DRank2BandEquivalenceHoppingLocalityAction
 ):
     """Project one rank-first analysis through the shared typed recorder."""
 

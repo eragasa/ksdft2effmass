@@ -15,6 +15,10 @@ from ksdft2effmass.numerical_consistency import NumericalConsistency
 from ksdft2effmass.periodic1d.rankN.band_alignment.construction_mesh_result import (
     Periodic1DRankNMeshCalculationResult,
 )
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+    Periodic1DRankNBandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
@@ -32,11 +36,18 @@ from ..band_alignment.scalar_diagnostics import (
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNRefinementAnalysisRequest:
+class Periodic1DRankNRefinementAnalysisRequest(
+    Periodic1DRankNBandEquivalenceHoppingLocalityValue,
+):
     """Bind one calculation request and its complete construction-mesh results."""
 
     calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     meshes: tuple[Periodic1DRankNMeshCalculationResult, ...]
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented rank bound by the calculation request."""
+        return self.calculation_request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (
@@ -122,10 +133,17 @@ class Periodic1DRankNRefinementAnalysis(NumericalConsistency):
 
 
 @final
-class Periodic1DRankNRefinementAnalyzer:
+class Periodic1DRankNRefinementAnalyzer(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+):
     """Calculate adjacent block and final-pair scalar refinement evidence."""
 
     __slots__ = ("_request", "_scalar_refinement_analyzer")
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented rank bound by the refinement request."""
+        return self.request.band_subspace_rank
 
     def __init__(
         self,

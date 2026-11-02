@@ -22,8 +22,8 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
 from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
     Periodic1DRankNAnalyticCaseConstructor,
 )
-from ksdft2effmass.periodic1d.rankN.band_equivalence.base import (
-    Periodic1DRankNBandEquivalenceAnalyzer,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzerRole,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.construction_mesh import (  # noqa: E501
     Periodic1DRankNConstructionMeshAnalysisRequest,
@@ -56,7 +56,7 @@ from .result import Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis
 
 @final
 class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
-    Periodic1DRankNBandEquivalenceAnalyzer[
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzerRole[
         Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     ]
 ):

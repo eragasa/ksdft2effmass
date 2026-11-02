@@ -8,6 +8,10 @@ from itertools import pairwise
 
 import numpy as np
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
+
 from ..parent_scale.independent_reference import (
     Periodic1DRank2IndependentReferenceAnalyzer,
     _parent_matrices,
@@ -71,7 +75,9 @@ _IndependentMomentumReference = (
 )
 
 
-class Periodic1DRank2MomentumRefinementIndependentReferenceAnalyzer:
+class Periodic1DRank2MomentumRefinementIndependentReferenceAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Rebuild every mesh and refinement without production refinement actions."""
 
     __slots__ = ("_request",)

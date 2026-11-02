@@ -13,6 +13,9 @@ from projectkoios.optimization.alignment.procrustes import (
 )
 
 from ksdft2effmass.periodic1d.geometry import Periodic1DReducedCoordinateConvention
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+)
 
 _AMBIENT_RANK = 4
 _RETAINED_RANK = 2
@@ -27,7 +30,10 @@ _VERIFICATION_ABSOLUTE_TOLERANCE = 1.0e-10
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2Request(Periodic1DReducedCoordinateConvention):
+class Periodic1DRank2Request(
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+    Periodic1DReducedCoordinateConvention,
+):
     """Bind mesh, gauge attack amplitudes, qualification gates, and tolerances."""
 
     reciprocal_mesh_size: int

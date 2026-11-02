@@ -8,13 +8,21 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+)
+
 from ..parent_scale.analysis import Periodic1DRank2Analyzer
 from ..parent_scale.request import Periodic1DRank2Request
 from ..parent_scale.results import Periodic1DRank2Analysis
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2ParentFamilyRequest:
+class Periodic1DRank2ParentFamilyRequest(
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
+):
     """Bind an ordered onsite-to-full parent-hopping homotopy."""
 
     template_request: Periodic1DRank2Request
@@ -77,7 +85,11 @@ class Periodic1DRank2ParentFamilyRequest:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2ParentFamilyAnalysis:
+class Periodic1DRank2ParentFamilyAnalysis(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole[
+        Periodic1DRank2ParentFamilyRequest
+    ],
+):
     """Retain every explicitly declared parent-hopping family member."""
 
     request: Periodic1DRank2ParentFamilyRequest
@@ -102,7 +114,11 @@ class Periodic1DRank2ParentFamilyAnalysis:
                 raise ValueError("member controls do not match the family template")
 
 
-class Periodic1DRank2ParentFamilyAnalyzer:
+class Periodic1DRank2ParentFamilyAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole[
+        Periodic1DRank2ParentFamilyRequest
+    ],
+):
     """Evaluate all members of one bounded parent-hopping homotopy."""
 
     __slots__ = ("_request", "_transporter")

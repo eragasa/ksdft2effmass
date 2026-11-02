@@ -11,6 +11,8 @@ from ksdft2effmass.visualizations import (
     PngVisualization,
 )
 
+from ..base import Periodic1DRank2BandEquivalenceHoppingLocalityAction
+
 if TYPE_CHECKING:
     from ..verification import Periodic1DRank2BandEquivalenceHoppingLocalityVerification
 
@@ -26,7 +28,8 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityVisualizer(
         Periodic1DRank2BandEquivalenceHoppingLocalityVisualizationData,
         VisualizationVerification,
         Periodic1DRank2BandEquivalenceHoppingLocalityVisualizationPlotEnum,
-    ]
+    ],
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Authenticate one projection and render the closed figure inventory."""
 

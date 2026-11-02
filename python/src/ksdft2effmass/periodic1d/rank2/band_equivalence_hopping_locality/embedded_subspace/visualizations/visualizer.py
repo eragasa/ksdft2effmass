@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.visualizations import (
     BaseVisualizer,
     PngFigureRenderer,
@@ -43,7 +46,8 @@ class Periodic1DRank2CalculationVisualizer(
         Periodic1DRank2CalculationVisualizationData,
         Periodic1DRank2CalculationVerification,
         Periodic1DRank2CalculationVisualizationPlot,
-    ]
+    ],
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Render aggregate refinement and truncation channels."""
 
@@ -110,7 +114,8 @@ class Periodic1DRank2Visualizer(
         Periodic1DRank2VisualizationData,
         Periodic1DRank2Verification,
         Periodic1DRank2VisualizationPlot,
-    ]
+    ],
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Render the closed single-parent inventory from authenticated data."""
 
@@ -166,7 +171,8 @@ class Periodic1DRank2ParentFamilyVisualizer(
         Periodic1DRank2ParentFamilyVisualizationData,
         Periodic1DRank2ParentFamilyVerification,
         Periodic1DRank2ParentFamilyVisualizationPlot,
-    ]
+    ],
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Render the closed parent-family inventory from authenticated data."""
 

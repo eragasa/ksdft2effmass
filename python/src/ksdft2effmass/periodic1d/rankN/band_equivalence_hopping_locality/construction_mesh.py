@@ -32,6 +32,10 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.model_diagnostics import (
     Periodic1DRankNModelDiagnosticsAnalyzer,
     Periodic1DRankNModelDiagnosticsRequest,
 )
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+    Periodic1DRankNBandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
@@ -71,12 +75,19 @@ from .gauge_case import Periodic1DRankNCompositeGaugeCaseAnalyzer
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRankNConstructionMeshAnalysisRequest:
+class Periodic1DRankNConstructionMeshAnalysisRequest(
+    Periodic1DRankNBandEquivalenceHoppingLocalityValue,
+):
     """Bind one mesh sample to case-wide global-selection evidence."""
 
     calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     sample: Periodic1DRankNAnalyticMeshSample
     global_selection: Periodic1DRankNProcrustesDiagnostics
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented rank bound by the calculation request."""
+        return self.calculation_request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (
@@ -111,10 +122,17 @@ class Periodic1DRankNConstructionMeshAnalysisRequest:
 
 
 @final
-class Periodic1DRankNConstructionMeshAnalyzer:
+class Periodic1DRankNConstructionMeshAnalyzer(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+):
     """Compose selection, transport, diagnostics, and gauge cases for one mesh."""
 
     __slots__ = ("_request", "_procrustes_solver", "_transporter")
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented rank bound by the mesh request."""
+        return self.request.band_subspace_rank
 
     def __init__(
         self,

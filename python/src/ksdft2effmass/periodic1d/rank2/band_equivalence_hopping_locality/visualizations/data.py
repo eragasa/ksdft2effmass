@@ -10,6 +10,7 @@ from typing import Self
 from ksdft2effmass.serialization import SerializableValue
 from ksdft2effmass.visualizations import BaseVisualizationData
 
+from ..base import Periodic1DRank2BandEquivalenceHoppingLocalityValue
 from ..result import Periodic1DRank2BandEquivalenceHoppingLocalityAnalysis
 
 
@@ -45,7 +46,8 @@ def _float_rows(
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2BandEquivalenceHoppingLocalityVisualizationData(
-    BaseVisualizationData
+    BaseVisualizationData,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
 ):
     """Retain only verifier-derived values admitted for rendering."""
 

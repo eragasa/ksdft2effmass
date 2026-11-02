@@ -4,6 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.verification import CompositeVerification, VerificationObservation
 
 from ..parent_scale.verification import (
@@ -21,14 +25,18 @@ class EmbeddedSubspaceRank2ParentFamilyVerification(CompositeVerification):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2ParentFamilyIndependentVerification:
+class Periodic1DRank2ParentFamilyIndependentVerification(
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Bind one independent family reference to its comparison observations."""
 
     reference: Periodic1DRank2ParentFamilyIndependentReference
     verification: EmbeddedSubspaceRank2ParentFamilyVerification
 
 
-class Periodic1DRank2ParentFamilyIndependentVerifier:
+class Periodic1DRank2ParentFamilyIndependentVerifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Independently reconstruct and compare one parent-hopping family."""
 
     __slots__ = ("_observed",)

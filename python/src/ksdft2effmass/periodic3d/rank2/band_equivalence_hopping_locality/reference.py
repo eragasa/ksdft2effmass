@@ -10,15 +10,18 @@ from ksdft2effmass.band_equivalence_hopping_locality.reference import (
     BandEquivalenceHoppingLocalityIndependentShellPowerPoint,
     BandEquivalenceHoppingLocalityIndependentShellPowerReference,
 )
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
 
+from .base import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic3DRank2BandEquivalenceHoppingLocalityValue,
+)
 from .request import Periodic3DRank2BandEquivalenceHoppingLocalityRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic3DRank2BandEquivalenceHoppingLocalityIndependentShellPowerReference(
     BandEquivalenceHoppingLocalityIndependentShellPowerReference,
-    Periodic3DCapability,
+    Periodic3DRank2BandEquivalenceHoppingLocalityValue,
 ):
     """Retain the independent shell-power reference for one periodic-3D request."""
 
@@ -38,7 +41,7 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityIndependentShellPowerReferenc
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer(
     BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer,
-    Periodic3DCapability,
+    Periodic3DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Execute the independent finite-sum route for one periodic-3D request."""
 

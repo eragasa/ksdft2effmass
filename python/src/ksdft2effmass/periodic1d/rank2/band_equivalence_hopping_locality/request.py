@@ -9,9 +9,8 @@ from fractions import Fraction
 from ksdft2effmass.periodic1d.geometry import (
     Periodic1DReducedCoordinateConvention,
 )
-from ksdft2effmass.periodic1d.rank2.band_equivalence.base import (
-    Periodic1DRank2BandEquivalenceRequest,
-)
+
+from .base import Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole
 
 FLAT_PARENT_MODEL_IDENTIFIER = "flat-two-level-parent.v1"
 FLAT_REPRESENTED_BASIS_IDENTIFIER = "fixed-real-rank-two-basis.v1"
@@ -22,7 +21,7 @@ FLAT_GAUGE_ATTACK_IDENTIFIER = "real-sinusoidal-rotation.v1"
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2BandEquivalenceHoppingLocalityRequest(
-    Periodic1DRank2BandEquivalenceRequest,
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
     Periodic1DReducedCoordinateConvention,
 ):
     """Bind the finite flat-parent construction and evaluation controls.

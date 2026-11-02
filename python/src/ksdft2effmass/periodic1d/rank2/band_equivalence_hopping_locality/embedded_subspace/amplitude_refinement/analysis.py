@@ -12,6 +12,10 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 
 from ksdft2effmass.numerical_consistency import NumericalConsistency
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 
 from ..parent_scale.analysis import (
     Periodic1DRank2Analyzer,
@@ -53,7 +57,9 @@ class Periodic1DRank2AmplitudeRefinementThresholds:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2AdaptiveAmplitudeRequest:
+class Periodic1DRank2AdaptiveAmplitudeRequest(
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Bind deterministic midpoint refinement to one fixed momentum calculation."""
 
     template_request: Periodic1DRank2Request
@@ -165,7 +171,10 @@ class Periodic1DRank2AmplitudeValidation:
         return len(self.failing_point_indices)
 
 
-class Periodic1DRank2AdaptiveAmplitudeAnalysis(NumericalConsistency):
+class Periodic1DRank2AdaptiveAmplitudeAnalysis(
+    NumericalConsistency,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Identify one closed adaptive-amplitude outcome variant."""
 
     __slots__ = ()
@@ -501,7 +510,9 @@ def _final_amplitude_checks_pass(
     )
 
 
-class Periodic1DRank2AdaptiveAmplitudeAnalyzer:
+class Periodic1DRank2AdaptiveAmplitudeAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Refine failing intervals and validate stable nodes at quarter points."""
 
     __slots__ = ("_request", "_transporter")
