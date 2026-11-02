@@ -13,6 +13,7 @@ from types import ModuleType
 from typing import cast
 
 import pytest
+
 from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape import (
     ShellScaleDecisionLandscapeRequest,
     ShellScaleDecisionLandscapeResult,

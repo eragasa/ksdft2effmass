@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import cast
 
 import pytest
+
 from ksdft2effmass.periodic3d.rankN.bain_quotient_admission import (
     BainPeriodTriple,
     Periodic3DBainFiniteQuotientAdmissionCertificate,
