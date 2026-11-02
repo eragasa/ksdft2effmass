@@ -6,27 +6,28 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.calculation import (
-    BandEquivalenceLocalityVerifier,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
-    BandEquivalenceLocalityRequest,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.lifecycle import (
-    BandEquivalenceLocalityExecution,
-    BandEquivalenceLocalityExecutionVerification,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.reference import (
-    BandEquivalenceLocalityIndependentShellPowerAnalyzer,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
-    BandEquivalenceLocalityCalculationResult,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.verification import (
-    BandEquivalenceLocalityResultVerifier,
-    BandEquivalenceLocalityVerificationThresholds,
-)
 from projectkoios.physkit.units import ScalarQuantity, Unitless
+
+from ksdft2effmass.band_equivalence_hopping_locality.verification import (
+    BandEquivalenceHoppingLocalityVerificationThresholds,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.lifecycle import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityExecution,
+    Periodic2DRank2BandEquivalenceHoppingLocalityExecutionVerification,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.reference import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.request import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityRequest,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.verification import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityDiagnosticVerifier,
+    Periodic2DRank2BandEquivalenceHoppingLocalityResultVerifier,
+)
 
 EXECUTION_ID = "direct-square-rank2-n16"
 CALCULATION_FAMILY = "periodic2d-rank2-orthogonal-band-equivalence-locality"
@@ -55,7 +56,7 @@ if not all(
 ):
     raise FileNotFoundError("the declared periodic-2D locality execution is incomplete")
 execution_bytes = execution_path.read_bytes()
-execution = BandEquivalenceLocalityExecution.from_json(execution_bytes)
+execution = Periodic2DRank2BandEquivalenceHoppingLocalityExecution.from_json(execution_bytes)
 if execution.to_json() != execution_bytes:
     raise ValueError("execution document is not canonical typed JSON")
 if execution.execution_id != EXECUTION_ID:
@@ -77,22 +78,24 @@ if execution.configuration_sha256 != hashlib.sha256(configuration_bytes).hexdige
     raise ValueError("configuration bytes do not match execution.json")
 if execution.result_sha256 != hashlib.sha256(result_bytes).hexdigest():
     raise ValueError("result bytes do not match execution.json")
-configuration = BandEquivalenceLocalityRequest.from_json(configuration_bytes)
-result = BandEquivalenceLocalityCalculationResult.from_json(result_bytes)
+configuration = Periodic2DRank2BandEquivalenceHoppingLocalityRequest.from_json(
+    configuration_bytes
+)
+result = Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(result_bytes)
 if configuration.to_json() != configuration_bytes or result.to_json() != result_bytes:
     raise ValueError("calculation artifacts are not canonical typed JSON")
 if result.request.to_json() != configuration_bytes:
     raise ValueError("configuration and result request differ")
-verified = BandEquivalenceLocalityResultVerifier(
+verified = Periodic2DRank2BandEquivalenceHoppingLocalityResultVerifier(
     result_wire=result_bytes,
-    diagnostic_verifier=BandEquivalenceLocalityVerifier(
+    diagnostic_verifier=Periodic2DRank2BandEquivalenceHoppingLocalityDiagnosticVerifier(
         request=configuration,
         result=result.diagnostics,
     ),
-    shell_power_analyzer=BandEquivalenceLocalityIndependentShellPowerAnalyzer(
+    shell_power_analyzer=Periodic2DRank2BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer(
         request=configuration
     ),
-    thresholds=BandEquivalenceLocalityVerificationThresholds(
+    thresholds=BandEquivalenceHoppingLocalityVerificationThresholds(
         stored_identity_maximum_defect=ScalarQuantity(5.0e-11, Unitless()),
         independent_parent_maximum_defect=ScalarQuantity(5.0e-14, Unitless()),
         independent_band_maximum_defect=ScalarQuantity(5.0e-14, Unitless()),
@@ -105,7 +108,7 @@ verified = BandEquivalenceLocalityResultVerifier(
 if not verified.verification.passed:
     raise ValueError("periodic-2D locality independent verification failed")
 temporary_directory.mkdir()
-verification_record = BandEquivalenceLocalityExecutionVerification(
+verification_record = Periodic2DRank2BandEquivalenceHoppingLocalityExecutionVerification(
     schema_version=1,
     schema=(
         "ksdft2effmass.periodic2d-rank2-orthogonal-"

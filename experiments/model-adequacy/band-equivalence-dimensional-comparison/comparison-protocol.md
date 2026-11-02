@@ -14,7 +14,7 @@ independent family protocols and consumes the resulting typed diagnostics direct
 | Input protocol | Maintained source |
 |---|---|
 | Orthogonal square 2-D | [`../periodic2d/band-equivalence-versus-hopping-locality/`](../periodic2d/band-equivalence-versus-hopping-locality/) |
-| Nonorthogonal triangular/honeycomb 2-D | [`../periodic2d_nonorthog/band-equivalence-versus-hopping-locality/`](../periodic2d_nonorthog/band-equivalence-versus-hopping-locality/) |
+| Nonorthogonal triangular/honeycomb 2-D | [`calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/protocol/`](../../../calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/protocol/) |
 | Orthogonal simple-cubic 3-D | [`../periodic3d/band-equivalence-versus-hopping-locality/`](../periodic3d/band-equivalence-versus-hopping-locality/) |
 | Nonorthogonal FCC/diamond 3-D | [`../periodic3d_nonorthog/band-equivalence-versus-hopping-locality/`](../periodic3d_nonorthog/band-equivalence-versus-hopping-locality/) |
 

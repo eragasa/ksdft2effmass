@@ -10,18 +10,18 @@ from ksdft2effmass.periodic1d.fourier_locality.result import (
     Periodic1DFourierLocalityMeshResult,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncationAnalysis,
-    Periodic1DSupportTruncationAnalysisRequest,
-    Periodic1DSupportTruncationAnalyzer,
-)
 
+from .base import (
+    Periodic1DRank1SupportTruncationAnalysisRequestRole,
+    Periodic1DRank1SupportTruncationAnalysisRole,
+    Periodic1DRank1SupportTruncationAnalyzerRole,
+)
 from .result import Periodic1DRank1SupportResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRank1SupportTruncationAnalysisRequest(
-    Periodic1DSupportTruncationAnalysisRequest
+    Periodic1DRank1SupportTruncationAnalysisRequestRole
 ):
     """Bind one stored scalar support-removal inventory."""
 
@@ -49,7 +49,9 @@ class Periodic1DRank1SupportTruncationAnalysisRequest(
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank1SupportTruncationAnalysis(Periodic1DSupportTruncationAnalysis):
+class Periodic1DRank1SupportTruncationAnalysis(
+    Periodic1DRank1SupportTruncationAnalysisRole
+):
     """Retain transform-mediated support-removal capability values."""
 
     lattice_geometry: Periodic1DLatticeGeometry
@@ -94,7 +96,7 @@ class Periodic1DRank1SupportTruncationAnalysis(Periodic1DSupportTruncationAnalys
 
 @final
 class Periodic1DRank1SupportTruncationAnalyzer(
-    Periodic1DSupportTruncationAnalyzer[
+    Periodic1DRank1SupportTruncationAnalyzerRole[
         Periodic1DRank1SupportTruncationAnalysisRequest,
         Periodic1DRank1SupportTruncationAnalysis,
     ]

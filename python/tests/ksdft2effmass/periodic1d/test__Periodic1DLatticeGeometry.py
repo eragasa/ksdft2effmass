@@ -20,12 +20,6 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.request import (  # noqa: E501
-    Periodic1DRank2Request,
-)
-from ksdft2effmass.periodic1d.band_equivalence_locality.request import (
-    Periodic1DBandEquivalenceLocalityRequest,
-)
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
@@ -35,6 +29,12 @@ from ksdft2effmass.periodic1d.geometry import (
 )
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.request import (  # noqa: E501
+    Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.request import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -201,7 +201,7 @@ class TestPeriodic1DLatticeGeometry:
     ) -> None:
         """Maintained 1D reciprocal-mesh families no longer use structural typing."""
         for family_type in (
-            Periodic1DBandEquivalenceLocalityRequest,
+            Periodic1DRank2BandEquivalenceHoppingLocalityRequest,
             Periodic1DRank2Request,
             Periodic1DFourierLocalityConfiguration,
             Periodic1DCompositeBandAlignmentConfiguration,

@@ -7,26 +7,26 @@ import importlib.util
 from pathlib import Path
 from typing import Protocol, cast
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
-    BandEquivalenceLocalityRequest,
+from ksdft2effmass.band_equivalence_hopping_locality.analysis import (
+    Rank2BandEquivalenceHoppingLocalityAnalyzer,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
-    BandEquivalenceLocalityAnalyzer,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (
+from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape import (
     ShellScaleDecisionLandscapeCalculator,
     ShellScaleDecisionLandscapeRequest,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape_plotting import (
+from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape_plotting import (  # noqa: E501
     ShellScaleDecisionLandscapePlotRequest,
     ShellScaleDecisionLandscapePlotWriter,
+)
+from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
+    BandEquivalenceHoppingLocalityRequest,
 )
 
 
 class _DevelopmentDefinitionModule(Protocol):
     """Expose the typed request owned by one family composition root."""
 
-    DEFINITION: BandEquivalenceLocalityRequest
+    DEFINITION: BandEquivalenceHoppingLocalityRequest
 
 
 CALCULATION_DIRECTORY = Path(__file__).resolve().parent
@@ -39,11 +39,9 @@ FAMILY_DEFINITION_PATHS = (
     / "band-equivalence-locality"
     / "run_development.py",
     CALCULATIONS_DIRECTORY
-    / "periodic2d"
-    / "rank2"
-    / "nonorthogonal"
-    / "band-equivalence-locality"
-    / "run_development.py",
+    / "periodic2d_rank2_hexagonal"
+    / "band_equivalence_hopping_locality"
+    / "run_nominal_calculation.py",
     CALCULATIONS_DIRECTORY
     / "periodic3d"
     / "rank2"
@@ -60,7 +58,7 @@ FAMILY_DEFINITION_PATHS = (
 OUTPUT_DIRECTORY = CALCULATION_DIRECTORY / "analysis" / "development" / "generated"
 
 
-def _load_definition(path: Path, index: int) -> BandEquivalenceLocalityRequest:
+def _load_definition(path: Path, index: int) -> BandEquivalenceHoppingLocalityRequest:
     """Load one explicit family request without packaging experiment roots."""
     specification = importlib.util.spec_from_file_location(
         f"shell_scale_decision_landscape_family_{index}",
@@ -71,8 +69,11 @@ def _load_definition(path: Path, index: int) -> BandEquivalenceLocalityRequest:
     module = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(module)
     definition = cast(_DevelopmentDefinitionModule, module).DEFINITION
-    if type(definition) is not BandEquivalenceLocalityRequest:
-        raise TypeError(f"DEFINITION is not BandEquivalenceLocalityRequest: {path}")
+    if not isinstance(definition, BandEquivalenceHoppingLocalityRequest):
+        raise TypeError(
+            "DEFINITION is not BandEquivalenceHoppingLocalityRequest: "
+            f"{path}"
+        )
     return definition
 
 
@@ -88,7 +89,9 @@ def main() -> int:
     results = tuple(
         ShellScaleDecisionLandscapeCalculator(
             request=request,
-            analyzer=BandEquivalenceLocalityAnalyzer(request=request.locality_request),
+            analyzer=Rank2BandEquivalenceHoppingLocalityAnalyzer(
+                request=request.locality_request
+            ),
         ).execute()
         for request in requests
     )

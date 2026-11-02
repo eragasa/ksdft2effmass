@@ -14,7 +14,11 @@ public compatibility contract.
    model-systems
    visualizations
    controlled-periodic-studies
+   band-equivalence-hopping-locality
    gauge-alignment
+   frame-transport
+   hopping-locality
+   support-truncation
    research-monograph-campaigns
    serialization
    application

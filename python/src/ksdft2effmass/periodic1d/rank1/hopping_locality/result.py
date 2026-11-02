@@ -13,11 +13,12 @@ from ksdft2effmass.periodic1d.fourier_locality.result import (
     Periodic1DFourierLocalityRangeResult,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
+
+from .base import Periodic1DRank1HoppingLocalityValue
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank1HoppingTailResult(Periodic1DHoppingLocality):
+class Periodic1DRank1HoppingTailResult(Periodic1DRank1HoppingLocalityValue):
     """Represent one scalar hopping tail without truncating the model."""
 
     lattice_geometry: Periodic1DLatticeGeometry

@@ -17,11 +17,12 @@ from ksdft2effmass.periodic1d.fourier_locality.result import (
     Periodic1DFourierLocalityRangeResult,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.support_truncation import Periodic1DSupportTruncation
+
+from .base import Periodic1DRank1SupportTruncationValue
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank1SupportResult(Periodic1DSupportTruncation):
+class Periodic1DRank1SupportResult(Periodic1DRank1SupportTruncationValue):
     """Represent consequences of one scalar support removal."""
 
     lattice_geometry: Periodic1DLatticeGeometry

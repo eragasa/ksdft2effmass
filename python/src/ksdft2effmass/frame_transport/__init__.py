@@ -1,0 +1,1 @@
+"""Frame-transport capability namespace."""

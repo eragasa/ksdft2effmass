@@ -5,34 +5,37 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality import (
-    BandEquivalenceLocalityCase,
-    BandEquivalenceLocalityFamilyEnum,
-    BandEquivalenceLocalityRequest,
-    GaugeNormalizationEnum,
-    ParentEnum,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
-    BandEquivalenceLocalityAnalysis,
-    BandEquivalenceLocalityAnalyzer,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.calculation import (
-    BandEquivalenceLocalityVerifier,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
-    FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.records import (
-    BandEquivalenceLocalityVerificationDiagnostics,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
-    BandEquivalenceLocalityAnalysisRecorder,
-    BandEquivalenceLocalityCalculationResult,
-)
 from projectkoios.physkit.periodic.lattice import (
     BravaisLattice,
     DirectLattice3D,
     DirectLatticeMetric,
+)
+
+from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
+    BandEquivalenceHoppingLocalityCase,
+    BandEquivalenceHoppingLocalityFamilyEnum,
+    GaugeNormalizationEnum,
+    ParentEnum,
+)
+from ksdft2effmass.band_equivalence_hopping_locality.calculation import (
+    BandEquivalenceHoppingLocalityVerifier,
+)
+from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
+    FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
+)
+from ksdft2effmass.band_equivalence_hopping_locality.records import (
+    BandEquivalenceHoppingLocalityVerificationDiagnostics,
+)
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.analysis import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis,
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.request import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityRequest,
+)
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.result import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
+    Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
 
 SIMPLE_CUBIC_METRIC = DirectLatticeMetric(
@@ -57,11 +60,11 @@ FCC_BONDS = (
 )
 MAXIMUM_AMPLITUDE = math.pi / (4.0 * math.sqrt(12.0))
 
-DEFINITION = BandEquivalenceLocalityRequest(
-    family=BandEquivalenceLocalityFamilyEnum.SILICON_INSPIRED,
+DEFINITION = Periodic3DRank2BandEquivalenceHoppingLocalityRequest(
+    family=BandEquivalenceHoppingLocalityFamilyEnum.SILICON_INSPIRED,
     synthetic_model=FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
     cases=(
-        BandEquivalenceLocalityCase(
+        BandEquivalenceHoppingLocalityCase(
             name="matched-simple-cubic-bravais-control",
             dimension=3,
             parent_kind=ParentEnum.HERMITIAN_BRAVAIS,
@@ -70,7 +73,7 @@ DEFINITION = BandEquivalenceLocalityRequest(
             direct_metric=SIMPLE_CUBIC_METRIC,
             shell_metric_scale=2.0,
         ),
-        BandEquivalenceLocalityCase(
+        BandEquivalenceHoppingLocalityCase(
             name="fcc-bravais-control",
             dimension=3,
             parent_kind=ParentEnum.HERMITIAN_BRAVAIS,
@@ -79,7 +82,7 @@ DEFINITION = BandEquivalenceLocalityRequest(
             direct_metric=FCC_METRIC,
             shell_metric_scale=2.0,
         ),
-        BandEquivalenceLocalityCase(
+        BandEquivalenceHoppingLocalityCase(
             name="silicon-inspired-diamond",
             dimension=3,
             parent_kind=ParentEnum.BIPARTITE_INSPIRED,
@@ -104,16 +107,16 @@ DEFINITION = BandEquivalenceLocalityRequest(
 
 
 def construct_artifacts(
-    request: BandEquivalenceLocalityRequest,
+    request: Periodic3DRank2BandEquivalenceHoppingLocalityRequest,
 ) -> tuple[
-    BandEquivalenceLocalityAnalysis,
-    BandEquivalenceLocalityCalculationResult,
-    BandEquivalenceLocalityVerificationDiagnostics,
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis,
+    Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult,
+    BandEquivalenceHoppingLocalityVerificationDiagnostics,
 ]:
     """Calculate and independently verify one typed result."""
-    analysis = BandEquivalenceLocalityAnalyzer(request=request).execute()
-    result = BandEquivalenceLocalityAnalysisRecorder(analysis).result()
-    verification = BandEquivalenceLocalityVerifier(
+    analysis = Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(request=request).execute()
+    result = Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
+    verification = BandEquivalenceHoppingLocalityVerifier(
         request=request,
         result=result.diagnostics,
     ).execute()
@@ -122,8 +125,8 @@ def construct_artifacts(
 
 def write_artifacts(
     output: Path,
-    result: BandEquivalenceLocalityCalculationResult,
-    verification: BandEquivalenceLocalityVerificationDiagnostics,
+    result: Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult,
+    verification: BandEquivalenceHoppingLocalityVerificationDiagnostics,
 ) -> None:
     """Write canonical typed development records."""
     output.mkdir(parents=True, exist_ok=True)

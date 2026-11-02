@@ -19,15 +19,46 @@ reusable implementation in `python/src/ksdft2effmass/`; filesystem entry points 
 only calculation-specific inputs, explicit composition, effects, verification,
 artifact writing, and reports. Controlled model-system calculations such as PIAB1D and
 QHO1D are consolidated here even when their outputs remain mutable development bytes.
-Scientific experiment identities and protocols remain authoritative under
-`experiments/`, while executable calculation composition, outputs, and technical reports
-live here. Migration retires duplicate executable and output surfaces; it does not move
-or erase experiment identity, protocol authority, or bibliography.
+The `experiments/` tree is a legacy migration surface. Current calculation identities,
+research protocols, executable composition, outputs, and technical reports belong to
+their calculation owners here. Legacy experiment paths may retain forward pointers and
+donor provenance, but they are not protocol authority.
 
 A migration must distinguish byte-preserved retained evidence from an unsealed script.
 For an unsealed script, callers move directly to the canonical library owner without a
 compatibility facade. For retained evidence, the original bytes and their provenance
 remain intact even when the current library has a cleaner implementation.
+
+## Context-first periodic organization
+
+New periodic calculation roots identify one scientific context in the directory name,
+for example `periodic1d_rank1`, `periodic2d_rank2_orthogonal`, or
+`periodic2d_rank2_rhombic_path`. Their child directories identify distinct scientific
+operations rather than geometry or rank levels:
+
+- `gauge_alignment/`;
+- `frame_transport/` when the context evaluates transport;
+- `band_equivalence/`;
+- `hopping_locality/`;
+- `support_truncation/`; and
+- `band_equivalence_hopping_locality/` for thin aggregate composition.
+
+A capability child owns its operands, outcomes, and claim boundary. The aggregate may
+sequence those capabilities but may not merge gauge alignment, frame transport, band
+equivalence, hopping locality, or irreversible support truncation into one scientific
+operation. Cross-context analysis roots consume identified outputs and do not own a
+primary calculation protocol.
+
+`orthogonal` describes perpendicular lattice vectors and must not be replaced by
+`orthonormal`, because direct-lattice vectors retain physical units and need not have
+unit norm. Continuous geometry paths receive their own context identity. In particular,
+`periodic2d_rank2_rhombic_path` owns the unit-area triangular-to-square path and is not a
+static endpoint calculation or material-strain claim.
+
+Historical and retained packages are not moved merely to satisfy this layout. Their
+paths remain provenance until an explicit migration preserves every bound identity and
+checksum contract. New and unretained contexts migrate directly without compatibility
+aliases.
 
 ## Execution-package lifecycle
 
@@ -108,10 +139,12 @@ evidence identities are not renamed by filesystem consolidation.
 | [`periodic1d/rank2/composite-band-alignment-locality/`](periodic1d/rank2/composite-band-alignment-locality/README.md) | Implemented direct lifecycle | Exact-parent rank-two configuration, pure analysis, immutable typed result, byte-owning independent verification, authenticated two-figure rendering, direct scripts, exact M2/monograph donor crosswalks, and a comprehensive upstream provisional technical report; no retained successor execution exists. |
 | [`periodic1d/rankN/composite-band-alignment-locality/`](periodic1d/rankN/composite-band-alignment-locality/README.md) | Schema-free development calculation | Finite retained-rank ladder `3, 4, 8, 16`, rotation-depth ladder, alignment controls, analytic qualification, and replaceable summary; no strict full-result verifier or retained run. |
 | [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](periodic2d/rank2/orthogonal/band-equivalence-locality/README.md) | Direct unsealed execution | Square-lattice rank-two typed calculation, exact-byte independent verification, and authenticated rendering; refinement remains separate. |
-| [`periodic2d/rank2/nonorthogonal/band-equivalence-locality/`](periodic2d/rank2/nonorthogonal/band-equivalence-locality/README.md) | Implemented direct lifecycle | Triangular-Bravais/honeycomb-basis rank-two typed calculation, exact-byte independent verification, and authenticated rendering scripts; no direct execution is retained and this is not graphene validation. |
+| [`periodic2d_rank2_hexagonal/`](periodic2d_rank2_hexagonal/README.md) | Implemented calculation context | Triangular-Bravais/two-basis-metric rank-two context with separate capability channels and nominal, refinement, and replaceable-analysis actions; no execution is retained and this is not graphene validation. |
+| [`periodic2d/rankN/composite-band-alignment-locality/`](periodic2d/rankN/composite-band-alignment-locality/README.md) | Reserved owner boundary | Prospective Ragasa2026c periodic-2D finite-rank specialization with a calculation-owned protocol register and exact analytic baseline recommendation. Protocol adoption, implementation, execution, and evidence remain unselected. |
 | [`periodic3d/rank2/orthogonal/band-equivalence-locality/`](periodic3d/rank2/orthogonal/band-equivalence-locality/README.md) | Implemented direct lifecycle | Simple-cubic rank-two typed calculation, exact-byte independent verification, and authenticated rendering scripts; no periodic-3D execution is retained. |
 | [`periodic3d/rank2/nonorthogonal/band-equivalence-locality/`](periodic3d/rank2/nonorthogonal/band-equivalence-locality/README.md) | Implemented direct lifecycle | FCC-Bravais/diamond-basis rank-two typed calculation, exact-byte independent verification, and authenticated rendering scripts; no direct execution is retained and this is not a silicon calculation. |
-| [`periodic2d/rank2/strain-locality/`](periodic2d/rank2/strain-locality/README.md) | Development calculation | Area-preserving rhombic synthetic-strain M0/M1/M2 and scan controls. |
+| [`periodic3d/rankN/composite-band-alignment-locality/`](periodic3d/rankN/composite-band-alignment-locality/README.md) | Reserved owner boundary | Prospective Ragasa2026c periodic-3D finite-rank specialization with a calculation-owned protocol register and exact analytic baseline recommendation. Protocol adoption, implementation, execution, and evidence remain unselected. |
+| [`periodic2d_rank2_rhombic_path/`](periodic2d_rank2_rhombic_path/README.md) | Development calculation context | Unit-area continuous rhombic path with separate gauge-alignment, band-equivalence, hopping-locality, support-truncation, and aggregate M0/M1/M2/scan channels. |
 | [`periodic2d/rank1/hopping-shell-hierarchy/`](periodic2d/rank1/hopping-shell-hierarchy/README.md) | Prospective calculation design | Complete seven-file experiment design migrated to the calculation owner; no implementation, execution, or result. |
 | [`periodic3d/rank2/strain-locality/`](periodic3d/rank2/strain-locality/README.md) | Development calculation | Volume-preserving Bain-path synthetic-strain M0/M1/M2 and scan controls. |
 | [`periodic3d/rank1/anisotropic-hopping-support-hierarchy/`](periodic3d/rank1/anisotropic-hopping-support-hierarchy/README.md) | Preserved proposal design | Complete three-file proposal migrated to the calculation owner; implementation remains sequence-gated and absent. |
@@ -158,10 +191,10 @@ is to be created before the model, protocol, and input/output contracts exist.
 | Periodic-1D higher-rank basis rotations and hopping range | Historical five-file donor removed after exact-hash review; migration and recovery details are recorded in the calculation-side [crosswalk](periodic1d/rankN/composite-band-alignment-locality/experiment-migration-crosswalk.md) | [`periodic1d/rankN/composite-band-alignment-locality/`](periodic1d/rankN/composite-band-alignment-locality/README.md) | Move reusable code to reviewed source owners; define stable typed inputs and results; independently check the full result; authenticate plotted values; and add direct calculation, verification, and rendering scripts. Keep moving-subspace, complex-rotation, 2-D, and 3-D studies separate. |
 | Periodic-1D band equivalence versus hopping locality | Historical donor removed; exact migration and recovery provenance is recorded in the calculation-side [crosswalk](periodic1d/rank2/band-equivalence-versus-hopping-locality/experiment-migration-crosswalk.md) | [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md) | Extract reusable behavior from calculation-local `workflow/` into cohesive source owners; complete direct calculate → independently verify → render stages. The flat rule is direct, the nonflat claim is pointwise, adaptive refinement remains reserved, and no retained execution is authorized. |
 | Periodic-2D orthogonal band equivalence versus hopping locality | [`experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/`](../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/) | [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](periodic2d/rank2/orthogonal/band-equivalence-locality/README.md) | Calculation-owned typed composition, independent verification, authenticated plotting, and refinement surfaces are installed. Duplicate experiment entrypoints and output contracts are retired; protocol and bibliography remain experiment-owned. |
-| Periodic-2D nonorthogonal band equivalence versus hopping locality | [`experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/`](../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/) | [`periodic2d/rank2/nonorthogonal/band-equivalence-locality/`](periodic2d/rank2/nonorthogonal/band-equivalence-locality/README.md) | Nominal direct lifecycle and separate refinement are installed. Duplicate experiment entrypoints and output contracts are retired; protocol, bibliography, shell-decision change, and non-material boundary remain preserved. |
+| Periodic-2D hexagonal-metric band equivalence versus hopping locality | Legacy donor: [`experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/`](../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/) | [`periodic2d_rank2_hexagonal/`](periodic2d_rank2_hexagonal/README.md) | The context owns its research protocol, bibliography, capability channels, nominal calculation, two refinements, and replaceable analysis. The shell-decision change and non-material boundary remain preserved. |
 | Periodic-3D orthogonal band equivalence versus hopping locality | [`experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/`](../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/) | [`periodic3d/rank2/orthogonal/band-equivalence-locality/`](periodic3d/rank2/orthogonal/band-equivalence-locality/README.md) | Nominal direct lifecycle and separate bounded refinement are installed. Duplicate experiment entrypoints and output contracts are retired; protocol and bibliography remain experiment-owned, and refinement is not convergence evidence. |
 | Periodic-3D nonorthogonal band equivalence versus hopping locality | [`experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/`](../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/) | [`periodic3d/rank2/nonorthogonal/band-equivalence-locality/`](periodic3d/rank2/nonorthogonal/band-equivalence-locality/README.md) | Nominal direct lifecycle and separate refinement are installed. Duplicate experiment entrypoints and output contracts are retired; protocol, bibliography, and the explicit non-silicon boundary remain preserved. |
-| Periodic-2D gauge locality under synthetic strain | [`experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/`](../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/) | [`periodic2d/rank2/strain-locality/`](periodic2d/rank2/strain-locality/README.md) | Calculation-owned M0, M1/M2, and scan entrypoints and output paths are installed; duplicate experiment surfaces are retired. Outputs remain replaceable development artifacts, and the unit-area path is not elastic or material strain. |
+| Periodic-2D gauge locality under synthetic strain | Legacy donor: [`experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/`](../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/) | [`periodic2d_rank2_rhombic_path/`](periodic2d_rank2_rhombic_path/README.md) | The context owns its research protocol and separates gauge alignment, band equivalence, hopping locality, support truncation, and thin aggregate composition. M0, M1/M2, and scan outputs remain replaceable development artifacts; the unit-area path is not elastic or material strain. |
 | Periodic-3D gauge locality under synthetic strain | [`experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/`](../experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/) | [`periodic3d/rank2/strain-locality/`](periodic3d/rank2/strain-locality/README.md) | Calculation-owned M0, M1/M2, and scan entrypoints and output paths are installed; duplicate experiment surfaces are retired. Outputs remain replaceable development artifacts, with the unit-volume Bain-path and non-material boundary preserved. |
 | Periodic-2D hopping-shell hierarchy | Migrated from `experiments/model-adequacy/periodic2d/hopping-shell-hierarchy/` | [`periodic2d/rank1/hopping-shell-hierarchy/`](periodic2d/rank1/hopping-shell-hierarchy/README.md) | Protocol/design bytes now reside with the calculation owner. HSH-1 remains a provenance-design donor; certificate/schema decisions remain open and no result exists. |
 | Periodic-3D isotropic hopping-support hierarchy | [Architecture-only owner](../docs/architecture/v2/experiments/model-adequacy/periodic3d/isotropic-hopping-support-hierarchy/index.md) | No source or calculation directory | Keep as an explicit deferred family. Define its parent and exact protocol before any filesystem or implementation work. |
@@ -241,7 +274,7 @@ surfaces are:
   and `model_systems/periodic2d/`;
 - reusable band-equivalence, Fourier, alignment, geometry, support, refinement, and
   strain behavior under
-  `python/src/ksdft2effmass/analysis/model_adequacy/band_equivalence_locality/`;
+  `python/src/ksdft2effmass/band_equivalence_hopping_locality/`;
 - calculation-local implementations under
   `periodic1d/rank2/band-equivalence-versus-hopping-locality/workflow/` and
   `periodic1d/rankN/composite-band-alignment-locality/workflow/`; the former

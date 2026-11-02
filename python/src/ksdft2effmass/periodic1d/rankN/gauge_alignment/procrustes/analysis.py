@@ -12,6 +12,7 @@ from projectkoios.optimization.alignment.numpy.batched_procrustes import (
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
+from ..base import Periodic1DRankNGaugeAlignmentCapability
 from ..definition import Periodic1DRankNGaugeAlignment
 from ..status import (
     Periodic1DRankNAlignmentStatus,
@@ -21,7 +22,9 @@ from .result import Periodic1DRankNProcrustesDiagnostics
 
 
 @final
-class Periodic1DRankNProcrustesDiagnosticsAnalyzer:
+class Periodic1DRankNProcrustesDiagnosticsAnalyzer(
+    Periodic1DRankNGaugeAlignmentCapability
+):
     """Construct complete diagnostics from one bound Procrustes outcome."""
 
     __slots__ = (
@@ -35,6 +38,12 @@ class Periodic1DRankNProcrustesDiagnosticsAnalyzer:
         "_target",
         "_result",
     )
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented band-subspace rank."""
+        return self._retained_rank
 
     def __init__(
         self,

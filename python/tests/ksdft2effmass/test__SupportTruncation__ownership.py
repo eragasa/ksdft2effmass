@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pytest
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.results import (
-    BandEquivalenceLocalityShellAnalysis,
+from ksdft2effmass.band_equivalence_hopping_locality.results import (
+    BandEquivalenceHoppingLocalityShellAnalysis,
 )
 from ksdft2effmass.periodic1d.rank1.support_truncation import (
     Periodic1DRank1SupportResult,
@@ -13,8 +13,14 @@ from ksdft2effmass.periodic1d.rank1.support_truncation import (
     Periodic1DRank1SupportTruncationAnalysisRequest,
     Periodic1DRank1SupportTruncationAnalyzer,
 )
+from ksdft2effmass.periodic1d.rank1.support_truncation.base import (
+    Periodic1DRank1SupportTruncationCapability,
+)
 from ksdft2effmass.periodic1d.rank2.support_truncation.analysis import (
     Periodic1DRank2SupportTruncationAnalyzer,
+)
+from ksdft2effmass.periodic1d.rank2.support_truncation.base import (
+    Periodic1DRank2SupportTruncationCapability,
 )
 from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
     Periodic1DRank2TruncationFamilyAnalysis,
@@ -37,6 +43,9 @@ from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysisRequest,
     Periodic1DRankNSupportTruncationAnalyzer,
 )
+from ksdft2effmass.periodic1d.rankN.support_truncation.base import (
+    Periodic1DRankNSupportTruncationCapability,
+)
 from ksdft2effmass.periodic1d.rankN.support_truncation.result import (
     Periodic1DRankNSupportResult,
 )
@@ -58,12 +67,69 @@ from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationToleranceSelector,
     SupportToleranceUnresolved,
 )
+from ksdft2effmass.real_space_support_truncation.base import (
+    PeriodicRealSpaceSupportTruncation,
+    PeriodicRealSpaceSupportTruncationAnalysis,
+    PeriodicRealSpaceSupportTruncationAnalysisRequest,
+    PeriodicRealSpaceSupportTruncationAnalyzer,
+    RealSpaceSupportTruncationAnalysis,
+    RealSpaceSupportTruncationAnalysisRequest,
+    RealSpaceSupportTruncationAnalyzer,
+)
 from ksdft2effmass.support_truncation import SupportTruncation
+from ksdft2effmass.support_truncation.base import (
+    SupportTruncationAnalysis,
+    SupportTruncationAnalysisRequest,
+    SupportTruncationAnalyzer,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestSupportTruncation:
+    def test__analysis_roles__specialize_through_real_space_and_periodic_layers(
+        self,
+    ) -> None:
+        assert SupportTruncationAnalyzer.__abstractmethods__ == {"execute", "request"}
+        assert issubclass(
+            RealSpaceSupportTruncationAnalysisRequest,
+            SupportTruncationAnalysisRequest,
+        )
+        assert issubclass(RealSpaceSupportTruncationAnalysis, SupportTruncationAnalysis)
+        assert issubclass(RealSpaceSupportTruncationAnalyzer, SupportTruncationAnalyzer)
+        assert issubclass(
+            PeriodicRealSpaceSupportTruncation,
+            RealSpaceSupportTruncation,
+        )
+        assert issubclass(
+            PeriodicRealSpaceSupportTruncationAnalysisRequest,
+            RealSpaceSupportTruncationAnalysisRequest,
+        )
+        assert issubclass(
+            PeriodicRealSpaceSupportTruncationAnalysis,
+            RealSpaceSupportTruncationAnalysis,
+        )
+        assert issubclass(
+            PeriodicRealSpaceSupportTruncationAnalyzer,
+            RealSpaceSupportTruncationAnalyzer,
+        )
+
+    def test__rank_capabilities_are_meaningfully_abstract_siblings(self) -> None:
+        for capability in (
+            Periodic1DRank1SupportTruncationCapability,
+            Periodic1DRank2SupportTruncationCapability,
+            Periodic1DRankNSupportTruncationCapability,
+        ):
+            assert capability.__abstractmethods__ == {"band_subspace_rank"}
+        assert not issubclass(
+            Periodic1DRank2SupportTruncationCapability,
+            Periodic1DRankNSupportTruncationCapability,
+        )
+        assert not issubclass(
+            Periodic1DRankNSupportTruncationCapability,
+            Periodic1DRank2SupportTruncationCapability,
+        )
+
     def test__real_space_and_periodic1d__form_specialization_chain(self) -> None:
         """Periodic 1D support removal remains a real-space truncation."""
         assert issubclass(RealSpaceSupportTruncation, SupportTruncation)
@@ -130,8 +196,8 @@ class TestSupportTruncation:
                 id="Periodic1DRankNSupportResult",
             ),
             pytest.param(
-                BandEquivalenceLocalityShellAnalysis,
-                id="BandEquivalenceLocalityShellAnalysis",
+                BandEquivalenceHoppingLocalityShellAnalysis,
+                id="BandEquivalenceHoppingLocalityShellAnalysis",
             ),
             pytest.param(
                 MetricShellSupportInventory,

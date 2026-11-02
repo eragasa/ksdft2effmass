@@ -25,7 +25,7 @@ The expected destinations are:
 |---|---|
 | Mathieu1D | Target `ksdft2effmass.model_systems.mathieu1d.visualizations` |
 | Compatible rank-one control | Target `ksdft2effmass.periodic1d.fourier_locality.visualizations` |
-| Rank-two band equivalence | Prospective `ksdft2effmass.periodic1d.band_equivalence_locality.visualizations` |
+| Rank-two band equivalence | Prospective `ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.visualizations` |
 | Rank-two composite alignment | Target `ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations` |
 | Confirmatory admissible sets | Prospective confirmatory modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |
 | Scalar/direct demonstration | Prospective scalar-control modules under `ksdft2effmass.periodic1d.admissible_sets.visualizations` |

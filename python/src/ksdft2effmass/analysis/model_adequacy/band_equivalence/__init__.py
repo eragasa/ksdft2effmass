@@ -1,0 +1,1 @@
+"""Band-equivalence capability namespace."""

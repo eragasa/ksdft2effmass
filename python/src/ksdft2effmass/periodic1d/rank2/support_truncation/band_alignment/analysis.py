@@ -11,9 +11,6 @@ from ksdft2effmass.analysis.periodic_bands import (
     BandApproximationErrorAnalyzer1D,
     BandApproximationErrorRequest1D,
 )
-from ksdft2effmass.periodic1d.support_truncation.base import (
-    Periodic1DSupportTruncationAnalyzer,
-)
 from ksdft2effmass.solidstate.hopping_transforms import (
     BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
@@ -22,6 +19,7 @@ from ksdft2effmass.solidstate.hopping_transforms import (
     ReciprocalOperatorSamples1D,
 )
 
+from ..base import Periodic1DRank2SupportTruncationAnalyzerRole
 from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 from .result import (
     Periodic1DRank2SupportResult,
@@ -31,7 +29,7 @@ from .result import (
 
 @final
 class Periodic1DRank2SupportTruncationAnalyzer(
-    Periodic1DSupportTruncationAnalyzer[
+    Periodic1DRank2SupportTruncationAnalyzerRole[
         Periodic1DRank2SupportTruncationAnalysisRequest,
         Periodic1DRank2SupportTruncationAnalysis,
     ]

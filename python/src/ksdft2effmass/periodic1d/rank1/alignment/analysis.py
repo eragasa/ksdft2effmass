@@ -9,15 +9,17 @@ from projectkoios.physkit.periodic.lattice import DirectLattice1D
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
-from ksdft2effmass.periodic1d.gauge_alignment import Periodic1DGaugeAlignment
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
+from ksdft2effmass.periodic1d.rank1.gauge_alignment.base import (
+    Periodic1DRank1GaugeAlignment,
+)
 
 from .definition import Periodic1DRank1AlignmentApplicability
 from .result import Periodic1DRank1AlignmentApplicabilityResult
 
 
 @final
-class Periodic1DRank1AlignmentApplicabilityAnalyzer(Periodic1DGaugeAlignment):
+class Periodic1DRank1AlignmentApplicabilityAnalyzer(Periodic1DRank1GaugeAlignment):
     """Return the exact operator-trivial alignment disposition for one scalar family."""
 
     __slots__ = ("_lattice_geometry", "_request")
@@ -35,6 +37,12 @@ class Periodic1DRank1AlignmentApplicabilityAnalyzer(Periodic1DGaugeAlignment):
             raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
         self._request = request
         self._lattice_geometry = lattice_geometry
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the scalar band-subspace rank."""
+        return 1
 
     @property
     def lattice_geometry(self) -> Periodic1DLatticeGeometry:

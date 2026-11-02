@@ -6,9 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DOptimizerReanalysisCampaign,
+from ksdft2effmass.periodic2d.model.retained.optimizer_reanalysis import (
     Periodic2DOptimizerReanalysisCampaignModel,
+)
+from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.data import (
+    Periodic2DOptimizerReanalysisCampaign,
 )
 from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.verify import (  # noqa: E501
     Periodic2DOptimizerReanalysisCampaignVerifier as Verifier,

@@ -3,18 +3,18 @@
 from pathlib import Path
 
 import pytest
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape import (
+from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape import (
     ShellScaleCaseDecisionLandscape,
     ShellScaleDecisionLandscapeResult,
     ShellScaleDecisionPoint,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.decision_landscape_plotting import (
+from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape_plotting import (
     ShellScaleDecisionLandscapePlotRequest,
     ShellScaleDecisionLandscapePlotWriter,
     shell_scale_sampled_cell_triangles,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
-    BandEquivalenceLocalityFamilyEnum,
+from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
+    BandEquivalenceHoppingLocalityFamilyEnum,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -43,7 +43,7 @@ class TestShellScaleDecisionLandscapePlotWriter:
             ),
         )
         family = ShellScaleDecisionLandscapeResult(
-            family=BandEquivalenceLocalityFamilyEnum.SQUARE,
+            family=BandEquivalenceHoppingLocalityFamilyEnum.SQUARE,
             construction_size=4,
             evaluation_size=5,
             scale_sample_count=2,

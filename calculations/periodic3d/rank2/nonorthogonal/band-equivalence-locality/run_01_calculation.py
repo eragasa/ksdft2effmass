@@ -9,28 +9,31 @@ from datetime import UTC, datetime
 from importlib.metadata import version
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
-    BandEquivalenceLocalityAnalyzer,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
-    FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
-    BandEquivalenceLocalityCase,
-    BandEquivalenceLocalityFamilyEnum,
-    BandEquivalenceLocalityRequest,
-    GaugeNormalizationEnum,
-    ParentEnum,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.lifecycle import (
-    BandEquivalenceLocalityExecution,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
-    BandEquivalenceLocalityAnalysisRecorder,
-    BandEquivalenceLocalityCalculationResult,
-)
 from projectkoios.physkit.periodic.lattice import (
     BravaisLattice,
     DirectLattice3D,
     DirectLatticeMetric,
+)
+
+from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
+    FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
+    BandEquivalenceHoppingLocalityCase,
+    BandEquivalenceHoppingLocalityFamilyEnum,
+    GaugeNormalizationEnum,
+    ParentEnum,
+)
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.analysis import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.lifecycle import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityExecution,
+)
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.request import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityRequest,
+)
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.result import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
+    Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
 
 EXECUTION_ID = "direct-fcc-diamond-rank2-n8"
@@ -56,11 +59,11 @@ FCC_BONDS = (
     (0, -1, 1),
 )
 MAXIMUM_AMPLITUDE = math.pi / (4.0 * math.sqrt(12.0))
-configuration = BandEquivalenceLocalityRequest(
-    family=BandEquivalenceLocalityFamilyEnum.SILICON_INSPIRED,
+configuration = Periodic3DRank2BandEquivalenceHoppingLocalityRequest(
+    family=BandEquivalenceHoppingLocalityFamilyEnum.SILICON_INSPIRED,
     synthetic_model=FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
     cases=(
-        BandEquivalenceLocalityCase(
+        BandEquivalenceHoppingLocalityCase(
             name="matched-simple-cubic-bravais-control",
             dimension=3,
             parent_kind=ParentEnum.HERMITIAN_BRAVAIS,
@@ -69,7 +72,7 @@ configuration = BandEquivalenceLocalityRequest(
             direct_metric=SIMPLE_CUBIC_METRIC,
             shell_metric_scale=2.0,
         ),
-        BandEquivalenceLocalityCase(
+        BandEquivalenceHoppingLocalityCase(
             name="fcc-bravais-control",
             dimension=3,
             parent_kind=ParentEnum.HERMITIAN_BRAVAIS,
@@ -78,7 +81,7 @@ configuration = BandEquivalenceLocalityRequest(
             direct_metric=FCC_METRIC,
             shell_metric_scale=2.0,
         ),
-        BandEquivalenceLocalityCase(
+        BandEquivalenceHoppingLocalityCase(
             name="silicon-inspired-diamond",
             dimension=3,
             parent_kind=ParentEnum.BIPARTITE_INSPIRED,
@@ -105,23 +108,25 @@ execution_directory = script_path.parent / "executions" / EXECUTION_ID
 temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete")
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a periodic-3D nonorthogonal execution")
-analysis = BandEquivalenceLocalityAnalyzer(request=configuration).execute()
-result = BandEquivalenceLocalityAnalysisRecorder(analysis).result()
+analysis = Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(
+    request=configuration
+).execute()
+result = Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
-if BandEquivalenceLocalityRequest.from_json(configuration_bytes).to_json() != (
+if Periodic3DRank2BandEquivalenceHoppingLocalityRequest.from_json(
     configuration_bytes
-):
+).to_json() != (configuration_bytes):
     raise ValueError("configuration failed canonical typed admission")
-if BandEquivalenceLocalityCalculationResult.from_json(result_bytes).to_json() != (
+if Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(
     result_bytes
-):
+).to_json() != (result_bytes):
     raise ValueError("result failed canonical typed admission")
 (temporary_directory / "inputs").mkdir(parents=True)
 (temporary_directory / "results").mkdir()
 (temporary_directory / "inputs" / "configuration.json").write_bytes(configuration_bytes)
 (temporary_directory / "results" / "result.json").write_bytes(result_bytes)
-execution = BandEquivalenceLocalityExecution(
+execution = Periodic3DRank2BandEquivalenceHoppingLocalityExecution(
     schema_version=1,
     calculation_family=CALCULATION_FAMILY,
     study_family=configuration.family.to_wire(),

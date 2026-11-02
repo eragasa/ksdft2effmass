@@ -12,9 +12,9 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 | 1-D | 2 | [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](../../periodic1d/rank2/band-equivalence-versus-hopping-locality/) | Extracted development calculation; no retained successor run |
 | 1-D | 2 | [`periodic1d/rank2/composite-band-alignment-locality/`](../../periodic1d/rank2/composite-band-alignment-locality/) | Three-file protocol migrated; donor reconciliation and implementation remain open; no successor execution |
 | 2-D | 2 | [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](../../periodic2d/rank2/orthogonal/band-equivalence-locality/) | Bounded orthogonal development calculation |
-| 2-D | 2 | [`periodic2d/rank2/nonorthogonal/band-equivalence-locality/`](../../periodic2d/rank2/nonorthogonal/band-equivalence-locality/) | Bounded nonorthogonal development calculation |
+| 2-D | 2 | [`periodic2d_rank2_hexagonal/`](../../periodic2d_rank2_hexagonal/) | Bounded hexagonal-metric development calculation |
 | 2-D | 1 | [`periodic2d/rank1/hopping-shell-hierarchy/`](../../periodic2d/rank1/hopping-shell-hierarchy/) | Seven-file experiment design migrated; prospective and unimplemented |
-| 2-D | 2 | [`periodic2d/rank2/strain-locality/`](../../periodic2d/rank2/strain-locality/) | Bounded synthetic-strain development controls |
+| 2-D | 2 | [`periodic2d_rank2_rhombic_path/`](../../periodic2d_rank2_rhombic_path/) | Bounded rhombic-path development controls |
 | 3-D | 2 | [`periodic3d/rank2/orthogonal/band-equivalence-locality/`](../../periodic3d/rank2/orthogonal/band-equivalence-locality/) | Bounded orthogonal development calculation |
 | 3-D | 2 | [`periodic3d/rank2/nonorthogonal/band-equivalence-locality/`](../../periodic3d/rank2/nonorthogonal/band-equivalence-locality/) | Bounded nonorthogonal development calculation |
 | 3-D | 1 | [`periodic3d/rank1/anisotropic-hopping-support-hierarchy/`](../../periodic3d/rank1/anisotropic-hopping-support-hierarchy/) | Three-file proposal migrated; sequence-gated and unimplemented |
@@ -53,9 +53,9 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ### Level 4 --- basis-aware, strain, and cross-family rank-two analysis
 
-- [`periodic2d/rank2/nonorthogonal/band-equivalence-locality/`](../../periodic2d/rank2/nonorthogonal/band-equivalence-locality/) --- triangular-Bravais/honeycomb-basis controlled development calculation.
+- [`periodic2d_rank2_hexagonal/`](../../periodic2d_rank2_hexagonal/) --- triangular-Bravais/two-basis-metric controlled development calculation.
 - [`periodic3d/rank2/nonorthogonal/band-equivalence-locality/`](../../periodic3d/rank2/nonorthogonal/band-equivalence-locality/) --- FCC-Bravais/diamond-basis controlled development calculation.
-- [`periodic2d/rank2/strain-locality/`](../../periodic2d/rank2/strain-locality/) --- two-dimensional rhombic geometry, frozen-response, prescribed-response, and scan controls.
+- [`periodic2d_rank2_rhombic_path/`](../../periodic2d_rank2_rhombic_path/) --- two-dimensional rhombic geometry, frozen-response, prescribed-response, and scan controls.
 - [`periodic3d/rank2/strain-locality/`](../../periodic3d/rank2/strain-locality/) --- three-dimensional Bain-path geometry, response, and scan controls.
 - [`band-equivalence-dimensional-comparison/`](../../band-equivalence-dimensional-comparison/) --- aggregation of compatible rank-two family definitions into tolerance and shell--scale comparisons.
 

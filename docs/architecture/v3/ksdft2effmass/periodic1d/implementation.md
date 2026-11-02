@@ -52,7 +52,7 @@ ksdft2effmass/
     ├── rank2/                       # rank-two capability specializations
     │   └── band_alignment/
     │       └── composite/           # alignment study composition and lifecycle
-    ├── band_equivalence_locality/   # equivalence/locality analysis
+    ├── rank2/band_equivalence_hopping_locality/  # aggregate study
     └── admissible_sets/             # constrained-set composition
 ```
 

@@ -19,11 +19,11 @@ import numpy as np
 from ksdft2effmass.periodic1d.hopping_locality.inventory import (
     Periodic1DHoppingDiagnosticRangeInventory,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation_result import (
-    Periodic1DRankNAlignmentCalculationResult,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
@@ -120,11 +120,11 @@ class HigherRankDevelopmentPlot(Enum):
 class HigherRankDevelopmentFigureDataRequest:
     """Bind the complete ordered producer-result inventory to visualization data."""
 
-    calculation_results: tuple[Periodic1DRankNAlignmentCalculationResult, ...]
+    calculation_results: tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...]
 
     def __post_init__(self) -> None:
         if type(self.calculation_results) is not tuple or any(
-            type(result) is not Periodic1DRankNAlignmentCalculationResult
+            type(result) is not Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis
             for result in self.calculation_results
         ):
             raise TypeError("calculation_results must contain exact result records")
@@ -187,7 +187,7 @@ class HigherRankDevelopmentFigureData:
             raise ValueError("circuit_depths must match the frozen inventory")
         if (
             self.support_range_inventory.maximum_ranges
-            != Periodic1DRankNAlignmentCalculationControls.SUPPORT_RADII
+            != Periodic1DRankNBandEquivalenceHoppingLocalityControls.SUPPORT_RADII
         ):
             raise ValueError("support_radii must match the frozen inventory")
         expected_gauges = tuple(
@@ -207,7 +207,7 @@ class HigherRankDevelopmentFigureData:
         nm = 2
         npth = len(self.refinement_labels)
         recorded_block_count = (
-            2 * Periodic1DRankNAlignmentCalculationControls.MAXIMUM_RECORDED_BLOCK_RANGE
+            2 * Periodic1DRankNBandEquivalenceHoppingLocalityControls.MAXIMUM_RECORDED_BLOCK_RANGE
             + 1
         )
         shapes = {

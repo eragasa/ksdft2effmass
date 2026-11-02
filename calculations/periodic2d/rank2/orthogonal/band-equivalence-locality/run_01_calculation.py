@@ -10,32 +10,35 @@ from importlib.metadata import version
 from pathlib import Path
 
 import numpy as np
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.analysis import (
-    BandEquivalenceLocalityAnalyzer,
-)
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.definitions import (
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+
+from ksdft2effmass.band_equivalence_hopping_locality.definitions import (  # noqa: E501
     FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
-    BandEquivalenceLocalityCase,
-    BandEquivalenceLocalityFamilyEnum,
-    BandEquivalenceLocalityRequest,
+    BandEquivalenceHoppingLocalityCase,
+    BandEquivalenceHoppingLocalityFamilyEnum,
     GaugeNormalizationEnum,
     ParentEnum,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.lifecycle import (
-    BandEquivalenceLocalityExecution,
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.analysis import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.result import (
-    BandEquivalenceLocalityAnalysisRecorder,
-    BandEquivalenceLocalityCalculationResult,
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.lifecycle import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityExecution,
 )
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.request import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityRequest,
+)
+from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
+    Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult,
+)
 
 EXECUTION_ID = "direct-square-rank2-n16"
 CALCULATION_FAMILY = "periodic2d-rank2-orthogonal-band-equivalence-locality"
-configuration = BandEquivalenceLocalityRequest(
-    family=BandEquivalenceLocalityFamilyEnum.SQUARE,
+configuration = Periodic2DRank2BandEquivalenceHoppingLocalityRequest(
+    family=BandEquivalenceHoppingLocalityFamilyEnum.SQUARE,
     cases=(
-        BandEquivalenceLocalityCase(
+        BandEquivalenceHoppingLocalityCase(
             name="square-directed-parent",
             dimension=2,
             parent_kind=ParentEnum.DIRECTED_AXIS,
@@ -64,23 +67,25 @@ execution_directory = script_path.parent / "executions" / EXECUTION_ID
 temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete")
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a periodic-2D locality execution")
-analysis = BandEquivalenceLocalityAnalyzer(request=configuration).execute()
-result = BandEquivalenceLocalityAnalysisRecorder(analysis).result()
+analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
+    request=configuration
+).execute()
+result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
-if BandEquivalenceLocalityRequest.from_json(configuration_bytes).to_json() != (
+if Periodic2DRank2BandEquivalenceHoppingLocalityRequest.from_json(
     configuration_bytes
-):
+).to_json() != (configuration_bytes):
     raise ValueError("configuration failed canonical typed admission")
-if BandEquivalenceLocalityCalculationResult.from_json(result_bytes).to_json() != (
+if Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(
     result_bytes
-):
+).to_json() != (result_bytes):
     raise ValueError("result failed canonical typed admission")
 (temporary_directory / "inputs").mkdir(parents=True)
 (temporary_directory / "results").mkdir()
 (temporary_directory / "inputs" / "configuration.json").write_bytes(configuration_bytes)
 (temporary_directory / "results" / "result.json").write_bytes(result_bytes)
-execution = BandEquivalenceLocalityExecution(
+execution = Periodic2DRank2BandEquivalenceHoppingLocalityExecution(
     schema_version=1,
     calculation_family=CALCULATION_FAMILY,
     study_family=configuration.family.to_wire(),

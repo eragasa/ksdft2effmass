@@ -8,7 +8,7 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.periodic2d import (
+from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
     Periodic2DCommonSpaceComparisonResult,
     Periodic2DCommonSpaceOperatorComparator,

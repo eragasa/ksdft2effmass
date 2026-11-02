@@ -46,7 +46,8 @@ Periodic one-dimensional capability identity
    :maxdepth: 1
 
    ksdft2effmass/periodic1d/fourier_locality
-   ksdft2effmass/periodic1d/band_equivalence_locality
+   ksdft2effmass/periodic1d/band_equivalence_hopping_locality
+   ksdft2effmass/periodic1d/support_truncation
    ksdft2effmass/periodic1d/composite_band_alignment
    ksdft2effmass/periodic1d/admissible_sets
    ksdft2effmass/periodic1d/higher_rank_alignment

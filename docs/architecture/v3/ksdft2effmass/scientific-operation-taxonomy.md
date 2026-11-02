@@ -106,6 +106,44 @@ The rank-two and rank-$N$ adapters preserve their historical calculation-result 
 The selected direct lattice remains study context rather than being injected into those
 historical wires.
 
+Rank ownership is extracted from the maintained concrete gauge-alignment leaves rather
+than imposed from a speculative generic hierarchy. Periodic-2D and Periodic-3D rank-two
+and rank-$N$ requests, analyses, and analyzers now inherit their dimension-specific rank
+owners and expose `band_subspace_rank`. The maintained Periodic-1D rank-two triad and the
+rank-one applicability action/result inherit their corresponding rank capabilities
+directly. The Periodic-1D rank-$N$ analysis request inherits
+`Periodic1DRankNGaugeAlignmentCapability`; the longer name remains necessary because
+`Periodic1DRankNGaugeAlignment` already owns the alignment-route vocabulary. Rank-one
+remains the operator-trivial $U(1)$ boundary and does not acquire fabricated numerical
+alignment channels.
+
+### Frame transport
+
+`ksdft2effmass.frame_transport.base.FrameTransport` identifies analysis of represented
+frames propagated along an explicit ordered route. It remains distinct from pointwise
+gauge alignment: alignment determines or assesses an action between frames, whereas
+transport composes link actions and may assess closure, sewing, or plaquette evidence.
+Membership does not imply band equivalence, hopping locality, support truncation, or a
+unique global gauge. PhysKit remains the owner of reusable physical frame-transport
+primitives; KSD owns only its study-specific requests, analyses, typed outcomes, and
+evidence policy.
+
+The analysis roles follow the full domain-to-periodic-to-dimension-to-rank chain:
+`FrameTransportAnalysisRequest`, `FrameTransportAnalysis`, and
+`FrameTransportAnalyzer` specialize through their `PeriodicFrameTransport...` roles,
+then through `Periodic1D`, `Periodic2D`, or `Periodic3D`, and finally through sibling
+rank-two and rank-$N$ owners. Concrete requests, analyses, and zero-argument analyzers
+inherit those roles without adding serialization to the capability hierarchy. Historical
+`retained_rank` fields remain where they are part of an established study or provenance
+record; the capability accessor is `band_subspace_rank`.
+
+The implemented Periodic1D/2D/3D rank-two leaves and Periodic1D/2D/3D rank-$N$ leaves
+adopt this hierarchy. Rank four remains a rank-$N$ value rather than a namespace. No
+Periodic2D or Periodic3D rank-one transport role is introduced because no corresponding
+scientific implementation exists. Rank-$N$ resolved and failed Periodic1D subanalyses
+inherit analysis roles without falsely claiming that they retain the top-level aggregate
+request.
+
 ### Subspace reduction
 
 `ksdft2effmass.subspace_reduction.SubspaceReduction` identifies an explicit map from a
@@ -149,7 +187,7 @@ Current nominal assignments:
   reference and gauge-rotated representations at one amplitude; and
 - `Periodic1DRankNRecoveryAnalysis`, which keeps frame recovery and represented-
   operator recovery distinct for one explicitly selected gauge alignment; and
-- `BandEquivalenceLocalityRepresentationEquivalenceAnalysis`, which retains the
+- `BandEquivalenceHoppingLocalityRepresentationEquivalenceAnalysis`, which retains the
   family-specific state-space identity, direct-band, covariance, restricted-rotation,
   correlation, and operator-threshold diagnostics for the rank-two 2D/3D family.
 
@@ -159,6 +197,31 @@ the typed representation-equivalence result while projecting the historical scal
 attributes used by the unchanged retained record. This decomposition does not label the
 mixed point aggregate as one universal analysis result.
 
+### Band-equivalence and hopping-locality aggregate
+
+`BandEquivalenceHoppingLocality` is a thin coordinator founded on band equivalence. It
+has domain, periodic, dimensional, and sibling rank-two/rank-$N$ ownership roles for
+aggregate requests, analyses, analyzers, supporting actions, and truthful standalone
+values. Aggregate membership does not make an object a reusable gauge-alignment,
+frame-transport, hopping-locality, or support-truncation owner; those operations retain
+their dedicated hierarchies and are composed through direct immutable instances.
+
+Periodic2D/3D rank-$N$ family objects and case expanders expose plural
+`band_subspace_ranks`. Their concrete case analyses, case analyzers, independent
+references, and case-verification actions expose singular `band_subspace_rank`. The
+Periodic1D rank-$N$ aggregate is already one bound rank/depth calculation and therefore
+also exposes singular `band_subspace_rank`. This prevents a single case from claiming a
+complete family inventory. Rank-two and rank-$N$ remain siblings, and rank four remains
+a rank-$N$ value rather than a namespace.
+
+Wire-owner records remain serialization objects. Existing recorders, verifiers, and
+authenticated visualization projections receive aggregate action or value ownership
+only where the applicable rank can be reported without changing retained bytes.
+In-memory case expansion, analysis, independent-reference, verification, recording, and
+visualization composition consumes immutable instances directly. Serialization round
+trips remain limited to explicit byte authentication and retained-record admission; they
+are not a mechanism for ordinary analysis composition.
+
 ### Hopping locality
 
 `ksdft2effmass.hopping_locality.HoppingLocality` identifies diagnostics on an
@@ -167,12 +230,19 @@ the coefficient index space, support geometry, basis, gauge, normalization, and
 range inventory. It does not imply coefficient removal or construction of a
 finite-support operator.
 
-`ksdft2effmass.periodic1d.hopping_locality.Periodic1DHoppingLocality` specializes
-that ownership for coefficients indexed by one-dimensional integer translations.
-`Periodic1DRank2HoppingPower`, `Periodic1DRankNHoppingTailResult`, and
-`Periodic1DRankNHoppingLocalityAnalysis` adopt this specialization. The rank-two
-point analysis remains a mixed representation-equivalence and locality owner and is
-not relabeled as a standalone hopping-locality analysis.
+`PeriodicHoppingLocality` inserts the explicit periodic-boundary layer before the
+`Periodic1D`, `Periodic2D`, and `Periodic3D` dimensional roles. Requests, analyses,
+and analyzers follow the same domain-to-periodic-to-dimension-to-rank chain used by the
+other extracted operations. Rank-one Periodic1D, rank-two Periodic1D/2D/3D, and rank-$N$
+Periodic1D/2D/3D leaves expose `band_subspace_rank`; rank-two and rank-$N$ remain
+siblings. Historical `retained_rank` or `rank` fields remain on established study
+values where they carry existing scientific or provenance meaning.
+
+Standalone values such as `Periodic1DRank2HoppingPower`, rank-one and rank-two tail
+results, and `Periodic1DRankNHoppingTailResult` inherit rank-specific locality value
+owners. They diagnose unchanged coefficients and do not become support-truncation
+results. The rank-two point analysis remains a mixed representation-equivalence and
+locality owner and is not relabeled as a standalone hopping-locality analysis.
 
 ### Real-space support truncation
 
@@ -182,9 +252,17 @@ domain. `ksdft2effmass.real_space_support_truncation.RealSpaceSupportTruncation`
 specializes that root to represented real-space operator support after the basis and
 gauge have been fixed.
 
-`ksdft2effmass.periodic1d.support_truncation.Periodic1DSupportTruncation` further
-specializes the hierarchy to periodic one-dimensional integer translations. The
-mirrored concrete names use `Periodic1DRank2SupportTruncation...` and
+The domain request, analysis, and analyzer roles specialize through periodic real
+space and then through `Periodic1DSupportTruncation`,
+`Periodic2DSupportTruncation`, or `Periodic3DSupportTruncation`. Implemented leaves
+continue through rank-specific owners: Periodic1D rank one, rank two, and rank $N$;
+and Periodic2D/3D rank two and rank $N$. Requests, analyses, analyzers, and truthful
+standalone values expose `band_subspace_rank`. Rank-two and rank-$N$ owners are
+siblings, and a represented rank of four remains a rank-$N$ value rather than a
+`rank4` namespace. Historical `retained_rank` fields remain only where they preserve
+an established model-reduction or provenance contract.
+
+The mirrored concrete names use `Periodic1DRank2SupportTruncation...` and
 `Periodic1DRankNSupportTruncation...` for their request, analyzer, and analysis
 surfaces. Historical shorter rank-two request, analyzer, and analysis names remain
 identical class aliases.
@@ -201,7 +279,7 @@ immutable admission policies `SymmetricRangeSupport1D`,
 support sets are admitted, which cutoffs are evaluated or selected, and how unresolved
 threshold outcomes are retained. The `real_space_support_truncation` domain admits
 2D/3D geometry nominally through `MetricGeometry` and basis-resolved geometry through
-`BasisResolvedMetricGeometry`. `BandEquivalenceLocalityCase` inherits the latter and
+`BasisResolvedMetricGeometry`. `BandEquivalenceHoppingLocalityCase` inherits the latter and
 keeps its family-specific serialization. `MetricShellValueAnalyzer` calculates scaled
 integer metric values and an explicit rounding defect for any finite periodic
 inventory, including a cyclic inventory with unpaired Nyquist representatives.
@@ -269,7 +347,7 @@ Current nominal assignments:
   adapter `Periodic1DRank2TruncationFamilyAnalysis`;
 - `Periodic1DRankNSupportResult` and the request-bound
   `Periodic1DRankNSupportTruncationAnalysis`; and
-- `BandEquivalenceLocalityShellAnalysis` for complete metric shells in the maintained
+- `BandEquivalenceHoppingLocalityShellAnalysis` for complete metric shells in the maintained
   2D/3D owner; and
 - `RealSpaceSupportTruncationToleranceSelector` and its immutable support-selection
   values, shared by 1D, 2D, and 3D family adapters.
@@ -306,7 +384,7 @@ Current nominal assignments:
 
 - `PeriodicTensorGridSeparationAnalyzer`, which measures reduced-coordinate torus
   separation without folding that sampling diagnostic into a model error;
-- `BandEquivalenceLocalityMetricCovarianceDefectResult`, which retains the
+- `BandEquivalenceHoppingLocalityMetricCovarianceDefectResult`, which retains the
   family-selected 2D or 3D primitive-basis probe identity separately from its maximum
   binary64 squared-length defect; the probe remains campaign-specific rather than a
   universal geometry invariant;
@@ -318,10 +396,10 @@ Current nominal assignments:
 - `Periodic1DRankNFourierAnalysis`,
   `Periodic1DRankNInterpolationAnalysis`, and
   `Periodic1DRankNRefinementAnalysis`; and
-- `BandEquivalenceLocalityRefinementPair`,
-  `BandEquivalenceLocalityRefinementAssessment`,
-  `BandEquivalenceLocalityAmplitudeMidpointAnalysis`, and
-  `BandEquivalenceLocalityFlatAmplitudeResolutionAnalysis`.
+- `BandEquivalenceHoppingLocalityRefinementPair`,
+  `BandEquivalenceHoppingLocalityRefinementAssessment`,
+  `BandEquivalenceHoppingLocalityAmplitudeMidpointAnalysis`, and
+  `BandEquivalenceHoppingLocalityFlatAmplitudeResolutionAnalysis`.
 
 The momentum and amplitude outcome unions remain closed, family-specific variants.
 Their exact-type admission and existing convergence or exhaustion semantics are
@@ -347,15 +425,15 @@ the interface-free KSD roots, PhysKit physical primitives, and Optimization nume
 algorithms. None of the six generic roots imports a calculation family.
 
 The family aggregates `Periodic1DRank2Analysis`,
-`Periodic1DRankNAlignmentCalculationResult`,
-`BandEquivalenceLocalityPointAnalysis`, `BandEquivalenceLocalityCaseAnalysis`, and
-`BandEquivalenceLocalityAnalysis` intentionally remain outside these roots because
+`Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis`,
+`BandEquivalenceHoppingLocalityPointAnalysis`, `BandEquivalenceHoppingLocalityCaseAnalysis`, and
+`BandEquivalenceHoppingLocalityAnalysis` intentionally remain outside these roots because
 they combine several scientific operations or evidence channels. Assigning one of
 these aggregates to a single root would erase distinctions rather than clarify
 ownership.
 
 The former 2D/3D representation-equivalence gap is resolved by an immutable plain
-scientific result composed inside `BandEquivalenceLocalityPointAnalysis`. The retained
+scientific result composed inside `BandEquivalenceHoppingLocalityPointAnalysis`. The retained
 `PointDiagnostic` continues to project its historical scalar fields, so no field named
 `representation_equivalence` enters canonical bytes. No universal cross-family
 analysis aggregate is recommended.

@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DCompositeCampaign,
+from ksdft2effmass.periodic2d.model.retained.composite import (
     Periodic2DCompositeCampaignModel,
 )
+from ksdft2effmass.periodic2d.run.composite.data import Periodic2DCompositeCampaign
 from ksdft2effmass.periodic2d.run.composite.verify import (
     Periodic2DCompositeCampaignVerifier,
 )

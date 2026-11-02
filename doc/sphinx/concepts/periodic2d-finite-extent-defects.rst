@@ -26,12 +26,12 @@ An onsite-only ``Delta H`` is a scalar perturbation potential in the represented
 lattice basis.  A perturbation containing bond terms changes off-diagonal hopping and
 is therefore a more general finite-extent operator perturbation.  The implementation
 preserves this distinction through
-:attr:`~ksdft2effmass.periodic2d.Periodic2DDefectModel.represents_onsite_potential`.
+:attr:`~ksdft2effmass.periodic2d.defects.base.Periodic2DDefectModel.represents_onsite_potential`.
 
 Encapsulated model and representation
 --------------------------------------
 
-.. currentmodule:: ksdft2effmass.periodic2d
+.. currentmodule:: ksdft2effmass.periodic2d.defects.base
 
 :class:`Periodic2DDefectModel` encapsulates one
 :class:`~ksdft2effmass.solidstate.ScalarHoppingModel` and one
@@ -63,7 +63,8 @@ Given already aligned bulk and defect representations, the extraction operation 
 
    \Delta H_{\mathrm{ext}} = H_{\mathrm{def}} - H_0.
 
-:class:`Periodic2DDefectPerturbationExtractor` performs this subtraction only after
+:class:`~ksdft2effmass.periodic2d.defects.extraction.Periodic2DDefectPerturbationExtractor`
+performs this subtraction only after
 checking the same geometry, twist, basis, unit, and energy-reference metadata required
 for composition.  It does not infer a site map, perform a gauge transformation, align
 subspaces, or estimate an energy-zero shift.  Those are logically prior operations.
@@ -95,7 +96,8 @@ Chebyshev shells.  Let ``P_r`` project onto sites in the core and
       + \lVert Q_r \Delta H P_r \rVert_{\mathrm F}^2
       \right)^{1/2}.
 
-:class:`Periodic2DDefectLocalityAnalyzer` additionally retains the global maximum and
+:class:`~ksdft2effmass.periodic2d.defects.locality.Periodic2DDefectLocalityAnalyzer`
+additionally retains the global maximum and
 Frobenius residuals and one row-resolved Frobenius norm for every represented shell.
 A finite-extent pass requires both ``epsilon_ext`` and ``epsilon_cross`` to satisfy
 explicit nonnegative tolerances carrying the represented energy unit.  The core radius

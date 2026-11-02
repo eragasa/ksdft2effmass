@@ -7,10 +7,7 @@ from typing import final
 import numpy as np
 from projectkoios.physkit.units import ComplexMatrixQuantity
 
-from ksdft2effmass.periodic1d.hopping_locality.base import (
-    Periodic1DHoppingLocalityAnalyzer,
-)
-
+from .base import Periodic1DRank2HoppingLocalityAnalyzerRole
 from .request import Periodic1DRank2HoppingLocalityAnalysisRequest
 from .result import (
     Periodic1DRank2HoppingLocalityAnalysis,
@@ -20,7 +17,7 @@ from .result import (
 
 @final
 class Periodic1DRank2HoppingLocalityAnalyzer(
-    Periodic1DHoppingLocalityAnalyzer[
+    Periodic1DRank2HoppingLocalityAnalyzerRole[
         Periodic1DRank2HoppingLocalityAnalysisRequest,
         Periodic1DRank2HoppingLocalityAnalysis,
     ]

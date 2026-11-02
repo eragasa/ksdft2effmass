@@ -16,6 +16,9 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
+from ksdft2effmass.periodic1d.rank1.band_equivalence.base import (
+    Periodic1DRank1BandEquivalenceAnalysis,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
 from .configuration import Periodic1DFourierLocalityConfiguration
@@ -650,7 +653,10 @@ class Periodic1DFourierLocalityMeshResult(BaseTypedRecord):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DFourierLocalityCalculationResult(BaseTypedRecord):
+class Periodic1DFourierLocalityCalculationResult(
+    BaseTypedRecord,
+    Periodic1DRank1BandEquivalenceAnalysis[Periodic1DFourierLocalityConfiguration],
+):
     """Compose one complete finite compatible rank-one calculation subject."""
 
     calculation_family: str

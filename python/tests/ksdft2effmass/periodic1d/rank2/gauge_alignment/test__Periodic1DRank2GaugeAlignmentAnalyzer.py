@@ -24,6 +24,9 @@ from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
     Periodic1DRank2GaugeAlignmentAnalysisRequest,
     Periodic1DRank2GaugeAlignmentAnalyzer,
 )
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.base import (
+    Periodic1DRank2GaugeAlignment,
+)
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.procrustes.result import (
     Periodic1DRank2ProcrustesDiagnostics,
     Periodic1DRank2ProcrustesSelectionScope,
@@ -174,6 +177,12 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         )
         result = analyzer.execute()
 
+        assert isinstance(request, Periodic1DRank2GaugeAlignment)
+        assert isinstance(result, Periodic1DRank2GaugeAlignment)
+        assert isinstance(analyzer, Periodic1DRank2GaugeAlignment)
+        assert request.band_subspace_rank == 2
+        assert result.band_subspace_rank == 2
+        assert analyzer.band_subspace_rank == 2
         assert request.retained_rank == 2
         assert request.gauge_group == "U(2)"
         assert request.gauge_group_identity.family is GaugeAlignmentGroupFamily.UNITARY
@@ -212,6 +221,11 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         assert result.global_procrustes.to_json() == (
             composite_result.diagnostics.global_procrustes.to_json()
         )
+        assert isinstance(
+            result.pointwise_procrustes,
+            Periodic1DRank2GaugeAlignment,
+        )
+        assert result.pointwise_procrustes.band_subspace_rank == 2
         assert result.pointwise_procrustes.selection_count == mesh.point_count
         assert np.all(result.pointwise_procrustes.numerical_ranks == 2)
         assert result.global_procrustes.selection_count == 1

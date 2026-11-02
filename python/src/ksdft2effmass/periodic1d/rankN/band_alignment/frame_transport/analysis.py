@@ -13,28 +13,41 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FinitePeriodicMeshFrameInventory,
 )
 
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationRequest,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
     Periodic1DRankNAnalyticMeshSample,
 )
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
+)
 
+from .base import (
+    Periodic1DRankNFrameTransportAnalysis,
+    Periodic1DRankNFrameTransportAnalysisRequest,
+    Periodic1DRankNFrameTransportAnalyzer,
+)
 from .failure import Periodic1DRankNAlignmentTransportBackendFailureResult
 from .result import Periodic1DRankNAlignmentTransportOwnerResult
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRankNTransportAnalysisRequest:
+class Periodic1DRankNTransportAnalysisRequest(
+    Periodic1DRankNFrameTransportAnalysisRequest
+):
     """Bind one calculation request to one immutable construction-mesh sample."""
 
-    calculation_request: Periodic1DRankNAlignmentCalculationRequest
+    calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     sample: Periodic1DRankNAnalyticMeshSample
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the transported band frame."""
+        return self.calculation_request.retained_rank
 
     def __post_init__(self) -> None:
         if (
             type(self.calculation_request)
-            is not Periodic1DRankNAlignmentCalculationRequest
+            is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact rank-N request")
         if type(self.sample) is not Periodic1DRankNAnalyticMeshSample:
@@ -51,12 +64,18 @@ class Periodic1DRankNTransportAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRankNResolvedTransportAnalysis:
+class Periodic1DRankNResolvedTransportAnalysis(Periodic1DRankNFrameTransportAnalysis):
     """Retain successful owner transport evidence and closure defects."""
 
     transport: Periodic1DRankNAlignmentTransportOwnerResult
     endpoint_closure_defect: float
     primitive_closure_defect: float
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the transported band frame."""
+        return self.transport.retained_rank
 
     def __post_init__(self) -> None:
         if type(self.transport) is not Periodic1DRankNAlignmentTransportOwnerResult:
@@ -72,10 +91,16 @@ class Periodic1DRankNResolvedTransportAnalysis:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRankNFailedTransportAnalysis:
+class Periodic1DRankNFailedTransportAnalysis(Periodic1DRankNFrameTransportAnalysis):
     """Retain one bounded backend failure without fabricated closure values."""
 
     failure: Periodic1DRankNAlignmentTransportBackendFailureResult
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the attempted band-frame transport."""
+        return self.failure.retained_rank
 
     def __post_init__(self) -> None:
         if (
@@ -91,7 +116,12 @@ type Periodic1DRankNTransportAnalysis = (
 
 
 @final
-class Periodic1DRankNTransportAnalyzer:
+class Periodic1DRankNTransportAnalyzer(
+    Periodic1DRankNFrameTransportAnalyzer[
+        Periodic1DRankNTransportAnalysisRequest,
+        Periodic1DRankNFrameTransportAnalysis,
+    ]
+):
     """Adapt one PhysKit closed-loop transport into typed retained evidence."""
 
     __slots__ = ("_request", "_transporter")

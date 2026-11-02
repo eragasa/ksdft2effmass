@@ -11,7 +11,7 @@ from projectkoios.optimization.alignment.closed_loop_polar_transport import (
     ClosedLoopPolarFrameTransportStatus,
 )
 
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.independent_reference import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.independent_reference import (  # noqa: E501
     _closed_loop_transport,
     _direct_fourier_blocks,
     _independent_gauge_attack,
@@ -20,7 +20,7 @@ from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.
     _parent_matrices,
     _representatives,
 )
-from ksdft2effmass.periodic1d.band_equivalence_locality.embedded_subspace.rank2.parent_scale.results import (  # noqa: E501
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.results import (  # noqa: E501
     Periodic1DRank2BandTransportNumericallyUnresolved,
     Periodic1DRank2BandTransportThresholdFailure,
     Periodic1DRank2ExternalGapFailure,

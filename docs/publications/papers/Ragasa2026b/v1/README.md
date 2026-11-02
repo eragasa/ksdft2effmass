@@ -12,13 +12,13 @@ spatial/lattice promises, deliberate exclusions, and remaining qualification wor
 tracked in [`paper-1v3-successor-crosswalk.md`](paper-1v3-successor-crosswalk.md). The
 stronger quantity-by-quantity requirement is tracked against all 110 predecessor rows in
 [`paper-1v3-calculation-parity-audit.md`](paper-1v3-calculation-parity-audit.md). It is
-organized around the publication-independent experiment families. Experiment paths
-retain protocol identity; executable figure producers and replaceable development
-outputs are owned under `calculations/periodic2d/`, `calculations/periodic3d/`, and
-`calculations/band-equivalence-dimensional-comparison/`:
+organized around publication-independent calculation families. Migrated calculation
+paths retain protocol identity and own executable figure producers and replaceable
+development outputs. Legacy experiment paths remain only where their calculation-side
+migration is not part of the present two-context reorganization:
 
 - [`../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic2d/band-equivalence-versus-hopping-locality/)
-- [`../../../../../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic2d_nonorthog/band-equivalence-versus-hopping-locality/)
+- [`../../../../../calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/`](../../../../../calculations/periodic2d_rank2_hexagonal/band_equivalence_hopping_locality/)
 - [`../../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic3d/band-equivalence-versus-hopping-locality/)
 - [`../../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/`](../../../../../experiments/model-adequacy/periodic3d_nonorthog/band-equivalence-versus-hopping-locality/)
 
@@ -27,7 +27,7 @@ under [`band-equivalence-dimensional-comparison/`](../../../../../experiments/mo
 
 A prospective geometry-stress extension is owned separately by:
 
-- [`../../../../../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/`](../../../../../experiments/model-adequacy/periodic2d/gauge-locality-under-synthetic-strain/)
+- [`../../../../../calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/`](../../../../../calculations/periodic2d_rank2_rhombic_path/band_equivalence_hopping_locality/)
 - [`../../../../../experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/`](../../../../../experiments/model-adequacy/periodic3d/gauge-locality-under-synthetic-strain/)
 
 The paper will compare complete cell--orbital, Bloch, spectral-eigensystem, retained-frame,

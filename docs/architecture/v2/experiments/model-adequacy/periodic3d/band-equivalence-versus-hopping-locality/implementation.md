@@ -5,7 +5,7 @@
 The shared KSD implementation under
 
 ```text
-python/src/ksdft2effmass/analysis/model_adequacy/band_equivalence_locality/
+python/src/ksdft2effmass/band_equivalence_hopping_locality/
 ```
 
 already evaluates the dimension-general parent and sine rotation, computes the direct

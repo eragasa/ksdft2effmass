@@ -9,12 +9,18 @@ from ksdft2effmass.solidstate.band_frames import (
     PolarBandFrameTransportRequest1D,
 )
 
+from .base import Periodic1DRank2FrameTransportAnalyzer
 from .request import Periodic1DRank2TransportAnalysisRequest
 from .result import Periodic1DRank2ResolvedTransportAnalysis
 
 
 @final
-class Periodic1DRank2TransportAnalyzer:
+class Periodic1DRank2TransportAnalyzer(
+    Periodic1DRank2FrameTransportAnalyzer[
+        Periodic1DRank2TransportAnalysisRequest,
+        Periodic1DRank2ResolvedTransportAnalysis,
+    ]
+):
     """Transport one admitted rank-two raw frame path into a closed gauge."""
 
     __slots__ = ("_request",)

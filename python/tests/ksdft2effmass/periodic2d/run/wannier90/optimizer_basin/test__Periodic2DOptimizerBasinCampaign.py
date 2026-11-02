@@ -6,11 +6,13 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DOptimizerBasinCampaign,
+from ksdft2effmass.periodic2d.model.retained.optimizer_basin import (
     Periodic2DOptimizerBasinCampaignModel,
 )
 from ksdft2effmass.periodic2d.run import wannier90
+from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.data import (
+    Periodic2DOptimizerBasinCampaign,
+)
 
 Verifier = wannier90.optimizer_basin.verify.Periodic2DOptimizerBasinCampaignVerifier
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]

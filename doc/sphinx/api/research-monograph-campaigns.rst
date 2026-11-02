@@ -170,7 +170,7 @@ acceptance policy, or material interpretation. See
 :doc:`../concepts/periodic2d-controlled-reduction` for the represented and evidence
 boundaries.
 
-.. currentmodule:: ksdft2effmass.periodic2d
+.. currentmodule:: ksdft2effmass.periodic2d.campaign.nbands_1
 
 ``Periodic2DCampaign`` supplies the lightweight nominal and dimensional identity
 shared by canonical periodic2d campaigns. It deliberately owns no model, numerical,
@@ -218,88 +218,88 @@ the isolated rank-three projected-gauge study. Correlation and numerical verific
 remain distinct; the independent verifier reconstructs smooth and controlled rough
 gauges without importing the maintained calculation route.
 
-.. autoclass:: Periodic2DCompositeCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.composite.Periodic2DCompositeCampaignModel
    :members:
 
-.. autoclass:: Periodic2DCompositeCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.composite.data.Periodic2DCompositeCampaign
    :members:
 
 ``Periodic2DTopologicalCampaign`` preserves three distinct topological model
 families and their trivial controls. Its independent route reconstructs spectra,
 projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 
-.. autoclass:: Periodic2DTopologicalCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.topological.Periodic2DTopologicalCampaignModel
    :members:
 
-.. autoclass:: Periodic2DTopologicalCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.topological.data.Periodic2DTopologicalCampaign
    :members:
 
 ``Periodic2DTopologicalPhaseSweepCampaign`` retains separate parameter axes and
 independently reconstructs every sampled gap and Chern diagnostic.
 
-.. autoclass:: Periodic2DTopologicalPhaseSweepCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.topological_phase_sweep.Periodic2DTopologicalPhaseSweepCampaignModel
    :members:
 
-.. autoclass:: Periodic2DTopologicalPhaseSweepCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.topological.phase_sweep.data.Periodic2DTopologicalPhaseSweepCampaign
    :members:
 
 ``Periodic2DWannier90BalancedCampaign`` independently reconstructs the compact
 repository-portable evidence from one retained balanced Wannier90 comparison. It does
 not execute Wannier90 or access the external native-run directory.
 
-.. autoclass:: Periodic2DWannier90BalancedCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.wannier90_balanced.Periodic2DWannier90BalancedCampaignModel
    :members:
 
-.. autoclass:: Periodic2DWannier90BalancedCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.wannier90.balanced.data.Periodic2DWannier90BalancedCampaign
    :members:
 
 ``Periodic2DWannier90StudyCampaign`` authenticates six compact case fixtures and
 reuses the independent portable reconstruction for each declared sensitivity axis.
 
-.. autoclass:: Periodic2DWannier90StudyCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.wannier90_study.Periodic2DWannier90StudyCampaignModel
    :members:
 
-.. autoclass:: Periodic2DWannier90StudyCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.wannier90.study.data.Periodic2DWannier90StudyCampaign
    :members:
 
 ``Periodic2DOptimizerBasinCampaign`` verifies retained multi-start endpoints, basin
 partitions, censored outcomes, and the frozen negative convergence disposition without
 accessing native execution files.
 
-.. autoclass:: Periodic2DOptimizerBasinCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_basin.Periodic2DOptimizerBasinCampaignModel
    :members:
 
-.. autoclass:: Periodic2DOptimizerBasinCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.data.Periodic2DOptimizerBasinCampaign
    :members:
 
 ``Periodic2DOptimizerReanalysisCampaign`` checks the retained native-spread
 decomposition, terminal-trace classifications, symmetry-aware basin partitions, and
 repository-retained estimator-grid refinements without opening external run paths.
 
-.. autoclass:: Periodic2DOptimizerReanalysisCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_reanalysis.Periodic2DOptimizerReanalysisCampaignModel
    :members:
 
-.. autoclass:: Periodic2DOptimizerReanalysisCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.data.Periodic2DOptimizerReanalysisCampaign
    :members:
 
 ``Periodic2DOptimizerStandaloneCampaign`` verifies all retained initial endpoints,
 exact-checkpoint continuations, density-aware basin partitions, threshold-sensitivity
 records, and the negative standalone-study disposition.
 
-.. autoclass:: Periodic2DOptimizerStandaloneCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_standalone.Periodic2DOptimizerStandaloneCampaignModel
    :members:
 
-.. autoclass:: Periodic2DOptimizerStandaloneCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.standalone.data.Periodic2DOptimizerStandaloneCampaign
    :members:
 
 ``Periodic2DOptimizerRegressionCampaign`` independently reconstructs the retained
 right-censored log-normal likelihood, score, clustered covariance, adjusted time
 ratios, intervals, and predicted finite-trajectory convergence curves.
 
-.. autoclass:: Periodic2DOptimizerRegressionCampaignModel
+.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_regression.Periodic2DOptimizerRegressionCampaignModel
    :members:
 
-.. autoclass:: Periodic2DOptimizerRegressionCampaign
+.. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.convergence_regression.data.Periodic2DOptimizerRegressionCampaign
    :members:
 
 Periodic2d common-space operator comparison
@@ -316,7 +316,7 @@ preconditions, numerical evidence, and limitations.
 
    ksdft2effmass/periodic2d/common_space
 
-.. currentmodule:: ksdft2effmass.periodic2d
+.. currentmodule:: ksdft2effmass.periodic2d.compare.common_space
 
 .. autoclass:: Periodic2DCommonSpaceComparisonRequest
    :members:
@@ -385,7 +385,7 @@ finite-extent disposition uses explicit energy-unit tolerances for the exterior 
 core--exterior channels. See :doc:`../concepts/periodic2d-finite-extent-defects`
 for the methodological boundary and partition definitions.
 
-.. currentmodule:: ksdft2effmass.periodic2d
+.. currentmodule:: ksdft2effmass.periodic2d.defects
 
 .. autoclass:: Periodic2DDefect
    :members:

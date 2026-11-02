@@ -121,7 +121,7 @@ package, and direct M3 consumers are crosswalked in
 The audit selects composite-band alignment/locality as the first direct implementation
 because it is the bounded scientific successor of M2.
 
-**Band-equivalence/locality status:** `periodic1d.band_equivalence_locality` now supplies
+**Band-equivalence/locality status:** `periodic1d.rank2.band_equivalence_hopping_locality` now supplies
 flat and embedded rank-two scientific owners, closed family/refinement/truncation
 aggregation, canonical byte-owning verification, authenticated visualization projection,
 and the direct no-overwrite lifecycle. The authorized `v1` execution preserves its
@@ -172,7 +172,7 @@ parity reference and is not imported or copied. Do not infer higher-rank validat
 rank-two tests.
 
 **Implementation status:** partial. The maintained
-[`periodic1d.rankN.band_alignment.composite`](rankN/band_alignment/composite/index.md) child now freezes
+[`periodic1d.rankN.band_equivalence_hopping_locality`](rankN/band_equivalence_hopping_locality/index.md) child now freezes
 the alignment configuration, closed dispositions, and typed adaptation of exact PhysKit
 transport outcomes. This is native Architecture v3 composition, not Workflow migration.
 It consumes the upstream branch/action/rank-progression contract and does not import,

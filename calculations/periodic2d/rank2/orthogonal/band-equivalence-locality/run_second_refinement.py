@@ -5,11 +5,11 @@ from __future__ import annotations
 from dataclasses import replace
 from pathlib import Path
 
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.refinement import (
-    BandEquivalenceLocalityRefinementAnalyzer,
+from ksdft2effmass.band_equivalence_hopping_locality.refinement import (
+    BandEquivalenceHoppingLocalityRefinementAnalyzer,
 )
-from ksdft2effmass.analysis.model_adequacy.band_equivalence_locality.refinement_recording import (
-    BandEquivalenceLocalityRefinementAssessmentRecorder,
+from ksdft2effmass.band_equivalence_hopping_locality.refinement_recording import (
+    BandEquivalenceHoppingLocalityRefinementAssessmentRecorder,
 )
 from run_development import DEFINITION, construct_artifacts, write_artifacts
 from run_first_refinement import REFINEMENT as FIRST_REFINEMENT
@@ -36,8 +36,8 @@ def main() -> int:
         outputs, results, verifications, strict=True
     ):
         write_artifacts(output, result, verification)
-    assessment = BandEquivalenceLocalityRefinementAnalyzer(results=analyses).execute()
-    assessment_record = BandEquivalenceLocalityRefinementAssessmentRecorder(
+    assessment = BandEquivalenceHoppingLocalityRefinementAnalyzer(results=analyses).execute()
+    assessment_record = BandEquivalenceHoppingLocalityRefinementAssessmentRecorder(
         assessment
     ).result()
     (

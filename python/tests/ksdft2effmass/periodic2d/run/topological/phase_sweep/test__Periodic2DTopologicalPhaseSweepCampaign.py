@@ -6,12 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DTopologicalPhaseSweepCampaign,
+from ksdft2effmass.periodic2d.model.retained.topological_phase_sweep import (
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
 from ksdft2effmass.periodic2d.run.topological import (
     phase_sweep,
+)
+from ksdft2effmass.periodic2d.run.topological.phase_sweep.data import (
+    Periodic2DTopologicalPhaseSweepCampaign,
 )
 
 Verifier = phase_sweep.verify.Periodic2DTopologicalPhaseSweepCampaignVerifier

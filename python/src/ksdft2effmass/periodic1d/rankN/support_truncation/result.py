@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Self
+from typing import Self, final
 
 from ksdft2effmass.periodic1d.rankN._record_admission import (
     _decoded_bool,
@@ -13,17 +13,14 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
     _finite_nonnegative,
     _mapping_value,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.calculation import (
-    Periodic1DRankNAlignmentCalculationControls,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
+)
 from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixComparisonResult,
-)
-from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncation,
 )
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DSymmetricTranslationRange,
@@ -34,11 +31,13 @@ from ksdft2effmass.real_space_support_truncation.support import (
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 
+from .base import Periodic1DRankNSupportTruncationValue
+
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRankNSupportResult(
     BaseTypedRecord,
-    Periodic1DSupportTruncation,
+    Periodic1DRankNSupportTruncationValue,
 ):
     """Retain one symmetric support and its separate error channels."""
 
@@ -60,11 +59,17 @@ class Periodic1DRankNSupportResult(
     normalized_error_decomposition_defect: float
     error_decomposition_pass: bool
 
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the support-truncated operator blocks."""
+        return self.rank
+
     def __post_init__(self) -> None:
         if (
             type(self.maximum_range) is not int
             or self.maximum_range
-            not in Periodic1DRankNAlignmentCalculationControls.SUPPORT_RADII
+            not in Periodic1DRankNBandEquivalenceHoppingLocalityControls.SUPPORT_RADII
         ):
             raise ValueError("maximum_range must be a frozen built-in support radius")
         if (
@@ -73,7 +78,7 @@ class Periodic1DRankNSupportResult(
         ):
             raise ValueError("rank must be in the frozen retained-rank inventory")
         if self.energy_reference != (
-            Periodic1DRankNAlignmentCalculationControls.ENERGY_REFERENCE
+            Periodic1DRankNBandEquivalenceHoppingLocalityControls.ENERGY_REFERENCE
         ):
             raise ValueError("energy_reference must equal the frozen normalization")
         if type(self.retained_translations) is not tuple or any(
@@ -135,7 +140,7 @@ class Periodic1DRankNSupportResult(
             raise ValueError("normalized tail fields are inconsistent")
         if type(self.construction_parseval_pass) is not bool:
             raise TypeError("construction_parseval_pass must be a built-in bool")
-        controls = Periodic1DRankNAlignmentCalculationControls
+        controls = Periodic1DRankNBandEquivalenceHoppingLocalityControls
         fourier_tolerance = controls.FOURIER_CONSISTENCY_TOLERANCE
         if self.construction_parseval_pass is not (
             self.construction_parseval_relative_defect <= fourier_tolerance

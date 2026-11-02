@@ -18,22 +18,33 @@ scientific validation, uncertainty quantification, or campaign acceptance.
 
 import pytest
 
-from ksdft2effmass.periodic2d import (
-    Periodic2DCampaign as RootPeriodic2DCampaign,
-)
-from ksdft2effmass.periodic2d import (
-    Periodic2DCompositeCampaign,
+from ksdft2effmass.periodic2d.campaign.base import Periodic2DCampaign
+from ksdft2effmass.periodic2d.campaign.nbands_1.data import (
     Periodic2DIsolatedBandCampaign,
-    Periodic2DOptimizerBasinCampaign,
-    Periodic2DOptimizerReanalysisCampaign,
-    Periodic2DOptimizerRegressionCampaign,
-    Periodic2DOptimizerStandaloneCampaign,
-    Periodic2DTopologicalCampaign,
+)
+from ksdft2effmass.periodic2d.run.composite.data import Periodic2DCompositeCampaign
+from ksdft2effmass.periodic2d.run.topological.data import Periodic2DTopologicalCampaign
+from ksdft2effmass.periodic2d.run.topological.phase_sweep.data import (
     Periodic2DTopologicalPhaseSweepCampaign,
+)
+from ksdft2effmass.periodic2d.run.wannier90.balanced.data import (
     Periodic2DWannier90BalancedCampaign,
+)
+from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.convergence_regression.data import (  # noqa: E501
+    Periodic2DOptimizerRegressionCampaign,
+)
+from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.data import (
+    Periodic2DOptimizerBasinCampaign,
+)
+from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.data import (
+    Periodic2DOptimizerReanalysisCampaign,
+)
+from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.standalone.data import (
+    Periodic2DOptimizerStandaloneCampaign,
+)
+from ksdft2effmass.periodic2d.run.wannier90.study.data import (
     Periodic2DWannier90StudyCampaign,
 )
-from ksdft2effmass.periodic2d.campaign import Periodic2DCampaign
 
 CAMPAIGN_TYPES = (
     pytest.param(Periodic2DIsolatedBandCampaign, id="isolated_band"),
@@ -52,10 +63,10 @@ CAMPAIGN_TYPES = (
 class TestPeriodic2DCampaign:
     """Own software evidence for the lightweight periodic2d campaign base."""
 
-    def test_public_api__package__root_and_campaign_routes_share_identity(self) -> None:
-        """The two documented canonical routes expose the same base class."""
-        if RootPeriodic2DCampaign is not Periodic2DCampaign:
-            raise AssertionError("canonical base-class routes do not share identity")
+    def test_public_api__authoritative_module_owns_the_base_class(self) -> None:
+        """The direct base module owns the exact campaign class identity."""
+        if Periodic2DCampaign.__module__ != "ksdft2effmass.periodic2d.campaign.base":
+            raise AssertionError("campaign base class has an unexpected owner")
 
     def test_property__spatial_dimension__returns_exact_two(self) -> None:
         """The base campaign reports the exact built-in integer dimension two."""
