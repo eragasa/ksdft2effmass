@@ -27,9 +27,6 @@ from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_s
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.gauge import (
     Periodic1DRank2SinusoidalGaugeRotation,
 )
-from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncationAnalyzer,
-)
 from ksdft2effmass.solidstate import (
     BlockHoppingInterpolationRequest1D,
     BlockHoppingInterpolator1D,
@@ -45,6 +42,7 @@ from ksdft2effmass.solidstate import (
     ReciprocalOperatorSamples1D,
 )
 
+from .base import Periodic1DRank2SupportTruncationAnalyzerRole
 from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 from .results import (
     Periodic1DRank2SupportTruncationAnalysis,
@@ -78,7 +76,7 @@ class _OrdinaryField:
 
 
 class Periodic1DRank2SupportTruncationAnalyzer(
-    Periodic1DSupportTruncationAnalyzer[
+    Periodic1DRank2SupportTruncationAnalyzerRole[
         Periodic1DRank2SupportTruncationAnalysisRequest,
         Periodic1DRank2SupportTruncationAnalysis,
     ]

@@ -10,11 +10,10 @@ from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
 from ksdft2effmass.band_equivalence_hopping_locality.results import (
     BandEquivalenceHoppingLocalityErrorChannels,
 )
-from ksdft2effmass.periodic3d.support_truncation.base import (
-    Periodic3DSupportTruncationAnalysisRequest,
-)
 from ksdft2effmass.real_space_support_truncation import MetricShellSupportInventory
 from ksdft2effmass.serialization.enums import StringWireEnum
+
+from .base import Periodic3DRank2SupportTruncationAnalysisRequestRole
 
 
 class Periodic3DRank2SupportTruncationChannelEnum(StringWireEnum):
@@ -26,7 +25,7 @@ class Periodic3DRank2SupportTruncationChannelEnum(StringWireEnum):
 
 @dataclass(frozen=True, slots=True)
 class Periodic3DRank2SupportTruncationAnalysisRequest(
-    Periodic3DSupportTruncationAnalysisRequest
+    Periodic3DRank2SupportTruncationAnalysisRequestRole
 ):
     """Bind one error channel to nested metric-shell supports and a tolerance."""
 

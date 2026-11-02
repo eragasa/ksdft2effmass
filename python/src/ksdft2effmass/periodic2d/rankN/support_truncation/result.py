@@ -3,25 +3,30 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import final
 
-from ksdft2effmass.periodic2d.support_truncation.base import (
-    Periodic2DSupportTruncationAnalysis,
-)
 from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationModelToleranceSelection,
 )
 
+from .base import Periodic2DRankNSupportTruncationAnalysisRole
 from .request import Periodic2DRankNSupportTruncationAnalysisRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic2DRankNSupportTruncationAnalysis(
     RealSpaceSupportTruncationModelToleranceSelection,
-    Periodic2DSupportTruncationAnalysis,
+    Periodic2DRankNSupportTruncationAnalysisRole,
 ):
     """Retain one channel's minimum-support outcomes for two error functionals."""
 
     request: Periodic2DRankNSupportTruncationAnalysisRequest
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the support-truncated operator blocks."""
+        return self.request.band_subspace_rank
 
     def __post_init__(self) -> None:
         RealSpaceSupportTruncationModelToleranceSelection.__post_init__(self)

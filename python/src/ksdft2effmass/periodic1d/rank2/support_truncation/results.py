@@ -13,16 +13,16 @@ from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_s
     Periodic1DRank2Qualification,
     Periodic1DRank2QualifiedParent,
 )
-from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncation,
-    Periodic1DSupportTruncationAnalysis,
-)
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DSymmetricTranslationRange,
     Periodic1DSymmetricTranslationRangeInventory,
 )
 from ksdft2effmass.real_space_support_truncation import SymmetricRangeSupport1D
 
+from .base import (
+    Periodic1DRank2SupportTruncationAnalysisRole,
+    Periodic1DRank2SupportTruncationValue,
+)
 from .request import Periodic1DRank2SupportTruncationAnalysisRequest
 
 
@@ -35,7 +35,9 @@ def _require_nonnegative(value: float, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationRange(Periodic1DSupportTruncation):
+class Periodic1DRank2TruncationRange(
+    Periodic1DRank2SupportTruncationValue
+):
     """Retain consequences of one conjugate-closed ordinary cutoff."""
 
     maximum_range: int
@@ -99,7 +101,7 @@ class Periodic1DRank2TruncationRange(Periodic1DSupportTruncation):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2TruncationPoint:
+class Periodic1DRank2TruncationPoint(Periodic1DRank2SupportTruncationValue):
     """Retain conversion, interpolation, and truncation channels at one amplitude."""
 
     amplitude: float
@@ -152,7 +154,7 @@ class Periodic1DRank2TruncationPoint:
 
 
 class Periodic1DRank2SupportTruncationAnalysis(
-    Periodic1DSupportTruncationAnalysis,
+    Periodic1DRank2SupportTruncationAnalysisRole,
 ):
     """Identify one closed support-truncation outcome variant."""
 

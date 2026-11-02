@@ -10,6 +10,12 @@ from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysisRequest,
     Periodic1DRankNSupportTruncationAnalyzer,
 )
+from ksdft2effmass.periodic1d.rankN.support_truncation.base import (
+    Periodic1DRankNSupportTruncationAnalysisRequestRole,
+    Periodic1DRankNSupportTruncationAnalysisRole,
+    Periodic1DRankNSupportTruncationAnalyzerRole,
+    Periodic1DRankNSupportTruncationValue,
+)
 from ksdft2effmass.periodic1d.rankN.support_truncation.result import (
     Periodic1DRankNSupportResult,
 )
@@ -38,6 +44,22 @@ class TestPeriodic1DRankNSupportTruncationAnalysis:
             )
 
     def test_values_keep_the_installed_scientific_base(self) -> None:
+        assert issubclass(
+            Periodic1DRankNSupportTruncationAnalysisRequest,
+            Periodic1DRankNSupportTruncationAnalysisRequestRole,
+        )
+        assert issubclass(
+            Periodic1DRankNSupportTruncationAnalyzer,
+            Periodic1DRankNSupportTruncationAnalyzerRole,
+        )
+        assert issubclass(
+            Periodic1DRankNSupportResult,
+            Periodic1DRankNSupportTruncationValue,
+        )
+        assert issubclass(
+            Periodic1DRankNSupportTruncationAnalysis,
+            Periodic1DRankNSupportTruncationAnalysisRole,
+        )
         assert issubclass(
             Periodic1DRankNSupportResult,
             RealSpaceSupportTruncation,

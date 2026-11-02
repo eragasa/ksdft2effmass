@@ -7,17 +7,16 @@ from dataclasses import dataclass
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.request import (  # noqa: E501
     Periodic1DRank2Request,
 )
-from ksdft2effmass.periodic1d.support_truncation import (
-    Periodic1DSupportTruncationAnalysisRequest,
-)
 from ksdft2effmass.periodic1d.support_truncation.inventory import (
     Periodic1DSymmetricSupportInventory,
 )
 
+from .base import Periodic1DRank2SupportTruncationAnalysisRequestRole
+
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2SupportTruncationAnalysisRequest(
-    Periodic1DSupportTruncationAnalysisRequest
+    Periodic1DRank2SupportTruncationAnalysisRequestRole
 ):
     """Bind one qualified parent to support cutoffs and a disjoint mesh."""
 
