@@ -36,12 +36,12 @@ from ksdft2effmass.periodic1d.rank1.alignment import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityControls,
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
-    Periodic1DRankNAlignmentConfiguration,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]

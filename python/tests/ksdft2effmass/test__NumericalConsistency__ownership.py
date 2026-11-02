@@ -29,7 +29,7 @@ from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_s
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.momentum_refinement.family import (  # noqa: E501
     Periodic1DRank2MomentumRefinementFamilyAnalysis,
 )
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.refinement import (
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.refinement import (  # noqa: E501
     Periodic1DRankNRefinementAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501

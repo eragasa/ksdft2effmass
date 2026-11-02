@@ -9,8 +9,8 @@ The child calculations answer different questions and retain separate identities
 | Calculation owner | Lifecycle status | Scope |
 |---|---|---|
 | [`orthogonal/band-equivalence-locality/`](orthogonal/band-equivalence-locality/README.md) | Direct typed lifecycle; one retained **CALCULATED RESULT — UNSEALED** execution | Square direct lattice, directed-axis parent, and axis-maximum gauge control. |
-| [`nonorthogonal/band-equivalence-locality/`](nonorthogonal/band-equivalence-locality/README.md) | Direct typed lifecycle implemented; no retained execution | Matched square, triangular-Bravais, and honeycomb-basis synthetic controls with bond-RMS gauge normalization. This is not graphene. |
-| [`strain-locality/`](strain-locality/README.md) | Development composition only; no direct lifecycle or retained execution | Unit-area rhombic geometry, M0/M1/M2 response controls, witnesses, and sampled transition scans. This is not an elastic or material model. |
+| [`periodic2d_rank2_hexagonal/`](../../periodic2d_rank2_hexagonal/README.md) | Replaceable nominal/refinement actions; no retained execution | Matched square, triangular-Bravais, and two-basis-metric synthetic controls with bond-RMS gauge normalization. This is not graphene. |
+| [`periodic2d_rank2_rhombic_path/`](../../periodic2d_rank2_rhombic_path/README.md) | Development composition only; no retained execution | Unit-area rhombic geometry, M0/M1/M2 response controls, witnesses, and sampled transition scans. This is not an elastic or material model. |
 
 The maintained periodic-1D rank-two calculation at
 [`calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/`](../../periodic1d/rank2/band-equivalence-versus-hopping-locality/README.md)

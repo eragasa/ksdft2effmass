@@ -23,14 +23,14 @@ from ksdft2effmass.periodic1d.rankN._record_admission import (
     _float_array,
     _nonempty,
 )
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
     Periodic1DRankNAnalyticMeshSample,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 

@@ -210,10 +210,12 @@ class Periodic1DRankNGaugeAlignmentMeshResult(
             )
             if not np.array_equal(normalized, raw / block_scale):
                 raise ValueError("normalized block norms are inconsistent")
+            expected_energy_reference = (
+                Periodic1DRankNBandEquivalenceHoppingLocalityControls.ENERGY_REFERENCE
+            )
             if any(
                 support.rank != self.status.retained_rank
-                or support.energy_reference
-                != Periodic1DRankNBandEquivalenceHoppingLocalityControls.ENERGY_REFERENCE
+                or support.energy_reference != expected_energy_reference
                 for support in self.supports
             ):
                 raise ValueError(

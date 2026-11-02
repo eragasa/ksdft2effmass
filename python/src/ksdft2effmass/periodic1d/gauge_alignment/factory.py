@@ -30,14 +30,14 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,
+)
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
-)
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,
 )
 
 from .base import Periodic1DGaugeAlignment
@@ -97,7 +97,10 @@ class Periodic1DRankNAlignmentStudySpecification:
     def __post_init__(self) -> None:
         if type(self.lattice_geometry) is not Periodic1DLatticeGeometry:
             raise TypeError("lattice_geometry must be Periodic1DLatticeGeometry")
-        if type(self.request) is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest:
+        if (
+            type(self.request)
+            is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
+        ):
             raise TypeError(
                 "request must be Periodic1DRankNBandEquivalenceHoppingLocalityRequest"
             )

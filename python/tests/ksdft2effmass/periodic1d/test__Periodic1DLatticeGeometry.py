@@ -20,12 +20,6 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.request import (  # noqa: E501
-    Periodic1DRank2Request,
-)
-from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.request import (
-    Periodic1DRank2BandEquivalenceHoppingLocalityRequest,
-)
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
 )
@@ -35,6 +29,12 @@ from ksdft2effmass.periodic1d.geometry import (
 )
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.request import (  # noqa: E501
+    Periodic1DRank2Request,
+)
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.request import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityRequest,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,

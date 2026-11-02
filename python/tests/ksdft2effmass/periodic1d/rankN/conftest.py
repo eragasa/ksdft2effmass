@@ -10,12 +10,12 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FrameRotationAction,
 )
 
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityControls,
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
-    Periodic1DRankNAlignmentConfiguration,
 )
 
 

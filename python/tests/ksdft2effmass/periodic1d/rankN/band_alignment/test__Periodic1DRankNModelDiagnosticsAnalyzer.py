@@ -9,9 +9,6 @@ import pytest
 from ksdft2effmass.periodic1d.rankN.band_alignment import (
     model_diagnostics as diagnostics_module,
 )
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
     Periodic1DRankNAnalyticMeshSample,
 )
@@ -23,6 +20,9 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.model_diagnostics import (
     Periodic1DRankNModelDiagnosticsAnalyzer,
     Periodic1DRankNModelDiagnosticsRequest,
 )
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest as RankNRequest,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -32,7 +32,7 @@ class TestPeriodic1DRankNModelDiagnosticsAnalyzer:
 
     def test__execute__returns_request_bound_diagnostics(
         self,
-        higher_rank_calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
+        higher_rank_calculation_request: RankNRequest,
     ) -> None:
         model = Periodic1DRankNAnalyticCaseConstructor(
             retained_rank=higher_rank_calculation_request.retained_rank,
@@ -68,7 +68,7 @@ class TestPeriodic1DRankNModelDiagnosticsAnalyzer:
     )
     def test__result__rejects_boolean_integer_fields(
         self,
-        higher_rank_calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
+        higher_rank_calculation_request: RankNRequest,
         field: str,
     ) -> None:
         model = Periodic1DRankNAnalyticCaseConstructor(

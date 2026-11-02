@@ -49,7 +49,9 @@ class TestPeriodic1DRankFirstCalculationEntrypoints:
         assert ").create()" in rankn
         assert "Periodic1DRankNAlignmentStudySpecification" in rankn
         assert "configuration.reduced_lattice_geometry" in rankn
-        assert "return Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(" not in rankn
+        assert (
+            "return Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(" not in rankn
+        )
 
     def test__alignment_lifecycles__bind_geometry_without_changing_result_wires(
         self,

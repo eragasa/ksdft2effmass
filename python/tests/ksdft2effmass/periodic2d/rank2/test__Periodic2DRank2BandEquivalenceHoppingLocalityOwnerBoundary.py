@@ -35,30 +35,35 @@ class TestPeriodic2DRank2BandEquivalenceHoppingLocalityOwnerBoundary:
         ):
             assert responsibility in controls
 
-    def test_keeps_child_family_lifecycle_dispositions_separate(
+    def test_keeps_current_child_family_lifecycle_dispositions_separate(
         self, repository_root: Path
     ) -> None:
-        root = self._root(repository_root)
-        controls = (root / "scientific-controls.md").read_text(encoding="utf-8")
-
+        calculations = repository_root / "calculations"
         expected = {
-            "orthogonal/band-equivalence-locality/README.md": (
+            "periodic2d/rank2/orthogonal/band-equivalence-locality/README.md": (
                 "direct-square-rank2-n16",
-                "retained unsealed",
+                "CALCULATED RESULT",
             ),
-            "nonorthogonal/band-equivalence-locality/README.md": (
+            "periodic2d_rank2_hexagonal/README.md": (
                 "no retained execution",
-                "Bond-RMS",
+                "two-basis metric",
             ),
-            "strain-locality/README.md": (
-                "Development composition only",
-                "no byte-owning verifier",
+            "periodic2d_rank2_rhombic_path/README.md": (
+                "development calculation",
+                "M0 geometry/frozen-response",
             ),
         }
+
         for relative_path, phrases in expected.items():
-            assert (root / relative_path).is_file()
+            record = (calculations / relative_path).read_text(encoding="utf-8")
             for phrase in phrases:
-                assert phrase in controls
+                assert phrase in record
+
+        for retired in (
+            "periodic2d/rank2/nonorthogonal/band-equivalence-locality",
+            "periodic2d/rank2/strain-locality",
+        ):
+            assert not (calculations / retired).exists()
 
     def test_declares_two_dimensional_nontransfer_boundaries(
         self, repository_root: Path
@@ -129,17 +134,27 @@ class TestPeriodic2DRank2BandEquivalenceHoppingLocalityOwnerBoundary:
         ):
             assert boundary in inventory.casefold()
 
-    def test_child_readmes_link_to_parent_crosswalk_and_diagnostic_catalog(
+    def test_context_first_owners_keep_capabilities_and_aggregate_separate(
         self, repository_root: Path
     ) -> None:
-        root = self._root(repository_root)
-        readmes = (
-            root / "orthogonal" / "band-equivalence-locality" / "README.md",
-            root / "nonorthogonal" / "band-equivalence-locality" / "README.md",
-            root / "strain-locality" / "README.md",
+        calculations = repository_root / "calculations"
+        contexts = (
+            calculations / "periodic2d_rank2_hexagonal",
+            calculations / "periodic2d_rank2_rhombic_path",
         )
 
-        for readme_path in readmes:
-            readme = readme_path.read_text(encoding="utf-8")
-            assert "scientific-controls.md" in readme
-            assert "diagnostic-parity.md" in readme
+        for context in contexts:
+            readme = (context / "README.md").read_text(encoding="utf-8")
+            for capability in (
+                "gauge_alignment",
+                "band_equivalence",
+                "hopping_locality",
+                "support_truncation",
+                "band_equivalence_hopping_locality",
+            ):
+                assert (context / capability / "README.md").is_file()
+                assert capability in readme
+
+        parent = (self._root(repository_root) / "README.md").read_text(encoding="utf-8")
+        assert "periodic2d_rank2_hexagonal" in parent
+        assert "periodic2d_rank2_rhombic_path" in parent
