@@ -1,6 +1,13 @@
 # Multiband aggregation analysis
 
-This directory may contain cross-calculation aggregation that consumes explicit outputs from the dimension- and rank-specific calculation owners. Its primary product is a traceable summary of salient results, not a new simulation.
+This directory may contain cross-calculation aggregation that consumes explicit outputs from the dimension- and rank-specific calculation owners. Its primary product is a traceable summary of salient results, not a new simulation. The shared
+[`analysis-order.md`](../analysis-order.md) requires family qualification and independent
+admission before cross-family aggregation.
+
+Aggregation order is: authenticate each source and its evidence status; establish common
+operands, units, basis/gauge/energy conventions, and normalization; compare only
+compatible quantities; retain unavailable or unresolved dispositions; independently
+check the derived projection; and render without recalculating any source family.
 
 Permitted work includes:
 

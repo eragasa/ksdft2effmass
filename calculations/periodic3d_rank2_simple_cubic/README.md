@@ -18,5 +18,24 @@ The context separates its scientific operations:
   which owns the authoritative protocol, thin aggregate composition, nominal and
   refinement calculations, replaceable analysis, migration record, and technical report.
 
+## Analysis order
+
+This family is the orthogonal periodic-3D rank-two stage in the shared
+[periodic analysis order](../periodic/multiband/analysis-order.md). Analyze:
+
+1. simple-cubic geometry, parent, retained state space, units, meshes, and qualification;
+2. prescribed gauge and three-direction frame transport;
+3. same-space band equivalence and ordered spectra;
+4. complete Fourier conversion and withheld interpolation;
+5. descriptive hopping locality before complete-shell support truncation;
+6. separate interpolation, truncation-only, and total consequences;
+7. nominal independent verification;
+8. each bounded refinement as a distinct calculation; and
+9. authenticated or explicitly development-only rendering, followed later by
+   cross-family comparison.
+
+Refinement does not establish convergence, and the synthetic control does not establish
+material behavior.
+
 The former experiment-tree location is a legacy forward pointer only. This organization
 performs no calculation, retention, sealing, promotion, or publication.

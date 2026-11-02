@@ -1,19 +1,32 @@
 # Periodic-3D rank-N composite-band alignment and locality
 
-**Status: RESERVED OWNER BOUNDARY — UNIMPLEMENTED AND UNEXECUTED**
+**Status: FIXED-GEOMETRY SOFTWARE BASELINE SELECTED — NO CALCULATION ENTRYPOINT OR EVIDENCE**
 
-This directory reserves the prospective periodic-3D arbitrary-finite-rank family. Its
-scientific decisions are tracked by
-[`../protocol-selection.md`](../protocol-selection.md). No parent family, gauge class,
-mesh, transport topology, metric-shell support ladder, numerical tolerance, retained
-result, or evidence package has been selected.
+This directory reserves the fixed-geometry periodic-3D arbitrary-finite-rank family. Its
+selected analytic parent/gauge, lattice cases, ranks, depths, meshes, alignment,
+transport, Fourier, locality, support, and aggregate-verification contracts are owned by
+[`../protocol-selection.md`](../protocol-selection.md) and
+[`../recommended-baseline.md`](../recommended-baseline.md).
 
-The future specialization must compose the common `SubspaceReduction`,
-`RepresentationEquivalence`, `RealSpaceSupportTruncation`, and `NumericalConsistency`
-owners and exact PhysKit three-dimensional lattice and metric owners. Common arithmetic
-does not provide a periodic-3D study identity.
+## Analysis order
+
+This owner follows the fixed-geometry rank-N sequence in the shared
+[periodic analysis order](../../../periodic/multiband/analysis-order.md): qualify parent
+and geometry cases; construct the gauge; assess alignment and transport; establish
+Fourier/interpolation identities; diagnose locality; apply complete-shell support
+selection; retain separate error operands; run bounded independent references and typed
+aggregate verification; then close resources, visualization, authentication, lifecycle,
+and execution identity. The current boundary stops before those final admission stages
+and owns no calculation result.
+
+The installed reusable software foundations remain under
+`python/src/ksdft2effmass/periodic3d/rankN/`; this calculation directory does not duplicate
+them. Visualization, execution-scale resource bounds, lifecycle/authentication, and a
+retained study remain unselected. There are intentionally no direct execution
+entrypoints or generated outputs.
 
 The periodic-1D rank-N protocol cannot be copied, and the periodic-3D rank-two lifecycle
-cannot be relabeled rank-N. There are intentionally no direct execution entrypoints.
-Adding them before the calculation-owned protocol is selected would overstate installed
-capability.
+cannot be relabeled rank-N. The selected fixed-geometry baseline also does not authorize
+a continuous strain path. The separate rank-N Bain partial-protocol context, which now
+owns the exact path geometry/common-state-space and M0/M1N boundaries, is
+[`calculations/periodic3d_rankN_bain_path/`](../../../periodic3d_rankN_bain_path/README.md).

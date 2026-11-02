@@ -20,6 +20,24 @@ The seven tracked source files formerly under
 [`migration.md`](migration.md) is the distributed checklist and records the remaining
 consumer and parity work.
 
+## Analysis order
+
+This prospective family is the first stage of the separate hopping-support hierarchy in
+the shared [periodic analysis order](../../../periodic/multiband/analysis-order.md).
+Before any implementation or numerical result, analyze and review:
+
+1. scalar parent binding, units, square lattice, and exact symmetry action;
+2. complete orbit enumeration and nested support classes;
+3. objective-construction, evaluation, withheld, and locality sample roles;
+4. projection, coefficient-domain, loss, and energy-shift definitions;
+5. the disclosed threshold design, followed by a separate prospective threshold freeze;
+6. strict input/result contracts and an independent conservative certificate route;
+7. bounded implementation and software verification; and only then
+8. separately authorized calculation, independent verification, and rendering.
+
+The current design stops before steps 5--8 are closed. Its outcome-informed threshold
+study cannot be reused as prospective acceptance evidence.
+
 ## Complete local inventory
 
 | Surface | Current disposition |

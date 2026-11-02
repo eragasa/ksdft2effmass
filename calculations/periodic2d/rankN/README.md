@@ -28,6 +28,25 @@ than create calculation-local substitutes:
 `BaseTypedRecord` remains a serialization boundary only. SHA-256 establishes byte
 identity, not scientific validity.
 
+## Analysis order
+
+This prospective family follows the higher-rank admission order in the shared
+[periodic analysis order](../../periodic/multiband/analysis-order.md):
+
+1. select the parent/common state space and keep lattice dimension, ambient dimension,
+   band rank, numerical rank, retained rank, and circuit depth distinct;
+2. select direct geometry, basis offsets, reciprocal convention, and units;
+3. select the gauge group, generators, action side, depth meaning, and oracle boundary;
+4. select alignment applicability and numerical-rank failure semantics;
+5. select meshes and two-direction transport/plaquette topology;
+6. select Fourier, locality, complete-shell support, and error operands;
+7. freeze independent references, gates, and resource bounds;
+8. select authenticated visualization and lifecycle/no-overwrite identity; and only then
+9. request separate implementation, calculation, verification, and execution authority.
+
+The current root remains prospective; software loss values alone do not advance this
+scientific sequence.
+
 ## Open protocol decisions
 
 The calculation-owned decision register is

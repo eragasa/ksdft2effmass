@@ -20,6 +20,26 @@ response, qualification witnesses, and sampled transition scans remain distinct
 channels. The aggregate directory may sequence these channels but does not merge their
 scientific meanings or evidence claims.
 
+## Analysis order
+
+This family follows the continuous rank-two path order in the shared
+[periodic analysis order](../periodic/multiband/analysis-order.md):
+
+1. qualify the unit-area path, endpoints, direct/reciprocal conventions, basis offsets,
+   and common state space;
+2. analyze M0 geometry-only/frozen-gauge locality;
+3. analyze M1 frozen represented response;
+4. analyze M2 prescribed radial response without merging it with M0 or M1;
+5. evaluate channel-specific alignment, Fourier/locality, support, and separate error
+   operands;
+6. evaluate qualification witnesses;
+7. apply only the prospectively declared sampled scan and transition rule;
+8. independently verify each source channel and derived scan; and
+9. render response and scan views from admitted stored data.
+
+A missing channel, gate, or source verification blocks dependent scan interpretation.
+The path remains synthetic rather than elastic or material strain.
+
 The aggregate calculation owner contains the authoritative
 [research protocol](band_equivalence_hopping_locality/protocol.md), actions, migration
 record, and technical report. The former experiment-tree location is a legacy forward

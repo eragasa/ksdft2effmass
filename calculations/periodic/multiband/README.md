@@ -21,7 +21,8 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 | 3-D | 2 | [`periodic3d_rank2_bain_path/`](../../periodic3d_rank2_bain_path/) | Separate bounded M0, M1, M2, and Bain-path scan controls |
 | 1-D | 3, 4, 8, 16 | [`periodic1d/rankN/composite-band-alignment-locality/`](../../periodic1d/rankN/composite-band-alignment-locality/) | Schema-free development calculation; no retained run |
 | 2-D | greater than 2 | None | Prospective |
-| 3-D | greater than 2 | None | Prospective |
+| 3-D | 3, 4, 8 | [`periodic3d/rankN/`](../../periodic3d/rankN/) | Fixed-geometry analytic software baseline and aggregate verification installed; no visualization, lifecycle, execution, or evidence |
+| 3-D | candidate 3, 4, 8 | [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) | Exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics selected; M2 and the remaining contracts stay open |
 
 The current cross-family rank-two comparison is owned by [`band-equivalence-dimensional-comparison/`](../../band-equivalence-dimensional-comparison/). This planning layer may summarize that output but does not replace it.
 
@@ -66,7 +67,8 @@ The levels below describe increasing model, geometry, alignment, verification, a
 ### Level 6 --- higher-rank multidimensional controls
 
 - **Periodic 2-D higher rank** --- prospective; no calculation root, implementation, or result.
-- **Periodic 3-D higher rank** --- prospective; no calculation root, implementation, or result.
+- [`periodic3d/rankN/`](../../periodic3d/rankN/) --- selected fixed-geometry analytic software baseline with aggregate verification; no visualization, lifecycle, execution, or result evidence.
+- [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) --- documentation-only continuous Bain-path context with selected exact geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics; M2, admitted inventories, resources, visualization, and authentication remain open.
 
 ### Level 7 --- external-code and material-facing reductions
 
@@ -75,6 +77,9 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ## Contents
 
+- [`analysis-order.md`](analysis-order.md) defines the program dependency graph and the
+  fixed-geometry, continuous-path, higher-rank, verification, and rendering order. Each
+  family protocol remains authoritative for local scientific choices.
 - [`development-plan.md`](development-plan.md) gives the staged multiband program in plain language.
 - [`analysis/README.md`](analysis/README.md) defines the aggregation boundary.
 - [`analysis/salient-results.md`](analysis/salient-results.md) records the currently supportable cross-project summary and its evidence classifications.

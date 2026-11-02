@@ -19,6 +19,29 @@ outputs under `analysis/development/generated/`.
 
 The current comparison is development evidence, not a retained production package or a material-model validation.
 
+## Analysis order
+
+This downstream owner runs only after the four contributing rank-two families reach the
+cross-family stage of the shared
+[periodic analysis order](../periodic/multiband/analysis-order.md). Analyze:
+
+1. authenticate each family-owned nominal result, verification, basis/gauge/energy
+   conventions, geometry, and evidence status;
+2. establish which operands and normalizations are comparable without changing any
+   family threshold or identity;
+3. compare frame-transport and band-equivalence diagnostics;
+4. compare tolerance behavior using family-owned limits;
+5. compare physical shell/radius and shell--scale landscapes without transferring shell
+   indices between metrics;
+6. retain strain-path channels as separately identified inputs outside the nominal four-
+   family lifecycle;
+7. independently verify the comparison projection; and
+8. render only authenticated derived values.
+
+If any source is absent, unverified, or inapplicable, the dependent comparison remains
+unavailable or unresolved rather than being reconstructed from plots or replaced by
+zero.
+
 ## Migration inventory
 
 This README owns the complete local inventory; [`migration.md`](migration.md) owns its

@@ -16,6 +16,26 @@ The context separates its scientific operations:
 - [`support_truncation/`](support_truncation/README.md); and
 - [`band_equivalence_hopping_locality/`](band_equivalence_hopping_locality/README.md), which owns thin aggregate composition and the nominal, refinement, and analysis actions.
 
+## Analysis order
+
+This family follows the nonorthogonal/basis-aware rank-two stage of the shared
+[periodic analysis order](../periodic/multiband/analysis-order.md). Analyze:
+
+1. geometry, units, common retained state space, parent, and qualification;
+2. the matched square-Bravais control;
+3. the triangular-Bravais case;
+4. the triangular two-basis metric case, using basis-aware distances;
+5. gauge alignment and frame transport;
+6. band equivalence, complete Fourier interpolation, and descriptive locality;
+7. complete-shell support truncation and separate interpolation/truncation/total
+   consequences;
+8. nominal verification, then each bounded refinement as a distinct calculation; and
+9. authenticated or explicitly development-only rendering, followed later by the
+   cross-family comparison.
+
+The case order isolates Bravais-metric and basis-offset effects. It does not make the
+two-basis control a material model, and refinements do not establish convergence.
+
 The aggregate calculation owner contains the authoritative
 [research protocol](band_equivalence_hopping_locality/protocol/README.md), bibliography,
 actions, migration record, and technical report. The former experiment-tree location is

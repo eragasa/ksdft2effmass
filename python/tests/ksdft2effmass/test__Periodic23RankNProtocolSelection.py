@@ -1,4 +1,4 @@
-"""Fail-closed ownership checks for prospective periodic-2D/3D rank-N protocols."""
+"""Fail-closed ownership checks for periodic-2D/3D rank-N protocols."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 class TestPeriodic23RankNProtocolSelection:
-    """Keep both calculation roots documented and package namespaces inert."""
+    """Keep calculation roots documented and lifecycle boundaries fail-closed."""
 
     def test_calculation_owned_decision_registers_are_dimension_specific(
         self,
@@ -108,6 +108,85 @@ class TestPeriodic23RankNProtocolSelection:
             assert (aggregate_root / "fourier_reference.py").is_file()
             assert (aggregate_root / "verification.py").is_file()
             assert not (aggregate_root / "lifecycle.py").exists()
+
+    def test_rankn_bain_context_records_geometry_and_blockers_without_execution(
+        self,
+        repository_root: Path,
+    ) -> None:
+        context = repository_root / "calculations" / "periodic3d_rankN_bain_path"
+        required_directories = (
+            "gauge_alignment",
+            "frame_transport",
+            "band_equivalence",
+            "hopping_locality",
+            "support_truncation",
+            "band_equivalence_hopping_locality",
+        )
+        assert (context / "README.md").is_file()
+        decision_record = (context / "protocol-selection.md").read_text(
+            encoding="utf-8"
+        )
+        geometry_record = (context / "geometry-common-state-space.md").read_text(
+            encoding="utf-8"
+        )
+        m0_record = (context / "m0-geometry-only-control.md").read_text(
+            encoding="utf-8"
+        )
+        tex_protocol = (context / "research-protocol.tex").read_text(encoding="utf-8")
+        for directory in required_directories:
+            assert (context / directory / "README.md").is_file()
+
+        assert "FULL SCIENTIFIC PROTOCOL UNSELECTED" in decision_record
+        assert (
+            "M1N — frozen `2r`-state analytic-parent response control"
+            in decision_record
+        )
+        assert "m1n-frozen-2r-state-analytic-parent" in decision_record
+        assert "Rank-two M1 retains\nits four-state identity" in decision_record
+        assert "SELECTED GEOMETRY/STATE-SPACE SUBPROTOCOL" in geometry_record
+        assert "synthetic-bain-direct-length-v1" in geometry_record
+        assert "s\\in[0,1]" in geometry_record
+        assert "\\det A_B(s)=\\ell_0^3" in geometry_record
+        assert "A_B(0)=A_FU" in geometry_record
+        assert "\\det U=1" in geometry_record
+        assert "\\mathbf q_B=U^\\mathsf T\\mathbf q_F" in geometry_record
+        assert "U\\tau_B^\\alpha=\\tau_F^\\alpha" in geometry_record
+        assert "without sign canonicalization" in geometry_record
+        assert "\\ell^2(\\mathbb Z^3)\\otimes\\mathbb C^{2r}" in geometry_record
+        assert "FINITE_QUOTIENT_INCOMPATIBLE" in geometry_record
+        assert "COMMON_STATE_SPACE_IDENTITY_FAILED" in geometry_record
+        assert "SELECTED SCIENTIFIC SUBPROTOCOL" in m0_record
+        assert "shared `2r` flat specialization" in m0_record
+        assert "parameter-free `lambda=0` specialization" in m0_record
+        assert "=2.7-0.4=2.3" in m0_record
+        assert "M0_FROZEN_OPERATOR_IDENTITY_FAILED" in m0_record
+        assert "INAPPLICABLE_NO_ADMITTED_M0_CASE" in m0_record
+        assert "INAPPLICABLE_POLICY_NOT_SELECTED" in m0_record
+        assert "\\documentclass[11pt]{article}" in tex_protocol
+        assert "Periodic-3D rank-N synthetic Bain geometry" in tex_protocol
+        assert "synthetic-bain-direct-length-v1" in tex_protocol
+        assert "=2.7-0.4=2.3" in tex_protocol
+        assert "Selected M1N frozen-parent control" in tex_protocol
+        assert "does not select M2" in tex_protocol
+        assert "no execution authority" in tex_protocol
+        assert "`(3, 4, 8)`" in decision_record
+        assert "`(1, 2, 4)`" in decision_record
+        assert "Resource envelope" in decision_record
+        assert "Visualization projection" in decision_record
+        assert "No-overwrite identity" in decision_record
+        assert "must contain no calculation" in decision_record
+        assert not list(context.rglob("*.py"))
+        assert not list(context.rglob("*.json"))
+        assert not list(context.rglob("*.pdf"))
+        assert not list(context.rglob("*.png"))
+        for forbidden_directory in ("analysis", "simulations", "executions"):
+            assert not (context / forbidden_directory).exists()
+
+        rankn_index = (
+            repository_root / "calculations" / "periodic3d" / "rankN" / "README.md"
+        ).read_text(encoding="utf-8")
+        assert "periodic3d_rankN_bain_path" in rankn_index
+        assert "does **not** select a continuous synthetic-strain" in rankn_index
 
     def test_calculation_roots_have_no_direct_entrypoints_or_rank4_namespace(
         self,

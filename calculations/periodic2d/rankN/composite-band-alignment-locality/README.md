@@ -8,6 +8,16 @@ arbitrary-finite-rank family. Its scientific decisions are tracked by
 family, mesh inventory, alignment policy, support ladder, retained result, or evidence
 package is selected here.
 
+## Analysis order
+
+This reserved owner must follow the parent
+[periodic rank-N analysis order](../../../periodic/multiband/analysis-order.md): parent
+and common state space; geometry; gauge/depth semantics; alignment; reciprocal sampling
+and transport; Fourier/locality/support; error operands; independent references and
+gates; resources; visualization/authentication; lifecycle; and only then execution.
+Every unselected predecessor blocks its dependents. No one-dimensional or rank-two
+parameter or result fills a missing stage.
+
 The specialization must reuse the common `SubspaceReduction`,
 `RepresentationEquivalence`, `RealSpaceSupportTruncation`, and `NumericalConsistency`
 owners. The installed `BandEquivalenceHoppingLocalityLossDefinition` supplies only the typed
