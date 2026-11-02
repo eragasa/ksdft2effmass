@@ -22,6 +22,9 @@ from ksdft2effmass.numerical_consistency import (
     ReciprocalMeshRefinementFamily,
     ReciprocalMeshRefinementFamilyMember,
 )
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.periodic1d.rank2.support_truncation.family import (
     Periodic1DRank2TruncationFamilyAnalysis,
     Periodic1DRank2TruncationFamilyRequest,
@@ -1922,7 +1925,9 @@ class Periodic1DRank2CalculationRecord(BaseTypedRecord):
         )
 
 
-class Periodic1DRank2ParentFamilyAnalysisRecorder:
+class Periodic1DRank2ParentFamilyAnalysisRecorder(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Project one bound family analysis into its retained wire owner."""
 
     __slots__ = ("_analysis",)
@@ -1942,7 +1947,9 @@ class Periodic1DRank2ParentFamilyAnalysisRecorder:
         return Periodic1DRank2ParentFamilyAnalysisRecord(self._analysis)
 
 
-class Periodic1DRank2AnalysisRecorder:
+class Periodic1DRank2AnalysisRecorder(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Project one bound analysis into its retained wire owner."""
 
     __slots__ = ("_analysis",)

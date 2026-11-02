@@ -41,6 +41,7 @@ from .analytic_reference import (
     _Periodic1DRankNAnalyticReferenceModel,
     _reduced_coordinates,
 )
+from .base import Periodic1DRankNBandEquivalenceHoppingLocalityAction
 from .result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
@@ -105,7 +106,9 @@ class _ProcrustesValues:
 
 
 @final
-class Periodic1DRankNProcrustesReferenceAnalyzer:
+class Periodic1DRankNProcrustesReferenceAnalyzer(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction
+):
     """Recompute global and pointwise selections without the producer solver."""
 
     __slots__ = ("_request",)
@@ -122,6 +125,11 @@ class Periodic1DRankNProcrustesReferenceAnalyzer:
     def request(self) -> Periodic1DRankNProcrustesReferenceRequest:
         """Return the exact immutable request bound to this action."""
         return self._request
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.calculation_result.band_subspace_rank
 
     def execute(self) -> Periodic1DRankNProcrustesReference:
         """Return bounded global and pointwise Procrustes comparisons."""

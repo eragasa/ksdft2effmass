@@ -30,7 +30,7 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityRequest:
         assert reconstructed == higher_rank_calculation_request
         assert reconstructed.to_json() == wire
         assert reconstructed.case_identity == "r03-L01"
-        assert reconstructed.band_subspace_ranks == (reconstructed.retained_rank,)
+        assert reconstructed.band_subspace_rank == reconstructed.retained_rank
         assert reconstructed.controls.support_radii == (0, 1, 2, 4, 8, 16, 32, 64, 128)
         diagnostics = reconstructed.controls.hopping_diagnostic_range_inventory
         supports = reconstructed.controls.support_range_inventory

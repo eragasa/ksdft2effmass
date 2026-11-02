@@ -17,6 +17,7 @@ from ksdft2effmass.model_systems.verification import (
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 from ksdft2effmass.verification import CompositeVerification, VerificationObservation
 
+from .base import Periodic1DRank2BandEquivalenceHoppingLocalityAction
 from .records import Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRecord
 from .reference import (
     Periodic1DRank2BandEquivalenceHoppingLocalityIndependentReferenceAnalyzer,
@@ -161,7 +162,9 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityVerificationResult(BaseTypedR
         )
 
 
-class Periodic1DRank2BandEquivalenceHoppingLocalityVerifier:
+class Periodic1DRank2BandEquivalenceHoppingLocalityVerifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction
+):
     """Readmit canonical result bytes and compare with a direct-sum reference."""
 
     __slots__ = ("_subject_bytes",)

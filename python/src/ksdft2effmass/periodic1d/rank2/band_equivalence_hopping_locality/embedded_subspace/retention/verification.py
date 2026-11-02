@@ -12,6 +12,9 @@ from ksdft2effmass.model_systems.verification import (
     BaseModelAnalysisVerification,
     VisualizationProjectionVerification,
 )
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 from ksdft2effmass.verification import CompositeVerification, VerificationObservation
 
@@ -220,7 +223,9 @@ class Periodic1DRank2ParentFamilyVerificationResult(BaseTypedRecord):
         )
 
 
-class Periodic1DRank2ParentFamilyVerifier:
+class Periodic1DRank2ParentFamilyVerifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Readmit canonical family bytes and compare every independently rebuilt member."""
 
     __slots__ = ("_subject_bytes",)
@@ -289,7 +294,9 @@ class Periodic1DRank2ParentFamilyVerifier:
         )
 
 
-class Periodic1DRank2Verifier:
+class Periodic1DRank2Verifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Readmit canonical analysis bytes and compare with direct reconstruction."""
 
     __slots__ = ("_subject_bytes",)

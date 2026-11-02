@@ -8,6 +8,9 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import ClassVar, Self
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.periodic1d.rank2.support_truncation.verification import (
     EmbeddedSubspaceRank2TruncationVerification,
     Periodic1DRank2TruncationIndependentVerifier,
@@ -149,7 +152,9 @@ class Periodic1DRank2CalculationVerification(VisualizationVerification):
         )
 
 
-class Periodic1DRank2CalculationVerifier:
+class Periodic1DRank2CalculationVerifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Readmit canonical aggregate bytes and run independent scientific routes."""
 
     __slots__ = ("_subject_bytes",)

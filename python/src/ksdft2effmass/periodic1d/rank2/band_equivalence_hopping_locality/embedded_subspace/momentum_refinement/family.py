@@ -17,6 +17,10 @@ from ksdft2effmass.numerical_consistency import (
     ReciprocalMeshRefinementFamilyRequest,
     ReciprocalMeshShape,
 )
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 
 from ..parent_family.analysis import (
     Periodic1DRank2ParentFamilyRequest,
@@ -33,7 +37,9 @@ from .analysis import (
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2MomentumRefinementFamilyRequest:
+class Periodic1DRank2MomentumRefinementFamilyRequest(
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Bind one nested-mesh refinement policy to a parent-hopping family."""
 
     parent_family_request: Periodic1DRank2ParentFamilyRequest
@@ -96,7 +102,10 @@ class Periodic1DRank2MomentumRefinementFamilyRequest:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2MomentumRefinementFamilyAnalysis(NumericalConsistency):
+class Periodic1DRank2MomentumRefinementFamilyAnalysis(
+    NumericalConsistency,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Adapt a generic reciprocal-mesh family to the rank-two 1D owner."""
 
     request: Periodic1DRank2MomentumRefinementFamilyRequest
@@ -137,7 +146,9 @@ class Periodic1DRank2MomentumRefinementFamilyAnalysis(NumericalConsistency):
         return tuple(member.outcome for member in self.refinement_family.members)
 
 
-class Periodic1DRank2MomentumRefinementFamilyAnalyzer:
+class Periodic1DRank2MomentumRefinementFamilyAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Evaluate the declared nested-mesh study for every parent-family member."""
 
     __slots__ = ("_request", "_transporter")

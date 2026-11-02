@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.verification import CompositeVerification, VerificationObservation
 
 from .qualification_verification import (
@@ -14,7 +17,9 @@ class EmbeddedSubspaceRank2Verification(CompositeVerification):
     """Group independent parent, transport, alignment, and locality comparisons."""
 
 
-class Periodic1DRank2AnalysisVerificationAssessor:
+class Periodic1DRank2AnalysisVerificationAssessor(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Compare one observed analysis with its independent reconstruction."""
 
     __slots__ = ("_observed", "_reference")

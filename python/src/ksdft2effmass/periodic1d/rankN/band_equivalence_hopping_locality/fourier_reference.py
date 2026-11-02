@@ -40,6 +40,7 @@ from .analytic_reference import (
     _Periodic1DRankNAnalyticReferenceModel,
     _reduced_coordinates,
 )
+from .base import Periodic1DRankNBandEquivalenceHoppingLocalityAction
 from .result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
@@ -98,7 +99,9 @@ class Periodic1DRankNFourierReference:
 
 
 @final
-class Periodic1DRankNFourierReferenceAnalyzer:
+class Periodic1DRankNFourierReferenceAnalyzer(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction
+):
     """Recompute direct Fourier controls without producer analysis actions."""
 
     __slots__ = ("_request",)
@@ -112,6 +115,11 @@ class Periodic1DRankNFourierReferenceAnalyzer:
     def request(self) -> Periodic1DRankNFourierReferenceRequest:
         """Return the exact immutable request bound to this action."""
         return self._request
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the independently assessed band-subspace rank."""
+        return self.request.calculation_result.band_subspace_rank
 
     def execute(self) -> Periodic1DRankNFourierReference:
         """Return bounded direct-sum Fourier comparisons."""

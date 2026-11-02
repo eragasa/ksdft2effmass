@@ -20,13 +20,12 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
 from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.request import (
     Periodic1DRankNAlignmentTransportRequest,
 )
-from ksdft2effmass.periodic1d.rankN.band_equivalence.base import (
-    Periodic1DRankNBandEquivalenceRequest,
-)
 from ksdft2effmass.periodic1d.support_truncation.inventory import (
     Periodic1DSymmetricSupportInventory,
 )
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+
+from .base import Periodic1DRankNBandEquivalenceHoppingLocalityRequestRole
 
 
 @dataclass(frozen=True, slots=True)
@@ -252,7 +251,7 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityControls(BaseTypedRecord):
 @dataclass(frozen=True, slots=True)
 class Periodic1DRankNBandEquivalenceHoppingLocalityRequest(
     BaseTypedRecord,
-    Periodic1DRankNBandEquivalenceRequest,
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequestRole,
 ):
     """Bind one rank/depth calculation to exact controls and physical identities."""
 
@@ -267,9 +266,9 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityRequest(
     energy_reference_identifier: str
 
     @property
-    def band_subspace_ranks(self) -> tuple[int, ...]:
-        """Return the single requested band-subspace rank."""
-        return (self.retained_rank,)
+    def band_subspace_rank(self) -> int:
+        """Return the requested band-subspace rank."""
+        return self.retained_rank
 
     def __post_init__(self) -> None:
         if type(self.configuration) is not Periodic1DRankNAlignmentConfiguration:

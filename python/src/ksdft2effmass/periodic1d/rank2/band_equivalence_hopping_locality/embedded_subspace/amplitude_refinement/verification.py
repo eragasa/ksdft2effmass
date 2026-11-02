@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.verification import CompositeVerification, VerificationObservation
 
 from ..parent_scale.verification import (
@@ -27,7 +30,9 @@ class EmbeddedSubspaceRank2AdaptiveAmplitudeVerification(CompositeVerification):
     """Group independent direct-evaluation and adaptive-decision comparisons."""
 
 
-class Periodic1DRank2AdaptiveAmplitudeIndependentVerifier:
+class Periodic1DRank2AdaptiveAmplitudeIndependentVerifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Compare one adaptive result with independently rebuilt direct samples."""
 
     __slots__ = ("_observed",)

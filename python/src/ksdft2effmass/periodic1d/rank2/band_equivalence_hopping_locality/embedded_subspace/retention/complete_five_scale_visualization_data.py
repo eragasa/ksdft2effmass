@@ -6,6 +6,9 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2TruncationCompleted,
 )
@@ -27,7 +30,10 @@ from .complete_five_scale import Periodic1DRank2CompleteFiveScaleCalculationReco
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2CompleteFiveScaleVisualizationData(BaseVisualizationData):
+class Periodic1DRank2CompleteFiveScaleVisualizationData(
+    BaseVisualizationData,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Project authenticated family coverage and closed outcome dispositions."""
 
     source_sha256: str

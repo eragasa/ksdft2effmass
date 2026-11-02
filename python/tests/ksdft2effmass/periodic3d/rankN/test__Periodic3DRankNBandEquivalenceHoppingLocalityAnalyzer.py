@@ -108,15 +108,20 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_case_analysis_uses_dimension_and_gauge_analysis_bases(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        expander = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
             request=request
-        ).execute()[1]
-        result = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
+        )
+        model = expander.execute()[1]
+        analyzer = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
             geometry=request.cases[0],
-        ).execute()
+        )
+        result = analyzer.execute()
 
+        assert expander.band_subspace_ranks == (3, 4, 8)
+        assert analyzer.band_subspace_rank == 3
+        assert result.band_subspace_rank == 3
         assert result.model_identity == model.model_identity
         assert result.minimum_sampled_external_gap >= 1.9
         assert tuple(item.alignment for item in result.alignments) == (

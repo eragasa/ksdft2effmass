@@ -31,9 +31,9 @@ from ksdft2effmass.periodic3d.rank2.band_alignment.frame_transport.analysis impo
 from ksdft2effmass.periodic3d.rank2.band_alignment.frame_transport.request import (
     Periodic3DRank2TransportAnalysisRequest,
 )
-from ksdft2effmass.periodic3d.rank2.band_equivalence.base import (
-    Periodic3DRank2BandEquivalenceAnalysis,
-    Periodic3DRank2BandEquivalenceAnalyzer,
+from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
 )
 from ksdft2effmass.periodic3d.rank2.gauge_alignment.analysis import (
     Periodic3DRank2RestrictedGaugeAlignmentAnalyzer,
@@ -65,7 +65,7 @@ from .request import Periodic3DRank2BandEquivalenceHoppingLocalityRequest
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis(
-    Periodic3DRank2BandEquivalenceAnalysis[
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRole[
         Periodic3DRank2BandEquivalenceHoppingLocalityRequest
     ],
     BandEquivalenceHoppingLocalityAnalysis,
@@ -86,7 +86,7 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis(
 
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(
-    Periodic3DRank2BandEquivalenceAnalyzer[
+    Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzerRole[
         Periodic3DRank2BandEquivalenceHoppingLocalityRequest
     ],
     Rank2BandEquivalenceHoppingLocalityAnalyzer,

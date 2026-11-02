@@ -14,7 +14,6 @@ from ksdft2effmass.band_equivalence_hopping_locality.lifecycle import (
     BandEquivalenceHoppingLocalityExecutionVerification,
     BandEquivalenceHoppingLocalityRendering,
 )
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
 from ksdft2effmass.serialization import SerializableValue
 
 from .visualizations.data import (
@@ -44,7 +43,6 @@ def _validate_periodic3d_identity(calculation_family: str, study_family: str) ->
 @dataclass(frozen=True, slots=True)
 class Periodic3DRank2BandEquivalenceHoppingLocalityExecution(
     BandEquivalenceHoppingLocalityExecution,
-    Periodic3DCapability,
 ):
     """Describe one completed unsealed periodic-3D rank-two execution."""
 
@@ -56,7 +54,6 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityExecution(
 @dataclass(frozen=True, slots=True)
 class Periodic3DRank2BandEquivalenceHoppingLocalityExecutionVerification(
     BandEquivalenceHoppingLocalityExecutionVerification,
-    Periodic3DCapability,
 ):
     """Bind independent verification to one periodic-3D direct result."""
 
@@ -96,7 +93,6 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityExecutionVerification(
 @dataclass(frozen=True, slots=True)
 class Periodic3DRank2BandEquivalenceHoppingLocalityRendering(
     BandEquivalenceHoppingLocalityRendering,
-    Periodic3DCapability,
 ):
     """Authenticate one periodic-3D rank-two rendering inventory."""
 

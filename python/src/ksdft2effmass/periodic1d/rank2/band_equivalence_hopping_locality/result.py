@@ -5,10 +5,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
-from ksdft2effmass.periodic1d.rank2.band_equivalence.base import (
-    Periodic1DRank2BandEquivalenceAnalysis,
-)
-
+from .base import Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole
 from .request import Periodic1DRank2BandEquivalenceHoppingLocalityRequest
 
 
@@ -161,7 +158,7 @@ class Periodic1DBandEquivalencePointAnalysis:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2BandEquivalenceHoppingLocalityAnalysis(
-    Periodic1DRank2BandEquivalenceAnalysis[
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalysisRole[
         Periodic1DRank2BandEquivalenceHoppingLocalityRequest
     ]
 ):

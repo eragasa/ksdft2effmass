@@ -25,8 +25,8 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.refinement_result import (
 from ksdft2effmass.periodic1d.rankN.band_alignment.scalar_diagnostics import (
     Periodic1DRankNScalarDiagnosticInventoryExtractor,
 )
-from ksdft2effmass.periodic1d.rankN.band_equivalence.base import (
-    Periodic1DRankNBandEquivalenceAnalysis,
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysisRole,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
@@ -46,7 +46,7 @@ from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis(
     BaseTypedRecord,
-    Periodic1DRankNBandEquivalenceAnalysis[
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysisRole[
         Periodic1DRankNBandEquivalenceHoppingLocalityRequest
     ],
 ):
@@ -60,9 +60,9 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis(
     scalar_refinements: tuple[Periodic1DRankNScalarRefinementResult, ...]
 
     @property
-    def band_subspace_ranks(self) -> tuple[int, ...]:
-        """Return the analyzed band-subspace rank inventory."""
-        return self.request.band_subspace_ranks
+    def band_subspace_rank(self) -> int:
+        """Return the analyzed band-subspace rank."""
+        return self.request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (

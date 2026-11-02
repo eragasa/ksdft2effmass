@@ -5,6 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import final
 
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+    Periodic1DRankNBandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (
     Periodic1DRankNFourierAnalysis,
 )
@@ -30,7 +34,9 @@ from ..band_alignment.gauge_case_result import (
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNGaugeAlignmentAssemblyRequest:
+class Periodic1DRankNGaugeAlignmentAssemblyRequest(
+    Periodic1DRankNBandEquivalenceHoppingLocalityValue,
+):
     """Bind one correlated set of typed gauge-alignment analyses."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -39,6 +45,11 @@ class Periodic1DRankNGaugeAlignmentAssemblyRequest:
     interpolation_analysis: Periodic1DRankNInterpolationAnalysis
     hopping_locality_analysis: Periodic1DRankNHoppingLocalityAnalysis
     support_truncation_analysis: Periodic1DRankNSupportTruncationAnalysis
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented rank bound by the gauge-analysis request."""
+        return self.analysis_request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (
@@ -105,10 +116,17 @@ class Periodic1DRankNGaugeAlignmentAssemblyRequest:
 
 
 @final
-class Periodic1DRankNGaugeAlignmentResultAssembler:
+class Periodic1DRankNGaugeAlignmentResultAssembler(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+):
     """Assemble one public mesh result without recomputing scientific values."""
 
     __slots__ = ("_request",)
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented rank bound by the assembly request."""
+        return self.request.band_subspace_rank
 
     def __init__(self, request: Periodic1DRankNGaugeAlignmentAssemblyRequest) -> None:
         if type(request) is not Periodic1DRankNGaugeAlignmentAssemblyRequest:

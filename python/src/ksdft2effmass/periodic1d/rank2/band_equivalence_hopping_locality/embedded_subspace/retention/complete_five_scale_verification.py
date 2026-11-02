@@ -7,6 +7,9 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Self
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.periodic1d.rank2.support_truncation.family_verification import (
     Periodic1DRank2TruncationFamilyIndependentVerifier,
 )
@@ -92,7 +95,9 @@ class Periodic1DRank2CompleteFiveScaleVerification(VisualizationVerification):
         )
 
 
-class Periodic1DRank2CompleteFiveScaleVerifier:
+class Periodic1DRank2CompleteFiveScaleVerifier(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Readmit exact bytes and independently reconstruct every scientific member."""
 
     __slots__ = ("_subject_bytes",)

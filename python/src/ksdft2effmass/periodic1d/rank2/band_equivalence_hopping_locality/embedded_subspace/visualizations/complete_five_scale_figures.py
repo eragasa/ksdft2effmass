@@ -11,6 +11,10 @@ import numpy as np
 from matplotlib.colors import BoundaryNorm
 from matplotlib.figure import Figure
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.results import (  # noqa: E501
     Periodic1DRank2QualifiedParent,
 )
@@ -43,7 +47,9 @@ class Periodic1DRank2CompleteFiveScaleFigureEnum(StringWireEnum):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2CompleteFiveScaleFigureData:
+class Periodic1DRank2CompleteFiveScaleFigureData(
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     """Bind admitted values needed by the complete-five-scale figure inventory."""
 
     source_sha256: str
@@ -578,7 +584,9 @@ class _ErrorChannelDecompositionFigure(BaseFigure):
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2CompleteFiveScaleFigureRenderer:
+class Periodic1DRank2CompleteFiveScaleFigureRenderer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Render the complete-five-scale closed figure inventory as PNG values."""
 
     data: Periodic1DRank2CompleteFiveScaleFigureData

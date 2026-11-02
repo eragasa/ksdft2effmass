@@ -10,15 +10,18 @@ from ksdft2effmass.band_equivalence_hopping_locality.reference import (
     BandEquivalenceHoppingLocalityIndependentShellPowerPoint,
     BandEquivalenceHoppingLocalityIndependentShellPowerReference,
 )
-from ksdft2effmass.periodic2d.base import Periodic2DCapability
 
+from .base import (
+    Periodic2DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic2DRank2BandEquivalenceHoppingLocalityValue,
+)
 from .request import Periodic2DRank2BandEquivalenceHoppingLocalityRequest
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic2DRank2BandEquivalenceHoppingLocalityIndependentShellPowerReference(
     BandEquivalenceHoppingLocalityIndependentShellPowerReference,
-    Periodic2DCapability,
+    Periodic2DRank2BandEquivalenceHoppingLocalityValue,
 ):
     """Retain the independent shell-power reference for one periodic-2D request."""
 
@@ -38,7 +41,7 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityIndependentShellPowerReferenc
 
 class Periodic2DRank2BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer(
     BandEquivalenceHoppingLocalityIndependentShellPowerAnalyzer,
-    Periodic2DCapability,
+    Periodic2DRank2BandEquivalenceHoppingLocalityAction,
 ):
     """Execute the independent finite-sum route for one periodic-2D request."""
 

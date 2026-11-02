@@ -47,9 +47,9 @@ from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.analysis impo
 from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.request import (
     Periodic2DRankNTransportAnalysisRequest,
 )
-from ksdft2effmass.periodic2d.rankN.band_equivalence.base import (
-    Periodic2DRankNBandEquivalence,
-    Periodic2DRankNBandEquivalenceAnalyzer,
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole,
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
 )
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.analysis import (
     Periodic2DRankNGlobalGaugeAlignmentAnalyzer,
@@ -137,16 +137,16 @@ class _ReferenceFourierData:
 
 @final
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
-    Periodic2DRankNBandEquivalence
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction
 ):
     """Compose installed capability owners for one exact analytic case."""
 
     __slots__ = ("_geometry", "_model", "_request")
 
     @property
-    def band_subspace_ranks(self) -> tuple[int, ...]:
+    def band_subspace_rank(self) -> int:
         """Return the exact case's represented band-subspace rank."""
-        return (self._model.retained_rank,)
+        return self._model.retained_rank
 
     def __init__(
         self,
@@ -899,7 +899,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
 
 @final
 class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
-    Periodic2DRankNBandEquivalenceAnalyzer[
+    Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole[
         Periodic2DRankNBandEquivalenceHoppingLocalityRequest
     ]
 ):

@@ -16,6 +16,9 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+)
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.gauge import (
     Periodic1DRank2SinusoidalGaugeRotation,
 )
@@ -70,7 +73,11 @@ class _Periodic1DRank2PreparedAnalysis:
         )
 
 
-class Periodic1DRank2Analyzer:
+class Periodic1DRank2Analyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzerRole[
+        Periodic1DRank2Request
+    ],
+):
     """Analyze gauge-locality effects after explicit parent qualification."""
 
     __slots__ = ("_harmonic_maximizer", "_request", "_transporter")

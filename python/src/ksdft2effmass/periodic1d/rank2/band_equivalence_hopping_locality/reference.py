@@ -6,6 +6,7 @@ import math
 
 import numpy as np
 
+from .base import Periodic1DRank2BandEquivalenceHoppingLocalityAction
 from .request import Periodic1DRank2BandEquivalenceHoppingLocalityRequest
 from .result import (
     Periodic1DBandEquivalenceHoppingPower,
@@ -15,7 +16,9 @@ from .result import (
 )
 
 
-class Periodic1DRank2BandEquivalenceHoppingLocalityIndependentReferenceAnalyzer:
+class Periodic1DRank2BandEquivalenceHoppingLocalityIndependentReferenceAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction
+):
     """Reconstruct every retained flat-parent observation by explicit finite sums."""
 
     __slots__ = ("_request",)

@@ -10,7 +10,9 @@ import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
+)
 from ksdft2effmass.serialization import StringWireEnum
 
 
@@ -22,7 +24,9 @@ class Periodic3DRankNGaugeNormalizationEnum(StringWireEnum):
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic3DRankNAnalyticCase(Periodic3DCapability):
+class Periodic3DRankNAnalyticCase(
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
+):
     """Define one topologically trivial rank-N parent and right gauge circuit."""
 
     MODEL_FAMILY_IDENTITY: ClassVar[str] = (
@@ -41,6 +45,11 @@ class Periodic3DRankNAnalyticCase(Periodic3DCapability):
     gauge_normalization: Periodic3DRankNGaugeNormalizationEnum
     parent_scale: float
     attack_coefficient: float
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented finite-rank case size."""
+        return self.retained_rank
 
     def __post_init__(self) -> None:
         if type(self.case_identifier) is not str or not self.case_identifier:

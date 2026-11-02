@@ -21,6 +21,10 @@ from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonicMaximumStatus,
 )
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+)
+
 from .request import Periodic1DRank2Request
 from .results import (
     Periodic1DRank2Analysis,
@@ -50,7 +54,9 @@ class _IndependentTransport:
     closure_alignment_unitarity_defect: float
 
 
-class Periodic1DRank2IndependentReferenceAnalyzer:
+class Periodic1DRank2IndependentReferenceAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Reconstruct all retained observations through independent finite formulas."""
 
     __slots__ = ("_request",)

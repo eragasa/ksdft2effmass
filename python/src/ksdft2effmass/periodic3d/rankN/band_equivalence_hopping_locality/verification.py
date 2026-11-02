@@ -12,7 +12,11 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import ClassVar, Self, final
 
-from ksdft2effmass.periodic3d.base import Periodic3DCapability
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityAction,
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction,
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseRequest,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
 from ksdft2effmass.verification import CompositeVerification
 
@@ -46,11 +50,18 @@ def _sha256(value: str, name: str) -> str:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest:
+class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest(
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseRequest
+):
     """Bind one aggregate case to its exact typed study request."""
 
     study_request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest
     case_analysis: Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the bound case's represented band-subspace rank."""
+        return self.case_analysis.retained_rank
 
     def __post_init__(self) -> None:
         if (
@@ -139,7 +150,6 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification(BaseTypedRec
 @dataclass(frozen=True, slots=True)
 class Periodic3DRankNBandEquivalenceHoppingLocalityVerification(
     BaseTypedRecord,
-    Periodic3DCapability,
 ):
     """Retain authenticated aggregate software-verification observations."""
 
@@ -215,7 +225,9 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityVerification(
 
 
 @final
-class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier(Periodic3DCapability):
+class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier(
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction
+):
     """Execute both independent routes for one constructor-bound case."""
 
     __slots__ = ("_request",)
@@ -238,6 +250,11 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier(Periodic3DCapabi
     ) -> Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest:
         """Return the immutable case-verification request."""
         return self._request
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the verified case's represented band-subspace rank."""
+        return self.request.band_subspace_rank
 
     def execute(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification:
         """Return typed observations from both independent reference routes."""
@@ -268,7 +285,9 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier(Periodic3DCapabi
 
 
 @final
-class Periodic3DRankNBandEquivalenceHoppingLocalityVerifier(Periodic3DCapability):
+class Periodic3DRankNBandEquivalenceHoppingLocalityVerifier(
+    Periodic3DRankNBandEquivalenceHoppingLocalityAction
+):
     """Sequence per-case verification for one complete immutable analysis."""
 
     __slots__ = ("_analysis",)
@@ -286,6 +305,11 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityVerifier(Periodic3DCapability
     def analysis(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis:
         """Return the immutable aggregate analysis bound to this verifier."""
         return self._analysis
+
+    @property
+    def band_subspace_ranks(self) -> tuple[int, ...]:
+        """Return the verified band-subspace rank inventory."""
+        return self.analysis.band_subspace_ranks
 
     def execute(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityVerification:
         """Verify every aggregate case without retained side effects."""

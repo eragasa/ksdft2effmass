@@ -4,6 +4,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base import (
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+)
+
 from ..parent_scale.independent_reference import (
     Periodic1DRank2IndependentReferenceAnalyzer,
 )
@@ -13,12 +18,16 @@ from .analysis import Periodic1DRank2ParentFamilyRequest
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic1DRank2ParentFamilyIndependentReference:
+class Periodic1DRank2ParentFamilyIndependentReference(
+    Periodic1DRank2BandEquivalenceHoppingLocalityValue,
+):
     request: Periodic1DRank2ParentFamilyRequest
     members: tuple[Periodic1DRank2Analysis, ...]
 
 
-class Periodic1DRank2ParentFamilyIndependentReferenceAnalyzer:
+class Periodic1DRank2ParentFamilyIndependentReferenceAnalyzer(
+    Periodic1DRank2BandEquivalenceHoppingLocalityAction,
+):
     """Independently reconstruct every declared parent-hopping family member."""
 
     __slots__ = ("_request",)

@@ -5,6 +5,9 @@ from __future__ import annotations
 from fractions import Fraction
 from typing import final
 
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+)
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
@@ -15,10 +18,17 @@ from ..band_alignment.evaluation_result import (
 
 
 @final
-class Periodic1DRankNEvaluationIndependenceAnalyzer:
+class Periodic1DRankNEvaluationIndependenceAnalyzer(
+    Periodic1DRankNBandEquivalenceHoppingLocalityAction,
+):
     """Derive exact mesh separation and selection-input provenance."""
 
     __slots__ = ("_request",)
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented rank bound by the calculation request."""
+        return self.request.band_subspace_rank
 
     def __init__(
         self,

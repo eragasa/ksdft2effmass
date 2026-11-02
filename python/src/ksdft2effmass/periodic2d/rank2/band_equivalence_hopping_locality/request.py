@@ -8,13 +8,12 @@ from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     BandEquivalenceHoppingLocalityFamilyEnum,
     BandEquivalenceHoppingLocalityRequest,
 )
-from ksdft2effmass.periodic2d.rank2.band_equivalence.base import (
-    Periodic2DRank2BandEquivalenceRequest,
-)
+
+from .base import Periodic2DRank2BandEquivalenceHoppingLocalityRequestRole
 
 
 class Periodic2DRank2BandEquivalenceHoppingLocalityRequest(
-    Periodic2DRank2BandEquivalenceRequest,
+    Periodic2DRank2BandEquivalenceHoppingLocalityRequestRole,
     BandEquivalenceHoppingLocalityRequest,
 ):
     """Bind one rank-two study to exact periodic-2D PhysKit lattice geometry."""

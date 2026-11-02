@@ -4,13 +4,17 @@ import inspect
 
 from ksdft2effmass.periodic2d.rankN.band_equivalence.base import (
     Periodic2DRankNBandEquivalence,
-    Periodic2DRankNBandEquivalenceAnalysis,
-    Periodic2DRankNBandEquivalenceAnalyzer,
-    Periodic2DRankNBandEquivalenceRequest,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.analysis import (
     Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer,
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer,
+)
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base import (
+    Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisRole,
+    Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole,
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
+    Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
@@ -22,38 +26,38 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.result imp
 
 
 class TestPeriodic2DRankNBandEquivalence:
-    """Keep the existing aggregate implementation under its rank-N owner."""
+    """Keep aggregate and foundational rank-N ownership distinct."""
 
     def test__existing_concrete_roles__inherit_rank_ownership(self) -> None:
         assert inspect.isabstract(Periodic2DRankNBandEquivalence)
         assert issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
-            Periodic2DRankNBandEquivalenceRequest,
+            Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole,
         )
         assert issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalysis,
-            Periodic2DRankNBandEquivalenceAnalysis,
+            Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisRole,
         )
         assert issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer,
-            Periodic2DRankNBandEquivalenceAnalyzer,
+            Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole,
         )
         assert not inspect.isabstract(
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer
         )
         assert issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis,
-            Periodic2DRankNBandEquivalence,
+            Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
         )
         assert not issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis,
-            Periodic2DRankNBandEquivalenceAnalysis,
+            Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisRole,
         )
         assert issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer,
-            Periodic2DRankNBandEquivalence,
+            Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
         )
         assert not issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer,
-            Periodic2DRankNBandEquivalenceAnalyzer,
+            Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole,
         )

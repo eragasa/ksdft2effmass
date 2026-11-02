@@ -4,13 +4,14 @@ from __future__ import annotations
 
 from itertools import product
 
-from ksdft2effmass.periodic2d.base import Periodic2DCapability
-
+from .base import Periodic2DRankNBandEquivalenceHoppingLocalityAction
 from .model import Periodic2DRankNAnalyticCase
 from .request import Periodic2DRankNBandEquivalenceHoppingLocalityRequest
 
 
-class Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(Periodic2DCapability):
+class Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+    Periodic2DRankNBandEquivalenceHoppingLocalityAction
+):
     """Expand one typed study request into its complete analytic case inventory."""
 
     __slots__ = ("_request",)
@@ -28,6 +29,11 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(Periodic2DCapabi
     def request(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
         """Return the immutable aggregate request bound to this action."""
         return self._request
+
+    @property
+    def band_subspace_ranks(self) -> tuple[int, ...]:
+        """Return the expanded band-subspace rank inventory."""
+        return self.request.band_subspace_ranks
 
     def execute(self) -> tuple[Periodic2DRankNAnalyticCase, ...]:
         """Return the ordered geometry/rank/depth/scale/attack cross product."""
