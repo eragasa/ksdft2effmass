@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import final
 
 from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
 
-from ksdft2effmass.periodic3d.hopping_locality.base import (
-    Periodic3DHoppingLocalityAnalysisRequest,
-)
 from ksdft2effmass.serialization.enums import StringWireEnum
+
+from .base import Periodic3DRankNHoppingLocalityAnalysisRequestRole
 
 
 class Periodic3DRankNHoppingLocalityChannelEnum(StringWireEnum):
@@ -23,7 +23,7 @@ class Periodic3DRankNHoppingLocalityChannelEnum(StringWireEnum):
 
 @dataclass(frozen=True, slots=True)
 class Periodic3DRankNHoppingLocalityAnalysisRequest(
-    Periodic3DHoppingLocalityAnalysisRequest
+    Periodic3DRankNHoppingLocalityAnalysisRequestRole
 ):
     """Bind one periodic-3D arbitrary-rank channel to its metric-shell inventory."""
 
@@ -33,6 +33,12 @@ class Periodic3DRankNHoppingLocalityAnalysisRequest(
     basis_identifier: str
     series: NumpyFiniteFourierMatrixSeries
     shell_indices: tuple[int, ...]
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the unchanged hopping-block rank."""
+        return self.retained_rank
 
     def __post_init__(self) -> None:
         if type(self.retained_rank) is not int:

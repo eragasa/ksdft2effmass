@@ -10,11 +10,6 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailMonotonicityAnalyzer1D,
     SymmetricRangeTailMonotonicityDiagnostics1D,
 )
-from ksdft2effmass.periodic1d.hopping_locality import (
-    Periodic1DHoppingLocalityAnalysis,
-    Periodic1DHoppingLocalityAnalysisRequest,
-    Periodic1DHoppingLocalityAnalyzer,
-)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
     Periodic1DRankNFourierAnalysis,
 )
@@ -22,17 +17,28 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E5
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
 
+from .base import (
+    Periodic1DRankNHoppingLocalityAnalysisRequestRole,
+    Periodic1DRankNHoppingLocalityAnalysisRole,
+    Periodic1DRankNHoppingLocalityAnalyzerRole,
+)
 from .result import Periodic1DRankNHoppingTailResult
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic1DRankNHoppingLocalityAnalysisRequest(
-    Periodic1DHoppingLocalityAnalysisRequest
+    Periodic1DRankNHoppingLocalityAnalysisRequestRole
 ):
     """Bind an unchanged Fourier series for hopping-locality diagnostics."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
     fourier_analysis: Periodic1DRankNFourierAnalysis
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the unchanged hopping-block rank."""
+        return self.analysis_request.calculation_request.retained_rank
 
     def __post_init__(self) -> None:
         if (
@@ -53,7 +59,9 @@ class Periodic1DRankNHoppingLocalityAnalysisRequest(
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNHoppingLocalityAnalysis(Periodic1DHoppingLocalityAnalysis):
+class Periodic1DRankNHoppingLocalityAnalysis(
+    Periodic1DRankNHoppingLocalityAnalysisRole
+):
     """Retain coefficient tails without removing real-space support."""
 
     request: Periodic1DRankNHoppingLocalityAnalysisRequest
@@ -61,6 +69,12 @@ class Periodic1DRankNHoppingLocalityAnalysis(Periodic1DHoppingLocalityAnalysis):
     monotonicity: tuple[SymmetricRangeTailMonotonicityDiagnostics1D, ...]
     maximum_tail_increase: float
     all_tail_monotonicity_checks_pass: bool
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the unchanged hopping-block rank."""
+        return self.request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if type(self.request) is not Periodic1DRankNHoppingLocalityAnalysisRequest:
@@ -127,7 +141,7 @@ class Periodic1DRankNHoppingLocalityAnalysis(Periodic1DHoppingLocalityAnalysis):
 
 @final
 class Periodic1DRankNHoppingLocalityAnalyzer(
-    Periodic1DHoppingLocalityAnalyzer[
+    Periodic1DRankNHoppingLocalityAnalyzerRole[
         Periodic1DRankNHoppingLocalityAnalysisRequest,
         Periodic1DRankNHoppingLocalityAnalysis,
     ]

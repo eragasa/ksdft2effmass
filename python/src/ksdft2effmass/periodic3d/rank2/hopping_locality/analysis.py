@@ -7,16 +7,14 @@ from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnal
 from ksdft2effmass.band_equivalence_hopping_locality.shell_power import (  # noqa: E501
     BandEquivalenceHoppingLocalityFourierShellPowerAnalyzer,
 )
-from ksdft2effmass.periodic3d.hopping_locality.base import (
-    Periodic3DHoppingLocalityAnalyzer,
-)
 
+from .base import Periodic3DRank2HoppingLocalityAnalyzerRole
 from .request import Periodic3DRank2HoppingLocalityAnalysisRequest
 from .result import Periodic3DRank2HoppingLocalityAnalysis
 
 
 class Periodic3DRank2HoppingLocalityAnalyzer(
-    Periodic3DHoppingLocalityAnalyzer[
+    Periodic3DRank2HoppingLocalityAnalyzerRole[
         Periodic3DRank2HoppingLocalityAnalysisRequest,
         Periodic3DRank2HoppingLocalityAnalysis,
     ]

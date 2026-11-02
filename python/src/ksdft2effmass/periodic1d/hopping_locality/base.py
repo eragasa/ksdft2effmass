@@ -5,16 +5,16 @@ from __future__ import annotations
 from abc import ABC
 
 from ksdft2effmass.hopping_locality.base import (
-    HoppingLocality,
-    HoppingLocalityAnalysis,
-    HoppingLocalityAnalysisRequest,
-    HoppingLocalityAnalyzer,
+    PeriodicHoppingLocality,
+    PeriodicHoppingLocalityAnalysis,
+    PeriodicHoppingLocalityAnalysisRequest,
+    PeriodicHoppingLocalityAnalyzer,
 )
 from ksdft2effmass.periodic1d.base import Periodic1DCapability
 
 
 class Periodic1DHoppingLocality(
-    HoppingLocality,
+    PeriodicHoppingLocality,
     Periodic1DCapability,
 ):  # noqa: B024 - intentionally nominal marker
     """Identify unchanged hopping coefficients indexed by 1D translations.
@@ -29,7 +29,7 @@ class Periodic1DHoppingLocality(
 
 
 class Periodic1DHoppingLocalityAnalysisRequest(
-    HoppingLocalityAnalysisRequest,
+    PeriodicHoppingLocalityAnalysisRequest,
     Periodic1DHoppingLocality,
     ABC,
 ):
@@ -39,7 +39,7 @@ class Periodic1DHoppingLocalityAnalysisRequest(
 
 
 class Periodic1DHoppingLocalityAnalysis(
-    HoppingLocalityAnalysis,
+    PeriodicHoppingLocalityAnalysis,
     Periodic1DHoppingLocality,
     ABC,
 ):
@@ -49,13 +49,10 @@ class Periodic1DHoppingLocalityAnalysis(
 
 
 class Periodic1DHoppingLocalityAnalyzer[
-    Periodic1DHoppingLocalityAnalysisRequestT: Periodic1DHoppingLocalityAnalysisRequest,
-    Periodic1DHoppingLocalityAnalysisT: Periodic1DHoppingLocalityAnalysis,
+    RequestT: Periodic1DHoppingLocalityAnalysisRequest,
+    AnalysisT: Periodic1DHoppingLocalityAnalysis,
 ](
-    HoppingLocalityAnalyzer[
-        Periodic1DHoppingLocalityAnalysisRequestT,
-        Periodic1DHoppingLocalityAnalysisT,
-    ],
+    PeriodicHoppingLocalityAnalyzer[RequestT, AnalysisT],
     Periodic1DHoppingLocality,
     ABC,
 ):

@@ -5,16 +5,16 @@ from __future__ import annotations
 from abc import ABC
 
 from ksdft2effmass.hopping_locality.base import (
-    HoppingLocality,
-    HoppingLocalityAnalysis,
-    HoppingLocalityAnalysisRequest,
-    HoppingLocalityAnalyzer,
+    PeriodicHoppingLocality,
+    PeriodicHoppingLocalityAnalysis,
+    PeriodicHoppingLocalityAnalysisRequest,
+    PeriodicHoppingLocalityAnalyzer,
 )
 from ksdft2effmass.periodic3d.base import Periodic3DCapability
 
 
 class Periodic3DHoppingLocality(
-    HoppingLocality,
+    PeriodicHoppingLocality,
     Periodic3DCapability,
 ):  # noqa: B024 - intentionally nominal marker
     """Identify unchanged hopping coefficients indexed by 3D translations.
@@ -29,7 +29,7 @@ class Periodic3DHoppingLocality(
 
 
 class Periodic3DHoppingLocalityAnalysisRequest(
-    HoppingLocalityAnalysisRequest,
+    PeriodicHoppingLocalityAnalysisRequest,
     Periodic3DHoppingLocality,
     ABC,
 ):
@@ -39,7 +39,7 @@ class Periodic3DHoppingLocalityAnalysisRequest(
 
 
 class Periodic3DHoppingLocalityAnalysis(
-    HoppingLocalityAnalysis,
+    PeriodicHoppingLocalityAnalysis,
     Periodic3DHoppingLocality,
     ABC,
 ):
@@ -49,15 +49,10 @@ class Periodic3DHoppingLocalityAnalysis(
 
 
 class Periodic3DHoppingLocalityAnalyzer[
-    Periodic3DHoppingLocalityAnalysisRequestT: (
-        Periodic3DHoppingLocalityAnalysisRequest
-    ),
-    Periodic3DHoppingLocalityAnalysisT: Periodic3DHoppingLocalityAnalysis,
+    RequestT: Periodic3DHoppingLocalityAnalysisRequest,
+    AnalysisT: Periodic3DHoppingLocalityAnalysis,
 ](
-    HoppingLocalityAnalyzer[
-        Periodic3DHoppingLocalityAnalysisRequestT,
-        Periodic3DHoppingLocalityAnalysisT,
-    ],
+    PeriodicHoppingLocalityAnalyzer[RequestT, AnalysisT],
     Periodic3DHoppingLocality,
     ABC,
 ):

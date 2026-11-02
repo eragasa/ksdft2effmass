@@ -8,10 +8,9 @@ from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
 
-from ksdft2effmass.periodic2d.hopping_locality.base import (
-    Periodic2DHoppingLocalityAnalysisRequest,
-)
 from ksdft2effmass.serialization.enums import StringWireEnum
+
+from .base import Periodic2DRank2HoppingLocalityAnalysisRequestRole
 
 
 class Periodic2DRank2HoppingLocalityChannelEnum(StringWireEnum):
@@ -23,7 +22,7 @@ class Periodic2DRank2HoppingLocalityChannelEnum(StringWireEnum):
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DRank2HoppingLocalityAnalysisRequest(
-    Periodic2DHoppingLocalityAnalysisRequest
+    Periodic2DRank2HoppingLocalityAnalysisRequestRole
 ):
     """Bind one periodic-2D rank-two channel to its metric-shell inventory."""
 

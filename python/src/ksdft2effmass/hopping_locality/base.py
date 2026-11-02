@@ -48,9 +48,52 @@ class HoppingLocalityAnalyzer[
         """Execute the bound analysis without changing coefficient support."""
 
 
+class PeriodicHoppingLocality(HoppingLocality, ABC):  # noqa: B024
+    """Identify hopping locality under periodic boundary conditions."""
+
+    __slots__ = ()
+
+
+class PeriodicHoppingLocalityAnalysisRequest(
+    HoppingLocalityAnalysisRequest,
+    PeriodicHoppingLocality,
+    ABC,
+):
+    """Bind one periodic hopping-locality analysis request."""
+
+    __slots__ = ()
+
+
+class PeriodicHoppingLocalityAnalysis(
+    HoppingLocalityAnalysis,
+    PeriodicHoppingLocality,
+    ABC,
+):
+    """Retain one periodic hopping-locality analysis."""
+
+    __slots__ = ()
+
+
+class PeriodicHoppingLocalityAnalyzer[
+    RequestT: PeriodicHoppingLocalityAnalysisRequest,
+    AnalysisT: PeriodicHoppingLocalityAnalysis,
+](
+    HoppingLocalityAnalyzer[RequestT, AnalysisT],
+    PeriodicHoppingLocality,
+    ABC,
+):
+    """Execute one periodic hopping-locality analysis request."""
+
+    __slots__ = ()
+
+
 __all__ = [
     "HoppingLocality",
     "HoppingLocalityAnalysis",
     "HoppingLocalityAnalysisRequest",
     "HoppingLocalityAnalyzer",
+    "PeriodicHoppingLocality",
+    "PeriodicHoppingLocalityAnalysis",
+    "PeriodicHoppingLocalityAnalysisRequest",
+    "PeriodicHoppingLocalityAnalyzer",
 ]
