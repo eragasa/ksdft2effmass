@@ -6,7 +6,13 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 import numpy as np
+from projectkoios.numerics.finite_periodic.batched_finite_series import (
+    BatchedFiniteFourierSeriesEvaluationDefinition,
+)
 from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
+from projectkoios.numerics.finite_periodic.numpy.batched_finite_series import (
+    NumpyBatchedFiniteFourierSeriesEvaluator,
+)
 from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
@@ -84,6 +90,34 @@ class _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic:
     def _tensor_axes(cls, axis: Float64Array) -> tuple[Float64Array, ...]:
         return tuple(axis for _ in range(cls._SPATIAL_DIMENSION))
 
+    @classmethod
+    def _tensor_product_axes(
+        cls,
+        coordinates: Float64Array,
+    ) -> tuple[Float64Array, ...] | None:
+        if coordinates.ndim != cls._SPATIAL_DIMENSION + 1:
+            return None
+        leading_shape = coordinates.shape[:-1]
+        axes: list[Float64Array] = []
+        for dimension, size in enumerate(leading_shape):
+            index: list[int | slice] = [0] * cls._SPATIAL_DIMENSION
+            index[dimension] = slice(None)
+            axis = np.asarray(
+                coordinates[(*index, dimension)],
+                dtype=np.float64,
+            )
+            if axis.shape != (size,):
+                return None
+            axes.append(axis)
+        axis_tuple = tuple(axes)
+        reconstructed = np.asarray(
+            np.stack(np.meshgrid(*axis_tuple, indexing="ij"), axis=-1),
+            dtype=np.float64,
+        )
+        if not np.array_equal(coordinates, reconstructed):
+            return None
+        return axis_tuple
+
     @staticmethod
     def _transform(
         mesh: CenteredUniformMesh,
@@ -116,6 +150,52 @@ class _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic:
             )
             .result()
             .matrix_values
+        )
+
+    @classmethod
+    def _evaluate_coordinates(
+        cls,
+        mesh: CenteredUniformMesh,
+        series: NumpyFiniteFourierMatrixSeries,
+        coordinates: Float64Array,
+    ) -> Complex128Array:
+        axes = cls._tensor_product_axes(coordinates)
+        if axes is not None:
+            return cls._evaluate(mesh, series, axes)
+        point_coordinates = np.asarray(
+            coordinates.reshape(-1, cls._SPATIAL_DIMENSION),
+            dtype=np.float64,
+        )
+        rank = series.matrix_coefficients.shape[-1]
+        coefficient_channels = np.asarray(
+            series.matrix_coefficients.reshape(
+                len(series.integer_modes),
+                rank * rank,
+            ).T,
+            dtype=np.complex128,
+        )
+        definition = BatchedFiniteFourierSeriesEvaluationDefinition(
+            dimension=cls._SPATIAL_DIMENSION,
+            coordinates=tuple(
+                tuple(float(component) for component in point)
+                for point in point_coordinates
+            ),
+            integer_modes=tuple(
+                tuple(int(component) for component in mode)
+                for mode in series.integer_modes
+            ),
+            coefficient_channels=tuple(
+                tuple(complex(value) for value in channel)
+                for channel in coefficient_channels
+            ),
+        )
+        values = np.asarray(
+            NumpyBatchedFiniteFourierSeriesEvaluator().evaluate(definition).values,
+            dtype=np.complex128,
+        )
+        return np.asarray(
+            values.reshape(*coordinates.shape[:-1], rank, rank),
+            dtype=np.complex128,
         )
 
     @classmethod

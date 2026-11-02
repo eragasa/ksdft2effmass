@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "completed-producer-checked-development-not-independently-verified",
+  "started_utc_approximate": "2026-11-02T191700Z",
+  "recorded_utc": "2026-11-02T192102Z",
+  "authorization": "Explicit human instruction to continue the comprehensive band-edge analysis after the omitted valence/hole sector was identified.",
+  "commands": [
+    "cd python && /usr/bin/time -l uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/run_analysis.py",
+    "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/render_results.py",
+    "cd python && /usr/bin/time -l uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/run_multiband_analysis.py",
+    "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/render_multiband.py"
+  ],
+  "execution": {
+    "calculator_invocations": 0,
+    "refitting_performed": false,
+    "primary_analysis_elapsed_seconds": 1.3201148337684572,
+    "primary_analysis_maximum_resident_set_bytes": 198852608,
+    "multiband_wall_seconds_from_time": 1.07,
+    "multiband_maximum_resident_set_bytes": 124895232
+  },
+  "retained_manifest": {
+    "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/manifest.json",
+    "byte_size": 3648,
+    "sha256": "226d654c592052a688b954009cea96b7e2b4e5c7b953d4614ca02cafa0bdf614"
+  },
+  "scientific_boundaries": [
+    "The source and reduced Hamiltonians are scalar-relativistic and non-SOC.",
+    "The retained matrix-valued quadratic valence operator is a source-relative non-SOC diagnostic, not a physical HH/LH/split-off model.",
+    "No source-adequacy, DFT-parent, experimental, transport, acceptor, or publication-qualified validation claim is made.",
+    "No Quantum ESPRESSO or Wannier90 process was invoked.",
+    "Independent reconstruction was not performed."
+  ]
+}

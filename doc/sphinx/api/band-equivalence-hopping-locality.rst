@@ -46,6 +46,40 @@ Dimensional roles
 .. autoclass:: Periodic3DBandEquivalenceHoppingLocalityAnalysis
 .. autoclass:: Periodic3DBandEquivalenceHoppingLocalityAnalyzer
 
+Periodic-3D rank-N represented-field boundary
+----------------------------------------------
+
+The sampled-field value separates analysis operands from the producer that supplied
+them. The synthetic-case sampler and the in-memory Wannier-field producer are separate
+adapters to the same immutable boundary; neither becomes a block-hopping model. The
+construction inventory is the regular transform mesh, while evaluation coordinates may
+be either a tensor product or an arbitrary ordered reciprocal-point inventory.
+The selected synthetic parent is constructed as the existing PhysKit
+``BlockHoppingModel`` rather than as a competing KSD model hierarchy.
+
+.. currentmodule:: ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality
+
+.. autoclass:: Periodic3DRankNLatticeControlEnum
+   :members:
+.. autoclass:: Periodic3DRankNBlockHoppingParentBuilder
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceFieldSamples
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityPolicy
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalysis
+   :members:
+.. autoclass:: Periodic3DRankNWannierFieldSource
+   :members:
+.. autoclass:: Periodic3DRankNWannierFieldProducer
+   :members:
+.. autoclass:: Periodic3DRankNAnalyticCaseFieldSampler
+   :members:
+
 Rank ownership
 --------------
 

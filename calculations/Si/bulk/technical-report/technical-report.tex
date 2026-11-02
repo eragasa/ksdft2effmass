@@ -3,12 +3,30 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype}
 
 \title{Bulk-Silicon Parent Qualification and\\Joint-Reduction Technical Report}
 \author{Project Koios}
 \date{Draft calculation report}
+
+\newcommand{\developmentplot}[4]{%
+  \IfFileExists{#1}{%
+    \begin{figure}[p]
+      \centering
+      \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{#1}
+      \caption{#3 All numerical values are producer-checked development outputs and
+      are not independently reconstructed.}
+      \label{#4}
+    \end{figure}%
+  }{%
+    \paragraph{Pending plot: #2.}
+    \emph{No numerical figure is included because the retained analysis has not been
+    authorized or executed.  Its canonical artifact path is encoded in this report
+    source.}%
+  }%
+}
 
 \begin{document}
 \maketitle
@@ -23,7 +41,10 @@ an authenticated plane-wave-to-Wannier interface, one provider-eligible rank-10
 Wannier occurrence, and a prospectively frozen 408-point direct-parent comparison.
 The valley-position target was met, but the indirect-gap and effective-mass targets
 were not; the candidate is therefore not adequate for the declared SSSP-pilot intended
-use.  Component-operator, reduced-model, and material-validation claims remain pending.
+use.  The report also includes an authorized producer-checked Hamiltonian
+gauge-alignment/locality development result, frozen Wannier-shell fidelity studies,
+and a comprehensive non-SOC band-edge amendment. Component-operator and
+material-validation claims remain pending.
 \end{abstract}
 
 \section{Evidence status}
@@ -126,6 +147,382 @@ low-energy conduction states per k point.  With a fresh 2000-step disentanglemen
 that construction converged disentanglement at iteration 1290 and Wannierisation at
 iteration 189.  It is provider-eligible; no downstream scientific acceptance is implied.
 
+\section{Selected C6-B20-W21 gauge-alignment/locality deployment}
+
+An authorized Hamiltonian-only development calculation was completed for the
+authenticated, provider-eligible, rank-10 \(C_6\)-B20-W21 represented operator.  It
+applies one frozen
+rank-10, depth-2 alternating Givens attack with axis harmonics, axis-maximum
+normalization, and coefficient \(\pi/8\).  The complete represented spectra remain
+invariant under the generating unitary to a maximum observed difference of
+\(3.20\times10^{-14}\)~eV, while restricted alignment residuals,
+finite Fourier-block power, and finite-support cost may change.  This is a representation
+study inside the admitted finite Wannier Hamiltonian.  It does not reverse the negative
+revealed-parent gap and effective-mass disposition.
+
+The construction field uses the Gamma-origin \(6\times6\times6\) inventory reindexed
+to the centered axis
+\((-1/2,-1/3,-1/6,0,1/6,1/3)\).  The evaluation field uses the ordered 408-point
+revealed development geometry with uniform weight \(1/408\).  Centered finite-cyclic
+blocks and native Wannier90 HR/Wigner--Seitz blocks remain distinct routes.  Ordinary
+conversion retains the 125 displacements with components in
+\(\{-2,-1,0,1,2\}\).  For lattice parameter
+\(a=5.469182093640207\)~\AA, the shell scale is \(4/a^2\), the integer shell label is
+\begin{equation}
+  q=2\left(n_1^2+n_2^2+n_3^2+n_1n_2+n_1n_3+n_2n_3\right),
+\end{equation}
+and the complete ordinary inventory ends at \(q=48\).
+
+No Hamiltonian or band acceptance threshold is introduced.  The report instead retains
+all complete support-error curves, Pareto comparisons, and equal-attained-error support
+projections.  Errors are reported in eV and through a declared 1~eV normalization scale.
+The numerical figures may consume the authenticated producer result directly.  They
+must carry the status
+\texttt{producer-checked-development-analysis-not-independently-verified}; no
+independent reconstruction is required for this development version.  Identity and
+global-unitary alignment retain maximum frame defects of approximately 1.021 and
+1.020, whereas the pointwise-polar and known-inverse controls reduce that defect to
+approximately \(1.29\times10^{-15}\) and \(5.06\times10^{-16}\).  The reference and
+identity-attacked non-onsite powers are 20.7574 and 21.5057~eV\(^2\) per retained state.
+The finite-cyclic interpolation maximum sorted-band errors are 0.3470 and 0.3867~eV;
+these conversion/interpolation consequences remain separate from the complete-field
+gauge-invariance residual.
+
+\subsection{Retained figure package}
+
+The complete figure package is part of the technical-report contract.  Reference and
+attacked channels must remain distinguishable without color, zeros on logarithmic axes
+must use explicit below-floor markers, and no curve may be smoothed across unsupported
+shells or reciprocal points.  Interpolation, deliberate truncation, represented total,
+and direct-parent overlay channels must not be stacked as if they were additive.
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/experiment-schematic.pdf}
+  {experiment schematic}
+  {Hamiltonian-only route from the authenticated native represented operator through
+  the frozen gauge attack, alignment channels, centered finite transform, ordinary
+  conversion, complete block supports, and producer-derived report projections.}
+  {fig:gauge-locality-schematic}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/alignment-invariance.pdf}
+  {alignment and invariance}
+  {Identity, one-global-unitary, pointwise-polar, and known-inverse channels, showing
+  aligned-frame defects, direct matrix residuals, and complete ordered-spectrum
+  residuals.  Pointwise and known-inverse channels are oracle controls.}
+  {fig:gauge-locality-alignment}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/fourier-power-redistribution.pdf}
+  {Fourier-power redistribution}
+  {Reference and attacked block Frobenius power against physical block radius, together
+  with cumulative retained and omitted power.  Cyclic-to-ordinary removed power is
+  displayed as a separate conversion channel.}
+  {fig:gauge-locality-power}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/pareto-support-error-frontiers.pdf}
+  {discrete support-error Pareto frontiers}
+  {Complete normalized total-error curves against retained complete rank-10 block count
+  for maximum matrix error, matrix RMS error, maximum sorted-band error, and sorted-band
+  L2-RMS error. Emphasized markers identify the observed non-dominated supports for the
+  reference and all four alignment channels; connecting segments are guides between the
+  discrete shell inventory and are not interpolated support claims.}
+  {fig:gauge-locality-frontiers}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/equal-attained-error-support.pdf}
+  {equal-attained-error support comparison}
+  {Empirical stair-step projection of the minimum comparison radius required at errors
+  actually attained by each reference support.  Crosses at the largest displayed
+  radius mark errors not attained by the complete comparison inventory; no crossing is
+  interpolated.}
+  {fig:gauge-locality-equal-error}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/complete-spectrum-equivalence.pdf}
+  {complete-spectrum equivalence}
+  {All ten reference and attacked eigenvalues and their pointwise maximum difference
+  over the ordered 408-point development inventory.  The point order is an inventory,
+  not an interpolated reciprocal-space path.}
+  {fig:gauge-locality-spectrum}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/transport-diagnostics.pdf}
+  {transport diagnostics}
+  {Minimum transport singular values, Procrustes residuals, unitarity defects, closure
+  phases, and plaquette phases for all applicable alignment channels.}
+  {fig:gauge-locality-transport}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/displacement-block-power.pdf}
+  {per-displacement block power}
+  {Per-displacement rank-10 block Frobenius powers for reference and attacked ordinary
+  representations, indexed by displacement and physical block radius without assigning
+  atomic-orbital or Slater--Koster semantics.}
+  {fig:gauge-locality-displacements}
+
+\developmentplot
+  {../analysis/c6-b20-w21-gauge-alignment-locality/figures/direct-parent-overlay.pdf}
+  {direct-parent development overlay}
+  {Separately labeled revealed-408 direct-parent band residuals by point role.  This
+  overlay is shown only after the internal represented-field curves are fixed and does
+  not select the attack, support inventory, or any threshold.}
+  {fig:gauge-locality-parent-overlay}
+
+\section{Post-hoc two-tolerance Wannier-shell exploration}
+
+The central two-tolerance question is explored post hoc without a Slater--Koster
+parameterization.  The candidate family is instead the exact frozen hierarchy of native
+complete Wigner--Seitz shell truncations in the same authenticated rank-10 Wannier
+basis.  No fitted alignment is required.  For candidate shell $j$, define
+\begin{align}
+  \tau_{1,j}^{\rm req}
+  &=\left[\frac{1}{4080}\sum_{\mathbf k,n}
+    \left(\frac{\epsilon_{n\mathbf k}^{(j)}-\epsilon_{n\mathbf k}^{\rm W}}
+    {1\,{\rm eV}}\right)^2\right]^{1/2},\\
+  \tau_{2,j}^{\rm req}
+  &=\left[\frac{1}{4080}\sum_{\mathbf k}
+    \frac{\|H_j(\mathbf k)-H_{\rm W}(\mathbf k)\|_{\rm F}^2}
+    {(1\,{\rm eV})^2}\right]^{1/2}.
+\end{align}
+The ordered 408-point development inventory has uniform weights.  A post-hoc threshold
+pair $(\tau_1,\tau_2)$ is feasible when at least one proper reduced shell satisfies
+$\tau_{1,j}^{\rm req}\leq\tau_1$ and
+$\tau_{2,j}^{\rm req}\leq\tau_2$.  The displayed witness is the feasible shell with the
+smallest exact representative count.
+
+The exact full-support source, H-shell-17 with 383 representatives, is retained as the
+zero-loss control but excluded from reduced-family feasibility; otherwise every
+nonnegative pair would be trivially feasible.  Among the 17 proper reductions,
+H-shell-16 minimizes both primary losses while retaining 371 representatives:
+\begin{equation}
+ (\tau_{1,16}^{\rm req},\tau_{2,16}^{\rm req})
+ = (4.4635917\times10^{-4},1.5173254\times10^{-3}).
+\end{equation}
+Thus this literal shell family shows no global spectral--operator conflict at its
+tightest proper reduction: the same H-shell-16 candidate minimizes both primary losses.
+Smaller supports retain local nonmonotonic spectral/operator tradeoffs, so the
+nontrivial post-hoc object is the single minimum-support witness surface across the
+threshold plane.  For example, $(0.1,0.15)$ first admits H-shell-07 with 135
+representatives, $(0.01,0.02)$ first admits H-shell-13 with 313, and
+$(0.001,0.002)$ first admits H-shell-16 with 371.  The pair $(0.0004,0.001)$ admits no
+proper reduced shell.  These examples are descriptive readings of the completed map,
+not prospectively selected acceptance thresholds.
+
+\developmentplot
+  {../analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/single-witness-surface.pdf}
+  {single post-hoc witness surface $W(\tau_1,\tau_2)$}
+  {Each exact threshold cell is colored by the representative count of the unique
+  minimum-support proper reduced shell satisfying both RMS inequalities.  White circles
+  mark candidate requirement corners.  Gray cells admit no proper reduced witness; the
+  exact full source at $(0,0)$ is excluded.  The cells are constructed from the observed
+  requirement coordinates without interpolation or smoothing.}
+  {fig:tau1-tau2-witness-surface}
+
+\subsection{Refitted native-shell follow-on}
+
+The near-linearity of the literal requirement points is expected because nested shell
+deletion changes only one effective coordinate and both losses are driven by the same
+omitted operator.  A separately authorized post-hoc follow-on therefore retained the
+same Wannier basis and native complete supports but introduced one real scale per
+retained shell,
+\begin{equation}
+  H_{\boldsymbol\alpha}(R)=\alpha_s H_{\rm W}(R),
+  \qquad 0\leq\alpha_s\leq2,
+\end{equation}
+with one common $\alpha_s$ for every effective representative in shell $s$, including
+$R$ and $-R$.  Blocks outside the declared support remain zero.  This preserves the
+native within-shell block patterns and introduces neither atomic-orbital labels nor a
+Slater--Koster parameterization.
+
+The producer searched 17 spectral/operator scalarizations from three deterministic
+starts using bounded L-BFGS-B and analytic binary64 gradients.  The resulting converged
+constructive witnesses form distinct spectral/operator tradeoff arcs rather than the
+literal deletion line.  At the illustrative pair $(0.1,0.15)$, the minimum observed
+support falls from literal H-shell-07 with 135 representatives to fitted H-shell-05
+with 79.  At $(0.05,0.1)$ it falls from 177 to 135 representatives, and at
+$(0.02,0.04)$ from 225 to 201.  The tighter pairs $(0.01,0.02)$,
+$(0.002,0.006)$, and $(0.001,0.002)$ retain the same minimum observed support counts as
+the literal study.
+
+Within H-shell-16 itself, an operator-oriented converged witness attains approximately
+$(4.04\times10^{-4},1.394\times10^{-3})$, whereas a spectral-oriented witness attains
+approximately $(2.98\times10^{-4},1.745\times10^{-3})$.  This is a same-support
+spectral/operator tradeoff produced by refitting retained native blocks rather than by
+changing the Wannier basis.
+
+\developmentplot
+  {../analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/single-refitted-witness-surface.pdf}
+  {single fitted native-shell witness surface $W_{\alpha}(\tau_1,\tau_2)$}
+  {Each threshold cell is colored by the representative count of the minimum-support
+  converged fitted witness found in the bounded search.  White circles mark active
+  fitted witnesses and red crosses mark literal $\alpha_s=1$ truncations.  Gray means
+  that the search found no converged witness, not that infeasibility was certified.}
+  {fig:tau1-tau2-refitted-witness-surface}
+
+\subsection{Wannier-only fidelity ladder}
+
+Three fitted witnesses were then frozen without further optimization: H-shell-05 with
+79 representatives, H-shell-10 with 201, and H-shell-16 with 371.  Their operator RMS
+errors over the normalized Brillouin torus were calculated exactly from the unique
+integer Fourier coefficients using Parseval's identity.  Spectral errors were evaluated
+independently on Gamma-origin $12^3$, $20^3$, and $32^3$ meshes, followed by a
+source-relative six-valley, indirect-gap, Hessian, and principal-mass analysis.
+
+The fitted 408-point inventory materially understates broader error.  For H-shell-05,
+the spectral RMS rises from $0.0724$ to $0.1820$ eV and the operator RMS from $0.1281$
+to $0.2600$ eV.  The corresponding H-shell-10 changes are $0.0132$ to $0.0279$ eV and
+$0.0323$ to $0.0596$ eV.  For H-shell-16 they are $4.04\times10^{-4}$ to
+$6.57\times10^{-4}$ eV and $1.394\times10^{-3}$ to $1.747\times10^{-3}$ eV.  The
+sampled operator values agree with the exact Parseval values to at most
+$5.56\times10^{-17}$ eV on all three meshes, while the $12^3$--$32^3$ spectral RMS
+changes remain below $1.4\%$ in magnitude.
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/wannier-fidelity-ladder.pdf}
+  {frozen Wannier-shell witnesses across increasing evaluation fidelity}
+  {Left: fitted-408 and independent dense-mesh ordered-spectrum RMS errors.  Right:
+  fitted-408, exact Parseval, and sampled operator RMS errors.  Parameters and supports
+  are unchanged at every level.}
+  {fig:wannier-fidelity-ladder}
+
+Feature fidelity is more demanding than global spectral RMS.  Relative to the full
+Wannier source, H-shell-05 changes the gap by $-65.8$ meV, displaces a valley by as much
+as $0.0948$~\AA$^{-1}$, and changes at least one principal mass by $67.7\%$.
+H-shell-10 changes the gap by $-34.1$ meV and a principal mass by $53.2\%$ despite its
+$32^3$ all-band spectral RMS being below $0.028$ eV.  H-shell-16 changes the gap by
+$-0.503$ meV, the maximum valley location by $0.00276$~\AA$^{-1}$, and the maximum
+principal mass by $2.54\%$.
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/source-relative-feature-fidelity.pdf}
+  {source-relative feature fidelity of frozen Wannier-shell witnesses}
+  {Absolute indirect-gap change, maximum valley displacement, maximum Hessian relative
+  change, and maximum matched principal-mass relative change.  The reference is the
+  full C6-B20-W21 Wannier operator, not DFT.}
+  {fig:wannier-feature-fidelity}
+
+\subsection{Comprehensive non-SOC band-edge amendment}
+
+The fidelity ladder's initial feature layer was conduction-centered.  A subsequent
+no-calculator amendment retained the same four frozen Hamiltonians and added complete
+Cartesian electron mass and inverse-mass tensors, finite-difference sensitivity,
+derived six-valley density-of-states and equal-population conductivity-mass conventions,
+Gamma-valence cluster integrity, high-symmetry direct gaps, ordered-band bandwidths,
+and a degeneracy-aware valence-subspace fit.  The derived mass conventions summarize
+represented curvatures only; they are not finite-temperature DOS or transport results.
+
+The full source's three-band Gamma-valence splitting is approximately
+$0.02495$~meV.  H-shell-05, H-shell-10, and H-shell-16 increase it to approximately
+$102.2$, $54.8$, and $2.50$~meV.  Their maximum principal angles from the source cluster
+are only $1.856^{\circ}$, $0.925^{\circ}$, and $0.0420^{\circ}$, respectively.  Thus a
+reduced model may preserve the valence subspace while substantially damaging the
+Hamiltonian inside that subspace.
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/gamma-valence-cluster-fidelity.pdf}
+  {Gamma valence-cluster fidelity}
+  {Three-band Gamma splitting and maximum source-cluster principal angle.  The split and
+  the subspace rotation are distinct error channels.}
+  {fig:gamma-valence-cluster-fidelity}
+
+Independently ordered valence eigenvalues do not define stable individual-band Hessians
+at this near-degeneracy.  In the full source, the upper ordered branch is not hole-like
+for every tested fit window in any of the three directions, and finite ordered-branch
+masses vary by as much as approximately $75.5\%$.  The apparently stable H-shell-05 and
+H-shell-10 ordered branches are not evidence of superior hole physics: their large
+artificial Gamma splittings have removed the source degeneracy.
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/directional-valence-cluster-dispersions.pdf}
+  {ordered non-SOC valence-cluster dispersions}
+  {The three ordered cluster energies along [100], [110], and [111], referenced to each
+  model's own Gamma VBM.  Large vertical separation in H-shell-05 and H-shell-10 is the
+  artificial internal cluster splitting, not a spin--orbit split-off band.}
+  {fig:directional-valence-cluster-dispersions}
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/directional-valence-mass-sensitivity.pdf}
+  {ordered-branch apparent-mass sensitivity}
+  {Apparent masses from independently ordered branch fits over three half-windows.
+  Missing markers denote positive fitted curvature.  The sensitivity demonstrates why
+  these values are diagnostics rather than accepted hole tensors.}
+  {fig:directional-valence-mass-sensitivity}
+
+The primary valence result instead polar-transports each displaced three-band cluster to
+its Gamma cluster and fits the even represented matrix field to
+\begin{align}
+ H_{\rm eff}(\mathbf q) = H_{\rm eff}(0)
+  &+ q_x^2 B_{xx}+q_y^2 B_{yy}+q_z^2 B_{zz} \\
+  &+2q_xq_yB_{xy}+2q_xq_zB_{xz}+2q_yq_zB_{yz}.
+\end{align}
+Directional curvature channels are the eigenvalues of twice the direction-contracted
+quadratic coefficient matrix.  At the $0.01$~\AA$^{-1}$ fit window, the full-source
+apparent channel masses are $(0.141,0.277,0.301)$ along [100],
+$(0.0969,0.312,2.923)$ along [110], and $(0.0877,0.697,0.772)$ along [111], in electron
+mass units.  These are eigenchannels of a scalar-relativistic non-SOC three-band
+quadratic operator, not heavy-hole, light-hole, or split-off masses.
+
+After cluster alignment, H-shell-05, H-shell-10, and H-shell-16 have joint quadratic
+coefficient errors of approximately $9.54\%$, $5.88\%$, and $0.279\%$.  Their maximum
+curvature-channel mass changes are approximately $38.9\%$, $19.7\%$, and $4.53\%$.
+The matrix fits are stable across the tested windows: the joint coefficient field changes
+by at most approximately $0.41\%$, and primary fit residuals are approximately
+$5$--$6\times10^{-7}$~eV RMS.
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/multiband-valence-curvature-channels.pdf}
+  {degeneracy-aware non-SOC valence curvature channels}
+  {Three direction-contracted curvature-channel masses from the transported quadratic
+  valence operator.  They are multiband source-relative diagnostics and are not assigned
+  physical HH, LH, or split-off labels.}
+  {fig:multiband-valence-curvature-channels}
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/multiband-valence-fidelity-summary.pdf}
+  {multiband valence fidelity summary}
+  {Gamma cluster splitting, aligned quadratic-operator error, and maximum directional
+  curvature-channel mass change separate internal degeneracy, matrix-field, and derived
+  curvature consequences.}
+  {fig:multiband-valence-fidelity-summary}
+
+The source six-valley DOS-mass convention is $1.4764\,m_e$, and its equal-population
+conductivity-mass convention is $0.25063\,m_e$.  H-shell-05 changes these by approximately
+$16.9\%$ and $20.4\%$; H-shell-10 by $22.9\%$ and $6.90\%$; and H-shell-16 by $0.333\%$
+and $0.0216\%$.  The maximum principal-mass spread across the four finite-difference
+steps is below approximately $0.172\%$ for every model, so the larger source-relative
+changes are not controlled by the selected stencil.
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/derived-electron-mass-fidelity.pdf}
+  {derived conduction-valley mass fidelity}
+  {Six-valley DOS-mass and equal-population conductivity-mass conventions together with
+  maximum finite-difference stencil sensitivity.  These are curvature summaries, not
+  transport calculations.}
+  {fig:derived-electron-mass-fidelity}
+
+The source equivalent-point direct-gap spreads are approximately $0.00366$~meV at X and
+$0.0239$~meV at L.  The corresponding H-shell-05 spreads are $150.1$ and $68.7$~meV;
+H-shell-10 gives $36.7$ and $63.9$~meV; and H-shell-16 gives $0.427$ and $2.97$~meV.
+The moderate reductions therefore amplify residual cubic-equivalence violations.  The
+maximum ordered-band bandwidth changes on the independent $32^3$ mesh are approximately
+$354$, $81.1$, and $3.14$~meV for H-shell-05, H-shell-10, and H-shell-16.
+
+\developmentplot
+  {../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/high-symmetry-edge-fidelity.pdf}
+  {high-symmetry edge fidelity}
+  {Minimum direct gaps at Gamma, X, and L and the spread among nominally equivalent X
+  and L points.  The spread is a represented-model symmetry diagnostic.}
+  {fig:high-symmetry-edge-fidelity}
+
+These native-shell studies test internal Wannier-shell compressibility only.  They are
+not prospective compatibility decisions for the originally proposed Slater--Koster
+class, DFT-parent validations, or evidence that thresholds chosen after inspecting the
+maps are scientific acceptance limits.  The fitted search supplies no global
+infeasibility certificate, and the fidelity ladder does not repair the source's failed
+DFT-parent gap and effective-mass criteria.
+
 \section{Required parent qualification}
 
 The production parent must freeze the physical branch, lattice, PBE/ONCV approximation,
@@ -226,10 +623,13 @@ not retroactively justify thresholds.
 
 \section{Verification and retention}
 
-A completed calculation requires independent verification of sources, schemas,
-identities, finite candidate coverage, objective reconstruction, threshold evaluation,
-and withheld results.  Generated plots must consume verified records.  A retained
-package must be no-overwrite and checksum-bound.
+Publication-qualified parent and model-selection calculations require independent
+verification of sources, schemas, identities, finite candidate coverage, objective
+reconstruction, threshold evaluation, and withheld results.  The selected
+C6-B20-W21 gauge-alignment/locality deployment is an explicit development exception:
+its plots may consume authenticated producer records directly and must remain labeled
+as not independently reconstructed.  A retained package must be no-overwrite and
+checksum-bound.
 
 Formal proofs or certificates may establish exact implications for finite definitions
 and accepted interval premises.  They do not certify Quantum ESPRESSO or Wannier90

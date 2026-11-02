@@ -1,8 +1,10 @@
 # Analysis
 
-Analysis under this calculation root consumes only authenticated and independently
-verified simulation records. It does not execute Quantum ESPRESSO or Wannier90 and does
-not infer acceptance from successful process exit.
+Analysis under this calculation root consumes authenticated simulation records. Most
+publication-facing routes require independent verification; explicitly labeled
+development analyses may instead retain authenticated producer checks without an
+independent reconstruction. Analysis does not execute Quantum ESPRESSO or Wannier90 and
+does not infer acceptance from successful process exit.
 
 ## Current admissible inputs
 
@@ -50,6 +52,56 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
   spectra, six Delta-family minima, curvature masses, and the complete locality curve.
   No spatial truncation was applied. The result is structurally verified and
   scientifically unassessed by S30 alone.
+- The authorized post-hoc
+  [`C6-B20-W21` two-tolerance Wannier-shell exploration](c6-b20-w21-tau1-tau2-posthoc-exploration/)
+  maps uniform-408-point RMS and maximum spectral/operator threshold pairs directly
+  over the 17 proper native Wigner--Seitz shell reductions. The full 383-representative
+  source remains a zero-loss control and is excluded from reduced-family feasibility.
+  H-shell-16 minimizes both primary losses with requirements approximately
+  `(4.46e-4, 1.52e-3)` while retaining 371 representatives, so this literal truncation
+  family shows no global spectral--operator conflict at its tightest proper reduction.
+  The map is explicitly post hoc and does not establish prospective acceptance, parent
+  fidelity, or Slater--Koster expressivity.
+- The authorized post-hoc
+  [`C6-B20-W21` refitted native-shell witness follow-on](c6-b20-w21-refitted-ws-shell-witness-posthoc/)
+  adds one bounded nonnegative scale per retained complete Wigner--Seitz shell in the
+  same rank-10 Wannier basis. The converged constructive witnesses form distinct
+  spectral/operator tradeoff arcs rather than the literal deletion line. Refitting
+  reduces the minimum observed support at several illustrative threshold pairs, for
+  example from 135 to 79 representatives at `(0.1, 0.15)`. The bounded multistart search
+  provides witnesses but no global infeasibility certificate, prospective threshold,
+  parent-fidelity claim, or independent reconstruction.
+- The authorized no-calculator
+  [`C6-B20-W21` Wannier-only fidelity ladder](c6-b20-w21-wannier-only-fidelity-ladder/)
+  freezes H-shell-05, H-shell-10, and H-shell-16 without refitting. Exact Parseval
+  operator losses and independent `12^3`, `20^3`, and `32^3` interpolation meshes show
+  that the fitted 408-point spectral/operator RMS values understate broader errors by
+  factors of approximately `(2.51, 2.03)`, `(2.11, 1.84)`, and `(1.62, 1.25)`,
+  respectively. Source-relative curvature remains especially demanding: the maximum
+  principal-mass changes are approximately 67.7%, 53.2%, and 2.54%. This is a
+  Wannier-source compression result, not DFT or silicon validation.
+- The authorized no-calculator
+  [`C6-B20-W21` comprehensive non-SOC band-edge analysis](c6-b20-w21-wannier-only-comprehensive-band-edge/)
+  extends the same frozen models to full electron mass tensors, derived six-valley mass
+  conventions, Gamma-valence cluster projectors and splittings, direct-gap symmetry
+  checks, ordered-band bandwidths, and a degeneracy-aware three-band quadratic valence
+  Hamiltonian. H-shell-05 and H-shell-10 split the source's approximately `0.02495 meV`
+  Gamma cluster to about `102.2` and `54.8 meV`; H-shell-16 yields about `2.50 meV`.
+  Their aligned valence-quadratic coefficient errors are approximately `9.54%`, `5.88%`,
+  and `0.279%`, and maximum non-SOC curvature-channel mass changes are approximately
+  `38.9%`, `19.7%`, and `4.53%`. Independently ordered hole-band Hessians are rejected
+  as unstable at the degeneracy. These are source-relative scalar-relativistic
+  multiband diagnostics, not physical SOC heavy-hole, light-hole, split-off, acceptor,
+  transport, DFT-parent, or silicon-validation results.
+- The authorized producer-checked
+  [`C6-B20-W21` gauge-alignment/locality analysis](c6-b20-w21-gauge-alignment-locality/)
+  applies the Hamiltonian-only periodic-3D rank-N represented-field framework to that
+  authenticated source. It retains a frozen internal gauge attack, four alignment
+  channels, finite-cyclic conversion, complete physical-support curves, equal-attained-
+  error projections, the revealed direct-parent overlay, and nine report figures. The
+  maximum complete-spectrum attack difference is approximately `3.20e-14 eV`. The
+  result is explicitly not independently reconstructed and is development evidence,
+  not publication-qualified silicon validation.
 - The authorized no-calculator
   [`C6-B20-W21` revealed-408 development comparison](c6-b20-w21-revealed-408-development/)
   applies the unchanged 5% gap, 3% valley-position, and 8% per-mass targets. All six
@@ -151,5 +203,5 @@ After verified successors exist, analysis may perform:
    108/108 split; and
 10. confirmation-only 402-point comparison without frontier revision or refitting.
 
-Each derived result requires its own schema, source bindings, verification, and
-nonclaim statement before plotting or publication use.
+Each derived result requires its own schema, source bindings, declared producer-check
+or verification status, and nonclaim statement before plotting or publication use.

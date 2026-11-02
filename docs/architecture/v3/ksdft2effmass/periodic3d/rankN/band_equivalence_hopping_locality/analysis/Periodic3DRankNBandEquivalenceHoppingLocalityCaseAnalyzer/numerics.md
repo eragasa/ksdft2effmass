@@ -1,7 +1,13 @@
 # `Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer` numerics
 
 The analyzer uses binary64 complex Fourier coefficients and nonnegative normalized
-squared Frobenius powers. The current summary computes
+squared Frobenius powers. Tensor-product evaluation inventories use the established
+separable matrix-series evaluator. Arbitrary ordered inventories are flattened only for
+the pointwise Procrustes owner and use the Numerics shared-grid batched finite-series
+evaluator; their original sample ordering and operator shapes are restored before error
+analysis.
+
+The current summary computes
 
 ```text
 P_nononsite = max(0, P_total - P_onsite).
@@ -9,7 +15,7 @@ P_nononsite = max(0, P_total - P_onsite).
 
 Because `P_total` and `P_onsite` are separately rounded, subtraction can return zero
 when a smaller directly representable non-onsite component exists. The selected
-analytic family has retained energies bounded in magnitude by `0.7`; unitary gauge
+synthetic family has retained energies bounded in magnitude by `0.7`; unitary gauge
 action preserves Frobenius power, so normalized total power is at most approximately
 `0.49`. The unresolved loss is therefore roundoff-scale for this baseline.
 

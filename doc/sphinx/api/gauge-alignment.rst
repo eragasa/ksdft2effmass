@@ -66,6 +66,20 @@ Rank-first Periodic1D study dispatch
 .. autoclass:: Periodic1DRankNAlignmentStudyAnalyzer
    :members:
 
+Periodic three-dimensional rank-N synthetic attack
+---------------------------------------------------
+
+The synthetic attack is independent of the parent Hamiltonian. It can act on any
+admitted periodic-3D frame and represented-operator fields with matching reciprocal
+sample shape and retained rank.
+
+.. currentmodule:: ksdft2effmass.periodic3d.rankN.gauge_alignment
+
+.. autoclass:: Periodic3DRankNGaugeNormalizationEnum
+   :members:
+.. autoclass:: Periodic3DRankNGivensGaugeAttack
+   :members:
+
 Rank-one applicability
 ----------------------
 

@@ -37,6 +37,7 @@ from ksdft2effmass.serialization import (
     StringWireEnum,
 )
 
+from .policy import Periodic3DRankNBandEquivalenceHoppingLocalityPolicy
 from .request import Periodic3DRankNBandEquivalenceHoppingLocalityRequest
 
 
@@ -363,10 +364,71 @@ type Periodic3DRankNBandEquivalenceHoppingLocalityAlignmentAnalysis = (
 
 
 @dataclass(frozen=True, slots=True)
+class Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalysis(
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue
+):
+    """Retain generic analysis results for one pair of represented field channels."""
+
+    policy: Periodic3DRankNBandEquivalenceHoppingLocalityPolicy
+    geometry_identifier: str
+    retained_rank: int
+    operator_identifier: str
+    energy_reference: str
+    energy_unit: str
+    basis_identifier: str
+    alignments: tuple[
+        Periodic3DRankNBandEquivalenceHoppingLocalityAlignmentAnalysis, ...
+    ]
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return the represented field rank."""
+        return self.retained_rank
+
+    def __post_init__(self) -> None:
+        if type(self.policy) is not Periodic3DRankNBandEquivalenceHoppingLocalityPolicy:
+            raise TypeError("policy must be the exact periodic-3D rank-N policy")
+        if type(self.geometry_identifier) is not str:
+            raise TypeError("geometry_identifier must be a built-in string")
+        if not self.geometry_identifier:
+            raise ValueError("geometry_identifier must be nonempty")
+        if type(self.retained_rank) is not int:
+            raise TypeError("retained_rank must be a built-in integer")
+        if self.retained_rank < 2:
+            raise ValueError("retained_rank must be at least two")
+        for value, name in (
+            (self.operator_identifier, "operator_identifier"),
+            (self.energy_reference, "energy_reference"),
+            (self.energy_unit, "energy_unit"),
+            (self.basis_identifier, "basis_identifier"),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in string")
+            if not value:
+                raise ValueError(f"{name} must be nonempty")
+        if type(self.alignments) is not tuple or not self.alignments:
+            raise TypeError("alignments must be a nonempty tuple")
+        if any(
+            type(value)
+            not in (
+                Periodic3DRankNBandEquivalenceHoppingLocalityQualifiedAlignmentAnalysis,
+                Periodic3DRankNBandEquivalenceHoppingLocalityInapplicableAlignmentAnalysis,
+            )
+            for value in self.alignments
+        ):
+            raise TypeError("alignments must contain exact alignment analyses")
+        if any(value.retained_rank != self.retained_rank for value in self.alignments):
+            raise ValueError("alignment identities must match the field retained rank")
+        alignment_inventory = tuple(value.alignment for value in self.alignments)
+        if len(set(alignment_inventory)) != len(alignment_inventory):
+            raise ValueError("alignment routes must be unique")
+
+
+@dataclass(frozen=True, slots=True)
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue
 ):
-    """Retain all alignment routes for one analytic model case."""
+    """Retain all alignment routes in the synthetic v1 case envelope."""
 
     @property
     def band_subspace_rank(self) -> int:
@@ -1203,6 +1265,7 @@ __all__ = [
     "Periodic3DRankNBandEquivalenceHoppingLocalityAnalysisStatusEnum",
     "Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis",
     "Periodic3DRankNBandEquivalenceHoppingLocalityErrorChannels",
+    "Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalysis",
     "Periodic3DRankNBandEquivalenceHoppingLocalityInapplicableAlignmentAnalysis",
     "Periodic3DRankNBandEquivalenceHoppingLocalityLocalitySummary",
     "Periodic3DRankNBandEquivalenceHoppingLocalityQualifiedAlignmentAnalysis",

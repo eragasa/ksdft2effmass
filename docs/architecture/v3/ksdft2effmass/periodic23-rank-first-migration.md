@@ -245,7 +245,7 @@ schema mechanics; they are not alternative public study identities.
 This completion statement applies only to installed software contracts. It does not
 establish numerical convergence, scientific validation, retained evidence for an
 unexecuted study, sealing, publication, or a completed rank-N lifecycle. Periodic-2D and
-periodic-3D rank-N currently provide analytic parent/gauge, global/pointwise-Procrustes,
+periodic-3D rank-N currently provide synthetic parent/gauge, global/pointwise-Procrustes,
 frame-transport, hopping-locality, support-truncation, typed-request, case-expansion,
 aggregate-analysis, immutable aggregate-result, and bounded independent parent,
 alignment, transport, Fourier, shell-power, and support-selection references plus typed

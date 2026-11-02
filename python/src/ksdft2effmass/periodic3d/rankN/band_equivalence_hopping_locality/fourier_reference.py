@@ -74,7 +74,9 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest(
         case = self.case_analysis
         if (
             case.case_identifier
-            not in tuple(item.identifier for item in self.study_request.cases)
+            not in tuple(
+                item.lattice_control.to_wire() for item in self.study_request.cases
+            )
             or case.retained_rank not in self.study_request.retained_ranks
             or case.circuit_depth not in self.study_request.circuit_depths
             or case.parent_scale not in self.study_request.parent_scales
@@ -257,7 +259,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(
         geometry = next(
             case
             for case in study.cases
-            if case.identifier == observed_case.case_identifier
+            if case.lattice_control.to_wire() == observed_case.case_identifier
         )
         independent = _IndependentPeriodic3DRankNCase(
             geometry=geometry,

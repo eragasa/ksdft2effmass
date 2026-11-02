@@ -1,0 +1,31 @@
+{
+  "figures": {
+    "single-refitted-witness-surface.pdf": {
+      "byte_size": 2202166,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/single-refitted-witness-surface.pdf",
+      "sha256": "cabe28a205c6dfcdd955786b096011bc98c23a0f3fbb35bea8b11e1ec840a502"
+    },
+    "single-refitted-witness-surface.png": {
+      "byte_size": 234051,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/single-refitted-witness-surface.png",
+      "sha256": "168d28b76621747909e1cf8d3641eb819e1a7477991b0f7534f47c1d3daa9c70"
+    }
+  },
+  "renderer": {
+    "byte_size": 12280,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/python/../calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/render_surface_v2.py",
+    "sha256": "fa98b1baa5e79905be1dd95cc7c9da8560fc3c01ff028536105ecef41414af6e"
+  },
+  "result": {
+    "byte_size": 604665,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/result.json",
+    "sha256": "8a65cf3fbe3b08e8f7b71a802b8400515e1a0a514efd031e14783d6973a65664"
+  },
+  "schema_version": 1,
+  "status": "post-hoc-refitted-ws-producer-checked-development-not-independently-verified",
+  "surface": {
+    "byte_size": 811108,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/witness-surface-v2.json",
+    "sha256": "ec26ed3e2b7e84abb7c83d1644dcaddd3b4df603eb89e7e80cad3da679052dfc"
+  }
+}

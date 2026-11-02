@@ -279,7 +279,11 @@ class Rank2BandEquivalenceHoppingLocalityAnalyzer(
         direct: ComplexArray,
     ) -> BandEquivalenceHoppingLocalityErrorChannels:
         """Return rank-normalized matrix and ordered-band error channels."""
-        return error_channels(approximation, direct)
+        return error_channels(
+            approximation,
+            direct,
+            norm_energy_scale=1.0,
+        )
 
     def complete_shell_fields(
         self,

@@ -1,4 +1,4 @@
-"""Periodic-3D arbitrary-rank analytic parent and gauge-circuit contracts."""
+"""Periodic-3D arbitrary-rank synthetic case-composition contracts."""
 
 from __future__ import annotations
 
@@ -10,7 +10,10 @@ from projectkoios.numerics.numpy.typing import Float64Array
 
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
     Periodic3DRankNAnalyticCase,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
     Periodic3DRankNGaugeNormalizationEnum,
+    Periodic3DRankNGivensGaugeAttack,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -65,12 +68,20 @@ class TestPeriodic3DRankNAnalyticCase:
         case = self._case()
         coordinates = self._coordinates()
 
+        attack = case.gauge_attack
         gauge = case.gauge_unitaries(coordinates)
         inverse = case.known_inverse_right_actions(coordinates)
         attacked_frame = case.attacked_frames(coordinates)
         attacked_operator = case.attacked_reduced_hamiltonians(coordinates)
         identity = np.eye(case.retained_rank, dtype=np.complex128)
 
+        assert type(attack) is Periodic3DRankNGivensGaugeAttack
+        assert attack.retained_rank == case.retained_rank
+        assert attack.circuit_depth == case.circuit_depth
+        assert attack.harmonic_bonds == case.positive_bonds
+        assert attack.normalization is case.gauge_normalization
+        assert attack.coefficient == case.attack_coefficient
+        assert gauge == pytest.approx(attack.unitaries(coordinates), abs=0.0)
         assert np.swapaxes(gauge.conjugate(), -1, -2) @ gauge == pytest.approx(
             np.broadcast_to(identity, gauge.shape), abs=2.0e-15
         )

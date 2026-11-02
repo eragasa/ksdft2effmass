@@ -1,5 +1,12 @@
 # Silicon DFT–Wannier gauge and locality comparison
 
+> **Owner crosswalk.** This prospective directory is preserved as the earlier planning
+> surface. The selected calculation owner is now
+> [`calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/`](../../Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/).
+> New requests, implementations, results, and execution records belong to that canonical
+> bulk-silicon analysis tree. This directory reports no executed evidence and is not
+> moved or rewritten as provenance.
+
 ## Scientific question
 
 For one explicitly identified silicon retained state space, how do the

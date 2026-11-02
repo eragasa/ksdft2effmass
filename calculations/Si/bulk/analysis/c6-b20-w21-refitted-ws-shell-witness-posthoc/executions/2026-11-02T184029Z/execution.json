@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "status": "post-hoc-refitted-ws-producer-checked-development-not-independently-verified",
+  "completed_utc": "2026-11-02T18:40:29Z",
+  "authorization": "explicit human instruction in the active pi session to perform the refitted-shell follow-on study",
+  "calculator_invocations": 0,
+  "independent_reconstruction_performed": false,
+  "analysis_command": "cd python && /usr/bin/time -l uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/run_analysis.py",
+  "render_command": "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/render_surface_v2.py",
+  "observed_resources": {
+    "analysis_elapsed_seconds": 873.0573856658302,
+    "time_real_seconds": 873.84,
+    "time_user_seconds": 865.51,
+    "time_system_seconds": 2.61,
+    "maximum_resident_bytes": 156434432
+  },
+  "selection": {
+    "proper_supports": 17,
+    "maximum_parameter_dimension": 17,
+    "scalarization_weights": 17,
+    "deterministic_starts_per_weight": 3,
+    "evaluation_points": 408,
+    "alpha_bounds": [0.0, 2.0],
+    "headline_surface_filter": "optimizer_success is true",
+    "headline_converged_witness_count": 444
+  },
+  "outputs": {
+    "request": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/request.json",
+      "byte_size": 4218,
+      "sha256": "ac525f948e108e4ce4b4f7e28153504016cb6d89b224ded1ec70c0949baca609"
+    },
+    "producer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/run_analysis.py",
+      "byte_size": 23181,
+      "sha256": "7a6b891602b965510a09084b7636d066af5c26c65d2021924c3680a2606c1652"
+    },
+    "result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/result.json",
+      "byte_size": 604665,
+      "sha256": "8a65cf3fbe3b08e8f7b71a802b8400515e1a0a514efd031e14783d6973a65664"
+    },
+    "renderer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/render_surface_v2.py",
+      "byte_size": 12280,
+      "sha256": "fa98b1baa5e79905be1dd95cc7c9da8560fc3c01ff028536105ecef41414af6e"
+    },
+    "surface": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/witness-surface-v2.json",
+      "byte_size": 811108,
+      "sha256": "ec26ed3e2b7e84abb7c83d1644dcaddd3b4df603eb89e7e80cad3da679052dfc"
+    },
+    "figure_pdf": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/single-refitted-witness-surface.pdf",
+      "byte_size": 2202166,
+      "sha256": "cabe28a205c6dfcdd955786b096011bc98c23a0f3fbb35bea8b11e1ec840a502"
+    },
+    "figure_png": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/single-refitted-witness-surface.png",
+      "byte_size": 234051,
+      "sha256": "168d28b76621747909e1cf8d3641eb819e1a7477991b0f7534f47c1d3daa9c70"
+    },
+    "figure_manifest": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/figure-manifest.json",
+      "byte_size": 1749,
+      "sha256": "ef2e45a230cec765d725bf8122ed76f2fa4666a90b71c32f3a8355300cbb181f"
+    },
+    "technical_report_source": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.tex",
+      "byte_size": 41086,
+      "sha256": "e0f7221eb7b013c46185d85c98987a3e92d714910d3f3ffab6c52a411c1f5196"
+    },
+    "technical_report_pdf": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.pdf",
+      "byte_size": 2766455,
+      "sha256": "562104c70f68b301316605dfcafa2c2a31704229cf959e86f3c562122d4c2788"
+    }
+  },
+  "checks": {
+    "source_authentication_passed": true,
+    "native_shell_reconstruction_passed": true,
+    "analytic_gradient_check_passed": true,
+    "request_and_producer_result_bindings_passed": true,
+    "surface_manifest_bindings_passed": true,
+    "figure_and_report_ghostscript_validation_passed": true,
+    "latex_final_log_warning_scan_clean": true,
+    "technical_report_contains_follow_on_section": true,
+    "git_diff_check_passed": true,
+    "ruff_check_passed_with_calculation_local_E501_and_synchronous_lambda_B023_ignored": true
+  },
+  "limitations": [
+    "The optimization is a constructive bounded multistart search, not a global certificate.",
+    "Gray surface cells mean no converged witness was found, not proven infeasibility.",
+    "The 408-point inventory is revealed development evidence; the frozen 402-point confirmation geometry and values were not consumed.",
+    "No Quantum ESPRESSO or Wannier90 execution occurred.",
+    "The source operator remains inadequate for its declared direct-parent silicon fidelity targets."
+  ]
+}

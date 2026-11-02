@@ -1,4 +1,4 @@
-"""Recommended analytic periodic-3D arbitrary-rank parent and gauge attack."""
+"""Synthetic periodic-3D arbitrary-rank study-case composition."""
 
 from __future__ import annotations
 
@@ -9,25 +9,25 @@ from typing import ClassVar
 import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
+from projectkoios.physkit.periodic.lattice.hopping import BlockHoppingModel
 
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
-from ksdft2effmass.serialization import StringWireEnum
-
-
-class Periodic3DRankNGaugeNormalizationEnum(StringWireEnum):
-    """Select the reviewed interpretation of one gauge-attack coefficient."""
-
-    AXIS_MAXIMUM = "axis-maximum"
-    BOND_RMS = "bond-rms"
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.parent import (
+    Periodic3DRankNBlockHoppingParentBuilder,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+    Periodic3DRankNGaugeNormalizationEnum,
+    Periodic3DRankNGivensGaugeAttack,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic3DRankNAnalyticCase(
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
 ):
-    """Define one topologically trivial rank-N parent and right gauge circuit."""
+    """Compose one block-hopping parent with a separate gauge attack."""
 
     MODEL_FAMILY_IDENTITY: ClassVar[str] = (
         "ksdft2effmass.periodic3d-rankN-analytic-givens-family.v1"
@@ -102,16 +102,29 @@ class Periodic3DRankNAnalyticCase(
         )
 
     @property
+    def parent_model(self) -> BlockHoppingModel:
+        """Return the PhysKit block-hopping parent independent of the attack."""
+        return Periodic3DRankNBlockHoppingParentBuilder(
+            retained_rank=self.retained_rank,
+            positive_bonds=self.positive_bonds,
+            hopping_scale=self.parent_scale,
+        ).execute()
+
+    @property
+    def gauge_attack(self) -> Periodic3DRankNGivensGaugeAttack:
+        """Return the independently applicable synthetic gauge attack."""
+        return Periodic3DRankNGivensGaugeAttack(
+            retained_rank=self.retained_rank,
+            circuit_depth=self.circuit_depth,
+            harmonic_bonds=self.positive_bonds,
+            normalization=self.gauge_normalization,
+            coefficient=self.attack_coefficient,
+        )
+
+    @property
     def attack_angle_upper_bound(self) -> float:
         """Return a conservative continuum bound for every Givens angle."""
-        bond_count = len(self.positive_bonds)
-        normalization = (
-            1.0 / 3.0
-            if self.gauge_normalization
-            is Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM
-            else math.sqrt(2.0 / float(bond_count))
-        )
-        return self.attack_coefficient * normalization * float(bond_count)
+        return self.gauge_attack.angle_upper_bound
 
     def _coordinates(self, value: Float64Array) -> Float64Array:
         coordinates = NumpyImmutableArrayConstructor(
@@ -205,79 +218,31 @@ class Periodic3DRankNAnalyticCase(
         values = energies[..., :, None] * identity
         return self._immutable_complex(np.asarray(values, dtype=np.complex128))
 
-    def _gauge_scalar(
-        self,
-        reduced_coordinates: Float64Array,
-        layer_index: int,
-    ) -> Float64Array:
-        coordinates = self._coordinates(reduced_coordinates)
-        bonds = np.asarray(self.positive_bonds, dtype=np.float64)
-        arguments = 2.0 * np.pi * np.einsum("...d,bd->...b", coordinates, bonds)
-        harmonic = 0.75 * np.sin(arguments) + 0.25 * ((-1.0) ** layer_index) * np.sin(
-            2.0 * arguments
-        )
-        normalization = (
-            1.0 / 3.0
-            if self.gauge_normalization
-            is Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM
-            else math.sqrt(2.0 / float(len(self.positive_bonds)))
-        )
-        return np.asarray(normalization * np.sum(harmonic, axis=-1), dtype=np.float64)
-
     def gauge_unitaries(self, reduced_coordinates: Float64Array) -> Complex128Array:
-        """Return the selected alternating nearest-neighbor real Givens circuit."""
-        coordinates = self._coordinates(reduced_coordinates)
-        rank = self.retained_rank
-        identity = np.eye(rank, dtype=np.complex128)
-        gauges = np.broadcast_to(identity, (*coordinates.shape[:-1], rank, rank)).copy()
-        for layer_index in range(1, self.circuit_depth + 1):
-            scalar = self._gauge_scalar(coordinates, layer_index)
-            layer = np.broadcast_to(
-                identity, (*coordinates.shape[:-1], rank, rank)
-            ).copy()
-            first_left = 0 if layer_index % 2 == 1 else 1
-            for left in range(first_left, rank - 1, 2):
-                pair_index = left + 1
-                pair_coordinate = (2.0 * pair_index - rank) / (rank - 1.0)
-                weight = (1.0 + 0.15 * pair_coordinate) / 1.15
-                angle = (
-                    self.attack_coefficient
-                    * (-1.0) ** (layer_index + pair_index)
-                    * weight
-                    * scalar
-                )
-                cosine = np.cos(angle)
-                sine = np.sin(angle)
-                layer[..., left, left] = cosine
-                layer[..., left, left + 1] = -sine
-                layer[..., left + 1, left] = sine
-                layer[..., left + 1, left + 1] = cosine
-            gauges = gauges @ layer
-        return self._immutable_complex(np.asarray(gauges, dtype=np.complex128))
+        """Return the unitary field generated by the composed gauge attack."""
+        return self.gauge_attack.unitaries(reduced_coordinates)
 
     def attacked_frames(self, reduced_coordinates: Float64Array) -> Complex128Array:
         """Return reference frames after the right-acting gauge attack."""
-        values = self.reference_frames(reduced_coordinates) @ self.gauge_unitaries(
-            reduced_coordinates
+        return self.gauge_attack.apply_to_frames(
+            reduced_coordinates,
+            self.reference_frames(reduced_coordinates),
         )
-        return self._immutable_complex(np.asarray(values, dtype=np.complex128))
 
     def attacked_reduced_hamiltonians(
         self, reduced_coordinates: Float64Array
     ) -> Complex128Array:
         """Return retained operators represented in the attacked frame."""
-        gauge = self.gauge_unitaries(reduced_coordinates)
-        exact = self.exact_reduced_hamiltonians(reduced_coordinates)
-        values = np.swapaxes(gauge.conjugate(), -1, -2) @ exact @ gauge
-        return self._immutable_complex(np.asarray(values, dtype=np.complex128))
+        return self.gauge_attack.apply_to_operators(
+            reduced_coordinates,
+            self.exact_reduced_hamiltonians(reduced_coordinates),
+        )
 
     def known_inverse_right_actions(
         self, reduced_coordinates: Float64Array
     ) -> Complex128Array:
         """Return the exact construction-oracle inverse right actions."""
-        gauge = self.gauge_unitaries(reduced_coordinates)
-        values = np.swapaxes(gauge.conjugate(), -1, -2)
-        return self._immutable_complex(np.asarray(values, dtype=np.complex128))
+        return self.gauge_attack.inverse_right_actions(reduced_coordinates)
 
 
 __all__ = [

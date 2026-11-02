@@ -21,12 +21,12 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case_expan
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
     Periodic3DRankNAnalyticCase,
-    Periodic3DRankNGaugeNormalizationEnum,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum,
     Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
+    Periodic3DRankNLatticeControlEnum,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.result import (
     Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis,
@@ -34,6 +34,9 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.result imp
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.verification import (  # noqa: E501
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification,
     Periodic3DRankNBandEquivalenceHoppingLocalityVerification,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+    Periodic3DRankNGaugeNormalizationEnum,
 )
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
@@ -64,7 +67,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
         if family is Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum.ORTHOGONAL:
             cases = (
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="simple-cubic-axis-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL
+                    ),
                     positive_bonds=simple_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM
@@ -89,7 +94,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
             )
             cases = (
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="matched-simple-cubic-bravais-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.MATCHED_SIMPLE_CUBIC_BRAVAIS_CONTROL
+                    ),
                     positive_bonds=simple_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.BOND_RMS
@@ -98,7 +105,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     shell_metric_scale=2.0,
                 ),
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="fcc-bravais-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.FCC_BRAVAIS_CONTROL
+                    ),
                     positive_bonds=fcc_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.BOND_RMS
@@ -107,7 +116,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     shell_metric_scale=2.0,
                 ),
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="fcc-two-basis-metric-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.FCC_TWO_BASIS_METRIC_CONTROL
+                    ),
                     positive_bonds=fcc_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.BOND_RMS
@@ -199,6 +210,21 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
             Periodic3DRankNGaugeAlignment.POINTWISE_UNITARY,
             Periodic3DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
         )
+
+    def test_lattice_control_enum_selects_request_owned_geometry(self) -> None:
+        request = self._request(
+            Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum.ORTHOGONAL
+        )
+
+        selected = request.case(
+            Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL
+        )
+
+        assert selected.lattice_control is (
+            Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL
+        )
+        with pytest.raises(ValueError, match="exactly one"):
+            request.case(Periodic3DRankNLatticeControlEnum.FCC_BRAVAIS_CONTROL)
 
     def test_wire_identities_name_both_aggregate_operands(self) -> None:
         identities = (

@@ -473,6 +473,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         ] = []
         reference_total_errors: list[BandEquivalenceHoppingLocalityErrorChannels] = []
         comparison_total_errors: list[BandEquivalenceHoppingLocalityErrorChannels] = []
+        norm_energy_scale = self._request.norm_energy_scale
         for ordinal, (metric_value, reference_eval, comparison_eval) in enumerate(
             zip(
                 reference.metric_shell_values,
@@ -485,13 +486,23 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             reference_truncation = error_channels(
                 reference_eval,
                 reference.full_evaluation,
+                norm_energy_scale=norm_energy_scale,
             )
             comparison_truncation = error_channels(
                 comparison_eval,
                 comparison_full_evaluation,
+                norm_energy_scale=norm_energy_scale,
             )
-            reference_total = error_channels(reference_eval, reference_evaluation)
-            comparison_total = error_channels(comparison_eval, comparison_evaluation)
+            reference_total = error_channels(
+                reference_eval,
+                reference_evaluation,
+                norm_energy_scale=norm_energy_scale,
+            )
+            comparison_total = error_channels(
+                comparison_eval,
+                comparison_evaluation,
+                norm_energy_scale=norm_energy_scale,
+            )
             reference_total_errors.append(reference_total)
             comparison_total_errors.append(comparison_total)
             shell_results.append(
@@ -551,19 +562,32 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             ),
             maximum_direct_ordered_spectrum_difference=direct_spectrum_difference,
             reference_reconstruction_errors=self._error_record(
-                error_channels(reference.full_construction, reference_construction)
+                error_channels(
+                    reference.full_construction,
+                    reference_construction,
+                    norm_energy_scale=norm_energy_scale,
+                )
             ),
             comparison_reconstruction_errors=self._error_record(
                 error_channels(
                     comparison_full_construction,
                     comparison_construction,
+                    norm_energy_scale=norm_energy_scale,
                 )
             ),
             reference_interpolation_errors=self._error_record(
-                error_channels(reference.full_evaluation, reference_evaluation)
+                error_channels(
+                    reference.full_evaluation,
+                    reference_evaluation,
+                    norm_energy_scale=norm_energy_scale,
+                )
             ),
             comparison_interpolation_errors=self._error_record(
-                error_channels(comparison_full_evaluation, comparison_evaluation)
+                error_channels(
+                    comparison_full_evaluation,
+                    comparison_evaluation,
+                    norm_energy_scale=norm_energy_scale,
+                )
             ),
             reference_locality=self._locality_summary(reference.locality),
             comparison_locality=self._locality_summary(comparison_locality),

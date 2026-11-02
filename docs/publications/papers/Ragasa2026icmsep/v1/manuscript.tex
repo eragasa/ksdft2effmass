@@ -1,0 +1,2325 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools,amsthm}
+\usepackage{booktabs,tabularx,array,longtable}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=10]{biblatex}
+\addbibresource{references.bib}
+
+\setlength{\emergencystretch}{3em}
+\renewcommand{\tabularxcolumn}[1]{>{\raggedright\arraybackslash}p{#1}}
+\definecolor{statusblue}{RGB}{31,78,121}
+\definecolor{statusgray}{RGB}{244,246,248}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Hsrc}{H_{\mathrm W}}
+\newcommand{\Hred}{H_{\mathrm r}}
+\newcommand{\kvec}{\mathbf k}
+\newcommand{\qvec}{\mathbf q}
+\newcommand{\Rvec}{\mathbf R}
+\newcommand{\statusbox}[1]{%
+  \begin{center}
+  \fcolorbox{statusblue}{statusgray}{\parbox{0.92\textwidth}{#1}}
+  \end{center}}
+\newcommand{\resultfigure}[4]{%
+  \begin{figure}[tbp]
+    \centering
+    \includegraphics[width=0.96\textwidth,height=0.68\textheight,keepaspectratio]{#1}
+    \caption{#2 #3}
+    \label{#4}
+  \end{figure}}
+
+\title{\textbf{Band Equivalence, Hopping Locality, and Internal Fidelity\\
+of Reduced Wannier Hamiltonians}\\[1mm]
+\large From Exact Rank-Two Geometry to a DFT-Derived Rank-10 Silicon Case Study}
+\author{Eugene Joseph M. Ragasa\\
+Department of Physics, De La Salle University, Manila, Philippines\\
+\texttt{eugene.ragasa@dlsu.edu.ph}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Band energies are invariant under momentum-dependent unitary similarity, whereas a
+Hamiltonian's matrix representation and real-space hopping locality are not.  We combine
+an exact rank-two theory of this distinction with a source-relative case study of a
+DFT-derived rank-10 scalar-relativistic silicon Wannier Hamiltonian.  In the controlled
+rank-two family, spectral and globally aligned operator losses have an exact
+common-curvature geometry.  For
+$U_a(q)=R(a\sin2\pi q)$, the minimum restricted-alignment threshold is
+$\sqrt{\kappa[1-J_0(2a)^2]}$; for a flat traceless parent, its square equals the
+normalized Fourier power transferred from the onsite block to nonzero displacement.
+A dispersive development calculation preserves complete bands while changing the first
+sampled cutoff meeting a $10^{-8}E_{\rm ref}$ band-error target from 4 to 10.
+
+The silicon study uses source files whose provenance, byte identities, native optimizer
+completion, Hermiticity, pair closure, and reconstruction were verified; this
+``authenticated'' status is not material validation.  A frozen internal gauge attack
+preserves the complete represented spectrum to $3.20\times10^{-14}$~eV while changing
+restricted alignment and finite-block locality.  Frozen shell-reduced models then show
+that the 408-point fitting inventory understates exact Parseval operator loss and
+dense-mesh spectral loss, and that global spectral RMS does not control conduction
+curvature or the nearly degenerate valence manifold.  A polar-transported three-band
+quadratic Hamiltonian is therefore used instead of independently ordered hole tensors.
+
+The source fails separate DFT-parent gap and electron-mass targets, and the silicon
+results remain producer-checked development evidence pending independent reconstruction.
+Within those boundaries, the results establish that spectrum, represented operator,
+hopping locality, interpolation fidelity, and band-edge fidelity are distinct reduction
+objectives; near-full native support is required to preserve them simultaneously for the
+studied source.
+\end{abstract}
+
+\noindent\textbf{Keywords:} band equivalence; effective mass; hopping locality;
+model reduction; silicon; Wannier Hamiltonian
+
+\section{Introduction}
+
+First-principles electronic-structure calculations produce operators and states in
+representations designed for numerical convergence rather than for compact real-space
+modeling.  Plane waves are systematic and broadly transferable, but they are expensive
+for repeated interpolation, large supercells, local perturbations, and reduced-device
+calculations.  Wannier representations replace a selected Bloch subspace by localized
+coordinates and expose a Fourier hierarchy of matrix-valued hopping blocks
+\cite{marzari1997,souza2001,marzari2012,pizzi2020,yates2007}.  A further reduced model
+may then retain fewer blocks, impose symmetry patterns, or fit a smaller parameter
+family.
+
+The apparent objective---``reproduce the bands with a shorter Hamiltonian''---contains
+several different mathematical tasks.  Band energies constrain eigenvalues.  An
+operator comparison constrains matrices after identifying their state spaces.  A
+locality comparison constrains Fourier coefficients in a declared basis and gauge.
+Interpolation asks how a frozen model behaves away from the points used to characterize
+it.  Effective masses and valley locations depend on local derivatives and extrema.
+These requirements are related, but none is interchangeable with all the others.
+
+The gauge freedom of a retained Bloch manifold makes the distinction unavoidable.  If
+$H(\kvec)$ is transformed by a momentum-dependent unitary $U(\kvec)$,
+\begin{equation}
+ \widetilde H(\kvec)=U(\kvec)^\dagger H(\kvec)U(\kvec),
+ \label{eq:intro-gauge}
+\end{equation}
+then the complete eigenvalue set is unchanged at every momentum.  The matrix field and
+its Fourier coefficients generally change.  A momentum-independent unitary merely
+conjugates each real-space block; a momentum-dependent unitary convolves displacement
+indices and can redistribute weight among displacement shells, including toward longer
+range for particular transformations and locality measures.  No universal monotonic
+increase is implied.  Band equivalence therefore does not determine hopping locality.
+
+This paper develops that statement through two complementary but logically distinct
+levels.  The first is a controlled theoretical result and synthetic benchmark.  The
+second is a source-specific computational case study; it is not an empirical proof of a
+universal rank-$N$ extension of the rank-two identities.
+
+\begin{enumerate}[leftmargin=2em]
+ \item A controlled one-dimensional rank-two problem supplies exact loss geometry,
+ Bessel-function threshold laws, a residual--Fourier-power identity, and a dispersive
+ fixed-accuracy range-inflation calculation.
+ \item A DFT-derived rank-10 silicon Wannier Hamiltonian tests the same distinctions in
+ a higher-rank, three-dimensional represented field with realistic matrix structure,
+ native Wigner--Seitz blocks, dense interpolation, conduction valleys, and a degenerate
+ valence edge.
+\end{enumerate}
+
+The silicon calculation is not the ``validation'' of the synthetic theorem in the sense
+of proving production material accuracy.  It is the next rung of a validation ladder:
+the exact mechanism is first isolated in a known model, then deployed on an authenticated
+material-derived operator while keeping parent-model, representation, conversion,
+truncation, fitting, and feature errors separate.
+
+The main questions are:
+
+\begin{enumerate}[leftmargin=2em]
+ \item How can complete spectra remain identical while restricted alignment and
+ real-space locality change?
+ \item What exact relationship connects irreducible matrix mismatch to induced hopping
+ weight in a controlled rank-two family?
+ \item How does representation-dependent locality affect the finite range needed at
+ equal accuracy?
+ \item How much native support is required to compress the rank-10 silicon Wannier
+ source by literal shell deletion or bounded shell refitting?
+ \item Do errors measured on a finite 408-point inventory predict exact integrated
+ operator error, dense interpolation error, and band-edge fidelity?
+ \item What is the appropriate hole-sector object when the non-SOC valence edge is a
+ nearly degenerate three-band manifold?
+\end{enumerate}
+
+The answers are deliberately bounded.  This article is a long-form synthesis of the
+exact rank-two framework and the completed rank-10 silicon calculation program.
+Analytic statements are identified separately from sampled numerical observations.  The
+active rank-two numerical headline remains development or partial unsealed evidence
+according to its calculation records, and the non-flat numerical results are sampled on
+declared inventories.  The silicon gauge, shell, fidelity, and band-edge studies are
+authenticated producer-checked development analyses that have not been independently
+reconstructed.  They are internal to a source that fails separate DFT-parent adequacy
+targets and do not validate the source as an accurate silicon Hamiltonian.  These
+boundaries are not qualifications added at the end; they define the scientific question
+from the beginning.  Preparation of this working manuscript included one separately
+authorized fixed-density Quantum ESPRESSO parent band-path calculation after the
+reduction models had been frozen; it changed no source construction, fit, selection, or
+threshold.  No Wannier90 execution was performed, and manuscript preparation does not
+itself authorize submission, publication, or release.
+
+\section{Background and conceptual framework}
+
+\subsection{Physical model, represented operator, and finite matrix}
+
+A physical electronic-structure model, an operator on a retained state space, and a
+finite matrix representation are different objects.  The Kohn--Sham calculation defines
+an approximation to the physical parent under a chosen functional, pseudopotential,
+geometry, and numerical setting \cite{hohenberg1964,kohn1965,perdew1996,hamann2013}.
+Wannierization selects and represents a finite subspace.  A reduced hopping model then
+approximates that represented operator.  Errors introduced at these stages must not be
+collapsed into one number unless a reviewed contract explicitly defines the combination.
+
+For a finite-rank periodic representation,
+\begin{equation}
+ H(\kvec)=\sum_{\Rvec} e^{i\kvec\cdot\Rvec}T(\Rvec),
+ \label{eq:fourier-main}
+\end{equation}
+where $T(\Rvec)$ is a matrix block associated with a lattice translation.  Equation
+\eqref{eq:fourier-main} is meaningful only after the lattice basis, reciprocal
+coordinates, representative convention, degeneracies, units, basis ordering, and
+energy reference are fixed.
+
+The silicon program uses two Fourier routes.  Native Wannier90 HR data use
+Wigner--Seitz representatives and degeneracy factors.  The generic gauge study samples a
+matrix field on a centered finite grid, performs a finite-cyclic transform, and then
+converts explicitly to ordinary lattice representatives.  These routes answer related
+questions but are not interchangeable.  Their conversion and interpolation consequences
+are retained as separate channels.
+
+\subsection{Spectral reduction and finite representation extent}
+
+The distinction between representation and reduction can be seen most cleanly in two
+retained one-dimensional calibration problems.  In the particle-in-a-box calculation,
+a continuum differential operator, its finite-difference matrix, the computed matrix
+eigenpairs, and a low-energy spectral compression are separate objects.  An eigensolver
+may solve the finite matrix to high accuracy while that matrix still approximates the
+continuum spectrum poorly.  If the retained vectors are exact eigenvectors of the finite
+matrix, however, compression to their span is algebraically exact for that represented
+matrix.  With
+\begin{equation}
+ P_M=\sum_{n=1}^{M}\lvert u_n\rangle\langle u_n\rvert,
+ \qquad Q_M=I-P_M,
+ \qquad H_M=P_MHP_M,
+ \label{eq:spectral-reduction-projectors}
+\end{equation}
+one has $Q_MHP_M=0$ for an invariant spectral subspace
+\cite{shankar1994,teschl2014,hornJohnson2013}.  This identity establishes closure of the
+reduction; it does not establish that the finite parent represents the continuum or a
+material accurately.  For a non-invariant trial space, leakage $Q_MHP_M$ becomes a
+separate error channel.
+
+The harmonic-oscillator calibration introduces a second limitation: finite spatial
+extent.  A real-line operator represented on a finite Dirichlet interval has changed its
+domain and boundary realization before the grid is refined.  Decreasing the grid spacing
+at fixed interval width resolves that finite-box problem more accurately; it does not by
+itself recover the real-line operator.  Boundary truncation, interior discretization,
+retained spectral dimension, coordinate injection, eigensolver error, and floating-point
+error therefore remain distinct \cite{strikwerda2004}.  This is the same logical reason
+that agreement inside a reduced model cannot repair an inadequate parent.
+
+For the silicon hierarchy, four notions of ``finite'' must consequently not be merged:
+\begin{enumerate}[leftmargin=2em]
+ \item a finite plane-wave cutoff and reciprocal sampling define a numerical DFT
+ representation, even though each plane wave extends across the cell;
+ \item a finite band/Wannier rank defines a retained spectral state space;
+ \item a finite real-space hopping support defines the range of the represented lattice
+ Hamiltonian; and
+ \item a finite evaluation inventory defines only the reciprocal points on which a loss
+ has been sampled.
+\end{enumerate}
+Taking the plane-wave cutoff, construction mesh, retained rank, hopping radius, or
+evaluation mesh to a larger value addresses a different approximation.  In particular,
+restoring all native hopping blocks converges to the fixed Wannier source, not to its DFT
+parent; refining a support-limited model cannot remove a source/parent discrepancy.
+This nested-limit view is the conceptual bridge from the PIAB1D and QHO1D calibration
+reports to the present periodic reduction study.
+
+\subsection{Gauge freedom and locality}
+
+Wannier functions inherit the gauge freedom of a retained Bloch subspace
+\cite{marzari1997,souza2001,marzari2012}.  Smooth gauges can differ in spread and real-space
+shape even when they span the same projector.  For a Fourier-expanded transformation
+$U(\kvec)=\sum_{\mathbf m}e^{i\kvec\cdot\mathbf m}U_{\mathbf m}$, substitution into
+Eq.~\eqref{eq:intro-gauge} gives the hopping convolution
+\begin{equation}
+ \widetilde T_{\mathbf Q}
+ =\sum_{\mathbf m,\mathbf n}
+ U_{\mathbf m}^\dagger T_{\mathbf Q+\mathbf m-\mathbf n}U_{\mathbf n}.
+ \label{eq:hopping-convolution}
+\end{equation}
+A constant transformation has only one Fourier coefficient and does not enlarge support.
+A momentum-dependent transformation mixes displacement indices.  Locality is therefore
+a property of the represented field and allowed gauge, not of the complete spectrum
+alone.
+
+This does not make locality arbitrary.  Once the construction, retained space, gauge,
+metric, support family, and error criterion are fixed, the resulting locality problem is
+well defined.  The important restriction is epistemic: spectral data alone cannot
+identify a unique hopping distribution.
+
+\subsection{Gauge invariants, alignment families, and identifiability}
+
+For each momentum, unitary similarity preserves the characteristic polynomial,
+trace invariants, and the complete unordered spectrum:
+\begin{equation}
+ \det[zI-U(\kvec)^\dagger H(\kvec)U(\kvec)]
+ =\det[zI-H(\kvec)].
+ \label{eq:characteristic-invariance}
+\end{equation}
+It also preserves every pointwise unitarily invariant norm of the complete operator.
+It does not preserve individual matrix entries, basis-resolved observables, or Fourier
+coefficients.  Consequently, an eigenvalue-only inverse problem has an entire gauge
+orbit of solutions.  A locality statement becomes identifiable only after the allowed
+coordinate transformations are restricted.
+
+The present work distinguishes four such restrictions.  Identity alignment compares
+matrices in the declared common Wannier basis.  Global alignment admits one momentum-independent unitary
+$V\in U(N)$ and minimizes a weighted aggregate residual,
+\begin{equation}
+ \mathcal L_{\rm global}(V)^2
+ =\sum_j w_j\norm{H(\kvec_j)-V^\dagger A(\kvec_j)V}_F^2.
+ \label{eq:global-alignment}
+\end{equation}
+Pointwise polar alignment admits a different complete unitary at every point.  If two
+orthonormal frame matrices $X$ and $Y$ have overlap $X^\dagger Y=L\Sigma R^\dagger$,
+the polar/Procrustes action is $Q=LR^\dagger$ when the declared singular-value rank gate
+is satisfied \cite{schonemann1966,higham1986}.  Finally, a known-inverse action uses the
+unitary supplied by a synthetic construction.  The latter two are oracle controls: they
+check the representation and implementation, but they are not available from the
+complete spectra alone.
+
+The minimized value in Eq.~\eqref{eq:global-alignment} is a distance under this
+particular weighted global-unitary action; it is not asserted to be an invariant metric
+between unrestricted gauge orbits.  A nonzero identity or global residual is therefore
+not evidence that two complete unitarily related fields represent different physics.
+It states that the generating momentum dependence lies outside the admitted alignment
+family.  Conversely, allowing
+an independently fitted pointwise unitary in a same-gauge truncation study would erase
+part of the approximation being measured.  This is why the shell-reduction operator
+loss uses identity alignment.
+
+\subsection{Norm relations, Parseval identity, and support truncation}
+
+For Hermitian matrices $A$ and $B$, the ordered eigenvalues satisfy the
+Hoffman--Wielandt bound
+\begin{equation}
+ \sum_{n=1}^{N}[\lambda_n(A)-\lambda_n(B)]^2
+ \leq \norm{A-B}_F^2.
+ \label{eq:hoffman-wielandt}
+\end{equation}
+Thus an operator residual controls an ordered spectral residual at the same momentum.
+The converse is false: isospectral matrices can have a finite Frobenius separation.
+This one-way implication motivates retaining both loss coordinates rather than treating
+one as a surrogate for the other.
+
+For two matrix fields in the same Fourier convention,
+$\Delta H(\kvec)=\sum_{\Rvec}e^{i\kvec\cdot\Rvec}\Delta T(\Rvec)$, normalized
+Brillouin-zone integration gives the matrix-valued Parseval identity
+\begin{equation}
+ \frac{1}{\Omega_{\rm BZ}}\int_{\rm BZ}
+ \norm{\Delta H(\kvec)}_F^2\,d\kvec
+ =\sum_{\Rvec}\norm{\Delta T(\Rvec)}_F^2.
+ \label{eq:matrix-parseval}
+\end{equation}
+For rank $N$ and reporting energy $E_0$, the exact integrated per-state operator RMS is
+\begin{equation}
+ \tau_{2,{\rm BZ}}
+ =\frac{1}{E_0}\left[
+ \frac{1}{N}\sum_{\Rvec}\norm{\Delta T(\Rvec)}_F^2
+ \right]^{1/2}.
+ \label{eq:parseval-rms}
+\end{equation}
+No reciprocal sampling is required once the unique coefficient convention is fixed.
+This exact identity is used in the fidelity ladder.
+
+For a literal support $S$, the truncated model is
+\begin{equation}
+ H_S(\kvec)=\sum_{\Rvec\in S}e^{i\kvec\cdot\Rvec}T(\Rvec),
+ \qquad
+ \Delta T_S(\Rvec)=
+ \begin{cases}
+ 0,&\Rvec\in S,\\
+ -T(\Rvec),&\Rvec\notin S.
+ \end{cases}
+ \label{eq:literal-truncation}
+\end{equation}
+Equation~\eqref{eq:parseval-rms} then makes the integrated operator loss exactly the
+excluded Frobenius coefficient power.  A separate uniform operator bound follows from
+the triangle inequality,
+\begin{equation}
+ \sup_{\kvec}\norm{H_S(\kvec)-H(\kvec)}_2
+ \leq \sum_{\Rvec\notin S}\norm{T(\Rvec)}_2.
+ \label{eq:triangle-tail-bound}
+\end{equation}
+The Frobenius tail and the spectral-norm triangle bound answer different questions: the
+first is an exact integrated RMS quantity, while the second is generally a conservative
+uniform bound.  Neither determines the local curvature of an individual band.
+
+\subsection{Spectral and operator losses}
+
+For a reduced model $H_{\rm r}(\kvec)$ in the same basis as a reference
+$H_{\rm W}(\kvec)$, a spectral loss compares ordered eigenvalues, while an operator loss
+compares matrices.  On the silicon 408-point inventory the primary normalized RMS
+coordinates are
+\begin{align}
+ \tau_1^2
+ &=\frac{1}{4080}\sum_{\kvec,n}
+ \left(\frac{\epsilon^{\rm r}_{n\kvec}-\epsilon^{\rm W}_{n\kvec}}
+ {1\,{\rm eV}}\right)^2,\label{eq:tau1-main}\\
+ \tau_2^2
+ &=\frac{1}{4080}\sum_{\kvec}
+ \frac{\norm{H_{\rm r}(\kvec)-H_{\rm W}(\kvec)}_F^2}
+ {(1\,{\rm eV})^2}.
+ \label{eq:tau2-main}
+\end{align}
+The 1 eV denominator is a reporting normalization, not an acceptance limit.  Identity
+alignment is used for same-gauge shell models because a fitted pointwise alignment would
+erase part of the reduction error.
+
+A matrix perturbation bounds spectral displacement, but spectral agreement does not
+recover the matrix.  Consequently, $(\tau_1,\tau_2)$ is treated as a two-dimensional
+loss coordinate.  Post-hoc threshold maps summarize observed witnesses; they do not
+become prospective scientific tolerances after the fact.
+
+\subsection{Global averages and band-edge observables}
+
+A global RMS loss averages across bands and reciprocal points.  A band edge depends on a
+local extremum and its derivatives.  For a nondegenerate band,
+\begin{equation}
+ (m^{-1})_{ij}=\frac{1}{\hbar^2}
+ \frac{\partial^2E}{\partial k_i\partial k_j}.
+ \label{eq:mass-tensor}
+\end{equation}
+Differentiation can amplify small local shape errors that contribute little to a global
+average.  Valley displacement, Hessian rotation, and principal masses are therefore
+first-class reduction outputs rather than decorations on a band plot.
+
+At a degenerate valence edge, independently ordered branches may exchange identity and
+fail to be analytic.  A single ``hole mass tensor'' is then not basis invariant.  The
+appropriate object is a coupled matrix-valued quadratic Hamiltonian, consistent with
+multiband effective-mass reasoning \cite{LuttingerKohn1955}.  In the present non-SOC
+source, this object describes three orbital valence channels; it is not assigned physical
+heavy-hole, light-hole, or split-off labels.
+
+Let $P_0$ project onto an $r$-dimensional cluster at $\kvec_0$.  A smooth nearby cluster
+with projector $P(\qvec)$ must first be identified with $P_0\C^N$ before matrices can be
+subtracted.  If $X_0$ and $X(\qvec)$ are orthonormal cluster frames, the singular values
+of $X_0^\dagger X(\qvec)$ are cosines of principal angles.  The polar factor of this
+overlap supplies a least-squares unitary identification whenever the overlap remains
+full rank.  The transported represented cluster Hamiltonian can then be expanded as
+\begin{equation}
+ H_{\rm eff}(\qvec)=H_{\rm eff}(0)
+ +\sum_i q_i A_i+\sum_{i,j}q_iq_jB_{ij}+O(\norm{\qvec}^3).
+ \label{eq:general-cluster-expansion}
+\end{equation}
+A symmetric $+\qvec/-\qvec$ average removes the odd term without assigning individual
+branch identities.  For a unit direction $\hat{\mathbf n}$, the eigenvalues of
+$2\sum_{ij}n_in_jB_{ij}$ are the quadratic curvature channels.  These channels are
+basis invariant under one common unitary rotation of the cluster coefficient field.
+They need not equal Hessians of independently ordered bands when $H_{\rm eff}(0)$ is
+degenerate or when a reduction has artificially split it.
+
+\section{Exact rank-two theory}
+
+\subsection{Trace--traceless candidate family}
+
+Write a rank-two represented Hamiltonian as
+\begin{equation}
+ H(q)=\bar E(q)I_2+D(q),\qquad \operatorname{tr}D(q)=0.
+ \label{eq:trace-traceless}
+\end{equation}
+The candidate family shifts the centroid and positively rescales the splitting,
+\begin{equation}
+ C_{s,\lambda}(q)=\bar E(q)I_2+sE_{\rm ref}I_2+\lambda D(q),
+ \qquad \lambda>0.
+ \label{eq:candidate-rank2}
+\end{equation}
+The comparison target is a pointwise band-equivalent field
+\begin{equation}
+ A_a(q)=U_a(q)^\dagger H(q)U_a(q),
+ \qquad U_a(q)=R(a\sin2\pi q).
+ \label{eq:smooth-attack}
+\end{equation}
+The admissible alignment is one momentum-independent real rotation $R(\phi)$, not the
+generating momentum-dependent map.
+
+With positive normalized weights $\alpha_i$, define
+\begin{equation}
+ \kappa=\sum_i\frac{\alpha_i}{2E_{\rm ref}^2}\norm{D(q_i)}_F^2.
+ \label{eq:kappa-main}
+\end{equation}
+The losses use the same positive weights, normalized by $\sum_i\alpha_i=1$:
+\begin{align}
+ L_{\rm spec}^2&=\sum_i\frac{\alpha_i}{2E_{\rm ref}^2}
+ \sum_{n=1}^{2}[\epsilon_n(C_{s,\lambda};q_i)-\epsilon_n(A_a;q_i)]^2,\\
+ L_{{\rm op},\phi}^2&=\sum_i\frac{\alpha_i}{2E_{\rm ref}^2}
+ \norm{R(\phi)^\mathsf{T}C_{s,\lambda}(q_i)R(\phi)-A_a(q_i)}_F^2.
+ \label{eq:rank2-loss-definitions}
+\end{align}
+For an allowed global angle, let $\mu_\phi$ be the normalized weighted correlation
+between the globally rotated candidate traceless field and the attacked target.  A real
+rotation conjugates the two-dimensional traceless symmetric coordinates through angle
+$2\phi$.  Consequently the correlation has the explicit form
+\begin{equation}
+ \kappa\mu_\phi=b_0+c\cos2\phi+d\sin2\phi,
+ \qquad
+ \kappa\mu_{\max}=b_0+\sqrt{c^2+d^2}.
+ \label{eq:second-harmonic-correlation}
+\end{equation}
+This is why the global alignment reduces to one second harmonic rather than a numerical
+search over an unrestricted field of rotations.
+
+\begin{theorem}[Common-curvature loss geometry]
+Under the family above,
+\begin{align}
+ L_{\rm spec}^2(s,\lambda)
+ &=s^2+\kappa(\lambda-1)^2,\label{eq:spec-quadratic}\\
+ L_{\rm op,*}^2(s,\lambda)
+ &=s^2+\kappa(\lambda-\mu_{\max})^2
+ +\kappa(1-\mu_{\max}^2).
+ \label{eq:op-quadratic}
+\end{align}
+The two losses have common curvature $\operatorname{diag}(1,\kappa)$.  Their full
+unclipped admissible sets are homothetic ellipses with different centers and, for the
+operator channel, an irreducible floor $\kappa(1-\mu_{\max}^2)$.
+\end{theorem}
+
+The theorem makes the compatibility question explicit.  Spectral adequacy centers the
+splitting scale at $\lambda=1$; restricted operator adequacy centers it at
+$\lambda=\mu_{\max}$.  The momentum-dependent part that cannot be represented by one
+global rotation remains as the irreducible floor.
+
+If the spectral and operator thresholds are $\tau_s$ and $\tau_o$, define
+\begin{equation}
+ r_*^2=\tau_o^2-\kappa(1-\mu_{\max}^2).
+\end{equation}
+When the complete threshold ellipses are contained in the declared parameter rectangle,
+they intersect if and only if
+\begin{equation}
+ \sqrt\kappa\,|1-\mu_{\max}|\le \tau_s+r_*.
+ \label{eq:ellipse-intersection}
+\end{equation}
+The containment condition is necessary because
+Eq.~\eqref{eq:ellipse-intersection} compares the full ellipses through their center
+separation and radii.  If the admissible rectangle clips either ellipse, two full
+ellipses may intersect only outside the allowed parameter domain, or clipping may remove
+the nearest points used by the center-distance argument.  A failed numerical search is
+therefore not a separation proof; Eq.~\eqref{eq:ellipse-intersection} supplies the
+analytic decision only together with the containment premises.
+
+\subsection{Smooth threshold continuum}
+
+For a flat real-symmetric traceless parent, the smooth attack in
+Eq.~\eqref{eq:smooth-attack} yields
+\begin{equation}
+ \mu_{\max}(a)=\frac{1}{2\pi}\int_0^{2\pi}
+ \cos[2a\sin\theta]\,d\theta=J_0(2a),
+ \label{eq:bessel-correlation}
+\end{equation}
+where $J_0$ is the Bessel function of the first kind \cite{dlmf1012}.  The factor two
+appears because conjugation by a real rotation through $\theta_a$ rotates the traceless
+symmetric coordinates through $2\theta_a$.  Therefore
+\begin{align}
+ \tau_{o,\min}(a)
+ &=\sqrt{\kappa[1-J_0(2a)^2]},\label{eq:min-threshold}\\
+ \tau_{o,\rm joint}(a;0)
+ &=\sqrt{2\kappa[1-J_0(2a)]}.
+ \label{eq:joint-threshold}
+\end{align}
+On $0\le a\le\pi/4$, the Bessel argument satisfies $0\le2a\le\pi/2$, before the
+first positive zero of $J_1$.  Since $J_0'(x)=-J_1(x)<0$ on this interval,
+$J_0(2a)$ decreases and both thresholds are nondecreasing.  Every member of the family
+has exactly the same complete bands; only the restricted representation threshold
+changes.
+
+\subsection{Residual--locality identity}
+
+Let the flat traceless target after attack be
+\begin{equation}
+ B(q)=U(q)^\dagger D U(q)=\sum_R e^{2\pi iqR}B_R.
+\end{equation}
+
+\begin{theorem}[Rank-two residual--non-onsite-power identity]
+For the real rotation orbit used above,
+\begin{equation}
+ \inf_{s,\lambda\ge0,\phi}L_{\rm op,\phi}^2
+ =\kappa(1-\mu_{\max}^2)
+ =\frac{1}{2E_{\rm ref}^2}\sum_{R\ne0}\norm{B_R}_F^2.
+ \label{eq:residual-tail-identity}
+\end{equation}
+The same identity holds for the declared finite uniform transform.
+\end{theorem}
+
+To expose the intermediate step, normalized Parseval gives
+\begin{equation}
+ \sum_{R\ne0}\norm{B_R}_F^2
+ =\int_{-1/2}^{1/2}\norm{B(q)}_F^2\,dq-\norm{B_0}_F^2.
+ \label{eq:rank2-parseval-intermediate}
+\end{equation}
+The best constant real rotation and positive scale reproduce the optimally oriented
+onsite component; the normalized squared onsite amplitude is $\mu_{\max}^2$.  Because
+unitary conjugation preserves $\norm{B(q)}_F=\norm D_F$, the remainder is exactly
+$\norm D_F^2(1-\mu_{\max}^2)$, yielding
+Eq.~\eqref{eq:residual-tail-identity}.  This is the exact bridge between restricted
+matrix mismatch and hopping locality under the theorem's assumptions.  The global
+rotation can optimize the onsite orientation, but it cannot remove Fourier weight at
+nonzero displacement.  For the smooth family, the threshold in
+Eq.~\eqref{eq:min-threshold} is the square root of the normalized induced non-onsite
+power.
+
+\subsection{What the theorem does not claim}
+
+The result does not establish a universal relation between any matrix residual and any
+locality measure.  It assumes a flat traceless rank-two parent and matched real rotation
+orbits.  A dispersive parent adds native nonzero-range blocks and cross terms.  Higher
+rank introduces noncommuting rotations and a richer gauge group.  The value of the
+controlled theorem is that it isolates a mechanism that can then be tested without
+silently extending the equality beyond its assumptions.
+
+\section{Controlled rank-two calculation}
+
+\subsection{Finite-range four-state parent}
+
+The dispersive benchmark is a one-dimensional periodic model with lattice period $a_0$
+and reduced momentum $q=ka_0/(2\pi)\in[-1/2,1/2)$.  Four states per cell are partitioned
+into lower and upper two-state sectors.  The only nonzero parent hopping blocks are
+\begin{align}
+ T_0&=\begin{pmatrix}D_{\rm L}&0\\0&D_{\rm U}\end{pmatrix},&
+ T_{+1}&=\begin{pmatrix}J_{\rm L}&V\\0&J_{\rm U}\end{pmatrix},&
+ T_{-1}&=T_{+1}^\dagger,
+ \label{eq:rank2-parent-blocks}
+\end{align}
+with, in units of $E_{\rm ref}$,
+\begin{align}
+ D_{\rm L}&=\begin{pmatrix}-1.20&0.06\\0.06&-0.35\end{pmatrix},&
+ D_{\rm U}&=\begin{pmatrix}1.00&0.04\\0.04&1.75\end{pmatrix},\nonumber\\
+ J_{\rm L}&=\begin{pmatrix}0.15&0\\0&-0.10\end{pmatrix},&
+ J_{\rm U}&=\begin{pmatrix}0.05&0\\0&-0.04\end{pmatrix},&
+ V&=\begin{pmatrix}0.12&0\\0&0.10\end{pmatrix}.
+ \label{eq:rank2-parent-values}
+\end{align}
+The Bloch matrix is
+\begin{equation}
+ K(q)=\begin{pmatrix}
+ D_{\rm L}+zJ_{\rm L}+z^{-1}J_{\rm L}^\dagger&zV\\
+ z^{-1}V^\dagger&D_{\rm U}+zJ_{\rm U}+z^{-1}J_{\rm U}^\dagger
+ \end{pmatrix},\qquad z=e^{2\pi iq}.
+ \label{eq:rank2-parent-bloch}
+\end{equation}
+The parent has exact range one.  Its intersector coupling makes the lower two-dimensional
+spectral projector momentum dependent even though the parent itself is finite range.
+$E_{\rm ref}$ is only a normalization scale.
+
+At every sampled momentum, the four Hermitian eigenpairs are sorted and the two lowest
+states are retained.  The second-to-third band gap is monitored so that the retained
+rank and band identity are not changed silently.  Raw eigensolver vectors are not used
+as a common coordinate system because their phases and internal rank-two rotations are
+independent at each point.
+
+\subsection{Parallel-transport frame and periodic sewing}
+
+Let $Y_i\in\C^{4\times2}$ contain the raw retained eigenvectors at $q_i$, and let $F_i$
+be the accepted transported frame.  Starting with $F_0=Y_0$, form
+\begin{equation}
+ M_i=F_i^\dagger Y_{i+1}=L_i\Sigma_iR_i^\dagger,
+ \qquad F_{i+1}=Y_{i+1}R_iL_i^\dagger.
+ \label{eq:rank2-parallel-transport}
+\end{equation}
+The rotation minimizes $\norm{Y_{i+1}Q-F_i}_F$ over unitary $Q$.  Both singular values
+of $M_i$ must pass the declared rank gate; a rank-deficient overlap is rejected instead
+of being completed arbitrarily.  Orthonormality and retained-projector reconstruction
+are checked at every node.
+
+Transport around the periodic mesh generally leaves a sewing mismatch.  The duplicate
+endpoint is transported once more, the unitary polar part of
+$S=F_0^\dagger F_N$ is diagonalized as
+$S=Z\operatorname{diag}(e^{i\gamma_1},e^{i\gamma_2})Z^\dagger$, and the mismatch is
+distributed through
+\begin{equation}
+ W_i=Z\operatorname{diag}(e^{-i(i/N)\gamma_1},e^{-i(i/N)\gamma_2})Z^\dagger,
+ \qquad F_i\leftarrow F_iW_i.
+ \label{eq:rank2-sewing}
+\end{equation}
+The corrected endpoint must equal the start within tolerance.  The retained represented
+Hamiltonian is
+\begin{equation}
+ H(q_i)=F_i^\dagger K(q_i)F_i.
+ \label{eq:rank2-retained-field}
+\end{equation}
+The attack $U_a(q)=R[a\sin(2\pi q)]$ then gives
+$A_a(q)=U_a(q)^\dagger H(q)U_a(q)$ for $0\le a\le\pi/4$.  Complete spectra are equal by
+construction, while the comparison admits only one subsequent global real rotation.
+
+\subsection{Finite Fourier representation and range decision}
+
+For an $N$-point centered construction mesh,
+\begin{equation}
+ T_R^{(N)}=\frac{1}{N}\sum_{i=0}^{N-1}e^{-2\pi iq_iR}H(q_i),
+ \qquad H_N(q)=\sum_R e^{2\pi iqR}T_R^{(N)}.
+ \label{eq:rank2-finite-fourier}
+\end{equation}
+Construction-node reconstruction, cyclic Hermiticity, and Parseval equality are checked.
+For even $N$, the centered Nyquist representative $-N/2$ is self-conjugate only in the
+cyclic convention.  It is removed before ordinary-lattice truncation, and its power is
+reported as a conversion channel.  The ordinary inventory is
+$\{-N/2+1,\ldots,N/2-1\}$ and must satisfy $T_{-R}=T_R^\dagger$.
+
+For each integer cutoff $R_c$, the model
+\begin{equation}
+ H_{N,R_c}^{\rm ord}(q)=\sum_{|R|\le R_c}e^{2\pi iqR}T_R^{(N)}
+ \label{eq:rank2-truncated-field}
+\end{equation}
+is evaluated on a disjoint reciprocal inventory.  Matrix maximum/RMS and ordered-band
+maximum/RMS errors are retained separately for interpolation, deliberate truncation,
+and total finite-model consequences.  The first-passing range is the smallest tested
+integer $R_c$ whose sampled sorted-band error does not exceed a declared target.  The
+search is exact only on its bounded inventory; it is not a continuum localization
+length.
+
+The flat analytic family is evaluated directly from the Bessel expressions.  The
+non-flat parent uses directly sampled attack amplitudes rather than an interpolated
+continuum claim: 65 amplitudes for momentum-refinement diagnostics and 33 amplitudes for
+the parent/truncation surfaces.  Momentum resolutions from 32 through 512 are retained,
+and the headline endpoint uses $N=512$ with cutoffs $R_c=0,\ldots,16$.
+
+\subsection{Synthetic numerical results}
+
+At the flat endpoint $a=\pi/4$, the normalized minimum operator and exact-spectrum joint
+thresholds are approximately 0.8815978972 and 1.0276174232.  The induced non-onsite
+power is approximately 0.7772149, consistent with the squared minimum threshold.  The
+finite transform is roundoff-limited over the tested $N=32,\ldots,512$ sequence.
+
+For the dispersive parent at $N=512$, the sampled external gap is approximately
+$1.0566461E_{\rm ref}$ and the minimum transport-overlap singular value is
+0.9999997323.  Complete bands agree to about $1.45\times10^{-15}E_{\rm ref}$, while the
+comparison non-onsite power rises from 0.0323839143 to 0.1761532501 over the attack.
+
+The central finite-range result is measured at equal sampled accuracy.  At a band-error
+target of $10^{-8}E_{\rm ref}$, the first passing cutoffs are
+\begin{equation}
+ \widehat R_{c,\rm ref}^{\star}=4,
+ \qquad
+ \widehat R_{c,\rm comp}^{\star}=10.
+\end{equation}
+The band-equivalent comparison therefore requires six additional lattice steps on the
+declared cutoff inventory.  At targets $10^{-6}$, $10^{-8}$, $10^{-10}$, and
+$10^{-12}E_{\rm ref}$, the endpoint reference/comparison pairs are
+$(3,8)$, $(4,10)$, $(6,12)$, and $(7,14)$.
+
+\resultfigure
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/band-equivalence-locality-scientific-story.pdf}
+ {Controlled rank-two mechanism from exact band equivalence to representation-dependent
+ hopping locality.}
+ {The complete fields remain pointwise unitary equivalents; locality differences become
+ finite-range consequences only after a support rule and accuracy criterion are imposed.}
+ {fig:rank2-story}
+
+\resultfigure
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/range-inflation-preview.pdf}
+ {Sampled fixed-accuracy range inflation across parent scale, attack amplitude, and
+ error target.}
+ {The first-passing search is exact only over the declared integer cap
+ $R_c=0,\ldots,16$; failure within the cap is not a universal no-solution result.}
+ {fig:range-inflation}
+
+\resultfigure
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-error-channel-decomposition.pdf}
+ {Separated finite-representation error channels in the rank-two calculation.}
+ {Cyclic conversion, interpolation, deliberate truncation, and total consequences are
+ displayed independently and are not treated as additive spectral errors.}
+ {fig:rank2-error-channels}
+
+\resultfigure
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/frame-sewing-diagnostics.pdf}
+ {Retained-frame transport and sewing diagnostics for the four-state parent.}
+ {The external gap, neighboring-frame overlap, orthonormality, projector reconstruction,
+ and periodic closure are gates on the represented rank-two field.}
+ {fig:rank2-sewing}
+
+\resultfigure
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/hamiltonian-spectral-diagnostics.pdf}
+ {Hamiltonian and complete-spectrum diagnostics in the controlled calculation.}
+ {The figure distinguishes matrix-field change from eigenvalue invariance before any
+ finite-range approximation is imposed.}
+ {fig:rank2-hamiltonian-diagnostics}
+
+\resultfigure
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/sampled-range-decision-map.pdf}
+ {Sampled first-passing range decisions over the declared attack and parent-scale grid.}
+ {Each cell reports a bounded integer search result, not a continuum optimum or a
+ universal localization length.}
+ {fig:rank2-range-map}
+
+\resultfigure
+ {../../../../../calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/analysis/development/figures/truncation-band-consequences.pdf}
+ {Band consequences of finite-range truncation in the controlled family.}
+ {Reference and attacked representations are assessed at identical support rules and
+ evaluation inventories.}
+ {fig:rank2-truncation-bands}
+
+The active rank-two calculation has a passing unsealed direct-v2 execution with
+byte-owning independent verification for its declared final-mesh parent family,
+scale-one truncation slice, and refinement channels.  It does not authenticate every
+five-scale development surface used in the broad preview figures.  The exact theorem is
+not weakened by that lifecycle limitation; the numerical publication headline remains
+development or partial evidence until a complete-scope retained package is separately
+authorized and verified.
+
+\section{Silicon source and reduction methodology}
+
+\subsection{Source construction and adequacy boundary}
+
+The material-facing source is the authenticated $C6$-B20-W21 rank-10 Wannier Hamiltonian
+constructed from scalar-relativistic, non-spin-polarized PBE silicon calculations using
+Quantum ESPRESSO 7.5 and Wannier90 3.1.0 \cite{giannozzi2009,pizzi2020}.  The notation
+records a Gamma-origin $6^3$ construction mesh, 20 parent bands, and a rank-10 retained
+space.  Spinors are absent.  The analysis therefore concerns a scalar-relativistic
+orbital Hamiltonian, not an SOC spinor Hamiltonian.
+
+The primitive cell contains Si atoms at fractional coordinates $(0,0,0)$ and
+$(1/4,1/4,1/4)$.  The relaxed right-handed FCC primitive basis, in angstrom, is
+\begin{equation}
+ A=\begin{pmatrix}
+ 2.73459104682&0&2.73459104682\\
+ 2.73459104682&2.73459104682&0\\
+ 0&2.73459104682&2.73459104682
+ \end{pmatrix},
+ \label{eq:silicon-direct-basis}
+\end{equation}
+where the primitive vectors are the columns of $A$, and the corresponding conventional
+cubic lattice parameter is
+$a=5.469182093640207$~\AA.  The reciprocal-basis columns are
+\begin{equation}
+ B=\begin{pmatrix}
+ 1.14883454228&-1.14883454228&1.14883454228\\
+ 1.14883454228&1.14883454228&-1.14883454228\\
+ -1.14883454228&1.14883454228&1.14883454228
+ \end{pmatrix}\ \text{\AA}^{-1}.
+ \label{eq:silicon-reciprocal-basis}
+\end{equation}
+The cell was obtained from an authorized FCC-native \texttt{vc-relax} with
+\texttt{ibrav=2}, initial $A=5.43$~\AA, and scalar-cell relaxation.  Three BFGS steps
+and four structural SCF cycles reached a reported terminal pressure of 0.01~kbar and a
+final-SCF pressure of 0.09~kbar under a 0.5~kbar declared tolerance.  These observations
+establish the retained geometry occurrence; they do not constitute a general structural
+uncertainty analysis.
+
+The accepted parent SCF used the SSSP 1.3.0 PBE-efficiency silicon ultrasoft
+pseudopotential, a Gamma-centered $10^3$ mesh, and wavefunction/density cutoffs of
+42/336~Ry.  The retained occurrence reported electronic convergence in five iterations.
+The Wannier parent NSCF used the same accepted structure and cutoffs, 216 ordered
+Gamma-origin $6^3$ points, 20 bands, and Davidson diagonalization.  Its eigenvalue range
+was $[-5.83413,30.27201]$~eV.  These calculations were performed and authorized in their
+own retained campaign records; they were not rerun for the present post-hoc study.
+
+Wannier90 retained ten functions from the 20-band inventory.  The input used
+\texttt{spinors=.false.}, outer disentanglement window $[-6,21]$~eV, frozen window
+$[-5.85,8]$~eV, and projections \texttt{Si:sp3} together with one additional radial
+$s$-like projection per Si specified by \texttt{Si:l=0:r=2}.  Both disentanglement and
+Wannier localization had 40000-step ceilings and $2\times10^{-9}$ convergence gates.
+The retained run converged at disentanglement iteration 1517 and Wannier iteration 378,
+with final total spread $21.022751219$~\AA$^2$.  This is native optimizer convergence,
+not evidence of a global spread minimum.
+
+The native HR file contains 279 Wannier90 representatives.  After applying the retained
+Wigner--Seitz-vector/degeneracy convention, the effective ordinary reconstruction
+contains 383 representatives.  The represented field is
+\begin{equation}
+ H_{\rm W}(\kvec)=\sum_{\Rvec\in\mathcal R_{\rm WS}}
+ d_{\Rvec}^{-1}e^{i\kvec\cdot\Rvec}H_{\rm HR}(\Rvec),
+ \label{eq:native-wannier-reconstruction}
+\end{equation}
+where the effective coefficient inventory incorporates the authenticated Wigner--Seitz
+mapping and degeneracy factors $d_{\Rvec}$.  Pair closure, Hermiticity, construction-mesh
+reconstruction, reciprocal periodicity, and finite spectra were checked before the
+source was admitted to reduction analysis.
+
+Structural eligibility does not imply material adequacy.  In the canonical corrected
+current-source comparison against the revealed 408-point DFT parent, the source indirect
+gap is 0.6892447~eV and the parent gap is 0.6112467~eV, a 12.7605\% relative difference
+against the prospectively declared 5\% target.  All six valley positions pass their
+0.034465~\AA$^{-1}$ displacement target, with displacements from approximately 0.01906
+to 0.02134~\AA$^{-1}$, but all six longitudinal masses and eleven of twelve transverse
+masses fail the 8\% target.  The non-gating injective 408-point spectral residual is
+0.246196~eV RMS and 0.737286~eV maximum.  These failures bound every result below:
+source-relative preservation is not DFT validation.
+
+An earlier parent-comparison record reported a 0.5226105~eV candidate gap.  The retained
+source identities resolve the apparent discrepancy: that value belongs to a distinct
+lower-energy-frozen $4^3$/12-band Wannier candidate whose eligible HR hash is
+\texttt{2139eb7f...}, not to the present $C6$--$B20$--$W21$ candidate whose HR hash is
+\texttt{24a411c8...}.  The two records share the same revealed DFT parent gap but do not
+share a candidate Hamiltonian.  The present article therefore uses 0.6892447~eV only for
+the authenticated $C6$--$B20$--$W21$ source and does not combine the candidate lineages.
+
+No frozen 402-point confirmation values are used.  No Quantum ESPRESSO, interface, or
+Wannier90 process was invoked for the gauge, shell, fidelity, or band-edge analyses.
+Every subsequent Hamiltonian is reconstructed from the same authenticated HR and
+Wigner--Seitz data in the same rank-10 Wannier basis and native energy reference.
+
+For band-structure context, one separately authorized fixed-density QE 7.5 calculation
+was performed after the referee revision.  It consumed an isolated copy of the accepted
+K10 SCF state and evaluated 20 parent Kohn--Sham bands at 241 ordered points on
+$L$--$\Gamma$--$X$--$\Gamma$.  Figure~\ref{fig:parent-dft-bands} displays the lowest 12
+parent bands together with the complete rank-10 Wannier source.  Both curves retain their
+native common energy reference; the plot subtracts the parent path VBM and applies no
+fitted source shift.  The sampled path gaps are 0.6114~eV for the parent and
+0.69046~eV for the source.  These rounded path diagnostics visualize, but do not replace,
+the separately optimized indirect-gap records.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-parent-bands-l-gamma-x-gamma-b20/figures/parent-dft-band-diagram.pdf}
+ {Accepted-S1 parent DFT band path and full Wannier source.}
+ {The solid curves are the lowest 12 of 20 scalar-relativistic PBE parent bands; dashed
+ curves are the ten bands of the authenticated $C6$--$B20$--$W21$ source.  The horizontal
+ path contains 241 ordered points.  The common display zero is the parent path VBM, and
+ no fitted energy alignment is used.}
+ {fig:parent-dft-bands}
+
+\subsection{Higher-rank gauge attack}
+
+The internal attack is frozen independently of the silicon Hamiltonian.  It is a real
+orthogonal---and therefore complex-unitary---rank-10, depth-2 alternating
+nearest-neighbor Givens circuit in the authenticated Wannier coordinate order.  The
+indices below refer only to that retained coordinate order; no atomic-orbital identity
+is assigned to an index.
+\begin{equation}
+ G(\kvec)=G_1(\kvec)G_2(\kvec),\qquad
+ A(\kvec)=G(\kvec)^\dagger H_{\rm W}(\kvec)G(\kvec).
+ \label{eq:rank10-attack}
+\end{equation}
+Layer 1 rotates pairs $(0,1),(2,3),(4,5),(6,7),(8,9)$; layer 2 rotates
+$(1,2),(3,4),(5,6),(7,8)$.  Let the harmonic bonds be
+$\mathbf b_1=(1,0,0)$, $\mathbf b_2=(0,1,0)$, and
+$\mathbf b_3=(0,0,1)$.  The shared layer scalar is
+\begin{align}
+ g_\ell(\kvec)=\frac{1}{3}\sum_{a=1}^{3}
+ \left[\frac{3}{4}\sin(2\pi\kvec\cdot\mathbf b_a)
+ +\frac{1}{4}(-1)^\ell\sin(4\pi\kvec\cdot\mathbf b_a)\right].
+ \label{eq:gauge-scalar}
+\end{align}
+For a pair whose right index is $p$, the rotation angle is
+\begin{equation}
+ \theta_{\ell p}(\kvec)=\frac{\pi}{8}
+ (-1)^{\ell+p}\frac{1+0.15(2p-10)/9}{1.15}\,g_\ell(\kvec).
+ \label{eq:gauge-angle}
+\end{equation}
+This construction is periodic, has conservative angle bound $\pi/8$, and supplies its
+exact inverse $G(\kvec)^\dagger$.  It was selected as a synthetic middle-amplitude
+control before inspecting the silicon support results; changing a bond, depth,
+normalization, or coefficient defines a different attack.  It is a constructed stress
+test demonstrating one allowed redistribution of locality.  It is not claimed to be
+representative of typical Wannier90 gauge variation or to maximize range inflation.
+
+The source construction coordinates are the native Gamma-origin points
+$0,1/6,\ldots,5/6$ on each reduced reciprocal axis.  For the centered transform they
+are wrapped and permuted to
+\begin{equation}
+ \mathcal K_6=\{-1/2,-1/3,-1/6,0,1/6,1/3\}^{\otimes3},
+ \label{eq:centered-c6-grid}
+\end{equation}
+with zero construction offset.  The direct native HR/Wigner--Seitz route is evaluated
+first; the generic field adapter does not reconstruct the source from raw DFT
+wavefunctions.  The distinct evaluation inventory is the ordered 408-point development
+geometry with uniform weights $w_j=1/408$.  It is accepted as an arbitrary point list
+and is not padded into a tensor grid.  The frozen 402-point confirmation geometry and
+values play no role.
+
+Four alignment channels are evaluated.  Identity uses the common reference coordinates.
+Global-unitary alignment fits one complete momentum-independent unitary over the
+construction field.  Pointwise polar alignment obtains one unitary per coordinate from
+the admitted frame overlaps.  Known-inverse alignment applies the exact inverse action
+of Eq.~\eqref{eq:rank10-attack}.  The frozen rank cutoffs use the additive rule with
+absolute threshold $10^{-12}$ and relative threshold $10^{-10}$; the same absolute and
+relative values are used for transport-rank checks.  A deficient overlap fails rather
+than receiving an implicit null-space completion.  Pointwise polar and known inverse
+are oracle controls, not candidate discovery procedures.
+
+For a centered cyclic displacement $\mathbf m$, the normalized finite transform is
+\begin{equation}
+ T^{(6)}_{\mathbf m}=\frac{1}{216}
+ \sum_{\kvec\in\mathcal K_6}e^{-2\pi i\kvec\cdot\mathbf m}H(\kvec),
+ \qquad
+ H^{(6)}(\kvec)=\sum_{\mathbf m}e^{2\pi i\kvec\cdot\mathbf m}T^{(6)}_{\mathbf m}.
+ \label{eq:finite-cyclic-transform}
+\end{equation}
+Construction-point reconstruction, block Hermiticity, and Parseval consistency are
+checked.  Because an even finite grid contains Nyquist representatives whose ordinary
+integer conjugate is not represented independently, cyclic blocks are then converted
+explicitly to an inversion-complete ordinary inventory.  Conversion-removed power is
+recorded separately.  The retained ordinary components are
+$m_i\in\{-2,-1,0,1,2\}$, giving 125 blocks before support truncation.
+
+Complete supports are defined by the FCC metric.  For
+$\mathbf m=(n_1,n_2,n_3)$,
+\begin{equation}
+ q(\mathbf m)=2(n_1^2+n_2^2+n_3^2+n_1n_2+n_1n_3+n_2n_3),
+ \qquad
+ r(\mathbf m)=\sqrt{\frac{q(\mathbf m)}{4/a^2}}.
+ \label{eq:fcc-support-metric}
+\end{equation}
+The formula follows directly from $\Rvec=A\mathbf m$.  For the FCC primitive basis in
+Eq.~\eqref{eq:silicon-direct-basis},
+\begin{equation}
+ \norm{A\mathbf m}^2=\frac{a^2}{2}
+ (n_1^2+n_2^2+n_3^2+n_1n_2+n_1n_3+n_2n_3)
+ =\frac{a^2}{4}q(\mathbf m),
+ \label{eq:fcc-radius-derivation}
+\end{equation}
+which is equivalent to Eq.~\eqref{eq:fcc-support-metric}.  The attained labels are
+ordered up to $q=48$; every support contains all blocks at or below one attained label
+and is inversion complete.  These are distances between lattice-block representatives.
+They are not orbital-center or individual matrix-entry distances.
+
+For each representation and support, the producer retains maximum and RMS matrix
+Frobenius errors, maximum and RMS sorted-spectrum errors, omitted block power, physical
+radius, displacement inventory, and block count.  The matrix RMS is normalized by
+$\sqrt{10}\times1$~eV and the sorted-spectrum RMS by the same per-state scale.  The
+calculation distinguishes:
+\begin{enumerate}[leftmargin=2em]
+ \item \emph{direct-parent error}: the complete Wannier source relative to revealed DFT
+ eigenvalues, without defining a DFT operator subtraction in the Wannier basis;
+ \item \emph{exact gauge equivalence}: the complete source and attacked fields before
+ finite Fourier representation;
+ \item \emph{conversion}: centered cyclic blocks removed or remapped by the ordinary
+ lattice convention;
+ \item \emph{interpolation}: the full 125-block ordinary interpolant relative to the
+ direct native represented target on the 408 points;
+ \item \emph{deliberate truncation}: a support-limited ordinary model relative to its
+ full ordinary interpolant; and
+ \item \emph{represented total}: the final support-limited model relative to the direct
+ native represented source.
+\end{enumerate}
+Separately maximized or RMS channels are never added as if they were signed scalar
+errors.  Complete support curves are compared by observed discrete non-dominance and by
+``equal-attained-error'' queries: for an error actually attained by one discrete support,
+the minimum support of the other representation attaining no larger error is reported.
+No interpolation between support counts and no post-hoc acceptance threshold is used.
+Native Wigner--Seitz shells remain a separate fixed-gauge route.
+
+\subsection{Native shell hierarchy and literal reduction}
+
+The effective native representatives are grouped by Cartesian radius after rounding the
+radius to nine decimal places.  This produces 18 nested, inversion-complete shells.
+Table~\ref{tab:native-shells} gives the complete family.  H-shell-00 is the onsite
+control and H-shell-17 is the full 383-representative source.  Literal reductions
+H-shell-00 through H-shell-16 retain the source coefficients unchanged inside one shell
+boundary and set every coefficient outside it to zero.  Full support remains a zero-loss
+control and is excluded from proper-reduction feasibility.
+
+\begin{table}[tbp]
+\centering
+\small
+\caption{Complete native Wigner--Seitz shell hierarchy.  The last column is cumulative
+support.}
+\label{tab:native-shells}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Shell & Radius (\AA) & New representatives & Cumulative representatives\\
+\midrule
+H-shell-00&0.000000000&1&1\\
+H-shell-01&3.867295746&12&13\\
+H-shell-02&5.469182094&6&19\\
+H-shell-03&6.698352720&24&43\\
+H-shell-04&7.734591492&12&55\\
+H-shell-05&8.647536177&24&79\\
+H-shell-06&9.472901262&8&87\\
+H-shell-07&10.231902790&48&135\\
+H-shell-08&10.938364187&6&141\\
+H-shell-09&11.601887238&36&177\\
+H-shell-10&12.229462943&24&201\\
+H-shell-11&12.826368943&24&225\\
+H-shell-12&13.396705440&24&249\\
+H-shell-13&13.943733109&64&313\\
+H-shell-14&14.977972019&40&353\\
+H-shell-15&15.945268846&12&365\\
+H-shell-16&16.407546281&6&371\\
+H-shell-17&16.857151341&12&383\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For every literal candidate, $H_S(\kvec)$ is reconstructed directly on the ordered
+408-point inventory in the common Wannier basis.  The losses are
+Eqs.~\eqref{eq:tau1-main}--\eqref{eq:tau2-main}; no DFT parent values are consumed.
+Maximum ordered-spectrum and per-state Frobenius errors are retained as additional
+coordinates.  A threshold cell $(t_1,t_2)$ is populated by the smallest proper support
+with $\tau_1\le t_1$ and $\tau_2\le t_2$.  Because the cells are evaluated only after
+all candidates are known, the resulting surface is descriptive rather than a
+prospective selection policy.
+
+\subsection{Refitted complete-shell family and analytic gradients}
+
+The refitted family retains the same supports and Wannier basis but assigns one bounded
+real scale to each complete retained shell.  Define the shell-resolved field
+\begin{equation}
+ H_s(\kvec)=\sum_{\Rvec\in s}e^{i\kvec\cdot\Rvec}T_{\rm W}(\Rvec).
+ \label{eq:shell-field}
+\end{equation}
+For support $S_p=\{0,\ldots,p\}$,
+\begin{equation}
+ H_{\boldsymbol\alpha}^{(p)}(\kvec)
+ =\sum_{s=0}^{p}\alpha_sH_s(\kvec),
+ \qquad 0\le\alpha_s\le2.
+ \label{eq:shell-refit}
+\end{equation}
+The same $\alpha_s$ applies to every representative in shell $s$, including both
+$\Rvec$ and $-\Rvec$.  Blocks outside $S_p$ remain zero.  Sign reversal and
+more-than-doubling are excluded.  No matrix entry is fitted independently, and no
+atomic-orbital or Slater--Koster semantics are introduced.
+
+Let $D_j=H_{\boldsymbol\alpha}(\kvec_j)-H_{\rm W}(\kvec_j)$ and let
+$\delta\epsilon_{jn}$ be the ordered eigenvalue difference.  With $N_k=408$, rank
+$N=10$, and $E_0=1$~eV,
+\begin{align}
+ \tau_2^2&=\frac{1}{N_kNE_0^2}\sum_j\norm{D_j}_F^2,\\
+ \frac{\partial\tau_2^2}{\partial\alpha_s}
+ &=\frac{2}{N_kNE_0^2}\sum_j
+ \operatorname{Re}\operatorname{tr}[D_j^\dagger H_s(\kvec_j)],
+ \label{eq:operator-gradient}\
+ \tau_1^2&=\frac{1}{N_kN E_0^2}\sum_{j,n}\delta\epsilon_{jn}^2,\\
+ \frac{\partial\tau_1^2}{\partial\alpha_s}
+ &=\frac{2}{N_kN E_0^2}\sum_{j,n}\delta\epsilon_{jn}
+ \langle v_{jn}|H_s(\kvec_j)|v_{jn}\rangle.
+ \label{eq:spectral-gradient}
+\end{align}
+Equation~\eqref{eq:spectral-gradient} is the local Hellmann--Feynman derivative for the
+computed ordered eigensystem.  The ordered spectral objective is nonsmooth at exact
+crossings or degeneracies; the retained gradient is therefore a local binary64
+derivative, not a proof of global differentiability.
+
+For each support and scalarization weight $w$, the optimized objective is
+\begin{equation}
+ F_w(\boldsymbol\alpha)=w\tau_1^2+(1-w)\tau_2^2.
+ \label{eq:scalarized-loss}
+\end{equation}
+The 17 weights are
+\begin{equation}
+ w\in\{0,0.001,0.003,0.01,0.03,0.1,0.2,0.35,0.5,0.65,
+ 0.8,0.9,0.97,0.99,0.997,0.999,1\}.
+\end{equation}
+Bounded L-BFGS-B uses at most 300 iterations, gradient tolerance $10^{-10}$, and
+function tolerance $10^{-14}$.  Three deterministic starts are used: the literal
+$\boldsymbol\alpha=\mathbf1$ candidate, an alternating 0.75/1.25 vector, and continuation
+from the preceding scalarization optimum.  The analytic gradient was checked by finite
+differences; the maximum absolute discrepancy was $9.7361\times10^{-10}$ and the
+maximum scaled discrepancy was $4.0729\times10^{-11}$.  Only optimizer-success records enter the final witness surface.  Among the 444 retained
+successful records, 50 have one coefficient active at the lower bound and 35 have one
+coefficient active at the upper bound; no retained record has more than one active lower
+or upper coefficient.  Bound activity occurs only on H-shell-02 (17 upper-bound
+records), H-shell-06 (50 lower-bound records), and H-shell-08 (18 upper-bound records).
+The bounds therefore shape parts of the observed witness set and remain part of the
+model definition.  The 444 records are constructive witnesses; a missing witness is not
+a global infeasibility certificate.
+
+This is a shell-renormalized Wannier family, not a Slater--Koster model.  The separate
+Slater--Koster path stopped at a rank-9 common-space gate at Gamma and one additional
+construction point and produced no fitted parameter vector.
+
+\subsection{Frozen fidelity ladder}
+
+Three converged witnesses were selected from post-hoc threshold cells and frozen before
+broader evaluation: H-shell-05 with 79 representatives from cell $(0.1,0.15)$,
+H-shell-10 with 201 representatives from $(0.02,0.04)$, and H-shell-16 with 371
+representatives from $(0.001,0.002)$.  Their exact shell-scale vectors, ordered from the
+onsite shell outward, are
+\begin{align}
+ \boldsymbol\alpha_{05}={}&(0.99939463,1.02717894,1.15464602,
+ 0.96389478,0.87025477,0.84340786),\\
+ \boldsymbol\alpha_{10}={}&(0.99931068,1.00108654,1.01987595,
+ 1.04502720,0.98170703,0.92902579,0.70419673,\nonumber\\
+ &\hspace{17mm}1.04750727,0.57744398,0.99055868,1.15302212),\\
+ \boldsymbol\alpha_{16}={}&(1.00002718,1.00000490,1.00195671,
+ 1.00018218,0.99843025,0.99840401,0.99896498,\nonumber\\
+ &\hspace{10mm}0.99950810,0.99768267,1.00065532,0.99738969,
+ 0.99854754,1.00013810,1.00004865,\nonumber\\
+ &\hspace{10mm}1.01699983,1.04338006,1.00871625).
+ \label{eq:frozen-alpha-vectors}
+\end{align}
+All later calculations evaluate these coefficients without refitting.
+
+Table~\ref{tab:data-roles} separates construction, fitting, selection, and evaluation
+inventories.  In particular, the same 408 coordinates serve as the post-hoc shell-loss
+inventory, but their DFT parent eigenvalues are not used to fit shell scales or select
+the three frozen witnesses.
+
+\begin{table}[tbp]
+\centering
+\small
+\caption{Data and reciprocal inventories by role.  ``Excluded'' means unavailable to
+model construction, fitting, selection, and the reported development evaluation.}
+\label{tab:data-roles}
+\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}XXX@{}}
+\toprule
+Inventory & Construction/fitting role & Selection role & Evaluation role\\
+\midrule
+Relaxed cell, K10 SCF, C6-B20 NSCF
+& Defines the parent occurrence and Wannier inputs
+& None in the post-hoc reduction
+& Provenance and source-adequacy context\\
+Gamma-origin $6^3$ (216 points)
+& Wannier construction and finite-cyclic gauge transform
+& Attack frozen before silicon support outcomes
+& Construction reconstruction and Parseval checks\\
+Ordered 408-point geometry
+& Shell loss and scalarized refit inventory; uniform weight $1/408$
+& Post-hoc threshold cells identify frozen witnesses; no DFT parent values used
+& Gauge support curves and source-relative fitted-inventory losses\\
+Gamma-origin $12^3$, $20^3$, $32^3$
+& None
+& None; models already frozen
+& Dense spectra, sampled operator RMS, and mesh stability\\
+$32^3$ signed-axis sectors plus local searches
+& None
+& None; models already frozen
+& Operational conduction sector minima and curvature diagnostics\\
+Parent $L$--$\Gamma$--$X$--$\Gamma$ path (241 points)
+& None; fixed-density parent visualization after model freezing
+& None
+& Contextual DFT/source band diagram; not a fitting or global-extremum inventory\\
+Frozen 402-point confirmation set
+& Excluded
+& Excluded
+& Excluded; values remain unobserved\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The ladder has three evaluation levels.  First, exact normalized-Brillouin-zone operator
+RMS is computed from Eq.~\eqref{eq:parseval-rms} using the unique effective native
+coefficients.  Second, spectra and sampled operator residuals are evaluated on independent
+Gamma-origin tensor products
+\begin{equation}
+ \mathcal G_N=\{(i/N,j/N,k/N):i,j,k=0,\ldots,N-1\},
+ \qquad N\in\{12,20,32\}.
+ \label{eq:dense-meshes}
+\end{equation}
+The retained metrics are all-band RMS, maximum, and 95th-percentile absolute ordered
+spectral errors; lowest-conduction-band errors; and sampled per-state operator RMS.  Mesh
+comparisons are made after the models are frozen and are therefore interpolation tests,
+not additional fitting data.
+
+Third, six signed $\Delta$-family sector minima are identified operationally.  The
+$32^3$ mesh is partitioned
+by dominant signed Cartesian reciprocal axis.  For each of $\pm x$, $\pm y$, and
+$\pm z$, the eight lowest coarse points in the corresponding sector are retained as
+starts, together with the source valley coordinate.  From each start, band 4 in zero-based
+ordering is minimized by L-BFGS-B over a Cartesian displacement box
+$[-0.12,0.12]^3$~\AA$^{-1}$, with at most 240 iterations, function tolerance
+$10^{-14}$, and gradient tolerance $10^{-10}$.  Periodic reduced coordinates are
+reconstructed using $B^{-1}$, and a candidate is retained only if its final dominant
+signed-axis label matches the requested valley identity.  The lowest successful matching
+minimum is selected as the identified sector minimum; a bound-activity flag is retained.
+This bounded multistart procedure does not prove that the global minimum of the entire
+sector has been found.  The eight-start sector search
+replaced a preliminary source-centered $0.08$~\AA$^{-1}$ search that reached its bound
+for the H-shell-05 $y$ valleys.
+
+At each identified sector minimum, the primary Cartesian Hessian uses step
+$h=0.002$~\AA$^{-1}$.  Diagonal and mixed entries are
+\begin{align}
+ K_{ii}&=\frac{E(h\mathbf e_i)-2E(0)+E(-h\mathbf e_i)}{h^2},\\
+ K_{ij}&=\frac{E(h\mathbf e_i+h\mathbf e_j)-E(h\mathbf e_i-h\mathbf e_j)
+ -E(-h\mathbf e_i+h\mathbf e_j)+E(-h\mathbf e_i-h\mathbf e_j)}{4h^2}.
+ \label{eq:finite-hessian}
+\end{align}
+Diagonalization gives principal curvatures and axes.  Principal masses in electron-mass
+units are $(\hbar^2/m_e)/\kappa_i$ after conversion from eV~\AA$^2$.  Gap, valley
+position, Hessian, and mass differences are always reduced-model differences from the
+full Wannier source computed by the identical algorithm.
+
+\subsection{Comprehensive conduction analysis}
+
+The final identified sector-minimum coordinates from the frozen ladder are reused
+without reoptimization.
+For every model and valley, Cartesian gradients and Hessians are recomputed with
+$h\in\{0.001,0.002,0.005,0.01\}$~\AA$^{-1}$ using
+Eq.~\eqref{eq:finite-hessian}; $0.002$~\AA$^{-1}$ is primary.  With
+$C=\hbar^2/(m_e\,{
+m eV})\times10^{20}$ in eV~\AA$^2$, the dimensionless inverse-mass
+and mass tensors are
+\begin{equation}
+ M^{-1}=K/C,\qquad M=C K^{-1}.
+ \label{eq:mass-tensors}
+\end{equation}
+If $m_{v1},m_{v2},m_{v3}$ are a valley's principal masses, the reported one-valley
+summary conventions are
+\begin{equation}
+ m_{{\rm DOS},v}=(m_{v1}m_{v2}m_{v3})^{1/3},\qquad
+ m_{{\rm cond},v}=\frac{3}{m_{v1}^{-1}+m_{v2}^{-1}+m_{v3}^{-1}}.
+ \label{eq:single-valley-masses}
+\end{equation}
+For six valleys,
+\begin{align}
+ m_{{\rm DOS},6}&=\left[\sum_v(m_{v1}m_{v2}m_{v3})^{1/2}\right]^{2/3},\\
+ \overline{M^{-1}}&=\frac{1}{6}\sum_v M_v^{-1},\qquad
+ m_{{\rm cond},6}=\frac{3}{\operatorname{tr}\overline{M^{-1}}}.
+ \label{eq:six-valley-masses}
+\end{align}
+These are declared geometric conventions derived from represented curvatures.  They do
+not include occupations, scattering, temperature, carrier density, or a transport
+solution.  Gradient residuals and mass variation over all four stencils are retained to
+separate reduction effects from finite-difference sensitivity.
+
+\subsection{Gamma valence cluster and ordered-branch diagnostic}
+
+At Gamma, zero-based bands 1--3 define the upper valence cluster.  If $X_{\rm W}$ and
+$X_{\rm r}$ are orthonormal source and candidate cluster frames, the singular values
+$\sigma_i$ of $X_{\rm W}^\dagger X_{\rm r}$ give principal angles
+$\theta_i=\arccos\sigma_i$.  The projector discrepancy is
+$\norm{X_{\rm r}X_{\rm r}^\dagger-X_{\rm W}X_{\rm W}^\dagger}_F$.  Cluster energies,
+centroid, splitting, singular values, projector distance, and principal angles are all
+reported.  These quantities separate preservation of the three-dimensional subspace
+from preservation of the operator within that subspace.
+
+As an explicit diagnostic of why scalar branch masses fail, the three ordered cluster
+eigenvalues are sampled along [100], [110], and [111].  Five positive points and their
+negative partners are used inside each half-window
+$Q\in\{0.005,0.01,0.02\}$~\AA$^{-1}$.  Each ordered branch is fitted to
+\begin{equation}
+ E_n(q)=c_n+a_nq^2+b_nq^4,
+ \label{eq:ordered-quartic}
+\end{equation}
+with apparent curvature $2a_n$ and apparent hole mass
+$-C/(2a_n)$ only when $2a_n<0$.  Missing masses correspond to positive fitted curvature;
+they are not clipped.  Because sorting can exchange branch identity at a degeneracy,
+these fits are retained solely as instability diagnostics.
+
+\subsection{Transported three-band quadratic Hamiltonian}
+
+The primary valence object never assigns an individual band at Gamma.  For each model,
+let $X_0$ be the Gamma cluster frame.  At displaced momentum $\qvec$, diagonalization
+gives cluster eigenvalues $\boldsymbol\epsilon(\qvec)$ and frame $X(\qvec)$.  Write
+\begin{equation}
+ X_0^\dagger X(\qvec)=L(\qvec)\Sigma(\qvec)R(\qvec)^\dagger,
+ \qquad Q(\qvec)=L(\qvec)R(\qvec)^\dagger.
+ \label{eq:cluster-polar}
+\end{equation}
+The represented displaced cluster Hamiltonian in Gamma coordinates is
+\begin{equation}
+ \mathcal H(\qvec)=Q(\qvec)\operatorname{diag}
+ [\boldsymbol\epsilon(\qvec)]Q(\qvec)^\dagger.
+ \label{eq:transported-cluster}
+\end{equation}
+The largest principal angle encountered during sampling is retained as a transport
+condition diagnostic.  The even response
+\begin{equation}
+ \Delta\mathcal H_{+}(\qvec)=\frac{\mathcal H(\qvec)+\mathcal H(-\qvec)}{2}
+ -\mathcal H(0)
+ \label{eq:even-cluster-field}
+\end{equation}
+is fitted by complex linear least squares to
+\begin{align}
+ H_{\rm eff}(\qvec)=H_{\rm eff}(0)
+ &+q_x^2B_{xx}+q_y^2B_{yy}+q_z^2B_{zz}\nonumber\\
+ &+2q_xq_yB_{xy}+2q_xq_zB_{xz}+2q_yq_zB_{yz}.
+ \label{eq:valence-effective}
+\end{align}
+The sample directions are the 13 unoriented rays obtained from all nonzero vectors in
+$\{-1,0,1\}^3$ after identifying $\mathbf n$ and $-\mathbf n$.  For each half-window
+$Q\in\{0.005,0.01,0.02\}$~\AA$^{-1}$, four radii
+$Q/4,Q/2,3Q/4,Q$ are used on every ray.  Thus each fit uses 52 even matrix observations.
+Each of the six fitted $3\times3$ matrices is explicitly Hermitian symmetrized.  The RMS
+fit residual is
+\begin{equation}
+ \left[\frac{1}{3N_q}\sum_{a=1}^{N_q}
+ \norm{\Delta\mathcal H_{+}(\qvec_a)-\Delta\mathcal H_{\rm fit}(\qvec_a)}_F^2
+ \right]^{1/2}.
+ \label{eq:multiband-fit-residual}
+\end{equation}
+
+For a unit direction $\mathbf n$, define
+\begin{equation}
+ B(\mathbf n)=n_x^2B_{xx}+n_y^2B_{yy}+n_z^2B_{zz}
+ +2n_xn_yB_{xy}+2n_xn_zB_{xz}+2n_yn_zB_{yz}.
+ \label{eq:direction-contraction}
+\end{equation}
+The curvature channels are the three eigenvalues of $2B(\mathbf n)$.  Negative channels
+are converted to apparent non-SOC hole masses by $m_h/m_e=-C/\kappa$.  For source-relative
+coefficient comparison, the candidate Gamma frame is first polar-aligned to the source
+Gamma frame; the same unitary conjugates all six candidate $B_{ij}$.  The reported joint
+coefficient error is
+\begin{equation}
+ \eta_B=\frac{
+ [\sum_{ij}\norm{B^{\rm r}_{ij}-B^{\rm W}_{ij}}_F^2]^{1/2}}
+ {[\sum_{ij}\norm{B^{\rm W}_{ij}}_F^2]^{1/2}}.
+ \label{eq:quadratic-coefficient-error}
+\end{equation}
+Window sensitivity compares each coefficient field with the primary
+$Q=0.01$~\AA$^{-1}$ field by the same normalized joint norm.
+
+Finally, direct gaps are evaluated at Gamma, six conventional X points
+$\pm(2\pi/a)\mathbf e_i$, and eight conventional L points
+$(\pi/a)(\pm1,\pm1,\pm1)$ after conversion to reduced primitive coordinates.  The
+minimum, maximum, and spread over equivalent X or L points are retained.  A separate
+Gamma-origin $32^3$ mesh supplies every ordered-band minimum, maximum, bandwidth, VBM,
+CBM, and indirect gap for all four frozen models.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/experiment-schematic.pdf}
+ {Schematic of the rank-10 silicon gauge and finite-support experiment.}
+ {The source, internal attack, alignment channels, finite Fourier route, and support
+ decisions are separate stages with separate error ownership.}
+ {fig:si-experiment-schematic}
+
+\section{Silicon results}
+
+\subsection{Complete spectrum is invariant while locality changes}
+
+The maximum complete-spectrum difference under the frozen attack is
+$3.1974\times10^{-14}$ eV.  Identity and one-global-unitary alignment leave maximum
+frame defects near 1.021 and 1.020.  Pointwise polar and known-inverse controls reduce
+the defect to approximately $1.29\times10^{-15}$ and $5.06\times10^{-16}$.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/alignment-invariance.pdf}
+ {Alignment and complete-spectrum invariance for the rank-10 silicon attack.}
+ {The nonzero identity/global residual is caused by the restricted alignment family;
+ the complete fields remain related by the generating momentum-dependent unitary.}
+ {fig:si-alignment}
+
+The reference and identity-attacked non-onsite finite-block powers are 20.7574 and
+21.5057 eV$^2$ per retained state.  The finite-cyclic interpolation maximum sorted-band
+errors are approximately 0.3470 and 0.3867 eV.  These interpolation floors are not
+attack-induced complete-spectrum errors; they belong to the finite construction and
+conversion route.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/fourier-power-redistribution.pdf}
+ {Rank-10 Fourier-power redistribution under a spectrum-preserving internal attack.}
+ {Block power is plotted against physical radius, with conversion-removed power retained
+ as a separate channel.}
+ {fig:si-power}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/complete-spectrum-equivalence.pdf}
+ {Complete reference and attacked spectra on the ordered 408-point inventory.}
+ {The horizontal coordinate is an ordered inventory, not an interpolated band path.}
+ {fig:si-spectrum}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/direct-parent-overlay.pdf}
+ {Direct-parent overlay for the represented source and gauge-equivalent comparison.}
+ {The displayed parent discrepancy belongs to source adequacy and remains distinct from
+ the exactly spectrum-preserving internal attack.}
+ {fig:si-parent-overlay}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/displacement-block-power.pdf}
+ {Displacement-resolved block power in the converted finite representation.}
+ {Individual block norms reveal redistribution that can be hidden by a single total
+ non-onsite-power scalar.}
+ {fig:si-displacement-power}
+
+The observed non-dominated support-error sets change between representations.  This is the higher-rank
+material-derived counterpart of the rank-two range-inflation mechanism: complete
+spectral equivalence does not fix the finite support needed under a restricted coordinate
+identification.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/pareto-support-error-frontiers.pdf}
+ {Observed discrete rank-10 non-dominated support-error sets.}
+ {Markers identify the non-dominated complete supports found on the exhaustive declared
+ support inventory.  Lines guide the eye
+ between discrete shell choices and do not define fractional supports.}
+ {fig:si-pareto}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/support-error-frontiers.pdf}
+ {Complete support-error curves before non-dominated-set extraction.}
+ {The curves retain dominated supports and therefore expose nonmonotonic details that a
+ non-dominated-only summary removes.}
+ {fig:si-support-curves}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/equal-attained-error-support.pdf}
+ {Equal-attained-error support comparison for the two rank-10 representations.}
+ {The comparison uses attained discrete errors and avoids interpreting line segments as
+ continuously adjustable support.}
+ {fig:si-equal-error}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/transport-diagnostics.pdf}
+ {Transport and sewing diagnostics for the rank-10 alignment channels.}
+ {Closure and plaquette phases are numerical sewing diagnostics and are not assigned a
+ topological interpretation.}
+ {fig:si-transport}
+
+\subsection{Literal shell truncation has no global two-loss conflict}
+
+Among the 17 proper literal reductions, H-shell-16 minimizes both primary RMS losses:
+\begin{equation}
+ (\tau_1,\tau_2)=
+ (4.4636\times10^{-4},1.5173\times10^{-3}),
+\end{equation}
+while retaining 371 representatives.  The tightest literal family therefore has no
+global spectral--operator conflict: the same proper support minimizes both losses.
+This does not show that the losses are generally interchangeable.  The family is nested,
+and both coordinates are driven by the same omitted matrix field.
+
+The post-hoc pair $(0.1,0.15)$ first admits 135 representatives, $(0.01,0.02)$ first
+admits 313, and $(0.001,0.002)$ first admits 371.  The pair $(0.0004,0.001)$ has no proper
+literal witness.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/single-witness-surface.pdf}
+ {Minimum-support surface for literal native-shell deletion.}
+ {The full 383-representative source is excluded from reduced-family feasibility.
+ Threshold coordinates are descriptive post-hoc readings, not acceptance limits.}
+ {fig:literal-surface}
+
+\subsection{Refitting creates genuine spectral--operator arcs}
+
+The bounded refitted search retains 444 converged constructive witnesses.  Fixed
+supports now trace distinct spectral--operator arcs.  Observed minimum support changes
+include
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+$(\tau_1,\tau_2)$ & Literal representatives & Refitted representatives\\
+\midrule
+$(1.0,1.0)$ & 19 & 13\\
+$(0.1,0.15)$ & 135 & 79\\
+$(0.05,0.1)$ & 177 & 135\\
+$(0.02,0.04)$ & 225 & 201\\
+$(0.01,0.02)$ & 313 & 313\\
+$(0.001,0.002)$ & 371 & 371\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Within H-shell-16, an operator-oriented witness reaches approximately
+$(4.04\times10^{-4},1.394\times10^{-3})$, while a spectral-oriented witness reaches
+$(2.98\times10^{-4},1.745\times10^{-3})$.  The same support therefore supports a real
+tradeoff after refitting.  The optimization remains constructive; gray cells do not
+certify infeasibility.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/single-refitted-witness-surface.pdf}
+ {Minimum-support surface over converged refitted shell witnesses.}
+ {White circles mark active fitted witnesses and red crosses mark literal shell models.
+ Gray cells mean no converged witness was found by the bounded search.}
+ {fig:refit-surface}
+
+\subsection{Fitted-point errors understate broader behavior}
+
+The frozen fidelity ladder gives the following comparison:
+\begin{center}
+\small
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+&\multicolumn{3}{c}{Spectral RMS (eV)}&\multicolumn{3}{c}{Operator RMS (eV)}\\
+\cmidrule(lr){2-4}\cmidrule(l){5-7}
+Model&408&$32^3$&Ratio&408&Parseval&Ratio\\
+\midrule
+H-shell-05&0.07242&0.18196&2.51&0.12814&0.26004&2.03\\
+H-shell-10&0.01320&0.02785&2.11&0.03229&0.05956&1.84\\
+H-shell-16&0.000404&0.000657&1.62&0.001394&0.001747&1.25\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Sampled operator RMS agrees with exact Parseval values to at most
+$5.56\times10^{-17}$ eV.  The $12^3$ to $32^3$ spectral changes remain below about
+1.4\%, so the dense values are stable over the tested sequence.  The discrepancy is a
+real distinction between the fitted inventory and broader evaluation.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/wannier-fidelity-ladder.pdf}
+ {Frozen-model fidelity ladder from fitted points to exact and dense evaluations.}
+ {Supports and shell scales are unchanged at every level.}
+ {fig:si-fidelity-ladder}
+
+\subsection{Conduction valleys and masses are stricter tests}
+
+Relative to the full Wannier source, H-shell-05 changes the indirect gap by -65.77 meV,
+displaces a valley by as much as 0.09481~\AA$^{-1}$, changes a Hessian by 29.9\%, and
+changes a principal mass by 67.7\%.  H-shell-10 changes the gap by -34.09 meV and a
+principal mass by 53.2\%, despite a $32^3$ all-band spectral RMS below 0.028 eV.
+H-shell-16 changes the gap by -0.503 meV, the maximum valley position by
+0.002758~\AA$^{-1}$, the maximum Hessian by 0.259\%, and the maximum principal mass by
+2.54\%.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/source-relative-feature-fidelity.pdf}
+ {Source-relative conduction-edge fidelity of the frozen models.}
+ {The reference is the full Wannier source, not the revealed DFT parent.}
+ {fig:si-feature-fidelity}
+
+The six-valley DOS-mass convention of the source is $1.4764m_e$, and its equal-population
+conductivity-mass convention is $0.25063m_e$.  H-shell-05 changes them by 16.9\% and
+20.4\%; H-shell-10 by 22.9\% and 6.90\%; H-shell-16 by 0.333\% and 0.0216\%.  Across all
+models, the maximum principal-mass spread over the four finite-difference steps is below
+0.172\%, so stencil variation does not explain the moderate-support errors.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/derived-electron-mass-fidelity.pdf}
+ {Derived conduction-valley mass summaries and finite-difference sensitivity.}
+ {The DOS and conductivity masses are declared curvature conventions and are not
+ carrier-density or transport calculations.}
+ {fig:electron-mass-summary}
+
+\subsection{The valence manifold requires a multiband operator}
+
+The source Gamma three-band splitting is only 0.02495 meV.  H-shell-05 increases it to
+102.175 meV, H-shell-10 to 54.806 meV, and H-shell-16 to 2.496 meV.  The corresponding
+maximum principal angles from the source cluster are only 1.856, 0.925, and 0.0420
+degrees.  A candidate can therefore preserve a recognizable three-dimensional subspace
+while badly damaging the operator inside that subspace.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/gamma-valence-cluster-fidelity.pdf}
+ {Gamma valence-cluster splitting and source-subspace rotation.}
+ {Internal degeneracy and subspace preservation are independent fidelity conditions.}
+ {fig:gamma-valence}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/directional-valence-cluster-dispersions.pdf}
+ {Directional ordered valence-cluster dispersions near Gamma.}
+ {The curves are diagnostics of branch ordering and degeneracy lifting, not a physical
+ assignment of heavy-hole, light-hole, and split-off bands.}
+ {fig:ordered-valence-dispersions}
+
+Independently ordered source branches do not produce stable hole masses.  The upper
+ordered branch is not hole-like for every tested window in any of the three directions,
+and finite ordered-branch masses can change by about 75.5\%.  H-shell-05 and H-shell-10
+appear more stable only because they artificially split the manifold.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/directional-valence-mass-sensitivity.pdf}
+ {Instability of independently ordered valence-branch mass fits.}
+ {Window dependence and loss of hole-like curvature motivate replacing scalar branch
+ masses with a transported multiband quadratic operator.}
+ {fig:ordered-valence-mass-sensitivity}
+
+The transported quadratic operator avoids that branch assignment.  At the primary
+0.01~\AA$^{-1}$ window, the source apparent channel masses are
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Direction&Channel 1&Channel 2&Channel 3\\
+\midrule
+$[100]$&0.1411&0.2771&0.3015\\
+$[110]$&0.09690&0.3119&2.923\\
+$[111]$&0.08770&0.6971&0.7722\\
+\bottomrule
+\end{tabular}
+\end{center}
+in electron-mass units.  These are non-SOC curvature-channel eigenvalues, not physical
+HH, LH, or split-off masses.
+
+After cluster alignment, H-shell-05, H-shell-10, and H-shell-16 have quadratic-coefficient
+errors of 9.54\%, 5.88\%, and 0.279\%, with maximum channel-mass changes of 38.9\%,
+19.7\%, and 4.53\%.  Fit-window changes in the joint coefficient field remain below
+about 0.41\%, and primary fit residuals are approximately $5$--$6\times10^{-7}$ eV RMS.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/multiband-valence-curvature-channels.pdf}
+ {Degeneracy-aware non-SOC valence curvature channels.}
+ {The channels are eigenvalues of the direction-contracted quadratic matrix and are not
+ assigned SOC hole labels.}
+ {fig:valence-channels}
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/multiband-valence-fidelity-summary.pdf}
+ {Summary of valence degeneracy, quadratic-operator, and curvature consequences.}
+ {The three panels separate failure modes that a single band RMS cannot represent.}
+ {fig:valence-summary}
+
+\subsection{High-symmetry equivalence and bandwidths}
+
+The full source's direct-gap spread among nominally equivalent X points is 0.00366 meV
+and among L points is 0.0239 meV.  H-shell-05 increases these spreads to 150.1 and
+68.7 meV; H-shell-10 to 36.7 and 63.9 meV; H-shell-16 to 0.427 and 2.97 meV.  Moderate
+shell refitting can therefore amplify small residual symmetry differences through
+cancellations among retained blocks.
+
+On the independent $32^3$ mesh, all four valence maxima remain at Gamma.  Maximum
+ordered-band bandwidth changes are approximately 354 meV, 81.1 meV, and 3.14 meV for
+H-shell-05, H-shell-10, and H-shell-16.
+
+\resultfigure
+ {../../../../../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/high-symmetry-edge-fidelity.pdf}
+ {High-symmetry direct-gap and equivalent-point diagnostics.}
+ {The spread characterizes the represented models; it is not an independent validation
+ of exact crystal symmetry.}
+ {fig:high-symmetry}
+
+\clearpage
+\section{Discussion}
+
+\subsection{Related mechanism under distinct evidential roles}
+
+The rank-two theorem and rank-10 silicon attack differ greatly in dimension, origin,
+geometry, and numerical complexity.  The former proves an identity in a restricted
+family; the latter is a source-specific computational stress test.  They nevertheless
+isolate the same logical fact.  Pointwise
+unitary equivalence fixes complete spectra and leaves the represented abstract operator
+unchanged under the generating map.  It does not fix the matrix field under a restricted
+coordinate identification, and it does not fix the Fourier block distribution.
+
+In the flat rank-two case, the mismatch has an exact closed form and equals induced
+non-onsite power.  In the dispersive and rank-10 cases, no universal equality is claimed.
+Instead, block power, support curves, transport diagnostics, interpolation, and
+truncation consequences are evaluated independently.  This is a stronger scientific
+position than extending the exact theorem by analogy: the theorem identifies the
+mechanism, and the calculations test which parts survive when its assumptions are
+relaxed.
+
+\subsection{Representation efficiency is not physical inequivalence}
+
+The reference and attacked complete fields are physically equivalent within the fixed
+retained space under the known momentum-dependent unitary.  The reported residuals arise
+because the comparison admits a smaller family: one global real rotation in the
+rank-two theory, or identity/global/polar/oracle channels in the rank-10 application.
+Likewise, range inflation appears only after a support family and accuracy criterion are
+chosen.
+
+The phrase ``less local'' therefore means more expensive in the declared representation
+under the declared finite-support approximation.  It does not mean that the complete
+gauge-related Hamiltonian describes different physics.  This distinction is essential
+when locality is used as a computational resource or model-selection coordinate.
+
+\subsection{Literal deletion and refitting answer different questions}
+
+Literal nested shell deletion asks what happens when the source coefficients are kept
+unchanged inside a radius and set exactly to zero outside it.  Its near-linear
+spectral--operator requirement curve is a property of a one-coordinate nested family.
+The result that H-shell-16 minimizes both losses does not prove general compatibility of
+spectral and operator objectives.
+
+Refitted shells introduce additional coordinates while preserving complete native
+shells and the common Wannier basis.  Genuine same-support tradeoff arcs then appear,
+and moderate post-hoc support requirements improve.  The distinction is scientifically
+useful: the literal study measures deletion error, while the fitted study measures what
+can be compensated by bounded renormalization of retained shells.
+
+At tight errors, both approaches still require near-full support.  Refitting does not
+turn the source into a compact 10-orbital short-range model.  It supplies explicit
+witnesses and a more expressive finite family, not a global optimality theorem.
+
+\subsection{A fitted inventory is not a Brillouin-zone guarantee}
+
+The 408-point inventory supports exact finite statements about the loss on those points.
+It does not by itself support all-$\kvec$ interpolation claims.  The fidelity ladder
+freezes the models and then asks broader questions.  Parseval provides exact integrated
+operator RMS for the finite Fourier series.  Dense meshes test spectra between the
+fitted points.  Both reveal larger errors, particularly at moderate support.
+
+This distinction resolves a common confusion about held-out data.  Held-out points are
+not required to report a finite training-inventory result honestly.  They are required
+when the claim changes from ``this model fits these points'' to ``this model interpolates
+the represented Hamiltonian over a broader domain.''
+
+\subsection{Band edges are structurally more demanding than global spectra}
+
+Conduction masses and valence curvature depend on derivatives.  A global all-band RMS
+can remain moderate while a local curvature changes by tens of percent.  H-shell-10 is
+the clearest example: its dense spectral RMS is below 0.028 eV, yet at least one
+principal electron mass changes by about 53\% and a non-SOC valence curvature channel
+changes by about 20\%.
+
+The valence analysis adds a qualitative warning.  Independent ordered-band Hessians can
+become stable only after an incorrect reduction lifts the degeneracy.  Numerical
+stability is not fidelity if the model has changed the state-space structure that made
+the original scalar quantity ill defined.  A matrix-valued multiband expansion is the
+appropriate retained object.
+
+\subsection{What can and cannot be said about holes}
+
+The current source is scalar-relativistic and non-SOC.  It supports a three-band orbital
+valence operator and directional curvature channels.  It does not support standard
+physical HH/LH/split-off labels, a split-off energy, or final boron-acceptor modeling.
+Those claims require a spinor state space and a separately qualified SOC DFT/Wannier
+branch.  SOC is not required for the internal conclusion that reduction damages the
+non-SOC valence manifold.
+
+\subsection{Why the source inadequacy matters}
+
+The strongest positive statement about H-shell-16 is that it closely preserves the full
+Wannier source across the tested internal channels.  The strongest negative statement
+about H-shell-05 and H-shell-10 is that they do not.  Neither statement validates the
+source.  The revealed DFT-parent comparison already shows that the source misses the
+declared gap and electron-mass targets.
+
+The one-dimensional calibration hierarchy makes the limitation operational.  Exact
+spectral compression of a finite matrix does not validate that matrix against its
+continuum parent, and grid refinement at fixed box width converges to the finite-box
+problem rather than repairing the boundary truncation.  Likewise, enlarging the hopping
+support at fixed Wannier rank converges to the fixed Wannier source.  It cannot repair a
+band-window, construction-mesh, parent-model, or source/DFT discrepancy upstream.
+
+Keeping this separation explicit prevents a common error chain:
+\begin{equation*}
+ \text{small reduced/source error}
+ \not\Rightarrow
+ \text{small source/DFT error}
+ \not\Rightarrow
+ \text{small DFT/experiment error}.
+\end{equation*}
+Each arrow requires its own calculation and authority.
+
+\subsection{Slater--Koster is not the active conclusion}
+
+The original Paper D plan proposed compatibility inside an orthogonal ten-orbital
+$sp^3s^*$ Slater--Koster hierarchy.  The attempted common-space gate found rank 9 at
+Gamma and one additional construction point.  The joint operator fit therefore stopped
+before optimization.  A spectral-only Slater--Koster fit remains mathematically possible,
+but it would answer a narrower eigenvalue question and is not the active reduction path.
+
+The completed program instead studies compression directly in the common rank-10
+Wannier basis.  This avoids inventing an orbital alignment that the evidence does not
+support and permits finite operator, gauge, Fourier, truncation, and band-edge comparisons.
+The present manuscript does not claim that Slater--Koster models are impossible; it
+reports that the planned joint operator route was blocked and that a Wannier-only route
+was completed instead.
+
+\subsection{Evidence maturity}
+
+The analytic rank-two statements are mathematical results under explicit assumptions.
+The synthetic non-flat surfaces are development calculations; one active-family direct
+execution independently verifies a bounded subset but not the entire five-scale preview.
+The silicon analyses authenticate inputs and producer outputs but lack an independent
+reconstruction.  None is a sealed public archival package.
+
+This layered status affects publication language, not the numerical values themselves.
+The correct response is to label each claim by its evidence owner and scope, rather than
+either suppressing useful development results or presenting them as publication-qualified
+validation.
+
+\section{Conclusions}
+
+The combined theory and calculations establish six main conclusions.
+
+\begin{enumerate}[leftmargin=2em]
+ \item Band equivalence does not determine a matrix representation or its hopping
+ locality.  Momentum-dependent unitary similarity can preserve every complete band
+ while redistributing Fourier weight.
+ \item In a flat rank-two real-rotation family, the restricted-alignment threshold obeys
+ an exact Bessel law, and its square equals the induced non-onsite hopping power.
+ \item Representation differences can become finite-range costs at equal sampled
+ accuracy.  In the controlled dispersive endpoint, the first passing cutoff rises from
+ 4 to 10 at $10^{-8}E_{\rm ref}$.
+ \item The rank-10 silicon source exhibits the same qualitative mechanism: complete
+ spectra remain invariant while alignment residuals, block power, and support-error
+ frontiers change.
+ \item Literal shell deletion and bounded shell refitting produce different candidate
+ geometries.  Refitting creates genuine spectral--operator tradeoffs, but tight
+ fidelity still requires near-full support.
+ \item Global fitting losses do not control dense interpolation or band-edge fidelity.
+ Conduction masses, valence degeneracy, multiband curvature, and symmetry-equivalent
+ gaps expose errors that global spectral RMS can hide.
+\end{enumerate}
+
+For the studied source, H-shell-16 is the only frozen reduced witness that remains close
+across all tested internal channels.  H-shell-05 and H-shell-10 are not adequate
+band-edge reductions.  Even H-shell-16 does not validate silicon physics because the
+full source fails separate DFT-parent criteria.
+
+A stronger future program would independently reconstruct the silicon analyses, retain
+the same frozen models for a separately labeled DFT overlay, and construct an SOC
+spinor source only if physical hole or acceptor claims are required.  Any prospective
+acceptance threshold must be declared before a future confirmation set is inspected.
+
+\clearpage
+\appendix
+
+\section{Derivation details for the rank-two loss geometry}
+
+Let a traceless Hermitian $2\times2$ matrix be written as
+$D=x\sigma_x+y\sigma_y+z\sigma_z$.  Conjugation by the real rotation $R(\phi)$ leaves
+the $\sigma_y$ component invariant and rotates $(x,z)$ through angle $2\phi$.  The
+weighted correlation with an attacked field therefore has the form
+\begin{equation}
+ b_\phi=b_0+c\cos2\phi+d\sin2\phi.
+\end{equation}
+The continuous maximum is
+\begin{equation}
+ b_{\max}=b_0+\sqrt{c^2+d^2},\qquad
+ \mu_{\max}=b_{\max}/\kappa.
+\end{equation}
+When $c^2+d^2>0$, a canonical maximizing angle is
+$\phi_*=\tfrac12\operatorname{atan2}(d,c)$ reduced to the half-open fundamental
+interval.  When the harmonic amplitude vanishes, the optimum value remains defined but
+the angle is nonunique.
+
+The spectral residual separates into a scalar trace shift and a traceless splitting
+change.  Trace and traceless matrices are Frobenius orthogonal, which gives
+Eq.~\eqref{eq:spec-quadratic}.  The operator loss expands as
+\begin{align}
+ L_{\rm op,\phi}^2
+ &=s^2+\kappa\lambda^2-2\lambda b_\phi+\kappa\\
+ &=s^2+\kappa(\lambda-\mu_\phi)^2
+ +\kappa(1-\mu_\phi^2).
+\end{align}
+Positive $\lambda$ makes maximizing $b_\phi$ equivalent to minimizing the loss.
+
+For the flat parent, Parseval gives
+\begin{equation}
+ \sum_R\norm{B_R}_F^2=\int_{-1/2}^{1/2}\norm{B(q)}_F^2dq=\norm D_F^2.
+\end{equation}
+The best onsite real rotation matches the norm of the zero block $B_0$.  Therefore
+\begin{equation}
+ \sum_{R\ne0}\norm{B_R}_F^2
+ =\norm D_F^2-\norm{B_0}_F^2
+ =\norm D_F^2(1-\mu_{\max}^2),
+\end{equation}
+which yields Eq.~\eqref{eq:residual-tail-identity} after normalization.
+
+\section{Calculation inventory and evidence scope}
+
+Table~\ref{tab:inventory} lists the calculation owners consumed or discussed by this
+synthesis.  Inclusion in this table does not transfer evidence status between owners.
+
+\small
+\begin{longtable}{@{}p{0.30\textwidth}p{0.26\textwidth}p{0.36\textwidth}@{}}
+\caption{Calculation and evidence inventory.}\label{tab:inventory}\\
+\toprule
+Owner & Role in synthesis & Current boundary\\
+\midrule
+\endfirsthead
+\toprule
+Owner & Role in synthesis & Current boundary\\
+\midrule
+\endhead
+Rank-two band-equivalence/locality owner
+& Exact rank-two geometry, smooth attack, dispersive range inflation, separated error channels
+& Analytic results plus development calculations; passing unsealed direct-v2 covers only its declared bounded aggregate.\\
+Mathieu scalar-reduction owner
+& Scalar Fourier-reduction precursor
+& Separately retained and independently verified; not evidence for the rank-two headline.\\
+PIAB1D spectral-reduction calibration
+& Separates continuum, finite-matrix, eigensolver, and invariant-subspace compression roles
+& Retained development calculation with typed verification and bounded formal crosswalk; not evidence for silicon accuracy.\\
+QHO1D spatial-truncation calibration
+& Separates finite-domain closure, grid refinement, retained dimension, and common-coordinate pullback
+& Retained unsealed development calculation; observed finite-box/grid regimes are not rigorous error bounds or silicon evidence.\\
+Construction-mesh recommendation
+& Freezes the $C6$ construction successor and unobserved 402-point boundary
+& No calculator execution; 402 parent values remain excluded.\\
+Untruncated $C6$ characterization
+& Authenticates native source, reconstruction, valleys, curvatures, and locality inventory
+& Structurally verified source characterization; not material adequacy.\\
+Revealed-408 development audit
+& DFT-parent source-adequacy audit
+& Valley positions pass; gap and almost all masses fail.  Development oracle only.\\
+Parent-validation preflight and revealed Davidson NSCF evidence
+& Prospective criteria and direct parent comparison
+& Existing authorized DFT evidence; no rerun performed for reduction fitting.\\
+Accepted-S1 parent band-path evidence
+& Conventional $L$--$\Gamma$--$X$--$\Gamma$ DFT diagram and source overlay
+& One authorized fixed-density QE 7.5 invocation; contextual path only, with no model fitting or global-extremum claim.\\
+Operator qualification
+& Source reconstruction and provider eligibility
+& Structural/provider status, not scientific acceptance.\\
+Frozen-gauge sensitivity diagnostic
+& Earlier optimizer/gauge sensitivity diagnostic
+& Neither compared operator accepted; supports caution about iteration-only extension.\\
+Spatial-truncation design
+& Freezes native complete-shell hierarchy
+& Design only; selects no reduced radius.\\
+Spatial-truncation evaluation
+& Evaluates every literal native support
+& Source-relative results; no accepted nontrivial shell.\\
+Spatial-truncation disposition
+& Retains full support as the formal selected truncation
+& Selected $H_T=H_W$; zero selected truncation loss.\\
+Gauge/alignment/locality analysis
+& Rank-10 internal gauge attack, alignment, finite Fourier, locality, support curves
+& Producer checked, not independently reconstructed.\\
+Literal two-loss exploration
+& Literal two-loss witness surface
+& Post-hoc descriptive thresholds; full support excluded from reduced feasibility.\\
+Refitted shell-witness analysis
+& Bounded shell-scale witnesses and fitted surface
+& Constructive multistart evidence; no global infeasibility certificate.\\
+Wannier-only fidelity ladder
+& Parseval, dense meshes, conduction valleys, gaps, Hessians, masses
+& Frozen source-relative models; no DFT validation.\\
+Comprehensive band-edge analysis
+& Full electron tensors, valence cluster, multiband quadratic operator, direct gaps, bandwidths
+& Producer checked non-SOC development analysis; no HH/LH/SO claim.\\
+Slater--Koster common-space gate
+& Attempted common-space gate for joint SK fitting
+& Stopped at rank 9 at Gamma and one additional point; no fit or parameter vector.\\
+Hopping Pareto synthesis
+& Protocol-level composition of channel-specific frontiers
+& Unresolved development evaluation; selects no support.\\
+Historical tutorial silicon records
+& Software, parsing, and bounded same-frame decomposition controls
+& Not production silicon evidence and not the source of the rank-10 results.\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\section{Consolidated numerical tables}
+
+\small
+\subsection{Rank-two endpoint range decisions}
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Band-error target & Reference cutoff & Comparison cutoff & Inflation\\
+\midrule
+$10^{-6}E_{\rm ref}$ & 3 & 8 & 5\\
+$10^{-8}E_{\rm ref}$ & 4 & 10 & 6\\
+$10^{-10}E_{\rm ref}$ & 6 & 12 & 6\\
+$10^{-12}E_{\rm ref}$ & 7 & 14 & 7\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Frozen silicon fidelity ladder}
+
+\scriptsize
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Model & Parseval operator RMS (eV) & $32^3$ spectral RMS (eV) & Gap change (meV) & Max mass change\\
+\midrule
+H-shell-05 & 0.260036 & 0.181957 & -65.77 & 67.7\%\\
+H-shell-10 & 0.059558 & 0.027851 & -34.09 & 53.2\%\\
+H-shell-16 & 0.001747 & 0.000657 & -0.503 & 2.54\%\\
+\bottomrule
+\end{tabular}
+\end{center}
+\small
+
+\subsection{Valence and symmetry fidelity}
+
+\scriptsize
+\begin{center}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Model & Gamma splitting (meV) & Quadratic error & Max channel-mass change & X/L gap spread (meV)\\
+\midrule
+Full source & 0.02495 & --- & --- & 0.00366 / 0.0239\\
+H-shell-05 & 102.175 & 9.54\% & 38.9\% & 150.1 / 68.7\\
+H-shell-10 & 54.806 & 5.88\% & 19.7\% & 36.7 / 63.9\\
+H-shell-16 & 2.496 & 0.279\% & 4.53\% & 0.427 / 2.97\\
+\bottomrule
+\end{tabular}
+\end{center}
+\normalsize
+
+\section{Reproducible analysis procedures}
+
+This appendix records the analysis order in sufficient detail to prevent a later
+narrative rewrite from collapsing distinct operations.  It is not a replacement for the
+retained requests and producer scripts.
+
+\subsection{Rank-10 gauge analysis}
+
+\begin{enumerate}[leftmargin=2em]
+ \item Authenticate the source lattice, rank, units, construction inventory, evaluation
+ inventory, and represented matrices.
+ \item Evaluate the frozen rank-10 Givens circuit and its known inverse on each requested
+ reciprocal point.
+ \item Construct the attacked field by pointwise unitary similarity.  Verify unitarity,
+ Hermiticity, trace invariance, and complete-spectrum invariance before alignment.
+ \item Evaluate identity, one-global-unitary, pointwise-polar, and known-inverse
+ alignments.  Keep restricted residuals distinct from oracle residuals.
+ \item On the centered $6^3$ construction tensor only, compute finite-cyclic Fourier
+ blocks.  Convert them explicitly to ordinary representatives and record power removed
+ by conversion.
+ \item Reconstruct both finite fields and evaluate interpolation losses on the ordered
+ 408-point inventory.  Do not attribute these finite-route errors to the exact attack.
+ \item Apply the same complete support inventory to both finite representations.
+ Evaluate spectral and operator consequences at every support and extract discrete
+ non-dominated points without interpolating fractional supports.
+\end{enumerate}
+
+The retained reconstruction ledger is summarized in Table~\ref{tab:gauge-ledger}.  All
+listed files are relative to
+\path{calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/}.  The
+machine-readable files, rather than the prose description, own the exact arrays and
+ordering.
+
+\begin{table}[tbp]
+\centering
+\small
+\caption{Machine-readable reconstruction ledger for the rank-10 gauge analysis.}
+\label{tab:gauge-ledger}
+\begin{tabularx}{\textwidth}{@{}p{0.23\textwidth}p{0.31\textwidth}X@{}}
+\toprule
+Stage & Retained artifact & Auditable content\\
+\midrule
+Source and coordinate contract
+& \path{request.json}
+& Source hashes; native and centered construction coordinates; zero offset; ordered
+408-point role and weights; attack identity; tolerance policy\\
+Producer implementation
+& \path{run_analysis.py}
+& Native HR/Wigner--Seitz reconstruction; centered permutation; transform,
+conversion, support, and error-channel algorithms\\
+Construction and attack result
+& \path{result.json}
+& \path{operator}, \path{attack}, \path{alignments}, and \path{producer_checks}; complete
+spectrum and Hermiticity checks\\
+Ordinary displacement inventory
+& \path{result.json:displacement_power}
+& Integer modes, metric-shell labels, physical radii, reference and attacked block power\\
+Support and Fourier channels
+& \path{result.json:alignments[*].shells}
+& Exact support inventories, reconstruction, conversion/interpolation/truncation
+channels, and observed non-dominated records\\
+Evaluation ordering
+& \path{result.json:evaluation_spectra}
+& Ordered point indices, fractional coordinates, source and attacked spectra, and
+separately labeled parent overlay\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Literal and refitted native-shell analyses}
+
+The literal analysis loops over H-shell-00 through H-shell-17, reconstructs each native
+Wigner--Seitz model on the 408-point inventory, and computes $\tau_1$ and $\tau_2$ with
+identity alignment.  Minimum-support tables are then constructed over an explicit grid
+of post-hoc threshold pairs.  H-shell-17 is retained as a control but removed from the
+proper-reduction feasibility surface.
+
+For refitted shells, each support $S$ defines a coefficient vector
+$\boldsymbol\alpha\in[0,2]^{|S|}$.  The producer precomputes shell-resolved matrices and
+analytic derivatives of the scalarized loss.  Seventeen scalarization weights and three
+deterministic starts produce at most 51 optimization attempts per support.  Converged
+solutions are deduplicated in loss/parameter space, authenticated, and retained as
+constructive witnesses.  Literal points remain visible as a separate family.
+
+The gradient audit compares analytic and finite-difference derivatives over retained
+coordinates.  The maximum absolute difference is $9.7361\times10^{-10}$ and the maximum
+scaled difference is $4.0729\times10^{-11}$ for the audited cases.  This verifies the
+implemented derivative calculation; it does not establish global optimization.
+
+\subsection{Frozen fidelity escalation}
+
+The fidelity ladder is intentionally one way.  Three witness identities are copied from
+the completed refitted study and frozen.  Subsequent stages may evaluate but not alter
+their shell scales.
+
+\begin{enumerate}[leftmargin=2em]
+ \item Recompute the 408-point spectral and operator RMS losses from the frozen models.
+ \item Compute exact integrated operator RMS by Parseval from the unique Fourier
+ coefficients.
+ \item Evaluate sorted spectra on independent $12^3$, $20^3$, and $32^3$ meshes.
+ \item Identify six conduction sector minima through an eight-start sector search and a final
+ 0.12~\AA$^{-1}$ local box.
+ \item Evaluate gaps, valley displacement, Hessians, and principal masses without
+ refitting.
+ \item Promote the same models into the comprehensive band-edge analysis.
+\end{enumerate}
+
+A preliminary valley search that encountered a 0.08~\AA$^{-1}$ search boundary was not
+retained as the final result.  The final request and producer record the enlarged search
+and multi-start sector logic.  This change modifies the evaluation method, not the
+frozen Hamiltonians.
+
+\subsection{Transported valence quadratic analysis}
+
+For each model and displaced momentum $\qvec$:
+\begin{enumerate}[leftmargin=2em]
+ \item extract the three-dimensional upper-valence eigenspace;
+ \item form its overlap with the model's Gamma cluster;
+ \item compute the polar unitary and transport the displaced represented matrix into the
+ Gamma-cluster coordinates;
+ \item average the transported $+\qvec$ and $-\qvec$ matrices to remove odd numerical
+ terms;
+ \item fit the six Hermitian quadratic coefficient matrices in
+ Eq.~\eqref{eq:valence-effective}; and
+ \item align the candidate coefficient field to the source cluster before reporting the
+ joint Frobenius error.
+\end{enumerate}
+
+This algorithm never assigns an individual band identity at the degenerate point.  The
+reported channel masses are derived after direction contraction and diagonalization of
+the fitted quadratic matrix.
+
+\section{Error-channel definitions and interpretation}
+
+\begin{longtable}{@{}p{0.23\textwidth}p{0.28\textwidth}p{0.39\textwidth}@{}}
+\toprule
+Channel & Primary comparison & Interpretation and exclusions\\
+\midrule
+Direct-parent adequacy
+& DFT parent versus full Wannier source
+& Tests the represented source against its parent calculation.  Not a truncation or
+ gauge loss.  Current gap/mass targets fail.\\
+Exact gauge equivalence
+& Full attacked field versus full source spectrum
+& Pointwise unitary identity.  Does not imply identity/global matrix alignment or equal
+ Fourier support.\\
+Restricted frame residual
+& Matrix fields after identity or one-global-unitary alignment
+& Measures mismatch under the declared smaller alignment family.  Not physical
+ inequivalence of the complete gauge-related fields.\\
+Cyclic representation
+& Centered finite transform versus its exact sampled field
+& Finite-discrete representation channel.  Must not be silently substituted for native
+ Wigner--Seitz HR data.\\
+Conversion
+& Finite-cyclic representatives versus ordinary lattice representatives
+& Records removed or remapped block power.  Distinct from deliberate support truncation.\\
+Interpolation
+& Frozen finite field on evaluation points not identical to construction points
+& Measures reconstruction between construction samples.  Not a gauge error.\\
+Literal truncation
+& Deleted native shell model versus full source
+& Coefficients inside support remain unchanged.  Measures deletion only.\\
+Refitted reduction
+& Bounded shell-scaled model versus full source
+& Includes compensation by retained shells.  Does not have Slater--Koster orbital
+ semantics.\\
+Dense spectral fidelity
+& Frozen model versus source on $N^3$ meshes
+& Broader source-relative interpolation check.  Not DFT validation.\\
+Parseval operator fidelity
+& Exact coefficient difference over the normalized Brillouin zone
+& Integrated same-gauge operator RMS for the finite Fourier series.\\
+Conduction feature fidelity
+& Source versus frozen model valleys, Hessians, and masses
+& Local derivative check.  Curvature masses are not transport simulations.\\
+Valence multiband fidelity
+& Aligned three-band quadratic coefficient fields
+& Degeneracy-aware non-SOC comparison.  No HH/LH/split-off assignment.\\
+Total finite-model consequence
+& Final reduced finite model versus declared source
+& May contain several prior stages but is not decomposed by subtracting scalar errors
+ unless an explicit identity permits it.\\
+\bottomrule
+\end{longtable}
+
+\section{Artifact identification and reproducibility anchors}
+
+The following hashes identify central retained outputs used in drafting this synthesis.
+They are included as audit anchors, not as publication DOIs.
+
+\begin{longtable}{@{}p{0.42\textwidth}p{0.50\textwidth}@{}}
+\toprule
+Artifact & SHA-256\\
+\midrule
+Literal shell \path{result.json}
+& \path{2933765cb26d4aee05dca69fd73ec45f2ab26a32a145ebf9e8af80db0fdaa503}\\
+Literal witness surface PDF
+& \path{2184e4b5b58040aaa48adfd8926384ea3fb49ee13618d5243e5fb87e3025beec}\\
+Refitted shell \path{result.json}
+& \path{8a65cf3fbe3b08e8f7b71a802b8400515e1a0a514efd031e14783d6973a65664}\\
+Refitted witness surface PDF
+& \path{cabe28a205c6dfcdd955786b096011bc98c23a0f3fbb35bea8b11e1ec840a502}\\
+Fidelity ladder \path{result-v2.json}
+& \path{781c29c9512c643bbf6e23a6d524a2466caaba501dc9c7323954ba7782296fdc}\\
+Fidelity ladder figure
+& \path{55551ae572b1f6dc4f24971e758aed1b9a720c67ae967e328d54f71e23793b09}\\
+Source-relative feature figure
+& \path{0520aaf5170a640880a220ab9f28eed45e579774502fa63e4f41fec16b2a153e}\\
+Comprehensive band-edge result
+& \path{533dfcbed4883793bb84d1a13d1a8f62f7bb7f99b02d3ab07bb3ea99f78b0764}\\
+Comprehensive multiband result
+& \path{bb7be7af470c521a69897fd910fe476dce40eee1382ff8e46e6040b851718ea6}\\
+Comprehensive manifest
+& \path{226d654c592052a688b954009cea96b7e2b4e5c7b953d4614ca02cafa0bdf614}\\
+Parent band-path \path{band-data.json}
+& \path{e4a4c04eabb4cdc8f0dfef2e4b175c90ab3529b7406fbc29b2aa1aee148b5bcd}\\
+Parent DFT band-diagram PDF
+& \path{cd96619a6c6082e63bda4ea53f36ee737ab076151a9097989cc8642f25940bcd}\\
+Narrative technical report v2 PDF
+& \path{72f6850bcf71d9855d33888c3ef580ca160f0836c8e08bb0622fe6f6e966ea69}\\
+Rendered Paper D PDF
+& \path{bf8d4c680cf489134973539e34992df90e13d86684afc0bc9143f432e0091bd5}\\
+\bottomrule
+\end{longtable}
+
+The calculation manifests, not this table, remain authoritative about complete artifact
+membership.  A future rebuild of this manuscript may change its PDF hash without changing
+any underlying calculation result.
+
+\section{Scope of interpretation and remaining limitations}
+
+\subsection{Claims supported at the present scope}
+
+\begin{enumerate}[leftmargin=2em]
+ \item Exact pointwise band equivalence does not determine hopping locality.
+ \item The rank-two flat-parent threshold and residual--tail identities hold under the
+ displayed assumptions.
+ \item The declared dispersive development calculation exhibits positive sampled range
+ inflation over most of its amplitude/scale inventory.
+ \item The frozen rank-10 attack preserves the complete represented spectrum while
+ changing restricted alignment and finite-block locality.
+ \item Literal and refitted native-shell families have different two-loss geometry.
+ \item The 408-point witness losses understate broader frozen-model errors.
+ \item Moderate shell models do not preserve conduction or valence band-edge structure
+ relative to the full source.
+\end{enumerate}
+
+\subsection{Claims explicitly not supported}
+
+\begin{enumerate}[leftmargin=2em]
+ \item The source is not validated as an adequate silicon Hamiltonian.
+ \item No experimental silicon agreement is established.
+ \item No universal hopping-range law or universal spectral/operator conversion is
+ claimed.
+ \item No physical HH, LH, split-off, or acceptor result is claimed.
+ \item No Slater--Koster incompatibility theorem is claimed; the attempted joint fit was
+ blocked by a common-space rank gate.
+ \item Gray witness cells are not infeasibility certificates.
+ \item Development plots and producer checks are not independent publication evidence.
+ \item The frozen 402-point confirmation values were neither accessed nor inferred.
+\end{enumerate}
+
+\subsection{Before any submission or promotion}
+
+A publication-qualified version would require a frozen claim set, reviewed numerical
+controls, complete-scope retained execution where applicable, independent reconstruction
+of the silicon analyses, final authorship and acknowledgments, a public archival record,
+and explicit authorization for submission.  The retained provenance distinguishes the
+earlier 0.5226105~eV lower-energy-frozen $4^3$/12-band candidate from the present
+0.6892447~eV $C6$--$B20$--$W21$ candidate; these are different Hamiltonians compared with
+the same revealed DFT parent, not conflicting estimates for one source.  If physical
+hole claims are retained, a separate SOC source and state-space contract are
+required.  If DFT-relative overlays are added, they must remain separate from
+Wannier-relative compression losses and must not be used to refit the already frozen
+models.
+
+\section*{Data and code availability}
+
+The rank-two calculation owner is
+\path{calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/}.
+The silicon analysis owners are under \path{calculations/Si/bulk/analysis/}.  Each owner
+retains its own requests, source identities, producers, machine-readable results,
+figures, manifests, and execution records.  The comprehensive band-edge result and its
+multiband amendment are under
+\path{c6-b20-w21-wannier-only-comprehensive-band-edge/}.  The narrative technical report
+is under \path{calculations/Si/bulk/technical-report/v2/}.
+
+This manuscript is a synthesis surface only.  It does not duplicate or replace the
+calculation records, and no numerical value is owned solely by the prose above.
+
+\section*{Author contributions}
+
+E.J.M.R. developed the formulation, implemented and executed the reported development
+analyses, interpreted the results, and wrote the manuscript.  Authorship and contribution
+statements remain subject to final review before submission.
+
+\section*{Conflict of interest}
+
+The author declares no conflict of interest in this working manuscript.
+
+\printbibliography[title={References}]
+
+\end{document}

@@ -22,6 +22,9 @@ from projectkoios.physkit.periodic.lattice import (
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
     Periodic3DRankNBandEquivalenceHoppingLocalityRequestRole,
 )
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+    Periodic3DRankNGaugeNormalizationEnum,
+)
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
 )
@@ -32,7 +35,14 @@ from ksdft2effmass.serialization import (
     StringWireEnum,
 )
 
-from .model import Periodic3DRankNGaugeNormalizationEnum
+
+class Periodic3DRankNLatticeControlEnum(StringWireEnum):
+    """Select one reviewed periodic-3D lattice and metric control."""
+
+    SIMPLE_CUBIC_AXIS_CONTROL = "simple-cubic-axis-control"
+    MATCHED_SIMPLE_CUBIC_BRAVAIS_CONTROL = "matched-simple-cubic-bravais-control"
+    FCC_BRAVAIS_CONTROL = "fcc-bravais-control"
+    FCC_TWO_BASIS_METRIC_CONTROL = "fcc-two-basis-metric-control"
 
 
 class Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
@@ -54,7 +64,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
 ):
     """Bind one reviewed lattice geometry and gauge-normalization convention."""
 
-    identifier: str
+    lattice_control: Periodic3DRankNLatticeControlEnum
     positive_bonds: tuple[tuple[int, int, int], ...]
     gauge_normalization: Periodic3DRankNGaugeNormalizationEnum
     direct_metric: DirectLatticeMetric
@@ -63,8 +73,10 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
     dimension: int = field(init=False, default=3, repr=False)
 
     def __post_init__(self) -> None:
-        if type(self.identifier) is not str or not self.identifier:
-            raise TypeError("identifier must be a nonempty built-in string")
+        if type(self.lattice_control) is not Periodic3DRankNLatticeControlEnum:
+            raise TypeError(
+                "lattice_control must be the exact periodic-3D lattice-control enum"
+            )
         if type(self.positive_bonds) is not tuple or not self.positive_bonds:
             raise TypeError("positive_bonds must be a nonempty tuple")
         if any(
@@ -88,7 +100,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
     def _mapping(self) -> Mapping[str, SerializableValue]:
         basis = self.direct_metric.primitive_basis
         return {
-            "identifier": self.identifier,
+            "identifier": self.lattice_control.to_wire(),
             "positive_bonds": self.positive_bonds,
             "gauge_normalization": self.gauge_normalization.to_wire(),
             "direct_lattice_primitive_basis_rows": tuple(
@@ -150,7 +162,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
         if basis.shape != (3, 3):
             raise ValueError("periodic-3D primitive basis must have shape (3, 3)")
         return cls(
-            identifier=identifier,
+            lattice_control=(Periodic3DRankNLatticeControlEnum.from_wire(identifier)),
             positive_bonds=bonds,
             gauge_normalization=(
                 Periodic3DRankNGaugeNormalizationEnum.from_wire(normalization)
@@ -327,6 +339,24 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityRequest(
             rank_cutoff_rule=self.procrustes_rank_cutoff_rule,
         )
 
+    def case(
+        self,
+        lattice_control: (Periodic3DRankNLatticeControlEnum),
+    ) -> Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition:
+        """Return the request-owned case selected by exact scientific identity."""
+        if type(lattice_control) is not Periodic3DRankNLatticeControlEnum:
+            raise TypeError(
+                "lattice_control must be the exact periodic-3D lattice-control enum"
+            )
+        selected = tuple(
+            case for case in self.cases if case.lattice_control is lattice_control
+        )
+        if len(selected) != 1:
+            raise ValueError(
+                "lattice_control must select exactly one request-owned case"
+            )
+        return selected[0]
+
     @property
     def case_count(self) -> int:
         """Return the complete analytic rank/depth/scale/attack case count."""
@@ -488,7 +518,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityRequest(
 
 
 _CaseSignature = tuple[
-    str,
+    Periodic3DRankNLatticeControlEnum,
     tuple[tuple[int, int, int], ...],
     Periodic3DRankNGaugeNormalizationEnum,
     tuple[tuple[float, ...], ...],
@@ -502,7 +532,7 @@ def _case_signature(
 ) -> _CaseSignature:
     basis = case.direct_metric.primitive_basis
     return (
-        case.identifier,
+        case.lattice_control,
         case.positive_bonds,
         case.gauge_normalization,
         tuple(tuple(float(component) for component in row) for row in basis),
@@ -514,7 +544,7 @@ def _case_signature(
 def _orthogonal_case_signatures() -> tuple[_CaseSignature, ...]:
     return (
         (
-            "simple-cubic-axis-control",
+            Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL,
             ((1, 0, 0), (0, 1, 0), (0, 0, 1)),
             Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM,
             ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)),
@@ -548,7 +578,7 @@ def _nonorthogonal_case_signatures() -> tuple[_CaseSignature, ...]:
     )
     return (
         (
-            "matched-simple-cubic-bravais-control",
+            Periodic3DRankNLatticeControlEnum.MATCHED_SIMPLE_CUBIC_BRAVAIS_CONTROL,
             simple_bonds,
             Periodic3DRankNGaugeNormalizationEnum.BOND_RMS,
             simple_basis,
@@ -556,7 +586,7 @@ def _nonorthogonal_case_signatures() -> tuple[_CaseSignature, ...]:
             (),
         ),
         (
-            "fcc-bravais-control",
+            Periodic3DRankNLatticeControlEnum.FCC_BRAVAIS_CONTROL,
             fcc_bonds,
             Periodic3DRankNGaugeNormalizationEnum.BOND_RMS,
             fcc_basis,
@@ -564,7 +594,7 @@ def _nonorthogonal_case_signatures() -> tuple[_CaseSignature, ...]:
             (),
         ),
         (
-            "fcc-two-basis-metric-control",
+            Periodic3DRankNLatticeControlEnum.FCC_TWO_BASIS_METRIC_CONTROL,
             fcc_bonds,
             Periodic3DRankNGaugeNormalizationEnum.BOND_RMS,
             fcc_basis,
@@ -577,5 +607,6 @@ def _nonorthogonal_case_signatures() -> tuple[_CaseSignature, ...]:
 __all__ = [
     "Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition",
     "Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum",
+    "Periodic3DRankNLatticeControlEnum",
     "Periodic3DRankNBandEquivalenceHoppingLocalityRequest",
 ]

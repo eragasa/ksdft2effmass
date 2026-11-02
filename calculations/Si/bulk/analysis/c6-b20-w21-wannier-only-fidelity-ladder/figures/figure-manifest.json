@@ -1,0 +1,41 @@
+{
+  "figures": {
+    "source-relative-feature-fidelity.pdf": {
+      "byte_size": 23199,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/source-relative-feature-fidelity.pdf",
+      "sha256": "0520aaf5170a640880a220ab9f28eed45e579774502fa63e4f41fec16b2a153e"
+    },
+    "source-relative-feature-fidelity.png": {
+      "byte_size": 193762,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/source-relative-feature-fidelity.png",
+      "sha256": "2b466226e94fd63c8c6bbec35ac42ee1a675f31cda7dfed1ac6c47b19a14762e"
+    },
+    "wannier-fidelity-ladder.pdf": {
+      "byte_size": 22935,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/wannier-fidelity-ladder.pdf",
+      "sha256": "55551ae572b1f6dc4f24971e758aed1b9a720c67ae967e328d54f71e23793b09"
+    },
+    "wannier-fidelity-ladder.png": {
+      "byte_size": 160417,
+      "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/wannier-fidelity-ladder.png",
+      "sha256": "b97de88b41f4393509bcde7e9a259066199935c10c1ed75d88476b14f265c033"
+    }
+  },
+  "renderer": {
+    "byte_size": 9043,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/python/../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/render_results.py",
+    "sha256": "c14e6d1cd5a2c916f98d40c7d72228dbaaeb47f63b6a6c70fca98e52ed64c23a"
+  },
+  "result": {
+    "byte_size": 100898,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/result-v2.json",
+    "sha256": "781c29c9512c643bbf6e23a6d524a2466caaba501dc9c7323954ba7782296fdc"
+  },
+  "retained_408_surface": {
+    "byte_size": 811108,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/witness-surface-v2.json",
+    "sha256": "ec26ed3e2b7e84abb7c83d1644dcaddd3b4df603eb89e7e80cad3da679052dfc"
+  },
+  "schema_version": 1,
+  "status": "wannier-only-fidelity-ladder-producer-checked-development-not-independently-verified"
+}

@@ -25,12 +25,14 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base impor
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseRequest,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+    Periodic3DRankNGaugeNormalizationEnum,
+)
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
 )
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .model import Periodic3DRankNGaugeNormalizationEnum
 from .request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
@@ -72,7 +74,9 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest(
         case = self.case_analysis
         if (
             case.case_identifier
-            not in tuple(item.identifier for item in self.study_request.cases)
+            not in tuple(
+                item.lattice_control.to_wire() for item in self.study_request.cases
+            )
             or case.retained_rank not in self.study_request.retained_ranks
             or case.circuit_depth not in self.study_request.circuit_depths
             or case.parent_scale not in self.study_request.parent_scales
@@ -224,7 +228,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer(
         geometry = next(
             case
             for case in study.cases
-            if case.identifier == observed_case.case_identifier
+            if case.lattice_control.to_wire() == observed_case.case_identifier
         )
         independent = _IndependentPeriodic3DRankNCase(
             geometry=geometry,

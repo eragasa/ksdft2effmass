@@ -1,0 +1,32 @@
+{
+  "figures": {
+    "tau1-tau2-maximum-map.pdf": {
+      "byte_size": 1861186,
+      "sha256": "f463d3689e66fa0bf608faed0e1d81e08b7e8caddbef064a1c9204c89cb15c6a"
+    },
+    "tau1-tau2-maximum-map.png": {
+      "byte_size": 253321,
+      "sha256": "5d5d002baaa5249c8c1d92dc4b2ae45502a5af39d614785ee6ee13434e72fcec"
+    },
+    "tau1-tau2-rms-map.pdf": {
+      "byte_size": 1854482,
+      "sha256": "d29b46d15d66832e2dd3e06b4184c62bb4f38157fb580cda5788e7201710cf0b"
+    },
+    "tau1-tau2-rms-map.png": {
+      "byte_size": 255051,
+      "sha256": "2f8ed37636ab660b1f4e8fe35060580174d78f450d27835a06c9ff3b8f8c63ea"
+    }
+  },
+  "renderer": {
+    "byte_size": 8616,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/python/../calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/render_plots_v2.py",
+    "sha256": "97f8470b1cc75e3bca9cf8ad881c03c6e1c81f0dddbebc0d79759da2e61120b2"
+  },
+  "result": {
+    "byte_size": 12773,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/result.json",
+    "sha256": "2933765cb26d4aee05dca69fd73ec45f2ab26a32a145ebf9e8af80db0fdaa503"
+  },
+  "schema_version": 1,
+  "status": "post-hoc-producer-checked-development-exploration-not-independently-verified"
+}

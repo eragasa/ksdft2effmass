@@ -77,7 +77,9 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest(
         case = self.case_analysis
         if (
             case.case_identifier
-            not in tuple(item.identifier for item in self.study_request.cases)
+            not in tuple(
+                item.lattice_control.to_wire() for item in self.study_request.cases
+            )
             or case.retained_rank not in self.study_request.retained_ranks
             or case.circuit_depth not in self.study_request.circuit_depths
             or case.parent_scale not in self.study_request.parent_scales

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "authorized-comprehensive-nonsoc-wannier-band-edge-development-study",
+  "authorization": {
+    "source": "explicit human instruction to continue after identifying the omitted hole/valence analysis",
+    "calculator_execution_authorized": false,
+    "scope": "complete source-relative non-SOC band-edge diagnostics for the frozen full source and H-shell-05, H-shell-10, and H-shell-16 witnesses"
+  },
+  "models": {
+    "source": "full authenticated C6-B20-W21 rank-10 Wannier Hamiltonian",
+    "reduced": ["H-shell-05", "H-shell-10", "H-shell-16"],
+    "refitting_performed": false,
+    "basis_alignment": "identity in the common Wannier basis"
+  },
+  "electron_analysis": {
+    "valleys": ["-x", "+x", "-y", "+y", "-z", "+z"],
+    "conduction_band_index_zero_based": 4,
+    "curvature_steps_inverse_angstrom": [0.001, 0.002, 0.005, 0.01],
+    "outputs": [
+      "Cartesian Hessian and inverse-mass tensor",
+      "principal masses and axes",
+      "single-valley DOS mass",
+      "single-valley conductivity-mass convention",
+      "six-valley DOS-mass convention",
+      "equal-population inverse-tensor average and conductivity-mass convention",
+      "gradient residual and stencil sensitivity"
+    ]
+  },
+  "valence_analysis": {
+    "gamma_cluster_band_indices_zero_based": [1, 2, 3],
+    "directions_cartesian": {
+      "100": [1.0, 0.0, 0.0],
+      "110": [0.7071067811865475, 0.7071067811865475, 0.0],
+      "111": [0.5773502691896258, 0.5773502691896258, 0.5773502691896258]
+    },
+    "fit_windows_inverse_angstrom": [0.005, 0.01, 0.02],
+    "points_per_positive_ray": 5,
+    "fit_model": "even quartic E(q)=c0+a q^2+b q^4 for each ordered three-band valence-cluster branch",
+    "directional_curvature": "2a",
+    "directional_apparent_hole_mass": "minus hbar squared divided by branch curvature, reported only for negative curvature",
+    "outputs": [
+      "Gamma cluster energies, centroid, and splitting",
+      "same-basis cluster projector principal angles and Frobenius distance",
+      "directional even dispersions and fit residuals",
+      "directional apparent hole masses and fit-window sensitivity"
+    ],
+    "claim_boundary": "descriptive scalar-relativistic non-SOC multiband diagnostics; no physical HH, LH, split-off, Luttinger-parameter, or acceptor claim"
+  },
+  "additional_analysis": {
+    "dense_mesh": 32,
+    "ordered_band_bandwidths": true,
+    "high_symmetry_direct_gaps": ["Gamma", "six conventional X points", "eight conventional L points"],
+    "energy_reference": "each model's own Gamma valence-band maximum where an edge-relative value is needed"
+  },
+  "sources": {
+    "ladder_request": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/request-v2.json",
+      "byte_size": 5662,
+      "sha256": "3d4b513bd2b5149fa533e6a059989b7f013a9692c5945fb7b34e65a8565e9627"
+    },
+    "ladder_producer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/run_analysis_v2.py",
+      "byte_size": 36167,
+      "sha256": "d6228a5119431112631d031f1e8761ea1bf5d6ca151ae0a7cb7719d99ca91210"
+    },
+    "ladder_result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/result-v2.json",
+      "byte_size": 100898,
+      "sha256": "781c29c9512c643bbf6e23a6d524a2466caaba501dc9c7323954ba7782296fdc"
+    },
+    "characterization_result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "byte_size": 56310,
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    }
+  },
+  "nonclaims": [
+    "No SOC Hamiltonian or spinor state space is present.",
+    "No scalar hole-mass tensor is asserted for the degenerate and warped valence manifold.",
+    "No physical heavy-hole, light-hole, split-off, Luttinger, transport, DOS, acceptor, DFT-parent, or experimental validation claim is made.",
+    "No Quantum ESPRESSO or Wannier90 process is invoked."
+  ]
+}

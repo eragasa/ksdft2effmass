@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "producer-checked-development-analysis-not-independently-verified",
+  "kind": "plot-contract-correction",
+  "completed_utc": "2026-11-02T18:01:45Z",
+  "reason": "The original support-error figure showed complete curves but did not explicitly extract or mark the discrete Pareto set. This additive amendment supplies the missing Pareto frontier and supersedes that panel in the technical report without changing result.json.",
+  "analysis_reexecuted": false,
+  "calculator_invocations": 0,
+  "independent_reconstruction_performed": false,
+  "pareto_definition": "An observed complete-shell support is non-dominated when no observed support has both no greater retained-block count and no greater error with at least one strict inequality.",
+  "interpolation_performed": false,
+  "command": "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/render_pareto.py",
+  "inputs": {
+    "result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/result.json",
+      "byte_size": 799131,
+      "sha256": "0b802463af64be191b3fdedc07f732120de735efce227d1ae94cd6225f1b3ea4"
+    }
+  },
+  "outputs": {
+    "renderer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/render_pareto.py",
+      "byte_size": 7531,
+      "sha256": "1c32ae2b84246f4659e4f7f07e6a0d641226dabfbdb7c0694744062be16258fd"
+    },
+    "pareto_pdf": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/pareto-support-error-frontiers.pdf",
+      "byte_size": 31332,
+      "sha256": "28d5b8bd5983bd8b067ad05948a76b79dc9bdc3da30f61b5e9d29d264bada76e"
+    },
+    "pareto_png": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/pareto-support-error-frontiers.png",
+      "byte_size": 365662,
+      "sha256": "15203b25f917dbf9028198335fbc67e059f3a2e8d95140d8d82f88e24bb6cc59"
+    },
+    "pareto_manifest": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/pareto-figure-manifest.json",
+      "byte_size": 1219,
+      "sha256": "525e4d5163899bd7aa99ffbc3072ed8273231092d97d22baccd0bbcbe8c00214"
+    },
+    "technical_report_source": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.tex",
+      "byte_size": 35402,
+      "sha256": "db3f0f135a80b561954fd391b8c9625a4d0f84827c68ec6f4f4321e77126e85b"
+    },
+    "technical_report_pdf": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.pdf",
+      "byte_size": 533073,
+      "sha256": "57438be3557b6c38a6a8fd5313da22532cfb8be2318d7747b38f35d9755972e2"
+    }
+  },
+  "checks": {
+    "pareto_figure_present_in_report": true,
+    "latex_final_log_warning_scan_clean": true,
+    "technical_report_pdf_ghostscript_validation_passed": true
+  }
+}

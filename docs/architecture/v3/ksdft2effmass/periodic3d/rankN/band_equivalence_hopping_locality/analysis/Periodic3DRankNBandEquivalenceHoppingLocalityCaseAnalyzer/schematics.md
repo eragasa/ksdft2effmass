@@ -2,16 +2,27 @@
 
 ```mermaid
 flowchart LR
-    R[bound request and case] --> A[gauge alignment routes]
-    A --> F[Fourier series]
+    B[PhysKit block-hopping parent] --> C[synthetic-case field sampler]
+    G[independent Givens attack] --> C
+    C --> X[immutable reference/comparison field samples]
+    W[in-memory Wannier field producer] --> X
+    N[parent-independent numerical policy] --> A[represented-field analyzer]
+    M[physical-metric geometry] --> A
+    X --> A
+    A --> U[gauge alignment routes]
+    U --> F[Fourier series]
     F --> P[typed block powers]
-    P --> S[direct shell sums and support decisions]
+    P --> Q[direct shell sums and support decisions]
     P --> L[locality summary]
-    L --> D[total minus onsite, clipped at zero]
-    S --> C[case analysis]
-    D --> C
+    L --> R[total minus onsite, clipped at zero]
+    Q --> Y[generic field analysis]
+    R --> Y
+    Y --> V[v1 synthetic case adapter]
+    B --> V
+    G --> V
+    V --> O[v1 synthetic case analysis]
 ```
 
-The `D` branch is the deferred `TD-BEL-003` limitation. It is a reporting branch and
+The `R` branch is the deferred `TD-BEL-003` limitation. It is a reporting branch and
 does not feed the direct shell-sum decision branch. See
 [`TD-BEL-003`](../../../../../../../../tasks/tech_debt/band-equivalence-locality/index.md#td-bel-003-rank-n-non-onsite-summary-subtraction).

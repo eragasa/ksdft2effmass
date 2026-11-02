@@ -1,4 +1,4 @@
-"""Periodic-3D arbitrary-rank analytic case-expansion action."""
+"""Periodic-3D arbitrary-rank synthetic case-expansion action."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from .request import Periodic3DRankNBandEquivalenceHoppingLocalityRequest
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
     Periodic3DRankNBandEquivalenceHoppingLocalityAction
 ):
-    """Expand one typed study request into its complete analytic case inventory."""
+    """Expand one typed study request into its complete synthetic case inventory."""
 
     __slots__ = ("_request",)
 
@@ -46,7 +46,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
         )
         return tuple(
             Periodic3DRankNAnalyticCase(
-                case_identifier=values[0].identifier,
+                case_identifier=values[0].lattice_control.to_wire(),
                 retained_rank=values[1],
                 circuit_depth=values[2],
                 positive_bonds=values[0].positive_bonds,

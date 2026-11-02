@@ -1,0 +1,641 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage{siunitx}
+
+\sisetup{detect-all}
+
+\title{Internal Fidelity and Real-Space Locality of\\Reduced Wannier Hamiltonians:\\A Rank-10 Silicon Case Study}
+\author{Project Koios}
+\date{Development technical report, version 2}
+
+\newcommand{\Hsrc}{H_{\mathrm W}}
+\newcommand{\Hred}{H_{\mathrm r}}
+\newcommand{\kvec}{\mathbf{k}}
+\newcommand{\Rvec}{\mathbf{R}}
+\newcommand{\qvec}{\mathbf{q}}
+\newcommand{\resultfigure}[4]{%
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{#1}
+    \caption{#2 #3}
+    \label{#4}
+  \end{figure}%
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study how real-space reduction changes a fixed, rank-10 Wannier Hamiltonian derived
+from a scalar-relativistic silicon calculation.  The purpose is not to validate the
+Hamiltonian as a quantitatively accurate model of silicon.  Instead, it is to determine
+which internal fidelity properties survive changes of gauge, literal removal of complete
+Wigner--Seitz shells, and bounded refitting of retained shells.
+
+A constructed momentum-dependent unitary leaves the complete represented spectrum
+invariant to \(3.20\times10^{-14}\)~eV while changing restricted alignment residuals and
+Fourier-block locality.  Literal nested shell deletion produces an almost
+one-dimensional spectral--operator loss family and requires 371 of 383 representatives
+for the tightest proper reduction.  Bounded shell refitting creates genuine
+same-support spectral--operator tradeoffs and reduces the observed support at several
+post-hoc error pairs.  However, errors measured on the 408-point fitting inventory
+understate exact integrated operator error and independent dense-mesh spectral error.
+Band-edge quantities are still more demanding: moderate supports substantially alter
+conduction masses, split the nearly degenerate valence manifold, and amplify differences
+among symmetry-equivalent high-symmetry points.
+
+The results show that spectral agreement, operator agreement, real-space locality, and
+band-edge fidelity are distinct properties.  Near-full support is required to preserve
+all of them for this represented source.  Because the source itself fails separate
+DFT-parent gap and electron-mass targets, every conclusion is restricted to internal
+Wannier-model fidelity.
+\end{abstract}
+
+\paragraph{Evidence status.}
+All numerical results in this report are checksum-bound, producer-checked development
+outputs.  They have not been independently reconstructed.  No Quantum ESPRESSO or
+Wannier90 process was invoked for the analyses reported here, and no frozen 402-point
+confirmation values were consumed.
+
+\section{Introduction}
+
+Wannier Hamiltonians provide a finite-dimensional representation in which a sampled
+electronic structure can be interpolated and expressed through real-space matrix
+blocks~\cite{MarzariVanderbilt1997,SouzaMarzariVanderbilt2001,Mostofi2014,Yates2007}.
+This representation is attractive for reduced models because the Hamiltonian can be
+written as a Fourier series and approximated by a smaller set of real-space terms.
+The apparent simplicity of that procedure hides several independent questions.
+
+First, the band energies do not uniquely determine the matrix representation.  A
+momentum-dependent unitary transformation can preserve all eigenvalues while changing
+the eigenvectors and the Fourier coefficients.  Locality is therefore a property of a
+represented Hamiltonian in a chosen gauge, not a property of the spectrum alone.
+Second, removing real-space terms changes both the matrix field and its eigenvalues, but
+these two errors need not rank candidate models in the same way.  Third, a small global
+spectral error does not guarantee preservation of derivatives, extrema, degeneracies,
+or effective masses.
+
+This report organizes one development campaign around those distinctions.  The source
+is the authenticated \(C6\)-B20-W21 rank-10 Wannier Hamiltonian for bulk silicon.  We
+ask four questions:
+
+\begin{enumerate}
+  \item Can a complete represented spectrum remain unchanged while real-space locality
+    and restricted frame alignment change?
+  \item How much native Wigner--Seitz support is required when shells are literally
+    deleted?
+  \item Does bounded refitting of retained shells create useful spectral--operator
+    tradeoffs?
+  \item Do models selected from the 408-point development inventory remain faithful on
+    dense reciprocal meshes and at conduction and valence band edges?
+\end{enumerate}
+
+The answer to the first question is yes, by construction.  The second and third answers
+are more restrictive: literal deletion retains most of the native support at tight
+errors, while refitting helps mainly at moderate post-hoc tolerances.  The fourth answer
+is the central practical result.  Global fitting errors systematically understate
+broader interpolation and band-edge consequences, and a nearly full-support model is
+needed to preserve the source across all evaluated channels.
+
+\section{Background}
+
+\subsection{Wannier representation and gauge freedom}
+
+For a rank-\(N\) periodic Hamiltonian, the represented matrix field is
+\begin{equation}
+  H(\kvec)=\sum_{\Rvec} e^{i\kvec\cdot\Rvec}T(\Rvec),
+  \label{eq:fourier}
+\end{equation}
+where \(T(\Rvec)\) is an \(N\times N\) hopping block.  A momentum-dependent unitary
+\(U(\kvec)\) defines another representation
+\begin{equation}
+  \widetilde H(\kvec)=U(\kvec)^\dagger H(\kvec)U(\kvec).
+  \label{eq:gauge}
+\end{equation}
+The two fields have the same complete spectrum at each momentum, but their Fourier
+blocks generally differ.  Consequently, a statement that a Hamiltonian is ``local''
+requires a declared basis, gauge, lattice convention, and Fourier route.
+
+This report uses the word \emph{gauge} only for unitary transformations inside the fixed
+rank-10 represented space.  The constructed attack is not presented as a typical
+Wannier90 gauge change.  It is an adversarial control that demonstrates what the
+spectrum alone cannot determine.
+
+\subsection{Matrix fidelity and spectral fidelity}
+
+Let \(\Hsrc(\kvec)\) be the full source and \(\Hred(\kvec)\) a reduced model in the
+same Wannier basis.  On the uniform 408-point development inventory, the normalized
+ordered-spectrum and operator RMS losses are
+\begin{align}
+  \tau_1
+  &=\left[\frac{1}{4080}\sum_{\kvec,n}
+    \left(\frac{\epsilon_{n\kvec}^{\mathrm r}
+    -\epsilon_{n\kvec}^{\mathrm W}}{\SI{1}{eV}}\right)^2\right]^{1/2},
+  \label{eq:tau1}\\
+  \tau_2
+  &=\left[\frac{1}{4080}\sum_{\kvec}
+    \frac{\|\Hred(\kvec)-\Hsrc(\kvec)\|_{\mathrm F}^2}
+    {(\SI{1}{eV})^2}\right]^{1/2}.
+  \label{eq:tau2}
+\end{align}
+The \(\SI{1}{eV}\) factor is a reporting normalization, not an acceptance threshold.
+The operator loss uses identity alignment because all shell models remain in the same
+frozen Wannier basis.  A pointwise fitted alignment would remove part of the model error
+that the reduction is intended to measure.
+
+Spectral error is bounded by matrix error in standard perturbation results, but the
+converse does not hold.  Eigenvalues can agree while the matrix representation, frame,
+and real-space coefficients differ.  The two losses are therefore retained as separate
+coordinates rather than scalarized into one acceptance score.
+
+\subsection{Why band-edge fidelity is separate}
+
+A global RMS average gives equal formal status to all sampled bands and points.  A band
+edge instead depends on a local extremum and its derivatives.  For a nondegenerate band,
+the inverse effective-mass tensor is proportional to the Cartesian Hessian,
+\begin{equation}
+  (m^{-1})_{ij}=\frac{1}{\hbar^2}
+  \frac{\partial^2 E}{\partial k_i\partial k_j}.
+  \label{eq:mass}
+\end{equation}
+Small energy errors can produce much larger curvature errors after differentiation.
+
+The valence edge introduces an additional difficulty.  Near a degenerate manifold,
+independently ordered eigenvalues need not define analytic branches.  A basis- and
+ordering-independent analysis must operate on the coupled subspace, as in multiband
+\(\kvec\cdot\mathbf p\) reasoning~\cite{LuttingerKohn1955}.  Because the present source
+is non-SOC, we do not assign physical heavy-hole, light-hole, or split-off labels.
+Instead, we fit a matrix-valued quadratic Hamiltonian for the three-band valence
+cluster.
+
+\section{Methodology}
+
+\subsection{Represented source and scope}
+
+The source is the full, untruncated \(C6\)-B20-W21 Hamiltonian with rank 10 and 383
+unique effective native Wigner--Seitz representatives.  It was constructed from a
+Gamma-origin \(6\times6\times6\) Wannier mesh with 20 parent bands and a rank-10 target
+space.  Structural checks established pair closure, real-space Hermiticity, source
+reconstruction, and reciprocal periodicity.
+
+The source is suitable for an internal reduction study but not for a claim of accurate
+silicon band-edge physics.  In a separate revealed 408-point DFT-parent comparison it
+missed the declared indirect-gap and effective-mass targets.  We therefore treat
+\(\Hsrc\) as the represented reference and never reinterpret source-relative agreement
+as agreement with DFT or experiment.
+
+Two Fourier routes appear in the campaign and are kept distinct:
+\begin{itemize}
+  \item the native Wannier90 HR/Wigner--Seitz representation used for shell reduction;
+  \item a centered finite-cyclic transform of sampled matrix fields, followed by
+    explicit cyclic-to-ordinary conversion, used for the gauge experiment.
+\end{itemize}
+Native and finite-cyclic blocks are not silently substituted for one another.
+
+\subsection{Constructed gauge attack}
+
+The attack is a frozen rank-10, depth-2 alternating Givens circuit.  Its harmonics use
+the three Cartesian-axis bonds and an axis-maximum normalization with coefficient
+\(\pi/8\).  Four comparison channels are retained:
+\begin{enumerate}
+  \item identity coordinates;
+  \item one momentum-independent global Procrustes unitary;
+  \item pointwise polar alignment;
+  \item the known generating inverse, used only as an oracle control.
+\end{enumerate}
+
+The reference and attacked fields are sampled on the centered \(6^3\) construction
+inventory, transformed to finite-cyclic blocks, and converted to 125 ordinary
+representatives with components in \(\{-2,-1,0,1,2\}\).  Complete physical-radius
+supports are then evaluated on the ordered 408-point development inventory.  The study
+separates complete-field gauge equivalence, conversion/interpolation error, deliberate
+support truncation, and total finite-model error.
+
+\subsection{Literal native-shell reductions}
+
+The native representatives are grouped into 18 complete physical-radius shells.
+H-shell-00 is the onsite-only control; H-shell-17 is the full 383-representative source.
+The 17 proper reductions H-shell-00 through H-shell-16 are evaluated without fitting.
+For a post-hoc pair \((\tau_1,\tau_2)\), the witness surface reports the smallest proper
+support satisfying both inequalities.  Full support is retained as a zero-loss control
+but excluded from reduced-family feasibility.
+
+Because this family is nested and has only one support coordinate, both losses are
+driven by the same omitted matrix field.  A nearly one-dimensional sequence of
+requirement points is therefore expected and should not be interpreted as a general
+theorem that spectral and operator losses are interchangeable.
+
+\subsection{Refitted shell models}
+
+To test whether the literal result is caused by the absence of adjustable parameters,
+each retained complete shell is assigned one real scale,
+\begin{equation}
+  T_{\boldsymbol\alpha}(\Rvec)=\alpha_s T_{\mathrm W}(\Rvec),
+  \qquad 0\leq\alpha_s\leq2.
+  \label{eq:scaling}
+\end{equation}
+The same scale applies to every representative in shell \(s\), including the Hermitian
+partner at \(-\Rvec\).  Blocks outside the support remain zero.  This model preserves
+the fixed rank-10 Wannier basis and the within-shell block pattern; it is not a
+Slater--Koster model and carries no atomic-orbital semantics.
+
+For each proper support, 17 spectral--operator scalarization weights and three
+deterministic starts are optimized with bounded L-BFGS-B and analytic gradients.  The
+search produces constructive witnesses only.  A failed or absent optimization record
+is not an infeasibility certificate.
+
+\subsection{Frozen fidelity ladder}
+
+Three converged witnesses are frozen before broader grids are inspected:
+H-shell-05 with 79 representatives, H-shell-10 with 201, and H-shell-16 with 371.
+No parameters are refitted later.
+
+The exact normalized-Brillouin-zone operator RMS is obtained from the unique Fourier
+coefficients by Parseval's identity.  Spectral errors are then evaluated on independent
+Gamma-origin \(12^3\), \(20^3\), and \(32^3\) meshes.  Finally, the six conduction
+valleys are located from sector searches and local optimization, and source-relative
+gaps, positions, Hessians, and masses are calculated with identical algorithms.
+
+\subsection{Comprehensive band-edge analysis}
+
+For each conduction valley, Cartesian Hessians are evaluated with central-difference
+steps of \(0.001\), \(0.002\), \(0.005\), and \(0.01\)~\AA$^{-1}$.  The
+\(0.002\)~\AA$^{-1}$ result is primary.  In addition to full tensors and principal
+masses, we report the one-valley density-of-states mass convention, the one-valley
+conductivity-mass convention, a six-valley DOS-mass convention, and an equal-population
+average inverse-mass convention.  These are curvature summaries, not transport or
+finite-temperature carrier calculations.
+
+At Gamma, bands 1--3 in zero-based ordering define the upper valence cluster.  We first
+retain its splitting, projector distance, and principal angles.  Ordered directional
+fits along [100], [110], and [111] are used only to demonstrate why individual branch
+masses are unstable.
+
+The primary valence analysis polar-transports the displaced three-band eigenspace to its
+Gamma cluster and fits the even represented field to
+\begin{align}
+  H_{\mathrm{eff}}(\qvec)=H_{\mathrm{eff}}(0)
+  &+q_x^2B_{xx}+q_y^2B_{yy}+q_z^2B_{zz} \\
+  &+2q_xq_yB_{xy}+2q_xq_zB_{xz}+2q_yq_zB_{yz}.
+  \label{eq:valence}
+\end{align}
+Thirteen unoriented rays and four positive radii per ray are used at each of three fit
+windows.  Directional curvature channels are the eigenvalues of twice the contracted
+quadratic matrix.  Candidate coefficient fields are polar-aligned to the source Gamma
+cluster before their joint Frobenius error is calculated.
+
+\section{Results}
+
+\subsection{Spectrum-preserving gauge changes redistribute locality}
+
+The maximum complete-spectrum difference between the source and attacked represented
+fields is \(3.197\times10^{-14}\)~eV.  The known-inverse and pointwise-polar controls
+recover the frame to near machine precision, with maximum defects of approximately
+\(5.06\times10^{-16}\) and \(1.29\times10^{-15}\).  Identity and one-global-unitary
+alignment leave order-one maximum frame defects of approximately 1.021 and 1.020.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-gauge-alignment-locality/figures/alignment-invariance.pdf}
+  {Complete spectral invariance and alignment diagnostics for the frozen gauge attack.}
+  {Pointwise polar and known-inverse channels are oracle controls; identity and one
+  global unitary cannot remove the momentum-dependent attack.}
+  {fig:alignment}
+
+Despite complete spectral invariance, the non-onsite finite-block power changes from
+\(20.7574\) to \(21.5057\)~eV\(^2\) per retained state.  The shell-resolved and cumulative
+power distributions change accordingly.  This is a direct counterexample to the idea
+that the complete spectrum fixes real-space locality.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-gauge-alignment-locality/figures/fourier-power-redistribution.pdf}
+  {Redistribution of finite Fourier-block power under the spectrum-preserving attack.}
+  {The cyclic-to-ordinary removed power is shown separately and is not counted as
+  deliberate support truncation.}
+  {fig:power}
+
+Finite-support requirements also change.  The reference and attacked support-error
+curves have different non-dominated supports even though their complete represented
+spectra agree.  The result concerns the constructed attack, not the distribution of
+ordinary Wannier90 gauges.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-gauge-alignment-locality/figures/pareto-support-error-frontiers.pdf}
+  {Discrete complete-support error frontiers for reference and attacked representations.}
+  {Markers identify observed non-dominated supports; connecting segments are visual
+  guides and do not interpolate unobserved support choices.}
+  {fig:gauge-frontier}
+
+\subsection{Literal shell deletion retains most of the source at tight errors}
+
+Among all proper literal reductions, H-shell-16 minimizes both primary RMS losses while
+retaining 371 of 383 representatives:
+\begin{equation}
+  (\tau_1,\tau_2)=
+  (4.4636\times10^{-4},1.5173\times10^{-3}).
+\end{equation}
+Thus the literal nested family does not display a global spectral--operator conflict at
+its tightest proper reduction.  Smaller supports show local nonmonotonicity, but the
+requirement points remain close to a line because one nested support coordinate controls
+both errors.
+
+The post-hoc pair \((0.1,0.15)\) first admits 135 representatives; \((0.01,0.02)\)
+requires 313; and \((0.001,0.002)\) requires 371.  No proper literal reduction satisfies
+\((0.0004,0.001)\).  These coordinates summarize the observed family and are not
+prospective acceptance thresholds.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/single-witness-surface.pdf}
+  {Minimum-support witness surface for literal complete-shell deletion.}
+  {The full source is excluded from reduced-family feasibility.  Gray cells contain no
+  proper literal witness at the displayed post-hoc pair.}
+  {fig:literal-surface}
+
+\subsection{Shell refitting creates genuine two-loss tradeoffs}
+
+Bounded shell scaling changes the geometry of the candidate family.  A fixed support can
+now trace a spectral--operator tradeoff arc rather than contribute only one deletion
+point.  Across 444 converged witnesses, refitting reduces the minimum observed support
+at several illustrative pairs (Table~\ref{tab:witnesses}).
+
+\begin{table}[ht]
+  \centering
+  \caption{Observed minimum-support literal and refitted witnesses.  Threshold pairs are
+  post-hoc descriptive coordinates, not acceptance limits.}
+  \label{tab:witnesses}
+  \begin{tabular}{@{}lrr@{}}
+    \toprule
+    $(\tau_1,\tau_2)$ & Literal representatives & Refitted representatives \\
+    \midrule
+    $(1.0,1.0)$       & 19  & 13  \\
+    $(0.1,0.15)$      & 135 & 79  \\
+    $(0.05,0.1)$      & 177 & 135 \\
+    $(0.02,0.04)$     & 225 & 201 \\
+    $(0.01,0.02)$     & 313 & 313 \\
+    $(0.001,0.002)$   & 371 & 371 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Within H-shell-16, an operator-oriented witness attains approximately
+\((4.04\times10^{-4},1.394\times10^{-3})\), while a spectral-oriented witness attains
+\((2.98\times10^{-4},1.745\times10^{-3})\).  This is a genuine same-support tradeoff,
+although bounded multistart optimization does not establish global optimality.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/figures-v2/single-refitted-witness-surface.pdf}
+  {Minimum-support surface over converged refitted shell witnesses.}
+  {Gray means that the bounded search found no converged witness, not that the pair is
+  mathematically infeasible.}
+  {fig:refitted-surface}
+
+\subsection{The 408-point inventory understates broader error}
+
+The frozen fidelity ladder gives the central quantitative comparison.  For every model,
+the fitted-408 spectral and operator losses are smaller than their broader counterparts
+(Table~\ref{tab:fidelity}).
+
+\begin{table}[ht]
+  \centering
+  \caption{Fitted-inventory and broader frozen-model RMS errors.}
+  \label{tab:fidelity}
+  \small
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+    & \multicolumn{3}{c}{Spectral RMS (eV)}
+    & \multicolumn{3}{c}{Operator RMS (eV)} \\
+    \cmidrule(lr){2-4}\cmidrule(l){5-7}
+    Model & 408 & $32^3$ & Ratio & 408 & Parseval & Ratio \\
+    \midrule
+    H-shell-05 & 0.07242  & 0.18196  & 2.51 & 0.12814  & 0.26004  & 2.03 \\
+    H-shell-10 & 0.01320  & 0.02785  & 2.11 & 0.03229  & 0.05956  & 1.84 \\
+    H-shell-16 & 0.000404 & 0.000657 & 1.62 & 0.001394 & 0.001747 & 1.25 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The sampled operator RMS agrees with the exact Parseval value to at most
+\(5.56\times10^{-17}\)~eV.  Spectral RMS changes between the \(12^3\) and \(32^3\)
+meshes remain below about 1.4\%, so the dense values are stable over the tested mesh
+sequence.  The discrepancy is therefore not a late-grid fluctuation; it is a difference
+between fitting-inventory and broader-domain evaluation.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/wannier-fidelity-ladder.pdf}
+  {Frozen-model fidelity from the fitted inventory to exact and dense evaluations.}
+  {Supports and shell scales remain unchanged at every evaluation level.}
+  {fig:fidelity-ladder}
+
+\subsection{Band-edge features are more demanding than global RMS}
+
+H-shell-05 changes the source-relative indirect gap by \(-65.8\)~meV, displaces a
+conduction valley by as much as \(0.0948\)~\AA$^{-1}$, and changes at least one principal
+mass by 67.7\%.  H-shell-10 has a \(32^3\) all-band spectral RMS below 0.028~eV but still
+changes a principal mass by 53.2\%.  H-shell-16 changes the gap by only \(-0.503\)~meV,
+the maximum valley position by \(0.00276\)~\AA$^{-1}$, and the maximum principal mass by
+2.54\%.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/source-relative-feature-fidelity.pdf}
+  {Source-relative conduction-edge consequences of the frozen shell models.}
+  {The reference is the full Wannier source, not DFT or experiment.}
+  {fig:feature-fidelity}
+
+The expanded tensor analysis leads to the same ordering.  The source six-valley
+DOS-mass convention is \(1.4764\,m_e\), and its equal-population conductivity-mass
+convention is \(0.25063\,m_e\).  H-shell-05 changes them by 16.9\% and 20.4\%; H-shell-10
+by 22.9\% and 6.90\%; and H-shell-16 by 0.333\% and 0.0216\%.  The maximum mass variation
+across four finite-difference steps is below 0.172\% for every model, so stencil choice
+does not explain the large moderate-support errors.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/derived-electron-mass-fidelity.pdf}
+  {Derived conduction-valley mass conventions and finite-difference sensitivity.}
+  {The DOS and conductivity quantities are curvature conventions, not carrier or
+  transport calculations.}
+  {fig:electron-masses}
+
+\subsection{Moderate reduction damages the degenerate valence edge}
+
+The full source has a three-band Gamma splitting of only 0.02495~meV.  H-shell-05 and
+H-shell-10 increase this to 102.2 and 54.8~meV.  H-shell-16 reduces the error
+substantially but still yields 2.50~meV.  The corresponding maximum source-cluster
+principal angles are 1.856, 0.925, and 0.0420 degrees.  The moderate models therefore
+preserve a recognizable three-dimensional subspace while strongly changing the
+Hamiltonian inside it.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/gamma-valence-cluster-fidelity.pdf}
+  {Gamma valence-cluster splitting and subspace rotation.}
+  {Subspace agreement and preservation of internal degeneracy are separate conditions.}
+  {fig:gamma-cluster}
+
+Independently ordered source branches do not yield stable hole masses: the upper branch
+is not hole-like for every tested window in any of the three directions, and finite
+ordered-branch masses vary by up to about 75.5\%.  The primary multiband fit avoids that
+assignment.  At the 0.01~\AA$^{-1}$ window, its source curvature-channel masses are
+listed in Table~\ref{tab:valence}.
+
+\begin{table}[ht]
+  \centering
+  \caption{Full-source non-SOC valence curvature-channel masses in electron-mass units.}
+  \label{tab:valence}
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    Direction & Channel 1 & Channel 2 & Channel 3 \\
+    \midrule
+    $[100]$ & 0.1411 & 0.2771 & 0.3015 \\
+    $[110]$ & 0.09690 & 0.3119 & 2.923 \\
+    $[111]$ & 0.08770 & 0.6971 & 0.7722 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+These channels belong to a scalar-relativistic three-band quadratic operator.  They are
+not physical SOC heavy-hole, light-hole, or split-off masses.  After cluster alignment,
+H-shell-05, H-shell-10, and H-shell-16 have quadratic-coefficient errors of 9.54\%,
+5.88\%, and 0.279\%, and maximum curvature-channel mass changes of 38.9\%, 19.7\%, and
+4.53\%.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/multiband-valence-fidelity-summary.pdf}
+  {Summary of non-SOC multiband valence fidelity.}
+  {Gamma splitting, aligned quadratic-operator error, and maximum curvature-channel
+  change expose distinct failure modes.}
+  {fig:valence-summary}
+
+A related symmetry diagnostic reaches the same conclusion.  The full source's direct-gap
+spread among equivalent X points is 0.00366~meV and among L points is 0.0239~meV.
+H-shell-05 increases those spreads to 150.1 and 68.7~meV; H-shell-10 to 36.7 and
+63.9~meV; and H-shell-16 to 0.427 and 2.97~meV.  Moderate shell refitting can therefore
+amplify small residual symmetry differences through cancellations among retained
+blocks.
+
+\resultfigure
+  {../../analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures/high-symmetry-edge-fidelity.pdf}
+  {Direct-gap and equivalent-point symmetry diagnostics.}
+  {The displayed spreads characterize the represented models and are not an independent
+  crystal-symmetry validation.}
+  {fig:symmetry}
+
+\clearpage
+\section{Discussion}
+
+\subsection{Locality is representation-dependent}
+
+The gauge experiment supplies the cleanest conceptual result.  The complete spectrum is
+unchanged to roundoff, yet block power and finite-support requirements change.  Thus a
+band structure cannot determine a unique hopping-locality profile.  Any comparison of
+``short-range'' Hamiltonians must identify the represented state space and the allowed
+gauge transformations before locality is interpreted.
+
+This does not imply that locality is arbitrary or useless.  A fixed construction,
+gauge, and basis produce a well-defined optimization problem.  It does imply that
+locality claims cannot be elevated from spectral data alone, and that a constructed
+gauge counterexample should not be confused with ordinary variation between independently
+localized Wannier calculations.
+
+\subsection{Refitting helps, but support remains the dominant resource}
+
+Literal shell deletion is too restrictive to reveal a strong global two-loss conflict:
+one nested coordinate controls both matrix and spectral losses.  Adding bounded shell
+scales exposes genuine tradeoff arcs and reduces support at moderate post-hoc error
+pairs.  This shows that some error from deletion can be compensated by renormalizing
+retained shells.
+
+The compensation has limits.  At tight errors the observed minimum support remains 371
+representatives, close to the 383-representative source.  Moreover, the bounded search
+is constructive rather than exhaustive.  The correct conclusion is that refitting
+produces useful witnesses, not that the displayed surface is a global optimum or that
+gray cells are infeasible.
+
+\subsection{A fitting inventory is not an interpolation guarantee}
+
+Every frozen model performs worse on the exact integrated or independent dense
+evaluation than on the 408-point inventory used to characterize fitted witnesses.  The
+discrepancy is largest at moderate support and decreases near full support.  This is the
+expected role of a broader evaluation: it reveals behavior between fitted points without
+changing the model.
+
+No held-out set is required to make the finite statement that a model attains a given
+loss on the 408 retained points.  A held-out or all-\(\kvec\) argument is required only
+when the claim expands to interpolation or Brillouin-zone behavior.  Parseval's identity
+provides the exact integrated operator statement here, while dense meshes provide the
+spectral interpolation check.
+
+\subsection{Band edges should be treated as first-class objectives}
+
+The conduction results show why all-band RMS is an incomplete reduction target.
+H-shell-10 appears moderately accurate in the dense global spectral metric, yet changes
+a principal electron mass by more than 50\%.  Effective masses depend on second
+derivatives and therefore amplify local shape errors that contribute little to a global
+average.
+
+The valence result is stronger.  Independent band Hessians are not merely noisy; at the
+near-degenerate source edge they are not a stable mathematical object.  The appropriate
+quantity is a matrix-valued multiband quadratic Hamiltonian.  Moderate reductions can
+make individual branches look numerically stable by incorrectly splitting the
+manifold.  Stability after symmetry breaking is not fidelity.
+
+For this non-SOC source, the multiband operator is the strongest justified hole-sector
+result.  Physical silicon heavy-hole, light-hole, split-off, or acceptor claims would
+require an explicitly spinor, SOC-enabled source and a separately qualified comparison.
+SOC is not required for the internal compression conclusion reached here.
+
+\subsection{What the study establishes}
+
+The retained calculations support the following bounded conclusions:
+\begin{enumerate}
+  \item Complete spectral equivalence does not determine real-space block locality.
+  \item Operator and spectral losses are distinct and should remain separate reduction
+    coordinates.
+  \item Shell refitting can reduce support at moderate post-hoc losses, but tight
+    internal fidelity still requires near-full native support.
+  \item Errors on the fitted 408-point inventory understate broader interpolation error.
+  \item Global spectral RMS does not control conduction masses, valence degeneracy, or
+    multiband curvature.
+  \item Among the frozen witnesses, H-shell-16 is consistently closest to the source,
+    while H-shell-05 and H-shell-10 are not adequate band-edge reductions.
+\end{enumerate}
+
+\subsection{Limitations and next steps}
+
+The principal limitation is the represented source itself.  It fails separate
+DFT-parent gap and electron-mass criteria, so source-relative preservation does not
+validate silicon physics.  The source is also scalar-relativistic and non-SOC.  The
+analyses are producer-checked but not independently reconstructed, and all tolerance
+surfaces are post hoc rather than prospectively accepted.
+
+A scientifically stronger continuation would keep the current models frozen and add,
+in order:
+\begin{enumerate}
+  \item independent reconstruction of the retained analyses;
+  \item a clearly separated overlay against the existing revealed 408-point DFT parent,
+    without refitting to that overlay;
+  \item a qualified SOC DFT/Wannier branch if physical hole or acceptor properties are
+    required; and
+  \item prospective reduction thresholds declared before inspecting any future
+    confirmation set.
+\end{enumerate}
+None of these steps changes the present internal conclusion: for the tested source and
+model family, near-full support is required to preserve matrix, spectral, symmetry, and
+band-edge behavior simultaneously.
+
+\subsection{Reproducibility}
+
+Canonical requests, authenticated source identities, producer programs, machine-readable
+results, figure manifests, and execution records are retained under
+\path{calculations/Si/bulk/analysis/}.  The gauge, literal-shell, refitted-shell,
+fidelity-ladder, and comprehensive-band-edge analyses each retain their own provenance
+boundary.  No numerical payload in this report is the sole record of a result.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
