@@ -13,9 +13,16 @@ from ksdft2effmass.periodic2d.band_equivalence_hopping_locality.base import (
     Periodic2DBandEquivalenceHoppingLocalityRequest,
     Periodic2DBandEquivalenceHoppingLocalityValue,
 )
+from ksdft2effmass.periodic2d.rankN.band_equivalence.base import (
+    Periodic2DRankNBandEquivalence,
+    Periodic2DRankNBandEquivalenceAnalysis,
+    Periodic2DRankNBandEquivalenceAnalyzer,
+    Periodic2DRankNBandEquivalenceRequest,
+)
 
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityCapability(
+    Periodic2DRankNBandEquivalence,
     Periodic2DBandEquivalenceHoppingLocality,
     ABC,
 ):
@@ -73,6 +80,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction(
 
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole(
+    Periodic2DRankNBandEquivalenceRequest,
     Periodic2DBandEquivalenceHoppingLocalityRequest,
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
@@ -85,6 +93,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole(
 class Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisRole[
     RequestT: Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole,
 ](
+    Periodic2DRankNBandEquivalenceAnalysis[RequestT],
     Periodic2DBandEquivalenceHoppingLocalityAnalysis[RequestT],
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
@@ -97,6 +106,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisRole[
 class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole[
     RequestT: Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole,
 ](
+    Periodic2DRankNBandEquivalenceAnalyzer[RequestT],
     Periodic2DBandEquivalenceHoppingLocalityAnalyzer[RequestT],
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,

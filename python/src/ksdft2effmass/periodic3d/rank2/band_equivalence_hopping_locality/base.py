@@ -13,6 +13,12 @@ from ksdft2effmass.periodic3d.band_equivalence_hopping_locality.base import (
     Periodic3DBandEquivalenceHoppingLocalityRequest,
     Periodic3DBandEquivalenceHoppingLocalityValue,
 )
+from ksdft2effmass.periodic3d.rank2.band_equivalence.base import (
+    Periodic3DRank2BandEquivalence,
+    Periodic3DRank2BandEquivalenceAnalysis,
+    Periodic3DRank2BandEquivalenceAnalyzer,
+    Periodic3DRank2BandEquivalenceRequest,
+)
 
 
 class _Periodic3DRank2BandSubspace:
@@ -26,6 +32,7 @@ class _Periodic3DRank2BandSubspace:
 
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityCapability(
+    Periodic3DRank2BandEquivalence,
     Periodic3DBandEquivalenceHoppingLocality,
     ABC,
 ):
@@ -40,7 +47,7 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityCapability(
 
 
 class Periodic3DRank2BandEquivalenceHoppingLocalityRequestRole(
-    _Periodic3DRank2BandSubspace,
+    Periodic3DRank2BandEquivalenceRequest,
     Periodic3DBandEquivalenceHoppingLocalityRequest,
     Periodic3DRank2BandEquivalenceHoppingLocalityCapability,
     ABC,
@@ -53,7 +60,7 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityRequestRole(
 class Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRole[
     RequestT: Periodic3DRank2BandEquivalenceHoppingLocalityRequestRole,
 ](
-    _Periodic3DRank2BandSubspace,
+    Periodic3DRank2BandEquivalenceAnalysis[RequestT],
     Periodic3DBandEquivalenceHoppingLocalityAnalysis[RequestT],
     Periodic3DRank2BandEquivalenceHoppingLocalityCapability,
     ABC,
@@ -66,7 +73,7 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRole[
 class Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzerRole[
     RequestT: Periodic3DRank2BandEquivalenceHoppingLocalityRequestRole,
 ](
-    _Periodic3DRank2BandSubspace,
+    Periodic3DRank2BandEquivalenceAnalyzer[RequestT],
     Periodic3DBandEquivalenceHoppingLocalityAnalyzer[RequestT],
     Periodic3DRank2BandEquivalenceHoppingLocalityCapability,
     ABC,

@@ -114,7 +114,7 @@ Analyzer ownership follows one explicit domain, periodicity, dimension, and rank
 ```text
 BandEquivalenceHoppingLocalityAnalyzer
 └── PeriodicBandEquivalenceHoppingLocalityAnalyzer
-    ├── Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer
+    ├── Periodic1DBandEquivalenceHoppingLocalityAnalyzer
     │   ├── Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer
     │   └── Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer
     ├── Periodic2DBandEquivalenceHoppingLocalityAnalyzer

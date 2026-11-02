@@ -4,6 +4,9 @@ import inspect
 
 from ksdft2effmass.periodic3d.rank2.band_equivalence.base import (
     Periodic3DRank2BandEquivalence,
+    Periodic3DRank2BandEquivalenceAnalysis,
+    Periodic3DRank2BandEquivalenceAnalyzer,
+    Periodic3DRank2BandEquivalenceRequest,
 )
 from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.analysis import (
     Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis,
@@ -17,6 +20,9 @@ from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.base impor
 from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.request import (
     Periodic3DRank2BandEquivalenceHoppingLocalityRequest,
 )
+from ksdft2effmass.periodic3d.rankN.band_equivalence.base import (
+    Periodic3DRankNBandEquivalenceRequest,
+)
 
 
 class TestPeriodic3DRank2BandEquivalence:
@@ -29,12 +35,28 @@ class TestPeriodic3DRank2BandEquivalence:
             Periodic3DRank2BandEquivalenceHoppingLocalityRequestRole,
         )
         assert issubclass(
+            Periodic3DRank2BandEquivalenceHoppingLocalityRequest,
+            Periodic3DRank2BandEquivalenceRequest,
+        )
+        assert not issubclass(
+            Periodic3DRank2BandEquivalenceHoppingLocalityRequest,
+            Periodic3DRankNBandEquivalenceRequest,
+        )
+        assert issubclass(
             Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis,
             Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRole,
         )
         assert issubclass(
+            Periodic3DRank2BandEquivalenceHoppingLocalityAnalysis,
+            Periodic3DRank2BandEquivalenceAnalysis,
+        )
+        assert issubclass(
             Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer,
             Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzerRole,
+        )
+        assert issubclass(
+            Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer,
+            Periodic3DRank2BandEquivalenceAnalyzer,
         )
         assert not inspect.isabstract(
             Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer
